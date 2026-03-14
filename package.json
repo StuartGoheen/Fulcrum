@@ -1,0 +1,23 @@
+{
+  "name": "edge-of-the-empire",
+  "version": "1.0.0",
+  "description": "Star Wars TTRPG Electronic Character Sheet — The Edge of the Empire",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "concurrently \"nodemon server/index.js\" \"npm run css:watch\"",
+    "css:build": "tailwindcss -i ./css/input.css -o ./public/css/output.css",
+    "css:watch": "tailwindcss -i ./css/input.css -o ./public/css/output.css --watch"
+  },
+  "dependencies": {
+    "better-sqlite3": "^9.4.3",
+    "edge-of-the-empire": "file:",
+    "express": "^4.18.3",
+    "socket.io": "^4.7.4"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.1.0",
+    "tailwindcss": "^3.4.1"
+  }
+}
