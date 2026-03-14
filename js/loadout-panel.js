@@ -355,7 +355,7 @@
       '</div>';
 
     var ammoBarHtml = _buildAmmoBar(weapon.clipSize, weapon.id);
-    var fireControlsHtml = _buildFireControls(weapon);
+    var fireControlsHtml = status === 'equipped' ? _buildFireControls(weapon) : '';
 
     return (
       '<div class="armory-weapon-card" data-weapon-id="' + _esc(weapon.id) + '">' +
