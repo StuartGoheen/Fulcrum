@@ -1000,6 +1000,479 @@
 
     cards.forEach(function (card) {
       grid.appendChild(buildPhaseCard(card, selectFn));
+
+  /* ── Arenas & Disciplines step ───────────────────────────────────── */
+
+  var DISCIPLINES_BY_ARENA = [
+    { id: 'physique', name: 'Physique', disciplines: [
+      { id: 'athletics',     name: 'Athletics' },
+      { id: 'brawl',         name: 'Brawl' },
+      { id: 'endure',        name: 'Endure' },
+      { id: 'melee',         name: 'Melee' },
+      { id: 'heavy_weapons', name: 'Heavy Weapons' },
+    ]},
+    { id: 'reflex', name: 'Reflex', disciplines: [
+      { id: 'evasion',       name: 'Evasion' },
+      { id: 'piloting',      name: 'Piloting' },
+      { id: 'ranged',        name: 'Ranged' },
+      { id: 'skulduggery',   name: 'Skulduggery' },
+      { id: 'stealth',       name: 'Stealth' },
+    ]},
+    { id: 'grit', name: 'Grit', disciplines: [
+      { id: 'beast_handling', name: 'Beast Handling' },
+      { id: 'intimidate',    name: 'Intimidate' },
+      { id: 'resolve',       name: 'Resolve' },
+      { id: 'survival',      name: 'Survival' },
+    ]},
+    { id: 'wits', name: 'Wits', disciplines: [
+      { id: 'investigation', name: 'Investigation' },
+      { id: 'medicine',      name: 'Medicine' },
+      { id: 'tactics',       name: 'Tactics' },
+      { id: 'tech',          name: 'Tech' },
+    ]},
+    { id: 'presence', name: 'Presence', disciplines: [
+      { id: 'charm',         name: 'Charm' },
+      { id: 'deception',     name: 'Deception' },
+      { id: 'insight',       name: 'Insight' },
+      { id: 'persuasion',    name: 'Persuasion' },
+    ]},
+  ];
+
+  var DIE_STEPS            = ['D4', 'D6', 'D8', 'D10'];
+  var MAX_INCOMP_REQUIRED  = 5;
+  var MAX_INCOMP_OPTIONAL  = 4;
+  var MAX_INCOMP_TOTAL     = 9;
+  var ARENA_ADVANCE_BUDGET = 3;
+
+  function favoredToId(str) {
+    if (!str) return null;
+    return str.split('(')[0].trim().toLowerCase().replace(/\s+/g, '_');
+  }
+
+  function getFavoredIds() {
+    var ids = {};
+    var p1 = state.phase1 ? PHASE1_CARDS.find(function(c){ return c.id === state.phase1; }) : null;
+    var p2 = state.phase2 ? PHASE2_CARDS.find(function(c){ return c.id === state.phase2; }) : null;
+    if (p1 && p1._meta && p1._meta.favored) ids[favoredToId(p1._meta.favored)] = true;
+    if (p2 && p2._meta && p2._meta.favored) ids[favoredToId(p2._meta.favored)] = true;
+    return ids;
+  }
+
+  function getSpeciesArenas() {
+    var sp = state.species ? SPECIES.find(function(s){ return s.id === state.species; }) : null;
+    if (!sp) return { physique:'D6', reflex:'D6', grit:'D6', wits:'D6', presence:'D6' };
+    return Object.assign({}, ARENA_BASELINE, sp.arenas);
+  }
+
+  function statsGetDerived() {
+    var baseArenas = getSpeciesArenas();
+    var arenaAdj   = state.arenaAdj || {};
+    var netArenaSpend = Object.values(arenaAdj).reduce(function(acc, v){ return acc + v; }, 0);
+    var arenaAdvAvail = ARENA_ADVANCE_BUDGET - netArenaSpend;
+    var arenaValues = {};
+    ['physique','reflex','grit','wits','presence'].forEach(function(k) {
+      var base = DIE_STEPS.indexOf(baseArenas[k] || 'D6');
+      var adj  = arenaAdj[k] || 0;
+      var idx  = Math.max(0, Math.min(3, base + adj));
+      arenaValues[k] = DIE_STEPS[idx];
+    });
+    var discIncomp       = state.discIncomp  || {};
+    var discValues       = state.discValues  || {};
+    var incompCount      = Object.keys(discIncomp).length;
+    var totalDiscAdv     = incompCount;
+    var totalEnhanced    = Math.floor(totalDiscAdv / 5);
+    var spentReg         = state.spentRegAdv     || 0;
+    var enhUsed          = state.enhancedAdvUsed || 0;
+    var regularAdvAvail  = totalDiscAdv - spentReg;
+    var enhancedAdvAvail = totalEnhanced - enhUsed;
+    return {
+      baseArenas:      baseArenas,
+      arenaValues:     arenaValues,
+      arenaAdvAvail:   arenaAdvAvail,
+      incompCount:     incompCount,
+      totalDiscAdv:    totalDiscAdv,
+      totalEnhanced:   totalEnhanced,
+      regularAdvAvail: regularAdvAvail,
+      enhancedAdvAvail:enhancedAdvAvail,
+      discValues:      discValues,
+      discIncomp:      discIncomp,
+    };
+  }
+
+  function statsGetDiscValue(discId, d) {
+    if (d.discIncomp[discId]) return 'D4';
+    return d.discValues[discId] || 'D6';
+  }
+
+  function initStatsScreen() {
+    if (!state.discValues)      state.discValues      = {};
+    if (!state.discIncomp)      state.discIncomp      = {};
+    if (!state.arenaAdj)        state.arenaAdj        = {};
+    if (!state.spentRegAdv)     state.spentRegAdv     = 0;
+    if (!state.enhancedAdvUsed) state.enhancedAdvUsed = 0;
+    renderStatsContent();
+    showScreen('stats');
+    updateStepTrack(4);
+  }
+
+  function renderStatsContent() {
+    var container = document.getElementById('stats-content');
+    if (!container) return;
+    container.innerHTML = '';
+    var d          = statsGetDerived();
+    var favoredIds = getFavoredIds();
+    container.appendChild(buildArenasSection(d));
+    container.appendChild(buildDiscSection(d, favoredIds));
+    var btn = document.getElementById('btn-stats-continue');
+    if (btn) btn.disabled = d.incompCount < MAX_INCOMP_REQUIRED;
+  }
+
+  /* -- Arena section -- */
+
+  function buildArenasSection(d) {
+    var wrap = document.createElement('div');
+    wrap.className = 'cc-subsection';
+    var head = document.createElement('div');
+    head.className = 'cc-subsection-head';
+    var leftDiv = document.createElement('div');
+    leftDiv.innerHTML = '<span class="cc-subsection-title">Arenas</span><div class="cc-subsection-hint">3 free advances &bull; step down to refund &bull; max D10</div>';
+    var badges = document.createElement('div');
+    badges.className = 'cc-adv-badges';
+    var avail = d.arenaAdvAvail;
+    var badge = document.createElement('span');
+    badge.className   = 'cc-adv-badge ' + (avail > 0 ? 'cc-adv-badge--ok' : '');
+    badge.textContent = avail + ' advance' + (avail !== 1 ? 's' : '') + ' remaining';
+    badges.appendChild(badge);
+    head.appendChild(leftDiv);
+    head.appendChild(badges);
+    wrap.appendChild(head);
+    var rows = document.createElement('div');
+    rows.className = 'cc-arena-rows';
+    ['physique','reflex','grit','wits','presence'].forEach(function(aId) {
+      rows.appendChild(buildArenaRow(aId, d));
+    });
+    wrap.appendChild(rows);
+    return wrap;
+  }
+
+  function buildArenaRow(aId, d) {
+    var cur    = d.arenaValues[aId] || 'D6';
+    var base   = d.baseArenas[aId]  || 'D6';
+    var curIdx = DIE_STEPS.indexOf(cur);
+    var canUp  = d.arenaAdvAvail > 0 && curIdx < 3;
+    var canDn  = curIdx > 0;
+    var row = document.createElement('div');
+    row.className    = 'cc-arena-row';
+    row.dataset.arena = aId;
+    var dieCell = document.createElement('div');
+    dieCell.className = 'cc-arena-die-cell';
+    var dieImg = document.createElement('img');
+    dieImg.src       = '/assets/' + cur.toLowerCase() + '.png';
+    dieImg.alt       = cur;
+    dieImg.className = 'cc-arena-die-img';
+    dieCell.appendChild(dieImg);
+    var info = document.createElement('div');
+    info.className = 'cc-arena-info';
+    var nameBtn = document.createElement('button');
+    nameBtn.className   = 'cc-glossary-trigger';
+    nameBtn.textContent = capitalize(aId);
+    nameBtn.title = 'View glossary';
+    nameBtn.addEventListener('click', function() { if (window.GlossaryOverlay) window.GlossaryOverlay.open(aId); });
+    var baseLabel = document.createElement('span');
+    baseLabel.className   = 'cc-arena-base-label';
+    baseLabel.textContent = 'Species base: ' + base;
+    info.appendChild(nameBtn);
+    info.appendChild(baseLabel);
+    var stepGroup = document.createElement('div');
+    stepGroup.className = 'cc-stepper-group';
+    var btnDown = document.createElement('button');
+    btnDown.className   = 'cc-stepper-btn';
+    btnDown.textContent = '−';
+    btnDown.disabled    = !canDn;
+    btnDown.title = canDn ? 'Step down (refund 1 advance)' : 'Already at minimum';
+    btnDown.addEventListener('click', function() { handleArenaStep(aId, -1); });
+    var dieLabel = document.createElement('span');
+    dieLabel.className   = 'cc-stepper-die-label';
+    dieLabel.textContent = cur;
+    var btnUp = document.createElement('button');
+    btnUp.className   = 'cc-stepper-btn';
+    btnUp.textContent = '+';
+    btnUp.disabled    = !canUp;
+    btnUp.title = canUp ? 'Step up (costs 1 advance)' : (d.arenaAdvAvail <= 0 ? 'No advances remaining' : 'Already at D10');
+    btnUp.addEventListener('click', function() { handleArenaStep(aId, 1); });
+    stepGroup.appendChild(btnDown);
+    stepGroup.appendChild(dieLabel);
+    stepGroup.appendChild(btnUp);
+    row.appendChild(dieCell);
+    row.appendChild(info);
+    row.appendChild(stepGroup);
+    return row;
+  }
+
+  function handleArenaStep(aId, dir) {
+    if (!state.arenaAdj) state.arenaAdj = {};
+    var d = statsGetDerived();
+    var curIdx = DIE_STEPS.indexOf(d.arenaValues[aId]);
+    if (dir ===  1 && (d.arenaAdvAvail <= 0 || curIdx >= 3)) return;
+    if (dir === -1 && curIdx <= 0) return;
+    state.arenaAdj[aId] = (state.arenaAdj[aId] || 0) + dir;
+    saveState();
+    renderStatsContent();
+  }
+
+  /* -- Disciplines section -- */
+
+  function buildDiscSection(d, favoredIds) {
+    var wrap = document.createElement('div');
+    wrap.className = 'cc-subsection';
+    var head = document.createElement('div');
+    head.className = 'cc-subsection-head';
+    var title = document.createElement('span');
+    title.className   = 'cc-subsection-title';
+    title.textContent = 'Disciplines';
+    var badges = document.createElement('div');
+    badges.className = 'cc-adv-badges';
+    badges.appendChild(makeIncompBadge(d));
+    if (d.totalDiscAdv > 0)       badges.appendChild(makeRegBadge(d));
+    if (d.enhancedAdvAvail > 0)   badges.appendChild(makeEnhBadge(d));
+    head.appendChild(title);
+    head.appendChild(badges);
+    wrap.appendChild(head);
+    if (d.incompCount < MAX_INCOMP_REQUIRED) {
+      var notice = document.createElement('div');
+      notice.className = 'cc-incomp-notice';
+      var rem = MAX_INCOMP_REQUIRED - d.incompCount;
+      notice.innerHTML = 'Select <strong>' + rem + ' more</strong> discipline' + (rem !== 1 ? 's' : '') +
+        ' to mark Incompetent (D4) — each earns 1 advance. Up to 4 additional weaknesses for extra advances.';
+      wrap.appendChild(notice);
+    }
+    if (d.totalDiscAdv > 0) wrap.appendChild(buildAdvDots(d));
+    DISCIPLINES_BY_ARENA.forEach(function(ag) { wrap.appendChild(buildDiscGroup(ag, d, favoredIds)); });
+    return wrap;
+  }
+
+  function makeIncompBadge(d) {
+    var ok  = d.incompCount >= MAX_INCOMP_REQUIRED;
+    var opt = Math.max(0, d.incompCount - MAX_INCOMP_REQUIRED);
+    var req = Math.min(d.incompCount, MAX_INCOMP_REQUIRED);
+    var sp  = document.createElement('span');
+    sp.className   = 'cc-adv-badge ' + (ok ? 'cc-adv-badge--ok' : 'cc-adv-badge--warn');
+    sp.textContent = req + '/' + MAX_INCOMP_REQUIRED + ' required' + (opt ? '  +' + opt + '/' + MAX_INCOMP_OPTIONAL + ' optional' : '');
+    return sp;
+  }
+
+  function makeRegBadge(d) {
+    var sp = document.createElement('span');
+    sp.className   = 'cc-adv-badge ' + (d.regularAdvAvail > 0 ? 'cc-adv-badge--ok' : '');
+    sp.textContent = d.regularAdvAvail + ' advance' + (d.regularAdvAvail !== 1 ? 's' : '') + ' available';
+    return sp;
+  }
+
+  function makeEnhBadge(d) {
+    var sp = document.createElement('span');
+    sp.className   = 'cc-adv-badge cc-adv-badge--enhanced';
+    sp.textContent = d.enhancedAdvAvail + ' Elite advance' + (d.enhancedAdvAvail !== 1 ? 's' : '');
+    sp.title = 'Spend to raise a D8 to D10';
+    return sp;
+  }
+
+  function buildAdvDots(d) {
+    var wrap = document.createElement('div');
+    wrap.className = 'cc-adv-dots';
+    for (var i = 1; i <= d.totalDiscAdv; i++) {
+      var isEnh = (i % 5 === 0);
+      if (isEnh && i > 1) { var g = document.createElement('div'); g.className = 'cc-adv-dot-gap'; wrap.appendChild(g); }
+      var dot = document.createElement('div');
+      dot.className = 'cc-adv-dot cc-adv-dot--filled' + (isEnh ? ' cc-adv-dot--enhanced' : '');
+      dot.title = isEnh ? 'Elite Advance' : 'Regular advance';
+      wrap.appendChild(dot);
+    }
+    return wrap;
+  }
+
+  function buildDiscGroup(arenaGroup, d, favoredIds) {
+    var wrap = document.createElement('div');
+    wrap.className = 'cc-disc-group';
+    var head = document.createElement('div');
+    head.className = 'cc-disc-group-head';
+    var lbl = document.createElement('button');
+    lbl.className   = 'cc-glossary-trigger cc-disc-group-label';
+    lbl.textContent = arenaGroup.name;
+    lbl.title = 'View glossary';
+    lbl.addEventListener('click', function() { if (window.GlossaryOverlay) window.GlossaryOverlay.open(arenaGroup.id); });
+    head.appendChild(lbl);
+    wrap.appendChild(head);
+    arenaGroup.disciplines.forEach(function(disc) { wrap.appendChild(buildDiscRow(disc, d, favoredIds)); });
+    return wrap;
+  }
+
+  function buildDiscRow(disc, d, favoredIds) {
+    var isFavored = !!favoredIds[disc.id];
+    var isIncomp  = !!d.discIncomp[disc.id];
+    var cur       = statsGetDiscValue(disc.id, d);
+    var row = document.createElement('div');
+    row.className = 'cc-disc-row' +
+      (isFavored ? ' cc-disc-row--favored' : '') +
+      (isIncomp  ? ' cc-disc-row--incompetent' : '');
+    // Die image
+    var dieCell = document.createElement('div');
+    dieCell.className = 'cc-disc-die-cell';
+    var img = document.createElement('img');
+    img.src       = '/assets/' + cur.toLowerCase() + '.png';
+    img.alt       = cur;
+    img.className = 'cc-disc-die-img';
+    dieCell.appendChild(img);
+    // Name + pip
+    var info = document.createElement('div');
+    info.className = 'cc-disc-info';
+    if (isFavored) {
+      var pip = document.createElement('span');
+      pip.className = 'cc-disc-aligned-pip';
+      pip.title = 'Favored discipline';
+      info.appendChild(pip);
+    }
+    var nameBtn = document.createElement('button');
+    nameBtn.className   = 'cc-disc-name-btn';
+    nameBtn.textContent = disc.name;
+    nameBtn.title = 'View glossary';
+    nameBtn.addEventListener('click', function() { if (window.GlossaryOverlay) window.GlossaryOverlay.open(disc.id); });
+    info.appendChild(nameBtn);
+    // Actions
+    var actions = document.createElement('div');
+    actions.className = 'cc-disc-actions';
+    if (isIncomp) {
+      var rb = document.createElement('button');
+      rb.className   = 'cc-disc-action-btn cc-disc-action-btn--restore';
+      rb.textContent = 'Restore';
+      rb.title = 'Remove incompetency — returns 1 advance';
+      rb.addEventListener('click', function() { handleDiscRestore(disc.id); });
+      actions.appendChild(rb);
+    } else if (cur === 'D6') {
+      var wb = document.createElement('button');
+      wb.className   = 'cc-disc-action-btn cc-disc-action-btn--incomp';
+      wb.textContent = 'Weak';
+      wb.title       = d.incompCount >= MAX_INCOMP_TOTAL ? 'Maximum reached' : 'Mark incompetent (D4) — earn 1 advance';
+      wb.disabled    = d.incompCount >= MAX_INCOMP_TOTAL;
+      wb.addEventListener('click', function() { handleDiscIncomp(disc.id); });
+      actions.appendChild(wb);
+      var ab = document.createElement('button');
+      ab.className   = 'cc-disc-action-btn';
+      ab.textContent = '▲ D8';
+      ab.title       = d.regularAdvAvail <= 0 ? 'No advances available' : 'Raise to D8 — costs 1 advance';
+      ab.disabled    = d.regularAdvAvail <= 0;
+      ab.addEventListener('click', function() { handleDiscAdvance(disc.id); });
+      actions.appendChild(ab);
+    } else if (cur === 'D8') {
+      var rdb = document.createElement('button');
+      rdb.className   = 'cc-disc-action-btn';
+      rdb.textContent = '▼ D6';
+      rdb.title = 'Lower to D6 — returns 1 advance';
+      rdb.addEventListener('click', function() { handleDiscReduce(disc.id); });
+      actions.appendChild(rdb);
+      var eb = document.createElement('button');
+      eb.className   = 'cc-disc-action-btn cc-disc-action-btn--elite';
+      eb.textContent = '▲ D10';
+      eb.title       = d.enhancedAdvAvail <= 0 ? 'No Elite Advances (every 5th incompetency earns one)' : 'Raise to D10 — costs 1 Elite Advance';
+      eb.disabled    = d.enhancedAdvAvail <= 0;
+      eb.addEventListener('click', function() { handleDiscElite(disc.id); });
+      actions.appendChild(eb);
+    } else if (cur === 'D10') {
+      var r10 = document.createElement('button');
+      r10.className   = 'cc-disc-action-btn';
+      r10.textContent = '▼ D8';
+      r10.title = 'Lower to D8 — returns 1 Elite Advance';
+      r10.addEventListener('click', function() { handleDiscReduceElite(disc.id); });
+      actions.appendChild(r10);
+    }
+    row.appendChild(dieCell);
+    row.appendChild(info);
+    row.appendChild(actions);
+    return row;
+  }
+
+  /* -- Disc action handlers -- */
+
+  function handleDiscIncomp(discId) {
+    if (!state.discIncomp) state.discIncomp = {};
+    if (Object.keys(state.discIncomp).length >= MAX_INCOMP_TOTAL) return;
+    state.discIncomp[discId] = true;
+    if (!state.discValues) state.discValues = {};
+    state.discValues[discId] = 'D4';
+    saveState();
+    renderStatsContent();
+  }
+
+  function handleDiscRestore(discId) {
+    if (!state.discIncomp) return;
+    delete state.discIncomp[discId];
+    if (state.discValues) delete state.discValues[discId];
+    // Claw back overspent advances
+    var d = statsGetDerived();
+    if (d.regularAdvAvail < 0) {
+      var over = -d.regularAdvAvail;
+      DISCIPLINES_BY_ARENA.forEach(function(ag) { ag.disciplines.forEach(function(disc) {
+        if (over <= 0) return;
+        if (state.discValues && state.discValues[disc.id] === 'D8') {
+          delete state.discValues[disc.id];
+          state.spentRegAdv = Math.max(0, (state.spentRegAdv||0) - 1);
+          over--;
+        }
+      }); });
+    }
+    if (d.enhancedAdvAvail < 0) {
+      var overe = -d.enhancedAdvAvail;
+      DISCIPLINES_BY_ARENA.forEach(function(ag) { ag.disciplines.forEach(function(disc) {
+        if (overe <= 0) return;
+        if (state.discValues && state.discValues[disc.id] === 'D10') {
+          state.discValues[disc.id] = 'D8';
+          state.enhancedAdvUsed = Math.max(0, (state.enhancedAdvUsed||0) - 1);
+          overe--;
+        }
+      }); });
+    }
+    saveState();
+    renderStatsContent();
+  }
+
+  function handleDiscAdvance(discId) {
+    var d = statsGetDerived();
+    if (d.regularAdvAvail <= 0) return;
+    if (statsGetDiscValue(discId, d) !== 'D6') return;
+    if (!state.discValues) state.discValues = {};
+    state.discValues[discId]  = 'D8';
+    state.spentRegAdv = (state.spentRegAdv || 0) + 1;
+    saveState();
+    renderStatsContent();
+  }
+
+  function handleDiscElite(discId) {
+    var d = statsGetDerived();
+    if (d.enhancedAdvAvail <= 0) return;
+    if (statsGetDiscValue(discId, d) !== 'D8') return;
+    if (!state.discValues) state.discValues = {};
+    state.discValues[discId]   = 'D10';
+    state.enhancedAdvUsed = (state.enhancedAdvUsed || 0) + 1;
+    saveState();
+    renderStatsContent();
+  }
+
+  function handleDiscReduce(discId) {
+    if (statsGetDiscValue(discId, statsGetDerived()) !== 'D8') return;
+    if (state.discValues) delete state.discValues[discId];
+    state.spentRegAdv = Math.max(0, (state.spentRegAdv || 0) - 1);
+    saveState();
+    renderStatsContent();
+  }
+
+  function handleDiscReduceElite(discId) {
+    if (statsGetDiscValue(discId, statsGetDerived()) !== 'D10') return;
+    if (!state.discValues) state.discValues = {};
+    state.discValues[discId]   = 'D8';
+    state.enhancedAdvUsed = Math.max(0, (state.enhancedAdvUsed || 0) - 1);
+    saveState();
+    renderStatsContent();
+  }
+
     });
   }
 
@@ -1307,6 +1780,22 @@
       backToPhase2.addEventListener('click', function () {
         showScreen('phase2');
         updateStepTrack(2);
+      });
+    }
+
+
+    var backToPhase3 = document.getElementById('btn-back-to-phase3');
+    if (backToPhase3) {
+      backToPhase3.addEventListener('click', function () {
+        showScreen('phase3');
+        updateStepTrack(3);
+      });
+    }
+
+    var statsContinue = document.getElementById('btn-stats-continue');
+    if (statsContinue) {
+      statsContinue.addEventListener('click', function () {
+        showSummary();
       });
     }
 
