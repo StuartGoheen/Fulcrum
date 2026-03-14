@@ -118,50 +118,50 @@
     "alignedDiscipline": "brawl",
     "abilities": [
       {
-        "id": "kit_warden_t1_se",
+        "id": "kit_warden_t1_ig",
         "tier": 1,
         "type": "passive",
-        "name": "Savage Exchange",
-        "rule": "When an enemy Engaged with you makes a melee attack that generates an Opening — that is, their roll fails — you may immediately spend that Opening as a free Trigger to make a Brawl strike against them. This strike uses your Control Die only. It cannot trigger Gambits. It can, however, generate a new Opening if the enemy's next defensive roll fails."
+        "name": "Iron Grip",
+        "rule": "When an enemy [Pinned] by your Clinch spends their Maneuver to break free, the [Pinned] condition converts to [Restrained] rather than clearing entirely. They return to standing, but your hold does not release. Fully breaking free now requires spending their Action instead. The Clinch extends — the only way out is to fully commit to it."
       },
       {
-        "id": "kit_warden_t1_ydgtl",
+        "id": "kit_warden_t1_td",
         "tier": 1,
         "type": "passive",
-        "name": "You Don't Get to Leave",
-        "rule": "An enemy Engaged with you cannot voluntarily disengage or move to an adjacent Zone without first succeeding on an opposed Athletics check against your Brawl result. On failure, they remain Engaged and generate an Opening. This applies only to voluntary movement — forced repositioning from Gambits or Zone-shift abilities is resolved separately."
+        "name": "The Drag",
+        "rule": "While you have an enemy [Pinned] or [Restrained], your Zone movement does not require releasing the hold. The target moves with you — you control the ground they occupy. This repositioning does not constitute voluntary movement on their part and does not present an Opening from the grappled target. Openings from other enemies in Zones you pass through still apply to you normally."
       },
       {
-        "id": "kit_warden_t2_hm",
+        "id": "kit_warden_t2_sm",
         "tier": 2,
         "type": "gambit",
-        "name": "Haymaker",
+        "name": "Smash",
         "actionType": "Attack",
-        "targetType": "engaged",
-        "target": "Brawl",
+        "targetType": "pinned",
+        "target": "Pinned Target",
         "arenaTag": "[Combat]",
-        "rule": "Reduce Effect by 1 Tier. Step Up your Power Die once for this attack. If the result still resolves as Basic or higher after the tier reduction, apply [Dazed] to the target in addition to the normal effect. If the tier reduction drops the result to Fleeting, you generate an Opening instead — the overextension costs you."
+        "rule": "Can only be declared while you have an enemy [Pinned]. Reduce Effect by 1 Tier. Step Up your Power Die once — the ground eliminates their ability to absorb or redirect the blow. If the net result after the tier reduction resolves at Solid or higher, the target gains [Weakened (Physique)] for as long as the hold is maintained."
       },
       {
-        "id": "kit_warden_t2_tp",
+        "id": "kit_warden_t2_wtd",
         "tier": 2,
         "type": "passive",
-        "name": "The Pressure",
-        "rule": "At the end of any scene in which you generated at least 2 Openings through Brawl actions, you regain 1 Edge. The fight remembers who kept pushing."
+        "name": "Wear Them Down",
+        "rule": "At the end of any scene in which you maintained a Clinch hold ([Pinned] or [Restrained]) on the same target for 2 or more consecutive rounds, you regain 1 Edge. Patience is a form of violence."
       },
       {
-        "id": "kit_warden_t3_in",
+        "id": "kit_warden_t3_wj",
         "tier": 3,
         "type": "passive",
-        "name": "Inescapable",
-        "rule": "Your You Don't Get to Leave ability now applies to all movement out of Engaged range — not only voluntary disengagement, but any effect that would reposition an enemy away from you (knockback, Push Gambits, Zone-shift abilities). The opposing check remains the same: they must beat your Brawl result. If the check fails, the repositioning effect is wasted and the enemy generates an Opening."
+        "name": "The Warden's Justice",
+        "rule": "While you have an enemy [Pinned], every Brawl attack you make against them creates an Opening — regardless of the roll result — that one ally in your Zone may immediately spend their Trigger on to make a Brawl or Melee attack against that same target. You control the hold. The room delivers the verdict."
       },
       {
-        "id": "kit_warden_t3_pfp",
+        "id": "kit_warden_t3_ic",
         "tier": 3,
         "type": "passive",
-        "name": "Pound for Pound",
-        "rule": "When you land a Brawl Gambit that applies a condition to the target, that condition lasts 1 additional round beyond its normal duration. Conditions that are normally instantaneous (expiring at end-of-round) instead persist until the start of your next turn, giving allies a window to exploit them."
+        "name": "Iron Chin",
+        "rule": "The first time each scene you would be Incapacitated, you may spend 2 Edge. If you do, you remain at 1 Vitality and do not become Incapacitated. On your very next turn, your Clinch Maneuver automatically resolves at the Dominate tier — [Pinned] + [Exposed to Melee Attacks] + your Brawl attacks Step Up the Power Die — without requiring a roll. Survival instinct converts directly into total control."
       }
     ]
   },
