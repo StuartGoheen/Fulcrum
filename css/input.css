@@ -3522,3 +3522,45 @@
     justify-content: space-between;
   }
 }
+
+/* ══════════════════════════════════════════════════════════════
+   TABLET — Left frame width override: 33 vw instead of 25 vw
+   Applied inside the ≤ 1280 px breakpoint only.
+   ══════════════════════════════════════════════════════════════ */
+@media (max-width: 1280px) {
+
+  #frame-left {
+    width: 33vw !important;
+    min-width: 240px !important;
+  }
+
+  /* Shift centre and nav to match the wider left frame */
+  #center-content {
+    margin-left: 33vw !important;
+  }
+
+  #navbar {
+    left: 33vw !important;
+  }
+
+  #player-footer {
+    left: 33vw !important;
+  }
+}
+
+/* ≤ 900 px: keep the absolute pixel floor a bit wider too */
+@media (max-width: 900px) {
+  #frame-left {
+    width: 240px !important;
+    min-width: 200px !important;
+  }
+  #center-content {
+    margin-left: 240px !important;
+  }
+  #navbar {
+    left: 240px !important;
+  }
+  #player-footer {
+    left: 240px !important;
+  }
+}
