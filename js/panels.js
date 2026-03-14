@@ -23,6 +23,8 @@
     rightIndex: 1,
   };
 
+  // ─── Panel Navigation ─────────────────────────────────────────────────────────
+
   function loadState() {
     try {
       const stored = sessionStorage.getItem(SESSION_PANELS_KEY);
@@ -87,6 +89,8 @@
     saveState();
   }
 
+  // ─── Theme ────────────────────────────────────────────────────────────────────
+
   function applyTheme(theme) {
     THEMES.forEach((t) => document.documentElement.classList.remove(t));
     document.documentElement.classList.add(theme);
@@ -104,11 +108,106 @@
     applyTheme(stored && THEMES.includes(stored) ? stored : 'theme-rebellion');
   }
 
+  // ─── Tablet Tab System ────────────────────────────────────────────────────────
+
+  // matchMedia for tablet breakpoint (must match CSS @media max-width: 1280px)
+  const _tabletMQ = window.matchMedia('(max-width: 1280px)');
+  let   _isTablet = _tabletMQ.matches;
+
+  /**
+   * Physically moves #char-status-container between its two homes:
+   *   tablet  → #tab-status  (left frame Status tab)
+   *   desktop → #frame-right (original right column)
+   *
+   * All child elements keep their IDs so effect-manager.js and
+   * character-panel.js continue to find them with getElementById.
+   */
+  function syncStatusContainer() {
+    const statusContainer = document.getElementById('char-status-container');
+    if (!statusContainer) return;
+
+    if (_isTablet) {
+      const tabStatus = document.getElementById('tab-status');
+      if (tabStatus && !tabStatus.contains(statusContainer)) {
+        tabStatus.appendChild(statusContainer);
+      }
+    } else {
+      const frameRight = document.getElementById('frame-right');
+      if (frameRight && !frameRight.contains(statusContainer)) {
+        frameRight.appendChild(statusContainer);
+      }
+    }
+  }
+
+  /** Switch the active left-frame tab. */
+  function activateFrameTab(tabName) {
+    // Update tab buttons
+    document.querySelectorAll('.frame-left-tab').forEach((btn) => {
+      const active = btn.getAttribute('data-tab') === tabName;
+      btn.classList.toggle('is-active', active);
+      btn.setAttribute('aria-selected', active ? 'true' : 'false');
+    });
+
+    // Update tab panels — force animation by removing/re-adding is-active
+    document.querySelectorAll('.frame-tab-panel').forEach((panel) => {
+      const targetId = 'tab-' + tabName;
+      if (panel.id === targetId) {
+        panel.classList.add('is-active');
+      } else {
+        panel.classList.remove('is-active');
+      }
+    });
+  }
+
+  /** Wire up tab button clicks. */
+  function initFrameTabs() {
+    document.querySelectorAll('.frame-left-tab').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const tabName = btn.getAttribute('data-tab');
+        if (tabName) activateFrameTab(tabName);
+      });
+    });
+  }
+
+  /** Handle viewport crossing the 1280px breakpoint. */
+  function onTabletChange(e) {
+    _isTablet = e.matches;
+    syncStatusContainer();
+
+    // When switching back to desktop, reset left frame to Character tab
+    // so the status content isn't visually missing from the right frame
+    if (!_isTablet) {
+      activateFrameTab('character');
+    }
+  }
+
+  // ─── Destiny Token Counts ─────────────────────────────────────────────────────
+
+  function updateDestinyCounts() {
+    var tokens = document.querySelectorAll('.force-token');
+    var toll   = document.querySelectorAll('.force-token.is-dark').length;
+    var hope   = tokens.length - toll;
+    var hopeEl = document.getElementById('hope-count');
+    var tollEl = document.getElementById('toll-count');
+    if (hopeEl) hopeEl.textContent = hope;
+    if (tollEl) tollEl.textContent = toll;
+  }
+
+  // ─── Init ─────────────────────────────────────────────────────────────────────
+
   function init() {
     loadState();
     initTheme();
     render();
+    initFrameTabs();
 
+    // Sync status container placement on load
+    syncStatusContainer();
+
+    // Listen for viewport size changes across the tablet breakpoint
+    _tabletMQ.addEventListener('change', onTabletChange);
+
+    // Center panel navigation
     document.getElementById('slot-left-prev').addEventListener('click', () => {
       state.leftIndex = prevIndex(state.leftIndex, state.rightIndex);
       render();
@@ -126,6 +225,7 @@
       render();
     });
 
+    // Global click delegation
     document.addEventListener('click', (e) => {
       if (e.target.closest('#char-theme-toggle')) cycleTheme();
       if (e.target.closest('#destiny-info-btn')) {
@@ -138,22 +238,13 @@
       }
     });
 
+    // Destiny tokens
     document.querySelectorAll('.force-token').forEach((token) => {
       token.addEventListener('click', () => {
         token.classList.toggle('is-dark');
         updateDestinyCounts();
       });
     });
-  }
-
-  function updateDestinyCounts() {
-    var tokens = document.querySelectorAll('.force-token');
-    var toll   = document.querySelectorAll('.force-token.is-dark').length;
-    var hope   = tokens.length - toll;
-    var hopeEl = document.getElementById('hope-count');
-    var tollEl = document.getElementById('toll-count');
-    if (hopeEl) hopeEl.textContent = hope;
-    if (tollEl) tollEl.textContent = toll;
   }
 
   window.PanelSystem = { render: render };

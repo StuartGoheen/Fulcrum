@@ -45,20 +45,45 @@
 
     <div class="flex flex-1" style="padding-top:6vh;">
 
+      <!-- ── Left frame ─────────────────────────────────────────── -->
       <aside id="frame-left"
         class="fixed top-0 bottom-0 left-0 z-20 flex flex-col"
         style="
           width: 25vw;
           min-width: 200px;
-          padding-top: 7px;
-          padding-left: 7px;
           background: var(--color-bg-frame);
           border-right: 1px solid var(--color-border);
-          overflow-y: auto;
+          overflow: hidden;
         ">
-        <div id="char-panel-container" style="height:100%;overflow-y:auto;"></div>
+
+        <!-- Tab bar: hidden on desktop, shown on tablet via CSS -->
+        <div class="frame-left-tabs" role="tablist" aria-label="Character panels">
+          <button class="frame-left-tab is-active" data-tab="character" role="tab" aria-selected="true">
+            <svg class="frame-tab-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <circle cx="8" cy="5" r="3" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M2 13.5c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            Character
+          </button>
+          <button class="frame-left-tab" data-tab="status" role="tab" aria-selected="false">
+            <svg class="frame-tab-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <polyline points="1,8 3.5,8 5,3 7,13 8.5,6 10,9 11.5,8 15,8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Status
+          </button>
+        </div>
+
+        <!-- Character panel tab -->
+        <div id="tab-character" class="frame-tab-panel is-active" style="padding:7px 0 0 7px;">
+          <div id="char-panel-container"></div>
+        </div>
+
+        <!-- Status tab — char-status-container is moved here by JS on tablet -->
+        <div id="tab-status" class="frame-tab-panel"></div>
+
       </aside>
 
+      <!-- ── Center ─────────────────────────────────────────────── -->
       <main id="center-content"
         class="flex flex-1 gap-0"
         style="
@@ -84,6 +109,7 @@
 
       </main>
 
+      <!-- ── Right frame ────────────────────────────────────────── -->
       <aside id="frame-right"
         class="fixed top-0 bottom-0 right-0 z-20 flex flex-col"
         style="
@@ -104,7 +130,8 @@
 
     </div>
 
-    <footer
+    <!-- ── Footer / Destiny bar ───────────────────────────────── -->
+    <footer id="player-footer"
       class="fixed bottom-0 z-30"
       style="
         left: 25vw;

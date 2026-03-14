@@ -3355,3 +3355,170 @@
     color: var(--color-accent-primary);
   }
 }
+
+
+/* ══════════════════════════════════════════════════════════════
+   TABLET RESPONSIVE — Left-frame tab system
+   Right status column collapses into a left-frame tab on tablet.
+   Breakpoint: ≤ 1280px  (iPad Pro portrait, Air, mini, Samsung)
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── Tab bar — hidden on desktop ──────────────────────────── */
+.frame-left-tabs {
+  display: none;
+  flex-shrink: 0;
+  align-items: stretch;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg-frame);
+  position: relative;
+  z-index: 1;
+}
+
+.frame-left-tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  min-height: 52px;
+  padding: 0.4rem 0.25rem;
+  font-family: 'Audiowide', sans-serif;
+  font-size: 0.42rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: color 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.frame-left-tab:hover {
+  color: var(--color-accent-primary);
+  background: color-mix(in srgb, var(--color-accent-primary) 6%, transparent);
+}
+
+.frame-left-tab.is-active {
+  color: var(--color-accent-primary);
+  border-bottom-color: var(--color-accent-primary);
+  background: color-mix(in srgb, var(--color-accent-primary) 8%, transparent);
+}
+
+.frame-tab-icon {
+  width: 0.75rem;
+  height: 0.75rem;
+  flex-shrink: 0;
+  opacity: 0.85;
+  transition: opacity 0.18s ease;
+}
+
+.frame-left-tab.is-active .frame-tab-icon {
+  opacity: 1;
+}
+
+/* ── Tab panels ───────────────────────────────────────────── */
+.frame-tab-panel {
+  display: none;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  /* Animate panel appearance */
+  animation: tab-panel-in 0.18s ease;
+}
+
+.frame-tab-panel.is-active {
+  display: block;
+}
+
+@keyframes tab-panel-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Status tab padding (mirrors left frame's original padding) */
+#tab-status {
+  padding: 7px 0 0 0;
+}
+
+/* ── Tablet breakpoint ────────────────────────────────────── */
+@media (max-width: 1280px) {
+
+  /* Show the tab bar */
+  .frame-left-tabs {
+    display: flex;
+  }
+
+  /* Hide the right frame entirely */
+  #frame-right {
+    display: none !important;
+  }
+
+  /* Expand navbar to full width (minus left frame) */
+  #navbar {
+    right: 0 !important;
+  }
+
+  /* Expand center content to fill the freed right space */
+  #center-content {
+    margin-right: 0 !important;
+  }
+
+  /* Expand footer/destiny bar to full width */
+  #player-footer {
+    right: 0 !important;
+  }
+
+  /* Status container needs padding inside its new home */
+  #tab-status #char-status-container {
+    padding: 0 4px 4px 7px;
+    min-height: 100%;
+    position: relative;
+  }
+
+  /* Shrink left frame slightly to give center more room on small tablets */
+  @media (max-width: 900px) {
+    #frame-left {
+      width: 220px !important;
+      min-width: 180px !important;
+    }
+    #center-content {
+      margin-left: 220px !important;
+    }
+    #navbar {
+      left: 220px !important;
+    }
+    #player-footer {
+      left: 220px !important;
+    }
+  }
+}
+
+/* ── Tablet: single-slot center (≤ 768px portrait) ───────── */
+@media (max-width: 768px) {
+
+  /* Hide the right center slot — one panel at a time */
+  #slot-right {
+    display: none !important;
+  }
+
+  /* Remove the border from the single remaining slot */
+  #slot-left {
+    border-right: none !important;
+  }
+
+  /* Hide right slot nav controls in navbar */
+  #slot-right-prev,
+  #slot-right-next,
+  #slot-right-label {
+    display: none !important;
+  }
+
+  /* Center the remaining nav controls */
+  #navbar {
+    justify-content: space-between;
+  }
+}
