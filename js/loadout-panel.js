@@ -2,6 +2,7 @@
   'use strict';
   // ── Ammo State ──────────────────────────────────────────────
   var _ammoState = {};
+  var _currentCharId = null;
 
   function _getAmmo(weaponId, clipSize) {
     if (_ammoState[weaponId] !== undefined) return _ammoState[weaponId];
@@ -209,8 +210,31 @@
     return html + '</div>';
   }
 
-  function _statusBadge(status) {
-    return '<span class="armory-state-pill armory-state-' + _esc(status) + ' loadout-status-badge">' +
+  var LOADOUT_CYCLE = ['equipped', 'carried', 'stowed'];
+
+  function _loadoutCycleStatus(current) {
+    var idx = LOADOUT_CYCLE.indexOf(current);
+    if (idx === -1 || idx >= LOADOUT_CYCLE.length - 1) return 'stowed';
+    return LOADOUT_CYCLE[idx + 1];
+  }
+
+  function _loadoutPersist(itemId, itemType, status) {
+    if (!_currentCharId) return;
+    fetch('/api/equipment/' + encodeURIComponent(_currentCharId) + '/' + encodeURIComponent(itemId), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status: status, itemType: itemType })
+    }).catch(function(err) { console.error('[LoadoutPanel] persist error', err); });
+    document.dispatchEvent(new CustomEvent('equipment:changed', {
+      detail: { charId: _currentCharId, itemId: itemId, itemType: itemType, status: status }
+    }));
+  }
+
+  function _statusBadge(status, itemId, itemType) {
+    var pillAttrs = (itemId && itemType)
+      ? ' data-pill-id="' + _esc(itemId) + '" data-pill-type="' + _esc(itemType) + '" data-pill-status="' + _esc(status) + '" style="cursor:pointer"'
+      : '';
+    return '<span class="armory-state-pill armory-state-' + _esc(status) + ' loadout-status-badge"' + pillAttrs + '>' +
       _esc(status.charAt(0).toUpperCase() + status.slice(1)) +
     '</span>';
   }
@@ -266,7 +290,7 @@
     var rangeStr = _renderRange(weapon.range);
     var metaHtml =
       '<div class="armory-weapon-meta">' +
-        _statusBadge(status) +
+        _statusBadge(status, weapon.id, 'weapon') +
         '<span class="armory-weapon-chassis">' + _esc(weapon.chassisLabel || '') + '</span>' +
         (rangeStr ? '<span class="armory-weapon-range">Range: ' + _esc(rangeStr) + '</span>' : '') +
         (weapon.cost ? '<span class="armory-weapon-cost">' + _esc(String(weapon.cost)) + ' cr</span>' : '') +
@@ -383,7 +407,7 @@
 
     var metaHtml =
       '<div class="armory-weapon-meta">' +
-        _statusBadge(status) +
+        _statusBadge(status, armor.id, 'armor') +
         '<span class="armory-weapon-chassis">' + _esc(armor.categoryLabel || armor.category) + '</span>' +
         (armor.cost ? '<span class="armory-weapon-cost">' + _esc(String(armor.cost)) + ' cr</span>' : '') +
       '</div>';
@@ -428,7 +452,7 @@
 
     var metaHtml =
       '<div class="armory-weapon-meta">' +
-        _statusBadge(status) +
+        _statusBadge(status, gear.id, 'gear') +
         '<span class="armory-weapon-chassis">' + _esc(gear.categoryLabel || gear.category) + '</span>' +
         (rangeStr ? '<span class="armory-weapon-range">Range: ' + _esc(rangeStr) + '</span>' : '') +
         (gear.cost ? '<span class="armory-weapon-cost">' + _esc(String(gear.cost)) + ' cr</span>' : '') +
@@ -605,6 +629,21 @@
   }
 
   document.addEventListener('click', function (e) {
+    // ── Loadout status badge click ────────────────────────
+    var badge = e.target.closest && e.target.closest('.loadout-status-badge[data-pill-id]');
+    if (badge && badge.closest('[id="panel-4"]')) {
+      e.stopPropagation();
+      var itemId   = badge.dataset.pillId;
+      var itemType = badge.dataset.pillType;
+      var current  = badge.dataset.pillStatus || 'stowed';
+      var next     = _loadoutCycleStatus(current);
+      badge.dataset.pillStatus = next;
+      badge.className = 'armory-state-pill armory-state-' + next + ' loadout-status-badge';
+      badge.textContent = next.charAt(0).toUpperCase() + next.slice(1);
+      _loadoutPersist(itemId, itemType, next);
+      return;
+    }
+
     // ── Fire mode toggle ───────────────────────────────
     var modeBtn = e.target.closest && e.target.closest('.lfc-mode-btn');
     if (modeBtn && modeBtn.closest('[id="panel-4"]')) {
@@ -688,6 +727,7 @@
         if (!char) { setTimeout(tryRender, 50); return; }
 
         var charId = char.id || null;
+        _currentCharId = charId;
 
         function doRender(statusMap) {
           _render(weapons, armors, char, chassisMap, statusMap || {}, gear);
