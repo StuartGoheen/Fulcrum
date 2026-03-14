@@ -359,7 +359,7 @@
     "cost": 1300,
     "trait": {
       "name": "Belt-Fed Power Cell",
-      "description": "This weapon feeds from a continuous power belt rather than a standard pack — it carries 200 charges. Narrative truth: it does not run dry in a firefight."
+      "description": "This weapon feeds from a continuous power belt rather than a standard pack — it carries 100 charges. Narrative truth: it does not run dry in a firefight."
     },
     "gambits": [],
     "availability": "1/R",
@@ -647,7 +647,7 @@
       "Outer Rim",
       "Common"
     ],
-    "clipSize": 50
+    "clipSize": 100
   },
   {
     "id": "wpn_e5_01",
@@ -676,7 +676,7 @@
       "Surplus",
       "Droid"
     ],
-    "clipSize": 50
+    "clipSize": 100
   },
   {
     "id": "wpn_lightning_gun_01",
