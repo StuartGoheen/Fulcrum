@@ -1,0 +1,97 @@
+Here is the breakdown of the firing modes for all the Blaster Pistols, categorized by what is explicitly stated in the document.
+
+### Rapid-Fire / Burst Capable
+
+Only two pistols in the document have explicit mechanics for burst or rapid fire.
+
+* 
+**Merr-Sonn Intimidator:** Explicitly categorized as a "Rapid-fire blaster pistol". It grants a fire control bonus only when firing multiple shots in the same round at different targets. Firing a single shot grants no bonus.
+
+
+* 
+**BlasTech DH-17:** A standard pistol that can be destructively modified to fire on full auto. With a Difficult repair roll, the user can fire a single 20-second burst. After this burst, the weapon is completely useless.
+
+
+
+### Explicitly Single Shot (Fire Rate: 1)
+
+The following pistols explicitly list a "Fire Rate: 1" in their stat blocks, meaning they fire one shot per trigger pull.
+
+* **Standard Blaster Pistols:**
+* BlasTech DC-15s 
+
+
+* Imperial Munitions SC-4 
+
+
+* Corellian Arms CR-2 
+
+
+* BlasTech DL-18 
+
+
+* Imperial Munitions KK-5 
+
+
+* BlasTech DL-22 
+
+
+* Safadine Industries Prototype 
+
+
+
+
+* **Heavy Blaster Pistols:**
+* SoroSuub Security S-5 Ascension Gun 
+
+
+* BlasTech T-6 "Thunderer" 
+
+
+
+
+* **Hold-Out Pistols:**
+* Gee-Tech 12 Defender MicroBlaster 
+
+
+* Merr-Sonn Q-2 
+
+
+* Merr-Sonn B22 
+
+
+* Imperial Arms Model 22T4 
+
+
+* Merr-Sonn "Happy Surprise" 
+
+
+* Merr-Sonn Quickfire-4 
+
+
+* Theed Arms Royal Pistol 
+
+
+* SoroSuub Q-2 
+
+
+
+
+* **Sporting Pistols:**
+* DDC Defender 
+
+
+* Luxan Penetrator MB-450 
+
+
+
+
+
+### Unlisted (Implied Single Shot)
+
+The document does not list a specific "Fire Rate" for the remaining pistols. By standard mechanics, these default to single shot.
+
+* **Standard:** COMPNOR Stun Blaster, EA SBP-200, Bryar Pistol, Galinolo XiX, Merr-Sonn Model 44, Westar-34, SoroSuub ELG-3A, BlasTech DH-23 "Outback", Merr-Sonn DD6, Relby-k23, Caelli-Merced Series III, Merr-Sonn Model 434 DeathHammer, and the Subaqua Blaster.
+* **Heavy:** Merr-Sonn Flash 4, BlasTech DY-225, BlasTech DL-44, Han Solo's Heavy Blaster Pistol, Merr-Sonn "Power" 5, BlasTech DL-6H, BlasTech DT-12, Caliban Model X, SoroSuub Model Kylan-3, Imperial Munitions Heavy Blaster Pistol, SoroSuub "Renegade", Caelli-Merced Sentinel IV, and the BlasTech DT-57 "Annihilator".
+
+Would you like me to pull the firing modes for the rifles and heavy artillery next?
