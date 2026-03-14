@@ -7,7 +7,11 @@
     "chassisLabel": "Light Pistol",
     "discipline": "ranged",
     "arena": "reflex",
-    "range": [4, 10, 40],
+    "range": [
+      4,
+      10,
+      40
+    ],
     "stunSetting": true,
     "cost": 1300,
     "trait": {
@@ -16,7 +20,15 @@
     },
     "availability": "3/R",
     "gambits": [],
-    "tags": ["Ranged", "Light", "Pistol", "Energy", "Military", "Clone Wars"]
+    "tags": [
+      "Ranged",
+      "Light",
+      "Pistol",
+      "Energy",
+      "Military",
+      "Clone Wars"
+    ],
+    "clipSize": 20
   },
   {
     "id": "wpn_intimidator_01",
@@ -26,7 +38,11 @@
     "chassisLabel": "Light Pistol",
     "discipline": "ranged",
     "arena": "reflex",
-    "range": [1, 5, 10],
+    "range": [
+      1,
+      5,
+      10
+    ],
     "stunSetting": false,
     "cost": 1250,
     "trait": {
@@ -44,7 +60,14 @@
       }
     ],
     "availability": "3/X",
-    "tags": ["Ranged", "Light", "Pistol", "Energy", "Rapid-Fire"]
+    "tags": [
+      "Ranged",
+      "Light",
+      "Pistol",
+      "Energy",
+      "Rapid-Fire"
+    ],
+    "clipSize": 50
   },
   {
     "id": "wpn_dl18_01",
@@ -54,14 +77,29 @@
     "chassisLabel": "Light Pistol",
     "discipline": "ranged",
     "arena": "reflex",
-    "range": [2, 6, 24],
+    "range": [
+      2,
+      6,
+      24
+    ],
     "stunSetting": true,
     "cost": 500,
-    "customDamage": [1, 2, 5],
+    "customDamage": [
+      1,
+      2,
+      5
+    ],
     "trait": null,
     "gambits": [],
     "availability": "1/F",
-    "tags": ["Ranged", "Light", "Pistol", "Energy", "Powerful"]
+    "tags": [
+      "Ranged",
+      "Light",
+      "Pistol",
+      "Energy",
+      "Powerful"
+    ],
+    "clipSize": 100
   },
   {
     "id": "wpn_dh17_01",
@@ -71,17 +109,33 @@
     "chassisLabel": "Light Pistol",
     "discipline": "ranged",
     "arena": "reflex",
-    "range": [3, 6, 24],
+    "range": [
+      3,
+      6,
+      24
+    ],
     "stunSetting": true,
     "cost": 800,
-    "customDamage": [1, 2, 5],
+    "customDamage": [
+      1,
+      2,
+      5
+    ],
     "trait": {
       "name": "Fire Control",
       "description": "Precision optics and integrated fire control package. Optimizes the Overwatch Maneuver — when you use Overwatch, Step Up your Control Die for that attack."
     },
     "gambits": [],
     "availability": "2/R",
-    "tags": ["Ranged", "Light", "Pistol", "Energy", "Military", "Powerful"]
+    "tags": [
+      "Ranged",
+      "Light",
+      "Pistol",
+      "Energy",
+      "Military",
+      "Powerful"
+    ],
+    "clipSize": 100
   },
   {
     "id": "wpn_westar34_01",
@@ -91,7 +145,11 @@
     "chassisLabel": "Medium Pistol",
     "discipline": "ranged",
     "arena": "reflex",
-    "range": [2, 5, 16],
+    "range": [
+      2,
+      5,
+      16
+    ],
     "stunSetting": false,
     "cost": 750,
     "trait": {
@@ -100,7 +158,14 @@
     },
     "gambits": [],
     "availability": "1/F",
-    "tags": ["Ranged", "Medium", "Pistol", "Energy", "Mandalorian"]
+    "tags": [
+      "Ranged",
+      "Medium",
+      "Pistol",
+      "Energy",
+      "Mandalorian"
+    ],
+    "clipSize": 100
   },
   {
     "id": "wpn_relbyk23_01",
@@ -110,7 +175,11 @@
     "chassisLabel": "Medium Pistol",
     "discipline": "ranged",
     "arena": "reflex",
-    "range": [3, 8, 28],
+    "range": [
+      3,
+      8,
+      28
+    ],
     "stunSetting": false,
     "cost": 660,
     "trait": {
@@ -124,7 +193,14 @@
       }
     ],
     "availability": "4/X",
-    "tags": ["Ranged", "Medium", "Pistol", "Energy", "Bounty Hunter"]
+    "tags": [
+      "Ranged",
+      "Medium",
+      "Pistol",
+      "Energy",
+      "Bounty Hunter"
+    ],
+    "clipSize": 100
   },
   {
     "id": "wpn_lightsaber_01",
@@ -134,9 +210,15 @@
     "chassisLabel": "Exotic Melee",
     "discipline": "melee",
     "arena": "physique",
-    "range": { "engaged": true },
+    "range": {
+      "engaged": true
+    },
     "stunSetting": false,
-    "customDamage": [1, 5, 8],
+    "customDamage": [
+      1,
+      5,
+      8
+    ],
     "trait": {
       "name": "Cauterize",
       "description": "Intense plasma heat instantly sears flesh and melts steel. Cannot inflict [Bleeding]. Automatically Steps Up the final Effect Tier by 1 when cutting through inanimate objects (blast doors, bulkheads, binders)."
@@ -148,7 +230,12 @@
       }
     ],
     "availability": "4/X",
-    "tags": ["Melee", "Exotic", "Lightsaber", "Plasma"]
+    "tags": [
+      "Melee",
+      "Exotic",
+      "Lightsaber",
+      "Plasma"
+    ]
   },
   {
     "id": "wpn_bryar_rifle_01",
@@ -158,17 +245,33 @@
     "chassisLabel": "Light Rifle",
     "discipline": "ranged",
     "arena": "reflex",
-    "range": [10, 30, 86],
+    "range": [
+      10,
+      30,
+      86
+    ],
     "stunSetting": false,
     "cost": 1000,
-    "customDamage": [1, 2, 5],
+    "customDamage": [
+      1,
+      2,
+      5
+    ],
     "trait": {
       "name": "Deceptive Range",
       "description": "The long barrel minimizes bolt dispersion over distance. The max range band (zones 31+) imposes only −1 Control step instead of the standard −2."
     },
     "gambits": [],
     "availability": "4/R",
-    "tags": ["Ranged", "Light", "Rifle", "Energy", "Outer Rim", "Scoundrel"]
+    "tags": [
+      "Ranged",
+      "Light",
+      "Rifle",
+      "Energy",
+      "Outer Rim",
+      "Scoundrel"
+    ],
+    "clipSize": 100
   },
   {
     "id": "wpn_e11_01",
@@ -178,7 +281,11 @@
     "chassisLabel": "Medium Rifle",
     "discipline": "ranged",
     "arena": "reflex",
-    "range": [6, 20, 60],
+    "range": [
+      6,
+      20,
+      60
+    ],
     "stunSetting": true,
     "cost": 1100,
     "trait": {
@@ -187,7 +294,16 @@
     },
     "gambits": [],
     "availability": "3/R",
-    "tags": ["Ranged", "Medium", "Rifle", "Energy", "Military", "Imperial", "Clone Wars"]
+    "tags": [
+      "Ranged",
+      "Medium",
+      "Rifle",
+      "Energy",
+      "Military",
+      "Imperial",
+      "Clone Wars"
+    ],
+    "clipSize": 100
   },
   {
     "id": "wpn_dc15_rifle_01",
@@ -197,17 +313,34 @@
     "chassisLabel": "Medium Rifle",
     "discipline": "ranged",
     "arena": "reflex",
-    "range": [8, 26, 70],
+    "range": [
+      8,
+      26,
+      70
+    ],
     "stunSetting": true,
     "cost": 1500,
-    "customDamage": [1, 3, 6],
+    "customDamage": [
+      1,
+      3,
+      6
+    ],
     "trait": {
       "name": "Assault Configuration",
       "description": "Engineered from the ground up for sustained automatic fire. Autofire does not impose an additional Control step-down — the weapon's design absorbs the fire rate penalty inherently."
     },
     "gambits": [],
     "availability": "2/R",
-    "tags": ["Ranged", "Medium", "Rifle", "Energy", "Military", "Clone Wars", "Assault"]
+    "tags": [
+      "Ranged",
+      "Medium",
+      "Rifle",
+      "Energy",
+      "Military",
+      "Clone Wars",
+      "Assault"
+    ],
+    "clipSize": 100
   },
   {
     "id": "wpn_dlt19_01",
@@ -217,7 +350,11 @@
     "chassisLabel": "Medium Rifle",
     "discipline": "ranged",
     "arena": "reflex",
-    "range": [10, 36, 70],
+    "range": [
+      10,
+      36,
+      70
+    ],
     "stunSetting": false,
     "cost": 1300,
     "trait": {
@@ -226,7 +363,16 @@
     },
     "gambits": [],
     "availability": "1/R",
-    "tags": ["Ranged", "Medium", "Rifle", "Energy", "Military", "Imperial", "Long-Range"]
+    "tags": [
+      "Ranged",
+      "Medium",
+      "Rifle",
+      "Energy",
+      "Military",
+      "Imperial",
+      "Long-Range"
+    ],
+    "clipSize": 200
   },
   {
     "id": "wpn_ee3_01",
@@ -236,7 +382,11 @@
     "chassisLabel": "Heavy Rifle",
     "discipline": "ranged",
     "arena": "reflex",
-    "range": [6, 16, 50],
+    "range": [
+      6,
+      16,
+      50
+    ],
     "stunSetting": false,
     "cost": 1400,
     "trait": {
@@ -245,7 +395,14 @@
     },
     "gambits": [],
     "availability": "1/R",
-    "tags": ["Ranged", "Heavy", "Rifle", "Energy", "Bounty Hunter"]
+    "tags": [
+      "Ranged",
+      "Heavy",
+      "Rifle",
+      "Energy",
+      "Bounty Hunter"
+    ],
+    "clipSize": 100
   },
   {
     "id": "wpn_a280_01",
@@ -255,13 +412,25 @@
     "chassisLabel": "Heavy Rifle",
     "discipline": "ranged",
     "arena": "reflex",
-    "range": [8, 24, 60],
+    "range": [
+      8,
+      24,
+      60
+    ],
     "stunSetting": false,
     "cost": 1400,
     "trait": null,
     "gambits": [],
     "availability": "1/R",
-    "tags": ["Ranged", "Heavy", "Rifle", "Energy", "Rebel", "Military"]
+    "tags": [
+      "Ranged",
+      "Heavy",
+      "Rifle",
+      "Energy",
+      "Rebel",
+      "Military"
+    ],
+    "clipSize": 100
   },
   {
     "id": "wpn_q2_01",
@@ -271,13 +440,25 @@
     "chassisLabel": "Hold-Out",
     "discipline": "ranged",
     "arena": "reflex",
-    "range": [1, 2, 3],
+    "range": [
+      1,
+      2,
+      3
+    ],
     "stunSetting": false,
     "cost": 400,
     "trait": null,
     "gambits": [],
     "availability": "2/R",
-    "tags": ["Ranged", "Light", "Hold-Out", "Energy", "Concealable", "Outer Rim"]
+    "tags": [
+      "Ranged",
+      "Light",
+      "Hold-Out",
+      "Energy",
+      "Concealable",
+      "Outer Rim"
+    ],
+    "clipSize": 8
   },
   {
     "id": "wpn_happy_surprise_01",
@@ -287,7 +468,11 @@
     "chassisLabel": "Hold-Out",
     "discipline": "ranged",
     "arena": "reflex",
-    "range": [1, 2, 3],
+    "range": [
+      1,
+      2,
+      3
+    ],
     "stunSetting": false,
     "cost": 300,
     "trait": {
@@ -296,7 +481,14 @@
     },
     "gambits": [],
     "availability": "1/R",
-    "tags": ["Ranged", "Light", "Hold-Out", "Energy", "Concealable"]
+    "tags": [
+      "Ranged",
+      "Light",
+      "Hold-Out",
+      "Energy",
+      "Concealable"
+    ],
+    "clipSize": 8
   },
   {
     "id": "wpn_quickfire4_01",
@@ -306,14 +498,29 @@
     "chassisLabel": "Hold-Out",
     "discipline": "ranged",
     "arena": "reflex",
-    "range": [1, 2, 3],
+    "range": [
+      1,
+      2,
+      3
+    ],
     "stunSetting": false,
     "cost": 300,
-    "customDamage": [1, 2, 5],
+    "customDamage": [
+      1,
+      2,
+      5
+    ],
     "trait": null,
     "gambits": [],
     "availability": "2/R",
-    "tags": ["Ranged", "Light", "Hold-Out", "Energy", "Powerful"]
+    "tags": [
+      "Ranged",
+      "Light",
+      "Hold-Out",
+      "Energy",
+      "Powerful"
+    ],
+    "clipSize": 8
   },
   {
     "id": "wpn_kyd21_01",
@@ -323,17 +530,33 @@
     "chassisLabel": "Sporting Blaster",
     "discipline": "ranged",
     "arena": "reflex",
-    "range": [2, 8, 12],
+    "range": [
+      2,
+      8,
+      12
+    ],
     "stunSetting": false,
     "cost": 330,
-    "customDamage": [1, 2, 5],
+    "customDamage": [
+      1,
+      2,
+      5
+    ],
     "trait": {
       "name": "Integrated Silencer",
       "description": "This weapon produces no sound when fired. When used from hiding against an unaware target at a range beyond the effective band (Zone 3+), the shooter's position remains undetected after the shot."
     },
     "gambits": [],
     "availability": "1/F",
-    "tags": ["Ranged", "Light", "Sporting", "Energy", "Silenced", "Concealable"]
+    "tags": [
+      "Ranged",
+      "Light",
+      "Sporting",
+      "Energy",
+      "Silenced",
+      "Concealable"
+    ],
+    "clipSize": 50
   },
   {
     "id": "wpn_lancer_01",
@@ -343,7 +566,11 @@
     "chassisLabel": "Sporting Blaster",
     "discipline": "ranged",
     "arena": "reflex",
-    "range": [2, 6, 24],
+    "range": [
+      2,
+      6,
+      24
+    ],
     "stunSetting": false,
     "cost": 500,
     "trait": {
@@ -352,7 +579,14 @@
     },
     "gambits": [],
     "availability": "1/F",
-    "tags": ["Ranged", "Light", "Sporting", "Energy", "Precision"]
+    "tags": [
+      "Ranged",
+      "Light",
+      "Sporting",
+      "Energy",
+      "Precision"
+    ],
+    "clipSize": 50
   },
   {
     "id": "wpn_luxan_01",
@@ -362,7 +596,11 @@
     "chassisLabel": "Sporting Blaster",
     "discipline": "ranged",
     "arena": "reflex",
-    "range": [4, 8, 12],
+    "range": [
+      4,
+      8,
+      12
+    ],
     "stunSetting": false,
     "cost": 600,
     "trait": {
@@ -371,7 +609,14 @@
     },
     "gambits": [],
     "availability": "4/F",
-    "tags": ["Ranged", "Medium", "Sporting", "Energy", "Precision"]
+    "tags": [
+      "Ranged",
+      "Medium",
+      "Sporting",
+      "Energy",
+      "Precision"
+    ],
+    "clipSize": 50
   },
   {
     "id": "wpn_quicksnap36t_01",
@@ -381,7 +626,11 @@
     "chassisLabel": "Blaster Carbine",
     "discipline": "ranged",
     "arena": "reflex",
-    "range": [5, 10, 50],
+    "range": [
+      5,
+      10,
+      50
+    ],
     "stunSetting": false,
     "cost": 900,
     "trait": {
@@ -390,7 +639,15 @@
     },
     "gambits": [],
     "availability": "2/R",
-    "tags": ["Ranged", "Medium", "Carbine", "Energy", "Outer Rim", "Common"]
+    "tags": [
+      "Ranged",
+      "Medium",
+      "Carbine",
+      "Energy",
+      "Outer Rim",
+      "Common"
+    ],
+    "clipSize": 50
   },
   {
     "id": "wpn_e5_01",
@@ -400,13 +657,26 @@
     "chassisLabel": "Blaster Carbine",
     "discipline": "ranged",
     "arena": "reflex",
-    "range": [4, 12, 42],
+    "range": [
+      4,
+      12,
+      42
+    ],
     "stunSetting": false,
     "cost": 900,
     "trait": null,
     "gambits": [],
     "availability": "2/F",
-    "tags": ["Ranged", "Medium", "Carbine", "Energy", "Clone Wars", "Surplus", "Droid"]
+    "tags": [
+      "Ranged",
+      "Medium",
+      "Carbine",
+      "Energy",
+      "Clone Wars",
+      "Surplus",
+      "Droid"
+    ],
+    "clipSize": 50
   },
   {
     "id": "wpn_lightning_gun_01",
@@ -416,7 +686,11 @@
     "chassisLabel": "Exotic Carbine",
     "discipline": "ranged",
     "arena": "reflex",
-    "range": [5, 10, 15],
+    "range": [
+      5,
+      10,
+      15
+    ],
     "stunSetting": false,
     "cost": 2400,
     "trait": {
@@ -425,7 +699,15 @@
     },
     "gambits": [],
     "availability": "2/X",
-    "tags": ["Ranged", "Heavy", "Carbine", "Exotic", "Particle", "Rare"]
+    "tags": [
+      "Ranged",
+      "Heavy",
+      "Carbine",
+      "Exotic",
+      "Particle",
+      "Rare"
+    ],
+    "clipSize": 6
   },
   {
     "id": "wpn_knife_01",
@@ -435,7 +717,9 @@
     "chassisLabel": "Light Blade",
     "discipline": "melee",
     "arena": "physique",
-    "range": { "engaged": true },
+    "range": {
+      "engaged": true
+    },
     "stunSetting": false,
     "cost": 25,
     "trait": {
@@ -444,7 +728,15 @@
     },
     "gambits": [],
     "availability": "1",
-    "tags": ["Melee", "Light", "Blade", "Concealable", "Common", "Primitive", "Legal"]
+    "tags": [
+      "Melee",
+      "Light",
+      "Blade",
+      "Concealable",
+      "Common",
+      "Primitive",
+      "Legal"
+    ]
   },
   {
     "id": "wpn_vibroblade_01",
@@ -454,7 +746,9 @@
     "chassisLabel": "Light Blade",
     "discipline": "melee",
     "arena": "physique",
-    "range": { "engaged": true },
+    "range": {
+      "engaged": true
+    },
     "stunSetting": false,
     "cost": 250,
     "trait": {
@@ -463,7 +757,13 @@
     },
     "gambits": [],
     "availability": "2/F",
-    "tags": ["Melee", "Light", "Blade", "Vibro", "Energy"]
+    "tags": [
+      "Melee",
+      "Light",
+      "Blade",
+      "Vibro",
+      "Energy"
+    ]
   },
   {
     "id": "wpn_staff_01",
@@ -473,7 +773,9 @@
     "chassisLabel": "Melee Weapon",
     "discipline": "melee",
     "arena": "physique",
-    "range": { "engaged": true },
+    "range": {
+      "engaged": true
+    },
     "stunSetting": false,
     "cost": 10,
     "trait": {
@@ -482,7 +784,15 @@
     },
     "gambits": [],
     "availability": "1",
-    "tags": ["Melee", "Light", "Staff", "Bludgeon", "Common", "Two-Handed", "Legal"]
+    "tags": [
+      "Melee",
+      "Light",
+      "Staff",
+      "Bludgeon",
+      "Common",
+      "Two-Handed",
+      "Legal"
+    ]
   },
   {
     "id": "wpn_axe_01",
@@ -492,13 +802,22 @@
     "chassisLabel": "Melee Weapon",
     "discipline": "melee",
     "arena": "physique",
-    "range": { "engaged": true },
+    "range": {
+      "engaged": true
+    },
     "stunSetting": false,
     "cost": 50,
     "trait": null,
     "gambits": [],
     "availability": "1",
-    "tags": ["Melee", "Medium", "Blade", "Primitive", "Common", "Legal"]
+    "tags": [
+      "Melee",
+      "Medium",
+      "Blade",
+      "Primitive",
+      "Common",
+      "Legal"
+    ]
   },
   {
     "id": "wpn_vibro_ax_01",
@@ -508,7 +827,9 @@
     "chassisLabel": "Vibro Weapon",
     "discipline": "melee",
     "arena": "physique",
-    "range": { "engaged": true },
+    "range": {
+      "engaged": true
+    },
     "stunSetting": false,
     "cost": 500,
     "trait": {
@@ -522,7 +843,15 @@
       }
     ],
     "availability": "2/R",
-    "tags": ["Melee", "Medium", "Blade", "Vibro", "Energy", "Two-Handed", "Heavy"]
+    "tags": [
+      "Melee",
+      "Medium",
+      "Blade",
+      "Vibro",
+      "Energy",
+      "Two-Handed",
+      "Heavy"
+    ]
   },
   {
     "id": "wpn_vibrorapier_01",
@@ -532,7 +861,9 @@
     "chassisLabel": "Vibro Weapon",
     "discipline": "melee",
     "arena": "physique",
-    "range": { "engaged": true },
+    "range": {
+      "engaged": true
+    },
     "stunSetting": false,
     "cost": 300,
     "trait": {
@@ -546,7 +877,15 @@
       }
     ],
     "availability": "2/R",
-    "tags": ["Melee", "Light", "Blade", "Vibro", "Energy", "Duelist", "Elegant"]
+    "tags": [
+      "Melee",
+      "Light",
+      "Blade",
+      "Vibro",
+      "Energy",
+      "Duelist",
+      "Elegant"
+    ]
   },
   {
     "id": "wpn_force_pike_01",
@@ -556,7 +895,9 @@
     "chassisLabel": "Melee Weapon",
     "discipline": "melee",
     "arena": "physique",
-    "range": { "engaged": true },
+    "range": {
+      "engaged": true
+    },
     "stunSetting": true,
     "cost": 500,
     "trait": {
@@ -570,7 +911,15 @@
       }
     ],
     "availability": "2/R",
-    "tags": ["Melee", "Medium", "Vibro", "Energy", "Two-Handed", "Imperial", "Stun"]
+    "tags": [
+      "Melee",
+      "Medium",
+      "Vibro",
+      "Energy",
+      "Two-Handed",
+      "Imperial",
+      "Stun"
+    ]
   },
   {
     "id": "wpn_combat_gloves_01",
@@ -580,7 +929,9 @@
     "chassisLabel": "Melee Weapon",
     "discipline": "melee",
     "arena": "physique",
-    "range": { "engaged": true },
+    "range": {
+      "engaged": true
+    },
     "stunSetting": false,
     "cost": 200,
     "trait": {
@@ -589,7 +940,15 @@
     },
     "gambits": [],
     "availability": "1/F",
-    "tags": ["Melee", "Light", "Bludgeon", "Concealable", "Unarmed", "Urban", "Legal"]
+    "tags": [
+      "Melee",
+      "Light",
+      "Bludgeon",
+      "Concealable",
+      "Unarmed",
+      "Urban",
+      "Legal"
+    ]
   },
   {
     "id": "wpn_snap_baton_01",
@@ -599,7 +958,9 @@
     "chassisLabel": "Melee Weapon",
     "discipline": "melee",
     "arena": "physique",
-    "range": { "engaged": true },
+    "range": {
+      "engaged": true
+    },
     "stunSetting": false,
     "cost": 200,
     "trait": {
@@ -608,7 +969,14 @@
     },
     "gambits": [],
     "availability": "2",
-    "tags": ["Melee", "Light", "Bludgeon", "Concealable", "Urban", "Legal"]
+    "tags": [
+      "Melee",
+      "Light",
+      "Bludgeon",
+      "Concealable",
+      "Urban",
+      "Legal"
+    ]
   },
   {
     "id": "wpn_ddc_defender_01",
@@ -618,13 +986,25 @@
     "chassisLabel": "Sporting Blaster",
     "discipline": "ranged",
     "arena": "reflex",
-    "range": [2, 5, 10],
+    "range": [
+      2,
+      5,
+      10
+    ],
     "stunSetting": false,
     "cost": 350,
     "trait": null,
     "gambits": [],
     "availability": "1/F",
-    "tags": ["Ranged", "Light", "Sporting", "Energy", "Common", "Legal"]
+    "tags": [
+      "Ranged",
+      "Light",
+      "Sporting",
+      "Energy",
+      "Common",
+      "Legal"
+    ],
+    "clipSize": 50
   },
   {
     "id": "wpn_quick_six_01",
@@ -634,13 +1014,30 @@
     "chassisLabel": "Sporting Blaster",
     "discipline": "ranged",
     "arena": "reflex",
-    "range": [2, 5, 10],
+    "range": [
+      2,
+      5,
+      10
+    ],
     "stunSetting": false,
     "cost": 325,
-    "customDamage": [1, 2, 5],
+    "customDamage": [
+      1,
+      2,
+      5
+    ],
     "trait": null,
     "gambits": [],
     "availability": "1/F",
-    "tags": ["Ranged", "Light", "Sporting", "Energy", "Common", "Legal", "Outer Rim"]
+    "tags": [
+      "Ranged",
+      "Light",
+      "Sporting",
+      "Energy",
+      "Common",
+      "Legal",
+      "Outer Rim"
+    ],
+    "clipSize": 50
   }
 ]

@@ -53,6 +53,25 @@ Server listens on `0.0.0.0:5000`.
 - `POST /api/equipment/:charId/:itemId` — update item status
 - `GET  /api/health` — health check
 
+## Ammo Power Bar System
+
+Each ranged weapon in `data/weapons.json` now has a `clipSize` field (ammo capacity). Melee weapons have no `clipSize`.
+
+The weapon card header in both `js/armory-panel.js` and `js/loadout-panel.js` renders a `_buildAmmoBar(clipSize)` function that outputs a segmented 8-bar readout styled like a Star Wars blaster power pack:
+- **≥ 75% full** → green (`#22c55e`) with green glow
+- **30–75% full** → amber (`#f59e0b`) with amber glow
+- **< 30% full** → red (`#ef4444`) with red glow
+
+Bars are stored on DOM elements as `data-clip-size` and `data-ammo-pct` for future ammo-tracking integration. All bars initialize at 100%. CSS class: `.wpn-ammo-bar`, `.wpn-ammo-seg`, `.wpn-ammo-seg-empty`.
+
+**Clip sizes assigned:**
+- Hold-outs (Q-2, Happy Surprise, Quickfire-4): 8
+- Lightning Gun: 6 (stated in trait)
+- DC-15s Sidearm: 20
+- Intimidator, KYD-21, Lancer, Luxan, QuickSnap, E-5, DDC Defender, Quick-Six: 50
+- Standard rifles/pistols (DL-18, DH-17, Westar, Relby, Bryar, E-11, DC-15 Rifle, EE-3, A280): 100
+- DLT-19 (belt-fed): 200
+
 ## Database
 
 SQLite database auto-created and seeded on first run at `db/campaign.db`.  

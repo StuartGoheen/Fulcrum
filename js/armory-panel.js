@@ -339,6 +339,25 @@
     );
   }
 
+  function _buildAmmoBar(clipSize) {
+    if (!clipSize || clipSize <= 0) return '';
+    var SEGS = 8;
+    var pct = 100;
+    var filled = Math.round((pct / 100) * SEGS);
+    var segColor = pct >= 75 ? '#22c55e' : (pct >= 30 ? '#f59e0b' : '#ef4444');
+    var glowColor = pct >= 75 ? '#22c55e40' : (pct >= 30 ? '#f59e0b40' : '#ef444440');
+    var html = '<div class="wpn-ammo-bar" data-clip-size="' + _esc(String(clipSize)) + '" data-ammo-pct="' + pct + '">';
+    for (var i = 0; i < SEGS; i++) {
+      if (i < filled) {
+        html += '<div class="wpn-ammo-seg" style="background:' + segColor + ';box-shadow:0 0 4px ' + glowColor + ';"></div>';
+      } else {
+        html += '<div class="wpn-ammo-seg wpn-ammo-seg-empty"></div>';
+      }
+    }
+    html += '</div>';
+    return html;
+  }
+
   function _buildWeaponCard(weapon, char, chassisMap, statusMap) {
     var mapping = DISCIPLINE_MAP[weapon.discipline];
     var discDie  = 'D4';
@@ -456,10 +475,13 @@
         _dieImg(arenaDie) +
       '</div>';
 
+    var ammoBarHtml = _buildAmmoBar(weapon.clipSize);
+
     return (
       '<div class="armory-weapon-card" data-weapon-id="' + _esc(weapon.id) + '">' +
         '<div class="armory-weapon-header">' +
           '<span class="armory-weapon-name">' + _esc(weapon.name) + '</span>' +
+          ammoBarHtml +
           discHtml +
         '</div>' +
         '<div class="armory-weapon-body">' +
