@@ -372,7 +372,7 @@
       "Imperial",
       "Long-Range"
     ],
-    "clipSize": 200
+    "clipSize": 100
   },
   {
     "id": "wpn_ee3_01",
@@ -402,7 +402,7 @@
       "Energy",
       "Bounty Hunter"
     ],
-    "clipSize": 100
+    "clipSize": 50
   },
   {
     "id": "wpn_a280_01",
