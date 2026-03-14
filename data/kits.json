@@ -1,0 +1,244 @@
+[
+  {
+    "id": "kit_fixer",
+    "name": "Fixer's Kit",
+    "tagline": "If it has moving parts, you can break it — or make it worse.",
+    "description": "Precision tools, salvaged components, and diagnostic datapads for anyone who keeps machines running past their expiration date.",
+    "tags": ["technical"],
+    "tier_1": {
+      "label": "Field Mechanic",
+      "benefits": [
+        { "type": "gear", "value": "Mechanic's Toolkit", "description": "Standard field tools. Sufficient for most repairs and modifications in the field." },
+        { "type": "rule", "value": "Jury-Rig", "description": "Once per scene, attempt to repair a Broken item with scavenged parts. On a success, it functions for the rest of the scene." }
+      ]
+    },
+    "tier_2": {
+      "label": "Systems Architect",
+      "benefits": [
+        { "type": "gear", "value": "Mechanic's Toolkit", "description": "Standard field tools." },
+        { "type": "gear", "value": "Diagnostic Datapad", "description": "Grants +1 Effect Tier on Tech rolls to diagnose or repair ship systems and vehicles." },
+        { "type": "rule", "value": "Jury-Rig", "description": "Once per scene, attempt to repair a Broken item with scavenged parts." },
+        { "type": "rule", "value": "Salvage Protocol", "description": "After any encounter involving destroyed vehicles or droids, extract components worth 1d6×10 credits." }
+      ]
+    }
+  },
+  {
+    "id": "kit_medic",
+    "name": "Medic's Satchel",
+    "tagline": "You're not a doctor. You just play one in warzones.",
+    "description": "Trauma supplies, bacta gel, and enough stimulants to keep a squad operational long after they should've stopped moving.",
+    "tags": ["support"],
+    "tier_1": {
+      "label": "Combat Medic",
+      "benefits": [
+        { "type": "gear", "value": "Medpac ×2", "description": "Standard trauma kits. Consumable — each handles one casualty." },
+        { "type": "rule", "value": "Stabilise", "description": "Once per encounter, use a Maneuver (not Action) to clear one Trauma from an adjacent ally." }
+      ]
+    },
+    "tier_2": {
+      "label": "Field Surgeon",
+      "benefits": [
+        { "type": "gear", "value": "Medpac ×3", "description": "Standard trauma kits." },
+        { "type": "gear", "value": "Surgical Kit", "description": "Allows extended care procedures. +1 Effect Tier on Medicine rolls in non-combat situations." },
+        { "type": "rule", "value": "Stabilise", "description": "Once per encounter, use a Maneuver to clear one Trauma from an adjacent ally." },
+        { "type": "rule", "value": "Stim Dose", "description": "Once per encounter, inject an ally with a combat stimulant. They ignore Wound penalties until end of the round (then gain [Fatigued])." }
+      ]
+    }
+  },
+  {
+    "id": "kit_scout",
+    "name": "Scout Package",
+    "tagline": "First in. Last seen.",
+    "description": "Lightweight recon gear for characters who operate ahead of the group, through hostile terrain, or entirely off the map.",
+    "tags": ["exploration", "combat"],
+    "tier_1": {
+      "label": "Pathfinder",
+      "benefits": [
+        { "type": "gear", "value": "Macrobinoculars", "description": "Long-range optical scanner. Identify targets and terrain up to 2 km away." },
+        { "type": "gear", "value": "Wilderness Survival Kit", "description": "Rations, filtration tabs, emergency shelter. Negates environmental Survival penalties for 72 hours." },
+        { "type": "rule", "value": "Overwatch", "description": "When you hold your Action, you may declare Overwatch. The first enemy that moves into your line of sight triggers a free Ranged attack." }
+      ]
+    },
+    "tier_2": {
+      "label": "Ghost Operative",
+      "benefits": [
+        { "type": "gear", "value": "Macrobinoculars", "description": "Long-range optical scanner." },
+        { "type": "gear", "value": "Wilderness Survival Kit", "description": "Environmental Survival negation for 72 hours." },
+        { "type": "gear", "value": "Camouflage Netting", "description": "When stationary, gain [Concealed] in any outdoor environment." },
+        { "type": "rule", "value": "Overwatch", "description": "Hold Action for a free Ranged attack against the first enemy that moves into line of sight." },
+        { "type": "rule", "value": "Infiltrator's Step", "description": "Move through occupied zones without triggering Engagement reactions, once per scene." }
+      ]
+    }
+  },
+  {
+    "id": "kit_smuggler",
+    "name": "Smuggler's Trade",
+    "tagline": "It's not contraband if no one finds it.",
+    "description": "Concealment tools, encrypted comms, and a working knowledge of who to bribe and where to land without filing a flight plan.",
+    "tags": ["social", "criminal"],
+    "tier_1": {
+      "label": "Runner",
+      "benefits": [
+        { "type": "gear", "value": "Hidden Compartment (worn)", "description": "A concealed carry system integrated into clothing. Evades casual searches." },
+        { "type": "gear", "value": "Encrypted Comlink", "description": "Scrambled communications. Investigations must succeed at Difficulty 2 to intercept." },
+        { "type": "rule", "value": "Plausible Deniability", "description": "Once per session, retroactively declare that a piece of contraband was stored off-ship or with a contact." }
+      ]
+    },
+    "tier_2": {
+      "label": "Operator",
+      "benefits": [
+        { "type": "gear", "value": "Hidden Compartment (worn)", "description": "Concealed carry system, evades casual searches." },
+        { "type": "gear", "value": "Encrypted Comlink", "description": "Scrambled communications." },
+        { "type": "gear", "value": "Forgery Kit", "description": "Generate convincing false manifests, IDs, and permits. Wits check to detect at Difficulty 3." },
+        { "type": "rule", "value": "Plausible Deniability", "description": "Once per session, retroactively declare contraband stored off-ship or with a contact." },
+        { "type": "rule", "value": "Black Market Access", "description": "In any port, gain access to Restricted-availability gear without requiring special contacts." }
+      ]
+    }
+  },
+  {
+    "id": "kit_slicer",
+    "name": "Slicer's Deck",
+    "tagline": "Every lock is a polite suggestion.",
+    "description": "Custom intrusion hardware, bypass tools, and the kind of software that makes Imperial network admins wake up screaming.",
+    "tags": ["technical", "criminal"],
+    "tier_1": {
+      "label": "Script Kiddie",
+      "benefits": [
+        { "type": "gear", "value": "Slicer's Deck (Basic)", "description": "Portable intrusion hardware. Required for electronic bypass and network access attempts." },
+        { "type": "rule", "value": "Quick Bypass", "description": "Electronic locks and basic security doors take a Maneuver (not an Action) to bypass." }
+      ]
+    },
+    "tier_2": {
+      "label": "Phantom in the Network",
+      "benefits": [
+        { "type": "gear", "value": "Slicer's Deck (Military-Grade)", "description": "Advanced intrusion suite. +1 Effect Tier on all Tech slicing rolls." },
+        { "type": "gear", "value": "Security Spike ×3", "description": "Single-use hardware override. Automatically succeed a basic security bypass without a roll. Consumable." },
+        { "type": "rule", "value": "Quick Bypass", "description": "Electronic locks take a Maneuver to bypass." },
+        { "type": "rule", "value": "Ghost Protocol", "description": "After slicing a system, you may choose to leave no trace. The breach is undetectable until the next scheduled security sweep." }
+      ]
+    }
+  },
+  {
+    "id": "kit_enforcer",
+    "name": "Enforcer's Rig",
+    "tagline": "Persuasion is just violence with better PR.",
+    "description": "Heavy armour, impact weapons, and the practiced intimidation of someone who has made people very sorry very quickly.",
+    "tags": ["combat"],
+    "tier_1": {
+      "label": "Muscle",
+      "benefits": [
+        { "type": "gear", "value": "Heavy Jacket (Armour 1)", "description": "Reinforced clothing. Reduces incoming damage by 1." },
+        { "type": "gear", "value": "Vibro-Knucklers", "description": "Melee weapon. Damage: Physique+1. Upgrades unarmed strikes." },
+        { "type": "rule", "value": "Imposing Presence", "description": "When you succeed on an Intimidate roll, the target immediately loses their next Minor Action." }
+      ]
+    },
+    "tier_2": {
+      "label": "Bone-Breaker",
+      "benefits": [
+        { "type": "gear", "value": "Flak Vest (Armour 2)", "description": "Ballistic-resistant vest. Reduces incoming damage by 2." },
+        { "type": "gear", "value": "Vibro-Knucklers", "description": "Melee weapon. Damage: Physique+1." },
+        { "type": "gear", "value": "Binders ×2", "description": "Restraints. Restrain a Prone or Grappled target with a Brawl Maneuver." },
+        { "type": "rule", "value": "Imposing Presence", "description": "Succeed on Intimidate: target loses their next Minor Action." },
+        { "type": "rule", "value": "Takedown", "description": "Once per encounter, after landing a Brawl hit, the target is immediately [Prone] regardless of Effect Tier." }
+      ]
+    }
+  },
+  {
+    "id": "kit_pilot",
+    "name": "Pilot's Loadout",
+    "tagline": "Atmosphere is optional. Style is mandatory.",
+    "description": "Flight gear, nav tools, and a relationship with your ship that borders on inappropriate but keeps everyone alive.",
+    "tags": ["technical", "exploration"],
+    "tier_1": {
+      "label": "Stick-Jockey",
+      "benefits": [
+        { "type": "gear", "value": "Flight Helmet (Comms + HUD)", "description": "Integrated targeting display. +1 Effect Tier on Piloting rolls when in the cockpit." },
+        { "type": "gear", "value": "Astrogation Chip (×3 hyperspace lanes)", "description": "Pre-loaded jump coordinates for three established routes." },
+        { "type": "rule", "value": "Hot Pilot", "description": "Once per scene, push a Piloting roll to the Superior Effect Tier at no cost." }
+      ]
+    },
+    "tier_2": {
+      "label": "Ace",
+      "benefits": [
+        { "type": "gear", "value": "Flight Helmet (Comms + HUD)", "description": "Integrated targeting display. +1 Effect Tier on Piloting rolls in cockpit." },
+        { "type": "gear", "value": "Astrogation Chip (×6 hyperspace lanes)", "description": "Pre-loaded coordinates for six established routes, including two restricted corridors." },
+        { "type": "gear", "value": "Emergency Thruster Override", "description": "Once per session, negate one Critical Hit to your vehicle by burning the override. Consumable." },
+        { "type": "rule", "value": "Hot Pilot", "description": "Once per scene, push a Piloting roll to Superior Effect at no cost." },
+        { "type": "rule", "value": "Bootlegger", "description": "You may perform full-speed turns and reverse-thrust maneuvers that would normally require a Difficulty check without rolling." }
+      ]
+    }
+  },
+  {
+    "id": "kit_scholar",
+    "name": "Scholar's Archive",
+    "tagline": "Knowledge is power. Power has a price. You've read the receipt.",
+    "description": "Research datapads, xenobiology references, and a catalogued mental library that comes in useful in the strangest situations.",
+    "tags": ["social", "technical"],
+    "tier_1": {
+      "label": "Academic",
+      "benefits": [
+        { "type": "gear", "value": "Research Datapad", "description": "Comprehensive reference archive. Negates penalties for unfamiliar topics on Investigation and Tactics rolls." },
+        { "type": "rule", "value": "Recall", "description": "Once per scene, ask the GM one factual question about any organization, species, location, or piece of technology. The GM must answer honestly." }
+      ]
+    },
+    "tier_2": {
+      "label": "Lorekeeper",
+      "benefits": [
+        { "type": "gear", "value": "Research Datapad", "description": "Comprehensive reference archive." },
+        { "type": "gear", "value": "Xenobiology Field Guide", "description": "+1 Effect Tier on Medicine and Survival rolls involving non-Human biology." },
+        { "type": "rule", "value": "Recall", "description": "Once per scene, ask the GM one factual question. The GM answers honestly." },
+        { "type": "rule", "value": "Pattern Recognition", "description": "After observing an enemy for one full round, identify one of their Weaknesses or Resistances without a roll." }
+      ]
+    }
+  },
+  {
+    "id": "kit_bounty_hunter",
+    "name": "Hunter's Package",
+    "tagline": "They always run. They never get far.",
+    "description": "Tracking hardware, restraints, and a methodical patience for turning a name on a contract into a body in a cargo hold.",
+    "tags": ["combat", "criminal"],
+    "tier_1": {
+      "label": "Skip Tracer",
+      "benefits": [
+        { "type": "gear", "value": "Tracker Droid Chip", "description": "A passive tracking device, embeds in a target's clothing or gear undetected on a successful Skulduggery roll." },
+        { "type": "gear", "value": "Binders ×3", "description": "Heavy restraints. Requires a Physique or Brawl roll at Difficulty 2 to escape." },
+        { "type": "rule", "value": "Mark the Target", "description": "At the start of a scene, designate one target as your Mark. Gain +1 Effect Tier on all rolls made to track, observe, or capture them." }
+      ]
+    },
+    "tier_2": {
+      "label": "Manhunter",
+      "benefits": [
+        { "type": "gear", "value": "Tracker Droid Chip", "description": "Passive tracking device, embeds undetected on successful Skulduggery." },
+        { "type": "gear", "value": "Binders ×3", "description": "Heavy restraints." },
+        { "type": "gear", "value": "Neural Inhibitor Dart ×2", "description": "Ranged Difficulty 1. On hit, target gains [Stunned] for 2 rounds. Consumable." },
+        { "type": "rule", "value": "Mark the Target", "description": "Designate one Mark per scene. +1 Effect Tier on rolls to track, observe, or capture them." },
+        { "type": "rule", "value": "Cornered Prey", "description": "When your Mark attempts to flee or disengage, you may immediately take a free Move Maneuver toward them." }
+      ]
+    }
+  },
+  {
+    "id": "kit_force_adept",
+    "name": "Force Adept's Focus",
+    "tagline": "You feel something the others don't. Try not to call attention to it.",
+    "description": "Meditation tools, handwritten instruction scraps from a dead master, and the discipline to avoid lighting up every Force-detector in the sector.",
+    "tags": ["force"],
+    "tier_1": {
+      "label": "Sensitive",
+      "force_required": true,
+      "benefits": [
+        { "type": "gear", "value": "Meditation Focus (worn)", "description": "A personal focus object — crystal, pendant, or carved bone. Provides Advantage on Control rolls made during non-combat meditation." },
+        { "type": "rule", "value": "Force Awareness", "description": "You may always attempt Sense rolls to detect Force-sensitive individuals, active Force powers, or vergences — without requiring a Maneuver to focus." }
+      ]
+    },
+    "tier_2": {
+      "label": "Adept",
+      "force_required": true,
+      "benefits": [
+        { "type": "gear", "value": "Meditation Focus (worn)", "description": "Personal focus object. Advantage on Control rolls during meditation." },
+        { "type": "gear", "value": "Handwritten Instruction Scraps", "description": "Fragmentary teachings. Once per session, reroll one failed Force discipline check." },
+        { "type": "rule", "value": "Force Awareness", "description": "Always attempt Sense rolls without a focusing Maneuver." },
+        { "type": "rule", "value": "Suppressed Presence", "description": "Your Force signature is muted. Passive detection attempts by Inquisitors or other Sensitives are made at Difficulty 3 instead of 1." }
+      ]
+    }
+  }
+]

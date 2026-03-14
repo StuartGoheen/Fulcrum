@@ -28,6 +28,8 @@
         <div class="cc-step-pip" title="Phase 3 — The Debt"></div>
         <div class="cc-step-line"></div>
         <div class="cc-step-pip" title="Arenas &amp; Disciplines"></div>
+        <div class="cc-step-line"></div>
+        <div class="cc-step-pip" title="Kits"></div>
       </div>
       <button id="theme-toggle" class="cc-theme-btn"><span id="theme-label">Rebellion</span></button>
     </header>
@@ -35,7 +37,7 @@
     <!-- Screen: Species Selection -->
     <div id="screen-species" class="cc-screen">
       <div class="cc-screen-head">
-        <p class="cc-step-label">Step 1 of 5</p>
+        <p class="cc-step-label">Step 1 of 6</p>
         <h1 class="cc-screen-title">Choose Your Species</h1>
         <p class="cc-screen-sub">Your species shapes your biology, your culture, and the galaxy&rsquo;s assumptions about you.</p>
       </div>
@@ -97,10 +99,24 @@
       </div>
     </div>
 
+    <!-- Screen: Kits -->
+    <div id="screen-kits" class="cc-screen hidden">
+      <div class="cc-screen-head">
+        <p class="cc-step-label">Step 6 of 6</p>
+        <h1 class="cc-screen-title">Starting Kits</h1>
+        <p class="cc-screen-sub">You have <strong id="kits-budget-display">3</strong> points to spend. Kits cost 1 point at Tier 1 and 2 points at Tier 2. You may upgrade a Tier 1 kit to Tier 2 for 1 additional point. No kit may exceed Tier 2.</p>
+      </div>
+      <div id="kits-content" class="cc-stats-step-content"></div>
+      <div class="cc-stats-nav-row">
+        <button id="btn-back-to-stats" class="cc-back-btn-text">&larr; Arenas &amp; Disciplines</button>
+        <button id="btn-kits-continue" class="cc-btn-stats-continue" disabled>Review Character &rarr;</button>
+      </div>
+    </div>
+
     <!-- Screen: Arenas & Disciplines -->
     <div id="screen-stats" class="cc-screen hidden">
       <div class="cc-screen-head">
-        <p class="cc-step-label">Step 5 of 5</p>
+        <p class="cc-step-label">Step 5 of 6</p>
         <h1 class="cc-screen-title">Arenas &amp; Disciplines</h1>
         <p class="cc-screen-sub">Your species sets the foundation. Mark your weaknesses to earn advances, then spend them to specialize.</p>
       </div>

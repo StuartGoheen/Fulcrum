@@ -560,6 +560,7 @@
     discIncomp:     {},
     spentRegAdv:    0,
     enhancedAdvUsed: 0,
+    kitChoices:      {},
   };
 
   var carouselState = {
@@ -1474,6 +1475,233 @@
     saveState();
     renderStatsContent();
   }
+
+  /* ── Kits step ──────────────────────────────────────────────────── */
+
+  var KITS_DATA     = [];
+  var KITS_BUDGET   = 3;
+
+  function loadKits() {
+    return fetch('/data/kits.json')
+      .then(function(r) { return r.json(); })
+      .then(function(data) { KITS_DATA = data; })
+      .catch(function(e) { console.error('[Kits] Failed to load:', e); });
+  }
+
+  function kitsSpent() {
+    var choices = state.kitChoices || {};
+    return Object.values(choices).reduce(function(acc, tier) { return acc + tier; }, 0);
+  }
+
+  function initKitsScreen() {
+    if (!state.kitChoices) state.kitChoices = {};
+    var doShow = function() {
+      renderKitsContent();
+      showScreen('kits');
+      updateStepTrack(5);
+    };
+    if (KITS_DATA.length === 0) {
+      loadKits().then(doShow);
+    } else {
+      doShow();
+    }
+  }
+
+  function renderKitsContent() {
+    var container = document.getElementById('kits-content');
+    if (!container) return;
+    container.innerHTML = '';
+
+    var choices = state.kitChoices || {};
+    var spent   = kitsSpent();
+    var avail   = KITS_BUDGET - spent;
+
+    // Budget bar
+    var budgetBar = document.createElement('div');
+    budgetBar.className = 'cc-kits-budget-bar';
+    var pips = document.createElement('div');
+    pips.className = 'cc-kits-budget-pips';
+    for (var pi = 0; pi < KITS_BUDGET; pi++) {
+      var pip = document.createElement('div');
+      pip.className = 'cc-kit-budget-pip' + (pi < spent ? ' cc-kit-budget-pip--used' : '');
+      pips.appendChild(pip);
+    }
+    var budgLabel = document.createElement('span');
+    budgLabel.className   = 'cc-kits-budget-label';
+    budgLabel.textContent = avail + ' point' + (avail !== 1 ? 's' : '') + ' remaining';
+    budgetBar.appendChild(pips);
+    budgetBar.appendChild(budgLabel);
+    container.appendChild(budgetBar);
+
+    // Kit grid
+    var grid = document.createElement('div');
+    grid.className = 'cc-kits-grid';
+    KITS_DATA.forEach(function(kit) {
+      grid.appendChild(buildKitCard(kit, choices[kit.id] || 0, avail));
+    });
+    container.appendChild(grid);
+
+    // Enable continue when at least 1 point spent (or allow 0?)
+    var btn = document.getElementById('btn-kits-continue');
+    if (btn) btn.disabled = false;
+
+    // Update budget display in subheading
+    var disp = document.getElementById('kits-budget-display');
+    if (disp) disp.textContent = avail;
+  }
+
+  function buildKitCard(kit, tier, avail) {
+    var card = document.createElement('div');
+    card.className = 'cc-kit-card' +
+      (tier === 1 ? ' cc-kit-card--selected-t1' : '') +
+      (tier === 2 ? ' cc-kit-card--selected-t2' : '') +
+      (kit.tags && kit.tags.indexOf('force') !== -1 ? ' cc-kit-card--force' : '');
+
+    // Head
+    var head = document.createElement('div');
+    head.className = 'cc-kit-card-head';
+    var titleRow = document.createElement('div');
+    titleRow.className = 'cc-kit-card-title-row';
+    var nameEl = document.createElement('span');
+    nameEl.className   = 'cc-kit-name';
+    nameEl.textContent = kit.name;
+    titleRow.appendChild(nameEl);
+    if (kit.tags && kit.tags.indexOf('force') !== -1) {
+      var ftag = document.createElement('span');
+      ftag.className   = 'cc-kit-force-tag';
+      ftag.textContent = 'Force';
+      titleRow.appendChild(ftag);
+    }
+    head.appendChild(titleRow);
+    var tagline = document.createElement('div');
+    tagline.className   = 'cc-kit-tagline';
+    tagline.textContent = kit.tagline;
+    head.appendChild(tagline);
+    card.appendChild(head);
+
+    // Tier tabs
+    var tabs = document.createElement('div');
+    tabs.className = 'cc-kit-tier-tabs';
+    var t1tab = document.createElement('button');
+    t1tab.className   = 'cc-kit-tier-tab' + (tier === 1 ? ' cc-kit-tier-tab--active-t1' : '');
+    t1tab.textContent = 'Tier 1 • 1pt';
+    t1tab.title       = 'View Tier 1 benefits';
+    var t2tab = document.createElement('button');
+    t2tab.className   = 'cc-kit-tier-tab' + (tier === 2 ? ' cc-kit-tier-tab--active-t2' : '');
+    t2tab.textContent = 'Tier 2 • 2pt';
+    t2tab.title       = 'View Tier 2 benefits';
+    // Tabs just highlight, they don't change selection
+    tabs.appendChild(t1tab);
+    tabs.appendChild(t2tab);
+    card.appendChild(tabs);
+
+    // Body — show active tier's benefits (or T1 preview)
+    var showTier = tier > 0 ? kit[('tier_' + tier)] : kit.tier_1;
+    var body = document.createElement('div');
+    body.className = 'cc-kit-body';
+    var tierLabel = document.createElement('div');
+    tierLabel.className   = 'cc-kit-tier-label';
+    tierLabel.textContent = tier > 0 ? showTier.label : 'Tier 1: ' + kit.tier_1.label;
+    body.appendChild(tierLabel);
+    var blist = document.createElement('div');
+    blist.className = 'cc-kit-benefit-list';
+    showTier.benefits.forEach(function(b) {
+      var brow = document.createElement('div');
+      brow.className = 'cc-kit-benefit cc-kit-benefit--' + b.type;
+      var val = document.createElement('span');
+      val.className   = 'cc-kit-benefit-value';
+      val.textContent = b.value;
+      var desc = document.createElement('span');
+      desc.className   = 'cc-kit-benefit-desc';
+      desc.textContent = b.description;
+      brow.appendChild(val);
+      brow.appendChild(desc);
+      blist.appendChild(brow);
+    });
+    body.appendChild(blist);
+    card.appendChild(body);
+
+    // Footer — action buttons
+    var footer = document.createElement('div');
+    footer.className = 'cc-kit-footer';
+    var costLabel = document.createElement('span');
+    costLabel.className = 'cc-kit-cost-label';
+    if (tier === 0) costLabel.textContent = 'T1: 1pt  |  T2: 2pt';
+    if (tier === 1) costLabel.textContent = 'Selected at Tier 1 (1pt)';
+    if (tier === 2) costLabel.textContent = 'Selected at Tier 2 (2pt)';
+    footer.appendChild(costLabel);
+
+    var actions = document.createElement('div');
+    actions.className = 'cc-kit-actions';
+
+    if (tier === 0) {
+      // Take T1
+      var btn1 = document.createElement('button');
+      btn1.className   = 'cc-kit-btn cc-kit-btn--take';
+      btn1.textContent = 'Tier 1';
+      btn1.disabled    = avail < 1;
+      btn1.title       = avail < 1 ? 'Not enough points' : 'Take this kit at Tier 1 (1pt)';
+      btn1.addEventListener('click', function() { handleKitSelect(kit.id, 1); });
+      actions.appendChild(btn1);
+      // Take T2
+      var btn2 = document.createElement('button');
+      btn2.className   = 'cc-kit-btn cc-kit-btn--upgrade';
+      btn2.textContent = 'Tier 2';
+      btn2.disabled    = avail < 2;
+      btn2.title       = avail < 2 ? 'Need 2 points for Tier 2' : 'Take this kit at Tier 2 (2pt)';
+      btn2.addEventListener('click', function() { handleKitSelect(kit.id, 2); });
+      actions.appendChild(btn2);
+    }
+    if (tier === 1) {
+      // Upgrade to T2
+      var upgBtn = document.createElement('button');
+      upgBtn.className   = 'cc-kit-btn cc-kit-btn--upgrade';
+      upgBtn.textContent = 'Upgrade +1pt';
+      upgBtn.disabled    = avail < 1;
+      upgBtn.title       = avail < 1 ? 'Not enough points to upgrade' : 'Upgrade to Tier 2 (costs 1 more point)';
+      upgBtn.addEventListener('click', function() { handleKitSelect(kit.id, 2); });
+      actions.appendChild(upgBtn);
+      // Remove
+      var remBtn = document.createElement('button');
+      remBtn.className   = 'cc-kit-btn cc-kit-btn--remove';
+      remBtn.textContent = 'Remove';
+      remBtn.title       = 'Remove this kit and refund 1 point';
+      remBtn.addEventListener('click', function() { handleKitSelect(kit.id, 0); });
+      actions.appendChild(remBtn);
+    }
+    if (tier === 2) {
+      // Downgrade to T1
+      var dngBtn = document.createElement('button');
+      dngBtn.className   = 'cc-kit-btn';
+      dngBtn.textContent = 'Downgrade';
+      dngBtn.title       = 'Step down to Tier 1 (refund 1 point)';
+      dngBtn.addEventListener('click', function() { handleKitSelect(kit.id, 1); });
+      actions.appendChild(dngBtn);
+      // Remove
+      var remBtn2 = document.createElement('button');
+      remBtn2.className   = 'cc-kit-btn cc-kit-btn--remove';
+      remBtn2.textContent = 'Remove';
+      remBtn2.title       = 'Remove this kit and refund 2 points';
+      remBtn2.addEventListener('click', function() { handleKitSelect(kit.id, 0); });
+      actions.appendChild(remBtn2);
+    }
+
+    footer.appendChild(actions);
+    card.appendChild(footer);
+    return card;
+  }
+
+  function handleKitSelect(kitId, tier) {
+    if (!state.kitChoices) state.kitChoices = {};
+    if (tier === 0) {
+      delete state.kitChoices[kitId];
+    } else {
+      state.kitChoices[kitId] = tier;
+    }
+    saveState();
+    renderKitsContent();
+  }
+
   /* ── Phase card grid ────────────────────────────────────────────────────── */
 
   function buildPhaseGrid(cards, containerId, selectFn) {
@@ -1804,10 +2032,25 @@
       });
     }
 
+    var backToStats = document.getElementById('btn-back-to-stats');
+    if (backToStats) {
+      backToStats.addEventListener('click', function () {
+        showScreen('stats');
+        updateStepTrack(4);
+      });
+    }
+
+    var kitsContinue = document.getElementById('btn-kits-continue');
+    if (kitsContinue) {
+      kitsContinue.addEventListener('click', function () {
+        showSummary();
+      });
+    }
+
     var statsContinue = document.getElementById('btn-stats-continue');
     if (statsContinue) {
       statsContinue.addEventListener('click', function () {
-        showSummary();
+        initKitsScreen();
       });
     }
 
