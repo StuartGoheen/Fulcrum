@@ -3431,7 +3431,8 @@
 }
 
 .frame-tab-panel.is-active {
-  display: block;
+  display: flex;
+  flex-direction: column;
 }
 
 @keyframes tab-panel-in {
