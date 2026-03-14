@@ -1137,6 +1137,7 @@
       sumRow('Environment', p1._meta.environment),
       sumRow('Tone',        p1._meta.tone),
       sumRow('Themes',      p1._meta.themes.join(', ')),
+      sumRow('Favored Skill', p1._meta.favored),
     ] : [sumRow('Status', 'Not selected')]));
 
     body.appendChild(buildSumSection('Phase 2 — The Departure (Catalyst)', p2 ? [
@@ -1145,8 +1146,7 @@
       sumRow('Narrative',    p2.narrative),
       sumRow('Archetype',    p2._meta.archetype),
       sumRow('Tone',         p2._meta.tone),
-      sumRow('Proficiencies (pick 2)', p2._meta.proficiencies.join(' · ')),
-      sumRow('Variability',  p2._meta.variability),
+      sumRow('Favored Skill', p2._meta.favored),
     ] : [sumRow('Status', 'Not selected')]));
 
     body.appendChild(buildSumSection('Phase 3 — The Debt (Adversity)', p3 ? [
