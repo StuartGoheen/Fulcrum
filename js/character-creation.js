@@ -991,16 +991,6 @@
     });
   }
 
-  /* ── Phase card grid ────────────────────────────────────────────────────── */
-
-  function buildPhaseGrid(cards, containerId, selectFn) {
-    var grid = document.getElementById(containerId);
-    if (!grid) return;
-    grid.innerHTML = '';
-
-    cards.forEach(function (card) {
-      grid.appendChild(buildPhaseCard(card, selectFn));
-
   /* ── Arenas & Disciplines step ───────────────────────────────────── */
 
   var DISCIPLINES_BY_ARENA = [
@@ -1472,6 +1462,16 @@
     saveState();
     renderStatsContent();
   }
+  /* ── Phase card grid ────────────────────────────────────────────────────── */
+
+  function buildPhaseGrid(cards, containerId, selectFn) {
+    var grid = document.getElementById(containerId);
+    if (!grid) return;
+    grid.innerHTML = '';
+
+    cards.forEach(function (card) {
+      grid.appendChild(buildPhaseCard(card, selectFn));
+
 
     });
   }
