@@ -35,6 +35,19 @@ A Star Wars TTRPG electronic character sheet and campaign management system buil
 └── tailwind.config.js    # Tailwind config (scans public/**/*.html + js/**/*.js)
 ```
 
+## Data Files
+
+- `data/weapons.json` — weapon definitions (production)
+- `data/weapons_source.json` — raw weapon source (used by Black Market UI)
+- `data/equipment_source.json` — raw gear source (used by Black Market UI)
+- `data/character-test.json` — dev seed character (loaded by `server/db.js` on startup, keeps dev DB populated)
+- `data/characters.seed.json` — initial character slot names for DB seeding
+- `data/armor.json`, `data/gear.json`, `data/chassis.json` — equipment data
+- `data/kits.json` — Kit specialization definitions
+- `data/gamesystem.json` — Core resolution rules reference
+- `data/threats.json` — NPC/threat rules and trigger system
+- `data/maneuvers.json`, `data/glossary.json` — reference data
+
 ## Running the App
 
 ```bash
