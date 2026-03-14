@@ -1551,137 +1551,180 @@
   }
 
   function buildKitCard(kit, tier, avail) {
+    var isForce = kit.alignedDiscipline && kit.alignedDiscipline.indexOf('_spark') !== -1;
     var card = document.createElement('div');
     card.className = 'cc-kit-card' +
       (tier === 1 ? ' cc-kit-card--selected-t1' : '') +
       (tier === 2 ? ' cc-kit-card--selected-t2' : '') +
-      (kit.tags && kit.tags.indexOf('force') !== -1 ? ' cc-kit-card--force' : '');
+      (isForce ? ' cc-kit-card--force' : '');
 
-    // Head
+    // --- Header ---
     var head = document.createElement('div');
     head.className = 'cc-kit-card-head';
+
     var titleRow = document.createElement('div');
     titleRow.className = 'cc-kit-card-title-row';
     var nameEl = document.createElement('span');
     nameEl.className   = 'cc-kit-name';
     nameEl.textContent = kit.name;
     titleRow.appendChild(nameEl);
-    if (kit.tags && kit.tags.indexOf('force') !== -1) {
+    if (isForce) {
       var ftag = document.createElement('span');
       ftag.className   = 'cc-kit-force-tag';
       ftag.textContent = 'Force';
       titleRow.appendChild(ftag);
     }
     head.appendChild(titleRow);
-    var tagline = document.createElement('div');
-    tagline.className   = 'cc-kit-tagline';
-    tagline.textContent = kit.tagline;
-    head.appendChild(tagline);
+
+    // Arena + discipline meta row
+    var meta = document.createElement('div');
+    meta.className = 'cc-kit-meta';
+    var arenaTag = document.createElement('span');
+    arenaTag.className = 'cc-kit-meta-tag cc-kit-meta-tag--arena';
+    arenaTag.textContent = kit.governingArena ? (kit.governingArena.charAt(0).toUpperCase() + kit.governingArena.slice(1)) : '';
+    meta.appendChild(arenaTag);
+    if (kit.alignedDiscipline) {
+      var discTag = document.createElement('span');
+      discTag.className = 'cc-kit-meta-tag cc-kit-meta-tag--disc';
+      var discLabel = kit.alignedDiscipline;
+      if (discLabel.indexOf('_spark') !== -1) {
+        discLabel = 'Force (' + (discLabel.replace('_spark','').replace(/_/g,' ').charAt(0).toUpperCase() + discLabel.replace('_spark','').replace(/_/g,' ').slice(1)) + ')';
+      } else {
+        discLabel = discLabel.replace(/_/g,' ');
+        discLabel = discLabel.charAt(0).toUpperCase() + discLabel.slice(1);
+      }
+      discTag.textContent = discLabel;
+      meta.appendChild(discTag);
+    }
+    if (kit.primaryWeapons && kit.primaryWeapons.length) {
+      var wpTag = document.createElement('span');
+      wpTag.className = 'cc-kit-meta-tag cc-kit-meta-tag--weapon';
+      wpTag.textContent = kit.primaryWeapons.join(', ');
+      meta.appendChild(wpTag);
+    }
+    head.appendChild(meta);
     card.appendChild(head);
 
-    // Tier tabs
-    var tabs = document.createElement('div');
-    tabs.className = 'cc-kit-tier-tabs';
-    var t1tab = document.createElement('button');
-    t1tab.className   = 'cc-kit-tier-tab' + (tier === 1 ? ' cc-kit-tier-tab--active-t1' : '');
-    t1tab.textContent = 'Tier 1 • 1pt';
-    t1tab.title       = 'View Tier 1 benefits';
-    var t2tab = document.createElement('button');
-    t2tab.className   = 'cc-kit-tier-tab' + (tier === 2 ? ' cc-kit-tier-tab--active-t2' : '');
-    t2tab.textContent = 'Tier 2 • 2pt';
-    t2tab.title       = 'View Tier 2 benefits';
-    // Tabs just highlight, they don't change selection
-    tabs.appendChild(t1tab);
-    tabs.appendChild(t2tab);
-    card.appendChild(tabs);
-
-    // Body — show active tier's benefits (or T1 preview)
-    var showTier = tier > 0 ? kit[('tier_' + tier)] : kit.tier_1;
+    // --- Ability list ---
     var body = document.createElement('div');
     body.className = 'cc-kit-body';
-    var tierLabel = document.createElement('div');
-    tierLabel.className   = 'cc-kit-tier-label';
-    tierLabel.textContent = tier > 0 ? showTier.label : 'Tier 1: ' + kit.tier_1.label;
-    body.appendChild(tierLabel);
-    var blist = document.createElement('div');
-    blist.className = 'cc-kit-benefit-list';
-    showTier.benefits.forEach(function(b) {
-      var brow = document.createElement('div');
-      brow.className = 'cc-kit-benefit cc-kit-benefit--' + b.type;
-      var val = document.createElement('span');
-      val.className   = 'cc-kit-benefit-value';
-      val.textContent = b.value;
-      var desc = document.createElement('span');
-      desc.className   = 'cc-kit-benefit-desc';
-      desc.textContent = b.description;
-      brow.appendChild(val);
-      brow.appendChild(desc);
-      blist.appendChild(brow);
-    });
-    body.appendChild(blist);
+
+    var abilities = kit.abilities || [];
+    var t1 = abilities.filter(function(a) { return a.tier === 1; });
+    var t2 = abilities.filter(function(a) { return a.tier === 2; });
+    var t3 = abilities.filter(function(a) { return a.tier === 3; });
+
+    function renderAbilitySection(sectionLabel, abList, state) {
+      // state: 'active' | 'preview' | 'locked'
+      var sec = document.createElement('div');
+      sec.className = 'cc-kit-tier-section cc-kit-tier-section--' + state;
+      var secHead = document.createElement('div');
+      secHead.className = 'cc-kit-tier-section-head';
+      var secLbl = document.createElement('span');
+      secLbl.className = 'cc-kit-tier-section-label';
+      secLbl.textContent = sectionLabel;
+      secHead.appendChild(secLbl);
+      if (state === 'locked') {
+        var lockBadge = document.createElement('span');
+        lockBadge.className = 'cc-kit-locked-badge';
+        lockBadge.textContent = 'Requires Advancement';
+        secHead.appendChild(lockBadge);
+      }
+      sec.appendChild(secHead);
+
+      abList.forEach(function(ab) {
+        var row = document.createElement('div');
+        row.className = 'cc-kit-ability-row';
+        var typeBadge = document.createElement('span');
+        typeBadge.className = 'cc-kit-ability-type cc-kit-ability-type--' + (ab.type || 'passive');
+        typeBadge.textContent = ab.actionType ? ab.actionType : (ab.type === 'gambit' ? 'Gambit' : 'Passive');
+        row.appendChild(typeBadge);
+        var abBody = document.createElement('div');
+        abBody.className = 'cc-kit-ability-body';
+        var abName = document.createElement('div');
+        abName.className = 'cc-kit-ability-name';
+        abName.textContent = ab.name;
+        abBody.appendChild(abName);
+        if (ab.arenaTag) {
+          var aTag = document.createElement('span');
+          aTag.className = 'cc-kit-ability-arena-tag';
+          aTag.textContent = ab.arenaTag;
+          abBody.appendChild(aTag);
+        }
+        var abRule = document.createElement('div');
+        abRule.className = 'cc-kit-ability-rule';
+        abRule.textContent = ab.rule;
+        abBody.appendChild(abRule);
+        row.appendChild(abBody);
+        sec.appendChild(row);
+      });
+      return sec;
+    }
+
+    // Determine section states based on selected tier
+    var t1State = (tier >= 1) ? 'active' : 'preview';
+    var t2State = (tier >= 2) ? 'active' : (tier === 0 ? 'preview' : 'preview');
+    var t3State = 'locked';
+
+    if (t1.length) body.appendChild(renderAbilitySection('Tier 1', t1, t1State));
+    if (t2.length) body.appendChild(renderAbilitySection('Tier 2', t2, t2State));
+    if (t3.length) body.appendChild(renderAbilitySection('Tier 3', t3, t3State));
+
     card.appendChild(body);
 
-    // Footer — action buttons
+    // --- Footer ---
     var footer = document.createElement('div');
     footer.className = 'cc-kit-footer';
     var costLabel = document.createElement('span');
     costLabel.className = 'cc-kit-cost-label';
     if (tier === 0) costLabel.textContent = 'T1: 1pt  |  T2: 2pt';
-    if (tier === 1) costLabel.textContent = 'Selected at Tier 1 (1pt)';
-    if (tier === 2) costLabel.textContent = 'Selected at Tier 2 (2pt)';
+    if (tier === 1) costLabel.textContent = 'Tier 1 selected (1pt)';
+    if (tier === 2) costLabel.textContent = 'Tier 2 selected (2pt)';
     footer.appendChild(costLabel);
 
     var actions = document.createElement('div');
     actions.className = 'cc-kit-actions';
 
     if (tier === 0) {
-      // Take T1
       var btn1 = document.createElement('button');
       btn1.className   = 'cc-kit-btn cc-kit-btn--take';
-      btn1.textContent = 'Tier 1';
+      btn1.textContent = 'Take Tier 1';
       btn1.disabled    = avail < 1;
-      btn1.title       = avail < 1 ? 'Not enough points' : 'Take this kit at Tier 1 (1pt)';
+      btn1.title       = avail < 1 ? 'Not enough points' : 'Take at Tier 1 (1pt)';
       btn1.addEventListener('click', function() { handleKitSelect(kit.id, 1); });
       actions.appendChild(btn1);
-      // Take T2
       var btn2 = document.createElement('button');
       btn2.className   = 'cc-kit-btn cc-kit-btn--upgrade';
-      btn2.textContent = 'Tier 2';
+      btn2.textContent = 'Take Tier 2';
       btn2.disabled    = avail < 2;
-      btn2.title       = avail < 2 ? 'Need 2 points for Tier 2' : 'Take this kit at Tier 2 (2pt)';
+      btn2.title       = avail < 2 ? 'Need 2 points' : 'Take at Tier 2 (2pt)';
       btn2.addEventListener('click', function() { handleKitSelect(kit.id, 2); });
       actions.appendChild(btn2);
     }
     if (tier === 1) {
-      // Upgrade to T2
       var upgBtn = document.createElement('button');
       upgBtn.className   = 'cc-kit-btn cc-kit-btn--upgrade';
-      upgBtn.textContent = 'Upgrade +1pt';
+      upgBtn.textContent = 'Upgrade to Tier 2 (+1pt)';
       upgBtn.disabled    = avail < 1;
-      upgBtn.title       = avail < 1 ? 'Not enough points to upgrade' : 'Upgrade to Tier 2 (costs 1 more point)';
+      upgBtn.title       = avail < 1 ? 'Not enough points' : 'Upgrade to Tier 2 (spend 1 more point)';
       upgBtn.addEventListener('click', function() { handleKitSelect(kit.id, 2); });
       actions.appendChild(upgBtn);
-      // Remove
       var remBtn = document.createElement('button');
       remBtn.className   = 'cc-kit-btn cc-kit-btn--remove';
       remBtn.textContent = 'Remove';
-      remBtn.title       = 'Remove this kit and refund 1 point';
       remBtn.addEventListener('click', function() { handleKitSelect(kit.id, 0); });
       actions.appendChild(remBtn);
     }
     if (tier === 2) {
-      // Downgrade to T1
       var dngBtn = document.createElement('button');
       dngBtn.className   = 'cc-kit-btn';
-      dngBtn.textContent = 'Downgrade';
-      dngBtn.title       = 'Step down to Tier 1 (refund 1 point)';
+      dngBtn.textContent = 'Downgrade to T1';
+      dngBtn.title       = 'Refund 1 point, drop to Tier 1';
       dngBtn.addEventListener('click', function() { handleKitSelect(kit.id, 1); });
       actions.appendChild(dngBtn);
-      // Remove
       var remBtn2 = document.createElement('button');
       remBtn2.className   = 'cc-kit-btn cc-kit-btn--remove';
       remBtn2.textContent = 'Remove';
-      remBtn2.title       = 'Remove this kit and refund 2 points';
       remBtn2.addEventListener('click', function() { handleKitSelect(kit.id, 0); });
       actions.appendChild(remBtn2);
     }
@@ -1691,7 +1734,7 @@
     return card;
   }
 
-  function handleKitSelect(kitId, tier) {
+    function handleKitSelect(kitId, tier) {
     if (!state.kitChoices) state.kitChoices = {};
     if (tier === 0) {
       delete state.kitChoices[kitId];
