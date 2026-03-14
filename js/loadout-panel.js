@@ -210,12 +210,12 @@
     return html + '</div>';
   }
 
-  var LOADOUT_CYCLE = ['equipped', 'carried', 'stowed'];
+  var LOADOUT_CYCLE = ['equipped', 'carried'];
 
   function _loadoutCycleStatus(current) {
     var idx = LOADOUT_CYCLE.indexOf(current);
-    if (idx === -1 || idx >= LOADOUT_CYCLE.length - 1) return 'stowed';
-    return LOADOUT_CYCLE[idx + 1];
+    if (idx === -1) return LOADOUT_CYCLE[0];
+    return LOADOUT_CYCLE[(idx + 1) % LOADOUT_CYCLE.length];
   }
 
   function _loadoutPersist(itemId, itemType, status) {
