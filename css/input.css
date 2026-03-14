@@ -112,6 +112,17 @@
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
     overflow-y: auto;
+    pointer-events: none;
+  }
+
+  /* Unflipped: front face receives events */
+  .char-panel-flipper:not(.flipped) .char-panel-front {
+    pointer-events: auto;
+  }
+
+  /* Flipped: back face receives events */
+  .char-panel-flipper.flipped .char-panel-back {
+    pointer-events: auto;
   }
 
   .char-panel-back {
@@ -2050,7 +2061,7 @@
   .glossary-overlay {
     position: fixed;
     bottom: 0;
-    left: 25vw;
+    left: 50vw;
     right: 25vw;
     z-index: 200;
     transform: translateY(100%);
@@ -3563,5 +3574,13 @@
   }
   #player-footer {
     left: 240px !important;
+  }
+}
+
+/* ── Glossary overlay: tablet repositioning ─────────────────── */
+@media (max-width: 1280px) {
+  .glossary-overlay {
+    left: 50% !important;
+    right: 0 !important;
   }
 }
