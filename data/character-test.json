@@ -5,7 +5,14 @@
   "archetype": "Drifter",
   "narrative": "A wandering soul shaped by hardship and guided by instinct, Kael has spent years on the frontier where survival was the only law that mattered. Former military, former criminal, former a lot of things — now just trying to keep moving forward.",
   "vitalityModifier": 0,
-  "weaponIds": ["wpn_dc15s_01", "wpn_dh17_01", "wpn_relbyk23_01", "wpn_lightsaber_01"],
+  "weaponIds": [
+    "wpn_dc15s_01",
+    "wpn_dh17_01",
+    "wpn_relbyk23_01",
+    "wpn_lightsaber_01",
+    "wpn_e11_01",
+    "wpn_e5_01"
+  ],
   "armorId": "arm_combat_jumpsuit_01",
   "gearIds": [
     "gear_medpac_01",
@@ -32,7 +39,9 @@
       "tier": 3,
       "governingArena": "reflex",
       "alignedDiscipline": "ranged",
-      "primaryWeapons": ["Pistol"],
+      "primaryWeapons": [
+        "Pistol"
+      ],
       "abilities": [
         {
           "id": "kit_slinger_t1",
@@ -65,7 +74,11 @@
           "type": "passive",
           "name": "The Hair-Trigger",
           "rule": "Your maximum Triggers per round is permanently increased by 1. This extra Trigger can only be used to perform Ranged (Pistol) actions to exploit an Opening.",
-          "actionBonus": { "action": 0, "trigger": 1, "maneuver": 0 }
+          "actionBonus": {
+            "action": 0,
+            "trigger": 1,
+            "maneuver": 0
+          }
         },
         {
           "id": "kit_slinger_t3_pr",
@@ -137,7 +150,9 @@
       "id": "talent_point_blank_shot",
       "name": "Point Blank Shot",
       "gambit": "Reduce effect by one level: You do not provide an opening for this attack if attacking a target you are [Engaged] with.",
-      "tags": ["Pistol"]
+      "tags": [
+        "Pistol"
+      ]
     }
   ],
   "arenas": [
@@ -147,11 +162,31 @@
       "subtitle": "Strength, Structure, Endurance",
       "die": "D8",
       "disciplines": [
-        { "id": "athletics",     "label": "Athletics",     "die": "D12" },
-        { "id": "brawl",         "label": "Brawl",         "die": "D12" },
-        { "id": "endure",        "label": "Endure",        "die": "D12" },
-        { "id": "melee",         "label": "Melee",         "die": "D12" },
-        { "id": "heavy_weapons", "label": "Heavy Weapons", "die": "D12" }
+        {
+          "id": "athletics",
+          "label": "Athletics",
+          "die": "D12"
+        },
+        {
+          "id": "brawl",
+          "label": "Brawl",
+          "die": "D12"
+        },
+        {
+          "id": "endure",
+          "label": "Endure",
+          "die": "D12"
+        },
+        {
+          "id": "melee",
+          "label": "Melee",
+          "die": "D12"
+        },
+        {
+          "id": "heavy_weapons",
+          "label": "Heavy Weapons",
+          "die": "D12"
+        }
       ]
     },
     {
@@ -160,11 +195,31 @@
       "subtitle": "Speed, Agility, Hand-Eye Coordination",
       "die": "D6",
       "disciplines": [
-        { "id": "evasion",      "label": "Evasion",      "die": "D12" },
-        { "id": "piloting",     "label": "Piloting",     "die": "D12" },
-        { "id": "ranged",       "label": "Ranged",       "die": "D12" },
-        { "id": "skulduggery",  "label": "Skulduggery",  "die": "D12" },
-        { "id": "stealth",      "label": "Stealth",      "die": "D12" }
+        {
+          "id": "evasion",
+          "label": "Evasion",
+          "die": "D12"
+        },
+        {
+          "id": "piloting",
+          "label": "Piloting",
+          "die": "D12"
+        },
+        {
+          "id": "ranged",
+          "label": "Ranged",
+          "die": "D12"
+        },
+        {
+          "id": "skulduggery",
+          "label": "Skulduggery",
+          "die": "D12"
+        },
+        {
+          "id": "stealth",
+          "label": "Stealth",
+          "die": "D12"
+        }
       ]
     },
     {
@@ -173,11 +228,31 @@
       "subtitle": "Instinct, Stamina, Spiritual Willpower",
       "die": "D10",
       "disciplines": [
-        { "id": "beast_handling",   "label": "Beast Handling",        "die": "D12" },
-        { "id": "control_spark",    "label": "Control (The Spark)",   "die": "D12" },
-        { "id": "intimidate",       "label": "Intimidate",            "die": "D12" },
-        { "id": "resolve",          "label": "Resolve",               "die": "D12" },
-        { "id": "survival",         "label": "Survival",              "die": "D12" }
+        {
+          "id": "beast_handling",
+          "label": "Beast Handling",
+          "die": "D12"
+        },
+        {
+          "id": "control_spark",
+          "label": "Control (The Spark)",
+          "die": "D12"
+        },
+        {
+          "id": "intimidate",
+          "label": "Intimidate",
+          "die": "D12"
+        },
+        {
+          "id": "resolve",
+          "label": "Resolve",
+          "die": "D12"
+        },
+        {
+          "id": "survival",
+          "label": "Survival",
+          "die": "D12"
+        }
       ]
     },
     {
@@ -186,11 +261,31 @@
       "subtitle": "Logic, Awareness, Technical Knowledge",
       "die": "D8",
       "disciplines": [
-        { "id": "investigation", "label": "Investigation",       "die": "D12" },
-        { "id": "medicine",      "label": "Medicine",            "die": "D12" },
-        { "id": "sense_spark",   "label": "Sense (The Spark)",   "die": "D12" },
-        { "id": "tactics",       "label": "Tactics",             "die": "D12" },
-        { "id": "tech",          "label": "Tech",                "die": "D12" }
+        {
+          "id": "investigation",
+          "label": "Investigation",
+          "die": "D12"
+        },
+        {
+          "id": "medicine",
+          "label": "Medicine",
+          "die": "D12"
+        },
+        {
+          "id": "sense_spark",
+          "label": "Sense (The Spark)",
+          "die": "D12"
+        },
+        {
+          "id": "tactics",
+          "label": "Tactics",
+          "die": "D12"
+        },
+        {
+          "id": "tech",
+          "label": "Tech",
+          "die": "D12"
+        }
       ]
     },
     {
@@ -199,11 +294,31 @@
       "subtitle": "Charisma, Authority, Projection of Will",
       "die": "D4",
       "disciplines": [
-        { "id": "alter_spark",  "label": "Alter (The Spark)",  "die": "D12" },
-        { "id": "charm",        "label": "Charm",              "die": "D12" },
-        { "id": "deception",    "label": "Deception",          "die": "D12" },
-        { "id": "insight",      "label": "Insight",            "die": "D12" },
-        { "id": "persuasion",   "label": "Persuasion",         "die": "D12" }
+        {
+          "id": "alter_spark",
+          "label": "Alter (The Spark)",
+          "die": "D12"
+        },
+        {
+          "id": "charm",
+          "label": "Charm",
+          "die": "D12"
+        },
+        {
+          "id": "deception",
+          "label": "Deception",
+          "die": "D12"
+        },
+        {
+          "id": "insight",
+          "label": "Insight",
+          "die": "D12"
+        },
+        {
+          "id": "persuasion",
+          "label": "Persuasion",
+          "die": "D12"
+        }
       ]
     }
   ]

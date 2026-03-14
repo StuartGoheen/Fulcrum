@@ -1,5 +1,62 @@
 (function () {
   'use strict';
+  // ── Ammo State ──────────────────────────────────────────────
+  var _ammoState = {};
+
+  function _getAmmo(weaponId, clipSize) {
+    if (_ammoState[weaponId] !== undefined) return _ammoState[weaponId];
+    try {
+      var stored = localStorage.getItem('ammo_' + weaponId);
+      if (stored !== null) {
+        var val = parseFloat(stored);
+        _ammoState[weaponId] = isNaN(val) ? clipSize : val;
+        return _ammoState[weaponId];
+      }
+    } catch(e) {}
+    _ammoState[weaponId] = clipSize;
+    return clipSize;
+  }
+
+  function _setAmmo(weaponId, value) {
+    _ammoState[weaponId] = value;
+    try { localStorage.setItem('ammo_' + weaponId, String(value)); } catch(e) {}
+  }
+
+  function _calcDrain(clipSize, mode) {
+    var base = 1.0;
+    var variance = clipSize * 0.008;
+    var mult = mode === 'Burst' ? 2 : mode === 'Auto' ? 5 : 1;
+    var min = base * mult;
+    var max = (base + variance) * mult;
+    return Math.round((Math.random() * (max - min) + min) * 10) / 10;
+  }
+
+  function _refreshAmmoBar(card, currentAmmo, clipSize) {
+    var bar = card.querySelector('.wpn-ammo-bar');
+    if (!bar) return;
+    var SEGS = 8;
+    var pct = clipSize > 0 ? Math.max(0, Math.min(100, Math.round((currentAmmo / clipSize) * 100))) : 0;
+    var filled = Math.round((pct / 100) * SEGS);
+    var segColor = pct >= 75 ? '#22c55e' : (pct >= 30 ? '#f59e0b' : '#ef4444');
+    var glowColor = pct >= 75 ? '#22c55e40' : (pct >= 30 ? '#f59e0b40' : '#ef444440');
+    var segsHtml = '';
+    for (var i = 0; i < SEGS; i++) {
+      segsHtml += i < filled
+        ? '<div class="wpn-ammo-seg" style="background:' + segColor + ';box-shadow:0 0 4px ' + glowColor + ';"></div>'
+        : '<div class="wpn-ammo-seg wpn-ammo-seg-empty"></div>';
+    }
+    var disp = Math.round(currentAmmo * 10) / 10;
+    bar.setAttribute('data-ammo-pct', pct);
+    bar.title = disp + ' / ' + clipSize + ' charges';
+    bar.innerHTML = segsHtml;
+    var fireBtn = card.querySelector('.lfc-fire-btn');
+    if (fireBtn) {
+      fireBtn.disabled = currentAmmo < 1.0;
+      fireBtn.classList.toggle('is-depleted', currentAmmo < 1.0);
+    }
+  }
+
+
 
   var DIE_ORDER = ['D4', 'D6', 'D8', 'D10', 'D12'];
 
@@ -158,14 +215,15 @@
     '</span>';
   }
 
-  function _buildAmmoBar(clipSize) {
+  function _buildAmmoBar(clipSize, weaponId) {
     if (!clipSize || clipSize <= 0) return '';
     var SEGS = 8;
-    var pct = 100;
+    var currentAmmo = weaponId ? _getAmmo(weaponId, clipSize) : clipSize;
+    var pct = Math.max(0, Math.min(100, Math.round((currentAmmo / clipSize) * 100)));
     var filled = Math.round((pct / 100) * SEGS);
     var segColor = pct >= 75 ? '#22c55e' : (pct >= 30 ? '#f59e0b' : '#ef4444');
     var glowColor = pct >= 75 ? '#22c55e40' : (pct >= 30 ? '#f59e0b40' : '#ef444440');
-    var currentAmmo = Math.round((pct / 100) * clipSize);
+    var currentAmmo = Math.round(currentAmmo * 10) / 10;
     var html = '<div class="wpn-ammo-bar" data-clip-size="' + String(clipSize) + '" data-ammo-pct="' + pct + '" title="' + currentAmmo + ' / ' + clipSize + ' charges">';
     for (var i = 0; i < SEGS; i++) {
       if (i < filled) {
@@ -176,6 +234,27 @@
     }
     html += '</div>';
     return html;
+  }
+
+
+  function _buildFireControls(weapon) {
+    if (!weapon.clipSize) return '';
+    var modes = weapon.fireModes || ['Standard'];
+    var currentAmmo = _getAmmo(weapon.id, weapon.clipSize);
+    var depleted = currentAmmo < 1.0;
+    var modesHtml = '';
+    for (var i = 0; i < modes.length; i++) {
+      var m = modes[i];
+      var label = m === 'Standard' ? 'Std' : m;
+      modesHtml += '<button class="lfc-mode-btn' + (i === 0 ? ' is-active' : '') + '" data-mode="' + m + '">'  + label + '</button>';
+    }
+    return (
+      '<div class="loadout-fire-controls" data-weapon-id="' + weapon.id + '" data-clip-size="' + weapon.clipSize + '">' +
+        '<div class="lfc-modes">' + modesHtml + '</div>' +
+        '<button class="lfc-fire-btn' + (depleted ? ' is-depleted' : '') + '"' + (depleted ? ' disabled' : '') + '>&#9654; FIRE</button>' +
+        '<button class="lfc-reload-btn" title="Reload / Swap Cell">&#8635; RELOAD</button>' +
+      '</div>'
+    );
   }
 
   function _buildLoadoutWeaponCard(weapon, char, chassisMap, status) {
@@ -275,7 +354,8 @@
         _dieImg(arenaDie) +
       '</div>';
 
-    var ammoBarHtml = _buildAmmoBar(weapon.clipSize);
+    var ammoBarHtml = _buildAmmoBar(weapon.clipSize, weapon.id);
+    var fireControlsHtml = _buildFireControls(weapon);
 
     return (
       '<div class="armory-weapon-card" data-weapon-id="' + _esc(weapon.id) + '">' +
@@ -284,6 +364,7 @@
           ammoBarHtml +
           discHtml +
         '</div>' +
+        fireControlsHtml +
         '<div class="armory-weapon-body">' +
           metaHtml + effectHtml + traitHtml + gambitsHtml +
         '</div>' +
@@ -524,6 +605,47 @@
   }
 
   document.addEventListener('click', function (e) {
+    // ── Fire mode toggle ───────────────────────────────
+    var modeBtn = e.target.closest && e.target.closest('.lfc-mode-btn');
+    if (modeBtn && modeBtn.closest('[id="panel-4"]')) {
+      var fc = modeBtn.closest('.loadout-fire-controls');
+      if (fc) {
+        fc.querySelectorAll('.lfc-mode-btn').forEach(function(b) { b.classList.remove('is-active'); });
+        modeBtn.classList.add('is-active');
+      }
+      return;
+    }
+
+    // ── Fire button ───────────────────────────────────
+    var fireBtn = e.target.closest && e.target.closest('.lfc-fire-btn');
+    if (fireBtn && !fireBtn.disabled && fireBtn.closest('[id="panel-4"]')) {
+      var fc = fireBtn.closest('.loadout-fire-controls');
+      if (!fc) return;
+      var wId = fc.getAttribute('data-weapon-id');
+      var cs  = parseInt(fc.getAttribute('data-clip-size'), 10);
+      var active = fc.querySelector('.lfc-mode-btn.is-active');
+      var mode = active ? active.getAttribute('data-mode') : 'Standard';
+      var current = _getAmmo(wId, cs);
+      if (current < 1.0) return;
+      var drain = _calcDrain(cs, mode);
+      var next  = Math.max(0, Math.round((current - drain) * 10) / 10);
+      _setAmmo(wId, next);
+      _refreshAmmoBar(fc.closest('.armory-weapon-card'), next, cs);
+      return;
+    }
+
+    // ── Reload button ──────────────────────────────────
+    var reloadBtn = e.target.closest && e.target.closest('.lfc-reload-btn');
+    if (reloadBtn && reloadBtn.closest('[id="panel-4"]')) {
+      var fc = reloadBtn.closest('.loadout-fire-controls');
+      if (!fc) return;
+      var wId = fc.getAttribute('data-weapon-id');
+      var cs  = parseInt(fc.getAttribute('data-clip-size'), 10);
+      _setAmmo(wId, cs);
+      _refreshAmmoBar(fc.closest('.armory-weapon-card'), cs, cs);
+      return;
+    }
+
     var header = e.target.closest && e.target.closest('.armory-weapon-header');
     if (header && header.closest('[id="panel-4"]')) {
       var card = header.closest('.armory-weapon-card');
