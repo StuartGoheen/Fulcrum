@@ -1,0 +1,215 @@
+Mines
+Laser Trip Mine
+Model: Merr-Sonn Laser Trip Mine
+Type: Mine
+Scale: Character
+Skill: Demolitions: laser trip mine
+Cost: 300
+Availability: 2, R or X
+Difficulty: Moderate
+Blast Radius: 1/3/5
+Damage: 6D/5D/4D
+Game Notes: Emits a thin laser beam that, when disrupted, activates the mine.
+
+Proton Mine
+Model: Merr-Sonn LX-4
+Type: Self-detonating perimeter mine
+Scale: Character
+Skill: Demolitions
+Cost: 750
+Availability: 2, X
+Blast Radius: 5/8/12/20
+Damage: 6D/5D/4D/3D
+Source: Imperial Sourcebook (page 129)
+
+DR-X55 Imperial Lift-Mine
+Model: Norsam DR-X55
+Type: Repulsorlift mine
+Scale: Speeder
+Skill: Demolitions
+Cost: Not available for sale
+Availability: X
+Blast Radius: 1-5/10/15/20
+Damage: 4D/3D/2D/1D
+Game Notes: Can be set for specific height or to move between two heights (up to 250m/round). Detects vehicles up to 100m away; adjusts height to match target; detonates within 3m. Cannot be detonated by other mines.
+Source: Cracken's Rebel Field Guide (page 79)
+
+E-Mag Mine
+Model: Mesonic E-Mag Explosive Mine
+Type: Anti-repulsorlift mine
+Scale: Character
+Skill: Demolitions
+Cost: 200
+Availability: 2, R or X
+Damage: 7D
+Game Notes: Sensors cannot detect repulsorlift vehicles higher than 25m above ground. Can be calibrated for foot traffic. Sensors skill 6D to detect repulsorlift traffic.
+Source: Gundark's Fantastic Technology (page 44)
+
+Mine
+Model: Standard anti-vehicle mine
+Type: Explosive
+Scale: Speeder
+Skill: Demolitions
+Cost: 750
+Availability: 2, X
+Blast Radius: 0-2/4/6/10
+Damage: 5D/4D/3D/2D
+Source: Rulebook (page 234)
+
+Magneta-Mine
+Model: Greff-Timms Industrial Magnetic-fastening Explosive Device
+Type: Explosive
+Scale: Speeder
+Skill: Demolitions
+Cost: 1,500
+Availability: 2, X
+Blast Radius: 0-2/4/6/10
+Damage: 5D/4D/3D/2D
+Game Notes: Can be attached to any ferrous metallic surface.
+Source: Tales of the Jedi Companion (page 127)
+
+Antigrav Field Mine
+Model: SoroSuub XG Anti-Gravity Field Bomb
+Type: Light repulsor mine
+Scale: Speeder
+Skill: Demolitions: mines
+Cost: 400
+Availability: 2, X
+Blast Radius: 1-2/4/6/10
+Damage: 6D/5D/3D/2D
+Game Notes: Triggered when any repulsor vehicle passes within 3m. Disarmed with Moderate demolitions roll; failure = explosion.
+Source: Cracken's Rebel Field Guide (page 78), Rules of Engagement - The Rebel SpecForce Handbook (page 69)
+
+Singularity Mine
+Model: Yuuzhan Vong Singularity Mine
+Type: Matter compacting mine
+Scale: Character
+Cost: Not available for sale
+Availability: 4, X
+Damage: Special
+Game Notes: Creates miniature black hole when stepped on. Beings within 2m must make Very Difficult dodge or be lost forever.
+Source: The New Jedi Order Sourcebook (page 155)
+
+Demolition Devices
+Detonite
+Type: Common detonite
+Scale: Speeder
+Skill: Demolitions
+Cost: 500
+Availability: 2, R
+Damage: 1D
+Source: Rules of Engagement - The Rebel SpecForce Handbook (page 68)
+
+Detonite Tape
+Model: Merr-Sonn Munitions Compound Flex-5 Detonite Tape
+Type: Adhesive explosive strip
+Scale: Character
+Skill: Demolitions
+Cost: 1,500
+Availability: X
+Difficulty: 10
+Blast Radius: 0-0.5 meters
+Damage: 3D
+Source: Gundark's Fantastic Technology (page 44), Rules of Engagement - The Rebel SpecForce Handbook (page 69)
+
+Merr-Sonn Shaped Charge
+Model: Merr-Sonn Munitions Pre-shaped Detonite Charge
+Type: Shaped charge
+Scale: Character
+Skill: Demolitions
+Cost: 200
+Availability: 2, R
+Difficulty: Moderate
+Damage: 2D per charge
+Game Notes: Successful use increases explosion damage by +2D.
+Source: Gundark's Fantastic Technology (pages 45-46), Rules of Engagement - The Rebel SpecForce Handbook (pages 68-69)
+
+Plasticine Thermite Gel
+Model: Gatrellis Plasticine Thermite Gel
+Type: Controlled pyrotechnic explosive
+Scale: Character
+Skill: Demolitions
+Cost: 1,000
+Availability: 2, X
+Damage: 20D per full kilogram per round; 2D per 100g per round; 3 rounds burning time per 0.5kg application
+Game Notes: Ignition by remote detonator. Can be shaped and molded; 1kg covers up to 20 sq meters. Demolitions roll required; difficulty based on target reinforcement (Very Easy for light doors to Very Difficult for reinforced bulkheads).
+Source: Galaxy Guide 11: Criminal Organizations (page 84), Gundark's Fantastic Technology (page 46)
+
+Blaststick
+Model: TasCorp Blaststick
+Type: Explosive
+Scale: Speeder
+Skill: Demolitions
+Cost: 50
+Availability: F
+Blast Radius: 0-2/4/6/8
+Damage: 3D/2D+2/2D/1D
+Game Notes: Cannot be thrown. Damage cumulative if multiple blaststicks used.
+Source: Adventure Journal 15 (page 187)
+
+Proton Grenade
+Model: Merr-Sonn Munitions 7-PrG
+Type: Proton-based demolition charge
+Scale: Speeder
+Skill: Demolitions
+Cost: 750
+Availability: 2, F or R
+Blast Radius: 2/5/10
+Damage: 5D/4D/3D/2D
+Game Notes: EM pulse on explosion; all computers, droids, blasters, etc. within 20m suffer stunned/lightly ionized result.
+
+Thermal Well
+Model: Alliance-manufactured Thermal Well
+Type: Baradium meltdown device
+Scale: Character
+Skill: Demolitions
+Cost: Not available for sale
+Availability: 4
+Blast Radius: 0-1
+Damage: 10D
+Game Notes: Wild Die 1 = premature explosion.
+Source: Rules of Engagement - The Rebel SpecForce Handbook (page 70)
+
+Mesonics Shaped-Charged Explosive
+Model: Mesonics Focalized Explosive
+Type: Shaped-charged explosive
+Scale: Character
+Skill: Demolitions
+Cost: 2,500
+Availability: 2, R or X
+Damage: 10D
+Game Notes: When explosive is set, reduce the target's Strength dice by -1D.
+Source: Gundark's Fantastic Technology (page 46)
+
+Lowickan Firegem
+Type: Natural explosive
+Scale: Walker
+Skill: Demolitions: Lowickan firegems
+Cost: 45,000
+Availability: 4, X
+Blast Radius: 0-50/100/300
+Damage: 8D/6D/4D
+Game Notes: Detonates after ~3D minutes exposure to starship reactor radiation. Causes 1D radiation damage after first hour; +1D per additional hour without proper gear.
+Source: Gundark's Fantastic Technology (page 45), The Truce at Bakura Sourcebook (page 139)
+
+Miscellaneous Weapons
+Steng's Talons
+Model: Yuuzhan Vong Steng's Talons
+Type: Combat Implant
+Scale: Character
+Cost: Not available for sale
+Availability: 4, X
+Difficulty: Automatic when successfully grappling
+Damage: STR+1D (maximum: 6D)
+Game Notes: Implanted beneath torso skin; 8-10 pointed grafts extend automatically when grappling.
+Source: Gamer Magazine
+
+Tkun Strangler
+Model: Yuuzhan Vong Tkun Strangler
+Type: Organic strangulation weapon
+Scale: Character
+Cost: Not available for sale
+Availability: 4, X
+Damage: Special (strangulation)
+Game Notes: Small creature that strangles victims. Initiates opposed grapple (4D+2 Strength). Restrained victims suffer -3D to oppose. Suffocation damage 1D + 1D per round unable to breathe.
+Source: The New Jedi Order Sourcebook (page 103)

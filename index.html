@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" class="theme-rebellion">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Edge of the Empire</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/css/output.css" />
+</head>
+<body class="font-body min-h-screen relative overflow-x-hidden" style="background-color:var(--color-bg-primary);color:var(--color-text-primary);">
+
+  <div class="starfield" aria-hidden="true"></div>
+
+  <div class="relative z-10 min-h-screen flex flex-col">
+
+    <header class="flex items-center justify-between px-8 py-4" style="border-bottom:1px solid var(--color-border);">
+      <div class="flex items-center gap-3">
+        <span class="font-display text-xs tracking-widest uppercase" style="color:var(--color-text-secondary);">Galactic Campaign System</span>
+      </div>
+      <button id="theme-toggle" class="flex items-center gap-2 px-4 py-2 text-xs tracking-widest uppercase font-semibold transition-all duration-200" style="background:var(--color-bg-frame);color:var(--color-text-secondary);border:1px solid var(--color-border);" aria-label="Toggle theme">
+        <span id="theme-label">The Fringe</span>
+      </button>
+    </header>
+
+    <main class="flex-1 flex flex-col items-center justify-center px-6 py-16">
+
+      <div class="text-center mb-12">
+        <p class="text-xs tracking-widest uppercase mb-4" style="color:var(--color-accent-primary);">A long time ago, in a galaxy far, far away&hellip;</p>
+        <h1 class="font-display text-2xl md:text-xl tracking-wide mb-3" style="color:var(--color-accent-deep);">The Edge of the Empire</h1>
+        <p class="text-sm tracking-wide max-w-md mx-auto" style="color:var(--color-text-secondary);">
+          Out here, beyond the reach of the Core Worlds, survival is currency.<br/>
+          Choose your station, spacer.
+        </p>
+      </div>
+
+      <div class="flex flex-col md:flex-row gap-6 w-full max-w-4xl">
+
+        <button id="btn-player" class="flex-1 panel-card p-8 text-left transition-all duration-200 group cursor-pointer" style="border-color:var(--color-border);">
+          <div class="mb-4">
+            <p class="text-xs tracking-widest uppercase font-semibold mb-2" style="color:var(--color-accent-primary);">Crew Member</p>
+            <h2 class="font-display text-xl" style="color:var(--color-accent-deep);">Join the Crew</h2>
+          </div>
+          <p class="text-xs leading-relaxed" style="color:var(--color-text-secondary);">
+            Access your character sheet, track your status, and stay connected with the crew throughout the mission.
+          </p>
+          <div class="mt-6 flex items-center gap-2 text-xs font-semibold tracking-widest uppercase" style="color:var(--color-accent-primary);">
+            <span>Select Character</span>
+            <span>&rarr;</span>
+          </div>
+        </button>
+
+        <button id="btn-gm" class="flex-1 panel-card p-8 text-left transition-all duration-200 group cursor-pointer" style="border-color:var(--color-border);">
+          <div class="mb-4">
+            <p class="text-xs tracking-widest uppercase font-semibold mb-2" style="color:var(--color-accent-secondary);">Game Master</p>
+            <h2 class="font-display text-xl" style="color:var(--color-accent-deep);">Command Bridge</h2>
+          </div>
+          <p class="text-xs leading-relaxed" style="color:var(--color-text-secondary);">
+            Manage the campaign, control the encounter, and guide the crew through the edge of known space.
+          </p>
+          <div class="mt-6 flex items-center gap-2 text-xs font-semibold tracking-widest uppercase" style="color:var(--color-accent-secondary);">
+            <span>Enter Bridge</span>
+            <span>&rarr;</span>
+          </div>
+        </button>
+
+        <a href="/market/" class="flex-1 panel-card p-8 text-left transition-all duration-200 group" style="border-color:#440000;text-decoration:none;display:block;">
+          <div class="mb-4">
+            <p class="text-xs tracking-widest uppercase font-semibold mb-2" style="color:#CC2222;">No Questions Asked</p>
+            <h2 class="font-display text-xl" style="color:var(--color-accent-deep);">The Black Market</h2>
+          </div>
+          <p class="text-xs leading-relaxed" style="color:var(--color-text-secondary);">
+            Browse restricted and illegal gear. Run the deal, calculate the price, and submit item requests for GM conversion.
+          </p>
+          <div class="mt-6 flex items-center gap-2 text-xs font-semibold tracking-widest uppercase" style="color:#CC2222;">
+            <span>Enter at Your Own Risk</span>
+            <span>&rarr;</span>
+          </div>
+        </a>
+
+      </div>
+
+    </main>
+
+    <footer class="text-center py-4 text-xs" style="color:var(--color-text-secondary);border-top:1px solid var(--color-border);">
+      <span class="tracking-widest uppercase">Edge of the Empire &mdash; Campaign System &mdash; Local Network</span>
+    </footer>
+
+  </div>
+
+  <div id="modal-overlay" class="fixed inset-0 z-50 hidden items-center justify-center" style="background:rgba(0,0,0,0.5);">
+    <div class="panel-card w-full max-w-md mx-4 p-8" style="border-color:var(--color-border);">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="font-display text-lg" style="color:var(--color-accent-deep);">Join the Crew</h2>
+        <button id="modal-close" class="text-xs tracking-widest uppercase font-semibold" style="color:var(--color-text-secondary);">Close</button>
+      </div>
+      <p class="text-xs mb-4" style="color:var(--color-text-secondary);">Select an existing character or create a new one.</p>
+      <div id="character-list" class="flex flex-col gap-3 mb-4">
+        <p class="text-xs" style="color:var(--color-text-secondary);">Loading crew manifest&hellip;</p>
+      </div>
+      <div style="border-top:1px solid var(--color-border);padding-top:1rem;margin-top:0.5rem;">
+        <button id="btn-create-character" class="w-full text-left px-4 py-3 text-sm font-medium tracking-wide transition-all duration-150 flex items-center justify-between" style="background:transparent;border:1px solid var(--color-accent-primary);color:var(--color-accent-primary);cursor:pointer;">
+          <span>Create a Character</span>
+          <span style="font-size:1rem;">&plus;</span>
+        </button>
+      </div>
+      <p id="modal-error" class="text-xs mt-3 hidden" style="color:var(--color-accent-secondary);"></p>
+      <div style="border-top:1px solid var(--color-border);padding-top:0.75rem;margin-top:0.75rem;">
+        <p class="text-xs mb-2" style="color:var(--color-text-secondary);opacity:0.5;letter-spacing:0.08em;text-transform:uppercase;">Dev Tools</p>
+        <button id="admin-release-all" class="text-xs tracking-wider font-medium px-3 py-2 transition-all duration-150" style="background:transparent;border:1px solid var(--color-border);color:var(--color-text-secondary);">
+          Release All Characters
+        </button>
+        <span id="admin-release-msg" class="text-xs ml-2" style="color:var(--color-accent-primary);display:none;"></span>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/landing.js"></script>
+</body>
+</html>

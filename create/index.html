@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" class="theme-rebellion">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Character — The Edge of the Empire</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/css/output.css" />
+</head>
+<body class="font-body min-h-screen relative overflow-x-hidden" style="background-color:var(--color-bg-primary);color:var(--color-text-primary);">
+
+  <div class="starfield" aria-hidden="true"></div>
+
+  <div class="relative z-10 min-h-screen flex flex-col">
+
+    <header class="cc-header">
+      <a href="/" class="cc-back-link">&larr; Back</a>
+      <div class="cc-step-track">
+        <div class="cc-step-pip cc-pip-active" title="Species"></div>
+        <div class="cc-step-line"></div>
+        <div class="cc-step-pip" title="Phase 1 — The Dust"></div>
+        <div class="cc-step-line"></div>
+        <div class="cc-step-pip" title="Phase 2 — The Departure"></div>
+        <div class="cc-step-line"></div>
+        <div class="cc-step-pip" title="Phase 3 — The Debt"></div>
+      </div>
+      <button id="theme-toggle" class="cc-theme-btn"><span id="theme-label">Rebellion</span></button>
+    </header>
+
+    <!-- Screen: Species Selection -->
+    <div id="screen-species" class="cc-screen">
+      <div class="cc-screen-head">
+        <p class="cc-step-label">Step 1 of 4</p>
+        <h1 class="cc-screen-title">Choose Your Species</h1>
+        <p class="cc-screen-sub">Your species shapes your biology, your culture, and the galaxy&rsquo;s assumptions about you.</p>
+      </div>
+
+      <div class="cc-carousel-wrap">
+        <button id="carousel-prev" class="cc-carousel-nav" aria-label="Previous">&lsaquo;</button>
+        <div class="cc-carousel-viewport" id="cc-viewport">
+          <div class="cc-carousel-track" id="cc-track"></div>
+        </div>
+        <button id="carousel-next" class="cc-carousel-nav" aria-label="Next">&rsaquo;</button>
+      </div>
+
+      <div class="cc-dots" id="cc-dots"></div>
+      <p class="cc-carousel-hint">Tap a card to reveal details &bull; Swipe or use arrows to browse</p>
+    </div>
+
+    <!-- Screen: Phase 1 — The Dust -->
+    <div id="screen-phase1" class="cc-screen hidden">
+      <div class="cc-screen-head">
+        <p class="cc-step-label">Phase 1 of 3 &mdash; The Spacer&rsquo;s Journey</p>
+        <h1 class="cc-screen-title">The Dust</h1>
+        <p class="cc-screen-sub">The dirt you were born in &mdash; the environment that shaped your baseline survival instincts. Choose your origin.</p>
+      </div>
+
+      <div class="ph-grid" id="ph-grid-phase1"></div>
+
+      <p class="cc-carousel-hint">Tap a card to reveal its story</p>
+
+      <div class="flex justify-center mt-6 pb-6">
+        <button id="btn-back-to-species" class="cc-back-btn-text">&larr; Change Species</button>
+      </div>
+    </div>
+
+    <!-- Screen: Phase 2 — The Departure -->
+    <div id="screen-phase2" class="cc-screen hidden">
+      <div class="cc-screen-head">
+        <p class="cc-step-label">Phase 2 of 3 &mdash; The Spacer&rsquo;s Journey</p>
+        <h1 class="cc-screen-title">The Departure</h1>
+        <p class="cc-screen-sub">The event, enlistment, or tragedy that ripped you from the status quo and forced you to learn a trade.</p>
+      </div>
+      <div class="ph-grid" id="ph-grid-phase2"></div>
+      <p class="cc-carousel-hint">Tap a card to reveal its story</p>
+      <div class="flex justify-center mt-6 pb-6">
+        <button id="btn-back-to-phase1" class="cc-back-btn-text">&larr; Change Origin</button>
+      </div>
+    </div>
+
+    <!-- Screen: Phase 3 — The Debt -->
+    <div id="screen-phase3" class="cc-screen hidden">
+      <div class="cc-screen-head">
+        <p class="cc-step-label">Phase 3 of 3 &mdash; The Spacer&rsquo;s Journey</p>
+        <h1 class="cc-screen-title">The Debt</h1>
+        <p class="cc-screen-sub">The bounty, the guilt, or the secret you carry that keeps you looking over your shoulder.</p>
+      </div>
+      <div class="ph-grid" id="ph-grid-phase3"></div>
+      <p class="cc-carousel-hint">Tap a card to reveal its story</p>
+      <div class="flex justify-center mt-6 pb-6">
+        <button id="btn-back-to-phase2" class="cc-back-btn-text">&larr; Change Catalyst</button>
+      </div>
+    </div>
+
+    <footer class="text-center py-4 text-xs" style="color:var(--color-text-secondary);border-top:1px solid var(--color-border);">
+      <span class="tracking-widest uppercase">Edge of the Empire &mdash; Character Creation</span>
+    </footer>
+
+  </div>
+
+  <!-- Summary Overlay (testing) -->
+  <div id="cc-summary-overlay" class="sum-overlay hidden">
+    <div class="sum-panel">
+      <div class="sum-header">
+        <div>
+          <p class="sum-eyebrow">Character Creation &mdash; Data Dump</p>
+          <h2 class="sum-title">Draft Summary</h2>
+        </div>
+        <button id="btn-sum-close" class="sum-close" title="Close">&times;</button>
+      </div>
+      <div class="sum-body"></div>
+    </div>
+  </div>
+
+  <!-- Draft Stats Overlay -->
+  <aside class="cc-stats-overlay" id="cc-stats">
+    <div class="cc-stats-head" id="cc-stats-head">
+      <span class="cc-stats-title">Draft Sheet</span>
+      <button class="cc-stats-toggle" id="cc-stats-toggle" title="Collapse">&#8722;</button>
+    </div>
+    <div id="cc-stats-body">
+      <div class="cc-stats-species-row">
+        <span class="cc-field-label">Species</span>
+        <span class="cc-field-value" id="cc-stats-species">Pending</span>
+      </div>
+      <div class="cc-stats-divider"></div>
+      <p class="cc-stats-section-head">Arenas</p>
+      <div id="cc-stats-arenas"></div>
+      <div id="cc-stats-disciplines-wrap" class="hidden">
+        <div class="cc-stats-divider"></div>
+        <p class="cc-stats-section-head">Disciplines</p>
+        <div id="cc-stats-disciplines"></div>
+      </div>
+      <div id="cc-stats-abilities-wrap" class="hidden">
+        <div class="cc-stats-divider"></div>
+        <p class="cc-stats-section-head">Abilities</p>
+        <div id="cc-stats-abilities"></div>
+      </div>
+    </div>
+  </aside>
+
+  <script src="/js/character-creation.js"></script>
+</body>
+</html>

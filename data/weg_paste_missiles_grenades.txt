@@ -1,0 +1,844 @@
+Missile Weapons
+Dart Shooters
+Wrist-Caster
+Model: Drolan Plasteel QuickShot
+Type: Wrist projectile launcher
+Scale: Character
+Skill: Missile weapons: wrist projectile launcher
+Ammo: 2
+Cost: 500
+Availability: 3
+Fire Rate: 1
+Range: 1-4/10/20
+Damage: 2D+2
+Source: Gundark's Fantastic Technology (page 18), Arms and Equipment Guide (page 27)
+
+DAS-430 Projectile Rifle
+Model: Mennotor DAS-430 Electromagnetic Projectile Launcher
+Type: Dart shooter
+Scale: Character
+Skill: Missile weapons: dart shooter
+Ammo: 8
+Cost: 1,200
+Availability: 3
+Range: 2-8/25/100
+Damage: 2D (if dart does damage, target makes Difficult stamina roll or suffers -1D Dex and paralysis for 1D rounds)
+Source: Wizards Website
+
+Prax Stealth Palm Shooter
+Model: Prax Arms Stealth-2VX Palm Shooter
+Type: Anti-personnel weapon
+Scale: Character
+Skill: Missile weapons: dart shooter
+Ammo: 3
+Cost: 360
+Availability: 2, F or R
+Fire Rate: 1
+Range: 1-3/10/15
+Damage: 1D (impact), 3D-5D (chemical, depending on mixture)
+Game Notes: Ineffective in non-oxygenated atmospheres. Wristband stores up to 6 additional darts. +1D+1 bonus to hide this weapon.
+Source: Arms and Equipment Guide (pages 24-25)
+
+Prax Protector
+Model: Prax Arms Protector PRP-500 Hold-Out Dart Pistol
+Type: Anti-personnel weapon
+Scale: Character
+Skill: Missile weapons: dart shooter
+Ammo: 6
+Cost: 250
+Availability: 2, F or R
+Fire Rate: 2
+Range: 1-5/15/25
+Damage: 1D (impact), 3D-5D (chemical, depending on mixture)
+Game Notes: Ineffective in non-oxygenated atmospheres.
+Source: Galladinium's Fantastic Technology (pages 72-73), Arms and Equipment Guide (page 24)
+
+Dart Shooter
+Model: Typical dart shooter
+Scale: Character
+Skill: Missile weapons: dart shooter
+Ammo: 30
+Cost: 350
+Availability: 1, F
+Fire Rate: 4
+Range: 2-4/8/10
+Damage: Varies by toxin; normally 2D-6D stun or normal damage
+Source: Gundark's Fantastic Technology (page 17), Han Solo and the Corporate Sector Sourcebook (page 118)
+
+Saberdart Launcher
+Model: Saberdart Launcher
+Type: Dart launcher
+Scale: Character
+Skill: Missile weapons: dart launcher
+Ammo: 4
+Cost: 1,500
+Availability: 4, R
+Range: 3-10/30/120
+Damage: Kouhun venom - Moderate stamina roll or die; success means only -2D Strength penalty
+Game Notes: Darts do no damage against targets wearing armor of at least +1D physical.
+Source: d20 Core Rulebook (page 316)
+
+Projectile Shooters
+Auto-Caster
+Model: Drolan Plasteel Repeating Crossbow
+Type: Crossbow
+Scale: Character
+Skill: Missile weapons: crossbow
+Ammo: 20
+Cost: 700
+Availability: 1
+Fire Rate: 2
+Range: 3-8/20/35
+Damage: 3D
+Game Notes: Next projectile automatically loads after each shot.
+Source: Gundark's Fantastic Technology (page 17), Tales of the Jedi Companion (page 125)
+
+Fire Spitter
+Model: Yuuzhan Vong Fire Spitter
+Type: Combat implant
+Scale: Character
+Skill: Missile Weapons: Fire Spitter
+Ammo: Unlimited
+Cost: Not available for sale
+Availability: 4, X
+Fire Rate: 1/3
+Range: 0-1/2/4
+Damage: 3D+1
+Game Notes: Implanted organism spews flaming biomatter once every 3 rounds. Wild Die 6 = target catches fire (additional damage roll each round). Host suffers 2D damage per use. Alternate: spray 2x2m flammable mist twice per 24 hours; if ignited, anyone in area takes 3D+1/round.
+Source: Gamer Magazine
+
+Wrist Vac Blades
+Model: Golan Arms Vac Attack Mk-127
+Type: Anti-personnel weapon
+Scale: Character
+Skill: Missile weapon: vac blade
+Ammo: 2
+Cost: 700
+Availability: 3, F
+Fire Rate: 2
+Range: 10-20/30/50
+Damage: 5D (combined)
+Game Notes: Fire arc can spread up to 60 degrees for separate attacks at 3D damage; each separate target requires a separate missile weapons roll.
+Source: Galladinium's Fantastic Technology (page 77), Arms and Equipment Guide (page 27)
+
+Projectile Hunting Rifle
+Model: Prax Arms HB-4 Projectile Rifle
+Type: Long-range hunting weapon
+Scale: Character
+Skill: Missile weapons
+Ammo: 6
+Cost: 1,500
+Availability: 4, F or R
+Fire Rate: 1
+Fire Control: 1D+1
+Range: 50m-1/4/8km
+Damage: 5D
+Game Notes: Fire control only at 1km or more and requires maintained line of sight. Wire-guide cut-off releases shells inside minimum range.
+Source: Galladinium's Fantastic Technology (page 72)
+
+Flechette Smart Pistol
+Model: Malaxan Firepower Incorporated DWG-5
+Type: Flechette pistol
+Scale: Character
+Skill: Missile weapons
+Ammo: 8
+Cost: 500
+Availability: 3, F or R
+Fire Rate: 2
+Range: 10-20/50/100
+Damage: 3D (point-blank), 5D (short), 4D (medium), 3D (long)
+Game Notes: Damage depends on range.
+Source: Galladinium's Fantastic Technology (page 72), Arms and Equipment Guide (page 26)
+
+Duo-Flechette Rifle
+Model: Salus DF-D1
+Type: Flechette rifle
+Scale: Character
+Skill: Missile weapons
+Ammo: 5
+Cost: 1,000
+Availability: 3, R or X
+Range: 3-10/30/60
+Damage: 5D
+Source: Gundark's Fantastic Technology (pages 17-18), Arms and Equipment Guide (page 26)
+
+Flechette Launcher
+Model: Golan Arms FC1 Flechette Launcher
+Type: Flechette launcher
+Scale: Character
+Skill: Missile weapons
+Ammo: 6
+Cost: 800
+Availability: 2, F or R
+Fire Rate: 1
+Range: 5-25/100/250
+Blast Radius: 1/3/5
+Damage: 6D/5D/3D (anti-personnel), 5D/4D/3D speeder scale (anti-vehicle)
+Source: Gundark's Fantastic Technology (page 18), Arms and Equipment Guide (page 25)
+
+Magna Caster
+Model: Frohad's Galactic Firearms Magna Caster-100
+Type: Magnetically-enhanced missile weapon
+Scale: Character
+Skill: Missile weapons: magna caster
+Ammo: 10
+Cost: 2,000
+Availability: 3, F
+Body: 2D
+Fire Rate: 2
+Range: 5-50/75/100
+Damage: 6D/5D/4D
+Source: Galladinium's Fantastic Technology (pages 75-76), Arms and Equipment Guide (page 26)
+
+Grenade Launchers
+Micro-Grenade Launcher
+Model: Locris Syndicates Model MGL-1
+Type: Micro-grenade launcher
+Scale: Character
+Skill: Missile weapons: grenade launcher
+Ammo: 30
+Cost: 2,500
+Availability: 3, F
+Fire Rate: 1
+Range: 3-25/100/200
+Blast Radius: 0-2/4/6
+Damage: 4D/3D/2D
+Game Notes: Computerized fire control. Moderate Perception roll (free action) adds +1D to hit; subsequent shots at same target automatically get +1D.
+Source: Galaxy Guide 10: Bounty Hunters (page 84), Gundark's Fantastic Technology (pages 36-37)
+
+Relby-v10 Micro Grenade Launcher
+Model: Relby-v10 Micro Grenade Launcher
+Type: Micro-grenade launcher
+Scale: Character
+Skill: Missile weapons: grenade launcher
+Ammo: 8
+Cost: 3,000
+Availability: 4, X
+Range: 3-30/100/300
+Blast Radius: 0-2/4/6/8
+Damage: 5D/4D/3D/2D (stun or normal)
+Source: Wizards Website
+
+Projectile Launcher
+Model: BlasTech CSPL-12 Caspel
+Type: Personal disposable projectile launcher
+Scale: Character
+Skill: Missile weapons: CSPL
+Ammo: 4
+Cost: 3,000
+Availability: 2, X
+Range: 5-50/100/250
+Damage: Variable by load type (Dye, Smoke, T-238 1D, CryoBan 2D, Plank Gas 3D, Spore/B 4D stun, Fex-M3 5D)
+Source: Imperial Sourcebook (page 123), The Far Orbit Project (page 144)
+
+Droid Onboard Grenade Launcher
+Model: Varies widely
+Type: Concealed grenade launcher
+Scale: Character
+Skill: Missile weapons
+Ammo: 3
+Cost: 800
+Availability: 3, X
+Fire Rate: 1/2
+Range: 5-25/100/250
+Damage: Varies by grenade type
+Game Notes: Cannot be equipped on droids smaller than 1m. Basic version detected with Moderate sensors; sensor-resistant with Difficult sensors.
+Source: Cynabar's Fantastic Technology: Droids (page 37)
+
+Handheld Grenade Launcher
+Model: Merr-Sonn GL-11 handheld Grenade Launcher
+Type: Grenade launcher
+Scale: Character
+Skill: Missile weapons: grenade launcher
+Ammo: 4
+Cost: 2,000
+Availability: 2, X
+Range: 3-20/60/210
+Blast Radius: By grenade type
+Damage: By grenade type
+Game Notes: GL-11 fires C016 grenades; GL-11sa fires C-10 grenades.
+Source: Arms and Equipment Guide (page 34)
+
+Viper Grenade Launcher
+Model: Zone Control Viper Grenade Launcher
+Type: Portable grenade launcher
+Scale: Character
+Skill: Missile weapons
+Ammo: 5
+Cost: 500
+Availability: R
+Range: 1-250/350/500
+Damage: As per grenade
+Game Notes: Takes 2 rounds to reload.
+Source: Cracken's Rebel Field Guide (page 72)
+
+Viper 2 Grenade Launcher
+Model: Zone Control Viper 2 Grenade Launcher
+Type: Grenade launcher rifle attachment
+Scale: Character
+Skill: Missile weapons: grenade launcher
+Ammo: 5
+Cost: 500
+Availability: 2, R
+Fire Rate: 2
+Range: 1-250/350/500
+Blast Radius: Per grenade
+Damage: Per grenade
+Game Notes: Two rounds to reload grenade magazine.
+Source: Rules of Engagement - The Rebel SpecForce Handbook (page 65)
+
+Missile Launchers
+RPD-12 Rocket Launcher
+Model: Locris Syndicates Model RDP-12 Rocket Launcher
+Type: Rocket launcher
+Scale: Character
+Skill: Missile weapons: rocket launcher
+Ammo: 4
+Cost: 1,500
+Availability: 3, F or R
+Range: 3-30/100/300
+Blast Radius: 0-1
+Damage: 4D (Type-12A); 5D stun (Type-12B)
+Game Notes: Type-12B: target also makes Difficult stamina roll or incapacitated by FGA-583 nerve agent; success still gives -1D to all actions for 6 rounds (cumulative).
+Source: Galaxy Guide 10: Bounty Hunters (page 86), Gundark's Fantastic Technology (pages 37-38)
+
+Mini-Missile Launcher
+Model: SoroSuub Firestorm-1
+Type: Personal missile launcher
+Scale: Character
+Skill: Missile weapons
+Ammo: 3
+Cost: 1,500
+Availability: 3, R or X
+Range: 3-40/120/400
+Blast Radius: 0-2/8/12/20
+Damage: 5D/4D/3D/2D
+Source: Gundark's Fantastic Technology (pages 63-64)
+
+RPS-8 Rocket Launcher
+Model: Merr-Sonn RPS-8 Rocket Launcher
+Type: Rocket launcher
+Scale: Character
+Skill: Missile weapons: rocket launcher
+Ammo: 4
+Cost: 1,500
+Availability: 3, F or R
+Fire Rate: 1
+Range: 3-30/100/300
+Blast Radius: 0-1
+Damage: 6D
+Source: The Rebel SpecForce Handbook (page 65)
+
+Mini-Torpedo Launcher
+Model: Mon Cal Defenses Mini-Torpedo Launcher
+Type: Mini-torpedo launcher
+Scale: Character
+Skill: Missile weapons
+Ammo: 3
+Cost: 1,250
+Availability: 3, X
+Range: 3-30/120/350
+Damage: 6D
+Game Notes: Underwater torpedo system; can be fitted to heavy power armor for aquatic use.
+Source: Gundark's Fantastic Technology (page 64)
+
+E-60R Missile Launcher
+Model: Baktoid Armor Workshop E-60R
+Type: Portable missile launcher
+Scale: Character
+Skill: Missile weapons: missile launcher
+Ammo: 4
+Cost: 2,000
+Availability: 2, X
+Range: 5-50/150/400
+Blast Radius: Varies by missile
+Damage: Varies by missile (typically 6D)
+
+HH-15 Projectile Launcher
+Model: Golan Arms HH-15 Projectile Launcher
+Type: Portable missile launcher
+Scale: Character
+Skill: Missile weapons: missile launcher
+Ammo: 3
+Cost: 2,000
+Availability: 2, R
+Range: 15-100/200/400
+Damage: 6D
+
+Portable Rocket Launcher
+Type: Personal rocket launcher
+Scale: Character
+Skill: Missile weapons: portable rocket launcher
+Ammo: 10
+Cost: 2,600
+Availability: 3, X
+Range: 25-100/300/500
+Damage: 6D
+Source: Galaxy Guide 10: Bounty Hunters (page 67)
+
+Mini-Proton Torpedo Launcher
+Model: Arakyd Mini-Proton Torpedo Launcher
+Type: Back-mounted torpedo launch rack
+Scale: Character
+Skill: Starship gunnery
+Ammo: 6
+Cost: Not available for sale
+Availability: 3, X
+Range: 25-100/300/700
+Damage: 6D
+Source: Rules of Engagement - The Rebel SpecForce Handbook (page 100)
+
+Wookiee Guided Rocket Launcher
+Model: Wookiee-manufactured Guided Rocket Launcher
+Type: Portable rocket launcher
+Scale: Character
+Skill: Missile weapons: rocket launcher
+Ammo: 5
+Cost: Not available for sale
+Availability: 4, X
+Range: 10-50/150/300
+Damage: 6D
+Game Notes: Extra round aiming grants target lock. If miss within 5 of difficulty, rocket tracks target with 4D tracking skill (300m/move, max 5km). Miss by 10+ = lost target.
+
+PLX-2 Portable Missile Launcher
+Model: Merr-Sonn PLX-2 Plex
+Type: Portable mini-vehicle missile launcher
+Scale: Character
+Skill: Missile weapons: Plex
+Ammo: 2
+Cost: 4,000
+Availability: 2, X
+Range: 25-100/300/500
+Damage: 6D
+Game Notes: GAM mode: miss within 5 of difficulty = target lock; 4D tracking, 550m/move, max 40km. Miss by 10+ = lost target.
+Source: Imperial Sourcebook (pages 121-122)
+
+PLX-4 Portable Missile Launcher
+Model: Merr-Sonn PLX-4 Missile Launcher
+Type: Portable missile launcher
+Scale: Speeder
+Skill: Missile weapons: Plex
+Ammo: 4
+Cost: 6,000
+Availability: R
+Range: 100-500m/3/10km
+Damage: 6D
+Game Notes: Savant rockets require Moderate missile weapons roll to tag target (1 round). On success, missile has 4D tracking skill. Attacker still makes standard missile weapons roll.
+Source: The Last Command Sourcebook (page 125), Gundark's Fantastic Technology (page 37)
+
+MiniMag PTL Missile Launcher
+Model: MiniMag Proton Torpedo Launcher
+Type: Portable missile launcher
+Scale: Speeder
+Skill: Missile weapons: missile launcher
+Ammo: 3
+Cost: 3,000
+Availability: 2, X
+Fire Control: 1D
+Range: 10-100/300/600
+Damage: 5D
+
+MM9 Wrist Rocket System
+Model: Kalvarek Consolidated Arms MM9 Rocket System
+Type: Wrist-mounted rocket launcher
+Scale: Character
+Skill: Missile weapons: wrist weapons
+Ammo: 1
+Cost: 2,500
+Availability: 2, R
+Range: 2-6/20/80
+Damage: Varies by rocket type
+Game Notes: Locris Type-12A Explosive: 5D/4D/3D/2D (blast 0-1/2/3/4). Merr-Sonn K26 Anti-Vehicle (speeder scale): 5D/4D (blast 0-1/2). Type-12B Nerve Toxin: 3D + Difficult stamina or -2D Strength. Type-12B Stun Gas: 3D stun + 2m cloud. Type-12B Empty: 3D. DEMP: 4D ionization (2m). Lumablast: Difficult stamina or blinded 1D rounds (4m). Kelvarek Dumb Quarrel: 3D.
+Source: Arms and Equipment Guide (pages 27-28)
+
+Apex Incisor Missile
+Model: Golog-Bertum Apex Incisor Missile
+Type: Surface-to-air missile
+Scale: Character
+Skill: Missile weapons
+Cost: 1,000
+Availability: 2, X
+Fire Control: 3D
+Range: 0-50/250/1000
+Damage: 7D
+Game Notes: Fired by pointing at target and pressing "record" for 1 round, then "arm" next round. User must dodge (Easy) or suffer 3D damage from exhaust.
+Source: Gundark's Fantastic Technology (page 40)
+
+Finbat Anti-Walker Concussion Missile
+Model: Kessler J8Q-128 Finbat Missile
+Type: Anti-walker missile
+Scale: Character
+Skill: Missile weapons
+Ammo: 1
+Cost: 4,000
+Availability: R or X
+Body: 1D
+Range: 0-50/250/500
+Damage: 12D
+Game Notes: If attacker's result vs difficulty is 7 or less, damage is halved. Takes at least 2 rounds to reach Long Range; can be fired upon in flight (Very Difficult to shoot down).
+Source: Gundark's Fantastic Technology (pages 40-41)
+
+Stun Missiles
+Bio-Guard
+Model: Xerithin Chemical Combinations BGA-900 Bio-Guard
+Type: Personal defense device
+Scale: Character
+Skill: Missile weapons
+Cost: 100
+Availability: 3, F or R
+Range: 0-2/3/5
+Damage: Special (four reactive agents: BG1 5D stun, BG2 4D stun, BG3 4D stun, BG4 4D stun)
+Game Notes: Single-use cylinder sprays four chemical agents. Agents may not work on all species.
+Source: Galladinium's Fantastic Technology (pages 76-77)
+
+ABC Scrambler
+Model: Modified Loronar ABX-110 Tube-Launched ABC Scrambler
+Type: Antipersonnel sensory disorientation device
+Scale: Character
+Skill: Missile weapons: ABC scrambler
+Ammo: 1
+Cost: 3,000
+Availability: 2, R or X
+Fire Control: 1D+2
+Range: 50-200/350/500
+Blast Radius: 0-10/20/30
+Damage: 8D/5D/3D stun
+Game Notes: Pods take 1 minute to change normally; Technical roll to rush.
+Source: Galaxy Guide 10: Bounty Hunters (page 82), Gundark's Fantastic Technology (pages 43-44)
+
+Slaver Snare Gun
+Model: Thalassian Corodex Snare
+Type: Ranged personal restraint weapon
+Scale: Character
+Skill: Missile weapons: thalassian snare gun
+Ammo: 6
+Cost: 1,200
+Availability: 3, F or X
+Range: 5-10/25/50
+Damage: 2D stun
+Game Notes: Target makes opposed Strength vs snare (starts 3D; increases +1D each round as filaments constrict and harden). No physical damage. Special dissolving agent required to remove.
+Source: Galaxy Guide 11: Criminal Organizations (pages 81/83), Gundark's Fantastic Technology (pages 72-73)
+
+Tangler Gun
+Model: Salus Tangler Elite 1 Tangler Gun
+Type: Tangler gun
+Scale: Character
+Skill: Missile weapons
+Ammo: 5
+Cost: 900
+Availability: 3
+Range: 5-10/30/60
+Damage: 2D (impact), 4D stun (durawire)
+Game Notes: Opposed Strength roll greater than stun damage to break free.
+Source: Gundark's Fantastic Technology (page 73)
+
+Antipersonnel Net Gun
+Model: Conner APNG3
+Type: Restraining net gun
+Scale: Character
+Skill: Missile weapons
+Ammo: 1
+Cost: 750
+Availability: 2, R or X
+Range: 3-10/19/25
+Damage: 5D stun, 5D electrical
+Game Notes: Opposed Strength roll greater than stun damage to break free. Often mounted on forearm armor.
+Source: Gundark's Fantastic Technology (page 63)
+
+RGL-80 Electronet Grenade
+Model: Golan Arms RGL-80 Electronet Grenade
+Type: Antipersonnel wire-guided grenade
+Scale: Character
+Skill: Missile weapons: grenade launcher
+Ammo: 5
+Cost: 2,000
+Availability: 2, F
+Fire Rate: 1/2
+Range: 10-250/350/500
+Damage: 1-10D (variable stun or normal)
+Source: Galaxy Guide 10: Bounty Hunters (pages 82-83), Gundark's Fantastic Technology (page 43)
+
+Explosive Grenades
+0033X Incendiary Grenade
+Model: Greff-Timms Industrial Nitrocellulose Incendiary Device 0033X
+Type: Explosive
+Scale: Character
+Skill: Grenade
+Cost: 300
+Availability: 1, R
+Range: 3-7/20/40
+Blast Radius: 0-2/4/6/10
+Damage: 4D/3D/2D/1D
+Source: Gundark's Fantastic Technology (page 42), Arms and Equipment Guide (page 33)
+
+Magma Pebble
+Model: Yuuzhan Vong Magma Pebble
+Type: Thrown incendiary weapon
+Scale: Character
+Skill: Grenade
+Ammo: 1
+Cost: Not available for sale
+Availability: 4, X
+Fire Rate: 1
+Range: 3-7/20/40
+Damage: 4D energy
+Game Notes: Sheds outer shell and ignites when thrown.
+Source: The New Jedi Order Sourcebook (page 20)
+
+Blast Bug
+Model: Yuuzhan Vong Blast Bug
+Type: Organic weapon
+Scale: Character
+Cost: Not available for sale
+Availability: 4, X
+Range: 1-6/20/40
+Blast Radius: 0/1/2
+Damage: 4D/3D/2D
+Game Notes: Guides itself with 5D attack skill like a thud bug, but explodes near target. Wild Die 1 = dud, acts as thud bug instead.
+Source: Gamer Magazine
+
+Impact Grenade
+Model: BNO Impact Grenade
+Type: Impact-activated grenade
+Scale: Character
+Skill: Grenade: impact grenade
+Cost: 150
+Availability: 2
+Range: 3-7/20/40
+Blast Radius: 0-2/4/6/10
+Damage: 5D/4D/3D/2D
+Game Notes: Grenade explodes only on impact.
+Source: Rules of Engagement - The Rebel SpecForce Handbook (page 69)
+
+C-16 Fragmentation Grenade
+Model: Merr-Sonn C-16 Fragmentation Grenade
+Type: Explosive
+Scale: Character
+Skill: Grenade
+Cost: 200
+Availability: 1, R
+Range: 3-7/20/40
+Blast Radius: 0-2/4/6/10
+Damage: 5D/4D/3D/2D
+Source: Rulebook (page 233), Arms and Equipment Guide (page 33)
+
+C-22 Fragmentation Grenade
+Model: Merr-Sonn C-22 Fragmentation Grenade
+Type: Explosive
+Scale: Character
+Skill: Grenade
+Cost: 300
+Availability: 1, R
+Range: 3-7/20/40
+Blast Radius: 0-2/4/6/10
+Damage: 5D/4D/3D/2D
+Game Notes: Timer allows detonation in any round up to 20 rounds after setting. Timer deactivated with special code or Difficult demolitions roll. Weak magnetic grapple for securing to vehicles.
+Source: Arms and Equipment Guide (page 33)
+
+Ice Spike
+Model: Caelli-Merced Ice Detonator
+Type: Fragmentation grenade
+Scale: Character
+Skill: Demolitions
+Cost: 800
+Availability: 2, F or R
+Range: 1-2/5/8
+Blast Radius: 0-1/4/6/8
+Damage: 8D/6D/4D/2D
+Source: The Black Sands of Socorro (page 104)
+
+Anti-Vehicle Grenade
+Model: Galentro Armaments Anti-Vehicle Explosive
+Type: Anti-vehicle/anti-armor grenade
+Scale: Character
+Skill: Grenade
+Cost: 750
+Availability: R or X
+Damage: 7D
+Game Notes: When used against Speeder-scale or smaller targets, do not use Scale Comparison Chart to reduce damage.
+Source: Gundark's Fantastic Technology (page 41)
+
+Thermal Detonator
+Model: Tarascil Explosives Thermal Detonator
+Type: Baradium explosive device
+Scale: Character
+Skill: Demolitions
+Cost: 2,000
+Availability: 2, X
+Range: 3-4/7/12
+Blast Radius: 0-2/8/12/20
+Damage: 10D/8D/5D/2D
+Game Notes: Wild Die 1 = premature explosion.
+Source: Rulebook (pages 233-234), Arms and Equipment Guide, The Last Command Sourcebook (page 124)
+
+Plasma Eel
+Model: Yuuzhan Vong Plasma Eel
+Type: Thrown plasma weapon
+Scale: Character
+Skill: Thrown weapons: Plasma Eel
+Ammo: 1
+Cost: Not available for sale
+Availability: 4, X
+Range: 3-20/40/80
+Blast Radius: 0-2/8
+Damage: 10D/5D
+Game Notes: Thrown like a spear, explodes on contact; damages targets up to 8m from blast.
+Source: The New Jedi Order Sourcebook (pages 20-21)
+
+Miscellaneous Grenades
+Credit Case Surprise
+Model: Synnt-ovations Inc. Credit Case Surprise
+Type: Personal defense flash item
+Scale: Character
+Skill: Grenade
+Cost: 75
+Availability: 2
+Range: 0-3/6/9/12
+Damage: 5D/3D/2D/1D stun
+Game Notes: Affects anyone in 60-degree arc. Moderate Perception roll to avoid being affected (looked away in time). Easy Technical roll to build or repair.
+Source: Galladinium's Fantastic Technology (page 75)
+
+Smoke Grenade
+Model: BlasTech Nacht-5 Smoke Grenade
+Type: Smoke grenade
+Scale: Character
+Skill: Grenade
+Cost: 25
+Availability: 2, R
+Range: 3-7/20/40
+Smoke Radius: 0-3
+Damage: None (adds +2 to blaster shooter's difficulty)
+Source: Han Solo and the Corporate Sector Sourcebook (page 119)
+
+Glop Grenade
+Model: Merr-Sonn G-20 Glop Grenade
+Type: Restraining explosive
+Scale: Character
+Skill: Grenade
+Cost: 275
+Availability: 2, R or X
+Range: 3-7/30/60
+Blast Radius: 0-1/3/5
+Damage: 6D/5D/3D (Strength of glop; opposed Strength roll to break free; no physical damage)
+Source: Gundark's Fantastic Technology (page 42), Arms and Equipment Guide (pages 33-34)
+
+Cryoban Grenade
+Model: Merr-Sonn WW-41 Cryoban Grenade
+Type: Cryo grenade
+Scale: Character
+Skill: Grenade
+Cost: 800
+Availability: 2, X
+Range: 0-5/10/20
+Blast Radius: 4 meters
+Damage: 3D+2 freezing damage
+Game Notes: Heavy clothing +1D to resist; sealed suits negate all damage.
+Source: Arms and Equipment Guide (page 34)
+
+Chemical Grenade
+Model: Czerka Chemical Load Grenade
+Type: Chemical grenade
+Scale: Character
+Skill: Grenade
+Cost: 650
+Availability: 1, X
+Range: 0-8/16/25
+Blast Radius: 4 meters
+Damage: Varies by load (T-238: nausea -2D actions 1D hours; Fax-M3: Difficult stamina or -2D Strength; Smoke: cover; Plank Gas: 2D corrosive 3 rounds)
+Source: Arms and Equipment Guide (page 32)
+
+T-289 Gas Grenade
+Model: Czerka T-289 Gas Grenade
+Type: Stun grenade
+Scale: Character
+Skill: Grenade
+Cost: 325
+Availability: 2, X
+Range: 0-8/16/25
+Blast Radius: 0-2/20/40
+Damage: 4D/2D/1D stun
+Game Notes: Ineffective against targets wearing breath masks or sealed suits.
+Source: Gundark's Fantastic Technology (pages 41-42), Pirates & Privateers (page 44)
+
+Spore/B Stun Grenade
+Model: Czerka Spore/B Stun Grenade
+Type: Stun grenade
+Scale: Character
+Skill: Grenade
+Cost: 300
+Availability: 2, X
+Range: 0-8/16/25
+Blast Radius: 0-2/20/40
+Damage: 4D/3D/2D stun
+Game Notes: Ineffective against breath masks or sealed suits. Wild Die 1 when resisting = respiratory failure (Moderate first aid or suffocate in 2D rounds).
+Source: Gundark's Fantastic Technology (page 41), Arms and Equipment Guide (pages 32-33)
+
+Ssi-ruuvi Gas Grenade
+Type: Ssi-ruuk anti-personnel weapon
+Scale: Character
+Skill: Grenade
+Cost: Not available for sale
+Availability: 4
+Blast Radius: 0-5/10/15
+Damage: 5D/4D/2D special
+Game Notes: Unconscious targets stay out 2D hours. Humans exposed 24+ hours suffer 3D damage; wounded or worse = permanent -1 to all Dex and Str checks.
+Source: The Truce at Bakura Sourcebook (page 140)
+
+Concussion Stick
+Model: Sessian Armaments Concussion Stick Model I-79
+Type: Chemical explosive weapon
+Scale: Character
+Skill: Melee combat
+Cost: 200
+Availability: 3, F or R
+Blast Radius: 0-1/2/4
+Damage: 5D/4D/2D stun
+Game Notes: Detonates 15 seconds after activation.
+Source: Galladinium's Fantastic Technologies (page 68)
+
+C-14A Stun Grenade
+Model: Merr-Sonn C-14A Stun Grenade
+Type: Stun grenade
+Scale: Character
+Skill: Grenade
+Cost: 450
+Availability: 2, R or X
+Range: 0-8/16/25
+Blast Radius: 0-2/4/6/8
+Damage: 6D/5D/3D/2D stun
+Game Notes: Stun grenades are rechargeable.
+Source: Gundark's Fantastic Technology (pages 42-43), Arms and Equipment Guide (page 33)
+
+C-10 Stun Grenade
+Model: Merr-Sonn C-10 Stun Grenade
+Type: Stun grenade
+Scale: Character
+Skill: Grenade
+Cost: 600
+Availability: 2, R or X
+Range: 0-10/20/40
+Blast Radius: 0-2/4/6/8
+Damage: 6D+1/5D+1/3D+1/2D+1 stun
+Source: Arms and Equipment Guide (page 33)
+
+Energy Ball
+Model: Otoh Gunga Standard Energy Ball
+Type: Thrown energy ball
+Scale: Character
+Skill: Grenade: energy ball
+Cost: 20
+Availability: 3, R
+Range: 2-3/5/10
+Damage: 3D (stun or ionization)
+Source: d20 Core Rulebook (page 132), Secrets of Naboo (page 49)
+
+Ion Grenade
+Type: Ion grenade
+Scale: Character
+Skill: Grenade
+Cost: 250
+Availability: 2, R
+Range: 3-7/20/40
+Blast Radius: 0-2/4/6/10
+Damage: 7D/5D/3D/2D ionization
+Source: Ultimate Alien Anthology (page 81)

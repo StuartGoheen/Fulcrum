@@ -1,0 +1,195 @@
+[
+  {
+    "id": "arm_heavy_jacket_01",
+    "name": "Heavy Jacket",
+    "category": "light",
+    "categoryLabel": "Light Armor",
+    "description": "A padded work jacket with reinforced panels at the torso and shoulders — common in industrial yards, frontier settlements, and anywhere people work with dangerous machinery. Provides modest protection without any visible military profile. Nobody looks twice at a heavy jacket on the outer rim.",
+    "cost": 50,
+    "availability": "1",
+    "traits": [],
+    "tags": ["Light", "Common", "Legal", "Civilian"]
+  },
+  {
+    "id": "arm_combat_jumpsuit_01",
+    "name": "Combat Jumpsuit",
+    "category": "light",
+    "categoryLabel": "Light Armor",
+    "description": "A military-cut jumpsuit with hard composite plates over the vitals and joints and a sealed inner layer that resists atmospheric contamination. Worn by mercenaries, frontier scouts, and ex-military who want protection without the weight of full kit. The outer cut is nondescript enough to pass in most working environments.",
+    "cost": 300,
+    "availability": "2",
+    "traits": [
+      {
+        "name": "Field Ready",
+        "description": "The sealed inner layer protects against atmospheric contaminants, chemical agents, and incidental environmental hazards. The wearer can operate in hostile-atmosphere environments without additional protection for short durations."
+      }
+    ],
+    "tags": ["Light", "Common", "Legal", "Military Surplus", "Sealed"]
+  },
+  {
+    "id": "arm_blast_vest_01",
+    "name": "Blast Vest",
+    "category": "light",
+    "categoryLabel": "Light Armor",
+    "description": "A layered ablative vest engineered to scatter and absorb directed energy hits. No environmental systems, no helmet — just solid ballistic protection where it matters most. Standard in conflict zones, popular with anyone who takes incoming fire seriously and doesn't want to slow down for it.",
+    "cost": 400,
+    "availability": "2",
+    "traits": [],
+    "tags": ["Light", "Common", "Legal", "Energy Rated"]
+  },
+  {
+    "id": "arm_camo_armor_01",
+    "name": "Camo Armor",
+    "category": "light",
+    "categoryLabel": "Light Armor",
+    "description": "Creshaldyne Industries scout armor woven with miniature photoreactive fibers that adapt color and reflectivity to match the surrounding environment. Hard composite plates underneath provide solid protection. Expensive, sparsely available, and worth every credit when you need to disappear.",
+    "cost": 1500,
+    "availability": "3/R",
+    "traits": [
+      {
+        "name": "Photoreactive Field",
+        "description": "While worn, the wearer suffers no step-down penalties for low-visibility conditions. While the wearer remains stationary, the photoreactive fibers synchronize with the environment — step up the Control die on actions to avoid detection. Moving disrupts synchronization and ends this effect immediately."
+      }
+    ],
+    "tags": ["Light", "Restricted", "Scout", "Stealth", "Sealed"]
+  },
+  {
+    "id": "arm_arc_trooper_01",
+    "name": "ARC Trooper Armor",
+    "category": "light",
+    "categoryLabel": "Light Armor",
+    "description": "Republic Advanced Recon Commando armor: lighter than standard clone plate but packed with field systems. Designed for operators who needed to move fast, survive independently, and hit precisely. By 16 BBY, a functional set is a rarity — found only on veterans, black-market specialists, and the kinds of people the Empire would prefer didn't have it.",
+    "cost": 4000,
+    "availability": "4/X",
+    "traits": [
+      {
+        "name": "MFTAS",
+        "description": "Multi-Frequency Targeting Acquisition System. Negates all step-down penalties from low-visibility conditions when making ranged attacks. When your target moved at least 1 zone on their last turn, your ranged weapon attack gains [Optimized]."
+      }
+    ],
+    "tags": ["Light", "Military", "Republic Surplus", "MFTAS", "Sealed", "Restricted"]
+  },
+  {
+    "id": "arm_ubese_raider_01",
+    "name": "Ubese Raider Armor",
+    "category": "medium",
+    "categoryLabel": "Medium Armor",
+    "evasionException": true,
+    "description": "Sealed environment suit and modular armor worn by Ubese mercenaries and bounty hunters. The suspension system distributes weight without sacrificing mobility — unusually agile for its protection class. The integrated enviro-filter seals the suit against most atmospheric hazards. Flash-guard visor prevents optical disruption from flash grenades or sudden light sources.",
+    "cost": 1000,
+    "availability": "3",
+    "traits": [
+      {
+        "name": "Partial Coverage",
+        "description": "The Ubese armor's modular construction and mobility-tuned suspension system does not impose the standard Reflex step-down for Evasion actions. The integrated enviro-filter seals the suit against atmospheric hazards. Flash Guard Visor: immune to flash-blinding effects."
+      }
+    ],
+    "tags": ["Medium", "Restricted", "Sealed", "Bounty Hunter", "Environmental"]
+  },
+  {
+    "id": "arm_clone_mk1_01",
+    "name": "Clone Trooper Armor Mk I",
+    "category": "medium",
+    "categoryLabel": "Medium Armor",
+    "description": "Standard Republic Clone Trooper armor from the Clone Wars. Recognizable, durable, and still common in surplus channels three years after Order 66. The Mark I is the original production run — slightly less refined than the later Mark II but functionally identical in the field. Wearing it in Imperial space requires a convincing explanation.",
+    "cost": 1500,
+    "availability": "3/X",
+    "traits": [
+      {
+        "name": "MFTAS",
+        "description": "Multi-Frequency Targeting Acquisition System. Negates all step-down penalties from low-visibility conditions when making ranged attacks. When your target moved at least 1 zone on their last turn, your ranged weapon attack gains [Optimized]."
+      },
+      {
+        "name": "Sealed Kit",
+        "description": "Climate-controlled body glove and integrated breath systems allow short-duration operation in toxic-air environments, extreme temperatures, and similar hostile atmospheres."
+      }
+    ],
+    "tags": ["Medium", "Military", "Republic Surplus", "MFTAS", "Sealed", "Restricted"]
+  },
+  {
+    "id": "arm_stormtrooper_01",
+    "name": "Stormtrooper Armor",
+    "category": "medium",
+    "categoryLabel": "Medium Armor",
+    "description": "The Empire's standard-issue armor. Sealed suit, climate control, enhanced MFTAS, and utility belt with field supplies. Functional, intimidating, and instantly recognizable across the galaxy. Civilian possession is illegal. Wearing it without authorization in Imperial territory is a capital offense — which has not stopped every scoundrel from trying.",
+    "cost": 2000,
+    "availability": "3/X",
+    "traits": [
+      {
+        "name": "Enhanced MFTAS",
+        "description": "Multi-Frequency Targeting Acquisition System. Negates all step-down penalties from low-visibility conditions when making ranged attacks. Step up the Control die on Search and Detection actions in low-light or obscured environments. When your target moved at least 1 zone on their last turn, your ranged weapon attack gains [Optimized]."
+      },
+      {
+        "name": "Sealed Kit",
+        "description": "Climate-controlled body glove and breath mask allows operation in toxic-air environments, extreme temperatures, and hazardous atmospheres."
+      }
+    ],
+    "tags": ["Medium", "Military", "Imperial", "MFTAS", "Sealed", "Restricted", "Illegal"]
+  },
+  {
+    "id": "arm_corellian_huntsuit_01",
+    "name": "Corellian HuntSuit",
+    "category": "medium",
+    "categoryLabel": "Medium Armor",
+    "description": "A professional bounty hunter's armor integrating a passive sensor suite into the helm. The HuntSuit is built for long-range contracts where tracking a target across hostile terrain is as demanding as the eventual engagement. Common among Corellian hunters and SpecForce-adjacent contractors who work alone in the field.",
+    "cost": 2900,
+    "availability": "3/R",
+    "traits": [
+      {
+        "name": "Sensor Pod",
+        "description": "The integrated passive sensor suite steps up the Control die on Search and Detection actions in field conditions."
+      }
+    ],
+    "tags": ["Medium", "Restricted", "Bounty Hunter", "Sensor", "Corellian"]
+  },
+  {
+    "id": "arm_mandalorian_01",
+    "name": "Mandalorian Battle Armor",
+    "category": "heavy",
+    "categoryLabel": "Heavy Armor",
+    "description": "Beskar-alloy plating over a sealed combat suit, custom-fitted and handcrafted. What makes Mandalorian armor exceptional is not just the material — it's the construction philosophy. Each suit is built for a specific warrior, articulated to move with them rather than against them. The Empire has been systematically confiscating beskar since the purge. A functional set is rare, valuable, and dangerous to possess.",
+    "cost": 15000,
+    "availability": "4/X",
+    "traits": [
+      {
+        "name": "Mando-Forged",
+        "description": "The articulated beskar plate construction limits Evasion penalties despite its mass. While wearing Mandalorian Battle Armor, the Reflex step-down for Evasion actions is reduced to one step instead of two."
+      }
+    ],
+    "tags": ["Heavy", "Military", "Mandalorian", "Beskar", "Sealed", "Restricted"]
+  },
+  {
+    "id": "arm_katarn_01",
+    "name": "Katarn Commando Armor",
+    "category": "heavy",
+    "categoryLabel": "Heavy Armor",
+    "description": "Republic Commando-class armor — the best military kit the Clone Wars produced. Not available for sale through any legitimate channel. By 16 BBY, surviving sets are legendary, sought after by collectors, black market specialists, and the kinds of operators who make the Empire nervous.",
+    "cost": 7500,
+    "availability": "4/X",
+    "traits": [
+      {
+        "name": "MFTAS",
+        "description": "Multi-Frequency Targeting Acquisition System. Negates all step-down penalties from low-visibility conditions when making ranged attacks. Step up the Control die on Search and Detection actions in low-light or obscured environments. When your target moved at least 1 zone on their last turn, ranged attacks gain [Optimized]. Polarized lenses: immune to flash-blinding effects."
+      },
+      {
+        "name": "Viewplate",
+        "description": "Integrated macrobinocular imaging set with UV nightvision. Observation range extends to 500 meters."
+      },
+      {
+        "name": "Auto-Bacta Injector",
+        "description": "When the wearer suffers a Trauma result, the onboard bacta system triggers automatically. Once per engagement, reduce the Trauma result by one level — Mortal becomes Incapacitated; Incapacitated becomes Wounded. Keeps an Incapacitated wearer conscious and functional as if Wounded. Single charge; no further benefit after activation."
+      },
+      {
+        "name": "Sealed Kit",
+        "description": "Climate-controlled body glove and breath filter. Allows operation in extreme temperatures, toxic-air environments, and up to five minutes of vacuum exposure."
+      }
+    ],
+    "gambits": [
+      {
+        "name": "Retractable Vibroblade",
+        "rule": "When making a Brawl attack, the gauntlet blade springs out as part of the strike — no draw required. The attack deals Melee damage instead of unarmed damage. If set to auto-deploy, it triggers on every punch without a conscious decision."
+      }
+    ],
+    "tags": ["Heavy", "Military", "Republic Surplus", "MFTAS", "Sealed", "Vibroblade", "Restricted"]
+  }
+]

@@ -1,0 +1,430 @@
+Stun Melee Weapons
+Fear Stick
+Model: Sabrashi Bio-Chemical Deterrent FSI-200
+Type: Bio-chemical injection melee weapon
+Scale: Character
+Skill: Melee combat: knife
+Ammo: 2
+Cost: 600 (refills: 50)
+Availability: 4, F
+Difficulty: Moderate
+Damage: 2D stun
+Game Notes: One round after injection, recipient must make Difficult stamina or willpower roll or suffer severe panic attack causing immediate flight. State continues until Heroic roll made or one hour elapsed.
+Source: Galladinium's Fantastic Technologies (pages 68-69)
+
+Hand-Held Contact Stunner
+Model: SoroSuub CS-12 Stun Master
+Type: Contact stunner
+Scale: Character
+Skill: Melee combat: contact stunner
+Ammo: 5
+Cost: 575 (power cells: 15)
+Availability: 2, R
+Difficulty: Very Easy
+Damage: 4D+2 stun
+Game Notes: 15cm cylinder with 13 contact studs. Easy difficulty to hide; +2D to hide against weapon detectors, +1D against physical searches.
+Source: Gundark's Fantastic Technology (page 10), Arms and Equipment Guide (page 31)
+
+Electro-Jabber
+Type: Hand-held shock baton
+Scale: Character
+Skill: Melee combat
+Cost: 700
+Availability: 2, R
+Difficulty: Easy
+Damage: 5D stun
+Source: Geonosis and the Outer Rim Worlds (page 14)
+
+Gentler Rod
+Model: Gentler Rod
+Type: Double-strength stun baton
+Scale: Character
+Skill: Melee combat
+Cost: 1000
+Availability: 2, R
+Difficulty: Easy
+Damage: STR+1 or 5D stun (two settings)
+Source: Tempest Feud (page 128)
+
+Stun Baton
+Model: Merr-Sonn Stun Baton
+Type: Stun baton
+Scale: Character
+Skill: Melee combat: stun baton
+Cost: 300
+Availability: 2, R
+Difficulty: Easy
+Damage: STR+2D+2 (includes charge; STR+1D if stun charge off)
+Game Notes: Power pack lasts three hours.
+Source: Gundark's Fantastic Technology (pages 11-12), Arms and Equipment Guide (page 31)
+
+Z2 Stun Baton
+Model: Merr-Sonn Z2 Stun Baton
+Type: Stun baton
+Scale: Character
+Skill: Melee combat: stun baton
+Cost: 400
+Availability: 2, R
+Difficulty: Easy
+Damage: STR+1D or 5D stun (two settings)
+Game Notes: Power pack lasts three hours.
+Source: Alliance Intelligence Reports (page 56), Arms and Equipment Guide (page 31)
+
+Togorian Scimitar
+Model: Togorian Yil Tribe Scimitar
+Type: Yil tribe Togorian scimitar
+Scale: Character
+Skill: Melee combat: Togorian scimitar
+Cost: 8500
+Availability: 4, F or R
+Difficulty: Moderate
+Damage: STR+2D plus 4D stun electrical
+Source: Galladinium's Fantastic Technologies (page 70)
+
+Electropole
+Model: Otoh Gunga Defense League Electropole
+Type: Melee weapon
+Scale: Character
+Skill: Melee combat
+Cost: Not available for sale
+Availability: 3, R
+Difficulty: Moderate
+Damage: STR+1D+1 (stun or killing)
+Game Notes: Delivers bludgeoning (lethal) or electrical (stun) damage at wielder's choice.
+Source: Secrets of Naboo (page 49)
+
+Doublebound Staff
+Model: Doublebound Energy Staff
+Type: Melee Weapon
+Scale: Character
+Skill: Melee combat: doublebound staff
+Cost: 2700
+Availability: 4
+Difficulty: Moderate
+Damage: STR+1D (physical), 3D energy stun
+Game Notes: Can make 2 attacks without multiple action penalty by meeting Moderate difficulty for both. Can deflect blaster bolts as lightsaber combat with difficulties increased one level.
+
+San-Ni Staff
+Model: San-Ni Staff
+Type: Powered melee weapon
+Scale: Character
+Skill: Melee combat: San-Ni staff
+Cost: 500
+Availability: 2, R
+Difficulty: Difficult
+Damage: STR+2D (Max: 7D, stun or normal), STR+1D (unpowered Max: 4D)
+Game Notes: When inactive used as club. When activated incorporates dual stun prods and two high-voltage power couplings.
+Source: Gamer Magazine
+
+Gand Shockprod Staff
+Model: Gand Shockprod Staff
+Type: Electric staff
+Scale: Character
+Skill: Melee combat: shockprod staff
+Cost: 1000
+Availability: 3, R
+Difficulty: Easy
+Damage: 3D electricity plus 3D stun
+Game Notes: 3-meter reach.
+Source: Ultimate Alien Anthology (pages 63-64)
+
+Schinga Electropole
+Model: Swokes Swokes Schinga Electropole
+Type: Schinga riding electropole
+Scale: Character
+Skill: Melee combat: electropole
+Cost: 100
+Availability: 3
+Difficulty: Moderate
+Damage: STR+1D+1 and/or 3D stun
+Source: Geonosis and the Outer Rim Worlds (page 92)
+
+Picador's Spear
+Model: Geonosian Static Pike
+Type: Charged spear
+Scale: Character
+Skill: Melee combat: spear
+Cost: 650
+Availability: 3
+Difficulty: Easy
+Damage: STR+1D+2 (max: 4D) and 3D stun
+Game Notes: 4-meter reach.
+Source: Geonosis and the Outer Rim Worlds (page 60)
+
+Taser Staff
+Model: Merr-Sonn Taser Staff
+Type: Taser staff
+Scale: Character
+Skill: Melee combat: taser staff
+Ammo: 50
+Cost: 500 (power packs: 40)
+Availability: 2, R
+Body: 2D
+Difficulty: Moderate
+Damage: 5D or 5D stun (uncharged: STR+1D)
+Game Notes: Weighs 10kg, separates into three pieces for backpack carry.
+Source: Shadows of the Empire Sourcebook (page 113)
+
+Rodian Cryogenic Whip
+Model: Sancretti Arms Rodian Cryogen Whip
+Type: Cryogenic whip
+Scale: Character
+Skill: Melee combat
+Cost: 350
+Availability: 3, F or R
+Difficulty: Moderate
+Damage: STR+1D (whip) plus 4D stun (extreme cold)
+Game Notes: Victim must make Moderate stamina roll after second and additional strikes to avoid -1D to Dexterity and related skills (cumulative).
+Source: Galladinium's Fantastic Technologies (page 70)
+
+Neuronic Whip
+Model: TholCorp Neuronic Whip
+Scale: Character
+Skill: Melee combat: neuronic whip
+Cost: 700
+Availability: 4, X
+Difficulty: Moderate
+Damage: STR+1D or 5D (stun or normal, two settings)
+Game Notes: Power pack lasts three hours.
+Source: Alliance Intelligence Reports (page 56), Arms and Equipment Guide (pages 31-32)
+
+Stun Cloak
+Model: Koromondain PDS Model SVT-300
+Type: Stun cloak
+Scale: Character
+Skill: Melee combat
+Ammo: 8
+Cost: 1500
+Availability: 2
+Difficulty: Moderate (Easy if target is attacking)
+Damage: 5D stun
+Game Notes: Micro cell recycles in three minutes. Target must make Difficult melee or brawling parry to avoid contact.
+Source: Galaxy Guide 10: Bounty Hunters (page 86)
+
+Buzz-Knuck
+Model: Standard Buzz-Knuck
+Type: Stun knuckler
+Scale: Character
+Skill: Melee combat: buzz-knuck
+Cost: 500
+Availability: 2, R
+Difficulty: Difficult
+Damage: STR+1D plus 6D stun
+Source: Dark Empire Sourcebook (page 42)
+
+Thrown Weapons
+Ewok Sling
+Model: Ewok Sling
+Type: Primitive missile weapon
+Scale: Character
+Skill: Thrown weapons: sling
+Ammo: 1
+Cost: Not available for sale
+Availability: 3, F
+Fire Rate: 1
+Range: 3-7/15/30
+Damage: 2D+1
+Source: Gamer Magazine
+
+Throwing Knife
+Model: Standard throwing knife
+Type: Melee weapon
+Scale: Character
+Skill: Thrown weapons: knife
+Cost: 45
+Availability: 1
+Range: 2-3/5/10
+Damage: STR+1D (maximum: 6D)
+Game Notes: May also be used as a normal knife in melee combat.
+Source: Rulebook (page 228)
+
+Bow
+Type: Typical bow
+Scale: Character
+Skill: Thrown weapons: bow
+Ammo: 1
+Cost: 200
+Availability: 1, F
+Range: 3-10/30/100
+Damage: 2D+2
+Source: Adventure Journal 2 (page 203)
+
+Klirun Hunting Bow
+Model: Tunroth Klirun Hunting Bow
+Type: Hunting bow
+Scale: Character
+Skill: Thrown weapons: bow
+Ammo: 1
+Cost: 400
+Availability: 4
+Range: 3-10/40/140
+Damage: STR+1D
+Game Notes: Requires Strength of 3D or more to operate.
+Source: Ultimate Alien Anthology (page 171)
+
+Discblade
+Model: Zeison Sha Discblade
+Type: Thrown blade weapon
+Scale: Character
+Skill: Thrown weapons: discblade
+Cost: 500
+Availability: 4, X
+Range: 3-20/50/200
+Damage: STR+1D+1
+Game Notes: Only Zeison Sha warriors may acquire legally; black market versions cost 2,000.
+Source: Hero's Guide (page 122)
+
+Repulsor Rodian Throwing-Razor
+Model: Rheshalva Interstellar Armaments Repulsor Throwing-Razor
+Type: Thrown weapon
+Scale: Character
+Skill: Thrown weapons: Rodian throwing-razor
+Cost: 3000 (pair)
+Availability: 4, F or R
+Range: 25-50/150/300
+Damage: STR+1D+2
+Game Notes: After hit, victim makes Difficult stamina roll for three minutes or takes 3D additional from blood loss. Weapon automatically returns to owner.
+Source: Galladinium's Fantastic Technology (page 89), Arms and Equipment Guide (page 37)
+
+Tarpoon
+Model: Whiphid Tarpoon
+Type: Capture harpoon
+Scale: Character
+Skill: Thrown weapons: tarpoon
+Cost: Not available for sale
+Availability: 3
+Range: 3-5/10/20
+Damage: STR+2D (maximum 6D)
+Game Notes: If attack beats difficulty by 5+, tarpoon lodges into victim and can be dragged with opposed Strength roll. Includes 20 meters syntherope.
+Source: Shadows of the Empire Planets Guide (page 87)
+
+Gruush
+Model: Sauvax Gruush Fishing Spear
+Type: Native weapon/tool
+Scale: Character
+Skill: Thrown weapons: spear
+Cost: 50
+Availability: 3, R
+Difficulty: Moderate
+Range: 3-5/10/15
+Damage: STR+2D+1 (Max: 7D+1)
+Game Notes: Multipurpose spear; barbed point and curved hook. Used as melee or thrown.
+Source: Ultimate Alien Anthology (page 138)
+
+Spinblade
+Model: Vrakolian Spinblade
+Type: Thrown edged blade
+Scale: Character
+Skill: Thrown weapons: spinblade
+Cost: 10
+Availability: 3, R
+Range: 2-5/10/20
+Damage: 3D
+Game Notes: Can curve in flight to hit targets behind cover (medium/long range only). Up to two thrown at once from each hand at same target.
+Source: Tapani Sector Instant Adventures (page 22)
+
+Kerestian Darkstick
+Model: Kerestian Darkstick
+Type: Light-boomerang
+Scale: Character
+Skill: Thrown weapons: darkstick
+Cost: 3000
+Availability: 3, X
+Range: 5-20/40/60
+Damage: 3D+1 energy
+Game Notes: Emits black light beam in V-shape. Cuts through material like a lightsaber. Returns to thrower whether hit or miss.
+Source: Ultimate Alien Anthology (page 85)
+
+Sith Lanvarok
+Model: Sith Lanvarok
+Type: Disk launcher
+Scale: Character
+Skill: Thrown weapons: Sith Lanvarok
+Ammo: 1
+Cost: 4000
+Availability: 4, X
+Range: 2-10/20/40
+Damage: 3D+1
+Game Notes: Disks spread out granting +1D to hit any target within 10 meters. Full round to load.
+Source: The Dark Side Sourcebook (page 58)
+
+Massassi Lanvarok
+Model: Massassi Lanvarok
+Type: Disk launcher/polearm
+Scale: Character
+Skill: Thrown weapons: Massassi Lanvarok
+Ammo: 1
+Cost: 250
+Availability: 4, X
+Range: 2-5/10/20
+Difficulty: Moderate
+Damage: STR+1D+2 (Max: 7D) / 3D+1 (discs)
+Game Notes: Useable as ranged or melee. Ranged disks spread giving +1D bonus to hit within 10 meters. Full round to load.
+Source: The Dark Side Sourcebook (page 58)
+
+Magna Bolas
+Model: Magna Bolas
+Type: Thrown weapon
+Scale: Character
+Skill: Thrown weapons: magna bolas
+Ammo: 1
+Cost: 500
+Availability: 2, F
+Fire Rate: 1
+Range: 3-6/12/25
+Damage: 4D stun or entanglement
+Game Notes: Thrower chooses stun (4D stun) or entangle (2D+2 damage; Difficult Dexterity or entangled: -1D attacks, -2D Dexterity, half Move).
+Source: Coruscant and the Core Worlds (page 157)
+
+Caster's Net
+Model: Geonosian Caster's Net
+Type: Thrown net
+Scale: Character
+Skill: Thrown weapons: net
+Cost: 400
+Availability: 3
+Range: 1-2/3/4
+Damage: 3D stun plus entangle
+Game Notes: Entangled target suffers -2D to all actions. Net has trailing rope for containment via opposed Strength. Disentangling is Difficult Dexterity. Net Strength 4D+2.
+Source: Geonosis and the Outer Rim Worlds (page 61)
+
+B'hedda
+Model: Dug B'hedda Swingblade
+Type: Swingblade
+Scale: Character
+Skill: Melee combat: b'hedda
+Cost: 200
+Availability: 3, X
+Difficulty: Easy
+Range: 10/20/40 (atlatl)
+Damage: STR+1D (blade, max: 5D), 3D (thrown explosive)
+Game Notes: Hooked blade grants +1D climbing bonus for Dugs with specialization. Atlatl end flings bangcap explosives that detonate on impact. Non-Dugs take -1D on all attack rolls.
+Source: Ultimate Alien Anthology (page 31)
+
+Atlatl
+Model: Otoh Gunga Standard Issue Atlatl
+Type: Melee or thrown weapon
+Scale: Character
+Skill: Melee combat: atlatl
+Ammo: 1
+Cost: 50
+Availability: 3, R
+Difficulty: Very Easy
+Range: 10/20/40 (energy ball)
+Damage: STR+1D (maximum: 5D), 3D stun or ionization (energy ball)
+Game Notes: Short stick to hurl energy balls. Also useable as a club.
+Source: Secrets of Naboo (page 49)
+
+Cesta
+Model: Otoh Gunga Standard Issue Cesta
+Type: Melee or thrown weapon
+Scale: Character
+Skill: Melee combat: cesta
+Ammo: 1
+Cost: 100
+Availability: 3, R
+Difficulty: Easy
+Range: 20/40/80 (energy ball)
+Damage: STR+1D+1 (maximum: 6D), 3D stun or ionization (energy ball)
+Game Notes: Long staff to hurl energy balls with greater range than atlatl. Also used as a melee staff.
+Source: Secrets of Naboo (page 49)

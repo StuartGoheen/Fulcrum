@@ -1,0 +1,126 @@
+Weapon Accessories
+Slugs
+Model: Various manufacturers
+Type: Slugthrower ammunition
+Scale: Character
+Cost: 25
+Availability: 1
+Damage: Per weapon
+Source: Rules of Engagement - The Rebel SpecForce Handbook (page 67)
+
+Explosive Slugs
+Model: Alliance Manufacture Explosive Slugs
+Type: Explosive slugs
+Scale: Character
+Skill: Demolitions
+Cost: 50
+Availability: 2, F or R
+Difficulty: Moderate
+Damage: +1D to slug's damage against hard armor
+Game Notes: Works on hard armor including stormtrooper armor. Soft armor and ordinary tissue do not detonate slugs (normal damage).
+Source: Rules of Engagement - The Rebel SpecForce Handbook (pages 67-68)
+
+Merr-Sonn Silencer
+Model: Merr-Sonn NonSonic Silencer
+Type: Firearm noise suppressor
+Scale: Character
+Skill: Blaster repair: modification
+Cost: 1,200
+Availability: 2, R
+Game Notes: Absorbs firearm sound; no Perception check needed by observers when fired.
+Source: Rules of Engagement - The Rebel SpecForce Handbook (page 62), Arms and Equipment Guide (page 38)
+
+Blaster Gas Canister
+Model: Standard Blaster Gas Dispenser
+Type: Blaster gas refill
+Scale: Character
+Cost: 1,250
+Availability: 2, F or R
+Game Notes: Vending port automatically fills power pack in 10 rounds.
+Source: Rules of Engagement - The Rebel SpecForce Handbook (page 67)
+
+Blaster Power Pack
+Model: Standard Blaster Power Pack
+Type: Blaster ammunition
+Scale: Character
+Cost: 25
+Availability: 1
+Damage: Per weapon
+Game Notes: Compatible within class: pistol packs fit most blaster pistols, rifle packs fit most blaster rifles, etc.
+Source: Rules of Engagement - The Rebel SpecForce Handbook (page 67)
+
+Portable Clip Recharger
+Model: BlasTech Ramtek
+Type: Portable clip recharger
+Scale: Character
+Cost: 750
+Availability: 4, F or R
+Game Notes: Recharges standard power pack in 2 minutes. Can charge 30 clips before needing recharging from power generator (3 hours).
+Source: Galladinium's Fantastic Technology (page 79), Arms and Equipment Guide (page 38)
+
+Electronic Blaster Sighting System
+Model: SoroSuub True-Site System
+Type: Electronic blaster sighting system
+Scale: Character
+Skill: Blaster
+Cost: 500
+Availability: 2, R
+Game Notes: Projected hologram crosshairs add +1D to blaster for sighting.
+Source: Gundark's Fantastic Technology (page 88)
+
+Ultrasonic Sighting System
+Model: Novaless Soni-Optics Target Imager
+Type: Sonic targeting system
+Scale: Character
+Skill: Blaster
+Cost: 800
+Availability: 2
+Game Notes: Adds +1D+2 to blaster when firer takes one round to aim (in addition to normal aiming bonus). Maximum effective range 50 meters.
+Source: Galladinium's Fantastic Technology (pages 79-80), Arms and Equipment Guide (page 38)
+
+Sighting Macroscope
+Model: Merr-Sonn Targeter Ranging Scope
+Type: Weapon-mounted image magnifier
+Scale: Character
+Skill: Sensors
+Cost: 750
+Availability: 2
+Game Notes: Adds +3D to medium- and long-range shots from blaster and slugthrowing rifles and carbines. Requires Moderate sensors roll to sight-in a target.
+Source: Rules of Engagement - The Rebel SpecForce Handbook (page 41), Arms and Equipment Guide (page 38)
+
+Blaster Repair Kit
+Model: BlasTech Blaster Repair Kit
+Type: Deluxe blaster repair kit
+Scale: Character
+Skill: Blaster repair
+Cost: 500
+Availability: 2
+Game Notes: Contains: pulse adaptor module tester, collimator beam focuser, prismatic crystal aligner, static pulse adaptor modules, energy converter valve, multiple gas valve nozzles, power pack recharger, universal power pack, power pack cables, spare gas container, spare trigger cable, and variable pressure adjustor.
+Source: Galladinium's Fantastic Technology (page 79), Arms and Equipment Guide (page 96)
+
+Quickdraw Holster
+Type: Typical quickdraw weapon holster
+Scale: Character
+Skill: Blaster
+Cost: 50
+Availability: 2
+Game Notes: Can add +1 to +2D or more to blaster skill when attempting to quickdraw.
+Source: Han Solo and the Corporate Sector Sourcebook (pages 121-122)
+
+Targeting Computer
+Model: NeuroSaav 3K40 Targeting System
+Type: Targeting computer
+Scale: Character
+Cost: 5,000
+Availability: 2, R
+Game Notes: Handles up to five artillery weapons at once. Grants +1D bonus to any gunner's skill. Upgrade (3,000) raises bonus to +2D.
+Source: Hideouts & Strongholds (page 12)
+
+Turbolaser Blaster Gas Canister
+Model: Imperial Munitions Type II Blaster Gas Canister
+Type: Shipboard munitions
+Scale: Capital
+Cost: 1,000
+Availability: 2, R or X
+Game Notes: Provides enough blaster gas for 20 capital-scale or 40 starfighter-scale turbolaser blasts. Compatible knock-offs available from SoroSuub and TaggeCo.
+Source: The Far Orbit Project (page 20)

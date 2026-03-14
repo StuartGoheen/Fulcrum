@@ -1,0 +1,646 @@
+[
+  {
+    "id": "wpn_dc15s_01",
+    "name": "DC-15s Sidearm",
+    "description": "The standard sidearm of the Grand Army of the Republic. Compact, reliable, and built for sustained field use. The dynamic power cell slowly regenerates charge between shots, making it forgiving in prolonged engagements.",
+    "chassisId": "light",
+    "chassisLabel": "Light Pistol",
+    "discipline": "ranged",
+    "arena": "reflex",
+    "range": [4, 10, 40],
+    "stunSetting": true,
+    "cost": 1300,
+    "trait": {
+      "name": "Dynamic Cell",
+      "description": "The smart power cell regenerates 2 charges per round the weapon is not fired. Once per scene, when you would run dry, you may instead fire on reserves — treating the weapon as loaded for one final shot."
+    },
+    "availability": "3/R",
+    "gambits": [],
+    "tags": ["Ranged", "Light", "Pistol", "Energy", "Military", "Clone Wars"]
+  },
+  {
+    "id": "wpn_intimidator_01",
+    "name": "Merr-Sonn IR-5 Intimidator",
+    "description": "A rapid-fire blaster pistol that fires at the rate of a repeating blaster. Slightly underpowered compared to a standard sidearm, but the integrated targeting computer compensates — keeping bolts on target through sustained automatic fire.",
+    "chassisId": "light",
+    "chassisLabel": "Light Pistol",
+    "discipline": "ranged",
+    "arena": "reflex",
+    "range": [1, 5, 10],
+    "stunSetting": false,
+    "cost": 1250,
+    "trait": {
+      "name": "Repeating Fire",
+      "description": "This weapon fires at the rate of a repeating blaster. An integrated targeting computer compensates for the rapid fire rate — Autofire does not impose a Control penalty for lacking a stock or for the weapon's fire rate."
+    },
+    "gambits": [
+      {
+        "name": "Spray",
+        "rule": "Reduce your Effect by 1 Tier. Select two targets in the Zone — the resolved Effect Tier applies to both."
+      },
+      {
+        "name": "Spray and Pray",
+        "rule": "Reduce your Effect by 1 Tier. Saturate an entire Zone in range — the resolved Effect Tier applies to every enemy in it. The weapon then gains [Disabled]; spend a Maneuver to recover (clearing the overheated barrel, spent magazine, and recalibrating the targeting computer)."
+      }
+    ],
+    "availability": "3/X",
+    "tags": ["Ranged", "Light", "Pistol", "Energy", "Rapid-Fire"]
+  },
+  {
+    "id": "wpn_dl18_01",
+    "name": "BlasTech DL-18",
+    "description": "The galaxy's most common sidearm. Cheap, available everywhere, and utterly dependable. Every scoundrel, merchant, and frontier colonist owns one. It won't impress anyone, but it will keep you alive.",
+    "chassisId": "light",
+    "chassisLabel": "Light Pistol",
+    "discipline": "ranged",
+    "arena": "reflex",
+    "range": [2, 6, 24],
+    "stunSetting": true,
+    "cost": 500,
+    "customDamage": [1, 2, 5],
+    "trait": null,
+    "gambits": [],
+    "availability": "1/F",
+    "tags": ["Ranged", "Light", "Pistol", "Energy", "Powerful"]
+  },
+  {
+    "id": "wpn_dh17_01",
+    "name": "BlasTech DH-17",
+    "description": "The favored sidearm of Imperial officers and shipboard security. A built-in fire control package rewards careful aim, and a field-modifiable burst mode can shred targets at close range — once.",
+    "chassisId": "light",
+    "chassisLabel": "Light Pistol",
+    "discipline": "ranged",
+    "arena": "reflex",
+    "range": [3, 6, 24],
+    "stunSetting": true,
+    "cost": 800,
+    "customDamage": [1, 2, 5],
+    "trait": {
+      "name": "Fire Control",
+      "description": "Precision optics and integrated fire control package. Optimizes the Overwatch Maneuver — when you use Overwatch, Step Up your Control Die for that attack."
+    },
+    "gambits": [],
+    "availability": "2/R",
+    "tags": ["Ranged", "Light", "Pistol", "Energy", "Military", "Powerful"]
+  },
+  {
+    "id": "wpn_westar34_01",
+    "name": "Westar-34",
+    "description": "A Mandalorian-forged blaster pistol built for close-range lethality. Heavy frame, tight tolerances, exceptional stopping power. Designed to punch through light armor at close range and keep shooting in any environment.",
+    "chassisId": "medium",
+    "chassisLabel": "Medium Pistol",
+    "discipline": "ranged",
+    "arena": "reflex",
+    "range": [2, 5, 16],
+    "stunSetting": false,
+    "cost": 750,
+    "trait": {
+      "name": "Mandalorian Forged",
+      "description": "Built to Mandalorian standards: immune to malfunctions from environmental conditions (water, sand, vacuum, extreme heat). Does not impose an Opening when fired in the Engaged Zone."
+    },
+    "gambits": [],
+    "availability": "1/F",
+    "tags": ["Ranged", "Medium", "Pistol", "Energy", "Mandalorian"]
+  },
+  {
+    "id": "wpn_relbyk23_01",
+    "name": "Relby-k23",
+    "description": "A heavy bounty hunter's pistol with an extended barrel and integrated targeting scope. Hits harder and reaches farther than any standard sidearm. Popular with professionals who need a single, decisive shot.",
+    "chassisId": "medium",
+    "chassisLabel": "Medium Pistol",
+    "discipline": "ranged",
+    "arena": "reflex",
+    "range": [3, 8, 28],
+    "stunSetting": false,
+    "cost": 660,
+    "trait": {
+      "name": "Low Refraction Bolt",
+      "description": "Engineered for minimal beam dispersion — the bolt loses almost no cohesion over distance, giving this pistol exceptional range and stopping power."
+    },
+    "gambits": [
+      {
+        "name": "Excruciating Hit",
+        "rule": "Reduce your Effect by 1 Tier. The bolt's unique frequency causes intense, lingering pain in biological targets. Inflict [Distracted – Lingering] in addition to the resolved damage."
+      }
+    ],
+    "availability": "4/X",
+    "tags": ["Ranged", "Medium", "Pistol", "Energy", "Bounty Hunter"]
+  },
+  {
+    "id": "wpn_lightsaber_01",
+    "name": "Lightsaber",
+    "description": "An elegant weapon for a more civilized age. A blade of pure, contained plasma requiring intense focus and attunement to wield safely.",
+    "chassisId": "exotic",
+    "chassisLabel": "Exotic Melee",
+    "discipline": "melee",
+    "arena": "physique",
+    "range": { "engaged": true },
+    "stunSetting": false,
+    "customDamage": [1, 5, 8],
+    "trait": {
+      "name": "Cauterize",
+      "description": "Intense plasma heat instantly sears flesh and melts steel. Cannot inflict [Bleeding]. Automatically Steps Up the final Effect Tier by 1 when cutting through inanimate objects (blast doors, bulkheads, binders)."
+    },
+    "gambits": [
+      {
+        "name": "Plasma Shear",
+        "rule": "Reduce your Effect by 1 Tier. Shift your attack target from Defense Resistance to Evasion Resistance — this strike explicitly ignores the [Ironclad] trait, turning a physical block into a test of the target's ability to dodge."
+      }
+    ],
+    "availability": "4/X",
+    "tags": ["Melee", "Exotic", "Lightsaber", "Plasma"]
+  },
+  {
+    "id": "wpn_bryar_rifle_01",
+    "name": "Bryar Rifle",
+    "description": "A rugged outer rim blaster rifle built from surplus parts and hard-won experience. Undersells its lethality — the long barrel keeps bolts on target well beyond what its battered frame suggests. A favorite of independent operators who can't afford to be picky.",
+    "chassisId": "light",
+    "chassisLabel": "Light Rifle",
+    "discipline": "ranged",
+    "arena": "reflex",
+    "range": [10, 30, 86],
+    "stunSetting": false,
+    "cost": 1000,
+    "customDamage": [1, 2, 5],
+    "trait": {
+      "name": "Deceptive Range",
+      "description": "The long barrel minimizes bolt dispersion over distance. The max range band (zones 31+) imposes only −1 Control step instead of the standard −2."
+    },
+    "gambits": [],
+    "availability": "4/R",
+    "tags": ["Ranged", "Light", "Rifle", "Energy", "Outer Rim", "Scoundrel"]
+  },
+  {
+    "id": "wpn_e11_01",
+    "name": "BlasTech E-11",
+    "description": "The standard-issue blaster rifle of the Imperial Army. Reliable, modular, and available everywhere — including black markets and battlefield salvage. The retractable stock and integrated scope make it effective at range; folded down, it punches through tight corridors like a carbine.",
+    "chassisId": "medium",
+    "chassisLabel": "Medium Rifle",
+    "discipline": "ranged",
+    "arena": "reflex",
+    "range": [6, 20, 60],
+    "stunSetting": true,
+    "cost": 1100,
+    "trait": {
+      "name": "Scope & Retractable Stock",
+      "description": "Two hardware modes in one frame. Scope: Optimizes the Overwatch Maneuver — when you use Overwatch, Step Up your Control Die for that attack. Collapsible Stock: When the stock is folded, this weapon may target the Engaged Zone (Range 0). The Opening still applies."
+    },
+    "gambits": [],
+    "availability": "3/R",
+    "tags": ["Ranged", "Medium", "Rifle", "Energy", "Military", "Imperial", "Clone Wars"]
+  },
+  {
+    "id": "wpn_dc15_rifle_01",
+    "name": "BlasTech DC-15 Clone Rifle",
+    "description": "The assault backbone of the Grand Army of the Republic. Three years after Order 66, these are still turning up on outer rim battlefields — in rebel caches, black market crates, and the hands of veterans who never stopped fighting. Built for sustained automatic fire in any environment.",
+    "chassisId": "medium",
+    "chassisLabel": "Medium Rifle",
+    "discipline": "ranged",
+    "arena": "reflex",
+    "range": [8, 26, 70],
+    "stunSetting": true,
+    "cost": 1500,
+    "customDamage": [1, 3, 6],
+    "trait": {
+      "name": "Assault Configuration",
+      "description": "Engineered from the ground up for sustained automatic fire. Autofire does not impose an additional Control step-down — the weapon's design absorbs the fire rate penalty inherently."
+    },
+    "gambits": [],
+    "availability": "2/R",
+    "tags": ["Ranged", "Medium", "Rifle", "Energy", "Military", "Clone Wars", "Assault"]
+  },
+  {
+    "id": "wpn_dlt19_01",
+    "name": "BlasTech DLT-19",
+    "description": "A heavy blaster rifle built for the long reach. Standard kit for Imperial heavy weapons specialists and the weapon of choice for anyone who needs to engage targets the other side of a landing field. Belt-fed and relentless — it does not run dry.",
+    "chassisId": "medium",
+    "chassisLabel": "Medium Rifle",
+    "discipline": "ranged",
+    "arena": "reflex",
+    "range": [10, 36, 70],
+    "stunSetting": false,
+    "cost": 1300,
+    "trait": {
+      "name": "Belt-Fed Power Cell",
+      "description": "This weapon feeds from a continuous power belt rather than a standard pack — it carries 200 charges. Narrative truth: it does not run dry in a firefight."
+    },
+    "gambits": [],
+    "availability": "1/R",
+    "tags": ["Ranged", "Medium", "Rifle", "Energy", "Military", "Imperial", "Long-Range"]
+  },
+  {
+    "id": "wpn_ee3_01",
+    "name": "BlasTech EE-3",
+    "description": "A compact, hard-hitting blaster carbine built for professionals. Short enough to clear a doorway, heavy enough to put down what comes through it. The pistol grip is the tell — this weapon is designed to work in your hands at any distance, no stock required.",
+    "chassisId": "heavy",
+    "chassisLabel": "Heavy Rifle",
+    "discipline": "ranged",
+    "arena": "reflex",
+    "range": [6, 16, 50],
+    "stunSetting": false,
+    "cost": 1400,
+    "trait": {
+      "name": "Pistol Grip",
+      "description": "Designed to be fired one-handed at close quarters. This weapon may target the Engaged Zone (Range 0). The Opening still applies — the grip changes the geometry, not the danger."
+    },
+    "gambits": [],
+    "availability": "1/R",
+    "tags": ["Ranged", "Heavy", "Rifle", "Energy", "Bounty Hunter"]
+  },
+  {
+    "id": "wpn_a280_01",
+    "name": "BlasTech A280",
+    "description": "The weapon that won more than a few early skirmishes against Imperial armor. A full-power blaster rifle with no frills and no compromises. The damage track says everything worth saying about the A280.",
+    "chassisId": "heavy",
+    "chassisLabel": "Heavy Rifle",
+    "discipline": "ranged",
+    "arena": "reflex",
+    "range": [8, 24, 60],
+    "stunSetting": false,
+    "cost": 1400,
+    "trait": null,
+    "gambits": [],
+    "availability": "1/R",
+    "tags": ["Ranged", "Heavy", "Rifle", "Energy", "Rebel", "Military"]
+  },
+  {
+    "id": "wpn_q2_01",
+    "name": "Merr-Sonn Q-2",
+    "description": "The galaxy's most common backup weapon. Cheap, concealable, and found in every boot, waistband, and hidden pocket on the outer rim. No frills. No range to speak of. But at arm's length in a dark corridor, it does exactly what it needs to.",
+    "chassisId": "light",
+    "chassisLabel": "Hold-Out",
+    "discipline": "ranged",
+    "arena": "reflex",
+    "range": [1, 2, 3],
+    "stunSetting": false,
+    "cost": 400,
+    "trait": null,
+    "gambits": [],
+    "availability": "2/R",
+    "tags": ["Ranged", "Light", "Hold-Out", "Energy", "Concealable", "Outer Rim"]
+  },
+  {
+    "id": "wpn_happy_surprise_01",
+    "name": "Merr-Sonn Happy Surprise",
+    "description": "Named honestly. Slightly more reach than the Q-2, but the real feature is that nobody expects to find it. Merr-Sonn engineered the frame specifically to defeat casual detection — smooth surfaces, minimal signature, no protruding components. You don't draw this weapon. You reveal it.",
+    "chassisId": "light",
+    "chassisLabel": "Hold-Out",
+    "discipline": "ranged",
+    "arena": "reflex",
+    "range": [1, 2, 3],
+    "stunSetting": false,
+    "cost": 300,
+    "trait": {
+      "name": "Concealable Frame",
+      "description": "Engineered to defeat detection. Very Difficult to find via pat-down or standard weapon scanner — smooth surfaces, no protruding components, minimal energy signature."
+    },
+    "gambits": [],
+    "availability": "1/R",
+    "tags": ["Ranged", "Light", "Hold-Out", "Energy", "Concealable"]
+  },
+  {
+    "id": "wpn_quickfire4_01",
+    "name": "Merr-Sonn Quickfire-4",
+    "description": "Maximum lethality in minimum space. The Quickfire-4 hits harder than any holdout has a right to — the trade-off is a range measured in arm-lengths. This is the weapon you reach for when everything else has gone wrong and the threat is close enough to touch.",
+    "chassisId": "light",
+    "chassisLabel": "Hold-Out",
+    "discipline": "ranged",
+    "arena": "reflex",
+    "range": [1, 2, 3],
+    "stunSetting": false,
+    "cost": 300,
+    "customDamage": [1, 2, 5],
+    "trait": null,
+    "gambits": [],
+    "availability": "2/R",
+    "tags": ["Ranged", "Light", "Hold-Out", "Energy", "Powerful"]
+  },
+  {
+    "id": "wpn_kyd21_01",
+    "name": "KYD-21",
+    "description": "Built for operators who can't afford to be heard. The integrated silencer is factory-fitted, not a mod — it buffers both sound and muzzle flash without reducing stopping power. Standard issue for those who consider discretion a tactical requirement.",
+    "chassisId": "light",
+    "chassisLabel": "Sporting Blaster",
+    "discipline": "ranged",
+    "arena": "reflex",
+    "range": [2, 8, 12],
+    "stunSetting": false,
+    "cost": 330,
+    "customDamage": [1, 2, 5],
+    "trait": {
+      "name": "Integrated Silencer",
+      "description": "This weapon produces no sound when fired. When used from hiding against an unaware target at a range beyond the effective band (Zone 3+), the shooter's position remains undetected after the shot."
+    },
+    "gambits": [],
+    "availability": "1/F",
+    "tags": ["Ranged", "Light", "Sporting", "Energy", "Silenced", "Concealable"]
+  },
+  {
+    "id": "wpn_lancer_01",
+    "name": "SoroSuub X-30 Lancer",
+    "description": "A competition target pistol with a precision-machined barrel that puts sporting blasters to shame at distance. Hits lighter than a military sidearm, but reaches just as far. Favored by hunters, scouts, and anyone who believes the first shot should be the only shot.",
+    "chassisId": "light",
+    "chassisLabel": "Sporting Blaster",
+    "discipline": "ranged",
+    "arena": "reflex",
+    "range": [2, 6, 24],
+    "stunSetting": false,
+    "cost": 500,
+    "trait": {
+      "name": "Precision Target Barrel",
+      "description": "Machined to competition tolerances for deliberate, accurate fire. Optimizes the Overwatch Maneuver — when you use Overwatch, Step Up your Control Die for that attack."
+    },
+    "gambits": [],
+    "availability": "1/F",
+    "tags": ["Ranged", "Light", "Sporting", "Energy", "Precision"]
+  },
+  {
+    "id": "wpn_luxan_01",
+    "name": "Luxan Penetrator",
+    "description": "A sporting blaster with no sporting pretensions. The focused beam delivers Medium chassis energy from a pistol frame — but the collimation that makes it hit so hard also makes it unforgiving to aim. There is no spray-and-pray with a Penetrator. Every shot is a commitment.",
+    "chassisId": "medium",
+    "chassisLabel": "Sporting Blaster",
+    "discipline": "ranged",
+    "arena": "reflex",
+    "range": [4, 8, 12],
+    "stunSetting": false,
+    "cost": 600,
+    "trait": {
+      "name": "Focused Beam",
+      "description": "The tightly collimated bolt is difficult to place with precision. Step Down your Control Die on all attacks with this weapon. What lands, lands hard."
+    },
+    "gambits": [],
+    "availability": "4/F",
+    "tags": ["Ranged", "Medium", "Sporting", "Energy", "Precision"]
+  },
+  {
+    "id": "wpn_quicksnap36t_01",
+    "name": "SoroSuub QuickSnap 36T",
+    "description": "The outer rim's everyman carbine. Mass-produced, widely distributed, and found in frontier armories, rebel caches, and cantina back rooms across the galaxy. Not glamorous. Not precise at distance. But it's available, it's affordable, and when you need a carbine it's always the QuickSnap that turns up.",
+    "chassisId": "medium",
+    "chassisLabel": "Blaster Carbine",
+    "discipline": "ranged",
+    "arena": "reflex",
+    "range": [5, 10, 50],
+    "stunSetting": false,
+    "cost": 900,
+    "trait": {
+      "name": "QuickSnap Action",
+      "description": "The streamlined action is built for immediate deployment. Drawing this weapon costs no Maneuver."
+    },
+    "gambits": [],
+    "availability": "2/R",
+    "tags": ["Ranged", "Medium", "Carbine", "Energy", "Outer Rim", "Common"]
+  },
+  {
+    "id": "wpn_e5_01",
+    "name": "E-5 Droid Blaster",
+    "description": "Standard-issue for Separatist battle droids during the Clone Wars. The Empire decommissioned millions of them. They went somewhere — and that somewhere was every black market, surplus dealer, and scavenger operation in the outer rim. Cheap, plentiful, and hits harder than it has any right to for the price.",
+    "chassisId": "medium",
+    "chassisLabel": "Blaster Carbine",
+    "discipline": "ranged",
+    "arena": "reflex",
+    "range": [4, 12, 42],
+    "stunSetting": false,
+    "cost": 900,
+    "trait": null,
+    "gambits": [],
+    "availability": "2/F",
+    "tags": ["Ranged", "Medium", "Carbine", "Energy", "Clone Wars", "Surplus", "Droid"]
+  },
+  {
+    "id": "wpn_lightning_gun_01",
+    "name": "Jer'N be' Milad Vel Lightning Gun",
+    "description": "Not a blaster. Fires compressed packets of charged sub-atomic particles — an elongated bolt of actinic blue-white that arrives with a ripping crack of thunder. Exotic, rare, and unmistakable. Six shots per power pack. You will not go unnoticed.",
+    "chassisId": "heavy",
+    "chassisLabel": "Exotic Carbine",
+    "discipline": "ranged",
+    "arena": "reflex",
+    "range": [5, 10, 15],
+    "stunSetting": false,
+    "cost": 2400,
+    "trait": {
+      "name": "Charged Particle Bolt",
+      "description": "This weapon fires compressed particle packets, not a coherent energy bolt — it cannot be deflected by a lightsaber or energy-based deflection. The distinctive blue-white bolt and thunder-crack are unmistakable; the shooter's position is always revealed after firing. This weapon carries only 6 shots per power pack."
+    },
+    "gambits": [],
+    "availability": "2/X",
+    "tags": ["Ranged", "Heavy", "Carbine", "Exotic", "Particle", "Rare"]
+  },
+  {
+    "id": "wpn_knife_01",
+    "name": "Knife",
+    "description": "The oldest weapon in the galaxy, present on every world in some form. A simple blade with no electronics to fail and nothing to explain. Nobody looks twice at a belt knife on the outer rim — and at close range it is as lethal as anything more expensive.",
+    "chassisId": "light",
+    "chassisLabel": "Light Blade",
+    "discipline": "melee",
+    "arena": "physique",
+    "range": { "engaged": true },
+    "stunSetting": false,
+    "cost": 25,
+    "trait": {
+      "name": "Concealed Carry",
+      "description": "A blade this size hides anywhere. Passes casual searches without question. Only a deliberate, thorough search has any chance of finding it."
+    },
+    "gambits": [],
+    "availability": "1",
+    "tags": ["Melee", "Light", "Blade", "Concealable", "Common", "Primitive", "Legal"]
+  },
+  {
+    "id": "wpn_vibroblade_01",
+    "name": "Vibroblade",
+    "description": "A powered blade with a compact generator driving ultrasonic vibrations along the cutting edge. Those vibrations let it shear through material that would stop a plain blade cold — armor plating, thick hide, equipment straps. Carried by soldiers, bounty hunters, and anyone who understands the gap between a knife and a weapon.",
+    "chassisId": "light",
+    "chassisLabel": "Light Blade",
+    "discipline": "melee",
+    "arena": "physique",
+    "range": { "engaged": true },
+    "stunSetting": false,
+    "cost": 250,
+    "trait": {
+      "name": "Vibro-Edge",
+      "description": "High-frequency vibrations allow the blade to cut and tear with exceptional efficiency. When you roll 8 or higher on your Control die, inflict [Bleeding] in addition to the resolved Effect."
+    },
+    "gambits": [],
+    "availability": "2/F",
+    "tags": ["Melee", "Light", "Blade", "Vibro", "Energy"]
+  },
+  {
+    "id": "wpn_staff_01",
+    "name": "Fighting Staff",
+    "description": "A two-meter fighting staff — the unassuming weapon of wanderers, monks, and anyone who prefers not to draw attention on the way into a room. Requires no power cells, no maintenance, and no explanation. In trained hands it is a reactive defensive weapon as much as an offensive one.",
+    "chassisId": "light",
+    "chassisLabel": "Melee Weapon",
+    "discipline": "melee",
+    "arena": "physique",
+    "range": { "engaged": true },
+    "stunSetting": false,
+    "cost": 10,
+    "trait": {
+      "name": "Balanced Guard",
+      "description": "The staff's two-handed grip and natural balance lend it to deflection and interception. When you take the Defend Maneuver against a melee attack, Step Up your Defense die."
+    },
+    "gambits": [],
+    "availability": "1",
+    "tags": ["Melee", "Light", "Staff", "Bludgeon", "Common", "Two-Handed", "Legal"]
+  },
+  {
+    "id": "wpn_axe_01",
+    "name": "Axe",
+    "description": "A simple, heavy-bladed chopping tool that has served as a weapon since the first sentient being needed to make their point clearly. No power cells, no moving parts beyond the swing. What it lacks in technology it compensates for in mass and geometry. Found everywhere from lumberyards to frontier homesteads.",
+    "chassisId": "medium",
+    "chassisLabel": "Melee Weapon",
+    "discipline": "melee",
+    "arena": "physique",
+    "range": { "engaged": true },
+    "stunSetting": false,
+    "cost": 50,
+    "trait": null,
+    "gambits": [],
+    "availability": "1",
+    "tags": ["Melee", "Medium", "Blade", "Primitive", "Common", "Legal"]
+  },
+  {
+    "id": "wpn_vibro_ax_01",
+    "name": "Vibro-ax",
+    "description": "A broad-bladed axe driven by a compact vibration generator that turns an already brutal weapon into something capable of splitting durasteel. Popular with Gamorrean guards, certain species who favor it culturally, and anyone who wants their statement made with authority. Takes two hands to swing properly and delivers that investment directly to the target.",
+    "chassisId": "medium",
+    "chassisLabel": "Vibro Weapon",
+    "discipline": "melee",
+    "arena": "physique",
+    "range": { "engaged": true },
+    "stunSetting": false,
+    "cost": 500,
+    "trait": {
+      "name": "Vibro-Edge",
+      "description": "High-frequency vibrations allow the blade to cut and tear with exceptional efficiency. When you roll 8 or higher on your Control die, inflict [Bleeding] in addition to the resolved Effect."
+    },
+    "gambits": [
+      {
+        "name": "Heavy Cleave",
+        "rule": "Reduce your Effect by 1 Tier. The resolved Effect applies to one additional target in the Engaged Zone."
+      }
+    ],
+    "availability": "2/R",
+    "tags": ["Melee", "Medium", "Blade", "Vibro", "Energy", "Two-Handed", "Heavy"]
+  },
+  {
+    "id": "wpn_vibrorapier_01",
+    "name": "Duelist Vibrorapier",
+    "description": "A precision vibro-blade built along a traditional rapier profile — slender, balanced, and engineered for the kind of deliberate bladework that separates a trained duelist from a brawler. The vibration generator is fitted into the guard to keep the blade's center of balance intact. A wealthy choice, and a professional one.",
+    "chassisId": "light",
+    "chassisLabel": "Vibro Weapon",
+    "discipline": "melee",
+    "arena": "physique",
+    "range": { "engaged": true },
+    "stunSetting": false,
+    "cost": 300,
+    "trait": {
+      "name": "Vibro-Edge",
+      "description": "High-frequency vibrations allow the blade to cut and tear with exceptional efficiency. When you roll 8 or higher on your Control die, inflict [Bleeding] in addition to the resolved Effect."
+    },
+    "gambits": [
+      {
+        "name": "Precision Thrust",
+        "rule": "Reduce your Effect by 1 Tier. Shift the attack target from Defense Resistance to Evasion Resistance — the rapier's narrow profile finds the gap in any guard."
+      }
+    ],
+    "availability": "2/R",
+    "tags": ["Melee", "Light", "Blade", "Vibro", "Energy", "Duelist", "Elegant"]
+  },
+  {
+    "id": "wpn_force_pike_01",
+    "name": "Force Pike",
+    "description": "A two-meter SoroSuub graphite staff tipped with a vibro-edged head and a dual-mode emitter. At the lowest setting it delivers a jolt of pain capable of dropping most beings. At the highest, the vibro-head will cut through durasteel. Standard equipment for the Emperor's Royal Guard and Senate security — a statement of authority and a functional weapon in equal measure.",
+    "chassisId": "medium",
+    "chassisLabel": "Melee Weapon",
+    "discipline": "melee",
+    "arena": "physique",
+    "range": { "engaged": true },
+    "stunSetting": true,
+    "cost": 500,
+    "trait": {
+      "name": "Vibro-Edge",
+      "description": "High-frequency vibrations allow the blade to cut and tear with exceptional efficiency. When you roll 8 or higher on your Control die, inflict [Bleeding] in addition to the resolved Effect."
+    },
+    "gambits": [
+      {
+        "name": "Set the Pike",
+        "rule": "Reduce your Effect by 1 Tier. Declare a held position — the next enemy that voluntarily enters your Engaged Zone triggers a reaction attack before they can act. This reaction attack has no Opening."
+      }
+    ],
+    "availability": "2/R",
+    "tags": ["Melee", "Medium", "Vibro", "Energy", "Two-Handed", "Imperial", "Stun"]
+  },
+  {
+    "id": "wpn_combat_gloves_01",
+    "name": "Combat Gloves",
+    "description": "Reinforced gloves with hardened plating at the knuckles and palm heel — purpose-built to turn a fist into a weapon without looking like one. Worn under work gloves, dress gloves, or on their own, they draw no attention in most social settings. What lands, lands harder than it should.",
+    "chassisId": "light",
+    "chassisLabel": "Melee Weapon",
+    "discipline": "melee",
+    "arena": "physique",
+    "range": { "engaged": true },
+    "stunSetting": false,
+    "cost": 200,
+    "trait": {
+      "name": "Concealed Weapon",
+      "description": "Resembles ordinary gloves under casual inspection. Passes most social-context weapon checks without question. When worn, unarmed strikes are treated as weapon attacks for the purpose of overcoming resistances."
+    },
+    "gambits": [],
+    "availability": "1/F",
+    "tags": ["Melee", "Light", "Bludgeon", "Concealable", "Unarmed", "Urban", "Legal"]
+  },
+  {
+    "id": "wpn_snap_baton_01",
+    "name": "Snap Baton",
+    "description": "A Merr-Sonn collapsible baton: 12 centimeters folded, one full meter deployed. The exterior is wrapped in dark sound-absorbing material that muffles the snap of deployment. Popular in urban environments with thugs, enforcers, and people who appreciate having a weapon that fits in a coat pocket until it is needed.",
+    "chassisId": "light",
+    "chassisLabel": "Melee Weapon",
+    "discipline": "melee",
+    "arena": "physique",
+    "range": { "engaged": true },
+    "stunSetting": false,
+    "cost": 200,
+    "trait": {
+      "name": "Collapsible",
+      "description": "Folds to 12cm — fits in a pocket or clips to a utility belt unnoticed. Sound-absorbing material dampens the deployment snap. Very Difficult to detect in a casual search."
+    },
+    "gambits": [],
+    "availability": "2",
+    "tags": ["Melee", "Light", "Bludgeon", "Concealable", "Urban", "Legal"]
+  },
+  {
+    "id": "wpn_ddc_defender_01",
+    "name": "DDC Defender",
+    "description": "A no-frills personal defense blaster, legally available without restriction on most worlds. It won't win any awards for accuracy or range, but a DDC Defender in your belt beats an empty holster — and nobody questions why you have one.",
+    "chassisId": "light",
+    "chassisLabel": "Sporting Blaster",
+    "discipline": "ranged",
+    "arena": "reflex",
+    "range": [2, 5, 10],
+    "stunSetting": false,
+    "cost": 350,
+    "trait": null,
+    "gambits": [],
+    "availability": "1/F",
+    "tags": ["Ranged", "Light", "Sporting", "Energy", "Common", "Legal"]
+  },
+  {
+    "id": "wpn_quick_six_01",
+    "name": "Merr-Sonn Quick-Six",
+    "description": "The most common legal sidearm in the outer rim. Merr-Sonn's Model 6 was designed with one goal: maximum availability. Sold at every general store, trading post, and supply depot without question or documentation. The frame is balanced for a fast draw, the action is smooth, and it hits slightly harder than most sporting blasters its size. If someone on the frontier has a blaster, odds are it's a Quick-Six.",
+    "chassisId": "light",
+    "chassisLabel": "Sporting Blaster",
+    "discipline": "ranged",
+    "arena": "reflex",
+    "range": [2, 5, 10],
+    "stunSetting": false,
+    "cost": 325,
+    "customDamage": [1, 2, 5],
+    "trait": null,
+    "gambits": [],
+    "availability": "1/F",
+    "tags": ["Ranged", "Light", "Sporting", "Energy", "Common", "Legal", "Outer Rim"]
+  }
+]

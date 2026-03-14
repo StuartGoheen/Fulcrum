@@ -1,0 +1,353 @@
+Vibro-Weapons
+Vibro-Shiv
+Model: Standard Vibro-Shiv
+Type: Melee weapon
+Scale: Character
+Skill: Melee combat: vibro-shiv
+Cost: 200
+Availability: 2, F
+Difficulty: Easy
+Damage: STR+1D
+Source: Adventure Journal 4 (page 119), Dark Force Rising Sourcebook (page 112)
+
+Vibroknuckler
+Model: Czerka Vibroknuckler
+Type: Melee weapon
+Scale: Character
+Skill: Melee combat: vibroknuckler
+Cost: 200
+Availability: 2, R
+Difficulty: Very Easy
+Damage: STR+1D+1 (STR+1 if unpowered)
+Source: Arms and Equipment Guide (page 30)
+
+Tehk'la Blade
+Model: Nagai Tehk'la Blade
+Type: Vibrodagger
+Scale: Character
+Skill: Melee combat
+Cost: 250
+Availability: 4
+Difficulty: Very Easy
+Damage: STR+1D+2 (max: 5D)
+Source: Ultimate Alien Anthology (page 104)
+
+Vibrobayonet
+Model: Merr-Sonn Vibrobayonet
+Type: Typical vibrobayonet
+Scale: Character
+Skill: Melee combat: vibrobayonet
+Cost: 300
+Availability: 2, F
+Difficulty: Easy
+Damage: STR+1D+2
+Source: The Star Wars Sourcebook (page 100), Arms and Equipment Guide (page 31)
+
+Talon Vibrodagger
+Model: LaserHone Talon Vibrodagger
+Type: Personal combat vibroblade
+Skill: Melee combat: vibrodagger
+Cost: 50
+Availability: 2, R
+Difficulty: Easy
+Damage: STR+2D (maximum: 6D)
+Source: Gundark's Fantastic Technology (pages 13-14), Rules of Engagement - The Rebel SpecForce Handbook (page 60)
+
+Vibro-Saw
+Model: Greel Wood Logging Corporation TreeFelling Vibroblade
+Type: Vibro-saw
+Scale: Character
+Skill: Melee combat
+Cost: 400
+Availability: 1, R
+Difficulty: 15
+Damage: STR+2D+1
+Source: Gundark's Fantastic Technology (pages 14-15)
+
+Vibroblade
+Model: Standard vibroblade
+Type: Melee weapon
+Scale: Character
+Skill: Melee combat: vibroblade
+Cost: 250
+Availability: 2, F
+Difficulty: Moderate
+Damage: STR+3D (maximum: 6D)
+Source: Rulebook (page 228)
+
+Droid Concealed Vibroblade
+Model: Droid Concealed Vibroblade
+Type: Concealed melee weapon
+Scale: Character
+Skill: Melee combat
+Cost: 500
+Availability: 2, X
+Difficulty: Moderate
+Damage: STR+3D (Max: 6D+2)
+Game Notes: Housed in wrist or finger of humanoid droids. Basic version detected with Easy sensors roll; sensor-masked version (800 credits) requires Difficult sensors roll.
+Source: Cynabar's Fantastic Technology (page 34)
+
+Duelist Vibrorapier
+Model: LaserHone Duelist Vibrorapier
+Type: Personal combat vibroblade
+Skill: Melee combat
+Cost: 300
+Availability: 2, R
+Difficulty: Moderate
+Damage: STR+3D (maximum: 7D)
+Source: Gundark's Fantastic Technology (page 14), Arms and Equipment Guide (page 30)
+
+Double Vibroblade
+Model: Feeorin Double Vibroblade
+Type: Double vibroblade
+Scale: Character
+Skill: Melee combat: double vibroblade
+Cost: 750
+Availability: 3, R
+Difficulty: Difficult
+Damage: STR+3D (max: 7D)
+Game Notes: Characters with the double vibroblade specialization gain a +5 bonus to melee parry rolls.
+Source: Ultimate Alien Anthology (page 59)
+
+Double-Bladed Vibrostave
+Model: Custom Designed Royal Guardsman Weapon
+Type: Melee Weapon
+Scale: Character
+Skill: Melee combat: double-bladed vibrostave
+Cost: Not Available for Sale
+Availability: 4, X
+Difficulty: Moderate
+Damage: STR+3D
+Game Notes: Requires specialization. Without it, difficulty is Difficult. Trained wielder gains +5 bonus to all parry rolls.
+
+Vibro-ax
+Model: Standard vibro-ax
+Type: Melee weapon
+Scale: Character
+Skill: Melee combat: vibro-ax
+Cost: 500
+Availability: 2, R
+Difficulty: Moderate
+Damage: STR+3D+1 (maximum: 7D)
+Source: Rulebook (page 228)
+
+Jengardin Double-Bladed Vibroblade
+Model: Yalandross PowerMasters Jengardin Millenial Warrior Double-Bladed Vibroblade
+Type: Double-bladed vibroblade
+Scale: Character
+Skill: Melee combat: vibroblade
+Cost: 6000
+Availability: 4, F or R
+Difficulty: Difficult
+Damage: STR+4D+1 (Maximum 8D)
+Game Notes: Two-handed weapon requiring full concentration. Single-handed use increases difficulty two levels. If attack roll misses by 10+ points, user inflicts damage on himself.
+Source: Galladinium's Fantastic Technologies (page 69)
+
+Powered Melee Weapons
+Adumari Blastsword
+Model: Adumari Blastsword
+Type: Blaster blade
+Scale: Character
+Skill: Melee combat: vibroblade
+Cost: 600
+Availability: 3, R
+Difficulty: Moderate
+Damage: STR+2D (max: 4D+1), plus 4D energy
+Game Notes: Upon contact, blade discharges a standard blaster bolt for extra damage.
+Source: Hero's Guide (page 122)
+
+Power Sword
+Model: Power Sword
+Type: Powered blade
+Scale: Character
+Skill: Melee combat: power sword
+Cost: 600
+Availability: 2, R
+Difficulty: Difficult
+Damage: STR+3D
+Source: Dark Empire Sourcebook (page 42)
+
+Power Cane
+Model: Palandrix Personal Protection Gear Power Cane
+Type: Energized cane
+Scale: Character
+Skill: Melee combat: power cane
+Cost: 400
+Availability: 3, F or R
+Difficulty: Easy
+Damage: 1D-5D variable, STR+1D (stiletto)
+Game Notes: Contains concealed 30cm stiletto blade in spring-activated compartment. Ornamental top is a disguised power point.
+Source: Galladinium's Fantastic Technologies (pages 69-70)
+
+Electrostaff
+Model: Holowan Mechanicals Electrostaff
+Type: Double electric staff
+Scale: Character
+Skill: Melee combat: electrostaff
+Cost: 5750
+Availability: 3
+Difficulty: Difficult
+Damage: STR+3D (max: 6D)
+Game Notes: Specialization grants +5 bonus to melee parry rolls. Can parry lightsabers without taking damage.
+Source: Wizards Website
+
+Force Pike
+Model: SoroSuub Controller FP
+Type: Personal force pike
+Scale: Character
+Skill: Melee combat: force pike
+Cost: 500
+Availability: 2, R
+Difficulty: Moderate
+Damage: STR+2D
+Source: Imperial Sourcebook (pages 124-125)
+
+Great Force Pike
+Model: Czerka Great Force Pike
+Type: Personal force pike
+Scale: Character
+Skill: Melee combat: force pike
+Cost: 1000
+Availability: 2
+Difficulty: Moderate
+Damage: STR+3D
+Source: Arms and Equipment Guide (page 30)
+
+Confessor's Whip
+Model: Geonosian Confessor's Whip
+Type: Poisoned whip
+Scale: Character
+Skill: Melee combat: whip
+Cost: 750
+Availability: 3
+Difficulty: Moderate
+Damage: STR+1D plus poison
+Game Notes: Target struck must succeed on Difficult stamina roll or suffer temporary -1D penalty to Dexterity. 6-meter reach.
+Source: Geonosis and the Outer Rim Worlds (page 60)
+
+Geonosian Electro-Staff
+Model: Geonosian Electro-Staff
+Type: Electric staff
+Scale: Character
+Skill: Melee combat: electro-staff
+Ammo: 20 charges
+Cost: 1500
+Availability: 4
+Difficulty: Easy
+Damage: STR+1D (max: 4D), plus 2D+2 electrical
+Game Notes: Characters without specialization suffer -1D attack penalty.
+Source: Ultimate Alien Anthology (page 31)
+
+Shock Whip
+Model: Shock whip
+Type: Charged whip
+Scale: Character
+Skill: Melee combat: whip
+Cost: 1200
+Availability: 2, X
+Difficulty: Moderate
+Damage: STR+2D+2 (max: 6D)
+Game Notes: Can trip a target. +1D attack bonus to disarm. 4-meter reach.
+Source: Hero's Guide (page 123)
+
+Lightsaber
+Type: Melee weapon
+Scale: Character
+Skill: Lightsaber
+Cost: Not available for sale
+Availability: 4, X
+Difficulty: Difficult
+Damage: 5D
+Game Notes: If attacker misses difficulty by more than 10 points, character injures himself.
+Source: Rulebook (page 228)
+
+Training Lightsaber
+Model: Training Lightsaber
+Type: Melee weapon
+Scale: Character
+Skill: Lightsaber
+Cost: 1500
+Availability: 4, X
+Difficulty: Difficult
+Damage: 5D
+Game Notes: Can block blaster bolts but not deflect at targets. Maximum damage result is Wounded. Against inanimate objects damage reduced to 2D.
+Source: Power of the Jedi Sourcebook (page 54)
+
+Short Lightsaber
+Type: Melee weapon
+Scale: Character
+Skill: Lightsaber
+Cost: Not available for sale
+Availability: 4, X
+Difficulty: Moderate
+Damage: 4D
+Source: Gamer Magazine
+
+Archaic Lightsaber
+Model: Primitive Lightsaber
+Type: Melee weapon
+Scale: Character
+Skill: Lightsaber
+Cost: 1600
+Availability: 4, X
+Difficulty: Difficult
+Damage: 5D
+Game Notes: Belt-worn power pack connected by cable. Weighs 3kg. All parry rolls increased by +5 difficulty. Injures wielder if miss by 10+ points.
+Source: Power of the Jedi Sourcebook (page 62)
+
+Great Lightsaber
+Model: Great Lightsaber
+Type: Melee weapon
+Scale: Character
+Skill: Lightsaber
+Cost: 5200
+Availability: 4, X
+Difficulty: Difficult
+Damage: 5D
+Game Notes: Blade reaches up to 300cm. Increases wielder reach by 4 meters.
+Source: Power of the Jedi Sourcebook (pages 54-55)
+
+Dual-Phase Lightsaber
+Model: Dual-Phase Lightsaber
+Type: Melee weapon
+Scale: Character
+Skill: Lightsaber
+Cost: 6000
+Availability: 4, X
+Difficulty: Difficult
+Damage: 5D
+Game Notes: Adjustable blade: 130cm standard or 300cm extended. Extended increases reach by 4 meters. Creating one adds +5 to lightsaber repair difficulty.
+Source: Power of the Jedi Sourcebook (page 55)
+
+Double-Bladed Lightsaber
+Type: Exotic melee weapon
+Scale: Character
+Skill: Lightsaber: double-bladed lightsaber
+Cost: Not available for sale
+Availability: 4, X
+Difficulty: Difficult
+Damage: 5D
+Game Notes: Requires specialization. Without it, difficulty is Very Difficult. With both blades extended, trained Jedi gains +5 to all parry rolls.
+Source: d20 Core Rulebook (page 134), The Dark Side Sourcebook (pages 58-59)
+
+Lightwhip
+Model: Lightwhip
+Type: Custom melee weapon
+Scale: Character
+Skill: Lightwhip
+Cost: Not available for sale
+Availability: 4, X
+Difficulty: Moderate
+Damage: STR+3D+2 (maximum: 7D)
+Game Notes: Lacerating tentacles formed from Kaiburr crystal shard and Mandalorian iron. +1D bonus to trip or disarm opponents.
+Source: Gamer Magazine
+
+Lightfoil
+Type: Lightfoil
+Scale: Character
+Skill: Lightsaber
+Cost: 10000
+Availability: 4, X
+Damage: 3D to 4D
+Game Notes: On a roll of 1 on wild die, beam flickers and fades. Repairing takes two hours and a Moderate lightsaber repair roll.
+Source: Lord of the Expanse - Sector Guide (page 47)

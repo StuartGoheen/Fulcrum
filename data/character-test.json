@@ -1,0 +1,210 @@
+{
+  "id": "test-char-001",
+  "name": "Kael Dawnstrider",
+  "species": "Human",
+  "archetype": "Drifter",
+  "narrative": "A wandering soul shaped by hardship and guided by instinct, Kael has spent years on the frontier where survival was the only law that mattered. Former military, former criminal, former a lot of things — now just trying to keep moving forward.",
+  "vitalityModifier": 0,
+  "weaponIds": ["wpn_dc15s_01", "wpn_dh17_01", "wpn_relbyk23_01", "wpn_lightsaber_01"],
+  "armorId": "arm_combat_jumpsuit_01",
+  "gearIds": [
+    "gear_medpac_01",
+    "gear_stim_pack_01",
+    "gear_breath_mask_01",
+    "gear_security_kit_01",
+    "gear_thermal_detonator_01",
+    "gear_comlink_encrypted_01"
+  ],
+  "engine": {
+    "id": "edge",
+    "name": "The Edge",
+    "poolName": "Edge Points",
+    "coreUtility": {
+      "name": "Tier Boost",
+      "cost": "1 Edge Point",
+      "rule": "Spend 1 Edge Point after a roll to instantly increase your final Power result by +1 Effect Tier (e.g., from a Fleeting success to a Basic success). You may only use this on Disciplines aligned with your acquired Kits."
+    }
+  },
+  "kits": [
+    {
+      "id": "kit_slinger",
+      "name": "The Slinger",
+      "tier": 3,
+      "governingArena": "reflex",
+      "alignedDiscipline": "ranged",
+      "primaryWeapons": ["Pistol"],
+      "abilities": [
+        {
+          "id": "kit_slinger_t1",
+          "tier": 1,
+          "type": "passive",
+          "name": "Close-Quarters Gunfighter",
+          "rule": "When you are Engaged in melee range with an enemy, firing a Pistol does not create an Opening. You never provoke reactionary Triggers from adversaries just for using your sidearm in close quarters."
+        },
+        {
+          "id": "kit_slinger_t2_fth",
+          "tier": 2,
+          "type": "gambit",
+          "name": "Fan the Hammer",
+          "actionType": "Attack",
+          "targetType": "weapon",
+          "target": "Pistol",
+          "arenaTag": "[Combat]",
+          "rule": "Reduce Effect by 1 Tier against all targets and your weapon is instantly emptied — requires a Maneuver to Reload. Target up to 3 enemies in the same zone. Make a single Ranged Control roll applying the Step-Down penalty of the target with the highest Presence. On success, roll your Power die once, then subtract each individual target's Resistance to determine their specific Effect Tier. Ranged is your Aligned Discipline — spend 1 Edge via Tier Boost to offset the -1 Tier drop for all targets."
+        },
+        {
+          "id": "kit_slinger_t2_hs",
+          "tier": 2,
+          "type": "passive",
+          "name": "The Hustler's Stamina",
+          "rule": "At the end of any Scene in which you spent at least 1 Edge, you automatically regain 1 Edge."
+        },
+        {
+          "id": "kit_slinger_t3_ht",
+          "tier": 3,
+          "type": "passive",
+          "name": "The Hair-Trigger",
+          "rule": "Your maximum Triggers per round is permanently increased by 1. This extra Trigger can only be used to perform Ranged (Pistol) actions to exploit an Opening.",
+          "actionBonus": { "action": 0, "trigger": 1, "maneuver": 0 }
+        },
+        {
+          "id": "kit_slinger_t3_pr",
+          "tier": 3,
+          "type": "passive",
+          "name": "The Professional's Reserve",
+          "rule": "At the end of a scene, if you have exactly 1 Edge remaining in your pool, you regain 1 Edge. This stacks with The Hustler's Stamina."
+        }
+      ]
+    },
+    {
+      "id": "kit_prescient",
+      "name": "The Prescient",
+      "tier": 3,
+      "governingArena": "wits",
+      "alignedDiscipline": "sense_spark",
+      "abilities": [
+        {
+          "id": "kit_prescient_t1_ss",
+          "tier": 1,
+          "type": "passive",
+          "name": "The Sixth Sense",
+          "rule": "Spend a Trigger when an enemy declares an attack against you to instinctively react. You instantly gain [Guarded 1] (if targeted by a melee attack) or [Cover 1] (if targeted by a ranged attack) for that single interaction, even if you are standing in open ground."
+        },
+        {
+          "id": "kit_prescient_t1_sbs",
+          "tier": 1,
+          "type": "passive",
+          "name": "Sight Beyond Sight",
+          "rule": "You perceive the world as a tapestry of living energy. You permanently ignore all Step Down penalties associated with darkness, heavy smoke, or the [Blinded] condition when defending against or interacting with living targets. You do not need physical sight to know exactly where they are."
+        },
+        {
+          "id": "kit_prescient_t2_pl",
+          "tier": 2,
+          "type": "gambit",
+          "name": "The Precognitive Lure",
+          "actionType": "Dodge",
+          "targetType": "trigger",
+          "target": "Free Trigger",
+          "arenaTag": "[Defense]",
+          "rule": "Reduce your Dodge result by -1 Effect Tier (if this pushes your success to a negative number, you suffer a Fleeting hit from the enemy). On any result, gain the [Optimized] condition on your next Action against that specific attacker."
+        },
+        {
+          "id": "kit_prescient_t2_mm",
+          "tier": 2,
+          "type": "passive",
+          "name": "The Moving Meditation",
+          "rule": "If you spent at least 1 Edge during a scene and successfully used a Discipline (Sense) maneuver to read a target, OR successfully used The Sixth Sense to anticipate an attack, you regain 1 Edge at the scene's end."
+        },
+        {
+          "id": "kit_prescient_t3_sp",
+          "tier": 3,
+          "type": "passive",
+          "name": "Shatterpoint",
+          "rule": "You are no longer bound by the limit of one Trigger per round. When an enemy or ally creates an [Opening], you may spend 1 Edge to pay the cost of a Trigger to exploit it using any Force Trigger (including The Sixth Sense)."
+        },
+        {
+          "id": "kit_prescient_t3_ic",
+          "tier": 3,
+          "type": "passive",
+          "name": "Inner Calm",
+          "rule": "You are never truly caught off guard. Your connection to the Force maintains a constant perimeter of awareness. When rolling for Initiative (Join Battle), you may use Discipline (Sense) instead of Discipline (Tactics)."
+        }
+      ]
+    }
+  ],
+  "talents": [
+    {
+      "id": "talent_point_blank_shot",
+      "name": "Point Blank Shot",
+      "gambit": "Reduce effect by one level: You do not provide an opening for this attack if attacking a target you are [Engaged] with.",
+      "tags": ["Pistol"]
+    }
+  ],
+  "arenas": [
+    {
+      "id": "physique",
+      "label": "PHYSIQUE",
+      "subtitle": "Strength, Structure, Endurance",
+      "die": "D8",
+      "disciplines": [
+        { "id": "athletics",     "label": "Athletics",     "die": "D12" },
+        { "id": "brawl",         "label": "Brawl",         "die": "D12" },
+        { "id": "endure",        "label": "Endure",        "die": "D12" },
+        { "id": "melee",         "label": "Melee",         "die": "D12" },
+        { "id": "heavy_weapons", "label": "Heavy Weapons", "die": "D12" }
+      ]
+    },
+    {
+      "id": "reflex",
+      "label": "REFLEX",
+      "subtitle": "Speed, Agility, Hand-Eye Coordination",
+      "die": "D6",
+      "disciplines": [
+        { "id": "evasion",      "label": "Evasion",      "die": "D12" },
+        { "id": "piloting",     "label": "Piloting",     "die": "D12" },
+        { "id": "ranged",       "label": "Ranged",       "die": "D12" },
+        { "id": "skulduggery",  "label": "Skulduggery",  "die": "D12" },
+        { "id": "stealth",      "label": "Stealth",      "die": "D12" }
+      ]
+    },
+    {
+      "id": "grit",
+      "label": "GRIT",
+      "subtitle": "Instinct, Stamina, Spiritual Willpower",
+      "die": "D10",
+      "disciplines": [
+        { "id": "beast_handling",   "label": "Beast Handling",        "die": "D12" },
+        { "id": "control_spark",    "label": "Control (The Spark)",   "die": "D12" },
+        { "id": "intimidate",       "label": "Intimidate",            "die": "D12" },
+        { "id": "resolve",          "label": "Resolve",               "die": "D12" },
+        { "id": "survival",         "label": "Survival",              "die": "D12" }
+      ]
+    },
+    {
+      "id": "wits",
+      "label": "WITS",
+      "subtitle": "Logic, Awareness, Technical Knowledge",
+      "die": "D8",
+      "disciplines": [
+        { "id": "investigation", "label": "Investigation",       "die": "D12" },
+        { "id": "medicine",      "label": "Medicine",            "die": "D12" },
+        { "id": "sense_spark",   "label": "Sense (The Spark)",   "die": "D12" },
+        { "id": "tactics",       "label": "Tactics",             "die": "D12" },
+        { "id": "tech",          "label": "Tech",                "die": "D12" }
+      ]
+    },
+    {
+      "id": "presence",
+      "label": "PRESENCE",
+      "subtitle": "Charisma, Authority, Projection of Will",
+      "die": "D4",
+      "disciplines": [
+        { "id": "alter_spark",  "label": "Alter (The Spark)",  "die": "D12" },
+        { "id": "charm",        "label": "Charm",              "die": "D12" },
+        { "id": "deception",    "label": "Deception",          "die": "D12" },
+        { "id": "insight",      "label": "Insight",            "die": "D12" },
+        { "id": "persuasion",   "label": "Persuasion",         "die": "D12" }
+      ]
+    }
+  ]
+}

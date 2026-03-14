@@ -1,0 +1,10 @@
+node_modules/
+css/output.css
+public/css/output.css
+db/campaign.db
+db/campaign.db-shm
+db/campaign.db-wal
+*.log
+.env
+dist/
+.cache/

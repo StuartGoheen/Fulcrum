@@ -1,0 +1,690 @@
+Heavy Blaster Pistols
+Merr-Sonn Flash 4
+Model: Merr-Sonn Flash 4 Heavy Blaster
+Type: Heavy blaster pistol
+Scale: Character
+Skill: Blaster: heavy blaster pistol
+Ammo: 25
+Cost: 750 (power packs: 25)
+Availability: 1, F or R
+Range: 3-7/25/50
+Damage: 4D+2
+Source: Rebel Alliance Sourcebook (pages 99-100), Arms and Equipment Guide (page 10)
+
+BlasTech DY-225
+Model: BlasTech DY-225 Heavy Blaster Pistol
+Type: Heavy blaster pistol
+Scale: Character
+Skill: Blaster: heavy blaster pistol
+Ammo: 30
+Cost: 750 (power packs: 25)
+Availability: 2, R or X
+Range: 3-5/20/40
+Damage: 5D
+Source: Galaxy Guide 9: Fragments from the Rim (page 9), Arms and Equipment Guide (page 10)
+
+BlasTech DL-44
+Model: BlasTech DL-44 Heavy Blaster Pistol
+Type: Heavy blaster pistol
+Scale: Character
+Skill: Blaster: heavy blaster pistol
+Ammo: 25
+Cost: 750 (power packs: 25)
+Availability: 1, F or R
+Range: 3-7/25/50
+Damage: 5D
+Source: Rulebook (page 231), Arms and Equipment Guide (page 10)
+
+Merr-Sonn Power 5
+Model: Merr-Sonn Power 5 Heavy Blaster Pistol
+Type: Heavy blaster pistol
+Scale: Character
+Skill: Blaster: heavy blaster pistol
+Ammo: 30
+Cost: 825
+Availability: 1, R
+Range: 3-7/25/50
+Damage: 5D
+Source: Arms and Equipment Guide (page 11)
+
+BlasTech DL-6H
+Model: BlasTech DL-6H Heavy Blaster Pistol
+Type: Heavy blaster pistol
+Scale: Character
+Skill: Blaster: heavy blaster pistol
+Ammo: 25
+Cost: 800 (power packs: 25)
+Availability: 1, F or R
+Range: 3-10/30/120
+Damage: 5D
+Source: Gundark's Fantastic Technology (pages 27-28)
+
+BlasTech DT-12
+Model: BlasTech DT-12 Heavy Blaster Pistol
+Type: Heavy blaster pistol
+Scale: Character
+Skill: Blaster: heavy blaster pistol
+Ammo: 25
+Cost: 900
+Availability: 1, R
+Range: 2-5/20/35
+Damage: 5D+1
+Game Notes: Large trigger preferred by those who lack human-like hands.
+Source: Arms and Equipment Guide (page 10)
+
+SoroSuub Security S-5
+Model: SoroSuub Security S-5 Heavy Blaster Pistol
+Type: Heavy blaster
+Scale: Character
+Skill: Blaster: heavy blaster pistol
+Ammo: 20 blast, 10 microdarts, 2 cables
+Cost: 1000 (power packs: 25)
+Availability: 3, F or R
+Fire Rate: 1
+Range: 3-10/30/60 (blaster/microdarts), 3-12/36/72 (cable)
+Damage: 5D (blaster), paralysis (microdarts), entanglement (cable)
+Game Notes: Fires blast charges, poison microdarts, or liquid cable. Microdarts cause paralysis on unarmored target (Moderate Strength or paralyzed 2D minutes). Cable entangles on hit.
+Source: Secrets of Naboo (page 41), Arms and Equipment Guide (page 12)
+
+Caliban Model X
+Model: Caliban Model X Heavy Blaster Pistol
+Type: Heavy blaster pistol
+Scale: Character
+Skill: Blaster: heavy blaster pistol
+Ammo: 30
+Cost: 750
+Availability: 2, R or X
+Range: 2-5/15/35
+Damage: 5D+1
+Source: Galaxy Guide 9: Fragments from the Rim (page 63), Arms and Equipment Guide (page 11)
+
+SoroSuub Model Kylan-3
+Model: SoroSuub Model Kylan-3 Heavy Blaster Pistol
+Type: Heavy blaster pistol
+Scale: Character
+Skill: Blaster: heavy blaster pistol
+Ammo: 20
+Cost: 750
+Availability: 2, R or X
+Range: 3-5/20/40
+Damage: 5D+1
+Source: Galaxy Guide 9: Fragments from the Rim (page 56), Arms and Equipment Guide (pages 11-12)
+
+Imperial Munitions Heavy Blaster Pistol
+Model: Imperial Munitions Heavy Blaster Pistol
+Type: Heavy blaster pistol
+Scale: Character
+Skill: Blaster: heavy blaster pistol
+Ammo: 25
+Cost: 1250 (power packs: 25)
+Availability: R, X
+Range: 3-7/25/50
+Damage: 5D+1
+Source: Gundark's Fantastic Technology (page 28)
+
+SoroSuub Renegade
+Model: SoroSuub Renegade Heavy Blaster Pistol
+Type: Heavy blaster pistol
+Scale: Character
+Skill: Blaster: heavy blaster pistol
+Ammo: 25
+Cost: 750 (power packs: 25)
+Availability: 2, R or X
+Range: 3-7/25/50
+Damage: 5D+2
+Source: Gundark's Fantastic Technology (page 29), Arms and Equipment Guide (page 12)
+
+Caelli-Merced Sentinel IV
+Model: Caelli-Merced Sentinel IV Blaster
+Type: Heavy blaster pistol
+Scale: Character
+Skill: Blaster: heavy blaster pistol
+Ammo: 100
+Cost: 1200
+Availability: 4, R
+Range: 3-10/30/60
+Damage: 5D+2
+Game Notes: Designed for advanced users. +5 to difficulty for skill less than 4D; +1D to hit for skill 6D or higher.
+Source: The Black Sands of Socorro (page 75)
+
+BlasTech DT-57 Annihilator
+Model: BlasTech DT-57 Heavy Blaster Pistol
+Type: Heavy blaster pistol
+Scale: Character
+Skill: Blaster: heavy blaster pistol
+Ammo: 25
+Cost: 850
+Availability: 2, R
+Range: 3-7/25/50
+Damage: 6D+1
+Source: Wizards Website
+
+BlasTech T-6 Thunderer
+Model: BlasTech T-6 Thunderer Heavy Blaster Pistol
+Type: Heavy blaster pistol
+Scale: Character
+Skill: Blaster: heavy blaster pistol
+Ammo: 25
+Cost: 750 (power packs: 25)
+Availability: 2, R or X
+Fire Rate: 1
+Range: 3-7/25/50
+Damage: 6D+2
+Source: Gundark's Fantastic Technology (page 28), Arms and Equipment Guide (pages 10-11)
+
+Blaster Carbines
+Sharpshooter V
+Model: BlasTech Sharpshooter V
+Type: Blaster carbine
+Scale: Character
+Skill: Blaster: blaster carbine
+Ammo: 100
+Cost: 1200
+Availability: 2, X
+Range: 3-30/80/350
+Damage: 4D+1
+Source: Imperial Sourcebook (page 129)
+
+SoroSuub QuickSnap 36T/I
+Model: SoroSuub QuickSnap 36T/I
+Type: Blaster carbine
+Scale: Character
+Skill: Blaster: blaster carbine
+Ammo: 100
+Cost: 900 (power packs: 25)
+Availability: 2, R
+Range: 3-25/50/250
+Damage: 4D+1
+Source: Cracken's Rebel Operatives (page 60)
+
+SoroSuub QuickSnap 36T
+Model: SoroSuub QuickSnap 36T
+Type: Blaster carbine
+Scale: Character
+Skill: Blaster: blaster carbine
+Ammo: 100
+Cost: 900 (power packs: 25)
+Availability: 2, F or R
+Fire Rate: 1
+Range: 3-25/50/250
+Damage: 5D
+Game Notes: At long range, increase difficulty by +5.
+Source: Rulebook (page 231)
+
+BlasTech StarSlasher
+Model: BlasTech StarSlasher Blaster Carbine
+Type: Blaster carbine
+Scale: Character
+Skill: Blaster: blaster carbine
+Ammo: 100
+Cost: 900 (power packs: 25)
+Availability: 2, X
+Range: 3-25/50/250
+Damage: 5D
+Game Notes: At long range, increase difficulty by +5.
+Source: Gundark's Fantastic Technology (page 29), Han Solo and the Corporate Sector Sourcebook (page 117)
+
+E-5 Droid Blaster
+Model: Baktoid Armor Workshop E-5 Droid Blaster
+Type: Blaster carbine
+Scale: Character
+Skill: Blaster: blaster carbine
+Ammo: 100
+Cost: 900
+Availability: 1, R
+Range: 3-20/60/210
+Damage: 5D
+Source: Arms and Equipment Guide (page 15)
+
+N'gant-Zarvel 9118
+Model: N'gant-Zarvel 9118 Carbine
+Type: Heavy carbine
+Scale: Character
+Skill: Blaster: blaster carbine
+Ammo: 100
+Cost: 1000
+Availability: 2
+Range: 3-25/50/200
+Damage: 5D+1
+Source: Rules of Engagement - The Rebel SpecForce Handbook (page 62), Arms and Equipment Guide (page 18)
+
+Jer'N be' Milad Vel Lightning Gun
+Model: Jer'N Weapons Systems Lightning Gun
+Type: Specialized energy weapon
+Scale: Character
+Skill: Blaster: blaster carbine
+Ammo: 6
+Cost: 875 (power packs: 35)
+Availability: 3, X
+Range: 3-25/50/75
+Damage: 5D+2
+Game Notes: Fires charged sub-atomic particles. Distinctive blue-white bolt and thunder crack. Cannot be set to stun.
+Source: Goroth, Slave of the Empire (page 83)
+
+Merr-Sonn Underslung Rotary Blaster Carbine
+Model: Merr-Sonn Underslung Rotary Blaster Carbine
+Type: Repeating carbine
+Scale: Character
+Skill: Blaster: blaster carbine
+Ammo: 100
+Cost: 2400
+Availability: 2, X
+Range: 3-30/100/300
+Damage: 5D+2
+Game Notes: Constant-fire mode fires three blasts per shot. Once hit established, following shots at same or adjacent target (1m) are one difficulty lower.
+Source: Arms and Equipment Guide (page 20)
+
+Bi-Polar Blaster Carbine
+Model: SoroSuub Bi-Polar Blaster BMC-150
+Type: Dual blaster carbine
+Scale: Character
+Skill: Blaster: blaster carbine
+Ammo: 50
+Cost: 1000 (power pack: 100)
+Availability: 4, R or X
+Fire Rate: 1
+Range: 25-100/200/300
+Damage: 4D (single), 6D (simultaneous)
+Game Notes: Bi-pod adds +1D to blaster roll.
+Source: Galladinium's Fantastic Technology (page 71)
+
+Slavemaster Stun Carbine
+Model: Trandoshan Slavemaster Stun Carbine
+Type: Stun carbine
+Scale: Character
+Skill: Blaster: blaster carbine
+Ammo: 100
+Cost: 4000
+Availability: 3, R
+Range: 3-10/30/120
+Damage: 6D stun
+Game Notes: Stun pulse can widen to affect up to two 2-meter squares for simultaneous two-target attack (rolled individually, multiple action penalties apply).
+Source: Ultimate Alien Anthology (page 167)
+
+Stormtrooper Two Carbine
+Model: SoroSuub Stormtrooper Two Blaster Carbine
+Type: Blaster carbine
+Scale: Character
+Skill: Blaster: blaster carbine
+Ammo: 100
+Cost: 2400
+Availability: 2, R or X
+Range: 3-30/50/200
+Damage: 6D+2
+Source: Galaxy Guide 9: Fragments from the Rim (page 27)
+
+Blaster Rifles
+Bryar Rifle
+Model: Bryar Blaster Rifle
+Type: Blaster rifle
+Scale: Character
+Skill: Blaster: blaster rifle
+Ammo: 100
+Cost: 1000
+Availability: 3, R
+Range: 3-50/150/430
+Damage: 4D
+Source: Wizards Website
+
+SoroSuub Firelance
+Model: SoroSuub Firelance Blaster Rifle
+Type: Blaster rifle
+Scale: Character
+Skill: Blaster: blaster rifle
+Ammo: 100
+Cost: 1200 (power packs: 25)
+Availability: 2, R or X
+Fire Rate: 1
+Range: 3-30/100/300
+Damage: 5D
+Source: Gundark's Fantastic Technology (pages 33-34), Arms and Equipment Guide (page 18)
+
+SoroSuub Heavy Tracker 16
+Model: SoroSuub Heavy Tracker 16 Blaster Rifle
+Type: Blaster rifle
+Scale: Character
+Skill: Blaster: blaster rifle
+Ammo: 100
+Cost: 1000
+Availability: 1, R
+Range: 3-30/100/300
+Damage: 5D
+Source: Rebel Alliance Sourcebook (pages 99-100), Arms and Equipment Guide (page 18)
+
+BlasTech E-11
+Model: BlasTech E-11 Military Issue Blaster Rifle
+Type: Blaster rifle
+Scale: Character
+Skill: Blaster: blaster rifle
+Ammo: 100
+Cost: 1000 (power packs: 25)
+Availability: 1, R
+Range: 3-30/100/300
+Damage: 5D
+Game Notes: If retractable stock and scope used for one round of aiming, character receives additional +1D to blaster.
+Source: Gundark's Fantastic Technology (page 31), Arms and Equipment Guide (page 16)
+
+Stormtrooper One
+Model: SoroSuub Stormtrooper One Blaster Rifle
+Type: Blaster rifle
+Scale: Character
+Skill: Blaster: blaster rifle
+Ammo: 100
+Cost: 1000 (power packs: 25)
+Availability: 2, X
+Range: 3-30/100/300
+Damage: 5D
+Game Notes: If retractable stock and scope used for one round of aiming, +1D to blaster.
+Source: Rulebook (page 231), Arms and Equipment Guide (page 16)
+
+BlasTech DLT-19
+Model: BlasTech DLT-19 Blaster Rifle
+Type: Blaster rifle
+Scale: Character
+Skill: Blaster: blaster rifle
+Ammo: 100
+Cost: 1300
+Availability: 1, R
+Range: 5-50/180/350
+Damage: 5D
+
+BlasTech EKX-10
+Model: BlasTech EKX-10 Blaster Rifle
+Type: Blaster rifle
+Scale: Character
+Skill: Blaster: blaster rifle
+Ammo: 100
+Cost: 1100
+Availability: 3, R or X
+Range: 5-50/150/350
+Damage: 5D
+Source: Galaxy Guide 9: Fragments from the Rim (page 54)
+
+Greff-Timms AR-1
+Model: Greff-Timms Industrial AR-1 Blaster Rifle
+Type: Modified blaster rifle
+Scale: Character
+Skill: Blaster: blaster rifle
+Ammo: 100
+Cost: 1300
+Availability: 2, R
+Range: 4-40/120/350
+Damage: 5D
+Game Notes: Secondary fire launches flares. Barrel-mounted glow rod removable; can be replaced with vibro-bayonet (STR+1D+2).
+Source: Hero's Guide (page 122)
+
+Modified E-11 Blaster Rifle
+Model: BlasTech E-11/S Blaster Rifle
+Type: Modified blaster/slug-thrower
+Scale: Character
+Skill: Blaster: blaster rifle
+Ammo: 25 (blaster), 6 (slug)
+Cost: 7000
+Availability: 4, X
+Range: 3-30/100/300 (blaster), 3-30/150/400 (slug)
+Damage: 5D (blaster), 4D (slug)
+Source: Galaxy Guide 11: Criminal Organizations (page 83)
+
+Blast and Smash Energy Rifle
+Model: Prax Arms Model AXM-50 Blast and Smash
+Type: Blaster rifle and micro-grenade launcher
+Scale: Character
+Skill: Blaster: blaster rifle
+Ammo: 250 (blaster), 30 (micro-grenade)
+Cost: 4500
+Availability: 3, F or R
+Fire Rate: 7 (blaster), 1 (launcher)
+Range: 3-25/50/75 (blaster), 5-25/100/200 (launcher)
+Damage: 5D (blaster), 4D/3D/2D (launcher)
+Game Notes: Computerized fire control on launcher. Bi-pod adds +1D to blaster. Alliance-modified version fires 2-blast burst in constant-fire mode.
+Source: Galaxy Guide 10: Bounty Hunters (page 84), Arms and Equipment Guide
+
+BlasTech DLT-20A
+Model: BlasTech DLT-20A Blaster Rifle
+Type: Blaster rifle
+Scale: Character
+Skill: Blaster: blaster rifle
+Ammo: 100
+Cost: 1300
+Availability: 1, R
+Range: 4-35/110/280
+Damage: 5D+1
+Source: Arms and Equipment Guide (pages 15-16)
+
+Merr-Sonn G8
+Model: Merr-Sonn Model G8 Blaster Rifle
+Type: Blaster rifle
+Scale: Character
+Skill: Blaster: blaster rifle
+Ammo: 100
+Cost: 1250
+Availability: 1, R
+Range: 4-40/120/350
+Damage: 5D+1
+Source: Rebel Alliance Sourcebook (pages 99-100), Arms and Equipment Guide (page 17)
+
+BlasTech DC-15 Clone Rifle
+Model: BlasTech DC-15 Clone Rifle
+Type: Assault blaster rifle
+Scale: Character
+Skill: Blaster: blaster rifle
+Ammo: 100
+Cost: 1500
+Availability: 3, R or X
+Fire Rate: 1
+Range: 10-40/130/350
+Damage: 5D+1
+
+BlasTech A295
+Model: BlasTech A295 Blaster Rifle
+Type: Blaster rifle
+Scale: Character
+Skill: Blaster: blaster rifle
+Ammo: 100
+Cost: 1500
+Availability: 1, R
+Range: 5-50/170/380
+Damage: 5D+1
+
+Espo Riot Gun
+Model: BlasTech 500 Riot Gun
+Type: Riot Gun
+Scale: Character
+Skill: Blaster: blaster rifle
+Ammo: 300
+Cost: 1500
+Availability: 2, R
+Range: 3-30/100/300
+Damage: 5D+1
+Game Notes: Constant-fire mode fires five blasts per shot; six shots per round when trigger held. Once hit established, following shots at same or adjacent target one difficulty lower.
+Source: Gundark's Fantastic Technology (page 32), Arms and Equipment Guide (page 15)
+
+Imperial Munitions Heavy Blaster Rifle
+Model: Imperial Munitions StarAnvil Heavy Blaster Rifle
+Type: Heavy blaster rifle
+Scale: Character
+Skill: Blaster: blaster rifle
+Ammo: 50
+Cost: 1250 (power packs: 25)
+Availability: 4, X
+Fire Rate: 1
+Range: 3-25/50/250
+Damage: 5D+2
+Game Notes: Retractable stock and scope add +1D to blaster after one round aiming.
+Source: Gundark's Fantastic Technology (page 34), Arms and Equipment Guide (page 17)
+
+Stormtrooper Two Rifle
+Model: SoroSuub Stormtrooper Two Blaster Rifle
+Type: Blaster rifle
+Scale: Character
+Skill: Blaster: blaster rifle
+Ammo: 100
+Cost: 1600
+Availability: 2, X
+Fire Rate: 1
+Range: 3-30/100/300
+Damage: 5D+2
+Game Notes: Retractable stock and scope add +1D to blaster after one round aiming.
+Source: Galaxy Guide 9: Fragments from the Rim (page 11)
+
+BlasTech EE-3
+Model: BlasTech EE-3 Blaster Rifle
+Type: Blaster rifle
+Scale: Character
+Skill: Blaster: blaster rifle
+Ammo: 50
+Cost: 1300
+Availability: 2, R
+Range: 3-30/80/250
+Damage: 5D+2
+
+BlasTech A280
+Model: BlasTech A280 Blaster Rifle
+Type: Blaster rifle
+Scale: Character
+Skill: Blaster: blaster rifle
+Ammo: 100
+Cost: 1400
+Availability: 1, R
+Range: 4-40/120/300
+Damage: 5D+2
+Source: Rebel Alliance Sourcebook (pages 99-100), Arms and Equipment Guide (pages 15-16)
+
+Senate Guard Ceremonial Blaster Rifle
+Model: Republic Senate Guard Blaster Rifle
+Type: Blaster rifle
+Scale: Character
+Skill: Blaster: blaster rifle
+Ammo: 100
+Cost: 4000
+Availability: 4, X
+Difficulty: Easy
+Range: 3-30/100/300
+Damage: 6D (blaster), 5D+2 stun (melee stun prod)
+Game Notes: Gold and silver weapon with stun blast and stun prod for crowd control.
+Source: Wizards Website
+
+Exotac Arms Predator
+Model: Exotac Arms EXP-7a Predator Blaster Rifle
+Type: Precision hunting blaster rifle
+Scale: Character
+Skill: Blaster: blaster rifle
+Ammo: 8
+Cost: 7000
+Availability: 4, X
+Fire Rate: 1
+Fire Control: 2D
+Range: 3-30/80/350
+Damage: 7D
+Game Notes: Each firing requires Moderate Strength roll to contain recoil or cannot fire next round.
+Source: Gundark's Fantastic Technology (page 33)
+
+BlasTech DC-17m ICWS
+Model: BlasTech DC-17m Interchangeable Combat System
+Type: Assault Blaster Rifle
+Scale: Character
+Skill: Blaster: blaster rifle
+Ammo: 60 (blaster), 20 (sniper), 4 (anti-armor)
+Cost: 1900
+Availability: 3, R or X
+Range: 3-30/100/300 (blaster), 20-50/200/400 (sniper), 3-30/100/300 (anti-armor)
+Damage: 5D (blaster), 5D (sniper), 7D/5D/3D (anti-armor)
+Game Notes: Single action swaps attachments between blaster, sniper rifle, and anti-armor modes.
+
+Sporting Blaster Rifles
+Czerka FS-1 Farshot
+Model: Czerka FS-1 Farshot Sporting Blaster Rifle
+Type: Sporting blaster rifle
+Scale: Character
+Skill: Blaster: blaster rifle
+Ammo: 100
+Cost: 880
+Availability: 1, R
+Range: 3-50/150/430
+Damage: 3D+2
+Game Notes: Retractable stock and scope add +1D to blaster after one round aiming.
+Source: Arms and Equipment Guide (page 18)
+
+Xerrol Nightstinger
+Model: Xerrol Nightstinger
+Type: Sniper blaster rifle
+Scale: Character
+Skill: Blaster: blaster rifle
+Ammo: 5
+Cost: 1500
+Availability: 2, R
+Fire Control: 1D
+Range: 2-50/150/450
+Damage: 4D
+Game Notes: Fires invisible blaster bolts. Customized gas canisters cost 1,000 each, replaced after 5 shots.
+Source: Arms and Equipment Guide (page 19)
+
+Light Sport Hunter
+Model: Drearian Defense Conglomerate Light Sport Hunter
+Type: Sporting blaster rifle
+Scale: Character
+Skill: Blaster: blaster rifle
+Ammo: 100
+Cost: 900 (power packs: 25)
+Availability: 1, F
+Fire Rate: 1
+Range: 3-40/120/350
+Damage: 4D+1
+Game Notes: Retractable stock and scope add +1D to blaster after one round aiming.
+Source: Rulebook (page 231), Arms and Equipment Guide (page 18)
+
+Herloss HBt-4 Hunting Blaster
+Model: Herloss HBt-4 Hunting Blaster
+Type: Sporting blaster rifle
+Scale: Character
+Skill: Blaster: blaster rifle
+Ammo: 100
+Cost: 880
+Availability: 1, R
+Fire Control: +2
+Range: 3-30/100/300
+Damage: 4D+2
+Source: Arms and Equipment Guide (pages 18-19)
+
+SoroSuub X-45 Sniper Rifle
+Model: SoroSuub X-45 Sniper Rifle
+Type: Sniper blaster rifle
+Scale: Character
+Skill: Blaster: blaster rifle
+Ammo: 25
+Cost: 750
+Availability: 2, R or X
+Fire Rate: 1
+Range: 1-25/100/250
+Damage: 5D
+Game Notes: Targeting scope reduces Long Range or precision shot difficulty to Moderate.
+Source: Gundark's Fantastic Technology (page 33), Arms and Equipment Guide (page 19)
+
+Merr-Sonn LD-1 Sniper
+Model: Merr-Sonn LD-1 Blaster Rifle
+Type: Long range blaster rifle
+Scale: Character
+Skill: Blaster: blaster rifle
+Ammo: 100
+Cost: 3000
+Availability: 2, F or R
+Fire Control: 1D+2
+Range: 2-50/150/500
+Damage: 5D
+Game Notes: Built-in macroscopic sight and auto-steady gyrogimbals provide fire control.
+Source: Rules of Engagement - The Rebel SpecForce Handbook (page 62), Arms and Equipment Guide (page 19)
+
+Predator Hunting Blaster
+Model: Exotac Arms EXP-7a Predator Hunting Blaster
+Type: Precision hunting blaster rifle
+Scale: Character
+Skill: Blaster: blaster rifle
+Ammo: 8
+Cost: 7000 (power pack: 175)
+Availability: 4, X
+Fire Rate: 1
+Fire Control: 2D
+Range: 3-30/80/350
+Damage: 7D
+Game Notes: Each firing requires Moderate Strength roll to contain recoil.
+Source: Wretched Hives of Scum and Villainy (page 25)

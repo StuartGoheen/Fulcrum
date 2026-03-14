@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en" class="theme-vader">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Command Bridge — Edge of the Empire</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/css/output.css" />
+  <style>
+    :root.theme-vader {
+      --color-bg-primary: #0D0D0D;
+      --color-bg-panel: #151515;
+      --color-bg-frame: #1C1C1C;
+      --color-accent-primary: #CC0000;
+      --color-accent-secondary: #C47A1E;
+      --color-accent-deep: #BBBBBB;
+      --color-text-primary: #E0E0E0;
+      --color-text-secondary: #888888;
+      --color-border: #2E2E2E;
+      --color-card-hover: #242424;
+    }
+    body { background-color: var(--color-bg-primary); color: var(--color-text-primary); font-family: 'Exo 2', sans-serif; }
+    .font-display { font-family: 'Audiowide', sans-serif; }
+
+    /* Nav tabs */
+    .tab-btn { padding: 0.5rem 1.25rem; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; border-bottom: 2px solid transparent; color: var(--color-text-secondary); background: transparent; border-top: none; border-left: none; border-right: none; cursor: pointer; transition: all 0.15s; }
+    .tab-btn:hover { color: var(--color-text-primary); }
+    .tab-btn.active { color: var(--color-accent-primary); border-bottom-color: var(--color-accent-primary); }
+
+    /* Cards */
+    .card { background: var(--color-bg-panel); border: 1px solid var(--color-border); padding: 1rem; margin-bottom: 0.75rem; }
+    .card-header { font-family: 'Audiowide', sans-serif; font-size: 0.75rem; color: var(--color-accent-deep); margin-bottom: 0.5rem; }
+    .tag { display: inline-block; font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; padding: 0.15rem 0.5rem; border: 1px solid; margin-right: 0.35rem; margin-bottom: 0.25rem; }
+    .tag-combat { border-color: #CC0000; color: #CC0000; }
+    .tag-narrative { border-color: #C47A1E; color: #C47A1E; }
+    .tag-both { border-color: #888; color: #888; }
+    .tag-d10 { border-color: #5588CC; color: #5588CC; }
+    .tag-d12 { border-color: #AA44AA; color: #AA44AA; }
+    .tag-minion { border-color: #888; color: #888; }
+    .tag-standard { border-color: #5588CC; color: #5588CC; }
+    .tag-elite { border-color: #C47A1E; color: #C47A1E; }
+    .tag-nemesis { border-color: #CC0000; color: #CC0000; }
+
+    /* Tier table */
+    .tier-row { display: grid; grid-template-columns: 80px 1fr; gap: 0.5rem; padding: 0.35rem 0; border-bottom: 1px solid var(--color-border); font-size: 0.72rem; }
+    .tier-row:last-child { border-bottom: none; }
+    .tier-label { font-weight: 600; color: var(--color-accent-secondary); }
+
+    /* Condition dual box */
+    .dual-box { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 0.4rem; }
+    .dual-side { background: var(--color-bg-frame); padding: 0.4rem 0.6rem; font-size: 0.68rem; }
+    .dual-side-label { font-size: 0.58rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700; margin-bottom: 0.2rem; opacity: 0.6; }
+
+    /* Stat block */
+    .stat-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.5rem 0; }
+    .stat-pill { background: var(--color-bg-frame); border: 1px solid var(--color-border); padding: 0.25rem 0.6rem; font-size: 0.68rem; text-align: center; }
+    .stat-pill .stat-val { font-family: 'Audiowide', sans-serif; font-size: 0.85rem; color: var(--color-accent-primary); display: block; }
+    .stat-pill .stat-name { font-size: 0.55rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-text-secondary); display: block; }
+
+    /* Gambit block */
+    .gambit-block { background: var(--color-bg-frame); border-left: 3px solid; padding: 0.4rem 0.6rem; margin-top: 0.4rem; font-size: 0.7rem; }
+    .gambit-block.d10 { border-color: #5588CC; }
+    .gambit-block.d12 { border-color: #AA44AA; }
+    .gambit-name { font-weight: 700; margin-bottom: 0.15rem; }
+
+    /* Collapse */
+    .collapsible > .card-body { display: none; }
+    .collapsible.open > .card-body { display: block; }
+    .collapse-toggle { cursor: pointer; user-select: none; }
+    .collapse-toggle::after { content: ' ▸'; font-size: 0.6rem; opacity: 0.5; }
+    .collapsible.open .collapse-toggle::after { content: ' ▾'; }
+
+    /* Search */
+    #search-input { background: var(--color-bg-frame); border: 1px solid var(--color-border); color: var(--color-text-primary); padding: 0.4rem 0.75rem; font-size: 0.75rem; width: 100%; max-width: 320px; outline: none; }
+    #search-input:focus { border-color: var(--color-accent-primary); }
+
+    /* Hidden */
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    .hidden-item { display: none !important; }
+
+    /* Risk */
+    .risk-block { background: #1a0a0a; border-left: 3px solid #CC0000; padding: 0.35rem 0.6rem; margin: 0.4rem 0; font-size: 0.7rem; color: #CC7777; }
+
+    /* Rule block */
+    .rule-section { margin-bottom: 1.5rem; }
+    .rule-section h3 { font-family: 'Audiowide', sans-serif; font-size: 0.7rem; color: var(--color-accent-secondary); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; padding-bottom: 0.25rem; border-bottom: 1px solid var(--color-border); }
+
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-accent-primary) var(--color-bg-frame);
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header style="background:var(--color-bg-panel);border-bottom:1px solid var(--color-border);position:sticky;top:0;z-index:50;">
+    <div style="max-width:1400px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:3rem;">
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <a href="/" style="font-family:'Audiowide',sans-serif;font-size:0.7rem;color:var(--color-accent-primary);text-decoration:none;letter-spacing:0.08em;">← BRIDGE</a>
+        <span style="font-family:'Audiowide',sans-serif;font-size:0.75rem;color:var(--color-accent-deep);letter-spacing:0.06em;">COMMAND BRIDGE — RULES REFERENCE</span>
+      </div>
+      <input type="search" id="search-input" placeholder="Search…" />
+    </div>
+    <nav style="max-width:1400px;margin:0 auto;padding:0 1.5rem;display:flex;gap:0;border-top:1px solid var(--color-border);" id="tab-nav">
+      <button class="tab-btn active" data-tab="arenas">Arenas &amp; Disciplines</button>
+      <button class="tab-btn" data-tab="conditions">Conditions</button>
+      <button class="tab-btn" data-tab="maneuvers">Maneuvers</button>
+      <button class="tab-btn" data-tab="threats">Threats</button>
+      <button class="tab-btn" data-tab="weapons">Weapons</button>
+      <button class="tab-btn" data-tab="armor">Armor</button>
+      <button class="tab-btn" data-tab="gamesystem">Game System</button>
+      <button class="tab-btn" data-tab="gear">Gear</button>
+    </nav>
+  </header>
+
+  <main style="max-width:1400px;margin:0 auto;padding:1.5rem;">
+    <div id="tab-arenas" class="tab-panel active"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading…</p></div>
+    <div id="tab-conditions" class="tab-panel"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading…</p></div>
+    <div id="tab-maneuvers" class="tab-panel"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading…</p></div>
+    <div id="tab-threats" class="tab-panel"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading…</p></div>
+    <div id="tab-weapons" class="tab-panel"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading…</p></div>
+    <div id="tab-armor" class="tab-panel"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading…</p></div>
+    <div id="tab-gamesystem" class="tab-panel"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading…</p></div>
+    <div id="tab-gear" class="tab-panel"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading…</p></div>
+  </main>
+
+<script>
+(function () {
+  /* ── Tab switching ─────────────────────────────────────── */
+  const tabBtns  = document.querySelectorAll('.tab-btn');
+  const tabPanels = document.querySelectorAll('.tab-panel');
+  let currentTab = 'arenas';
+
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.tab;
+      tabBtns.forEach(b => b.classList.remove('active'));
+      tabPanels.forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + target).classList.add('active');
+      currentTab = target;
+      filterSearch(document.getElementById('search-input').value);
+    });
+  });
+
+  /* ── Search ─────────────────────────────────────────────── */
+  document.getElementById('search-input').addEventListener('input', e => {
+    filterSearch(e.target.value);
+  });
+
+  function filterSearch(query) {
+    const q = query.trim().toLowerCase();
+    const panel = document.getElementById('tab-' + currentTab);
+    const items = panel.querySelectorAll('[data-search]');
+    items.forEach(item => {
+      if (!q || item.dataset.search.toLowerCase().includes(q)) {
+        item.classList.remove('hidden-item');
+      } else {
+        item.classList.add('hidden-item');
+      }
+    });
+  }
+
+  /* ── Collapse toggle ─────────────────────────────────────── */
+  document.addEventListener('click', e => {
+    const toggle = e.target.closest('.collapse-toggle');
+    if (toggle) {
+      toggle.closest('.collapsible').classList.toggle('open');
+    }
+  });
+
+  /* ── Helpers ─────────────────────────────────────────────── */
+  function esc(s) {
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  function arenaTagClass(tag) {
+    if (!tag) return '';
+    const t = tag.toLowerCase();
+    if (t.includes('combat')) return 'tag-combat';
+    if (t.includes('narrative')) return 'tag-narrative';
+    if (t.includes('both')) return 'tag-both';
+    return '';
+  }
+
+  function splitPcNpc(ruleText) {
+    if (!ruleText) return { pc: '', npc: '' };
+    const pcMatch  = ruleText.match(/PC:\s*(.*?)(?=\s*NPC:|$)/s);
+    const npcMatch = ruleText.match(/NPC:\s*(.*?)(?=\s*PC:|$)/s);
+    return {
+      pc:  pcMatch  ? pcMatch[1].trim()  : '',
+      npc: npcMatch ? npcMatch[1].trim() : ''
+    };
+  }
+
+  /* ── Render Arenas & Disciplines ─────────────────────────── */
+  function renderArenasDisciplines(data) {
+    const panel = document.getElementById('tab-arenas');
+    const attrOrder = ['Physique','Reflex','Grit','Wits','Presence'];
+    const attrs = {};
+    const force = [];
+    attrOrder.forEach(a => { attrs[a] = { attr: null, disciplines: [] }; });
+
+    data.forEach(entry => {
+      const t = entry.type || '';
+      if (t === 'Core Attribute') {
+        const key = attrOrder.find(a => a === entry.name);
+        if (key) attrs[key].attr = entry;
+      } else if (t.startsWith('Discipline (')) {
+        const attrName = t.replace('Discipline (','').replace(')','').trim();
+        const keys = attrName.split(' or ').map(s=>s.trim());
+        keys.forEach(k => { if (attrs[k]) attrs[k].disciplines.push(entry); });
+        if (keys.length > 1) { /* already added to both */ }
+      } else if (t.startsWith('Force Discipline')) {
+        force.push(entry);
+      }
+    });
+
+    let html = '';
+    attrOrder.forEach(attrName => {
+      const group = attrs[attrName];
+      if (!group.attr && !group.disciplines.length) return;
+      const a = group.attr;
+      html += `
+        <div style="margin-bottom:1.5rem;">
+          <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.6rem;padding-bottom:0.35rem;border-bottom:2px solid var(--color-accent-primary);">
+            <h2 style="font-family:'Audiowide',sans-serif;font-size:0.85rem;color:var(--color-accent-primary);margin:0;">${esc(attrName)}</h2>
+            <span style="font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-text-secondary);">Core Attribute</span>
+          </div>
+          ${a ? `<div class="card collapsible open" style="margin-bottom:0.5rem;" data-search="${esc(a.name)} ${esc(a.rule||'')}">
+            <div class="card-header collapse-toggle" style="display:flex;align-items:center;gap:0.5rem;">
+              <span>${esc(a.name)}</span>
+              <span class="tag" style="border-color:var(--color-accent-primary);color:var(--color-accent-primary);">Attribute</span>
+            </div>
+            <div class="card-body">
+              <p style="font-size:0.72rem;">${esc(a.rule||'')}</p>
+              ${a.guide ? `<p style="font-size:0.68rem;color:var(--color-text-secondary);margin-top:0.4rem;font-style:italic;">${esc(a.guide)}</p>` : ''}
+            </div>
+          </div>` : ''}
+          <div style="columns:2;column-gap:0.75rem;">
+            ${group.disciplines.map(d => `
+              <div class="card collapsible" style="break-inside:avoid;margin-bottom:0.5rem;" data-search="${esc(d.name)} ${esc(d.type||'')} ${esc(d.rule||'')}">
+                <div class="card-header collapse-toggle" style="display:flex;align-items:center;gap:0.5rem;">
+                  <span>${esc(d.name)}</span>
+                  <span class="tag tag-narrative" style="font-size:0.55rem;">${esc(d.type||'')}</span>
+                </div>
+                <div class="card-body">
+                  <p style="font-size:0.7rem;">${esc(d.rule||'')}</p>
+                  ${d.guide ? `<p style="font-size:0.65rem;color:var(--color-text-secondary);margin-top:0.4rem;font-style:italic;">${esc(d.guide)}</p>` : ''}
+                </div>
+              </div>`).join('')}
+          </div>
+        </div>`;
+    });
+
+    if (force.length) {
+      html += `<div style="margin-bottom:1.5rem;">
+        <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.6rem;padding-bottom:0.35rem;border-bottom:2px solid #AA44AA;">
+          <h2 style="font-family:'Audiowide',sans-serif;font-size:0.85rem;color:#AA44AA;margin:0;">Force Disciplines</h2>
+          <span style="font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-text-secondary);">Requires Force Sensitivity</span>
+        </div>
+        <div style="columns:2;column-gap:0.75rem;">
+          ${force.map(d => `
+            <div class="card collapsible" style="break-inside:avoid;margin-bottom:0.5rem;" data-search="${esc(d.name)} ${esc(d.type||'')} ${esc(d.rule||'')}">
+              <div class="card-header collapse-toggle" style="display:flex;align-items:center;gap:0.5rem;">
+                <span>${esc(d.name)}</span>
+                <span class="tag" style="border-color:#AA44AA;color:#AA44AA;font-size:0.55rem;">${esc(d.type||'')}</span>
+              </div>
+              <div class="card-body">
+                <p style="font-size:0.7rem;">${esc(d.rule||'')}</p>
+                ${d.guide ? `<p style="font-size:0.65rem;color:var(--color-text-secondary);margin-top:0.4rem;font-style:italic;">${esc(d.guide)}</p>` : ''}
+              </div>
+            </div>`).join('')}
+        </div>
+      </div>`;
+    }
+
+    panel.innerHTML = html;
+  }
+
+  /* ── Render Conditions ─────────────────────────────────────── */
+  function renderConditions(data) {
+    const panel = document.getElementById('tab-conditions');
+    const conditions = data.filter(e => e.type === 'Condition');
+    let html = '<div style="columns:2;column-gap:1rem;">';
+    conditions.forEach(entry => {
+      const { pc, npc } = splitPcNpc(entry.rule);
+      const searchKey = [entry.name, entry.rule].join(' ');
+      html += `
+        <div class="card collapsible open" style="break-inside:avoid;margin-bottom:0.75rem;" data-search="${esc(searchKey)}">
+          <div class="card-header collapse-toggle">${esc(entry.name)}</div>
+          <div class="card-body">
+            ${pc || npc ? `
+            <div class="dual-box">
+              <div class="dual-side">
+                <div class="dual-side-label" style="color:#5588CC;">PC Effect</div>
+                <div>${esc(pc || entry.rule)}</div>
+              </div>
+              <div class="dual-side">
+                <div class="dual-side-label" style="color:#C47A1E;">NPC Effect</div>
+                <div>${esc(npc || '—')}</div>
+              </div>
+            </div>` : `<p style="font-size:0.72rem;">${esc(entry.rule || '')}</p>`}
+            ${entry.guide ? `<p style="font-size:0.68rem;color:var(--color-text-secondary);margin-top:0.5rem;font-style:italic;">${esc(entry.guide)}</p>` : ''}
+          </div>
+        </div>`;
+    });
+    html += '</div>';
+    panel.innerHTML = html;
+  }
+
+  /* ── Render Maneuvers ─────────────────────────────────────── */
+  function renderManeuvers(data) {
+    const panel = document.getElementById('tab-maneuvers');
+    // Group by masteryTrack
+    const groups = {};
+    data.forEach(m => {
+      const track = m.masteryTrack || 'Other';
+      if (!groups[track]) groups[track] = [];
+      groups[track].push(m);
+    });
+
+    const tierColors = { 'Fleeting':'#888', 'Basic':'#5588CC', 'Solid':'#C47A1E', 'Superior':'#AA44AA', 'Flawless':'#CC0000' };
+
+    let html = '';
+    Object.keys(groups).sort().forEach(track => {
+      html += `<h2 style="font-family:'Audiowide',sans-serif;font-size:0.65rem;letter-spacing:0.12em;color:var(--color-text-secondary);text-transform:uppercase;padding:0.75rem 0 0.25rem;border-top:1px solid var(--color-border);margin-top:1rem;">${esc(track)}</h2>`;
+      groups[track].forEach(m => {
+        const searchKey = [m.name, m.masteryTrack, m.arenaTag, (m.effect||[]).map(e=>e.description).join(' '), (m.gambits||[]).map(g=>g.name+' '+g.rule).join(' ')].join(' ');
+        html += `
+          <div class="card collapsible open" data-search="${esc(searchKey)}">
+            <div class="card-header collapse-toggle" style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
+              <span>${esc(m.name)}</span>
+              ${m.arenaTag ? `<span class="tag ${arenaTagClass(m.arenaTag)}">${esc(m.arenaTag)}</span>` : ''}
+              <span style="font-size:0.62rem;color:var(--color-text-secondary);margin-left:auto;">${esc(m.roll || '')} · min ${esc(m.disciplineRequirement?.minDie || '')}</span>
+            </div>
+            <div class="card-body">
+              ${m.risk ? `<div class="risk-block">⚠ ${esc(m.risk)}</div>` : ''}
+              <div style="margin:0.5rem 0;">
+                ${(m.effect || []).map(tier => `
+                  <div class="tier-row">
+                    <div class="tier-label" style="color:${tierColors[tier.label]||'var(--color-accent-secondary)'};">${esc(tier.label)}</div>
+                    <div>
+                      ${tier.name ? `<strong style="font-size:0.7rem;">${esc(tier.name)}</strong> — ` : ''}
+                      <span style="font-size:0.7rem;">${esc(tier.description || '')}</span>
+                      ${tier.duration ? `<span style="font-size:0.62rem;color:var(--color-text-secondary);margin-left:0.4rem;">[${esc(tier.duration)}]</span>` : ''}
+                    </div>
+                  </div>`).join('')}
+              </div>
+              ${(m.gambits || []).length ? `
+                <div style="margin-top:0.6rem;">
+                  <div style="font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-text-secondary);margin-bottom:0.25rem;">Gambits</div>
+                  ${m.gambits.map(g => `
+                    <div class="gambit-block ${g.requiredDie === 'D10' ? 'd10' : 'd12'}">
+                      <div class="gambit-name">
+                        <span class="tag ${g.requiredDie === 'D10' ? 'tag-d10' : 'tag-d12'}">${esc(g.requiredDie)}</span>
+                        ${esc(g.name)}
+                      </div>
+                      <div style="font-size:0.68rem;">${esc(g.rule || '')}</div>
+                      ${g.duration ? `<div style="font-size:0.62rem;color:var(--color-text-secondary);margin-top:0.15rem;">[${esc(g.duration)}]</div>` : ''}
+                    </div>`).join('')}
+                </div>` : ''}
+              ${m.target ? `<div style="font-size:0.62rem;color:var(--color-text-secondary);margin-top:0.4rem;">Target: ${esc(m.target)}</div>` : ''}
+            </div>
+          </div>`;
+      });
+    });
+    panel.innerHTML = html;
+  }
+
+  /* ── Render Threats ─────────────────────────────────────── */
+  function renderThreats(data) {
+    const panel = document.getElementById('tab-threats');
+    let html = '';
+
+    /* Example threat stat blocks */
+    const roster = data.exampleThreats || [];
+    if (roster.length) {
+      html += `<h2 style="font-family:'Audiowide',sans-serif;font-size:0.65rem;letter-spacing:0.12em;color:var(--color-text-secondary);text-transform:uppercase;padding-bottom:0.25rem;border-bottom:1px solid var(--color-border);margin-bottom:0.75rem;">Threat Roster</h2>`;
+      roster.forEach(t => {
+        const s = t.stats || {};
+        const tp = t.tpCost ? t.tpCost.total : undefined;
+        const classTag = (t.classification || '').toLowerCase();
+        let classColor = 'tag-standard';
+        if (classTag === 'elite') classColor = 'tag-elite';
+        else if (classTag === 'nemesis') classColor = 'tag-nemesis';
+        else if (classTag === 'minion') classColor = 'tag-minion';
+        const searchKey = [t.name, t.classification, (t.tags||[]).join(' '), t.description||''].join(' ');
+        html += `
+          <div class="card collapsible open" data-search="${esc(searchKey)}">
+            <div class="card-header collapse-toggle" style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
+              <span>${esc(t.name)}</span>
+              <span class="tag ${classColor}">${esc(t.classification || '')}</span>
+              ${(t.tags||[]).map(tag=>`<span class="tag" style="border-color:var(--color-border);color:var(--color-text-secondary);">${esc(tag)}</span>`).join('')}
+              ${tp !== undefined ? `<span style="margin-left:auto;font-size:0.62rem;color:var(--color-accent-primary);">${tp} TP</span>` : ''}
+            </div>
+            <div class="card-body">
+              ${t.description ? `<p style="font-size:0.7rem;color:var(--color-text-secondary);margin-bottom:0.5rem;">${esc(t.description)}</p>` : ''}
+              <div class="stat-grid">
+                ${s.presence !== undefined ? `<div class="stat-pill"><span class="stat-val">${esc(s.presence)}</span><span class="stat-name">Presence</span></div>` : ''}
+                ${s.defense  !== undefined ? `<div class="stat-pill"><span class="stat-val">${esc(s.defense)}</span><span class="stat-name">Defense</span></div>` : ''}
+                ${s.evasion  !== undefined ? `<div class="stat-pill"><span class="stat-val">${esc(s.evasion)}</span><span class="stat-name">Evasion</span></div>` : ''}
+                ${s.resolve  !== undefined ? `<div class="stat-pill"><span class="stat-val">${esc(s.resolve)}</span><span class="stat-name">Resolve</span></div>` : ''}
+                ${s.vitality !== undefined ? `<div class="stat-pill"><span class="stat-val">${esc(s.vitality)}</span><span class="stat-name">Vitality</span></div>` : ''}
+              </div>
+              ${t.actions && t.actions.length ? `
+                <div style="margin-top:0.5rem;">
+                  <div style="font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-text-secondary);margin-bottom:0.25rem;">Actions</div>
+                  ${t.actions.map(a=>`
+                    <div style="background:var(--color-bg-frame);padding:0.4rem 0.6rem;margin-bottom:0.3rem;font-size:0.7rem;">
+                      <div style="font-weight:700;margin-bottom:0.15rem;">${esc(a.name||'')}
+                        ${a.power !== undefined ? `<span style="color:var(--color-accent-primary);margin-left:0.4rem;">Power ${esc(a.power)}</span>` : ''}
+                        ${a.type ? `<span style="color:var(--color-text-secondary);font-weight:400;margin-left:0.4rem;">[${esc(a.type)}]</span>` : ''}
+                        ${a.range ? `<span style="color:var(--color-text-secondary);font-weight:400;margin-left:0.4rem;">· ${esc(a.range)}</span>` : ''}
+                      </div>
+                      ${a.note ? `<div style="color:var(--color-text-secondary);font-size:0.65rem;">${esc(a.note)}</div>` : ''}
+                    </div>`).join('')}
+                </div>` : ''}
+              ${t.gambits && t.gambits.length ? `
+                <div style="margin-top:0.5rem;">
+                  <div style="font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-text-secondary);margin-bottom:0.25rem;">NPC Gambits</div>
+                  ${t.gambits.map(g=>`
+                    <div class="gambit-block d10">
+                      <div class="gambit-name">${esc(g.name||'')} ${g.type ? `<span style="font-weight:400;color:var(--color-text-secondary);">[${esc(g.type)}]</span>` : ''}</div>
+                      <div style="font-size:0.68rem;">${esc(g.rule||'')}</div>
+                      ${g.duration ? `<div style="font-size:0.62rem;color:var(--color-text-secondary);">[${esc(g.duration)}]</div>` : ''}
+                    </div>`).join('')}
+                </div>` : ''}
+              ${t.trigger ? `
+                <div style="margin-top:0.5rem;background:var(--color-bg-frame);padding:0.35rem 0.6rem;font-size:0.7rem;border-left:3px solid var(--color-accent-secondary);">
+                  <strong>Trigger:</strong> ${esc(t.trigger)}
+                </div>` : ''}
+              ${t.tagNotes ? `
+                <div style="margin-top:0.35rem;font-size:0.68rem;color:var(--color-text-secondary);">
+                  ${Object.entries(t.tagNotes).map(([k,v])=>`<div><strong>[${esc(k)}]</strong> ${esc(v)}</div>`).join('')}
+                </div>` : ''}
+              ${t.tpCost && t.tpCost.asMinion ? `<div style="font-size:0.62rem;color:var(--color-text-secondary);margin-top:0.25rem;">As Minion: ${esc(t.tpCost.asMinion)}</div>` : ''}
+            </div>
+          </div>`;
+      });
+    }
+
+    /* Tags reference */
+    if (data.tags && data.tags.length) {
+      html += `<div class="card collapsible" style="margin-top:1rem;" data-search="tags pack tough relentless shielded sweeping boss">
+        <div class="card-header collapse-toggle">Threat Tags</div>
+        <div class="card-body">
+          ${data.tags.map(tag=>`
+            <div style="display:flex;gap:0.75rem;padding:0.35rem 0;border-bottom:1px solid var(--color-border);font-size:0.7rem;align-items:baseline;">
+              <span class="tag" style="border-color:var(--color-accent-secondary);color:var(--color-accent-secondary);white-space:nowrap;flex-shrink:0;">${esc(tag.name)} <span style="color:var(--color-accent-primary);">${tag.tp} TP</span></span>
+              <span>${esc(tag.effect)}</span>
+            </div>`).join('')}
+        </div>
+      </div>`;
+    }
+
+    /* Encounter difficulty */
+    const eb = data.encounterBudget;
+    if (eb && eb.difficultyMultipliers) {
+      html += `<div class="card collapsible" style="margin-top:1rem;" data-search="encounter budget difficulty easy standard challenging epic">
+        <div class="card-header collapse-toggle">Encounter Difficulty Scale</div>
+        <div class="card-body">
+          <div style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.75rem;">
+            ${eb.difficultyMultipliers.map(d=>`
+              <div style="background:var(--color-bg-frame);border:1px solid var(--color-border);padding:0.4rem 0.75rem;font-size:0.7rem;flex:1;min-width:150px;">
+                <div style="font-weight:700;color:var(--color-accent-deep);">${esc(d.feel)}</div>
+                <div style="color:var(--color-accent-primary);">×${esc(d.tpRatio)} PPR &nbsp;·&nbsp; ${esc(d.resourceCost)}</div>
+                <div style="color:var(--color-text-secondary);font-size:0.65rem;margin-top:0.2rem;">${esc(d.description)}</div>
+              </div>`).join('')}
+          </div>
+          ${eb.exampleCalculation ? `
+            <div style="font-size:0.65rem;color:var(--color-text-secondary);">
+              <strong>Example:</strong> ${esc(eb.exampleCalculation.party)}<br/>
+              ${(eb.exampleCalculation.threats||[]).map(t=>`<div style="margin-top:0.25rem;">• ${esc(t.build)}: ${esc(t.stats||'')} ${t.feel ? '— '+esc(t.feel) : ''}</div>`).join('')}
+            </div>` : ''}
+        </div>
+      </div>`;
+    }
+
+    /* Classifications */
+    if (data.classifications && data.classifications.length) {
+      html += `<div class="card collapsible" style="margin-top:1rem;" data-search="standard elite nemesis minion classification">
+        <div class="card-header collapse-toggle">Classifications</div>
+        <div class="card-body" style="columns:2;column-gap:0.75rem;">
+          ${data.classifications.map(c=>`
+            <div style="break-inside:avoid;margin-bottom:0.5rem;background:var(--color-bg-frame);padding:0.4rem 0.6rem;">
+              <div style="font-weight:700;font-size:0.7rem;color:var(--color-accent-deep);">${esc(c.name)}</div>
+              <div style="font-size:0.65rem;color:var(--color-text-secondary);margin-top:0.15rem;">${esc(c.summary||'')}</div>
+              ${c.actionEconomy ? `<div style="font-size:0.62rem;margin-top:0.2rem;color:var(--color-accent-secondary);">Actions: ${c.actionEconomy.actions} · Maneuvers: ${c.actionEconomy.maneuvers} · Triggers: ${c.actionEconomy.triggers}</div>` : ''}
+              <div style="font-size:0.6rem;color:var(--color-accent-primary);margin-top:0.1rem;">×${c.tpMultiplier} TP multiplier</div>
+            </div>`).join('')}
+        </div>
+      </div>`;
+    }
+
+    panel.innerHTML = html || '<p style="color:var(--color-text-secondary);font-size:0.75rem;">No threat data found.</p>';
+  }
+
+  /* ── Render Weapons ─────────────────────────────────────── */
+  const tierColors2 = { 'Fleeting':'#888', 'Basic':'#5588CC', 'Solid':'#C47A1E', 'Superior':'#AA44AA', 'Flawless':'#CC0000' };
+
+  function renderEffectPairs(pairs) {
+    if (!pairs || !Array.isArray(pairs)) return '';
+    return pairs.map(pair => {
+      const [val, label] = Array.isArray(pair) ? pair : [pair.value||'', pair.label||''];
+      const display = (typeof val === 'number') ? `${val} dmg` : String(val);
+      return `<div class="tier-row">
+        <div class="tier-label" style="font-size:0.65rem;color:${tierColors2[label]||'var(--color-accent-secondary)'};">${esc(label)}</div>
+        <div style="font-size:0.7rem;">${esc(display)}</div>
+      </div>`;
+    }).join('');
+  }
+
+  function renderWeaponRange(range) {
+    if (!range) return '';
+    if (range.engaged) return 'Engaged';
+    if (Array.isArray(range)) {
+      const e = range[0], m = range[1], x = range[2];
+      return `0\u2013${e} \u00b7 ${e+1}\u2013${m} \u00b7 ${m+1}\u2013${x}`;
+    }
+    if (range.min !== undefined && range.max !== undefined) {
+      return range.min === range.max ? `Zone ${range.min}` : `Zones ${range.min}\u2013${range.max}`;
+    }
+    return '';
+  }
+
+  function renderWeaponDamageTrack(w, chassisMap) {
+    const TIERS = [
+      { range: '0\u20133', label: 'Fleeting' },
+      { range: '4\u20137', label: 'Basic' },
+      { range: '8+',       label: 'Superior' }
+    ];
+    let dmg = null;
+    if (w.customDamage && Array.isArray(w.customDamage)) {
+      dmg = w.customDamage;
+    } else if (w.chassisId && chassisMap[w.chassisId]) {
+      dmg = chassisMap[w.chassisId].tiers.map(t => t.damage);
+    }
+    if (!dmg) return '';
+    return `
+      <div style="margin:0.4rem 0;">
+        <div style="font-size:0.58rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-text-secondary);margin-bottom:0.2rem;">Damage Track</div>
+        ${TIERS.map((tier, i) => `
+          <div class="tier-row">
+            <div class="tier-label" style="font-size:0.62rem;color:var(--color-text-secondary);">${esc(tier.range)}</div>
+            <div style="font-size:0.65rem;color:var(--color-text-secondary);">${esc(tier.label)}</div>
+            <div style="font-size:0.7rem;font-weight:600;">${dmg[i] !== undefined ? dmg[i] + ' dmg' : '\u2014'}</div>
+          </div>`).join('')}
+      </div>`;
+  }
+
+  function renderWeapons(data, chassisMap) {
+    const panel = document.getElementById('tab-weapons');
+    let html = '';
+    const list = Array.isArray(data) ? data : (data.weapons || Object.values(data));
+    const cmap = chassisMap || {};
+
+    list.forEach(w => {
+      const rangeStr = renderWeaponRange(w.range);
+      const searchKey = [w.name, w.chassisLabel, w.discipline, (w.tags||[]).join(' ')].join(' ');
+      const weaponGambits = w.gambits || (w.gambit ? [w.gambit] : []);
+
+      html += `
+        <div class="card collapsible open" data-search="${esc(searchKey)}">
+          <div class="card-header collapse-toggle" style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
+            <span>${esc(w.name || '')}</span>
+            ${w.chassisLabel ? `<span class="tag" style="border-color:var(--color-border);color:var(--color-text-secondary);">${esc(w.chassisLabel)}</span>` : ''}
+            ${w.stunSetting ? `<span class="tag" style="border-color:var(--color-accent-secondary);color:var(--color-accent-secondary);">Stun</span>` : ''}
+            <span style="margin-left:auto;font-size:0.62rem;color:var(--color-text-secondary);">
+              ${w.discipline ? esc(w.discipline) : ''}
+              ${rangeStr ? ' \u00b7 ' + esc(rangeStr) : ''}
+              ${w.cost ? ' \u00b7 ' + esc(String(w.cost)) + ' cr' : ''}
+            </span>
+          </div>
+          <div class="card-body">
+            <div class="stat-grid">
+              ${w.arena ? `<div class="stat-pill"><span class="stat-val" style="font-size:0.65rem;">${esc(w.arena)}</span><span class="stat-name">Arena</span></div>` : ''}
+            </div>
+            ${w.description ? `<p style="font-size:0.7rem;color:var(--color-text-secondary);margin-bottom:0.5rem;">${esc(w.description)}</p>` : ''}
+            ${renderWeaponDamageTrack(w, cmap)}
+            ${w.trait ? `
+              <div style="background:var(--color-bg-frame);border-left:3px solid var(--color-accent-secondary);padding:0.35rem 0.6rem;margin-top:0.4rem;font-size:0.7rem;">
+                <strong>${esc(w.trait.name||'')}</strong>: ${esc(w.trait.description||'')}
+              </div>` : ''}
+            ${weaponGambits.length ? `
+              <div style="margin-top:0.5rem;">
+                <div style="font-size:0.58rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-text-secondary);margin-bottom:0.2rem;">Weapon Gambits</div>
+                ${weaponGambits.map(g => `
+                  <div class="gambit-block d10">
+                    <div class="gambit-name">${esc(g.name||'')}</div>
+                    <div style="font-size:0.68rem;">${esc(g.rule||'')}</div>
+                  </div>`).join('')}
+              </div>` : ''}
+            ${(w.tags||[]).length ? `<div style="margin-top:0.4rem;">${w.tags.map(t=>`<span class="tag" style="border-color:var(--color-border);color:var(--color-text-secondary);">${esc(t)}</span>`).join('')}</div>` : ''}
+          </div>
+        </div>`;
+    });
+    panel.innerHTML = html || '<p style="color:var(--color-text-secondary);font-size:0.75rem;">No weapon data found.</p>';
+  }
+
+  /* ── Render Armor ─────────────────────────────────────────── */
+  const ARMOR_CATEGORY_RULES_GM = {
+    none:   'Step Down Physique to Endure.',
+    light:  'No modification to Physique when Enduring.',
+    medium: 'Step Up Physique to Endure · Step Down Reflex for Evasion.',
+    heavy:  'Step Up Physique twice to Endure · Step Down Reflex twice for Evasion.'
+  };
+
+  const ARMOR_CATEGORY_ORDER = ['light', 'medium', 'heavy'];
+  const ARMOR_CATEGORY_COLORS = {
+    light:  'var(--color-accent-secondary)',
+    medium: '#5588CC',
+    heavy:  '#CC0000'
+  };
+
+  function renderArmor(data) {
+    const panel = document.getElementById('tab-armor');
+    const groups = { light: [], medium: [], heavy: [] };
+    data.forEach(a => { if (groups[a.category]) groups[a.category].push(a); });
+
+    let html = '';
+    ARMOR_CATEGORY_ORDER.forEach(cat => {
+      const items = groups[cat];
+      if (!items.length) return;
+      const color = ARMOR_CATEGORY_COLORS[cat] || 'var(--color-text-secondary)';
+      const rule  = ARMOR_CATEGORY_RULES_GM[cat] || '';
+      html += `
+        <div style="margin-bottom:1.25rem;">
+          <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.5rem;padding-bottom:0.3rem;border-bottom:2px solid ${color};">
+            <h2 style="font-family:'Audiowide',sans-serif;font-size:0.75rem;color:${color};margin:0;text-transform:capitalize;">${esc(cat)} Armor</h2>
+            <span style="font-size:0.6rem;color:var(--color-text-secondary);">${esc(rule)}</span>
+          </div>
+          <div style="columns:2;column-gap:0.75rem;">
+            ${items.map(a => {
+              const traits = a.traits || [];
+              const searchKey = [a.name, a.category, a.categoryLabel, ...traits.map(t => t.name + ' ' + t.description)].join(' ');
+              return `
+                <div class="card collapsible" style="break-inside:avoid;margin-bottom:0.5rem;" data-search="${esc(searchKey)}">
+                  <div class="card-header collapse-toggle" style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
+                    <span>${esc(a.name)}</span>
+                    <span class="tag" style="border-color:${color};color:${color};">${esc(a.categoryLabel||cat)}</span>
+                    ${a.evasionException ? `<span class="tag" style="border-color:var(--color-accent-secondary);color:var(--color-accent-secondary);">No Evasion Penalty</span>` : ''}
+                    <span style="margin-left:auto;font-size:0.62rem;color:var(--color-text-secondary);">
+                      ${a.cost ? esc(String(a.cost)) + ' cr' : 'Not for sale'}
+                      ${a.availability ? ' · Avail: ' + esc(a.availability) : ''}
+                    </span>
+                  </div>
+                  <div class="card-body">
+                    ${a.description ? `<p style="font-size:0.7rem;color:var(--color-text-secondary);margin-bottom:0.4rem;">${esc(a.description)}</p>` : ''}
+                    ${traits.map(t => `
+                      <div style="background:var(--color-bg-frame);border-left:3px solid var(--color-accent-secondary);padding:0.35rem 0.6rem;margin-top:0.3rem;font-size:0.7rem;">
+                        <strong>${esc(t.name)}</strong>: ${esc(t.description)}
+                      </div>`).join('')}
+                    ${(a.tags||[]).length ? `<div style="margin-top:0.4rem;">${a.tags.map(t=>`<span class="tag" style="border-color:var(--color-border);color:var(--color-text-secondary);">${esc(t)}</span>`).join('')}</div>` : ''}
+                  </div>
+                </div>`;
+            }).join('')}
+          </div>
+        </div>`;
+    });
+
+    panel.innerHTML = html || '<p style="color:var(--color-text-secondary);font-size:0.75rem;">No armor data found.</p>';
+  }
+
+  /* ── Render Game System ─────────────────────────────────────── */
+  function renderGameSystem(data) {
+    const panel = document.getElementById('tab-gamesystem');
+    let html = '';
+    const list = Array.isArray(data) ? data : [data];
+
+    list.forEach(section => {
+      html += `
+        <div class="card collapsible open" style="margin-bottom:0.75rem;" data-search="${esc(section.name || section.id || '')} ${esc(section.summary || '')}">
+          <div class="card-header collapse-toggle">${esc(section.name || section.id || 'Section')}</div>
+          <div class="card-body">
+            ${section.tag ? `<span class="tag" style="border-color:var(--color-accent-secondary);color:var(--color-accent-secondary);">${esc(section.tag)}</span>` : ''}
+            ${section.summary ? `<p style="font-size:0.72rem;margin:0.4rem 0 0.6rem;">${esc(section.summary)}</p>` : ''}
+            ${section.description ? `<p style="font-size:0.72rem;color:var(--color-text-secondary);margin-bottom:0.5rem;">${esc(section.description)}</p>` : ''}
+            ${renderSystemObject(section)}
+          </div>
+        </div>`;
+    });
+
+    panel.innerHTML = html;
+  }
+
+  function renderSystemObject(obj) {
+    let html = '';
+    const skip = new Set(['id','name','tag','summary','description']);
+    Object.keys(obj).forEach(key => {
+      if (skip.has(key)) return;
+      const val = obj[key];
+      if (val === null || val === undefined) return;
+      html += `<div class="rule-section">
+        <h3>${esc(key)}</h3>`;
+      if (typeof val === 'string') {
+        html += `<p style="font-size:0.7rem;">${esc(val)}</p>`;
+      } else if (Array.isArray(val)) {
+        html += `<ul style="margin:0;padding-left:1.2rem;">`;
+        val.forEach(item => {
+          if (typeof item === 'string') {
+            html += `<li style="font-size:0.7rem;margin-bottom:0.2rem;">${esc(item)}</li>`;
+          } else if (typeof item === 'object') {
+            html += `<li style="font-size:0.7rem;margin-bottom:0.35rem;list-style:none;margin-left:-1.2rem;background:var(--color-bg-frame);padding:0.3rem 0.5rem;margin-bottom:0.3rem;">`;
+            Object.keys(item).forEach(k => {
+              if (item[k] !== null && item[k] !== undefined) {
+                html += `<span style="color:var(--color-accent-secondary);margin-right:0.3rem;">${esc(k)}:</span><span style="margin-right:0.75rem;">${esc(item[k])}</span>`;
+              }
+            });
+            html += `</li>`;
+          }
+        });
+        html += `</ul>`;
+      } else if (typeof val === 'object') {
+        Object.keys(val).forEach(k => {
+          if (val[k] !== null && val[k] !== undefined) {
+            html += `<div style="font-size:0.7rem;margin-bottom:0.2rem;"><span style="color:var(--color-accent-secondary);margin-right:0.35rem;">${esc(k)}</span>${typeof val[k] === 'string' ? esc(val[k]) : JSON.stringify(val[k])}</div>`;
+          }
+        });
+      }
+      html += `</div>`;
+    });
+    return html;
+  }
+
+  /* ── Render Gear ─────────────────────────────────────────── */
+  const GEAR_TIERS = [
+    { range: '0\u20133', label: 'Fleeting' },
+    { range: '4\u20137', label: 'Basic'    },
+    { range: '8+',       label: 'Superior' }
+  ];
+
+  const GEAR_CATEGORY_ORDER = ['medical','explosive','tech','infiltration','surveillance','communication','survival','tools'];
+  const GEAR_CATEGORY_COLORS = {
+    medical:       '#44AA66',
+    explosive:     '#CC0000',
+    tech:          '#AA44AA',
+    infiltration:  '#44AAAA',
+    surveillance:  '#5588CC',
+    communication: '#5588CC',
+    survival:      'var(--color-accent-secondary)',
+    tools:         '#888888'
+  };
+
+  function renderGearEffectTrack(gear) {
+    if (gear.customEffectRows && Array.isArray(gear.customEffectRows)) {
+      return `
+        <div style="margin:0.4rem 0;">
+          <div style="font-size:0.58rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-text-secondary);margin-bottom:0.2rem;">Effect Track</div>
+          ${GEAR_TIERS.map((tier, i) => `
+            <div class="tier-row" style="grid-template-columns:80px 80px 1fr;">
+              <div class="tier-label" style="font-size:0.62rem;color:var(--color-text-secondary);">${esc(tier.range)}</div>
+              <div style="font-size:0.65rem;color:var(--color-text-secondary);">${esc(tier.label)}</div>
+              <div style="font-size:0.68rem;">${gear.customEffectRows[i] !== undefined ? esc(gear.customEffectRows[i]) : '\u2014'}</div>
+            </div>`).join('')}
+        </div>`;
+    }
+    const wp = gear.weaponProfile;
+    if (wp && wp.customDamage && Array.isArray(wp.customDamage)) {
+      return `
+        <div style="margin:0.4rem 0;">
+          <div style="font-size:0.58rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-text-secondary);margin-bottom:0.2rem;">Damage Track</div>
+          ${GEAR_TIERS.map((tier, i) => `
+            <div class="tier-row">
+              <div class="tier-label" style="font-size:0.62rem;color:var(--color-text-secondary);">${esc(tier.range)}</div>
+              <div style="font-size:0.65rem;color:var(--color-text-secondary);">${esc(tier.label)}</div>
+              <div style="font-size:0.7rem;font-weight:600;">${wp.customDamage[i] !== undefined ? wp.customDamage[i] + ' dmg' : '\u2014'}</div>
+            </div>`).join('')}
+        </div>`;
+    }
+    if (wp && wp.fixedPowerDie) {
+      return `<div style="margin:0.4rem 0;font-size:0.7rem;">Power Die: <strong>2\u00d7${esc(wp.fixedPowerDie)}</strong> (take highest)</div>`;
+    }
+    return '';
+  }
+
+  function renderGear(data) {
+    const panel = document.getElementById('tab-gear');
+    const groups = {};
+    GEAR_CATEGORY_ORDER.forEach(c => { groups[c] = []; });
+
+    data.forEach(g => {
+      const cat = g.category || 'tools';
+      if (!groups[cat]) groups[cat] = [];
+      groups[cat].push(g);
+    });
+
+    let html = '';
+    GEAR_CATEGORY_ORDER.forEach(cat => {
+      const items = groups[cat];
+      if (!items || !items.length) return;
+      const color = GEAR_CATEGORY_COLORS[cat] || '#888';
+      const label = items[0].categoryLabel || cat.charAt(0).toUpperCase() + cat.slice(1);
+
+      html += `
+        <div style="margin-bottom:1.25rem;">
+          <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.5rem;padding-bottom:0.3rem;border-bottom:2px solid ${color};">
+            <h2 style="font-family:'Audiowide',sans-serif;font-size:0.75rem;color:${color};margin:0;text-transform:capitalize;">${esc(label)}</h2>
+          </div>
+          <div style="columns:2;column-gap:0.75rem;">
+            ${items.map(g => {
+              const wp = g.weaponProfile;
+              const traits = g.traits || [];
+              const gambits = g.gambits || [];
+              const searchKey = [g.name, g.category, ...(g.tags||[]), ...traits.map(t => t.name), ...gambits.map(b => b.name)].join(' ');
+
+              const rangeStr = wp && wp.range
+                ? (Array.isArray(wp.range)
+                  ? 'Range: 0\u2013' + wp.range[0] + ' \u00b7 ' + (wp.range[0]+1) + '\u2013' + wp.range[1] + ' \u00b7 ' + (wp.range[1]+1) + '\u2013' + wp.range[2]
+                  : '')
+                : '';
+
+              return `
+                <div class="card collapsible" style="break-inside:avoid;margin-bottom:0.5rem;" data-search="${esc(searchKey)}">
+                  <div class="card-header collapse-toggle" style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
+                    <span>${esc(g.name)}</span>
+                    <span class="tag" style="border-color:${color};color:${color};">${esc(g.categoryLabel || cat)}</span>
+                    <span style="margin-left:auto;font-size:0.62rem;color:var(--color-text-secondary);">
+                      ${g.cost ? esc(String(g.cost)) + ' cr' : ''}
+                      ${g.availability ? ' \u00b7 Avail: ' + esc(g.availability) : ''}
+                    </span>
+                  </div>
+                  <div class="card-body">
+                    ${g.description ? `<p style="font-size:0.7rem;color:var(--color-text-secondary);margin-bottom:0.4rem;">${esc(g.description)}</p>` : ''}
+                    ${wp ? `<div style="font-size:0.65rem;color:var(--color-text-secondary);margin-bottom:0.3rem;">
+                      ${wp.discipline ? esc(wp.discipline) + ' (' + esc(wp.arena||'') + ')' : ''}
+                      ${wp.defense ? ' \u00b7 vs. ' + esc(wp.defense) : ''}
+                      ${rangeStr ? ' \u00b7 ' + esc(rangeStr) : ''}
+                    </div>` : ''}
+                    ${renderGearEffectTrack(g)}
+                    ${traits.map(t => `
+                      <div style="background:var(--color-bg-frame);border-left:3px solid var(--color-accent-secondary);padding:0.35rem 0.6rem;margin-top:0.3rem;font-size:0.7rem;">
+                        <strong>${esc(t.name)}</strong>: ${esc(t.description)}
+                      </div>`).join('')}
+                    ${gambits.length ? `
+                      <div style="margin-top:0.4rem;">
+                        <div style="font-size:0.58rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-text-secondary);margin-bottom:0.2rem;">Gambits</div>
+                        ${gambits.map(b => `
+                          <div class="gambit-block d10" style="margin-top:0.25rem;">
+                            <div class="gambit-name">${esc(b.name||'')}${b.targetManeuver ? ' <span style="font-size:0.6rem;font-weight:400;opacity:0.7;">\u2192 ' + esc(b.targetManeuver) + '</span>' : ''}</div>
+                            <div style="font-size:0.68rem;">${esc(b.rule||'')}</div>
+                          </div>`).join('')}
+                      </div>` : ''}
+                    ${(g.tags||[]).length ? `<div style="margin-top:0.4rem;">${g.tags.map(t=>`<span class="tag" style="border-color:var(--color-border);color:var(--color-text-secondary);">${esc(t)}</span>`).join('')}</div>` : ''}
+                  </div>
+                </div>`;
+            }).join('')}
+          </div>
+        </div>`;
+    });
+
+    panel.innerHTML = html || '<p style="color:var(--color-text-secondary);font-size:0.75rem;">No gear data found.</p>';
+  }
+
+  /* ── Fetch all data ─────────────────────────────────────── */
+  fetch('/data/glossary.json')
+    .then(r => r.json())
+    .then(data => {
+      renderArenasDisciplines(data);
+      renderConditions(data);
+    })
+    .catch(err => {
+      ['tab-arenas','tab-conditions'].forEach(id => {
+        document.getElementById(id).innerHTML =
+          `<p style="color:var(--color-accent-primary);font-size:0.75rem;">Failed to load glossary: ${err.message}</p>`;
+      });
+    });
+
+  const files = [
+    { key: 'maneuvers',  url: '/data/maneuvers.json',   render: renderManeuvers },
+    { key: 'threats',    url: '/data/threats.json',     render: renderThreats },
+    { key: 'armor',      url: '/data/armor.json',       render: renderArmor },
+    { key: 'gamesystem', url: '/data/gamesystem.json',  render: renderGameSystem },
+    { key: 'gear',       url: '/data/gear.json',        render: renderGear },
+  ];
+
+  files.forEach(({ key, url, render }) => {
+    fetch(url)
+      .then(r => r.json())
+      .then(data => render(data))
+      .catch(err => {
+        document.getElementById('tab-' + key).innerHTML =
+          `<p style="color:var(--color-accent-primary);font-size:0.75rem;">Failed to load ${url}: ${err.message}</p>`;
+      });
+  });
+
+  Promise.all([
+    fetch('/data/weapons.json').then(r => r.json()),
+    fetch('/data/chassis.json').then(r => r.json()),
+  ])
+    .then(([weapons, chassis]) => renderWeapons(weapons, chassis))
+    .catch(err => {
+      document.getElementById('tab-weapons').innerHTML =
+        `<p style="color:var(--color-accent-primary);font-size:0.75rem;">Failed to load weapons: ${err.message}</p>`;
+    });
+}());
+</script>
+</body>
+</html>

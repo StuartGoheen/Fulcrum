@@ -1,0 +1,777 @@
+(function () {
+  'use strict';
+
+  var DIE_ORDER = ['D4', 'D6', 'D8', 'D10', 'D12'];
+
+  var DISCIPLINE_MAP = {
+    'ranged':       { arenaId: 'reflex',   discId: 'ranged'       },
+    'heavyweapons': { arenaId: 'physique', discId: 'heavyweapons' },
+    'melee':        { arenaId: 'physique', discId: 'melee'        }
+  };
+
+  var STATUS_CYCLE = ['stowed', 'carried', 'equipped'];
+
+  var _statusMap = {};
+  var _currentCharId = null;
+
+  function _statPill(itemId, itemType, statusMap) {
+    var status = (statusMap && statusMap[itemId]) ? statusMap[itemId].status : 'stowed';
+    return (
+      '<span class="armory-state-pill armory-state-' + _esc(status) + '"' +
+        ' data-pill-id="' + _esc(itemId) + '"' +
+        ' data-pill-type="' + _esc(itemType) + '"' +
+        ' data-pill-status="' + _esc(status) + '"' +
+        ' role="button" tabindex="0">' +
+        _esc(status.charAt(0).toUpperCase() + status.slice(1)) +
+      '</span>'
+    );
+  }
+
+  function _cycleStatus(current) {
+    var idx = STATUS_CYCLE.indexOf(current);
+    return STATUS_CYCLE[(idx + 1) % STATUS_CYCLE.length];
+  }
+
+  function _persistStatus(charId, itemId, itemType, status) {
+    fetch('/api/equipment/' + encodeURIComponent(charId) + '/' + encodeURIComponent(itemId), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status: status, itemType: itemType })
+    }).catch(function (err) {
+      console.error('[ArmoryPanel] equipment persist error', err);
+    });
+    document.dispatchEvent(new CustomEvent('equipment:changed', {
+      detail: { charId: charId, itemId: itemId, itemType: itemType, status: status }
+    }));
+  }
+
+  var ARMOR_CATEGORY_RULES = {
+    none:   'Step Down Physique to Endure.',
+    light:  'No modification to Physique when Enduring.',
+    medium: 'Step Up Physique to Endure \u00b7 Step Down Reflex for Evasion.',
+    heavy:  'Step Up Physique twice to Endure \u00b7 Step Down Reflex twice for Evasion.'
+  };
+
+  var WEAPON_TIERS = [
+    { range: '0\u20133', label: 'Fleeting' },
+    { range: '4\u20137', label: 'Basic'    },
+    { range: '8+',       label: 'Superior' }
+  ];
+
+  function _esc(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  function _renderRange(range) {
+    if (!range) return '';
+    if (range.engaged) return 'Engaged';
+    if (Array.isArray(range)) {
+      var eff = range[0];
+      var med = range[1];
+      var max = range[2];
+      return '0\u2013' + eff + ' \u00b7 ' + (eff + 1) + '\u2013' + med + ' \u00b7 ' + (med + 1) + '\u2013' + max;
+    }
+    var min = range.min;
+    var max = range.max;
+    if (min === 0 && max === 0) return 'Engaged';
+    if (min === max) return 'Zone ' + min;
+    return 'Zones ' + min + '\u2013' + max;
+  }
+
+  var GLOSSARY_LINK_MAP = { 'Stimmed': 'stimmed' };
+
+  function _linkifyText(str) {
+    var parts = String(str).split(/(\[[^\]]+\])/g);
+    var out = '';
+    for (var i = 0; i < parts.length; i++) {
+      var part = parts[i];
+      if (part.charAt(0) === '[' && part.charAt(part.length - 1) === ']') {
+        var term = part.slice(1, -1);
+        var gid  = GLOSSARY_LINK_MAP[term];
+        if (gid) {
+          out += '<span data-glossary-id="' + _esc(gid) + '" class="glossary-link">' + _esc(part) + '</span>';
+        } else {
+          out += _esc(part);
+        }
+      } else {
+        out += _esc(part).replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>');
+      }
+    }
+    return out;
+  }
+
+  function _getDiscDie(char, arenaId, discId) {
+    var arenas = char.arenas || [];
+    for (var i = 0; i < arenas.length; i++) {
+      if (arenas[i].id !== arenaId) continue;
+      var discs = arenas[i].disciplines || [];
+      for (var j = 0; j < discs.length; j++) {
+        if (discs[j].id !== discId) continue;
+        var baseDie    = discs[j].die.toUpperCase();
+        var baseIdx    = DIE_ORDER.indexOf(baseDie);
+        var discOffset = window.CharacterPanel ? window.CharacterPanel.getDiscEffectOffset(discId, arenaId) : 0;
+        var effIdx     = baseIdx + discOffset;
+        if (effIdx < 0) return 'D4';
+        if (effIdx > 4) return 'D12';
+        return DIE_ORDER[effIdx];
+      }
+    }
+    return 'D4';
+  }
+
+  function _dieImg(dieType) {
+    return '<img src="/assets/' + dieType.toLowerCase() + '.png" alt="' + _esc(dieType) + '" class="armory-weapon-disc-die">';
+  }
+
+  function _getEffectiveArenaDie(char, arenaId) {
+    var trauma = window.CharacterPanel ? window.CharacterPanel.getArenaTrauma() : {};
+    var traumaLevel  = trauma[arenaId] || 0;
+    var effectOffset = window.CharacterPanel ? window.CharacterPanel.getArenaEffectOffset(arenaId) : 0;
+    var arenas = char.arenas || [];
+    var arenaObj = null;
+    for (var i = 0; i < arenas.length; i++) {
+      if (arenas[i].id === arenaId) { arenaObj = arenas[i]; break; }
+    }
+    if (!arenaObj) return 'D4';
+    var baseIdx = DIE_ORDER.indexOf(arenaObj.die.toUpperCase());
+    var effIdx  = baseIdx - traumaLevel + effectOffset;
+    if (effIdx < 0) effIdx = 0;
+    if (effIdx > 4) effIdx = 4;
+    return DIE_ORDER[effIdx];
+  }
+
+  function _buildDamageTrack(dmgArr) {
+    var html = '<div class="armory-effect-track">';
+    for (var i = 0; i < WEAPON_TIERS.length && i < dmgArr.length; i++) {
+      html +=
+        '<div class="armory-effect-row">' +
+          '<span class="armory-effect-range">' + _esc(WEAPON_TIERS[i].range) + '</span>' +
+          '<span class="armory-effect-name">'  + _esc(WEAPON_TIERS[i].label) + '</span>' +
+          '<span class="armory-effect-value">' + _esc(String(dmgArr[i])) + ' Dmg</span>' +
+        '</div>';
+    }
+    html += '</div>';
+    return html;
+  }
+
+  function _buildFixedPowerDieTrack(dieName) {
+    var dieFile = dieName.toLowerCase() + '.png';
+    var stackHtml =
+      '<span class="char-disc-2die-stack">' +
+        '<img src="/assets/' + dieFile + '" alt="" class="char-disc-2die-back">' +
+        '<img src="/assets/' + dieFile + '" alt="" class="char-disc-2die-front">' +
+      '</span>' +
+      '<svg viewBox="0 0 10 14" width="8" height="12" style="vertical-align:middle;margin-left:2px;" aria-hidden="true">' +
+        '<line x1="5" y1="12" x2="5" y2="5" stroke="var(--color-accent-primary)" stroke-width="2" stroke-linecap="round"/>' +
+        '<polygon points="0,6 10,6 5,0" fill="var(--color-accent-primary)"/>' +
+      '</svg>';
+    var html = '<div class="armory-effect-track">';
+    for (var i = 0; i < WEAPON_TIERS.length; i++) {
+      html +=
+        '<div class="armory-effect-row">' +
+          '<span class="armory-effect-range">' + _esc(WEAPON_TIERS[i].range) + '</span>' +
+          '<span class="armory-effect-name">'  + _esc(WEAPON_TIERS[i].label) + '</span>' +
+          '<span class="armory-effect-value" style="display:flex;align-items:center;gap:0;">' + stackHtml + '</span>' +
+        '</div>';
+    }
+    html += '</div>';
+    return html;
+  }
+
+  function _buildCustomEffectTrack(rows) {
+    var html = '<div class="armory-effect-track">';
+    for (var i = 0; i < WEAPON_TIERS.length && i < rows.length; i++) {
+      html +=
+        '<div class="armory-effect-row">' +
+          '<span class="armory-effect-range">' + _esc(WEAPON_TIERS[i].range) + '</span>' +
+          '<span class="armory-effect-name">'  + _esc(WEAPON_TIERS[i].label) + '</span>' +
+          '<span class="armory-effect-value">' + _esc(rows[i]) + '</span>' +
+        '</div>';
+    }
+    html += '</div>';
+    return html;
+  }
+
+  function _buildStunBlock(chassisDef) {
+    var tiers = chassisDef.tiers;
+    var rowsHtml = '';
+    for (var i = 0; i < tiers.length; i++) {
+      var t = tiers[i];
+      rowsHtml +=
+        '<div class="armory-effect-row">' +
+          '<span class="armory-effect-range">' + _esc(t.range) + '</span>' +
+          '<span class="armory-effect-name">'  + _esc(t.label) + '</span>' +
+          '<span class="armory-effect-value">Stun ' + _esc(String(t.stunDamage)) + ' \u2014 [' + _esc(t.stunCondition) + ']</span>' +
+        '</div>';
+    }
+
+    return (
+      '<div class="armory-gambit-block">' +
+        '<div class="armory-gambit-toggle" role="button" tabindex="0">' +
+          '<span class="armory-gambit-label">Stun</span>' +
+          '<span class="armory-gambit-label armory-stun-setting-label">Setting</span>' +
+          '<span class="armory-stun-meta">Max 2 Zones</span>' +
+          '<span class="armory-gambit-chevron">&#9656;</span>' +
+        '</div>' +
+        '<div class="armory-gambit-body">' +
+          '<div class="armory-effect-track">' + rowsHtml + '</div>' +
+          '<div class="armory-mode-note">Stun Check: if Stun Value \u2265 target\u2019s current Vitality \u2192 [Unconscious]. Otherwise, the condition applies only \u2014 no Vitality damage is dealt.</div>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  function _buildEngineGambitBlock(gambit, engineName) {
+    return (
+      '<div class="armory-gambit-block engine-gambit-block">' +
+        '<div class="armory-gambit-toggle" role="button" tabindex="0">' +
+          '<span class="armory-gambit-label engine-gambit-label">' + _esc(engineName) + '</span>' +
+          '<span class="armory-gambit-name">' + _esc(gambit.name) + '</span>' +
+          '<span class="engine-gambit-tag">' + _esc(gambit.arenaTag) + '</span>' +
+          '<span class="armory-gambit-chevron">&#9656;</span>' +
+        '</div>' +
+        '<div class="armory-gambit-body">' +
+          '<div class="engine-gambit-cost">' + _esc(gambit.cost) + '</div>' +
+          '<div class="armory-gambit-text">' + _esc(gambit.rule) + '</div>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  function _buildKitGambitBlock(ability, kitName) {
+    return (
+      '<div class="armory-gambit-block engine-gambit-block kit-gambit-block">' +
+        '<div class="armory-gambit-toggle" role="button" tabindex="0">' +
+          '<span class="armory-gambit-label engine-gambit-label kit-gambit-label">' + _esc(kitName) + '</span>' +
+          '<span class="armory-gambit-name">' + _esc(ability.name) + '</span>' +
+          (ability.arenaTag ? '<span class="engine-gambit-tag">' + _esc(ability.arenaTag) + '</span>' : '') +
+          '<span class="armory-gambit-chevron">&#9656;</span>' +
+        '</div>' +
+        '<div class="armory-gambit-body">' +
+          (ability.cost ? '<div class="engine-gambit-cost">' + _esc(ability.cost) + '</div>' : '') +
+          '<div class="armory-gambit-text">' + _linkifyText(ability.rule) + '</div>' +
+          (ability.buyOff
+            ? '<div class="kit-gambit-buyoff">Buy-Off: ' + _linkifyText(ability.buyOff) + '</div>'
+            : '') +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  function _buildArmorInArmory(armor, char, statusMap) {
+    var discDie  = _getDiscDie(char, 'physique', 'endure');
+    var arenaDie = _getEffectiveArenaDie(char, 'physique');
+
+    var discHtml =
+      '<div class="armory-weapon-disc">' +
+        _dieImg(discDie) +
+        '<span class="armory-weapon-disc-sep">/</span>' +
+        _dieImg(arenaDie) +
+      '</div>';
+
+    var categoryRule = ARMOR_CATEGORY_RULES[armor.category] || '';
+    if (armor.evasionException && categoryRule) {
+      categoryRule = categoryRule.replace(' \u00b7 Step Down Reflex for Evasion.', '') + ' \u00b7 No Evasion penalty (see Trait).';
+    }
+
+    var metaHtml =
+      '<div class="armory-weapon-meta">' +
+        _statPill(armor.id, 'armor', statusMap) +
+        '<span class="armory-weapon-chassis">' + _esc(armor.categoryLabel || armor.category) + '</span>' +
+        (armor.cost
+          ? '<span class="armory-weapon-cost">' + _esc(String(armor.cost)) + ' cr</span>'
+          : '<span class="armory-weapon-cost">Not for sale</span>') +
+        (armor.availability ? '<span class="armory-weapon-range">Avail: ' + _esc(armor.availability) + '</span>' : '') +
+      '</div>';
+
+    var ruleHtml = categoryRule
+      ? '<div class="armor-category-rule">' + _esc(categoryRule) + '</div>'
+      : '';
+
+    var descHtml = armor.description
+      ? '<div class="armory-gambit-text" style="margin-bottom:4px;">' + _esc(armor.description) + '</div>'
+      : '';
+
+    var traitsHtml = '';
+    var traits = armor.traits || [];
+    for (var i = 0; i < traits.length; i++) {
+      traitsHtml +=
+        '<div class="armory-trait-block">' +
+          '<div class="armory-trait-name">' + _esc(traits[i].name) + '</div>' +
+          '<div class="armory-trait-text">' + _esc(traits[i].description) + '</div>' +
+        '</div>';
+    }
+
+    var gambitsHtml = '';
+    var gambits = armor.gambits || [];
+    for (var g = 0; g < gambits.length; g++) {
+      gambitsHtml +=
+        '<div class="armory-gambit-block">' +
+          '<div class="armory-gambit-toggle" role="button" tabindex="0">' +
+            '<span class="armory-gambit-label">Gambit</span>' +
+            '<span class="armory-gambit-name">' + _esc(gambits[g].name) + '</span>' +
+            '<span class="armory-gambit-chevron">&#9656;</span>' +
+          '</div>' +
+          '<div class="armory-gambit-body">' +
+            '<div class="armory-gambit-text">' + _esc(gambits[g].rule) + '</div>' +
+          '</div>' +
+        '</div>';
+    }
+
+    return (
+      '<div class="armory-weapon-card" data-armor-id="' + _esc(armor.id) + '">' +
+        '<div class="armory-weapon-header">' +
+          '<span class="armory-weapon-name">' + _esc(armor.name) + '</span>' +
+          discHtml +
+        '</div>' +
+        '<div class="armory-weapon-body">' +
+          metaHtml +
+          ruleHtml +
+          descHtml +
+          traitsHtml +
+          gambitsHtml +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  function _buildWeaponCard(weapon, char, chassisMap, statusMap) {
+    var mapping = DISCIPLINE_MAP[weapon.discipline];
+    var discDie  = 'D4';
+    var arenaDie = 'D4';
+    if (mapping) {
+      discDie  = _getDiscDie(char, mapping.arenaId, mapping.discId);
+      arenaDie = _getEffectiveArenaDie(char, mapping.arenaId);
+    }
+
+    var chassisDef = chassisMap[weapon.chassisId] || null;
+
+    var gambits = [];
+    var weaponGambits = weapon.gambits || (weapon.gambit ? [weapon.gambit] : []);
+    for (var wg = 0; wg < weaponGambits.length; wg++) {
+      gambits.push({ name: weaponGambits[wg].name, source: null, text: weaponGambits[wg].rule });
+    }
+    var talents = char.talents || [];
+    for (var t = 0; t < talents.length; t++) {
+      var talent = talents[t];
+      if (!talent.gambit || !talent.tags) continue;
+      for (var ti = 0; ti < talent.tags.length; ti++) {
+        if (weapon.tags.indexOf(talent.tags[ti]) !== -1) {
+          gambits.push({ name: talent.name, source: talent.name, text: talent.gambit });
+          break;
+        }
+      }
+    }
+
+    var engineGambits = [];
+    var engine = char.engine;
+    if (engine && engine.gambits) {
+      for (var eg = 0; eg < engine.gambits.length; eg++) {
+        var eg_ = engine.gambits[eg];
+        if (eg_.targetType === 'weapon' && weapon.tags.indexOf(eg_.target) !== -1) {
+          engineGambits.push(eg_);
+        }
+      }
+    }
+
+    var kitGambits = [];
+    var kits = char.kits || [];
+    for (var ki = 0; ki < kits.length; ki++) {
+      var kit = kits[ki];
+      var unlockedTier = kit.tier || 0;
+      var kitAbilities = kit.abilities || [];
+      for (var ka = 0; ka < kitAbilities.length; ka++) {
+        var kab = kitAbilities[ka];
+        if (kab.tier > unlockedTier) continue;
+        if (kab.type !== 'gambit' || kab.targetType !== 'weapon') continue;
+        if (weapon.tags.indexOf(kab.target) !== -1) {
+          kitGambits.push({ ability: kab, kitName: kit.name });
+        }
+      }
+    }
+
+    var rangeStr = _renderRange(weapon.range);
+    var metaHtml =
+      '<div class="armory-weapon-meta">' +
+        _statPill(weapon.id, 'weapon', statusMap) +
+        '<span class="armory-weapon-chassis">' + _esc(weapon.chassisLabel || '') + '</span>' +
+        (rangeStr ? '<span class="armory-weapon-range">Range: ' + _esc(rangeStr) + '</span>' : '') +
+        (weapon.cost ? '<span class="armory-weapon-cost">' + _esc(String(weapon.cost)) + ' cr</span>' : '') +
+      '</div>';
+
+    var effectHtml = '';
+    if (weapon.customEffectRows) {
+      effectHtml = _buildCustomEffectTrack(weapon.customEffectRows);
+    } else if (weapon.customDamage) {
+      effectHtml = _buildDamageTrack(weapon.customDamage);
+    } else if (chassisDef) {
+      var dmg = chassisDef.tiers.map(function (t) { return t.damage; });
+      effectHtml = _buildDamageTrack(dmg);
+    }
+
+    var stunHtml = '';
+    if (weapon.stunSetting && chassisDef) {
+      stunHtml = _buildStunBlock(chassisDef);
+    }
+
+    var traitHtml = '';
+    if (weapon.trait) {
+      traitHtml =
+        '<div class="armory-trait-block">' +
+          '<div class="armory-trait-name">' + _esc(weapon.trait.name) + '</div>' +
+          '<div class="armory-trait-text">' + _esc(weapon.trait.description) + '</div>' +
+        '</div>';
+    }
+
+    var gambitsHtml = '';
+    for (var g = 0; g < gambits.length; g++) {
+      var gambit = gambits[g];
+      gambitsHtml +=
+        '<div class="armory-gambit-block">' +
+          '<div class="armory-gambit-toggle" role="button" tabindex="0">' +
+            '<span class="armory-gambit-label">Gambit</span>' +
+            (gambit.name ? '<span class="armory-gambit-name">' + _esc(gambit.name) + '</span>' : '') +
+            '<span class="armory-gambit-chevron">&#9656;</span>' +
+          '</div>' +
+          '<div class="armory-gambit-body">' +
+            '<div class="armory-gambit-text">' + _esc(gambit.text) + '</div>' +
+          '</div>' +
+        '</div>';
+    }
+    for (var eg2 = 0; eg2 < engineGambits.length; eg2++) {
+      gambitsHtml += _buildEngineGambitBlock(engineGambits[eg2], engine.name);
+    }
+    for (var kg = 0; kg < kitGambits.length; kg++) {
+      gambitsHtml += _buildKitGambitBlock(kitGambits[kg].ability, kitGambits[kg].kitName);
+    }
+
+    var discHtml =
+      '<div class="armory-weapon-disc">' +
+        _dieImg(discDie) +
+        '<span class="armory-weapon-disc-sep">/</span>' +
+        _dieImg(arenaDie) +
+      '</div>';
+
+    return (
+      '<div class="armory-weapon-card" data-weapon-id="' + _esc(weapon.id) + '">' +
+        '<div class="armory-weapon-header">' +
+          '<span class="armory-weapon-name">' + _esc(weapon.name) + '</span>' +
+          discHtml +
+        '</div>' +
+        '<div class="armory-weapon-body">' +
+          metaHtml +
+          effectHtml +
+          stunHtml +
+          traitHtml +
+          gambitsHtml +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  function _buildGearCard(gear, statusMap, char) {
+    var wp = gear.weaponProfile;
+    var rangeStr = wp ? _renderRange(wp.range) : '';
+
+    var metaHtml =
+      '<div class="armory-weapon-meta">' +
+        _statPill(gear.id, 'gear', statusMap) +
+        '<span class="armory-weapon-chassis">' + _esc(gear.categoryLabel || gear.category) + '</span>' +
+        (rangeStr ? '<span class="armory-weapon-range">Range: ' + _esc(rangeStr) + '</span>' : '') +
+        (gear.cost ? '<span class="armory-weapon-cost">' + _esc(String(gear.cost)) + ' cr</span>' : '') +
+        (gear.availability ? '<span class="armory-weapon-range">Avail: ' + _esc(gear.availability) + '</span>' : '') +
+      '</div>';
+
+    var effectHtml = '';
+    if (gear.customEffectRows) {
+      effectHtml = _buildCustomEffectTrack(gear.customEffectRows);
+    } else if (wp && wp.customDamage) {
+      effectHtml = _buildDamageTrack(wp.customDamage);
+    } else if (wp && wp.fixedPowerDie) {
+      effectHtml = _buildFixedPowerDieTrack(wp.fixedPowerDie);
+    }
+
+    var gearDiscHtml = '';
+    if (wp && wp.fixedPowerDie) {
+      var gdf = wp.fixedPowerDie.toLowerCase() + '.png';
+      var mapping = DISCIPLINE_MAP[wp.discipline];
+      var attackDieHtml = '';
+      if (mapping && char) {
+        var atkDie = _getDiscDie(char, mapping.arenaId, mapping.discId);
+        attackDieHtml = _dieImg(atkDie) + '<span class="armory-weapon-disc-sep">/</span>';
+      }
+      gearDiscHtml =
+        '<div class="armory-weapon-disc">' +
+          attackDieHtml +
+          '<span class="armory-2die-stack">' +
+            '<img src="/assets/' + gdf + '" alt="" class="armory-2die-back">' +
+            '<img src="/assets/' + gdf + '" alt="" class="armory-2die-front">' +
+          '</span>' +
+          '<svg viewBox="0 0 10 14" width="9" height="13" style="margin-left:2px;flex-shrink:0;" aria-hidden="true">' +
+            '<line x1="5" y1="12" x2="5" y2="5" stroke="var(--color-accent-primary)" stroke-width="2" stroke-linecap="round"/>' +
+            '<polygon points="0,6 10,6 5,0" fill="var(--color-accent-primary)"/>' +
+          '</svg>' +
+        '</div>';
+    }
+
+    var traits = gear.traits || [];
+    var descHtml = traits.length === 0 && gear.description
+      ? '<div class="armory-gambit-text" style="margin-bottom:4px;">' + _esc(gear.description) + '</div>'
+      : '';
+
+    var traitsHtml = '';
+    for (var i = 0; i < traits.length; i++) {
+      traitsHtml +=
+        '<div class="armory-trait-block">' +
+          '<div class="armory-trait-name">' + _esc(traits[i].name) + '</div>' +
+          '<div class="armory-trait-text">' + _esc(traits[i].description) + '</div>' +
+        '</div>';
+    }
+
+    var gambitsHtml = '';
+    var gambits = gear.gambits || [];
+    for (var g = 0; g < gambits.length; g++) {
+      var gam = gambits[g];
+      gambitsHtml +=
+        '<div class="armory-gambit-block">' +
+          '<div class="armory-gambit-toggle" role="button" tabindex="0">' +
+            '<span class="armory-gambit-label">Gambit</span>' +
+            (gam.name ? '<span class="armory-gambit-name">' + _esc(gam.name) + '</span>' : '') +
+            '<span class="armory-gambit-chevron">&#9656;</span>' +
+          '</div>' +
+          '<div class="armory-gambit-body">' +
+            '<div class="armory-gambit-text">' + _linkifyText(gam.rule) + '</div>' +
+          '</div>' +
+        '</div>';
+    }
+
+    return (
+      '<div class="armory-weapon-card" data-gear-id="' + _esc(gear.id) + '">' +
+        '<div class="armory-weapon-header">' +
+          '<span class="armory-weapon-name">' + _esc(gear.name) + '</span>' +
+          gearDiscHtml +
+        '</div>' +
+        '<div class="armory-weapon-body">' +
+          metaHtml + effectHtml + descHtml + traitsHtml + gambitsHtml +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  var _lastHtml = '';
+  var SLOT_IDS = ['slot-left-content', 'slot-right-content'];
+
+  function _injectIntoVisibleSlots(innerHtml) {
+    SLOT_IDS.forEach(function (slotId) {
+      var slot = document.getElementById(slotId);
+      if (!slot) return;
+      var child = slot.firstElementChild;
+      if (child && child.id === 'panel-2') {
+        child.innerHTML = innerHtml;
+      }
+    });
+  }
+
+  function _setupSlotObservers() {
+    SLOT_IDS.forEach(function (slotId) {
+      var slot = document.getElementById(slotId);
+      if (!slot) return;
+      var observer = new MutationObserver(function () {
+        if (_lastHtml) _injectIntoVisibleSlots(_lastHtml);
+      });
+      observer.observe(slot, { childList: true });
+    });
+  }
+
+  function _render(weapons, char, chassisMap, armors, gear) {
+    var charWeaponIds = char.weaponIds || [];
+    var rangedWeapons = [];
+    var meleeWeapons  = [];
+    for (var i = 0; i < charWeaponIds.length; i++) {
+      for (var j = 0; j < weapons.length; j++) {
+        if (weapons[j].id === charWeaponIds[i]) {
+          var wpn = weapons[j];
+          if ((wpn.tags || []).indexOf('Melee') !== -1) {
+            meleeWeapons.push(wpn);
+          } else {
+            rangedWeapons.push(wpn);
+          }
+          break;
+        }
+      }
+    }
+
+    var equippedArmor = null;
+    if (armors && char.armorId) {
+      for (var a = 0; a < armors.length; a++) {
+        if (armors[a].id === char.armorId) { equippedArmor = armors[a]; break; }
+      }
+    }
+
+    var statusMap = _statusMap;
+
+    var html = '<div class="armory-panel-wrap">';
+    if (equippedArmor) {
+      html += '<div class="armory-category-label">Armor</div>';
+      html += _buildArmorInArmory(equippedArmor, char, statusMap);
+    }
+    if (rangedWeapons.length > 0) {
+      html += '<div class="armory-category-label">Ranged</div>';
+      for (var r = 0; r < rangedWeapons.length; r++) {
+        html += _buildWeaponCard(rangedWeapons[r], char, chassisMap, statusMap);
+      }
+    }
+    if (meleeWeapons.length > 0) {
+      html += '<div class="armory-category-label">Melee</div>';
+      for (var m = 0; m < meleeWeapons.length; m++) {
+        html += _buildWeaponCard(meleeWeapons[m], char, chassisMap, statusMap);
+      }
+    }
+
+    var charGearIds = char.gearIds || [];
+    var charGear = [];
+    for (var gi = 0; gi < charGearIds.length; gi++) {
+      for (var gj = 0; gj < (gear || []).length; gj++) {
+        if (gear[gj].id === charGearIds[gi]) { charGear.push(gear[gj]); break; }
+      }
+    }
+    if (charGear.length > 0) {
+      html += '<div class="armory-category-label">Gear</div>';
+      for (var gc = 0; gc < charGear.length; gc++) {
+        html += _buildGearCard(charGear[gc], statusMap, char);
+      }
+    }
+
+    html += '</div>';
+
+    _lastHtml = html;
+    var panels = document.querySelectorAll('[id="panel-2"]');
+    for (var p = 0; p < panels.length; p++) {
+      panels[p].innerHTML = html;
+    }
+    _injectIntoVisibleSlots(html);
+  }
+
+  document.addEventListener('click', function (e) {
+    var pill = e.target.closest && e.target.closest('.armory-state-pill');
+    if (pill && pill.closest('[id="panel-2"]')) {
+      e.stopPropagation();
+      var itemId   = pill.dataset.pillId;
+      var itemType = pill.dataset.pillType;
+      var current  = pill.dataset.pillStatus || 'stowed';
+      var next     = _cycleStatus(current);
+
+      pill.dataset.pillStatus = next;
+      pill.className = 'armory-state-pill armory-state-' + next;
+      pill.textContent = next.charAt(0).toUpperCase() + next.slice(1);
+
+      if (!_statusMap[itemId]) _statusMap[itemId] = {};
+      _statusMap[itemId].status   = next;
+      _statusMap[itemId].itemType = itemType;
+
+      if (_currentCharId) _persistStatus(_currentCharId, itemId, itemType, next);
+      return;
+    }
+
+    var header = e.target.closest && e.target.closest('.armory-weapon-header');
+    if (header && header.closest('[id="panel-2"]')) {
+      var card = header.closest('.armory-weapon-card');
+      if (!card) return;
+      var body = card.querySelector('.armory-weapon-body');
+      if (!body) return;
+      var isOpen = card.classList.contains('is-open');
+      var allCards = document.querySelectorAll('[id="panel-2"] .armory-weapon-card');
+      for (var i = 0; i < allCards.length; i++) {
+        allCards[i].classList.remove('is-open');
+        var b = allCards[i].querySelector('.armory-weapon-body');
+        if (b) b.classList.remove('open');
+      }
+      if (!isOpen) {
+        card.classList.add('is-open');
+        body.classList.add('open');
+      }
+      return;
+    }
+    var gambitToggle = e.target.closest && e.target.closest('.armory-gambit-toggle');
+    if (gambitToggle && gambitToggle.closest('[id="panel-2"]')) {
+      var block = gambitToggle.closest('.armory-gambit-block');
+      if (!block) return;
+      block.classList.toggle('is-open');
+      return;
+    }
+  });
+
+  function init() {
+    _setupSlotObservers();
+
+    Promise.all([
+      fetch('/data/chassis.json').then(function (res) {
+        if (!res.ok) throw new Error('Failed to load chassis: ' + res.status);
+        return res.json();
+      }),
+      fetch('/data/weapons.json').then(function (res) {
+        if (!res.ok) throw new Error('Failed to load weapons: ' + res.status);
+        return res.json();
+      }),
+      fetch('/data/armor.json').then(function (res) {
+        if (!res.ok) throw new Error('Failed to load armor: ' + res.status);
+        return res.json();
+      }),
+      fetch('/data/gear.json').then(function (res) {
+        if (!res.ok) throw new Error('Failed to load gear: ' + res.status);
+        return res.json();
+      })
+    ])
+    .then(function (results) {
+      var chassisMap = results[0];
+      var weapons    = results[1];
+      var armors     = results[2];
+      var gear       = results[3];
+
+      function tryRender() {
+        var char = window.CharacterPanel && window.CharacterPanel.currentChar;
+        if (!char) { setTimeout(tryRender, 50); return; }
+
+        _currentCharId = char.id || null;
+
+        function doRender() {
+          _render(weapons, char, chassisMap, armors, gear);
+        }
+
+        if (_currentCharId) {
+          fetch('/api/equipment/' + encodeURIComponent(_currentCharId))
+            .then(function (res) { return res.ok ? res.json() : {}; })
+            .then(function (map) {
+              _statusMap = map || {};
+              doRender();
+            })
+            .catch(function () { doRender(); });
+        } else {
+          doRender();
+        }
+
+        function _rerender() {
+          var c = window.CharacterPanel && window.CharacterPanel.currentChar;
+          if (c) _render(weapons, c, chassisMap, armors, gear);
+        }
+        document.addEventListener('character:stateChanged', _rerender);
+        document.addEventListener('effects:changed',        _rerender);
+      }
+      tryRender();
+    })
+    .catch(function (err) {
+      console.error('[ArmoryPanel]', err);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+}());

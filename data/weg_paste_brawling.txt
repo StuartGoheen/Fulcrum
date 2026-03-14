@@ -1,0 +1,56 @@
+Brawling Weapons
+Stun Gauntlets
+Model: Palandrix Personal Protection Gear Stun Gauntlets
+Type: Hand-to-hand stun gauntlets
+Skill: Brawling
+Ammo: 10 charges
+Cost: 300
+Availability: 2
+Difficulty: Easy
+Damage: STR+2D stun
+Source: Gundark's Fantastic Technology (pages 12-13), Pirates & Privateers (page 43), Arms and Equipment Guide (page 31)
+
+Fighting Claws
+Model: Yuuzhan Vong Fighting Claws
+Type: Combat implant
+Scale: Character
+Skill: Brawling
+Cost: Not available for sale
+Availability: 4, X
+Difficulty: Easy
+Damage: STR+1D damage (maximum: 6D)
+Game Notes: Retractable bone spurs implanted in user's knuckles, elbows, and knees. Extending requires an Easy willpower roll.
+Source: The New Jedi Order Sourcebook (page 103)
+
+Neuro-Shock Hand
+Model: BioTech Neuro-Shock Hand
+Type: Offense cyber prosthetic
+Skill: Brawling
+Cost: 1000 base (300 per pip of damage)
+Availability: 3, R
+Difficulty: Easy
+Damage: Replaces user Strength for brawling damage
+Game Notes: Damage code replaces user Strength code for brawling damage. Recipient must buy at least enough damage to match Strength code. Shock energy released on heavy impact.
+Source: Cracken's Rebel Field Guide (page 40)
+
+Repulse-Hand
+Model: Control Zone Repulse-Hand
+Type: Offense cyber prosthetic
+Skill: Brawling
+Cost: 1500 minimum (300 per pip)
+Availability: 3, R
+Game Notes: Adds 1D to repulse-hand damage. User gains repulse-hand skill at 0D. Skill and damage set at time of purchase. Skill replaces brawling and brawling parry; may be used for melee parry.
+Source: Cracken's Rebel Field Guide (page 41)
+
+Juggernaut Droid Arm
+Model: Juggernaut Droid Arm
+Type: Custom cybernetic implant
+Scale: Character
+Skill: Brawling
+Ammo: 25 (arm blaster)
+Cost: Not available for sale
+Availability: 4, X
+Difficulty: Easy
+Damage: STR+2D+1 punch (maximum 6D), 5D arm blaster
+Game Notes: Arm has body strength 6D to resist damage done to it.
+Source: Gamer Magazine

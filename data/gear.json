@@ -1,0 +1,635 @@
+[
+  {
+    "id": "gear_medpac_01",
+    "name": "Medpac",
+    "category": "medical",
+    "categoryLabel": "Medical",
+    "description": "A compact self-contained trauma kit — bacta gel applicator, spray coagulant, stim injectors, and a pressure bandage. Standard issue for anyone who goes where blasters get drawn. One medpac handles one casualty. After that, it's empty.",
+    "cost": 100,
+    "availability": "1",
+    "traits": [],
+    "gambits": [
+      {
+        "name": "Combat Triage",
+        "targetManeuver": "manv_medicine_combat_triage",
+        "rule": "This gambit does not reduce the Effect Tier. Instead, pay the following costs: this medpac is exhausted (consumed); the patient gains [Stimmed] +1; you consume your Primary Action this round in addition to the Maneuver to apply; if you are Engaged when you apply this, you present an Opening.\n\nEffect: Clear one Trauma from the patient. Additionally clear any Lingering or Ongoing Physical or Mental conditions recoverable through a Medicine action."
+      }
+    ],
+    "tags": ["Medical", "Consumable", "Common", "Legal"]
+  },
+  {
+    "id": "gear_breath_mask_01",
+    "name": "Breath Mask",
+    "category": "survival",
+    "categoryLabel": "Survival Gear",
+    "description": "A full-seal filtration mask with a twin-canister air supply and integrated goggles. Standard for anyone working in industrial zones, toxic atmospheres, or anywhere the air is trying to kill you. Uncomfortable, but less uncomfortable than suffocating on acid particulate.",
+    "cost": 50,
+    "availability": "1",
+    "traits": [
+      {
+        "name": "Environmental Seal",
+        "description": "While worn, the user suffers no penalties from toxic atmospheres, corrosive particulate, or airborne chemical agents. The integrated canister provides approximately four hours of filtered air before requiring replacement. Without a breath mask in a hostile atmosphere, all physical actions are stepped down."
+      }
+    ],
+    "gambits": [],
+    "tags": ["Survival", "Common", "Legal", "Environmental"]
+  },
+  {
+    "id": "gear_comlink_encrypted_01",
+    "name": "Encrypted Comlink",
+    "category": "communication",
+    "categoryLabel": "Communication",
+    "description": "A short-range encrypted comlink with a rolling cipher protocol. Range extends to about 50 kilometers surface-to-surface, less through heavy structure or interference. The rolling cipher is not military-grade, but it is far beyond what local law enforcement bothers to crack in the field. Allows secure coordination between characters on the same cipher key without risk of interception by standard scanning equipment.",
+    "cost": 500,
+    "availability": "1",
+    "traits": [],
+    "gambits": [],
+    "tags": ["Communication", "Common", "Legal", "Tech"]
+  },
+  {
+    "id": "gear_macrobinoculars_01",
+    "name": "Macro-binoculars",
+    "category": "surveillance",
+    "categoryLabel": "Surveillance",
+    "description": "Military-surplus optical/electronic magnification unit. Integrates thermal imaging, low-light enhancement, and basic motion tracking. Standard kit for anyone who needs to know what they're walking into before they walk into it. The Empire makes these by the millions; half of them end up on the open market.",
+    "cost": 100,
+    "availability": "1",
+    "traits": [
+      {
+        "name": "Advance Reconnaissance",
+        "description": "Spending one full minute observing a location before entering grants the party one of the following: identify one hidden threat or guard position, remove the first-round Surprise penalty if the party initiates, or ask the GM one yes/no question about what lies ahead."
+      }
+    ],
+    "gambits": [],
+    "tags": ["Surveillance", "Common", "Legal", "Military Surplus", "Tech"]
+  },
+  {
+    "id": "gear_glow_rod_01",
+    "name": "Glow Rod",
+    "category": "survival",
+    "categoryLabel": "Survival Gear",
+    "description": "An extendable baton of crystalline light-emitting material. Industrial grade, runs about eight hours on a standard power cell. Casts a wide, clean cone of white light. Essential for any dark environment — ruins, sewers, starship bilges, or anywhere the lights have been off for four thousand years.",
+    "cost": 10,
+    "availability": "1",
+    "traits": [
+      {
+        "name": "Illumination",
+        "description": "The glow rod eliminates all darkness-related step-down penalties within its cone (roughly 10 meters forward, 5 meters wide). It also makes the bearer visible — in a dark environment, anyone outside the cone can see the light source from a significant distance."
+      }
+    ],
+    "gambits": [],
+    "tags": ["Survival", "Common", "Legal", "Light"]
+  },
+  {
+    "id": "gear_security_kit_01",
+    "name": "Security Kit",
+    "category": "tools",
+    "categoryLabel": "Tools",
+    "description": "A compact roll of lockpicks, bypass circuits, micro-cutters, maglock shims, and fiber-optic scopes. Everything needed to open a door that does not want to be opened — mechanically or electronically. Technically restricted, since possession implies intent. In practice, every fixer and fence on the Rim carries one.",
+    "cost": 750,
+    "availability": "2/R",
+    "traits": [
+      {
+        "name": "Proper Tools",
+        "description": "A security kit provides the appropriate tools for bypassing locks, access panels, and electronic security systems. Without a kit, such attempts suffer a step-down penalty — improvising with a vibroblade or a bent wire is possible, but it is not elegant. The kit does not guarantee success; it guarantees you are not fighting the hardware empty-handed."
+      }
+    ],
+    "gambits": [],
+    "tags": ["Tools", "Restricted", "Infiltration", "Tech"]
+  },
+  {
+    "id": "gear_syntherope_01",
+    "name": "Syntherope",
+    "category": "survival",
+    "categoryLabel": "Survival Gear",
+    "description": "Fifty meters of high-tensile braided polymer rope with an integrated grappling spike and auto-spool reel. Rated for multi-occupant loads. Compact enough to fit in a utility pouch. The spike fires pneumatically and sets silently against most hard surfaces — useful when you need to rappel off the side of a citadel without announcing it.",
+    "cost": 10,
+    "availability": "2",
+    "traits": [
+      {
+        "name": "Vertical Mobility",
+        "description": "Syntherope enables climbing and rappelling that would otherwise require a powered ascender or be impossible. When used to anchor a secured line, climbing or descending a vertical surface does not require a Physique check in normal conditions — only in combat, high wind, or other active hazards."
+      }
+    ],
+    "gambits": [],
+    "tags": ["Survival", "Common", "Legal", "Mobility"]
+  },
+  {
+    "id": "gear_stim_pack_01",
+    "name": "Stim Pack",
+    "category": "medical",
+    "categoryLabel": "Medical",
+    "description": "A pressurized injector loaded with combat stimulants — coagulants, adrenaline analogs, and nerve sensitizers. It does not heal injury; it convinces the body to ignore it for a while. Widely used by clone troopers, mercenaries, and anyone who cannot afford to go down in the middle of a job. One dose, one use.",
+    "cost": 150,
+    "availability": "1",
+    "traits": [],
+    "gambits": [
+      {
+        "name": "Push Through",
+        "targetManeuver": "manv_medicine_combat_triage",
+        "rule": "This gambit does not reduce the Effect Tier. Instead, pay the following costs: this stim pack is exhausted (consumed); you gain [Stimmed] +1; you consume your Primary Action this round in addition to the Maneuver to inject; if you are Engaged when you inject, you present an Opening.\n\nEffect: Clear one Trauma from yourself."
+      }
+    ],
+    "tags": ["Medical", "Consumable", "Common", "Legal", "Military Surplus"]
+  },
+  {
+    "id": "gear_thermal_detonator_01",
+    "name": "Thermal Detonator",
+    "category": "explosive",
+    "categoryLabel": "Explosive",
+    "description": "A palm-sized sphere of baradium behind a magnetic containment shell. Class-A military grade, deeply illegal — possession is a capital offense in many systems. Features a yield dial and programmable timer with four trigger modes: countdown, impact, proximity, or dead-man's switch. At detonation it generates superheated plasma and kinetic overpressure. The blast does not distinguish targets. One use.",
+    "cost": 2000,
+    "availability": "2/X",
+    "weaponProfile": {
+      "discipline": "ranged",
+      "arena": "reflex",
+      "defense": "evasion",
+      "range": [1, 2, 3],
+      "fixedPowerDie": "D12"
+    },
+    "traits": [
+      {
+        "name": "Zone Blast",
+        "description": "Arm and throw as a Standard Action (zones 1–3). Roll Ranged (Reflex) vs. Evasion — the challenge is placement and timing, not armor penetration. Failure means an errant throw; the GM determines where it lands. Success: detonates at the start of your next turn.\n\nTargets defend with Evasion — armor is irrelevant. Targets in the zone may spend their Maneuver to flee before detonation (may trigger Openings if Engaged). Those who remain are hit. Roll once; Effect Tier applies to all equally.\n\nCover applies to targets outside the blast zone only. In the same zone as the detonator, there is no cover from the source. You may throw it into your own zone — you are a target."
+      },
+      {
+        "name": "Variable Yield",
+        "description": "The yield dial adjusts blast radius and intensity. Damage values here reflect minimum tactical deployment — the setting soldiers use to avoid killing themselves in enclosed spaces. Dialing it up is a GM narrative decision, not a combat action. It simply becomes a different kind of problem."
+      }
+    ],
+    "gambits": [
+      {
+        "name": "Dead Drop",
+        "rule": "Reduce your Effect by 1 Tier. Place the detonator as a proximity mine in your zone or an adjacent unoccupied zone instead of throwing. It detonates when any figure enters or starts a turn there. Only the armer can deactivate it on their turn — no tool substitutes for the biometric key."
+      },
+      {
+        "name": "Magnetic Latch",
+        "rule": "Reduce your Effect by 1 Tier. Attach the detonator to a specific vehicle, door, or structure in an adjacent zone (must be able to touch it). When it detonates, that target takes one additional Effect Tier step up."
+      },
+      {
+        "name": "Impact Detonation",
+        "rule": "Reduce your Effect by 1 Tier. Set to impact mode — detonates on landing rather than your next turn. Targets have no Maneuver to flee. They defend with Evasion, but the window to exit is gone."
+      }
+    ],
+    "tags": ["Explosive", "Consumable", "Illegal", "Area", "Military"]
+  },
+  {
+    "id": "gear_datapad_slicer_01",
+    "name": "Datapad (Slicer Config)",
+    "category": "tech",
+    "categoryLabel": "Tech",
+    "description": "A standard-format datapad with a custom hardware skin: expanded memory, a co-processor for cryptographic work, hardwired slicer port array, and a stripped-down OS with no Imperial telemetry. It looks like an ordinary datapad — the kind every merchant and bureaucrat carries — but it can interface with Imperial systems, decrypt moderate-grade ciphers, and store data that officially does not exist.",
+    "cost": 1000,
+    "availability": "2/R",
+    "traits": [
+      {
+        "name": "System Interface",
+        "description": "The slicer datapad provides hardware and software tools for accessing electronic systems — terminals, door controls, comm arrays, Imperial databases. Without an appropriate interface device, slicing attempts are stepped down or impossible depending on the system. This datapad does not guarantee access; it ensures the attempt is technically viable."
+      }
+    ],
+    "gambits": [],
+    "tags": ["Tech", "Restricted", "Infiltration", "Slicing", "Information"]
+  },
+  {
+    "id": "gear_smoke_grenade_01",
+    "name": "Smoke Grenade",
+    "category": "explosive",
+    "categoryLabel": "Explosive",
+    "description": "A pressurized canister that detonates on impact, releasing a dense chemical smoke cloud. Standard kit for covering retreats, masking advances, and creating confusion in open engagements. Non-lethal by design — the danger is what moves through the smoke, not the smoke itself.",
+    "cost": 25,
+    "availability": "2/R",
+    "weaponProfile": {
+      "discipline": "ranged",
+      "arena": "reflex",
+      "defense": "static",
+      "range": [1, 2, 3]
+    },
+    "customEffectRows": [
+      "Cloud fills the zone. All attacks into, out of, or through the zone have their Control Die Stepped Down. Equally penalizing — friend and foe. Cover applies as normal.",
+      "As Fleeting. Choose 2 allies (yourself included) who can ignore vision impairment from their current position — the placement was precise enough to give two members clear lines.",
+      "As Fleeting. Any number of allies may immediately use their Trigger action to move 1 zone — the smoke opened the perfect moment and they take it."
+    ],
+    "traits": [
+      {
+        "name": "Obscuring Cloud",
+        "description": "The smoke cloud persists for the entire scene or until dispersed by strong wind. It does not move with the thrower. Thermal optics and Force-sensitive awareness are not affected."
+      }
+    ],
+    "gambits": [
+      {
+        "name": "Rolling Screen",
+        "rule": "Reduce your Effect by 1 Tier. Any ally who moves through the smoke zone this round does not generate Openings from movement while inside it."
+      },
+      {
+        "name": "Hot Zone",
+        "rule": "Reduce your Effect by 1 Tier. Declare the canister incendiary before throwing. All targets who remain in the zone at the start of their next turn gain [Hazard] in addition to the smoke effects."
+      }
+    ],
+    "tags": ["Explosive", "Consumable", "Common", "Tactical", "Area"]
+  },
+  {
+    "id": "gear_ion_grenade_01",
+    "name": "Ion Grenade",
+    "category": "explosive",
+    "categoryLabel": "Explosive",
+    "description": "A compact sphere that discharges a focused electromagnetic pulse on detonation. Standard counter-droid ordnance — shuts down electronics, scrambles processors, and fries cybernetic implants. Technically non-lethal against organics, though the arcing discharge is deeply unpleasant.",
+    "cost": 250,
+    "availability": "2/R",
+    "weaponProfile": {
+      "discipline": "ranged",
+      "arena": "reflex",
+      "defense": "evasion",
+      "range": [1, 2, 3],
+      "customDamage": [2, 4, 6]
+    },
+    "traits": [
+      {
+        "name": "Ion Discharge",
+        "description": "Against droids and characters with cybernetic implants: full Effect Tier applies and stun/shutdown conditions apply normally. Against organic characters without cybernetics: reduce the Effect Tier by 1 before damage resolves. Stun conditions never apply to fully organic targets — the ion charge passes through without locking a nervous system it cannot interface with."
+      },
+      {
+        "name": "Electronic Disruption",
+        "description": "At Superior tier, electronic systems in the zone (doors, turrets, comms arrays) are shut down until manually reset, regardless of whether the targets were droids or organics."
+      }
+    ],
+    "gambits": [
+      {
+        "name": "Feedback Loop",
+        "rule": "Reduce your Effect by 1 Tier. A droid or cybernetic target hit must pass a Risk 4 Tech check or lose their next Standard Action as their systems reboot."
+      },
+      {
+        "name": "System Cascade",
+        "rule": "Reduce your Effect by 1 Tier. One droid or heavily cybernetic target in the zone risks full Shut Down — they are [Incapacitated] until an ally spends a Standard Action to reboot them, or they self-reboot at scene end."
+      }
+    ],
+    "tags": ["Explosive", "Consumable", "Restricted", "Anti-Droid", "Tactical", "Area"]
+  },
+  {
+    "id": "gear_frag_grenade_01",
+    "name": "Frag Grenade",
+    "category": "explosive",
+    "categoryLabel": "Explosive",
+    "description": "Serrated steel body packed with Tibanna-pressurized explosive compound. Detonates into a storm of supersonic metal fragments. Standard military ordnance — cheap, reliable, effective. The Imperial Army issues them by the crate. A lot of those crates end up on the open market.",
+    "cost": 200,
+    "availability": "1/R",
+    "weaponProfile": {
+      "discipline": "ranged",
+      "arena": "reflex",
+      "defense": "evasion",
+      "range": [1, 2, 3],
+      "customDamage": [2, 4, 7]
+    },
+    "traits": [],
+    "gambits": [
+      {
+        "name": "Clear Out",
+        "rule": "Reduce your Effect by 1 Tier. The arc and audible arming click telegraph what is coming. All targets in the zone must use their Maneuver to move or take cover. Once thrown, it is no longer yours to control. Those who stay are still hit when it goes."
+      },
+      {
+        "name": "Magnetic Attachment",
+        "rule": "Reduce your Effect by 1 Tier. Clamp it to a vehicle, door, or surface (must be adjacent, must touch). It adheres — the target cannot simply step away. If attached to a moving vehicle, it goes where the vehicle goes."
+      },
+      {
+        "name": "Impact Detonation",
+        "rule": "Reduce your Effect by 1 Tier. Set to impact mode — detonates on landing. No time to react, no Maneuver to flee. Targets who take only Fleeting damage are also knocked Prone — they dove for it, or the concussion put them down."
+      }
+    ],
+    "tags": ["Explosive", "Consumable", "Common", "Military", "Area"]
+  },
+  {
+    "id": "gear_disguise_kit_01",
+    "name": "Disguise Kit",
+    "category": "infiltration",
+    "categoryLabel": "Infiltration",
+    "description": "Pigment compounds, latex appliances, synthetic hair, contact lenses, a compact sonic sculpting tool. The kit used by actors, intelligence operatives, and people who need to walk through a checkpoint as someone else. It takes time and skill — the kit ensures the attempt is technically viable.",
+    "cost": 250,
+    "availability": "2/R",
+    "traits": [
+      {
+        "name": "Proper Disguise",
+        "description": "Without appropriate materials, attempting to pass as someone other than yourself is not possible, or heavily penalized at the GM's discretion. This kit removes that gate — with it, a disguised Deception attempt is viable without material penalty. Whether it succeeds is still on the character. Each significant use expends one charge; a standard kit holds approximately five."
+      },
+      {
+        "name": "Species Scope",
+        "description": "The kit is optimized for near-human species — humans, Mirialans, Zabrak, Twi'lek, and similar builds. Disguising as a non-humanoid requires additional specialized materials not included in this kit."
+      }
+    ],
+    "gambits": [],
+    "tags": ["Infiltration", "Restricted", "Consumable", "Social"]
+  },
+  {
+    "id": "gear_scanner_jammer_01",
+    "name": "Scanner Jammer",
+    "category": "tech",
+    "categoryLabel": "Tech",
+    "description": "A palm-sized active jamming device that broadcasts a carefully tuned interference field. Scrambles Imperial sensor profiles within a two-zone radius. Deeply illegal — the Empire treats possession as evidence of hostile intent.",
+    "cost": 800,
+    "availability": "3/R",
+    "traits": [
+      {
+        "name": "Active Jamming",
+        "description": "While the jammer is running, all sensor sweeps within 2 zones must beat a Static Risk 3 higher than normal to detect its carriers. The device itself emits a detectable electromagnetic anomaly — a dedicated sensor tech can identify the interference signature as artificial on a successful check. Activating the jammer requires a Standard Action."
+      },
+      {
+        "name": "Power Draw",
+        "description": "Runs approximately four hours on a standard power cell. No indicator — it stops without warning when the cell is depleted."
+      }
+    ],
+    "gambits": [
+      {
+        "name": "Ghost Signature",
+        "targetManeuver": "manv_tech_slicers_edge",
+        "rule": "Reduce your Effect by 1 Tier. Spoof a specific transponder code on one vessel or large object — it reads as authorized traffic to passive Imperial scans for the scene."
+      },
+      {
+        "name": "Directed Burn",
+        "targetManeuver": "manv_tech_slicers_edge",
+        "rule": "This gambit does not reduce the Effect Tier. Instead, pay the following costs: the power cell is exhausted (consumed); you consume your Standard Action to configure and fire the burst. Effect: a targeted electromagnetic pulse against one electronic lock, mag-clamp, or security beam within Engaged range. It disconnects immediately — no roll required. The jammer is dead after this."
+      }
+    ],
+    "tags": ["Tech", "Restricted", "Infiltration", "Electronic"]
+  },
+  {
+    "id": "gear_datapad_01",
+    "name": "Datapad",
+    "category": "tech",
+    "categoryLabel": "Tech",
+    "description": "A standard civilian-format touchscreen data terminal — the kind sold in every market stall from Coruscant to the Outer Rim. Pre-loaded with basic star charts, a translation matrix for common languages, and a universal connector port. Useful for keeping records, referencing information, and interfacing with standard terminals.",
+    "cost": 50,
+    "availability": "1",
+    "traits": [
+      {
+        "name": "Data Repository",
+        "description": "A character who researches a subject before entering a scene may ask the GM one yes/no factual question per researched subject per scene. This represents stored reference data, not real-time intelligence."
+      },
+      {
+        "name": "Universal Translator",
+        "description": "Translates common galactic languages in real time. Rare, extinct, or deliberately obscure languages require a Linguistics roll or a specialized language pack."
+      },
+      {
+        "name": "Interface Port",
+        "description": "A universal connector compatible with most civilian and Imperial standard terminals. Provides a hardware link where one is needed — does not bypass security, just provides the physical connection."
+      }
+    ],
+    "gambits": [],
+    "tags": ["Tech", "Common", "Legal", "Information"]
+  },
+  {
+    "id": "gear_slicer_spike_01",
+    "name": "Slicer Spike",
+    "category": "tech",
+    "categoryLabel": "Tech",
+    "description": "A hardwired hardware bypass tool — a thumb-sized chip that physically overrides a terminal's software authentication layer when inserted. Bypasses most standard Imperial credential gates cold, without a password. Single use — the security keys burn on extraction. If the system is monitored, it flags the insertion immediately.",
+    "cost": 300,
+    "availability": "3/R",
+    "traits": [
+      {
+        "name": "Hardware Bypass",
+        "description": "Inserting the spike bypasses the software authentication layer entirely. Characters without the Tech discipline suffer a Static Risk 2 penalty navigating the open system — the spike opens the door but the inside still requires skill."
+      },
+      {
+        "name": "Single Use",
+        "description": "Once used, the spike's keys are burned and the chip is spent. If the target system has active monitoring, the insertion is immediately flagged — a security alert is logged, whether or not anyone responds."
+      }
+    ],
+    "gambits": [
+      {
+        "name": "Combat Splice",
+        "targetManeuver": "manv_tech_slicers_edge",
+        "rule": "This gambit does not reduce the Effect Tier. Instead, pay the following costs: this spike is exhausted (consumed); you consume your Standard Action this round in addition to the Maneuver. Effect: perform a full terminal slicing action at Maneuver speed — in a single round, no extended time required. The spike burns, but the terminal is open."
+      }
+    ],
+    "tags": ["Tech", "Restricted", "Consumable", "Infiltration", "Slicing"]
+  },
+  {
+    "id": "gear_bacta_patch_01",
+    "name": "Bacta Patch",
+    "category": "medical",
+    "categoryLabel": "Medical",
+    "description": "A single-use adhesive bacta delivery pad — a thin, flexible strip saturated with a low-concentration bacta solution and a coagulating agent. Not a field surgery kit. Not a substitute for a medpac. A patch stops bleeding. That is the job. It does that job instantly, without a roll, and without taking your eyes off the firefight.",
+    "cost": 20,
+    "availability": "1",
+    "traits": [
+      {
+        "name": "Rapid Application",
+        "description": "Applying a bacta patch requires only a Maneuver — it can be used on yourself or an adjacent ally without consuming your Standard Action. No Medicine roll required."
+      },
+      {
+        "name": "Clears Bleeding",
+        "description": "A bacta patch immediately clears the [Bleeding] condition. It does not clear Trauma, Lingering conditions, or anything else. It stops the bleeding. Nothing more."
+      },
+      {
+        "name": "No Stimmed Interaction",
+        "description": "The bacta concentration is too low to interact with stim chemistry. Using a bacta patch never applies or modifies [Stimmed X]."
+      }
+    ],
+    "gambits": [],
+    "tags": ["Medical", "Consumable", "Common", "Legal"]
+  },
+  {
+    "id": "gear_field_rations_01",
+    "name": "Field Rations",
+    "category": "survival",
+    "categoryLabel": "Survival Gear",
+    "description": "Compressed nutrient blocks and water purification tabs. Military surplus, scavenger market staple, and what keeps most of the Outer Rim alive between ports. Doesn't taste like anything that was ever alive. Does the job. Pack of 5.",
+    "cost": 10,
+    "availability": "1",
+    "traits": [
+      {
+        "name": "Sustenance",
+        "description": "One pack provides 24 hours of food and water for one person. In survival scenarios where rations run out, all physical actions are Stepped Down after 48 hours without food or water. A pack negates this entirely for its duration."
+      }
+    ],
+    "gambits": [],
+    "tags": ["Survival", "Consumable", "Common", "Legal"]
+  },
+  {
+    "id": "gear_comlink_basic_01",
+    "name": "Comlink",
+    "category": "communication",
+    "categoryLabel": "Communication",
+    "description": "A palm-sized voice transceiver. No encryption, no bells, no whistles. Say a word, someone on the same frequency hears it — and so does anyone else who's listening.",
+    "cost": 50,
+    "availability": "1",
+    "traits": [
+      {
+        "name": "Short Range Broadcast",
+        "description": "Allows voice communication with any other comlink user on the same open frequency within 50 km surface-to-surface. Range reduces through heavy durasteel or active jamming."
+      },
+      {
+        "name": "Open Channel",
+        "description": "Transmissions are unencrypted. Standard Imperial and law enforcement scanning equipment can intercept them without difficulty. For encrypted comms, see Encrypted Comlink."
+      }
+    ],
+    "gambits": [],
+    "tags": ["Communication", "Common", "Legal"]
+  },
+  {
+    "id": "gear_fusion_cutter_01",
+    "name": "Fusion Cutter",
+    "category": "tools",
+    "categoryLabel": "Tools",
+    "description": "A handheld plasma cutting tool used by miners, mechanics, and anyone who has ever needed to be somewhere a door said they couldn't. Cuts through civilian-grade durasteel given time. Military blast doors take longer — but given enough power, it gets there.",
+    "cost": 75,
+    "availability": "1",
+    "traits": [
+      {
+        "name": "Plasma Cutter",
+        "description": "Can cut through any non-military-grade material given sufficient time — GM determines duration based on material thickness and composition. Military-grade durasteel and blast doors require extended time across multiple scenes unless Overload Mode is used."
+      },
+      {
+        "name": "Overload Mode",
+        "description": "The power output dial can be set beyond safe operating limits. Doing so completes any cut as a single Standard Action regardless of material grade. The power cell burns to zero immediately — the cutter is inoperable until the cell is replaced or recharged. This is not a roll. It is a choice."
+      }
+    ],
+    "gambits": [],
+    "tags": ["Tools", "Common", "Legal", "Tech"]
+  },
+  {
+    "id": "gear_binders_01",
+    "name": "Binders",
+    "category": "tools",
+    "categoryLabel": "Tools",
+    "description": "Adjustable magnetic restraint cuffs. Standard kit for bounty hunters, Imperial Stormtroopers, and law enforcement. Fits most humanoid wrist or ankle configurations. Magnetic lock — no key, dedicated release tool required.",
+    "cost": 50,
+    "availability": "1",
+    "traits": [
+      {
+        "name": "Magnetic Lock",
+        "description": "A restrained target cannot use their hands for any action requiring grip or fine motor control. Breaking free requires an Athletics (Physique) action with the Control Die stepped down 4 times. If the Control roll succeeds, the lock fails. A release tool (Security Kit) removes the step-downs entirely."
+      },
+      {
+        "name": "Adjustable Fit",
+        "description": "Fits most humanoid species at wrist or ankle. The GM may rule non-standard anatomy — tentacles, claws, no discernible wrists — incompatible."
+      }
+    ],
+    "gambits": [],
+    "tags": ["Tools", "Common", "Legal"]
+  },
+  {
+    "id": "gear_emergency_beacon_01",
+    "name": "Emergency Beacon",
+    "category": "survival",
+    "categoryLabel": "Survival Gear",
+    "description": "A palm-sized distress transmitter that broadcasts on all standard emergency frequencies. The signal cuts through most atmospheric interference and reaches orbital sensors on any ship actively scanning. It also broadcasts to everyone else scanning the same frequency.",
+    "cost": 1000,
+    "availability": "2",
+    "traits": [
+      {
+        "name": "Distress Broadcast",
+        "description": "Activation broadcasts a continuous locator signal on all standard emergency frequencies. Any vessel with active sensors within the system can detect it. Signal persists until the beacon is deactivated or destroyed."
+      },
+      {
+        "name": "No Discrimination",
+        "description": "The beacon cannot distinguish rescuer from threat. Anyone scanning for distress signals finds it equally. A rescue is not guaranteed — only a response."
+      }
+    ],
+    "gambits": [],
+    "tags": ["Survival", "Common", "Legal"]
+  },
+  {
+    "id": "gear_aquata_breather_01",
+    "name": "Aquata Breather",
+    "category": "survival",
+    "categoryLabel": "Survival Gear",
+    "description": "A compact rebreather that fits in the mouth. Provides roughly twenty minutes of filtered, breathable air drawn from surrounding water or thin-atmosphere environments. Jedi carry them. Smart pilots carry them. Anyone who operates near water on an unfamiliar world should carry them.",
+    "cost": 150,
+    "availability": "1",
+    "traits": [
+      {
+        "name": "Submersible Breath",
+        "description": "Provides up to 20 minutes of breathable air underwater or in thin atmosphere. Without a breather, a character begins drowning after a number of rounds equal to their Physique die value."
+      },
+      {
+        "name": "Single Use Duration",
+        "description": "The 20-minute supply is continuous from first use. There is no partial recharge — once it runs dry, it must be resupplied or replaced."
+      }
+    ],
+    "gambits": [],
+    "tags": ["Survival", "Common", "Legal", "Environmental"]
+  },
+  {
+    "id": "gear_stimulant_tabs_01",
+    "name": "Stimulant Tabs",
+    "category": "medical",
+    "categoryLabel": "Medical",
+    "description": "Mild oral stimulants — the kind sold openly at any outpost pharmacy or cantina counter. Keep you sharp through a third watch shift, a long hyperspace run, or the hours after adrenaline crashes. Not a stim pack. Pack of 6.",
+    "cost": 20,
+    "availability": "1",
+    "traits": [
+      {
+        "name": "Sustained Alertness",
+        "description": "One tab negates the mechanical penalties from fatigue or lack of sleep for 8 hours. When the effect ends, the crash arrives — double fatigue penalties until the character completes a Long Rest."
+      },
+      {
+        "name": "Not Medical Grade",
+        "description": "Stimulant tabs do not interact with the [Stimmed X] condition. They do not clear Trauma, remove conditions, or count as a Medicine action. They are a dietary supplement."
+      }
+    ],
+    "gambits": [],
+    "tags": ["Medical", "Consumable", "Common", "Legal"]
+  },
+  {
+    "id": "gear_field_toolkit_01",
+    "name": "Field Toolkit",
+    "category": "tools",
+    "categoryLabel": "Tools",
+    "description": "A hardcase kit of standard mechanical and electrical tools — hydrospanners in multiple sizes, a fusion welder, power drivers, a diagnostic reader, and assorted connectors. What a mechanic reaches for without thinking. What an amateur improvises around and still fails.",
+    "cost": 250,
+    "availability": "1",
+    "traits": [
+      {
+        "name": "Technical Permission",
+        "description": "Without a field toolkit or equivalent, Tech and Mechanics actions on vehicles, droids, starship systems, or complex electronics are Stepped Down. Some repairs may be impossible without proper tools regardless of skill."
+      },
+      {
+        "name": "No Substitute",
+        "description": "Improvised tools impose a Step Down on Tech actions regardless of the character's skill rating. The field toolkit removes this penalty entirely."
+      }
+    ],
+    "gambits": [],
+    "tags": ["Tools", "Common", "Legal", "Tech"]
+  },
+  {
+    "id": "gear_thermal_cloak_01",
+    "name": "Thermal Cloak",
+    "category": "survival",
+    "categoryLabel": "Survival Gear",
+    "description": "A full-length hooded cloak woven with thermal regulation filaments and a sealed inner lining. Works in both directions — keeps heat in on frozen worlds, reflects radiant heat on scorched ones. Standard kit on any world where the temperature is trying to kill you.",
+    "cost": 300,
+    "availability": "1",
+    "traits": [
+      {
+        "name": "Climate Regulation",
+        "description": "While worn, the character suffers no mechanical penalties from extreme heat or extreme cold environments. Truly lethal conditions — hard vacuum, volcano interiors — are outside its range. It handles survivable hostile climates, not impossible ones."
+      },
+      {
+        "name": "Thermal Signature",
+        "description": "The active regulation filaments generate a mild infrared signature. Thermal scanning equipment or heat-sensor-equipped droids may detect the wearer more easily than an unequipped target."
+      }
+    ],
+    "gambits": [],
+    "tags": ["Survival", "Common", "Legal", "Environmental"]
+  },
+  {
+    "id": "gear_utility_belt_01",
+    "name": "Utility Belt",
+    "category": "tools",
+    "categoryLabel": "Tools",
+    "description": "A wide, reinforced belt with dedicated pouches, magnetic clip attachments, and quick-release buckles. Standard kit for Jedi, Mandalorians, bounty hunters, and anyone who gets into enough trouble to need their gear right now. Everything on the belt is within reach in a single motion.",
+    "cost": 100,
+    "availability": "1",
+    "traits": [
+      {
+        "name": "Expanded Carry",
+        "description": "The utility belt allows the wearer to carry up to 4 additional small or medium gear items without encumbrance penalty. GMs may apply narrative friction — noise, bulk, reduced agility — when characters carry excessive gear without one."
+      },
+      {
+        "name": "Quick Draw",
+        "description": "Any gear item carried on the utility belt can be retrieved as part of the Maneuver or Action used to deploy it — not as a separate step. This applies to equipment and tools only. Holstered weapons follow standard weapon draw rules."
+      }
+    ],
+    "gambits": [],
+    "tags": ["Tools", "Common", "Legal"]
+  }
+]

@@ -1,0 +1,341 @@
+Sporting Blasters
+DDC Defender
+Model: Drearian Defense Conglomerate Defender
+Type: Sporting blaster
+Scale: Character
+Skill: Blaster: sporting blaster
+Ammo: 50
+Cost: 350 (power packs: 25)
+Availability: 1, F
+Fire Rate: 1
+Range: 3-10/30/60
+Damage: 3D+1
+Source: Rulebook (page 229), Arms and Equipment Guide (page 14)
+
+SoroSuub X-30 Lancer Target Blaster
+Model: SoroSuub X-30 Target Blast Pistol
+Type: Sporting blaster pistol
+Scale: Character
+Skill: Blaster: sporting blaster pistol
+Ammo: 50
+Cost: 330
+Availability: 1, F
+Range: 3-10/30/120
+Damage: 3D+1
+Source: Arms and Equipment Guide (page 15)
+
+Merr-Sonn Quick-Six
+Model: Merr-Sonn Model 6 "Quick-Six"
+Type: Sporting blaster
+Scale: Character
+Skill: Blaster: sporting blaster
+Ammo: 50
+Cost: 325
+Availability: 1, F
+Range: 3-10/25/50
+Damage: 3D+2
+Source: Rebel Alliance Sourcebook (pages 99-100), Arms and Equipment Guide (page 15)
+
+KYD-21
+Model: KYD-21 Sporting Blaster
+Type: Sporting blaster
+Scale: Character
+Skill: Blaster: sporting blaster
+Ammo: 75
+Cost: 500
+Availability: 1, F
+Range: 3-10/40/60
+Damage: 3D+2
+Game Notes: Improved silencer buffers sound and flash, adding +2D to difficulty to notice a shot has been fired.
+
+Luxan Penetrator
+Model: Luxan Personal Armaments Ltd. Penetrator MB-450
+Type: Sporting blaster
+Scale: Character
+Skill: Blaster: sporting blaster
+Ammo: 100
+Cost: 600 (power pack: 50)
+Availability: 4, F or R
+Body: 1D
+Fire Rate: 1
+Range: 5-20/40/60
+Damage: 5D
+Game Notes: Increase normal blaster difficulties by one level due to precise targeting needed (focused beam).
+Source: Galladinium's Fantastic Technology (pages 70-71), Rules of Engagement (pages 60/62), Arms and Equipment Guide (page 14)
+
+Blaster Pistols
+COMPNOR Stun Blaster Pistol
+Model: COMPNOR Stun Blaster
+Type: Stun blaster
+Scale: Character
+Skill: Blaster
+Ammo: 10
+Cost: 300
+Availability: 2, F or R
+Range: 3-10/30/60
+Damage: 2D (stun)
+Source: Gundark's Fantastic Technology (page 26)
+
+BlasTech DC-15s
+Model: BlasTech DC-15s Sidearm
+Type: Light Pistol
+Scale: Character
+Skill: Blaster: blaster pistol
+Ammo: 20
+Cost: 1300
+Availability: 3, R or X
+Fire Rate: 1
+Range: 3-10/30/120
+Damage: 3D
+Game Notes: Dynamic power cell adds 2 charges per round weapon is not fired.
+
+EA SBP-200
+Model: Elmnainin Armaments SBP-200 Blaster Pistol
+Type: Blaster pistol
+Scale: Character
+Skill: Blaster: blaster pistol
+Ammo: 100
+Cost: 300
+Availability: 1, F
+Range: 3-10/30/120
+Damage: 3D
+Source: Arms and Equipment Guide (page 8)
+
+Bryar Pistol
+Type: Sawed blaster rifle
+Scale: Character
+Skill: Blaster: blaster pistol
+Ammo: 100
+Cost: 1000
+Availability: 4, R
+Range: 3-20/50/200
+Damage: 3D
+Source: Wizards Website
+
+Merr-Sonn Intimidator
+Model: Merr-Sonn Munitions "Intimidator" IR-5
+Type: Rapid-fire blaster pistol
+Scale: Character
+Skill: Blaster: blaster pistol
+Ammo: 50
+Cost: 1250 (power pack: 25, retractable stock: 200)
+Availability: 3, X
+Fire Control: 2D
+Range: 3-7/25/50
+Damage: 3D
+Game Notes: Fire control bonus applies only to multiple shots on different targets within 90 degree field of fire. Retractable stock adds +1D when aiming one round.
+Source: Galladinium's Fantastic Technology (page 71), Arms and Equipment Guide (pages 9-10)
+
+Galinolo XiX
+Model: Galinolo XiX Blaster Pistol
+Type: Blaster pistol
+Scale: Character
+Skill: Blaster: blaster pistol
+Ammo: 50
+Cost: 500
+Availability: 1, F or R
+Range: 3-10/25/110
+Damage: 4D
+Source: Cracken's Rebel Operatives (page 71)
+
+Merr-Sonn Model 44
+Model: Merr-Sonn Model 44 Blaster Pistol
+Type: Blaster pistol
+Scale: Character
+Skill: Blaster: blaster pistol
+Ammo: 100
+Cost: 500
+Availability: 1, F or R
+Range: 3-10/30/100
+Damage: 4D
+Source: Galaxy Guide 9: Fragments from the Rim (page 14), Arms and Equipment Guide (page 9)
+
+Westar-34
+Model: Westar-34 Blaster Pistol
+Type: Blaster Pistol
+Scale: Character
+Skill: Blaster: blaster pistol
+Ammo: 100
+Cost: 750
+Availability: 3, R
+Range: 3-10/20/100
+Damage: 4D
+Game Notes: Adds +1D to quickdraw and highly resistant to heat.
+
+SoroSuub ELG-3A Diplomat Blaster
+Model: SoroSuub ELG-3A Blaster Pistol
+Type: Blaster pistol
+Scale: Character
+Skill: Blaster: blaster pistol
+Ammo: 50
+Cost: 500
+Availability: 1, F
+Range: 3-10/30/120
+Damage: 4D
+Source: Arms and Equipment Guide (page 10)
+
+Imperial Munitions SC-4
+Model: Imperial Munitions/SoroSuub SC-4 Blaster Pistol
+Type: Blaster Pistol
+Scale: Character
+Skill: Blaster: blaster pistol
+Ammo: 50
+Cost: 750 (power packs: 25)
+Availability: F, R or X
+Fire Rate: 1
+Range: 3-10/30/120
+Damage: 4D
+Source: Gundark's Fantastic Technology (page 27), Arms and Equipment Guide (pages 8-9)
+
+Corellian Arms CR-2
+Model: Corellian Arms CR-2 Basic Blaster
+Type: Blaster Pistol
+Scale: Character
+Skill: Blaster: blaster pistol
+Ammo: 50
+Cost: 450 (power packs: 25)
+Availability: 1, F, R, or X
+Fire Rate: 1
+Range: 3-12/35/145
+Damage: 4D
+Source: Secrets of Naboo (pages 40-41)
+
+BlasTech DL-18
+Model: BlasTech DL-18 Blaster Pistol
+Type: Blaster pistol
+Scale: Character
+Skill: Blaster: blaster pistol
+Ammo: 100
+Cost: 500 (power packs: 25)
+Availability: 1, F, R or X
+Fire Rate: 1
+Range: 3-10/30/120
+Damage: 4D
+Source: Rulebook (pages 229/231), Rebel Alliance Sourcebook (pages 99-100), Arms and Equipment Guide (page 8)
+
+Imperial Munitions KK-5
+Model: Imperial Munitions/BlasTech KK-4 Blaster Pistol
+Type: Blaster pistol
+Scale: Character
+Skill: Blaster: blaster pistol
+Ammo: 100
+Cost: 750 (power packs: 25)
+Availability: R, X
+Fire Rate: 1
+Range: 3-10/30/120
+Damage: 4D
+Source: Gundark's Fantastic Technology (page 27), Arms and Equipment Guide (page 8)
+
+BlasTech DH-17
+Model: BlasTech DH-17 Blaster Pistol
+Type: Personal blaster pistol
+Scale: Character
+Skill: Blaster: blaster pistol
+Ammo: 100
+Cost: 800
+Availability: 2, R
+Fire Control: 1D
+Range: 5-15/30/120
+Damage: 4D
+Game Notes: Difficult blaster repair roll allows modification to fire in bursts. One 20-second burst; weapon useless after. During burst: +3D to blaster roll, cannot dodge.
+Source: Star Wars Trilogy Sourcebook SE (pages 153-154), Arms and Equipment Guide (page 7)
+
+BlasTech DH-23 Outback
+Model: BlasTech DH-23 Blaster Pistol
+Type: Blaster pistol
+Scale: Character
+Skill: Blaster: blaster pistol
+Ammo: 100
+Cost: 500
+Availability: 2, R
+Body: 2D
+Range: 3-10/20/80
+Damage: 4D+1
+Source: Arms and Equipment Guide (pages 7-8)
+
+BlasTech DL-22
+Model: BlasTech DL-22 Blaster Pistol
+Type: Blaster Pistol
+Scale: Character
+Skill: Blaster: blaster pistol
+Ammo: 100
+Cost: 500
+Availability: 1, F, R or X
+Fire Rate: 1
+Range: 3-10/30/120
+Damage: 4D+1
+Source: Gundark's Fantastic Technology (page 26), Arms and Equipment Guide (page 8)
+
+Merr-Sonn DD6
+Model: Merr-Sonn Munitions DD6 Blaster Pistol
+Type: Blaster pistol
+Scale: Character
+Skill: Blaster: blaster pistol
+Ammo: 100
+Cost: 550
+Availability: 1, F or R
+Range: 3-10/25/90
+Damage: 4D+1
+Source: Galaxy Guide 9: Fragments from the Rim (page 54)
+
+Relby-k23
+Model: Relby-k23 Blaster Pistol
+Type: Blaster pistol
+Scale: Character
+Skill: Blaster: blaster pistol
+Ammo: 100
+Cost: 660
+Availability: 2, X
+Range: 3-15/40/140
+Damage: 4D+1
+
+Safadine Industries Prototype Blaster Pistol
+Model: Safadine Industries Blaster Prototype
+Type: High-powered blaster pistol
+Scale: Character
+Skill: Blaster: blaster pistol
+Ammo: 50
+Cost: Not available for sale
+Availability: 4, X
+Fire Rate: 1
+Range: 3-12/35/140
+Damage: 4D+2
+Source: Gamer Magazine
+
+Caelli-Merced Series III
+Model: Caelli-Merced Series III Blaster Pistol
+Type: Blaster pistol
+Scale: Character
+Skill: Blaster: blaster pistol
+Ammo: 100
+Cost: 900 (power packs: 30)
+Availability: 4, R
+Range: 3-10/30/120
+Damage: 4D+2
+Game Notes: Designed for skilled marksmen. Adds +5 to difficulty for any user with blaster skill less than 4D, but +1D to hit for skill 6D or higher.
+Source: The Black Sands of Socorro (page 75)
+
+Merr-Sonn Model 434 DeathHammer
+Model: Merr-Sonn Model 434 "DeathHammer" Blaster Pistol
+Type: Blaster pistol
+Scale: Character
+Skill: Blaster: blaster pistol
+Ammo: 100
+Cost: 850
+Availability: 1, F or R
+Range: 2-8/20/80
+Damage: 5D+1
+Source: Galaxy Guide 9: Fragments from the Rim (page 11), Arms and Equipment Guide (page 9)
+
+Subaqua Blaster
+Model: Mon Calamari Subaqua Blaster
+Type: Aquatic blaster pistol
+Scale: Character
+Skill: Blaster: blaster pistol
+Ammo: 12
+Cost: 2300
+Availability: 3, F
+Range: 3-10/30/60 (underwater), 2-5/15/20
+Damage: 6D+1 (underwater), 3D+1
+Game Notes: Forearm-mounted. Full-round action to strap/remove. Overheats and explodes if fired two rounds outside water, dealing frag grenade damage.
+Source: Ultimate Alien Anthology (page 99)
