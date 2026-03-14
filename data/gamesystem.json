@@ -50,6 +50,7 @@
       {
         "direction": "Offensive (+1 Tier)",
         "sources": [
+          { "source": "Control Die 8+ (Accuracy Threshold)", "note": "When the Control Die result is 8 or higher, the action resolves at +1 Effect Tier automatically. This is the standard resolution bonus for exceptional execution — the action lands exactly where intended. Applies universally: attacks, maneuvers, defenses, and narrative rolls. This is a Tier shift, not an Opening. Openings are only created by specific kit traits or threat abilities that explicitly grant them." },
           { "source": "Edge Point", "note": "Spend 1 personal stamina resource post-roll to step up the effect. Strictly limited." },
           { "source": "Destiny Token", "note": "Shared table resource. Always 2 per player at the table (5 PCs = 10 tokens). Spent for a guaranteed +1 Tier gain. Pool is constant — it does not scale beyond headcount." },
           { "source": "[Exposed] Target", "note": "Any attack against an Exposed target automatically resolves 1 tier higher." }
