@@ -550,11 +550,16 @@
   };
 
   var state = {
-    species:   null,
-    previewId: null,
-    phase1:    null,
-    phase2:    null,
-    phase3:    null,
+    species:        null,
+    previewId:      null,
+    phase1:         null,
+    phase2:         null,
+    phase3:         null,
+    arenaAdj:       {},
+    discValues:     {},
+    discIncomp:     {},
+    spentRegAdv:    0,
+    enhancedAdvUsed: 0,
   };
 
   var carouselState = {
@@ -1095,7 +1100,7 @@
   function selectPhase3(card) {
     state.phase3 = card.id;
     saveState();
-    showSummary();
+    initStatsScreen();
   }
 
   /* ── Summary overlay ────────────────────────────────────────────────────── */

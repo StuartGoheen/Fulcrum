@@ -3700,3 +3700,418 @@
     right: 0 !important;
   }
 }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   Arenas & Disciplines Step (Step 5)
+   ══════════════════════════════════════════════════════════════════════════ */
+
+  .cc-stats-step-content {
+    width: 100%;
+    max-width: 760px;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 0 0.5rem;
+  }
+
+  .cc-stats-nav-row {
+    width: 100%;
+    max-width: 760px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 0.5rem 3rem;
+  }
+
+  .cc-btn-stats-continue {
+    background: var(--color-accent-primary);
+    color: #fff;
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.5rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 4px;
+    padding: 0.6rem 1.4rem;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .cc-btn-stats-continue:hover { opacity: 0.85; }
+  .cc-btn-stats-continue:disabled { opacity: 0.35; cursor: default; }
+
+  /* ── Subsection card ───────────────────────────────────────────────────── */
+  .cc-subsection {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .cc-subsection-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.9rem 1.2rem 0.7rem;
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-bg-frame);
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .cc-subsection-title {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-accent-primary);
+  }
+
+  .cc-subsection-hint {
+    font-size: 0.45rem;
+    color: var(--color-text-secondary);
+    letter-spacing: 0.04em;
+  }
+
+  /* ── Advance badges ────────────────────────────────────────────────────── */
+  .cc-adv-badges {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .cc-adv-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.4rem;
+    font-family: 'Audiowide', sans-serif;
+    letter-spacing: 0.06em;
+    border: 1px solid var(--color-border);
+    background: var(--color-bg-primary);
+    color: var(--color-text-primary);
+  }
+
+  .cc-adv-badge--ok {
+    border-color: var(--color-accent-primary);
+    color: var(--color-accent-primary);
+  }
+
+  .cc-adv-badge--enhanced {
+    border-color: #a78bfa;
+    color: #a78bfa;
+    background: rgba(167,139,250,0.08);
+  }
+
+  .cc-adv-badge--warn {
+    border-color: #e67e22;
+    color: #e67e22;
+  }
+
+  /* ── Advance dots tracker ──────────────────────────────────────────────── */
+  .cc-adv-dots {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    padding: 0 1.2rem 0.8rem;
+    flex-wrap: wrap;
+  }
+
+  .cc-adv-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 1.5px solid var(--color-border);
+    background: transparent;
+    transition: background 0.15s, border-color 0.15s;
+    flex-shrink: 0;
+  }
+
+  .cc-adv-dot--filled {
+    background: var(--color-accent-primary);
+    border-color: var(--color-accent-primary);
+  }
+
+  .cc-adv-dot--enhanced {
+    border-radius: 2px;
+    border-color: #a78bfa;
+  }
+
+  .cc-adv-dot--enhanced.cc-adv-dot--filled {
+    background: #a78bfa;
+    border-color: #a78bfa;
+  }
+
+  .cc-adv-dot-gap {
+    width: 4px;
+    flex-shrink: 0;
+  }
+
+  /* ── Arena stepper rows ────────────────────────────────────────────────── */
+  .cc-arena-rows {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cc-arena-row {
+    display: grid;
+    grid-template-columns: 64px 1fr auto;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.65rem 1.2rem;
+    border-bottom: 1px solid var(--color-border);
+    transition: background 0.15s;
+  }
+
+  .cc-arena-row:last-child { border-bottom: none; }
+  .cc-arena-row:hover { background: var(--color-bg-frame); }
+
+  .cc-arena-die-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cc-arena-die-img {
+    width: 52px;
+    height: 52px;
+    object-fit: contain;
+    display: block;
+    transition: transform 0.15s;
+  }
+
+  .cc-arena-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .cc-glossary-trigger {
+    cursor: pointer;
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.5rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-accent-primary);
+    text-decoration: underline dotted;
+    text-underline-offset: 3px;
+    background: none;
+    border: none;
+    padding: 0;
+    text-align: left;
+  }
+
+  .cc-glossary-trigger:hover { text-decoration: underline; }
+
+  .cc-arena-base-label {
+    font-size: 0.38rem;
+    color: var(--color-text-secondary);
+    letter-spacing: 0.04em;
+  }
+
+  .cc-stepper-group {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .cc-stepper-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    border: 1px solid var(--color-border);
+    background: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    font-size: 0.7rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s, border-color 0.15s, opacity 0.15s;
+    flex-shrink: 0;
+  }
+
+  .cc-stepper-btn:hover:not(:disabled) {
+    background: var(--color-accent-primary);
+    border-color: var(--color-accent-primary);
+    color: #fff;
+  }
+
+  .cc-stepper-btn:disabled {
+    opacity: 0.25;
+    cursor: default;
+  }
+
+  .cc-stepper-die-label {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.45rem;
+    min-width: 2.2rem;
+    text-align: center;
+    color: var(--color-text-primary);
+  }
+
+  /* ── Discipline group ──────────────────────────────────────────────────── */
+  .cc-disc-group {
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 0.25rem;
+  }
+  .cc-disc-group:last-child { border-bottom: none; padding-bottom: 0; }
+
+  .cc-disc-group-head {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 1.2rem 0.35rem;
+    background: var(--color-bg-frame);
+    border-bottom: 1px solid var(--color-border);
+    position: sticky;
+    top: 0;
+  }
+
+  .cc-disc-group-label {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.42rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+  }
+
+  /* ── Discipline row ────────────────────────────────────────────────────── */
+  .cc-disc-row {
+    display: grid;
+    grid-template-columns: 36px 1fr auto;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.5rem 1.2rem;
+    border-bottom: 1px solid rgba(128,128,128,0.08);
+    transition: background 0.12s;
+  }
+  .cc-disc-row:last-child { border-bottom: none; }
+  .cc-disc-row:hover { background: var(--color-bg-frame); }
+
+  .cc-disc-row--favored {
+    background: rgba(var(--accent-rgb, 210,96,10), 0.05);
+  }
+  .cc-disc-row--favored:hover { background: rgba(var(--accent-rgb, 210,96,10), 0.09); }
+
+  .cc-disc-row--incompetent {
+    opacity: 0.75;
+  }
+
+  .cc-disc-die-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cc-disc-die-img {
+    height: 30px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+  }
+
+  .cc-disc-info {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-width: 0;
+  }
+
+  .cc-disc-aligned-pip {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-accent-primary);
+    flex-shrink: 0;
+    display: inline-block;
+  }
+
+  .cc-disc-name-btn {
+    font-size: 0.47rem;
+    letter-spacing: 0.03em;
+    color: var(--color-text-primary);
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    text-align: left;
+    text-decoration: underline dotted;
+    text-underline-offset: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .cc-disc-name-btn:hover { color: var(--color-accent-primary); text-decoration: underline; }
+
+  .cc-disc-row--favored .cc-disc-name-btn {
+    color: var(--color-accent-primary);
+    font-weight: 600;
+  }
+
+  .cc-disc-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    flex-shrink: 0;
+  }
+
+  .cc-disc-action-btn {
+    height: 24px;
+    padding: 0 0.5rem;
+    border-radius: 3px;
+    border: 1px solid var(--color-border);
+    background: var(--color-bg-primary);
+    color: var(--color-text-secondary);
+    font-size: 0.38rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.12s, border-color 0.12s, color 0.12s, opacity 0.12s;
+    white-space: nowrap;
+  }
+
+  .cc-disc-action-btn:hover:not(:disabled) {
+    border-color: var(--color-accent-primary);
+    color: var(--color-accent-primary);
+    background: var(--color-bg-frame);
+  }
+
+  .cc-disc-action-btn--incomp:hover:not(:disabled) {
+    border-color: #e67e22;
+    color: #e67e22;
+  }
+
+  .cc-disc-action-btn--restore:hover:not(:disabled) {
+    border-color: #27ae60;
+    color: #27ae60;
+  }
+
+  .cc-disc-action-btn--elite:hover:not(:disabled) {
+    border-color: #a78bfa;
+    color: #a78bfa;
+  }
+
+  .cc-disc-action-btn:disabled {
+    opacity: 0.2;
+    cursor: default;
+  }
+
+  /* ── Incompetency required notice ─────────────────────────────────────── */
+  .cc-incomp-notice {
+    padding: 0.7rem 1.2rem;
+    background: rgba(230,126,34, 0.07);
+    border-bottom: 1px solid rgba(230,126,34,0.2);
+    font-size: 0.42rem;
+    color: var(--color-text-secondary);
+    letter-spacing: 0.03em;
+  }
+
+  .cc-incomp-notice strong {
+    color: #e67e22;
+    font-weight: 600;
+  }
+
