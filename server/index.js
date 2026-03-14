@@ -14,20 +14,34 @@ const app    = express();
 const server = http.createServer(app);
 const io     = new Server(server);
 
-const PORT = 3000;
+const PORT = process.env.PORT || 5000;
+const ROOT = path.join(__dirname, '..');
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '..', 'public')));
-app.use('/js', express.static(path.join(__dirname, '..', 'js')));
-app.use('/css', express.static(path.join(__dirname, '..', 'css')));
-app.use('/data', express.static(path.join(__dirname, '..', 'data')));
+app.use('/js', express.static(path.join(ROOT, 'js')));
+app.use('/css', express.static(path.join(ROOT, 'css')));
+app.use('/data', express.static(path.join(ROOT, 'data')));
+app.use('/assets', express.static(path.join(ROOT, 'assets')));
+app.use('/Assets', express.static(path.join(ROOT, 'Assets')));
 
 app.use('/api', characterRoutes);
 app.use('/api', campaignRoutes);
 app.use('/api', equipmentRoutes);
 
+app.get('/', (req, res) => res.sendFile(path.join(ROOT, 'index.html')));
+app.get('/icon.svg', (req, res) => res.sendFile(path.join(ROOT, 'icon.svg')));
+
 app.get('/gm', (req, res) => res.redirect('/gm/'));
-app.get('/gm/', (req, res) => res.sendFile(path.join(__dirname, '..', 'public', 'gm', 'index.html')));
+app.get('/gm/', (req, res) => res.sendFile(path.join(ROOT, 'gm', 'index.html')));
+
+app.get('/player', (req, res) => res.redirect('/player/'));
+app.get('/player/', (req, res) => res.sendFile(path.join(ROOT, 'player', 'index.html')));
+
+app.get('/create', (req, res) => res.redirect('/create/'));
+app.get('/create/', (req, res) => res.sendFile(path.join(ROOT, 'create', 'index.html')));
+
+app.get('/market', (req, res) => res.redirect('/market/'));
+app.get('/market/', (req, res) => res.sendFile(path.join(ROOT, 'market', 'index.html')));
 
 socketHandlers(io);
 
