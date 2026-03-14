@@ -346,7 +346,8 @@
     var filled = Math.round((pct / 100) * SEGS);
     var segColor = pct >= 75 ? '#22c55e' : (pct >= 30 ? '#f59e0b' : '#ef4444');
     var glowColor = pct >= 75 ? '#22c55e40' : (pct >= 30 ? '#f59e0b40' : '#ef444440');
-    var html = '<div class="wpn-ammo-bar" data-clip-size="' + _esc(String(clipSize)) + '" data-ammo-pct="' + pct + '">';
+    var currentAmmo = Math.round((pct / 100) * clipSize);
+    var html = '<div class="wpn-ammo-bar" data-clip-size="' + _esc(String(clipSize)) + '" data-ammo-pct="' + pct + '" title="' + currentAmmo + ' / ' + clipSize + ' charges">';
     for (var i = 0; i < SEGS; i++) {
       if (i < filled) {
         html += '<div class="wpn-ammo-seg" style="background:' + segColor + ';box-shadow:0 0 4px ' + glowColor + ';"></div>';
