@@ -1013,18 +1013,21 @@
       { id: 'intimidate',    name: 'Intimidate' },
       { id: 'resolve',       name: 'Resolve' },
       { id: 'survival',      name: 'Survival' },
+      { id: 'control_spark',  name: 'Control',       force: true },
     ]},
     { id: 'wits', name: 'Wits', disciplines: [
       { id: 'investigation', name: 'Investigation' },
       { id: 'medicine',      name: 'Medicine' },
       { id: 'tactics',       name: 'Tactics' },
       { id: 'tech',          name: 'Tech' },
+      { id: 'sense_spark',    name: 'Sense',         force: true },
     ]},
     { id: 'presence', name: 'Presence', disciplines: [
       { id: 'charm',         name: 'Charm' },
       { id: 'deception',     name: 'Deception' },
       { id: 'insight',       name: 'Insight' },
       { id: 'persuasion',    name: 'Persuasion' },
+      { id: 'alter_spark',    name: 'Alter',         force: true },
     ]},
   ];
 
@@ -1299,11 +1302,13 @@
   function buildDiscRow(disc, d, favoredIds) {
     var isFavored = !!favoredIds[disc.id];
     var isIncomp  = !!d.discIncomp[disc.id];
+    var isForce  = !!disc.force;
     var cur       = statsGetDiscValue(disc.id, d);
     var row = document.createElement('div');
     row.className = 'cc-disc-row' +
       (isFavored ? ' cc-disc-row--favored' : '') +
-      (isIncomp  ? ' cc-disc-row--incompetent' : '');
+      (isIncomp  ? ' cc-disc-row--incompetent' : '') +
+      (isForce   ? ' cc-disc-row--force'        : '');
     // Die image
     var dieCell = document.createElement('div');
     dieCell.className = 'cc-disc-die-cell';
@@ -1326,6 +1331,13 @@
     nameBtn.textContent = disc.name;
     nameBtn.title = 'View glossary';
     nameBtn.addEventListener('click', function() { if (window.GlossaryOverlay) window.GlossaryOverlay.open(disc.id); });
+    if (isForce) {
+      var ftag = document.createElement('span');
+      ftag.className = 'cc-disc-force-tag';
+      ftag.textContent = 'Force';
+      ftag.title = 'Requires Force Sensitivity';
+      info.appendChild(ftag);
+    }
     info.appendChild(nameBtn);
     // Actions
     var actions = document.createElement('div');
