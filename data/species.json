@@ -1,0 +1,102 @@
+[
+  {
+    "id": "human",
+    "name": "Human",
+    "tagline": "Adaptable. Ambitious. Everywhere.",
+    "arenaShift": {
+      "name": "The Baseline",
+      "desc": "Humans are the canvas the galaxy is painted on. You start with all five Arenas — Physique, Reflex, Grit, Wits, Presence — at D6. You have no inherent biological penalties or peaks.",
+      "stepUp": [],
+      "stepDown": []
+    },
+    "nativeSkill": {
+      "name": "Versatility",
+      "desc": "Because human culture is so heavily varied, you may select any one Skill of your choice to start at Familiarity (D6).",
+      "choice": true
+    },
+    "biologicalTruth": {
+      "name": "Galactic Ubiquity",
+      "desc": "Humans make up the vast majority of the Empire, the corporate sector, and the underworld. You can blend into crowds, acquire standard-issue gear, and infiltrate human-centric organizations (like Imperial garrisons) without drawing the immediate prejudice, suspicion, or xenophobia that alien species face."
+    }
+  },
+  {
+    "id": "twilek",
+    "name": "Twi'lek",
+    "tagline": "Graceful. Perceptive. Survivors.",
+    "arenaShift": {
+      "name": "Agile & Expressive",
+      "desc": "Step Up: Presence to D8 (or Reflex to D8). Step Down: Physique to D4.",
+      "stepUp": [{ "arena": "Presence", "die": "D8", "note": "or Reflex → D8" }],
+      "stepDown": [{ "arena": "Physique", "die": "D4" }]
+    },
+    "nativeSkill": {
+      "name": "Survival Instincts",
+      "desc": "You gain Charm (Presence) or Evasion (Reflex) at Familiarity (D6), representing a youth spent either navigating dangerous social circles or physically dodging trouble.",
+      "choice": true
+    },
+    "biologicalTruth": {
+      "name": "Lekku Sign",
+      "desc": "You can communicate silently using subtle twitches and movements of your lekku (head-tails). You can transmit complex tactical concepts, warnings, or emotions to anyone else who knows Lekku Sign Language — even across a crowded, loud, or pitch-black room where verbal comms would get you killed."
+    }
+  },
+  {
+    "id": "wookiee",
+    "name": "Wookiee",
+    "tagline": "Fierce. Loyal. Terrifying.",
+    "arenaShift": {
+      "name": "Raw Mass",
+      "desc": "Step Up: Physique to D8. Step Down: Presence to D4 — outside of other Wookiees, your sheer size and guttural language make subtle social navigation incredibly difficult.",
+      "stepUp": [{ "arena": "Physique", "die": "D8" }],
+      "stepDown": [{ "arena": "Presence", "die": "D4" }]
+    },
+    "nativeSkill": {
+      "name": "Trench Fighter",
+      "desc": "You gain Brawl (Physique) at Familiarity (D6). You are biologically built for close-quarters devastation.",
+      "choice": false
+    },
+    "biologicalTruth": {
+      "name": "Brute Physiology",
+      "desc": "You possess musculature and claws that defy standard humanoid limits. You automatically succeed on feats of raw, brute lifting, ripping, or breaking — like tearing a blast door off its hinges or pulling a droid's arms out of its sockets — that a human couldn't even attempt. (Note: You can understand Basic perfectly, but can only speak Shyriiwook.)"
+    }
+  },
+  {
+    "id": "duros",
+    "name": "Duros",
+    "tagline": "Born to navigate. Built for the void.",
+    "arenaShift": {
+      "name": "The Spacer's Build",
+      "desc": "Step Up: Reflex to D8. Step Down: Physique to D4 — adapted to zero-G and shipboard life, you lack the raw muscle of gravity-bound species.",
+      "stepUp": [{ "arena": "Reflex", "die": "D8" }],
+      "stepDown": [{ "arena": "Physique", "die": "D4" }]
+    },
+    "nativeSkill": {
+      "name": "Helm Jockey",
+      "desc": "You gain Piloting (Reflex) at Familiarity (D6). You were practically born in a cockpit and think in three-dimensional vectors.",
+      "choice": false
+    },
+    "biologicalTruth": {
+      "name": "Stellar Intuition",
+      "desc": "You have an innate, mathematical understanding of astrogation and celestial drift. As long as you can see the stars, you can always determine your exact galactic coordinates, and you can attempt to plot a hyperspace jump even if your ship's navicomputer is damaged or destroyed."
+    }
+  },
+  {
+    "id": "zabrak",
+    "name": "Zabrak",
+    "tagline": "Unyielding. Defiant. Built to endure.",
+    "arenaShift": {
+      "name": "Unyielding",
+      "desc": "Step Up: Grit to D8. Step Down: Presence to D4 — your blunt, abrasive demeanor and intense cultural pride make subtle negotiations difficult.",
+      "stepUp": [{ "arena": "Grit", "die": "D8" }],
+      "stepDown": [{ "arena": "Presence", "die": "D4" }]
+    },
+    "nativeSkill": {
+      "name": "Frontier Endurance",
+      "desc": "You gain Endure (Physique) at Familiarity (D6). You are biologically built to outlast extreme hardship, grueling labor, and physical punishment.",
+      "choice": false
+    },
+    "biologicalTruth": {
+      "name": "Redundant Biology",
+      "desc": "You possess a secondary heart and a nervous system with an incredibly high pain threshold. You can function normally through excruciating physical trauma that would cause a human to pass out from shock, and you can comfortably survive in extreme frontier temperatures — blistering desert heat or freezing nights — without specialized environmental gear."
+    }
+  }
+]

@@ -4686,3 +4686,368 @@
     }
   }
   
+/* ══════════════════════════════════════════════════════════════════════════
+   CHARACTER DETAILS PANEL (Panel 1 — center slot)
+   Species · Narrative · Kit Abilities
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.dp-panel-wrap {
+  padding: 6px 6px 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* ── Panel title ─────────────────────────────────────────────────────────── */
+.dp-panel-title {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 6px 10px;
+  border-bottom: 2px solid var(--color-accent-primary);
+  margin-bottom: 10px;
+}
+
+.dp-panel-title-name {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 0.85rem;
+  color: var(--color-accent-deep);
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+}
+
+.dp-panel-title-sub {
+  font-size: 0.54rem;
+  color: var(--color-text-secondary);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ── Section wrapper ─────────────────────────────────────────────────────── */
+.dp-section {
+  margin-bottom: 12px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-panel);
+}
+
+.dp-section--narrative {
+  background: transparent;
+  border-color: transparent;
+  border-top: 1px solid var(--color-border);
+  margin-top: 0;
+}
+
+.dp-section-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 5px 8px 4px;
+  background: var(--color-bg-frame);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.dp-section-label {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 0.50rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent-primary);
+}
+
+.dp-section-name {
+  font-size: 0.54rem;
+  color: var(--color-text-secondary);
+  letter-spacing: 0.04em;
+}
+
+/* ── Species details ─────────────────────────────────────────────────────── */
+.dp-species-tagline {
+  font-size: 0.60rem;
+  color: var(--color-accent-primary);
+  letter-spacing: 0.04em;
+  font-style: italic;
+  padding: 6px 8px 4px;
+  border-bottom: 1px dashed var(--color-border);
+}
+
+.dp-species-block {
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.dp-species-block:last-child {
+  border-bottom: none;
+}
+
+.dp-species-block-label {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 0.44rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent-deep);
+  margin-bottom: 1px;
+}
+
+.dp-species-block-name {
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  line-height: 1.2;
+  margin-bottom: 3px;
+}
+
+.dp-species-block-desc {
+  font-size: 0.56rem;
+  color: var(--color-text-secondary);
+  line-height: 1.55;
+}
+
+/* ── Narrative text ──────────────────────────────────────────────────────── */
+.dp-narrative-text {
+  font-size: 0.58rem;
+  color: var(--color-text-secondary);
+  line-height: 1.65;
+  font-style: italic;
+  padding: 8px 8px 6px;
+  margin: 0;
+  opacity: 0.85;
+}
+
+/* ── Kit card ────────────────────────────────────────────────────────────── */
+.dp-kit-card {
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-primary);
+  margin: 6px 0 0;
+}
+
+.dp-kit-card:first-of-type {
+  margin-top: 4px;
+}
+
+.dp-kit-header {
+  padding: 6px 8px 5px;
+  background: var(--color-bg-frame);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.dp-kit-name-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.dp-kit-name {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 0.62rem;
+  color: var(--color-accent-deep);
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+}
+
+.dp-kit-tier-badge {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 0.52rem;
+  letter-spacing: 0.08em;
+  color: var(--color-accent-primary);
+  border: 1px solid var(--color-accent-primary);
+  padding: 1px 5px;
+  flex-shrink: 0;
+}
+
+/* Kit meta tags row */
+.dp-kit-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 5px;
+}
+
+.dp-kit-meta-tag {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 0.44rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 1px 5px;
+  border-radius: 2px;
+}
+
+.dp-kit-meta-arena {
+  background: rgba(var(--color-accent-primary-rgb, 200,120,50), 0.12);
+  color: var(--color-accent-primary);
+  border: 1px solid rgba(var(--color-accent-primary-rgb, 200,120,50), 0.3);
+}
+
+.dp-kit-meta-disc {
+  background: rgba(var(--color-accent-deep-rgb, 180,100,30), 0.1);
+  color: var(--color-accent-deep);
+  border: 1px solid rgba(var(--color-accent-deep-rgb, 180,100,30), 0.25);
+}
+
+.dp-kit-meta-wpn {
+  background: rgba(150,150,170, 0.1);
+  color: var(--color-text-secondary);
+  border: 1px solid rgba(150,150,170, 0.2);
+}
+
+/* Tier progress bar */
+.dp-kit-tier-bar {
+  display: flex;
+  gap: 3px;
+}
+
+.dp-kit-tier-pip {
+  flex: 1;
+  text-align: center;
+  font-family: 'Audiowide', sans-serif;
+  font-size: 0.40rem;
+  letter-spacing: 0.08em;
+  padding: 2px 0;
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+  background: rgba(0,0,0,0.15);
+  opacity: 0.45;
+  transition: background 0.15s, opacity 0.15s;
+}
+
+.dp-kit-tier-pip.is-active {
+  background: var(--color-accent-primary);
+  border-color: var(--color-accent-primary);
+  color: var(--color-btn-text, #fff);
+  opacity: 1;
+}
+
+/* ── Abilities ───────────────────────────────────────────────────────────── */
+.dp-kit-abilities {
+  padding: 4px 0 2px;
+}
+
+.dp-kit-no-abilities {
+  padding: 8px;
+  font-size: 0.52rem;
+  color: var(--color-text-secondary);
+  font-style: italic;
+}
+
+.dp-ability-row {
+  display: flex;
+  gap: 8px;
+  padding: 7px 8px;
+  border-top: 1px solid var(--color-border);
+  align-items: flex-start;
+}
+
+.dp-ability-row:first-child {
+  border-top: none;
+}
+
+.dp-ability-badge-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  flex-shrink: 0;
+  width: 40px;
+  padding-top: 1px;
+}
+
+.dp-ability-tier-mark {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 0.44rem;
+  letter-spacing: 0.06em;
+  color: var(--color-text-secondary);
+  opacity: 0.7;
+}
+
+.dp-ability-type-badge {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 0.38rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 2px 4px;
+  border-radius: 2px;
+  white-space: nowrap;
+  text-align: center;
+  width: 100%;
+}
+
+.dp-ability-type-passive {
+  background: rgba(100,180,100,0.12);
+  color: #7ec87e;
+  border: 1px solid rgba(100,180,100,0.3);
+}
+
+.dp-ability-type-gambit {
+  background: rgba(167,139,250,0.12);
+  color: #a78bfa;
+  border: 1px solid rgba(167,139,250,0.3);
+}
+
+.dp-ability-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dp-ability-name {
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  line-height: 1.2;
+}
+
+.dp-ability-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+}
+
+.dp-ability-tag {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 0.40rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 1px 4px;
+  border-radius: 2px;
+  background: rgba(150,150,170,0.1);
+  color: var(--color-text-secondary);
+  border: 1px solid rgba(150,150,170,0.2);
+}
+
+.dp-ability-tag-arena {
+  color: var(--color-accent-primary);
+  background: rgba(var(--color-accent-primary-rgb,200,120,50),0.1);
+  border-color: rgba(var(--color-accent-primary-rgb,200,120,50),0.25);
+}
+
+.dp-ability-tag-target {
+  color: #a78bfa;
+  background: rgba(167,139,250,0.1);
+  border-color: rgba(167,139,250,0.25);
+}
+
+.dp-ability-rule {
+  font-size: 0.56rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.dp-ability-bonus {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 0.44rem;
+  letter-spacing: 0.06em;
+  color: var(--color-accent-primary);
+  border-left: 2px solid var(--color-accent-primary);
+  padding-left: 6px;
+  margin-top: 2px;
+}
+
+.dp-missing {
+  padding: 8px;
+  font-size: 0.54rem;
+  color: var(--color-text-secondary);
+  font-style: italic;
+}

@@ -22,7 +22,7 @@ app.use(express.static(path.join(ROOT, 'public')));
 app.use('/js',     express.static(path.join(ROOT, 'js')));
 app.use('/data',   express.static(path.join(ROOT, 'data')));
 app.use('/assets', express.static(path.join(ROOT, 'assets')));
-app.use('/Assets', express.static(path.join(ROOT, 'Assets')));
+
 
 app.use('/api', characterRoutes);
 app.use('/api', campaignRoutes);
