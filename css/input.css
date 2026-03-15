@@ -1685,14 +1685,16 @@
     white-space: nowrap;
   }
 
-  .condition-link {
+  .condition-link,
+.glossary-link {
     color: var(--color-accent-primary);
     border-bottom: 1px dotted var(--color-accent-primary);
     cursor: pointer;
     transition: color 0.12s, border-color 0.12s;
   }
 
-  .condition-link:hover {
+  .condition-link:hover,
+.glossary-link:hover {
     color: var(--color-accent-deep);
     border-bottom-color: var(--color-accent-deep);
   }
