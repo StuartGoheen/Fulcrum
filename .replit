@@ -42,3 +42,4 @@ build = ["npm", "run", "css:build"]
 
 [userenv.shared]
 AIzaSyAt7o_p-KnLGWAQajCHfsZgBV2CUa68XNo = "Gemini_API_KEY"
+GEMINI_API_KEY = "AIzaSyAt7o_p-KnLGWAQajCHfsZgBV2CUa68XNo"
