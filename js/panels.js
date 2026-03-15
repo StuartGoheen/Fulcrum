@@ -63,14 +63,60 @@
     return prev;
   }
 
-  function renderPanel(slotContentEl, panelIndex) {
-    const panelEl = document.getElementById(PANELS[panelIndex].id);
-    if (!panelEl) return;
+  const _panelDock = null;
 
-    slotContentEl.innerHTML = '';
-    slotContentEl.appendChild(panelEl.cloneNode(true));
-    slotContentEl.firstChild.classList.remove('hidden');
-    slotContentEl.firstChild.classList.add('block');
+  function _ensureDock() {
+    let dock = document.getElementById('panel-dock');
+    if (!dock) {
+      dock = document.createElement('div');
+      dock.id = 'panel-dock';
+      dock.style.display = 'none';
+      document.body.appendChild(dock);
+    }
+    return dock;
+  }
+
+  function render() {
+    const leftContent  = document.getElementById('slot-left-content');
+    const rightContent = document.getElementById('slot-right-content');
+    if (!leftContent || !rightContent) return;
+
+    const dock = _ensureDock();
+
+    while (leftContent.firstChild) {
+      leftContent.firstChild.classList.add('hidden');
+      leftContent.firstChild.classList.remove('block');
+      dock.appendChild(leftContent.firstChild);
+    }
+    while (rightContent.firstChild) {
+      rightContent.firstChild.classList.add('hidden');
+      rightContent.firstChild.classList.remove('block');
+      dock.appendChild(rightContent.firstChild);
+    }
+
+    const leftPanel  = document.getElementById(PANELS[state.leftIndex].id);
+    const rightPanel = document.getElementById(PANELS[state.rightIndex].id);
+
+    if (leftPanel) {
+      leftPanel.classList.remove('hidden');
+      leftPanel.classList.add('block');
+      leftContent.appendChild(leftPanel);
+      document.dispatchEvent(new CustomEvent('panel:shown', {
+        detail: { panelId: PANELS[state.leftIndex].id, label: PANELS[state.leftIndex].label }
+      }));
+    }
+
+    if (rightPanel) {
+      rightPanel.classList.remove('hidden');
+      rightPanel.classList.add('block');
+      rightContent.appendChild(rightPanel);
+      document.dispatchEvent(new CustomEvent('panel:shown', {
+        detail: { panelId: PANELS[state.rightIndex].id, label: PANELS[state.rightIndex].label }
+      }));
+    }
+
+    updateLabels();
+    saveState();
   }
 
   function updateLabels() {
@@ -78,15 +124,6 @@
     const rightLabel = document.getElementById('slot-right-label');
     if (leftLabel)  leftLabel.textContent  = PANELS[state.leftIndex].label;
     if (rightLabel) rightLabel.textContent = PANELS[state.rightIndex].label;
-  }
-
-  function render() {
-    const leftContent  = document.getElementById('slot-left-content');
-    const rightContent = document.getElementById('slot-right-content');
-    if (leftContent)  renderPanel(leftContent,  state.leftIndex);
-    if (rightContent) renderPanel(rightContent, state.rightIndex);
-    updateLabels();
-    saveState();
   }
 
   // ─── Theme ────────────────────────────────────────────────────────────────────

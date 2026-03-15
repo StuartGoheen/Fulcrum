@@ -400,6 +400,10 @@
     });
   }
 
+  document.addEventListener('panel:shown', function (e) {
+    if (e.detail && e.detail.panelId === 'panel-1') init();
+  });
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
