@@ -102,6 +102,22 @@ router.post('/characters/save', (req, res) => {
   return res.json({ ok: true, id: info.lastInsertRowid, action: 'inserted' });
 });
 
+router.get('/characters/:id', (req, res) => {
+  const character = db.prepare('SELECT id, name, character_data FROM characters WHERE id = ?').get(req.params.id);
+  if (!character) {
+    return res.status(404).json({ error: 'Character not found.' });
+  }
+  if (!character.character_data) {
+    return res.status(404).json({ error: 'Character has no data.' });
+  }
+  try {
+    const data = JSON.parse(character.character_data);
+    return res.json(data);
+  } catch (_) {
+    return res.status(500).json({ error: 'Corrupt character data.' });
+  }
+});
+
 router.post('/admin/release-all', (req, res) => {
   db.prepare('DELETE FROM sessions').run();
   db.prepare('UPDATE characters SET session_id = NULL, connected_at = NULL').run();

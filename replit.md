@@ -61,6 +61,7 @@ Server listens on `0.0.0.0:5000`.
 ## API Endpoints
 
 - `GET  /api/characters` — list characters with connection status
+- `GET  /api/characters/:id` — full character data JSON for a single character
 - `GET  /api/campaign/state` — full campaign state
 - `GET  /api/equipment/:charId` — character equipment statuses
 - `POST /api/equipment/:charId/:itemId` — update item status

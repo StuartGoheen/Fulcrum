@@ -539,7 +539,17 @@
   // ─── Bootstrap ────────────────────────────────────────────────────────────────
 
   function init() {
-    fetch('/data/character-test.json')
+    var session = null;
+    try { session = JSON.parse(sessionStorage.getItem('eote-session')); } catch (_) {}
+    var charId = session && session.characterId;
+    if (!charId) {
+      console.warn('[CharacterPanel] No character session found — redirecting to landing.');
+      window.location.href = '/';
+      return;
+    }
+    var url = '/api/characters/' + charId;
+
+    fetch(url)
       .then(function (res) {
         if (!res.ok) throw new Error('Failed to load character data: ' + res.status);
         return res.json();

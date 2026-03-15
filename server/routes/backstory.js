@@ -43,7 +43,7 @@ function buildPrompt(payload) {
       : 'No title provided; do not invent one unless asked.';
 
   const playerNote = playerInput && playerInput.trim()
-    ? `\n\nADDITIONAL PLAYER DIRECTION (incorporate naturally — do not ignore):\n${playerInput.trim()}`
+    ? `\n\nPLAYER DIRECTION (HIGHEST PRIORITY — these override default caution rules):\nThe player has provided the following specific direction. Treat every detail as canonical for this character. If the player names a faction, group, species subculture, or organization (e.g., "Nightsister," "Death Watch," "Pyke Syndicate"), use that name explicitly in the prose — do not genericize it. If the player specifies a tone (e.g., "sinister," "hopeful"), shift the prose style to match. If the player describes motivations or backstory beats, weave them in as central narrative elements, not footnotes.\n\n${playerInput.trim()}`
     : '';
 
   const locationInstruction = locationPool
@@ -66,7 +66,7 @@ OUTPUT RULES:
 - Write exactly 4 paragraphs. Each paragraph is 3–5 sentences.
 - Be specific to this character's choices. Do not write generic Star Wars prose.
 - Do not name specific weapons, armour, or equipment. Use vague evocative references only ("a blade she had carried since Corellia", "the ship he won in a sabacc game"). No model numbers. No kit names.
-- If a location, faction, or named person is not provided in the character data below, do not invent one — keep references abstract.
+- If a location, faction, or named person is not provided in the character data or player direction below, do not invent one — keep references abstract. However, if the player names specific factions or groups in their direction, use those names freely.
 ${locationInstruction}
 
 ARENA & DISCIPLINE GUIDANCE:
@@ -124,6 +124,13 @@ router.post('/backstory/generate', async (req, res) => {
   const payload = req.body;
   if (!payload || !payload.species || !payload.phase1) {
     return res.status(400).json({ error: 'Incomplete character data.' });
+  }
+
+  if (payload.playerInput && typeof payload.playerInput !== 'string') {
+    payload.playerInput = '';
+  }
+  if (payload.playerInput) {
+    payload.playerInput = payload.playerInput.substring(0, 2000);
   }
 
   const genAI = new GoogleGenerativeAI(apiKey);
