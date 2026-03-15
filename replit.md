@@ -160,6 +160,17 @@ The GM Command Bridge (`public/gm/index.html`) features a full Campaign Engine a
 
 **UI Features:** Adventure navigator (10 adventures), part navigator, scene list with completion indicators, scene renderer (read-aloud block, GM notes, NPC roster, hazards, decision points), clickable lore tags with cross-reference modal, narrative link navigation, collapsible Party Monitor sidebar, TBD placeholder panels for Combat Tracker and Starship Combat.
 
+## Right Column Layout (frame-right)
+
+The right column (`#frame-right`, 25vw fixed sidebar) serves as the **combat cockpit** — always-visible status regardless of which center panel is active.
+
+**Sections (top to bottom):**
+1. **Vitality** (`char-vitality-wrap`) — EKG animation + clickable health pips
+2. **Active Effects** (`char-effects-wrap`) — conditions applied by `effect-manager.js`
+3. **Engine Pool** (`char-engine-wrap`) — resource pips + core utility only (kit abilities moved to center panel)
+4. **Action Economy** (`char-action-wrap`) — per-round Action/Trigger/Maneuver pips with "New Round" reset. Bonuses from kit abilities (e.g. The Hair-Trigger +1 Trigger) auto-calculated
+5. **Resolution Ladder** (`char-ladder-wrap`) — quick reference: Control Die tiers (0–3 Fleeting, 4–7 Basic, 8+ Solid/+1 Tier), Power Die impact scale, and tier modifier sources
+
 ## Database
 
 SQLite database auto-created and seeded on first run at `db/campaign.db`.  

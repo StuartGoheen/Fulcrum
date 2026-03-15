@@ -342,7 +342,7 @@
       var arenaId = kit.governingArena;
       if (!arenaId) return;
       var arena = (char.arenas || []).find(function (a) { return a.id === arenaId; });
-      if (arena) subtitleParts.push(arena.label + ' ' + arena.die + ' \u00b7 ' + kit.name);
+      if (arena) subtitleParts.push(arena.label + ' ' + arena.die + ' · ' + kit.name);
     });
     if (subtitleParts.length === 0) {
       (char.engine.governingArenas || []).forEach(function (arenaId) {
@@ -362,94 +362,18 @@
       }
     }
 
-    var alignedParts = [];
-    kits.forEach(function (kit) {
-      if (!kit.alignedDiscipline || !kit.tier) return;
-      var label = kit.alignedDiscipline.charAt(0).toUpperCase() + kit.alignedDiscipline.slice(1);
-      alignedParts.push(label + ' (' + kit.name + ')');
-    });
-
     var coreHtml = '';
     if (char.engine.coreUtility) {
       var cu = char.engine.coreUtility;
-      var alignedHtml = alignedParts.length
-        ? '<div class="char-engine-ability-restriction char-engine-aligned">Favored: ' + _esc(alignedParts.join(' \u00b7 ')) + '</div>'
-        : (cu.restriction ? '<div class="char-engine-ability-restriction">' + _esc(cu.restriction) + '</div>' : '');
       coreHtml =
-        '<div class="char-engine-ability">' +
-          '<div class="char-engine-ability-header">' +
-            '<span class="char-engine-ability-type">Core Utility</span>' +
-            '<span class="char-engine-ability-name">' + _esc(cu.name) + '</span>' +
-            '<span class="char-engine-ability-cost">' + _esc(cu.cost) + '</span>' +
+        '<div class="char-engine-core">' +
+          '<div class="char-engine-core-header">' +
+            '<span class="char-engine-core-type">Core Utility</span>' +
+            '<span class="char-engine-core-name">' + _esc(cu.name) + '</span>' +
+            '<span class="char-engine-core-cost">' + _esc(cu.cost) + '</span>' +
           '</div>' +
-          '<div class="char-engine-ability-rule">' + _esc(cu.rule) + '</div>' +
-          alignedHtml +
+          '<div class="char-engine-core-rule">' + _esc(cu.rule) + '</div>' +
         '</div>';
-    }
-
-    var kitsHtml = '';
-    for (var ki = 0; ki < kits.length; ki++) {
-      var kit = kits[ki];
-      var unlockedTier = kit.tier || 0;
-      var abilities = kit.abilities || [];
-      var unlockedAbs = [];
-      var lockedAbs = [];
-      for (var ai = 0; ai < abilities.length; ai++) {
-        if (abilities[ai].tier > unlockedTier) lockedAbs.push(abilities[ai]);
-        else unlockedAbs.push(abilities[ai]);
-      }
-      for (var ui = 0; ui < unlockedAbs.length; ui++) {
-        var ab = unlockedAbs[ui];
-        var typeLabel = ab.type === 'gambit' ? 'Gambit' : 'Passive';
-        var typeClass = ab.type === 'gambit' ? 'char-engine-ability--gambit' : 'char-engine-ability--passive';
-        var actionBonusHtml = '';
-        if (ab.actionBonus) {
-          var bonus = ab.actionBonus;
-          var parts = [];
-          if (bonus.action) parts.push('Action ' + (bonus.action > 0 ? '+' : '') + bonus.action);
-          if (bonus.trigger) parts.push('Trigger ' + (bonus.trigger > 0 ? '+' : '') + bonus.trigger);
-          if (bonus.maneuver) parts.push('Maneuver ' + (bonus.maneuver > 0 ? '+' : '') + bonus.maneuver);
-          if (parts.length) {
-            actionBonusHtml = '<div class="char-engine-ability-restriction kit-action-bonus">' + _esc(parts.join(' · ')) + '</div>';
-          }
-        }
-        var gambitHtml = '';
-        if (ab.type === 'gambit') {
-          var gParts = [];
-          if (ab.cost) gParts.push('<span class="kit-gambit-label">Cost:</span> ' + _esc(ab.cost));
-          if (ab.buyoff) gParts.push('<span class="kit-gambit-label">Buyoff:</span> ' + _esc(ab.buyoff));
-          if (gParts.length) gambitHtml = '<div class="kit-gambit-details">' + gParts.join(' &mdash; ') + '</div>';
-        }
-        kitsHtml +=
-          '<div class="char-engine-ability ' + typeClass + ' char-kit-ability">' +
-            '<div class="char-engine-ability-header">' +
-              '<span class="char-engine-ability-type">' + typeLabel + ' · ' + _esc(kit.name) + '</span>' +
-              '<span class="char-engine-ability-name">' + _esc(ab.name) + '</span>' +
-              '<span class="char-engine-ability-cost kit-tier-badge">T' + ab.tier + '</span>' +
-            '</div>' +
-            '<div class="char-engine-ability-rule">' + _esc(ab.rule) + '</div>' + actionBonusHtml + gambitHtml +
-          '</div>';
-      }
-      if (lockedAbs.length > 0) {
-        var nextTier = unlockedTier + 1;
-        var tierRange = nextTier <= 3 ? (nextTier + (nextTier + 1 <= 3 ? '–3' : '')) : '';
-        kitsHtml += '<details class="char-kit-locked-details">';
-        kitsHtml += '<summary class="char-kit-locked-summary">' + lockedAbs.length + ' locked T' + tierRange + ' abilities</summary>';
-        for (var li = 0; li < lockedAbs.length; li++) {
-          var lab = lockedAbs[li];
-          var lTypeLabel = lab.type === 'gambit' ? 'Gambit' : 'Passive';
-          kitsHtml +=
-            '<div class="char-engine-ability char-kit-ability char-kit-ability--locked">' +
-              '<div class="char-engine-ability-header">' +
-                '<span class="char-engine-ability-type">' + lTypeLabel + ' · ' + _esc(kit.name) + '</span>' +
-                '<span class="char-engine-ability-name">' + _esc(lab.name) + '</span>' +
-                '<span class="char-engine-ability-cost kit-tier-badge kit-tier-badge--locked">T' + lab.tier + '</span>' +
-              '</div>' +
-              '<div class="char-engine-ability-rule char-kit-locked-hint">Unlocks at Tier ' + lab.tier + '</div>' +
-            '</div>';
-        }
-        kitsHtml += '</details>';
-      }
     }
 
     return (
@@ -458,10 +382,128 @@
           '<span class="char-engine-label">' + _esc(char.engine.poolName) + '</span>' +
           '<span class="char-engine-value">' + current + ' / ' + max + '</span>' +
         '</div>' +
-        '<div class="char-engine-subtitle">' + _esc(char.engine.name) + ' \u2014 ' + subtitleParts.join(' / ') + '</div>' +
+        '<div class="char-engine-subtitle">' + _esc(char.engine.name) + ' — ' + subtitleParts.join(' / ') + '</div>' +
         '<div class="char-engine-pips">' + pips + '</div>' +
         coreHtml +
-        kitsHtml +
+      '</div>'
+    );
+  }
+
+  function _calcActionBudget(char) {
+    var budget = { action: 1, trigger: 1, maneuver: 1 };
+    var kits = char.kits || [];
+    kits.forEach(function (kit) {
+      var tier = kit.tier || 0;
+      (kit.abilities || []).forEach(function (ab) {
+        if (ab.tier > tier || !ab.actionBonus) return;
+        if (ab.actionBonus.action) budget.action += ab.actionBonus.action;
+        if (ab.actionBonus.trigger) budget.trigger += ab.actionBonus.trigger;
+        if (ab.actionBonus.maneuver) budget.maneuver += ab.actionBonus.maneuver;
+      });
+    });
+    return budget;
+  }
+
+  var _actionState = { action: 0, trigger: 0, maneuver: 0 };
+  var _actionBudget = { action: 1, trigger: 1, maneuver: 1 };
+
+  function _buildActionEconomy(char) {
+    _actionBudget = _calcActionBudget(char);
+    var types = [
+      { key: 'action',   label: 'Action',   max: _actionBudget.action },
+      { key: 'trigger',  label: 'Trigger',  max: _actionBudget.trigger },
+      { key: 'maneuver', label: 'Maneuver', max: _actionBudget.maneuver },
+    ];
+
+    var rows = '';
+    types.forEach(function (t) {
+      var spent = _actionState[t.key] || 0;
+      var pips = '';
+      for (var i = 0; i < t.max; i++) {
+        var cls = i < spent ? 'action-pip action-pip--spent' : 'action-pip';
+        pips += '<button class="' + cls + '" data-action-type="' + t.key + '" data-action-idx="' + i + '"></button>';
+      }
+      rows +=
+        '<div class="action-row">' +
+          '<span class="action-row-label">' + _esc(t.label) + '</span>' +
+          '<div class="action-row-pips">' + pips + '</div>' +
+        '</div>';
+    });
+
+    return (
+      '<div class="char-action-section">' +
+        '<div class="char-action-header">' +
+          '<span class="char-action-label">Action Economy</span>' +
+          '<button class="char-action-reset" data-action-reset="1" aria-label="Reset actions">New Round</button>' +
+        '</div>' +
+        rows +
+      '</div>'
+    );
+  }
+
+  function _refreshActionEconomy() {
+    var wrap = document.getElementById('char-action-wrap');
+    if (wrap && _currentChar) {
+      wrap.innerHTML = _buildActionEconomy(_currentChar);
+    }
+  }
+
+  function _buildResolutionLadder() {
+    return (
+      '<div class="char-ladder-section">' +
+        '<div class="char-ladder-header">' +
+          '<span class="char-ladder-label">Task Resolution</span>' +
+        '</div>' +
+
+        '<div class="char-ladder-group">' +
+          '<div class="char-ladder-group-title">Control Die → Effect Tier</div>' +
+          '<div class="char-ladder-row char-ladder-row--t1">' +
+            '<span class="char-ladder-range">0–3</span>' +
+            '<span class="char-ladder-tier">Fleeting</span>' +
+            '<span class="char-ladder-desc">Minimal — a glancing blow, a hint of progress.</span>' +
+          '</div>' +
+          '<div class="char-ladder-row char-ladder-row--t2">' +
+            '<span class="char-ladder-range">4–7</span>' +
+            '<span class="char-ladder-tier">Basic</span>' +
+            '<span class="char-ladder-desc">Standard success — the action lands as intended.</span>' +
+          '</div>' +
+          '<div class="char-ladder-row char-ladder-row--t3">' +
+            '<span class="char-ladder-range">8+</span>' +
+            '<span class="char-ladder-tier">Solid (+1 Tier)</span>' +
+            '<span class="char-ladder-desc">Exceptional execution — automatic +1 Effect Tier.</span>' +
+          '</div>' +
+        '</div>' +
+
+        '<div class="char-ladder-group">' +
+          '<div class="char-ladder-group-title">Power Die → Impact</div>' +
+          '<div class="char-ladder-row char-ladder-row--power">' +
+            '<span class="char-ladder-range">MAX</span>' +
+            '<span class="char-ladder-tier">Explodes</span>' +
+            '<span class="char-ladder-desc">Roll again and add. Uncapped ceiling.</span>' +
+          '</div>' +
+          '<div class="char-ladder-row char-ladder-row--power">' +
+            '<span class="char-ladder-range">High</span>' +
+            '<span class="char-ladder-tier">Full Impact</span>' +
+            '<span class="char-ladder-desc">Damage or effect magnitude at its highest.</span>' +
+          '</div>' +
+          '<div class="char-ladder-row char-ladder-row--power">' +
+            '<span class="char-ladder-range">Low</span>' +
+            '<span class="char-ladder-tier">Grazing</span>' +
+            '<span class="char-ladder-desc">Minimal magnitude — the hit connects but barely.</span>' +
+          '</div>' +
+        '</div>' +
+
+        '<div class="char-ladder-group">' +
+          '<div class="char-ladder-group-title">Tier Modifiers</div>' +
+          '<div class="char-ladder-mod">' +
+            '<span class="char-ladder-mod-tag char-ladder-mod--up">+1 Tier</span>' +
+            '<span class="char-ladder-mod-sources">Control 8+ · Destiny Tap · Edge Point · [Exposed] target</span>' +
+          '</div>' +
+          '<div class="char-ladder-mod">' +
+            '<span class="char-ladder-mod-tag char-ladder-mod--down">−1 Tier</span>' +
+            '<span class="char-ladder-mod-sources">[Dazed] · Gambit Cost · [Guarded X] · [Cover X]</span>' +
+          '</div>' +
+        '</div>' +
       '</div>'
     );
   }
@@ -518,6 +560,9 @@
 
     _refreshStatus();
     _refreshEngine();
+    _refreshActionEconomy();
+    var ladderWrap = document.getElementById("char-ladder-wrap");
+    if (ladderWrap) ladderWrap.innerHTML = _buildResolutionLadder();
   }
 
   // ─── State Change Dispatch ────────────────────────────────────────────────────
@@ -556,7 +601,30 @@
       return;
     }
 
-    var enginePip = e.target.closest('.char-engine-pip[data-engine-pip]');
+    var actionPip = e.target.closest('.action-pip[data-action-type]');
+    if (actionPip) {
+      var aType = actionPip.getAttribute('data-action-type');
+      var aIdx = parseInt(actionPip.getAttribute('data-action-idx'), 10);
+      if (aType && !isNaN(aIdx)) {
+        var curSpent = _actionState[aType] || 0;
+        if (aIdx < curSpent) {
+          _actionState[aType] = aIdx;
+        } else {
+          _actionState[aType] = Math.min(aIdx + 1, _actionBudget[aType] || 1);
+        }
+        _refreshActionEconomy();
+      }
+      return;
+    }
+
+    var resetBtn = e.target.closest('[data-action-reset]');
+    if (resetBtn) {
+      _actionState = { action: 0, trigger: 0, maneuver: 0 };
+      _refreshActionEconomy();
+      return;
+    }
+
+        var enginePip = e.target.closest('.char-engine-pip[data-engine-pip]');
     if (enginePip) {
       var epVal = parseInt(enginePip.getAttribute('data-engine-pip'), 10);
       if (!isNaN(epVal)) {
@@ -645,6 +713,7 @@
     _refreshFront();
     _refreshStatus();
     _refreshEngine();
+    _refreshActionEconomy();
   };
 
   document.addEventListener('effects:changed', function () {
