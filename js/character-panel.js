@@ -394,28 +394,39 @@
       var abilities = kit.abilities || [];
       for (var ai = 0; ai < abilities.length; ai++) {
         var ab = abilities[ai];
-        if (ab.tier > unlockedTier) continue;
-        if (ab.type !== 'passive') continue;
+        var isLocked = ab.tier > unlockedTier;
+        var lockedClass = isLocked ? ' char-kit-ability--locked' : '';
+        var lockIcon = isLocked ? '<span class="kit-lock-icon">&#9675;</span>' : '';
+        var typeLabel = ab.type === 'gambit' ? 'Gambit' : 'Passive';
+        var typeClass = ab.type === 'gambit' ? 'char-engine-ability--gambit' : 'char-engine-ability--passive';
         var actionBonusHtml = '';
-        if (ab.actionBonus) {
+        if (ab.actionBonus && !isLocked) {
           var bonus = ab.actionBonus;
           var parts = [];
           if (bonus.action) parts.push('Action ' + (bonus.action > 0 ? '+' : '') + bonus.action);
           if (bonus.trigger) parts.push('Trigger ' + (bonus.trigger > 0 ? '+' : '') + bonus.trigger);
           if (bonus.maneuver) parts.push('Maneuver ' + (bonus.maneuver > 0 ? '+' : '') + bonus.maneuver);
           if (parts.length) {
-            actionBonusHtml = '<div class="char-engine-ability-restriction kit-action-bonus">' + _esc(parts.join(' \u00b7 ')) + '</div>';
+            actionBonusHtml = '<div class="char-engine-ability-restriction kit-action-bonus">' + _esc(parts.join(' · ')) + '</div>';
           }
         }
+        var gambitHtml = '';
+        if (ab.type === 'gambit' && !isLocked) {
+          var gParts = [];
+          if (ab.cost) gParts.push('<span class="kit-gambit-label">Cost:</span> ' + _esc(ab.cost));
+          if (ab.buyoff) gParts.push('<span class="kit-gambit-label">Buyoff:</span> ' + _esc(ab.buyoff));
+          if (gParts.length) gambitHtml = '<div class="kit-gambit-details">' + gParts.join(' &mdash; ') + '</div>';
+        }
         kitsHtml +=
-          '<div class="char-engine-ability char-engine-ability--passive char-kit-ability">' +
+          '<div class="char-engine-ability ' + typeClass + ' char-kit-ability' + lockedClass + '">' +
             '<div class="char-engine-ability-header">' +
-              '<span class="char-engine-ability-type">Passive \u00b7 ' + _esc(kit.name) + '</span>' +
-              '<span class="char-engine-ability-name">' + _esc(ab.name) + '</span>' +
-              '<span class="char-engine-ability-cost kit-tier-badge">T' + ab.tier + '</span>' +
+              '<span class="char-engine-ability-type">' + typeLabel + ' · ' + _esc(kit.name) + '</span>' +
+              '<span class="char-engine-ability-name">' + lockIcon + _esc(ab.name) + '</span>' +
+              '<span class="char-engine-ability-cost kit-tier-badge' + (isLocked ? ' kit-tier-badge--locked' : '') + '">T' + ab.tier + '</span>' +
             '</div>' +
-            '<div class="char-engine-ability-rule">' + _esc(ab.rule) + '</div>' +
-            actionBonusHtml +
+            (isLocked
+              ? '<div class="char-engine-ability-rule char-kit-locked-hint">Unlocks at Tier ' + ab.tier + '</div>'
+              : '<div class="char-engine-ability-rule">' + _esc(ab.rule) + '</div>' + actionBonusHtml + gambitHtml) +
           '</div>';
       }
     }

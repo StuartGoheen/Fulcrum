@@ -102,7 +102,7 @@ function expandCharacterData(flat) {
     if (!kitDef) return;
     const kit = JSON.parse(JSON.stringify(kitDef));
     kit.tier = tier;
-    kit.abilities = kit.abilities.filter(a => a.tier <= tier);
+    // Keep ALL abilities — panel will dim locked tiers
     kits.push(kit);
   });
 
