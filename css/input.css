@@ -2366,7 +2366,7 @@
   }
 
   .cc-step-label {
-    font-size: 0.45rem;
+    font-size: 0.9rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     color: var(--color-accent-primary);
