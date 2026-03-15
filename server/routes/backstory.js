@@ -62,7 +62,7 @@ OUTPUT RULES:
 - Return ONLY valid JSON in this exact shape: { "backstory": "...", "name": "...", "title": "..." }
 - Include "name" only if asked to generate one. Include "title" only if asked to generate one.
 - The backstory value must be plain paragraphs of prose. NO markdown. NO asterisks. NO bold. NO headers. NO bullet points. NO formatting symbols of any kind.
-- STRICT PAST TENSE: Every verb in the backstory MUST be past tense. No present-tense narration, no present-tense descriptions, no "he is" or "she carries" — always "he was", "she carried". This is non-negotiable.
+- STRICT THIRD-PERSON PAST TENSE: Write only in third-person narration — never first-person ("I") or second-person ("you"). Every verb in the backstory MUST be past tense. No present-tense narration, no present-tense descriptions, no "he is" or "she carries" — always "he was", "she carried". This is non-negotiable.
 - Write exactly 4 paragraphs. Each paragraph is 3–5 sentences.
 - Be specific to this character's choices. Do not write generic Star Wars prose.
 - Do not name specific weapons, armour, or equipment. Use vague evocative references only ("a blade she had carried since Corellia", "the ship he won in a sabacc game"). No model numbers. No kit names.
