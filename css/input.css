@@ -1520,7 +1520,7 @@
     opacity: 0.35;
   }
 
-  /* ── Resolution Ladder (horizontal bars) ──────────────────────────── */
+  /* ── Resolution Ladder (unified horizontal bar) ──────────────────── */
   .char-ladder-section {
     border-top: 1px solid var(--color-border);
     padding: 6px 8px 10px;
@@ -1552,14 +1552,38 @@
     margin-bottom: 6px;
   }
 
-  .char-ladder-bar-label {
-    font-family: "Audiowide", sans-serif;
-    font-size: 0.36rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-text-muted);
+  .char-ladder-axis-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2px;
     margin-bottom: 2px;
   }
+
+  .char-ladder-axis-row:last-child {
+    margin-bottom: 0;
+    margin-top: 2px;
+  }
+
+  .char-ladder-axis-label {
+    font-family: "Audiowide", sans-serif;
+    font-size: 0.38rem;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+
+  .char-ladder-axis-end {
+    font-family: "Audiowide", sans-serif;
+    font-size: 0.28rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .char-ladder-axis-end--fail { color: #ff8888; }
+  .char-ladder-axis-end--suc  { color: #66cc88; }
+  .char-ladder-axis-end--low  { color: #88aadd; opacity: 0.7; }
+  .char-ladder-axis-end--high { color: #4488cc; opacity: 0.7; }
 
   .char-ladder-bar {
     display: flex;
@@ -1567,7 +1591,7 @@
     border-radius: 3px;
     overflow: hidden;
     border: 1px solid var(--color-border);
-    min-height: 32px;
+    min-height: 36px;
   }
 
   .char-ladder-seg {
@@ -1575,7 +1599,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 2px 2px;
+    padding: 3px 2px;
     flex: 1;
     min-width: 0;
     border-right: 1px solid rgba(255,255,255,0.08);
@@ -1589,7 +1613,7 @@
     font-family: "Exo 2", sans-serif;
     font-weight: 600;
     font-size: 0.34rem;
-    line-height: 1.1;
+    line-height: 1.2;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1598,13 +1622,13 @@
 
   .char-ladder-seg-range {
     font-family: "Audiowide", sans-serif;
-    font-size: 0.30rem;
+    font-size: 0.28rem;
     opacity: 0.8;
     line-height: 1.1;
     white-space: nowrap;
   }
 
-  /* Control bar failure segments */
+  /* Failure segments (left side) */
   .char-ladder-seg--leg-fail {
     background: rgba(180, 40, 40, 0.5);
     color: #ff6666;
@@ -1618,18 +1642,18 @@
     color: #ffaaaa;
   }
 
-  /* Zero fulcrum */
+  /* Zero fulcrum (center) */
   .char-ladder-seg--zero {
-    flex: 0 0 24px;
+    flex: 0 0 26px;
     background: rgba(255,255,255,0.06);
     color: var(--color-accent-primary);
     font-family: "Audiowide", sans-serif;
-    font-size: 0.36rem;
+    font-size: 0.38rem;
     border-left: 1px solid var(--color-accent-primary);
     border-right: 1px solid var(--color-accent-primary);
   }
 
-  /* Control bar success segments */
+  /* Success segments (right side) */
   .char-ladder-seg--fle-suc {
     background: rgba(40, 140, 80, 0.15);
     color: #88ddaa;
@@ -1642,38 +1666,6 @@
     background: rgba(40, 140, 80, 0.5);
     color: #44cc66;
   }
-
-  /* Power bar segments (neutral magnitude) */
-  .char-ladder-seg--pwr-fle {
-    background: rgba(80, 120, 180, 0.15);
-    color: #88aadd;
-  }
-  .char-ladder-seg--pwr-mas {
-    background: rgba(80, 120, 180, 0.3);
-    color: #6699cc;
-  }
-  .char-ladder-seg--pwr-leg {
-    background: rgba(80, 120, 180, 0.5);
-    color: #4488cc;
-  }
-
-  .char-ladder-bar-ends {
-    display: flex;
-    justify-content: space-between;
-    padding: 1px 2px 0;
-  }
-
-  .char-ladder-bar-end {
-    font-family: "Audiowide", sans-serif;
-    font-size: 0.28rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
-
-  .char-ladder-bar-end--fail { color: #ff8888; }
-  .char-ladder-bar-end--suc  { color: #66cc88; }
-  .char-ladder-bar-end--low  { color: #88aadd; }
-  .char-ladder-bar-end--high { color: #4488cc; }
 
   .char-ladder-group {
     margin-bottom: 6px;

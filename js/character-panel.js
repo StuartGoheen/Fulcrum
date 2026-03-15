@@ -449,8 +449,13 @@
         '</div>' +
 
         '<div class="char-ladder-bar-group">' +
-          '<div class="char-ladder-bar-label">Control</div>' +
-          '<div class="char-ladder-bar char-ladder-bar--control">' +
+          '<div class="char-ladder-axis-row">' +
+            '<span class="char-ladder-axis-end char-ladder-axis-end--fail">◀ Failure</span>' +
+            '<span class="char-ladder-axis-label">Control</span>' +
+            '<span class="char-ladder-axis-end char-ladder-axis-end--suc">Success ▶</span>' +
+          '</div>' +
+
+          '<div class="char-ladder-bar">' +
             '<div class="char-ladder-seg char-ladder-seg--leg-fail"><span class="char-ladder-seg-name">Legendary</span><span class="char-ladder-seg-range">−8+</span></div>' +
             '<div class="char-ladder-seg char-ladder-seg--mas-fail"><span class="char-ladder-seg-name">Masterful</span><span class="char-ladder-seg-range">−4 to −7</span></div>' +
             '<div class="char-ladder-seg char-ladder-seg--fle-fail"><span class="char-ladder-seg-name">Fleeting</span><span class="char-ladder-seg-range">−1 to −3</span></div>' +
@@ -459,22 +464,11 @@
             '<div class="char-ladder-seg char-ladder-seg--mas-suc"><span class="char-ladder-seg-name">Masterful</span><span class="char-ladder-seg-range">4–7</span></div>' +
             '<div class="char-ladder-seg char-ladder-seg--leg-suc"><span class="char-ladder-seg-name">Legendary</span><span class="char-ladder-seg-range">8+</span></div>' +
           '</div>' +
-          '<div class="char-ladder-bar-ends">' +
-            '<span class="char-ladder-bar-end char-ladder-bar-end--fail">◀ Failure</span>' +
-            '<span class="char-ladder-bar-end char-ladder-bar-end--suc">Success ▶</span>' +
-          '</div>' +
-        '</div>' +
 
-        '<div class="char-ladder-bar-group">' +
-          '<div class="char-ladder-bar-label">Power</div>' +
-          '<div class="char-ladder-bar char-ladder-bar--power">' +
-            '<div class="char-ladder-seg char-ladder-seg--pwr-fle"><span class="char-ladder-seg-name">Fleeting</span><span class="char-ladder-seg-range">0–3</span></div>' +
-            '<div class="char-ladder-seg char-ladder-seg--pwr-mas"><span class="char-ladder-seg-name">Masterful</span><span class="char-ladder-seg-range">4–7</span></div>' +
-            '<div class="char-ladder-seg char-ladder-seg--pwr-leg"><span class="char-ladder-seg-name">Legendary</span><span class="char-ladder-seg-range">8+</span></div>' +
-          '</div>' +
-          '<div class="char-ladder-bar-ends">' +
-            '<span class="char-ladder-bar-end char-ladder-bar-end--low">◀ Less</span>' +
-            '<span class="char-ladder-bar-end char-ladder-bar-end--high">More ▶</span>' +
+          '<div class="char-ladder-axis-row">' +
+            '<span class="char-ladder-axis-end char-ladder-axis-end--low">◀ Less</span>' +
+            '<span class="char-ladder-axis-label">Power</span>' +
+            '<span class="char-ladder-axis-end char-ladder-axis-end--high">More ▶</span>' +
           '</div>' +
         '</div>' +
 
