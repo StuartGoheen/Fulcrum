@@ -1904,7 +1904,12 @@
     img.alt       = card.title;
     img.className = 'ph-card-img';
 
+    var title = document.createElement('div');
+    title.className   = 'ph-card-title';
+    title.textContent = card.title;
+
     face.appendChild(img);
+    face.appendChild(title);
     face.addEventListener('click', function () { flipPhaseCard(card.id); });
     return face;
   }
