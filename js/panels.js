@@ -84,14 +84,20 @@
     const dock = _ensureDock();
 
     while (leftContent.firstChild) {
-      leftContent.firstChild.classList.add('hidden');
-      leftContent.firstChild.classList.remove('block');
-      dock.appendChild(leftContent.firstChild);
+      var child = leftContent.firstChild;
+      if (child.classList) {
+        child.classList.add('hidden');
+        child.classList.remove('block');
+      }
+      dock.appendChild(child);
     }
     while (rightContent.firstChild) {
-      rightContent.firstChild.classList.add('hidden');
-      rightContent.firstChild.classList.remove('block');
-      dock.appendChild(rightContent.firstChild);
+      var child = rightContent.firstChild;
+      if (child.classList) {
+        child.classList.add('hidden');
+        child.classList.remove('block');
+      }
+      dock.appendChild(child);
     }
 
     const leftPanel  = document.getElementById(PANELS[state.leftIndex].id);
