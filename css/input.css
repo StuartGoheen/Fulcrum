@@ -5339,6 +5339,13 @@
       text-align: center;
     }
 
+    .bs-output-idle.hidden,
+    .bs-loading.hidden,
+    .bs-error.hidden,
+    .bs-prose.hidden {
+      display: none !important;
+    }
+
     .bs-loading {
       display: flex;
       align-items: center;
