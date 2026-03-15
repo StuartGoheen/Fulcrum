@@ -4677,12 +4677,30 @@
     #frame-right {
       max-width: 380px;
     }
+    #navbar,
+    #player-footer {
+      left: 380px !important;
+      right: 380px !important;
+    }
+    #center-content {
+      margin-left: 380px !important;
+      margin-right: 380px !important;
+    }
   }
 
   @media (min-width: 1920px) {
     #frame-left,
     #frame-right {
       max-width: 420px;
+    }
+    #navbar,
+    #player-footer {
+      left: 420px !important;
+      right: 420px !important;
+    }
+    #center-content {
+      margin-left: 420px !important;
+      margin-right: 420px !important;
     }
   }
   
