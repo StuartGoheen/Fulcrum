@@ -8,6 +8,32 @@
     "mechanic": "Step a die Up (e.g., D8 → D10) or Down (e.g., D10 → D8). Because each die has a fixed range, stepping directly raises or lowers both the floor and ceiling of possible outcomes before a single number is generated.",
     "axes": [
       {
+    "id": "resolution_math",
+    "number": 0,
+    "name": "The Fulcrum — Symmetric Resolution",
+    "tag": "Core Math",
+    "summary": "All task resolution uses the same symmetric math: Roll minus Risk equals Net Result. Positive net is success, negative net is failure, and the magnitude determines the tier on both sides.",
+    "mechanic": "Net Result = (Control Die or Power Die) minus (Risk or Resistance). The result falls on a mirrored scale around zero (the Fulcrum). Success side: Fleeting (net 0 to 3), Masterful (net 4 to 7), Legendary (net 8+). Failure side: Fleeting failure (net -1 to -3), Masterful failure (net -4 to -7), Legendary failure (net -8 or worse). The same tier names apply to both Control (success quality) and Power (effect magnitude).",
+    "tiers": {
+      "success": [
+        { "tier": 3, "name": "Legendary", "range": "8+", "description": "Exceptional execution. Automatic +1 Effect Tier. Near-impossible at base Risk 4 — requires a D12 roll of 12." },
+        { "tier": 2, "name": "Masterful", "range": "4-7", "description": "Standard success. The action lands as intended with full effect." },
+        { "tier": 1, "name": "Fleeting", "range": "0-3", "description": "Marginal success. A glancing blow, a hint of progress, minimal magnitude." }
+      ],
+      "fulcrum": 0,
+      "failure": [
+        { "tier": 1, "name": "Fleeting", "range": "-1 to -3", "description": "Minor failure. Consequence is light — a stumble, a missed opportunity." },
+        { "tier": 2, "name": "Masterful", "range": "-4 to -7", "description": "Serious failure. The consequence lands with real weight." },
+        { "tier": 3, "name": "Legendary", "range": "-8 or worse", "description": "Catastrophic failure. The worst possible outcome manifests fully." }
+      ]
+    },
+    "designNotes": [
+      "The system is symmetric: the same math governs player success (Control - Risk) and enemy effect (Power - Defense). A player rolling Control 7 against Risk 4 gets a net +3 (Fleeting success). An enemy with Power 6 against a player Defense roll of 2 deals net +4 (Masterful effect).",
+      "The failure side mirrors the success side exactly. When a player fails, the negative net tells the GM the tier of consequence. This eliminates the need for separate miss/failure tables.",
+      "Risk is static at 4 for most tasks. NPCs modify the player's die (via Presence step-downs), not the threshold. The 4 is the universal fulcrum point."
+    ]
+  },
+  {
         "axis": "Control Die",
         "purpose": "Accuracy — modifies the chance of rolling high enough to reach a given tier threshold on the Effect Track.",
         "stepUp": [

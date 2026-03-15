@@ -555,6 +555,7 @@
 
     _refreshStatus();
     _refreshEngine();
+    _refreshActionEconomy();
     var ladderWrap = document.getElementById("char-ladder-wrap");
     if (ladderWrap) ladderWrap.innerHTML = _buildResolutionLadder();
   }
