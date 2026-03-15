@@ -448,43 +448,33 @@
           '<span class="char-ladder-formula">Roll − Risk = Net</span>' +
         '</div>' +
 
-        '<div class="char-ladder-fulcrum">' +
-          '<div class="char-ladder-half char-ladder-half--success">' +
-            '<div class="char-ladder-half-label">SUCCESS</div>' +
-            '<div class="char-ladder-row char-ladder-row--t3">' +
-              '<span class="char-ladder-range">8+</span>' +
-              '<span class="char-ladder-tier">Legendary</span>' +
-            '</div>' +
-            '<div class="char-ladder-row char-ladder-row--t2">' +
-              '<span class="char-ladder-range">4–7</span>' +
-              '<span class="char-ladder-tier">Masterful</span>' +
-            '</div>' +
-            '<div class="char-ladder-row char-ladder-row--t1">' +
-              '<span class="char-ladder-range">0–3</span>' +
-              '<span class="char-ladder-tier">Fleeting</span>' +
-            '</div>' +
+        '<div class="char-ladder-bar-group">' +
+          '<div class="char-ladder-bar-label">Control</div>' +
+          '<div class="char-ladder-bar char-ladder-bar--control">' +
+            '<div class="char-ladder-seg char-ladder-seg--leg-fail"><span class="char-ladder-seg-name">Legendary</span><span class="char-ladder-seg-range">−8+</span></div>' +
+            '<div class="char-ladder-seg char-ladder-seg--mas-fail"><span class="char-ladder-seg-name">Masterful</span><span class="char-ladder-seg-range">−4 to −7</span></div>' +
+            '<div class="char-ladder-seg char-ladder-seg--fle-fail"><span class="char-ladder-seg-name">Fleeting</span><span class="char-ladder-seg-range">−1 to −3</span></div>' +
+            '<div class="char-ladder-seg char-ladder-seg--zero"><span class="char-ladder-seg-name">0</span></div>' +
+            '<div class="char-ladder-seg char-ladder-seg--fle-suc"><span class="char-ladder-seg-name">Fleeting</span><span class="char-ladder-seg-range">0–3</span></div>' +
+            '<div class="char-ladder-seg char-ladder-seg--mas-suc"><span class="char-ladder-seg-name">Masterful</span><span class="char-ladder-seg-range">4–7</span></div>' +
+            '<div class="char-ladder-seg char-ladder-seg--leg-suc"><span class="char-ladder-seg-name">Legendary</span><span class="char-ladder-seg-range">8+</span></div>' +
           '</div>' +
-
-          '<div class="char-ladder-zero">' +
-            '<span class="char-ladder-zero-line"></span>' +
-            '<span class="char-ladder-zero-label">0</span>' +
-            '<span class="char-ladder-zero-line"></span>' +
+          '<div class="char-ladder-bar-ends">' +
+            '<span class="char-ladder-bar-end char-ladder-bar-end--fail">◀ Failure</span>' +
+            '<span class="char-ladder-bar-end char-ladder-bar-end--suc">Success ▶</span>' +
           '</div>' +
+        '</div>' +
 
-          '<div class="char-ladder-half char-ladder-half--failure">' +
-            '<div class="char-ladder-row char-ladder-row--t1">' +
-              '<span class="char-ladder-range">−1 to −3</span>' +
-              '<span class="char-ladder-tier">Fleeting</span>' +
-            '</div>' +
-            '<div class="char-ladder-row char-ladder-row--t2">' +
-              '<span class="char-ladder-range">−4 to −7</span>' +
-              '<span class="char-ladder-tier">Masterful</span>' +
-            '</div>' +
-            '<div class="char-ladder-row char-ladder-row--t3">' +
-              '<span class="char-ladder-range">−8 or less</span>' +
-              '<span class="char-ladder-tier">Legendary</span>' +
-            '</div>' +
-            '<div class="char-ladder-half-label">FAILURE</div>' +
+        '<div class="char-ladder-bar-group">' +
+          '<div class="char-ladder-bar-label">Power</div>' +
+          '<div class="char-ladder-bar char-ladder-bar--power">' +
+            '<div class="char-ladder-seg char-ladder-seg--pwr-fle"><span class="char-ladder-seg-name">Fleeting</span><span class="char-ladder-seg-range">0–3</span></div>' +
+            '<div class="char-ladder-seg char-ladder-seg--pwr-mas"><span class="char-ladder-seg-name">Masterful</span><span class="char-ladder-seg-range">4–7</span></div>' +
+            '<div class="char-ladder-seg char-ladder-seg--pwr-leg"><span class="char-ladder-seg-name">Legendary</span><span class="char-ladder-seg-range">8+</span></div>' +
+          '</div>' +
+          '<div class="char-ladder-bar-ends">' +
+            '<span class="char-ladder-bar-end char-ladder-bar-end--low">◀ Less</span>' +
+            '<span class="char-ladder-bar-end char-ladder-bar-end--high">More ▶</span>' +
           '</div>' +
         '</div>' +
 
