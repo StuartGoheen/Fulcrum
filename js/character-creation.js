@@ -274,7 +274,7 @@
       imageUrl: '/assets/phase1/10-shipboard-born.png',
       narrative: 'You were born between jumps, raised in the hold of a freighter, and taught to read a navcomputer before you could read Basic. Ships aren\u0027t transportation to you \u2014 they\u0027re the only home you\u0027ve ever had. The stars don\u0027t frighten you. The ground does.',
       svg: '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="20" width="80" height="55" rx="6"/><polyline points="10,40 28,28 72,28 90,40"/><line x1="50" y1="20" x2="50" y2="75"/><ellipse cx="50" cy="52" rx="14" ry="10"/><circle cx="50" cy="52" r="4" fill="currentColor"/></svg>',
-      _meta: { environment: 'deep-space-freighter', locationHints: ['Hydian Way corridor', 'Perlemian Trade Route', 'Kessel Run corridor', 'Ison Corridor'], tone: 'wanderlust, belonging, the void as home', themes: ['life in transit', 'found family', 'hyperspace routes'], favored: 'Piloting (Reflex)' },
+      _meta: { environment: 'deep-space-freighter', locationHints: ['Rishi', 'Vandor', 'Ring of Kafrene', 'Terminus', 'Burnin Konn'], tone: 'wanderlust, belonging, the void as home', themes: ['life in transit', 'found family', 'hyperspace routes'], favored: 'Piloting (Reflex)' },
     },
     {
       id: 'labor-camp',
@@ -2219,13 +2219,22 @@
         });
       }
 
+      // Build discipline display name map
+      var discDisplayNames = {};
+      DISCIPLINES_BY_ARENA.forEach(function (arena) {
+        arena.disciplines.forEach(function (d) {
+          discDisplayNames[d.id] = d.name;
+        });
+      });
+
       // Build formative disciplines (D8+)
       var discNames = [];
       if (state.discValues) {
         Object.keys(state.discValues).forEach(function (k) {
           var dv = state.discValues[k];
           if (dv === 'D8' || dv === 'D10' || dv === 'D12') {
-            discNames.push(k + ' (' + dv + ')');
+            var label = discDisplayNames[k] || k;
+            discNames.push(label + ' (' + dv + ')');
           }
         });
       }
