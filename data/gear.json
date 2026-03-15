@@ -249,7 +249,7 @@
       },
       {
         "name": "Electronic Disruption",
-        "description": "At Superior tier, electronic systems in the zone (doors, turrets, comms arrays) are shut down until manually reset, regardless of whether the targets were droids or organics."
+        "description": "At Legendary tier, electronic systems in the zone (doors, turrets, comms arrays) are shut down until manually reset, regardless of whether the targets were droids or organics."
       }
     ],
     "gambits": [
