@@ -2342,13 +2342,15 @@
     border-color: var(--color-accent-primary);
   }
 
-  .cc-screen {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 2rem 1rem 3rem;
-    width: 100%;
+  .cc-screen {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem 3rem;
+    width: 100%;
+    min-height: 0;
+    overflow: hidden;
   }
 
   .cc-screen.hidden {
@@ -5165,6 +5167,11 @@
     }
 
     /* ── Backstory Generator Screen ─────────────────────────────────────────── */
+
+    #screen-backstory {
+      overflow: hidden;
+      max-height: calc(100vh - 80px);
+    }
 
     .bs-layout {
       display: flex;
