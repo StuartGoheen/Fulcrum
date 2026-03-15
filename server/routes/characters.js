@@ -74,6 +74,34 @@ router.post('/session/join', (req, res) => {
   return res.json({ token, role });
 });
 
+router.post('/characters/save', (req, res) => {
+  const { name, character_data } = req.body;
+  if (!name || !character_data) {
+    return res.status(400).json({ error: 'name and character_data are required.' });
+  }
+  const dataStr = typeof character_data === 'string' ? character_data : JSON.stringify(character_data);
+
+  // Check for name collision with a different slot
+  const existing = db.prepare('SELECT id, name FROM characters WHERE name = ?').get(name);
+  if (existing) {
+    // Update the existing slot that already has this name
+    db.prepare('UPDATE characters SET character_data = ? WHERE id = ?').run(dataStr, existing.id);
+    return res.json({ ok: true, id: existing.id, action: 'updated' });
+  }
+
+  // Find the first slot with no character_data
+  const emptySlot = db.prepare('SELECT id FROM characters WHERE character_data IS NULL ORDER BY slot_index ASC LIMIT 1').get();
+  if (emptySlot) {
+    db.prepare('UPDATE characters SET name = ?, character_data = ? WHERE id = ?').run(name, dataStr, emptySlot.id);
+    return res.json({ ok: true, id: emptySlot.id, action: 'created' });
+  }
+
+  // No empty slots — insert a new one
+  const maxSlot = db.prepare('SELECT MAX(slot_index) as m FROM characters').get().m || 0;
+  const info = db.prepare('INSERT INTO characters (name, slot_index, character_data) VALUES (?, ?, ?)').run(name, maxSlot + 1, dataStr);
+  return res.json({ ok: true, id: info.lastInsertRowid, action: 'inserted' });
+});
+
 router.post('/admin/release-all', (req, res) => {
   db.prepare('DELETE FROM sessions').run();
   db.prepare('UPDATE characters SET session_id = NULL, connected_at = NULL').run();

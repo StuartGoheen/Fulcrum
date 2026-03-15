@@ -109,6 +109,27 @@ No text is baked into the images. All card titles, narratives, and symbols are r
 
 **Gemini AI backstory integration:** Phase 3 knacks and Phase combo selections (e.g. Purge Survivor + Shadow-Stalked + Prescient Kit) feed conditional logic in the Gemini backstory generator. See `_aiMeta.loreAnchors` on species objects and `_meta` on phase cards for the directive fields.
 
+## Destiny Selection + Backstory Generator
+
+Two new screens added after Kit selection (March 2026):
+
+**Destiny Selection (`screen-destiny`):** Player picks Two Light, Light & Dark, or Two Dark. Stored in `state.destiny`. This value seeds the group destiny pool and shapes the Gemini backstory tone.
+
+**Your Story (`screen-backstory`):** Form-based backstory generator.
+- Fields: Character Name (required, or "Generate for me"), Gender (Male/Female), Species (read-only), Title (optional or generated), optional player input textarea
+- Generate button fires only on click — never auto-fires (conserves API quota)
+- 5-second minimum display delay enforced via `Promise.all([fetch, 5s])`
+- 15-second Regenerate cooldown after each generation
+- Clipboard copy uses HTTP-safe fallback (`execCommand`) for local network
+- Gemini returns structured JSON (`{ backstory, name?, title? }`) via `responseMimeType: 'application/json'`
+- AbortController-style 25-second timeout via `Promise.race`; 429 shows friendly rate-limit message
+
+**Server route:** `POST /api/backstory/generate` in `server/routes/backstory.js`. Uses `@google/generative-ai` SDK. Requires `GEMINI_API_KEY` in Replit Secrets.
+
+**Save route:** `POST /api/characters/save` in `server/routes/characters.js`. Finds first empty slot or creates new. Called from "Confirm & Save" button in the summary overlay.
+
+**Character creation flow:** Species → Phase 1 → Phase 2 → Phase 3 → Arenas/Disciplines → Kits → **Destiny** → **Your Story** → Summary (Confirm & Save)
+
 ## Database
 
 SQLite database auto-created and seeded on first run at `db/campaign.db`.  

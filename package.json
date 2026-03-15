@@ -10,6 +10,7 @@
     "css:watch": "tailwindcss --config tailwind.config.js -i ./css/input.css -o ./public/css/output.css --watch"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.24.1",
     "better-sqlite3": "^9.4.3",
     "express": "^4.18.3",
     "socket.io": "^4.7.4"

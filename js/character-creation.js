@@ -678,6 +678,11 @@
     spentRegAdv:    0,
     enhancedAdvUsed: 0,
     kitChoices:      {},
+    destiny:         null,
+    charName:        '',
+    charTitle:       '',
+    charGender:      'Male',
+    backstory:       '',
   };
 
   var carouselState = {
@@ -1983,7 +1988,404 @@
 
   /* ── Summary overlay ────────────────────────────────────────────────────── */
 
-  function showSummary() {
+
+    /* ── Destiny Screen ──────────────────────────────────────────────────────── */
+
+    function initDestinyScreen() {
+      var tiles = document.querySelectorAll('.destiny-tile');
+      var continueBtn = document.getElementById('btn-destiny-continue');
+      var backBtn = document.getElementById('btn-back-to-kits');
+
+      // Restore any prior selection
+      tiles.forEach(function (tile) {
+        var val = tile.getAttribute('data-destiny');
+        tile.classList.toggle('selected', val === state.destiny);
+      });
+      if (continueBtn) continueBtn.disabled = !state.destiny;
+
+      // Only bind click once (check flag)
+      if (document.getElementById('screen-destiny').dataset.bound) return;
+      document.getElementById('screen-destiny').dataset.bound = '1';
+
+      tiles.forEach(function (tile) {
+        tile.addEventListener('click', function () {
+          tiles.forEach(function (t) { t.classList.remove('selected'); });
+          tile.classList.add('selected');
+          state.destiny = tile.getAttribute('data-destiny');
+          if (continueBtn) continueBtn.disabled = false;
+        });
+      });
+
+      if (continueBtn) {
+        continueBtn.addEventListener('click', function () {
+          showScreen('backstory');
+          initBackstoryScreen();
+        });
+      }
+
+      if (backBtn) {
+        backBtn.addEventListener('click', function () {
+          showScreen('kits');
+          updateStepTrack(5);
+        });
+      }
+    }
+
+    /* ── Backstory Screen ────────────────────────────────────────────────────── */
+
+    var _regen_cooldown = false;
+    var _regen_timer    = null;
+
+    function initBackstoryScreen() {
+      var screen = document.getElementById('screen-backstory');
+      if (!screen) return;
+
+      // Populate species display
+      var sp = SPECIES.find(function (s) { return s.id === state.species; });
+      var speciesEl = document.getElementById('bs-species-display');
+      if (speciesEl) speciesEl.textContent = sp ? sp.name : '—';
+
+      // Restore prior form values
+      var nameInput  = document.getElementById('bs-char-name');
+      var genNameChk = document.getElementById('bs-generate-name');
+      var genderSel  = document.getElementById('bs-gender');
+      var titleInput = document.getElementById('bs-char-title');
+      var playerIn   = document.getElementById('bs-player-input');
+      var genBtn     = document.getElementById('btn-generate-backstory');
+      var regenBtn   = document.getElementById('btn-regenerate');
+      var copyBtn    = document.getElementById('btn-copy-backstory');
+      var finalizeBtn = document.getElementById('btn-finalize-character');
+      var backBtn    = document.getElementById('btn-back-to-destiny');
+
+      if (nameInput && state.charName)   nameInput.value  = state.charName;
+      if (genderSel && state.charGender) genderSel.value  = state.charGender;
+      if (titleInput && state.charTitle) titleInput.value = state.charTitle;
+
+      // If we already have backstory, show it
+      if (state.backstory) {
+        showProseState(state.backstory);
+        if (regenBtn) regenBtn.disabled = _regen_cooldown;
+      }
+
+      updateGenBtn();
+
+      // Only bind once
+      if (screen.dataset.bound) return;
+      screen.dataset.bound = '1';
+
+      if (nameInput) {
+        nameInput.addEventListener('input', function () {
+          state.charName = nameInput.value.trim();
+          updateGenBtn();
+        });
+      }
+
+      if (genNameChk) {
+        genNameChk.addEventListener('change', function () {
+          if (nameInput) nameInput.disabled = genNameChk.checked;
+          updateGenBtn();
+        });
+      }
+
+      if (genderSel) {
+        genderSel.addEventListener('change', function () {
+          state.charGender = genderSel.value;
+        });
+      }
+
+      if (titleInput) {
+        titleInput.addEventListener('input', function () {
+          state.charTitle = titleInput.value.trim();
+        });
+      }
+
+      if (genBtn) {
+        genBtn.addEventListener('click', function () {
+          generateBackstory();
+        });
+      }
+
+      if (regenBtn) {
+        regenBtn.addEventListener('click', function () {
+          if (!_regen_cooldown) generateBackstory();
+        });
+      }
+
+      if (copyBtn) {
+        copyBtn.addEventListener('click', function () {
+          copyToClipboard(state.backstory);
+        });
+      }
+
+      if (finalizeBtn) {
+        finalizeBtn.addEventListener('click', function () {
+          showSummary();
+        });
+      }
+
+      if (backBtn) {
+        backBtn.addEventListener('click', function () {
+          showScreen('destiny');
+          initDestinyScreen();
+        });
+      }
+
+      function updateGenBtn() {
+        if (!genBtn) return;
+        var nameOk = (genNameChk && genNameChk.checked) || (nameInput && nameInput.value.trim().length > 0);
+        genBtn.disabled = !nameOk;
+      }
+    }
+
+    function showProseState(text) {
+      document.getElementById('bs-idle-state').classList.add('hidden');
+      document.getElementById('bs-loading-state').classList.add('hidden');
+      document.getElementById('bs-error-state').classList.add('hidden');
+      var proseEl = document.getElementById('bs-prose-state');
+      proseEl.classList.remove('hidden');
+      var contentEl = document.getElementById('bs-prose-content');
+      if (contentEl) contentEl.textContent = text;
+    }
+
+    function showLoadingState() {
+      document.getElementById('bs-idle-state').classList.add('hidden');
+      document.getElementById('bs-prose-state').classList.add('hidden');
+      document.getElementById('bs-error-state').classList.add('hidden');
+      document.getElementById('bs-loading-state').classList.remove('hidden');
+    }
+
+    function showErrorState(msg) {
+      document.getElementById('bs-idle-state').classList.add('hidden');
+      document.getElementById('bs-loading-state').classList.add('hidden');
+      document.getElementById('bs-prose-state').classList.add('hidden');
+      var errEl = document.getElementById('bs-error-state');
+      errEl.classList.remove('hidden');
+      var msgEl = document.getElementById('bs-error-msg');
+      if (msgEl) msgEl.textContent = msg;
+    }
+
+    function copyToClipboard(text) {
+      if (!text) return;
+      // HTTP-safe clipboard: try modern API, fall back to execCommand
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).catch(function () { execCopy(text); });
+      } else {
+        execCopy(text);
+      }
+    }
+
+    function execCopy(text) {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.left = '-9999px';
+      ta.style.top  = '-9999px';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      try { document.execCommand('copy'); } catch (_) {}
+      document.body.removeChild(ta);
+    }
+
+    function generateBackstory() {
+      var sp      = SPECIES.find(function (s) { return s.id === state.species; });
+      var p1card  = PHASE1_CARDS.find(function (c) { return c.id === state.phase1; });
+      var p2card  = PHASE2_CARDS.find(function (c) { return c.id === state.phase2; });
+      var p3card  = PHASE3_CARDS.find(function (c) { return c.id === state.phase3; });
+
+      var genNameChk = document.getElementById('bs-generate-name');
+      var nameInput  = document.getElementById('bs-char-name');
+      var genderSel  = document.getElementById('bs-gender');
+      var titleInput = document.getElementById('bs-char-title');
+      var playerIn   = document.getElementById('bs-player-input');
+      var regenBtn   = document.getElementById('btn-regenerate');
+      var genBtn     = document.getElementById('btn-generate-backstory');
+
+      var generateName  = genNameChk  ? genNameChk.checked  : false;
+      var characterName = nameInput   ? nameInput.value.trim()  : state.charName;
+      var gender        = genderSel   ? genderSel.value         : state.charGender || 'Male';
+      var charTitle     = titleInput  ? titleInput.value.trim() : state.charTitle;
+      var playerInput   = playerIn    ? playerIn.value.trim()   : '';
+
+      // Build kit list
+      var kitNames = [];
+      if (state.kitChoices) {
+        Object.keys(state.kitChoices).forEach(function (k) {
+          if (state.kitChoices[k]) kitNames.push(k + ' (Tier ' + state.kitChoices[k] + ')');
+        });
+      }
+
+      // Build top disciplines list (score >= 2)
+      var discNames = [];
+      if (state.discValues) {
+        Object.keys(state.discValues).forEach(function (k) {
+          if ((state.discValues[k] || 0) >= 2) discNames.push(k);
+        });
+      }
+
+      var payload = {
+        species: sp ? {
+          name:          sp.name,
+          biologicalTruth: sp.biologicalTruth ? sp.biologicalTruth.desc : '',
+          loreAnchors:   sp._aiMeta ? sp._aiMeta.loreAnchors.join('; ') : '',
+          directive:     sp._aiMeta ? sp._aiMeta.directives : '',
+        } : { name: 'Unknown', biologicalTruth: '', loreAnchors: '', directive: '' },
+        phase1: p1card ? {
+          title:       p1card.title,
+          narrative:   p1card.narrative,
+          environment: p1card._meta ? p1card._meta.environment : '',
+          tone:        p1card._meta ? p1card._meta.tone : '',
+          themes:      p1card._meta ? p1card._meta.themes.join(', ') : '',
+        } : { title: 'Unknown', narrative: '', environment: '', tone: '', themes: '' },
+        phase2: p2card ? {
+          title:       p2card.title,
+          narrative:   p2card.narrative,
+          environment: p2card._meta ? p2card._meta.environment : '',
+          tone:        p2card._meta ? p2card._meta.tone : '',
+          themes:      p2card._meta ? p2card._meta.themes ? p2card._meta.themes.join(', ') : p2card._meta.archetype || '' : '',
+        } : { title: 'Unknown', narrative: '', environment: '', tone: '', themes: '' },
+        phase3: p3card ? {
+          title:       p3card.title,
+          narrative:   p3card.narrative,
+          environment: p3card._meta ? p3card._meta.environment || '' : '',
+          tone:        p3card._meta ? p3card._meta.tone : '',
+          themes:      p3card._meta ? p3card._meta.themes ? p3card._meta.themes.join(', ') : p3card._meta.archetype || '' : '',
+        } : { title: 'Unknown', narrative: '', environment: '', tone: '', themes: '' },
+        kits:         kitNames,
+        disciplines:  discNames,
+        destiny:      state.destiny || 'Light & Dark',
+        gender:       gender,
+        generateName: generateName,
+        characterName: characterName,
+        generateTitle: !charTitle,
+        characterTitle: charTitle,
+        playerInput:  playerInput,
+      };
+
+      // Lock UI
+      if (genBtn) genBtn.disabled = true;
+      if (regenBtn) regenBtn.disabled = true;
+      showLoadingState();
+
+      // 5-second minimum display delay + fetch race
+      var fetchPromise = fetch('/api/backstory/generate', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify(payload),
+      }).then(function (r) { return r.json().then(function (d) { return { ok: r.ok, status: r.status, data: d }; }); });
+
+      var minDelay = new Promise(function (res) { setTimeout(res, 5000); });
+
+      Promise.all([fetchPromise, minDelay]).then(function (results) {
+        var res = results[0];
+        if (!res.ok) {
+          var errMsg = 'Generation failed. Try again.';
+          if (res.status === 429 || (res.data && res.data.error === 'rate_limit')) {
+            errMsg = 'The chronicler is busy — too many stories generating at once. Wait a moment and try again.';
+          } else if (res.status === 504 || (res.data && res.data.error === 'timeout')) {
+            errMsg = 'The chronicler went quiet. Check your connection and try regenerating.';
+          } else if (res.data && res.data.error) {
+            errMsg = res.data.error;
+          }
+          showErrorState(errMsg);
+          if (genBtn) genBtn.disabled = false;
+          if (regenBtn) regenBtn.disabled = false;
+          return;
+        }
+
+        var data = res.data;
+
+        // Fill in generated name/title
+        if (data.name) {
+          state.charName = data.name;
+          var nameInput2 = document.getElementById('bs-char-name');
+          if (nameInput2) nameInput2.value = data.name;
+        }
+        if (data.title) {
+          state.charTitle = data.title;
+          var titleInput2 = document.getElementById('bs-char-title');
+          if (titleInput2) titleInput2.value = data.title;
+        }
+        state.charGender = gender;
+        state.backstory  = data.backstory || '';
+
+        showProseState(state.backstory);
+        if (genBtn) genBtn.disabled = false;
+
+        // 15-second cooldown on regenerate
+        _regen_cooldown = true;
+        if (regenBtn) regenBtn.disabled = true;
+        clearTimeout(_regen_timer);
+        _regen_timer = setTimeout(function () {
+          _regen_cooldown = false;
+          if (regenBtn) regenBtn.disabled = false;
+        }, 15000);
+
+      }).catch(function (err) {
+        console.error('[backstory]', err);
+        showErrorState('Something went wrong. Check the server and try again.');
+        if (genBtn) genBtn.disabled = false;
+        if (regenBtn) regenBtn.disabled = false;
+      });
+    }
+
+    
+    /* ── Character Save ──────────────────────────────────────────────────────── */
+
+    function saveCharacterToDB() {
+      var saveName = state.charName && state.charName.trim() ? state.charName.trim() : null;
+      if (!saveName) {
+        var statusEl = document.getElementById('sum-save-status');
+        if (statusEl) { statusEl.textContent = 'Please set a character name on the Your Story screen first.'; statusEl.style.color = '#ef4444'; }
+        return;
+      }
+
+      var sp     = SPECIES.find(function (s) { return s.id === state.species; });
+      var p1card = PHASE1_CARDS.find(function (c) { return c.id === state.phase1; });
+      var p2card = PHASE2_CARDS.find(function (c) { return c.id === state.phase2; });
+      var p3card = PHASE3_CARDS.find(function (c) { return c.id === state.phase3; });
+
+      var charData = {
+        species:    sp   ? sp.name   : null,
+        archetype:  state.charTitle || null,
+        phase1:     p1card ? p1card.title : null,
+        phase2:     p2card ? p2card.title : null,
+        phase3:     p3card ? p3card.title : null,
+        destiny:    state.destiny,
+        gender:     state.charGender,
+        title:      state.charTitle,
+        backstory:  state.backstory,
+        kits:       state.kitChoices,
+        arenaAdj:   state.arenaAdj,
+        discValues: state.discValues,
+      };
+
+      var statusEl  = document.getElementById('sum-save-status');
+      var saveBtn   = document.getElementById('btn-sum-save');
+      if (statusEl) { statusEl.textContent = 'Saving…'; statusEl.style.color = 'var(--color-text-secondary)'; }
+      if (saveBtn)  saveBtn.disabled = true;
+
+      fetch('/api/characters/save', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ name: saveName, character_data: charData }),
+      })
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (data.ok) {
+          if (statusEl) { statusEl.textContent = 'Character saved! Head back to the home screen to connect.'; statusEl.style.color = '#22c55e'; }
+          if (saveBtn)  saveBtn.textContent = 'Saved ✓';
+        } else {
+          throw new Error(data.error || 'Save failed');
+        }
+      })
+      .catch(function (err) {
+        if (statusEl) { statusEl.textContent = 'Save failed: ' + err.message; statusEl.style.color = '#ef4444'; }
+        if (saveBtn)  { saveBtn.disabled = false; }
+      });
+    }
+
+      function showSummary() {
     var overlay = document.getElementById('cc-summary-overlay');
     if (!overlay) return;
     buildSummaryContent(overlay);
@@ -2041,6 +2443,27 @@
       sumRow('Knack',      p3._meta.knackName + ' (' + p3._meta.knackType + ')'),
       sumRow('Knack Desc', p3._meta.knack),
     ] : [sumRow('Status', 'Not selected')]));
+
+    body.appendChild(buildSumSection('Character Identity', [
+      sumRow('Name',    state.charName  || '(not set)'),
+      sumRow('Title',   state.charTitle || '(not set)'),
+      sumRow('Gender',  state.charGender || '(not set)'),
+      sumRow('Destiny', state.destiny   || '(not set)'),
+    ]));
+
+    if (state.backstory) {
+      var bsSection = document.createElement('div');
+      bsSection.className = 'sum-section';
+      var bsHead = document.createElement('h3');
+      bsHead.className = 'sum-section-title';
+      bsHead.textContent = 'Generated Backstory';
+      bsSection.appendChild(bsHead);
+      var bsPara = document.createElement('p');
+      bsPara.style.cssText = 'font-size:0.52rem;line-height:1.8;color:var(--color-text-primary);white-space:pre-wrap;padding:0.25rem 0;';
+      bsPara.textContent = state.backstory;
+      bsSection.appendChild(bsPara);
+      body.appendChild(bsSection);
+    }
   }
 
   function buildSumSection(title, rows) {
@@ -2208,7 +2631,8 @@
     var kitsContinue = document.getElementById('btn-kits-continue');
     if (kitsContinue) {
       kitsContinue.addEventListener('click', function () {
-        showSummary();
+        showScreen('destiny');
+        initDestinyScreen();
       });
     }
 
@@ -2217,6 +2641,11 @@
       statsContinue.addEventListener('click', function () {
         initKitsScreen();
       });
+    }
+
+    var sumSaveBtn = document.getElementById('btn-sum-save');
+    if (sumSaveBtn) {
+      sumSaveBtn.addEventListener('click', function () { saveCharacterToDB(); });
     }
 
     var sumClose = document.getElementById('btn-sum-close');

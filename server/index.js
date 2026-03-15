@@ -8,6 +8,7 @@ require('./db');
 const characterRoutes = require('./routes/characters');
 const campaignRoutes  = require('./routes/campaign');
 const equipmentRoutes = require('./routes/equipment');
+const backstoryRoutes = require('./routes/backstory');
 const socketHandlers  = require('./sockets/handlers');
 
 const app    = express();
@@ -27,6 +28,7 @@ app.use('/assets', express.static(path.join(ROOT, 'assets')));
 app.use('/api', characterRoutes);
 app.use('/api', campaignRoutes);
 app.use('/api', equipmentRoutes);
+app.use('/api', backstoryRoutes);
 
 app.get('/gm',    (req, res) => res.redirect('/gm/'));
 app.get('/gm/',   (req, res) => res.sendFile(path.join(ROOT, 'public', 'gm', 'index.html')));

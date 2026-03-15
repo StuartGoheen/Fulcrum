@@ -106,7 +106,7 @@
       <div id="kits-content" class="cc-stats-step-content"></div>
       <div class="cc-stats-nav-row">
         <button id="btn-back-to-stats" class="cc-back-btn-text">&larr; Arenas &amp; Disciplines</button>
-        <button id="btn-kits-continue" class="cc-btn-stats-continue" disabled>Review Character &rarr;</button>
+        <button id="btn-kits-continue" class="cc-btn-stats-continue" disabled>Choose Destiny &rarr;</button>
       </div>
     </div>
 
@@ -124,7 +124,108 @@
       </div>
     </div>
 
-        <footer class="text-center py-4 text-xs" style="color:var(--color-text-secondary);border-top:1px solid var(--color-border);">
+
+      <!-- Screen: Destiny Selection -->
+      <div id="screen-destiny" class="cc-screen hidden">
+        <div class="cc-screen-head ph-screen-head">
+          <p class="cc-step-label">Your Destiny</p>
+          <p class="cc-screen-sub">Choose your starting contribution to the destiny pool. This reflects where you stand with the Force &mdash; not what side you fight for, but what you carry.</p>
+        </div>
+        <div class="destiny-choice-grid">
+          <button class="destiny-tile" data-destiny="Two Light">
+            <span class="destiny-tile-symbol">&#9711;&#9711;</span>
+            <span class="destiny-tile-name">Two Light</span>
+            <span class="destiny-tile-desc">You still believe the galaxy can be better. The Force has not finished with you.</span>
+          </button>
+          <button class="destiny-tile" data-destiny="Light &amp; Dark">
+            <span class="destiny-tile-symbol">&#9711;&#9679;</span>
+            <span class="destiny-tile-name">Light &amp; Dark</span>
+            <span class="destiny-tile-desc">You do what you must. The line between right and wrong shifts with the job.</span>
+          </button>
+          <button class="destiny-tile" data-destiny="Two Dark">
+            <span class="destiny-tile-symbol">&#9679;&#9679;</span>
+            <span class="destiny-tile-name">Two Dark</span>
+            <span class="destiny-tile-desc">You've made your peace with what it takes. The galaxy owes you, not the other way around.</span>
+          </button>
+        </div>
+        <div class="cc-stats-nav-row">
+          <button id="btn-back-to-kits" class="cc-back-btn-text">&larr; Starting Kits</button>
+          <button id="btn-destiny-continue" class="cc-btn-stats-continue" disabled>Your Story &rarr;</button>
+        </div>
+      </div>
+
+      <!-- Screen: Your Story (Backstory Generator) -->
+      <div id="screen-backstory" class="cc-screen hidden">
+        <div class="cc-screen-head ph-screen-head">
+          <p class="cc-step-label">Your Story</p>
+          <p class="cc-screen-sub">Fill in the details below and generate your character&rsquo;s backstory. Generation is optional &mdash; you can finalize anytime.</p>
+        </div>
+
+        <div class="bs-layout">
+          <!-- Form -->
+          <div class="bs-form">
+            <div class="bs-form-row">
+              <label class="bs-label" for="bs-char-name">Character Name</label>
+              <div class="bs-name-wrap">
+                <input id="bs-char-name" class="bs-input" type="text" placeholder="Enter name&hellip;" autocomplete="off" />
+                <label class="bs-checkbox-label">
+                  <input id="bs-generate-name" type="checkbox" />
+                  <span>Generate a name for me</span>
+                </label>
+              </div>
+            </div>
+            <div class="bs-form-row">
+              <label class="bs-label" for="bs-gender">Gender</label>
+              <select id="bs-gender" class="bs-select">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+            </div>
+            <div class="bs-form-row">
+              <span class="bs-label">Species</span>
+              <span id="bs-species-display" class="bs-static-value">—</span>
+            </div>
+            <div class="bs-form-row">
+              <label class="bs-label" for="bs-char-title">Title <span class="bs-optional">(optional)</span></label>
+              <input id="bs-char-title" class="bs-input" type="text" placeholder="Drifter, Fallen Jedi, Imperial Defector&hellip; leave blank to generate" autocomplete="off" />
+            </div>
+            <div class="bs-form-row bs-form-row--tall">
+              <label class="bs-label" for="bs-player-input">Anything specific to include? <span class="bs-optional">(optional)</span></label>
+              <textarea id="bs-player-input" class="bs-textarea" placeholder="A grudge, a scar, a secret, a name from the past&hellip;"></textarea>
+            </div>
+            <div class="bs-actions">
+              <button id="btn-generate-backstory" class="bs-generate-btn" disabled>Generate Backstory</button>
+            </div>
+          </div>
+
+          <!-- Output -->
+          <div class="bs-output" id="bs-output">
+            <div class="bs-output-idle" id="bs-idle-state">
+              <p>Fill in your details and hit Generate to write your story.</p>
+            </div>
+            <div class="bs-loading hidden" id="bs-loading-state">
+              <span class="bs-loading-pulse">The chronicler writes&hellip;</span>
+            </div>
+            <div class="bs-error hidden" id="bs-error-state">
+              <p id="bs-error-msg"></p>
+            </div>
+            <div class="bs-prose hidden" id="bs-prose-state">
+              <div id="bs-prose-content" class="bs-prose-content"></div>
+              <div class="bs-prose-actions">
+                <button id="btn-regenerate" class="bs-secondary-btn" disabled>Regenerate</button>
+                <button id="btn-copy-backstory" class="bs-secondary-btn">Copy</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cc-stats-nav-row">
+          <button id="btn-back-to-destiny" class="cc-back-btn-text">&larr; Destiny</button>
+          <button id="btn-finalize-character" class="cc-btn-stats-continue">Finalize Character &rarr;</button>
+        </div>
+      </div>
+  
+            <footer class="text-center py-4 text-xs" style="color:var(--color-text-secondary);border-top:1px solid var(--color-border);">
       <span class="tracking-widest uppercase">Edge of the Empire &mdash; Character Creation</span>
     </footer>
 
@@ -141,6 +242,10 @@
         <button id="btn-sum-close" class="sum-close" title="Close">&times;</button>
       </div>
       <div class="sum-body"></div>
+      <div class="sum-footer">
+        <p id="sum-save-status" class="sum-save-status"></p>
+        <button id="btn-sum-save" class="sum-save-btn">Confirm &amp; Save Character</button>
+      </div>
     </div>
   </div>
 
