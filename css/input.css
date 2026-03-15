@@ -1401,6 +1401,38 @@
     letter-spacing: 0.03em;
   }
 
+  .char-kit-locked-details {
+    border-top: 1px dashed var(--color-border);
+    margin-top: 2px;
+  }
+
+  .char-kit-locked-summary {
+    font-family: "Audiowide", sans-serif;
+    font-size: 0.40rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    padding: 4px 6px;
+    cursor: pointer;
+    user-select: none;
+    list-style: none;
+  }
+
+  .char-kit-locked-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .char-kit-locked-summary::before {
+    content: "B8";
+    margin-right: 4px;
+    display: inline-block;
+    transition: transform 0.2s ease;
+  }
+
+  .char-kit-locked-details[open] > .char-kit-locked-summary::before {
+    transform: rotate(90deg);
+  }
+
   /* ── Armor Panel ──────────────────────────────────────────────────────────── */
   .armor-card {
     border: 1px solid var(--color-border);
@@ -4849,6 +4881,83 @@
   font-size: 0.54rem;
   color: var(--color-text-secondary);
   letter-spacing: 0.04em;
+}
+
+/* -- Collapsible sections -------------------------------------------- */
+.dp-section-header {
+  cursor: pointer;
+  user-select: none;
+}
+
+.dp-section-chevron {
+  font-size: 0.5rem;
+  color: var(--color-text-muted);
+  transition: transform 0.2s ease;
+  margin-left: 4px;
+  display: inline-block;
+}
+
+.dp-section--collapsed .dp-section-chevron {
+  transform: rotate(-90deg);
+}
+
+.dp-section--collapsed > *:not(.dp-section-header) {
+  display: none;
+}
+
+/* -- Kit locked abilities details ------------------------------------ */
+.dp-kit-locked-details {
+  border-top: 1px dashed var(--color-border);
+  margin-top: 2px;
+}
+
+.dp-kit-locked-summary {
+  font-family: "Audiowide", sans-serif;
+  font-size: 0.42rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  padding: 5px 8px;
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
+}
+
+.dp-kit-locked-summary::-webkit-details-marker {
+  display: none;
+}
+
+.dp-kit-locked-summary::before {
+  content: "B8";
+  margin-right: 5px;
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.dp-kit-locked-details[open] > .dp-kit-locked-summary::before {
+  transform: rotate(90deg);
+}
+
+.dp-ability-row--locked {
+  opacity: 0.4;
+}
+
+.dp-ability-tier-mark--locked {
+  color: var(--color-text-muted);
+  border-color: var(--color-border);
+}
+
+.dp-ability-type--locked {
+  opacity: 0.5;
+}
+
+.dp-ability-name--locked {
+  color: var(--color-text-muted);
+}
+
+.dp-ability-rule--locked {
+  color: var(--color-text-muted);
+  font-style: italic;
 }
 
 /* ── Species details ─────────────────────────────────────────────────────── */

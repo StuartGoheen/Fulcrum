@@ -35,7 +35,10 @@
     header.className = 'dp-section-header';
     header.innerHTML =
       '<span class="dp-section-label">Species</span>' +
+      '<span class="dp-section-chevron">&#9662;</span>' +
       '<span class="dp-section-name">' + _esc(char.species || '—') + '</span>';
+    header.style.cursor = 'pointer';
+    header.addEventListener('click', function () { wrap.classList.toggle('dp-section--collapsed'); });
     wrap.appendChild(header);
 
     if (!sp) {
@@ -166,6 +169,10 @@
     var abWrap = document.createElement('div');
     abWrap.className = 'dp-kit-abilities';
 
+    var lockedAbilities = (kit.abilities || []).filter(function (ab) {
+      return ab.tier > unlockedTier;
+    });
+
     abilities.forEach(function (ab) {
       var row = document.createElement('div');
       row.className = 'dp-ability-row';
@@ -244,6 +251,55 @@
     });
 
     card.appendChild(abWrap);
+
+    if (lockedAbilities.length > 0) {
+      var details = document.createElement('details');
+      details.className = 'dp-kit-locked-details';
+
+      var summary = document.createElement('summary');
+      summary.className = 'dp-kit-locked-summary';
+      summary.textContent = lockedAbilities.length + ' locked tier ' + (unlockedTier + 1 <= 3 ? (unlockedTier + 1) + (unlockedTier + 2 <= 3 ? '–3' : '') : '') + ' abilities';
+      details.appendChild(summary);
+
+      lockedAbilities.forEach(function (ab) {
+        var row = document.createElement('div');
+        row.className = 'dp-ability-row dp-ability-row--locked';
+
+        var badgeCol = document.createElement('div');
+        badgeCol.className = 'dp-ability-badge-col';
+
+        var tierMark = document.createElement('div');
+        tierMark.className = 'dp-ability-tier-mark dp-ability-tier-mark--locked';
+        tierMark.textContent = 'T' + ab.tier;
+        badgeCol.appendChild(tierMark);
+
+        var typeBadge = document.createElement('div');
+        var isGambit  = ab.type === 'gambit';
+        typeBadge.className = 'dp-ability-type-badge dp-ability-type-' + _esc(ab.type || 'passive') + ' dp-ability-type--locked';
+        typeBadge.textContent = isGambit ? 'Gambit' : 'Passive';
+        badgeCol.appendChild(typeBadge);
+        row.appendChild(badgeCol);
+
+        var bodyCol = document.createElement('div');
+        bodyCol.className = 'dp-ability-body';
+
+        var abilityName = document.createElement('div');
+        abilityName.className = 'dp-ability-name dp-ability-name--locked';
+        abilityName.textContent = ab.name;
+        bodyCol.appendChild(abilityName);
+
+        var rule = document.createElement('div');
+        rule.className = 'dp-ability-rule dp-ability-rule--locked';
+        rule.textContent = ab.rule;
+        bodyCol.appendChild(rule);
+
+        row.appendChild(bodyCol);
+        details.appendChild(row);
+      });
+
+      card.appendChild(details);
+    }
+
     return card;
   }
 
@@ -257,7 +313,10 @@
 
     var header = document.createElement('div');
     header.className = 'dp-section-header';
-    header.innerHTML = '<span class="dp-section-label">Background</span>';
+    header.innerHTML = '<span class="dp-section-label">Background</span>' +
+      '<span class="dp-section-chevron">&#9662;</span>';
+    header.style.cursor = 'pointer';
+    header.addEventListener('click', function () { wrap.classList.toggle('dp-section--collapsed'); });
     wrap.appendChild(header);
 
     var text = document.createElement('p');
@@ -304,7 +363,10 @@
       kitsHeader.className = 'dp-section-header';
       kitsHeader.innerHTML =
         '<span class="dp-section-label">Kits</span>' +
+        '<span class="dp-section-chevron">&#9662;</span>' +
         '<span class="dp-section-name">' + kits.length + ' equipped</span>';
+      kitsHeader.style.cursor = 'pointer';
+      kitsHeader.addEventListener('click', function () { kitsSection.classList.toggle('dp-section--collapsed'); });
       kitsSection.appendChild(kitsHeader);
 
       kits.forEach(function (kit) {
@@ -320,8 +382,16 @@
   // ─── Init ──────────────────────────────────────────────────────────────────
 
   function init() {
+    var session = null;
+    try { session = JSON.parse(sessionStorage.getItem('eote-session')); } catch (_) {}
+    var charId = session && session.characterId;
+    if (!charId) {
+      console.error('[DetailsPanel] No character session.');
+      return;
+    }
+
     Promise.all([
-      fetch('/data/character-test.json').then(function (r) { return r.json(); }),
+      fetch('/api/characters/' + charId).then(function (r) { return r.json(); }),
       fetch('/data/species.json').then(function (r) { return r.json(); }).catch(function () { return null; }),
     ]).then(function (results) {
       buildDetailsPanel(results[0], results[1]);

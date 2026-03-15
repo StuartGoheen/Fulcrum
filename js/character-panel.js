@@ -392,15 +392,18 @@
       var kit = kits[ki];
       var unlockedTier = kit.tier || 0;
       var abilities = kit.abilities || [];
+      var unlockedAbs = [];
+      var lockedAbs = [];
       for (var ai = 0; ai < abilities.length; ai++) {
-        var ab = abilities[ai];
-        var isLocked = ab.tier > unlockedTier;
-        var lockedClass = isLocked ? ' char-kit-ability--locked' : '';
-        var lockIcon = isLocked ? '<span class="kit-lock-icon">&#9675;</span>' : '';
+        if (abilities[ai].tier > unlockedTier) lockedAbs.push(abilities[ai]);
+        else unlockedAbs.push(abilities[ai]);
+      }
+      for (var ui = 0; ui < unlockedAbs.length; ui++) {
+        var ab = unlockedAbs[ui];
         var typeLabel = ab.type === 'gambit' ? 'Gambit' : 'Passive';
         var typeClass = ab.type === 'gambit' ? 'char-engine-ability--gambit' : 'char-engine-ability--passive';
         var actionBonusHtml = '';
-        if (ab.actionBonus && !isLocked) {
+        if (ab.actionBonus) {
           var bonus = ab.actionBonus;
           var parts = [];
           if (bonus.action) parts.push('Action ' + (bonus.action > 0 ? '+' : '') + bonus.action);
@@ -411,23 +414,41 @@
           }
         }
         var gambitHtml = '';
-        if (ab.type === 'gambit' && !isLocked) {
+        if (ab.type === 'gambit') {
           var gParts = [];
           if (ab.cost) gParts.push('<span class="kit-gambit-label">Cost:</span> ' + _esc(ab.cost));
           if (ab.buyoff) gParts.push('<span class="kit-gambit-label">Buyoff:</span> ' + _esc(ab.buyoff));
           if (gParts.length) gambitHtml = '<div class="kit-gambit-details">' + gParts.join(' &mdash; ') + '</div>';
         }
         kitsHtml +=
-          '<div class="char-engine-ability ' + typeClass + ' char-kit-ability' + lockedClass + '">' +
+          '<div class="char-engine-ability ' + typeClass + ' char-kit-ability">' +
             '<div class="char-engine-ability-header">' +
               '<span class="char-engine-ability-type">' + typeLabel + ' · ' + _esc(kit.name) + '</span>' +
-              '<span class="char-engine-ability-name">' + lockIcon + _esc(ab.name) + '</span>' +
-              '<span class="char-engine-ability-cost kit-tier-badge' + (isLocked ? ' kit-tier-badge--locked' : '') + '">T' + ab.tier + '</span>' +
+              '<span class="char-engine-ability-name">' + _esc(ab.name) + '</span>' +
+              '<span class="char-engine-ability-cost kit-tier-badge">T' + ab.tier + '</span>' +
             '</div>' +
-            (isLocked
-              ? '<div class="char-engine-ability-rule char-kit-locked-hint">Unlocks at Tier ' + ab.tier + '</div>'
-              : '<div class="char-engine-ability-rule">' + _esc(ab.rule) + '</div>' + actionBonusHtml + gambitHtml) +
+            '<div class="char-engine-ability-rule">' + _esc(ab.rule) + '</div>' + actionBonusHtml + gambitHtml +
           '</div>';
+      }
+      if (lockedAbs.length > 0) {
+        var nextTier = unlockedTier + 1;
+        var tierRange = nextTier <= 3 ? (nextTier + (nextTier + 1 <= 3 ? '–3' : '')) : '';
+        kitsHtml += '<details class="char-kit-locked-details">';
+        kitsHtml += '<summary class="char-kit-locked-summary">' + lockedAbs.length + ' locked T' + tierRange + ' abilities</summary>';
+        for (var li = 0; li < lockedAbs.length; li++) {
+          var lab = lockedAbs[li];
+          var lTypeLabel = lab.type === 'gambit' ? 'Gambit' : 'Passive';
+          kitsHtml +=
+            '<div class="char-engine-ability char-kit-ability char-kit-ability--locked">' +
+              '<div class="char-engine-ability-header">' +
+                '<span class="char-engine-ability-type">' + lTypeLabel + ' · ' + _esc(kit.name) + '</span>' +
+                '<span class="char-engine-ability-name">' + _esc(lab.name) + '</span>' +
+                '<span class="char-engine-ability-cost kit-tier-badge kit-tier-badge--locked">T' + lab.tier + '</span>' +
+              '</div>' +
+              '<div class="char-engine-ability-rule char-kit-locked-hint">Unlocks at Tier ' + lab.tier + '</div>' +
+            '</div>';
+        }
+        kitsHtml += '</details>';
       }
     }
 
