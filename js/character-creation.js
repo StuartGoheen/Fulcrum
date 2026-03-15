@@ -202,7 +202,7 @@
       imageUrl: '/assets/phase1/02-shadowed-levels.png',
       narrative: 'You were raised in the underlevels — where the lights of the upper city are just a rumor and debts are paid in blood or service. You learned to read people before you could read a holomap, and you know that every deal has a hidden clause. Trust is a currency you spend carefully.',
       svg: '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none" stroke-width="4" stroke-linejoin="round"><polygon points="50,10 85,30 85,70 50,90 15,70 15,30"/><polygon points="50,22 75,37 75,63 50,78 25,63 25,37"/><rect x="42" y="40" width="16" height="20"/><line x1="42" y1="45" x2="58" y2="45"/><line x1="42" y1="55" x2="58" y2="55"/></svg>',
-      _meta: { environment: 'urban-underworld', locationHints: ['Nar Shaddaa', 'Ord Mantell', 'Daiyu', 'Corellia lower districts', 'Nal Hutta'], tone: 'cunning, distrust, survival by wit', themes: ['class divide', 'criminal networks', 'street smarts'], favored: 'Stealth (Reflex)' },
+      _meta: { environment: 'urban-underworld', locationHints: ['Nar Shaddaa', 'Ord Mantell', 'Daiyu', 'Corellia', 'Nal Hutta'], tone: 'cunning, distrust, survival by wit', themes: ['class divide', 'criminal networks', 'street smarts'], favored: 'Stealth (Reflex)' },
     },
     {
       id: 'salvage-yards',
@@ -265,7 +265,7 @@
       imageUrl: '/assets/phase1/09-detention-block.png',
       narrative: 'You were born into a cage — not always made of durasteel. Labor camp, indentured service, political imprisonment, or simply the wrong bloodline at the wrong time. The Empire taught you exactly what it was through direct experience. Freedom, when it came, felt like a weapon handed to you.',
       svg: '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none" stroke-width="4" stroke-linecap="round"><rect x="15" y="14" width="70" height="72"/><line x1="30" y1="14" x2="30" y2="86"/><line x1="45" y1="14" x2="45" y2="86"/><line x1="60" y1="14" x2="60" y2="86"/><line x1="75" y1="14" x2="75" y2="86"/><circle cx="8" cy="50" r="6"/><line x1="14" y1="50" x2="15" y2="50" stroke-width="3"/></svg>',
-      _meta: { environment: 'imperial-detention', locationHints: ['Wobani', 'Kessel', 'Stygeon Prime', 'Kashyyyk labor zones', 'Naraka'], tone: 'defiance, trauma, hard-won freedom', themes: ['forced labor', 'Imperial oppression', 'escape and survival'], favored: 'Endure (Physique)' },
+      _meta: { environment: 'imperial-detention', locationHints: ['Wobani', 'Kessel', 'Stygeon Prime', 'Kashyyyk', 'Naraka'], tone: 'defiance, trauma, hard-won freedom', themes: ['forced labor', 'Imperial oppression', 'escape and survival'], favored: 'Endure (Physique)' },
     },
     {
       id: 'shipboard-born',
@@ -292,7 +292,7 @@
       imageUrl: '/assets/phase1/12-enclave.png',
       narrative: 'You were raised inside something closed \u2014 a religious order, a hidden commune, a survivalist sect, or the remnant of an ancient tradition that survived by going silent. Inside, there was belonging and purpose. Outside was danger. When you finally crossed the threshold, the galaxy felt enormous and hostile in equal measure.',
       svg: '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><circle cx="50" cy="50" r="38"/><circle cx="50" cy="50" r="26"/><circle cx="50" cy="50" r="14"/><circle cx="50" cy="50" r="4" fill="currentColor"/><line x1="50" y1="12" x2="50" y2="24"/><line x1="50" y1="76" x2="50" y2="88"/><line x1="12" y1="50" x2="24" y2="50"/><line x1="76" y1="50" x2="88" y2="50"/></svg>',
-      _meta: { environment: 'hidden-community', locationHints: ['Jedha holy quarter', 'Bardotta', 'Lothal hinterlands', 'Atollon', 'Lira San'], tone: 'belonging, isolation, threshold crossing', themes: ['tradition and heresy', 'secret knowledge', 'cult of community'], favored: 'Charm (Presence)' },
+      _meta: { environment: 'hidden-community', locationHints: ['Jedha', 'Bardotta', 'Lothal', 'Atollon', 'Lira San'], tone: 'belonging, isolation, threshold crossing', themes: ['tradition and heresy', 'secret knowledge', 'cult of community'], favored: 'Charm (Presence)' },
     },
   ];
 
