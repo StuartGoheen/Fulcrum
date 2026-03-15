@@ -43,6 +43,26 @@ db.exec(`
     role          TEXT    NOT NULL,
     connected_at  DATETIME DEFAULT CURRENT_TIMESTAMP
   );
+
+  CREATE TABLE IF NOT EXISTS campaign_progress (
+    id             INTEGER PRIMARY KEY CHECK (id = 1),
+    adventure_id   TEXT    NOT NULL DEFAULT 'adv1',
+    part_id        TEXT    NOT NULL DEFAULT 'adv1-p1',
+    scene_id       TEXT    NOT NULL DEFAULT 'adv1-p1-s1',
+    updated_at     DATETIME DEFAULT CURRENT_TIMESTAMP
+  );
+
+  CREATE TABLE IF NOT EXISTS scene_completion (
+    scene_id       TEXT    PRIMARY KEY,
+    completed      INTEGER NOT NULL DEFAULT 0,
+    completed_at   DATETIME,
+    gm_notes       TEXT
+  );
+`);
+
+db.exec(`
+  INSERT OR IGNORE INTO campaign_progress (id, adventure_id, part_id, scene_id)
+  VALUES (1, 'adv1', 'adv1-p1', 'adv1-p1-s1')
 `);
 
 const existingCols = db.pragma('table_info(characters)').map(c => c.name);

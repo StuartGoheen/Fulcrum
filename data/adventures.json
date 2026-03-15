@@ -1,0 +1,866 @@
+{
+  "adventures": [
+    {
+      "id": "adv1",
+      "number": 1,
+      "title": "The Traitor's Gambit",
+      "act": 1,
+      "summary": "The heroes are drawn into a bar brawl on Jakku, discover a stolen Imperial code cylinder, rescue a frozen accountant, and break Admiral Varth out of a jungle prison — all for the promise of a stolen fortune.",
+      "parts": [
+        {
+          "id": "adv1-p1",
+          "number": 1,
+          "title": "The Jakku Job",
+          "scenes": [
+            {
+              "id": "adv1-p1-s1",
+              "number": 1,
+              "title": "Bad Business at Sienar's Regret",
+              "subtitle": "In Media Res",
+              "readAloud": "The blast doors of the cantina hiss open violently, admitting the blinding white glare of the Jakku sun. A young human woman — disheveled, clutching a datapad to her chest — bursts in. She scans the room with desperate eyes, spots your table, and sprints toward you. She hooks her foot on a chair leg and crashes into your table, sending drinks and credits scattering across the floor.\n\nBefore you can react, her pursuers storm in: a heavy-set Weequay and two Kyuzo enforcers wearing wide-brimmed war helms, blasters drawn. They see the woman cowering behind you and make a fatal assumption. The Weequay barks a threat in Huttese and raises a heavy vibro-ax.",
+              "gmNotes": "This is the campaign's inciting incident. The thugs are shooting to kill, forcing the heroes to defend themselves. Maya intentionally dragged the heroes into this — she used them as a shield. After the fight, she offers a business proposition, not a noble speech. She has stolen an encrypted Imperial Code Cylinder from Darga the Hutt's operation and claims it leads to a stash of embezzled credits. She needs the heroes to help decrypt it in exchange for a cut.",
+              "npcs": [
+                { "name": "Maya", "type": "Human Grifter", "count": 1, "notes": "Desperate but calculating. She used the heroes as muscle." },
+                { "name": "Weequay Enforcer", "type": "Standard Thug", "count": 1, "notes": "Darga's local muscle." },
+                { "name": "Kyuzo Enforcers", "type": "Standard Thug", "count": 2, "notes": "Wearing wide-brimmed war helms. Armed with blasters." }
+              ],
+              "hazards": "Cantina environment — overturned tables, broken glass, panicking patrons. Dim lighting from failing glow-rods.",
+              "decisions": [
+                { "choice": "Help Maya fight the thugs", "consequence": "The heroes are now entangled in a heist. Maya offers the Code Cylinder job." },
+                { "choice": "Try to stay out of it", "consequence": "The thugs assume the heroes are Maya's muscle regardless — combat is unavoidable." }
+              ],
+              "loreTags": ["Darga the Hutt", "Jakku", "The Code Cylinder", "Maya"],
+              "narrativeLinks": [
+                { "targetScene": "adv2-p1-s1", "note": "Darga's enforcers here foreshadow the full encounter with his organization on Takodana." }
+              ]
+            },
+            {
+              "id": "adv1-p1-s2",
+              "number": 2,
+              "title": "The Processor",
+              "readAloud": "Maya leads you out of the outpost and into the Starship Graveyard. You navigate through the ribs of fallen capital ships and dunes of rust until you reach a subterranean bunker built from buried shipping containers.\n\nInside is a technological cave — wires hang from the ceiling like vines, the floor is a carpet of droid parts. But in the center of the filth sits a pristine, priceless desk of Japor ivory wood. Behind it, a protocol droid who has clearly forgone memory wipes for decades regards you with an unsettling intelligence.",
+              "gmNotes": "Switch is a crime lord and information broker, not an ally — he is a businessman holding all the cards. He agrees to decrypt the cylinder for a cut. The decryption reveals a twist: the cylinder doesn't contain vault coordinates. It contains a shipping manifest for a 'biological asset' (The Accountant) currently held in a local warlord's hangar. Switch should feel dangerous and calculating despite his droid body.",
+              "npcs": [
+                { "name": "Switch", "type": "Protocol Droid Crime Lord", "count": 1, "notes": "Decades without memory wipes. Sits behind a priceless Japor ivory desk. A businessman, not an ally." }
+              ],
+              "hazards": "Cramped underground bunker. Motion sensors active.",
+              "decisions": [
+                { "choice": "Accept Switch's terms for the decryption", "consequence": "The cylinder is decrypted, revealing The Accountant's location." },
+                { "choice": "Try to double-cross Switch", "consequence": "Switch has security turrets and backup. Extremely dangerous." }
+              ],
+              "loreTags": ["Switch", "The Code Cylinder", "The Accountant", "Jakku"],
+              "narrativeLinks": [
+                { "targetScene": "adv2-p2-s2", "note": "Switch's agent TC-663 appears in Darga's court — connected through Switch's intelligence network." }
+              ]
+            },
+            {
+              "id": "adv1-p1-s3",
+              "number": 3,
+              "title": "The Gangster's Revenge",
+              "readAloud": "The bunker's motion sensors scream. Before you can react, the hatch above explodes inward. Standing in the smoking frame is a massive Chevin — Ganga Lor, Darga the Hutt's lieutenant. His trunk curls with fury as he levels a heavy blaster at the room.\n\n\"Nobody steals from the Mighty Darga,\" he growls, his voice like grinding stone. \"Not the girl. Not the droid. And definitely not you.\"",
+              "gmNotes": "Ganga Lor wants to make an example of everyone involved to maintain Darga's reputation. The fight takes place in cramped quarters — use the environment: toppling droid part stacks, shooting steam pipes, activating Switch's security turrets. After defeating Ganga Lor, Switch finishes the analysis and reveals The Accountant: an Imperial logistics officer frozen in carbonite, held at the Niima Landing Field, waiting for Imperial pickup.",
+              "npcs": [
+                { "name": "Ganga Lor", "type": "Chevin Lieutenant", "count": 1, "notes": "Darga's enforcer. Massive, trunked alien. Wants to make an example." },
+                { "name": "Enforcers", "type": "Standard Thugs", "count": 4, "notes": "Ganga Lor's backup." }
+              ],
+              "hazards": "Cramped bunker — collapsing droid stacks, steam pipes, Switch's security turrets can be activated as environmental weapons.",
+              "decisions": [
+                { "choice": "Fight Ganga Lor head-on", "consequence": "Brutal close-quarters combat. Environmental hazards are key." },
+                { "choice": "Use Switch's turrets against the attackers", "consequence": "Switch may help if his life is threatened — but he'll charge for it later." }
+              ],
+              "loreTags": ["Darga the Hutt", "Ganga Lor", "The Accountant", "Project Leviathan"],
+              "narrativeLinks": []
+            },
+            {
+              "id": "adv1-p1-s4",
+              "number": 4,
+              "title": "The Heist",
+              "readAloud": "The Niima Landing Field is a militarized zone on the outskirts of the outpost. Through your macrobinoculars, you see the hangar — and your first true sign of Imperial occupation. A squad of Stormtroopers in transition-era armor, dirty from the desert, oversees the transfer of cargo. Among the crates sits a carbonite block, frost still clinging to its surface.\n\nAn Imperial shuttle is on final approach. The clock is ticking.",
+              "gmNotes": "This is the heroes' first brush with the Young Empire. The warlord's thugs guard the perimeter; inside are real Stormtroopers. Options: bluff as the Imperial pickup crew, sneak through maintenance vents, or direct assault using heavy machinery as cover. The carbonite block contains The Accountant. Once secured, the Imperial shuttle lands and the heroes must flee under fire — high-octane exit from Jakku.",
+              "npcs": [
+                { "name": "Stormtrooper Squad", "type": "Standard Stormtroopers", "count": 6, "notes": "Transition-era armor, dirty from the desert. Overseeing the transfer." },
+                { "name": "Warlord's Guards", "type": "Standard Thugs", "count": 4, "notes": "Perimeter security." }
+              ],
+              "hazards": "Militarized hangar — heavy machinery, incoming Imperial shuttle providing time pressure. Open terrain with limited cover.",
+              "decisions": [
+                { "choice": "Bluff as Imperial pickup crew", "consequence": "High reward if successful — walk right in. High risk of exposure." },
+                { "choice": "Sneak through maintenance vents", "consequence": "Slower but safer approach. May get caught in tight spaces." },
+                { "choice": "Direct assault", "consequence": "Loud and fast. Heavy machinery provides cover but attracts reinforcements." }
+              ],
+              "loreTags": ["The Accountant", "Young Empire", "Jakku", "Admiral Varth"],
+              "narrativeLinks": [
+                { "targetScene": "adv1-p2-s1", "note": "The Accountant's reveal about Varth's prison sets up the Ajan Kloss extraction." }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "adv1-p2",
+          "number": 2,
+          "title": "The Green Hell Extraction",
+          "scenes": [
+            {
+              "id": "adv1-p2-s1",
+              "number": 1,
+              "title": "The Banshee",
+              "readAloud": "Safe in hyperspace, you thaw the carbonite block. The Accountant coughs to life, disoriented and terrified. When you demand the location of the credits, he laughs bitterly.\n\n\"Varth is the only one with the codes. And Varth isn't dead or hiding in luxury. He's being held at a secret prison on the jungle moon of Ajan Kloss. The warlord holding him is about to trade him to the Empire. If you want your payday, you have to break him out — before the Empire takes custody.\"",
+              "gmNotes": "The heroes' contact (Maya or Switch) directs them to Captain Sirona Okeefe and the Banshee. Okeefe is a veteran smuggler who offers a proprietary smuggler's vector through the Imperial blockade in exchange for a cut. The heroes must pilot following her telemetry through debris fields. Upon arriving at Ajan Kloss, they detect a Victory-class Star Destroyer and V-wing patrols.",
+              "npcs": [
+                { "name": "The Accountant", "type": "Imperial Logistics Officer", "count": 1, "notes": "Just thawed from carbonite. Terrified but has critical intel." },
+                { "name": "Captain Sirona Okeefe", "type": "Veteran Smuggler", "count": 1, "notes": "Pilots the Banshee, a modified Baudo-class star yacht. Professional and competent." }
+              ],
+              "hazards": "Imperial blockade — Venator-class Star Destroyers patrolling the hyperlanes. Dangerous smuggler's vector through debris fields.",
+              "decisions": [
+                { "choice": "Accept Okeefe's terms", "consequence": "She uploads the smuggler's vector. Dangerous but the only viable route." },
+                { "choice": "Try to run the blockade alone", "consequence": "Extremely dangerous without the vector data. Near-suicidal." }
+              ],
+              "loreTags": ["Admiral Varth", "Captain Okeefe", "The Banshee", "Ajan Kloss", "The Accountant"],
+              "narrativeLinks": [
+                { "targetScene": "adv3-p3-s5", "note": "Okeefe's loyalty is tested again over Bespin — Varth attempts to sacrifice her." }
+              ]
+            },
+            {
+              "id": "adv1-p2-s2",
+              "number": 2,
+              "title": "The Crash",
+              "readAloud": "You break the cloud layer and the lush, overgrown jungle of Ajan Kloss rushes up to meet you. The moon is a Green Hell — massive ancient trees, fungal overgrowth, and air so thick with humidity your viewport fogs instantly.\n\nA glancing hit from a perimeter defense turret clips your wing. The ship shears through the treeline, branches snapping like bones, and skids to a halt in the mud. You're safe from sensors — but grounded, miles from the fortress.",
+              "gmNotes": "The ship is damaged and grounded until repairs are made. The heroes must proceed on foot through hostile jungle to reach Skarn's fortress, 'The Vanishing Place.' This establishes the environmental threat of Ajan Kloss and forces the heroes into the wilderness.",
+              "npcs": [],
+              "hazards": "Crash landing — ship damage, potential injuries. Dense jungle terrain ahead. Perimeter defense turrets.",
+              "decisions": [
+                { "choice": "Repair the ship first", "consequence": "Takes time but ensures an escape route. Risk of Imperial patrols finding the crash site." },
+                { "choice": "Push immediately toward the fortress", "consequence": "Faster but no guaranteed extraction. Ship repairs happen later." }
+              ],
+              "loreTags": ["Ajan Kloss", "General Skarn"],
+              "narrativeLinks": []
+            },
+            {
+              "id": "adv1-p2-s3",
+              "number": 3,
+              "title": "The Jungle Trek",
+              "readAloud": "The jungle is alive — and hungry. Every step forward is a negotiation with the terrain. Acid pools disguised as standing water hiss when a thrown rock disturbs them. Fungal blooms the size of speeder bikes pulse with a sickly bioluminescence, and you quickly learn that disturbing them triggers a violent detonation of toxic spores.\n\nThen the ambush comes — not from Imperials, but from a ghost. A lone figure in tattered Separatist commando gear drops from the canopy, rifle aimed at your heads.",
+              "gmNotes": "Environmental hazards: Acid Pools (disguised as standing water) and Exploding Fungus Blooms (detonate when disturbed). The ambusher is Vazus Mandrake, a Separatist Holdout Commando who refused the shutdown order 3 years ago. He's been waging guerilla war against Skarn. Once convinced the heroes are against the Empire, he agrees to guide them to a secret drainage sluice into the fortress — in exchange for sabotaging the facility's generator.",
+              "npcs": [
+                { "name": "Vazus Mandrake", "type": "Separatist Holdout Commando", "count": 1, "notes": "Weary veteran. Refused the shutdown order. Waging a one-man guerilla war against Skarn." }
+              ],
+              "hazards": "Acid Pools disguised as standing water. Exploding Fungus Blooms that detonate when disturbed. Semi-sentient hostile flora. Lethal fauna.",
+              "decisions": [
+                { "choice": "Accept Mandrake's deal", "consequence": "He guides you to a secret entrance. You must sabotage the generator in return." },
+                { "choice": "Refuse and find your own way in", "consequence": "Much harder infiltration without a guide. The fortress is heavily fortified." }
+              ],
+              "loreTags": ["Ajan Kloss", "Vazus Mandrake", "General Skarn"],
+              "narrativeLinks": []
+            },
+            {
+              "id": "adv1-p2-s4",
+              "number": 4,
+              "title": "The Vanishing Place — Infiltration",
+              "readAloud": "From the ridge, you see the fortress. It is not a pristine Imperial garrison but a repurposed, moss-covered temple ruin fortified with scavenged Clone Wars technology. Laser fences line the perimeter. Gun emplacements squat on the walls like armored toads.\n\nAnd there, on the landing pad — a Lambda-class shuttle. A squad of pristine Stormtroopers stands at attention, a stark contrast to Skarn's grimy mercenaries. The Empire is already here.",
+              "gmNotes": "Mandrake leads the heroes through the drainage sluice into the fortress interior. Key locations: the Medical Bay (Captain Vischera conducts biological experiments on wildlife) and the Communications Center. Intercepted transmissions reveal that the Imperial officer outside is stalling — Inquisitor Valin Draco is en route to take personal custody of Varth. This creates a hard clock: grab Varth before the Inquisitor lands.",
+              "npcs": [
+                { "name": "Captain Vischera", "type": "Imperial Scientist", "count": 1, "notes": "On loan to Skarn. Conducting biological experiments in the Medical Bay." },
+                { "name": "Skarn's Mercenaries", "type": "Standard Guards", "count": 8, "notes": "Grimy, undisciplined compared to Stormtroopers." },
+                { "name": "Stormtrooper Squad", "type": "Standard Stormtroopers", "count": 6, "notes": "Pristine armor. Standing at attention near the shuttle." }
+              ],
+              "hazards": "Fortified temple ruin — laser fences, gun emplacements, Clone Wars-era tech security. Hard clock: Inquisitor Draco is en route.",
+              "decisions": [
+                { "choice": "Sabotage the generator per Mandrake's deal", "consequence": "Creates chaos and a distraction. Alerts the garrison but disables many defenses." },
+                { "choice": "Skip the sabotage and head straight for Varth", "consequence": "Faster but Mandrake may refuse further help. Full security remains active." }
+              ],
+              "loreTags": ["General Skarn", "Inquisitor Draco", "Admiral Varth", "Ajan Kloss"],
+              "narrativeLinks": []
+            },
+            {
+              "id": "adv1-p2-s5",
+              "number": 5,
+              "title": "The Detention Block",
+              "readAloud": "You blow the door to the holding cell expecting a broken man. Instead, you find Admiral Gilder Varth sitting comfortably, gambling with a confused guard and packing a bag.\n\nHe looks up with a charming, tired smile and flips a credit chip in greeting. \"You're late. I had credits on the second moonrise.\"",
+              "gmNotes": "Varth is arrogant, charming, and unbothered. He treats the rescue like a hired service. He refuses to leave without his encrypted data cylinders, which he claims contain the ledger for Project Leviathan. Key reveal: he didn't defect for moral reasons — he embezzled a fortune and needs the heroes to get him and his money out. He uses nicknames: 'Kid,' 'Pilot,' 'Heavy.' This is the heroes' first real interaction with Varth — establish his 'Cool Uncle' persona.",
+              "npcs": [
+                { "name": "Admiral Gilder Varth", "type": "Corrupt Imperial Admiral / Grifter", "count": 1, "notes": "The campaign's central NPC. Charming, cynical, and self-serving. Refuses to leave without his data cylinders." }
+              ],
+              "hazards": "Detention block — automated defenses, elite guards. Time pressure from Inquisitor's arrival.",
+              "decisions": [
+                { "choice": "Grab Varth and run immediately", "consequence": "Fastest exit but Varth refuses to cooperate without his cylinders. May need to drag him." },
+                { "choice": "Retrieve Varth's data cylinders", "consequence": "Takes extra time and risk but secures Varth's full cooperation and the Project Leviathan data." }
+              ],
+              "loreTags": ["Admiral Varth", "Project Leviathan", "Varth's True Nature"],
+              "narrativeLinks": [
+                { "targetScene": "adv2-p1-s1", "note": "Varth immediately begins directing the heroes toward Darga the Hutt." }
+              ]
+            },
+            {
+              "id": "adv1-p2-s6",
+              "number": 6,
+              "title": "The Deal Gone Bad",
+              "subtitle": "Climax",
+              "readAloud": "The landing pad erupts. The Stormtroopers open fire on Skarn's mercenaries. The fortress becomes a three-way warzone — Imperials, the Warlord's forces, and you caught in the middle.\n\nThen a shadow falls over the courtyard. A shuttle screams overhead, engines howling, and you see the crimson markings of the Inquisitorius. Draco has arrived.\n\nMandrake grabs your arm. \"Run. Into the jungle. NOW.\"",
+              "gmNotes": "Three-way firefight: Imperials vs. Warlord vs. Heroes. Draco's shuttle deploys Shadow Troopers to cut off retreat. Captain Okeefe swoops in with the Banshee (or the heroes' repaired ship), strafing Imperial positions to buy time. The heroes blast off as Imperial walkers breach the treeline. In hyperspace, Varth reveals Project Leviathan is a massive mobile siege platform in the Unknown Regions, and the codes to his fortune are held by his former partner — Darga the Hutt. This sets up Adventure 2.",
+              "npcs": [
+                { "name": "Inquisitor Valin Draco", "type": "Nemesis", "count": 1, "notes": "Arrives via shuttle. Deploys Shadow Troopers. The campaign's recurring villain." },
+                { "name": "Shadow Troopers", "type": "Elite Stormtroopers", "count": 4, "notes": "Black-armored elite commandos. Cutting off retreat." },
+                { "name": "Captain Okeefe", "type": "Veteran Smuggler", "count": 1, "notes": "Provides air support and extraction." }
+              ],
+              "hazards": "Three-way firefight. Imperial walkers approaching. Shadow Troopers flanking. Time-critical extraction.",
+              "decisions": [
+                { "choice": "Fight through to the landing pad", "consequence": "Direct but dangerous — heavy Imperial presence." },
+                { "choice": "Flee into the jungle for Okeefe's pickup", "consequence": "Must evade Shadow Troopers in dense canopy. Okeefe provides strafing support." }
+              ],
+              "loreTags": ["Inquisitor Draco", "Admiral Varth", "Project Leviathan", "Darga the Hutt", "Captain Okeefe"],
+              "narrativeLinks": [
+                { "targetScene": "adv2-p1-s1", "note": "Varth's reveal about Darga holding the encryption keys launches Adventure 2." }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "adv2",
+      "number": 2,
+      "title": "A Wretched Hive",
+      "act": 1,
+      "summary": "The heroes travel to Takodana to infiltrate Darga the Hutt's fortress, posing as entertainment to steal the encryption keys to Varth's fortune. They discover a captive Jedi Master and must choose between the mission and their conscience.",
+      "parts": [
+        {
+          "id": "adv2-p1",
+          "number": 1,
+          "title": "The Shakedown",
+          "scenes": [
+            {
+              "id": "adv2-p1-s1",
+              "number": 1,
+              "title": "The Welcoming Committee",
+              "readAloud": "You disembark at Blackwind Point — a muddy, desperate shantytown on the far shore of Nymeve Lake. The air is thick with the smell of rotting vegetation and desperation. Refugees huddle in makeshift shelters while criminals eye your gear with open hunger.\n\nThe growl of repulsor-bikes cuts through the noise. A swoop gang circles your landing pad, engines revving. Their leader — a scarred human woman with a vibro-blade strapped to her leg — pulls up and kills her engine.\n\n\"Welcome to the other side of the lake. Landing tax is five hundred credits. Non-negotiable.\"",
+              "gmNotes": "Kessra and The Vipers demand a landing tax. This sets the tone for Takodana's dark side: might makes right. If the heroes fight and win, locals regard them with respect and fear. If they pay, they're marked as easy targets. Kessra may reappear later as a hired guard in Darga's palace, holding a grudge. Varth has briefed the heroes: they need to find his contact Warrick Raden, a Devaronian fixer who can get them into Darga's court.",
+              "npcs": [
+                { "name": "Kessra", "type": "Swoop Gang Leader", "count": 1, "notes": "Scarred human woman. Leader of The Vipers. May reappear in Darga's fortress." },
+                { "name": "The Vipers", "type": "Swoop Gang Members", "count": 6, "notes": "Armed with blasters and vibro-blades. Intimidation over combat skill." }
+              ],
+              "hazards": "Open landing pad — surrounded by hostile gang. Muddy terrain. Refugees as potential collateral.",
+              "decisions": [
+                { "choice": "Pay the landing tax", "consequence": "Marked as easy targets. Pickpockets and grifters will target you." },
+                { "choice": "Intimidate the gang", "consequence": "If successful, the Vipers back down. Local respect earned." },
+                { "choice": "Fight the Vipers", "consequence": "Vipers retreat if beaten. Newfound respect (and fear) from locals. Kessra holds a grudge." }
+              ],
+              "loreTags": ["Takodana", "Darga the Hutt", "Kessra", "Blackwind Point"],
+              "narrativeLinks": []
+            },
+            {
+              "id": "adv2-p1-s2",
+              "number": 2,
+              "title": "Hunting the Fixer",
+              "readAloud": "The encampment is a maze of tents, grounded starships, and mud-brick hovels. Every face you pass wears the same expression — guarded suspicion.\n\nThrough bribes, threats, and persistence, a pattern emerges: Warrick Raden has gone to ground. The nervous Devaronian used to run errands for Darga but vanished from the cantinas recently. Word is he skimmed money from the Hutt and is hiding out at the old Water Filtration Plant on the edge of the swamp.",
+              "gmNotes": "A social/investigation scene. The heroes must navigate the underworld of Blackwind Point to find Raden. Local bartenders, refugees, and fences can provide information. The Water Filtration Plant is a rusted industrial facility half-sunk in the bog. This is a good opportunity for roleplaying and gathering intel about Darga's current state — he's become paranoid and obsessed with his new Imperial guests.",
+              "npcs": [
+                { "name": "Local Contacts", "type": "Various NPCs", "count": 3, "notes": "Bartenders, refugees, fences who can point to Raden's location." }
+              ],
+              "hazards": "Pickpockets, grifters, and informants who might tip off Darga's network.",
+              "decisions": [
+                { "choice": "Bribe locals for information", "consequence": "Fastest method. Costs credits but gets reliable intel." },
+                { "choice": "Intimidate for information", "consequence": "Free but may attract attention from Darga's informants." }
+              ],
+              "loreTags": ["Warrick Raden", "Takodana", "Darga the Hutt"],
+              "narrativeLinks": []
+            },
+            {
+              "id": "adv2-p1-s3",
+              "number": 3,
+              "title": "The Rat in the Trap",
+              "readAloud": "The filtration plant is a noisy, steam-venting structure half-sunk in the bog. You find Warrick Raden hiding in a maintenance shed — a nervous wreck clutching a blaster and jumping at shadows.\n\nWhen you mention Varth's name, Raden's face cycles through shock, fear, and desperate hope in rapid succession. \"Varth? He's alive? Stars help me — he's alive.\"",
+              "gmNotes": "Raden thought Varth was dead. He confirms he can get the heroes into Darga's palace but refuses to go back freely. He reveals that Darga has 'changed' — becoming paranoid and obsessed with Imperial guests. The heroes must de-escalate Raden's panic and convince him to cooperate. He's their ticket into the palace.",
+              "npcs": [
+                { "name": "Warrick Raden", "type": "Devaronian Fixer", "count": 1, "notes": "Nervous wreck. Owes Varth a debt. The heroes' entry ticket to Darga's palace." }
+              ],
+              "hazards": "Steam pipes, unstable industrial equipment. Raden is armed and panicky.",
+              "decisions": [
+                { "choice": "Calm Raden down and negotiate", "consequence": "He agrees to help if the heroes protect him from Darga's retribution." },
+                { "choice": "Threaten Raden into compliance", "consequence": "He cooperates but may betray the heroes at a critical moment." }
+              ],
+              "loreTags": ["Warrick Raden", "Darga the Hutt", "Admiral Varth"],
+              "narrativeLinks": []
+            },
+            {
+              "id": "adv2-p1-s4",
+              "number": 4,
+              "title": "The Hit Squad",
+              "readAloud": "The negotiation is interrupted by the sound of heavy boots on metal. Through the grimy windows, you see movement — Trandoshan Mercenaries, heavily armed, surrounding the filtration plant. A heavy combat droid stomps into position at the main entrance.\n\nDarga has grown tired of waiting for Raden to come home.",
+              "gmNotes": "Darga sent a hit squad to silence Raden. Trandoshan Mercenaries and a heavy combat droid besiege the shed. The fight takes place in cramped machinery — steam pipes burst, obscuring vision. The Trandoshans use the environment to hunt. The heroes MUST protect Raden — if he dies, their easy route into the palace dies with him.",
+              "npcs": [
+                { "name": "Trandoshan Mercenaries", "type": "Standard Combatants", "count": 4, "notes": "Hired guns. Using the industrial environment to hunt." },
+                { "name": "Heavy Combat Droid", "type": "Elite Droid", "count": 1, "notes": "Blocking the main entrance. Heavy armor and weapons." }
+              ],
+              "hazards": "Cramped industrial machinery. Bursting steam pipes (obscure vision, scald damage). Collapsing catwalks.",
+              "decisions": [
+                { "choice": "Hold position and defend", "consequence": "Protect Raden but risk being overwhelmed in a fixed position." },
+                { "choice": "Fight through and escape", "consequence": "Must punch through the Trandoshans to reach an exit. Raden is vulnerable during movement." }
+              ],
+              "loreTags": ["Darga the Hutt", "Warrick Raden", "Trandoshan Mercenaries"],
+              "narrativeLinks": []
+            },
+            {
+              "id": "adv2-p1-s5",
+              "number": 5,
+              "title": "The Proposition",
+              "readAloud": "With the hit squad defeated, Raden is terrified but alive. He realizes he can never stay in the encampment. His eyes dart to your weapons, to the door, and finally settle on acceptance.\n\n\"Alright. I know how to get you in. Darga is hosting a delegation of high rollers and business partners. He wants entertainment — gladiators, gamblers, mercenaries. I'll present you to the Hutt as 'prime talent.' But once we're inside...\" He swallows hard. \"...you're on your own.\"",
+              "gmNotes": "Raden proposes presenting the heroes as entertainment for Darga's court. Options: gladiators for his arena, high-stakes gamblers, or specialized mercenaries. He warns that Darga is hosting Imperial Mining Guild members — heroes must hide political affiliations. The skiff ride across Nymeve Lake to Darga's fortress is atmospheric: the moss-covered stone ruin retrofitted with gaudy tech and heavy weapons looms through the mist.",
+              "npcs": [
+                { "name": "Warrick Raden", "type": "Devaronian Fixer", "count": 1, "notes": "Reluctant guide. Will present the heroes as entertainment." }
+              ],
+              "hazards": "Crossing Nymeve Lake by skiff. Darga's fortress visible through the mist.",
+              "decisions": [
+                { "choice": "Pose as gladiators", "consequence": "Physical challenge. Must prove combat prowess in Darga's arena." },
+                { "choice": "Pose as gamblers", "consequence": "Social/mental challenge. High-stakes games in Darga's court." },
+                { "choice": "Pose as specialized mercenaries", "consequence": "Most flexible cover but requires convincing backstory." }
+              ],
+              "loreTags": ["Warrick Raden", "Darga the Hutt", "Takodana"],
+              "narrativeLinks": [
+                { "targetScene": "adv2-p2-s1", "note": "The heroes' chosen cover determines their audition in Darga's throne room." }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "adv2-p2",
+          "number": 2,
+          "title": "The Court of the Crime Lord",
+          "scenes": [
+            {
+              "id": "adv2-p2-s1",
+              "number": 1,
+              "title": "The Audition",
+              "subtitle": "The Throne Room",
+              "readAloud": "The heroes are led through damp, torch-lit corridors that smell of mold and roasting meat. You emerge into Darga's Throne Room — a sensory assault of thick smoke, frantic jizz-wailer music, and a crowd of sycophants, thieves, and scavengers.\n\nAt the far end, resting on a massive reinforced hover-sled, sits Darga the Hutt. He is bloated, scarred, and flanked by a polished silver protocol droid. Darga barks in Huttese, his deep voice shaking the room. The droid translates:\n\n\"The Mighty Darga is bored with beggars. Prove you are worth his air.\"",
+              "gmNotes": "Darga demands an immediate demonstration. The Muscle gets a fight against a bodyguard or beast. The Face gets a battle of wits. The Tech gets ordered to fix something on Darga's hover-sled with a blaster at their head. If heroes succeed, Darga welcomes them as 'guests' (prisoners with privileges). He then turns on Raden — ordering Gamorreans to drag him to the dungeons as punishment. Raden's screams serve as a warning of the price of failure.",
+              "npcs": [
+                { "name": "Darga the Hutt", "type": "Hutt Crime Lord", "count": 1, "notes": "Bloated, scarred, paranoid. Sits on an electrum-plated hover-sled. Never speaks Basic — uses TC-663." },
+                { "name": "TC-663 ('Six-Six')", "type": "Silver Protocol Droid", "count": 1, "notes": "Darga's translator. Secretly an agent of Switch from Adventure 1." },
+                { "name": "Igren Demos", "type": "Neimoidian Majordomo", "count": 1, "notes": "Darga's right hand. Secretly Force-sensitive and plotting a coup." },
+                { "name": "Gamorrean Guards", "type": "Standard Guards", "count": 6, "notes": "Vibro-axe wielding palace guards." }
+              ],
+              "hazards": "Hostile court environment. Surrounded by Darga's forces. No easy escape.",
+              "decisions": [
+                { "choice": "Impress Darga with a spectacular audition", "consequence": "Earn 'guest' status and freedom to move within the palace." },
+                { "choice": "Try to intervene when Raden is taken", "consequence": "Extremely dangerous — would blow cover immediately. Darga's court is heavily armed." }
+              ],
+              "loreTags": ["Darga the Hutt", "TC-663", "Igren Demos", "Warrick Raden"],
+              "narrativeLinks": []
+            },
+            {
+              "id": "adv2-p2-s2",
+              "number": 2,
+              "title": "The Long Con",
+              "subtitle": "The Court",
+              "readAloud": "Over the next day cycle, you navigate the dangerous politics of Darga's court. Admiral Varth coaches you over encrypted comms, pointing out targets and reminding you to keep your eyes on the prize.\n\nThree events unfold that reveal the true scale of what you've stumbled into...",
+              "gmNotes": "Three key events during the 'free roaming' phase:\n\n1. THE IRON RING DELEGATION: Trandoshan Slavers drag chained Nazren prisoners into court, arguing about payment. Eavesdropping reveals Darga supplies slave labor for Project Leviathan.\n\n2. THE IMPERIAL BUYER: Lady Sinde arrives — a severe logistics officer for Project Leviathan. Varth recognizes her voice. She's negotiating the next shipment.\n\n3. THE DROID RACE: Darga announces a droid race to celebrate his deal. This is the heroes' best chance — while Darga is distracted gambling, they can slip away to slice the datapad or explore secure areas.\n\nTC-663 can be turned if heroes treat him with respect or use Switch's code phrase — he'll provide palace maps and datapad location.",
+              "npcs": [
+                { "name": "Iron Ring Slavers", "type": "Trandoshan Delegation", "count": 4, "notes": "Arguing about 'damaged merchandise' (dying slaves). Led by a brutal Zabrak." },
+                { "name": "Lady Sinde", "type": "Imperial Logistics Officer", "count": 1, "notes": "Project Leviathan buyer. Severe, authoritative, views Darga as a necessary tool." },
+                { "name": "Gome", "type": "Duros Accountant", "count": 1, "notes": "Elderly palace accountant. Doesn't care about crime — loves numbers. Can explain Darga's Imperial shipments." }
+              ],
+              "hazards": "Court politics — any misstep can blow the heroes' cover. Imperial presence increases stakes.",
+              "decisions": [
+                { "choice": "Use the droid race as cover to find the datapad", "consequence": "Best window of opportunity. Darga is distracted." },
+                { "choice": "Turn TC-663 into an asset", "consequence": "If successful, he provides palace maps and the datapad's exact location." },
+                { "choice": "Confront the slavers", "consequence": "Moral victory but extremely dangerous — could blow cover and start a war." }
+              ],
+              "loreTags": ["Darga the Hutt", "Project Leviathan", "Lady Sinde", "TC-663", "Iron Ring Slavers", "Slave Trade"],
+              "narrativeLinks": [
+                { "targetScene": "adv3-p2-s4", "note": "Lady Sinde's presence connects to the Imperial deal at the Cloud City tournament." }
+              ]
+            },
+            {
+              "id": "adv2-p2-s3",
+              "number": 3,
+              "title": "The Complication",
+              "subtitle": "The Dungeon",
+              "readAloud": "Using the cover of the droid race, you slip into the restricted lower levels. Instead of a vault, you find a high-security detention block guarded by elite droids.\n\nInside the most secure cell is a stasis pod hooked to life-support machinery. Through the frost-covered viewport, you see a human woman in tattered Jedi robes, suspended in a Force-induced coma. Her eyes are closed, but you feel something — a whisper at the edge of your consciousness.\n\nAdmiral Varth's voice turns cold over the comms: \"Leave her. She is a liability. If you wake a Jedi, every Inquisitor in the sector will hunt us down. Get the keys and get out.\"",
+              "gmNotes": "This is the campaign's first major Moral Event Horizon. Jedi Master Denia was found by Darga after Order 66 and kept as a trophy to auction to the Inquisitorius. She's weak, barely alive, and telepathically reaching out to the heroes. Varth is furious — a Jedi is a heat magnet. This decision shapes the rest of the campaign. Saving Denia brings the Inquisitorius down on the heroes but gains them a powerful ally. Leaving her preserves the 'scoundrel' path but at a moral cost.",
+              "npcs": [
+                { "name": "Jedi Master Denia", "type": "Captured Jedi", "count": 1, "notes": "In stasis for 3 years since Order 66. Powerful but frail. Doesn't know the Empire exists yet." },
+                { "name": "Elite Guard Droids", "type": "Elite Security Droids", "count": 2, "notes": "Guarding the high-security detention block." }
+              ],
+              "hazards": "High-security zone. Silent alarms if stasis machinery is tampered with. Igren Demos can sense Force disturbances.",
+              "decisions": [
+                { "choice": "Rescue Jedi Master Denia", "consequence": "Triggers silent alarm. Igren Demos senses the Force disturbance. Inquisitors will hunt the heroes. But gains a powerful ally." },
+                { "choice": "Follow Varth's orders — leave her", "consequence": "Preserves cover for a clean getaway. But abandons a helpless prisoner to torture and sale." }
+              ],
+              "loreTags": ["Jedi Master Denia", "Inquisitor Draco", "Admiral Varth", "Varth's True Nature", "Order 66"],
+              "narrativeLinks": [
+                { "targetScene": "adv2-p2-s4", "note": "Rescuing Denia (or failing the datapad heist) triggers the fortress lockdown." }
+              ]
+            },
+            {
+              "id": "adv2-p2-s4",
+              "number": 4,
+              "title": "The Turn",
+              "subtitle": "The Alarm",
+              "readAloud": "Klaxons scream through the stone corridors. The fortress goes into lockdown — blast doors grinding shut, red emergency lighting flooding every hall.\n\nIn the Throne Room above, Darga's booming voice shakes the walls:\n\n\"SPIES! They are Varth's ghosts! KILL THEM ALL!\"\n\nDarga's hover-sled engages its repulsors as he flees toward his private hangar bay, clutching the datapad with the encryption keys.",
+              "gmNotes": "The alarm is triggered either by rescuing Denia (stasis disconnect + Demos sensing the Force) or by a failed datapad heist. The fortress is now hostile. Heroes in the dungeon are blocked by blast doors. Heroes in the court are surrounded by Gamorreans and Trandoshans. Darga is fleeing with the datapad. The heist has become a fight for survival and a race to catch the Hutt.",
+              "npcs": [
+                { "name": "Darga the Hutt", "type": "Fleeing Crime Lord", "count": 1, "notes": "Retreating to his hangar with the encryption keys." },
+                { "name": "Gamorrean Guards", "type": "Standard Guards", "count": 8, "notes": "Palace guards responding to lockdown." },
+                { "name": "Trandoshan Mercenaries", "type": "Standard Combatants", "count": 4, "notes": "Darga's hired muscle." }
+              ],
+              "hazards": "Fortress lockdown — blast doors sealing, hostile forces converging. Darga is escaping with the objective.",
+              "decisions": [
+                { "choice": "Chase Darga to the hangar", "consequence": "Race through hostile corridors. Must fight through Demos first." },
+                { "choice": "Fight through to the surface", "consequence": "Escape with Denia but lose the encryption keys. Darga gets away." }
+              ],
+              "loreTags": ["Darga the Hutt", "Igren Demos", "The Encryption Keys"],
+              "narrativeLinks": []
+            },
+            {
+              "id": "adv2-p2-s5",
+              "number": 5,
+              "title": "The Majordomo's Stand",
+              "readAloud": "Blocking your path stands Igren Demos, the Neimoidian Majordomo. He is no longer simpering. He holds a vibro-staff with lethal confidence, flanked by his elite Trandoshan bodyguards.\n\nHis red eyes widen as he senses the Jedi behind you. \"The Jedi... she's awake. Give her to me. I will take her to the Inquisitorius myself and claim what Darga never could.\"",
+              "gmNotes": "Demos is the boss fight of this location. He reveals his Force-sensitivity (untrained) and uses minor Force powers — Force Slam to separate heroes, Force Push to knock them into environmental hazards. His elite Trandoshan bodyguards provide additional threat. Varth screams over comms that Darga is getting away — Demos is stalling. The fight must be decisive.",
+              "npcs": [
+                { "name": "Igren Demos", "type": "Force-Sensitive Majordomo (Mini-Boss)", "count": 1, "notes": "Untrained Force-sensitive. Uses vibro-staff and minor Force powers. Wants to claim Denia for the Inquisitorius." },
+                { "name": "Trandoshan Bodyguards", "type": "Elite Guards", "count": 2, "notes": "Demos's personal muscle." }
+              ],
+              "hazards": "Force powers — Slam and Push. Environmental hazards (braziers, statues). Narrow corridors favor Demos's staff.",
+              "decisions": [
+                { "choice": "Fight Demos head-on", "consequence": "Tough fight but clears the path. Risk: Darga gains more escape time." },
+                { "choice": "Split the party — some fight, some chase Darga", "consequence": "Risky but potentially catches Darga. Smaller groups are more vulnerable." }
+              ],
+              "loreTags": ["Igren Demos", "Jedi Master Denia", "Inquisitor Draco"],
+              "narrativeLinks": []
+            },
+            {
+              "id": "adv2-p2-s6",
+              "number": 6,
+              "title": "The Hangar Bay",
+              "readAloud": "You burst through the blast doors into the humid, open-air hangar. You're too late — Darga's massive luxury yacht, the Glorious Chariot, is already hovering on repulsors, engines flaring blue-white. The boarding ramp retracts as the gold-and-purple hull begins to rise.\n\nBut it's not just Darga. Lady Sinde has ordered her Stormtrooper escort to secure the hangar and eliminate all witnesses.\n\nBlaster fire erupts from behind crates of Tibanna gas as white-armored figures take firing positions.",
+              "gmNotes": "Darga escapes in the Glorious Chariot, collapsing part of the ceiling to discourage pursuit. Lady Sinde's Stormtroopers are eliminating witnesses to protect Project Leviathan's secrecy. The heroes fight across the hangar using crates and equipment for cover. If fast enough, they can reach their ship and launch. They see Darga's yacht rocket toward the atmosphere and jump to hyperspace. Varth gets a partial trajectory lock — the vector aligns with the Anoat Sector. Bespin. Cloud City.",
+              "npcs": [
+                { "name": "Lady Sinde", "type": "Imperial Logistics Officer", "count": 1, "notes": "Ordering the elimination of all witnesses." },
+                { "name": "Stormtrooper Squad", "type": "Standard Stormtroopers", "count": 8, "notes": "Securing the hangar. Professional and lethal." }
+              ],
+              "hazards": "Open hangar bay. Tibanna gas crates (explosive if hit). Collapsing ceiling from Darga's escape. Stormtrooper crossfire.",
+              "decisions": [
+                { "choice": "Fight to the ship and pursue Darga", "consequence": "Can get a trajectory lock on Darga's escape vector. Leads to Cloud City." },
+                { "choice": "Eliminate Lady Sinde and the Stormtroopers", "consequence": "Removes Imperial witnesses but costs time. Darga gets further away." }
+              ],
+              "loreTags": ["Darga the Hutt", "Lady Sinde", "Project Leviathan", "The Glorious Chariot", "Cloud City"],
+              "narrativeLinks": [
+                { "targetScene": "adv3-p1-s1", "note": "Darga flees to Cloud City, setting up the entire Adventure 3 pursuit." }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "adv3",
+      "number": 3,
+      "title": "The Queen of Air and Darkness",
+      "act": 1,
+      "summary": "The heroes chase Darga the Hutt to Cloud City on Bespin, infiltrate a Sabacc tournament to intercept an Imperial payment, and face a desperate hangar bay showdown that ends with an orbital battle and a moral choice that defines the party.",
+      "parts": [
+        {
+          "id": "adv3-p1",
+          "number": 1,
+          "title": "The Floating World Heist",
+          "scenes": [
+            {
+              "id": "adv3-p1-s1",
+              "number": 1,
+              "title": "The Brick Wall",
+              "readAloud": "Cloud City rises from the roiling orange clouds of Bespin like a crown of durasteel. In this era, it is not a polished resort — it is a rough-and-tumble mining boomtown, a Wild West in the clouds. Prospectors, gamblers, and fugitives pack the Cloudscape Platforms.\n\nYou hit the streets to find Darga — but the underworld is sealed tight. Every contact clams up. Then your datapads beep with an unsigned message:\n\n\"Stop digging. The drop is long, and the gas pressure is high. Go home.\"",
+              "gmNotes": "Cloud City in 16 BBY is a mining boomtown, not Lando's resort. The heroes face a wall of silence — Darga has bribed the Wing Guard and port officials. The threatening message traces to the Parliament of Guilds (Ugnaught labor leadership), not Darga. Varth acts as 'The Man in the Chair,' analyzing data from the ship. The investigation leads to the Industrial District.",
+              "npcs": [
+                { "name": "Local Contacts", "type": "Various", "count": 3, "notes": "Tight-lipped. Darga has bribed everyone." }
+              ],
+              "hazards": "Imperial spies. Darga's informant network. Wing Guard patrols.",
+              "decisions": [
+                { "choice": "Trace the threatening message", "consequence": "Leads to the Ugnaught Parliament of Guilds in the Industrial District." },
+                { "choice": "Continue investigating openly", "consequence": "Risk attracting Darga's attention and Imperial surveillance." }
+              ],
+              "loreTags": ["Cloud City", "Bespin", "Darga the Hutt", "Ugnaught Guilds"],
+              "narrativeLinks": []
+            },
+            {
+              "id": "adv3-p1-s2",
+              "number": 2,
+              "title": "The Industrial Connection",
+              "readAloud": "You descend into The Works — the noisy, steam-filled industrial bowels of Cloud City. The Ugnaughts who sent the threat aren't enemies; they're terrified administrators named Fyren and Krygg.\n\nThey admit they were trying to scare you away to prevent a gang war. They hate Darga. The Hutt is forcing Ugnaught riggers to siphon military-grade gas directly to Imperial ships, bypassing Guild quotas.\n\n\"Help us stop his thugs from stealing a shipment right now, and we'll tell you exactly how the handover at the tournament works.\"",
+              "gmNotes": "The Ugnaughts are potential allies. They offer a trade: stop Darga's thugs from stealing a gas shipment at Refinery Platform 13, and they'll reveal the tournament handover structure. This establishes the Ugnaught labor exploitation angle and gives the heroes a clear objective.",
+              "npcs": [
+                { "name": "Fyren", "type": "Ugnaught Administrator", "count": 1, "notes": "Terrified but cooperative. Wants Darga gone." },
+                { "name": "Krygg", "type": "Ugnaught Administrator", "count": 1, "notes": "More cautious than Fyren. Needs convincing." }
+              ],
+              "hazards": "Industrial District — steam, noise, narrow catwalks. Imperial surveillance possible.",
+              "decisions": [
+                { "choice": "Accept the Ugnaught deal", "consequence": "Leads to a tactical combat encounter at the refinery. Intel reward is worth it." },
+                { "choice": "Demand the intel first", "consequence": "Ugnaughts refuse. They need proof the heroes are willing to act." }
+              ],
+              "loreTags": ["Ugnaught Guilds", "Cloud City", "Darga the Hutt", "Tibanna Gas"],
+              "narrativeLinks": []
+            },
+            {
+              "id": "adv3-p1-s3",
+              "number": 3,
+              "title": "The Refinery Rumble",
+              "readAloud": "Refinery Platform 13 hangs deep in the gas giant's atmosphere. The wind howls across exposed catwalks, and steam vents obscure your vision. Below, there is nothing — just the infinite amber depths of Bespin.\n\nOn the platform, Trandoshan Mercenaries and corrupt Ugnaught riggers are loading gas canisters onto a shuttle. They haven't seen you yet.",
+              "gmNotes": "Tactical combat on catwalks over a lethal drop. Stray shots risk rupturing gas tanks (explosions) or steam pipes (scald damage). The objective is to defeat the Trandoshans and secure the platform. A datapad on the Trandoshan leader confirms the gas is destined for the Imperial Navy and mentions a ship called the 'Shackles of Nizon.'",
+              "npcs": [
+                { "name": "Trandoshan Mercenaries", "type": "Standard Combatants", "count": 5, "notes": "Darga's muscle. Loading stolen gas." },
+                { "name": "Corrupt Ugnaught Riggers", "type": "Standard Workers", "count": 3, "notes": "Non-combatants who flee if fighting starts." }
+              ],
+              "hazards": "Catwalks over a lethal drop. Gas tank explosions. Steam pipe scald damage. High winds.",
+              "decisions": [
+                { "choice": "Ambush the Trandoshans", "consequence": "Element of surprise. Risk of gas tank explosions in crossfire." },
+                { "choice": "Try to disable the shuttle first", "consequence": "Prevents escape but alerts the Trandoshans. Harder initial engagement." }
+              ],
+              "loreTags": ["Trandoshan Mercenaries", "Tibanna Gas", "Shackles of Nizon", "Cloud City"],
+              "narrativeLinks": []
+            },
+            {
+              "id": "adv3-p1-s4",
+              "number": 4,
+              "title": "The Imperial Mark",
+              "readAloud": "The Ugnaughts pay their debt. The handover isn't happening in secret — Darga insisted it occur in plain sight during the Cloud City Sabacc Tournament.\n\nAt the Yerith Bespin Hotel, you spot the Imperial Bagman: Lieutenant Armen Arandis. Dressed in civilian luxury but moving with military stiffness, flanked by 'bodyguards' who are clearly undercover Stormtroopers.\n\nVarth's voice crackles in your ear: \"That's the Bagman. He isn't here to play cards — he's here to transfer credits to Darga's proxy by losing intentionally. We need to be at that table.\"",
+              "gmNotes": "Arandis is an Imperial math genius posing as a gambler. His job is to lose the pot intentionally to Darga's proxy. The heroes need to infiltrate the tournament to intercept the credits. The buy-in is massive (10,000 credits) — Varth provides the stake. Heroes must decide roles: The Player (gambler), The Security (hired guards), The Cheat (droid maintenance infiltrator).",
+              "npcs": [
+                { "name": "Lt. Armen Arandis", "type": "Imperial Bagman", "count": 1, "notes": "Mathematical genius. Cold, emotionless. Here to lose intentionally." },
+                { "name": "Undercover Stormtroopers", "type": "Disguised Security", "count": 4, "notes": "Arandis's bodyguards. Professional but trying to blend in." }
+              ],
+              "hazards": "Heavy hotel security. Imperial surveillance. High-profile public venue.",
+              "decisions": [
+                { "choice": "Enter as a tournament player", "consequence": "Direct access to the table. Requires gambling skill." },
+                { "choice": "Infiltrate as casino security", "consequence": "Free movement but no access to the game itself." },
+                { "choice": "Infiltrate the droid maintenance crew", "consequence": "Can rig dealer droids. High-tech approach." }
+              ],
+              "loreTags": ["Lt. Armen Arandis", "Cloud City", "Sabacc Tournament", "Darga the Hutt"],
+              "narrativeLinks": []
+            },
+            {
+              "id": "adv3-p1-s5",
+              "number": 5,
+              "title": "The Buy-In",
+              "subtitle": "Preparation",
+              "readAloud": "As you finalize your entry strategy, Varth's voice cuts in — tight with genuine fear.\n\n\"We have a problem. A massive energy spike just hit the system edge. An Imperial Star Destroyer just dropped out of hyperspace. It's the Assiduous — Inquisitor Draco's flagship.\"\n\nA beat of silence.\n\n\"That ship is the clean-up crew. If Arandis loses the money wrong, or if Darga double-crosses them, Draco won't bother with arrests. He'll glass the city to bury the evidence. Win that pot and get the codes before Draco gets impatient.\"",
+              "gmNotes": "The Assiduous arrives — escalating the stakes dramatically. Draco is the 'clean-up crew' for Project Leviathan. If the deal goes wrong, he'll destroy Cloud City to bury the evidence. This puts a hard clock on the entire tournament arc. The heroes must win the pot and get the gas codes before Draco loses patience.",
+              "npcs": [
+                { "name": "Inquisitor Valin Draco", "type": "Nemesis (Remote Threat)", "count": 1, "notes": "Aboard the Assiduous in orbit. Prepared to 'glass the city' if needed." }
+              ],
+              "hazards": "Star Destroyer in orbit. Time pressure. Draco's willingness to destroy the entire city.",
+              "decisions": [
+                { "choice": "Proceed with the tournament plan", "consequence": "Must win the pot before Draco acts. High pressure." },
+                { "choice": "Try to grab Darga directly", "consequence": "Skips the tournament but alerts everyone. Extremely dangerous without the credits." }
+              ],
+              "loreTags": ["Inquisitor Draco", "The Assiduous", "Cloud City", "Project Leviathan"],
+              "narrativeLinks": []
+            }
+          ]
+        },
+        {
+          "id": "adv3-p2",
+          "number": 2,
+          "title": "The High Stakes Game",
+          "scenes": [
+            {
+              "id": "adv3-p2-s1",
+              "number": 1,
+              "title": "The Elimination Rounds",
+              "subtitle": "Days 1 & 2",
+              "readAloud": "The Royal Casino is a loud, smoky, aggressive establishment where prospectors gamble away fortunes and refugees bet their last credits. Over fifty competitors crowd the tables. The air is thick with Corellian whiskey, Ryll spice smoke, and the mechanical whir of shuffling droids.\n\nYou notice two players worth watching: a flamboyant human named Silas Draver who seems drunk but isn't, and a cold Hapan noblewoman named Lady Fioro who bankrupts a weeping Dug in the first hour.",
+              "gmNotes": "Days 1-2 of the tournament. The heroes identify key players:\n- Lt. Arandis at Table 4: plays like a machine. Folds strong hands, raises weak ones against specific opponents.\n- Silas Draver: loud and arrogant but stone cold sober. Casing the room and checking camera sightlines. He's planning a heist.\n- Lady Mirana Fioro: icy Hapan noblewoman. Keeps glancing at Arandis with calculation — she's Darga's proxy.\n\nVarth coaches via comms: 'Watch who Arandis loses to. He's not allowed to lose to anyone but Darga's proxy.'",
+              "npcs": [
+                { "name": "Silas Draver", "type": "Scoundrel / Heist Planner", "count": 1, "notes": "Posing as a drunk gambler. Actually casing the room for a robbery." },
+                { "name": "Lady Mirana Fioro", "type": "Hapan Noblewoman / Darga's Proxy", "count": 1, "notes": "Icy and ruthless. The person Arandis is supposed to lose to." },
+                { "name": "Various Competitors", "type": "Tournament Players", "count": 50, "notes": "Species with telepathy, cybernetic implants, alien poker faces." }
+              ],
+              "hazards": "Surveillance systems. Smugglers with hidden weapons. Spice deals. Imperial undercover agents.",
+              "decisions": [
+                { "choice": "Focus on winning hands", "consequence": "Advance in the tournament but may miss crucial intelligence." },
+                { "choice": "Focus on gathering intel on Arandis and Fioro", "consequence": "Better prepared for the heist but risk elimination from the tournament." }
+              ],
+              "loreTags": ["Sabacc Tournament", "Silas Draver", "Lady Fioro", "Lt. Armen Arandis", "Cloud City"],
+              "narrativeLinks": []
+            },
+            {
+              "id": "adv3-p2-s2",
+              "number": 2,
+              "title": "The Pressure Cooker",
+              "subtitle": "Day 3",
+              "readAloud": "Day three. Only two tables remain. The buy-ins have escalated, and the audience has shifted from celebration to funeral silence.\n\nMidway through the session, a Devaronian gambler named Szygar goes bust against Arandis. He snaps, leaping up and screaming accusations of cheating. A hold-out blaster appears in his hand.\n\nPanic ripples through the crowd. Arandis doesn't flinch.",
+              "gmNotes": "The Szygar incident is a test for the heroes. If working security, they must subdue him without causing a casino shutdown. If playing, they must decide whether to intervene. If heroes don't act, Arandis's undercover Stormtroopers will vaporize Szygar, potentially causing a police investigation that cancels the tournament. Varth: 'Don't let them shoot! If the cops shut us down, we lose the money!' Success earns trust from casino owner Jacc Mandelbrot.",
+              "npcs": [
+                { "name": "Szygar", "type": "Devaronian Gambler", "count": 1, "notes": "Went bust. Snapped. Armed with a hold-out blaster." },
+                { "name": "Jacc Mandelbrot", "type": "Casino Owner", "count": 1, "notes": "Rewards heroes who handle the situation quietly with freer movement." }
+              ],
+              "hazards": "Armed gambler in a crowded casino. Potential for mass panic. Stormtroopers ready to intervene lethally.",
+              "decisions": [
+                { "choice": "Subdue Szygar quietly", "consequence": "Earns trust from Mandelbrot. Casino stays open. Tournament continues." },
+                { "choice": "Let Arandis's men handle it", "consequence": "They kill Szygar. Potential police investigation. Risk of tournament cancellation." }
+              ],
+              "loreTags": ["Sabacc Tournament", "Cloud City"],
+              "narrativeLinks": []
+            },
+            {
+              "id": "adv3-p2-s3",
+              "number": 3,
+              "title": "The Final Table",
+              "subtitle": "Day 4",
+              "readAloud": "The final day. Five players remain under a harsh spotlight: Arandis, Fioro, Draver, the Rodian Creeska, and you.\n\nArandis plays strangely — folding strong hands against everyone except Fioro. He goes All In against her. She calls.\n\nHe reveals a losing hand. The crowd erupts. But instead of sweeping his cards away, Arandis deliberately arranges them on the table: One of Coins. Three of Sabers. Seven of Flasks.\n\nVarth decodes it instantly: \"1-3-7. That's a frequency — 137.12. It's the slave circuit control code for the Shackles of Nizon. He just handed her the keys to the getaway car AND the money.\"",
+              "gmNotes": "The climax of the game. Arandis deliberately loses the massive pot to Fioro (Darga's proxy), transferring the Imperial payment. The card arrangement is a code — the slave circuit frequency for the Shackles of Nizon. Fioro now has the credits (digitally transferred to a datapad) and the ship code. The heroes must grab her before she leaves. This is the moment the heist transitions to action.",
+              "npcs": [
+                { "name": "Lt. Armen Arandis", "type": "Imperial Bagman", "count": 1, "notes": "Deliberately loses the pot to Fioro. Transmits the ship code via card arrangement." },
+                { "name": "Lady Mirana Fioro", "type": "Darga's Proxy", "count": 1, "notes": "Now holds the credits and ship code. Must be intercepted before she escapes." }
+              ],
+              "hazards": "Packed casino. Security everywhere. Fioro will try to leave immediately.",
+              "decisions": [
+                { "choice": "Intercept Fioro immediately", "consequence": "Direct confrontation in the casino. Public and messy." },
+                { "choice": "Follow Fioro and grab her outside", "consequence": "Cleaner but she might reach Darga's people first." }
+              ],
+              "loreTags": ["Sabacc Tournament", "Shackles of Nizon", "Lady Fioro", "Lt. Armen Arandis", "Darga the Hutt"],
+              "narrativeLinks": []
+            },
+            {
+              "id": "adv3-p2-s4",
+              "number": 4,
+              "title": "The Heist",
+              "subtitle": "Combat",
+              "readAloud": "Just as you move to intercept Fioro, Silas Draver makes his play. He stands, pulls a heavy blaster, and fires into the ceiling.\n\n\"Nobody moves! The Empire isn't the only one getting paid today!\"\n\nThe dealer droids spin around, revealing hidden blaster cannons. Draver's men — disguised as waiters and guests — pull weapons and secure the exits. Draver grabs Fioro, pressing a blaster to her temple.\n\n\"The datapad. Now.\"",
+              "gmNotes": "Three-way crossfire in a crowded casino. Draver weaponized the dealer droids and planted his men as staff. The heroes are caught between Draver's heist crew, panicking civilians, and Arandis who draws a concealed military blaster to protect the transaction's secrecy. Arandis likely dies in the crossfire, removing the Imperial witness. Varth: 'Forget the civilians! Get the datapad!' After defeating Draver, Fioro spills Darga's location: Docking Bay 4414.",
+              "npcs": [
+                { "name": "Silas Draver", "type": "Scoundrel Boss", "count": 1, "notes": "Planned this heist from the start. Using Fioro as a hostage." },
+                { "name": "Draver's Thugs", "type": "Disguised Combatants", "count": 4, "notes": "Posing as waiters and guests." },
+                { "name": "Weaponized Dealer Droids", "type": "Modified Droids", "count": 3, "notes": "Flying droids with hidden blaster cannons. 360-degree fire arcs." }
+              ],
+              "hazards": "Three-way crossfire. Panicking civilians (difficult terrain). Overturned tables. Flying weaponized droids.",
+              "decisions": [
+                { "choice": "Save Fioro from Draver", "consequence": "Secures the datapad intel. She'll reveal Darga's location in gratitude/fear." },
+                { "choice": "Grab the datapad in the chaos", "consequence": "May not get Darga's location. But secures the credits." }
+              ],
+              "loreTags": ["Silas Draver", "Lady Fioro", "Sabacc Tournament", "Darga the Hutt", "Cloud City"],
+              "narrativeLinks": []
+            },
+            {
+              "id": "adv3-p2-s5",
+              "number": 5,
+              "title": "The Aftermath",
+              "readAloud": "The casino is a wreck. Sirens wail in the distance. Lady Fioro, wounded and terrified, spills everything.\n\n\"He's at the lower docks — Docking Bay 4414. He has the Shackles of Nizon holding in orbit on slave circuits. He's taking the gas and the slaves and leaving the sector tonight!\"\n\nVarth scans the system. His voice is grim: \"The Shackles just activated its engines. And... damn it. The Assiduous just entered the system. Draco is here. Get to the hangar. If Darga launches, we lose everything.\"",
+              "gmNotes": "Fioro reveals Darga's location and the Shackles of Nizon's status. Varth confirms Draco has entered the system. The heroes must flee the crime scene and race through Cloud City to the industrial docks before Darga escapes. This is a transition scene — setting up Part 3.",
+              "npcs": [
+                { "name": "Lady Fioro", "type": "Wounded Proxy", "count": 1, "notes": "Terrified. Provides critical intel under pressure." }
+              ],
+              "hazards": "Wing Guard closing in. Imperial Star Destroyer entering the system. Time pressure.",
+              "decisions": [
+                { "choice": "Race to Docking Bay 4414", "consequence": "Sprint through a city in lockdown. Leads to Part 3." }
+              ],
+              "loreTags": ["Darga the Hutt", "Shackles of Nizon", "Inquisitor Draco", "The Assiduous", "Cloud City"],
+              "narrativeLinks": [
+                { "targetScene": "adv3-p3-s1", "note": "Direct transition to The Hangar Bay Showdown." }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "adv3-p3",
+          "number": 3,
+          "title": "The Hangar Bay Showdown",
+          "scenes": [
+            {
+              "id": "adv3-p3-s1",
+              "number": 1,
+              "title": "The Gauntlet",
+              "subtitle": "Streets of Cloud City",
+              "readAloud": "The journey to the lower docks is a sprint through a city in lockdown. Darga has bribed the Wing Guard to declare you 'Enemy Saboteurs.'\n\nThe chase transitions from pristine white corridors into the steam-filled, rusted catwalks of the Industrial District. Tibanna gas vents hiss, obscuring vision, and the orange glow of the Bespin sunset filters through heavy industrial grates.\n\nVarth hacks door controls from the ship: \"Left at the junction! No, the other left! I'm jamming their comms, but I can't stop them from shooting at you. Move!\"",
+              "gmNotes": "Running battle through Cloud City. The heroes are pinned down by corrupt Wing Guard and Stormtroopers. This is a chase — stopping to fight every enemy means being overwhelmed. Use the environment: shoot steam pipes to scald pursuers, jump onto moving cargo skiffs, cut through maintenance ducts. Varth acts as 'The Man in the Chair,' hacking door controls.",
+              "npcs": [
+                { "name": "Elite Bespin Security Guards", "type": "Corrupt Wing Guard", "count": 6, "notes": "Bribed by Darga. Hunting the heroes." },
+                { "name": "Stormtrooper Squad", "type": "Standard Stormtroopers", "count": 6, "notes": "Deployed from a shuttle to cut off retreat." }
+              ],
+              "hazards": "City lockdown. Steam pipes. Narrow catwalks. Corrupt law enforcement. Must keep moving or be overwhelmed.",
+              "decisions": [
+                { "choice": "Run and use the environment", "consequence": "Faster. Steam pipes, cargo skiffs, and maintenance ducts as escape tools." },
+                { "choice": "Fight through directly", "consequence": "Slower. Risks being overwhelmed by reinforcements." }
+              ],
+              "loreTags": ["Cloud City", "Darga the Hutt", "Admiral Varth"],
+              "narrativeLinks": []
+            },
+            {
+              "id": "adv3-p3-s2",
+              "number": 2,
+              "title": "Hutt's Hangar",
+              "subtitle": "Docking Bay 4414",
+              "readAloud": "You kick open the blast doors to Docking Bay 4414. The cavernous hangar is open to the roiling clouds of Bespin on one side, wind howling through the magnetic field.\n\nDominating the center is Darga's personal luxury yacht — the Glorious Chariot. Gold and purple, engines whining with a turbine squeal that vibrates in your teeth. Six Z-95 Headhunters idle on the deck, pilots scrambling into cockpits.\n\nDarga stands at the base of the ramp, screaming at his loading crews. When he sees you, fear becomes rage.\n\n\"Kill them! They brought the Inquisitor down on us! I want their heads!\"",
+              "gmNotes": "The final confrontation with Darga. The Glorious Chariot is priming for launch. Six Z-95 fighters are scrambling — if they get airborne, they'll strafe the hangar. Savvy heroes might shoot pilots on ladders to hijack fighters. Darga retreats up the ramp as mercenaries fall. Heroes must breach the ship or disable its engines. If they board, they fight Darga in the yacht's narrow corridors where his massive bulk is a weapon.",
+              "npcs": [
+                { "name": "Darga the Hutt", "type": "Hutt Crime Lord (Boss)", "count": 1, "notes": "Desperate and enraged. Will fight with his bulk in the yacht's corridors." },
+                { "name": "Z-95 Pilots", "type": "Standard Pilots", "count": 6, "notes": "Scrambling to cockpits. Must be stopped before takeoff." },
+                { "name": "Heavy Security Droid", "type": "Elite Droid", "count": 1, "notes": "Flanking Darga at the ramp." },
+                { "name": "Loading Crews / Thugs", "type": "Standard Combatants", "count": 6, "notes": "Darga's remaining muscle." }
+              ],
+              "hazards": "Open hangar to Bespin's clouds. Z-95s attempting takeoff. Fuel crates. Magnetic field boundary.",
+              "decisions": [
+                { "choice": "Stop the Z-95s from launching", "consequence": "Prevents aerial strafing. Heroes might hijack fighters for the escape." },
+                { "choice": "Rush Darga directly", "consequence": "Risk being strafed if fighters launch, but could end the fight faster." }
+              ],
+              "loreTags": ["Darga the Hutt", "The Glorious Chariot", "Cloud City"],
+              "narrativeLinks": []
+            },
+            {
+              "id": "adv3-p3-s3",
+              "number": 3,
+              "title": "The Firefight",
+              "readAloud": "The hangar erupts into chaos. Blaster bolts ricochet off hull plating and fuel crates. The Z-95 engines roar to life one by one. Darga, seeing his mercenaries fall, turns and lumbers up the boarding ramp of the Glorious Chariot.\n\nThe yacht's engines begin their warm-up cycle. If he seals that ramp, he's gone.",
+              "gmNotes": "The climactic ground fight. Heroes must cross the hangar using fuel crates and machinery for cover. Primary objective: stop the Glorious Chariot from launching. If Z-95s get airborne, they strafe the hangar floor. If heroes breach the yacht, they fight Darga in opulent but narrow corridors. Darga fights desperately — he knows this is his last stand.",
+              "npcs": [
+                { "name": "Darga the Hutt", "type": "Boss", "count": 1, "notes": "Retreating up the ramp. Will fight in the ship's corridors." },
+                { "name": "Remaining Mercenaries", "type": "Standard Combatants", "count": 4, "notes": "Fighting to cover Darga's retreat." }
+              ],
+              "hazards": "Fuel crate explosions. Z-95 engine wash. Narrow yacht corridors if boarding.",
+              "decisions": [
+                { "choice": "Board the Glorious Chariot", "consequence": "Close-quarters fight with Darga in his own ship. Can capture the yacht." },
+                { "choice": "Disable engines from outside", "consequence": "Safer but Darga might have an escape pod." }
+              ],
+              "loreTags": ["Darga the Hutt", "The Glorious Chariot"],
+              "narrativeLinks": []
+            },
+            {
+              "id": "adv3-p3-s4",
+              "number": 4,
+              "title": "Grand Theft Starship",
+              "readAloud": "With Darga defeated and the hangar secured, you barely have time to breathe before Varth barks over the comms:\n\n\"Imperial stormtroopers have breached the elevator shaft! You have thirty seconds before a platoon comes through that door. You can't go back the way you came. Take the ships! Steal the yacht! I'll rendezvous with you in orbit!\"",
+              "gmNotes": "The heroes commandeer the Glorious Chariot and any intact Z-95 Headhunters. As hangar doors blast open and Stormtroopers pour in, the heroes punch the throttles and blast out of the hangar bay into the orange clouds of Bespin. This transitions to the orbital battle.",
+              "npcs": [
+                { "name": "Stormtrooper Platoon", "type": "Standard Stormtroopers", "count": 20, "notes": "Breaching the elevator shaft. 30 seconds until arrival." }
+              ],
+              "hazards": "30-second countdown. Stormtrooper platoon incoming. Must launch immediately.",
+              "decisions": [
+                { "choice": "Take the Glorious Chariot", "consequence": "Luxury yacht with decent shields and weapons. The primary escape vehicle." },
+                { "choice": "Also grab Z-95 fighters", "consequence": "Additional firepower for the orbital battle. Requires pilots." }
+              ],
+              "loreTags": ["The Glorious Chariot", "Cloud City"],
+              "narrativeLinks": []
+            },
+            {
+              "id": "adv3-p3-s5",
+              "number": 5,
+              "title": "Skirmish Over Bespin",
+              "readAloud": "You break atmosphere and the sensor board lights up. The Imperial Star Destroyer Assiduous hangs in high orbit, launching TIE Fighters. The Shackles of Nizon — a transport filled with slaves — drifts dead in space. A massive automated Tibanna Gas Hauler is burning hard on a collision course with the slave ship.\n\nVarth's voice is cold and professional:\n\n\"Good work getting airborne. That Gas Hauler is going to impact the transport in less than two minutes. It's a tragedy, but it's not our tragedy. We have the credits, we have the data. Spool up the hyperdrives. Let's get out of here while we're rich.\"\n\nThen a frantic transmission cuts through:\n\n\"Varth! I'm on the transport! The slave circuits are locked! I can't steer and sensors show collision imminent! Where is that backup code?!\"\n\nIt's Captain Okeefe.",
+              "gmNotes": "The moral climax of Act I. Varth sent Okeefe to the slave ship intending for her to be destroyed with the evidence — she's a loose end. The Empire is using the Gas Hauler as a ram to destroy the Shackles of Nizon. Varth's position: 'She knew the risks. We jump. Now.' The heroes must choose: follow Varth and leave Okeefe to die, or turn and fight. If they fight, they engage TIE Fighters to destroy the Gas Hauler. Varth eventually helps — not from altruism, but because he needs the heroes alive for the fortune.",
+              "npcs": [
+                { "name": "Captain Okeefe", "type": "Veteran Smuggler (In Peril)", "count": 1, "notes": "Trapped on the Shackles of Nizon. Varth intended for her to die." },
+                { "name": "TIE Fighter Wing", "type": "Standard Fighters", "count": 8, "notes": "Screening the Gas Hauler. Must be engaged to reach it." }
+              ],
+              "hazards": "Star Destroyer in orbit. TIE Fighter screen. Automated Gas Hauler on collision course. Two-minute countdown.",
+              "decisions": [
+                { "choice": "Turn and fight to save Okeefe", "consequence": "Engage TIEs and destroy the Gas Hauler. Varth reluctantly helps. Heroic but dangerous." },
+                { "choice": "Follow Varth's order and jump to hyperspace", "consequence": "Okeefe dies. The slaves die. The heroes are rich but compromised." }
+              ],
+              "loreTags": ["Captain Okeefe", "Admiral Varth", "Varth's True Nature", "Inquisitor Draco", "The Assiduous", "Shackles of Nizon", "Project Leviathan"],
+              "narrativeLinks": [
+                { "targetScene": "adv1-p2-s1", "note": "Okeefe was introduced as a reliable ally. Varth's willingness to sacrifice her reveals his true nature." }
+              ]
+            },
+            {
+              "id": "adv3-p3-s6",
+              "number": 6,
+              "title": "The Choice",
+              "subtitle": "End of Act I",
+              "readAloud": "The Tibanna Gas Hauler explodes in a massive fireball just meters from the slave ship. Okeefe's voice, shaking with relief: \"Slave circuits fried. Nav-computer is green. We are jumping to the rendezvous...\"\n\nA pause.\n\n\"...and Varth? You and I are going to have a very long talk.\"\n\nThe Assiduous opens fire with turbolasers. Green bolts flash past your cockpit. Varth screams:\n\n\"We overstayed our welcome! PUNCH IT!\"\n\nThe stars stretch into lines and you're gone.",
+              "gmNotes": "The aftermath of Act I. At the rendezvous: Okeefe punches Varth in the jaw. He takes it, claiming it was a 'tactical calculation that changed.' Rewards: The Glorious Chariot, Z-95 fighters, tournament winnings, Darga's assets, Project Leviathan files. Varth's tease: 'This data points to a massive construction project in the Unknown Regions. If you want to know what the Empire is really building, we have to go off the map.' This concludes Act I and sets up the campaign's second act.",
+              "npcs": [
+                { "name": "Admiral Varth", "type": "The Grifter", "count": 1, "notes": "Takes a punch from Okeefe. Plays it off. Already planning the next move." },
+                { "name": "Captain Okeefe", "type": "Veteran Smuggler", "count": 1, "notes": "Furious. Punches Varth. Trust is deeply damaged." }
+              ],
+              "hazards": "Turbolaser fire from the Assiduous. Must jump to hyperspace immediately.",
+              "decisions": [
+                { "choice": "Confront Varth about his betrayal", "consequence": "He deflects — 'tactical calculation.' But the heroes now know what he's capable of." }
+              ],
+              "loreTags": ["Admiral Varth", "Varth's True Nature", "Captain Okeefe", "Project Leviathan", "The Glorious Chariot", "End of Act I"],
+              "narrativeLinks": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "adv4",
+      "number": 4,
+      "title": "The Ebon Spire",
+      "act": 2,
+      "summary": "The heroes journey to the Unknown Regions to find the Ebon Spire — a petrified ancient tree that holds the key to Project Leviathan's location.",
+      "parts": [
+        { "id": "adv4-p1", "number": 1, "title": "The Dead Forest", "scenes": [] },
+        { "id": "adv4-p2", "number": 2, "title": "The Descent", "scenes": [] },
+        { "id": "adv4-p3", "number": 3, "title": "The Web of the Revanchist", "scenes": [] }
+      ]
+    },
+    {
+      "id": "adv5",
+      "number": 5,
+      "title": "The Malpaz Insurrection",
+      "act": 2,
+      "summary": "The heroes travel to the occupied industrial world of Malpaz to steal drift algorithms from an Imperial research station, sparking a local insurrection.",
+      "parts": [
+        { "id": "adv5-p1", "number": 1, "title": "The Gauntlet", "scenes": [] },
+        { "id": "adv5-p2", "number": 2, "title": "The Uprising", "scenes": [] },
+        { "id": "adv5-p3", "number": 3, "title": "The Extraction", "scenes": [] }
+      ]
+    },
+    {
+      "id": "adv6",
+      "number": 6,
+      "title": "The First to Strike",
+      "act": 2,
+      "summary": "Armed with the drift algorithms, the heroes launch a strike against a key Project Leviathan supply depot.",
+      "parts": [
+        { "id": "adv6-p1", "number": 1, "title": "The Briefing", "scenes": [] },
+        { "id": "adv6-p2", "number": 2, "title": "The Raid", "scenes": [] },
+        { "id": "adv6-p3", "number": 3, "title": "The Fallout", "scenes": [] }
+      ]
+    },
+    {
+      "id": "adv7",
+      "number": 7,
+      "title": "The Crucible",
+      "act": 3,
+      "summary": "The heroes face their greatest personal trials as the campaign's alliances are tested.",
+      "parts": [
+        { "id": "adv7-p1", "number": 1, "title": "The Trial", "scenes": [] },
+        { "id": "adv7-p2", "number": 2, "title": "The Reckoning", "scenes": [] }
+      ]
+    },
+    {
+      "id": "adv8",
+      "number": 8,
+      "title": "The Iron Blockade",
+      "act": 3,
+      "summary": "The Empire tightens its grip on the Western Reaches, and the heroes must break through an iron blockade.",
+      "parts": [
+        { "id": "adv8-p1", "number": 1, "title": "The Siege", "scenes": [] },
+        { "id": "adv8-p2", "number": 2, "title": "The Breakthrough", "scenes": [] }
+      ]
+    },
+    {
+      "id": "adv9",
+      "number": 9,
+      "title": "The Point of No Return",
+      "act": 3,
+      "summary": "The final preparations for the assault on Project Leviathan. Alliances are forged or broken.",
+      "parts": [
+        { "id": "adv9-p1", "number": 1, "title": "The Alliance", "scenes": [] },
+        { "id": "adv9-p2", "number": 2, "title": "The Launch", "scenes": [] }
+      ]
+    },
+    {
+      "id": "adv10",
+      "number": 10,
+      "title": "Jaws of the Leviathan",
+      "act": 3,
+      "summary": "The campaign's climax. The heroes confront Project Leviathan and face Admiral Varth's ultimate betrayal.",
+      "parts": [
+        { "id": "adv10-p1", "number": 1, "title": "The Approach", "scenes": [] },
+        { "id": "adv10-p2", "number": 2, "title": "The Betrayal", "scenes": [] },
+        { "id": "adv10-p3", "number": 3, "title": "The Final Hand", "scenes": [] }
+      ]
+    }
+  ]
+}

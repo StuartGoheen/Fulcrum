@@ -47,6 +47,7 @@ A Star Wars TTRPG electronic character sheet and campaign management system buil
 - `data/gamesystem.json` — Core resolution rules reference
 - `data/threats.json` — NPC/threat rules and trigger system
 - `data/maneuvers.json`, `data/glossary.json` — reference data
+- `data/adventures.json` — structured adventure content (adventures → parts → scenes)
 
 ## Running the App
 
@@ -66,6 +67,14 @@ Server listens on `0.0.0.0:5000`.
 - `GET  /api/equipment/:charId` — character equipment statuses
 - `POST /api/equipment/:charId/:itemId` — update item status
 - `GET  /api/health` — health check
+- `GET  /api/campaign/adventures` — full adventure data
+- `GET  /api/campaign/adventures/:id` — single adventure
+- `GET  /api/campaign/progress` — current position + completions
+- `PUT  /api/campaign/progress` — save position
+- `PUT  /api/campaign/scene/:sceneId/complete` — toggle scene completion
+- `GET  /api/campaign/lore-tags` — all lore tags
+- `GET  /api/campaign/lore-tags/:tag` — scenes for a specific tag
+- `GET  /api/campaign/party` — party monitor data
 
 ## Ammo Power Bar System
 
@@ -131,10 +140,30 @@ Two new screens added after Kit selection (March 2026):
 
 **Character creation flow:** Species → Phase 1 → Phase 2 → Phase 3 → Arenas/Disciplines → Kits → **Destiny** → **Your Story** → Summary (Confirm & Save)
 
+## Campaign Engine
+
+The GM Command Bridge (`public/gm/index.html`) features a full Campaign Engine as its primary tab.
+
+**Data:** `data/adventures.json` — 10 adventures structured as adventures → parts → scenes. Adventures 1-3 have full scene content (37 scenes total) with readAloud text, GM notes, NPC rosters, hazards, decision points, lore tags, and narrative links. Adventures 4-10 have title/part structure only (placeholder).
+
+**DB Tables:** `campaign_progress` (single-row, tracks current adventure/part/scene position), `scene_completion` (per-scene completion status + optional GM notes).
+
+**API Endpoints:**
+- `GET  /api/campaign/adventures` — full adventure data
+- `GET  /api/campaign/adventures/:id` — single adventure
+- `GET  /api/campaign/progress` — current position + all scene completions
+- `PUT  /api/campaign/progress` — save position (validated against adventure data)
+- `PUT  /api/campaign/scene/:sceneId/complete` — toggle scene completion
+- `GET  /api/campaign/lore-tags` — all lore tags with scene references
+- `GET  /api/campaign/lore-tags/:tag` — scenes referencing a specific tag
+- `GET  /api/campaign/party` — party monitor data from characters table
+
+**UI Features:** Adventure navigator (10 adventures), part navigator, scene list with completion indicators, scene renderer (read-aloud block, GM notes, NPC roster, hazards, decision points), clickable lore tags with cross-reference modal, narrative link navigation, collapsible Party Monitor sidebar, TBD placeholder panels for Combat Tracker and Starship Combat.
+
 ## Database
 
 SQLite database auto-created and seeded on first run at `db/campaign.db`.  
-Tables: `characters`, `campaign_state`, `equipment_status`, `sessions`.
+Tables: `characters`, `campaign_state`, `equipment_status`, `sessions`, `campaign_progress`, `scene_completion`.
 
 ## Deployment
 

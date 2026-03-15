@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="icon" href="/icon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="/css/output.css" />
+  <script src="/socket.io/socket.io.js"></script>
   <style>
     :root.theme-vader {
       --color-bg-primary: #0D0D0D;
@@ -22,15 +23,13 @@
       --color-border: #2E2E2E;
       --color-card-hover: #242424;
     }
-    body { background-color: var(--color-bg-primary); color: var(--color-text-primary); font-family: 'Exo 2', sans-serif; }
+    body { background-color: var(--color-bg-primary); color: var(--color-text-primary); font-family: 'Exo 2', sans-serif; margin: 0; }
     .font-display { font-family: 'Audiowide', sans-serif; }
 
-    /* Nav tabs */
     .tab-btn { padding: 0.5rem 1.25rem; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; border-bottom: 2px solid transparent; color: var(--color-text-secondary); background: transparent; border-top: none; border-left: none; border-right: none; cursor: pointer; transition: all 0.15s; }
     .tab-btn:hover { color: var(--color-text-primary); }
     .tab-btn.active { color: var(--color-accent-primary); border-bottom-color: var(--color-accent-primary); }
 
-    /* Cards */
     .card { background: var(--color-bg-panel); border: 1px solid var(--color-border); padding: 1rem; margin-bottom: 0.75rem; }
     .card-header { font-family: 'Audiowide', sans-serif; font-size: 0.75rem; color: var(--color-accent-deep); margin-bottom: 0.5rem; }
     .tag { display: inline-block; font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; padding: 0.15rem 0.5rem; border: 1px solid; margin-right: 0.35rem; margin-bottom: 0.25rem; }
@@ -44,67 +43,163 @@
     .tag-elite { border-color: #C47A1E; color: #C47A1E; }
     .tag-nemesis { border-color: #CC0000; color: #CC0000; }
 
-    /* Tier table */
     .tier-row { display: grid; grid-template-columns: 80px 1fr; gap: 0.5rem; padding: 0.35rem 0; border-bottom: 1px solid var(--color-border); font-size: 0.72rem; }
     .tier-row:last-child { border-bottom: none; }
     .tier-label { font-weight: 600; color: var(--color-accent-secondary); }
 
-    /* Condition dual box */
     .dual-box { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 0.4rem; }
     .dual-side { background: var(--color-bg-frame); padding: 0.4rem 0.6rem; font-size: 0.68rem; }
     .dual-side-label { font-size: 0.58rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700; margin-bottom: 0.2rem; opacity: 0.6; }
 
-    /* Stat block */
     .stat-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.5rem 0; }
     .stat-pill { background: var(--color-bg-frame); border: 1px solid var(--color-border); padding: 0.25rem 0.6rem; font-size: 0.68rem; text-align: center; }
     .stat-pill .stat-val { font-family: 'Audiowide', sans-serif; font-size: 0.85rem; color: var(--color-accent-primary); display: block; }
     .stat-pill .stat-name { font-size: 0.55rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-text-secondary); display: block; }
 
-    /* Gambit block */
     .gambit-block { background: var(--color-bg-frame); border-left: 3px solid; padding: 0.4rem 0.6rem; margin-top: 0.4rem; font-size: 0.7rem; }
     .gambit-block.d10 { border-color: #5588CC; }
     .gambit-block.d12 { border-color: #AA44AA; }
     .gambit-name { font-weight: 700; margin-bottom: 0.15rem; }
 
-    /* Collapse */
     .collapsible > .card-body { display: none; }
     .collapsible.open > .card-body { display: block; }
     .collapse-toggle { cursor: pointer; user-select: none; }
-    .collapse-toggle::after { content: ' ▸'; font-size: 0.6rem; opacity: 0.5; }
-    .collapsible.open .collapse-toggle::after { content: ' ▾'; }
+    .collapse-toggle::after { content: ' \25B8'; font-size: 0.6rem; opacity: 0.5; }
+    .collapsible.open .collapse-toggle::after { content: ' \25BE'; }
 
-    /* Search */
     #search-input { background: var(--color-bg-frame); border: 1px solid var(--color-border); color: var(--color-text-primary); padding: 0.4rem 0.75rem; font-size: 0.75rem; width: 100%; max-width: 320px; outline: none; }
     #search-input:focus { border-color: var(--color-accent-primary); }
 
-    /* Hidden */
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
     .hidden-item { display: none !important; }
 
-    /* Risk */
     .risk-block { background: #1a0a0a; border-left: 3px solid #CC0000; padding: 0.35rem 0.6rem; margin: 0.4rem 0; font-size: 0.7rem; color: #CC7777; }
 
-    /* Rule block */
     .rule-section { margin-bottom: 1.5rem; }
     .rule-section h3 { font-family: 'Audiowide', sans-serif; font-size: 0.7rem; color: var(--color-accent-secondary); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; padding-bottom: 0.25rem; border-bottom: 1px solid var(--color-border); }
 
     scrollbar-width: thin;
     scrollbar-color: var(--color-accent-primary) var(--color-bg-frame);
+
+    /* Campaign styles */
+    .campaign-layout { display: grid; grid-template-columns: 1fr 280px; gap: 1rem; }
+    .campaign-layout.sidebar-collapsed { grid-template-columns: 1fr 40px; }
+
+    .adv-nav { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    .adv-nav-btn { background: var(--color-bg-frame); border: 1px solid var(--color-border); color: var(--color-text-secondary); padding: 0.4rem 0.8rem; font-size: 0.65rem; font-family: 'Exo 2', sans-serif; cursor: pointer; letter-spacing: 0.05em; transition: all 0.15s; }
+    .adv-nav-btn:hover { border-color: var(--color-accent-secondary); color: var(--color-text-primary); }
+    .adv-nav-btn.active { border-color: var(--color-accent-primary); color: var(--color-accent-primary); background: rgba(204,0,0,0.08); }
+
+    .part-nav { display: flex; gap: 0.35rem; margin-bottom: 1rem; }
+    .part-nav-btn { background: transparent; border: none; color: var(--color-text-secondary); font-size: 0.68rem; font-family: 'Exo 2', sans-serif; cursor: pointer; padding: 0.3rem 0.6rem; border-bottom: 2px solid transparent; }
+    .part-nav-btn:hover { color: var(--color-text-primary); }
+    .part-nav-btn.active { color: var(--color-accent-secondary); border-bottom-color: var(--color-accent-secondary); }
+
+    .scene-list { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1rem; }
+    .scene-btn { display: flex; align-items: center; gap: 0.5rem; background: var(--color-bg-frame); border: 1px solid var(--color-border); padding: 0.5rem 0.75rem; cursor: pointer; transition: all 0.15s; text-align: left; width: 100%; font-family: 'Exo 2', sans-serif; color: var(--color-text-primary); font-size: 0.72rem; }
+    .scene-btn:hover { border-color: var(--color-accent-secondary); }
+    .scene-btn.active { border-color: var(--color-accent-primary); background: rgba(204,0,0,0.06); }
+    .scene-btn .scene-num { font-family: 'Audiowide', sans-serif; font-size: 0.65rem; color: var(--color-accent-primary); min-width: 1.5rem; }
+    .scene-btn .scene-check { font-size: 0.8rem; margin-left: auto; }
+    .scene-btn .scene-check.done { color: #44AA66; }
+
+    .read-aloud {
+      background: linear-gradient(135deg, #1a1a0a 0%, #1a150a 100%);
+      border-left: 3px solid var(--color-accent-secondary);
+      padding: 0.75rem 1rem;
+      margin-bottom: 1rem;
+      font-size: 0.78rem;
+      line-height: 1.6;
+      color: #D4C090;
+      font-style: italic;
+      white-space: pre-line;
+    }
+    .read-aloud-label {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.6rem;
+      color: var(--color-accent-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 0.4rem;
+      font-style: normal;
+    }
+
+    .gm-notes-block {
+      background: var(--color-bg-frame);
+      border-left: 3px solid var(--color-accent-deep);
+      padding: 0.6rem 0.8rem;
+      margin-bottom: 1rem;
+      font-size: 0.72rem;
+      line-height: 1.5;
+      color: var(--color-text-primary);
+      white-space: pre-line;
+    }
+    .gm-notes-label {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.6rem;
+      color: var(--color-accent-deep);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 0.4rem;
+    }
+
+    .npc-roster { margin-bottom: 1rem; }
+    .npc-row { display: grid; grid-template-columns: 200px 160px 50px 1fr; gap: 0.5rem; padding: 0.35rem 0; border-bottom: 1px solid var(--color-border); font-size: 0.7rem; align-items: center; }
+    .npc-row:last-child { border-bottom: none; }
+
+    .decision-block { background: var(--color-bg-frame); border: 1px solid var(--color-border); padding: 0.5rem 0.75rem; margin-bottom: 0.5rem; }
+    .decision-choice { font-weight: 600; color: var(--color-accent-secondary); font-size: 0.72rem; margin-bottom: 0.2rem; }
+    .decision-consequence { font-size: 0.68rem; color: var(--color-text-secondary); }
+
+    .lore-tag { display: inline-block; font-size: 0.58rem; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600; padding: 0.2rem 0.5rem; border: 1px solid #5588CC; color: #5588CC; margin-right: 0.3rem; margin-bottom: 0.3rem; cursor: pointer; transition: all 0.15s; }
+    .lore-tag:hover { background: rgba(85,136,204,0.15); }
+
+    .narrative-link { display: block; font-size: 0.68rem; color: var(--color-accent-secondary); margin-bottom: 0.3rem; cursor: pointer; text-decoration: none; }
+    .narrative-link:hover { color: var(--color-text-primary); }
+
+    .scene-complete-btn { background: var(--color-bg-frame); border: 1px solid var(--color-border); color: var(--color-text-secondary); padding: 0.5rem 1rem; font-size: 0.7rem; font-family: 'Exo 2', sans-serif; cursor: pointer; letter-spacing: 0.06em; text-transform: uppercase; transition: all 0.15s; display: flex; align-items: center; gap: 0.5rem; }
+    .scene-complete-btn:hover { border-color: #44AA66; color: #44AA66; }
+    .scene-complete-btn.completed { border-color: #44AA66; color: #44AA66; background: rgba(68,170,102,0.08); }
+
+    .party-sidebar { background: var(--color-bg-panel); border: 1px solid var(--color-border); padding: 0.75rem; overflow: hidden; }
+    .party-sidebar-header { font-family: 'Audiowide', sans-serif; font-size: 0.65rem; color: var(--color-accent-deep); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: space-between; }
+    .party-card { background: var(--color-bg-frame); border: 1px solid var(--color-border); padding: 0.5rem; margin-bottom: 0.4rem; }
+    .party-card .pc-name { font-family: 'Audiowide', sans-serif; font-size: 0.7rem; color: var(--color-text-primary); }
+    .party-card .pc-detail { font-size: 0.62rem; color: var(--color-text-secondary); }
+    .party-card .pc-vitality { font-family: 'Audiowide', sans-serif; font-size: 0.75rem; color: var(--color-accent-primary); }
+    .party-card.connected { border-left: 2px solid #44AA66; }
+    .party-card.disconnected { border-left: 2px solid var(--color-text-secondary); opacity: 0.6; }
+
+    .sidebar-toggle { background: transparent; border: 1px solid var(--color-border); color: var(--color-text-secondary); cursor: pointer; font-size: 0.7rem; padding: 0.2rem 0.4rem; }
+
+    .tbd-panel { background: var(--color-bg-panel); border: 1px solid var(--color-border); padding: 2rem; text-align: center; margin-bottom: 1rem; }
+    .tbd-panel h3 { font-family: 'Audiowide', sans-serif; font-size: 0.85rem; color: var(--color-text-secondary); margin: 0 0 0.5rem; }
+    .tbd-panel .tbd-badge { display: inline-block; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; padding: 0.25rem 0.75rem; border: 1px solid var(--color-accent-secondary); color: var(--color-accent-secondary); margin-top: 0.5rem; }
+
+    .lore-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 100; display: none; justify-content: center; align-items: center; }
+    .lore-modal-overlay.active { display: flex; }
+    .lore-modal { background: var(--color-bg-panel); border: 1px solid var(--color-border); padding: 1.5rem; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; }
+    .lore-modal h3 { font-family: 'Audiowide', sans-serif; font-size: 0.8rem; color: #5588CC; margin: 0 0 1rem; }
+    .lore-modal .lore-scene-link { background: var(--color-bg-frame); border: 1px solid var(--color-border); padding: 0.5rem 0.75rem; margin-bottom: 0.5rem; cursor: pointer; transition: all 0.15s; }
+    .lore-modal .lore-scene-link:hover { border-color: var(--color-accent-secondary); }
+    .lore-modal .close-btn { background: transparent; border: 1px solid var(--color-border); color: var(--color-text-secondary); padding: 0.3rem 0.8rem; cursor: pointer; font-size: 0.7rem; float: right; }
   </style>
 </head>
 <body>
-  <!-- Header -->
   <header style="background:var(--color-bg-panel);border-bottom:1px solid var(--color-border);position:sticky;top:0;z-index:50;">
     <div style="max-width:1400px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:3rem;">
       <div style="display:flex;align-items:center;gap:1rem;">
-        <a href="/" style="font-family:'Audiowide',sans-serif;font-size:0.7rem;color:var(--color-accent-primary);text-decoration:none;letter-spacing:0.08em;">← BRIDGE</a>
-        <span style="font-family:'Audiowide',sans-serif;font-size:0.75rem;color:var(--color-accent-deep);letter-spacing:0.06em;">COMMAND BRIDGE — RULES REFERENCE</span>
+        <a href="/" style="font-family:'Audiowide',sans-serif;font-size:0.7rem;color:var(--color-accent-primary);text-decoration:none;letter-spacing:0.08em;">&larr; BRIDGE</a>
+        <span style="font-family:'Audiowide',sans-serif;font-size:0.75rem;color:var(--color-accent-deep);letter-spacing:0.06em;">COMMAND BRIDGE</span>
       </div>
-      <input type="search" id="search-input" placeholder="Search…" />
+      <input type="search" id="search-input" placeholder="Search..." />
     </div>
-    <nav style="max-width:1400px;margin:0 auto;padding:0 1.5rem;display:flex;gap:0;border-top:1px solid var(--color-border);" id="tab-nav">
-      <button class="tab-btn active" data-tab="arenas">Arenas &amp; Disciplines</button>
+    <nav style="max-width:1400px;margin:0 auto;padding:0 1.5rem;display:flex;gap:0;border-top:1px solid var(--color-border);overflow-x:auto;" id="tab-nav">
+      <button class="tab-btn active" data-tab="campaign">Campaign</button>
+      <button class="tab-btn" data-tab="combat-tracker">Combat Tracker</button>
+      <button class="tab-btn" data-tab="starship-combat">Starship Combat</button>
+      <button class="tab-btn" data-tab="arenas">Arenas &amp; Disciplines</button>
       <button class="tab-btn" data-tab="conditions">Conditions</button>
       <button class="tab-btn" data-tab="maneuvers">Maneuvers</button>
       <button class="tab-btn" data-tab="threats">Threats</button>
@@ -116,22 +211,66 @@
   </header>
 
   <main style="max-width:1400px;margin:0 auto;padding:1.5rem;">
-    <div id="tab-arenas" class="tab-panel active"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading…</p></div>
-    <div id="tab-conditions" class="tab-panel"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading…</p></div>
-    <div id="tab-maneuvers" class="tab-panel"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading…</p></div>
-    <div id="tab-threats" class="tab-panel"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading…</p></div>
-    <div id="tab-weapons" class="tab-panel"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading…</p></div>
-    <div id="tab-armor" class="tab-panel"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading…</p></div>
-    <div id="tab-gamesystem" class="tab-panel"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading…</p></div>
-    <div id="tab-gear" class="tab-panel"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading…</p></div>
+    <div id="tab-campaign" class="tab-panel active">
+      <div class="campaign-layout" id="campaign-layout">
+        <div id="campaign-main">
+          <div id="adv-nav" class="adv-nav"></div>
+          <div id="part-nav" class="part-nav"></div>
+          <div id="scene-list" class="scene-list"></div>
+          <div id="scene-content"></div>
+        </div>
+        <div id="party-sidebar-container">
+          <div class="party-sidebar" id="party-sidebar">
+            <div class="party-sidebar-header">
+              <span>Party Monitor</span>
+              <button class="sidebar-toggle" id="sidebar-toggle" title="Collapse">&times;</button>
+            </div>
+            <div id="party-list"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="tab-combat-tracker" class="tab-panel">
+      <div class="tbd-panel">
+        <h3>Combat Tracker</h3>
+        <p style="font-size:0.75rem;color:var(--color-text-secondary);max-width:400px;margin:0.5rem auto;">Track initiative, conditions, vitality, and action economy for all combatants in the current encounter.</p>
+        <div class="tbd-badge">Coming Soon &mdash; TBD</div>
+      </div>
+    </div>
+
+    <div id="tab-starship-combat" class="tab-panel">
+      <div class="tbd-panel">
+        <h3>Starship Combat Tracker</h3>
+        <p style="font-size:0.75rem;color:var(--color-text-secondary);max-width:400px;margin:0.5rem auto;">Manage starship encounters including shields, hull integrity, weapon arcs, and crew positions.</p>
+        <div class="tbd-badge">Coming Soon &mdash; TBD</div>
+      </div>
+    </div>
+
+    <div id="tab-arenas" class="tab-panel"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading&hellip;</p></div>
+    <div id="tab-conditions" class="tab-panel"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading&hellip;</p></div>
+    <div id="tab-maneuvers" class="tab-panel"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading&hellip;</p></div>
+    <div id="tab-threats" class="tab-panel"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading&hellip;</p></div>
+    <div id="tab-weapons" class="tab-panel"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading&hellip;</p></div>
+    <div id="tab-armor" class="tab-panel"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading&hellip;</p></div>
+    <div id="tab-gamesystem" class="tab-panel"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading&hellip;</p></div>
+    <div id="tab-gear" class="tab-panel"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading&hellip;</p></div>
   </main>
+
+  <div class="lore-modal-overlay" id="lore-modal-overlay">
+    <div class="lore-modal" id="lore-modal">
+      <button class="close-btn" id="lore-modal-close">&times; Close</button>
+      <h3 id="lore-modal-title"></h3>
+      <div id="lore-modal-body"></div>
+    </div>
+  </div>
 
 <script>
 (function () {
   /* ── Tab switching ─────────────────────────────────────── */
   const tabBtns  = document.querySelectorAll('.tab-btn');
   const tabPanels = document.querySelectorAll('.tab-panel');
-  let currentTab = 'arenas';
+  let currentTab = 'campaign';
 
   tabBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -195,6 +334,450 @@
     };
   }
 
+  /* ══════════════════════════════════════════════════════════
+     CAMPAIGN ENGINE
+     ══════════════════════════════════════════════════════════ */
+
+  let adventuresData = null;
+  let progressData = { adventure_id: 'adv1', part_id: 'adv1-p1', scene_id: 'adv1-p1-s1' };
+  let completionsData = {};
+  let currentAdventure = null;
+  let currentPart = null;
+  let currentScene = null;
+  let sidebarCollapsed = false;
+
+  async function initCampaign() {
+    try {
+      const [advRes, progRes] = await Promise.all([
+        fetch('/api/campaign/adventures').then(r => r.json()),
+        fetch('/api/campaign/progress').then(r => r.json())
+      ]);
+      adventuresData = advRes;
+      progressData = progRes.progress;
+      completionsData = progRes.completions || {};
+
+      currentAdventure = progressData.adventure_id;
+      currentPart = progressData.part_id;
+      currentScene = progressData.scene_id;
+
+      renderAdvNav();
+      renderPartNav();
+      renderSceneList();
+      renderScene();
+      loadPartyMonitor();
+    } catch (err) {
+      document.getElementById('campaign-main').innerHTML =
+        '<p style="color:var(--color-accent-primary);font-size:0.75rem;">Failed to load campaign data: ' + esc(err.message) + '</p>';
+    }
+  }
+
+  function getAdventure(id) {
+    return adventuresData.adventures.find(a => a.id === id);
+  }
+
+  function getPart(adv, partId) {
+    return (adv.parts || []).find(p => p.id === partId);
+  }
+
+  function getScene(part, sceneId) {
+    return (part.scenes || []).find(s => s.id === sceneId);
+  }
+
+  function renderAdvNav() {
+    const nav = document.getElementById('adv-nav');
+    nav.innerHTML = adventuresData.adventures.map(adv => {
+      const hasScenes = (adv.parts || []).some(p => (p.scenes || []).length > 0);
+      const isActive = adv.id === currentAdventure;
+      const cls = isActive ? 'adv-nav-btn active' : 'adv-nav-btn';
+      return `<button class="${cls}" data-adv="${adv.id}" ${!hasScenes ? 'title="Scene content coming soon"' : ''}>
+        <span style="font-family:'Audiowide',sans-serif;font-size:0.6rem;">${adv.number}</span>
+        <span style="font-size:0.6rem;margin-left:0.3rem;">${esc(adv.title)}${!hasScenes ? ' *' : ''}</span>
+      </button>`;
+    }).join('');
+
+    nav.querySelectorAll('.adv-nav-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const advId = btn.dataset.adv;
+        const adv = getAdventure(advId);
+        if (!adv || !(adv.parts || []).length) return;
+        currentAdventure = advId;
+        currentPart = adv.parts[0].id;
+        const firstScene = (adv.parts[0].scenes || [])[0];
+        currentScene = firstScene ? firstScene.id : null;
+        renderAdvNav();
+        renderPartNav();
+        renderSceneList();
+        renderScene();
+        if (currentScene) saveProgress();
+      });
+    });
+  }
+
+  function renderPartNav() {
+    const adv = getAdventure(currentAdventure);
+    if (!adv) return;
+    const nav = document.getElementById('part-nav');
+    nav.innerHTML = (adv.parts || []).map(part => {
+      const isActive = part.id === currentPart;
+      const hasScenes = (part.scenes || []).length > 0;
+      return `<button class="part-nav-btn ${isActive ? 'active' : ''}" data-part="${part.id}" ${!hasScenes ? 'style="opacity:0.6"' : ''}>
+        Part ${part.number}: ${esc(part.title)}
+      </button>`;
+    }).join('');
+
+    nav.querySelectorAll('.part-nav-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const partId = btn.dataset.part;
+        const adv = getAdventure(currentAdventure);
+        const part = getPart(adv, partId);
+        if (!part) return;
+        currentPart = partId;
+        const firstScene = (part.scenes || [])[0];
+        currentScene = firstScene ? firstScene.id : null;
+        renderPartNav();
+        renderSceneList();
+        renderScene();
+        if (currentScene) saveProgress();
+      });
+    });
+  }
+
+  function renderSceneList() {
+    const adv = getAdventure(currentAdventure);
+    const part = adv ? getPart(adv, currentPart) : null;
+    const list = document.getElementById('scene-list');
+    if (!part || !(part.scenes || []).length) {
+      list.innerHTML = '<p style="color:var(--color-text-secondary);font-size:0.72rem;font-style:italic;">No scene content available yet for this part.</p>';
+      return;
+    }
+    list.innerHTML = part.scenes.map(scene => {
+      const isActive = scene.id === currentScene;
+      const comp = completionsData[scene.id];
+      const isDone = comp && comp.completed;
+      return `<button class="scene-btn ${isActive ? 'active' : ''}" data-scene="${scene.id}">
+        <span class="scene-num">${scene.number}</span>
+        <span>${esc(scene.title)}${scene.subtitle ? ' <span style="color:var(--color-text-secondary);font-size:0.65rem;">(' + esc(scene.subtitle) + ')</span>' : ''}</span>
+        <span class="scene-check ${isDone ? 'done' : ''}">${isDone ? '\u2713' : '\u25CB'}</span>
+      </button>`;
+    }).join('');
+
+    list.querySelectorAll('.scene-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        currentScene = btn.dataset.scene;
+        renderSceneList();
+        renderScene();
+        saveProgress();
+      });
+    });
+  }
+
+  function renderScene() {
+    const container = document.getElementById('scene-content');
+    const adv = getAdventure(currentAdventure);
+    const part = adv ? getPart(adv, currentPart) : null;
+    const scene = part ? getScene(part, currentScene) : null;
+
+    if (!scene) {
+      if (adv && part && !(part.scenes || []).length) {
+        container.innerHTML = `<div class="card" style="text-align:center;padding:2rem;">
+          <h3 style="font-family:'Audiowide',sans-serif;font-size:0.85rem;color:var(--color-text-secondary);margin:0 0 0.5rem;">
+            ${esc(adv.title)} &mdash; Part ${part.number}: ${esc(part.title)}
+          </h3>
+          <p style="font-size:0.72rem;color:var(--color-text-secondary);max-width:400px;margin:0.5rem auto;">Scene content for this part is coming soon. The adventure structure is in place and ready for content.</p>
+          ${adv.summary ? `<p style="font-size:0.68rem;color:var(--color-accent-secondary);margin-top:1rem;max-width:500px;margin-left:auto;margin-right:auto;font-style:italic;">${esc(adv.summary)}</p>` : ''}
+        </div>`;
+      } else {
+        container.innerHTML = '<p style="color:var(--color-text-secondary);font-size:0.72rem;font-style:italic;">Select a scene to view its content.</p>';
+      }
+      return;
+    }
+
+    const comp = completionsData[scene.id];
+    const isDone = comp && comp.completed;
+
+    let html = '';
+
+    html += `<div style="margin-bottom:1rem;">
+      <h2 style="font-family:'Audiowide',sans-serif;font-size:1rem;color:var(--color-accent-primary);margin:0;">
+        Scene ${scene.number}: ${esc(scene.title)}
+      </h2>
+      ${scene.subtitle ? `<div style="font-size:0.68rem;color:var(--color-text-secondary);margin-top:0.2rem;">${esc(scene.subtitle)}</div>` : ''}
+    </div>`;
+
+    if (scene.readAloud) {
+      html += `<div class="read-aloud collapsible open">
+        <div class="read-aloud-label collapse-toggle">\u{1F4D6} Player Read-Aloud</div>
+        <div class="card-body">${esc(scene.readAloud)}</div>
+      </div>`;
+    }
+
+    if (scene.gmNotes) {
+      html += `<div class="gm-notes-block collapsible open">
+        <div class="gm-notes-label collapse-toggle">\u{1F512} GM Notes</div>
+        <div class="card-body">${esc(scene.gmNotes)}</div>
+      </div>`;
+    }
+
+    if (scene.npcs && scene.npcs.length) {
+      html += `<div class="card collapsible open" style="margin-bottom:1rem;">
+        <div class="card-header collapse-toggle">NPC Roster</div>
+        <div class="card-body">
+          <div class="npc-roster">
+            <div class="npc-row" style="font-weight:600;color:var(--color-accent-secondary);font-size:0.62rem;text-transform:uppercase;letter-spacing:0.08em;">
+              <div>Name</div><div>Type</div><div>Count</div><div>Notes</div>
+            </div>
+            ${scene.npcs.map(npc => `
+              <div class="npc-row">
+                <div style="font-weight:600;">${esc(npc.name)}</div>
+                <div style="color:var(--color-text-secondary);">${esc(npc.type)}</div>
+                <div style="text-align:center;font-family:'Audiowide',sans-serif;color:var(--color-accent-primary);">${npc.count}</div>
+                <div style="color:var(--color-text-secondary);font-size:0.65rem;">${esc(npc.notes || '')}</div>
+              </div>`).join('')}
+          </div>
+        </div>
+      </div>`;
+    }
+
+    if (scene.hazards) {
+      html += `<div class="card collapsible open" style="margin-bottom:1rem;">
+        <div class="card-header collapse-toggle">\u26A0 Hazards / Environment</div>
+        <div class="card-body">
+          <p style="font-size:0.72rem;">${esc(scene.hazards)}</p>
+        </div>
+      </div>`;
+    }
+
+    if (scene.decisions && scene.decisions.length) {
+      html += `<div class="card collapsible open" style="margin-bottom:1rem;">
+        <div class="card-header collapse-toggle">\u2694 Decision Points</div>
+        <div class="card-body">
+          ${scene.decisions.map(d => `
+            <div class="decision-block">
+              <div class="decision-choice">${esc(d.choice)}</div>
+              <div class="decision-consequence">\u2192 ${esc(d.consequence)}</div>
+            </div>`).join('')}
+        </div>
+      </div>`;
+    }
+
+    if (scene.loreTags && scene.loreTags.length) {
+      html += `<div style="margin-bottom:1rem;">
+        <div style="font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-text-secondary);margin-bottom:0.4rem;">Lore Tags</div>
+        ${scene.loreTags.map(tag => `<span class="lore-tag" data-lore-tag="${esc(tag)}">${esc(tag)}</span>`).join('')}
+      </div>`;
+    }
+
+    if (scene.narrativeLinks && scene.narrativeLinks.length) {
+      html += `<div style="margin-bottom:1rem;">
+        <div style="font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-text-secondary);margin-bottom:0.4rem;">Narrative Links</div>
+        ${scene.narrativeLinks.map(link => `
+          <a class="narrative-link" data-nav-scene="${esc(link.targetScene)}">
+            \u2192 ${esc(link.note)}
+          </a>`).join('')}
+      </div>`;
+    }
+
+    html += `<div style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--color-border);display:flex;align-items:center;gap:1rem;">
+      <button class="scene-complete-btn ${isDone ? 'completed' : ''}" id="scene-complete-btn" data-scene="${scene.id}">
+        <span>${isDone ? '\u2713' : '\u25CB'}</span>
+        <span>${isDone ? 'Scene Complete' : 'Mark Scene Complete'}</span>
+      </button>
+    </div>`;
+
+    container.innerHTML = html;
+
+    container.querySelectorAll('.lore-tag').forEach(el => {
+      el.addEventListener('click', () => openLoreModal(el.dataset.loreTag));
+    });
+
+    container.querySelectorAll('.narrative-link').forEach(el => {
+      el.addEventListener('click', () => navigateToScene(el.dataset.navScene));
+    });
+
+    const completeBtn = document.getElementById('scene-complete-btn');
+    if (completeBtn) {
+      completeBtn.addEventListener('click', () => toggleSceneComplete(completeBtn.dataset.scene));
+    }
+  }
+
+  async function toggleSceneComplete(sceneId) {
+    const current = completionsData[sceneId];
+    const newState = !(current && current.completed);
+    try {
+      const res = await fetch('/api/campaign/scene/' + sceneId + '/complete', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ completed: newState })
+      });
+      if (!res.ok) throw new Error('Server returned ' + res.status);
+      if (!completionsData[sceneId]) completionsData[sceneId] = {};
+      completionsData[sceneId].completed = newState ? 1 : 0;
+      renderSceneList();
+      renderScene();
+    } catch (err) {
+      console.error('Failed to update scene completion:', err);
+    }
+  }
+
+  async function saveProgress() {
+    if (!currentAdventure || !currentPart || !currentScene) return;
+    try {
+      const res = await fetch('/api/campaign/progress', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          adventure_id: currentAdventure,
+          part_id: currentPart,
+          scene_id: currentScene
+        })
+      });
+      if (!res.ok) throw new Error('Server returned ' + res.status);
+    } catch (err) {
+      console.error('Failed to save progress:', err);
+    }
+  }
+
+  function navigateToScene(sceneId) {
+    if (!adventuresData) return;
+    for (const adv of adventuresData.adventures) {
+      for (const part of (adv.parts || [])) {
+        for (const scene of (part.scenes || [])) {
+          if (scene.id === sceneId) {
+            currentAdventure = adv.id;
+            currentPart = part.id;
+            currentScene = scene.id;
+            renderAdvNav();
+            renderPartNav();
+            renderSceneList();
+            renderScene();
+            saveProgress();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            return;
+          }
+        }
+      }
+    }
+  }
+
+  async function openLoreModal(tag) {
+    const overlay = document.getElementById('lore-modal-overlay');
+    const title = document.getElementById('lore-modal-title');
+    const body = document.getElementById('lore-modal-body');
+    title.textContent = 'Lore: ' + tag;
+    body.innerHTML = '<p style="color:var(--color-text-secondary);font-size:0.72rem;">Loading...</p>';
+    overlay.classList.add('active');
+
+    try {
+      const res = await fetch('/api/campaign/lore-tags/' + encodeURIComponent(tag));
+      const data = await res.json();
+      if (!data.scenes || !data.scenes.length) {
+        body.innerHTML = '<p style="color:var(--color-text-secondary);font-size:0.72rem;">No scenes found with this tag.</p>';
+        return;
+      }
+      body.innerHTML = data.scenes.map(s => `
+        <div class="lore-scene-link" data-nav-scene="${esc(s.sceneId)}">
+          <div style="font-size:0.72rem;font-weight:600;">Adventure ${s.adventureNumber}: ${esc(s.adventureTitle)}</div>
+          <div style="font-size:0.65rem;color:var(--color-text-secondary);">Part ${s.partNumber}: ${esc(s.partTitle)} \u2014 Scene ${s.sceneNumber}: ${esc(s.sceneTitle)}</div>
+        </div>`).join('');
+
+      body.querySelectorAll('.lore-scene-link').forEach(el => {
+        el.addEventListener('click', () => {
+          overlay.classList.remove('active');
+          navigateToScene(el.dataset.navScene);
+        });
+      });
+    } catch (err) {
+      body.innerHTML = '<p style="color:var(--color-accent-primary);font-size:0.72rem;">Failed to load lore data.</p>';
+    }
+  }
+
+  document.getElementById('lore-modal-close').addEventListener('click', () => {
+    document.getElementById('lore-modal-overlay').classList.remove('active');
+  });
+  document.getElementById('lore-modal-overlay').addEventListener('click', (e) => {
+    if (e.target === e.currentTarget) e.currentTarget.classList.remove('active');
+  });
+
+  /* ── Party Monitor ─────────────────────────────────────── */
+  async function loadPartyMonitor() {
+    try {
+      const res = await fetch('/api/campaign/party');
+      const data = await res.json();
+      renderPartyList(data.party || []);
+    } catch {
+      document.getElementById('party-list').innerHTML =
+        '<p style="color:var(--color-text-secondary);font-size:0.65rem;">Failed to load party data.</p>';
+    }
+  }
+
+  function renderPartyList(party) {
+    const list = document.getElementById('party-list');
+    if (!party.length) {
+      list.innerHTML = '<p style="color:var(--color-text-secondary);font-size:0.65rem;font-style:italic;">No characters with data found.</p>';
+      return;
+    }
+    list.innerHTML = party.map(pc => `
+      <div class="party-card ${pc.connected ? 'connected' : 'disconnected'}">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div class="pc-name">${esc(pc.name)}</div>
+            <div class="pc-detail">${esc(pc.species || '')}${pc.archetype ? ' \u2014 ' + esc(pc.archetype) : ''}</div>
+          </div>
+          <div style="text-align:right;">
+            ${pc.vitality !== null ? `<div class="pc-vitality">${pc.vitality}</div><div class="pc-detail">Vitality</div>` : ''}
+          </div>
+        </div>
+        <div class="pc-detail" style="margin-top:0.25rem;">${pc.connected ? '\u{1F7E2} Connected' : '\u26AB Offline'}</div>
+      </div>`).join('');
+  }
+
+  document.getElementById('sidebar-toggle').addEventListener('click', () => {
+    sidebarCollapsed = !sidebarCollapsed;
+    const layout = document.getElementById('campaign-layout');
+    const sidebar = document.getElementById('party-sidebar');
+    const toggle = document.getElementById('sidebar-toggle');
+    if (sidebarCollapsed) {
+      layout.classList.add('sidebar-collapsed');
+      sidebar.querySelectorAll(':scope > *:not(.party-sidebar-header)').forEach(el => el.style.display = 'none');
+      sidebar.querySelector('.party-sidebar-header span').style.display = 'none';
+      toggle.textContent = '\u25C0';
+      toggle.title = 'Expand';
+    } else {
+      layout.classList.remove('sidebar-collapsed');
+      sidebar.querySelectorAll(':scope > *').forEach(el => el.style.display = '');
+      sidebar.querySelector('.party-sidebar-header span').style.display = '';
+      toggle.textContent = '\u00D7';
+      toggle.title = 'Collapse';
+    }
+  });
+
+  initCampaign();
+
+  /* ── Socket.io — Party Monitor live updates ─────────────── */
+  const socket = typeof io !== 'undefined' ? io() : null;
+  if (socket) {
+    socket.emit('session:join', { role: 'gm' });
+
+    socket.on('player:connected', ({ characterId, name }) => {
+      console.log('[socket] Player connected:', name);
+      loadPartyMonitor();
+    });
+
+    socket.on('player:disconnected', ({ characterId, name }) => {
+      console.log('[socket] Player disconnected:', name);
+      loadPartyMonitor();
+    });
+
+    socket.on('connect', () => {
+      console.log('[socket] GM connected to server');
+      socket.emit('session:join', { role: 'gm' });
+    });
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     RULES REFERENCE RENDERERS (unchanged)
+     ══════════════════════════════════════════════════════════ */
+
   /* ── Render Arenas & Disciplines ─────────────────────────── */
   function renderArenasDisciplines(data) {
     const panel = document.getElementById('tab-arenas');
@@ -212,7 +795,6 @@
         const attrName = t.replace('Discipline (','').replace(')','').trim();
         const keys = attrName.split(' or ').map(s=>s.trim());
         keys.forEach(k => { if (attrs[k]) attrs[k].disciplines.push(entry); });
-        if (keys.length > 1) { /* already added to both */ }
       } else if (t.startsWith('Force Discipline')) {
         force.push(entry);
       }
@@ -300,7 +882,7 @@
               </div>
               <div class="dual-side">
                 <div class="dual-side-label" style="color:#C47A1E;">NPC Effect</div>
-                <div>${esc(npc || '—')}</div>
+                <div>${esc(npc || '\u2014')}</div>
               </div>
             </div>` : `<p style="font-size:0.72rem;">${esc(entry.rule || '')}</p>`}
             ${entry.guide ? `<p style="font-size:0.68rem;color:var(--color-text-secondary);margin-top:0.5rem;font-style:italic;">${esc(entry.guide)}</p>` : ''}
@@ -314,7 +896,6 @@
   /* ── Render Maneuvers ─────────────────────────────────────── */
   function renderManeuvers(data) {
     const panel = document.getElementById('tab-maneuvers');
-    // Group by masteryTrack
     const groups = {};
     data.forEach(m => {
       const track = m.masteryTrack || 'Other';
@@ -334,16 +915,16 @@
             <div class="card-header collapse-toggle" style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
               <span>${esc(m.name)}</span>
               ${m.arenaTag ? `<span class="tag ${arenaTagClass(m.arenaTag)}">${esc(m.arenaTag)}</span>` : ''}
-              <span style="font-size:0.62rem;color:var(--color-text-secondary);margin-left:auto;">${esc(m.roll || '')} · min ${esc(m.disciplineRequirement?.minDie || '')}</span>
+              <span style="font-size:0.62rem;color:var(--color-text-secondary);margin-left:auto;">${esc(m.roll || '')} \u00b7 min ${esc(m.disciplineRequirement?.minDie || '')}</span>
             </div>
             <div class="card-body">
-              ${m.risk ? `<div class="risk-block">⚠ ${esc(m.risk)}</div>` : ''}
+              ${m.risk ? `<div class="risk-block">\u26A0 ${esc(m.risk)}</div>` : ''}
               <div style="margin:0.5rem 0;">
                 ${(m.effect || []).map(tier => `
                   <div class="tier-row">
                     <div class="tier-label" style="color:${tierColors[tier.label]||'var(--color-accent-secondary)'};">${esc(tier.label)}</div>
                     <div>
-                      ${tier.name ? `<strong style="font-size:0.7rem;">${esc(tier.name)}</strong> — ` : ''}
+                      ${tier.name ? `<strong style="font-size:0.7rem;">${esc(tier.name)}</strong> \u2014 ` : ''}
                       <span style="font-size:0.7rem;">${esc(tier.description || '')}</span>
                       ${tier.duration ? `<span style="font-size:0.62rem;color:var(--color-text-secondary);margin-left:0.4rem;">[${esc(tier.duration)}]</span>` : ''}
                     </div>
@@ -375,7 +956,6 @@
     const panel = document.getElementById('tab-threats');
     let html = '';
 
-    /* Example threat stat blocks */
     const roster = data.exampleThreats || [];
     if (roster.length) {
       html += `<h2 style="font-family:'Audiowide',sans-serif;font-size:0.65rem;letter-spacing:0.12em;color:var(--color-text-secondary);text-transform:uppercase;padding-bottom:0.25rem;border-bottom:1px solid var(--color-border);margin-bottom:0.75rem;">Threat Roster</h2>`;
@@ -405,97 +985,63 @@
                 ${s.resolve  !== undefined ? `<div class="stat-pill"><span class="stat-val">${esc(s.resolve)}</span><span class="stat-name">Resolve</span></div>` : ''}
                 ${s.vitality !== undefined ? `<div class="stat-pill"><span class="stat-val">${esc(s.vitality)}</span><span class="stat-name">Vitality</span></div>` : ''}
               </div>
-              ${t.actions && t.actions.length ? `
+              ${(t.actions || []).length ? `
                 <div style="margin-top:0.5rem;">
                   <div style="font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-text-secondary);margin-bottom:0.25rem;">Actions</div>
-                  ${t.actions.map(a=>`
-                    <div style="background:var(--color-bg-frame);padding:0.4rem 0.6rem;margin-bottom:0.3rem;font-size:0.7rem;">
-                      <div style="font-weight:700;margin-bottom:0.15rem;">${esc(a.name||'')}
-                        ${a.power !== undefined ? `<span style="color:var(--color-accent-primary);margin-left:0.4rem;">Power ${esc(a.power)}</span>` : ''}
-                        ${a.type ? `<span style="color:var(--color-text-secondary);font-weight:400;margin-left:0.4rem;">[${esc(a.type)}]</span>` : ''}
-                        ${a.range ? `<span style="color:var(--color-text-secondary);font-weight:400;margin-left:0.4rem;">· ${esc(a.range)}</span>` : ''}
-                      </div>
-                      ${a.note ? `<div style="color:var(--color-text-secondary);font-size:0.65rem;">${esc(a.note)}</div>` : ''}
+                  ${t.actions.map(a => `
+                    <div class="gambit-block d10" style="margin-bottom:0.35rem;">
+                      <div class="gambit-name">${esc(a.name || '')} ${a.type ? `<span class="tag" style="border-color:var(--color-border);color:var(--color-text-secondary);font-size:0.5rem;">${esc(a.type)}</span>` : ''} ${a.power !== undefined ? `<span style="font-size:0.6rem;margin-left:0.3rem;color:var(--color-accent-primary);">Power ${a.power}</span>` : ''}</div>
+                      ${(a.effects || []).map(eff => `
+                        <div class="tier-row" style="grid-template-columns:70px 1fr;padding:0.15rem 0;">
+                          <div style="font-size:0.6rem;color:var(--color-accent-secondary);">${esc(eff.tier || '')}</div>
+                          <div style="font-size:0.65rem;">${esc(eff.result || eff.description || '')}</div>
+                        </div>`).join('')}
                     </div>`).join('')}
                 </div>` : ''}
-              ${t.gambits && t.gambits.length ? `
-                <div style="margin-top:0.5rem;">
-                  <div style="font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-text-secondary);margin-bottom:0.25rem;">NPC Gambits</div>
-                  ${t.gambits.map(g=>`
-                    <div class="gambit-block d10">
-                      <div class="gambit-name">${esc(g.name||'')} ${g.type ? `<span style="font-weight:400;color:var(--color-text-secondary);">[${esc(g.type)}]</span>` : ''}</div>
-                      <div style="font-size:0.68rem;">${esc(g.rule||'')}</div>
-                      ${g.duration ? `<div style="font-size:0.62rem;color:var(--color-text-secondary);">[${esc(g.duration)}]</div>` : ''}
-                    </div>`).join('')}
-                </div>` : ''}
-              ${t.trigger ? `
-                <div style="margin-top:0.5rem;background:var(--color-bg-frame);padding:0.35rem 0.6rem;font-size:0.7rem;border-left:3px solid var(--color-accent-secondary);">
-                  <strong>Trigger:</strong> ${esc(t.trigger)}
-                </div>` : ''}
-              ${t.tagNotes ? `
-                <div style="margin-top:0.35rem;font-size:0.68rem;color:var(--color-text-secondary);">
-                  ${Object.entries(t.tagNotes).map(([k,v])=>`<div><strong>[${esc(k)}]</strong> ${esc(v)}</div>`).join('')}
-                </div>` : ''}
-              ${t.tpCost && t.tpCost.asMinion ? `<div style="font-size:0.62rem;color:var(--color-text-secondary);margin-top:0.25rem;">As Minion: ${esc(t.tpCost.asMinion)}</div>` : ''}
             </div>
           </div>`;
       });
     }
 
-    /* Tags reference */
-    if (data.tags && data.tags.length) {
-      html += `<div class="card collapsible" style="margin-top:1rem;" data-search="tags pack tough relentless shielded sweeping boss">
-        <div class="card-header collapse-toggle">Threat Tags</div>
-        <div class="card-body">
-          ${data.tags.map(tag=>`
-            <div style="display:flex;gap:0.75rem;padding:0.35rem 0;border-bottom:1px solid var(--color-border);font-size:0.7rem;align-items:baseline;">
-              <span class="tag" style="border-color:var(--color-accent-secondary);color:var(--color-accent-secondary);white-space:nowrap;flex-shrink:0;">${esc(tag.name)} <span style="color:var(--color-accent-primary);">${tag.tp} TP</span></span>
-              <span>${esc(tag.effect)}</span>
-            </div>`).join('')}
-        </div>
-      </div>`;
-    }
+    const buildSections = ['classifications','stats','templates','triggers','maneuvers','conditionsOnThreats','tags','tpBudgetTargets'];
+    buildSections.forEach(sectionKey => {
+      const section = data[sectionKey];
+      if (!section) return;
+      const title = sectionKey.replace(/([A-Z])/g, ' $1').replace(/^./, s=>s.toUpperCase());
+      html += `<h2 style="font-family:'Audiowide',sans-serif;font-size:0.65rem;letter-spacing:0.12em;color:var(--color-text-secondary);text-transform:uppercase;padding:0.75rem 0 0.25rem;border-top:1px solid var(--color-border);margin-top:1rem;">${esc(title)}</h2>`;
 
-    /* Encounter difficulty */
-    const eb = data.encounterBudget;
-    if (eb && eb.difficultyMultipliers) {
-      html += `<div class="card collapsible" style="margin-top:1rem;" data-search="encounter budget difficulty easy standard challenging epic">
-        <div class="card-header collapse-toggle">Encounter Difficulty Scale</div>
-        <div class="card-body">
-          <div style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.75rem;">
-            ${eb.difficultyMultipliers.map(d=>`
-              <div style="background:var(--color-bg-frame);border:1px solid var(--color-border);padding:0.4rem 0.75rem;font-size:0.7rem;flex:1;min-width:150px;">
-                <div style="font-weight:700;color:var(--color-accent-deep);">${esc(d.feel)}</div>
-                <div style="color:var(--color-accent-primary);">×${esc(d.tpRatio)} PPR &nbsp;·&nbsp; ${esc(d.resourceCost)}</div>
-                <div style="color:var(--color-text-secondary);font-size:0.65rem;margin-top:0.2rem;">${esc(d.description)}</div>
-              </div>`).join('')}
+      if (Array.isArray(section)) {
+        section.forEach(item => {
+          const searchKey = [item.name || item.id || '', item.summary || item.description || item.effect || ''].join(' ');
+          html += `<div class="card collapsible" data-search="${esc(searchKey)}">
+            <div class="card-header collapse-toggle">${esc(item.name || item.id || '')}</div>
+            <div class="card-body">
+              ${item.summary ? `<p style="font-size:0.72rem;margin-bottom:0.4rem;">${esc(item.summary)}</p>` : ''}
+              ${item.effect ? `<p style="font-size:0.72rem;">${esc(item.effect)}</p>` : ''}
+              ${item.description ? `<p style="font-size:0.7rem;color:var(--color-text-secondary);">${esc(item.description)}</p>` : ''}
+              ${(item.modifications || []).length ? `<ul style="margin:0.4rem 0;padding-left:1rem;">${item.modifications.map(m=>`<li style="font-size:0.68rem;margin-bottom:0.2rem;">${esc(m)}</li>`).join('')}</ul>` : ''}
+              ${(item.designNotes || []).length ? `<div style="margin-top:0.4rem;">${item.designNotes.map(n=>`<p style="font-size:0.65rem;color:var(--color-text-secondary);font-style:italic;margin:0.2rem 0;">${esc(n)}</p>`).join('')}</div>` : ''}
+            </div>
+          </div>`;
+        });
+      } else if (typeof section === 'object') {
+        const searchKey = [section.name || sectionKey, section.description || ''].join(' ');
+        html += `<div class="card collapsible" data-search="${esc(searchKey)}">
+          <div class="card-header collapse-toggle">${esc(section.name || title)}</div>
+          <div class="card-body">
+            ${section.description ? `<p style="font-size:0.72rem;margin-bottom:0.4rem;">${esc(section.description)}</p>` : ''}
+            ${section.values ? section.values.map(v => `
+              <div class="tier-row" style="grid-template-columns:40px 80px 1fr;">
+                <div style="font-family:'Audiowide',sans-serif;color:var(--color-accent-primary);">${esc(v.rating !== undefined ? v.rating : (v.range || ''))}</div>
+                <div style="font-weight:600;color:var(--color-accent-secondary);">${esc(v.label || '')}</div>
+                <div style="font-size:0.68rem;">${esc(v.effect || v.note || '')}</div>
+              </div>`).join('') : ''}
           </div>
-          ${eb.exampleCalculation ? `
-            <div style="font-size:0.65rem;color:var(--color-text-secondary);">
-              <strong>Example:</strong> ${esc(eb.exampleCalculation.party)}<br/>
-              ${(eb.exampleCalculation.threats||[]).map(t=>`<div style="margin-top:0.25rem;">• ${esc(t.build)}: ${esc(t.stats||'')} ${t.feel ? '— '+esc(t.feel) : ''}</div>`).join('')}
-            </div>` : ''}
-        </div>
-      </div>`;
-    }
+        </div>`;
+      }
+    });
 
-    /* Classifications */
-    if (data.classifications && data.classifications.length) {
-      html += `<div class="card collapsible" style="margin-top:1rem;" data-search="standard elite nemesis minion classification">
-        <div class="card-header collapse-toggle">Classifications</div>
-        <div class="card-body" style="columns:2;column-gap:0.75rem;">
-          ${data.classifications.map(c=>`
-            <div style="break-inside:avoid;margin-bottom:0.5rem;background:var(--color-bg-frame);padding:0.4rem 0.6rem;">
-              <div style="font-weight:700;font-size:0.7rem;color:var(--color-accent-deep);">${esc(c.name)}</div>
-              <div style="font-size:0.65rem;color:var(--color-text-secondary);margin-top:0.15rem;">${esc(c.summary||'')}</div>
-              ${c.actionEconomy ? `<div style="font-size:0.62rem;margin-top:0.2rem;color:var(--color-accent-secondary);">Actions: ${c.actionEconomy.actions} · Maneuvers: ${c.actionEconomy.maneuvers} · Triggers: ${c.actionEconomy.triggers}</div>` : ''}
-              <div style="font-size:0.6rem;color:var(--color-accent-primary);margin-top:0.1rem;">×${c.tpMultiplier} TP multiplier</div>
-            </div>`).join('')}
-        </div>
-      </div>`;
-    }
-
-    panel.innerHTML = html || '<p style="color:var(--color-text-secondary);font-size:0.75rem;">No threat data found.</p>';
+    panel.innerHTML = html;
   }
 
   /* ── Render Weapons ─────────────────────────────────────── */
@@ -604,8 +1150,8 @@
   const ARMOR_CATEGORY_RULES_GM = {
     none:   'Step Down Physique to Endure.',
     light:  'No modification to Physique when Enduring.',
-    medium: 'Step Up Physique to Endure · Step Down Reflex for Evasion.',
-    heavy:  'Step Up Physique twice to Endure · Step Down Reflex twice for Evasion.'
+    medium: 'Step Up Physique to Endure \u00b7 Step Down Reflex for Evasion.',
+    heavy:  'Step Up Physique twice to Endure \u00b7 Step Down Reflex twice for Evasion.'
   };
 
   const ARMOR_CATEGORY_ORDER = ['light', 'medium', 'heavy'];
@@ -644,7 +1190,7 @@
                     ${a.evasionException ? `<span class="tag" style="border-color:var(--color-accent-secondary);color:var(--color-accent-secondary);">No Evasion Penalty</span>` : ''}
                     <span style="margin-left:auto;font-size:0.62rem;color:var(--color-text-secondary);">
                       ${a.cost ? esc(String(a.cost)) + ' cr' : 'Not for sale'}
-                      ${a.availability ? ' · Avail: ' + esc(a.availability) : ''}
+                      ${a.availability ? ' \u00b7 Avail: ' + esc(a.availability) : ''}
                     </span>
                   </div>
                   <div class="card-body">
