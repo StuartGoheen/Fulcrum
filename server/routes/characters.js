@@ -1,6 +1,133 @@
 const express = require('express');
 const router  = express.Router();
+const path    = require('path');
+const fsx     = require('fs');
 const db      = require('../db');
+
+const KITS_DATA = JSON.parse(fsx.readFileSync(path.join(__dirname, '..', '..', 'data', 'kits.json'), 'utf8'));
+
+const SPECIES_ARENAS = {
+  'Human':   { physique: 'D6', reflex: 'D6', grit: 'D6', wits: 'D6', presence: 'D6' },
+  "Twi'lek": { physique: 'D4', reflex: 'D6', grit: 'D6', wits: 'D6', presence: 'D8' },
+  'Wookiee': { physique: 'D8', reflex: 'D6', grit: 'D6', wits: 'D6', presence: 'D4' },
+  'Duros':   { physique: 'D4', reflex: 'D8', grit: 'D6', wits: 'D6', presence: 'D6' },
+  'Zabrak':  { physique: 'D6', reflex: 'D6', grit: 'D8', wits: 'D6', presence: 'D4' },
+};
+
+const ARENA_META = [
+  { id: 'physique', label: 'PHYSIQUE', subtitle: 'Strength, Structure, Endurance', disciplines: [
+    { id: 'athletics', label: 'Athletics' },
+    { id: 'brawl', label: 'Brawl' },
+    { id: 'endure', label: 'Endure' },
+    { id: 'melee', label: 'Melee' },
+    { id: 'heavy_weapons', label: 'Heavy Weapons' },
+  ]},
+  { id: 'reflex', label: 'REFLEX', subtitle: 'Speed, Agility, Hand-Eye Coordination', disciplines: [
+    { id: 'evasion', label: 'Evasion' },
+    { id: 'piloting', label: 'Piloting' },
+    { id: 'ranged', label: 'Ranged' },
+    { id: 'skulduggery', label: 'Skulduggery' },
+    { id: 'stealth', label: 'Stealth' },
+  ]},
+  { id: 'grit', label: 'GRIT', subtitle: 'Instinct, Stamina, Spiritual Willpower', disciplines: [
+    { id: 'beast_handling', label: 'Beast Handling' },
+    { id: 'intimidate', label: 'Intimidate' },
+    { id: 'resolve', label: 'Resolve' },
+    { id: 'survival', label: 'Survival' },
+    { id: 'control_spark', label: 'Control (The Spark)' },
+  ]},
+  { id: 'wits', label: 'WITS', subtitle: 'Logic, Awareness, Technical Knowledge', disciplines: [
+    { id: 'investigation', label: 'Investigation' },
+    { id: 'medicine', label: 'Medicine' },
+    { id: 'tactics', label: 'Tactics' },
+    { id: 'tech', label: 'Tech' },
+    { id: 'sense_spark', label: 'Sense (The Spark)' },
+  ]},
+  { id: 'presence', label: 'PRESENCE', subtitle: 'Charisma, Authority, Projection of Will', disciplines: [
+    { id: 'charm', label: 'Charm' },
+    { id: 'deception', label: 'Deception' },
+    { id: 'insight', label: 'Insight' },
+    { id: 'persuasion', label: 'Persuasion' },
+    { id: 'alter_spark', label: 'Alter (The Spark)' },
+  ]},
+];
+
+const DIE_STEPS = ['D4', 'D6', 'D8', 'D10', 'D12'];
+
+const ENGINE_DATA = {
+  id: 'edge',
+  name: 'The Edge',
+  poolName: 'Edge Points',
+  coreUtility: {
+    name: 'Tier Boost',
+    cost: '1 Edge Point',
+    rule: 'Spend 1 Edge Point after a roll to instantly increase your final Power result by +1 Effect Tier (e.g., from a Fleeting success to a Basic success). You may only use this on Disciplines aligned with your acquired Kits.',
+  },
+};
+
+function expandCharacterData(flat) {
+  if (flat.arenas && Array.isArray(flat.arenas)) return flat;
+
+  const speciesBase = SPECIES_ARENAS[flat.species] || SPECIES_ARENAS['Human'];
+  const arenaAdj = flat.arenaAdj || {};
+  const discValues = flat.discValues || {};
+
+  const arenas = ARENA_META.map(arena => {
+    const baseIdx = DIE_STEPS.indexOf(speciesBase[arena.id] || 'D6');
+    const adj = arenaAdj[arena.id] || 0;
+    const finalIdx = Math.max(0, Math.min(DIE_STEPS.length - 1, baseIdx + adj));
+    const arenaDie = DIE_STEPS[finalIdx];
+
+    const disciplines = arena.disciplines.map(disc => ({
+      id: disc.id,
+      label: disc.label,
+      die: discValues[disc.id] || 'D6',
+    }));
+
+    return {
+      id: arena.id,
+      label: arena.label,
+      subtitle: arena.subtitle,
+      die: arenaDie,
+      disciplines,
+    };
+  });
+
+  const kitChoices = flat.kits || {};
+  const kits = [];
+  Object.keys(kitChoices).forEach(kitId => {
+    const tier = kitChoices[kitId];
+    if (!tier) return;
+    const kitDef = KITS_DATA.find(k => k.id === kitId);
+    if (!kitDef) return;
+    const kit = JSON.parse(JSON.stringify(kitDef));
+    kit.tier = tier;
+    kit.abilities = kit.abilities.filter(a => a.tier <= tier);
+    kits.push(kit);
+  });
+
+  const engineArenas = kits.map(k => k.governingArena).filter(Boolean);
+
+  return {
+    name: flat.name || null,
+    species: flat.species,
+    archetype: flat.archetype || flat.title || null,
+    narrative: flat.backstory || '',
+    gender: flat.gender || null,
+    destiny: flat.destiny || null,
+    phase1: flat.phase1 || null,
+    phase2: flat.phase2 || null,
+    phase3: flat.phase3 || null,
+    vitalityModifier: 0,
+    weaponIds: [],
+    armorId: null,
+    gearIds: [],
+    engine: kits.length > 0 ? Object.assign({}, ENGINE_DATA, { governingArenas: engineArenas }) : null,
+    kits,
+    talents: [],
+    arenas,
+  };
+}
 
 router.get('/characters', (req, res) => {
   const rows = db.prepare(`
@@ -112,7 +239,8 @@ router.get('/characters/:id', (req, res) => {
   }
   try {
     const data = JSON.parse(character.character_data);
-    return res.json(data);
+    data.name = data.name || character.name;
+    return res.json(expandCharacterData(data));
   } catch (_) {
     return res.status(500).json({ error: 'Corrupt character data.' });
   }
