@@ -1476,189 +1476,209 @@
   }
 
   /* ── Action Economy ───────────────────────────────────────────────────── */
-  .char-action-section {
-    border-top: 1px solid var(--color-border);
-    padding: 8px 8px 6px;
-  }
-
-  .char-action-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 6px;
-  }
-
-  .char-action-label {
-    font-family: "Audiowide", sans-serif;
-    font-size: 0.46rem;
-    letter-spacing: 0.10em;
-    text-transform: uppercase;
-    color: var(--color-accent-primary);
-  }
-
-  .char-action-reset {
-    font-family: "Audiowide", sans-serif;
-    font-size: 0.36rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-bg-primary);
-    background: var(--color-accent-primary);
-    border: none;
-    padding: 2px 8px;
-    cursor: pointer;
-    border-radius: 2px;
-    transition: opacity 0.15s ease;
-  }
-
-  .char-action-reset:hover {
-    opacity: 0.8;
-  }
-
-  .action-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 4px;
-  }
-
-  .action-row-label {
-    font-family: "Exo 2", sans-serif;
-    font-weight: 600;
-    font-size: 0.48rem;
-    color: var(--color-text-primary);
-    width: 65px;
-    text-align: right;
-    flex-shrink: 0;
-  }
-
-  .action-row-pips {
-    display: flex;
-    gap: 4px;
-  }
-
-  .action-pip {
-    width: 22px;
-    height: 22px;
-    border: 2px solid var(--color-accent-primary);
-    background: transparent;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: background 0.15s ease, border-color 0.15s ease;
-  }
-
-  .action-pip:hover {
-    border-color: var(--color-accent-deep);
-  }
-
-  .action-pip--spent {
-    background: var(--color-accent-primary);
-    opacity: 0.35;
-  }
-
-  /* ── Resolution Ladder ────────────────────────────────────────────────── */
-  .char-ladder-section {
-    border-top: 1px solid var(--color-border);
-    padding: 8px 8px 12px;
-  }
-
-  .char-ladder-header {
-    margin-bottom: 6px;
-  }
-
-  .char-ladder-label {
-    font-family: "Audiowide", sans-serif;
-    font-size: 0.46rem;
-    letter-spacing: 0.10em;
-    text-transform: uppercase;
-    color: var(--color-accent-primary);
-  }
-
-  .char-ladder-group {
-    margin-bottom: 8px;
-  }
-
-  .char-ladder-group-title {
-    font-family: "Audiowide", sans-serif;
-    font-size: 0.38rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-text-muted);
-    margin-bottom: 4px;
-    padding-bottom: 2px;
-    border-bottom: 1px dashed var(--color-border);
-  }
-
-  .char-ladder-row {
-    display: flex;
-    align-items: baseline;
-    gap: 6px;
-    padding: 3px 0;
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .char-ladder-range {
-    font-family: "Audiowide", sans-serif;
-    font-size: 0.42rem;
-    color: var(--color-accent-primary);
-    width: 32px;
-    text-align: center;
-    flex-shrink: 0;
-  }
-
-  .char-ladder-tier {
-    font-family: "Exo 2", sans-serif;
-    font-weight: 600;
-    font-size: 0.48rem;
-    color: var(--color-text-primary);
-    width: 75px;
-    flex-shrink: 0;
-  }
-
-  .char-ladder-desc {
-    font-size: 0.42rem;
-    color: var(--color-text-secondary);
-    line-height: 1.4;
-  }
-
-  .char-ladder-row--t3 .char-ladder-range,
-  .char-ladder-row--t3 .char-ladder-tier {
-    color: var(--color-accent-deep);
-  }
-
-  .char-ladder-mod {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 2px 0;
-  }
-
-  .char-ladder-mod-tag {
-    font-family: "Audiowide", sans-serif;
-    font-size: 0.38rem;
-    letter-spacing: 0.06em;
-    padding: 1px 5px;
-    border-radius: 2px;
-    flex-shrink: 0;
-  }
-
-  .char-ladder-mod--up {
-    color: var(--color-bg-primary);
-    background: var(--color-accent-primary);
-  }
-
-  .char-ladder-mod--down {
-    color: var(--color-accent-primary);
-    border: 1px solid var(--color-accent-primary);
-    background: transparent;
-  }
-
-  .char-ladder-mod-sources {
-    font-size: 0.40rem;
-    color: var(--color-text-secondary);
-    line-height: 1.4;
-  }
-
-  /* ── Armor Panel ──────────────────────────────────────────────────────────── */
+  /* ── Action Pips (inline in Operational Status) ───────────────────────── */
+  .char-action-pips-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 4px 8px 2px;
+  }
+
+  .action-pip-group {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+  }
+
+  .action-pip-label {
+    font-family: "Audiowide", sans-serif;
+    font-size: 0.38rem;
+    color: var(--color-text-muted);
+    margin-right: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .action-pip {
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--color-accent-primary);
+    background: transparent;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+    padding: 0;
+  }
+
+  .action-pip:hover {
+    border-color: var(--color-accent-deep);
+  }
+
+  .action-pip--spent {
+    background: var(--color-accent-primary);
+    opacity: 0.35;
+  }
+
+  /* ── Resolution Ladder (symmetric fulcrum) ──────────────────────────── */
+  .char-ladder-section {
+    border-top: 1px solid var(--color-border);
+    padding: 6px 8px 10px;
+  }
+
+  .char-ladder-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 6px;
+  }
+
+  .char-ladder-label {
+    font-family: "Audiowide", sans-serif;
+    font-size: 0.46rem;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: var(--color-accent-primary);
+  }
+
+  .char-ladder-formula {
+    font-family: "Exo 2", sans-serif;
+    font-size: 0.38rem;
+    color: var(--color-text-muted);
+    letter-spacing: 0.04em;
+  }
+
+  .char-ladder-fulcrum {
+    margin-bottom: 6px;
+  }
+
+  .char-ladder-half {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .char-ladder-half-label {
+    font-family: "Audiowide", sans-serif;
+    font-size: 0.34rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 2px 0;
+  }
+
+  .char-ladder-half--success .char-ladder-half-label {
+    color: var(--color-accent-primary);
+  }
+
+  .char-ladder-half--failure .char-ladder-half-label {
+    color: var(--color-text-muted);
+    opacity: 0.7;
+  }
+
+  .char-ladder-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 2px 4px;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .char-ladder-half--failure .char-ladder-row {
+    opacity: 0.6;
+  }
+
+  .char-ladder-range {
+    font-family: "Audiowide", sans-serif;
+    font-size: 0.38rem;
+    color: var(--color-accent-primary);
+    width: 60px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .char-ladder-tier {
+    font-family: "Exo 2", sans-serif;
+    font-weight: 600;
+    font-size: 0.44rem;
+    color: var(--color-text-primary);
+    flex-shrink: 0;
+  }
+
+  .char-ladder-row--t3 .char-ladder-range,
+  .char-ladder-row--t3 .char-ladder-tier {
+    color: var(--color-accent-deep);
+  }
+
+  .char-ladder-zero {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 0;
+  }
+
+  .char-ladder-zero-line {
+    flex: 1;
+    height: 1px;
+    background: var(--color-accent-primary);
+    opacity: 0.5;
+  }
+
+  .char-ladder-zero-label {
+    font-family: "Audiowide", sans-serif;
+    font-size: 0.42rem;
+    color: var(--color-accent-primary);
+    flex-shrink: 0;
+  }
+
+  .char-ladder-group {
+    margin-bottom: 6px;
+  }
+
+  .char-ladder-group-title {
+    font-family: "Audiowide", sans-serif;
+    font-size: 0.36rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin-bottom: 3px;
+    padding-bottom: 2px;
+    border-bottom: 1px dashed var(--color-border);
+  }
+
+  .char-ladder-mod {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 2px 0;
+  }
+
+  .char-ladder-mod-tag {
+    font-family: "Audiowide", sans-serif;
+    font-size: 0.36rem;
+    letter-spacing: 0.06em;
+    padding: 1px 5px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  .char-ladder-mod--up {
+    color: var(--color-bg-primary);
+    background: var(--color-accent-primary);
+  }
+
+  .char-ladder-mod--down {
+    color: var(--color-accent-primary);
+    border: 1px solid var(--color-accent-primary);
+    background: transparent;
+  }
+
+  .char-ladder-mod-sources {
+    font-size: 0.38rem;
+    color: var(--color-text-secondary);
+    line-height: 1.3;
+  }
+
+    /* ── Armor Panel ──────────────────────────────────────────────────────────── */
   .armor-card {
     border: 1px solid var(--color-border);
     background-color: var(--color-bg-panel);

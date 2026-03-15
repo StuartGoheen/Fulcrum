@@ -45,7 +45,7 @@
     "name": "Tier Shifting",
     "tag": "Post-Roll",
     "summary": "Moves the final result up or down the 5-tier Effect Track after the dice are read. Bypasses probability entirely — a guaranteed outcome change.",
-    "mechanic": "Apply +1 Tier or −1 Tier to the rolled result. The Effect Track tiers are: Fleeting (1–3), Basic (4–7), Solid (8–11), Superior (12+), and the Flawless peak. Shifting can push a result into a higher or lower named tier, changing the entire resolution outcome.",
+    "mechanic": "Apply +1 Tier or −1 Tier to the rolled result. The Effect Track tiers are: Fleeting (0–3), Masterful (4–7), and Legendary (8+). Shifting can push a result into a higher or lower named tier, changing the entire resolution outcome.",
     "applications": [
       {
         "direction": "Offensive (+1 Tier)",
@@ -200,9 +200,9 @@
     "invariants": [
       "Standard Cost: -1 Tier. The base action resolves 1 tier lower so the gambit effect can fire. This is the default for all Discipline and Weapon gambits. The single exception is the Additional Cost pattern used by Gear Gambits (see Gear Gambits).",
       "Declared before rolling (PC) or before the PC defends (GM/threat).",
-      "Minimum result to gambit: Basic. You cannot gambit from Fleeting — there is no tier below the floor to pay with. This minimum applies to standard gambits only. Additional Cost gambits (which do not reduce the tier) have no floor restriction.",
+      "Minimum result to gambit: Masterful. You cannot gambit from Fleeting — there is no tier below the floor to pay with. This minimum applies to standard gambits only. Additional Cost gambits (which do not reduce the tier) have no floor restriction.",
       "The base action still resolves at -1 Tier. Gambits supplement; they never replace.",
-      "The unlockDie is an access threshold, not a use gate. A character with D12 in the discipline has unlocked the D12 gambit. They may then declare it on any roll — including one that results in Basic — paying -1 Tier as always. The unlockDie marks when the technique becomes available, not when it can fire."
+      "The unlockDie is an access threshold, not a use gate. A character with D12 in the discipline has unlocked the D12 gambit. They may then declare it on any roll — including one that results in Masterful — paying -1 Tier as always. The unlockDie marks when the technique becomes available, not when it can fire."
     ],
 
     "actionTypes": {

@@ -466,6 +466,9 @@
           '<button class="char-turn-btn" data-action="end-turn">End Turn</button>' +
           '<button class="char-turn-btn" data-action="end-scene">End Scene</button>' +
         '</div>' +
+        '<div id="char-action-pips-inline">' +
+          (window.CharacterPanel && window.CharacterPanel.buildActionPips ? window.CharacterPanel.buildActionPips() : '') +
+        '</div>' +
         '<hr class="char-effects-divider">' +
         '<div id="char-effects-list">' +
           (_formOpen ? '' : _buildEffectList()) +
@@ -478,6 +481,9 @@
     var wrap = document.getElementById('char-effects-wrap');
     if (!wrap) return;
     wrap.innerHTML = _buildEffectManager();
+    if (window.CharacterPanel && window.CharacterPanel.refreshActionPips) {
+      window.CharacterPanel.refreshActionPips();
+    }
   }
 
   function _refreshList() {
@@ -533,7 +539,13 @@
     if (startTurn) { _processTurnPhase('start'); return; }
 
     var endTurn = e.target.closest('[data-action="end-turn"]');
-    if (endTurn) { _processTurnPhase('end'); return; }
+    if (endTurn) {
+      _processTurnPhase('end');
+      if (window.CharacterPanel && window.CharacterPanel.resetActions) {
+        window.CharacterPanel.resetActions();
+      }
+      return;
+    }
 
     var endScene = e.target.closest('[data-action="end-scene"]');
     if (endScene) { _processTurnPhase('scene'); return; }

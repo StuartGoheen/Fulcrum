@@ -216,7 +216,7 @@
     "category": "Tactical",
     "fiction": "An established defensive stance or cover position — your body is correctly positioned to absorb incoming force.",
     "rule": "Physical protection from an established defensive stance or position. PC: Whenever targeted by a Melee attack, reduce the attacker's final Effect by X Tiers (minimum Tier 0). NPC: PC Melee attacks against that NPC reduce their final Effect by X Tiers (minimum Tier 0). Duration is determined by the source.",
-    "guide": "The best offense is a really, really impenetrable defense. [Guarded] doesn't mean you are invincible—it means that when someone throws their best shot at you, some of that effort just evaporates against your stance. X is the number of tiers you eat. A Guarded 2 character makes a Solid hit feel like a Fleeting tap. Pick your fights, then make sure you are the hardest target in the room."
+    "guide": "The best offense is a really, really impenetrable defense. [Guarded] doesn't mean you are invincible—it means that when someone throws their best shot at you, some of that effort just evaporates against your stance. X is the number of tiers you eat. A Guarded 2 character makes a Legendary hit feel like a Fleeting tap. Pick your fights, then make sure you are the hardest target in the room."
   },
   {
     "id": "condition_distracted",
@@ -306,7 +306,7 @@
     "category": "Tactical",
     "fiction": "A physical obstacle is between you and incoming fire. The geometry of the battlefield is working in your favor.",
     "rule": "Physical protection against Ranged attacks from an obstacle or position. PC: Reduce the attacker's final Effect by X Tiers (minimum Tier 0) on any Ranged attack targeting you. NPC: PC Ranged attacks against that NPC reduce their final Effect by X Tiers (minimum Tier 0). X is the cover rating — Cover 1 is a crate or pillar; Cover 2 is a reinforced wall or armored position. Does not protect against Melee attacks.",
-    "guide": "Blaster bolts travel in straight lines. Durasteel crates do not care about your feelings, your narrative importance, or how good your roll was. Get behind something solid and let X do the work. Cover 1 means you took a Solid hit and got Fleeting instead. Cover 2 eats even more. Find it. Use it. Live longer."
+    "guide": "Blaster bolts travel in straight lines. Durasteel crates do not care about your feelings, your narrative importance, or how good your roll was. Get behind something solid and let X do the work. Cover 1 means you took a Legendary hit and got Fleeting instead. Cover 2 eats even more. Find it. Use it. Live longer."
   },
   {
     "id": "condition_buffered",

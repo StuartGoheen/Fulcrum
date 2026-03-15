@@ -23,14 +23,14 @@
       },
       {
         "tier": 2,
-        "label": "Basic",
+        "label": "Masterful",
         "name": "Driving Tackle",
         "description": "You drive the target 1 Zone away. You may choose to hold your ground or follow them into that Zone.",
         "duration": "Immediate"
       },
       {
         "tier": 3,
-        "label": "Superior",
+        "label": "Legendary",
         "name": "The Slam",
         "description": "You drive the target 1 Zone away, follow them in, and bring them to the ground. The target gains [Prone]. Your next Brawl or Light Melee chassis action this turn is [Optimized].",
         "duration": "Immediate (move) / Tactical (Prone)"
@@ -79,14 +79,14 @@
       },
       {
         "tier": 2,
-        "label": "Basic",
+        "label": "Masterful",
         "name": "The Clinch",
         "description": "You step inside their guard and lock a limb. The target is [Pinned]. Breaking free costs their Maneuver.",
         "duration": "Tactical"
       },
       {
         "tier": 3,
-        "label": "Superior",
+        "label": "Legendary",
         "name": "Dominate",
         "description": "You take them fully to the ground. The target gains [Pinned] and [Exposed to Melee Attacks]. Your Brawl attacks against them Step Up the Power Die while the hold is maintained.",
         "duration": "Tactical"
@@ -135,14 +135,14 @@
       },
       {
         "tier": 2,
-        "label": "Basic",
+        "label": "Masterful",
         "name": "Shake it Off",
         "description": "You lock your stance and push through the pain. Gain [Guarded 1] against all incoming attacks. Clear one physical condition ([Dazed], [Weakened], or [Prone]).",
         "duration": "Tactical (Guarded) / Immediate (clear)"
       },
       {
         "tier": 3,
-        "label": "Superior",
+        "label": "Legendary",
         "name": "Unbreakable",
         "description": "You are beyond pain. Gain [Guarded 1] against all incoming attacks. Clear one physical condition. One ally in your Zone gains your [Guarded 1] benefit as well.",
         "duration": "Tactical"
@@ -153,7 +153,7 @@
         "id": "gambit_gut_check",
         "name": "Gut Check",
         "requiredDie": "D10",
-        "rule": "Reduce your Effect by 1 Tier. You dig deep and clear one physical condition ([Dazed], [Weakened], or [Prone]) immediately. If the base result (Basic or Superior) also clears a condition, you clear two total.",
+        "rule": "Reduce your Effect by 1 Tier. You dig deep and clear one physical condition ([Dazed], [Weakened], or [Prone]) immediately. If the base result (Masterful or Legendary) also clears a condition, you clear two total.",
         "duration": "Immediate",
         "spacersGuide": null
       },
@@ -191,14 +191,14 @@
       },
       {
         "tier": 2,
-        "label": "Basic",
+        "label": "Masterful",
         "name": "The Parry",
         "description": "You read their swing and redirect it. Gain [Guarded 1] against Melee attacks. If an enemy's Melee attack fails to clear your Defense, you may spend your Trigger to make a free Basic Melee action against them.",
         "duration": "Tactical"
       },
       {
         "tier": 3,
-        "label": "Superior",
+        "label": "Legendary",
         "name": "Master's Flourish",
         "description": "You dominate the exchange entirely. Gain [Guarded 1] against Melee attacks. The target gains [Exposed to Melee Attacks]. While your Guarded is active, each enemy Melee attack that fails to clear your Defense creates an Opening any ally in melee range may immediately spend.",
         "duration": "Tactical"
@@ -247,14 +247,14 @@
       },
       {
         "tier": 2,
-        "label": "Basic",
+        "label": "Masterful",
         "name": "Suppressive Fire",
         "description": "You sweep the area. Every enemy in a target Zone within the weapon's range gains [Distracted]. Designate a Zone of Denial — spend your Trigger to make a Basic Heavy Weapons attack against any enemy that enters or exits that Zone.",
         "duration": "Tactical"
       },
       {
         "tier": 3,
-        "label": "Superior",
+        "label": "Legendary",
         "name": "Pin Them Down",
         "description": "The weight of fire is overwhelming. Every enemy in the target Zone gains [Suppressed]. You gain [Guarded 1] against Ranged attacks originating from that Zone.",
         "duration": "Tactical"
@@ -303,14 +303,14 @@
       },
       {
         "tier": 2,
-        "label": "Basic",
+        "label": "Masterful",
         "name": "Slip Away",
         "description": "You flow out of the danger zone. Move 1 Zone ignoring [Engaged] — this movement triggers no Opening from enemies you leave. Gain [Optimized] on your next Defense roll.",
         "duration": "Immediate"
       },
       {
         "tier": 3,
-        "label": "Superior",
+        "label": "Legendary",
         "name": "The Blur",
         "description": "You seem to vanish from your position. Move up to 2 Zones ignoring [Engaged] — no Opening triggered from any Zone you pass through or leave. Gain [Optimized] on all Defense rolls until your next turn.",
         "duration": "Immediate (move) / Tactical (Optimized)"
@@ -359,14 +359,14 @@
       },
       {
         "tier": 2,
-        "label": "Basic",
+        "label": "Masterful",
         "name": "Choose one — Covering Fire or Dial In",
         "description": "Covering Fire: One target in range gains [Distracted] — you bracket them with bolts without a direct hit. | Dial In: Ignore concealment-based penalties (smoke, darkness, weather) on your next Ranged attack. Cover is structural and is not affected by this.",
         "duration": "Immediate (Dial In) / Tactical (Covering Fire)"
       },
       {
         "tier": 3,
-        "label": "Superior",
+        "label": "Legendary",
         "name": "Zone of Denial",
         "description": "Designate a Zone within your weapon's range. Until your next turn, spend your Trigger to make a Basic Ranged attack against any enemy that enters or exits that Zone. You gain [Optimized] on that Trigger attack.",
         "duration": "Tactical"
@@ -415,14 +415,14 @@
       },
       {
         "tier": 2,
-        "label": "Basic",
+        "label": "Masterful",
         "name": "Foul Play",
         "description": "You mess with their gear — jam a holster, unclip a pack, loosen a strap. The target gains [Exposed to Attacks]. You may deploy or pocket a small item (stim, detonator, slicing spike) as part of this Maneuver.",
         "duration": "Tactical"
       },
       {
         "tier": 3,
-        "label": "Superior",
+        "label": "Legendary",
         "name": "Sabotage",
         "description": "You disable a primary component — weapon, comm, or gear. It cannot be used until the target spends an Action to fix it. The target is also [Exposed to Attacks].",
         "duration": "Tactical"
@@ -471,14 +471,14 @@
       },
       {
         "tier": 2,
-        "label": "Basic",
+        "label": "Masterful",
         "name": "Gain Angle",
         "description": "You get behind them. Gain [Optimized] on your next Gunnery or Ranged Action. Force a pursuing vehicle to Step Down their Control Die.",
         "duration": "Immediate"
       },
       {
         "tier": 3,
-        "label": "Superior",
+        "label": "Legendary",
         "name": "Master Pilot",
         "description": "Perfect execution. Gain [Optimized] and [Guarded 1]. A pursuing vehicle Steps Down their Control Die.",
         "duration": "Tactical"
@@ -527,14 +527,14 @@
       },
       {
         "tier": 2,
-        "label": "Basic",
+        "label": "Masterful",
         "name": "Shadow Step",
         "description": "Move 1 Zone — this does not trigger Openings and is not registered by watching enemies. Gain [Optimized] on your next attack.",
         "duration": "Immediate"
       },
       {
         "tier": 3,
-        "label": "Superior",
+        "label": "Legendary",
         "name": "The Fade",
         "description": "Move 1 Zone. Enemies lose your position entirely. Gain [Cover 1] and [Optimized] on your next attack against a target.",
         "duration": "Tactical"
@@ -583,14 +583,14 @@
       },
       {
         "tier": 2,
-        "label": "Basic",
+        "label": "Masterful",
         "name": "Center",
         "description": "You find your footing. Clear one Lingering mental or emotional condition ([Dazed] or [Distracted]).",
         "duration": "Immediate"
       },
       {
         "tier": 3,
-        "label": "Superior",
+        "label": "Legendary",
         "name": "Battle Hardened",
         "description": "You are a void of emotion. Gain [Guarded 1] against all Mental or Ego-based attacks AND ignore the penalties of one Trauma for your next action.",
         "duration": "Tactical"
@@ -639,14 +639,14 @@
       },
       {
         "tier": 2,
-        "label": "Basic",
+        "label": "Masterful",
         "name": "Dig In",
         "description": "You find a solid position. Gain [Cover 1].",
         "duration": "Tactical"
       },
       {
         "tier": 3,
-        "label": "Superior",
+        "label": "Legendary",
         "name": "Kill Zone",
         "description": "You find the perfect vantage point. Gain [Cover 2] AND Step Up the Power Die on your next Ranged Action from this position.",
         "duration": "Tactical"
@@ -695,14 +695,14 @@
       },
       {
         "tier": 2,
-        "label": "Basic",
+        "label": "Masterful",
         "name": "Loom",
         "description": "You crowd their space and make them doubt. The target is [Exposed].",
         "duration": "Tactical"
       },
       {
         "tier": 3,
-        "label": "Superior",
+        "label": "Legendary",
         "name": "Rattled",
         "description": "You shake them to the core. The target is [Distracted] AND [Exposed].",
         "duration": "Tactical"
@@ -759,14 +759,14 @@
       },
       {
         "tier": 2,
-        "label": "Basic",
+        "label": "Masterful",
         "name": "Assert",
         "description": "You read its movements and brace. Gain [Guarded 1] against the beast.",
         "duration": "Tactical"
       },
       {
         "tier": 3,
-        "label": "Superior",
+        "label": "Legendary",
         "name": "Overpower the Instinct",
         "description": "You dominate its psyche. The beast gains [Exposed] to all attacks.",
         "duration": "Tactical"
@@ -815,14 +815,14 @@
       },
       {
         "tier": 2,
-        "label": "Basic",
+        "label": "Masterful",
         "name": "Control Pain",
         "description": "You seal off all pain signals through the Force. Ignore ALL active Perceptual condition penalties AND the penalties of 1 Trauma for this round. Positional conditions ([Prone], [Restrained], [Pinned], [Blinded], [Slowed]) and Environmental damage ([Hazard], [Bleeding]) are physical realities — they remain.",
         "duration": "Immediate"
       },
       {
         "tier": 3,
-        "label": "Superior",
+        "label": "Legendary",
         "name": "Body Over Mind",
         "description": "You enter a sustained state of deep pain suppression. Ignore all Perceptual condition penalties and all Trauma penalties until your next turn AND gain [Buffered 1] as the Force stabilizes your body against further shock.",
         "duration": "Tactical"
@@ -871,14 +871,14 @@
       },
       {
         "tier": 2,
-        "label": "Basic",
+        "label": "Masterful",
         "name": "Spot the Flaw",
         "description": "You deduce a physical vulnerability. The target is [Exposed to your next attack]. Alternatively, you identify an environmental hazard that can be triggered against them — the GM adjudicates the effect.",
         "duration": "Immediate"
       },
       {
         "tier": 3,
-        "label": "Superior",
+        "label": "Legendary",
         "name": "Shatter the Pattern",
         "description": "Your deduction reaches its conclusion. The target is [Exposed] and [Distracted]. You may immediately trigger one environmental element in your Zone as a free action — a collapsing ledge, sparking conduit, loose cable — GM adjudicates narrative permission and effect.",
         "duration": "Immediate"
@@ -927,14 +927,14 @@
       },
       {
         "tier": 2,
-        "label": "Basic",
+        "label": "Masterful",
         "name": "Combat Stim",
         "description": "You spike the system. Clear [Dazed] or [Distracted] from yourself or an ally in your Zone, OR grant them [Buffered 1].",
         "duration": "Immediate"
       },
       {
         "tier": 3,
-        "label": "Superior",
+        "label": "Legendary",
         "name": "Full Intervention",
         "description": "You push through the damage. Target ignores the penalties of 1 Trauma for their next action AND gains [Buffered 1].",
         "duration": "Immediate"
@@ -983,14 +983,14 @@
       },
       {
         "tier": 2,
-        "label": "Basic",
+        "label": "Masterful",
         "name": "Beyond Sight",
         "description": "You perceive through the Force rather than your eyes. Detect all living beings in your Zone and all adjacent Zones regardless of darkness, smoke, or concealment. Ignore [Stealth] for your next action.",
         "duration": "Tactical"
       },
       {
         "tier": 3,
-        "label": "Superior",
+        "label": "Legendary",
         "name": "Battle Foresight",
         "description": "You read the flow of events moments before they unfold. You cannot present an Opening this round and you gain one additional Trigger to spend before your next turn.",
         "duration": "Immediate"
@@ -1039,14 +1039,14 @@
       },
       {
         "tier": 2,
-        "label": "Basic",
+        "label": "Masterful",
         "name": "Focus Fire!",
         "description": "One ally in your Zone or an adjacent Zone gains [Optimized] for their next attack.",
         "duration": "Immediate"
       },
       {
         "tier": 3,
-        "label": "Superior",
+        "label": "Legendary",
         "name": "Hold the Line! / Suppress!",
         "description": "Choose one: One ally gains [Guarded 1], OR one enemy in sight gains [Suppressed].",
         "duration": "Tactical"
@@ -1095,14 +1095,14 @@
       },
       {
         "tier": 2,
-        "label": "Basic",
+        "label": "Masterful",
         "name": "Sabotage Gear",
         "description": "You physically disable a weapon trait (Auto, Blast, Stun Setting, etc.) or piece of equipment on the target. The affected gear is non-functional until repaired or cleared by a Tech action.",
         "duration": "Tactical"
       },
       {
         "tier": 3,
-        "label": "Superior",
+        "label": "Legendary",
         "name": "Catastrophic Failure",
         "description": "You trigger a cascading systems overload. Droids are [Shut Down] for 1 round. Targets dependent on powered systems (HUD, targeting arrays, powered armor) are [Blinded] and [Distracted].",
         "duration": "Immediate"
@@ -1151,14 +1151,14 @@
       },
       {
         "tier": 2,
-        "label": "Basic",
+        "label": "Masterful",
         "name": "Lower the Guard",
         "description": "Your ease puts them at ease. The NPC willingly answers one honest question or removes one specific social barrier — suspicion, reluctance, or formality.",
         "duration": "Immediate"
       },
       {
         "tier": 3,
-        "label": "Superior",
+        "label": "Legendary",
         "name": "Win the Room",
         "description": "Your presence is magnetic. All NPCs present soften their stance — treat this group's Social Resistance as reduced by 1 for the rest of the scene.",
         "duration": "Scene"
@@ -1207,14 +1207,14 @@
       },
       {
         "tier": 2,
-        "label": "Basic",
+        "label": "Masterful",
         "name": "False Threat",
         "description": "The target takes the bait. They gain [Distracted]. Combat: they flinched at the fake threat and lost their focus. Narrative: they are chasing a false lead.",
         "duration": "Tactical"
       },
       {
         "tier": 3,
-        "label": "Superior",
+        "label": "Legendary",
         "name": "The Setup",
         "description": "You bait them perfectly. The target immediately spends a Trigger to make an attack — but that attack is redirected to a target in the same Zone: an ally, an enemy, or an environmental hazard. The redirected attack is resolved normally. The GM has final say on the redirection target and any special effects when striking a hazard. Combat: a vibro-sword guided into an electrical conduit, a blaster bolt walked into a friendly. Narrative: a provoked outburst directed at the wrong person, a critical slip in negotiations.",
         "duration": "Immediate"
@@ -1263,14 +1263,14 @@
       },
       {
         "tier": 2,
-        "label": "Basic",
+        "label": "Masterful",
         "name": "Predictive Defense",
         "description": "You read the shot before it comes. Gain [Optimized] on all Defense rolls against the target until your next turn.",
         "duration": "Tactical"
       },
       {
         "tier": 3,
-        "label": "Superior",
+        "label": "Legendary",
         "name": "Pattern Recognition",
         "description": "You have solved their style. The target gains [Exposed to your attacks] and you ignore their [Guarded] or [Cover] rating for your next attack against them.",
         "duration": "Immediate"
@@ -1319,14 +1319,14 @@
       },
       {
         "tier": 2,
-        "label": "Basic",
+        "label": "Masterful",
         "name": "Move It!",
         "description": "You get them moving with purpose. One ally may immediately move 1 Zone without triggering an Opening.",
         "duration": "Immediate"
       },
       {
         "tier": 3,
-        "label": "Superior",
+        "label": "Legendary",
         "name": "On My Mark!",
         "description": "Your conviction lifts them. One ally gains [Optimized] for their next Primary Action, OR one ally clears one active Perceptual condition ([Distracted], [Dazed], or [Stunned]) through sheer force of will.",
         "duration": "Immediate"
@@ -1375,14 +1375,14 @@
       },
       {
         "tier": 2,
-        "label": "Basic",
+        "label": "Masterful",
         "name": "Force Push / Pull",
         "description": "A focused kinetic burst. Move the target OR a sizeable object 1 Zone in any direction. An unwilling target may be pushed into a hazard, into another Zone, or out of Engagement — GM adjudicates narrative effects.",
         "duration": "Immediate"
       },
       {
         "tier": 3,
-        "label": "Superior",
+        "label": "Legendary",
         "name": "Force Slam",
         "description": "Kinetic violence. Move the target 1 Zone and knock them [Prone]. If the target is moved into a wall, structure, or hazard, the GM may apply additional effects.",
         "duration": "Immediate"

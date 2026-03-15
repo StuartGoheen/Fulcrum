@@ -69,8 +69,8 @@
 
   var WEAPON_TIERS = [
     { range: '0\u20133', label: 'Fleeting' },
-    { range: '4\u20137', label: 'Basic'    },
-    { range: '8+',       label: 'Superior' }
+    { range: '4\u20137', label: 'Masterful'    },
+    { range: '8+',       label: 'Legendary' }
   ];
 
   var ARMOR_CATEGORY_RULES = {

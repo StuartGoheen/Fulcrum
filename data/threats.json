@@ -79,7 +79,7 @@
       "summary": "Applied to any Standard threat. Keeps all stats intact — Presence, Defense, Actions, Gambits — but strips their survivability to near zero. These are the bodies that fill the room.",
       "modifications": [
         "Vitality is treated as 1 regardless of stat cost — they die on any damage result, including 1-point Fleeting hits.",
-        "TOUGH tag exception: if a Minion also has TOUGH, they ignore Fleeting damage and maneuver conditions. They require a Basic result (minimum 3 damage) to kill.",
+        "TOUGH tag exception: if a Minion also has TOUGH, they ignore Fleeting damage and maneuver conditions. They require a Masterful result (minimum 3 damage) to kill.",
         "All other stats remain fully functional. A Minion with Presence -2 and Lightsaber 6 hits just as hard as its non-Minion version."
       ],
       "tpModifier": 0.4,
@@ -114,9 +114,9 @@
       "values": [
         { "rating": 1, "label": "Undefended",  "note": "Scavengers, civilians. Any hit lands clean.", "tp": 0 },
         { "rating": 2, "label": "Light",       "note": "Basic armor or combat training. D6 PC still gets Fleeting most rolls.", "tp": 0 },
-        { "rating": 3, "label": "Moderate",    "note": "Military-grade. D6 PC mostly Fleeting. D8 PC reaches Basic occasionally.", "tp": 1 },
-        { "rating": 4, "label": "Hardened",    "note": "Heavy armor or elite training. D8 PC mostly Fleeting. D10+ for reliable Basic.", "tp": 2 },
-        { "rating": 5, "label": "Fortified",   "note": "Serious armor. D10 PC averages Basic. D6 PC nearly always Fleeting.", "tp": 3 },
+        { "rating": 3, "label": "Moderate",    "note": "Military-grade. D6 PC mostly Fleeting. D8 PC reaches Masterful occasionally.", "tp": 1 },
+        { "rating": 4, "label": "Hardened",    "note": "Heavy armor or elite training. D8 PC mostly Fleeting. D10+ for reliable Masterful.", "tp": 2 },
+        { "rating": 5, "label": "Fortified",   "note": "Serious armor. D10 PC averages Masterful. D6 PC nearly always Fleeting.", "tp": 3 },
         { "rating": 6, "label": "Apex",        "note": "Near-impenetrable. Nemesis-grade. D12 PC needed for Solid results.", "tp": 5 }
       ]
     },
@@ -181,9 +181,9 @@
           "gambitAvailable": "Force Evasion",
           "effects": [
             { "tier": "Fleeting", "range": "1–3",  "result": "1 damage + [Exposed]" },
-            { "tier": "Basic",    "range": "4–7",   "result": "3 damage" },
-            { "tier": "Solid",    "range": "8–11",  "result": "5 damage + [Prone]" },
-            { "tier": "Superior", "range": "12+",   "result": "7 damage + Push 1 Zone + [Prone]" }
+            { "tier": "Masterful",    "range": "4–7",   "result": "3 damage" },
+            { "tier": "Legendary",    "range": "8–11",  "result": "5 damage + [Prone]" },
+            { "tier": "Epic", "range": "12+",   "result": "7 damage + Push 1 Zone + [Prone]" }
           ]
         }
       }
@@ -197,7 +197,7 @@
           "type": "Force Defense Type",
           "description": "GM declares the gambit before the PC defends. The PC must use the specified defense (Evasion instead of Defense, or Resolve instead of Defense). After the tier resolves, step the final effect down by 1 tier.",
           "tp": 1,
-          "example": "Lightsaber Strike — Force Evasion gambit. PC must roll Evasion. NPC Power 7 vs PC Evasion roll 1: 7−1=6 (Solid). Step down for gambit: Basic. Deal 3 damage."
+          "example": "Lightsaber Strike — Force Evasion gambit. PC must roll Evasion. NPC Power 7 vs PC Evasion roll 1: 7−1=6 (Solid). Step down for gambit: Masterful. Deal 3 damage."
         },
         {
           "type": "Condition on Hit",
@@ -325,7 +325,7 @@
   },
 
   "tags": [
-    { "id": "tough",      "name": "TOUGH",      "tp": 2, "effect": "Ignores Fleeting damage results and Fleeting-tier maneuver conditions. Requires a Basic result (minimum) to deal damage or apply conditions." },
+    { "id": "tough",      "name": "TOUGH",      "tp": 2, "effect": "Ignores Fleeting damage results and Fleeting-tier maneuver conditions. Requires a Masterful result (minimum) to deal damage or apply conditions." },
     { "id": "pack",       "name": "PACK",        "tp": 1, "effect": "When 2 or more PACK threats are in the same Zone, each gains +1 Presence (Step Down PC Control Die by 1). Coordinated fire is harder to avoid. Rewards PCs for breaking up the group." },
     { "id": "relentless", "name": "RELENTLESS",  "tp": 3, "effect": "+1 Trigger per round. Can respond to additional Openings or use a second reaction per round." },
     { "id": "shielded",   "name": "SHIELDED X",  "tp": 2, "perStack": true, "effect": "[Buffered X] that refreshes at the start of the threat's turn each round. Represents energy shields, Force barriers, or hardened plating." },
@@ -463,7 +463,7 @@
           "type": "Simple",
           "power": 5,
           "range": "1–3 Zones",
-          "note": "Failed PC Dodge = Solid tier. Successful defense with D6 Power Die averages Basic. Full effect on Control failure."
+          "note": "Failed PC Dodge = Legendary tier. Successful defense with D6 Power Die averages Masterful. Full effect on Control failure."
         }
       ],
       "gambits": [
@@ -492,8 +492,8 @@
         "asMinion": "10 × 0.25 = 2.5 TP per Minion"
       },
       "designNotes": [
-        "Defense 5 means a D6/D8 PC deals Basic damage at best (2 Dmg). D10/D12 can reach Solid (4 Dmg). Armor is real.",
-        "Power 5 attack: failed Dodge = Solid tier (4 Dmg on Medium Rifle scale). A hit lands. Stormtroopers aren't harmless.",
+        "Defense 5 means a D6/D8 PC deals Masterful damage at best (2 Dmg). D10/D12 can reach Legendary (4 Dmg). Armor is real.",
+        "Power 5 attack: failed Dodge = Legendary tier (4 Dmg on Medium Rifle scale). A hit lands. Stormtroopers aren't harmless.",
         "PACK is the key threat multiplier. A squad of 4 in one Zone is Presence 1 — D6 PCs are now at 25% success. Spread them out or spend resources."
       ]
     }

@@ -4,8 +4,8 @@
     "label": "Light",
     "tiers": [
       { "range": "0–3", "label": "Fleeting", "damage": 1, "stunDamage": 2, "stunCondition": "Distracted – Immediate" },
-      { "range": "4–7", "label": "Basic",    "damage": 2, "stunDamage": 3, "stunCondition": "Distracted – Tactical"  },
-      { "range": "8+",  "label": "Superior", "damage": 4, "stunDamage": 5, "stunCondition": "Distracted – Lingering" }
+      { "range": "4–7", "label": "Masterful",    "damage": 2, "stunDamage": 3, "stunCondition": "Distracted – Tactical"  },
+      { "range": "8+",  "label": "Legendary", "damage": 4, "stunDamage": 5, "stunCondition": "Distracted – Lingering" }
     ]
   },
   "medium": {
@@ -13,8 +13,8 @@
     "label": "Medium",
     "tiers": [
       { "range": "0–3", "label": "Fleeting", "damage": 1, "stunDamage": 2, "stunCondition": "Distracted – Immediate" },
-      { "range": "4–7", "label": "Basic",    "damage": 3, "stunDamage": 4, "stunCondition": "Distracted – Tactical"  },
-      { "range": "8+",  "label": "Superior", "damage": 5, "stunDamage": 6, "stunCondition": "Distracted – Lingering" }
+      { "range": "4–7", "label": "Masterful",    "damage": 3, "stunDamage": 4, "stunCondition": "Distracted – Tactical"  },
+      { "range": "8+",  "label": "Legendary", "damage": 5, "stunDamage": 6, "stunCondition": "Distracted – Lingering" }
     ]
   },
   "heavy": {
@@ -22,8 +22,8 @@
     "label": "Heavy",
     "tiers": [
       { "range": "0–3", "label": "Fleeting", "damage": 2, "stunDamage": 3, "stunCondition": "Distracted – Immediate" },
-      { "range": "4–7", "label": "Basic",    "damage": 4, "stunDamage": 5, "stunCondition": "Distracted – Tactical"  },
-      { "range": "8+",  "label": "Superior", "damage": 6, "stunDamage": 7, "stunCondition": "Distracted – Lingering" }
+      { "range": "4–7", "label": "Masterful",    "damage": 4, "stunDamage": 5, "stunCondition": "Distracted – Tactical"  },
+      { "range": "8+",  "label": "Legendary", "damage": 6, "stunDamage": 7, "stunCondition": "Distracted – Lingering" }
     ]
   }
 }

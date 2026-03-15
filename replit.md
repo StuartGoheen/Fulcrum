@@ -168,8 +168,9 @@ The right column (`#frame-right`, 25vw fixed sidebar) serves as the **combat coc
 1. **Vitality** (`char-vitality-wrap`) — EKG animation + clickable health pips
 2. **Active Effects** (`char-effects-wrap`) — conditions applied by `effect-manager.js`
 3. **Engine Pool** (`char-engine-wrap`) — resource pips + core utility only (kit abilities moved to center panel)
-4. **Action Economy** (`char-action-wrap`) — per-round Action/Trigger/Maneuver pips with "New Round" reset. Bonuses from kit abilities (e.g. The Hair-Trigger +1 Trigger) auto-calculated
-5. **Resolution Ladder** (`char-ladder-wrap`) — quick reference: Control Die tiers (0–3 Fleeting, 4–7 Basic, 8+ Solid/+1 Tier), Power Die impact scale, and tier modifier sources
+4. **Resolution Ladder** (`char-ladder-wrap`) — symmetric fulcrum display showing Roll − Risk = Net result. Success tiers: Fleeting (0–3), Masterful (4–7), Legendary (8+). Failure tiers mirror below zero. Includes tier modifier sources (+1/−1).
+
+**Action Economy pips** are rendered inline inside the Operational Status section (below Start/End Turn buttons). End Turn automatically resets all pips. Bonuses from kit abilities auto-calculated.
 
 ## Database
 

@@ -407,44 +407,36 @@
   var _actionState = { action: 0, trigger: 0, maneuver: 0 };
   var _actionBudget = { action: 1, trigger: 1, maneuver: 1 };
 
-  function _buildActionEconomy(char) {
+  function _buildActionPips(char) {
     _actionBudget = _calcActionBudget(char);
     var types = [
-      { key: 'action',   label: 'Action',   max: _actionBudget.action },
-      { key: 'trigger',  label: 'Trigger',  max: _actionBudget.trigger },
-      { key: 'maneuver', label: 'Maneuver', max: _actionBudget.maneuver },
+      { key: 'action',   label: 'A', max: _actionBudget.action },
+      { key: 'trigger',  label: 'T', max: _actionBudget.trigger },
+      { key: 'maneuver', label: 'M', max: _actionBudget.maneuver },
     ];
 
-    var rows = '';
+    var groups = '';
     types.forEach(function (t) {
       var spent = _actionState[t.key] || 0;
       var pips = '';
       for (var i = 0; i < t.max; i++) {
         var cls = i < spent ? 'action-pip action-pip--spent' : 'action-pip';
-        pips += '<button class="' + cls + '" data-action-type="' + t.key + '" data-action-idx="' + i + '"></button>';
+        pips += '<button class="' + cls + '" data-action-type="' + t.key + '" data-action-idx="' + i + '" title="' + _esc(t.key) + '"></button>';
       }
-      rows +=
-        '<div class="action-row">' +
-          '<span class="action-row-label">' + _esc(t.label) + '</span>' +
-          '<div class="action-row-pips">' + pips + '</div>' +
+      groups +=
+        '<div class="action-pip-group">' +
+          '<span class="action-pip-label">' + t.label + '</span>' +
+          pips +
         '</div>';
     });
 
-    return (
-      '<div class="char-action-section">' +
-        '<div class="char-action-header">' +
-          '<span class="char-action-label">Action Economy</span>' +
-          '<button class="char-action-reset" data-action-reset="1" aria-label="Reset actions">New Round</button>' +
-        '</div>' +
-        rows +
-      '</div>'
-    );
+    return '<div class="char-action-pips-row">' + groups + '</div>';
   }
 
   function _refreshActionEconomy() {
-    var wrap = document.getElementById('char-action-wrap');
+    var wrap = document.getElementById('char-action-pips-inline');
     if (wrap && _currentChar) {
-      wrap.innerHTML = _buildActionEconomy(_currentChar);
+      wrap.innerHTML = _buildActionPips(_currentChar);
     }
   }
 
@@ -452,55 +444,58 @@
     return (
       '<div class="char-ladder-section">' +
         '<div class="char-ladder-header">' +
-          '<span class="char-ladder-label">Task Resolution</span>' +
+          '<span class="char-ladder-label">Resolution</span>' +
+          '<span class="char-ladder-formula">Roll − Risk = Net</span>' +
         '</div>' +
 
-        '<div class="char-ladder-group">' +
-          '<div class="char-ladder-group-title">Control Die → Effect Tier</div>' +
-          '<div class="char-ladder-row char-ladder-row--t1">' +
-            '<span class="char-ladder-range">0–3</span>' +
-            '<span class="char-ladder-tier">Fleeting</span>' +
-            '<span class="char-ladder-desc">Minimal — a glancing blow, a hint of progress.</span>' +
+        '<div class="char-ladder-fulcrum">' +
+          '<div class="char-ladder-half char-ladder-half--success">' +
+            '<div class="char-ladder-half-label">SUCCESS</div>' +
+            '<div class="char-ladder-row char-ladder-row--t3">' +
+              '<span class="char-ladder-range">8+</span>' +
+              '<span class="char-ladder-tier">Legendary</span>' +
+            '</div>' +
+            '<div class="char-ladder-row char-ladder-row--t2">' +
+              '<span class="char-ladder-range">4–7</span>' +
+              '<span class="char-ladder-tier">Masterful</span>' +
+            '</div>' +
+            '<div class="char-ladder-row char-ladder-row--t1">' +
+              '<span class="char-ladder-range">0–3</span>' +
+              '<span class="char-ladder-tier">Fleeting</span>' +
+            '</div>' +
           '</div>' +
-          '<div class="char-ladder-row char-ladder-row--t2">' +
-            '<span class="char-ladder-range">4–7</span>' +
-            '<span class="char-ladder-tier">Basic</span>' +
-            '<span class="char-ladder-desc">Standard success — the action lands as intended.</span>' +
-          '</div>' +
-          '<div class="char-ladder-row char-ladder-row--t3">' +
-            '<span class="char-ladder-range">8+</span>' +
-            '<span class="char-ladder-tier">Solid (+1 Tier)</span>' +
-            '<span class="char-ladder-desc">Exceptional execution — automatic +1 Effect Tier.</span>' +
-          '</div>' +
-        '</div>' +
 
-        '<div class="char-ladder-group">' +
-          '<div class="char-ladder-group-title">Power Die → Impact</div>' +
-          '<div class="char-ladder-row char-ladder-row--power">' +
-            '<span class="char-ladder-range">MAX</span>' +
-            '<span class="char-ladder-tier">Explodes</span>' +
-            '<span class="char-ladder-desc">Roll again and add. Uncapped ceiling.</span>' +
+          '<div class="char-ladder-zero">' +
+            '<span class="char-ladder-zero-line"></span>' +
+            '<span class="char-ladder-zero-label">0</span>' +
+            '<span class="char-ladder-zero-line"></span>' +
           '</div>' +
-          '<div class="char-ladder-row char-ladder-row--power">' +
-            '<span class="char-ladder-range">High</span>' +
-            '<span class="char-ladder-tier">Full Impact</span>' +
-            '<span class="char-ladder-desc">Damage or effect magnitude at its highest.</span>' +
-          '</div>' +
-          '<div class="char-ladder-row char-ladder-row--power">' +
-            '<span class="char-ladder-range">Low</span>' +
-            '<span class="char-ladder-tier">Grazing</span>' +
-            '<span class="char-ladder-desc">Minimal magnitude — the hit connects but barely.</span>' +
+
+          '<div class="char-ladder-half char-ladder-half--failure">' +
+            '<div class="char-ladder-row char-ladder-row--t1">' +
+              '<span class="char-ladder-range">−1 to −3</span>' +
+              '<span class="char-ladder-tier">Fleeting</span>' +
+            '</div>' +
+            '<div class="char-ladder-row char-ladder-row--t2">' +
+              '<span class="char-ladder-range">−4 to −7</span>' +
+              '<span class="char-ladder-tier">Masterful</span>' +
+            '</div>' +
+            '<div class="char-ladder-row char-ladder-row--t3">' +
+              '<span class="char-ladder-range">−8 or less</span>' +
+              '<span class="char-ladder-tier">Legendary</span>' +
+            '</div>' +
+            '<div class="char-ladder-half-label">FAILURE</div>' +
           '</div>' +
         '</div>' +
 
         '<div class="char-ladder-group">' +
           '<div class="char-ladder-group-title">Tier Modifiers</div>' +
           '<div class="char-ladder-mod">' +
-            '<span class="char-ladder-mod-tag char-ladder-mod--up">+1 Tier</span>' +
-            '<span class="char-ladder-mod-sources">Control 8+ · Destiny Tap · Edge Point · [Exposed] target</span>' +
+            '<span class="char-ladder-mod-tag char-ladder-mod--up">+1</span>' +
+            '<span class="char-ladder-mod-sources">Control 8+ · Destiny Tap · Edge Point · [Exposed]</span>' +
           '</div>' +
           '<div class="char-ladder-mod">' +
-            '<span class="char-ladder-mod-tag char-ladder-mod--down">−1 Tier</span>' +
+            '<span class="char-ladder-mod-tag char-ladder-mod--down">−1</span>' +
             '<span class="char-ladder-mod-sources">[Dazed] · Gambit Cost · [Guarded X] · [Cover X]</span>' +
           '</div>' +
         '</div>' +
@@ -560,7 +555,6 @@
 
     _refreshStatus();
     _refreshEngine();
-    _refreshActionEconomy();
     var ladderWrap = document.getElementById("char-ladder-wrap");
     if (ladderWrap) ladderWrap.innerHTML = _buildResolutionLadder();
   }
@@ -617,12 +611,7 @@
       return;
     }
 
-    var resetBtn = e.target.closest('[data-action-reset]');
-    if (resetBtn) {
-      _actionState = { action: 0, trigger: 0, maneuver: 0 };
-      _refreshActionEconomy();
-      return;
-    }
+
 
         var enginePip = e.target.closest('.char-engine-pip[data-engine-pip]');
     if (enginePip) {
@@ -713,6 +702,20 @@
     _refreshFront();
     _refreshStatus();
     _refreshEngine();
+    _refreshActionEconomy();
+  };
+
+  window.CharacterPanel.buildActionPips = function () {
+    if (!_currentChar) return '';
+    return _buildActionPips(_currentChar);
+  };
+
+  window.CharacterPanel.resetActions = function () {
+    _actionState = { action: 0, trigger: 0, maneuver: 0 };
+    _refreshActionEconomy();
+  };
+
+  window.CharacterPanel.refreshActionPips = function () {
     _refreshActionEconomy();
   };
 
