@@ -106,10 +106,10 @@ router.post('/backstory/generate', async (req, res) => {
 
   const genAI = new GoogleGenerativeAI(apiKey);
   const model = genAI.getGenerativeModel({
-    model: 'gemini-2.0-flash',
+    model: 'gemini-2.5-flash',
     generationConfig: {
       responseMimeType: 'application/json',
-      maxOutputTokens: 800,
+      maxOutputTokens: 4096,
       temperature: 0.85,
     },
   });
@@ -128,11 +128,20 @@ router.post('/backstory/generate', async (req, res) => {
     ]);
 
     const text = result.response.text();
+    console.log('[backstory] Raw response:', text.substring(0, 300));
     let parsed;
     try {
       parsed = JSON.parse(text);
-    } catch (_) {
-      return { ok: false, status: 500, body: { error: 'The storyteller returned something unreadable. Try regenerating.' } };
+    } catch (parseErr) {
+      console.error('[backstory] JSON parse error:', parseErr.message);
+      console.error('[backstory] First 500 chars:', JSON.stringify(text.substring(0, 500)));
+      const jsonMatch = text.match(/\{[\s\S]*\}/);
+      if (jsonMatch) {
+        try { parsed = JSON.parse(jsonMatch[0]); } catch (__) { /* fall through */ }
+      }
+      if (!parsed) {
+        return { ok: false, status: 500, body: { error: 'The storyteller returned something unreadable. Try regenerating.' } };
+      }
     }
 
     return {
