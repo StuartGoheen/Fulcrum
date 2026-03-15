@@ -2361,6 +2361,10 @@
     max-width: 500px;
   }
 
+  .ph-screen-head {
+    margin-bottom: 0.6rem;
+  }
+
   .cc-step-label {
     font-size: 0.45rem;
     letter-spacing: 0.15em;
