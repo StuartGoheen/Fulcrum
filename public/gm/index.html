@@ -903,7 +903,7 @@
       groups[track].push(m);
     });
 
-    const tierColors = { 'Fleeting':'#888', 'Basic':'#5588CC', 'Solid':'#C47A1E', 'Superior':'#AA44AA', 'Flawless':'#CC0000' };
+    const tierColors = { 'Fleeting':'#888', 'Masterful':'#5588CC', 'Legendary':'#C47A1E' };
 
     let html = '';
     Object.keys(groups).sort().forEach(track => {
@@ -1045,7 +1045,7 @@
   }
 
   /* ── Render Weapons ─────────────────────────────────────── */
-  const tierColors2 = { 'Fleeting':'#888', 'Basic':'#5588CC', 'Solid':'#C47A1E', 'Superior':'#AA44AA', 'Flawless':'#CC0000' };
+  const tierColors2 = { 'Fleeting':'#888', 'Masterful':'#5588CC', 'Legendary':'#C47A1E' };
 
   function renderEffectPairs(pairs) {
     if (!pairs || !Array.isArray(pairs)) return '';
@@ -1075,8 +1075,8 @@
   function renderWeaponDamageTrack(w, chassisMap) {
     const TIERS = [
       { range: '0\u20133', label: 'Fleeting' },
-      { range: '4\u20137', label: 'Basic' },
-      { range: '8+',       label: 'Superior' }
+      { range: '4\u20137', label: 'Masterful' },
+      { range: '8+',       label: 'Legendary' }
     ];
     let dmg = null;
     if (w.customDamage && Array.isArray(w.customDamage)) {
@@ -1274,8 +1274,8 @@
   /* ── Render Gear ─────────────────────────────────────────── */
   const GEAR_TIERS = [
     { range: '0\u20133', label: 'Fleeting' },
-    { range: '4\u20137', label: 'Basic'    },
-    { range: '8+',       label: 'Superior' }
+    { range: '4\u20137', label: 'Masterful' },
+    { range: '8+',       label: 'Legendary' }
   ];
 
   const GEAR_CATEGORY_ORDER = ['medical','explosive','tech','infiltration','surveillance','communication','survival','tools'];

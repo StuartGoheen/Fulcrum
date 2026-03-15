@@ -576,8 +576,8 @@
 
   const WEAPON_TIERS = [
     { range: '0–3', label: 'Fleeting' },
-    { range: '4–7', label: 'Basic'    },
-    { range: '8+',  label: 'Superior' }
+    { range: '4–7', label: 'Masterful' },
+    { range: '8+',  label: 'Legendary' }
   ];
 
   /* Black Market: full underworld markup */
@@ -702,8 +702,8 @@
   }
   function pwrLabel(n) {
     if (n === null) return { text: '—', color: 'var(--color-text-secondary)' };
-    if (n >= 8) return { text: 'Superior', color: '#44CC66' };
-    if (n >= 4) return { text: 'Basic', color: 'var(--color-accent-primary)' };
+    if (n >= 8) return { text: 'Legendary', color: '#44CC66' };
+    if (n >= 4) return { text: 'Masterful', color: 'var(--color-accent-primary)' };
     return { text: 'Fleeting', color: '#CC3333' };
   }
 

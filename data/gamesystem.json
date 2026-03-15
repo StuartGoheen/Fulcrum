@@ -1,13 +1,5 @@
 [
   {
-    "id": "lever_dice_stepping",
-    "number": 1,
-    "name": "Dice Stepping",
-    "tag": "Pre-Roll",
-    "summary": "Changes the probability floor and ceiling before the dice are thrown. The foundational mathematical engine of the dual-axis system.",
-    "mechanic": "Step a die Up (e.g., D8 → D10) or Down (e.g., D10 → D8). Because each die has a fixed range, stepping directly raises or lowers both the floor and ceiling of possible outcomes before a single number is generated.",
-    "axes": [
-      {
     "id": "resolution_math",
     "number": 0,
     "name": "The Fulcrum — Symmetric Resolution",
@@ -16,15 +8,45 @@
     "mechanic": "Net Result = (Control Die or Power Die) minus (Risk or Resistance). The result falls on a mirrored scale around zero (the Fulcrum). Success side: Fleeting (net 0 to 3), Masterful (net 4 to 7), Legendary (net 8+). Failure side: Fleeting failure (net -1 to -3), Masterful failure (net -4 to -7), Legendary failure (net -8 or worse). The same tier names apply to both Control (success quality) and Power (effect magnitude).",
     "tiers": {
       "success": [
-        { "tier": 3, "name": "Legendary", "range": "8+", "description": "Exceptional execution. Automatic +1 Effect Tier. Near-impossible at base Risk 4 — requires a D12 roll of 12." },
-        { "tier": 2, "name": "Masterful", "range": "4-7", "description": "Standard success. The action lands as intended with full effect." },
-        { "tier": 1, "name": "Fleeting", "range": "0-3", "description": "Marginal success. A glancing blow, a hint of progress, minimal magnitude." }
+        {
+          "tier": 3,
+          "name": "Legendary",
+          "range": "8+",
+          "description": "Exceptional execution. Automatic +1 Effect Tier. Near-impossible at base Risk 4 — requires a D12 roll of 12."
+        },
+        {
+          "tier": 2,
+          "name": "Masterful",
+          "range": "4-7",
+          "description": "Standard success. The action lands as intended with full effect."
+        },
+        {
+          "tier": 1,
+          "name": "Fleeting",
+          "range": "0-3",
+          "description": "Marginal success. A glancing blow, a hint of progress, minimal magnitude."
+        }
       ],
       "fulcrum": 0,
       "failure": [
-        { "tier": 1, "name": "Fleeting", "range": "-1 to -3", "description": "Minor failure. Consequence is light — a stumble, a missed opportunity." },
-        { "tier": 2, "name": "Masterful", "range": "-4 to -7", "description": "Serious failure. The consequence lands with real weight." },
-        { "tier": 3, "name": "Legendary", "range": "-8 or worse", "description": "Catastrophic failure. The worst possible outcome manifests fully." }
+        {
+          "tier": 1,
+          "name": "Fleeting",
+          "range": "-1 to -3",
+          "description": "Minor failure. Consequence is light — a stumble, a missed opportunity."
+        },
+        {
+          "tier": 2,
+          "name": "Masterful",
+          "range": "-4 to -7",
+          "description": "Serious failure. The consequence lands with real weight."
+        },
+        {
+          "tier": 3,
+          "name": "Legendary",
+          "range": "-8 or worse",
+          "description": "Catastrophic failure. The worst possible outcome manifests fully."
+        }
       ]
     },
     "designNotes": [
@@ -34,28 +56,63 @@
     ]
   },
   {
+    "id": "lever_dice_stepping",
+    "number": 1,
+    "name": "Dice Stepping",
+    "tag": "Pre-Roll",
+    "summary": "Changes the probability floor and ceiling before the dice are thrown. The foundational mathematical engine of the dual-axis system.",
+    "mechanic": "Step a die Up (e.g., D8 → D10) or Down (e.g., D10 → D8). Because each die has a fixed range, stepping directly raises or lowers both the floor and ceiling of possible outcomes before a single number is generated.",
+    "axes": [
+      {
         "axis": "Control Die",
         "purpose": "Accuracy — modifies the chance of rolling high enough to reach a given tier threshold on the Effect Track.",
         "stepUp": [
-          { "source": "[Optimized]", "note": "Applied by maneuvers, positioning, or superior technique." }
+          {
+            "source": "[Optimized]",
+            "note": "Applied by maneuvers, positioning, or superior technique."
+          }
         ],
         "stepDown": [
-          { "source": "[Distracted]", "note": "Applied by feints, crowd pressure, environmental chaos." },
-          { "source": "[Stunned]", "note": "Applied by concussive hits; compounds with [Distracted] for layered penalties." }
+          {
+            "source": "[Distracted]",
+            "note": "Applied by feints, crowd pressure, environmental chaos."
+          },
+          {
+            "source": "[Stunned]",
+            "note": "Applied by concussive hits; compounds with [Distracted] for layered penalties."
+          }
         ]
       },
       {
         "axis": "Power Die",
         "purpose": "Impact — modifies maximum damage or effect magnitude on a successful roll.",
         "stepUp": [
-          { "source": "[Empowered]", "note": "Applied by setup maneuvers, tactical positioning, or Force augmentation." },
-          { "source": "Gambit: Overcharge", "note": "Specific gambit that bypasses safety limiters on Heavy Weapons." },
-          { "source": "Armor (Endure)", "note": "Light armor: no mod. Medium: Step Up once. Heavy: Step Up twice. Applies only when Enduring, not Dodging." }
+          {
+            "source": "[Empowered]",
+            "note": "Applied by setup maneuvers, tactical positioning, or Force augmentation."
+          },
+          {
+            "source": "Gambit: Overcharge",
+            "note": "Specific gambit that bypasses safety limiters on Heavy Weapons."
+          },
+          {
+            "source": "Armor (Endure)",
+            "note": "Light armor: no mod. Medium: Step Up once. Heavy: Step Up twice. Applies only when Enduring, not Dodging."
+          }
         ],
         "stepDown": [
-          { "source": "[Weakened]", "note": "Applied by grapples, debilitating conditions, or Force drain effects." },
-          { "source": "No Armor (Endure)", "note": "Unarmored characters Step Down the Power Die when Enduring." },
-          { "source": "Armor (Dodge)", "note": "Medium armor Steps Down Control Die once on Dodge. Heavy armor Steps Down twice. Armor hinders mobility." }
+          {
+            "source": "[Weakened]",
+            "note": "Applied by grapples, debilitating conditions, or Force drain effects."
+          },
+          {
+            "source": "No Armor (Endure)",
+            "note": "Unarmored characters Step Down the Power Die when Enduring."
+          },
+          {
+            "source": "Armor (Dodge)",
+            "note": "Medium armor Steps Down Control Die once on Dodge. Heavy armor Steps Down twice. Armor hinders mobility."
+          }
         ]
       }
     ],
@@ -76,21 +133,51 @@
       {
         "direction": "Offensive (+1 Tier)",
         "sources": [
-          { "source": "Control Die 8+ (Accuracy Threshold)", "note": "When the Control Die result is 8 or higher, the action resolves at +1 Effect Tier automatically. This is the standard resolution bonus for exceptional execution — the action lands exactly where intended. Applies universally: attacks, maneuvers, defenses, and narrative rolls. This is a Tier shift, not an Opening. Openings are only created by specific kit traits or threat abilities that explicitly grant them." },
-          { "source": "Edge Point", "note": "Spend 1 personal stamina resource post-roll to step up the effect. Strictly limited." },
-          { "source": "Destiny Token", "note": "Shared table resource. Always 2 per player at the table (5 PCs = 10 tokens). Spent for a guaranteed +1 Tier gain. Pool is constant — it does not scale beyond headcount." },
-          { "source": "[Exposed] Target", "note": "Any attack against an Exposed target automatically resolves 1 tier higher." }
+          {
+            "source": "Control Die 8+ (Accuracy Threshold)",
+            "note": "When the Control Die result is 8 or higher, the action resolves at +1 Effect Tier automatically. This is the standard resolution bonus for exceptional execution — the action lands exactly where intended. Applies universally: attacks, maneuvers, defenses, and narrative rolls. This is a Tier shift, not an Opening. Openings are only created by specific kit traits or threat abilities that explicitly grant them."
+          },
+          {
+            "source": "Edge Point",
+            "note": "Spend 1 personal stamina resource post-roll to step up the effect. Strictly limited."
+          },
+          {
+            "source": "Destiny Token",
+            "note": "Shared table resource. Always 2 per player at the table (5 PCs = 10 tokens). Spent for a guaranteed +1 Tier gain. Pool is constant — it does not scale beyond headcount."
+          },
+          {
+            "source": "[Exposed] Target",
+            "note": "Any attack against an Exposed target automatically resolves 1 tier higher."
+          }
         ]
       },
       {
         "direction": "Defensive (−1 Tier)",
         "sources": [
-          { "source": "[Dazed]", "note": "The dazed character's outgoing results drop 1 tier. Affects their own actions, not incoming attacks against them." },
-          { "source": "[Guarded X]", "note": "Absorbs X incoming tiers from Melee attacks before the effect resolves." },
-          { "source": "[Cover X]", "note": "Absorbs X incoming tiers from Ranged attacks before the effect resolves." },
-          { "source": "Endure (Success)", "note": "On a successful Control roll, the defender applies their Power Die result to reduce the attacker's tier. On failure, still reduces by 1 tier — there is always a partial mitigation floor." },
-          { "source": "Dodge (Success)", "note": "On a successful Control roll, the defender applies their Power Die result to reduce the attacker's tier. On failure, no mitigation — full effect lands." },
-          { "source": "Gambit Cost", "note": "Voluntarily reduce your own Effect by 1 Tier to activate a Gambit. A player-driven downshift in exchange for a bonus effect." }
+          {
+            "source": "[Dazed]",
+            "note": "The dazed character's outgoing results drop 1 tier. Affects their own actions, not incoming attacks against them."
+          },
+          {
+            "source": "[Guarded X]",
+            "note": "Absorbs X incoming tiers from Melee attacks before the effect resolves."
+          },
+          {
+            "source": "[Cover X]",
+            "note": "Absorbs X incoming tiers from Ranged attacks before the effect resolves."
+          },
+          {
+            "source": "Endure (Success)",
+            "note": "On a successful Control roll, the defender applies their Power Die result to reduce the attacker's tier. On failure, still reduces by 1 tier — there is always a partial mitigation floor."
+          },
+          {
+            "source": "Dodge (Success)",
+            "note": "On a successful Control roll, the defender applies their Power Die result to reduce the attacker's tier. On failure, no mitigation — full effect lands."
+          },
+          {
+            "source": "Gambit Cost",
+            "note": "Voluntarily reduce your own Effect by 1 Tier to activate a Gambit. A player-driven downshift in exchange for a bonus effect."
+          }
         ]
       }
     ],
@@ -111,57 +198,120 @@
       {
         "category": "Movement Lockouts",
         "conditions": [
-          { "condition": "[Pinned]", "effect": "Prone and physically held to the ground. Cannot move at all. [Exposed] to all Melee attacks. Requires an opposed Physique check or specific action to escape." },
-          { "condition": "[Restrained]", "effect": "Cannot move at all. Still upright. Requires an opposed Physique check or specific action to break free." },
-          { "condition": "[Slowed]", "effect": "Maximum 1 Zone of voluntary movement per round regardless of source. Shifts become basic moves — creates Openings if Engaged." }
+          {
+            "condition": "[Pinned]",
+            "effect": "Prone and physically held to the ground. Cannot move at all. [Exposed] to all Melee attacks. Requires an opposed Physique check or specific action to escape."
+          },
+          {
+            "condition": "[Restrained]",
+            "effect": "Cannot move at all. Still upright. Requires an opposed Physique check or specific action to break free."
+          },
+          {
+            "condition": "[Slowed]",
+            "effect": "Maximum 1 Zone of voluntary movement per round regardless of source. Shifts become basic moves — creates Openings if Engaged."
+          }
         ]
       },
       {
         "category": "Action & Perception Penalties",
         "conditions": [
-          { "condition": "[Stunned]", "effect": "Step Down the Control Die on all rolls. Compounds with [Distracted] since they are separate conditions. Lingering duration." },
-          { "condition": "[Distracted]", "effect": "Step Down the Control Die on the affected action. Typically Immediate or Tactical." },
-          { "condition": "[Blinded]", "effect": "Cannot make targeted Ranged attacks. All actions requiring line-of-sight Step Down the Control Die." },
-          { "condition": "[Dazed]", "effect": "Outgoing results drop 1 tier (a Lever 2 effect delivered via condition). Lingering." }
+          {
+            "condition": "[Stunned]",
+            "effect": "Step Down the Control Die on all rolls. Compounds with [Distracted] since they are separate conditions. Lingering duration."
+          },
+          {
+            "condition": "[Distracted]",
+            "effect": "Step Down the Control Die on the affected action. Typically Immediate or Tactical."
+          },
+          {
+            "condition": "[Blinded]",
+            "effect": "Cannot make targeted Ranged attacks. All actions requiring line-of-sight Step Down the Control Die."
+          },
+          {
+            "condition": "[Dazed]",
+            "effect": "Outgoing results drop 1 tier (a Lever 2 effect delivered via condition). Lingering."
+          }
         ]
       },
       {
         "category": "Sustained Pressure",
         "conditions": [
-          { "condition": "[Suppressed]", "effect": "PC Suppressed: all opposing Defense/Risk treated as +2 higher. NPC Suppressed: their Risk (Power) reduced by 2. Tactical duration — clears at start of next turn or by spending an Action. A Lever 1 effect delivered via condition." },
-          { "condition": "[Exposed]", "effect": "All attacks against this target resolve 1 tier higher (a Lever 2 effect delivered via condition). Cleared by specific actions." }
+          {
+            "condition": "[Suppressed]",
+            "effect": "PC Suppressed: all opposing Defense/Risk treated as +2 higher. NPC Suppressed: their Risk (Power) reduced by 2. Tactical duration — clears at start of next turn or by spending an Action. A Lever 1 effect delivered via condition."
+          },
+          {
+            "condition": "[Exposed]",
+            "effect": "All attacks against this target resolve 1 tier higher (a Lever 2 effect delivered via condition). Cleared by specific actions."
+          }
         ]
       },
       {
         "category": "Automated Math",
         "conditions": [
-          { "condition": "[Guarded X]", "effect": "Absorbs X incoming tiers from Melee attacks before resolution." },
-          { "condition": "[Cover X]", "effect": "Absorbs X incoming tiers from Ranged attacks before resolution." },
-          { "condition": "[Buffered X]", "effect": "Temporary Vitality shield of X points. Damage hits Buffer before Vitality. Does not carry between scenes." },
-          { "condition": "[Hazard X]", "effect": "Deals X Vitality damage at the start of each of the affected character's turns. Source defines removal conditions." },
-          { "condition": "[Bleeding]", "effect": "1 Vitality damage at the start of each turn. Cleared by Medicine check or bacta-patch." }
+          {
+            "condition": "[Guarded X]",
+            "effect": "Absorbs X incoming tiers from Melee attacks before resolution."
+          },
+          {
+            "condition": "[Cover X]",
+            "effect": "Absorbs X incoming tiers from Ranged attacks before resolution."
+          },
+          {
+            "condition": "[Buffered X]",
+            "effect": "Temporary Vitality shield of X points. Damage hits Buffer before Vitality. Does not carry between scenes."
+          },
+          {
+            "condition": "[Hazard X]",
+            "effect": "Deals X Vitality damage at the start of each of the affected character's turns. Source defines removal conditions."
+          },
+          {
+            "condition": "[Bleeding]",
+            "effect": "1 Vitality damage at the start of each turn. Cleared by Medicine check or bacta-patch."
+          }
         ]
       },
       {
         "category": "Narrative Tags",
         "conditions": [
-          { "condition": "[Marked]", "effect": "No inherent mechanical effect. A target designation tag that abilities, traits, or Gambits interact with. Duration defined by source." }
+          {
+            "condition": "[Marked]",
+            "effect": "No inherent mechanical effect. A target designation tag that abilities, traits, or Gambits interact with. Duration defined by source."
+          }
         ]
       },
       {
         "category": "Special States",
         "conditions": [
-          { "condition": "[Prone]", "effect": "[Exposed] to all Melee attacks. Moving costs a Maneuver. Standing up costs a Maneuver or Action." },
-          { "condition": "[Optimized]", "effect": "Step Up the Control Die on the specified roll." },
-          { "condition": "[Empowered]", "effect": "Step Up the Power Die on the specified roll." },
-          { "condition": "[Weakened]", "effect": "Step Down the Power Die on the specified roll." },
-          { "condition": "[Shut Down]", "effect": "Droids only. Incapacitated — cannot take any actions. A successful Tech action may bring them back online early." }
+          {
+            "condition": "[Prone]",
+            "effect": "[Exposed] to all Melee attacks. Moving costs a Maneuver. Standing up costs a Maneuver or Action."
+          },
+          {
+            "condition": "[Optimized]",
+            "effect": "Step Up the Control Die on the specified roll."
+          },
+          {
+            "condition": "[Empowered]",
+            "effect": "Step Up the Power Die on the specified roll."
+          },
+          {
+            "condition": "[Weakened]",
+            "effect": "Step Down the Power Die on the specified roll."
+          },
+          {
+            "condition": "[Shut Down]",
+            "effect": "Droids only. Incapacitated — cannot take any actions. A successful Tech action may bring them back online early."
+          }
         ]
       },
       {
         "category": "Medical States",
         "conditions": [
-          { "condition": "[Stimmed X]", "effect": "Accumulated stim load from combat medicine. X begins at 1 and increments by 1 each time the character receives a Medpac (Combat Triage gambit) or Stim Pack (Push Through gambit). The X value adds directly to the Static Risk of any Medicine roll made on this character by others — the body is becoming harder to treat without risking an overdose. [Stimmed] does not reset on additional applications; it stacks as X+1. Clears fully on Long Rest only. A character cannot reduce [Stimmed] through any short rest or field treatment — the stimulants must metabolize." }
+          {
+            "condition": "[Stimmed X]",
+            "effect": "Accumulated stim load from combat medicine. X begins at 1 and increments by 1 each time the character receives a Medpac (Combat Triage gambit) or Stim Pack (Push Through gambit). The X value adds directly to the Static Risk of any Medicine roll made on this character by others — the body is becoming harder to treat without risking an overdose. [Stimmed] does not reset on additional applications; it stacks as X+1. Clears fully on Long Rest only. A character cannot reduce [Stimmed] through any short rest or field treatment — the stimulants must metabolize."
+          }
         ]
       }
     ],
@@ -185,7 +335,11 @@
         {
           "name": "Edge",
           "theme": "Scoundrel's Luck",
-          "associatedDisciplines": ["Charm", "Evasion", "Skulduggery"],
+          "associatedDisciplines": [
+            "Charm",
+            "Evasion",
+            "Skulduggery"
+          ],
           "lever": "Control Die reroll on associated disciplines",
           "designNote": "Luck as accuracy — the scoundrel gets a second chance to land the dodge, the bluff, or the trick. Not to hit harder, just not to miss. Spending Edge on a non-associated discipline is not permitted."
         }
@@ -207,9 +361,18 @@
     "summary": "Represents uncontained energy, illegal technology, or apex mastery. Breaks the mathematical ceiling of the system — a D6 can theoretically output 12+ damage.",
     "mechanic": "If the Power Die rolls its maximum natural value (e.g., a 6 on a D6, an 8 on a D8), roll it again and add the result to the total. If the reroll also hits the maximum, continue rolling and adding. This creates an uncapped damage ceiling.",
     "applications": [
-      { "source": "Lightsaber", "note": "The blade does not stop cutting. Represents the weapon's capacity for catastrophic, escalating harm against armored targets." },
-      { "source": "Overcharged / Illegal Weapons", "note": "Modified disruptors, sawed-off bowcasters, or tech with the safety limiters deliberately bypassed." },
-      { "source": "Signature Talents", "note": "Apex abilities that channel raw, focused power — a Gunslinger's Lucky Shot, a Dark Side user in freefall rage." }
+      {
+        "source": "Lightsaber",
+        "note": "The blade does not stop cutting. Represents the weapon's capacity for catastrophic, escalating harm against armored targets."
+      },
+      {
+        "source": "Overcharged / Illegal Weapons",
+        "note": "Modified disruptors, sawed-off bowcasters, or tech with the safety limiters deliberately bypassed."
+      },
+      {
+        "source": "Signature Talents",
+        "note": "Apex abilities that channel raw, focused power — a Gunslinger's Lucky Shot, a Dark Side user in freefall rage."
+      }
     ],
     "designNotes": [
       "The Exploding Power Die does not bypass defense. When a defender Endures successfully, their Power Die result reduces the attacker's incoming damage — an exploding attack die still has to clear the defender's counter-roll. The ceiling is high, but never uncontested.",
@@ -222,7 +385,6 @@
     "name": "Gambits",
     "tag": "Options",
     "summary": "Gambits are optional techniques layered onto a Maneuver, Attack, or Defense action. They trade a tier of the primary result for an effect the tier track cannot produce at that level. They are the mechanism through which skilled characters bend — and occasionally break — the rules of an encounter.",
-
     "invariants": [
       "Standard Cost: -1 Tier. The base action resolves 1 tier lower so the gambit effect can fire. This is the default for all Discipline and Weapon gambits. The single exception is the Additional Cost pattern used by Gear Gambits (see Gear Gambits).",
       "Declared before rolling (PC) or before the PC defends (GM/threat).",
@@ -230,28 +392,52 @@
       "The base action still resolves at -1 Tier. Gambits supplement; they never replace.",
       "The unlockDie is an access threshold, not a use gate. A character with D12 in the discipline has unlocked the D12 gambit. They may then declare it on any roll — including one that results in Masterful — paying -1 Tier as always. The unlockDie marks when the technique becomes available, not when it can fire."
     ],
-
     "actionTypes": {
       "note": "Gambits are not limited to Discipline Maneuvers. They may supplement any of the following action types when the fiction and the discipline support it.",
       "types": [
-        { "type": "Maneuver", "description": "A Discipline Maneuver. Most gambits live here — attached to the maneuver that unlocks them." },
-        { "type": "Attack", "description": "A weapon attack roll. Attack gambits live with the weapon, not the discipline. They fire on the same attack roll and reduce its damage tier by 1." },
-        { "type": "Defense", "description": "A Dodge or Endure response. Defense gambits supplement the defensive action — trading a tier of mitigation for a counter-effect, a repositioning, or a disruption." }
+        {
+          "type": "Maneuver",
+          "description": "A Discipline Maneuver. Most gambits live here — attached to the maneuver that unlocks them."
+        },
+        {
+          "type": "Attack",
+          "description": "A weapon attack roll. Attack gambits live with the weapon, not the discipline. They fire on the same attack roll and reduce its damage tier by 1."
+        },
+        {
+          "type": "Defense",
+          "description": "A Dodge or Endure response. Defense gambits supplement the defensive action — trading a tier of mitigation for a counter-effect, a repositioning, or a disruption."
+        }
       ]
     },
-
     "effectTargets": {
       "note": "The roll target and the gambit effect target are independent. A gambit attached to an attack against an enemy may produce an effect that benefits self, an ally, or an entire zone — as long as the fiction supports it.",
       "targets": [
-        { "target": "Self",      "example": "Tell Me (Intimidate): you rattled the enemy, you gain the Step Up on your next roll." },
-        { "target": "Enemy",     "example": "Nerve Strike (Brawl): the grapple locks them down, they gain [Suppressed]." },
-        { "target": "Ally",      "example": "Vanguard (Endure): you braced — your ally gets the protection." },
-        { "target": "Zone",      "example": "Weather the Storm (Survival): you identified the cover and called it — everyone in your Zone benefits." },
-        { "target": "AOE/Blast", "example": "Thermal Detonator (Zone Blast): all characters in the target zone defend. Cover does not apply within the blast zone — only to targets outside it. AOE effects resolve the Effect Tier once; all targets in the zone receive the same tier result." },
-        { "target": "Witnesses", "example": "The Ultimatum (The Loom): all characters within 5 squares who can see and hear the threat. Narrative spread — not a zone in the tactical grid sense, but a line-of-sight and line-of-hearing radius." }
+        {
+          "target": "Self",
+          "example": "Tell Me (Intimidate): you rattled the enemy, you gain the Step Up on your next roll."
+        },
+        {
+          "target": "Enemy",
+          "example": "Nerve Strike (Brawl): the grapple locks them down, they gain [Suppressed]."
+        },
+        {
+          "target": "Ally",
+          "example": "Vanguard (Endure): you braced — your ally gets the protection."
+        },
+        {
+          "target": "Zone",
+          "example": "Weather the Storm (Survival): you identified the cover and called it — everyone in your Zone benefits."
+        },
+        {
+          "target": "AOE/Blast",
+          "example": "Thermal Detonator (Zone Blast): all characters in the target zone defend. Cover does not apply within the blast zone — only to targets outside it. AOE effects resolve the Effect Tier once; all targets in the zone receive the same tier result."
+        },
+        {
+          "target": "Witnesses",
+          "example": "The Ultimatum (The Loom): all characters within 5 squares who can see and hear the threat. Narrative spread — not a zone in the tactical grid sense, but a line-of-sight and line-of-hearing radius."
+        }
       ]
     },
-
     "physicalLogic": {
       "roundDuration": "~6 seconds",
       "note": "A gambit must be physically plausible within a single ~6-second round of action, using Star Wars-normal physics (excluding the Force). The primary action and the gambit effect must both be achievable simultaneously or in rapid sequence by one person in that window.",
@@ -269,7 +455,6 @@
         "Blaster shot + Zone of Denial (cover the Zone): 6 seconds of 'weapon raised and ready' is exactly suppressing a corridor. Plausible."
       ]
     },
-
     "permissionGambits": {
       "note": "Some gambits are not conditions — they are permissions. They allow something normally locked by the rules. The permission is earned by the fiction: the character is skilled enough that they can do both things within the physical constraints of 6 seconds. A novice cannot. An expert can.",
       "examples": [
@@ -278,12 +463,10 @@
         "Rigged (Skulduggery): normally planting a charge costs your Primary Action — expertise means you concealed it while doing something else."
       ]
     },
-
     "conditionalGambits": {
       "note": "Some gambits require permissive fiction — a situation that must exist before the gambit can be declared. The condition is not a mechanical gate on the die; it is a narrative gate on whether the technique applies.",
       "example": "A gambit that reads 'when the target is [Exposed]' cannot fire unless the target genuinely is [Exposed]. The player must earn the setup before the gambit becomes available."
     },
-
     "unlockTiers": {
       "note": "The unlockDie marks the discipline threshold at which the gambit becomes part of the character's toolkit. It reflects the sophistication of the technique — not the power die used to execute it.",
       "D10": "Advanced technique. Narrow scope: single target, immediate duration, personal benefit, or one condition. These gambits improve the *next beat* — they are setup, not payoff.",
@@ -295,21 +478,36 @@
     "name": "Gear Gambits",
     "tag": "Options",
     "summary": "Gear can provide gambits in two ways: attached to the gear item itself (firing on weapon or use actions) or attached to an existing Discipline Maneuver via the targetManeuver property. Gear gambits introduce the Additional Cost pattern — the only exception to the standard -1 Tier cost rule.",
-
     "patterns": [
       {
         "pattern": "Weapon Gambit",
         "description": "Attached directly to a weapon or gear item with a weaponProfile. Fires on the attack or use action for that item. Follows the standard -1 Tier cost. The gambit is available to any character carrying the item — no discipline threshold.",
-        "examples": ["Dead Drop (Thermal Detonator): -1 Tier, place as proximity mine instead of throwing.", "Skip (Thermal Detonator): -1 Tier, indirect arc into a zone without line-of-sight.", "Magnetic Latch (Thermal Detonator): -1 Tier, attach to a structure for amplified structural damage."]
+        "examples": [
+          "Dead Drop (Thermal Detonator): -1 Tier, place as proximity mine instead of throwing.",
+          "Skip (Thermal Detonator): -1 Tier, indirect arc into a zone without line-of-sight.",
+          "Magnetic Latch (Thermal Detonator): -1 Tier, attach to a structure for amplified structural damage."
+        ]
       },
       {
         "pattern": "Additional Cost Gambit",
         "description": "The gear gambit does NOT reduce the Effect Tier. Instead, it replaces the -1 Tier cost with a bundle of resource costs. The full effect of the underlying maneuver resolves unchanged. This pattern represents tools that augment skilled action rather than trade off against it — but the costs are heavier than a simple tier reduction. Required cost components: (1) the item is exhausted (consumed), (2) at least one additional narrative/mechanical cost that creates meaningful pressure.",
         "additionalCostComponents": [
-          { "cost": "Item Exhausted", "note": "Always required. One use of the gear is consumed. This is the primary economic cost — the item is gone." },
-          { "cost": "Action Economy", "note": "The most common secondary cost. Consuming the Primary Action means the gambit cannot be 'free' on a Maneuver turn — you pay with your full round. This prevents stacking the gambit with an attack in the same turn." },
-          { "cost": "Condition Applied", "note": "[Stimmed X] is the canonical example. A condition that persists and compounds over the scene, making repeated use increasingly costly. Must be a condition the character cannot easily clear mid-scene." },
-          { "cost": "Opening Presented", "note": "If the character is Engaged when applying the gambit, they create an Opening. Punishes using a medical tool in melee range — contextually appropriate and tactically meaningful." }
+          {
+            "cost": "Item Exhausted",
+            "note": "Always required. One use of the gear is consumed. This is the primary economic cost — the item is gone."
+          },
+          {
+            "cost": "Action Economy",
+            "note": "The most common secondary cost. Consuming the Primary Action means the gambit cannot be 'free' on a Maneuver turn — you pay with your full round. This prevents stacking the gambit with an attack in the same turn."
+          },
+          {
+            "cost": "Condition Applied",
+            "note": "[Stimmed X] is the canonical example. A condition that persists and compounds over the scene, making repeated use increasingly costly. Must be a condition the character cannot easily clear mid-scene."
+          },
+          {
+            "cost": "Opening Presented",
+            "note": "If the character is Engaged when applying the gambit, they create an Opening. Punishes using a medical tool in melee range — contextually appropriate and tactically meaningful."
+          }
         ],
         "examples": [
           "Combat Triage (Medpac on Medicine maneuver): No tier reduction. Cost: medpac exhausted + Primary Action consumed + patient gains [Stimmed X+1] + Opening if Engaged. Effect: clear one Trauma AND all recoverable Lingering/Ongoing Physical/Mental conditions.",
@@ -331,10 +529,11 @@
         "rule": "Requires both: (1) the character carries the item, and (2) the character meets the discipline threshold of the host maneuver. The gambit is not available from the item alone. Both gates must be open.",
         "cost": "Standard -1 Tier on the host maneuver. The item is not consumed unless the gambit fires in its destructive mode (the dead-man's switch is released).",
         "sceneLimit": "Once per scene. The threat only works once — a repeated ultimatum in the same scene loses all credibility and mechanical force.",
-        "examples": ["The Ultimatum (Thermal Detonator + The Loom D12): The detonator's dead-man's switch transforms an Intimidate action into a MAD scenario. -1 Tier on the Loom result. Grants [Optimized] and [Empowered] on all Intimidate (Grit) actions against witnesses while holding. The detonator is not thrown — it is leverage."]
+        "examples": [
+          "The Ultimatum (Thermal Detonator + The Loom D12): The detonator's dead-man's switch transforms an Intimidate action into a MAD scenario. -1 Tier on the Loom result. Grants [Optimized] and [Empowered] on all Intimidate (Grit) actions against witnesses while holding. The detonator is not thrown — it is leverage."
+        ]
       }
     ],
-
     "designNotes": [
       "The Additional Cost pattern exists because some items should make skilled characters better at what they already do — not trade off against it. A medpac in the hands of a field medic should augment the Medicine roll, not replace it with a weaker version. The cost is in resources and positioning, not in the quality of the result.",
       "When a gear gambit belongs to a Discipline Maneuver (targetManeuver), the discipline expertise gates access. This preserves the design principle that powerful techniques require investment — you cannot buy a shortcut to D12 effects.",
@@ -347,7 +546,6 @@
     "name": "Gear Design Philosophy",
     "tag": "GM Reference",
     "summary": "A framework for creating or converting gear items into the system. Covers the four mechanical expression options (Trait, Gambit, Maneuver, Damage Modification) and the Fixed Power Die concept. Use this to ensure new gear is balanced, legible, and consistent with existing design decisions.",
-
     "gearGambitSourceRule": {
       "rule": "Gear gambits represent the equipment's physical features and tactical options — not the user's expertise. If removing the item from the character would also remove the gambit's physical basis, it belongs on the gear. If the gambit describes what a skilled user knows to do with any tool, it belongs on a Discipline Maneuver.",
       "test": "Ask: does this gambit require the item to have a specific physical feature? A trigger mode dial (Impact Detonation), a magnetic clamp (Magnetic Attachment), an audible arming mechanism (Clear Out) — these are gear features. Knowing the right angle to throw a grenade, masking an intrusion signature mid-splice, planting false data through a terminal — these are character skills.",
@@ -361,7 +559,6 @@
       ],
       "gambitsCountRule": "There is no target gambit count. An item should have exactly as many gambits as its physical features genuinely support. Bacta Patch: zero. Slicer Spike: one. Thermal Detonator: four. Padding to reach a number produces skill-based gambits that violate the source rule above."
     },
-
     "expressionOptions": [
       {
         "option": "Trait",
@@ -415,7 +612,6 @@
         "antiPattern": "Do not use fixedPowerDie for standard weapons. Most weapons should use chassis damage or customDamage, creating a clear link between character investment (arena die) and weapon output. fixedPowerDie is reserved for items that are dangerous independent of the wielder."
       }
     ],
-
     "balanceFramework": {
       "question1": "Is this always on, or is it a choice? Always-on → Trait. Choice → Gambit or Maneuver.",
       "question2": "Does it require its own roll, or does it fire on an existing roll? Its own roll → Maneuver. Fires on existing → Gambit or Trait.",
@@ -424,7 +620,6 @@
       "question5": "Is the item's power intrinsic to the item or derived from the wielder? Intrinsic → fixedPowerDie. Derived → chassis or customDamage.",
       "question6": "Is this a one-scene or one-use item? Yes → consumable flag, Additional Cost gambits appropriate. No → traits and standard gambits appropriate, maneuver possible."
     },
-
     "newGearChecklist": [
       "Define the item's category (medical, explosive, tool, communication, survival, tech, weapon).",
       "Identify whether it has a weaponProfile. If it can be used as a weapon or AOE item, it needs one. AOE items that do not deal numeric damage (Smoke Grenade) use customEffectRows instead of customDamage.",
@@ -440,7 +635,6 @@
       "Assign tags accurately. Tags drive gambit inheritance (character talents that match item tags add their gambits to the weapon card). Incorrect tags break the system silently.",
       "Set availability: 1 = common, 2 = restricted, 3 = rare, 4 = black market. The /X suffix means it cannot be legally purchased at all — only found or stolen."
     ],
-
     "designNotes": [
       "The system's gear philosophy is: items are tools that extend what a skilled character can do, not shortcuts that bypass skill investment. A medpac in the hands of a non-medic should be useful but costly. In the hands of a field medic, it should be powerful — but the costs ensure it is never free.",
       "The Thermal Detonator is the system's hardest gear item to balance: it is a consumable weapon with AOE, a fixedPowerDie, a Maneuver-Attached gambit (Dead Drop), and a Cross-Maneuver gambit (The Ultimatum). Use it as the reference case for complex gear — each of its capabilities maps to a different design pattern.",
@@ -456,33 +650,27 @@
     "name": "The Destiny Pool",
     "tag": "Meta-Currency",
     "summary": "A shared pool of double-sided tokens representing the crew's collective reputation and moral standing. 2 tokens per player, any side up at campaign start. The ratio persists between sessions — it is a running ledger, not a mood ring.",
-
     "setup": "Each player contributes 2 tokens at campaign start, placed any side up. A 4-player table has 8 tokens in the pool. The ratio never resets between sessions.",
-
     "karmaState": {
       "note": "The current Hope/Toll ratio grants passive bonuses to social actions based on which side is dominant.",
       "hopeDominant": "+1 Tier on Charm/Persuasion vs. honorable or neutral contacts.",
       "tollDominant": "+1 Tier on Intimidate/Deception vs. the underworld.",
       "infamyPenalty": "When one side leads by 2 or more tokens, the dominant side also imposes a penalty on the opposite social approach. Soft Touch (Hope leads by 2+): −1 Tier on Intimidate/Deception. The Monster (Toll leads by 2+): −1 Tier on Charm/Persuasion."
     },
-
     "tapping": {
       "rule": "Once per scene, after any roll, any player may tap one available token to increase the result by +1 Tier. Tapped tokens slide aside for the scene — they do not flip.",
       "note": "Tapping is post-roll and guaranteed. It bypasses probability entirely. This is the same mechanic as Lever 2 (Tier Shifting), sourced from the shared pool rather than a personal resource."
     },
-
     "lockout": {
       "note": "The path to the dark is a steep drop. Redemption is a hard climb. The Lockout Rule enforces this asymmetry.",
       "tollToHope": "A Toll token can only flip to Hope if it is currently untapped. Tap a dark token to survive a fight — the guilt of that method is sealed in. A sacrifice later in the scene cannot undo it.",
       "hopeToToll": "A Hope token can flip to Toll regardless of tap state. A dark deed taints whether or not the character was focused. If a tapped Hope token falls, it immediately becomes a tapped Toll token."
     },
-
     "flipping": {
       "note": "Tokens flip only when the crew makes a profound moral choice that permanently alters their standing.",
       "theFall": "Hope → Toll. An act of unmitigated cruelty with no tactical necessity: executing a prisoner, torture, abandoning innocents, betrayal for credits.",
       "redemption": "Toll → Hope. Accepting a severe, concrete disadvantage to stay clean: sparing a villain who will return, surrendering a major payday, deliberately failing an objective to avoid crossing a moral line."
     },
-
     "theCrossroads": {
       "trigger": "When a player declares an action that would trigger The Fall, the GM pauses before it resolves.",
       "intervention": "Any crewmate may intervene out-of-turn. They must tap an available Hope token and make a Social Maneuver (Charm, Persuasion, or Intimidate) against the acting player.",
@@ -490,7 +678,6 @@
       "pullTheTrigger": "The acting player ignores the plea. The Fall resolves. Flip one Hope → Toll. The intervening player's Hope token remains tapped — they tried. The galaxy did not listen.",
       "note": "The Crossroads only fires when an action would trigger The Fall. It does not pause every morally grey moment — only the line-crossing ones."
     },
-
     "designNotes": [
       "The pool is shared, not individual — it tracks the crew's collective moral ledger, not personal alignment. One character's atrocity is the whole table's problem.",
       "The asymmetrical Lockout is intentional. Tapping a dark token makes it irredeemable for the session. Tapping a light token does not protect it from falling — you can be heroic and still lose your soul in the same scene.",
