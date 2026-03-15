@@ -1,14 +1,6 @@
 (function () {
   'use strict';
 
-  var ARENA_LABELS = {
-    physique: 'Physique',
-    reflex:   'Reflex',
-    grit:     'Grit',
-    wits:     'Wits',
-    presence: 'Presence',
-  };
-
   function _esc(str) {
     return String(str || '')
       .replace(/&/g, '&amp;')
@@ -17,9 +9,172 @@
       .replace(/"/g, '&quot;');
   }
 
-  // ─── Species block ─────────────────────────────────────────────────────────
+  var ARENA_LABELS = {
+    physique: 'Physique',
+    reflex:   'Reflex',
+    grit:     'Grit',
+    wits:     'Wits',
+    presence: 'Presence',
+  };
 
-  function buildSpeciesBlock(char, speciesData) {
+  function _discLabel(id) {
+    return (id || '')
+      .replace('_spark', ' (The Spark)')
+      .replace(/_/g, ' ')
+      .replace(/\b\w/g, function (c) { return c.toUpperCase(); });
+  }
+
+  function buildDetailsPanel(char, speciesData) {
+    var panel = document.getElementById('panel-1');
+    if (!panel) return;
+    panel.innerHTML = '';
+
+    var outer = document.createElement('div');
+    outer.className = 'dp-wrap';
+
+    outer.appendChild(_buildIdentity(char));
+    outer.appendChild(_buildAbilities(char));
+    outer.appendChild(_buildSpeciesTraits(char, speciesData));
+    outer.appendChild(_buildKitProgression(char));
+
+    var narr = _buildNarrative(char);
+    if (narr) outer.appendChild(narr);
+
+    panel.appendChild(outer);
+  }
+
+  function _buildIdentity(char) {
+    var el = document.createElement('div');
+    el.className = 'dp-identity';
+    el.innerHTML =
+      '<span class="dp-identity-name">' + _esc(char.name || 'Unknown') + '</span>' +
+      '<span class="dp-identity-meta">' + _esc(char.species || '') + ' \u2014 ' + _esc(char.archetype || '') + '</span>';
+    return el;
+  }
+
+  function _buildAbilities(char) {
+    var kits = char.kits || [];
+    var passives = [];
+    var gambits = [];
+
+    kits.forEach(function (kit) {
+      var tier = kit.tier || 0;
+      (kit.abilities || []).forEach(function (ab) {
+        if (ab.tier > tier) return;
+        var entry = {
+          name: ab.name,
+          rule: ab.rule,
+          tier: ab.tier,
+          kitName: kit.name,
+          actionBonus: ab.actionBonus || null,
+          cost: ab.cost || null,
+          buyoff: ab.buyoff || null,
+          arenaTag: ab.arenaTag || null,
+          actionType: ab.actionType || null,
+          target: ab.target || null,
+        };
+        if (ab.type === 'gambit') gambits.push(entry);
+        else passives.push(entry);
+      });
+    });
+
+    var wrap = document.createElement('div');
+    wrap.className = 'dp-abilities-section';
+
+    var header = document.createElement('div');
+    header.className = 'dp-section-bar';
+    header.innerHTML = '<span class="dp-section-bar-label">Your Abilities</span>' +
+      '<span class="dp-section-bar-count">' + (passives.length + gambits.length) + ' unlocked</span>';
+    wrap.appendChild(header);
+
+    if (passives.length === 0 && gambits.length === 0) {
+      var empty = document.createElement('div');
+      empty.className = 'dp-empty-msg';
+      empty.textContent = 'No abilities unlocked yet.';
+      wrap.appendChild(empty);
+      return wrap;
+    }
+
+    passives.forEach(function (ab) {
+      wrap.appendChild(_abilityCard(ab, 'passive'));
+    });
+
+    gambits.forEach(function (ab) {
+      wrap.appendChild(_abilityCard(ab, 'gambit'));
+    });
+
+    return wrap;
+  }
+
+  function _abilityCard(ab, type) {
+    var card = document.createElement('div');
+    card.className = 'dp-ability-card dp-ability-card--' + type;
+
+    var topRow = document.createElement('div');
+    topRow.className = 'dp-ability-card-top';
+
+    var badge = document.createElement('span');
+    badge.className = 'dp-ability-badge dp-ability-badge--' + type;
+    badge.textContent = type === 'gambit' ? 'GAMBIT' : 'PASSIVE';
+    topRow.appendChild(badge);
+
+    var name = document.createElement('span');
+    name.className = 'dp-ability-card-name';
+    name.textContent = ab.name;
+    topRow.appendChild(name);
+
+    var source = document.createElement('span');
+    source.className = 'dp-ability-card-source';
+    source.textContent = ab.kitName;
+    topRow.appendChild(source);
+
+    card.appendChild(topRow);
+
+    if (type === 'gambit') {
+      var tags = [];
+      if (ab.arenaTag) tags.push(ab.arenaTag);
+      if (ab.actionType) tags.push(ab.actionType);
+      if (ab.target) tags.push(ab.target);
+      if (tags.length) {
+        var tagRow = document.createElement('div');
+        tagRow.className = 'dp-ability-card-tags';
+        tags.forEach(function (t) {
+          var tag = document.createElement('span');
+          tag.className = 'dp-ability-card-tag';
+          tag.textContent = t;
+          tagRow.appendChild(tag);
+        });
+        card.appendChild(tagRow);
+      }
+    }
+
+    var rule = document.createElement('div');
+    rule.className = 'dp-ability-card-rule';
+    rule.textContent = ab.rule;
+    card.appendChild(rule);
+
+    var extras = [];
+    if (ab.actionBonus) {
+      var parts = [];
+      if (ab.actionBonus.trigger) parts.push('+' + ab.actionBonus.trigger + ' Trigger');
+      if (ab.actionBonus.action) parts.push('+' + ab.actionBonus.action + ' Action');
+      if (ab.actionBonus.maneuver) parts.push('+' + ab.actionBonus.maneuver + ' Maneuver');
+      if (parts.length) extras.push(parts.join(' \u00b7 '));
+    }
+    if (ab.cost) extras.push('Cost: ' + ab.cost);
+    if (ab.buyoff) extras.push('Buyoff: ' + ab.buyoff);
+
+    if (extras.length) {
+      var extrasEl = document.createElement('div');
+      extrasEl.className = 'dp-ability-card-extras';
+      extrasEl.textContent = extras.join(' \u2014 ');
+      card.appendChild(extrasEl);
+    }
+
+    return card;
+  }
+
+  function _buildSpeciesTraits(char, speciesData) {
     var sp = null;
     if (speciesData) {
       var sName = (char.species || '').toLowerCase();
@@ -29,357 +184,166 @@
     }
 
     var wrap = document.createElement('div');
-    wrap.className = 'dp-section';
+    wrap.className = 'dp-traits-section';
 
     var header = document.createElement('div');
-    header.className = 'dp-section-header';
-    header.innerHTML =
-      '<span class="dp-section-label">Species</span>' +
-      '<span class="dp-section-chevron">&#9662;</span>' +
-      '<span class="dp-section-name">' + _esc(char.species || '—') + '</span>';
-    header.style.cursor = 'pointer';
-    header.addEventListener('click', function () { wrap.classList.toggle('dp-section--collapsed'); });
+    header.className = 'dp-section-bar dp-section-bar--toggle';
+    header.innerHTML = '<span class="dp-section-bar-label">Species Traits</span>' +
+      '<span class="dp-section-bar-chevron">\u25B8</span>';
+    header.addEventListener('click', function () {
+      wrap.classList.toggle('dp-section--closed');
+    });
     wrap.appendChild(header);
 
     if (!sp) {
-      var missing = document.createElement('p');
-      missing.className = 'dp-missing';
-      missing.textContent = 'No species data found.';
+      var missing = document.createElement('div');
+      missing.className = 'dp-empty-msg';
+      missing.textContent = 'No species data available.';
       wrap.appendChild(missing);
       return wrap;
     }
 
-    var tagline = document.createElement('div');
-    tagline.className = 'dp-species-tagline';
-    tagline.textContent = sp.tagline;
-    wrap.appendChild(tagline);
+    var body = document.createElement('div');
+    body.className = 'dp-traits-body';
 
-    var rows = [
-      { label: 'Arena Shift',        name: sp.arenaShift.name,       desc: sp.arenaShift.desc       },
-      { label: 'Native Skill',       name: sp.nativeSkill.name,      desc: sp.nativeSkill.desc      },
-      { label: 'Biological Truth',   name: sp.biologicalTruth.name,  desc: sp.biologicalTruth.desc  },
+    var rawTraits = [
+      { label: 'Arena Shift', data: sp.arenaShift },
+      { label: 'Native Skill', data: sp.nativeSkill },
+      { label: 'Biological Truth', data: sp.biologicalTruth },
     ];
-
-    rows.forEach(function (row) {
-      var block = document.createElement('div');
-      block.className = 'dp-species-block';
-
-      var blockLabel = document.createElement('div');
-      blockLabel.className = 'dp-species-block-label';
-      blockLabel.textContent = row.label;
-      block.appendChild(blockLabel);
-
-      var blockName = document.createElement('div');
-      blockName.className = 'dp-species-block-name';
-      blockName.textContent = row.name;
-      block.appendChild(blockName);
-
-      var blockDesc = document.createElement('div');
-      blockDesc.className = 'dp-species-block-desc';
-      blockDesc.textContent = row.desc;
-      block.appendChild(blockDesc);
-
-      wrap.appendChild(block);
+    var traits = rawTraits.filter(function (t) { return t.data && t.data.name; }).map(function (t) {
+      return { label: t.label, name: t.data.name, desc: t.data.desc || '' };
     });
 
+    traits.forEach(function (t) {
+      var trait = document.createElement('div');
+      trait.className = 'dp-trait-card';
+
+      var traitLabel = document.createElement('div');
+      traitLabel.className = 'dp-trait-label';
+      traitLabel.textContent = t.label;
+      trait.appendChild(traitLabel);
+
+      var traitName = document.createElement('div');
+      traitName.className = 'dp-trait-name';
+      traitName.textContent = t.name;
+      trait.appendChild(traitName);
+
+      var traitDesc = document.createElement('div');
+      traitDesc.className = 'dp-trait-desc';
+      traitDesc.textContent = t.desc;
+      trait.appendChild(traitDesc);
+
+      body.appendChild(trait);
+    });
+
+    wrap.appendChild(body);
     return wrap;
   }
 
-  // ─── Kit cards ─────────────────────────────────────────────────────────────
+  function _buildKitProgression(char) {
+    var kits = char.kits || [];
+    if (kits.length === 0) return document.createDocumentFragment();
 
-  function buildKitCard(kit) {
-    var unlockedTier = kit.tier || 0;
-    var abilities    = (kit.abilities || []).filter(function (ab) {
-      return ab.tier <= unlockedTier;
+    var wrap = document.createElement('div');
+    wrap.className = 'dp-progression-section dp-section--closed';
+
+    var header = document.createElement('div');
+    header.className = 'dp-section-bar dp-section-bar--toggle';
+    header.innerHTML = '<span class="dp-section-bar-label">Kit Progression</span>' +
+      '<span class="dp-section-bar-chevron">\u25B8</span>';
+    header.addEventListener('click', function () {
+      wrap.classList.toggle('dp-section--closed');
     });
+    wrap.appendChild(header);
 
-    var card = document.createElement('div');
-    card.className = 'dp-kit-card';
+    var body = document.createElement('div');
+    body.className = 'dp-progression-body';
 
-    // ── Header ──
-    var head = document.createElement('div');
-    head.className = 'dp-kit-header';
+    kits.forEach(function (kit) {
+      var card = document.createElement('div');
+      card.className = 'dp-prog-card';
 
-    var nameWrap = document.createElement('div');
-    nameWrap.className = 'dp-kit-name-row';
+      var cardHead = document.createElement('div');
+      cardHead.className = 'dp-prog-card-head';
 
-    var kitName = document.createElement('span');
-    kitName.className = 'dp-kit-name';
-    kitName.textContent = kit.name;
-    nameWrap.appendChild(kitName);
+      var kitName = document.createElement('span');
+      kitName.className = 'dp-prog-card-name';
+      kitName.textContent = kit.name;
+      cardHead.appendChild(kitName);
 
-    var tierBadge = document.createElement('span');
-    tierBadge.className = 'dp-kit-tier-badge';
-    tierBadge.textContent = 'T' + unlockedTier;
-    nameWrap.appendChild(tierBadge);
-    head.appendChild(nameWrap);
+      var metaTags = [];
+      if (kit.governingArena) metaTags.push(ARENA_LABELS[kit.governingArena] || kit.governingArena);
+      if (kit.alignedDiscipline) metaTags.push(_discLabel(kit.alignedDiscipline));
 
-    var metaRow = document.createElement('div');
-    metaRow.className = 'dp-kit-meta';
-
-    if (kit.governingArena) {
-      var arenaTag = document.createElement('span');
-      arenaTag.className = 'dp-kit-meta-tag dp-kit-meta-arena';
-      arenaTag.textContent = ARENA_LABELS[kit.governingArena] || kit.governingArena;
-      metaRow.appendChild(arenaTag);
-    }
-
-    if (kit.alignedDiscipline) {
-      var discLabel = kit.alignedDiscipline
-        .replace('_spark', ' (Force)')
-        .replace(/_/g, ' ');
-      discLabel = discLabel.charAt(0).toUpperCase() + discLabel.slice(1);
-
-      var discTag = document.createElement('span');
-      discTag.className = 'dp-kit-meta-tag dp-kit-meta-disc';
-      discTag.textContent = discLabel;
-      metaRow.appendChild(discTag);
-    }
-
-    if (kit.primaryWeapons && kit.primaryWeapons.length) {
-      var wpnTag = document.createElement('span');
-      wpnTag.className = 'dp-kit-meta-tag dp-kit-meta-wpn';
-      wpnTag.textContent = kit.primaryWeapons.join(' / ');
-      metaRow.appendChild(wpnTag);
-    }
-
-    head.appendChild(metaRow);
-
-    // ── Tier progress bar ──
-    var tierBar = document.createElement('div');
-    tierBar.className = 'dp-kit-tier-bar';
-    for (var t = 1; t <= 3; t++) {
-      var pip = document.createElement('div');
-      pip.className = 'dp-kit-tier-pip' + (t <= unlockedTier ? ' is-active' : '');
-      pip.textContent = 'T' + t;
-      tierBar.appendChild(pip);
-    }
-    head.appendChild(tierBar);
-    card.appendChild(head);
-
-    // ── Abilities ──
-    if (abilities.length === 0) {
-      var noAb = document.createElement('div');
-      noAb.className = 'dp-kit-no-abilities';
-      noAb.textContent = 'No abilities unlocked yet.';
-      card.appendChild(noAb);
-      return card;
-    }
-
-    var abWrap = document.createElement('div');
-    abWrap.className = 'dp-kit-abilities';
-
-    var lockedAbilities = (kit.abilities || []).filter(function (ab) {
-      return ab.tier > unlockedTier;
-    });
-
-    abilities.forEach(function (ab) {
-      var row = document.createElement('div');
-      row.className = 'dp-ability-row';
-
-      // Left: type badge + tier marker
-      var badgeCol = document.createElement('div');
-      badgeCol.className = 'dp-ability-badge-col';
-
-      var tierMark = document.createElement('div');
-      tierMark.className = 'dp-ability-tier-mark';
-      tierMark.textContent = 'T' + ab.tier;
-      badgeCol.appendChild(tierMark);
-
-      var typeBadge = document.createElement('div');
-      var isGambit  = ab.type === 'gambit';
-      typeBadge.className = 'dp-ability-type-badge dp-ability-type-' + _esc(ab.type || 'passive');
-      typeBadge.textContent = isGambit ? 'Gambit' : 'Passive';
-      badgeCol.appendChild(typeBadge);
-      row.appendChild(badgeCol);
-
-      // Right: name + tags + rule text
-      var bodyCol = document.createElement('div');
-      bodyCol.className = 'dp-ability-body';
-
-      var abilityName = document.createElement('div');
-      abilityName.className = 'dp-ability-name';
-      abilityName.textContent = ab.name;
-      bodyCol.appendChild(abilityName);
-
-      // Gambit context tags
-      if (isGambit) {
-        var tagRow = document.createElement('div');
-        tagRow.className = 'dp-ability-tags';
-        if (ab.arenaTag) {
-          var at = document.createElement('span');
-          at.className = 'dp-ability-tag dp-ability-tag-arena';
-          at.textContent = ab.arenaTag;
-          tagRow.appendChild(at);
-        }
-        if (ab.actionType) {
-          var act = document.createElement('span');
-          act.className = 'dp-ability-tag';
-          act.textContent = ab.actionType;
-          tagRow.appendChild(act);
-        }
-        if (ab.target) {
-          var tgt = document.createElement('span');
-          tgt.className = 'dp-ability-tag dp-ability-tag-target';
-          tgt.textContent = ab.target;
-          tagRow.appendChild(tgt);
-        }
-        if (tagRow.children.length) bodyCol.appendChild(tagRow);
+      if (metaTags.length) {
+        var meta = document.createElement('span');
+        meta.className = 'dp-prog-card-meta';
+        meta.textContent = metaTags.join(' \u00b7 ');
+        cardHead.appendChild(meta);
       }
 
-      var rule = document.createElement('div');
-      rule.className = 'dp-ability-rule';
-      rule.textContent = ab.rule;
-      bodyCol.appendChild(rule);
+      card.appendChild(cardHead);
 
-      // Action economy bonus (if any)
-      if (ab.actionBonus) {
-        var bonusParts = [];
-        if (ab.actionBonus.trigger)  bonusParts.push('+' + ab.actionBonus.trigger  + ' Trigger');
-        if (ab.actionBonus.action)   bonusParts.push('+' + ab.actionBonus.action   + ' Action');
-        if (ab.actionBonus.maneuver) bonusParts.push('+' + ab.actionBonus.maneuver + ' Maneuver');
-        if (bonusParts.length) {
-          var bonus = document.createElement('div');
-          bonus.className = 'dp-ability-bonus';
-          bonus.textContent = bonusParts.join(' · ');
-          bodyCol.appendChild(bonus);
-        }
+      var tierBar = document.createElement('div');
+      tierBar.className = 'dp-prog-tier-bar';
+      for (var t = 1; t <= 3; t++) {
+        var pip = document.createElement('div');
+        pip.className = 'dp-prog-tier-pip' + (t <= kit.tier ? ' dp-prog-tier-pip--active' : '');
+        pip.textContent = 'T' + t;
+        tierBar.appendChild(pip);
+      }
+      card.appendChild(tierBar);
+
+      var locked = (kit.abilities || []).filter(function (a) { return a.tier > kit.tier; });
+      if (locked.length > 0) {
+        var lockedWrap = document.createElement('div');
+        lockedWrap.className = 'dp-prog-locked';
+        locked.forEach(function (ab) {
+          var row = document.createElement('div');
+          row.className = 'dp-prog-locked-row';
+          row.innerHTML =
+            '<span class="dp-prog-locked-tier">T' + ab.tier + '</span>' +
+            '<span class="dp-prog-locked-name">' + _esc(ab.name) + '</span>' +
+            '<span class="dp-prog-locked-type">' + _esc(ab.type) + '</span>';
+          lockedWrap.appendChild(row);
+        });
+        card.appendChild(lockedWrap);
       }
 
-      row.appendChild(bodyCol);
-      abWrap.appendChild(row);
+      body.appendChild(card);
     });
 
-    card.appendChild(abWrap);
-
-    if (lockedAbilities.length > 0) {
-      var details = document.createElement('details');
-      details.className = 'dp-kit-locked-details';
-
-      var summary = document.createElement('summary');
-      summary.className = 'dp-kit-locked-summary';
-      summary.textContent = lockedAbilities.length + ' locked tier ' + (unlockedTier + 1 <= 3 ? (unlockedTier + 1) + (unlockedTier + 2 <= 3 ? '–3' : '') : '') + ' abilities';
-      details.appendChild(summary);
-
-      lockedAbilities.forEach(function (ab) {
-        var row = document.createElement('div');
-        row.className = 'dp-ability-row dp-ability-row--locked';
-
-        var badgeCol = document.createElement('div');
-        badgeCol.className = 'dp-ability-badge-col';
-
-        var tierMark = document.createElement('div');
-        tierMark.className = 'dp-ability-tier-mark dp-ability-tier-mark--locked';
-        tierMark.textContent = 'T' + ab.tier;
-        badgeCol.appendChild(tierMark);
-
-        var typeBadge = document.createElement('div');
-        var isGambit  = ab.type === 'gambit';
-        typeBadge.className = 'dp-ability-type-badge dp-ability-type-' + _esc(ab.type || 'passive') + ' dp-ability-type--locked';
-        typeBadge.textContent = isGambit ? 'Gambit' : 'Passive';
-        badgeCol.appendChild(typeBadge);
-        row.appendChild(badgeCol);
-
-        var bodyCol = document.createElement('div');
-        bodyCol.className = 'dp-ability-body';
-
-        var abilityName = document.createElement('div');
-        abilityName.className = 'dp-ability-name dp-ability-name--locked';
-        abilityName.textContent = ab.name;
-        bodyCol.appendChild(abilityName);
-
-        var rule = document.createElement('div');
-        rule.className = 'dp-ability-rule dp-ability-rule--locked';
-        rule.textContent = ab.rule;
-        bodyCol.appendChild(rule);
-
-        row.appendChild(bodyCol);
-        details.appendChild(row);
-      });
-
-      card.appendChild(details);
-    }
-
-    return card;
+    wrap.appendChild(body);
+    return wrap;
   }
 
-  // ─── Narrative block ───────────────────────────────────────────────────────
-
-  function buildNarrativeBlock(char) {
+  function _buildNarrative(char) {
     if (!char.narrative) return null;
 
     var wrap = document.createElement('div');
-    wrap.className = 'dp-section dp-section--narrative';
+    wrap.className = 'dp-narrative-section dp-section--closed';
 
     var header = document.createElement('div');
-    header.className = 'dp-section-header';
-    header.innerHTML = '<span class="dp-section-label">Background</span>' +
-      '<span class="dp-section-chevron">&#9662;</span>';
-    header.style.cursor = 'pointer';
-    header.addEventListener('click', function () { wrap.classList.toggle('dp-section--collapsed'); });
+    header.className = 'dp-section-bar dp-section-bar--toggle';
+    header.innerHTML = '<span class="dp-section-bar-label">Backstory</span>' +
+      '<span class="dp-section-bar-chevron">\u25B8</span>';
+    header.addEventListener('click', function () {
+      wrap.classList.toggle('dp-section--closed');
+    });
     wrap.appendChild(header);
+
+    var body = document.createElement('div');
+    body.className = 'dp-narrative-body';
 
     var text = document.createElement('p');
     text.className = 'dp-narrative-text';
     text.textContent = char.narrative;
-    wrap.appendChild(text);
+    body.appendChild(text);
 
+    wrap.appendChild(body);
     return wrap;
   }
-
-  // ─── Full panel assembly ───────────────────────────────────────────────────
-
-  function buildDetailsPanel(char, speciesData) {
-    var panel = document.getElementById('panel-1');
-    if (!panel) return;
-
-    panel.innerHTML = '';
-
-    var outer = document.createElement('div');
-    outer.className = 'dp-panel-wrap';
-
-    // ── Panel title ──
-    var title = document.createElement('div');
-    title.className = 'dp-panel-title';
-    title.innerHTML =
-      '<span class="dp-panel-title-name">' + _esc(char.name || 'Character') + '</span>' +
-      '<span class="dp-panel-title-sub">' + _esc(char.species || '') + ' &mdash; ' + _esc(char.archetype || '') + '</span>';
-    outer.appendChild(title);
-
-    // ── Species ──
-    outer.appendChild(buildSpeciesBlock(char, speciesData));
-
-    // ── Narrative ──
-    var narr = buildNarrativeBlock(char);
-    if (narr) outer.appendChild(narr);
-
-    // ── Kits ──
-    var kits = char.kits || [];
-    if (kits.length > 0) {
-      var kitsSection = document.createElement('div');
-      kitsSection.className = 'dp-section';
-
-      var kitsHeader = document.createElement('div');
-      kitsHeader.className = 'dp-section-header';
-      kitsHeader.innerHTML =
-        '<span class="dp-section-label">Kits</span>' +
-        '<span class="dp-section-chevron">&#9662;</span>' +
-        '<span class="dp-section-name">' + kits.length + ' equipped</span>';
-      kitsHeader.style.cursor = 'pointer';
-      kitsHeader.addEventListener('click', function () { kitsSection.classList.toggle('dp-section--collapsed'); });
-      kitsSection.appendChild(kitsHeader);
-
-      kits.forEach(function (kit) {
-        kitsSection.appendChild(buildKitCard(kit));
-      });
-
-      outer.appendChild(kitsSection);
-    }
-
-    panel.appendChild(outer);
-  }
-
-  // ─── Init ──────────────────────────────────────────────────────────────────
 
   function init() {
     var session = null;
