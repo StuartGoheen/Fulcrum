@@ -4,7 +4,7 @@ const { GoogleGenerativeAI } = require('@google/generative-ai');
 
 function buildPrompt(payload) {
   const {
-    species, phase1, phase2, phase3, kits, disciplines, destiny,
+    species, phase1, phase2, phase3, kits, disciplines, arenas, destiny,
     gender, generateName, characterName, generateTitle, characterTitle, playerInput,
   } = payload;
 
@@ -19,7 +19,18 @@ function buildPrompt(payload) {
   }[destiny] || '';
 
   const kitsText = kits && kits.length ? kits.join(', ') : 'none selected';
-  const discText = disciplines && disciplines.length ? disciplines.join(', ') : 'unspecified';
+  const discText = disciplines && disciplines.length ? disciplines.join(', ') : 'none at formative level';
+  const arenaText = arenas && arenas.length ? arenas.join(', ') : 'all baseline';
+  const locationPool = phase1.locationHints && phase1.locationHints.length
+    ? phase1.locationHints.join(', ')
+    : '';
+
+  const p2Archetype = phase2.archetype || '';
+  const p2Proficiencies = phase2.proficiencies || '';
+  const p2Variability = phase2.variability || '';
+  const p3Archetype = phase3.archetype || '';
+  const p3KnackName = phase3.knackName || '';
+  const p3KnackType = phase3.knackType || '';
 
   const nameInstruction = generateName
     ? 'Generate a culturally appropriate name for this species. Return it as a JSON field "name".'
@@ -35,6 +46,10 @@ function buildPrompt(payload) {
     ? `\n\nADDITIONAL PLAYER DIRECTION (incorporate naturally — do not ignore):\n${playerInput.trim()}`
     : '';
 
+  const locationInstruction = locationPool
+    ? `\nLOCATION POOL: When referencing the character's origin world or region, pick from this curated list: ${locationPool}. Do NOT invent locations outside this list for the origin. You may reference Jakku or the Western Reaches as a current location.`
+    : '';
+
   return `You are a narrative writer for a Star Wars tabletop RPG campaign. Your job is to write a personal backstory for a player character based on the data provided. Follow every rule below exactly.
 
 SETTING BIBLE — DO NOT DEVIATE:
@@ -47,11 +62,16 @@ OUTPUT RULES:
 - Return ONLY valid JSON in this exact shape: { "backstory": "...", "name": "...", "title": "..." }
 - Include "name" only if asked to generate one. Include "title" only if asked to generate one.
 - The backstory value must be plain paragraphs of prose. NO markdown. NO asterisks. NO bold. NO headers. NO bullet points. NO formatting symbols of any kind.
-- Write in third-person past tense.
+- STRICT PAST TENSE: Every verb in the backstory MUST be past tense. No present-tense narration, no present-tense descriptions, no "he is" or "she carries" — always "he was", "she carried". This is non-negotiable.
 - Write exactly 4 paragraphs. Each paragraph is 3–5 sentences.
 - Be specific to this character's choices. Do not write generic Star Wars prose.
 - Do not name specific weapons, armour, or equipment. Use vague evocative references only ("a blade she had carried since Corellia", "the ship he won in a sabacc game"). No model numbers. No kit names.
 - If a location, faction, or named person is not provided in the character data below, do not invent one — keep references abstract.
+${locationInstruction}
+
+ARENA & DISCIPLINE GUIDANCE:
+- Dominant arenas (D8+) represent this character's defining physical or mental traits. A character with Physique D8+ was physically imposing or battle-hardened. Wits D8+ was sharp and calculating. Presence D8+ was magnetically persuasive or intimidating. Weave these dominant traits into the prose as evident qualities that shaped their history.
+- Formative disciplines (D8+) are skills the character honed beyond casual familiarity. If they have Stealth D8, they learned to move unseen. If they have Medicine D10, they were a seasoned healer. Reference these skills naturally in the narrative — show them being used, not named.
 
 ${nameInstruction}
 ${titleInstruction}
@@ -74,19 +94,21 @@ Phase 1 — Origin (where they came from):
 Phase 2 — Catalyst (what broke them free):
   Card: ${phase2.title}
   Narrative: ${phase2.narrative}
-  Environment: ${phase2.environment}
+  Archetype: ${p2Archetype}
+  Trained proficiencies: ${p2Proficiencies}
+  Identity question: ${p2Variability}
   Tone: ${phase2.tone}
-  Themes: ${phase2.themes}
 
 Phase 3 — Debt (what follows them):
   Card: ${phase3.title}
   Narrative: ${phase3.narrative}
-  Environment: ${phase3.environment}
+  Archetype: ${p3Archetype}
+  Burden ability: ${p3KnackName} (${p3KnackType})
   Tone: ${phase3.tone}
-  Themes: ${phase3.themes}
 
 Trained identity (kits): ${kitsText}
-Core competencies (disciplines): ${discText}
+Formative skills (disciplines D8+): ${discText}
+Dominant traits (arenas D8+): ${arenaText}
 
 Destiny alignment: ${destiny}
 Destiny tone guidance: ${destinyTone}
