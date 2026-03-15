@@ -85,6 +85,30 @@ Bars are stored on DOM elements as `data-clip-size` and `data-ammo-pct` for futu
 - Standard rifles/pistols (DL-18, DH-17, Westar, Relby, Bryar, E-11, DC-15 Rifle, EE-3, A280): 100
 - DLT-19 (belt-fed): 200
 
+## Phase Cards — Character Creation
+
+Character creation uses a three-phase card selection system in `js/character-creation.js`. Each phase represents a layer of backstory: Foundation (Phase 1), Catalyst (Phase 2), Debt (Phase 3).
+
+**Card counts:** 12 cards per phase (36 total).
+
+**Card images:** All 36 card images live in `assets/phase1/`, `assets/phase2/`, `assets/phase3/`. The full deck was restyled in March 2026 to a unified high-resolution Art Nouveau tarot aesthetic with consistent gold filigree borders and phase-coded color palettes:
+- Phase 1 (Foundation): warm amber / sienna / golden earth tones
+- Phase 2 (Catalyst): cold steel blue / slate green / military tones
+- Phase 3 (Debt): deep crimson / shadow purple / noir tones
+
+No text is baked into the images. All card titles, narratives, and symbols are rendered by the JS from the data arrays.
+
+**Phase 1 cards (foundations / origin):**
+`deep-fringe`, `shadowed-levels`, `salvage-yards`, `coreward-spires`, `agrarian-plain`, `war-front`, `ancient-ruin`, `trading-post`, `detention-block`, `shipboard-born`, `labor-camp`, `enclave`
+
+**Phase 2 cards (catalyst / departure):**
+`disbanded-regular`, `separatist-holdout`, `imperial-defector`, `blockade-runner`, `pacification-survivor`, `field-medic`, `syndicate-enforcer`, `post-war-tracker`, `purge-survivor`, `wreck`, `ascent`, `betrayal`
+
+**Phase 3 cards (debt / consequence) — each has a named Knack ability:**
+`hutt-marked`, `witness`, `traumatized`, `shadow-stalked`, `defector`, `debtor`, `exile`, `addiction`, `false-identity`, `notorious` (The Name), `blood-price` (Dead Reckoning), `hunted` (Prey Sense)
+
+**Gemini AI backstory integration:** Phase 3 knacks and Phase combo selections (e.g. Purge Survivor + Shadow-Stalked + Prescient Kit) feed conditional logic in the Gemini backstory generator. See `_aiMeta.loreAnchors` on species objects and `_meta` on phase cards for the directive fields.
+
 ## Database
 
 SQLite database auto-created and seeded on first run at `db/campaign.db`.  

@@ -37,3 +37,8 @@ externalPort = 80
 deploymentTarget = "vm"
 run = ["node", "server/index.js"]
 build = ["npm", "run", "css:build"]
+
+[userenv]
+
+[userenv.shared]
+AIzaSyDkFCxXnclCVmM2V3KGwhSvq-BcIBQBzYc = "Gemini_API_KEY"
