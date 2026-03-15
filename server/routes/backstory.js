@@ -121,7 +121,7 @@ router.post('/backstory/generate', async (req, res) => {
     setTimeout(() => reject(new Error('TIMEOUT')), timeoutMs)
   );
 
-  try {
+  async function attemptGenerate(retries) {
     const result = await Promise.race([
       model.generateContent(prompt),
       timeoutPromise,
@@ -132,22 +132,43 @@ router.post('/backstory/generate', async (req, res) => {
     try {
       parsed = JSON.parse(text);
     } catch (_) {
-      return res.status(500).json({ error: 'The storyteller returned something unreadable. Try regenerating.' });
+      return { ok: false, status: 500, body: { error: 'The storyteller returned something unreadable. Try regenerating.' } };
     }
 
-    return res.json({
-      backstory: parsed.backstory || '',
-      name:      parsed.name      || null,
-      title:     parsed.title     || null,
-    });
+    return {
+      ok: true,
+      body: {
+        backstory: parsed.backstory || '',
+        name:      parsed.name      || null,
+        title:     parsed.title     || null,
+      },
+    };
+  }
+
+  try {
+    let result = await attemptGenerate(0);
+    if (result.ok) return res.json(result.body);
+    return res.status(result.status).json(result.body);
 
   } catch (err) {
+    const msg = err.message || '';
+    const isRateLimit = msg.includes('429') || msg.includes('quota') || msg.includes('RESOURCE_EXHAUSTED');
+
+    if (isRateLimit) {
+      console.log('[backstory] Rate-limited — retrying once after 3s...');
+      await new Promise(r => setTimeout(r, 3000));
+      try {
+        const retry = await attemptGenerate(1);
+        if (retry.ok) return res.json(retry.body);
+        return res.status(retry.status).json(retry.body);
+      } catch (retryErr) {
+        console.error('[backstory] Retry also failed:', retryErr.message);
+        return res.status(429).json({ error: 'rate_limit' });
+      }
+    }
+
     if (err.message === 'TIMEOUT') {
       return res.status(504).json({ error: 'timeout' });
-    }
-    const msg = err.message || '';
-    if (msg.includes('429') || msg.includes('quota') || msg.includes('RESOURCE_EXHAUSTED')) {
-      return res.status(429).json({ error: 'rate_limit' });
     }
     console.error('[backstory] Gemini error:', err.message);
     return res.status(500).json({ error: 'Generation failed. Try again.' });

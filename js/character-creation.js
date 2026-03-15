@@ -1607,7 +1607,8 @@
     return fetch('/data/kits.json')
       .then(function(r) { return r.json(); })
       .then(function(data) { KITS_DATA = data; })
-      .catch(function(e) { console.error('[Kits] Failed to load:', e); });
+      .catch(function (e) {
+        _gen_in_flight = false; console.error('[Kits] Failed to load:', e); });
   }
 
   function kitsSpent() {
@@ -2034,6 +2035,7 @@
     /* ── Backstory Screen ────────────────────────────────────────────────────── */
 
     var _regen_cooldown = false;
+    var _gen_in_flight  = false;
     var _regen_timer    = null;
 
     function initBackstoryScreen() {
@@ -2101,13 +2103,13 @@
 
       if (genBtn) {
         genBtn.addEventListener('click', function () {
-          generateBackstory();
+          if (!_gen_in_flight) generateBackstory();
         });
       }
 
       if (regenBtn) {
         regenBtn.addEventListener('click', function () {
-          if (!_regen_cooldown) generateBackstory();
+          if (!_regen_cooldown && !_gen_in_flight) generateBackstory();
         });
       }
 
@@ -2188,6 +2190,8 @@
     }
 
     function generateBackstory() {
+      if (_gen_in_flight) return;
+      _gen_in_flight = true;
       var sp      = SPECIES.find(function (s) { return s.id === state.species; });
       var p1card  = PHASE1_CARDS.find(function (c) { return c.id === state.phase1; });
       var p2card  = PHASE2_CARDS.find(function (c) { return c.id === state.phase2; });
@@ -2277,6 +2281,7 @@
       var minDelay = new Promise(function (res) { setTimeout(res, 5000); });
 
       Promise.all([fetchPromise, minDelay]).then(function (results) {
+        _gen_in_flight = false;
         var res = results[0];
         if (!res.ok) {
           var errMsg = 'Generation failed. Try again.';
