@@ -229,7 +229,7 @@
       imageUrl: '/assets/phase1/05-agrarian-plain.png',
       narrative: 'You come from working land — rows of crops, communal tables, and seasons that ruled your calendar. Your community survived by cooperation and quiet resilience. The Empire took the harvest and left the labor. That memory of something worth protecting is why you fight.',
       svg: '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none" stroke-width="4" stroke-linecap="round"><line x1="50" y1="12" x2="50" y2="78"/><ellipse cx="50" cy="26" rx="18" ry="5"/><ellipse cx="50" cy="40" rx="12" ry="4"/><line x1="34" y1="62" x2="66" y2="62"/><line x1="28" y1="70" x2="72" y2="70"/><line x1="10" y1="86" x2="90" y2="86"/><line x1="5" y1="93" x2="95" y2="93" stroke-width="2"/></svg>',
-      _meta: { environment: 'farming-world', locationHints: ['Dantooine', 'Lothal', 'Lah'mu', 'Raada', 'Saleucami'], tone: 'community, loss, humble origins', themes: ['Imperial taxation', 'rural displacement', 'agrarian values'], favored: 'Resolve (Grit)' },
+      _meta: { environment: 'farming-world', locationHints: ['Dantooine', 'Lothal', 'Lah\'mu', 'Raada', 'Saleucami'], tone: 'community, loss, humble origins', themes: ['Imperial taxation', 'rural displacement', 'agrarian values'], favored: 'Resolve (Grit)' },
     },
     {
       id: 'war-front',
