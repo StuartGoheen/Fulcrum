@@ -139,7 +139,11 @@ Two new screens added after Kit selection (March 2026):
 
 **Save route:** `POST /api/characters/save` in `server/routes/characters.js`. Finds first empty slot or creates new. Called from "Confirm & Save" button in the summary overlay.
 
-**Character creation flow:** Species → Phase 1 → Phase 2 → Phase 3 → Arenas/Disciplines → Kits → **Destiny** → **Your Story** → Summary (Confirm & Save)
+**Character creation flow:** Species → Phase 1 → Phase 2 → Phase 3 → Arenas/Disciplines → Kits → **Outfitting** (500 cr starting budget, browse gear/weapons/armor) → **Destiny** → **Your Story** → Summary (Confirm & Save)
+
+## Outfitting Screen
+
+New step added between Kits and Destiny. Players spend 500 starting credits on gear, weapons, and armor from the combined catalog (`data/gear.json`, `data/weapons.json`, `data/armor.json`). Features search, category filters (All/Gear/Weapons/Armor), add/remove cart, credit tracking. Selected gear stored in `state.startingGear[]` and persisted through to summary/save. The standalone Black Market page (`/market/`) continues to work independently for mid-campaign shopping.
 
 ## Campaign Engine
 

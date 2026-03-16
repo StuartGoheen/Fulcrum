@@ -678,6 +678,7 @@
     spentRegAdv:    0,
     enhancedAdvUsed: 0,
     kitChoices:      {},
+    startingGear:    [],
     destiny:         null,
     charName:        '',
     charTitle:       '',
@@ -1868,6 +1869,267 @@
     renderKitsContent();
   }
 
+  /* ── Outfitting step ─────────────────────────────────────────────────── */
+
+  var STARTING_CREDITS = 500;
+  var OUTFITTING_CATALOG = [];
+
+  function loadOutfittingCatalog() {
+    if (OUTFITTING_CATALOG.length > 0) return Promise.resolve();
+    return Promise.all([
+      fetch('/data/gear.json').then(function(r) { return r.json(); }),
+      fetch('/data/weapons.json').then(function(r) { return r.json(); }),
+      fetch('/data/armor.json').then(function(r) { return r.json(); }),
+    ]).then(function(results) {
+      var gear = results[0].map(function(item) {
+        return { id: item.id, name: item.name, cost: item.cost || 0, category: item.categoryLabel || item.category || 'Gear', source: 'gear', description: item.description || '' };
+      });
+      var weapons = results[1].map(function(item) {
+        return { id: item.id, name: item.name, cost: item.cost || 0, category: item.chassisLabel || 'Weapon', source: 'weapon', description: item.description || '' };
+      });
+      var armor = results[2].map(function(item) {
+        return { id: item.id, name: item.name, cost: item.cost || 0, category: item.categoryLabel || 'Armor', source: 'armor', description: item.description || '' };
+      });
+      OUTFITTING_CATALOG = gear.concat(weapons).concat(armor);
+      OUTFITTING_CATALOG.sort(function(a, b) { return a.cost - b.cost; });
+    }).catch(function(e) {
+      console.error('[Outfitting] Failed to load catalog:', e);
+      OUTFITTING_CATALOG = [];
+    });
+  }
+
+  function outfittingCreditsSpent() {
+    var items = state.startingGear || [];
+    return items.reduce(function(acc, item) { return acc + (item.cost || 0); }, 0);
+  }
+
+  function outfittingCreditsRemaining() {
+    return STARTING_CREDITS - outfittingCreditsSpent();
+  }
+
+  function initOutfittingScreen() {
+    if (!state.startingGear) state.startingGear = [];
+    var doShow = function() {
+      renderOutfittingContent();
+      showScreen('outfitting');
+      updateStepTrack(6);
+    };
+    if (OUTFITTING_CATALOG.length === 0) {
+      loadOutfittingCatalog().then(doShow);
+    } else {
+      doShow();
+    }
+  }
+
+  function renderOutfittingContent() {
+    var container = document.getElementById('outfitting-content');
+    if (!container) return;
+    container.innerHTML = '';
+
+    var remaining = outfittingCreditsRemaining();
+
+    var creditsDisp = document.getElementById('outfitting-credits-display');
+    if (creditsDisp) creditsDisp.textContent = remaining;
+
+    var layout = document.createElement('div');
+    layout.className = 'outfitting-layout';
+
+    var catalogPanel = document.createElement('div');
+    catalogPanel.className = 'outfitting-catalog';
+
+    var searchRow = document.createElement('div');
+    searchRow.className = 'outfitting-search-row';
+    var searchInput = document.createElement('input');
+    searchInput.type = 'text';
+    searchInput.placeholder = 'Search gear, weapons, armor\u2026';
+    searchInput.className = 'outfitting-search';
+    searchRow.appendChild(searchInput);
+    catalogPanel.appendChild(searchRow);
+
+    var catFilters = document.createElement('div');
+    catFilters.className = 'outfitting-cat-filters';
+    var categories = ['All', 'Gear', 'Weapons', 'Armor'];
+    var activeCat = 'All';
+    categories.forEach(function(cat) {
+      var btn = document.createElement('button');
+      btn.className = 'outfitting-cat-btn' + (cat === activeCat ? ' active' : '');
+      btn.textContent = cat;
+      btn.addEventListener('click', function() {
+        activeCat = cat;
+        catFilters.querySelectorAll('.outfitting-cat-btn').forEach(function(b) {
+          b.classList.toggle('active', b.textContent === cat);
+        });
+        renderCatalogItems();
+      });
+      catFilters.appendChild(btn);
+    });
+    catalogPanel.appendChild(catFilters);
+
+    var itemList = document.createElement('div');
+    itemList.className = 'outfitting-item-list';
+    catalogPanel.appendChild(itemList);
+
+    var cartPanel = document.createElement('div');
+    cartPanel.className = 'outfitting-cart';
+
+    var cartTitle = document.createElement('div');
+    cartTitle.className = 'outfitting-cart-title';
+    cartTitle.innerHTML = '<span class="outfitting-cart-label">Your Loadout</span><span class="outfitting-cart-credits" id="outfitting-cart-credits">' + remaining + ' cr remaining</span>';
+    cartPanel.appendChild(cartTitle);
+
+    var cartItems = document.createElement('div');
+    cartItems.className = 'outfitting-cart-items';
+    cartItems.id = 'outfitting-cart-items';
+    cartPanel.appendChild(cartItems);
+
+    var cartTotal = document.createElement('div');
+    cartTotal.className = 'outfitting-cart-total';
+    cartTotal.id = 'outfitting-cart-total';
+    cartPanel.appendChild(cartTotal);
+
+    layout.appendChild(catalogPanel);
+    layout.appendChild(cartPanel);
+    container.appendChild(layout);
+
+    searchInput.addEventListener('input', function() { renderCatalogItems(); });
+
+    function renderCatalogItems() {
+      var query = searchInput.value.trim().toLowerCase();
+      itemList.innerHTML = '';
+
+      var filtered = OUTFITTING_CATALOG.filter(function(item) {
+        if (activeCat === 'Weapons' && item.source !== 'weapon') return false;
+        if (activeCat === 'Armor' && item.source !== 'armor') return false;
+        if (activeCat === 'Gear' && item.source !== 'gear') return false;
+        if (query && item.name.toLowerCase().indexOf(query) === -1 && item.category.toLowerCase().indexOf(query) === -1 && item.description.toLowerCase().indexOf(query) === -1) return false;
+        return true;
+      });
+
+      if (OUTFITTING_CATALOG.length === 0) {
+        var err = document.createElement('p');
+        err.className = 'outfitting-empty';
+        err.textContent = 'Failed to load gear catalog. Try going back and returning to this screen.';
+        itemList.appendChild(err);
+        return;
+      }
+
+      if (filtered.length === 0) {
+        var empty = document.createElement('p');
+        empty.className = 'outfitting-empty';
+        empty.textContent = 'No items match your search.';
+        itemList.appendChild(empty);
+        return;
+      }
+
+      filtered.forEach(function(item) {
+        var row = document.createElement('div');
+        row.className = 'outfitting-item-row';
+
+        var info = document.createElement('div');
+        info.className = 'outfitting-item-info';
+        var nameEl = document.createElement('span');
+        nameEl.className = 'outfitting-item-name';
+        nameEl.textContent = item.name;
+        var catEl = document.createElement('span');
+        catEl.className = 'outfitting-item-cat';
+        catEl.textContent = item.category;
+        info.appendChild(nameEl);
+        info.appendChild(catEl);
+
+        var priceEl = document.createElement('span');
+        priceEl.className = 'outfitting-item-price';
+        priceEl.textContent = item.cost + ' cr';
+
+        var addBtn = document.createElement('button');
+        addBtn.className = 'outfitting-add-btn';
+        addBtn.textContent = '+';
+        var canAfford = outfittingCreditsRemaining() >= item.cost;
+        addBtn.disabled = !canAfford;
+        addBtn.addEventListener('click', function() {
+          addToLoadout(item);
+        });
+
+        row.appendChild(info);
+        row.appendChild(priceEl);
+        row.appendChild(addBtn);
+        itemList.appendChild(row);
+      });
+    }
+
+    function addToLoadout(item) {
+      if (outfittingCreditsRemaining() < item.cost) return;
+      if (!state.startingGear) state.startingGear = [];
+      state.startingGear.push({ id: item.id, name: item.name, cost: item.cost, source: item.source });
+      saveState();
+      renderCart();
+      renderCatalogItems();
+    }
+
+    function removeFromLoadout(index) {
+      if (!state.startingGear) return;
+      state.startingGear.splice(index, 1);
+      saveState();
+      renderCart();
+      renderCatalogItems();
+    }
+
+    function renderCart() {
+      var rem = outfittingCreditsRemaining();
+      var spent = outfittingCreditsSpent();
+
+      var creditsEl = document.getElementById('outfitting-cart-credits');
+      if (creditsEl) creditsEl.textContent = rem + ' cr remaining';
+
+      var creditsDispMain = document.getElementById('outfitting-credits-display');
+      if (creditsDispMain) creditsDispMain.textContent = rem;
+
+      var cartEl = document.getElementById('outfitting-cart-items');
+      if (!cartEl) return;
+      cartEl.innerHTML = '';
+
+      var items = state.startingGear || [];
+      if (items.length === 0) {
+        var emptyMsg = document.createElement('p');
+        emptyMsg.className = 'outfitting-cart-empty';
+        emptyMsg.textContent = 'No gear selected. Browse the catalog to add items.';
+        cartEl.appendChild(emptyMsg);
+      } else {
+        items.forEach(function(item, idx) {
+          var row = document.createElement('div');
+          row.className = 'outfitting-cart-row';
+
+          var nameEl = document.createElement('span');
+          nameEl.className = 'outfitting-cart-item-name';
+          nameEl.textContent = item.name;
+
+          var priceEl = document.createElement('span');
+          priceEl.className = 'outfitting-cart-item-price';
+          priceEl.textContent = item.cost + ' cr';
+
+          var removeBtn = document.createElement('button');
+          removeBtn.className = 'outfitting-remove-btn';
+          removeBtn.textContent = '\u00D7';
+          removeBtn.addEventListener('click', function() {
+            removeFromLoadout(idx);
+          });
+
+          row.appendChild(nameEl);
+          row.appendChild(priceEl);
+          row.appendChild(removeBtn);
+          cartEl.appendChild(row);
+        });
+      }
+
+      var totalEl = document.getElementById('outfitting-cart-total');
+      if (totalEl) {
+        totalEl.innerHTML = '<span class="outfitting-total-label">Total Spent</span><span class="outfitting-total-value">' + spent + ' / ' + STARTING_CREDITS + ' cr</span>';
+      }
+    }
+
+    renderCatalogItems();
+    renderCart();
+  }
+
   /* ── Phase card grid ────────────────────────────────────────────────────── */
 
   function buildPhaseGrid(cards, containerId, selectFn) {
@@ -1995,7 +2257,7 @@
     function initDestinyScreen() {
       var tiles = document.querySelectorAll('.destiny-tile');
       var continueBtn = document.getElementById('btn-destiny-continue');
-      var backBtn = document.getElementById('btn-back-to-kits');
+      var backBtn = document.getElementById('btn-back-to-outfitting');
 
       // Restore any prior selection
       tiles.forEach(function (tile) {
@@ -2026,8 +2288,7 @@
 
       if (backBtn) {
         backBtn.addEventListener('click', function () {
-          showScreen('kits');
-          updateStepTrack(5);
+          initOutfittingScreen();
         });
       }
     }
@@ -2291,6 +2552,7 @@
           knack:       p3card._meta ? p3card._meta.knack || '' : '',
         } : { title: 'Unknown', narrative: '', environment: '', tone: '', themes: '', archetype: '', knackName: '', knackType: '', knack: '' },
         kits:         kitNames,
+        startingGear: (state.startingGear || []).map(function(g) { return g.name; }),
         disciplines:  discNames,
         arenas:       arenaNames,
         destiny:      state.destiny || 'Light & Dark',
@@ -2397,6 +2659,9 @@
         title:      state.charTitle,
         backstory:  state.backstory,
         kits:       state.kitChoices,
+        startingGear: state.startingGear || [],
+        startingCredits: STARTING_CREDITS,
+        creditsRemaining: outfittingCreditsRemaining(),
         arenaAdj:   state.arenaAdj,
         discValues: state.discValues,
       };
@@ -2484,6 +2749,19 @@
       sumRow('Knack',      p3._meta.knackName + ' (' + p3._meta.knackType + ')'),
       sumRow('Knack Desc', p3._meta.knack),
     ] : [sumRow('Status', 'Not selected')]));
+
+    var gearItems = state.startingGear || [];
+    var gearRows = [];
+    if (gearItems.length === 0) {
+      gearRows.push(sumRow('Status', 'No gear selected'));
+    } else {
+      gearItems.forEach(function(item) {
+        gearRows.push(sumRow(item.name, item.cost + ' cr'));
+      });
+      gearRows.push(sumRow('Credits Spent', outfittingCreditsSpent() + ' / ' + STARTING_CREDITS));
+      gearRows.push(sumRow('Credits Remaining', outfittingCreditsRemaining() + ' cr'));
+    }
+    body.appendChild(buildSumSection('Starting Gear', gearRows));
 
     body.appendChild(buildSumSection('Character Identity', [
       sumRow('Name',    state.charName  || '(not set)'),
@@ -2672,8 +2950,22 @@
     var kitsContinue = document.getElementById('btn-kits-continue');
     if (kitsContinue) {
       kitsContinue.addEventListener('click', function () {
+        initOutfittingScreen();
+      });
+    }
+
+    var outfittingContinue = document.getElementById('btn-outfitting-continue');
+    if (outfittingContinue) {
+      outfittingContinue.addEventListener('click', function () {
         showScreen('destiny');
         initDestinyScreen();
+      });
+    }
+
+    var backToKitsFromOutfitting = document.getElementById('btn-back-to-kits-from-outfitting');
+    if (backToKitsFromOutfitting) {
+      backToKitsFromOutfitting.addEventListener('click', function () {
+        initKitsScreen();
       });
     }
 
