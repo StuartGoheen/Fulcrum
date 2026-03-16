@@ -154,7 +154,9 @@
           "description": "Miracle Worker. Increase Vitality regeneration by 1 for all allies. (Short rest: recover 1 Vitality. Long rest: recover 2 Vitality.)"
         }
       ],
-      "painkillerProtocol": "If you have capped out on the Treat Injury ladder and have tier remaining, spend 1 tier: patient gains [Buffered 3] going into the next scene. No additional [Stimmed] — same treatment, same operation."
+      "painkillerProtocol": "If you have capped out on the Treat Injury ladder and have tier remaining, spend 1 tier: patient gains [Buffered 3] going into the next scene. No additional [Stimmed] — same treatment, same operation.",
+      "discipline": "medicine",
+      "arena": "wits"
     },
     {
       "id": "action_dodge",
@@ -166,7 +168,9 @@
         "[Combat]"
       ],
       "description": "Reactive evasive defense. When targeted by an attack, roll Evasion (Reflex) to avoid or reduce the incoming damage. Uses your Trigger pip.",
-      "risk": "If you fail, the attack lands fully."
+      "risk": "If you fail, the attack lands fully.",
+      "discipline": "evasion",
+      "arena": "reflex"
     },
     {
       "id": "action_endure",
@@ -178,7 +182,9 @@
         "[Combat]"
       ],
       "description": "Reactive absorption defense. When targeted by an attack, roll Endure (Physique) to absorb or reduce the incoming damage. Uses your Trigger pip.",
-      "risk": "If you fail, the attack lands fully."
+      "risk": "If you fail, the attack lands fully.",
+      "discipline": "endure",
+      "arena": "physique"
     },
     {
       "id": "action_coordinate",
@@ -210,7 +216,9 @@
           "range": "8+",
           "description": "Up to 3 NPC allies execute a synchronized action. All gain [Optimized]."
         }
-      ]
+      ],
+      "discipline": "tactics",
+      "arena": "wits"
     },
     {
       "id": "action_command_beast",
@@ -242,7 +250,9 @@
           "range": "8+",
           "description": "Perfect communion. Beast Attack gains [Optimized] + [Empowered (Grit)]. Creature is immune to fear until end of round."
         }
-      ]
+      ],
+      "discipline": "beast_handling",
+      "arena": "grit"
     }
   ],
   "forceManeuvers": [

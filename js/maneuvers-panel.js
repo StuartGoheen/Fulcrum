@@ -140,10 +140,24 @@
     return '<span class="manv-pip-badge" style="background:' + info.color + ';">' + info.pip + '</span>';
   }
 
-  function _buildUniversalActionCard(action) {
+  function _buildUniversalActionCard(action, char) {
     var tagHtml = '';
     if (action.tags && action.tags.length) {
       tagHtml = ' <span class="manv-arena-tag">' + action.tags.map(_esc).join(' ') + '</span>';
+    }
+
+    var discDieHtml = '';
+    if (action.discipline && action.arena && char) {
+      var discDie  = _getEffectiveDisciplineDie(char, action.arena, action.discipline);
+      var arenaDie = _getEffectiveArenaDie(char, action.arena);
+      if (discDie && arenaDie) {
+        discDieHtml =
+          '<div class="armory-weapon-disc">' +
+            _dieImg(discDie) +
+            '<span class="armory-weapon-disc-sep">/</span>' +
+            _dieImg(arenaDie) +
+          '</div>';
+      }
     }
 
     var metaHtml =
@@ -180,6 +194,7 @@
             _pipBadge(action.actionType) +
             '<span class="manv-name">' + _esc(action.name) + '</span>' +
           '</div>' +
+          discDieHtml +
         '</div>' +
         '<div class="manv-body">' +
           metaHtml +
@@ -192,13 +207,19 @@
     );
   }
 
-  function _buildForceCard(force) {
+  function _buildForceCard(force, char) {
     var discDieHtml = '';
-    if (force.discipline && force.arena) {
-      discDieHtml =
-        '<div class="armory-weapon-disc">' +
-          '<span class="manv-force-disc-label">' + _esc(force.discipline) + '</span>' +
-        '</div>';
+    if (force.discipline && force.arena && char) {
+      var fDiscDie  = _getEffectiveDisciplineDie(char, force.arena, force.discipline);
+      var fArenaDie = _getEffectiveArenaDie(char, force.arena);
+      if (fDiscDie && fArenaDie) {
+        discDieHtml =
+          '<div class="armory-weapon-disc">' +
+            _dieImg(fDiscDie) +
+            '<span class="armory-weapon-disc-sep">/</span>' +
+            _dieImg(fArenaDie) +
+          '</div>';
+      }
     }
 
     var tagHtml = '';
@@ -388,7 +409,7 @@
   }
 
   function _buildActionWithGambits(action, data, char, activeGear) {
-    var cardHtml = _buildUniversalActionCard(action);
+    var cardHtml = _buildUniversalActionCard(action, char);
     var gambitsHtml = '';
 
     var discGambits = _getQualifiedGambitsForAction(action.id, data.disciplineGambits, char);
@@ -495,7 +516,7 @@
         '<span class="manv-pip-badge manv-pip-badge-header" style="background:var(--color-accent-violet, #8b5cf6);">F</span> ' +
         'Force Maneuvers</div>';
       for (var fi = 0; fi < forceManeuvers.length; fi++) {
-        html += _buildForceCard(forceManeuvers[fi]);
+        html += _buildForceCard(forceManeuvers[fi], char);
       }
       html += '</div>';
     }
@@ -504,7 +525,7 @@
       html += '<div class="manv-action-group">';
       html += '<div class="armory-category-label manv-category-label">Advanced Maneuvers</div>';
       for (var am = 0; am < data.advancedManeuvers.length; am++) {
-        html += _buildUniversalActionCard(data.advancedManeuvers[am]);
+        html += _buildUniversalActionCard(data.advancedManeuvers[am], char);
       }
       html += '</div>';
     }
