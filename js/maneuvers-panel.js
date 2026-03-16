@@ -25,6 +25,7 @@
     'suppressed':  'condition_suppressed',
     'bleeding':    'condition_bleeding',
     'stunned':     'condition_stunned',
+    'incapacitated': 'condition_incapacitated',
     'marked':      'condition_marked',
     'slowed':      'condition_slowed',
     'stimmed':     'stimmed',

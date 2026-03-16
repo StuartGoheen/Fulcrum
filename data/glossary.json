@@ -469,6 +469,17 @@
     "guide": "Something is wrong with your legs, your drive system, or the ground itself. You can still move — just not fast enough to matter."
   },
   {
+    "id": "condition_incapacitated",
+    "name": "[Incapacitated]",
+    "type": "Condition",
+    "category": "Special",
+    "conditionType": "special",
+    "defaultDuration": "immediate",
+    "fiction": "You are completely out of the fight — unconscious, overwhelmed by pain, or shut down by a stun effect. The body has hit its limit. You are not dead, but you are not participating.",
+    "rule": "Fully unable to act. PC and NPC: Cannot take any actions, maneuvers, or triggers. Cannot move. Automatically fails all defense rolls. Source determines duration and recovery method (time, Medicine check, ally action, etc.). Does not stack — you are either incapacitated or you are not.",
+    "guide": "The lights went out. Maybe it was a stun bolt, maybe it was a concussion wave, maybe your body just decided it had taken enough punishment and pulled the emergency shutdown on your brain. Whatever caused it, you are out of the fight until something or someone brings you back. Hope your friends are having a better day than you are."
+  },
+  {
     "id": "stimmed",
     "name": "[Stimmed X]",
     "type": "Condition (Stacking)",

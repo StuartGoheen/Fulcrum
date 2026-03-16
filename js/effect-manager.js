@@ -149,6 +149,16 @@
       defaultDuration: 'immediate',
       description: 'No targeted Ranged attacks. Step Down Control Die on all physical actions. Supersedes [Disoriented].',
     },
+        {
+      id: 'incapacitated',
+      label: 'Incapacitated',
+      category: 'action_economy',
+      conditionType: 'special',
+      modifier: { type: 'incapacitate' },
+      targetMode: 'universal',
+      defaultDuration: 'immediate',
+      description: 'Fully unable to act. Cannot take actions, maneuvers, or triggers. Automatically fails defense rolls. Source determines duration and recovery.',
+    },
     {
       id: 'shut_down',
       label: 'Shut Down',
