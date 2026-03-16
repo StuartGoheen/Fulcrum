@@ -161,6 +161,38 @@
       "arena": "wits"
     },
     {
+      "id": "action_interact",
+      "name": "Interact",
+      "actionType": "Action",
+      "pip": "A",
+      "rolled": true,
+      "tags": [
+        "[Both]"
+      ],
+      "description": "Perform a non-combat task under pressure — operate a console, pick a lock, disarm a bomb, hotwire a speeder, or any physical challenge that demands skill and time. Roll a relevant discipline (Tech, Skulduggery, Survival, etc. — GM picks what fits the task). Power = Roll for uncontested tasks; vs difficulty set by GM for contested or complex challenges.",
+      "risk": "Fumbling under pressure may trigger alarms, break the device, or waste precious time.",
+      "effect": [
+        {
+          "tier": 1,
+          "label": "Fleeting",
+          "range": "0-3",
+          "description": "Partial progress or simple interaction. You make headway but the task is not complete — a second Interact may be needed. Simple tasks (flip a switch, open an unlocked door) resolve fully."
+        },
+        {
+          "tier": 2,
+          "label": "Masterful",
+          "range": "4-7",
+          "description": "Complete a standard task or make significant progress on a complex challenge. Locks open, consoles respond, devices activate."
+        },
+        {
+          "tier": 3,
+          "label": "Legendary",
+          "range": "8+",
+          "description": "Complete a complex task in a single action, or finish a standard task with a bonus outcome — the sliced terminal also reveals useful intel, the disarmed bomb yields salvageable components, the hotwired speeder starts silently."
+        }
+      ]
+    },
+    {
       "id": "action_dodge",
       "name": "Dodge",
       "actionType": "Trigger",
@@ -331,8 +363,8 @@
     {
       "id": "force_kinetic_impulse",
       "name": "Kinetic Impulse",
-      "actionType": "Maneuver",
-      "pip": "M",
+      "actionType": "Action",
+      "pip": "A",
       "rolled": true,
       "discipline": "alter_spark",
       "arena": "presence",
@@ -340,26 +372,26 @@
         "[Force]",
         "[Both]"
       ],
-      "description": "Project the Force outward to manipulate the physical world. Roll Alter (Presence). Power = Roll for unresisted effects; vs target's Defense for opposed uses.",
+      "description": "Project the Force outward to push or pull a target through space. Roll Alter (Presence). Power = Roll vs target's Defense. Choose push or pull direction on hit.",
       "risk": "Losing control of the Force may cause unintended collateral damage or present an Opening.",
       "effect": [
         {
           "tier": 1,
           "label": "Fleeting",
           "range": "0-3",
-          "description": "Utility manipulation: move a small object, flip a switch, shove a person. Or apply [Disoriented] to one target. Immediate."
+          "description": "Push or pull the target 1 zone in any direction."
         },
         {
           "tier": 2,
           "label": "Masterful",
           "range": "4-7",
-          "description": "Push a target 1 zone in any direction. They must make a Physique check or be moved involuntarily."
+          "description": "Push or pull the target 2 zones. Target gains [Disoriented] Tactical."
         },
         {
           "tier": 3,
           "label": "Legendary",
           "range": "8+",
-          "description": "Slam a target to the ground. They gain [Prone]. Alternatively, hurl a heavy object as an improvised ranged attack."
+          "description": "Push or pull the target 3 zones. Target gains [Prone]. If the target collides with a solid boundary before completing their forced movement, they take 1 Vitality damage per zone of movement not completed."
         }
       ]
     }
@@ -1337,13 +1369,13 @@
           "id": "gambit_alter_d12",
           "name": "Crush",
           "requiredDie": "D12",
-          "modifiesAction": "action_attack",
+          "modifiesAction": "force_kinetic_impulse",
           "tags": [
             "[Force]",
             "[Combat]"
           ],
-          "rule": "After resolving an Attack [Force], spend 1 tier. The target gains [Restrained] Tactical — seized by an invisible hand. While restrained by this effect, your Force attacks against them gain [Empowered (Presence)]. Maintaining the grip requires your concentration — if you take damage, the target is freed.",
-          "duration": "Tactical"
+          "rule": "After rolling Kinetic Impulse, spend 1 tier. Remove all forced movement from the result. Instead, deal Vitality damage equal to the number of zones the reduced tier would have generated (Fleeting: 1, Masterful: 2, Legendary: 3). Target gains [Restrained] Tactical. The effect lasts 1 round. To maintain: spend your Action next turn and roll Kinetic Impulse again. Success continues the crush and reapplies damage. If you do not roll, the target is freed.",
+          "duration": "Tactical (sustained)"
         }
       ]
     },

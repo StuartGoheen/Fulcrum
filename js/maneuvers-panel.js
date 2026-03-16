@@ -440,6 +440,38 @@
     return cardHtml;
   }
 
+  function _buildForceCardWithGambits(force, data, char, activeGear) {
+    var cardHtml = _buildForceCard(force, char);
+    var gambitsHtml = '';
+
+    var discGambits = _getQualifiedGambitsForAction(force.id, data.disciplineGambits, char);
+    for (var g = 0; g < discGambits.length; g++) {
+      gambitsHtml += _buildDisciplineGambitBlock(discGambits[g]);
+    }
+
+    var engineGambits = _getEngineGambits(char, force.id);
+    for (var eg = 0; eg < engineGambits.length; eg++) {
+      gambitsHtml += _buildEngineGambitBlock(engineGambits[eg], char.engine.name);
+    }
+
+    var gearGambits = _getGearGambits(force.id, activeGear || []);
+    for (var gg = 0; gg < gearGambits.length; gg++) {
+      gambitsHtml += _buildGearGambitBlock(gearGambits[gg].gambit, gearGambits[gg].gearName);
+    }
+
+    var kitGambits = _getKitGambits(char, force.id);
+    for (var kg = 0; kg < kitGambits.length; kg++) {
+      gambitsHtml += _buildKitGambitBlock(kitGambits[kg].ability, kitGambits[kg].kitName);
+    }
+
+    if (gambitsHtml) {
+      var insertPoint = cardHtml.lastIndexOf('</div></div>');
+      cardHtml = cardHtml.substring(0, insertPoint) + gambitsHtml + '</div></div>';
+    }
+
+    return cardHtml;
+  }
+
   function _hasForceDiscipline(char) {
     var forceDiscs = ['control_spark', 'sense_spark', 'alter_spark'];
     var arenas = char.arenas || [];
@@ -514,9 +546,9 @@
       html += '<div class="manv-action-group">';
       html += '<div class="armory-category-label manv-category-label">' +
         '<span class="manv-pip-badge manv-pip-badge-header" style="background:var(--color-accent-violet, #8b5cf6);">F</span> ' +
-        'Force Maneuvers</div>';
+        'Force Techniques</div>';
       for (var fi = 0; fi < forceManeuvers.length; fi++) {
-        html += _buildForceCard(forceManeuvers[fi], char);
+        html += _buildForceCardWithGambits(forceManeuvers[fi], data, char, activeGear);
       }
       html += '</div>';
     }
