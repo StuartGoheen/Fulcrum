@@ -329,5 +329,56 @@
         "rule": "Attacks made while [Hidden] treat the Control Die result as a minimum of Basic tier (4–7) before the Power Die is applied, regardless of the actual roll. You never waste a shot from the shadows. This floor applies only to the attack that breaks [Hidden] — follow-up actions after your position is revealed resolve normally."
       }
     ]
+  },
+  {
+    "id": "kit_beastmaster",
+    "name": "The Beastmaster",
+    "tier": 3,
+    "governingArena": "grit",
+    "alignedDiscipline": "beast_handling",
+    "abilities": [
+      {
+        "id": "beastmaster_bond",
+        "tier": 1,
+        "type": "passive",
+        "name": "The Bond",
+        "rule": "You have a trained creature companion. Choose a creature type appropriate to your background (massiff, anooba, varactyl, tauntaun, etc.). Your companion acts on your initiative and can perform one Move or one simple action per round without requiring a Command. It follows basic instructions instinctively — stay, follow, guard, fetch. Complex or dangerous commands still require a Beast Handling roll."
+      },
+      {
+        "id": "beastmaster_pack_instinct",
+        "tier": 1,
+        "type": "passive",
+        "name": "Pack Instinct",
+        "rule": "When you and your creature companion are in the same zone and both attack the same target in the same round, the second attack gains [Optimized]. The bond between handler and beast creates openings no solo fighter can exploit."
+      },
+      {
+        "id": "beastmaster_sic",
+        "tier": 2,
+        "type": "gambit",
+        "name": "Sic 'Em",
+        "rule": "After resolving a Command directed at your creature companion, spend 1 tier. Your companion immediately performs a full Attack action as a free action against a target you designate in its zone or an adjacent zone. This does not consume the companion's action for the round — pure predatory aggression on your word."
+      },
+      {
+        "id": "beastmaster_shared_hide",
+        "tier": 2,
+        "type": "passive",
+        "name": "Thick as Thieves",
+        "rule": "When your creature companion is in your zone, you may redirect one incoming attack per round to the companion instead of yourself. The companion uses its own Endure defense. Additionally, when your companion would take Vitality damage that would drop it, you may spend 1 Edge to keep it standing at 1 Vitality — it fights through the pain because you need it to."
+      },
+      {
+        "id": "beastmaster_apex",
+        "tier": 3,
+        "type": "passive",
+        "name": "Apex Predator",
+        "rule": "Your creature companion's attacks gain [Empowered (Grit)] — your will sharpens its fury. Additionally, enemies adjacent to your companion who attempt to Move away must succeed on an Evasion check or gain [Slowed]. The predator does not let prey escape."
+      },
+      {
+        "id": "beastmaster_feral_communion",
+        "tier": 3,
+        "type": "passive",
+        "name": "Feral Communion",
+        "rule": "You can communicate with any creature — domesticated or wild — through body language, tone, and instinct. In narrative scenes, you may attempt a Beast Handling check to calm, redirect, or befriend any non-droid creature, even those trained by an enemy. In combat, you may spend 1 Edge to force an enemy creature to hesitate — it loses its next action unless its handler succeeds on a Beast Handling check opposed by yours."
+      }
+    ]
   }
 ]
