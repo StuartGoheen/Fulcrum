@@ -57,8 +57,28 @@
       "tags": [
         "[Combat]"
       ],
-      "description": "Move 1 zone. Diceless unless you are Engaged — if Engaged, you must roll to disengage (presenting an Opening on failure). In vehicle encounters, uses Piloting.",
-      "risk": "If Engaged, failing to disengage presents an Opening to the enemy."
+      "description": "Move 1 zone. Diceless unless you are Engaged — if Engaged, you must roll to disengage (presenting an Opening on failure). In vehicle encounters, uses Piloting. When rolled (Engaged), the result tier determines the quality of the disengage.",
+      "risk": "If Engaged, failing to disengage presents an Opening to the enemy.",
+      "effect": [
+        {
+          "tier": 1,
+          "label": "Fleeting",
+          "range": "0-3",
+          "description": "Move 1 zone. No Opening presented."
+        },
+        {
+          "tier": 2,
+          "label": "Masterful",
+          "range": "4-7",
+          "description": "Move up to 2 zones. No Opening presented."
+        },
+        {
+          "tier": 3,
+          "label": "Legendary",
+          "range": "8+",
+          "description": "Move up to 2 zones. No Opening presented. Gain [Optimized] on Dodge until end of round."
+        }
+      ]
     },
     {
       "id": "action_reload",
@@ -189,6 +209,40 @@
           "label": "Legendary",
           "range": "8+",
           "description": "Complete a complex task in a single action, or finish a standard task with a bonus outcome — the sliced terminal also reveals useful intel, the disarmed bomb yields salvageable components, the hotwired speeder starts silently."
+        }
+      ]
+    },
+    {
+      "id": "action_join_battle",
+      "name": "Join Battle",
+      "actionType": "Trigger",
+      "pip": "Free",
+      "rolled": true,
+      "tags": [
+        "[Combat]"
+      ],
+      "discipline": "tactics",
+      "arena": "wits",
+      "description": "Roll initiative when combat begins. Roll Tactics (Wits). Power = Roll. Your tier determines when you act and what bonus you carry into the first round.",
+      "risk": "Failed Control: You suffer round 1 penalties — you act last, your first action is [Weakened], and you do not gain a Trigger pip on round 1.",
+      "effect": [
+        {
+          "tier": 1,
+          "label": "Fleeting",
+          "range": "0-3",
+          "description": "Act in initiative order. No bonus."
+        },
+        {
+          "tier": 2,
+          "label": "Masterful",
+          "range": "4-7",
+          "description": "Act in initiative order. Gain [Optimized] on your first action of the encounter."
+        },
+        {
+          "tier": 3,
+          "label": "Legendary",
+          "range": "8+",
+          "description": "Act first in initiative order. Gain [Optimized] on your first action of the encounter."
         }
       ]
     },
@@ -974,7 +1028,7 @@
       "gambits": [
         {
           "id": "gambit_ranged_d8",
-          "name": "Covering Fire",
+          "name": "Suppressive Fire",
           "requiredDie": "D8",
           "modifiesAction": "action_attack",
           "tags": [
@@ -1063,7 +1117,7 @@
             "[Force]",
             "[Both]"
           ],
-          "rule": "After resolving an Assess, spend 1 tier. You cannot be surprised until the end of the scene. Ambushes against you automatically fail — you act in the first round regardless of Stealth results.",
+          "rule": "After resolving an Assess, spend 1 tier. You cannot be surprised until the end of the scene. Ambushes against you automatically fail — you act in the first round regardless of Stealth results. If your Join Battle roll results in Failed Control, you still act in the first round without penalty.",
           "duration": "Scene"
         },
         {
@@ -1082,13 +1136,13 @@
           "id": "gambit_sense_d12",
           "name": "Precognition",
           "requiredDie": "D12",
-          "modifiesAction": "action_dodge",
+          "modifiesAction": "action_assess",
           "tags": [
             "[Force]",
-            "[Combat]"
+            "[Both]"
           ],
-          "rule": "After resolving a Dodge defense, spend 1 tier. You saw it coming before it happened. Your Dodge automatically succeeds at Masterful tier (if your roll was lower), and you gain [Optimized] on your next action against the attacker.",
-          "duration": "Immediate"
+          "rule": "After resolving an Assess, spend 1 tier. The Force shows you the shape of incoming violence before it arrives. Gain [Optimized] on Endure and Dodge defense rolls. Tactical.",
+          "duration": "Tactical"
         }
       ]
     },
@@ -1101,35 +1155,35 @@
           "id": "gambit_skulduggery_d8",
           "name": "Sleight of Hand",
           "requiredDie": "D8",
-          "modifiesAction": "action_assess",
+          "modifiesAction": "action_interact",
           "tags": [
             "[Narrative]"
           ],
-          "rule": "After resolving a social or investigative action [Narrative], spend 1 tier. You plant or lift one small item (tracking device, data chip, holdout blaster, keycard) without the target noticing. The GM adjudicates what counts as 'small.'",
+          "rule": "After resolving an Interact, spend 1 tier. You plant or lift one small item (tracking device, data chip, holdout blaster, keycard) without the target noticing in the same action. The GM adjudicates what counts as 'small.'",
           "duration": "Immediate"
         },
         {
           "id": "gambit_skulduggery_d10",
           "name": "Bypass",
           "requiredDie": "D10",
-          "modifiesAction": "action_assess",
+          "modifiesAction": "action_interact",
           "tags": [
             "[Both]"
           ],
-          "rule": "After resolving an Assess or interaction with a lock, trap, or security device, spend 1 tier. You disable it silently. No alarm, no trace. If the device has a difficulty rating higher than your result, you disable it but leave evidence of tampering.",
+          "rule": "After resolving an Interact with a lock, trap, or security device, spend 1 tier. You disable it without leaving any evidence of tampering. No alarm, no trace, no sign the device was ever touched.",
           "duration": "Immediate"
         },
         {
           "id": "gambit_skulduggery_d12",
-          "name": "Filch",
+          "name": "Holdout",
           "requiredDie": "D12",
           "modifiesAction": "action_attack",
           "tags": [
-            "[Melee]",
-            "[Unarmed]"
+            "[Combat]",
+            "[Hold-Out]"
           ],
-          "rule": "After resolving a melee Attack [Melee, Unarmed], spend 1 tier. Instead of dealing damage, you steal one visible item from the target — a weapon, a grenade, a data pad. The item must be accessible (holstered, belted, pocketed). The target doesn't realize it's gone until they reach for it.",
-          "duration": "Immediate"
+          "rule": "After resolving an Attack, spend 1 tier. You draw and fire a concealed hold-out weapon in one fluid motion — the weapon was hidden and the attack came without warning. The target gains [Disoriented] Tactical.",
+          "duration": "Tactical"
         }
       ]
     },
@@ -1140,36 +1194,36 @@
       "gambits": [
         {
           "id": "gambit_stealth_d8",
-          "name": "Soft Step",
+          "name": "Leave No Trace",
           "requiredDie": "D8",
           "modifiesAction": "action_move",
           "tags": [
-            "[Combat]"
+            "[Narrative]"
           ],
-          "rule": "After resolving a Move, spend 1 tier. Your movement does not provoke Openings this turn — even if you are Engaged or moving through a hostile zone. You slip past without drawing attention.",
+          "rule": "After resolving a Move, spend 1 tier. You leave no physical evidence of your passage — no footprints, no displaced objects, no scent trail. Attempts to track you through this area automatically fail unless the tracker has supernatural means.",
           "duration": "Immediate"
         },
         {
           "id": "gambit_stealth_d10",
-          "name": "Ambush Strike",
+          "name": "Lying Low",
           "requiredDie": "D10",
-          "modifiesAction": "action_attack",
+          "modifiesAction": "action_join_battle",
           "tags": [
             "[Combat]"
           ],
-          "rule": "Only usable on your first attack of a combat scene (before you have acted). After resolving an Attack, spend 1 tier. Step Up the Effect by 1 Tier. The target had no idea you were there.",
-          "duration": "Immediate"
+          "rule": "After resolving Join Battle, spend 1 tier of initiative. You blend into the chaos of the opening moment. You cannot be targeted by any enemy during round 1 of combat.",
+          "duration": "Tactical"
         },
         {
           "id": "gambit_stealth_d12",
-          "name": "Ghost Exit",
+          "name": "Vanish",
           "requiredDie": "D12",
           "modifiesAction": "action_move",
           "tags": [
-            "[Combat]"
+            "[Narrative]"
           ],
-          "rule": "After resolving a Move, spend 1 tier. You break line of sight and vanish from the encounter. Enemies cannot target you or track you until the start of the next round. You may re-enter the encounter from any zone adjacent to your exit point. Requires breaking line of sight (cover, doorway, smoke, darkness).",
-          "duration": "Tactical"
+          "rule": "After resolving a Move, spend 1 tier. You disappear from the scene while attention is elsewhere. You are simply gone — no one saw you leave, and no one can determine where you went without supernatural means or dedicated investigation.",
+          "duration": "Immediate"
         }
       ]
     },
@@ -1180,36 +1234,36 @@
       "gambits": [
         {
           "id": "gambit_survival_d8",
-          "name": "Tracker's Eye",
+          "name": "Forage",
           "requiredDie": "D8",
-          "modifiesAction": "action_assess",
+          "modifiesAction": "action_interact",
           "tags": [
-            "[Both]"
+            "[Narrative]"
           ],
-          "rule": "After resolving an Assess, spend 1 tier. You identify tracks, signs of passage, or environmental clues that reveal a target's direction of travel, approximate numbers, and how long ago they passed. In combat, you gain [Optimized] on your next attack against a target you've tracked.",
+          "rule": "After resolving an Interact in a natural or settled environment, spend 1 tier. You find enough food, water, and basic supplies to sustain up to 5 individuals for one Long Rest. The GM adjudicates availability based on the environment.",
           "duration": "Immediate"
         },
         {
           "id": "gambit_survival_d10",
-          "name": "Hardened",
+          "name": "Natural Remedy",
           "requiredDie": "D10",
-          "modifiesAction": "action_endure",
+          "modifiesAction": "action_treat_injury",
           "tags": [
-            "[Both]"
+            "[Narrative]"
           ],
-          "rule": "After resolving an Endure defense against an environmental hazard (fire, cold, vacuum, toxic atmosphere, falling), spend 1 tier. Reduce the hazard's effect by 1 Tier and gain immunity to that specific hazard source until the end of the scene. Your body has adapted.",
-          "duration": "Scene"
+          "rule": "After resolving a Treat Injury during a Short Rest, spend 1 tier. One patient avoids gaining [Stimmed] from this treatment. Requires access to a natural environment — herbs, clean water, or organic compounds replace synthetic medicine.",
+          "duration": "Immediate"
         },
         {
           "id": "gambit_survival_d12",
-          "name": "Kill Zone",
+          "name": "Pathfinder",
           "requiredDie": "D12",
           "modifiesAction": "action_assess",
           "tags": [
-            "[Combat]"
+            "[Narrative]"
           ],
-          "rule": "After resolving an Assess in a natural or rugged environment, spend 1 tier. You read the terrain and identify a kill zone — one zone you designate becomes treacherous ground. Enemies entering or starting their turn in that zone gain [Slowed] and [Exposed] to Ranged attacks. Requires natural terrain features (loose rock, dense brush, unstable ground).",
-          "duration": "Tactical"
+          "rule": "After resolving an Assess, spend 1 tier. You chart a highly actionable route through the terrain. The GM reveals one complication or opportunity along the path, and all actions taken to navigate or avoid hazards on that route gain [Optimized].",
+          "duration": "Scene"
         }
       ]
     },
@@ -1222,34 +1276,35 @@
           "id": "gambit_tactics_d8",
           "name": "Coordinated Fire",
           "requiredDie": "D8",
-          "modifiesAction": "action_assess",
+          "modifiesAction": "action_aim",
           "tags": [
             "[Combat]"
           ],
-          "rule": "After resolving an Assess, spend 1 tier. Designate one target. The next ally to attack that target this round gains [Optimized] on their attack roll.",
+          "rule": "After resolving an Aim, spend 1 tier. Share your Aim benefit at the reduced tier with one ally who can hear you. That ally gains [Optimized] on their next attack against the same target.",
           "duration": "Immediate"
         },
         {
           "id": "gambit_tactics_d10",
           "name": "Tactical Reposition",
           "requiredDie": "D10",
-          "modifiesAction": "action_coordinate",
+          "modifiesAction": "action_move",
           "tags": [
             "[Combat]"
           ],
-          "rule": "After resolving a Command, spend 1 tier. One willing ally in your zone or an adjacent zone may immediately move 1 zone as a free action. This movement does not provoke Openings.",
+          "rule": "After resolving a Move, spend 1 tier. One ally who can hear you may spend their Trigger pip to immediately perform the same Move effect at your reduced tier. Their movement does not provoke Openings.",
           "duration": "Immediate"
         },
         {
           "id": "gambit_tactics_d12",
-          "name": "Masterstroke",
+          "name": "Covering Fire",
           "requiredDie": "D12",
-          "modifiesAction": "action_assess",
+          "modifiesAction": "action_attack",
           "tags": [
-            "[Combat]"
+            "[Combat]",
+            "[Ranged]"
           ],
-          "rule": "After resolving an Assess, spend 1 tier. This also costs your Action pip. All allies who can hear you gain [Optimized] on their next action this round. You sacrifice your own action to elevate the entire squad.",
-          "duration": "Immediate"
+          "rule": "After resolving a ranged Attack, spend 1 tier. Choose one ally. The target cannot use Triggers against that ally. Tactical. This effect breaks immediately if the chosen ally engages the target in melee or attacks the target directly.",
+          "duration": "Tactical"
         }
       ]
     },
@@ -1260,36 +1315,36 @@
       "gambits": [
         {
           "id": "gambit_tech_d8",
-          "name": "Quick Patch",
+          "name": "Overclock",
           "requiredDie": "D8",
-          "modifiesAction": "action_assess",
+          "modifiesAction": "action_interact",
           "tags": [
             "[Both]"
           ],
-          "rule": "After resolving an Assess or interaction with a device, spend 1 tier. You perform a temporary repair on one piece of damaged equipment or a disabled system. The fix lasts until the end of the scene — after that, it needs proper attention.",
+          "rule": "After resolving an Interact with a device, spend 1 tier. The device's actions gain [Empowered] for the rest of the scene. However, any natural 1 rolled on the Power die while the device is overclocked immediately disables the device — it shuts down and requires repair.",
           "duration": "Scene"
         },
         {
           "id": "gambit_tech_d10",
-          "name": "Slice",
+          "name": "Splice",
           "requiredDie": "D10",
-          "modifiesAction": "action_assess",
+          "modifiesAction": "action_interact",
           "tags": [
             "[Both]"
           ],
-          "rule": "After resolving an Assess against a networked system (terminal, droid, security grid, comms array), spend 1 tier. You gain access. In narrative scenes, you extract data or plant commands. In combat, you may disable one electronic system in the zone (lights, doors, turrets, comms) for Tactical duration.",
-          "duration": "Tactical"
+          "rule": "After resolving an Interact with a networked system, spend 1 tier. Gain a Fleeting Assess — ask the GM one question about data, surveillance feeds, communications, or system status connected to the device you spliced.",
+          "duration": "Immediate"
         },
         {
           "id": "gambit_tech_d12",
-          "name": "Override",
+          "name": "Astrogation",
           "requiredDie": "D12",
           "modifiesAction": "action_assess",
           "tags": [
-            "[Both]"
+            "[Narrative]"
           ],
-          "rule": "After resolving an Assess against a droid or automated system, spend 1 tier. You take control of the target for 1 round. The droid or system acts on your behalf — firing at its allies, opening locked doors, transmitting false data. After the round, control is lost and the system locks you out.",
-          "duration": "Tactical"
+          "rule": "After resolving an Assess, spend 1 tier. You calculate a hyperspace route or complex navigation solution. All navigation actions on this route gain [Optimized]. The GM reveals one complication or opportunity along the calculated path.",
+          "duration": "Scene"
         }
       ]
     },
@@ -1386,36 +1441,36 @@
       "gambits": [
         {
           "id": "gambit_beast_handling_d8",
-          "name": "Steady Command",
+          "name": "Read the Beast",
           "requiredDie": "D8",
-          "modifiesAction": "action_command_beast",
+          "modifiesAction": "action_assess",
           "tags": [
             "[Both]"
           ],
-          "rule": "After resolving a Command directed at a creature or mount, spend 1 tier. The creature follows your next instruction without hesitation — it does not spook, bolt, or resist. Lasts until the end of its next action.",
-          "duration": "Tactical"
+          "rule": "After resolving an Assess, spend 1 tier. The GM reveals the beast's temperament and one behavioral trigger — what calms it, what enrages it, or what it fears. Does not countermand an active command on trained beasts.",
+          "duration": "Immediate"
         },
         {
           "id": "gambit_beast_handling_d10",
-          "name": "War Mount",
+          "name": "Steady Nerve",
           "requiredDie": "D10",
-          "modifiesAction": "action_command_beast",
+          "modifiesAction": "action_interact",
           "tags": [
-            "[Combat]"
+            "[Both]"
           ],
-          "rule": "When your beast Attacks after a successful Command Beast, spend 1 tier. The beast's charge deals additional damage — the attack gains [Empowered (Physique)] from momentum. Still costs your Action.",
-          "duration": "Immediate"
+          "rule": "After resolving an Interact, spend 1 tier. Suppress a beast's hostility or panic. Tactical. The beast will not attack or flee while the effect lasts. Does not work on beasts currently in combat or trained beasts following an active command. Does not countermand an active command on trained beasts.",
+          "duration": "Tactical"
         },
         {
           "id": "gambit_beast_handling_d12",
-          "name": "Pack Alpha",
+          "name": "Beast Whisperer",
           "requiredDie": "D12",
-          "modifiesAction": "action_command_beast",
+          "modifiesAction": "action_interact",
           "tags": [
-            "[Combat]"
+            "[Narrative]"
           ],
-          "rule": "After resolving a Command, spend 1 tier. All friendly creatures within earshot (your zone + adjacent zones) immediately act on your initiative this round, gaining [Optimized] on their next action. You are the pack leader — when you call, they answer.",
-          "duration": "Immediate"
+          "rule": "After resolving an Interact, spend 1 tier. Establish temporary rapport with a beast. You may make one significant request — guard a location, carry a rider, lead you to water, or track a scent. The beast cooperates willingly for the scene. Does not countermand an active command on trained beasts.",
+          "duration": "Scene"
         }
       ]
     }

@@ -37,6 +37,7 @@
     'Action':   { pip: 'A', color: 'var(--color-accent-red, #ef4444)' },
     'Maneuver': { pip: 'M', color: 'var(--color-accent-amber, #f59e0b)' },
     'Trigger':  { pip: 'T', color: 'var(--color-accent-blue, #3b82f6)' },
+    'Free':     { pip: 'F', color: 'var(--color-accent-green, #22c55e)' },
   };
 
   function _esc(str) {
@@ -134,7 +135,11 @@
     return html;
   }
 
-  function _pipBadge(actionType) {
+  function _pipBadge(actionType, customPip) {
+    if (customPip && ACTION_TYPE_LABELS[customPip]) {
+      var customInfo = ACTION_TYPE_LABELS[customPip];
+      return '<span class="manv-pip-badge" style="background:' + customInfo.color + ';">' + customInfo.pip + '</span>';
+    }
     var info = ACTION_TYPE_LABELS[actionType];
     if (!info) return '';
     return '<span class="manv-pip-badge" style="background:' + info.color + ';">' + info.pip + '</span>';
@@ -191,7 +196,7 @@
       '<div class="manv-card manv-universal-card" data-action-id="' + _esc(action.id) + '">' +
         '<div class="manv-header">' +
           '<div class="manv-header-left">' +
-            _pipBadge(action.actionType) +
+            _pipBadge(action.actionType, action.pip) +
             '<span class="manv-name">' + _esc(action.name) + '</span>' +
           '</div>' +
           discDieHtml +

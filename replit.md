@@ -46,7 +46,7 @@ A Star Wars TTRPG electronic character sheet and campaign management system buil
 - `data/kits.json` — Kit specialization definitions
 - `data/gamesystem.json` — Core resolution rules reference
 - `data/threats.json` — NPC/threat rules and trigger system
-- `data/maneuvers.json` — universal actions + discipline gambits (object: `universalActions[11]`, `forceManeuvers[3]`, `disciplineGambits{25 sets, 75 gambits}`, `advancedManeuvers[]`)
+- `data/maneuvers.json` — universal actions + discipline gambits (object: `universalActions[14]` incl. Join Battle, `forceManeuvers[3]`, `disciplineGambits{25 sets, 75 gambits}`, `advancedManeuvers[]`). Move action has explicit combat tiers. Join Battle uses Trigger type with Free pip.
 - `data/glossary.json` — 54 entries including 23 conditions + Natural Recovery rule with conditionType/pcEffect/npcEffect fields
 - `data/adventures.json` — structured adventure content (adventures → parts → scenes)
 
