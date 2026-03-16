@@ -1282,6 +1282,46 @@
           "duration": "Tactical"
         }
       ]
+    },
+    "beast_handling": {
+      "disciplineId": "beast_handling",
+      "arenaId": "grit",
+      "name": "Beast Handling",
+      "gambits": [
+        {
+          "id": "gambit_beast_handling_d8",
+          "name": "Steady Command",
+          "requiredDie": "D8",
+          "modifiesAction": "action_command",
+          "tags": [
+            "[Both]"
+          ],
+          "rule": "After resolving a Command directed at a creature or mount, spend 1 tier. The creature follows your next instruction without hesitation — it does not spook, bolt, or resist. Lasts until the end of its next action.",
+          "duration": "Tactical"
+        },
+        {
+          "id": "gambit_beast_handling_d10",
+          "name": "War Mount",
+          "requiredDie": "D10",
+          "modifiesAction": "action_command",
+          "tags": [
+            "[Combat]"
+          ],
+          "rule": "After resolving a Command directed at your mount, spend 1 tier. Your mount performs an aggressive action — a charge, trample, or tail sweep — against one adjacent target. Treat as an Attack using your Beast Handling discipline die. The mount's size determines base damage: small (1), medium (2), large (3).",
+          "duration": "Immediate"
+        },
+        {
+          "id": "gambit_beast_handling_d12",
+          "name": "Pack Alpha",
+          "requiredDie": "D12",
+          "modifiesAction": "action_command",
+          "tags": [
+            "[Combat]"
+          ],
+          "rule": "After resolving a Command, spend 1 tier. All friendly creatures within earshot (your zone + adjacent zones) immediately act on your initiative this round, gaining [Optimized] on their next action. You are the pack leader — when you call, they answer.",
+          "duration": "Immediate"
+        }
+      ]
     }
   },
   "advancedManeuvers": []
