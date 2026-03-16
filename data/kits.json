@@ -342,42 +342,42 @@
         "tier": 1,
         "type": "passive",
         "name": "The Bond",
-        "rule": "You have a trained creature companion. Choose a creature type appropriate to your background (massiff, anooba, varactyl, tauntaun, etc.). Your companion acts on your initiative and can perform one Move or one simple action per round without requiring a Command. It follows basic instructions instinctively — stay, follow, guard, fetch. Complex or dangerous commands still require a Beast Handling roll."
+        "rule": "You have a trained creature companion. Choose a creature type appropriate to your background (massiff, anooba, varactyl, tauntaun, etc.). Your companion shares your action economy — it can Attack (costs your Action), Move (costs your Maneuver), or react (costs your Trigger). It cannot act independently. When your companion Attacks, roll your Beast Handling discipline die + the creature's Power die (D6 at Tier 1, D8 at Tier 2, D10 at Tier 3). The creature's Vitality equals your Grit arena score. If it drops to 0 Vitality, it is out of the fight until treated."
       },
       {
         "id": "beastmaster_pack_instinct",
         "tier": 1,
         "type": "passive",
         "name": "Pack Instinct",
-        "rule": "When you and your creature companion are in the same zone and both attack the same target in the same round, the second attack gains [Optimized]. The bond between handler and beast creates openings no solo fighter can exploit."
+        "rule": "When you spend a Maneuver to Command your companion into flanking position on a target, your next personal Attack against that target this round gains [Optimized]. The reverse also applies — if you engage a target in melee, then spend your Action to have your companion Attack the same target, the companion's Attack gains [Optimized]. Flanking requires you and your companion to be in the same zone as the target."
       },
       {
         "id": "beastmaster_sic",
         "tier": 2,
         "type": "gambit",
         "name": "Sic 'Em",
-        "rule": "After resolving a Command directed at your creature companion, spend 1 tier. Your companion immediately performs a full Attack action as a free action against a target you designate in its zone or an adjacent zone. This does not consume the companion's action for the round — pure predatory aggression on your word."
+        "rule": "After resolving a Command (Maneuver) directed at your creature companion, spend 1 tier. The companion's next Attack this round gains [Empowered (Grit)] — your command sharpens its aggression. The Attack still costs your Action as normal."
       },
       {
         "id": "beastmaster_shared_hide",
         "tier": 2,
         "type": "passive",
         "name": "Thick as Thieves",
-        "rule": "When your creature companion is in your zone, you may redirect one incoming attack per round to the companion instead of yourself. The companion uses its own Endure defense. Additionally, when your companion would take Vitality damage that would drop it, you may spend 1 Edge to keep it standing at 1 Vitality — it fights through the pain because you need it to."
+        "rule": "When your creature companion is in your zone, you may use your Trigger to have the companion intercept one incoming attack against you — the companion becomes the target and defends using its Endure. Additionally, when your companion would take Vitality damage that would reduce it to 0, you may spend 1 Edge to keep it at 1 Vitality instead."
       },
       {
         "id": "beastmaster_apex",
         "tier": 3,
         "type": "passive",
         "name": "Apex Predator",
-        "rule": "Your creature companion's attacks gain [Empowered (Grit)] — your will sharpens its fury. Additionally, enemies adjacent to your companion who attempt to Move away must succeed on an Evasion check or gain [Slowed]. The predator does not let prey escape."
+        "rule": "Your creature companion's Power die increases by one step (D8 at Tier 1, D10 at Tier 2, D12 at Tier 3). Additionally, enemies in your companion's zone who attempt to Move away must succeed on an Evasion check against your Beast Handling or gain [Slowed]. The predator does not let prey escape."
       },
       {
         "id": "beastmaster_feral_communion",
         "tier": 3,
         "type": "passive",
         "name": "Feral Communion",
-        "rule": "You can communicate with any creature — domesticated or wild — through body language, tone, and instinct. In narrative scenes, you may attempt a Beast Handling check to calm, redirect, or befriend any non-droid creature, even those trained by an enemy. In combat, you may spend 1 Edge to force an enemy creature to hesitate — it loses its next action unless its handler succeeds on a Beast Handling check opposed by yours."
+        "rule": "You can communicate with any creature through body language, tone, and instinct. In narrative scenes, you may attempt a Beast Handling check to calm, redirect, or befriend any non-droid creature, even those trained by an enemy. In combat, you may spend 1 Edge and your Action to force an enemy creature to hesitate — it loses its next action unless its handler succeeds on a Beast Handling check opposed by yours."
       }
     ]
   }
