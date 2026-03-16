@@ -108,6 +108,17 @@ function expandCharacterData(flat) {
 
   const engineArenas = kits.map(k => k.governingArena).filter(Boolean);
 
+  const weaponIds = Array.isArray(flat.weaponIds) ? flat.weaponIds.slice() : [];
+  const gearIds = Array.isArray(flat.gearIds) ? flat.gearIds.slice() : [];
+  let armorId = flat.armorId || null;
+  const startingGear = Array.isArray(flat.startingGear) ? flat.startingGear : [];
+  startingGear.forEach(item => {
+    if (!item || !item.id) return;
+    if (item.source === 'weapon') { if (weaponIds.indexOf(item.id) === -1) weaponIds.push(item.id); }
+    else if (item.source === 'armor') { if (!armorId) armorId = item.id; }
+    else if (item.source === 'gear') { if (gearIds.indexOf(item.id) === -1) gearIds.push(item.id); }
+  });
+
   return {
     name: flat.name || null,
     species: flat.species,
@@ -119,9 +130,9 @@ function expandCharacterData(flat) {
     phase2: flat.phase2 || null,
     phase3: flat.phase3 || null,
     vitalityModifier: 0,
-    weaponIds: [],
-    armorId: null,
-    gearIds: [],
+    weaponIds,
+    armorId,
+    gearIds,
     engine: kits.length > 0 ? Object.assign({}, ENGINE_DATA, { governingArenas: engineArenas }) : null,
     kits,
     talents: [],
