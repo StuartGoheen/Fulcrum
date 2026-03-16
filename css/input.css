@@ -5219,6 +5219,42 @@
     border-color: var(--color-accent-primary);
   }
 
+  .outfitting-market-toggle {
+    display: flex;
+    gap: 0;
+    flex-shrink: 0;
+  }
+
+  .outfitting-market-btn {
+    flex: 1;
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.48rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.6rem;
+    border: 1px solid var(--color-border);
+    background: transparent;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .outfitting-market-btn:first-child {
+    border-right: none;
+  }
+
+  .outfitting-market-btn.active {
+    background: var(--color-accent-primary);
+    color: #000;
+    border-color: var(--color-accent-primary);
+  }
+
+  .outfitting-market-btn[data-market="black-market"].active {
+    background: #CC3333;
+    border-color: #CC3333;
+    color: #fff;
+  }
+
   .outfitting-cat-filters {
     display: flex;
     gap: 0.25rem;
@@ -5253,12 +5289,19 @@
     gap: 0;
   }
 
+  .outfitting-item-wrapper {
+    border-bottom: 1px solid color-mix(in srgb, var(--color-border) 50%, transparent);
+  }
+
+  .outfitting-item-wrapper.expanded {
+    background: color-mix(in srgb, var(--color-accent-primary) 4%, transparent);
+  }
+
   .outfitting-item-row {
     display: flex;
     align-items: center;
     gap: 0.4rem;
     padding: 0.35rem 0.5rem;
-    border-bottom: 1px solid color-mix(in srgb, var(--color-border) 50%, transparent);
     transition: background 0.1s;
   }
 
@@ -5326,6 +5369,95 @@
     cursor: default;
     border-color: var(--color-border);
     color: var(--color-text-secondary);
+  }
+
+  .outfitting-avail-badge {
+    display: inline-block;
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.35rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.08rem 0.3rem;
+    vertical-align: middle;
+  }
+
+  .outfitting-avail-badge.restricted {
+    background: color-mix(in srgb, #e8a317 15%, transparent);
+    color: #e8a317;
+    border: 1px solid color-mix(in srgb, #e8a317 40%, transparent);
+  }
+
+  .outfitting-avail-badge.illegal {
+    background: color-mix(in srgb, #CC3333 15%, transparent);
+    color: #CC3333;
+    border: 1px solid color-mix(in srgb, #CC3333 40%, transparent);
+  }
+
+  .outfitting-detail {
+    padding: 0.3rem 0.5rem 0.5rem 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    border-top: 1px solid color-mix(in srgb, var(--color-border) 30%, transparent);
+  }
+
+  .outfitting-detail-desc {
+    font-size: 0.52rem;
+    color: var(--color-text-secondary);
+    line-height: 1.45;
+    margin: 0;
+  }
+
+  .outfitting-detail-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem 0.6rem;
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.4rem;
+    letter-spacing: 0.05em;
+    color: var(--color-text-secondary);
+  }
+
+  .outfitting-detail-trait,
+  .outfitting-detail-gambit {
+    font-size: 0.5rem;
+    color: var(--color-text-secondary);
+    line-height: 1.4;
+    padding: 0.25rem 0.35rem;
+    background: color-mix(in srgb, var(--color-border) 20%, transparent);
+    border-left: 2px solid var(--color-accent-primary);
+  }
+
+  .outfitting-detail-gambit {
+    border-left-color: #e8a317;
+  }
+
+  .outfitting-trait-label,
+  .outfitting-gambit-label {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.42rem;
+    letter-spacing: 0.06em;
+    color: var(--color-accent-primary);
+  }
+
+  .outfitting-gambit-label {
+    color: #e8a317;
+  }
+
+  .outfitting-detail-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem;
+  }
+
+  .outfitting-tag-pill {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.35rem;
+    letter-spacing: 0.06em;
+    padding: 0.1rem 0.3rem;
+    border: 1px solid color-mix(in srgb, var(--color-border) 60%, transparent);
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
   }
 
   .outfitting-empty {

@@ -1882,13 +1882,40 @@
       fetch('/data/armor.json').then(function(r) { return r.json(); }),
     ]).then(function(results) {
       var gear = results[0].map(function(item) {
-        return { id: item.id, name: item.name, cost: item.cost || 0, category: item.categoryLabel || item.category || 'Gear', source: 'gear', description: item.description || '' };
+        return {
+          id: item.id, name: item.name, cost: item.cost || 0,
+          category: item.categoryLabel || item.category || 'Gear',
+          source: 'gear', description: item.description || '',
+          availability: item.availability || '',
+          tags: item.tags || [],
+          traits: item.traits || [],
+          gambits: item.gambits || []
+        };
       });
       var weapons = results[1].map(function(item) {
-        return { id: item.id, name: item.name, cost: item.cost || 0, category: item.chassisLabel || 'Weapon', source: 'weapon', description: item.description || '' };
+        return {
+          id: item.id, name: item.name, cost: item.cost || 0,
+          category: item.chassisLabel || 'Weapon',
+          source: 'weapon', description: item.description || '',
+          availability: item.availability || '',
+          tags: item.tags || [],
+          trait: item.trait || null,
+          gambits: item.gambits || [],
+          chassisLabel: item.chassisLabel || '',
+          range: item.range || null,
+          clipSize: item.clipSize || null,
+          stunSetting: item.stunSetting || false
+        };
       });
       var armor = results[2].map(function(item) {
-        return { id: item.id, name: item.name, cost: item.cost || 0, category: item.categoryLabel || 'Armor', source: 'armor', description: item.description || '' };
+        return {
+          id: item.id, name: item.name, cost: item.cost || 0,
+          category: item.categoryLabel || 'Armor',
+          source: 'armor', description: item.description || '',
+          availability: item.availability || '',
+          tags: item.tags || [],
+          traits: item.traits || []
+        };
       });
       OUTFITTING_CATALOG = gear.concat(weapons).concat(armor);
       OUTFITTING_CATALOG.sort(function(a, b) { return a.cost - b.cost; });
@@ -1946,6 +1973,25 @@
     searchRow.appendChild(searchInput);
     catalogPanel.appendChild(searchRow);
 
+    var marketToggle = document.createElement('div');
+    marketToggle.className = 'outfitting-market-toggle';
+    var activeMarket = 'market';
+    ['market', 'black-market'].forEach(function(mk) {
+      var btn = document.createElement('button');
+      btn.className = 'outfitting-market-btn' + (mk === activeMarket ? ' active' : '');
+      btn.textContent = mk === 'market' ? 'Market' : 'Black Market';
+      btn.dataset.market = mk;
+      btn.addEventListener('click', function() {
+        activeMarket = mk;
+        marketToggle.querySelectorAll('.outfitting-market-btn').forEach(function(b) {
+          b.classList.toggle('active', b.dataset.market === mk);
+        });
+        renderCatalogItems();
+      });
+      marketToggle.appendChild(btn);
+    });
+    catalogPanel.appendChild(marketToggle);
+
     var catFilters = document.createElement('div');
     catFilters.className = 'outfitting-cat-filters';
     var categories = ['All', 'Gear', 'Weapons', 'Armor'];
@@ -1993,11 +2039,94 @@
 
     searchInput.addEventListener('input', function() { renderCatalogItems(); });
 
+    function isRestricted(avail) {
+      return /R|X/.test(avail || '');
+    }
+
+    function availLabel(avail) {
+      if (!avail) return '';
+      if (avail.indexOf('X') >= 0) return 'Illegal';
+      if (avail.indexOf('R') >= 0) return 'Restricted';
+      return '';
+    }
+
+    function buildDetailPanel(item) {
+      var d = document.createElement('div');
+      d.className = 'outfitting-detail';
+
+      if (item.description) {
+        var desc = document.createElement('p');
+        desc.className = 'outfitting-detail-desc';
+        desc.textContent = item.description;
+        d.appendChild(desc);
+      }
+
+      if (item.source === 'weapon') {
+        var meta = document.createElement('div');
+        meta.className = 'outfitting-detail-meta';
+        if (item.chassisLabel) meta.innerHTML += '<span>Chassis: ' + item.chassisLabel + '</span>';
+        if (item.range && item.range.length) meta.innerHTML += '<span>Range: ' + item.range.join(' / ') + 'm</span>';
+        if (item.clipSize) meta.innerHTML += '<span>Clip: ' + item.clipSize + '</span>';
+        if (item.stunSetting) meta.innerHTML += '<span>Stun: Yes</span>';
+        if (item.availability) meta.innerHTML += '<span>Avail: ' + item.availability + '</span>';
+        d.appendChild(meta);
+      }
+
+      if (item.source === 'armor' && item.availability) {
+        var aMeta = document.createElement('div');
+        aMeta.className = 'outfitting-detail-meta';
+        aMeta.innerHTML = '<span>Avail: ' + item.availability + '</span>';
+        d.appendChild(aMeta);
+      }
+
+      if (item.trait) {
+        var tb = document.createElement('div');
+        tb.className = 'outfitting-detail-trait';
+        tb.innerHTML = '<span class="outfitting-trait-label">' + item.trait.name + '</span> ' + item.trait.description;
+        d.appendChild(tb);
+      }
+
+      var traitArr = item.traits || [];
+      traitArr.forEach(function(t) {
+        var tb = document.createElement('div');
+        tb.className = 'outfitting-detail-trait';
+        tb.innerHTML = '<span class="outfitting-trait-label">' + (t.name || '') + '</span> ' + (t.description || t.rule || '');
+        d.appendChild(tb);
+      });
+
+      var gArr = item.gambits || [];
+      gArr.forEach(function(g) {
+        var gb = document.createElement('div');
+        gb.className = 'outfitting-detail-gambit';
+        gb.innerHTML = '<span class="outfitting-gambit-label">Gambit: ' + g.name + '</span> ' + (g.rule || '');
+        d.appendChild(gb);
+      });
+
+      if (item.tags && item.tags.length) {
+        var pills = document.createElement('div');
+        pills.className = 'outfitting-detail-tags';
+        item.tags.forEach(function(t) {
+          var pill = document.createElement('span');
+          pill.className = 'outfitting-tag-pill';
+          pill.textContent = t;
+          pills.appendChild(pill);
+        });
+        d.appendChild(pills);
+      }
+
+      return d;
+    }
+
+    var expandedItemId = null;
+
     function renderCatalogItems() {
       var query = searchInput.value.trim().toLowerCase();
       itemList.innerHTML = '';
 
       var filtered = OUTFITTING_CATALOG.filter(function(item) {
+        var restricted = isRestricted(item.availability);
+        if (activeMarket === 'market' && restricted) return false;
+        if (activeMarket === 'black-market' && !restricted) return false;
         if (activeCat === 'Weapons' && item.source !== 'weapon') return false;
         if (activeCat === 'Armor' && item.source !== 'armor') return false;
         if (activeCat === 'Gear' && item.source !== 'gear') return false;
@@ -2022,19 +2151,38 @@
       }
 
       filtered.forEach(function(item) {
+        var wrapper = document.createElement('div');
+        wrapper.className = 'outfitting-item-wrapper' + (expandedItemId === item.id ? ' expanded' : '');
+
         var row = document.createElement('div');
         row.className = 'outfitting-item-row';
 
         var info = document.createElement('div');
         info.className = 'outfitting-item-info';
+        info.style.cursor = 'pointer';
         var nameEl = document.createElement('span');
         nameEl.className = 'outfitting-item-name';
         nameEl.textContent = item.name;
-        var catEl = document.createElement('span');
-        catEl.className = 'outfitting-item-cat';
-        catEl.textContent = item.category;
+        var catLine = document.createElement('span');
+        catLine.className = 'outfitting-item-cat';
+        var catText = item.category;
+        var al = availLabel(item.availability);
+        if (al) catText += '  \u2022  ' + al;
+        catLine.textContent = catText;
+        if (al) {
+          var badge = document.createElement('span');
+          badge.className = 'outfitting-avail-badge' + (al === 'Illegal' ? ' illegal' : ' restricted');
+          badge.textContent = al;
+          catLine.textContent = item.category + '  ';
+          catLine.appendChild(badge);
+        }
         info.appendChild(nameEl);
-        info.appendChild(catEl);
+        info.appendChild(catLine);
+
+        info.addEventListener('click', function() {
+          expandedItemId = expandedItemId === item.id ? null : item.id;
+          renderCatalogItems();
+        });
 
         var priceEl = document.createElement('span');
         priceEl.className = 'outfitting-item-price';
@@ -2045,14 +2193,21 @@
         addBtn.textContent = '+';
         var canAfford = outfittingCreditsRemaining() >= item.cost;
         addBtn.disabled = !canAfford;
-        addBtn.addEventListener('click', function() {
+        addBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
           addToLoadout(item);
         });
 
         row.appendChild(info);
         row.appendChild(priceEl);
         row.appendChild(addBtn);
-        itemList.appendChild(row);
+        wrapper.appendChild(row);
+
+        if (expandedItemId === item.id) {
+          wrapper.appendChild(buildDetailPanel(item));
+        }
+
+        itemList.appendChild(wrapper);
       });
     }
 
