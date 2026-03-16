@@ -61,6 +61,10 @@
 
   var DIE_ORDER = ['D4', 'D6', 'D8', 'D10', 'D12'];
 
+  function _dieIndex(dieStr) {
+    return DIE_ORDER.indexOf(dieStr.toUpperCase());
+  }
+
   var DISCIPLINE_MAP = {
     'ranged':       { arenaId: 'reflex',   discId: 'ranged'       },
     'heavyweapons': { arenaId: 'physique', discId: 'heavyweapons' },
