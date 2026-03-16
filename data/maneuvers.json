@@ -22,7 +22,7 @@
       "tags": [
         "[Combat]"
       ],
-      "description": "Line up a careful shot or study a target's defenses. Roll the relevant discipline vs Static Risk 4.",
+      "description": "Line up a careful shot or study a target's defenses. Roll the relevant discipline. Power = Roll.",
       "risk": "Focusing too hard on aiming may leave you open — presenting an Opening if you fail.",
       "effect": [
         {
@@ -100,7 +100,7 @@
       "tags": [
         "[Both]"
       ],
-      "description": "Study a target or situation. Roll a relevant discipline vs Static Risk 4 (or target's Resolve in social contexts). Ask the GM questions about the target — their condition, intentions, capabilities, or weaknesses.",
+      "description": "Study a target or situation. Roll a relevant discipline. Power = Roll for environmental assessment; vs target's Resolve in social or opposed contexts. Ask the GM one question per tier of effect.",
       "risk": "Over-analyzing may leave you distracted — presenting an Opening on failure.",
       "effect": [
         {
@@ -124,18 +124,6 @@
       ]
     },
     {
-      "id": "action_command",
-      "name": "Command",
-      "actionType": "Maneuver",
-      "pip": "M",
-      "rolled": true,
-      "tags": [
-        "[Both]"
-      ],
-      "description": "Direct a beast companion or allied NPC to take a specific action. Roll Beast Handling (Grit) for creatures, or an appropriate social discipline for NPCs, vs Static Risk 4.",
-      "risk": "The beast or NPC may misinterpret the command or refuse — wasting the action."
-    },
-    {
       "id": "action_treat_injury",
       "name": "Treat Injury",
       "actionType": "Action",
@@ -144,7 +132,7 @@
       "tags": [
         "[Narrative]"
       ],
-      "description": "Perform medical treatment on self or ally. Roll Medicine (Wits) vs Static Risk 4 + target's [Stimmed] rating. Primarily used during Short and Long Rests to enhance Natural Recovery baselines (Short Rest: 1 Trauma, Long Rest: 2 Trauma + 1 Vitality). Consuming a Medpac adds +1 Tier to the result (patient gains [Stimmed] +1). See [Natural Recovery].",
+      "description": "Perform medical treatment on self or ally. Roll Medicine (Wits). Power = Roll, but each point of [Stimmed] on the patient steps down your Medicine Power die by one size (D12→D10→D8→D6→D4). Primarily used during Short and Long Rests to enhance [Natural Recovery] baselines. Consuming a Medpac adds +1 Tier (patient gains [Stimmed] +1).",
       "risk": "Botching treatment may worsen the patient's condition.",
       "effect": [
         {
@@ -191,6 +179,70 @@
       ],
       "description": "Reactive absorption defense. When targeted by an attack, roll Endure (Physique) to absorb or reduce the incoming damage. Uses your Trigger pip.",
       "risk": "If you fail, the attack lands fully."
+    },
+    {
+      "id": "action_coordinate",
+      "name": "Coordinate",
+      "actionType": "Maneuver",
+      "pip": "M",
+      "rolled": true,
+      "tags": [
+        "[Combat]"
+      ],
+      "description": "Direct NPC allies to act with purpose. Roll Tactics (Wits). Power = Roll.",
+      "risk": "NPCs may hesitate, misinterpret, or refuse suicidal orders.",
+      "effect": [
+        {
+          "tier": 1,
+          "label": "Fleeting",
+          "range": "0-3",
+          "description": "One NPC performs a basic action — hold position, fall back, suppressing fire. No creativity."
+        },
+        {
+          "tier": 2,
+          "label": "Masterful",
+          "range": "4-7",
+          "description": "NPC acts with initiative and timing. One ally gains [Optimized] on their next action."
+        },
+        {
+          "tier": 3,
+          "label": "Legendary",
+          "range": "8+",
+          "description": "Up to 3 NPC allies execute a synchronized action. All gain [Optimized]."
+        }
+      ]
+    },
+    {
+      "id": "action_command_beast",
+      "name": "Command Beast",
+      "actionType": "Maneuver",
+      "pip": "M",
+      "rolled": true,
+      "tags": [
+        "[Both]"
+      ],
+      "description": "Direct a beast companion to act. Roll Beast Handling (Grit). Power = Roll. The creature shares your action economy — commanding it costs your Maneuver, and if the creature Attacks, it costs your Action.",
+      "risk": "Untrained or spooked creatures may resist, bolt, or act on instinct.",
+      "effect": [
+        {
+          "tier": 1,
+          "label": "Fleeting",
+          "range": "0-3",
+          "description": "Creature obeys a simple instruction — move, stay, guard. Positioning only, no attacks."
+        },
+        {
+          "tier": 2,
+          "label": "Masterful",
+          "range": "4-7",
+          "description": "Creature acts with purpose. If directing it to Attack (costs your Action), the attack gains [Optimized]."
+        },
+        {
+          "tier": 3,
+          "label": "Legendary",
+          "range": "8+",
+          "description": "Perfect communion. Beast Attack gains [Optimized] + [Empowered (Grit)]. Creature is immune to fear until end of round."
+        }
+      ]
     }
   ],
   "forceManeuvers": [
@@ -206,7 +258,7 @@
         "[Force]",
         "[Both]"
       ],
-      "description": "Channel the Force inward to regulate body and spirit. Roll Control (Grit) vs Static Risk 4.",
+      "description": "Channel the Force inward to regulate body and spirit. Roll Control (Grit). Power = Roll.",
       "risk": "Failure disrupts your inner calm — you may present an Opening as your focus fragments.",
       "effect": [
         {
@@ -241,7 +293,7 @@
         "[Force]",
         "[Both]"
       ],
-      "description": "Expand awareness beyond physical senses. Roll Sense (Wits) vs Static Risk 4.",
+      "description": "Expand awareness beyond physical senses. Roll Sense (Wits). Power = Roll.",
       "risk": "Overextending your senses may leave you vulnerable — presenting an Opening.",
       "effect": [
         {
@@ -276,7 +328,7 @@
         "[Force]",
         "[Both]"
       ],
-      "description": "Project the Force outward to manipulate the physical world. Roll Alter (Presence) vs Static Risk 4 (or target's Defense for resisted effects).",
+      "description": "Project the Force outward to manipulate the physical world. Roll Alter (Presence). Power = Roll for unresisted effects; vs target's Defense for opposed uses.",
       "risk": "Losing control of the Force may cause unintended collateral damage or present an Opening.",
       "effect": [
         {
@@ -1137,7 +1189,7 @@
           "id": "gambit_tactics_d10",
           "name": "Tactical Reposition",
           "requiredDie": "D10",
-          "modifiesAction": "action_command",
+          "modifiesAction": "action_coordinate",
           "tags": [
             "[Combat]"
           ],
@@ -1292,7 +1344,7 @@
           "id": "gambit_beast_handling_d8",
           "name": "Steady Command",
           "requiredDie": "D8",
-          "modifiesAction": "action_command",
+          "modifiesAction": "action_command_beast",
           "tags": [
             "[Both]"
           ],
@@ -1303,18 +1355,18 @@
           "id": "gambit_beast_handling_d10",
           "name": "War Mount",
           "requiredDie": "D10",
-          "modifiesAction": "action_command",
+          "modifiesAction": "action_command_beast",
           "tags": [
             "[Combat]"
           ],
-          "rule": "After resolving a Command directed at your mount, spend 1 tier. Your mount performs an aggressive action — a charge, trample, or tail sweep — against one adjacent target. Treat as an Attack using your Beast Handling discipline die. The mount's size determines base damage: small (1), medium (2), large (3).",
+          "rule": "When your beast Attacks after a successful Command Beast, spend 1 tier. The beast's charge deals additional damage — the attack gains [Empowered (Physique)] from momentum. Still costs your Action.",
           "duration": "Immediate"
         },
         {
           "id": "gambit_beast_handling_d12",
           "name": "Pack Alpha",
           "requiredDie": "D12",
-          "modifiesAction": "action_command",
+          "modifiesAction": "action_command_beast",
           "tags": [
             "[Combat]"
           ],

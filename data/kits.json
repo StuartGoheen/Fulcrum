@@ -349,14 +349,14 @@
         "tier": 1,
         "type": "passive",
         "name": "Pack Instinct",
-        "rule": "When you spend a Maneuver to Command your companion into flanking position on a target, your next personal Attack against that target this round gains [Optimized]. The reverse also applies — if you engage a target in melee, then spend your Action to have your companion Attack the same target, the companion's Attack gains [Optimized]. Flanking requires you and your companion to be in the same zone as the target."
+        "rule": "When you spend a Maneuver to Command Beast your companion into flanking position on a target, your next personal Attack against that target this round gains [Optimized]. The reverse also applies — if you engage a target in melee, then spend your Action to have your companion Attack the same target, the companion's Attack gains [Optimized]. Flanking requires you and your companion to be in the same zone as the target."
       },
       {
         "id": "beastmaster_sic",
         "tier": 2,
         "type": "gambit",
         "name": "Sic 'Em",
-        "rule": "After resolving a Command (Maneuver) directed at your creature companion, spend 1 tier. The companion's next Attack this round gains [Empowered (Grit)] — your command sharpens its aggression. The Attack still costs your Action as normal."
+        "rule": "After resolving a Command Beast (Maneuver) directed at your creature companion, spend 1 tier. The companion's next Attack this round gains [Empowered (Grit)] — your command sharpens its aggression. The Attack still costs your Action as normal."
       },
       {
         "id": "beastmaster_shared_hide",

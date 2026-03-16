@@ -310,7 +310,7 @@
         "conditions": [
           {
             "condition": "[Stimmed X]",
-            "effect": "Accumulated stim load from combat medicine. X begins at 1 and increments by 1 each time the character receives a Medpac (Combat Triage gambit) or Stim Pack (Push Through gambit). The X value adds directly to the Static Risk of any Medicine roll made on this character by others — the body is becoming harder to treat without risking an overdose. [Stimmed] does not reset on additional applications; it stacks as X+1. Clears fully on Long Rest only. A character cannot reduce [Stimmed] through any short rest or field treatment — the stimulants must metabolize."
+            "effect": "Accumulated stim load from combat medicine. X begins at 1 and increments by 1 each time the character receives a Medpac (Field Dressing) or Stim Pack (Push Through). Each point of X steps down the Medicine Power die by one size on future treatment rolls for this character (D12→D10→D8→D6→D4). At D4, further medical treatment has no meaningful effect. Clears fully on Long Rest only. Cannot be reduced through short rest or field treatment."
           }
         ]
       }
@@ -319,7 +319,7 @@
       "Conditions are the primary delivery vehicle for Lever 1 and Lever 2 effects in structured gameplay. [Optimized] is Lever 1, [Exposed] is Lever 2 — the Condition Engine is the wrapper, not a separate lever.",
       "Duration matters as much as the effect itself. Tactical conditions clear at the start of the affected character's next turn. Lingering conditions persist until actively cleared.",
       "The distinction between [Pinned] (prone + held) and [Restrained] (immobilized but upright) and [Prone] (on ground but free to stand) is intentional and meaningful. These are not synonyms.",
-      "[Stimmed X] is the only stacking numeric condition in the system. Every other condition is binary (present or not). The X value represents compounding physiological risk — not a severity slider on a single state."
+      "[Stimmed X] is the only stacking numeric condition in the system. Every other condition is binary (present or not). The X value represents compounding chemical saturation — each point steps down Medicine Power die, making the next treatment less effective."
     ]
   },
   {
@@ -510,8 +510,8 @@
           }
         ],
         "examples": [
-          "Combat Triage (Medpac on Medicine maneuver): No tier reduction. Cost: medpac exhausted + Primary Action consumed + patient gains [Stimmed X+1] + Opening if Engaged. Effect: clear one Trauma AND all recoverable Lingering/Ongoing Physical/Mental conditions.",
-          "Push Through (Stim Pack, self-use): No tier reduction. Cost: stim pack exhausted + Primary Action consumed + self gains [Stimmed X+1] + Opening if Engaged. Effect: clear one Trauma from self."
+          "Field Dressing (Medpac on Treat Injury): Consume medpac during Treat Injury. +1 Tier to result, patient gains [Stimmed] +1. One medpac per patient per rest period.",
+          "Push Through (Stim Pack): Use as a Maneuver, no roll required. Clear 1 Trauma from yourself or adjacent ally. Target gains [Stimmed] +1. Usable mid-combat."
         ]
       },
       {
@@ -580,7 +580,7 @@
         "when": "Use a standard gambit when the item enables an alternate application of the same action — same roll, different outcome. Use the Additional Cost pattern when the item augments an existing skilled action without diminishing it, but the resource and positioning cost must be real.",
         "examples": [
           "Dead Drop (Thermal Detonator): -1 Tier, same throw action, different deployment mode — the device has a proximity trigger mode. Standard gear gambit.",
-          "Combat Triage (Medpac): full Medicine maneuver effect preserved, but item consumed + Standard Action + Stimmed. Additional Cost gambit.",
+          "Field Dressing (Medpac): enhances Treat Injury with +1 Tier, item consumed + [Stimmed] +1. Augments existing rest-time healing action.",
           "Combat Splice (Slicer Spike): one gambit, Additional Cost — the spike's brute-force bypass IS its entire identity. Fast, loud, single-use. One gambit is correct."
         ],
         "balanceCheck": "A standard gambit at D10 should deliver a single, immediate, narrow effect. A D12 gambit can be broader, longer-lasting, or action-economy-disrupting. An Additional Cost gambit should feel like spending a significant resource — if the cost does not hurt, the item is overtuned.",
@@ -630,7 +630,7 @@
       "If it has gambits: determine cost pattern (standard -1 Tier, Additional Cost, or Cross-Maneuver).",
       "If it is consumable: ensure at least one gambit uses the item-exhausted cost. Do not make consumables reusable through standard gambits.",
       "If the damage is intrinsic to the item (not the wielder): use fixedPowerDie. Confirm the render shows attack die / stacked power die.",
-      "Check [Stimmed X]: any medical consumable that clears Trauma must apply [Stimmed X+1] as an Additional Cost. This is non-negotiable — it is the compounding cost that prevents combat medicine from being free.",
+      "Check [Stimmed X]: any medical consumable that clears Trauma must apply [Stimmed X+1]. This is non-negotiable — it is the compounding cost that prevents combat medicine from being free. Each point steps down Medicine Power die for future treatment.",
       "Ion damage rule: if adding any ion-type weapon, verify the trait correctly states: against organics without cybernetics, reduce Effect Tier by 1 and stun conditions never apply; against droids and cybernetically-augmented targets, full tier + stun applies.",
       "Assign tags accurately. Tags drive gambit inheritance (character talents that match item tags add their gambits to the weapon card). Incorrect tags break the system silently.",
       "Set availability: 1 = common, 2 = restricted, 3 = rare, 4 = black market. The /X suffix means it cannot be legally purchased at all — only found or stolen."
