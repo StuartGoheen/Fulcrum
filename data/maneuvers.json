@@ -1,1410 +1,979 @@
-[
-  {
-    "id": "manv_athletics_bantha_rush",
-    "name": "The Bantha Rush",
-    "masteryTrack": "Athletics",
-    "disciplineRequirement": {
+{
+  "universalActions": [
+    {
+      "id": "action_attack",
+      "name": "Attack",
+      "actionType": "Action",
+      "pip": "A",
+      "rolled": true,
+      "tags": [
+        "[Combat]"
+      ],
+      "description": "Strike a target with an equipped weapon or unarmed. Roll discipline (arena) vs target Defense or Evasion. Weapon chassis determines effect tiers (damage track). Unarmed uses the Brawl chassis.",
+      "risk": "Missing your attack may present an Opening depending on the weapon and circumstances.",
+      "note": "Load equipped weapons to see available attack options and applicable discipline gambits."
+    },
+    {
+      "id": "action_aim",
+      "name": "Aim",
+      "actionType": "Maneuver",
+      "pip": "M",
+      "rolled": true,
+      "tags": [
+        "[Combat]"
+      ],
+      "description": "Line up a careful shot or study a target's defenses. Roll the relevant discipline vs Static Risk 4.",
+      "risk": "Focusing too hard on aiming may leave you open — presenting an Opening if you fail.",
+      "effect": [
+        {
+          "tier": 1,
+          "label": "Fleeting",
+          "range": "0-3",
+          "description": "Gain [Optimized] on your next attack against the aimed target."
+        },
+        {
+          "tier": 2,
+          "label": "Masterful",
+          "range": "4-7",
+          "description": "Gain [Optimized] on your next attack. If the attack hits, step up the Effect by 1 Tier."
+        },
+        {
+          "tier": 3,
+          "label": "Legendary",
+          "range": "8+",
+          "description": "Gain [Optimized] and [Empowered] on your next attack against the aimed target."
+        }
+      ]
+    },
+    {
+      "id": "action_move",
+      "name": "Move",
+      "actionType": "Maneuver",
+      "pip": "M",
+      "rolled": false,
+      "rolledWhenEngaged": true,
+      "tags": [
+        "[Combat]"
+      ],
+      "description": "Move 1 zone. Diceless unless you are Engaged — if Engaged, you must roll to disengage (presenting an Opening on failure). In vehicle encounters, uses Piloting.",
+      "risk": "If Engaged, failing to disengage presents an Opening to the enemy."
+    },
+    {
+      "id": "action_reload",
+      "name": "Reload",
+      "actionType": "Maneuver",
+      "pip": "M",
+      "rolled": false,
+      "tags": [
+        "[Combat]"
+      ],
+      "description": "Reload a weapon that has expended its ammunition. Restores the weapon's clip to full capacity."
+    },
+    {
+      "id": "action_take_cover",
+      "name": "Take Cover",
+      "actionType": "Maneuver",
+      "pip": "M",
+      "rolled": false,
+      "tags": [
+        "[Combat]"
+      ],
+      "description": "Move to the nearest cover in your zone. Gain [Cover 1] (or [Cover 2] for heavy fortifications, GM adjudicates). Requires cover to be available in the zone."
+    },
+    {
+      "id": "action_draw_holster",
+      "name": "Draw / Holster",
+      "actionType": "Maneuver",
+      "pip": "M",
+      "rolled": false,
+      "tags": [
+        "[Combat]"
+      ],
+      "description": "Draw a carried weapon to equipped status, or holster an equipped weapon. Switching weapons requires drawing the new one (one Maneuver per weapon)."
+    },
+    {
+      "id": "action_assess",
+      "name": "Assess",
+      "actionType": "Maneuver",
+      "pip": "M",
+      "rolled": true,
+      "tags": [
+        "[Both]"
+      ],
+      "description": "Study a target or situation. Roll a relevant discipline vs Static Risk 4 (or target's Resolve in social contexts). Ask the GM questions about the target — their condition, intentions, capabilities, or weaknesses.",
+      "risk": "Over-analyzing may leave you distracted — presenting an Opening on failure.",
+      "effect": [
+        {
+          "tier": 1,
+          "label": "Fleeting",
+          "range": "0-3",
+          "description": "Ask the GM 1 question about the target or situation. The GM answers honestly based on what your character could reasonably observe."
+        },
+        {
+          "tier": 2,
+          "label": "Masterful",
+          "range": "4-7",
+          "description": "Ask the GM 2 questions. Answers may include details not immediately obvious — tactical weaknesses, emotional states, hidden elements."
+        },
+        {
+          "tier": 3,
+          "label": "Legendary",
+          "range": "8+",
+          "description": "Ask the GM 3 questions. The GM provides detailed, actionable intelligence. You may learn things the target is actively trying to hide."
+        }
+      ]
+    },
+    {
+      "id": "action_command",
+      "name": "Command",
+      "actionType": "Maneuver",
+      "pip": "M",
+      "rolled": true,
+      "tags": [
+        "[Both]"
+      ],
+      "description": "Direct a beast companion or allied NPC to take a specific action. Roll Beast Handling (Grit) for creatures, or an appropriate social discipline for NPCs, vs Static Risk 4.",
+      "risk": "The beast or NPC may misinterpret the command or refuse — wasting the action."
+    },
+    {
+      "id": "action_treat_injury",
+      "name": "Treat Injury",
+      "actionType": "Action",
+      "pip": "A",
+      "rolled": true,
+      "tags": [
+        "[Narrative]"
+      ],
+      "description": "Perform medical treatment on self or ally. Roll Medicine (Wits) vs Static Risk 4 + target's [Stimmed] rating. Primarily used during Short and Long Rests. Consuming a Medpac adds +1 Tier to the result (patient gains [Stimmed] +1).",
+      "risk": "Botching treatment may worsen the patient's condition.",
+      "effect": [
+        {
+          "tier": 1,
+          "label": "Fleeting",
+          "range": "0-3",
+          "description": "Increase Trauma recovery by 1 for all allies resting with you. (Short rest: 2 Trauma instead of 1. Long rest: 3 instead of 2.)"
+        },
+        {
+          "tier": 2,
+          "label": "Masterful",
+          "range": "4-7",
+          "description": "As Fleeting, plus allies may convert 2 Vitality into 1 additional Trauma recovery. Short-term penalty until next rest."
+        },
+        {
+          "tier": 3,
+          "label": "Legendary",
+          "range": "8+",
+          "description": "Miracle Worker. Increase Vitality regeneration by 1 for all allies. (Short rest: recover 1 Vitality. Long rest: recover 2 Vitality.)"
+        }
+      ],
+      "painkillerProtocol": "If you have capped out on the Treat Injury ladder and have tier remaining, spend 1 tier: patient gains [Buffered 3] going into the next scene. No additional [Stimmed] — same treatment, same operation."
+    },
+    {
+      "id": "action_dodge",
+      "name": "Dodge",
+      "actionType": "Trigger",
+      "pip": "T",
+      "rolled": true,
+      "tags": [
+        "[Combat]"
+      ],
+      "description": "Reactive evasive defense. When targeted by an attack, roll Evasion (Reflex) to avoid or reduce the incoming damage. Uses your Trigger pip.",
+      "risk": "If you fail, the attack lands fully."
+    },
+    {
+      "id": "action_endure",
+      "name": "Endure",
+      "actionType": "Trigger",
+      "pip": "T",
+      "rolled": true,
+      "tags": [
+        "[Combat]"
+      ],
+      "description": "Reactive absorption defense. When targeted by an attack, roll Endure (Physique) to absorb or reduce the incoming damage. Uses your Trigger pip.",
+      "risk": "If you fail, the attack lands fully."
+    }
+  ],
+  "forceManeuvers": [
+    {
+      "id": "force_centering_focus",
+      "name": "Centering Focus",
+      "actionType": "Maneuver",
+      "pip": "M",
+      "rolled": true,
+      "discipline": "control_spark",
+      "arena": "grit",
+      "tags": [
+        "[Force]",
+        "[Both]"
+      ],
+      "description": "Channel the Force inward to regulate body and spirit. Roll Control (Grit) vs Static Risk 4.",
+      "risk": "Failure disrupts your inner calm — you may present an Opening as your focus fragments.",
+      "effect": [
+        {
+          "tier": 1,
+          "label": "Fleeting",
+          "range": "0-3",
+          "description": "Clear 1 Lingering condition from yourself."
+        },
+        {
+          "tier": 2,
+          "label": "Masterful",
+          "range": "4-7",
+          "description": "Clear 1 Ongoing condition from yourself."
+        },
+        {
+          "tier": 3,
+          "label": "Legendary",
+          "range": "8+",
+          "description": "Ignore Trauma penalties in 1 arena until your next turn."
+        }
+      ]
+    },
+    {
+      "id": "force_sense",
+      "name": "Force Sense",
+      "actionType": "Maneuver",
+      "pip": "M",
+      "rolled": true,
+      "discipline": "sense_spark",
+      "arena": "wits",
+      "tags": [
+        "[Force]",
+        "[Both]"
+      ],
+      "description": "Expand awareness beyond physical senses. Roll Sense (Wits) vs Static Risk 4.",
+      "risk": "Overextending your senses may leave you vulnerable — presenting an Opening.",
+      "effect": [
+        {
+          "tier": 1,
+          "label": "Fleeting",
+          "range": "0-3",
+          "description": "Ask the GM 1 question about the Force, the living world, or hidden presences. The Force whispers one truth."
+        },
+        {
+          "tier": 2,
+          "label": "Masterful",
+          "range": "4-7",
+          "description": "Ask the GM 2 questions. The Force reveals connections, intentions, or dangers not visible to normal senses."
+        },
+        {
+          "tier": 3,
+          "label": "Legendary",
+          "range": "8+",
+          "description": "Ask the GM 3 questions. The Force opens fully — visions, echoes, and deep truths. The GM provides detailed, actionable intelligence."
+        }
+      ]
+    },
+    {
+      "id": "force_kinetic_impulse",
+      "name": "Kinetic Impulse",
+      "actionType": "Maneuver",
+      "pip": "M",
+      "rolled": true,
+      "discipline": "alter_spark",
+      "arena": "presence",
+      "tags": [
+        "[Force]",
+        "[Both]"
+      ],
+      "description": "Project the Force outward to manipulate the physical world. Roll Alter (Presence) vs Static Risk 4 (or target's Defense for resisted effects).",
+      "risk": "Losing control of the Force may cause unintended collateral damage or present an Opening.",
+      "effect": [
+        {
+          "tier": 1,
+          "label": "Fleeting",
+          "range": "0-3",
+          "description": "Utility manipulation: move a small object, flip a switch, shove a person. Or apply [Disoriented] to one target. Immediate."
+        },
+        {
+          "tier": 2,
+          "label": "Masterful",
+          "range": "4-7",
+          "description": "Push a target 1 zone in any direction. They must make a Physique check or be moved involuntarily."
+        },
+        {
+          "tier": 3,
+          "label": "Legendary",
+          "range": "8+",
+          "description": "Slam a target to the ground. They gain [Prone]. Alternatively, hurl a heavy object as an improvised ranged attack."
+        }
+      ]
+    }
+  ],
+  "disciplineGambits": {
+    "athletics": {
       "disciplineId": "athletics",
       "arenaId": "physique",
-      "minDie": "D8"
+      "name": "Athletics",
+      "gambits": [
+        {
+          "id": "gambit_athletics_d8",
+          "name": "Breakneck Pace",
+          "requiredDie": "D8",
+          "modifiesAction": "action_move",
+          "tags": [
+            "[Combat]"
+          ],
+          "rule": "After resolving a Move, spend 1 tier. Move an additional 1 zone.",
+          "duration": "Immediate"
+        },
+        {
+          "id": "gambit_athletics_d10",
+          "name": "Bantha Rush",
+          "requiredDie": "D10",
+          "modifiesAction": "action_attack",
+          "tags": [
+            "[Melee]",
+            "[Unarmed]"
+          ],
+          "rule": "After resolving a melee Attack, spend 1 tier. Push the target 1 zone away. You may follow them into that zone.",
+          "duration": "Immediate"
+        },
+        {
+          "id": "gambit_athletics_d12",
+          "name": "The Slam",
+          "requiredDie": "D12",
+          "modifiesAction": "action_attack",
+          "tags": [
+            "[Melee]",
+            "[Unarmed]"
+          ],
+          "rule": "After resolving a melee Attack, spend 1 tier. Push the target 1 zone and follow. The target gains [Prone].",
+          "duration": "Immediate"
+        }
+      ]
     },
-    "actionType": "Maneuver",
-    "arenaTag": "[Combat]",
-    "target": "Defense Resistance",
-    "roll": "Athletics (Physique)",
-    "risk": "If you fail the Control roll, you stumble and overextend yourself, presenting an Opening that allows an enemy to immediately spend a Trigger to react.",
-    "effect": [
-      {
-        "tier": 1,
-        "label": "Fleeting",
-        "name": "Body Check",
-        "description": "You slam into the target but fail to fully displace them. They gain [Exposed to Melee Attacks] against your next attack.",
-        "duration": "Immediate"
-      },
-      {
-        "tier": 2,
-        "label": "Masterful",
-        "name": "Driving Tackle",
-        "description": "You drive the target 1 Zone away. You may choose to hold your ground or follow them into that Zone.",
-        "duration": "Immediate"
-      },
-      {
-        "tier": 3,
-        "label": "Legendary",
-        "name": "The Slam",
-        "description": "You drive the target 1 Zone away, follow them in, and bring them to the ground. The target gains [Prone]. Your next Brawl or Light Melee chassis action this turn is [Optimized].",
-        "duration": "Immediate (move) / Tactical (Prone)"
-      }
-    ],
-    "gambits": [
-      {
-        "id": "gambit_breakneck_pace",
-        "name": "Breakneck Pace",
-        "requiredDie": "D10",
-        "rule": "Reduce your Effect by 1 Tier. You channel your momentum into a burst of speed. Move an additional 1 Zone after resolving.",
-        "duration": "Immediate",
-        "spacersGuide": null
-      },
-      {
-        "id": "gambit_earth_shaker",
-        "name": "Earth-Shaker",
-        "requiredDie": "D12",
-        "rule": "Reduce your Effect by 1 Tier. You drive the target into a wall, pillar, or hard surface in the Zone. Requires one such surface to exist — if none is present, this gambit cannot be declared. The collision creates an Opening any ally may spend immediately.",
-        "duration": "Immediate",
-        "spacersGuide": null
-      }
-    ]
-  },
-  {
-    "id": "manv_brawl_the_clinch",
-    "name": "The Clinch",
-    "masteryTrack": "Brawl",
-    "disciplineRequirement": {
+    "brawl": {
       "disciplineId": "brawl",
       "arenaId": "physique",
-      "minDie": "D8"
+      "name": "Brawl",
+      "gambits": [
+        {
+          "id": "gambit_brawl_d8",
+          "name": "Clinch",
+          "requiredDie": "D8",
+          "modifiesAction": "action_attack",
+          "tags": [
+            "[Unarmed]"
+          ],
+          "rule": "After resolving an unarmed Attack, spend 1 tier. Target gains [Slowed] Tactical.",
+          "duration": "Tactical"
+        },
+        {
+          "id": "gambit_brawl_d10",
+          "name": "Takedown",
+          "requiredDie": "D10",
+          "modifiesAction": "action_attack",
+          "tags": [
+            "[Unarmed]"
+          ],
+          "rule": "After resolving an unarmed Attack, spend 1 tier. Target gains [Prone].",
+          "duration": "Immediate"
+        },
+        {
+          "id": "gambit_brawl_d12",
+          "name": "Vice Grip",
+          "requiredDie": "D12",
+          "modifiesAction": "action_attack",
+          "tags": [
+            "[Unarmed]"
+          ],
+          "rule": "After resolving an unarmed Attack, spend 1 tier. Target gains [Restrained] Tactical. While restrained, your unarmed attacks against them gain [Empowered (Physique)].",
+          "duration": "Tactical"
+        }
+      ]
     },
-    "actionType": "Maneuver",
-    "arenaTag": "[Combat]",
-    "target": "Defense Resistance",
-    "roll": "Brawl (Physique)",
-    "risk": "If you fail the Control roll, you leave your guard wide open, presenting an Opening that allows an enemy to immediately spend a Trigger to react.",
-    "effect": [
-      {
-        "tier": 1,
-        "label": "Fleeting",
-        "name": "The Jam",
-        "description": "You crowd their space and throw off their rhythm. The target is [Distracted].",
-        "duration": "Immediate"
-      },
-      {
-        "tier": 2,
-        "label": "Masterful",
-        "name": "The Clinch",
-        "description": "You step inside their guard and lock a limb. The target is [Pinned]. Breaking free costs their Maneuver.",
-        "duration": "Tactical"
-      },
-      {
-        "tier": 3,
-        "label": "Legendary",
-        "name": "Dominate",
-        "description": "You take them fully to the ground. The target gains [Pinned] and [Exposed to Melee Attacks]. Your Brawl attacks against them Step Up the Power Die while the hold is maintained.",
-        "duration": "Tactical"
-      }
-    ],
-    "gambits": [
-      {
-        "id": "gambit_meat_shield_brawl",
-        "name": "Meat Shield",
-        "requiredDie": "D10",
-        "rule": "Reduce your Effect by 1 Tier. You grab the target and crowd them into the line of fire. You gain the target as [Cover 1] against Ranged attacks.",
-        "duration": "Tactical",
-        "spacersGuide": null
-      },
-      {
-        "id": "gambit_nerve_strike",
-        "name": "Nerve Strike",
-        "requiredDie": "D12",
-        "rule": "Reduce your Effect by 1 Tier. You torque a joint or find a nerve cluster in the hold. The target gains [Weakened (Physique)] — their striking arm is compromised for as long as the hold is maintained.",
-        "duration": "Tactical",
-        "spacersGuide": null
-      }
-    ]
-  },
-  {
-    "id": "manv_endure_the_brace",
-    "name": "The Brace",
-    "masteryTrack": "Endure",
-    "disciplineRequirement": {
-      "disciplineId": "endure",
-      "arenaId": "physique",
-      "minDie": "D8"
-    },
-    "actionType": "Maneuver",
-    "arenaTag": "[Combat]",
-    "target": "Static Risk 4",
-    "roll": "Endure (Physique)",
-    "risk": "If you fail the Control roll, you present an Opening that allows an enemy to immediately spend a Trigger to react.",
-    "effect": [
-      {
-        "tier": 1,
-        "label": "Fleeting",
-        "name": "Steady",
-        "description": "You flinch but hold your ground. Gain [Guarded 1] against the next incoming attack this round.",
-        "duration": "Immediate"
-      },
-      {
-        "tier": 2,
-        "label": "Masterful",
-        "name": "Shake it Off",
-        "description": "You lock your stance and push through the pain. Gain [Guarded 1] against all incoming attacks. Clear one physical condition ([Dazed], [Weakened], or [Prone]).",
-        "duration": "Tactical (Guarded) / Immediate (clear)"
-      },
-      {
-        "tier": 3,
-        "label": "Legendary",
-        "name": "Unbreakable",
-        "description": "You are beyond pain. Gain [Guarded 1] against all incoming attacks. Clear one physical condition. One ally in your Zone gains your [Guarded 1] benefit as well.",
-        "duration": "Tactical"
-      }
-    ],
-    "gambits": [
-      {
-        "id": "gambit_gut_check",
-        "name": "Gut Check",
-        "requiredDie": "D10",
-        "rule": "Reduce your Effect by 1 Tier. You dig deep and clear one physical condition ([Dazed], [Weakened], or [Prone]) immediately. If the base result (Masterful or Legendary) also clears a condition, you clear two total.",
-        "duration": "Immediate",
-        "spacersGuide": null
-      },
-      {
-        "id": "gambit_vanguard",
-        "name": "Vanguard",
-        "requiredDie": "D12",
-        "rule": "Reduce your Effect by 1 Tier. You step into the line of fire. You grant the [Guarded] benefit of this Brace to an ally in your Zone instead of yourself. You gain no guard benefit.",
-        "duration": "Tactical",
-        "spacersGuide": null
-      }
-    ]
-  },
-  {
-    "id": "manv_melee_footwork_and_guard",
-    "name": "Footwork & Guard",
-    "masteryTrack": "Melee",
-    "disciplineRequirement": {
-      "disciplineId": "melee",
-      "arenaId": "physique",
-      "minDie": "D8"
-    },
-    "actionType": "Maneuver",
-    "arenaTag": "[Combat]",
-    "target": "Defense Resistance",
-    "roll": "Melee (Physique)",
-    "risk": "If you fail the Control roll, you lose your balance and present an Opening.",
-    "effect": [
-      {
-        "tier": 1,
-        "label": "Fleeting",
-        "name": "The Feint",
-        "description": "You fake a strike to draw their guard. The target is [Exposed to Melee Attacks] against your next Melee action this turn.",
-        "duration": "Immediate"
-      },
-      {
-        "tier": 2,
-        "label": "Masterful",
-        "name": "The Parry",
-        "description": "You read their swing and redirect it. Gain [Guarded 1] against Melee attacks. If an enemy's Melee attack fails to clear your Defense, you may spend your Trigger to make a free Basic Melee action against them.",
-        "duration": "Tactical"
-      },
-      {
-        "tier": 3,
-        "label": "Legendary",
-        "name": "Master's Flourish",
-        "description": "You dominate the exchange entirely. Gain [Guarded 1] against Melee attacks. The target gains [Exposed to Melee Attacks]. While your Guarded is active, each enemy Melee attack that fails to clear your Defense creates an Opening any ally in melee range may immediately spend.",
-        "duration": "Tactical"
-      }
-    ],
-    "gambits": [
-      {
-        "id": "gambit_precision_strike",
-        "name": "Precision Strike",
-        "requiredDie": "D10",
-        "rule": "Reduce your Effect by 1 Tier. You find a gap in their plating. Step Up the Control Die on your next Melee Action this turn.",
-        "duration": "Immediate",
-        "spacersGuide": null
-      },
-      {
-        "id": "gambit_the_disarm",
-        "name": "The Disarm",
-        "requiredDie": "D12",
-        "rule": "Reduce your Effect by 1 Tier. You catch their weapon and twist; the target immediately drops whatever they are holding in their primary hand.",
-        "duration": "Immediate",
-        "spacersGuide": null
-      }
-    ]
-  },
-  {
-    "id": "manv_heavy_weapons_suppression",
-    "name": "Suppression",
-    "masteryTrack": "Heavy Weapons",
-    "disciplineRequirement": {
-      "disciplineId": "heavy_weapons",
-      "arenaId": "physique",
-      "minDie": "D8"
-    },
-    "actionType": "Maneuver",
-    "arenaTag": "[Combat]",
-    "target": "Static Risk 4",
-    "roll": "Heavy Weapons (Physique)",
-    "risk": "If you fail the Control roll, the weapon's recoil or weight causes you to stumble, presenting an Opening.",
-    "effect": [
-      {
-        "tier": 1,
-        "label": "Fleeting",
-        "name": "Bracket",
-        "description": "You lay a warning burst on one target within range. That target gains [Distracted].",
-        "duration": "Immediate"
-      },
-      {
-        "tier": 2,
-        "label": "Masterful",
-        "name": "Suppressive Fire",
-        "description": "You sweep the area. Every enemy in a target Zone within the weapon's range gains [Distracted]. Designate a Zone of Denial — spend your Trigger to make a Basic Heavy Weapons attack against any enemy that enters or exits that Zone.",
-        "duration": "Tactical"
-      },
-      {
-        "tier": 3,
-        "label": "Legendary",
-        "name": "Pin Them Down",
-        "description": "The weight of fire is overwhelming. Every enemy in the target Zone gains [Suppressed]. You gain [Guarded 1] against Ranged attacks originating from that Zone.",
-        "duration": "Tactical"
-      }
-    ],
-    "gambits": [
-      {
-        "id": "gambit_overcharge",
-        "name": "Overcharge",
-        "requiredDie": "D10",
-        "rule": "Reduce your Effect by 1 Tier. You push the weapon past its rated output. Gain [Empowered] on your next Heavy Weapons Action.",
-        "duration": "Immediate",
-        "spacersGuide": null
-      },
-      {
-        "id": "gambit_bunker",
-        "name": "Bunker",
-        "requiredDie": "D12",
-        "rule": "Reduce your Effect by 1 Tier. You plant yourself completely. Gain [Guarded 2] against all Ranged attacks. This ends the moment you move or take a non-Heavy Weapons action.",
-        "duration": "Tactical",
-        "spacersGuide": null
-      }
-    ]
-  },
-  {
-    "id": "manv_evasion_the_weave",
-    "name": "The Weave",
-    "masteryTrack": "Evasion",
-    "disciplineRequirement": {
-      "disciplineId": "evasion",
-      "arenaId": "reflex",
-      "minDie": "D8"
-    },
-    "actionType": "Maneuver",
-    "arenaTag": "[Combat]",
-    "target": "Static Risk 4",
-    "roll": "Evasion (Reflex)",
-    "risk": "If you fail the Control roll, you stumble or hesitate, presenting an Opening that allows an enemy to immediately spend a Trigger to react.",
-    "effect": [
-      {
-        "tier": 1,
-        "label": "Fleeting",
-        "name": "The Step",
-        "description": "You read the flow of the fight and shift your weight. Gain [Optimized] on your next Defense roll.",
-        "duration": "Immediate"
-      },
-      {
-        "tier": 2,
-        "label": "Masterful",
-        "name": "Slip Away",
-        "description": "You flow out of the danger zone. Move 1 Zone ignoring [Engaged] — this movement triggers no Opening from enemies you leave. Gain [Optimized] on your next Defense roll.",
-        "duration": "Immediate"
-      },
-      {
-        "tier": 3,
-        "label": "Legendary",
-        "name": "The Blur",
-        "description": "You seem to vanish from your position. Move up to 2 Zones ignoring [Engaged] — no Opening triggered from any Zone you pass through or leave. Gain [Optimized] on all Defense rolls until your next turn.",
-        "duration": "Immediate (move) / Tactical (Optimized)"
-      }
-    ],
-    "gambits": [
-      {
-        "id": "gambit_kinetic_dodge",
-        "name": "Kinetic Dodge",
-        "requiredDie": "D10",
-        "rule": "Reduce your Effect by 1 Tier. Your evasive momentum carries directly into your next move. Gain [Optimized] on your next Reflex-based Action this turn — not just Defense, but any Reflex roll.",
-        "duration": "Immediate",
-        "spacersGuide": null
-      },
-      {
-        "id": "gambit_recovery",
-        "name": "Recovery",
-        "requiredDie": "D12",
-        "rule": "Reduce your Effect by 1 Tier. Requires: you are currently [Pinned] or [Restrained]. Your expertise means you did not panic — you used technique. Immediately clear that condition and move 1 Zone.",
-        "duration": "Immediate",
-        "spacersGuide": null
-      }
-    ]
-  },
-  {
-    "id": "manv_ranged_overwatch",
-    "name": "Overwatch",
-    "masteryTrack": "Ranged",
-    "disciplineRequirement": {
-      "disciplineId": "ranged",
-      "arenaId": "reflex",
-      "minDie": "D8"
-    },
-    "actionType": "Maneuver",
-    "arenaTag": "[Combat]",
-    "target": "Static Risk 4",
-    "roll": "Ranged (Reflex)",
-    "risk": "If you fail the Control roll, you lose your focus or your weapon jams momentarily, presenting an Opening.",
-    "effect": [
-      {
-        "tier": 1,
-        "label": "Fleeting",
-        "name": "Aim",
-        "description": "You settle your sights. Step Up the Control Die on your next Ranged Action this turn.",
-        "duration": "Immediate"
-      },
-      {
-        "tier": 2,
-        "label": "Masterful",
-        "name": "Choose one — Covering Fire or Dial In",
-        "description": "Covering Fire: One target in range gains [Distracted] — you bracket them with bolts without a direct hit. | Dial In: Ignore concealment-based penalties (smoke, darkness, weather) on your next Ranged attack. Cover is structural and is not affected by this.",
-        "duration": "Immediate (Dial In) / Tactical (Covering Fire)"
-      },
-      {
-        "tier": 3,
-        "label": "Legendary",
-        "name": "Zone of Denial",
-        "description": "Designate a Zone within your weapon's range. Until your next turn, spend your Trigger to make a Basic Ranged attack against any enemy that enters or exits that Zone. You gain [Optimized] on that Trigger attack.",
-        "duration": "Tactical"
-      }
-    ],
-    "gambits": [
-      {
-        "id": "gambit_trick_shot",
-        "name": "Trick Shot",
-        "requiredDie": "D10",
-        "rule": "Reduce your Effect by 1 Tier. You shoot an environmental element (a door release, a light fixture, a cable, a fuel line) to trigger a scene effect without using your Primary Action.",
-        "duration": "Immediate",
-        "spacersGuide": null
-      },
-      {
-        "id": "gambit_dead_eye",
-        "name": "Dead Eye",
-        "requiredDie": "D12",
-        "rule": "Reduce your Effect by 1 Tier. Your next Ranged attack ignores the target's [Cover] rating entirely — you find the gap in their position.",
-        "duration": "Immediate",
-        "spacersGuide": null
-      }
-    ]
-  },
-  {
-    "id": "manv_skulduggery_dirty_trick",
-    "name": "The Dirty Trick",
-    "masteryTrack": "Skulduggery",
-    "disciplineRequirement": {
-      "disciplineId": "skulduggery",
-      "arenaId": "reflex",
-      "minDie": "D8"
-    },
-    "actionType": "Maneuver",
-    "arenaTag": "[Combat]",
-    "target": "Defense Resistance",
-    "roll": "Skulduggery (Reflex)",
-    "risk": "If you fail the Control roll, your trick is spotted, presenting an Opening that allows an enemy to immediately spend a Trigger to react.",
-    "effect": [
-      {
-        "tier": 1,
-        "label": "Fleeting",
-        "name": "Pocket Sand",
-        "description": "You kick dirt, sparks, or debris into their face. The target is [Distracted]. You may draw a concealed weapon or palm a small item as part of this Maneuver.",
-        "duration": "Immediate"
-      },
-      {
-        "tier": 2,
-        "label": "Masterful",
-        "name": "Foul Play",
-        "description": "You mess with their gear — jam a holster, unclip a pack, loosen a strap. The target gains [Exposed to Attacks]. You may deploy or pocket a small item (stim, detonator, slicing spike) as part of this Maneuver.",
-        "duration": "Tactical"
-      },
-      {
-        "tier": 3,
-        "label": "Legendary",
-        "name": "Sabotage",
-        "description": "You disable a primary component — weapon, comm, or gear. It cannot be used until the target spends an Action to fix it. The target is also [Exposed to Attacks].",
-        "duration": "Tactical"
-      }
-    ],
-    "gambits": [
-      {
-        "id": "gambit_below_the_belt",
-        "name": "Below the Belt",
-        "requiredDie": "D10",
-        "rule": "Reduce your Effect by 1 Tier. You strike a nerve or wind them. The target cannot use their Maneuver Action on their next turn.",
-        "duration": "Tactical",
-        "spacersGuide": null
-      },
-      {
-        "id": "gambit_rigged",
-        "name": "Rigged",
-        "requiredDie": "D12",
-        "rule": "Reduce your Effect by 1 Tier. You prime a charge, grenade, or detonator and attach it to a surface or an enemy without needing to spend your Primary Action.",
-        "duration": "Immediate",
-        "spacersGuide": null
-      }
-    ]
-  },
-  {
-    "id": "manv_piloting_the_drift",
-    "name": "The Drift",
-    "masteryTrack": "Piloting",
-    "disciplineRequirement": {
-      "disciplineId": "piloting",
-      "arenaId": "reflex",
-      "minDie": "D8"
-    },
-    "actionType": "Maneuver",
-    "arenaTag": "[Combat]",
-    "target": "Static Risk 4 (or enemy Piloting)",
-    "roll": "Piloting (Reflex)",
-    "risk": "If you fail the Control roll, you lose your vector or clip an obstacle, presenting an Opening that allows an enemy to immediately spend a Trigger to react.",
-    "effect": [
-      {
-        "tier": 1,
-        "label": "Fleeting",
-        "name": "Juke",
-        "description": "You sharply adjust your vector. Gain [Cover 1] against the next vehicle-scale attack.",
-        "duration": "Immediate"
-      },
-      {
-        "tier": 2,
-        "label": "Masterful",
-        "name": "Gain Angle",
-        "description": "You get behind them. Gain [Optimized] on your next Gunnery or Ranged Action. Force a pursuing vehicle to Step Down their Control Die.",
-        "duration": "Immediate"
-      },
-      {
-        "tier": 3,
-        "label": "Legendary",
-        "name": "Master Pilot",
-        "description": "Perfect execution. Gain [Optimized] and [Guarded 1]. A pursuing vehicle Steps Down their Control Die.",
-        "duration": "Tactical"
-      }
-    ],
-    "gambits": [
-      {
-        "id": "gambit_thread_the_needle",
-        "name": "Thread the Needle",
-        "requiredDie": "D10",
-        "rule": "Reduce your Effect by 1 Tier. You force your vehicle through a lethal gap. A pursuing vehicle must successfully pass a Risk Check or crash.",
-        "duration": "Immediate",
-        "spacersGuide": null
-      },
-      {
-        "id": "gambit_redline",
-        "name": "Redline",
-        "requiredDie": "D12",
-        "rule": "Reduce your Effect by 1 Tier. You move an extra 2 Zones, but the vehicle suffers 1 System Strain.",
-        "duration": "Immediate",
-        "spacersGuide": null
-      }
-    ]
-  },
-  {
-    "id": "manv_stealth_predatory_positioning",
-    "name": "Predatory Positioning",
-    "masteryTrack": "Stealth",
-    "disciplineRequirement": {
-      "disciplineId": "stealth",
-      "arenaId": "reflex",
-      "minDie": "D8"
-    },
-    "actionType": "Maneuver",
-    "arenaTag": "[Combat]",
-    "target": "Resolve Resistance",
-    "roll": "Stealth (Reflex)",
-    "risk": "If you fail the Control roll, you mistime your move and end up caught in the open, presenting an Opening.",
-    "effect": [
-      {
-        "tier": 1,
-        "label": "Fleeting",
-        "name": "Low Profile",
-        "description": "You make yourself small and quiet. Gain [Cover 1].",
-        "duration": "Tactical"
-      },
-      {
-        "tier": 2,
-        "label": "Masterful",
-        "name": "Shadow Step",
-        "description": "Move 1 Zone — this does not trigger Openings and is not registered by watching enemies. Gain [Optimized] on your next attack.",
-        "duration": "Immediate"
-      },
-      {
-        "tier": 3,
-        "label": "Legendary",
-        "name": "The Fade",
-        "description": "Move 1 Zone. Enemies lose your position entirely. Gain [Cover 1] and [Optimized] on your next attack against a target.",
-        "duration": "Tactical"
-      }
-    ],
-    "gambits": [
-      {
-        "id": "gambit_misdirection",
-        "name": "Misdirection",
-        "requiredDie": "D10",
-        "rule": "Reduce your Effect by 1 Tier. You toss a decoy (a shell casing, a rock). An enemy looks the wrong way, gaining the [Exposed] condition.",
-        "duration": "Immediate",
-        "spacersGuide": null
-      },
-      {
-        "id": "gambit_vanishing_act",
-        "name": "Vanishing Act",
-        "requiredDie": "D12",
-        "rule": "Reduce your Effect by 1 Tier. After performing a Primary Action (like a shot), you immediately fade into the chaos, gaining the [Cover 1] condition.",
-        "duration": "Tactical",
-        "spacersGuide": null
-      }
-    ]
-  },
-  {
-    "id": "manv_resolve_the_anchor",
-    "name": "The Anchor",
-    "masteryTrack": "Resolve",
-    "disciplineRequirement": {
-      "disciplineId": "resolve",
-      "arenaId": "grit",
-      "minDie": "D8"
-    },
-    "actionType": "Maneuver",
-    "arenaTag": "[Both]",
-    "target": "Static Risk 4",
-    "roll": "Resolve (Grit)",
-    "risk": "You over-focus internally and lose track of the immediate threat, presenting an Opening.",
-    "effect": [
-      {
-        "tier": 1,
-        "label": "Fleeting",
-        "name": "Focus",
-        "description": "You push through the noise. Ignore the [Distracted] condition for your next action this turn.",
-        "duration": "Immediate"
-      },
-      {
-        "tier": 2,
-        "label": "Masterful",
-        "name": "Center",
-        "description": "You find your footing. Clear one Lingering mental or emotional condition ([Dazed] or [Distracted]).",
-        "duration": "Immediate"
-      },
-      {
-        "tier": 3,
-        "label": "Legendary",
-        "name": "Battle Hardened",
-        "description": "You are a void of emotion. Gain [Guarded 1] against all Mental or Ego-based attacks AND ignore the penalties of one Trauma for your next action.",
-        "duration": "Tactical"
-      }
-    ],
-    "gambits": [
-      {
-        "id": "gambit_cognitive_surge",
-        "name": "Cognitive Surge",
-        "requiredDie": "D10",
-        "rule": "Reduce your Effect by 1 Tier. You achieve total clarity. Step Up the Control Die on your next action this turn, regardless of the attribute used.",
-        "duration": "Immediate",
-        "spacersGuide": null
-      },
-      {
-        "id": "gambit_the_standoff",
-        "name": "The Standoff",
-        "requiredDie": "D12",
-        "rule": "Reduce your Effect by 1 Tier. You lock eyes with a single enemy you are Engaged with. As long as you remain Engaged, neither of you can break Engagement safely. If either you or the target intentionally attempts to leave the Zone or break Engagement, that individual immediately presents an Opening and the opponent is considered [Optimized] for the resulting Trigger Action. Only one enemy may be Challenged at a time.",
-        "duration": "Tactical",
-        "spacersGuide": null
-      }
-    ]
-  },
-  {
-    "id": "manv_survival_the_hunker",
-    "name": "The Hunker",
-    "masteryTrack": "Survival",
-    "disciplineRequirement": {
-      "disciplineId": "survival",
-      "arenaId": "grit",
-      "minDie": "D8"
-    },
-    "actionType": "Maneuver",
-    "arenaTag": "[Combat]",
-    "target": "Static Risk 4",
-    "roll": "Survival (Grit)",
-    "risk": "You choose trap cover (exploding barrels, unstable debris), presenting an Opening.",
-    "effect": [
-      {
-        "tier": 1,
-        "label": "Fleeting",
-        "name": "Spot the Gap",
-        "description": "You find a quick angle. Gain [Cover 1] against the very next Ranged attack this round.",
-        "duration": "Immediate"
-      },
-      {
-        "tier": 2,
-        "label": "Masterful",
-        "name": "Dig In",
-        "description": "You find a solid position. Gain [Cover 1].",
-        "duration": "Tactical"
-      },
-      {
-        "tier": 3,
-        "label": "Legendary",
-        "name": "Kill Zone",
-        "description": "You find the perfect vantage point. Gain [Cover 2] AND Step Up the Power Die on your next Ranged Action from this position.",
-        "duration": "Tactical"
-      }
-    ],
-    "gambits": [
-      {
-        "id": "gambit_scrounge",
-        "name": "Scrounge",
-        "requiredDie": "D10",
-        "rule": "Reduce your Effect by 1 Tier. You find a useful environmental tool — a rock, a loose wire, a stim. Gain [Optimized] on your next Skulduggery or Medicine action.",
-        "duration": "Immediate",
-        "spacersGuide": null
-      },
-      {
-        "id": "gambit_weather_the_storm",
-        "name": "Weather the Storm",
-        "requiredDie": "D12",
-        "rule": "Reduce your Effect by 1 Tier. You lead the squad into safety. Grant your current [Cover] rating to all allies in your Zone.",
-        "duration": "Tactical",
-        "spacersGuide": null
-      }
-    ]
-  },
-  {
-    "id": "manv_intimidate_the_loom",
-    "name": "The Loom",
-    "masteryTrack": "Intimidate",
-    "disciplineRequirement": {
-      "disciplineId": "intimidate",
-      "arenaId": "grit",
-      "minDie": "D8"
-    },
-    "actionType": "Maneuver",
-    "arenaTag": "[Both]",
-    "target": "Defense Resistance",
-    "roll": "Intimidate (Grit)",
-    "risk": "Your bluff is called or your threat is laughed off, presenting an Opening that allows an enemy to immediately spend a Trigger to react.",
-    "effect": [
-      {
-        "tier": 1,
-        "label": "Fleeting",
-        "name": "Flinch",
-        "description": "You draw their focus. The target is [Distracted].",
-        "duration": "Tactical"
-      },
-      {
-        "tier": 2,
-        "label": "Masterful",
-        "name": "Loom",
-        "description": "You crowd their space and make them doubt. The target is [Exposed].",
-        "duration": "Tactical"
-      },
-      {
-        "tier": 3,
-        "label": "Legendary",
-        "name": "Rattled",
-        "description": "You shake them to the core. The target is [Distracted] AND [Exposed].",
-        "duration": "Tactical"
-      }
-    ],
-    "gambits": [
-      {
-        "id": "gambit_tell_me",
-        "name": "Tell Me",
-        "requiredDie": "D10",
-        "rule": "Reduce your Effect by 1 Tier. Fear makes them talk. Gain [Optimized] on your next Insight or Deception action against this target.",
-        "duration": "Immediate",
-        "spacersGuide": null
-      },
-      {
-        "id": "gambit_cold_blooded",
-        "name": "Cold Blooded",
-        "requiredDie": "D12",
-        "rule": "Reduce your Effect by 1 Tier. You perform a deliberate show of indifference — shooting a console, crushing a glass, ignoring a wound. One Minion-level enemy in the Zone must pass a Risk 4 Resolve check or immediately flee the scene.",
-        "duration": "Immediate",
-        "spacersGuide": null
-      },
-      {
-        "id": "gambit_the_ultimatum",
-        "name": "The Ultimatum",
-        "requiredDie": "D12",
-        "rule": "Requires a carried Thermal Detonator. Reduce your Effect by 1 Tier. Arm it — dead-man's switch engaged. All characters within 5 squares who can see and hear you are affected. This gambit may only be used once per scene. While holding: you are [Optimized] and [Empowered] on all Intimidate (Grit) actions and maneuvers against any onlooker. If incapacitated, struck critically, or the switch is released, it detonates in your zone immediately.",
-        "duration": "Scene",
-        "spacersGuide": null
-      }
-    ]
-  },
-  {
-    "id": "manv_beast_handling_dominion",
-    "name": "Dominion",
-    "masteryTrack": "Beast Handling",
-    "disciplineRequirement": {
-      "disciplineId": "beast_handling",
-      "arenaId": "grit",
-      "minDie": "D8"
-    },
-    "actionType": "Maneuver",
-    "arenaTag": "[Both]",
-    "target": "Defense Resistance",
-    "roll": "Beast Handling (Grit)",
-    "risk": "The beast senses weakness and snaps at you, presenting an Opening.",
-    "effect": [
-      {
-        "tier": 1,
-        "label": "Fleeting",
-        "name": "Pacify",
-        "description": "You break the beast's focus. It gains [Distracted].",
-        "duration": "Tactical"
-      },
-      {
-        "tier": 2,
-        "label": "Masterful",
-        "name": "Assert",
-        "description": "You read its movements and brace. Gain [Guarded 1] against the beast.",
-        "duration": "Tactical"
-      },
-      {
-        "tier": 3,
-        "label": "Legendary",
-        "name": "Overpower the Instinct",
-        "description": "You dominate its psyche. The beast gains [Exposed] to all attacks.",
-        "duration": "Tactical"
-      }
-    ],
-    "gambits": [
-      {
-        "id": "gambit_redirect",
-        "name": "Redirect",
-        "requiredDie": "D10",
-        "rule": "Reduce your Effect by 1 Tier. You turn the beast's aggression. It immediately moves toward and Engages a target of your choice in the Zone instead of you.",
-        "duration": "Immediate",
-        "spacersGuide": null
-      },
-      {
-        "id": "gambit_break",
-        "name": "Break",
-        "requiredDie": "D12",
-        "rule": "Reduce your Effect by 1 Tier. You shatter the beast's fighting instinct entirely. It gains [Stunned].",
-        "duration": "Tactical",
-        "spacersGuide": null
-      }
-    ]
-  },
-  {
-    "id": "manv_control_force_of_self",
-    "name": "Control Pain",
-    "masteryTrack": "Control",
-    "disciplineRequirement": {
-      "disciplineId": "control_spark",
-      "arenaId": "grit",
-      "minDie": "D8"
-    },
-    "actionType": "Maneuver",
-    "arenaTag": "[Both]",
-    "target": "Static Risk 4",
-    "roll": "Control (Grit)",
-    "risk": "Reaching inward costs your outward awareness — you present an Opening.",
-    "effect": [
-      {
-        "tier": 1,
-        "label": "Fleeting",
-        "name": "Suppress",
-        "description": "You push the pain aside. Ignore the mechanical penalty of one active Perceptual condition ([Distracted], [Dazed], [Stunned], or [Weakened]) for your next action. Positional and Environmental conditions cannot be suppressed — you cannot will yourself off the ground.",
-        "duration": "Immediate"
-      },
-      {
-        "tier": 2,
-        "label": "Masterful",
-        "name": "Control Pain",
-        "description": "You seal off all pain signals through the Force. Ignore ALL active Perceptual condition penalties AND the penalties of 1 Trauma for this round. Positional conditions ([Prone], [Restrained], [Pinned], [Blinded], [Slowed]) and Environmental damage ([Hazard], [Bleeding]) are physical realities — they remain.",
-        "duration": "Immediate"
-      },
-      {
-        "tier": 3,
-        "label": "Legendary",
-        "name": "Body Over Mind",
-        "description": "You enter a sustained state of deep pain suppression. Ignore all Perceptual condition penalties and all Trauma penalties until your next turn AND gain [Buffered 1] as the Force stabilizes your body against further shock.",
-        "duration": "Tactical"
-      }
-    ],
-    "gambits": [
-      {
-        "id": "gambit_remain_conscious",
-        "name": "Remain Conscious",
-        "requiredDie": "D10",
-        "rule": "Reduce your Effect by 1 Tier. If you would be incapacitated this round, you may spend your Trigger to remain conscious and functional until the end of the scene — though you are still at 0 Vitality and further damage ends this effect immediately.",
-        "duration": "Immediate",
-        "spacersGuide": null
-      },
-      {
-        "id": "gambit_reduce_injury",
-        "name": "Reduce Injury",
-        "requiredDie": "D12",
-        "rule": "Reduce your Effect by 1 Tier. You channel the Force through your injury. Convert 1 Vitality damage already suffered this scene into a Trauma instead — the wound is real, but the body responds.",
-        "duration": "Immediate",
-        "spacersGuide": null
-      }
-    ]
-  },
-  {
-    "id": "manv_investigation_the_read",
-    "name": "The Read",
-    "masteryTrack": "Investigation",
-    "disciplineRequirement": {
-      "disciplineId": "investigation",
-      "arenaId": "wits",
-      "minDie": "D8"
-    },
-    "actionType": "Maneuver",
-    "arenaTag": "[Both]",
-    "target": "Defense Resistance",
-    "roll": "Investigation (Wits)",
-    "risk": "You over-analyze and miss a real-world strike, presenting an Opening.",
-    "effect": [
-      {
-        "tier": 1,
-        "label": "Fleeting",
-        "name": "Scan the Scene",
-        "description": "Your eye lands on something useful. The GM reveals one tactical detail in your Zone or an adjacent Zone — a hazard, cover value, structural weakness, or hidden route. Gain [Optimized] on your next action that uses this information.",
-        "duration": "Immediate"
-      },
-      {
-        "tier": 2,
-        "label": "Masterful",
-        "name": "Spot the Flaw",
-        "description": "You deduce a physical vulnerability. The target is [Exposed to your next attack]. Alternatively, you identify an environmental hazard that can be triggered against them — the GM adjudicates the effect.",
-        "duration": "Immediate"
-      },
-      {
-        "tier": 3,
-        "label": "Legendary",
-        "name": "Shatter the Pattern",
-        "description": "Your deduction reaches its conclusion. The target is [Exposed] and [Distracted]. You may immediately trigger one environmental element in your Zone as a free action — a collapsing ledge, sparking conduit, loose cable — GM adjudicates narrative permission and effect.",
-        "duration": "Immediate"
-      }
-    ],
-    "gambits": [
-      {
-        "id": "gambit_predictive_reflex",
-        "name": "Predictive Reflex",
-        "requiredDie": "D10",
-        "rule": "Reduce your Effect by 1 Tier. You know where they are going to strike. Gain [Optimized] on all Defense rolls against the target until your next turn.",
-        "duration": "Tactical",
-        "spacersGuide": null
-      },
-      {
-        "id": "gambit_tactical_reveal",
-        "name": "Tactical Reveal",
-        "requiredDie": "D12",
-        "rule": "Reduce your Effect by 1 Tier. You've mapped the full tactical geometry. Every enemy in the Zone gains [Exposed].",
-        "duration": "Tactical",
-        "spacersGuide": null
-      }
-    ]
-  },
-  {
-    "id": "manv_medicine_combat_triage",
-    "name": "Combat Triage",
-    "masteryTrack": "Medicine",
-    "disciplineRequirement": {
-      "disciplineId": "medicine",
-      "arenaId": "wits",
-      "minDie": "D8"
-    },
-    "actionType": "Maneuver",
-    "arenaTag": "[Both]",
-    "target": "Static Risk 4",
-    "roll": "Medicine (Wits)",
-    "risk": "You fumble the stim or the patch, causing minor pain and presenting an Opening.",
-    "effect": [
-      {
-        "tier": 1,
-        "label": "Fleeting",
-        "name": "Stabilize",
-        "description": "You slap on a bacta-patch. Immediately remove the [Bleeding] condition from yourself or an ally in your Zone.",
-        "duration": "Immediate"
-      },
-      {
-        "tier": 2,
-        "label": "Masterful",
-        "name": "Combat Stim",
-        "description": "You spike the system. Clear [Dazed] or [Distracted] from yourself or an ally in your Zone, OR grant them [Buffered 1].",
-        "duration": "Immediate"
-      },
-      {
-        "tier": 3,
-        "label": "Legendary",
-        "name": "Full Intervention",
-        "description": "You push through the damage. Target ignores the penalties of 1 Trauma for their next action AND gains [Buffered 1].",
-        "duration": "Immediate"
-      }
-    ],
-    "gambits": [
-      {
-        "id": "gambit_shared_stim",
-        "name": "Shared Stim",
-        "requiredDie": "D10",
-        "rule": "Reduce your Effect by 1 Tier. Apply this maneuver's effect to yourself AND one ally in your Zone simultaneously.",
-        "duration": "Immediate",
-        "spacersGuide": null
-      },
-      {
-        "id": "gambit_neural_override",
-        "name": "Neural Override",
-        "requiredDie": "D12",
-        "rule": "Reduce your Effect by 1 Tier. Clear ALL Lingering conditions from the target instead of the normal effect.",
-        "duration": "Immediate",
-        "spacersGuide": null
-      }
-    ]
-  },
-  {
-    "id": "manv_sense_spiritual_intuition",
-    "name": "Spiritual Intuition",
-    "masteryTrack": "Sense",
-    "disciplineRequirement": {
-      "disciplineId": "sense_spark",
-      "arenaId": "wits",
-      "minDie": "D8"
-    },
-    "actionType": "Maneuver",
-    "arenaTag": "[Both]",
-    "target": "Static Risk 4",
-    "roll": "Sense (Wits)",
-    "risk": "Reaching deep into the Force dims your physical awareness — you present an Opening.",
-    "effect": [
-      {
-        "tier": 1,
-        "label": "Fleeting",
-        "name": "Danger Warning",
-        "description": "The Force whispers of immediate threat before your body can react. Step Up your next Defense Control Die.",
-        "duration": "Immediate"
-      },
-      {
-        "tier": 2,
-        "label": "Masterful",
-        "name": "Beyond Sight",
-        "description": "You perceive through the Force rather than your eyes. Detect all living beings in your Zone and all adjacent Zones regardless of darkness, smoke, or concealment. Ignore [Stealth] for your next action.",
-        "duration": "Tactical"
-      },
-      {
-        "tier": 3,
-        "label": "Legendary",
-        "name": "Battle Foresight",
-        "description": "You read the flow of events moments before they unfold. You cannot present an Opening this round and you gain one additional Trigger to spend before your next turn.",
-        "duration": "Immediate"
-      }
-    ],
-    "gambits": [
-      {
-        "id": "gambit_read_the_heart",
-        "name": "Read the Heart",
-        "requiredDie": "D10",
-        "rule": "Reduce your Effect by 1 Tier. You sense the emotional truth of one target in sight. The GM reveals one hidden intention, lie, or secret motivation of that target.",
-        "duration": "Immediate",
-        "spacersGuide": null
-      },
-      {
-        "id": "gambit_ripple_in_the_force",
-        "name": "Ripple in the Force",
-        "requiredDie": "D12",
-        "rule": "Reduce your Effect by 1 Tier. You feel a significant disturbance. The GM reveals the presence, location, and emotional state of all sentient beings within 2 Zones, including those hidden by Stealth or barriers.",
-        "duration": "Immediate",
-        "spacersGuide": null
-      }
-    ]
-  },
-  {
-    "id": "manv_tactics_battle_command",
-    "name": "Battle Command",
-    "masteryTrack": "Tactics",
-    "disciplineRequirement": {
-      "disciplineId": "tactics",
-      "arenaId": "wits",
-      "minDie": "D8"
-    },
-    "actionType": "Maneuver",
-    "arenaTag": "[Both]",
-    "target": "Static Risk 4",
-    "roll": "Tactics (Wits)",
-    "risk": "Your command is misread or arrives too late, presenting an Opening.",
-    "effect": [
-      {
-        "tier": 1,
-        "label": "Fleeting",
-        "name": "Heads Up!",
-        "description": "One ally in your Zone or an adjacent Zone ignores the next Opening they present this round.",
-        "duration": "Immediate"
-      },
-      {
-        "tier": 2,
-        "label": "Masterful",
-        "name": "Focus Fire!",
-        "description": "One ally in your Zone or an adjacent Zone gains [Optimized] for their next attack.",
-        "duration": "Immediate"
-      },
-      {
-        "tier": 3,
-        "label": "Legendary",
-        "name": "Hold the Line! / Suppress!",
-        "description": "Choose one: One ally gains [Guarded 1], OR one enemy in sight gains [Suppressed].",
-        "duration": "Tactical"
-      }
-    ],
-    "gambits": [
-      {
-        "id": "gambit_coordinated_strike",
-        "name": "Coordinated Strike",
-        "requiredDie": "D10",
-        "rule": "Reduce your Effect by 1 Tier. Two allies each gain [Optimized] on their next action.",
-        "duration": "Immediate",
-        "spacersGuide": null
-      },
-      {
-        "id": "gambit_execute_order",
-        "name": "Execute Order",
-        "requiredDie": "D12",
-        "rule": "Reduce your Effect by 1 Tier. One ally may immediately perform a free Maneuver of their choice.",
-        "duration": "Immediate",
-        "spacersGuide": null
-      }
-    ]
-  },
-  {
-    "id": "manv_tech_slicers_edge",
-    "name": "Combat Engineering",
-    "masteryTrack": "Tech",
-    "disciplineRequirement": {
-      "disciplineId": "tech",
-      "arenaId": "wits",
-      "minDie": "D8"
-    },
-    "actionType": "Maneuver",
-    "arenaTag": "[Both]",
-    "target": "Static Risk 4",
-    "roll": "Tech (Wits)",
-    "risk": "You expose yourself manipulating the device or spark a short circuit in your own gear, presenting an Opening.",
-    "effect": [
-      {
-        "tier": 1,
-        "label": "Fleeting",
-        "name": "Jam Comms",
-        "description": "You physically disrupt or disable a target's comms equipment. Their electronic communications are [Disabled] (Ongoing — cleared by a successful Tech action or end of scene). The target is [Distracted].",
-        "duration": "Immediate"
-      },
-      {
-        "tier": 2,
-        "label": "Masterful",
-        "name": "Sabotage Gear",
-        "description": "You physically disable a weapon trait (Auto, Blast, Stun Setting, etc.) or piece of equipment on the target. The affected gear is non-functional until repaired or cleared by a Tech action.",
-        "duration": "Tactical"
-      },
-      {
-        "tier": 3,
-        "label": "Legendary",
-        "name": "Catastrophic Failure",
-        "description": "You trigger a cascading systems overload. Droids are [Shut Down] for 1 round. Targets dependent on powered systems (HUD, targeting arrays, powered armor) are [Blinded] and [Distracted].",
-        "duration": "Immediate"
-      }
-    ],
-    "gambits": [
-      {
-        "id": "gambit_jury_rig",
-        "name": "Jury Rig",
-        "requiredDie": "D10",
-        "rule": "Reduce your Effect by 1 Tier. You cannibalize nearby components. Gain [Buffered 1] or Step Up a damaged piece of your own gear for your next action.",
-        "duration": "Immediate",
-        "spacersGuide": null
-      },
-      {
-        "id": "gambit_override",
-        "name": "Override",
-        "requiredDie": "D12",
-        "rule": "Reduce your Effect by 1 Tier. You seize temporary control of one droid or automated system in your Zone. It takes one directed action before reverting to its original programming. GM adjudicates based on droid type and complexity.",
-        "duration": "Immediate",
-        "spacersGuide": null
-      }
-    ]
-  },
-  {
-    "id": "manv_charm_bravado",
-    "name": "Bravado",
-    "masteryTrack": "Charm",
-    "disciplineRequirement": {
+    "charm": {
       "disciplineId": "charm",
       "arenaId": "presence",
-      "minDie": "D8"
+      "name": "Charm",
+      "gambits": [
+        {
+          "id": "gambit_charm_d8",
+          "name": "Disarming Smile",
+          "requiredDie": "D8",
+          "modifiesAction": "action_assess",
+          "tags": [
+            "[Narrative]"
+          ],
+          "rule": "After resolving a social action [Narrative], spend 1 tier. Gain [Optimized] on all social actions against this target for the scene. Free if Hope is dominant on the Destiny tracker.",
+          "duration": "Scene"
+        },
+        {
+          "id": "gambit_charm_d10",
+          "name": "Silver Tongue",
+          "requiredDie": "D10",
+          "modifiesAction": "action_assess",
+          "tags": [
+            "[Narrative]"
+          ],
+          "rule": "After resolving a social action [Narrative], spend 1 tier. The target's Social Resistance drops by 2 for the scene. Only applies to non-threatening approaches (Charm, Persuasion).",
+          "duration": "Scene"
+        },
+        {
+          "id": "gambit_charm_d12",
+          "name": "Sway",
+          "requiredDie": "D12",
+          "modifiesAction": "action_assess",
+          "tags": [
+            "[Narrative]"
+          ],
+          "rule": "After resolving a social action [Narrative], spend 1 tier. Convince the target to do something they wouldn't normally do — share a secret, grant a favor, bend a rule. Must be plausible within the fiction; the GM adjudicates limits.",
+          "duration": "Immediate"
+        }
+      ]
     },
-    "actionType": "Maneuver",
-    "arenaTag": "[Narrative]",
-    "target": "Social Resistance (NPC Composure or Willingness)",
-    "roll": "Charm (Presence)",
-    "risk": "You come across as false, desperate, or trying too hard. The NPC closes off — the GM may raise their Social Resistance by 1 for the rest of the scene.",
-    "effect": [
-      {
-        "tier": 1,
-        "label": "Fleeting",
-        "name": "Warm Opening",
-        "description": "You find common ground or land a genuine compliment. The NPC's initial defensiveness drops. Your next Charm or Persuasion roll against them is [Optimized].",
-        "duration": "Immediate"
-      },
-      {
-        "tier": 2,
-        "label": "Masterful",
-        "name": "Lower the Guard",
-        "description": "Your ease puts them at ease. The NPC willingly answers one honest question or removes one specific social barrier — suspicion, reluctance, or formality.",
-        "duration": "Immediate"
-      },
-      {
-        "tier": 3,
-        "label": "Legendary",
-        "name": "Win the Room",
-        "description": "Your presence is magnetic. All NPCs present soften their stance — treat this group's Social Resistance as reduced by 1 for the rest of the scene.",
-        "duration": "Scene"
-      }
-    ],
-    "gambits": [
-      {
-        "id": "gambit_smooth_it_over",
-        "name": "Smooth It Over",
-        "requiredDie": "D10",
-        "rule": "Reduce your Effect by 1 Tier. If you or an ally failed a social roll against this target earlier this scene, that failure is completely supplanted — the target's attitude resets to neutral before applying this Maneuver's result.",
-        "duration": "Immediate",
-        "spacersGuide": null
-      },
-      {
-        "id": "gambit_unforgettable",
-        "name": "Unforgettable",
-        "requiredDie": "D12",
-        "rule": "Reduce your Effect by 1 Tier. You leave a lasting impression. In any future scene where this NPC is present, you begin with their goodwill already established — they treat you as a trusted acquaintance regardless of circumstances.",
-        "duration": "Permanent",
-        "spacersGuide": null
-      }
-    ]
-  },
-  {
-    "id": "manv_deception_the_false_gap",
-    "name": "The False Gap",
-    "masteryTrack": "Deception",
-    "disciplineRequirement": {
+    "deception": {
       "disciplineId": "deception",
       "arenaId": "presence",
-      "minDie": "D8"
+      "name": "Deception",
+      "gambits": [
+        {
+          "id": "gambit_deception_d8",
+          "name": "Feint",
+          "requiredDie": "D8",
+          "modifiesAction": "action_attack",
+          "tags": [
+            "[Melee]",
+            "[Unarmed]"
+          ],
+          "rule": "After resolving a melee Attack, spend 1 tier. Target gains [Exposed] to your next attack. Tactical.",
+          "duration": "Tactical"
+        },
+        {
+          "id": "gambit_deception_d10",
+          "name": "Misdirect",
+          "requiredDie": "D10",
+          "modifiesAction": "action_assess",
+          "tags": [
+            "[Narrative]"
+          ],
+          "rule": "After resolving a social action [Narrative], spend 1 tier. The target wastes their next significant action pursuing false information or a phantom threat you planted.",
+          "duration": "Immediate"
+        },
+        {
+          "id": "gambit_deception_d12",
+          "name": "False Flag",
+          "requiredDie": "D12",
+          "modifiesAction": "action_assess",
+          "tags": [
+            "[Narrative]"
+          ],
+          "rule": "After resolving a social action [Narrative], spend 1 tier. Convince the target you represent a faction, authority, or allegiance you do not. Grants narrative permissions associated with that identity until exposed.",
+          "duration": "Scene"
+        }
+      ]
     },
-    "actionType": "Maneuver",
-    "arenaTag": "[Both]",
-    "target": "Resolve Resistance",
-    "roll": "Deception (Presence)",
-    "risk": "Your feint is spotted, presenting an Opening that allows an enemy to immediately spend a Trigger to react.",
-    "effect": [
-      {
-        "tier": 1,
-        "label": "Fleeting",
-        "name": "The Tell",
-        "description": "You read their reaction to the feint. Gain [Optimized] on your next Melee Attack or Deception roll this turn. Combat: you caught their flinch. Narrative: the seed is planted and you know exactly how to press.",
-        "duration": "Immediate"
-      },
-      {
-        "tier": 2,
-        "label": "Masterful",
-        "name": "False Threat",
-        "description": "The target takes the bait. They gain [Distracted]. Combat: they flinched at the fake threat and lost their focus. Narrative: they are chasing a false lead.",
-        "duration": "Tactical"
-      },
-      {
-        "tier": 3,
-        "label": "Legendary",
-        "name": "The Setup",
-        "description": "You bait them perfectly. The target immediately spends a Trigger to make an attack — but that attack is redirected to a target in the same Zone: an ally, an enemy, or an environmental hazard. The redirected attack is resolved normally. The GM has final say on the redirection target and any special effects when striking a hazard. Combat: a vibro-sword guided into an electrical conduit, a blaster bolt walked into a friendly. Narrative: a provoked outburst directed at the wrong person, a critical slip in negotiations.",
-        "duration": "Immediate"
-      }
-    ],
-    "gambits": [
-      {
-        "id": "gambit_smoke_and_mirrors",
-        "name": "Smoke and Mirrors",
-        "requiredDie": "D10",
-        "rule": "Reduce your Effect by 1 Tier. The misdirection extends to your own position. An enemy targeting you this turn must instead target another valid target in the Zone.",
-        "duration": "Immediate",
-        "spacersGuide": null
-      },
-      {
-        "id": "gambit_chaos_cascade",
-        "name": "Chaos Cascade",
-        "requiredDie": "D12",
-        "rule": "Reduce your Effect by 1 Tier. The confusion propagates outward. All enemies in the Zone gain [Distracted] as they respond to conflicting information.",
-        "duration": "Tactical",
-        "spacersGuide": null
-      }
-    ]
-  },
-  {
-    "id": "manv_insight_the_eye",
-    "name": "The Eye",
-    "masteryTrack": "Insight",
-    "disciplineRequirement": {
+    "endure": {
+      "disciplineId": "endure",
+      "arenaId": "physique",
+      "name": "Endure",
+      "gambits": [
+        {
+          "id": "gambit_endure_d8",
+          "name": "Brace",
+          "requiredDie": "D8",
+          "modifiesAction": "action_endure",
+          "tags": [
+            "[Combat]"
+          ],
+          "rule": "After resolving an Endure defense, spend 1 tier. Gain [Buffered 1].",
+          "duration": "Tactical"
+        },
+        {
+          "id": "gambit_endure_d10",
+          "name": "Shake It Off",
+          "requiredDie": "D10",
+          "modifiesAction": "action_endure",
+          "tags": [
+            "[Combat]"
+          ],
+          "rule": "After resolving an Endure defense, spend 1 tier. Clear 1 Lingering physical condition.",
+          "duration": "Immediate"
+        },
+        {
+          "id": "gambit_endure_d12",
+          "name": "Dig In",
+          "requiredDie": "D12",
+          "modifiesAction": "action_endure",
+          "tags": [
+            "[Combat]"
+          ],
+          "rule": "After resolving an Endure defense, spend 1 tier. Ignore the penalties of all Trauma until the end of your next turn.",
+          "duration": "Tactical"
+        }
+      ]
+    },
+    "evasion": {
+      "disciplineId": "evasion",
+      "arenaId": "reflex",
+      "name": "Evasion",
+      "gambits": [
+        {
+          "id": "gambit_evasion_d8",
+          "name": "Sidestep",
+          "requiredDie": "D8",
+          "modifiesAction": "action_dodge",
+          "tags": [
+            "[Combat]"
+          ],
+          "rule": "After resolving a Dodge defense, spend 1 tier. Immediately move 1 zone. This does not cost a Maneuver.",
+          "duration": "Immediate"
+        },
+        {
+          "id": "gambit_evasion_d10",
+          "name": "Untouchable",
+          "requiredDie": "D10",
+          "modifiesAction": "action_dodge",
+          "tags": [
+            "[Combat]"
+          ],
+          "rule": "After resolving a Dodge defense, spend 1 tier. The attacker gains [Exposed] to your next attack. Tactical.",
+          "duration": "Tactical"
+        },
+        {
+          "id": "gambit_evasion_d12",
+          "name": "Ghost",
+          "requiredDie": "D12",
+          "modifiesAction": "action_dodge",
+          "tags": [
+            "[Combat]"
+          ],
+          "rule": "After resolving a Dodge defense, spend 1 tier. All enemies in the zone lose track of you. They must succeed on an Assess before they can target you again.",
+          "duration": "Tactical"
+        }
+      ]
+    },
+    "heavy_weapons": {
+      "disciplineId": "heavy_weapons",
+      "arenaId": "physique",
+      "name": "Heavy Weapons",
+      "gambits": [
+        {
+          "id": "gambit_heavy_d8",
+          "name": "Walking Fire",
+          "requiredDie": "D8",
+          "modifiesAction": "action_attack",
+          "tags": [
+            "[Heavy Ranged]",
+            "[Autofire]"
+          ],
+          "rule": "After resolving a heavy weapons Attack, spend 1 tier. Target gains [Suppressed] Tactical.",
+          "duration": "Tactical"
+        },
+        {
+          "id": "gambit_heavy_d10",
+          "name": "Danger Close",
+          "requiredDie": "D10",
+          "modifiesAction": "action_attack",
+          "tags": [
+            "[Heavy Ranged]",
+            "[Autofire]",
+            "[Grenade]"
+          ],
+          "rule": "After resolving a heavy weapons Attack, spend 1 tier. Apply the attack to all targets in the zone. Compare Power die to each target's Defense separately. Step down the tier effect on each by one.",
+          "duration": "Immediate"
+        },
+        {
+          "id": "gambit_heavy_d12",
+          "name": "Scorched Earth",
+          "requiredDie": "D12",
+          "modifiesAction": "action_attack",
+          "tags": [
+            "[Heavy Ranged]",
+            "[Grenade]"
+          ],
+          "rule": "After resolving a heavy weapons Attack, spend 1 tier. The target zone gains [Hazard 2] Ongoing. Anyone entering or starting their turn in the zone takes the Hazard damage. Source: fire/explosion. Recovery: leave the zone.",
+          "duration": "Ongoing"
+        }
+      ]
+    },
+    "insight": {
       "disciplineId": "insight",
       "arenaId": "presence",
-      "minDie": "D8"
+      "name": "Insight",
+      "gambits": [
+        {
+          "id": "gambit_insight_d8",
+          "name": "Read Between the Lines",
+          "requiredDie": "D8",
+          "modifiesAction": "action_assess",
+          "tags": [
+            "[Narrative]"
+          ],
+          "rule": "After resolving a social action [Narrative], spend 1 tier. The GM reveals one thing the target is hiding, avoiding, or lying about in this conversation.",
+          "duration": "Immediate"
+        },
+        {
+          "id": "gambit_insight_d10",
+          "name": "Weak Point",
+          "requiredDie": "D10",
+          "modifiesAction": "action_assess",
+          "tags": [
+            "[Both]"
+          ],
+          "rule": "After resolving an Assess, spend 1 tier. Your next attack against this target ignores their [Guarded] or [Cover] rating.",
+          "duration": "Immediate"
+        },
+        {
+          "id": "gambit_insight_d12",
+          "name": "Pattern Lock",
+          "requiredDie": "D12",
+          "modifiesAction": "action_assess",
+          "tags": [
+            "[Both]"
+          ],
+          "rule": "After resolving an Assess, spend 1 tier. The target gains [Exposed] to your attacks. Tactical.",
+          "duration": "Tactical"
+        }
+      ]
     },
-    "actionType": "Maneuver",
-    "arenaTag": "[Both]",
-    "target": "Defense Resistance",
-    "roll": "Insight (Presence)",
-    "risk": "You misread the tell and walk right into a strike, presenting an Opening.",
-    "effect": [
-      {
-        "tier": 1,
-        "label": "Fleeting",
-        "name": "The Tell",
-        "description": "You spot a twitch, a micro-expression, a tell. Reveal the target's current Vitality or one active condition. Gain [Optimized] on your next Defense roll against them.",
-        "duration": "Immediate"
-      },
-      {
-        "tier": 2,
-        "label": "Masterful",
-        "name": "Predictive Defense",
-        "description": "You read the shot before it comes. Gain [Optimized] on all Defense rolls against the target until your next turn.",
-        "duration": "Tactical"
-      },
-      {
-        "tier": 3,
-        "label": "Legendary",
-        "name": "Pattern Recognition",
-        "description": "You have solved their style. The target gains [Exposed to your attacks] and you ignore their [Guarded] or [Cover] rating for your next attack against them.",
-        "duration": "Immediate"
-      }
-    ],
-    "gambits": [
-      {
-        "id": "gambit_reading_the_hand",
-        "name": "Reading the Hand",
-        "requiredDie": "D10",
-        "rule": "Reduce your Effect by 1 Tier. You predict their dirty trick. The target cannot use Triggers or Gambits until the start of your next turn.",
-        "duration": "Tactical",
-        "spacersGuide": null
-      },
-      {
-        "id": "gambit_instant_reflex",
-        "name": "Instant Reflex",
-        "requiredDie": "D12",
-        "rule": "Reduce your Effect by 1 Tier. You act on pure intuition. If the target attacks you before your next turn, you may spend a Trigger to resolve your next Action before they resolve theirs.",
-        "duration": "Immediate",
-        "spacersGuide": null
-      }
-    ]
-  },
-  {
-    "id": "manv_persuasion_battle_command",
-    "name": "Rally",
-    "masteryTrack": "Persuasion",
-    "disciplineRequirement": {
+    "intimidate": {
+      "disciplineId": "intimidate",
+      "arenaId": "grit",
+      "name": "Intimidate",
+      "gambits": [
+        {
+          "id": "gambit_intimidate_d8",
+          "name": "Menacing Strike",
+          "requiredDie": "D8",
+          "modifiesAction": "action_attack",
+          "tags": [
+            "[Melee]",
+            "[Unarmed]"
+          ],
+          "rule": "After resolving a melee Attack [Melee, Unarmed], spend 1 tier. Target gains [Rattled] Tactical. Free if Toll is dominant on the Destiny tracker.",
+          "duration": "Tactical"
+        },
+        {
+          "id": "gambit_intimidate_d10",
+          "name": "Break Composure",
+          "requiredDie": "D10",
+          "modifiesAction": "action_assess",
+          "tags": [
+            "[Narrative]"
+          ],
+          "rule": "After resolving a social action [Narrative], spend 1 tier. The target reveals their primary motivation in this scene — what they want, protect, or fear. The GM provides a concrete, actionable detail.",
+          "duration": "Immediate"
+        },
+        {
+          "id": "gambit_intimidate_d12",
+          "name": "Demoralizing Strike",
+          "requiredDie": "D12",
+          "modifiesAction": "action_attack",
+          "tags": [
+            "[Any]"
+          ],
+          "rule": "After resolving an Attack [Any], spend 1 tier. Target's Resolve defense reduced by 2. Ongoing.",
+          "duration": "Ongoing"
+        }
+      ]
+    },
+    "investigation": {
+      "disciplineId": "investigation",
+      "arenaId": "wits",
+      "name": "Investigation",
+      "gambits": [
+        {
+          "id": "gambit_investigation_d8",
+          "name": "Tactical Scan",
+          "requiredDie": "D8",
+          "modifiesAction": "action_assess",
+          "tags": [
+            "[Combat]"
+          ],
+          "rule": "After resolving an Assess, spend 1 tier. Gain [Optimized] on defense rolls against one target in your zone. Tactical.",
+          "duration": "Tactical"
+        },
+        {
+          "id": "gambit_investigation_d10",
+          "name": "Battlefield Read",
+          "requiredDie": "D10",
+          "modifiesAction": "action_assess",
+          "tags": [
+            "[Combat]"
+          ],
+          "rule": "After resolving an Assess, spend 1 tier. Gain [Optimized] on defense rolls against all targets in your zone. Tactical.",
+          "duration": "Tactical"
+        },
+        {
+          "id": "gambit_investigation_d12",
+          "name": "Instant Reconstruction",
+          "requiredDie": "D12",
+          "modifiesAction": "action_assess",
+          "tags": [
+            "[Narrative]"
+          ],
+          "rule": "After resolving an Assess [Narrative], spend 1 tier. This also costs your Action pip. You instantly read the entire scene — what would normally take minutes, you process in a single action. Your Assess questions require no time if the information is available.",
+          "duration": "Immediate"
+        }
+      ]
+    },
+    "medicine": {
+      "disciplineId": "medicine",
+      "arenaId": "wits",
+      "name": "Medicine",
+      "gambits": [
+        {
+          "id": "gambit_medicine_d8",
+          "name": "Field Treatment",
+          "requiredDie": "D8",
+          "modifiesAction": "action_treat_injury",
+          "tags": [
+            "[Narrative]"
+          ],
+          "rule": "After resolving a Treat Injury, spend 1 tier. Remove one additional condition treatable by medicine from one patient.",
+          "duration": "Immediate"
+        },
+        {
+          "id": "gambit_medicine_d10",
+          "name": "Trauma Surgery",
+          "requiredDie": "D10",
+          "modifiesAction": "action_treat_injury",
+          "tags": [
+            "[Narrative]"
+          ],
+          "rule": "After resolving a Treat Injury, spend 1 tier. Remove 1 additional Trauma from one patient.",
+          "duration": "Immediate"
+        },
+        {
+          "id": "gambit_medicine_d12",
+          "name": "Miracle Worker",
+          "requiredDie": "D12",
+          "modifiesAction": "action_treat_injury",
+          "tags": [
+            "[Narrative]"
+          ],
+          "rule": "After resolving a Treat Injury, spend 1 tier. Restore 1 additional Vitality to one patient.",
+          "duration": "Immediate"
+        }
+      ]
+    },
+    "melee": {
+      "disciplineId": "melee",
+      "arenaId": "physique",
+      "name": "Melee",
+      "gambits": [
+        {
+          "id": "gambit_melee_d8",
+          "name": "Parry",
+          "requiredDie": "D8",
+          "modifiesAction": "action_attack",
+          "tags": [
+            "[Melee]"
+          ],
+          "rule": "After resolving a melee Attack [Melee], spend 1 tier. Gain [Optimized] on all Endure defense rolls. Tactical.",
+          "duration": "Tactical"
+        },
+        {
+          "id": "gambit_melee_d10",
+          "name": "Exposing Strike",
+          "requiredDie": "D10",
+          "modifiesAction": "action_attack",
+          "tags": [
+            "[Melee]",
+            "[Unarmed]"
+          ],
+          "rule": "After resolving a melee Attack [Melee, Unarmed], spend 1 tier. The target immediately presents an Opening — you or any ally in the zone may spend a Trigger to react.",
+          "duration": "Immediate"
+        },
+        {
+          "id": "gambit_melee_d12",
+          "name": "Cleaving Arc",
+          "requiredDie": "D12",
+          "modifiesAction": "action_attack",
+          "tags": [
+            "[Melee]",
+            "[Unarmed]"
+          ],
+          "rule": "After resolving a melee Attack [Melee, Unarmed], spend 1 tier. Apply your attack to a second target in the same zone. If the second target has higher Presence than the original, it automatically fails. Compare Power die to each target's Defense separately, then step down the tier effect on each by one.",
+          "duration": "Immediate"
+        }
+      ]
+    },
+    "persuasion": {
       "disciplineId": "persuasion",
       "arenaId": "presence",
-      "minDie": "D8"
+      "name": "Persuasion",
+      "gambits": [
+        {
+          "id": "gambit_persuasion_d8",
+          "name": "Common Ground",
+          "requiredDie": "D8",
+          "modifiesAction": "action_assess",
+          "tags": [
+            "[Narrative]"
+          ],
+          "rule": "After resolving a social action [Narrative], spend 1 tier. The GM reveals what the target values or wants — something you can offer or leverage. Free if Hope is dominant on the Destiny tracker.",
+          "duration": "Immediate"
+        },
+        {
+          "id": "gambit_persuasion_d10",
+          "name": "The Deal",
+          "requiredDie": "D10",
+          "modifiesAction": "action_assess",
+          "tags": [
+            "[Narrative]"
+          ],
+          "rule": "After resolving a social action [Narrative], spend 1 tier. The target's Social Resistance drops by 2 for the scene. Only applies to non-threatening approaches (Charm, Persuasion).",
+          "duration": "Scene"
+        },
+        {
+          "id": "gambit_persuasion_d12",
+          "name": "Turncoat",
+          "requiredDie": "D12",
+          "modifiesAction": "action_assess",
+          "tags": [
+            "[Narrative]"
+          ],
+          "rule": "After resolving a social action [Narrative], spend 1 tier. Convince the target to switch sides, betray an ally, or act against their current allegiance — provided you've offered something they want more. The GM adjudicates sufficiency.",
+          "duration": "Immediate"
+        }
+      ]
     },
-    "actionType": "Maneuver",
-    "arenaTag": "[Both]",
-    "target": "Static Risk 4",
-    "roll": "Persuasion (Presence)",
-    "risk": "Your words ring hollow in the chaos. You present an Opening as your focus shifts to your allies.",
-    "effect": [
-      {
-        "tier": 1,
-        "label": "Fleeting",
-        "name": "Eyes Up!",
-        "description": "Your words cut through the fog. Clear [Distracted] from one ally in your Zone or an adjacent Zone.",
-        "duration": "Immediate"
-      },
-      {
-        "tier": 2,
-        "label": "Masterful",
-        "name": "Move It!",
-        "description": "You get them moving with purpose. One ally may immediately move 1 Zone without triggering an Opening.",
-        "duration": "Immediate"
-      },
-      {
-        "tier": 3,
-        "label": "Legendary",
-        "name": "On My Mark!",
-        "description": "Your conviction lifts them. One ally gains [Optimized] for their next Primary Action, OR one ally clears one active Perceptual condition ([Distracted], [Dazed], or [Stunned]) through sheer force of will.",
-        "duration": "Immediate"
-      }
-    ],
-    "gambits": [
-      {
-        "id": "gambit_lead_the_charge",
-        "name": "Lead the Charge",
-        "requiredDie": "D10",
-        "rule": "Reduce your Effect by 1 Tier. You lead by example. If you succeed on your next Primary Action this turn, all allies in your Zone gain [Optimized] on their next rolls.",
-        "duration": "Immediate",
-        "spacersGuide": null
-      },
-      {
-        "id": "gambit_commanders_intent",
-        "name": "Commander's Intent",
-        "requiredDie": "D12",
-        "rule": "Reduce your Effect by 1 Tier. Your presence galvanizes the group. Grant every ally in your Zone a free Move or Maneuver.",
-        "duration": "Immediate",
-        "spacersGuide": null
-      }
-    ]
-  },
-  {
-    "id": "manv_alter_environmental_influence",
-    "name": "Telekinesis",
-    "masteryTrack": "Alter",
-    "disciplineRequirement": {
+    "piloting": {
+      "disciplineId": "piloting",
+      "arenaId": "reflex",
+      "name": "Piloting",
+      "gambits": [
+        {
+          "id": "gambit_piloting_d8",
+          "name": "Evasive Maneuver",
+          "requiredDie": "D8",
+          "modifiesAction": "action_move",
+          "tags": [
+            "[Vehicle]"
+          ],
+          "rule": "After resolving a Move [Vehicle], spend 1 tier. Your vehicle is treated as 1 scale smaller for defensive actions. Tactical.",
+          "duration": "Tactical"
+        },
+        {
+          "id": "gambit_piloting_d10",
+          "name": "Attack Vector",
+          "requiredDie": "D10",
+          "modifiesAction": "action_move",
+          "tags": [
+            "[Vehicle]"
+          ],
+          "rule": "After resolving a Move [Vehicle], spend 1 tier. One gunner on your vehicle gains [Optimized] on their next attack.",
+          "duration": "Immediate"
+        },
+        {
+          "id": "gambit_piloting_d12",
+          "name": "Bold Maneuver",
+          "requiredDie": "D12",
+          "modifiesAction": "action_move",
+          "tags": [
+            "[Vehicle]"
+          ],
+          "rule": "After resolving a Move [Vehicle], spend 1 tier. The next attack from your vehicle is treated as 1 scale larger.",
+          "duration": "Immediate"
+        }
+      ]
+    },
+    "ranged": {
+      "disciplineId": "ranged",
+      "arenaId": "reflex",
+      "name": "Ranged",
+      "gambits": [
+        {
+          "id": "gambit_ranged_d8",
+          "name": "Covering Fire",
+          "requiredDie": "D8",
+          "modifiesAction": "action_attack",
+          "tags": [
+            "[Ranged]"
+          ],
+          "rule": "After resolving a ranged Attack [Ranged], spend 1 tier. Target gains [Rattled] Tactical.",
+          "duration": "Tactical"
+        },
+        {
+          "id": "gambit_ranged_d10",
+          "name": "Trick Shot",
+          "requiredDie": "D10",
+          "modifiesAction": "action_attack",
+          "tags": [
+            "[Ranged]"
+          ],
+          "rule": "After resolving a ranged Attack [Ranged], spend 1 tier. Shoot an environmental element — a door release, light fixture, cable, fuel line — triggering a narrative effect in the zone. GM adjudicates.",
+          "duration": "Immediate"
+        },
+        {
+          "id": "gambit_ranged_d12",
+          "name": "Pinning Shot",
+          "requiredDie": "D12",
+          "modifiesAction": "action_attack",
+          "tags": [
+            "[Ranged]"
+          ],
+          "rule": "After resolving a ranged Attack [Ranged], spend 1 tier. Target gains [Suppressed] Tactical.",
+          "duration": "Tactical"
+        }
+      ]
+    },
+    "resolve": {
+      "disciplineId": "resolve",
+      "arenaId": "grit",
+      "name": "Resolve",
+      "gambits": [],
+      "placeholder": true
+    },
+    "sense_spark": {
+      "disciplineId": "sense_spark",
+      "arenaId": "wits",
+      "name": "Sense",
+      "gambits": [],
+      "placeholder": true
+    },
+    "skulduggery": {
+      "disciplineId": "skulduggery",
+      "arenaId": "reflex",
+      "name": "Skulduggery",
+      "gambits": [],
+      "placeholder": true
+    },
+    "stealth": {
+      "disciplineId": "stealth",
+      "arenaId": "reflex",
+      "name": "Stealth",
+      "gambits": [],
+      "placeholder": true
+    },
+    "survival": {
+      "disciplineId": "survival",
+      "arenaId": "grit",
+      "name": "Survival",
+      "gambits": [],
+      "placeholder": true
+    },
+    "tactics": {
+      "disciplineId": "tactics",
+      "arenaId": "wits",
+      "name": "Tactics",
+      "gambits": [],
+      "placeholder": true
+    },
+    "tech": {
+      "disciplineId": "tech",
+      "arenaId": "wits",
+      "name": "Tech",
+      "gambits": [],
+      "placeholder": true
+    },
+    "control_spark": {
+      "disciplineId": "control_spark",
+      "arenaId": "grit",
+      "name": "Control",
+      "gambits": [],
+      "placeholder": true
+    },
+    "alter_spark": {
       "disciplineId": "alter_spark",
       "arenaId": "presence",
-      "minDie": "D8"
-    },
-    "actionType": "Maneuver",
-    "arenaTag": "[Both]",
-    "target": "Defense Resistance (Physique)",
-    "roll": "Alter (Presence)",
-    "risk": "The kinetic feedback surges back through you — you present an Opening.",
-    "effect": [
-      {
-        "tier": 1,
-        "label": "Fleeting",
-        "name": "Force Nudge",
-        "description": "A subtle kinetic shove — you displace a weapon, knock something into a target's path, or shift their footing. The target is [Distracted].",
-        "duration": "Immediate"
-      },
-      {
-        "tier": 2,
-        "label": "Masterful",
-        "name": "Force Push / Pull",
-        "description": "A focused kinetic burst. Move the target OR a sizeable object 1 Zone in any direction. An unwilling target may be pushed into a hazard, into another Zone, or out of Engagement — GM adjudicates narrative effects.",
-        "duration": "Immediate"
-      },
-      {
-        "tier": 3,
-        "label": "Legendary",
-        "name": "Force Slam",
-        "description": "Kinetic violence. Move the target 1 Zone and knock them [Prone]. If the target is moved into a wall, structure, or hazard, the GM may apply additional effects.",
-        "duration": "Immediate"
-      }
-    ],
-    "gambits": [
-      {
-        "id": "gambit_force_grip",
-        "name": "Force Grip",
-        "requiredDie": "D10",
-        "rule": "Reduce your Effect by 1 Tier. You maintain a sustained telekinetic hold. The target is [Restrained] until they succeed on an opposed Physique check — they may attempt once per turn as a Maneuver.",
-        "duration": "Tactical",
-        "spacersGuide": null
-      },
-      {
-        "id": "gambit_force_wave",
-        "name": "Force Wave",
-        "requiredDie": "D12",
-        "rule": "Reduce your Effect by 1 Tier. The kinetic burst radiates outward. Apply this Maneuver's resolved effect to all enemies in the Zone instead of a single target.",
-        "duration": "Immediate",
-        "spacersGuide": null
-      }
-    ]
-  }
-]
+      "name": "Alter",
+      "gambits": [],
+      "placeholder": true
+    }
+  },
+  "advancedManeuvers": []
+}

@@ -105,7 +105,7 @@
       ],
       "floor": "2D4 take the lowest — approximately 6.25% success. This is the hard minimum regardless of how many additional steps down are applied.",
       "mathNote": "Success threshold is rolling 4+ on the final die. D6: 3/6=50%. D8: 5/8=62.5%. Each Step Down moves to the next smaller die, D4 floor = 25%, 2D4-take-lowest = 6.25%.",
-      "stepUpSources": "PCs gain Step-Up bonuses to their Control Die from conditions ([Optimized], NPC [Distracted], NPC [Stunned]), traits, or environmental advantages — never from a negative Presence value. Presence is a one-directional difficulty dial."
+      "stepUpSources": "PCs gain Step-Up bonuses to their Control Die from conditions ([Optimized], NPC [Disoriented], NPC [Stunned]), traits, or environmental advantages — never from a negative Presence value. Presence is a one-directional difficulty dial."
     },
 
     "defense": {
@@ -218,7 +218,7 @@
     "description": "A Trigger is a reactive option spent in response to an Opening. Threats hold their Triggers and spend them when an Opening is presented. Triggers are not automatic — the GM declares the spend and the effect.",
     "default": {
       "name": "Basic Attack",
-      "rule": "Apply [Distracted] to the target and make a Basic Attack against them (resolve as a Simple action at the threat's Power rating). This is the fallback Trigger action when an Opening does not specify a different permitted action. Unique threats should define role-specific Triggers that replace or extend this default.",
+      "rule": "Apply [Disoriented] to the target and make a Basic Attack against them (resolve as a Simple action at the threat's Power rating). This is the fallback Trigger action when an Opening does not specify a different permitted action. Unique threats should define role-specific Triggers that replace or extend this default.",
       "note": "Unique threats should have role-specific triggers in addition to or replacing this default. A Trandoshan bounty hunter and a protocol droid have very different reactive instincts."
     },
     "openings": {
@@ -259,7 +259,7 @@
   "conditionsOnThreats": {
     "description": "Conditions apply to threats the same as PCs. However, because NPCs do not roll dice, any condition that would modify a die instead shifts the modifier to the PC's roll.",
     "translations": [
-      { "condition": "[Distracted]",  "onPC": "Step Down Control Die on affected action.", "onNPC": "PC Steps Up their Control Die against this threat." },
+      { "condition": "[Disoriented]",  "onPC": "Step Down Control Die on affected action.", "onNPC": "PC Steps Up their Control Die against this threat." },
       { "condition": "[Stunned]",     "onPC": "Step Down Control Die on all rolls. Lingering.", "onNPC": "PC Steps Up their Control Die against this threat on all rolls. Lingering." },
       { "condition": "[Weakened]",    "onPC": "Step Down Power Die on affected roll.", "onNPC": "PC Steps Up their Power Die when attacking this threat." },
       { "condition": "[Empowered]",   "onPC": "Step Up Power Die on affected roll.", "onNPC": "PC Steps Down their Power Die on the relevant defense — the NPC's attack hits harder." },
@@ -478,7 +478,7 @@
       "tagNotes": {
         "PACK": "When 2+ Stormtroopers share a Zone, each gains +1 Presence (now Presence 1 — Step Down PC Control Die ×1). Coordinated fire. Break them up."
       },
-      "trigger": "Default: Apply [Distracted] and make a Basic Attack against the target.",
+      "trigger": "Default: Apply [Disoriented] and make a Basic Attack against the target.",
       "tpCost": {
         "presence_0": 0,
         "defense_5": 3,

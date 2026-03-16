@@ -226,13 +226,24 @@
     var maneuversReady = fetch('/data/maneuvers.json')
       .then(function (res) { return res.json(); })
       .then(function (data) {
-        var arr = Array.isArray(data) ? data : Object.values(data);
-        arr.forEach(function (m) {
-          var req = m.disciplineRequirement;
-          if (req && req.disciplineId) {
-            if (!_maneuversByDisc[req.disciplineId]) _maneuversByDisc[req.disciplineId] = [];
-            _maneuversByDisc[req.disciplineId].push(m);
-          }
+        var gambits = data.disciplineGambits || {};
+        Object.keys(gambits).forEach(function (key) {
+          var set = gambits[key];
+          if (!set || set.placeholder) return;
+          var discId = set.disciplineId;
+          if (!_maneuversByDisc[discId]) _maneuversByDisc[discId] = [];
+          (set.gambits || []).forEach(function (g) {
+            _maneuversByDisc[discId].push({
+              name: g.name,
+              actionType: 'Gambit',
+              arenaTag: (g.tags || []).join(' '),
+              roll: set.name + ' (' + (set.arenaId || '').charAt(0).toUpperCase() + (set.arenaId || '').slice(1) + ')',
+              target: g.modifiesAction || '',
+              effect: [],
+              gambits: [g],
+              disciplineRequirement: { disciplineId: discId, arenaId: set.arenaId, minDie: g.requiredDie },
+            });
+          });
         });
       });
 

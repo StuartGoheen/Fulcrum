@@ -480,7 +480,7 @@
           '</div>' +
           '<div class="char-ladder-mod">' +
             '<span class="char-ladder-mod-tag char-ladder-mod--down">−1</span>' +
-            '<span class="char-ladder-mod-sources">[Dazed] · Gambit Cost · [Guarded X] · [Cover X]</span>' +
+            '<span class="char-ladder-mod-sources">[Shaken] · Gambit Cost · [Guarded X] · [Cover X]</span>' +
           '</div>' +
         '</div>' +
       '</div>'

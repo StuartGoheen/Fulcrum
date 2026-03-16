@@ -194,7 +194,7 @@
     "gambits": [
       {
         "name": "Excruciating Hit",
-        "rule": "Reduce your Effect by 1 Tier. The bolt's unique frequency causes intense, lingering pain in biological targets. Inflict [Distracted – Lingering] in addition to the resolved damage."
+        "rule": "Reduce your Effect by 1 Tier. The bolt's unique frequency causes intense, lingering pain in biological targets. Inflict [Disoriented – Lingering] in addition to the resolved damage."
       }
     ],
     "availability": "4/X",

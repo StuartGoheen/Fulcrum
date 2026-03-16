@@ -6,11 +6,12 @@
   var TIER_RANGES = ['0\u20133', '4\u20137', '8+'];
 
   var _CONDITION_MAP = {
-    'distracted':  'condition_distracted',
+    'disoriented': 'condition_disoriented',
+    'rattled':     'condition_rattled',
     'optimized':   'condition_optimized',
     'weakened':    'condition_weakened',
     'empowered':   'condition_empowered',
-    'dazed':       'condition_dazed',
+    'shaken':      'condition_shaken',
     'exposed':     'condition_exposed',
     'pinned':      'condition_pinned',
     'prone':       'condition_prone',
@@ -21,8 +22,19 @@
     'blinded':     'condition_blinded',
     'shut down':   'condition_shut_down',
     'restrained':  'condition_restrained',
+    'suppressed':  'condition_suppressed',
     'bleeding':    'condition_bleeding',
+    'stunned':     'condition_stunned',
+    'marked':      'condition_marked',
+    'slowed':      'condition_slowed',
     'stimmed':     'stimmed',
+  };
+
+  var ACTION_TYPE_ORDER = { 'Action': 0, 'Maneuver': 1, 'Trigger': 2 };
+  var ACTION_TYPE_LABELS = {
+    'Action':   { pip: 'A', color: 'var(--color-accent-red, #ef4444)' },
+    'Maneuver': { pip: 'M', color: 'var(--color-accent-amber, #f59e0b)' },
+    'Trigger':  { pip: 'T', color: 'var(--color-accent-blue, #3b82f6)' },
   };
 
   function _esc(str) {
@@ -42,7 +54,7 @@
     while ((match = re.exec(s)) !== null) {
       out += _esc(s.slice(last, match.index)).replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>');
       var inner = match[1];
-      var normalized = inner.replace(/\s*\d+$/, '').trim().toLowerCase();
+      var normalized = inner.replace(/\s*\d+$/, '').replace(/\s*\(.*\)$/, '').trim().toLowerCase();
       var glossaryId = _CONDITION_MAP[normalized];
       if (glossaryId) {
         out += '<span class="condition-link" data-glossary-id="' + _esc(glossaryId) + '">[' + _esc(inner) + ']</span>';
@@ -104,27 +116,12 @@
     return DIE_ORDER[effIdx];
   }
 
-  function _characterQualifies(char, req) {
-    var baseDie = _getBaseDisciplineDie(char, req.arenaId, req.disciplineId);
-    if (!baseDie) return false;
-    return _dieIndex(baseDie) >= _dieIndex(req.minDie);
-  }
-
-  function _qualifyingGambits(char, maneuver) {
-    var req = maneuver.disciplineRequirement;
-    var baseDie = _getBaseDisciplineDie(char, req.arenaId, req.disciplineId);
-    if (!baseDie) return [];
-    var charDieIdx = _dieIndex(baseDie);
-    return (maneuver.gambits || []).filter(function (g) {
-      return charDieIdx >= _dieIndex(g.requiredDie);
-    });
-  }
-
   function _buildEffectTrack(effectArr) {
+    if (!effectArr || !effectArr.length) return '';
     var html = '<div class="armory-effect-track manv-effect-track">';
     for (var e = 0; e < effectArr.length; e++) {
       var tier = effectArr[e];
-      var range = TIER_RANGES[e] || String(e);
+      var range = tier.range || TIER_RANGES[e] || String(e);
       html +=
         '<div class="armory-effect-row manv-effect-row">' +
           '<span class="armory-effect-range">' + _esc(range) + '</span>' +
@@ -133,6 +130,165 @@
     }
     html += '</div>';
     return html;
+  }
+
+  function _pipBadge(actionType) {
+    var info = ACTION_TYPE_LABELS[actionType];
+    if (!info) return '';
+    return '<span class="manv-pip-badge" style="background:' + info.color + ';">' + info.pip + '</span>';
+  }
+
+  function _buildUniversalActionCard(action) {
+    var tagHtml = '';
+    if (action.tags && action.tags.length) {
+      tagHtml = ' <span class="manv-arena-tag">' + action.tags.map(_esc).join(' ') + '</span>';
+    }
+
+    var metaHtml =
+      '<div class="armory-weapon-meta manv-meta">' +
+        '<span class="armory-weapon-chassis">' + _esc(action.actionType) + tagHtml + '</span>' +
+        (action.rolled ? '<span class="manv-rolled-badge">Rolled</span>' : action.rolledWhenEngaged ? '<span class="manv-rolled-badge manv-conditional">Diceless / Rolled if Engaged</span>' : '<span class="manv-rolled-badge manv-diceless">Diceless</span>') +
+      '</div>';
+
+    var descHtml = '<div class="manv-desc-text">' + _linkify(action.description) + '</div>';
+
+    var riskHtml = '';
+    if (action.risk) {
+      riskHtml =
+        '<div class="manv-risk-block">' +
+          '<span class="manv-risk-label">Risk</span>' +
+          '<span class="manv-risk-text">' + _linkify(action.risk) + '</span>' +
+        '</div>';
+    }
+
+    var effectHtml = _buildEffectTrack(action.effect);
+
+    var noteHtml = '';
+    if (action.note) {
+      noteHtml = '<div class="manv-note">' + _linkify(action.note) + '</div>';
+    }
+    if (action.painkillerProtocol) {
+      noteHtml += '<div class="manv-note manv-note-special"><strong>Painkiller Protocol:</strong> ' + _linkify(action.painkillerProtocol) + '</div>';
+    }
+
+    return (
+      '<div class="manv-card manv-universal-card" data-action-id="' + _esc(action.id) + '">' +
+        '<div class="manv-header">' +
+          '<div class="manv-header-left">' +
+            _pipBadge(action.actionType) +
+            '<span class="manv-name">' + _esc(action.name) + '</span>' +
+          '</div>' +
+        '</div>' +
+        '<div class="manv-body">' +
+          metaHtml +
+          descHtml +
+          riskHtml +
+          effectHtml +
+          noteHtml +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  function _buildForceCard(force) {
+    var discDieHtml = '';
+    if (force.discipline && force.arena) {
+      discDieHtml =
+        '<div class="armory-weapon-disc">' +
+          '<span class="manv-force-disc-label">' + _esc(force.discipline) + '</span>' +
+        '</div>';
+    }
+
+    var tagHtml = '';
+    if (force.tags && force.tags.length) {
+      tagHtml = ' <span class="manv-arena-tag">' + force.tags.map(_esc).join(' ') + '</span>';
+    }
+
+    var metaHtml =
+      '<div class="armory-weapon-meta manv-meta">' +
+        '<span class="armory-weapon-chassis">' + _esc(force.actionType) + tagHtml + '</span>' +
+        '<span class="manv-rolled-badge">Rolled</span>' +
+      '</div>';
+
+    var descHtml = '<div class="manv-desc-text">' + _linkify(force.description) + '</div>';
+
+    var riskHtml = '';
+    if (force.risk) {
+      riskHtml =
+        '<div class="manv-risk-block">' +
+          '<span class="manv-risk-label">Risk</span>' +
+          '<span class="manv-risk-text">' + _linkify(force.risk) + '</span>' +
+        '</div>';
+    }
+
+    var effectHtml = _buildEffectTrack(force.effect);
+
+    return (
+      '<div class="manv-card manv-force-card" data-action-id="' + _esc(force.id) + '">' +
+        '<div class="manv-header">' +
+          '<div class="manv-header-left">' +
+            _pipBadge(force.actionType) +
+            '<span class="manv-name">' + _esc(force.name) + '</span>' +
+          '</div>' +
+          discDieHtml +
+        '</div>' +
+        '<div class="manv-body">' +
+          metaHtml +
+          descHtml +
+          riskHtml +
+          effectHtml +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  function _getQualifiedGambitsForAction(actionId, disciplineGambits, char) {
+    var result = [];
+    var keys = Object.keys(disciplineGambits);
+    for (var k = 0; k < keys.length; k++) {
+      var set = disciplineGambits[keys[k]];
+      if (set.placeholder) continue;
+      var gambits = set.gambits || [];
+      for (var g = 0; g < gambits.length; g++) {
+        var gambit = gambits[g];
+        if (gambit.modifiesAction !== actionId) continue;
+        var baseDie = _getBaseDisciplineDie(char, set.arenaId, set.disciplineId);
+        if (!baseDie) continue;
+        if (_dieIndex(baseDie) >= _dieIndex(gambit.requiredDie)) {
+          result.push({
+            gambit: gambit,
+            disciplineName: set.name,
+            disciplineId: set.disciplineId,
+            arenaId: set.arenaId,
+          });
+        }
+      }
+    }
+    result.sort(function (a, b) {
+      var da = _dieIndex(a.gambit.requiredDie);
+      var db = _dieIndex(b.gambit.requiredDie);
+      if (da !== db) return da - db;
+      return a.disciplineName < b.disciplineName ? -1 : 1;
+    });
+    return result;
+  }
+
+  function _buildDisciplineGambitBlock(entry) {
+    var gambit = entry.gambit;
+    return (
+      '<div class="armory-gambit-block manv-gambit-block">' +
+        '<div class="manv-gambit-toggle" role="button" tabindex="0">' +
+          '<span class="armory-gambit-label">' + _esc(entry.disciplineName) + '</span>' +
+          '<span class="manv-gambit-name-preview">' + _esc(gambit.name) + '</span>' +
+          '<span class="manv-gambit-req-die">' + _dieImg(gambit.requiredDie) + '</span>' +
+          '<span class="armory-gambit-chevron">&#9656;</span>' +
+        '</div>' +
+        '<div class="manv-gambit-body">' +
+          '<div class="armory-gambit-text">' + _linkify(gambit.rule) + '</div>' +
+          '<div class="manv-gambit-duration">' + _esc(gambit.duration) + '</div>' +
+        '</div>' +
+      '</div>'
+    );
   }
 
   function _buildEngineGambitBlock(gambit, engineName) {
@@ -168,67 +324,6 @@
     );
   }
 
-  function _getGearGambits(maneuver, activeGear) {
-    var result = [];
-    for (var i = 0; i < activeGear.length; i++) {
-      var entry = activeGear[i];
-      var gambits = entry.item.gambits || [];
-      for (var g = 0; g < gambits.length; g++) {
-        if (gambits[g].targetManeuver === maneuver.id) {
-          result.push({ gambit: gambits[g], gearName: entry.item.name });
-        }
-      }
-    }
-    return result;
-  }
-
-  function _buildGambitBlock(gambit, requiredDie) {
-    return (
-      '<div class="armory-gambit-block manv-gambit-block">' +
-        '<div class="manv-gambit-toggle" role="button" tabindex="0">' +
-          '<span class="armory-gambit-label">Gambit</span>' +
-          '<span class="manv-gambit-name-preview">' + _esc(gambit.name) + '</span>' +
-          '<span class="manv-gambit-req-die">' + _dieImg(requiredDie) + '</span>' +
-          '<span class="armory-gambit-chevron">&#9656;</span>' +
-        '</div>' +
-        '<div class="manv-gambit-body">' +
-          '<div class="armory-gambit-text">' + _linkify(gambit.rule) + '</div>' +
-          '<div class="manv-gambit-duration">' + _esc(gambit.duration) + '</div>' +
-          (gambit.spacersGuide
-            ? '<div class="manv-gambit-guide">&ldquo;' + _esc(gambit.spacersGuide) + '&rdquo;</div>'
-            : '') +
-        '</div>' +
-      '</div>'
-    );
-  }
-
-  function _getEngineGambits(char, disciplineId) {
-    var engine = char.engine;
-    if (!engine || !engine.gambits) return [];
-    return engine.gambits.filter(function (g) {
-      return g.targetType === 'maneuver' && g.target === disciplineId;
-    });
-  }
-
-  function _getKitGambits(char, disciplineId) {
-    var result = [];
-    var kits = char.kits || [];
-    for (var ki = 0; ki < kits.length; ki++) {
-      var kit = kits[ki];
-      var unlockedTier = kit.tier || 0;
-      var abilities = kit.abilities || [];
-      for (var ai = 0; ai < abilities.length; ai++) {
-        var ab = abilities[ai];
-        if (ab.tier > unlockedTier) continue;
-        if (ab.type !== 'gambit' || ab.targetType !== 'maneuver') continue;
-        if (ab.target === disciplineId) {
-          result.push({ ability: ab, kitName: kit.name });
-        }
-      }
-    }
-    return result;
-  }
-
   function _buildKitGambitBlock(ability, kitName) {
     return (
       '<div class="armory-gambit-block manv-gambit-block engine-gambit-block kit-gambit-block">' +
@@ -249,70 +344,91 @@
     );
   }
 
-  function _buildManeuverCard(maneuver, char, activeGear) {
-    var req = maneuver.disciplineRequirement;
-    var discDie = _getEffectiveDisciplineDie(char, req.arenaId, req.disciplineId) || req.minDie;
-    var arenaDie = _getEffectiveArenaDie(char, req.arenaId);
-    var qualGambits = _qualifyingGambits(char, maneuver);
-    var engineGambits = _getEngineGambits(char, req.disciplineId);
-    var gearGambits = _getGearGambits(maneuver, activeGear || []);
-    var kitGambits = _getKitGambits(char, req.disciplineId);
-
-    var discHtml =
-      '<div class="armory-weapon-disc">' +
-        _dieImg(discDie) +
-        '<span class="armory-weapon-disc-sep">/</span>' +
-        _dieImg(arenaDie) +
-      '</div>';
-
-    var arenaTagHtml = maneuver.arenaTag
-      ? ' <span class="manv-arena-tag">' + _esc(maneuver.arenaTag) + '</span>'
-      : '';
-
-    var metaHtml =
-      '<div class="armory-weapon-meta manv-meta">' +
-        '<span class="armory-weapon-chassis">' + _esc(maneuver.actionType) + arenaTagHtml + ' &mdash; Roll: ' + _esc(maneuver.roll) + '</span>' +
-        '<span class="armory-weapon-range">Target: ' + _esc(maneuver.target) + '</span>' +
-      '</div>';
-
-    var riskHtml =
-      '<div class="manv-risk-block">' +
-        '<span class="manv-risk-label">Risk</span>' +
-        '<span class="manv-risk-text">' + _linkify(maneuver.risk) + '</span>' +
-      '</div>';
-
-    var effectHtml = _buildEffectTrack(maneuver.effect);
-
-    var gambitsHtml = '';
-    for (var g = 0; g < qualGambits.length; g++) {
-      gambitsHtml += _buildGambitBlock(qualGambits[g], qualGambits[g].requiredDie);
+  function _getGearGambits(actionId, activeGear) {
+    var result = [];
+    for (var i = 0; i < activeGear.length; i++) {
+      var entry = activeGear[i];
+      var gambits = entry.item.gambits || [];
+      for (var g = 0; g < gambits.length; g++) {
+        if (gambits[g].targetManeuver === actionId || gambits[g].modifiesAction === actionId) {
+          result.push({ gambit: gambits[g], gearName: entry.item.name });
+        }
+      }
     }
+    return result;
+  }
+
+  function _getEngineGambits(char, actionId) {
+    var engine = char.engine;
+    if (!engine || !engine.gambits) return [];
+    return engine.gambits.filter(function (g) {
+      return g.modifiesAction === actionId || (g.targetType === 'maneuver' && g.target === actionId);
+    });
+  }
+
+  function _getKitGambits(char, actionId) {
+    var result = [];
+    var kits = char.kits || [];
+    for (var ki = 0; ki < kits.length; ki++) {
+      var kit = kits[ki];
+      var unlockedTier = kit.tier || 0;
+      var abilities = kit.abilities || [];
+      for (var ai = 0; ai < abilities.length; ai++) {
+        var ab = abilities[ai];
+        if (ab.tier > unlockedTier) continue;
+        if (ab.type !== 'gambit') continue;
+        if (ab.modifiesAction === actionId || (ab.targetType === 'maneuver' && ab.target === actionId)) {
+          result.push({ ability: ab, kitName: kit.name });
+        }
+      }
+    }
+    return result;
+  }
+
+  function _buildActionWithGambits(action, data, char, activeGear) {
+    var cardHtml = _buildUniversalActionCard(action);
+    var gambitsHtml = '';
+
+    var discGambits = _getQualifiedGambitsForAction(action.id, data.disciplineGambits, char);
+    for (var g = 0; g < discGambits.length; g++) {
+      gambitsHtml += _buildDisciplineGambitBlock(discGambits[g]);
+    }
+
+    var engineGambits = _getEngineGambits(char, action.id);
     for (var eg = 0; eg < engineGambits.length; eg++) {
       gambitsHtml += _buildEngineGambitBlock(engineGambits[eg], char.engine.name);
     }
+
+    var gearGambits = _getGearGambits(action.id, activeGear || []);
     for (var gg = 0; gg < gearGambits.length; gg++) {
       gambitsHtml += _buildGearGambitBlock(gearGambits[gg].gambit, gearGambits[gg].gearName);
     }
+
+    var kitGambits = _getKitGambits(char, action.id);
     for (var kg = 0; kg < kitGambits.length; kg++) {
       gambitsHtml += _buildKitGambitBlock(kitGambits[kg].ability, kitGambits[kg].kitName);
     }
 
-    return (
-      '<div class="manv-card" data-maneuver-id="' + _esc(maneuver.id) + '">' +
-        '<div class="manv-header">' +
-          '<div class="manv-header-left">' +
-            '<span class="manv-name">' + _esc(maneuver.name) + '</span>' +
-          '</div>' +
-          discHtml +
-        '</div>' +
-        '<div class="manv-body">' +
-          metaHtml +
-          riskHtml +
-          effectHtml +
-          gambitsHtml +
-        '</div>' +
-      '</div>'
-    );
+    if (gambitsHtml) {
+      var insertPoint = cardHtml.lastIndexOf('</div></div>');
+      cardHtml = cardHtml.substring(0, insertPoint) + gambitsHtml + '</div></div>';
+    }
+
+    return cardHtml;
+  }
+
+  function _hasForceDiscipline(char) {
+    var forceDiscs = ['control_spark', 'sense_spark', 'alter_spark'];
+    var arenas = char.arenas || [];
+    for (var i = 0; i < arenas.length; i++) {
+      var discs = arenas[i].disciplines || [];
+      for (var j = 0; j < discs.length; j++) {
+        if (forceDiscs.indexOf(discs[j].id) !== -1 && _dieIndex(discs[j].die.toUpperCase()) >= 0) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   var _lastHtml = '';
@@ -340,36 +456,55 @@
     });
   }
 
-  function _render(maneuvers, char, activeGear) {
-    var qualified = maneuvers.filter(function (m) {
-      return _characterQualifies(char, m.disciplineRequirement);
-    });
+  function _render(data, char, activeGear) {
+    var actions = data.universalActions || [];
+    var forceManeuvers = data.forceManeuvers || [];
 
-    qualified.sort(function (a, b) {
-      var ta = a.masteryTrack.toLowerCase();
-      var tb = b.masteryTrack.toLowerCase();
-      if (ta < tb) return -1;
-      if (ta > tb) return 1;
-      return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1;
-    });
+    var grouped = { 'Action': [], 'Maneuver': [], 'Trigger': [] };
+    for (var i = 0; i < actions.length; i++) {
+      var at = actions[i].actionType;
+      if (grouped[at]) grouped[at].push(actions[i]);
+    }
 
     var html = '<div class="armory-panel-wrap manv-panel-wrap">';
 
-    if (qualified.length === 0) {
-      html +=
-        '<div class="manv-empty">' +
-          '<p class="font-display text-xs tracking-widest uppercase" style="color:var(--color-text-secondary);">No maneuvers available</p>' +
-        '</div>';
-    } else {
-      var currentTrack = null;
-      for (var i = 0; i < qualified.length; i++) {
-        var m = qualified[i];
-        if (m.masteryTrack !== currentTrack) {
-          currentTrack = m.masteryTrack;
-          html += '<div class="armory-category-label">' + _esc(currentTrack) + ' Mastery</div>';
-        }
-        html += _buildManeuverCard(m, char, activeGear || []);
+    var groupOrder = ['Action', 'Maneuver', 'Trigger'];
+    for (var gi = 0; gi < groupOrder.length; gi++) {
+      var groupName = groupOrder[gi];
+      var groupActions = grouped[groupName];
+      if (!groupActions || !groupActions.length) continue;
+
+      var info = ACTION_TYPE_LABELS[groupName];
+      html += '<div class="manv-action-group">';
+      html += '<div class="armory-category-label manv-category-label">' +
+        '<span class="manv-pip-badge manv-pip-badge-header" style="background:' + info.color + ';">' + info.pip + '</span> ' +
+        _esc(groupName) + 's</div>';
+
+      for (var ai = 0; ai < groupActions.length; ai++) {
+        html += _buildActionWithGambits(groupActions[ai], data, char, activeGear);
       }
+
+      html += '</div>';
+    }
+
+    if (_hasForceDiscipline(char) && forceManeuvers.length) {
+      html += '<div class="manv-action-group">';
+      html += '<div class="armory-category-label manv-category-label">' +
+        '<span class="manv-pip-badge manv-pip-badge-header" style="background:var(--color-accent-violet, #8b5cf6);">F</span> ' +
+        'Force Maneuvers</div>';
+      for (var fi = 0; fi < forceManeuvers.length; fi++) {
+        html += _buildForceCard(forceManeuvers[fi]);
+      }
+      html += '</div>';
+    }
+
+    if (data.advancedManeuvers && data.advancedManeuvers.length) {
+      html += '<div class="manv-action-group">';
+      html += '<div class="armory-category-label manv-category-label">Advanced Maneuvers</div>';
+      for (var am = 0; am < data.advancedManeuvers.length; am++) {
+        html += _buildUniversalActionCard(data.advancedManeuvers[am]);
+      }
+      html += '</div>';
     }
 
     html += '</div>';
@@ -441,8 +576,8 @@
       })
     ])
     .then(function (results) {
-      var maneuvers = results[0];
-      var gear      = results[1];
+      var data = results[0];
+      var gear = results[1];
 
       function tryRender() {
         var char = window.CharacterPanel && window.CharacterPanel.currentChar;
@@ -452,7 +587,7 @@
 
         function doRender(statusMap) {
           var activeGear = _buildActiveGear(gear, statusMap || {}, char);
-          _render(maneuvers, char, activeGear);
+          _render(data, char, activeGear);
         }
 
         function fetchAndRender() {

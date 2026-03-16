@@ -264,7 +264,7 @@
         "tier": 3,
         "type": "passive",
         "name": "Unflinching Assessment",
-        "rule": "You are immune to the [Dazed] condition. When any source would apply [Dazed] to you, reduce the triggering effect's final Effect Tier by 1 retroactively — the impact lands, but your mental clarity means it matters less than the attacker intended. Trying to suppress the Tactician's mind is a tactical mistake."
+        "rule": "You are immune to the [Shaken] condition. When any source would apply [Shaken] to you, reduce the triggering effect's final Effect Tier by 1 retroactively — the impact lands, but your mental clarity means it matters less than the attacker intended. Trying to suppress the Tactician's mind is a tactical mistake."
       },
       {
         "id": "kit_tactician_t3_twb",

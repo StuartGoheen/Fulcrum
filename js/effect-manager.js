@@ -5,163 +5,232 @@
 
   var EFFECT_DEFS = [
     {
-      id: 'distracted',
-      label: 'Distracted',
+      id: 'disoriented',
+      label: 'Disoriented',
       category: 'dice_modifier',
+      conditionType: 'physical',
       modifier: { type: 'control_down' },
       targetMode: 'control',
-      defaultDuration: 'lingering',
-      description: 'Step Down the Control Die for the affected discipline(s). If Universal, all discipline rolls are affected. Targeting an Arena affects all disciplines within it. Same effect does not stack — only one step down applies regardless of how many sources.',
+      defaultDuration: 'immediate',
+      description: 'Physical coordination compromised. PC: Step Down the Control Die on physical rolls (Physique, Reflex). NPC: Presence -1 (physical actions). Superseded by [Blinded]. Combined with [Rattled] to form [Stunned].',
+    },
+    {
+      id: 'rattled',
+      label: 'Rattled',
+      category: 'dice_modifier',
+      conditionType: 'mental',
+      modifier: { type: 'control_down' },
+      targetMode: 'control',
+      defaultDuration: 'immediate',
+      description: 'Mental focus compromised. PC: Step Down the Control Die on mental/social rolls (Grit, Wits, Presence). NPC: Presence -1 (mental/social). Combined with [Disoriented] to form [Stunned].',
     },
     {
       id: 'optimized',
       label: 'Optimized',
       category: 'dice_modifier',
+      conditionType: 'buff',
       modifier: { type: 'control_up' },
       targetMode: 'control',
       defaultDuration: 'immediate',
-      description: 'Step Up the Control Die for the affected discipline(s). If Universal, all discipline rolls are affected. Targeting an Arena affects all disciplines within it. Same effect does not stack — only one step up applies regardless of how many sources.',
+      description: 'Tactical advantage. PC: Step Up the Control Die (source specifies scope). NPC: Presence +1 (scoped). Does not stack with itself.',
     },
     {
       id: 'weakened',
       label: 'Weakened',
       category: 'dice_modifier',
+      conditionType: 'physical',
       modifier: { type: 'power_down' },
       targetMode: 'arena_only',
-      defaultDuration: 'ongoing',
-      description: 'Step Down the Power Die for the targeted Arena. Stacks additively with Trauma penalties. Multiple sources of Weakened on the same Arena do not stack — only one step down applies at a time.',
+      defaultDuration: 'immediate',
+      description: 'Power output compromised. PC: Step Down the Power Die for the specified Arena. NPC: Specified arena rating -1.',
     },
     {
       id: 'empowered',
       label: 'Empowered',
       category: 'dice_modifier',
+      conditionType: 'buff',
       modifier: { type: 'power_up' },
       targetMode: 'arena_only',
-      defaultDuration: 'end_of_scene',
-      description: 'Step Up the Power Die for the targeted Arena. Multiple sources of Empowered on the same Arena do not stack — only one step up applies at a time. Coexists with multiple duration instances that expire independently.',
+      defaultDuration: 'immediate',
+      description: 'Power output boosted. PC: Step Up the Power Die for specified Arena. NPC: Specified arena rating +1. Does not stack on same Arena.',
     },
     {
-      id: 'dazed',
-      label: 'Dazed',
+      id: 'shaken',
+      label: 'Shaken',
       category: 'tier_modifier',
+      conditionType: 'mental',
       modifier: { type: 'tier_down', amount: 1 },
       targetMode: 'universal',
-      defaultDuration: 'lingering',
-      description: 'Reduce outgoing Effect by 1 Tier. Subtract 1 from whatever Tier bucket the Power die lands in. Applies to all actions and attacks the character makes while this condition is active.',
+      defaultDuration: 'immediate',
+      description: 'Outgoing effectiveness reduced. PC and NPC: Reduce outgoing Effect by 1 Tier on all actions.',
     },
     {
       id: 'exposed',
       label: 'Exposed',
       category: 'tier_modifier',
+      conditionType: 'positional',
       modifier: { type: 'tier_up', amount: 1 },
       targetMode: 'universal',
-      defaultDuration: 'ongoing',
-      description: 'Incoming attacks against this character Step Up 1 Tier. Add 1 Tier to whatever hits them. Lasts until the character moves into cover or the condition is cleared.',
+      defaultDuration: 'immediate',
+      description: 'Defenses open. Incoming specified attacks Step Up 1 Tier. Source specifies scope.',
     },
     {
       id: 'pinned',
       label: 'Pinned',
-      category: 'action_economy',
-      modifier: { type: 'lock_move' },
+      category: 'combined',
+      conditionType: 'combined',
+      modifier: { type: 'combined' },
+      components: ['prone', 'restrained'],
       targetMode: 'universal',
-      defaultDuration: 'ongoing',
-      description: 'The character cannot use their Free Move. They must spend a Core Action to move. Caused by suppressive fire, grapples, tractor beams, or similar effects that restrict movement.',
+      defaultDuration: 'immediate',
+      description: 'Combined: [Prone] + [Restrained]. Cannot move, [Exposed] to Melee. Shared source/duration/recovery.',
     },
     {
       id: 'prone',
       label: 'Prone',
       category: 'action_economy',
+      conditionType: 'physical',
       modifier: { type: 'prone_compound' },
       targetMode: 'universal',
-      defaultDuration: 'ongoing',
-      description: 'The character is knocked down. Applies Pinned (no Free Move) AND Exposed specifically to incoming Melee attacks. Requires spending a Move or Action to Stand Up, which clears this condition.',
+      defaultDuration: 'immediate',
+      description: 'On the ground. [Exposed] to all Melee attacks. Standing costs a Maneuver.',
     },
     {
       id: 'hazard',
       label: 'Hazard X',
       category: 'ongoing_damage',
+      conditionType: 'environmental',
       modifier: { type: 'hazard' },
       targetMode: 'narrative_tag',
       requiresValue: true,
       defaultDuration: 'ongoing',
-      description: 'Deal X Vitality damage at the Start of each Turn. The tag describes what fiction is required to heal it (e.g. Burn requires a fire suppression action, Bleed requires a Medical kit). Damage is applied automatically when Start Turn is clicked.',
+      description: 'Damage over time. Deal X Vitality damage at the start of each turn. Source specifies type and recovery.',
     },
     {
       id: 'guarded',
       label: 'Guarded',
       category: 'tier_modifier',
+      conditionType: 'positional',
       modifier: { type: 'guard' },
       targetMode: 'universal',
       requiresValue: true,
-      defaultDuration: 'tactical',
-      description: 'Reduce incoming Melee Effect by X Tiers (to a minimum of Tier 0/Failure) whenever this character is targeted by a Melee attack. X is the value set when applied.',
+      defaultDuration: 'immediate',
+      description: 'Reduce incoming Melee Effect by X Tiers (minimum Tier 0).',
     },
     {
       id: 'cover',
       label: 'Cover',
       category: 'tier_modifier',
+      conditionType: 'positional',
       modifier: { type: 'cover' },
       targetMode: 'universal',
       requiresValue: true,
-      defaultDuration: 'tactical',
-      description: 'Reduce incoming Ranged Effect by X Tiers (to a minimum of Tier 0/Failure) whenever this character is targeted by a Ranged attack. Cover 1 is a crate or pillar; Cover 2 is a heavy wall or armored position.',
+      defaultDuration: 'immediate',
+      description: 'Reduce incoming Ranged Effect by X Tiers (minimum Tier 0). Cover 1 = crate. Cover 2 = reinforced wall.',
     },
     {
       id: 'buffered',
       label: 'Buffered',
       category: 'vitality_buffer',
+      conditionType: 'buff',
       modifier: { type: 'buffer' },
       targetMode: 'universal',
       requiresValue: true,
-      defaultDuration: 'tactical',
-      description: 'A temporary shield of X points layered over Vitality. Incoming damage hits the Buffer first. When the Buffer reaches 0 it is removed and all further damage hits Vitality directly.',
+      defaultDuration: 'immediate',
+      description: 'Temporary damage absorption. Incoming damage depletes Buffer first.',
     },
     {
       id: 'blinded',
       label: 'Blinded',
       category: 'action_economy',
+      conditionType: 'physical',
       modifier: { type: 'blind' },
       targetMode: 'universal',
       defaultDuration: 'immediate',
-      description: 'Cannot make targeted Ranged attacks. All actions requiring line-of-sight Step Down the Control Die. Lasts until the Duration expires or the cause is removed.',
+      description: 'No targeted Ranged attacks. Step Down Control Die on all physical actions. Supersedes [Disoriented].',
     },
     {
       id: 'shut_down',
       label: 'Shut Down',
       category: 'action_economy',
+      conditionType: 'special',
       modifier: { type: 'incapacitate' },
       targetMode: 'universal',
       defaultDuration: 'lingering',
-      description: 'Droid characters only. The droid is incapacitated and cannot take any actions for the Duration. A successful Tech action may attempt to bring the droid back online early.',
+      description: 'Droid only. Fully incapacitated. Source determines recovery.',
     },
     {
       id: 'restrained',
       label: 'Restrained',
       category: 'action_economy',
+      conditionType: 'physical',
       modifier: { type: 'lock_all_move' },
       targetMode: 'universal',
-      defaultDuration: 'ongoing',
-      description: 'All movement is fully locked — limbs are physically bound or otherwise prevented from motion. Escaping requires a successful opposed Physique check or a specific action to break free.',
+      defaultDuration: 'immediate',
+      description: 'Cannot move. Supersedes [Slowed]. Escaping requires opposed check or ability.',
+    },
+    {
+      id: 'suppressed',
+      label: 'Suppressed',
+      category: 'action_economy',
+      conditionType: 'positional',
+      modifier: { type: 'suppress' },
+      targetMode: 'universal',
+      defaultDuration: 'tactical',
+      description: 'Engaged at range. Cannot leave zone without presenting Opening to suppressor.',
     },
     {
       id: 'bleeding',
       label: 'Bleeding',
       category: 'ongoing_damage',
+      conditionType: 'physical',
       modifier: { type: 'hazard' },
       targetMode: 'narrative_tag',
       defaultDuration: 'ongoing',
-      description: 'Active blood loss. Suffer 1 Vitality damage at the start of each turn. Removed by a successful Medicine check or a bacta-patch application.',
+      description: 'Active blood loss. 1 Vitality damage at start of each turn. Source determines recovery.',
+    },
+    {
+      id: 'stunned',
+      label: 'Stunned',
+      category: 'combined',
+      conditionType: 'combined',
+      modifier: { type: 'combined' },
+      components: ['disoriented', 'rattled'],
+      targetMode: 'universal',
+      defaultDuration: 'immediate',
+      description: 'Combined: [Disoriented] + [Rattled]. Both effects stack. Physical -1, mental/social -2. Shared source/duration/recovery.',
+    },
+    {
+      id: 'marked',
+      label: 'Marked',
+      category: 'operational_status',
+      conditionType: 'tag',
+      modifier: { type: 'tag' },
+      targetMode: 'universal',
+      defaultDuration: 'immediate',
+      description: 'Tag — no inherent effect. Source defines what [Marked] enables.',
+    },
+    {
+      id: 'slowed',
+      label: 'Slowed',
+      category: 'action_economy',
+      conditionType: 'physical',
+      modifier: { type: 'slow' },
+      targetMode: 'universal',
+      defaultDuration: 'immediate',
+      description: 'Max 1 zone movement per round. Superseded by [Restrained].',
     },
     {
       id: 'stimmed',
       label: 'Stimmed',
       category: 'operational_status',
+      conditionType: 'tag',
       modifier: { type: 'stimmed' },
       targetMode: 'universal',
       requiresValue: false,
       stacks: true,
       defaultDuration: 'ongoing',
-      description: 'Each use of a Medpac or Stim Pack increments Stimmed by 1. The current rating adds to the Static Risk of all Medicine rolls for or by this character. Clears on a Long Rest.',
+      description: 'Stacking. Each Medpac/Stim use adds +1. Adds to Static Risk of Medicine rolls. Clears on Long Rest.',
     },
   ];
 
@@ -361,18 +430,32 @@
     return discId;
   }
 
-  // ─── Offset Queries (used by character-panel.js) ─────────────────────────────
+  
+  function _getComponentEffectIds(effectId) {
+    var def = _defById(effectId);
+    if (!def || !def.components) return [effectId];
+    var result = [];
+    for (var c = 0; c < def.components.length; c++) {
+      result.push(def.components[c]);
+    }
+    return result;
+  }
+
+// ─── Offset Queries (used by character-panel.js) ─────────────────────────────
 
   function _getArenaEffectOffset(arenaId) {
     var hasUp = false, hasDown = false;
     for (var i = 0; i < _activeEffects.length; i++) {
       var e = _activeEffects[i];
       if (e.duration === 'immediate') continue;
-      var def = _defById(e.effectId);
-      if (!def) continue;
-      if (e.target !== 'arena:' + arenaId) continue;
-      if (def.modifier.type === 'power_up')   hasUp   = true;
-      if (def.modifier.type === 'power_down') hasDown = true;
+      var componentIds = _getComponentEffectIds(e.effectId);
+      for (var ci = 0; ci < componentIds.length; ci++) {
+        var cDef = _defById(componentIds[ci]);
+        if (!cDef) continue;
+        if (e.target !== 'arena:' + arenaId && e.target !== 'universal') continue;
+        if (cDef.modifier.type === 'power_up')   hasUp   = true;
+        if (cDef.modifier.type === 'power_down') hasDown = true;
+      }
     }
     return (hasUp ? 1 : 0) - (hasDown ? 1 : 0);
   }
@@ -382,18 +465,21 @@
     for (var i = 0; i < _activeEffects.length; i++) {
       var e = _activeEffects[i];
       if (e.duration === 'immediate') continue;
-      var def = _defById(e.effectId);
-      if (!def) continue;
-      var modType = def.modifier.type;
-      if (modType !== 'control_up' && modType !== 'control_down') continue;
-      var applies = (
-        e.target === 'universal' ||
-        e.target === 'arena:' + arenaId ||
-        e.target === 'disc:' + discId
-      );
-      if (!applies) continue;
-      if (modType === 'control_up')   hasUp   = true;
-      if (modType === 'control_down') hasDown = true;
+      var componentIds = _getComponentEffectIds(e.effectId);
+      for (var ci = 0; ci < componentIds.length; ci++) {
+        var cDef = _defById(componentIds[ci]);
+        if (!cDef) continue;
+        var modType = cDef.modifier.type;
+        if (modType !== 'control_up' && modType !== 'control_down') continue;
+        var applies = (
+          e.target === 'universal' ||
+          e.target === 'arena:' + arenaId ||
+          e.target === 'disc:' + discId
+        );
+        if (!applies) continue;
+        if (modType === 'control_up')   hasUp   = true;
+        if (modType === 'control_down') hasDown = true;
+      }
     }
     return (hasUp ? 1 : 0) - (hasDown ? 1 : 0);
   }

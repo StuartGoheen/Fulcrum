@@ -74,12 +74,12 @@
         ],
         "stepDown": [
           {
-            "source": "[Distracted]",
+            "source": "[Disoriented]",
             "note": "Applied by feints, crowd pressure, environmental chaos."
           },
           {
             "source": "[Stunned]",
-            "note": "Applied by concussive hits; compounds with [Distracted] for layered penalties."
+            "note": "Applied by concussive hits; compounds with [Disoriented] for layered penalties."
           }
         ]
       },
@@ -155,8 +155,8 @@
         "direction": "Defensive (−1 Tier)",
         "sources": [
           {
-            "source": "[Dazed]",
-            "note": "The dazed character's outgoing results drop 1 tier. Affects their own actions, not incoming attacks against them."
+            "source": "[Shaken]",
+            "note": "The shaken character's outgoing results drop 1 tier. Affects their own actions, not incoming attacks against them."
           },
           {
             "source": "[Guarded X]",
@@ -182,7 +182,7 @@
       }
     ],
     "designNotes": [
-      "This is the richest lever in the system. Conditions like [Exposed] and [Dazed] are Tier Shifting delivered through the Condition Engine (Lever 3), not separate mechanics — the distinction matters for understanding stacking.",
+      "This is the richest lever in the system. Conditions like [Exposed] and [Shaken] are Tier Shifting delivered through the Condition Engine (Lever 3), not separate mechanics — the distinction matters for understanding stacking.",
       "The defense asymmetry between Endure (failure floor) and Dodge (no failure floor) is an intentional design choice: Endure is durable but slow, Dodge is swingy but mobile.",
       "Fleeting (≤0) is the absolute floor for any successful roll. No combination of tier-down modifiers can push a success below Fleeting."
     ]
@@ -217,10 +217,10 @@
         "conditions": [
           {
             "condition": "[Stunned]",
-            "effect": "Step Down the Control Die on all rolls. Compounds with [Distracted] since they are separate conditions. Lingering duration."
+            "effect": "Step Down the Control Die on all rolls. Compounds with [Disoriented] since they are separate conditions. Lingering duration."
           },
           {
-            "condition": "[Distracted]",
+            "condition": "[Disoriented]",
             "effect": "Step Down the Control Die on the affected action. Typically Immediate or Tactical."
           },
           {
@@ -228,7 +228,7 @@
             "effect": "Cannot make targeted Ranged attacks. All actions requiring line-of-sight Step Down the Control Die."
           },
           {
-            "condition": "[Dazed]",
+            "condition": "[Shaken]",
             "effect": "Outgoing results drop 1 tier (a Lever 2 effect delivered via condition). Lingering."
           }
         ]
