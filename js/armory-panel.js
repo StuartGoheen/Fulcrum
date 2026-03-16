@@ -6,7 +6,8 @@
   var DISCIPLINE_MAP = {
     'ranged':       { arenaId: 'reflex',   discId: 'ranged'       },
     'heavyweapons': { arenaId: 'physique', discId: 'heavyweapons' },
-    'melee':        { arenaId: 'physique', discId: 'melee'        }
+    'melee':        { arenaId: 'physique', discId: 'melee'        },
+    'brawl':        { arenaId: 'physique', discId: 'brawl'        }
   };
 
   var STATUS_CYCLE = ['stowed', 'carried', 'equipped'];
@@ -82,7 +83,32 @@
     return 'Zones ' + min + '\u2013' + max;
   }
 
-  var GLOSSARY_LINK_MAP = { 'Stimmed': 'stimmed' };
+  var GLOSSARY_LINK_MAP = {
+    'Disoriented': 'condition_disoriented',
+    'Rattled':     'condition_rattled',
+    'Optimized':   'condition_optimized',
+    'Weakened':    'condition_weakened',
+    'Empowered':   'condition_empowered',
+    'Shaken':      'condition_shaken',
+    'Exposed':     'condition_exposed',
+    'Pinned':      'condition_pinned',
+    'Prone':       'condition_prone',
+    'Hazard':      'condition_hazard',
+    'Guarded':     'condition_guarded',
+    'Cover':       'condition_cover',
+    'Buffered':    'condition_buffered',
+    'Blinded':     'condition_blinded',
+    'Shut Down':   'condition_shut_down',
+    'Restrained':  'condition_restrained',
+    'Suppressed':  'condition_suppressed',
+    'Bleeding':    'condition_bleeding',
+    'Stunned':     'condition_stunned',
+    'Incapacitated': 'condition_incapacitated',
+    'Marked':      'condition_marked',
+    'Slowed':      'condition_slowed',
+    'Stimmed':     'stimmed',
+    'Natural Recovery': 'natural_recovery',
+  };
 
   function _linkifyText(str) {
     var parts = String(str).split(/(\[[^\]]+\])/g);
@@ -91,7 +117,8 @@
       var part = parts[i];
       if (part.charAt(0) === '[' && part.charAt(part.length - 1) === ']') {
         var term = part.slice(1, -1);
-        var gid  = GLOSSARY_LINK_MAP[term];
+        var normalized = term.replace(/\s*\d+$/, '').replace(/\s*\(.*\)$/, '').trim();
+        var gid  = GLOSSARY_LINK_MAP[normalized];
         if (gid) {
           out += '<span data-glossary-id="' + _esc(gid) + '" class="glossary-link">' + _esc(part) + '</span>';
         } else {
@@ -359,7 +386,7 @@
     return html;
   }
 
-  function _buildWeaponCard(weapon, char, chassisMap, statusMap) {
+  function _buildWeaponCard(weapon, char, chassisMap, statusMap, discGambits) {
     var mapping = DISCIPLINE_MAP[weapon.discipline];
     var discDie  = 'D4';
     var arenaDie = 'D4';
@@ -414,6 +441,22 @@
       }
     }
 
+    var disciplineGambitsList = [];
+    if (discGambits && weapon.discipline) {
+      var wpnDisc = weapon.discipline.toLowerCase();
+      var discSet = discGambits[wpnDisc];
+      if (discSet && discSet.gambits) {
+        var mapping = DISCIPLINE_MAP[wpnDisc];
+        var charDie = mapping ? _getDiscDie(char, mapping.arenaId, mapping.discId) : 'D4';
+        for (var dg = 0; dg < discSet.gambits.length; dg++) {
+          var dgam = discSet.gambits[dg];
+          if (dgam.modifiesAction === 'action_attack' && _dieIndex(charDie) >= _dieIndex(dgam.requiredDie)) {
+            disciplineGambitsList.push({ name: dgam.name, die: dgam.requiredDie, source: discSet.name, text: dgam.rule });
+          }
+        }
+      }
+    }
+
     var rangeStr = _renderRange(weapon.range);
     var metaHtml =
       '<div class="armory-weapon-meta">' +
@@ -458,7 +501,7 @@
             '<span class="armory-gambit-chevron">&#9656;</span>' +
           '</div>' +
           '<div class="armory-gambit-body">' +
-            '<div class="armory-gambit-text">' + _esc(gambit.text) + '</div>' +
+            '<div class="armory-gambit-text">' + _linkifyText(gambit.text) + '</div>' +
           '</div>' +
         '</div>';
     }
@@ -467,6 +510,21 @@
     }
     for (var kg = 0; kg < kitGambits.length; kg++) {
       gambitsHtml += _buildKitGambitBlock(kitGambits[kg].ability, kitGambits[kg].kitName);
+    }
+    for (var dgi = 0; dgi < disciplineGambitsList.length; dgi++) {
+      var dgItem = disciplineGambitsList[dgi];
+      gambitsHtml +=
+        '<div class="armory-gambit-block discipline-gambit-block">' +
+          '<div class="armory-gambit-toggle" role="button" tabindex="0">' +
+            '<span class="armory-gambit-label discipline-gambit-label">' + _esc(dgItem.source) + '</span>' +
+            '<span class="armory-gambit-name">' + _esc(dgItem.name) + '</span>' +
+            '<span class="armory-gambit-die-badge">' + _esc(dgItem.die) + '</span>' +
+            '<span class="armory-gambit-chevron">&#9656;</span>' +
+          '</div>' +
+          '<div class="armory-gambit-body">' +
+            '<div class="armory-gambit-text">' + _linkifyText(dgItem.text) + '</div>' +
+          '</div>' +
+        '</div>';
     }
 
     var discHtml =
@@ -610,7 +668,7 @@
     });
   }
 
-  function _render(weapons, char, chassisMap, armors, gear) {
+  function _render(weapons, char, chassisMap, armors, gear, discGambits) {
     var charWeaponIds = char.weaponIds || [];
     var rangedWeapons = [];
     var meleeWeapons  = [];
@@ -645,13 +703,13 @@
     if (rangedWeapons.length > 0) {
       html += '<div class="armory-category-label">Ranged</div>';
       for (var r = 0; r < rangedWeapons.length; r++) {
-        html += _buildWeaponCard(rangedWeapons[r], char, chassisMap, statusMap);
+        html += _buildWeaponCard(rangedWeapons[r], char, chassisMap, statusMap, discGambits);
       }
     }
     if (meleeWeapons.length > 0) {
       html += '<div class="armory-category-label">Melee</div>';
       for (var m = 0; m < meleeWeapons.length; m++) {
-        html += _buildWeaponCard(meleeWeapons[m], char, chassisMap, statusMap);
+        html += _buildWeaponCard(meleeWeapons[m], char, chassisMap, statusMap, discGambits);
       }
     }
 
@@ -747,6 +805,10 @@
       fetch('/data/gear.json').then(function (res) {
         if (!res.ok) throw new Error('Failed to load gear: ' + res.status);
         return res.json();
+      }),
+      fetch('/data/maneuvers.json').then(function (res) {
+        if (!res.ok) throw new Error('Failed to load maneuvers: ' + res.status);
+        return res.json();
       })
     ])
     .then(function (results) {
@@ -754,6 +816,8 @@
       var weapons    = results[1];
       var armors     = results[2];
       var gear       = results[3];
+      var maneuversData = results[4];
+      var discGambits = maneuversData ? maneuversData.disciplineGambits || {} : {};
 
       function tryRender() {
         var char = window.CharacterPanel && window.CharacterPanel.currentChar;
@@ -762,7 +826,7 @@
         _currentCharId = char.id || null;
 
         function doRender() {
-          _render(weapons, char, chassisMap, armors, gear);
+          _render(weapons, char, chassisMap, armors, gear, discGambits);
         }
 
         if (_currentCharId) {
@@ -779,7 +843,7 @@
 
         function _rerender() {
           var c = window.CharacterPanel && window.CharacterPanel.currentChar;
-          if (c) _render(weapons, c, chassisMap, armors, gear);
+          if (c) _render(weapons, c, chassisMap, armors, gear, discGambits);
         }
         document.addEventListener('character:stateChanged', _rerender);
         document.addEventListener('effects:changed',        _rerender);

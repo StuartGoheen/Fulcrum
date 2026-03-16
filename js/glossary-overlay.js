@@ -14,6 +14,44 @@
       .replace(/"/g, '&quot;');
   }
 
+  
+  var _GLOSSARY_CONDITION_MAP = {
+    'disoriented': 'condition_disoriented', 'rattled': 'condition_rattled',
+    'optimized': 'condition_optimized', 'weakened': 'condition_weakened',
+    'empowered': 'condition_empowered', 'shaken': 'condition_shaken',
+    'exposed': 'condition_exposed', 'pinned': 'condition_pinned',
+    'prone': 'condition_prone', 'hazard': 'condition_hazard',
+    'guarded': 'condition_guarded', 'cover': 'condition_cover',
+    'buffered': 'condition_buffered', 'blinded': 'condition_blinded',
+    'shut down': 'condition_shut_down', 'restrained': 'condition_restrained',
+    'suppressed': 'condition_suppressed', 'bleeding': 'condition_bleeding',
+    'stunned': 'condition_stunned', 'incapacitated': 'condition_incapacitated',
+    'marked': 'condition_marked', 'slowed': 'condition_slowed',
+    'stimmed': 'stimmed', 'natural recovery': 'natural_recovery',
+  };
+
+  function _linkify(str) {
+    var s = String(str);
+    var out = '';
+    var re = /\[([^\]]+)\]/g;
+    var last = 0;
+    var match;
+    while ((match = re.exec(s)) !== null) {
+      out += _esc(s.slice(last, match.index));
+      var inner = match[1];
+      var normalized = inner.replace(/\s*\d+$/, '').replace(/\s*\(.*\)$/, '').trim().toLowerCase();
+      var glossaryId = _GLOSSARY_CONDITION_MAP[normalized];
+      if (glossaryId) {
+        out += '<span class="condition-link" data-glossary-id="' + _esc(glossaryId) + '">[' + _esc(inner) + ']</span>';
+      } else {
+        out += _esc(match[0]);
+      }
+      last = match.index + match[0].length;
+    }
+    out += _esc(s.slice(last));
+    return out;
+  }
+
   function _buildOverlayEl() {
     var el = document.createElement('div');
     el.id = 'glossary-overlay';
@@ -163,8 +201,8 @@
   function _render(entry) {
     document.getElementById('glossary-entry-name').textContent = entry.name || '';
     document.getElementById('glossary-entry-type').textContent = entry.type || '';
-    document.getElementById('glossary-entry-rule').textContent = entry.rule || '';
-    document.getElementById('glossary-entry-guide').textContent = entry.guide || '';
+    document.getElementById('glossary-entry-rule').innerHTML = _linkify(entry.rule || '');
+    document.getElementById('glossary-entry-guide').innerHTML = _linkify(entry.guide || '');
 
     var guideSection = document.getElementById('glo-guide-section');
     if (guideSection) guideSection.style.display = entry.guide ? '' : 'none';
