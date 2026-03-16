@@ -489,5 +489,14 @@
     "fiction": "Your body has been chemically supported — bacta compounds, adrenaline analogs, coagulant agents. Each dose compounds on the last.",
     "rule": "Stacking condition. Each use of a Medpac or Stim Pack increases Stimmed rating by 1. The current Stimmed rating adds to the Static Risk of all Medicine rolls for this character. Clears during a Long Rest.",
     "guide": "There is a fine line between 'medically assisted' and 'walking chemistry experiment.' Every time someone jabs you with another syringe, the next medic has to work around everything the last one put in you."
+  },
+  {
+    "id": "natural_recovery",
+    "name": "Natural Recovery",
+    "type": "Rule",
+    "category": "Core",
+    "fiction": "The body heals on its own. No medpac, no Medicine check, no Force trance — just time and rest. This is the baseline. Everything else builds on it.",
+    "rule": "Short Rest (~1 hour, safe location): Recover 1 Trauma. No Vitality recovery. Long Rest (~8 hours, safe location): Recover 2 Trauma. Recover 1 Vitality. Treat Injury enhances these baselines — a successful Medicine roll during rest increases Trauma and Vitality recovery beyond what the body does alone. [Stimmed] clears fully on Long Rest only.",
+    "guide": "Natural recovery is slow and incomplete by design. A crew that pushes through three firefights without resting will feel it — Vitality drops, Trauma accumulates, and the medpacs start running low. Rest is not downtime. Rest is a tactical decision."
   }
 ]

@@ -144,7 +144,7 @@
       "tags": [
         "[Narrative]"
       ],
-      "description": "Perform medical treatment on self or ally. Roll Medicine (Wits) vs Static Risk 4 + target's [Stimmed] rating. Primarily used during Short and Long Rests. Consuming a Medpac adds +1 Tier to the result (patient gains [Stimmed] +1).",
+      "description": "Perform medical treatment on self or ally. Roll Medicine (Wits) vs Static Risk 4 + target's [Stimmed] rating. Primarily used during Short and Long Rests to enhance Natural Recovery baselines (Short Rest: 1 Trauma, Long Rest: 2 Trauma + 1 Vitality). Consuming a Medpac adds +1 Tier to the result (patient gains [Stimmed] +1). See [Natural Recovery].",
       "risk": "Botching treatment may worsen the patient's condition.",
       "effect": [
         {
