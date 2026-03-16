@@ -22,7 +22,9 @@
       "tags": [
         "[Combat]"
       ],
-      "description": "Line up a careful shot or study a target's defenses. Roll the relevant discipline. Power = Roll.",
+      "discipline": "ranged",
+      "arena": "reflex",
+      "description": "Line up a careful shot or study a target's defenses. Roll Ranged (Reflex). Power = Roll.",
       "risk": "Focusing too hard on aiming may leave you open — presenting an Opening if you fail.",
       "effect": [
         {
@@ -100,7 +102,7 @@
       "tags": [
         "[Both]"
       ],
-      "description": "Study a target or situation. Roll a relevant discipline. Power = Roll for environmental assessment; vs target's Resolve in social or opposed contexts. Ask the GM one question per tier of effect.",
+      "description": "Study a target or situation. Roll a relevant discipline (Investigation, Insight, Survival, etc. — GM picks what fits the approach). Power = Roll for environmental assessment; vs target's Resolve in social or opposed contexts. Ask the GM one question per tier of effect.",
       "risk": "Over-analyzing may leave you distracted — presenting an Opening on failure.",
       "effect": [
         {
