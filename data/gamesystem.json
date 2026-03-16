@@ -519,7 +519,7 @@
         "description": "A gear gambit that binds to an existing Discipline Maneuver rather than the gear item itself. The gambit appears in that maneuver's gambit list when the character carries the item. This is used when the gear amplifies a specific technique rather than being used independently. The gambit follows whichever cost pattern the maneuver context demands — Additional Cost or standard -1 Tier.",
         "rule": "The gear must be carried (not merely owned) for the gambit to appear. The gambit is only available when the item is in the character's carried gear slots. The maneuver still requires the discipline threshold; the gear does not lower that gate.",
         "examples": [
-          "Combat Triage and Push Through (targetManeuver: manv_medicine_combat_triage): Medical gear that makes a specific healing maneuver more powerful, at greater personal cost.",
+          "Field Dressing (targetManeuver: action_treat_injury): The Medpac gambit binds to Treat Injury — consuming it during treatment adds +1 Tier and applies [Stimmed] +1. The gear enhances an existing healing action rather than standing alone.",
           "The Ultimatum (targetManeuver: manv_intimidate_the_loom, D12 threshold): A Thermal Detonator carried by an Intimidate D12 character adds The Ultimatum to The Loom's gambit list. The detonator enables the technique; the discipline expertise enables the composure to execute it."
         ]
       },

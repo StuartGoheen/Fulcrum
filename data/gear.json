@@ -10,12 +10,17 @@
     "traits": [],
     "gambits": [
       {
-        "name": "Combat Triage",
-        "targetManeuver": "manv_medicine_combat_triage",
-        "rule": "This gambit does not reduce the Effect Tier. Instead, pay the following costs: this medpac is exhausted (consumed); the patient gains [Stimmed] +1; you consume your Primary Action this round in addition to the Maneuver to apply; if you are Engaged when you apply this, you present an Opening.\n\nEffect: Clear one Trauma from the patient. Additionally clear any Lingering or Ongoing Physical or Mental conditions recoverable through a Medicine action."
+        "name": "Field Dressing",
+        "targetManeuver": "action_treat_injury",
+        "rule": "Consume this Medpac during a Treat Injury action. The patient gains [Stimmed] +1 and the result is increased by +1 Tier. One medpac per patient per rest period."
       }
     ],
-    "tags": ["Medical", "Consumable", "Common", "Legal"]
+    "tags": [
+      "Medical",
+      "Consumable",
+      "Common",
+      "Legal"
+    ]
   },
   {
     "id": "gear_breath_mask_01",
@@ -32,7 +37,12 @@
       }
     ],
     "gambits": [],
-    "tags": ["Survival", "Common", "Legal", "Environmental"]
+    "tags": [
+      "Survival",
+      "Common",
+      "Legal",
+      "Environmental"
+    ]
   },
   {
     "id": "gear_comlink_encrypted_01",
@@ -44,7 +54,12 @@
     "availability": "1",
     "traits": [],
     "gambits": [],
-    "tags": ["Communication", "Common", "Legal", "Tech"]
+    "tags": [
+      "Communication",
+      "Common",
+      "Legal",
+      "Tech"
+    ]
   },
   {
     "id": "gear_macrobinoculars_01",
@@ -61,7 +76,13 @@
       }
     ],
     "gambits": [],
-    "tags": ["Surveillance", "Common", "Legal", "Military Surplus", "Tech"]
+    "tags": [
+      "Surveillance",
+      "Common",
+      "Legal",
+      "Military Surplus",
+      "Tech"
+    ]
   },
   {
     "id": "gear_glow_rod_01",
@@ -78,7 +99,12 @@
       }
     ],
     "gambits": [],
-    "tags": ["Survival", "Common", "Legal", "Light"]
+    "tags": [
+      "Survival",
+      "Common",
+      "Legal",
+      "Light"
+    ]
   },
   {
     "id": "gear_security_kit_01",
@@ -95,7 +121,12 @@
       }
     ],
     "gambits": [],
-    "tags": ["Tools", "Restricted", "Infiltration", "Tech"]
+    "tags": [
+      "Tools",
+      "Restricted",
+      "Infiltration",
+      "Tech"
+    ]
   },
   {
     "id": "gear_syntherope_01",
@@ -112,7 +143,12 @@
       }
     ],
     "gambits": [],
-    "tags": ["Survival", "Common", "Legal", "Mobility"]
+    "tags": [
+      "Survival",
+      "Common",
+      "Legal",
+      "Mobility"
+    ]
   },
   {
     "id": "gear_stim_pack_01",
@@ -126,11 +162,16 @@
     "gambits": [
       {
         "name": "Push Through",
-        "targetManeuver": "manv_medicine_combat_triage",
-        "rule": "This gambit does not reduce the Effect Tier. Instead, pay the following costs: this stim pack is exhausted (consumed); you gain [Stimmed] +1; you consume your Primary Action this round in addition to the Maneuver to inject; if you are Engaged when you inject, you present an Opening.\n\nEffect: Clear one Trauma from yourself."
+        "rule": "Consume this Stim Pack as a Maneuver (no Treat Injury roll required). Clear 1 Trauma from yourself or an adjacent ally. The target gains [Stimmed] +1. Can be used mid-combat — does not require a rest."
       }
     ],
-    "tags": ["Medical", "Consumable", "Common", "Legal", "Military Surplus"]
+    "tags": [
+      "Medical",
+      "Consumable",
+      "Common",
+      "Legal",
+      "Military Surplus"
+    ]
   },
   {
     "id": "gear_thermal_detonator_01",
@@ -144,7 +185,11 @@
       "discipline": "ranged",
       "arena": "reflex",
       "defense": "evasion",
-      "range": [1, 2, 3],
+      "range": [
+        1,
+        2,
+        3
+      ],
       "fixedPowerDie": "D12"
     },
     "traits": [
@@ -171,7 +216,13 @@
         "rule": "Reduce your Effect by 1 Tier. Set to impact mode — detonates on landing rather than your next turn. Targets have no Maneuver to flee. They defend with Evasion, but the window to exit is gone."
       }
     ],
-    "tags": ["Explosive", "Consumable", "Illegal", "Area", "Military"]
+    "tags": [
+      "Explosive",
+      "Consumable",
+      "Illegal",
+      "Area",
+      "Military"
+    ]
   },
   {
     "id": "gear_datapad_slicer_01",
@@ -188,7 +239,13 @@
       }
     ],
     "gambits": [],
-    "tags": ["Tech", "Restricted", "Infiltration", "Slicing", "Information"]
+    "tags": [
+      "Tech",
+      "Restricted",
+      "Infiltration",
+      "Slicing",
+      "Information"
+    ]
   },
   {
     "id": "gear_smoke_grenade_01",
@@ -202,7 +259,11 @@
       "discipline": "ranged",
       "arena": "reflex",
       "defense": "static",
-      "range": [1, 2, 3]
+      "range": [
+        1,
+        2,
+        3
+      ]
     },
     "customEffectRows": [
       "Cloud fills the zone. All attacks into, out of, or through the zone have their Control Die Stepped Down. Equally penalizing — friend and foe. Cover applies as normal.",
@@ -225,7 +286,13 @@
         "rule": "Reduce your Effect by 1 Tier. Declare the canister incendiary before throwing. All targets who remain in the zone at the start of their next turn gain [Hazard] in addition to the smoke effects."
       }
     ],
-    "tags": ["Explosive", "Consumable", "Common", "Tactical", "Area"]
+    "tags": [
+      "Explosive",
+      "Consumable",
+      "Common",
+      "Tactical",
+      "Area"
+    ]
   },
   {
     "id": "gear_ion_grenade_01",
@@ -239,8 +306,16 @@
       "discipline": "ranged",
       "arena": "reflex",
       "defense": "evasion",
-      "range": [1, 2, 3],
-      "customDamage": [2, 4, 6]
+      "range": [
+        1,
+        2,
+        3
+      ],
+      "customDamage": [
+        2,
+        4,
+        6
+      ]
     },
     "traits": [
       {
@@ -262,7 +337,14 @@
         "rule": "Reduce your Effect by 1 Tier. One droid or heavily cybernetic target in the zone risks full Shut Down — they are [Incapacitated] until an ally spends a Standard Action to reboot them, or they self-reboot at scene end."
       }
     ],
-    "tags": ["Explosive", "Consumable", "Restricted", "Anti-Droid", "Tactical", "Area"]
+    "tags": [
+      "Explosive",
+      "Consumable",
+      "Restricted",
+      "Anti-Droid",
+      "Tactical",
+      "Area"
+    ]
   },
   {
     "id": "gear_frag_grenade_01",
@@ -276,8 +358,16 @@
       "discipline": "ranged",
       "arena": "reflex",
       "defense": "evasion",
-      "range": [1, 2, 3],
-      "customDamage": [2, 4, 7]
+      "range": [
+        1,
+        2,
+        3
+      ],
+      "customDamage": [
+        2,
+        4,
+        7
+      ]
     },
     "traits": [],
     "gambits": [
@@ -294,7 +384,13 @@
         "rule": "Reduce your Effect by 1 Tier. Set to impact mode — detonates on landing. No time to react, no Maneuver to flee. Targets who take only Fleeting damage are also knocked Prone — they dove for it, or the concussion put them down."
       }
     ],
-    "tags": ["Explosive", "Consumable", "Common", "Military", "Area"]
+    "tags": [
+      "Explosive",
+      "Consumable",
+      "Common",
+      "Military",
+      "Area"
+    ]
   },
   {
     "id": "gear_disguise_kit_01",
@@ -315,7 +411,12 @@
       }
     ],
     "gambits": [],
-    "tags": ["Infiltration", "Restricted", "Consumable", "Social"]
+    "tags": [
+      "Infiltration",
+      "Restricted",
+      "Consumable",
+      "Social"
+    ]
   },
   {
     "id": "gear_scanner_jammer_01",
@@ -347,7 +448,12 @@
         "rule": "This gambit does not reduce the Effect Tier. Instead, pay the following costs: the power cell is exhausted (consumed); you consume your Standard Action to configure and fire the burst. Effect: a targeted electromagnetic pulse against one electronic lock, mag-clamp, or security beam within Engaged range. It disconnects immediately — no roll required. The jammer is dead after this."
       }
     ],
-    "tags": ["Tech", "Restricted", "Infiltration", "Electronic"]
+    "tags": [
+      "Tech",
+      "Restricted",
+      "Infiltration",
+      "Electronic"
+    ]
   },
   {
     "id": "gear_datapad_01",
@@ -372,7 +478,12 @@
       }
     ],
     "gambits": [],
-    "tags": ["Tech", "Common", "Legal", "Information"]
+    "tags": [
+      "Tech",
+      "Common",
+      "Legal",
+      "Information"
+    ]
   },
   {
     "id": "gear_slicer_spike_01",
@@ -399,7 +510,13 @@
         "rule": "This gambit does not reduce the Effect Tier. Instead, pay the following costs: this spike is exhausted (consumed); you consume your Standard Action this round in addition to the Maneuver. Effect: perform a full terminal slicing action at Maneuver speed — in a single round, no extended time required. The spike burns, but the terminal is open."
       }
     ],
-    "tags": ["Tech", "Restricted", "Consumable", "Infiltration", "Slicing"]
+    "tags": [
+      "Tech",
+      "Restricted",
+      "Consumable",
+      "Infiltration",
+      "Slicing"
+    ]
   },
   {
     "id": "gear_bacta_patch_01",
@@ -424,7 +541,12 @@
       }
     ],
     "gambits": [],
-    "tags": ["Medical", "Consumable", "Common", "Legal"]
+    "tags": [
+      "Medical",
+      "Consumable",
+      "Common",
+      "Legal"
+    ]
   },
   {
     "id": "gear_field_rations_01",
@@ -441,7 +563,12 @@
       }
     ],
     "gambits": [],
-    "tags": ["Survival", "Consumable", "Common", "Legal"]
+    "tags": [
+      "Survival",
+      "Consumable",
+      "Common",
+      "Legal"
+    ]
   },
   {
     "id": "gear_comlink_basic_01",
@@ -462,7 +589,11 @@
       }
     ],
     "gambits": [],
-    "tags": ["Communication", "Common", "Legal"]
+    "tags": [
+      "Communication",
+      "Common",
+      "Legal"
+    ]
   },
   {
     "id": "gear_fusion_cutter_01",
@@ -483,7 +614,12 @@
       }
     ],
     "gambits": [],
-    "tags": ["Tools", "Common", "Legal", "Tech"]
+    "tags": [
+      "Tools",
+      "Common",
+      "Legal",
+      "Tech"
+    ]
   },
   {
     "id": "gear_binders_01",
@@ -504,7 +640,11 @@
       }
     ],
     "gambits": [],
-    "tags": ["Tools", "Common", "Legal"]
+    "tags": [
+      "Tools",
+      "Common",
+      "Legal"
+    ]
   },
   {
     "id": "gear_emergency_beacon_01",
@@ -525,7 +665,11 @@
       }
     ],
     "gambits": [],
-    "tags": ["Survival", "Common", "Legal"]
+    "tags": [
+      "Survival",
+      "Common",
+      "Legal"
+    ]
   },
   {
     "id": "gear_aquata_breather_01",
@@ -546,7 +690,12 @@
       }
     ],
     "gambits": [],
-    "tags": ["Survival", "Common", "Legal", "Environmental"]
+    "tags": [
+      "Survival",
+      "Common",
+      "Legal",
+      "Environmental"
+    ]
   },
   {
     "id": "gear_stimulant_tabs_01",
@@ -567,7 +716,12 @@
       }
     ],
     "gambits": [],
-    "tags": ["Medical", "Consumable", "Common", "Legal"]
+    "tags": [
+      "Medical",
+      "Consumable",
+      "Common",
+      "Legal"
+    ]
   },
   {
     "id": "gear_field_toolkit_01",
@@ -588,7 +742,12 @@
       }
     ],
     "gambits": [],
-    "tags": ["Tools", "Common", "Legal", "Tech"]
+    "tags": [
+      "Tools",
+      "Common",
+      "Legal",
+      "Tech"
+    ]
   },
   {
     "id": "gear_thermal_cloak_01",
@@ -609,7 +768,12 @@
       }
     ],
     "gambits": [],
-    "tags": ["Survival", "Common", "Legal", "Environmental"]
+    "tags": [
+      "Survival",
+      "Common",
+      "Legal",
+      "Environmental"
+    ]
   },
   {
     "id": "gear_utility_belt_01",
@@ -630,6 +794,10 @@
       }
     ],
     "gambits": [],
-    "tags": ["Tools", "Common", "Legal"]
+    "tags": [
+      "Tools",
+      "Common",
+      "Legal"
+    ]
   }
 ]

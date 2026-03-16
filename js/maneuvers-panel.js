@@ -29,6 +29,7 @@
     'marked':      'condition_marked',
     'slowed':      'condition_slowed',
     'stimmed':     'stimmed',
+    'natural recovery': 'natural_recovery',
   };
 
   var ACTION_TYPE_ORDER = { 'Action': 0, 'Maneuver': 1, 'Trigger': 2 };
