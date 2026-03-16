@@ -915,64 +915,373 @@
       "disciplineId": "resolve",
       "arenaId": "grit",
       "name": "Resolve",
-      "gambits": [],
-      "placeholder": true
+      "gambits": [
+        {
+          "id": "gambit_resolve_d8",
+          "name": "Iron Will",
+          "requiredDie": "D8",
+          "modifiesAction": "action_endure",
+          "tags": [
+            "[Combat]",
+            "[Narrative]"
+          ],
+          "rule": "After resolving a defense against a social, mental, or Force-based attack, spend 1 tier. Clear 1 mental condition ([Rattled] or [Shaken]) from yourself.",
+          "duration": "Immediate"
+        },
+        {
+          "id": "gambit_resolve_d10",
+          "name": "Unshakeable",
+          "requiredDie": "D10",
+          "modifiesAction": "action_endure",
+          "tags": [
+            "[Combat]"
+          ],
+          "rule": "After resolving a defense against a social, mental, or Force-based attack, spend 1 tier. You are immune to [Rattled] and [Shaken] until the end of your next turn.",
+          "duration": "Tactical"
+        },
+        {
+          "id": "gambit_resolve_d12",
+          "name": "Rebuke",
+          "requiredDie": "D12",
+          "modifiesAction": "action_endure",
+          "tags": [
+            "[Combat]",
+            "[Narrative]"
+          ],
+          "rule": "After resolving a defense against a social, mental, or Force-based attack, spend 1 tier. The attacker gains [Rattled] Tactical. Your defiance breaks their momentum — their next action against you is [Weakened (Presence)].",
+          "duration": "Tactical"
+        }
+      ]
     },
     "sense_spark": {
       "disciplineId": "sense_spark",
       "arenaId": "wits",
       "name": "Sense",
-      "gambits": [],
-      "placeholder": true
+      "gambits": [
+        {
+          "id": "gambit_sense_d8",
+          "name": "Danger Sense",
+          "requiredDie": "D8",
+          "modifiesAction": "action_assess",
+          "tags": [
+            "[Force]",
+            "[Both]"
+          ],
+          "rule": "After resolving an Assess, spend 1 tier. You cannot be surprised until the end of the scene. Ambushes against you automatically fail — you act in the first round regardless of Stealth results.",
+          "duration": "Scene"
+        },
+        {
+          "id": "gambit_sense_d10",
+          "name": "Read Intent",
+          "requiredDie": "D10",
+          "modifiesAction": "action_assess",
+          "tags": [
+            "[Force]",
+            "[Both]"
+          ],
+          "rule": "After resolving an Assess, spend 1 tier. The GM reveals the target's next intended action — what they plan to do on their next turn. If the target changes their action after this reveal, they suffer [Disoriented] Immediate from the cognitive disruption of being read.",
+          "duration": "Immediate"
+        },
+        {
+          "id": "gambit_sense_d12",
+          "name": "Precognition",
+          "requiredDie": "D12",
+          "modifiesAction": "action_dodge",
+          "tags": [
+            "[Force]",
+            "[Combat]"
+          ],
+          "rule": "After resolving a Dodge defense, spend 1 tier. You saw it coming before it happened. Your Dodge automatically succeeds at Masterful tier (if your roll was lower), and you gain [Optimized] on your next action against the attacker.",
+          "duration": "Immediate"
+        }
+      ]
     },
     "skulduggery": {
       "disciplineId": "skulduggery",
       "arenaId": "reflex",
       "name": "Skulduggery",
-      "gambits": [],
-      "placeholder": true
+      "gambits": [
+        {
+          "id": "gambit_skulduggery_d8",
+          "name": "Sleight of Hand",
+          "requiredDie": "D8",
+          "modifiesAction": "action_assess",
+          "tags": [
+            "[Narrative]"
+          ],
+          "rule": "After resolving a social or investigative action [Narrative], spend 1 tier. You plant or lift one small item (tracking device, data chip, holdout blaster, keycard) without the target noticing. The GM adjudicates what counts as 'small.'",
+          "duration": "Immediate"
+        },
+        {
+          "id": "gambit_skulduggery_d10",
+          "name": "Bypass",
+          "requiredDie": "D10",
+          "modifiesAction": "action_assess",
+          "tags": [
+            "[Both]"
+          ],
+          "rule": "After resolving an Assess or interaction with a lock, trap, or security device, spend 1 tier. You disable it silently. No alarm, no trace. If the device has a difficulty rating higher than your result, you disable it but leave evidence of tampering.",
+          "duration": "Immediate"
+        },
+        {
+          "id": "gambit_skulduggery_d12",
+          "name": "Filch",
+          "requiredDie": "D12",
+          "modifiesAction": "action_attack",
+          "tags": [
+            "[Melee]",
+            "[Unarmed]"
+          ],
+          "rule": "After resolving a melee Attack [Melee, Unarmed], spend 1 tier. Instead of dealing damage, you steal one visible item from the target — a weapon, a grenade, a data pad. The item must be accessible (holstered, belted, pocketed). The target doesn't realize it's gone until they reach for it.",
+          "duration": "Immediate"
+        }
+      ]
     },
     "stealth": {
       "disciplineId": "stealth",
       "arenaId": "reflex",
       "name": "Stealth",
-      "gambits": [],
-      "placeholder": true
+      "gambits": [
+        {
+          "id": "gambit_stealth_d8",
+          "name": "Soft Step",
+          "requiredDie": "D8",
+          "modifiesAction": "action_move",
+          "tags": [
+            "[Combat]"
+          ],
+          "rule": "After resolving a Move, spend 1 tier. Your movement does not provoke Openings this turn — even if you are Engaged or moving through a hostile zone. You slip past without drawing attention.",
+          "duration": "Immediate"
+        },
+        {
+          "id": "gambit_stealth_d10",
+          "name": "Ambush Strike",
+          "requiredDie": "D10",
+          "modifiesAction": "action_attack",
+          "tags": [
+            "[Combat]"
+          ],
+          "rule": "Only usable on your first attack of a combat scene (before you have acted). After resolving an Attack, spend 1 tier. Step Up the Effect by 1 Tier. The target had no idea you were there.",
+          "duration": "Immediate"
+        },
+        {
+          "id": "gambit_stealth_d12",
+          "name": "Ghost Exit",
+          "requiredDie": "D12",
+          "modifiesAction": "action_move",
+          "tags": [
+            "[Combat]"
+          ],
+          "rule": "After resolving a Move, spend 1 tier. You break line of sight and vanish from the encounter. Enemies cannot target you or track you until the start of the next round. You may re-enter the encounter from any zone adjacent to your exit point. Requires breaking line of sight (cover, doorway, smoke, darkness).",
+          "duration": "Tactical"
+        }
+      ]
     },
     "survival": {
       "disciplineId": "survival",
       "arenaId": "grit",
       "name": "Survival",
-      "gambits": [],
-      "placeholder": true
+      "gambits": [
+        {
+          "id": "gambit_survival_d8",
+          "name": "Tracker's Eye",
+          "requiredDie": "D8",
+          "modifiesAction": "action_assess",
+          "tags": [
+            "[Both]"
+          ],
+          "rule": "After resolving an Assess, spend 1 tier. You identify tracks, signs of passage, or environmental clues that reveal a target's direction of travel, approximate numbers, and how long ago they passed. In combat, you gain [Optimized] on your next attack against a target you've tracked.",
+          "duration": "Immediate"
+        },
+        {
+          "id": "gambit_survival_d10",
+          "name": "Hardened",
+          "requiredDie": "D10",
+          "modifiesAction": "action_endure",
+          "tags": [
+            "[Both]"
+          ],
+          "rule": "After resolving an Endure defense against an environmental hazard (fire, cold, vacuum, toxic atmosphere, falling), spend 1 tier. Reduce the hazard's effect by 1 Tier and gain immunity to that specific hazard source until the end of the scene. Your body has adapted.",
+          "duration": "Scene"
+        },
+        {
+          "id": "gambit_survival_d12",
+          "name": "Kill Zone",
+          "requiredDie": "D12",
+          "modifiesAction": "action_assess",
+          "tags": [
+            "[Combat]"
+          ],
+          "rule": "After resolving an Assess in a natural or rugged environment, spend 1 tier. You read the terrain and identify a kill zone — one zone you designate becomes treacherous ground. Enemies entering or starting their turn in that zone gain [Slowed] and [Exposed] to Ranged attacks. Requires natural terrain features (loose rock, dense brush, unstable ground).",
+          "duration": "Tactical"
+        }
+      ]
     },
     "tactics": {
       "disciplineId": "tactics",
       "arenaId": "wits",
       "name": "Tactics",
-      "gambits": [],
-      "placeholder": true
+      "gambits": [
+        {
+          "id": "gambit_tactics_d8",
+          "name": "Coordinated Fire",
+          "requiredDie": "D8",
+          "modifiesAction": "action_assess",
+          "tags": [
+            "[Combat]"
+          ],
+          "rule": "After resolving an Assess, spend 1 tier. Designate one target. The next ally to attack that target this round gains [Optimized] on their attack roll.",
+          "duration": "Immediate"
+        },
+        {
+          "id": "gambit_tactics_d10",
+          "name": "Tactical Reposition",
+          "requiredDie": "D10",
+          "modifiesAction": "action_command",
+          "tags": [
+            "[Combat]"
+          ],
+          "rule": "After resolving a Command, spend 1 tier. One willing ally in your zone or an adjacent zone may immediately move 1 zone as a free action. This movement does not provoke Openings.",
+          "duration": "Immediate"
+        },
+        {
+          "id": "gambit_tactics_d12",
+          "name": "Masterstroke",
+          "requiredDie": "D12",
+          "modifiesAction": "action_assess",
+          "tags": [
+            "[Combat]"
+          ],
+          "rule": "After resolving an Assess, spend 1 tier. This also costs your Action pip. All allies who can hear you gain [Optimized] on their next action this round. You sacrifice your own action to elevate the entire squad.",
+          "duration": "Immediate"
+        }
+      ]
     },
     "tech": {
       "disciplineId": "tech",
       "arenaId": "wits",
       "name": "Tech",
-      "gambits": [],
-      "placeholder": true
+      "gambits": [
+        {
+          "id": "gambit_tech_d8",
+          "name": "Quick Patch",
+          "requiredDie": "D8",
+          "modifiesAction": "action_assess",
+          "tags": [
+            "[Both]"
+          ],
+          "rule": "After resolving an Assess or interaction with a device, spend 1 tier. You perform a temporary repair on one piece of damaged equipment or a disabled system. The fix lasts until the end of the scene — after that, it needs proper attention.",
+          "duration": "Scene"
+        },
+        {
+          "id": "gambit_tech_d10",
+          "name": "Slice",
+          "requiredDie": "D10",
+          "modifiesAction": "action_assess",
+          "tags": [
+            "[Both]"
+          ],
+          "rule": "After resolving an Assess against a networked system (terminal, droid, security grid, comms array), spend 1 tier. You gain access. In narrative scenes, you extract data or plant commands. In combat, you may disable one electronic system in the zone (lights, doors, turrets, comms) for Tactical duration.",
+          "duration": "Tactical"
+        },
+        {
+          "id": "gambit_tech_d12",
+          "name": "Override",
+          "requiredDie": "D12",
+          "modifiesAction": "action_assess",
+          "tags": [
+            "[Both]"
+          ],
+          "rule": "After resolving an Assess against a droid or automated system, spend 1 tier. You take control of the target for 1 round. The droid or system acts on your behalf — firing at its allies, opening locked doors, transmitting false data. After the round, control is lost and the system locks you out.",
+          "duration": "Tactical"
+        }
+      ]
     },
     "control_spark": {
       "disciplineId": "control_spark",
       "arenaId": "grit",
       "name": "Control",
-      "gambits": [],
-      "placeholder": true
+      "gambits": [
+        {
+          "id": "gambit_control_d8",
+          "name": "Force Absorb",
+          "requiredDie": "D8",
+          "modifiesAction": "action_endure",
+          "tags": [
+            "[Force]",
+            "[Combat]"
+          ],
+          "rule": "After resolving an Endure defense, spend 1 tier. Gain [Buffered 1]. The Force cushions the impact — energy disperses through your body rather than breaking it.",
+          "duration": "Immediate"
+        },
+        {
+          "id": "gambit_control_d10",
+          "name": "Healing Trance",
+          "requiredDie": "D10",
+          "modifiesAction": "action_treat_injury",
+          "tags": [
+            "[Force]",
+            "[Narrative]"
+          ],
+          "rule": "After resolving a Treat Injury on yourself, spend 1 tier. Clear 1 additional Trauma without consuming a Medpac. No [Stimmed] increase. This counts as rest-assisted treatment — cannot be used in combat.",
+          "duration": "Immediate"
+        },
+        {
+          "id": "gambit_control_d12",
+          "name": "Beyond Pain",
+          "requiredDie": "D12",
+          "modifiesAction": "action_endure",
+          "tags": [
+            "[Force]",
+            "[Combat]"
+          ],
+          "rule": "After resolving an Endure defense, spend 1 tier. Ignore all Trauma penalties and all active conditions until the end of your next turn. Your body is a vessel of the Force — pain is irrelevant. When this effect ends, all suppressed conditions resume.",
+          "duration": "Tactical"
+        }
+      ]
     },
     "alter_spark": {
       "disciplineId": "alter_spark",
       "arenaId": "presence",
       "name": "Alter",
-      "gambits": [],
-      "placeholder": true
+      "gambits": [
+        {
+          "id": "gambit_alter_d8",
+          "name": "Force Shove",
+          "requiredDie": "D8",
+          "modifiesAction": "action_attack",
+          "tags": [
+            "[Force]",
+            "[Combat]"
+          ],
+          "rule": "After resolving an Attack, spend 1 tier. Push the target 1 zone away. This is a telekinetic shove — no physical contact required. Range: your zone or adjacent zone.",
+          "duration": "Immediate"
+        },
+        {
+          "id": "gambit_alter_d10",
+          "name": "Mind Trick",
+          "requiredDie": "D10",
+          "modifiesAction": "action_assess",
+          "tags": [
+            "[Force]",
+            "[Narrative]"
+          ],
+          "rule": "After resolving a social action [Narrative], spend 1 tier. Implant a single short suggestion in a weak-willed target's mind. The suggestion must be simple and not directly self-destructive ('You don't need to see our identification,' 'You should go check the east corridor'). Strong-willed targets or those trained to resist (Resolve D10+) are immune.",
+          "duration": "Immediate"
+        },
+        {
+          "id": "gambit_alter_d12",
+          "name": "Crush",
+          "requiredDie": "D12",
+          "modifiesAction": "action_attack",
+          "tags": [
+            "[Force]",
+            "[Combat]"
+          ],
+          "rule": "After resolving an Attack [Force], spend 1 tier. The target gains [Restrained] Tactical — seized by an invisible hand. While restrained by this effect, your Force attacks against them gain [Empowered (Presence)]. Maintaining the grip requires your concentration — if you take damage, the target is freed.",
+          "duration": "Tactical"
+        }
+      ]
     }
   },
   "advancedManeuvers": []

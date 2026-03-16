@@ -46,8 +46,8 @@ A Star Wars TTRPG electronic character sheet and campaign management system buil
 - `data/kits.json` — Kit specialization definitions
 - `data/gamesystem.json` — Core resolution rules reference
 - `data/threats.json` — NPC/threat rules and trigger system
-- `data/maneuvers.json` — universal actions + discipline gambits (object: `universalActions[11]`, `forceManeuvers[3]`, `disciplineGambits{24 sets, 45 gambits}`, `advancedManeuvers[]`)
-- `data/glossary.json` — 52 entries including 22 redesigned conditions with conditionType/pcEffect/npcEffect fields
+- `data/maneuvers.json` — universal actions + discipline gambits (object: `universalActions[11]`, `forceManeuvers[3]`, `disciplineGambits{24 sets, 72 gambits}`, `advancedManeuvers[]`)
+- `data/glossary.json` — 53 entries including 23 conditions (22 redesigned + [Incapacitated]) with conditionType/pcEffect/npcEffect fields
 - `data/adventures.json` — structured adventure content (adventures → parts → scenes)
 
 ## Running the App
