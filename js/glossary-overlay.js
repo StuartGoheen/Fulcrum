@@ -502,12 +502,118 @@
     if (_isOpen && (e.key === 'Escape' || e.keyCode === 27)) { _close(); }
   }
 
+  function _initDraggableTrigger(btn) {
+    var STORAGE_KEY = 'handbook-trigger-pos';
+    var dragging = false;
+    var didDrag = false;
+    var startX, startY, origLeft, origTop;
+
+    function _applyPos(x, y) {
+      btn.style.right = 'auto';
+      btn.style.bottom = 'auto';
+      btn.style.left = Math.max(0, Math.min(window.innerWidth - 44, x)) + 'px';
+      btn.style.top = Math.max(0, Math.min(window.innerHeight - 44, y)) + 'px';
+    }
+
+    function _savePos() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({
+          left: btn.style.left, top: btn.style.top
+        }));
+      } catch (e) {}
+    }
+
+    function _loadPos() {
+      try {
+        var raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          var pos = JSON.parse(raw);
+          btn.style.right = 'auto';
+          btn.style.bottom = 'auto';
+          btn.style.left = pos.left;
+          btn.style.top = pos.top;
+          var rect = btn.getBoundingClientRect();
+          if (rect.left < 0 || rect.top < 0 || rect.right > window.innerWidth || rect.bottom > window.innerHeight) {
+            localStorage.removeItem(STORAGE_KEY);
+            btn.style.left = '';
+            btn.style.top = '';
+            btn.style.right = '';
+            btn.style.bottom = '';
+          }
+        }
+      } catch (e) {}
+    }
+
+    function onPointerDown(e) {
+      if (e.button && e.button !== 0) return;
+      dragging = true;
+      didDrag = false;
+      var touch = e.touches ? e.touches[0] : e;
+      startX = touch.clientX;
+      startY = touch.clientY;
+      var rect = btn.getBoundingClientRect();
+      origLeft = rect.left;
+      origTop = rect.top;
+      btn.style.transition = 'none';
+      e.preventDefault();
+    }
+
+    function onPointerMove(e) {
+      if (!dragging) return;
+      var touch = e.touches ? e.touches[0] : e;
+      var dx = touch.clientX - startX;
+      var dy = touch.clientY - startY;
+      if (!didDrag && Math.abs(dx) < 4 && Math.abs(dy) < 4) return;
+      didDrag = true;
+      _applyPos(origLeft + dx, origTop + dy);
+    }
+
+    function onPointerUp() {
+      if (!dragging) return;
+      dragging = false;
+      btn.style.transition = '';
+      if (didDrag) {
+        _savePos();
+      }
+    }
+
+    btn.addEventListener('mousedown', onPointerDown);
+    btn.addEventListener('touchstart', onPointerDown, { passive: false });
+    document.addEventListener('mousemove', onPointerMove);
+    document.addEventListener('touchmove', onPointerMove, { passive: false });
+    document.addEventListener('mouseup', onPointerUp);
+    document.addEventListener('touchend', onPointerUp);
+
+    btn.addEventListener('click', function (e) {
+      if (didDrag) {
+        e.stopPropagation();
+        e.preventDefault();
+        didDrag = false;
+        return;
+      }
+    }, true);
+
+    _loadPos();
+
+    window.addEventListener('resize', function () {
+      var rect = btn.getBoundingClientRect();
+      if (rect.right > window.innerWidth || rect.bottom > window.innerHeight) {
+        _applyPos(
+          Math.min(rect.left, window.innerWidth - 44),
+          Math.min(rect.top, window.innerHeight - 44)
+        );
+        _savePos();
+      }
+    });
+  }
+
   function init() {
     _panel = _buildPanel();
     document.body.appendChild(_panel);
 
     var triggerBtn = _buildTriggerBtn();
     document.body.appendChild(triggerBtn);
+    _initDraggableTrigger(triggerBtn);
 
     var searchInput = document.getElementById('handbook-search');
     searchInput.addEventListener('input', function () {
