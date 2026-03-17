@@ -6337,4 +6337,28 @@
 
     .sum-save-btn:hover:not(:disabled) { opacity: 0.85; }
     .sum-save-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .resize-handle {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      width: 6px;
+      cursor: col-resize;
+      z-index: 25;
+      background: transparent;
+      transition: background 0.15s;
+    }
+    .resize-handle:hover,
+    .resize-handle.is-dragging {
+      background: var(--color-accent-primary);
+      opacity: 0.4;
+    }
+    body.is-col-resizing {
+      cursor: col-resize !important;
+      user-select: none !important;
+    }
+    body.is-col-resizing * {
+      cursor: col-resize !important;
+      user-select: none !important;
+    }
   
