@@ -730,7 +730,7 @@
   }
 
   .char-engine-subtitle {
-    font-size: 0.50rem;
+    font-size: 0.58rem;
     color: var(--color-text-secondary);
     letter-spacing: 0.04em;
     margin-bottom: 0.25rem;
@@ -790,7 +790,7 @@
 
   .char-engine-ability-type {
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.50rem;
+    font-size: 0.55rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--color-accent-deep);
@@ -803,7 +803,7 @@
 
   .char-engine-ability-name {
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.56rem;
+    font-size: 0.65rem;
     letter-spacing: 0.04em;
     color: var(--color-text-primary);
     font-weight: 600;
@@ -813,7 +813,7 @@
 
   .char-engine-ability-cost {
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.56rem;
+    font-size: 0.60rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--color-accent-deep);
@@ -824,13 +824,13 @@
   }
 
   .char-engine-ability-rule {
-    font-size: 0.50rem;
+    font-size: 0.60rem;
     color: var(--color-text-secondary);
     line-height: 1.55;
   }
 
   .char-engine-ability-restriction {
-    font-size: 0.54rem;
+    font-size: 0.60rem;
     color: var(--color-accent-deep);
     opacity: 0.8;
     margin-top: 0.1rem;
@@ -1546,7 +1546,7 @@
 
   .char-engine-core-type {
     font-family: "Audiowide", sans-serif;
-    font-size: 0.38rem;
+    font-size: 0.50rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--color-accent-primary);
@@ -1555,19 +1555,19 @@
   .char-engine-core-name {
     font-family: "Exo 2", sans-serif;
     font-weight: 600;
-    font-size: 0.52rem;
+    font-size: 0.65rem;
     color: var(--color-text-primary);
     flex: 1;
   }
 
   .char-engine-core-cost {
-    font-size: 0.42rem;
+    font-size: 0.55rem;
     color: var(--color-accent-primary);
     letter-spacing: 0.06em;
   }
 
   .char-engine-core-rule {
-    font-size: 0.46rem;
+    font-size: 0.60rem;
     color: var(--color-text-secondary);
     line-height: 1.5;
   }
@@ -1666,9 +1666,9 @@
     background: rgba(255,255,255,0.03);
   }
 
-  .rl-th--fail { color: #ee7766; text-align: left; width: 30%; }
+  .rl-th--fail { color: var(--color-fail); text-align: left; width: 30%; font-weight: 700; }
   .rl-th--tier { color: var(--color-text-secondary); text-align: center; }
-  .rl-th--suc  { color: #55bb77; text-align: right; width: 30%; }
+  .rl-th--suc  { color: var(--color-success); text-align: right; width: 30%; font-weight: 700; }
 
   .rl-cell {
     font-family: "Exo 2", sans-serif;
@@ -1681,9 +1681,10 @@
   .rl-row:last-child .rl-cell { border-bottom: none; }
 
   .rl-cell--fail {
-    color: #ee8877;
+    color: var(--color-fail);
     text-align: left;
     font-variant-numeric: tabular-nums;
+    font-weight: 600;
   }
 
   .rl-cell--tier {
@@ -1695,9 +1696,10 @@
   }
 
   .rl-cell--suc {
-    color: #66cc88;
+    color: var(--color-success);
     text-align: right;
     font-variant-numeric: tabular-nums;
+    font-weight: 600;
   }
 
   .rl-row--leg { background: rgba(255,255,255,0.04); }
@@ -1712,7 +1714,7 @@
 
   .rl-mods-title {
     font-family: "Audiowide", sans-serif;
-    font-size: 0.6rem;
+    font-size: 0.65rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--color-text-muted);
@@ -1725,14 +1727,14 @@
     display: flex;
     align-items: baseline;
     gap: 8px;
-    padding: 3px 0;
+    padding: 4px 0;
   }
 
   .rl-mod-tag {
     font-family: "Audiowide", sans-serif;
-    font-size: 0.6rem;
+    font-size: 0.65rem;
     letter-spacing: 0.04em;
-    padding: 1px 6px;
+    padding: 2px 7px;
     border-radius: 3px;
     flex-shrink: 0;
     line-height: 1.4;
@@ -1751,7 +1753,7 @@
 
   .rl-mod-list {
     font-family: "Exo 2", sans-serif;
-    font-size: 0.65rem;
+    font-size: 0.70rem;
     color: var(--color-text-secondary);
     line-height: 1.4;
   }
