@@ -65,8 +65,36 @@ const ENGINE_DATA = {
   },
 };
 
+function resolveKits(raw) {
+  let kitChoices = {};
+  if (Array.isArray(raw)) {
+    raw.forEach(k => { if (k && k.id && k.tier) kitChoices[k.id] = k.tier; });
+  } else if (raw && typeof raw === 'object') {
+    kitChoices = raw;
+  }
+  const kits = [];
+  Object.keys(kitChoices).forEach(kitId => {
+    const tier = kitChoices[kitId];
+    if (!tier) return;
+    const kitDef = KITS_DATA.find(k => k.id === kitId);
+    if (!kitDef) return;
+    const kit = JSON.parse(JSON.stringify(kitDef));
+    kit.tier = tier;
+    kits.push(kit);
+  });
+  return kits;
+}
+
 function expandCharacterData(flat) {
-  if (flat.arenas && Array.isArray(flat.arenas)) return flat;
+  const alreadyExpanded = flat.arenas && Array.isArray(flat.arenas);
+
+  if (alreadyExpanded) {
+    const kits = resolveKits(flat.kits);
+    const engineArenas = kits.map(k => k.governingArena).filter(Boolean);
+    flat.kits = kits;
+    flat.engine = kits.length > 0 ? Object.assign({}, ENGINE_DATA, { governingArenas: engineArenas }) : null;
+    return flat;
+  }
 
   const speciesBase = SPECIES_ARENAS[flat.species] || SPECIES_ARENAS['Human'];
   const arenaAdj = flat.arenaAdj || {};
@@ -93,18 +121,7 @@ function expandCharacterData(flat) {
     };
   });
 
-  const kitChoices = flat.kits || {};
-  const kits = [];
-  Object.keys(kitChoices).forEach(kitId => {
-    const tier = kitChoices[kitId];
-    if (!tier) return;
-    const kitDef = KITS_DATA.find(k => k.id === kitId);
-    if (!kitDef) return;
-    const kit = JSON.parse(JSON.stringify(kitDef));
-    kit.tier = tier;
-    // Keep ALL abilities — panel will dim locked tiers
-    kits.push(kit);
-  });
+  const kits = resolveKits(flat.kits);
 
   const engineArenas = kits.map(k => k.governingArena).filter(Boolean);
 
