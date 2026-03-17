@@ -675,8 +675,8 @@
     arenaAdj:       {},
     discValues:     {},
     discIncomp:     {},
-    spentRegAdv:    0,
-    enhancedAdvUsed: 0,
+    spentAdv:        0,
+    eliteTokensUsed: 0,
     kitChoices:      {},
     startingGear:    [],
     destiny:         null,
@@ -1197,24 +1197,25 @@
     var discIncomp       = state.discIncomp  || {};
     var discValues       = state.discValues  || {};
     var incompCount      = Object.keys(discIncomp).length;
-    var totalEnhanced    = Math.floor(incompCount / 5);
-    var totalRegular     = incompCount - totalEnhanced;
-    var spentReg         = state.spentRegAdv     || 0;
-    var enhUsed          = state.enhancedAdvUsed || 0;
-    var regularAdvAvail  = totalRegular - spentReg;
-    var enhancedAdvAvail = totalEnhanced - enhUsed;
+    var totalAdv         = incompCount;
+    var totalEliteTokens = Math.floor(incompCount / 5);
+    var spentAdv         = state.spentAdv         || 0;
+    var eliteTokensUsed  = state.eliteTokensUsed  || 0;
+    var advAvail         = totalAdv - spentAdv;
+    var eliteTokensAvail = totalEliteTokens - eliteTokensUsed;
     return {
-      baseArenas:      baseArenas,
-      arenaValues:     arenaValues,
-      arenaAdvAvail:   arenaAdvAvail,
-      incompCount:     incompCount,
-      totalDiscAdv:    incompCount,
-      totalRegular:    totalRegular,
-      totalEnhanced:   totalEnhanced,
-      regularAdvAvail: regularAdvAvail,
-      enhancedAdvAvail:enhancedAdvAvail,
-      discValues:      discValues,
-      discIncomp:      discIncomp,
+      baseArenas:       baseArenas,
+      arenaValues:      arenaValues,
+      arenaAdvAvail:    arenaAdvAvail,
+      incompCount:      incompCount,
+      totalAdv:         totalAdv,
+      totalEliteTokens: totalEliteTokens,
+      spentAdv:         spentAdv,
+      eliteTokensUsed:  eliteTokensUsed,
+      advAvail:         advAvail,
+      eliteTokensAvail: eliteTokensAvail,
+      discValues:       discValues,
+      discIncomp:       discIncomp,
     };
   }
 
@@ -1227,8 +1228,8 @@
     if (!state.discValues)      state.discValues      = {};
     if (!state.discIncomp)      state.discIncomp      = {};
     if (!state.arenaAdj)        state.arenaAdj        = {};
-    if (!state.spentRegAdv)     state.spentRegAdv     = 0;
-    if (!state.enhancedAdvUsed) state.enhancedAdvUsed = 0;
+    if (!state.spentAdv)        state.spentAdv        = 0;
+    if (!state.eliteTokensUsed) state.eliteTokensUsed = 0;
     renderStatsContent();
     showScreen('stats');
     updateStepTrack(4);
@@ -1352,8 +1353,8 @@
     var badges = document.createElement('div');
     badges.className = 'cc-adv-badges';
     badges.appendChild(makeIncompBadge(d));
-    if (d.totalDiscAdv > 0)       badges.appendChild(makeRegBadge(d));
-    if (d.totalEnhanced > 0)     badges.appendChild(makeEnhBadge(d));
+    if (d.totalAdv > 0)          badges.appendChild(makeAdvBadge(d));
+    if (d.totalEliteTokens > 0)  badges.appendChild(makeEliteBadge(d));
     head.appendChild(title);
     head.appendChild(badges);
     wrap.appendChild(head);
@@ -1365,7 +1366,7 @@
         ' to mark Incompetent (D4) — each earns 1 advance. Up to 4 additional weaknesses for extra advances.';
       wrap.appendChild(notice);
     }
-    if (d.totalDiscAdv > 0) wrap.appendChild(buildAdvDots(d));
+    if (d.totalAdv > 0) wrap.appendChild(buildAdvDots(d));
     DISCIPLINES_BY_ARENA.forEach(function(ag) { wrap.appendChild(buildDiscGroup(ag, d, favoredIds)); });
     return wrap;
   }
@@ -1380,30 +1381,32 @@
     return sp;
   }
 
-  function makeRegBadge(d) {
+  function makeAdvBadge(d) {
     var sp = document.createElement('span');
-    sp.className   = 'cc-adv-badge ' + (d.regularAdvAvail > 0 ? 'cc-adv-badge--ok' : '');
-    sp.textContent = d.regularAdvAvail + ' advance' + (d.regularAdvAvail !== 1 ? 's' : '') + ' available';
+    sp.className   = 'cc-adv-badge ' + (d.advAvail > 0 ? 'cc-adv-badge--ok' : '');
+    sp.textContent = d.advAvail + ' advance' + (d.advAvail !== 1 ? 's' : '') + ' available';
+    sp.title = 'Each advance raises one discipline one step (max D8)';
     return sp;
   }
 
-  function makeEnhBadge(d) {
+  function makeEliteBadge(d) {
     var sp = document.createElement('span');
     sp.className   = 'cc-adv-badge cc-adv-badge--enhanced';
-    sp.textContent = d.enhancedAdvAvail + ' Elite advance' + (d.enhancedAdvAvail !== 1 ? 's' : '');
-    sp.title = 'Every 5th weakness earns an Elite Advance — raise D6→D8 or D8→D10';
+    sp.textContent = d.eliteTokensAvail + '/' + d.totalEliteTokens + ' Elite token' + (d.totalEliteTokens !== 1 ? 's' : '');
+    sp.title = 'Every 5th weakness earns an Elite token — spend with an advance to break the D8 cap';
     return sp;
   }
 
   function buildAdvDots(d) {
     var wrap = document.createElement('div');
     wrap.className = 'cc-adv-dots';
-    for (var i = 1; i <= d.totalDiscAdv; i++) {
-      var isEnh = (i % 5 === 0);
-      if (isEnh && i > 1) { var g = document.createElement('div'); g.className = 'cc-adv-dot-gap'; wrap.appendChild(g); }
+    for (var i = 1; i <= d.totalAdv; i++) {
+      var isEliteSlot = (i % 5 === 0);
+      if (isEliteSlot && i > 1) { var g = document.createElement('div'); g.className = 'cc-adv-dot-gap'; wrap.appendChild(g); }
       var dot = document.createElement('div');
-      dot.className = 'cc-adv-dot cc-adv-dot--filled' + (isEnh ? ' cc-adv-dot--enhanced' : '');
-      dot.title = isEnh ? 'Elite Advance' : 'Regular advance';
+      var spent = i <= d.spentAdv;
+      dot.className = 'cc-adv-dot' + (spent ? '' : ' cc-adv-dot--filled') + (isEliteSlot ? ' cc-adv-dot--enhanced' : '');
+      dot.title = isEliteSlot ? 'Advance + Elite token' : (spent ? 'Advance (spent)' : 'Advance (available)');
       wrap.appendChild(dot);
     }
     return wrap;
@@ -1483,13 +1486,11 @@
       wb.disabled    = d.incompCount >= MAX_INCOMP_TOTAL;
       wb.addEventListener('click', function() { handleDiscIncomp(disc.id); });
       actions.appendChild(wb);
-      var canRegAdv = d.regularAdvAvail > 0;
-      var canEliteAdv = d.enhancedAdvAvail > 0;
       var ab = document.createElement('button');
       ab.className   = 'cc-disc-action-btn';
       ab.textContent = '▲ D8';
-      ab.title       = (canRegAdv || canEliteAdv) ? 'Raise to D8 — costs 1 advance' : 'No advances available';
-      ab.disabled    = !(canRegAdv || canEliteAdv);
+      ab.title       = d.advAvail > 0 ? 'Raise to D8 — costs 1 advance' : 'No advances available';
+      ab.disabled    = d.advAvail <= 0;
       ab.addEventListener('click', function() { handleDiscAdvance(disc.id); });
       actions.appendChild(ab);
     } else if (cur === 'D8') {
@@ -1499,12 +1500,17 @@
       rdb.title = 'Lower to D6 — returns 1 advance';
       rdb.addEventListener('click', function() { handleDiscReduce(disc.id); });
       actions.appendChild(rdb);
-      if (d.totalEnhanced > 0) {
+      if (d.totalEliteTokens > 0) {
+        var canElite = d.advAvail > 0 && d.eliteTokensAvail > 0;
         var eb = document.createElement('button');
         eb.className   = 'cc-disc-action-btn cc-disc-action-btn--elite';
         eb.textContent = '▲ D10';
-        eb.title       = d.enhancedAdvAvail <= 0 ? 'No Elite Advances available' : 'Raise to D10 — costs 1 Elite Advance';
-        eb.disabled    = d.enhancedAdvAvail <= 0;
+        if (!canElite) {
+          eb.title = d.eliteTokensAvail <= 0 ? 'No Elite tokens available' : 'No advances available';
+        } else {
+          eb.title = 'Raise to D10 — costs 1 advance + 1 Elite token';
+        }
+        eb.disabled = !canElite;
         eb.addEventListener('click', function() { handleDiscElite(disc.id); });
         actions.appendChild(eb);
       }
@@ -1512,7 +1518,7 @@
       var r10 = document.createElement('button');
       r10.className   = 'cc-disc-action-btn';
       r10.textContent = '▼ D8';
-      r10.title = 'Lower to D8 — returns 1 Elite Advance';
+      r10.title = 'Lower to D8 — returns 1 advance + 1 Elite token';
       r10.addEventListener('click', function() { handleDiscReduceElite(disc.id); });
       actions.appendChild(r10);
     }
@@ -1538,27 +1544,28 @@
     if (!state.discIncomp) return;
     delete state.discIncomp[discId];
     if (state.discValues) delete state.discValues[discId];
-    // Claw back overspent advances
     var d = statsGetDerived();
-    if (d.regularAdvAvail < 0) {
-      var over = -d.regularAdvAvail;
-      DISCIPLINES_BY_ARENA.forEach(function(ag) { ag.disciplines.forEach(function(disc) {
-        if (over <= 0) return;
-        if (state.discValues && state.discValues[disc.id] === 'D8') {
-          delete state.discValues[disc.id];
-          state.spentRegAdv = Math.max(0, (state.spentRegAdv||0) - 1);
-          over--;
-        }
-      }); });
-    }
-    if (d.enhancedAdvAvail < 0) {
-      var overe = -d.enhancedAdvAvail;
+    if (d.eliteTokensAvail < 0) {
+      var overe = -d.eliteTokensAvail;
       DISCIPLINES_BY_ARENA.forEach(function(ag) { ag.disciplines.forEach(function(disc) {
         if (overe <= 0) return;
         if (state.discValues && state.discValues[disc.id] === 'D10') {
           state.discValues[disc.id] = 'D8';
-          state.enhancedAdvUsed = Math.max(0, (state.enhancedAdvUsed||0) - 1);
+          state.eliteTokensUsed = Math.max(0, (state.eliteTokensUsed||0) - 1);
+          state.spentAdv = Math.max(0, (state.spentAdv||0) - 1);
           overe--;
+        }
+      }); });
+    }
+    d = statsGetDerived();
+    if (d.advAvail < 0) {
+      var over = -d.advAvail;
+      DISCIPLINES_BY_ARENA.forEach(function(ag) { ag.disciplines.forEach(function(disc) {
+        if (over <= 0) return;
+        if (state.discValues && state.discValues[disc.id] === 'D8') {
+          delete state.discValues[disc.id];
+          state.spentAdv = Math.max(0, (state.spentAdv||0) - 1);
+          over--;
         }
       }); });
     }
@@ -1568,29 +1575,23 @@
 
   function handleDiscAdvance(discId) {
     var d = statsGetDerived();
-    if (d.regularAdvAvail <= 0 && d.enhancedAdvAvail <= 0) return;
+    if (d.advAvail <= 0) return;
     if (statsGetDiscValue(discId, d) !== 'D6') return;
     if (!state.discValues) state.discValues = {};
-    if (!state.discAdvSource) state.discAdvSource = {};
-    state.discValues[discId]  = 'D8';
-    if (d.regularAdvAvail > 0) {
-      state.spentRegAdv = (state.spentRegAdv || 0) + 1;
-      state.discAdvSource[discId] = 'regular';
-    } else {
-      state.enhancedAdvUsed = (state.enhancedAdvUsed || 0) + 1;
-      state.discAdvSource[discId] = 'elite';
-    }
+    state.discValues[discId] = 'D8';
+    state.spentAdv = (state.spentAdv || 0) + 1;
     saveState();
     renderStatsContent();
   }
 
   function handleDiscElite(discId) {
     var d = statsGetDerived();
-    if (d.enhancedAdvAvail <= 0) return;
+    if (d.advAvail <= 0 || d.eliteTokensAvail <= 0) return;
     if (statsGetDiscValue(discId, d) !== 'D8') return;
     if (!state.discValues) state.discValues = {};
-    state.discValues[discId]   = 'D10';
-    state.enhancedAdvUsed = (state.enhancedAdvUsed || 0) + 1;
+    state.discValues[discId] = 'D10';
+    state.spentAdv = (state.spentAdv || 0) + 1;
+    state.eliteTokensUsed = (state.eliteTokensUsed || 0) + 1;
     saveState();
     renderStatsContent();
   }
@@ -1598,13 +1599,7 @@
   function handleDiscReduce(discId) {
     if (statsGetDiscValue(discId, statsGetDerived()) !== 'D8') return;
     if (state.discValues) delete state.discValues[discId];
-    var src = (state.discAdvSource && state.discAdvSource[discId]) || 'regular';
-    if (src === 'elite') {
-      state.enhancedAdvUsed = Math.max(0, (state.enhancedAdvUsed || 0) - 1);
-    } else {
-      state.spentRegAdv = Math.max(0, (state.spentRegAdv || 0) - 1);
-    }
-    if (state.discAdvSource) delete state.discAdvSource[discId];
+    state.spentAdv = Math.max(0, (state.spentAdv || 0) - 1);
     saveState();
     renderStatsContent();
   }
@@ -1612,8 +1607,9 @@
   function handleDiscReduceElite(discId) {
     if (statsGetDiscValue(discId, statsGetDerived()) !== 'D10') return;
     if (!state.discValues) state.discValues = {};
-    state.discValues[discId]   = 'D8';
-    state.enhancedAdvUsed = Math.max(0, (state.enhancedAdvUsed || 0) - 1);
+    state.discValues[discId] = 'D8';
+    state.spentAdv = Math.max(0, (state.spentAdv || 0) - 1);
+    state.eliteTokensUsed = Math.max(0, (state.eliteTokensUsed || 0) - 1);
     saveState();
     renderStatsContent();
   }
@@ -3094,20 +3090,15 @@
           if (cd.discValues) {
             state.discValues = cd.discValues;
             state.discIncomp = {};
+            var d8Count = 0;
+            var d10Count = 0;
             Object.keys(cd.discValues).forEach(function (k) {
               if (cd.discValues[k] === 'D4') state.discIncomp[k] = true;
+              if (cd.discValues[k] === 'D8') d8Count++;
+              if (cd.discValues[k] === 'D10') d10Count++;
             });
-            var incompCount = Object.keys(state.discIncomp).length;
-            var spent = 0;
-            Object.keys(cd.discValues).forEach(function (k) {
-              if (cd.discValues[k] === 'D8') spent++;
-            });
-            state.spentRegAdv = spent;
-            var eliteSpent = 0;
-            Object.keys(cd.discValues).forEach(function (k) {
-              if (cd.discValues[k] === 'D10') eliteSpent++;
-            });
-            state.enhancedAdvUsed = eliteSpent;
+            state.spentAdv = d8Count + d10Count;
+            state.eliteTokensUsed = d10Count;
           }
         }
         state.charName = data.name || '';
