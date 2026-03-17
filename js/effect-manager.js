@@ -12,7 +12,7 @@
       modifier: { type: 'control_down' },
       targetMode: 'fixed_arenas',
       fixedArenas: ['physique', 'reflex'],
-      defaultDuration: 'immediate',
+      defaultDuration: 'tactical',
       description: 'Physical coordination compromised. PC: Step Down the Control Die on physical rolls (Physique, Reflex). NPC: Presence -1 (physical actions). Superseded by [Blinded]. Combined with [Rattled] to form [Stunned].',
     },
     {
@@ -23,7 +23,7 @@
       modifier: { type: 'control_down' },
       targetMode: 'fixed_arenas',
       fixedArenas: ['grit', 'wits', 'presence'],
-      defaultDuration: 'immediate',
+      defaultDuration: 'tactical',
       description: 'Mental focus compromised. PC: Step Down the Control Die on mental/social rolls (Grit, Wits, Presence). NPC: Presence -1 (mental/social). Combined with [Disoriented] to form [Stunned].',
     },
     {
@@ -33,7 +33,7 @@
       conditionType: 'buff',
       modifier: { type: 'control_up' },
       targetMode: 'control',
-      defaultDuration: 'immediate',
+      defaultDuration: 'tactical',
       description: 'Tactical advantage. PC: Step Up the Control Die (source specifies scope). NPC: Presence +1 (scoped). Does not stack with itself.',
     },
     {
@@ -43,7 +43,7 @@
       conditionType: 'physical',
       modifier: { type: 'power_down' },
       targetMode: 'arena_only',
-      defaultDuration: 'immediate',
+      defaultDuration: 'tactical',
       description: 'Power output compromised. PC: Step Down the Power Die for the specified Arena. NPC: Specified arena rating -1.',
     },
     {
@@ -53,7 +53,7 @@
       conditionType: 'buff',
       modifier: { type: 'power_up' },
       targetMode: 'arena_only',
-      defaultDuration: 'immediate',
+      defaultDuration: 'tactical',
       description: 'Power output boosted. PC: Step Up the Power Die for specified Arena. NPC: Specified arena rating +1. Does not stack on same Arena.',
     },
     {
@@ -211,7 +211,7 @@
       components: ['disoriented', 'rattled'],
       targetMode: 'fixed_arenas',
       fixedArenas: ['physique', 'reflex', 'grit', 'wits', 'presence'],
-      defaultDuration: 'immediate',
+      defaultDuration: 'tactical',
       description: 'Combined: [Disoriented] + [Rattled]. Both effects stack. Physical -1, mental/social -2. Shared source/duration/recovery.',
     },
     {
@@ -470,6 +470,7 @@
     var hasUp = false, hasDown = false;
     for (var i = 0; i < _activeEffects.length; i++) {
       var e = _activeEffects[i];
+      if (e.duration === 'immediate') continue;
       var componentIds = _getComponentEffectIds(e.effectId);
       for (var ci = 0; ci < componentIds.length; ci++) {
         var cDef = _defById(componentIds[ci]);
@@ -486,6 +487,7 @@
     var hasUp = false, hasDown = false;
     for (var i = 0; i < _activeEffects.length; i++) {
       var e = _activeEffects[i];
+      if (e.duration === 'immediate') continue;
       var componentIds = _getComponentEffectIds(e.effectId);
       for (var ci = 0; ci < componentIds.length; ci++) {
         var cDef = _defById(componentIds[ci]);
