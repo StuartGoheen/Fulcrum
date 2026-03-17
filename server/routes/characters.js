@@ -286,7 +286,9 @@ router.get('/characters/:id', (req, res) => {
     if (req.query.raw === '1') {
       return res.json({ name: character.name, character_data: data });
     }
-    return res.json(expandCharacterData(data));
+    const expanded = expandCharacterData(data);
+    expanded.id = character.id;
+    return res.json(expanded);
   } catch (_) {
     return res.status(500).json({ error: 'Corrupt character data.' });
   }
