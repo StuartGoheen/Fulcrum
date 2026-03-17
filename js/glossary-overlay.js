@@ -3,8 +3,13 @@
 
   var _entries = {};
   var _maneuversByDisc = {};
-  var _overlay = null;
+  var _panel = null;
   var _isOpen = false;
+  var _providers = [];
+  var _activeEntryId = null;
+  var _searchTerm = '';
+  var _expandedCategories = {};
+  var _dataReady = false;
 
   function _esc(str) {
     return String(str)
@@ -14,7 +19,6 @@
       .replace(/"/g, '&quot;');
   }
 
-  
   var _GLOSSARY_CONDITION_MAP = {
     'disoriented': 'condition_disoriented', 'rattled': 'condition_rattled',
     'optimized': 'condition_optimized', 'weakened': 'condition_weakened',
@@ -52,40 +56,250 @@
     return out;
   }
 
-  function _buildOverlayEl() {
+  var ARENA_ORDER = ['physique', 'grit', 'reflex', 'wits', 'presence'];
+  var ARENA_LABELS = {
+    physique: 'Physique', grit: 'Grit', reflex: 'Reflex', wits: 'Wits', presence: 'Presence'
+  };
+
+  var CONDITION_TYPE_ORDER = ['physical', 'mental', 'positional', 'environmental', 'buff', 'tag', 'special', 'combined'];
+  var CONDITION_TYPE_LABELS = {
+    physical: 'Physical', mental: 'Mental', positional: 'Positional',
+    environmental: 'Environmental', buff: 'Buff', tag: 'Tag',
+    special: 'Special', combined: 'Combined'
+  };
+
+  function _registerProviders() {
+    _providers = [];
+
+    _providers.push({
+      id: 'arenas',
+      label: 'Arenas',
+      icon: '\u2726',
+      getGroups: function () {
+        var groups = [];
+        ARENA_ORDER.forEach(function (aid) {
+          var entry = _entries[aid];
+          if (entry) {
+            groups.push({
+              groupLabel: null,
+              entries: [{ id: entry.id, name: entry.name }]
+            });
+          }
+        });
+        return groups;
+      },
+      hasEntry: function (id) {
+        var e = _entries[id];
+        return e && e.type === 'Core Attribute';
+      }
+    });
+
+    _providers.push({
+      id: 'disciplines',
+      label: 'Disciplines',
+      icon: '\u2694',
+      getGroups: function () {
+        var groups = [];
+        ARENA_ORDER.forEach(function (aid) {
+          var label = ARENA_LABELS[aid] || aid;
+          var discs = [];
+          Object.keys(_entries).forEach(function (eid) {
+            var e = _entries[eid];
+            if (e.type && e.type.indexOf('Discipline') !== -1 && e.type.indexOf(label) !== -1) {
+              discs.push({ id: e.id, name: e.name });
+            }
+          });
+          discs.sort(function (a, b) { return a.name.localeCompare(b.name); });
+          if (discs.length) {
+            groups.push({ groupLabel: label, entries: discs });
+          }
+        });
+        return groups;
+      },
+      hasEntry: function (id) {
+        var e = _entries[id];
+        return e && e.type && e.type.indexOf('Discipline') !== -1;
+      }
+    });
+
+    _providers.push({
+      id: 'conditions',
+      label: 'Conditions',
+      icon: '\u26A0',
+      getGroups: function () {
+        var groups = [];
+        CONDITION_TYPE_ORDER.forEach(function (ct) {
+          var label = CONDITION_TYPE_LABELS[ct] || ct;
+          var conds = [];
+          Object.keys(_entries).forEach(function (eid) {
+            var e = _entries[eid];
+            if (!e.type) return;
+            var isCondition = e.type === 'Condition' || e.type === 'Condition (Combined)' || e.type === 'Condition (Stacking)';
+            if (isCondition && e.conditionType === ct) {
+              conds.push({ id: e.id, name: e.name });
+            }
+          });
+          conds.sort(function (a, b) { return a.name.localeCompare(b.name); });
+          if (conds.length) {
+            groups.push({ groupLabel: label, entries: conds });
+          }
+        });
+        var rules = [];
+        Object.keys(_entries).forEach(function (eid) {
+          var e = _entries[eid];
+          if (e.type === 'Rule') {
+            rules.push({ id: e.id, name: e.name });
+          }
+        });
+        if (rules.length) {
+          rules.sort(function (a, b) { return a.name.localeCompare(b.name); });
+          groups.push({ groupLabel: 'Rules', entries: rules });
+        }
+        return groups;
+      },
+      hasEntry: function (id) {
+        var e = _entries[id];
+        if (!e) return false;
+        return e.type === 'Condition' || e.type === 'Condition (Combined)' || e.type === 'Condition (Stacking)' || e.type === 'Rule';
+      }
+    });
+  }
+
+  function _buildPanel() {
     var el = document.createElement('div');
-    el.id = 'glossary-overlay';
-    el.className = 'glossary-overlay';
+    el.id = 'handbook-panel';
+    el.className = 'handbook-panel';
     el.setAttribute('aria-hidden', 'true');
     el.setAttribute('role', 'dialog');
     el.setAttribute('aria-modal', 'true');
-    el.setAttribute('aria-label', "The Spacer's Guide to Not Dying Today");
+    el.setAttribute('aria-label', "Player's Handbook");
     el.innerHTML =
-      '<div class="glossary-overlay-inner">' +
-        '<div class="glossary-overlay-header">' +
-          '<div class="glossary-overlay-header-left">' +
-            '<span class="glossary-overlay-name" id="glossary-entry-name"></span>' +
-            '<span class="glossary-overlay-type" id="glossary-entry-type"></span>' +
+      '<div class="handbook-backdrop"></div>' +
+      '<div class="handbook-container">' +
+        '<div class="handbook-sidebar">' +
+          '<div class="handbook-sidebar-header">' +
+            '<span class="handbook-title">Handbook</span>' +
+            '<button class="handbook-close-btn" id="handbook-close-btn" aria-label="Close">&times;</button>' +
           '</div>' +
-          '<button class="glossary-overlay-close" id="glossary-close-btn" aria-label="Close">&times;</button>' +
+          '<div class="handbook-search-wrap">' +
+            '<input type="text" class="handbook-search" id="handbook-search" placeholder="Search rules\u2026" autocomplete="off" />' +
+          '</div>' +
+          '<div class="handbook-index" id="handbook-index"></div>' +
         '</div>' +
-        '<div class="glossary-overlay-body">' +
-          '<div class="glossary-overlay-section" id="glo-rule-section">' +
-            '<div class="glossary-overlay-section-label">The Rule</div>' +
-            '<div class="glossary-overlay-rule" id="glossary-entry-rule"></div>' +
+        '<div class="handbook-content" id="handbook-content">' +
+          '<div class="handbook-empty" id="handbook-empty">' +
+            '<div class="handbook-empty-icon">\uD83D\uDCD6</div>' +
+            '<div class="handbook-empty-text">Select an entry from the index<br>or search for a rule.</div>' +
           '</div>' +
-          '<div class="glossary-overlay-section" id="glo-guide-section">' +
-            '<div class="glossary-overlay-section-label">The Spacer\'s Guide</div>' +
-            '<div class="glossary-overlay-guide" id="glossary-entry-guide"></div>' +
+          '<div class="handbook-entry" id="handbook-entry" style="display:none;">' +
+            '<div class="handbook-entry-header">' +
+              '<span class="handbook-entry-name" id="handbook-entry-name"></span>' +
+              '<span class="handbook-entry-type" id="handbook-entry-type"></span>' +
+            '</div>' +
+            '<div class="handbook-entry-body">' +
+              '<div class="handbook-section" id="hb-rule-section">' +
+                '<div class="handbook-section-label">The Rule</div>' +
+                '<div class="handbook-rule-text" id="handbook-rule-text"></div>' +
+              '</div>' +
+              '<div class="handbook-section" id="hb-guide-section">' +
+                '<div class="handbook-section-label">The Spacer\'s Guide</div>' +
+                '<div class="handbook-guide-text" id="handbook-guide-text"></div>' +
+              '</div>' +
+              '<div id="hb-maneuvers-section" class="hb-maneuvers-section"></div>' +
+            '</div>' +
           '</div>' +
-          '<div id="glo-maneuvers-section" class="glo-maneuvers-section"></div>' +
         '</div>' +
       '</div>';
     return el;
   }
 
+  function _buildTriggerBtn() {
+    var btn = document.createElement('button');
+    btn.id = 'handbook-trigger';
+    btn.className = 'handbook-trigger';
+    btn.setAttribute('aria-label', "Open Player's Handbook");
+    btn.title = "Player's Handbook";
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><line x1="9" y1="7" x2="16" y2="7"/><line x1="9" y1="11" x2="14" y2="11"/></svg>';
+    return btn;
+  }
+
+  function _buildSidebarIndex() {
+    var container = document.getElementById('handbook-index');
+    if (!container) return;
+    container.innerHTML = '';
+
+    var term = _searchTerm.toLowerCase().trim();
+
+    _providers.forEach(function (prov) {
+      var groups = prov.getGroups();
+      var filteredGroups = [];
+
+      groups.forEach(function (g) {
+        var filteredEntries = g.entries;
+        if (term) {
+          filteredEntries = g.entries.filter(function (e) {
+            var entry = _entries[e.id];
+            if (e.name.toLowerCase().indexOf(term) !== -1) return true;
+            if (entry && entry.rule && entry.rule.toLowerCase().indexOf(term) !== -1) return true;
+            if (entry && entry.guide && entry.guide.toLowerCase().indexOf(term) !== -1) return true;
+            return false;
+          });
+        }
+        if (filteredEntries.length) {
+          filteredGroups.push({ groupLabel: g.groupLabel, entries: filteredEntries });
+        }
+      });
+
+      if (!filteredGroups.length) return;
+
+      var catKey = prov.id;
+      var isExpanded = _expandedCategories[catKey] !== false;
+      if (term) isExpanded = true;
+
+      var catDiv = document.createElement('div');
+      catDiv.className = 'hb-cat';
+
+      var catBtn = document.createElement('button');
+      catBtn.className = 'hb-cat-btn' + (isExpanded ? ' is-expanded' : '');
+      catBtn.innerHTML = '<span class="hb-cat-icon">' + prov.icon + '</span><span class="hb-cat-label">' + _esc(prov.label) + '</span><span class="hb-cat-chevron">\u25B8</span>';
+      catBtn.addEventListener('click', function () {
+        _expandedCategories[catKey] = !(_expandedCategories[catKey] !== false);
+        _buildSidebarIndex();
+      });
+      catDiv.appendChild(catBtn);
+
+      if (isExpanded) {
+        var listDiv = document.createElement('div');
+        listDiv.className = 'hb-cat-list';
+
+        filteredGroups.forEach(function (g) {
+          if (g.groupLabel) {
+            var groupHeader = document.createElement('div');
+            groupHeader.className = 'hb-group-label';
+            groupHeader.textContent = g.groupLabel;
+            listDiv.appendChild(groupHeader);
+          }
+          g.entries.forEach(function (e) {
+            var item = document.createElement('button');
+            item.className = 'hb-entry-btn' + (e.id === _activeEntryId ? ' is-active' : '');
+            item.textContent = e.name;
+            item.setAttribute('data-entry-id', e.id);
+            item.addEventListener('click', function () {
+              _showEntry(e.id);
+            });
+            listDiv.appendChild(item);
+          });
+        });
+
+        catDiv.appendChild(listDiv);
+      }
+
+      container.appendChild(catDiv);
+    });
+  }
+
   function _renderManeuvers(disciplineId) {
-    var section = document.getElementById('glo-maneuvers-section');
+    var section = document.getElementById('hb-maneuvers-section');
     if (!section) return;
     section.innerHTML = '';
 
@@ -93,7 +307,7 @@
     if (!maneuvers || maneuvers.length === 0) return;
 
     var heading = document.createElement('div');
-    heading.className = 'glossary-overlay-section-label glo-maneuvers-heading';
+    heading.className = 'handbook-section-label hb-maneuvers-heading';
     heading.textContent = 'Maneuvers & Gambits';
     section.appendChild(heading);
 
@@ -101,7 +315,6 @@
       var block = document.createElement('div');
       block.className = 'glo-maneuver-block';
 
-      // Header row: name + action tags
       var header = document.createElement('div');
       header.className = 'glo-maneuver-header';
       var name = document.createElement('span');
@@ -130,7 +343,6 @@
       header.appendChild(tagRow);
       block.appendChild(header);
 
-      // Roll + Target
       if (m.roll || m.target) {
         var rollRow = document.createElement('div');
         rollRow.className = 'glo-maneuver-rollrow';
@@ -139,7 +351,6 @@
         block.appendChild(rollRow);
       }
 
-      // Risk
       if (m.risk) {
         var risk = document.createElement('div');
         risk.className = 'glo-maneuver-risk';
@@ -147,7 +358,6 @@
         block.appendChild(risk);
       }
 
-      // Effects
       if (m.effect && m.effect.length) {
         var effectHead = document.createElement('div');
         effectHead.className = 'glo-sub-label';
@@ -171,7 +381,6 @@
         block.appendChild(effectList);
       }
 
-      // Gambits
       if (m.gambits && m.gambits.length) {
         var gambitHead = document.createElement('div');
         gambitHead.className = 'glo-sub-label';
@@ -187,7 +396,7 @@
             '<span class="glo-gambit-die">' + _esc(g.requiredDie) + '</span>' +
             '<div class="glo-gambit-body">' +
               '<span class="glo-gambit-name">' + _esc(g.name) + '</span>' +
-              '<span class="glo-gambit-rule">' + _esc(g.rule) + '</span>' +
+              '<span class="glo-gambit-rule">' + _linkify(g.rule) + '</span>' +
             '</div>';
           gambitList.appendChild(row);
         });
@@ -198,51 +407,93 @@
     });
   }
 
-  function _render(entry) {
-    document.getElementById('glossary-entry-name').textContent = entry.name || '';
-    document.getElementById('glossary-entry-type').textContent = entry.type || '';
-    document.getElementById('glossary-entry-rule').innerHTML = _linkify(entry.rule || '');
-    document.getElementById('glossary-entry-guide').innerHTML = _linkify(entry.guide || '');
+  function _showEntry(id) {
+    var entry = _entries[id];
+    if (!entry) return;
+    _activeEntryId = id;
 
-    var guideSection = document.getElementById('glo-guide-section');
-    if (guideSection) guideSection.style.display = entry.guide ? '' : 'none';
+    document.getElementById('handbook-empty').style.display = 'none';
+    var entryEl = document.getElementById('handbook-entry');
+    entryEl.style.display = '';
 
-    var manSection = document.getElementById('glo-maneuvers-section');
+    document.getElementById('handbook-entry-name').textContent = entry.name || '';
+    document.getElementById('handbook-entry-type').textContent = entry.type || '';
+    document.getElementById('handbook-rule-text').innerHTML = _linkify(entry.rule || '');
+
+    var guideSection = document.getElementById('hb-guide-section');
+    if (guideSection) {
+      guideSection.style.display = entry.guide ? '' : 'none';
+      document.getElementById('handbook-guide-text').innerHTML = _linkify(entry.guide || '');
+    }
+
+    var manSection = document.getElementById('hb-maneuvers-section');
     if (manSection) manSection.innerHTML = '';
 
     var isDisc = entry.type && entry.type.toLowerCase().indexOf('discipline') !== -1;
     if (isDisc) {
       _renderManeuvers(entry.id);
     }
+
+    var activeBtn = document.querySelector('.hb-entry-btn.is-active');
+    if (activeBtn) activeBtn.classList.remove('is-active');
+    var newBtn = document.querySelector('.hb-entry-btn[data-entry-id="' + id + '"]');
+    if (newBtn) newBtn.classList.add('is-active');
+
+    var contentArea = document.getElementById('handbook-content');
+    if (contentArea) contentArea.scrollTop = 0;
   }
 
   function _open(id) {
-    var entry = _entries[id];
-    if (!entry) { console.warn('[GlossaryOverlay] No entry for id:', id); return; }
-    _render(entry);
-    _overlay.setAttribute('aria-hidden', 'false');
-    _overlay.classList.add('is-open');
-    var body = _overlay.querySelector('.glossary-overlay-body');
-    if (body) body.scrollTop = 0;
+    if (!_dataReady) return;
+    if (id && !_entries[id]) { console.warn('[Handbook] No entry for id:', id); return; }
+
+    _panel.setAttribute('aria-hidden', 'false');
+    _panel.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
     _isOpen = true;
+
+    if (id) {
+      for (var i = 0; i < _providers.length; i++) {
+        if (_providers[i].hasEntry(id)) {
+          _expandedCategories[_providers[i].id] = true;
+          break;
+        }
+      }
+      _buildSidebarIndex();
+      _showEntry(id);
+    }
   }
 
   function _close() {
     if (!_isOpen) return;
-    _overlay.classList.remove('is-open');
-    _overlay.setAttribute('aria-hidden', 'true');
+    _panel.classList.remove('is-open');
+    _panel.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
     _isOpen = false;
   }
 
   function _onDocClick(e) {
+    if (e.target.closest('#handbook-trigger')) {
+      if (_isOpen) { _close(); } else { _open(); }
+      return;
+    }
+
     var trigger = e.target.closest('[data-glossary-id]');
     if (trigger) {
       var id = trigger.getAttribute('data-glossary-id');
-      if (_entries[id]) { _open(id); return; }
+      if (_entries[id]) {
+        if (_isOpen && trigger.closest('#handbook-panel')) {
+          _showEntry(id);
+        } else {
+          _open(id);
+        }
+        return;
+      }
     }
-    var closeBtn = e.target.closest('#glossary-close-btn');
-    if (closeBtn) { _close(); return; }
-    if (_isOpen && !e.target.closest('.glossary-overlay-inner')) {
+
+    if (e.target.closest('#handbook-close-btn')) { _close(); return; }
+
+    if (_isOpen && e.target.closest('.handbook-backdrop')) {
       _close();
     }
   }
@@ -252,8 +503,17 @@
   }
 
   function init() {
-    _overlay = _buildOverlayEl();
-    document.body.appendChild(_overlay);
+    _panel = _buildPanel();
+    document.body.appendChild(_panel);
+
+    var triggerBtn = _buildTriggerBtn();
+    document.body.appendChild(triggerBtn);
+
+    var searchInput = document.getElementById('handbook-search');
+    searchInput.addEventListener('input', function () {
+      _searchTerm = searchInput.value;
+      _buildSidebarIndex();
+    });
 
     var glossaryReady = fetch('/data/glossary.json')
       .then(function (res) { return res.json(); })
@@ -285,8 +545,14 @@
         });
       });
 
-    Promise.all([glossaryReady, maneuversReady]).catch(function (err) {
-      console.error('[GlossaryOverlay]', err);
+    Promise.all([glossaryReady, maneuversReady]).then(function () {
+      _dataReady = true;
+      _registerProviders();
+      _expandedCategories = {};
+      _providers.forEach(function (p) { _expandedCategories[p.id] = true; });
+      _buildSidebarIndex();
+    }).catch(function (err) {
+      console.error('[Handbook]', err);
     });
 
     document.addEventListener('click', _onDocClick);

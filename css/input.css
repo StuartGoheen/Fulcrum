@@ -2612,123 +2612,329 @@
     line-height: 1.5;
   }
 
-  /* ── Glossary Overlay — The Spacer's Guide to Not Dying Today ── */
+  /* ── Player's Handbook Panel ───────────────────────────────────── */
 
-  .glossary-overlay {
+  .handbook-trigger {
     position: fixed;
-    bottom: 0;
-    left: 50vw;
-    right: 25vw;
-    z-index: 200;
-    transform: translateY(100%);
-    transition: transform 0.3s ease;
-    background-color: var(--color-bg-frame);
-    border-top: 2px solid var(--color-accent-primary);
-    border-left: 1px solid var(--color-border);
-    border-right: 1px solid var(--color-border);
-    max-height: 50vh;
-    overflow-y: auto;
-    pointer-events: none;
-  }
-
-  .glossary-overlay.is-open {
-    transform: translateY(0);
-    pointer-events: auto;
-  }
-
-  .glossary-overlay-inner {
-    padding: 0.3rem 0.5rem 0.5rem;
-  }
-
-  .glossary-overlay-header {
+    bottom: calc(10vh + 12px);
+    right: calc(25vw + 12px);
+    z-index: 190;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--color-bg-frame);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-secondary);
+    cursor: pointer;
     display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 0.4rem;
-    margin-bottom: 0.3rem;
-    padding-bottom: 0.25rem;
-    border-bottom: 1px solid var(--color-border);
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+  .handbook-trigger:hover {
+    color: var(--color-accent-primary);
+    border-color: var(--color-accent-primary);
+    box-shadow: 0 2px 12px rgba(210,96,10,0.25);
   }
 
-  .glossary-overlay-header-left {
+  .handbook-panel {
+    position: fixed;
+    inset: 0;
+    z-index: 300;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+  .handbook-panel.is-open {
+    pointer-events: auto;
+    opacity: 1;
+  }
+
+  .handbook-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+  }
+
+  .handbook-container {
+    position: relative;
+    display: flex;
+    width: min(92vw, 960px);
+    height: min(88vh, 720px);
+    background: var(--color-bg-primary);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    transform: translateY(20px);
+    transition: transform 0.25s ease;
+  }
+  .handbook-panel.is-open .handbook-container {
+    transform: translateY(0);
+  }
+
+  .handbook-sidebar {
+    width: 240px;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    background: var(--color-bg-frame);
+    border-right: 1px solid var(--color-border);
+    overflow: hidden;
+  }
+
+  .handbook-sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 0.85rem;
+    border-bottom: 1px solid var(--color-border);
+    flex-shrink: 0;
+  }
+
+  .handbook-title {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-accent-primary);
+  }
+
+  .handbook-close-btn {
+    background: transparent;
+    border: 1px solid var(--color-border);
+    color: var(--color-text-secondary);
+    font-size: 0.85rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0 6px 2px;
+    border-radius: 3px;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .handbook-close-btn:hover {
+    color: var(--color-accent-primary);
+    border-color: var(--color-accent-primary);
+  }
+
+  .handbook-search-wrap {
+    padding: 0.5rem 0.65rem;
+    border-bottom: 1px solid var(--color-border);
+    flex-shrink: 0;
+  }
+
+  .handbook-search {
+    width: 100%;
+    padding: 0.35rem 0.5rem;
+    font-family: 'Exo 2', sans-serif;
+    font-size: 0.65rem;
+    background: var(--color-bg-primary);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    color: var(--color-text-primary);
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .handbook-search::placeholder {
+    color: var(--color-text-secondary);
+    opacity: 0.6;
+  }
+  .handbook-search:focus {
+    border-color: var(--color-accent-primary);
+  }
+
+  .handbook-index {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0.35rem 0;
+  }
+
+  .hb-cat {
+    margin-bottom: 0.15rem;
+  }
+
+  .hb-cat-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    width: 100%;
+    padding: 0.4rem 0.65rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--color-text-primary);
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.5rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-align: left;
+    transition: background 0.1s;
+  }
+  .hb-cat-btn:hover {
+    background: rgba(255,255,255,0.04);
+  }
+
+  .hb-cat-icon {
+    font-size: 0.6rem;
+    width: 1.2em;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .hb-cat-label {
+    flex: 1;
+  }
+
+  .hb-cat-chevron {
+    font-size: 0.5rem;
+    color: var(--color-text-secondary);
+    transition: transform 0.15s;
+    flex-shrink: 0;
+  }
+  .hb-cat-btn.is-expanded .hb-cat-chevron {
+    transform: rotate(90deg);
+  }
+
+  .hb-cat-list {
+    padding: 0.1rem 0 0.25rem;
+  }
+
+  .hb-group-label {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 0.45rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    padding: 0.35rem 0.65rem 0.15rem 1.6rem;
+  }
+
+  .hb-entry-btn {
+    display: block;
+    width: 100%;
+    padding: 0.25rem 0.65rem 0.25rem 1.6rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: 'Exo 2', sans-serif;
+    font-size: 0.58rem;
+    color: var(--color-text-secondary);
+    text-align: left;
+    transition: color 0.1s, background 0.1s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .hb-entry-btn:hover {
+    color: var(--color-text-primary);
+    background: rgba(255,255,255,0.04);
+  }
+  .hb-entry-btn.is-active {
+    color: var(--color-accent-primary);
+    background: rgba(210,96,10,0.08);
+    border-left: 2px solid var(--color-accent-primary);
+  }
+
+  .handbook-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.25rem 1.5rem 2rem;
+  }
+
+  .handbook-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    gap: 0.75rem;
+    opacity: 0.4;
+  }
+  .handbook-empty-icon {
+    font-size: 2.5rem;
+  }
+  .handbook-empty-text {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 0.7rem;
+    color: var(--color-text-secondary);
+    text-align: center;
+    line-height: 1.6;
+  }
+
+  .handbook-entry-header {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    gap: 0.4rem;
+    gap: 0.6rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--color-border);
   }
 
-  .glossary-overlay-name {
+  .handbook-entry-name {
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.75rem;
+    font-size: 0.85rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--color-accent-deep);
     line-height: 1.2;
   }
 
-  .glossary-overlay-type {
+  .handbook-entry-type {
     font-family: 'Exo 2', sans-serif;
-    font-size: 0.6rem;
+    font-size: 0.55rem;
     font-weight: 600;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--color-accent-primary);
     background-color: var(--color-bg-panel);
     border: 1px solid var(--color-accent-primary);
-    padding: 1px 6px;
+    padding: 1px 8px;
     line-height: 1.6;
+    border-radius: 3px;
   }
 
-  .glossary-overlay-close {
-    background: transparent;
-    border: 1px solid var(--color-border);
-    color: var(--color-text-secondary);
-    font-size: 0.8rem;
-    line-height: 1;
-    cursor: pointer;
-    padding: 0 5px 1px;
-    flex-shrink: 0;
-    transition: color 0.15s, border-color 0.15s;
+  .handbook-section {
+    margin-bottom: 1rem;
   }
 
-  .glossary-overlay-close:hover {
-    color: var(--color-accent-primary);
-    border-color: var(--color-accent-primary);
-  }
-
-  .glossary-overlay-body {
-    display: flex;
-    gap: 0.6rem;
-    flex-wrap: wrap;
-  }
-
-  .glossary-overlay-section {
-    flex: 1;
-    min-width: 200px;
-  }
-
-  .glossary-overlay-section-label {
+  .handbook-section-label {
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.56rem;
+    font-size: 0.5rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--color-accent-primary);
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.35rem;
   }
 
-  .glossary-overlay-rule {
+  .handbook-rule-text {
     font-size: 0.72rem;
     color: var(--color-text-primary);
-    line-height: 1.6;
+    line-height: 1.7;
   }
 
-  .glossary-overlay-guide {
+  .handbook-guide-text {
     font-size: 0.72rem;
     font-style: italic;
     color: var(--color-text-secondary);
-    line-height: 1.6;
-    padding-left: 0.4rem;
+    line-height: 1.7;
+    padding-left: 0.6rem;
     border-left: 2px solid var(--color-accent-primary);
+  }
+
+  .hb-maneuvers-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+  }
+  .hb-maneuvers-heading {
+    margin-top: 0.25rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--color-border);
   }
 
   [data-glossary-id] {
@@ -4097,10 +4303,8 @@
     left: 33vw !important;
   }
 
-  /* Glossary overlay: anchor to right half of screen */
-  .glossary-overlay {
-    left: 50% !important;
-    right: 0 !important;
+  .handbook-trigger {
+    right: 12px !important;
   }
 
   /* ≤ 900px — tighten left frame to pixel floor, give center more room */
@@ -4585,26 +4789,8 @@
 
 
 /* ══════════════════════════════════════════════════════════════════════════
-   Glossary Overlay — Maneuver & Gambit sections
+   Handbook — Maneuver & Gambit card styles (shared with old glossary)
    ══════════════════════════════════════════════════════════════════════════ */
-
-  .glossary-overlay-body {
-    overflow-y: auto;
-    max-height: calc(85vh - 6rem);
-  }
-
-  .glo-maneuvers-section {
-    padding: 0 1.25rem 1.25rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .glo-maneuvers-heading {
-    margin-top: 0.25rem;
-    padding-top: 1rem;
-    border-top: 1px solid var(--color-border);
-  }
 
   .glo-maneuver-block {
     background: var(--color-bg-frame);

@@ -47,7 +47,7 @@ A Star Wars TTRPG electronic character sheet and campaign management system buil
 - `data/gamesystem.json` — Core resolution rules reference
 - `data/threats.json` — NPC/threat rules and trigger system
 - `data/maneuvers.json` — universal actions + discipline gambits (object: `universalActions[14]` incl. Join Battle, `forceManeuvers[3]`, `disciplineGambits{25 sets, 75 gambits}`, `advancedManeuvers[]`). Move action has explicit combat tiers. Join Battle uses Trigger type with Free pip.
-- `data/glossary.json` — 54 entries including 23 conditions + Natural Recovery rule with conditionType/pcEffect/npcEffect fields
+- `data/glossary.json` — 54 entries including 23 conditions + Natural Recovery rule with conditionType/pcEffect/npcEffect fields. Consumed by the Player's Handbook panel.
 - `data/adventures.json` — structured adventure content (adventures → parts → scenes)
 
 ## Running the App
@@ -181,6 +181,24 @@ The right column (`#frame-right`, 25vw fixed sidebar) serves as the **combat coc
 
 SQLite database auto-created and seeded on first run at `db/campaign.db`.  
 Tables: `characters`, `campaign_state`, `equipment_status`, `sessions`, `campaign_progress`, `scene_completion`.
+
+## Player's Handbook
+
+Full-panel rule reference replacing the old glossary overlay. Accessible from a floating book icon in the player view, or by clicking any discipline/arena/condition name on the character sheet.
+
+**Architecture:** Modular provider system — each data category (Arenas, Disciplines, Conditions) registers as a provider with `getGroups()` and `hasEntry()` methods. Adding new providers (Kits, Species, Gear, Core Rules) requires only writing a new provider object — no panel code changes.
+
+**File:** `js/glossary-overlay.js` (rewritten in-place to maintain script tag compatibility)
+
+**Features:**
+- Sidebar with categorized, collapsible index tree (Arenas, Disciplines grouped by arena, Conditions grouped by type)
+- Real-time search filtering across all providers (matches name + rule + guide text)
+- Full content area with rule text, Spacer's Guide flavor, and maneuver/gambit details for disciplines
+- Condition names in rule text (`[Bleeding]`) remain clickable and navigate within the handbook
+- All existing `data-glossary-id` click triggers preserved (character panel, maneuvers, armory, loadout)
+- Closes via X button, Escape key, or backdrop click
+
+**CSS:** Handbook styles in `css/input.css` under `/* Player's Handbook Panel */` section. Maneuver/gambit card styles retained under `/* Handbook — Maneuver & Gambit card styles */`.
 
 ## Deployment
 
