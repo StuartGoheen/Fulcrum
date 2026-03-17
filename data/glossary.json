@@ -11,35 +11,75 @@
     "name": "Athletics",
     "type": "Discipline (Physique)",
     "rule": "Used for lifting heavy objects, climbing sheer surfaces, swimming, sprinting across hazardous terrain, or physically forcing a jammed blast door open.",
-    "guide": "The art of moving your meat from Point A to Point B before Point A explodes. A lot of rookies think they just need a big gun to survive, right up until the bridge collapses and they realize they can't do a pull-up. Don't skip leg day in zero-G."
+    "guide": "The art of moving your meat from Point A to Point B before Point A explodes. A lot of rookies think they just need a big gun to survive, right up until the bridge collapses and they realize they can't do a pull-up. Don't skip leg day in zero-G.",
+    "narrativeTiers": {
+      "fleeting": "You complete the physical task with visible effort — a clumsy vault, a strained climb, a sprint that leaves you winded. It works, barely.",
+      "masterful": "Clean execution. The climb is smooth, the leap clears the gap, the sprint covers ground without wasted motion. Competent and efficient.",
+      "legendary": "The kind of physical performance that makes people stop and watch. You clear obstacles that should require equipment, cover ground that should take twice as long, or hold a position that should be impossible.",
+      "unleashedI": "Your body moves like a machine built for exactly this task. Witnesses question whether you are enhanced. Walls become ladders. Gaps become nothing.",
+      "unleashedII": "Physics bends around your effort. You outrun vehicles on foot, climb surfaces with no handholds, or swim against currents that would drown a boat. People do not believe the reports.",
+      "unleashedIII": "Mythic physicality. You move through the environment as if gravity, friction, and material strength are suggestions. Legends are built around what you just did."
+    }
   },
   {
     "id": "brawl",
     "name": "Brawl",
     "type": "Discipline (Physique)",
     "rule": "Used for unarmed combat, grappling, shoving, or using improvised weapons (like a chair or a glass). When you attack with Brawl, it natively targets the enemy's Physique (Defense).",
-    "guide": "So, you forgot to charge your blaster, you dropped your vibro-knife, and now there is a very angry Trandoshan in your personal space. Brawl is the science of putting your fist through their teeth before they bite your nose off. It's not pretty, it's not elegant, but neither is dying in an alleyway."
+    "guide": "So, you forgot to charge your blaster, you dropped your vibro-knife, and now there is a very angry Trandoshan in your personal space. Brawl is the science of putting your fist through their teeth before they bite your nose off. It's not pretty, it's not elegant, but neither is dying in an alleyway.",
+    "narrativeTiers": {
+      "fleeting": "You land a glancing blow or establish a shaky grip. The opponent feels it, but is not meaningfully impaired. You break down a flimsy barrier with effort.",
+      "masterful": "A solid strike lands where intended, a grapple locks in clean, or a barrier gives way with authority. The outcome is decisive and professional.",
+      "legendary": "The hit restructures the fight. Bones shift, opponents rethink their life choices, reinforced doors buckle. The raw physical violence is precise and devastating.",
+      "unleashedI": "You hit with force that should not come from an organic body. Durasteel dents. Opponents are lifted off their feet. Witnesses flinch.",
+      "unleashedII": "Your strikes carry the weight of industrial machinery. Structures crack. Armored opponents feel every joule through their plating. The ground shakes.",
+      "unleashedIII": "You punch through things that should not be punchable. Blast doors. Vehicle hulls. The line between unarmed combat and demolition has ceased to exist."
+    }
   },
   {
     "id": "endure",
     "name": "Endure",
     "type": "Discipline (Physique)",
     "rule": "This is your primary Reaction against physical trauma. When targeted by an attack that targets your Physique (like a Heavy Weapon, an explosion, or a crushing hazard), roll Physique + Endure to meet or beat the enemy's Static Power to soak the damage.",
-    "guide": "Sometimes, despite your best efforts, you are going to get shot, blown up, or thrown out of a moving speeder. Endure is the discipline of looking at a broken rib, spitting out a little blood, and deciding that you simply don't have the time to die today."
+    "guide": "Sometimes, despite your best efforts, you are going to get shot, blown up, or thrown out of a moving speeder. Endure is the discipline of looking at a broken rib, spitting out a little blood, and deciding that you simply don't have the time to die today.",
+    "narrativeTiers": {
+      "fleeting": "You absorb the impact but feel every bit of it. You stay standing, but just barely. The pain is real and present.",
+      "masterful": "You take the hit and keep moving. The damage is real but contained — your body absorbs what it needs to and routes around the rest.",
+      "legendary": "You shrug off punishment that should have dropped you. Witnesses wonder if you felt it at all. Your body processes trauma with mechanical efficiency.",
+      "unleashedI": "You walk through damage that would kill most people. Burns close. Impacts bounce. Your body seems to reject the concept of being harmed.",
+      "unleashedII": "You stand in conditions that destroy equipment. Explosions wash over you. Toxic atmospheres fail to register. Your survival defies medical explanation.",
+      "unleashedIII": "You endure the unsurvivable. Vacuum. Direct energy weapon fire. Structural collapse. Your body simply refuses to stop functioning. Medics will argue about how for years."
+    }
   },
   {
     "id": "melee",
     "name": "Melee",
     "type": "Discipline (Physique)",
     "rule": "Used for wielding dedicated close-quarters weapons like Vibro-Axes, stun batons, or swords. Always uses Physique as the base Attribute unless a weapon trait or character ability explicitly states otherwise. Natively targets the enemy's Physique (Defense).",
-    "guide": "Blaster gas runs out. Power packs fry. But a heavy piece of sharpened metal? That is eternal. Melee is the art of swinging something heavy and sharp at the other guy without accidentally amputating your own leg in the process."
+    "guide": "Blaster gas runs out. Power packs fry. But a heavy piece of sharpened metal? That is eternal. Melee is the art of swinging something heavy and sharp at the other guy without accidentally amputating your own leg in the process.",
+    "narrativeTiers": {
+      "fleeting": "The blade connects but without authority — a shallow cut, a deflected thrust. The weapon work is functional but unrefined.",
+      "masterful": "Clean, purposeful strikes that land where intended. The weapon becomes an extension of will — parries flow into counters, footwork creates openings.",
+      "legendary": "The weapon moves faster than the eye can track. Every strike is surgical. Opponents with superior numbers find themselves outmatched by technique alone.",
+      "unleashedI": "Your bladework transcends training. You cut through defenses that should hold, strike angles that should not exist, and move with a fluidity that borders on choreography.",
+      "unleashedII": "The weapon seems alive. You engage multiple opponents simultaneously with the casual precision of someone solving a simple puzzle. Armor is an inconvenience.",
+      "unleashedIII": "Mastery beyond mastery. You cut through materials that should resist your weapon. Every movement is perfect. This is the swordwork that creates legends and ends dynasties."
+    }
   },
   {
     "id": "heavy_weapons",
     "name": "Heavy Weapons",
     "type": "Discipline (Physique)",
     "rule": "Used for firing massive, squad-support weapons (like rotary cannons or the DLT-19) or launching heavy ordnance. Because of the sheer recoil and weight, these weapons use Physique for their Control die instead of Reflex.",
-    "guide": "If you are holding a gun that is larger than you are, it wants to fly backward out of your hands the second you pull the trigger. This discipline is purely about having the sheer muscle mass required to hold a rotary cannon steady while making the entire zip-code in front of you disappear."
+    "guide": "If you are holding a gun that is larger than you are, it wants to fly backward out of your hands the second you pull the trigger. This discipline is purely about having the sheer muscle mass required to hold a rotary cannon steady while making the entire zip-code in front of you disappear.",
+    "narrativeTiers": {
+      "fleeting": "The weapon fires but the recoil fights you. Rounds land in the general area. Suppression is achieved through volume, not precision.",
+      "masterful": "Controlled bursts hit where intended. The weapon is tamed — recoil managed, traverse smooth, impact concentrated on the target area.",
+      "legendary": "You wield the heavy weapon like it weighs nothing. Sustained fire walks across targets with surgical precision. Structures buckle under concentrated impact.",
+      "unleashedI": "You operate the weapon at a level its designers did not anticipate. Rate of fire, accuracy, and sustained output exceed the platform rating. The weapon becomes an extension of pure destructive will.",
+      "unleashedII": "You extract performance from the weapon that should cause mechanical failure. Every round finds its mark. The destruction is systematic and absolute.",
+      "unleashedIII": "You redefine what the weapon is capable of. Single-handedly suppressing battalion-level threats, threading rounds through gaps in heavy armor, or sustaining fire that reshapes the terrain. Ordnance officers will study what you did."
+    }
   },
   {
     "id": "grit",
@@ -53,35 +93,75 @@
     "name": "Beast Handling",
     "type": "Discipline (Grit)",
     "rule": "The practice of taming, riding, or intimidating non-sentient creatures (blurrgs, dewbacks, rontos, or worse).",
-    "guide": "Fauna in this galaxy generally falls into two categories: things that want to eat you, and things you can ride to get away from the things that want to eat you. This discipline is about convincing a three-ton, carnivorous lizard that you are the boss, usually by staring it right in the eye and absolutely refusing to show fear."
+    "guide": "Fauna in this galaxy generally falls into two categories: things that want to eat you, and things you can ride to get away from the things that want to eat you. This discipline is about convincing a three-ton, carnivorous lizard that you are the boss, usually by staring it right in the eye and absolutely refusing to show fear.",
+    "narrativeTiers": {
+      "fleeting": "The creature obeys reluctantly — it follows the command but with visible hesitation. The bond is thin and the creature is one scare away from bolting.",
+      "masterful": "The creature responds with purpose and trust. Commands are followed cleanly. The animal works with you, not despite you.",
+      "legendary": "Perfect communion. The creature anticipates your intent before you signal. You ride, direct, or calm animals that others cannot approach.",
+      "unleashedI": "The creature treats you as pack alpha without question. Wild animals that should flee or attack instead defer. Your presence commands the animal kingdom.",
+      "unleashedII": "You communicate with creatures on a level that defies zoological understanding. Predators stand down. Herds part. Beasts perform tasks they were never trained for.",
+      "unleashedIII": "You command the loyalty of creatures that should be uncontrollable — apex predators, swarm organisms, beasts of legend. They follow you not out of fear, but recognition."
+    }
   },
   {
     "id": "control_spark",
     "name": "Control",
     "type": "Force Discipline (Grit)",
     "rule": "(Requires Force Sensitivity.) The mastery of channeling the Force inward to regulate the body and spirit. In Narrative Scenes, this grants the permission to attempt superhuman feats of bio-feedback—such as surviving in a hard vacuum for a few minutes, entering a deep healing trance to knit broken bones, or purging lethal toxins from the blood. In Combat Scenes, this deep focus is fragmented by the chaos of battle, requiring the user to channel it through specific Gambits or Maneuvers to achieve localized effects like absorbing blaster fire with a bare hand or pushing the body to supernatural speeds. Non-sensitives cannot invest in this discipline.",
-    "guide": "I've seen a lot of tough guys in the Rim. Scars, cybernetics, pain suppressors. But I once saw a guy in robes take a point-blank blaster bolt to the palm, close his eyes, and just... breathe it in. No tech. No armor. Just some spooky inner calm. If you aren't born with that weird monk magic, don't even try it. Just buy a thicker vest."
+    "guide": "I've seen a lot of tough guys in the Rim. Scars, cybernetics, pain suppressors. But I once saw a guy in robes take a point-blank blaster bolt to the palm, close his eyes, and just... breathe it in. No tech. No armor. Just some spooky inner calm. If you aren't born with that weird monk magic, don't even try it. Just buy a thicker vest.",
+    "narrativeTiers": {
+      "fleeting": "A moment of inner calm. You steady your breathing, push back a wave of pain, or clear a single distracting thought. The Force responds, but barely.",
+      "masterful": "Deep focus takes hold. You regulate your heartbeat, suppress a toxin, or enter a shallow meditative state while the world rages around you. The Force sustains you.",
+      "legendary": "Your body obeys your will completely. You suppress injuries that should be debilitating, purge poisons that should be lethal, or enter a healing trance that accelerates recovery far beyond natural limits.",
+      "unleashedI": "You exert control over biological processes that are normally involuntary. Wounds close visibly. Broken bones set themselves. Your body becomes a vessel for the Force, rewriting damage in real time.",
+      "unleashedII": "You survive conditions that should be instantly fatal through pure Force-mediated bio-control. Hard vacuum, lethal radiation, systemic organ failure — your will overrides your biology.",
+      "unleashedIII": "Transcendent self-mastery. You enter states that blur the line between life and death — suspended animation lasting decades, surviving dismemberment through Force-sustained biology, or channeling the Force through your body with such intensity that you become a living conduit. This is Darth Sion refusing to die."
+    }
   },
   {
     "id": "intimidate",
     "name": "Intimidate",
     "type": "Discipline (Grit)",
     "rule": "The application of coercion, fear, or physical menace to bully a target into compliance. When used in social combat, it natively targets the enemy's Resolve.",
-    "guide": "You don't always need to shoot someone to win a fight. Sometimes, you just need to look at them and calmly explain that shooting you is the last mistake they will ever make. It's about projecting pure, unadulterated consequence. Pro-tip: a quiet, dead-eyed growl usually works way better than screaming."
+    "guide": "You don't always need to shoot someone to win a fight. Sometimes, you just need to look at them and calmly explain that shooting you is the last mistake they will ever make. It's about projecting pure, unadulterated consequence. Pro-tip: a quiet, dead-eyed growl usually works way better than screaming.",
+    "narrativeTiers": {
+      "fleeting": "The target hesitates. They are not convinced, but they are no longer comfortable. A seed of doubt has been planted.",
+      "masterful": "The target takes you seriously. Their body language shifts — they reassess the situation, recalculate the odds, and visibly reconsider their position.",
+      "legendary": "The target is shaken to their core. Hardened criminals reconsider their career choices. Trained soldiers question their orders. Your presence fills the room like a physical force.",
+      "unleashedI": "Your mere attention breaks people. Targets comply not because they calculated the odds, but because something primal in their brain screamed at them to submit. Crowds part.",
+      "unleashedII": "Your reputation arrives before you do. Targets who have only heard stories about you feel the weight of your displeasure. Entire rooms fall silent when you enter.",
+      "unleashedIII": "You project an aura of absolute consequence. Warlords kneel. Armies hesitate. Your will imposes itself on the environment like gravity — not through words, but through sheer existential pressure. This is Vader walking onto a rebel ship."
+    }
   },
   {
     "id": "resolve",
     "name": "Resolve",
     "type": "Discipline (Grit)",
     "rule": "Your primary Reaction against mental, social, or Force-based attacks. Used to maintain your composure and firewall your mind against an intimidation attempt, a Jedi mind trick, or overwhelming terror. (Note: For Droids, this represents firewall integrity and resistance to ion/slicing attacks).",
-    "guide": "The galaxy is absolutely full of smooth-talking grifters, terrifying warlords, and weird wizards who wave their hands and tell you what to think. Resolve is your mental blast door. It's the little voice in your head that says, \"No, I don't think I will give you my ship, and no, I am not actually scared of your glowing sword.\""
+    "guide": "The galaxy is absolutely full of smooth-talking grifters, terrifying warlords, and weird wizards who wave their hands and tell you what to think. Resolve is your mental blast door. It's the little voice in your head that says, \"No, I don't think I will give you my ship, and no, I am not actually scared of your glowing sword.\"",
+    "narrativeTiers": {
+      "fleeting": "You hold your ground, but it costs you. The fear, the pressure, the manipulation — you feel all of it. You just choose not to break.",
+      "masterful": "The attempt to break you finds no purchase. Your mind is a closed door. You acknowledge the pressure and dismiss it with quiet certainty.",
+      "legendary": "You are unmovable. Interrogation techniques fail. Force probes slide off your consciousness. Your willpower is a physical barrier that others cannot breach.",
+      "unleashedI": "Your mental fortitude radiates outward. Allies near you feel steadier. Enemies who attempt to break you find their own confidence eroding instead.",
+      "unleashedII": "You resist forms of mental assault that should be irresistible. Deep Force mind-probes, chemical interrogation, prolonged psychological torture — your will outlasts them all.",
+      "unleashedIII": "Your resolve defines reality. You reject outcomes that should be inevitable — refusing to die when the body has failed, maintaining identity when the mind should be shattered, holding your ground against forces that reshape the wills of nations. This is the mental fortress that even Sith Lords cannot crack."
+    }
   },
   {
     "id": "survival",
     "name": "Survival",
     "type": "Discipline (Grit)",
     "rule": "The knowledge required for tracking targets through the wilderness, foraging for food and water, navigating planetary hazards, and building temporary shelters.",
-    "guide": "If you crash land on Tatooine or Hoth, the impact probably won't kill you. The twin suns, the freezing nights, and the sheer lack of water will. Survival is the unglamorous, miserable work of knowing which desert grub won't poison you and how to sleep in the dirt without freezing to death."
+    "guide": "If you crash land on Tatooine or Hoth, the impact probably won't kill you. The twin suns, the freezing nights, and the sheer lack of water will. Survival is the unglamorous, miserable work of knowing which desert grub won't poison you and how to sleep in the dirt without freezing to death.",
+    "narrativeTiers": {
+      "fleeting": "You find basic shelter, identify an edible plant, or follow an obvious trail. The wilderness does not kill you today, but it is not impressed.",
+      "masterful": "You read the environment fluently. You track targets across difficult terrain, find water in a desert, navigate by stars, or build a shelter that actually works.",
+      "legendary": "The wilderness becomes your domain. You track targets across surfaces that hold no prints, predict weather shifts by smell, or survive in environments that kill equipped expeditions.",
+      "unleashedI": "You exist in hostile environments as if you were native fauna. You track across running water, predict geological events, and extract resources from terrain that appears barren.",
+      "unleashedII": "You survive in environments that should be categorically lethal without specialized equipment. Your understanding of natural systems borders on prescience.",
+      "unleashedIII": "You thrive where survival is theoretically impossible. Trackless wastes, toxic hellscapes, the deep void between stars — you find a way. Expeditions are planned around your capabilities. Your survival instinct has transcended human limits."
+    }
   },
   {
     "id": "reflex",
@@ -95,35 +175,75 @@
     "name": "Evasion",
     "type": "Discipline (Reflex)",
     "rule": "This is your primary Reaction against ranged attacks and hazards. When targeted by a blaster, a swinging lightsaber, or a thermal detonator, roll Reflex + Evasion to meet or beat the enemy's Static Power.",
-    "guide": "The most valuable skill in the Outer Rim is the ability to abruptly be somewhere else. Ducking, diving, rolling into a pile of garbage — whatever it takes. It lacks dignity, sure, but dignity is what they write on the tombstones of slow people."
+    "guide": "The most valuable skill in the Outer Rim is the ability to abruptly be somewhere else. Ducking, diving, rolling into a pile of garbage — whatever it takes. It lacks dignity, sure, but dignity is what they write on the tombstones of slow people.",
+    "narrativeTiers": {
+      "fleeting": "You dodge, but just barely. The blast singes your coat, the debris clips your shoulder. You are alive because you moved, not because you moved well.",
+      "masterful": "Clean evasion. You are not where the danger lands. Your movement is economical — no wasted motion, no dramatic dive. You simply are not there.",
+      "legendary": "You move through a field of hazards untouched. Blaster fire, falling debris, explosions — you weave through it all with an almost insulting casualness.",
+      "unleashedI": "Your evasion defies reaction time. You dodge things you should not be able to see coming. Witnesses swear you moved before the trigger was pulled.",
+      "unleashedII": "You exist in the gaps between danger. Automated targeting systems cannot track you. Area-effect weapons find you in the one safe pocket. Your movement is precognitive.",
+      "unleashedIII": "You are untouchable. Concentrated fire from multiple sources finds empty air. Explosions detonate around a you-shaped void. The universe itself seems to route danger around your position."
+    }
   },
   {
     "id": "piloting",
     "name": "Piloting",
     "type": "Discipline (Reflex)",
     "rule": "Used for operating vehicles of all sizes, from repulsorlift speeders to light freighters and starfighters. Required for pulling evasive maneuvers, navigating treacherous asteroid fields, or punching the hyperdrive while under heavy fire.",
-    "guide": "Anyone can push a throttle forward. Piloting is the art of pushing the throttle forward while four Imperial TIEs are trying to turn your thrusters into molten slag, your astromech is screaming, and you're casually threading the needle through a collapsing mine shaft."
+    "guide": "Anyone can push a throttle forward. Piloting is the art of pushing the throttle forward while four Imperial TIEs are trying to turn your thrusters into molten slag, your astromech is screaming, and you're casually threading the needle through a collapsing mine shaft.",
+    "narrativeTiers": {
+      "fleeting": "You keep the vehicle moving in roughly the right direction. The ride is rough, the turns are wide, but you do not crash.",
+      "masterful": "Confident, competent piloting. You thread gaps, execute evasive maneuvers, and handle the vehicle as if it were part of your body.",
+      "legendary": "You fly the vehicle beyond its rated performance envelope. Maneuvers that should cause structural failure execute cleanly. Pursuit vehicles cannot keep up.",
+      "unleashedI": "You extract performance from the vehicle that the manufacturer did not know was possible. Mechanics will study your flight recorder data and argue about the physics.",
+      "unleashedII": "You pilot as if the vehicle has no limitations. Atmospheric re-entry in a shuttle rated for orbital only. Threading an asteroid field at full throttle. The vehicle survives because you willed it.",
+      "unleashedIII": "Transcendent piloting. You fly through conditions that should destroy the vehicle and the pilot. The Kessel Run. The Death Star trench. Atmospheric entry without shields. Your name becomes synonymous with the impossible."
+    }
   },
   {
     "id": "ranged",
     "name": "Ranged",
     "type": "Discipline (Reflex)",
     "rule": "Used for firing pistols, carbines, standard rifles, and thrown weapons. Relies on hand-eye coordination rather than brute strength. Natively targets the enemy's Defense Resistance.",
-    "guide": "Hokey religions and ancient melee weapons are great for dramatic tension, but there is a profound, unmatched joy in putting a searing hole through a bounty hunter from thirty paces before he even unclips his holster. Keep your piece clean and your eyes open."
+    "guide": "Hokey religions and ancient melee weapons are great for dramatic tension, but there is a profound, unmatched joy in putting a searing hole through a bounty hunter from thirty paces before he even unclips his holster. Keep your piece clean and your eyes open.",
+    "narrativeTiers": {
+      "fleeting": "The shot lands, but not where you wanted it. A grazing hit, a near miss that still achieves the goal. Functional, not elegant.",
+      "masterful": "The shot goes exactly where you aimed. Center mass, weak point, or called target — the bolt finds its mark with professional precision.",
+      "legendary": "Shooting that makes other marksmen stop and stare. Impossible angles, moving targets at extreme range, or multiple targets in rapid succession. Every shot is a statement.",
+      "unleashedI": "You shoot with a precision that should require targeting computers. Moving targets at absurd range, ricochet shots off reflective surfaces, or disabling shots on targets you cannot directly see.",
+      "unleashedII": "Your accuracy transcends the weapon platform. You hit targets the weapon should not be able to reach. You shoot around corners through instinct. Targeting droids are jealous.",
+      "unleashedIII": "Every shot is perfect. You hit what you intend to hit, when you intend to hit it, from any position, at any range. Your marksmanship becomes the standard against which all others are measured. This is the shot heard across the galaxy."
+    }
   },
   {
     "id": "skulduggery",
     "name": "Skulduggery",
     "type": "Discipline (Reflex)",
     "rule": "Used for sleight of hand, picking physical locks, planting tracking devices, or concealing small hold-out weapons (like a Q2) from pat-downs and security scanners.",
-    "guide": "The galaxy is completely full of locked boxes and people who violently disagree with your right to have what's inside them. Skulduggery is the noble, time-honored tradition of aggressive, undocumented borrowing."
+    "guide": "The galaxy is completely full of locked boxes and people who violently disagree with your right to have what's inside them. Skulduggery is the noble, time-honored tradition of aggressive, undocumented borrowing.",
+    "narrativeTiers": {
+      "fleeting": "The lock opens, but it took too long. The planted device is in place, but not perfectly concealed. The sleight of hand works, but a sharp eye might have caught it.",
+      "masterful": "Clean work. The lock yields silently, the device is planted without a trace, the palmed object disappears completely. Professional-grade execution.",
+      "legendary": "You defeat security systems that were designed to be undefeatable. You plant objects on targets who are actively watching for it. Your hands move faster than eyes can follow.",
+      "unleashedI": "Your manual dexterity operates at a level that defies human physiology. You pick locks by touch alone in total darkness. You plant tracking devices during a handshake.",
+      "unleashedII": "Security systems designed by the best minds in the galaxy fall to your touch like paper locks. You steal objects from secured display cases while guards are watching the case.",
+      "unleashedIII": "You operate at the intersection of art and crime. You steal things that should be unstealable, bypass systems that should be unbypassable, and leave no trace that you were ever there. Your work is studied in security academies as cautionary tales."
+    }
   },
   {
     "id": "stealth",
     "name": "Stealth",
     "type": "Discipline (Reflex)",
     "rule": "Used for moving silently, blending into crowds, sticking to the shadows, and ambushing targets before the Initiative is rolled. Opposed by the enemy's Sense or Investigation disciplines.",
-    "guide": "Here is a simple mathematical equation for you: If they don't know you are in the room, they cannot shoot you. Stick to the vents, walk on the balls of your feet, and remember that breathing loudly is a luxury you currently cannot afford."
+    "guide": "Here is a simple mathematical equation for you: If they don't know you are in the room, they cannot shoot you. Stick to the vents, walk on the balls of your feet, and remember that breathing loudly is a luxury you currently cannot afford.",
+    "narrativeTiers": {
+      "fleeting": "You avoid notice, but not by much. A shadow that almost blended, a footstep that almost did not register. One more second of scrutiny and you would have been caught.",
+      "masterful": "You are invisible to casual observation. You move through guarded spaces without triggering alerts, blend into crowds seamlessly, and leave rooms without anyone noticing you were there.",
+      "legendary": "You disappear in plain sight. Active search teams walk past your position. Security systems fail to register your presence. You are a ghost in the machine.",
+      "unleashedI": "You move through environments that should make stealth impossible — open terrain, brightly lit corridors, rooms full of alert observers — and remain unseen.",
+      "unleashedII": "Dedicated sensor arrays, trained hunter-killer teams, and Force-sensitive searchers cannot locate you. You exist outside the perceptual framework of everyone around you.",
+      "unleashedIII": "You are functionally invisible. You move through the galaxy leaving no footprint, no record, no memory. People who looked directly at you cannot recall your face. You are the absence of evidence."
+    }
   },
   {
     "id": "wits",
@@ -137,35 +257,75 @@
     "name": "Investigation",
     "type": "Discipline (Wits)",
     "rule": "The practice of searching a room, applying deductive reasoning, gathering local rumors, or finding the hidden compartment in a smuggler's hold.",
-    "guide": "The Empire loves hiding things in plain sight, and criminals love hiding things under the floorboards. Investigation is the art of tearing a room apart with your eyes before you tear it apart with your hands."
+    "guide": "The Empire loves hiding things in plain sight, and criminals love hiding things under the floorboards. Investigation is the art of tearing a room apart with your eyes before you tear it apart with your hands.",
+    "narrativeTiers": {
+      "fleeting": "You notice something out of place — a scratched lock, an odd stain, a nervous glance. It is a thread, but you have not pulled it yet.",
+      "masterful": "You reconstruct events from evidence. The crime scene tells you a story. The discrepancies in the testimony become obvious. You know what happened and roughly when.",
+      "legendary": "You see what no one else sees. Hidden compartments, micro-expressions, patterns in seemingly random data — your analysis reveals truths that were meant to stay buried.",
+      "unleashedI": "You reconstruct events from evidence so fragmentary that others would not recognize it as evidence at all. A scuff mark tells you the weight, gait, and species of the person who made it.",
+      "unleashedII": "Your investigative intuition borders on prescience. You solve cases from evidence that does not appear to exist. You predict the next move of targets you have never met.",
+      "unleashedIII": "You perceive the truth of any situation with absolute clarity. No deception survives your scrutiny. No hidden motive remains hidden. You see through lies, facades, and conspiracies the way others see through glass."
+    }
   },
   {
     "id": "medicine",
     "name": "Medicine",
     "type": "Discipline (Wits)",
     "rule": "The knowledge required for treating severe wounds, diagnosing exotic poisons, performing field surgery, or properly applying a stim-pack to clear a Trauma Box.",
-    "guide": "So your buddy just took a fist-sized chunk of shrapnel to the thigh. You have three minutes, a roll of mesh-tape, and a half-empty bacta tube. Medicine is the discipline of making sure your friend keeps their leg instead of bleeding out on the hangar floor."
+    "guide": "So your buddy just took a fist-sized chunk of shrapnel to the thigh. You have three minutes, a roll of mesh-tape, and a half-empty bacta tube. Medicine is the discipline of making sure your friend keeps their leg instead of bleeding out on the hangar floor.",
+    "narrativeTiers": {
+      "fleeting": "You stop the bleeding, stabilize the patient, or identify the poison. The treatment is rough, but the patient is no longer getting worse.",
+      "masterful": "Professional-grade field medicine. You set bones correctly, close wounds cleanly, administer the right dosage, and diagnose conditions accurately under pressure.",
+      "legendary": "You perform medical feats that would impress a fully equipped surgical team, using field supplies and improvised tools. Patients who should be dead are stabilized and recovering.",
+      "unleashedI": "You treat injuries that should require a bacta tank with field supplies. Your understanding of physiology borders on prescient — you anticipate complications before they manifest.",
+      "unleashedII": "You restore function to bodies that have suffered catastrophic damage. Limbs that should be amputated are saved. Toxins that should be lethal are neutralized through improvised chemistry.",
+      "unleashedIII": "Miracle worker. You bring patients back from conditions that medical science considers irreversible. Your treatments redefine what field medicine can accomplish. Surgical droids request your consultation."
+    }
   },
   {
     "id": "sense_spark",
     "name": "Sense",
     "type": "Force Discipline (Wits)",
     "rule": "(Requires Force Sensitivity.) The mastery of expanding one's awareness beyond the physical senses, feeling the connective tissue of the living Force. In Narrative Scenes, this grants the permission to experience profound visions, read the lingering emotional echoes in a room, or sense the life signs of creatures miles away. In Combat Scenes, the noise of violence narrows this connection, requiring specific Gambits or Maneuvers to anticipate an enemy's strike, deflect incoming fire blindfolded, or perceive the immediate tactical intentions of an opponent. Non-sensitives cannot invest in this discipline.",
-    "guide": "A good smuggler relies on their gut. A Jedi relies on the fundamental connective tissue of the universe whispering the future into their ear. It's wildly unfair. You and I have to check our corners and watch our six. These wizards just close their eyes and know exactly how many bounty hunters are waiting behind the blast door."
+    "guide": "A good smuggler relies on their gut. A Jedi relies on the fundamental connective tissue of the universe whispering the future into their ear. It's wildly unfair. You and I have to check our corners and watch our six. These wizards just close their eyes and know exactly how many bounty hunters are waiting behind the blast door.",
+    "narrativeTiers": {
+      "fleeting": "A whisper from the Force — a vague sense of danger, a feeling that something living is nearby, a half-formed impression of emotional residue in a room.",
+      "masterful": "The Force opens a clear channel. You sense the number and disposition of life forms nearby, read the emotional state of a target, or feel the echo of recent violence in a location.",
+      "legendary": "Your awareness extends far beyond your physical senses. You perceive hidden threats, read surface thoughts of willing or unguarded minds, and sense disturbances in the Force across planetary distances.",
+      "unleashedI": "You perceive the Force as a living web connecting all things. You track individuals across cities through their Force signature, read the history of objects through psychometric impression, or sense intentions before they form.",
+      "unleashedII": "Your perception transcends physical space. You sense events in other star systems, read the deep motivations buried beneath layers of mental shielding, or perceive timelines of possible futures with startling clarity.",
+      "unleashedIII": "Omniscient awareness. You perceive the galaxy as a single interconnected organism. You see across space and time — past echoes, present realities, and branching futures. This is Yoda sensing Order 66 across the galaxy. The Force hides nothing from you."
+    }
   },
   {
     "id": "tactics",
     "name": "Tactics",
     "type": "Discipline (Wits)",
     "rule": "The application of battlefield analysis. Used for rolling Initiative at the start of combat, deducing enemy weaknesses, or identifying the best position to lay an ambush.",
-    "guide": "Shooting first is great, but shooting from the high ground behind a durasteel barricade is better. Tactics is the ability to look at a room full of heavily armed hostiles and instantly figure out which explosive barrel to shoot to make the problem go away."
+    "guide": "Shooting first is great, but shooting from the high ground behind a durasteel barricade is better. Tactics is the ability to look at a room full of heavily armed hostiles and instantly figure out which explosive barrel to shoot to make the problem go away.",
+    "narrativeTiers": {
+      "fleeting": "You identify the obvious tactical elements — cover positions, firing lanes, the numerical balance. Basic competence that keeps you from walking into an ambush.",
+      "masterful": "You read the battlefield fluently. You identify the optimal engagement plan, predict enemy movements, and position your team for maximum advantage.",
+      "legendary": "You see the battle three moves ahead. Your tactical analysis accounts for variables others do not even notice. Enemies find themselves outmaneuvered before they realize the fight has started.",
+      "unleashedI": "Your tactical mind operates at a speed and depth that borders on computational. You process battlefield variables in real time, adjusting plans faster than the enemy can react.",
+      "unleashedII": "You devise strategies that account for every contingency. Enemies with superior numbers, equipment, and position find themselves defeated by plans they cannot comprehend until it is too late.",
+      "unleashedIII": "Strategic genius that reshapes conflicts. You see the entire theater of war as a single system and manipulate it with surgical precision. Battles are won before they begin. This is Thrawn studying the art on the wall."
+    }
   },
   {
     "id": "tech",
     "name": "Tech",
     "type": "Discipline (Wits)",
     "rule": "The expertise required for slicing (hacking) secure terminals, bypassing electronic locks, repairing starships, and calculating hyperspace jumps.",
-    "guide": "Everything in this galaxy runs on dying, hundred-year-old computer code and sparking wires. If you can speak to the machines, you own the galaxy. Just remember: slicing a bank account makes you rich; slicing an Imperial security door keeps you alive."
+    "guide": "Everything in this galaxy runs on dying, hundred-year-old computer code and sparking wires. If you can speak to the machines, you own the galaxy. Just remember: slicing a bank account makes you rich; slicing an Imperial security door keeps you alive.",
+    "narrativeTiers": {
+      "fleeting": "You get the system to respond, but it is not pretty. The splice is noisy, the repair holds but wobbles, the bypass trips a minor alarm. Functional, not elegant.",
+      "masterful": "Clean technical work. The terminal opens, the hyperdrive hums back to life, the door unseals without a trace. Your code is tight and your solder joints are clean.",
+      "legendary": "You make technology do things it was not designed to do. You slice military-grade encryption, jury-rig a hyperdrive from scrap parts, or reprogram a hostile droid mid-combat.",
+      "unleashedI": "You interface with technology at a level that borders on intuition. Systems respond to your touch as if they want to be fixed. Code writes itself under your fingers. Hardware bends to your will.",
+      "unleashedII": "You rewrite the rules of what technology can do. You splice systems that were designed to be un-spliceable, repair damage that should require a full factory rebuild, or extract data from hardware that has been physically destroyed.",
+      "unleashedIII": "You transcend the limitations of existing technology. You build things that should not work, hack systems that should not exist, and repair the irreparable. Your technical genius is studied as theoretical breakthrough. This is the engineer who builds the impossible."
+    }
   },
   {
     "id": "presence",
@@ -179,35 +339,75 @@
     "name": "Alter",
     "type": "Force Discipline (Presence)",
     "rule": "(Requires Force Sensitivity.) The mastery of projecting the Force outward to manipulate the physical world and the minds of others. In Narrative Scenes, this grants the permission to perform massive feats of telekinesis like lifting a sunken starfighter from a swamp, parting a sea of flames, or fundamentally rewriting a weak-willed guard's memories. In Combat Scenes, the immense concentration required is constantly broken by the chaos of battle, restricting the user to specific Gambits or Maneuvers to hurl heavy debris, shove enemies with kinetic force, or subtly trick an opponent's mind in the heat of the moment. Non-sensitives cannot invest in this discipline.",
-    "guide": "Guns jam. Power packs run dry. But the guy who can choke you from across the room without lifting a single finger? He never has to reload. It's the ultimate trump card. If you see someone wearing bathrobes wave their hand at you, don't ask questions. Just start shooting. Or better yet, run."
+    "guide": "Guns jam. Power packs run dry. But the guy who can choke you from across the room without lifting a single finger? He never has to reload. It's the ultimate trump card. If you see someone wearing bathrobes wave their hand at you, don't ask questions. Just start shooting. Or better yet, run.",
+    "narrativeTiers": {
+      "fleeting": "A nudge through the Force — a small object slides across a table, a weak-willed mind accepts a simple suggestion, a gust of Force-driven wind stirs dust.",
+      "masterful": "The Force answers with authority. You move objects too heavy to lift, plant compelling suggestions in resistant minds, or manipulate your environment with precision and purpose.",
+      "legendary": "Your will reshapes the physical world. You hurl heavy objects with devastating force, rewrite the short-term memories of strong-willed targets, or manipulate environmental elements on a grand scale.",
+      "unleashedI": "The Force becomes an extension of your body. You move objects the size of vehicles, dominate minds that should be shielded, or reshape terrain. The line between Force user and natural disaster blurs.",
+      "unleashedII": "Reality bends to your will. You manipulate matter on a molecular level, overwhelm the mental defenses of trained Force-resisters, or create environmental effects that span city blocks.",
+      "unleashedIII": "Transcendent Force projection. You move objects of impossible mass — starships, buildings, geological formations. You rewrite minds so completely that the target believes they have always thought this way. This is Starkiller pulling a Star Destroyer from orbit. This is the full, terrifying scope of the Force unleashed."
+    }
   },
   {
     "id": "charm",
     "name": "Charm",
     "type": "Discipline (Presence)",
     "rule": "The practice of winning favor, establishing trust, and using flattery to defuse a tense situation without resorting to violence.",
-    "guide": "The Outer Rim is full of very angry, very paranoid people with very large guns. Charm is the incredibly valuable skill of making those people decide they'd rather buy you a drink than shoot you in the chest. It's not about being \"nice\"—it's about survival through aggressive politeness."
+    "guide": "The Outer Rim is full of very angry, very paranoid people with very large guns. Charm is the incredibly valuable skill of making those people decide they'd rather buy you a drink than shoot you in the chest. It's not about being \"nice\"—it's about survival through aggressive politeness.",
+    "narrativeTiers": {
+      "fleeting": "You make a decent impression. The target does not dislike you, and you have opened the door to further conversation. No favors yet, but no hostility either.",
+      "masterful": "The target warms to you genuinely. You establish rapport, earn a measure of trust, and create a social opening that can be leveraged. They want to help you.",
+      "legendary": "You win people over completely. Hostile targets become friendly. Suspicious targets become trusting. You create genuine emotional connections in minutes that normally take months.",
+      "unleashedI": "Your charisma is magnetic. People restructure their priorities to accommodate you. Strangers treat you like a lifelong friend. Doors open that have been closed for years.",
+      "unleashedII": "You inspire devotion in people who have every reason to distrust you. Enemies lay down arms. Rivals become allies. Your words carry the weight of absolute sincerity even when they should not.",
+      "unleashedIII": "You reshape social reality. Communities rally behind you. Movements form around your words. Your charm transcends individual interaction and becomes a force that moves populations. This is the speech that stops a war."
+    }
   },
   {
     "id": "deception",
     "name": "Deception",
     "type": "Discipline (Presence)",
     "rule": "The art of lying, running long-cons, creating false identities, and bluffing your way past security checkpoints. Usually opposed by the enemy's Insight.",
-    "guide": "Looking an Imperial Customs Officer dead in the eye and casually explaining that the three crates of illegal spice in your cargo hold are actually \"rare medicinal herbs for your sick grandmother.\" It takes a sociopath or a professional. Usually both. If you're going to lie, make it big, and make it fast."
+    "guide": "Looking an Imperial Customs Officer dead in the eye and casually explaining that the three crates of illegal spice in your cargo hold are actually \"rare medicinal herbs for your sick grandmother.\" It takes a sociopath or a professional. Usually both. If you're going to lie, make it big, and make it fast.",
+    "narrativeTiers": {
+      "fleeting": "The lie holds, but barely. The target accepts it for now, but a follow-up question or a moment of reflection might unravel it.",
+      "masterful": "The lie is seamless. The target accepts it as truth without hesitation. Your cover story has no obvious gaps, your body language betrays nothing.",
+      "legendary": "You construct elaborate false realities that survive scrutiny. False identities hold up under investigation. Planted evidence tells the story you want told. The truth becomes whatever you say it is.",
+      "unleashedI": "Your deceptions operate on a level that redefines the concept of truth for your targets. They do not merely believe your lie — they remember corroborating evidence that does not exist.",
+      "unleashedII": "You deceive people who should be un-deceivable. Intelligence professionals, trained interrogators, and Force-sensitive truth-readers accept your fabrications as baseline reality.",
+      "unleashedIII": "You rewrite consensus reality. Organizations act on information you fabricated. Historical records reflect events you invented. The lie becomes the truth because no one alive remembers otherwise."
+    }
   },
   {
     "id": "insight",
     "name": "Insight",
     "type": "Discipline (Presence)",
     "rule": "The ability to read body language, detect falsehoods, determine a target's emotional state, or realize you are being walked into a trap.",
-    "guide": "Everyone is lying to you. The bartender is lying about the watered-down drinks, the mechanic is lying about the hyperdrive motivator, and the client is definitely lying about the payout. Insight is how you catch the twitch in their eye before the knife goes in your back. Trust is for people with short lifespans."
+    "guide": "Everyone is lying to you. The bartender is lying about the watered-down drinks, the mechanic is lying about the hyperdrive motivator, and the client is definitely lying about the payout. Insight is how you catch the twitch in their eye before the knife goes in your back. Trust is for people with short lifespans.",
+    "narrativeTiers": {
+      "fleeting": "You notice that something is off — a hesitation, a forced smile, a rehearsed answer. You know the target is not being fully honest, but you cannot pinpoint the specific deception.",
+      "masterful": "You read the target clearly. You identify the lie, the motivation behind it, and the emotional state driving their behavior. Their poker face fails against your scrutiny.",
+      "legendary": "You perceive the complete emotional and motivational landscape of your target. Hidden agendas surface. Buried fears become visible. You understand them better than they understand themselves.",
+      "unleashedI": "You read people the way others read open books. Micro-expressions, vocal patterns, postural shifts — you process them all simultaneously and construct a complete psychological profile in seconds.",
+      "unleashedII": "You perceive intentions that the target has not yet consciously formed. You predict behavior before the target decides to act. Your insight borders on mind-reading.",
+      "unleashedIII": "You understand the complete truth of any person you observe. Every lie, every motive, every buried trauma and hidden strength — laid bare in a single moment of perfect clarity. No mask survives your gaze."
+    }
   },
   {
     "id": "persuasion",
     "name": "Persuasion",
     "type": "Discipline (Presence)",
     "rule": "The application of logical arguments, haggling over bounties, brokering truces, or convincing someone that your plan is in their best interest.",
-    "guide": "The galaxy runs on credits and favors. Persuasion isn't about being a \"nice guy\"; it's about explaining exactly why it is in the other guy's best financial or physical interest to do exactly what you say. It's making them think your idea was actually their idea."
+    "guide": "The galaxy runs on credits and favors. Persuasion isn't about being a \"nice guy\"; it's about explaining exactly why it is in the other guy's best financial or physical interest to do exactly what you say. It's making them think your idea was actually their idea.",
+    "narrativeTiers": {
+      "fleeting": "You make a reasonable argument. The target acknowledges your point but is not yet moved to action. The seed is planted, but has not taken root.",
+      "masterful": "Your argument is compelling. The target shifts their position, agrees to your terms, or concedes the point. You have changed their mind through logic and rhetoric.",
+      "legendary": "You negotiate outcomes that should be impossible. Hostile parties agree to terms that favor you. Entrenched positions crumble under the weight of your reasoning.",
+      "unleashedI": "Your arguments restructure how people think about the problem. They do not just agree — they cannot imagine having ever disagreed. Your logic rewires their framework.",
+      "unleashedII": "You persuade people to act against their own established interests and feel good about it. Treaties that should take months are negotiated in hours. Feuds that span generations end with a conversation.",
+      "unleashedIII": "You reshape the political and social landscape through pure rhetorical force. Governments change policy. Factions realign. Your words carry the weight of inevitability. This is the negotiation that redraws the map."
+    }
   },
   {
     "id": "condition_guarded",

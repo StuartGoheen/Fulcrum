@@ -5,13 +5,34 @@
     "name": "The Fulcrum — Symmetric Resolution",
     "tag": "Core Math",
     "summary": "All task resolution uses the same symmetric math: Roll minus Risk equals Net Result. Positive net is success, negative net is failure, and the magnitude determines the tier on both sides.",
-    "mechanic": "Net Result = (Control Die or Power Die) minus (Risk or Resistance). The result falls on a mirrored scale around zero (the Fulcrum). Success side: Fleeting (net 0 to 3), Masterful (net 4 to 7), Legendary (net 8+). Failure side: Fleeting failure (net -1 to -3), Masterful failure (net -4 to -7), Legendary failure (net -8 or worse). The same tier names apply to both Control (success quality) and Power (effect magnitude).",
+    "mechanic": "Net Result = (Control Die or Power Die) minus (Risk or Resistance). The result falls on a mirrored scale around zero (the Fulcrum). Success side: Fleeting (0-3), Masterful (4-7), Legendary (8-11), Unleashed I (12-15), Unleashed II (16-19), Unleashed III (20+). Failure side: Fleeting failure (-1 to -3), Masterful failure (-4 to -7), Legendary failure (-8 or worse). Unleashed tiers are reachable only through favored disciplines with exploding dice or stacked +1 tier effects.",
     "tiers": {
       "success": [
         {
+          "tier": 6,
+          "name": "Unleashed III",
+          "range": "20+",
+          "description": "Transcendent. The kind of feat that becomes legend. Reality reshapes around the action. This is Starkiller dragging a Star Destroyer from orbit.",
+          "access": "Favored discipline (exploding die with multiple explosions) OR extreme buff stacking."
+        },
+        {
+          "tier": 5,
+          "name": "Unleashed II",
+          "range": "16-19",
+          "description": "Defies reasonable expectation. Witnesses struggle to explain what they saw. The execution borders on the impossible.",
+          "access": "Favored discipline (exploding die) OR heavy buff stacking."
+        },
+        {
+          "tier": 4,
+          "name": "Unleashed I",
+          "range": "12-15",
+          "description": "Beyond mastery. People notice, stories get told. The execution is so clean it borders on unnatural.",
+          "access": "Favored discipline (exploding die) OR stacked +1 tier effects."
+        },
+        {
           "tier": 3,
           "name": "Legendary",
-          "range": "8+",
+          "range": "8-11",
           "description": "Exceptional execution. Automatic +1 Effect Tier. Near-impossible at base Risk 4 — requires a D12 roll of 12."
         },
         {
@@ -27,6 +48,13 @@
           "description": "Marginal success. A glancing blow, a hint of progress, minimal magnitude."
         }
       ],
+      "unleashedAccess": {
+        "rule": "Unleashed tiers (I, II, III) are not reachable through normal rolling. They require either a favored (aligned) discipline with an exploding Power die, or enough stacked +1 tier effects to push a Legendary result upward. A non-favored discipline cannot reach Unleashed through raw dice alone — this makes favoring a discipline during character creation a meaningful long-term investment.",
+        "paths": [
+          "Favored discipline — the Power die explodes on a max roll. A D12 rolling 12 explodes, potentially reaching 12+ (Unleashed I). Multiple explosions can reach Unleashed II and III.",
+          "Stacked +1 tier effects — enough buffs, gear bonuses, destiny tokens, or ally support to push a Legendary result upward into Unleashed range."
+        ]
+      },
       "fulcrum": 0,
       "failure": [
         {
@@ -683,6 +711,56 @@
       "The asymmetrical Lockout is intentional. Tapping a dark token makes it irredeemable for the session. Tapping a light token does not protect it from falling — you can be heroic and still lose your soul in the same scene.",
       "The Crossroads is not a veto system. The acting player always has final say. The intervention mechanic exists to create a moment — to make the choice deliberate and witnessed rather than casual.",
       "Tapping either side should feel meaningful. A player spending a Hope token to survive a fight is burning a piece of the crew's light. A player spending a Toll token to press an advantage is leaning into who they are becoming. Neither should be mechanical filler."
+    ]
+  },
+  {
+    "id": "modes_of_play",
+    "name": "Modes of Play",
+    "tag": "Core Framework",
+    "summary": "The game operates in three distinct modes: Combat, Challenge, and Narrative. All three use the same Fulcrum resolution math — the difference is structure, pacing, and which actions are available. Combat maneuvers (Attack, Dodge, Endure, Force offensive powers) are exclusive to Combat mode.",
+    "modes": [
+      {
+        "mode": "Combat",
+        "structure": "Structured rounds with dice-based initiative (Join Battle). Each character has a defined turn with Action, Maneuver, and Trigger pips.",
+        "initiative": "Roll Tactics (Wits) for turn order. Higher results act first.",
+        "availableActions": "All universal actions, Force maneuvers, discipline gambits, weapon attacks, defensive triggers (Dodge, Endure). The full tactical toolkit.",
+        "resolution": "Discipline roll vs target Defense or Evasion (contested). Power die determines damage/effect magnitude.",
+        "when": "Violence has broken out or is about to. The situation demands tactical precision and turn-by-turn accountability."
+      },
+      {
+        "mode": "Challenge",
+        "structure": "Structured rounds with sequential order. The GM picks who acts each round — no dice-based initiative. Each player gets 1 meaningful action per round.",
+        "initiative": "None. The GM directs the sequence based on narrative logic and dramatic pacing.",
+        "availableActions": "Discipline rolls, Assess, Interact, Coordinate, Command Beast, [Narrative]-tagged gambits. No Attack, Dodge, Endure, or Force offensive maneuvers. Combat maneuvers are off the table.",
+        "resolution": "Discipline roll vs GM-set Presence (Control resistance) and Power resistance. The same Fulcrum math applies — net result determines tier.",
+        "when": "A tense, time-pressured situation that is not combat: a chase, a heist, a collapsing building, a social confrontation with structured stakes, a ticking-clock puzzle. The situation has rounds because timing and sequence matter, but no one is swinging a weapon.",
+        "roundStructure": "Each round, the GM describes the evolving situation, then calls on each player in turn. The player declares their action, the GM sets the resistance, and the roll resolves. After all players have acted, the GM advances the situation (the timer ticks, the building shifts, the NPC responds)."
+      },
+      {
+        "mode": "Narrative",
+        "structure": "Freeform. No rounds, no turn order. The GM calls for rolls as the fiction demands.",
+        "initiative": "None. Players act when the story calls for it.",
+        "availableActions": "Any discipline roll the fiction supports. [Narrative]-tagged gambits. No combat maneuvers.",
+        "resolution": "Discipline roll vs GM-set Presence and Power resistance. Same Fulcrum math.",
+        "when": "Exploration, investigation, social encounters without structured stakes, downtime, travel. The situation does not require round-by-round tracking."
+      }
+    ],
+    "presenceScalingGuide": {
+      "note": "GM reference for setting Presence (Control resistance) in Challenge and Narrative modes. Presence determines the 50/50 breakpoint for the character's die.",
+      "scale": [
+        { "presence": 0, "challenge": "Trivial under pressure", "fiftyFiftyFor": "D6 (untrained)" },
+        { "presence": 1, "challenge": "Routine professional task", "fiftyFiftyFor": "D8 (trained)" },
+        { "presence": 2, "challenge": "Demands real expertise", "fiftyFiftyFor": "D10 (skilled)" },
+        { "presence": 3, "challenge": "Peak mastery territory", "fiftyFiftyFor": "D12 (master)" },
+        { "presence": "4-5", "challenge": "Beyond raw skill", "fiftyFiftyFor": "D12 + gear, buffs, allies" }
+      ]
+    },
+    "designNotes": [
+      "The three modes share the same resolution engine. A Charm roll in Narrative mode uses the same math as a Charm roll in Challenge mode — the only difference is whether the GM imposes round structure.",
+      "Challenge mode exists for scenes that need structure but not violence. A heist has rounds because timing matters. A bar conversation does not. The GM chooses the mode based on whether sequence and pacing are mechanically relevant.",
+      "Combat maneuvers are mode-locked to Combat. Attack, Dodge, Endure, and Force offensive powers require the tactical infrastructure of initiative, action economy, and defensive triggers. Pulling them out of that context breaks the assumptions they are built on.",
+      "The GM sets Presence based on the caliber of skill required, not the character's level. Presence 2 is 'demands real expertise' regardless of whether the party is level 1 or level 10. The characters grow into the challenges — the challenges do not scale to the characters.",
+      "Challenge mode's 1-action-per-round constraint prevents analysis paralysis and ensures every player contributes meaningfully. It also makes each action feel weighty — you get one shot per round to move the needle."
     ]
   }
 ]

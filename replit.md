@@ -44,10 +44,10 @@ A Star Wars TTRPG electronic character sheet and campaign management system buil
 - `data/characters.seed.json` — initial character slot names for DB seeding
 - `data/armor.json`, `data/gear.json`, `data/chassis.json` — equipment data
 - `data/kits.json` — Kit specialization definitions
-- `data/gamesystem.json` — Core resolution rules reference
+- `data/gamesystem.json` — Core resolution rules reference. Includes full 6-tier resolution ladder (Fleeting through Unleashed III), Modes of Play (Combat/Challenge/Narrative), and Presence scaling guide.
 - `data/threats.json` — NPC/threat rules and trigger system
 - `data/maneuvers.json` — universal actions + discipline gambits (object: `universalActions[14]` incl. Join Battle, `forceManeuvers[3]`, `disciplineGambits{25 sets, 75 gambits}`, `advancedManeuvers[]`). Move action has explicit combat tiers. Join Battle uses Trigger type with Free pip.
-- `data/glossary.json` — 54 entries including 23 conditions + Natural Recovery rule with conditionType/pcEffect/npcEffect fields. Consumed by the Player's Handbook panel.
+- `data/glossary.json` — 54 entries including 23 conditions + Natural Recovery rule with conditionType/pcEffect/npcEffect fields. All 25 disciplines include `narrativeTiers` (fleeting/masterful/legendary/unleashedI/unleashedII/unleashedIII) for Challenge and Narrative mode outcomes. Consumed by the Player's Handbook panel.
 - `data/adventures.json` — structured adventure content (adventures → parts → scenes)
 
 ## Running the App
@@ -173,7 +173,7 @@ The right column (`#frame-right`, 25vw fixed sidebar) serves as the **combat coc
 1. **Vitality** (`char-vitality-wrap`) — EKG animation + clickable health pips
 2. **Active Effects** (`char-effects-wrap`) — conditions applied by `effect-manager.js`
 3. **Engine Pool** (`char-engine-wrap`) — resource pips + core utility only (kit abilities moved to center panel)
-4. **Resolution Ladder** (`char-ladder-wrap`) — symmetric fulcrum display showing Roll − Risk = Net result. Success tiers: Fleeting (0–3), Masterful (4–7), Legendary (8+). Failure tiers mirror below zero. Includes tier modifier sources (+1/−1).
+4. **Resolution Ladder** (`char-ladder-wrap`) — symmetric fulcrum display showing Roll − Risk = Net result. Success tiers: Fleeting (0–3), Masterful (4–7), Legendary (8–11), Unleashed I (12–15), Unleashed II (16–19), Unleashed III (20+). Unleashed tiers reachable only via favored discipline exploding die or stacked +1 tier effects. Failure tiers mirror below zero. Includes tier modifier sources (+1/−1).
 
 **Action Economy pips** are rendered inline inside the Operational Status section (below Start/End Turn buttons). End Turn automatically resets all pips. Bonuses from kit abilities auto-calculated.
 

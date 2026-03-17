@@ -450,6 +450,61 @@
     });
   }
 
+  var NARRATIVE_TIER_ORDER = [
+    { key: 'fleeting',      label: 'Fleeting',       range: '0\u20133',   tier: 1 },
+    { key: 'masterful',     label: 'Masterful',      range: '4\u20137',   tier: 2 },
+    { key: 'legendary',     label: 'Legendary',      range: '8\u201311',  tier: 3 },
+    { key: 'unleashedI',    label: 'Unleashed I',    range: '12\u201315', tier: 4 },
+    { key: 'unleashedII',   label: 'Unleashed II',   range: '16\u201319', tier: 5 },
+    { key: 'unleashedIII',  label: 'Unleashed III',  range: '20+',        tier: 6 }
+  ];
+
+  function _renderNarrativeTiers(tiers) {
+    var container = document.getElementById('hb-maneuvers-section');
+    if (!container) return;
+
+    var section = document.createElement('div');
+    section.className = 'handbook-section hb-narrative-tiers-section';
+
+    var heading = document.createElement('div');
+    heading.className = 'handbook-section-label hb-narrative-heading';
+    heading.textContent = 'Narrative Results';
+    section.appendChild(heading);
+
+    var list = document.createElement('div');
+    list.className = 'hb-narrative-tier-list';
+
+    NARRATIVE_TIER_ORDER.forEach(function (def) {
+      var text = tiers[def.key];
+      if (!text) return;
+
+      var isUnleashed = def.tier >= 4;
+
+      var row = document.createElement('div');
+      row.className = 'hb-narrative-row' + (isUnleashed ? ' hb-narrative-row--unleashed' : '');
+
+      var badge = document.createElement('span');
+      badge.className = 'hb-narrative-badge hb-narrative-badge--t' + def.tier;
+      badge.textContent = def.label;
+      row.appendChild(badge);
+
+      var range = document.createElement('span');
+      range.className = 'hb-narrative-range';
+      range.textContent = def.range;
+      row.appendChild(range);
+
+      var desc = document.createElement('span');
+      desc.className = 'hb-narrative-desc';
+      desc.innerHTML = _linkify(text);
+      row.appendChild(desc);
+
+      list.appendChild(row);
+    });
+
+    section.appendChild(list);
+    container.appendChild(section);
+  }
+
   function _showEntry(id) {
     var entry = _entries[id];
     if (!entry) return;
@@ -478,6 +533,9 @@
 
     var isDisc = entry.type && entry.type.toLowerCase().indexOf('discipline') !== -1;
     if (isDisc) {
+      if (entry.narrativeTiers) {
+        _renderNarrativeTiers(entry.narrativeTiers);
+      }
       _renderManeuvers(entry.id);
     }
 

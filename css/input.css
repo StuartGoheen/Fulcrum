@@ -4999,6 +4999,76 @@
     color: var(--color-text-secondary);
   }
 
+/* Narrative Tiers */
+  .hb-narrative-tiers-section {
+    margin-top: 0.5rem;
+  }
+
+  .hb-narrative-heading {
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 0.3rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .hb-narrative-tier-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hb-narrative-row {
+    display: grid;
+    grid-template-columns: 90px 42px 1fr;
+    gap: 0.6rem;
+    padding: 0.45rem 0.9rem;
+    border-bottom: 1px solid var(--color-border);
+    align-items: start;
+  }
+  .hb-narrative-row:last-child { border-bottom: none; }
+
+  .hb-narrative-row--unleashed {
+    border-left: 2px solid #ef4444;
+    background: rgba(239,68,68,0.04);
+  }
+
+  .hb-narrative-badge {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.43rem;
+    letter-spacing: 0.06em;
+    border-radius: 3px;
+    padding: 2px 6px;
+    text-align: center;
+    align-self: start;
+    margin-top: 2px;
+    white-space: nowrap;
+  }
+
+  .hb-narrative-badge--t1 { background: rgba(100,116,139,0.2); color: var(--color-text-secondary); border: 1px solid var(--color-border); }
+  .hb-narrative-badge--t2 { background: rgba(var(--accent-rgb,210,96,10),0.12); color: var(--color-accent-primary); border: 1px solid var(--color-accent-primary); }
+  .hb-narrative-badge--t3 { background: rgba(167,139,250,0.12); color: #a78bfa; border: 1px solid #a78bfa; }
+  .hb-narrative-badge--t4 { background: rgba(239,68,68,0.12); color: #ef4444; border: 1px solid #ef4444; }
+  .hb-narrative-badge--t5 { background: rgba(239,68,68,0.18); color: #f87171; border: 1px solid #f87171; text-shadow: 0 0 6px rgba(239,68,68,0.3); }
+  .hb-narrative-badge--t6 { background: rgba(239,68,68,0.25); color: #fca5a5; border: 1px solid #fca5a5; text-shadow: 0 0 10px rgba(239,68,68,0.5); }
+
+  .hb-narrative-range {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.40rem;
+    color: var(--color-text-secondary);
+    opacity: 0.7;
+    align-self: start;
+    margin-top: 4px;
+    white-space: nowrap;
+  }
+
+  .hb-narrative-desc {
+    font-size: 0.52rem;
+    line-height: 1.5;
+    color: var(--color-text-secondary);
+  }
+
+  .hb-narrative-row--unleashed .hb-narrative-desc {
+    color: var(--color-text-primary);
+  }
+
 /* ══════════════════════════════════════════════════════════════════════════
    Kits Step (Step 6)
    ══════════════════════════════════════════════════════════════════════════ */
