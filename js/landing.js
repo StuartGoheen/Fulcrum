@@ -167,7 +167,7 @@
   document.getElementById('btn-gm').addEventListener('click', joinAsGM);
   document.getElementById('modal-close').addEventListener('click', hideModal);
   document.getElementById('btn-create-character').addEventListener('click', () => {
-    window.location.href = '/create/';
+    window.location.href = '/create/?new';
   });
 
   document.getElementById('modal-overlay').addEventListener('click', (e) => {

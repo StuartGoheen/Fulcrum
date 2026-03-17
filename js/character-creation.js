@@ -3073,7 +3073,24 @@
           if (cd.kits) state.kitChoices = cd.kits;
           if (cd.startingGear) state.startingGear = cd.startingGear;
           if (cd.arenaAdj) state.arenaAdj = cd.arenaAdj;
-          if (cd.discValues) state.discValues = cd.discValues;
+          if (cd.discValues) {
+            state.discValues = cd.discValues;
+            state.discIncomp = {};
+            Object.keys(cd.discValues).forEach(function (k) {
+              if (cd.discValues[k] === 'D4') state.discIncomp[k] = true;
+            });
+            var incompCount = Object.keys(state.discIncomp).length;
+            var spent = 0;
+            Object.keys(cd.discValues).forEach(function (k) {
+              if (cd.discValues[k] === 'D8') spent++;
+            });
+            state.spentRegAdv = spent;
+            var eliteSpent = 0;
+            Object.keys(cd.discValues).forEach(function (k) {
+              if (cd.discValues[k] === 'D10') eliteSpent++;
+            });
+            state.enhancedAdvUsed = eliteSpent;
+          }
         }
         state.charName = data.name || '';
         state.editId = editId;
@@ -3086,7 +3103,13 @@
     loadTheme();
     var params = new URLSearchParams(window.location.search);
     var isEdit = params.has('edit');
-    if (!isEdit) loadSavedState();
+    if (isEdit) {
+      sessionStorage.removeItem(CREATION_KEY);
+    } else if (params.has('new')) {
+      sessionStorage.removeItem(CREATION_KEY);
+    } else {
+      loadSavedState();
+    }
     loadEditCharacter(function () { initCreator(); });
   }
 
