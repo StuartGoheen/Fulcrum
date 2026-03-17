@@ -72,6 +72,18 @@
     _providers = [];
 
     _providers.push({
+      id: 'destiny',
+      label: 'Destiny Pool',
+      icon: '\u2727',
+      getGroups: function () {
+        var e = _entries['destiny_pool'];
+        if (!e) return [];
+        return [{ groupLabel: null, entries: [{ id: e.id, name: e.name }] }];
+      },
+      hasEntry: function (id) { return id === 'destiny_pool'; }
+    });
+
+    _providers.push({
       id: 'arenas',
       label: 'Arenas',
       icon: '\u2726',
@@ -407,6 +419,37 @@
     });
   }
 
+  function _renderRichSections(sections) {
+    var container = document.getElementById('hb-maneuvers-section');
+    if (!container) return;
+    container.innerHTML = '';
+    sections.forEach(function (s) {
+      var sec = document.createElement('div');
+      sec.className = 'handbook-section';
+      var label = document.createElement('div');
+      label.className = 'handbook-section-label';
+      label.textContent = s.heading;
+      sec.appendChild(label);
+      if (s.body) {
+        var p = document.createElement('p');
+        p.className = 'handbook-rich-body';
+        p.textContent = s.body;
+        sec.appendChild(p);
+      }
+      if (s.list && s.list.length) {
+        var ul = document.createElement('ul');
+        ul.className = 'handbook-rich-list';
+        s.list.forEach(function (item) {
+          var li = document.createElement('li');
+          li.textContent = item;
+          ul.appendChild(li);
+        });
+        sec.appendChild(ul);
+      }
+      container.appendChild(sec);
+    });
+  }
+
   function _showEntry(id) {
     var entry = _entries[id];
     if (!entry) return;
@@ -428,6 +471,10 @@
 
     var manSection = document.getElementById('hb-maneuvers-section');
     if (manSection) manSection.innerHTML = '';
+
+    if (entry.richSections && entry.richSections.length) {
+      _renderRichSections(entry.richSections);
+    }
 
     var isDisc = entry.type && entry.type.toLowerCase().indexOf('discipline') !== -1;
     if (isDisc) {
@@ -623,6 +670,33 @@
       _searchTerm = searchInput.value;
       _buildSidebarIndex();
     });
+
+    _entries['destiny_pool'] = {
+      id: 'destiny_pool',
+      name: 'The Destiny Pool: Hope & Toll',
+      type: 'System',
+      rule: '2 tokens per player, any side up at campaign start. The ratio persists between sessions — it is a running ledger, not a mood ring.',
+      guide: '',
+      richSections: [
+        { heading: 'The Karma State', body: 'The current ratio grants passive bonuses to social actions:', list: [
+          'Hope dominant: +1 Tier on Charm/Persuasion vs. honorable or neutral contacts. Gap of 2+: \u22121 Tier on Intimidate/Deception (Soft Touch).',
+          'Toll dominant: +1 Tier on Intimidate/Deception vs. the underworld. Gap of 2+: \u22121 Tier on Charm/Persuasion (The Monster).'
+        ]},
+        { heading: 'Tapping', body: 'Once per scene, after any roll, any player may tap one available token to increase the result by +1 Tier. Tapped tokens slide aside for the scene — they do not flip.' },
+        { heading: 'The Lockout', list: [
+          'Toll \u2192 Hope: Only possible if the token is untapped. Tap a dark token to survive — the guilt of that method is sealed. A sacrifice later cannot redeem it.',
+          'Hope \u2192 Toll: Possible regardless of tap state. A dark deed taints the soul whether or not you were focused. A tapped Hope token that falls becomes a tapped Toll token immediately.'
+        ]},
+        { heading: 'Flipping', list: [
+          'Hope \u2192 Toll (The Fall): An act of unmitigated cruelty — executing a prisoner, torture, abandoning innocents, betrayal for credits.',
+          'Toll \u2192 Hope (Redemption): Accepting a severe, concrete disadvantage to stay clean — sparing a villain who will return, surrendering a major payday, deliberately failing an objective.'
+        ]},
+        { heading: 'The Crossroads', body: 'When a declared action would trigger The Fall, the GM pauses before it resolves. Any crewmate may intervene out-of-turn by tapping an available Hope token and making a Social Maneuver against the acting player. The acting player then chooses:', list: [
+          'Relent \u2014 Stand down. The Hope token was spent and the threat walks free. The crew flips one Toll \u2192 Hope.',
+          'Pull the Trigger \u2014 The plea is ignored. The Fall resolves. Flip one Hope \u2192 Toll. The intervening player\u2019s token stays tapped — they tried.'
+        ]}
+      ]
+    };
 
     var glossaryReady = fetch('/data/glossary.json')
       .then(function (res) { return res.json(); })

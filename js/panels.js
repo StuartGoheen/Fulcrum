@@ -272,12 +272,7 @@
     document.addEventListener('click', (e) => {
       if (e.target.closest('#char-theme-toggle')) cycleTheme();
       if (e.target.closest('#destiny-info-btn')) {
-        var ov = document.getElementById('destiny-overlay');
-        if (ov) ov.hidden = !ov.hidden;
-      }
-      if (e.target.closest('#destiny-overlay-close')) {
-        var ov = document.getElementById('destiny-overlay');
-        if (ov) ov.hidden = true;
+        if (window.GlossaryOverlay) window.GlossaryOverlay.open('destiny_pool');
       }
     });
 
