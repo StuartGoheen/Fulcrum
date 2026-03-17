@@ -1651,17 +1651,6 @@
   .rl-row--mas { background: rgba(255,255,255,0.02); }
   .rl-row--fle { background: transparent; }
 
-  .rl-row--zero {
-    background: rgba(255,255,255,0.02);
-  }
-  .rl-row--zero .rl-cell {
-    text-align: center;
-    font-family: "Exo 2", sans-serif;
-    font-size: 0.65rem;
-    color: var(--color-text-muted);
-    font-style: italic;
-    padding: 4px 8px;
-  }
 
   .rl-mods {
     margin-top: 2px;

@@ -470,10 +470,7 @@
             '<tr class="rl-row rl-row--fle">' +
               '<td class="rl-cell rl-cell--fail">&minus;1 to &minus;3</td>' +
               '<td class="rl-cell rl-cell--tier">Fleeting</td>' +
-              '<td class="rl-cell rl-cell--suc">1 &ndash; 3</td>' +
-            '</tr>' +
-            '<tr class="rl-row rl-row--zero">' +
-              '<td class="rl-cell" colspan="3">Net 0 &mdash; No effect</td>' +
+              '<td class="rl-cell rl-cell--suc">0 &ndash; 3</td>' +
             '</tr>' +
           '</tbody>' +
         '</table>' +
