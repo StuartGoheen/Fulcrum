@@ -223,26 +223,32 @@
       ],
       "discipline": "tactics",
       "arena": "wits",
-      "description": "Roll initiative when combat begins. Roll Tactics (Wits). Power = Roll. Your tier determines when you act and what bonus you carry into the first round.",
-      "risk": "Failed Control: You suffer round 1 penalties — you act last, your first action is [Weakened], and you do not gain a Trigger pip on round 1.",
+      "description": "Roll initiative when combat begins. Roll Tactics (Wits). Your raw Power Die result is your place in the turn order — higher results act first. If a gambit or effect causes you to spend a tier of initiative, your position drops to the midpoint of the next band down (Fleeting → 2, Masterful → 6, Legendary → 10, Unleashed → 14).",
+      "risk": "Failed Control (1-3): You are surprised — you gain [Disoriented] and [Exposed] until the end of your first turn. You still act in your rolled order, but carry these conditions into your opening action.",
       "effect": [
         {
           "tier": 1,
           "label": "Fleeting",
-          "range": "0-3",
-          "description": "Act in initiative order. No bonus."
+          "range": "1-3",
+          "description": "Act at position 1-3 in initiative order."
         },
         {
           "tier": 2,
           "label": "Masterful",
           "range": "4-7",
-          "description": "Act in initiative order. Gain [Optimized] on your first action of the encounter."
+          "description": "Act at position 4-7 in initiative order."
         },
         {
           "tier": 3,
           "label": "Legendary",
-          "range": "8+",
-          "description": "Act first in initiative order. Gain [Optimized] on your first action of the encounter."
+          "range": "8-11",
+          "description": "Act at position 8-11 in initiative order."
+        },
+        {
+          "tier": 4,
+          "label": "Unleashed",
+          "range": "12-15",
+          "description": "Act at position 12-15 in initiative order."
         }
       ]
     },
@@ -1117,7 +1123,7 @@
             "[Force]",
             "[Both]"
           ],
-          "rule": "After resolving an Assess, spend 1 tier. You cannot be surprised until the end of the scene. Ambushes against you automatically fail — you act in the first round regardless of Stealth results. If your Join Battle roll results in Failed Control, you still act in the first round without penalty.",
+          "rule": "After resolving an Assess, spend 1 tier. You cannot be surprised until the end of the scene. Ambushes against you automatically fail — you act in the first round regardless of Stealth results. If your Join Battle roll results in Failed Control, you ignore the surprised state and do not gain [Disoriented] or [Exposed].",
           "duration": "Scene"
         },
         {
@@ -1211,7 +1217,7 @@
           "tags": [
             "[Combat]"
           ],
-          "rule": "After resolving Join Battle, spend 1 tier of initiative. You blend into the chaos of the opening moment. You cannot be targeted by any enemy during round 1 of combat.",
+          "rule": "After resolving Join Battle, spend 1 tier of initiative (your position drops to the midpoint of the next band down). You blend into the chaos of the opening moment. You cannot be targeted by any enemy during round 1 of combat.",
           "duration": "Tactical"
         },
         {
