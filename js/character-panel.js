@@ -420,7 +420,7 @@
     _actionBudget = _calcActionBudget(char);
     var types = [
       { key: 'action',   label: 'A', max: _actionBudget.action },
-      { key: 'trigger',  label: 'T', max: _actionBudget.trigger },
+      { key: 'trigger',  label: 'E', max: _actionBudget.trigger },
       { key: 'maneuver', label: 'M', max: _actionBudget.maneuver },
     ];
 

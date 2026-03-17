@@ -721,9 +721,9 @@
     "modes": [
       {
         "mode": "Combat",
-        "structure": "Structured rounds with dice-based initiative (Join Battle). Each character has a defined turn with Action, Maneuver, and Trigger pips.",
+        "structure": "Structured rounds with dice-based initiative (Join Battle). Each character has a defined turn with Action, Maneuver, and Exploit pips. Defenses (Dodge, Endure, Resist) are free reactive rolls.",
         "initiative": "Roll Tactics (Wits) for turn order. Higher results act first.",
-        "availableActions": "All universal actions, Force maneuvers, discipline gambits, weapon attacks, defensive triggers (Dodge, Endure). The full tactical toolkit.",
+        "availableActions": "All universal actions, Force maneuvers, discipline gambits, weapon attacks, Defenses (Dodge, Endure, Resist), Exploits. The full tactical toolkit.",
         "resolution": "Discipline roll vs target Defense or Evasion (contested). Power die determines damage/effect magnitude.",
         "when": "Violence has broken out or is about to. The situation demands tactical precision and turn-by-turn accountability."
       },
@@ -765,9 +765,68 @@
     "designNotes": [
       "The three modes share the same resolution engine. A Charm roll in Narrative mode uses the same math as a Charm roll in Challenge mode — the only difference is whether the GM imposes round structure.",
       "Challenge mode exists for scenes that need structure but not violence. A heist has rounds because timing matters. A bar conversation does not. The GM chooses the mode based on whether sequence and pacing are mechanically relevant.",
-      "Combat maneuvers are mode-locked to Combat. Attack, Dodge, Endure, and Force offensive powers require the tactical infrastructure of initiative, action economy, and defensive triggers. Pulling them out of that context breaks the assumptions they are built on.",
+      "Combat maneuvers are mode-locked to Combat. Attack, Dodge, Endure, Resist, and Force offensive powers require the tactical infrastructure of initiative, action economy, and reactive mechanics. Pulling them out of that context breaks the assumptions they are built on.",
       "The GM sets Presence based on the caliber of skill required, not the character's level. Presence 2 is 'demands real expertise' regardless of whether the party is level 1 or level 10. The characters grow into the challenges — the challenges do not scale to the characters.",
       "Challenge mode's 1-action-per-round constraint prevents analysis paralysis and ensures every player contributes meaningfully. It also makes each action feel weighty — you get one shot per round to move the needle."
+    ]
+  },
+  {
+    "id": "opening_exploit_defense",
+    "name": "Openings, Exploits & Defenses",
+    "tag": "Reactive Economy",
+    "summary": "The reactive action economy governs what happens outside your turn. Openings are moments of vulnerability. Exploits are offensive reactions that cost your Exploit pip. Defenses are free reactive rolls you make when attacked.",
+    "openings": {
+      "definition": "An Opening is a moment of vulnerability — a gap in a target's guard that allows a reactive response. Openings are presented by the fiction, not declared by the reacting character.",
+      "systemSources": [
+        "Move when Engaged: failing to disengage presents an Opening to all enemies in your Engaged Zone.",
+        "Ranged attack while Engaged: firing a ranged weapon while Engaged presents an Opening to all enemies in your Engaged Zone.",
+        "Treat Injury in Combat: administering medical treatment during combat presents an Opening — you are distracted and vulnerable."
+      ],
+      "otherSources": [
+        "Discipline gambits (e.g. Exposing Strike) can create Openings as part of their effect.",
+        "Kit abilities (e.g. The Warden's Justice, Immovable Object) can create Openings based on tactical conditions.",
+        "Conditions (e.g. [Suppressed]) can present Openings on specific actions.",
+        "GM adjudication: the GM may rule that specific narrative circumstances present an Opening."
+      ],
+      "scopeModel": "Openings are not paired to specific Exploits. When an Opening is presented, any character who can perceive it and has an Exploit pip available may react — the response is not limited to a specific type of attack or ability."
+    },
+    "exploits": {
+      "definition": "An Exploit is an offensive reaction taken when an Opening is presented. It costs 1 Exploit pip per round.",
+      "defaultExploit": "When an Opening is presented, spend your Exploit pip to make a Basic attack against the target at -1 Effect Tier. This works at any range — melee, ranged, or Force — as long as the character can target the enemy.",
+      "cost": "1 Exploit pip per round. Each character starts with 1 Exploit pip. Some kit abilities increase this maximum.",
+      "pipLabel": "E",
+      "restrictions": "You must be able to perceive the Opening and have a valid attack against the target. The -1 Effect Tier penalty applies to the Default Exploit only — kit-granted Exploits may modify or remove this penalty."
+    },
+    "defenses": {
+      "definition": "Defenses are free reactive rolls made when you are targeted by an attack. They do not cost your Exploit pip — Exploit pips are reserved for offensive reactions only.",
+      "types": [
+        {
+          "name": "Dodge",
+          "discipline": "Evasion (Reflex)",
+          "description": "Reactive evasive defense against physical attacks."
+        },
+        {
+          "name": "Endure",
+          "discipline": "Endure (Physique)",
+          "description": "Reactive absorption defense against physical attacks."
+        },
+        {
+          "name": "Resist",
+          "discipline": "Resolve (Grit)",
+          "description": "Reactive mental defense against mental or social attacks (Intimidation, Force influence, fear effects)."
+        }
+      ],
+      "note": "Defense gambits (e.g. Parry, The Precognitive Lure) supplement defensive rolls by trading a tier of mitigation for a counter-effect."
+    },
+    "actionEconomy": {
+      "perRound": "Each character has 3 pip types per round: Action (A), Maneuver (M), Exploit (E). Defenses are free and unlimited.",
+      "defaults": { "action": 1, "maneuver": 1, "exploit": 1 },
+      "note": "Kit abilities may increase pip maximums. The Exploit pip is consumed only by offensive reactions — Defenses never cost a pip."
+    },
+    "designNotes": [
+      "The separation of Openings (conditions), Exploits (offensive reactions), and Defenses (free reactive rolls) creates clean decision points: when you are attacked, you always defend. When an enemy is vulnerable, you choose whether to spend your Exploit pip.",
+      "The Default Exploit's -1 Effect Tier penalty ensures that reactive attacks are weaker than deliberate ones. Kit-granted Exploits can modify this baseline — that is the primary way kits interact with the reactive economy.",
+      "Defenses being free means combat always has back-and-forth. The GM never rolls dice — when a threat attacks a PC, the PC always rolls a Defense. This keeps players engaged on every attack, not just their own turn."
     ]
   }
 ]

@@ -615,7 +615,7 @@
     "conditionType": "positional",
     "defaultDuration": "tactical",
     "fiction": "You are engaged at range — an attacker has you in their sights. Moving from your current position means presenting yourself as a target.",
-    "rule": "Engaged at range. PC and NPC: The target cannot leave their zone without presenting an Opening to the suppressor, who may spend a Trigger to attack. The suppressor must maintain line of sight. Source determines duration and recovery.",
+    "rule": "Engaged at range. PC and NPC: The target cannot leave their zone without presenting an Opening to the suppressor, who may Exploit it to attack. The suppressor must maintain line of sight. Source determines duration and recovery.",
     "guide": "Someone out there has you locked down with fire. You can still act — you just can't move without giving them a free shot. Stay put and fight back, or accept the risk and run."
   },
   {
@@ -665,7 +665,7 @@
     "conditionType": "physical",
     "defaultDuration": "immediate",
     "fiction": "Your movement is physically compromised — a damaged leg, difficult terrain, or mechanical failure.",
-    "rule": "Movement impaired. PC: Cannot move more than 1 Zone per round. Moving while Engaged creates an Opening. NPC: Cannot move more than 1 Zone per round. Superseded by [Restrained]. Does not stack.",
+    "rule": "Movement impaired. PC: Cannot move more than 1 Zone per round. Moving while Engaged presents an Opening. NPC: Cannot move more than 1 Zone per round. Superseded by [Restrained]. Does not stack.",
     "guide": "Something is wrong with your legs, your drive system, or the ground itself. You can still move — just not fast enough to matter."
   },
   {
@@ -676,7 +676,7 @@
     "conditionType": "special",
     "defaultDuration": "immediate",
     "fiction": "You are completely out of the fight — unconscious, overwhelmed by pain, or shut down by a stun effect. The body has hit its limit. You are not dead, but you are not participating.",
-    "rule": "Fully unable to act. PC and NPC: Cannot take any actions, maneuvers, or triggers. Cannot move. Automatically fails all defense rolls. Source determines duration and recovery method (time, Medicine check, ally action, etc.). Does not stack — you are either incapacitated or you are not.",
+    "rule": "Fully unable to act. PC and NPC: Cannot take any actions, maneuvers, or Exploits. Cannot move. Automatically fails all defense rolls. Source determines duration and recovery method (time, Medicine check, ally action, etc.). Does not stack — you are either incapacitated or you are not.",
     "guide": "The lights went out. Maybe it was a stun bolt, maybe it was a concussion wave, maybe your body just decided it had taken enough punishment and pulled the emergency shutdown on your brain. Whatever caused it, you are out of the fight until something or someone brings you back. Hope your friends are having a better day than you are."
   },
   {

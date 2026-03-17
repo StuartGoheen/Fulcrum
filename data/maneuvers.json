@@ -9,8 +9,8 @@
       "tags": [
         "[Combat]"
       ],
-      "description": "Strike a target with an equipped weapon or unarmed. Roll discipline (arena) vs target Defense or Evasion. Weapon chassis determines effect tiers (damage track). Unarmed uses the Brawl chassis.",
-      "risk": "Missing your attack may present an Opening depending on the weapon and circumstances.",
+      "description": "Strike a target with an equipped weapon or unarmed. Roll discipline (arena) vs target Defense or Evasion. Weapon chassis determines effect tiers (damage track). Unarmed uses the Brawl chassis. Firing a ranged weapon while Engaged presents an Opening to all enemies in your Engaged Zone.",
+      "risk": "Firing a ranged weapon while Engaged presents an Opening to all enemies in your Engaged Zone.",
       "note": "Load equipped weapons to see available attack options and applicable discipline gambits."
     },
     {
@@ -25,7 +25,7 @@
       "discipline": "ranged",
       "arena": "reflex",
       "description": "Line up a careful shot or study a target's defenses. Roll Ranged (Reflex). Power = Roll.",
-      "risk": "Focusing too hard on aiming may leave you open — presenting an Opening if you fail.",
+      "risk": "Requires focus — you must have line of sight to the target.",
       "effect": [
         {
           "tier": 1,
@@ -123,7 +123,7 @@
         "[Both]"
       ],
       "description": "Study a target or situation. Roll a relevant discipline (Investigation, Insight, Survival, etc. — GM picks what fits the approach). Power = Roll for environmental assessment; vs target's Resolve in social or opposed contexts. Ask the GM one question per tier of effect.",
-      "risk": "Over-analyzing may leave you distracted — presenting an Opening on failure.",
+      "risk": "Requires focus — you may miss details if the situation shifts around you.",
       "effect": [
         {
           "tier": 1,
@@ -155,7 +155,7 @@
         "[Narrative]"
       ],
       "description": "Perform medical treatment on self or ally. Roll Medicine (Wits). Power = Roll, but each point of [Stimmed] on the patient steps down your Medicine Power die by one size (D12→D10→D8→D6→D4). Primarily used during Short and Long Rests to enhance [Natural Recovery] baselines. Consuming a Medpac adds +1 Tier (patient gains [Stimmed] +1).",
-      "risk": "Botching treatment may worsen the patient's condition.",
+      "risk": "Botching treatment may worsen the patient's condition. Treating in Combat presents an Opening — you are distracted and vulnerable.",
       "effect": [
         {
           "tier": 1,
@@ -190,7 +190,7 @@
         "[Both]"
       ],
       "description": "Perform a non-combat task under pressure — operate a console, pick a lock, disarm a bomb, hotwire a speeder, or any physical challenge that demands skill and time. Roll a relevant discipline (Tech, Skulduggery, Survival, etc. — GM picks what fits the task). Power = Roll for uncontested tasks; vs difficulty set by GM for contested or complex challenges.",
-      "risk": "Fumbling under pressure may trigger alarms, break the device, or waste precious time.",
+      "risk": "Fumbling under pressure may set off alarms, break the device, or waste precious time.",
       "effect": [
         {
           "tier": 1,
@@ -215,7 +215,7 @@
     {
       "id": "action_join_battle",
       "name": "Join Battle",
-      "actionType": "Trigger",
+      "actionType": "Free",
       "pip": "Free",
       "rolled": true,
       "tags": [
@@ -255,13 +255,13 @@
     {
       "id": "action_dodge",
       "name": "Dodge",
-      "actionType": "Trigger",
-      "pip": "T",
+      "actionType": "Defense",
+      "pip": "D",
       "rolled": true,
       "tags": [
         "[Combat]"
       ],
-      "description": "Reactive evasive defense. When targeted by an attack, roll Evasion (Reflex) to avoid or reduce the incoming damage. Uses your Trigger pip.",
+      "description": "Reactive evasive defense. When targeted by a physical attack, roll Evasion (Reflex) to avoid or reduce the incoming damage. Free — does not cost your Exploit pip.",
       "risk": "If you fail, the attack lands fully.",
       "discipline": "evasion",
       "arena": "reflex"
@@ -269,16 +269,30 @@
     {
       "id": "action_endure",
       "name": "Endure",
-      "actionType": "Trigger",
-      "pip": "T",
+      "actionType": "Defense",
+      "pip": "D",
       "rolled": true,
       "tags": [
         "[Combat]"
       ],
-      "description": "Reactive absorption defense. When targeted by an attack, roll Endure (Physique) to absorb or reduce the incoming damage. Uses your Trigger pip.",
+      "description": "Reactive absorption defense. When targeted by a physical attack, roll Endure (Physique) to absorb or reduce the incoming damage. Free — does not cost your Exploit pip.",
       "risk": "If you fail, the attack lands fully.",
       "discipline": "endure",
       "arena": "physique"
+    },
+    {
+      "id": "action_resist",
+      "name": "Resist",
+      "actionType": "Defense",
+      "pip": "D",
+      "rolled": true,
+      "tags": [
+        "[Combat]"
+      ],
+      "description": "Reactive mental defense. When targeted by a mental or social attack (Intimidation, Force influence, fear effects), roll Resolve (Grit) to resist the effect. Free — does not cost your Exploit pip.",
+      "risk": "If you fail, the mental effect lands fully.",
+      "discipline": "resolve",
+      "arena": "grit"
     },
     {
       "id": "action_coordinate",
@@ -363,7 +377,7 @@
         "[Both]"
       ],
       "description": "Channel the Force inward to regulate body and spirit. Roll Control (Grit). Power = Roll.",
-      "risk": "Failure disrupts your inner calm — you may present an Opening as your focus fragments.",
+      "risk": "Failure disrupts your inner calm — your focus fragments briefly.",
       "effect": [
         {
           "tier": 1,
@@ -398,7 +412,7 @@
         "[Both]"
       ],
       "description": "Expand awareness beyond physical senses. Roll Sense (Wits). Power = Roll.",
-      "risk": "Overextending your senses may leave you vulnerable — presenting an Opening.",
+      "risk": "Overextending your senses may leave you momentarily vulnerable.",
       "effect": [
         {
           "tier": 1,
@@ -433,7 +447,7 @@
         "[Both]"
       ],
       "description": "Project the Force outward to push or pull a target through space. Roll Alter (Presence). Power = Roll vs target's Defense. Choose push or pull direction on hit.",
-      "risk": "Losing control of the Force may cause unintended collateral damage or present an Opening.",
+      "risk": "Losing control of the Force may cause unintended collateral damage.",
       "effect": [
         {
           "tier": 1,
@@ -930,7 +944,7 @@
             "[Melee]",
             "[Unarmed]"
           ],
-          "rule": "After resolving a melee Attack [Melee, Unarmed], spend 1 tier. The target immediately presents an Opening — you or any ally in the zone may spend a Trigger to react.",
+          "rule": "After resolving a melee Attack [Melee, Unarmed], spend 1 tier. The target immediately presents an Opening — you or any ally in the zone may spend an Exploit pip to react.",
           "duration": "Immediate"
         },
         {
@@ -1297,7 +1311,7 @@
           "tags": [
             "[Combat]"
           ],
-          "rule": "After resolving a Move, spend 1 tier. One ally who can hear you may spend their Trigger pip to immediately perform the same Move effect at your reduced tier. Their movement does not provoke Openings.",
+          "rule": "After resolving a Move, spend 1 tier. One ally who can hear you may immediately perform the same Move effect at your reduced tier as a free reaction. Their movement does not provoke Openings.",
           "duration": "Immediate"
         },
         {
@@ -1309,7 +1323,7 @@
             "[Combat]",
             "[Ranged]"
           ],
-          "rule": "After resolving a ranged Attack, spend 1 tier. Choose one ally. The target cannot use Triggers against that ally. Tactical. This effect breaks immediately if the chosen ally engages the target in melee or attacks the target directly.",
+          "rule": "After resolving a ranged Attack, spend 1 tier. Choose one ally. The target cannot Exploit Openings against that ally. Tactical. This effect breaks immediately if the chosen ally engages the target in melee or attacks the target directly.",
           "duration": "Tactical"
         }
       ]

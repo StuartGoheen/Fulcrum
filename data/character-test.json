@@ -48,7 +48,7 @@
           "tier": 1,
           "type": "passive",
           "name": "Close-Quarters Gunfighter",
-          "rule": "When you are Engaged in melee range with an enemy, firing a Pistol does not create an Opening. You never provoke reactionary Triggers from adversaries just for using your sidearm in close quarters."
+          "rule": "When you are Engaged in melee range with an enemy, firing a Pistol does not present an Opening. You never provoke reactive Exploits from adversaries just for using your sidearm in close quarters."
         },
         {
           "id": "kit_slinger_t2_fth",
@@ -73,7 +73,7 @@
           "tier": 3,
           "type": "passive",
           "name": "The Hair-Trigger",
-          "rule": "Your maximum Triggers per round is permanently increased by 1. This extra Trigger can only be used to perform Ranged (Pistol) actions to exploit an Opening.",
+          "rule": "Your maximum Exploits per round is permanently increased by 1. This extra Exploit can only be used to perform Ranged (Pistol) reactions when an Opening is presented.",
           "actionBonus": {
             "action": 0,
             "trigger": 1,
@@ -101,7 +101,7 @@
           "tier": 1,
           "type": "passive",
           "name": "The Sixth Sense",
-          "rule": "Spend a Trigger when an enemy declares an attack against you to instinctively react. You instantly gain [Guarded 1] (if targeted by a melee attack) or [Cover 1] (if targeted by a ranged attack) for that single interaction, even if you are standing in open ground."
+          "rule": "When an enemy declares an attack against you, you instinctively react. You instantly gain [Guarded 1] (if targeted by a melee attack) or [Cover 1] (if targeted by a ranged attack) for that single interaction, even if you are standing in open ground."
         },
         {
           "id": "kit_prescient_t1_sbs",
@@ -116,8 +116,8 @@
           "type": "gambit",
           "name": "The Precognitive Lure",
           "actionType": "Dodge",
-          "targetType": "trigger",
-          "target": "Free Trigger",
+          "targetType": "defense",
+          "target": "Free Defense",
           "arenaTag": "[Defense]",
           "rule": "Reduce your Dodge result by -1 Effect Tier (if this pushes your success to a negative number, you suffer a Fleeting hit from the enemy). On any result, gain the [Optimized] condition on your next Action against that specific attacker."
         },
@@ -133,7 +133,7 @@
           "tier": 3,
           "type": "passive",
           "name": "Shatterpoint",
-          "rule": "You are no longer bound by the limit of one Trigger per round. When an enemy or ally creates an [Opening], you may spend 1 Edge to pay the cost of a Trigger to exploit it using any Force Trigger (including The Sixth Sense)."
+          "rule": "You are no longer bound by the limit of one Exploit per round. When an enemy or ally creates an Opening, you may spend 1 Edge to pay the cost of an Exploit to react using any Force ability (including The Sixth Sense)."
         },
         {
           "id": "kit_prescient_t3_ic",

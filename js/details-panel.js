@@ -166,7 +166,7 @@
     var extras = [];
     if (ab.actionBonus) {
       var parts = [];
-      if (ab.actionBonus.trigger) parts.push('+' + ab.actionBonus.trigger + ' Trigger');
+      if (ab.actionBonus.trigger) parts.push('+' + ab.actionBonus.trigger + ' Exploit');
       if (ab.actionBonus.action) parts.push('+' + ab.actionBonus.action + ' Action');
       if (ab.actionBonus.maneuver) parts.push('+' + ab.actionBonus.maneuver + ' Maneuver');
       if (parts.length) extras.push(parts.join(' \u00b7 '));

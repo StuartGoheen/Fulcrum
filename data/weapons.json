@@ -159,7 +159,7 @@
     "cost": 750,
     "trait": {
       "name": "Mandalorian Forged",
-      "description": "Built to Mandalorian standards: immune to malfunctions from environmental conditions (water, sand, vacuum, extreme heat). Does not impose an Opening when fired in the Engaged Zone."
+      "description": "Built to Mandalorian standards: immune to malfunctions from environmental conditions (water, sand, vacuum, extreme heat). Does not present an Opening when fired in the Engaged Zone."
     },
     "gambits": [],
     "availability": "1/F",
@@ -295,7 +295,7 @@
     "cost": 1100,
     "trait": {
       "name": "Scope & Retractable Stock",
-      "description": "Two hardware modes in one frame. Scope: Optimizes the Overwatch Maneuver — when you use Overwatch, Step Up your Control Die for that attack. Collapsible Stock: When the stock is folded, this weapon may target the Engaged Zone (Range 0). The Opening still applies."
+      "description": "Two hardware modes in one frame. Scope: Optimizes the Overwatch Maneuver — when you use Overwatch, Step Up your Control Die for that attack. Collapsible Stock: When the stock is folded, this weapon may target the Engaged Zone (Range 0). Firing while Engaged still presents an Opening."
     },
     "gambits": [],
     "availability": "3/R",
@@ -411,7 +411,7 @@
     "cost": 1400,
     "trait": {
       "name": "Pistol Grip",
-      "description": "Designed to be fired one-handed at close quarters. This weapon may target the Engaged Zone (Range 0). The Opening still applies — the grip changes the geometry, not the danger."
+      "description": "Designed to be fired one-handed at close quarters. This weapon may target the Engaged Zone (Range 0). Firing while Engaged still presents an Opening — the grip changes the geometry, not the danger."
     },
     "gambits": [],
     "availability": "1/R",
@@ -936,7 +936,7 @@
     "gambits": [
       {
         "name": "Set the Pike",
-        "rule": "Reduce your Effect by 1 Tier. Declare a held position — the next enemy that voluntarily enters your Engaged Zone triggers a reaction attack before they can act. This reaction attack has no Opening."
+        "rule": "Reduce your Effect by 1 Tier. Declare a held position — the next enemy that voluntarily enters your Engaged Zone presents an Opening you may Exploit before they can act. This Exploit does not cost your Exploit pip."
       }
     ],
     "availability": "2/R",

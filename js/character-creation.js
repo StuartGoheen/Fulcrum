@@ -536,8 +536,8 @@
         archetype: 'force-burdened',
         tone: 'Force sensitivity, pursuit, unwanted power',
         knackName: 'Prescience',
-        knackType: 'Free Trigger',
-        knack: 'Once per session, you can spend a Trigger to declare that you felt a disturbance seconds before it happened. You automatically dodge the very first attack aimed at you in a scene, or push an adjacent ally out of the blast zone — no roll required.',
+        knackType: 'Free Reaction',
+        knack: 'Once per session, you may declare that you felt a disturbance seconds before it happened. You automatically dodge the very first attack aimed at you in a scene, or push an adjacent ally out of the blast zone — no roll required.',
       },
     },
     {

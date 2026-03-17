@@ -32,11 +32,12 @@
     'natural recovery': 'natural_recovery',
   };
 
-  var ACTION_TYPE_ORDER = { 'Action': 0, 'Maneuver': 1, 'Trigger': 2 };
+  var ACTION_TYPE_ORDER = { 'Action': 0, 'Maneuver': 1, 'Exploit': 2, 'Defense': 3, 'Free': 4 };
   var ACTION_TYPE_LABELS = {
     'Action':   { pip: 'A', color: 'var(--color-accent-red, #ef4444)' },
     'Maneuver': { pip: 'M', color: 'var(--color-accent-amber, #f59e0b)' },
-    'Trigger':  { pip: 'T', color: 'var(--color-accent-blue, #3b82f6)' },
+    'Exploit':  { pip: 'E', color: 'var(--color-accent-blue, #3b82f6)' },
+    'Defense':  { pip: 'D', color: 'var(--color-accent-cyan, #06b6d4)' },
     'Free':     { pip: 'F', color: 'var(--color-accent-green, #22c55e)' },
   };
 
@@ -520,7 +521,7 @@
     var actions = data.universalActions || [];
     var forceManeuvers = data.forceManeuvers || [];
 
-    var grouped = { 'Action': [], 'Maneuver': [], 'Trigger': [] };
+    var grouped = { 'Action': [], 'Maneuver': [], 'Exploit': [], 'Defense': [], 'Free': [] };
     for (var i = 0; i < actions.length; i++) {
       var at = actions[i].actionType;
       if (grouped[at]) grouped[at].push(actions[i]);
@@ -528,7 +529,7 @@
 
     var html = '<div class="armory-panel-wrap manv-panel-wrap">';
 
-    var groupOrder = ['Action', 'Maneuver', 'Trigger'];
+    var groupOrder = ['Action', 'Maneuver', 'Exploit', 'Defense', 'Free'];
     for (var gi = 0; gi < groupOrder.length; gi++) {
       var groupName = groupOrder[gi];
       var groupActions = grouped[groupName];
@@ -536,9 +537,10 @@
 
       var info = ACTION_TYPE_LABELS[groupName];
       html += '<div class="manv-action-group">';
+      var groupLabel = groupName === 'Free' ? 'Free Actions' : _esc(groupName) + 's';
       html += '<div class="armory-category-label manv-category-label">' +
         '<span class="manv-pip-badge manv-pip-badge-header" style="background:' + info.color + ';">' + info.pip + '</span> ' +
-        _esc(groupName) + 's</div>';
+        groupLabel + '</div>';
 
       for (var ai = 0; ai < groupActions.length; ai++) {
         html += _buildActionWithGambits(groupActions[ai], data, char, activeGear);

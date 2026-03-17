@@ -195,7 +195,7 @@
     "traits": [
       {
         "name": "Zone Blast",
-        "description": "Arm and throw as a Standard Action (zones 1–3). Roll Ranged (Reflex) vs. Evasion — the challenge is placement and timing, not armor penetration. Failure means an errant throw; the GM determines where it lands. Success: detonates at the start of your next turn.\n\nTargets defend with Evasion — armor is irrelevant. Targets in the zone may spend their Maneuver to flee before detonation (may trigger Openings if Engaged). Those who remain are hit. Roll once; Effect Tier applies to all equally.\n\nCover applies to targets outside the blast zone only. In the same zone as the detonator, there is no cover from the source. You may throw it into your own zone — you are a target."
+        "description": "Arm and throw as a Standard Action (zones 1–3). Roll Ranged (Reflex) vs. Evasion — the challenge is placement and timing, not armor penetration. Failure means an errant throw; the GM determines where it lands. Success: detonates at the start of your next turn.\n\nTargets defend with Evasion — armor is irrelevant. Targets in the zone may spend their Maneuver to flee before detonation (may present Openings if Engaged). Those who remain are hit. Roll once; Effect Tier applies to all equally.\n\nCover applies to targets outside the blast zone only. In the same zone as the detonator, there is no cover from the source. You may throw it into your own zone — you are a target."
       },
       {
         "name": "Variable Yield",
@@ -268,7 +268,7 @@
     "customEffectRows": [
       "Cloud fills the zone. All attacks into, out of, or through the zone have their Control Die Stepped Down. Equally penalizing — friend and foe. Cover applies as normal.",
       "As Fleeting. Choose 2 allies (yourself included) who can ignore vision impairment from their current position — the placement was precise enough to give two members clear lines.",
-      "As Fleeting. Any number of allies may immediately use their Trigger action to move 1 zone — the smoke opened the perfect moment and they take it."
+      "As Fleeting. Any number of allies may immediately move 1 zone as a free reaction — the smoke opened the perfect moment and they take it."
     ],
     "traits": [
       {
@@ -279,7 +279,7 @@
     "gambits": [
       {
         "name": "Rolling Screen",
-        "rule": "Reduce your Effect by 1 Tier. Any ally who moves through the smoke zone this round does not generate Openings from movement while inside it."
+        "rule": "Reduce your Effect by 1 Tier. Allies who move through the smoke zone this round do not present Openings from movement while inside it."
       },
       {
         "name": "Hot Zone",

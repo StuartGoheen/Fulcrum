@@ -160,7 +160,7 @@
       modifier: { type: 'incapacitate' },
       targetMode: 'universal',
       defaultDuration: 'immediate',
-      description: 'Fully unable to act. Cannot take actions, maneuvers, or triggers. Automatically fails defense rolls. Source determines duration and recovery.',
+      description: 'Fully unable to act. Cannot take actions, maneuvers, or Exploits. Automatically fails defense rolls. Source determines duration and recovery.',
     },
     {
       id: 'shut_down',
