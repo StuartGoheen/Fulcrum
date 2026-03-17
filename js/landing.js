@@ -71,47 +71,53 @@
     }
 
     characters.forEach((char) => {
-      const btn = document.createElement('button');
-      btn.className = 'w-full text-left px-4 py-3 transition-all duration-150';
-      btn.style.cssText = [
-        'background:var(--color-bg-frame)',
-        'border:1px solid var(--color-border)',
-        char.is_connected ? 'opacity:0.45;cursor:not-allowed;' : 'cursor:pointer;',
-      ].join(';');
+      const card = document.createElement('div');
+      card.className = 'crew-card';
+      card.style.cssText = 'background:var(--color-bg-frame);border:1px solid var(--color-border);padding:0.5rem 0.6rem;display:flex;flex-direction:column;gap:0.2rem;' + (char.is_connected ? 'opacity:0.45;' : '');
 
       const nameLine = document.createElement('div');
-      nameLine.className = 'text-sm font-medium tracking-wide';
-      nameLine.style.color = 'var(--color-text-primary)';
-      nameLine.textContent = char.is_connected ? `${char.name} — In Session` : char.name;
-
-      btn.appendChild(nameLine);
+      nameLine.className = 'text-xs font-medium tracking-wide';
+      nameLine.style.cssText = 'color:var(--color-text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;';
+      nameLine.textContent = char.name;
+      card.appendChild(nameLine);
 
       if (char.species || char.archetype) {
         const metaLine = document.createElement('div');
-        metaLine.className = 'text-xs mt-1 tracking-widest uppercase';
-        metaLine.style.color = 'var(--color-text-secondary)';
+        metaLine.style.cssText = 'font-size:0.6rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-text-secondary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;';
         const parts = [char.species, char.archetype].filter(Boolean);
-        metaLine.textContent = parts.join(' \u2014 ');
-        btn.appendChild(metaLine);
+        metaLine.textContent = parts.join(' — ');
+        card.appendChild(metaLine);
       }
 
-      if (!char.is_connected) {
-        btn.addEventListener('click', () => joinAsPlayer(char.id, char.name));
+      if (char.is_connected) {
+        const tag = document.createElement('div');
+        tag.style.cssText = 'font-size:0.6rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-accent-secondary);margin-top:0.15rem;';
+        tag.textContent = 'In Session';
+        card.appendChild(tag);
+      } else {
+        const btnRow = document.createElement('div');
+        btnRow.style.cssText = 'display:flex;gap:0.35rem;margin-top:0.25rem;';
+
+        const loadBtn = document.createElement('button');
+        loadBtn.className = 'text-xs tracking-wider font-medium';
+        loadBtn.style.cssText = 'flex:1;padding:0.2rem 0;background:transparent;border:1px solid var(--color-accent-primary);color:var(--color-accent-primary);cursor:pointer;';
+        loadBtn.textContent = 'Load';
+        loadBtn.addEventListener('click', () => joinAsPlayer(char.id, char.name));
+
+        const editBtn = document.createElement('button');
+        editBtn.className = 'text-xs tracking-wider font-medium';
+        editBtn.style.cssText = 'flex:1;padding:0.2rem 0;background:transparent;border:1px solid var(--color-border);color:var(--color-text-secondary);cursor:pointer;';
+        editBtn.textContent = 'Edit';
+        editBtn.addEventListener('click', () => {
+          window.location.href = '/create/?edit=' + encodeURIComponent(char.id);
+        });
+
+        btnRow.appendChild(loadBtn);
+        btnRow.appendChild(editBtn);
+        card.appendChild(btnRow);
       }
 
-      list.appendChild(btn);
-
-      if (!char.is_connected) {
-      var editBtn = document.createElement('button');
-      editBtn.className = 'text-xs tracking-widest uppercase px-3 py-1 mt-1 mb-2 ml-4 transition-all duration-150';
-      editBtn.style.cssText = 'background:transparent;border:1px solid var(--color-border);color:var(--color-accent-primary);cursor:pointer;';
-      editBtn.textContent = 'Reconfigure';
-      editBtn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        window.location.href = '/create/?edit=' + encodeURIComponent(char.id);
-      });
-      list.appendChild(editBtn);
-      }
+      list.appendChild(card);
     });
   }
 

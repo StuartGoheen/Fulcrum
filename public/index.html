@@ -91,28 +91,29 @@
   </div>
 
   <div id="modal-overlay" class="fixed inset-0 z-50 hidden items-center justify-center" style="background:rgba(0,0,0,0.5);">
-    <div class="panel-card w-full max-w-md mx-4 p-8" style="border-color:var(--color-border);">
-      <div class="flex items-center justify-between mb-6">
+    <div class="panel-card w-full max-w-lg mx-4" style="border-color:var(--color-border);padding:1.25rem 1.5rem 1rem;">
+      <div class="flex items-center justify-between" style="margin-bottom:0.75rem;">
         <h2 class="font-display text-lg" style="color:var(--color-accent-deep);">Join the Crew</h2>
         <button id="modal-close" class="text-xs tracking-widest uppercase font-semibold" style="color:var(--color-text-secondary);">Close</button>
       </div>
-      <p class="text-xs mb-4" style="color:var(--color-text-secondary);">Select an existing character or create a new one.</p>
-      <div id="character-list" class="flex flex-col gap-3 mb-4">
+      <div id="character-list" class="crew-grid" style="margin-bottom:0.75rem;">
         <p class="text-xs" style="color:var(--color-text-secondary);">Loading crew manifest&hellip;</p>
       </div>
-      <div style="border-top:1px solid var(--color-border);padding-top:1rem;margin-top:0.5rem;">
-        <button id="btn-create-character" class="w-full text-left px-4 py-3 text-sm font-medium tracking-wide transition-all duration-150 flex items-center justify-between" style="background:transparent;border:1px solid var(--color-accent-primary);color:var(--color-accent-primary);cursor:pointer;">
+      <div style="border-top:1px solid var(--color-border);padding-top:0.6rem;">
+        <button id="btn-create-character" class="w-full text-left px-3 py-2 text-xs font-medium tracking-wide transition-all duration-150 flex items-center justify-between" style="background:transparent;border:1px solid var(--color-accent-primary);color:var(--color-accent-primary);cursor:pointer;">
           <span>Create a Character</span>
-          <span style="font-size:1rem;">&plus;</span>
+          <span style="font-size:0.9rem;">&plus;</span>
         </button>
       </div>
-      <p id="modal-error" class="text-xs mt-3 hidden" style="color:var(--color-accent-secondary);"></p>
-      <div style="border-top:1px solid var(--color-border);padding-top:0.75rem;margin-top:0.75rem;">
-        <p class="text-xs mb-2" style="color:var(--color-text-secondary);opacity:0.5;letter-spacing:0.08em;text-transform:uppercase;">Dev Tools</p>
-        <button id="admin-release-all" class="text-xs tracking-wider font-medium px-3 py-2 transition-all duration-150" style="background:transparent;border:1px solid var(--color-border);color:var(--color-text-secondary);">
-          Release All Characters
-        </button>
-        <span id="admin-release-msg" class="text-xs ml-2" style="color:var(--color-accent-primary);display:none;"></span>
+      <p id="modal-error" class="text-xs mt-2 hidden" style="color:var(--color-accent-secondary);"></p>
+      <div style="border-top:1px solid var(--color-border);padding-top:0.5rem;margin-top:0.5rem;">
+        <div class="flex items-center gap-2">
+          <span class="text-xs" style="color:var(--color-text-secondary);opacity:0.4;letter-spacing:0.08em;text-transform:uppercase;">Dev</span>
+          <button id="admin-release-all" class="text-xs tracking-wider font-medium px-2 py-1 transition-all duration-150" style="background:transparent;border:1px solid var(--color-border);color:var(--color-text-secondary);">
+            Release All
+          </button>
+          <span id="admin-release-msg" class="text-xs" style="color:var(--color-accent-primary);display:none;"></span>
+        </div>
       </div>
     </div>
   </div>
