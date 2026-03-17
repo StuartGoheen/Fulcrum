@@ -10,7 +10,8 @@
       category: 'dice_modifier',
       conditionType: 'physical',
       modifier: { type: 'control_down' },
-      targetMode: 'control',
+      targetMode: 'fixed_arenas',
+      fixedArenas: ['physique', 'reflex'],
       defaultDuration: 'immediate',
       description: 'Physical coordination compromised. PC: Step Down the Control Die on physical rolls (Physique, Reflex). NPC: Presence -1 (physical actions). Superseded by [Blinded]. Combined with [Rattled] to form [Stunned].',
     },
@@ -20,7 +21,8 @@
       category: 'dice_modifier',
       conditionType: 'mental',
       modifier: { type: 'control_down' },
-      targetMode: 'control',
+      targetMode: 'fixed_arenas',
+      fixedArenas: ['grit', 'wits', 'presence'],
       defaultDuration: 'immediate',
       description: 'Mental focus compromised. PC: Step Down the Control Die on mental/social rolls (Grit, Wits, Presence). NPC: Presence -1 (mental/social). Combined with [Disoriented] to form [Stunned].',
     },
@@ -145,7 +147,8 @@
       category: 'action_economy',
       conditionType: 'physical',
       modifier: { type: 'blind' },
-      targetMode: 'universal',
+      targetMode: 'fixed_arenas',
+      fixedArenas: ['physique', 'reflex'],
       defaultDuration: 'immediate',
       description: 'No targeted Ranged attacks. Step Down Control Die on all physical actions. Supersedes [Disoriented].',
     },
@@ -206,7 +209,8 @@
       conditionType: 'combined',
       modifier: { type: 'combined' },
       components: ['disoriented', 'rattled'],
-      targetMode: 'universal',
+      targetMode: 'fixed_arenas',
+      fixedArenas: ['physique', 'reflex', 'grit', 'wits', 'presence'],
       defaultDuration: 'immediate',
       description: 'Combined: [Disoriented] + [Rattled]. Both effects stack. Physical -1, mental/social -2. Shared source/duration/recovery.',
     },
@@ -406,6 +410,15 @@
 
   function _targetLabel(target, effectId) {
     if (target === 'universal') return 'Universal';
+    if (target === 'fixed') {
+      var def = _defById(effectId);
+      if (def && def.fixedArenas) {
+        return def.fixedArenas.map(function (a) {
+          return a.charAt(0).toUpperCase() + a.slice(1);
+        }).join(', ');
+      }
+      return 'Fixed';
+    }
     if (target.indexOf('arena:') === 0) {
       var arenaId = target.slice(6);
       return _arenaLabel(arenaId) + ' (All)';
@@ -480,15 +493,22 @@
         var cDef = _defById(componentIds[ci]);
         if (!cDef) continue;
         var modType = cDef.modifier.type;
-        if (modType !== 'control_up' && modType !== 'control_down') continue;
-        var applies = (
-          e.target === 'universal' ||
-          e.target === 'arena:' + arenaId ||
-          e.target === 'disc:' + discId
-        );
+        var isControlMod = (modType === 'control_up' || modType === 'control_down');
+        var isBlind = (modType === 'blind');
+        if (!isControlMod && !isBlind) continue;
+        var applies = false;
+        if (e.target === 'fixed' || (cDef.fixedArenas && cDef.fixedArenas.length > 0)) {
+          applies = cDef.fixedArenas && cDef.fixedArenas.indexOf(arenaId) !== -1;
+        } else {
+          applies = (
+            e.target === 'universal' ||
+            e.target === 'arena:' + arenaId ||
+            e.target === 'disc:' + discId
+          );
+        }
         if (!applies) continue;
-        if (modType === 'control_up')   hasUp   = true;
-        if (modType === 'control_down') hasDown = true;
+        if (modType === 'control_up') hasUp = true;
+        if (modType === 'control_down' || modType === 'blind') hasDown = true;
       }
     }
     return (hasUp ? 1 : 0) - (hasDown ? 1 : 0);
@@ -865,6 +885,14 @@
       return;
     }
 
+    if (def.targetMode === 'fixed_arenas') {
+      var labels = (def.fixedArenas || []).map(function (a) {
+        return a.charAt(0).toUpperCase() + a.slice(1);
+      });
+      wrap.innerHTML = '<div class="char-add-target-static">' + _esc(labels.join(', ')) + '</div>';
+      return;
+    }
+
     if (def.targetMode === 'arena_only') {
       _renderArenaOnlyPicker(wrap);
       return;
@@ -938,6 +966,7 @@
     var def = _defById(effectId);
     if (!def) return null;
     if (def.targetMode === 'universal') return 'universal';
+    if (def.targetMode === 'fixed_arenas') return 'fixed';
     if (def.targetMode === 'narrative_tag') {
       var inp = document.getElementById('char-add-narrative-input');
       var tag = inp ? inp.value.trim() : '';
