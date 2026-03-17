@@ -6037,6 +6037,47 @@
   border-top: 1px dashed var(--color-border);
 }
 
+/* ── Discipline Techniques section ──────────────────────────────────────── */
+.dp-techniques-section {
+  margin-top: 2px;
+}
+
+.dp-techniques-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.dp-ability-card--technique {
+  border-left: 3px solid var(--color-accent-secondary, #8b5cf6);
+}
+
+.dp-ability-badge--technique {
+  color: var(--color-bg-primary);
+  background: var(--color-accent-secondary, #8b5cf6);
+  border: 1px solid var(--color-accent-secondary, #8b5cf6);
+}
+
+.dp-tag--die {
+  color: var(--color-text-primary);
+  background: var(--color-bg-frame);
+  border-color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+.dp-tag--mode {
+  color: var(--color-accent-secondary, #8b5cf6);
+  border-color: var(--color-accent-secondary, #8b5cf6);
+}
+
+.dp-tag--duration {
+  color: var(--color-text-muted);
+  border-color: var(--color-border);
+}
+
+.dp-section--closed .dp-techniques-body {
+  display: none;
+}
+
 /* ── Species traits ─────────────────────────────────────────────────────── */
 .dp-traits-body {
   display: flex;

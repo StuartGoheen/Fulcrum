@@ -24,7 +24,13 @@
       .replace(/\b\w/g, function (c) { return c.toUpperCase(); });
   }
 
-  function buildDetailsPanel(char, speciesData) {
+  var DIE_ORDER = ['D4', 'D6', 'D8', 'D10', 'D12'];
+
+  function _dieIndex(d) {
+    return DIE_ORDER.indexOf((d || '').toUpperCase());
+  }
+
+  function buildDetailsPanel(char, speciesData, maneuversData) {
     var panel = document.getElementById('panel-1');
     if (!panel) return;
     panel.innerHTML = '';
@@ -34,6 +40,10 @@
 
     outer.appendChild(_buildIdentity(char));
     outer.appendChild(_buildAbilities(char));
+    if (maneuversData) {
+      var techSection = _buildDisciplineTechniques(char, maneuversData);
+      if (techSection) outer.appendChild(techSection);
+    }
     outer.appendChild(_buildSpeciesTraits(char, speciesData));
     outer.appendChild(_buildKitProgression(char));
 
@@ -170,6 +180,163 @@
       extrasEl.textContent = extras.join(' \u2014 ');
       card.appendChild(extrasEl);
     }
+
+    return card;
+  }
+
+  function _getCharDisciplineDie(char, disciplineId) {
+    var arenas = char.arenas || [];
+    for (var i = 0; i < arenas.length; i++) {
+      var discs = arenas[i].disciplines || [];
+      for (var j = 0; j < discs.length; j++) {
+        if (discs[j].id === disciplineId) return discs[j].die;
+      }
+    }
+    return null;
+  }
+
+  var ACTION_LABELS = {
+    action_assess: 'Assess',
+    action_treat_injury: 'Treat Injury',
+    action_interact: 'Interact',
+    action_attack: 'Attack',
+    action_move: 'Move',
+    action_coordinate: 'Coordinate',
+    action_command_beast: 'Command Beast',
+  };
+
+  function _buildDisciplineTechniques(char, maneuversData) {
+    var gambitsData = maneuversData.disciplineGambits;
+    if (!gambitsData) return null;
+
+    var unlocked = [];
+    var discKeys = Object.keys(gambitsData);
+
+    for (var k = 0; k < discKeys.length; k++) {
+      var disc = gambitsData[discKeys[k]];
+      if (disc.placeholder) continue;
+
+      var charDie = _getCharDisciplineDie(char, disc.disciplineId);
+      if (!charDie) continue;
+      var charIdx = _dieIndex(charDie);
+
+      var gambits = disc.gambits || [];
+      for (var g = 0; g < gambits.length; g++) {
+        var gambit = gambits[g];
+        var tags = gambit.tags || [];
+        var isNarrOrBoth = tags.some(function (t) {
+          return t.indexOf('Narrative') !== -1 || t.indexOf('Both') !== -1;
+        });
+        if (!isNarrOrBoth) continue;
+        var reqIdx = _dieIndex(gambit.requiredDie);
+        if (reqIdx === -1 || charIdx < reqIdx) continue;
+
+        unlocked.push({
+          name: gambit.name,
+          rule: gambit.rule,
+          requiredDie: gambit.requiredDie,
+          disciplineName: disc.name,
+          arenaId: disc.arenaId,
+          tags: tags,
+          modifiesAction: gambit.modifiesAction,
+          duration: gambit.duration,
+        });
+      }
+    }
+
+    if (unlocked.length === 0) return null;
+
+    unlocked.sort(function (a, b) {
+      var ai = _dieIndex(a.requiredDie);
+      var bi = _dieIndex(b.requiredDie);
+      if (ai !== bi) return ai - bi;
+      return a.disciplineName < b.disciplineName ? -1 : 1;
+    });
+
+    var wrap = document.createElement('div');
+    wrap.className = 'dp-techniques-section';
+
+    var header = document.createElement('div');
+    header.className = 'dp-section-bar dp-section-bar--toggle';
+    header.innerHTML = '<span class="dp-section-bar-label">Discipline Techniques</span>' +
+      '<span class="dp-section-bar-count">' + unlocked.length + ' unlocked</span>' +
+      '<span class="dp-section-bar-chevron">\u25B8</span>';
+    header.addEventListener('click', function () {
+      wrap.classList.toggle('dp-section--closed');
+    });
+    wrap.appendChild(header);
+
+    var body = document.createElement('div');
+    body.className = 'dp-techniques-body';
+
+    unlocked.forEach(function (tech) {
+      body.appendChild(_techniqueCard(tech));
+    });
+
+    wrap.appendChild(body);
+    return wrap;
+  }
+
+  function _techniqueCard(tech) {
+    var card = document.createElement('div');
+    card.className = 'dp-ability-card dp-ability-card--technique';
+
+    var topRow = document.createElement('div');
+    topRow.className = 'dp-ability-card-top';
+
+    var badge = document.createElement('span');
+    badge.className = 'dp-ability-badge dp-ability-badge--technique';
+    badge.textContent = 'TECHNIQUE';
+    topRow.appendChild(badge);
+
+    var name = document.createElement('span');
+    name.className = 'dp-ability-card-name';
+    name.textContent = tech.name;
+    topRow.appendChild(name);
+
+    var source = document.createElement('span');
+    source.className = 'dp-ability-card-source';
+    source.textContent = tech.disciplineName;
+    topRow.appendChild(source);
+
+    card.appendChild(topRow);
+
+    var tagRow = document.createElement('div');
+    tagRow.className = 'dp-ability-card-tags';
+
+    var dieTag = document.createElement('span');
+    dieTag.className = 'dp-ability-card-tag dp-tag--die';
+    dieTag.textContent = tech.requiredDie;
+    tagRow.appendChild(dieTag);
+
+    if (tech.modifiesAction) {
+      var actionLabel = ACTION_LABELS[tech.modifiesAction] || tech.modifiesAction;
+      var actionTag = document.createElement('span');
+      actionTag.className = 'dp-ability-card-tag';
+      actionTag.textContent = actionLabel;
+      tagRow.appendChild(actionTag);
+    }
+
+    tech.tags.forEach(function (t) {
+      var modeTag = document.createElement('span');
+      modeTag.className = 'dp-ability-card-tag dp-tag--mode';
+      modeTag.textContent = t;
+      tagRow.appendChild(modeTag);
+    });
+
+    if (tech.duration) {
+      var durTag = document.createElement('span');
+      durTag.className = 'dp-ability-card-tag dp-tag--duration';
+      durTag.textContent = tech.duration;
+      tagRow.appendChild(durTag);
+    }
+
+    card.appendChild(tagRow);
+
+    var rule = document.createElement('div');
+    rule.className = 'dp-ability-card-rule';
+    rule.textContent = tech.rule;
+    card.appendChild(rule);
 
     return card;
   }
@@ -357,8 +524,9 @@
     Promise.all([
       fetch('/api/characters/' + charId).then(function (r) { return r.json(); }),
       fetch('/data/species.json').then(function (r) { return r.json(); }).catch(function () { return null; }),
+      fetch('/data/maneuvers.json').then(function (r) { return r.json(); }).catch(function () { return null; }),
     ]).then(function (results) {
-      buildDetailsPanel(results[0], results[1]);
+      buildDetailsPanel(results[0], results[1], results[2]);
     }).catch(function (err) {
       console.error('[DetailsPanel]', err);
     });
