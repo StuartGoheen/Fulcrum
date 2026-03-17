@@ -90,66 +90,54 @@
   .panel-nav-row {
     display: flex;
     align-items: center;
+    justify-content: center;
+    gap: 0;
     width: 100%;
-    height: 100%;
   }
 
   .panel-nav-group {
     display: flex;
     align-items: center;
+    justify-content: center;
+    gap: 6px;
     flex: 1;
-    height: 100%;
-    position: relative;
   }
 
   .panel-nav-label {
-    font-family: 'Audiowide', sans-serif;
-    font-size: 0.75rem;
-    letter-spacing: 0.10em;
+    font-family: var(--font-display, 'Audiowide', sans-serif);
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--color-accent-primary);
+    width: 7em;
     text-align: center;
     white-space: nowrap;
-    position: absolute;
-    left: 0;
-    right: 0;
-    pointer-events: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .panel-nav-divider {
     width: 1px;
-    align-self: stretch;
-    margin: 6px 0;
+    height: 20px;
     background: var(--color-border);
     flex-shrink: 0;
   }
 
   .panel-nav-btn {
-    @apply flex items-center justify-center transition-all duration-150;
-    width: 30px;
-    height: 100%;
+    @apply flex items-center justify-center text-base font-semibold transition-all duration-150;
+    width: 24px;
+    height: 24px;
     background: transparent;
     color: var(--color-text-secondary);
-    border: none;
-    border-radius: 0;
-    font-size: 0.85rem;
+    border: 1px solid transparent;
+    border-radius: 4px;
     line-height: 1;
     flex-shrink: 0;
-    position: relative;
-    z-index: 1;
-  }
-
-  .panel-nav-btn:first-child {
-    border-right: 1px solid var(--color-border);
-  }
-
-  .panel-nav-btn:last-child {
-    margin-left: auto;
-    border-left: 1px solid var(--color-border);
   }
 
   .panel-nav-btn:hover {
     background: var(--color-bg-panel);
+    border-color: var(--color-border);
     color: var(--color-accent-primary);
   }
 
@@ -272,7 +260,7 @@
   }
 
   .char-meta {
-    font-size: 0.58rem;
+    font-size: 0.5rem;
     color: var(--color-text-secondary);
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -344,7 +332,9 @@
     flex-shrink: 0;
   }
 
-  ont-size: 0.62rem;
+  .char-arena-label {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.56rem;
     letter-spacing: 0.04em;
     text-align: center;
     color: var(--color-accent-primary);
@@ -542,7 +532,9 @@
     padding: 0.5rem 0.5rem 0;
   }
 
-  ont-size: 0.58rem;
+  .char-status-label {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.60rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--color-accent-primary);
@@ -565,12 +557,15 @@
     font-size: 1.14rem;
   }
 
-  ont-size: 0.52rem;
+  .char-vitality-value {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.55rem;
     color: var(--color-accent-deep);
     letter-spacing: 0.04em;
   }
 
-  ont-size: 0.58rem;
+  .char-vitality-formula {
+    font-size: 0.60rem;
     color: var(--color-text-secondary);
     letter-spacing: 0.04em;
     margin-top: 0;
@@ -727,7 +722,9 @@
     color: var(--color-accent-deep);
   }
 
-  ont-size: 0.52rem;
+  .char-engine-value {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.55rem;
     color: var(--color-accent-deep);
     letter-spacing: 0.04em;
   }
@@ -793,7 +790,7 @@
 
   .char-engine-ability-type {
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.55rem;
+    font-size: 0.62rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--color-accent-deep);
@@ -806,7 +803,7 @@
 
   .char-engine-ability-name {
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.65rem;
+    font-size: 0.72rem;
     letter-spacing: 0.04em;
     color: var(--color-text-primary);
     font-weight: 600;
@@ -816,7 +813,7 @@
 
   .char-engine-ability-cost {
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.60rem;
+    font-size: 0.66rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--color-accent-deep);
@@ -827,13 +824,13 @@
   }
 
   .char-engine-ability-rule {
-    font-size: 0.60rem;
+    font-size: 0.66rem;
     color: var(--color-text-secondary);
     line-height: 1.55;
   }
 
   .char-engine-ability-restriction {
-    font-size: 0.60rem;
+    font-size: 0.66rem;
     color: var(--color-accent-deep);
     opacity: 0.8;
     margin-top: 0.1rem;
@@ -1264,7 +1261,9 @@
   }
 
   /* ── Equipment State Pills ───────────────────────────────────────────────── */
-  ont-size: 0.40rem;
+  .armory-state-pill {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.33rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     padding: 1px 5px;
@@ -1294,7 +1293,9 @@
     border-color: #5fbb7d;
   }
 
-  ont-size: 0.38rem;
+  .armory-legality-badge {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.3rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     padding: 1px 5px;
@@ -1364,7 +1365,9 @@
     color: var(--color-accent-deep);
   }
 
-  ont-size: 0.38rem;
+  .engine-gambit-tag {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.38rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--color-accent-deep);
@@ -1383,7 +1386,9 @@
     color: var(--color-accent-amber, #f59e0b);
   }
 
-  ont-size: 0.38rem;
+  .armory-gambit-die-badge {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.3rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--color-accent-amber, #f59e0b);
@@ -1394,7 +1399,9 @@
   }
 
 
-  ont-size: 0.38rem;
+  .manv-arena-tag {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.3rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--color-text-secondary);
@@ -1405,7 +1412,9 @@
     margin-left: 4px;
   }
 
-  ont-size: 0.42rem;
+  .engine-gambit-cost {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.42rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--color-accent-deep);
@@ -1439,7 +1448,8 @@
     color: var(--color-accent-primary);
   }
 
-  ont-size: 0.58rem;
+  .kit-gambit-buyoff {
+    font-size: 0.60rem;
     color: var(--color-accent-deep);
     font-style: italic;
     margin-top: 4px;
@@ -1479,7 +1489,8 @@
     opacity: 0.7;
   }
 
-  ont-size: 0.58rem;
+  .kit-gambit-details {
+    font-size: 0.60rem;
     color: var(--color-accent-deep);
     margin-top: 4px;
     padding-top: 4px;
@@ -1492,7 +1503,9 @@
     margin-top: 2px;
   }
 
-  ont-size: 0.48rem;
+  .char-kit-locked-summary {
+    font-family: "Audiowide", sans-serif;
+    font-size: 0.50rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--color-text-muted);
@@ -1533,7 +1546,7 @@
 
   .char-engine-core-type {
     font-family: "Audiowide", sans-serif;
-    font-size: 0.50rem;
+    font-size: 0.58rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--color-accent-primary);
@@ -1542,19 +1555,19 @@
   .char-engine-core-name {
     font-family: "Exo 2", sans-serif;
     font-weight: 600;
-    font-size: 0.65rem;
+    font-size: 0.72rem;
     color: var(--color-text-primary);
     flex: 1;
   }
 
   .char-engine-core-cost {
-    font-size: 0.55rem;
+    font-size: 0.62rem;
     color: var(--color-accent-primary);
     letter-spacing: 0.06em;
   }
 
   .char-engine-core-rule {
-    font-size: 0.60rem;
+    font-size: 0.66rem;
     color: var(--color-text-secondary);
     line-height: 1.5;
   }
@@ -1577,7 +1590,7 @@
 
   .action-pip-label {
     font-family: "Audiowide", sans-serif;
-    font-size: 0.38rem;
+    font-size: 0.46rem;
     color: var(--color-text-muted);
     margin-right: 2px;
     text-transform: uppercase;
@@ -1701,7 +1714,7 @@
 
   .rl-mods-title {
     font-family: "Audiowide", sans-serif;
-    font-size: 0.65rem;
+    font-size: 0.70rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--color-text-muted);
@@ -1719,7 +1732,7 @@
 
   .rl-mod-tag {
     font-family: "Audiowide", sans-serif;
-    font-size: 0.65rem;
+    font-size: 0.70rem;
     letter-spacing: 0.04em;
     padding: 2px 7px;
     border-radius: 3px;
@@ -1740,7 +1753,7 @@
 
   .rl-mod-list {
     font-family: "Exo 2", sans-serif;
-    font-size: 0.70rem;
+    font-size: 0.75rem;
     color: var(--color-text-secondary);
     line-height: 1.4;
   }
@@ -2247,7 +2260,11 @@
     margin-bottom: 0.4rem;
   }
 
-  ont-size: 0.38rem;
+  .char-turn-btn {
+    flex: 1;
+    padding: 3px 2px;
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.38rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     background: var(--color-bg-panel);
@@ -2278,7 +2295,8 @@
     margin: 0.25rem 0 0.3rem;
   }
 
-  ont-size: 0.58rem;
+  .char-effects-empty {
+    font-size: 0.60rem;
     color: var(--color-text-secondary);
     letter-spacing: 0.05em;
     opacity: 0.6;
@@ -2322,7 +2340,9 @@
     min-width: 0;
   }
 
-  ont-size: 0.62rem;
+  .char-effect-pill-name {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.64rem;
     letter-spacing: 0.05em;
     text-transform: uppercase;
     color: var(--color-accent-primary);
@@ -2334,7 +2354,8 @@
     color: #d4952a;
   }
 
-  ont-size: 0.58rem;
+  .char-effect-pill-target {
+    font-size: 0.60rem;
     color: var(--color-text-primary);
     flex: 1;
     min-width: 0;
@@ -2343,7 +2364,9 @@
     white-space: nowrap;
   }
 
-  ont-size: 0.38rem;
+  .char-effect-pill-duration {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.3rem;
     letter-spacing: 0.04em;
     text-transform: uppercase;
     color: var(--color-text-secondary);
@@ -2382,7 +2405,13 @@
   }
 
   /* ── Pill Expand Description ─────────────────────────────────────────────── */
-  ont-size: 0.58rem;
+  .char-effect-pill-desc {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.25s ease, padding 0.25s ease;
+    border-top: 0px solid var(--color-border);
+    padding: 0 8px;
+    font-size: 0.60rem;
     color: var(--color-text-secondary);
     line-height: 1.6;
   }
