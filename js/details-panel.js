@@ -205,6 +205,20 @@
     action_command_beast: 'Command Beast',
   };
 
+  function _classifyMode(tags) {
+    var hasNarr = false;
+    var hasCombat = false;
+    var hasModeTag = false;
+    for (var i = 0; i < tags.length; i++) {
+      var t = tags[i];
+      if (t.indexOf('Both') !== -1) { hasNarr = true; hasCombat = true; hasModeTag = true; }
+      else if (t.indexOf('Narrative') !== -1) { hasNarr = true; hasModeTag = true; }
+      else if (t.indexOf('Combat') !== -1) { hasCombat = true; hasModeTag = true; }
+    }
+    if (!hasModeTag) hasCombat = true;
+    return { narrative: hasNarr, combat: hasCombat };
+  }
+
   function _buildDisciplineTechniques(char, maneuversData) {
     var gambitsData = maneuversData.disciplineGambits;
     if (!gambitsData) return null;
@@ -223,13 +237,10 @@
       var gambits = disc.gambits || [];
       for (var g = 0; g < gambits.length; g++) {
         var gambit = gambits[g];
-        var tags = gambit.tags || [];
-        var isNarrOrBoth = tags.some(function (t) {
-          return t.indexOf('Narrative') !== -1 || t.indexOf('Both') !== -1;
-        });
-        if (!isNarrOrBoth) continue;
         var reqIdx = _dieIndex(gambit.requiredDie);
         if (reqIdx === -1 || charIdx < reqIdx) continue;
+
+        var modes = _classifyMode(gambit.tags || []);
 
         unlocked.push({
           name: gambit.name,
@@ -237,9 +248,11 @@
           requiredDie: gambit.requiredDie,
           disciplineName: disc.name,
           arenaId: disc.arenaId,
-          tags: tags,
+          tags: gambit.tags || [],
           modifiesAction: gambit.modifiesAction,
           duration: gambit.duration,
+          isNarrative: modes.narrative,
+          isCombat: modes.combat,
         });
       }
     }
@@ -247,14 +260,13 @@
     if (unlocked.length === 0) return null;
 
     unlocked.sort(function (a, b) {
-      var ai = _dieIndex(a.requiredDie);
-      var bi = _dieIndex(b.requiredDie);
-      if (ai !== bi) return ai - bi;
-      return a.disciplineName < b.disciplineName ? -1 : 1;
+      if (a.disciplineName !== b.disciplineName)
+        return a.disciplineName < b.disciplineName ? -1 : 1;
+      return _dieIndex(a.requiredDie) - _dieIndex(b.requiredDie);
     });
 
     var wrap = document.createElement('div');
-    wrap.className = 'dp-techniques-section';
+    wrap.className = 'dp-techniques-section dp-section--closed';
 
     var header = document.createElement('div');
     header.className = 'dp-section-bar dp-section-bar--toggle';
@@ -269,9 +281,65 @@
     var body = document.createElement('div');
     body.className = 'dp-techniques-body';
 
+    var filterState = { narrative: true, combat: true };
+
+    var filterBar = document.createElement('div');
+    filterBar.className = 'dp-tech-filter-bar';
+
+    var narrPill = document.createElement('button');
+    narrPill.className = 'dp-tech-pill dp-tech-pill--active';
+    narrPill.setAttribute('data-mode', 'narrative');
+    narrPill.textContent = 'Narrative';
+
+    var combatPill = document.createElement('button');
+    combatPill.className = 'dp-tech-pill dp-tech-pill--active';
+    combatPill.setAttribute('data-mode', 'combat');
+    combatPill.textContent = 'Combat';
+
+    filterBar.appendChild(narrPill);
+    filterBar.appendChild(combatPill);
+    body.appendChild(filterBar);
+
+    var cardContainer = document.createElement('div');
+    cardContainer.className = 'dp-tech-cards';
+
+    var cardEls = [];
     unlocked.forEach(function (tech) {
-      body.appendChild(_techniqueCard(tech));
+      var card = _techniqueCard(tech);
+      card.setAttribute('data-narr', tech.isNarrative ? '1' : '0');
+      card.setAttribute('data-combat', tech.isCombat ? '1' : '0');
+      cardEls.push(card);
+      cardContainer.appendChild(card);
     });
+
+    body.appendChild(cardContainer);
+
+    function applyFilter() {
+      var visibleCount = 0;
+      cardEls.forEach(function (el) {
+        var show = false;
+        if (filterState.narrative && el.getAttribute('data-narr') === '1') show = true;
+        if (filterState.combat && el.getAttribute('data-combat') === '1') show = true;
+        el.style.display = show ? '' : 'none';
+        if (show) visibleCount++;
+      });
+      narrPill.className = 'dp-tech-pill' + (filterState.narrative ? ' dp-tech-pill--active' : '');
+      combatPill.className = 'dp-tech-pill' + (filterState.combat ? ' dp-tech-pill--active' : '');
+    }
+
+    narrPill.addEventListener('click', function () {
+      filterState.narrative = !filterState.narrative;
+      if (!filterState.narrative && !filterState.combat) filterState.combat = true;
+      applyFilter();
+    });
+
+    combatPill.addEventListener('click', function () {
+      filterState.combat = !filterState.combat;
+      if (!filterState.narrative && !filterState.combat) filterState.narrative = true;
+      applyFilter();
+    });
+
+    applyFilter();
 
     wrap.appendChild(body);
     return wrap;
