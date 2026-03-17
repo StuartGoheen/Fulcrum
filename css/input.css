@@ -4366,9 +4366,9 @@
     left: 33vw !important;
   }
 
-  .handbook-trigger {
-    left: 50% !important;
-    transform: translateX(-50%) !important;
+  .handbook-trigger:not([style*="left"]) {
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   /* ≤ 900px — tighten left frame to pixel floor, give center more room */
