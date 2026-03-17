@@ -349,6 +349,10 @@
     var def = _defById(effectId);
     if (!def) return false;
 
+    if (def.modifier && def.modifier.type === 'hazard' && !def.requiresValue) {
+      hazardValue = 1;
+    }
+
     if (def.stacks) {
       for (var si = 0; si < _activeEffects.length; si++) {
         if (_activeEffects[si].effectId === effectId) {
@@ -674,9 +678,10 @@
   function _processTurnPhase(phase) {
     _notificationQueue = [];
     var toRemove = [];
+    var snapshot = _activeEffects.slice();
 
-    for (var i = 0; i < _activeEffects.length; i++) {
-      var e   = _activeEffects[i];
+    for (var i = 0; i < snapshot.length; i++) {
+      var e   = snapshot[i];
       var def = _defById(e.effectId);
 
       if (phase === 'start' && def && def.modifier.type === 'hazard' && e.hazardValue > 0) {
@@ -684,7 +689,8 @@
         if (window.CharacterPanel && window.CharacterPanel.applyVitalityDelta) {
           window.CharacterPanel.applyVitalityDelta(-dmg);
         }
-        var msg = 'Hazard ' + dmg + ' (' + _targetLabel(e.target) + ') \u2014 \u2212' + dmg + ' Vitality';
+        var hazLabel = def.label + (def.requiresValue ? ' ' + dmg : '');
+        var msg = hazLabel + ' (' + _targetLabel(e.target) + ') \u2014 \u2212' + dmg + ' Vitality';
         _logEntry('triggered', e.effectId, e.target, msg);
         _notificationQueue.push({ icon: '\u25CF', text: msg });
       }
@@ -1034,8 +1040,11 @@
       var durSel    = document.getElementById('char-add-dur-sel');
       var duration  = durSel ? durSel.value : null;
       var target    = _resolvedTarget();
+      var selDef    = _defById(effectId);
       var hazardInp = document.getElementById('char-add-hazard-val');
-      var hazardVal = hazardInp ? parseInt(hazardInp.value, 10) || 1 : 0;
+      var hazardVal = (selDef && selDef.requiresValue && hazardInp)
+        ? (parseInt(hazardInp.value, 10) || 1)
+        : (selDef && selDef.modifier && selDef.modifier.type === 'hazard' ? 1 : 0);
       if (effectId && duration && target) {
         _applyEffect(effectId, target, duration, hazardVal);
         _formOpen = false;
