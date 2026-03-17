@@ -180,6 +180,13 @@
     return '<img src="/assets/' + dieType.toLowerCase() + '.png" alt="' + _esc(dieType) + '" class="armory-weapon-disc-die">';
   }
 
+  function _legalityBadge(availability) {
+    if (!availability) return '';
+    if (availability.indexOf('X') >= 0) return '<span class="armory-legality-badge armory-legality-illegal">Contraband</span>';
+    if (availability.indexOf('R') >= 0) return '<span class="armory-legality-badge armory-legality-restricted">Restricted</span>';
+    return '<span class="armory-legality-badge armory-legality-legal">Legal</span>';
+  }
+
   function _renderRange(range) {
     if (!range) return '';
     if (range.engaged) return 'Engaged';
