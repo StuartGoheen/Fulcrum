@@ -2651,11 +2651,17 @@
       var charTitle     = titleInput  ? titleInput.value.trim() : state.charTitle;
       var playerInput   = playerIn    ? playerIn.value.trim()   : '';
 
-      // Build kit list
-      var kitNames = [];
+      var kitEntries = [];
       if (state.kitChoices) {
         Object.keys(state.kitChoices).forEach(function (k) {
-          if (state.kitChoices[k]) kitNames.push(k + ' (Tier ' + state.kitChoices[k] + ')');
+          if (!state.kitChoices[k]) return;
+          var kitDef = KITS_DATA.length ? KITS_DATA.find(function (kd) { return kd.id === k; }) : null;
+          kitEntries.push({
+            name: kitDef ? kitDef.name : k,
+            tier: state.kitChoices[k],
+            arena: kitDef ? kitDef.governingArena : '',
+            discipline: kitDef ? kitDef.alignedDiscipline : '',
+          });
         });
       }
 
@@ -2667,20 +2673,27 @@
         });
       });
 
-      // Build formative disciplines (D8+)
-      var discNames = [];
+      var discStrengths = [];
+      var discWeaknesses = [];
       if (state.discValues) {
         Object.keys(state.discValues).forEach(function (k) {
           var dv = state.discValues[k];
+          var label = discDisplayNames[k] || k;
           if (dv === 'D8' || dv === 'D10' || dv === 'D12') {
+            discStrengths.push(label + ' (' + dv + ')');
+          }
+        });
+      }
+      if (state.discIncomp) {
+        Object.keys(state.discIncomp).forEach(function (k) {
+          if (state.discIncomp[k]) {
             var label = discDisplayNames[k] || k;
-            discNames.push(label + ' (' + dv + ')');
+            discWeaknesses.push(label + ' (D4 — incompetent)');
           }
         });
       }
 
-      // Build dominant arenas (D8+)
-      var arenaNames = [];
+      var allArenas = [];
       var speciesObj = SPECIES.find(function (s) { return s.id === state.species; });
       if (speciesObj) {
         ARENA_ORDER.forEach(function (aid) {
@@ -2688,9 +2701,7 @@
           var adj = (state.arenaAdj && state.arenaAdj[aid]) || 0;
           var finalIdx = Math.max(0, Math.min(DIE_ORDER.length - 1, baseIdx + adj));
           var finalDie = DIE_ORDER[finalIdx];
-          if (finalDie === 'D8' || finalDie === 'D10' || finalDie === 'D12') {
-            arenaNames.push(ARENA_LABELS[aid] + ' ' + finalDie);
-          }
+          allArenas.push(ARENA_LABELS[aid] + ': ' + finalDie);
         });
       }
 
@@ -2708,7 +2719,8 @@
           tone:        p1card._meta ? p1card._meta.tone : '',
           themes:      p1card._meta ? p1card._meta.themes.join(', ') : '',
           locationHints: p1card._meta && p1card._meta.locationHints ? p1card._meta.locationHints : [],
-        } : { title: 'Unknown', narrative: '', environment: '', tone: '', themes: '', locationHints: [] },
+          favored:     p1card._meta ? p1card._meta.favored || '' : '',
+        } : { title: 'Unknown', narrative: '', environment: '', tone: '', themes: '', locationHints: [], favored: '' },
         phase2: p2card ? {
           title:       p2card.title,
           narrative:   p2card.narrative,
@@ -2718,7 +2730,8 @@
           archetype:     p2card._meta ? p2card._meta.archetype || '' : '',
           proficiencies: p2card._meta && p2card._meta.proficiencies ? p2card._meta.proficiencies.join(', ') : '',
           variability:   p2card._meta ? p2card._meta.variability || '' : '',
-        } : { title: 'Unknown', narrative: '', environment: '', tone: '', themes: '', archetype: '', proficiencies: '', variability: '' },
+          favored:     p2card._meta ? p2card._meta.favored || '' : '',
+        } : { title: 'Unknown', narrative: '', environment: '', tone: '', themes: '', archetype: '', proficiencies: '', variability: '', favored: '' },
         phase3: p3card ? {
           title:       p3card.title,
           narrative:   p3card.narrative,
@@ -2730,10 +2743,11 @@
           knackType:   p3card._meta ? p3card._meta.knackType || '' : '',
           knack:       p3card._meta ? p3card._meta.knack || '' : '',
         } : { title: 'Unknown', narrative: '', environment: '', tone: '', themes: '', archetype: '', knackName: '', knackType: '', knack: '' },
-        kits:         kitNames,
-        startingGear: (state.startingGear || []).map(function(g) { return g.name; }),
-        disciplines:  discNames,
-        arenas:       arenaNames,
+        kits:            kitEntries,
+        startingGear:    (state.startingGear || []).map(function(g) { return g.name; }),
+        disciplines:     discStrengths,
+        weakDisciplines: discWeaknesses,
+        arenas:          allArenas,
         destiny:      state.destiny || 'Light & Dark',
         gender:       gender,
         generateName: generateName,
