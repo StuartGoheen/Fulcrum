@@ -533,10 +533,10 @@
 
     var isDisc = entry.type && entry.type.toLowerCase().indexOf('discipline') !== -1;
     if (isDisc) {
+      _renderManeuvers(entry.id);
       if (entry.narrativeTiers) {
         _renderNarrativeTiers(entry.narrativeTiers);
       }
-      _renderManeuvers(entry.id);
     }
 
     var activeBtn = document.querySelector('.hb-entry-btn.is-active');
