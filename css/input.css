@@ -87,12 +87,52 @@
     border-color: var(--color-border);
   }
 
+  .panel-nav-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    width: 100%;
+  }
+
+  .panel-nav-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    flex: 1;
+  }
+
+  .panel-nav-label {
+    font-family: var(--font-display, 'Audiowide', sans-serif);
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-accent-primary);
+    width: 7em;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .panel-nav-divider {
+    width: 1px;
+    height: 20px;
+    background: var(--color-border);
+    flex-shrink: 0;
+  }
+
   .panel-nav-btn {
-    @apply flex items-center justify-center w-6 h-6 text-base font-semibold transition-all duration-150;
+    @apply flex items-center justify-center text-base font-semibold transition-all duration-150;
+    width: 24px;
+    height: 24px;
     background: transparent;
     color: var(--color-text-secondary);
     border: 1px solid transparent;
+    border-radius: 4px;
     line-height: 1;
+    flex-shrink: 0;
   }
 
   .panel-nav-btn:hover {
@@ -2631,7 +2671,8 @@
   .handbook-trigger {
     position: fixed;
     bottom: calc(10vh + 12px);
-    right: calc(25vw + 12px);
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 190;
     width: 40px;
     height: 40px;
@@ -4324,7 +4365,8 @@
   }
 
   .handbook-trigger {
-    right: 12px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
   }
 
   /* ≤ 900px — tighten left frame to pixel floor, give center more room */

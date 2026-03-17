@@ -15,7 +15,7 @@
   <div class="flex flex-col h-screen">
 
     <nav id="navbar"
-      class="fixed top-0 z-30 flex items-center justify-between px-4"
+      class="fixed top-0 z-30 flex items-center justify-center"
       style="
         left: 25vw;
         right: 25vw;
@@ -25,20 +25,20 @@
         border-bottom: 1px solid var(--color-border);
       ">
 
-      <div class="flex items-center gap-4">
-        <button id="slot-left-prev" class="panel-nav-btn" aria-label="Previous panel left slot">&lsaquo;</button>
-        <span id="slot-left-label" class="font-display text-xs tracking-widest uppercase" style="color:var(--color-accent-primary);">Panel 1</span>
-        <button id="slot-left-next" class="panel-nav-btn" aria-label="Next panel left slot">&rsaquo;</button>
-      </div>
+      <div class="panel-nav-row">
+        <div class="panel-nav-group">
+          <button id="slot-left-prev" class="panel-nav-btn" aria-label="Previous panel left slot">&lsaquo;</button>
+          <span id="slot-left-label" class="panel-nav-label">Panel 1</span>
+          <button id="slot-left-next" class="panel-nav-btn" aria-label="Next panel left slot">&rsaquo;</button>
+        </div>
 
-      <div class="flex items-center gap-2">
-        <span id="connection-indicator" class="w-2 h-2 rounded-full" style="background:var(--color-text-secondary);" title="Connecting..."></span>
-      </div>
+        <span class="panel-nav-divider"></span>
 
-      <div class="flex items-center gap-4">
-        <button id="slot-right-prev" class="panel-nav-btn" aria-label="Previous panel right slot">&lsaquo;</button>
-        <span id="slot-right-label" class="font-display text-xs tracking-widest uppercase" style="color:var(--color-accent-primary);">Panel 2</span>
-        <button id="slot-right-next" class="panel-nav-btn" aria-label="Next panel right slot">&rsaquo;</button>
+        <div class="panel-nav-group">
+          <button id="slot-right-prev" class="panel-nav-btn" aria-label="Previous panel right slot">&lsaquo;</button>
+          <span id="slot-right-label" class="panel-nav-label">Panel 2</span>
+          <button id="slot-right-next" class="panel-nav-btn" aria-label="Next panel right slot">&rsaquo;</button>
+        </div>
       </div>
 
     </nav>

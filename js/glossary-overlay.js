@@ -511,6 +511,7 @@
     function _applyPos(x, y) {
       btn.style.right = 'auto';
       btn.style.bottom = 'auto';
+      btn.style.transform = 'none';
       btn.style.left = Math.max(0, Math.min(window.innerWidth - 44, x)) + 'px';
       btn.style.top = Math.max(0, Math.min(window.innerHeight - 44, y)) + 'px';
     }
@@ -530,6 +531,7 @@
           var pos = JSON.parse(raw);
           btn.style.right = 'auto';
           btn.style.bottom = 'auto';
+          btn.style.transform = 'none';
           btn.style.left = pos.left;
           btn.style.top = pos.top;
           var rect = btn.getBoundingClientRect();
@@ -539,6 +541,7 @@
             btn.style.top = '';
             btn.style.right = '';
             btn.style.bottom = '';
+            btn.style.transform = '';
           }
         }
       } catch (e) {}
