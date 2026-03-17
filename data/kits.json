@@ -25,7 +25,8 @@
         "targetType": "weapon",
         "target": "Pistol",
         "arenaTag": "[Combat]",
-        "rule": "Reduce Effect by 1 Tier against all targets and your weapon is instantly emptied — requires a Maneuver to Reload. Target up to 3 enemies in the same zone. Make a single Ranged Control roll applying the Step-Down penalty of the target with the highest Presence. On success, roll your Power die once, then subtract each individual target's Resistance to determine their specific Effect Tier. Ranged is your Aligned Discipline — spend 1 Edge via Tier Boost to offset the -1 Tier drop for all targets."
+        "rule": "Reduce Effect by 1 Tier against all targets and your weapon is instantly emptied — requires a Maneuver to Reload. Target up to 3 enemies in the same zone. Make a single Ranged Control roll applying the Step-Down penalty of the target with the highest Presence. On success, roll your Power die once, then subtract each individual target's Resistance to determine their specific Effect Tier. Ranged is your Aligned Discipline — spend 1 Edge via Tier Boost to offset the -1 Tier drop for all targets.",
+        "modifiesAction": "action_attack"
       },
       {
         "id": "kit_slinger_t2_hs",
@@ -85,7 +86,8 @@
         "targetType": "trigger",
         "target": "Free Trigger",
         "arenaTag": "[Defense]",
-        "rule": "Reduce your Dodge result by -1 Effect Tier (if this pushes your success to a negative number, you suffer a Fleeting hit from the enemy). On any result, gain the [Optimized] condition on your next Action against that specific attacker."
+        "rule": "Reduce your Dodge result by -1 Effect Tier (if this pushes your success to a negative number, you suffer a Fleeting hit from the enemy). On any result, gain the [Optimized] condition on your next Action against that specific attacker.",
+        "modifiesAction": "action_dodge"
       },
       {
         "id": "kit_prescient_t2_mm",
@@ -140,7 +142,8 @@
         "targetType": "pinned",
         "target": "Pinned Target",
         "arenaTag": "[Combat]",
-        "rule": "Can only be declared while you have an enemy [Pinned]. Reduce Effect by 1 Tier. Step Up your Power Die once — the ground eliminates their ability to absorb or redirect the blow. If the net result after the tier reduction resolves at Solid or higher, the target gains [Weakened (Physique)] for as long as the hold is maintained."
+        "rule": "Can only be declared while you have an enemy [Pinned]. Reduce Effect by 1 Tier. Step Up your Power Die once — the ground eliminates their ability to absorb or redirect the blow. If the net result after the tier reduction resolves at Solid or higher, the target gains [Weakened (Physique)] for as long as the hold is maintained.",
+        "modifiesAction": "action_attack"
       },
       {
         "id": "kit_warden_t2_wtd",
@@ -195,7 +198,8 @@
         "targetType": "self",
         "target": "Self",
         "arenaTag": "[Endurance]",
-        "rule": "Can only be declared when you are currently suffering at least one active condition. Reduce Effect by 1 Tier on a Resolve check. Remove one active condition currently affecting you, regardless of its source. If the removed condition was originally applied by an enemy Gambit, that enemy immediately generates an Opening — they overplayed their hand."
+        "rule": "Can only be declared when you are currently suffering at least one active condition. Reduce Effect by 1 Tier on a Resolve check. Remove one active condition currently affecting you, regardless of its source. If the removed condition was originally applied by an enemy Gambit, that enemy immediately generates an Opening — they overplayed their hand.",
+        "modifiesAction": "action_endure"
       },
       {
         "id": "kit_iron_t2_sae",
@@ -250,7 +254,8 @@
         "targetType": "ally",
         "target": "Any Ally",
         "arenaTag": "[Command]",
-        "rule": "Reduce Effect by 1 Tier on a Tactics check. One ally within line of sight who has already spent their Trigger this round may make one additional attack using their Control Die only. This attack cannot trigger Gambits but can generate an Opening. You spend your own result to give an exhausted teammate one more chance."
+        "rule": "Reduce Effect by 1 Tier on a Tactics check. One ally within line of sight who has already spent their Trigger this round may make one additional attack using their Control Die only. This attack cannot trigger Gambits but can generate an Opening. You spend your own result to give an exhausted teammate one more chance.",
+        "modifiesAction": "action_coordinate"
       },
       {
         "id": "kit_tactician_t2_sr",
@@ -305,7 +310,8 @@
         "targetType": "hidden",
         "target": "Hidden",
         "arenaTag": "[Combat]",
-        "rule": "Can only be declared while [Hidden]. Reduce Effect by 1 Tier. Step Up your Power Die once for this attack and apply [Exposed] to the target regardless of the Effect Tier result. You immediately lose [Hidden] after the attack resolves — whether the Gambit succeeds or fails. You spend your position for a wound and a window for your allies."
+        "rule": "Can only be declared while [Hidden]. Reduce Effect by 1 Tier. Step Up your Power Die once for this attack and apply [Exposed] to the target regardless of the Effect Tier result. You immediately lose [Hidden] after the attack resolves — whether the Gambit succeeds or fails. You spend your position for a wound and a window for your allies.",
+        "modifiesAction": "action_attack"
       },
       {
         "id": "kit_ghost_t2_fd",
@@ -356,7 +362,8 @@
         "tier": 2,
         "type": "gambit",
         "name": "Sic 'Em",
-        "rule": "After resolving a Command Beast (Maneuver) directed at your creature companion, spend 1 tier. The companion's next Attack this round gains [Empowered (Grit)] — your command sharpens its aggression. The Attack still costs your Action as normal."
+        "rule": "After resolving a Command Beast (Maneuver) directed at your creature companion, spend 1 tier. The companion's next Attack this round gains [Empowered (Grit)] — your command sharpens its aggression. The Attack still costs your Action as normal.",
+        "modifiesAction": "action_command_beast"
       },
       {
         "id": "beastmaster_shared_hide",
