@@ -445,42 +445,48 @@
       '<div class="char-ladder-section">' +
         '<div class="char-ladder-header">' +
           '<span class="char-ladder-label">Resolution</span>' +
-          '<span class="char-ladder-formula">Roll − Risk = Net</span>' +
+          '<span class="char-ladder-formula">Roll &minus; Risk = Net</span>' +
         '</div>' +
 
-        '<div class="char-ladder-bar-group">' +
-          '<div class="char-ladder-axis-row">' +
-            '<span class="char-ladder-axis-end char-ladder-axis-end--fail">◀ Failure</span>' +
-            '<span class="char-ladder-axis-label">Control</span>' +
-            '<span class="char-ladder-axis-end char-ladder-axis-end--suc">Success ▶</span>' +
-          '</div>' +
+        '<table class="rl-table">' +
+          '<thead>' +
+            '<tr>' +
+              '<th class="rl-th rl-th--fail">Failure</th>' +
+              '<th class="rl-th rl-th--tier">Tier</th>' +
+              '<th class="rl-th rl-th--suc">Success</th>' +
+            '</tr>' +
+          '</thead>' +
+          '<tbody>' +
+            '<tr class="rl-row rl-row--leg">' +
+              '<td class="rl-cell rl-cell--fail">&minus;8 or worse</td>' +
+              '<td class="rl-cell rl-cell--tier">Legendary</td>' +
+              '<td class="rl-cell rl-cell--suc">8+</td>' +
+            '</tr>' +
+            '<tr class="rl-row rl-row--mas">' +
+              '<td class="rl-cell rl-cell--fail">&minus;4 to &minus;7</td>' +
+              '<td class="rl-cell rl-cell--tier">Masterful</td>' +
+              '<td class="rl-cell rl-cell--suc">4 &ndash; 7</td>' +
+            '</tr>' +
+            '<tr class="rl-row rl-row--fle">' +
+              '<td class="rl-cell rl-cell--fail">&minus;1 to &minus;3</td>' +
+              '<td class="rl-cell rl-cell--tier">Fleeting</td>' +
+              '<td class="rl-cell rl-cell--suc">1 &ndash; 3</td>' +
+            '</tr>' +
+            '<tr class="rl-row rl-row--zero">' +
+              '<td class="rl-cell" colspan="3">Net 0 &mdash; No effect</td>' +
+            '</tr>' +
+          '</tbody>' +
+        '</table>' +
 
-          '<div class="char-ladder-bar">' +
-            '<div class="char-ladder-seg char-ladder-seg--leg-fail"><span class="char-ladder-seg-name">Legendary</span><span class="char-ladder-seg-range">−8+</span></div>' +
-            '<div class="char-ladder-seg char-ladder-seg--mas-fail"><span class="char-ladder-seg-name">Masterful</span><span class="char-ladder-seg-range">−4 to −7</span></div>' +
-            '<div class="char-ladder-seg char-ladder-seg--fle-fail"><span class="char-ladder-seg-name">Fleeting</span><span class="char-ladder-seg-range">−1 to −3</span></div>' +
-            '<div class="char-ladder-seg char-ladder-seg--zero"><span class="char-ladder-seg-name">0</span></div>' +
-            '<div class="char-ladder-seg char-ladder-seg--fle-suc"><span class="char-ladder-seg-name">Fleeting</span><span class="char-ladder-seg-range">0–3</span></div>' +
-            '<div class="char-ladder-seg char-ladder-seg--mas-suc"><span class="char-ladder-seg-name">Masterful</span><span class="char-ladder-seg-range">4–7</span></div>' +
-            '<div class="char-ladder-seg char-ladder-seg--leg-suc"><span class="char-ladder-seg-name">Legendary</span><span class="char-ladder-seg-range">8+</span></div>' +
+        '<div class="rl-mods">' +
+          '<div class="rl-mods-title">Tier Modifiers</div>' +
+          '<div class="rl-mod">' +
+            '<span class="rl-mod-tag rl-mod-tag--up">+1</span>' +
+            '<span class="rl-mod-list">Control 8+ &middot; Destiny Tap &middot; Edge Point &middot; [Exposed]</span>' +
           '</div>' +
-
-          '<div class="char-ladder-axis-row">' +
-            '<span class="char-ladder-axis-end char-ladder-axis-end--low">◀ Less</span>' +
-            '<span class="char-ladder-axis-label">Power</span>' +
-            '<span class="char-ladder-axis-end char-ladder-axis-end--high">More ▶</span>' +
-          '</div>' +
-        '</div>' +
-
-        '<div class="char-ladder-group">' +
-          '<div class="char-ladder-group-title">Tier Modifiers</div>' +
-          '<div class="char-ladder-mod">' +
-            '<span class="char-ladder-mod-tag char-ladder-mod--up">+1</span>' +
-            '<span class="char-ladder-mod-sources">Control 8+ · Destiny Tap · Edge Point · [Exposed]</span>' +
-          '</div>' +
-          '<div class="char-ladder-mod">' +
-            '<span class="char-ladder-mod-tag char-ladder-mod--down">−1</span>' +
-            '<span class="char-ladder-mod-sources">[Shaken] · Gambit Cost · [Guarded X] · [Cover X]</span>' +
+          '<div class="rl-mod">' +
+            '<span class="rl-mod-tag rl-mod-tag--down">&minus;1</span>' +
+            '<span class="rl-mod-list">[Shaken] &middot; Gambit Cost &middot; [Guarded X] &middot; [Cover X]</span>' +
           '</div>' +
         '</div>' +
       '</div>'

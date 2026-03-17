@@ -1578,7 +1578,7 @@
 
   .char-ladder-label {
     font-family: "Audiowide", sans-serif;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     letter-spacing: 0.10em;
     text-transform: uppercase;
     color: var(--color-accent-primary);
@@ -1586,171 +1586,129 @@
 
   .char-ladder-formula {
     font-family: "Exo 2", sans-serif;
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     color: var(--color-text-secondary);
+    letter-spacing: 0.04em;
+    opacity: 0.7;
+  }
+
+  .rl-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-bottom: 10px;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .rl-th {
+    font-family: "Audiowide", sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 5px 6px;
+    border-bottom: 1px solid var(--color-border);
+    background: rgba(255,255,255,0.03);
+  }
+
+  .rl-th--fail { color: #ee7766; text-align: left; width: 30%; }
+  .rl-th--tier { color: var(--color-text-secondary); text-align: center; }
+  .rl-th--suc  { color: #55bb77; text-align: right; width: 30%; }
+
+  .rl-cell {
+    font-family: "Exo 2", sans-serif;
+    font-size: 0.7rem;
+    padding: 6px 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    vertical-align: middle;
+  }
+
+  .rl-row:last-child .rl-cell { border-bottom: none; }
+
+  .rl-cell--fail {
+    color: #ee8877;
+    text-align: left;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .rl-cell--tier {
+    font-family: "Audiowide", sans-serif;
+    font-size: 0.65rem;
+    text-align: center;
+    color: var(--color-text-primary);
     letter-spacing: 0.04em;
   }
 
-  .char-ladder-bar-group {
-    margin-bottom: 10px;
+  .rl-cell--suc {
+    color: #66cc88;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
   }
 
-  .char-ladder-axis-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 2px;
-    margin-bottom: 3px;
+  .rl-row--leg { background: rgba(255,255,255,0.04); }
+  .rl-row--leg .rl-cell--tier { color: var(--color-accent-primary); }
+  .rl-row--mas { background: rgba(255,255,255,0.02); }
+  .rl-row--fle { background: transparent; }
+
+  .rl-row--zero {
+    background: rgba(255,255,255,0.02);
+  }
+  .rl-row--zero .rl-cell {
+    text-align: center;
+    font-family: "Exo 2", sans-serif;
+    font-size: 0.65rem;
+    color: var(--color-text-muted);
+    font-style: italic;
+    padding: 4px 8px;
   }
 
-  .char-ladder-axis-row:last-child {
-    margin-bottom: 0;
-    margin-top: 3px;
+  .rl-mods {
+    margin-top: 2px;
   }
 
-  .char-ladder-axis-label {
-    font-family: "Audiowide", sans-serif;
-    font-size: 0.7rem;
-    letter-spacing: 0.10em;
-    text-transform: uppercase;
-    color: var(--color-text-secondary);
-  }
-
-  .char-ladder-axis-end {
+  .rl-mods-title {
     font-family: "Audiowide", sans-serif;
     font-size: 0.6rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
-
-  .char-ladder-axis-end--fail { color: #ff8888; }
-  .char-ladder-axis-end--suc  { color: #66cc88; }
-  .char-ladder-axis-end--low  { color: #99bbee; }
-  .char-ladder-axis-end--high { color: #5599dd; }
-
-  .char-ladder-bar {
-    display: flex;
-    align-items: stretch;
-    border-radius: 4px;
-    overflow: hidden;
-    border: 1px solid var(--color-border);
-    min-height: 44px;
-  }
-
-  .char-ladder-seg {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 5px 3px;
-    flex: 1;
-    min-width: 0;
-    border-right: 1px solid rgba(255,255,255,0.08);
-  }
-
-  .char-ladder-seg:last-child {
-    border-right: none;
-  }
-
-  .char-ladder-seg-name {
-    font-family: "Exo 2", sans-serif;
-    font-weight: 700;
-    font-size: 0.65rem;
-    line-height: 1.2;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100%;
-  }
-
-  .char-ladder-seg-range {
-    font-family: "Audiowide", sans-serif;
-    font-size: 0.55rem;
-    opacity: 0.85;
-    line-height: 1.2;
-    white-space: nowrap;
-  }
-
-  .char-ladder-seg--leg-fail {
-    background: rgba(200, 40, 40, 0.55);
-    color: #ff7777;
-  }
-  .char-ladder-seg--mas-fail {
-    background: rgba(200, 40, 40, 0.35);
-    color: #ffaaaa;
-  }
-  .char-ladder-seg--fle-fail {
-    background: rgba(200, 40, 40, 0.18);
-    color: #ffbbbb;
-  }
-
-  .char-ladder-seg--zero {
-    flex: 0 0 32px;
-    background: rgba(255,255,255,0.06);
-    color: var(--color-accent-primary);
-    font-family: "Audiowide", sans-serif;
-    font-size: 0.75rem;
-    border-left: 1px solid var(--color-accent-primary);
-    border-right: 1px solid var(--color-accent-primary);
-  }
-
-  .char-ladder-seg--fle-suc {
-    background: rgba(40, 160, 80, 0.18);
-    color: #99eebb;
-  }
-  .char-ladder-seg--mas-suc {
-    background: rgba(40, 160, 80, 0.35);
-    color: #77dd99;
-  }
-  .char-ladder-seg--leg-suc {
-    background: rgba(40, 160, 80, 0.55);
-    color: #55dd77;
-  }
-
-  .char-ladder-group {
-    margin-bottom: 8px;
-  }
-
-  .char-ladder-group-title {
-    font-family: "Audiowide", sans-serif;
-    font-size: 0.7rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--color-text-secondary);
+    color: var(--color-text-muted);
     margin-bottom: 4px;
     padding-bottom: 3px;
     border-bottom: 1px dashed var(--color-border);
   }
 
-  .char-ladder-mod {
+  .rl-mod {
     display: flex;
-    align-items: center;
+    align-items: baseline;
     gap: 8px;
     padding: 3px 0;
   }
 
-  .char-ladder-mod-tag {
+  .rl-mod-tag {
     font-family: "Audiowide", sans-serif;
-    font-size: 0.7rem;
-    letter-spacing: 0.06em;
-    padding: 2px 7px;
+    font-size: 0.6rem;
+    letter-spacing: 0.04em;
+    padding: 1px 6px;
     border-radius: 3px;
     flex-shrink: 0;
+    line-height: 1.4;
   }
 
-  .char-ladder-mod--up {
+  .rl-mod-tag--up {
     color: var(--color-bg-primary);
     background: var(--color-accent-primary);
   }
 
-  .char-ladder-mod--down {
+  .rl-mod-tag--down {
     color: var(--color-accent-primary);
     border: 1px solid var(--color-accent-primary);
     background: transparent;
   }
 
-  .char-ladder-mod-sources {
-    font-size: 0.75rem;
+  .rl-mod-list {
+    font-family: "Exo 2", sans-serif;
+    font-size: 0.65rem;
     color: var(--color-text-secondary);
     line-height: 1.4;
   }
