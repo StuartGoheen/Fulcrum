@@ -1197,18 +1197,19 @@
     var discIncomp       = state.discIncomp  || {};
     var discValues       = state.discValues  || {};
     var incompCount      = Object.keys(discIncomp).length;
-    var totalDiscAdv     = incompCount;
-    var totalEnhanced    = Math.floor(totalDiscAdv / 5);
+    var totalEnhanced    = Math.floor(incompCount / 5);
+    var totalRegular     = incompCount - totalEnhanced;
     var spentReg         = state.spentRegAdv     || 0;
     var enhUsed          = state.enhancedAdvUsed || 0;
-    var regularAdvAvail  = totalDiscAdv - spentReg;
+    var regularAdvAvail  = totalRegular - spentReg;
     var enhancedAdvAvail = totalEnhanced - enhUsed;
     return {
       baseArenas:      baseArenas,
       arenaValues:     arenaValues,
       arenaAdvAvail:   arenaAdvAvail,
       incompCount:     incompCount,
-      totalDiscAdv:    totalDiscAdv,
+      totalDiscAdv:    incompCount,
+      totalRegular:    totalRegular,
       totalEnhanced:   totalEnhanced,
       regularAdvAvail: regularAdvAvail,
       enhancedAdvAvail:enhancedAdvAvail,
@@ -1352,7 +1353,7 @@
     badges.className = 'cc-adv-badges';
     badges.appendChild(makeIncompBadge(d));
     if (d.totalDiscAdv > 0)       badges.appendChild(makeRegBadge(d));
-    if (d.enhancedAdvAvail > 0)   badges.appendChild(makeEnhBadge(d));
+    if (d.totalEnhanced > 0)     badges.appendChild(makeEnhBadge(d));
     head.appendChild(title);
     head.appendChild(badges);
     wrap.appendChild(head);
@@ -1390,7 +1391,7 @@
     var sp = document.createElement('span');
     sp.className   = 'cc-adv-badge cc-adv-badge--enhanced';
     sp.textContent = d.enhancedAdvAvail + ' Elite advance' + (d.enhancedAdvAvail !== 1 ? 's' : '');
-    sp.title = 'Spend to raise a D8 to D10';
+    sp.title = 'Every 5th weakness earns an Elite Advance — raise D6→D8 or D8→D10';
     return sp;
   }
 
@@ -1482,11 +1483,13 @@
       wb.disabled    = d.incompCount >= MAX_INCOMP_TOTAL;
       wb.addEventListener('click', function() { handleDiscIncomp(disc.id); });
       actions.appendChild(wb);
+      var canRegAdv = d.regularAdvAvail > 0;
+      var canEliteAdv = d.enhancedAdvAvail > 0;
       var ab = document.createElement('button');
       ab.className   = 'cc-disc-action-btn';
       ab.textContent = '▲ D8';
-      ab.title       = d.regularAdvAvail <= 0 ? 'No advances available' : 'Raise to D8 — costs 1 advance';
-      ab.disabled    = d.regularAdvAvail <= 0;
+      ab.title       = (canRegAdv || canEliteAdv) ? 'Raise to D8 — costs 1 advance' : 'No advances available';
+      ab.disabled    = !(canRegAdv || canEliteAdv);
       ab.addEventListener('click', function() { handleDiscAdvance(disc.id); });
       actions.appendChild(ab);
     } else if (cur === 'D8') {
@@ -1496,13 +1499,15 @@
       rdb.title = 'Lower to D6 — returns 1 advance';
       rdb.addEventListener('click', function() { handleDiscReduce(disc.id); });
       actions.appendChild(rdb);
-      var eb = document.createElement('button');
-      eb.className   = 'cc-disc-action-btn cc-disc-action-btn--elite';
-      eb.textContent = '▲ D10';
-      eb.title       = d.enhancedAdvAvail <= 0 ? 'No Elite Advances (every 5th incompetency earns one)' : 'Raise to D10 — costs 1 Elite Advance';
-      eb.disabled    = d.enhancedAdvAvail <= 0;
-      eb.addEventListener('click', function() { handleDiscElite(disc.id); });
-      actions.appendChild(eb);
+      if (d.totalEnhanced > 0) {
+        var eb = document.createElement('button');
+        eb.className   = 'cc-disc-action-btn cc-disc-action-btn--elite';
+        eb.textContent = '▲ D10';
+        eb.title       = d.enhancedAdvAvail <= 0 ? 'No Elite Advances available' : 'Raise to D10 — costs 1 Elite Advance';
+        eb.disabled    = d.enhancedAdvAvail <= 0;
+        eb.addEventListener('click', function() { handleDiscElite(disc.id); });
+        actions.appendChild(eb);
+      }
     } else if (cur === 'D10') {
       var r10 = document.createElement('button');
       r10.className   = 'cc-disc-action-btn';
@@ -1563,11 +1568,18 @@
 
   function handleDiscAdvance(discId) {
     var d = statsGetDerived();
-    if (d.regularAdvAvail <= 0) return;
+    if (d.regularAdvAvail <= 0 && d.enhancedAdvAvail <= 0) return;
     if (statsGetDiscValue(discId, d) !== 'D6') return;
     if (!state.discValues) state.discValues = {};
+    if (!state.discAdvSource) state.discAdvSource = {};
     state.discValues[discId]  = 'D8';
-    state.spentRegAdv = (state.spentRegAdv || 0) + 1;
+    if (d.regularAdvAvail > 0) {
+      state.spentRegAdv = (state.spentRegAdv || 0) + 1;
+      state.discAdvSource[discId] = 'regular';
+    } else {
+      state.enhancedAdvUsed = (state.enhancedAdvUsed || 0) + 1;
+      state.discAdvSource[discId] = 'elite';
+    }
     saveState();
     renderStatsContent();
   }
@@ -1586,7 +1598,13 @@
   function handleDiscReduce(discId) {
     if (statsGetDiscValue(discId, statsGetDerived()) !== 'D8') return;
     if (state.discValues) delete state.discValues[discId];
-    state.spentRegAdv = Math.max(0, (state.spentRegAdv || 0) - 1);
+    var src = (state.discAdvSource && state.discAdvSource[discId]) || 'regular';
+    if (src === 'elite') {
+      state.enhancedAdvUsed = Math.max(0, (state.enhancedAdvUsed || 0) - 1);
+    } else {
+      state.spentRegAdv = Math.max(0, (state.spentRegAdv || 0) - 1);
+    }
+    if (state.discAdvSource) delete state.discAdvSource[discId];
     saveState();
     renderStatsContent();
   }
