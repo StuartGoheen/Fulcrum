@@ -279,10 +279,18 @@
     );
   }
 
+  function _getBufferTotal() {
+    if (window.EffectManager && window.EffectManager.getBufferTotal) {
+      return window.EffectManager.getBufferTotal();
+    }
+    return 0;
+  }
+
   function _buildStatus(char) {
     var v = _calcVitality(char);
     var current = _vitalityState.current;
     var max = _vitalityState.max;
+    var buffer = _getBufferTotal();
     var vClass = _vitalityClass(current, max);
 
     var gritArena    = char.arenas.find(function (a) { return a.id === 'grit'; })    || { die: '?' };
@@ -301,14 +309,15 @@
         '</div>';
 
     var pips = '';
-    for (var i = 1; i <= 10; i++) {
+    for (var i = 1; i <= max; i++) {
       if (i <= current) {
         pips += '<button class="char-vitality-pip filled" data-pip="' + i + '" aria-label="Set vitality to ' + i + '"></button>';
-      } else if (i <= max) {
-        pips += '<button class="char-vitality-pip" data-pip="' + i + '" aria-label="Set vitality to ' + i + '"></button>';
       } else {
-        pips += '<div class="char-vitality-pip locked" aria-hidden="true"></div>';
+        pips += '<button class="char-vitality-pip" data-pip="' + i + '" aria-label="Set vitality to ' + i + '"></button>';
       }
+    }
+    for (var b = 1; b <= buffer; b++) {
+      pips += '<div class="char-vitality-pip buffer-pip" aria-label="Buffer ' + b + '"></div>';
     }
 
     return (
@@ -316,7 +325,7 @@
         '<div class="char-vitality ' + vClass + '">' +
           '<div class="char-vitality-header">' +
             '<span class="char-status-label">Vitality</span>' +
-            '<span class="char-vitality-value">' + current + ' / ' + max + '</span>' +
+            '<span class="char-vitality-value">' + current + ' / ' + max + (buffer > 0 ? ' <span class="char-vitality-buffer-label">+' + buffer + ' buffer</span>' : '') + '</span>' +
           '</div>' +
           '<div class="char-vitality-formula">' +
             _esc(gritArena.die) + ' Grit + ' + _esc(physiqueArena.die) + ' Physique' +
@@ -678,6 +687,12 @@
   };
 
   window.CharacterPanel.applyVitalityDelta = function (delta) {
+    if (delta < 0 && window.EffectManager && window.EffectManager.depleteBuffer) {
+      var dmg = Math.abs(delta);
+      var absorbed = window.EffectManager.depleteBuffer(dmg);
+      delta = -(dmg - absorbed);
+      if (delta === 0) { _refreshStatus(); return; }
+    }
     var next = (_vitalityState.current || 0) + delta;
     if (next < 0) next = 0;
     if (next > _vitalityState.max) next = _vitalityState.max;

@@ -1113,12 +1113,50 @@
 
   // ─── Public API ───────────────────────────────────────────────────────────────
 
+  function _getBufferTotal() {
+    var total = 0;
+    for (var i = 0; i < _activeEffects.length; i++) {
+      var e = _activeEffects[i];
+      var def = _defById(e.effectId);
+      if (def && def.modifier.type === 'buffer') {
+        total += (e.hazardValue || 0);
+      }
+    }
+    return total;
+  }
+
+  function _depleteBuffer(amount) {
+    var remaining = amount;
+    for (var i = _activeEffects.length - 1; i >= 0 && remaining > 0; i--) {
+      var e = _activeEffects[i];
+      var def = _defById(e.effectId);
+      if (!def || def.modifier.type !== 'buffer') continue;
+      var bufVal = e.hazardValue || 0;
+      if (bufVal <= remaining) {
+        remaining -= bufVal;
+        var label = def.label + ' (' + bufVal + ') depleted';
+        _activeEffects.splice(i, 1);
+        _logEntry('removed', e.effectId, e.target, label);
+      } else {
+        e.hazardValue -= remaining;
+        _logEntry('applied', e.effectId, e.target, def.label + ' reduced to ' + e.hazardValue);
+        remaining = 0;
+      }
+    }
+    _saveEffects();
+    _dispatchEffectsChanged();
+    _render();
+    return amount - remaining;
+  }
+
   window.EffectManager = {
     get activeEffects() { return _activeEffects.slice(); },
     getCombatLog:         function () { return _combatLog.slice(); },
     clearCombatLog:       function () { _combatLog = []; _saveLog(); },
     getArenaEffectOffset: _getArenaEffectOffset,
     getDiscEffectOffset:  _getDiscEffectOffset,
+    getBufferTotal:       _getBufferTotal,
+    depleteBuffer:        _depleteBuffer,
     applyEffect:          _applyEffect,
     removeEffect:         _removeEffect,
     EFFECT_DEFS:          EFFECT_DEFS,

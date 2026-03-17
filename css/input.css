@@ -652,6 +652,29 @@
     filter: brightness(1.2);
   }
 
+  .char-vitality-pip.buffer-pip {
+    background-color: var(--color-accent-primary);
+    opacity: 0.55;
+    cursor: default;
+    pointer-events: none;
+    position: relative;
+  }
+
+  .char-vitality-pip.buffer-pip::after {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+    background: var(--color-bg-panel);
+    opacity: 0.4;
+  }
+
+  .char-vitality-buffer-label {
+    color: var(--color-accent-primary);
+    opacity: 0.7;
+    font-size: 0.85em;
+  }
+
   /* ── Vitality State Variants ─────────────────────────────────────────────── */
   .vitality-high {
     --ekg-duration: 2.8s;
