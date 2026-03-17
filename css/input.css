@@ -272,7 +272,7 @@
   }
 
   .char-meta {
-    font-size: 0.5rem;
+    font-size: 0.58rem;
     color: var(--color-text-secondary);
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -344,9 +344,7 @@
     flex-shrink: 0;
   }
 
-  .char-arena-label {
-    font-family: 'Audiowide', sans-serif;
-    font-size: 0.56rem;
+  ont-size: 0.62rem;
     letter-spacing: 0.04em;
     text-align: center;
     color: var(--color-accent-primary);
@@ -544,9 +542,7 @@
     padding: 0.5rem 0.5rem 0;
   }
 
-  .char-status-label {
-    font-family: 'Audiowide', sans-serif;
-    font-size: 0.50rem;
+  ont-size: 0.58rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--color-accent-primary);
@@ -569,15 +565,12 @@
     font-size: 1.14rem;
   }
 
-  .char-vitality-value {
-    font-family: 'Audiowide', sans-serif;
-    font-size: 0.45rem;
+  ont-size: 0.52rem;
     color: var(--color-accent-deep);
     letter-spacing: 0.04em;
   }
 
-  .char-vitality-formula {
-    font-size: 0.50rem;
+  ont-size: 0.58rem;
     color: var(--color-text-secondary);
     letter-spacing: 0.04em;
     margin-top: 0;
@@ -734,9 +727,7 @@
     color: var(--color-accent-deep);
   }
 
-  .char-engine-value {
-    font-family: 'Audiowide', sans-serif;
-    font-size: 0.45rem;
+  ont-size: 0.52rem;
     color: var(--color-accent-deep);
     letter-spacing: 0.04em;
   }
@@ -1273,9 +1264,7 @@
   }
 
   /* ── Equipment State Pills ───────────────────────────────────────────────── */
-  .armory-state-pill {
-    font-family: 'Audiowide', sans-serif;
-    font-size: 0.33rem;
+  ont-size: 0.40rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     padding: 1px 5px;
@@ -1305,9 +1294,7 @@
     border-color: #5fbb7d;
   }
 
-  .armory-legality-badge {
-    font-family: 'Audiowide', sans-serif;
-    font-size: 0.3rem;
+  ont-size: 0.38rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     padding: 1px 5px;
@@ -1377,9 +1364,7 @@
     color: var(--color-accent-deep);
   }
 
-  .engine-gambit-tag {
-    font-family: 'Audiowide', sans-serif;
-    font-size: 0.3rem;
+  ont-size: 0.38rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--color-accent-deep);
@@ -1398,9 +1383,7 @@
     color: var(--color-accent-amber, #f59e0b);
   }
 
-  .armory-gambit-die-badge {
-    font-family: 'Audiowide', sans-serif;
-    font-size: 0.3rem;
+  ont-size: 0.38rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--color-accent-amber, #f59e0b);
@@ -1411,9 +1394,7 @@
   }
 
 
-  .manv-arena-tag {
-    font-family: 'Audiowide', sans-serif;
-    font-size: 0.3rem;
+  ont-size: 0.38rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--color-text-secondary);
@@ -1424,9 +1405,7 @@
     margin-left: 4px;
   }
 
-  .engine-gambit-cost {
-    font-family: 'Audiowide', sans-serif;
-    font-size: 0.35rem;
+  ont-size: 0.42rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--color-accent-deep);
@@ -1460,8 +1439,7 @@
     color: var(--color-accent-primary);
   }
 
-  .kit-gambit-buyoff {
-    font-size: 0.52rem;
+  ont-size: 0.58rem;
     color: var(--color-accent-deep);
     font-style: italic;
     margin-top: 4px;
@@ -1501,8 +1479,7 @@
     opacity: 0.7;
   }
 
-  .kit-gambit-details {
-    font-size: 0.52rem;
+  ont-size: 0.58rem;
     color: var(--color-accent-deep);
     margin-top: 4px;
     padding-top: 4px;
@@ -1515,9 +1492,7 @@
     margin-top: 2px;
   }
 
-  .char-kit-locked-summary {
-    font-family: "Audiowide", sans-serif;
-    font-size: 0.40rem;
+  ont-size: 0.48rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--color-text-muted);
@@ -2272,11 +2247,7 @@
     margin-bottom: 0.4rem;
   }
 
-  .char-turn-btn {
-    flex: 1;
-    padding: 3px 2px;
-    font-family: 'Audiowide', sans-serif;
-    font-size: 0.3rem;
+  ont-size: 0.38rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     background: var(--color-bg-panel);
@@ -2307,8 +2278,7 @@
     margin: 0.25rem 0 0.3rem;
   }
 
-  .char-effects-empty {
-    font-size: 0.50rem;
+  ont-size: 0.58rem;
     color: var(--color-text-secondary);
     letter-spacing: 0.05em;
     opacity: 0.6;
@@ -2352,9 +2322,7 @@
     min-width: 0;
   }
 
-  .char-effect-pill-name {
-    font-family: 'Audiowide', sans-serif;
-    font-size: 0.56rem;
+  ont-size: 0.62rem;
     letter-spacing: 0.05em;
     text-transform: uppercase;
     color: var(--color-accent-primary);
@@ -2366,8 +2334,7 @@
     color: #d4952a;
   }
 
-  .char-effect-pill-target {
-    font-size: 0.52rem;
+  ont-size: 0.58rem;
     color: var(--color-text-primary);
     flex: 1;
     min-width: 0;
@@ -2376,9 +2343,7 @@
     white-space: nowrap;
   }
 
-  .char-effect-pill-duration {
-    font-family: 'Audiowide', sans-serif;
-    font-size: 0.3rem;
+  ont-size: 0.38rem;
     letter-spacing: 0.04em;
     text-transform: uppercase;
     color: var(--color-text-secondary);
@@ -2417,13 +2382,7 @@
   }
 
   /* ── Pill Expand Description ─────────────────────────────────────────────── */
-  .char-effect-pill-desc {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.25s ease, padding 0.25s ease;
-    border-top: 0px solid var(--color-border);
-    padding: 0 8px;
-    font-size: 0.52rem;
+  ont-size: 0.58rem;
     color: var(--color-text-secondary);
     line-height: 1.6;
   }
