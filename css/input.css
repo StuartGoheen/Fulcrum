@@ -6342,16 +6342,34 @@
       position: fixed;
       top: 0;
       bottom: 0;
-      width: 6px;
+      width: 8px;
+      margin-left: -4px;
       cursor: col-resize;
-      z-index: 25;
+      z-index: 30;
       background: transparent;
       transition: background 0.15s;
+    }
+    .resize-handle::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 2px;
+      height: 40px;
+      border-radius: 1px;
+      background: var(--color-text-secondary);
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+    .resize-handle:hover::after,
+    .resize-handle.is-dragging::after {
+      opacity: 0.6;
     }
     .resize-handle:hover,
     .resize-handle.is-dragging {
       background: var(--color-accent-primary);
-      opacity: 0.4;
+      opacity: 0.35;
     }
     body.is-col-resizing {
       cursor: col-resize !important;
@@ -6360,5 +6378,9 @@
     body.is-col-resizing * {
       cursor: col-resize !important;
       user-select: none !important;
+      pointer-events: none !important;
+    }
+    body.is-col-resizing .resize-handle {
+      pointer-events: auto !important;
     }
   

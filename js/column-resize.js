@@ -53,8 +53,8 @@
       footer.style.right = rightPx + 'px';
     }
 
-    handleL.style.left = (leftPx - 3) + 'px';
-    handleR.style.left = (w - rightPx - 3) + 'px';
+    handleL.style.left = leftPx + 'px';
+    handleR.style.left = (w - rightPx) + 'px';
   }
 
   function startDrag(side, e) {
