@@ -155,8 +155,8 @@
     "number": 2,
     "name": "Tier Shifting",
     "tag": "Post-Roll",
-    "summary": "Moves the final result up or down the 5-tier Effect Track after the dice are read. Bypasses probability entirely — a guaranteed outcome change.",
-    "mechanic": "Apply +1 Tier or −1 Tier to the rolled result. The Effect Track tiers are: Fleeting (0–3), Masterful (4–7), and Legendary (8+). Shifting can push a result into a higher or lower named tier, changing the entire resolution outcome.",
+    "summary": "Moves the final result up or down the Effect Track after the dice are read. Bypasses probability entirely — a guaranteed outcome change.",
+    "mechanic": "Apply +1 Tier or −1 Tier to the rolled result. The Effect Track tiers are: Fleeting (0–3), Masterful (4–7), Legendary (8–11), Unleashed I (12–15), Unleashed II (16–19), Unleashed III (20+). Shifting can push a result into a higher or lower named tier, changing the entire resolution outcome. Stacking enough +1 Tier effects is one path to reaching Unleashed tiers.",
     "applications": [
       {
         "direction": "Offensive (+1 Tier)",
@@ -755,6 +755,13 @@
         { "presence": "4-5", "challenge": "Beyond raw skill", "fiftyFiftyFor": "D12 + gear, buffs, allies" }
       ]
     },
+    "narrativeResolutionExamples": [
+      "Social: Charm (Presence) vs Presence 2 to talk a suspicious dock officer into looking the other way. Masterful = he waves you through. Legendary = he offers to escort you past the next checkpoint too.",
+      "Exploration: Athletics (Physique) vs Presence 1 to scale a canyon wall in a sandstorm. Fleeting = you make it up, battered and slow. Masterful = clean ascent, you spot a cave entrance halfway up.",
+      "Investigation: Investigation (Wits) vs Presence 3 to piece together a cold crime scene. Fleeting = one useful clue. Masterful = the full sequence of events. Legendary = you also identify the suspect.",
+      "Crafting/Repair: Tech (Wits) vs Presence 2 to jury-rig a broken hyperdrive motivator. Fleeting = one jump, then it dies again. Masterful = stable repair, good for several jumps.",
+      "Travel Hazard: Survival (Grit) vs Presence 2 to navigate a toxic swamp. Fleeting = you find the path but take 1 Vitality from exposure. Masterful = clean passage, you also identify medicinal plants along the route."
+    ],
     "designNotes": [
       "The three modes share the same resolution engine. A Charm roll in Narrative mode uses the same math as a Charm roll in Challenge mode — the only difference is whether the GM imposes round structure.",
       "Challenge mode exists for scenes that need structure but not violence. A heist has rounds because timing matters. A bar conversation does not. The GM chooses the mode based on whether sequence and pacing are mechanically relevant.",
