@@ -470,7 +470,6 @@
     var hasUp = false, hasDown = false;
     for (var i = 0; i < _activeEffects.length; i++) {
       var e = _activeEffects[i];
-      if (e.duration === 'immediate') continue;
       var componentIds = _getComponentEffectIds(e.effectId);
       for (var ci = 0; ci < componentIds.length; ci++) {
         var cDef = _defById(componentIds[ci]);
@@ -487,7 +486,6 @@
     var hasUp = false, hasDown = false;
     for (var i = 0; i < _activeEffects.length; i++) {
       var e = _activeEffects[i];
-      if (e.duration === 'immediate') continue;
       var componentIds = _getComponentEffectIds(e.effectId);
       for (var ci = 0; ci < componentIds.length; ci++) {
         var cDef = _defById(componentIds[ci]);
