@@ -263,10 +263,11 @@
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ status: status, itemType: itemType })
+    }).then(function() {
+      document.dispatchEvent(new CustomEvent('equipment:changed', {
+        detail: { charId: _currentCharId, itemId: itemId, itemType: itemType, status: status }
+      }));
     }).catch(function(err) { console.error('[LoadoutPanel] persist error', err); });
-    document.dispatchEvent(new CustomEvent('equipment:changed', {
-      detail: { charId: _currentCharId, itemId: itemId, itemType: itemType, status: status }
-    }));
   }
 
   function _statusBadge(status, itemId, itemType) {

@@ -42,12 +42,13 @@
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ status: status, itemType: itemType })
+    }).then(function () {
+      document.dispatchEvent(new CustomEvent('equipment:changed', {
+        detail: { charId: charId, itemId: itemId, itemType: itemType, status: status }
+      }));
     }).catch(function (err) {
       console.error('[ArmoryPanel] equipment persist error', err);
     });
-    document.dispatchEvent(new CustomEvent('equipment:changed', {
-      detail: { charId: charId, itemId: itemId, itemType: itemType, status: status }
-    }));
   }
 
   var ARMOR_CATEGORY_RULES = {
