@@ -216,11 +216,23 @@ router.post('/session/join', (req, res) => {
 });
 
 router.post('/characters/save', (req, res) => {
-  const { name, character_data } = req.body;
+  const { name, character_data, editId } = req.body;
   if (!name || !character_data) {
     return res.status(400).json({ error: 'name and character_data are required.' });
   }
   const dataStr = typeof character_data === 'string' ? character_data : JSON.stringify(character_data);
+
+  if (editId) {
+    const editRow = db.prepare('SELECT id FROM characters WHERE id = ?').get(editId);
+    if (editRow) {
+      const inSession = db.prepare('SELECT id FROM sessions WHERE character_id = ?').get(editId);
+      if (inSession) {
+        return res.status(409).json({ error: 'Character is currently in session. Disconnect first.' });
+      }
+      db.prepare('UPDATE characters SET name = ?, character_data = ? WHERE id = ?').run(name, dataStr, editId);
+      return res.json({ ok: true, id: editId, action: 'updated' });
+    }
+  }
 
   // Check for name collision with a different slot
   const existing = db.prepare('SELECT id, name FROM characters WHERE name = ?').get(name);
@@ -254,6 +266,9 @@ router.get('/characters/:id', (req, res) => {
   try {
     const data = JSON.parse(character.character_data);
     data.name = data.name || character.name;
+    if (req.query.raw === '1') {
+      return res.json({ name: character.name, character_data: data });
+    }
     return res.json(expandCharacterData(data));
   } catch (_) {
     return res.status(500).json({ error: 'Corrupt character data.' });

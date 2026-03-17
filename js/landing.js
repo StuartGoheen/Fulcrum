@@ -100,6 +100,18 @@
       }
 
       list.appendChild(btn);
+
+      if (!char.is_connected) {
+      var editBtn = document.createElement('button');
+      editBtn.className = 'text-xs tracking-widest uppercase px-3 py-1 mt-1 mb-2 ml-4 transition-all duration-150';
+      editBtn.style.cssText = 'background:transparent;border:1px solid var(--color-border);color:var(--color-accent-primary);cursor:pointer;';
+      editBtn.textContent = 'Reconfigure';
+      editBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        window.location.href = '/create/?edit=' + encodeURIComponent(char.id);
+      });
+      list.appendChild(editBtn);
+      }
     });
   }
 

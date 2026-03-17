@@ -684,6 +684,7 @@
     charTitle:       '',
     charGender:      'Male',
     backstory:       '',
+    editId:          null,
   };
 
   var carouselState = {
@@ -2828,6 +2829,7 @@
         creditsRemaining: outfittingCreditsRemaining(),
         arenaAdj:   state.arenaAdj,
         discValues: state.discValues,
+        creationState: JSON.parse(JSON.stringify(state)),
       };
 
       var statusEl  = document.getElementById('sum-save-status');
@@ -2838,7 +2840,7 @@
       fetch('/api/characters/save', {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify({ name: saveName, character_data: charData }),
+        body:    JSON.stringify({ name: saveName, character_data: charData, editId: state.editId || null }),
       })
       .then(function (r) { return r.json(); })
       .then(function (data) {
@@ -3043,9 +3045,52 @@
 
   /* ── Init ───────────────────────────────────────────────────────────────── */
 
+  function loadEditCharacter(callback) {
+    var params = new URLSearchParams(window.location.search);
+    var editId = params.get('edit');
+    if (!editId) { callback(); return; }
+
+    fetch('/api/characters/' + encodeURIComponent(editId) + '?raw=1')
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (data.error) { console.warn('Edit load failed:', data.error); callback(); return; }
+        var cd = data.character_data || {};
+        if (cd.creationState) {
+          Object.assign(state, cd.creationState);
+        } else {
+          var sp = SPECIES.find(function (s) { return s.name === cd.species; });
+          if (sp) state.species = sp.id;
+          var p1 = PHASE1_CARDS.find(function (c) { return c.title === cd.phase1; });
+          if (p1) state.phase1 = p1.id;
+          var p2 = PHASE2_CARDS.find(function (c) { return c.title === cd.phase2; });
+          if (p2) state.phase2 = p2.id;
+          var p3 = PHASE3_CARDS.find(function (c) { return c.title === cd.phase3; });
+          if (p3) state.phase3 = p3.id;
+          if (cd.destiny) state.destiny = cd.destiny;
+          if (cd.gender)  state.charGender = cd.gender;
+          if (cd.title)   state.charTitle = cd.title;
+          if (cd.backstory) state.backstory = cd.backstory;
+          if (cd.kits) state.kitChoices = cd.kits;
+          if (cd.startingGear) state.startingGear = cd.startingGear;
+          if (cd.arenaAdj) state.arenaAdj = cd.arenaAdj;
+          if (cd.discValues) state.discValues = cd.discValues;
+        }
+        state.charName = data.name || '';
+        state.editId = editId;
+        callback();
+      })
+      .catch(function () { callback(); });
+  }
+
   function init() {
     loadTheme();
-    loadSavedState();
+    var params = new URLSearchParams(window.location.search);
+    var isEdit = params.has('edit');
+    if (!isEdit) loadSavedState();
+    loadEditCharacter(function () { initCreator(); });
+  }
+
+  function initCreator() {
 
     var themeToggle = document.getElementById('theme-toggle');
     if (themeToggle) {
@@ -3161,7 +3206,31 @@
         characterSheet.arenas      = Object.assign({}, ARENA_BASELINE, sp.arenas);
         characterSheet.disciplines = buildDisciplinesList(sp);
         characterSheet.abilities   = [sp.biologicalTruth.name];
+
+        if (state.arenaAdj) {
+          var baseArenas = characterSheet.arenas;
+          ['physique','reflex','grit','wits','presence'].forEach(function(k) {
+            var baseIdx = DIE_STEPS.indexOf(baseArenas[k] || 'D6');
+            var adj = state.arenaAdj[k] || 0;
+            var idx = Math.max(0, Math.min(DIE_STEPS.length - 1, baseIdx + adj));
+            characterSheet.arenas[k] = DIE_STEPS[idx];
+          });
+        }
+
+        if (state.discValues) {
+          characterSheet.disciplines.forEach(function(d) {
+            if (state.discValues[d.id]) d.die = state.discValues[d.id];
+          });
+        }
+
         renderStatsOverlay(false, null);
+
+        var idx = SPECIES.indexOf(sp);
+        if (idx >= 0) {
+          carouselState.current = idx;
+          var track = document.getElementById('cc-track');
+          if (track) track.style.transform = 'translateX(' + (-idx * 100) + '%)';
+        }
       }
     }
   }
