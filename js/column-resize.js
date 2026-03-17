@@ -30,6 +30,10 @@
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ leftPx: leftPx, rightPx: rightPx })); } catch (_) {}
   }
 
+  function isRightHidden() {
+    return window.getComputedStyle(frameRight).display === 'none';
+  }
+
   function applyLayout() {
     var w = window.innerWidth;
     var maxSide = Math.floor(w * 0.4);
@@ -38,23 +42,35 @@
     if (rightPx < MIN_PX) rightPx = MIN_PX;
     if (rightPx > maxSide) rightPx = maxSide;
 
-    frameLeft.style.width  = leftPx + 'px';
-    frameRight.style.width = rightPx + 'px';
+    var rHidden = isRightHidden();
+    var effectiveRight = rHidden ? 0 : rightPx;
 
-    center.style.marginLeft  = leftPx + 'px';
-    center.style.marginRight = rightPx + 'px';
+    frameLeft.style.setProperty('width', leftPx + 'px', 'important');
+
+    if (!rHidden) {
+      frameRight.style.setProperty('width', rightPx + 'px', 'important');
+    }
+
+    center.style.setProperty('margin-left', leftPx + 'px', 'important');
+    center.style.setProperty('margin-right', effectiveRight + 'px', 'important');
 
     if (navbar) {
-      navbar.style.left  = leftPx + 'px';
-      navbar.style.right = rightPx + 'px';
+      navbar.style.setProperty('left', leftPx + 'px', 'important');
+      navbar.style.setProperty('right', effectiveRight + 'px', 'important');
     }
     if (footer) {
-      footer.style.left  = leftPx + 'px';
-      footer.style.right = rightPx + 'px';
+      footer.style.setProperty('left', leftPx + 'px', 'important');
+      footer.style.setProperty('right', effectiveRight + 'px', 'important');
     }
 
     handleL.style.left = leftPx + 'px';
-    handleR.style.left = (w - rightPx) + 'px';
+
+    if (rHidden) {
+      handleR.style.display = 'none';
+    } else {
+      handleR.style.display = '';
+      handleR.style.left = (w - rightPx) + 'px';
+    }
   }
 
   function startDrag(side, e) {
