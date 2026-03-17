@@ -112,8 +112,10 @@ function expandCharacterData(flat) {
   const gearIds = Array.isArray(flat.gearIds) ? flat.gearIds.slice() : [];
   let armorId = flat.armorId || null;
   const startingGear = Array.isArray(flat.startingGear) ? flat.startingGear : [];
+  const acquisitionMap = flat.acquisitionMap || {};
   startingGear.forEach(item => {
     if (!item || !item.id) return;
+    if (item.acquisition) acquisitionMap[item.id] = item.acquisition;
     if (item.source === 'weapon') { if (weaponIds.indexOf(item.id) === -1) weaponIds.push(item.id); }
     else if (item.source === 'armor') { if (!armorId) armorId = item.id; }
     else if (item.source === 'gear') { if (gearIds.indexOf(item.id) === -1) gearIds.push(item.id); }
@@ -133,6 +135,7 @@ function expandCharacterData(flat) {
     weaponIds,
     armorId,
     gearIds,
+    acquisitionMap,
     engine: kits.length > 0 ? Object.assign({}, ENGINE_DATA, { governingArenas: engineArenas }) : null,
     kits,
     talents: [],

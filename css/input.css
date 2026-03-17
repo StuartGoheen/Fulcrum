@@ -1239,6 +1239,27 @@
     border-color: #5fbb7d;
   }
 
+  .armory-legality-badge {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.3rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 1px 5px;
+    border: 1px solid;
+    flex-shrink: 0;
+    user-select: none;
+  }
+
+  .armory-legality-legal {
+    color: #5fbb7d;
+    border-color: color-mix(in srgb, #5fbb7d 50%, transparent);
+  }
+
+  .armory-legality-illegal {
+    color: #CC3333;
+    border-color: color-mix(in srgb, #CC3333 50%, transparent);
+  }
+
   .loadout-status-badge {
     cursor: default;
   }
@@ -5539,6 +5560,27 @@
     font-size: 0.48rem;
     color: var(--color-accent-primary);
     flex-shrink: 0;
+  }
+
+  .outfitting-acq-badge {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.3rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 1px 4px;
+    border: 1px solid;
+    vertical-align: middle;
+    margin-left: 2px;
+  }
+
+  .outfitting-acq-badge.registered {
+    color: #5fbb7d;
+    border-color: color-mix(in srgb, #5fbb7d 50%, transparent);
+  }
+
+  .outfitting-acq-badge.contraband {
+    color: #CC3333;
+    border-color: color-mix(in srgb, #CC3333 50%, transparent);
   }
 
   .outfitting-remove-btn {

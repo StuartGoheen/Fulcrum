@@ -2214,7 +2214,8 @@
     function addToLoadout(item) {
       if (outfittingCreditsRemaining() < item.cost) return;
       if (!state.startingGear) state.startingGear = [];
-      state.startingGear.push({ id: item.id, name: item.name, cost: item.cost, source: item.source });
+      var acq = activeMarket === 'black-market' ? 'contraband' : 'registered';
+      state.startingGear.push({ id: item.id, name: item.name, cost: item.cost, source: item.source, acquisition: acq });
       saveState();
       renderCart();
       renderCatalogItems();
@@ -2256,6 +2257,14 @@
           var nameEl = document.createElement('span');
           nameEl.className = 'outfitting-cart-item-name';
           nameEl.textContent = item.name;
+
+          if (item.acquisition) {
+            var acqBadge = document.createElement('span');
+            acqBadge.className = 'outfitting-acq-badge' + (item.acquisition === 'contraband' ? ' contraband' : ' registered');
+            acqBadge.textContent = item.acquisition === 'contraband' ? 'Contraband' : 'Registered';
+            nameEl.appendChild(document.createTextNode(' '));
+            nameEl.appendChild(acqBadge);
+          }
 
           var priceEl = document.createElement('span');
           priceEl.className = 'outfitting-cart-item-price';
