@@ -1715,6 +1715,42 @@
           "description": "Target complies with your request. Their attitude toward you shifts one step favorable for the rest of the scene."
         }
       ]
+    },
+    {
+      "id": "voc_maneuver_keen_insight",
+      "name": "Keen Insight",
+      "sourceVocation": "voc_investigator",
+      "requiredTier": 3,
+      "actionType": "Maneuver",
+      "pip": "M",
+      "rolled": true,
+      "discipline": "investigation",
+      "arena": "wits",
+      "tags": [
+        "[Narrative]"
+      ],
+      "description": "Dedicate your full attention to a single person, object, or location that the GM confirms is narratively significant — a crime scene, a key NPC, a suspicious artifact, a location tied to an active lead. If the target holds no relevant information, the GM may simply say \"Nothing to see here\" and the maneuver is not spent. This goes deeper than Assess — you're not asking questions, you're reconstructing what happened.",
+      "risk": "Tunnel vision. You are fully absorbed — you cannot act on or respond to anything else happening in the scene until your next beat. If the situation shifts around you, you miss it entirely.",
+      "effect": [
+        {
+          "tier": 1,
+          "label": "Fleeting",
+          "range": "0-3",
+          "description": "Learn the most recent significant event involving the subject — who was here, what they did, approximately when."
+        },
+        {
+          "tier": 2,
+          "label": "Masterful",
+          "range": "4-7",
+          "description": "Learn the above, plus the GM reveals a hidden detail — something concealed, altered, or deliberately obscured. A false trail, a removed object, a covered wound."
+        },
+        {
+          "tier": 3,
+          "label": "Legendary",
+          "range": "8+",
+          "description": "Full reconstruction. The GM narrates a brief flashback of what happened at this location or to this subject. You see it play out. The crew may act on this as reliable intelligence."
+        }
+      ]
     }
   ]
 }
