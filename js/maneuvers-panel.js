@@ -488,7 +488,7 @@
       for (var ai = 0; ai < abilities.length; ai++) {
         var ab = abilities[ai];
         if (ab.tier > unlockedTier) continue;
-        if (ab.type !== 'maneuver') continue;
+        if (ab.type !== 'maneuver' && ab.type !== 'action') continue;
         result.push({ ability: ab, kitName: kit.name });
       }
     }
@@ -517,9 +517,11 @@
 
     var defenseHtml = ab.defense ? ' vs ' + _esc(ab.defense.charAt(0).toUpperCase() + ab.defense.slice(1)) : '';
 
+    var actionTypeLabel = ab.type === 'action' ? 'Action' : 'Maneuver';
+
     var metaHtml =
       '<div class="armory-weapon-meta manv-meta">' +
-        '<span class="armory-weapon-chassis">Maneuver' + tagHtml + '</span>' +
+        '<span class="armory-weapon-chassis">' + actionTypeLabel + tagHtml + '</span>' +
         '<span class="manv-rolled-badge manv-source-tag">' + _esc(kitName) + '</span>' +
         (ab.rolled ? '<span class="manv-rolled-badge">Rolled</span>' : '<span class="manv-rolled-badge manv-diceless">Diceless</span>') +
       '</div>';
@@ -541,7 +543,7 @@
       '<div class="manv-card manv-vocation-card" data-action-id="' + _esc(ab.id) + '">' +
         '<div class="manv-header">' +
           '<div class="manv-header-left">' +
-            _pipBadge('Maneuver') +
+            _pipBadge(actionTypeLabel) +
             '<span class="manv-name">' + _esc(ab.name) + defenseHtml + '</span>' +
           '</div>' +
           discDieHtml +
@@ -643,7 +645,7 @@
       html += '<div class="manv-action-group">';
       html += '<div class="armory-category-label manv-category-label">' +
         '<span class="manv-pip-badge manv-pip-badge-header" style="background:var(--color-accent-amber, #f59e0b);">V</span> ' +
-        'Vocation Maneuvers</div>';
+        'Vocation Techniques</div>';
       for (var vm = 0; vm < vocManeuvers.length; vm++) {
         html += _buildVocationManeuverCard(vocManeuvers[vm].ability, vocManeuvers[vm].kitName, char);
       }
