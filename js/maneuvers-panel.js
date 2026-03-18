@@ -515,8 +515,6 @@
       tagHtml = ' <span class="manv-arena-tag">' + ab.tags.map(_esc).join(' ') + '</span>';
     }
 
-    var defenseHtml = ab.defense ? ' vs ' + _esc(ab.defense.charAt(0).toUpperCase() + ab.defense.slice(1)) : '';
-
     var actionTypeLabel = ab.type === 'action' ? 'Action' : 'Maneuver';
 
     var metaHtml =
@@ -544,7 +542,7 @@
         '<div class="manv-header">' +
           '<div class="manv-header-left">' +
             _pipBadge(actionTypeLabel) +
-            '<span class="manv-name">' + _esc(ab.name) + defenseHtml + '</span>' +
+            '<span class="manv-name">' + _esc(ab.name) + '</span>' +
           '</div>' +
           discDieHtml +
         '</div>' +
