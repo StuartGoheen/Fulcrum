@@ -208,5 +208,110 @@
         "rule": "Once per Act, if all allies and yourself have concealment and none are restrained or held in place, you may declare an Opening for all allies and yourself explicitly to escape the scene. There must be a plausible means of egress, even if unconventional — a grate, a shaft, a window, a crowd. The GM narrates the escape."
       }
     ]
+  },
+  {
+    "id": "voc_ichor_witch",
+    "name": "The Ichor Witch",
+    "governingArena": "presence",
+    "favoredDiscipline": "alter",
+    "description": "Ichor flows outward — into wounds, into objects, into the dead. The Ichor Witch channels the magick of Dathomir through physical talismans, sympathetic bonds, and sheer force of will.",
+    "fluff": "The Nightsisters of Dathomir learned long ago that the Force is not invisible. It has color. It has weight. It has teeth. They were right.",
+    "abilities": [
+      {
+        "id": "voc_ichor_witch_t1",
+        "tier": 1,
+        "type": "passive",
+        "name": "Thread of Ichor",
+        "tags": ["[Force]"],
+        "rule": "Your Force expression manifests as visible green ichor energy — unmistakably magick, never subtle. Targets who witness your ichor magick for the first time in a scene gain [Rattled]. You may use Alter (Presence) in place of Medicine (Wits) when performing Treat Injury — you channel ichor into wounds rather than applying conventional medicine."
+      },
+      {
+        "id": "voc_ichor_witch_t2",
+        "tier": 2,
+        "type": "passive",
+        "name": "Ichor Talisman",
+        "tags": ["[Force]"],
+        "rule": "**Creation**: Spend 1 Edge Point during a Narrative scene to imbue a portable object with ichor, creating a Force talisman. One active talisman at a time (until T3). The talisman must be willingly accepted by the bearer — it cannot be planted or hidden on an unwitting target. If not actively carried by the bearer, the talisman is inert. The talisman contains a portion of your Force signature — any Force-sensitive who examines it may identify its creator. In the wrong hands, it can be used to target you.\n\n**Attunement**: When creating the talisman, choose a discipline. The object should reflect the discipline's nature (a weapon for Melee or Ranged, a medpac for Medicine, a lockpick set for Skulduggery, a focus crystal for a Spark discipline, etc. — GM adjudicates). That discipline becomes a favored discipline for the bearer while carried.\n\n**Sense Through the Bond**: While the bearer carries your talisman, you may spend an Action to Assess using Sense (The Spark) through the bearer's senses — no line of sight required. This establishes a sympathetic connection for the remainder of the scene.\n\n**While the connection is active**:\n- **Ichor Surge** — Spend 1 of your own Edge Points (no action cost) to trigger an Edge spend for the talisman bearer. This functions as if the bearer spent their own Edge — Tier Boost on their favored disciplines, Unleashed effects, vocation abilities.\n- **Pervert the Bond** — Channel the dark side through the connection to use Arise (T4) or True Possession (T5) on or through the bearer — no line of sight required. This immediately flips one Hope to Toll. The talisman blackens and goes inert.\n\n**No connection, no channel.** If you haven't established the Sense link this scene, the talisman is just a charm (the favored discipline still applies passively). Ichor Surge and Pervert the Bond require the active connection."
+      },
+      {
+        "id": "voc_ichor_witch_t3",
+        "tier": 3,
+        "type": "passive",
+        "name": "Ichor Infusion",
+        "tags": ["[Force]"],
+        "rule": "**Two Talismans**: You may now have 2 active Ichor Talismans simultaneously. Each may be attuned to a different discipline.\n\n**Weapon Infusion**: When the talisman is imbued into a weapon, it retains all T2 talisman properties (attunement, favored discipline, Sense connection, Ichor Surge, Pervert the Bond). Additionally, the weapon gains an ichor-infused quality — attacks with the weapon unlock the Blight gambit.",
+        "gambits": [
+          {
+            "name": "Blight",
+            "rule": "When the bearer hits with an ichor-infused weapon and deals damage, spend 1 tier. The target gains [Rattled]. If the target is already [Rattled], they gain [Exposed] instead."
+          }
+        ]
+      },
+      {
+        "id": "voc_ichor_witch_t4",
+        "tier": 4,
+        "type": "maneuver",
+        "name": "Arise",
+        "tags": ["[Force]"],
+        "discipline": "alter",
+        "arena": "presence",
+        "rolled": true,
+        "rule": "Alter (Presence). Power = Roll. You channel ichor into fallen creatures or corpses in your zone, animating them as thralls. Corpses must be physically present in the fiction.\n\nDirecting Thralls: Use the Coordinate maneuver, substituting Control (Grit) for Tactics (Wits). If you are [Incapacitated], all thralls collapse.",
+        "risk": "On failure, the ichor dissipates — the dead do not answer. Wasted Action.",
+        "effect": [
+          {
+            "tier": 1,
+            "label": "Fleeting",
+            "range": "0-3",
+            "description": "Animate 1 corpse as a simple thrall. Acts on your initiative. Collapses at end of round."
+          },
+          {
+            "tier": 2,
+            "label": "Masterful",
+            "range": "4-7",
+            "description": "Animate up to 2 corpses as thralls. Act on your initiative, last until end of scene."
+          },
+          {
+            "tier": 3,
+            "label": "Legendary",
+            "range": "8+",
+            "description": "Animate up to 3 corpses as thralls. Act on your initiative, last until end of scene. GM may grant them one echo ability from their living stat block."
+          }
+        ]
+      },
+      {
+        "id": "voc_ichor_witch_t5",
+        "tier": 5,
+        "type": "maneuver",
+        "name": "True Possession",
+        "tags": ["[Force]"],
+        "discipline": "alter",
+        "arena": "presence",
+        "defense": "resolve",
+        "rolled": true,
+        "rule": "Alter (Presence) vs target's Resolve. You fully project your spirit into the target's body. Your own body goes [Helpless] for the duration. Line of sight required (unless using Pervert the Bond through an Ichor Talisman).\n\nSustain: 1 Edge Point per round to maintain. If you can't pay, possession ends immediately — you snap back to your body [Disoriented].",
+        "risk": "On failure, the target's mind lashes back — you gain [Rattled] + [Disoriented] until end of round. The target knows someone tried to get inside their head.",
+        "effect": [
+          {
+            "tier": 1,
+            "label": "Fleeting",
+            "range": "0-3",
+            "description": "The host spirit fights hard. All actions through the possessed body suffer [Disoriented] + [Weakened]. Sustaining also costs your Maneuver each round in addition to 1 Edge."
+          },
+          {
+            "tier": 2,
+            "label": "Masterful",
+            "range": "4-7",
+            "description": "The spirit resists but you have the upper hand. Actions through the possessed body suffer [Disoriented] only. Costs 1 Edge per round to sustain."
+          },
+          {
+            "tier": 3,
+            "label": "Legendary",
+            "range": "8+",
+            "description": "Total override. Full actions, no penalties. The host spirit is suppressed entirely. Still costs 1 Edge per round. Target retains no memory of what happened during possession."
+          }
+        ]
+      }
+    ]
   }
 ]

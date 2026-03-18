@@ -1570,6 +1570,79 @@
           "description": "Gain Concealment against all enemies in your zone until end of round. You may immediately Move 1 zone without presenting an Opening."
         }
       ]
+    },
+    {
+      "id": "voc_maneuver_arise",
+      "name": "Arise",
+      "sourceVocation": "voc_ichor_witch",
+      "requiredTier": 4,
+      "actionType": "Maneuver",
+      "pip": "A",
+      "rolled": true,
+      "discipline": "alter",
+      "arena": "presence",
+      "tags": [
+        "[Force]"
+      ],
+      "description": "Channel ichor into fallen creatures or corpses in your zone, animating them as thralls. Roll Alter (Presence). Corpses must be physically present in the fiction. Directing Thralls: Use the Coordinate maneuver, substituting Control (Grit) for Tactics (Wits). If you are [Incapacitated], all thralls collapse.",
+      "risk": "On failure, the ichor dissipates — the dead do not answer. Wasted Action.",
+      "effect": [
+        {
+          "tier": 1,
+          "label": "Fleeting",
+          "range": "0-3",
+          "description": "Animate 1 corpse as a simple thrall. Acts on your initiative. Collapses at end of round."
+        },
+        {
+          "tier": 2,
+          "label": "Masterful",
+          "range": "4-7",
+          "description": "Animate up to 2 corpses as thralls. Act on your initiative, last until end of scene."
+        },
+        {
+          "tier": 3,
+          "label": "Legendary",
+          "range": "8+",
+          "description": "Animate up to 3 corpses as thralls. Act on your initiative, last until end of scene. GM may grant them one echo ability from their living stat block."
+        }
+      ]
+    },
+    {
+      "id": "voc_maneuver_true_possession",
+      "name": "True Possession",
+      "sourceVocation": "voc_ichor_witch",
+      "requiredTier": 5,
+      "actionType": "Maneuver",
+      "pip": "A",
+      "rolled": true,
+      "discipline": "alter",
+      "arena": "presence",
+      "defense": "resolve",
+      "tags": [
+        "[Force]"
+      ],
+      "description": "Fully project your spirit into the target's body. Roll Alter (Presence) vs target's Resolve. Your own body goes [Helpless] for the duration. Line of sight required (unless using Pervert the Bond through an Ichor Talisman). Sustain: 1 Edge Point per round to maintain. If you can't pay, possession ends immediately — you snap back to your body [Disoriented].",
+      "risk": "On failure, the target's mind lashes back — you gain [Rattled] + [Disoriented] until end of round. The target knows someone tried to get inside their head.",
+      "effect": [
+        {
+          "tier": 1,
+          "label": "Fleeting",
+          "range": "0-3",
+          "description": "The host spirit fights hard. All actions through the possessed body suffer [Disoriented] + [Weakened]. Sustaining also costs your Maneuver each round in addition to 1 Edge."
+        },
+        {
+          "tier": 2,
+          "label": "Masterful",
+          "range": "4-7",
+          "description": "The spirit resists but you have the upper hand. Actions through the possessed body suffer [Disoriented] only. Costs 1 Edge per round to sustain."
+        },
+        {
+          "tier": 3,
+          "label": "Legendary",
+          "range": "8+",
+          "description": "Total override. Full actions, no penalties. The host spirit is suppressed entirely. Still costs 1 Edge per round. Target retains no memory of what happened during possession."
+        }
+      ]
     }
   ]
 }
