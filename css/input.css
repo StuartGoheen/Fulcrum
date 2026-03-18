@@ -2227,6 +2227,15 @@
   .manv-force-card .manv-header {
     border-left: 2px solid var(--color-accent-violet, #8b5cf6);
   }
+  .manv-vocation-card .manv-header {
+    border-left: 2px solid var(--color-accent-amber, #f59e0b);
+  }
+  .manv-source-tag {
+    background: var(--color-accent-amber, #f59e0b) !important;
+    color: #000 !important;
+    font-size: 0.42rem;
+    font-weight: 600;
+  }
 
   .manv-universal-card .manv-header-left {
     flex-direction: row;

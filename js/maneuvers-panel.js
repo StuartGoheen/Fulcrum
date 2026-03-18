@@ -478,6 +478,84 @@
     return cardHtml;
   }
 
+  function _getVocationManeuvers(char) {
+    var result = [];
+    var kits = char.kits || [];
+    for (var ki = 0; ki < kits.length; ki++) {
+      var kit = kits[ki];
+      var unlockedTier = kit.tier || 0;
+      var abilities = kit.abilities || [];
+      for (var ai = 0; ai < abilities.length; ai++) {
+        var ab = abilities[ai];
+        if (ab.tier > unlockedTier) continue;
+        if (ab.type !== 'maneuver') continue;
+        result.push({ ability: ab, kitName: kit.name });
+      }
+    }
+    return result;
+  }
+
+  function _buildVocationManeuverCard(ab, kitName, char) {
+    var discDieHtml = '';
+    if (ab.discipline && ab.arena && char) {
+      var vDiscDie  = _getEffectiveDisciplineDie(char, ab.arena, ab.discipline);
+      var vArenaDie = _getEffectiveArenaDie(char, ab.arena);
+      if (vDiscDie && vArenaDie) {
+        discDieHtml =
+          '<div class="armory-weapon-disc">' +
+            _dieImg(vDiscDie) +
+            '<span class="armory-weapon-disc-sep">/</span>' +
+            _dieImg(vArenaDie) +
+          '</div>';
+      }
+    }
+
+    var tagHtml = '';
+    if (ab.tags && ab.tags.length) {
+      tagHtml = ' <span class="manv-arena-tag">' + ab.tags.map(_esc).join(' ') + '</span>';
+    }
+
+    var defenseHtml = ab.defense ? ' vs ' + _esc(ab.defense.charAt(0).toUpperCase() + ab.defense.slice(1)) : '';
+
+    var metaHtml =
+      '<div class="armory-weapon-meta manv-meta">' +
+        '<span class="armory-weapon-chassis">Maneuver' + tagHtml + '</span>' +
+        '<span class="manv-rolled-badge manv-source-tag">' + _esc(kitName) + '</span>' +
+        (ab.rolled ? '<span class="manv-rolled-badge">Rolled</span>' : '<span class="manv-rolled-badge manv-diceless">Diceless</span>') +
+      '</div>';
+
+    var descHtml = '<div class="manv-desc-text">' + _linkify(ab.rule) + '</div>';
+
+    var riskHtml = '';
+    if (ab.risk) {
+      riskHtml =
+        '<div class="manv-risk-block">' +
+          '<span class="manv-risk-label">Risk</span>' +
+          '<span class="manv-risk-text">' + _linkify(ab.risk) + '</span>' +
+        '</div>';
+    }
+
+    var effectHtml = _buildEffectTrack(ab.effect);
+
+    return (
+      '<div class="manv-card manv-vocation-card" data-action-id="' + _esc(ab.id) + '">' +
+        '<div class="manv-header">' +
+          '<div class="manv-header-left">' +
+            _pipBadge('Maneuver') +
+            '<span class="manv-name">' + _esc(ab.name) + defenseHtml + '</span>' +
+          '</div>' +
+          discDieHtml +
+        '</div>' +
+        '<div class="manv-body">' +
+          metaHtml +
+          descHtml +
+          riskHtml +
+          effectHtml +
+        '</div>' +
+      '</div>'
+    );
+  }
+
   function _hasForceDiscipline(char) {
     var forceDiscs = ['control_spark', 'sense_spark', 'alter_spark'];
     var arenas = char.arenas || [];
@@ -556,6 +634,18 @@
         'Force Techniques</div>';
       for (var fi = 0; fi < forceManeuvers.length; fi++) {
         html += _buildForceCardWithGambits(forceManeuvers[fi], data, char, activeGear);
+      }
+      html += '</div>';
+    }
+
+    var vocManeuvers = _getVocationManeuvers(char);
+    if (vocManeuvers.length) {
+      html += '<div class="manv-action-group">';
+      html += '<div class="armory-category-label manv-category-label">' +
+        '<span class="manv-pip-badge manv-pip-badge-header" style="background:var(--color-accent-amber, #f59e0b);">V</span> ' +
+        'Vocation Maneuvers</div>';
+      for (var vm = 0; vm < vocManeuvers.length; vm++) {
+        html += _buildVocationManeuverCard(vocManeuvers[vm].ability, vocManeuvers[vm].kitName, char);
       }
       html += '</div>';
     }
