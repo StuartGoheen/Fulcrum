@@ -1,390 +1,211 @@
 [
   {
-    "id": "kit_slinger",
+    "id": "voc_gunslinger",
     "name": "The Gunslinger",
-    "tier": 3,
     "governingArena": "reflex",
-    "alignedDiscipline": "ranged",
-    "primaryWeapons": [
-      "Pistol"
-    ],
+    "favoredDiscipline": "ranged",
+    "description": "Fast hands, sharp instincts, and a blaster that never leaves your side. The Gunslinger is a pistol specialist who thrives in the chaos of close-to-mid range firefights — drawing first, shooting last, and making every Opening count.",
+    "fluff": "They say Cad Bane could clear a room before anyone heard the first shot. Captain Rex would draw both DC-17s mid-roll and put rounds on target before he hit the ground. Han Solo shot Greedo under a table because he was bored of the conversation. You're not that good. Not yet.",
     "abilities": [
       {
-        "id": "kit_slinger_t1",
+        "id": "voc_gunslinger_t1",
         "tier": 1,
         "type": "passive",
-        "name": "Close-Quarters Gunfighter",
-        "rule": "When you are Engaged in melee range with an enemy, firing a Pistol does not present an Opening. You never provoke reactive Exploits from adversaries just for using your sidearm in close quarters."
+        "name": "Born to the Blaster",
+        "tags": ["[Combat]"],
+        "rule": "Firing a Pistol while Engaged does not present an Opening. You may draw or holster Pistols as part of any Attack action at no Maneuver cost. On a successful Join Battle, you may immediately draw one or both Pistols."
       },
       {
-        "id": "kit_slinger_t2_fth",
+        "id": "voc_gunslinger_t2",
         "tier": 2,
+        "type": "passive",
+        "name": "Akimbo",
+        "tags": ["[Combat]"],
+        "rule": "When dual wielding Pistols, you ignore the Control die step-down penalty. You keep the Power die step-up. Gambits from either equipped Pistol may be declared on any Pistol attack."
+      },
+      {
+        "id": "voc_gunslinger_t3",
+        "tier": 3,
+        "type": "maneuver",
+        "name": "Dead Drop",
+        "tags": ["[Combat]"],
+        "discipline": "ranged",
+        "arena": "reflex",
+        "defense": "resolve",
+        "rolled": true,
+        "rule": "Ranged (Reflex) vs target's Resolve. Draw down on a target and force them to react — you don't fire, you just let them see where this is going. Risk: On failure, you present an Opening to the target.",
+        "risk": "On failure, you present an Opening to the target — you've shown your hand.",
+        "effect": [
+          {
+            "tier": 1,
+            "label": "Fleeting",
+            "range": "0-3",
+            "description": "Target gains [Rattled]."
+          },
+          {
+            "tier": 2,
+            "label": "Masterful",
+            "range": "4-7",
+            "description": "Target gains [Rattled]. Choose one: the target must spend their next Maneuver taking Cover, OR they present an Opening to you."
+          },
+          {
+            "tier": 3,
+            "label": "Legendary",
+            "range": "8+",
+            "description": "Target gains [Rattled] and [Exposed]. They present an Opening to you. If you Exploit it this round, step up Effect by 1 Tier."
+          }
+        ]
+      },
+      {
+        "id": "voc_gunslinger_t4",
+        "tier": 4,
         "type": "gambit",
         "name": "Fan the Hammer",
-        "actionType": "Attack",
-        "targetType": "weapon",
-        "target": "Pistol",
-        "arenaTag": "[Combat]",
-        "rule": "Reduce Effect by 1 Tier against all targets and your weapon is instantly emptied — requires a Maneuver to Reload. Target up to 3 enemies in the same zone. Make a single Ranged Control roll applying the Step-Down penalty of the target with the highest Presence. On success, roll your Power die once, then subtract each individual target's Resistance to determine their specific Effect Tier. Ranged is your Aligned Discipline — spend 1 Edge via Tier Boost to offset the -1 Tier drop for all targets.",
-        "modifiesAction": "action_attack"
+        "tags": ["[Combat]"],
+        "modifiesAction": "action_attack",
+        "actionType": "Pistol Attack",
+        "rule": "After resolving a Pistol attack, spend 1 tier. If your Control die result was 8+ and the target takes damage, the target immediately presents an Opening to you which you may Exploit."
       },
       {
-        "id": "kit_slinger_t2_hs",
-        "tier": 2,
+        "id": "voc_gunslinger_t5",
+        "tier": 5,
         "type": "passive",
-        "name": "The Hustler's Stamina",
-        "rule": "At the end of any Scene in which you spent at least 1 Edge, you automatically regain 1 Edge."
-      },
-      {
-        "id": "kit_slinger_t3_ht",
-        "tier": 3,
-        "type": "passive",
-        "name": "The Hair-Trigger",
-        "rule": "Your maximum Exploits per round is permanently increased by 1. This extra Exploit can only be used to perform Ranged (Pistol) reactions when an Opening is presented.",
-        "actionBonus": {
-          "action": 0,
-          "trigger": 1,
-          "maneuver": 0
-        }
-      },
-      {
-        "id": "kit_slinger_t3_pr",
-        "tier": 3,
-        "type": "passive",
-        "name": "The Professional's Reserve",
-        "rule": "At the end of a scene, if you have exactly 1 Edge remaining in your pool, you regain 1 Edge. This stacks with The Hustler's Stamina."
+        "name": "Two for Flinching",
+        "tags": ["[Combat]"],
+        "rule": "When you Exploit an Opening with a Pistol and the attack deals damage, the target presents another Opening to any ally in the zone. Your shots crack the door wide open for the whole crew."
       }
     ]
   },
   {
-    "id": "kit_prescient",
-    "name": "The Prescient",
-    "tier": 3,
-    "governingArena": "wits",
-    "alignedDiscipline": "sense_spark",
-    "abilities": [
-      {
-        "id": "kit_prescient_t1_ss",
-        "tier": 1,
-        "type": "passive",
-        "name": "The Sixth Sense",
-        "rule": "When an enemy declares an attack against you, you instinctively react. You instantly gain [Guarded 1] (if targeted by a melee attack) or [Cover 1] (if targeted by a ranged attack) for that single interaction, even if you are standing in open ground. Free — does not cost your Exploit pip."
-      },
-      {
-        "id": "kit_prescient_t1_sbs",
-        "tier": 1,
-        "type": "passive",
-        "name": "Sight Beyond Sight",
-        "rule": "You perceive the world as a tapestry of living energy. You permanently ignore all Step Down penalties associated with darkness, heavy smoke, or the [Blinded] condition when defending against or interacting with living targets. You do not need physical sight to know exactly where they are."
-      },
-      {
-        "id": "kit_prescient_t2_pl",
-        "tier": 2,
-        "type": "gambit",
-        "name": "The Precognitive Lure",
-        "actionType": "Dodge",
-        "targetType": "defense",
-        "target": "Free Defense",
-        "arenaTag": "[Defense]",
-        "rule": "Reduce your Dodge result by -1 Effect Tier (if this pushes your success to a negative number, you suffer a Fleeting hit from the enemy). On any result, gain the [Optimized] condition on your next Action against that specific attacker.",
-        "modifiesAction": "action_dodge"
-      },
-      {
-        "id": "kit_prescient_t2_mm",
-        "tier": 2,
-        "type": "passive",
-        "name": "The Moving Meditation",
-        "rule": "If you spent at least 1 Edge during a scene and successfully used a Discipline (Sense) maneuver to read a target, OR successfully used The Sixth Sense to anticipate an attack, you regain 1 Edge at the scene's end."
-      },
-      {
-        "id": "kit_prescient_t3_sp",
-        "tier": 3,
-        "type": "passive",
-        "name": "Shatterpoint",
-        "rule": "You are no longer bound by the limit of one Exploit per round. When an enemy or ally creates an Opening, you may spend 1 Edge to pay the cost of an Exploit to react using any Force ability (including The Sixth Sense)."
-      },
-      {
-        "id": "kit_prescient_t3_ic",
-        "tier": 3,
-        "type": "passive",
-        "name": "Inner Calm",
-        "rule": "You are never truly caught off guard. Your connection to the Force maintains a constant perimeter of awareness. When rolling for Initiative (Join Battle), you may use Discipline (Sense) instead of Discipline (Tactics)."
-      }
-    ]
-  },
-  {
-    "id": "kit_warden",
-    "name": "The Warden",
-    "tier": 3,
+    "id": "voc_shockboxer",
+    "name": "The Shockboxer",
     "governingArena": "physique",
-    "alignedDiscipline": "brawl",
+    "favoredDiscipline": "brawl",
+    "description": "Fists, shock-gloves, and an iron chin. The Shockboxer is a disciplined fighter who builds momentum through combinations — each hit setting up the next until the opponent can't stand anymore. You don't need a blaster. You need them close enough to hit.",
+    "fluff": "Shockboxing pits across the Outer Rim draw crowds from Nar Shaddaa to Ord Mantell. The fighters wear shock-gloves that amplify impact without cutting skin — the sport is about endurance, reading your opponent, and finding the knockout. The best boxers don't just win rounds. They end fights. You trained in those pits. You learned to take a hit, give two back, and stay standing when everyone else is on the floor.",
     "abilities": [
       {
-        "id": "kit_warden_t1_ig",
+        "id": "voc_shockboxer_t1",
         "tier": 1,
-        "type": "passive",
-        "name": "Iron Grip",
-        "rule": "When an enemy [Pinned] by your Clinch spends their Maneuver to break free, the [Pinned] condition converts to [Restrained] rather than clearing entirely. They return to standing, but your hold does not release. Fully breaking free now requires spending their Action instead. The Clinch extends — the only way out is to fully commit to it."
-      },
-      {
-        "id": "kit_warden_t1_td",
-        "tier": 1,
-        "type": "passive",
-        "name": "The Drag",
-        "rule": "While you have an enemy [Pinned] or [Restrained], your Zone movement does not require releasing the hold. The target moves with you — you control the ground they occupy. This repositioning does not constitute voluntary movement on their part and does not present an Opening from the grappled target. Openings from other enemies in zones you pass through still apply to you normally."
-      },
-      {
-        "id": "kit_warden_t2_sm",
-        "tier": 2,
-        "type": "gambit",
-        "name": "Smash",
-        "actionType": "Attack",
-        "targetType": "pinned",
-        "target": "Pinned Target",
-        "arenaTag": "[Combat]",
-        "rule": "Can only be declared while you have an enemy [Pinned]. Reduce Effect by 1 Tier. Step Up your Power Die once — the ground eliminates their ability to absorb or redirect the blow. If the net result after the tier reduction resolves at Solid or higher, the target gains [Weakened (Physique)] for as long as the hold is maintained.",
-        "modifiesAction": "action_attack"
-      },
-      {
-        "id": "kit_warden_t2_wtd",
-        "tier": 2,
-        "type": "passive",
-        "name": "Wear Them Down",
-        "rule": "At the end of any scene in which you maintained a Clinch hold ([Pinned] or [Restrained]) on the same target for 2 or more consecutive rounds, you regain 1 Edge. Patience is a form of violence."
-      },
-      {
-        "id": "kit_warden_t3_wj",
-        "tier": 3,
-        "type": "passive",
-        "name": "The Warden's Justice",
-        "rule": "While you have an enemy [Pinned], every Brawl attack you make against them presents an Opening — regardless of the roll result — that one ally in your zone may immediately Exploit to make a Brawl or Melee attack against that same target. You control the hold. The room delivers the verdict."
-      },
-      {
-        "id": "kit_warden_t3_ic",
-        "tier": 3,
         "type": "passive",
         "name": "Iron Chin",
-        "rule": "The first time each scene you would be Incapacitated, you may spend 2 Edge. If you do, you remain at 1 Vitality and do not become Incapacitated. On your very next turn, your Clinch Maneuver automatically resolves at the Dominate tier — [Pinned] + [Exposed to Melee Attacks] + your Brawl attacks Step Up the Power Die — without requiring a roll. Survival instinct converts directly into total control."
-      }
-    ]
-  },
-  {
-    "id": "kit_iron",
-    "name": "The Iron",
-    "tier": 3,
-    "governingArena": "grit",
-    "alignedDiscipline": "resolve",
-    "abilities": [
-      {
-        "id": "kit_iron_t1_hd",
-        "tier": 1,
-        "type": "passive",
-        "name": "Hardened",
-        "rule": "Conditions applied to you as a secondary effect of a Fleeting-tier attack do not take effect. Fleeting hits still deal their normal Vitality damage — you simply refuse to let minor impacts compromise your combat effectiveness. Conditions generated by your own failed defensive rolls still apply normally; this only negates secondary conditions imposed by an attacker's Fleeting result."
+        "tags": ["[Combat]"],
+        "rule": "You may use Brawl (Physique) in place of Endure for Defense rolls while Engaged. When you take Stun damage and remain conscious, gain [Optimized] on your next Brawl attack."
       },
       {
-        "id": "kit_iron_t1_ruf",
-        "tier": 1,
-        "type": "passive",
-        "name": "Resolve Under Fire",
-        "rule": "When you are the target of 2 or more attacks in a single round, regardless of their outcomes, you do not present Openings from defensive rolls made after the first attack this round. You are still hit; you simply stop gifting the room a target when everyone is already shooting at you."
-      },
-      {
-        "id": "kit_iron_t2_dd",
+        "id": "voc_shockboxer_t2",
         "tier": 2,
+        "type": "passive",
+        "name": "Combo Counter",
+        "tags": ["[Combat]"],
+        "rule": "Track Brawl hits that deal damage to the same target. On the 2nd hit: target gains [Rattled]. On the 3rd hit: target gains [Exposed]. Combo Counter resets at the end of your turn."
+      },
+      {
+        "id": "voc_shockboxer_t3",
+        "tier": 3,
         "type": "gambit",
-        "name": "Dig Deep",
-        "actionType": "Check",
-        "targetType": "self",
-        "target": "Self",
-        "arenaTag": "[Endurance]",
-        "rule": "Can only be declared when you are currently suffering at least one active condition. Reduce Effect by 1 Tier on a Resolve check. Remove one active condition currently affecting you, regardless of its source. If the removed condition was originally applied by an enemy Gambit, that enemy immediately presents an Opening — they overplayed their hand.",
-        "modifiesAction": "action_endure"
+        "name": "Body Work",
+        "tags": ["[Combat]"],
+        "modifiesAction": "action_attack",
+        "actionType": "Brawl Attack",
+        "rule": "After resolving a Brawl attack that deals damage, spend 1 tier. This hit counts as 2 hits for your Combo Counter. A well-placed body shot fast-tracks the punishment."
       },
       {
-        "id": "kit_iron_t2_sae",
-        "tier": 2,
-        "type": "passive",
-        "name": "Suffer and Endure",
-        "rule": "At the end of any scene in which you were struck by 3 or more successful hits without being Incapacitated, you regain 1 Edge. The one who eats the most punishment and keeps standing walks out changed."
-      },
-      {
-        "id": "kit_iron_t3_io",
-        "tier": 3,
-        "type": "passive",
-        "name": "Immovable Object",
-        "rule": "Any effect that would physically reposition you — knockback, Push Gambits, forced Zone-shift — of Basic tier or lower automatically fails. Effects of Solid tier or higher may still move you, but when they do, they present an Opening that any ally within line of sight may Exploit as a free reaction."
-      },
-      {
-        "id": "kit_iron_t3_pid",
-        "tier": 3,
-        "type": "passive",
-        "name": "Pain Is Data",
-        "rule": "The first time each round you suffer a hit of Solid tier or higher, your very next offensive or Resolve action this round has its Effect result stepped up by 1 Tier. Getting hurt does not slow you down — it clarifies your targets. This bonus resets at the start of each new round and cannot stack."
-      }
-    ]
-  },
-  {
-    "id": "kit_tactician",
-    "name": "The Tactician",
-    "tier": 3,
-    "governingArena": "wits",
-    "alignedDiscipline": "tactics",
-    "abilities": [
-      {
-        "id": "kit_tactician_t1_rtf",
-        "tier": 1,
-        "type": "passive",
-        "name": "Read the Field",
-        "rule": "Once per round, as a free reaction, designate one visible enemy. The next ally (not you) who attacks that enemy this round treats them as [Exposed] for that single attack. The designation expires at the end of the round whether used or not. You see the gap — you just need someone willing to step through it."
-      },
-      {
-        "id": "kit_tactician_t1_tp",
-        "tier": 1,
-        "type": "passive",
-        "name": "Tactical Positioning",
-        "rule": "Whenever you succeed on a Tactics check — to read a situation, coordinate allies, or assess an enemy — you may immediately move 1 Zone as a free Maneuver. This movement does not count against your action economy for the round. Good information earns good ground."
-      },
-      {
-        "id": "kit_tactician_t2_cs",
-        "tier": 2,
+        "id": "voc_shockboxer_t4",
+        "tier": 4,
         "type": "gambit",
-        "name": "Coordinated Strike",
-        "actionType": "Check",
-        "targetType": "ally",
-        "target": "Any Ally",
-        "arenaTag": "[Command]",
-        "rule": "Reduce Effect by 1 Tier on a Tactics check. One ally within line of sight who has already spent their Exploit this round may make one additional attack using their Control Die only. This attack cannot activate Gambits but can present an Opening. You spend your own result to give an exhausted teammate one more chance.",
-        "modifiesAction": "action_coordinate"
+        "name": "Roll With It",
+        "tags": ["[Combat]"],
+        "modifiesAction": "action_endure",
+        "actionType": "Brawl Defense",
+        "rule": "When you defend using Brawl (via Iron Chin), spend 1 tier from the defense result. The attacker immediately presents an Opening to you."
       },
       {
-        "id": "kit_tactician_t2_sr",
-        "tier": 2,
+        "id": "voc_shockboxer_t5",
+        "tier": 5,
         "type": "passive",
-        "name": "Strategic Reserve",
-        "rule": "At the end of any scene in which at least 2 Openings created by your abilities — Read the Field or Coordinated Strike — were Exploited by allies (not you), you regain 1 Edge. Your economy depends entirely on your team executing. That is by design."
-      },
-      {
-        "id": "kit_tactician_t3_ua",
-        "tier": 3,
-        "type": "passive",
-        "name": "Unflinching Assessment",
-        "rule": "You are immune to the [Shaken] condition. When any source would apply [Shaken] to you, reduce the incoming effect's final Effect Tier by 1 retroactively — the impact lands, but your mental clarity means it matters less than the attacker intended. Trying to suppress the Tactician's mind is a tactical mistake."
-      },
-      {
-        "id": "kit_tactician_t3_twb",
-        "tier": 3,
-        "type": "passive",
-        "name": "The Whole Board",
-        "rule": "You may maintain two Read the Field designations simultaneously instead of one. Additionally, when both of your designated targets present an Opening in the same round, you gain 1 Edge immediately — not at scene's end. Seeing everything at once is the Tactician's only real weapon."
+        "name": "The Knockout",
+        "tags": ["[Combat]"],
+        "rule": "When your Combo Counter reaches 3+ on a target and your Brawl attack resolves at Masterful or higher, you may declare a Knockout. The target is immediately [Incapacitated]. Once per scene."
       }
     ]
   },
   {
-    "id": "kit_ghost",
+    "id": "voc_ghost",
     "name": "The Ghost",
-    "tier": 3,
     "governingArena": "reflex",
-    "alignedDiscipline": "stealth",
+    "favoredDiscipline": "stealth",
+    "description": "Misdirection, concealment, and the art of not being where anyone expects you. The Ghost doesn't fight fair — they fight from positions the enemy didn't know existed, and when the walls close in, they get everyone out.",
+    "fluff": "Intelligence operatives, resistance saboteurs, and the kind of people who walk through Imperial checkpoints without anyone remembering their face. The Ghost doesn't win fights. They win extractions. They win infiltrations. They win by making the enemy argue about whether anyone was ever really there. Cassian Andor walked into Scarif knowing he wasn't coming back. You walk into places knowing you will.",
     "abilities": [
       {
-        "id": "kit_ghost_t1_sad",
+        "id": "voc_ghost_t1",
         "tier": 1,
         "type": "passive",
-        "name": "Still as Death",
-        "rule": "While [Hidden], enemies who enter your Zone do not automatically detect you. Detection requires a deliberate Search action — a Wits/Investigation check opposed by your original Stealth result — or you performing any observable action (attack, loud maneuver, Edge-costing ability). Passive movement through your Zone is not sufficient to reveal your position."
+        "name": "Gray Man",
+        "tags": ["[Combat]", "[Narrative]"],
+        "rule": "When you benefit from concealment, you may use Stealth (Reflex) in place of Evasion on Dodge defense rolls. Additionally, while benefiting from concealment, you do not present Openings originating from the Engaged condition."
       },
       {
-        "id": "kit_ghost_t1_da",
-        "tier": 1,
-        "type": "passive",
-        "name": "Dead Air",
-        "rule": "If you hold your action for an entire round — making no attack and spending no Edge — you automatically reenter [Hidden] at the start of your next turn regardless of whether it was broken. No roll required. You were simply never there. The cost is your entire round. The reward is the reset."
-      },
-      {
-        "id": "kit_ghost_t2_as",
+        "id": "voc_ghost_t2",
         "tier": 2,
         "type": "gambit",
-        "name": "Ambush Strike",
-        "actionType": "Attack",
-        "targetType": "hidden",
-        "target": "Hidden",
-        "arenaTag": "[Combat]",
-        "rule": "Can only be declared while [Hidden]. Reduce Effect by 1 Tier. Step Up your Power Die once for this attack and apply [Exposed] to the target regardless of the Effect Tier result. You immediately lose [Hidden] after the attack resolves — whether the Gambit succeeds or fails. You spend your position for a wound and a window for your allies.",
-        "modifiesAction": "action_attack"
+        "name": "Blind Spot",
+        "tags": ["[Combat]"],
+        "modifiesAction": "action_dodge",
+        "actionType": "Dodge",
+        "rule": "When you Dodge an attack from an Engaged target, spend 1 tier. Your next attack against that target before the end of your next turn gains [Optimized]."
       },
       {
-        "id": "kit_ghost_t2_fd",
-        "tier": 2,
-        "type": "passive",
-        "name": "Fade",
-        "rule": "At the end of any round in which you made no attack and spent no Edge, you may attempt to reenter [Hidden] as a free reaction — an opposed Stealth check against the highest Investigation die in the zone. On success, you gain [Hidden]. On failure, you cannot attempt Fade again until you move to a new Zone. Patience is a discipline."
-      },
-      {
-        "id": "kit_ghost_t3_lnt",
+        "id": "voc_ghost_t3",
         "tier": 3,
-        "type": "passive",
-        "name": "Leave No Trace",
-        "rule": "When you successfully reenter [Hidden] through Fade, you regain 1 Edge. The act of becoming invisible is its own reward. This does not activate from Dead Air or any other source of [Hidden] reentry — only from a successful Fade check."
+        "type": "maneuver",
+        "name": "Slip",
+        "tags": ["[Combat]"],
+        "discipline": "stealth",
+        "arena": "reflex",
+        "defense": "resolve",
+        "rolled": true,
+        "rule": "Stealth (Reflex) vs target's Resolve. Use movement and misdirection to fade from a target's focus — a feint, a peripheral slide, blending into the chaos. Risk: On failure, you present an Opening to the target.",
+        "risk": "On failure, you present an Opening to the target — you tried to be clever and they saw right through it.",
+        "effect": [
+          {
+            "tier": 1,
+            "label": "Fleeting",
+            "range": "0-3",
+            "description": "You gain concealment from the target. Duration: Immediate."
+          },
+          {
+            "tier": 2,
+            "label": "Masterful",
+            "range": "4-7",
+            "description": "You gain concealment from the target. Duration: Tactical (until start of your next turn)."
+          },
+          {
+            "tier": 3,
+            "label": "Legendary",
+            "range": "8+",
+            "description": "You gain concealment from the target. Duration: Tactical. Immediately move 1 zone."
+          }
+        ]
       },
       {
-        "id": "kit_ghost_t3_ps",
-        "tier": 3,
-        "type": "passive",
-        "name": "Phantom Strike",
-        "rule": "Attacks made while [Hidden] treat the Control Die result as a minimum of Basic tier (4–7) before the Power Die is applied, regardless of the actual roll. You never waste a shot from the shadows. This floor applies only to the attack that breaks [Hidden] — follow-up actions after your position is revealed resolve normally."
-      }
-    ]
-  },
-  {
-    "id": "kit_beastmaster",
-    "name": "The Beastmaster",
-    "tier": 3,
-    "governingArena": "grit",
-    "alignedDiscipline": "beast_handling",
-    "abilities": [
-      {
-        "id": "beastmaster_bond",
-        "tier": 1,
-        "type": "passive",
-        "name": "The Bond",
-        "rule": "You have a trained creature companion. Choose a creature type appropriate to your background (massiff, anooba, varactyl, tauntaun, etc.). Your companion shares your action economy — it can Attack (costs your Action), Move (costs your Maneuver), or react (costs your Exploit pip). It cannot act independently. When your companion Attacks, roll your Beast Handling discipline die + the creature's Power die (D6 at Tier 1, D8 at Tier 2, D10 at Tier 3). The creature's Vitality equals your Grit arena score. If it drops to 0 Vitality, it is out of the fight until treated."
+        "id": "voc_ghost_t4",
+        "tier": 4,
+        "type": "exploit",
+        "name": "Vanishing Act",
+        "tags": ["[Combat]"],
+        "modifiesAction": "action_dodge",
+        "actionType": "Dodge",
+        "rule": "When you Dodge and your Control die is 8+, spend your Exploit pip. You gain concealment from the attacker. Duration: Tactical."
       },
       {
-        "id": "beastmaster_pack_instinct",
-        "tier": 1,
-        "type": "passive",
-        "name": "Pack Instinct",
-        "rule": "When you spend a Maneuver to Command Beast your companion into flanking position on a target, your next personal Attack against that target this round gains [Optimized]. The reverse also applies — if you engage a target in melee, then spend your Action to have your companion Attack the same target, the companion's Attack gains [Optimized]. Flanking requires you and your companion to be in the same zone as the target."
-      },
-      {
-        "id": "beastmaster_sic",
-        "tier": 2,
-        "type": "gambit",
-        "name": "Sic 'Em",
-        "rule": "After resolving a Command Beast (Maneuver) directed at your creature companion, spend 1 tier. The companion's next Attack this round gains [Empowered (Grit)] — your command sharpens its aggression. The Attack still costs your Action as normal.",
-        "modifiesAction": "action_command_beast"
-      },
-      {
-        "id": "beastmaster_shared_hide",
-        "tier": 2,
-        "type": "passive",
-        "name": "Thick as Thieves",
-        "rule": "When your creature companion is in your zone, you may have the companion intercept one incoming attack against you as a free reaction — the companion becomes the target and defends using its Endure. Additionally, when your companion would take Vitality damage that would reduce it to 0, you may spend 1 Edge to keep it at 1 Vitality instead."
-      },
-      {
-        "id": "beastmaster_apex",
-        "tier": 3,
-        "type": "passive",
-        "name": "Apex Predator",
-        "rule": "Your creature companion's Power die increases by one step (D8 at Tier 1, D10 at Tier 2, D12 at Tier 3). Additionally, enemies in your companion's zone who attempt to Move away must succeed on an Evasion check against your Beast Handling or gain [Slowed]. The predator does not let prey escape."
-      },
-      {
-        "id": "beastmaster_feral_communion",
-        "tier": 3,
-        "type": "passive",
-        "name": "Feral Communion",
-        "rule": "You can communicate with any creature through body language, tone, and instinct. In narrative scenes, you may attempt a Beast Handling check to calm, redirect, or befriend any non-droid creature, even those trained by an enemy. In combat, you may spend 1 Edge and your Action to force an enemy creature to hesitate — it loses its next action unless its handler succeeds on a Beast Handling check opposed by yours."
+        "id": "voc_ghost_t5",
+        "tier": 5,
+        "type": "permission",
+        "name": "Exit Strategy",
+        "tags": ["[Combat]", "[Narrative]"],
+        "rule": "Once per Act, if all allies and yourself have concealment and none are restrained or held in place, you may declare an Opening for all allies and yourself explicitly to escape the scene. There must be a plausible means of egress, even if unconventional — a grate, a shaft, a window, a crowd. The GM narrates the escape."
       }
     ]
   }

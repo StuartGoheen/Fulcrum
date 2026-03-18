@@ -29,132 +29,145 @@
     "coreUtility": {
       "name": "Tier Boost",
       "cost": "1 Edge Point",
-      "rule": "Spend 1 Edge Point after a roll to instantly increase your final Power result by +1 Effect Tier (e.g., from a Fleeting success to a Masterful success). You may only use this on Disciplines aligned with your acquired Kits."
+      "rule": "Spend 1 Edge Point after a roll to instantly increase your final Power result by +1 Effect Tier (e.g., from a Fleeting success to a Masterful success). You may only use this on favored Disciplines granted by your Vocations."
     }
   },
   "kits": [
     {
-      "id": "kit_slinger",
+      "id": "voc_gunslinger",
       "name": "The Gunslinger",
       "tier": 3,
       "governingArena": "reflex",
-      "alignedDiscipline": "ranged",
-      "primaryWeapons": [
-        "Pistol"
-      ],
+      "favoredDiscipline": "ranged",
+      "description": "Fast hands, sharp instincts, and a blaster that never leaves your side. The Gunslinger is a pistol specialist who thrives in the chaos of close-to-mid range firefights.",
+      "fluff": "They say Cad Bane could clear a room before anyone heard the first shot. You're not that good. Not yet.",
       "abilities": [
         {
-          "id": "kit_slinger_t1",
+          "id": "voc_gunslinger_t1",
           "tier": 1,
           "type": "passive",
-          "name": "Close-Quarters Gunfighter",
-          "rule": "When you are Engaged in melee range with an enemy, firing a Pistol does not present an Opening. You never provoke reactive Exploits from adversaries just for using your sidearm in close quarters."
+          "name": "Born to the Blaster",
+          "tags": ["[Combat]"],
+          "rule": "Firing a Pistol while Engaged does not present an Opening. You may draw or holster Pistols as part of any Attack action at no Maneuver cost. On a successful Join Battle, you may immediately draw one or both Pistols."
         },
         {
-          "id": "kit_slinger_t2_fth",
+          "id": "voc_gunslinger_t2",
           "tier": 2,
+          "type": "passive",
+          "name": "Akimbo",
+          "tags": ["[Combat]"],
+          "rule": "When dual wielding Pistols, you ignore the Control die step-down penalty. You keep the Power die step-up. Gambits from either equipped Pistol may be declared on any Pistol attack."
+        },
+        {
+          "id": "voc_gunslinger_t3",
+          "tier": 3,
+          "type": "maneuver",
+          "name": "Dead Drop",
+          "tags": ["[Combat]"],
+          "discipline": "ranged",
+          "arena": "reflex",
+          "defense": "resolve",
+          "rolled": true,
+          "rule": "Ranged (Reflex) vs target's Resolve. Draw down on a target and force them to react — you don't fire, you just let them see where this is going. Risk: On failure, you present an Opening to the target.",
+          "risk": "On failure, you present an Opening to the target — you've shown your hand.",
+          "effect": [
+            {
+              "tier": 1,
+              "label": "Fleeting",
+              "range": "0-3",
+              "description": "Target gains [Rattled]."
+            },
+            {
+              "tier": 2,
+              "label": "Masterful",
+              "range": "4-7",
+              "description": "Target gains [Rattled]. Choose one: the target must spend their next Maneuver taking Cover, OR they present an Opening to you."
+            },
+            {
+              "tier": 3,
+              "label": "Legendary",
+              "range": "8+",
+              "description": "Target gains [Rattled] and [Exposed]. They present an Opening to you. If you Exploit it this round, step up Effect by 1 Tier."
+            }
+          ]
+        },
+        {
+          "id": "voc_gunslinger_t4",
+          "tier": 4,
           "type": "gambit",
           "name": "Fan the Hammer",
-          "actionType": "Attack",
-          "targetType": "weapon",
-          "target": "Pistol",
-          "arenaTag": "[Combat]",
-          "rule": "Reduce Effect by 1 Tier against all targets and your weapon is instantly emptied — requires a Maneuver to Reload. Target up to 3 enemies in the same zone. Make a single Ranged Control roll applying the Step-Down penalty of the target with the highest Presence. On success, roll your Power die once, then subtract each individual target's Resistance to determine their specific Effect Tier. Ranged is your Aligned Discipline — spend 1 Edge via Tier Boost to offset the -1 Tier drop for all targets."
+          "tags": ["[Combat]"],
+          "modifiesAction": "action_attack",
+          "actionType": "Pistol Attack",
+          "rule": "After resolving a Pistol attack, spend 1 tier. If your Control die result was 8+ and the target takes damage, the target immediately presents an Opening to you which you may Exploit."
         },
         {
-          "id": "kit_slinger_t2_hs",
-          "tier": 2,
+          "id": "voc_gunslinger_t5",
+          "tier": 5,
           "type": "passive",
-          "name": "The Hustler's Stamina",
-          "rule": "At the end of any Scene in which you spent at least 1 Edge, you automatically regain 1 Edge."
-        },
-        {
-          "id": "kit_slinger_t3_ht",
-          "tier": 3,
-          "type": "passive",
-          "name": "The Hair-Trigger",
-          "rule": "Your maximum Exploits per round is permanently increased by 1. This extra Exploit can only be used to perform Ranged (Pistol) reactions when an Opening is presented.",
-          "actionBonus": {
-            "action": 0,
-            "trigger": 1,
-            "maneuver": 0
-          }
-        },
-        {
-          "id": "kit_slinger_t3_pr",
-          "tier": 3,
-          "type": "passive",
-          "name": "The Professional's Reserve",
-          "rule": "At the end of a scene, if you have exactly 1 Edge remaining in your pool, you regain 1 Edge. This stacks with The Hustler's Stamina."
+          "name": "Two for Flinching",
+          "tags": ["[Combat]"],
+          "rule": "When you Exploit an Opening with a Pistol and the attack deals damage, the target presents another Opening to any ally in the zone. Your shots crack the door wide open for the whole crew."
         }
       ]
     },
     {
-      "id": "kit_prescient",
-      "name": "The Prescient",
+      "id": "voc_shockboxer",
+      "name": "The Shockboxer",
       "tier": 3,
-      "governingArena": "wits",
-      "alignedDiscipline": "sense_spark",
+      "governingArena": "physique",
+      "favoredDiscipline": "brawl",
+      "description": "Fists, shock-gloves, and an iron chin. The Shockboxer builds momentum through combinations — each hit setting up the next until the opponent can't stand anymore.",
+      "fluff": "Shockboxing pits across the Outer Rim draw crowds from Nar Shaddaa to Ord Mantell. You trained in those pits.",
       "abilities": [
         {
-          "id": "kit_prescient_t1_ss",
+          "id": "voc_shockboxer_t1",
           "tier": 1,
           "type": "passive",
-          "name": "The Sixth Sense",
-          "rule": "When an enemy declares an attack against you, you instinctively react. You instantly gain [Guarded 1] (if targeted by a melee attack) or [Cover 1] (if targeted by a ranged attack) for that single interaction, even if you are standing in open ground."
+          "name": "Iron Chin",
+          "tags": ["[Combat]"],
+          "rule": "You may use Brawl (Physique) in place of Endure for Defense rolls while Engaged. When you take Stun damage and remain conscious, gain [Optimized] on your next Brawl attack."
         },
         {
-          "id": "kit_prescient_t1_sbs",
-          "tier": 1,
-          "type": "passive",
-          "name": "Sight Beyond Sight",
-          "rule": "You perceive the world as a tapestry of living energy. You permanently ignore all Step Down penalties associated with darkness, heavy smoke, or the [Blinded] condition when defending against or interacting with living targets. You do not need physical sight to know exactly where they are."
-        },
-        {
-          "id": "kit_prescient_t2_pl",
+          "id": "voc_shockboxer_t2",
           "tier": 2,
+          "type": "passive",
+          "name": "Combo Counter",
+          "tags": ["[Combat]"],
+          "rule": "Track Brawl hits that deal damage to the same target. On the 2nd hit: target gains [Rattled]. On the 3rd hit: target gains [Exposed]. Combo Counter resets at the end of your turn."
+        },
+        {
+          "id": "voc_shockboxer_t3",
+          "tier": 3,
           "type": "gambit",
-          "name": "The Precognitive Lure",
-          "actionType": "Dodge",
-          "targetType": "defense",
-          "target": "Free Defense",
-          "arenaTag": "[Defense]",
-          "rule": "Reduce your Dodge result by -1 Effect Tier (if this pushes your success to a negative number, you suffer a Fleeting hit from the enemy). On any result, gain the [Optimized] condition on your next Action against that specific attacker."
+          "name": "Body Work",
+          "tags": ["[Combat]"],
+          "modifiesAction": "action_attack",
+          "actionType": "Brawl Attack",
+          "rule": "After resolving a Brawl attack that deals damage, spend 1 tier. This hit counts as 2 hits for your Combo Counter. A well-placed body shot fast-tracks the punishment."
         },
         {
-          "id": "kit_prescient_t2_mm",
-          "tier": 2,
-          "type": "passive",
-          "name": "The Moving Meditation",
-          "rule": "If you spent at least 1 Edge during a scene and successfully used a Discipline (Sense) maneuver to read a target, OR successfully used The Sixth Sense to anticipate an attack, you regain 1 Edge at the scene's end."
+          "id": "voc_shockboxer_t4",
+          "tier": 4,
+          "type": "gambit",
+          "name": "Roll With It",
+          "tags": ["[Combat]"],
+          "modifiesAction": "action_endure",
+          "actionType": "Brawl Defense",
+          "rule": "When you defend using Brawl (via Iron Chin), spend 1 tier from the defense result. The attacker immediately presents an Opening to you."
         },
         {
-          "id": "kit_prescient_t3_sp",
-          "tier": 3,
+          "id": "voc_shockboxer_t5",
+          "tier": 5,
           "type": "passive",
-          "name": "Shatterpoint",
-          "rule": "You are no longer bound by the limit of one Exploit per round. When an enemy or ally creates an Opening, you may spend 1 Edge to pay the cost of an Exploit to react using any Force ability (including The Sixth Sense)."
-        },
-        {
-          "id": "kit_prescient_t3_ic",
-          "tier": 3,
-          "type": "passive",
-          "name": "Inner Calm",
-          "rule": "You are never truly caught off guard. Your connection to the Force maintains a constant perimeter of awareness. When rolling for Initiative (Join Battle), you may use Discipline (Sense) instead of Discipline (Tactics)."
+          "name": "The Knockout",
+          "tags": ["[Combat]"],
+          "rule": "When your Combo Counter reaches 3+ on a target and your Brawl attack resolves at Masterful or higher, you may declare a Knockout. The target is immediately [Incapacitated]. Once per scene."
         }
       ]
     }
   ],
-  "talents": [
-    {
-      "id": "talent_point_blank_shot",
-      "name": "Point Blank Shot",
-      "gambit": "Reduce effect by one level: You do not provide an opening for this attack if attacking a target you are [Engaged] with.",
-      "tags": [
-        "Pistol"
-      ]
-    }
-  ],
+  "talents": [],
   "arenas": [
     {
       "id": "physique",
@@ -162,31 +175,11 @@
       "subtitle": "Strength, Structure, Endurance",
       "die": "D8",
       "disciplines": [
-        {
-          "id": "athletics",
-          "label": "Athletics",
-          "die": "D12"
-        },
-        {
-          "id": "brawl",
-          "label": "Brawl",
-          "die": "D12"
-        },
-        {
-          "id": "endure",
-          "label": "Endure",
-          "die": "D12"
-        },
-        {
-          "id": "melee",
-          "label": "Melee",
-          "die": "D12"
-        },
-        {
-          "id": "heavy_weapons",
-          "label": "Heavy Weapons",
-          "die": "D12"
-        }
+        { "id": "athletics", "label": "Athletics", "die": "D12" },
+        { "id": "brawl", "label": "Brawl", "die": "D12" },
+        { "id": "endure", "label": "Endure", "die": "D12" },
+        { "id": "melee", "label": "Melee", "die": "D12" },
+        { "id": "heavy_weapons", "label": "Heavy Weapons", "die": "D12" }
       ]
     },
     {
@@ -195,31 +188,11 @@
       "subtitle": "Speed, Agility, Hand-Eye Coordination",
       "die": "D6",
       "disciplines": [
-        {
-          "id": "evasion",
-          "label": "Evasion",
-          "die": "D12"
-        },
-        {
-          "id": "piloting",
-          "label": "Piloting",
-          "die": "D12"
-        },
-        {
-          "id": "ranged",
-          "label": "Ranged",
-          "die": "D12"
-        },
-        {
-          "id": "skulduggery",
-          "label": "Skulduggery",
-          "die": "D12"
-        },
-        {
-          "id": "stealth",
-          "label": "Stealth",
-          "die": "D12"
-        }
+        { "id": "evasion", "label": "Evasion", "die": "D12" },
+        { "id": "piloting", "label": "Piloting", "die": "D12" },
+        { "id": "ranged", "label": "Ranged", "die": "D12" },
+        { "id": "skulduggery", "label": "Skulduggery", "die": "D12" },
+        { "id": "stealth", "label": "Stealth", "die": "D12" }
       ]
     },
     {
@@ -228,31 +201,11 @@
       "subtitle": "Instinct, Stamina, Spiritual Willpower",
       "die": "D10",
       "disciplines": [
-        {
-          "id": "beast_handling",
-          "label": "Beast Handling",
-          "die": "D12"
-        },
-        {
-          "id": "control_spark",
-          "label": "Control (The Spark)",
-          "die": "D12"
-        },
-        {
-          "id": "intimidate",
-          "label": "Intimidate",
-          "die": "D12"
-        },
-        {
-          "id": "resolve",
-          "label": "Resolve",
-          "die": "D12"
-        },
-        {
-          "id": "survival",
-          "label": "Survival",
-          "die": "D12"
-        }
+        { "id": "beast_handling", "label": "Beast Handling", "die": "D12" },
+        { "id": "control_spark", "label": "Control (The Spark)", "die": "D12" },
+        { "id": "intimidate", "label": "Intimidate", "die": "D12" },
+        { "id": "resolve", "label": "Resolve", "die": "D12" },
+        { "id": "survival", "label": "Survival", "die": "D12" }
       ]
     },
     {
@@ -261,31 +214,11 @@
       "subtitle": "Logic, Awareness, Technical Knowledge",
       "die": "D8",
       "disciplines": [
-        {
-          "id": "investigation",
-          "label": "Investigation",
-          "die": "D12"
-        },
-        {
-          "id": "medicine",
-          "label": "Medicine",
-          "die": "D12"
-        },
-        {
-          "id": "sense_spark",
-          "label": "Sense (The Spark)",
-          "die": "D12"
-        },
-        {
-          "id": "tactics",
-          "label": "Tactics",
-          "die": "D12"
-        },
-        {
-          "id": "tech",
-          "label": "Tech",
-          "die": "D12"
-        }
+        { "id": "investigation", "label": "Investigation", "die": "D12" },
+        { "id": "medicine", "label": "Medicine", "die": "D12" },
+        { "id": "sense_spark", "label": "Sense (The Spark)", "die": "D12" },
+        { "id": "tactics", "label": "Tactics", "die": "D12" },
+        { "id": "tech", "label": "Tech", "die": "D12" }
       ]
     },
     {
@@ -294,31 +227,11 @@
       "subtitle": "Charisma, Authority, Projection of Will",
       "die": "D4",
       "disciplines": [
-        {
-          "id": "alter_spark",
-          "label": "Alter (The Spark)",
-          "die": "D12"
-        },
-        {
-          "id": "charm",
-          "label": "Charm",
-          "die": "D12"
-        },
-        {
-          "id": "deception",
-          "label": "Deception",
-          "die": "D12"
-        },
-        {
-          "id": "insight",
-          "label": "Insight",
-          "die": "D12"
-        },
-        {
-          "id": "persuasion",
-          "label": "Persuasion",
-          "die": "D12"
-        }
+        { "id": "alter_spark", "label": "Alter (The Spark)", "die": "D12" },
+        { "id": "charm", "label": "Charm", "die": "D12" },
+        { "id": "deception", "label": "Deception", "die": "D12" },
+        { "id": "insight", "label": "Insight", "die": "D12" },
+        { "id": "persuasion", "label": "Persuasion", "die": "D12" }
       ]
     }
   ]

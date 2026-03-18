@@ -62,10 +62,19 @@
     return el;
   }
 
+  var ABILITY_TYPE_ORDER = ['passive', 'gambit', 'maneuver', 'exploit', 'permission'];
+  var ABILITY_TYPE_LABELS = {
+    passive: 'PASSIVE',
+    gambit: 'GAMBIT',
+    maneuver: 'MANEUVER',
+    exploit: 'EXPLOIT',
+    permission: 'PERMISSION',
+  };
+
   function _buildAbilities(char) {
     var kits = char.kits || [];
-    var passives = [];
-    var gambits = [];
+    var buckets = {};
+    ABILITY_TYPE_ORDER.forEach(function (t) { buckets[t] = []; });
 
     kits.forEach(function (kit) {
       var tier = kit.tier || 0;
@@ -75,6 +84,7 @@
           name: ab.name,
           rule: ab.rule,
           tier: ab.tier,
+          type: ab.type || 'passive',
           kitName: kit.name,
           actionBonus: ab.actionBonus || null,
           cost: ab.cost || null,
@@ -82,10 +92,21 @@
           arenaTag: ab.arenaTag || null,
           actionType: ab.actionType || null,
           target: ab.target || null,
+          tags: ab.tags || null,
+          effect: ab.effect || null,
+          risk: ab.risk || null,
+          discipline: ab.discipline || null,
+          arena: ab.arena || null,
+          defense: ab.defense || null,
         };
-        if (ab.type === 'gambit') gambits.push(entry);
-        else passives.push(entry);
+        var bucket = buckets[entry.type] || buckets['passive'];
+        bucket.push(entry);
       });
+    });
+
+    var allAbilities = [];
+    ABILITY_TYPE_ORDER.forEach(function (t) {
+      allAbilities = allAbilities.concat(buckets[t]);
     });
 
     var wrap = document.createElement('div');
@@ -93,11 +114,11 @@
 
     var header = document.createElement('div');
     header.className = 'dp-section-bar';
-    header.innerHTML = '<span class="dp-section-bar-label">Your Abilities</span>' +
-      '<span class="dp-section-bar-count">' + (passives.length + gambits.length) + ' unlocked</span>';
+    header.innerHTML = '<span class="dp-section-bar-label">Vocation Abilities</span>' +
+      '<span class="dp-section-bar-count">' + allAbilities.length + ' unlocked</span>';
     wrap.appendChild(header);
 
-    if (passives.length === 0 && gambits.length === 0) {
+    if (allAbilities.length === 0) {
       var empty = document.createElement('div');
       empty.className = 'dp-empty-msg';
       empty.textContent = 'No abilities unlocked yet.';
@@ -105,12 +126,8 @@
       return wrap;
     }
 
-    passives.forEach(function (ab) {
-      wrap.appendChild(_abilityCard(ab, 'passive'));
-    });
-
-    gambits.forEach(function (ab) {
-      wrap.appendChild(_abilityCard(ab, 'gambit'));
+    allAbilities.forEach(function (ab) {
+      wrap.appendChild(_abilityCard(ab, ab.type));
     });
 
     return wrap;
@@ -125,7 +142,7 @@
 
     var badge = document.createElement('span');
     badge.className = 'dp-ability-badge dp-ability-badge--' + type;
-    badge.textContent = type === 'gambit' ? 'GAMBIT' : 'PASSIVE';
+    badge.textContent = ABILITY_TYPE_LABELS[type] || type.toUpperCase();
     topRow.appendChild(badge);
 
     var name = document.createElement('span');
@@ -140,28 +157,52 @@
 
     card.appendChild(topRow);
 
-    if (type === 'gambit') {
-      var tags = [];
-      if (ab.arenaTag) tags.push(ab.arenaTag);
-      if (ab.actionType) tags.push(ab.actionType);
-      if (ab.target) tags.push(ab.target);
-      if (tags.length) {
-        var tagRow = document.createElement('div');
-        tagRow.className = 'dp-ability-card-tags';
-        tags.forEach(function (t) {
-          var tag = document.createElement('span');
-          tag.className = 'dp-ability-card-tag';
-          tag.textContent = t;
-          tagRow.appendChild(tag);
-        });
-        card.appendChild(tagRow);
-      }
+    var tags = [];
+    if (ab.tags && ab.tags.length) { tags = tags.concat(ab.tags); }
+    if (ab.actionType) tags.push(ab.actionType);
+    if (ab.target) tags.push(ab.target);
+    if (type === 'maneuver' && ab.discipline) {
+      tags.push(_discLabel(ab.discipline) + ' (' + (ARENA_LABELS[ab.arena] || ab.arena || '') + ')');
+      if (ab.defense) tags.push('vs ' + _discLabel(ab.defense));
+    }
+    if (tags.length) {
+      var tagRow = document.createElement('div');
+      tagRow.className = 'dp-ability-card-tags';
+      tags.forEach(function (t) {
+        var tag = document.createElement('span');
+        tag.className = 'dp-ability-card-tag';
+        tag.textContent = t;
+        tagRow.appendChild(tag);
+      });
+      card.appendChild(tagRow);
     }
 
     var rule = document.createElement('div');
     rule.className = 'dp-ability-card-rule';
     rule.textContent = ab.rule;
     card.appendChild(rule);
+
+    if (ab.risk) {
+      var riskEl = document.createElement('div');
+      riskEl.className = 'dp-ability-card-risk';
+      riskEl.innerHTML = '<strong>Risk:</strong> ' + _esc(ab.risk);
+      card.appendChild(riskEl);
+    }
+
+    if (ab.effect && ab.effect.length) {
+      var effectWrap = document.createElement('div');
+      effectWrap.className = 'dp-ability-effect-track';
+      ab.effect.forEach(function (eff) {
+        var row = document.createElement('div');
+        row.className = 'dp-ability-effect-row';
+        row.innerHTML =
+          '<span class="dp-effect-label">' + _esc(eff.label) + '</span>' +
+          '<span class="dp-effect-range">' + _esc(eff.range) + '</span>' +
+          '<span class="dp-effect-desc">' + _esc(eff.description) + '</span>';
+        effectWrap.appendChild(row);
+      });
+      card.appendChild(effectWrap);
+    }
 
     var extras = [];
     if (ab.actionBonus) {
@@ -485,7 +526,7 @@
 
     var header = document.createElement('div');
     header.className = 'dp-section-bar dp-section-bar--toggle';
-    header.innerHTML = '<span class="dp-section-bar-label">Kit Progression</span>' +
+    header.innerHTML = '<span class="dp-section-bar-label">Vocation Progression</span>' +
       '<span class="dp-section-bar-chevron">\u25B8</span>';
     header.addEventListener('click', function () {
       wrap.classList.toggle('dp-section--closed');
@@ -509,7 +550,7 @@
 
       var metaTags = [];
       if (kit.governingArena) metaTags.push(ARENA_LABELS[kit.governingArena] || kit.governingArena);
-      if (kit.alignedDiscipline) metaTags.push(_discLabel(kit.alignedDiscipline));
+      if (kit.favoredDiscipline) metaTags.push(_discLabel(kit.favoredDiscipline) + ' (Favored)');
 
       if (metaTags.length) {
         var meta = document.createElement('span');
@@ -520,9 +561,16 @@
 
       card.appendChild(cardHead);
 
+      if (kit.description) {
+        var descEl = document.createElement('div');
+        descEl.className = 'dp-prog-card-desc';
+        descEl.textContent = kit.description;
+        card.appendChild(descEl);
+      }
+
       var tierBar = document.createElement('div');
       tierBar.className = 'dp-prog-tier-bar';
-      for (var t = 1; t <= 3; t++) {
+      for (var t = 1; t <= 5; t++) {
         var pip = document.createElement('div');
         pip.className = 'dp-prog-tier-pip' + (t <= kit.tier ? ' dp-prog-tier-pip--active' : '');
         pip.textContent = 'T' + t;

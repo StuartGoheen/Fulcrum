@@ -43,10 +43,10 @@ A Star Wars TTRPG electronic character sheet and campaign management system buil
 - `data/character-test.json` — dev seed character (loaded by `server/db.js` on startup, keeps dev DB populated)
 - `data/characters.seed.json` — initial character slot names for DB seeding
 - `data/armor.json`, `data/gear.json`, `data/chassis.json` — equipment data
-- `data/kits.json` — Kit specialization definitions
-- `data/gamesystem.json` — Core resolution rules reference. Includes full 6-tier resolution ladder (Fleeting through Unleashed III), Modes of Play (Combat/Challenge/Narrative), Presence scaling guide, and Opening/Exploit/Defense reactive economy framework.
+- `data/kits.json` — Vocation definitions (Kit System v2). 3 vocations: The Gunslinger (ranged/reflex), The Shockboxer (brawl/physique), The Ghost (stealth/reflex). Each has 5-tier ability tree with typed abilities (passive/gambit/maneuver/exploit/permission), favoredDiscipline, tags, effect tracks, and risk fields.
+- `data/gamesystem.json` — Core resolution rules reference. Includes full 6-tier resolution ladder (Fleeting through Unleashed III), Modes of Play (Combat/Challenge/Narrative), Presence scaling guide, Opening/Exploit/Defense reactive economy framework, Dual Wielding rule, Concealment rule, and Vocation System v2 framework.
 - `data/threats.json` — NPC/threat rules and trigger system (pending alignment with Opening/Exploit/Defense model)
-- `data/maneuvers.json` — universal actions + discipline gambits (object: `universalActions[15]` incl. Join Battle + Resist, `forceManeuvers[3]`, `disciplineGambits{25 sets, 75 gambits}`, `advancedManeuvers[]`). Move action has explicit combat tiers. Join Battle uses Free type. Dodge/Endure/Resist are Defense type (free, no Exploit pip cost).
+- `data/maneuvers.json` — universal actions + discipline gambits (object: `universalActions[15]` incl. Join Battle + Resist, `forceManeuvers[3]`, `disciplineGambits{25 sets, 75 gambits}`, `advancedManeuvers[]`, `vocationManeuvers[2]` — Dead Drop (Gunslinger T3) and Slip (Ghost T3)). Move action has explicit combat tiers. Join Battle uses Free type. Dodge/Endure/Resist are Defense type (free, no Exploit pip cost).
 - `data/glossary.json` — 54 entries including 23 conditions + Natural Recovery rule with conditionType/pcEffect/npcEffect fields. All 25 disciplines include `narrativeTiers` (fleeting/masterful/legendary/unleashedI/unleashedII/unleashedIII) for Challenge and Narrative mode outcomes. Consumed by the Player's Handbook panel.
 - `data/adventures.json` — structured adventure content (adventures → parts → scenes)
 

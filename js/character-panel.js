@@ -171,17 +171,17 @@
       .replace(/"/g, '&quot;');
   }
 
-  function _alignedDisciplineIds(char) {
+  function _favoredDisciplineIds(char) {
     var ids = {};
     (char.kits || []).forEach(function (kit) {
-      if (kit.alignedDiscipline) ids[kit.alignedDiscipline] = true;
+      if (kit.favoredDiscipline) ids[kit.favoredDiscipline] = true;
     });
     return ids;
   }
 
   function _buildFront(char) {
     var html = '';
-    var alignedIds = _alignedDisciplineIds(char);
+    var favoredIds = _favoredDisciplineIds(char);
 
     // Identity header
     html +=
@@ -220,7 +220,7 @@
         var baseDieIdx   = DIE_ORDER.indexOf(disc.die.toUpperCase());
         var effIdx       = Math.max(0, Math.min(4, baseDieIdx + discOffset));
         var effDie       = DIE_ORDER[effIdx] || disc.die.toUpperCase();
-        var isAligned    = !!alignedIds[disc.id];
+        var isFavored    = !!favoredIds[disc.id];
         var discImgHtml;
         if (baseDieIdx + discOffset < 0) {
           discImgHtml =
@@ -242,9 +242,9 @@
                      : '';
           discImgHtml = _dieImg(effDie, 'discipline') + arrowH;
         }
-        var alignedMarker = isAligned ? '<span class="char-discipline-aligned-pip" aria-label="Edge aligned" title="Edge aligned"></span>' : '';
+        var alignedMarker = isFavored ? '<span class="char-discipline-favored-pip" aria-label="Favored" title="Favored"></span>' : '';
         html +=
-          '<div class="char-discipline-row' + (isAligned ? ' char-discipline-row--aligned' : '') + '">' +
+          '<div class="char-discipline-row' + (isFavored ? ' char-discipline-row--favored' : '') + '">' +
             '<span class="char-discipline-die" style="position:relative;">' + discImgHtml + '</span>' +
             '<span class="char-discipline-name" data-glossary-id="' + _esc(disc.id) + '">' + _esc(disc.label.replace(/\s*\(The Spark\)/i, '')) + '</span>' +
             alignedMarker +

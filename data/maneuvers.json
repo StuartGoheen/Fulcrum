@@ -1495,5 +1495,81 @@
       ]
     }
   },
-  "advancedManeuvers": []
+  "advancedManeuvers": [],
+  "vocationManeuvers": [
+    {
+      "id": "voc_maneuver_dead_drop",
+      "name": "Dead Drop",
+      "sourceVocation": "voc_gunslinger",
+      "requiredTier": 3,
+      "actionType": "Maneuver",
+      "pip": "M",
+      "rolled": true,
+      "discipline": "ranged",
+      "arena": "reflex",
+      "defense": "resolve",
+      "tags": [
+        "[Combat]"
+      ],
+      "description": "Draw down on a target and force them to react — you don't fire, you just let them see where this is going. Roll Ranged (Reflex) vs target's Resolve.",
+      "risk": "On failure, you present an Opening to the target — you've shown your hand.",
+      "effect": [
+        {
+          "tier": 1,
+          "label": "Fleeting",
+          "range": "0-3",
+          "description": "Target gains [Rattled]."
+        },
+        {
+          "tier": 2,
+          "label": "Masterful",
+          "range": "4-7",
+          "description": "Target gains [Rattled]. Choose one: the target must spend their next Maneuver taking Cover, OR they present an Opening to you."
+        },
+        {
+          "tier": 3,
+          "label": "Legendary",
+          "range": "8+",
+          "description": "Target gains [Rattled] and [Exposed]. They present an Opening to you. If you Exploit it this round, step up Effect by 1 Tier."
+        }
+      ]
+    },
+    {
+      "id": "voc_maneuver_slip",
+      "name": "Slip",
+      "sourceVocation": "voc_ghost",
+      "requiredTier": 3,
+      "actionType": "Maneuver",
+      "pip": "M",
+      "rolled": true,
+      "discipline": "stealth",
+      "arena": "reflex",
+      "defense": "resolve",
+      "tags": [
+        "[Combat]"
+      ],
+      "description": "Melt out of a target's awareness mid-fight. Roll Stealth (Reflex) vs target's Resolve. You don't move — you just stop being seen.",
+      "risk": "On failure, you present an Opening to the target — they see right through it.",
+      "effect": [
+        {
+          "tier": 1,
+          "label": "Fleeting",
+          "range": "0-3",
+          "description": "Gain Concealment against the target until your next action. Their attacks against you lose [Optimized]."
+        },
+        {
+          "tier": 2,
+          "label": "Masterful",
+          "range": "4-7",
+          "description": "Gain Concealment against the target until end of round. They cannot target you with abilities that require line of sight."
+        },
+        {
+          "tier": 3,
+          "label": "Legendary",
+          "range": "8+",
+          "description": "Gain Concealment against all enemies in your zone until end of round. You may immediately Move 1 zone without presenting an Opening."
+        }
+      ]
+    }
+  ]
 }

@@ -828,5 +828,57 @@
       "The Default Exploit's -1 Effect Tier penalty ensures that reactive attacks are weaker than deliberate ones. Kit-granted Exploits can modify this baseline — that is the primary way kits interact with the reactive economy.",
       "Defenses being free means combat always has back-and-forth. The GM never rolls dice — when a threat attacks a PC, the PC always rolls a Defense. This keeps players engaged on every attack, not just their own turn."
     ]
+  },
+  {
+    "id": "dual_wielding",
+    "number": 12,
+    "name": "Dual Wielding",
+    "tag": "System Rule",
+    "summary": "Wielding two weapons simultaneously trades accuracy for power. Specialists (via Vocations) can overcome the accuracy penalty.",
+    "mechanic": "When a character attacks while wielding two weapons of any type: Step down the Control die (reduced accuracy — splitting focus between two weapons). Step up the Power die (increased force — volume of fire or dual impact). Both weapons spend ammo or durability on each attack. Gambits from either equipped weapon may be declared on the attack.",
+    "designNotes": [
+      "Dual wielding is a risk/reward tradeoff at the system level: higher ceiling (stepped-up Power), lower floor (stepped-down Control). The net result is more volatile — you hit harder when you connect but connect less often.",
+      "Vocation abilities (e.g. Akimbo from The Gunslinger) can remove the Control die step-down, making dual wielding purely beneficial for the specialist. This is the primary incentive for investing in a dual-wield-capable Vocation.",
+      "Dual wielding does not grant extra attacks. It modifies the single attack action. Extra attacks come from Exploits, gambits, or specific Vocation abilities.",
+      "The 'both weapons spend ammo' cost ensures dual wielding has resource pressure even when optimized."
+    ]
+  },
+  {
+    "id": "concealment",
+    "number": 13,
+    "name": "Concealment",
+    "tag": "System Rule",
+    "summary": "Visual obscurity that makes targets harder to pin down. Unlike Cover, concealment does not physically stop attacks — it disrupts targeting.",
+    "mechanic": "Concealment represents visual obscurity — smoke, darkness, dense foliage, crowd cover. When attacking a concealed target, the attack cannot benefit from [Optimized]. Concealment can be negated by technology (thermal optics, sensor suites, enhanced visor modes on trooper helmets, etc.).",
+    "concealmentVsCover": "Cover (the [Cover X] condition) physically blocks incoming fire and reduces damage. Concealment disrupts targeting but does not reduce damage. A character can benefit from both simultaneously — behind a crate ([Cover 2]) in a smoke-filled room (concealment).",
+    "targetSpecific": "Concealment from Vocation abilities (e.g. Slip, Vanishing Act) is target-specific — you are concealed from a particular enemy, not from the entire battlefield. Environmental concealment (smoke, darkness) is zone-wide and applies to all targets.",
+    "designNotes": [
+      "Concealment's baseline effect is deliberately light — stripping [Optimized] from attackers. This prevents aim-based setups from working but does not penalize baseline attacks. Vocation abilities (The Ghost) are what make concealment mechanically powerful.",
+      "Target-specific concealment from Vocation abilities creates interesting tactical decisions: you may be concealed from the enemy you Slipped, but their ally across the room sees you just fine.",
+      "Technology negating concealment is thematically important for Star Wars — stormtrooper helmets, droid sensors, and bounty hunter gear should all counter darkness and smoke. This keeps concealment situational rather than universally dominant."
+    ]
+  },
+  {
+    "id": "vocation_system",
+    "number": 14,
+    "name": "Vocation System (Kit System v2)",
+    "tag": "Character Progression",
+    "summary": "Vocations are 5-tier ability trees that define a character's combat and narrative identity. Each Vocation grants a favored discipline, Edge spending permissions, and a progression of abilities from Tier 1 to Tier 5.",
+    "mechanic": "Each Vocation has 5 tiers, purchased 1 point per tier. Characters start with a 5-point creation budget. Tier access is capped by the character's discipline die in the Vocation's favored discipline: D6 = Tier 2 max, D8 = Tier 3 max, D10 = Tier 4 max, D12 = Tier 5 max. There is no limit on the number of Vocations a character may invest in.",
+    "favoredDiscipline": "Every Vocation grants a favored discipline at Tier 1. This is the key to the Unleashed mechanic — the favored discipline's die explodes (on max result, reroll and add). Additionally, the character may spend 1 Edge to reroll their Control die on any roll using the favored discipline. These permissions are built into every Vocation and are not listed as a separate ability.",
+    "edgeEngine": "The Edge Engine's maximum pool is determined by the highest governing arena die across all of the character's Vocations. Each Vocation has a governing arena (e.g. Reflex for The Gunslinger, Physique for The Shockboxer). The arena die value sets the Edge pool ceiling.",
+    "abilityTypes": {
+      "passive": "Always-on permissions or conditional triggers. No action cost.",
+      "gambit": "Active choice during play. Spend 1 tier from a roll result to gain an additional effect. Requires a decision point.",
+      "maneuver": "A new rolled maneuver added to the character's action menu. Uses the Maneuver pip. Has 3 resolution tiers (Fleeting, Masterful, Legendary) and a risk on failure.",
+      "exploit": "A new way to spend the Exploit pip. Modifies or replaces the default Exploit reaction.",
+      "permission": "A rare, powerful ability that grants a unique narrative or mechanical permission. Usually once per scene or once per Act."
+    },
+    "designNotes": [
+      "Tier 1 abilities define the Vocation's identity and should make the character feel competent immediately. They are not just 'favored discipline' — that permission is baked into every Vocation. Tier 1 is the first real mechanical ability.",
+      "The 5-tier structure allows meaningful progression without bloat. A starting character at Tier 3 has a clear identity and toolkit. Tiers 4-5 are mid-to-late game power spikes gated by discipline die advancement.",
+      "Ability type variety prevents passive bloat. Each Vocation should mix passives, gambits, maneuvers, exploits, and/or permissions to create active decision points during play.",
+      "Vocations interact with the existing systems (Openings, Exploits, Defenses, Conditions) rather than creating parallel mechanics. This keeps the core resolution math intact while layering specialist capabilities on top."
+    ]
   }
 ]

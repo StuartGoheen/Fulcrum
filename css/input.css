@@ -510,12 +510,12 @@
     white-space: nowrap;
   }
 
-  .char-discipline-row--aligned .char-discipline-name {
+  .char-discipline-row--favored .char-discipline-name {
     color: var(--color-accent-primary);
     font-weight: 600;
   }
 
-  .char-discipline-aligned-pip {
+  .char-discipline-favored-pip {
     display: inline-block;
     width: 5px;
     height: 5px;
@@ -5988,6 +5988,36 @@
   border: 1px solid var(--color-accent-primary);
 }
 
+.dp-ability-card--maneuver {
+  border-left: 3px solid #2dd4bf;
+}
+
+.dp-ability-badge--maneuver {
+  color: var(--color-bg-primary);
+  background: #2dd4bf;
+  border: 1px solid #2dd4bf;
+}
+
+.dp-ability-card--exploit {
+  border-left: 3px solid #f59e0b;
+}
+
+.dp-ability-badge--exploit {
+  color: var(--color-bg-primary);
+  background: #f59e0b;
+  border: 1px solid #f59e0b;
+}
+
+.dp-ability-card--permission {
+  border-left: 3px solid #a78bfa;
+}
+
+.dp-ability-badge--permission {
+  color: var(--color-bg-primary);
+  background: #a78bfa;
+  border: 1px solid #a78bfa;
+}
+
 .dp-ability-card-name {
   font-family: "Exo 2", sans-serif;
   font-weight: 600;
@@ -6025,6 +6055,63 @@
   font-size: 0.52rem;
   color: var(--color-text-secondary);
   line-height: 1.5;
+}
+
+.dp-ability-card-risk {
+  font-size: 0.48rem;
+  color: #ef4444;
+  line-height: 1.4;
+  margin-top: 4px;
+  padding: 3px 6px;
+  background: rgba(239, 68, 68, 0.08);
+  border-radius: 2px;
+}
+
+.dp-ability-card-risk strong {
+  font-weight: 700;
+}
+
+.dp-ability-effect-track {
+  margin-top: 4px;
+  border: 1px solid var(--color-border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.dp-ability-effect-row {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 3px 6px;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 0.48rem;
+  line-height: 1.4;
+}
+
+.dp-ability-effect-row:last-child {
+  border-bottom: none;
+}
+
+.dp-effect-label {
+  font-family: "Audiowide", sans-serif;
+  font-size: 0.38rem;
+  letter-spacing: 0.06em;
+  color: var(--color-accent-primary);
+  flex-shrink: 0;
+  min-width: 55px;
+  text-transform: uppercase;
+}
+
+.dp-effect-range {
+  font-size: 0.40rem;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+  min-width: 22px;
+}
+
+.dp-effect-desc {
+  color: var(--color-text-secondary);
+  flex: 1;
 }
 
 .dp-ability-card-extras {
@@ -6185,6 +6272,14 @@
   color: var(--color-text-muted);
   letter-spacing: 0.06em;
   text-transform: uppercase;
+}
+
+.dp-prog-card-desc {
+  font-size: 0.48rem;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin-bottom: 4px;
+  font-style: italic;
 }
 
 .dp-prog-tier-bar {

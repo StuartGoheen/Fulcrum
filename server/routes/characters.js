@@ -61,7 +61,7 @@ const ENGINE_DATA = {
   coreUtility: {
     name: 'Tier Boost',
     cost: '1 Edge Point',
-    rule: 'Spend 1 Edge Point after a roll to instantly increase your final Power result by +1 Effect Tier (e.g., from a Fleeting success to a Basic success). You may only use this on Disciplines aligned with your acquired Kits.',
+    rule: 'Spend 1 Edge Point after a roll to instantly increase your final Power result by +1 Effect Tier (e.g., from a Fleeting success to a Masterful success). You may only use this on favored Disciplines granted by your Vocations.',
   },
 };
 
