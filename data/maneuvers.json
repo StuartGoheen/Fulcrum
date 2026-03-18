@@ -1576,10 +1576,10 @@
       "name": "Arise",
       "sourceVocation": "voc_ichor_witch",
       "requiredTier": 4,
-      "actionType": "Maneuver",
+      "actionType": "Action",
       "pip": "A",
       "rolled": true,
-      "discipline": "alter",
+      "discipline": "alter_spark",
       "arena": "presence",
       "tags": [
         "[Force]"
@@ -1612,10 +1612,10 @@
       "name": "True Possession",
       "sourceVocation": "voc_ichor_witch",
       "requiredTier": 5,
-      "actionType": "Maneuver",
+      "actionType": "Action",
       "pip": "A",
       "rolled": true,
-      "discipline": "alter",
+      "discipline": "alter_spark",
       "arena": "presence",
       "defense": "resolve",
       "tags": [
