@@ -98,6 +98,7 @@
           discipline: ab.discipline || null,
           arena: ab.arena || null,
           defense: ab.defense || null,
+          gambits: ab.gambits || null,
         };
         var bucket = buckets[entry.type] || buckets['passive'];
         bucket.push(entry);
@@ -202,6 +203,30 @@
         effectWrap.appendChild(row);
       });
       card.appendChild(effectWrap);
+    }
+
+    if (ab.gambits && ab.gambits.length) {
+      ab.gambits.forEach(function (g) {
+        var gWrap = document.createElement('div');
+        gWrap.className = 'dp-ability-card dp-ability-card--gambit';
+        gWrap.style.marginTop = '0.35rem';
+        var gTop = document.createElement('div');
+        gTop.className = 'dp-ability-card-top';
+        var gBadge = document.createElement('span');
+        gBadge.className = 'dp-ability-badge dp-ability-badge--gambit';
+        gBadge.textContent = 'GAMBIT';
+        gTop.appendChild(gBadge);
+        var gName = document.createElement('span');
+        gName.className = 'dp-ability-card-name';
+        gName.textContent = g.name;
+        gTop.appendChild(gName);
+        gWrap.appendChild(gTop);
+        var gRule = document.createElement('div');
+        gRule.className = 'dp-ability-card-rule';
+        gRule.textContent = g.rule;
+        gWrap.appendChild(gRule);
+        card.appendChild(gWrap);
+      });
     }
 
     var extras = [];
