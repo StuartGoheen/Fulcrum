@@ -65,6 +65,28 @@ const BACKGROUND_FAVORED = {
   'wreck': 'endure', 'ascent': 'persuasion', 'betrayal': 'insight',
 };
 
+const BACKGROUND_TITLE_TO_ID = {
+  'The Deep Fringe': 'deep-fringe', 'The Shadowed Levels': 'shadowed-levels',
+  'The Salvage Yards': 'salvage-yards', 'The Coreward Spires': 'coreward-spires',
+  'The Agrarian Plain': 'agrarian-plain', 'The War Front': 'war-front',
+  'The Ancient Ruin': 'ancient-ruin', 'The Trading Post': 'trading-post',
+  'The Detention Block': 'detention-block', 'The Shipboard Born': 'shipboard-born',
+  'The Labor Camp': 'labor-camp', 'The Enclave': 'enclave',
+  'The Disbanded Regular': 'disbanded-regular', 'The Separatist Holdout': 'separatist-holdout',
+  'The Imperial Defector': 'imperial-defector', 'The Blockade Runner': 'blockade-runner',
+  'The Pacification Survivor': 'pacification-survivor', 'The Field Medic': 'field-medic',
+  'The Syndicate Enforcer': 'syndicate-enforcer', 'The Post-War Tracker': 'post-war-tracker',
+  'The Purge Survivor': 'purge-survivor', 'The Wreck': 'wreck',
+  'The Ascent': 'ascent', 'The Betrayal': 'betrayal',
+};
+
+function resolveBackgroundFavored(flat) {
+  const cs = flat.creationState || {};
+  const p1Id = cs.phase1 || BACKGROUND_TITLE_TO_ID[flat.phase1] || flat.phase1;
+  const p2Id = cs.phase2 || BACKGROUND_TITLE_TO_ID[flat.phase2] || flat.phase2;
+  return [BACKGROUND_FAVORED[p1Id], BACKGROUND_FAVORED[p2Id]].filter(Boolean);
+}
+
 const ENGINE_DATA = {
   id: 'edge',
   name: 'The Edge',
@@ -105,7 +127,7 @@ function expandCharacterData(flat) {
     flat.kits = kits;
     flat.engine = kits.length > 0 ? Object.assign({}, ENGINE_DATA, { governingArenas: engineArenas }) : null;
     if (!flat.backgroundFavored) {
-      flat.backgroundFavored = [BACKGROUND_FAVORED[flat.phase1], BACKGROUND_FAVORED[flat.phase2]].filter(Boolean);
+      flat.backgroundFavored = resolveBackgroundFavored(flat);
     }
     return flat;
   }
@@ -162,7 +184,7 @@ function expandCharacterData(flat) {
     phase1: flat.phase1 || null,
     phase2: flat.phase2 || null,
     phase3: flat.phase3 || null,
-    backgroundFavored: [BACKGROUND_FAVORED[flat.phase1], BACKGROUND_FAVORED[flat.phase2]].filter(Boolean),
+    backgroundFavored: resolveBackgroundFavored(flat),
     vitalityModifier: 0,
     weaponIds,
     armorId,
