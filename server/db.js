@@ -92,12 +92,13 @@ function seedTestCharacter() {
   if (!fs.existsSync(TEST_CHAR_PATH)) return;
 
   const testChar = JSON.parse(fs.readFileSync(TEST_CHAR_PATH, 'utf8'));
+  const dataStr = JSON.stringify(testChar);
   const existing = db.prepare('SELECT id, character_data FROM characters WHERE name = ?').get(testChar.name);
 
   if (existing) {
-    if (!existing.character_data) {
+    if (existing.character_data !== dataStr) {
       db.prepare('UPDATE characters SET character_data = ? WHERE id = ?')
-        .run(JSON.stringify(testChar), existing.id);
+        .run(dataStr, existing.id);
       console.log(`[db] Updated test character data: ${testChar.name}`);
     }
     return;
@@ -105,7 +106,7 @@ function seedTestCharacter() {
 
   const maxSlot = db.prepare('SELECT MAX(slot_index) as m FROM characters').get().m || 0;
   db.prepare('INSERT INTO characters (name, slot_index, character_data) VALUES (?, ?, ?)')
-    .run(testChar.name, maxSlot + 1, JSON.stringify(testChar));
+    .run(testChar.name, maxSlot + 1, dataStr);
   console.log(`[db] Seeded test character: ${testChar.name}`);
 }
 
