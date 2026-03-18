@@ -1643,6 +1643,78 @@
           "description": "Total override. Full actions, no penalties. The host spirit is suppressed entirely. Still costs 1 Edge per round. Target retains no memory of what happened during possession."
         }
       ]
+    },
+    {
+      "id": "voc_maneuver_read_the_room",
+      "name": "Read the Room",
+      "sourceVocation": "voc_noble",
+      "requiredTier": 2,
+      "actionType": "Maneuver",
+      "pip": "M",
+      "rolled": true,
+      "discipline": "charm",
+      "arena": "presence",
+      "tags": [
+        "[Social]"
+      ],
+      "description": "Study a target's body language, tone, and social cues. Roll Charm (Presence) — no defense, this is an Assess-style read. You learn what makes them tick and how to use it.",
+      "effect": [
+        {
+          "tier": 1,
+          "label": "Fleeting",
+          "range": "0-3",
+          "description": "Learn one useful detail about the target's emotional state, motivation, or social leverage."
+        },
+        {
+          "tier": 2,
+          "label": "Masterful",
+          "range": "4-7",
+          "description": "Learn the above, plus choose one: gain +1 tier on your next social action against this target, OR your next social action against them is [Optimized]."
+        },
+        {
+          "tier": 3,
+          "label": "Legendary",
+          "range": "8+",
+          "description": "Learn the above. You gain both benefits — +1 tier AND [Optimized] on your next social action against the target."
+        }
+      ]
+    },
+    {
+      "id": "voc_maneuver_compel",
+      "name": "Compel",
+      "sourceVocation": "voc_noble",
+      "requiredTier": 3,
+      "actionType": "Maneuver",
+      "pip": "M",
+      "rolled": true,
+      "discipline": "charm",
+      "arena": "presence",
+      "defense": "resolve",
+      "tags": [
+        "[Social]"
+      ],
+      "description": "Make a demand, issue a directive, or simply make it clear what you expect. Roll Charm (Presence) vs target's Resolve. Pure social pressure — no threats, no lies, just the weight of your personality.",
+      "risk": "On failure, the target sees through the play — they are immune to Compel from you for the rest of the scene, and the GM may shift their attitude one step hostile.",
+      "effect": [
+        {
+          "tier": 1,
+          "label": "Fleeting",
+          "range": "0-3",
+          "description": "Target's next interaction with you or your crew is [Disoriented] — they're off-balance, second-guessing."
+        },
+        {
+          "tier": 2,
+          "label": "Masterful",
+          "range": "4-7",
+          "description": "Target must either comply with a reasonable request OR publicly justify their refusal. GM reveals one thing the target is trying to protect or hide."
+        },
+        {
+          "tier": 3,
+          "label": "Legendary",
+          "range": "8+",
+          "description": "Target complies with your request. Their attitude toward you shifts one step favorable for the rest of the scene."
+        }
+      ]
     }
   ]
 }

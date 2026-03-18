@@ -313,5 +313,103 @@
         ]
       }
     ]
+  },
+  {
+    "id": "voc_noble",
+    "name": "The Noble",
+    "governingArena": "presence",
+    "favoredDiscipline": "charm",
+    "description": "Words are weapons, presence is armor, and the right phrase at the right moment can topple empires. The Noble commands rooms, reads people like open books, and bends wills without ever raising a hand — or a voice.",
+    "fluff": "Bail Organa held the Senate floor while a star system burned. Mon Mothma whispered three sentences and built a rebellion. Padmé Amidala walked into a war zone in a white dress and made a king kneel. You're not royalty — but when you speak, people listen.",
+    "abilities": [
+      {
+        "id": "voc_noble_t1",
+        "tier": 1,
+        "type": "passive",
+        "name": "Commanding Presence",
+        "tags": ["[Social]"],
+        "rule": "Charm replaces Intimidate for any action where you would normally use Intimidate. You project authority through force of personality rather than threat of violence. When another ability or effect calls for an Intimidate roll, you may use Charm (Presence) instead."
+      },
+      {
+        "id": "voc_noble_t2",
+        "tier": 2,
+        "type": "maneuver",
+        "name": "Read the Room",
+        "tags": ["[Social]"],
+        "discipline": "charm",
+        "arena": "presence",
+        "rolled": true,
+        "rule": "Study a target's body language, tone, and social cues. Roll Charm (Presence) — no defense, this is an Assess-style read. You learn what makes them tick and how to use it.",
+        "effect": [
+          {
+            "tier": 1,
+            "label": "Fleeting",
+            "range": "0-3",
+            "description": "Learn one useful detail about the target's emotional state, motivation, or social leverage."
+          },
+          {
+            "tier": 2,
+            "label": "Masterful",
+            "range": "4-7",
+            "description": "Learn the above, plus choose one: gain +1 tier on your next social action against this target, OR your next social action against them is [Optimized]."
+          },
+          {
+            "tier": 3,
+            "label": "Legendary",
+            "range": "8+",
+            "description": "Learn the above. You gain both benefits — +1 tier AND [Optimized] on your next social action against the target."
+          }
+        ]
+      },
+      {
+        "id": "voc_noble_t3",
+        "tier": 3,
+        "type": "maneuver",
+        "name": "Compel",
+        "tags": ["[Social]"],
+        "discipline": "charm",
+        "arena": "presence",
+        "defense": "resolve",
+        "rolled": true,
+        "rule": "Make a demand, issue a directive, or simply make it clear what you expect. Roll Charm (Presence) vs target's Resolve. Pure social pressure — no threats, no lies, just the weight of your personality.",
+        "risk": "On failure, the target sees through the play — they are immune to Compel from you for the rest of the scene, and the GM may shift their attitude one step hostile.",
+        "effect": [
+          {
+            "tier": 1,
+            "label": "Fleeting",
+            "range": "0-3",
+            "description": "Target's next interaction with you or your crew is [Disoriented] — they're off-balance, second-guessing."
+          },
+          {
+            "tier": 2,
+            "label": "Masterful",
+            "range": "4-7",
+            "description": "Target must either comply with a reasonable request OR publicly justify their refusal. GM reveals one thing the target is trying to protect or hide."
+          },
+          {
+            "tier": 3,
+            "label": "Legendary",
+            "range": "8+",
+            "description": "Target complies with your request. Their attitude toward you shifts one step favorable for the rest of the scene."
+          }
+        ]
+      },
+      {
+        "id": "voc_noble_t4",
+        "tier": 4,
+        "type": "passive",
+        "name": "Entourage",
+        "tags": ["[Social]"],
+        "rule": "When you arrive in a social scene, you may declare one willing NPC present as part of your Entourage. That NPC will carry out reasonable non-combat requests for you for the duration of the scene — run errands, make introductions, hold a position, relay messages.\n\nIf you attempt a social action while your Entourage member is visibly supporting you (backing your play, standing at your shoulder), that action gains [Optimized].\n\nLimit: one Entourage member per scene. The GM can rule an NPC unwilling if there's a strong narrative reason."
+      },
+      {
+        "id": "voc_noble_t5",
+        "tier": 5,
+        "type": "passive",
+        "name": "Voice of Authority",
+        "tags": ["[Social]"],
+        "rule": "Upgrades Compel.\n\n**Address the Room:** Your Compel maneuver can now target a group of individuals rather than a single target. Roll once — all targets defend with their own Resolve individually, but the effect tier is determined by your single Control result.\n\n**Sustained Influence:** When you score a Masterful Success (8+ on Control), instead of increasing the effect tier by one level, you may choose to extend the duration of your Compel through the end of the Act. This does not guarantee compliance — but so long as you maintain your charming approach and targets are not endangered, their disposition toward you remains at the level your Compel established. Break the charm (threaten them, put them in danger) and it snaps immediately."
+      }
+    ]
   }
 ]
