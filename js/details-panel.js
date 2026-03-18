@@ -9,6 +9,14 @@
       .replace(/"/g, '&quot;');
   }
 
+  function _formatRule(str) {
+    var s = _esc(str);
+    s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+    s = s.replace(/\n\n/g, '</p><p>');
+    s = s.replace(/\n/g, '<br>');
+    return '<p>' + s + '</p>';
+  }
+
   var ARENA_LABELS = {
     physique: 'Physique',
     reflex:   'Reflex',
@@ -180,7 +188,7 @@
 
     var rule = document.createElement('div');
     rule.className = 'dp-ability-card-rule';
-    rule.textContent = ab.rule;
+    rule.innerHTML = _formatRule(ab.rule);
     card.appendChild(rule);
 
     if (ab.risk) {
@@ -223,7 +231,7 @@
         gWrap.appendChild(gTop);
         var gRule = document.createElement('div');
         gRule.className = 'dp-ability-card-rule';
-        gRule.textContent = g.rule;
+        gRule.innerHTML = _formatRule(g.rule);
         gWrap.appendChild(gRule);
         card.appendChild(gWrap);
       });
