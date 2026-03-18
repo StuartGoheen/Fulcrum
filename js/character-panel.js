@@ -176,6 +176,9 @@
     (char.kits || []).forEach(function (kit) {
       if (kit.favoredDiscipline) ids[kit.favoredDiscipline] = true;
     });
+    (char.backgroundFavored || []).forEach(function (id) {
+      if (id) ids[id] = true;
+    });
     return ids;
   }
 

@@ -54,6 +54,17 @@ const ARENA_META = [
 
 const DIE_STEPS = ['D4', 'D6', 'D8', 'D10', 'D12'];
 
+const BACKGROUND_FAVORED = {
+  'deep-fringe': 'survival', 'shadowed-levels': 'stealth', 'salvage-yards': 'tech',
+  'coreward-spires': 'persuasion', 'agrarian-plain': 'resolve', 'war-front': 'evasion',
+  'ancient-ruin': 'investigation', 'trading-post': 'insight', 'detention-block': 'endure',
+  'shipboard-born': 'piloting', 'labor-camp': 'athletics', 'enclave': 'charm',
+  'disbanded-regular': 'tactics', 'separatist-holdout': 'ranged', 'imperial-defector': 'deception',
+  'blockade-runner': 'piloting', 'pacification-survivor': 'survival', 'field-medic': 'medicine',
+  'syndicate-enforcer': 'intimidate', 'post-war-tracker': 'investigation', 'purge-survivor': 'stealth',
+  'wreck': 'endure', 'ascent': 'persuasion', 'betrayal': 'insight',
+};
+
 const ENGINE_DATA = {
   id: 'edge',
   name: 'The Edge',
@@ -61,7 +72,7 @@ const ENGINE_DATA = {
   coreUtility: {
     name: 'Tier Boost',
     cost: '1 Edge Point',
-    rule: 'Spend 1 Edge Point after a roll to instantly increase your final Power result by +1 Effect Tier (e.g., from a Fleeting success to a Masterful success). You may only use this on favored Disciplines granted by your Vocations.',
+    rule: 'Spend 1 Edge Point after a roll to instantly increase your final Power result by +1 Effect Tier (e.g., from a Fleeting success to a Masterful success). You may only use this on favored Disciplines granted by your Background and Vocations.',
   },
 };
 
@@ -93,6 +104,9 @@ function expandCharacterData(flat) {
     const engineArenas = kits.map(k => k.governingArena).filter(Boolean);
     flat.kits = kits;
     flat.engine = kits.length > 0 ? Object.assign({}, ENGINE_DATA, { governingArenas: engineArenas }) : null;
+    if (!flat.backgroundFavored) {
+      flat.backgroundFavored = [BACKGROUND_FAVORED[flat.phase1], BACKGROUND_FAVORED[flat.phase2]].filter(Boolean);
+    }
     return flat;
   }
 
@@ -148,6 +162,7 @@ function expandCharacterData(flat) {
     phase1: flat.phase1 || null,
     phase2: flat.phase2 || null,
     phase3: flat.phase3 || null,
+    backgroundFavored: [BACKGROUND_FAVORED[flat.phase1], BACKGROUND_FAVORED[flat.phase2]].filter(Boolean),
     vitalityModifier: 0,
     weaponIds,
     armorId,
