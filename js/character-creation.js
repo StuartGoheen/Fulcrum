@@ -526,14 +526,14 @@
       title: 'The Hutt-Marked',
       symbol: 'The Bounty',
       imageUrl: '/assets/phase3/01-hutt-marked.png',
-      narrative: 'You don\'t just owe credits; you owe credits to a Hutt. The kind who doesn\'t use standard banking; they use B-tier hunters. You are "Huntable," and you carry a visible, coded scar (the Mark) that bounty hunters automatically recognize, meaning you are never truly anonymous.',
+      narrative: 'You owe credits to a Hutt cartel operating out of the Western Reaches. Not the Banking Clan kind of debt — the kind tracked by Weequay enforcers and Kyuzo hunters wearing wide-brimmed war helms. You carry a coded burn-mark on your wrist that any bounty hunter or cartel operative recognizes on sight. In cantinas from Jakku to Ord Mantell, that mark means you are collectable. You have learned to read a room the moment you enter — who is watching, who is armed, and who has already sent a message.',
       _meta: {
         phase: 'debt',
         archetype: 'hunted',
         tone: 'debt, fear, criminal leverage',
-        knackName: 'Escape Route',
-        knackType: 'Automatic Success',
-        knack: 'Once per session, you may force the GM to identify a safe Exit from any scene (a vent, a loose floor panel, an unguarded speeder), and you are guaranteed to reach it safely, provided you abandon the mission immediately.',
+        knackName: 'Marked for Collection',
+        knackType: 'Narrative Truth',
+        knack: 'You know how the Hutt underworld operates from the inside. You can identify syndicate affiliations, read the hierarchy of a criminal operation, and assess who in a room is connected, who is an informant, and what cartel they serve. You know the local price of silence — who can be bribed, how much it costs, and whether it will stick.',
       },
     },
     {
@@ -541,14 +541,14 @@
       title: 'The Witness',
       symbol: 'The Eye',
       imageUrl: '/assets/phase3/02-witness.png',
-      narrative: 'You saw something. A secret Imperial research project, a high-level corporate assassination, or a hidden Jedi massacre. The knowledge you hold is lethal. A powerful organization (the Empire or a Megacorp) is hunting you — not to arrest you, but to erase you.',
+      narrative: 'You were in the wrong place during the Pacification Campaigns. You saw an Imperial garrison do something to a frontier settlement that was not in any official report — mass relocations, unmarked cargo shipments, civilians loaded onto transports that never arrived at any registered facility. Out here in the Western Reaches, the Empire does not operate like it does in the Core. There are no journalists, no Senate hearings, no witnesses. Except you. And someone in an Imperial uniform knows your face.',
       _meta: {
         phase: 'debt',
         archetype: 'witness',
         tone: 'dangerous knowledge, paranoia, silence',
-        knackName: 'Cold Read',
-        knackType: 'Passive Ability',
-        knack: 'Once per scene, you can ask the GM one true question about an NPC\'s hidden motivations: "What are they afraid of?" or "Are they lying right now?" The GM must provide an honest, simple answer, which you read through observing their micro-expressions.',
+        knackName: 'The Wrong Eyes',
+        knackType: 'Narrative Truth',
+        knack: 'You have seen what the Empire does when it thinks nobody is watching. You recognize the patterns — falsified manifests, patrol routes that avoid specific buildings, officers whose rank does not match their assignment, equipment that does not belong at a frontier garrison. When the official story does not add up, you notice. You always notice.',
       },
     },
     {
@@ -556,14 +556,14 @@
       title: 'The Traumatized',
       symbol: 'The Shattered Star',
       imageUrl: '/assets/phase3/03-traumatized.png',
-      narrative: 'The Clone Wars or the Pacification Campaigns didn\'t just happen; they broke you. You lost everyone. Now, you carry deep psychological scars. Certain sights, sounds, or smells are severe Triggers that cause you to physically panic or freeze.',
+      narrative: 'The Clone Wars or the Pacification Campaigns did not just happen near you — they happened to you. You watched settlements burn in the Western Reaches while stormtroopers stood in formation. You lost everyone, and the sounds have not stopped. Certain things — the whine of a repulsor engine, the smell of ozone after a blaster discharge, the hiss of a blast door — pull you back to the worst moment of your life without warning.',
       _meta: {
         phase: 'debt',
         archetype: 'broken',
         tone: 'inner wound, triggers, survival guilt',
         knackName: 'Adrenaline Lock',
-        knackType: 'Passive Ability',
-        knack: 'Once per session, when you gain a Condition from physical harm, you may immediately gain [Empowered: Physique] for the remainder of the scene. You automatically pass any Athletics or Endure test during this time, but you gain [Rattled] when the adrenaline fades.',
+        knackType: 'Narrative Truth',
+        knack: 'When the worst happens, your body remembers before your mind does. You have survived things that should have killed you, and your reflexes carry the scar of that survival. When genuine mortal danger presents itself, you do not freeze — you move. The problem is what comes after: the shaking, the silence, the hours you cannot account for.',
       },
     },
     {
@@ -571,14 +571,14 @@
       title: 'The Shadow-Stalked',
       symbol: 'The Echo',
       imageUrl: '/assets/phase3/04-shadow-stalked.png',
-      narrative: 'You are sensitive to the Force, but you haven\'t had training since the Purge. Instead of guidance, you feel an unexplainable, persistent spiritual pressure — an Echo. It manifests as haunting premonitions of danger or the overwhelming sensation that something is tracking you through the currents of the universe.',
+      narrative: 'You are sensitive to the Force, but you have not had training since the Purge. Instead of guidance, you feel an unexplainable, persistent spiritual pressure — an Echo. It manifests as haunting premonitions of danger or the overwhelming sensation that something ancient and patient is tracking you through the currents of the universe. In the Western Reaches, far from the Core, the Force feels different — wilder, older, tangled with things the Jedi never catalogued.',
       _meta: {
         phase: 'debt',
         archetype: 'force-burdened',
         tone: 'Force sensitivity, pursuit, unwanted power',
         knackName: 'Prescience',
-        knackType: 'Free Reaction',
-        knack: 'Once per session, you may declare that you felt a disturbance seconds before it happened. You automatically dodge the very first attack aimed at you in a scene, or push an adjacent ally out of the blast zone — no roll required.',
+        knackType: 'Narrative Truth',
+        knack: 'You feel things before they happen. Not clearly — never clearly — but enough. A chill before the ambush, a wrongness in the air before the betrayal, a pull toward a door you should not open. You cannot control it and you cannot explain it. But you have learned to trust it, because the times you did not are the reason you are out here.',
       },
     },
     {
@@ -586,14 +586,14 @@
       title: 'The Defector',
       symbol: 'The Broken Crest',
       imageUrl: '/assets/phase3/05-defector.png',
-      narrative: 'You were part of the machine. You hold codes, keys, and transit protocols for a massive organization — the Imperial Military or a powerful Corporate Sector authority. If they ever find you, you will be executed for treason.',
+      narrative: 'You were part of the machine. You wore the uniform, carried the codes, and followed orders when the Empire arrived in the Western Reaches to pacify the frontier. You know how Imperial garrisons operate — shift rotations, comm protocols, supply chain logistics, the chain of command from the local garrison commander up to the sector Moff. When you walked away, you took all of that knowledge with you. If they ever find you, the charge is treason. The sentence is summary execution.',
       _meta: {
         phase: 'debt',
         archetype: 'defector',
         tone: 'treason, hunted by empire, fractured identity',
         knackName: 'Authority Bypass',
-        knackType: 'Narrative Success',
-        knack: 'Once per adventure, you can use outdated codes, uniforms, or forged transit papers to bypass a routine military or bureaucratic checkpoint without making a Deception or Persuasion check. Minor obstacles like street patrols are automatically cleared.',
+        knackType: 'Narrative Truth',
+        knack: 'You know how the Empire works because you were the Empire. You understand military bureaucracy, checkpoint procedure, rank structure, and the specific laziness of garrison duty in the Outer Rim. You know which codes are checked and which are waved through, which uniforms draw salutes and which draw suspicion, and how to speak like someone who belongs inside a facility.',
       },
     },
     {
@@ -601,14 +601,14 @@
       title: 'The Debtor',
       symbol: 'The Scale',
       imageUrl: '/assets/phase3/06-debtor.png',
-      narrative: 'You owe a debt, but not to a criminal syndicate. This is a debt of honor, a blood oath, or a massive amount of credits to a legitimate but relentless business entity (like the Banking Guild). Until it is paid, you have no home and are effectively indentured.',
+      narrative: 'You owe a debt, but not to a crime lord. This is a debt of honor — a blood oath, a life saved, or a massive ledger entry with the Banking Clan western branch office. Legitimate debt out here is almost worse than criminal debt: there is no negotiating with a protocol droid that has your biometrics on file and a legal mandate to garnish everything you earn. Until it is paid, you have no credit line, no property rights, and no home. Every settlement with a Banking Clan terminal knows your face.',
       _meta: {
         phase: 'debt',
         archetype: 'indebted',
         tone: 'financial ruin, obligation, desperation',
         knackName: 'Collateral Access',
-        knackType: 'Narrative Success',
-        knack: 'Once per scene in a civilized settlement, you can leverage your high debt to acquire standard-issue gear or information (a datapad map, medpacs, a cheap blaster) from reputable vendors without credits. You always owe the vendor a favor in return.',
+        knackType: 'Narrative Truth',
+        knack: 'You understand how credits flow through the frontier — who extends credit, who launders it, who owes whom, and which settlements operate on barter because the Banking Clan has not reached them yet. You know the difference between a legitimate merchant and a front, and you can assess the economic pressure points of any community you walk into. Debt taught you the architecture of money.',
       },
     },
     {
@@ -616,14 +616,14 @@
       title: 'The Exile',
       symbol: 'The Blast Door',
       imageUrl: '/assets/phase3/07-exile.png',
-      narrative: 'You are forbidden from entering a specific region, planet, or organization on pain of death. You carry the stigma of Outcast. Whether purged from a religious sect, a disgraced political family, or a defeated mercenary company, you must keep your true identity hidden.',
+      narrative: 'You are forbidden from returning to a specific place — a planet, a station, a community, or an organization — on pain of death. In the Western Reaches, exile is common: religious sects on jungle moons, mercenary companies that operate out of orbital stations, political families that control entire settlement networks. Whatever you were part of, they cast you out. Your name was struck. Your identity was burned. Out here on the frontier, you are nobody — and that is the only thing keeping you alive.',
       _meta: {
         phase: 'debt',
         archetype: 'exiled',
         tone: 'banishment, longing, forbidden return',
         knackName: 'Stigma Detection',
-        knackType: 'Passive Ability',
-        knack: 'You automatically recognize other exiles (even if they are hiding) and know the closest safe house in any planetary settlement, which will provide simple shelter and basic provisions to those in need.',
+        knackType: 'Narrative Truth',
+        knack: 'You recognize the signs of exile because you carry them. The way someone avoids eye contact with a specific group. The settlements that will not serve certain people. The tattoos that have been burned off, the insignia that has been filed down, the accent that has been deliberately flattened. You know who is running from something, because you see your own reflection in them — and they see theirs in you.',
       },
     },
     {
@@ -631,14 +631,14 @@
       title: 'The Addiction',
       symbol: 'The Stim-Tube',
       imageUrl: '/assets/phase3/08-addiction.png',
-      narrative: 'You are dependent on a specific stimulant, narcotic, or substance to function — possibly a legacy of war-time field meds or underworld coping. When you go for more than an adventure without the substance (going Dry), you gain [Weakened: Grit] and [Weakened: Wits], which cannot be removed by rest.',
+      narrative: 'You are dependent on a specific substance to function — a stim, a spice derivative, or a field-med cocktail left over from wartime. In the Western Reaches, supply is inconsistent: some settlements have backroom pharmacists who can synthesize what you need, others have nothing. Going without is not an option you have tested more than once. The shaking starts within a day. The clarity goes next. You have built your entire routine — where you go, who you trust, what jobs you take — around making sure you never run dry again.',
       _meta: {
         phase: 'debt',
         archetype: 'dependent',
         tone: 'chemical dependency, weakness, hidden cost',
         knackName: 'The Fix',
-        knackType: 'Narrative Success',
-        knack: 'You have a permanent contact in any major settlement who will always supply your substance. Once per session, you can use the substance to gain [Optimized] on your very next roll, representing a surge of chemically induced clarity or courage.',
+        knackType: 'Narrative Truth',
+        knack: 'You know the substance economy of the frontier. You can identify a dealer, a pharmacist, or a supplier in any settlement — not because you are connected, but because you have had to. You understand chemical dependencies, withdrawal symptoms, and the specific desperation of people who need something they cannot easily get. You know what people will do — and what they will trade — when they are running out.',
       },
     },
     {
@@ -646,14 +646,14 @@
       title: 'The False Identity',
       symbol: 'The Mask',
       imageUrl: '/assets/phase3/09-false-identity.png',
-      narrative: 'The person you are now is a lie. Your original identity was erased during the Clone Wars, the Jedi Purge, or a massive corporate merger. You possess forged documentation, a false birth record, and a completely fabricated backstory. The real you is dead, and you must protect the mask at all costs.',
+      narrative: 'The person you are now is a fabrication. Your original identity was erased during the Clone Wars, the Jedi Purge, or the chaos of the Imperial transition. You possess forged documentation, a false birth record, and a backstory you have rehearsed until it feels true. In the Western Reaches, where record-keeping is spotty and Imperial databases do not reach every settlement, the lie holds. But every time you pass through a spaceport with a full Imperial customs scanner, you feel the floor shift beneath you.',
       _meta: {
         phase: 'debt',
         archetype: 'alias',
         tone: 'deception, buried past, fear of exposure',
         knackName: 'Identity Buffer',
-        knackType: 'Passive Ability',
-        knack: 'If an enemy rolls a Presence discipline or uses the Force to read your past or identity, their result is reduced by 1 Tier. They only see the fabrication you have carefully built. This ability is always active.',
+        knackType: 'Narrative Truth',
+        knack: 'You have lived as someone else long enough that the fabrication has its own weight. You understand how identity works on the frontier — which documents matter, which settlements do not check, which Imperial systems have gaps. You know how to build a cover story that holds under casual scrutiny, and you recognize when someone else is doing the same thing, because you know every trick in the book.',
       },
     },
     {
@@ -661,14 +661,14 @@
       title: 'The Notorious',
       symbol: 'The Name',
       imageUrl: '/assets/phase3/10-notorious.png',
-      narrative: 'You have a reputation that travels faster than you do. Whether earned through deeds, infamy, or someone else\u0027s story about you, your name carries weight in the right rooms and danger in the wrong ones. The galaxy has already decided who you are. You\u0027re still figuring out whether to live up to it or bury it.',
+      narrative: 'You have a reputation that travels faster than you do. In the cantinas of Jakku, the landing pads of Ord Mantell, the swoop-gang rallies along the frontier — your name, or the name you earned, carries weight. Whether it is deserved or exaggerated does not matter. People have already decided who you are before you walk through the door. The right people buy you drinks. The wrong people reach for their blasters. You are still figuring out whether to live up to the legend or bury it before it buries you.',
       _meta: {
         phase: 'debt',
         archetype: 'known-figure',
         tone: 'infamy, identity, the cost of being known',
         knackName: 'The Name',
-        knackType: 'Active Ability',
-        knack: 'Once per session, you may invoke your reputation directly. Drop your real name or known alias into a social confrontation to automatically Step Up your Persuasion or Intimidate die for that roll. However, every use permanently updates the intelligence trail: the GM may introduce a new complication, bounty hunter contact, or Imperial flag tied to that invocation before the next session.',
+        knackType: 'Narrative Truth',
+        knack: 'Your reputation precedes you. In any community where word travels — cantinas, criminal networks, mercenary circles, frontier settlements — people have heard a version of your story. Some of it is true. Some of it is not. But it means you are never a stranger: people either want something from you or want nothing to do with you. The name opens doors. It also makes sure certain doors never close behind you quietly.',
       },
     },
     {
@@ -676,14 +676,14 @@
       title: 'The Blood Price',
       symbol: 'The Handprint',
       imageUrl: '/assets/phase3/11-blood-price.png',
-      narrative: 'Someone paid for your freedom, your survival, or your escape \u2014 and the cost was something you can\u0027t repay. It might have been their life, their safety, or everything they had. You are here because they aren\u0027t. That debt doesn\u0027t dissolve. It compounds.',
+      narrative: 'Someone paid for your freedom, your survival, or your escape from the Western Reaches — and the cost was something you cannot repay. It might have been their life, given during the Pacification Campaigns when your settlement was burned. It might have been their safety, traded so you could board a transport off a dying colony. You are here because they are not. The frontier is full of debts like this — everyone lost someone when the Empire arrived. Yours just has not stopped bleeding.',
       _meta: {
         phase: 'debt',
         archetype: 'survivor-indebted',
         tone: 'guilt, obligation, chosen sacrifice',
         knackName: 'Dead Reckoning',
-        knackType: 'Active Ability',
-        knack: 'Once per session, when an ally would gain a Condition from any source, you may choose to absorb it yourself instead. You take the Condition in full. The ally is spared entirely. This cannot be used on yourself.',
+        knackType: 'Narrative Truth',
+        knack: 'You carry the weight of someone else’s sacrifice, and it has made you incapable of watching others pay the same price. You put yourself between danger and the people around you without hesitation — not because you are brave, but because you have already survived the thing you are most afraid of. You know what it costs to be the one left standing, and you will not let someone else carry that debt.',
       },
     },
     {
@@ -691,19 +691,19 @@
       title: 'The Hunted',
       symbol: 'Predator Eyes',
       imageUrl: '/assets/phase3/12-hunted.png',
-      narrative: 'Something is tracking you. Not the Empire in the broad bureaucratic sense \u2014 something specific, patient, and personal. An Inquisitor with a fixation. A bounty hunter with a decades-old contract. A crime lord who took your escape as an insult. You don\u0027t know when it will arrive. You only know it will.',
+      narrative: 'Something is tracking you. Not the Empire in the broad bureaucratic sense — something specific, patient, and personal. A bounty hunter with a decades-old contract. An Inquisitor with a fixation. A crime lord who took your escape as an insult. Out in the Western Reaches, distance means nothing to the kind of hunter who is after you. You have learned the rhythm of pursuit: the quiet weeks that feel safe, the moment you spot a ship that should not be at a frontier port, the sick certainty that they have found you again.',
       _meta: {
         phase: 'debt',
         archetype: 'hunted-personal',
         tone: 'paranoia, animal awareness, the weight of being prey',
         knackName: 'Prey Sense',
-        knackType: 'Passive Ability',
-        knack: 'At the start of each new location or settlement, you may ask the GM one yes-or-no question: "Is my hunter, or someone working for them, present in this location right now?" The GM must answer honestly. This does not reveal their position or identity, only their presence.',
+        knackType: 'Narrative Truth',
+        knack: 'You have been hunted long enough that awareness is no longer a skill — it is a condition. You notice things that settled people do not: a ship that refueled but did not unload cargo, a question asked twice by different strangers, a figure who watches the exits instead of the bar. You read environments the way prey reads the wind — not for opportunity, but for threat. It keeps you alive. It also means you never fully rest.',
       },
     },
   ];
 
-  var phaseCardState = {
+    var phaseCardState = {
     flipped: {},
   };
 
@@ -2267,7 +2267,7 @@
 
   /* ── Phase card grid ────────────────────────────────────────────────────── */
 
-  function buildPhaseCarousel(cards, containerId, selectFn) {
+  function buildPhaseCarousel(cards, containerId, selectFn, cardBuilder) {
     var container = document.getElementById(containerId);
     if (!container) return;
     container.innerHTML = '';
@@ -2281,7 +2281,8 @@
     track.className = 'ph-carousel-track';
 
     cards.forEach(function (card, idx) {
-      var slide = buildPhaseCard(card, selectFn);
+      var builder = cardBuilder || buildPhaseCard;
+      var slide = builder(card, selectFn);
       slide.dataset.index = idx;
       track.appendChild(slide);
     });
@@ -2377,6 +2378,78 @@
 
     perspective.appendChild(inner);
     wrapper.appendChild(perspective);
+    return wrapper;
+  }
+
+  function buildPhase3CardFlat(card, selectFn) {
+    var wrapper = document.createElement("div");
+    wrapper.className = "ph-card-wrap ph-card-flat";
+
+    var cardEl = document.createElement("div");
+    cardEl.className = "ph3-species-card";
+
+    var imgCol = document.createElement("div");
+    imgCol.className = "ph3-img-col";
+    if (card.imageUrl) {
+      var img = document.createElement("img");
+      img.src = card.imageUrl;
+      img.alt = card.title;
+      img.className = "ph3-card-img";
+      imgCol.appendChild(img);
+    }
+
+    var detailCol = document.createElement("div");
+    detailCol.className = "ph3-detail-col";
+
+    var titleEl = document.createElement("h2");
+    titleEl.className = "ph3-card-name";
+    titleEl.textContent = card.title;
+    detailCol.appendChild(titleEl);
+
+    var symbolEl = document.createElement("p");
+    symbolEl.className = "ph3-card-symbol";
+    symbolEl.textContent = card.symbol;
+    detailCol.appendChild(symbolEl);
+
+    var narrativeEl = document.createElement("p");
+    narrativeEl.className = "ph3-narrative";
+    narrativeEl.textContent = card.narrative;
+    detailCol.appendChild(narrativeEl);
+
+    if (card._meta && card._meta.knackName) {
+      var knackBlock = document.createElement("div");
+      knackBlock.className = "ph3-knack-block";
+
+      var knackLabel = document.createElement("p");
+      knackLabel.className = "ph3-knack-label";
+      knackLabel.textContent = card._meta.knackType || "Narrative Truth";
+      knackBlock.appendChild(knackLabel);
+
+      var knackName = document.createElement("p");
+      knackName.className = "ph3-knack-name";
+      knackName.textContent = card._meta.knackName;
+      knackBlock.appendChild(knackName);
+
+      var knackDesc = document.createElement("p");
+      knackDesc.className = "ph3-knack-desc";
+      knackDesc.textContent = card._meta.knack;
+      knackBlock.appendChild(knackDesc);
+
+      detailCol.appendChild(knackBlock);
+    }
+
+    var selectBtn = document.createElement("button");
+    selectBtn.className = "cc-select-btn";
+    selectBtn.textContent = "Choose This →";
+    selectBtn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      selectFn(card);
+    });
+    detailCol.appendChild(selectBtn);
+
+    cardEl.appendChild(imgCol);
+    cardEl.appendChild(detailCol);
+    wrapper.appendChild(cardEl);
     return wrapper;
   }
 
@@ -3265,7 +3338,7 @@
     buildCarousel();
     buildPhaseCarousel(PHASE1_CARDS, 'ph-grid-phase1', selectPhase1);
     buildPhaseCarousel(PHASE2_CARDS, 'ph-grid-phase2', selectPhase2);
-    buildPhaseCarousel(PHASE3_CARDS, 'ph-grid-phase3', selectPhase3);
+    buildPhaseCarousel(PHASE3_CARDS, 'ph-grid-phase3', selectPhase3, buildPhase3CardFlat);
 
     var prevBtn = document.getElementById('carousel-prev');
     var nextBtn = document.getElementById('carousel-next');
