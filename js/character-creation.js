@@ -25,165 +25,206 @@
   var DIE_ORDER      = ['D4', 'D6', 'D8', 'D10', 'D12'];
 
   var SPECIES = [
-    {
-      id:      'human',
-      name:    'Human',
-      tagline: 'Adaptable. Ambitious. Everywhere.',
-      imageUrl: null,
-      arenaShift: {
-        name:     'The Baseline',
-        desc:     'Humans are the canvas the galaxy is painted on. You start with all five Arenas — Physique, Reflex, Grit, Wits, Presence — at D6. You have no inherent biological penalties or peaks.',
-        stepUp:   [],
-        stepDown: [],
+      {
+        id:      'human',
+        name:    'Human',
+        tagline: 'Adaptable. Ambitious. Everywhere.',
+        lore:    'Humans dominate the galaxy’s power structures — the Empire, the Senate before it, the corporate boardrooms, and the criminal syndicates. In the Western Reaches, humans are colonists, refugees, opportunists, and exiles. They carry no biological advantages into the frontier, but they carry something more dangerous: the assumption that they belong everywhere.',
+        imageUrl: '/assets/species/human.png',
+        arenaShift: {
+          name: 'The Baseline',
+          desc: 'All Arenas at D6. No biological peaks or penalties.',
+        },
+        favoredDiscipline: {
+          desc: 'Choose any one discipline as your favored discipline (exploding die + Edge reroll).',
+          choices: [
+            { label: 'Athletics', id: 'athletics' },
+            { label: 'Brawl', id: 'brawl' },
+            { label: 'Endure', id: 'endure' },
+            { label: 'Melee', id: 'melee' },
+            { label: 'Heavy Weapons', id: 'heavy_weapons' },
+            { label: 'Evasion', id: 'evasion' },
+            { label: 'Piloting', id: 'piloting' },
+            { label: 'Ranged', id: 'ranged' },
+            { label: 'Skulduggery', id: 'skulduggery' },
+            { label: 'Stealth', id: 'stealth' },
+            { label: 'Beast Handling', id: 'beast_handling' },
+            { label: 'Intimidate', id: 'intimidate' },
+            { label: 'Resolve', id: 'resolve' },
+            { label: 'Survival', id: 'survival' },
+            { label: 'Investigation', id: 'investigation' },
+            { label: 'Medicine', id: 'medicine' },
+            { label: 'Tactics', id: 'tactics' },
+            { label: 'Tech', id: 'tech' },
+            { label: 'Charm', id: 'charm' },
+            { label: 'Deception', id: 'deception' },
+            { label: 'Insight', id: 'insight' },
+            { label: 'Persuasion', id: 'persuasion' },
+          ],
+        },
+        biologicalTruth: {
+          name: 'Galactic Ubiquity',
+          desc: 'Humans make up the vast majority of the Empire, the corporate sector, and the underworld. In Imperial-controlled settings, you can blend into crowds, acquire standard-issue gear, and move through human-centric organizations without drawing the prejudice, suspicion, or xenophobia that alien species face. (GM-gated: the social lubricant works where the Empire’s Humanocentrism holds sway.)',
+        },
+        speciesTrait: {
+          name: 'Adaptable',
+          desc: 'You begin play with 1 free advance at character creation — an extra skill rank, a contact, a resource, or any other single advance your GM approves.',
+        },
+        arenas: { physique: 'D6', reflex: 'D6', grit: 'D6', wits: 'D6', presence: 'D6' },
+        _aiMeta: {
+          loreAnchors: [
+            'Beneficiary of Imperial Humanocentrism — Even poor humans face less systemic harassment than aliens.',
+            'Galactic Ubiquity — Can blend into Imperial outposts, corporate mining camps, or refugee caravans without drawing innate suspicion.',
+            'Adaptable — Begins with a free advance, reflecting the sheer variety of human experience and ambition.',
+          ],
+          directives: 'If the character is anti-Empire, emphasize that they walked away from the privilege of Imperial High Culture. If they are underworld, emphasize how easily they slip past Imperial customs. The free advance should reflect their unique life path.',
+        },
       },
-      nativeSkill: {
-        name:   'Versatility',
-        desc:   'Because human culture is so heavily varied, you may select any one Skill of your choice to start at Familiarity (D6).',
-        skills: [{ name: 'Any Skill (Your Choice)', die: 'D6', choice: true }],
-        choice: true,
+      {
+        id:      'twilek',
+        name:    "Twi'lek",
+        tagline: 'Graceful. Perceptive. Survivors.',
+        lore:    "Twi’leks are among the galaxy’s most exploited peoples — prized by slavers, objectified by the powerful, and scattered across every spaceport and cantina from the Core to the Rim. But beneath the galaxy’s assumptions lies a culture of fierce resilience, silent communication, and razor-sharp social instincts honed by centuries of survival under the boots of others.",
+        imageUrl: '/assets/species/twilek.png',
+        arenaShift: {
+          name: 'The Baseline',
+          desc: 'All Arenas at D6. No biological peaks or penalties.',
+        },
+        favoredDiscipline: {
+          desc: 'Choose one favored discipline (exploding die + Edge reroll).',
+          choices: [
+            { label: 'Charm', id: 'charm' },
+            { label: 'Endure', id: 'endure' },
+            { label: 'Survival', id: 'survival' },
+          ],
+        },
+        biologicalTruth: {
+          name: 'Lekku',
+          desc: 'Your head-tails are sensory organs attuned to emotional resonance. When you Assess a living target, you may ask additional questions about their emotional state, whether they are being truthful, and whether they are concealing intent — even if you would not normally be entitled to those questions.',
+        },
+        speciesTrait: {
+          name: 'Pheromonal Influence',
+          desc: 'The first time per scene you attempt a Charm or Deception action against a given living target while face-to-face, you are treated as [Optimized] on that roll. This does not stack with other [Optimized] effects. Has no effect on droids or targets without biological scent receptors.',
+        },
+        arenas: { physique: 'D6', reflex: 'D6', grit: 'D6', wits: 'D6', presence: 'D6' },
+        _aiMeta: {
+          loreAnchors: [
+            'Subject to Imperial Marginalization — Aliens are treated as second-class citizens or cheap labor under the New Order.',
+            'Lekku Empathy — Can read emotional states and detect lies through sensory lekku, making them devastating interrogators and negotiators.',
+            'Pheromonal Influence — First Charm/Deception per target per scene is [Optimized], face-to-face, living targets only.',
+          ],
+          directives: "Emphasize the character’s reliance on lekku-based perception and pheromonal influence to survive in dangerous social environments. Frame their presence in the Western Reaches as either an escape from exploitation or a hustle to stay ahead of the syndicates.",
+        },
       },
-      biologicalTruth: {
-        name: 'Galactic Ubiquity',
-        desc: 'Humans make up the vast majority of the Empire, the corporate sector, and the underworld. You can blend into crowds, acquire standard-issue gear, and infiltrate human-centric organizations (like Imperial garrisons) without drawing the immediate prejudice, suspicion, or xenophobia that alien species face.',
+      {
+        id:      'wookiee',
+        name:    'Wookiee',
+        tagline: 'Fierce. Loyal. Terrifying.',
+        lore:    'Kashyyyk is occupied. The Empire enslaves Wookiees by the thousands for brutal labor in spice mines, weapons factories, and frontier mining operations. A free Wookiee in the Western Reaches is either a fugitive, a survivor, or someone with very powerful friends. They are walking targets — but they are also walking siege engines, master mechanics, and holders of life-debts that transcend death itself.',
+        imageUrl: '/assets/species/wookiee.png',
+        arenaShift: {
+          name: 'Raw Mass',
+          desc: 'Physique starts at D8. All other Arenas at D6. No penalties.',
+        },
+        favoredDiscipline: {
+          desc: 'Choose one favored discipline (exploding die + Edge reroll).',
+          choices: [
+            { label: 'Brawl', id: 'brawl' },
+            { label: 'Endure', id: 'endure' },
+            { label: 'Tech', id: 'tech' },
+          ],
+        },
+        biologicalTruth: {
+          name: 'Shyriiwook',
+          desc: 'You cannot speak Basic or any other language that requires human-range vocal anatomy. You understand Basic perfectly, but you can only speak Shyriiwook. Communicating with non-Wookiees requires a translator — organic, droid, or otherwise.',
+        },
+        speciesTrait: {
+          name: 'Wookiee Rage',
+          desc: 'When a sacred bond is threatened — a life-debt, a loved one, a deeply held oath — you may enter Wookiee Rage. While raging: all Physique actions are treated as Unleash (maximum effort, no holding back), you immediately burn ALL accumulated Trauma, and you cannot voluntarily end the rage until the threat is resolved or you are incapacitated.',
+        },
+        arenas: { physique: 'D8', reflex: 'D6', grit: 'D6', wits: 'D6', presence: 'D6' },
+        _aiMeta: {
+          loreAnchors: [
+            'Imperial Enslavement Target — Kashyyyk is occupied. Wookiees are actively hunted by the Empire for brutal labor.',
+            'Shyriiwook — Cannot speak Basic; requires a translator to communicate with most species.',
+            'Wookiee Rage — Sacred bond threatened triggers Unleash on all Physique, burns ALL Trauma, cannot voluntarily end.',
+          ],
+          directives: "The character’s backstory must reflect the immediate, existential danger of being a Wookiee under the Empire. Do not treat them as a standard citizen; they are a walking target. The Wookiee Rage mechanic should feel sacred and terrifying, not casual.",
+        },
       },
-      arenas: { physique: 'D6', reflex: 'D6', grit: 'D6', wits: 'D6', presence: 'D6' },
-      _aiMeta: {
-        loreAnchors: [
-          'Beneficiary of Imperial Humanocentrism — Even poor humans face less systemic harassment than aliens.',
-          'Galactic Ubiquity — Can blend into Imperial outposts, corporate mining camps, or refugee caravans without drawing innate suspicion.',
-          'Colonial Migrant / Core-World Exile — Often in the Reaches to exploit the frontier or hide from the Core\'s strict laws.',
-        ],
-        directives: 'If the character is anti-Empire, emphasize that they walked away from the privilege of Imperial High Culture. If they are underworld, emphasize how easily they slip past Imperial customs.',
+      {
+        id:      'duros',
+        name:    'Duros',
+        tagline: 'Born to navigate. Built for the void.',
+        lore:    'The Duros were among the first species to chart hyperspace routes and build interstellar civilizations. Their culture is one of exploration, wanderlust, and an almost spiritual connection to the stars. In the poorly-mapped Western Reaches — where uncharted hyperspace lanes border the Unknown Regions — a Duros navigator is worth their weight in coaxium.',
+        imageUrl: '/assets/species/duros.png',
+        arenaShift: {
+          name: 'The Baseline',
+          desc: 'All Arenas at D6. No biological peaks or penalties.',
+        },
+        favoredDiscipline: {
+          desc: 'Choose one favored discipline (exploding die + Edge reroll).',
+          choices: [
+            { label: 'Piloting', id: 'piloting' },
+            { label: 'Tech', id: 'tech' },
+            { label: 'Survival', id: 'survival' },
+          ],
+        },
+        biologicalTruth: {
+          name: 'Void-Adapted Physiology',
+          desc: 'Your species evolved for the vacuum-adjacent environments of early spacefaring. When you Assess an environment, you may ask additional questions about heat differentials, atmospheric composition, pressure hazards, energy signatures, and structural integrity — even if you would not normally be entitled to those questions.',
+        },
+        speciesTrait: {
+          name: 'Intuitive Navigation',
+          desc: 'You cannot get lost. Whether in hyperspace, on a planet’s surface, or inside a labyrinthine station, you always maintain an innate sense of your position and heading. Additionally, when plotting a course through a hazardous route, you may ask the GM one free question about the dangers ahead before committing.',
+        },
+        arenas: { physique: 'D6', reflex: 'D6', grit: 'D6', wits: 'D6', presence: 'D6' },
+        _aiMeta: {
+          loreAnchors: [
+            'Frontier Navigator — The Western Reaches are poorly mapped and border the Unknown Regions. Duros astrogation skills are highly prized.',
+            'Void-Adapted — Extra Assess questions on environments: heat, air, pressure, energy, structural integrity.',
+            'Intuitive Navigation — Cannot get lost; free question on hazardous routes before committing.',
+          ],
+          directives: 'Focus on their connection to the stars and ships. Emphasize that they have memorized secret, highly dangerous hyperspace routes that the Imperial Navy is too afraid to chart. Their void-adapted senses make them invaluable scouts and surveyors.',
+        },
       },
-    },
-    {
-      id:      'twilek',
-      name:    "Twi'lek",
-      tagline: 'Graceful. Perceptive. Survivors.',
-      imageUrl: 'https://mywritingdistractions.com/wp-content/uploads/2024/07/Species-Datapad-Twilek.webp',
-      arenaShift: {
-        name:     'Agile & Expressive',
-        desc:     'Step Up: Presence to D8 (or Reflex to D8). Step Down: Physique to D4.',
-        stepUp:   [{ arena: 'presence', die: 'D8', note: 'or Reflex \u2192 D8' }],
-        stepDown: [{ arena: 'physique', die: 'D4' }],
+      {
+        id:      'zabrak',
+        name:    'Zabrak',
+        tagline: 'Unyielding. Defiant. Built to endure.',
+        lore:    'Zabrak culture venerates self-reliance, physical endurance, and refusal to submit. Their homeworld of Iridonia is a crucible of lethal environments that breeds toughness into every generation. In the Western Reaches, Zabrak are found as mercenaries, frontier settlers, and resistance fighters — anyone who needs to survive where others would break.',
+        imageUrl: '/assets/species/zabrak.png',
+        arenaShift: {
+          name: 'The Baseline',
+          desc: 'All Arenas at D6. No biological peaks or penalties.',
+        },
+        favoredDiscipline: {
+          desc: 'Choose one favored discipline (exploding die + Edge reroll).',
+          choices: [
+            { label: 'Resolve', id: 'resolve' },
+            { label: 'Melee', id: 'melee' },
+            { label: 'Tactics', id: 'tactics' },
+          ],
+        },
+        biologicalTruth: {
+          name: 'Redundant Biology',
+          desc: 'You possess a secondary heart and a nervous system with an extraordinarily high pain threshold. When you take Physique or Reflex Trauma, you soak 3 instead of the normal 2 — your body simply absorbs more punishment before degrading.',
+        },
+        speciesTrait: {
+          name: 'Unyielding',
+          desc: 'You are immune to the [Shaken] condition. Fear effects, intimidation attempts, and morale-breaking tactics simply do not work on you. Your cultural conditioning and biological pain tolerance make you an immovable psychological anchor.',
+        },
+        arenas: { physique: 'D6', reflex: 'D6', grit: 'D6', wits: 'D6', presence: 'D6' },
+        _aiMeta: {
+          loreAnchors: [
+            'Redundant Biology — Physique/Reflex Trauma soaks 3 instead of 2; built to absorb punishment.',
+            'Unyielding — Immune to [Shaken]; fear, intimidation, and morale-breaking tactics have no effect.',
+            'Defiant Culture — Culturally resistant to authoritarian rule, natural enemies of Imperial governors.',
+          ],
+          directives: 'Highlight their physical resilience and stubborn pride. Emphasize a background of enduring extreme physical hardship. The Unyielding trait should feel like an unshakable core, not just a mechanical immunity.',
+        },
       },
-      nativeSkill: {
-        name:   'Survival Instincts',
-        desc:   "You gain Charm (Presence) or Evasion (Reflex) at Familiarity (D6), representing a youth spent either navigating dangerous social circles or physically dodging trouble.",
-        skills: [
-          { name: 'Charm',   arena: 'Presence', die: 'D6' },
-          { name: 'Evasion', arena: 'Reflex',   die: 'D6' },
-        ],
-        choice: true,
-      },
-      biologicalTruth: {
-        name: 'Lekku Sign',
-        desc: "You can communicate silently using subtle twitches and movements of your lekku (head-tails). You can transmit complex tactical concepts, warnings, or emotions to anyone else who knows Lekku Sign Language — even across a crowded, loud, or pitch-black room where verbal comms would get you killed.",
-      },
-      arenas: { physique: 'D4', reflex: 'D6', grit: 'D6', wits: 'D6', presence: 'D8' },
-      _aiMeta: {
-        loreAnchors: [
-          'Subject to Imperial Marginalization — Aliens are treated as second-class citizens or cheap labor under the New Order.',
-          'Shadow Economy Survivor — Thrives in places the Empire ignores, like Black Spire Outpost on Batuu, or neutral grounds like Takodana.',
-          'Syndicate Exploitation — Frequently targeted by the Hutt Cartel or Pyke Syndicate for debt-bondage.',
-        ],
-        directives: "Emphasize the character's reliance on non-verbal communication (Lekku sign language) to survive in dangerous, loud, or heavily monitored environments. Frame their presence in the Western Reaches as either an escape from slavery or a hustle to stay ahead of the syndicates.",
-      },
-    },
-    {
-      id:      'wookiee',
-      name:    'Wookiee',
-      tagline: 'Fierce. Loyal. Terrifying.',
-      imageUrl: null,
-      arenaShift: {
-        name:     'Raw Mass',
-        desc:     'Step Up: Physique to D8. Step Down: Presence to D4 — outside of other Wookiees, your sheer size and guttural language make subtle social navigation incredibly difficult.',
-        stepUp:   [{ arena: 'physique', die: 'D8' }],
-        stepDown: [{ arena: 'presence', die: 'D4' }],
-      },
-      nativeSkill: {
-        name:   'Trench Fighter',
-        desc:   'You gain Brawl (Physique) at Familiarity (D6). You are biologically built for close-quarters devastation.',
-        skills: [{ name: 'Brawl', arena: 'Physique', die: 'D6' }],
-        choice: false,
-      },
-      biologicalTruth: {
-        name: 'Brute Physiology',
-        desc: "You possess musculature and claws that defy standard humanoid limits. You automatically succeed on feats of raw, brute lifting, ripping, or breaking — like tearing a blast door off its hinges or pulling a droid's arms out of its sockets — that a human couldn't even attempt. (Note: You can understand Basic perfectly, but can only speak Shyriiwook.)",
-      },
-      arenas: { physique: 'D8', reflex: 'D6', grit: 'D6', wits: 'D6', presence: 'D4' },
-      _aiMeta: {
-        loreAnchors: [
-          'Imperial Enslavement Target — Kashyyyk is occupied. Wookiees are actively hunted by the Empire for brutal labor in places like the Kessel Spice Mines or Western Reaches mining operations.',
-          'Fugitive / Escaped Slave — Operating freely in the Western Reaches means they are likely an escaped prisoner, a surviving mercenary, or a highly sought-after bounty.',
-          'Mechanical Savant + Apex Predator — Known equally for tearing droids apart and repairing complex hyperdrives.',
-        ],
-        directives: "The character's backstory must reflect the immediate, existential danger of being a Wookiee under the Empire. Do not treat them as a standard citizen; they are a walking target. Mention the psychological toll of their homeworld's subjugation.",
-      },
-    },
-    {
-      id:      'duros',
-      name:    'Duros',
-      tagline: 'Born to navigate. Built for the void.',
-      imageUrl: null,
-      arenaShift: {
-        name:     "The Spacer's Build",
-        desc:     'Step Up: Reflex to D8. Step Down: Physique to D4 — adapted to zero-G and shipboard life, you lack the raw muscle of gravity-bound species.',
-        stepUp:   [{ arena: 'reflex', die: 'D8' }],
-        stepDown: [{ arena: 'physique', die: 'D4' }],
-      },
-      nativeSkill: {
-        name:   'Helm Jockey',
-        desc:   'You gain Piloting (Reflex) at Familiarity (D6). You were practically born in a cockpit and think in three-dimensional vectors.',
-        skills: [{ name: 'Piloting', arena: 'Reflex', die: 'D6' }],
-        choice: false,
-      },
-      biologicalTruth: {
-        name: 'Stellar Intuition',
-        desc: 'You have an innate, mathematical understanding of astrogation and celestial drift. As long as you can see the stars, you can always determine your exact galactic coordinates, and you can attempt to plot a hyperspace jump even if your ship\'s navicomputer is damaged or destroyed.',
-      },
-      arenas: { physique: 'D4', reflex: 'D8', grit: 'D6', wits: 'D6', presence: 'D6' },
-      _aiMeta: {
-        loreAnchors: [
-          'Frontier Navigator — The Western Reaches are poorly mapped and border the Unknown Regions. Duros astrogation skills are highly prized by smugglers, the Mining Guild, and Imperial explorers.',
-          'Nomadic Spacer — Rarely tied to a single planet. Often found in spaceports like Niima Outpost or orbiting shipyards.',
-          'Alien Marginalization — Like all non-humans, pushed out of official Imperial Navy roles, forcing them into freelance, corporate, or illegal piloting.',
-        ],
-        directives: 'Focus on their connection to the stars and ships. If they took Phase 1 or 2 cards related to driving/piloting, emphasize that they have memorized secret, highly dangerous hyperspace routes that the Imperial Navy is too afraid to chart.',
-      },
-    },
-    {
-      id:      'zabrak',
-      name:    'Zabrak',
-      tagline: 'Unyielding. Defiant. Built to endure.',
-      imageUrl: null,
-      arenaShift: {
-        name:     'Unyielding',
-        desc:     'Step Up: Grit to D8. Step Down: Presence to D4 — your blunt, abrasive demeanor and intense cultural pride make subtle negotiations difficult.',
-        stepUp:   [{ arena: 'grit', die: 'D8' }],
-        stepDown: [{ arena: 'presence', die: 'D4' }],
-      },
-      nativeSkill: {
-        name:   'Frontier Endurance',
-        desc:   'You gain Endure (Physique) at Familiarity (D6). You are biologically built to outlast extreme hardship, grueling labor, and physical punishment.',
-        skills: [{ name: 'Endure', arena: 'Physique', die: 'D6' }],
-        choice: false,
-      },
-      biologicalTruth: {
-        name: 'Redundant Biology',
-        desc: 'You possess a secondary heart and a nervous system with an incredibly high pain threshold. You can function normally through excruciating physical trauma that would cause a human to pass out from shock, and you can comfortably survive in extreme frontier temperatures — blistering desert heat or freezing nights — without specialized environmental gear.',
-      },
-      arenas: { physique: 'D6', reflex: 'D6', grit: 'D8', wits: 'D6', presence: 'D4' },
-      _aiMeta: {
-        loreAnchors: [
-          'Harsh Environment Survivor — Biologically suited to survive the grueling climates of worlds like Jakku or the contested warlord zones of Lyiukis.',
-          'Independent Mercenary — Often employed as muscle by local warlords, criminal syndicates, or desperate settlements due to their martial culture and pain tolerance.',
-          'Defiant — Culturally resistant to authoritarian rule, making them natural enemies of Imperial planetary governors.',
-        ],
-        directives: 'Highlight their physical resilience and stubborn pride. Emphasize a background of enduring extreme physical hardship, whether that was surviving a blaster fight, grueling labor, or the lethal environments of the frontier.',
-      },
-    },
-  ];
+    ];
 
   var PHASE1_CARDS = [
     {
@@ -667,8 +708,9 @@
   };
 
   var state = {
-    species:        null,
-    previewId:      null,
+    species:            null,
+    previewId:          null,
+    favoredDiscipline:  null,
     phase1:         null,
     phase2:         null,
     phase3:         null,
@@ -732,389 +774,302 @@
   /* ── Carousel ───────────────────────────────────────────────────────────── */
 
   function buildCarousel() {
-    var track  = document.getElementById('cc-track');
-    var dotsEl = document.getElementById('cc-dots');
-    if (!track) return;
+      var container = document.getElementById('cc-species-card');
+      var dotsEl    = document.getElementById('cc-dots');
+      if (!container) return;
 
-    track.innerHTML  = '';
-    if (dotsEl) dotsEl.innerHTML = '';
-
-    SPECIES.forEach(function (sp, idx) {
-      var slide = document.createElement('div');
-      slide.className    = 'cc-slide';
-      slide.dataset.index = idx;
-
-      var perspective = document.createElement('div');
-      perspective.className = 'cc-card-perspective';
-
-      var flipper = document.createElement('div');
-      flipper.className = 'cc-card-flipper';
-      flipper.id        = 'flipper-' + sp.id;
-
-      flipper.appendChild(buildCardFront(sp));
-      flipper.appendChild(buildCardBack(sp));
-      perspective.appendChild(flipper);
-      slide.appendChild(perspective);
-      track.appendChild(slide);
+      renderSpeciesCard(container, SPECIES[carouselState.current]);
 
       if (dotsEl) {
-        var dot = document.createElement('button');
-        dot.className = 'cc-dot' + (idx === 0 ? ' cc-dot-active' : '');
-        dot.setAttribute('aria-label', 'Go to ' + sp.name);
-        dot.addEventListener('click', function () { goToSlide(idx); });
-        dotsEl.appendChild(dot);
+        dotsEl.innerHTML = '';
+        SPECIES.forEach(function (sp, idx) {
+          var dot = document.createElement('button');
+          dot.className = 'cc-dot' + (idx === carouselState.current ? ' cc-dot-active' : '');
+          dot.setAttribute('aria-label', 'Go to ' + sp.name);
+          dot.addEventListener('click', function () { goToSlide(idx); });
+          dotsEl.appendChild(dot);
+        });
       }
-    });
 
-    setTrackPosition(0, false);
-    renderStatsOverlay(false, null);
-  }
-
-  function buildCardFront(sp) {
-    var face = document.createElement('div');
-    face.className = 'cc-card-face cc-card-front';
-
-    var imgWrap = document.createElement('div');
-    imgWrap.className = 'cc-img-wrap';
-
-    if (sp.imageUrl) {
-      var img = document.createElement('img');
-      img.src   = sp.imageUrl;
-      img.alt   = sp.name;
-      img.className = 'cc-img';
-      img.onerror = function () { imgWrap.innerHTML = silhouetteHTML(sp.name); };
-      imgWrap.appendChild(img);
-    } else {
-      imgWrap.innerHTML = silhouetteHTML(sp.name);
+      renderStatsOverlay(true, SPECIES[carouselState.current]);
     }
 
-    var info = document.createElement('div');
-    info.className = 'cc-front-info';
+    function renderSpeciesCard(container, sp) {
+      container.innerHTML = '';
+      container.className = 'cc-species-card';
 
-    var nameEl = document.createElement('h3');
-    nameEl.className   = 'cc-front-name';
-    nameEl.textContent = sp.name;
+      var imgCol = document.createElement('div');
+      imgCol.className = 'cc-species-img-col';
 
-    var tagEl = document.createElement('p');
-    tagEl.className   = 'cc-front-tagline';
-    tagEl.textContent = sp.tagline;
-
-    var hintEl = document.createElement('p');
-    hintEl.className   = 'cc-front-hint';
-    hintEl.textContent = 'Tap to reveal details';
-
-    info.appendChild(nameEl);
-    info.appendChild(tagEl);
-    info.appendChild(hintEl);
-    face.appendChild(imgWrap);
-    face.appendChild(info);
-
-    face.addEventListener('click', function () { flipCard(sp.id); });
-    return face;
-  }
-
-  function silhouetteHTML(name) {
-    return '<div class="cc-silhouette"><span>' + esc(name.charAt(0)) + '</span></div>'
-         + '<p class="cc-art-label">Art Pending</p>';
-  }
-
-  function buildCardBack(sp) {
-    var face = document.createElement('div');
-    face.className = 'cc-card-face cc-card-back';
-
-    var backBtn = document.createElement('button');
-    backBtn.className = 'cc-back-flip-btn';
-    backBtn.innerHTML = '&larr; Flip Back';
-    backBtn.addEventListener('click', function (e) {
-      e.stopPropagation();
-      flipCard(sp.id);
-    });
-
-    var abilities = document.createElement('div');
-    abilities.className = 'cc-abilities';
-
-    abilities.appendChild(buildAbilityBlock(
-      'Arena Shift', sp.arenaShift.name, sp.arenaShift.desc,
-      buildArenaShiftPills(sp)
-    ));
-    abilities.appendChild(buildAbilityBlock(
-      'Native Skill', sp.nativeSkill.name, sp.nativeSkill.desc,
-      buildNativeSkillPills(sp)
-    ));
-    abilities.appendChild(buildAbilityBlock(
-      'Narrative Permission', sp.biologicalTruth.name, sp.biologicalTruth.desc,
-      null
-    ));
-
-    var selectBtn = document.createElement('button');
-    selectBtn.className   = 'cc-select-btn';
-    selectBtn.textContent = 'Select ' + sp.name + ' \u2192';
-    selectBtn.addEventListener('click', function (e) {
-      e.stopPropagation();
-      selectSpecies(sp);
-    });
-
-    face.appendChild(backBtn);
-    face.appendChild(abilities);
-    face.appendChild(selectBtn);
-    return face;
-  }
-
-  function buildAbilityBlock(typeLabel, abilityName, desc, pillsEl) {
-    var block = document.createElement('div');
-    block.className = 'cc-ability-block';
-
-    var typeEl = document.createElement('p');
-    typeEl.className   = 'cc-ability-type';
-    typeEl.textContent = typeLabel;
-
-    var nameEl = document.createElement('p');
-    nameEl.className   = 'cc-ability-name';
-    nameEl.textContent = abilityName;
-
-    var descEl = document.createElement('p');
-    descEl.className   = 'cc-ability-desc';
-    descEl.textContent = desc;
-
-    block.appendChild(typeEl);
-    block.appendChild(nameEl);
-    if (pillsEl) block.appendChild(pillsEl);
-    block.appendChild(descEl);
-    return block;
-  }
-
-  function buildArenaShiftPills(sp) {
-    var ups   = sp.arenaShift.stepUp;
-    var downs = sp.arenaShift.stepDown;
-    if (!ups.length && !downs.length) return null;
-
-    var wrap = document.createElement('div');
-    wrap.className = 'cc-pills';
-
-    ups.forEach(function (s) {
-      var p = document.createElement('span');
-      p.className   = 'cc-pill cc-pill-up';
-      p.textContent = '\u2191 ' + capitalize(s.arena) + ' \u2192 ' + s.die
-                    + (s.note ? ' (' + s.note + ')' : '');
-      wrap.appendChild(p);
-    });
-
-    downs.forEach(function (s) {
-      var p = document.createElement('span');
-      p.className   = 'cc-pill cc-pill-down';
-      p.textContent = '\u2193 ' + capitalize(s.arena) + ' \u2192 ' + s.die;
-      wrap.appendChild(p);
-    });
-
-    return wrap;
-  }
-
-  function buildNativeSkillPills(sp) {
-    var skills = sp.nativeSkill.skills;
-    if (!skills || !skills.length) return null;
-
-    var wrap = document.createElement('div');
-    wrap.className = 'cc-pills';
-
-    if (sp.nativeSkill.choice) {
-      var p = document.createElement('span');
-      p.className   = 'cc-pill cc-pill-neutral';
-      p.textContent = skills.map(function (s) {
-        return s.name + (s.arena ? ' (' + s.arena + ')' : '') + ' ' + s.die;
-      }).join(' or ');
-      wrap.appendChild(p);
-    } else {
-      skills.forEach(function (s) {
-        var p = document.createElement('span');
-        p.className   = 'cc-pill cc-pill-neutral';
-        p.textContent = s.name + (s.arena ? ' (' + s.arena + ')' : '') + ' \u2014 ' + s.die;
-        wrap.appendChild(p);
-      });
-    }
-
-    return wrap;
-  }
-
-  /* ── Carousel navigation ────────────────────────────────────────────────── */
-
-  function setTrackPosition(idx, animate) {
-    var track = document.getElementById('cc-track');
-    if (!track) return;
-
-    if (!animate) {
-      track.style.transition = 'none';
-      requestAnimationFrame(function () { track.style.transition = ''; });
-    }
-
-    track.style.transform = 'translateX(-' + (idx * 100) + '%)';
-    updateDots(idx);
-  }
-
-  function updateDots(idx) {
-    document.querySelectorAll('.cc-dot').forEach(function (d, i) {
-      d.classList.toggle('cc-dot-active', i === idx);
-    });
-  }
-
-  function goToSlide(idx) {
-    if (carouselState.current !== idx) {
-      resetFlips();
-      state.previewId = null;
-    }
-    carouselState.current = idx;
-    setTrackPosition(idx, true);
-  }
-
-  function navigatePrev() {
-    goToSlide((carouselState.current - 1 + carouselState.total) % carouselState.total);
-  }
-
-  function navigateNext() {
-    goToSlide((carouselState.current + 1) % carouselState.total);
-  }
-
-  function resetFlips() {
-    SPECIES.forEach(function (sp) {
-      var flipper = document.getElementById('flipper-' + sp.id);
-      if (flipper) flipper.classList.remove('cc-flipped');
-    });
-    renderStatsOverlay(false, null);
-  }
-
-  /* ── Card flip ──────────────────────────────────────────────────────────── */
-
-  function flipCard(speciesId) {
-    var flipper = document.getElementById('flipper-' + speciesId);
-    if (!flipper) return;
-
-    var nowFlipping = !flipper.classList.contains('cc-flipped');
-    flipper.classList.toggle('cc-flipped');
-
-    if (nowFlipping) {
-      state.previewId = speciesId;
-      var sp = SPECIES.find(function (s) { return s.id === speciesId; });
-      if (sp) renderStatsOverlay(true, sp);
-    } else {
-      state.previewId = null;
-      renderStatsOverlay(false, null);
-    }
-  }
-
-  /* ── Touch / swipe ──────────────────────────────────────────────────────── */
-
-  function initSwipe(el) {
-    el.addEventListener('touchstart', function (e) {
-      carouselState.touchStartX = e.touches[0].clientX;
-      carouselState.touchStartY = e.touches[0].clientY;
-    }, { passive: true });
-
-    el.addEventListener('touchend', function (e) {
-      var dx = e.changedTouches[0].clientX - carouselState.touchStartX;
-      var dy = e.changedTouches[0].clientY - carouselState.touchStartY;
-      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
-        if (dx < 0) navigateNext();
-        else navigatePrev();
+      if (sp.imageUrl) {
+        var img = document.createElement('img');
+        img.src       = sp.imageUrl;
+        img.alt       = sp.name;
+        img.className = 'cc-species-img';
+        img.onerror   = function () { imgCol.innerHTML = silhouetteHTML(sp.name); };
+        imgCol.appendChild(img);
+      } else {
+        imgCol.innerHTML = silhouetteHTML(sp.name);
       }
-    }, { passive: true });
-  }
 
-  /* ── Stats overlay ──────────────────────────────────────────────────────── */
+      var detailCol = document.createElement('div');
+      detailCol.className = 'cc-species-detail-col';
 
-  function renderStatsOverlay(isPreview, sp) {
-    var speciesName, arenas, disciplines, abilities;
+      var nameEl = document.createElement('h2');
+      nameEl.className   = 'cc-species-name';
+      nameEl.textContent = sp.name;
 
-    if (isPreview && sp) {
-      speciesName  = sp.name + ' (preview)';
-      arenas       = Object.assign({}, ARENA_BASELINE, sp.arenas);
-      disciplines  = buildDisciplinesList(sp);
-      abilities    = [sp.biologicalTruth.name];
-    } else if (characterSheet.species) {
-      speciesName  = characterSheet.species;
-      arenas       = characterSheet.arenas;
-      disciplines  = characterSheet.disciplines;
-      abilities    = characterSheet.abilities;
-    } else {
-      speciesName  = 'Pending';
-      arenas       = Object.assign({}, ARENA_BASELINE);
-      disciplines  = [];
-      abilities    = [];
+      var tagEl = document.createElement('p');
+      tagEl.className   = 'cc-species-tagline';
+      tagEl.textContent = sp.tagline;
+
+      var loreEl = document.createElement('p');
+      loreEl.className   = 'cc-species-lore';
+      loreEl.textContent = sp.lore || '';
+
+      detailCol.appendChild(nameEl);
+      detailCol.appendChild(tagEl);
+      detailCol.appendChild(loreEl);
+
+      detailCol.appendChild(buildAbilityBlock(
+        'Arena Shift', sp.arenaShift.name, sp.arenaShift.desc, null
+      ));
+
+      var favBlock = buildFavoredDisciplineBlock(sp);
+      detailCol.appendChild(favBlock);
+
+      detailCol.appendChild(buildAbilityBlock(
+        'Biological Truth', sp.biologicalTruth.name, sp.biologicalTruth.desc, null
+      ));
+
+      if (sp.speciesTrait) {
+        detailCol.appendChild(buildAbilityBlock(
+          'Species Trait', sp.speciesTrait.name, sp.speciesTrait.desc, null
+        ));
+      }
+
+      var selectBtn = document.createElement('button');
+      selectBtn.className   = 'cc-select-btn';
+      selectBtn.textContent = 'Select ' + sp.name + ' \u2192';
+      selectBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        selectSpecies(sp);
+      });
+
+      detailCol.appendChild(selectBtn);
+
+      container.appendChild(imgCol);
+      container.appendChild(detailCol);
     }
 
-    var speciesEl = document.getElementById('cc-stats-species');
-    if (speciesEl) {
-      speciesEl.textContent = speciesName;
-      speciesEl.style.color = isPreview
-        ? 'var(--color-accent-secondary)'
-        : (characterSheet.species ? 'var(--color-accent-primary)' : 'var(--color-text-secondary)');
+    function buildFavoredDisciplineBlock(sp) {
+      var block = document.createElement('div');
+      block.className = 'cc-ability-block';
+
+      var typeEl = document.createElement('p');
+      typeEl.className   = 'cc-ability-type';
+      typeEl.textContent = 'Favored Discipline';
+
+      var descEl = document.createElement('p');
+      descEl.className   = 'cc-ability-desc';
+      descEl.textContent = sp.favoredDiscipline.desc;
+
+      block.appendChild(typeEl);
+      block.appendChild(descEl);
+
+      var choices = sp.favoredDiscipline.choices;
+      if (choices && choices.length > 0) {
+        var pillWrap = document.createElement('div');
+        pillWrap.className = 'cc-favored-pills';
+
+        choices.forEach(function (ch) {
+          var pill = document.createElement('button');
+          pill.className = 'cc-favored-pill';
+          pill.textContent = ch.label;
+          pill.dataset.disciplineId = ch.id;
+
+          if (state.favoredDiscipline && state.favoredDiscipline === ch.id) {
+            pill.classList.add('cc-favored-pill-selected');
+          }
+
+          pill.addEventListener('click', function (e) {
+            e.stopPropagation();
+            state.favoredDiscipline = ch.id;
+            pillWrap.querySelectorAll('.cc-favored-pill').forEach(function (p) {
+              p.classList.remove('cc-favored-pill-selected');
+            });
+            pill.classList.add('cc-favored-pill-selected');
+          });
+
+          pillWrap.appendChild(pill);
+        });
+
+        block.appendChild(pillWrap);
+      }
+
+      return block;
     }
 
-    var arenasEl = document.getElementById('cc-stats-arenas');
-    if (arenasEl) {
-      arenasEl.innerHTML = '';
-      ARENA_ORDER.forEach(function (key) {
-        var die      = arenas[key];
-        var baseIdx  = DIE_ORDER.indexOf(ARENA_BASELINE[key]);
-        var dieIdx   = DIE_ORDER.indexOf(die);
-        var dir      = dieIdx > baseIdx ? 'up' : (dieIdx < baseIdx ? 'down' : 'base');
+    function silhouetteHTML(name) {
+      return '<div class="cc-silhouette"><span>' + esc(name.charAt(0)) + '</span></div>'
+           + '<p class="cc-art-label">Art Pending</p>';
+    }
 
-        var row    = document.createElement('div');
-        row.className = 'cc-stats-arena-row';
+    function buildAbilityBlock(typeLabel, abilityName, desc, pillsEl) {
+      var block = document.createElement('div');
+      block.className = 'cc-ability-block';
 
-        var label  = document.createElement('span');
-        label.className   = 'cc-stats-arena-label';
-        label.textContent = ARENA_LABELS[key];
+      var typeEl = document.createElement('p');
+      typeEl.className   = 'cc-ability-type';
+      typeEl.textContent = typeLabel;
 
-        var dieEl  = document.createElement('span');
-        dieEl.className   = 'cc-stats-arena-die' + (dir !== 'base' ? ' cc-die-' + dir : '');
-        dieEl.textContent = die + (dir === 'up' ? ' \u2191' : dir === 'down' ? ' \u2193' : '');
+      var nameEl = document.createElement('p');
+      nameEl.className   = 'cc-ability-name';
+      nameEl.textContent = abilityName;
 
-        row.appendChild(label);
-        row.appendChild(dieEl);
-        arenasEl.appendChild(row);
+      var descEl = document.createElement('p');
+      descEl.className   = 'cc-ability-desc';
+      descEl.textContent = desc;
+
+      block.appendChild(typeEl);
+      block.appendChild(nameEl);
+      if (pillsEl) block.appendChild(pillsEl);
+      block.appendChild(descEl);
+      return block;
+    }
+
+    /* \u2500\u2500 Carousel navigation \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
+
+    function updateDots(idx) {
+      document.querySelectorAll('.cc-dot').forEach(function (d, i) {
+        d.classList.toggle('cc-dot-active', i === idx);
       });
     }
 
-    setStatSection('cc-stats-disciplines-wrap', 'cc-stats-disciplines', disciplines);
-    setStatSection('cc-stats-abilities-wrap',   'cc-stats-abilities',   abilities);
-  }
+    function goToSlide(idx) {
+      carouselState.current = idx;
+      state.favoredDiscipline = null;
+      var container = document.getElementById('cc-species-card');
+      if (container) renderSpeciesCard(container, SPECIES[idx]);
+      updateDots(idx);
+      renderStatsOverlay(true, SPECIES[idx]);
+    }
 
-  function setStatSection(wrapId, listId, items) {
-    var wrap = document.getElementById(wrapId);
-    var list = document.getElementById(listId);
-    if (!wrap || !list) return;
+    function navigatePrev() {
+      goToSlide((carouselState.current - 1 + carouselState.total) % carouselState.total);
+    }
 
-    if (items && items.length) {
-      wrap.classList.remove('hidden');
-      list.innerHTML = '';
-      items.forEach(function (item) {
-        var p = document.createElement('p');
-        p.className   = 'cc-stats-list-item';
-        p.textContent = item;
-        list.appendChild(p);
+    function navigateNext() {
+      goToSlide((carouselState.current + 1) % carouselState.total);
+    }
+
+    /* \u2500\u2500 Touch / swipe \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
+
+    function initSwipe(el) {
+      el.addEventListener('touchstart', function (e) {
+        carouselState.touchStartX = e.touches[0].clientX;
+        carouselState.touchStartY = e.touches[0].clientY;
+      }, { passive: true });
+
+      el.addEventListener('touchend', function (e) {
+        var dx = e.changedTouches[0].clientX - carouselState.touchStartX;
+        var dy = e.changedTouches[0].clientY - carouselState.touchStartY;
+        if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
+          if (dx < 0) navigateNext();
+          else navigatePrev();
+        }
+      }, { passive: true });
+    }
+
+    /* \u2500\u2500 Stats overlay \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
+
+    function renderStatsOverlay(isPreview, sp) {
+      var speciesName, arenas, disciplines, abilities;
+
+      if (isPreview && sp) {
+        speciesName  = sp.name + ' (preview)';
+        arenas       = Object.assign({}, ARENA_BASELINE, sp.arenas);
+        disciplines  = buildFavoredList(sp);
+        abilities    = [sp.biologicalTruth.name];
+        if (sp.speciesTrait) abilities.push(sp.speciesTrait.name);
+      } else if (characterSheet.species) {
+        speciesName  = characterSheet.species;
+        arenas       = characterSheet.arenas;
+        disciplines  = characterSheet.disciplines;
+        abilities    = characterSheet.abilities;
+      } else {
+        speciesName  = 'Pending';
+        arenas       = Object.assign({}, ARENA_BASELINE);
+        disciplines  = [];
+        abilities    = [];
+      }
+
+      var speciesEl = document.getElementById('cc-stats-species');
+      if (speciesEl) {
+        speciesEl.textContent = speciesName;
+        speciesEl.style.color = isPreview
+          ? 'var(--color-accent-secondary)'
+          : (characterSheet.species ? 'var(--color-accent-primary)' : 'var(--color-text-secondary)');
+      }
+
+      var arenasEl = document.getElementById('cc-stats-arenas');
+      if (arenasEl) {
+        arenasEl.innerHTML = '';
+        ARENA_ORDER.forEach(function (key) {
+          var die      = arenas[key];
+          var baseIdx  = DIE_ORDER.indexOf(ARENA_BASELINE[key]);
+          var dieIdx   = DIE_ORDER.indexOf(die);
+          var dir      = dieIdx > baseIdx ? 'up' : (dieIdx < baseIdx ? 'down' : 'base');
+
+          var row    = document.createElement('div');
+          row.className = 'cc-stats-arena-row';
+
+          var label  = document.createElement('span');
+          label.className   = 'cc-stats-arena-label';
+          label.textContent = ARENA_LABELS[key];
+
+          var dieEl  = document.createElement('span');
+          dieEl.className   = 'cc-stats-arena-die' + (dir !== 'base' ? ' cc-die-' + dir : '');
+          dieEl.textContent = die + (dir === 'up' ? ' \u2191' : dir === 'down' ? ' \u2193' : '');
+
+          row.appendChild(label);
+          row.appendChild(dieEl);
+          arenasEl.appendChild(row);
+        });
+      }
+
+      setStatSection('cc-stats-disciplines-wrap', 'cc-stats-disciplines', disciplines);
+      setStatSection('cc-stats-abilities-wrap',   'cc-stats-abilities',   abilities);
+    }
+
+    function setStatSection(wrapId, listId, items) {
+      var wrap = document.getElementById(wrapId);
+      var list = document.getElementById(listId);
+      if (!wrap || !list) return;
+
+      if (items && items.length) {
+        wrap.classList.remove('hidden');
+        list.innerHTML = '';
+        items.forEach(function (item) {
+          var p = document.createElement('p');
+          p.className   = 'cc-stats-list-item';
+          p.textContent = item;
+          list.appendChild(p);
+        });
+      } else {
+        wrap.classList.add('hidden');
+      }
+    }
+
+    function buildFavoredList(sp) {
+      if (!sp.favoredDiscipline || !sp.favoredDiscipline.choices) return [];
+      if (sp.favoredDiscipline.choices.length > 5) {
+        return ['Any Discipline (Your Choice)'];
+      }
+      return sp.favoredDiscipline.choices.map(function (ch) {
+        return ch.label;
       });
-    } else {
-      wrap.classList.add('hidden');
     }
-  }
-
-  function buildDisciplinesList(sp) {
-    var skills = sp.nativeSkill.skills || [];
-    if (!skills.length) return [];
-
-    if (sp.nativeSkill.choice && !skills[0].choice) {
-      return ['Choose: ' + skills.map(function (s) {
-        return s.name + (s.arena ? ' (' + s.arena + ')' : '') + ' \u2014 ' + s.die;
-      }).join(' or ')];
-    }
-
-    if (skills[0].choice) {
-      return ['Any Skill (player choice) \u2014 ' + skills[0].die];
-    }
-
-    return skills.map(function (s) {
-      return s.name + (s.arena ? ' (' + s.arena + ')' : '') + ' \u2014 ' + s.die;
-    });
-  }
 
   /* ── Arenas & Disciplines step ───────────────────────────────────── */
 
@@ -1173,6 +1128,7 @@
     var p2 = state.phase2 ? PHASE2_CARDS.find(function(c){ return c.id === state.phase2; }) : null;
     if (p1 && p1._meta && p1._meta.favored) ids[favoredToId(p1._meta.favored)] = true;
     if (p2 && p2._meta && p2._meta.favored) ids[favoredToId(p2._meta.favored)] = true;
+    if (state.favoredDiscipline && state.favoredDiscipline !== 'any') ids[state.favoredDiscipline] = true;
     return ids;
   }
 
@@ -2906,8 +2862,12 @@
       sumRow('Name',       sp.name),
       sumRow('Tagline',    sp.tagline),
       sumRow('Arena Shift', sp.arenaShift.name + ' — ' + sp.arenaShift.desc),
-      sumRow('Native Skill', sp.nativeSkill.name + ' — ' + sp.nativeSkill.desc),
-      sumRow('Narrative Permission', sp.biologicalTruth.name + ' — ' + sp.biologicalTruth.desc),
+      sumRow('Favored Discipline', (function() {
+        var chosen = sp.favoredDiscipline.choices.find(function(c) { return c.id === state.favoredDiscipline; });
+        return chosen ? chosen.label : 'Not selected';
+      })()),
+      sumRow('Biological Truth', sp.biologicalTruth.name + ' — ' + sp.biologicalTruth.desc),
+      sumRow('Species Trait', sp.speciesTrait ? sp.speciesTrait.name + ' — ' + sp.speciesTrait.desc : 'None'),
       sumRow('Arenas', Object.keys(sp.arenas).map(function (k) {
         return k.charAt(0).toUpperCase() + k.slice(1) + ': ' + sp.arenas[k];
       }).join(' · ')),
@@ -3012,14 +2972,31 @@
   /* ── Species selection ──────────────────────────────────────────────────── */
 
   function selectSpecies(sp) {
+    if (!state.favoredDiscipline) {
+      if (sp.favoredDiscipline.choices.length === 1) {
+        state.favoredDiscipline = sp.favoredDiscipline.choices[0].id;
+      } else {
+        alert('Please select a favored discipline before confirming.');
+        return;
+      }
+    }
+
     state.species   = sp.id;
     state.previewId = null;
     saveState();
 
+    var chosenId = state.favoredDiscipline;
+    var chosenLabel = chosenId;
+    sp.favoredDiscipline.choices.forEach(function (ch) {
+      if (ch.id === chosenId) chosenLabel = ch.label;
+    });
+
     characterSheet.species     = sp.name;
     characterSheet.arenas      = Object.assign({}, ARENA_BASELINE, sp.arenas);
-    characterSheet.disciplines = buildDisciplinesList(sp);
+    characterSheet.disciplines = ['Favored: ' + chosenLabel];
     characterSheet.abilities   = [sp.biologicalTruth.name];
+    if (sp.speciesTrait) characterSheet.abilities.push(sp.speciesTrait.name);
+    characterSheet.favoredDiscipline = chosenId;
 
     renderStatsOverlay(false, null);
     showScreen('phase1');
@@ -3158,8 +3135,15 @@
     if (prevBtn) prevBtn.addEventListener('click', navigatePrev);
     if (nextBtn) nextBtn.addEventListener('click', navigateNext);
 
-    var viewport = document.getElementById('cc-viewport');
-    if (viewport) initSwipe(viewport);
+    var speciesContainer = document.getElementById('cc-species-container');
+    if (speciesContainer) initSwipe(speciesContainer);
+
+    document.addEventListener('keydown', function (e) {
+      var speciesScreen = document.getElementById('screen-species');
+      if (!speciesScreen || speciesScreen.classList.contains('hidden')) return;
+      if (e.key === 'ArrowLeft') { e.preventDefault(); navigatePrev(); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); navigateNext(); }
+    });
 
     var backToSpecies = document.getElementById('btn-back-to-species');
     if (backToSpecies) {
@@ -3250,8 +3234,18 @@
       if (sp) {
         characterSheet.species     = sp.name;
         characterSheet.arenas      = Object.assign({}, ARENA_BASELINE, sp.arenas);
-        characterSheet.disciplines = buildDisciplinesList(sp);
+        if (state.favoredDiscipline) {
+          var restoredLabel = state.favoredDiscipline;
+          sp.favoredDiscipline.choices.forEach(function (ch) {
+            if (ch.id === state.favoredDiscipline) restoredLabel = ch.label;
+          });
+          characterSheet.disciplines = ['Favored: ' + restoredLabel];
+          characterSheet.favoredDiscipline = state.favoredDiscipline;
+        } else {
+          characterSheet.disciplines = buildFavoredList(sp);
+        }
         characterSheet.abilities   = [sp.biologicalTruth.name];
+        if (sp.speciesTrait) characterSheet.abilities.push(sp.speciesTrait.name);
 
         if (state.arenaAdj) {
           var baseArenas = characterSheet.arenas;
@@ -3274,8 +3268,9 @@
         var idx = SPECIES.indexOf(sp);
         if (idx >= 0) {
           carouselState.current = idx;
-          var track = document.getElementById('cc-track');
-          if (track) track.style.transform = 'translateX(' + (-idx * 100) + '%)';
+          var container = document.getElementById('cc-species-card');
+          if (container) renderSpeciesCard(container, SPECIES[idx]);
+          updateDots(idx);
         }
       }
     }

@@ -8,10 +8,10 @@ const KITS_DATA = JSON.parse(fsx.readFileSync(path.join(__dirname, '..', '..', '
 
 const SPECIES_ARENAS = {
   'Human':   { physique: 'D6', reflex: 'D6', grit: 'D6', wits: 'D6', presence: 'D6' },
-  "Twi'lek": { physique: 'D4', reflex: 'D6', grit: 'D6', wits: 'D6', presence: 'D8' },
-  'Wookiee': { physique: 'D8', reflex: 'D6', grit: 'D6', wits: 'D6', presence: 'D4' },
-  'Duros':   { physique: 'D4', reflex: 'D8', grit: 'D6', wits: 'D6', presence: 'D6' },
-  'Zabrak':  { physique: 'D6', reflex: 'D6', grit: 'D8', wits: 'D6', presence: 'D4' },
+  "Twi'lek": { physique: 'D6', reflex: 'D6', grit: 'D6', wits: 'D6', presence: 'D6' },
+  'Wookiee': { physique: 'D8', reflex: 'D6', grit: 'D6', wits: 'D6', presence: 'D6' },
+  'Duros':   { physique: 'D6', reflex: 'D6', grit: 'D6', wits: 'D6', presence: 'D6' },
+  'Zabrak':  { physique: 'D6', reflex: 'D6', grit: 'D6', wits: 'D6', presence: 'D6' },
 };
 
 const ARENA_META = [
@@ -84,7 +84,10 @@ function resolveBackgroundFavored(flat) {
   const cs = flat.creationState || {};
   const p1Id = cs.phase1 || BACKGROUND_TITLE_TO_ID[flat.phase1] || flat.phase1;
   const p2Id = cs.phase2 || BACKGROUND_TITLE_TO_ID[flat.phase2] || flat.phase2;
-  return [BACKGROUND_FAVORED[p1Id], BACKGROUND_FAVORED[p2Id]].filter(Boolean);
+  const favored = [BACKGROUND_FAVORED[p1Id], BACKGROUND_FAVORED[p2Id]].filter(Boolean);
+  const speciesFav = cs.favoredDiscipline || flat.favoredDiscipline;
+  if (speciesFav && speciesFav !== 'any') favored.unshift(speciesFav);
+  return favored;
 }
 
 const ENGINE_DATA = {

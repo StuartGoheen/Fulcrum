@@ -3,100 +3,199 @@
     "id": "human",
     "name": "Human",
     "tagline": "Adaptable. Ambitious. Everywhere.",
+    "lore": "Humans dominate the galaxy's power structures — the Empire, the Senate before it, the corporate boardrooms, and the criminal syndicates. In the Western Reaches, humans are colonists, refugees, opportunists, and exiles. They carry no biological advantages into the frontier, but they carry something more dangerous: the assumption that they belong everywhere.",
+    "imageUrl": "/assets/species/human.png",
     "arenaShift": {
       "name": "The Baseline",
-      "desc": "Humans are the canvas the galaxy is painted on. You start with all five Arenas — Physique, Reflex, Grit, Wits, Presence — at D6. You have no inherent biological penalties or peaks.",
-      "stepUp": [],
-      "stepDown": []
+      "desc": "All Arenas at D6. No biological peaks or penalties."
     },
-    "nativeSkill": {
-      "name": "Versatility",
-      "desc": "Because human culture is so heavily varied, you may select any one Skill of your choice to start at Familiarity (D6).",
-      "choice": true
+    "favoredDiscipline": {
+      "desc": "Choose any one discipline as your favored discipline (exploding die + Edge reroll).",
+      "choices": [
+        { "label": "Athletics", "id": "athletics" },
+        { "label": "Brawl", "id": "brawl" },
+        { "label": "Endure", "id": "endure" },
+        { "label": "Melee", "id": "melee" },
+        { "label": "Heavy Weapons", "id": "heavy_weapons" },
+        { "label": "Evasion", "id": "evasion" },
+        { "label": "Piloting", "id": "piloting" },
+        { "label": "Ranged", "id": "ranged" },
+        { "label": "Skulduggery", "id": "skulduggery" },
+        { "label": "Stealth", "id": "stealth" },
+        { "label": "Beast Handling", "id": "beast_handling" },
+        { "label": "Intimidate", "id": "intimidate" },
+        { "label": "Resolve", "id": "resolve" },
+        { "label": "Survival", "id": "survival" },
+        { "label": "Investigation", "id": "investigation" },
+        { "label": "Medicine", "id": "medicine" },
+        { "label": "Tactics", "id": "tactics" },
+        { "label": "Tech", "id": "tech" },
+        { "label": "Charm", "id": "charm" },
+        { "label": "Deception", "id": "deception" },
+        { "label": "Insight", "id": "insight" },
+        { "label": "Persuasion", "id": "persuasion" }
+      ]
     },
     "biologicalTruth": {
       "name": "Galactic Ubiquity",
-      "desc": "Humans make up the vast majority of the Empire, the corporate sector, and the underworld. You can blend into crowds, acquire standard-issue gear, and infiltrate human-centric organizations (like Imperial garrisons) without drawing the immediate prejudice, suspicion, or xenophobia that alien species face."
+      "desc": "Humans make up the vast majority of the Empire, the corporate sector, and the underworld. In Imperial-controlled settings, you can blend into crowds, acquire standard-issue gear, and move through human-centric organizations without drawing the prejudice, suspicion, or xenophobia that alien species face. (GM-gated: the social lubricant works where the Empire's Humanocentrism holds sway.)"
+    },
+    "speciesTrait": {
+      "name": "Adaptable",
+      "desc": "You begin play with 1 free advance at character creation — an extra skill rank, a contact, a resource, or any other single advance your GM approves."
+    },
+    "arenas": { "physique": "D6", "reflex": "D6", "grit": "D6", "wits": "D6", "presence": "D6" },
+    "_aiMeta": {
+      "loreAnchors": [
+        "Beneficiary of Imperial Humanocentrism — Even poor humans face less systemic harassment than aliens.",
+        "Galactic Ubiquity — Can blend into Imperial outposts, corporate mining camps, or refugee caravans without drawing innate suspicion.",
+        "Adaptable — Begins with a free advance, reflecting the sheer variety of human experience and ambition."
+      ],
+      "directives": "If the character is anti-Empire, emphasize that they walked away from the privilege of Imperial High Culture. If they are underworld, emphasize how easily they slip past Imperial customs. The free advance should reflect their unique life path."
     }
   },
   {
     "id": "twilek",
     "name": "Twi'lek",
     "tagline": "Graceful. Perceptive. Survivors.",
+    "lore": "Twi'leks are among the galaxy's most exploited peoples — prized by slavers, objectified by the powerful, and scattered across every spaceport and cantina from the Core to the Rim. But beneath the galaxy's assumptions lies a culture of fierce resilience, silent communication, and razor-sharp social instincts honed by centuries of survival under the boots of others.",
+    "imageUrl": "/assets/species/twilek.png",
     "arenaShift": {
-      "name": "Agile & Expressive",
-      "desc": "Step Up: Presence to D8 (or Reflex to D8). Step Down: Physique to D4.",
-      "stepUp": [{ "arena": "Presence", "die": "D8", "note": "or Reflex → D8" }],
-      "stepDown": [{ "arena": "Physique", "die": "D4" }]
+      "name": "The Baseline",
+      "desc": "All Arenas at D6. No biological peaks or penalties."
     },
-    "nativeSkill": {
-      "name": "Survival Instincts",
-      "desc": "You gain Charm (Presence) or Evasion (Reflex) at Familiarity (D6), representing a youth spent either navigating dangerous social circles or physically dodging trouble.",
-      "choice": true
+    "favoredDiscipline": {
+      "desc": "Choose one favored discipline (exploding die + Edge reroll).",
+      "choices": [
+        { "label": "Charm", "id": "charm" },
+        { "label": "Endure", "id": "endure" },
+        { "label": "Survival", "id": "survival" }
+      ]
     },
     "biologicalTruth": {
-      "name": "Lekku Sign",
-      "desc": "You can communicate silently using subtle twitches and movements of your lekku (head-tails). You can transmit complex tactical concepts, warnings, or emotions to anyone else who knows Lekku Sign Language — even across a crowded, loud, or pitch-black room where verbal comms would get you killed."
+      "name": "Lekku",
+      "desc": "Your head-tails are sensory organs attuned to emotional resonance. When you Assess a living target, you may ask additional questions about their emotional state, whether they are being truthful, and whether they are concealing intent — even if you would not normally be entitled to those questions."
+    },
+    "speciesTrait": {
+      "name": "Pheromonal Influence",
+      "desc": "The first time per scene you attempt a Charm or Deception action against a given living target while face-to-face, you are treated as [Optimized] on that roll. This does not stack with other [Optimized] effects. Has no effect on droids or targets without biological scent receptors."
+    },
+    "arenas": { "physique": "D6", "reflex": "D6", "grit": "D6", "wits": "D6", "presence": "D6" },
+    "_aiMeta": {
+      "loreAnchors": [
+        "Subject to Imperial Marginalization — Aliens are treated as second-class citizens or cheap labor under the New Order.",
+        "Lekku Empathy — Can read emotional states and detect lies through sensory lekku, making them devastating interrogators and negotiators.",
+        "Pheromonal Influence — First Charm/Deception per target per scene is [Optimized], face-to-face, living targets only."
+      ],
+      "directives": "Emphasize the character's reliance on lekku-based perception and pheromonal influence to survive in dangerous social environments. Frame their presence in the Western Reaches as either an escape from exploitation or a hustle to stay ahead of the syndicates."
     }
   },
   {
     "id": "wookiee",
     "name": "Wookiee",
     "tagline": "Fierce. Loyal. Terrifying.",
+    "lore": "Kashyyyk is occupied. The Empire enslaves Wookiees by the thousands for brutal labor in spice mines, weapons factories, and frontier mining operations. A free Wookiee in the Western Reaches is either a fugitive, a survivor, or someone with very powerful friends. They are walking targets — but they are also walking siege engines, master mechanics, and holders of life-debts that transcend death itself.",
+    "imageUrl": "/assets/species/wookiee.png",
     "arenaShift": {
       "name": "Raw Mass",
-      "desc": "Step Up: Physique to D8. Step Down: Presence to D4 — outside of other Wookiees, your sheer size and guttural language make subtle social navigation incredibly difficult.",
-      "stepUp": [{ "arena": "Physique", "die": "D8" }],
-      "stepDown": [{ "arena": "Presence", "die": "D4" }]
+      "desc": "Physique starts at D8. All other Arenas at D6. No penalties."
     },
-    "nativeSkill": {
-      "name": "Trench Fighter",
-      "desc": "You gain Brawl (Physique) at Familiarity (D6). You are biologically built for close-quarters devastation.",
-      "choice": false
+    "favoredDiscipline": {
+      "desc": "Choose one favored discipline (exploding die + Edge reroll).",
+      "choices": [
+        { "label": "Brawl", "id": "brawl" },
+        { "label": "Endure", "id": "endure" },
+        { "label": "Tech", "id": "tech" }
+      ]
     },
     "biologicalTruth": {
-      "name": "Brute Physiology",
-      "desc": "You possess musculature and claws that defy standard humanoid limits. You automatically succeed on feats of raw, brute lifting, ripping, or breaking — like tearing a blast door off its hinges or pulling a droid's arms out of its sockets — that a human couldn't even attempt. (Note: You can understand Basic perfectly, but can only speak Shyriiwook.)"
+      "name": "Shyriiwook",
+      "desc": "You cannot speak Basic or any other language that requires human-range vocal anatomy. You understand Basic perfectly, but you can only speak Shyriiwook. Communicating with non-Wookiees requires a translator — organic, droid, or otherwise."
+    },
+    "speciesTrait": {
+      "name": "Wookiee Rage",
+      "desc": "When a sacred bond is threatened — a life-debt, a loved one, a deeply held oath — you may enter Wookiee Rage. While raging: all Physique actions are treated as Unleash (maximum effort, no holding back), you immediately burn ALL accumulated Trauma, and you cannot voluntarily end the rage until the threat is resolved or you are incapacitated."
+    },
+    "arenas": { "physique": "D8", "reflex": "D6", "grit": "D6", "wits": "D6", "presence": "D6" },
+    "_aiMeta": {
+      "loreAnchors": [
+        "Imperial Enslavement Target — Kashyyyk is occupied. Wookiees are actively hunted by the Empire for brutal labor.",
+        "Shyriiwook — Cannot speak Basic; requires a translator to communicate with most species.",
+        "Wookiee Rage — Sacred bond threatened triggers Unleash on all Physique, burns ALL Trauma, cannot voluntarily end."
+      ],
+      "directives": "The character's backstory must reflect the immediate, existential danger of being a Wookiee under the Empire. Do not treat them as a standard citizen; they are a walking target. The Wookiee Rage mechanic should feel sacred and terrifying, not casual."
     }
   },
   {
     "id": "duros",
     "name": "Duros",
     "tagline": "Born to navigate. Built for the void.",
+    "lore": "The Duros were among the first species to chart hyperspace routes and build interstellar civilizations. Their culture is one of exploration, wanderlust, and an almost spiritual connection to the stars. In the poorly-mapped Western Reaches — where uncharted hyperspace lanes border the Unknown Regions — a Duros navigator is worth their weight in coaxium.",
+    "imageUrl": "/assets/species/duros.png",
     "arenaShift": {
-      "name": "The Spacer's Build",
-      "desc": "Step Up: Reflex to D8. Step Down: Physique to D4 — adapted to zero-G and shipboard life, you lack the raw muscle of gravity-bound species.",
-      "stepUp": [{ "arena": "Reflex", "die": "D8" }],
-      "stepDown": [{ "arena": "Physique", "die": "D4" }]
+      "name": "The Baseline",
+      "desc": "All Arenas at D6. No biological peaks or penalties."
     },
-    "nativeSkill": {
-      "name": "Helm Jockey",
-      "desc": "You gain Piloting (Reflex) at Familiarity (D6). You were practically born in a cockpit and think in three-dimensional vectors.",
-      "choice": false
+    "favoredDiscipline": {
+      "desc": "Choose one favored discipline (exploding die + Edge reroll).",
+      "choices": [
+        { "label": "Piloting", "id": "piloting" },
+        { "label": "Tech", "id": "tech" },
+        { "label": "Survival", "id": "survival" }
+      ]
     },
     "biologicalTruth": {
-      "name": "Stellar Intuition",
-      "desc": "You have an innate, mathematical understanding of astrogation and celestial drift. As long as you can see the stars, you can always determine your exact galactic coordinates, and you can attempt to plot a hyperspace jump even if your ship's navicomputer is damaged or destroyed."
+      "name": "Void-Adapted Physiology",
+      "desc": "Your species evolved for the vacuum-adjacent environments of early spacefaring. When you Assess an environment, you may ask additional questions about heat differentials, atmospheric composition, pressure hazards, energy signatures, and structural integrity — even if you would not normally be entitled to those questions."
+    },
+    "speciesTrait": {
+      "name": "Intuitive Navigation",
+      "desc": "You cannot get lost. Whether in hyperspace, on a planet's surface, or inside a labyrinthine station, you always maintain an innate sense of your position and heading. Additionally, when plotting a course through a hazardous route, you may ask the GM one free question about the dangers ahead before committing."
+    },
+    "arenas": { "physique": "D6", "reflex": "D6", "grit": "D6", "wits": "D6", "presence": "D6" },
+    "_aiMeta": {
+      "loreAnchors": [
+        "Frontier Navigator — The Western Reaches are poorly mapped and border the Unknown Regions. Duros astrogation skills are highly prized.",
+        "Void-Adapted — Extra Assess questions on environments: heat, air, pressure, energy, structural integrity.",
+        "Intuitive Navigation — Cannot get lost; free question on hazardous routes before committing."
+      ],
+      "directives": "Focus on their connection to the stars and ships. Emphasize that they have memorized secret, highly dangerous hyperspace routes that the Imperial Navy is too afraid to chart. Their void-adapted senses make them invaluable scouts and surveyors."
     }
   },
   {
     "id": "zabrak",
     "name": "Zabrak",
     "tagline": "Unyielding. Defiant. Built to endure.",
+    "lore": "Zabrak culture venerates self-reliance, physical endurance, and refusal to submit. Their homeworld of Iridonia is a crucible of lethal environments that breeds toughness into every generation. In the Western Reaches, Zabrak are found as mercenaries, frontier settlers, and resistance fighters — anyone who needs to survive where others would break.",
+    "imageUrl": "/assets/species/zabrak.png",
     "arenaShift": {
-      "name": "Unyielding",
-      "desc": "Step Up: Grit to D8. Step Down: Presence to D4 — your blunt, abrasive demeanor and intense cultural pride make subtle negotiations difficult.",
-      "stepUp": [{ "arena": "Grit", "die": "D8" }],
-      "stepDown": [{ "arena": "Presence", "die": "D4" }]
+      "name": "The Baseline",
+      "desc": "All Arenas at D6. No biological peaks or penalties."
     },
-    "nativeSkill": {
-      "name": "Frontier Endurance",
-      "desc": "You gain Endure (Physique) at Familiarity (D6). You are biologically built to outlast extreme hardship, grueling labor, and physical punishment.",
-      "choice": false
+    "favoredDiscipline": {
+      "desc": "Choose one favored discipline (exploding die + Edge reroll).",
+      "choices": [
+        { "label": "Resolve", "id": "resolve" },
+        { "label": "Melee", "id": "melee" },
+        { "label": "Tactics", "id": "tactics" }
+      ]
     },
     "biologicalTruth": {
       "name": "Redundant Biology",
-      "desc": "You possess a secondary heart and a nervous system with an incredibly high pain threshold. You can function normally through excruciating physical trauma that would cause a human to pass out from shock, and you can comfortably survive in extreme frontier temperatures — blistering desert heat or freezing nights — without specialized environmental gear."
+      "desc": "You possess a secondary heart and a nervous system with an extraordinarily high pain threshold. When you take Physique or Reflex Trauma, you soak 3 instead of the normal 2 — your body simply absorbs more punishment before degrading."
+    },
+    "speciesTrait": {
+      "name": "Unyielding",
+      "desc": "You are immune to the [Shaken] condition. Fear effects, intimidation attempts, and morale-breaking tactics simply do not work on you. Your cultural conditioning and biological pain tolerance make you an immovable psychological anchor."
+    },
+    "arenas": { "physique": "D6", "reflex": "D6", "grit": "D6", "wits": "D6", "presence": "D6" },
+    "_aiMeta": {
+      "loreAnchors": [
+        "Redundant Biology — Physique/Reflex Trauma soaks 3 instead of 2; built to absorb punishment.",
+        "Unyielding — Immune to [Shaken]; fear, intimidation, and morale-breaking tactics have no effect.",
+        "Defiant Culture — Culturally resistant to authoritarian rule, natural enemies of Imperial governors."
+      ],
+      "directives": "Highlight their physical resilience and stubborn pride. Emphasize a background of enduring extreme physical hardship. The Unyielding trait should feel like an unshakable core, not just a mechanical immunity."
     }
   }
 ]

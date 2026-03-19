@@ -37,23 +37,21 @@
     </header>
 
     <!-- Screen: Species Selection -->
-    <div id="screen-species" class="cc-screen">
+    <div id="screen-species" class="cc-screen cc-screen-species">
       <div class="cc-screen-head">
         <p class="cc-step-label">Step 1 of 7</p>
         <h1 class="cc-screen-title">Choose Your Species</h1>
         <p class="cc-screen-sub">Your species shapes your biology, your culture, and the galaxy&rsquo;s assumptions about you.</p>
       </div>
 
-      <div class="cc-carousel-wrap">
-        <button id="carousel-prev" class="cc-carousel-nav" aria-label="Previous">&lsaquo;</button>
-        <div class="cc-carousel-viewport" id="cc-viewport">
-          <div class="cc-carousel-track" id="cc-track"></div>
-        </div>
-        <button id="carousel-next" class="cc-carousel-nav" aria-label="Next">&rsaquo;</button>
+      <div class="cc-species-card-container" id="cc-species-container">
+        <button id="carousel-prev" class="cc-species-nav cc-species-nav-prev" aria-label="Previous species">&lsaquo;</button>
+        <div class="cc-species-card" id="cc-species-card"></div>
+        <button id="carousel-next" class="cc-species-nav cc-species-nav-next" aria-label="Next species">&rsaquo;</button>
       </div>
 
       <div class="cc-dots" id="cc-dots"></div>
-      <p class="cc-carousel-hint">Tap a card to reveal details &bull; Swipe or use arrows to browse</p>
+      <p class="cc-carousel-hint">Use arrows or swipe to browse &bull; Pick your favored discipline, then select</p>
     </div>
 
     <!-- Screen: Phase 1 — The Dust -->

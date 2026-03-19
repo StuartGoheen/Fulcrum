@@ -517,8 +517,8 @@
 
     var rawTraits = [
       { label: 'Arena Shift', data: sp.arenaShift },
-      { label: 'Native Skill', data: sp.nativeSkill },
       { label: 'Biological Truth', data: sp.biologicalTruth },
+      { label: 'Species Trait', data: sp.speciesTrait },
     ];
     var traits = rawTraits.filter(function (t) { return t.data && t.data.name; }).map(function (t) {
       return { label: t.label, name: t.data.name, desc: t.data.desc || '' };
