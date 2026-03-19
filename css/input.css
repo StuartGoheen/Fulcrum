@@ -3107,7 +3107,7 @@
     flex-direction: column;
     overflow-y: auto;
     align-items: center;
-    padding: 2rem 1rem 3rem;
+    padding: 1rem 1rem 2rem;
     width: 100%;
     min-height: 0;
   }
@@ -3118,32 +3118,32 @@
 
   .cc-screen-head {
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 0.75rem;
     max-width: 500px;
   }
 
   .ph-screen-head {
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.5rem;
   }
 
   .cc-step-label {
-    font-size: 0.9rem;
+    font-size: 0.65rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     color: var(--color-accent-primary);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.2rem;
   }
 
   .cc-screen-title {
     font-family: 'Audiowide', sans-serif;
-    font-size: 1rem;
+    font-size: 0.8rem;
     color: var(--color-accent-deep);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.2rem;
   }
 
   .cc-screen-sub {
-    font-size: 0.55rem;
-    line-height: 1.6;
+    font-size: 0.5rem;
+    line-height: 1.5;
     color: var(--color-text-secondary);
   }
 
@@ -4675,7 +4675,7 @@
     max-width: 760px;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1rem;
     padding: 0 0.5rem;
   }
 
@@ -4685,7 +4685,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.5rem 0.5rem 3rem;
+    padding: 1rem 0.5rem 1.5rem;
   }
 
   .cc-btn-stats-continue {
@@ -4916,6 +4916,62 @@
     min-width: 2.2rem;
     text-align: center;
     color: var(--color-text-primary);
+  }
+
+  /* ── Arena tab bar for disciplines ─────────────────────────────────────── */
+  .cc-disc-arena-tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 2px solid var(--color-border);
+    background: var(--color-bg-frame);
+  }
+
+  .cc-disc-arena-tab {
+    flex: 1;
+    padding: 0.5rem 0.4rem;
+    border: none;
+    background: none;
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.42rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    text-align: center;
+    transition: color 0.15s, background 0.15s;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    position: relative;
+  }
+
+  .cc-disc-arena-tab:hover {
+    color: var(--color-text-primary);
+    background: rgba(128,128,128,0.06);
+  }
+
+  .cc-disc-arena-tab--active {
+    color: var(--color-accent-primary);
+    border-bottom-color: var(--color-accent-primary);
+    background: rgba(var(--accent-rgb, 210,96,10), 0.06);
+  }
+
+  .cc-disc-arena-tab-die {
+    display: block;
+    font-size: 0.38rem;
+    color: var(--color-text-secondary);
+    margin-top: 0.1rem;
+  }
+
+  .cc-disc-arena-tab--active .cc-disc-arena-tab-die {
+    color: var(--color-accent-primary);
+  }
+
+  .cc-disc-arena-panel {
+    display: none;
+  }
+
+  .cc-disc-arena-panel--active {
+    display: block;
   }
 
   /* ── Discipline group ──────────────────────────────────────────────────── */

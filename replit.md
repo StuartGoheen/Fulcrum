@@ -42,7 +42,7 @@ A Star Wars TTRPG electronic character sheet and campaign management system buil
 - `data/equipment_source.json` — raw gear source (used by Black Market UI)
 - `data/character-test.json` — dev seed character "Kael Dawnstrider" (loaded by `server/db.js` on startup, always synced to DB). All disciplines at D12 for testing. All 4 vocations at tier 5. Includes phase trio (War Front / Pacification Survivor / Traumatized) and backgroundFavored disciplines. Format matches expanded character data produced by the creation flow.
 - `data/characters.seed.json` — initial character slot names for DB seeding
-- `data/armor.json`, `data/gear.json`, `data/chassis.json` — equipment data
+- `data/armor.json`, `data/gear.json` (54 items: 28 original + 26 marketplace gear across tools/tech/medical/survival/surveillance/communication categories, 15-200cr range), `data/chassis.json` — equipment data
 - `data/kits.json` — Vocation definitions (Kit System v2). 4 vocations: The Gunslinger (ranged/reflex), The Shockboxer (brawl/physique), The Ghost (stealth/reflex), The Ichor Witch (alter_spark/presence). Each has 5-tier ability tree with typed abilities (passive/gambit/maneuver/exploit/permission), favoredDiscipline, tags, effect tracks, and risk fields.
 - `data/gamesystem.json` — Core resolution rules reference. Includes full 6-tier resolution ladder (Fleeting through Unleashed III), Modes of Play (Combat/Challenge/Narrative), Presence scaling guide, Opening/Exploit/Defense reactive economy framework, Dual Wielding rule, Concealment rule, and Vocation System v2 framework.
 - `data/threats.json` — NPC/threat rules and trigger system (pending alignment with Opening/Exploit/Defense model)

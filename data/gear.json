@@ -799,5 +799,519 @@
       "Common",
       "Legal"
     ]
+  },
+  {
+    "id": "gear_hydrospanner_01",
+    "name": "Hydrospanner",
+    "category": "tools",
+    "categoryLabel": "Tools",
+    "description": "A magnetized multi-head torque driver with variable bit attachments. The tool every shipboard mechanic reaches for first and puts down last. If something is bolted, welded, or pressure-fitted, a hydrospanner gets it loose. If you don't own one, you're not a mechanic — you're someone who watches mechanics work.",
+    "cost": 50,
+    "availability": "1",
+    "traits": [],
+    "gambits": [],
+    "tags": [
+      "Tools",
+      "Common",
+      "Legal"
+    ]
+  },
+  {
+    "id": "gear_wrist_chrono_01",
+    "name": "Wrist Chronometer",
+    "category": "tools",
+    "categoryLabel": "Tools",
+    "description": "A rugged wrist-mounted timekeeping unit synced to galactic standard. Counts local time, hyperspace transit, and countdown timers. Nobody on the frontier asks \"what time is it?\" — they ask \"how long do we have?\" This answers that question.",
+    "cost": 50,
+    "availability": "1",
+    "traits": [],
+    "gambits": [],
+    "tags": [
+      "Tools",
+      "Common",
+      "Legal"
+    ]
+  },
+  {
+    "id": "gear_recording_rod_01",
+    "name": "Recording Rod",
+    "category": "tech",
+    "categoryLabel": "Tech",
+    "description": "A stylus-sized audio/visual capture device. Records up to a hundred hours of holo-quality footage and plays it back on any standard display. Journalists carry them. So do blackmailers. The difference is editorial discretion.",
+    "cost": 30,
+    "availability": "1",
+    "traits": [],
+    "gambits": [],
+    "tags": [
+      "Tech",
+      "Common",
+      "Legal"
+    ]
+  },
+  {
+    "id": "gear_mem_stik_01",
+    "name": "Mem-Stik",
+    "category": "tech",
+    "categoryLabel": "Tech",
+    "description": "A thumb-sized solid-state data slug compatible with any standard port. Copy files off a terminal, carry stolen schematics in your boot, or hand off intelligence to a contact without saying a word. The data itself is unencrypted — security is your problem.",
+    "cost": 50,
+    "availability": "1",
+    "traits": [],
+    "gambits": [],
+    "tags": [
+      "Tech",
+      "Common",
+      "Legal"
+    ]
+  },
+  {
+    "id": "gear_gear_bag_01",
+    "name": "Gear Bag",
+    "category": "survival",
+    "categoryLabel": "Survival Gear",
+    "description": "A reinforced canvas duffel with internal compartments, magnetic closures, and a shoulder strap rated for rough handling. Holds roughly twice what your pockets do. Not glamorous. Not tactical. Just a bag that doesn't fall apart when you throw it off a loading ramp.",
+    "cost": 50,
+    "availability": "1",
+    "traits": [],
+    "gambits": [],
+    "tags": [
+      "Survival",
+      "Common",
+      "Legal"
+    ]
+  },
+  {
+    "id": "gear_power_prybar_01",
+    "name": "Power Prybar",
+    "category": "tools",
+    "categoryLabel": "Tools",
+    "description": "A half-meter prying tool with a powered hydraulic assist built into the grip. Pops open cargo containers, jams doors, or levers deck plates off their rails. No finesse involved — this is the tool you reach for when subtlety has already failed.",
+    "cost": 30,
+    "availability": "1",
+    "traits": [],
+    "gambits": [],
+    "tags": [
+      "Tools",
+      "Common",
+      "Legal"
+    ]
+  },
+  {
+    "id": "gear_rock_boots_01",
+    "name": "Rock Boots",
+    "category": "survival",
+    "categoryLabel": "Survival Gear",
+    "description": "Reinforced, thick-soled boots designed for volcanic badlands, scrapyard debris, and industrial decking that's been neglected for a decade. Heat-resistant soles, ankle stabilizers, and magnetic heel plates for low-gravity work. Not fast. Not quiet. But your feet stay attached.",
+    "cost": 50,
+    "availability": "1",
+    "traits": [],
+    "gambits": [],
+    "tags": [
+      "Survival",
+      "Common",
+      "Legal"
+    ]
+  },
+  {
+    "id": "gear_droid_caller_01",
+    "name": "Droid Caller",
+    "category": "tech",
+    "categoryLabel": "Tech",
+    "description": "A palm-sized transmitter that broadcasts a summons directly into a bonded droid's motivational processor. Range is limited — a few hundred meters in open air, less through heavy walls. The droid has no choice in the matter. It comes. Whether it's happy about it is a different conversation.",
+    "cost": 100,
+    "availability": "1",
+    "traits": [],
+    "gambits": [],
+    "tags": [
+      "Tech",
+      "Common",
+      "Legal"
+    ]
+  },
+  {
+    "id": "gear_scomp_spiker_01",
+    "name": "Scomp Spiker",
+    "category": "tech",
+    "categoryLabel": "Tech",
+    "description": "A crude bypass plug cobbled from a scomp link adapter and a signal scrambler. Plug it into a standard terminal port and it brute-forces the handshake protocol — the digital equivalent of kicking a door in. Single use. Burns out after one connection. Outlaw techs sell them in bundles.",
+    "cost": 20,
+    "availability": "2/R",
+    "traits": [
+      {
+        "name": "Brute Handshake",
+        "description": "When plugged into a standard civilian terminal, the spiker bypasses basic access locks without a Skulduggery roll. Military, Imperial, or hardened systems still require a proper slice. The spiker is consumed on use."
+      }
+    ],
+    "gambits": [],
+    "tags": [
+      "Tech",
+      "Consumable",
+      "Restricted"
+    ]
+  },
+  {
+    "id": "gear_tox_detector_01",
+    "name": "Tox Detector",
+    "category": "medical",
+    "categoryLabel": "Medical",
+    "description": "A flat metallic sticker patch with a chemical-reactive circle in the center. Slap it on a surface, press it into food or drink, or hold it near a vent. The circle changes color if it detects common toxins, nerve agents, or biological contaminants. Doesn't tell you what the poison is — just that it's there. Pack of three.",
+    "cost": 20,
+    "availability": "1",
+    "traits": [
+      {
+        "name": "Color Shift",
+        "description": "Detects the presence of common toxins and airborne contaminants without a Medicine roll. Rare, engineered, or exotic poisons may not register. Consumed on use."
+      }
+    ],
+    "gambits": [],
+    "tags": [
+      "Medical",
+      "Consumable",
+      "Common",
+      "Legal"
+    ]
+  },
+  {
+    "id": "gear_vitapill_01",
+    "name": "Vitapill",
+    "category": "medical",
+    "categoryLabel": "Medical",
+    "description": "A fat white capsule in a foil blister. Pharmacy-grade stimulant, one step above caf and one step below anything that requires a prescription. Clears the fog after a hard hit and gets you back on your feet — for a while. Pack of four.",
+    "cost": 25,
+    "availability": "1",
+    "traits": [
+      {
+        "name": "Quick Recovery",
+        "description": "Swallowing a vitapill as a Maneuver removes one [Dazed] condition. Does not interact with [Stimmed X] and cannot clear Trauma. One pill per scene."
+      }
+    ],
+    "gambits": [],
+    "tags": [
+      "Medical",
+      "Consumable",
+      "Common",
+      "Legal"
+    ]
+  },
+  {
+    "id": "gear_gyro_grappler_01",
+    "name": "Gyro-Grappler",
+    "category": "survival",
+    "categoryLabel": "Survival Gear",
+    "description": "A weighted grappling head with built-in microthrusters that fire on release, correcting trajectory mid-flight. Point it at a ledge, a pipe, or a landing strut and throw — the gyro does the rest. Doesn't make you a good climber. Just gets the hook where it needs to go.",
+    "cost": 15,
+    "availability": "1",
+    "traits": [
+      {
+        "name": "Guided Throw",
+        "description": "When throwing a grappling line to anchor on a surface within 2 zones, the gyro-grappler removes any step-down penalties from distance or awkward angles. The throw is not a roll — it simply lands. Climbing the line still follows normal rules."
+      }
+    ],
+    "gambits": [],
+    "tags": [
+      "Survival",
+      "Common",
+      "Legal",
+      "Mobility"
+    ]
+  },
+  {
+    "id": "gear_motion_sensor_01",
+    "name": "Motion Sensor Array",
+    "category": "surveillance",
+    "categoryLabel": "Surveillance",
+    "description": "A disc-shaped passive sensor unit that clips to a belt or mounts to a wall. Detects movement within three zones and feeds a proximity readout to a linked datapad or helmet display. Doesn't tell you what moved. Just that something did.",
+    "cost": 40,
+    "availability": "1",
+    "traits": [
+      {
+        "name": "Proximity Alert",
+        "description": "While active, the motion sensor alerts the user to movement within 3 zones, even through walls and floors. This prevents surprise from approaching threats in that radius. Dense materials (heavy blast doors, underground rock) reduce effective range at GM discretion."
+      }
+    ],
+    "gambits": [],
+    "tags": [
+      "Surveillance",
+      "Common",
+      "Legal",
+      "Tech"
+    ]
+  },
+  {
+    "id": "gear_bacta_geltab_01",
+    "name": "Bacta Geltab",
+    "category": "medical",
+    "categoryLabel": "Medical",
+    "description": "A pre-dosed adhesive bacta strip in a sterile wrapper. Peel, press, and the bacta seeps into the wound on contact. Not as thorough as a medpac application, but faster and requires zero medical training. Pack of six.",
+    "cost": 50,
+    "availability": "1",
+    "traits": [
+      {
+        "name": "Supplemental Treatment",
+        "description": "Applying a geltab to a wound before or during a Treat Injury action grants a step-up to the Medicine roll. One geltab per treatment. Does not function as a standalone treatment — it supplements, not replaces."
+      }
+    ],
+    "gambits": [],
+    "tags": [
+      "Medical",
+      "Consumable",
+      "Common",
+      "Legal"
+    ]
+  },
+  {
+    "id": "gear_spray_cast_01",
+    "name": "Spray Plasto-Cast",
+    "category": "medical",
+    "categoryLabel": "Medical",
+    "description": "A pressurized canister of quick-setting polymer foam. Point it at a broken limb, spray, and the cast sets rigid in seconds. Immobilizes the injury site and prevents further damage. Proper field medicine it is not — but it keeps the bone from grinding until you reach someone who knows what they're doing.",
+    "cost": 35,
+    "availability": "1",
+    "traits": [
+      {
+        "name": "Emergency Splint",
+        "description": "Applying a plasto-cast to a limb injury as a Maneuver prevents the injury from worsening due to physical activity. The character still suffers the original wound penalties, but cannot aggravate the injury further until a proper Treat Injury action is performed. Single use."
+      }
+    ],
+    "gambits": [],
+    "tags": [
+      "Medical",
+      "Consumable",
+      "Common",
+      "Legal"
+    ]
+  },
+  {
+    "id": "gear_shipsuit_01",
+    "name": "Shipsuit",
+    "category": "survival",
+    "categoryLabel": "Survival Gear",
+    "description": "Multi-pocketed fireproof coveralls made from electrically nonconductive weave. Standard uniform for working freighter crews across the Outer Rim. Protects against casual sparks, minor electrical shorts, and the kind of engine-room flash fires that kill people who wear cotton. Comes in grey. Always grey.",
+    "cost": 200,
+    "availability": "1",
+    "traits": [],
+    "gambits": [],
+    "tags": [
+      "Survival",
+      "Common",
+      "Legal"
+    ]
+  },
+  {
+    "id": "gear_pocket_secretary_01",
+    "name": "Pocket Secretary",
+    "category": "tech",
+    "categoryLabel": "Tech",
+    "description": "A comlink-sized audio receptor paired to an encoding datapad. Activate it with a code phrase and it records, transcribes, and indexes everything it hears until you tell it to stop. Fixers use them to log meetings. Spies use them to log everything else. The playback is admissible in most courts — which is exactly why some people carry them and exactly why others check for them.",
+    "cost": 150,
+    "availability": "1",
+    "traits": [],
+    "gambits": [],
+    "tags": [
+      "Tech",
+      "Common",
+      "Legal"
+    ]
+  },
+  {
+    "id": "gear_spacer_chest_01",
+    "name": "Spacer's Chest",
+    "category": "tools",
+    "categoryLabel": "Tools",
+    "description": "A rectangular durasteel lockbox — one meter long, handles on every face, and sealed against vacuum. Electronic combination lock. Every spacer owns one. It sits in your quarters, under your bunk, or mag-locked to a bulkhead. This is where you keep the things that don't leave the ship: backup credits, documents, a change of clothes, and whatever else you'd rather not explain to customs.",
+    "cost": 200,
+    "availability": "1",
+    "traits": [
+      {
+        "name": "Combo Lock",
+        "description": "The chest's electronic lock requires a Moderate Skulduggery roll to pick. The chest itself is vacuum-sealed and has a body strength sufficient to survive decompression, fire, and most blunt impacts. Cutting through it requires a fusion cutter and time."
+      }
+    ],
+    "gambits": [],
+    "tags": [
+      "Tools",
+      "Common",
+      "Legal"
+    ]
+  },
+  {
+    "id": "gear_coolth_backpack_01",
+    "name": "Coolth Backpack",
+    "category": "survival",
+    "categoryLabel": "Survival Gear",
+    "description": "A powered cooling unit worn as a backpack with an attached sunshield cloak that doubles as a blanket. Standard equipment on Jakku, Tatooine, and anywhere the daytime surface temperature makes unprotected exposure a medical event. The cooling unit runs eight hours on a standard cell. After that, you're just carrying a heavy bag in the heat.",
+    "cost": 200,
+    "availability": "1",
+    "traits": [
+      {
+        "name": "Climate Control",
+        "description": "While worn and powered, the coolth backpack negates all environmental penalties from extreme heat. The character does not suffer fatigue, dehydration effects, or step-down penalties from hot environments. Does not protect against direct fire or energy damage — only ambient temperature."
+      }
+    ],
+    "gambits": [],
+    "tags": [
+      "Survival",
+      "Common",
+      "Legal",
+      "Environmental"
+    ]
+  },
+  {
+    "id": "gear_trauma_kit_01",
+    "name": "Trauma Kit",
+    "category": "medical",
+    "categoryLabel": "Medical",
+    "description": "A heavy-duty trauma medpac built for the kind of injuries a standard medpac can't handle — deep burns, severed tissue, compound fractures, and the aftermath of explosive decompression. Bulkier than a medpac, twice the weight, and worth every gram when someone is bleeding out on the deck.",
+    "cost": 200,
+    "availability": "2",
+    "traits": [
+      {
+        "name": "Critical Stabilization",
+        "description": "When used during a Treat Injury action on a patient suffering a Critical Injury, the Trauma Kit grants a step-up to the Medicine roll and allows the medic to stabilize injuries that would otherwise require a medical facility. One kit per patient per scene. Consumed on use."
+      }
+    ],
+    "gambits": [],
+    "tags": [
+      "Medical",
+      "Consumable",
+      "Common",
+      "Legal"
+    ]
+  },
+  {
+    "id": "gear_ptp_link_01",
+    "name": "PTP Link",
+    "category": "communication",
+    "categoryLabel": "Communication",
+    "description": "A point-to-point personal communicator that establishes a dedicated two-party channel — no shared frequency, no broadcast. Twenty-five kilometer range surface-to-surface. The transmissions aren't military-grade encrypted, but they're not on open comlink bands either. For a pair of operators who need to talk without the whole cantina listening, this is the minimum standard.",
+    "cost": 150,
+    "availability": "2",
+    "traits": [
+      {
+        "name": "Dedicated Channel",
+        "description": "Communications over a PTP link cannot be intercepted by standard comlink scanning equipment. Military-grade signal intelligence or dedicated slicing can still intercept, but casual eavesdropping and Imperial frequency sweeps will miss it."
+      }
+    ],
+    "gambits": [],
+    "tags": [
+      "Communication",
+      "Common",
+      "Legal"
+    ]
+  },
+  {
+    "id": "gear_headstrap_binocs_01",
+    "name": "Headstrap Macrobinoculars",
+    "category": "surveillance",
+    "categoryLabel": "Surveillance",
+    "description": "Head-mounted magnification optics with flip-down lenses and an adjustable strap. Everything the standard macrobinoculars do, but hands-free. Scouts, snipers, and swoop gang lookouts prefer them. The downside: you look ridiculous. The upside: you see everything before everyone else does.",
+    "cost": 200,
+    "availability": "2",
+    "traits": [
+      {
+        "name": "Hands-Free Optics",
+        "description": "Provides the same reconnaissance capability as standard macrobinoculars without occupying the user's hands. Can be flipped up or down as part of any other action."
+      },
+      {
+        "name": "Spotter",
+        "description": "When used to observe a target at Long range or beyond, the spotter can communicate target position to an ally via comlink — granting that ally a step-up on their next Ranged attack against the observed target. Requires a Maneuver to spot."
+      }
+    ],
+    "gambits": [],
+    "tags": [
+      "Surveillance",
+      "Common",
+      "Legal"
+    ]
+  },
+  {
+    "id": "gear_magna_lock_01",
+    "name": "Magna Lock",
+    "category": "tools",
+    "categoryLabel": "Tools",
+    "description": "A portable magnetic locking clamp that bonds to any ferrous surface — doors, hatches, cargo containers, maintenance panels. Activate it and the electromagnetic seal engages. No key. Deactivation requires the owner's code or someone with a security kit and patience. Bounty hunters use them to seal escape routes. Smugglers use them to keep customs out of specific compartments.",
+    "cost": 150,
+    "availability": "2",
+    "traits": [
+      {
+        "name": "Electromagnetic Seal",
+        "description": "Once activated on a door or container, the magna lock adds significant resistance to forced entry. Breaking through requires a dedicated effort (fusion cutter, explosives, or sustained force). Bypassing the electronic lock requires a Skulduggery roll with the Control Die stepped down once beyond the surface's normal difficulty."
+      }
+    ],
+    "gambits": [],
+    "tags": [
+      "Tools",
+      "Common",
+      "Legal"
+    ]
+  },
+  {
+    "id": "gear_starship_toolkit_01",
+    "name": "Starship Tool Kit",
+    "category": "tools",
+    "categoryLabel": "Tools",
+    "description": "The full kit — hydrospanners, circuit testers, plasma soldering iron, hull patch compound, diagnostic cables, and a folding work light. Everything you need to keep a freighter flying between proper maintenance stops. Without one, shipboard repairs are guesswork and prayer. With one, they're just difficult.",
+    "cost": 200,
+    "availability": "2",
+    "traits": [
+      {
+        "name": "Proper Equipment",
+        "description": "When performing starship repair actions (hull patching, system restoration, hyperdrive maintenance), the tool kit removes any step-down penalties from improvised tools. Without a starship tool kit, all shipboard repair rolls are stepped down. The kit does not grant a bonus — it removes the penalty for not having one."
+      }
+    ],
+    "gambits": [],
+    "tags": [
+      "Tools",
+      "Common",
+      "Legal",
+      "Starship"
+    ]
+  },
+  {
+    "id": "gear_replar_splint_01",
+    "name": "Replar Splint",
+    "category": "medical",
+    "categoryLabel": "Medical",
+    "description": "A rigid articulated splint with integrated micro-repulsors that immobilize a fracture site while maintaining partial joint mobility. Better than a plasto-cast by a wide margin — the patient can still move, still function, still fight if they have to. The splint holds the bone in alignment until proper surgical repair is available.",
+    "cost": 200,
+    "availability": "2",
+    "traits": [
+      {
+        "name": "Precision Immobilization",
+        "description": "Applying a replar splint during a Treat Injury action on a limb injury removes the step-down penalty that injury imposes on physical actions. The injury is not healed — it is stabilized. Full recovery still requires medical facility treatment. One splint per injury."
+      }
+    ],
+    "gambits": [],
+    "tags": [
+      "Medical",
+      "Consumable",
+      "Common",
+      "Legal"
+    ]
+  },
+  {
+    "id": "gear_jumper_jetpack_01",
+    "name": "Jumper Jet Pack",
+    "category": "survival",
+    "categoryLabel": "Survival Gear",
+    "description": "A compact dorsal-mounted jet pack with eight fuel bursts. Each burst carries a single passenger across roughly six zones horizontally or four zones vertically. Not a flight system — a series of controlled jumps. Gets you onto a rooftop, across a chasm, or off a collapsing platform. After eight bursts, it's deadweight until you refuel.",
+    "cost": 200,
+    "availability": "3/R",
+    "traits": [
+      {
+        "name": "Burst Jump",
+        "description": "As a Maneuver, the wearer makes a Piloting (Reflex) check to execute a powered jump of up to 6 zones horizontally or 4 zones vertically. This movement follows the same rules as a Move Maneuver — leaving a zone where you are Engaged presents an Opening. On a failed check, the wearer lands in an adjacent zone of the GM's choice instead of the intended destination. Eight bursts per fuel load. Refueling requires a fuel canister and a Standard Action."
+      },
+      {
+        "name": "Arrest Fall",
+        "description": "When the wearer begins falling, they may spend a burst to negate falling damage, landing in the nearest zone with a stable surface. This costs the wearer their next Maneuver — the thrust correction is violent and disorienting."
+      }
+    ],
+    "gambits": [],
+    "tags": [
+      "Survival",
+      "Restricted",
+      "Mobility"
+    ]
   }
 ]

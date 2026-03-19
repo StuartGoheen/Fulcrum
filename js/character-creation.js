@@ -1177,7 +1177,9 @@
     var discIncomp       = state.discIncomp  || {};
     var discValues       = state.discValues  || {};
     var incompCount      = Object.keys(discIncomp).length;
-    var totalAdv         = incompCount;
+    var sp = state.species ? SPECIES.find(function(s){ return s.id === state.species; }) : null;
+    var freeAdv = (sp && sp.speciesTrait && sp.speciesTrait.name === "Adaptable") ? 1 : 0;
+    var totalAdv         = incompCount + freeAdv;
     var totalEliteTokens = Math.floor(incompCount / 5);
     var spentAdv         = state.spentAdv         || 0;
     var eliteTokensUsed  = state.eliteTokensUsed  || 0;
@@ -1196,6 +1198,7 @@
       eliteTokensAvail: eliteTokensAvail,
       discValues:       discValues,
       discIncomp:       discIncomp,
+      freeAdv:          freeAdv,
     };
   }
 
@@ -1219,12 +1222,37 @@
     var container = document.getElementById('stats-content');
     if (!container) return;
     container.innerHTML = '';
+    normalizeAdvances();
     var d          = statsGetDerived();
     var favoredIds = getFavoredIds();
     container.appendChild(buildArenasSection(d));
     container.appendChild(buildDiscSection(d, favoredIds));
     var btn = document.getElementById('btn-stats-continue');
-    if (btn) btn.disabled = d.incompCount < MAX_INCOMP_REQUIRED;
+    if (btn) btn.disabled = d.incompCount < Math.max(0, MAX_INCOMP_REQUIRED - (d.freeAdv || 0));
+  }
+
+  function normalizeAdvances() {
+    if (!state.discValues) return;
+    var d = statsGetDerived();
+    var changed = false;
+    while (d.advAvail < 0) {
+      var found = false;
+      var keys = Object.keys(state.discValues);
+      for (var i = keys.length - 1; i >= 0; i--) {
+        var dk = keys[i];
+        if (!state.discIncomp || !state.discIncomp[dk]) {
+          if (state.discValues[dk] && state.discValues[dk] !== 'D6') {
+            delete state.discValues[dk];
+            found = true;
+            changed = true;
+            break;
+          }
+        }
+      }
+      if (!found) break;
+      d = statsGetDerived();
+    }
+    if (changed) saveState();
   }
 
   /* -- Arena section -- */
@@ -1322,6 +1350,8 @@
 
   /* -- Disciplines section -- */
 
+  var _activeDiscArena = null;
+
   function buildDiscSection(d, favoredIds) {
     var wrap = document.createElement('div');
     wrap.className = 'cc-subsection';
@@ -1338,26 +1368,46 @@
     head.appendChild(title);
     head.appendChild(badges);
     wrap.appendChild(head);
-    if (d.incompCount < MAX_INCOMP_REQUIRED) {
+    if (d.incompCount < Math.max(0, MAX_INCOMP_REQUIRED - (d.freeAdv || 0))) {
       var notice = document.createElement('div');
       notice.className = 'cc-incomp-notice';
-      var rem = MAX_INCOMP_REQUIRED - d.incompCount;
+      var rem = Math.max(0, MAX_INCOMP_REQUIRED - (d.freeAdv || 0)) - d.incompCount;
       notice.innerHTML = 'Select <strong>' + rem + ' more</strong> discipline' + (rem !== 1 ? 's' : '') +
         ' to mark Incompetent (D4) — each earns 1 advance. Up to 4 additional weaknesses for extra advances.';
       wrap.appendChild(notice);
     }
     if (d.totalAdv > 0) wrap.appendChild(buildAdvDots(d));
-    DISCIPLINES_BY_ARENA.forEach(function(ag) { wrap.appendChild(buildDiscGroup(ag, d, favoredIds)); });
+    var tabBar = document.createElement('div');
+    tabBar.className = 'cc-disc-arena-tabs';
+    var panels = [];
+    if (!_activeDiscArena) _activeDiscArena = DISCIPLINES_BY_ARENA[0].id;
+    DISCIPLINES_BY_ARENA.forEach(function(ag) {
+      var tab = document.createElement('button');
+      tab.className = 'cc-disc-arena-tab' + (ag.id === _activeDiscArena ? ' cc-disc-arena-tab--active' : '');
+      tab.type = 'button';
+      var arenaVal = d.arenaValues[ag.id] || 'D6';
+      tab.innerHTML = ag.name + '<span class="cc-disc-arena-tab-die">' + arenaVal + '</span>';
+      tab.addEventListener('click', function() { _activeDiscArena = ag.id; renderStatsContent(); });
+      tabBar.appendChild(tab);
+      var panel = document.createElement('div');
+      panel.className = 'cc-disc-arena-panel' + (ag.id === _activeDiscArena ? ' cc-disc-arena-panel--active' : '');
+      ag.disciplines.forEach(function(disc) { panel.appendChild(buildDiscRow(disc, d, favoredIds)); });
+      panels.push(panel);
+    });
+    wrap.appendChild(tabBar);
+    panels.forEach(function(p) { wrap.appendChild(p); });
     return wrap;
   }
 
   function makeIncompBadge(d) {
-    var ok  = d.incompCount >= MAX_INCOMP_REQUIRED;
-    var opt = Math.max(0, d.incompCount - MAX_INCOMP_REQUIRED);
-    var req = Math.min(d.incompCount, MAX_INCOMP_REQUIRED);
+    var effectiveReq = Math.max(0, MAX_INCOMP_REQUIRED - (d.freeAdv || 0));
+    var ok  = d.incompCount >= effectiveReq;
+    var opt = Math.max(0, d.incompCount - effectiveReq);
+    var req = Math.min(d.incompCount, effectiveReq);
     var sp  = document.createElement('span');
     sp.className   = 'cc-adv-badge ' + (ok ? 'cc-adv-badge--ok' : 'cc-adv-badge--warn');
-    sp.textContent = req + '/' + MAX_INCOMP_REQUIRED + ' required' + (opt ? '  +' + opt + '/' + MAX_INCOMP_OPTIONAL + ' optional' : '');
+    var effectiveOptCap = MAX_INCOMP_TOTAL - effectiveReq;
+    sp.textContent = req + '/' + effectiveReq + ' required' + (d.freeAdv ? ' (Adaptable: +' + d.freeAdv + ' free)' : '') + (opt ? '  +' + opt + '/' + effectiveOptCap + ' optional' : '');
     return sp;
   }
 
