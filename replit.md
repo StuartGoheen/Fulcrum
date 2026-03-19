@@ -139,7 +139,9 @@ Two new screens added after Kit selection (March 2026):
 
 **Save route:** `POST /api/characters/save` in `server/routes/characters.js`. Finds first empty slot or creates new. Called from "Confirm & Save" button in the summary overlay.
 
-**Character creation flow:** Species → Phase 1 → Phase 2 → Phase 3 → Arenas/Disciplines → Kits → **Outfitting** (500 cr starting budget, browse gear/weapons/armor) → **Destiny** → **Your Story** → Summary (Confirm & Save)
+**Character creation flow (9 steps):** Species → Phase 1 (Origin) → Phase 2 (Catalyst) → Phase 3 (Debt) → Arenas/Disciplines → Vocations → **Outfitting** (500 cr starting budget) → **Destiny** → **Your Story** → Summary (Confirm & Save)
+
+**Step track:** 9 pips in the header track the full flow. Step labels show "Step X of 9" for numbered steps and named headers for phases/destiny/backstory.
 
 ## Outfitting Screen
 

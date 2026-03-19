@@ -3466,127 +3466,6 @@
     color: var(--color-accent-primary);
   }
 
-  /* ── Draft Stats Overlay ────────────────────────────────────────────────── */
-  .cc-stats-overlay {
-    position: fixed;
-    bottom: 1rem;
-    right: 1rem;
-    width: 200px;
-    background: var(--color-bg-frame);
-    border: 1px solid var(--color-border);
-    z-index: 50;
-    font-size: 0.48rem;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-  }
-
-  .cc-stats-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.4rem 0.6rem;
-    border-bottom: 1px solid var(--color-border);
-    background: var(--color-bg-panel);
-  }
-
-  .cc-stats-title {
-    font-size: 0.52rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    font-weight: 600;
-    color: var(--color-accent-primary);
-  }
-
-  .cc-stats-toggle {
-    background: none;
-    border: none;
-    color: var(--color-text-secondary);
-    cursor: pointer;
-    font-size: 0.7rem;
-    line-height: 1;
-    padding: 0 0.1rem;
-    transition: color 0.15s;
-  }
-
-  .cc-stats-toggle:hover {
-    color: var(--color-accent-primary);
-  }
-
-  #cc-stats-body {
-    padding: 0.5rem 0.6rem;
-  }
-
-  .cc-stats-species-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.25rem;
-    margin-bottom: 0.25rem;
-  }
-
-  .cc-field-label {
-    font-size: 0.4rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--color-text-secondary);
-    opacity: 0.7;
-  }
-
-  .cc-field-value {
-    font-size: 0.45rem;
-    font-weight: 600;
-    color: var(--color-text-secondary);
-    text-align: right;
-  }
-
-  .cc-stats-divider {
-    height: 1px;
-    background: var(--color-border);
-    margin: 0.4rem 0;
-  }
-
-  .cc-stats-section-head {
-    font-size: 0.50rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--color-text-secondary);
-    opacity: 0.5;
-    margin-bottom: 0.3rem;
-  }
-
-  .cc-stats-arena-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.1rem 0;
-  }
-
-  .cc-stats-arena-label {
-    font-size: 0.52rem;
-    letter-spacing: 0.06em;
-    color: var(--color-text-secondary);
-  }
-
-  .cc-stats-arena-die {
-    font-family: 'Audiowide', sans-serif;
-    font-size: 0.45rem;
-    color: var(--color-text-primary);
-  }
-
-  .cc-die-up {
-    color: var(--color-accent-primary);
-  }
-
-  .cc-die-down {
-    color: var(--color-accent-secondary);
-  }
-
-  .cc-stats-list-item {
-    font-size: 0.52rem;
-    line-height: 1.6;
-    color: var(--color-text-secondary);
-    padding: 0.1rem 0;
-  }
-
   /* ── Phase Card Grid ────────────────────────────────────────────────────── */
   .ph-phase-header {
     font-family: 'Audiowide', sans-serif;
@@ -5664,12 +5543,6 @@
       width: 0.4rem;
       height: 0.4rem;
     }
-    .cc-stats-overlay {
-      width: 170px;
-      font-size: 0.42rem;
-      bottom: 0.5rem;
-      right: 0.5rem;
-    }
     .cc-stats-step-content {
       max-width: 100%;
       padding: 0 0.75rem;
@@ -5681,27 +5554,6 @@
   }
 
   @media (max-width: 768px) {
-    .cc-stats-overlay {
-      position: fixed;
-      bottom: 0;
-      right: 0;
-      left: 0;
-      width: 100%;
-      border-radius: 0;
-      border-left: none;
-      border-right: none;
-      border-bottom: none;
-      max-height: 40vh;
-      overflow-y: auto;
-    }
-    #cc-stats-body {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-    .cc-screen {
-      padding-bottom: 5rem;
-    }
     .bs-layout {
       flex-direction: column !important;
     }

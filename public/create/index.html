@@ -21,7 +21,7 @@
       <div class="cc-step-track">
         <div class="cc-step-pip cc-pip-active" title="Species"></div>
         <div class="cc-step-line"></div>
-        <div class="cc-step-pip" title="Phase 1 — The Dust"></div>
+        <div class="cc-step-pip" title="Phase 1 — The Origin"></div>
         <div class="cc-step-line"></div>
         <div class="cc-step-pip" title="Phase 2 — The Departure"></div>
         <div class="cc-step-line"></div>
@@ -29,9 +29,13 @@
         <div class="cc-step-line"></div>
         <div class="cc-step-pip" title="Arenas &amp; Disciplines"></div>
         <div class="cc-step-line"></div>
-        <div class="cc-step-pip" title="Kits"></div>
+        <div class="cc-step-pip" title="Vocations"></div>
         <div class="cc-step-line"></div>
         <div class="cc-step-pip" title="Outfitting"></div>
+        <div class="cc-step-line"></div>
+        <div class="cc-step-pip" title="Destiny"></div>
+        <div class="cc-step-line"></div>
+        <div class="cc-step-pip" title="Your Story"></div>
       </div>
       <button id="theme-toggle" class="cc-theme-btn"><span id="theme-label">Rebellion</span></button>
     </header>
@@ -39,7 +43,7 @@
     <!-- Screen: Species Selection -->
     <div id="screen-species" class="cc-screen cc-screen-species">
       <div class="cc-screen-head">
-        <p class="cc-step-label">Step 1 of 7</p>
+        <p class="cc-step-label">Step 1 of 9</p>
         <h1 class="cc-screen-title">Choose Your Species</h1>
         <p class="cc-screen-sub">Your species shapes your biology, your culture, and the galaxy&rsquo;s assumptions about you.</p>
       </div>
@@ -102,13 +106,13 @@
     <!-- Screen: Kits -->
     <div id="screen-kits" class="cc-screen hidden">
       <div class="cc-screen-head">
-        <p class="cc-step-label">Step 6 of 7</p>
-        <h1 class="cc-screen-title">Starting Kits</h1>
+        <p class="cc-step-label">Step 6 of 9</p>
+        <h1 class="cc-screen-title">Vocations</h1>
         <p class="cc-screen-sub">You have <strong id="kits-budget-display">5</strong> points to spend. Each tier costs 1 point. Your linked discipline die caps the maximum tier you can take.</p>
       </div>
       <div id="kits-content" class="cc-stats-step-content"></div>
       <div class="cc-stats-nav-row">
-        <button id="btn-back-to-stats" class="cc-back-btn-text">&larr; Arenas &amp; Disciplines</button>
+        <button id="btn-back-to-stats" class="cc-back-btn-text">&larr; Arenas</button>
         <button id="btn-kits-continue" class="cc-btn-stats-continue" disabled>Outfitting &rarr;</button>
       </div>
     </div>
@@ -116,14 +120,14 @@
     <!-- Screen: Arenas & Disciplines -->
     <div id="screen-stats" class="cc-screen hidden">
       <div class="cc-screen-head">
-        <p class="cc-step-label">Step 5 of 7</p>
+        <p class="cc-step-label">Step 5 of 9</p>
         <h1 class="cc-screen-title">Arenas &amp; Disciplines</h1>
         <p class="cc-screen-sub">Your species sets the foundation. Mark your weaknesses to earn advances, then spend them to specialize.</p>
       </div>
       <div id="stats-content" class="cc-stats-step-content"></div>
       <div class="cc-stats-nav-row">
         <button id="btn-back-to-phase3" class="cc-back-btn-text">&larr; Change Debt</button>
-        <button id="btn-stats-continue" class="cc-btn-stats-continue">Review Character &rarr;</button>
+        <button id="btn-stats-continue" class="cc-btn-stats-continue">Choose Vocations &rarr;</button>
       </div>
     </div>
 
@@ -131,13 +135,13 @@
     <!-- Screen: Outfitting -->
     <div id="screen-outfitting" class="cc-screen hidden">
       <div class="cc-screen-head">
-        <p class="cc-step-label">Step 7 of 7</p>
+        <p class="cc-step-label">Step 7 of 9</p>
         <h1 class="cc-screen-title">Outfitting</h1>
         <p class="cc-screen-sub">You have <strong id="outfitting-credits-display">500</strong> credits to spend on starting gear, weapons, and armor.</p>
       </div>
       <div id="outfitting-content" class="cc-stats-step-content"></div>
       <div class="cc-stats-nav-row">
-        <button id="btn-back-to-kits-from-outfitting" class="cc-back-btn-text">&larr; Starting Kits</button>
+        <button id="btn-back-to-kits-from-outfitting" class="cc-back-btn-text">&larr; Vocations</button>
         <button id="btn-outfitting-continue" class="cc-btn-stats-continue">Choose Destiny &rarr;</button>
       </div>
     </div>
@@ -145,7 +149,8 @@
       <!-- Screen: Destiny Selection -->
       <div id="screen-destiny" class="cc-screen hidden">
         <div class="cc-screen-head ph-screen-head">
-          <p class="cc-step-label">Your Destiny</p>
+          <p class="cc-step-label">Step 8 of 9</p>
+          <h1 class="cc-screen-title">Destiny</h1>
           <p class="cc-screen-sub">Choose your starting contribution to the destiny pool. This reflects where you stand with the Force &mdash; not what side you fight for, but what you carry.</p>
         </div>
         <div class="destiny-choice-grid">
@@ -174,7 +179,8 @@
       <!-- Screen: Your Story (Backstory Generator) -->
       <div id="screen-backstory" class="cc-screen hidden">
         <div class="cc-screen-head ph-screen-head">
-          <p class="cc-step-label">Your Story</p>
+          <p class="cc-step-label">Step 9 of 9</p>
+          <h1 class="cc-screen-title">Your Story</h1>
           <p class="cc-screen-sub">Fill in the details below and generate your character&rsquo;s backstory. Generation is optional &mdash; you can finalize anytime.</p>
         </div>
 
@@ -266,32 +272,6 @@
     </div>
   </div>
 
-  <!-- Draft Stats Overlay -->
-  <aside class="cc-stats-overlay" id="cc-stats">
-    <div class="cc-stats-head" id="cc-stats-head">
-      <span class="cc-stats-title">Draft Sheet</span>
-      <button class="cc-stats-toggle" id="cc-stats-toggle" title="Collapse">&#8722;</button>
-    </div>
-    <div id="cc-stats-body">
-      <div class="cc-stats-species-row">
-        <span class="cc-field-label">Species</span>
-        <span class="cc-field-value" id="cc-stats-species">Pending</span>
-      </div>
-      <div class="cc-stats-divider"></div>
-      <p class="cc-stats-section-head">Arenas</p>
-      <div id="cc-stats-arenas"></div>
-      <div id="cc-stats-disciplines-wrap" class="hidden">
-        <div class="cc-stats-divider"></div>
-        <p class="cc-stats-section-head">Disciplines</p>
-        <div id="cc-stats-disciplines"></div>
-      </div>
-      <div id="cc-stats-abilities-wrap" class="hidden">
-        <div class="cc-stats-divider"></div>
-        <p class="cc-stats-section-head">Abilities</p>
-        <div id="cc-stats-abilities"></div>
-      </div>
-    </div>
-  </aside>
 
   <script src="/js/character-creation.js"></script>
 </body>

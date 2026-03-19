@@ -803,7 +803,6 @@
         });
       }
 
-      renderStatsOverlay(true, SPECIES[carouselState.current]);
     }
 
     function renderSpeciesCard(container, sp) {
@@ -964,7 +963,6 @@
       var container = document.getElementById('cc-species-card');
       if (container) renderSpeciesCard(container, SPECIES[idx]);
       updateDots(idx);
-      renderStatsOverlay(true, SPECIES[idx]);
     }
 
     function navigatePrev() {
@@ -992,87 +990,6 @@
         }
       }, { passive: true });
     }
-
-    /* \u2500\u2500 Stats overlay \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
-
-    function renderStatsOverlay(isPreview, sp) {
-      var speciesName, arenas, disciplines, abilities;
-
-      if (isPreview && sp) {
-        speciesName  = sp.name + ' (preview)';
-        arenas       = Object.assign({}, ARENA_BASELINE, sp.arenas);
-        disciplines  = buildFavoredList(sp);
-        abilities    = [sp.biologicalTruth.name];
-        if (sp.speciesTrait) abilities.push(sp.speciesTrait.name);
-      } else if (characterSheet.species) {
-        speciesName  = characterSheet.species;
-        arenas       = characterSheet.arenas;
-        disciplines  = characterSheet.disciplines;
-        abilities    = characterSheet.abilities;
-      } else {
-        speciesName  = 'Pending';
-        arenas       = Object.assign({}, ARENA_BASELINE);
-        disciplines  = [];
-        abilities    = [];
-      }
-
-      var speciesEl = document.getElementById('cc-stats-species');
-      if (speciesEl) {
-        speciesEl.textContent = speciesName;
-        speciesEl.style.color = isPreview
-          ? 'var(--color-accent-secondary)'
-          : (characterSheet.species ? 'var(--color-accent-primary)' : 'var(--color-text-secondary)');
-      }
-
-      var arenasEl = document.getElementById('cc-stats-arenas');
-      if (arenasEl) {
-        arenasEl.innerHTML = '';
-        ARENA_ORDER.forEach(function (key) {
-          var die      = arenas[key];
-          var baseIdx  = DIE_ORDER.indexOf(ARENA_BASELINE[key]);
-          var dieIdx   = DIE_ORDER.indexOf(die);
-          var dir      = dieIdx > baseIdx ? 'up' : (dieIdx < baseIdx ? 'down' : 'base');
-
-          var row    = document.createElement('div');
-          row.className = 'cc-stats-arena-row';
-
-          var label  = document.createElement('span');
-          label.className   = 'cc-stats-arena-label';
-          label.textContent = ARENA_LABELS[key];
-
-          var dieEl  = document.createElement('span');
-          dieEl.className   = 'cc-stats-arena-die' + (dir !== 'base' ? ' cc-die-' + dir : '');
-          dieEl.textContent = die + (dir === 'up' ? ' \u2191' : dir === 'down' ? ' \u2193' : '');
-
-          row.appendChild(label);
-          row.appendChild(dieEl);
-          arenasEl.appendChild(row);
-        });
-      }
-
-      setStatSection('cc-stats-disciplines-wrap', 'cc-stats-disciplines', disciplines);
-      setStatSection('cc-stats-abilities-wrap',   'cc-stats-abilities',   abilities);
-    }
-
-    function setStatSection(wrapId, listId, items) {
-      var wrap = document.getElementById(wrapId);
-      var list = document.getElementById(listId);
-      if (!wrap || !list) return;
-
-      if (items && items.length) {
-        wrap.classList.remove('hidden');
-        list.innerHTML = '';
-        items.forEach(function (item) {
-          var p = document.createElement('p');
-          p.className   = 'cc-stats-list-item';
-          p.textContent = item;
-          list.appendChild(p);
-        });
-      } else {
-        wrap.classList.add('hidden');
-      }
-    }
-
     function buildFavoredList(sp) {
       if (!sp.favoredDiscipline || !sp.favoredDiscipline.choices) return [];
       if (sp.favoredDiscipline.choices.length > 5) {
@@ -2693,6 +2610,7 @@
       if (continueBtn) {
         continueBtn.addEventListener('click', function () {
           showScreen('backstory');
+          updateStepTrack(8);
           initBackstoryScreen();
         });
       }
@@ -2800,6 +2718,7 @@
       if (backBtn) {
         backBtn.addEventListener('click', function () {
           showScreen('destiny');
+          updateStepTrack(7);
           initDestinyScreen();
         });
       }
@@ -3274,7 +3193,6 @@
     if (sp.speciesTrait) characterSheet.abilities.push(sp.speciesTrait.name);
     characterSheet.favoredDiscipline = chosenId;
 
-    renderStatsOverlay(false, null);
     showScreen('phase1');
     updateStepTrack(1);
   }
@@ -3293,21 +3211,6 @@
     document.querySelectorAll('.cc-step-pip').forEach(function (pip, i) {
       pip.classList.toggle('cc-pip-active', i === activeIdx);
       pip.classList.toggle('cc-pip-done',   i < activeIdx);
-    });
-  }
-
-  /* ── Stats overlay toggle ───────────────────────────────────────────────── */
-
-  function initStatsToggle() {
-    var btn  = document.getElementById('cc-stats-toggle');
-    var body = document.getElementById('cc-stats-body');
-    if (!btn || !body) return;
-
-    var collapsed = false;
-    btn.addEventListener('click', function () {
-      collapsed = !collapsed;
-      body.classList.toggle('hidden', collapsed);
-      btn.innerHTML = collapsed ? '&#43;' : '&#8722;';
     });
   }
 
@@ -3493,6 +3396,7 @@
     if (outfittingContinue) {
       outfittingContinue.addEventListener('click', function () {
         showScreen('destiny');
+        updateStepTrack(7);
         initDestinyScreen();
       });
     }
@@ -3523,7 +3427,6 @@
       });
     }
 
-    initStatsToggle();
 
     if (state.species) {
       var sp = SPECIES.find(function (s) { return s.id === state.species; });
@@ -3558,8 +3461,6 @@
             if (state.discValues[d.id]) d.die = state.discValues[d.id];
           });
         }
-
-        renderStatsOverlay(false, null);
 
         var idx = SPECIES.indexOf(sp);
         if (idx >= 0) {
