@@ -760,6 +760,7 @@
     soldBackCredits: 0,
     soldBackgroundKeys: [],
     destiny:         null,
+    personalDestiny: null,
     charName:        '',
     charTitle:       '',
     charGender:      'Male',
@@ -2745,15 +2746,32 @@
       var tiles = document.querySelectorAll('.destiny-tile');
       var continueBtn = document.getElementById('btn-destiny-continue');
       var backBtn = document.getElementById('btn-back-to-outfitting');
+      var pdGrid = document.getElementById('personal-destiny-grid');
 
-      // Restore any prior selection
       tiles.forEach(function (tile) {
         var val = tile.getAttribute('data-destiny');
         tile.classList.toggle('selected', val === state.destiny);
       });
-      if (continueBtn) continueBtn.disabled = !state.destiny;
+      updateDestinyContinue();
 
-      // Only bind click once (check flag)
+      if (!pdGrid.dataset.loaded) {
+        fetch('/data/destinies.json')
+          .then(function(r) { return r.json(); })
+          .then(function(data) {
+            renderPersonalDestinyGrid(data.destinies, pdGrid);
+            pdGrid.dataset.loaded = '1';
+          })
+          .catch(function(err) {
+            console.error('[destiny] Failed to load destinies:', err);
+            pdGrid.innerHTML = '<p style="color:var(--color-text-secondary);text-align:center;padding:1rem;">Failed to load destinies. Please refresh.</p>';
+          });
+      } else {
+        var pdCards = pdGrid.querySelectorAll('.pd-card');
+        pdCards.forEach(function(card) {
+          card.classList.toggle('selected', state.personalDestiny && state.personalDestiny.id === card.dataset.destinyId);
+        });
+      }
+
       if (document.getElementById('screen-destiny').dataset.bound) return;
       document.getElementById('screen-destiny').dataset.bound = '1';
 
@@ -2762,7 +2780,7 @@
           tiles.forEach(function (t) { t.classList.remove('selected'); });
           tile.classList.add('selected');
           state.destiny = tile.getAttribute('data-destiny');
-          if (continueBtn) continueBtn.disabled = false;
+          updateDestinyContinue();
         });
       });
 
@@ -2779,6 +2797,62 @@
           initOutfittingScreen();
         });
       }
+    }
+
+    function updateDestinyContinue() {
+      var btn = document.getElementById('btn-destiny-continue');
+      if (btn) btn.disabled = !(state.destiny && state.personalDestiny);
+    }
+
+    function renderPersonalDestinyGrid(destinies, container) {
+      container.innerHTML = '';
+      destinies.forEach(function(d) {
+        var card = document.createElement('div');
+        card.className = 'pd-card';
+        card.dataset.destinyId = d.id;
+        if (state.personalDestiny && state.personalDestiny.id === d.id) {
+          card.classList.add('selected');
+        }
+
+        card.innerHTML =
+          '<div class="pd-card-header">' +
+            '<h3 class="pd-card-name">' + d.name + '</h3>' +
+            '<p class="pd-card-tagline">' + d.tagline + '</p>' +
+          '</div>' +
+          '<div class="pd-card-details">' +
+            '<div class="pd-card-mechanic">' +
+              '<span class="pd-label pd-label--hope">Hope Recovery</span>' +
+              '<span class="pd-mechanic-title">' + d.hopeRecovery.title + '</span>' +
+              '<p class="pd-mechanic-desc">' + d.hopeRecovery.description + '</p>' +
+            '</div>' +
+            '<div class="pd-card-mechanic">' +
+              '<span class="pd-label pd-label--toll">Toll Recovery</span>' +
+              '<span class="pd-mechanic-title">' + d.tollRecovery.title + '</span>' +
+              '<p class="pd-mechanic-desc">' + d.tollRecovery.description + '</p>' +
+            '</div>' +
+            '<div class="pd-card-mechanic">' +
+              '<span class="pd-label pd-label--advance">Advance</span>' +
+              '<p class="pd-mechanic-desc">' + d.advanceTrigger + '</p>' +
+            '</div>' +
+          '</div>';
+
+        card.addEventListener('click', function() {
+          container.querySelectorAll('.pd-card').forEach(function(c) { c.classList.remove('selected'); });
+          card.classList.add('selected');
+          state.personalDestiny = {
+            id: d.id,
+            name: d.name,
+            tagline: d.tagline,
+            hopeRecovery: d.hopeRecovery,
+            tollRecovery: d.tollRecovery,
+            advanceTrigger: d.advanceTrigger,
+            narrativeHook: d.narrativeHook
+          };
+          updateDestinyContinue();
+        });
+
+        container.appendChild(card);
+      });
     }
 
     /* ── Backstory Screen ────────────────────────────────────────────────────── */
@@ -3059,6 +3133,7 @@
         weakDisciplines: discWeaknesses,
         arenas:          allArenas,
         destiny:      state.destiny || 'Light & Dark',
+        personalDestiny: state.personalDestiny || null,
         gender:       gender,
         generateName: generateName,
         characterName: characterName,
@@ -3158,6 +3233,7 @@
         phase2:     p2card ? p2card.title : null,
         phase3:     p3card ? p3card.title : null,
         destiny:    state.destiny,
+        personalDestiny: state.personalDestiny || null,
         gender:     state.charGender,
         title:      state.charTitle,
         backstory:  state.backstory,
@@ -3283,11 +3359,23 @@
     }
     body.appendChild(buildSumSection('Starting Gear', gearRows));
 
+    var destinyRows = [
+      sumRow('Pool Contribution', state.destiny || '(not set)'),
+    ];
+    if (state.personalDestiny) {
+      destinyRows.push(sumRow('Personal Destiny', state.personalDestiny.name + ' — ' + state.personalDestiny.tagline));
+      destinyRows.push(sumRow('Hope Recovery', state.personalDestiny.hopeRecovery.title + ': ' + state.personalDestiny.hopeRecovery.description));
+      destinyRows.push(sumRow('Toll Recovery', state.personalDestiny.tollRecovery.title + ': ' + state.personalDestiny.tollRecovery.description));
+      destinyRows.push(sumRow('Advance', state.personalDestiny.advanceTrigger));
+    } else {
+      destinyRows.push(sumRow('Personal Destiny', '(not set)'));
+    }
+    body.appendChild(buildSumSection('Destiny', destinyRows));
+
     body.appendChild(buildSumSection('Character Identity', [
       sumRow('Name',    state.charName  || '(not set)'),
       sumRow('Title',   state.charTitle || '(not set)'),
       sumRow('Gender',  state.charGender || '(not set)'),
-      sumRow('Destiny', state.destiny   || '(not set)'),
     ]));
 
     if (state.backstory) {
@@ -3422,6 +3510,7 @@
           var p3 = PHASE3_CARDS.find(function (c) { return c.title === cd.phase3; });
           if (p3) state.phase3 = p3.id;
           if (cd.destiny) state.destiny = cd.destiny;
+          if (cd.personalDestiny) state.personalDestiny = cd.personalDestiny;
           if (cd.gender)  state.charGender = cd.gender;
           if (cd.title)   state.charTitle = cd.title;
           if (cd.backstory) state.backstory = cd.backstory;

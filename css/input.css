@@ -6690,6 +6690,149 @@
       }
     }
 
+    .destiny-section {
+      width: 100%;
+      max-width: 860px;
+      margin: 0 auto 1.5rem;
+      padding: 0 1rem;
+    }
+
+    .destiny-section-title {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.55rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-accent-primary);
+      margin-bottom: 0.2rem;
+      text-align: center;
+    }
+
+    .destiny-section-sub {
+      font-size: 0.45rem;
+      line-height: 1.6;
+      color: var(--color-text-secondary);
+      text-align: center;
+      margin-bottom: 0.8rem;
+    }
+
+    .personal-destiny-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.6rem;
+      width: 100%;
+    }
+
+    .pd-card {
+      display: flex;
+      flex-direction: column;
+      background: var(--color-bg-frame);
+      border: 1px solid var(--color-border);
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+      overflow: hidden;
+    }
+
+    .pd-card:hover {
+      border-color: var(--color-accent-primary);
+      background: color-mix(in srgb, var(--color-accent-primary) 6%, var(--color-bg-frame));
+    }
+
+    .pd-card.selected {
+      border-color: var(--color-accent-primary);
+      background: color-mix(in srgb, var(--color-accent-primary) 10%, var(--color-bg-frame));
+      box-shadow: 0 0 0 1px var(--color-accent-primary) inset;
+    }
+
+    .pd-card-header {
+      padding: 0.6rem 0.5rem 0.4rem;
+      text-align: center;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .pd-card-name {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.5rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-accent-deep);
+      margin-bottom: 0.15rem;
+    }
+
+    .pd-card-tagline {
+      font-size: 0.38rem;
+      line-height: 1.5;
+      color: var(--color-text-secondary);
+      font-style: italic;
+    }
+
+    .pd-card-details {
+      padding: 0.4rem 0.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .pd-card-mechanic {
+      display: flex;
+      flex-direction: column;
+      gap: 0.08rem;
+    }
+
+    .pd-label {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.28rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      display: inline-block;
+      padding: 1px 4px;
+      border: 1px solid;
+      width: fit-content;
+      margin-bottom: 0.05rem;
+    }
+
+    .pd-label--hope {
+      color: #5fbb7d;
+      border-color: color-mix(in srgb, #5fbb7d 50%, transparent);
+    }
+
+    .pd-label--toll {
+      color: #CC3333;
+      border-color: color-mix(in srgb, #CC3333 50%, transparent);
+    }
+
+    .pd-label--advance {
+      color: var(--color-accent-primary);
+      border-color: color-mix(in srgb, var(--color-accent-primary) 50%, transparent);
+    }
+
+    .pd-mechanic-title {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.35rem;
+      letter-spacing: 0.04em;
+      color: var(--color-text-primary);
+    }
+
+    .pd-mechanic-desc {
+      font-size: 0.35rem;
+      line-height: 1.55;
+      color: var(--color-text-secondary);
+    }
+
+    @media (max-width: 900px) {
+      .personal-destiny-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 500px) {
+      .personal-destiny-grid {
+        grid-template-columns: 1fr;
+      }
+      .pd-card-header {
+        padding: 0.5rem 0.4rem 0.3rem;
+      }
+    }
+
     /* ── Backstory Generator Screen ─────────────────────────────────────────── */
 
     #screen-backstory {

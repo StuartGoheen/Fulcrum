@@ -1,0 +1,132 @@
+{
+  "destinies": [
+    {
+      "id": "destruction",
+      "name": "Destruction",
+      "tagline": "Your fate is to end something that should not endure.",
+      "coreQuestion": "Did something permanent end because of you?",
+      "hopeRecovery": {
+        "title": "The Purge",
+        "description": "When you bring about the permanent end of something that has caused widespread suffering — dismantle an Imperial operation, collapse a slave network, destroy a superweapon before it deploys."
+      },
+      "tollRecovery": {
+        "title": "The Ruin",
+        "description": "When you annihilate something irreplaceable to serve your own purpose — destroy a sacred site to deny it to your enemies, wipe out an entire faction to eliminate one target, burn the archive so no one can learn what you did."
+      },
+      "advanceTrigger": "When something that shaped the region, faction, or story ceases to exist because of you.",
+      "narrativeHook": "This character is drawn toward endings — tearing down what is broken, corrupt, or dangerous. Whether they destroy to protect or destroy to control is the question that defines their path."
+    },
+    {
+      "id": "discovery",
+      "name": "Discovery",
+      "tagline": "Your fate is to uncover what has been hidden or forgotten.",
+      "coreQuestion": "Did something hidden come to light because of you?",
+      "hopeRecovery": {
+        "title": "The Revelation",
+        "description": "When you bring a buried truth into the open that changes the fate of others — reveal the conspiracy to the people it would have destroyed, decode the star chart that leads refugees to safety, publish the evidence that topples a regime."
+      },
+      "tollRecovery": {
+        "title": "The Theft",
+        "description": "When you claim a world-shaping secret and ensure no one else ever learns it — seize the Sith archive, erase the witnesses, lock away the cure so only you control who lives."
+      },
+      "advanceTrigger": "When a revelation you unearthed permanently alters the direction of events.",
+      "narrativeHook": "This character is drawn toward hidden truths — lost knowledge, buried secrets, forgotten histories. Whether they share what they find or hoard it is the question that defines their path."
+    },
+    {
+      "id": "rescue",
+      "name": "Rescue",
+      "tagline": "Your fate is to pull others from the edge.",
+      "coreQuestion": "Did someone escape a sealed fate because of you?",
+      "hopeRecovery": {
+        "title": "The Sacrifice",
+        "description": "When you deliver someone from a fate they could not have escaped alone and pay a lasting price for it — trade your freedom for a prisoner's release, lose something permanent to buy their survival, walk into certain capture so a group can flee the system."
+      },
+      "tollRecovery": {
+        "title": "The Exchange",
+        "description": "When you save the one who matters to you by condemning others to the fate you pulled them from — leave the rest of the prisoners behind, hand over civilians to secure your crew's release, sacrifice a community's future to rescue a single life."
+      },
+      "advanceTrigger": "When someone whose fate was sealed is free because of your actions — not a close call in combat, but a rescue from a situation with no way out.",
+      "narrativeHook": "This character is drawn toward the trapped and the doomed — prisoners, hostages, the condemned. Whether they save everyone or only the ones they choose is the question that defines their path."
+    },
+    {
+      "id": "creation",
+      "name": "Creation",
+      "tagline": "Your fate is to build something that outlasts you.",
+      "coreQuestion": "Does something lasting exist now that didn't before — because of you?",
+      "hopeRecovery": {
+        "title": "The Foundation",
+        "description": "When you bring something into existence that fundamentally changes a community's future — establish a colony or rebel cell, broker a lasting peace between factions, build the infrastructure that restores a dying settlement, found an organization that outlives its founder."
+      },
+      "tollRecovery": {
+        "title": "The Consumption",
+        "description": "When you build your legacy by consuming what others depend on — strip a rival settlement for materials, absorb a smaller operation into yours by force, claim the resources a community needs to fuel your vision, build a criminal empire on the backs of the desperate."
+      },
+      "advanceTrigger": "When something you built reshapes how people live, trade, fight, or survive in the region — a base, an alliance, a syndicate, a network, a legacy.",
+      "narrativeHook": "This character is drawn toward making things — structures, organizations, alliances, legacies. Whether they build for everyone or build for themselves is the question that defines their path."
+    },
+    {
+      "id": "corruption",
+      "name": "Corruption",
+      "tagline": "Your fate is to reshape power in the galaxy.",
+      "coreQuestion": "Did power change hands because of you?",
+      "hopeRecovery": {
+        "title": "The Overthrow",
+        "description": "When you topple a corrupt power structure that has held a population under its heel — expose the governor's crimes, turn a crime lord's lieutenants against him, trigger the collapse of a cartel's hold on a system."
+      },
+      "tollRecovery": {
+        "title": "The Coup",
+        "description": "When you seize control of a power structure for yourself — take over the syndicate you were sent to destroy, install yourself as the authority in the vacuum you created, replace the tyrant and inherit their throne."
+      },
+      "advanceTrigger": "When the power structure of a faction, territory, or institution is permanently different because of you.",
+      "narrativeHook": "This character is drawn toward power — who holds it, who abuses it, who deserves it. Whether they dismantle corruption or become the new corruption is the question that defines their path."
+    },
+    {
+      "id": "atonement",
+      "name": "Atonement",
+      "tagline": "Your fate is to settle a debt that can never be repaid.",
+      "coreQuestion": "Was a chapter of your past closed because of you?",
+      "hopeRecovery": {
+        "title": "The Reckoning",
+        "description": "When you make restitution that materially changes the lives of those you wronged — return to the place you devastated and rebuild it, surrender yourself to the people you betrayed, sacrifice your position or fortune to undo the damage."
+      },
+      "tollRecovery": {
+        "title": "The Erasure",
+        "description": "When you erase your debt by destroying the evidence or the people who hold it — silence the last witness, burn the records that prove what you did, eliminate the faction that remembers your crime."
+      },
+      "advanceTrigger": "When a specific chapter of your past is permanently closed — through reconciliation or obliteration.",
+      "narrativeHook": "This character is haunted by what they have done — or what was done in their name. Whether they face it honestly or bury it violently is the question that defines their path."
+    },
+    {
+      "id": "liberation",
+      "name": "Liberation",
+      "tagline": "Your fate is to break chains — literal or otherwise.",
+      "coreQuestion": "Were the oppressed freed because of you?",
+      "hopeRecovery": {
+        "title": "The Emancipation",
+        "description": "When you dismantle a system of captivity and accept the target it paints on you — free an entire labor camp, broadcast the truth that breaks an Empire's grip on a sector, destroy the mechanism that keeps a population compliant."
+      },
+      "tollRecovery": {
+        "title": "The Purifier",
+        "description": "When you annihilate the captor with no regard for what else burns — destroy the prison with loyalists still inside, assassinate the warden in a way that destabilizes the entire region, tear down the institution even though thousands depend on it for survival."
+      },
+      "advanceTrigger": "When a population, system, or territory that was under someone's control is no longer — because of you.",
+      "narrativeHook": "This character is drawn toward captivity and oppression — wherever chains exist, they feel the pull to break them. Whether they free others cleanly or burn the cage with everyone inside is the question that defines their path."
+    },
+    {
+      "id": "ascendancy",
+      "name": "Ascendancy",
+      "tagline": "Your fate is to rise beyond what you were born to.",
+      "coreQuestion": "Did you rise to a station you didn't hold before?",
+      "hopeRecovery": {
+        "title": "The Elevation",
+        "description": "When you ascend and use your new standing to elevate those who cannot rise alone — use your new rank to shield the vulnerable, open a seat at the table for the voiceless, leverage your position to change the rules for everyone below you."
+      },
+      "tollRecovery": {
+        "title": "The Usurper",
+        "description": "When you climb by pulling down the person above you — betray the mentor who made you, orchestrate a rival's downfall to claim their seat, accept a crown you know was bought with someone else's blood."
+      },
+      "advanceTrigger": "When you hold a title, territory, rank, or seat of power that fundamentally changes your standing in the galaxy.",
+      "narrativeHook": "This character is drawn upward — toward rank, influence, and legacy. Whether they lift others as they rise or stand on the fallen is the question that defines their path."
+    }
+  ]
+}

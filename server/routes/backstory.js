@@ -15,7 +15,7 @@ const KIT_NARRATIVES = {
 function buildPrompt(payload) {
   const {
     species, phase1, phase2, phase3, kits, disciplines, weakDisciplines, arenas, destiny,
-    gender, generateName, characterName, generateTitle, characterTitle, playerInput,
+    personalDestiny, gender, generateName, characterName, generateTitle, characterTitle, playerInput,
   } = payload;
 
   const pronouns = gender === 'Female'
@@ -166,6 +166,9 @@ Incompetent skills (D4 — critical weaknesses): ${weakDiscText}
 
 Destiny alignment: ${destiny}
 Destiny tone guidance: ${destinyTone}
+${personalDestiny ? `Personal Destiny: ${personalDestiny.name} — ${personalDestiny.tagline}
+Destiny narrative hook: ${personalDestiny.narrativeHook}
+This character's fate pulls ${pronouns.obj} toward ${personalDestiny.name.toLowerCase()}. Weave this thread into the backstory — not as a stated goal, but as a pattern visible in ${pronouns.pos} choices and circumstances.` : ''}
 ${playerNote}`;
 }
 

@@ -151,25 +151,37 @@
         <div class="cc-screen-head ph-screen-head">
           <p class="cc-step-label">Step 8 of 9</p>
           <h1 class="cc-screen-title">Destiny</h1>
-          <p class="cc-screen-sub">Choose your starting contribution to the destiny pool. This reflects where you stand with the Force &mdash; not what side you fight for, but what you carry.</p>
+          <p class="cc-screen-sub">Your character carries two truths into the galaxy: what they contribute to the crew, and what fate is pulling them toward.</p>
         </div>
-        <div class="destiny-choice-grid">
-          <button class="destiny-tile" data-destiny="Two Light">
-            <span class="destiny-tile-symbol">&#9711;&#9711;</span>
-            <span class="destiny-tile-name">Two Light</span>
-            <span class="destiny-tile-desc">You still believe the galaxy can be better. The Force has not finished with you.</span>
-          </button>
-          <button class="destiny-tile" data-destiny="Light &amp; Dark">
-            <span class="destiny-tile-symbol">&#9711;&#9679;</span>
-            <span class="destiny-tile-name">Light &amp; Dark</span>
-            <span class="destiny-tile-desc">You do what you must. The line between right and wrong shifts with the job.</span>
-          </button>
-          <button class="destiny-tile" data-destiny="Two Dark">
-            <span class="destiny-tile-symbol">&#9679;&#9679;</span>
-            <span class="destiny-tile-name">Two Dark</span>
-            <span class="destiny-tile-desc">You've made your peace with what it takes. The galaxy owes you, not the other way around.</span>
-          </button>
+
+        <div class="destiny-section">
+          <h2 class="destiny-section-title">The Destiny Pool</h2>
+          <p class="destiny-section-sub">Your starting contribution to the crew's shared moral ledger.</p>
+          <div class="destiny-choice-grid">
+            <button class="destiny-tile" data-destiny="Two Light">
+              <span class="destiny-tile-symbol">&#9711;&#9711;</span>
+              <span class="destiny-tile-name">Two Light</span>
+              <span class="destiny-tile-desc">You still believe the galaxy can be better. The Force has not finished with you.</span>
+            </button>
+            <button class="destiny-tile" data-destiny="Light &amp; Dark">
+              <span class="destiny-tile-symbol">&#9711;&#9679;</span>
+              <span class="destiny-tile-name">Light &amp; Dark</span>
+              <span class="destiny-tile-desc">You do what you must. The line between right and wrong shifts with the job.</span>
+            </button>
+            <button class="destiny-tile" data-destiny="Two Dark">
+              <span class="destiny-tile-symbol">&#9679;&#9679;</span>
+              <span class="destiny-tile-name">Two Dark</span>
+              <span class="destiny-tile-desc">You've made your peace with what it takes. The galaxy owes you, not the other way around.</span>
+            </button>
+          </div>
         </div>
+
+        <div class="destiny-section">
+          <h2 class="destiny-section-title">Personal Destiny</h2>
+          <p class="destiny-section-sub">What the Force &mdash; or fate &mdash; is pulling you toward. This shapes how you recover spent Destiny tokens and how you advance.</p>
+          <div id="personal-destiny-grid" class="personal-destiny-grid"></div>
+        </div>
+
         <div class="cc-stats-nav-row">
           <button id="btn-back-to-outfitting" class="cc-back-btn-text">&larr; Outfitting</button>
           <button id="btn-destiny-continue" class="cc-btn-stats-continue" disabled>Your Story &rarr;</button>

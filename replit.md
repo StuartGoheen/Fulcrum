@@ -124,7 +124,13 @@ No text is baked into the images. All card titles, narratives, and symbols are r
 
 Two new screens added after Kit selection (March 2026):
 
-**Destiny Selection (`screen-destiny`):** Player picks Two Light, Light & Dark, or Two Dark. Stored in `state.destiny`. This value seeds the group destiny pool and shapes the Gemini backstory tone.
+**Destiny Selection (`screen-destiny`):** Two sections:
+1. **Pool Contribution** — Player picks Two Light, Light & Dark, or Two Dark. Stored in `state.destiny`. Seeds the group destiny pool and shapes Gemini backstory tone.
+2. **Personal Destiny** — Player selects one of 8 Destinies (Destruction, Discovery, Rescue, Creation, Corruption, Atonement, Liberation, Ascendancy). Each is morally neutral with: Hope Recovery (recover spent Hope token once/session), Toll Recovery (recover spent Toll token once/session), and an Advance Trigger (character growth token). Stored in `state.personalDestiny` (full object from `data/destinies.json`). Both pool AND personal Destiny must be selected before Continue enables.
+
+**Data:** `data/destinies.json` — 8 destiny definitions with `name`, `tagline`, `hopeRecovery`, `tollRecovery`, `advanceTrigger`, `narrativeHook`.
+
+**CSS:** `.pd-card` family (`.pd-card-header`, `.pd-card-name`, `.pd-card-tagline`, `.pd-card-details`, `.pd-card-mechanic`), `.pd-label` variants (`--hope`, `--toll`, `--advance`), `.personal-destiny-grid` (4→2→1 col responsive), `.destiny-section` wrappers.
 
 **Your Story (`screen-backstory`):** Form-based backstory generator.
 - Fields: Character Name (required, or "Generate for me"), Gender (Male/Female), Species (read-only), Title (optional or generated), optional player input textarea
