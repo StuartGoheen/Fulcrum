@@ -4153,27 +4153,51 @@
 
   /* ── Destiny Pool / Force Balance Tracker ───────────────────────────────── */
 
-  .destiny-footer-stack {
-    display: flex;
-    flex-direction: column;
+  .destiny-footer-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     height: 100%;
+    align-items: center;
   }
 
-  .destiny-bar {
+  .destiny-footer-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 4px 0.75rem;
+    gap: 2px;
+  }
+
+  .destiny-footer-row1 {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .destiny-separator {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 1.00rem;
+    color: var(--color-text-secondary);
+    line-height: 1;
+  }
+
+  .destiny-footer-row2 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .destiny-personal-mech-sep {
+    font-size: 1.00rem;
+    color: var(--color-text-secondary);
+    line-height: 1;
+  }
+
+  .destiny-footer-right {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: clamp(6px, 1vw, 12px);
-    padding: 4px 0.5rem 2px;
-    overflow: hidden;
-    flex-shrink: 0;
-  }
-
-  .destiny-meta {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    flex-shrink: 0;
+    padding: 4px 0.5rem;
   }
 
   .destiny-label-text {
@@ -4203,30 +4227,6 @@
     color: var(--color-accent-primary);
   }
 
-  .destiny-counts {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    flex-shrink: 0;
-  }
-
-  .destiny-hope {
-    font-family: 'Audiowide', sans-serif;
-    font-size: 0.96rem;
-    letter-spacing: 0.06em;
-    color: #6aacde;
-    line-height: 1;
-    white-space: nowrap;
-  }
-
-  .destiny-toll {
-    font-family: 'Audiowide', sans-serif;
-    font-size: 0.96rem;
-    letter-spacing: 0.06em;
-    color: #cc3333;
-    line-height: 1;
-    white-space: nowrap;
-  }
 
   .force-tracker {
     display: flex;
@@ -4246,17 +4246,6 @@
     border-radius: 50%;
   }
 
-  .destiny-personal {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    padding: 0 0.5rem 4px;
-    flex: 1;
-    min-height: 0;
-    overflow: hidden;
-  }
-
   .destiny-personal-name {
     font-family: 'Audiowide', sans-serif;
     font-size: 1.00rem;
@@ -4264,25 +4253,6 @@
     text-transform: uppercase;
     color: var(--color-accent-deep);
     white-space: nowrap;
-    flex-shrink: 0;
-  }
-
-  .destiny-personal-tagline {
-    font-size: 0.96rem;
-    color: var(--color-text-secondary);
-    font-style: italic;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    flex-shrink: 1;
-    min-width: 0;
-  }
-
-  .destiny-personal-mechs {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    flex-shrink: 0;
   }
 
   .destiny-personal-mech {

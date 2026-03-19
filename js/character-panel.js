@@ -640,18 +640,22 @@
   // ─── Bootstrap ────────────────────────────────────────────────────────────────
 
   function _renderPersonalDestiny(char) {
-    var el = document.getElementById("destiny-personal");
-    if (!el) return;
+    var nameEl = document.getElementById("destiny-personal-name");
+    var mechsEl = document.getElementById("destiny-personal-mechs");
     var pd = char.personalDestiny;
-    if (!pd) { el.innerHTML = ""; return; }
+    if (!pd) {
+      if (nameEl) nameEl.textContent = "";
+      if (mechsEl) mechsEl.innerHTML = "";
+      return;
+    }
     var h = function(s) { return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); };
-    el.innerHTML =
-      '<span class="destiny-personal-name">' + h(pd.name) + '</span>' +
-      '<span class="destiny-personal-tagline">' + h(pd.tagline) + '</span>' +
-      '<span class="destiny-personal-mechs">' +
+    if (nameEl) nameEl.textContent = pd.name;
+    if (mechsEl) {
+      mechsEl.innerHTML =
         '<span class="destiny-personal-mech"><span class="destiny-personal-mech-badge destiny-personal-mech-badge--hope">Hope</span><span class="destiny-personal-mech-text" title="' + h(pd.hopeRecovery.description) + '">' + h(pd.hopeRecovery.title) + '</span></span>' +
-        '<span class="destiny-personal-mech"><span class="destiny-personal-mech-badge destiny-personal-mech-badge--toll">Toll</span><span class="destiny-personal-mech-text" title="' + h(pd.tollRecovery.description) + '">' + h(pd.tollRecovery.title) + '</span></span>' +
-      '</span>';
+        '<span class="destiny-personal-mech-sep">·</span>' +
+        '<span class="destiny-personal-mech"><span class="destiny-personal-mech-badge destiny-personal-mech-badge--toll">Toll</span><span class="destiny-personal-mech-text" title="' + h(pd.tollRecovery.description) + '">' + h(pd.tollRecovery.title) + '</span></span>';
+    }
   }
 
   function init() {
