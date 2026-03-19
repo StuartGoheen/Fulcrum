@@ -234,7 +234,7 @@
       imageUrl: '/assets/phase1/01-deep-fringe.png',
       narrative: 'You grew up where the Empire\'s reach frays to nothing — twin suns bleaching everything pale, the nearest starport a week\'s ride out. Self-reliance isn\'t a virtue here; it\'s the only thing keeping you breathing. The galaxy owes you nothing, and that truth made you dangerous.',
       svg: '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none" stroke-width="4"><circle cx="45" cy="50" r="25"/><circle cx="75" cy="35" r="12"/><line x1="10" y1="85" x2="90" y2="85"/><line x1="20" y1="92" x2="80" y2="92" stroke-width="2"/></svg>',
-      _meta: { environment: 'outer-rim-desert', locationHints: ['Jakku', 'Jedha', 'Arvala-7', 'Florrum', 'Abafar'], tone: 'isolation, self-reliance, frontier survival', themes: ['resource scarcity', 'independence', 'frontier justice'], favored: 'Survival (Grit)' },
+      _meta: { environment: 'outer-rim-desert', locationHints: ['Jakku', 'Jedha', 'Arvala-7', 'Florrum', 'Abafar'], tone: 'isolation, self-reliance, frontier survival', themes: ['resource scarcity', 'independence', 'frontier justice'], favored: 'Survival (Grit)', favoredName: 'Dust-Born Tenacity', favoredDesc: 'Years of rationing water, patching shelters against sandstorms, and reading the land for hidden dangers forged an instinct for staying alive where nothing wants you to.' },
     },
     {
       id: 'shadowed-levels',
@@ -243,7 +243,7 @@
       imageUrl: '/assets/phase1/02-shadowed-levels.png',
       narrative: 'You were raised in the underlevels — where the lights of the upper city are just a rumor and debts are paid in blood or service. You learned to read people before you could read a holomap, and you know that every deal has a hidden clause. Trust is a currency you spend carefully.',
       svg: '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none" stroke-width="4" stroke-linejoin="round"><polygon points="50,10 85,30 85,70 50,90 15,70 15,30"/><polygon points="50,22 75,37 75,63 50,78 25,63 25,37"/><rect x="42" y="40" width="16" height="20"/><line x1="42" y1="45" x2="58" y2="45"/><line x1="42" y1="55" x2="58" y2="55"/></svg>',
-      _meta: { environment: 'urban-underworld', locationHints: ['Nar Shaddaa', 'Ord Mantell', 'Daiyu', 'Corellia', 'Nal Hutta'], tone: 'cunning, distrust, survival by wit', themes: ['class divide', 'criminal networks', 'street smarts'], favored: 'Stealth (Reflex)' },
+      _meta: { environment: 'urban-underworld', locationHints: ['Nar Shaddaa', 'Ord Mantell', 'Daiyu', 'Corellia', 'Nal Hutta'], tone: 'cunning, distrust, survival by wit', themes: ['class divide', 'criminal networks', 'street smarts'], favored: 'Stealth (Reflex)', favoredName: 'Underlevel Ghost', favoredDesc: 'Moving unseen through the stacked warrens of the underworld taught you how to vanish mid-stride — slipping through crowds, ducking sensor sweeps, and leaving no trace.' },
     },
     {
       id: 'salvage-yards',
@@ -252,7 +252,7 @@
       imageUrl: '/assets/phase1/03-salvage-yards.png',
       narrative: 'Every ship that flies was once someone\'s wreck. You grew up knee-deep in that wreckage — pulling circuits from crashed freighters, selling scrap to keep the lights on. Machines tell you their secrets if you know how to listen. You\'ve built survival from the galaxy\'s trash.',
       svg: '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"><path d="M 65 20 C 80 20 85 35 75 45 L 40 80 C 35 85 25 85 20 80 C 15 75 15 65 20 60 L 55 25 C 65 15 80 20 65 20 Z"/><line x1="78" y1="22" x2="60" y2="40"/><line x1="35" y1="65" x2="45" y2="75"/><circle cx="28" cy="72" r="3" fill="currentColor"/></svg>',
-      _meta: { environment: 'junkyard-planet', locationHints: ['Bracca', 'Raxus Prime', 'Lotho Minor', 'Agaris'], tone: 'resourcefulness, ingenuity, underdog grit', themes: ['mechanical aptitude', 'poverty', 'found family'], favored: 'Tech (Wits)' },
+      _meta: { environment: 'junkyard-planet', locationHints: ['Bracca', 'Raxus Prime', 'Lotho Minor', 'Agaris'], tone: 'resourcefulness, ingenuity, underdog grit', themes: ['mechanical aptitude', 'poverty', 'found family'], favored: 'Tech (Wits)', favoredName: 'Scrapyard Intuition', favoredDesc: 'You learned to coax dying machines back to life with salvaged parts and sheer stubbornness. Every hull fragment whispers its history if you know where to press your ear.' },
     },
     {
       id: 'coreward-spires',
@@ -261,7 +261,7 @@
       imageUrl: '/assets/phase1/04-coreward-spires.png',
       narrative: 'You had everything the Empire promised — spires that touched the clouds, an education that opened doors, and a family name worth something. Then you saw what that system cost the rest of the galaxy. Some fled privilege in guilt; others were pushed out when their usefulness expired.',
       svg: '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none" stroke-width="4" stroke-linecap="round"><circle cx="50" cy="28" r="10"/><line x1="50" y1="38" x2="50" y2="52"/><line x1="28" y1="52" x2="72" y2="52"/><line x1="28" y1="52" x2="28" y2="78"/><line x1="72" y1="52" x2="72" y2="78"/><line x1="18" y1="78" x2="82" y2="78"/><path d="M 28 52 Q 50 38 72 52" stroke-width="2"/><circle cx="50" cy="28" r="4" fill="currentColor" stroke="none"/></svg>',
-      _meta: { environment: 'core-world-city', locationHints: ['Chandrila', 'Hosnian Prime', 'Corellia', 'Alsakan', 'Kuat'], tone: 'privilege, disillusionment, insider knowledge', themes: ['political intrigue', 'Imperial complicity', 'fallen status'], favored: 'Persuasion (Presence)' },
+      _meta: { environment: 'core-world-city', locationHints: ['Chandrila', 'Hosnian Prime', 'Corellia', 'Alsakan', 'Kuat'], tone: 'privilege, disillusionment, insider knowledge', themes: ['political intrigue', 'Imperial complicity', 'fallen status'], favored: 'Persuasion (Presence)', favoredName: 'Courtly Tongue', favoredDesc: 'Growing up among senators and industrialists taught you how words shape power. You know how to frame an argument so it feels like the listener\'s own idea.' },
     },
     {
       id: 'agrarian-plain',
@@ -270,7 +270,7 @@
       imageUrl: '/assets/phase1/05-agrarian-plain.png',
       narrative: 'You come from working land — rows of crops, communal tables, and seasons that ruled your calendar. Your community survived by cooperation and quiet resilience. The Empire took the harvest and left the labor. That memory of something worth protecting is why you fight.',
       svg: '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none" stroke-width="4" stroke-linecap="round"><line x1="50" y1="12" x2="50" y2="78"/><ellipse cx="50" cy="26" rx="18" ry="5"/><ellipse cx="50" cy="40" rx="12" ry="4"/><line x1="34" y1="62" x2="66" y2="62"/><line x1="28" y1="70" x2="72" y2="70"/><line x1="10" y1="86" x2="90" y2="86"/><line x1="5" y1="93" x2="95" y2="93" stroke-width="2"/></svg>',
-      _meta: { environment: 'farming-world', locationHints: ['Dantooine', 'Lothal', 'Lah\'mu', 'Raada', 'Saleucami'], tone: 'community, loss, humble origins', themes: ['Imperial taxation', 'rural displacement', 'agrarian values'], favored: 'Resolve (Grit)' },
+      _meta: { environment: 'farming-world', locationHints: ['Dantooine', 'Lothal', 'Lah\'mu', 'Raada', 'Saleucami'], tone: 'community, loss, humble origins', themes: ['Imperial taxation', 'rural displacement', 'agrarian values'], favored: 'Resolve (Grit)', favoredName: 'Rootstock Will', favoredDesc: 'Seasons of drought, Imperial levy collectors, and backbreaking harvests taught you to endure what would break others. When the soil fights you, you plant deeper.' },
     },
     {
       id: 'war-front',
@@ -279,7 +279,7 @@
       imageUrl: '/assets/phase1/06-war-front.png',
       narrative: 'Peace is something other people talk about. You grew up in the sound of it — distant artillery, rationed water, the faces of soldiers cycling through. War was the weather of your childhood. You learned to read threat before you learned to read a face. You are very, very hard to surprise.',
       svg: '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M 18 44 L 64 44 L 74 34 L 80 34 L 80 56 L 64 56 L 18 56 Z"/><line x1="80" y1="45" x2="94" y2="45"/><rect x="28" y="56" width="14" height="18"/><line x1="18" y1="50" x2="26" y2="50"/></svg>',
-      _meta: { environment: 'conflict-zone', locationHints: ['Mimban', 'Onderon', 'Christophsis', 'Umbara', 'Ryloth'], tone: 'hardened, vigilant, combat-shaped', themes: ['military exposure', 'PTSD', 'tactical instinct'], favored: 'Evasion (Reflex)' },
+      _meta: { environment: 'conflict-zone', locationHints: ['Mimban', 'Onderon', 'Christophsis', 'Umbara', 'Ryloth'], tone: 'hardened, vigilant, combat-shaped', themes: ['military exposure', 'PTSD', 'tactical instinct'], favored: 'Evasion (Reflex)', favoredName: 'Shell-Shock Reflexes', favoredDesc: 'Artillery and ambushes rewired your nervous system. You don\'t think about dodging — your body moves before the blast hits, honed by years of living where standing still means dying.' },
     },
     {
       id: 'ancient-ruin',
@@ -288,7 +288,7 @@
       imageUrl: '/assets/phase1/07-ancient-ruin.png',
       narrative: 'Your home was built on something older — crumbled temples, inscriptions no living scholar could read, and a persistent feeling that the air itself was watching. You grew up chasing questions no one could answer. Whatever the old civilization left behind, a fragment of it lodged in you.',
       svg: '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none" stroke-width="4" stroke-linecap="round"><line x1="18" y1="84" x2="18" y2="44"/><line x1="82" y1="84" x2="82" y2="44"/><path d="M 18 44 Q 50 8 82 44"/><line x1="30" y1="32" x2="36" y2="24" stroke-width="2"/><line x1="64" y1="30" x2="70" y2="22" stroke-width="2"/><line x1="8" y1="86" x2="92" y2="86"/><rect x="12" y="75" width="10" height="11"/><rect x="78" y="70" width="8" height="16"/></svg>',
-      _meta: { environment: 'ancient-nexus-world', locationHints: ['Jedha', 'Tython', 'Malachor', 'Dathomir', 'Ilum'], tone: 'curiosity, mysticism, inherited mystery', themes: ['Force adjacency', 'lost civilization', 'archaeology'], favored: 'Investigation (Wits)' },
+      _meta: { environment: 'ancient-nexus-world', locationHints: ['Jedha', 'Tython', 'Malachor', 'Dathomir', 'Ilum'], tone: 'curiosity, mysticism, inherited mystery', themes: ['Force adjacency', 'lost civilization', 'archaeology'], favored: 'Investigation (Wits)', favoredName: 'Ruin-Reader\'s Eye', favoredDesc: 'Tracing glyphs by lamplight and cross-referencing crumbling datapads trained you to spot what others overlook. Patterns emerge for you where everyone else sees noise.' },
     },
     {
       id: 'trading-post',
@@ -297,7 +297,7 @@
       imageUrl: '/assets/phase1/08-trading-post.png',
       narrative: 'Where routes cross, everything flows — goods, gossip, fugitives, and opportunity. You grew up at the intersection, learning a dozen languages before adulthood and the art of the deal before you could pilot. You know that information is the most valuable cargo in the galaxy.',
       svg: '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none" stroke-width="4" stroke-linecap="round"><circle cx="50" cy="50" r="20"/><circle cx="50" cy="50" r="34" stroke-width="2" stroke-dasharray="5,4"/><line x1="50" y1="10" x2="50" y2="30"/><line x1="90" y1="50" x2="70" y2="50"/><line x1="50" y1="90" x2="50" y2="70"/><line x1="10" y1="50" x2="30" y2="50"/><circle cx="50" cy="50" r="5" fill="currentColor" stroke="none"/></svg>',
-      _meta: { environment: 'spaceport-crossroads', locationHints: ['Takodana', 'Batuu', 'Ord Mantell', 'Eriadu', 'Akiva'], tone: 'cosmopolitan, opportunistic, multilingual', themes: ['trade networks', 'cultural exposure', 'information brokering'], favored: 'Insight (Presence)' },
+      _meta: { environment: 'spaceport-crossroads', locationHints: ['Takodana', 'Batuu', 'Ord Mantell', 'Eriadu', 'Akiva'], tone: 'cosmopolitan, opportunistic, multilingual', themes: ['trade networks', 'cultural exposure', 'information brokering'], favored: 'Insight (Presence)', favoredName: 'Crossroads Intuition', favoredDesc: 'A lifetime of reading merchants, refugees, and con artists at the crossroads gave you an ear for half-truths. You sense the angle before the pitch is finished.' },
     },
     {
       id: 'detention-block',
@@ -306,7 +306,7 @@
       imageUrl: '/assets/phase1/09-detention-block.png',
       narrative: 'You were born into a cage — not always made of durasteel. Labor camp, indentured service, political imprisonment, or simply the wrong bloodline at the wrong time. The Empire taught you exactly what it was through direct experience. Freedom, when it came, felt like a weapon handed to you.',
       svg: '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none" stroke-width="4" stroke-linecap="round"><rect x="15" y="14" width="70" height="72"/><line x1="30" y1="14" x2="30" y2="86"/><line x1="45" y1="14" x2="45" y2="86"/><line x1="60" y1="14" x2="60" y2="86"/><line x1="75" y1="14" x2="75" y2="86"/><circle cx="8" cy="50" r="6"/><line x1="14" y1="50" x2="15" y2="50" stroke-width="3"/></svg>',
-      _meta: { environment: 'imperial-detention', locationHints: ['Wobani', 'Kessel', 'Stygeon Prime', 'Kashyyyk', 'Naraka'], tone: 'defiance, trauma, hard-won freedom', themes: ['forced labor', 'Imperial oppression', 'escape and survival'], favored: 'Endure (Physique)' },
+      _meta: { environment: 'imperial-detention', locationHints: ['Wobani', 'Kessel', 'Stygeon Prime', 'Kashyyyk', 'Naraka'], tone: 'defiance, trauma, hard-won freedom', themes: ['forced labor', 'Imperial oppression', 'escape and survival'], favored: 'Endure (Physique)', favoredName: 'Iron Constitution', favoredDesc: 'Starvation rations, forced marches, and interrogation droids taught your body to absorb punishment that would drop anyone else. Pain is just a signal you learned to override.' },
     },
     {
       id: 'shipboard-born',
@@ -315,7 +315,7 @@
       imageUrl: '/assets/phase1/10-shipboard-born.png',
       narrative: 'You were born between jumps, raised in the hold of a freighter, and taught to read a navcomputer before you could read Basic. Ships aren\u0027t transportation to you \u2014 they\u0027re the only home you\u0027ve ever had. The stars don\u0027t frighten you. The ground does.',
       svg: '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="20" width="80" height="55" rx="6"/><polyline points="10,40 28,28 72,28 90,40"/><line x1="50" y1="20" x2="50" y2="75"/><ellipse cx="50" cy="52" rx="14" ry="10"/><circle cx="50" cy="52" r="4" fill="currentColor"/></svg>',
-      _meta: { environment: 'deep-space-freighter', locationHints: ['Rishi', 'Vandor', 'Ring of Kafrene', 'Terminus', 'Burnin Konn'], tone: 'wanderlust, belonging, the void as home', themes: ['life in transit', 'found family', 'hyperspace routes'], favored: 'Piloting (Reflex)' },
+      _meta: { environment: 'deep-space-freighter', locationHints: ['Rishi', 'Vandor', 'Ring of Kafrene', 'Terminus', 'Burnin Konn'], tone: 'wanderlust, belonging, the void as home', themes: ['life in transit', 'found family', 'hyperspace routes'], favored: 'Piloting (Reflex)', favoredName: 'Void-Born Hands', favoredDesc: 'Born between hyperspace jumps, you feel a ship\'s rhythm the way grounders feel gravity. Thrust vectors, drift corrections, and emergency burns are second nature — the cockpit is the only room that ever felt like home.' },
     },
     {
       id: 'labor-camp',
@@ -324,7 +324,7 @@
       imageUrl: '/assets/phase1/11-labor-camp.png',
       narrative: 'You were a number on a corporate extraction ledger. Whether conscripted, sold into indentured service, or simply born on the wrong side of a mining contract, you spent your formative years breaking your back for quotas that were never going to be met. Your body knows pain. Your mind knows how to keep going anyway.',
       svg: '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><line x1="20" y1="80" x2="75" y2="25"/><path d="M60,15 C70,5 90,8 88,22 L72,28"/><path d="M15,75 C5,85 8,95 22,93 L28,77"/><line x1="60" y1="60" x2="78" y2="60"/><line x1="60" y1="68" x2="78" y2="68"/><line x1="60" y1="76" x2="78" y2="76"/><line x1="60" y1="84" x2="72" y2="84"/></svg>',
-      _meta: { environment: 'corporate-mining-site', locationHints: ['Kessel', 'Mustafar', 'Wobani', 'Seelos', 'Cynda'], tone: 'endurance, resentment, physical grit', themes: ['forced labor', 'corporate exploitation', 'survival under duress'], favored: 'Athletics (Physique)' },
+      _meta: { environment: 'corporate-mining-site', locationHints: ['Kessel', 'Mustafar', 'Wobani', 'Seelos', 'Cynda'], tone: 'endurance, resentment, physical grit', themes: ['forced labor', 'corporate exploitation', 'survival under duress'], favored: 'Athletics (Physique)', favoredName: 'Quarry-Forged Strength', favoredDesc: 'Hauling ore carts, climbing unstable shafts, and breaking rock with crude tools sculpted a body built for raw physical output. When the ground shakes, you keep swinging.' },
     },
     {
       id: 'enclave',
@@ -333,7 +333,7 @@
       imageUrl: '/assets/phase1/12-enclave.png',
       narrative: 'You were raised inside something closed \u2014 a religious order, a hidden commune, a survivalist sect, or the remnant of an ancient tradition that survived by going silent. Inside, there was belonging and purpose. Outside was danger. When you finally crossed the threshold, the galaxy felt enormous and hostile in equal measure.',
       svg: '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><circle cx="50" cy="50" r="38"/><circle cx="50" cy="50" r="26"/><circle cx="50" cy="50" r="14"/><circle cx="50" cy="50" r="4" fill="currentColor"/><line x1="50" y1="12" x2="50" y2="24"/><line x1="50" y1="76" x2="50" y2="88"/><line x1="12" y1="50" x2="24" y2="50"/><line x1="76" y1="50" x2="88" y2="50"/></svg>',
-      _meta: { environment: 'hidden-community', locationHints: ['Jedha', 'Bardotta', 'Lothal', 'Atollon', 'Lira San'], tone: 'belonging, isolation, threshold crossing', themes: ['tradition and heresy', 'secret knowledge', 'cult of community'], favored: 'Charm (Presence)' },
+      _meta: { environment: 'hidden-community', locationHints: ['Jedha', 'Bardotta', 'Lothal', 'Atollon', 'Lira San'], tone: 'belonging, isolation, threshold crossing', themes: ['tradition and heresy', 'secret knowledge', 'cult of community'], favored: 'Charm (Presence)', favoredName: 'Voice of the Inner Circle', favoredDesc: 'Years of communal ritual and close-quarter diplomacy gave you an effortless warmth that disarms strangers. People want to trust you — and you learned exactly how to invite that.' },
     },
   ];
 
@@ -350,6 +350,8 @@
         tone: 'loyalty, displacement, forgotten service',
         proficiencies: ['Tactics (Wits)', 'Ranged (Reflex)', 'Athletics (Physique)'],
         favored: 'Tactics (Wits)',
+        favoredName: 'Veteran\'s Calculus',
+        favoredDesc: 'Years of reading battlefields — counting exits, gauging fire arcs, and timing advances — gave you an instinct for turning chaos into a plan before anyone else has stopped flinching.',
         variability: 'Disciplined squad leader (Tactics/Ranged) or heavy-infantry trench fighter (Athletics/Ranged)?',
       },
     },
@@ -365,6 +367,8 @@
         tone: 'conviction, loss, hunted belief',
         proficiencies: ['Tech (Wits)', 'Ranged (Reflex)', 'Endure (Physique)'],
         favored: 'Ranged (Reflex)',
+        favoredName: 'Siege-Line Marksman',
+        favoredDesc: 'Defending crumbling positions against clone battalions taught you to make every shot count. You learned to shoot straight under fire when bolts were too precious to waste.',
         variability: 'Guerrilla mechanic (Tech/Ranged) or hardened survivor of the sieges (Endure/Ranged)?',
       },
     },
@@ -380,6 +384,8 @@
         tone: 'guilt, insider knowledge, burned bridges',
         proficiencies: ['Piloting (Reflex)', 'Tactics (Wits)', 'Skulduggery (Reflex)'],
         favored: 'Deception (Presence)',
+        favoredName: 'Imperial Mask',
+        favoredDesc: 'You wore the Empire\'s face long enough to learn how authority sounds. Even after defecting, you can slip back into that cold, confident cadence — and most people never question the uniform in the voice.',
         variability: 'Rogue TIE pilot (Piloting/Tactics) or quartermaster who stole Imperial codes (Tactics/Skulduggery)?',
       },
     },
@@ -395,6 +401,8 @@
         tone: 'speed, risk, freedom at any cost',
         proficiencies: ['Piloting (Reflex)', 'Deception (Presence)', 'Insight (Presence)'],
         favored: 'Piloting (Reflex)',
+        favoredName: 'Blockade Nerve',
+        favoredDesc: 'Running contraband past capital ships taught your hands to fly on instinct. You thread needle-gaps in debris fields and outrun tractor beams before your conscious mind catches up.',
         variability: 'Ace smuggler pilot (Piloting/Insight) or smooth-talking contraband broker (Deception/Insight)?',
       },
     },
@@ -410,6 +418,8 @@
         tone: 'resistance, loss, righteous anger',
         proficiencies: ['Stealth (Reflex)', 'Survival (Grit)', 'Evasion (Reflex)'],
         favored: 'Survival (Grit)',
+        favoredName: 'Scorched-Earth Instinct',
+        favoredDesc: 'When the Empire burned your home, the wilderness became your classroom. You learned to find water in ash, set traps from wreckage, and outlast garrison patrols by knowing the land better than they ever will.',
         variability: 'Wilderness ambush specialist (Stealth/Survival) or nimble hit-and-run saboteur (Stealth/Evasion)?',
       },
     },
@@ -425,6 +435,8 @@
         tone: 'duty, triage, moral cost of war',
         proficiencies: ['Medicine (Wits)', 'Resolve (Grit)', 'Insight (Presence)'],
         favored: 'Medicine (Wits)',
+        favoredName: 'Triage Precision',
+        favoredDesc: 'Digging shrapnel out of screaming soldiers while artillery shook the ceiling taught you to think in seconds. You diagnose by touch, prioritize by instinct, and never waste a stim-pack.',
         variability: 'Hardened combat surgeon (Medicine/Resolve) or perceptive, empathetic healer (Medicine/Insight)?',
       },
     },
@@ -440,6 +452,8 @@
         tone: 'violence, loyalty, underworld codes',
         proficiencies: ['Brawl (Physique)', 'Intimidate (Grit)', 'Endure (Physique)'],
         favored: 'Intimidate (Grit)',
+        favoredName: 'Syndicate Menace',
+        favoredDesc: 'Collecting debts for the Hutts taught you that violence is most effective when it stays implied. A look, a silence, and the weight of what you represent make most targets cooperate before you raise a fist.',
         variability: 'Immovable heavy enforcer (Brawl/Endure) or terrifying interrogator/debt collector (Intimidate/Brawl)?',
       },
     },
@@ -455,6 +469,8 @@
         tone: 'precision, obsession, unfinished war',
         proficiencies: ['Investigation (Wits)', 'Survival (Grit)', 'Ranged (Reflex)'],
         favored: 'Investigation (Wits)',
+        favoredName: 'Hunter\'s Patience',
+        favoredDesc: 'Tracking war criminals across a dozen shattered systems taught you to read a cold trail — a discarded fuel receipt, a nervous docking clerk, the faintest pattern in hyperspace logs.',
         variability: 'Urban detective hunting leads (Investigation/Ranged) or relentless Outer Rim tracker (Survival/Ranged)?',
       },
     },
@@ -470,6 +486,8 @@
         tone: 'grief, hiding, something sacred lost',
         proficiencies: ['Sense (Wits)', 'Stealth (Reflex)', 'Deception (Presence)'],
         favored: 'Stealth (Reflex)',
+        favoredName: 'Purge Shadow',
+        favoredDesc: 'Three years of hiding your true nature from Inquisitors and informants made invisibility a reflex. You move through occupied space like smoke — present, but impossible to grasp.',
         variability: 'Force-sensitive hiding their signature (Sense/Stealth) or purged political scholar under a fake identity (Deception/Stealth)?',
       },
     },
@@ -485,6 +503,8 @@
         tone: 'survivor guilt, resilience, haunted purpose',
         proficiencies: ['Endure (Physique)', 'Tech (Wits)', 'Survival (Grit)'],
         favored: 'Endure (Physique)',
+        favoredName: 'Wreck-Hardened Frame',
+        favoredDesc: 'Surviving the catastrophe branded endurance into your bones. Decompression, impact trauma, and days of crawling through wreckage taught your body to keep functioning long past the point of collapse.',
         variability: 'Engineer who kept the ship alive long enough (Tech/Endure) or gunner who survived the hull breach (Survival/Endure)?',
       },
     },
@@ -500,6 +520,8 @@
         tone: 'authority, ambition, purposeful fall',
         proficiencies: ['Tactics (Wits)', 'Deception (Presence)', 'Persuasion (Presence)'],
         favored: 'Persuasion (Presence)',
+        favoredName: 'Command Presence',
+        favoredDesc: 'You climbed hierarchies by making people believe in you — or fear you. That voice of authority never left, even after you walked away from power. People still follow when you speak.',
         variability: 'Former Imperial officer with codes and contacts (Tactics/Deception) or syndicate lieutenant who went independent (Persuasion/Tactics)?',
       },
     },
@@ -515,6 +537,8 @@
         tone: 'distrust, vengeance, hard-won paranoia',
         proficiencies: ['Insight (Wits)', 'Stealth (Reflex)', 'Skulduggery (Reflex)'],
         favored: 'Insight (Wits)',
+        favoredName: 'Betrayal Sense',
+        favoredDesc: 'Being sold out carved a permanent edge into your perception. You read micro-expressions, catch the pause before a lie, and notice the hand drifting toward a hidden weapon — because you learned what it costs not to.',
         variability: 'Intelligence operative burned by their handler (Insight/Deception) or soldier set up by their lieutenant (Skulduggery/Stealth)?',
       },
     },
@@ -2438,6 +2462,28 @@
       detailCol.appendChild(knackBlock);
     }
 
+    if (card._meta && card._meta.favoredName) {
+      var favBlock = document.createElement("div");
+      favBlock.className = "ph3-knack-block";
+
+      var favLabel = document.createElement("p");
+      favLabel.className = "ph3-knack-label";
+      favLabel.textContent = "Favored Discipline";
+      favBlock.appendChild(favLabel);
+
+      var favName = document.createElement("p");
+      favName.className = "ph3-knack-name";
+      favName.textContent = card._meta.favoredName;
+      favBlock.appendChild(favName);
+
+      var favDesc = document.createElement("p");
+      favDesc.className = "ph3-knack-desc";
+      favDesc.textContent = card._meta.favoredDesc;
+      favBlock.appendChild(favDesc);
+
+      detailCol.appendChild(favBlock);
+    }
+
     var selectBtn = document.createElement("button");
     selectBtn.className = "cc-select-btn";
     selectBtn.textContent = "Choose This →";
@@ -3336,8 +3382,8 @@
     }
 
     buildCarousel();
-    buildPhaseCarousel(PHASE1_CARDS, 'ph-grid-phase1', selectPhase1);
-    buildPhaseCarousel(PHASE2_CARDS, 'ph-grid-phase2', selectPhase2);
+    buildPhaseCarousel(PHASE1_CARDS, 'ph-grid-phase1', selectPhase1, buildPhase3CardFlat);
+    buildPhaseCarousel(PHASE2_CARDS, 'ph-grid-phase2', selectPhase2, buildPhase3CardFlat);
     buildPhaseCarousel(PHASE3_CARDS, 'ph-grid-phase3', selectPhase3, buildPhase3CardFlat);
 
     var prevBtn = document.getElementById('carousel-prev');
