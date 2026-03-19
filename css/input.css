@@ -1282,7 +1282,7 @@
   /* ── Equipment State Pills ───────────────────────────────────────────────── */
   .armory-state-pill {
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.33rem;
+    font-size: 0.44rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     padding: 1px 5px;
@@ -1314,7 +1314,7 @@
 
   .armory-legality-badge {
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.3rem;
+    font-size: 0.48rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     padding: 1px 5px;
@@ -1348,7 +1348,7 @@
   }
 
   .loadout-empty-hint {
-    font-size: 0.45rem;
+    font-size: 0.50rem;
     opacity: 0.7;
   }
 
@@ -1386,7 +1386,7 @@
 
   .engine-gambit-tag {
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.38rem;
+    font-size: 0.48rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--color-accent-deep);
@@ -1407,7 +1407,7 @@
 
   .armory-gambit-die-badge {
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.3rem;
+    font-size: 0.48rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--color-accent-amber, #f59e0b);
@@ -1420,7 +1420,7 @@
 
   .manv-arena-tag {
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.3rem;
+    font-size: 0.48rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--color-text-secondary);
@@ -1433,7 +1433,7 @@
 
   .engine-gambit-cost {
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.42rem;
+    font-size: 0.48rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--color-accent-deep);
@@ -1535,7 +1535,7 @@
 
   .action-pip-label {
     font-family: "Audiowide", sans-serif;
-    font-size: 0.46rem;
+    font-size: 0.50rem;
     color: var(--color-text-muted);
     margin-right: 2px;
     text-transform: uppercase;
@@ -1729,7 +1729,7 @@
 
   .armor-card-name {
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.45rem;
+    font-size: 0.50rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--color-accent-primary);
@@ -1759,7 +1759,7 @@
 
   .armor-card-category {
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.35rem;
+    font-size: 0.50rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--color-accent-deep);
@@ -1769,14 +1769,14 @@
 
   .armor-card-cost {
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.35rem;
+    font-size: 0.50rem;
     letter-spacing: 0.06em;
     color: var(--color-text-secondary);
   }
 
   .armor-card-avail {
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.35rem;
+    font-size: 0.50rem;
     letter-spacing: 0.06em;
     color: var(--color-text-secondary);
   }
@@ -2155,7 +2155,7 @@
   .manv-source-tag {
     background: var(--color-accent-amber, #f59e0b) !important;
     color: #000 !important;
-    font-size: 0.42rem;
+    font-size: 0.48rem;
     font-weight: 600;
   }
 
@@ -2218,7 +2218,7 @@
     flex: 1;
     padding: 3px 2px;
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.38rem;
+    font-size: 0.48rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     background: var(--color-bg-panel);
@@ -2320,7 +2320,7 @@
 
   .char-effect-pill-duration {
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.3rem;
+    font-size: 0.48rem;
     letter-spacing: 0.04em;
     text-transform: uppercase;
     color: var(--color-text-secondary);
@@ -2422,7 +2422,7 @@
   .char-add-chip {
     padding: 2px 5px;
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.3rem;
+    font-size: 0.48rem;
     letter-spacing: 0.04em;
     text-transform: uppercase;
     background: var(--color-bg-panel);
@@ -2514,7 +2514,7 @@
   .char-add-btn-cancel {
     padding: 3px 8px;
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.3rem;
+    font-size: 0.48rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     cursor: pointer;
@@ -2578,7 +2578,7 @@
 
   .char-notify-title {
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.33rem;
+    font-size: 0.44rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--color-accent-primary);
@@ -2617,7 +2617,7 @@
   }
 
   .char-notify-text {
-    font-size: 0.4rem;
+    font-size: 0.48rem;
     color: var(--color-text-primary);
     line-height: 1.5;
   }
@@ -2821,7 +2821,7 @@
 
   .hb-group-label {
     font-family: 'Exo 2', sans-serif;
-    font-size: 0.45rem;
+    font-size: 0.50rem;
     font-weight: 600;
     letter-spacing: 0.06em;
     text-transform: uppercase;
@@ -3231,7 +3231,7 @@
   }
 
   .cc-carousel-hint {
-    font-size: 0.45rem;
+    font-size: 0.50rem;
     letter-spacing: 0.08em;
     color: var(--color-text-secondary);
     opacity: 0.6;
@@ -3259,7 +3259,7 @@
   }
 
   .cc-art-label {
-    font-size: 0.4rem;
+    font-size: 0.48rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     color: var(--color-text-secondary);
@@ -3276,7 +3276,7 @@
   }
 
   .cc-ability-type {
-    font-size: 0.4rem;
+    font-size: 0.48rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     color: var(--color-accent-primary);
@@ -3409,7 +3409,7 @@
   }
 
   .cc-phase-num {
-    font-size: 0.4rem;
+    font-size: 0.48rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     color: var(--color-accent-primary);
@@ -3423,7 +3423,7 @@
   }
 
   .cc-phase-sub {
-    font-size: 0.45rem;
+    font-size: 0.50rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--color-text-secondary);
@@ -3440,7 +3440,7 @@
   .cc-phase-placeholder {
     margin-top: 0.75rem;
     padding: 0.5rem;
-    font-size: 0.45rem;
+    font-size: 0.50rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     text-align: center;
@@ -3450,7 +3450,7 @@
   }
 
   .cc-back-btn-text {
-    font-size: 0.45rem;
+    font-size: 0.50rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     font-weight: 600;
@@ -3875,7 +3875,7 @@
   }
 
   .ph3-knack-label {
-    font-size: 0.4rem;
+    font-size: 0.48rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     color: var(--color-accent-primary);
@@ -3940,11 +3940,11 @@
       padding: 0.75rem 1rem;
     }
     .ph3-narrative {
-      font-size: 0.42rem;
+      font-size: 0.48rem;
       line-height: 1.5;
     }
     .ph3-knack-desc {
-      font-size: 0.42rem;
+      font-size: 0.48rem;
       line-height: 1.5;
     }
     .ph-carousel {
@@ -4138,7 +4138,7 @@
 
   .destiny-label-text {
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.38rem;
+    font-size: 0.50rem;
     letter-spacing: 0.1em;
     color: var(--color-accent-primary);
     text-transform: uppercase;
@@ -4172,7 +4172,7 @@
 
   .destiny-hope {
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.28rem;
+    font-size: 0.48rem;
     letter-spacing: 0.06em;
     color: #6aacde;
     line-height: 1;
@@ -4181,7 +4181,7 @@
 
   .destiny-toll {
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.28rem;
+    font-size: 0.48rem;
     letter-spacing: 0.06em;
     color: #cc3333;
     line-height: 1;
@@ -4219,7 +4219,7 @@
 
   .destiny-personal-name {
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.34rem;
+    font-size: 0.50rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--color-accent-deep);
@@ -4228,7 +4228,7 @@
   }
 
   .destiny-personal-tagline {
-    font-size: 0.32rem;
+    font-size: 0.48rem;
     color: var(--color-text-secondary);
     font-style: italic;
     white-space: nowrap;
@@ -4254,7 +4254,7 @@
 
   .destiny-personal-mech-badge {
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.22rem;
+    font-size: 0.48rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     padding: 1px 4px;
@@ -4278,7 +4278,7 @@
   }
 
   .destiny-personal-mech-text {
-    font-size: 0.26rem;
+    font-size: 0.50rem;
     color: var(--color-text-secondary);
     white-space: nowrap;
     overflow: hidden;
@@ -4615,7 +4615,7 @@
   }
 
   .cc-subsection-hint {
-    font-size: 0.45rem;
+    font-size: 0.50rem;
     color: var(--color-text-secondary);
     letter-spacing: 0.04em;
   }
@@ -4634,7 +4634,7 @@
     gap: 0.3rem;
     padding: 0.25rem 0.6rem;
     border-radius: 20px;
-    font-size: 0.4rem;
+    font-size: 0.48rem;
     font-family: 'Audiowide', sans-serif;
     letter-spacing: 0.06em;
     border: 1px solid var(--color-border);
@@ -4795,7 +4795,7 @@
 
   .cc-stepper-die-label {
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.45rem;
+    font-size: 0.50rem;
     min-width: 2.2rem;
     text-align: center;
     color: var(--color-text-primary);
@@ -4815,7 +4815,7 @@
     border: none;
     background: none;
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.42rem;
+    font-size: 0.48rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--color-text-secondary);
@@ -4840,7 +4840,7 @@
 
   .cc-disc-arena-tab-die {
     display: block;
-    font-size: 0.38rem;
+    font-size: 0.48rem;
     color: var(--color-text-secondary);
     margin-top: 0.1rem;
   }
@@ -5028,7 +5028,7 @@
 
   .cc-disc-force-tag {
     display: inline-block;
-    font-size: 0.35rem;
+    font-size: 0.50rem;
     font-family: 'Audiowide', sans-serif;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -5082,7 +5082,7 @@
   }
 
   .glo-tag {
-    font-size: 0.35rem;
+    font-size: 0.50rem;
     font-family: 'Audiowide', sans-serif;
     letter-spacing: 0.07em;
     text-transform: uppercase;
@@ -5124,13 +5124,13 @@
     color: var(--color-text-secondary);
     letter-spacing: 0.05em;
     text-transform: uppercase;
-    font-size: 0.37rem;
+    font-size: 0.48rem;
   }
 
   .glo-rollrow-val {
     color: var(--color-text-primary);
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.4rem;
+    font-size: 0.48rem;
   }
 
   .glo-rollrow-sep {
@@ -5149,7 +5149,7 @@
 
   .glo-risk-label {
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.35rem;
+    font-size: 0.50rem;
     text-transform: uppercase;
     letter-spacing: 0.07em;
     color: #e67e22;
@@ -5157,7 +5157,7 @@
   }
 
   .glo-sub-label {
-    font-size: 0.37rem;
+    font-size: 0.48rem;
     font-family: 'Audiowide', sans-serif;
     letter-spacing: 0.09em;
     text-transform: uppercase;
@@ -5199,7 +5199,7 @@
   .glo-effect-body { display: flex; flex-direction: column; gap: 0.2rem; }
 
   .glo-effect-name {
-    font-size: 0.43rem;
+    font-size: 0.48rem;
     color: var(--color-text-primary);
     font-weight: 600;
     letter-spacing: 0.02em;
@@ -5212,7 +5212,7 @@
   }
 
   .glo-effect-duration {
-    font-size: 0.37rem;
+    font-size: 0.48rem;
     color: var(--color-text-secondary);
     opacity: 0.7;
     font-style: italic;
@@ -5249,7 +5249,7 @@
   .glo-gambit-body { display: flex; flex-direction: column; gap: 0.2rem; }
 
   .glo-gambit-name {
-    font-size: 0.43rem;
+    font-size: 0.48rem;
     color: var(--color-text-primary);
     font-weight: 600;
   }
@@ -5293,7 +5293,7 @@
 
   .hb-narrative-badge {
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.43rem;
+    font-size: 0.48rem;
     letter-spacing: 0.06em;
     border-radius: 3px;
     padding: 2px 6px;
@@ -5312,7 +5312,7 @@
 
   .hb-narrative-range {
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.40rem;
+    font-size: 0.48rem;
     color: var(--color-text-secondary);
     opacity: 0.7;
     align-self: start;
@@ -5366,7 +5366,7 @@
 
   .cc-kits-budget-label {
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.45rem;
+    font-size: 0.50rem;
     letter-spacing: 0.07em;
     color: var(--color-text-secondary);
   }
@@ -5418,7 +5418,7 @@
   }
 
   .cc-kit-flat-meta {
-    font-size: 0.4rem;
+    font-size: 0.48rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--color-accent-primary);
@@ -5426,14 +5426,14 @@
   }
 
   .cc-kit-flat-desc {
-    font-size: 0.42rem;
+    font-size: 0.48rem;
     line-height: 1.6;
     color: var(--color-text-secondary);
     margin: 0;
   }
 
   .cc-kit-flat-cap {
-    font-size: 0.38rem;
+    font-size: 0.48rem;
     font-family: 'Audiowide', sans-serif;
     letter-spacing: 0.06em;
     color: var(--color-text-secondary);
@@ -5455,7 +5455,7 @@
 
   .cc-kit-flat-tier-label {
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.45rem;
+    font-size: 0.50rem;
     letter-spacing: 0.08em;
     color: var(--color-accent-primary);
     font-weight: 600;
@@ -5490,7 +5490,7 @@
   .cc-kit-flat-ab-tier {
     flex-shrink: 0;
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.38rem;
+    font-size: 0.48rem;
     letter-spacing: 0.06em;
     color: var(--color-accent-primary);
     min-width: 24px;
@@ -5513,14 +5513,14 @@
   }
 
   .cc-kit-flat-ab-name {
-    font-size: 0.46rem;
+    font-size: 0.50rem;
     font-weight: 600;
     color: var(--color-text-primary);
     line-height: 1.2;
   }
 
   .cc-kit-flat-ab-type {
-    font-size: 0.28rem;
+    font-size: 0.48rem;
     font-family: 'Audiowide', sans-serif;
     letter-spacing: 0.07em;
     text-transform: uppercase;
@@ -5554,14 +5554,14 @@
   }
 
   .cc-kit-flat-ab-rule {
-    font-size: 0.42rem;
+    font-size: 0.48rem;
     line-height: 1.5;
     color: var(--color-text-secondary);
     margin-top: 0.1rem;
   }
 
   .cc-kit-flat-ab-lock-msg {
-    font-size: 0.38rem;
+    font-size: 0.48rem;
     font-style: italic;
     color: var(--color-text-secondary);
     opacity: 0.7;
@@ -5589,7 +5589,7 @@
     border: 1px solid var(--color-border);
     background: var(--color-bg-primary);
     color: var(--color-text-primary);
-    font-size: 0.38rem;
+    font-size: 0.48rem;
     font-family: 'Audiowide', sans-serif;
     letter-spacing: 0.05em;
     text-transform: uppercase;
@@ -5655,10 +5655,10 @@
       width: 0.5rem;
     }
     .cc-back-link {
-      font-size: 0.42rem;
+      font-size: 0.48rem;
     }
     .cc-theme-btn {
-      font-size: 0.42rem;
+      font-size: 0.48rem;
       padding: 0.25rem 0.5rem;
     }
     .cc-screen-title {
@@ -5668,7 +5668,7 @@
       font-size: 0.5rem;
     }
     .cc-btn-stats-continue {
-      font-size: 0.42rem;
+      font-size: 0.48rem;
       padding: 0.5rem 1rem;
     }
     .cc-kit-flat-info {
@@ -5765,7 +5765,7 @@
 
   .outfitting-cat-btn {
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.45rem;
+    font-size: 0.50rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     padding: 0.2rem 0.5rem;
@@ -5829,7 +5829,7 @@
   }
 
   .outfitting-item-cat {
-    font-size: 0.42rem;
+    font-size: 0.48rem;
     font-family: 'Audiowide', sans-serif;
     letter-spacing: 0.06em;
     text-transform: uppercase;
@@ -5876,7 +5876,7 @@
   .outfitting-avail-badge {
     display: inline-block;
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.35rem;
+    font-size: 0.50rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     padding: 0.08rem 0.3rem;
@@ -5915,7 +5915,7 @@
     flex-wrap: wrap;
     gap: 0.3rem 0.6rem;
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.4rem;
+    font-size: 0.48rem;
     letter-spacing: 0.05em;
     color: var(--color-text-secondary);
   }
@@ -5937,7 +5937,7 @@
   .outfitting-trait-label,
   .outfitting-gambit-label {
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.42rem;
+    font-size: 0.48rem;
     letter-spacing: 0.06em;
     color: var(--color-accent-primary);
   }
@@ -5954,7 +5954,7 @@
 
   .outfitting-tag-pill {
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.35rem;
+    font-size: 0.50rem;
     letter-spacing: 0.06em;
     padding: 0.1rem 0.3rem;
     border: 1px solid color-mix(in srgb, var(--color-border) 60%, transparent);
@@ -6045,7 +6045,7 @@
 
   .outfitting-acq-badge {
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.3rem;
+    font-size: 0.48rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     padding: 1px 4px;
@@ -6068,12 +6068,12 @@
     color: var(--color-accent-secondary);
     border-color: color-mix(in srgb, var(--color-accent-secondary) 50%, transparent);
     font-family: inherit;
-    font-size: 0.28rem;
+    font-size: 0.48rem;
   }
 
   .outfitting-cart-section-head {
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.4rem;
+    font-size: 0.48rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--color-text-secondary);
@@ -6098,7 +6098,7 @@
     color: var(--color-accent-secondary);
     cursor: pointer;
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.3rem;
+    font-size: 0.48rem;
     letter-spacing: 0.05em;
     padding: 1px 5px;
     flex-shrink: 0;
@@ -6135,7 +6135,7 @@
 
   .outfitting-total-label {
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.45rem;
+    font-size: 0.50rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--color-text-secondary);
@@ -6236,7 +6236,7 @@
 
 .dp-section-bar-label {
   font-family: "Audiowide", sans-serif;
-  font-size: 0.48rem;
+  font-size: 0.52rem;
   letter-spacing: 0.10em;
   text-transform: uppercase;
   color: var(--color-accent-primary);
@@ -6244,7 +6244,7 @@
 }
 
 .dp-section-bar-count {
-  font-size: 0.46rem;
+  font-size: 0.50rem;
   color: var(--color-text-muted);
   letter-spacing: 0.04em;
 }
@@ -6255,7 +6255,7 @@
 }
 
 .dp-section-bar-chevron {
-  font-size: 0.45rem;
+  font-size: 0.50rem;
   color: var(--color-text-muted);
   transition: transform 0.2s ease;
   display: inline-block;
@@ -6302,7 +6302,7 @@
 
 .dp-ability-badge {
   font-family: "Audiowide", sans-serif;
-  font-size: 0.38rem;
+  font-size: 0.44rem;
   letter-spacing: 0.10em;
   padding: 1px 5px;
   border-radius: 2px;
@@ -6355,14 +6355,14 @@
 .dp-ability-card-name {
   font-family: "Exo 2", sans-serif;
   font-weight: 600;
-  font-size: 0.58rem;
+  font-size: 0.62rem;
   color: var(--color-text-primary);
   flex: 1;
   min-width: 0;
 }
 
 .dp-ability-card-source {
-  font-size: 0.42rem;
+  font-size: 0.50rem;
   color: var(--color-text-muted);
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -6376,7 +6376,7 @@
 }
 
 .dp-ability-card-tag {
-  font-size: 0.40rem;
+  font-size: 0.44rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--color-accent-primary);
@@ -6386,7 +6386,7 @@
 }
 
 .dp-ability-card-rule {
-  font-size: 0.52rem;
+  font-size: 0.55rem;
   color: var(--color-text-secondary);
   line-height: 1.5;
 }
@@ -6402,7 +6402,7 @@
 }
 
 .dp-ability-card-risk {
-  font-size: 0.48rem;
+  font-size: 0.52rem;
   color: #ef4444;
   line-height: 1.4;
   margin-top: 4px;
@@ -6438,7 +6438,7 @@
 
 .dp-effect-label {
   font-family: "Audiowide", sans-serif;
-  font-size: 0.38rem;
+  font-size: 0.48rem;
   letter-spacing: 0.06em;
   color: var(--color-accent-primary);
   flex-shrink: 0;
@@ -6447,7 +6447,7 @@
 }
 
 .dp-effect-range {
-  font-size: 0.40rem;
+  font-size: 0.48rem;
   color: var(--color-text-muted);
   flex-shrink: 0;
   min-width: 22px;
@@ -6459,7 +6459,7 @@
 }
 
 .dp-ability-card-extras {
-  font-size: 0.46rem;
+  font-size: 0.50rem;
   color: var(--color-accent-primary);
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -6518,7 +6518,7 @@
 
 .dp-tech-pill {
   font-family: "Audiowide", sans-serif;
-  font-size: 0.40rem;
+  font-size: 0.48rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   padding: 2px 10px;
@@ -6565,7 +6565,7 @@
 
 .dp-trait-label {
   font-family: "Audiowide", sans-serif;
-  font-size: 0.40rem;
+  font-size: 0.48rem;
   letter-spacing: 0.10em;
   text-transform: uppercase;
   color: var(--color-accent-primary);
@@ -6612,7 +6612,7 @@
 }
 
 .dp-prog-card-meta {
-  font-size: 0.42rem;
+  font-size: 0.48rem;
   color: var(--color-text-muted);
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -6634,7 +6634,7 @@
 
 .dp-prog-tier-pip {
   font-family: "Audiowide", sans-serif;
-  font-size: 0.38rem;
+  font-size: 0.48rem;
   letter-spacing: 0.08em;
   padding: 1px 8px;
   border: 1px solid var(--color-border);
@@ -6663,7 +6663,7 @@
 
 .dp-prog-locked-tier {
   font-family: "Audiowide", sans-serif;
-  font-size: 0.36rem;
+  font-size: 0.50rem;
   color: var(--color-text-muted);
   width: 20px;
   text-align: center;
@@ -6676,7 +6676,7 @@
 }
 
 .dp-prog-locked-type {
-  font-size: 0.38rem;
+  font-size: 0.48rem;
   color: var(--color-text-muted);
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -6790,7 +6790,7 @@
     }
 
     .destiny-section-sub {
-      font-size: 0.45rem;
+      font-size: 0.50rem;
       line-height: 1.6;
       color: var(--color-text-secondary);
       text-align: center;
@@ -6841,7 +6841,7 @@
     }
 
     .pd-card-tagline {
-      font-size: 0.38rem;
+      font-size: 0.48rem;
       line-height: 1.5;
       color: var(--color-text-secondary);
       font-style: italic;
@@ -6862,7 +6862,7 @@
 
     .pd-label {
       font-family: 'Audiowide', sans-serif;
-      font-size: 0.28rem;
+      font-size: 0.48rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       display: inline-block;
@@ -6889,13 +6889,13 @@
 
     .pd-mechanic-title {
       font-family: 'Audiowide', sans-serif;
-      font-size: 0.35rem;
+      font-size: 0.50rem;
       letter-spacing: 0.04em;
       color: var(--color-text-primary);
     }
 
     .pd-mechanic-desc {
-      font-size: 0.35rem;
+      font-size: 0.50rem;
       line-height: 1.55;
       color: var(--color-text-secondary);
     }
@@ -6954,14 +6954,14 @@
     }
 
     .bs-label {
-      font-size: 0.45rem;
+      font-size: 0.50rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--color-text-secondary);
     }
 
     .bs-optional {
-      font-size: 0.40rem;
+      font-size: 0.48rem;
       opacity: 0.6;
       text-transform: none;
       letter-spacing: 0;
@@ -7027,7 +7027,7 @@
       display: flex;
       align-items: center;
       gap: 0.35rem;
-      font-size: 0.45rem;
+      font-size: 0.50rem;
       color: var(--color-text-secondary);
       cursor: pointer;
       user-select: none;
@@ -7190,7 +7190,7 @@
     }
 
     .sum-save-status {
-      font-size: 0.45rem;
+      font-size: 0.50rem;
       line-height: 1.5;
       text-align: right;
       min-height: 1em;
