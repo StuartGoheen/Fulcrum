@@ -55,8 +55,8 @@
     outer.appendChild(_buildSpeciesTraits(char, speciesData));
     outer.appendChild(_buildKitProgression(char));
 
-    var narr = _buildNarrative(char);
-    if (narr) outer.appendChild(narr);
+    var pdSection = _buildPersonalDestiny(char);
+    if (pdSection) outer.appendChild(pdSection);
 
     panel.appendChild(outer);
   }
@@ -638,15 +638,16 @@
     return wrap;
   }
 
-  function _buildNarrative(char) {
-    if (!char.narrative) return null;
+  function _buildPersonalDestiny(char) {
+    var pd = char.personalDestiny;
+    if (!pd) return null;
 
     var wrap = document.createElement('div');
     wrap.className = 'dp-narrative-section dp-section--closed';
 
     var header = document.createElement('div');
     header.className = 'dp-section-bar dp-section-bar--toggle';
-    header.innerHTML = '<span class="dp-section-bar-label">Backstory</span>' +
+    header.innerHTML = '<span class="dp-section-bar-label">Personal Destiny</span>' +
       '<span class="dp-section-bar-chevron">\u25B8</span>';
     header.addEventListener('click', function () {
       wrap.classList.toggle('dp-section--closed');
@@ -654,12 +655,28 @@
     wrap.appendChild(header);
 
     var body = document.createElement('div');
-    body.className = 'dp-narrative-body';
+    body.className = 'dp-destiny-body';
 
-    var text = document.createElement('p');
-    text.className = 'dp-narrative-text';
-    text.textContent = char.narrative;
-    body.appendChild(text);
+    body.innerHTML =
+      '<div class="dp-destiny-name">' + _esc(pd.name) + '</div>' +
+      '<div class="dp-destiny-tagline">' + _esc(pd.tagline) + '</div>' +
+      '<div class="dp-destiny-question">' + _esc(pd.coreQuestion) + '</div>' +
+      '<div class="dp-destiny-mechs">' +
+        '<div class="dp-destiny-mech">' +
+          '<span class="dp-destiny-mech-badge dp-destiny-mech-badge--hope">Hope</span>' +
+          '<span class="dp-destiny-mech-title">' + _esc(pd.hopeRecovery.title) + '</span>' +
+          '<span class="dp-destiny-mech-desc">' + _esc(pd.hopeRecovery.description) + '</span>' +
+        '</div>' +
+        '<div class="dp-destiny-mech">' +
+          '<span class="dp-destiny-mech-badge dp-destiny-mech-badge--toll">Toll</span>' +
+          '<span class="dp-destiny-mech-title">' + _esc(pd.tollRecovery.title) + '</span>' +
+          '<span class="dp-destiny-mech-desc">' + _esc(pd.tollRecovery.description) + '</span>' +
+        '</div>' +
+        '<div class="dp-destiny-mech">' +
+          '<span class="dp-destiny-mech-badge dp-destiny-mech-badge--advance">Advance</span>' +
+          '<span class="dp-destiny-mech-desc">' + _esc(pd.advanceTrigger) + '</span>' +
+        '</div>' +
+      '</div>';
 
     wrap.appendChild(body);
     return wrap;

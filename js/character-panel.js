@@ -455,23 +455,49 @@
             '</tr>' +
           '</thead>' +
           '<tbody>' +
-            '<tr class="rl-row rl-row--leg">' +
-              '<td class="rl-cell rl-cell--fail">&minus;8 or worse</td>' +
-              '<td class="rl-cell rl-cell--tier">Legendary</td>' +
-              '<td class="rl-cell rl-cell--suc">8+</td>' +
+            '<tr class="rl-row rl-row--fle">' +
+              '<td class="rl-cell rl-cell--fail">&minus;1 to &minus;3</td>' +
+              '<td class="rl-cell rl-cell--tier">Fleeting</td>' +
+              '<td class="rl-cell rl-cell--suc">0 &ndash; 3</td>' +
             '</tr>' +
             '<tr class="rl-row rl-row--mas">' +
               '<td class="rl-cell rl-cell--fail">&minus;4 to &minus;7</td>' +
               '<td class="rl-cell rl-cell--tier">Masterful</td>' +
               '<td class="rl-cell rl-cell--suc">4 &ndash; 7</td>' +
             '</tr>' +
-            '<tr class="rl-row rl-row--fle">' +
-              '<td class="rl-cell rl-cell--fail">&minus;1 to &minus;3</td>' +
-              '<td class="rl-cell rl-cell--tier">Fleeting</td>' +
-              '<td class="rl-cell rl-cell--suc">0 &ndash; 3</td>' +
+            '<tr class="rl-row rl-row--leg">' +
+              '<td class="rl-cell rl-cell--fail">&minus;8 to &minus;11</td>' +
+              '<td class="rl-cell rl-cell--tier">Legendary</td>' +
+              '<td class="rl-cell rl-cell--suc">8 &ndash; 11</td>' +
             '</tr>' +
           '</tbody>' +
         '</table>' +
+
+        '<div class="rl-unleashed-header">Unleashed</div>' +
+        '<table class="rl-table rl-table--unleashed">' +
+          '<tbody>' +
+            '<tr class="rl-row rl-row--ul1">' +
+              '<td class="rl-cell rl-cell--fail">&minus;12 to &minus;15</td>' +
+              '<td class="rl-cell rl-cell--tier">Unleashed I</td>' +
+              '<td class="rl-cell rl-cell--suc">12 &ndash; 15</td>' +
+            '</tr>' +
+            '<tr class="rl-row rl-row--ul2">' +
+              '<td class="rl-cell rl-cell--fail">&minus;16 to &minus;19</td>' +
+              '<td class="rl-cell rl-cell--tier">Unleashed II</td>' +
+              '<td class="rl-cell rl-cell--suc">16 &ndash; 19</td>' +
+            '</tr>' +
+            '<tr class="rl-row rl-row--ul3">' +
+              '<td class="rl-cell rl-cell--fail">&minus;20 or worse</td>' +
+              '<td class="rl-cell rl-cell--tier">Unleashed III</td>' +
+              '<td class="rl-cell rl-cell--suc">20+</td>' +
+            '</tr>' +
+          '</tbody>' +
+        '</table>' +
+
+        '<div class="rl-unleashed-note">' +
+          '<span class="rl-unleashed-note-label">Attack:</span> Each Unleashed tier adds +3 flat damage<br>' +
+          '<span class="rl-unleashed-note-label">Other:</span> Narrative escalation &mdash; GM adjudication' +
+        '</div>' +
 
         '<div class="rl-mods">' +
           '<div class="rl-mods-title">Tier Modifiers</div>' +

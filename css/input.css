@@ -1648,10 +1648,49 @@
     font-weight: 600;
   }
 
+  .rl-row--fle { background: transparent; }
+  .rl-row--mas { background: rgba(255,255,255,0.02); }
   .rl-row--leg { background: rgba(255,255,255,0.04); }
   .rl-row--leg .rl-cell--tier { color: var(--color-accent-primary); }
-  .rl-row--mas { background: rgba(255,255,255,0.02); }
-  .rl-row--fle { background: transparent; }
+
+  .rl-unleashed-header {
+    font-family: "Audiowide", sans-serif;
+    font-size: 0.5rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #f97316;
+    margin: 6px 0 2px;
+    text-align: center;
+  }
+
+  .rl-table--unleashed {
+    border-color: rgba(249,115,22,0.3);
+  }
+
+  .rl-row--ul1 { background: rgba(249,115,22,0.06); }
+  .rl-row--ul2 { background: rgba(249,115,22,0.10); }
+  .rl-row--ul3 { background: rgba(249,115,22,0.15); }
+
+  .rl-row--ul1 .rl-cell--tier,
+  .rl-row--ul2 .rl-cell--tier,
+  .rl-row--ul3 .rl-cell--tier {
+    color: #f97316;
+  }
+
+  .rl-unleashed-note {
+    font-family: "Exo 2", sans-serif;
+    font-size: 0.48rem;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+    margin-top: 4px;
+    padding: 4px 6px;
+    border-left: 2px solid rgba(249,115,22,0.4);
+  }
+
+  .rl-unleashed-note-label {
+    font-weight: 700;
+    color: #f97316;
+  }
 
 
   .rl-mods {
@@ -6692,6 +6731,90 @@
   font-size: 0.52rem;
   color: var(--color-text-secondary);
   line-height: 1.65;
+}
+
+.dp-destiny-body {
+  padding: 8px 10px;
+}
+
+.dp-destiny-name {
+  font-family: "Audiowide", sans-serif;
+  font-size: 0.65rem;
+  color: var(--color-accent-primary);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.dp-destiny-tagline {
+  font-size: 0.5rem;
+  color: var(--color-text-secondary);
+  font-style: italic;
+  margin-bottom: 6px;
+}
+
+.dp-destiny-question {
+  font-size: 0.5rem;
+  color: var(--color-text-primary);
+  font-weight: 600;
+  margin-bottom: 8px;
+  padding: 4px 6px;
+  border-left: 2px solid var(--color-accent-primary);
+  background: rgba(255,255,255,0.02);
+}
+
+.dp-destiny-mechs {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dp-destiny-mech {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.dp-destiny-mech-badge {
+  font-family: "Audiowide", sans-serif;
+  font-size: 0.44rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 1px 6px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.dp-destiny-mech-badge--hope {
+  background: rgba(59,130,246,0.2);
+  color: #60a5fa;
+  border: 1px solid rgba(59,130,246,0.3);
+}
+
+.dp-destiny-mech-badge--toll {
+  background: rgba(239,68,68,0.2);
+  color: #f87171;
+  border: 1px solid rgba(239,68,68,0.3);
+}
+
+.dp-destiny-mech-badge--advance {
+  background: rgba(168,85,247,0.2);
+  color: #c084fc;
+  border: 1px solid rgba(168,85,247,0.3);
+}
+
+.dp-destiny-mech-title {
+  font-size: 0.5rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.dp-destiny-mech-desc {
+  font-size: 0.48rem;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  flex-basis: 100%;
 }
 
 

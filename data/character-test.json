@@ -8,7 +8,10 @@
   "phase1": "The War Front",
   "phase2": "The Pacification Survivor",
   "phase3": "The Traumatized",
-  "backgroundFavored": ["evasion", "survival"],
+  "backgroundFavored": [
+    "evasion",
+    "survival"
+  ],
   "vitalityModifier": 0,
   "weaponIds": [
     "wpn_dc15s_01",
@@ -36,7 +39,11 @@
       "cost": "1 Edge Point",
       "rule": "Spend 1 Edge Point after a roll to instantly increase your final Power result by +1 Effect Tier (e.g., from a Fleeting success to a Masterful success). You may only use this on favored Disciplines granted by your Background and Vocations."
     },
-    "governingArenas": ["reflex", "physique", "presence"]
+    "governingArenas": [
+      "reflex",
+      "physique",
+      "presence"
+    ]
   },
   "kits": {
     "voc_gunslinger": 5,
@@ -54,11 +61,31 @@
       "subtitle": "Strength, Structure, Endurance",
       "die": "D8",
       "disciplines": [
-        { "id": "athletics", "label": "Athletics", "die": "D12" },
-        { "id": "brawl", "label": "Brawl", "die": "D12" },
-        { "id": "endure", "label": "Endure", "die": "D12" },
-        { "id": "melee", "label": "Melee", "die": "D12" },
-        { "id": "heavy_weapons", "label": "Heavy Weapons", "die": "D12" }
+        {
+          "id": "athletics",
+          "label": "Athletics",
+          "die": "D12"
+        },
+        {
+          "id": "brawl",
+          "label": "Brawl",
+          "die": "D12"
+        },
+        {
+          "id": "endure",
+          "label": "Endure",
+          "die": "D12"
+        },
+        {
+          "id": "melee",
+          "label": "Melee",
+          "die": "D12"
+        },
+        {
+          "id": "heavy_weapons",
+          "label": "Heavy Weapons",
+          "die": "D12"
+        }
       ]
     },
     {
@@ -67,11 +94,31 @@
       "subtitle": "Speed, Agility, Hand-Eye Coordination",
       "die": "D6",
       "disciplines": [
-        { "id": "evasion", "label": "Evasion", "die": "D12" },
-        { "id": "piloting", "label": "Piloting", "die": "D12" },
-        { "id": "ranged", "label": "Ranged", "die": "D12" },
-        { "id": "skulduggery", "label": "Skulduggery", "die": "D12" },
-        { "id": "stealth", "label": "Stealth", "die": "D12" }
+        {
+          "id": "evasion",
+          "label": "Evasion",
+          "die": "D12"
+        },
+        {
+          "id": "piloting",
+          "label": "Piloting",
+          "die": "D12"
+        },
+        {
+          "id": "ranged",
+          "label": "Ranged",
+          "die": "D12"
+        },
+        {
+          "id": "skulduggery",
+          "label": "Skulduggery",
+          "die": "D12"
+        },
+        {
+          "id": "stealth",
+          "label": "Stealth",
+          "die": "D12"
+        }
       ]
     },
     {
@@ -80,11 +127,31 @@
       "subtitle": "Instinct, Stamina, Spiritual Willpower",
       "die": "D10",
       "disciplines": [
-        { "id": "beast_handling", "label": "Beast Handling", "die": "D12" },
-        { "id": "control_spark", "label": "Control (The Spark)", "die": "D12" },
-        { "id": "intimidate", "label": "Intimidate", "die": "D12" },
-        { "id": "resolve", "label": "Resolve", "die": "D12" },
-        { "id": "survival", "label": "Survival", "die": "D12" }
+        {
+          "id": "beast_handling",
+          "label": "Beast Handling",
+          "die": "D12"
+        },
+        {
+          "id": "control_spark",
+          "label": "Control (The Spark)",
+          "die": "D12"
+        },
+        {
+          "id": "intimidate",
+          "label": "Intimidate",
+          "die": "D12"
+        },
+        {
+          "id": "resolve",
+          "label": "Resolve",
+          "die": "D12"
+        },
+        {
+          "id": "survival",
+          "label": "Survival",
+          "die": "D12"
+        }
       ]
     },
     {
@@ -93,11 +160,31 @@
       "subtitle": "Logic, Awareness, Technical Knowledge",
       "die": "D8",
       "disciplines": [
-        { "id": "investigation", "label": "Investigation", "die": "D12" },
-        { "id": "medicine", "label": "Medicine", "die": "D12" },
-        { "id": "sense_spark", "label": "Sense (The Spark)", "die": "D12" },
-        { "id": "tactics", "label": "Tactics", "die": "D12" },
-        { "id": "tech", "label": "Tech", "die": "D12" }
+        {
+          "id": "investigation",
+          "label": "Investigation",
+          "die": "D12"
+        },
+        {
+          "id": "medicine",
+          "label": "Medicine",
+          "die": "D12"
+        },
+        {
+          "id": "sense_spark",
+          "label": "Sense (The Spark)",
+          "die": "D12"
+        },
+        {
+          "id": "tactics",
+          "label": "Tactics",
+          "die": "D12"
+        },
+        {
+          "id": "tech",
+          "label": "Tech",
+          "die": "D12"
+        }
       ]
     },
     {
@@ -106,12 +193,48 @@
       "subtitle": "Charisma, Authority, Projection of Will",
       "die": "D4",
       "disciplines": [
-        { "id": "alter_spark", "label": "Alter (The Spark)", "die": "D12" },
-        { "id": "charm", "label": "Charm", "die": "D12" },
-        { "id": "deception", "label": "Deception", "die": "D12" },
-        { "id": "insight", "label": "Insight", "die": "D12" },
-        { "id": "persuasion", "label": "Persuasion", "die": "D12" }
+        {
+          "id": "alter_spark",
+          "label": "Alter (The Spark)",
+          "die": "D12"
+        },
+        {
+          "id": "charm",
+          "label": "Charm",
+          "die": "D12"
+        },
+        {
+          "id": "deception",
+          "label": "Deception",
+          "die": "D12"
+        },
+        {
+          "id": "insight",
+          "label": "Insight",
+          "die": "D12"
+        },
+        {
+          "id": "persuasion",
+          "label": "Persuasion",
+          "die": "D12"
+        }
       ]
     }
-  ]
+  ],
+  "personalDestiny": {
+    "id": "destruction",
+    "name": "Destruction",
+    "tagline": "Your fate is to end something that should not endure.",
+    "coreQuestion": "Did something permanent end because of you?",
+    "hopeRecovery": {
+      "title": "The Purge",
+      "description": "When you bring about the permanent end of something that has caused widespread suffering — dismantle an Imperial operation, collapse a slave network, destroy a superweapon before it deploys."
+    },
+    "tollRecovery": {
+      "title": "The Ruin",
+      "description": "When you annihilate something irreplaceable to serve your own purpose — destroy a sacred site to deny it to your enemies, wipe out an entire faction to eliminate one target, burn the archive so no one can learn what you did."
+    },
+    "advanceTrigger": "When something that shaped the region, faction, or story ceases to exist because of you.",
+    "narrativeHook": "This character is drawn toward endings — tearing down what is broken, corrupt, or dangerous. Whether they destroy to protect or destroy to control is the question that defines their path."
+  }
 }
