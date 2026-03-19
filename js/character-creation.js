@@ -233,6 +233,7 @@
       symbol: 'Twin Suns',
       imageUrl: '/assets/phase1/01-deep-fringe.png',
       narrative: 'You grew up where the Empire\'s reach frays to nothing — twin suns bleaching everything pale, the nearest starport a week\'s ride out. Self-reliance isn\'t a virtue here; it\'s the only thing keeping you breathing. The galaxy owes you nothing, and that truth made you dangerous.',
+      backgroundItems: [{"id":"breath_mask","name":"Breath Mask","cost":50,"source":"gear"},{"id":"thermal_cloak","name":"Thermal Cloak","cost":300,"source":"gear"}],
       _meta: { environment: 'outer-rim-desert', locationHints: ['Jakku', 'Jedha', 'Arvala-7', 'Florrum', 'Abafar'], tone: 'isolation, self-reliance, frontier survival', themes: ['resource scarcity', 'independence', 'frontier justice'], favored: 'Survival (Grit)', favoredName: 'Dust-Born Tenacity', favoredDesc: 'Years of rationing water, patching shelters against sandstorms, and reading the land for hidden dangers forged an instinct for staying alive where nothing wants you to.' },
     },
     {
@@ -241,6 +242,7 @@
       symbol: 'Sabacc Chip',
       imageUrl: '/assets/phase1/02-shadowed-levels.png',
       narrative: 'You were raised in the underlevels — where the lights of the upper city are just a rumor and debts are paid in blood or service. You learned to read people before you could read a holomap, and you know that every deal has a hidden clause. Trust is a currency you spend carefully.',
+      backgroundItems: [{"id":"disguise_kit","name":"Disguise Kit","cost":250,"source":"gear"},{"id":"smoke_grenade","name":"Smoke Grenade","cost":25,"source":"gear"}],
       _meta: { environment: 'urban-underworld', locationHints: ['Nar Shaddaa', 'Ord Mantell', 'Daiyu', 'Corellia', 'Nal Hutta'], tone: 'cunning, distrust, survival by wit', themes: ['class divide', 'criminal networks', 'street smarts'], favored: 'Stealth (Reflex)', favoredName: 'Underlevel Ghost', favoredDesc: 'Moving unseen through the stacked warrens of the underworld taught you how to vanish mid-stride — slipping through crowds, ducking sensor sweeps, and leaving no trace.' },
     },
     {
@@ -249,6 +251,7 @@
       symbol: 'Hydrospanner',
       imageUrl: '/assets/phase1/03-salvage-yards.png',
       narrative: 'Every ship that flies was once someone\'s wreck. You grew up knee-deep in that wreckage — pulling circuits from crashed freighters, selling scrap to keep the lights on. Machines tell you their secrets if you know how to listen. You\'ve built survival from the galaxy\'s trash.',
+      backgroundItems: [{"id":"hydrospanner","name":"Hydrospanner","cost":50,"source":"gear"},{"id":"fusion_cutter","name":"Fusion Cutter","cost":75,"source":"gear"}],
       _meta: { environment: 'junkyard-planet', locationHints: ['Bracca', 'Raxus Prime', 'Lotho Minor', 'Agaris'], tone: 'resourcefulness, ingenuity, underdog grit', themes: ['mechanical aptitude', 'poverty', 'found family'], favored: 'Tech (Wits)', favoredName: 'Scrapyard Intuition', favoredDesc: 'You learned to coax dying machines back to life with salvaged parts and sheer stubbornness. Every hull fragment whispers its history if you know where to press your ear.' },
     },
     {
@@ -257,6 +260,7 @@
       symbol: 'Senate Crest',
       imageUrl: '/assets/phase1/04-coreward-spires.png',
       narrative: 'You had everything the Empire promised — spires that touched the clouds, an education that opened doors, and a family name worth something. Then you saw what that system cost the rest of the galaxy. Some fled privilege in guilt; others were pushed out when their usefulness expired.',
+      backgroundItems: [{"id":"datapad","name":"Datapad","cost":50,"source":"gear"},{"id":"pocket_secretary","name":"Pocket Secretary","cost":150,"source":"gear"}],
       _meta: { environment: 'core-world-city', locationHints: ['Chandrila', 'Hosnian Prime', 'Corellia', 'Alsakan', 'Kuat'], tone: 'privilege, disillusionment, insider knowledge', themes: ['political intrigue', 'Imperial complicity', 'fallen status'], favored: 'Persuasion (Presence)', favoredName: 'Courtly Tongue', favoredDesc: 'Growing up among senators and industrialists taught you how words shape power. You know how to frame an argument so it feels like the listener\'s own idea.' },
     },
     {
@@ -265,6 +269,7 @@
       symbol: 'Moisture Vaporator',
       imageUrl: '/assets/phase1/05-agrarian-plain.png',
       narrative: 'You come from working land — rows of crops, communal tables, and seasons that ruled your calendar. Your community survived by cooperation and quiet resilience. The Empire took the harvest and left the labor. That memory of something worth protecting is why you fight.',
+      backgroundItems: [{"id":"field_rations","name":"Field Rations","cost":10,"source":"gear"},{"id":"syntherope","name":"Syntherope","cost":10,"source":"gear"},{"id":"gear_bag","name":"Gear Bag","cost":50,"source":"gear"}],
       _meta: { environment: 'farming-world', locationHints: ['Dantooine', 'Lothal', 'Lah\'mu', 'Raada', 'Saleucami'], tone: 'community, loss, humble origins', themes: ['Imperial taxation', 'rural displacement', 'agrarian values'], favored: 'Resolve (Grit)', favoredName: 'Rootstock Will', favoredDesc: 'Seasons of drought, Imperial levy collectors, and backbreaking harvests taught you to endure what would break others. When the soil fights you, you plant deeper.' },
     },
     {
@@ -273,6 +278,7 @@
       symbol: 'Blaster Pistol',
       imageUrl: '/assets/phase1/06-war-front.png',
       narrative: 'Peace is something other people talk about. You grew up in the sound of it — distant artillery, rationed water, the faces of soldiers cycling through. War was the weather of your childhood. You learned to read threat before you learned to read a face. You are very, very hard to surprise.',
+      backgroundItems: [{"id":"comlink","name":"Comlink","cost":50,"source":"gear"},{"id":"bacta_patch","name":"Bacta Patch","cost":20,"source":"gear"},{"id":"smoke_grenade","name":"Smoke Grenade","cost":25,"source":"gear"}],
       _meta: { environment: 'conflict-zone', locationHints: ['Mimban', 'Onderon', 'Christophsis', 'Umbara', 'Ryloth'], tone: 'hardened, vigilant, combat-shaped', themes: ['military exposure', 'PTSD', 'tactical instinct'], favored: 'Evasion (Reflex)', favoredName: 'Shell-Shock Reflexes', favoredDesc: 'Artillery and ambushes rewired your nervous system. You don\'t think about dodging — your body moves before the blast hits, honed by years of living where standing still means dying.' },
     },
     {
@@ -281,6 +287,7 @@
       symbol: 'Broken Arch',
       imageUrl: '/assets/phase1/07-ancient-ruin.png',
       narrative: 'Your home was built on something older — crumbled temples, inscriptions no living scholar could read, and a persistent feeling that the air itself was watching. You grew up chasing questions no one could answer. Whatever the old civilization left behind, a fragment of it lodged in you.',
+      backgroundItems: [{"id":"glow_rod","name":"Glow Rod","cost":10,"source":"gear"},{"id":"recording_rod","name":"Recording Rod","cost":30,"source":"gear"},{"id":"macro_binoculars","name":"Macro-binoculars","cost":100,"source":"gear"}],
       _meta: { environment: 'ancient-nexus-world', locationHints: ['Jedha', 'Tython', 'Malachor', 'Dathomir', 'Ilum'], tone: 'curiosity, mysticism, inherited mystery', themes: ['Force adjacency', 'lost civilization', 'archaeology'], favored: 'Investigation (Wits)', favoredName: 'Ruin-Reader\'s Eye', favoredDesc: 'Tracing glyphs by lamplight and cross-referencing crumbling datapads trained you to spot what others overlook. Patterns emerge for you where everyone else sees noise.' },
     },
     {
@@ -289,6 +296,7 @@
       symbol: 'Navigation Beacon',
       imageUrl: '/assets/phase1/08-trading-post.png',
       narrative: 'Where routes cross, everything flows — goods, gossip, fugitives, and opportunity. You grew up at the intersection, learning a dozen languages before adulthood and the art of the deal before you could pilot. You know that information is the most valuable cargo in the galaxy.',
+      backgroundItems: [{"id":"comlink","name":"Comlink","cost":50,"source":"gear"},{"id":"datapad","name":"Datapad","cost":50,"source":"gear"},{"id":"wrist_chronometer","name":"Wrist Chronometer","cost":50,"source":"gear"}],
       _meta: { environment: 'spaceport-crossroads', locationHints: ['Takodana', 'Batuu', 'Ord Mantell', 'Eriadu', 'Akiva'], tone: 'cosmopolitan, opportunistic, multilingual', themes: ['trade networks', 'cultural exposure', 'information brokering'], favored: 'Insight (Presence)', favoredName: 'Crossroads Intuition', favoredDesc: 'A lifetime of reading merchants, refugees, and con artists at the crossroads gave you an ear for half-truths. You sense the angle before the pitch is finished.' },
     },
     {
@@ -297,6 +305,7 @@
       symbol: 'Cell Bars',
       imageUrl: '/assets/phase1/09-detention-block.png',
       narrative: 'You were born into a cage — not always made of durasteel. Labor camp, indentured service, political imprisonment, or simply the wrong bloodline at the wrong time. The Empire taught you exactly what it was through direct experience. Freedom, when it came, felt like a weapon handed to you.',
+      backgroundItems: [{"id":"binders","name":"Binders","cost":50,"source":"gear"},{"id":"stimulant_tabs","name":"Stimulant Tabs","cost":20,"source":"gear"}],
       _meta: { environment: 'imperial-detention', locationHints: ['Wobani', 'Kessel', 'Stygeon Prime', 'Kashyyyk', 'Naraka'], tone: 'defiance, trauma, hard-won freedom', themes: ['forced labor', 'Imperial oppression', 'escape and survival'], favored: 'Endure (Physique)', favoredName: 'Iron Constitution', favoredDesc: 'Starvation rations, forced marches, and interrogation droids taught your body to absorb punishment that would drop anyone else. Pain is just a signal you learned to override.' },
     },
     {
@@ -305,6 +314,7 @@
       symbol: 'Cockpit View',
       imageUrl: '/assets/phase1/10-shipboard-born.png',
       narrative: 'You were born between jumps, raised in the hold of a freighter, and taught to read a navcomputer before you could read Basic. Ships aren\u0027t transportation to you \u2014 they\u0027re the only home you\u0027ve ever had. The stars don\u0027t frighten you. The ground does.',
+      backgroundItems: [{"id":"hydrospanner","name":"Hydrospanner","cost":50,"source":"gear"},{"id":"comlink","name":"Comlink","cost":50,"source":"gear"},{"id":"breath_mask","name":"Breath Mask","cost":50,"source":"gear"}],
       _meta: { environment: 'deep-space-freighter', locationHints: ['Rishi', 'Vandor', 'Ring of Kafrene', 'Terminus', 'Burnin Konn'], tone: 'wanderlust, belonging, the void as home', themes: ['life in transit', 'found family', 'hyperspace routes'], favored: 'Piloting (Reflex)', favoredName: 'Void-Born Hands', favoredDesc: 'Born between hyperspace jumps, you feel a ship\'s rhythm the way grounders feel gravity. Thrust vectors, drift corrections, and emergency burns are second nature — the cockpit is the only room that ever felt like home.' },
     },
     {
@@ -313,6 +323,7 @@
       symbol: 'Pickaxe and Tally',
       imageUrl: '/assets/phase1/11-labor-camp.png',
       narrative: 'You were a number on a corporate extraction ledger. Whether conscripted, sold into indentured service, or simply born on the wrong side of a mining contract, you spent your formative years breaking your back for quotas that were never going to be met. Your body knows pain. Your mind knows how to keep going anyway.',
+      backgroundItems: [{"id":"rock_boots","name":"Rock Boots","cost":50,"source":"gear"},{"id":"power_prybar","name":"Power Prybar","cost":30,"source":"gear"},{"id":"syntherope","name":"Syntherope","cost":10,"source":"gear"}],
       _meta: { environment: 'corporate-mining-site', locationHints: ['Kessel', 'Mustafar', 'Wobani', 'Seelos', 'Cynda'], tone: 'endurance, resentment, physical grit', themes: ['forced labor', 'corporate exploitation', 'survival under duress'], favored: 'Athletics (Physique)', favoredName: 'Quarry-Forged Strength', favoredDesc: 'Hauling ore carts, climbing unstable shafts, and breaking rock with crude tools sculpted a body built for raw physical output. When the ground shakes, you keep swinging.' },
     },
     {
@@ -321,6 +332,7 @@
       symbol: 'The Sealed Door',
       imageUrl: '/assets/phase1/12-enclave.png',
       narrative: 'You were raised inside something closed \u2014 a religious order, a hidden commune, a survivalist sect, or the remnant of an ancient tradition that survived by going silent. Inside, there was belonging and purpose. Outside was danger. When you finally crossed the threshold, the galaxy felt enormous and hostile in equal measure.',
+      backgroundItems: [{"id":"glow_rod","name":"Glow Rod","cost":10,"source":"gear"},{"id":"mem_stik","name":"Mem-Stik","cost":50,"source":"gear"},{"id":"gear_bag","name":"Gear Bag","cost":50,"source":"gear"}],
       _meta: { environment: 'hidden-community', locationHints: ['Jedha', 'Bardotta', 'Lothal', 'Atollon', 'Lira San'], tone: 'belonging, isolation, threshold crossing', themes: ['tradition and heresy', 'secret knowledge', 'cult of community'], favored: 'Charm (Presence)', favoredName: 'Voice of the Inner Circle', favoredDesc: 'Years of communal ritual and close-quarter diplomacy gave you an effortless warmth that disarms strangers. People want to trust you — and you learned exactly how to invite that.' },
     },
   ];
@@ -332,6 +344,7 @@
       symbol: 'Republic Cog',
       imageUrl: '/assets/phase2/01-disbanded-regular.png',
       narrative: 'You fought for the Galactic Republic or a localized planetary defense force. You bled in the mud alongside Clone Troopers to hold the line against the droid army. But when the war ended, the Republic became the Empire. Your unit was either forcibly decommissioned, replaced by conscripted stormtroopers, or folded into a fascist machine you refused to serve.',
+      backgroundItems: [{"id":"comlink","name":"Comlink","cost":50,"source":"gear"},{"id":"combat_jumpsuit","name":"Combat Jumpsuit","cost":300,"source":"armor"}],
       _meta: {
         phase: 'departure',
         archetype: 'veteran',
@@ -349,6 +362,7 @@
       symbol: 'Hexagon',
       imageUrl: '/assets/phase2/02-separatist-holdout.png',
       narrative: 'You fought for the Confederacy of Independent Systems. You believed in independence from a corrupt Core, but you lost the war. Now, the new Empire labels you a terrorist. You spent the last three years hiding your past, keeping old Separatist tech running with scavenged parts, and maintaining a deep, burning hatred for the stormtroopers occupying your world.',
+      backgroundItems: [{"id":"field_toolkit","name":"Field Toolkit","cost":250,"source":"gear"},{"id":"scomp_spiker","name":"Scomp Spiker","cost":20,"source":"gear"}],
       _meta: {
         phase: 'departure',
         archetype: 'idealist',
@@ -366,6 +380,7 @@
       symbol: 'Imperial Crest',
       imageUrl: '/assets/phase2/03-imperial-defector.png',
       narrative: 'You bought the Emperor\'s lies about peace and order. You enlisted in the new Imperial Academies and were shipped out to the Western Regions. But when you saw the sheer brutality of the Pacification Campaigns — the burning of settlements and the subjugation of innocents — your conscience broke. You went AWOL, taking their training and their secrets with you.',
+      backgroundItems: [{"id":"datapad","name":"Datapad","cost":50,"source":"gear"},{"id":"heavy_jacket","name":"Heavy Jacket","cost":50,"source":"armor"}],
       _meta: {
         phase: 'departure',
         archetype: 'defector',
@@ -383,6 +398,7 @@
       symbol: 'Thruster',
       imageUrl: '/assets/phase2/04-blockade-runner.png',
       narrative: 'The Clone Wars were a tragedy for some, but a business opportunity for you. You spent the war running food, weapons, and medical supplies past massive Republic cruisers and Separatist blockades. You learned how to fly a freighter like a starfighter, how to lie to military customs officers, and how to dump your cargo at the first sign of a tractor beam.',
+      backgroundItems: [{"id":"breath_mask","name":"Breath Mask","cost":50,"source":"gear"},{"id":"comlink","name":"Comlink","cost":50,"source":"gear"}],
       _meta: {
         phase: 'departure',
         archetype: 'smuggler',
@@ -400,6 +416,7 @@
       symbol: 'Burning Star',
       imageUrl: '/assets/phase2/05-pacification-survivor.png',
       narrative: 'You didn\'t care about the Republic or the Separatists until the new Empire arrived in the Western Regions to "pacify" your home. You watched your settlement burn and your leaders get executed. You fled into the wilderness and learned to fight a desperate, asymmetrical guerrilla war against AT-DP walkers and Imperial garrisons using only traps, shadows, and scavenged blasters.',
+      backgroundItems: [{"id":"thermal_cloak","name":"Thermal Cloak","cost":300,"source":"gear"},{"id":"bacta_patch","name":"Bacta Patch","cost":20,"source":"gear"}],
       _meta: {
         phase: 'departure',
         archetype: 'insurgent',
@@ -417,6 +434,7 @@
       symbol: 'Stim-Tube',
       imageUrl: '/assets/phase2/06-field-medic.png',
       narrative: 'The Clone Wars produced billions of casualties. You found your calling in the blood and the mud, patching up soldiers, mercenaries, and collateral civilians. You learned how to dig plasma-scorched shrapnel out of flesh with cheap tools, how to keep your hands steady while artillery shakes the ground, and how to make horrific triage choices.',
+      backgroundItems: [{"id":"medpac","name":"Medpac","cost":100,"source":"gear"},{"id":"stim_pack","name":"Stim Pack","cost":150,"source":"gear"}],
       _meta: {
         phase: 'departure',
         archetype: 'healer',
@@ -434,6 +452,7 @@
       symbol: 'Brass Knuckle',
       imageUrl: '/assets/phase2/07-syndicate-enforcer.png',
       narrative: 'The galactic war was just a distraction. While the Jedi and the Droid Armies fought, the underworld syndicates expanded their empires. You spent the last few years working for the Hutts, the Pykes, or the Crimson Dawn. You learned how to collect debts, how to take a hit from a vibro-blade, and how to project enough quiet menace to make people pay up without a fight.',
+      backgroundItems: [{"id":"combat_gloves","name":"Combat Gloves","cost":200,"source":"weapon"},{"id":"binders","name":"Binders","cost":50,"source":"gear"}],
       _meta: {
         phase: 'departure',
         archetype: 'criminal',
@@ -451,6 +470,7 @@
       symbol: 'Crosshair',
       imageUrl: '/assets/phase2/08-post-war-tracker.png',
       narrative: 'The end of the war created millions of refugees, deserters, and war criminals. The Empire and the Syndicates both put out massive bounties to clean up the mess. You took the hunter\'s creed, learning how to track a quarry across a dozen chaotic, war-torn star systems, and how to put a blaster bolt exactly where it needs to go to secure a live capture.',
+      backgroundItems: [{"id":"macro_binoculars","name":"Macro-binoculars","cost":100,"source":"gear"},{"id":"syntherope","name":"Syntherope","cost":10,"source":"gear"}],
       _meta: {
         phase: 'departure',
         archetype: 'hunter',
@@ -468,6 +488,7 @@
       symbol: 'Severed Braid',
       imageUrl: '/assets/phase2/09-purge-survivor.png',
       narrative: 'Order 66 didn\'t just target the Jedi; the Empire immediately outlawed dozens of religions, academic orders, and political factions. You were part of a group that was declared treasonous the day the Empire was born. For three years, you have survived by hiding your true nature, trusting your instincts over your eyes, and learning how to disappear into a crowd.',
+      backgroundItems: [{"id":"disguise_kit","name":"Disguise Kit","cost":250,"source":"gear"},{"id":"stimulant_tabs","name":"Stimulant Tabs","cost":20,"source":"gear"}],
       _meta: {
         phase: 'departure',
         archetype: 'purged',
@@ -485,6 +506,7 @@
       symbol: 'Hull Break',
       imageUrl: '/assets/phase2/10-wreck.png',
       narrative: 'Something catastrophic happened \u2014 a ship destroyed, a convoy ambushed, a convoy gone silent in the void. You were one of the only survivors, dragged out of the debris by luck or will alone. The wreck changed the trajectory of everything. What you lost there is still with you.',
+      backgroundItems: [{"id":"bacta_patch","name":"Bacta Patch","cost":20,"source":"gear"},{"id":"fusion_cutter","name":"Fusion Cutter","cost":75,"source":"gear"}],
       _meta: {
         phase: 'departure',
         archetype: 'survivor',
@@ -502,6 +524,7 @@
       symbol: 'Rising Rank',
       imageUrl: '/assets/phase2/11-ascent.png',
       narrative: 'You climbed. Whether through the Imperial ranks, a corporate hierarchy, or a criminal syndicate\u0027s chain of command, you earned real power \u2014 and then burned it all down on your way out. You know how institutions work from the inside. You know exactly where the cracks are.',
+      backgroundItems: [{"id":"datapad","name":"Datapad","cost":50,"source":"gear"},{"id":"comlink","name":"Comlink","cost":50,"source":"gear"}],
       _meta: {
         phase: 'departure',
         archetype: 'fallen-officer',
@@ -519,6 +542,7 @@
       symbol: 'The Knife Behind',
       imageUrl: '/assets/phase2/12-betrayal.png',
       narrative: 'Someone you trusted set you up. A partner, a commanding officer, a patron \u2014 someone who smiled while selling you out. You survived what they arranged for you, and now you carry two things everywhere: the lesson, and the debt. Trust is not something you give freely anymore.',
+      backgroundItems: [{"id":"vibroblade","name":"Vibroblade","cost":250,"source":"weapon"},{"id":"tox_detector","name":"Tox Detector","cost":20,"source":"gear"}],
       _meta: {
         phase: 'departure',
         archetype: 'burned-agent',
@@ -733,6 +757,8 @@
     eliteTokensUsed: 0,
     kitChoices:      {},
     startingGear:    [],
+    soldBackCredits: 0,
+    soldBackgroundKeys: [],
     destiny:         null,
     charName:        '',
     charTitle:       '',
@@ -1804,6 +1830,42 @@
   /* ── Outfitting step ─────────────────────────────────────────────────── */
 
   var STARTING_CREDITS = 500;
+
+  var VOCATION_ITEMS = {
+    voc_gunslinger:   [{id:'merr_sonn_quick_six', name:'Merr-Sonn Quick-Six', cost:325, source:'weapon'}],
+    voc_shockboxer:   [{id:'combat_gloves', name:'Combat Gloves', cost:200, source:'weapon'}],
+    voc_ghost:         [{id:'smoke_grenade', name:'Smoke Grenade', cost:25, source:'gear'}, {id:'scomp_spiker', name:'Scomp Spiker', cost:20, source:'gear'}],
+    voc_ichor_witch:   [{id:'glow_rod', name:'Glow Rod', cost:10, source:'gear'}],
+    voc_noble:         [{id:'pocket_secretary', name:'Pocket Secretary', cost:150, source:'gear'}],
+    voc_investigator:  [{id:'recording_rod', name:'Recording Rod', cost:30, source:'gear'}, {id:'macro_binoculars', name:'Macro-binoculars', cost:100, source:'gear'}],
+  };
+
+  function collectBackgroundItems() {
+    var items = [];
+    var phase1Card = state.phase1 ? PHASE1_CARDS.find(function(c) { return c.id === state.phase1; }) : null;
+    var phase2Card = state.phase2 ? PHASE2_CARDS.find(function(c) { return c.id === state.phase2; }) : null;
+    if (phase1Card && phase1Card.backgroundItems) {
+      phase1Card.backgroundItems.forEach(function(item) {
+        items.push({ id: item.id, name: item.name, cost: item.cost, source: item.source, acquisition: 'background', origin: phase1Card.title });
+      });
+    }
+    if (phase2Card && phase2Card.backgroundItems) {
+      phase2Card.backgroundItems.forEach(function(item) {
+        items.push({ id: item.id, name: item.name, cost: item.cost, source: item.source, acquisition: 'background', origin: phase2Card.title });
+      });
+    }
+    var kc = state.kitChoices || {};
+    Object.keys(kc).forEach(function(vocId) {
+      if (kc[vocId] > 0 && VOCATION_ITEMS[vocId]) {
+        var vocName = vocId.replace('voc_', '').replace(/_/g, ' ');
+        vocName = vocName.charAt(0).toUpperCase() + vocName.slice(1);
+        VOCATION_ITEMS[vocId].forEach(function(item) {
+          items.push({ id: item.id, name: item.name, cost: item.cost, source: item.source, acquisition: 'background', origin: 'Vocation: ' + vocName });
+        });
+      }
+    });
+    return items;
+  }
   var OUTFITTING_CATALOG = [];
 
   function loadOutfittingCatalog() {
@@ -1859,15 +1921,44 @@
 
   function outfittingCreditsSpent() {
     var items = state.startingGear || [];
-    return items.reduce(function(acc, item) { return acc + (item.cost || 0); }, 0);
+    return items.reduce(function(acc, item) {
+      if (item.acquisition === 'background') return acc;
+      return acc + (item.cost || 0);
+    }, 0);
   }
 
   function outfittingCreditsRemaining() {
-    return STARTING_CREDITS - outfittingCreditsSpent();
+    return STARTING_CREDITS - outfittingCreditsSpent() + (state.soldBackCredits || 0);
   }
 
   function initOutfittingScreen() {
     if (!state.startingGear) state.startingGear = [];
+    var bgItems = collectBackgroundItems();
+    var existingBgIds = {};
+    state.startingGear.forEach(function(g) {
+      if (g.acquisition === 'background') existingBgIds[g.id + '|' + (g.origin || '')] = true;
+    });
+    var soldKeys = {};
+    (state.soldBackgroundKeys || []).forEach(function(k) { soldKeys[k] = true; });
+    bgItems.forEach(function(bg) {
+      var key = bg.id + '|' + (bg.origin || '');
+      if (!existingBgIds[key] && !soldKeys[key]) {
+        state.startingGear.push(bg);
+        existingBgIds[key] = true;
+      }
+    });
+    var validBgKeys = {};
+    bgItems.forEach(function(bg) { validBgKeys[bg.id + '|' + (bg.origin || '')] = true; });
+    state.startingGear = state.startingGear.filter(function(g) {
+      if (g.acquisition !== 'background') return true;
+      return validBgKeys[g.id + '|' + (g.origin || '')];
+    });
+    if (state.soldBackgroundKeys) {
+      state.soldBackgroundKeys = state.soldBackgroundKeys.filter(function(k) {
+        return validBgKeys[k];
+      });
+    }
+    saveState();
     var doShow = function() {
       renderOutfittingContent();
       showScreen('outfitting');
@@ -2161,51 +2252,109 @@
       renderCatalogItems();
     }
 
+    function sellBackgroundItem(index) {
+      if (!state.startingGear || !state.startingGear[index]) return;
+      var item = state.startingGear[index];
+      if (item.acquisition !== 'background') return;
+      var sellValue = Math.floor(item.cost / 2);
+      state.soldBackCredits = (state.soldBackCredits || 0) + sellValue;
+      var soldKey = item.id + '|' + (item.origin || '');
+      if (!state.soldBackgroundKeys) state.soldBackgroundKeys = [];
+      state.soldBackgroundKeys.push(soldKey);
+      state.startingGear.splice(index, 1);
+      saveState();
+      renderCart();
+      renderCatalogItems();
+    }
+
     function renderCart() {
       var rem = outfittingCreditsRemaining();
       var spent = outfittingCreditsSpent();
 
-      var creditsEl = document.getElementById('outfitting-cart-credits');
-      if (creditsEl) creditsEl.textContent = rem + ' cr remaining';
+      var creditsEl = document.getElementById("outfitting-cart-credits");
+      if (creditsEl) creditsEl.textContent = rem + " cr remaining";
 
-      var creditsDispMain = document.getElementById('outfitting-credits-display');
+      var creditsDispMain = document.getElementById("outfitting-credits-display");
       if (creditsDispMain) creditsDispMain.textContent = rem;
 
-      var cartEl = document.getElementById('outfitting-cart-items');
+      var cartEl = document.getElementById("outfitting-cart-items");
       if (!cartEl) return;
-      cartEl.innerHTML = '';
+      cartEl.innerHTML = "";
 
       var items = state.startingGear || [];
-      if (items.length === 0) {
-        var emptyMsg = document.createElement('p');
-        emptyMsg.className = 'outfitting-cart-empty';
-        emptyMsg.textContent = 'No gear selected. Browse the catalog to add items.';
-        cartEl.appendChild(emptyMsg);
-      } else {
-        items.forEach(function(item, idx) {
-          var row = document.createElement('div');
-          row.className = 'outfitting-cart-row';
+      var bgItems = items.filter(function(g) { return g.acquisition === "background"; });
+      var purchasedItems = items.filter(function(g) { return g.acquisition !== "background"; });
 
-          var nameEl = document.createElement('span');
-          nameEl.className = 'outfitting-cart-item-name';
+      if (bgItems.length > 0) {
+        var bgHeader = document.createElement("div");
+        bgHeader.className = "outfitting-cart-section-head";
+        bgHeader.textContent = "Background Gear";
+        cartEl.appendChild(bgHeader);
+        bgItems.forEach(function(item) {
+          var idx = items.indexOf(item);
+          var row = document.createElement("div");
+          row.className = "outfitting-cart-row outfitting-cart-row--bg";
+
+          var nameEl = document.createElement("span");
+          nameEl.className = "outfitting-cart-item-name";
+          nameEl.textContent = item.name;
+          var originBadge = document.createElement("span");
+          originBadge.className = "outfitting-acq-badge background";
+          originBadge.textContent = item.origin || "Background";
+          nameEl.appendChild(document.createTextNode(" "));
+          nameEl.appendChild(originBadge);
+
+          var priceEl = document.createElement("span");
+          priceEl.className = "outfitting-cart-item-price outfitting-cart-item-price--free";
+          priceEl.textContent = "Free";
+
+          var sellBtn = document.createElement("button");
+          sellBtn.className = "outfitting-sell-btn";
+          sellBtn.textContent = "Sell " + Math.floor(item.cost / 2) + "cr";
+          sellBtn.title = "Sell for half value (" + Math.floor(item.cost / 2) + " cr)";
+          sellBtn.addEventListener("click", function() {
+            sellBackgroundItem(idx);
+          });
+
+          row.appendChild(nameEl);
+          row.appendChild(priceEl);
+          row.appendChild(sellBtn);
+          cartEl.appendChild(row);
+        });
+      }
+
+      if (purchasedItems.length > 0) {
+        if (bgItems.length > 0) {
+          var shopHeader = document.createElement("div");
+          shopHeader.className = "outfitting-cart-section-head";
+          shopHeader.textContent = "Purchased Gear";
+          cartEl.appendChild(shopHeader);
+        }
+        purchasedItems.forEach(function(item) {
+          var idx = items.indexOf(item);
+          var row = document.createElement("div");
+          row.className = "outfitting-cart-row";
+
+          var nameEl = document.createElement("span");
+          nameEl.className = "outfitting-cart-item-name";
           nameEl.textContent = item.name;
 
           if (item.acquisition) {
-            var acqBadge = document.createElement('span');
-            acqBadge.className = 'outfitting-acq-badge' + (item.acquisition === 'contraband' ? ' contraband' : ' registered');
-            acqBadge.textContent = item.acquisition === 'contraband' ? 'Contraband' : 'Registered';
-            nameEl.appendChild(document.createTextNode(' '));
+            var acqBadge = document.createElement("span");
+            acqBadge.className = "outfitting-acq-badge" + (item.acquisition === "contraband" ? " contraband" : " registered");
+            acqBadge.textContent = item.acquisition === "contraband" ? "Contraband" : "Registered";
+            nameEl.appendChild(document.createTextNode(" "));
             nameEl.appendChild(acqBadge);
           }
 
-          var priceEl = document.createElement('span');
-          priceEl.className = 'outfitting-cart-item-price';
-          priceEl.textContent = item.cost + ' cr';
+          var priceEl = document.createElement("span");
+          priceEl.className = "outfitting-cart-item-price";
+          priceEl.textContent = item.cost + " cr";
 
-          var removeBtn = document.createElement('button');
-          removeBtn.className = 'outfitting-remove-btn';
-          removeBtn.textContent = '\u00D7';
-          removeBtn.addEventListener('click', function() {
+          var removeBtn = document.createElement("button");
+          removeBtn.className = "outfitting-remove-btn";
+          removeBtn.textContent = "×";
+          removeBtn.addEventListener("click", function() {
             removeFromLoadout(idx);
           });
 
@@ -2216,9 +2365,19 @@
         });
       }
 
-      var totalEl = document.getElementById('outfitting-cart-total');
+      if (items.length === 0) {
+        var emptyMsg = document.createElement("p");
+        emptyMsg.className = "outfitting-cart-empty";
+        emptyMsg.textContent = "No gear selected. Browse the catalog to add items.";
+        cartEl.appendChild(emptyMsg);
+      }
+
+      var totalEl = document.getElementById("outfitting-cart-total");
       if (totalEl) {
-        totalEl.innerHTML = '<span class="outfitting-total-label">Total Spent</span><span class="outfitting-total-value">' + spent + ' / ' + STARTING_CREDITS + ' cr</span>';
+        var soldBack = items.filter(function(g) { return g.acquisition === "sold-back"; }).reduce(function(acc, g) { return acc + (g.cost || 0); }, 0);
+        var totalLine = spent + " / " + STARTING_CREDITS + " cr";
+        if (state.soldBackCredits > 0) totalLine += " (+ " + state.soldBackCredits + " cr sell-back)";
+        totalEl.innerHTML = '<span class="outfitting-total-label">Total Spent</span><span class="outfitting-total-value">' + totalLine + '</span>';
       }
     }
 
@@ -3004,6 +3163,8 @@
         backstory:  state.backstory,
         kits:       state.kitChoices,
         startingGear: state.startingGear || [],
+        soldBackgroundKeys: state.soldBackgroundKeys || [],
+        soldBackCredits: state.soldBackCredits || 0,
         startingCredits: STARTING_CREDITS,
         creditsRemaining: outfittingCreditsRemaining(),
         arenaAdj:   state.arenaAdj,
@@ -3104,11 +3265,21 @@
     if (gearItems.length === 0) {
       gearRows.push(sumRow('Status', 'No gear selected'));
     } else {
-      gearItems.forEach(function(item) {
-        gearRows.push(sumRow(item.name, item.cost + ' cr'));
-      });
+      var bgGear = gearItems.filter(function(g) { return g.acquisition === 'background'; });
+      var shopGear = gearItems.filter(function(g) { return g.acquisition !== 'background'; });
+      if (bgGear.length > 0) {
+        bgGear.forEach(function(item) {
+          gearRows.push(sumRow(item.name, (item.origin || 'Background') + ' (free)'));
+        });
+      }
+      if (shopGear.length > 0) {
+        shopGear.forEach(function(item) {
+          gearRows.push(sumRow(item.name, item.cost + ' cr'));
+        });
+      }
       gearRows.push(sumRow('Credits Spent', outfittingCreditsSpent() + ' / ' + STARTING_CREDITS));
       gearRows.push(sumRow('Credits Remaining', outfittingCreditsRemaining() + ' cr'));
+      if (state.soldBackCredits > 0) gearRows.push(sumRow('Sell-Back Bonus', '+' + state.soldBackCredits + ' cr'));
     }
     body.appendChild(buildSumSection('Starting Gear', gearRows));
 
@@ -3256,6 +3427,8 @@
           if (cd.backstory) state.backstory = cd.backstory;
           if (cd.kits) state.kitChoices = cd.kits;
           if (cd.startingGear) state.startingGear = cd.startingGear;
+          if (cd.soldBackgroundKeys) state.soldBackgroundKeys = cd.soldBackgroundKeys;
+          if (cd.soldBackCredits) state.soldBackCredits = cd.soldBackCredits;
           if (cd.arenaAdj) state.arenaAdj = cd.arenaAdj;
           if (cd.discValues) {
             state.discValues = cd.discValues;

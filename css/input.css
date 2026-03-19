@@ -5982,6 +5982,52 @@
     border-color: color-mix(in srgb, #CC3333 50%, transparent);
   }
 
+  .outfitting-acq-badge.background {
+    color: var(--color-accent-secondary);
+    border-color: color-mix(in srgb, var(--color-accent-secondary) 50%, transparent);
+    font-family: inherit;
+    font-size: 0.28rem;
+  }
+
+  .outfitting-cart-section-head {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.4rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    opacity: 0.6;
+    padding: 0.4rem 0 0.15rem;
+    border-bottom: 1px dashed var(--color-border);
+    margin-bottom: 0.2rem;
+  }
+
+  .outfitting-cart-row--bg {
+    opacity: 0.85;
+  }
+
+  .outfitting-cart-item-price--free {
+    color: var(--color-accent-secondary);
+    font-style: italic;
+  }
+
+  .outfitting-sell-btn {
+    background: transparent;
+    border: 1px solid color-mix(in srgb, var(--color-accent-secondary) 40%, transparent);
+    color: var(--color-accent-secondary);
+    cursor: pointer;
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.3rem;
+    letter-spacing: 0.05em;
+    padding: 1px 5px;
+    flex-shrink: 0;
+    transition: all 0.15s;
+  }
+
+  .outfitting-sell-btn:hover {
+    background: color-mix(in srgb, var(--color-accent-secondary) 15%, transparent);
+    border-color: var(--color-accent-secondary);
+  }
+
   .outfitting-remove-btn {
     background: transparent;
     border: none;
