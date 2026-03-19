@@ -349,20 +349,6 @@
     var current = _engineState.current;
     var kits    = char.kits || [];
 
-    var subtitleParts = [];
-    kits.forEach(function (kit) {
-      var arenaId = kit.governingArena;
-      if (!arenaId) return;
-      var arena = (char.arenas || []).find(function (a) { return a.id === arenaId; });
-      if (arena) subtitleParts.push(arena.label + ' ' + arena.die + ' · ' + kit.name);
-    });
-    if (subtitleParts.length === 0) {
-      (char.engine.governingArenas || []).forEach(function (arenaId) {
-        var arena = (char.arenas || []).find(function (a) { return a.id === arenaId; });
-        if (arena) subtitleParts.push(arena.label + ' ' + arena.die);
-      });
-    }
-
     var pips = '';
     for (var i = 1; i <= 5; i++) {
       if (i <= current) {
@@ -394,7 +380,7 @@
           '<span class="char-engine-label">' + _esc(char.engine.poolName) + '</span>' +
           '<span class="char-engine-value">' + current + ' / ' + max + '</span>' +
         '</div>' +
-        '<div class="char-engine-subtitle">' + _esc(char.engine.name) + ' — ' + subtitleParts.join(' / ') + '</div>' +
+        '<div class="char-engine-subtitle">' + _esc(char.engine.name) + '</div>' +
         '<div class="char-engine-pips">' + pips + '</div>' +
         coreHtml +
       '</div>'
