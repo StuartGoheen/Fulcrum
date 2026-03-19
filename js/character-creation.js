@@ -2088,7 +2088,7 @@
         var meta = document.createElement('div');
         meta.className = 'outfitting-detail-meta';
         if (item.chassisLabel) meta.innerHTML += '<span>Chassis: ' + item.chassisLabel + '</span>';
-        if (item.range && item.range.length) meta.innerHTML += '<span>Range: ' + item.range.join(' / ') + 'm</span>';
+        if (item.range && item.range.length) meta.innerHTML += '<span>Range: ' + item.range.join(' / ') + ' zones</span>';
         if (item.clipSize) meta.innerHTML += '<span>Clip: ' + item.clipSize + '</span>';
         if (item.stunSetting) meta.innerHTML += '<span>Stun: Yes</span>';
         if (item.availability) meta.innerHTML += '<span>Avail: ' + item.availability + '</span>';
