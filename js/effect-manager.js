@@ -578,7 +578,7 @@
     return (
       '<div class="char-effects-section">' +
         '<div class="char-effects-header">' +
-          '<span class="char-effects-title char-status-label">Operational Status</span>' +
+          '<span class="char-effects-title char-status-label">Op-Stat</span>' +
           '<button class="char-effects-add-btn" data-action="open-add-form" aria-label="Add effect" title="Add condition">+</button>' +
         '</div>' +
         '<div class="char-turn-row">' +
