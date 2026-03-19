@@ -42,7 +42,7 @@
     },
     "speciesTrait": {
       "name": "Adaptable",
-      "desc": "You begin play with 1 free advance at character creation — an extra skill rank, a contact, a resource, or any other single advance your GM approves."
+      "desc": "You gain one free Discipline advance at character creation."
     },
     "arenas": { "physique": "D6", "reflex": "D6", "grit": "D6", "wits": "D6", "presence": "D6" },
     "_aiMeta": {

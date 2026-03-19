@@ -68,7 +68,7 @@
         },
         speciesTrait: {
           name: 'Adaptable',
-          desc: 'You begin play with 1 free advance at character creation — an extra skill rank, a contact, a resource, or any other single advance your GM approves.',
+          desc: 'You gain one free Discipline advance at character creation.',
         },
         arenas: { physique: 'D6', reflex: 'D6', grit: 'D6', wits: 'D6', presence: 'D6' },
         _aiMeta: {
@@ -77,7 +77,7 @@
             'Galactic Ubiquity — Can blend into Imperial outposts, corporate mining camps, or refugee caravans without drawing innate suspicion.',
             'Adaptable — Begins with a free advance, reflecting the sheer variety of human experience and ambition.',
           ],
-          directives: 'If the character is anti-Empire, emphasize that they walked away from the privilege of Imperial High Culture. If they are underworld, emphasize how easily they slip past Imperial customs. The free advance should reflect their unique life path.',
+          directives: 'If the character is anti-Empire, emphasize that they walked away from the privilege of Imperial High Culture. If they are underworld, emphasize how easily they slip past Imperial customs.',
         },
       },
       {
@@ -2267,15 +2267,97 @@
 
   /* ── Phase card grid ────────────────────────────────────────────────────── */
 
-  function buildPhaseGrid(cards, containerId, selectFn) {
-    var grid = document.getElementById(containerId);
-    if (!grid) return;
-    grid.innerHTML = '';
+  function buildPhaseCarousel(cards, containerId, selectFn) {
+    var container = document.getElementById(containerId);
+    if (!container) return;
+    container.innerHTML = '';
 
-    cards.forEach(function (card) {
-      grid.appendChild(buildPhaseCard(card, selectFn));
+    var stateKey = containerId;
+    if (!phaseCarouselStates) phaseCarouselStates = {};
+    if (!phaseCarouselStates[stateKey]) phaseCarouselStates[stateKey] = { current: 0, total: cards.length, touchStartX: 0, touchStartY: 0 };
+    var cs = phaseCarouselStates[stateKey];
 
+    var track = document.createElement('div');
+    track.className = 'ph-carousel-track';
 
+    cards.forEach(function (card, idx) {
+      var slide = buildPhaseCard(card, selectFn);
+      slide.dataset.index = idx;
+      track.appendChild(slide);
+    });
+
+    container.appendChild(track);
+
+    var prevBtn = document.createElement('button');
+    prevBtn.className = 'ph-carousel-arrow ph-carousel-prev';
+    prevBtn.innerHTML = '&#8249;';
+    prevBtn.addEventListener('click', function () { phaseCarouselNav(stateKey, cards, -1); });
+
+    var nextBtn = document.createElement('button');
+    nextBtn.className = 'ph-carousel-arrow ph-carousel-next';
+    nextBtn.innerHTML = '&#8250;';
+    nextBtn.addEventListener('click', function () { phaseCarouselNav(stateKey, cards, 1); });
+
+    container.appendChild(prevBtn);
+    container.appendChild(nextBtn);
+
+    var dotsWrap = document.createElement('div');
+    dotsWrap.className = 'ph-carousel-dots';
+    dotsWrap.id = stateKey + '-dots';
+    cards.forEach(function (card, idx) {
+      var dot = document.createElement('button');
+      dot.className = 'ph-carousel-dot' + (idx === 0 ? ' ph-dot-active' : '');
+      dot.addEventListener('click', function () {
+        cs.current = idx;
+        resetPhaseFlips();
+        phaseCarouselUpdate(stateKey, cards);
+      });
+      dotsWrap.appendChild(dot);
+    });
+    container.appendChild(dotsWrap);
+
+    container.addEventListener('touchstart', function (e) {
+      cs.touchStartX = e.touches[0].clientX;
+      cs.touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+    container.addEventListener('touchend', function (e) {
+      var dx = e.changedTouches[0].clientX - cs.touchStartX;
+      var dy = e.changedTouches[0].clientY - cs.touchStartY;
+      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
+        phaseCarouselNav(stateKey, cards, dx < 0 ? 1 : -1);
+      }
+    }, { passive: true });
+
+    phaseCarouselUpdate(stateKey, cards);
+  }
+
+  var phaseCarouselStates = {};
+
+  function phaseCarouselNav(stateKey, cards, dir) {
+    var cs = phaseCarouselStates[stateKey];
+    cs.current = (cs.current + dir + cs.total) % cs.total;
+    resetPhaseFlips();
+    phaseCarouselUpdate(stateKey, cards);
+  }
+
+  function phaseCarouselUpdate(stateKey, cards) {
+    var cs = phaseCarouselStates[stateKey];
+    var container = document.getElementById(stateKey);
+    if (!container) return;
+    var slides = container.querySelectorAll('.ph-card-wrap');
+    slides.forEach(function (slide, idx) {
+      var offset = idx - cs.current;
+      if (offset > cs.total / 2)  offset -= cs.total;
+      if (offset < -cs.total / 2) offset += cs.total;
+      slide.classList.remove('ph-slide-active', 'ph-slide-prev', 'ph-slide-next', 'ph-slide-hidden');
+      if (offset === 0)       slide.classList.add('ph-slide-active');
+      else if (offset === -1) slide.classList.add('ph-slide-prev');
+      else if (offset === 1)  slide.classList.add('ph-slide-next');
+      else                    slide.classList.add('ph-slide-hidden');
+    });
+    var dots = container.querySelectorAll('.ph-carousel-dot');
+    dots.forEach(function (d, i) {
+      d.classList.toggle('ph-dot-active', i === cs.current);
     });
   }
 
@@ -2323,26 +2405,81 @@
 
     var backBtn = document.createElement('button');
     backBtn.className   = 'ph-back-btn';
-    backBtn.innerHTML   = '&larr;';
+    backBtn.innerHTML   = '&larr; Flip Back';
     backBtn.addEventListener('click', function (e) {
       e.stopPropagation();
       flipPhaseCard(card.id);
     });
 
+    var scrollArea = document.createElement('div');
+    scrollArea.className = 'ph-back-scroll';
+
+    var titleEl = document.createElement('h3');
+    titleEl.className   = 'ph-back-title';
+    titleEl.textContent = card.title;
+    scrollArea.appendChild(titleEl);
+
     var narrative = document.createElement('p');
     narrative.className   = 'ph-narrative';
     narrative.textContent = card.narrative;
+    scrollArea.appendChild(narrative);
+
+    if (card._meta) {
+      var mechSection = document.createElement('div');
+      mechSection.className = 'ph-mechanics';
+
+      var divider = document.createElement('hr');
+      divider.className = 'ph-divider';
+      mechSection.appendChild(divider);
+
+      if (card._meta.favored) {
+        var favEl = document.createElement('div');
+        favEl.className = 'ph-mech-row';
+        var favLabel = document.createElement('span');
+        favLabel.className = 'ph-mech-label';
+        favLabel.textContent = 'Favored Discipline';
+        var favValue = document.createElement('span');
+        favValue.className = 'ph-mech-badge';
+        favValue.textContent = card._meta.favored;
+        favEl.appendChild(favLabel);
+        favEl.appendChild(favValue);
+        mechSection.appendChild(favEl);
+      }
+
+      if (card._meta.knackName) {
+        var knackHeader = document.createElement('div');
+        knackHeader.className = 'ph-knack-header';
+        var knackName = document.createElement('span');
+        knackName.className = 'ph-knack-name';
+        knackName.textContent = card._meta.knackName;
+        var knackType = document.createElement('span');
+        knackType.className = 'ph-knack-type';
+        knackType.textContent = card._meta.knackType;
+        knackHeader.appendChild(knackName);
+        knackHeader.appendChild(knackType);
+        mechSection.appendChild(knackHeader);
+
+        if (card._meta.knack) {
+          var knackDesc = document.createElement('p');
+          knackDesc.className = 'ph-knack-desc';
+          knackDesc.textContent = card._meta.knack;
+          mechSection.appendChild(knackDesc);
+        }
+      }
+
+      scrollArea.appendChild(mechSection);
+    }
 
     var selectBtn = document.createElement('button');
     selectBtn.className   = 'ph-select-btn';
-    selectBtn.textContent = 'Choose This \u2192';
+    selectBtn.textContent = 'Choose This →';
     selectBtn.addEventListener('click', function (e) {
       e.stopPropagation();
       selectFn(card);
     });
 
     face.appendChild(backBtn);
-    face.appendChild(narrative);
+    face.appendChild(scrollArea);
     face.appendChild(selectBtn);
     return face;
   }
@@ -3126,9 +3263,9 @@
     }
 
     buildCarousel();
-    buildPhaseGrid(PHASE1_CARDS, 'ph-grid-phase1', selectPhase1);
-    buildPhaseGrid(PHASE2_CARDS, 'ph-grid-phase2', selectPhase2);
-    buildPhaseGrid(PHASE3_CARDS, 'ph-grid-phase3', selectPhase3);
+    buildPhaseCarousel(PHASE1_CARDS, 'ph-grid-phase1', selectPhase1);
+    buildPhaseCarousel(PHASE2_CARDS, 'ph-grid-phase2', selectPhase2);
+    buildPhaseCarousel(PHASE3_CARDS, 'ph-grid-phase3', selectPhase3);
 
     var prevBtn = document.getElementById('carousel-prev');
     var nextBtn = document.getElementById('carousel-next');
