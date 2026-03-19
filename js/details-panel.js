@@ -122,9 +122,13 @@
     wrap.className = 'dp-abilities-section';
 
     var header = document.createElement('div');
-    header.className = 'dp-section-bar';
+    header.className = 'dp-section-bar dp-section-bar--toggle';
     header.innerHTML = '<span class="dp-section-bar-label">Vocation Abilities</span>' +
-      '<span class="dp-section-bar-count">' + allAbilities.length + ' unlocked</span>';
+      '<span class="dp-section-bar-count">' + allAbilities.length + ' unlocked</span>' +
+      '<span class="dp-section-bar-chevron">\u25B8</span>';
+    header.addEventListener('click', function () {
+      wrap.classList.toggle('dp-section--closed');
+    });
     wrap.appendChild(header);
 
     if (allAbilities.length === 0) {
