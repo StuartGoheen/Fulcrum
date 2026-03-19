@@ -143,32 +143,33 @@
       style="
         left: 25vw;
         right: 25vw;
-        height: 10vh;
-        min-height: 56px;
         background: var(--color-bg-frame);
         border-top: 1px solid var(--color-border);
       ">
-      <div class="destiny-bar">
-        <div class="destiny-meta">
-          <span class="destiny-label-text">DESTINY</span>
-          <button class="destiny-info-btn" id="destiny-info-btn" title="Destiny Pool Rules" aria-label="Destiny Pool Rules">ⓘ</button>
+      <div class="destiny-footer-stack">
+        <div class="destiny-bar">
+          <div class="destiny-meta">
+            <span class="destiny-label-text">DESTINY</span>
+            <button class="destiny-info-btn" id="destiny-info-btn" title="Destiny Pool Rules" aria-label="Destiny Pool Rules">ⓘ</button>
+          </div>
+          <div class="destiny-counts" id="destiny-counts">
+            <span class="destiny-hope">HOPE <span id="hope-count">10</span></span>
+            <span class="destiny-toll">TOLL <span id="toll-count">0</span></span>
+          </div>
+          <div class="force-tracker" id="force-tracker">
+            <div class="force-token" data-index="0"><div class="force-token-inner"><div class="force-token-face force-token-front"></div><div class="force-token-face force-token-back"></div></div></div>
+            <div class="force-token" data-index="1"><div class="force-token-inner"><div class="force-token-face force-token-front"></div><div class="force-token-face force-token-back"></div></div></div>
+            <div class="force-token" data-index="2"><div class="force-token-inner"><div class="force-token-face force-token-front"></div><div class="force-token-face force-token-back"></div></div></div>
+            <div class="force-token" data-index="3"><div class="force-token-inner"><div class="force-token-face force-token-front"></div><div class="force-token-face force-token-back"></div></div></div>
+            <div class="force-token" data-index="4"><div class="force-token-inner"><div class="force-token-face force-token-front"></div><div class="force-token-face force-token-back"></div></div></div>
+            <div class="force-token" data-index="5"><div class="force-token-inner"><div class="force-token-face force-token-front"></div><div class="force-token-face force-token-back"></div></div></div>
+            <div class="force-token" data-index="6"><div class="force-token-inner"><div class="force-token-face force-token-front"></div><div class="force-token-face force-token-back"></div></div></div>
+            <div class="force-token" data-index="7"><div class="force-token-inner"><div class="force-token-face force-token-front"></div><div class="force-token-face force-token-back"></div></div></div>
+            <div class="force-token" data-index="8"><div class="force-token-inner"><div class="force-token-face force-token-front"></div><div class="force-token-face force-token-back"></div></div></div>
+            <div class="force-token" data-index="9"><div class="force-token-inner"><div class="force-token-face force-token-front"></div><div class="force-token-face force-token-back"></div></div></div>
+          </div>
         </div>
-        <div class="force-tracker" id="force-tracker">
-          <div class="force-token" data-index="0"><div class="force-token-inner"><div class="force-token-face force-token-front"></div><div class="force-token-face force-token-back"></div></div></div>
-          <div class="force-token" data-index="1"><div class="force-token-inner"><div class="force-token-face force-token-front"></div><div class="force-token-face force-token-back"></div></div></div>
-          <div class="force-token" data-index="2"><div class="force-token-inner"><div class="force-token-face force-token-front"></div><div class="force-token-face force-token-back"></div></div></div>
-          <div class="force-token" data-index="3"><div class="force-token-inner"><div class="force-token-face force-token-front"></div><div class="force-token-face force-token-back"></div></div></div>
-          <div class="force-token" data-index="4"><div class="force-token-inner"><div class="force-token-face force-token-front"></div><div class="force-token-face force-token-back"></div></div></div>
-          <div class="force-token" data-index="5"><div class="force-token-inner"><div class="force-token-face force-token-front"></div><div class="force-token-face force-token-back"></div></div></div>
-          <div class="force-token" data-index="6"><div class="force-token-inner"><div class="force-token-face force-token-front"></div><div class="force-token-face force-token-back"></div></div></div>
-          <div class="force-token" data-index="7"><div class="force-token-inner"><div class="force-token-face force-token-front"></div><div class="force-token-face force-token-back"></div></div></div>
-          <div class="force-token" data-index="8"><div class="force-token-inner"><div class="force-token-face force-token-front"></div><div class="force-token-face force-token-back"></div></div></div>
-          <div class="force-token" data-index="9"><div class="force-token-inner"><div class="force-token-face force-token-front"></div><div class="force-token-face force-token-back"></div></div></div>
-        </div>
-        <div class="destiny-counts" id="destiny-counts">
-          <span class="destiny-hope">HOPE <span id="hope-count">10</span></span>
-          <span class="destiny-toll">TOLL <span id="toll-count">0</span></span>
-        </div>
+        <div class="destiny-personal" id="destiny-personal"></div>
       </div>
     </footer>
 

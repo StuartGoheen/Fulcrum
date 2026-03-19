@@ -613,6 +613,21 @@
 
   // ─── Bootstrap ────────────────────────────────────────────────────────────────
 
+  function _renderPersonalDestiny(char) {
+    var el = document.getElementById("destiny-personal");
+    if (!el) return;
+    var pd = char.personalDestiny;
+    if (!pd) { el.innerHTML = ""; return; }
+    var h = function(s) { return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); };
+    el.innerHTML =
+      '<span class="destiny-personal-name">' + h(pd.name) + '</span>' +
+      '<span class="destiny-personal-tagline">' + h(pd.tagline) + '</span>' +
+      '<span class="destiny-personal-mechs">' +
+        '<span class="destiny-personal-mech"><span class="destiny-personal-mech-badge destiny-personal-mech-badge--hope">Hope</span><span class="destiny-personal-mech-text" title="' + h(pd.hopeRecovery.description) + '">' + h(pd.hopeRecovery.title) + '</span></span>' +
+        '<span class="destiny-personal-mech"><span class="destiny-personal-mech-badge destiny-personal-mech-badge--toll">Toll</span><span class="destiny-personal-mech-text" title="' + h(pd.tollRecovery.description) + '">' + h(pd.tollRecovery.title) + '</span></span>' +
+      '</span>';
+  }
+
   function init() {
     var session = null;
     try { session = JSON.parse(sessionStorage.getItem('eote-session')); } catch (_) {}
@@ -631,6 +646,7 @@
       })
       .then(function (char) {
         buildCharacterPanel(char);
+        _renderPersonalDestiny(char);
       })
       .catch(function (err) {
         console.error('[CharacterPanel]', err);
