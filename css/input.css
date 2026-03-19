@@ -3192,7 +3192,7 @@
     display: flex;
     align-items: center;
     width: 100%;
-    max-width: 850px;
+    max-width: 1062px;
     gap: 0.5rem;
     position: relative;
     padding: 0 0.25rem;
@@ -3233,7 +3233,7 @@
   }
 
   .cc-species-img-col {
-    flex: 0 0 280px;
+    flex: 0 0 350px;
     background: var(--color-bg-frame);
     display: flex;
     flex-direction: column;
