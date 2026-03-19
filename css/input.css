@@ -94,9 +94,9 @@
   .panel-nav-group {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 6px;
+    justify-content: space-between;
     flex: 1;
+    padding: 0 6px;
   }
 
   .panel-nav-label {
@@ -105,11 +105,12 @@
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--color-accent-primary);
-    width: 7em;
     text-align: center;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    flex: 1;
+    min-width: 0;
   }
 
   .panel-nav-divider {
