@@ -3349,10 +3349,28 @@
     if (speciesContainer) initSwipe(speciesContainer);
 
     document.addEventListener('keydown', function (e) {
+      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
       var speciesScreen = document.getElementById('screen-species');
-      if (!speciesScreen || speciesScreen.classList.contains('hidden')) return;
-      if (e.key === 'ArrowLeft') { e.preventDefault(); navigatePrev(); }
-      if (e.key === 'ArrowRight') { e.preventDefault(); navigateNext(); }
+      if (speciesScreen && !speciesScreen.classList.contains('hidden')) {
+        e.preventDefault();
+        if (e.key === 'ArrowLeft') navigatePrev();
+        else navigateNext();
+        return;
+      }
+      var phaseScreens = [
+        { id: 'screen-phase1', key: 'ph-grid-phase1', cards: PHASE1_CARDS },
+        { id: 'screen-phase2', key: 'ph-grid-phase2', cards: PHASE2_CARDS },
+        { id: 'screen-phase3', key: 'ph-grid-phase3', cards: PHASE3_CARDS }
+      ];
+      for (var i = 0; i < phaseScreens.length; i++) {
+        var ps = phaseScreens[i];
+        var el = document.getElementById(ps.id);
+        if (el && !el.classList.contains('hidden')) {
+          e.preventDefault();
+          phaseCarouselNav(ps.key, ps.cards, e.key === 'ArrowLeft' ? -1 : 1);
+          return;
+        }
+      }
     });
 
     var backToSpecies = document.getElementById('btn-back-to-species');
