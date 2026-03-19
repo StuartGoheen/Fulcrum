@@ -1180,7 +1180,7 @@
     var sp = state.species ? SPECIES.find(function(s){ return s.id === state.species; }) : null;
     var freeAdv = (sp && sp.speciesTrait && sp.speciesTrait.name === "Adaptable") ? 1 : 0;
     var totalAdv         = incompCount + freeAdv;
-    var totalEliteTokens = Math.floor(incompCount / 5);
+    var totalEliteTokens = Math.floor(totalAdv / 5);
     var spentAdv         = state.spentAdv         || 0;
     var eliteTokensUsed  = state.eliteTokensUsed  || 0;
     var advAvail         = totalAdv - spentAdv;
