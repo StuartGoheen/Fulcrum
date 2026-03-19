@@ -563,7 +563,7 @@
         tone: 'inner wound, triggers, survival guilt',
         knackName: 'Adrenaline Lock',
         knackType: 'Passive Ability',
-        knack: 'Once per session, when an attack causes you to gain a Physique condition, you may immediately Step Up your raw strength or dexterity for that round. You automatically pass any test of raw lifting or running, but you gain a permanent Grit Condition after the adrenaline wears off.',
+        knack: 'Once per session, when you gain a Condition from physical harm, you may immediately gain [Empowered: Physique] for the remainder of the scene. You automatically pass any Athletics or Endure test during this time, but you gain [Rattled] when the adrenaline fades.',
       },
     },
     {
@@ -631,14 +631,14 @@
       title: 'The Addiction',
       symbol: 'The Stim-Tube',
       imageUrl: '/assets/phase3/08-addiction.png',
-      narrative: 'You are dependent on a specific stimulant, narcotic, or substance to function — possibly a legacy of war-time field meds or underworld coping. When you go for more than an adventure without the substance (going Dry), you suffer an automatic Step Down penalty to all Grit and Wits rolls, which cannot be healed with rest.',
+      narrative: 'You are dependent on a specific stimulant, narcotic, or substance to function — possibly a legacy of war-time field meds or underworld coping. When you go for more than an adventure without the substance (going Dry), you gain [Weakened: Grit] and [Weakened: Wits], which cannot be removed by rest.',
       _meta: {
         phase: 'debt',
         archetype: 'dependent',
         tone: 'chemical dependency, weakness, hidden cost',
         knackName: 'The Fix',
         knackType: 'Narrative Success',
-        knack: 'You have a permanent contact in any major settlement who will always supply your substance. Once per session, you can use the substance to gain Optimized (Step Up your Control Die) on your very next roll, representing a surge of chemically induced clarity or courage.',
+        knack: 'You have a permanent contact in any major settlement who will always supply your substance. Once per session, you can use the substance to gain [Optimized] on your very next roll, representing a surge of chemically induced clarity or courage.',
       },
     },
     {
@@ -653,7 +653,7 @@
         tone: 'deception, buried past, fear of exposure',
         knackName: 'Identity Buffer',
         knackType: 'Passive Ability',
-        knack: 'If an enemy attempts a social-based roll or uses the Force to read your past or identity, their result Tier is automatically Stepped Down by One. They only see the fabrication you have carefully built. This ability is always active.',
+        knack: 'If an enemy rolls a Presence discipline or uses the Force to read your past or identity, their result is reduced by 1 Tier. They only see the fabrication you have carefully built. This ability is always active.',
       },
     },
     {
@@ -668,7 +668,7 @@
         tone: 'infamy, identity, the cost of being known',
         knackName: 'The Name',
         knackType: 'Active Ability',
-        knack: 'Once per session, you may invoke your reputation directly. Drop your real name or known alias into a social confrontation to automatically Step Up your Persuasion or Intimidation die for that roll. However, every use permanently updates the intelligence trail: the GM may introduce a new complication, bounty hunter contact, or Imperial flag tied to that invocation before the next session.',
+        knack: 'Once per session, you may invoke your reputation directly. Drop your real name or known alias into a social confrontation to automatically Step Up your Persuasion or Intimidate die for that roll. However, every use permanently updates the intelligence trail: the GM may introduce a new complication, bounty hunter contact, or Imperial flag tied to that invocation before the next session.',
       },
     },
     {
@@ -683,7 +683,7 @@
         tone: 'guilt, obligation, chosen sacrifice',
         knackName: 'Dead Reckoning',
         knackType: 'Active Ability',
-        knack: 'Once per session, when an ally would gain a Condition (physical or mental) from any source, you may choose to absorb it yourself instead. You take the Condition in full. The ally is spared entirely. This cannot be used on yourself.',
+        knack: 'Once per session, when an ally would gain a Condition from any source, you may choose to absorb it yourself instead. You take the Condition in full. The ally is spared entirely. This cannot be used on yourself.',
       },
     },
     {
