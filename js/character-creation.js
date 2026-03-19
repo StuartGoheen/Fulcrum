@@ -3350,6 +3350,8 @@
 
     document.addEventListener('keydown', function (e) {
       if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+      var tag = (e.target && e.target.tagName) ? e.target.tagName.toLowerCase() : '';
+      if (tag === 'input' || tag === 'select' || tag === 'textarea') return;
       var speciesScreen = document.getElementById('screen-species');
       if (speciesScreen && !speciesScreen.classList.contains('hidden')) {
         e.preventDefault();
