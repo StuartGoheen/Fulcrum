@@ -79,10 +79,6 @@
     color: var(--color-accent-deep);
   }
 
-  .border-theme {
-    border-color: var(--color-border);
-  }
-
   .divider {
     border-color: var(--color-border);
   }
@@ -1445,15 +1441,6 @@
   }
 
   /* ── Kit Abilities & Gambits ─────────────────────────────────────────────── */
-  .char-kit-ability {
-    border-top-color: var(--color-accent-primary);
-    opacity: 0.95;
-  }
-
-  .kit-tier-badge {
-    color: var(--color-accent-primary);
-    border-color: var(--color-accent-primary);
-  }
 
   .kit-action-bonus {
     font-style: normal;
@@ -1480,38 +1467,6 @@
     border-top: 1px dashed var(--color-border);
   }
 
-  /* -- Locked Kit Tiers ------------------------------------------------- */
-  .char-kit-ability--locked {
-    opacity: 0.35;
-    border-top-color: var(--color-border);
-    pointer-events: none;
-    position: relative;
-  }
-
-  .char-kit-ability--locked .char-engine-ability-name {
-    color: var(--color-text-muted);
-  }
-
-  .char-kit-ability--locked .char-engine-ability-rule {
-    font-style: italic;
-    color: var(--color-text-muted);
-    font-size: 0.5rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
-
-  .kit-tier-badge--locked {
-    color: var(--color-text-muted);
-    border-color: var(--color-border);
-    opacity: 0.6;
-  }
-
-  .kit-lock-icon {
-    margin-right: 4px;
-    font-size: 0.55rem;
-    opacity: 0.7;
-  }
-
   .kit-gambit-details {
     font-size: 0.60rem;
     color: var(--color-accent-deep);
@@ -1521,39 +1476,6 @@
     letter-spacing: 0.03em;
   }
 
-  .char-kit-locked-details {
-    border-top: 1px dashed var(--color-border);
-    margin-top: 2px;
-  }
-
-  .char-kit-locked-summary {
-    font-family: "Audiowide", sans-serif;
-    font-size: 0.50rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-text-muted);
-    padding: 4px 6px;
-    cursor: pointer;
-    user-select: none;
-    list-style: none;
-  }
-
-  .char-kit-locked-summary::-webkit-details-marker {
-    display: none;
-  }
-
-  .char-kit-locked-summary::before {
-    content: "B8";
-    margin-right: 4px;
-    display: inline-block;
-    transition: transform 0.2s ease;
-  }
-
-  .char-kit-locked-details[open] > .char-kit-locked-summary::before {
-    transform: rotate(90deg);
-  }
-
-  /* ── Engine Core (slimmed) ─────────────────────────────────────────────── */
   .char-engine-core {
     padding: 6px 8px;
     border-top: 1px dashed var(--color-border);
@@ -5729,6 +5651,97 @@
 
   .cc-kit-btn:disabled { opacity: 0.25; cursor: default; }
 
+  /* ── Character Creation: Tablet & Responsive ─────────────────── */
+
+  @media (max-width: 900px) {
+    .cc-header {
+      padding: 0.5rem 0.75rem;
+    }
+    .cc-step-line {
+      width: 0.75rem;
+    }
+    .cc-step-pip {
+      width: 0.4rem;
+      height: 0.4rem;
+    }
+    .cc-stats-overlay {
+      width: 170px;
+      font-size: 0.42rem;
+      bottom: 0.5rem;
+      right: 0.5rem;
+    }
+    .cc-stats-step-content {
+      max-width: 100%;
+      padding: 0 0.75rem;
+    }
+    .cc-stats-nav-row {
+      max-width: 100%;
+      padding: 0.75rem 0.75rem 0.5rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .cc-stats-overlay {
+      position: fixed;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      width: 100%;
+      border-radius: 0;
+      border-left: none;
+      border-right: none;
+      border-bottom: none;
+      max-height: 40vh;
+      overflow-y: auto;
+    }
+    #cc-stats-body {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .cc-screen {
+      padding-bottom: 5rem;
+    }
+    .bs-layout {
+      flex-direction: column !important;
+    }
+    .bs-form {
+      flex: none !important;
+    }
+    .bs-output {
+      min-height: 200px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .cc-step-track {
+      gap: 0.25rem;
+    }
+    .cc-step-line {
+      width: 0.5rem;
+    }
+    .cc-back-link {
+      font-size: 0.42rem;
+    }
+    .cc-theme-btn {
+      font-size: 0.42rem;
+      padding: 0.25rem 0.5rem;
+    }
+    .cc-screen-title {
+      font-size: 0.65rem;
+    }
+    .cc-step-label {
+      font-size: 0.5rem;
+    }
+    .cc-btn-stats-continue {
+      font-size: 0.42rem;
+      padding: 0.5rem 1rem;
+    }
+    .cc-kit-flat-info {
+      flex: none;
+    }
+  }
+
   /* ── Outfitting Screen ─────────────────────────────────────── */
 
   .outfitting-layout {
@@ -6762,6 +6775,21 @@
       line-height: 1.7;
       color: var(--color-text-secondary);
       max-width: 180px;
+    }
+
+    @media (max-width: 600px) {
+      .destiny-choice-grid {
+        flex-direction: column;
+        align-items: center;
+      }
+      .destiny-tile {
+        width: 100%;
+        max-width: 320px;
+        padding: 1rem 0.75rem;
+      }
+      .destiny-tile-symbol {
+        font-size: 1.2rem;
+      }
     }
 
     /* ── Backstory Generator Screen ─────────────────────────────────────────── */

@@ -200,6 +200,22 @@ Full-panel rule reference replacing the old glossary overlay. Accessible from a 
 
 **CSS:** Handbook styles in `css/input.css` under `/* Player's Handbook Panel */` section. Maneuver/gambit card styles retained under `/* Handbook — Maneuver & Gambit card styles */`.
 
+## Responsive Design
+
+Character creation and player sheet are responsive across desktop and tablet viewports:
+
+**Character Creation breakpoints (css/input.css):**
+- **≤900px:** Compact header/step track, narrower draft overlay, full-width content containers
+- **≤768px:** Draft sheet becomes bottom-anchored bar, backstory layout stacks vertically, extra bottom padding to clear overlay
+- **≤700px:** Species card and kit flat cards stack vertically (image above, text below)
+- **≤600px:** Phase card carousels reduce, destiny grid stacks vertically
+- **≤480px:** Compact typography, smaller buttons, minimal step track spacing
+
+**Player Sheet breakpoints:**
+- **≤1280px:** Right frame hidden, tab bar shown in left frame, left frame expands to 33vw
+- **≤900px:** Left frame fixed at 240px
+- **≤768px:** Single-slot center (right slot hidden), simplified navbar
+
 ## Deployment
 
 Configured as a **VM** deployment (always-on required for Socket.io persistent connections).  

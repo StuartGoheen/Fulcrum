@@ -17,9 +17,7 @@
   --color-text-secondary:   #3D3835;
   --color-border:           #C8BFB0;
 
-  --color-starfield-dot:    rgba(26, 39, 68, 0.18);
-  --color-card-hover:       #DDD7C8;
-  --color-btn-text:         #F2EDE0;
+  --color-starfield-dot:    rgba(26, 39, 68, 0.18);  --color-btn-text:         #F2EDE0;
   --color-fail:             #B03030;
   --color-success:          #1A7A3A;
 }
@@ -36,9 +34,7 @@
   --color-text-secondary:   #3A5068;
   --color-border:           #A8C0D0;
 
-  --color-starfield-dot:    rgba(0, 85, 187, 0.15);
-  --color-card-hover:       #C4D4E0;
-  --color-btn-text:         #E8EFF5;
+  --color-starfield-dot:    rgba(0, 85, 187, 0.15);  --color-btn-text:         #E8EFF5;
   --color-fail:             #C03030;
   --color-success:          #1A8040;
 }
@@ -55,9 +51,7 @@
   --color-text-secondary:   #888888;
   --color-border:           #2E2E2E;
 
-  --color-starfield-dot:    rgba(204, 0, 0, 0.20);
-  --color-card-hover:       #242424;
-  --color-btn-text:         #E0E0E0;
+  --color-starfield-dot:    rgba(204, 0, 0, 0.20);  --color-btn-text:         #E0E0E0;
   --color-fail:             #FF6655;
   --color-success:          #55DD77;
 }
@@ -74,9 +68,7 @@
   --color-text-secondary:   #C8C090;
   --color-border:           #5E6830;
 
-  --color-starfield-dot:    rgba(28, 30, 10, 0.20);
-  --color-card-hover:       #6E7A40;
-  --color-btn-text:         #1C1C10;
+  --color-starfield-dot:    rgba(28, 30, 10, 0.20);  --color-btn-text:         #1C1C10;
   --color-fail:             #CC3030;
   --color-success:          #2A8A3A;
 }
@@ -93,9 +85,7 @@
   --color-text-secondary:   #00AACC;
   --color-border:           #0A3550;
 
-  --color-starfield-dot:    rgba(0, 245, 255, 0.25);
-  --color-card-hover:       #0F2A45;
-  --color-btn-text:         #020B18;
+  --color-starfield-dot:    rgba(0, 245, 255, 0.25);  --color-btn-text:         #020B18;
   --color-fail:             #FF7766;
   --color-success:          #44FFAA;
 }
@@ -112,9 +102,7 @@
   --color-text-secondary:   #3D2E1C;
   --color-border:           #C8B896;
 
-  --color-starfield-dot:    rgba(92, 61, 30, 0.15);
-  --color-card-hover:       #D8CAAA;
-  --color-btn-text:         #F0E6CC;
+  --color-starfield-dot:    rgba(92, 61, 30, 0.15);  --color-btn-text:         #F0E6CC;
   --color-fail:             #B83020;
   --color-success:          #1A6A30;
 }
