@@ -197,6 +197,7 @@ function expandCharacterData(flat) {
     kits,
     talents: [],
     arenas,
+    personalDestiny: flat.personalDestiny || null,
   };
 }
 
