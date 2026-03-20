@@ -96,7 +96,11 @@ Bars are stored on DOM elements as `data-clip-size` and `data-ammo-pct` for futu
 - Standard rifles/pistols (DL-18, DH-17, Westar, Relby, Bryar, E-11, DC-15 Rifle, EE-3, A280): 100
 - DLT-19 (belt-fed): 200
 
-## Phase Cards — Character Creation
+## Carousel System — Character Creation
+
+Character creation uses a unified carousel system (`buildPhaseCarousel` / `phaseCarouselNav` / `phaseCarouselUpdate`) for both the species selection screen and the three-phase background card screens. All carousels use the same flat card layout (`ph-card-wrap ph-card-flat` → `ph3-species-card`) with image-left / text-right layout, header-row nav arrows, dot indicators, keyboard + swipe navigation. Species cards are rendered by `buildSpeciesCardFlat()`; phase cards by `buildPhase3CardFlat()`. Human's 22 favored discipline choices use a `<select>` dropdown; other species (≤5 choices) use pill buttons.
+
+### Phase Cards
 
 Character creation uses a three-phase card selection system in `js/character-creation.js`. Each phase represents a layer of backstory: Foundation (Phase 1), Catalyst (Phase 2), Debt (Phase 3).
 
@@ -217,8 +221,8 @@ Character creation and player sheet are responsive across desktop and tablet vie
 **Character Creation breakpoints (css/input.css):**
 - **≤900px:** Compact header/step track, narrower draft overlay, full-width content containers
 - **≤768px:** Draft sheet becomes bottom-anchored bar, backstory layout stacks vertically, extra bottom padding to clear overlay
-- **≤700px:** Species card and kit flat cards stack vertically (image above, text below)
-- **≤600px:** Phase card carousels reduce, destiny grid stacks vertically
+- **≤700px:** Kit flat cards stack vertically (image above, text below)
+- **≤600px:** Phase/species card carousels reduce, destiny grid stacks vertically
 - **≤480px:** Compact typography, smaller buttons, minimal step track spacing
 
 **Player Sheet breakpoints:**

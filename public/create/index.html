@@ -42,20 +42,16 @@
 
     <!-- Screen: Species Selection -->
     <div id="screen-species" class="cc-screen cc-screen-species">
-      <div class="cc-screen-head">
-        <p class="cc-step-label">Step 1 of 9</p>
-        <h1 class="cc-screen-title">Choose Your Species</h1>
-        <p class="cc-screen-sub">Your species shapes your biology, your culture, and the galaxy&rsquo;s assumptions about you.</p>
+      <div class="ph-header-row">
+        <button class="ph-header-arrow ph-header-arrow-prev" data-carousel="ph-grid-species" aria-label="Previous species">&lsaquo;</button>
+        <div class="cc-screen-head ph-screen-head">
+          <p class="cc-step-label">Step 1 of 9</p>
+          <h1 class="cc-screen-title">Choose Your Species</h1>
+          <p class="cc-screen-sub">Your species shapes your biology, your culture, and the galaxy&rsquo;s assumptions about you.</p>
+        </div>
+        <button class="ph-header-arrow ph-header-arrow-next" data-carousel="ph-grid-species" aria-label="Next species">&rsaquo;</button>
       </div>
-
-      <div class="cc-species-card-container" id="cc-species-container">
-        <button id="carousel-prev" class="cc-species-nav cc-species-nav-prev" aria-label="Previous species">&lsaquo;</button>
-        <div class="cc-species-card" id="cc-species-card"></div>
-        <button id="carousel-next" class="cc-species-nav cc-species-nav-next" aria-label="Next species">&rsaquo;</button>
-      </div>
-
-      <div class="cc-dots" id="cc-dots"></div>
-      <p class="cc-carousel-hint">Use arrows or swipe to browse &bull; Pick your favored discipline, then select</p>
+      <div class="ph-carousel" id="ph-grid-species"></div>
     </div>
 
     <!-- Screen: Phase 1 — The Origin -->

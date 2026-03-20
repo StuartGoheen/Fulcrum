@@ -783,12 +783,7 @@
     editId:          null,
   };
 
-  var carouselState = {
-    current:     0,
-    get total()  { return SPECIES.length; },
-    touchStartX: 0,
-    touchStartY: 0,
-  };
+
 
   var characterSheet = {
     species:     null,
@@ -828,210 +823,163 @@
   /* ── Carousel ───────────────────────────────────────────────────────────── */
 
   function buildCarousel() {
-      var container = document.getElementById('cc-species-card');
-      var dotsEl    = document.getElementById('cc-dots');
-      if (!container) return;
+    buildPhaseCarousel(SPECIES, "ph-grid-species", selectSpecies, buildSpeciesCardFlat);
+  }
 
-      renderSpeciesCard(container, SPECIES[carouselState.current]);
+  function buildSpeciesCardFlat(sp, selectFn) {
+    var wrapper = document.createElement("div");
+    wrapper.className = "ph-card-wrap ph-card-flat";
 
-      if (dotsEl) {
-        dotsEl.innerHTML = '';
-        SPECIES.forEach(function (sp, idx) {
-          var dot = document.createElement('button');
-          dot.className = 'cc-dot' + (idx === carouselState.current ? ' cc-dot-active' : '');
-          dot.setAttribute('aria-label', 'Go to ' + sp.name);
-          dot.addEventListener('click', function () { goToSlide(idx); });
-          dotsEl.appendChild(dot);
-        });
-      }
+    var cardEl = document.createElement("div");
+    cardEl.className = "ph3-species-card";
 
+    var imgCol = document.createElement("div");
+    imgCol.className = "ph3-img-col";
+    if (sp.imageUrl) {
+      var img = document.createElement("img");
+      img.src = sp.imageUrl;
+      img.alt = sp.name;
+      img.className = "ph3-card-img";
+      imgCol.appendChild(img);
     }
 
-    function renderSpeciesCard(container, sp) {
-      container.innerHTML = '';
-      container.className = 'cc-species-card';
+    var detailCol = document.createElement("div");
+    detailCol.className = "ph3-detail-col";
 
-      var imgCol = document.createElement('div');
-      imgCol.className = 'cc-species-img-col';
+    var nameEl = document.createElement("h2");
+    nameEl.className = "ph3-card-name";
+    nameEl.textContent = sp.name;
+    detailCol.appendChild(nameEl);
 
-      if (sp.imageUrl) {
-        var img = document.createElement('img');
-        img.src       = sp.imageUrl;
-        img.alt       = sp.name;
-        img.className = 'cc-species-img';
-        img.onerror   = function () { imgCol.innerHTML = silhouetteHTML(sp.name); };
-        imgCol.appendChild(img);
-      } else {
-        imgCol.innerHTML = silhouetteHTML(sp.name);
-      }
+    var tagEl = document.createElement("p");
+    tagEl.className = "ph3-card-symbol";
+    tagEl.textContent = sp.tagline;
+    detailCol.appendChild(tagEl);
 
-      var detailCol = document.createElement('div');
-      detailCol.className = 'cc-species-detail-col';
+    var loreEl = document.createElement("p");
+    loreEl.className = "ph3-narrative";
+    loreEl.textContent = sp.lore || "";
+    detailCol.appendChild(loreEl);
 
-      var nameEl = document.createElement('h2');
-      nameEl.className   = 'cc-species-name';
-      nameEl.textContent = sp.name;
+    var arenaBlock = document.createElement("div");
+    arenaBlock.className = "ph3-knack-block";
+    var arenaLabel = document.createElement("p");
+    arenaLabel.className = "ph3-knack-label";
+    arenaLabel.textContent = "Arena Shift";
+    arenaBlock.appendChild(arenaLabel);
+    var arenaName = document.createElement("p");
+    arenaName.className = "ph3-knack-name";
+    arenaName.textContent = sp.arenaShift.name;
+    arenaBlock.appendChild(arenaName);
+    var arenaDesc = document.createElement("p");
+    arenaDesc.className = "ph3-knack-desc";
+    arenaDesc.textContent = sp.arenaShift.desc;
+    arenaBlock.appendChild(arenaDesc);
+    detailCol.appendChild(arenaBlock);
 
-      var tagEl = document.createElement('p');
-      tagEl.className   = 'cc-species-tagline';
-      tagEl.textContent = sp.tagline;
+    var favBlock = document.createElement("div");
+    favBlock.className = "ph3-knack-block";
+    var favLabel = document.createElement("p");
+    favLabel.className = "ph3-knack-label";
+    favLabel.textContent = "Favored Discipline";
+    favBlock.appendChild(favLabel);
+    var favDescEl = document.createElement("p");
+    favDescEl.className = "ph3-knack-desc";
+    favDescEl.textContent = sp.favoredDiscipline.desc;
+    favBlock.appendChild(favDescEl);
 
-      var loreEl = document.createElement('p');
-      loreEl.className   = 'cc-species-lore';
-      loreEl.textContent = sp.lore || '';
-
-      detailCol.appendChild(nameEl);
-      detailCol.appendChild(tagEl);
-      detailCol.appendChild(loreEl);
-
-      detailCol.appendChild(buildAbilityBlock(
-        'Arena Shift', sp.arenaShift.name, sp.arenaShift.desc, null
-      ));
-
-      var favBlock = buildFavoredDisciplineBlock(sp);
-      detailCol.appendChild(favBlock);
-
-      detailCol.appendChild(buildAbilityBlock(
-        'Biological Truth', sp.biologicalTruth.name, sp.biologicalTruth.desc, null
-      ));
-
-      if (sp.speciesTrait) {
-        detailCol.appendChild(buildAbilityBlock(
-          'Species Trait', sp.speciesTrait.name, sp.speciesTrait.desc, null
-        ));
-      }
-
-      var selectBtn = document.createElement('button');
-      selectBtn.className   = 'cc-select-btn';
-      selectBtn.textContent = 'Select ' + sp.name + ' \u2192';
-      selectBtn.addEventListener('click', function (e) {
-        e.stopPropagation();
-        selectSpecies(sp);
+    var choices = sp.favoredDiscipline.choices;
+    if (choices && choices.length > 5) {
+      var selectEl = document.createElement("select");
+      selectEl.className = "cc-favored-select";
+      var defaultOpt = document.createElement("option");
+      defaultOpt.value = "";
+      defaultOpt.textContent = "— Choose a discipline —";
+      selectEl.appendChild(defaultOpt);
+      choices.forEach(function (ch) {
+        var opt = document.createElement("option");
+        opt.value = ch.id;
+        opt.textContent = ch.label;
+        selectEl.appendChild(opt);
       });
-
-      detailCol.appendChild(selectBtn);
-
-      container.appendChild(imgCol);
-      container.appendChild(detailCol);
-    }
-
-    function buildFavoredDisciplineBlock(sp) {
-      var block = document.createElement('div');
-      block.className = 'cc-ability-block';
-
-      var typeEl = document.createElement('p');
-      typeEl.className   = 'cc-ability-type';
-      typeEl.textContent = 'Favored Discipline';
-
-      var descEl = document.createElement('p');
-      descEl.className   = 'cc-ability-desc';
-      descEl.textContent = sp.favoredDiscipline.desc;
-
-      block.appendChild(typeEl);
-      block.appendChild(descEl);
-
-      var choices = sp.favoredDiscipline.choices;
-      if (choices && choices.length > 0) {
-        var pillWrap = document.createElement('div');
-        pillWrap.className = 'cc-favored-pills';
-
-        choices.forEach(function (ch) {
-          var pill = document.createElement('button');
-          pill.className = 'cc-favored-pill';
-          pill.textContent = ch.label;
-          pill.dataset.disciplineId = ch.id;
-
-          if (state.favoredDiscipline && state.favoredDiscipline === ch.id) {
-            pill.classList.add('cc-favored-pill-selected');
-          }
-
-          pill.addEventListener('click', function (e) {
-            e.stopPropagation();
-            state.favoredDiscipline = ch.id;
-            pillWrap.querySelectorAll('.cc-favored-pill').forEach(function (p) {
-              p.classList.remove('cc-favored-pill-selected');
-            });
-            pill.classList.add('cc-favored-pill-selected');
-          });
-
-          pillWrap.appendChild(pill);
-        });
-
-        block.appendChild(pillWrap);
-      }
-
-      return block;
-    }
-
-    function silhouetteHTML(name) {
-      return '<div class="cc-silhouette"><span>' + esc(name.charAt(0)) + '</span></div>'
-           + '<p class="cc-art-label">Art Pending</p>';
-    }
-
-    function buildAbilityBlock(typeLabel, abilityName, desc, pillsEl) {
-      var block = document.createElement('div');
-      block.className = 'cc-ability-block';
-
-      var typeEl = document.createElement('p');
-      typeEl.className   = 'cc-ability-type';
-      typeEl.textContent = typeLabel;
-
-      var nameEl = document.createElement('p');
-      nameEl.className   = 'cc-ability-name';
-      nameEl.textContent = abilityName;
-
-      var descEl = document.createElement('p');
-      descEl.className   = 'cc-ability-desc';
-      descEl.textContent = desc;
-
-      block.appendChild(typeEl);
-      block.appendChild(nameEl);
-      if (pillsEl) block.appendChild(pillsEl);
-      block.appendChild(descEl);
-      return block;
-    }
-
-    /* \u2500\u2500 Carousel navigation \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
-
-    function updateDots(idx) {
-      document.querySelectorAll('.cc-dot').forEach(function (d, i) {
-        d.classList.toggle('cc-dot-active', i === idx);
+      selectEl.addEventListener("change", function () {
+        state.favoredDiscipline = selectEl.value || null;
       });
-    }
-
-    function goToSlide(idx) {
-      carouselState.current = idx;
-      state.favoredDiscipline = null;
-      var container = document.getElementById('cc-species-card');
-      if (container) renderSpeciesCard(container, SPECIES[idx]);
-      updateDots(idx);
-    }
-
-    function navigatePrev() {
-      goToSlide((carouselState.current - 1 + carouselState.total) % carouselState.total);
-    }
-
-    function navigateNext() {
-      goToSlide((carouselState.current + 1) % carouselState.total);
-    }
-
-    /* \u2500\u2500 Touch / swipe \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500 */
-
-    function initSwipe(el) {
-      el.addEventListener('touchstart', function (e) {
-        carouselState.touchStartX = e.touches[0].clientX;
-        carouselState.touchStartY = e.touches[0].clientY;
-      }, { passive: true });
-
-      el.addEventListener('touchend', function (e) {
-        var dx = e.changedTouches[0].clientX - carouselState.touchStartX;
-        var dy = e.changedTouches[0].clientY - carouselState.touchStartY;
-        if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
-          if (dx < 0) navigateNext();
-          else navigatePrev();
+      if (state.favoredDiscipline) selectEl.value = state.favoredDiscipline;
+      favBlock.appendChild(selectEl);
+    } else if (choices && choices.length > 0) {
+      var pillWrap = document.createElement("div");
+      pillWrap.className = "cc-favored-pills";
+      choices.forEach(function (ch) {
+        var pill = document.createElement("button");
+        pill.className = "cc-favored-pill";
+        pill.textContent = ch.label;
+        pill.dataset.disciplineId = ch.id;
+        if (state.favoredDiscipline && state.favoredDiscipline === ch.id) {
+          pill.classList.add("cc-favored-pill-selected");
         }
-      }, { passive: true });
+        pill.addEventListener("click", function (e) {
+          e.stopPropagation();
+          state.favoredDiscipline = ch.id;
+          pillWrap.querySelectorAll(".cc-favored-pill").forEach(function (p) {
+            p.classList.remove("cc-favored-pill-selected");
+          });
+          pill.classList.add("cc-favored-pill-selected");
+        });
+        pillWrap.appendChild(pill);
+      });
+      favBlock.appendChild(pillWrap);
     }
+    detailCol.appendChild(favBlock);
+
+    var bioBlock = document.createElement("div");
+    bioBlock.className = "ph3-knack-block";
+    var bioLabel = document.createElement("p");
+    bioLabel.className = "ph3-knack-label";
+    bioLabel.textContent = "Biological Truth";
+    bioBlock.appendChild(bioLabel);
+    var bioName = document.createElement("p");
+    bioName.className = "ph3-knack-name";
+    bioName.textContent = sp.biologicalTruth.name;
+    bioBlock.appendChild(bioName);
+    var bioDesc = document.createElement("p");
+    bioDesc.className = "ph3-knack-desc";
+    bioDesc.textContent = sp.biologicalTruth.desc;
+    bioBlock.appendChild(bioDesc);
+    detailCol.appendChild(bioBlock);
+
+    if (sp.speciesTrait) {
+      var traitBlock = document.createElement("div");
+      traitBlock.className = "ph3-knack-block";
+      var traitLabel = document.createElement("p");
+      traitLabel.className = "ph3-knack-label";
+      traitLabel.textContent = "Species Trait";
+      traitBlock.appendChild(traitLabel);
+      var traitName = document.createElement("p");
+      traitName.className = "ph3-knack-name";
+      traitName.textContent = sp.speciesTrait.name;
+      traitBlock.appendChild(traitName);
+      var traitDesc = document.createElement("p");
+      traitDesc.className = "ph3-knack-desc";
+      traitDesc.textContent = sp.speciesTrait.desc;
+      traitBlock.appendChild(traitDesc);
+      detailCol.appendChild(traitBlock);
+    }
+
+    var selectBtn = document.createElement("button");
+    selectBtn.className = "cc-select-btn";
+    selectBtn.textContent = "Select " + sp.name + " →";
+    selectBtn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      selectFn(sp);
+    });
+    detailCol.appendChild(selectBtn);
+
+    cardEl.appendChild(imgCol);
+    cardEl.appendChild(detailCol);
+    wrapper.appendChild(cardEl);
+    return wrapper;
+  }
     function buildFavoredList(sp) {
       if (!sp.favoredDiscipline || !sp.favoredDiscipline.choices) return [];
       if (sp.favoredDiscipline.choices.length > 5) {
@@ -2471,6 +2419,8 @@
     var cs = phaseCarouselStates[stateKey];
     var container = document.getElementById(stateKey);
     if (!container) return;
+    if (stateKey === "ph-grid-species" && cs._prev !== undefined && cs._prev !== cs.current) state.favoredDiscipline = null;
+    if (stateKey === "ph-grid-species") cs._prev = cs.current;
     var slides = container.querySelectorAll('.ph-card-wrap');
     slides.forEach(function (slide, idx) {
       var offset = idx - cs.current;
@@ -3445,13 +3395,6 @@
     buildPhaseCarousel(PHASE2_CARDS, 'ph-grid-phase2', selectPhase2, buildPhase3CardFlat);
     buildPhaseCarousel(PHASE3_CARDS, 'ph-grid-phase3', selectPhase3, buildPhase3CardFlat);
 
-    var prevBtn = document.getElementById('carousel-prev');
-    var nextBtn = document.getElementById('carousel-next');
-    if (prevBtn) prevBtn.addEventListener('click', navigatePrev);
-    if (nextBtn) nextBtn.addEventListener('click', navigateNext);
-
-    var speciesContainer = document.getElementById('cc-species-container');
-    if (speciesContainer) initSwipe(speciesContainer);
 
     document.addEventListener('keydown', function (e) {
       if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
@@ -3460,8 +3403,7 @@
       var speciesScreen = document.getElementById('screen-species');
       if (speciesScreen && !speciesScreen.classList.contains('hidden')) {
         e.preventDefault();
-        if (e.key === 'ArrowLeft') navigatePrev();
-        else navigateNext();
+        phaseCarouselNav('ph-grid-species', [], e.key === 'ArrowLeft' ? -1 : 1);
         return;
       }
       var phaseScreens = [
@@ -3608,11 +3550,9 @@
         }
 
         var idx = SPECIES.indexOf(sp);
-        if (idx >= 0) {
-          carouselState.current = idx;
-          var container = document.getElementById('cc-species-card');
-          if (container) renderSpeciesCard(container, SPECIES[idx]);
-          updateDots(idx);
+        if (idx >= 0 && phaseCarouselStates["ph-grid-species"]) {
+          phaseCarouselStates["ph-grid-species"].current = idx;
+          phaseCarouselUpdate("ph-grid-species", SPECIES);
         }
       }
     }
