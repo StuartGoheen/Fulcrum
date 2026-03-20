@@ -3588,7 +3588,7 @@
   .ph-carousel {
     position: relative;
     width: 100%;
-    max-width: 700px;
+    max-width: 1000px;
     flex: 1;
     min-height: 350px;
     margin: 0 auto;
@@ -3606,7 +3606,7 @@
     bottom: 5px;
     left: 50%;
     width: 100%;
-    max-width: 600px;
+    max-width: 900px;
     transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.45s ease;
     transform: translateX(-50%);
     opacity: 0;
@@ -3876,7 +3876,7 @@
 
   .ph-card-flat {
     cursor: default;
-    width: 760px;
+    width: 900px;
     height: 460px;
   }
 
@@ -3995,7 +3995,7 @@
       flex-direction: column;
     }
     .ph-card-wrap {
-      max-width: 360px;
+      max-width: 560px;
     }
   }
 
