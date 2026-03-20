@@ -3069,7 +3069,7 @@
     flex-direction: column;
     overflow-y: auto;
     align-items: center;
-    padding: 1rem 1rem 0.75rem;
+    padding: 0.5rem 1rem 0.5rem;
     width: 100%;
     min-height: 0;
   }
@@ -3080,18 +3080,18 @@
 
   .cc-screen-head {
     text-align: center;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.5rem;
     max-width: 500px;
   }
 
   .ph-screen-head {
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.15rem;
   }
 
   .ph-top-bar {
     display: flex;
     justify-content: flex-start;
-    padding: 0 0.5rem 0.25rem;
+    padding: 0 0.5rem 0.15rem;
     max-width: 500px;
   }
 
@@ -3114,11 +3114,11 @@
   }
 
   .cc-step-label {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     color: var(--color-accent-primary);
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.1rem;
   }
 
   .cc-screen-title {
@@ -3537,7 +3537,7 @@
     font-size: clamp(0.9rem, 2.2vw, 1.3rem);
     color: var(--color-accent-primary);
     letter-spacing: 0.06em;
-    margin: 0.25rem 0 0.1rem;
+    margin: 0.1rem 0 0.05rem;
     text-align: center;
   }
 
@@ -3545,8 +3545,8 @@
     position: relative;
     width: 100%;
     max-width: 1100px;
-    height: min(600px, calc(100vh - 220px));
-    min-height: 400px;
+    flex: 1;
+    min-height: 350px;
     margin: 0 auto;
     overflow: hidden;
   }
@@ -4000,9 +4000,6 @@
     .ph3-species-card {
       flex-direction: column;
     }
-    .ph-carousel {
-      height: min(540px, calc(100vh - 200px));
-    }
     .ph-card-wrap {
       width: 360px;
       height: 483px;
@@ -4030,9 +4027,6 @@
     .ph3-knack-desc {
       font-size: 0.48rem;
       line-height: 1.5;
-    }
-    .ph-carousel {
-      height: min(510px, calc(100vh - 200px));
     }
     .ph-card-wrap {
       width: min(340px, calc(100vw - 100px));
