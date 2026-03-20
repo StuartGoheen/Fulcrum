@@ -1275,7 +1275,7 @@
       var opt = Math.max(0, d.playerIncompCount - effectiveReq);
       if (opt > 0 || ok) {
         var optBadge = document.createElement('span');
-        var optCap = MAX_INCOMP_TOTAL - effectiveReq;
+        var optCap = MAX_INCOMP_TOTAL - FORCE_DISC_IDS.length - effectiveReq;
         optBadge.className = 'cc-adv-badge';
         optBadge.textContent = '+' + opt + '/' + optCap + ' optional';
         bar.appendChild(optBadge);
