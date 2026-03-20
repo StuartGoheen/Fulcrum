@@ -1455,119 +1455,162 @@
 
   /* ── Detail card ─────────────────────────────────────────────────── */
 
-  function renderStatsDetailCard(d, favoredIds) {
-    var panel = document.getElementById('stats-detail-card');
-    if (!panel) return;
+  /* ── Flat navigation index (disc-by-disc, arena-by-arena) ───────── */
+  function buildDiscNavList() {
+    var list = [];
+    DISCIPLINES_BY_ARENA.forEach(function(ag) {
+      ag.disciplines.forEach(function(disc) {
+        list.push({ discId: disc.id, discName: disc.name, arenaId: ag.id, arenaName: ag.name, force: !!disc.force });
+      });
+    });
+    return list;
+  }
 
+  var _discNavList = buildDiscNavList();
+
+  function navDiscByOffset(offset) {
+    if (!_selectedCell || _selectedCell.type !== "disc") return;
+    var curIdx = -1;
+    for (var i = 0; i < _discNavList.length; i++) {
+      if (_discNavList[i].discId === _selectedCell.id) { curIdx = i; break; }
+    }
+    if (curIdx === -1) return;
+    var next = curIdx + offset;
+    if (next < 0) next = _discNavList.length - 1;
+    if (next >= _discNavList.length) next = 0;
+    _selectedCell = { type: "disc", id: _discNavList[next].discId };
+    renderStatsDetailCard(statsGetDerived(), getFavoredIds());
+  }
+
+  function renderStatsDetailCard(d, favoredIds) {
+    var panel = document.getElementById("stats-detail-card");
+    if (!panel) return;
     if (!_selectedCell) {
-      panel.classList.add('hidden');
-      panel.innerHTML = '';
+      panel.classList.add("hidden");
+      panel.innerHTML = "";
       return;
     }
+    panel.classList.remove("hidden");
+    panel.innerHTML = "";
 
-    panel.classList.remove('hidden');
-    panel.innerHTML = '';
-
-    // Close button
-    var closeBtn = document.createElement('button');
-    closeBtn.className = 'sdc-close';
-    closeBtn.innerHTML = '&times;';
-    closeBtn.addEventListener('click', function() {
-      _selectedCell = null;
-      renderStatsContent();
-    });
-    panel.appendChild(closeBtn);
-
-    if (_selectedCell.type === 'arena') {
+    if (_selectedCell.type === "arena") {
       renderArenaDetailCard(panel, _selectedCell.id, d);
     } else {
       renderDiscDetailCard(panel, _selectedCell, d, favoredIds);
     }
+
+    // Touch swipe support for disc cards (bind once via _sdcSwipe flag)
+    if (_selectedCell.type === "disc" && !panel._sdcSwipe) {
+      panel._sdcSwipe = true;
+      var startX = 0, startY = 0;
+      panel.addEventListener("touchstart", function(e) { startX = e.touches[0].clientX; startY = e.touches[0].clientY; }, { passive: true });
+      panel.addEventListener("touchend", function(e) {
+        var dx = e.changedTouches[0].clientX - startX;
+        var dy = e.changedTouches[0].clientY - startY;
+        if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) navDiscByOffset(dx < 0 ? 1 : -1);
+      });
+    }
   }
 
   function renderArenaDetailCard(panel, arenaId, d) {
-    var val  = d.arenaValues[arenaId] || 'D6';
-    var base = d.baseArenas[arenaId]  || 'D6';
+    var val  = d.arenaValues[arenaId] || "D6";
+    var base = d.baseArenas[arenaId]  || "D6";
 
-    var header = document.createElement('div');
-    header.className = 'sdc-header';
-
-    var dieImg = document.createElement('img');
-    dieImg.src = '/assets/' + val.toLowerCase() + '.png';
+    // Left column
+    var imgCol = document.createElement("div");
+    imgCol.className = "sdc-img-col";
+    var dieImg = document.createElement("img");
+    dieImg.src = "/assets/" + val.toLowerCase() + ".png";
     dieImg.alt = val;
-    dieImg.className = 'sdc-die';
-    header.appendChild(dieImg);
+    dieImg.className = "sdc-die";
+    imgCol.appendChild(dieImg);
+    var badge = document.createElement("span");
+    badge.className = "sdc-arena-badge";
+    badge.textContent = "Arena";
+    imgCol.appendChild(badge);
+    panel.appendChild(imgCol);
 
-    var info = document.createElement('div');
-    info.className = 'sdc-info';
+    // Right column
+    var contentCol = document.createElement("div");
+    contentCol.className = "sdc-content-col";
 
-    var nameEl = document.createElement('h3');
-    nameEl.className = 'sdc-name';
+    // Top bar
+    var topbar = document.createElement("div");
+    topbar.className = "sdc-topbar";
+    var spacer = document.createElement("span");
+    var nameEl = document.createElement("h3");
+    nameEl.className = "sdc-name";
     nameEl.textContent = capitalize(arenaId);
-    info.appendChild(nameEl);
+    var closeBtn = document.createElement("button");
+    closeBtn.className = "sdc-close";
+    closeBtn.innerHTML = "&times;";
+    closeBtn.addEventListener("click", function() { _selectedCell = null; renderStatsContent(); });
+    topbar.appendChild(spacer);
+    topbar.appendChild(nameEl);
+    topbar.appendChild(closeBtn);
+    contentCol.appendChild(topbar);
 
-    var meta = document.createElement('div');
-    meta.className = 'sdc-meta';
-    meta.textContent = 'Species base: ' + base + ' \u2022 Current: ' + val;
-    info.appendChild(meta);
+    // Body
+    var body = document.createElement("div");
+    body.className = "sdc-body";
 
-    header.appendChild(info);
-    panel.appendChild(header);
+    var meta = document.createElement("p");
+    meta.className = "sdc-rule";
+    meta.textContent = "Species base: " + base + " • Current: " + val;
+    body.appendChild(meta);
 
     var glossEntry = _statsGlossary[arenaId];
     if (glossEntry) {
-      var descWrap = document.createElement("div");
-      descWrap.className = "sdc-narrative";
       if (glossEntry.guide) {
         var guideEl = document.createElement("p");
         guideEl.className = "sdc-guide";
         guideEl.textContent = glossEntry.guide;
-        descWrap.appendChild(guideEl);
+        body.appendChild(guideEl);
       }
       if (glossEntry.rule) {
         var ruleEl = document.createElement("p");
         ruleEl.className = "sdc-rule";
         ruleEl.textContent = glossEntry.rule;
-        descWrap.appendChild(ruleEl);
+        body.appendChild(ruleEl);
       }
-      panel.appendChild(descWrap);
     }
+    contentCol.appendChild(body);
 
-    // Stepper
-    if (_statsPhase === 'arenas') {
+    // Stepper in actions footer
+    if (_statsPhase === "arenas") {
+      var actions = document.createElement("div");
+      actions.className = "sdc-actions";
       var curIdx = DIE_STEPS.indexOf(val);
-      var canUp  = d.arenaAdvAvail > 0 && curIdx < 3;
-      var canDn  = curIdx > DIE_STEPS.indexOf(base);
-
-      var stepper = document.createElement('div');
-      stepper.className = 'sdc-stepper';
-
-      var btnDn = document.createElement('button');
-      btnDn.className = 'sdc-stepper-btn';
-      btnDn.textContent = '\u2212';
+      var canUp = d.arenaAdvAvail > 0 && curIdx < 3;
+      var canDn = curIdx > DIE_STEPS.indexOf(base);
+      var stepper = document.createElement("div");
+      stepper.className = "sdc-stepper";
+      var btnDn = document.createElement("button");
+      btnDn.className = "sdc-stepper-btn";
+      btnDn.textContent = "−";
       btnDn.disabled = !canDn;
-      btnDn.addEventListener('click', function() { handleArenaStep(arenaId, -1); });
-
-      var stepVal = document.createElement('span');
-      stepVal.className = 'sdc-stepper-val';
+      btnDn.addEventListener("click", function() { handleArenaStep(arenaId, -1); });
+      var stepVal = document.createElement("span");
+      stepVal.className = "sdc-stepper-val";
       stepVal.textContent = val;
-
-      var btnUp = document.createElement('button');
-      btnUp.className = 'sdc-stepper-btn';
-      btnUp.textContent = '+';
+      var btnUp = document.createElement("button");
+      btnUp.className = "sdc-stepper-btn";
+      btnUp.textContent = "+";
       btnUp.disabled = !canUp;
-      btnUp.addEventListener('click', function() { handleArenaStep(arenaId, 1); });
-
+      btnUp.addEventListener("click", function() { handleArenaStep(arenaId, 1); });
       stepper.appendChild(btnDn);
       stepper.appendChild(stepVal);
       stepper.appendChild(btnUp);
-      panel.appendChild(stepper);
+      actions.appendChild(stepper);
+      contentCol.appendChild(actions);
     }
+
+    panel.appendChild(contentCol);
   }
 
   function renderDiscDetailCard(panel, sel, d, favoredIds) {
     var disc = null;
-    var arenaName = '';
+    var arenaName = "";
     DISCIPLINES_BY_ARENA.forEach(function(ag) {
       ag.disciplines.forEach(function(dd) {
         if (dd.id === sel.id) { disc = dd; arenaName = ag.name; }
@@ -1580,149 +1623,195 @@
     var isFavored = !!favoredIds[disc.id];
     var cur       = statsGetDiscValue(disc.id, d);
 
-    var header = document.createElement('div');
-    header.className = 'sdc-header';
-
-    var dieImg = document.createElement('img');
-    dieImg.src = '/assets/' + cur.toLowerCase() + '.png';
+    // Left column: die + arena + tags
+    var imgCol = document.createElement("div");
+    imgCol.className = "sdc-img-col";
+    var dieImg = document.createElement("img");
+    dieImg.src = "/assets/" + cur.toLowerCase() + ".png";
     dieImg.alt = cur;
-    dieImg.className = 'sdc-die';
-    header.appendChild(dieImg);
+    dieImg.className = "sdc-die";
+    imgCol.appendChild(dieImg);
+    var badge = document.createElement("span");
+    badge.className = "sdc-arena-badge";
+    badge.textContent = arenaName;
+    imgCol.appendChild(badge);
 
-    var info = document.createElement('div');
-    info.className = 'sdc-info';
-
-    var nameEl = document.createElement('h3');
-    nameEl.className = 'sdc-name';
-    nameEl.textContent = disc.name;
-    info.appendChild(nameEl);
-
-    var meta = document.createElement('div');
-    meta.className = 'sdc-meta';
-    meta.textContent = arenaName + ' discipline \u2022 ' + cur;
-    info.appendChild(meta);
-
-    // Tags
-    var tags = document.createElement('div');
-    tags.className = 'sdc-tags';
+    var tags = document.createElement("div");
+    tags.className = "sdc-tags";
     if (isForce) {
-      var ft = document.createElement('span');
-      ft.className = 'sdc-tag sdc-tag--force';
-      ft.textContent = 'Force';
+      var ft = document.createElement("span");
+      ft.className = "sdc-tag sdc-tag--force";
+      ft.textContent = "Force";
       tags.appendChild(ft);
     }
     if (isFavored) {
-      var fav = document.createElement('span');
-      fav.className = 'sdc-tag sdc-tag--favored';
-      fav.textContent = 'Favored';
+      var fav = document.createElement("span");
+      fav.className = "sdc-tag sdc-tag--favored";
+      fav.textContent = "Favored";
       tags.appendChild(fav);
     }
     if (isIncomp) {
-      var inc = document.createElement('span');
-      inc.className = 'sdc-tag sdc-tag--incomp';
-      inc.textContent = 'Incompetent';
+      var inc = document.createElement("span");
+      inc.className = "sdc-tag sdc-tag--incomp";
+      inc.textContent = "Incompetent";
       tags.appendChild(inc);
     }
-    if (tags.children.length) info.appendChild(tags);
+    if (tags.children.length) imgCol.appendChild(tags);
+    panel.appendChild(imgCol);
 
-    header.appendChild(info);
-    panel.appendChild(header);
+    // Right column
+    var contentCol = document.createElement("div");
+    contentCol.className = "sdc-content-col";
+
+    // Top bar with nav arrows + name + close
+    var topbar = document.createElement("div");
+    topbar.className = "sdc-topbar";
+    var prevBtn = document.createElement("button");
+    prevBtn.className = "sdc-nav-btn";
+    prevBtn.innerHTML = "&#8249;";
+    prevBtn.addEventListener("click", function() { navDiscByOffset(-1); });
+    var nameEl = document.createElement("h3");
+    nameEl.className = "sdc-name";
+    nameEl.textContent = disc.name;
+    var nextBtn = document.createElement("button");
+    nextBtn.className = "sdc-nav-btn";
+    nextBtn.innerHTML = "&#8250;";
+    nextBtn.addEventListener("click", function() { navDiscByOffset(1); });
+    var closeBtn = document.createElement("button");
+    closeBtn.className = "sdc-close";
+    closeBtn.innerHTML = "&times;";
+    closeBtn.addEventListener("click", function() { _selectedCell = null; renderStatsContent(); });
+    topbar.appendChild(prevBtn);
+    topbar.appendChild(nameEl);
+    topbar.appendChild(nextBtn);
+    topbar.appendChild(closeBtn);
+    contentCol.appendChild(topbar);
+
+    // Scrollable body
+    var body = document.createElement("div");
+    body.className = "sdc-body";
 
     var glossEntry = _statsGlossary[disc.id];
     if (glossEntry) {
-      var descWrap = document.createElement("div");
-      descWrap.className = "sdc-narrative";
       if (glossEntry.guide) {
         var guideEl = document.createElement("p");
         guideEl.className = "sdc-guide";
         guideEl.textContent = glossEntry.guide;
-        descWrap.appendChild(guideEl);
+        body.appendChild(guideEl);
       }
       if (glossEntry.rule) {
         var ruleEl = document.createElement("p");
         ruleEl.className = "sdc-rule";
         ruleEl.textContent = glossEntry.rule;
-        descWrap.appendChild(ruleEl);
+        body.appendChild(ruleEl);
       }
-      panel.appendChild(descWrap);
+      if (glossEntry.narrativeTiers) {
+        var tierSection = document.createElement("div");
+        tierSection.className = "sdc-tier-section";
+        var tierHead = document.createElement("h4");
+        tierHead.className = "sdc-tier-heading";
+        tierHead.textContent = "Narrative Tiers";
+        tierSection.appendChild(tierHead);
+        var tierNames = [
+          ["fleeting", "Fleeting"],
+          ["masterful", "Masterful"],
+          ["legendary", "Legendary"],
+          ["unleashedI", "Unleashed I"],
+          ["unleashedII", "Unleashed II"],
+          ["unleashedIII", "Unleashed III"],
+        ];
+        tierNames.forEach(function(pair) {
+          var txt = glossEntry.narrativeTiers[pair[0]];
+          if (!txt) return;
+          var row = document.createElement("div");
+          row.className = "sdc-tier";
+          var label = document.createElement("span");
+          label.className = "sdc-tier-label";
+          label.textContent = pair[1];
+          var val = document.createElement("span");
+          val.className = "sdc-tier-text";
+          val.textContent = txt;
+          row.appendChild(label);
+          row.appendChild(val);
+          tierSection.appendChild(row);
+        });
+        body.appendChild(tierSection);
+      }
     }
+    contentCol.appendChild(body);
 
-    // Actions
-    var actions = document.createElement('div');
-    actions.className = 'sdc-actions';
+    // Actions footer
+    var actions = document.createElement("div");
+    actions.className = "sdc-actions";
 
-    if (_statsPhase === 'incomp') {
+    if (_statsPhase === "incomp") {
       if (isIncomp && isForce) {
-        var restoreForce = document.createElement('button');
-        restoreForce.className = 'sdc-btn sdc-btn--primary';
-        restoreForce.textContent = 'Awaken — Restore to D6';
-        restoreForce.addEventListener('click', function() { handleForceRestore(disc.id); });
+        var restoreForce = document.createElement("button");
+        restoreForce.className = "sdc-btn sdc-btn--primary";
+        restoreForce.textContent = "Awaken — Restore to D6";
+        restoreForce.addEventListener("click", function() { handleForceRestore(disc.id); });
         actions.appendChild(restoreForce);
       } else if (isIncomp && !isForce) {
-        var restore = document.createElement('button');
-        restore.className = 'sdc-btn sdc-btn--restore';
-        restore.textContent = 'Restore to D6';
-        restore.addEventListener('click', function() { handleDiscRestore(disc.id); });
+        var restore = document.createElement("button");
+        restore.className = "sdc-btn sdc-btn--restore";
+        restore.textContent = "Restore to D6";
+        restore.addEventListener("click", function() { handleDiscRestore(disc.id); });
         actions.appendChild(restore);
       } else if (!isIncomp && !isForce) {
-        var weak = document.createElement('button');
-        weak.className = 'sdc-btn sdc-btn--incomp';
-        weak.textContent = 'Mark Incompetent (D4)';
+        var weak = document.createElement("button");
+        weak.className = "sdc-btn sdc-btn--incomp";
+        weak.textContent = "Mark Incompetent (D4)";
         weak.disabled = d.playerIncompCount >= (MAX_INCOMP_TOTAL - d.forceIncompCount);
-        weak.addEventListener('click', function() { handleDiscIncomp(disc.id); });
+        weak.addEventListener("click", function() { handleDiscIncomp(disc.id); });
         actions.appendChild(weak);
       } else if (!isIncomp && isForce) {
-        var sealed = document.createElement('p');
-        sealed.className = 'sdc-meta';
-        sealed.textContent = 'Awakened — restored to D6.';
+        var sealed = document.createElement("p");
+        sealed.className = "sdc-rule";
+        sealed.textContent = "Awakened — restored to D6.";
         actions.appendChild(sealed);
       }
-    } else if (_statsPhase === 'disciplines') {
+    } else if (_statsPhase === "disciplines") {
       if (isIncomp && isForce) {
-        // Restore Force discipline (costs 1 advance)
-        var restoreForce = document.createElement('button');
-        restoreForce.className = 'sdc-btn sdc-btn--primary';
-        restoreForce.textContent = 'Awaken \u2014 Restore to D6 (1 advance)';
-        restoreForce.disabled = d.advAvail <= 0;
-        restoreForce.addEventListener('click', function() {
-          handleForceRestore(disc.id);
-        });
-        actions.appendChild(restoreForce);
-      } else if (cur === 'D6') {
-        var adv = document.createElement('button');
-        adv.className = 'sdc-btn';
-        adv.textContent = 'Advance to D8 (1 advance)';
+        var rf = document.createElement("button");
+        rf.className = "sdc-btn sdc-btn--primary";
+        rf.textContent = "Awaken — Restore to D6 (1 advance)";
+        rf.disabled = d.advAvail <= 0;
+        rf.addEventListener("click", function() { handleForceRestore(disc.id); });
+        actions.appendChild(rf);
+      } else if (cur === "D6") {
+        var adv = document.createElement("button");
+        adv.className = "sdc-btn";
+        adv.textContent = "Advance to D8 (1 advance)";
         adv.disabled = d.advAvail <= 0;
-        adv.addEventListener('click', function() { handleDiscAdvance(disc.id); });
+        adv.addEventListener("click", function() { handleDiscAdvance(disc.id); });
         actions.appendChild(adv);
-      } else if (cur === 'D8') {
-        var red = document.createElement('button');
-        red.className = 'sdc-btn';
-        red.textContent = 'Reduce to D6 (refund 1)';
-        red.addEventListener('click', function() { handleDiscReduce(disc.id); });
+      } else if (cur === "D8") {
+        var red = document.createElement("button");
+        red.className = "sdc-btn";
+        red.textContent = "Reduce to D6 (refund 1)";
+        red.addEventListener("click", function() { handleDiscReduce(disc.id); });
         actions.appendChild(red);
-
         if (d.totalEliteTokens > 0) {
           var canElite = d.advAvail > 0 && d.eliteTokensAvail > 0;
-          var elite = document.createElement('button');
-          elite.className = 'sdc-btn sdc-btn--elite';
-          elite.textContent = 'Elite to D10 (1 adv + 1 token)';
+          var elite = document.createElement("button");
+          elite.className = "sdc-btn sdc-btn--elite";
+          elite.textContent = "Elite to D10 (1 adv + 1 token)";
           elite.disabled = !canElite;
-          elite.addEventListener('click', function() { handleDiscElite(disc.id); });
+          elite.addEventListener("click", function() { handleDiscElite(disc.id); });
           actions.appendChild(elite);
         }
-      } else if (cur === 'D10') {
-        var r10 = document.createElement('button');
-        r10.className = 'sdc-btn';
-        r10.textContent = 'Reduce to D8 (refund 1 adv + 1 token)';
-        r10.addEventListener('click', function() { handleDiscReduceElite(disc.id); });
+      } else if (cur === "D10") {
+        var r10 = document.createElement("button");
+        r10.className = "sdc-btn";
+        r10.textContent = "Reduce to D8 (refund 1 adv + 1 token)";
+        r10.addEventListener("click", function() { handleDiscReduceElite(disc.id); });
         actions.appendChild(r10);
       }
     }
 
-    if (actions.children.length) panel.appendChild(actions);
+    if (actions.children.length) contentCol.appendChild(actions);
+    panel.appendChild(contentCol);
   }
-
   /* ── Nav button logic ────────────────────────────────────────────── */
 
   function updateStatsNav(d) {
@@ -4010,7 +4099,13 @@
           return;
         }
       }
-      var kitsEl = document.getElementById('screen-kits');
+      var statsEl = document.getElementById('screen-stats');
+      if (statsEl && !statsEl.classList.contains('hidden') && _selectedCell && _selectedCell.type === 'disc') {
+        e.preventDefault();
+        navDiscByOffset(e.key === 'ArrowLeft' ? -1 : 1);
+        return;
+      }
+            var kitsEl = document.getElementById('screen-kits');
       if (kitsEl && !kitsEl.classList.contains('hidden')) {
         e.preventDefault();
         phaseCarouselNav('ph-grid-vocations', KITS_DATA, e.key === 'ArrowLeft' ? -1 : 1);

@@ -4263,6 +4263,11 @@
   }
 
   /* ── 5×5 Grid ────────────────────────────────────────────────────────── */
+  .stats-grid-wrap {
+    position: relative;
+    margin: 0 0.5rem 0.5rem;
+  }
+
   .stats-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -4271,7 +4276,6 @@
     border: 1px solid var(--color-border);
     border-radius: 8px;
     overflow: hidden;
-    margin: 0 0.5rem 0.5rem;
   }
 
   .sg-cell {
@@ -4408,95 +4412,70 @@
 
   /* ── Detail card overlay ─────────────────────────────────────────────── */
   .stats-detail-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
     background: var(--color-bg-panel);
     border: 1px solid var(--color-border);
     border-radius: 8px;
-    margin: 0 0.5rem 0.5rem;
-    padding: 1rem 1.2rem;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
     animation: statsDetailIn 0.2s ease-out;
-    max-height: 360px;
-    overflow-y: auto;
   }
 
   @keyframes statsDetailIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to   { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: scale(0.97); }
+    to   { opacity: 1; transform: scale(1); }
   }
 
   .stats-detail-card.hidden {
     display: none;
   }
 
-  .sdc-header {
+  /* ── Left column: die + arena badge ──────────────────── */
+  .sdc-img-col {
+    flex: 0 0 160px;
     display: flex;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 0.75rem;
-    margin-bottom: 0.75rem;
+    background: var(--color-bg-frame);
+    padding: 1.2rem 0.8rem;
+    border-right: 1px solid var(--color-border);
   }
 
   .sdc-die {
-    width: 48px;
-    height: 48px;
+    width: 80px;
+    height: 80px;
     object-fit: contain;
-    flex-shrink: 0;
   }
 
-  .sdc-info {
-    flex: 1;
-    min-width: 0;
-  }
-
-  .sdc-name {
+  .sdc-arena-badge {
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.55rem;
+    font-size: 0.38rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--color-accent-primary);
-    margin: 0;
-  }
-
-  .sdc-meta {
-    font-size: 0.42rem;
-    color: var(--color-text-secondary);
-    letter-spacing: 0.04em;
-    margin-top: 0.15rem;
-  }
-
-  .sdc-narrative {
-    margin: 0.5rem 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .sdc-guide {
-    font-size: 0.42rem;
-    font-style: italic;
-    color: var(--color-text-secondary);
-    line-height: 1.55;
-    padding: 0.5rem 0.7rem;
-    background: rgba(var(--accent-rgb, 210,96,10), 0.04);
-    border-left: 2px solid var(--color-accent-primary);
-    border-radius: 0 4px 4px 0;
-    margin: 0;
-  }
-
-  .sdc-rule {
-    font-size: 0.40rem;
-    color: var(--color-text-primary);
-    line-height: 1.55;
-    padding: 0;
-    margin: 0;
+    background: rgba(var(--accent-rgb, 210,96,10), 0.08);
+    padding: 4px 10px;
+    border-radius: 3px;
+    border: 1px solid rgba(var(--accent-rgb, 210,96,10), 0.2);
   }
 
   .sdc-tags {
     display: flex;
     gap: 0.3rem;
-    margin-top: 0.3rem;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .sdc-tag {
-    font-size: 0.38rem;
+    font-size: 0.32rem;
     font-family: 'Audiowide', sans-serif;
     letter-spacing: 0.06em;
     text-transform: uppercase;
@@ -4520,10 +4499,148 @@
     border-color: #e67e22;
   }
 
+  /* ── Right column: content ───────────────────────────── */
+  .sdc-content-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .sdc-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--color-border);
+    flex-shrink: 0;
+  }
+
+  .sdc-nav-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    border: 1px solid var(--color-border);
+    background: var(--color-bg-primary);
+    color: var(--color-text-secondary);
+    font-size: 0.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.15s, color 0.15s;
+  }
+
+  .sdc-nav-btn:hover {
+    border-color: var(--color-accent-primary);
+    color: var(--color-accent-primary);
+  }
+
+  .sdc-close {
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    border: 1px solid var(--color-border);
+    background: var(--color-bg-primary);
+    color: var(--color-text-secondary);
+    font-size: 0.55rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.15s, color 0.15s;
+  }
+
+  .sdc-close:hover {
+    border-color: var(--color-accent-primary);
+    color: var(--color-accent-primary);
+  }
+
+  .sdc-name {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-accent-deep);
+    margin: 0;
+    flex: 1;
+    text-align: center;
+  }
+
+  /* ── Scrollable body ───────────────────────────────── */
+  .sdc-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0.75rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .sdc-guide {
+    font-size: 0.42rem;
+    font-style: italic;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    padding: 0.5rem 0.7rem;
+    background: rgba(var(--accent-rgb, 210,96,10), 0.04);
+    border-left: 2px solid var(--color-accent-primary);
+    border-radius: 0 4px 4px 0;
+    margin: 0;
+  }
+
+  .sdc-rule {
+    font-size: 0.42rem;
+    color: var(--color-text-primary);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .sdc-tier-section {
+    margin-top: 0.25rem;
+  }
+
+  .sdc-tier-heading {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.38rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-accent-primary);
+    margin: 0 0 0.35rem;
+  }
+
+  .sdc-tier {
+    display: flex;
+    gap: 0.4rem;
+    margin-bottom: 0.35rem;
+    align-items: baseline;
+  }
+
+  .sdc-tier-label {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.32rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-accent-primary);
+    flex: 0 0 80px;
+    opacity: 0.8;
+  }
+
+  .sdc-tier-text {
+    font-size: 0.38rem;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+    flex: 1;
+  }
+
+  /* ── Actions footer ───────────────────────────────── */
   .sdc-actions {
     display: flex;
     gap: 0.4rem;
-    margin-top: 0.75rem;
+    padding: 0.6rem 1rem;
+    border-top: 1px solid var(--color-border);
+    flex-shrink: 0;
     flex-wrap: wrap;
   }
 
@@ -4581,32 +4698,30 @@
     opacity: 0.85;
   }
 
+  /* ── Arena detail (stepper in overlay) ────────────── */
   .sdc-stepper {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    margin-top: 0.5rem;
   }
 
   .sdc-stepper-btn {
-    width: 36px;
-    height: 36px;
-    border-radius: 6px;
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
     border: 1px solid var(--color-border);
     background: var(--color-bg-primary);
-    color: var(--color-text-primary);
-    font-size: 0.8rem;
+    font-size: 0.6rem;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.15s, border-color 0.15s, opacity 0.15s;
+    transition: border-color 0.15s, color 0.15s;
   }
 
   .sdc-stepper-btn:hover:not(:disabled) {
-    background: var(--color-accent-primary);
     border-color: var(--color-accent-primary);
-    color: #fff;
+    color: var(--color-accent-primary);
   }
 
   .sdc-stepper-btn:disabled {
@@ -4617,33 +4732,26 @@
   .sdc-stepper-val {
     font-family: 'Audiowide', sans-serif;
     font-size: 0.55rem;
-    min-width: 3rem;
-    text-align: center;
-    color: var(--color-text-primary);
-  }
-
-  .sdc-close {
-    position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
-    width: 24px;
-    height: 24px;
-    border: none;
-    background: none;
-    color: var(--color-text-secondary);
-    font-size: 0.7rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .sdc-close:hover {
+    letter-spacing: 0.06em;
     color: var(--color-accent-primary);
+    min-width: 2.5rem;
+    text-align: center;
   }
 
-  .stats-detail-card {
-    position: relative;
+  /* ── Responsive: stack on narrow screens ──────────── */
+  @media (max-width: 640px) {
+    .sdc-img-col {
+      flex: 0 0 100px;
+      padding: 0.8rem 0.5rem;
+    }
+    .sdc-die {
+      width: 56px;
+      height: 56px;
+    }
+    .sdc-tier-label {
+      flex: 0 0 60px;
+      font-size: 0.28rem;
+    }
   }
 
   /* ── Advance dots (reused in status bar) ─────────────────────────────── */
