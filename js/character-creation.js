@@ -2385,7 +2385,7 @@
       var dot = document.createElement('button');
       dot.className = 'ph-carousel-dot' + (idx === 0 ? ' ph-dot-active' : '');
       dot.addEventListener('click', function () {
-        if (stateKey === "ph-grid-species") state.favoredDiscipline = null;
+        if (stateKey === "ph-grid-species") resetSpeciesFavoredUI();
         cs.current = idx;
         phaseCarouselUpdate(stateKey, cards);
       });
@@ -2410,9 +2410,21 @@
 
   var phaseCarouselStates = {};
 
+  function resetSpeciesFavoredUI() {
+    state.favoredDiscipline = null;
+    var speciesContainer = document.getElementById("ph-grid-species");
+    if (!speciesContainer) return;
+    speciesContainer.querySelectorAll(".cc-favored-pill-selected").forEach(function (p) {
+      p.classList.remove("cc-favored-pill-selected");
+    });
+    speciesContainer.querySelectorAll(".cc-favored-select").forEach(function (s) {
+      s.value = "";
+    });
+  }
+
   function phaseCarouselNav(stateKey, cards, dir) {
     var cs = phaseCarouselStates[stateKey];
-    if (stateKey === "ph-grid-species") state.favoredDiscipline = null;
+    if (stateKey === "ph-grid-species") resetSpeciesFavoredUI();
     cs.current = (cs.current + dir + cs.total) % cs.total;
     phaseCarouselUpdate(stateKey, cards);
   }
