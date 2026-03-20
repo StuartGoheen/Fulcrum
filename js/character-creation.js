@@ -1406,10 +1406,8 @@
     } else if (_statsPhase === 'arenas') {
       cls += ' sg-cell--disabled';
     } else if (_statsPhase === 'disciplines') {
-      // All non-incomp cells clickable + force-incomp cells clickable (to restore)
-      if (isIncomp && isForce) clickable = true;
-      else if (!isIncomp) clickable = true;
-      else cls += ' sg-cell--disabled';
+      // All cells clickable in specialize phase (incomp ones can view detail)
+      clickable = true;
     }
 
     if (!clickable && cls.indexOf('sg-cell--disabled') === -1) {

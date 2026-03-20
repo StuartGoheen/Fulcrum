@@ -16,6 +16,8 @@
   --color-text-primary:     #1C1C1C;
   --color-text-secondary:   #3D3835;
   --color-border:           #C8BFB0;
+  --color-force:            #7C3AED;
+  --color-warn:             #D97706;
 
   --color-starfield-dot:    rgba(26, 39, 68, 0.18);  --color-btn-text:         #F2EDE0;
   --color-fail:             #B03030;
@@ -33,6 +35,8 @@
   --color-text-primary:     #0D1F30;
   --color-text-secondary:   #3A5068;
   --color-border:           #A8C0D0;
+  --color-force:            #7C3AED;
+  --color-warn:             #D97706;
 
   --color-starfield-dot:    rgba(0, 85, 187, 0.15);  --color-btn-text:         #E8EFF5;
   --color-fail:             #C03030;
@@ -50,6 +54,8 @@
   --color-text-primary:     #E0E0E0;
   --color-text-secondary:   #888888;
   --color-border:           #2E2E2E;
+  --color-force:            #A78BFA;
+  --color-warn:             #F59E0B;
 
   --color-starfield-dot:    rgba(204, 0, 0, 0.20);  --color-btn-text:         #E0E0E0;
   --color-fail:             #FF6655;
@@ -67,6 +73,8 @@
   --color-text-primary:     #F0E8C0;
   --color-text-secondary:   #C8C090;
   --color-border:           #5E6830;
+  --color-force:            #C4B5FD;
+  --color-warn:             #EAB308;
 
   --color-starfield-dot:    rgba(28, 30, 10, 0.20);  --color-btn-text:         #1C1C10;
   --color-fail:             #CC3030;
@@ -84,6 +92,8 @@
   --color-text-primary:     #00F5FF;
   --color-text-secondary:   #00AACC;
   --color-border:           #0A3550;
+  --color-force:            #C4B5FD;
+  --color-warn:             #FBBF24;
 
   --color-starfield-dot:    rgba(0, 245, 255, 0.25);  --color-btn-text:         #020B18;
   --color-fail:             #FF7766;
@@ -101,6 +111,8 @@
   --color-text-primary:     #2A1F0E;
   --color-text-secondary:   #3D2E1C;
   --color-border:           #C8B896;
+  --color-force:            #7C3AED;
+  --color-warn:             #D97706;
 
   --color-starfield-dot:    rgba(92, 61, 30, 0.15);  --color-btn-text:         #F0E6CC;
   --color-fail:             #B83020;

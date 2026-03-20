@@ -22,7 +22,7 @@ A Star Wars TTRPG electronic character sheet and campaign management system buil
 │   └── css/output.css    # Generated — do not edit directly
 ├── css/
 │   ├── input.css         # Tailwind source (custom components + layers)
-│   └── themes.css        # CSS variable theme definitions
+│   └── themes.css        # CSS variable theme definitions (6 themes: rebellion, r2d2, vader, fett, holo, fringe)
 ├── js/                   # Client-side JavaScript modules
 ├── data/                 # JSON data files (weapons, armor, gear, etc.)
 ├── assets/               # Images and icons
@@ -143,11 +143,12 @@ Two screens added after Kit selection:
 - **Phase 2 — Arenas:** Adjust arena die values using stepper (±). Arena advance budget separate from discipline advances.
 - **Phase 3 — Specialize:** Spend advances to upgrade disciplines (D6→D8, D8→D10 with elite token). Force disciplines (Control, Sense, Alter) auto-start as incompetent (D4) via `state._forceAutoSet`; can be awakened (restored to D6) by spending 1 advance.
 - **Grid:** 5 columns (one per arena). Row 1 = arena cells, rows 2-6 = discipline cells. Last row contains Heavy Weapons, Stealth, Control, Sense, Alter.
-- **Detail card:** Clicking a cell opens `stats-detail-card` flat card panel with die image, tags (Force/Favored/Incompetent), narrative flavor text (`guide` from glossary, italic blockquote), full rule description, and context-appropriate action buttons. Glossary data fetched once from `/data/glossary.json` and cached in `_statsGlossary`.
-- **Force in Phase 1:** Force disciplines are clickable in the Weaknesses phase. Players can restore them (free, undoes auto-lock) or leave them sealed. Force restores in Phase 1 are free; in Phase 3 they cost 1 advance. Player weakness count (`playerIncompCount`) excludes Force auto-locks from the required/optional tallies.
+- **Detail card:** Full overlay card (`stats-detail-card`) covers the grid with two-column layout: left column (die image + arena badge + tags), right column (topbar with nav arrows + name + close, scrollable body with guide/rule/narrative tiers, actions footer). Swipe + keyboard arrow navigation between disciplines. Glossary data fetched once from `/data/glossary.json` and cached in `_statsGlossary`. Touch handlers bound once via `_sdcSwipe` flag.
+- **Force in Phase 1:** Force disciplines are clickable in the Weaknesses phase. Players can restore them (free, undoes auto-lock) or leave them sealed. Force restores in Phase 1 are free; in Phase 3 they cost 1 advance. Status bar shows total weakness count (player + force) vs requirement.
 - **Phase gating:** Breadcrumb pips only allow navigating to current or previous phases. "Arenas →" button disabled until weaknesses requirement met.
 - **State keys:** `discValues`, `discIncomp`, `arenaAdj`, `spentAdv`, `eliteTokensUsed`, `_forceAutoSet`. `normalizeAdvances()` auto-removes overspent upgrades and decrements counters.
-- **CSS classes:** `.sg-cell` grid cells, `.sg-cell--arena/--incomp/--force-locked/--advanced/--favored/--active/--disabled`. `.sdc-*` detail card components. `.stats-phase-*` breadcrumb. `.stats-status-bar` badges.
+- **CSS classes:** `.sg-cell` grid cells, `.sg-cell--arena/--incomp/--force-locked/--advanced/--favored/--active/--disabled`. `.sdc-*` detail card components (`.sdc-img-col`, `.sdc-content-col`, `.sdc-topbar`, `.sdc-body`, `.sdc-tier-*`, `.sdc-actions`). `.stats-phase-*` breadcrumb. `.stats-status-bar` badges. Grid wrapped in `.stats-grid-wrap` (position:relative) for overlay positioning.
+- **Theme variables:** `css/themes.css` defines `--color-force` (purple, varies per theme for readability) and `--color-warn` (amber/orange, used for incompetent state). All Force-related styling uses `var(--color-force)` instead of hardcoded purple. All incompetent/warning styling uses `var(--color-warn)`. Restore/success styling uses `var(--color-success)`.
 
 **Your Story (`screen-backstory`):** Form-based backstory generator.
 - Fields: Character Name (required, or "Generate for me"), Gender (Male/Female), Species (read-only), Title (optional or generated), optional player input textarea
