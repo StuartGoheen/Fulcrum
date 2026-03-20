@@ -3026,7 +3026,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.75rem 1.5rem;
+    padding: 0.35rem 1.5rem;
     border-bottom: 1px solid var(--color-border);
     flex-shrink: 0;
   }
@@ -5624,7 +5624,7 @@
 
   @media (max-width: 900px) {
     .cc-header {
-      padding: 0.5rem 0.75rem;
+      padding: 0.25rem 0.75rem;
     }
     .cc-step-line {
       width: 0.75rem;
