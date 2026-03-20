@@ -15,7 +15,7 @@
       },
       "advanceTrigger": "When something that shaped the region, faction, or story ceases to exist because of you.",
       "narrativeHook": "This character is drawn toward endings — tearing down what is broken, corrupt, or dangerous. Whether they destroy to protect or destroy to control is the question that defines their path.",
-      "imageUrl": "/assets/destiny/destruction.svg"
+      "imageUrl": "/assets/destiny/destruction.png"
     },
     {
       "id": "discovery",
@@ -32,7 +32,7 @@
       },
       "advanceTrigger": "When a revelation you unearthed permanently alters the direction of events.",
       "narrativeHook": "This character is drawn toward hidden truths — lost knowledge, buried secrets, forgotten histories. Whether they share what they find or hoard it is the question that defines their path.",
-      "imageUrl": "/assets/destiny/discovery.svg"
+      "imageUrl": "/assets/destiny/discovery.png"
     },
     {
       "id": "rescue",
@@ -49,7 +49,7 @@
       },
       "advanceTrigger": "When someone whose fate was sealed is free because of your actions — not a close call in combat, but a rescue from a situation with no way out.",
       "narrativeHook": "This character is drawn toward the trapped and the doomed — prisoners, hostages, the condemned. Whether they save everyone or only the ones they choose is the question that defines their path.",
-      "imageUrl": "/assets/destiny/rescue.svg"
+      "imageUrl": "/assets/destiny/rescue.png"
     },
     {
       "id": "creation",
@@ -66,7 +66,7 @@
       },
       "advanceTrigger": "When something you built reshapes how people live, trade, fight, or survive in the region — a base, an alliance, a syndicate, a network, a legacy.",
       "narrativeHook": "This character is drawn toward making things — structures, organizations, alliances, legacies. Whether they build for everyone or build for themselves is the question that defines their path.",
-      "imageUrl": "/assets/destiny/creation.svg"
+      "imageUrl": "/assets/destiny/creation.png"
     },
     {
       "id": "corruption",
@@ -83,7 +83,7 @@
       },
       "advanceTrigger": "When the power structure of a faction, territory, or institution is permanently different because of you.",
       "narrativeHook": "This character is drawn toward power — who holds it, who abuses it, who deserves it. Whether they dismantle corruption or become the new corruption is the question that defines their path.",
-      "imageUrl": "/assets/destiny/corruption.svg"
+      "imageUrl": "/assets/destiny/corruption.png"
     },
     {
       "id": "atonement",
@@ -100,7 +100,7 @@
       },
       "advanceTrigger": "When a specific chapter of your past is permanently closed — through reconciliation or obliteration.",
       "narrativeHook": "This character is haunted by what they have done — or what was done in their name. Whether they face it honestly or bury it violently is the question that defines their path.",
-      "imageUrl": "/assets/destiny/atonement.svg"
+      "imageUrl": "/assets/destiny/atonement.png"
     },
     {
       "id": "liberation",
@@ -117,7 +117,7 @@
       },
       "advanceTrigger": "When a population, system, or territory that was under someone's control is no longer — because of you.",
       "narrativeHook": "This character is drawn toward captivity and oppression — wherever chains exist, they feel the pull to break them. Whether they free others cleanly or burn the cage with everyone inside is the question that defines their path.",
-      "imageUrl": "/assets/destiny/liberation.svg"
+      "imageUrl": "/assets/destiny/liberation.png"
     },
     {
       "id": "ascendancy",
@@ -134,7 +134,7 @@
       },
       "advanceTrigger": "When you hold a title, territory, rank, or seat of power that fundamentally changes your standing in the galaxy.",
       "narrativeHook": "This character is drawn upward — toward rank, influence, and legacy. Whether they lift others as they rise or stand on the fallen is the question that defines their path.",
-      "imageUrl": "/assets/destiny/ascendancy.svg"
+      "imageUrl": "/assets/destiny/ascendancy.png"
     }
   ]
 }
