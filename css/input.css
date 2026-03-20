@@ -3103,6 +3103,14 @@
     gap: 0.75rem;
   }
 
+  .ph-header-row .cc-screen-head {
+    max-width: none;
+  }
+
+  .ph-header-row .ph-phase-header {
+    white-space: nowrap;
+  }
+
   .ph-header-arrow {
     flex-shrink: 0;
     width: 2.2rem;
