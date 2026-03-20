@@ -2586,26 +2586,26 @@
       {
         id: "two-light",
         value: "Two Light",
-        title: "Two Light",
-        symbol: "HOPE ENDURES",
-        narrative: "You still believe the galaxy can be better. The Force has not finished with you. Your contribution tilts the crew's shared ledger toward the light.",
-        imageUrl: "/assets/destiny/pool-light.svg"
+        title: "The Idealist",
+        symbol: "CONVICTION OVER COMPROMISE",
+        narrative: "You carry two Hope tokens into the crew's shared pool — a declaration that you still believe in something bigger than survival. In the cantinas and corridors of the civilized galaxy, that conviction opens doors. Honorable contacts trust you. Merchants deal fair. The desperate look to you first when they need someone who will do the right thing, even when it costs. But in the back alleys of Nar Shaddaa, in the slave pits and the spice dens, your light marks you as soft. The underworld doesn't respect principle — it respects power. Hope tokens can be tapped once per scene to boost any roll by +1 Tier, and a Hope-dominant pool grants +1 Tier on Charm and Persuasion. But every token is a promise. Break it, and the fall hits harder.",
+        imageUrl: "/assets/destiny/pool-light.png"
       },
       {
         id: "light-dark",
         value: "Light & Dark",
-        title: "Light & Dark",
-        symbol: "THE BALANCE",
-        narrative: "You do what you must. The line between right and wrong shifts with the job. Your contribution reflects the tension between idealism and pragmatism.",
-        imageUrl: "/assets/destiny/pool-mixed.svg"
+        title: "The Pragmatist",
+        symbol: "WHATEVER THE JOB DEMANDS",
+        narrative: "You carry one Hope and one Toll into the crew's shared pool — the mark of someone who lives in the grey. You've done good work and dirty work, and you know the difference even when you pretend you don't. In polite society, people sense the edge beneath your manners — a little too comfortable with violence, a little too quick to calculate the cost of a life. In the underworld, you're not ruthless enough to be feared, not connected enough to be trusted. You walk both worlds and belong to neither. That tension is your strength: the crew can tap either side when the moment demands it. But the ledger is always watching. One bad night tips you toward the dark. One sacrifice pulls you back. You are the fulcrum — and the galaxy will test which way you fall.",
+        imageUrl: "/assets/destiny/pool-mixed.png"
       },
       {
         id: "two-dark",
         value: "Two Dark",
-        title: "Two Dark",
-        symbol: "THE PRICE OF SURVIVAL",
-        narrative: "You've made your peace with what it takes. The galaxy owes you, not the other way around. Your contribution tilts the crew's shared ledger toward the dark.",
-        imageUrl: "/assets/destiny/pool-dark.svg"
+        title: "The Survivor",
+        symbol: "THE GALAXY TAKES. YOU TAKE BACK.",
+        narrative: "You carry two Toll tokens into the crew's shared pool — not because you're evil, but because you've learned what the galaxy actually rewards. In the underworld, your reputation precedes you. Crime lords respect you. Enforcers step aside. When you walk into a room full of killers, they see someone who speaks their language. A Toll-dominant pool grants +1 Tier on Intimidate and Deception — fear is a currency, and you're rich. But among the honest and the hopeful, you are a warning sign. Merchants charge you double. Informants clam up. Children cross the street. Hope tokens are harder to earn and easier to lose. Toll tokens, once tapped, are locked — the guilt of that method is sealed in, and no sacrifice later can undo it. You chose this road. Now walk it.",
+        imageUrl: "/assets/destiny/pool-dark.png"
       }
     ];
 
