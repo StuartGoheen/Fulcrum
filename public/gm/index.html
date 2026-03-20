@@ -185,33 +185,35 @@
     .lore-modal .lore-scene-link:hover { border-color: var(--color-accent-secondary); }
     .lore-modal .close-btn { background: transparent; border: 1px solid var(--color-border); color: var(--color-text-secondary); padding: 0.3rem 0.8rem; cursor: pointer; font-size: 0.7rem; float: right; }
 
-    .gm-destiny-bar {
+    .gm-destiny-panel {
       background: var(--color-bg-panel);
-      border-bottom: 1px solid var(--color-border);
-      padding: 0.5rem 1.5rem;
+      border: 1px solid var(--color-border);
+      padding: 0.75rem;
+      position: sticky;
+      top: 7rem;
+      align-self: start;
       display: flex;
-      align-items: center;
-      gap: 1rem;
-      max-width: 1400px;
-      margin: 0 auto;
+      flex-direction: column;
+      gap: 0.75rem;
     }
-    .gm-destiny-label {
+    .gm-destiny-panel-header {
       font-family: 'Audiowide', sans-serif;
       font-size: 0.65rem;
       color: var(--color-accent-deep);
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      white-space: nowrap;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid var(--color-border);
     }
     .gm-destiny-tokens {
       display: flex;
-      align-items: center;
+      flex-wrap: wrap;
       gap: 0.5rem;
-      flex: 1;
+      justify-content: center;
     }
     .gm-destiny-token {
-      width: 36px;
-      height: 36px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       cursor: pointer;
       perspective: 400px;
@@ -251,9 +253,9 @@
     }
     .gm-destiny-count {
       font-family: 'Audiowide', sans-serif;
-      font-size: 0.6rem;
+      font-size: 0.65rem;
       color: var(--color-text-secondary);
-      white-space: nowrap;
+      text-align: center;
     }
     .gm-destiny-count .hope-count { color: #2a78c0; }
     .gm-destiny-count .toll-count { color: #CC0000; }
@@ -265,16 +267,17 @@
       font-size: 0.6rem;
       letter-spacing: 0.06em;
       text-transform: uppercase;
-      padding: 0.25rem 0.6rem;
+      padding: 0.35rem 0.6rem;
       cursor: pointer;
       transition: all 0.15s;
-      white-space: nowrap;
+      width: 100%;
     }
     .gm-destiny-reset:hover { border-color: var(--color-accent-primary); color: var(--color-accent-primary); }
     .gm-destiny-empty {
       font-size: 0.65rem;
       color: var(--color-text-secondary);
       font-style: italic;
+      text-align: center;
     }
   </style>
 </head>
@@ -302,18 +305,16 @@
     </nav>
   </header>
 
-  <div style="background:var(--color-bg-panel);border-bottom:1px solid var(--color-border);">
-    <div class="gm-destiny-bar" id="gm-destiny-bar">
-      <span class="gm-destiny-label">Crew Destiny</span>
+  <main style="max-width:1400px;margin:0 auto;padding:1.5rem;display:grid;grid-template-columns:180px 1fr;gap:1rem;">
+    <aside class="gm-destiny-panel" id="gm-destiny-panel">
+      <div class="gm-destiny-panel-header">Crew Destiny</div>
       <div class="gm-destiny-tokens" id="gm-destiny-tokens">
         <span class="gm-destiny-empty">No crew connected</span>
       </div>
-      <span class="gm-destiny-count" id="gm-destiny-count"></span>
-      <button class="gm-destiny-reset" id="gm-destiny-reset" title="Reset all tokens to Hope">Reset</button>
-    </div>
-  </div>
-
-  <main style="max-width:1400px;margin:0 auto;padding:1.5rem;">
+      <div class="gm-destiny-count" id="gm-destiny-count"></div>
+      <button class="gm-destiny-reset" id="gm-destiny-reset" title="Reset all tokens to Hope">Reset Pool</button>
+    </aside>
+    <div>
     <div id="tab-campaign" class="tab-panel active">
       <div class="campaign-layout" id="campaign-layout">
         <div id="campaign-main">
@@ -358,6 +359,7 @@
     <div id="tab-armor" class="tab-panel"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading&hellip;</p></div>
     <div id="tab-gamesystem" class="tab-panel"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading&hellip;</p></div>
     <div id="tab-gear" class="tab-panel"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading&hellip;</p></div>
+    </div>
   </main>
 
   <div class="lore-modal-overlay" id="lore-modal-overlay">

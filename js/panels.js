@@ -276,13 +276,6 @@
       }
     });
 
-    // Destiny tokens
-    document.querySelectorAll('.force-token').forEach((token) => {
-      token.addEventListener('click', () => {
-        token.classList.toggle('is-dark');
-        updateDestinyCounts();
-      });
-    });
   }
 
   window.PanelSystem = { render: render };
