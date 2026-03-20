@@ -1107,6 +1107,7 @@
      ══════════════════════════════════════════════════════════════════════ */
 
   var FORCE_DISC_IDS = ['control_spark', 'sense_spark', 'alter_spark'];
+  var _statsGlossary = {};
   var _statsPhase = 'incomp'; // 'incomp' | 'arenas' | 'disciplines'
   var _selectedCell = null;   // { type:'arena'|'disc', id:string } or null
 
@@ -1131,6 +1132,14 @@
 
     _statsPhase = 'incomp';
     _selectedCell = null;
+
+    if (Object.keys(_statsGlossary).length === 0) {
+      fetch('/data/glossary.json').then(function(r) { return r.json(); }).then(function(data) {
+        data.forEach(function(entry) { _statsGlossary[entry.id] = entry; });
+        renderStatsContent();
+      });
+    }
+
     renderStatsContent();
     showScreen('stats');
     updateStepTrack(4);
@@ -1402,7 +1411,7 @@
     }
 
     if (!clickable && cls.indexOf('sg-cell--disabled') === -1) {
-      // Make sure disabled styling is applied
+      cls += ' sg-cell--disabled';
     }
 
     cell.className = cls;
@@ -1503,6 +1512,14 @@
     header.appendChild(info);
     panel.appendChild(header);
 
+    var glossEntry = _statsGlossary[arenaId];
+    if (glossEntry && glossEntry.rule) {
+      var desc = document.createElement("p");
+      desc.className = "sdc-desc";
+      desc.textContent = glossEntry.rule.split(".").slice(0, 2).join(".") + ".";
+      panel.appendChild(desc);
+    }
+
     // Stepper
     if (_statsPhase === 'arenas') {
       var curIdx = DIE_STEPS.indexOf(val);
@@ -1597,6 +1614,14 @@
 
     header.appendChild(info);
     panel.appendChild(header);
+
+    var glossEntry = _statsGlossary[disc.id];
+    if (glossEntry && glossEntry.rule) {
+      var descEl = document.createElement("p");
+      descEl.className = "sdc-desc";
+      descEl.textContent = glossEntry.rule.split(".").slice(0, 2).join(".") + ".";
+      panel.appendChild(descEl);
+    }
 
     // Actions
     var actions = document.createElement('div');

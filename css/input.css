@@ -4456,6 +4456,17 @@
     margin-top: 0.15rem;
   }
 
+  .sdc-desc {
+    font-size: 0.40rem;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+    margin: 0.5rem 0;
+    padding: 0.5rem 0.6rem;
+    background: rgba(var(--accent-rgb, 210,96,10), 0.04);
+    border-left: 2px solid var(--color-accent-primary);
+    border-radius: 0 4px 4px 0;
+  }
+
   .sdc-tags {
     display: flex;
     gap: 0.3rem;
