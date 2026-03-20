@@ -2393,6 +2393,8 @@
     });
     container.appendChild(dotsWrap);
 
+    if (!container.dataset.touchBound) {
+    container.dataset.touchBound = '1';
     container.addEventListener('touchstart', function (e) {
       cs.touchStartX = e.touches[0].clientX;
       cs.touchStartY = e.touches[0].clientY;
@@ -2404,6 +2406,7 @@
         phaseCarouselNav(stateKey, cards, dx < 0 ? 1 : -1);
       }
     }, { passive: true });
+    }
 
     phaseCarouselUpdate(stateKey, cards);
   }
@@ -2579,120 +2582,285 @@
 
     /* ── Destiny Screen ──────────────────────────────────────────────────────── */
 
+    var DESTINY_POOL_CARDS = [
+      {
+        id: "two-light",
+        value: "Two Light",
+        title: "Two Light",
+        symbol: "HOPE ENDURES",
+        narrative: "You still believe the galaxy can be better. The Force has not finished with you. Your contribution tilts the crew's shared ledger toward the light.",
+        imageUrl: "/assets/destiny/pool-light.svg"
+      },
+      {
+        id: "light-dark",
+        value: "Light & Dark",
+        title: "Light & Dark",
+        symbol: "THE BALANCE",
+        narrative: "You do what you must. The line between right and wrong shifts with the job. Your contribution reflects the tension between idealism and pragmatism.",
+        imageUrl: "/assets/destiny/pool-mixed.svg"
+      },
+      {
+        id: "two-dark",
+        value: "Two Dark",
+        title: "Two Dark",
+        symbol: "THE PRICE OF SURVIVAL",
+        narrative: "You've made your peace with what it takes. The galaxy owes you, not the other way around. Your contribution tilts the crew's shared ledger toward the dark.",
+        imageUrl: "/assets/destiny/pool-dark.svg"
+      }
+    ];
+
+    var PERSONAL_DESTINY_CARDS = [];
+
     function initDestinyScreen() {
-      var tiles = document.querySelectorAll('.destiny-tile');
-      var continueBtn = document.getElementById('btn-destiny-continue');
-      var backBtn = document.getElementById('btn-back-to-outfitting');
-      var pdGrid = document.getElementById('personal-destiny-grid');
+      var continueBtn = document.getElementById("btn-destiny-continue");
+      var backBtn = document.getElementById("btn-back-to-outfitting");
+      var personalSection = document.getElementById("destiny-personal-section");
 
-      tiles.forEach(function (tile) {
-        var val = tile.getAttribute('data-destiny');
-        tile.classList.toggle('selected', val === state.destiny);
-      });
+      buildPhaseCarousel(DESTINY_POOL_CARDS, "ph-grid-destiny-pool", selectDestinyPool, buildDestinyPoolCardFlat);
+
+      if (state.destiny) {
+        var poolIdx = DESTINY_POOL_CARDS.findIndex(function(c) { return c.value === state.destiny; });
+        if (poolIdx >= 0 && phaseCarouselStates["ph-grid-destiny-pool"]) {
+          phaseCarouselStates["ph-grid-destiny-pool"].current = poolIdx;
+          phaseCarouselUpdate("ph-grid-destiny-pool", DESTINY_POOL_CARDS);
+        }
+        showPersonalDestinyCarousel();
+      } else {
+        personalSection.classList.add("hidden");
+      }
+
+      if (!document.getElementById("screen-destiny").dataset.bound) {
+        document.getElementById("screen-destiny").dataset.bound = "1";
+
+        if (continueBtn) {
+          continueBtn.addEventListener("click", function () {
+            showScreen("backstory");
+            updateStepTrack(8);
+            initBackstoryScreen();
+          });
+        }
+
+        if (backBtn) {
+          backBtn.addEventListener("click", function () {
+            initOutfittingScreen();
+          });
+        }
+
+
+      }
+
       updateDestinyContinue();
+    }
 
-      if (!pdGrid.dataset.loaded) {
-        fetch('/data/destinies.json')
+    function selectDestinyPool(poolCard) {
+      state.destiny = poolCard.value;
+      saveState();
+      showPersonalDestinyCarousel();
+      updateDestinyContinue();
+    }
+
+    function showPersonalDestinyCarousel() {
+      var personalSection = document.getElementById("destiny-personal-section");
+      if (!personalSection) return;
+
+      if (PERSONAL_DESTINY_CARDS.length === 0) {
+        fetch("/data/destinies.json")
           .then(function(r) { return r.json(); })
           .then(function(data) {
-            renderPersonalDestinyGrid(data.destinies, pdGrid);
-            pdGrid.dataset.loaded = '1';
+            PERSONAL_DESTINY_CARDS = data.destinies.map(function(d) {
+              return {
+                id: d.id,
+                title: d.name,
+                symbol: d.tagline,
+                narrative: d.narrativeHook,
+                imageUrl: d.imageUrl,
+                _destinyData: d
+              };
+            });
+            buildPhaseCarousel(PERSONAL_DESTINY_CARDS, "ph-grid-personal-destiny", selectPersonalDestiny, buildPersonalDestinyCardFlat);
+            restorePersonalDestinyIndex();
+            personalSection.classList.remove("hidden");
           })
           .catch(function(err) {
-            console.error('[destiny] Failed to load destinies:', err);
-            pdGrid.innerHTML = '<p style="color:var(--color-text-secondary);text-align:center;padding:1rem;">Failed to load destinies. Please refresh.</p>';
+            console.error("[destiny] Failed to load destinies:", err);
           });
       } else {
-        var pdCards = pdGrid.querySelectorAll('.pd-card');
-        pdCards.forEach(function(card) {
-          card.classList.toggle('selected', state.personalDestiny && state.personalDestiny.id === card.dataset.destinyId);
-        });
+        buildPhaseCarousel(PERSONAL_DESTINY_CARDS, "ph-grid-personal-destiny", selectPersonalDestiny, buildPersonalDestinyCardFlat);
+        restorePersonalDestinyIndex();
+        personalSection.classList.remove("hidden");
+      }
+    }
+
+    function restorePersonalDestinyIndex() {
+      if (state.personalDestiny && phaseCarouselStates["ph-grid-personal-destiny"]) {
+        var pdIdx = PERSONAL_DESTINY_CARDS.findIndex(function(c) { return c.id === state.personalDestiny.id; });
+        if (pdIdx >= 0) {
+          phaseCarouselStates["ph-grid-personal-destiny"].current = pdIdx;
+          phaseCarouselUpdate("ph-grid-personal-destiny", PERSONAL_DESTINY_CARDS);
+        }
+      }
+    }
+
+    function selectPersonalDestiny(card) {
+      var d = card._destinyData;
+      state.personalDestiny = {
+        id: d.id,
+        name: d.name,
+        tagline: d.tagline,
+        hopeRecovery: d.hopeRecovery,
+        tollRecovery: d.tollRecovery,
+        advanceTrigger: d.advanceTrigger,
+        narrativeHook: d.narrativeHook
+      };
+      saveState();
+      updateDestinyContinue();
+    }
+
+    function buildDestinyPoolCardFlat(card, selectFn) {
+      var wrapper = document.createElement("div");
+      wrapper.className = "ph-card-wrap ph-card-flat";
+
+      var cardEl = document.createElement("div");
+      cardEl.className = "ph3-species-card";
+
+      var imgCol = document.createElement("div");
+      imgCol.className = "ph3-img-col";
+      if (card.imageUrl) {
+        var img = document.createElement("img");
+        img.src = card.imageUrl;
+        img.alt = card.title;
+        img.className = "ph3-card-img";
+        imgCol.appendChild(img);
       }
 
-      if (document.getElementById('screen-destiny').dataset.bound) return;
-      document.getElementById('screen-destiny').dataset.bound = '1';
+      var detailCol = document.createElement("div");
+      detailCol.className = "ph3-detail-col";
 
-      tiles.forEach(function (tile) {
-        tile.addEventListener('click', function () {
-          tiles.forEach(function (t) { t.classList.remove('selected'); });
-          tile.classList.add('selected');
-          state.destiny = tile.getAttribute('data-destiny');
-          updateDestinyContinue();
-        });
-      });
+      var nameEl = document.createElement("h2");
+      nameEl.className = "ph3-card-name";
+      nameEl.textContent = card.title;
+      detailCol.appendChild(nameEl);
 
-      if (continueBtn) {
-        continueBtn.addEventListener('click', function () {
-          showScreen('backstory');
-          updateStepTrack(8);
-          initBackstoryScreen();
-        });
+      var symbolEl = document.createElement("p");
+      symbolEl.className = "ph3-card-symbol";
+      symbolEl.textContent = card.symbol;
+      detailCol.appendChild(symbolEl);
+
+      var narrativeEl = document.createElement("p");
+      narrativeEl.className = "ph3-narrative";
+      narrativeEl.textContent = card.narrative;
+      detailCol.appendChild(narrativeEl);
+
+      var btn = document.createElement("button");
+      btn.className = "cc-select-btn";
+      btn.textContent = "Select " + card.title + " →";
+      btn.addEventListener("click", function () { selectFn(card); });
+      detailCol.appendChild(btn);
+
+      cardEl.appendChild(imgCol);
+      cardEl.appendChild(detailCol);
+      wrapper.appendChild(cardEl);
+      return wrapper;
+    }
+
+    function buildPersonalDestinyCardFlat(card, selectFn) {
+      var d = card._destinyData;
+      var wrapper = document.createElement("div");
+      wrapper.className = "ph-card-wrap ph-card-flat";
+
+      var cardEl = document.createElement("div");
+      cardEl.className = "ph3-species-card";
+
+      var imgCol = document.createElement("div");
+      imgCol.className = "ph3-img-col";
+      if (card.imageUrl) {
+        var img = document.createElement("img");
+        img.src = card.imageUrl;
+        img.alt = card.title;
+        img.className = "ph3-card-img";
+        imgCol.appendChild(img);
       }
 
-      if (backBtn) {
-        backBtn.addEventListener('click', function () {
-          initOutfittingScreen();
-        });
-      }
+      var detailCol = document.createElement("div");
+      detailCol.className = "ph3-detail-col";
+
+      var nameEl = document.createElement("h2");
+      nameEl.className = "ph3-card-name";
+      nameEl.textContent = card.title;
+      detailCol.appendChild(nameEl);
+
+      var tagEl = document.createElement("p");
+      tagEl.className = "ph3-card-symbol";
+      tagEl.textContent = d.tagline;
+      detailCol.appendChild(tagEl);
+
+      var narrativeEl = document.createElement("p");
+      narrativeEl.className = "ph3-narrative";
+      narrativeEl.textContent = d.narrativeHook;
+      detailCol.appendChild(narrativeEl);
+
+      var hopeBlock = document.createElement("div");
+      hopeBlock.className = "ph3-knack-block";
+      var hopeLabel = document.createElement("p");
+      hopeLabel.className = "ph3-knack-label destiny-label--hope";
+      hopeLabel.textContent = "Hope Recovery";
+      hopeBlock.appendChild(hopeLabel);
+      var hopeName = document.createElement("p");
+      hopeName.className = "ph3-knack-name";
+      hopeName.textContent = d.hopeRecovery.title;
+      hopeBlock.appendChild(hopeName);
+      var hopeDesc = document.createElement("p");
+      hopeDesc.className = "ph3-knack-desc";
+      hopeDesc.textContent = d.hopeRecovery.description;
+      hopeBlock.appendChild(hopeDesc);
+      detailCol.appendChild(hopeBlock);
+
+      var tollBlock = document.createElement("div");
+      tollBlock.className = "ph3-knack-block";
+      var tollLabel = document.createElement("p");
+      tollLabel.className = "ph3-knack-label destiny-label--toll";
+      tollLabel.textContent = "Toll Recovery";
+      tollBlock.appendChild(tollLabel);
+      var tollName = document.createElement("p");
+      tollName.className = "ph3-knack-name";
+      tollName.textContent = d.tollRecovery.title;
+      tollBlock.appendChild(tollName);
+      var tollDesc = document.createElement("p");
+      tollDesc.className = "ph3-knack-desc";
+      tollDesc.textContent = d.tollRecovery.description;
+      tollBlock.appendChild(tollDesc);
+      detailCol.appendChild(tollBlock);
+
+      var advBlock = document.createElement("div");
+      advBlock.className = "ph3-knack-block";
+      var advLabel = document.createElement("p");
+      advLabel.className = "ph3-knack-label destiny-label--advance";
+      advLabel.textContent = "Advance";
+      advBlock.appendChild(advLabel);
+      var advDesc = document.createElement("p");
+      advDesc.className = "ph3-knack-desc";
+      advDesc.textContent = d.advanceTrigger;
+      advBlock.appendChild(advDesc);
+      detailCol.appendChild(advBlock);
+
+      var btn = document.createElement("button");
+      btn.className = "cc-select-btn";
+      btn.textContent = "Choose " + d.name + " →";
+      btn.addEventListener("click", function () { selectFn(card); });
+      detailCol.appendChild(btn);
+
+      cardEl.appendChild(imgCol);
+      cardEl.appendChild(detailCol);
+      wrapper.appendChild(cardEl);
+      return wrapper;
     }
 
     function updateDestinyContinue() {
-      var btn = document.getElementById('btn-destiny-continue');
+      var btn = document.getElementById("btn-destiny-continue");
       if (btn) btn.disabled = !(state.destiny && state.personalDestiny);
     }
 
-    function renderPersonalDestinyGrid(destinies, container) {
-      container.innerHTML = '';
-      destinies.forEach(function(d) {
-        var card = document.createElement('div');
-        card.className = 'pd-card';
-        card.dataset.destinyId = d.id;
-        if (state.personalDestiny && state.personalDestiny.id === d.id) {
-          card.classList.add('selected');
-        }
-
-        card.innerHTML =
-          '<div class="pd-card-header">' +
-            '<h3 class="pd-card-name">' + d.name + '</h3>' +
-            '<p class="pd-card-tagline">' + d.tagline + '</p>' +
-          '</div>' +
-          '<div class="pd-card-details">' +
-            '<div class="pd-card-mechanic">' +
-              '<span class="pd-label pd-label--hope">Hope Recovery</span>' +
-              '<span class="pd-mechanic-title">' + d.hopeRecovery.title + '</span>' +
-              '<p class="pd-mechanic-desc">' + d.hopeRecovery.description + '</p>' +
-            '</div>' +
-            '<div class="pd-card-mechanic">' +
-              '<span class="pd-label pd-label--toll">Toll Recovery</span>' +
-              '<span class="pd-mechanic-title">' + d.tollRecovery.title + '</span>' +
-              '<p class="pd-mechanic-desc">' + d.tollRecovery.description + '</p>' +
-            '</div>' +
-            '<div class="pd-card-mechanic">' +
-              '<span class="pd-label pd-label--advance">Advance</span>' +
-              '<p class="pd-mechanic-desc">' + d.advanceTrigger + '</p>' +
-            '</div>' +
-          '</div>';
-
-        card.addEventListener('click', function() {
-          container.querySelectorAll('.pd-card').forEach(function(c) { c.classList.remove('selected'); });
-          card.classList.add('selected');
-          state.personalDestiny = {
-            id: d.id,
-            name: d.name,
-            tagline: d.tagline,
-            hopeRecovery: d.hopeRecovery,
-            tollRecovery: d.tollRecovery,
-            advanceTrigger: d.advanceTrigger,
-            narrativeHook: d.narrativeHook
-          };
-          updateDestinyContinue();
-        });
-
-        container.appendChild(card);
-      });
-    }
-
-    /* ── Backstory Screen ────────────────────────────────────────────────────── */
+        /* ── Backstory Screen ────────────────────────────────────────────────────── */
 
     var _regen_cooldown = false;
     var _gen_in_flight  = false;
@@ -3432,6 +3600,17 @@
           phaseCarouselNav(ps.key, ps.cards, e.key === 'ArrowLeft' ? -1 : 1);
           return;
         }
+      }
+      var destinyEl = document.getElementById('screen-destiny');
+      if (destinyEl && !destinyEl.classList.contains('hidden')) {
+        e.preventDefault();
+        var personalVisible = document.getElementById('destiny-personal-section');
+        if (personalVisible && !personalVisible.classList.contains('hidden') && phaseCarouselStates['ph-grid-personal-destiny']) {
+          phaseCarouselNav('ph-grid-personal-destiny', PERSONAL_DESTINY_CARDS, e.key === 'ArrowLeft' ? -1 : 1);
+        } else {
+          phaseCarouselNav('ph-grid-destiny-pool', DESTINY_POOL_CARDS, e.key === 'ArrowLeft' ? -1 : 1);
+        }
+        return;
       }
     });
 

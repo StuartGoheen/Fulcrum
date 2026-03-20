@@ -98,7 +98,7 @@ Bars are stored on DOM elements as `data-clip-size` and `data-ammo-pct` for futu
 
 ## Carousel System — Character Creation
 
-Character creation uses a unified carousel system (`buildPhaseCarousel` / `phaseCarouselNav` / `phaseCarouselUpdate`) for both the species selection screen and the three-phase background card screens. All carousels use the same flat card layout (`ph-card-wrap ph-card-flat` → `ph3-species-card`) with image-left / text-right layout, header-row nav arrows, dot indicators, keyboard + swipe navigation. Species cards are rendered by `buildSpeciesCardFlat()`; phase cards by `buildPhase3CardFlat()`. Human's 22 favored discipline choices use a `<select>` dropdown; other species (≤5 choices) use pill buttons.
+Character creation uses a unified carousel system (`buildPhaseCarousel` / `phaseCarouselNav` / `phaseCarouselUpdate`) for species, background phases, and destiny screens. All carousels use the same flat card layout (`ph-card-wrap ph-card-flat` → `ph3-species-card`) with image-left / text-right layout, header-row nav arrows, dot indicators, keyboard + swipe navigation. Species cards: `buildSpeciesCardFlat()`; phase cards: `buildPhase3CardFlat()`; destiny pool: `buildDestinyPoolCardFlat()`; personal destiny: `buildPersonalDestinyCardFlat()`. Human's 22 favored discipline choices use a `<select>` dropdown; other species (≤5 choices) use pill buttons. Touch listeners are idempotent (guarded by `container.dataset.touchBound`).
 
 ### Phase Cards
 
@@ -126,15 +126,17 @@ No text is baked into the images. All card titles, narratives, and symbols are r
 
 ## Destiny Selection + Backstory Generator
 
-Two new screens added after Kit selection (March 2026):
+Two screens added after Kit selection:
 
-**Destiny Selection (`screen-destiny`):** Two sections:
-1. **Pool Contribution** — Player picks Two Light, Light & Dark, or Two Dark. Stored in `state.destiny`. Seeds the group destiny pool and shapes Gemini backstory tone.
-2. **Personal Destiny** — Player selects one of 8 Destinies (Destruction, Discovery, Rescue, Creation, Corruption, Atonement, Liberation, Ascendancy). Each is morally neutral with: Hope Recovery (recover spent Hope token once/session), Toll Recovery (recover spent Toll token once/session), and an Advance Trigger (character growth token). Stored in `state.personalDestiny` (full object from `data/destinies.json`). Both pool AND personal Destiny must be selected before Continue enables.
+**Destiny Selection (`screen-destiny`):** Uses two stacked carousels (unified carousel system):
+1. **Pool Contribution carousel** (`ph-grid-destiny-pool`, 3 cards) — Two Light, Light & Dark, Two Dark. Flat card layout with placeholder images (`assets/destiny/pool-*.svg`). Built by `buildDestinyPoolCardFlat()`. Selecting a pool card sets `state.destiny` and reveals the Personal Destiny carousel below.
+2. **Personal Destiny carousel** (`ph-grid-personal-destiny`, 8 cards) — Destruction, Discovery, Rescue, Creation, Corruption, Atonement, Liberation, Ascendancy. Loaded from `data/destinies.json`. Built by `buildPersonalDestinyCardFlat()`. Each card shows tagline, narrative hook, Hope Recovery, Toll Recovery, and Advance trigger using ph3 knack-block CSS. Colored labels: `.destiny-label--hope` (green), `.destiny-label--toll` (red), `.destiny-label--advance` (orange). Selecting sets `state.personalDestiny` (full object). Both must be selected before Continue enables.
 
-**Data:** `data/destinies.json` — 8 destiny definitions with `name`, `tagline`, `hopeRecovery`, `tollRecovery`, `advanceTrigger`, `narrativeHook`.
+**Data:** `data/destinies.json` — 8 destiny definitions with `name`, `tagline`, `imageUrl`, `hopeRecovery`, `tollRecovery`, `advanceTrigger`, `narrativeHook`.
 
-**CSS:** `.pd-card` family (`.pd-card-header`, `.pd-card-name`, `.pd-card-tagline`, `.pd-card-details`, `.pd-card-mechanic`), `.pd-label` variants (`--hope`, `--toll`, `--advance`), `.personal-destiny-grid` (4→2→1 col responsive), `.destiny-section` wrappers.
+**Images:** Placeholder SVGs in `assets/destiny/` (11 files: 3 pool + 8 personal). To be replaced with generated Star Wars art.
+
+**CSS:** `.destiny-personal-section` wrapper, `.destiny-label--hope/--toll/--advance` color overrides. Old tile/grid classes removed (`.destiny-tile*`, `.pd-card*`, `.personal-destiny-grid`, `.destiny-section*`).
 
 **Your Story (`screen-backstory`):** Form-based backstory generator.
 - Fields: Character Name (required, or "Generate for me"), Gender (Male/Female), Species (read-only), Title (optional or generated), optional player input textarea

@@ -150,38 +150,27 @@
 
       <!-- Screen: Destiny Selection -->
       <div id="screen-destiny" class="cc-screen hidden">
-        <div class="cc-screen-head ph-screen-head">
-          <p class="cc-step-label">Step 8 of 9</p>
-          <h1 class="cc-screen-title">Destiny</h1>
-          <p class="cc-screen-sub">Your character carries two truths into the galaxy: what they contribute to the crew, and what fate is pulling them toward.</p>
-        </div>
-
-        <div class="destiny-section">
-          <h2 class="destiny-section-title">The Destiny Pool</h2>
-          <p class="destiny-section-sub">Your starting contribution to the crew's shared moral ledger.</p>
-          <div class="destiny-choice-grid">
-            <button class="destiny-tile" data-destiny="Two Light">
-              <span class="destiny-tile-symbol">&#9711;&#9711;</span>
-              <span class="destiny-tile-name">Two Light</span>
-              <span class="destiny-tile-desc">You still believe the galaxy can be better. The Force has not finished with you.</span>
-            </button>
-            <button class="destiny-tile" data-destiny="Light &amp; Dark">
-              <span class="destiny-tile-symbol">&#9711;&#9679;</span>
-              <span class="destiny-tile-name">Light &amp; Dark</span>
-              <span class="destiny-tile-desc">You do what you must. The line between right and wrong shifts with the job.</span>
-            </button>
-            <button class="destiny-tile" data-destiny="Two Dark">
-              <span class="destiny-tile-symbol">&#9679;&#9679;</span>
-              <span class="destiny-tile-name">Two Dark</span>
-              <span class="destiny-tile-desc">You've made your peace with what it takes. The galaxy owes you, not the other way around.</span>
-            </button>
+        <div class="ph-header-row">
+          <button class="ph-header-arrow ph-header-arrow-prev" data-carousel="ph-grid-destiny-pool">&#8249;</button>
+          <div class="ph-screen-head">
+            <p class="cc-step-label">Step 8 of 9</p>
+            <h1 class="cc-screen-title">The Destiny Pool</h1>
+            <p class="cc-screen-sub">Your starting contribution to the crew's shared moral ledger.</p>
           </div>
+          <button class="ph-header-arrow ph-header-arrow-next" data-carousel="ph-grid-destiny-pool">&#8250;</button>
         </div>
+        <div class="ph-carousel" id="ph-grid-destiny-pool"></div>
 
-        <div class="destiny-section">
-          <h2 class="destiny-section-title">Personal Destiny</h2>
-          <p class="destiny-section-sub">What the Force &mdash; or fate &mdash; is pulling you toward. This shapes how you recover spent Destiny tokens and how you advance.</p>
-          <div id="personal-destiny-grid" class="personal-destiny-grid"></div>
+        <div id="destiny-personal-section" class="destiny-personal-section hidden">
+          <div class="ph-header-row">
+            <button class="ph-header-arrow ph-header-arrow-prev" data-carousel="ph-grid-personal-destiny">&#8249;</button>
+            <div class="ph-screen-head">
+              <h1 class="cc-screen-title">Personal Destiny</h1>
+              <p class="cc-screen-sub">What the Force &mdash; or fate &mdash; is pulling you toward.</p>
+            </div>
+            <button class="ph-header-arrow ph-header-arrow-next" data-carousel="ph-grid-personal-destiny">&#8250;</button>
+          </div>
+          <div class="ph-carousel" id="ph-grid-personal-destiny"></div>
         </div>
 
         <div class="cc-stats-nav-row">
