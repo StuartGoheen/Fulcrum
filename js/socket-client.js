@@ -24,6 +24,24 @@
     indicator.title = s.title;
   }
 
+  function renderDestinyPool(pool) {
+    var tracker = document.getElementById('force-tracker');
+    if (!tracker) return;
+    if (!pool || pool.length === 0) {
+      tracker.innerHTML = '<span style="font-size:0.7rem;color:var(--color-text-secondary);font-style:italic;">No crew connected</span>';
+      return;
+    }
+    tracker.innerHTML = pool.map(function (state) {
+      var isDark = state === 'toll';
+      return '<div class="force-token' + (isDark ? ' is-dark' : '') + '" style="cursor:default;">' +
+        '<div class="force-token-inner">' +
+          '<div class="force-token-face force-token-front"></div>' +
+          '<div class="force-token-face force-token-back"></div>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+  }
+
   function updateCrewList(connectedPlayers) {
     const crewList = document.getElementById('crew-list');
     if (!crewList) return;
@@ -88,6 +106,10 @@
 
     socket.on('state:sync', ({ state }) => {
       console.log('[socket] State synced:', state);
+    });
+
+    socket.on('destiny:sync', ({ pool }) => {
+      renderDestinyPool(pool);
     });
 
     socket.on('player:connected', ({ characterId, name }) => {

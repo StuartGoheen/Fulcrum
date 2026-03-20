@@ -226,6 +226,23 @@ Character creation and player sheet are responsive across desktop and tablet vie
 - **≤900px:** Left frame fixed at 240px
 - **≤768px:** Single-slot center (right slot hidden), simplified navbar
 
+## Crew Destiny Pool
+
+Server-authoritative destiny token pool synced in real-time via Socket.io. Pool size = unique connected crew × 2.
+
+**Server events:**
+- `destiny:sync` — broadcasts `{ pool: ['hope'|'toll', ...] }` to all clients on join/disconnect/flip/reset
+- `destiny:flip` — GM-only, toggles token at `{ index }` between hope/toll
+- `destiny:reset` — GM-only, resets all tokens to hope
+
+**Persistence:** Pool stored in `campaign_state` table (key: `destiny_pool`). Survives server restarts. On reconnect, current pool state sent immediately via `destiny:sync`.
+
+**Player view:** Footer renders tokens dynamically from `destiny:sync` events. Display-only (no click-to-flip). Uses existing force-token CSS (blue = hope, red pulsing = toll).
+
+**GM view:** Destiny bar below header in Command Bridge. Clickable tokens emit `destiny:flip`. Shows Hope/Toll count. Reset button emits `destiny:reset`.
+
+**Files:** `server/sockets/handlers.js` (pool logic), `js/socket-client.js` (player rendering), `public/gm/index.html` (GM controls + styles).
+
 ## Deployment
 
 Configured as a **VM** deployment (always-on required for Socket.io persistent connections).  

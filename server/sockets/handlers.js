@@ -1,5 +1,55 @@
 const db = require('../db');
 
+function getDestinyPool() {
+  const row = db.prepare("SELECT value FROM campaign_state WHERE key = 'destiny_pool'").get();
+  if (row) {
+    try {
+      const parsed = JSON.parse(row.value);
+      if (Array.isArray(parsed) && parsed.every(s => s === 'hope' || s === 'toll')) {
+        return parsed;
+      }
+    } catch (_) {}
+  }
+  return [];
+}
+
+function saveDestinyPool(pool) {
+  const serialized = JSON.stringify(pool);
+  db.prepare(`
+    INSERT INTO campaign_state (key, value, updated_at)
+    VALUES ('destiny_pool', ?, CURRENT_TIMESTAMP)
+    ON CONFLICT(key) DO UPDATE SET value = excluded.value, updated_at = excluded.updated_at
+  `).run(serialized);
+}
+
+function recalcPool(io) {
+  const sockets = Array.from(io.sockets.sockets.values());
+  const uniqueCharacters = new Set();
+  sockets.forEach(s => {
+    if (s.data.role === 'player' && s.data.characterId) {
+      uniqueCharacters.add(s.data.characterId);
+    }
+  });
+  const playerCount = uniqueCharacters.size;
+  const needed = playerCount * 2;
+
+  let pool = getDestinyPool();
+
+  if (pool.length < needed) {
+    while (pool.length < needed) pool.push('hope');
+  } else if (pool.length > needed) {
+    pool = pool.slice(0, needed);
+  }
+
+  saveDestinyPool(pool);
+  return pool;
+}
+
+function broadcastDestiny(io) {
+  const pool = getDestinyPool();
+  io.emit('destiny:sync', { pool });
+}
+
 function registerHandlers(io) {
   io.on('connection', (socket) => {
     console.log(`[socket] Connected: ${socket.id}`);
@@ -27,6 +77,9 @@ function registerHandlers(io) {
 
         console.log(`[socket] Player joined: ${name} (${socket.id})`);
         io.emit('player:connected', { characterId, name });
+
+        const pool = recalcPool(io);
+        io.emit('destiny:sync', { pool });
       }
 
       if (role === 'gm') {
@@ -42,6 +95,9 @@ function registerHandlers(io) {
       }, {});
 
       socket.emit('state:sync', { state });
+
+      const pool = getDestinyPool();
+      socket.emit('destiny:sync', { pool });
     });
 
     socket.on('state:request', () => {
@@ -80,6 +136,34 @@ function registerHandlers(io) {
       console.log(`[socket] State updated by GM: ${key}`);
     });
 
+    socket.on('destiny:flip', ({ index }) => {
+      if (socket.data.role !== 'gm') {
+        socket.emit('error', { message: 'Only the GM can flip destiny tokens.' });
+        return;
+      }
+
+      const pool = getDestinyPool();
+      if (index < 0 || index >= pool.length) return;
+
+      pool[index] = pool[index] === 'hope' ? 'toll' : 'hope';
+      saveDestinyPool(pool);
+      io.emit('destiny:sync', { pool });
+      console.log(`[socket] GM flipped token ${index} to ${pool[index]}`);
+    });
+
+    socket.on('destiny:reset', () => {
+      if (socket.data.role !== 'gm') {
+        socket.emit('error', { message: 'Only the GM can reset the destiny pool.' });
+        return;
+      }
+
+      const pool = recalcPool(io);
+      const resetPool = pool.map(() => 'hope');
+      saveDestinyPool(resetPool);
+      io.emit('destiny:sync', { pool: resetPool });
+      console.log(`[socket] GM reset destiny pool (${resetPool.length} tokens)`);
+    });
+
     socket.on('disconnect', () => {
       const { role, characterId, characterName } = socket.data;
       console.log(`[socket] Disconnected: ${socket.id} (${role || 'unknown'})`);
@@ -90,6 +174,11 @@ function registerHandlers(io) {
         `).run(characterId);
 
         io.emit('player:disconnected', { characterId, name: characterName || 'Unknown' });
+
+        setTimeout(() => {
+          const pool = recalcPool(io);
+          io.emit('destiny:sync', { pool });
+        }, 100);
       }
     });
   });
