@@ -21,12 +21,14 @@
 
   var THEME_KEY     = 'eote-theme';
   var DEFAULT_THEME = 'theme-rebellion';
-  var THEMES        = ['theme-rebellion', 'theme-fringe', 'theme-r2d2', 'theme-vader'];
+  var THEMES        = ['theme-rebellion', 'theme-fringe', 'theme-r2d2', 'theme-vader', 'theme-fett', 'theme-holo'];
   var THEME_LABELS  = {
     'theme-rebellion': 'Rebellion',
     'theme-fringe':    'The Fringe',
     'theme-r2d2':      'R2-D2',
     'theme-vader':     'Darth Vader',
+    'theme-fett':      'Fett',
+    'theme-holo':      'Holo',
   };
 
   var CREATION_KEY = 'eote-char-creation';

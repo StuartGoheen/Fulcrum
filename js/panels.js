@@ -8,7 +8,7 @@
     'theme-r2d2':      'R2-D2',
     'theme-vader':     'Darth Vader',
     'theme-fett':      'Fett',
-    'theme-holo':      'HOLO',
+    'theme-holo':      'Holo',
   };
 
   const PANELS = [
