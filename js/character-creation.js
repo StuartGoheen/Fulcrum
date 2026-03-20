@@ -2385,6 +2385,7 @@
       var dot = document.createElement('button');
       dot.className = 'ph-carousel-dot' + (idx === 0 ? ' ph-dot-active' : '');
       dot.addEventListener('click', function () {
+        if (stateKey === "ph-grid-species") state.favoredDiscipline = null;
         cs.current = idx;
         phaseCarouselUpdate(stateKey, cards);
       });
@@ -2411,6 +2412,7 @@
 
   function phaseCarouselNav(stateKey, cards, dir) {
     var cs = phaseCarouselStates[stateKey];
+    if (stateKey === "ph-grid-species") state.favoredDiscipline = null;
     cs.current = (cs.current + dir + cs.total) % cs.total;
     phaseCarouselUpdate(stateKey, cards);
   }
@@ -2419,8 +2421,7 @@
     var cs = phaseCarouselStates[stateKey];
     var container = document.getElementById(stateKey);
     if (!container) return;
-    if (stateKey === "ph-grid-species" && cs._prev !== undefined && cs._prev !== cs.current) state.favoredDiscipline = null;
-    if (stateKey === "ph-grid-species") cs._prev = cs.current;
+
     var slides = container.querySelectorAll('.ph-card-wrap');
     slides.forEach(function (slide, idx) {
       var offset = idx - cs.current;
