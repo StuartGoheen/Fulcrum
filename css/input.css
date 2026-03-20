@@ -4246,6 +4246,31 @@
     border-radius: 50%;
   }
 
+  .destiny-pip {
+    width: clamp(22px, 2.8vw, 34px);
+    height: clamp(22px, 2.8vw, 34px);
+    border-radius: 50%;
+    flex-shrink: 0;
+    cursor: default;
+    transition: box-shadow 0.4s, background 0.4s, opacity 0.4s;
+  }
+
+  .destiny-pip.is-hope {
+    background: radial-gradient(circle at 38% 32%, #d8eeff 0%, #80bcec 18%, #2a78c0 46%, #0a3870 74%, #030e20 100%);
+    box-shadow:
+      0 0 0 1.5px rgba(100,180,255,0.35),
+      0 0 10px rgba(40,120,210,0.45);
+    opacity: 1;
+  }
+
+  .destiny-pip.is-toll {
+    background: radial-gradient(circle at 50% 44%, #3d0000 0%, #1a0000 50%, #000000 100%);
+    box-shadow:
+      0 0 0 1.5px rgba(100,0,0,0.25),
+      0 0 4px rgba(80,0,0,0.2);
+    opacity: 0.5;
+  }
+
   .destiny-personal-name {
     font-family: 'Audiowide', sans-serif;
     font-size: 1.00rem;

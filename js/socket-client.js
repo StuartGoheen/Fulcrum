@@ -32,13 +32,8 @@
       return;
     }
     tracker.innerHTML = pool.map(function (state) {
-      var isDark = state === 'toll';
-      return '<div class="force-token' + (isDark ? ' is-dark' : '') + '" style="cursor:default;">' +
-        '<div class="force-token-inner">' +
-          '<div class="force-token-face force-token-front"></div>' +
-          '<div class="force-token-face force-token-back"></div>' +
-        '</div>' +
-      '</div>';
+      var cls = state === 'toll' ? 'destiny-pip is-toll' : 'destiny-pip is-hope';
+      return '<div class="' + cls + '" title="' + (state === 'toll' ? 'Toll' : 'Hope') + '"></div>';
     }).join('');
   }
 
