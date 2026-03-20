@@ -3088,6 +3088,12 @@
     margin-bottom: 0.15rem;
   }
 
+  #screen-phase1,
+  #screen-phase2,
+  #screen-phase3 {
+    overflow: hidden;
+  }
+
   .ph-top-bar {
     display: flex;
     justify-content: flex-start;
