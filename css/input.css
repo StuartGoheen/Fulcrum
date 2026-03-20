@@ -3602,27 +3602,27 @@
 
   .ph-card-wrap {
     position: absolute;
-    top: 5px;
-    bottom: 5px;
+    top: 50%;
     left: 50%;
     width: 100%;
     max-width: 900px;
+    max-height: calc(100% - 10px);
     transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.45s ease;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
     opacity: 0;
     z-index: 0;
     pointer-events: none;
   }
 
   .ph-slide-active {
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
     opacity: 1;
     z-index: 3;
     pointer-events: auto;
   }
 
   .ph-slide-hidden {
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
     opacity: 0;
     z-index: 0;
     pointer-events: none;
@@ -3684,6 +3684,7 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    border-radius: 0.5rem;
   }
 
   .ph-card-front {
@@ -3877,14 +3878,18 @@
   .ph-card-flat {
     cursor: default;
     width: 900px;
-    height: 100%;
   }
 
   .ph-card-flat .ph-perspective,
   .ph-card-flat .ph-card-inner {
     transform: none;
     width: 100%;
-    height: 100%;
+    height: auto;
+  }
+
+  .ph-card-flat .ph-card-face {
+    position: relative;
+    inset: auto;
   }
 
   .ph-card-flat.ph-slide-hidden {
@@ -3984,7 +3989,6 @@
   @media (max-width: 900px) {
     .ph-card-flat {
       width: 560px;
-      height: 100%;
     }
     .ph3-img-col {
       flex: 0 0 200px;
@@ -4002,7 +4006,6 @@
   @media (max-width: 600px) {
     .ph-card-flat {
       width: min(340px, calc(100vw - 100px));
-      height: 100%;
     }
     .ph3-detail-col {
       padding: 0.75rem 1rem;
