@@ -1263,21 +1263,21 @@
     bar.innerHTML = '';
 
     if (_statsPhase === 'incomp') {
+      var totalIncomp = d.playerIncompCount + d.forceIncompCount;
       var effectiveReq = Math.max(0, MAX_INCOMP_REQUIRED - (d.freeAdv || 0));
       var badge = document.createElement('span');
-      var ok = d.playerIncompCount >= effectiveReq;
+      var ok = totalIncomp >= effectiveReq;
       badge.className = 'cc-adv-badge ' + (ok ? 'cc-adv-badge--ok' : 'cc-adv-badge--warn');
-      var req = Math.min(d.playerIncompCount, effectiveReq);
-      badge.textContent = req + '/' + effectiveReq + ' required' +
+      badge.textContent = totalIncomp + '/' + effectiveReq + ' required' +
         (d.freeAdv ? ' (Adaptable: +' + d.freeAdv + ' free)' : '');
       bar.appendChild(badge);
 
-      var opt = Math.max(0, d.playerIncompCount - effectiveReq);
-      if (opt > 0 || ok) {
+      var playerOpt = Math.max(0, d.playerIncompCount - Math.max(0, effectiveReq - d.forceIncompCount));
+      var optCap = MAX_INCOMP_TOTAL - FORCE_DISC_IDS.length - Math.max(0, effectiveReq - d.forceIncompCount);
+      if (playerOpt > 0 || ok) {
         var optBadge = document.createElement('span');
-        var optCap = MAX_INCOMP_TOTAL - FORCE_DISC_IDS.length - effectiveReq;
         optBadge.className = 'cc-adv-badge';
-        optBadge.textContent = '+' + opt + '/' + optCap + ' optional';
+        optBadge.textContent = '+' + playerOpt + '/' + optCap + ' optional';
         bar.appendChild(optBadge);
       }
     } else if (_statsPhase === 'arenas') {
@@ -1824,7 +1824,7 @@
       prevBtn.onclick = function() { showScreen('phase3'); updateStepTrack(3); };
 
       var effectiveReq = Math.max(0, MAX_INCOMP_REQUIRED - (d.freeAdv || 0));
-      var canProceed = d.playerIncompCount >= effectiveReq;
+      var canProceed = (d.playerIncompCount + d.forceIncompCount) >= effectiveReq;
       nextBtn.textContent = 'Arenas \u2192';
       nextBtn.disabled = !canProceed;
       nextBtn.onclick = function() {
