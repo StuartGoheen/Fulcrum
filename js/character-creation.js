@@ -1560,8 +1560,11 @@
   function initKitsScreen() {
     if (!state.kitChoices) state.kitChoices = {};
     var doShow = function() {
-      renderKitsContent();
-      showScreen('kits');
+      normalizeKitChoices();
+      renderKitsBudgetBar();
+      buildPhaseCarousel(KITS_DATA, "ph-grid-vocations", null, buildVocationCardFlat);
+      updateKitsCarouselTitle();
+      showScreen("kits");
       updateStepTrack(5);
     };
     if (KITS_DATA.length === 0) {
@@ -1571,18 +1574,12 @@
     }
   }
 
-  function renderKitsContent() {
-    var container = document.getElementById("kits-content");
-    if (!container) return;
-    container.innerHTML = "";
-    normalizeKitChoices();
-
-    var choices = state.kitChoices || {};
-    var spent   = kitsSpent();
-    var avail   = KITS_BUDGET - spent;
-
-    var budgetBar = document.createElement("div");
-    budgetBar.className = "cc-kits-budget-bar";
+  function renderKitsBudgetBar() {
+    var bar = document.getElementById("kits-budget-bar");
+    if (!bar) return;
+    bar.innerHTML = "";
+    var spent = kitsSpent();
+    var avail = KITS_BUDGET - spent;
     var pips = document.createElement("div");
     pips.className = "cc-kits-budget-pips";
     for (var pi = 0; pi < KITS_BUDGET; pi++) {
@@ -1590,24 +1587,21 @@
       pip.className = "cc-kit-budget-pip" + (pi < spent ? " cc-kit-budget-pip--used" : "");
       pips.appendChild(pip);
     }
-    var budgLabel = document.createElement("span");
-    budgLabel.className   = "cc-kits-budget-label";
-    budgLabel.textContent = avail + " point" + (avail !== 1 ? "s" : "") + " remaining";
-    budgetBar.appendChild(pips);
-    budgetBar.appendChild(budgLabel);
-    container.appendChild(budgetBar);
-
-    var list = document.createElement("div");
-    list.className = "cc-kits-list";
-    KITS_DATA.forEach(function(kit) {
-      list.appendChild(buildKitCardFlat(kit, choices[kit.id] || 0, avail));
-    });
-    container.appendChild(list);
-
-    var btn = document.getElementById("btn-kits-continue");
-    if (btn) btn.disabled = false;
+    var label = document.createElement("span");
+    label.className = "cc-kits-budget-label";
+    label.textContent = avail + " point" + (avail !== 1 ? "s" : "") + " remaining";
+    bar.appendChild(pips);
+    bar.appendChild(label);
     var disp = document.getElementById("kits-budget-display");
     if (disp) disp.textContent = avail;
+  }
+
+  function updateKitsCarouselTitle() {
+    var cs = phaseCarouselStates["ph-grid-vocations"];
+    var titleEl = document.getElementById("kits-carousel-title");
+    if (!cs || !titleEl) return;
+    var kit = KITS_DATA[cs.current];
+    titleEl.textContent = kit ? kit.name : "";
   }
 
   function kitMaxTier(kit) {
@@ -1619,28 +1613,9 @@
     return tierMap[dieVal] || 2;
   }
 
-  function buildKitCardFlat(kit, currentTier, avail) {
-    var isForce = kit.favoredDiscipline && kit.favoredDiscipline.indexOf("_spark") !== -1;
-    var maxTier = kitMaxTier(kit);
-    var abilities = kit.abilities || [];
-
-    var card = document.createElement("div");
-    card.className = "cc-kit-flat" +
-      (currentTier > 0 ? " cc-kit-flat--active" : "") +
-      (isForce ? " cc-kit-flat--force" : "");
-
-    var infoCol = document.createElement("div");
-    infoCol.className = "cc-kit-flat-info";
-
-    var nameEl = document.createElement("h3");
-    nameEl.className = "cc-kit-flat-name";
-    nameEl.textContent = kit.name;
-    infoCol.appendChild(nameEl);
-
-    var meta = document.createElement("div");
-    meta.className = "cc-kit-flat-meta";
-    var arenaName = kit.governingArena ? (kit.governingArena.charAt(0).toUpperCase() + kit.governingArena.slice(1)) : "";
-    var discName = kit.favoredDiscipline || "";
+  function formatDiscName(rawDisc) {
+    if (!rawDisc) return "";
+    var discName = rawDisc;
     if (discName.indexOf("_spark") !== -1) {
       discName = discName.replace("_spark", "").replace(/_/g, " ");
       discName = discName.charAt(0).toUpperCase() + discName.slice(1) + " (Force)";
@@ -1648,13 +1623,63 @@
       discName = discName.replace(/_/g, " ");
       discName = discName.charAt(0).toUpperCase() + discName.slice(1);
     }
+    return discName;
+  }
+
+  function buildVocationCardFlat(kit) {
+    var choices = state.kitChoices || {};
+    var currentTier = choices[kit.id] || 0;
+    var spent = kitsSpent();
+    var avail = KITS_BUDGET - spent;
+    var isForce = kit.favoredDiscipline && kit.favoredDiscipline.indexOf("_spark") !== -1;
+    var maxTier = kitMaxTier(kit);
+    var abilities = kit.abilities || [];
+    var discName = formatDiscName(kit.favoredDiscipline);
+    var arenaName = kit.governingArena ? (kit.governingArena.charAt(0).toUpperCase() + kit.governingArena.slice(1)) : "";
+
+    var wrapper = document.createElement("div");
+    wrapper.className = "ph-card-wrap ph-card-flat";
+    wrapper.dataset.kitId = kit.id;
+
+    var cardEl = document.createElement("div");
+    cardEl.className = "ph3-species-card" +
+      (currentTier > 0 ? " voc-card--active" : "") +
+      (isForce ? " voc-card--force" : "");
+
+    var imgCol = document.createElement("div");
+    imgCol.className = "ph3-img-col";
+    if (kit.imageUrl) {
+      var img = document.createElement("img");
+      img.src = kit.imageUrl;
+      img.alt = kit.name;
+      img.className = "ph3-card-img";
+      imgCol.appendChild(img);
+    }
+
+    var detailCol = document.createElement("div");
+    detailCol.className = "ph3-detail-col voc-detail-col";
+
+    var nameEl = document.createElement("h2");
+    nameEl.className = "ph3-card-name";
+    nameEl.textContent = kit.name;
+    detailCol.appendChild(nameEl);
+
+    var meta = document.createElement("p");
+    meta.className = "ph3-card-symbol";
     meta.textContent = arenaName + " / " + discName;
-    infoCol.appendChild(meta);
+    detailCol.appendChild(meta);
 
     var desc = document.createElement("p");
-    desc.className = "cc-kit-flat-desc";
+    desc.className = "ph3-narrative";
     desc.textContent = kit.description || "";
-    infoCol.appendChild(desc);
+    detailCol.appendChild(desc);
+
+    if (kit.fluff) {
+      var fluff = document.createElement("p");
+      fluff.className = "ph3-narrative voc-fluff";
+      fluff.textContent = kit.fluff;
+      detailCol.appendChild(fluff);
+    }
 
     var capInfo = document.createElement("div");
     capInfo.className = "cc-kit-flat-cap";
@@ -1662,11 +1687,10 @@
     var discId = kit.favoredDiscipline || kit.alignedDiscipline;
     var dieVal = discId ? statsGetDiscValue(discId, d) : "D6";
     capInfo.textContent = discName + " at " + dieVal + " → max Tier " + maxTier;
-    infoCol.appendChild(capInfo);
+    detailCol.appendChild(capInfo);
 
     var tierActions = document.createElement("div");
     tierActions.className = "cc-kit-flat-actions";
-
     if (currentTier === 0) {
       var takeBtn = document.createElement("button");
       takeBtn.className = "cc-kit-btn cc-kit-btn--take";
@@ -1701,12 +1725,10 @@
       remBtn.addEventListener("click", function() { handleKitSelect(kit.id, 0); });
       tierActions.appendChild(remBtn);
     }
-    infoCol.appendChild(tierActions);
-    card.appendChild(infoCol);
+    detailCol.appendChild(tierActions);
 
-    var abilCol = document.createElement("div");
-    abilCol.className = "cc-kit-flat-abilities";
-
+    var abilitiesWrap = document.createElement("div");
+    abilitiesWrap.className = "voc-abilities-wrap";
     for (var t = 1; t <= 5; t++) {
       var ab = abilities.find(function(a) { return a.tier === t; });
       if (!ab) continue;
@@ -1724,7 +1746,6 @@
 
       var abBody = document.createElement("div");
       abBody.className = "cc-kit-flat-ab-body";
-
       var abHead = document.createElement("div");
       abHead.className = "cc-kit-flat-ab-head";
       var abName = document.createElement("span");
@@ -1733,7 +1754,7 @@
       abHead.appendChild(abName);
       var typeBadge = document.createElement("span");
       typeBadge.className = "cc-kit-flat-ab-type cc-kit-flat-ab-type--" + (ab.type || "passive");
-      typeBadge.textContent = ab.type === "gambit" ? "Gambit" : (ab.type === "maneuver" ? "Maneuver" : (ab.type === "exploit" ? "Exploit" : "Passive"));
+      typeBadge.textContent = ab.type === "gambit" ? "Gambit" : (ab.type === "maneuver" ? "Maneuver" : (ab.type === "exploit" ? "Exploit" : (ab.type === "action" ? "Action" : (ab.type === "permission" ? "Permission" : "Passive"))));
       abHead.appendChild(typeBadge);
       abBody.appendChild(abHead);
 
@@ -1749,13 +1770,15 @@
         lockMsg.textContent = "Requires " + discName + " at " + dieName;
         abBody.appendChild(lockMsg);
       }
-
       row.appendChild(abBody);
-      abilCol.appendChild(row);
+      abilitiesWrap.appendChild(row);
     }
+    detailCol.appendChild(abilitiesWrap);
 
-    card.appendChild(abilCol);
-    return card;
+    cardEl.appendChild(imgCol);
+    cardEl.appendChild(detailCol);
+    wrapper.appendChild(cardEl);
+    return wrapper;
   }
 
   function handleKitSelect(kitId, tier) {
@@ -1773,7 +1796,42 @@
       state.kitChoices[kitId] = tier;
     }
     saveState();
-    renderKitsContent();
+    rebuildCurrentVocationCard();
+    renderKitsBudgetBar();
+  }
+
+  function rebuildCurrentVocationCard() {
+    var cs = phaseCarouselStates["ph-grid-vocations"];
+    if (!cs) return;
+    var kit = KITS_DATA[cs.current];
+    if (!kit) return;
+    var container = document.getElementById("ph-grid-vocations");
+    if (!container) return;
+    var track = container.querySelector(".ph-carousel-track");
+    if (!track) return;
+    var oldSlide = track.children[cs.current];
+    if (!oldSlide) return;
+    var newSlide = buildVocationCardFlat(kit);
+    newSlide.dataset.index = cs.current;
+    newSlide.classList.add("ph-slide-active");
+    track.replaceChild(newSlide, oldSlide);
+  }
+
+  function rebuildActiveVocationSlide() {
+    var cs = phaseCarouselStates["ph-grid-vocations"];
+    if (!cs) return;
+    var kit = KITS_DATA[cs.current];
+    if (!kit) return;
+    var container = document.getElementById("ph-grid-vocations");
+    if (!container) return;
+    var track = container.querySelector(".ph-carousel-track");
+    if (!track) return;
+    var oldSlide = track.children[cs.current];
+    if (!oldSlide) return;
+    var newSlide = buildVocationCardFlat(kit);
+    newSlide.dataset.index = cs.current;
+    newSlide.classList.add("ph-slide-active");
+    track.replaceChild(newSlide, oldSlide);
   }
 
   function normalizeKitChoices() {
@@ -2450,6 +2508,10 @@
     dots.forEach(function (d, i) {
       d.classList.toggle('ph-dot-active', i === cs.current);
     });
+    if (stateKey === "ph-grid-vocations") {
+      updateKitsCarouselTitle();
+      rebuildActiveVocationSlide();
+    }
   }
 
 
@@ -3614,7 +3676,14 @@
           return;
         }
       }
-      var destinyEl = document.getElementById('screen-destiny');
+      var kitsEl = document.getElementById('screen-kits');
+      if (kitsEl && !kitsEl.classList.contains('hidden')) {
+        e.preventDefault();
+        phaseCarouselNav('ph-grid-vocations', KITS_DATA, e.key === 'ArrowLeft' ? -1 : 1);
+        updateKitsCarouselTitle();
+        return;
+      }
+            var destinyEl = document.getElementById('screen-destiny');
       if (destinyEl && !destinyEl.classList.contains('hidden')) {
         e.preventDefault();
         var personalSection = document.getElementById('destiny-personal-section');
@@ -3633,6 +3702,7 @@
         if (!phaseCarouselStates[stateKey]) return;
         var dir = btn.classList.contains('ph-header-arrow-prev') ? -1 : 1;
         phaseCarouselNav(stateKey, [], dir);
+        if (stateKey === "ph-grid-vocations") updateKitsCarouselTitle();
       });
     });
 
