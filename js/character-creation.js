@@ -2724,7 +2724,9 @@
         narrativeHook: d.narrativeHook
       };
       saveState();
-      updateDestinyContinue();
+      showScreen("backstory");
+      updateStepTrack(8);
+      initBackstoryScreen();
     }
 
     function buildDestinyPoolCardFlat(card, selectFn) {
