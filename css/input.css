@@ -3605,7 +3605,7 @@
     top: 50%;
     left: 50%;
     width: 420px;
-    height: min(552px, calc(100% - 30px));
+    height: calc(100% - 20px);
     transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.45s ease;
     transform: translate(-50%, -50%) scale(1);
     opacity: 1;
@@ -4020,7 +4020,7 @@
     }
     .ph-card-wrap {
       width: 360px;
-      height: min(483px, calc(100% - 30px));
+      height: calc(100% - 20px);
     }
     .ph-slide-prev {
       transform: translate(calc(-50% - 280px), -50%) scale(0.75);
@@ -4048,7 +4048,7 @@
     }
     .ph-card-wrap {
       width: min(340px, calc(100vw - 100px));
-      height: min(460px, calc(100% - 30px));
+      height: calc(100% - 20px);
     }
     .ph-slide-prev {
       transform: translate(calc(-50% - 240px), -50%) scale(0.75);
