@@ -1071,7 +1071,10 @@
     });
     var discIncomp       = state.discIncomp  || {};
     var discValues       = state.discValues  || {};
-    var incompCount      = Object.keys(discIncomp).length;
+    var allIncompKeys    = Object.keys(discIncomp);
+    var forceIncompCount = allIncompKeys.filter(function(k) { return FORCE_DISC_IDS.indexOf(k) >= 0; }).length;
+    var playerIncompCount = allIncompKeys.length - forceIncompCount;
+    var incompCount      = allIncompKeys.length;
     var sp = state.species ? SPECIES.find(function(s){ return s.id === state.species; }) : null;
     var freeAdv = (sp && sp.speciesTrait && sp.speciesTrait.name === "Adaptable") ? 1 : 0;
     var totalAdv         = incompCount + freeAdv;
@@ -1085,6 +1088,8 @@
       arenaValues:      arenaValues,
       arenaAdvAvail:    arenaAdvAvail,
       incompCount:      incompCount,
+      playerIncompCount: playerIncompCount,
+      forceIncompCount:  forceIncompCount,
       totalAdv:         totalAdv,
       totalEliteTokens: totalEliteTokens,
       spentAdv:         spentAdv,
@@ -1260,14 +1265,14 @@
     if (_statsPhase === 'incomp') {
       var effectiveReq = Math.max(0, MAX_INCOMP_REQUIRED - (d.freeAdv || 0));
       var badge = document.createElement('span');
-      var ok = d.incompCount >= effectiveReq;
+      var ok = d.playerIncompCount >= effectiveReq;
       badge.className = 'cc-adv-badge ' + (ok ? 'cc-adv-badge--ok' : 'cc-adv-badge--warn');
-      var req = Math.min(d.incompCount, effectiveReq);
+      var req = Math.min(d.playerIncompCount, effectiveReq);
       badge.textContent = req + '/' + effectiveReq + ' required' +
         (d.freeAdv ? ' (Adaptable: +' + d.freeAdv + ' free)' : '');
       bar.appendChild(badge);
 
-      var opt = Math.max(0, d.incompCount - effectiveReq);
+      var opt = Math.max(0, d.playerIncompCount - effectiveReq);
       if (opt > 0 || ok) {
         var optBadge = document.createElement('span');
         var optCap = MAX_INCOMP_TOTAL - effectiveReq;
@@ -1638,7 +1643,7 @@
         var weak = document.createElement('button');
         weak.className = 'sdc-btn sdc-btn--incomp';
         weak.textContent = 'Mark Incompetent (D4)';
-        weak.disabled = d.incompCount >= MAX_INCOMP_TOTAL;
+        weak.disabled = d.playerIncompCount >= (MAX_INCOMP_TOTAL - d.forceIncompCount);
         weak.addEventListener('click', function() { handleDiscIncomp(disc.id); });
         actions.appendChild(weak);
       }
@@ -1700,7 +1705,7 @@
       prevBtn.onclick = function() { showScreen('phase3'); updateStepTrack(3); };
 
       var effectiveReq = Math.max(0, MAX_INCOMP_REQUIRED - (d.freeAdv || 0));
-      var canProceed = d.incompCount >= effectiveReq;
+      var canProceed = d.playerIncompCount >= effectiveReq;
       nextBtn.textContent = 'Arenas \u2192';
       nextBtn.disabled = !canProceed;
       nextBtn.onclick = function() {
@@ -1767,7 +1772,8 @@
 
   function handleDiscIncomp(discId) {
     if (!state.discIncomp) state.discIncomp = {};
-    if (Object.keys(state.discIncomp).length >= MAX_INCOMP_TOTAL) return;
+    var _pInc = Object.keys(state.discIncomp).filter(function(k) { return FORCE_DISC_IDS.indexOf(k) < 0; }).length;
+    if (_pInc >= (MAX_INCOMP_TOTAL - FORCE_DISC_IDS.length)) return;
     state.discIncomp[discId] = true;
     if (!state.discValues) state.discValues = {};
     state.discValues[discId] = 'D4';
