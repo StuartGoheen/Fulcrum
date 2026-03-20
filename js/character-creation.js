@@ -1102,28 +1102,38 @@
     return d.discValues[discId] || 'D6';
   }
 
+  /* ══════════════════════════════════════════════════════════════════════
+     Arenas & Disciplines — Guided 3-Phase Workflow
+     ══════════════════════════════════════════════════════════════════════ */
+
+  var FORCE_DISC_IDS = ['control_spark', 'sense_spark', 'alter_spark'];
+  var _statsPhase = 'incomp'; // 'incomp' | 'arenas' | 'disciplines'
+  var _selectedCell = null;   // { type:'arena'|'disc', id:string } or null
+
   function initStatsScreen() {
     if (!state.discValues)      state.discValues      = {};
     if (!state.discIncomp)      state.discIncomp      = {};
     if (!state.arenaAdj)        state.arenaAdj        = {};
     if (!state.spentAdv)        state.spentAdv        = 0;
     if (!state.eliteTokensUsed) state.eliteTokensUsed = 0;
+
+    // Auto-set Force disciplines as incompetent if not explicitly touched
+    if (!state._forceAutoSet) {
+      FORCE_DISC_IDS.forEach(function(fid) {
+        if (!state.discIncomp[fid] && !state.discValues[fid]) {
+          state.discIncomp[fid] = true;
+          state.discValues[fid] = 'D4';
+        }
+      });
+      state._forceAutoSet = true;
+      saveState();
+    }
+
+    _statsPhase = 'incomp';
+    _selectedCell = null;
     renderStatsContent();
     showScreen('stats');
     updateStepTrack(4);
-  }
-
-  function renderStatsContent() {
-    var container = document.getElementById('stats-content');
-    if (!container) return;
-    container.innerHTML = '';
-    normalizeAdvances();
-    var d          = statsGetDerived();
-    var favoredIds = getFavoredIds();
-    container.appendChild(buildArenasSection(d));
-    container.appendChild(buildDiscSection(d, favoredIds));
-    var btn = document.getElementById('btn-stats-continue');
-    if (btn) btn.disabled = d.incompCount < Math.max(0, MAX_INCOMP_REQUIRED - (d.freeAdv || 0));
   }
 
   function normalizeAdvances() {
@@ -1136,7 +1146,14 @@
       for (var i = keys.length - 1; i >= 0; i--) {
         var dk = keys[i];
         if (!state.discIncomp || !state.discIncomp[dk]) {
-          if (state.discValues[dk] && state.discValues[dk] !== 'D6') {
+          var val = state.discValues[dk];
+          if (val && val !== 'D6') {
+            if (val === 'D10') {
+              state.spentAdv = Math.max(0, (state.spentAdv || 0) - 2);
+              state.eliteTokensUsed = Math.max(0, (state.eliteTokensUsed || 0) - 1);
+            } else if (val === 'D8') {
+              state.spentAdv = Math.max(0, (state.spentAdv || 0) - 1);
+            }
             delete state.discValues[dk];
             found = true;
             changed = true;
@@ -1150,87 +1167,565 @@
     if (changed) saveState();
   }
 
-  /* -- Arena section -- */
+    function renderStatsContent() {
+    normalizeAdvances();
+    var d          = statsGetDerived();
+    var favoredIds = getFavoredIds();
 
-  function buildArenasSection(d) {
-    var wrap = document.createElement('div');
-    wrap.className = 'cc-subsection';
-    var head = document.createElement('div');
-    head.className = 'cc-subsection-head';
-    var leftDiv = document.createElement('div');
-    leftDiv.innerHTML = '<span class="cc-subsection-title">Arenas</span><div class="cc-subsection-hint">3 free advances &bull; step down to refund &bull; max D10</div>';
-    var badges = document.createElement('div');
-    badges.className = 'cc-adv-badges';
-    var avail = d.arenaAdvAvail;
-    var badge = document.createElement('span');
-    badge.className   = 'cc-adv-badge ' + (avail > 0 ? 'cc-adv-badge--ok' : '');
-    badge.textContent = avail + ' advance' + (avail !== 1 ? 's' : '') + ' remaining';
-    badges.appendChild(badge);
-    head.appendChild(leftDiv);
-    head.appendChild(badges);
-    wrap.appendChild(head);
-    var rows = document.createElement('div');
-    rows.className = 'cc-arena-rows';
-    ['physique','reflex','grit','wits','presence'].forEach(function(aId) {
-      rows.appendChild(buildArenaRow(aId, d));
+    renderStatsPhaseIndicator();
+    renderStatsStatusBar(d);
+    renderStatsGrid(d, favoredIds);
+    renderStatsDetailCard(d, favoredIds);
+    updateStatsNav(d);
+  }
+
+  /* ── Phase indicator breadcrumb ──────────────────────────────────── */
+
+  function renderStatsPhaseIndicator() {
+    var el = document.getElementById('stats-phase-indicator');
+    if (!el) return;
+    var phases = [
+      { key: 'incomp',      label: 'Weaknesses' },
+      { key: 'arenas',      label: 'Arenas' },
+      { key: 'disciplines', label: 'Specialize' },
+    ];
+    var order = ['incomp', 'arenas', 'disciplines'];
+    var curIdx = order.indexOf(_statsPhase);
+    el.innerHTML = '';
+
+    phases.forEach(function(p, i) {
+      if (i > 0) {
+        var sep = document.createElement('span');
+        sep.className = 'stats-phase-sep';
+        sep.textContent = '\u203A';
+        el.appendChild(sep);
+      }
+      var pip = document.createElement('span');
+      var cls = 'stats-phase-pip';
+      if (i < curIdx) cls += ' stats-phase-pip--done';
+      else if (i === curIdx) cls += ' stats-phase-pip--active';
+      pip.className = cls;
+
+      var num = document.createElement('span');
+      num.className = 'stats-phase-pip__num';
+      num.textContent = i < curIdx ? '\u2713' : String(i + 1);
+      pip.appendChild(num);
+
+      var lbl = document.createElement('span');
+      lbl.textContent = p.label;
+      pip.appendChild(lbl);
+
+      if (i <= curIdx) {
+        pip.style.cursor = 'pointer';
+        pip.addEventListener('click', (function(phase) {
+          return function() {
+            _statsPhase = phase;
+            _selectedCell = null;
+            renderStatsContent();
+          };
+        })(p.key));
+      }
+
+      el.appendChild(pip);
     });
-    wrap.appendChild(rows);
-    return wrap;
+
+    // Update subtitle
+    var sub = document.getElementById('stats-phase-sub');
+    if (sub) {
+      var subs = {
+        incomp: 'Mark your weaknesses. Force disciplines start sealed — most characters leave them that way.',
+        arenas: 'Spend 3 free advances to boost your Arenas. Step up to strengthen, step down to refund.',
+        disciplines: 'Spend earned advances to specialize. Restore Force disciplines here if you want the Force.',
+      };
+      sub.textContent = subs[_statsPhase] || '';
+    }
   }
 
-  function buildArenaRow(aId, d) {
-    var cur    = d.arenaValues[aId] || 'D6';
-    var base   = d.baseArenas[aId]  || 'D6';
-    var curIdx = DIE_STEPS.indexOf(cur);
-    var canUp  = d.arenaAdvAvail > 0 && curIdx < 3;
-    var canDn  = curIdx > 0;
-    var row = document.createElement('div');
-    row.className    = 'cc-arena-row';
-    row.dataset.arena = aId;
-    var dieCell = document.createElement('div');
-    dieCell.className = 'cc-arena-die-cell';
-    var dieImg = document.createElement('img');
-    dieImg.src       = '/assets/' + cur.toLowerCase() + '.png';
-    dieImg.alt       = cur;
-    dieImg.className = 'cc-arena-die-img';
-    dieCell.appendChild(dieImg);
-    var info = document.createElement('div');
-    info.className = 'cc-arena-info';
-    var nameBtn = document.createElement('button');
-    nameBtn.className   = 'cc-glossary-trigger';
-    nameBtn.textContent = capitalize(aId);
-    nameBtn.title = 'View glossary';
-    nameBtn.addEventListener('click', function() { if (window.GlossaryOverlay) window.GlossaryOverlay.open(aId); });
-    var baseLabel = document.createElement('span');
-    baseLabel.className   = 'cc-arena-base-label';
-    baseLabel.textContent = 'Species base: ' + base;
-    info.appendChild(nameBtn);
-    info.appendChild(baseLabel);
-    var stepGroup = document.createElement('div');
-    stepGroup.className = 'cc-stepper-group';
-    var btnDown = document.createElement('button');
-    btnDown.className   = 'cc-stepper-btn';
-    btnDown.textContent = '−';
-    btnDown.disabled    = !canDn;
-    btnDown.title = canDn ? 'Step down (refund 1 advance)' : 'Already at minimum';
-    btnDown.addEventListener('click', function() { handleArenaStep(aId, -1); });
-    var dieLabel = document.createElement('span');
-    dieLabel.className   = 'cc-stepper-die-label';
-    dieLabel.textContent = cur;
-    var btnUp = document.createElement('button');
-    btnUp.className   = 'cc-stepper-btn';
-    btnUp.textContent = '+';
-    btnUp.disabled    = !canUp;
-    btnUp.title = canUp ? 'Step up (costs 1 advance)' : (d.arenaAdvAvail <= 0 ? 'No advances remaining' : 'Already at D10');
-    btnUp.addEventListener('click', function() { handleArenaStep(aId, 1); });
-    stepGroup.appendChild(btnDown);
-    stepGroup.appendChild(dieLabel);
-    stepGroup.appendChild(btnUp);
-    row.appendChild(dieCell);
-    row.appendChild(info);
-    row.appendChild(stepGroup);
-    return row;
+  /* ── Status bar (badges) ─────────────────────────────────────────── */
+
+  function renderStatsStatusBar(d) {
+    var bar = document.getElementById('stats-status-bar');
+    if (!bar) return;
+    bar.innerHTML = '';
+
+    if (_statsPhase === 'incomp') {
+      var effectiveReq = Math.max(0, MAX_INCOMP_REQUIRED - (d.freeAdv || 0));
+      var badge = document.createElement('span');
+      var ok = d.incompCount >= effectiveReq;
+      badge.className = 'cc-adv-badge ' + (ok ? 'cc-adv-badge--ok' : 'cc-adv-badge--warn');
+      var req = Math.min(d.incompCount, effectiveReq);
+      badge.textContent = req + '/' + effectiveReq + ' required' +
+        (d.freeAdv ? ' (Adaptable: +' + d.freeAdv + ' free)' : '');
+      bar.appendChild(badge);
+
+      var opt = Math.max(0, d.incompCount - effectiveReq);
+      if (opt > 0 || ok) {
+        var optBadge = document.createElement('span');
+        var optCap = MAX_INCOMP_TOTAL - effectiveReq;
+        optBadge.className = 'cc-adv-badge';
+        optBadge.textContent = '+' + opt + '/' + optCap + ' optional';
+        bar.appendChild(optBadge);
+      }
+    } else if (_statsPhase === 'arenas') {
+      var ab = document.createElement('span');
+      ab.className = 'cc-adv-badge ' + (d.arenaAdvAvail > 0 ? 'cc-adv-badge--ok' : '');
+      ab.textContent = d.arenaAdvAvail + ' of ' + ARENA_ADVANCE_BUDGET + ' arena advances remaining';
+      bar.appendChild(ab);
+    } else if (_statsPhase === 'disciplines') {
+      if (d.totalAdv > 0) {
+        var db = document.createElement('span');
+        db.className = 'cc-adv-badge ' + (d.advAvail > 0 ? 'cc-adv-badge--ok' : '');
+        db.textContent = d.advAvail + ' advance' + (d.advAvail !== 1 ? 's' : '') + ' available';
+        bar.appendChild(db);
+      }
+      if (d.totalEliteTokens > 0) {
+        var eb = document.createElement('span');
+        eb.className = 'cc-adv-badge cc-adv-badge--enhanced';
+        eb.textContent = d.eliteTokensAvail + '/' + d.totalEliteTokens + ' Elite token' + (d.totalEliteTokens !== 1 ? 's' : '');
+        bar.appendChild(eb);
+      }
+      // Advance dots
+      if (d.totalAdv > 0) {
+        var dotsWrap = document.createElement('div');
+        dotsWrap.className = 'cc-adv-dots';
+        for (var i = 1; i <= d.totalAdv; i++) {
+          var isElite = (i % 5 === 0);
+          if (isElite && i > 1) { var g = document.createElement('div'); g.className = 'cc-adv-dot-gap'; dotsWrap.appendChild(g); }
+          var dot = document.createElement('div');
+          var spent = i <= d.spentAdv;
+          dot.className = 'cc-adv-dot' + (spent ? '' : ' cc-adv-dot--filled') + (isElite ? ' cc-adv-dot--enhanced' : '');
+          dotsWrap.appendChild(dot);
+        }
+        bar.appendChild(dotsWrap);
+      }
+    }
   }
+
+  /* ── 5×5 Grid ────────────────────────────────────────────────────── */
+
+  function renderStatsGrid(d, favoredIds) {
+    var grid = document.getElementById('stats-grid');
+    if (!grid) return;
+    grid.innerHTML = '';
+
+    // Top row: 5 arena header cells
+    DISCIPLINES_BY_ARENA.forEach(function(ag) {
+      var cell = buildArenaCell(ag, d);
+      grid.appendChild(cell);
+    });
+
+    // 5 rows of disciplines (row-major: row 0 = first disc of each arena, etc.)
+    for (var row = 0; row < 5; row++) {
+      DISCIPLINES_BY_ARENA.forEach(function(ag) {
+        var disc = ag.disciplines[row];
+        var cell = buildDiscCell(disc, ag.id, d, favoredIds);
+        grid.appendChild(cell);
+      });
+    }
+  }
+
+  function buildArenaCell(ag, d) {
+    var val = d.arenaValues[ag.id] || 'D6';
+    var cell = document.createElement('div');
+    var cls = 'sg-cell sg-cell--arena';
+
+    var isActive = _selectedCell && _selectedCell.type === 'arena' && _selectedCell.id === ag.id;
+    if (isActive) cls += ' sg-cell--active';
+
+    // Phase gating
+    if (_statsPhase !== 'arenas') cls += ' sg-cell--disabled';
+
+    var curIdx = DIE_STEPS.indexOf(val);
+    if (curIdx > DIE_STEPS.indexOf(d.baseArenas[ag.id] || 'D6')) cls += ' sg-cell--advanced';
+
+    cell.className = cls;
+
+    var img = document.createElement('img');
+    img.src = '/assets/' + val.toLowerCase() + '.png';
+    img.alt = val;
+    img.className = 'sg-cell__die';
+    cell.appendChild(img);
+
+    var name = document.createElement('span');
+    name.className = 'sg-cell__name';
+    name.textContent = capitalize(ag.id);
+    cell.appendChild(name);
+
+    if (_statsPhase === 'arenas') {
+      cell.addEventListener('click', function() {
+        _selectedCell = { type: 'arena', id: ag.id };
+        renderStatsContent();
+      });
+    }
+
+    return cell;
+  }
+
+  function buildDiscCell(disc, arenaId, d, favoredIds) {
+    var isIncomp  = !!d.discIncomp[disc.id];
+    var isForce   = !!disc.force;
+    var isFavored = !!favoredIds[disc.id];
+    var cur       = statsGetDiscValue(disc.id, d);
+
+    var cell = document.createElement('div');
+    var cls = 'sg-cell';
+
+    if (isForce) cls += ' sg-cell--force';
+    if (isFavored) cls += ' sg-cell--favored';
+
+    var isActive = _selectedCell && _selectedCell.type === 'disc' && _selectedCell.id === disc.id;
+    if (isActive) cls += ' sg-cell--active';
+
+    // State styling
+    if (isIncomp && isForce) {
+      cls += ' sg-cell--force-locked';
+    } else if (isIncomp) {
+      cls += ' sg-cell--incomp';
+    } else if (cur !== 'D6') {
+      cls += ' sg-cell--advanced';
+    }
+
+    // Phase gating
+    var clickable = false;
+    if (_statsPhase === 'incomp') {
+      // Only non-force, non-incomp disciplines can be toggled; Force-locked cells shown but not new-clickable
+      // Also allow clicking already-incomp cells to restore during incomp phase
+      if (!isForce) clickable = true;
+      else cls += ' sg-cell--disabled';
+    } else if (_statsPhase === 'arenas') {
+      cls += ' sg-cell--disabled';
+    } else if (_statsPhase === 'disciplines') {
+      // All non-incomp cells clickable + force-incomp cells clickable (to restore)
+      if (isIncomp && isForce) clickable = true;
+      else if (!isIncomp) clickable = true;
+      else cls += ' sg-cell--disabled';
+    }
+
+    if (!clickable && cls.indexOf('sg-cell--disabled') === -1) {
+      // Make sure disabled styling is applied
+    }
+
+    cell.className = cls;
+
+    var img = document.createElement('img');
+    img.src = '/assets/' + cur.toLowerCase() + '.png';
+    img.alt = cur;
+    img.className = 'sg-cell__die';
+    cell.appendChild(img);
+
+    var name = document.createElement('span');
+    name.className = 'sg-cell__name';
+    name.textContent = disc.name;
+    cell.appendChild(name);
+
+    // Tags
+    if (isForce) {
+      var tag = document.createElement('span');
+      tag.className = 'sg-cell__tag sg-cell__tag--force';
+      tag.textContent = 'F';
+      cell.appendChild(tag);
+    }
+    if (isFavored && !isForce) {
+      var ftag = document.createElement('span');
+      ftag.className = 'sg-cell__tag sg-cell__tag--favored';
+      ftag.textContent = '\u2605';
+      cell.appendChild(ftag);
+    }
+
+    if (clickable) {
+      cell.addEventListener('click', function() {
+        _selectedCell = { type: 'disc', id: disc.id, arenaId: arenaId, force: isForce };
+        renderStatsContent();
+      });
+    }
+
+    return cell;
+  }
+
+  /* ── Detail card ─────────────────────────────────────────────────── */
+
+  function renderStatsDetailCard(d, favoredIds) {
+    var panel = document.getElementById('stats-detail-card');
+    if (!panel) return;
+
+    if (!_selectedCell) {
+      panel.classList.add('hidden');
+      panel.innerHTML = '';
+      return;
+    }
+
+    panel.classList.remove('hidden');
+    panel.innerHTML = '';
+
+    // Close button
+    var closeBtn = document.createElement('button');
+    closeBtn.className = 'sdc-close';
+    closeBtn.innerHTML = '&times;';
+    closeBtn.addEventListener('click', function() {
+      _selectedCell = null;
+      renderStatsContent();
+    });
+    panel.appendChild(closeBtn);
+
+    if (_selectedCell.type === 'arena') {
+      renderArenaDetailCard(panel, _selectedCell.id, d);
+    } else {
+      renderDiscDetailCard(panel, _selectedCell, d, favoredIds);
+    }
+  }
+
+  function renderArenaDetailCard(panel, arenaId, d) {
+    var val  = d.arenaValues[arenaId] || 'D6';
+    var base = d.baseArenas[arenaId]  || 'D6';
+
+    var header = document.createElement('div');
+    header.className = 'sdc-header';
+
+    var dieImg = document.createElement('img');
+    dieImg.src = '/assets/' + val.toLowerCase() + '.png';
+    dieImg.alt = val;
+    dieImg.className = 'sdc-die';
+    header.appendChild(dieImg);
+
+    var info = document.createElement('div');
+    info.className = 'sdc-info';
+
+    var nameEl = document.createElement('h3');
+    nameEl.className = 'sdc-name';
+    nameEl.textContent = capitalize(arenaId);
+    info.appendChild(nameEl);
+
+    var meta = document.createElement('div');
+    meta.className = 'sdc-meta';
+    meta.textContent = 'Species base: ' + base + ' \u2022 Current: ' + val;
+    info.appendChild(meta);
+
+    header.appendChild(info);
+    panel.appendChild(header);
+
+    // Stepper
+    if (_statsPhase === 'arenas') {
+      var curIdx = DIE_STEPS.indexOf(val);
+      var canUp  = d.arenaAdvAvail > 0 && curIdx < 3;
+      var canDn  = curIdx > DIE_STEPS.indexOf(base);
+
+      var stepper = document.createElement('div');
+      stepper.className = 'sdc-stepper';
+
+      var btnDn = document.createElement('button');
+      btnDn.className = 'sdc-stepper-btn';
+      btnDn.textContent = '\u2212';
+      btnDn.disabled = !canDn;
+      btnDn.addEventListener('click', function() { handleArenaStep(arenaId, -1); });
+
+      var stepVal = document.createElement('span');
+      stepVal.className = 'sdc-stepper-val';
+      stepVal.textContent = val;
+
+      var btnUp = document.createElement('button');
+      btnUp.className = 'sdc-stepper-btn';
+      btnUp.textContent = '+';
+      btnUp.disabled = !canUp;
+      btnUp.addEventListener('click', function() { handleArenaStep(arenaId, 1); });
+
+      stepper.appendChild(btnDn);
+      stepper.appendChild(stepVal);
+      stepper.appendChild(btnUp);
+      panel.appendChild(stepper);
+    }
+  }
+
+  function renderDiscDetailCard(panel, sel, d, favoredIds) {
+    var disc = null;
+    var arenaName = '';
+    DISCIPLINES_BY_ARENA.forEach(function(ag) {
+      ag.disciplines.forEach(function(dd) {
+        if (dd.id === sel.id) { disc = dd; arenaName = ag.name; }
+      });
+    });
+    if (!disc) return;
+
+    var isIncomp  = !!d.discIncomp[disc.id];
+    var isForce   = !!disc.force;
+    var isFavored = !!favoredIds[disc.id];
+    var cur       = statsGetDiscValue(disc.id, d);
+
+    var header = document.createElement('div');
+    header.className = 'sdc-header';
+
+    var dieImg = document.createElement('img');
+    dieImg.src = '/assets/' + cur.toLowerCase() + '.png';
+    dieImg.alt = cur;
+    dieImg.className = 'sdc-die';
+    header.appendChild(dieImg);
+
+    var info = document.createElement('div');
+    info.className = 'sdc-info';
+
+    var nameEl = document.createElement('h3');
+    nameEl.className = 'sdc-name';
+    nameEl.textContent = disc.name;
+    info.appendChild(nameEl);
+
+    var meta = document.createElement('div');
+    meta.className = 'sdc-meta';
+    meta.textContent = arenaName + ' discipline \u2022 ' + cur;
+    info.appendChild(meta);
+
+    // Tags
+    var tags = document.createElement('div');
+    tags.className = 'sdc-tags';
+    if (isForce) {
+      var ft = document.createElement('span');
+      ft.className = 'sdc-tag sdc-tag--force';
+      ft.textContent = 'Force';
+      tags.appendChild(ft);
+    }
+    if (isFavored) {
+      var fav = document.createElement('span');
+      fav.className = 'sdc-tag sdc-tag--favored';
+      fav.textContent = 'Favored';
+      tags.appendChild(fav);
+    }
+    if (isIncomp) {
+      var inc = document.createElement('span');
+      inc.className = 'sdc-tag sdc-tag--incomp';
+      inc.textContent = 'Incompetent';
+      tags.appendChild(inc);
+    }
+    if (tags.children.length) info.appendChild(tags);
+
+    header.appendChild(info);
+    panel.appendChild(header);
+
+    // Actions
+    var actions = document.createElement('div');
+    actions.className = 'sdc-actions';
+
+    if (_statsPhase === 'incomp') {
+      if (isIncomp && !isForce) {
+        var restore = document.createElement('button');
+        restore.className = 'sdc-btn sdc-btn--restore';
+        restore.textContent = 'Restore to D6';
+        restore.addEventListener('click', function() { handleDiscRestore(disc.id); });
+        actions.appendChild(restore);
+      } else if (!isIncomp && !isForce) {
+        var weak = document.createElement('button');
+        weak.className = 'sdc-btn sdc-btn--incomp';
+        weak.textContent = 'Mark Incompetent (D4)';
+        weak.disabled = d.incompCount >= MAX_INCOMP_TOTAL;
+        weak.addEventListener('click', function() { handleDiscIncomp(disc.id); });
+        actions.appendChild(weak);
+      }
+    } else if (_statsPhase === 'disciplines') {
+      if (isIncomp && isForce) {
+        // Restore Force discipline (costs 1 advance)
+        var restoreForce = document.createElement('button');
+        restoreForce.className = 'sdc-btn sdc-btn--primary';
+        restoreForce.textContent = 'Awaken \u2014 Restore to D6 (1 advance)';
+        restoreForce.disabled = d.advAvail <= 0;
+        restoreForce.addEventListener('click', function() {
+          handleForceRestore(disc.id);
+        });
+        actions.appendChild(restoreForce);
+      } else if (cur === 'D6') {
+        var adv = document.createElement('button');
+        adv.className = 'sdc-btn';
+        adv.textContent = 'Advance to D8 (1 advance)';
+        adv.disabled = d.advAvail <= 0;
+        adv.addEventListener('click', function() { handleDiscAdvance(disc.id); });
+        actions.appendChild(adv);
+      } else if (cur === 'D8') {
+        var red = document.createElement('button');
+        red.className = 'sdc-btn';
+        red.textContent = 'Reduce to D6 (refund 1)';
+        red.addEventListener('click', function() { handleDiscReduce(disc.id); });
+        actions.appendChild(red);
+
+        if (d.totalEliteTokens > 0) {
+          var canElite = d.advAvail > 0 && d.eliteTokensAvail > 0;
+          var elite = document.createElement('button');
+          elite.className = 'sdc-btn sdc-btn--elite';
+          elite.textContent = 'Elite to D10 (1 adv + 1 token)';
+          elite.disabled = !canElite;
+          elite.addEventListener('click', function() { handleDiscElite(disc.id); });
+          actions.appendChild(elite);
+        }
+      } else if (cur === 'D10') {
+        var r10 = document.createElement('button');
+        r10.className = 'sdc-btn';
+        r10.textContent = 'Reduce to D8 (refund 1 adv + 1 token)';
+        r10.addEventListener('click', function() { handleDiscReduceElite(disc.id); });
+        actions.appendChild(r10);
+      }
+    }
+
+    if (actions.children.length) panel.appendChild(actions);
+  }
+
+  /* ── Nav button logic ────────────────────────────────────────────── */
+
+  function updateStatsNav(d) {
+    var prevBtn = document.getElementById('btn-stats-prev');
+    var nextBtn = document.getElementById('btn-stats-next');
+    if (!prevBtn || !nextBtn) return;
+
+    if (_statsPhase === 'incomp') {
+      prevBtn.innerHTML = '&larr; Change Debt';
+      prevBtn.onclick = function() { showScreen('phase3'); updateStepTrack(3); };
+
+      var effectiveReq = Math.max(0, MAX_INCOMP_REQUIRED - (d.freeAdv || 0));
+      var canProceed = d.incompCount >= effectiveReq;
+      nextBtn.textContent = 'Arenas \u2192';
+      nextBtn.disabled = !canProceed;
+      nextBtn.onclick = function() {
+        _statsPhase = 'arenas';
+        _selectedCell = null;
+        renderStatsContent();
+      };
+    } else if (_statsPhase === 'arenas') {
+      prevBtn.innerHTML = '&larr; Weaknesses';
+      prevBtn.onclick = function() {
+        _statsPhase = 'incomp';
+        _selectedCell = null;
+        renderStatsContent();
+      };
+      nextBtn.textContent = 'Specialize \u2192';
+      nextBtn.disabled = false;
+      nextBtn.onclick = function() {
+        _statsPhase = 'disciplines';
+        _selectedCell = null;
+        renderStatsContent();
+      };
+    } else if (_statsPhase === 'disciplines') {
+      prevBtn.innerHTML = '&larr; Arenas';
+      prevBtn.onclick = function() {
+        _statsPhase = 'arenas';
+        _selectedCell = null;
+        renderStatsContent();
+      };
+      nextBtn.textContent = 'Choose Vocations \u2192';
+      nextBtn.disabled = false;
+      nextBtn.onclick = function() {
+        initKitsScreen();
+      };
+    }
+  }
+
+  /* ── Force restore handler ───────────────────────────────────────── */
+
+  function handleForceRestore(discId) {
+    var d = statsGetDerived();
+    if (d.advAvail <= 0) return;
+    if (!state.discIncomp[discId]) return;
+    delete state.discIncomp[discId];
+    if (state.discValues) delete state.discValues[discId];
+    state.spentAdv = (state.spentAdv || 0) + 1;
+    saveState();
+    renderStatsContent();
+  }
+
+  /* ── Arena section (kept for compatibility) ─────────────────────── */
 
   function handleArenaStep(aId, dir) {
     if (!state.arenaAdj) state.arenaAdj = {};
@@ -1243,217 +1738,7 @@
     renderStatsContent();
   }
 
-  /* -- Disciplines section -- */
-
-  var _activeDiscArena = null;
-
-  function buildDiscSection(d, favoredIds) {
-    var wrap = document.createElement('div');
-    wrap.className = 'cc-subsection';
-    var head = document.createElement('div');
-    head.className = 'cc-subsection-head';
-    var title = document.createElement('span');
-    title.className   = 'cc-subsection-title';
-    title.textContent = 'Disciplines';
-    var badges = document.createElement('div');
-    badges.className = 'cc-adv-badges';
-    badges.appendChild(makeIncompBadge(d));
-    if (d.totalAdv > 0)          badges.appendChild(makeAdvBadge(d));
-    if (d.totalEliteTokens > 0)  badges.appendChild(makeEliteBadge(d));
-    head.appendChild(title);
-    head.appendChild(badges);
-    wrap.appendChild(head);
-    if (d.incompCount < Math.max(0, MAX_INCOMP_REQUIRED - (d.freeAdv || 0))) {
-      var notice = document.createElement('div');
-      notice.className = 'cc-incomp-notice';
-      var rem = Math.max(0, MAX_INCOMP_REQUIRED - (d.freeAdv || 0)) - d.incompCount;
-      notice.innerHTML = 'Select <strong>' + rem + ' more</strong> discipline' + (rem !== 1 ? 's' : '') +
-        ' to mark Incompetent (D4) — each earns 1 advance. Up to 4 additional weaknesses for extra advances.';
-      wrap.appendChild(notice);
-    }
-    if (d.totalAdv > 0) wrap.appendChild(buildAdvDots(d));
-    var tabBar = document.createElement('div');
-    tabBar.className = 'cc-disc-arena-tabs';
-    var panels = [];
-    if (!_activeDiscArena) _activeDiscArena = DISCIPLINES_BY_ARENA[0].id;
-    DISCIPLINES_BY_ARENA.forEach(function(ag) {
-      var tab = document.createElement('button');
-      tab.className = 'cc-disc-arena-tab' + (ag.id === _activeDiscArena ? ' cc-disc-arena-tab--active' : '');
-      tab.type = 'button';
-      var arenaVal = d.arenaValues[ag.id] || 'D6';
-      tab.innerHTML = ag.name + '<span class="cc-disc-arena-tab-die">' + arenaVal + '</span>';
-      tab.addEventListener('click', function() { _activeDiscArena = ag.id; renderStatsContent(); });
-      tabBar.appendChild(tab);
-      var panel = document.createElement('div');
-      panel.className = 'cc-disc-arena-panel' + (ag.id === _activeDiscArena ? ' cc-disc-arena-panel--active' : '');
-      ag.disciplines.forEach(function(disc) { panel.appendChild(buildDiscRow(disc, d, favoredIds)); });
-      panels.push(panel);
-    });
-    wrap.appendChild(tabBar);
-    panels.forEach(function(p) { wrap.appendChild(p); });
-    return wrap;
-  }
-
-  function makeIncompBadge(d) {
-    var effectiveReq = Math.max(0, MAX_INCOMP_REQUIRED - (d.freeAdv || 0));
-    var ok  = d.incompCount >= effectiveReq;
-    var opt = Math.max(0, d.incompCount - effectiveReq);
-    var req = Math.min(d.incompCount, effectiveReq);
-    var sp  = document.createElement('span');
-    sp.className   = 'cc-adv-badge ' + (ok ? 'cc-adv-badge--ok' : 'cc-adv-badge--warn');
-    var effectiveOptCap = MAX_INCOMP_TOTAL - effectiveReq;
-    sp.textContent = req + '/' + effectiveReq + ' required' + (d.freeAdv ? ' (Adaptable: +' + d.freeAdv + ' free)' : '') + (opt ? '  +' + opt + '/' + effectiveOptCap + ' optional' : '');
-    return sp;
-  }
-
-  function makeAdvBadge(d) {
-    var sp = document.createElement('span');
-    sp.className   = 'cc-adv-badge ' + (d.advAvail > 0 ? 'cc-adv-badge--ok' : '');
-    sp.textContent = d.advAvail + ' advance' + (d.advAvail !== 1 ? 's' : '') + ' available';
-    sp.title = 'Each advance raises one discipline one step (max D8)';
-    return sp;
-  }
-
-  function makeEliteBadge(d) {
-    var sp = document.createElement('span');
-    sp.className   = 'cc-adv-badge cc-adv-badge--enhanced';
-    sp.textContent = d.eliteTokensAvail + '/' + d.totalEliteTokens + ' Elite token' + (d.totalEliteTokens !== 1 ? 's' : '');
-    sp.title = 'Every 5th weakness earns an Elite token — spend with an advance to break the D8 cap';
-    return sp;
-  }
-
-  function buildAdvDots(d) {
-    var wrap = document.createElement('div');
-    wrap.className = 'cc-adv-dots';
-    for (var i = 1; i <= d.totalAdv; i++) {
-      var isEliteSlot = (i % 5 === 0);
-      if (isEliteSlot && i > 1) { var g = document.createElement('div'); g.className = 'cc-adv-dot-gap'; wrap.appendChild(g); }
-      var dot = document.createElement('div');
-      var spent = i <= d.spentAdv;
-      dot.className = 'cc-adv-dot' + (spent ? '' : ' cc-adv-dot--filled') + (isEliteSlot ? ' cc-adv-dot--enhanced' : '');
-      dot.title = isEliteSlot ? 'Advance + Elite token' : (spent ? 'Advance (spent)' : 'Advance (available)');
-      wrap.appendChild(dot);
-    }
-    return wrap;
-  }
-
-  function buildDiscGroup(arenaGroup, d, favoredIds) {
-    var wrap = document.createElement('div');
-    wrap.className = 'cc-disc-group';
-    var head = document.createElement('div');
-    head.className = 'cc-disc-group-head';
-    var lbl = document.createElement('button');
-    lbl.className   = 'cc-glossary-trigger cc-disc-group-label';
-    lbl.textContent = arenaGroup.name;
-    lbl.title = 'View glossary';
-    lbl.addEventListener('click', function() { if (window.GlossaryOverlay) window.GlossaryOverlay.open(arenaGroup.id); });
-    head.appendChild(lbl);
-    wrap.appendChild(head);
-    arenaGroup.disciplines.forEach(function(disc) { wrap.appendChild(buildDiscRow(disc, d, favoredIds)); });
-    return wrap;
-  }
-
-  function buildDiscRow(disc, d, favoredIds) {
-    var isFavored = !!favoredIds[disc.id];
-    var isIncomp  = !!d.discIncomp[disc.id];
-    var isForce  = !!disc.force;
-    var cur       = statsGetDiscValue(disc.id, d);
-    var row = document.createElement('div');
-    row.className = 'cc-disc-row' +
-      (isFavored ? ' cc-disc-row--favored' : '') +
-      (isIncomp  ? ' cc-disc-row--incompetent' : '') +
-      (isForce   ? ' cc-disc-row--force'        : '');
-    // Die image
-    var dieCell = document.createElement('div');
-    dieCell.className = 'cc-disc-die-cell';
-    var img = document.createElement('img');
-    img.src       = '/assets/' + cur.toLowerCase() + '.png';
-    img.alt       = cur;
-    img.className = 'cc-disc-die-img';
-    dieCell.appendChild(img);
-    // Name + pip
-    var info = document.createElement('div');
-    info.className = 'cc-disc-info';
-    if (isFavored) {
-      var pip = document.createElement('span');
-      pip.className = 'cc-disc-aligned-pip';
-      pip.title = 'Favored discipline';
-      info.appendChild(pip);
-    }
-    var nameBtn = document.createElement('button');
-    nameBtn.className   = 'cc-disc-name-btn';
-    nameBtn.textContent = disc.name;
-    nameBtn.title = 'View glossary';
-    nameBtn.addEventListener('click', function() { if (window.GlossaryOverlay) window.GlossaryOverlay.open(disc.id); });
-    if (isForce) {
-      var ftag = document.createElement('span');
-      ftag.className = 'cc-disc-force-tag';
-      ftag.textContent = 'Force';
-      ftag.title = 'Requires Force Sensitivity';
-      info.appendChild(ftag);
-    }
-    info.appendChild(nameBtn);
-    // Actions
-    var actions = document.createElement('div');
-    actions.className = 'cc-disc-actions';
-    if (isIncomp) {
-      var rb = document.createElement('button');
-      rb.className   = 'cc-disc-action-btn cc-disc-action-btn--restore';
-      rb.textContent = 'Restore';
-      rb.title = 'Remove incompetency — returns 1 advance';
-      rb.addEventListener('click', function() { handleDiscRestore(disc.id); });
-      actions.appendChild(rb);
-    } else if (cur === 'D6') {
-      var wb = document.createElement('button');
-      wb.className   = 'cc-disc-action-btn cc-disc-action-btn--incomp';
-      wb.textContent = 'Weak';
-      wb.title       = d.incompCount >= MAX_INCOMP_TOTAL ? 'Maximum reached' : 'Mark incompetent (D4) — earn 1 advance';
-      wb.disabled    = d.incompCount >= MAX_INCOMP_TOTAL;
-      wb.addEventListener('click', function() { handleDiscIncomp(disc.id); });
-      actions.appendChild(wb);
-      var ab = document.createElement('button');
-      ab.className   = 'cc-disc-action-btn';
-      ab.textContent = '▲ D8';
-      ab.title       = d.advAvail > 0 ? 'Raise to D8 — costs 1 advance' : 'No advances available';
-      ab.disabled    = d.advAvail <= 0;
-      ab.addEventListener('click', function() { handleDiscAdvance(disc.id); });
-      actions.appendChild(ab);
-    } else if (cur === 'D8') {
-      var rdb = document.createElement('button');
-      rdb.className   = 'cc-disc-action-btn';
-      rdb.textContent = '▼ D6';
-      rdb.title = 'Lower to D6 — returns 1 advance';
-      rdb.addEventListener('click', function() { handleDiscReduce(disc.id); });
-      actions.appendChild(rdb);
-      if (d.totalEliteTokens > 0) {
-        var canElite = d.advAvail > 0 && d.eliteTokensAvail > 0;
-        var eb = document.createElement('button');
-        eb.className   = 'cc-disc-action-btn cc-disc-action-btn--elite';
-        eb.textContent = '▲ D10';
-        if (!canElite) {
-          eb.title = d.eliteTokensAvail <= 0 ? 'No Elite tokens available' : 'No advances available';
-        } else {
-          eb.title = 'Raise to D10 — costs 1 advance + 1 Elite token';
-        }
-        eb.disabled = !canElite;
-        eb.addEventListener('click', function() { handleDiscElite(disc.id); });
-        actions.appendChild(eb);
-      }
-    } else if (cur === 'D10') {
-      var r10 = document.createElement('button');
-      r10.className   = 'cc-disc-action-btn';
-      r10.textContent = '▼ D8';
-      r10.title = 'Lower to D8 — returns 1 advance + 1 Elite token';
-      r10.addEventListener('click', function() { handleDiscReduceElite(disc.id); });
-      actions.appendChild(r10);
-    }
-    row.appendChild(dieCell);
-    row.appendChild(info);
-    row.appendChild(actions);
-    return row;
-  }
-
-  /* -- Disc action handlers -- */
+  /* ── Disc action handlers ────────────────────────────────────────── */
 
   function handleDiscIncomp(discId) {
     if (!state.discIncomp) state.discIncomp = {};
@@ -1538,6 +1823,7 @@
     saveState();
     renderStatsContent();
   }
+
 
   /* ── Kits step ──────────────────────────────────────────────────── */
 
@@ -3606,7 +3892,17 @@
     } else {
       loadSavedState();
     }
-    loadEditCharacter(function () { initCreator(); });
+    loadEditCharacter(function () {
+      initCreator();
+      var dbg = new URLSearchParams(window.location.search).get('debug');
+      if (dbg === 'stats') {
+        state.species = 'human';
+        state.phase1 = 'soldier';
+        state.phase2 = 'enforcer';
+        state.phase3 = 'exile';
+        initStatsScreen();
+      }
+    });
   }
 
   function initCreator() {
@@ -3703,15 +3999,6 @@
       });
     }
 
-
-    var backToPhase3 = document.getElementById('btn-back-to-phase3');
-    if (backToPhase3) {
-      backToPhase3.addEventListener('click', function () {
-        showScreen('phase3');
-        updateStepTrack(3);
-      });
-    }
-
     var backToStats = document.getElementById('btn-back-to-stats');
     if (backToStats) {
       backToStats.addEventListener('click', function () {
@@ -3739,13 +4026,6 @@
     var backToKitsFromOutfitting = document.getElementById('btn-back-to-kits-from-outfitting');
     if (backToKitsFromOutfitting) {
       backToKitsFromOutfitting.addEventListener('click', function () {
-        initKitsScreen();
-      });
-    }
-
-    var statsContinue = document.getElementById('btn-stats-continue');
-    if (statsContinue) {
-      statsContinue.addEventListener('click', function () {
         initKitsScreen();
       });
     }

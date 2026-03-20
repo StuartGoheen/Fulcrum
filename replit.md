@@ -138,6 +138,16 @@ Two screens added after Kit selection:
 
 **CSS:** `.destiny-personal-section` wrapper, `.destiny-label--hope/--toll/--advance` color overrides. Old tile/grid classes removed (`.destiny-tile*`, `.pd-card*`, `.personal-destiny-grid`, `.destiny-section*`).
 
+**Arenas & Disciplines (`screen-stats`):** Guided 3-phase workflow with a 5×5 grid layout.
+- **Phase 1 — Weaknesses:** Mark non-Force disciplines as incompetent (D4). Species trait "Adaptable" grants +1 free advance. Required count shown in status badge. Only discipline cells clickable; arena row disabled.
+- **Phase 2 — Arenas:** Adjust arena die values using stepper (±). Arena advance budget separate from discipline advances.
+- **Phase 3 — Specialize:** Spend advances to upgrade disciplines (D6→D8, D8→D10 with elite token). Force disciplines (Control, Sense, Alter) auto-start as incompetent (D4) via `state._forceAutoSet`; can be awakened (restored to D6) by spending 1 advance.
+- **Grid:** 5 columns (one per arena). Row 1 = arena cells, rows 2-6 = discipline cells. Last row contains Heavy Weapons, Stealth, Control, Sense, Alter.
+- **Detail card:** Clicking a cell opens `stats-detail-card` panel with die image, tags (Force/Favored/Incompetent), and context-appropriate action buttons.
+- **Phase gating:** Breadcrumb pips only allow navigating to current or previous phases. "Arenas →" button disabled until weaknesses requirement met.
+- **State keys:** `discValues`, `discIncomp`, `arenaAdj`, `spentAdv`, `eliteTokensUsed`, `_forceAutoSet`. `normalizeAdvances()` auto-removes overspent upgrades and decrements counters.
+- **CSS classes:** `.sg-cell` grid cells, `.sg-cell--arena/--incomp/--force-locked/--advanced/--favored/--active/--disabled`. `.sdc-*` detail card components. `.stats-phase-*` breadcrumb. `.stats-status-bar` badges.
+
 **Your Story (`screen-backstory`):** Form-based backstory generator.
 - Fields: Character Name (required, or "Generate for me"), Gender (Male/Female), Species (read-only), Title (optional or generated), optional player input textarea
 - Generate button fires only on click — never auto-fires (conserves API quota)
