@@ -159,9 +159,11 @@ Two screens added after Kit selection:
 - Gemini returns structured JSON (`{ backstory, name?, title? }`) via `responseMimeType: 'application/json'`
 - AbortController-style 25-second timeout via `Promise.race`; 429 shows friendly rate-limit message
 
-**Server route:** `POST /api/backstory/generate` in `server/routes/backstory.js`. Uses `@google/generative-ai` SDK. Requires `GEMINI_API_KEY` in Replit Secrets.
+**Server route:** `POST /api/backstory/generate` in `server/routes/backstory.js`. Uses `@google/generative-ai` SDK. Requires `GEMINI_API_KEY` in Replit Secrets. Prompt is structured into five sections: Identity, Life Phases, Mechanical Profile, Possessions, Destiny. Client payload includes favoredDiscipline, phase favoredName/Desc, phase 3 knack, forceState, gear with origin, sold items, and species trait.
 
-**Save route:** `POST /api/characters/save` in `server/routes/characters.js`. Finds first empty slot or creates new. Called from "Confirm & Save" button in the summary overlay.
+**Save route:** `POST /api/characters/save` in `server/routes/characters.js`. Finds first empty slot or creates new. Called from "Confirm & Save" button in the summary overlay. On success, auto-joins the session via `/api/session/join` and redirects to `/player/`.
+
+**Destiny pool:** `recalcPool()` in `server/sockets/handlers.js` preserves GM-flipped token state across player reconnects. Only resizes the pool when connected roster changes. `rebuildPool()` does a full reset from character destiny choices (used by `destiny:reset`). Token mapping: "Two Light" → 2 hope, "Two Dark" → 2 toll, default → 1 hope + 1 toll.
 
 **Character creation flow (9 steps):** Species → Phase 1 (Origin) → Phase 2 (Catalyst) → Phase 3 (Debt) → Arenas/Disciplines → Vocations → **Outfitting** (500 cr starting budget) → **Destiny** → **Your Story** → Summary (Confirm & Save)
 

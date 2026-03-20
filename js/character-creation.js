@@ -3582,13 +3582,46 @@
         });
       }
 
+      var forceSensitive = false;
+      var forceState = [];
+      var FORCE_IDS = ['control_spark', 'sense_spark', 'alter_spark'];
+      FORCE_IDS.forEach(function(fid) {
+        var isIncomp = state.discIncomp && state.discIncomp[fid];
+        var isAutoSet = state._forceAutoSet && state._forceAutoSet[fid];
+        if (isIncomp && !isAutoSet) {
+          forceState.push((discDisplayNames[fid] || fid) + ': sealed (player chose to leave locked)');
+        } else if (!isIncomp) {
+          forceState.push((discDisplayNames[fid] || fid) + ': awakened (' + (state.discValues[fid] || 'D6') + ')');
+          forceSensitive = true;
+        } else {
+          forceState.push((discDisplayNames[fid] || fid) + ': dormant (default)');
+        }
+      });
+
+      var gearWithOrigin = (state.startingGear || []).map(function(g) {
+        var origin = g.origin || g.source || '';
+        return g.name + (origin ? ' (from ' + origin + ')' : '');
+      });
+
+      var soldItems = (state.soldBackgroundKeys || []).map(function(key) {
+        var parts = key.split('|');
+        return parts[0] || key;
+      });
+
+      var favDiscLabel = '';
+      if (state.favoredDiscipline) {
+        favDiscLabel = discDisplayNames[state.favoredDiscipline] || state.favoredDiscipline;
+      }
+
       var payload = {
         species: sp ? {
           name:          sp.name,
           biologicalTruth: sp.biologicalTruth ? sp.biologicalTruth.desc : '',
           loreAnchors:   sp._aiMeta ? sp._aiMeta.loreAnchors.join('; ') : '',
           directive:     sp._aiMeta ? sp._aiMeta.directives : '',
-        } : { name: 'Unknown', biologicalTruth: '', loreAnchors: '', directive: '' },
+          traitName:     sp.speciesTrait ? sp.speciesTrait.name : '',
+          traitDesc:     sp.speciesTrait ? sp.speciesTrait.desc : '',
+        } : { name: 'Unknown', biologicalTruth: '', loreAnchors: '', directive: '', traitName: '', traitDesc: '' },
         phase1: p1card ? {
           title:       p1card.title,
           narrative:   p1card.narrative,
@@ -3597,7 +3630,9 @@
           themes:      p1card._meta ? p1card._meta.themes.join(', ') : '',
           locationHints: p1card._meta && p1card._meta.locationHints ? p1card._meta.locationHints : [],
           favored:     p1card._meta ? p1card._meta.favored || '' : '',
-        } : { title: 'Unknown', narrative: '', environment: '', tone: '', themes: '', locationHints: [], favored: '' },
+          favoredName: p1card._meta ? p1card._meta.favoredName || '' : '',
+          favoredDesc: p1card._meta ? p1card._meta.favoredDesc || '' : '',
+        } : { title: 'Unknown', narrative: '', environment: '', tone: '', themes: '', locationHints: [], favored: '', favoredName: '', favoredDesc: '' },
         phase2: p2card ? {
           title:       p2card.title,
           narrative:   p2card.narrative,
@@ -3608,7 +3643,9 @@
           proficiencies: p2card._meta && p2card._meta.proficiencies ? p2card._meta.proficiencies.join(', ') : '',
           variability:   p2card._meta ? p2card._meta.variability || '' : '',
           favored:     p2card._meta ? p2card._meta.favored || '' : '',
-        } : { title: 'Unknown', narrative: '', environment: '', tone: '', themes: '', archetype: '', proficiencies: '', variability: '', favored: '' },
+          favoredName: p2card._meta ? p2card._meta.favoredName || '' : '',
+          favoredDesc: p2card._meta ? p2card._meta.favoredDesc || '' : '',
+        } : { title: 'Unknown', narrative: '', environment: '', tone: '', themes: '', archetype: '', proficiencies: '', variability: '', favored: '', favoredName: '', favoredDesc: '' },
         phase3: p3card ? {
           title:       p3card.title,
           narrative:   p3card.narrative,
@@ -3621,10 +3658,14 @@
           knack:       p3card._meta ? p3card._meta.knack || '' : '',
         } : { title: 'Unknown', narrative: '', environment: '', tone: '', themes: '', archetype: '', knackName: '', knackType: '', knack: '' },
         kits:            kitEntries,
-        startingGear:    (state.startingGear || []).map(function(g) { return g.name; }),
+        startingGear:    gearWithOrigin,
+        soldItems:       soldItems,
         disciplines:     discStrengths,
         weakDisciplines: discWeaknesses,
+        favoredDiscipline: favDiscLabel,
         arenas:          allArenas,
+        forceSensitive:  forceSensitive,
+        forceState:      forceState,
         destiny:      state.destiny || 'Light & Dark',
         personalDestiny: state.personalDestiny || null,
         gender:       gender,
@@ -3754,8 +3795,27 @@
       .then(function (r) { return r.json(); })
       .then(function (data) {
         if (data.ok) {
-          if (statusEl) { statusEl.textContent = 'Character saved! Head back to the home screen to connect.'; statusEl.style.color = '#22c55e'; }
+          if (statusEl) { statusEl.textContent = 'Saved! Launching character sheet…'; statusEl.style.color = '#22c55e'; }
           if (saveBtn)  saveBtn.textContent = 'Saved ✓';
+          setTimeout(function() {
+            fetch('/api/session/join', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ role: 'player', characterId: data.id }),
+            })
+            .then(function(r) { return r.json(); })
+            .then(function(sess) {
+              if (sess.error) { if (statusEl) statusEl.textContent = sess.error; return; }
+              sessionStorage.setItem('eote-session', JSON.stringify({
+                token: sess.token,
+                role: sess.role,
+                characterId: sess.characterId,
+                characterName: sess.characterName,
+              }));
+              window.location.href = '/player/';
+            })
+            .catch(function(e) { if (statusEl) { statusEl.textContent = 'Redirect failed: ' + e.message; statusEl.style.color = '#ef4444'; } if (saveBtn) { saveBtn.disabled = false; saveBtn.textContent = 'Launch Character Sheet'; } });
+          }, 1200);
         } else {
           throw new Error(data.error || 'Save failed');
         }

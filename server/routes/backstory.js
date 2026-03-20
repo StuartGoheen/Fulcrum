@@ -16,6 +16,7 @@ function buildPrompt(payload) {
   const {
     species, phase1, phase2, phase3, kits, disciplines, weakDisciplines, arenas, destiny,
     personalDestiny, gender, generateName, characterName, generateTitle, characterTitle, playerInput,
+    favoredDiscipline, startingGear, soldItems, forceSensitive, forceState,
   } = payload;
 
   const pronouns = gender === 'Female'
@@ -46,13 +47,18 @@ function buildPrompt(payload) {
     : '';
 
   const p1Favored = phase1.favored || '';
+  const p1FavoredName = phase1.favoredName || '';
+  const p1FavoredDesc = phase1.favoredDesc || '';
   const p2Archetype = phase2.archetype || '';
   const p2Proficiencies = phase2.proficiencies || '';
   const p2Variability = phase2.variability || '';
   const p2Favored = phase2.favored || '';
+  const p2FavoredName = phase2.favoredName || '';
+  const p2FavoredDesc = phase2.favoredDesc || '';
   const p3Archetype = phase3.archetype || '';
   const p3KnackName = phase3.knackName || '';
   const p3KnackType = phase3.knackType || '';
+  const p3Knack = phase3.knack || '';
 
   const nameInstruction = generateName
     ? 'Generate a culturally appropriate name for this species. Return it as a JSON field "name".'
@@ -71,6 +77,40 @@ function buildPrompt(payload) {
   const locationInstruction = locationPool
     ? `\nLOCATION POOL: When referencing the character's origin world or region, pick from this curated list: ${locationPool}. Do NOT invent locations outside this list for the origin. You may reference Western Reaches locations from the setting bible as current locations.`
     : '';
+
+  const gearText = startingGear && startingGear.length ? startingGear.join(', ') : 'none';
+  const soldText = soldItems && soldItems.length ? soldItems.join(', ') : '';
+
+  const forceSection = forceSensitive || (forceState && forceState.some(s => s.includes('awakened')))
+    ? `\nForce sensitivity: ${forceState ? forceState.join('; ') : 'unknown'}
+  This character has a connection to the Force. In 16 BBY this is EXTREMELY dangerous — Inquisitors hunt Force-sensitives. Treat any awakened Force discipline as a secret the character guards with their life. Show the Force as instinct, not training — flickers of prescience, unnatural luck, objects that move when emotions spike. The character may not even understand what they feel. Never use the word "Jedi" to describe them unless the player directs it.`
+    : '';
+
+  const favDiscSection = favoredDiscipline
+    ? `\nFavored discipline (species-granted): ${favoredDiscipline}
+  This discipline is where the character has a natural, species-born edge — moments of brilliance that surprise even ${pronouns.obj}. In the narrative, show at least one scene where this skill manifests as instinctive excellence, something ${pronouns.sub} did without thinking that others would struggle to replicate.`
+    : '';
+
+  let destinySection = `Destiny alignment: ${destiny}\nDestiny tone guidance: ${destinyTone}`;
+  if (personalDestiny) {
+    destinySection += `\n\nPersonal Destiny: ${personalDestiny.name} — ${personalDestiny.tagline}`;
+    if (personalDestiny.narrativeHook) {
+      destinySection += `\nDestiny narrative hook: ${personalDestiny.narrativeHook}`;
+    }
+    if (personalDestiny.hopeRecovery) {
+      destinySection += `\nHope recovery trigger ("${personalDestiny.hopeRecovery.title}"): ${personalDestiny.hopeRecovery.description}`;
+    }
+    if (personalDestiny.tollRecovery) {
+      destinySection += `\nToll recovery trigger ("${personalDestiny.tollRecovery.title}"): ${personalDestiny.tollRecovery.description}`;
+    }
+    if (personalDestiny.advanceTrigger) {
+      destinySection += `\nDestiny advance trigger: ${personalDestiny.advanceTrigger}`;
+    }
+    if (personalDestiny.coreQuestion) {
+      destinySection += `\nCore question: ${personalDestiny.coreQuestion}`;
+    }
+    destinySection += `\nThis character's fate pulls ${pronouns.obj} toward ${personalDestiny.name.toLowerCase()}. Weave this thread into the backstory — not as a stated goal, but as a pattern visible in ${pronouns.pos} choices and circumstances. The hope and toll recovery triggers hint at the METHODS ${pronouns.sub} might use — show seeds of both paths in the narrative.`;
+  }
 
   return `You are a narrative writer for a Star Wars tabletop RPG campaign. Your job is to write a deeply personal, setting-grounded backstory for a player character. Every mechanical choice the player made tells a story — your job is to find that story and make it vivid. Follow every rule below exactly.
 
@@ -122,24 +162,33 @@ STRENGTH & WEAKNESS GUIDANCE:
 KIT IDENTITY GUIDANCE:
 - If the character has kits, these represent their trained combat/survival identity. The kit narrative below explains what kind of person fights this way. Weave the FEEL of the kit into the backstory — not the game name, but the archetype. A Ghost-type character moves through the world like smoke. A Gunslinger lives by the quick draw. Show HOW they became this archetype.
 
+DESTINY GUIDANCE:
+- The destiny alignment shapes the character's moral compass and narrative voice. The personal destiny (if present) represents a fate the character is drawn toward — show its pattern in their past choices, not as a stated goal. The hope and toll recovery triggers describe two opposing METHODS the character might use to recover from crisis — one altruistic, one selfish. Plant seeds of BOTH methods in the backstory so the player sees the tension from the start.
+
+POSSESSIONS GUIDANCE:
+- Starting gear represents what the character currently carries. Reference possessions abstractly as sensory details — the weight of a pack, the smell of bacta, the hum of a charged power cell. Do NOT use game item names directly.
+- If the character sold items from their background, these are things they PAWNED or LEFT BEHIND. Mention at least one abstractly as something lost or traded away — it reveals what they sacrificed to get here.
+
 ${nameInstruction}
 ${titleInstruction}
 
 CHARACTER DATA:
 
+=== IDENTITY ===
 Species: ${species.name}
 Biological truth: ${species.biologicalTruth}
 Species lore anchors: ${species.loreAnchors}
-Species narrative directive: ${species.directive}
+Species narrative directive: ${species.directive}${species.traitName ? `\nSpecies trait: ${species.traitName} — ${species.traitDesc}` : ''}
 Gender: ${gender} (use pronouns: ${pronouns.sub}/${pronouns.obj}/${pronouns.pos})
 
+=== LIFE PHASES ===
 Phase 1 — Origin (where they came from):
   Card: ${phase1.title}
   Narrative: ${phase1.narrative}
   Environment: ${phase1.environment}
   Tone: ${phase1.tone}
   Themes: ${phase1.themes}
-  Favored skill developed here: ${p1Favored}
+  Favored skill developed here: ${p1Favored}${p1FavoredName ? ` ("${p1FavoredName}")` : ''}${p1FavoredDesc ? `\n  How this skill was forged: ${p1FavoredDesc}` : ''}
 
 Phase 2 — Catalyst (what broke them free):
   Card: ${phase2.title}
@@ -148,27 +197,28 @@ Phase 2 — Catalyst (what broke them free):
   Trained proficiencies: ${p2Proficiencies}
   Identity question: ${p2Variability}
   Tone: ${phase2.tone}
-  Favored skill developed here: ${p2Favored}
+  Favored skill developed here: ${p2Favored}${p2FavoredName ? ` ("${p2FavoredName}")` : ''}${p2FavoredDesc ? `\n  How this skill was forged: ${p2FavoredDesc}` : ''}
 
 Phase 3 — Debt (what follows them):
   Card: ${phase3.title}
   Narrative: ${phase3.narrative}
   Archetype: ${p3Archetype}
-  Burden ability: ${p3KnackName} (${p3KnackType})
+  Burden ability: ${p3KnackName} (${p3KnackType})${p3Knack ? `\n  Burden ability detail: ${p3Knack}` : ''}
   Tone: ${phase3.tone}
+
+=== MECHANICAL PROFILE ===
+Arena profile (full): ${arenaText}
+Formative skills (D8+): ${discText}
+Incompetent skills (D4 — critical weaknesses): ${weakDiscText}${favDiscSection}${forceSection}
 
 Trained identity (kits):
   ${kitsText}
 
-Arena profile (full): ${arenaText}
-Formative skills (D8+): ${discText}
-Incompetent skills (D4 — critical weaknesses): ${weakDiscText}
+=== POSSESSIONS ===
+Starting gear: ${gearText}${soldText ? `\nPawned/left behind: ${soldText}` : ''}
 
-Destiny alignment: ${destiny}
-Destiny tone guidance: ${destinyTone}
-${personalDestiny ? `Personal Destiny: ${personalDestiny.name} — ${personalDestiny.tagline}
-Destiny narrative hook: ${personalDestiny.narrativeHook}
-This character's fate pulls ${pronouns.obj} toward ${personalDestiny.name.toLowerCase()}. Weave this thread into the backstory — not as a stated goal, but as a pattern visible in ${pronouns.pos} choices and circumstances.` : ''}
+=== DESTINY ===
+${destinySection}
 ${playerNote}`;
 }
 

@@ -22,6 +22,20 @@ function saveDestinyPool(pool) {
   `).run(serialized);
 }
 
+function getCharDestinyTokens(charId) {
+  const row = db.prepare('SELECT character_data FROM characters WHERE id = ?').get(charId);
+  let destiny = 'Light & Dark';
+  if (row && row.character_data) {
+    try {
+      const parsed = JSON.parse(row.character_data);
+      if (parsed.destiny) destiny = parsed.destiny;
+    } catch (_) {}
+  }
+  if (destiny === 'Two Light') return ['hope', 'hope'];
+  if (destiny === 'Two Dark') return ['toll', 'toll'];
+  return ['hope', 'toll'];
+}
+
 function recalcPool(io) {
   const sockets = Array.from(io.sockets.sockets.values());
   const uniqueCharacters = new Set();
@@ -30,15 +44,50 @@ function recalcPool(io) {
       uniqueCharacters.add(s.data.characterId);
     }
   });
-  const playerCount = uniqueCharacters.size;
-  const needed = playerCount * 2;
 
+  const needed = uniqueCharacters.size * 2;
   let pool = getDestinyPool();
 
+  if (pool.length === needed) {
+    return pool;
+  }
+
   if (pool.length < needed) {
-    while (pool.length < needed) pool.push('hope');
+    const existingCharIds = new Set();
+    sockets.forEach(s => {
+      if (s.data.role === 'player' && s.data.characterId) {
+        existingCharIds.add(s.data.characterId);
+      }
+    });
+    for (const charId of existingCharIds) {
+      if (pool.length >= needed) break;
+      const tokens = getCharDestinyTokens(charId);
+      const charContributed = pool.length;
+      if (charContributed < needed) {
+        tokens.forEach(t => { if (pool.length < needed) pool.push(t); });
+      }
+    }
   } else if (pool.length > needed) {
     pool = pool.slice(0, needed);
+  }
+
+  saveDestinyPool(pool);
+  return pool;
+}
+
+function rebuildPool(io) {
+  const sockets = Array.from(io.sockets.sockets.values());
+  const uniqueCharacters = new Set();
+  sockets.forEach(s => {
+    if (s.data.role === 'player' && s.data.characterId) {
+      uniqueCharacters.add(s.data.characterId);
+    }
+  });
+
+  const pool = [];
+  for (const charId of uniqueCharacters) {
+    const tokens = getCharDestinyTokens(charId);
+    pool.push(...tokens);
   }
 
   saveDestinyPool(pool);
@@ -157,11 +206,9 @@ function registerHandlers(io) {
         return;
       }
 
-      const pool = recalcPool(io);
-      const resetPool = pool.map(() => 'hope');
-      saveDestinyPool(resetPool);
-      io.emit('destiny:sync', { pool: resetPool });
-      console.log(`[socket] GM reset destiny pool (${resetPool.length} tokens)`);
+      const pool = rebuildPool(io);
+      io.emit('destiny:sync', { pool });
+      console.log(`[socket] GM reset destiny pool (${pool.length} tokens)`);
     });
 
     socket.on('disconnect', () => {
