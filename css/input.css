@@ -3588,12 +3588,11 @@
   .ph-carousel {
     position: relative;
     width: 100%;
-    max-width: 1100px;
+    max-width: 700px;
     flex: 1;
     min-height: 350px;
     margin: 0 auto;
     overflow: hidden;
-    outline: 2px dashed red;
   }
 
   .ph-carousel-track {
@@ -3606,36 +3605,24 @@
     top: 5px;
     bottom: 5px;
     left: 50%;
-    width: 420px;
+    width: 100%;
+    max-width: 600px;
     transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.45s ease;
-    transform: translateX(-50%) scale(1);
-    opacity: 1;
-    z-index: 2;
+    transform: translateX(-50%);
+    opacity: 0;
+    z-index: 0;
+    pointer-events: none;
   }
 
   .ph-slide-active {
-    transform: translateX(-50%) scale(1);
+    transform: translateX(-50%);
     opacity: 1;
     z-index: 3;
     pointer-events: auto;
   }
 
-  .ph-slide-prev {
-    transform: translateX(calc(-50% - 360px)) scale(0.75);
-    opacity: 0.5;
-    z-index: 1;
-    pointer-events: none;
-  }
-
-  .ph-slide-next {
-    transform: translateX(calc(-50% + 360px)) scale(0.75);
-    opacity: 0.5;
-    z-index: 1;
-    pointer-events: none;
-  }
-
   .ph-slide-hidden {
-    transform: translateX(-50%) scale(0.5);
+    transform: translateX(-50%);
     opacity: 0;
     z-index: 0;
     pointer-events: none;
@@ -3900,12 +3887,6 @@
     height: 100%;
   }
 
-  .ph-card-flat.ph-slide-prev {
-    transform: translate(calc(-50% - 580px), -50%) scale(0.7);
-  }
-  .ph-card-flat.ph-slide-next {
-    transform: translate(calc(-50% + 580px), -50%) scale(0.7);
-  }
   .ph-card-flat.ph-slide-hidden {
     transform: translate(-50%, -50%) scale(0.4);
     opacity: 0;
@@ -4005,12 +3986,6 @@
       width: 560px;
       height: 420px;
     }
-    .ph-card-flat.ph-slide-prev {
-      transform: translate(calc(-50% - 420px), -50%) scale(0.7);
-    }
-    .ph-card-flat.ph-slide-next {
-      transform: translate(calc(-50% + 420px), -50%) scale(0.7);
-    }
     .ph3-img-col {
       flex: 0 0 200px;
       border-right: none;
@@ -4020,13 +3995,7 @@
       flex-direction: column;
     }
     .ph-card-wrap {
-      width: 360px;
-    }
-    .ph-slide-prev {
-      transform: translateX(calc(-50% - 280px)) scale(0.75);
-    }
-    .ph-slide-next {
-      transform: translateX(calc(-50% + 280px)) scale(0.75);
+      max-width: 360px;
     }
   }
 
@@ -4047,13 +4016,7 @@
       line-height: 1.5;
     }
     .ph-card-wrap {
-      width: min(340px, calc(100vw - 100px));
-    }
-    .ph-slide-prev {
-      transform: translateX(calc(-50% - 240px)) scale(0.75);
-    }
-    .ph-slide-next {
-      transform: translateX(calc(-50% + 240px)) scale(0.75);
+      max-width: min(340px, calc(100vw - 100px));
     }
   }
 

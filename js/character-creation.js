@@ -2483,8 +2483,6 @@
       if (offset < -cs.total / 2) offset += cs.total;
       slide.classList.remove('ph-slide-active', 'ph-slide-prev', 'ph-slide-next', 'ph-slide-hidden');
       if (offset === 0)       slide.classList.add('ph-slide-active');
-      else if (offset === -1) slide.classList.add('ph-slide-prev');
-      else if (offset === 1)  slide.classList.add('ph-slide-next');
       else                    slide.classList.add('ph-slide-hidden');
     });
     var dots = container.querySelectorAll('.ph-carousel-dot');
