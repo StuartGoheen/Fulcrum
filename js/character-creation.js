@@ -1796,25 +1796,8 @@
       state.kitChoices[kitId] = tier;
     }
     saveState();
-    rebuildCurrentVocationCard();
+    rebuildActiveVocationSlide();
     renderKitsBudgetBar();
-  }
-
-  function rebuildCurrentVocationCard() {
-    var cs = phaseCarouselStates["ph-grid-vocations"];
-    if (!cs) return;
-    var kit = KITS_DATA[cs.current];
-    if (!kit) return;
-    var container = document.getElementById("ph-grid-vocations");
-    if (!container) return;
-    var track = container.querySelector(".ph-carousel-track");
-    if (!track) return;
-    var oldSlide = track.children[cs.current];
-    if (!oldSlide) return;
-    var newSlide = buildVocationCardFlat(kit);
-    newSlide.dataset.index = cs.current;
-    newSlide.classList.add("ph-slide-active");
-    track.replaceChild(newSlide, oldSlide);
   }
 
   function rebuildActiveVocationSlide() {
