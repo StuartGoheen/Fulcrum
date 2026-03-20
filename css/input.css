@@ -3603,39 +3603,39 @@
 
   .ph-card-wrap {
     position: absolute;
-    top: 50%;
+    top: 5px;
+    bottom: 5px;
     left: 50%;
     width: 420px;
-    height: calc(100% - 10px);
     transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.45s ease;
-    transform: translate(-50%, -50%) scale(1);
+    transform: translateX(-50%) scale(1);
     opacity: 1;
     z-index: 2;
   }
 
   .ph-slide-active {
-    transform: translate(-50%, -50%) scale(1);
+    transform: translateX(-50%) scale(1);
     opacity: 1;
     z-index: 3;
     pointer-events: auto;
   }
 
   .ph-slide-prev {
-    transform: translate(calc(-50% - 360px), -50%) scale(0.75);
+    transform: translateX(calc(-50% - 360px)) scale(0.75);
     opacity: 0.5;
     z-index: 1;
     pointer-events: none;
   }
 
   .ph-slide-next {
-    transform: translate(calc(-50% + 360px), -50%) scale(0.75);
+    transform: translateX(calc(-50% + 360px)) scale(0.75);
     opacity: 0.5;
     z-index: 1;
     pointer-events: none;
   }
 
   .ph-slide-hidden {
-    transform: translate(-50%, -50%) scale(0.5);
+    transform: translateX(-50%) scale(0.5);
     opacity: 0;
     z-index: 0;
     pointer-events: none;
@@ -4021,13 +4021,12 @@
     }
     .ph-card-wrap {
       width: 360px;
-      height: calc(100% - 10px);
     }
     .ph-slide-prev {
-      transform: translate(calc(-50% - 280px), -50%) scale(0.75);
+      transform: translateX(calc(-50% - 280px)) scale(0.75);
     }
     .ph-slide-next {
-      transform: translate(calc(-50% + 280px), -50%) scale(0.75);
+      transform: translateX(calc(-50% + 280px)) scale(0.75);
     }
   }
 
@@ -4049,13 +4048,12 @@
     }
     .ph-card-wrap {
       width: min(340px, calc(100vw - 100px));
-      height: calc(100% - 10px);
     }
     .ph-slide-prev {
-      transform: translate(calc(-50% - 240px), -50%) scale(0.75);
+      transform: translateX(calc(-50% - 240px)) scale(0.75);
     }
     .ph-slide-next {
-      transform: translate(calc(-50% + 240px), -50%) scale(0.75);
+      transform: translateX(calc(-50% + 240px)) scale(0.75);
     }
   }
 
