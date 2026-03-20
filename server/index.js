@@ -19,6 +19,16 @@ const PORT = process.env.PORT || 5000;
 const ROOT = path.join(__dirname, '..');
 
 app.use(express.json());
+
+if (process.env.NODE_ENV !== 'production') {
+  app.use(function(req, res, next) {
+    res.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    res.set('Pragma', 'no-cache');
+    res.set('Expires', '0');
+    next();
+  });
+}
+
 app.use(express.static(path.join(ROOT, 'public')));
 app.use('/js',     express.static(path.join(ROOT, 'js')));
 app.use('/data',   express.static(path.join(ROOT, 'data')));

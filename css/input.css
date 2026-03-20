@@ -3593,6 +3593,7 @@
     min-height: 350px;
     margin: 0 auto;
     overflow: hidden;
+    outline: 2px dashed red;
   }
 
   .ph-carousel-track {
