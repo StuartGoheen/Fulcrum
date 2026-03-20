@@ -435,8 +435,8 @@
       ]
     },
     {
-      "id": "force_kinetic_impulse",
-      "name": "Kinetic Impulse",
+      "id": "force_telekinesis",
+      "name": "Telekinesis",
       "actionType": "Action",
       "pip": "A",
       "rolled": true,
@@ -446,26 +446,26 @@
         "[Force]",
         "[Both]"
       ],
-      "description": "Project the Force outward to push or pull a target through space. Roll Alter (Presence). Power = Roll vs target's Defense. Choose push or pull direction on hit.",
-      "risk": "Losing control of the Force may cause unintended collateral damage.",
+      "description": "Project the Force outward to lift, move, or manipulate objects in the scene. Roll Alter (Presence). Power = Roll. This is pure object manipulation — moving things with your mind. For pushing/pulling people, see the Telekinetic Savant’s Kinetic Impulse.",
+      "risk": "Losing focus may drop the object unexpectedly or move it to an unintended location.",
       "effect": [
         {
           "tier": 1,
           "label": "Fleeting",
           "range": "0-3",
-          "description": "Push or pull the target 1 zone in any direction."
+          "description": "Move a small object (blaster, datapad, chair, tool). Lift, slide, or reposition within the scene."
         },
         {
           "tier": 2,
           "label": "Masterful",
           "range": "4-7",
-          "description": "Push or pull the target 2 zones. Target gains [Disoriented] Tactical."
+          "description": "Move a medium object (crate, speeder door, furniture, body). Manipulate with enough force to barricade a door, clear debris, or rearrange a room."
         },
         {
           "tier": 3,
           "label": "Legendary",
           "range": "8+",
-          "description": "Push or pull the target 3 zones. Target gains [Prone]. If the target collides with a solid boundary before completing their forced movement, they take 1 Vitality damage per zone of movement not completed."
+          "description": "Move a large object (vehicle, structural element, heavy machinery). Collapse a walkway, lift a speeder, or tear a blast door from its frame."
         }
       ]
     }
@@ -1442,15 +1442,15 @@
         },
         {
           "id": "gambit_alter_d12",
-          "name": "Crush",
+          "name": "Hurl",
           "requiredDie": "D12",
-          "modifiesAction": "force_kinetic_impulse",
+          "modifiesAction": "force_telekinesis",
           "tags": [
             "[Force]",
             "[Combat]"
           ],
-          "rule": "After rolling Kinetic Impulse, spend 1 tier. Remove all forced movement from the result. Instead, deal Vitality damage equal to the number of zones the reduced tier would have generated (Fleeting: 1, Masterful: 2, Legendary: 3). Target gains [Restrained] Tactical. The effect lasts 1 round. To maintain: spend your Action next turn and roll Kinetic Impulse again. Success continues the crush and reapplies damage. If you do not roll, the target is freed.",
-          "duration": "Tactical (sustained)"
+          "rule": "After rolling Telekinesis, spend 1 tier. The object you lifted becomes a projectile — you channel your telekinetic energy into the throw. This grants permission to throw the object at a single target on your next Attack action using Alter (Presence). Damage = 1 per tier achieved on the Attack roll + 1 per tier remaining from the Telekinesis roll after spending. The object’s scale drops by one tier (you redirected Force energy from lifting to throwing).",
+          "duration": "Immediate"
         }
       ]
     },
@@ -1753,8 +1753,8 @@
       ]
     },
     {
-      "id": "voc_maneuver_psychometric_echo",
-      "name": "Psychometric Echo",
+      "id": "voc_maneuver_shatterpoint_sense",
+      "name": "Shatterpoint Sense",
       "sourceVocation": "voc_seer",
       "requiredTier": 3,
       "actionType": "Maneuver",
@@ -1766,26 +1766,225 @@
         "[Force]",
         "[Narrative]"
       ],
-      "description": "Touch an object, surface, or location and read the Force impressions left behind. Roll Sense (Wits). The Force doesn't just tell you what happened — it shows you. You experience the event as a visceral vision, not a dry report.",
-      "risk": "On failure, the visions are fragmented and overwhelming — you gain [Disoriented] until end of round. Particularly traumatic echoes may inflict [Rattled] at the GM's discretion.",
+      "description": "Perceive the connections between people, events, and objects through the Force. Roll Sense (Wits), no defense. You do not learn facts — you perceive relationships, emotional weight, and the web of causality that binds things together.",
+      "risk": "On failure, you gain [Disoriented]. Particularly traumatic echoes may add [Rattled] at the GM’s discretion.",
       "effect": [
         {
           "tier": 1,
           "label": "Fleeting",
           "range": "0-3",
-          "description": "A flash — you perceive the strongest emotional imprint on the object. Fear, rage, grief, elation. You know what was felt, but not by whom or when."
+          "description": "A vague sense that a connection exists between two elements in the scene. You know something links them, but not the nature or significance."
         },
         {
           "tier": 2,
           "label": "Masterful",
           "range": "4-7",
-          "description": "A scene unfolds. You see the last significant event tied to this object — the who, the what, the emotional context. The GM narrates a brief sensory impression. You may ask 1 clarifying question."
+          "description": "You perceive the nature and emotional weight of the connection. The GM reveals the relationship’s character — loyalty, fear, debt, hatred, love, obligation. You may ask 1 question about the connection."
         },
         {
           "tier": 3,
           "label": "Legendary",
           "range": "8+",
-          "description": "Full psychometric reconstruction. You experience the event as though you were there — sights, sounds, emotions, even fragments of speech. The GM narrates a vivid flashback. You may ask 2 clarifying questions. Details learned this way count as reliable intelligence for the crew."
+          "description": "The full web of connections unfolds. You see how multiple elements relate — the chain of causality, the pressure points, the fault lines. The GM reveals the key pressure point in the web. You may ask 2 questions."
+        }
+      ]
+    },
+    {
+      "id": "voc_maneuver_shatterpoint_strike",
+      "name": "Shatterpoint Strike",
+      "sourceVocation": "voc_seer",
+      "requiredTier": 5,
+      "actionType": "Maneuver",
+      "pip": "M",
+      "rolled": true,
+      "discipline": "sense_spark",
+      "arena": "wits",
+      "defense": "resolve",
+      "tags": [
+        "[Force]",
+        "[Combat]"
+      ],
+      "description": "Once per scene. Roll Sense (Wits) vs target’s Resolve. You perceive the shatterpoint — the exact fracture line in the target’s defense, stance, or resolve. You must attack the target before the end of the round or the moment passes.",
+      "risk": "On failure, the maneuver is wasted and the target knows you tried to read them — they sense the probe.",
+      "effect": [
+        {
+          "tier": 1,
+          "label": "Fleeting",
+          "range": "0-3",
+          "description": "Target gains [Exposed]."
+        },
+        {
+          "tier": 2,
+          "label": "Masterful",
+          "range": "4-7",
+          "description": "Target gains [Exposed] and [Optimized] applies to your next attack against them this round."
+        },
+        {
+          "tier": 3,
+          "label": "Legendary",
+          "range": "8+",
+          "description": "Target gains [Exposed]. Your next attack against them this round gains [Optimized] and [Empowered]."
+        }
+      ]
+    },
+    {
+      "id": "voc_maneuver_enhance_attribute",
+      "name": "Enhance Attribute",
+      "sourceVocation": "voc_altus_sopor",
+      "requiredTier": 2,
+      "actionType": "Maneuver",
+      "pip": "M",
+      "rolled": false,
+      "tags": [
+        "[Force]"
+      ],
+      "description": "Diceless Maneuver. Spend 1 Edge + your Maneuver pip. Choose one arena: Physique or Reflex. That arena gains +1 Effect Tier on all rolls. Duration: Tactical. At the start of each subsequent turn, you may spend 1 Edge to sustain the enhancement — no action cost. You may only enhance one arena at a time. Switching arenas requires a new activation."
+    },
+    {
+      "id": "voc_maneuver_force_speed",
+      "name": "Force Speed",
+      "sourceVocation": "voc_altus_sopor",
+      "requiredTier": 3,
+      "actionType": "Maneuver",
+      "pip": "M",
+      "rolled": true,
+      "discipline": "control_spark",
+      "arena": "grit",
+      "tags": [
+        "[Force]",
+        "[Combat]"
+      ],
+      "description": "Channel the Force into explosive velocity. Roll Control (Grit). The result generates Move Points that must be spent on your Move action this turn (1 point = 1 zone). Movement fueled by Force Speed presents NO Openings, even when leaving Engaged zones. Unspent points are lost at the end of your turn. Force Speed movement fuels Art of Movement traversal (wall-running, vertical movement).",
+      "risk": "Failure wastes the maneuver — the Force does not answer your call for speed this round.",
+      "effect": [
+        {
+          "tier": 1,
+          "label": "Fleeting",
+          "range": "0-3",
+          "description": "2 Move Points."
+        },
+        {
+          "tier": 2,
+          "label": "Masterful",
+          "range": "4-7",
+          "description": "4 Move Points."
+        },
+        {
+          "tier": 3,
+          "label": "Legendary",
+          "range": "8+",
+          "description": "6 Move Points."
+        }
+      ]
+    },
+    {
+      "id": "voc_maneuver_emptiness",
+      "name": "Emptiness",
+      "sourceVocation": "voc_altus_sopor",
+      "requiredTier": 5,
+      "actionType": "Maneuver",
+      "pip": "M",
+      "rolled": true,
+      "discipline": "control_spark",
+      "arena": "grit",
+      "tags": [
+        "[Force]"
+      ],
+      "description": "Short Rest only. Roll Control (Grit). The current Toll count on the Destiny tracker sets the static difficulty. While meditating (narrative truth, always active during the rest): you are undetectable by Force senses, you clear 1 mental condition ([Rattled] or [Disoriented]), and you are physically vulnerable and interruptible. To carry effects into the next scene, spend 1 Edge.",
+      "risk": "On failure, the Edge spent to carry effects forward is wasted — the meditation did not reach sufficient depth.",
+      "effect": [
+        {
+          "tier": 1,
+          "label": "Fleeting",
+          "range": "0-3",
+          "description": "Force detection against you is [Weakened] until the end of the next scene."
+        },
+        {
+          "tier": 2,
+          "label": "Masterful",
+          "range": "4-7",
+          "description": "As Fleeting. Additionally, you are immune to [Rattled] and [Disoriented] until the end of the next scene."
+        },
+        {
+          "tier": 3,
+          "label": "Legendary",
+          "range": "8+",
+          "description": "As Masterful. Additionally, gain +1 Effect Tier on all Control (Grit) rolls until the end of the next scene."
+        }
+      ]
+    },
+    {
+      "id": "voc_maneuver_kinetic_impulse",
+      "name": "Kinetic Impulse",
+      "sourceVocation": "voc_telekinetic_savant",
+      "requiredTier": 1,
+      "actionType": "Action",
+      "pip": "A",
+      "rolled": true,
+      "discipline": "alter_spark",
+      "arena": "presence",
+      "tags": [
+        "[Force]",
+        "[Both]"
+      ],
+      "description": "Project the Force outward to push or pull a target through space. Roll Alter (Presence) vs target’s Defense. Choose push or pull direction on hit. This is weaponized telekinesis — directing the Force at people, not just objects.",
+      "risk": "Losing control of the Force may cause unintended collateral damage.",
+      "effect": [
+        {
+          "tier": 1,
+          "label": "Fleeting",
+          "range": "0-3",
+          "description": "Push or pull the target 1 zone in any direction."
+        },
+        {
+          "tier": 2,
+          "label": "Masterful",
+          "range": "4-7",
+          "description": "Push or pull the target 2 zones. Target gains [Disoriented] Tactical."
+        },
+        {
+          "tier": 3,
+          "label": "Legendary",
+          "range": "8+",
+          "description": "Push or pull the target 3 zones. Target gains [Prone]. If the target collides with a solid boundary before completing their forced movement, they take 1 Vitality damage per zone of movement not completed."
+        }
+      ]
+    },
+    {
+      "id": "voc_maneuver_kinetic_combat",
+      "name": "Kinetic Combat",
+      "sourceVocation": "voc_telekinetic_savant",
+      "requiredTier": 3,
+      "actionType": "Maneuver",
+      "pip": "M",
+      "rolled": true,
+      "sustained": true,
+      "discipline": "alter_spark",
+      "arena": "presence",
+      "tags": [
+        "[Force]",
+        "[Combat]"
+      ],
+      "description": "Telekinetically wield a weapon — it fights independently, guided by your will. Roll Alter (Presence) to activate. The weapon can target enemies in your zone or an adjacent zone. Attacks made through Kinetic Combat use Melee (Presence) — attribute swap. Sustained: spend your Maneuver each round to maintain (no additional roll). To re-roll for a better tier, you may roll again instead of sustaining — failure means the weapon drops wherever it was. If you do not spend your Maneuver to sustain, the weapon falls.",
+      "risk": "Failure on activation or re-establishment means the weapon drops — you lose telekinetic control.",
+      "effect": [
+        {
+          "tier": 1,
+          "label": "Fleeting",
+          "range": "0-3",
+          "description": "The weapon can Attack as your Action using Melee (Presence). Raw strikes only — no Gambits, no Exploits. Your control is sufficient to fight, but not to finesse."
+        },
+        {
+          "tier": 2,
+          "label": "Masterful",
+          "range": "4-7",
+          "description": "As Fleeting, but your form is precise enough to use any qualifying Gambits on the attack. GM discretion on edge cases requiring physical contact."
+        },
+        {
+          "tier": 3,
+          "label": "Legendary",
+          "range": "8+",
+          "description": "As Masterful, plus the weapon can use Exploits. Full combat capability through pure telekinetic mastery."
         }
       ]
     }
