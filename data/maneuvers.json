@@ -57,26 +57,26 @@
       "tags": [
         "[Combat]"
       ],
-      "description": "Move 1 zone. Diceless unless you are Engaged — if Engaged, you must roll to disengage (presenting an Opening on failure). In vehicle encounters, uses Piloting. When rolled (Engaged), the result tier determines the quality of the disengage.",
+      "description": "Move up to 2 zones. Diceless unless you are Engaged — if Engaged, you must roll to disengage (presenting an Opening on failure). In vehicle encounters, uses Piloting. When rolled (Engaged), the result tier determines the quality of the disengage.",
       "risk": "If Engaged, failing to disengage presents an Opening to the enemy.",
       "effect": [
         {
           "tier": 1,
           "label": "Fleeting",
           "range": "0-3",
-          "description": "Move 1 zone. No Opening presented."
+          "description": "Move up to 2 zones. No Opening presented."
         },
         {
           "tier": 2,
           "label": "Masterful",
           "range": "4-7",
-          "description": "Move up to 2 zones. No Opening presented."
+          "description": "Move up to 3 zones. No Opening presented."
         },
         {
           "tier": 3,
           "label": "Legendary",
           "range": "8+",
-          "description": "Move up to 2 zones. No Opening presented. Gain [Optimized] on Dodge until end of round."
+          "description": "Move up to 3 zones. No Opening presented. Gain [Optimized] on Dodge until end of round."
         }
       ]
     },
