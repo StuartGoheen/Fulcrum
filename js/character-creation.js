@@ -3196,7 +3196,8 @@
         hopeRecovery: d.hopeRecovery,
         tollRecovery: d.tollRecovery,
         advanceTrigger: d.advanceTrigger,
-        narrativeHook: d.narrativeHook
+        narrativeHook: d.narrativeHook,
+        coreQuestion: d.coreQuestion
       };
       saveState();
       showScreen("backstory");
@@ -3662,7 +3663,7 @@
         soldItems:       soldItems,
         disciplines:     discStrengths,
         weakDisciplines: discWeaknesses,
-        favoredDiscipline: favDiscLabel,
+        favoredDiscipline: { id: state.favoredDiscipline || null, name: favDiscLabel },
         arenas:          allArenas,
         forceSensitive:  forceSensitive,
         forceState:      forceState,

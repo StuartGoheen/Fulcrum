@@ -86,8 +86,10 @@ function buildPrompt(payload) {
   This character has a connection to the Force. In 16 BBY this is EXTREMELY dangerous — Inquisitors hunt Force-sensitives. Treat any awakened Force discipline as a secret the character guards with their life. Show the Force as instinct, not training — flickers of prescience, unnatural luck, objects that move when emotions spike. The character may not even understand what they feel. Never use the word "Jedi" to describe them unless the player directs it.`
     : '';
 
-  const favDiscSection = favoredDiscipline
-    ? `\nFavored discipline (species-granted): ${favoredDiscipline}
+  const favDiscName = favoredDiscipline && typeof favoredDiscipline === 'object' ? favoredDiscipline.name : favoredDiscipline;
+  const favDiscId   = favoredDiscipline && typeof favoredDiscipline === 'object' ? favoredDiscipline.id : null;
+  const favDiscSection = favDiscName
+    ? `\nFavored discipline (species-granted): ${favDiscName}${favDiscId ? ` [${favDiscId}]` : ''}
   This discipline is where the character has a natural, species-born edge — moments of brilliance that surprise even ${pronouns.obj}. In the narrative, show at least one scene where this skill manifests as instinctive excellence, something ${pronouns.sub} did without thinking that others would struggle to replicate.`
     : '';
 

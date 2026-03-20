@@ -45,30 +45,10 @@ function recalcPool(io) {
     }
   });
 
-  const needed = uniqueCharacters.size * 2;
-  let pool = getDestinyPool();
-
-  if (pool.length === needed) {
-    return pool;
-  }
-
-  if (pool.length < needed) {
-    const existingCharIds = new Set();
-    sockets.forEach(s => {
-      if (s.data.role === 'player' && s.data.characterId) {
-        existingCharIds.add(s.data.characterId);
-      }
-    });
-    for (const charId of existingCharIds) {
-      if (pool.length >= needed) break;
-      const tokens = getCharDestinyTokens(charId);
-      const charContributed = pool.length;
-      if (charContributed < needed) {
-        tokens.forEach(t => { if (pool.length < needed) pool.push(t); });
-      }
-    }
-  } else if (pool.length > needed) {
-    pool = pool.slice(0, needed);
+  const pool = [];
+  for (const charId of uniqueCharacters) {
+    const tokens = getCharDestinyTokens(charId);
+    pool.push(...tokens);
   }
 
   saveDestinyPool(pool);
