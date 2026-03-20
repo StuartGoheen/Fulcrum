@@ -7297,4 +7297,28 @@
     body.is-col-resizing .resize-handle {
       pointer-events: auto !important;
     }
+
+  .cc-toast {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(1rem);
+    background: var(--color-surface, #1a1a2e);
+    color: var(--color-text, #e0e0e0);
+    border: 1px solid var(--color-accent, #e94560);
+    border-radius: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+    font-family: 'Exo 2', sans-serif;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  .cc-toast--visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+    pointer-events: auto;
+  }
   

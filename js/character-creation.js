@@ -1,6 +1,24 @@
 (function () {
   'use strict';
 
+  function _toast(msg) {
+    var el = document.getElementById('cc-toast');
+    if (!el) {
+      el = document.createElement('div');
+      el.id = 'cc-toast';
+      el.className = 'cc-toast';
+      document.body.appendChild(el);
+    }
+    el.textContent = msg;
+    el.classList.remove('cc-toast--visible');
+    void el.offsetWidth;
+    el.classList.add('cc-toast--visible');
+    clearTimeout(el._timer);
+    el._timer = setTimeout(function () {
+      el.classList.remove('cc-toast--visible');
+    }, 3000);
+  }
+
   var THEME_KEY     = 'eote-theme';
   var DEFAULT_THEME = 'theme-rebellion';
   var THEMES        = ['theme-rebellion', 'theme-fringe', 'theme-r2d2', 'theme-vader'];
@@ -3433,7 +3451,7 @@
       if (sp.favoredDiscipline.choices.length === 1) {
         state.favoredDiscipline = sp.favoredDiscipline.choices[0].id;
       } else {
-        alert('Please select a favored discipline before confirming.');
+        _toast('Please select a favored discipline before confirming.');
         return;
       }
     }
