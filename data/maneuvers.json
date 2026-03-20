@@ -1751,6 +1751,43 @@
           "description": "Full reconstruction. The GM narrates a brief flashback of what happened at this location or to this subject. You see it play out. The crew may act on this as reliable intelligence."
         }
       ]
+    },
+    {
+      "id": "voc_maneuver_psychometric_echo",
+      "name": "Psychometric Echo",
+      "sourceVocation": "voc_seer",
+      "requiredTier": 3,
+      "actionType": "Maneuver",
+      "pip": "M",
+      "rolled": true,
+      "discipline": "sense_spark",
+      "arena": "wits",
+      "tags": [
+        "[Force]",
+        "[Narrative]"
+      ],
+      "description": "Touch an object, surface, or location and read the Force impressions left behind. Roll Sense (Wits). The Force doesn't just tell you what happened — it shows you. You experience the event as a visceral vision, not a dry report.",
+      "risk": "On failure, the visions are fragmented and overwhelming — you gain [Disoriented] until end of round. Particularly traumatic echoes may inflict [Rattled] at the GM's discretion.",
+      "effect": [
+        {
+          "tier": 1,
+          "label": "Fleeting",
+          "range": "0-3",
+          "description": "A flash — you perceive the strongest emotional imprint on the object. Fear, rage, grief, elation. You know what was felt, but not by whom or when."
+        },
+        {
+          "tier": 2,
+          "label": "Masterful",
+          "range": "4-7",
+          "description": "A scene unfolds. You see the last significant event tied to this object — the who, the what, the emotional context. The GM narrates a brief sensory impression. You may ask 1 clarifying question."
+        },
+        {
+          "tier": 3,
+          "label": "Legendary",
+          "range": "8+",
+          "description": "Full psychometric reconstruction. You experience the event as though you were there — sights, sounds, emotions, even fragments of speech. The GM narrates a vivid flashback. You may ask 2 clarifying questions. Details learned this way count as reliable intelligence for the crew."
+        }
+      ]
     }
   ]
 }

@@ -1839,6 +1839,7 @@
     voc_ichor_witch:   [{id:'glow_rod', name:'Glow Rod', cost:10, source:'gear'}],
     voc_noble:         [{id:'pocket_secretary', name:'Pocket Secretary', cost:150, source:'gear'}],
     voc_investigator:  [{id:'recording_rod', name:'Recording Rod', cost:30, source:'gear'}, {id:'macro_binoculars', name:'Macro-binoculars', cost:100, source:'gear'}],
+    voc_seer:          [{id:'glow_rod', name:'Glow Rod', cost:10, source:'gear'}, {id:'holo_journal', name:'Holo-Journal', cost:75, source:'gear'}],
   };
 
   function collectBackgroundItems() {

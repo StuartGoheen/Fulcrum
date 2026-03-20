@@ -1313,5 +1313,21 @@
       "Restricted",
       "Mobility"
     ]
+  },
+  {
+    "id": "gear_holo_journal_01",
+    "name": "Holo-Journal",
+    "category": "tech",
+    "categoryLabel": "Tech",
+    "description": "A palm-sized holographic journal with encrypted storage. Records thoughts, sketches, and short holo-clips in a personal archive. Force-sensitives use them to document visions, psychometric impressions, and meditative insights before the details fade. The encryption is basic — enough to keep casual snoops out, not enough to stop a real slicer.",
+    "cost": 75,
+    "availability": "1",
+    "traits": [],
+    "gambits": [],
+    "tags": [
+      "Tech",
+      "Common",
+      "Legal"
+    ]
   }
 ]

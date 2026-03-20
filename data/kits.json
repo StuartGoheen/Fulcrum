@@ -485,5 +485,83 @@
         "rule": "When you confront the target of your investigation — the person, group, or entity your Keen Insight and Assess results have been building toward — you gain [Optimized] on all Assess and social actions directed at them. You know their patterns, their tells, their pressure points. You've done the work.\n\nIf the confrontation turns hostile, you may spend 1 Edge Point. All allies gain [Optimized] and [Empowered] on their Join Battle rolls. You saw this coming. You briefed the crew. Nobody's caught flat-footed."
       }
     ]
+  },
+  {
+    "id": "voc_seer",
+    "name": "The Seer",
+    "governingArena": "wits",
+    "favoredDiscipline": "sense_spark",
+    "description": "The galaxy speaks to those who listen. The Seer perceives the living Force as an endless current of intent, emotion, and consequence — reading the ripples before the stone hits the water. Where others react, you have already moved. Where others guess, you have already seen.",
+    "fluff": "Quinlan Vos touched a wall and watched a murder play out in reverse. Kanan Jarrus fought blind and never missed a step. Yoda sat in a swamp and felt a billion voices cry out across the stars. The Force doesn't whisper to you — it narrates. You just have to decide how much truth you can handle.",
+    "abilities": [
+      {
+        "id": "voc_seer_t1",
+        "tier": 1,
+        "type": "passive",
+        "name": "Tremor in the Force",
+        "tags": ["[Force]"],
+        "rule": "You are never caught unaware by hostile intent. When any creature within your zone declares a hostile action against you or an ally, you may immediately spend your Reaction to warn the target — that target does not present an Opening from being caught off-guard. Additionally, your Force Sense maneuver may be performed as a Maneuver (half-action) rather than a full Action when used outside of combat."
+      },
+      {
+        "id": "voc_seer_t2",
+        "tier": 2,
+        "type": "gambit",
+        "name": "Foresight",
+        "tags": ["[Force]", "[Combat]"],
+        "modifiesAction": "action_assess",
+        "actionType": "Assess (Force Sense)",
+        "rule": "After resolving a Force Sense or Assess using Sense (Wits), spend 1 tier. Choose one ally in your zone. That ally gains [Optimized] on their next action this round. You saw what was coming and told them exactly where to be. The whisper arrives a heartbeat before the danger."
+      },
+      {
+        "id": "voc_seer_t3",
+        "tier": 3,
+        "type": "maneuver",
+        "name": "Psychometric Echo",
+        "tags": ["[Force]", "[Narrative]"],
+        "discipline": "sense_spark",
+        "arena": "wits",
+        "rolled": true,
+        "rule": "Touch an object, surface, or location and read the Force impressions left behind. Roll Sense (Wits). The Force doesn't just tell you what happened — it shows you. You experience the event as a visceral vision, not a dry report.",
+        "risk": "On failure, the visions are fragmented and overwhelming — you gain [Disoriented] until end of round. Particularly traumatic echoes may inflict [Rattled] at the GM's discretion.",
+        "effect": [
+          {
+            "tier": 1,
+            "label": "Fleeting",
+            "range": "0-3",
+            "description": "A flash — you perceive the strongest emotional imprint on the object. Fear, rage, grief, elation. You know what was felt, but not by whom or when."
+          },
+          {
+            "tier": 2,
+            "label": "Masterful",
+            "range": "4-7",
+            "description": "A scene unfolds. You see the last significant event tied to this object — the who, the what, the emotional context. The GM narrates a brief sensory impression. You may ask 1 clarifying question."
+          },
+          {
+            "tier": 3,
+            "label": "Legendary",
+            "range": "8+",
+            "description": "Full psychometric reconstruction. You experience the event as though you were there — sights, sounds, emotions, even fragments of speech. The GM narrates a vivid flashback. You may ask 2 clarifying questions. Details learned this way count as reliable intelligence for the crew."
+          }
+        ]
+      },
+      {
+        "id": "voc_seer_t4",
+        "tier": 4,
+        "type": "exploit",
+        "name": "Already Gone",
+        "tags": ["[Force]", "[Combat]"],
+        "modifiesAction": "action_dodge",
+        "actionType": "Dodge",
+        "rule": "When you Dodge and your Control die is 8+, spend your Exploit pip. You perceived the attack before it was launched. In addition to the Dodge, choose one: move 1 zone immediately, OR the attacker presents an Opening to an ally of your choice in the zone. You were never where they aimed — and they're off-balance because of it."
+      },
+      {
+        "id": "voc_seer_t5",
+        "tier": 5,
+        "type": "permission",
+        "name": "Shatterpoint",
+        "tags": ["[Force]", "[Combat]", "[Narrative]"],
+        "rule": "Once per Act, you may declare that you perceive a Shatterpoint — a critical fracture line in the Force surrounding a person, object, structure, or situation. The GM confirms the Shatterpoint exists and describes its nature: the single action, choice, or strike that would cause everything to unravel.\n\nIf you or an ally act on the Shatterpoint this scene, that action gains +2 tiers to its effect result. The consequences are dramatic and narrative-scale — a duel ends, a wall collapses, a betrayal is exposed, a fleet's formation breaks.\n\nThe GM retains full control over what the Shatterpoint reveals and whether the opportunity is seized correctly. This is Mace Windu seeing the fracture in the Confederacy. This is Cal Kestis breaking the Fortress Inquisitorius. You see the crack. Someone has to swing the hammer."
+      }
+    ]
   }
 ]
