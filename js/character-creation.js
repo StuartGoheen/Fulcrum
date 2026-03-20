@@ -2618,6 +2618,7 @@
 
       buildPhaseCarousel(DESTINY_POOL_CARDS, "ph-grid-destiny-pool", selectDestinyPool, buildDestinyPoolCardFlat);
 
+      var poolSection = document.getElementById("destiny-pool-section");
       if (state.destiny) {
         var poolIdx = DESTINY_POOL_CARDS.findIndex(function(c) { return c.value === state.destiny; });
         if (poolIdx >= 0 && phaseCarouselStates["ph-grid-destiny-pool"]) {
@@ -2626,6 +2627,7 @@
         }
         showPersonalDestinyCarousel();
       } else {
+        if (poolSection) poolSection.classList.remove("hidden");
         personalSection.classList.add("hidden");
       }
 
@@ -2642,7 +2644,14 @@
 
         if (backBtn) {
           backBtn.addEventListener("click", function () {
-            initOutfittingScreen();
+            var personalSection = document.getElementById("destiny-personal-section");
+            var poolSection = document.getElementById("destiny-pool-section");
+            if (personalSection && !personalSection.classList.contains("hidden")) {
+              personalSection.classList.add("hidden");
+              if (poolSection) poolSection.classList.remove("hidden");
+            } else {
+              initOutfittingScreen();
+            }
           });
         }
 
@@ -2660,8 +2669,10 @@
     }
 
     function showPersonalDestinyCarousel() {
+      var poolSection = document.getElementById("destiny-pool-section");
       var personalSection = document.getElementById("destiny-personal-section");
       if (!personalSection) return;
+      if (poolSection) poolSection.classList.add("hidden");
 
       if (PERSONAL_DESTINY_CARDS.length === 0) {
         fetch("/data/destinies.json")
@@ -3604,10 +3615,10 @@
       var destinyEl = document.getElementById('screen-destiny');
       if (destinyEl && !destinyEl.classList.contains('hidden')) {
         e.preventDefault();
-        var personalVisible = document.getElementById('destiny-personal-section');
-        if (personalVisible && !personalVisible.classList.contains('hidden') && phaseCarouselStates['ph-grid-personal-destiny']) {
+        var personalSection = document.getElementById('destiny-personal-section');
+        if (personalSection && !personalSection.classList.contains('hidden') && phaseCarouselStates['ph-grid-personal-destiny']) {
           phaseCarouselNav('ph-grid-personal-destiny', PERSONAL_DESTINY_CARDS, e.key === 'ArrowLeft' ? -1 : 1);
-        } else {
+        } else if (phaseCarouselStates['ph-grid-destiny-pool']) {
           phaseCarouselNav('ph-grid-destiny-pool', DESTINY_POOL_CARDS, e.key === 'ArrowLeft' ? -1 : 1);
         }
         return;

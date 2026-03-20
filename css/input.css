@@ -6348,6 +6348,7 @@
 
     /* ── Destiny Selection Screen ───────────────────────────────────────────── */
 
+    .destiny-pool-section,
     .destiny-personal-section {
       width: 100%;
       display: flex;
@@ -6356,6 +6357,12 @@
       min-height: 0;
     }
 
+    .destiny-pool-section.hidden,
+    .destiny-personal-section.hidden {
+      display: none;
+    }
+
+    .destiny-pool-section .ph-carousel,
     .destiny-personal-section .ph-carousel {
       flex: 1;
       min-height: 280px;
