@@ -3760,7 +3760,7 @@
 
   .ph-back-scroll {
     flex: 1;
-    overflow-y: auto;
+    overflow: hidden;
     padding: 0.2rem 0.6rem;
   }
 
@@ -4055,12 +4055,6 @@
     }
     .ph-slide-next {
       transform: translate(calc(-50% + 240px), -50%) scale(0.75);
-    }
-    .ph-back-scroll {
-      padding: 0.5rem 0.6rem;
-    }
-    .ph-narrative {
-      font-size: 0.58rem;
     }
   }
 
