@@ -3099,15 +3099,8 @@
   .ph-header-row {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    width: 100%;
-    margin: 0 auto;
-    padding: 0 0.5rem;
-  }
-
-  .ph-header-row .ph-screen-head {
-    flex: 1;
-    min-width: 0;
+    justify-content: center;
+    gap: 0.75rem;
   }
 
   .ph-header-arrow {
