@@ -2431,18 +2431,7 @@
 
     container.appendChild(track);
 
-    var prevBtn = document.createElement('button');
-    prevBtn.className = 'ph-carousel-arrow ph-carousel-prev';
-    prevBtn.innerHTML = '&#8249;';
-    prevBtn.addEventListener('click', function () { phaseCarouselNav(stateKey, cards, -1); });
-
-    var nextBtn = document.createElement('button');
-    nextBtn.className = 'ph-carousel-arrow ph-carousel-next';
-    nextBtn.innerHTML = '&#8250;';
-    nextBtn.addEventListener('click', function () { phaseCarouselNav(stateKey, cards, 1); });
-
-    container.appendChild(prevBtn);
-    container.appendChild(nextBtn);
+    
 
     var dotsWrap = document.createElement('div');
     dotsWrap.className = 'ph-carousel-dots';
@@ -3641,6 +3630,15 @@
           return;
         }
       }
+    });
+
+    document.querySelectorAll('.ph-header-arrow').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var stateKey = btn.dataset.carousel;
+        if (!phaseCarouselStates[stateKey]) return;
+        var dir = btn.classList.contains('ph-header-arrow-prev') ? -1 : 1;
+        phaseCarouselNav(stateKey, [], dir);
+      });
     });
 
     var backToSpecies = document.getElementById('btn-back-to-species');
