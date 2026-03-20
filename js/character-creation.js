@@ -757,10 +757,7 @@
     },
   ];
 
-    var phaseCardState = {
-    flipped: {},
-  };
-
+  
   var state = {
     species:            null,
     previewId:          null,
@@ -2423,7 +2420,7 @@
     track.className = 'ph-carousel-track';
 
     cards.forEach(function (card, idx) {
-      var builder = cardBuilder || buildPhaseCard;
+      var builder = cardBuilder || buildPhase3CardFlat;
       var slide = builder(card, selectFn);
       slide.dataset.index = idx;
       track.appendChild(slide);
@@ -2441,7 +2438,6 @@
       dot.className = 'ph-carousel-dot' + (idx === 0 ? ' ph-dot-active' : '');
       dot.addEventListener('click', function () {
         cs.current = idx;
-        resetPhaseFlips();
         phaseCarouselUpdate(stateKey, cards);
       });
       dotsWrap.appendChild(dot);
@@ -2468,7 +2464,6 @@
   function phaseCarouselNav(stateKey, cards, dir) {
     var cs = phaseCarouselStates[stateKey];
     cs.current = (cs.current + dir + cs.total) % cs.total;
-    resetPhaseFlips();
     phaseCarouselUpdate(stateKey, cards);
   }
 
@@ -2491,24 +2486,7 @@
     });
   }
 
-  function buildPhaseCard(card, selectFn) {
-    var wrapper = document.createElement('div');
-    wrapper.className = 'ph-card-wrap';
 
-    var perspective = document.createElement('div');
-    perspective.className = 'ph-perspective';
-
-    var inner = document.createElement('div');
-    inner.className = 'ph-card-inner';
-    inner.id        = 'ph-inner-' + card.id;
-
-    inner.appendChild(buildPhaseCardFront(card));
-    inner.appendChild(buildPhaseCardBack(card, selectFn));
-
-    perspective.appendChild(inner);
-    wrapper.appendChild(perspective);
-    return wrapper;
-  }
 
   function buildPhase3CardFlat(card, selectFn) {
     var wrapper = document.createElement("div");
@@ -2567,7 +2545,7 @@
       detailCol.appendChild(knackBlock);
     }
 
-    if (card._meta && card._meta.favoredName) {
+    if (card._meta && card._meta.favored) {
       var favBlock = document.createElement("div");
       favBlock.className = "ph3-knack-block";
 
@@ -2576,15 +2554,24 @@
       favLabel.textContent = "Favored Discipline";
       favBlock.appendChild(favLabel);
 
-      var favName = document.createElement("p");
-      favName.className = "ph3-knack-name";
-      favName.textContent = card._meta.favoredName;
-      favBlock.appendChild(favName);
+      var favBadge = document.createElement("span");
+      favBadge.className = "ph-mech-badge";
+      favBadge.textContent = card._meta.favored;
+      favBlock.appendChild(favBadge);
 
-      var favDesc = document.createElement("p");
-      favDesc.className = "ph3-knack-desc";
-      favDesc.textContent = card._meta.favoredDesc;
-      favBlock.appendChild(favDesc);
+      if (card._meta.favoredName) {
+        var favName = document.createElement("p");
+        favName.className = "ph3-knack-name";
+        favName.textContent = card._meta.favoredName;
+        favBlock.appendChild(favName);
+      }
+
+      if (card._meta.favoredDesc) {
+        var favDesc = document.createElement("p");
+        favDesc.className = "ph3-knack-desc";
+        favDesc.textContent = card._meta.favoredDesc;
+        favBlock.appendChild(favDesc);
+      }
 
       detailCol.appendChild(favBlock);
     }
@@ -2604,145 +2591,9 @@
     return wrapper;
   }
 
-  function buildPhaseCardFront(card) {
-    var face = document.createElement('div');
-    face.className = 'ph-card-face ph-card-front';
-
-    var img = document.createElement('img');
-    img.src       = card.imageUrl;
-    img.alt       = card.title;
-    img.className = 'ph-card-img';
-
-    var title = document.createElement('div');
-    title.className   = 'ph-card-title';
-    title.textContent = card.title;
-
-    face.appendChild(img);
-    face.appendChild(title);
-    face.addEventListener('click', function () { flipPhaseCard(card.id); });
-    return face;
-  }
-
-  function buildPhaseCardBack(card, selectFn) {
-    var face = document.createElement('div');
-    face.className = 'ph-card-face ph-card-back';
-
-    var backBtn = document.createElement('button');
-    backBtn.className   = 'ph-back-btn';
-    backBtn.innerHTML   = '&larr; Flip Back';
-    backBtn.addEventListener('click', function (e) {
-      e.stopPropagation();
-      flipPhaseCard(card.id);
-    });
-
-    var scrollArea = document.createElement('div');
-    scrollArea.className = 'ph-back-scroll';
-
-    var titleEl = document.createElement('h3');
-    titleEl.className   = 'ph-back-title';
-    titleEl.textContent = card.title;
-    scrollArea.appendChild(titleEl);
-
-    var narrative = document.createElement('p');
-    narrative.className   = 'ph-narrative';
-    narrative.textContent = card.narrative;
-    scrollArea.appendChild(narrative);
-
-    if (card._meta) {
-      var mechSection = document.createElement('div');
-      mechSection.className = 'ph-mechanics';
-
-      var divider = document.createElement('hr');
-      divider.className = 'ph-divider';
-      mechSection.appendChild(divider);
-
-      if (card._meta.favored) {
-        var favEl = document.createElement('div');
-        favEl.className = 'ph-mech-row';
-        var favLabel = document.createElement('span');
-        favLabel.className = 'ph-mech-label';
-        favLabel.textContent = 'Favored Discipline';
-        var favValue = document.createElement('span');
-        favValue.className = 'ph-mech-badge';
-        favValue.textContent = card._meta.favored;
-        favEl.appendChild(favLabel);
-        favEl.appendChild(favValue);
-        mechSection.appendChild(favEl);
-
-        if (card._meta.favoredName) {
-          var favTheme = document.createElement('div');
-          favTheme.className = 'ph-favored-theme';
-          var favThemeName = document.createElement('span');
-          favThemeName.className = 'ph-favored-theme-name';
-          favThemeName.textContent = card._meta.favoredName;
-          favTheme.appendChild(favThemeName);
-          if (card._meta.favoredDesc) {
-            var favThemeDesc = document.createElement('p');
-            favThemeDesc.className = 'ph-favored-theme-desc';
-            favThemeDesc.textContent = card._meta.favoredDesc;
-            favTheme.appendChild(favThemeDesc);
-          }
-          mechSection.appendChild(favTheme);
-        }
-      }
-
-      if (card._meta.knackName) {
-        var knackHeader = document.createElement('div');
-        knackHeader.className = 'ph-knack-header';
-        var knackName = document.createElement('span');
-        knackName.className = 'ph-knack-name';
-        knackName.textContent = card._meta.knackName;
-        var knackType = document.createElement('span');
-        knackType.className = 'ph-knack-type';
-        knackType.textContent = card._meta.knackType;
-        knackHeader.appendChild(knackName);
-        knackHeader.appendChild(knackType);
-        mechSection.appendChild(knackHeader);
-
-        if (card._meta.knack) {
-          var knackDesc = document.createElement('p');
-          knackDesc.className = 'ph-knack-desc';
-          knackDesc.textContent = card._meta.knack;
-          mechSection.appendChild(knackDesc);
-        }
-      }
-
-      scrollArea.appendChild(mechSection);
-    }
-
-    var selectBtn = document.createElement('button');
-    selectBtn.className   = 'ph-select-btn';
-    selectBtn.textContent = 'Choose This →';
-    selectBtn.addEventListener('click', function (e) {
-      e.stopPropagation();
-      selectFn(card);
-    });
-
-    face.appendChild(backBtn);
-    face.appendChild(scrollArea);
-    face.appendChild(selectBtn);
-    return face;
-  }
-
-  function flipPhaseCard(cardId) {
-    var inner = document.getElementById('ph-inner-' + cardId);
-    if (!inner) return;
-    phaseCardState.flipped[cardId] = !phaseCardState.flipped[cardId];
-    inner.classList.toggle('ph-flipped', !!phaseCardState.flipped[cardId]);
-  }
-
-  function resetPhaseFlips() {
-    Object.keys(phaseCardState.flipped).forEach(function (id) {
-      phaseCardState.flipped[id] = false;
-      var inner = document.getElementById('ph-inner-' + id);
-      if (inner) inner.classList.remove('ph-flipped');
-    });
-  }
-
   function selectPhase1(card) {
     state.phase1 = card.id;
     saveState();
-    resetPhaseFlips();
     showScreen('phase2');
     updateStepTrack(2);
   }
@@ -2750,7 +2601,6 @@
   function selectPhase2(card) {
     state.phase2 = card.id;
     saveState();
-    resetPhaseFlips();
     showScreen('phase3');
     updateStepTrack(3);
   }
