@@ -2681,6 +2681,22 @@
         favEl.appendChild(favLabel);
         favEl.appendChild(favValue);
         mechSection.appendChild(favEl);
+
+        if (card._meta.favoredName) {
+          var favTheme = document.createElement('div');
+          favTheme.className = 'ph-favored-theme';
+          var favThemeName = document.createElement('span');
+          favThemeName.className = 'ph-favored-theme-name';
+          favThemeName.textContent = card._meta.favoredName;
+          favTheme.appendChild(favThemeName);
+          if (card._meta.favoredDesc) {
+            var favThemeDesc = document.createElement('p');
+            favThemeDesc.className = 'ph-favored-theme-desc';
+            favThemeDesc.textContent = card._meta.favoredDesc;
+            favTheme.appendChild(favThemeDesc);
+          }
+          mechSection.appendChild(favTheme);
+        }
       }
 
       if (card._meta.knackName) {

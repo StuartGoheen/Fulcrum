@@ -3520,8 +3520,8 @@
     position: relative;
     width: 100%;
     max-width: 1100px;
-    height: min(520px, calc(100vh - 260px));
-    min-height: 360px;
+    height: min(600px, calc(100vh - 220px));
+    min-height: 400px;
     margin: 0 auto;
     overflow: hidden;
   }
@@ -3537,7 +3537,7 @@
     top: 50%;
     left: 50%;
     width: 420px;
-    height: 480px;
+    height: 552px;
     transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.45s ease;
     transform: translate(-50%, -50%) scale(1);
     opacity: 1;
@@ -3803,6 +3803,25 @@
     margin: 0.25rem 0 0;
   }
 
+  .ph-favored-theme {
+    padding: 0.2rem 0 0.1rem;
+  }
+
+  .ph-favored-theme-name {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.6rem;
+    color: var(--color-accent-secondary);
+    letter-spacing: 0.04em;
+  }
+
+  .ph-favored-theme-desc {
+    font-size: 0.5rem;
+    line-height: 1.55;
+    color: var(--color-text-secondary);
+    font-style: italic;
+    margin: 0.15rem 0 0;
+  }
+
   .ph-select-btn {
     flex-shrink: 0;
     display: block;
@@ -3957,11 +3976,11 @@
       flex-direction: column;
     }
     .ph-carousel {
-      height: min(460px, calc(100vh - 240px));
+      height: min(540px, calc(100vh - 200px));
     }
     .ph-card-wrap {
       width: 360px;
-      height: 420px;
+      height: 483px;
     }
     .ph-slide-prev {
       transform: translate(calc(-50% - 280px), -50%) scale(0.75);
@@ -3988,11 +4007,11 @@
       line-height: 1.5;
     }
     .ph-carousel {
-      height: min(440px, calc(100vh - 220px));
+      height: min(510px, calc(100vh - 200px));
     }
     .ph-card-wrap {
       width: min(340px, calc(100vw - 100px));
-      height: 400px;
+      height: 460px;
     }
     .ph-slide-prev {
       transform: translate(calc(-50% - 240px), -50%) scale(0.75);
