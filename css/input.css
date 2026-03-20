@@ -3877,7 +3877,7 @@
   .ph-card-flat {
     cursor: default;
     width: 900px;
-    height: 460px;
+    height: 100%;
   }
 
   .ph-card-flat .ph-perspective,
@@ -3984,7 +3984,7 @@
   @media (max-width: 900px) {
     .ph-card-flat {
       width: 560px;
-      height: 420px;
+      height: 100%;
     }
     .ph3-img-col {
       flex: 0 0 200px;
@@ -4002,7 +4002,7 @@
   @media (max-width: 600px) {
     .ph-card-flat {
       width: min(340px, calc(100vw - 100px));
-      height: 400px;
+      height: 100%;
     }
     .ph3-detail-col {
       padding: 0.75rem 1rem;
