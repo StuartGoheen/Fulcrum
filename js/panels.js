@@ -224,18 +224,6 @@
     }
   }
 
-  // ─── Destiny Token Counts ─────────────────────────────────────────────────────
-
-  function updateDestinyCounts() {
-    var tokens = document.querySelectorAll('.force-token');
-    var toll   = document.querySelectorAll('.force-token.is-dark').length;
-    var hope   = tokens.length - toll;
-    var hopeEl = document.getElementById('hope-count');
-    var tollEl = document.getElementById('toll-count');
-    if (hopeEl) hopeEl.textContent = hope;
-    if (tollEl) tollEl.textContent = toll;
-  }
-
   // ─── Init ─────────────────────────────────────────────────────────────────────
 
   function init() {
