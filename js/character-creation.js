@@ -1563,8 +1563,7 @@
       normalizeKitChoices();
       renderKitsBudgetBar();
       buildPhaseCarousel(KITS_DATA, "ph-grid-vocations", null, buildVocationCardFlat);
-      updateKitsCarouselTitle();
-      showScreen("kits");
+            showScreen("kits");
       updateStepTrack(5);
     };
     if (KITS_DATA.length === 0) {
@@ -1596,13 +1595,7 @@
     if (disp) disp.textContent = avail;
   }
 
-  function updateKitsCarouselTitle() {
-    var cs = phaseCarouselStates["ph-grid-vocations"];
-    var titleEl = document.getElementById("kits-carousel-title");
-    if (!cs || !titleEl) return;
-    var kit = KITS_DATA[cs.current];
-    titleEl.textContent = kit ? kit.name : "";
-  }
+
 
   function kitMaxTier(kit) {
     var d = statsGetDerived();
@@ -2492,8 +2485,7 @@
       d.classList.toggle('ph-dot-active', i === cs.current);
     });
     if (stateKey === "ph-grid-vocations") {
-      updateKitsCarouselTitle();
-      rebuildActiveVocationSlide();
+            rebuildActiveVocationSlide();
     }
   }
 
@@ -3663,8 +3655,7 @@
       if (kitsEl && !kitsEl.classList.contains('hidden')) {
         e.preventDefault();
         phaseCarouselNav('ph-grid-vocations', KITS_DATA, e.key === 'ArrowLeft' ? -1 : 1);
-        updateKitsCarouselTitle();
-        return;
+                return;
       }
             var destinyEl = document.getElementById('screen-destiny');
       if (destinyEl && !destinyEl.classList.contains('hidden')) {
@@ -3685,8 +3676,7 @@
         if (!phaseCarouselStates[stateKey]) return;
         var dir = btn.classList.contains('ph-header-arrow-prev') ? -1 : 1;
         phaseCarouselNav(stateKey, [], dir);
-        if (stateKey === "ph-grid-vocations") updateKitsCarouselTitle();
-      });
+        });
     });
 
     var backToSpecies = document.getElementById('btn-back-to-species');
