@@ -90,7 +90,7 @@ function buildPrompt(payload) {
   const favDiscId   = favoredDiscipline && typeof favoredDiscipline === 'object' ? favoredDiscipline.id : null;
   const favDiscSection = favDiscName
     ? `\nFavored discipline (species-granted): ${favDiscName}${favDiscId ? ` [${favDiscId}]` : ''}
-  This discipline is where the character has a natural, species-born edge — moments of brilliance that surprise even ${pronouns.obj}. In the narrative, show at least one scene where this skill manifests as instinctive excellence, something ${pronouns.sub} did without thinking that others would struggle to replicate.`
+  This discipline is where the character has a natural, species-born edge — explosive moments of brilliance that surprise even ${pronouns.obj} (mechanically, this grants exploding dice in that discipline). In the narrative, show at least one scene where this skill manifests as instinctive excellence, something ${pronouns.sub} did without thinking that others would struggle to replicate — a moment where luck or talent pushed far beyond what should have been possible.`
     : '';
 
   let destinySection = `Destiny alignment: ${destiny}\nDestiny tone guidance: ${destinyTone}`;
