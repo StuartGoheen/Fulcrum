@@ -18,24 +18,28 @@
 
     <header class="cc-header">
       <a href="/" class="cc-back-link">&larr; Back</a>
-      <div class="cc-step-track">
-        <div class="cc-step-pip cc-pip-active" title="Species"></div>
-        <div class="cc-step-line"></div>
-        <div class="cc-step-pip" title="Phase 1 — The Origin"></div>
-        <div class="cc-step-line"></div>
-        <div class="cc-step-pip" title="Phase 2 — The Departure"></div>
-        <div class="cc-step-line"></div>
-        <div class="cc-step-pip" title="Phase 3 — The Debt"></div>
-        <div class="cc-step-line"></div>
-        <div class="cc-step-pip" title="Arenas &amp; Disciplines"></div>
-        <div class="cc-step-line"></div>
-        <div class="cc-step-pip" title="Vocations"></div>
-        <div class="cc-step-line"></div>
-        <div class="cc-step-pip" title="Outfitting"></div>
-        <div class="cc-step-line"></div>
-        <div class="cc-step-pip" title="Destiny"></div>
-        <div class="cc-step-line"></div>
-        <div class="cc-step-pip" title="Your Story"></div>
+      <div class="cc-step-nav-wrap">
+        <button id="cc-nav-prev" class="cc-nav-btn cc-nav-prev-btn hidden"></button>
+        <div class="cc-step-track">
+          <div class="cc-step-pip cc-pip-active" title="Species"></div>
+          <div class="cc-step-line"></div>
+          <div class="cc-step-pip" title="Phase 1 — The Origin"></div>
+          <div class="cc-step-line"></div>
+          <div class="cc-step-pip" title="Phase 2 — The Departure"></div>
+          <div class="cc-step-line"></div>
+          <div class="cc-step-pip" title="Phase 3 — The Debt"></div>
+          <div class="cc-step-line"></div>
+          <div class="cc-step-pip" title="Arenas &amp; Disciplines"></div>
+          <div class="cc-step-line"></div>
+          <div class="cc-step-pip" title="Vocations"></div>
+          <div class="cc-step-line"></div>
+          <div class="cc-step-pip" title="Outfitting"></div>
+          <div class="cc-step-line"></div>
+          <div class="cc-step-pip" title="Destiny"></div>
+          <div class="cc-step-line"></div>
+          <div class="cc-step-pip" title="Your Story"></div>
+        </div>
+        <button id="cc-nav-next" class="cc-nav-btn cc-nav-next-btn hidden"></button>
       </div>
       <button id="theme-toggle" class="cc-theme-btn"><span id="theme-label">Rebellion</span></button>
     </header>
@@ -56,9 +60,6 @@
 
     <!-- Screen: Phase 1 — The Origin -->
     <div id="screen-phase1" class="cc-screen hidden">
-      <div class="ph-top-bar">
-        <button id="btn-back-to-species" class="ph-prev-step-btn">&larr; Change Species</button>
-      </div>
       <div class="ph-header-row">
         <button class="ph-header-arrow ph-header-arrow-prev" data-carousel="ph-grid-phase1" aria-label="Previous">&lsaquo;</button>
         <div class="cc-screen-head ph-screen-head">
@@ -73,9 +74,6 @@
 
     <!-- Screen: Phase 2 — The Departure -->
     <div id="screen-phase2" class="cc-screen hidden">
-      <div class="ph-top-bar">
-        <button id="btn-back-to-phase1" class="ph-prev-step-btn">&larr; Change Origin</button>
-      </div>
       <div class="ph-header-row">
         <button class="ph-header-arrow ph-header-arrow-prev" data-carousel="ph-grid-phase2" aria-label="Previous">&lsaquo;</button>
         <div class="cc-screen-head ph-screen-head">
@@ -90,9 +88,6 @@
 
     <!-- Screen: Phase 3 — The Debt -->
     <div id="screen-phase3" class="cc-screen hidden">
-      <div class="ph-top-bar">
-        <button id="btn-back-to-phase2" class="ph-prev-step-btn">&larr; Change Catalyst</button>
-      </div>
       <div class="ph-header-row">
         <button class="ph-header-arrow ph-header-arrow-prev" data-carousel="ph-grid-phase3" aria-label="Previous">&lsaquo;</button>
         <div class="cc-screen-head ph-screen-head">
@@ -118,10 +113,6 @@
         <button class="ph-header-arrow ph-header-arrow-next" data-carousel="ph-grid-vocations" aria-label="Next vocation">&#8250;</button>
       </div>
       <div class="ph-carousel" id="ph-grid-vocations"></div>
-      <div class="cc-stats-nav-row">
-        <button id="btn-back-to-stats" class="cc-back-btn-text">&larr; Arenas</button>
-        <button id="btn-kits-continue" class="cc-btn-stats-continue">Outfitting &rarr;</button>
-      </div>
     </div>
 
     <!-- Screen: Arenas & Disciplines -->
@@ -137,10 +128,6 @@
         <div id="stats-grid" class="stats-grid"></div>
         <div id="stats-detail-card" class="stats-detail-card hidden"></div>
       </div>
-      <div class="cc-stats-nav-row">
-        <button id="btn-stats-prev" class="cc-back-btn-text">&larr; Change Debt</button>
-        <button id="btn-stats-next" class="cc-btn-stats-continue">Continue &rarr;</button>
-      </div>
     </div>
 
 
@@ -152,10 +139,6 @@
         <p class="cc-screen-sub">You have <strong id="outfitting-credits-display">500</strong> credits to spend on starting gear, weapons, and armor.</p>
       </div>
       <div id="outfitting-content" class="cc-stats-step-content"></div>
-      <div class="cc-stats-nav-row">
-        <button id="btn-back-to-kits-from-outfitting" class="cc-back-btn-text">&larr; Vocations</button>
-        <button id="btn-outfitting-continue" class="cc-btn-stats-continue">Choose Destiny &rarr;</button>
-      </div>
     </div>
 
       <!-- Screen: Destiny Selection -->
@@ -186,10 +169,6 @@
           <div class="ph-carousel" id="ph-grid-personal-destiny"></div>
         </div>
 
-        <div class="cc-stats-nav-row">
-          <button id="btn-back-to-outfitting" class="cc-back-btn-text">&larr; Outfitting</button>
-          <button id="btn-destiny-continue" class="cc-btn-stats-continue" disabled>Your Story &rarr;</button>
-        </div>
       </div>
 
       <!-- Screen: Your Story (Backstory Generator) -->
@@ -258,10 +237,6 @@
           </div>
         </div>
 
-        <div class="cc-stats-nav-row">
-          <button id="btn-back-to-destiny" class="cc-back-btn-text">&larr; Destiny</button>
-          <button id="btn-finalize-character" class="cc-btn-stats-continue">Finalize Character &rarr;</button>
-        </div>
       </div>
   
 

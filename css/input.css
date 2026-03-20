@@ -3179,6 +3179,59 @@
     color: var(--color-text-secondary);
   }
 
+  /* ── Step nav wrapper ──────────────────────────────────────────────────── */
+  .cc-step-nav-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .cc-nav-btn {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.42rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: none;
+    border: 1px solid color-mix(in srgb, var(--color-accent-primary) 40%, transparent);
+    color: var(--color-accent-primary);
+    padding: 0.2rem 0.6rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+    min-width: 5rem;
+    text-align: center;
+  }
+
+  .cc-nav-btn:hover {
+    background: color-mix(in srgb, var(--color-accent-primary) 15%, transparent);
+    color: var(--color-text-primary);
+    border-color: var(--color-accent-primary);
+  }
+
+  .cc-nav-btn.hidden {
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .cc-nav-next-btn {
+    background: var(--color-accent-primary);
+    color: #fff;
+    border-color: var(--color-accent-primary);
+  }
+
+  .cc-nav-next-btn:hover {
+    opacity: 0.85;
+    background: var(--color-accent-primary);
+    color: #fff;
+  }
+
+  .cc-nav-next-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+
   /* ── Step track ─────────────────────────────────────────────────────────── */
   .cc-step-track {
     display: flex;
@@ -5356,6 +5409,14 @@
     .cc-theme-btn {
       font-size: 0.48rem;
       padding: 0.25rem 0.5rem;
+    }
+    .cc-nav-btn {
+      font-size: 0.36rem;
+      padding: 0.15rem 0.4rem;
+      min-width: 3.5rem;
+    }
+    .cc-step-nav-wrap {
+      gap: 0.35rem;
     }
     .cc-screen-title {
       font-size: 0.65rem;

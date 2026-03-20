@@ -1815,47 +1815,53 @@
   /* ── Nav button logic ────────────────────────────────────────────── */
 
   function updateStatsNav(d) {
-    var prevBtn = document.getElementById('btn-stats-prev');
-    var nextBtn = document.getElementById('btn-stats-next');
-    if (!prevBtn || !nextBtn) return;
+    if (!headerNavPrev) headerNavPrev = document.getElementById("cc-nav-prev");
+    if (!headerNavNext) headerNavNext = document.getElementById("cc-nav-next");
+    if (!headerNavPrev || !headerNavNext) return;
 
-    if (_statsPhase === 'incomp') {
-      prevBtn.innerHTML = '&larr; Change Debt';
-      prevBtn.onclick = function() { showScreen('phase3'); updateStepTrack(3); };
+    if (_statsPhase === "incomp") {
+      headerNavPrev.textContent = "← Debt";
+      headerNavPrev.classList.remove("hidden");
+      headerNavPrev.onclick = function() { showScreen("phase3"); updateStepTrack(3); };
 
       var effectiveReq = Math.max(0, MAX_INCOMP_REQUIRED - (d.freeAdv || 0));
       var canProceed = (d.playerIncompCount + d.forceIncompCount) >= effectiveReq;
-      nextBtn.textContent = 'Arenas \u2192';
-      nextBtn.disabled = !canProceed;
-      nextBtn.onclick = function() {
-        _statsPhase = 'arenas';
+      headerNavNext.textContent = "Arenas →";
+      headerNavNext.classList.remove("hidden");
+      headerNavNext.disabled = !canProceed;
+      headerNavNext.onclick = function() {
+        _statsPhase = "arenas";
         _selectedCell = null;
         renderStatsContent();
       };
-    } else if (_statsPhase === 'arenas') {
-      prevBtn.innerHTML = '&larr; Weaknesses';
-      prevBtn.onclick = function() {
-        _statsPhase = 'incomp';
+    } else if (_statsPhase === "arenas") {
+      headerNavPrev.textContent = "← Weaknesses";
+      headerNavPrev.classList.remove("hidden");
+      headerNavPrev.onclick = function() {
+        _statsPhase = "incomp";
         _selectedCell = null;
         renderStatsContent();
       };
-      nextBtn.textContent = 'Specialize \u2192';
-      nextBtn.disabled = false;
-      nextBtn.onclick = function() {
-        _statsPhase = 'disciplines';
+      headerNavNext.textContent = "Specialize →";
+      headerNavNext.classList.remove("hidden");
+      headerNavNext.disabled = false;
+      headerNavNext.onclick = function() {
+        _statsPhase = "disciplines";
         _selectedCell = null;
         renderStatsContent();
       };
-    } else if (_statsPhase === 'disciplines') {
-      prevBtn.innerHTML = '&larr; Arenas';
-      prevBtn.onclick = function() {
-        _statsPhase = 'arenas';
+    } else if (_statsPhase === "disciplines") {
+      headerNavPrev.textContent = "← Arenas";
+      headerNavPrev.classList.remove("hidden");
+      headerNavPrev.onclick = function() {
+        _statsPhase = "arenas";
         _selectedCell = null;
         renderStatsContent();
       };
-      nextBtn.textContent = 'Choose Vocations \u2192';
-      nextBtn.disabled = false;
-      nextBtn.onclick = function() {
+      headerNavNext.textContent = "Vocations →";
+      headerNavNext.classList.remove("hidden");
+      headerNavNext.disabled = false;
+      headerNavNext.onclick = function() {
         initKitsScreen();
       };
     }
@@ -3087,7 +3093,7 @@
     var PERSONAL_DESTINY_CARDS = [];
 
     function initDestinyScreen() {
-      var continueBtn = document.getElementById("btn-destiny-continue");
+      var continueBtn = null;
       var backBtn = document.getElementById("btn-back-to-outfitting");
       var personalSection = document.getElementById("destiny-personal-section");
 
@@ -3345,7 +3351,7 @@
     }
 
     function updateDestinyContinue() {
-      var btn = document.getElementById("btn-destiny-continue");
+      var btn = null;
       if (btn) btn.disabled = !(state.destiny && state.personalDestiny);
     }
 
@@ -3373,8 +3379,8 @@
       var genBtn     = document.getElementById('btn-generate-backstory');
       var regenBtn   = document.getElementById('btn-regenerate');
       var copyBtn    = document.getElementById('btn-copy-backstory');
-      var finalizeBtn = document.getElementById('btn-finalize-character');
-      var backBtn    = document.getElementById('btn-back-to-destiny');
+      var finalizeBtn = null;
+      var backBtn    = null;
 
       if (nameInput && state.charName)   nameInput.value  = state.charName;
       if (genderSel && state.charGender) genderSel.value  = state.charGender;
@@ -4020,11 +4026,64 @@
     if (el) el.classList.remove('hidden');
   }
 
+  var headerNavPrev = null;
+  var headerNavNext = null;
+  var currentScreen = "species";
+
+  function updateHeaderNav(screen) {
+    currentScreen = screen;
+    if (!headerNavPrev) headerNavPrev = document.getElementById("cc-nav-prev");
+    if (!headerNavNext) headerNavNext = document.getElementById("cc-nav-next");
+    if (!headerNavPrev || !headerNavNext) return;
+
+    var nav = {
+      species:    { prev: null, next: null },
+      phase1:     { prev: { label: "← Species",    fn: function() { showScreen("species"); updateStepTrack(0); } }, next: null },
+      phase2:     { prev: { label: "← Origin",     fn: function() { showScreen("phase1"); updateStepTrack(1); } },  next: null },
+      phase3:     { prev: { label: "← Catalyst",   fn: function() { showScreen("phase2"); updateStepTrack(2); } },  next: null },
+      stats:      { prev: { label: "← Debt",       fn: function() { showScreen("phase3"); updateStepTrack(3); } },  next: { label: "Vocations →", fn: function() { initKitsScreen(); } } },
+      kits:       { prev: { label: "← Arenas",     fn: function() { showScreen("stats"); updateStepTrack(4); } },   next: { label: "Outfitting →", fn: function() { initOutfittingScreen(); } } },
+      outfitting: { prev: { label: "← Vocations",  fn: function() { initKitsScreen(); } },                            next: { label: "Destiny →",    fn: function() { showScreen("destiny"); updateStepTrack(7); initDestinyScreen(); } } },
+      destiny:    { prev: { label: "← Outfitting", fn: function() { initOutfittingScreen(); } },                       next: { label: "Your Story →", fn: function() { showScreen("backstory"); updateStepTrack(8); initBackstoryScreen(); }, disabled: true } },
+      backstory:  { prev: { label: "← Destiny",    fn: function() { showScreen("destiny"); updateStepTrack(7); initDestinyScreen(); } }, next: { label: "Finalize →", fn: function() { showSummary(); } } },
+    };
+
+    var cfg = nav[screen] || { prev: null, next: null };
+
+    if (cfg.prev) {
+      headerNavPrev.textContent = cfg.prev.label;
+      headerNavPrev.classList.remove("hidden");
+      headerNavPrev.onclick = cfg.prev.fn;
+    } else {
+      headerNavPrev.classList.add("hidden");
+      headerNavPrev.onclick = null;
+    }
+
+    if (cfg.next) {
+      headerNavNext.textContent = cfg.next.label;
+      headerNavNext.classList.remove("hidden");
+      headerNavNext.onclick = cfg.next.fn;
+      headerNavNext.disabled = !!cfg.next.disabled;
+    } else {
+      headerNavNext.classList.add("hidden");
+      headerNavNext.onclick = null;
+    }
+  }
+
+  function enableHeaderNext() {
+    if (headerNavNext) headerNavNext.disabled = false;
+  }
+
+  function disableHeaderNext() {
+    if (headerNavNext) headerNavNext.disabled = true;
+  }
   function updateStepTrack(activeIdx) {
     document.querySelectorAll('.cc-step-pip').forEach(function (pip, i) {
       pip.classList.toggle('cc-pip-active', i === activeIdx);
       pip.classList.toggle('cc-pip-done',   i < activeIdx);
     });
+    var screenMap = ["species", "phase1", "phase2", "phase3", "stats", "kits", "outfitting", "destiny", "backstory"];
+    if (screenMap[activeIdx]) updateHeaderNav(screenMap[activeIdx]);
   }
 
   /* ── Utilities ──────────────────────────────────────────────────────────── */
@@ -4107,6 +4166,12 @@
     }
     loadEditCharacter(function () {
       initCreator();
+      if (isEdit && state.species) {
+        showScreen("backstory");
+        updateStepTrack(8);
+        initBackstoryScreen();
+        return;
+      }
       var dbg = new URLSearchParams(window.location.search).get('debug');
       if (dbg === 'stats') {
         state.species = 'human';
@@ -4194,7 +4259,7 @@
         });
     });
 
-    var backToSpecies = document.getElementById('btn-back-to-species');
+    var backToSpecies = null;
     if (backToSpecies) {
       backToSpecies.addEventListener('click', function () {
         showScreen('species');
@@ -4202,7 +4267,7 @@
       });
     }
 
-    var backToPhase1 = document.getElementById('btn-back-to-phase1');
+    var backToPhase1 = null;
     if (backToPhase1) {
       backToPhase1.addEventListener('click', function () {
         showScreen('phase1');
@@ -4210,7 +4275,7 @@
       });
     }
 
-    var backToPhase2 = document.getElementById('btn-back-to-phase2');
+    var backToPhase2 = null;
     if (backToPhase2) {
       backToPhase2.addEventListener('click', function () {
         showScreen('phase2');
@@ -4218,7 +4283,7 @@
       });
     }
 
-    var backToStats = document.getElementById('btn-back-to-stats');
+    var backToStats = null;
     if (backToStats) {
       backToStats.addEventListener('click', function () {
         showScreen('stats');
@@ -4226,14 +4291,14 @@
       });
     }
 
-    var kitsContinue = document.getElementById('btn-kits-continue');
+    var kitsContinue = null;
     if (kitsContinue) {
       kitsContinue.addEventListener('click', function () {
         initOutfittingScreen();
       });
     }
 
-    var outfittingContinue = document.getElementById('btn-outfitting-continue');
+    var outfittingContinue = null;
     if (outfittingContinue) {
       outfittingContinue.addEventListener('click', function () {
         showScreen('destiny');
@@ -4242,7 +4307,7 @@
       });
     }
 
-    var backToKitsFromOutfitting = document.getElementById('btn-back-to-kits-from-outfitting');
+    var backToKitsFromOutfitting = null;
     if (backToKitsFromOutfitting) {
       backToKitsFromOutfitting.addEventListener('click', function () {
         initKitsScreen();

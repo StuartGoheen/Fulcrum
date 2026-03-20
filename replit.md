@@ -167,7 +167,9 @@ Two screens added after Kit selection:
 
 **Character creation flow (9 steps):** Species → Phase 1 (Origin) → Phase 2 (Catalyst) → Phase 3 (Debt) → Arenas/Disciplines → Vocations → **Outfitting** (500 cr starting budget) → **Destiny** → **Your Story** → Summary (Confirm & Save)
 
-**Step track:** 9 pips in the header track the full flow. Step labels show "Step X of 9" for numbered steps and named headers for phases/destiny/backstory.
+**Step track:** 9 pips in the header track the full flow. Step labels show "Step X of 9" for numbered steps and named headers for phases/destiny/backstory. Header nav buttons flank the step dots: `← Prev` on the left, `Continue →` on the right. These replace per-screen bottom nav rows. Stats screen has internal sub-phase navigation (incomp → arenas → specialize) that dynamically updates the header buttons.
+
+**Edit mode:** `/create/?edit=ID` loads the character and jumps directly to the backstory (Your Story) screen. The header nav allows navigation back to any previous step.
 
 ## Outfitting Screen
 
