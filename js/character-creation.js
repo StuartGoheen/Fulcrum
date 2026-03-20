@@ -1402,10 +1402,7 @@
     // Phase gating
     var clickable = false;
     if (_statsPhase === 'incomp') {
-      // Only non-force, non-incomp disciplines can be toggled; Force-locked cells shown but not new-clickable
-      // Also allow clicking already-incomp cells to restore during incomp phase
-      if (!isForce) clickable = true;
-      else cls += ' sg-cell--disabled';
+      clickable = true;
     } else if (_statsPhase === 'arenas') {
       cls += ' sg-cell--disabled';
     } else if (_statsPhase === 'disciplines') {
@@ -1518,11 +1515,22 @@
     panel.appendChild(header);
 
     var glossEntry = _statsGlossary[arenaId];
-    if (glossEntry && glossEntry.rule) {
-      var desc = document.createElement("p");
-      desc.className = "sdc-desc";
-      desc.textContent = glossEntry.rule.split(".").slice(0, 2).join(".") + ".";
-      panel.appendChild(desc);
+    if (glossEntry) {
+      var descWrap = document.createElement("div");
+      descWrap.className = "sdc-narrative";
+      if (glossEntry.guide) {
+        var guideEl = document.createElement("p");
+        guideEl.className = "sdc-guide";
+        guideEl.textContent = glossEntry.guide;
+        descWrap.appendChild(guideEl);
+      }
+      if (glossEntry.rule) {
+        var ruleEl = document.createElement("p");
+        ruleEl.className = "sdc-rule";
+        ruleEl.textContent = glossEntry.rule;
+        descWrap.appendChild(ruleEl);
+      }
+      panel.appendChild(descWrap);
     }
 
     // Stepper
@@ -1621,11 +1629,22 @@
     panel.appendChild(header);
 
     var glossEntry = _statsGlossary[disc.id];
-    if (glossEntry && glossEntry.rule) {
-      var descEl = document.createElement("p");
-      descEl.className = "sdc-desc";
-      descEl.textContent = glossEntry.rule.split(".").slice(0, 2).join(".") + ".";
-      panel.appendChild(descEl);
+    if (glossEntry) {
+      var descWrap = document.createElement("div");
+      descWrap.className = "sdc-narrative";
+      if (glossEntry.guide) {
+        var guideEl = document.createElement("p");
+        guideEl.className = "sdc-guide";
+        guideEl.textContent = glossEntry.guide;
+        descWrap.appendChild(guideEl);
+      }
+      if (glossEntry.rule) {
+        var ruleEl = document.createElement("p");
+        ruleEl.className = "sdc-rule";
+        ruleEl.textContent = glossEntry.rule;
+        descWrap.appendChild(ruleEl);
+      }
+      panel.appendChild(descWrap);
     }
 
     // Actions
@@ -1633,7 +1652,13 @@
     actions.className = 'sdc-actions';
 
     if (_statsPhase === 'incomp') {
-      if (isIncomp && !isForce) {
+      if (isIncomp && isForce) {
+        var restoreForce = document.createElement('button');
+        restoreForce.className = 'sdc-btn sdc-btn--primary';
+        restoreForce.textContent = 'Awaken — Restore to D6';
+        restoreForce.addEventListener('click', function() { handleForceRestore(disc.id); });
+        actions.appendChild(restoreForce);
+      } else if (isIncomp && !isForce) {
         var restore = document.createElement('button');
         restore.className = 'sdc-btn sdc-btn--restore';
         restore.textContent = 'Restore to D6';
@@ -1646,6 +1671,11 @@
         weak.disabled = d.playerIncompCount >= (MAX_INCOMP_TOTAL - d.forceIncompCount);
         weak.addEventListener('click', function() { handleDiscIncomp(disc.id); });
         actions.appendChild(weak);
+      } else if (!isIncomp && isForce) {
+        var sealed = document.createElement('p');
+        sealed.className = 'sdc-meta';
+        sealed.textContent = 'Awakened — restored to D6.';
+        actions.appendChild(sealed);
       }
     } else if (_statsPhase === 'disciplines') {
       if (isIncomp && isForce) {
@@ -1745,12 +1775,14 @@
   /* ── Force restore handler ───────────────────────────────────────── */
 
   function handleForceRestore(discId) {
-    var d = statsGetDerived();
-    if (d.advAvail <= 0) return;
     if (!state.discIncomp[discId]) return;
+    if (_statsPhase === 'disciplines') {
+      var d = statsGetDerived();
+      if (d.advAvail <= 0) return;
+      state.spentAdv = (state.spentAdv || 0) + 1;
+    }
     delete state.discIncomp[discId];
     if (state.discValues) delete state.discValues[discId];
-    state.spentAdv = (state.spentAdv || 0) + 1;
     saveState();
     renderStatsContent();
   }
