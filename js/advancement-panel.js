@@ -275,7 +275,6 @@
 
   function _buildVocationTrack() {
     var vt = _advancement.vocationTrack;
-    var unlocks = _advancement.vocationUnlocks || {};
     var kits = (_char && _char.kits) ? _char.kits : [];
 
     var extra = '';
@@ -284,9 +283,7 @@
       extra += '<div class="adv-voc-list">';
       kits.forEach(function (kit) {
         var kitId = kit.id || kit.kitId || '';
-        var baseTier = kit.tier || kit.currentTier || 1;
-        var advancedTier = unlocks[kitId] || 0;
-        var currentTier = baseTier + advancedTier;
+        var currentTier = kit.tier || kit.currentTier || 1;
         var kitLabel = kit.name || kit.label || kitId;
         var favDisc = kit.favoredDiscipline || '\u2014';
         var favDie = _getFavoredDie(favDisc);
@@ -669,10 +666,7 @@
     if ((vt.unspentAdvances || 0) < 1) return;
 
     var kitId = kit.id || kit.kitId || '';
-    var unlocks = _advancement.vocationUnlocks || {};
-    var baseTier = kit.tier || kit.currentTier || 1;
-    var advancedTier = unlocks[kitId] || 0;
-    var currentTier = baseTier + advancedTier;
+    var currentTier = kit.tier || kit.currentTier || 1;
     var favDisc = kit.favoredDiscipline || '';
     var favDie = _getFavoredDie(favDisc);
     var maxTier = DISC_GATE[favDie] || 1;
@@ -681,7 +675,7 @@
 
     vt.unspentAdvances--;
     if (!_advancement.vocationUnlocks) _advancement.vocationUnlocks = {};
-    _advancement.vocationUnlocks[kitId] = (unlocks[kitId] || 0) + 1;
+    _advancement.vocationUnlocks[kitId] = (_advancement.vocationUnlocks[kitId] || 0) + 1;
     kit.tier = currentTier + 1;
     _persist();
     document.dispatchEvent(new CustomEvent('character:stateChanged'));
@@ -782,7 +776,6 @@
   function _buildVocationSpendPanel() {
     var vt = _advancement.vocationTrack;
     var unspent = vt.unspentAdvances || 0;
-    var unlocks = _advancement.vocationUnlocks || {};
     var kits = (_char && _char.kits) ? _char.kits : [];
     var html = '<div class="adv-spend-panel">';
     html += '<div class="adv-spend-panel-title"><span>Upgrade a Vocation</span><button class="adv-spend-close" data-close-spend="voc">\u2715</button></div>';
@@ -796,9 +789,7 @@
 
     kits.forEach(function (kit, ki) {
       var kitId = kit.id || kit.kitId || '';
-      var baseTier = kit.tier || kit.currentTier || 1;
-      var advancedTier = unlocks[kitId] || 0;
-      var currentTier = baseTier + advancedTier;
+      var currentTier = kit.tier || kit.currentTier || 1;
       var kitLabel = kit.name || kit.label || kitId;
       var favDisc = kit.favoredDiscipline || '';
       var favDie = _getFavoredDie(favDisc);

@@ -101,6 +101,17 @@ const ENGINE_DATA = {
   },
 };
 
+function applyVocationUnlocks(kits, unlocks) {
+  if (!kits || !unlocks) return;
+  kits.forEach(kit => {
+    const kitId = kit.id || '';
+    const extra = unlocks[kitId] || 0;
+    if (extra > 0) {
+      kit.tier = (kit.tier || 1) + extra;
+    }
+  });
+}
+
 function resolveKits(raw) {
   let kitChoices = {};
   if (Array.isArray(raw)) {
@@ -171,6 +182,7 @@ function expandCharacterData(flat) {
     if (!flat.advancement.vocationTrack) flat.advancement.vocationTrack = { level: 2, filled: 0, unspentAdvances: 0 };
     else if (flat.advancement.vocationTrack.unspentAdvances === undefined) flat.advancement.vocationTrack.unspentAdvances = 0;
     if (!flat.advancement.vocationUnlocks) flat.advancement.vocationUnlocks = {};
+    applyVocationUnlocks(flat.kits, flat.advancement.vocationUnlocks);
     applyInventoryRemovals(flat, flat.inventoryRemovals);
     return flat;
   }
@@ -234,6 +246,7 @@ function expandCharacterData(flat) {
   if (!advancement.vocationTrack) advancement.vocationTrack = { level: 2, filled: 0, unspentAdvances: 0 };
   else if (advancement.vocationTrack.unspentAdvances === undefined) advancement.vocationTrack.unspentAdvances = 0;
   if (!advancement.vocationUnlocks) advancement.vocationUnlocks = {};
+  applyVocationUnlocks(kits, advancement.vocationUnlocks);
 
   const result = {
     name: flat.name || null,
