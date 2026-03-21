@@ -305,7 +305,7 @@ router.post('/backstory/generate', async (req, res) => {
     const isRateLimit = msg.includes('429') || msg.includes('quota') || msg.includes('RESOURCE_EXHAUSTED');
 
     if (isRateLimit) {
-      console.log('[backstory] Rate-limited — retrying once after 3s...');
+      console.warn('[backstory] Rate-limited — retrying once after 3s...');
       await new Promise(r => setTimeout(r, 3000));
       try {
         const retry = await attemptGenerate(1);
