@@ -663,7 +663,7 @@
       origLeft = rect.left;
       origTop = rect.top;
       btn.style.transition = 'none';
-      e.preventDefault();
+      if (e.touches) e.preventDefault();
     }
 
     function onPointerMove(e) {
@@ -673,6 +673,7 @@
       var dy = touch.clientY - startY;
       if (!didDrag && Math.abs(dx) < 4 && Math.abs(dy) < 4) return;
       didDrag = true;
+      e.preventDefault();
       _applyPos(origLeft + dx, origTop + dy);
     }
 
