@@ -132,6 +132,17 @@ function expandCharacterData(flat) {
     if (!flat.backgroundFavored) {
       flat.backgroundFavored = resolveBackgroundFavored(flat);
     }
+    if (!flat.weaponIds) flat.weaponIds = [];
+    const UNARMED = ['wpn_fists_01', 'wpn_cathar_claws_01'];
+    const spLower = (flat.species || '').toLowerCase();
+    const correctId = spLower === 'cathar' ? 'wpn_cathar_claws_01' : 'wpn_fists_01';
+    const wrongId   = spLower === 'cathar' ? 'wpn_fists_01' : 'wpn_cathar_claws_01';
+    const wIdx = flat.weaponIds.indexOf(wrongId);
+    if (wIdx !== -1) {
+      flat.weaponIds[wIdx] = correctId;
+    } else if (!flat.weaponIds.some(id => UNARMED.includes(id))) {
+      flat.weaponIds.push(correctId);
+    }
     return flat;
   }
 
