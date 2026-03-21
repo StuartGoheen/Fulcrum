@@ -338,7 +338,8 @@
     html += '<span class="adv-marks-detail">Banked from previous: ' + banked + '</span>';
     html += '</div>';
     html += '<div class="adv-marks-actions">';
-    html += '<button class="adv-btn adv-btn--bank" id="adv-bank-btn" title="Bank earned marks and reset checklist">Bank &amp; Reset</button>';
+    html += '<button class="adv-btn adv-btn--bank" id="adv-bank-btn" title="Bank earned marks and reset checklist for next adventure">Bank &amp; Reset</button>';
+    html += '<button class="adv-btn adv-btn--newadv" id="adv-new-adventure-btn" title="Start new adventure: reset checklist (requires banked marks spent to 0)">New Adventure</button>';
     html += '</div>';
     html += '</div>';
 
@@ -389,6 +390,20 @@
       bankBtn.addEventListener('click', function () {
         var earned = _countEarnedMarks();
         _advancement.marks.totalBanked = (_advancement.marks.totalBanked || 0) + earned;
+        _advancement.marks.earnedChecks = {};
+        _persist();
+        _render();
+      });
+    }
+
+    var newAdvBtn = container.querySelector('#adv-new-adventure-btn');
+    if (newAdvBtn) {
+      newAdvBtn.addEventListener('click', function () {
+        var banked = _advancement.marks.totalBanked || 0;
+        if (banked > 0) {
+          alert('You must spend all banked Marks before starting a new adventure. Current banked: ' + banked);
+          return;
+        }
         _advancement.marks.earnedChecks = {};
         _persist();
         _render();

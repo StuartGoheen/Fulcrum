@@ -832,7 +832,7 @@
             ${pc.vitality !== null ? `<div class="pc-vitality">${pc.vitality}</div><div class="pc-detail">Vitality</div>` : ''}
           </div>
         </div>
-        <div class="pc-detail" style="margin-top:0.25rem;">${pc.connected ? '\u{1F7E2} Connected' : '\u26AB Offline'}</div>
+        <div class="pc-detail" style="margin-top:0.25rem;">${pc.connected ? '\u{1F7E2} Connected' : '\u26AB Offline'}${pc.marks != null ? ' \u2022 <span style="color:var(--color-accent-primary);">' + pc.marks + ' Marks</span>' : ''}</div>
       </div>`).join('');
   }
 
@@ -880,6 +880,10 @@
 
     socket.on('destiny:sync', ({ pool }) => {
       renderGmDestinyPool(pool);
+    });
+
+    socket.on('advancement:sync', () => {
+      loadPartyMonitor();
     });
   }
 

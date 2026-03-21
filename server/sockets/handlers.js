@@ -193,6 +193,7 @@ function registerHandlers(io) {
 
     socket.on('advancement:update', ({ characterId, advancement }) => {
       if (socket.data.role !== 'player' || !characterId) return;
+      if (socket.data.characterId !== characterId) return;
       socket.broadcast.emit('advancement:sync', { characterId, advancement });
     });
 

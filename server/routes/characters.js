@@ -392,9 +392,12 @@ router.get('/characters/:id', (req, res) => {
 });
 
 router.patch('/characters/:id/advancement', (req, res) => {
-  const character = db.prepare('SELECT id, character_data FROM characters WHERE id = ?').get(req.params.id);
+  const character = db.prepare('SELECT id, character_data, session_id FROM characters WHERE id = ?').get(req.params.id);
   if (!character || !character.character_data) {
     return res.status(404).json({ error: 'Character not found.' });
+  }
+  if (!character.session_id) {
+    return res.status(403).json({ error: 'Character is not in an active session.' });
   }
   try {
     const adv = req.body;

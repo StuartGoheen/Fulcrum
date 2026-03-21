@@ -166,13 +166,19 @@ router.get('/campaign/party', (req, res) => {
   const party = characters.map(c => {
     let data = {};
     try { data = JSON.parse(c.character_data); } catch {}
+    const adv = data.advancement || {};
+    const earnedChecks = (adv.marks && adv.marks.earnedChecks) || {};
+    let earnedMarks = 0;
+    Object.values(earnedChecks).forEach(v => { if (v) earnedMarks++; });
+    const totalMarks = (adv.marks && adv.marks.totalBanked || 0) + earnedMarks;
     return {
       id: c.id,
       name: c.name,
       connected: !!c.session_id,
       vitality: data.computed?.vitality || data.vitality || null,
       species: data.species || null,
-      archetype: data.archetype || null
+      archetype: data.archetype || null,
+      marks: totalMarks
     };
   });
   res.json({ party });
