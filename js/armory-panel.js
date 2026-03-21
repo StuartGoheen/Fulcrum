@@ -19,7 +19,10 @@
   var _statusMap = {};
   var _currentCharId = null;
 
-  function _statPill(itemId, itemType, statusMap) {
+  function _statPill(itemId, itemType, statusMap, weapon) {
+    if (weapon && weapon.innate) {
+      return '<span class="armory-state-pill armory-state-equipped">Innate</span>';
+    }
     var status = (statusMap && statusMap[itemId]) ? statusMap[itemId].status : 'stowed';
     return (
       '<span class="armory-state-pill armory-state-' + _esc(status) + '"' +
@@ -465,7 +468,7 @@
     var rangeStr = _renderRange(weapon.range);
     var metaHtml =
       '<div class="armory-weapon-meta">' +
-        _statPill(weapon.id, 'weapon', statusMap) +
+        _statPill(weapon.id, 'weapon', statusMap, weapon) +
         '<span class="armory-weapon-chassis">' + _esc(weapon.chassisLabel || '') + '</span>' +
         (rangeStr ? '<span class="armory-weapon-range">Range: ' + _esc(rangeStr) + '</span>' : '') +
         (weapon.cost ? '<span class="armory-weapon-cost">' + _esc(String(weapon.cost)) + ' cr</span>' : '') +
@@ -747,6 +750,7 @@
     if (pill && pill.closest('[id="panel-2"]')) {
       e.stopPropagation();
       var itemId   = pill.dataset.pillId;
+      if (!itemId) return;
       var itemType = pill.dataset.pillType;
       var current  = pill.dataset.pillStatus || 'stowed';
       var next     = _cycleStatus(current);

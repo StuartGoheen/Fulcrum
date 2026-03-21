@@ -321,6 +321,34 @@
     );
   }
 
+
+  function _buildStunBlock(chassisDef) {
+    var tiers = chassisDef.tiers;
+    var rowsHtml = '';
+    for (var i = 0; i < tiers.length; i++) {
+      var t = tiers[i];
+      rowsHtml +=
+        '<div class="armory-effect-row">' +
+          '<span class="armory-effect-range">' + _esc(t.range) + '</span>' +
+          '<span class="armory-effect-name">'  + _esc(t.label) + '</span>' +
+          '<span class="armory-effect-value">Stun ' + _esc(String(t.stunDamage)) + ' — [' + _esc(t.stunCondition) + ']</span>' +
+        '</div>';
+    }
+    return (
+      '<div class="armory-gambit-block">' +
+        '<div class="armory-gambit-toggle" role="button" tabindex="0">' +
+          '<span class="armory-gambit-label">Stun</span>' +
+          '<span class="armory-gambit-label armory-stun-setting-label">Setting</span>' +
+          '<span class="armory-stun-meta">Max 2 Zones</span>' +
+          '<span class="armory-gambit-chevron">&#9656;</span>' +
+        '</div>' +
+        '<div class="armory-gambit-body">' +
+          '<div class="armory-effect-track">' + rowsHtml + '</div>' +
+          '<div class="armory-mode-note">Stun Check: if Stun Value ≥ target’s current Vitality → [Unconscious]. Otherwise, the condition applies only — no Vitality damage is dealt.</div>' +
+        '</div>' +
+      '</div>'
+    );
+  }
   function _buildLoadoutWeaponCard(weapon, char, chassisMap, status, discGambits) {
     var mapping = DISCIPLINE_MAP[weapon.discipline];
     var discDie  = mapping ? _getDiscDie(char, mapping.arenaId, mapping.discId) : 'D4';
@@ -328,12 +356,15 @@
     var chassisDef = chassisMap[weapon.chassisId] || null;
 
     var rangeStr = _renderRange(weapon.range);
+    var innateBadge = weapon.innate
+      ? '<span class="armory-state-pill armory-state-equipped">Innate</span>'
+      : _statusBadge(status, weapon.id, 'weapon');
     var metaHtml =
       '<div class="armory-weapon-meta">' +
-        _statusBadge(status, weapon.id, 'weapon') +
+        innateBadge +
         '<span class="armory-weapon-chassis">' + _esc(weapon.chassisLabel || '') + '</span>' +
         (rangeStr ? '<span class="armory-weapon-range">Range: ' + _esc(rangeStr) + '</span>' : '') +
-        (weapon.cost ? '<span class="armory-weapon-cost">' + _esc(String(weapon.cost)) + ' cr</span>' : '') +
+        (weapon.cost && !weapon.innate ? '<span class="armory-weapon-cost">' + _esc(String(weapon.cost)) + ' cr</span>' : '') +
       '</div>';
 
     var effectHtml = '';
@@ -341,6 +372,11 @@
       effectHtml = _buildDamageTrack(weapon.customDamage);
     } else if (chassisDef) {
       effectHtml = _buildDamageTrack(chassisDef.tiers.map(function (t) { return t.damage; }));
+    }
+
+    var stunHtml = '';
+    if (weapon.stunSetting && chassisDef) {
+      stunHtml = _buildStunBlock(chassisDef);
     }
 
     var traitHtml = '';
@@ -461,7 +497,7 @@
         '</div>' +
         fireControlsHtml +
         '<div class="armory-weapon-body">' +
-          metaHtml + effectHtml + traitHtml + gambitsHtml +
+          metaHtml + effectHtml + stunHtml + traitHtml + gambitsHtml +
         '</div>' +
       '</div>'
     );
@@ -636,9 +672,15 @@
     charWeaponIds.forEach(function (wid) {
       var entry = statusMap[wid];
       var status = entry ? entry.status : 'stowed';
-      if (!ACTIVE_STATUSES[status]) return;
       for (var j = 0; j < weapons.length; j++) {
-        if (weapons[j].id === wid) { activeWeapons.push({ weapon: weapons[j], status: status }); break; }
+        if (weapons[j].id === wid) {
+          if (weapons[j].innate) {
+            activeWeapons.push({ weapon: weapons[j], status: 'equipped' });
+          } else if (ACTIVE_STATUSES[status]) {
+            activeWeapons.push({ weapon: weapons[j], status: status });
+          }
+          break;
+        }
       }
     });
 

@@ -1068,5 +1068,58 @@
       "Outer Rim"
     ],
     "clipSize": 50
+  },
+  {
+    "id": "wpn_fists_01",
+    "name": "Fists",
+    "description": "Bare-knuckle strikes, headbutts, and grapples. Every sentient being can throw a punch — most just wish they were better at it.",
+    "chassisId": "unarmed",
+    "chassisLabel": "Unarmed",
+    "discipline": "brawl",
+    "arena": "physique",
+    "range": {
+      "engaged": true
+    },
+    "stunSetting": false,
+    "cost": 0,
+    "innate": true,
+    "trait": null,
+    "gambits": [],
+    "tags": [
+      "Melee",
+      "Unarmed",
+      "Brawl"
+    ]
+  },
+  {
+    "id": "wpn_cathar_claws_01",
+    "name": "Cathar Claws",
+    "description": "Retractable keratin claws honed by generations of predatory evolution. Cathar claws are weapons of last resort and cultural pride — drawn when words and blasters have failed.",
+    "chassisId": "unarmed",
+    "chassisLabel": "Unarmed",
+    "discipline": "brawl",
+    "arena": "physique",
+    "range": {
+      "engaged": true
+    },
+    "stunSetting": true,
+    "customDamage": [
+      1,
+      1,
+      2
+    ],
+    "cost": 0,
+    "innate": true,
+    "trait": {
+      "name": "Predator’s Edge",
+      "description": "These claws deal lethal damage by default. When set to Stun, they use the unarmed chassis stun values (0/1/2) instead."
+    },
+    "gambits": [],
+    "tags": [
+      "Melee",
+      "Unarmed",
+      "Brawl",
+      "Natural Weapon"
+    ]
   }
 ]

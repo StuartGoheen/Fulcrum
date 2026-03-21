@@ -1641,7 +1641,7 @@
           traits: item.traits || []
         };
       });
-      OUTFITTING_CATALOG = gear.concat(weapons).concat(armor);
+      OUTFITTING_CATALOG = gear.concat(weapons.filter(function(w) { return w.id !== "wpn_fists_01" && w.id !== "wpn_cathar_claws_01"; })).concat(armor);
       OUTFITTING_CATALOG.sort(function(a, b) { return a.cost - b.cost; });
     }).catch(function(e) {
       console.error('[Outfitting] Failed to load catalog:', e);
@@ -1652,7 +1652,7 @@
   function outfittingCreditsSpent() {
     var items = state.startingGear || [];
     return items.reduce(function(acc, item) {
-      if (item.acquisition === 'background') return acc;
+      if (item.acquisition === 'background' || item.acquisition === 'innate') return acc;
       return acc + (item.cost || 0);
     }, 0);
   }
@@ -1687,6 +1687,18 @@
       state.soldBackgroundKeys = state.soldBackgroundKeys.filter(function(k) {
         return validBgKeys[k];
       });
+    }
+    var unarmedId = (state.species === "cathar") ? "wpn_cathar_claws_01" : "wpn_fists_01";
+    var hasInnate = state.startingGear.some(function(g) { return g.innate; });
+    if (!hasInnate) {
+      var unarmedName = (state.species === "cathar") ? "Cathar Claws" : "Fists";
+      state.startingGear.push({ id: unarmedId, name: unarmedName, source: "weapon", acquisition: "innate", innate: true, cost: 0 });
+    } else {
+      var curInnate = state.startingGear.find(function(g) { return g.innate; });
+      if (curInnate && curInnate.id !== unarmedId) {
+        curInnate.id = unarmedId;
+        curInnate.name = (state.species === "cathar") ? "Cathar Claws" : "Fists";
+      }
     }
     saveState();
     var doShow = function() {
@@ -2013,7 +2025,33 @@
 
       var items = state.startingGear || [];
       var bgItems = items.filter(function(g) { return g.acquisition === "background"; });
-      var purchasedItems = items.filter(function(g) { return g.acquisition !== "background"; });
+      var innateItems = items.filter(function(g) { return g.acquisition === "innate"; });
+      var purchasedItems = items.filter(function(g) { return g.acquisition !== "background" && g.acquisition !== "innate"; });
+
+      if (innateItems.length > 0) {
+        var innateHeader = document.createElement("div");
+        innateHeader.className = "outfitting-cart-section-head";
+        innateHeader.textContent = "Innate";
+        cartEl.appendChild(innateHeader);
+        innateItems.forEach(function(item) {
+          var row = document.createElement("div");
+          row.className = "outfitting-cart-row outfitting-cart-row--bg";
+          var nameEl = document.createElement("span");
+          nameEl.className = "outfitting-cart-item-name";
+          nameEl.textContent = item.name || item.id;
+          var badge = document.createElement("span");
+          badge.className = "outfitting-acq-badge background";
+          badge.textContent = "Innate";
+          nameEl.appendChild(document.createTextNode(" "));
+          nameEl.appendChild(badge);
+          var priceEl = document.createElement("span");
+          priceEl.className = "outfitting-cart-item-price outfitting-cart-item-price--free";
+          priceEl.textContent = "—";
+          row.appendChild(nameEl);
+          row.appendChild(priceEl);
+          cartEl.appendChild(row);
+        });
+      }
 
       if (bgItems.length > 0) {
         var bgHeader = document.createElement("div");

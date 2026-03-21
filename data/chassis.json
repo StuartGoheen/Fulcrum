@@ -3,27 +3,108 @@
     "id": "light",
     "label": "Light",
     "tiers": [
-      { "range": "0–3", "label": "Fleeting", "damage": 1, "stunDamage": 2, "stunCondition": "Disoriented – Immediate" },
-      { "range": "4–7", "label": "Masterful",    "damage": 2, "stunDamage": 3, "stunCondition": "Disoriented – Tactical"  },
-      { "range": "8+",  "label": "Legendary", "damage": 4, "stunDamage": 5, "stunCondition": "Disoriented – Lingering" }
+      {
+        "range": "0–3",
+        "label": "Fleeting",
+        "damage": 1,
+        "stunDamage": 2,
+        "stunCondition": "Disoriented – Immediate"
+      },
+      {
+        "range": "4–7",
+        "label": "Masterful",
+        "damage": 2,
+        "stunDamage": 3,
+        "stunCondition": "Disoriented – Tactical"
+      },
+      {
+        "range": "8+",
+        "label": "Legendary",
+        "damage": 4,
+        "stunDamage": 5,
+        "stunCondition": "Disoriented – Lingering"
+      }
     ]
   },
   "medium": {
     "id": "medium",
     "label": "Medium",
     "tiers": [
-      { "range": "0–3", "label": "Fleeting", "damage": 1, "stunDamage": 2, "stunCondition": "Disoriented – Immediate" },
-      { "range": "4–7", "label": "Masterful",    "damage": 3, "stunDamage": 4, "stunCondition": "Disoriented – Tactical"  },
-      { "range": "8+",  "label": "Legendary", "damage": 5, "stunDamage": 6, "stunCondition": "Disoriented – Lingering" }
+      {
+        "range": "0–3",
+        "label": "Fleeting",
+        "damage": 1,
+        "stunDamage": 2,
+        "stunCondition": "Disoriented – Immediate"
+      },
+      {
+        "range": "4–7",
+        "label": "Masterful",
+        "damage": 3,
+        "stunDamage": 4,
+        "stunCondition": "Disoriented – Tactical"
+      },
+      {
+        "range": "8+",
+        "label": "Legendary",
+        "damage": 5,
+        "stunDamage": 6,
+        "stunCondition": "Disoriented – Lingering"
+      }
     ]
   },
   "heavy": {
     "id": "heavy",
     "label": "Heavy",
     "tiers": [
-      { "range": "0–3", "label": "Fleeting", "damage": 2, "stunDamage": 3, "stunCondition": "Disoriented – Immediate" },
-      { "range": "4–7", "label": "Masterful",    "damage": 4, "stunDamage": 5, "stunCondition": "Disoriented – Tactical"  },
-      { "range": "8+",  "label": "Legendary", "damage": 6, "stunDamage": 7, "stunCondition": "Disoriented – Lingering" }
+      {
+        "range": "0–3",
+        "label": "Fleeting",
+        "damage": 2,
+        "stunDamage": 3,
+        "stunCondition": "Disoriented – Immediate"
+      },
+      {
+        "range": "4–7",
+        "label": "Masterful",
+        "damage": 4,
+        "stunDamage": 5,
+        "stunCondition": "Disoriented – Tactical"
+      },
+      {
+        "range": "8+",
+        "label": "Legendary",
+        "damage": 6,
+        "stunDamage": 7,
+        "stunCondition": "Disoriented – Lingering"
+      }
+    ]
+  },
+  "unarmed": {
+    "id": "unarmed",
+    "label": "Unarmed",
+    "tiers": [
+      {
+        "range": "0–3",
+        "label": "Fleeting",
+        "damage": 0,
+        "stunDamage": 0,
+        "stunCondition": "Disoriented – Immediate"
+      },
+      {
+        "range": "4–7",
+        "label": "Masterful",
+        "damage": 1,
+        "stunDamage": 1,
+        "stunCondition": "Disoriented – Tactical"
+      },
+      {
+        "range": "8+",
+        "label": "Legendary",
+        "damage": 2,
+        "stunDamage": 2,
+        "stunCondition": "Disoriented – Lingering"
+      }
     ]
   }
 }
