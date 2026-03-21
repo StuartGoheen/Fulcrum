@@ -77,7 +77,6 @@
     socket.on('connect', () => {
       setConnectionIndicator('connected');
       if (statusConnection) statusConnection.textContent = 'Online';
-      console.log('[socket] Connected:', socket.id);
 
       if (session) {
         socket.emit('session:join', {
@@ -91,7 +90,6 @@
     socket.on('disconnect', () => {
       setConnectionIndicator('disconnected');
       if (statusConnection) statusConnection.textContent = 'Offline';
-      console.log('[socket] Disconnected');
     });
 
     socket.on('connect_error', () => {
@@ -100,7 +98,6 @@
     });
 
     socket.on('state:sync', ({ state }) => {
-      console.log('[socket] State synced:', state);
     });
 
     socket.on('destiny:sync', ({ pool }) => {
@@ -108,7 +105,6 @@
     });
 
     socket.on('player:connected', ({ characterId, name }) => {
-      console.log('[socket] Player connected:', name);
       if (!connectedPlayers.find((p) => p.characterId === characterId)) {
         connectedPlayers.push({ characterId, name });
       }
@@ -116,7 +112,6 @@
     });
 
     socket.on('player:disconnected', ({ characterId, name }) => {
-      console.log('[socket] Player disconnected:', name);
       const idx = connectedPlayers.findIndex((p) => p.characterId === characterId);
       if (idx !== -1) connectedPlayers.splice(idx, 1);
       updateCrewList(connectedPlayers);

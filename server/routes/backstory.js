@@ -270,7 +270,6 @@ router.post('/backstory/generate', async (req, res) => {
     ]);
 
     const text = result.response.text();
-    console.log('[backstory] Raw response:', text.substring(0, 300));
     let parsed;
     try {
       parsed = JSON.parse(text);

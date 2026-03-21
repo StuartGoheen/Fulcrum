@@ -85,7 +85,8 @@
         "rule": "When you Exploit an Opening with a Pistol and the attack deals damage, the target presents another Opening to any ally in the zone. Your shots crack the door wide open for the whole crew."
       }
     ],
-    "imageUrl": "/assets/vocations/voc_gunslinger.png"
+    "imageUrl": "/assets/vocations/voc_gunslinger.png",
+    "startingItems": [{"id":"merr_sonn_quick_six","name":"Merr-Sonn Quick-Six","cost":325,"source":"weapon"}]
   },
   {
     "id": "voc_shockboxer",
@@ -150,7 +151,8 @@
         "rule": "When your Combo Counter reaches 3+ on a target and your Brawl attack resolves at Masterful or higher, you may declare a Knockout. The target is immediately [Incapacitated]. Once per scene."
       }
     ],
-    "imageUrl": "/assets/vocations/voc_shockboxer.png"
+    "imageUrl": "/assets/vocations/voc_shockboxer.png",
+    "startingItems": [{"id":"combat_gloves","name":"Combat Gloves","cost":200,"source":"weapon"}]
   },
   {
     "id": "voc_ghost",
@@ -242,7 +244,8 @@
         "rule": "Once per Act, if all allies and yourself have concealment and none are restrained or held in place, you may declare an Opening for all allies and yourself explicitly to escape the scene. There must be a plausible means of egress, even if unconventional — a grate, a shaft, a window, a crowd. The GM narrates the escape."
       }
     ],
-    "imageUrl": "/assets/vocations/voc_ghost.png"
+    "imageUrl": "/assets/vocations/voc_ghost.png",
+    "startingItems": [{"id":"smoke_grenade","name":"Smoke Grenade","cost":25,"source":"gear"},{"id":"scomp_spiker","name":"Scomp Spiker","cost":20,"source":"gear"}]
   },
   {
     "id": "voc_ichor_witch",
@@ -358,7 +361,8 @@
         ]
       }
     ],
-    "imageUrl": "/assets/vocations/voc_ichor_witch.png"
+    "imageUrl": "/assets/vocations/voc_ichor_witch.png",
+    "startingItems": [{"id":"glow_rod","name":"Glow Rod","cost":10,"source":"gear"}]
   },
   {
     "id": "voc_noble",
@@ -467,7 +471,8 @@
         "rule": "Upgrades Compel.\n\n**Address the Room:** Your Compel maneuver can now target a group of individuals rather than a single target. Roll once — all targets defend with their own Resolve individually, but the effect tier is determined by your single Control result.\n\n**Sustained Influence:** When you score a Masterful Success (8+ on Control), instead of increasing the effect tier by one level, you may choose to extend the duration of your Compel through the end of the Act. This does not guarantee compliance — but so long as you maintain your charming approach and targets are not endangered, their disposition toward you remains at the level your Compel established. Break the charm (threaten them, put them in danger) and it snaps immediately."
       }
     ],
-    "imageUrl": "/assets/vocations/voc_noble.png"
+    "imageUrl": "/assets/vocations/voc_noble.png",
+    "startingItems": [{"id":"pocket_secretary","name":"Pocket Secretary","cost":150,"source":"gear"}]
   },
   {
     "id": "voc_investigator",
@@ -553,7 +558,8 @@
         "rule": "When you confront the target of your investigation — the person, group, or entity your Keen Insight and Assess results have been building toward — you gain [Optimized] on all Assess and social actions directed at them. You know their patterns, their tells, their pressure points. You've done the work.\n\nIf the confrontation turns hostile, you may spend 1 Edge Point. All allies gain [Optimized] and [Empowered] on their Join Battle rolls. You saw this coming. You briefed the crew. Nobody's caught flat-footed."
       }
     ],
-    "imageUrl": "/assets/vocations/voc_investigator.png"
+    "imageUrl": "/assets/vocations/voc_investigator.png",
+    "startingItems": [{"id":"recording_rod","name":"Recording Rod","cost":30,"source":"gear"},{"id":"macro_binoculars","name":"Macro-binoculars","cost":100,"source":"gear"}]
   },
   {
     "id": "voc_seer",
@@ -673,7 +679,8 @@
         ]
       }
     ],
-    "imageUrl": "/assets/vocations/voc_seer.png"
+    "imageUrl": "/assets/vocations/voc_seer.png",
+    "startingItems": [{"id":"glow_rod","name":"Glow Rod","cost":10,"source":"gear"},{"id":"holo_journal","name":"Holo-Journal","cost":75,"source":"gear"}]
   },
   {
     "id": "voc_altus_sopor",
@@ -788,7 +795,8 @@
         ]
       }
     ],
-    "imageUrl": "/assets/vocations/voc_altus_sopor.png"
+    "imageUrl": "/assets/vocations/voc_altus_sopor.png",
+    "startingItems": [{"id":"glow_rod","name":"Glow Rod","cost":10,"source":"gear"}]
   },
   {
     "id": "voc_telekinetic_savant",
@@ -913,6 +921,7 @@
         ]
       }
     ],
-    "imageUrl": "/assets/vocations/voc_telekinetic_savant.png"
+    "imageUrl": "/assets/vocations/voc_telekinetic_savant.png",
+    "startingItems": [{"id":"glow_rod","name":"Glow Rod","cost":10,"source":"gear"}]
   }
 ]

@@ -98,7 +98,7 @@
     "imageUrl": "/assets/species/wookiee.png",
     "arenaShift": {
       "name": "Raw Mass",
-      "desc": "Physique starts at D8. All other Arenas at D6. No penalties."
+      "desc": "Physique starts at D8. Reflex drops to D4. Massive and powerful, but lumbering."
     },
     "favoredDiscipline": {
       "desc": "Choose one favored discipline (exploding die + Edge reroll).",
@@ -116,7 +116,7 @@
       "name": "Wookiee Rage",
       "desc": "When a sacred bond is threatened — a life-debt, a loved one, a deeply held oath — you may enter Wookiee Rage. While raging: all Physique actions are treated as Unleash (maximum effort, no holding back), you immediately burn ALL accumulated Trauma, and you cannot voluntarily end the rage until the threat is resolved or you are incapacitated."
     },
-    "arenas": { "physique": "D8", "reflex": "D6", "grit": "D6", "wits": "D6", "presence": "D6" },
+    "arenas": { "physique": "D8", "reflex": "D4", "grit": "D6", "wits": "D6", "presence": "D6" },
     "_aiMeta": {
       "loreAnchors": [
         "Imperial Enslavement Target — Kashyyyk is occupied. Wookiees are actively hunted by the Empire for brutal labor.",
@@ -366,7 +366,7 @@
     },
     "speciesTrait": {
       "name": "Natural Weapons",
-      "desc": "You possess retractable razor claws — a natural weapon that cannot be taken from you. You are never considered unarmed, even when stripped of all equipment. Unlike standard unarmed strikes, your claws deal lethal slashing damage rather than stun damage. Your claws can also be used to climb with uncanny speed and confidence. (Note: This trait will require an Unarmed weapon card in the system — the Cathar version upgrades damage from stun to lethal.)"
+      "desc": "You possess retractable razor claws — a natural weapon that cannot be taken from you. You are never considered unarmed, even when stripped of all equipment. Unlike standard unarmed strikes, your claws deal lethal slashing damage rather than stun damage. Your claws can also be used to climb with uncanny speed and confidence."
     },
     "arenas": { "physique": "D6", "reflex": "D6", "grit": "D8", "wits": "D4", "presence": "D6" },
     "_aiMeta": {

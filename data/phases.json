@@ -1,0 +1,1129 @@
+{
+  "phase1": [
+    {
+      "id": "deep-fringe",
+      "title": "The Deep Fringe",
+      "symbol": "Twin Suns",
+      "imageUrl": "/assets/phase1/01-deep-fringe.png",
+      "narrative": "You grew up where the Empire's reach frays to nothing — twin suns bleaching everything pale, the nearest starport a week's ride out. Self-reliance isn't a virtue here; it's the only thing keeping you breathing. The galaxy owes you nothing, and that truth made you dangerous.",
+      "backgroundItems": [
+        {
+          "id": "breath_mask",
+          "name": "Breath Mask",
+          "cost": 50,
+          "source": "gear"
+        },
+        {
+          "id": "thermal_cloak",
+          "name": "Thermal Cloak",
+          "cost": 300,
+          "source": "gear"
+        }
+      ],
+      "_meta": {
+        "environment": "outer-rim-desert",
+        "locationHints": [
+          "Jakku",
+          "Jedha",
+          "Arvala-7",
+          "Florrum",
+          "Abafar"
+        ],
+        "tone": "isolation, self-reliance, frontier survival",
+        "themes": [
+          "resource scarcity",
+          "independence",
+          "frontier justice"
+        ],
+        "favored": "Survival (Grit)",
+        "favoredName": "Dust-Born Tenacity",
+        "favoredDesc": "Years of rationing water, patching shelters against sandstorms, and reading the land for hidden dangers forged an instinct for staying alive where nothing wants you to."
+      }
+    },
+    {
+      "id": "shadowed-levels",
+      "title": "The Shadowed Levels",
+      "symbol": "Sabacc Chip",
+      "imageUrl": "/assets/phase1/02-shadowed-levels.png",
+      "narrative": "You were raised in the underlevels — where the lights of the upper city are just a rumor and debts are paid in blood or service. You learned to read people before you could read a holomap, and you know that every deal has a hidden clause. Trust is a currency you spend carefully.",
+      "backgroundItems": [
+        {
+          "id": "disguise_kit",
+          "name": "Disguise Kit",
+          "cost": 250,
+          "source": "gear"
+        },
+        {
+          "id": "smoke_grenade",
+          "name": "Smoke Grenade",
+          "cost": 25,
+          "source": "gear"
+        }
+      ],
+      "_meta": {
+        "environment": "urban-underworld",
+        "locationHints": [
+          "Nar Shaddaa",
+          "Ord Mantell",
+          "Daiyu",
+          "Corellia",
+          "Nal Hutta"
+        ],
+        "tone": "cunning, distrust, survival by wit",
+        "themes": [
+          "class divide",
+          "criminal networks",
+          "street smarts"
+        ],
+        "favored": "Stealth (Reflex)",
+        "favoredName": "Underlevel Ghost",
+        "favoredDesc": "Moving unseen through the stacked warrens of the underworld taught you how to vanish mid-stride — slipping through crowds, ducking sensor sweeps, and leaving no trace."
+      }
+    },
+    {
+      "id": "salvage-yards",
+      "title": "The Salvage Yards",
+      "symbol": "Hydrospanner",
+      "imageUrl": "/assets/phase1/03-salvage-yards.png",
+      "narrative": "Every ship that flies was once someone's wreck. You grew up knee-deep in that wreckage — pulling circuits from crashed freighters, selling scrap to keep the lights on. Machines tell you their secrets if you know how to listen. You've built survival from the galaxy's trash.",
+      "backgroundItems": [
+        {
+          "id": "hydrospanner",
+          "name": "Hydrospanner",
+          "cost": 50,
+          "source": "gear"
+        },
+        {
+          "id": "fusion_cutter",
+          "name": "Fusion Cutter",
+          "cost": 75,
+          "source": "gear"
+        }
+      ],
+      "_meta": {
+        "environment": "junkyard-planet",
+        "locationHints": [
+          "Bracca",
+          "Raxus Prime",
+          "Lotho Minor",
+          "Agaris"
+        ],
+        "tone": "resourcefulness, ingenuity, underdog grit",
+        "themes": [
+          "mechanical aptitude",
+          "poverty",
+          "found family"
+        ],
+        "favored": "Tech (Wits)",
+        "favoredName": "Scrapyard Intuition",
+        "favoredDesc": "You learned to coax dying machines back to life with salvaged parts and sheer stubbornness. Every hull fragment whispers its history if you know where to press your ear."
+      }
+    },
+    {
+      "id": "coreward-spires",
+      "title": "The Coreward Spires",
+      "symbol": "Senate Crest",
+      "imageUrl": "/assets/phase1/04-coreward-spires.png",
+      "narrative": "You had everything the Empire promised — spires that touched the clouds, an education that opened doors, and a family name worth something. Then you saw what that system cost the rest of the galaxy. Some fled privilege in guilt; others were pushed out when their usefulness expired.",
+      "backgroundItems": [
+        {
+          "id": "datapad",
+          "name": "Datapad",
+          "cost": 50,
+          "source": "gear"
+        },
+        {
+          "id": "pocket_secretary",
+          "name": "Pocket Secretary",
+          "cost": 150,
+          "source": "gear"
+        }
+      ],
+      "_meta": {
+        "environment": "core-world-city",
+        "locationHints": [
+          "Chandrila",
+          "Hosnian Prime",
+          "Corellia",
+          "Alsakan",
+          "Kuat"
+        ],
+        "tone": "privilege, disillusionment, insider knowledge",
+        "themes": [
+          "political intrigue",
+          "Imperial complicity",
+          "fallen status"
+        ],
+        "favored": "Persuasion (Presence)",
+        "favoredName": "Courtly Tongue",
+        "favoredDesc": "Growing up among senators and industrialists taught you how words shape power. You know how to frame an argument so it feels like the listener's own idea."
+      }
+    },
+    {
+      "id": "agrarian-plain",
+      "title": "The Agrarian Plain",
+      "symbol": "Moisture Vaporator",
+      "imageUrl": "/assets/phase1/05-agrarian-plain.png",
+      "narrative": "You come from working land — rows of crops, communal tables, and seasons that ruled your calendar. Your community survived by cooperation and quiet resilience. The Empire took the harvest and left the labor. That memory of something worth protecting is why you fight.",
+      "backgroundItems": [
+        {
+          "id": "field_rations",
+          "name": "Field Rations",
+          "cost": 10,
+          "source": "gear"
+        },
+        {
+          "id": "syntherope",
+          "name": "Syntherope",
+          "cost": 10,
+          "source": "gear"
+        },
+        {
+          "id": "gear_bag",
+          "name": "Gear Bag",
+          "cost": 50,
+          "source": "gear"
+        }
+      ],
+      "_meta": {
+        "environment": "farming-world",
+        "locationHints": [
+          "Dantooine",
+          "Lothal",
+          "Lah'mu",
+          "Raada",
+          "Saleucami"
+        ],
+        "tone": "community, loss, humble origins",
+        "themes": [
+          "Imperial taxation",
+          "rural displacement",
+          "agrarian values"
+        ],
+        "favored": "Resolve (Grit)",
+        "favoredName": "Rootstock Will",
+        "favoredDesc": "Seasons of drought, Imperial levy collectors, and backbreaking harvests taught you to endure what would break others. When the soil fights you, you plant deeper."
+      }
+    },
+    {
+      "id": "war-front",
+      "title": "The War Front",
+      "symbol": "Blaster Pistol",
+      "imageUrl": "/assets/phase1/06-war-front.png",
+      "narrative": "Peace is something other people talk about. You grew up in the sound of it — distant artillery, rationed water, the faces of soldiers cycling through. War was the weather of your childhood. You learned to read threat before you learned to read a face. You are very, very hard to surprise.",
+      "backgroundItems": [
+        {
+          "id": "comlink",
+          "name": "Comlink",
+          "cost": 50,
+          "source": "gear"
+        },
+        {
+          "id": "bacta_patch",
+          "name": "Bacta Patch",
+          "cost": 20,
+          "source": "gear"
+        },
+        {
+          "id": "smoke_grenade",
+          "name": "Smoke Grenade",
+          "cost": 25,
+          "source": "gear"
+        }
+      ],
+      "_meta": {
+        "environment": "conflict-zone",
+        "locationHints": [
+          "Mimban",
+          "Onderon",
+          "Christophsis",
+          "Umbara",
+          "Ryloth"
+        ],
+        "tone": "hardened, vigilant, combat-shaped",
+        "themes": [
+          "military exposure",
+          "PTSD",
+          "tactical instinct"
+        ],
+        "favored": "Evasion (Reflex)",
+        "favoredName": "Shell-Shock Reflexes",
+        "favoredDesc": "Artillery and ambushes rewired your nervous system. You don't think about dodging — your body moves before the blast hits, honed by years of living where standing still means dying."
+      }
+    },
+    {
+      "id": "ancient-ruin",
+      "title": "The Ancient Ruin",
+      "symbol": "Broken Arch",
+      "imageUrl": "/assets/phase1/07-ancient-ruin.png",
+      "narrative": "Your home was built on something older — crumbled temples, inscriptions no living scholar could read, and a persistent feeling that the air itself was watching. You grew up chasing questions no one could answer. Whatever the old civilization left behind, a fragment of it lodged in you.",
+      "backgroundItems": [
+        {
+          "id": "glow_rod",
+          "name": "Glow Rod",
+          "cost": 10,
+          "source": "gear"
+        },
+        {
+          "id": "recording_rod",
+          "name": "Recording Rod",
+          "cost": 30,
+          "source": "gear"
+        },
+        {
+          "id": "macro_binoculars",
+          "name": "Macro-binoculars",
+          "cost": 100,
+          "source": "gear"
+        }
+      ],
+      "_meta": {
+        "environment": "ancient-nexus-world",
+        "locationHints": [
+          "Jedha",
+          "Tython",
+          "Malachor",
+          "Dathomir",
+          "Ilum"
+        ],
+        "tone": "curiosity, mysticism, inherited mystery",
+        "themes": [
+          "Force adjacency",
+          "lost civilization",
+          "archaeology"
+        ],
+        "favored": "Investigation (Wits)",
+        "favoredName": "Ruin-Reader's Eye",
+        "favoredDesc": "Tracing glyphs by lamplight and cross-referencing crumbling datapads trained you to spot what others overlook. Patterns emerge for you where everyone else sees noise."
+      }
+    },
+    {
+      "id": "trading-post",
+      "title": "The Trading Post",
+      "symbol": "Navigation Beacon",
+      "imageUrl": "/assets/phase1/08-trading-post.png",
+      "narrative": "Where routes cross, everything flows — goods, gossip, fugitives, and opportunity. You grew up at the intersection, learning a dozen languages before adulthood and the art of the deal before you could pilot. You know that information is the most valuable cargo in the galaxy.",
+      "backgroundItems": [
+        {
+          "id": "comlink",
+          "name": "Comlink",
+          "cost": 50,
+          "source": "gear"
+        },
+        {
+          "id": "datapad",
+          "name": "Datapad",
+          "cost": 50,
+          "source": "gear"
+        },
+        {
+          "id": "wrist_chronometer",
+          "name": "Wrist Chronometer",
+          "cost": 50,
+          "source": "gear"
+        }
+      ],
+      "_meta": {
+        "environment": "spaceport-crossroads",
+        "locationHints": [
+          "Takodana",
+          "Batuu",
+          "Ord Mantell",
+          "Eriadu",
+          "Akiva"
+        ],
+        "tone": "cosmopolitan, opportunistic, multilingual",
+        "themes": [
+          "trade networks",
+          "cultural exposure",
+          "information brokering"
+        ],
+        "favored": "Insight (Presence)",
+        "favoredName": "Crossroads Intuition",
+        "favoredDesc": "A lifetime of reading merchants, refugees, and con artists at the crossroads gave you an ear for half-truths. You sense the angle before the pitch is finished."
+      }
+    },
+    {
+      "id": "detention-block",
+      "title": "The Detention Block",
+      "symbol": "Cell Bars",
+      "imageUrl": "/assets/phase1/09-detention-block.png",
+      "narrative": "You were born into a cage — not always made of durasteel. Labor camp, indentured service, political imprisonment, or simply the wrong bloodline at the wrong time. The Empire taught you exactly what it was through direct experience. Freedom, when it came, felt like a weapon handed to you.",
+      "backgroundItems": [
+        {
+          "id": "binders",
+          "name": "Binders",
+          "cost": 50,
+          "source": "gear"
+        },
+        {
+          "id": "stimulant_tabs",
+          "name": "Stimulant Tabs",
+          "cost": 20,
+          "source": "gear"
+        }
+      ],
+      "_meta": {
+        "environment": "imperial-detention",
+        "locationHints": [
+          "Wobani",
+          "Kessel",
+          "Stygeon Prime",
+          "Kashyyyk",
+          "Naraka"
+        ],
+        "tone": "defiance, trauma, hard-won freedom",
+        "themes": [
+          "forced labor",
+          "Imperial oppression",
+          "escape and survival"
+        ],
+        "favored": "Endure (Physique)",
+        "favoredName": "Iron Constitution",
+        "favoredDesc": "Starvation rations, forced marches, and interrogation droids taught your body to absorb punishment that would drop anyone else. Pain is just a signal you learned to override."
+      }
+    },
+    {
+      "id": "shipboard-born",
+      "title": "The Shipboard Born",
+      "symbol": "Cockpit View",
+      "imageUrl": "/assets/phase1/10-shipboard-born.png",
+      "narrative": "You were born between jumps, raised in the hold of a freighter, and taught to read a navcomputer before you could read Basic. Ships aren't transportation to you — they're the only home you've ever had. The stars don't frighten you. The ground does.",
+      "backgroundItems": [
+        {
+          "id": "hydrospanner",
+          "name": "Hydrospanner",
+          "cost": 50,
+          "source": "gear"
+        },
+        {
+          "id": "comlink",
+          "name": "Comlink",
+          "cost": 50,
+          "source": "gear"
+        },
+        {
+          "id": "breath_mask",
+          "name": "Breath Mask",
+          "cost": 50,
+          "source": "gear"
+        }
+      ],
+      "_meta": {
+        "environment": "deep-space-freighter",
+        "locationHints": [
+          "Rishi",
+          "Vandor",
+          "Ring of Kafrene",
+          "Terminus",
+          "Burnin Konn"
+        ],
+        "tone": "wanderlust, belonging, the void as home",
+        "themes": [
+          "life in transit",
+          "found family",
+          "hyperspace routes"
+        ],
+        "favored": "Piloting (Reflex)",
+        "favoredName": "Void-Born Hands",
+        "favoredDesc": "Born between hyperspace jumps, you feel a ship's rhythm the way grounders feel gravity. Thrust vectors, drift corrections, and emergency burns are second nature — the cockpit is the only room that ever felt like home."
+      }
+    },
+    {
+      "id": "labor-camp",
+      "title": "The Labor Camp",
+      "symbol": "Pickaxe and Tally",
+      "imageUrl": "/assets/phase1/11-labor-camp.png",
+      "narrative": "You were a number on a corporate extraction ledger. Whether conscripted, sold into indentured service, or simply born on the wrong side of a mining contract, you spent your formative years breaking your back for quotas that were never going to be met. Your body knows pain. Your mind knows how to keep going anyway.",
+      "backgroundItems": [
+        {
+          "id": "rock_boots",
+          "name": "Rock Boots",
+          "cost": 50,
+          "source": "gear"
+        },
+        {
+          "id": "power_prybar",
+          "name": "Power Prybar",
+          "cost": 30,
+          "source": "gear"
+        },
+        {
+          "id": "syntherope",
+          "name": "Syntherope",
+          "cost": 10,
+          "source": "gear"
+        }
+      ],
+      "_meta": {
+        "environment": "corporate-mining-site",
+        "locationHints": [
+          "Kessel",
+          "Mustafar",
+          "Wobani",
+          "Seelos",
+          "Cynda"
+        ],
+        "tone": "endurance, resentment, physical grit",
+        "themes": [
+          "forced labor",
+          "corporate exploitation",
+          "survival under duress"
+        ],
+        "favored": "Athletics (Physique)",
+        "favoredName": "Quarry-Forged Strength",
+        "favoredDesc": "Hauling ore carts, climbing unstable shafts, and breaking rock with crude tools sculpted a body built for raw physical output. When the ground shakes, you keep swinging."
+      }
+    },
+    {
+      "id": "enclave",
+      "title": "The Enclave",
+      "symbol": "The Sealed Door",
+      "imageUrl": "/assets/phase1/12-enclave.png",
+      "narrative": "You were raised inside something closed — a religious order, a hidden commune, a survivalist sect, or the remnant of an ancient tradition that survived by going silent. Inside, there was belonging and purpose. Outside was danger. When you finally crossed the threshold, the galaxy felt enormous and hostile in equal measure.",
+      "backgroundItems": [
+        {
+          "id": "glow_rod",
+          "name": "Glow Rod",
+          "cost": 10,
+          "source": "gear"
+        },
+        {
+          "id": "mem_stik",
+          "name": "Mem-Stik",
+          "cost": 50,
+          "source": "gear"
+        },
+        {
+          "id": "gear_bag",
+          "name": "Gear Bag",
+          "cost": 50,
+          "source": "gear"
+        }
+      ],
+      "_meta": {
+        "environment": "hidden-community",
+        "locationHints": [
+          "Jedha",
+          "Bardotta",
+          "Lothal",
+          "Atollon",
+          "Lira San"
+        ],
+        "tone": "belonging, isolation, threshold crossing",
+        "themes": [
+          "tradition and heresy",
+          "secret knowledge",
+          "cult of community"
+        ],
+        "favored": "Charm (Presence)",
+        "favoredName": "Voice of the Inner Circle",
+        "favoredDesc": "Years of communal ritual and close-quarter diplomacy gave you an effortless warmth that disarms strangers. People want to trust you — and you learned exactly how to invite that."
+      }
+    }
+  ],
+  "phase2": [
+    {
+      "id": "disbanded-regular",
+      "title": "The Disbanded Regular",
+      "symbol": "Republic Cog",
+      "imageUrl": "/assets/phase2/01-disbanded-regular.png",
+      "narrative": "You fought for the Galactic Republic or a localized planetary defense force. You bled in the mud alongside Clone Troopers to hold the line against the droid army. But when the war ended, the Republic became the Empire. Your unit was either forcibly decommissioned, replaced by conscripted stormtroopers, or folded into a fascist machine you refused to serve.",
+      "backgroundItems": [
+        {
+          "id": "comlink",
+          "name": "Comlink",
+          "cost": 50,
+          "source": "gear"
+        },
+        {
+          "id": "combat_jumpsuit",
+          "name": "Combat Jumpsuit",
+          "cost": 300,
+          "source": "armor"
+        }
+      ],
+      "_meta": {
+        "phase": "departure",
+        "archetype": "veteran",
+        "tone": "loyalty, displacement, forgotten service",
+        "proficiencies": [
+          "Tactics (Wits)",
+          "Ranged (Reflex)",
+          "Athletics (Physique)"
+        ],
+        "favored": "Tactics (Wits)",
+        "favoredName": "Veteran's Calculus",
+        "favoredDesc": "Years of reading battlefields — counting exits, gauging fire arcs, and timing advances — gave you an instinct for turning chaos into a plan before anyone else has stopped flinching.",
+        "variability": "Disciplined squad leader (Tactics/Ranged) or heavy-infantry trench fighter (Athletics/Ranged)?"
+      }
+    },
+    {
+      "id": "separatist-holdout",
+      "title": "The Separatist Holdout",
+      "symbol": "Hexagon",
+      "imageUrl": "/assets/phase2/02-separatist-holdout.png",
+      "narrative": "You fought for the Confederacy of Independent Systems. You believed in independence from a corrupt Core, but you lost the war. Now, the new Empire labels you a terrorist. You spent the last three years hiding your past, keeping old Separatist tech running with scavenged parts, and maintaining a deep, burning hatred for the stormtroopers occupying your world.",
+      "backgroundItems": [
+        {
+          "id": "field_toolkit",
+          "name": "Field Toolkit",
+          "cost": 250,
+          "source": "gear"
+        },
+        {
+          "id": "scomp_spiker",
+          "name": "Scomp Spiker",
+          "cost": 20,
+          "source": "gear"
+        }
+      ],
+      "_meta": {
+        "phase": "departure",
+        "archetype": "idealist",
+        "tone": "conviction, loss, hunted belief",
+        "proficiencies": [
+          "Tech (Wits)",
+          "Ranged (Reflex)",
+          "Endure (Physique)"
+        ],
+        "favored": "Ranged (Reflex)",
+        "favoredName": "Siege-Line Marksman",
+        "favoredDesc": "Defending crumbling positions against clone battalions taught you to make every shot count. You learned to shoot straight under fire when bolts were too precious to waste.",
+        "variability": "Guerrilla mechanic (Tech/Ranged) or hardened survivor of the sieges (Endure/Ranged)?"
+      }
+    },
+    {
+      "id": "imperial-defector",
+      "title": "The Imperial Defector",
+      "symbol": "Imperial Crest",
+      "imageUrl": "/assets/phase2/03-imperial-defector.png",
+      "narrative": "You bought the Emperor's lies about peace and order. You enlisted in the new Imperial Academies and were shipped out to the Western Regions. But when you saw the sheer brutality of the Pacification Campaigns — the burning of settlements and the subjugation of innocents — your conscience broke. You went AWOL, taking their training and their secrets with you.",
+      "backgroundItems": [
+        {
+          "id": "datapad",
+          "name": "Datapad",
+          "cost": 50,
+          "source": "gear"
+        },
+        {
+          "id": "heavy_jacket",
+          "name": "Heavy Jacket",
+          "cost": 50,
+          "source": "armor"
+        }
+      ],
+      "_meta": {
+        "phase": "departure",
+        "archetype": "defector",
+        "tone": "guilt, insider knowledge, burned bridges",
+        "proficiencies": [
+          "Piloting (Reflex)",
+          "Tactics (Wits)",
+          "Skulduggery (Reflex)"
+        ],
+        "favored": "Deception (Presence)",
+        "favoredName": "Imperial Mask",
+        "favoredDesc": "You wore the Empire's face long enough to learn how authority sounds. Even after defecting, you can slip back into that cold, confident cadence — and most people never question the uniform in the voice.",
+        "variability": "Rogue TIE pilot (Piloting/Tactics) or quartermaster who stole Imperial codes (Tactics/Skulduggery)?"
+      }
+    },
+    {
+      "id": "blockade-runner",
+      "title": "The Blockade Runner",
+      "symbol": "Thruster",
+      "imageUrl": "/assets/phase2/04-blockade-runner.png",
+      "narrative": "The Clone Wars were a tragedy for some, but a business opportunity for you. You spent the war running food, weapons, and medical supplies past massive Republic cruisers and Separatist blockades. You learned how to fly a freighter like a starfighter, how to lie to military customs officers, and how to dump your cargo at the first sign of a tractor beam.",
+      "backgroundItems": [
+        {
+          "id": "breath_mask",
+          "name": "Breath Mask",
+          "cost": 50,
+          "source": "gear"
+        },
+        {
+          "id": "comlink",
+          "name": "Comlink",
+          "cost": 50,
+          "source": "gear"
+        }
+      ],
+      "_meta": {
+        "phase": "departure",
+        "archetype": "smuggler",
+        "tone": "speed, risk, freedom at any cost",
+        "proficiencies": [
+          "Piloting (Reflex)",
+          "Deception (Presence)",
+          "Insight (Presence)"
+        ],
+        "favored": "Piloting (Reflex)",
+        "favoredName": "Blockade Nerve",
+        "favoredDesc": "Running contraband past capital ships taught your hands to fly on instinct. You thread needle-gaps in debris fields and outrun tractor beams before your conscious mind catches up.",
+        "variability": "Ace smuggler pilot (Piloting/Insight) or smooth-talking contraband broker (Deception/Insight)?"
+      }
+    },
+    {
+      "id": "pacification-survivor",
+      "title": "The Pacification Survivor",
+      "symbol": "Burning Star",
+      "imageUrl": "/assets/phase2/05-pacification-survivor.png",
+      "narrative": "You didn't care about the Republic or the Separatists until the new Empire arrived in the Western Regions to \"pacify\" your home. You watched your settlement burn and your leaders get executed. You fled into the wilderness and learned to fight a desperate, asymmetrical guerrilla war against AT-DP walkers and Imperial garrisons using only traps, shadows, and scavenged blasters.",
+      "backgroundItems": [
+        {
+          "id": "thermal_cloak",
+          "name": "Thermal Cloak",
+          "cost": 300,
+          "source": "gear"
+        },
+        {
+          "id": "bacta_patch",
+          "name": "Bacta Patch",
+          "cost": 20,
+          "source": "gear"
+        }
+      ],
+      "_meta": {
+        "phase": "departure",
+        "archetype": "insurgent",
+        "tone": "resistance, loss, righteous anger",
+        "proficiencies": [
+          "Stealth (Reflex)",
+          "Survival (Grit)",
+          "Evasion (Reflex)"
+        ],
+        "favored": "Survival (Grit)",
+        "favoredName": "Scorched-Earth Instinct",
+        "favoredDesc": "When the Empire burned your home, the wilderness became your classroom. You learned to find water in ash, set traps from wreckage, and outlast garrison patrols by knowing the land better than they ever will.",
+        "variability": "Wilderness ambush specialist (Stealth/Survival) or nimble hit-and-run saboteur (Stealth/Evasion)?"
+      }
+    },
+    {
+      "id": "field-medic",
+      "title": "The Field Medic",
+      "symbol": "Stim-Tube",
+      "imageUrl": "/assets/phase2/06-field-medic.png",
+      "narrative": "The Clone Wars produced billions of casualties. You found your calling in the blood and the mud, patching up soldiers, mercenaries, and collateral civilians. You learned how to dig plasma-scorched shrapnel out of flesh with cheap tools, how to keep your hands steady while artillery shakes the ground, and how to make horrific triage choices.",
+      "backgroundItems": [
+        {
+          "id": "medpac",
+          "name": "Medpac",
+          "cost": 100,
+          "source": "gear"
+        },
+        {
+          "id": "stim_pack",
+          "name": "Stim Pack",
+          "cost": 150,
+          "source": "gear"
+        }
+      ],
+      "_meta": {
+        "phase": "departure",
+        "archetype": "healer",
+        "tone": "duty, triage, moral cost of war",
+        "proficiencies": [
+          "Medicine (Wits)",
+          "Resolve (Grit)",
+          "Insight (Presence)"
+        ],
+        "favored": "Medicine (Wits)",
+        "favoredName": "Triage Precision",
+        "favoredDesc": "Digging shrapnel out of screaming soldiers while artillery shook the ceiling taught you to think in seconds. You diagnose by touch, prioritize by instinct, and never waste a stim-pack.",
+        "variability": "Hardened combat surgeon (Medicine/Resolve) or perceptive, empathetic healer (Medicine/Insight)?"
+      }
+    },
+    {
+      "id": "syndicate-enforcer",
+      "title": "The Syndicate Enforcer",
+      "symbol": "Brass Knuckle",
+      "imageUrl": "/assets/phase2/07-syndicate-enforcer.png",
+      "narrative": "The galactic war was just a distraction. While the Jedi and the Droid Armies fought, the underworld syndicates expanded their empires. You spent the last few years working for the Hutts, the Pykes, or the Crimson Dawn. You learned how to collect debts, how to take a hit from a vibro-blade, and how to project enough quiet menace to make people pay up without a fight.",
+      "backgroundItems": [
+        {
+          "id": "combat_gloves",
+          "name": "Combat Gloves",
+          "cost": 200,
+          "source": "weapon"
+        },
+        {
+          "id": "binders",
+          "name": "Binders",
+          "cost": 50,
+          "source": "gear"
+        }
+      ],
+      "_meta": {
+        "phase": "departure",
+        "archetype": "criminal",
+        "tone": "violence, loyalty, underworld codes",
+        "proficiencies": [
+          "Brawl (Physique)",
+          "Intimidate (Grit)",
+          "Endure (Physique)"
+        ],
+        "favored": "Intimidate (Grit)",
+        "favoredName": "Syndicate Menace",
+        "favoredDesc": "Collecting debts for the Hutts taught you that violence is most effective when it stays implied. A look, a silence, and the weight of what you represent make most targets cooperate before you raise a fist.",
+        "variability": "Immovable heavy enforcer (Brawl/Endure) or terrifying interrogator/debt collector (Intimidate/Brawl)?"
+      }
+    },
+    {
+      "id": "post-war-tracker",
+      "title": "The Post-War Tracker",
+      "symbol": "Crosshair",
+      "imageUrl": "/assets/phase2/08-post-war-tracker.png",
+      "narrative": "The end of the war created millions of refugees, deserters, and war criminals. The Empire and the Syndicates both put out massive bounties to clean up the mess. You took the hunter's creed, learning how to track a quarry across a dozen chaotic, war-torn star systems, and how to put a blaster bolt exactly where it needs to go to secure a live capture.",
+      "backgroundItems": [
+        {
+          "id": "macro_binoculars",
+          "name": "Macro-binoculars",
+          "cost": 100,
+          "source": "gear"
+        },
+        {
+          "id": "syntherope",
+          "name": "Syntherope",
+          "cost": 10,
+          "source": "gear"
+        }
+      ],
+      "_meta": {
+        "phase": "departure",
+        "archetype": "hunter",
+        "tone": "precision, obsession, unfinished war",
+        "proficiencies": [
+          "Investigation (Wits)",
+          "Survival (Grit)",
+          "Ranged (Reflex)"
+        ],
+        "favored": "Investigation (Wits)",
+        "favoredName": "Hunter's Patience",
+        "favoredDesc": "Tracking war criminals across a dozen shattered systems taught you to read a cold trail — a discarded fuel receipt, a nervous docking clerk, the faintest pattern in hyperspace logs.",
+        "variability": "Urban detective hunting leads (Investigation/Ranged) or relentless Outer Rim tracker (Survival/Ranged)?"
+      }
+    },
+    {
+      "id": "purge-survivor",
+      "title": "The Purge Survivor",
+      "symbol": "Severed Braid",
+      "imageUrl": "/assets/phase2/09-purge-survivor.png",
+      "narrative": "Order 66 didn't just target the Jedi; the Empire immediately outlawed dozens of religions, academic orders, and political factions. You were part of a group that was declared treasonous the day the Empire was born. For three years, you have survived by hiding your true nature, trusting your instincts over your eyes, and learning how to disappear into a crowd.",
+      "backgroundItems": [
+        {
+          "id": "disguise_kit",
+          "name": "Disguise Kit",
+          "cost": 250,
+          "source": "gear"
+        },
+        {
+          "id": "stimulant_tabs",
+          "name": "Stimulant Tabs",
+          "cost": 20,
+          "source": "gear"
+        }
+      ],
+      "_meta": {
+        "phase": "departure",
+        "archetype": "purged",
+        "tone": "grief, hiding, something sacred lost",
+        "proficiencies": [
+          "Sense (Wits)",
+          "Stealth (Reflex)",
+          "Deception (Presence)"
+        ],
+        "favored": "Stealth (Reflex)",
+        "favoredName": "Purge Shadow",
+        "favoredDesc": "Three years of hiding your true nature from Inquisitors and informants made invisibility a reflex. You move through occupied space like smoke — present, but impossible to grasp.",
+        "variability": "Force-sensitive hiding their signature (Sense/Stealth) or purged political scholar under a fake identity (Deception/Stealth)?"
+      }
+    },
+    {
+      "id": "wreck",
+      "title": "The Wreck",
+      "symbol": "Hull Break",
+      "imageUrl": "/assets/phase2/10-wreck.png",
+      "narrative": "Something catastrophic happened — a ship destroyed, a convoy ambushed, a convoy gone silent in the void. You were one of the only survivors, dragged out of the debris by luck or will alone. The wreck changed the trajectory of everything. What you lost there is still with you.",
+      "backgroundItems": [
+        {
+          "id": "bacta_patch",
+          "name": "Bacta Patch",
+          "cost": 20,
+          "source": "gear"
+        },
+        {
+          "id": "fusion_cutter",
+          "name": "Fusion Cutter",
+          "cost": 75,
+          "source": "gear"
+        }
+      ],
+      "_meta": {
+        "phase": "departure",
+        "archetype": "survivor",
+        "tone": "survivor guilt, resilience, haunted purpose",
+        "proficiencies": [
+          "Endure (Physique)",
+          "Tech (Wits)",
+          "Survival (Grit)"
+        ],
+        "favored": "Endure (Physique)",
+        "favoredName": "Wreck-Hardened Frame",
+        "favoredDesc": "Surviving the catastrophe branded endurance into your bones. Decompression, impact trauma, and days of crawling through wreckage taught your body to keep functioning long past the point of collapse.",
+        "variability": "Engineer who kept the ship alive long enough (Tech/Endure) or gunner who survived the hull breach (Survival/Endure)?"
+      }
+    },
+    {
+      "id": "ascent",
+      "title": "The Ascent",
+      "symbol": "Rising Rank",
+      "imageUrl": "/assets/phase2/11-ascent.png",
+      "narrative": "You climbed. Whether through the Imperial ranks, a corporate hierarchy, or a criminal syndicate's chain of command, you earned real power — and then burned it all down on your way out. You know how institutions work from the inside. You know exactly where the cracks are.",
+      "backgroundItems": [
+        {
+          "id": "datapad",
+          "name": "Datapad",
+          "cost": 50,
+          "source": "gear"
+        },
+        {
+          "id": "comlink",
+          "name": "Comlink",
+          "cost": 50,
+          "source": "gear"
+        }
+      ],
+      "_meta": {
+        "phase": "departure",
+        "archetype": "fallen-officer",
+        "tone": "authority, ambition, purposeful fall",
+        "proficiencies": [
+          "Tactics (Wits)",
+          "Deception (Presence)",
+          "Persuasion (Presence)"
+        ],
+        "favored": "Persuasion (Presence)",
+        "favoredName": "Command Presence",
+        "favoredDesc": "You climbed hierarchies by making people believe in you — or fear you. That voice of authority never left, even after you walked away from power. People still follow when you speak.",
+        "variability": "Former Imperial officer with codes and contacts (Tactics/Deception) or syndicate lieutenant who went independent (Persuasion/Tactics)?"
+      }
+    },
+    {
+      "id": "betrayal",
+      "title": "The Betrayal",
+      "symbol": "The Knife Behind",
+      "imageUrl": "/assets/phase2/12-betrayal.png",
+      "narrative": "Someone you trusted set you up. A partner, a commanding officer, a patron — someone who smiled while selling you out. You survived what they arranged for you, and now you carry two things everywhere: the lesson, and the debt. Trust is not something you give freely anymore.",
+      "backgroundItems": [
+        {
+          "id": "vibroblade",
+          "name": "Vibroblade",
+          "cost": 250,
+          "source": "weapon"
+        },
+        {
+          "id": "tox_detector",
+          "name": "Tox Detector",
+          "cost": 20,
+          "source": "gear"
+        }
+      ],
+      "_meta": {
+        "phase": "departure",
+        "archetype": "burned-agent",
+        "tone": "distrust, vengeance, hard-won paranoia",
+        "proficiencies": [
+          "Insight (Wits)",
+          "Stealth (Reflex)",
+          "Skulduggery (Reflex)"
+        ],
+        "favored": "Insight (Wits)",
+        "favoredName": "Betrayal Sense",
+        "favoredDesc": "Being sold out carved a permanent edge into your perception. You read micro-expressions, catch the pause before a lie, and notice the hand drifting toward a hidden weapon — because you learned what it costs not to.",
+        "variability": "Intelligence operative burned by their handler (Insight/Deception) or soldier set up by their lieutenant (Skulduggery/Stealth)?"
+      }
+    }
+  ],
+  "phase3": [
+    {
+      "id": "hutt-marked",
+      "title": "The Hutt-Marked",
+      "symbol": "The Bounty",
+      "imageUrl": "/assets/phase3/01-hutt-marked.png",
+      "narrative": "You owe credits to a Hutt cartel operating out of the Western Reaches. Not the Banking Clan kind of debt — the kind tracked by Weequay enforcers and Kyuzo hunters wearing wide-brimmed war helms. You carry a coded burn-mark on your wrist that any bounty hunter or cartel operative recognizes on sight. In cantinas from Jakku to Ord Mantell, that mark means you are collectable. You have learned to read a room the moment you enter — who is watching, who is armed, and who has already sent a message.",
+      "_meta": {
+        "phase": "debt",
+        "archetype": "hunted",
+        "tone": "debt, fear, criminal leverage",
+        "knackName": "Marked for Collection",
+        "knackType": "Narrative Truth",
+        "knack": "You know how the Hutt underworld operates from the inside. You can identify syndicate affiliations, read the hierarchy of a criminal operation, and assess who in a room is connected, who is an informant, and what cartel they serve. You know the local price of silence — who can be bribed, how much it costs, and whether it will stick."
+      }
+    },
+    {
+      "id": "witness",
+      "title": "The Witness",
+      "symbol": "The Eye",
+      "imageUrl": "/assets/phase3/02-witness.png",
+      "narrative": "You were in the wrong place during the Pacification Campaigns. You saw an Imperial garrison do something to a frontier settlement that was not in any official report — mass relocations, unmarked cargo shipments, civilians loaded onto transports that never arrived at any registered facility. Out here in the Western Reaches, the Empire does not operate like it does in the Core. There are no journalists, no Senate hearings, no witnesses. Except you. And someone in an Imperial uniform knows your face.",
+      "_meta": {
+        "phase": "debt",
+        "archetype": "witness",
+        "tone": "dangerous knowledge, paranoia, silence",
+        "knackName": "The Wrong Eyes",
+        "knackType": "Narrative Truth",
+        "knack": "You have seen what the Empire does when it thinks nobody is watching. You recognize the patterns — falsified manifests, patrol routes that avoid specific buildings, officers whose rank does not match their assignment, equipment that does not belong at a frontier garrison. When the official story does not add up, you notice. You always notice."
+      }
+    },
+    {
+      "id": "traumatized",
+      "title": "The Traumatized",
+      "symbol": "The Shattered Star",
+      "imageUrl": "/assets/phase3/03-traumatized.png",
+      "narrative": "The Clone Wars or the Pacification Campaigns did not just happen near you — they happened to you. You watched settlements burn in the Western Reaches while stormtroopers stood in formation. You lost everyone, and the sounds have not stopped. Certain things — the whine of a repulsor engine, the smell of ozone after a blaster discharge, the hiss of a blast door — pull you back to the worst moment of your life without warning.",
+      "_meta": {
+        "phase": "debt",
+        "archetype": "broken",
+        "tone": "inner wound, triggers, survival guilt",
+        "knackName": "Adrenaline Lock",
+        "knackType": "Narrative Truth",
+        "knack": "When the worst happens, your body remembers before your mind does. You have survived things that should have killed you, and your reflexes carry the scar of that survival. When genuine mortal danger presents itself, you do not freeze — you move. The problem is what comes after: the shaking, the silence, the hours you cannot account for."
+      }
+    },
+    {
+      "id": "shadow-stalked",
+      "title": "The Shadow-Stalked",
+      "symbol": "The Echo",
+      "imageUrl": "/assets/phase3/04-shadow-stalked.png",
+      "narrative": "You are sensitive to the Force, but you have not had training since the Purge. Instead of guidance, you feel an unexplainable, persistent spiritual pressure — an Echo. It manifests as haunting premonitions of danger or the overwhelming sensation that something ancient and patient is tracking you through the currents of the universe. In the Western Reaches, far from the Core, the Force feels different — wilder, older, tangled with things the Jedi never catalogued.",
+      "_meta": {
+        "phase": "debt",
+        "archetype": "force-burdened",
+        "tone": "Force sensitivity, pursuit, unwanted power",
+        "knackName": "Prescience",
+        "knackType": "Narrative Truth",
+        "knack": "You feel things before they happen. Not clearly — never clearly — but enough. A chill before the ambush, a wrongness in the air before the betrayal, a pull toward a door you should not open. You cannot control it and you cannot explain it. But you have learned to trust it, because the times you did not are the reason you are out here."
+      }
+    },
+    {
+      "id": "defector",
+      "title": "The Defector",
+      "symbol": "The Broken Crest",
+      "imageUrl": "/assets/phase3/05-defector.png",
+      "narrative": "You were part of the machine. You wore the uniform, carried the codes, and followed orders when the Empire arrived in the Western Reaches to pacify the frontier. You know how Imperial garrisons operate — shift rotations, comm protocols, supply chain logistics, the chain of command from the local garrison commander up to the sector Moff. When you walked away, you took all of that knowledge with you. If they ever find you, the charge is treason. The sentence is summary execution.",
+      "_meta": {
+        "phase": "debt",
+        "archetype": "defector",
+        "tone": "treason, hunted by empire, fractured identity",
+        "knackName": "Authority Bypass",
+        "knackType": "Narrative Truth",
+        "knack": "You know how the Empire works because you were the Empire. You understand military bureaucracy, checkpoint procedure, rank structure, and the specific laziness of garrison duty in the Outer Rim. You know which codes are checked and which are waved through, which uniforms draw salutes and which draw suspicion, and how to speak like someone who belongs inside a facility."
+      }
+    },
+    {
+      "id": "debtor",
+      "title": "The Debtor",
+      "symbol": "The Scale",
+      "imageUrl": "/assets/phase3/06-debtor.png",
+      "narrative": "You owe a debt, but not to a crime lord. This is a debt of honor — a blood oath, a life saved, or a massive ledger entry with the Banking Clan western branch office. Legitimate debt out here is almost worse than criminal debt: there is no negotiating with a protocol droid that has your biometrics on file and a legal mandate to garnish everything you earn. Until it is paid, you have no credit line, no property rights, and no home. Every settlement with a Banking Clan terminal knows your face.",
+      "_meta": {
+        "phase": "debt",
+        "archetype": "indebted",
+        "tone": "financial ruin, obligation, desperation",
+        "knackName": "Collateral Access",
+        "knackType": "Narrative Truth",
+        "knack": "You understand how credits flow through the frontier — who extends credit, who launders it, who owes whom, and which settlements operate on barter because the Banking Clan has not reached them yet. You know the difference between a legitimate merchant and a front, and you can assess the economic pressure points of any community you walk into. Debt taught you the architecture of money."
+      }
+    },
+    {
+      "id": "exile",
+      "title": "The Exile",
+      "symbol": "The Blast Door",
+      "imageUrl": "/assets/phase3/07-exile.png",
+      "narrative": "You are forbidden from returning to a specific place — a planet, a station, a community, or an organization — on pain of death. In the Western Reaches, exile is common: religious sects on jungle moons, mercenary companies that operate out of orbital stations, political families that control entire settlement networks. Whatever you were part of, they cast you out. Your name was struck. Your identity was burned. Out here on the frontier, you are nobody — and that is the only thing keeping you alive.",
+      "_meta": {
+        "phase": "debt",
+        "archetype": "exiled",
+        "tone": "banishment, longing, forbidden return",
+        "knackName": "Stigma Detection",
+        "knackType": "Narrative Truth",
+        "knack": "You recognize the signs of exile because you carry them. The way someone avoids eye contact with a specific group. The settlements that will not serve certain people. The tattoos that have been burned off, the insignia that has been filed down, the accent that has been deliberately flattened. You know who is running from something, because you see your own reflection in them — and they see theirs in you."
+      }
+    },
+    {
+      "id": "addiction",
+      "title": "The Addiction",
+      "symbol": "The Stim-Tube",
+      "imageUrl": "/assets/phase3/08-addiction.png",
+      "narrative": "You are dependent on a specific substance to function — a stim, a spice derivative, or a field-med cocktail left over from wartime. In the Western Reaches, supply is inconsistent: some settlements have backroom pharmacists who can synthesize what you need, others have nothing. Going without is not an option you have tested more than once. The shaking starts within a day. The clarity goes next. You have built your entire routine — where you go, who you trust, what jobs you take — around making sure you never run dry again.",
+      "_meta": {
+        "phase": "debt",
+        "archetype": "dependent",
+        "tone": "chemical dependency, weakness, hidden cost",
+        "knackName": "The Fix",
+        "knackType": "Narrative Truth",
+        "knack": "You know the substance economy of the frontier. You can identify a dealer, a pharmacist, or a supplier in any settlement — not because you are connected, but because you have had to. You understand chemical dependencies, withdrawal symptoms, and the specific desperation of people who need something they cannot easily get. You know what people will do — and what they will trade — when they are running out."
+      }
+    },
+    {
+      "id": "false-identity",
+      "title": "The False Identity",
+      "symbol": "The Mask",
+      "imageUrl": "/assets/phase3/09-false-identity.png",
+      "narrative": "The person you are now is a fabrication. Your original identity was erased during the Clone Wars, the Jedi Purge, or the chaos of the Imperial transition. You possess forged documentation, a false birth record, and a backstory you have rehearsed until it feels true. In the Western Reaches, where record-keeping is spotty and Imperial databases do not reach every settlement, the lie holds. But every time you pass through a spaceport with a full Imperial customs scanner, you feel the floor shift beneath you.",
+      "_meta": {
+        "phase": "debt",
+        "archetype": "alias",
+        "tone": "deception, buried past, fear of exposure",
+        "knackName": "Identity Buffer",
+        "knackType": "Narrative Truth",
+        "knack": "You have lived as someone else long enough that the fabrication has its own weight. You understand how identity works on the frontier — which documents matter, which settlements do not check, which Imperial systems have gaps. You know how to build a cover story that holds under casual scrutiny, and you recognize when someone else is doing the same thing, because you know every trick in the book."
+      }
+    },
+    {
+      "id": "notorious",
+      "title": "The Notorious",
+      "symbol": "The Name",
+      "imageUrl": "/assets/phase3/10-notorious.png",
+      "narrative": "You have a reputation that travels faster than you do. In the cantinas of Jakku, the landing pads of Ord Mantell, the swoop-gang rallies along the frontier — your name, or the name you earned, carries weight. Whether it is deserved or exaggerated does not matter. People have already decided who you are before you walk through the door. The right people buy you drinks. The wrong people reach for their blasters. You are still figuring out whether to live up to the legend or bury it before it buries you.",
+      "_meta": {
+        "phase": "debt",
+        "archetype": "known-figure",
+        "tone": "infamy, identity, the cost of being known",
+        "knackName": "The Name",
+        "knackType": "Narrative Truth",
+        "knack": "Your reputation precedes you. In any community where word travels — cantinas, criminal networks, mercenary circles, frontier settlements — people have heard a version of your story. Some of it is true. Some of it is not. But it means you are never a stranger: people either want something from you or want nothing to do with you. The name opens doors. It also makes sure certain doors never close behind you quietly."
+      }
+    },
+    {
+      "id": "blood-price",
+      "title": "The Blood Price",
+      "symbol": "The Handprint",
+      "imageUrl": "/assets/phase3/11-blood-price.png",
+      "narrative": "Someone paid for your freedom, your survival, or your escape from the Western Reaches — and the cost was something you cannot repay. It might have been their life, given during the Pacification Campaigns when your settlement was burned. It might have been their safety, traded so you could board a transport off a dying colony. You are here because they are not. The frontier is full of debts like this — everyone lost someone when the Empire arrived. Yours just has not stopped bleeding.",
+      "_meta": {
+        "phase": "debt",
+        "archetype": "survivor-indebted",
+        "tone": "guilt, obligation, chosen sacrifice",
+        "knackName": "Dead Reckoning",
+        "knackType": "Narrative Truth",
+        "knack": "You carry the weight of someone else’s sacrifice, and it has made you incapable of watching others pay the same price. You put yourself between danger and the people around you without hesitation — not because you are brave, but because you have already survived the thing you are most afraid of. You know what it costs to be the one left standing, and you will not let someone else carry that debt."
+      }
+    },
+    {
+      "id": "hunted",
+      "title": "The Hunted",
+      "symbol": "Predator Eyes",
+      "imageUrl": "/assets/phase3/12-hunted.png",
+      "narrative": "Something is tracking you. Not the Empire in the broad bureaucratic sense — something specific, patient, and personal. A bounty hunter with a decades-old contract. An Inquisitor with a fixation. A crime lord who took your escape as an insult. Out in the Western Reaches, distance means nothing to the kind of hunter who is after you. You have learned the rhythm of pursuit: the quiet weeks that feel safe, the moment you spot a ship that should not be at a frontier port, the sick certainty that they have found you again.",
+      "_meta": {
+        "phase": "debt",
+        "archetype": "hunted-personal",
+        "tone": "paranoia, animal awareness, the weight of being prey",
+        "knackName": "Prey Sense",
+        "knackType": "Narrative Truth",
+        "knack": "You have been hunted long enough that awareness is no longer a skill — it is a condition. You notice things that settled people do not: a ship that refueled but did not unload cargo, a question asked twice by different strangers, a figure who watches the exits instead of the bar. You read environments the way prey reads the wind — not for opportunity, but for threat. It keeps you alive. It also means you never fully rest."
+      }
+    }
+  ]
+}
