@@ -940,17 +940,19 @@
         "tags": [
           "[Combat]"
         ],
-        "rule": "You may use Melee (Physique) in place of Endure for Defense rolls when wielding a Melee weapon. You may draw or ready a Melee weapon as part of any Attack action at no Maneuver cost."
+        "rule": "You may Endure melee attacks using Melee (Physique) in place of Endure. When you do, treat your armor rating as Light for the Physique step calculation — even if you are unarmored, your blade compensates. You may draw or ready a Melee weapon as part of any Attack action at no Maneuver cost."
       },
       {
         "id": "voc_duelist_t2",
         "tier": 2,
-        "type": "passive",
+        "type": "gambit",
         "name": "Read the Blade",
         "tags": [
           "[Combat]"
         ],
-        "rule": "When you successfully defend against an attack using Melee (via En Garde), gain [Optimized] on your next Melee attack against that attacker before the end of your next turn. Every parry teaches you something about how they fight."
+        "modifiesAction": "action_endure",
+        "actionType": "Endure Defense (via En Garde)",
+        "rule": "After resolving an Endure defense using Melee (via En Garde), spend 1 tier. You gain [Optimized] on your next Melee weapon attack against that attacker before the end of your next turn. You read their technique in the exchange and positioned yourself for the counter."
       },
       {
         "id": "voc_duelist_t3",
@@ -996,18 +998,21 @@
           "[Combat]"
         ],
         "modifiesAction": "action_endure",
-        "actionType": "Melee Defense",
-        "rule": "When you defend using Melee (via En Garde) and your Control die is 8+, spend your Exploit pip. Immediately make a Melee attack against the attacker as a reaction. This counter-attack gains [Optimized]."
+        "actionType": "Endure Defense (via En Garde)",
+        "rule": "When you defend using Melee (via En Garde) and score 8+ on your Control die, you may forgo the standard +1 Effect tier. Instead, the attacker immediately presents an Opening which you may Exploit to make an immediate Melee attack against them."
       },
       {
         "id": "voc_duelist_t5",
         "tier": 5,
-        "type": "passive",
-        "name": "Peerless",
+        "type": "maneuver",
+        "name": "Measure of a Man",
         "tags": [
           "[Combat]"
         ],
-        "rule": "While you are Engaged with exactly one opponent and wielding a Melee weapon, all your Melee attacks and En Garde defense rolls against that target gain [Optimized]. Additionally, once per scene, when a Riposte counter-attack deals damage, the target is immediately [Incapacitated]. No one fights you alone and walks away."
+        "discipline": "melee",
+        "arena": "wits",
+        "rolled": true,
+        "rule": "Use your Maneuver to Assess an Engaged opponent using Melee (Wits) — reading their guard, footwork, and tells. You gain the normal Assess questions from the GM (as if using Tactics). Additionally, you may spend 1 Edge. If you do, your next Melee weapon attack against that target this round gains [Optimized] and [Empowered]. You've already won. They just don't know it yet."
       }
     ],
     "imageUrl": "/assets/vocations/voc_duelist.png",
