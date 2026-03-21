@@ -12,6 +12,7 @@
   var _dataReady = false;
   var _chassisData = {};
   var _actionEntryIds = {};
+  var _forceEntryIds = {};
   var _coreRuleEntryIds = {};
   var _vocationEntryIds = {};
   var _speciesEntryIds = {};
@@ -74,13 +75,13 @@
     special: 'Special', combined: 'Combined'
   };
 
-  var ACTION_GROUP_ORDER = ['Action', 'Maneuver', 'Defense', 'Free', 'Force'];
+  var ACTION_GROUP_ORDER = ['Action', 'Maneuver', 'Defense', 'Free'];
   var ACTION_GROUP_LABELS = {
     'Action': 'Actions', 'Maneuver': 'Maneuvers', 'Defense': 'Defenses',
-    'Free': 'Initiative', 'Force': 'Force Powers'
+    'Free': 'Initiative'
   };
 
-  var CORE_RULE_ORDER = ['modes_of_play', 'opening_exploit_defense', 'dual_wielding', 'concealment'];
+  var CORE_RULE_ORDER = ['destiny_pool', 'modes_of_play', 'opening_exploit_defense', 'dual_wielding', 'concealment'];
 
   function _registerProviders() {
     _providers = [];
@@ -111,15 +112,19 @@
     });
 
     _providers.push({
-      id: 'destiny',
-      label: 'Destiny Pool',
+      id: 'forcePowers',
+      label: 'Force Powers',
       icon: '\u2727',
       getGroups: function () {
-        var e = _entries['destiny_pool'];
-        if (!e) return [];
-        return [{ groupLabel: null, entries: [{ id: e.id, name: e.name }] }];
+        var items = [];
+        Object.keys(_forceEntryIds).forEach(function (eid) {
+          var e = _entries[eid];
+          if (e) items.push({ id: e.id, name: e.name });
+        });
+        items.sort(function (a, b) { return a.name.localeCompare(b.name); });
+        return items.length ? [{ groupLabel: null, entries: items }] : [];
       },
-      hasEntry: function (id) { return id === 'destiny_pool'; }
+      hasEntry: function (id) { return !!_forceEntryIds[id]; }
     });
 
     _providers.push({
@@ -1302,11 +1307,10 @@
         type: 'Force ' + (f.actionType || 'Action'),
         rule: f.description || '',
         _providerType: 'action',
-        _actionGroup: 'Force',
         _actionData: f,
         _searchText: _buildSearchText(searchParts)
       };
-      _actionEntryIds[f.id] = true;
+      _forceEntryIds[f.id] = true;
     });
   }
 
@@ -1315,12 +1319,42 @@
     gamesystemArr.forEach(function (entry) { byId[entry.id] = entry; });
 
     CORE_RULE_ORDER.forEach(function (ruleId) {
-      if (ruleId === 'destiny_pool') return;
       var gs = byId[ruleId];
       if (!gs) return;
 
       var richSections = [];
-      if (ruleId === 'modes_of_play' && gs.modes) {
+      if (ruleId === 'destiny_pool') {
+        var dp = gs;
+        if (dp.karmaState) {
+          richSections.push({ heading: 'The Karma State', body: dp.karmaState.note || '', list: [
+            'Hope dominant: ' + (dp.karmaState.hopeDominant || ''),
+            'Toll dominant: ' + (dp.karmaState.tollDominant || ''),
+            dp.karmaState.infamyPenalty || ''
+          ].filter(Boolean) });
+        }
+        if (dp.tapping) {
+          richSections.push({ heading: 'Tapping', body: dp.tapping.rule || '', list: dp.tapping.note ? [dp.tapping.note] : [] });
+        }
+        if (dp.lockout) {
+          richSections.push({ heading: 'The Lockout', body: dp.lockout.note || '', list: [
+            'Toll \u2192 Hope: ' + (dp.lockout.tollToHope || ''),
+            'Hope \u2192 Toll: ' + (dp.lockout.hopeToToll || '')
+          ] });
+        }
+        if (dp.flipping) {
+          richSections.push({ heading: 'Flipping', body: dp.flipping.note || '', list: [
+            'The Fall (Hope \u2192 Toll): ' + (dp.flipping.theFall || ''),
+            'Redemption (Toll \u2192 Hope): ' + (dp.flipping.redemption || '')
+          ] });
+        }
+        if (dp.theCrossroads) {
+          richSections.push({ heading: 'The Crossroads', body: dp.theCrossroads.trigger || '', list: [
+            'Intervention: ' + (dp.theCrossroads.intervention || ''),
+            'Relent: ' + (dp.theCrossroads.relent || ''),
+            'Pull the Trigger: ' + (dp.theCrossroads.pullTheTrigger || '')
+          ] });
+        }
+      } else if (ruleId === 'modes_of_play' && gs.modes) {
         gs.modes.forEach(function (m) {
           var list = [];
           if (m.structure) list.push('Structure: ' + m.structure);
@@ -1485,35 +1519,6 @@
       _searchTerm = searchInput.value;
       _buildSidebarIndex();
     });
-
-    _entries['destiny_pool'] = {
-      id: 'destiny_pool',
-      name: 'The Destiny Pool: Hope & Toll',
-      type: 'Meta-Currency',
-      rule: '2 tokens per player, any side up at campaign start. The ratio persists between sessions \u2014 it is a running ledger, not a mood ring.',
-      guide: '',
-      richSections: [
-        { heading: 'The Karma State', body: 'The current ratio grants passive bonuses to social actions:', list: [
-          'Hope dominant: +1 Tier on Charm/Persuasion vs. honorable or neutral contacts. Gap of 2+: \u22121 Tier on Intimidate/Deception (Soft Touch).',
-          'Toll dominant: +1 Tier on Intimidate/Deception vs. the underworld. Gap of 2+: \u22121 Tier on Charm/Persuasion (The Monster).'
-        ]},
-        { heading: 'Tapping', body: 'Once per scene, after any roll, any player may tap one available token to increase the result by +1 Tier. Tapped tokens slide aside for the scene \u2014 they do not flip.' },
-        { heading: 'The Lockout', list: [
-          'Toll \u2192 Hope: Only possible if the token is untapped. Tap a dark token to survive \u2014 the guilt of that method is sealed. A sacrifice later cannot redeem it.',
-          'Hope \u2192 Toll: Possible regardless of tap state. A dark deed taints the soul whether or not you were focused. A tapped Hope token that falls becomes a tapped Toll token immediately.'
-        ]},
-        { heading: 'Flipping', list: [
-          'Hope \u2192 Toll (The Fall): An act of unmitigated cruelty \u2014 executing a prisoner, torture, abandoning innocents, betrayal for credits.',
-          'Toll \u2192 Hope (Redemption): Accepting a severe, concrete disadvantage to stay clean \u2014 sparing a villain who will return, surrendering a major payday, deliberately failing an objective.'
-        ]},
-        { heading: 'The Crossroads', body: 'When a declared action would trigger The Fall, the GM pauses before it resolves. Any crewmate may intervene out-of-turn by tapping an available Hope token and making a Social Maneuver against the acting player. The acting player then chooses:', list: [
-          'Relent \u2014 Stand down. The Hope token was spent and the threat walks free. The crew flips one Toll \u2192 Hope.',
-          'Pull the Trigger \u2014 The plea is ignored. The Fall resolves. Flip one Hope \u2192 Toll. The intervening player\u2019s token stays tapped \u2014 they tried.'
-        ]}
-      ],
-      _providerType: 'coreRule',
-      _searchText: 'destiny pool hope toll karma tapping lockout flipping crossroads meta currency'
-    };
 
     var glossaryReady = fetch('/data/glossary.json')
       .then(function (res) { return res.json(); })
