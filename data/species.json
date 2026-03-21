@@ -197,5 +197,185 @@
       ],
       "directives": "Highlight their physical resilience and stubborn pride. Emphasize a background of enduring extreme physical hardship. The Unyielding trait should feel like an unshakable core, not just a mechanical immunity."
     }
+  },
+  {
+    "id": "keldor",
+    "name": "Kel Dor",
+    "tagline": "Vigilant. Perceptive. Masked.",
+    "lore": "Kel Dor hail from Dorin, a world of helium and exotic gases where the air itself would kill most beings. Outside Dorin, every Kel Dor wears a breath mask and protective goggles — a constant reminder that they are visitors everywhere they go. But the mask hides something else: a species-wide attunement to the Force that runs deeper than training. Even Kel Dor who have never held a lightsaber or studied under a master can feel the currents of the living Force — a quiet awareness that something is watching, guiding, warning. In the Western Reaches, they serve as bounty hunters with uncanny instincts, frontier mediators, and wanderers drawn to places where the Force feels disturbed.",
+    "imageUrl": "/assets/species/keldor.png",
+    "arenaShift": {
+      "name": "Keen Awareness",
+      "desc": "Wits starts at D8. All other Arenas at D6. No penalties."
+    },
+    "favoredDiscipline": {
+      "desc": "Choose one favored discipline (exploding die + Edge reroll).",
+      "choices": [
+        { "label": "Insight", "id": "insight" },
+        { "label": "Investigation", "id": "investigation" },
+        { "label": "Survival", "id": "survival" }
+      ]
+    },
+    "biologicalTruth": {
+      "name": "Antiox Dependence",
+      "desc": "You cannot breathe standard nitrogen/oxygen atmospheres. Without your Antiox Breath Mask and protective goggles, you begin to suffocate and are effectively blind. You begin play with this equipment at no cost, but losing it in the field is a life-threatening emergency — not an inconvenience. Your mask's vocoder amplifies your voice, giving it a distinctive filtered resonance that is impossible to disguise."
+    },
+    "speciesTrait": {
+      "name": "Force Touched",
+      "desc": "All Kel Dor possess an innate connection to the Force, regardless of training. You may always use the Sense discipline for an Assess maneuver, even if your Sense is at D4 and would normally be too low to attempt it. You can feel disturbances in the Force, search your feelings for guidance, and sense the presence of strong Force users — though without formal training, these impressions come as instinct, not knowledge."
+    },
+    "arenas": { "physique": "D6", "reflex": "D6", "grit": "D6", "wits": "D8", "presence": "D6" },
+    "_aiMeta": {
+      "loreAnchors": [
+        "Antiox Dependence — Cannot breathe standard atmospheres; mask and goggles are life-or-death equipment, not cosmetic.",
+        "Force Touched — Innate Force connection; may always use Sense for Assess even at D4. Impressions come as instinct, not trained knowledge.",
+        "Filtered Voice — Vocoder-amplified speech is distinctive and impossible to disguise; everyone knows when a Kel Dor is speaking."
+      ],
+      "directives": "The character's backstory should treat the breath mask as both vulnerability and identity. Their Force sensitivity should manifest as instinct — gut feelings, uneasy premonitions, an uncanny read on strangers — not as Jedi training. Frame their presence in the Western Reaches as driven by something they can feel but not fully explain."
+    }
+  },
+  {
+    "id": "togruta",
+    "name": "Togruta",
+    "tagline": "Pack Hunters. Sharp Senses. Never Alone.",
+    "lore": "Togruta evolved as communal predators on Shili, a world of dense forests and meter-tall turu-grass where survival demanded teamwork, stealth, and spatial awareness. Their striped horns, montrals, and vivid skin patterns aren't decoration — they're camouflage, evolved to stalk prey through red-and-white scrubland. Togruta culture prizes the group over the individual, but their greatest leaders always emerge through fierce personal initiative. In the Western Reaches, Togruta who leave Shili call it \"hunting among the stars\" — and they bring the pack instinct with them. They gravitate toward crews, posses, and tight-knit teams, becoming the member who always knows where everyone is and who moves first when the ambush springs.",
+    "imageUrl": "/assets/species/togruta.png",
+    "arenaShift": {
+      "name": "Predator's Agility",
+      "desc": "Reflex starts at D8. Physique drops to D4. Quick and agile, but lean-framed for their size."
+    },
+    "favoredDiscipline": {
+      "desc": "Choose one favored discipline (exploding die + Edge reroll).",
+      "choices": [
+        { "label": "Stealth", "id": "stealth" },
+        { "label": "Evasion", "id": "evasion" },
+        { "label": "Melee", "id": "melee" }
+      ]
+    },
+    "biologicalTruth": {
+      "name": "Montral Echolocation",
+      "desc": "Your hollow montrals function as passive echolocation organs, giving you spatial awareness of your surroundings independent of sight or sound. You can sense the position of nearby beings and objects even in total darkness, through smoke, or around corners — as long as they are within close range. This does not grant you detail (you can't read a datapad through a wall), but you always know if something is there and roughly where it is."
+    },
+    "speciesTrait": {
+      "name": "Pack Hunter",
+      "desc": "After a successful Join Battle roll is resolved, you may swap your initiative position with one willing ally for the remainder of combat. You designate that ally as your hunting partner. For the duration, if you attack or take any action against the same target your hunting partner is engaged with, you are [Optimized] for that action. If your hunting partner is also a Togruta, both characters gain the [Optimized] benefit when acting against a shared target. This effect is broken if either character is rendered unconscious or otherwise cannot take an appropriate action (such as attacking). [Optimized] from Pack Hunter does not stack with other [Optimized] effects."
+    },
+    "arenas": { "physique": "D4", "reflex": "D8", "grit": "D6", "wits": "D6", "presence": "D6" },
+    "_aiMeta": {
+      "loreAnchors": [
+        "Montral Echolocation — Passive spatial awareness at close range; can sense beings through darkness, smoke, and around corners.",
+        "Pack Hunter — Initiative swap with ally after Join Battle; [Optimized] when acting against shared target. Both get it if both are Togruta.",
+        "Communal Predator Culture — Togruta value the group over the individual; leaving Shili is called \"hunting among the stars.\""
+      ],
+      "directives": "The character's backstory should reflect the tension between communal identity and individual ambition. Their montrals should be described as an ever-present background awareness — footsteps behind walls, heartbeats in the next room, the shape of a room felt rather than seen. Frame their presence in the Western Reaches as someone who seeks or has found a new pack — a crew, a cause, a community that needs a predator's instincts."
+    }
+  },
+  {
+    "id": "rodian",
+    "name": "Rodian",
+    "tagline": "Relentless. Sharp-Eyed. Born to Hunt.",
+    "lore": "Rodians evolved on Rodia, a humid jungle world teeming with predators where every generation had to earn its survival through the hunt. This crucible forged a culture that glorifies the stalk, the kill, and the trophy — their art, their festivals, their social hierarchy all revolve around who can bring down the most dangerous prey. Since reaching the stars, Rodians have channeled this obsession into bounty hunting, mercenary work, and freelance tracking. In the Western Reaches, a Rodian with a contract is as reliable as gravity — they don't stop, they don't get bored, and they don't lose the trail. What they lack in social grace they make up for in single-minded tenacity. Most species make small talk; Rodians make kill marks.",
+    "imageUrl": "/assets/species/rodian.png",
+    "arenaShift": {
+      "name": "Hunter's Reflexes",
+      "desc": "Reflex starts at D8. Presence drops to D4. Lightning-quick and deadly accurate, but blunt, abrasive, and socially graceless."
+    },
+    "favoredDiscipline": {
+      "desc": "Choose one favored discipline (exploding die + Edge reroll).",
+      "choices": [
+        { "label": "Ranged", "id": "ranged" },
+        { "label": "Survival", "id": "survival" },
+        { "label": "Skulduggery", "id": "skulduggery" }
+      ]
+    },
+    "biologicalTruth": {
+      "name": "Infrared Vision",
+      "desc": "Your multifaceted eyes see deep into the infrared spectrum, allowing you to operate in near-total darkness and detect heat signatures through thin cover. You ignore concealment from darkness (though not total darkness or solid barriers). At close range, you can distinguish warm-blooded beings from their surroundings even when they are partially hidden — a warm body behind a curtain, a figure crouched in shadow, breath fog in a cold corridor."
+    },
+    "speciesTrait": {
+      "name": "The Hunt",
+      "desc": "When you declare a specific individual as your quarry (a named NPC, a specific bounty target, or a clearly identified enemy), all Survival checks to track that quarry and all Investigation checks to gather information about them are [Optimized] for the remainder of the session or until the quarry is captured, killed, or escapes off-world. You may only have one active quarry at a time. Declaring a new quarry ends the previous designation. This reflects the Rodian cultural obsession — once a hunt begins, it consumes your focus entirely."
+    },
+    "arenas": { "physique": "D6", "reflex": "D8", "grit": "D6", "wits": "D6", "presence": "D4" },
+    "_aiMeta": {
+      "loreAnchors": [
+        "Infrared Vision — Multifaceted eyes see in darkness and detect heat signatures through thin cover.",
+        "The Hunt — Declaring a quarry grants [Optimized] on all tracking and investigation related to that target for the session.",
+        "Social Bluntness — Rodians are direct, abrasive, and prone to intimidation over diplomacy. Their Presence D4 reflects this."
+      ],
+      "directives": "The character's backstory should center around what they're hunting and why. A Rodian without a quarry is restless, agitated, purposeless — the hunt IS the identity. Frame their social difficulties not as stupidity but as predatory directness; they see social niceties as wasted motion. Their infrared vision should color how they describe the world — they notice heat, movement, and life signs before they notice faces or decorations."
+    }
+  },
+  {
+    "id": "sullustan",
+    "name": "Sullustan",
+    "tagline": "Clever. Cheerful. Never Lost.",
+    "lore": "Sullustans evolved in the labyrinthine cave networks beneath the volcanic surface of Sullust, a world where getting lost meant death and seeing in the dark meant survival. These subterranean origins gave them enormous dark-adapted eyes, an unerring sense of direction, and an almost instinctive understanding of three-dimensional space. When they emerged into galactic civilization, they took to starships the way they once took to caves — as natural environments to navigate at speed. Sullustans are renowned pilots, engineers, and navigators, with the SoroSuub Corporation standing as one of the largest non-Human corporations in the galaxy. In the Western Reaches, Sullustans are the ones you want in the cockpit when the asteroid field closes in, and the ones you want at the cantina table when the mood needs lightening — they're gregarious, pragmatic, and famously fond of practical jokes.",
+    "imageUrl": "/assets/species/sullustan.png",
+    "arenaShift": {
+      "name": "Cave-Born Acuity",
+      "desc": "Wits starts at D8. Physique drops to D4. Brilliant navigators with acute senses, but small-framed and physically fragile."
+    },
+    "favoredDiscipline": {
+      "desc": "Choose one favored discipline (exploding die + Edge reroll).",
+      "choices": [
+        { "label": "Piloting", "id": "piloting" },
+        { "label": "Tech", "id": "tech" },
+        { "label": "Skulduggery", "id": "skulduggery" }
+      ]
+    },
+    "biologicalTruth": {
+      "name": "Darkvision",
+      "desc": "Your large, cave-adapted eyes can see in total darkness. You perceive shapes, depth, and movement with perfect clarity even in the complete absence of light — though you lose color perception in true darkness, seeing only in shades of grey. This is not low-light vision or thermal sensing; you see in the dark the way most beings see in daylight. Sudden bright light can be momentarily overwhelming."
+    },
+    "speciesTrait": {
+      "name": "Spatial Memory",
+      "desc": "You possess a perfect biological sense of direction. Any path you have consciously traveled, you can retrace — even in total darkness, even years later. You always know which direction you are facing and how to get back to where you started, provided you were aware of the journey. If you were unconscious, drugged, or otherwise unaware of how you arrived somewhere, your spatial memory has nothing to work with — you are as lost as anyone else until you reach a location you recognize. Under normal circumstances, a Sullustan simply cannot get lost. This is not a skill; it is how your brain is wired."
+    },
+    "arenas": { "physique": "D4", "reflex": "D6", "grit": "D6", "wits": "D8", "presence": "D6" },
+    "_aiMeta": {
+      "loreAnchors": [
+        "Darkvision — Full vision in total darkness; evolved underground. Color-blind only in absolute dark.",
+        "Spatial Memory — Perfect direction sense; can retrace any consciously traveled path. Cannot be made lost under normal circumstances.",
+        "Gregarious Engineer Culture — Pleasant, joke-loving, pragmatic; SoroSuub Corporation background; natural tinkerers."
+      ],
+      "directives": "The character's backstory should reflect their relationship with enclosed spaces, navigation, and machinery. A Sullustan is most comfortable in a cockpit, a maintenance shaft, or a cave — open skies and wide horizons can feel unsettling (though not debilitating). Their humor should come through as a coping mechanism and social tool. Frame their Western Reaches presence around a ship, a route, or a mechanical problem that needs solving."
+    }
+  },
+  {
+    "id": "cathar",
+    "name": "Cathar",
+    "tagline": "Proud. Fierce. Clawed.",
+    "lore": "The Cathar are a species of feline bipedal humanoids from a wild world of savannas, rough uplands, and vast city-trees carved with the histories of their heroes. Millennia ago, the Mandalorians nearly wiped them out — over ninety percent of the species slaughtered in a single campaign. But the Cathar endured, rebuilt, and by the time of the Galactic Civil War, their world has fully recovered. That genocide is not forgotten; it lives in their clan songs, their carvings, and their refusal to ever be prey again. Cathar are proud, passionate, and moral — they mate for life, fight with everything they have, and hold grudges that outlast starships. In the Western Reaches, a Cathar is the crew member who will not abandon you, will not back down, and will leave claw marks on anything that threatens the people they've claimed as theirs.",
+    "imageUrl": "/assets/species/cathar.png",
+    "arenaShift": {
+      "name": "Feral Tenacity",
+      "desc": "Grit starts at D8. Wits drops to D4. Fierce, passionate, and nearly impossible to put down — but instinct-driven, not analytical."
+    },
+    "favoredDiscipline": {
+      "desc": "Choose one favored discipline (exploding die + Edge reroll).",
+      "choices": [
+        { "label": "Brawl", "id": "brawl" },
+        { "label": "Evasion", "id": "evasion" },
+        { "label": "Athletics", "id": "athletics" }
+      ]
+    },
+    "biologicalTruth": {
+      "name": "Sensitive Hearing",
+      "desc": "Your feline ears are exceptionally acute — sharper than Twi'lek or Human hearing. You can detect whispered conversations at distance, hear footsteps through walls, and pick up on subtle changes in tone that betray a lie or a threat. In quiet environments, you are almost impossible to sneak up on."
+    },
+    "speciesTrait": {
+      "name": "Natural Weapons",
+      "desc": "You possess retractable razor claws — a natural weapon that cannot be taken from you. You are never considered unarmed, even when stripped of all equipment. Unlike standard unarmed strikes, your claws deal lethal slashing damage rather than stun damage. Your claws can also be used to climb with uncanny speed and confidence. (Note: This trait will require an Unarmed weapon card in the system — the Cathar version upgrades damage from stun to lethal.)"
+    },
+    "arenas": { "physique": "D6", "reflex": "D6", "grit": "D8", "wits": "D4", "presence": "D6" },
+    "_aiMeta": {
+      "loreAnchors": [
+        "Natural Weapons — Retractable claws deal lethal damage; never unarmed, even when stripped of equipment.",
+        "Sensitive Hearing — Feline ears detect whispers at distance, footsteps through walls; nearly impossible to sneak up on.",
+        "Passionate Loyalty — Cathar mate for life; their bonds to crew, clan, and cause are absolute. They do not abandon their own."
+      ],
+      "directives": "The character's backstory should reflect the tension between their passionate nature and whatever discipline they've adopted. Cathar Jedi struggle against instinct; Cathar soldiers channel it. The Mandalorian genocide should be a cultural memory — not necessarily a personal trauma at this point in history, but a reason why Cathar never underestimate a threat and never forgive a betrayal. Their claws should be described as part of everyday life — grooming them, sheathing them in polite company, extending them when the situation demands it."
+    }
   }
 ]

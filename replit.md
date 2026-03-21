@@ -40,6 +40,7 @@ A Star Wars TTRPG electronic character sheet and campaign management system buil
 - `data/weapons.json` — weapon definitions (production)
 - `data/weapons_source.json` — raw weapon source (used by Black Market UI)
 - `data/equipment_source.json` — raw gear source (used by Black Market UI)
+- `data/species.json` — 10 species definitions. Original 5: Human, Twi'lek, Wookiee, Duros, Zabrak. Added 5: Kel Dor (Wits D8, no penalty, Force Touched), Togruta (Reflex D8/Physique D4, Pack Hunter initiative swap), Rodian (Reflex D8/Presence D4, The Hunt quarry tracking), Sullustan (Wits D8/Physique D4, Spatial Memory never lost), Cathar (Grit D8/Wits D4, Natural Weapons lethal claws). Each has id, name, tagline, lore, imageUrl, arenaShift, favoredDiscipline, biologicalTruth, speciesTrait, arenas, _aiMeta. Images in `assets/species/` (sourced from SWSE wiki).
 - `data/character-test.json` — dev seed character "Kael Dawnstrider" (loaded by `server/db.js` on startup, always synced to DB). All disciplines at D12 for testing. All 4 vocations at tier 5. Includes phase trio (War Front / Pacification Survivor / Traumatized) and backgroundFavored disciplines. Format matches expanded character data produced by the creation flow.
 - `data/characters.seed.json` — initial character slot names for DB seeding
 - `data/armor.json`, `data/gear.json` (55 items: 28 original + 26 marketplace gear + Holo-Journal across tools/tech/medical/survival/surveillance/communication categories, 15-200cr range), `data/chassis.json` — equipment data
