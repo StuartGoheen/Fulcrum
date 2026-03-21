@@ -1083,13 +1083,17 @@
     "stunSetting": false,
     "cost": 0,
     "innate": true,
-    "trait": null,
+    "trait": {
+      "name": "Desperate Measure",
+      "description": "Bare fists deal stun damage only. Even at full force, an unarmed strike cannot kill — it can only stagger, disorient, or knock unconscious."
+    },
     "gambits": [],
     "tags": [
       "Melee",
       "Unarmed",
       "Brawl"
-    ]
+    ],
+    "stunOnly": true
   },
   {
     "id": "wpn_cathar_claws_01",

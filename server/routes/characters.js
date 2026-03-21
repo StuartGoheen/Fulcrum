@@ -177,6 +177,14 @@ function expandCharacterData(flat) {
     else if (item.source === 'gear') { if (gearIds.indexOf(item.id) === -1) gearIds.push(item.id); }
   });
 
+  const UNARMED_IDS = ['wpn_fists_01', 'wpn_cathar_claws_01'];
+  const hasUnarmed = weaponIds.some(id => UNARMED_IDS.includes(id));
+  if (!hasUnarmed) {
+    const speciesLower = (flat.species || '').toLowerCase();
+    const unarmedId = speciesLower === 'cathar' ? 'wpn_cathar_claws_01' : 'wpn_fists_01';
+    weaponIds.push(unarmedId);
+  }
+
   return {
     name: flat.name || null,
     species: flat.species,

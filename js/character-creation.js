@@ -3090,6 +3090,14 @@
       var p2card = PHASE2_CARDS.find(function (c) { return c.id === state.phase2; });
       var p3card = PHASE3_CARDS.find(function (c) { return c.id === state.phase3; });
 
+      var unarmedId = (state.species === "cathar") ? "wpn_cathar_claws_01" : "wpn_fists_01";
+      var unarmedName = (state.species === "cathar") ? "Cathar Claws" : "Fists";
+      if (!state.startingGear) state.startingGear = [];
+      var hasInnateGear = state.startingGear.some(function(g) { return g.innate; });
+      if (!hasInnateGear) {
+        state.startingGear.push({ id: unarmedId, name: unarmedName, source: "weapon", acquisition: "innate", innate: true, cost: 0 });
+      }
+
       var charData = {
         species:    sp   ? sp.name   : null,
         archetype:  state.charTitle || null,

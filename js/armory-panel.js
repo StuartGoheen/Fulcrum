@@ -231,6 +231,22 @@
     return html;
   }
 
+
+  function _buildStunOnlyTrack(chassisDef) {
+    var tiers = chassisDef.tiers;
+    var html = '<div class="armory-effect-track">';
+    for (var i = 0; i < tiers.length; i++) {
+      var t = tiers[i];
+      html +=
+        '<div class="armory-effect-row">' +
+          '<span class="armory-effect-range">' + _esc(t.range) + '</span>' +
+          '<span class="armory-effect-name">' + _esc(t.label) + '</span>' +
+          '<span class="armory-effect-value">Stun ' + _esc(String(t.stunDamage)) + '</span>' +
+        '</div>';
+    }
+    html += '</div>';
+    return html;
+  }
   function _buildStunBlock(chassisDef) {
     var tiers = chassisDef.tiers;
     var rowsHtml = '';
@@ -475,7 +491,10 @@
       '</div>';
 
     var effectHtml = '';
-    if (weapon.customEffectRows) {
+    var stunHtml = '';
+    if (weapon.stunOnly && chassisDef) {
+      effectHtml = _buildStunOnlyTrack(chassisDef);
+    } else if (weapon.customEffectRows) {
       effectHtml = _buildCustomEffectTrack(weapon.customEffectRows);
     } else if (weapon.customDamage) {
       effectHtml = _buildDamageTrack(weapon.customDamage);
@@ -483,9 +502,7 @@
       var dmg = chassisDef.tiers.map(function (t) { return t.damage; });
       effectHtml = _buildDamageTrack(dmg);
     }
-
-    var stunHtml = '';
-    if (weapon.stunSetting && chassisDef) {
+    if (!weapon.stunOnly && weapon.stunSetting && chassisDef) {
       stunHtml = _buildStunBlock(chassisDef);
     }
 
