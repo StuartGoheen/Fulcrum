@@ -86,7 +86,14 @@
       }
     ],
     "imageUrl": "/assets/vocations/voc_gunslinger.png",
-    "startingItems": [{"id":"merr_sonn_quick_six","name":"Merr-Sonn Quick-Six","cost":325,"source":"weapon"}]
+    "startingItems": [
+      {
+        "id": "wpn_quick_six_01",
+        "name": "Merr-Sonn Quick-Six",
+        "cost": 325,
+        "source": "weapon"
+      }
+    ]
   },
   {
     "id": "voc_shockboxer",
@@ -152,7 +159,14 @@
       }
     ],
     "imageUrl": "/assets/vocations/voc_shockboxer.png",
-    "startingItems": [{"id":"combat_gloves","name":"Combat Gloves","cost":200,"source":"weapon"}]
+    "startingItems": [
+      {
+        "id": "wpn_combat_gloves_01",
+        "name": "Combat Gloves",
+        "cost": 200,
+        "source": "weapon"
+      }
+    ]
   },
   {
     "id": "voc_ghost",
@@ -245,7 +259,20 @@
       }
     ],
     "imageUrl": "/assets/vocations/voc_ghost.png",
-    "startingItems": [{"id":"smoke_grenade","name":"Smoke Grenade","cost":25,"source":"gear"},{"id":"scomp_spiker","name":"Scomp Spiker","cost":20,"source":"gear"}]
+    "startingItems": [
+      {
+        "id": "gear_smoke_grenade_01",
+        "name": "Smoke Grenade",
+        "cost": 25,
+        "source": "gear"
+      },
+      {
+        "id": "gear_scomp_spiker_01",
+        "name": "Scomp Spiker",
+        "cost": 20,
+        "source": "gear"
+      }
+    ]
   },
   {
     "id": "voc_ichor_witch",
@@ -362,7 +389,14 @@
       }
     ],
     "imageUrl": "/assets/vocations/voc_ichor_witch.png",
-    "startingItems": [{"id":"glow_rod","name":"Glow Rod","cost":10,"source":"gear"}]
+    "startingItems": [
+      {
+        "id": "gear_glow_rod_01",
+        "name": "Glow Rod",
+        "cost": 10,
+        "source": "gear"
+      }
+    ]
   },
   {
     "id": "voc_noble",
@@ -472,7 +506,14 @@
       }
     ],
     "imageUrl": "/assets/vocations/voc_noble.png",
-    "startingItems": [{"id":"pocket_secretary","name":"Pocket Secretary","cost":150,"source":"gear"}]
+    "startingItems": [
+      {
+        "id": "gear_pocket_secretary_01",
+        "name": "Pocket Secretary",
+        "cost": 150,
+        "source": "gear"
+      }
+    ]
   },
   {
     "id": "voc_investigator",
@@ -559,7 +600,20 @@
       }
     ],
     "imageUrl": "/assets/vocations/voc_investigator.png",
-    "startingItems": [{"id":"recording_rod","name":"Recording Rod","cost":30,"source":"gear"},{"id":"macro_binoculars","name":"Macro-binoculars","cost":100,"source":"gear"}]
+    "startingItems": [
+      {
+        "id": "gear_recording_rod_01",
+        "name": "Recording Rod",
+        "cost": 30,
+        "source": "gear"
+      },
+      {
+        "id": "gear_macrobinoculars_01",
+        "name": "Macro-binoculars",
+        "cost": 100,
+        "source": "gear"
+      }
+    ]
   },
   {
     "id": "voc_seer",
@@ -680,7 +734,20 @@
       }
     ],
     "imageUrl": "/assets/vocations/voc_seer.png",
-    "startingItems": [{"id":"glow_rod","name":"Glow Rod","cost":10,"source":"gear"},{"id":"holo_journal","name":"Holo-Journal","cost":75,"source":"gear"}]
+    "startingItems": [
+      {
+        "id": "gear_glow_rod_01",
+        "name": "Glow Rod",
+        "cost": 10,
+        "source": "gear"
+      },
+      {
+        "id": "gear_holo_journal_01",
+        "name": "Holo-Journal",
+        "cost": 75,
+        "source": "gear"
+      }
+    ]
   },
   {
     "id": "voc_altus_sopor",
@@ -796,7 +863,14 @@
       }
     ],
     "imageUrl": "/assets/vocations/voc_altus_sopor.png",
-    "startingItems": [{"id":"glow_rod","name":"Glow Rod","cost":10,"source":"gear"}]
+    "startingItems": [
+      {
+        "id": "gear_glow_rod_01",
+        "name": "Glow Rod",
+        "cost": 10,
+        "source": "gear"
+      }
+    ]
   },
   {
     "id": "voc_telekinetic_savant",
@@ -922,7 +996,14 @@
       }
     ],
     "imageUrl": "/assets/vocations/voc_telekinetic_savant.png",
-    "startingItems": [{"id":"glow_rod","name":"Glow Rod","cost":10,"source":"gear"}]
+    "startingItems": [
+      {
+        "id": "gear_glow_rod_01",
+        "name": "Glow Rod",
+        "cost": 10,
+        "source": "gear"
+      }
+    ]
   },
   {
     "id": "voc_duelist",
@@ -1016,7 +1097,14 @@
       }
     ],
     "imageUrl": "/assets/vocations/voc_duelist.png",
-    "startingItems": [{"id":"wpn_vibrorapier_01","name":"Duelist Vibrorapier","cost":300,"source":"weapon"}]
+    "startingItems": [
+      {
+        "id": "wpn_vibrorapier_01",
+        "name": "Duelist Vibrorapier",
+        "cost": 300,
+        "source": "weapon"
+      }
+    ]
   },
   {
     "id": "voc_blade_dancer",
@@ -1085,6 +1173,19 @@
       }
     ],
     "imageUrl": "/assets/vocations/voc_blade_dancer.png",
-    "startingItems": [{"id":"wpn_vibroblade_01","name":"Vibroblade","cost":250,"source":"weapon"},{"id":"wpn_vibroblade_01","name":"Vibroblade","cost":250,"source":"weapon"}]
+    "startingItems": [
+      {
+        "id": "wpn_vibroblade_01",
+        "name": "Vibroblade",
+        "cost": 250,
+        "source": "weapon"
+      },
+      {
+        "id": "wpn_vibroblade_01",
+        "name": "Vibroblade",
+        "cost": 250,
+        "source": "weapon"
+      }
+    ]
   }
 ]

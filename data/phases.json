@@ -8,13 +8,13 @@
       "narrative": "You grew up where the Empire's reach frays to nothing — twin suns bleaching everything pale, the nearest starport a week's ride out. Self-reliance isn't a virtue here; it's the only thing keeping you breathing. The galaxy owes you nothing, and that truth made you dangerous.",
       "backgroundItems": [
         {
-          "id": "breath_mask",
+          "id": "gear_breath_mask_01",
           "name": "Breath Mask",
           "cost": 50,
           "source": "gear"
         },
         {
-          "id": "thermal_cloak",
+          "id": "gear_thermal_cloak_01",
           "name": "Thermal Cloak",
           "cost": 300,
           "source": "gear"
@@ -48,13 +48,13 @@
       "narrative": "You were raised in the underlevels — where the lights of the upper city are just a rumor and debts are paid in blood or service. You learned to read people before you could read a holomap, and you know that every deal has a hidden clause. Trust is a currency you spend carefully.",
       "backgroundItems": [
         {
-          "id": "disguise_kit",
+          "id": "gear_disguise_kit_01",
           "name": "Disguise Kit",
           "cost": 250,
           "source": "gear"
         },
         {
-          "id": "smoke_grenade",
+          "id": "gear_smoke_grenade_01",
           "name": "Smoke Grenade",
           "cost": 25,
           "source": "gear"
@@ -88,13 +88,13 @@
       "narrative": "Every ship that flies was once someone's wreck. You grew up knee-deep in that wreckage — pulling circuits from crashed freighters, selling scrap to keep the lights on. Machines tell you their secrets if you know how to listen. You've built survival from the galaxy's trash.",
       "backgroundItems": [
         {
-          "id": "hydrospanner",
+          "id": "gear_hydrospanner_01",
           "name": "Hydrospanner",
           "cost": 50,
           "source": "gear"
         },
         {
-          "id": "fusion_cutter",
+          "id": "gear_fusion_cutter_01",
           "name": "Fusion Cutter",
           "cost": 75,
           "source": "gear"
@@ -127,13 +127,13 @@
       "narrative": "You had everything the Empire promised — spires that touched the clouds, an education that opened doors, and a family name worth something. Then you saw what that system cost the rest of the galaxy. Some fled privilege in guilt; others were pushed out when their usefulness expired.",
       "backgroundItems": [
         {
-          "id": "datapad",
+          "id": "gear_datapad_01",
           "name": "Datapad",
           "cost": 50,
           "source": "gear"
         },
         {
-          "id": "pocket_secretary",
+          "id": "gear_pocket_secretary_01",
           "name": "Pocket Secretary",
           "cost": 150,
           "source": "gear"
@@ -167,19 +167,19 @@
       "narrative": "You come from working land — rows of crops, communal tables, and seasons that ruled your calendar. Your community survived by cooperation and quiet resilience. The Empire took the harvest and left the labor. That memory of something worth protecting is why you fight.",
       "backgroundItems": [
         {
-          "id": "field_rations",
+          "id": "gear_field_rations_01",
           "name": "Field Rations",
           "cost": 10,
           "source": "gear"
         },
         {
-          "id": "syntherope",
+          "id": "gear_syntherope_01",
           "name": "Syntherope",
           "cost": 10,
           "source": "gear"
         },
         {
-          "id": "gear_bag",
+          "id": "gear_gear_bag_01",
           "name": "Gear Bag",
           "cost": 50,
           "source": "gear"
@@ -213,19 +213,19 @@
       "narrative": "Peace is something other people talk about. You grew up in the sound of it — distant artillery, rationed water, the faces of soldiers cycling through. War was the weather of your childhood. You learned to read threat before you learned to read a face. You are very, very hard to surprise.",
       "backgroundItems": [
         {
-          "id": "comlink",
+          "id": "gear_comlink_basic_01",
           "name": "Comlink",
           "cost": 50,
           "source": "gear"
         },
         {
-          "id": "bacta_patch",
+          "id": "gear_bacta_patch_01",
           "name": "Bacta Patch",
           "cost": 20,
           "source": "gear"
         },
         {
-          "id": "smoke_grenade",
+          "id": "gear_smoke_grenade_01",
           "name": "Smoke Grenade",
           "cost": 25,
           "source": "gear"
@@ -259,19 +259,19 @@
       "narrative": "Your home was built on something older — crumbled temples, inscriptions no living scholar could read, and a persistent feeling that the air itself was watching. You grew up chasing questions no one could answer. Whatever the old civilization left behind, a fragment of it lodged in you.",
       "backgroundItems": [
         {
-          "id": "glow_rod",
+          "id": "gear_glow_rod_01",
           "name": "Glow Rod",
           "cost": 10,
           "source": "gear"
         },
         {
-          "id": "recording_rod",
+          "id": "gear_recording_rod_01",
           "name": "Recording Rod",
           "cost": 30,
           "source": "gear"
         },
         {
-          "id": "macro_binoculars",
+          "id": "gear_macrobinoculars_01",
           "name": "Macro-binoculars",
           "cost": 100,
           "source": "gear"
@@ -305,19 +305,19 @@
       "narrative": "Where routes cross, everything flows — goods, gossip, fugitives, and opportunity. You grew up at the intersection, learning a dozen languages before adulthood and the art of the deal before you could pilot. You know that information is the most valuable cargo in the galaxy.",
       "backgroundItems": [
         {
-          "id": "comlink",
+          "id": "gear_comlink_basic_01",
           "name": "Comlink",
           "cost": 50,
           "source": "gear"
         },
         {
-          "id": "datapad",
+          "id": "gear_datapad_01",
           "name": "Datapad",
           "cost": 50,
           "source": "gear"
         },
         {
-          "id": "wrist_chronometer",
+          "id": "gear_wrist_chrono_01",
           "name": "Wrist Chronometer",
           "cost": 50,
           "source": "gear"
@@ -351,13 +351,13 @@
       "narrative": "You were born into a cage — not always made of durasteel. Labor camp, indentured service, political imprisonment, or simply the wrong bloodline at the wrong time. The Empire taught you exactly what it was through direct experience. Freedom, when it came, felt like a weapon handed to you.",
       "backgroundItems": [
         {
-          "id": "binders",
+          "id": "gear_binders_01",
           "name": "Binders",
           "cost": 50,
           "source": "gear"
         },
         {
-          "id": "stimulant_tabs",
+          "id": "gear_stimulant_tabs_01",
           "name": "Stimulant Tabs",
           "cost": 20,
           "source": "gear"
@@ -391,19 +391,19 @@
       "narrative": "You were born between jumps, raised in the hold of a freighter, and taught to read a navcomputer before you could read Basic. Ships aren't transportation to you — they're the only home you've ever had. The stars don't frighten you. The ground does.",
       "backgroundItems": [
         {
-          "id": "hydrospanner",
+          "id": "gear_hydrospanner_01",
           "name": "Hydrospanner",
           "cost": 50,
           "source": "gear"
         },
         {
-          "id": "comlink",
+          "id": "gear_comlink_basic_01",
           "name": "Comlink",
           "cost": 50,
           "source": "gear"
         },
         {
-          "id": "breath_mask",
+          "id": "gear_breath_mask_01",
           "name": "Breath Mask",
           "cost": 50,
           "source": "gear"
@@ -437,19 +437,19 @@
       "narrative": "You were a number on a corporate extraction ledger. Whether conscripted, sold into indentured service, or simply born on the wrong side of a mining contract, you spent your formative years breaking your back for quotas that were never going to be met. Your body knows pain. Your mind knows how to keep going anyway.",
       "backgroundItems": [
         {
-          "id": "rock_boots",
+          "id": "gear_rock_boots_01",
           "name": "Rock Boots",
           "cost": 50,
           "source": "gear"
         },
         {
-          "id": "power_prybar",
+          "id": "gear_power_prybar_01",
           "name": "Power Prybar",
           "cost": 30,
           "source": "gear"
         },
         {
-          "id": "syntherope",
+          "id": "gear_syntherope_01",
           "name": "Syntherope",
           "cost": 10,
           "source": "gear"
@@ -483,19 +483,19 @@
       "narrative": "You were raised inside something closed — a religious order, a hidden commune, a survivalist sect, or the remnant of an ancient tradition that survived by going silent. Inside, there was belonging and purpose. Outside was danger. When you finally crossed the threshold, the galaxy felt enormous and hostile in equal measure.",
       "backgroundItems": [
         {
-          "id": "glow_rod",
+          "id": "gear_glow_rod_01",
           "name": "Glow Rod",
           "cost": 10,
           "source": "gear"
         },
         {
-          "id": "mem_stik",
+          "id": "gear_mem_stik_01",
           "name": "Mem-Stik",
           "cost": 50,
           "source": "gear"
         },
         {
-          "id": "gear_bag",
+          "id": "gear_gear_bag_01",
           "name": "Gear Bag",
           "cost": 50,
           "source": "gear"
@@ -531,13 +531,13 @@
       "narrative": "You fought for the Galactic Republic or a localized planetary defense force. You bled in the mud alongside Clone Troopers to hold the line against the droid army. But when the war ended, the Republic became the Empire. Your unit was either forcibly decommissioned, replaced by conscripted stormtroopers, or folded into a fascist machine you refused to serve.",
       "backgroundItems": [
         {
-          "id": "comlink",
+          "id": "gear_comlink_basic_01",
           "name": "Comlink",
           "cost": 50,
           "source": "gear"
         },
         {
-          "id": "combat_jumpsuit",
+          "id": "arm_combat_jumpsuit_01",
           "name": "Combat Jumpsuit",
           "cost": 300,
           "source": "armor"
@@ -566,13 +566,13 @@
       "narrative": "You fought for the Confederacy of Independent Systems. You believed in independence from a corrupt Core, but you lost the war. Now, the new Empire labels you a terrorist. You spent the last three years hiding your past, keeping old Separatist tech running with scavenged parts, and maintaining a deep, burning hatred for the stormtroopers occupying your world.",
       "backgroundItems": [
         {
-          "id": "field_toolkit",
+          "id": "gear_field_toolkit_01",
           "name": "Field Toolkit",
           "cost": 250,
           "source": "gear"
         },
         {
-          "id": "scomp_spiker",
+          "id": "gear_scomp_spiker_01",
           "name": "Scomp Spiker",
           "cost": 20,
           "source": "gear"
@@ -601,13 +601,13 @@
       "narrative": "You bought the Emperor's lies about peace and order. You enlisted in the new Imperial Academies and were shipped out to the Western Regions. But when you saw the sheer brutality of the Pacification Campaigns — the burning of settlements and the subjugation of innocents — your conscience broke. You went AWOL, taking their training and their secrets with you.",
       "backgroundItems": [
         {
-          "id": "datapad",
+          "id": "gear_datapad_01",
           "name": "Datapad",
           "cost": 50,
           "source": "gear"
         },
         {
-          "id": "heavy_jacket",
+          "id": "arm_heavy_jacket_01",
           "name": "Heavy Jacket",
           "cost": 50,
           "source": "armor"
@@ -636,13 +636,13 @@
       "narrative": "The Clone Wars were a tragedy for some, but a business opportunity for you. You spent the war running food, weapons, and medical supplies past massive Republic cruisers and Separatist blockades. You learned how to fly a freighter like a starfighter, how to lie to military customs officers, and how to dump your cargo at the first sign of a tractor beam.",
       "backgroundItems": [
         {
-          "id": "breath_mask",
+          "id": "gear_breath_mask_01",
           "name": "Breath Mask",
           "cost": 50,
           "source": "gear"
         },
         {
-          "id": "comlink",
+          "id": "gear_comlink_basic_01",
           "name": "Comlink",
           "cost": 50,
           "source": "gear"
@@ -671,13 +671,13 @@
       "narrative": "You didn't care about the Republic or the Separatists until the new Empire arrived in the Western Regions to \"pacify\" your home. You watched your settlement burn and your leaders get executed. You fled into the wilderness and learned to fight a desperate, asymmetrical guerrilla war against AT-DP walkers and Imperial garrisons using only traps, shadows, and scavenged blasters.",
       "backgroundItems": [
         {
-          "id": "thermal_cloak",
+          "id": "gear_thermal_cloak_01",
           "name": "Thermal Cloak",
           "cost": 300,
           "source": "gear"
         },
         {
-          "id": "bacta_patch",
+          "id": "gear_bacta_patch_01",
           "name": "Bacta Patch",
           "cost": 20,
           "source": "gear"
@@ -706,13 +706,13 @@
       "narrative": "The Clone Wars produced billions of casualties. You found your calling in the blood and the mud, patching up soldiers, mercenaries, and collateral civilians. You learned how to dig plasma-scorched shrapnel out of flesh with cheap tools, how to keep your hands steady while artillery shakes the ground, and how to make horrific triage choices.",
       "backgroundItems": [
         {
-          "id": "medpac",
+          "id": "gear_medpac_01",
           "name": "Medpac",
           "cost": 100,
           "source": "gear"
         },
         {
-          "id": "stim_pack",
+          "id": "gear_stim_pack_01",
           "name": "Stim Pack",
           "cost": 150,
           "source": "gear"
@@ -741,13 +741,13 @@
       "narrative": "The galactic war was just a distraction. While the Jedi and the Droid Armies fought, the underworld syndicates expanded their empires. You spent the last few years working for the Hutts, the Pykes, or the Crimson Dawn. You learned how to collect debts, how to take a hit from a vibro-blade, and how to project enough quiet menace to make people pay up without a fight.",
       "backgroundItems": [
         {
-          "id": "combat_gloves",
+          "id": "wpn_combat_gloves_01",
           "name": "Combat Gloves",
           "cost": 200,
           "source": "weapon"
         },
         {
-          "id": "binders",
+          "id": "gear_binders_01",
           "name": "Binders",
           "cost": 50,
           "source": "gear"
@@ -776,13 +776,13 @@
       "narrative": "The end of the war created millions of refugees, deserters, and war criminals. The Empire and the Syndicates both put out massive bounties to clean up the mess. You took the hunter's creed, learning how to track a quarry across a dozen chaotic, war-torn star systems, and how to put a blaster bolt exactly where it needs to go to secure a live capture.",
       "backgroundItems": [
         {
-          "id": "macro_binoculars",
+          "id": "gear_macrobinoculars_01",
           "name": "Macro-binoculars",
           "cost": 100,
           "source": "gear"
         },
         {
-          "id": "syntherope",
+          "id": "gear_syntherope_01",
           "name": "Syntherope",
           "cost": 10,
           "source": "gear"
@@ -811,13 +811,13 @@
       "narrative": "Order 66 didn't just target the Jedi; the Empire immediately outlawed dozens of religions, academic orders, and political factions. You were part of a group that was declared treasonous the day the Empire was born. For three years, you have survived by hiding your true nature, trusting your instincts over your eyes, and learning how to disappear into a crowd.",
       "backgroundItems": [
         {
-          "id": "disguise_kit",
+          "id": "gear_disguise_kit_01",
           "name": "Disguise Kit",
           "cost": 250,
           "source": "gear"
         },
         {
-          "id": "stimulant_tabs",
+          "id": "gear_stimulant_tabs_01",
           "name": "Stimulant Tabs",
           "cost": 20,
           "source": "gear"
@@ -846,13 +846,13 @@
       "narrative": "Something catastrophic happened — a ship destroyed, a convoy ambushed, a convoy gone silent in the void. You were one of the only survivors, dragged out of the debris by luck or will alone. The wreck changed the trajectory of everything. What you lost there is still with you.",
       "backgroundItems": [
         {
-          "id": "bacta_patch",
+          "id": "gear_bacta_patch_01",
           "name": "Bacta Patch",
           "cost": 20,
           "source": "gear"
         },
         {
-          "id": "fusion_cutter",
+          "id": "gear_fusion_cutter_01",
           "name": "Fusion Cutter",
           "cost": 75,
           "source": "gear"
@@ -881,13 +881,13 @@
       "narrative": "You climbed. Whether through the Imperial ranks, a corporate hierarchy, or a criminal syndicate's chain of command, you earned real power — and then burned it all down on your way out. You know how institutions work from the inside. You know exactly where the cracks are.",
       "backgroundItems": [
         {
-          "id": "datapad",
+          "id": "gear_datapad_01",
           "name": "Datapad",
           "cost": 50,
           "source": "gear"
         },
         {
-          "id": "comlink",
+          "id": "gear_comlink_basic_01",
           "name": "Comlink",
           "cost": 50,
           "source": "gear"
@@ -916,13 +916,13 @@
       "narrative": "Someone you trusted set you up. A partner, a commanding officer, a patron — someone who smiled while selling you out. You survived what they arranged for you, and now you carry two things everywhere: the lesson, and the debt. Trust is not something you give freely anymore.",
       "backgroundItems": [
         {
-          "id": "vibroblade",
+          "id": "wpn_vibroblade_01",
           "name": "Vibroblade",
           "cost": 250,
           "source": "weapon"
         },
         {
-          "id": "tox_detector",
+          "id": "gear_tox_detector_01",
           "name": "Tox Detector",
           "cost": 20,
           "source": "gear"
