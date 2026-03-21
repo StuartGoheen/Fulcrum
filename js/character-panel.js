@@ -732,6 +732,10 @@
     enumerable: true,
   });
 
+  window.CharacterPanel.refreshFront = function () {
+    _refreshFront();
+  };
+
   window.CharacterPanel.getArenaTrauma = function () {
     var copy = {};
     for (var k in _arenaTrauma) {

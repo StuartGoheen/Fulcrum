@@ -622,6 +622,7 @@
     _persist();
     _persistDice({ type: 'discipline', id: disc.id, newDie: newDie });
     document.dispatchEvent(new CustomEvent('character:stateChanged'));
+    if (window.CharacterPanel && window.CharacterPanel.refreshFront) window.CharacterPanel.refreshFront();
     _render();
   }
 
@@ -656,6 +657,7 @@
     _persist();
     _persistDice({ type: 'arena', id: arena.id, newDie: newDie });
     document.dispatchEvent(new CustomEvent('character:stateChanged'));
+    if (window.CharacterPanel && window.CharacterPanel.refreshFront) window.CharacterPanel.refreshFront();
     _render();
   }
 
@@ -837,6 +839,11 @@
       _charId = char.id || null;
       _advancement = char.advancement || {};
       _ensureDefaults();
+
+      var panel5 = document.getElementById('panel-5');
+      if (panel5 && panel5.offsetParent !== null) {
+        _panelVisible = true;
+      }
 
       if (_panelVisible) _render();
       _initialized = true;
