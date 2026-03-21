@@ -1420,7 +1420,7 @@
       },
       {
         heading: 'Discipline Track',
-        body: 'A 5-box track. Each box costs (Track Level × 1) Marks. Clearing the track earns 1 Elite Token, then the track resets at the next level.',
+        body: 'A 5-box track. Each box costs (Track Level \u00d7 1) Marks. Clearing the track earns 1 Advance + 1 Elite Token, then the track resets at the next level.',
         list: [
           'D6 → D8: 1 Advance (soft cap).',
           'D8 → D10: 1 Advance + 1 Elite Token.',
@@ -1440,14 +1440,13 @@
         ]
       },
       {
-        heading: 'Vocation Tiers',
-        body: 'Unlock higher Vocation tiers by spending Marks directly, gated by your Favored Discipline die.',
+        heading: 'Vocation Track',
+        body: 'A 5-box pip track. Each box costs (Track Level \u00d7 3) Marks. Clearing the track earns 1 Advance (no Elite Tokens). Spend 1 Advance to bump any eligible vocation up 1 tier, gated by Favored Discipline die.',
         list: [
-          'Tier 2: 6 Marks (req. Discipline D6).',
-          'Tier 3: 9 Marks (req. Discipline D8).',
-          'Tier 4: 12 Marks (req. Discipline D10).',
-          'Tier 5: 15 Marks (req. Discipline D12).',
-          'Discipline Gate: Your Favored Discipline die caps the maximum Vocation tier.'
+          'D4: Max Tier 1 \u2022 D6: Max Tier 2 \u2022 D8: Max Tier 3.',
+          'D10: Max Tier 4 \u2022 D12: Max Tier 5.',
+          'Discipline Gate: Your Favored Discipline die caps the maximum Vocation tier.',
+          'Advances can be spent between adventures to bump any eligible vocation.'
         ]
       }
     ];
@@ -1459,7 +1458,7 @@
       rule: 'Marks are earned through narrative triggers during play and spent on three advancement tracks: Discipline, Arena, and Vocation. Open the Advancement panel on your character sheet to track progress.',
       richSections: richSections,
       _providerType: 'rule',
-      _searchText: _buildSearchText(['marks', 'advancement', 'discipline track', 'arena track', 'vocation tier', 'elite token', 'focus burn', 'apex rule', 'earning marks'])
+      _searchText: _buildSearchText(['marks', 'advancement', 'discipline track', 'arena track', 'vocation track', 'vocation tier', 'elite token', 'focus burn', 'apex rule', 'earning marks'])
     };
   }
 

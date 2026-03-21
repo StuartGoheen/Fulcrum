@@ -52,7 +52,7 @@
 
   var DISC_TRACK_SIZE = 5;
   var ARENA_TRACK_SIZE = 3;
-  var VOCATION_TIER_COSTS = [0, 0, 6, 9, 12, 15];
+  var VOC_TRACK_SIZE = 5;
   var DISC_GATE = { D4: 1, D6: 2, D8: 3, D10: 4, D12: 5 };
 
   var _charId = null;
@@ -119,6 +119,18 @@
     return count;
   }
 
+  function _ensureDefaults() {
+    if (!_advancement) _advancement = {};
+    if (!_advancement.marks) _advancement.marks = { earnedChecks: {}, totalBanked: 0 };
+    if (!_advancement.disciplineTrack) _advancement.disciplineTrack = { level: 2, filled: 0, eliteTokens: 0, focusBurns: 0, unspentAdvances: 0 };
+    if (_advancement.disciplineTrack.unspentAdvances === undefined) _advancement.disciplineTrack.unspentAdvances = 0;
+    if (!_advancement.arenaTrack) _advancement.arenaTrack = { level: 2, filled: 0, unspentAdvances: 0 };
+    if (_advancement.arenaTrack.unspentAdvances === undefined) _advancement.arenaTrack.unspentAdvances = 0;
+    if (!_advancement.vocationTrack) _advancement.vocationTrack = { level: 2, filled: 0, unspentAdvances: 0 };
+    if (_advancement.vocationTrack.unspentAdvances === undefined) _advancement.vocationTrack.unspentAdvances = 0;
+    if (!_advancement.vocationUnlocks) _advancement.vocationUnlocks = {};
+  }
+
   function _buildMarkChecklist() {
     var checks = (_advancement && _advancement.marks) ? (_advancement.marks.earnedChecks || {}) : {};
     var html = '';
@@ -158,143 +170,139 @@
     return html;
   }
 
-  function _buildDisciplineTrack() {
-    var dt = _advancement ? _advancement.disciplineTrack : { level: 1, filled: 0, eliteTokens: 0, focusBurns: 0 };
-    var costPerBox = dt.level;
-    var totalTrackCost = costPerBox * DISC_TRACK_SIZE;
-    var banked = (_advancement && _advancement.marks) ? (_advancement.marks.totalBanked || 0) : 0;
-    var canFocusBurn = banked >= costPerBox;
+  function _buildPipTrack(trackKey, trackObj, trackSize, costMult, label, extraAfterPips) {
+    var costPerBox = trackObj.level * costMult;
+    var totalTrackCost = costPerBox * trackSize;
+    var unspent = trackObj.unspentAdvances || 0;
+    var pipShape = trackKey === 'disc' ? ' adv-pip--disc' : ' adv-pip--square';
     var html = '';
     html += '<div class="adv-track-section">';
     html += '<div class="adv-track-header">';
-    html += '<span class="adv-track-title">Discipline Track</span>';
-    html += '<span class="adv-track-meta">Track ' + dt.level + ' \u2022 ' + costPerBox + ' Mark' + (costPerBox > 1 ? 's' : '') + '/box \u2022 ' + totalTrackCost + ' to clear</span>';
+    html += '<span class="adv-track-title">' + _esc(label) + '</span>';
+    html += '<span class="adv-track-meta">Track ' + trackObj.level + ' \u2022 ' + costPerBox + ' Mark' + (costPerBox > 1 ? 's' : '') + '/box \u2022 ' + totalTrackCost + ' to clear</span>';
     html += '</div>';
 
     html += '<div class="adv-track-pips">';
-    for (var i = 0; i < DISC_TRACK_SIZE; i++) {
-      var filled = i < dt.filled ? ' adv-pip--filled' : '';
-      html += '<span class="adv-pip adv-pip--disc' + filled + '" data-track="disc" data-index="' + i + '"></span>';
+    for (var i = 0; i < trackSize; i++) {
+      var filled = i < trackObj.filled ? ' adv-pip--filled' : '';
+      html += '<span class="adv-pip' + pipShape + filled + '" data-track="' + trackKey + '" data-index="' + i + '"></span>';
     }
     html += '</div>';
 
     html += '<div class="adv-track-stats">';
-    html += '<span class="adv-stat"><b>Advances Earned:</b> ' + dt.filled + '/' + DISC_TRACK_SIZE + '</span>';
-    html += '<span class="adv-stat adv-stat--elite"><b>Elite Tokens:</b> ' + (dt.eliteTokens || 0) + '</span>';
-    html += '<span class="adv-stat"><b>Focus Burns:</b> ' + (dt.focusBurns || 0) + '</span>';
+    html += '<span class="adv-stat"><b>Filled:</b> ' + trackObj.filled + '/' + trackSize + '</span>';
+    if (unspent > 0) {
+      html += '<span class="adv-stat adv-stat--advances"><b>Unspent Advances:</b> ' + unspent + '</span>';
+    }
     html += '</div>';
 
-    html += '<div class="adv-track-actions">';
-    html += '<button class="adv-btn adv-btn--focus' + (canFocusBurn ? '' : ' adv-btn--disabled') + '" id="adv-focus-burn-btn" title="Pay ' + costPerBox + ' Mark(s), skip die upgrade, gain progress toward Elite Token"' + (canFocusBurn ? '' : ' disabled') + '>Focus Burn (' + costPerBox + 'M)</button>';
-    html += '</div>';
+    if (unspent > 0) {
+      html += '<div class="adv-track-actions">';
+      html += '<button class="adv-btn adv-btn--spend" data-spend-track="' + trackKey + '">Spend Advance</button>';
+      html += '</div>';
+    }
 
-    html += '<div class="adv-track-ref">';
-    html += '<div class="adv-ref-title">Discipline Die Costs</div>';
-    html += '<div class="adv-ref-row">D6 \u2192 D8: 1 Advance (soft cap)</div>';
-    html += '<div class="adv-ref-row">D8 \u2192 D10: 1 Advance + 1 Elite Token</div>';
-    html += '<div class="adv-ref-row">D10 \u2192 D12: 1 Advance + 2 Elite Tokens</div>';
-    html += '<div class="adv-ref-row adv-ref-note">Focus Burn: Pay Mark cost, skip die upgrade, accelerate toward Elite Token.</div>';
-    html += '</div>';
+    if (extraAfterPips) html += extraAfterPips;
 
     html += '</div>';
     return html;
+  }
+
+  function _buildDisciplineTrack() {
+    var dt = _advancement.disciplineTrack;
+    var costPerBox = dt.level;
+    var banked = (_advancement.marks) ? (_advancement.marks.totalBanked || 0) : 0;
+    var canFocusBurn = banked >= costPerBox;
+
+    var extra = '';
+    extra += '<div class="adv-track-stats">';
+    extra += '<span class="adv-stat adv-stat--elite"><b>Elite Tokens:</b> ' + (dt.eliteTokens || 0) + '</span>';
+    extra += '<span class="adv-stat"><b>Focus Burns:</b> ' + (dt.focusBurns || 0) + '</span>';
+    extra += '</div>';
+
+    extra += '<div class="adv-track-actions">';
+    extra += '<button class="adv-btn adv-btn--focus' + (canFocusBurn ? '' : ' adv-btn--disabled') + '" id="adv-focus-burn-btn" title="Pay ' + costPerBox + ' Mark(s), skip die upgrade, gain progress toward Elite Token"' + (canFocusBurn ? '' : ' disabled') + '>Focus Burn (' + costPerBox + 'M)</button>';
+    extra += '</div>';
+
+    extra += '<div class="adv-track-ref">';
+    extra += '<div class="adv-ref-title">Discipline Die Costs</div>';
+    extra += '<div class="adv-ref-row">D6 \u2192 D8: 1 Advance</div>';
+    extra += '<div class="adv-ref-row">D8 \u2192 D10: 1 Advance + 1 Elite Token</div>';
+    extra += '<div class="adv-ref-row">D10 \u2192 D12: 1 Advance + 2 Elite Tokens</div>';
+    extra += '<div class="adv-ref-row adv-ref-note">Focus Burn: Pay Mark cost, skip die upgrade, accelerate toward Elite Token.</div>';
+    extra += '</div>';
+
+    return _buildPipTrack('disc', dt, DISC_TRACK_SIZE, 1, 'Discipline Track', extra);
   }
 
   function _buildArenaTrack() {
-    var at = _advancement ? _advancement.arenaTrack : { level: 1, filled: 0 };
-    var costPerBox = at.level * 3;
-    var totalTrackCost = costPerBox * ARENA_TRACK_SIZE;
+    var at = _advancement.arenaTrack;
     var d12Count = _countD12Arenas();
     var apexWarning = d12Count >= 1;
-    var html = '';
-    html += '<div class="adv-track-section">';
-    html += '<div class="adv-track-header">';
-    html += '<span class="adv-track-title">Arena Track</span>';
-    html += '<span class="adv-track-meta">Track ' + at.level + ' \u2022 ' + costPerBox + ' Marks/box \u2022 ' + totalTrackCost + ' to clear</span>';
-    html += '</div>';
 
-    html += '<div class="adv-track-pips">';
-    for (var i = 0; i < ARENA_TRACK_SIZE; i++) {
-      var filled = i < at.filled ? ' adv-pip--filled' : '';
-      html += '<span class="adv-pip adv-pip--arena' + filled + '" data-track="arena" data-index="' + i + '"></span>';
-    }
-    html += '</div>';
-
-    html += '<div class="adv-track-stats">';
-    html += '<span class="adv-stat"><b>Advances Earned:</b> ' + at.filled + '/' + ARENA_TRACK_SIZE + '</span>';
-    html += '</div>';
-
+    var extra = '';
     if (apexWarning) {
-      html += '<div class="adv-apex-warning">\u26A0 Apex Rule Active: You already have an Arena at D12. Pushing another to D12 will degrade the first to D10.</div>';
+      extra += '<div class="adv-apex-warning">\u26A0 Apex Rule Active: You already have an Arena at D12. Pushing another to D12 will degrade the first to D10.</div>';
     }
 
-    html += '<div class="adv-track-ref">';
-    html += '<div class="adv-ref-title">Arena Die Costs</div>';
-    html += '<div class="adv-ref-row">D4 \u2192 D6 (Fixing a Flaw): 2 Advances</div>';
-    html += '<div class="adv-ref-row">D6 \u2192 D8: 1 Advance</div>';
-    html += '<div class="adv-ref-row">D8 \u2192 D10: 3 Advances</div>';
-    html += '<div class="adv-ref-row">D10 \u2192 D12 (Master): 5 Advances</div>';
-    html += '<div class="adv-ref-row adv-ref-note">Apex Rule: Only one Arena may be at D12. Pushing a second degrades the first to D10.</div>';
-    html += '</div>';
+    extra += '<div class="adv-track-ref">';
+    extra += '<div class="adv-ref-title">Arena Die Costs</div>';
+    extra += '<div class="adv-ref-row">D4 \u2192 D6 (Fixing a Flaw): 2 Advances</div>';
+    extra += '<div class="adv-ref-row">D6 \u2192 D8: 1 Advance</div>';
+    extra += '<div class="adv-ref-row">D8 \u2192 D10: 3 Advances</div>';
+    extra += '<div class="adv-ref-row">D10 \u2192 D12 (Master): 5 Advances</div>';
+    extra += '<div class="adv-ref-row adv-ref-note">Apex Rule: Only one Arena may be at D12. Pushing a second degrades the first to D10.</div>';
+    extra += '</div>';
 
-    html += '</div>';
-    return html;
+    return _buildPipTrack('arena', at, ARENA_TRACK_SIZE, 3, 'Arena Track', extra);
   }
 
   function _buildVocationTrack() {
-    var unlocks = (_advancement ? _advancement.vocationUnlocks : {}) || {};
+    var vt = _advancement.vocationTrack;
+    var unlocks = _advancement.vocationUnlocks || {};
     var kits = (_char && _char.kits) ? _char.kits : [];
-    var banked = (_advancement && _advancement.marks) ? (_advancement.marks.totalBanked || 0) : 0;
-    var html = '';
-    html += '<div class="adv-track-section">';
-    html += '<div class="adv-track-header">';
-    html += '<span class="adv-track-title">Vocation Track</span>';
-    html += '<span class="adv-track-meta">Tier unlocks gated by Favored Discipline die</span>';
-    html += '</div>';
 
-    if (kits.length === 0) {
-      html += '<div class="adv-voc-empty">No vocations assigned.</div>';
-    } else {
+    var extra = '';
+
+    if (kits.length > 0) {
+      extra += '<div class="adv-voc-list">';
       kits.forEach(function (kit) {
         var kitId = kit.id || kit.kitId || '';
         var baseTier = kit.tier || kit.currentTier || 1;
         var advancedTier = unlocks[kitId] || 0;
-        var currentTier = Math.max(baseTier, baseTier + advancedTier);
+        var currentTier = baseTier + advancedTier;
         var kitLabel = kit.name || kit.label || kitId;
         var favDisc = kit.favoredDiscipline || '\u2014';
         var favDie = _getFavoredDie(favDisc);
         var maxTier = DISC_GATE[favDie] || 1;
 
-        html += '<div class="adv-voc-card">';
-        html += '<div class="adv-voc-name">' + _esc(kitLabel) + '</div>';
-        html += '<div class="adv-voc-gate">Favored: ' + _esc(favDisc) + ' (' + _esc(favDie) + ') \u2014 Max Tier ' + maxTier + '</div>';
-        html += '<div class="adv-voc-tiers">';
+        extra += '<div class="adv-voc-card">';
+        extra += '<div class="adv-voc-name">' + _esc(kitLabel) + '</div>';
+        extra += '<div class="adv-voc-gate">Favored: ' + _esc(favDisc) + ' (' + _esc(favDie) + ') \u2014 Max Tier ' + maxTier + ' \u2022 Current Tier ' + currentTier + '</div>';
+        extra += '<div class="adv-voc-tiers">';
         for (var tier = 1; tier <= 5; tier++) {
-          var cost = VOCATION_TIER_COSTS[tier];
           var unlocked = tier <= currentTier;
           var gated = tier > maxTier;
-          var canUnlock = !unlocked && !gated && tier === currentTier + 1 && banked >= cost;
           var cls = 'adv-voc-tier';
           if (unlocked) cls += ' adv-voc-tier--unlocked';
           if (gated && !unlocked) cls += ' adv-voc-tier--gated';
-          if (canUnlock) cls += ' adv-voc-tier--available';
-          html += '<span class="' + cls + '"' + (canUnlock ? ' data-voc-id="' + _esc(kitId) + '" data-voc-tier="' + tier + '" data-voc-cost="' + cost + '"' : '') + '>';
-          html += 'T' + tier;
-          if (cost > 0) html += ' <small>(' + cost + 'M)</small>';
-          html += '</span>';
+          extra += '<span class="' + cls + '">T' + tier + '</span>';
         }
-        html += '</div></div>';
+        extra += '</div></div>';
       });
+      extra += '</div>';
+    } else {
+      extra += '<div class="adv-voc-empty">No vocations assigned.</div>';
     }
 
-    html += '<div class="adv-track-ref">';
-    html += '<div class="adv-ref-title">Discipline Gate</div>';
-    html += '<div class="adv-ref-row">D4: Max Tier 1 \u2022 D6: Max Tier 2 \u2022 D8: Max Tier 3</div>';
-    html += '<div class="adv-ref-row">D10: Max Tier 4 \u2022 D12: Max Tier 5</div>';
-    html += '</div>';
+    extra += '<div class="adv-track-ref">';
+    extra += '<div class="adv-ref-title">Discipline Gate</div>';
+    extra += '<div class="adv-ref-row">D4: Max Tier 1 \u2022 D6: Max Tier 2 \u2022 D8: Max Tier 3</div>';
+    extra += '<div class="adv-ref-row">D10: Max Tier 4 \u2022 D12: Max Tier 5</div>';
+    extra += '<div class="adv-ref-row adv-ref-note">Spend 1 Advance to bump any eligible vocation up 1 tier.</div>';
+    extra += '</div>';
 
-    html += '</div>';
-    return html;
+    return _buildPipTrack('voc', vt, VOC_TRACK_SIZE, 3, 'Vocation Track', extra);
   }
 
   function _getFavoredDie(discId) {
@@ -316,10 +324,11 @@
   function _render() {
     var container = document.getElementById('panel-5');
     if (!container) return;
+    _ensureDefaults();
 
     var total = _totalMarks();
     var earned = _countEarnedMarks();
-    var banked = (_advancement && _advancement.marks) ? (_advancement.marks.totalBanked || 0) : 0;
+    var banked = (_advancement.marks) ? (_advancement.marks.totalBanked || 0) : 0;
 
     var html = '<div class="adv-panel">';
 
@@ -377,11 +386,7 @@
       pip.addEventListener('click', function () {
         var track = pip.getAttribute('data-track');
         var index = parseInt(pip.getAttribute('data-index'), 10);
-        if (track === 'disc') {
-          _handleDiscPipClick(index);
-        } else if (track === 'arena') {
-          _handleArenaPipClick(index);
-        }
+        _handlePipClick(track, index);
       });
     });
 
@@ -427,12 +432,11 @@
       });
     }
 
-    var vocTiers = container.querySelectorAll('.adv-voc-tier--available');
-    vocTiers.forEach(function (el) {
-      el.addEventListener('click', function () {
-        var vocId = el.getAttribute('data-voc-id');
-        var cost = parseInt(el.getAttribute('data-voc-cost'), 10);
-        _handleVocationUnlock(vocId, cost);
+    var spendBtns = container.querySelectorAll('.adv-btn--spend');
+    spendBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var trackKey = btn.getAttribute('data-spend-track');
+        _handleSpendAdvance(trackKey);
       });
     });
   }
@@ -450,42 +454,47 @@
     _advancement.marks.totalBanked = (_advancement.marks.totalBanked || 0) + cost;
   }
 
-  function _handleDiscPipClick(index) {
-    var dt = _advancement.disciplineTrack;
-    var costPerBox = dt.level;
-    if (index === dt.filled) {
-      if (!_spendMarks(costPerBox)) return;
-      dt.filled++;
-      if (dt.filled >= DISC_TRACK_SIZE) {
-        dt.eliteTokens = (dt.eliteTokens || 0) + 1;
-        dt.level++;
-        dt.filled = 0;
-      }
-      _persist();
-      _render();
-    } else if (index === dt.filled - 1) {
-      _refundMarks(costPerBox);
-      dt.filled--;
-      _persist();
-      _render();
-    }
+  function _getTrackObj(trackKey) {
+    if (trackKey === 'disc') return _advancement.disciplineTrack;
+    if (trackKey === 'arena') return _advancement.arenaTrack;
+    if (trackKey === 'voc') return _advancement.vocationTrack;
+    return null;
   }
 
-  function _handleArenaPipClick(index) {
-    var at = _advancement.arenaTrack;
-    var costPerBox = at.level * 3;
-    if (index === at.filled) {
+  function _getTrackSize(trackKey) {
+    if (trackKey === 'disc') return DISC_TRACK_SIZE;
+    if (trackKey === 'arena') return ARENA_TRACK_SIZE;
+    if (trackKey === 'voc') return VOC_TRACK_SIZE;
+    return 5;
+  }
+
+  function _getCostMult(trackKey) {
+    if (trackKey === 'disc') return 1;
+    return 3;
+  }
+
+  function _handlePipClick(trackKey, index) {
+    var t = _getTrackObj(trackKey);
+    if (!t) return;
+    var costPerBox = t.level * _getCostMult(trackKey);
+    var trackSize = _getTrackSize(trackKey);
+
+    if (index === t.filled) {
       if (!_spendMarks(costPerBox)) return;
-      at.filled++;
-      if (at.filled >= ARENA_TRACK_SIZE) {
-        at.level++;
-        at.filled = 0;
+      t.filled++;
+      if (t.filled >= trackSize) {
+        t.unspentAdvances = (t.unspentAdvances || 0) + 1;
+        if (trackKey === 'disc') {
+          t.eliteTokens = (t.eliteTokens || 0) + 1;
+        }
+        t.level++;
+        t.filled = 0;
       }
       _persist();
       _render();
-    } else if (index === at.filled - 1) {
+    } else if (index === t.filled - 1) {
       _refundMarks(costPerBox);
-      at.filled--;
+      t.filled--;
       _persist();
       _render();
     }
@@ -499,6 +508,7 @@
     dt.filled++;
     if (dt.filled >= DISC_TRACK_SIZE) {
       dt.eliteTokens = (dt.eliteTokens || 0) + 1;
+      dt.unspentAdvances = (dt.unspentAdvances || 0) + 1;
       dt.level++;
       dt.filled = 0;
     }
@@ -506,10 +516,77 @@
     _render();
   }
 
-  function _handleVocationUnlock(vocId, cost) {
-    if (!_spendMarks(cost)) return;
+  function _handleSpendAdvance(trackKey) {
+    var t = _getTrackObj(trackKey);
+    if (!t || (t.unspentAdvances || 0) < 1) return;
+
+    if (trackKey === 'voc') {
+      _showVocationSpendDialog();
+      return;
+    }
+
+    var trackLabel = trackKey === 'disc' ? 'Discipline' : 'Arena';
+    var msg = 'Spend 1 ' + trackLabel + ' Advance?\n\n';
+    if (trackKey === 'disc') {
+      msg += 'Apply this advance to upgrade a Discipline die.\n';
+      msg += '(D6\u2192D8: 1 Adv, D8\u2192D10: 1 Adv + 1 Elite Token, D10\u2192D12: 1 Adv + 2 Elite Tokens)\n\n';
+      msg += 'You have ' + t.unspentAdvances + ' unspent advance(s) and ' + (t.eliteTokens || 0) + ' Elite Token(s).';
+    } else {
+      msg += 'Apply this advance to upgrade an Arena die.\n';
+      msg += '(D4\u2192D6: 2 Adv, D6\u2192D8: 1 Adv, D8\u2192D10: 3 Adv, D10\u2192D12: 5 Adv)\n\n';
+      msg += 'You have ' + t.unspentAdvances + ' unspent advance(s).';
+    }
+
+    if (!confirm(msg)) return;
+
+    t.unspentAdvances--;
+    _persist();
+    _render();
+  }
+
+  function _showVocationSpendDialog() {
+    var vt = _advancement.vocationTrack;
+    if ((vt.unspentAdvances || 0) < 1) return;
+
+    var unlocks = _advancement.vocationUnlocks || {};
+    var kits = (_char && _char.kits) ? _char.kits : [];
+    var eligible = [];
+
+    kits.forEach(function (kit) {
+      var kitId = kit.id || kit.kitId || '';
+      var baseTier = kit.tier || kit.currentTier || 1;
+      var advancedTier = unlocks[kitId] || 0;
+      var currentTier = baseTier + advancedTier;
+      var favDisc = kit.favoredDiscipline || '\u2014';
+      var favDie = _getFavoredDie(favDisc);
+      var maxTier = DISC_GATE[favDie] || 1;
+      var kitLabel = kit.name || kit.label || kitId;
+
+      if (currentTier < maxTier && currentTier < 5) {
+        eligible.push({ kitId: kitId, label: kitLabel, currentTier: currentTier, nextTier: currentTier + 1 });
+      }
+    });
+
+    if (eligible.length === 0) {
+      alert('No vocations are eligible for advancement. All are either at max tier or gated by Discipline die.');
+      return;
+    }
+
+    var msg = 'Spend 1 Vocation Advance to bump a vocation:\n\n';
+    eligible.forEach(function (e, i) {
+      msg += (i + 1) + '. ' + e.label + ' (Tier ' + e.currentTier + ' \u2192 ' + e.nextTier + ')\n';
+    });
+    msg += '\nEnter number (1-' + eligible.length + '):';
+
+    var choice = prompt(msg);
+    if (!choice) return;
+    var idx = parseInt(choice, 10) - 1;
+    if (isNaN(idx) || idx < 0 || idx >= eligible.length) return;
+
+    var picked = eligible[idx];
+    vt.unspentAdvances--;
     if (!_advancement.vocationUnlocks) _advancement.vocationUnlocks = {};
-    _advancement.vocationUnlocks[vocId] = (_advancement.vocationUnlocks[vocId] || 0) + 1;
+    _advancement.vocationUnlocks[picked.kitId] = (_advancement.vocationUnlocks[picked.kitId] || 0) + 1;
     _persist();
     _render();
   }
@@ -528,12 +605,8 @@
 
       _char = char;
       _charId = char.id || null;
-      _advancement = char.advancement || {
-        marks: { earnedChecks: {}, totalBanked: 0 },
-        disciplineTrack: { level: 1, filled: 0, eliteTokens: 0, focusBurns: 0 },
-        arenaTrack: { level: 1, filled: 0 },
-        vocationUnlocks: {}
-      };
+      _advancement = char.advancement || {};
+      _ensureDefaults();
 
       if (_panelVisible) _render();
       _initialized = true;
@@ -544,6 +617,7 @@
           _char = c;
           _charId = c.id || null;
           _advancement = c.advancement || _advancement;
+          _ensureDefaults();
           if (_panelVisible) _render();
         }
       });
@@ -563,6 +637,7 @@
         sock.on('advancement:sync', function (data) {
           if (data.characterId === _charId && data.advancement) {
             _advancement = data.advancement;
+            _ensureDefaults();
             if (_panelVisible) _render();
           }
         });

@@ -164,8 +164,12 @@ function expandCharacterData(flat) {
     flat.weaponIds.push(correctId);
     if (!flat.advancement) flat.advancement = {};
     if (!flat.advancement.marks) flat.advancement.marks = { earnedChecks: {}, totalBanked: 0 };
-    if (!flat.advancement.disciplineTrack) flat.advancement.disciplineTrack = { level: 1, filled: 0, eliteTokens: 0, focusBurns: 0 };
-    if (!flat.advancement.arenaTrack) flat.advancement.arenaTrack = { level: 1, filled: 0 };
+    if (!flat.advancement.disciplineTrack) flat.advancement.disciplineTrack = { level: 2, filled: 0, eliteTokens: 0, focusBurns: 0, unspentAdvances: 0 };
+    else if (flat.advancement.disciplineTrack.unspentAdvances === undefined) flat.advancement.disciplineTrack.unspentAdvances = 0;
+    if (!flat.advancement.arenaTrack) flat.advancement.arenaTrack = { level: 2, filled: 0, unspentAdvances: 0 };
+    else if (flat.advancement.arenaTrack.unspentAdvances === undefined) flat.advancement.arenaTrack.unspentAdvances = 0;
+    if (!flat.advancement.vocationTrack) flat.advancement.vocationTrack = { level: 2, filled: 0, unspentAdvances: 0 };
+    else if (flat.advancement.vocationTrack.unspentAdvances === undefined) flat.advancement.vocationTrack.unspentAdvances = 0;
     if (!flat.advancement.vocationUnlocks) flat.advancement.vocationUnlocks = {};
     applyInventoryRemovals(flat, flat.inventoryRemovals);
     return flat;
@@ -223,8 +227,12 @@ function expandCharacterData(flat) {
 
   const advancement = flat.advancement || {};
   if (!advancement.marks) advancement.marks = { earnedChecks: {}, totalBanked: 0 };
-  if (!advancement.disciplineTrack) advancement.disciplineTrack = { level: 1, filled: 0, eliteTokens: 0, focusBurns: 0 };
-  if (!advancement.arenaTrack) advancement.arenaTrack = { level: 1, filled: 0 };
+  if (!advancement.disciplineTrack) advancement.disciplineTrack = { level: 2, filled: 0, eliteTokens: 0, focusBurns: 0, unspentAdvances: 0 };
+  else if (advancement.disciplineTrack.unspentAdvances === undefined) advancement.disciplineTrack.unspentAdvances = 0;
+  if (!advancement.arenaTrack) advancement.arenaTrack = { level: 2, filled: 0, unspentAdvances: 0 };
+  else if (advancement.arenaTrack.unspentAdvances === undefined) advancement.arenaTrack.unspentAdvances = 0;
+  if (!advancement.vocationTrack) advancement.vocationTrack = { level: 2, filled: 0, unspentAdvances: 0 };
+  else if (advancement.vocationTrack.unspentAdvances === undefined) advancement.vocationTrack.unspentAdvances = 0;
   if (!advancement.vocationUnlocks) advancement.vocationUnlocks = {};
 
   const result = {
@@ -414,11 +422,18 @@ router.patch('/characters/:id/advancement', (req, res) => {
         level: clamp(adv.disciplineTrack && adv.disciplineTrack.level, 1, 50),
         filled: clamp(adv.disciplineTrack && adv.disciplineTrack.filled, 0, 5),
         eliteTokens: clamp(adv.disciplineTrack && adv.disciplineTrack.eliteTokens, 0, 999),
-        focusBurns: clamp(adv.disciplineTrack && adv.disciplineTrack.focusBurns, 0, 999)
+        focusBurns: clamp(adv.disciplineTrack && adv.disciplineTrack.focusBurns, 0, 999),
+        unspentAdvances: clamp(adv.disciplineTrack && adv.disciplineTrack.unspentAdvances, 0, 999)
       },
       arenaTrack: {
         level: clamp(adv.arenaTrack && adv.arenaTrack.level, 1, 50),
-        filled: clamp(adv.arenaTrack && adv.arenaTrack.filled, 0, 3)
+        filled: clamp(adv.arenaTrack && adv.arenaTrack.filled, 0, 3),
+        unspentAdvances: clamp(adv.arenaTrack && adv.arenaTrack.unspentAdvances, 0, 999)
+      },
+      vocationTrack: {
+        level: clamp(adv.vocationTrack && adv.vocationTrack.level, 1, 50),
+        filled: clamp(adv.vocationTrack && adv.vocationTrack.filled, 0, 5),
+        unspentAdvances: clamp(adv.vocationTrack && adv.vocationTrack.unspentAdvances, 0, 999)
       },
       vocationUnlocks: (adv.vocationUnlocks && typeof adv.vocationUnlocks === 'object') ? adv.vocationUnlocks : {}
     };
