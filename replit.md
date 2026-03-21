@@ -30,7 +30,7 @@ A Star Wars TTRPG electronic character sheet and campaign management system buil
 ├── server/
 │   ├── index.js          # Express + Socket.io entrypoint (port 5000)
 │   ├── db.js             # Database init, schema, seeding
-│   ├── routes/           # REST API routes (characters, campaign, equipment)
+│   ├── routes/           # REST API routes (characters, campaign, equipment, inventory)
 │   └── sockets/          # Socket.io event handlers
 └── tailwind.config.js    # Tailwind config (scans public/**/*.html + js/**/*.js)
 ```
@@ -266,6 +266,18 @@ Server-authoritative destiny token pool synced in real-time via Socket.io. Pool 
 **GM view:** Destiny bar below header in Command Bridge. Clickable tokens emit `destiny:flip`. Shows Hope/Toll count. Reset button emits `destiny:reset`.
 
 **Files:** `server/sockets/handlers.js` (pool logic), `js/socket-client.js` (player rendering), `public/gm/index.html` (GM controls + styles).
+
+## Inventory Management
+
+Gear items tagged `Consumable` (Bacta Patches, Grenades, Stim Packs, etc.) can be **used** from the Armory or Loadout panels — each use decrements quantity by 1. All items (gear, weapons, armor) can be **dropped** to remove from inventory.
+
+**Persistence model:** Inventory removals are tracked via `inventoryRemovals` field in `character_data` JSON: `{ gear: ["id", ...], weapons: ["id", ...], armor: true/false }`. The `expandCharacterData` function applies these removals after building the full equipment lists. This preserves original creation data (startingGear) while tracking consumption/drops.
+
+**API endpoints** (`server/routes/inventory.js`):
+- `POST /api/inventory/:charId/use` — Use a consumable gear item (body: `{ itemId, itemType: "gear" }`)
+- `POST /api/inventory/:charId/drop` — Drop any item (body: `{ itemId, itemType: "gear"|"weapon"|"armor" }`)
+
+**UI:** Use/Drop buttons appear in the body of expanded item cards in both Armory (panel-2) and Loadout (panel-4) panels. After action, character data is re-fetched and `character:stateChanged` event fires to re-render all panels. Innate weapons (Fists/Cathar Claws) cannot be dropped.
 
 ## Deployment
 

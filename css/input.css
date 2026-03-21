@@ -942,6 +942,49 @@
     line-height: 1.4;
   }
 
+  .armory-item-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(var(--color-accent-primary-rgb, 255,204,0), 0.15);
+    justify-content: flex-end;
+  }
+
+  .armory-drop-btn,
+  .armory-use-btn {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 3px;
+    border: 1px solid;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .armory-drop-btn {
+    color: #b91c1c;
+    border-color: #b91c1c;
+    background: transparent;
+  }
+  .armory-drop-btn:hover {
+    background: #b91c1c;
+    color: #fff;
+  }
+
+  .armory-use-btn {
+    color: var(--color-accent-primary);
+    border-color: var(--color-accent-primary);
+    background: transparent;
+  }
+  .armory-use-btn:hover {
+    background: var(--color-accent-primary);
+    color: var(--color-bg-primary);
+  }
+
   .armory-weapon-disc {
     display: flex;
     align-items: center;

@@ -507,6 +507,11 @@
     var ammoBarHtml = _buildAmmoBar(weapon.clipSize, weapon.id);
     var fireControlsHtml = status === 'equipped' ? _buildFireControls(weapon) : '';
 
+    var dropBtnHtml = weapon.innate ? '' :
+      '<div class="armory-item-actions">' +
+        '<button class="armory-drop-btn" data-drop-id="' + _esc(weapon.id) + '" data-drop-type="weapon">Drop</button>' +
+      '</div>';
+
     return (
       '<div class="armory-weapon-card" data-weapon-id="' + _esc(weapon.id) + '">' +
         '<div class="armory-weapon-header">' +
@@ -517,6 +522,7 @@
         fireControlsHtml +
         '<div class="armory-weapon-body">' +
           metaHtml + effectHtml + stunHtml + traitHtml + gambitsHtml +
+          dropBtnHtml +
         '</div>' +
       '</div>'
     );
@@ -559,6 +565,11 @@
         _dieImg(arenaDie) +
       '</div>';
 
+    var armorDropHtml =
+      '<div class="armory-item-actions">' +
+        '<button class="armory-drop-btn" data-drop-id="' + _esc(armor.id) + '" data-drop-type="armor">Drop</button>' +
+      '</div>';
+
     return (
       '<div class="armory-weapon-card" data-armor-id="' + _esc(armor.id) + '">' +
         '<div class="armory-weapon-header">' +
@@ -567,6 +578,7 @@
         '</div>' +
         '<div class="armory-weapon-body">' +
           metaHtml + ruleHtml + traitsHtml +
+          armorDropHtml +
         '</div>' +
       '</div>'
     );
@@ -648,14 +660,22 @@
         '</div>';
     }
 
+    var isConsumable = (gear.tags || []).indexOf('Consumable') !== -1;
+    var gearActionsHtml =
+      '<div class="armory-item-actions">' +
+        (isConsumable ? '<button class="armory-use-btn" data-use-id="' + _esc(gear.id) + '">Use' + (qty > 1 ? ' 1' : '') + '</button>' : '') +
+        '<button class="armory-drop-btn" data-drop-id="' + _esc(gear.id) + '" data-drop-type="gear">Drop</button>' +
+      '</div>';
+
     return (
       '<div class="armory-weapon-card" data-gear-id="' + _esc(gear.id) + '">' +
         '<div class="armory-weapon-header">' +
-          '<span class="armory-weapon-name">' + _esc(gear.name) + (qty > 1 ? ' <span class="gear-qty-badge">×' + qty + '</span>' : '') + '</span>' +
+          '<span class="armory-weapon-name">' + _esc(gear.name) + (qty > 1 ? ' <span class="gear-qty-badge">\u00d7' + qty + '</span>' : '') + '</span>' +
           gearDiscHtml +
         '</div>' +
         '<div class="armory-weapon-body">' +
           metaHtml + effectHtml + descHtml + traitsHtml + gambitsHtml +
+          gearActionsHtml +
         '</div>' +
       '</div>'
     );
@@ -768,7 +788,55 @@
     _injectIntoVisibleSlots(html);
   }
 
+  function _inventoryAction(charId, action, itemId, itemType) {
+    return fetch('/api/inventory/' + encodeURIComponent(charId) + '/' + action, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ itemId: itemId, itemType: itemType })
+    }).then(function (res) {
+      if (!res.ok) throw new Error('Inventory ' + action + ' failed: ' + res.status);
+      return res.json();
+    });
+  }
+
+  function _refreshCharacterAfterInventory() {
+    var char = window.CharacterPanel && window.CharacterPanel.currentChar;
+    if (!char || !char.id) return;
+    fetch('/api/characters/' + encodeURIComponent(char.id))
+      .then(function (res) { return res.json(); })
+      .then(function (updated) {
+        if (window.CharacterPanel) window.CharacterPanel.currentChar = updated;
+        document.dispatchEvent(new CustomEvent('character:stateChanged'));
+      });
+  }
+
   document.addEventListener('click', function (e) {
+    var useBtn = e.target.closest && e.target.closest('.armory-use-btn');
+    if (useBtn && useBtn.closest('[id="panel-4"]')) {
+      e.stopPropagation();
+      var itemId = useBtn.dataset.useId;
+      if (!itemId || !_currentCharId) return;
+      if (!confirm('Use one ' + (useBtn.closest('.armory-weapon-card').querySelector('.armory-weapon-name').textContent.split('\u00d7')[0].trim()) + '?')) return;
+      _inventoryAction(_currentCharId, 'use', itemId, 'gear')
+        .then(function () { _refreshCharacterAfterInventory(); })
+        .catch(function (err) { console.error('[LoadoutPanel] use error', err); });
+      return;
+    }
+
+    var dropBtn = e.target.closest && e.target.closest('.armory-drop-btn');
+    if (dropBtn && dropBtn.closest('[id="panel-4"]')) {
+      e.stopPropagation();
+      var dropId = dropBtn.dataset.dropId;
+      var dropType = dropBtn.dataset.dropType;
+      if (!dropId || !dropType || !_currentCharId) return;
+      var itemName = dropBtn.closest('.armory-weapon-card').querySelector('.armory-weapon-name').textContent.split('\u00d7')[0].trim();
+      if (!confirm('Drop ' + itemName + '?')) return;
+      _inventoryAction(_currentCharId, 'drop', dropId, dropType)
+        .then(function () { _refreshCharacterAfterInventory(); })
+        .catch(function (err) { console.error('[LoadoutPanel] drop error', err); });
+      return;
+    }
+
     // ── Loadout status badge click ────────────────────────
     var badge = e.target.closest && e.target.closest('.loadout-status-badge[data-pill-id]');
     if (badge && badge.closest('[id="panel-4"]')) {
@@ -873,7 +941,9 @@
         _currentCharId = charId;
 
         function doRender(statusMap) {
-          _render(weapons, armors, char, chassisMap, statusMap || {}, gear, discGambits);
+          var c = window.CharacterPanel && window.CharacterPanel.currentChar;
+          if (!c) return;
+          _render(weapons, armors, c, chassisMap, statusMap || {}, gear, discGambits);
         }
 
         function fetchAndRender() {
@@ -891,17 +961,7 @@
 
         document.addEventListener('equipment:changed', fetchAndRender);
         document.addEventListener('character:stateChanged', fetchAndRender);
-        document.addEventListener('effects:changed', function () {
-          var c = window.CharacterPanel && window.CharacterPanel.currentChar;
-          if (c) {
-            if (charId) {
-              fetch('/api/equipment/' + encodeURIComponent(charId))
-                .then(function (r) { return r.ok ? r.json() : {}; })
-                .then(function (map) { _render(weapons, armors, c, chassisMap, map || {}, gear, discGambits); })
-                .catch(function () { _render(weapons, armors, c, chassisMap, {}, gear, discGambits); });
-            }
-          }
-        });
+        document.addEventListener('effects:changed', fetchAndRender);
       }
       tryRender();
     })

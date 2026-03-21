@@ -121,6 +121,29 @@ function resolveKits(raw) {
   return kits;
 }
 
+function applyInventoryRemovals(result, removals) {
+  if (!removals) return;
+  if (Array.isArray(removals.gear)) {
+    const toRemove = removals.gear.slice();
+    for (let r = 0; r < toRemove.length; r++) {
+      const idx = result.gearIds.indexOf(toRemove[r]);
+      if (idx !== -1) result.gearIds.splice(idx, 1);
+    }
+  }
+  if (Array.isArray(removals.weapons)) {
+    const UNARMED = ['wpn_fists_01', 'wpn_cathar_claws_01'];
+    const toRemove = removals.weapons.slice();
+    for (let r = 0; r < toRemove.length; r++) {
+      if (UNARMED.includes(toRemove[r])) continue;
+      const idx = result.weaponIds.indexOf(toRemove[r]);
+      if (idx !== -1) result.weaponIds.splice(idx, 1);
+    }
+  }
+  if (removals.armor === true) {
+    result.armorId = null;
+  }
+}
+
 function expandCharacterData(flat) {
   const alreadyExpanded = flat.arenas && Array.isArray(flat.arenas);
 
@@ -139,6 +162,7 @@ function expandCharacterData(flat) {
     const wrongId   = spLower === 'cathar' ? 'wpn_fists_01' : 'wpn_cathar_claws_01';
     flat.weaponIds = flat.weaponIds.filter(id => !UNARMED.includes(id));
     flat.weaponIds.push(correctId);
+    applyInventoryRemovals(flat, flat.inventoryRemovals);
     return flat;
   }
 
@@ -192,7 +216,7 @@ function expandCharacterData(flat) {
   weaponIds.length = 0;
   filteredWeaponIds.forEach(id => weaponIds.push(id));
 
-  return {
+  const result = {
     name: flat.name || null,
     species: flat.species,
     archetype: flat.archetype || flat.title || null,
@@ -214,6 +238,10 @@ function expandCharacterData(flat) {
     arenas,
     personalDestiny: flat.personalDestiny || null,
   };
+
+  applyInventoryRemovals(result, flat.inventoryRemovals);
+
+  return result;
 }
 
 router.get('/characters', (req, res) => {
