@@ -31,7 +31,11 @@
       tracker.innerHTML = '<span style="font-size:0.7rem;color:var(--color-text-secondary);font-style:italic;">No crew connected</span>';
       return;
     }
-    tracker.innerHTML = pool.map(function (state) {
+    var sorted = pool.slice().sort(function (a, b) {
+      if (a === b) return 0;
+      return a === 'toll' ? -1 : 1;
+    });
+    tracker.innerHTML = sorted.map(function (state) {
       var cls = state === 'toll' ? 'destiny-pip is-toll' : 'destiny-pip is-hope';
       return '<div class="' + cls + '" title="' + (state === 'toll' ? 'Toll' : 'Hope') + '"></div>';
     }).join('');
