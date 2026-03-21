@@ -2098,14 +2098,35 @@
           shopHeader.textContent = "Purchased Gear";
           cartEl.appendChild(shopHeader);
         }
+        var purchasedStacks = [];
+        var purchasedStackMap = {};
         purchasedItems.forEach(function(item) {
-          var idx = items.indexOf(item);
+          var stackKey = item.id + "|" + (item.source || "") + "|" + (item.acquisition || "");
+          if (purchasedStackMap[stackKey]) {
+            purchasedStackMap[stackKey].qty++;
+            purchasedStackMap[stackKey].indices.push(items.indexOf(item));
+          } else {
+            var entry = { item: item, qty: 1, indices: [items.indexOf(item)], key: stackKey };
+            purchasedStackMap[stackKey] = entry;
+            purchasedStacks.push(entry);
+          }
+        });
+        purchasedStacks.forEach(function(stack) {
+          var item = stack.item;
           var row = document.createElement("div");
           row.className = "outfitting-cart-row";
 
           var nameEl = document.createElement("span");
           nameEl.className = "outfitting-cart-item-name";
           nameEl.textContent = item.name;
+
+          if (stack.qty > 1 && item.source === "gear") {
+            var qtyBadge = document.createElement("span");
+            qtyBadge.className = "gear-qty-badge";
+            qtyBadge.textContent = "×" + stack.qty;
+            nameEl.appendChild(document.createTextNode(" "));
+            nameEl.appendChild(qtyBadge);
+          }
 
           if (item.acquisition) {
             var acqBadge = document.createElement("span");
@@ -2117,14 +2138,14 @@
 
           var priceEl = document.createElement("span");
           priceEl.className = "outfitting-cart-item-price";
-          priceEl.textContent = item.cost + " cr";
+          priceEl.textContent = (item.cost * stack.qty) + " cr";
 
           var removeBtn = document.createElement("button");
           removeBtn.className = "outfitting-remove-btn";
           removeBtn.textContent = "×";
-          removeBtn.addEventListener("click", function() {
-            removeFromLoadout(idx);
-          });
+          removeBtn.addEventListener("click", (function(indices) {
+            return function() { removeFromLoadout(indices[indices.length - 1]); };
+          })(stack.indices));
 
           row.appendChild(nameEl);
           row.appendChild(priceEl);
