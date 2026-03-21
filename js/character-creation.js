@@ -1689,12 +1689,12 @@
       });
     }
     var unarmedId = (state.species === "cathar") ? "wpn_cathar_claws_01" : "wpn_fists_01";
-    var hasInnate = state.startingGear.some(function(g) { return g.innate; });
+    var hasInnate = state.startingGear.some(function(g) { return g.id === "wpn_fists_01" || g.id === "wpn_cathar_claws_01"; });
     if (!hasInnate) {
       var unarmedName = (state.species === "cathar") ? "Cathar Claws" : "Fists";
       state.startingGear.push({ id: unarmedId, name: unarmedName, source: "weapon", acquisition: "innate", innate: true, cost: 0 });
     } else {
-      var curInnate = state.startingGear.find(function(g) { return g.innate; });
+      var curInnate = state.startingGear.find(function(g) { return g.id === "wpn_fists_01" || g.id === "wpn_cathar_claws_01"; });
       if (curInnate && curInnate.id !== unarmedId) {
         curInnate.id = unarmedId;
         curInnate.name = (state.species === "cathar") ? "Cathar Claws" : "Fists";
@@ -3093,7 +3093,7 @@
       var unarmedId = (state.species === "cathar") ? "wpn_cathar_claws_01" : "wpn_fists_01";
       var unarmedName = (state.species === "cathar") ? "Cathar Claws" : "Fists";
       if (!state.startingGear) state.startingGear = [];
-      var hasInnateGear = state.startingGear.some(function(g) { return g.innate; });
+      var hasInnateGear = state.startingGear.some(function(g) { return g.id === "wpn_fists_01" || g.id === "wpn_cathar_claws_01"; });
       if (!hasInnateGear) {
         state.startingGear.push({ id: unarmedId, name: unarmedName, source: "weapon", acquisition: "innate", innate: true, cost: 0 });
       }

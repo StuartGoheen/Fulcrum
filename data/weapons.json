@@ -1085,7 +1085,7 @@
     "innate": true,
     "trait": {
       "name": "Desperate Measure",
-      "description": "Bare fists deal stun damage only. Even at full force, an unarmed strike cannot kill — it can only stagger, disorient, or knock unconscious."
+      "description": "Bare fists cannot be disarmed, confiscated, or depleted. All damage is stun only — even at full force, an unarmed strike cannot kill. It can only stagger, disorient, or knock unconscious."
     },
     "gambits": [],
     "tags": [
@@ -1115,8 +1115,8 @@
     "cost": 0,
     "innate": true,
     "trait": {
-      "name": "Predator’s Edge",
-      "description": "These claws deal lethal damage by default. When set to Stun, they use the unarmed chassis stun values (0/1/2) instead."
+      "name": "Natural Weapons",
+      "description": "Retractable claws are part of your body — they cannot be disarmed, confiscated, or depleted. Lethal by default; switch to stun mode to use the unarmed chassis stun values (0/1/2) instead."
     },
     "gambits": [],
     "tags": [
