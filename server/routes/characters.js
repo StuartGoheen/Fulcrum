@@ -137,12 +137,8 @@ function expandCharacterData(flat) {
     const spLower = (flat.species || '').toLowerCase();
     const correctId = spLower === 'cathar' ? 'wpn_cathar_claws_01' : 'wpn_fists_01';
     const wrongId   = spLower === 'cathar' ? 'wpn_fists_01' : 'wpn_cathar_claws_01';
-    const wIdx = flat.weaponIds.indexOf(wrongId);
-    if (wIdx !== -1) {
-      flat.weaponIds[wIdx] = correctId;
-    } else if (!flat.weaponIds.some(id => UNARMED.includes(id))) {
-      flat.weaponIds.push(correctId);
-    }
+    flat.weaponIds = flat.weaponIds.filter(id => !UNARMED.includes(id));
+    flat.weaponIds.push(correctId);
     return flat;
   }
 
@@ -191,13 +187,10 @@ function expandCharacterData(flat) {
   const UNARMED_IDS = ['wpn_fists_01', 'wpn_cathar_claws_01'];
   const speciesLower = (flat.species || '').toLowerCase();
   const correctUnarmedId = speciesLower === 'cathar' ? 'wpn_cathar_claws_01' : 'wpn_fists_01';
-  const wrongUnarmedId = speciesLower === 'cathar' ? 'wpn_fists_01' : 'wpn_cathar_claws_01';
-  const wrongIdx = weaponIds.indexOf(wrongUnarmedId);
-  if (wrongIdx !== -1) {
-    weaponIds[wrongIdx] = correctUnarmedId;
-  } else if (!weaponIds.some(id => UNARMED_IDS.includes(id))) {
-    weaponIds.push(correctUnarmedId);
-  }
+  const filteredWeaponIds = weaponIds.filter(id => !UNARMED_IDS.includes(id));
+  filteredWeaponIds.push(correctUnarmedId);
+  weaponIds.length = 0;
+  filteredWeaponIds.forEach(id => weaponIds.push(id));
 
   return {
     name: flat.name || null,
