@@ -74,13 +74,13 @@
     special: 'Special', combined: 'Combined'
   };
 
-  var ACTION_GROUP_ORDER = ['Action', 'Maneuver', 'Defense', 'Free', 'Force'];
+  var ACTION_GROUP_ORDER = ['Action', 'Maneuver', 'Defense', 'Free'];
   var ACTION_GROUP_LABELS = {
     'Action': 'Actions', 'Maneuver': 'Maneuvers', 'Defense': 'Defenses',
-    'Free': 'Initiative', 'Force': 'Force Powers'
+    'Free': 'Initiative'
   };
 
-  var CORE_RULE_ORDER = ['modes_of_play', 'opening_exploit_defense', 'dual_wielding', 'concealment'];
+  var CORE_RULE_ORDER = ['destiny_pool', 'modes_of_play', 'opening_exploit_defense', 'dual_wielding', 'concealment'];
 
   function _registerProviders() {
     _providers = [];
@@ -289,9 +289,9 @@
         armor.sort(function (a, b) { return a.name.localeCompare(b.name); });
         gear.sort(function (a, b) { return a.name.localeCompare(b.name); });
         var groups = [];
+        if (gear.length) groups.push({ groupLabel: 'Gear', entries: gear });
         if (weapons.length) groups.push({ groupLabel: 'Weapons', entries: weapons });
         if (armor.length) groups.push({ groupLabel: 'Armor', entries: armor });
-        if (gear.length) groups.push({ groupLabel: 'Gear', entries: gear });
         return groups;
       },
       hasEntry: function (id) { return !!_equipmentEntryIds[id]; }
@@ -1292,22 +1292,6 @@
       _actionEntryIds[a.id] = true;
     });
 
-    var forceManeuvers = data.forceManeuvers || [];
-    forceManeuvers.forEach(function (f) {
-      var searchParts = [f.name, f.description, f.risk];
-      if (f.effect) f.effect.forEach(function (e) { searchParts.push(e.description); });
-      _entries[f.id] = {
-        id: f.id,
-        name: f.name,
-        type: 'Force ' + (f.actionType || 'Action'),
-        rule: f.description || '',
-        _providerType: 'action',
-        _actionGroup: 'Force',
-        _actionData: f,
-        _searchText: _buildSearchText(searchParts)
-      };
-      _actionEntryIds[f.id] = true;
-    });
   }
 
   function _loadDestinyPool(gamesystemArr) {
@@ -1362,6 +1346,10 @@
     gamesystemArr.forEach(function (entry) { byId[entry.id] = entry; });
 
     CORE_RULE_ORDER.forEach(function (ruleId) {
+      if (ruleId === 'destiny_pool') {
+        _coreRuleEntryIds['destiny_pool'] = true;
+        return;
+      }
       var gs = byId[ruleId];
       if (!gs) return;
 
