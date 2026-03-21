@@ -446,6 +446,86 @@ router.patch('/characters/:id/advancement', (req, res) => {
   }
 });
 
+router.patch('/characters/:id/dice', (req, res) => {
+  const character = db.prepare('SELECT id, character_data, session_id FROM characters WHERE id = ?').get(req.params.id);
+  if (!character || !character.character_data) {
+    return res.status(404).json({ error: 'Character not found.' });
+  }
+  if (!character.session_id) {
+    return res.status(403).json({ error: 'Character is not in an active session.' });
+  }
+  try {
+    const data = JSON.parse(character.character_data);
+    const { type, id, newDie } = req.body;
+    if (!type) return res.status(400).json({ error: 'Missing type.' });
+
+    if (type === 'discipline' || type === 'arena') {
+      if (!id || !newDie || !DIE_STEPS.includes(newDie)) {
+        return res.status(400).json({ error: 'Invalid id or die.' });
+      }
+      const targetIdx = DIE_STEPS.indexOf(newDie);
+      if (targetIdx < 1) return res.status(400).json({ error: 'Cannot set to D4 via upgrade.' });
+
+      if (type === 'discipline') {
+        const alreadyExpanded = data.arenas && Array.isArray(data.arenas);
+        if (alreadyExpanded) {
+          let found = false;
+          let currentDie = null;
+          data.arenas.forEach(a => {
+            if (!a.disciplines) return;
+            a.disciplines.forEach(d => {
+              if (d.id === id) { currentDie = d.die || 'D6'; found = true; }
+            });
+          });
+          if (!found) return res.status(400).json({ error: 'Discipline not found.' });
+          const curIdx = DIE_STEPS.indexOf(currentDie);
+          if (targetIdx !== curIdx + 1) return res.status(400).json({ error: 'Die must step up by exactly 1.' });
+          data.arenas.forEach(a => {
+            if (!a.disciplines) return;
+            a.disciplines.forEach(d => { if (d.id === id) d.die = newDie; });
+          });
+        } else {
+          if (!data.discValues) data.discValues = {};
+          const currentDie = data.discValues[id] || 'D6';
+          const curIdx = DIE_STEPS.indexOf(currentDie);
+          if (targetIdx !== curIdx + 1) return res.status(400).json({ error: 'Die must step up by exactly 1.' });
+          data.discValues[id] = newDie;
+        }
+      } else {
+        const alreadyExpanded = data.arenas && Array.isArray(data.arenas);
+        if (alreadyExpanded) {
+          const arena = data.arenas.find(a => a.id === id);
+          if (!arena) return res.status(400).json({ error: 'Arena not found.' });
+          const curIdx = DIE_STEPS.indexOf(arena.die || 'D6');
+          if (targetIdx !== curIdx + 1 && !(newDie === 'D10' && (arena.die || 'D6') === 'D12')) {
+            return res.status(400).json({ error: 'Die must step up by exactly 1 (or degrade D12→D10 for Apex).' });
+          }
+          arena.die = newDie;
+        } else {
+          const species = data.species || 'Human';
+          const speciesBase = SPECIES_ARENAS[species] || SPECIES_ARENAS['Human'];
+          const baseIdx = DIE_STEPS.indexOf(speciesBase[id] || 'D6');
+          const currentAdj = (data.arenaAdj && data.arenaAdj[id]) || 0;
+          const curIdx = baseIdx + currentAdj;
+          if (targetIdx !== curIdx + 1 && !(DIE_STEPS[curIdx] === 'D12' && newDie === 'D10')) {
+            return res.status(400).json({ error: 'Die must step up by exactly 1 (or degrade D12→D10 for Apex).' });
+          }
+          if (!data.arenaAdj) data.arenaAdj = {};
+          data.arenaAdj[id] = targetIdx - baseIdx;
+        }
+      }
+    } else {
+      return res.status(400).json({ error: 'Unknown type. Use discipline or arena.' });
+    }
+
+    db.prepare('UPDATE characters SET character_data = ? WHERE id = ?').run(JSON.stringify(data), character.id);
+    return res.json({ ok: true });
+  } catch (err) {
+    console.error('[PATCH /dice]', err);
+    return res.status(500).json({ error: 'Failed to update dice.' });
+  }
+});
+
 router.post('/admin/release-all', (req, res) => {
   db.prepare('DELETE FROM sessions').run();
   db.prepare('UPDATE characters SET session_id = NULL, connected_at = NULL').run();

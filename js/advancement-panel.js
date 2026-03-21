@@ -54,6 +54,19 @@
   var ARENA_TRACK_SIZE = 3;
   var VOC_TRACK_SIZE = 5;
   var DISC_GATE = { D4: 1, D6: 2, D8: 3, D10: 4, D12: 5 };
+  var DIE_STEPS = ['D4', 'D6', 'D8', 'D10', 'D12'];
+
+  var DISC_UPGRADE_COST = {
+    D6:  { adv: 1, elite: 0 },
+    D8:  { adv: 1, elite: 1 },
+    D10: { adv: 1, elite: 2 }
+  };
+  var ARENA_UPGRADE_COST = {
+    D4: { adv: 2 },
+    D6: { adv: 1 },
+    D8: { adv: 3 },
+    D10:{ adv: 5 }
+  };
 
   var _charId = null;
   var _advancement = null;
@@ -62,6 +75,7 @@
   var _collapsedBuckets = {};
   var _panelVisible = false;
   var _initialized = false;
+  var _openSpendPanel = null;
 
   function _esc(str) {
     return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -220,35 +234,41 @@
     extra += '<button class="adv-btn adv-btn--focus' + (canFocusBurn ? '' : ' adv-btn--disabled') + '" id="adv-focus-burn-btn" title="Pay ' + costPerBox + ' Mark(s), skip die upgrade, gain progress toward Elite Token"' + (canFocusBurn ? '' : ' disabled') + '>Focus Burn (' + costPerBox + 'M)</button>';
     extra += '</div>';
 
-    extra += '<div class="adv-track-ref">';
-    extra += '<div class="adv-ref-title">Discipline Die Costs</div>';
-    extra += '<div class="adv-ref-row">D6 \u2192 D8: 1 Advance</div>';
-    extra += '<div class="adv-ref-row">D8 \u2192 D10: 1 Advance + 1 Elite Token</div>';
-    extra += '<div class="adv-ref-row">D10 \u2192 D12: 1 Advance + 2 Elite Tokens</div>';
-    extra += '<div class="adv-ref-row adv-ref-note">Focus Burn: Pay Mark cost, skip die upgrade, accelerate toward Elite Token.</div>';
-    extra += '</div>';
+    if (_openSpendPanel === 'disc') {
+      extra += _buildDisciplineSpendPanel();
+    } else {
+      extra += '<div class="adv-track-ref">';
+      extra += '<div class="adv-ref-title">Discipline Die Costs</div>';
+      extra += '<div class="adv-ref-row">D6 \u2192 D8: 1 Advance</div>';
+      extra += '<div class="adv-ref-row">D8 \u2192 D10: 1 Advance + 1 Elite Token</div>';
+      extra += '<div class="adv-ref-row">D10 \u2192 D12: 1 Advance + 2 Elite Tokens</div>';
+      extra += '<div class="adv-ref-row adv-ref-note">Focus Burn: Pay Mark cost, skip die upgrade, accelerate toward Elite Token.</div>';
+      extra += '</div>';
+    }
 
     return _buildPipTrack('disc', dt, DISC_TRACK_SIZE, 1, 'Discipline Track', extra);
   }
 
   function _buildArenaTrack() {
     var at = _advancement.arenaTrack;
-    var d12Count = _countD12Arenas();
-    var apexWarning = d12Count >= 1;
 
     var extra = '';
-    if (apexWarning) {
-      extra += '<div class="adv-apex-warning">\u26A0 Apex Rule Active: You already have an Arena at D12. Pushing another to D12 will degrade the first to D10.</div>';
+    if (_openSpendPanel === 'arena') {
+      extra += _buildArenaSpendPanel();
+    } else {
+      var d12Count = _countD12Arenas();
+      if (d12Count >= 1) {
+        extra += '<div class="adv-apex-warning">\u26A0 Apex Rule Active: You already have an Arena at D12. Pushing another to D12 will degrade the first to D10.</div>';
+      }
+      extra += '<div class="adv-track-ref">';
+      extra += '<div class="adv-ref-title">Arena Die Costs</div>';
+      extra += '<div class="adv-ref-row">D4 \u2192 D6 (Fixing a Flaw): 2 Advances</div>';
+      extra += '<div class="adv-ref-row">D6 \u2192 D8: 1 Advance</div>';
+      extra += '<div class="adv-ref-row">D8 \u2192 D10: 3 Advances</div>';
+      extra += '<div class="adv-ref-row">D10 \u2192 D12 (Master): 5 Advances</div>';
+      extra += '<div class="adv-ref-row adv-ref-note">Apex Rule: Only one Arena may be at D12. Pushing a second degrades the first to D10.</div>';
+      extra += '</div>';
     }
-
-    extra += '<div class="adv-track-ref">';
-    extra += '<div class="adv-ref-title">Arena Die Costs</div>';
-    extra += '<div class="adv-ref-row">D4 \u2192 D6 (Fixing a Flaw): 2 Advances</div>';
-    extra += '<div class="adv-ref-row">D6 \u2192 D8: 1 Advance</div>';
-    extra += '<div class="adv-ref-row">D8 \u2192 D10: 3 Advances</div>';
-    extra += '<div class="adv-ref-row">D10 \u2192 D12 (Master): 5 Advances</div>';
-    extra += '<div class="adv-ref-row adv-ref-note">Apex Rule: Only one Arena may be at D12. Pushing a second degrades the first to D10.</div>';
-    extra += '</div>';
 
     return _buildPipTrack('arena', at, ARENA_TRACK_SIZE, 3, 'Arena Track', extra);
   }
@@ -291,12 +311,16 @@
       extra += '<div class="adv-voc-empty">No vocations assigned.</div>';
     }
 
-    extra += '<div class="adv-track-ref">';
-    extra += '<div class="adv-ref-title">Discipline Gate</div>';
-    extra += '<div class="adv-ref-row">D4: Max Tier 1 \u2022 D6: Max Tier 2 \u2022 D8: Max Tier 3</div>';
-    extra += '<div class="adv-ref-row">D10: Max Tier 4 \u2022 D12: Max Tier 5</div>';
-    extra += '<div class="adv-ref-row adv-ref-note">Spend 1 Advance to bump any eligible vocation up 1 tier.</div>';
-    extra += '</div>';
+    if (_openSpendPanel === 'voc') {
+      extra += _buildVocationSpendPanel();
+    } else {
+      extra += '<div class="adv-track-ref">';
+      extra += '<div class="adv-ref-title">Discipline Gate</div>';
+      extra += '<div class="adv-ref-row">D4: Max Tier 1 \u2022 D6: Max Tier 2 \u2022 D8: Max Tier 3</div>';
+      extra += '<div class="adv-ref-row">D10: Max Tier 4 \u2022 D12: Max Tier 5</div>';
+      extra += '<div class="adv-ref-row adv-ref-note">Spend 1 Advance to bump any eligible vocation up 1 tier.</div>';
+      extra += '</div>';
+    }
 
     return _buildPipTrack('voc', vt, VOC_TRACK_SIZE, 3, 'Vocation Track', extra);
   }
@@ -357,6 +381,7 @@
     html += _buildDisciplineTrack();
     html += _buildArenaTrack();
     html += _buildVocationTrack();
+    html += '<div class="adv-4th-placeholder"><span class="adv-4th-placeholder-text">Additional track slot reserved</span></div>';
     html += '</div>';
 
     html += '</div>';
@@ -433,6 +458,41 @@
       btn.addEventListener('click', function () {
         var trackKey = btn.getAttribute('data-spend-track');
         _handleSpendAdvance(trackKey);
+      });
+    });
+
+    var closeBtns = container.querySelectorAll('.adv-spend-close');
+    closeBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        _openSpendPanel = null;
+        _render();
+      });
+    });
+
+    var discRows = container.querySelectorAll('[data-upgrade-disc]');
+    discRows.forEach(function (row) {
+      if (row.classList.contains('adv-spend-row--locked')) return;
+      row.addEventListener('click', function () {
+        var parts = row.getAttribute('data-upgrade-disc').split(',');
+        _applyDisciplineUpgrade(parseInt(parts[0], 10), parseInt(parts[1], 10));
+      });
+    });
+
+    var arenaRows = container.querySelectorAll('[data-upgrade-arena]');
+    arenaRows.forEach(function (row) {
+      if (row.classList.contains('adv-spend-row--locked')) return;
+      row.addEventListener('click', function () {
+        var idx = parseInt(row.getAttribute('data-upgrade-arena'), 10);
+        _applyArenaUpgrade(idx);
+      });
+    });
+
+    var vocRows = container.querySelectorAll('[data-upgrade-voc]');
+    vocRows.forEach(function (row) {
+      if (row.classList.contains('adv-spend-row--locked')) return;
+      row.addEventListener('click', function () {
+        var idx = parseInt(row.getAttribute('data-upgrade-voc'), 10);
+        _applyVocationUpgrade(idx);
       });
     });
   }
@@ -514,78 +574,251 @@
   }
 
   function _handleSpendAdvance(trackKey) {
-    var t = _getTrackObj(trackKey);
-    if (!t || (t.unspentAdvances || 0) < 1) return;
-
-    if (trackKey === 'voc') {
-      _showVocationSpendDialog();
-      return;
-    }
-
-    var trackLabel = trackKey === 'disc' ? 'Discipline' : 'Arena';
-    var msg = 'Spend 1 ' + trackLabel + ' Advance?\n\n';
-    if (trackKey === 'disc') {
-      msg += 'Apply this advance to upgrade a Discipline die.\n';
-      msg += '(D6\u2192D8: 1 Adv, D8\u2192D10: 1 Adv + 1 Elite Token, D10\u2192D12: 1 Adv + 2 Elite Tokens)\n\n';
-      msg += 'You have ' + t.unspentAdvances + ' unspent advance(s) and ' + (t.eliteTokens || 0) + ' Elite Token(s).';
+    if (_openSpendPanel === trackKey) {
+      _openSpendPanel = null;
     } else {
-      msg += 'Apply this advance to upgrade an Arena die.\n';
-      msg += '(D4\u2192D6: 2 Adv, D6\u2192D8: 1 Adv, D8\u2192D10: 3 Adv, D10\u2192D12: 5 Adv)\n\n';
-      msg += 'You have ' + t.unspentAdvances + ' unspent advance(s).';
+      _openSpendPanel = trackKey;
     }
-
-    if (!confirm(msg)) return;
-
-    t.unspentAdvances--;
-    _persist();
     _render();
   }
 
-  function _showVocationSpendDialog() {
+  function _nextDie(die) {
+    var idx = DIE_STEPS.indexOf(die);
+    if (idx < 0 || idx >= DIE_STEPS.length - 1) return null;
+    return DIE_STEPS[idx + 1];
+  }
+
+  function _persistDice(payload, cb) {
+    if (!_charId) return;
+    fetch('/api/characters/' + encodeURIComponent(_charId) + '/dice', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(function (res) {
+      if (!res.ok) throw new Error('dice save failed: ' + res.status);
+      if (cb) cb();
+    }).catch(function (err) {
+      console.error('[AdvancementPanel] dice save error', err);
+    });
+  }
+
+  function _applyDisciplineUpgrade(arenaIdx, discIdx) {
+    var arena = _char.arenas[arenaIdx];
+    if (!arena || !arena.disciplines) return;
+    var disc = arena.disciplines[discIdx];
+    if (!disc) return;
+    var dt = _advancement.disciplineTrack;
+    var curDie = disc.die || 'D6';
+    var cost = DISC_UPGRADE_COST[curDie];
+    if (!cost) return;
+    if ((dt.unspentAdvances || 0) < cost.adv) return;
+    if (cost.elite > 0 && (dt.eliteTokens || 0) < cost.elite) return;
+    var newDie = _nextDie(curDie);
+    if (!newDie) return;
+
+    dt.unspentAdvances -= cost.adv;
+    if (cost.elite > 0) dt.eliteTokens -= cost.elite;
+    disc.die = newDie;
+    _persist();
+    _persistDice({ type: 'discipline', id: disc.id, newDie: newDie });
+    document.dispatchEvent(new CustomEvent('character:stateChanged'));
+    _render();
+  }
+
+  function _applyArenaUpgrade(arenaIdx) {
+    var arena = _char.arenas[arenaIdx];
+    if (!arena) return;
+    var at = _advancement.arenaTrack;
+    var curDie = arena.die || 'D6';
+    var cost = ARENA_UPGRADE_COST[curDie];
+    if (!cost) return;
+    if ((at.unspentAdvances || 0) < cost.adv) return;
+    var newDie = _nextDie(curDie);
+    if (!newDie) return;
+
+    if (newDie === 'D12') {
+      var existing = _countD12Arenas();
+      if (existing >= 1) {
+        var otherArena = null;
+        _char.arenas.forEach(function (a) {
+          if (a.die === 'D12' && a.id !== arena.id) otherArena = a;
+        });
+        if (otherArena) {
+          if (!confirm('Apex Rule: ' + otherArena.label + ' is currently D12 and will be degraded to D10. Continue?')) return;
+          otherArena.die = 'D10';
+          _persistDice({ type: 'arena', id: otherArena.id, newDie: 'D10' });
+        }
+      }
+    }
+
+    at.unspentAdvances -= cost.adv;
+    arena.die = newDie;
+    _persist();
+    _persistDice({ type: 'arena', id: arena.id, newDie: newDie });
+    document.dispatchEvent(new CustomEvent('character:stateChanged'));
+    _render();
+  }
+
+  function _applyVocationUpgrade(kitIdx) {
+    var kits = (_char && _char.kits) ? _char.kits : [];
+    var kit = kits[kitIdx];
+    if (!kit) return;
     var vt = _advancement.vocationTrack;
     if ((vt.unspentAdvances || 0) < 1) return;
 
+    var kitId = kit.id || kit.kitId || '';
+    var unlocks = _advancement.vocationUnlocks || {};
+    var baseTier = kit.tier || kit.currentTier || 1;
+    var advancedTier = unlocks[kitId] || 0;
+    var currentTier = baseTier + advancedTier;
+    var favDisc = kit.favoredDiscipline || '';
+    var favDie = _getFavoredDie(favDisc);
+    var maxTier = DISC_GATE[favDie] || 1;
+
+    if (currentTier >= 5 || currentTier >= maxTier) return;
+
+    vt.unspentAdvances--;
+    if (!_advancement.vocationUnlocks) _advancement.vocationUnlocks = {};
+    _advancement.vocationUnlocks[kitId] = (unlocks[kitId] || 0) + 1;
+    _persist();
+    document.dispatchEvent(new CustomEvent('character:stateChanged'));
+    _render();
+  }
+
+  function _buildDisciplineSpendPanel() {
+    var dt = _advancement.disciplineTrack;
+    var unspent = dt.unspentAdvances || 0;
+    var tokens = dt.eliteTokens || 0;
+    var html = '<div class="adv-spend-panel">';
+    html += '<div class="adv-spend-panel-title"><span>Upgrade a Discipline</span><button class="adv-spend-close" data-close-spend="disc">\u2715</button></div>';
+    html += '<div class="adv-spend-note">Available: ' + unspent + ' Advance(s), ' + tokens + ' Elite Token(s)</div>';
+
+    if (!_char || !_char.arenas) { html += '</div>'; return html; }
+
+    _char.arenas.forEach(function (arena, ai) {
+      html += '<div class="adv-spend-arena-group">';
+      html += '<div class="adv-spend-arena-label">' + _esc(arena.label) + '<span class="adv-spend-arena-die">' + _esc(arena.die) + '</span></div>';
+      arena.disciplines.forEach(function (disc, di) {
+        var curDie = disc.die || 'D6';
+        var next = _nextDie(curDie);
+        var cost = DISC_UPGRADE_COST[curDie];
+        var maxed = !next;
+        var canAfford = cost && unspent >= cost.adv && tokens >= (cost.elite || 0);
+        var locked = maxed || !canAfford;
+        var cls = 'adv-spend-row';
+        if (locked) cls += ' adv-spend-row--locked';
+        if (maxed) cls += ' adv-spend-row--maxed';
+        if (!locked) cls += ' adv-spend-row--can-afford';
+
+        html += '<div class="' + cls + '" data-upgrade-disc="' + ai + ',' + di + '">';
+        html += '<div class="adv-spend-row-left">';
+        html += '<span class="adv-spend-row-name">' + _esc(disc.label || disc.id) + '</span>';
+        html += '</div>';
+        html += '<span class="adv-spend-row-die">' + _esc(curDie) + '</span>';
+        if (!maxed) {
+          html += '<span class="adv-spend-row-arrow">\u2192</span>';
+          html += '<span class="adv-spend-row-die">' + next + '</span>';
+          var costStr = '<b>' + cost.adv + ' Adv</b>';
+          if (cost.elite > 0) costStr += ' + <b>' + cost.elite + ' ET</b>';
+          html += '<span class="adv-spend-row-cost">' + costStr + '</span>';
+        } else {
+          html += '<span class="adv-spend-row-cost">MAX</span>';
+        }
+        html += '</div>';
+      });
+      html += '</div>';
+    });
+    html += '</div>';
+    return html;
+  }
+
+  function _buildArenaSpendPanel() {
+    var at = _advancement.arenaTrack;
+    var unspent = at.unspentAdvances || 0;
+    var html = '<div class="adv-spend-panel">';
+    html += '<div class="adv-spend-panel-title"><span>Upgrade an Arena</span><button class="adv-spend-close" data-close-spend="arena">\u2715</button></div>';
+    html += '<div class="adv-spend-note">Available: ' + unspent + ' Advance(s)</div>';
+
+    if (!_char || !_char.arenas) { html += '</div>'; return html; }
+
+    _char.arenas.forEach(function (arena, ai) {
+      var curDie = arena.die || 'D6';
+      var next = _nextDie(curDie);
+      var cost = ARENA_UPGRADE_COST[curDie];
+      var maxed = !next;
+      var canAfford = cost && unspent >= cost.adv;
+      var locked = maxed || !canAfford;
+      var cls = 'adv-spend-row';
+      if (locked) cls += ' adv-spend-row--locked';
+      if (maxed) cls += ' adv-spend-row--maxed';
+      if (!locked) cls += ' adv-spend-row--can-afford';
+
+      html += '<div class="' + cls + '" data-upgrade-arena="' + ai + '">';
+      html += '<div class="adv-spend-row-left">';
+      html += '<span class="adv-spend-row-name">' + _esc(arena.label) + '</span>';
+      html += '</div>';
+      html += '<span class="adv-spend-row-die">' + _esc(curDie) + '</span>';
+      if (!maxed) {
+        html += '<span class="adv-spend-row-arrow">\u2192</span>';
+        html += '<span class="adv-spend-row-die">' + next + '</span>';
+        html += '<span class="adv-spend-row-cost"><b>' + cost.adv + ' Adv</b></span>';
+      } else {
+        html += '<span class="adv-spend-row-cost">MAX</span>';
+      }
+      html += '</div>';
+    });
+
+    if (_countD12Arenas() >= 1) {
+      html += '<div class="adv-apex-warning">\u26A0 Apex Rule: Only one Arena may sit at D12. Pushing another to D12 will degrade the current one to D10.</div>';
+    }
+    html += '</div>';
+    return html;
+  }
+
+  function _buildVocationSpendPanel() {
+    var vt = _advancement.vocationTrack;
+    var unspent = vt.unspentAdvances || 0;
     var unlocks = _advancement.vocationUnlocks || {};
     var kits = (_char && _char.kits) ? _char.kits : [];
-    var eligible = [];
+    var html = '<div class="adv-spend-panel">';
+    html += '<div class="adv-spend-panel-title"><span>Upgrade a Vocation</span><button class="adv-spend-close" data-close-spend="voc">\u2715</button></div>';
+    html += '<div class="adv-spend-note">Available: ' + unspent + ' Advance(s). Cost: 1 Advance per tier bump.</div>';
 
-    kits.forEach(function (kit) {
+    if (kits.length === 0) {
+      html += '<div class="adv-voc-empty">No vocations assigned.</div>';
+      html += '</div>';
+      return html;
+    }
+
+    kits.forEach(function (kit, ki) {
       var kitId = kit.id || kit.kitId || '';
       var baseTier = kit.tier || kit.currentTier || 1;
       var advancedTier = unlocks[kitId] || 0;
       var currentTier = baseTier + advancedTier;
-      var favDisc = kit.favoredDiscipline || '\u2014';
+      var kitLabel = kit.name || kit.label || kitId;
+      var favDisc = kit.favoredDiscipline || '';
       var favDie = _getFavoredDie(favDisc);
       var maxTier = DISC_GATE[favDie] || 1;
-      var kitLabel = kit.name || kit.label || kitId;
+      var atMax = currentTier >= 5 || currentTier >= maxTier;
+      var locked = atMax || unspent < 1;
+      var cls = 'adv-spend-voc-row';
+      if (locked) cls += ' adv-spend-row--locked';
 
-      if (currentTier < maxTier && currentTier < 5) {
-        eligible.push({ kitId: kitId, label: kitLabel, currentTier: currentTier, nextTier: currentTier + 1 });
+      html += '<div class="' + cls + '" data-upgrade-voc="' + ki + '">';
+      html += '<div>';
+      html += '<div class="adv-spend-voc-name">' + _esc(kitLabel) + '</div>';
+      html += '<div class="adv-spend-voc-info">Gate: ' + _esc(favDisc) + ' (' + _esc(favDie) + ') \u2014 Max Tier ' + maxTier + '</div>';
+      html += '</div>';
+      if (!atMax) {
+        html += '<span class="adv-spend-voc-tier">T' + currentTier + ' \u2192 T' + (currentTier + 1) + '</span>';
+      } else {
+        html += '<span class="adv-spend-voc-tier" style="opacity:0.4">T' + currentTier + ' (MAX)</span>';
       }
+      html += '</div>';
     });
 
-    if (eligible.length === 0) {
-      alert('No vocations are eligible for advancement. All are either at max tier or gated by Discipline die.');
-      return;
-    }
-
-    var msg = 'Spend 1 Vocation Advance to bump a vocation:\n\n';
-    eligible.forEach(function (e, i) {
-      msg += (i + 1) + '. ' + e.label + ' (Tier ' + e.currentTier + ' \u2192 ' + e.nextTier + ')\n';
-    });
-    msg += '\nEnter number (1-' + eligible.length + '):';
-
-    var choice = prompt(msg);
-    if (!choice) return;
-    var idx = parseInt(choice, 10) - 1;
-    if (isNaN(idx) || idx < 0 || idx >= eligible.length) return;
-
-    var picked = eligible[idx];
-    vt.unspentAdvances--;
-    if (!_advancement.vocationUnlocks) _advancement.vocationUnlocks = {};
-    _advancement.vocationUnlocks[picked.kitId] = (_advancement.vocationUnlocks[picked.kitId] || 0) + 1;
-    _persist();
-    _render();
+    html += '</div>';
+    return html;
   }
 
   function _updateMarksSummary() {

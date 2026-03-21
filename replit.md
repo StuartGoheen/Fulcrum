@@ -232,8 +232,13 @@ Tables: `characters`, `campaign_state`, `equipment_status`, `sessions`, `campaig
 - Vocation Track: 5-box pip track, cost = level × 3 Marks/box. Each pip = 1 Advance (no Elite Tokens). Spend advance to bump any eligible vocation tier (gated by Favored Discipline die: D4→T1, D6→T2, D8→T3, D10→T4, D12→T5).
 - All tracks start at level 2 (chargen fills track 1). Existing characters migrate with `unspentAdvances: 0` added.
 - Marks are deducted from banked total when filling track pips; clicking to unfill refunds marks
-- Spend Advance buttons with confirmation dialogs for Discipline/Arena, vocation picker dialog for Vocation track
-- Persistence via `PATCH /api/characters/:id/advancement` with server-side input sanitization/clamping
+- Inline spend panels: "Spend Advance" button toggles an inline panel showing all upgrade options
+  - Discipline: all 25 disciplines grouped by arena, current die, upgrade cost (D6→D8: 1 Adv, D8→D10: 1 Adv + 1 ET, D10→D12: 1 Adv + 2 ET), click to apply
+  - Arena: all 5 arenas with current die, cost (D4→D6: 2 Adv, D6→D8: 1 Adv, D8→D10: 3 Adv, D10→D12: 5 Adv), Apex Rule enforcement
+  - Vocation: eligible vocations with tier display, 1 Advance per tier bump, gated by Discipline die
+- Actual die-stepping: upgrades modify character data in-memory and persist via `PATCH /api/characters/:id/dice`
+- 4th track placeholder slot reserved in layout
+- Persistence via `PATCH /api/characters/:id/advancement` (tracks) + `PATCH /api/characters/:id/dice` (die changes)
 
 **Data model:** `character_data.advancement` JSON field with:
 - `marks` (earnedChecks map + totalBanked)
