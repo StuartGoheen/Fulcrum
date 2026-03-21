@@ -178,11 +178,14 @@ function expandCharacterData(flat) {
   });
 
   const UNARMED_IDS = ['wpn_fists_01', 'wpn_cathar_claws_01'];
-  const hasUnarmed = weaponIds.some(id => UNARMED_IDS.includes(id));
-  if (!hasUnarmed) {
-    const speciesLower = (flat.species || '').toLowerCase();
-    const unarmedId = speciesLower === 'cathar' ? 'wpn_cathar_claws_01' : 'wpn_fists_01';
-    weaponIds.push(unarmedId);
+  const speciesLower = (flat.species || '').toLowerCase();
+  const correctUnarmedId = speciesLower === 'cathar' ? 'wpn_cathar_claws_01' : 'wpn_fists_01';
+  const wrongUnarmedId = speciesLower === 'cathar' ? 'wpn_fists_01' : 'wpn_cathar_claws_01';
+  const wrongIdx = weaponIds.indexOf(wrongUnarmedId);
+  if (wrongIdx !== -1) {
+    weaponIds[wrongIdx] = correctUnarmedId;
+  } else if (!weaponIds.some(id => UNARMED_IDS.includes(id))) {
+    weaponIds.push(correctUnarmedId);
   }
 
   return {

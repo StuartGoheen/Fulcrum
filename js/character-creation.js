@@ -3093,8 +3093,17 @@
       var unarmedId = (state.species === "cathar") ? "wpn_cathar_claws_01" : "wpn_fists_01";
       var unarmedName = (state.species === "cathar") ? "Cathar Claws" : "Fists";
       if (!state.startingGear) state.startingGear = [];
-      var hasInnateGear = state.startingGear.some(function(g) { return g.id === "wpn_fists_01" || g.id === "wpn_cathar_claws_01"; });
-      if (!hasInnateGear) {
+      var existingUnarmedIdx = -1;
+      for (var ui = 0; ui < state.startingGear.length; ui++) {
+        if (state.startingGear[ui].id === "wpn_fists_01" || state.startingGear[ui].id === "wpn_cathar_claws_01") {
+          existingUnarmedIdx = ui;
+          break;
+        }
+      }
+      if (existingUnarmedIdx >= 0) {
+        state.startingGear[existingUnarmedIdx].id = unarmedId;
+        state.startingGear[existingUnarmedIdx].name = unarmedName;
+      } else {
         state.startingGear.push({ id: unarmedId, name: unarmedName, source: "weapon", acquisition: "innate", innate: true, cost: 0 });
       }
 
