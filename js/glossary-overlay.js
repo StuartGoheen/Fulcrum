@@ -80,7 +80,7 @@
     'Free': 'Initiative', 'Force': 'Force Powers'
   };
 
-  var CORE_RULE_ORDER = ['destiny_pool', 'modes_of_play', 'opening_exploit_defense', 'dual_wielding', 'concealment'];
+  var CORE_RULE_ORDER = ['modes_of_play', 'opening_exploit_defense', 'dual_wielding', 'concealment'];
 
   function _registerProviders() {
     _providers = [];
@@ -111,9 +111,21 @@
     });
 
     _providers.push({
+      id: 'destiny',
+      label: 'Destiny Pool',
+      icon: '\u2727',
+      getGroups: function () {
+        var e = _entries['destiny_pool'];
+        if (!e) return [];
+        return [{ groupLabel: null, entries: [{ id: e.id, name: e.name }] }];
+      },
+      hasEntry: function (id) { return id === 'destiny_pool'; }
+    });
+
+    _providers.push({
       id: 'coreRules',
       label: 'Core Rules',
-      icon: '\u2727',
+      icon: '\u2699',
       getGroups: function () {
         var items = [];
         CORE_RULE_ORDER.forEach(function (rid) {
@@ -198,6 +210,20 @@
             groups.push({ groupLabel: label, entries: conds });
           }
         });
+        return groups;
+      },
+      hasEntry: function (id) {
+        var e = _entries[id];
+        if (!e) return false;
+        return e.type === 'Condition' || e.type === 'Condition (Combined)' || e.type === 'Condition (Stacking)';
+      }
+    });
+
+    _providers.push({
+      id: 'rules',
+      label: 'Rules',
+      icon: '\uD83D\uDCDC',
+      getGroups: function () {
         var rules = [];
         Object.keys(_entries).forEach(function (eid) {
           var e = _entries[eid];
@@ -205,16 +231,12 @@
             rules.push({ id: e.id, name: e.name });
           }
         });
-        if (rules.length) {
-          rules.sort(function (a, b) { return a.name.localeCompare(b.name); });
-          groups.push({ groupLabel: 'Rules', entries: rules });
-        }
-        return groups;
+        rules.sort(function (a, b) { return a.name.localeCompare(b.name); });
+        return rules.length ? [{ groupLabel: null, entries: rules }] : [];
       },
       hasEntry: function (id) {
         var e = _entries[id];
-        if (!e) return false;
-        return e.type === 'Condition' || e.type === 'Condition (Combined)' || e.type === 'Condition (Stacking)' || e.type === 'Rule';
+        return e && e.type === 'Rule';
       }
     });
 
@@ -533,7 +555,7 @@
       if (s.body) {
         var p = document.createElement('p');
         p.className = 'handbook-rich-body';
-        p.textContent = s.body;
+        p.innerHTML = _linkify(s.body);
         sec.appendChild(p);
       }
       if (s.list && s.list.length) {
@@ -541,7 +563,7 @@
         ul.className = 'handbook-rich-list';
         s.list.forEach(function (item) {
           var li = document.createElement('li');
-          li.textContent = item;
+          li.innerHTML = _linkify(item);
           ul.appendChild(li);
         });
         sec.appendChild(ul);
@@ -1492,7 +1514,6 @@
       _providerType: 'coreRule',
       _searchText: 'destiny pool hope toll karma tapping lockout flipping crossroads meta currency'
     };
-    _coreRuleEntryIds['destiny_pool'] = true;
 
     var glossaryReady = fetch('/data/glossary.json')
       .then(function (res) { return res.json(); })
