@@ -10,6 +10,12 @@
   var _searchTerm = '';
   var _expandedCategories = {};
   var _dataReady = false;
+  var _chassisData = {};
+  var _actionEntryIds = {};
+  var _coreRuleEntryIds = {};
+  var _vocationEntryIds = {};
+  var _speciesEntryIds = {};
+  var _equipmentEntryIds = {};
 
   function _esc(str) {
     return String(str)
@@ -68,19 +74,55 @@
     special: 'Special', combined: 'Combined'
   };
 
+  var ACTION_GROUP_ORDER = ['Action', 'Maneuver', 'Defense', 'Free', 'Force'];
+  var ACTION_GROUP_LABELS = {
+    'Action': 'Actions', 'Maneuver': 'Maneuvers', 'Defense': 'Defenses',
+    'Free': 'Initiative', 'Force': 'Force Powers'
+  };
+
+  var CORE_RULE_ORDER = ['destiny_pool', 'modes_of_play', 'opening_exploit_defense', 'dual_wielding', 'concealment'];
+
   function _registerProviders() {
     _providers = [];
 
     _providers.push({
-      id: 'destiny',
-      label: 'Destiny Pool',
+      id: 'actions',
+      label: 'Actions',
+      icon: '\u2604',
+      getGroups: function () {
+        var grouped = {};
+        ACTION_GROUP_ORDER.forEach(function (g) { grouped[g] = []; });
+        Object.keys(_actionEntryIds).forEach(function (eid) {
+          var e = _entries[eid];
+          if (!e) return;
+          var grp = e._actionGroup || 'Action';
+          if (!grouped[grp]) grouped[grp] = [];
+          grouped[grp].push({ id: e.id, name: e.name });
+        });
+        var groups = [];
+        ACTION_GROUP_ORDER.forEach(function (g) {
+          if (grouped[g] && grouped[g].length) {
+            groups.push({ groupLabel: ACTION_GROUP_LABELS[g] || g, entries: grouped[g] });
+          }
+        });
+        return groups;
+      },
+      hasEntry: function (id) { return !!_actionEntryIds[id]; }
+    });
+
+    _providers.push({
+      id: 'coreRules',
+      label: 'Core Rules',
       icon: '\u2727',
       getGroups: function () {
-        var e = _entries['destiny_pool'];
-        if (!e) return [];
-        return [{ groupLabel: null, entries: [{ id: e.id, name: e.name }] }];
+        var items = [];
+        CORE_RULE_ORDER.forEach(function (rid) {
+          var e = _entries[rid];
+          if (e) items.push({ id: e.id, name: e.name });
+        });
+        return items.length ? [{ groupLabel: null, entries: items }] : [];
       },
-      hasEntry: function (id) { return id === 'destiny_pool'; }
+      hasEntry: function (id) { return !!_coreRuleEntryIds[id]; }
     });
 
     _providers.push({
@@ -175,6 +217,63 @@
         return e.type === 'Condition' || e.type === 'Condition (Combined)' || e.type === 'Condition (Stacking)' || e.type === 'Rule';
       }
     });
+
+    _providers.push({
+      id: 'vocations',
+      label: 'Vocations',
+      icon: '\u269C',
+      getGroups: function () {
+        var items = [];
+        Object.keys(_vocationEntryIds).forEach(function (eid) {
+          var e = _entries[eid];
+          if (e) items.push({ id: e.id, name: e.name });
+        });
+        items.sort(function (a, b) { return a.name.localeCompare(b.name); });
+        return items.length ? [{ groupLabel: null, entries: items }] : [];
+      },
+      hasEntry: function (id) { return !!_vocationEntryIds[id]; }
+    });
+
+    _providers.push({
+      id: 'species',
+      label: 'Species',
+      icon: '\uD83C\uDF0D',
+      getGroups: function () {
+        var items = [];
+        Object.keys(_speciesEntryIds).forEach(function (eid) {
+          var e = _entries[eid];
+          if (e) items.push({ id: e.id, name: e.name });
+        });
+        items.sort(function (a, b) { return a.name.localeCompare(b.name); });
+        return items.length ? [{ groupLabel: null, entries: items }] : [];
+      },
+      hasEntry: function (id) { return !!_speciesEntryIds[id]; }
+    });
+
+    _providers.push({
+      id: 'equipment',
+      label: 'Equipment',
+      icon: '\uD83D\uDEE1',
+      getGroups: function () {
+        var weapons = [], armor = [], gear = [];
+        Object.keys(_equipmentEntryIds).forEach(function (eid) {
+          var e = _entries[eid];
+          if (!e) return;
+          if (e._equipCategory === 'weapon') weapons.push({ id: e.id, name: e.name });
+          else if (e._equipCategory === 'armor') armor.push({ id: e.id, name: e.name });
+          else gear.push({ id: e.id, name: e.name });
+        });
+        weapons.sort(function (a, b) { return a.name.localeCompare(b.name); });
+        armor.sort(function (a, b) { return a.name.localeCompare(b.name); });
+        gear.sort(function (a, b) { return a.name.localeCompare(b.name); });
+        var groups = [];
+        if (weapons.length) groups.push({ groupLabel: 'Weapons', entries: weapons });
+        if (armor.length) groups.push({ groupLabel: 'Armor', entries: armor });
+        if (gear.length) groups.push({ groupLabel: 'Gear', entries: gear });
+        return groups;
+      },
+      hasEntry: function (id) { return !!_equipmentEntryIds[id]; }
+    });
   }
 
   function _buildPanel() {
@@ -254,6 +353,7 @@
             if (e.name.toLowerCase().indexOf(term) !== -1) return true;
             if (entry && entry.rule && entry.rule.toLowerCase().indexOf(term) !== -1) return true;
             if (entry && entry.guide && entry.guide.toLowerCase().indexOf(term) !== -1) return true;
+            if (entry && entry._searchText && entry._searchText.indexOf(term) !== -1) return true;
             return false;
           });
         }
@@ -505,6 +605,419 @@
     container.appendChild(section);
   }
 
+  function _renderEffectTiers(container, effects) {
+    if (!effects || !effects.length) return;
+    var effectHead = document.createElement('div');
+    effectHead.className = 'glo-sub-label';
+    effectHead.textContent = 'Effect Tiers';
+    container.appendChild(effectHead);
+
+    var effectList = document.createElement('div');
+    effectList.className = 'glo-effect-list';
+    effects.forEach(function (eff) {
+      var t = eff.tier || 1;
+      if (t > 3) t = 3;
+      var row = document.createElement('div');
+      row.className = 'glo-effect-row';
+      row.innerHTML =
+        '<span class="glo-effect-tier glo-effect-tier--' + t + '">' + _esc(eff.label || ('Tier ' + eff.tier)) + '</span>' +
+        '<div class="glo-effect-body">' +
+          (eff.range ? '<span class="glo-effect-name">' + _esc(eff.range) + '</span>' : '') +
+          '<span class="glo-effect-desc">' + _linkify(eff.description || '') + '</span>' +
+        '</div>';
+      effectList.appendChild(row);
+    });
+    container.appendChild(effectList);
+  }
+
+  function _renderGambitList(container, gambits) {
+    if (!gambits || !gambits.length) return;
+    var gambitHead = document.createElement('div');
+    gambitHead.className = 'glo-sub-label';
+    gambitHead.textContent = 'Gambits';
+    container.appendChild(gambitHead);
+
+    var gambitList = document.createElement('div');
+    gambitList.className = 'glo-gambit-list';
+    gambits.forEach(function (g) {
+      var row = document.createElement('div');
+      row.className = 'glo-gambit-row';
+      row.innerHTML =
+        '<span class="glo-gambit-die">\u2726</span>' +
+        '<div class="glo-gambit-body">' +
+          '<span class="glo-gambit-name">' + _esc(g.name) + '</span>' +
+          '<span class="glo-gambit-rule">' + _linkify(g.rule) + '</span>' +
+        '</div>';
+      gambitList.appendChild(row);
+    });
+    container.appendChild(gambitList);
+  }
+
+  function _renderTraitList(container, traits) {
+    if (!traits || !traits.length) return;
+    var traitHead = document.createElement('div');
+    traitHead.className = 'glo-sub-label';
+    traitHead.textContent = 'Traits';
+    container.appendChild(traitHead);
+
+    traits.forEach(function (t) {
+      var block = document.createElement('div');
+      block.className = 'hb-trait-block';
+      block.innerHTML =
+        '<span class="hb-trait-name">' + _esc(t.name) + '</span>' +
+        '<span class="hb-trait-desc">' + _linkify(t.description) + '</span>';
+      container.appendChild(block);
+    });
+  }
+
+  function _renderActionDetail(entry) {
+    var container = document.getElementById('hb-maneuvers-section');
+    if (!container) return;
+    var d = entry._actionData;
+    if (!d) return;
+
+    var meta = document.createElement('div');
+    meta.className = 'hb-action-meta';
+    var pipClass = 'hb-pip hb-pip--' + (d.pip || 'A').toLowerCase().replace(/\s+/g, '');
+    meta.innerHTML = '<span class="' + pipClass + '">' + _esc(d.pip || 'A') + '</span>';
+    if (d.tags) {
+      d.tags.forEach(function (t) {
+        meta.innerHTML += '<span class="glo-tag glo-tag--action">' + _esc(t) + '</span>';
+      });
+    }
+    if (d.discipline) {
+      var discLabel = (d.discipline || '').replace(/_/g, ' ').replace(/\bspark\b/, '').trim();
+      discLabel = discLabel.charAt(0).toUpperCase() + discLabel.slice(1);
+      var arLabel = (d.arena || '').charAt(0).toUpperCase() + (d.arena || '').slice(1);
+      meta.innerHTML += '<span class="glo-tag glo-tag--arena">' + _esc(discLabel + ' (' + arLabel + ')') + '</span>';
+    }
+    container.appendChild(meta);
+
+    if (d.risk) {
+      var risk = document.createElement('div');
+      risk.className = 'glo-maneuver-risk';
+      risk.innerHTML = '<span class="glo-risk-label">Risk</span> ' + _linkify(d.risk);
+      container.appendChild(risk);
+    }
+
+    if (d.note) {
+      var note = document.createElement('div');
+      note.className = 'hb-action-note';
+      note.textContent = d.note;
+      container.appendChild(note);
+    }
+
+    _renderEffectTiers(container, d.effect);
+  }
+
+  function _renderVocationDetail(entry) {
+    var container = document.getElementById('hb-maneuvers-section');
+    if (!container) return;
+    var k = entry._kitData;
+    if (!k) return;
+
+    if (k.fluff) {
+      var fluff = document.createElement('div');
+      fluff.className = 'hb-voc-fluff';
+      fluff.textContent = k.fluff;
+      container.appendChild(fluff);
+    }
+
+    var meta = document.createElement('div');
+    meta.className = 'hb-voc-meta';
+    var arenaLabel = ARENA_LABELS[k.governingArena] || k.governingArena;
+    meta.innerHTML =
+      '<span class="glo-tag glo-tag--arena">' + _esc(arenaLabel) + '</span>' +
+      '<span class="glo-tag glo-tag--action">' + _esc((k.favoredDiscipline || '').replace(/_/g, ' ').replace(/\bspark\b/, '').trim()) + '</span>';
+    container.appendChild(meta);
+
+    if (k.abilities && k.abilities.length) {
+      var treeHead = document.createElement('div');
+      treeHead.className = 'handbook-section-label';
+      treeHead.textContent = 'Ability Tree';
+      container.appendChild(treeHead);
+
+      k.abilities.forEach(function (ab) {
+        var card = document.createElement('div');
+        card.className = 'hb-ability-card';
+
+        var hdr = document.createElement('div');
+        hdr.className = 'hb-ability-header';
+
+        var tierBadge = document.createElement('span');
+        tierBadge.className = 'hb-ability-tier hb-ability-tier--' + ab.tier;
+        tierBadge.textContent = 'T' + ab.tier;
+        hdr.appendChild(tierBadge);
+
+        var typeBadge = document.createElement('span');
+        typeBadge.className = 'hb-ability-type hb-ability-type--' + (ab.type || 'passive');
+        typeBadge.textContent = (ab.type || 'passive').charAt(0).toUpperCase() + (ab.type || 'passive').slice(1);
+        hdr.appendChild(typeBadge);
+
+        var abName = document.createElement('span');
+        abName.className = 'hb-ability-name';
+        abName.textContent = ab.name;
+        hdr.appendChild(abName);
+
+        if (ab.tags && ab.tags.length) {
+          ab.tags.forEach(function (t) {
+            var tag = document.createElement('span');
+            tag.className = 'glo-tag glo-tag--action';
+            tag.textContent = t;
+            hdr.appendChild(tag);
+          });
+        }
+
+        card.appendChild(hdr);
+
+        if (ab.discipline || ab.defense) {
+          var rollRow = document.createElement('div');
+          rollRow.className = 'glo-maneuver-rollrow';
+          if (ab.discipline) {
+            var dLabel = (ab.discipline || '').replace(/_/g, ' ').replace(/\bspark\b/, '').trim();
+            dLabel = dLabel.charAt(0).toUpperCase() + dLabel.slice(1);
+            var aLabel = (ab.arena || '').charAt(0).toUpperCase() + (ab.arena || '').slice(1);
+            rollRow.innerHTML += '<span class="glo-rollrow-label">Roll</span> <span class="glo-rollrow-val">' + _esc(dLabel + ' (' + aLabel + ')') + '</span>';
+          }
+          if (ab.defense) {
+            var defLabel = (ab.defense || '').charAt(0).toUpperCase() + (ab.defense || '').slice(1);
+            rollRow.innerHTML += '<span class="glo-rollrow-sep">\u2022</span><span class="glo-rollrow-label">vs</span> <span class="glo-rollrow-val">' + _esc(defLabel) + '</span>';
+          }
+          card.appendChild(rollRow);
+        }
+
+        var ruleDiv = document.createElement('div');
+        ruleDiv.className = 'hb-ability-rule';
+        ruleDiv.innerHTML = _linkify(ab.rule || '');
+        card.appendChild(ruleDiv);
+
+        if (ab.risk) {
+          var riskDiv = document.createElement('div');
+          riskDiv.className = 'glo-maneuver-risk';
+          riskDiv.innerHTML = '<span class="glo-risk-label">Risk</span> ' + _linkify(ab.risk);
+          card.appendChild(riskDiv);
+        }
+
+        _renderEffectTiers(card, ab.effect);
+        _renderGambitList(card, ab.gambits);
+
+        container.appendChild(card);
+      });
+    }
+  }
+
+  function _renderSpeciesDetail(entry) {
+    var container = document.getElementById('hb-maneuvers-section');
+    if (!container) return;
+    var sp = entry._speciesData;
+    if (!sp) return;
+
+    if (sp.arenas) {
+      var arenaSection = document.createElement('div');
+      arenaSection.className = 'hb-species-arenas';
+      ARENA_ORDER.forEach(function (a) {
+        var dieVal = sp.arenas[a] || 'D6';
+        var badge = document.createElement('span');
+        badge.className = 'hb-arena-die';
+        badge.innerHTML = '<span class="hb-arena-die-label">' + _esc(ARENA_LABELS[a] || a) + '</span><span class="hb-arena-die-val">' + _esc(dieVal) + '</span>';
+        arenaSection.appendChild(badge);
+      });
+      container.appendChild(arenaSection);
+    }
+
+    if (sp.arenaShift) {
+      var shiftSec = document.createElement('div');
+      shiftSec.className = 'hb-species-block';
+      shiftSec.innerHTML =
+        '<div class="handbook-section-label">' + _esc(sp.arenaShift.name) + '</div>' +
+        '<p class="handbook-rich-body">' + _linkify(sp.arenaShift.desc) + '</p>';
+      container.appendChild(shiftSec);
+    }
+
+    if (sp.favoredDiscipline) {
+      var favSec = document.createElement('div');
+      favSec.className = 'hb-species-block';
+      var favHtml = '<div class="handbook-section-label">Favored Discipline</div>' +
+        '<p class="handbook-rich-body">' + _esc(sp.favoredDiscipline.desc) + '</p>';
+      if (sp.favoredDiscipline.choices && sp.favoredDiscipline.choices.length) {
+        favHtml += '<div class="hb-species-choices">';
+        sp.favoredDiscipline.choices.forEach(function (c) {
+          favHtml += '<span class="glo-tag glo-tag--action">' + _esc(c.label) + '</span>';
+        });
+        favHtml += '</div>';
+      }
+      favSec.innerHTML = favHtml;
+      container.appendChild(favSec);
+    }
+
+    if (sp.biologicalTruth) {
+      var bioSec = document.createElement('div');
+      bioSec.className = 'hb-species-block';
+      bioSec.innerHTML =
+        '<div class="handbook-section-label">' + _esc(sp.biologicalTruth.name) + '</div>' +
+        '<p class="handbook-rich-body">' + _linkify(sp.biologicalTruth.desc) + '</p>';
+      container.appendChild(bioSec);
+    }
+
+    if (sp.speciesTrait) {
+      var traitSec = document.createElement('div');
+      traitSec.className = 'hb-species-block';
+      traitSec.innerHTML =
+        '<div class="handbook-section-label">' + _esc(sp.speciesTrait.name) + '</div>' +
+        '<p class="handbook-rich-body">' + _linkify(sp.speciesTrait.desc) + '</p>';
+      container.appendChild(traitSec);
+    }
+  }
+
+  function _renderEquipmentDetail(entry) {
+    var container = document.getElementById('hb-maneuvers-section');
+    if (!container) return;
+    var eq = entry._equipData;
+    if (!eq) return;
+
+    var meta = document.createElement('div');
+    meta.className = 'hb-equip-meta';
+    if (eq.cost !== undefined) meta.innerHTML += '<span class="hb-equip-stat"><b>Cost</b> ' + _esc(eq.cost) + ' cr</span>';
+    if (eq.availability) meta.innerHTML += '<span class="hb-equip-stat"><b>Avail</b> ' + _esc(eq.availability) + '</span>';
+    if (eq.chassisLabel) meta.innerHTML += '<span class="hb-equip-stat"><b>Chassis</b> ' + _esc(eq.chassisLabel) + '</span>';
+    if (eq.stunSetting !== undefined) meta.innerHTML += '<span class="hb-equip-stat"><b>Stun</b> ' + (eq.stunSetting ? 'Yes' : 'No') + '</span>';
+    container.appendChild(meta);
+
+    if (eq.discipline) {
+      var discRow = document.createElement('div');
+      discRow.className = 'hb-equip-meta';
+      var dl = (eq.discipline || '').replace(/_/g, ' ').replace(/\bspark\b/, '').trim();
+      dl = dl.charAt(0).toUpperCase() + dl.slice(1);
+      var al = (eq.arena || '').charAt(0).toUpperCase() + (eq.arena || '').slice(1);
+      discRow.innerHTML = '<span class="glo-tag glo-tag--arena">' + _esc(dl + ' (' + al + ')') + '</span>';
+
+      if (eq.range) {
+        var rangeStr = '';
+        if (Array.isArray(eq.range)) {
+          rangeStr = eq.range.join(' / ') + ' zones';
+        } else if (eq.range.engaged) {
+          rangeStr = 'Engaged only';
+        }
+        if (rangeStr) discRow.innerHTML += '<span class="hb-equip-stat"><b>Range</b> ' + _esc(rangeStr) + '</span>';
+      }
+      container.appendChild(discRow);
+    }
+
+    var chassis = _chassisData[eq.chassisId];
+    var dmgTiers = eq.customDamage || (chassis ? chassis.tiers : null);
+    if (dmgTiers) {
+      var dmgHead = document.createElement('div');
+      dmgHead.className = 'glo-sub-label';
+      dmgHead.textContent = 'Damage Track';
+      container.appendChild(dmgHead);
+
+      var dmgList = document.createElement('div');
+      dmgList.className = 'glo-effect-list';
+
+      if (Array.isArray(dmgTiers) && typeof dmgTiers[0] === 'number') {
+        var tierLabels = ['Fleeting', 'Masterful', 'Legendary'];
+        var tierRanges = ['0\u20133', '4\u20137', '8+'];
+        dmgTiers.forEach(function (dmg, i) {
+          var t = i + 1;
+          var row = document.createElement('div');
+          row.className = 'glo-effect-row';
+          row.innerHTML =
+            '<span class="glo-effect-tier glo-effect-tier--' + t + '">' + _esc(tierLabels[i] || 'T' + t) + '</span>' +
+            '<div class="glo-effect-body">' +
+              '<span class="glo-effect-name">' + _esc(tierRanges[i] || '') + '</span>' +
+              '<span class="glo-effect-desc">' + dmg + ' damage</span>' +
+            '</div>';
+          dmgList.appendChild(row);
+        });
+      } else if (Array.isArray(dmgTiers)) {
+        dmgTiers.forEach(function (t, i) {
+          var tierNum = Math.min(i + 1, 3);
+          var row = document.createElement('div');
+          row.className = 'glo-effect-row';
+          row.innerHTML =
+            '<span class="glo-effect-tier glo-effect-tier--' + tierNum + '">' + _esc(t.label || 'T' + tierNum) + '</span>' +
+            '<div class="glo-effect-body">' +
+              '<span class="glo-effect-name">' + _esc(t.range || '') + '</span>' +
+              '<span class="glo-effect-desc">' + _esc(t.damage + ' dmg' + (t.stunDamage ? ' / ' + t.stunDamage + ' stun' : '')) + '</span>' +
+            '</div>';
+          dmgList.appendChild(row);
+        });
+      }
+      container.appendChild(dmgList);
+    }
+
+    if (eq.weaponProfile) {
+      var wp = eq.weaponProfile;
+      var wpMeta = document.createElement('div');
+      wpMeta.className = 'hb-equip-meta';
+      var wdl = (wp.discipline || '').replace(/_/g, ' ').trim();
+      wdl = wdl.charAt(0).toUpperCase() + wdl.slice(1);
+      var wal = (wp.arena || '').charAt(0).toUpperCase() + (wp.arena || '').slice(1);
+      wpMeta.innerHTML = '<span class="glo-tag glo-tag--arena">' + _esc(wdl + ' (' + wal + ')') + '</span>';
+      if (wp.defense) wpMeta.innerHTML += '<span class="hb-equip-stat"><b>vs</b> ' + _esc(wp.defense.charAt(0).toUpperCase() + wp.defense.slice(1)) + '</span>';
+      if (wp.range) wpMeta.innerHTML += '<span class="hb-equip-stat"><b>Range</b> ' + _esc(wp.range.join(' / ')) + '</span>';
+      container.appendChild(wpMeta);
+
+      if (wp.customDamage) {
+        var wpDmgHead = document.createElement('div');
+        wpDmgHead.className = 'glo-sub-label';
+        wpDmgHead.textContent = 'Damage Track';
+        container.appendChild(wpDmgHead);
+        var wpDmgList = document.createElement('div');
+        wpDmgList.className = 'glo-effect-list';
+        var wpLabels = ['Fleeting', 'Masterful', 'Legendary'];
+        var wpRanges = ['0\u20133', '4\u20137', '8+'];
+        wp.customDamage.forEach(function (dmg, i) {
+          var t = i + 1;
+          var row = document.createElement('div');
+          row.className = 'glo-effect-row';
+          row.innerHTML =
+            '<span class="glo-effect-tier glo-effect-tier--' + t + '">' + _esc(wpLabels[i]) + '</span>' +
+            '<div class="glo-effect-body"><span class="glo-effect-name">' + _esc(wpRanges[i]) + '</span><span class="glo-effect-desc">' + dmg + ' damage</span></div>';
+          wpDmgList.appendChild(row);
+        });
+        container.appendChild(wpDmgList);
+      }
+    }
+
+    if (eq.customEffectRows && eq.customEffectRows.length) {
+      var ceHead = document.createElement('div');
+      ceHead.className = 'glo-sub-label';
+      ceHead.textContent = 'Effect Tiers';
+      container.appendChild(ceHead);
+      var ceList = document.createElement('div');
+      ceList.className = 'glo-effect-list';
+      var ceLabels = ['Fleeting', 'Masterful', 'Legendary'];
+      eq.customEffectRows.forEach(function (desc, i) {
+        var t = Math.min(i + 1, 3);
+        var row = document.createElement('div');
+        row.className = 'glo-effect-row';
+        row.innerHTML =
+          '<span class="glo-effect-tier glo-effect-tier--' + t + '">' + _esc(ceLabels[i] || 'T' + t) + '</span>' +
+          '<div class="glo-effect-body"><span class="glo-effect-desc">' + _linkify(desc) + '</span></div>';
+        ceList.appendChild(row);
+      });
+      container.appendChild(ceList);
+    }
+
+    if (eq.trait) {
+      _renderTraitList(container, [eq.trait]);
+    }
+    if (eq.traits && eq.traits.length) {
+      _renderTraitList(container, eq.traits);
+    }
+    _renderGambitList(container, eq.gambits);
+
+    if (eq.tags && eq.tags.length) {
+      var tagRow = document.createElement('div');
+      tagRow.className = 'hb-equip-tags';
+      eq.tags.forEach(function (t) {
+        tagRow.innerHTML += '<span class="glo-tag">' + _esc(t) + '</span>';
+      });
+      container.appendChild(tagRow);
+    }
+  }
+
   function _showEntry(id) {
     var entry = _entries[id];
     if (!entry) return;
@@ -516,7 +1029,13 @@
 
     document.getElementById('handbook-entry-name').textContent = entry.name || '';
     document.getElementById('handbook-entry-type').textContent = entry.type || '';
-    document.getElementById('handbook-rule-text').innerHTML = _linkify(entry.rule || '');
+
+    var ruleSection = document.getElementById('hb-rule-section');
+    if (ruleSection) {
+      var hasRule = entry.rule && entry.rule.trim();
+      ruleSection.style.display = hasRule ? '' : 'none';
+      document.getElementById('handbook-rule-text').innerHTML = hasRule ? _linkify(entry.rule) : '';
+    }
 
     var guideSection = document.getElementById('hb-guide-section');
     if (guideSection) {
@@ -537,6 +1056,16 @@
       if (entry.narrativeTiers) {
         _renderNarrativeTiers(entry.narrativeTiers);
       }
+    }
+
+    if (entry._providerType === 'action') {
+      _renderActionDetail(entry);
+    } else if (entry._providerType === 'vocation') {
+      _renderVocationDetail(entry);
+    } else if (entry._providerType === 'species') {
+      _renderSpeciesDetail(entry);
+    } else if (entry._providerType === 'equipment') {
+      _renderEquipmentDetail(entry);
     }
 
     var activeBtn = document.querySelector('.hb-entry-btn.is-active');
@@ -719,6 +1248,208 @@
     });
   }
 
+  function _buildSearchText(parts) {
+    return parts.filter(Boolean).join(' ').toLowerCase();
+  }
+
+  function _loadActions(data) {
+    var universalActions = data.universalActions || [];
+    universalActions.forEach(function (a) {
+      var searchParts = [a.name, a.description, a.risk, a.note];
+      if (a.effect) a.effect.forEach(function (e) { searchParts.push(e.description); });
+      _entries[a.id] = {
+        id: a.id,
+        name: a.name,
+        type: a.actionType || 'Action',
+        rule: a.description || '',
+        _providerType: 'action',
+        _actionGroup: a.actionType || 'Action',
+        _actionData: a,
+        _searchText: _buildSearchText(searchParts)
+      };
+      _actionEntryIds[a.id] = true;
+    });
+
+    var forceManeuvers = data.forceManeuvers || [];
+    forceManeuvers.forEach(function (f) {
+      var searchParts = [f.name, f.description, f.risk];
+      if (f.effect) f.effect.forEach(function (e) { searchParts.push(e.description); });
+      _entries[f.id] = {
+        id: f.id,
+        name: f.name,
+        type: 'Force ' + (f.actionType || 'Action'),
+        rule: f.description || '',
+        _providerType: 'action',
+        _actionGroup: 'Force',
+        _actionData: f,
+        _searchText: _buildSearchText(searchParts)
+      };
+      _actionEntryIds[f.id] = true;
+    });
+  }
+
+  function _loadCoreRules(gamesystemArr) {
+    var byId = {};
+    gamesystemArr.forEach(function (entry) { byId[entry.id] = entry; });
+
+    CORE_RULE_ORDER.forEach(function (ruleId) {
+      if (ruleId === 'destiny_pool') return;
+      var gs = byId[ruleId];
+      if (!gs) return;
+
+      var richSections = [];
+      if (ruleId === 'modes_of_play' && gs.modes) {
+        gs.modes.forEach(function (m) {
+          var list = [];
+          if (m.structure) list.push('Structure: ' + m.structure);
+          if (m.initiative) list.push('Initiative: ' + m.initiative);
+          if (m.availableActions) list.push('Actions: ' + m.availableActions);
+          if (m.resolution) list.push('Resolution: ' + m.resolution);
+          richSections.push({ heading: m.mode, body: m.when || '', list: list });
+        });
+      } else if (ruleId === 'opening_exploit_defense') {
+        if (gs.openings) {
+          var oList = (gs.openings.systemSources || []).concat(gs.openings.otherSources || []);
+          richSections.push({ heading: 'Openings', body: gs.openings.definition || '', list: oList });
+        }
+        if (gs.exploits) {
+          richSections.push({ heading: 'Exploits', body: gs.exploits.definition || '', list: [
+            'Default: ' + (gs.exploits.defaultExploit || ''),
+            'Cost: ' + (gs.exploits.cost || ''),
+            gs.exploits.restrictions || ''
+          ].filter(Boolean) });
+        }
+        if (gs.defenses) {
+          var dList = (gs.defenses.types || []).map(function (d) {
+            return d.name + ' \u2014 ' + d.discipline + ': ' + d.description;
+          });
+          richSections.push({ heading: 'Defenses', body: gs.defenses.definition || '', list: dList });
+        }
+        if (gs.actionEconomy) {
+          richSections.push({ heading: 'Action Economy', body: gs.actionEconomy.perRound || '', list: [gs.actionEconomy.note || ''].filter(Boolean) });
+        }
+      } else if (ruleId === 'dual_wielding') {
+        richSections.push({ heading: 'Mechanic', body: gs.mechanic || '' });
+      } else if (ruleId === 'concealment') {
+        richSections.push({ heading: 'Mechanic', body: gs.mechanic || '' });
+        if (gs.concealmentVsCover) richSections.push({ heading: 'Concealment vs Cover', body: gs.concealmentVsCover });
+        if (gs.targetSpecific) richSections.push({ heading: 'Target-Specific Concealment', body: gs.targetSpecific });
+      }
+
+      var searchParts = [gs.name, gs.summary, gs.mechanic, gs.tag];
+      _entries[ruleId] = {
+        id: ruleId,
+        name: gs.name,
+        type: gs.tag || 'System Rule',
+        rule: gs.summary || '',
+        richSections: richSections,
+        _providerType: 'coreRule',
+        _searchText: _buildSearchText(searchParts)
+      };
+      _coreRuleEntryIds[ruleId] = true;
+    });
+  }
+
+  function _loadVocations(kitsArr) {
+    kitsArr.forEach(function (k) {
+      var searchParts = [k.name, k.description, k.fluff, k.governingArena, k.favoredDiscipline];
+      if (k.abilities) k.abilities.forEach(function (ab) {
+        searchParts.push(ab.name, ab.rule);
+        if (ab.effect) ab.effect.forEach(function (e) { searchParts.push(e.description); });
+        if (ab.gambits) ab.gambits.forEach(function (g) { searchParts.push(g.name, g.rule); });
+      });
+      _entries[k.id] = {
+        id: k.id,
+        name: k.name,
+        type: 'Vocation',
+        rule: k.description || '',
+        _providerType: 'vocation',
+        _kitData: k,
+        _searchText: _buildSearchText(searchParts)
+      };
+      _vocationEntryIds[k.id] = true;
+    });
+  }
+
+  function _loadSpecies(speciesArr) {
+    speciesArr.forEach(function (sp) {
+      var searchParts = [sp.name, sp.tagline, sp.lore];
+      if (sp.arenaShift) searchParts.push(sp.arenaShift.name, sp.arenaShift.desc);
+      if (sp.biologicalTruth) searchParts.push(sp.biologicalTruth.name, sp.biologicalTruth.desc);
+      if (sp.speciesTrait) searchParts.push(sp.speciesTrait.name, sp.speciesTrait.desc);
+      if (sp.favoredDiscipline) {
+        searchParts.push(sp.favoredDiscipline.desc);
+        if (sp.favoredDiscipline.choices) sp.favoredDiscipline.choices.forEach(function (c) { searchParts.push(c.label); });
+      }
+      _entries[sp.id] = {
+        id: sp.id,
+        name: sp.name,
+        type: sp.tagline || 'Species',
+        rule: sp.lore || '',
+        _providerType: 'species',
+        _speciesData: sp,
+        _searchText: _buildSearchText(searchParts)
+      };
+      _speciesEntryIds[sp.id] = true;
+    });
+  }
+
+  function _loadEquipment(weaponsArr, armorArr, gearArr) {
+    weaponsArr.forEach(function (w) {
+      var searchParts = [w.name, w.description, w.chassisLabel, w.discipline, w.arena];
+      if (w.trait) searchParts.push(w.trait.name, w.trait.description);
+      if (w.gambits) w.gambits.forEach(function (g) { searchParts.push(g.name, g.rule); });
+      if (w.tags) w.tags.forEach(function (t) { searchParts.push(t); });
+      _entries[w.id] = {
+        id: w.id,
+        name: w.name,
+        type: w.chassisLabel || 'Weapon',
+        rule: w.description || '',
+        _providerType: 'equipment',
+        _equipCategory: 'weapon',
+        _equipData: w,
+        _searchText: _buildSearchText(searchParts)
+      };
+      _equipmentEntryIds[w.id] = true;
+    });
+
+    armorArr.forEach(function (a) {
+      var searchParts = [a.name, a.description, a.categoryLabel];
+      if (a.traits) a.traits.forEach(function (t) { searchParts.push(t.name, t.description); });
+      if (a.gambits) a.gambits.forEach(function (g) { searchParts.push(g.name, g.rule); });
+      if (a.tags) a.tags.forEach(function (t) { searchParts.push(t); });
+      _entries[a.id] = {
+        id: a.id,
+        name: a.name,
+        type: a.categoryLabel || 'Armor',
+        rule: a.description || '',
+        _providerType: 'equipment',
+        _equipCategory: 'armor',
+        _equipData: a,
+        _searchText: _buildSearchText(searchParts)
+      };
+      _equipmentEntryIds[a.id] = true;
+    });
+
+    gearArr.forEach(function (g) {
+      var searchParts = [g.name, g.description, g.categoryLabel];
+      if (g.traits) g.traits.forEach(function (t) { searchParts.push(t.name, t.description); });
+      if (g.gambits) g.gambits.forEach(function (g2) { searchParts.push(g2.name, g2.rule); });
+      if (g.tags) g.tags.forEach(function (t) { searchParts.push(t); });
+      _entries[g.id] = {
+        id: g.id,
+        name: g.name,
+        type: g.categoryLabel || 'Gear',
+        rule: g.description || '',
+        _providerType: 'equipment',
+        _equipCategory: 'gear',
+        _equipData: g,
+        _searchText: _buildSearchText(searchParts)
+      };
+      _equipmentEntryIds[g.id] = true;
+    });
+  }
+
   function init() {
     _panel = _buildPanel();
     document.body.appendChild(_panel);
@@ -736,29 +1467,32 @@
     _entries['destiny_pool'] = {
       id: 'destiny_pool',
       name: 'The Destiny Pool: Hope & Toll',
-      type: 'System',
-      rule: '2 tokens per player, any side up at campaign start. The ratio persists between sessions — it is a running ledger, not a mood ring.',
+      type: 'Meta-Currency',
+      rule: '2 tokens per player, any side up at campaign start. The ratio persists between sessions \u2014 it is a running ledger, not a mood ring.',
       guide: '',
       richSections: [
         { heading: 'The Karma State', body: 'The current ratio grants passive bonuses to social actions:', list: [
           'Hope dominant: +1 Tier on Charm/Persuasion vs. honorable or neutral contacts. Gap of 2+: \u22121 Tier on Intimidate/Deception (Soft Touch).',
           'Toll dominant: +1 Tier on Intimidate/Deception vs. the underworld. Gap of 2+: \u22121 Tier on Charm/Persuasion (The Monster).'
         ]},
-        { heading: 'Tapping', body: 'Once per scene, after any roll, any player may tap one available token to increase the result by +1 Tier. Tapped tokens slide aside for the scene — they do not flip.' },
+        { heading: 'Tapping', body: 'Once per scene, after any roll, any player may tap one available token to increase the result by +1 Tier. Tapped tokens slide aside for the scene \u2014 they do not flip.' },
         { heading: 'The Lockout', list: [
-          'Toll \u2192 Hope: Only possible if the token is untapped. Tap a dark token to survive — the guilt of that method is sealed. A sacrifice later cannot redeem it.',
+          'Toll \u2192 Hope: Only possible if the token is untapped. Tap a dark token to survive \u2014 the guilt of that method is sealed. A sacrifice later cannot redeem it.',
           'Hope \u2192 Toll: Possible regardless of tap state. A dark deed taints the soul whether or not you were focused. A tapped Hope token that falls becomes a tapped Toll token immediately.'
         ]},
         { heading: 'Flipping', list: [
-          'Hope \u2192 Toll (The Fall): An act of unmitigated cruelty — executing a prisoner, torture, abandoning innocents, betrayal for credits.',
-          'Toll \u2192 Hope (Redemption): Accepting a severe, concrete disadvantage to stay clean — sparing a villain who will return, surrendering a major payday, deliberately failing an objective.'
+          'Hope \u2192 Toll (The Fall): An act of unmitigated cruelty \u2014 executing a prisoner, torture, abandoning innocents, betrayal for credits.',
+          'Toll \u2192 Hope (Redemption): Accepting a severe, concrete disadvantage to stay clean \u2014 sparing a villain who will return, surrendering a major payday, deliberately failing an objective.'
         ]},
         { heading: 'The Crossroads', body: 'When a declared action would trigger The Fall, the GM pauses before it resolves. Any crewmate may intervene out-of-turn by tapping an available Hope token and making a Social Maneuver against the acting player. The acting player then chooses:', list: [
           'Relent \u2014 Stand down. The Hope token was spent and the threat walks free. The crew flips one Toll \u2192 Hope.',
-          'Pull the Trigger \u2014 The plea is ignored. The Fall resolves. Flip one Hope \u2192 Toll. The intervening player\u2019s token stays tapped — they tried.'
+          'Pull the Trigger \u2014 The plea is ignored. The Fall resolves. Flip one Hope \u2192 Toll. The intervening player\u2019s token stays tapped \u2014 they tried.'
         ]}
-      ]
+      ],
+      _providerType: 'coreRule',
+      _searchText: 'destiny pool hope toll karma tapping lockout flipping crossroads meta currency'
     };
+    _coreRuleEntryIds['destiny_pool'] = true;
 
     var glossaryReady = fetch('/data/glossary.json')
       .then(function (res) { return res.json(); })
@@ -769,6 +1503,8 @@
     var maneuversReady = fetch('/data/maneuvers.json')
       .then(function (res) { return res.json(); })
       .then(function (data) {
+        _loadActions(data);
+
         var gambits = data.disciplineGambits || {};
         Object.keys(gambits).forEach(function (key) {
           var set = gambits[key];
@@ -790,7 +1526,35 @@
         });
       });
 
-    Promise.all([glossaryReady, maneuversReady]).then(function () {
+    var speciesReady = fetch('/data/species.json')
+      .then(function (res) { return res.json(); })
+      .then(function (data) { _loadSpecies(data); });
+
+    var kitsReady = fetch('/data/kits.json')
+      .then(function (res) { return res.json(); })
+      .then(function (data) { _loadVocations(data); });
+
+    var chassisReady = fetch('/data/chassis.json')
+      .then(function (res) { return res.json(); })
+      .then(function (data) { _chassisData = data; });
+
+    var gamesystemReady = fetch('/data/gamesystem.json')
+      .then(function (res) { return res.json(); })
+      .then(function (data) { _loadCoreRules(data); });
+
+    var weaponsData, armorData, gearData;
+    var weaponsReady = fetch('/data/weapons.json')
+      .then(function (res) { return res.json(); })
+      .then(function (data) { weaponsData = data; });
+    var armorReady = fetch('/data/armor.json')
+      .then(function (res) { return res.json(); })
+      .then(function (data) { armorData = data; });
+    var gearReady = fetch('/data/gear.json')
+      .then(function (res) { return res.json(); })
+      .then(function (data) { gearData = data; });
+
+    Promise.all([glossaryReady, maneuversReady, speciesReady, kitsReady, chassisReady, gamesystemReady, weaponsReady, armorReady, gearReady]).then(function () {
+      _loadEquipment(weaponsData || [], armorData || [], gearData || []);
       _dataReady = true;
       _registerProviders();
       _expandedCategories = {};
