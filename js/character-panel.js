@@ -694,6 +694,7 @@
 
   Object.defineProperty(window.CharacterPanel, 'currentChar', {
     get: function () { return _currentChar; },
+    set: function (val) { _currentChar = val; },
     enumerable: true,
   });
 

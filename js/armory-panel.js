@@ -813,16 +813,42 @@
       });
   }
 
+  function _showInventoryConfirm(message, actionLabel, actionClass, onConfirm) {
+    var existing = document.getElementById('inv-confirm-overlay');
+    if (existing) existing.remove();
+    var overlay = document.createElement('div');
+    overlay.id = 'inv-confirm-overlay';
+    overlay.className = 'inv-confirm-overlay';
+    overlay.innerHTML =
+      '<div class="inv-confirm-modal">' +
+        '<div class="inv-confirm-msg">' + _esc(message) + '</div>' +
+        '<div class="inv-confirm-actions">' +
+          '<button class="inv-confirm-cancel">Cancel</button>' +
+          '<button class="inv-confirm-ok ' + actionClass + '">' + _esc(actionLabel) + '</button>' +
+        '</div>' +
+      '</div>';
+    document.body.appendChild(overlay);
+    overlay.querySelector('.inv-confirm-cancel').addEventListener('click', function () { overlay.remove(); });
+    overlay.addEventListener('click', function (ev) { if (ev.target === overlay) overlay.remove(); });
+    overlay.querySelector('.inv-confirm-ok').addEventListener('click', function () {
+      overlay.remove();
+      onConfirm();
+    });
+  }
+
   document.addEventListener('click', function (e) {
     var useBtn = e.target.closest && e.target.closest('.armory-use-btn');
     if (useBtn && useBtn.closest('[id="panel-2"]')) {
       e.stopPropagation();
       var itemId = useBtn.dataset.useId;
       if (!itemId || !_currentCharId) return;
-      if (!confirm('Use one ' + (useBtn.closest('.armory-weapon-card').querySelector('.armory-weapon-name').textContent.split('\u00d7')[0].trim()) + '?')) return;
-      _inventoryAction(_currentCharId, 'use', itemId, 'gear')
-        .then(function () { _refreshCharacterAfterInventory(); })
-        .catch(function (err) { console.error('[ArmoryPanel] use error', err); });
+      var itemName = useBtn.closest('.armory-weapon-card').querySelector('.armory-weapon-name').textContent.split('\u00d7')[0].trim();
+      var charId = _currentCharId;
+      _showInventoryConfirm('Use one ' + itemName + '?', 'Use', 'inv-btn-use', function () {
+        _inventoryAction(charId, 'use', itemId, 'gear')
+          .then(function () { _refreshCharacterAfterInventory(); })
+          .catch(function (err) { console.error('[ArmoryPanel] use error', err); });
+      });
       return;
     }
 
@@ -833,10 +859,12 @@
       var dropType = dropBtn.dataset.dropType;
       if (!dropId || !dropType || !_currentCharId) return;
       var itemName = dropBtn.closest('.armory-weapon-card').querySelector('.armory-weapon-name').textContent.split('\u00d7')[0].trim();
-      if (!confirm('Drop ' + itemName + '?')) return;
-      _inventoryAction(_currentCharId, 'drop', dropId, dropType)
-        .then(function () { _refreshCharacterAfterInventory(); })
-        .catch(function (err) { console.error('[ArmoryPanel] drop error', err); });
+      var charId = _currentCharId;
+      _showInventoryConfirm('Drop ' + itemName + '?', 'Drop', 'inv-btn-drop', function () {
+        _inventoryAction(charId, 'drop', dropId, dropType)
+          .then(function () { _refreshCharacterAfterInventory(); })
+          .catch(function (err) { console.error('[ArmoryPanel] drop error', err); });
+      });
       return;
     }
 
