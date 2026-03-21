@@ -16,6 +16,7 @@
     { id: 'panel-2', label: 'Armory' },
     { id: 'panel-3', label: 'Maneuvers' },
     { id: 'panel-4', label: 'Loadout' },
+    { id: 'panel-5', label: 'Advancement' },
   ];
 
   const state = {

@@ -1406,6 +1406,63 @@
     });
   }
 
+  function _loadAdvancementEntry() {
+    var richSections = [
+      {
+        heading: 'Earning Marks',
+        body: 'Marks are the single advancement currency. Each adventure offers 10–15 Marks spread across four trigger buckets. The GM checks off triggers as they occur; at adventure end, earned Marks are banked.',
+        list: [
+          'The Mission (4–5 M): Act Milestones I/II/III, The Crucible, The Hard Call.',
+          'The Past (2–3 M): Ghost of the Past, The Debt Paid, The Old Scars.',
+          'The Future (2–3 M): The Reckless Pursuit (1 M), The Destiny Milestone (2 M, rare).',
+          'The Mechanics (2–4 M): D4 Burden ×2, Unleashed Miracle ×1, Edge Burn.'
+        ]
+      },
+      {
+        heading: 'Discipline Track',
+        body: 'A 5-box track. Each box costs (Track Level × 1) Marks. Clearing the track earns 1 Elite Token, then the track resets at the next level.',
+        list: [
+          'D6 → D8: 1 Advance (soft cap).',
+          'D8 → D10: 1 Advance + 1 Elite Token.',
+          'D10 → D12: 1 Advance + 2 Elite Tokens.',
+          'Focus Burn: Pay Mark cost, skip die upgrade, accelerate toward Elite Token.'
+        ]
+      },
+      {
+        heading: 'Arena Track',
+        body: 'A 3-box track. Each box costs (Track Level × 3) Marks. Clearing the track earns 1 Arena Advance.',
+        list: [
+          'D4 → D6 (Fixing a Flaw): 2 Advances.',
+          'D6 → D8: 1 Advance.',
+          'D8 → D10: 3 Advances.',
+          'D10 → D12 (Master): 5 Advances.',
+          'Apex Rule: Only one Arena may sit at D12. Pushing a second degrades the first to D10.'
+        ]
+      },
+      {
+        heading: 'Vocation Tiers',
+        body: 'Unlock higher Vocation tiers by spending Marks directly, gated by your Favored Discipline die.',
+        list: [
+          'Tier 2: 6 Marks (req. Discipline D6).',
+          'Tier 3: 9 Marks (req. Discipline D8).',
+          'Tier 4: 12 Marks (req. Discipline D10).',
+          'Tier 5: 15 Marks (req. Discipline D12).',
+          'Discipline Gate: Your Favored Discipline die caps the maximum Vocation tier.'
+        ]
+      }
+    ];
+
+    _entries['marks_advancement'] = {
+      id: 'marks_advancement',
+      name: 'Marks & Advancement',
+      type: 'Rule',
+      rule: 'Marks are earned through narrative triggers during play and spent on three advancement tracks: Discipline, Arena, and Vocation. Open the Advancement panel on your character sheet to track progress.',
+      richSections: richSections,
+      _providerType: 'rule',
+      _searchText: _buildSearchText(['marks', 'advancement', 'discipline track', 'arena track', 'vocation tier', 'elite token', 'focus burn', 'apex rule', 'earning marks'])
+    };
+  }
+
   function _loadVocations(kitsArr) {
     kitsArr.forEach(function (k) {
       var searchParts = [k.name, k.description, k.fluff, k.governingArena, k.favoredDiscipline];
@@ -1566,7 +1623,7 @@
 
     var gamesystemReady = fetch('/data/gamesystem.json')
       .then(function (res) { return res.json(); })
-      .then(function (data) { _loadDestinyPool(data); _loadCoreRules(data); });
+      .then(function (data) { _loadDestinyPool(data); _loadCoreRules(data); _loadAdvancementEntry(); });
 
     var weaponsData, armorData, gearData;
     var weaponsReady = fetch('/data/weapons.json')

@@ -78,6 +78,7 @@ Server listens on `0.0.0.0:5000`.
 - `GET  /api/campaign/lore-tags` — all lore tags
 - `GET  /api/campaign/lore-tags/:tag` — scenes for a specific tag
 - `GET  /api/campaign/party` — party monitor data
+- `PATCH /api/characters/:id/advancement` — update advancement state (sanitized/clamped)
 
 ## Ammo Power Bar System
 
@@ -215,6 +216,25 @@ The right column (`#frame-right`, 25vw fixed sidebar) serves as the **combat coc
 
 SQLite database auto-created and seeded on first run at `db/campaign.db`.  
 Tables: `characters`, `campaign_state`, `equipment_status`, `sessions`, `campaign_progress`, `scene_completion`.
+
+## Advancement Panel (Panel 5)
+
+5th player character sheet panel for tracking Marks earned during play and spending them on advancement tracks.
+
+**File:** `js/advancement-panel.js`
+
+**Features:**
+- 4-bucket mark earning checklist: The Mission (5 triggers), The Past (3 triggers), The Future (2 triggers), The Mechanics (4 triggers)
+- Running marks total (earned + banked) with "Bank & Reset" button to commit earned marks between adventures
+- Discipline Track: 5-box track, cost = track level × 1 Mark/box, clearing earns Elite Token and resets at next level
+- Arena Track: 3-box track, cost = track level × 3 Marks/box, clearing earns Arena Advance
+- Vocation Track: read-only display of vocation tier progression gated by Favored Discipline die (D4→T1, D6→T2, D8→T3, D10→T4, D12→T5)
+- Marks are deducted from banked total when filling track pips; clicking to unfill refunds marks
+- Persistence via `PATCH /api/characters/:id/advancement` with server-side input sanitization/clamping
+
+**Data model:** `character_data.advancement` JSON field with `marks` (earnedChecks map + totalBanked), `disciplineTrack` (level/filled/eliteTokens/focusBurns), `arenaTrack` (level/filled), `vocationUnlocks`. Defaults initialized in `expandCharacterData()`.
+
+**Handbook entry:** "Marks & Advancement" added as a Rule entry in the Player's Handbook Rules section via `_loadAdvancementEntry()` in `js/glossary-overlay.js`.
 
 ## Player's Handbook
 

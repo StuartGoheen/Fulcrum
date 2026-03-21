@@ -162,6 +162,11 @@ function expandCharacterData(flat) {
     const wrongId   = spLower === 'cathar' ? 'wpn_fists_01' : 'wpn_cathar_claws_01';
     flat.weaponIds = flat.weaponIds.filter(id => !UNARMED.includes(id));
     flat.weaponIds.push(correctId);
+    if (!flat.advancement) flat.advancement = {};
+    if (!flat.advancement.marks) flat.advancement.marks = { earnedChecks: {}, totalBanked: 0 };
+    if (!flat.advancement.disciplineTrack) flat.advancement.disciplineTrack = { level: 1, filled: 0, eliteTokens: 0, focusBurns: 0 };
+    if (!flat.advancement.arenaTrack) flat.advancement.arenaTrack = { level: 1, filled: 0 };
+    if (!flat.advancement.vocationUnlocks) flat.advancement.vocationUnlocks = {};
     applyInventoryRemovals(flat, flat.inventoryRemovals);
     return flat;
   }
@@ -216,6 +221,12 @@ function expandCharacterData(flat) {
   weaponIds.length = 0;
   filteredWeaponIds.forEach(id => weaponIds.push(id));
 
+  const advancement = flat.advancement || {};
+  if (!advancement.marks) advancement.marks = { earnedChecks: {}, totalBanked: 0 };
+  if (!advancement.disciplineTrack) advancement.disciplineTrack = { level: 1, filled: 0, eliteTokens: 0, focusBurns: 0 };
+  if (!advancement.arenaTrack) advancement.arenaTrack = { level: 1, filled: 0 };
+  if (!advancement.vocationUnlocks) advancement.vocationUnlocks = {};
+
   const result = {
     name: flat.name || null,
     species: flat.species,
@@ -238,6 +249,7 @@ function expandCharacterData(flat) {
     talents: [],
     arenas,
     personalDestiny: flat.personalDestiny || null,
+    advancement,
   };
 
   applyInventoryRemovals(result, flat.inventoryRemovals);
@@ -376,6 +388,43 @@ router.get('/characters/:id', (req, res) => {
     return res.json(expanded);
   } catch (_) {
     return res.status(500).json({ error: 'Corrupt character data.' });
+  }
+});
+
+router.patch('/characters/:id/advancement', (req, res) => {
+  const character = db.prepare('SELECT id, character_data FROM characters WHERE id = ?').get(req.params.id);
+  if (!character || !character.character_data) {
+    return res.status(404).json({ error: 'Character not found.' });
+  }
+  try {
+    const adv = req.body;
+    if (!adv || typeof adv !== 'object') {
+      return res.status(400).json({ error: 'Invalid advancement payload.' });
+    }
+    const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, parseInt(v, 10) || lo));
+    const sanitized = {
+      marks: {
+        earnedChecks: (adv.marks && typeof adv.marks.earnedChecks === 'object') ? adv.marks.earnedChecks : {},
+        totalBanked: clamp(adv.marks && adv.marks.totalBanked, 0, 9999)
+      },
+      disciplineTrack: {
+        level: clamp(adv.disciplineTrack && adv.disciplineTrack.level, 1, 50),
+        filled: clamp(adv.disciplineTrack && adv.disciplineTrack.filled, 0, 5),
+        eliteTokens: clamp(adv.disciplineTrack && adv.disciplineTrack.eliteTokens, 0, 999),
+        focusBurns: clamp(adv.disciplineTrack && adv.disciplineTrack.focusBurns, 0, 999)
+      },
+      arenaTrack: {
+        level: clamp(adv.arenaTrack && adv.arenaTrack.level, 1, 50),
+        filled: clamp(adv.arenaTrack && adv.arenaTrack.filled, 0, 3)
+      },
+      vocationUnlocks: (adv.vocationUnlocks && typeof adv.vocationUnlocks === 'object') ? adv.vocationUnlocks : {}
+    };
+    const data = JSON.parse(character.character_data);
+    data.advancement = sanitized;
+    db.prepare('UPDATE characters SET character_data = ? WHERE id = ?').run(JSON.stringify(data), character.id);
+    return res.json({ ok: true });
+  } catch (_) {
+    return res.status(500).json({ error: 'Failed to update advancement.' });
   }
 });
 
