@@ -191,16 +191,12 @@
 
     html += '<div class="adv-track-stats">';
     html += '<span class="adv-stat"><b>Filled:</b> ' + trackObj.filled + '/' + trackSize + '</span>';
-    if (unspent > 0) {
-      html += '<span class="adv-stat adv-stat--advances"><b>Unspent Advances:</b> ' + unspent + '</span>';
-    }
+    html += '<span class="adv-stat adv-stat--advances"><b>Unspent Advances:</b> ' + unspent + '</span>';
     html += '</div>';
 
-    if (unspent > 0) {
-      html += '<div class="adv-track-actions">';
-      html += '<button class="adv-btn adv-btn--spend" data-spend-track="' + trackKey + '">Spend Advance</button>';
-      html += '</div>';
-    }
+    html += '<div class="adv-track-actions">';
+    html += '<button class="adv-btn adv-btn--spend' + (unspent < 1 ? ' adv-btn--disabled' : '') + '" data-spend-track="' + trackKey + '"' + (unspent < 1 ? ' disabled' : '') + '>Spend Advance</button>';
+    html += '</div>';
 
     if (extraAfterPips) html += extraAfterPips;
 
