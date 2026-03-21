@@ -677,12 +677,15 @@
       _applyPos(origLeft + dx, origTop + dy);
     }
 
-    function onPointerUp() {
+    function onPointerUp(e) {
       if (!dragging) return;
       dragging = false;
       btn.style.transition = '';
       if (didDrag) {
         _savePos();
+      } else if (e.type === 'touchend') {
+        e.preventDefault();
+        if (_isOpen) { _close(); } else { _open(); }
       }
     }
 
