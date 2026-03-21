@@ -237,14 +237,16 @@
     var html = '<div class="armory-effect-track">';
     for (var i = 0; i < tiers.length; i++) {
       var t = tiers[i];
+      var condStr = t.stunCondition ? ' \u2014 [' + _esc(t.stunCondition) + ']' : '';
       html +=
         '<div class="armory-effect-row">' +
           '<span class="armory-effect-range">' + _esc(t.range) + '</span>' +
           '<span class="armory-effect-name">' + _esc(t.label) + '</span>' +
-          '<span class="armory-effect-value">Stun ' + _esc(String(t.stunDamage)) + '</span>' +
+          '<span class="armory-effect-value">Stun ' + _esc(String(t.stunDamage)) + condStr + '</span>' +
         '</div>';
     }
     html += '</div>';
+    html += '<div class="armory-mode-note">Stun Check: if Stun Value \u2265 target\u2019s current Vitality \u2192 [Unconscious]. Otherwise, the condition applies only \u2014 no Vitality damage is dealt.</div>';
     return html;
   }
   function _buildStunBlock(chassisDef) {
