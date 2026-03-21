@@ -2058,17 +2058,45 @@
         bgHeader.className = "outfitting-cart-section-head";
         bgHeader.textContent = "Background Gear";
         cartEl.appendChild(bgHeader);
+        var bgStacks = [];
+        var bgStackMap = {};
         bgItems.forEach(function(item) {
-          var idx = items.indexOf(item);
+          if (item.source === "gear") {
+            var bgKey = item.id;
+            if (bgStackMap[bgKey]) {
+              bgStackMap[bgKey].qty++;
+              bgStackMap[bgKey].entries.push({ item: item, idx: items.indexOf(item) });
+            } else {
+              var entry = { item: item, qty: 1, entries: [{ item: item, idx: items.indexOf(item) }], key: bgKey };
+              bgStackMap[bgKey] = entry;
+              bgStacks.push(entry);
+            }
+          } else {
+            bgStacks.push({ item: item, qty: 1, entries: [{ item: item, idx: items.indexOf(item) }], key: null });
+          }
+        });
+        bgStacks.forEach(function(stack) {
+          var item = stack.item;
           var row = document.createElement("div");
           row.className = "outfitting-cart-row outfitting-cart-row--bg";
 
           var nameEl = document.createElement("span");
           nameEl.className = "outfitting-cart-item-name";
           nameEl.textContent = item.name;
+
+          if (stack.qty > 1) {
+            var qtyBadge = document.createElement("span");
+            qtyBadge.className = "gear-qty-badge";
+            qtyBadge.textContent = "×" + stack.qty;
+            nameEl.appendChild(document.createTextNode(" "));
+            nameEl.appendChild(qtyBadge);
+          }
+
+          var origins = stack.entries.map(function(e) { return e.item.origin || "Background"; });
+          var originLabel = origins.filter(function(v, i, a) { return a.indexOf(v) === i; }).join(", ");
           var originBadge = document.createElement("span");
           originBadge.className = "outfitting-acq-badge background";
-          originBadge.textContent = item.origin || "Background";
+          originBadge.textContent = originLabel;
           nameEl.appendChild(document.createTextNode(" "));
           nameEl.appendChild(originBadge);
 
@@ -2078,11 +2106,13 @@
 
           var sellBtn = document.createElement("button");
           sellBtn.className = "outfitting-sell-btn";
-          sellBtn.textContent = "Sell " + Math.floor(item.cost / 2) + "cr";
-          sellBtn.title = "Sell for half value (" + Math.floor(item.cost / 2) + " cr)";
-          sellBtn.addEventListener("click", function() {
-            sellBackgroundItem(idx);
-          });
+          var lastEntry = stack.entries[stack.entries.length - 1];
+          var sellValue = Math.floor(lastEntry.item.cost / 2);
+          sellBtn.textContent = "Sell " + sellValue + "cr";
+          sellBtn.title = "Sell one for half value (" + sellValue + " cr)";
+          sellBtn.addEventListener("click", (function(entryIdx) {
+            return function() { sellBackgroundItem(entryIdx); };
+          })(lastEntry.idx));
 
           row.appendChild(nameEl);
           row.appendChild(priceEl);
@@ -2101,14 +2131,18 @@
         var purchasedStacks = [];
         var purchasedStackMap = {};
         purchasedItems.forEach(function(item) {
-          var stackKey = item.id + "|" + (item.source || "") + "|" + (item.acquisition || "");
-          if (purchasedStackMap[stackKey]) {
-            purchasedStackMap[stackKey].qty++;
-            purchasedStackMap[stackKey].indices.push(items.indexOf(item));
+          if (item.source === "gear") {
+            var stackKey = item.id + "|" + (item.acquisition || "");
+            if (purchasedStackMap[stackKey]) {
+              purchasedStackMap[stackKey].qty++;
+              purchasedStackMap[stackKey].indices.push(items.indexOf(item));
+            } else {
+              var entry = { item: item, qty: 1, indices: [items.indexOf(item)], key: stackKey };
+              purchasedStackMap[stackKey] = entry;
+              purchasedStacks.push(entry);
+            }
           } else {
-            var entry = { item: item, qty: 1, indices: [items.indexOf(item)], key: stackKey };
-            purchasedStackMap[stackKey] = entry;
-            purchasedStacks.push(entry);
+            purchasedStacks.push({ item: item, qty: 1, indices: [items.indexOf(item)], key: null });
           }
         });
         purchasedStacks.forEach(function(stack) {
@@ -2120,7 +2154,7 @@
           nameEl.className = "outfitting-cart-item-name";
           nameEl.textContent = item.name;
 
-          if (stack.qty > 1 && item.source === "gear") {
+          if (stack.qty > 1) {
             var qtyBadge = document.createElement("span");
             qtyBadge.className = "gear-qty-badge";
             qtyBadge.textContent = "×" + stack.qty;
