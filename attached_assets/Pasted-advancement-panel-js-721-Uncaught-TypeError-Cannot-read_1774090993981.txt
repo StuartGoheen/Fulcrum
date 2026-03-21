@@ -1,0 +1,59 @@
+advancement-panel.js:721 Uncaught TypeError: Cannot read properties of undefined (reading 'adv')
+    at advancement-panel.js:721:38
+    at Array.forEach (<anonymous>)
+    at advancement-panel.js:701:25
+    at Array.forEach (<anonymous>)
+    at _buildDisciplineSpendPanel (advancement-panel.js:698:18)
+    at _buildDisciplineTrack (advancement-panel.js:238:16)
+    at _render (advancement-panel.js:381:13)
+    at _handleSpendAdvance (advancement-panel.js:582:5)
+    at HTMLButtonElement.<anonymous> (advancement-panel.js:460:9)
+advancement-panel.js:721 Uncaught TypeError: Cannot read properties of undefined (reading 'adv')
+    at advancement-panel.js:721:38
+    at Array.forEach (<anonymous>)
+    at advancement-panel.js:701:25
+    at Array.forEach (<anonymous>)
+    at _buildDisciplineSpendPanel (advancement-panel.js:698:18)
+    at _buildDisciplineTrack (advancement-panel.js:238:16)
+    at _render (advancement-panel.js:381:13)
+    at _handleSpendAdvance (advancement-panel.js:582:5)
+    at HTMLButtonElement.<anonymous> (advancement-panel.js:460:9)
+advancement-panel.js:721 Uncaught TypeError: Cannot read properties of undefined (reading 'adv')
+    at advancement-panel.js:721:38
+    at Array.forEach (<anonymous>)
+    at advancement-panel.js:701:25
+    at Array.forEach (<anonymous>)
+    at _buildDisciplineSpendPanel (advancement-panel.js:698:18)
+    at _buildDisciplineTrack (advancement-panel.js:238:16)
+    at _render (advancement-panel.js:381:13)
+    at _handleSpendAdvance (advancement-panel.js:582:5)
+    at HTMLButtonElement.<anonymous> (advancement-panel.js:460:9)
+advancement-panel.js:721 Uncaught TypeError: Cannot read properties of undefined (reading 'adv')
+    at advancement-panel.js:721:38
+    at Array.forEach (<anonymous>)
+    at advancement-panel.js:701:25
+    at Array.forEach (<anonymous>)
+    at _buildDisciplineSpendPanel (advancement-panel.js:698:18)
+    at _buildDisciplineTrack (advancement-panel.js:238:16)
+    at _render (advancement-panel.js:381:13)
+    at HTMLButtonElement.<anonymous> (advancement-panel.js:421:9)
+advancement-panel.js:721 Uncaught TypeError: Cannot read properties of undefined (reading 'adv')
+    at advancement-panel.js:721:38
+    at Array.forEach (<anonymous>)
+    at advancement-panel.js:701:25
+    at Array.forEach (<anonymous>)
+    at _buildDisciplineSpendPanel (advancement-panel.js:698:18)
+    at _buildDisciplineTrack (advancement-panel.js:238:16)
+    at _render (advancement-panel.js:381:13)
+    at _handleSpendAdvance (advancement-panel.js:582:5)
+    at HTMLButtonElement.<anonymous> (advancement-panel.js:460:9)
+advancement-panel.js:721 Uncaught TypeError: Cannot read properties of undefined (reading 'adv')
+    at advancement-panel.js:721:38
+    at Array.forEach (<anonymous>)
+    at advancement-panel.js:701:25
+    at Array.forEach (<anonymous>)
+    at _buildDisciplineSpendPanel (advancement-panel.js:698:18)
+    at _buildDisciplineTrack (advancement-panel.js:238:16)
+    at _render (advancement-panel.js:381:13)
+    at _handleSpendAdvance (advancement-panel.js:582:5)
+    at HTMLButtonElement.<anonymous> (advancement-panel.js:460:9)

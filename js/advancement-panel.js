@@ -701,9 +701,9 @@
       arena.disciplines.forEach(function (disc, di) {
         var curDie = disc.die || 'D6';
         var next = _nextDie(curDie);
-        var cost = DISC_UPGRADE_COST[curDie];
-        var maxed = !next;
-        var canAfford = cost && unspent >= cost.adv && tokens >= (cost.elite || 0);
+        var cost = DISC_UPGRADE_COST[curDie] || null;
+        var maxed = !next || !cost;
+        var canAfford = !maxed && unspent >= cost.adv && tokens >= (cost.elite || 0);
         var locked = maxed || !canAfford;
         var cls = 'adv-spend-row';
         if (locked) cls += ' adv-spend-row--locked';
@@ -744,9 +744,9 @@
     _char.arenas.forEach(function (arena, ai) {
       var curDie = arena.die || 'D6';
       var next = _nextDie(curDie);
-      var cost = ARENA_UPGRADE_COST[curDie];
-      var maxed = !next;
-      var canAfford = cost && unspent >= cost.adv;
+      var cost = ARENA_UPGRADE_COST[curDie] || null;
+      var maxed = !next || !cost;
+      var canAfford = !maxed && unspent >= cost.adv;
       var locked = maxed || !canAfford;
       var cls = 'adv-spend-row';
       if (locked) cls += ' adv-spend-row--locked';
