@@ -77,7 +77,7 @@
   var ACTION_GROUP_ORDER = ['Action', 'Maneuver', 'Defense', 'Free'];
   var ACTION_GROUP_LABELS = {
     'Action': 'Actions', 'Maneuver': 'Maneuvers', 'Defense': 'Defenses',
-    'Free': 'Initiative'
+    'Free': 'Free'
   };
 
   var CORE_RULE_ORDER = ['destiny_pool', 'modes_of_play', 'opening_exploit_defense', 'dual_wielding', 'concealment'];
