@@ -1017,5 +1017,74 @@
     ],
     "imageUrl": "/assets/vocations/voc_duelist.png",
     "startingItems": [{"id":"wpn_vibrorapier_01","name":"Duelist Vibrorapier","cost":300,"source":"weapon"}]
+  },
+  {
+    "id": "voc_blade_dancer",
+    "name": "The Blade Dancer",
+    "governingArena": "reflex",
+    "favoredDiscipline": "melee",
+    "description": "Speed over strength, precision through motion. The Blade Dancer wields light weapons with preternatural agility — twin blades tracing lethal arcs faster than the eye can follow. Where brutes swing heavy iron, you have already cut three times and moved on.",
+    "fluff": "Ahsoka Tano reversed her grips and carved through MagnaGuards like they were standing still. Asajj Ventress danced through clone troopers with paired curved-hilts, each kill flowing into the next. A Mandalorian knife-fighter on Concordia who never drew the same blade twice. A Twi'lek assassin on Nar Shaddaa who could open four throats before the first body hit the floor. The Blade Dancer doesn't overpower. They overwhelm.",
+    "abilities": [
+      {
+        "id": "voc_blade_dancer_t1",
+        "tier": 1,
+        "type": "passive",
+        "name": "Light Step",
+        "tags": [
+          "[Combat]"
+        ],
+        "rule": "When wielding a Light melee weapon or Lightsaber, you may attack using Melee (Reflex) instead of Melee (Physique). You may draw or ready Light melee weapons as part of any Attack action at no Maneuver cost."
+      },
+      {
+        "id": "voc_blade_dancer_t2",
+        "tier": 2,
+        "type": "passive",
+        "name": "Twin Blades",
+        "tags": [
+          "[Combat]"
+        ],
+        "rule": "When dual-wielding Light melee weapons or Lightsabers, you ignore the Control die step-down penalty. You keep the Power die step-up. Gambits from either equipped weapon may be declared on any Light melee or Lightsaber attack."
+      },
+      {
+        "id": "voc_blade_dancer_t3",
+        "tier": 3,
+        "type": "gambit",
+        "name": "Relentless",
+        "tags": [
+          "[Combat]"
+        ],
+        "modifiesAction": "action_attack",
+        "actionType": "Light Melee or Lightsaber Attack",
+        "rule": "After resolving a Light melee or Lightsaber attack that deals damage, spend 1 Effect tier. The target immediately presents an Opening. If you are dual-wielding, you may Exploit this Opening with your off-hand weapon as a reaction."
+      },
+      {
+        "id": "voc_blade_dancer_t4",
+        "tier": 4,
+        "type": "exploit",
+        "name": "Slip Strike",
+        "tags": [
+          "[Combat]"
+        ],
+        "modifiesAction": "action_dodge",
+        "actionType": "Dodge",
+        "rule": "When you Dodge a melee attack and score 8+ on your Control die, the attacker immediately presents an Opening that you may Exploit with a Melee attack. Additionally, at this tier you may spend Edge to fuel Melee Exploits."
+      },
+      {
+        "id": "voc_blade_dancer_t5",
+        "tier": 5,
+        "type": "maneuver",
+        "name": "Tempest",
+        "tags": [
+          "[Combat]"
+        ],
+        "discipline": "tactics",
+        "arena": "wits",
+        "rolled": true,
+        "rule": "Assess using Tactics (Wits). Study all targets in your zone or an adjacent zone. The number of Assess questions scored determines how many targets you may designate (up to 3). Your next attack action this turn targets all designated targets provided they are in the same zone. Make a single attack roll — use the highest Presence among the designated targets for your Control die, then apply your Power die to each target individually (each target's defense rating may produce different results). You end your action Engaged in that zone with any survivors. On subsequent rounds, the assessment holds — spend the Maneuver (no roll required) and 1 Edge to activate the multi-target attack again."
+      }
+    ],
+    "imageUrl": "/assets/vocations/voc_blade_dancer.png",
+    "startingItems": [{"id":"wpn_vibroblade_01","name":"Vibroblade","cost":250,"source":"weapon"},{"id":"wpn_vibroblade_01","name":"Vibroblade","cost":250,"source":"weapon"}]
   }
 ]
