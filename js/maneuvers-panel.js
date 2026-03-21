@@ -702,8 +702,11 @@
 
   function _buildActiveGear(gear, statusMap, char) {
     var charGearIds = char.gearIds || [];
+    var seenGear = {};
     var result = [];
     charGearIds.forEach(function (gid) {
+      if (seenGear[gid]) return;
+      seenGear[gid] = true;
       var entry = statusMap[gid];
       var status = entry ? entry.status : 'stowed';
       if (!ACTIVE_STATUSES[status]) return;

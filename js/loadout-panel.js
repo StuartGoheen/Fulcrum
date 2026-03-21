@@ -572,7 +572,7 @@
     );
   }
 
-  function _buildLoadoutGearCard(gear, status, char) {
+  function _buildLoadoutGearCard(gear, status, char, qty) {
     var wp = gear.weaponProfile;
     var rangeStr = wp ? _renderRange(wp.range) : '';
 
@@ -651,7 +651,7 @@
     return (
       '<div class="armory-weapon-card" data-gear-id="' + _esc(gear.id) + '">' +
         '<div class="armory-weapon-header">' +
-          '<span class="armory-weapon-name">' + _esc(gear.name) + '</span>' +
+          '<span class="armory-weapon-name">' + _esc(gear.name) + (qty > 1 ? ' <span class="gear-qty-badge">×' + qty + '</span>' : '') + '</span>' +
           gearDiscHtml +
         '</div>' +
         '<div class="armory-weapon-body">' +
@@ -715,15 +715,23 @@
     }
 
     var charGearIds = char.gearIds || [];
+    var gearQtyMap = {};
+    var gearOrder = [];
+    for (var gqi = 0; gqi < charGearIds.length; gqi++) {
+      var gqid = charGearIds[gqi];
+      if (gearQtyMap[gqid]) { gearQtyMap[gqid]++; }
+      else { gearQtyMap[gqid] = 1; gearOrder.push(gqid); }
+    }
     var activeGear = [];
-    charGearIds.forEach(function (gid) {
-      var entry = statusMap[gid];
+    for (var goi = 0; goi < gearOrder.length; goi++) {
+      var goId = gearOrder[goi];
+      var entry = statusMap[goId];
       var status = entry ? entry.status : 'stowed';
-      if (!ACTIVE_STATUSES[status]) return;
+      if (!ACTIVE_STATUSES[status]) continue;
       for (var j = 0; j < (gear || []).length; j++) {
-        if (gear[j].id === gid) { activeGear.push({ item: gear[j], status: status }); break; }
+        if (gear[j].id === goId) { activeGear.push({ item: gear[j], status: status, qty: gearQtyMap[goId] }); break; }
       }
-    });
+    }
 
     var html = '<div class="armory-panel-wrap">';
 
@@ -748,7 +756,7 @@
       }
       if (activeGear.length) {
         html += '<div class="armory-category-label">Gear</div>';
-        activeGear.forEach(function (e) { html += _buildLoadoutGearCard(e.item, e.status, char); });
+        activeGear.forEach(function (e) { html += _buildLoadoutGearCard(e.item, e.status, char, e.qty || 1); });
       }
     }
 

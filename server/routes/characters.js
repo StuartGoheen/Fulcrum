@@ -181,7 +181,7 @@ function expandCharacterData(flat) {
     if (item.acquisition) acquisitionMap[item.id] = item.acquisition;
     if (item.source === 'weapon') { if (weaponIds.indexOf(item.id) === -1) weaponIds.push(item.id); }
     else if (item.source === 'armor') { if (!armorId) armorId = item.id; }
-    else if (item.source === 'gear') { if (gearIds.indexOf(item.id) === -1) gearIds.push(item.id); }
+    else if (item.source === 'gear') { gearIds.push(item.id); }
   });
 
   const UNARMED_IDS = ['wpn_fists_01', 'wpn_cathar_claws_01'];

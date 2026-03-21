@@ -581,7 +581,7 @@
     );
   }
 
-  function _buildGearCard(gear, statusMap, char) {
+  function _buildGearCard(gear, statusMap, char, qty) {
     var wp = gear.weaponProfile;
     var rangeStr = wp ? _renderRange(wp.range) : '';
 
@@ -660,7 +660,7 @@
     return (
       '<div class="armory-weapon-card" data-gear-id="' + _esc(gear.id) + '">' +
         '<div class="armory-weapon-header">' +
-          '<span class="armory-weapon-name">' + _esc(gear.name) + '</span>' +
+          '<span class="armory-weapon-name">' + _esc(gear.name) + (qty > 1 ? ' <span class="gear-qty-badge">×' + qty + '</span>' : '') + '</span>' +
           gearDiscHtml +
         '</div>' +
         '<div class="armory-weapon-body">' +
@@ -741,16 +741,23 @@
     }
 
     var charGearIds = char.gearIds || [];
-    var charGear = [];
+    var gearQtyMap = {};
+    var gearOrder = [];
     for (var gi = 0; gi < charGearIds.length; gi++) {
+      var ggid = charGearIds[gi];
+      if (gearQtyMap[ggid]) { gearQtyMap[ggid]++; }
+      else { gearQtyMap[ggid] = 1; gearOrder.push(ggid); }
+    }
+    var charGear = [];
+    for (var go = 0; go < gearOrder.length; go++) {
       for (var gj = 0; gj < (gear || []).length; gj++) {
-        if (gear[gj].id === charGearIds[gi]) { charGear.push(gear[gj]); break; }
+        if (gear[gj].id === gearOrder[go]) { charGear.push({ item: gear[gj], qty: gearQtyMap[gearOrder[go]] }); break; }
       }
     }
     if (charGear.length > 0) {
       html += '<div class="armory-category-label">Gear</div>';
       for (var gc = 0; gc < charGear.length; gc++) {
-        html += _buildGearCard(charGear[gc], statusMap, char);
+        html += _buildGearCard(charGear[gc].item, statusMap, char, charGear[gc].qty);
       }
     }
 
