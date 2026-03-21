@@ -923,5 +923,94 @@
     ],
     "imageUrl": "/assets/vocations/voc_telekinetic_savant.png",
     "startingItems": [{"id":"glow_rod","name":"Glow Rod","cost":10,"source":"gear"}]
+  },
+  {
+    "id": "voc_duelist",
+    "name": "The Duelist",
+    "governingArena": "physique",
+    "favoredDiscipline": "melee",
+    "description": "Precision, timing, and a blade held with intent. The Duelist is a trained close-combat specialist who controls the fight through footwork, measure, and reading their opponent — parrying, waiting, and striking when the geometry is right. Whether the weapon is a vibroblade or a lightsaber, the discipline is the same.",
+    "fluff": "Makashi was a lightsaber form built for dueling other saber-wielders — precise, economical, and contemptuous of brute strength. Count Dooku used it to dismantle two Jedi at once without breaking a sweat. But the same principles show up in fencing salons on Coruscant, vibroblade pits on Nar Shaddaa, and back-alley knife fights on Corellia. A Kel Dor bodyguard with a force pike. A Mandalorian with a beskad. A dock worker who took three months of lessons and kept the blade. The weapon doesn't make the duelist. The hours do.",
+    "abilities": [
+      {
+        "id": "voc_duelist_t1",
+        "tier": 1,
+        "type": "passive",
+        "name": "En Garde",
+        "tags": [
+          "[Combat]"
+        ],
+        "rule": "You may use Melee (Physique) in place of Endure for Defense rolls when wielding a Melee weapon. You may draw or ready a Melee weapon as part of any Attack action at no Maneuver cost."
+      },
+      {
+        "id": "voc_duelist_t2",
+        "tier": 2,
+        "type": "passive",
+        "name": "Read the Blade",
+        "tags": [
+          "[Combat]"
+        ],
+        "rule": "When you successfully defend against an attack using Melee (via En Garde), gain [Optimized] on your next Melee attack against that attacker before the end of your next turn. Every parry teaches you something about how they fight."
+      },
+      {
+        "id": "voc_duelist_t3",
+        "tier": 3,
+        "type": "maneuver",
+        "name": "Press the Advantage",
+        "tags": [
+          "[Combat]"
+        ],
+        "discipline": "melee",
+        "arena": "physique",
+        "defense": "resolve",
+        "rolled": true,
+        "rule": "Melee (Physique) vs target's Resolve. Drive forward with controlled aggression — precise bladework that tests your opponent's nerve and forces them to give ground. Risk: On failure, you present an Opening to the target.",
+        "risk": "On failure, you present an Opening to the target — you overextended and they saw it.",
+        "effect": [
+          {
+            "tier": 1,
+            "label": "Fleeting",
+            "range": "0-3",
+            "description": "Target gains [Rattled]."
+          },
+          {
+            "tier": 2,
+            "label": "Masterful",
+            "range": "4-7",
+            "description": "Target gains [Rattled]. Target presents an Opening to you."
+          },
+          {
+            "tier": 3,
+            "label": "Legendary",
+            "range": "8+",
+            "description": "Target gains [Rattled] and [Exposed]. Target presents an Opening to you."
+          }
+        ]
+      },
+      {
+        "id": "voc_duelist_t4",
+        "tier": 4,
+        "type": "exploit",
+        "name": "Riposte",
+        "tags": [
+          "[Combat]"
+        ],
+        "modifiesAction": "action_endure",
+        "actionType": "Melee Defense",
+        "rule": "When you defend using Melee (via En Garde) and your Control die is 8+, spend your Exploit pip. Immediately make a Melee attack against the attacker as a reaction. This counter-attack gains [Optimized]."
+      },
+      {
+        "id": "voc_duelist_t5",
+        "tier": 5,
+        "type": "passive",
+        "name": "Peerless",
+        "tags": [
+          "[Combat]"
+        ],
+        "rule": "While you are Engaged with exactly one opponent and wielding a Melee weapon, all your Melee attacks and En Garde defense rolls against that target gain [Optimized]. Additionally, once per scene, when a Riposte counter-attack deals damage, the target is immediately [Incapacitated]. No one fights you alone and walks away."
+      }
+    ],
+    "imageUrl": "/assets/vocations/voc_duelist.png",
+    "startingItems": [{"id":"wpn_vibrorapier_01","name":"Duelist Vibrorapier","cost":300,"source":"weapon"}]
   }
 ]
