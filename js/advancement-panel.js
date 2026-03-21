@@ -682,8 +682,10 @@
     vt.unspentAdvances--;
     if (!_advancement.vocationUnlocks) _advancement.vocationUnlocks = {};
     _advancement.vocationUnlocks[kitId] = (unlocks[kitId] || 0) + 1;
+    kit.tier = currentTier + 1;
     _persist();
     document.dispatchEvent(new CustomEvent('character:stateChanged'));
+    if (window.CharacterPanel && window.CharacterPanel.refreshFront) window.CharacterPanel.refreshFront();
     _render();
   }
 
