@@ -106,7 +106,7 @@ Character creation uses a unified carousel system (`buildPhaseCarousel` / `phase
 
 Character creation uses a three-phase card selection system in `js/character-creation.js`. Each phase represents a layer of backstory: Foundation (Phase 1), Catalyst (Phase 2), Debt (Phase 3).
 
-**Card counts:** 12 cards per phase (36 total).
+**Card counts:** 12 cards per phase (36 total). All card data externalized in `data/phases.json` (keys: `phase1`, `phase2`, `phase3`); fetched at init alongside species and kits via `Promise.allSettled`.
 
 **Card images:** All 36 card images live in `assets/phase1/`, `assets/phase2/`, `assets/phase3/`. The full deck was restyled in March 2026 to a unified high-resolution Art Nouveau tarot aesthetic with consistent gold filigree borders and phase-coded color palettes:
 - Phase 1 (Foundation): warm amber / sienna / golden earth tones
