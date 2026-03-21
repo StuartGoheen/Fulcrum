@@ -12,7 +12,6 @@
   var _dataReady = false;
   var _chassisData = {};
   var _actionEntryIds = {};
-  var _forceEntryIds = {};
   var _coreRuleEntryIds = {};
   var _vocationEntryIds = {};
   var _speciesEntryIds = {};
@@ -75,13 +74,13 @@
     special: 'Special', combined: 'Combined'
   };
 
-  var ACTION_GROUP_ORDER = ['Action', 'Maneuver', 'Defense', 'Free'];
+  var ACTION_GROUP_ORDER = ['Action', 'Maneuver', 'Defense', 'Free', 'Force'];
   var ACTION_GROUP_LABELS = {
     'Action': 'Actions', 'Maneuver': 'Maneuvers', 'Defense': 'Defenses',
-    'Free': 'Initiative'
+    'Free': 'Initiative', 'Force': 'Force Powers'
   };
 
-  var CORE_RULE_ORDER = ['destiny_pool', 'modes_of_play', 'opening_exploit_defense', 'dual_wielding', 'concealment'];
+  var CORE_RULE_ORDER = ['modes_of_play', 'opening_exploit_defense', 'dual_wielding', 'concealment'];
 
   function _registerProviders() {
     _providers = [];
@@ -112,19 +111,15 @@
     });
 
     _providers.push({
-      id: 'forcePowers',
-      label: 'Force Powers',
+      id: 'destiny',
+      label: 'Destiny Pool',
       icon: '\u2727',
       getGroups: function () {
-        var items = [];
-        Object.keys(_forceEntryIds).forEach(function (eid) {
-          var e = _entries[eid];
-          if (e) items.push({ id: e.id, name: e.name });
-        });
-        items.sort(function (a, b) { return a.name.localeCompare(b.name); });
-        return items.length ? [{ groupLabel: null, entries: items }] : [];
+        var e = _entries['destiny_pool'];
+        if (!e) return [];
+        return [{ groupLabel: null, entries: [{ id: e.id, name: e.name }] }];
       },
-      hasEntry: function (id) { return !!_forceEntryIds[id]; }
+      hasEntry: function (id) { return id === 'destiny_pool'; }
     });
 
     _providers.push({
@@ -1307,11 +1302,59 @@
         type: 'Force ' + (f.actionType || 'Action'),
         rule: f.description || '',
         _providerType: 'action',
+        _actionGroup: 'Force',
         _actionData: f,
         _searchText: _buildSearchText(searchParts)
       };
-      _forceEntryIds[f.id] = true;
+      _actionEntryIds[f.id] = true;
     });
+  }
+
+  function _loadDestinyPool(gamesystemArr) {
+    var byId = {};
+    gamesystemArr.forEach(function (entry) { byId[entry.id] = entry; });
+    var dp = byId['destiny_pool'];
+    if (!dp) return;
+    var richSections = [];
+    if (dp.karmaState) {
+      richSections.push({ heading: 'The Karma State', body: dp.karmaState.note || '', list: [
+        'Hope dominant: ' + (dp.karmaState.hopeDominant || ''),
+        'Toll dominant: ' + (dp.karmaState.tollDominant || ''),
+        dp.karmaState.infamyPenalty || ''
+      ].filter(Boolean) });
+    }
+    if (dp.tapping) {
+      richSections.push({ heading: 'Tapping', body: dp.tapping.rule || '', list: dp.tapping.note ? [dp.tapping.note] : [] });
+    }
+    if (dp.lockout) {
+      richSections.push({ heading: 'The Lockout', body: dp.lockout.note || '', list: [
+        'Toll \u2192 Hope: ' + (dp.lockout.tollToHope || ''),
+        'Hope \u2192 Toll: ' + (dp.lockout.hopeToToll || '')
+      ] });
+    }
+    if (dp.flipping) {
+      richSections.push({ heading: 'Flipping', body: dp.flipping.note || '', list: [
+        'The Fall (Hope \u2192 Toll): ' + (dp.flipping.theFall || ''),
+        'Redemption (Toll \u2192 Hope): ' + (dp.flipping.redemption || '')
+      ] });
+    }
+    if (dp.theCrossroads) {
+      richSections.push({ heading: 'The Crossroads', body: dp.theCrossroads.trigger || '', list: [
+        'Intervention: ' + (dp.theCrossroads.intervention || ''),
+        'Relent: ' + (dp.theCrossroads.relent || ''),
+        'Pull the Trigger: ' + (dp.theCrossroads.pullTheTrigger || '')
+      ] });
+    }
+    _entries['destiny_pool'] = {
+      id: 'destiny_pool',
+      name: dp.name || 'The Destiny Pool',
+      type: 'Meta-Currency',
+      rule: dp.rule || dp.description || '',
+      guide: '',
+      richSections: richSections,
+      _providerType: 'destiny',
+      _searchText: _buildSearchText(['destiny pool', 'hope', 'toll', 'karma', 'tapping', 'lockout', 'flipping', 'crossroads', 'meta currency'])
+    };
   }
 
   function _loadCoreRules(gamesystemArr) {
@@ -1323,38 +1366,7 @@
       if (!gs) return;
 
       var richSections = [];
-      if (ruleId === 'destiny_pool') {
-        var dp = gs;
-        if (dp.karmaState) {
-          richSections.push({ heading: 'The Karma State', body: dp.karmaState.note || '', list: [
-            'Hope dominant: ' + (dp.karmaState.hopeDominant || ''),
-            'Toll dominant: ' + (dp.karmaState.tollDominant || ''),
-            dp.karmaState.infamyPenalty || ''
-          ].filter(Boolean) });
-        }
-        if (dp.tapping) {
-          richSections.push({ heading: 'Tapping', body: dp.tapping.rule || '', list: dp.tapping.note ? [dp.tapping.note] : [] });
-        }
-        if (dp.lockout) {
-          richSections.push({ heading: 'The Lockout', body: dp.lockout.note || '', list: [
-            'Toll \u2192 Hope: ' + (dp.lockout.tollToHope || ''),
-            'Hope \u2192 Toll: ' + (dp.lockout.hopeToToll || '')
-          ] });
-        }
-        if (dp.flipping) {
-          richSections.push({ heading: 'Flipping', body: dp.flipping.note || '', list: [
-            'The Fall (Hope \u2192 Toll): ' + (dp.flipping.theFall || ''),
-            'Redemption (Toll \u2192 Hope): ' + (dp.flipping.redemption || '')
-          ] });
-        }
-        if (dp.theCrossroads) {
-          richSections.push({ heading: 'The Crossroads', body: dp.theCrossroads.trigger || '', list: [
-            'Intervention: ' + (dp.theCrossroads.intervention || ''),
-            'Relent: ' + (dp.theCrossroads.relent || ''),
-            'Pull the Trigger: ' + (dp.theCrossroads.pullTheTrigger || '')
-          ] });
-        }
-      } else if (ruleId === 'modes_of_play' && gs.modes) {
+      if (ruleId === 'modes_of_play' && gs.modes) {
         gs.modes.forEach(function (m) {
           var list = [];
           if (m.structure) list.push('Structure: ' + m.structure);
@@ -1566,7 +1578,7 @@
 
     var gamesystemReady = fetch('/data/gamesystem.json')
       .then(function (res) { return res.json(); })
-      .then(function (data) { _loadCoreRules(data); });
+      .then(function (data) { _loadDestinyPool(data); _loadCoreRules(data); });
 
     var weaponsData, armorData, gearData;
     var weaponsReady = fetch('/data/weapons.json')
