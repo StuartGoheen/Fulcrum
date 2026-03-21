@@ -226,10 +226,10 @@ Tables: `characters`, `campaign_state`, `equipment_status`, `sessions`, `campaig
 **Features:**
 - 4-bucket mark earning checklist: The Mission (5 triggers), The Past (3 triggers), The Future (2 triggers), The Mechanics (4 triggers)
 - Running marks total (earned + banked) with "Bank & Reset" button to commit earned marks between adventures
-- All three tracks follow the same core loop: fill pips with Marks → clear track → earn 1 Advance → spend advance to upgrade
-- Discipline Track: 5-box pip track, cost = level × 1 Mark/box, clearing earns 1 Advance + 1 Elite Token. Focus Burn available.
-- Arena Track: 3-box pip track, cost = level × 3 Marks/box, clearing earns 1 Advance
-- Vocation Track: 5-box pip track, cost = level × 3 Marks/box, clearing earns 1 Advance (no Elite Tokens). Spend advance to bump any eligible vocation tier (gated by Favored Discipline die: D4→T1, D6→T2, D8→T3, D10→T4, D12→T5).
+- All three tracks follow the same core loop: each pip filled with Marks = 1 Advance earned. When all pips filled, track resets to next level.
+- Discipline Track: 5-box pip track, cost = level × 1 Mark/box. Each pip = 1 Advance. Track clear also earns 1 Elite Token. Focus Burn available.
+- Arena Track: 3-box pip track, cost = level × 3 Marks/box. Each pip = 1 Advance.
+- Vocation Track: 5-box pip track, cost = level × 3 Marks/box. Each pip = 1 Advance (no Elite Tokens). Spend advance to bump any eligible vocation tier (gated by Favored Discipline die: D4→T1, D6→T2, D8→T3, D10→T4, D12→T5).
 - All tracks start at level 2 (chargen fills track 1). Existing characters migrate with `unspentAdvances: 0` added.
 - Marks are deducted from banked total when filling track pips; clicking to unfill refunds marks
 - Spend Advance buttons with confirmation dialogs for Discipline/Arena, vocation picker dialog for Vocation track

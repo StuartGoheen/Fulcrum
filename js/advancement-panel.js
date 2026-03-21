@@ -190,7 +190,7 @@
     html += '</div>';
 
     html += '<div class="adv-track-stats">';
-    html += '<span class="adv-stat"><b>Filled:</b> ' + trackObj.filled + '/' + trackSize + '</span>';
+    html += '<span class="adv-stat"><b>Progress:</b> ' + trackObj.filled + '/' + trackSize + '</span>';
     html += '<span class="adv-stat adv-stat--advances"><b>Unspent Advances:</b> ' + unspent + '</span>';
     html += '</div>';
 
@@ -478,8 +478,8 @@
     if (index === t.filled) {
       if (!_spendMarks(costPerBox)) return;
       t.filled++;
+      t.unspentAdvances = (t.unspentAdvances || 0) + 1;
       if (t.filled >= trackSize) {
-        t.unspentAdvances = (t.unspentAdvances || 0) + 1;
         if (trackKey === 'disc') {
           t.eliteTokens = (t.eliteTokens || 0) + 1;
         }
@@ -491,6 +491,7 @@
     } else if (index === t.filled - 1) {
       _refundMarks(costPerBox);
       t.filled--;
+      t.unspentAdvances = Math.max(0, (t.unspentAdvances || 0) - 1);
       _persist();
       _render();
     }
@@ -502,9 +503,9 @@
     if (!_spendMarks(costPerBox)) return;
     dt.focusBurns = (dt.focusBurns || 0) + 1;
     dt.filled++;
+    dt.unspentAdvances = (dt.unspentAdvances || 0) + 1;
     if (dt.filled >= DISC_TRACK_SIZE) {
       dt.eliteTokens = (dt.eliteTokens || 0) + 1;
-      dt.unspentAdvances = (dt.unspentAdvances || 0) + 1;
       dt.level++;
       dt.filled = 0;
     }

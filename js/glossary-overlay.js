@@ -1420,7 +1420,7 @@
       },
       {
         heading: 'Discipline Track',
-        body: 'A 5-box track. Each box costs (Track Level \u00d7 1) Marks. Clearing the track earns 1 Advance + 1 Elite Token, then the track resets at the next level.',
+        body: 'A 5-box track. Each box costs (Track Level \u00d7 1) Marks. Each box filled earns 1 Advance. When the track clears, earn 1 Elite Token, then the track resets at the next level.',
         list: [
           'D6 → D8: 1 Advance (soft cap).',
           'D8 → D10: 1 Advance + 1 Elite Token.',
@@ -1430,7 +1430,7 @@
       },
       {
         heading: 'Arena Track',
-        body: 'A 3-box track. Each box costs (Track Level × 3) Marks. Clearing the track earns 1 Arena Advance.',
+        body: 'A 3-box track. Each box costs (Track Level \u00d7 3) Marks. Each box filled earns 1 Advance. Track resets at the next level when cleared.',
         list: [
           'D4 → D6 (Fixing a Flaw): 2 Advances.',
           'D6 → D8: 1 Advance.',
@@ -1441,7 +1441,7 @@
       },
       {
         heading: 'Vocation Track',
-        body: 'A 5-box pip track. Each box costs (Track Level \u00d7 3) Marks. Clearing the track earns 1 Advance (no Elite Tokens). Spend 1 Advance to bump any eligible vocation up 1 tier, gated by Favored Discipline die.',
+        body: 'A 5-box pip track. Each box costs (Track Level \u00d7 3) Marks. Each box filled earns 1 Advance (no Elite Tokens). Track resets at the next level when cleared. Spend 1 Advance to bump any eligible vocation up 1 tier, gated by Favored Discipline die.',
         list: [
           'D4: Max Tier 1 \u2022 D6: Max Tier 2 \u2022 D8: Max Tier 3.',
           'D10: Max Tier 4 \u2022 D12: Max Tier 5.',
