@@ -168,8 +168,9 @@ router.get('/campaign/party', (req, res) => {
     try { data = JSON.parse(c.character_data); } catch {}
     const adv = data.advancement || {};
     const earnedChecks = (adv.marks && adv.marks.earnedChecks) || {};
+    const TRIGGER_VALUES = { destiny_milestone: 2 };
     let earnedMarks = 0;
-    Object.values(earnedChecks).forEach(v => { if (v) earnedMarks++; });
+    Object.entries(earnedChecks).forEach(([k, v]) => { if (v) earnedMarks += (TRIGGER_VALUES[k] || 1); });
     const totalMarks = (adv.marks && adv.marks.totalBanked || 0) + earnedMarks;
     return {
       id: c.id,
