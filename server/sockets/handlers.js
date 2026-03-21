@@ -191,6 +191,11 @@ function registerHandlers(io) {
       console.log(`[socket] GM reset destiny pool (${pool.length} tokens)`);
     });
 
+    socket.on('advancement:update', ({ characterId, advancement }) => {
+      if (socket.data.role !== 'player' || !characterId) return;
+      socket.broadcast.emit('advancement:sync', { characterId, advancement });
+    });
+
     socket.on('disconnect', () => {
       const { role, characterId, characterName } = socket.data;
       console.log(`[socket] Disconnected: ${socket.id} (${role || 'unknown'})`);

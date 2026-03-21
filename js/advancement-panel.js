@@ -5,7 +5,7 @@
     {
       bucket: 'The Mission',
       subtitle: 'Shared Struggle',
-      budget: '4–5 Marks',
+      budget: '4\u20135 Marks',
       icon: '\u2694',
       triggers: [
         { id: 'act_milestone_1', label: 'Act Milestone I',  value: 1, desc: 'Crew completes Act 1 or a major objective.', group: true },
@@ -18,7 +18,7 @@
     {
       bucket: 'The Past',
       subtitle: 'Phase Trio Triggers',
-      budget: '2–3 Marks',
+      budget: '2\u20133 Marks',
       icon: '\u23F3',
       triggers: [
         { id: 'ghost_past',  label: 'Ghost of the Past', value: 1, desc: 'Used a Phase 1/2/3 detail to complicate the current mission.' },
@@ -29,7 +29,7 @@
     {
       bucket: 'The Future',
       subtitle: 'Destiny Triggers',
-      budget: '2–3 Marks',
+      budget: '2\u20133 Marks',
       icon: '\u2605',
       triggers: [
         { id: 'reckless_pursuit',  label: 'The Reckless Pursuit', value: 1, desc: 'Took a dangerous action specifically to inch closer to Destiny.' },
@@ -39,7 +39,7 @@
     {
       bucket: 'The Mechanics',
       subtitle: 'Action Triggers',
-      budget: '2–4 Marks',
+      budget: '2\u20134 Marks',
       icon: '\u2699',
       triggers: [
         { id: 'd4_burden_1',       label: 'The D4 Burden I',       value: 1, desc: 'Willingly auto-failed a roll tied to D4 Arena, narrating how the flaw ruined the moment.' },
@@ -59,6 +59,9 @@
   var _advancement = null;
   var _char = null;
   var _saveTimeout = null;
+  var _collapsedBuckets = {};
+  var _panelVisible = false;
+  var _initialized = false;
 
   function _esc(str) {
     return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -81,6 +84,17 @@
     return banked + _countEarnedMarks();
   }
 
+  function _getSocket() {
+    return window._socket || null;
+  }
+
+  function _broadcastAdvancement() {
+    var sock = _getSocket();
+    if (sock && _charId && _advancement) {
+      sock.emit('advancement:update', { characterId: _charId, advancement: _advancement });
+    }
+  }
+
   function _persist() {
     if (_saveTimeout) clearTimeout(_saveTimeout);
     _saveTimeout = setTimeout(function () {
@@ -92,35 +106,54 @@
       }).catch(function (err) {
         console.error('[AdvancementPanel] save error', err);
       });
+      _broadcastAdvancement();
     }, 400);
+  }
+
+  function _countD12Arenas() {
+    if (!_char || !_char.arenas) return 0;
+    var count = 0;
+    _char.arenas.forEach(function (a) {
+      if (a.die === 'D12') count++;
+    });
+    return count;
   }
 
   function _buildMarkChecklist() {
     var checks = (_advancement && _advancement.marks) ? (_advancement.marks.earnedChecks || {}) : {};
     var html = '';
 
-    MARK_TRIGGERS.forEach(function (bucket) {
+    MARK_TRIGGERS.forEach(function (bucket, bIdx) {
+      var collapsed = _collapsedBuckets[bIdx];
+      var chevron = collapsed ? '\u25B6' : '\u25BC';
+      var bucketEarned = 0;
+      bucket.triggers.forEach(function (t) { if (checks[t.id]) bucketEarned += t.value; });
+      var countBadge = bucketEarned > 0 ? ' <span class="adv-bucket-earned">' + bucketEarned + '</span>' : '';
       html += '<div class="adv-bucket">';
-      html += '<div class="adv-bucket-header">';
+      html += '<div class="adv-bucket-header" data-bucket-idx="' + bIdx + '">';
+      html += '<span class="adv-bucket-chevron">' + chevron + '</span>';
       html += '<span class="adv-bucket-icon">' + bucket.icon + '</span>';
-      html += '<span class="adv-bucket-title">' + _esc(bucket.bucket) + '</span>';
+      html += '<span class="adv-bucket-title">' + _esc(bucket.bucket) + countBadge + '</span>';
       html += '<span class="adv-bucket-subtitle">' + _esc(bucket.subtitle) + '</span>';
       html += '<span class="adv-bucket-budget">' + _esc(bucket.budget) + '</span>';
       html += '</div>';
-      html += '<div class="adv-bucket-triggers">';
-      bucket.triggers.forEach(function (t) {
-        var checked = checks[t.id] ? ' checked' : '';
-        var groupTag = t.group ? '<span class="adv-tag adv-tag--group">GROUP</span>' : '';
-        var valueBadge = t.value > 1 ? '<span class="adv-mark-value">' + t.value + '</span>' : '';
-        html += '<label class="adv-trigger-row">';
-        html += '<input type="checkbox" class="adv-trigger-check" data-trigger-id="' + _esc(t.id) + '"' + checked + ' />';
-        html += '<div class="adv-trigger-info">';
-        html += '<span class="adv-trigger-label">' + _esc(t.label) + groupTag + valueBadge + '</span>';
-        html += '<span class="adv-trigger-desc">' + _esc(t.desc) + '</span>';
+      if (!collapsed) {
+        html += '<div class="adv-bucket-triggers">';
+        bucket.triggers.forEach(function (t) {
+          var checked = checks[t.id] ? ' checked' : '';
+          var groupTag = t.group ? '<span class="adv-tag adv-tag--group">GROUP</span>' : '';
+          var valueBadge = t.value > 1 ? '<span class="adv-mark-value">' + t.value + '</span>' : '';
+          html += '<label class="adv-trigger-row">';
+          html += '<input type="checkbox" class="adv-trigger-check" data-trigger-id="' + _esc(t.id) + '"' + checked + ' />';
+          html += '<div class="adv-trigger-info">';
+          html += '<span class="adv-trigger-label">' + _esc(t.label) + groupTag + valueBadge + '</span>';
+          html += '<span class="adv-trigger-desc">' + _esc(t.desc) + '</span>';
+          html += '</div>';
+          html += '</label>';
+        });
         html += '</div>';
-        html += '</label>';
-      });
-      html += '</div></div>';
+      }
+      html += '</div>';
     });
     return html;
   }
@@ -129,6 +162,8 @@
     var dt = _advancement ? _advancement.disciplineTrack : { level: 1, filled: 0, eliteTokens: 0, focusBurns: 0 };
     var costPerBox = dt.level;
     var totalTrackCost = costPerBox * DISC_TRACK_SIZE;
+    var banked = (_advancement && _advancement.marks) ? (_advancement.marks.totalBanked || 0) : 0;
+    var canFocusBurn = banked >= costPerBox;
     var html = '';
     html += '<div class="adv-track-section">';
     html += '<div class="adv-track-header">';
@@ -146,7 +181,11 @@
     html += '<div class="adv-track-stats">';
     html += '<span class="adv-stat"><b>Advances Earned:</b> ' + dt.filled + '/' + DISC_TRACK_SIZE + '</span>';
     html += '<span class="adv-stat adv-stat--elite"><b>Elite Tokens:</b> ' + (dt.eliteTokens || 0) + '</span>';
-    if (dt.focusBurns) html += '<span class="adv-stat"><b>Focus Burns:</b> ' + dt.focusBurns + '</span>';
+    html += '<span class="adv-stat"><b>Focus Burns:</b> ' + (dt.focusBurns || 0) + '</span>';
+    html += '</div>';
+
+    html += '<div class="adv-track-actions">';
+    html += '<button class="adv-btn adv-btn--focus' + (canFocusBurn ? '' : ' adv-btn--disabled') + '" id="adv-focus-burn-btn" title="Pay ' + costPerBox + ' Mark(s), skip die upgrade, gain progress toward Elite Token"' + (canFocusBurn ? '' : ' disabled') + '>Focus Burn (' + costPerBox + 'M)</button>';
     html += '</div>';
 
     html += '<div class="adv-track-ref">';
@@ -165,6 +204,8 @@
     var at = _advancement ? _advancement.arenaTrack : { level: 1, filled: 0 };
     var costPerBox = at.level * 3;
     var totalTrackCost = costPerBox * ARENA_TRACK_SIZE;
+    var d12Count = _countD12Arenas();
+    var apexWarning = d12Count >= 1;
     var html = '';
     html += '<div class="adv-track-section">';
     html += '<div class="adv-track-header">';
@@ -183,6 +224,10 @@
     html += '<span class="adv-stat"><b>Advances Earned:</b> ' + at.filled + '/' + ARENA_TRACK_SIZE + '</span>';
     html += '</div>';
 
+    if (apexWarning) {
+      html += '<div class="adv-apex-warning">\u26A0 Apex Rule Active: You already have an Arena at D12. Pushing another to D12 will degrade the first to D10.</div>';
+    }
+
     html += '<div class="adv-track-ref">';
     html += '<div class="adv-ref-title">Arena Die Costs</div>';
     html += '<div class="adv-ref-row">D4 \u2192 D6 (Fixing a Flaw): 2 Advances</div>';
@@ -199,6 +244,7 @@
   function _buildVocationTrack() {
     var unlocks = (_advancement ? _advancement.vocationUnlocks : {}) || {};
     var kits = (_char && _char.kits) ? _char.kits : [];
+    var banked = (_advancement && _advancement.marks) ? (_advancement.marks.totalBanked || 0) : 0;
     var html = '';
     html += '<div class="adv-track-section">';
     html += '<div class="adv-track-header">';
@@ -210,10 +256,12 @@
       html += '<div class="adv-voc-empty">No vocations assigned.</div>';
     } else {
       kits.forEach(function (kit) {
-        var currentTier = kit.tier || kit.currentTier || 1;
         var kitId = kit.id || kit.kitId || '';
+        var baseTier = kit.tier || kit.currentTier || 1;
+        var advancedTier = unlocks[kitId] || 0;
+        var currentTier = Math.max(baseTier, baseTier + advancedTier);
         var kitLabel = kit.name || kit.label || kitId;
-        var favDisc = kit.favoredDiscipline || '—';
+        var favDisc = kit.favoredDiscipline || '\u2014';
         var favDie = _getFavoredDie(favDisc);
         var maxTier = DISC_GATE[favDie] || 1;
 
@@ -225,10 +273,12 @@
           var cost = VOCATION_TIER_COSTS[tier];
           var unlocked = tier <= currentTier;
           var gated = tier > maxTier;
+          var canUnlock = !unlocked && !gated && tier === currentTier + 1 && banked >= cost;
           var cls = 'adv-voc-tier';
           if (unlocked) cls += ' adv-voc-tier--unlocked';
           if (gated && !unlocked) cls += ' adv-voc-tier--gated';
-          html += '<span class="' + cls + '">';
+          if (canUnlock) cls += ' adv-voc-tier--available';
+          html += '<span class="' + cls + '"' + (canUnlock ? ' data-voc-id="' + _esc(kitId) + '" data-voc-tier="' + tier + '" data-voc-cost="' + cost + '"' : '') + '>';
           html += 'T' + tier;
           if (cost > 0) html += ' <small>(' + cost + 'M)</small>';
           html += '</span>';
@@ -344,6 +394,32 @@
         _render();
       });
     }
+
+    var bucketHeaders = container.querySelectorAll('.adv-bucket-header');
+    bucketHeaders.forEach(function (hdr) {
+      hdr.addEventListener('click', function (e) {
+        if (e.target.closest('.adv-trigger-check')) return;
+        var idx = parseInt(hdr.getAttribute('data-bucket-idx'), 10);
+        _collapsedBuckets[idx] = !_collapsedBuckets[idx];
+        _render();
+      });
+    });
+
+    var focusBurnBtn = container.querySelector('#adv-focus-burn-btn');
+    if (focusBurnBtn) {
+      focusBurnBtn.addEventListener('click', function () {
+        _handleFocusBurn();
+      });
+    }
+
+    var vocTiers = container.querySelectorAll('.adv-voc-tier--available');
+    vocTiers.forEach(function (el) {
+      el.addEventListener('click', function () {
+        var vocId = el.getAttribute('data-voc-id');
+        var cost = parseInt(el.getAttribute('data-voc-cost'), 10);
+        _handleVocationUnlock(vocId, cost);
+      });
+    });
   }
 
   function _spendMarks(cost) {
@@ -400,6 +476,29 @@
     }
   }
 
+  function _handleFocusBurn() {
+    var dt = _advancement.disciplineTrack;
+    var costPerBox = dt.level;
+    if (!_spendMarks(costPerBox)) return;
+    dt.focusBurns = (dt.focusBurns || 0) + 1;
+    dt.filled++;
+    if (dt.filled >= DISC_TRACK_SIZE) {
+      dt.eliteTokens = (dt.eliteTokens || 0) + 1;
+      dt.level++;
+      dt.filled = 0;
+    }
+    _persist();
+    _render();
+  }
+
+  function _handleVocationUnlock(vocId, cost) {
+    if (!_spendMarks(cost)) return;
+    if (!_advancement.vocationUnlocks) _advancement.vocationUnlocks = {};
+    _advancement.vocationUnlocks[vocId] = (_advancement.vocationUnlocks[vocId] || 0) + 1;
+    _persist();
+    _render();
+  }
+
   function _updateMarksSummary() {
     var numEl = document.querySelector('.adv-marks-number');
     var earnedEl = document.querySelectorAll('.adv-marks-detail');
@@ -421,7 +520,8 @@
         vocationUnlocks: {}
       };
 
-      _render();
+      if (_panelVisible) _render();
+      _initialized = true;
 
       document.addEventListener('character:stateChanged', function () {
         var c = window.CharacterPanel && window.CharacterPanel.currentChar;
@@ -429,9 +529,29 @@
           _char = c;
           _charId = c.id || null;
           _advancement = c.advancement || _advancement;
-          _render();
+          if (_panelVisible) _render();
         }
       });
+
+      document.addEventListener('panel:shown', function (e) {
+        var panelId = e.detail && e.detail.panelId;
+        if (panelId === 'panel-5') {
+          _panelVisible = true;
+          _render();
+        } else {
+          _panelVisible = false;
+        }
+      });
+
+      var sock = _getSocket();
+      if (sock) {
+        sock.on('advancement:sync', function (data) {
+          if (data.characterId === _charId && data.advancement) {
+            _advancement = data.advancement;
+            if (_panelVisible) _render();
+          }
+        });
+      }
     }
     tryRender();
   }

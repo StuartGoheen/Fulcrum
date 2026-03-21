@@ -72,6 +72,7 @@
       reconnectionAttempts: 10,
     });
 
+    window._socket = socket;
     const connectedPlayers = [];
 
     socket.on('connect', () => {

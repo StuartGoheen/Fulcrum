@@ -7749,6 +7749,33 @@
     padding: 0.25rem 0.4rem;
     background: rgba(255,255,255,0.04);
     border-bottom: 1px solid rgba(255,255,255,0.06);
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.12s;
+  }
+  .adv-bucket-header:hover {
+    background: rgba(255,255,255,0.07);
+  }
+  .adv-bucket-chevron {
+    font-size: 0.3rem;
+    opacity: 0.4;
+    width: 0.4rem;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .adv-bucket-earned {
+    font-size: 0.26rem;
+    background: var(--c-accent, #f0c040);
+    color: #000;
+    border-radius: 50%;
+    width: 0.45rem;
+    height: 0.45rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    margin-left: 0.1rem;
+    vertical-align: middle;
   }
   .adv-bucket-icon {
     font-size: 0.5rem;
@@ -7923,6 +7950,33 @@
     color: #c9a0ff;
   }
 
+  .adv-track-actions {
+    display: flex;
+    gap: 0.25rem;
+    margin: 0.15rem 0;
+  }
+  .adv-btn--focus {
+    border-color: #c9a0ff;
+    color: #c9a0ff;
+  }
+  .adv-btn--focus:hover:not(.adv-btn--disabled) {
+    background: rgba(201,160,255,0.12);
+  }
+  .adv-btn--disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+  .adv-apex-warning {
+    font-size: 0.32rem;
+    color: #f59e0b;
+    background: rgba(245,158,11,0.08);
+    border: 1px solid rgba(245,158,11,0.2);
+    border-radius: 0.12rem;
+    padding: 0.15rem 0.3rem;
+    margin: 0.1rem 0;
+    line-height: 1.4;
+  }
+
   .adv-track-ref {
     margin-top: 0.2rem;
     padding-top: 0.2rem;
@@ -7992,5 +8046,18 @@
   .adv-voc-tier--gated {
     opacity: 0.25;
     border-style: dashed;
+  }
+  .adv-voc-tier--available {
+    border-color: var(--c-accent, #f0c040);
+    color: var(--c-accent, #f0c040);
+    cursor: pointer;
+    animation: adv-pulse 1.5s ease-in-out infinite;
+  }
+  .adv-voc-tier--available:hover {
+    background: rgba(240,192,64,0.15);
+  }
+  @keyframes adv-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(240,192,64,0); }
+    50% { box-shadow: 0 0 4px 1px rgba(240,192,64,0.3); }
   }
   
