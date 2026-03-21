@@ -263,15 +263,49 @@
   }
 
   function _buildBack(char) {
+    var portraitSrc = char.portrait || '';
+    var portraitHtml = portraitSrc
+      ? '<img src="' + _esc(portraitSrc) + '" alt="' + _esc(char.name || '') + '" class="char-back-portrait">'
+      : '<div class="char-back-portrait char-back-portrait--empty">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round">' +
+            '<circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 12 0v1"/>' +
+          '</svg>' +
+        '</div>';
+
+    var narrativeRaw = char.narrative || '';
+    var paragraphs = narrativeRaw.split(/\n\n+|\n/).filter(function (p) { return p.trim().length > 0; });
+    if (paragraphs.length <= 1 && narrativeRaw.length > 300) {
+      var sentences = narrativeRaw.match(/[^.!?]+[.!?]+\s*/g) || [narrativeRaw];
+      paragraphs = [];
+      var chunk = '';
+      for (var i = 0; i < sentences.length; i++) {
+        chunk += (chunk ? ' ' : '') + sentences[i];
+        if (chunk.length > 250 || i === sentences.length - 1) {
+          paragraphs.push(chunk);
+          chunk = '';
+        }
+      }
+    }
+    var narrativeHtml = '';
+    for (var p = 0; p < paragraphs.length; p++) {
+      narrativeHtml += '<p class="char-back-para">' + _esc(paragraphs[p]) + '</p>';
+    }
+    if (!narrativeHtml) {
+      narrativeHtml = '<p class="char-back-para char-back-para--empty">No narrative yet.</p>';
+    }
+
     return (
-      '<div style="padding:0.5rem 0.625rem;">' +
-        '<p style="font-family:\'Audiowide\',sans-serif;font-size:0.5rem;letter-spacing:0.08em;' +
-            'text-transform:uppercase;color:var(--color-accent-primary);margin-bottom:0.5rem;">' +
-          'Character Narrative' +
-        '</p>' +
-        '<p style="font-size:0.55rem;color:var(--color-text-secondary);line-height:1.6;">' +
-          _esc(char.narrative) +
-        '</p>' +
+      '<div class="char-back-container">' +
+        '<div class="char-back-header">' +
+          portraitHtml +
+          '<div class="char-back-identity">' +
+            '<div class="char-back-name">' + _esc(char.name || 'Unknown') + '</div>' +
+            '<div class="char-back-meta">' + _esc(char.species || '') + ' &mdash; ' + _esc(char.archetype || '') + '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="char-back-divider"></div>' +
+        '<div class="char-back-label">Character Narrative</div>' +
+        '<div class="char-back-narrative">' + narrativeHtml + '</div>' +
       '</div>'
     );
   }

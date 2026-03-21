@@ -221,6 +221,7 @@ function expandCharacterData(flat) {
     species: flat.species,
     archetype: flat.archetype || flat.title || null,
     narrative: flat.backstory || '',
+    portrait: flat.portrait || null,
     gender: flat.gender || null,
     destiny: flat.destiny || null,
     phase1: flat.phase1 || null,
