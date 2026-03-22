@@ -273,6 +273,20 @@
       width: 100%;
     }
     .gm-destiny-reset:hover { border-color: var(--color-accent-primary); color: var(--color-accent-primary); }
+    .gm-destiny-token.is-tapped {
+      opacity: 0.3;
+      filter: grayscale(0.6);
+    }
+    .gm-destiny-token.is-tapped .force-token-inner {
+      box-shadow: none;
+    }
+    .gm-destiny-btns {
+      display: flex;
+      gap: 4px;
+    }
+    .gm-destiny-btns button {
+      flex: 1;
+    }
     .gm-destiny-empty {
       font-size: 0.65rem;
       color: var(--color-text-secondary);
@@ -312,7 +326,10 @@
         <span class="gm-destiny-empty">No crew connected</span>
       </div>
       <div class="gm-destiny-count" id="gm-destiny-count"></div>
-      <button class="gm-destiny-reset" id="gm-destiny-reset" title="Reset all tokens to Hope">Reset Pool</button>
+      <div class="gm-destiny-btns">
+        <button class="gm-destiny-reset" id="gm-destiny-untap" title="Restore all tapped tokens">Untap All</button>
+        <button class="gm-destiny-reset" id="gm-destiny-reset" title="Rebuild pool from connected crew">Reset Pool</button>
+      </div>
     </aside>
     <div>
     <div id="tab-campaign" class="tab-panel active">
@@ -887,6 +904,11 @@
     });
   }
 
+  function _normToken(t) {
+    if (typeof t === 'string') return { side: t, tapped: false };
+    return { side: t.side || 'hope', tapped: !!t.tapped };
+  }
+
   function renderGmDestinyPool(pool) {
     const container = document.getElementById('gm-destiny-tokens');
     const countEl = document.getElementById('gm-destiny-count');
@@ -898,9 +920,13 @@
       return;
     }
 
-    container.innerHTML = pool.map(function (state, idx) {
-      const isDark = state === 'toll';
-      return '<div class="gm-destiny-token' + (isDark ? ' is-dark' : '') + '" data-index="' + idx + '" title="Click to flip — currently ' + state + '">' +
+    var tokens = pool.map(_normToken);
+
+    container.innerHTML = tokens.map(function (t, idx) {
+      const isDark = t.side === 'toll';
+      const tappedCls = t.tapped ? ' is-tapped' : '';
+      const label = t.side + (t.tapped ? ' (tapped)' : '');
+      return '<div class="gm-destiny-token' + (isDark ? ' is-dark' : '') + tappedCls + '" data-index="' + idx + '" title="Click to flip — ' + label + '">' +
         '<div class="force-token-inner">' +
           '<div class="force-token-face force-token-front"></div>' +
           '<div class="force-token-face force-token-back"></div>' +
@@ -916,14 +942,21 @@
     });
 
     if (countEl) {
-      const hopeCount = pool.filter(function (s) { return s === 'hope'; }).length;
-      const tollCount = pool.filter(function (s) { return s === 'toll'; }).length;
-      countEl.innerHTML = '<span class="hope-count">' + hopeCount + 'H</span> / <span class="toll-count">' + tollCount + 'T</span>';
+      const hopeCount = tokens.filter(function (t) { return t.side === 'hope'; }).length;
+      const tollCount = tokens.filter(function (t) { return t.side === 'toll'; }).length;
+      const tappedCount = tokens.filter(function (t) { return t.tapped; }).length;
+      var summary = '<span class="hope-count">' + hopeCount + 'H</span> / <span class="toll-count">' + tollCount + 'T</span>';
+      if (tappedCount > 0) summary += ' <span style="color:var(--color-text-secondary);font-size:0.7rem;">(' + tappedCount + ' tapped)</span>';
+      countEl.innerHTML = summary;
     }
   }
 
   document.getElementById('gm-destiny-reset').addEventListener('click', function () {
     if (socket) socket.emit('destiny:reset');
+  });
+
+  document.getElementById('gm-destiny-untap').addEventListener('click', function () {
+    if (socket) socket.emit('destiny:untap');
   });
 
   /* ══════════════════════════════════════════════════════════

@@ -1,13 +1,20 @@
 const db = require('../db');
 
+function normalizePool(arr) {
+  if (!Array.isArray(arr)) return [];
+  return arr.map(item => {
+    if (typeof item === 'string') return { side: item, tapped: false };
+    if (item && typeof item === 'object' && item.side) return { side: item.side, tapped: !!item.tapped };
+    return null;
+  }).filter(Boolean);
+}
+
 function getDestinyPool() {
   const row = db.prepare("SELECT value FROM campaign_state WHERE key = 'destiny_pool'").get();
   if (row) {
     try {
       const parsed = JSON.parse(row.value);
-      if (Array.isArray(parsed) && parsed.every(s => s === 'hope' || s === 'toll')) {
-        return parsed;
-      }
+      if (Array.isArray(parsed)) return normalizePool(parsed);
     } catch (_) {}
   }
   return [];
@@ -31,9 +38,9 @@ function getCharDestinyTokens(charId) {
       if (parsed.destiny) destiny = parsed.destiny;
     } catch (_) {}
   }
-  if (destiny === 'Two Light') return ['hope', 'hope'];
-  if (destiny === 'Two Dark') return ['toll', 'toll'];
-  return ['hope', 'toll'];
+  if (destiny === 'Two Light') return [{ side: 'hope', tapped: false }, { side: 'hope', tapped: false }];
+  if (destiny === 'Two Dark') return [{ side: 'toll', tapped: false }, { side: 'toll', tapped: false }];
+  return [{ side: 'hope', tapped: false }, { side: 'toll', tapped: false }];
 }
 
 function recalcPool(io) {
@@ -170,14 +177,48 @@ function registerHandlers(io) {
         socket.emit('error', { message: 'Only the GM can flip destiny tokens.' });
         return;
       }
+      if (!Number.isInteger(index)) return;
 
       const pool = getDestinyPool();
       if (index < 0 || index >= pool.length) return;
 
-      pool[index] = pool[index] === 'hope' ? 'toll' : 'hope';
+      pool[index].side = pool[index].side === 'hope' ? 'toll' : 'hope';
       saveDestinyPool(pool);
       io.emit('destiny:sync', { pool });
-      console.log(`[socket] GM flipped token ${index} to ${pool[index]}`);
+      console.log(`[socket] GM flipped token ${index} to ${pool[index].side}`);
+    });
+
+    socket.on('destiny:tap', ({ index }) => {
+      if (!Number.isInteger(index)) return;
+      const role = socket.data.role;
+      if (role !== 'player' && role !== 'gm') {
+        socket.emit('error', { message: 'You must be in a session to tap tokens.' });
+        return;
+      }
+      const pool = getDestinyPool();
+      if (index < 0 || index >= pool.length) return;
+      if (pool[index].tapped) return;
+      if (pool[index].side !== 'hope' && role !== 'gm') {
+        socket.emit('error', { message: 'Players can only tap Hope tokens.' });
+        return;
+      }
+      pool[index].tapped = true;
+      saveDestinyPool(pool);
+      io.emit('destiny:sync', { pool });
+      console.log(`[socket] Token ${index} tapped by ${socket.data.role} (${socket.data.characterName || socket.id})`);
+    });
+
+    socket.on('destiny:untap', () => {
+      if (socket.data.role !== 'gm') {
+        socket.emit('error', { message: 'Only the GM can untap destiny tokens.' });
+        return;
+      }
+
+      const pool = getDestinyPool();
+      pool.forEach(t => { t.tapped = false; });
+      saveDestinyPool(pool);
+      io.emit('destiny:sync', { pool });
+      console.log(`[socket] GM untapped all destiny tokens`);
     });
 
     socket.on('destiny:reset', () => {

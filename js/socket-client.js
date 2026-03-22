@@ -24,22 +24,54 @@
     indicator.title = s.title;
   }
 
+  var _currentSocket = null;
+  var _lastPool = [];
+
+  function _normalizeToken(t) {
+    if (typeof t === 'string') return { side: t, tapped: false };
+    return { side: t.side || 'hope', tapped: !!t.tapped };
+  }
+
   function renderDestinyPool(pool) {
     var tracker = document.getElementById('force-tracker');
     if (!tracker) return;
     if (!pool || pool.length === 0) {
       tracker.innerHTML = '<span style="font-size:0.7rem;color:var(--color-text-secondary);font-style:italic;">No crew connected</span>';
+      _lastPool = [];
       return;
     }
-    var sorted = pool.slice().sort(function (a, b) {
-      if (a === b) return 0;
-      return a === 'toll' ? -1 : 1;
+    var normalized = pool.map(_normalizeToken);
+    _lastPool = normalized;
+
+    var indexed = normalized.map(function (t, i) { return { token: t, origIdx: i }; });
+    indexed.sort(function (a, b) {
+      if (a.token.side === b.token.side) return 0;
+      return a.token.side === 'toll' ? -1 : 1;
     });
-    tracker.innerHTML = sorted.map(function (state) {
-      var cls = state === 'toll' ? 'destiny-pip is-toll' : 'destiny-pip is-hope';
-      return '<div class="' + cls + '" title="' + (state === 'toll' ? 'Toll' : 'Hope') + '"></div>';
+
+    tracker.innerHTML = indexed.map(function (item) {
+      var t = item.token;
+      var cls = 'destiny-pip';
+      cls += t.side === 'toll' ? ' is-toll' : ' is-hope';
+      if (t.tapped) cls += ' is-tapped';
+      var canTap = t.side === 'hope' && !t.tapped;
+      var title = (t.side === 'toll' ? 'Toll' : 'Hope') + (t.tapped ? ' (tapped)' : '');
+      if (canTap) title += ' — click to tap';
+      return '<div class="' + cls + '" data-dest-idx="' + item.origIdx + '" title="' + title + '"' +
+        (canTap ? ' style="cursor:pointer;"' : '') + '></div>';
     }).join('');
   }
+
+  document.addEventListener('click', function (e) {
+    var pip = e.target.closest('.destiny-pip[data-dest-idx]');
+    if (!pip || !_currentSocket) return;
+    var idx = parseInt(pip.getAttribute('data-dest-idx'), 10);
+    if (isNaN(idx)) return;
+    var t = _lastPool[idx];
+    if (!t || t.tapped) return;
+    if (t.side !== 'hope') return;
+    _currentSocket.emit('destiny:tap', { index: idx });
+  });
 
   function updateCrewList(connectedPlayers) {
     const crewList = document.getElementById('crew-list');
@@ -77,6 +109,7 @@
     });
 
     window._socket = socket;
+    _currentSocket = socket;
     const connectedPlayers = [];
 
     socket.on('connect', () => {

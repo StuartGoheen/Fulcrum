@@ -4164,6 +4164,26 @@
     opacity: 0.5;
   }
 
+  .destiny-pip.is-tapped {
+    opacity: 0.2;
+    filter: grayscale(0.7);
+    box-shadow: none;
+    position: relative;
+  }
+
+  .destiny-pip.is-tapped::after {
+    content: '\u2715';
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,0.5);
+    font-size: 0.65em;
+    font-weight: bold;
+    pointer-events: none;
+  }
+
   .destiny-personal-name {
     font-family: 'Audiowide', sans-serif;
     font-size: 1.00rem;
