@@ -162,10 +162,6 @@ function registerHandlers(io) {
       const pool = getDestinyPool();
       if (index < 0 || index >= pool.length) return;
       if (pool[index].tapped) return;
-      if (pool[index].side !== 'hope' && role !== 'gm') {
-        socket.emit('error', { message: 'Players can only tap Hope tokens.' });
-        return;
-      }
       pool[index].tapped = true;
       saveDestinyPool(pool);
       io.emit('destiny:sync', { pool });

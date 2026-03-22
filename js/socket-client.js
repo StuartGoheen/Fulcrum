@@ -48,9 +48,9 @@
       var cls = 'destiny-pip';
       cls += t.side === 'toll' ? ' is-toll' : ' is-hope';
       if (t.tapped) cls += ' is-tapped';
-      var canTap = t.side === 'hope' && !t.tapped;
+      var canTap = !t.tapped;
       var title = (t.side === 'toll' ? 'Toll' : 'Hope') + (t.tapped ? ' (tapped)' : '');
-      if (canTap) title += ' — click to tap';
+      if (canTap) title += ' \u2014 click to tap';
       return '<div class="' + cls + '" data-dest-idx="' + item.origIdx + '" title="' + title + '"' +
         (canTap ? ' style="cursor:pointer;"' : '') + '></div>';
     }).join('');
@@ -63,7 +63,6 @@
     if (isNaN(idx)) return;
     var t = _lastPool[idx];
     if (!t || t.tapped) return;
-    if (t.side !== 'hope') return;
     _currentSocket.emit('destiny:tap', { index: idx });
   });
 

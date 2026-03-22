@@ -4172,7 +4172,7 @@
   }
 
   .destiny-pip.is-tapped::after {
-    content: '\u2715';
+    content: '\2715';
     position: absolute;
     inset: 0;
     display: flex;
