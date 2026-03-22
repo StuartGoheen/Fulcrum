@@ -34,25 +34,6 @@ function getCharDestinyTokens(charId) {
   return [{ side: 'hope', tapped: false }, { side: 'toll', tapped: false }];
 }
 
-function recalcPool(io) {
-  const sockets = Array.from(io.sockets.sockets.values());
-  const uniqueCharacters = new Set();
-  sockets.forEach(s => {
-    if (s.data.role === 'player' && s.data.characterId) {
-      uniqueCharacters.add(s.data.characterId);
-    }
-  });
-
-  const pool = [];
-  for (const charId of uniqueCharacters) {
-    const tokens = getCharDestinyTokens(charId);
-    pool.push(...tokens);
-  }
-
-  saveDestinyPool(pool);
-  return pool;
-}
-
 function rebuildPool(io) {
   const sockets = Array.from(io.sockets.sockets.values());
   const uniqueCharacters = new Set();
@@ -70,11 +51,6 @@ function rebuildPool(io) {
 
   saveDestinyPool(pool);
   return pool;
-}
-
-function broadcastDestiny(io) {
-  const pool = getDestinyPool();
-  io.emit('destiny:sync', { pool });
 }
 
 function registerHandlers(io) {
@@ -104,9 +80,6 @@ function registerHandlers(io) {
 
         console.log(`[socket] Player joined: ${name} (${socket.id})`);
         io.emit('player:connected', { characterId, name });
-
-        const pool = recalcPool(io);
-        io.emit('destiny:sync', { pool });
       }
 
       if (role === 'gm') {
@@ -196,7 +169,7 @@ function registerHandlers(io) {
       pool[index].tapped = true;
       saveDestinyPool(pool);
       io.emit('destiny:sync', { pool });
-      console.log(`[socket] Token ${index} tapped by ${socket.data.role} (${socket.data.characterName || socket.id})`);
+      console.log(`[socket] Token ${index} tapped by ${role} (${socket.data.characterName || socket.id})`);
     });
 
     socket.on('destiny:untap', () => {
@@ -239,11 +212,6 @@ function registerHandlers(io) {
         `).run(characterId);
 
         io.emit('player:disconnected', { characterId, name: characterName || 'Unknown' });
-
-        setTimeout(() => {
-          const pool = recalcPool(io);
-          io.emit('destiny:sync', { pool });
-        }, 100);
       }
     });
   });
