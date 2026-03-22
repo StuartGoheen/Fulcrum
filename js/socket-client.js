@@ -27,11 +27,6 @@
   var _currentSocket = null;
   var _lastPool = [];
 
-  function _normalizeToken(t) {
-    if (typeof t === 'string') return { side: t, tapped: false };
-    return { side: t.side || 'hope', tapped: !!t.tapped };
-  }
-
   function renderDestinyPool(pool) {
     var tracker = document.getElementById('force-tracker');
     if (!tracker) return;
@@ -40,10 +35,9 @@
       _lastPool = [];
       return;
     }
-    var normalized = pool.map(_normalizeToken);
-    _lastPool = normalized;
+    _lastPool = pool;
 
-    var indexed = normalized.map(function (t, i) { return { token: t, origIdx: i }; });
+    var indexed = pool.map(function (t, i) { return { token: t, origIdx: i }; });
     indexed.sort(function (a, b) {
       if (a.token.side === b.token.side) return 0;
       return a.token.side === 'toll' ? -1 : 1;

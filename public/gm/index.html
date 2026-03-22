@@ -904,11 +904,6 @@
     });
   }
 
-  function _normToken(t) {
-    if (typeof t === 'string') return { side: t, tapped: false };
-    return { side: t.side || 'hope', tapped: !!t.tapped };
-  }
-
   function renderGmDestinyPool(pool) {
     const container = document.getElementById('gm-destiny-tokens');
     const countEl = document.getElementById('gm-destiny-count');
@@ -920,7 +915,7 @@
       return;
     }
 
-    var tokens = pool.map(_normToken);
+    var tokens = pool;
 
     container.innerHTML = tokens.map(function (t, idx) {
       const isDark = t.side === 'toll';

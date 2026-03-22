@@ -1,20 +1,11 @@
 const db = require('../db');
 
-function normalizePool(arr) {
-  if (!Array.isArray(arr)) return [];
-  return arr.map(item => {
-    if (typeof item === 'string') return { side: item, tapped: false };
-    if (item && typeof item === 'object' && item.side) return { side: item.side, tapped: !!item.tapped };
-    return null;
-  }).filter(Boolean);
-}
-
 function getDestinyPool() {
   const row = db.prepare("SELECT value FROM campaign_state WHERE key = 'destiny_pool'").get();
   if (row) {
     try {
       const parsed = JSON.parse(row.value);
-      if (Array.isArray(parsed)) return normalizePool(parsed);
+      if (Array.isArray(parsed)) return parsed;
     } catch (_) {}
   }
   return [];
