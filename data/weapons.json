@@ -1125,5 +1125,380 @@
       "Brawl",
       "Natural Weapon"
     ]
+  },
+  {
+    "id": "wpn_micro_blaster_01",
+    "name": "Micro Blaster",
+    "description": "A blaster pistol barely larger than a comlink. Two shots, no sights, no accuracy beyond arm's reach. It exists for one purpose: the weapon nobody knows you have. Diplomats tape them to their thighs. Smugglers tuck them inside boot heels. The first shot is a surprise. There usually isn't a need for a third.",
+    "chassisId": "light",
+    "chassisLabel": "Light Pistol",
+    "discipline": "ranged",
+    "arena": "reflex",
+    "range": [
+      2,
+      5,
+      0
+    ],
+    "stunSetting": false,
+    "cost": 400,
+    "availability": "2/X",
+    "customDamage": [
+      1,
+      2,
+      3
+    ],
+    "trait": {
+      "name": "Deep Conceal",
+      "description": "Small enough to evade standard pat-downs and weapon scanners. Detection requires a dedicated search specifically looking for holdouts. Effective range is extremely short — same zone only. Clip holds 2 shots."
+    },
+    "gambits": [],
+    "tags": [
+      "Ranged",
+      "Light",
+      "Hold-Out",
+      "Energy",
+      "Concealable",
+      "Illegal",
+      "Black Market"
+    ]
+  },
+  {
+    "id": "wpn_kk5_01",
+    "name": "Imperial Munitions KK-5",
+    "description": "A compact military-grade blaster pistol manufactured by Imperial Munitions for internal security forces and ISB field agents. Never sold on the civilian market. Every one on the street was stolen, stripped from a dead officer, or quietly diverted from a supply depot. Reliable, accurate, and the kind of weapon that gets you executed for possessing.",
+    "chassisId": "medium",
+    "chassisLabel": "Medium Pistol",
+    "discipline": "ranged",
+    "arena": "reflex",
+    "range": [
+      3,
+      10,
+      30
+    ],
+    "stunSetting": false,
+    "cost": 750,
+    "availability": "4/X",
+    "trait": {
+      "name": "Military Grade",
+      "description": "Built to Imperial military specification. No stun setting — designed to kill, not incapacitate. Reliable action; immune to jam and misfire effects that plague cheaper black market blasters."
+    },
+    "gambits": [],
+    "tags": [
+      "Ranged",
+      "Medium",
+      "Pistol",
+      "Energy",
+      "Military",
+      "Imperial",
+      "Illegal",
+      "Black Market"
+    ]
+  },
+  {
+    "id": "wpn_thunderer_01",
+    "name": "BlasTech T-6 \"Thunderer\"",
+    "description": "A snub-nosed heavy blaster pistol with a massively oversized power cell and reinforced barrel housing. The T-6 hits like a carbine packed into a pistol frame. The recoil is punishing and the effective range is short — but within that range, nothing short of vehicle armor stops a Thunderer bolt. Popular with pirates, enforcers, and anyone who needs one shot to end a conversation.",
+    "chassisId": "heavy",
+    "chassisLabel": "Heavy Pistol",
+    "discipline": "ranged",
+    "arena": "reflex",
+    "range": [
+      3,
+      7,
+      25
+    ],
+    "stunSetting": false,
+    "cost": 750,
+    "availability": "2/X",
+    "trait": {
+      "name": "Snub Barrel",
+      "description": "Maximum effective range is limited to short — attacks beyond medium range are not possible. Within same zone, the concentrated bolt resolves at +1 Effect tier."
+    },
+    "gambits": [],
+    "tags": [
+      "Ranged",
+      "Heavy",
+      "Pistol",
+      "Energy",
+      "Powerful",
+      "Illegal",
+      "Black Market"
+    ]
+  },
+  {
+    "id": "wpn_deathhammer_01",
+    "name": "Merr-Sonn Model 434 \"DeathHammer\"",
+    "description": "The Model 434 is the most popular aftermarket heavy pistol in the Outer Rim. More powerful than a standard sidearm, compact enough to holster, and available from any arms dealer with connections. It hits hard and has a stun setting, which is why bounty hunters adopted it as a standard tool. Merr-Sonn sells millions of them. The Empire restricts them. Nobody cares.",
+    "chassisId": "medium",
+    "chassisLabel": "Medium Pistol",
+    "discipline": "ranged",
+    "arena": "reflex",
+    "range": [
+      2,
+      8,
+      20
+    ],
+    "stunSetting": true,
+    "cost": 850,
+    "availability": "1/R",
+    "trait": {
+      "name": "Workhorse",
+      "description": "A reliable, well-built medium blaster pistol with a stun setting. No mechanical surprises — it works every time you pull the trigger."
+    },
+    "gambits": [],
+    "tags": [
+      "Ranged",
+      "Medium",
+      "Pistol",
+      "Energy",
+      "Restricted",
+      "Black Market"
+    ]
+  },
+  {
+    "id": "wpn_enforcer_01",
+    "name": "Morellian Enforcer Pistol",
+    "description": "A slugthrower hand-cannon firing solid metal projectiles at hypersonic velocity. No power pack, no blaster gas — just machined ammunition and a magnetic accelerator barrel. The Enforcer exists because some targets have energy-deflecting shields, cortosis weave, or lightsabers. A solid slug doesn't care about any of that. The report is deafening. The recoil will break your wrist if you're not braced.",
+    "chassisId": "heavy",
+    "chassisLabel": "Heavy Pistol",
+    "discipline": "ranged",
+    "arena": "reflex",
+    "range": [
+      1,
+      25,
+      75
+    ],
+    "stunSetting": false,
+    "cost": 6000,
+    "availability": "4/R",
+    "trait": {
+      "name": "Solid Slug",
+      "description": "Deals Projectile damage. The slug is a physical mass projectile — unaffected by energy shields, cortosis weave, and personal deflector fields. Any defense or ability that specifically blocks or deflects energy weapons has no effect against the Enforcer. Firing eliminates any possibility of stealth."
+    },
+    "gambits": [],
+    "tags": [
+      "Ranged",
+      "Heavy",
+      "Pistol",
+      "Projectile",
+      "Slugthrower",
+      "Restricted",
+      "Black Market"
+    ]
+  },
+  {
+    "id": "wpn_dx2_disruptor_01",
+    "name": "Tenloss DX-2 Disruptor Pistol",
+    "description": "A sleek pistol-frame disruptor that fires a focused molecular disruption beam. The bolt doesn't burn or pierce — it unravels molecular bonds on contact. Flesh, armor, durasteel — everything comes apart the same way. Possession is a capital offense in every system in the galaxy. The Tenloss Syndicate manufactures them anyway. Short range, total lethality.",
+    "chassisId": "medium",
+    "chassisLabel": "Medium Pistol",
+    "discipline": "ranged",
+    "arena": "reflex",
+    "range": [
+      0,
+      3,
+      5
+    ],
+    "stunSetting": false,
+    "cost": 2250,
+    "availability": "4/X",
+    "trait": {
+      "name": "Disintegration",
+      "description": "If a target is reduced to 0 Vitality by this weapon, they are disintegrated — no incapacitation, no stabilization, no recovery. Maximum effective range is short — attacks beyond medium range are not possible."
+    },
+    "gambits": [],
+    "tags": [
+      "Ranged",
+      "Medium",
+      "Pistol",
+      "Disruptor",
+      "Illegal",
+      "Black Market"
+    ]
+  },
+  {
+    "id": "wpn_dxr6_disruptor_01",
+    "name": "Tenloss DXR-6 Disruptor Rifle",
+    "description": "The rifle-frame variant of the Tenloss disruptor platform. A longer barrel and enhanced focusing array extend the disruption beam to standard rifle range — still short compared to a blaster rifle, but far enough to make this an assassination weapon rather than a brawling tool. Two-handed, conspicuous, and impossible to explain away. If you're carrying a DXR-6, you've already decided how the conversation is going to end.",
+    "chassisId": "heavy",
+    "chassisLabel": "Heavy Rifle",
+    "discipline": "ranged",
+    "arena": "reflex",
+    "range": [
+      0,
+      3,
+      7
+    ],
+    "stunSetting": false,
+    "cost": 3500,
+    "availability": "4/X",
+    "trait": {
+      "name": "Disintegration",
+      "description": "If a target is reduced to 0 Vitality by this weapon, they are disintegrated — no incapacitation, no stabilization, no recovery. Two-handed. Range extends to medium — longer than the pistol variant but still short for a rifle."
+    },
+    "gambits": [],
+    "tags": [
+      "Ranged",
+      "Heavy",
+      "Rifle",
+      "Disruptor",
+      "Two-Handed",
+      "Illegal",
+      "Black Market"
+    ]
+  },
+  {
+    "id": "wpn_saberdart_01",
+    "name": "Saberdart Launcher",
+    "description": "A compact wrist-mounted pneumatic launcher that fires slim micro-darts at short range. The launcher itself is harmless — a precision delivery system for whatever substance is loaded into the dart. Kamino assassins made the design infamous. The launcher is legal in most systems. The payloads generally are not.",
+    "chassisId": "light",
+    "chassisLabel": "Light Special",
+    "discipline": "ranged",
+    "arena": "reflex",
+    "range": [
+      3,
+      10,
+      30
+    ],
+    "stunSetting": false,
+    "cost": 1500,
+    "availability": "4/R",
+    "customDamage": [
+      0,
+      0,
+      0
+    ],
+    "trait": {
+      "name": "Delivery Device",
+      "description": "The saberdart launcher deals no damage on its own. On a successful hit, the loaded substance is delivered to the target. Effects are determined by the payload, not the weapon. Darts are consumed on use. Concealed while worn; detection requires a deliberate search."
+    },
+    "gambits": [],
+    "tags": [
+      "Ranged",
+      "Light",
+      "Special",
+      "Concealable",
+      "Restricted",
+      "Black Market"
+    ]
+  },
+  {
+    "id": "wpn_mm9_wrist_rocket_01",
+    "name": "MM9 Wrist Rocket System",
+    "description": "A forearm-mounted micro-rocket launcher originally designed for Mandalorian combat armor integration. Three miniature concussion rockets loaded in a rotating magazine — point your fist and fire. The rockets are unguided but fast. At close range, they don't need guidance. The wrist mount leaves both hands free, which is the real value — you can fire rockets while holding a blaster, a vibroblade, or someone's collar.",
+    "chassisId": "heavy",
+    "chassisLabel": "Heavy Special",
+    "discipline": "ranged",
+    "arena": "reflex",
+    "range": [
+      2,
+      6,
+      20
+    ],
+    "stunSetting": false,
+    "cost": 2500,
+    "availability": "2/R",
+    "trait": {
+      "name": "Wrist Mounted",
+      "description": "Concealed while worn under armor or heavy clothing. Leaves both hands free — firing does not require drawing or holstering. Magazine holds 3 rockets. Rockets are consumable."
+    },
+    "gambits": [
+      {
+        "name": "Concussive Splash",
+        "description": "Reduce your Effect by 1 Tier. The rocket detonation catches one additional target adjacent to the primary target. The reduced Effect tier applies to the secondary target."
+      }
+    ],
+    "tags": [
+      "Ranged",
+      "Heavy",
+      "Special",
+      "Explosive",
+      "Concealable",
+      "Mandalorian",
+      "Restricted",
+      "Black Market"
+    ]
+  },
+  {
+    "id": "wpn_wrist_flame_01",
+    "name": "Wrist Flame Projector",
+    "description": "A compact fuel reservoir and igniter assembly mounted to the forearm, concealed beneath a sleeve or gauntlet. Squeeze the trigger plate in your palm and a three-meter cone of liquid flame erupts from the wrist nozzle. Mandalorian warriors made these famous. Everyone else uses them because fire solves problems that blasters can't.",
+    "chassisId": "light",
+    "chassisLabel": "Light Special",
+    "discipline": "ranged",
+    "arena": "reflex",
+    "range": [
+      1,
+      3,
+      5
+    ],
+    "stunSetting": false,
+    "cost": 800,
+    "availability": "2/X",
+    "customDamage": [
+      1,
+      2,
+      3
+    ],
+    "trait": {
+      "name": "Liquid Fire",
+      "description": "Deals Fire damage. The target defends with Evasion — fire cannot be Endured without sealed armor, an energy barrier, or equivalent protection. Concealed while worn; detection requires a deliberate search. Fuel canister holds 3 bursts before requiring replacement."
+    },
+    "gambits": [
+      {
+        "name": "Set Ablaze",
+        "description": "Reduce your Effect by 1 Tier. The target gains [Hazard 1] — Lingering (burning). 1 Vitality per round until extinguished (requires an action or assistance)."
+      }
+    ],
+    "tags": [
+      "Ranged",
+      "Light",
+      "Special",
+      "Fire",
+      "Concealable",
+      "Mandalorian",
+      "Illegal",
+      "Black Market"
+    ]
+  },
+  {
+    "id": "wpn_duo_flechette_01",
+    "name": "Duo-Flechette Rifle",
+    "description": "A short-barreled scattergun that fires twin bursts of razor-sharp durasteel flechettes in a wide cone. Each pull of the trigger sends hundreds of needle-thin shards downrange — they shred fabric, flesh, and light armor at close quarters. Beyond medium range the spread disperses too much to be effective. Up close, it's the most brutal anti-personnel weapon in the underworld.",
+    "chassisId": "medium",
+    "chassisLabel": "Medium Rifle",
+    "discipline": "ranged",
+    "arena": "reflex",
+    "range": [
+      3,
+      10,
+      30
+    ],
+    "stunSetting": false,
+    "cost": 1000,
+    "availability": "3/X",
+    "customDamage": [
+      2,
+      3,
+      5
+    ],
+    "trait": {
+      "name": "Shredder",
+      "description": "Deals Projectile damage. Attacks within the same zone resolve at +1 Effect tier. Attacks beyond medium range are not possible — the spread disperses completely."
+    },
+    "gambits": [
+      {
+        "name": "Scatter Burst",
+        "description": "Reduce your Effect by 1 Tier. The flechette cone hits wide — select two targets in the same zone. The resolved Effect tier applies to both."
+      }
+    ],
+    "tags": [
+      "Ranged",
+      "Medium",
+      "Rifle",
+      "Projectile",
+      "Illegal",
+      "Black Market"
+    ]
   }
 ]
