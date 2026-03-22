@@ -8,7 +8,12 @@
     "cost": 50,
     "availability": "1",
     "traits": [],
-    "tags": ["Light", "Common", "Legal", "Civilian"]
+    "tags": [
+      "Light",
+      "Common",
+      "Legal",
+      "Civilian"
+    ]
   },
   {
     "id": "arm_combat_jumpsuit_01",
@@ -24,7 +29,13 @@
         "description": "The sealed inner layer protects against atmospheric contaminants, chemical agents, and incidental environmental hazards. The wearer can operate in hostile-atmosphere environments without additional protection for short durations."
       }
     ],
-    "tags": ["Light", "Common", "Legal", "Military Surplus", "Sealed"]
+    "tags": [
+      "Light",
+      "Common",
+      "Legal",
+      "Military Surplus",
+      "Sealed"
+    ]
   },
   {
     "id": "arm_blast_vest_01",
@@ -35,7 +46,12 @@
     "cost": 400,
     "availability": "2",
     "traits": [],
-    "tags": ["Light", "Common", "Legal", "Energy Rated"]
+    "tags": [
+      "Light",
+      "Common",
+      "Legal",
+      "Energy Rated"
+    ]
   },
   {
     "id": "arm_camo_armor_01",
@@ -51,7 +67,13 @@
         "description": "While worn, the wearer suffers no step-down penalties for low-visibility conditions. While the wearer remains stationary, the photoreactive fibers synchronize with the environment — step up the Control die on actions to avoid detection. Moving disrupts synchronization and ends this effect immediately."
       }
     ],
-    "tags": ["Light", "Restricted", "Scout", "Stealth", "Sealed"]
+    "tags": [
+      "Light",
+      "Restricted",
+      "Scout",
+      "Stealth",
+      "Sealed"
+    ]
   },
   {
     "id": "arm_arc_trooper_01",
@@ -67,7 +89,14 @@
         "description": "Multi-Frequency Targeting Acquisition System. Negates all step-down penalties from low-visibility conditions when making ranged attacks. When your target moved at least 1 zone on their last turn, your ranged weapon attack gains [Optimized]."
       }
     ],
-    "tags": ["Light", "Military", "Republic Surplus", "MFTAS", "Sealed", "Restricted"]
+    "tags": [
+      "Light",
+      "Military",
+      "Republic Surplus",
+      "MFTAS",
+      "Sealed",
+      "Restricted"
+    ]
   },
   {
     "id": "arm_ubese_raider_01",
@@ -84,7 +113,13 @@
         "description": "The Ubese armor's modular construction and mobility-tuned suspension system does not impose the standard Reflex step-down for Evasion actions. The integrated enviro-filter seals the suit against atmospheric hazards. Flash Guard Visor: immune to flash-blinding effects."
       }
     ],
-    "tags": ["Medium", "Restricted", "Sealed", "Bounty Hunter", "Environmental"]
+    "tags": [
+      "Medium",
+      "Restricted",
+      "Sealed",
+      "Bounty Hunter",
+      "Environmental"
+    ]
   },
   {
     "id": "arm_clone_mk1_01",
@@ -104,7 +139,14 @@
         "description": "Climate-controlled body glove and integrated breath systems allow short-duration operation in toxic-air environments, extreme temperatures, and similar hostile atmospheres."
       }
     ],
-    "tags": ["Medium", "Military", "Republic Surplus", "MFTAS", "Sealed", "Restricted"]
+    "tags": [
+      "Medium",
+      "Military",
+      "Republic Surplus",
+      "MFTAS",
+      "Sealed",
+      "Restricted"
+    ]
   },
   {
     "id": "arm_stormtrooper_01",
@@ -124,7 +166,15 @@
         "description": "Climate-controlled body glove and breath mask allows operation in toxic-air environments, extreme temperatures, and hazardous atmospheres."
       }
     ],
-    "tags": ["Medium", "Military", "Imperial", "MFTAS", "Sealed", "Restricted", "Illegal"]
+    "tags": [
+      "Medium",
+      "Military",
+      "Imperial",
+      "MFTAS",
+      "Sealed",
+      "Restricted",
+      "Illegal"
+    ]
   },
   {
     "id": "arm_corellian_huntsuit_01",
@@ -140,7 +190,13 @@
         "description": "The integrated passive sensor suite steps up the Control die on Search and Detection actions in field conditions."
       }
     ],
-    "tags": ["Medium", "Restricted", "Bounty Hunter", "Sensor", "Corellian"]
+    "tags": [
+      "Medium",
+      "Restricted",
+      "Bounty Hunter",
+      "Sensor",
+      "Corellian"
+    ]
   },
   {
     "id": "arm_mandalorian_01",
@@ -156,7 +212,14 @@
         "description": "The articulated beskar plate construction limits Evasion penalties despite its mass. While wearing Mandalorian Battle Armor, the Reflex step-down for Evasion actions is reduced to one step instead of two."
       }
     ],
-    "tags": ["Heavy", "Military", "Mandalorian", "Beskar", "Sealed", "Restricted"]
+    "tags": [
+      "Heavy",
+      "Military",
+      "Mandalorian",
+      "Beskar",
+      "Sealed",
+      "Restricted"
+    ]
   },
   {
     "id": "arm_katarn_01",
@@ -190,6 +253,213 @@
         "rule": "When making a Brawl attack, the gauntlet blade springs out as part of the strike — no draw required. The attack deals Melee damage instead of unarmed damage. If set to auto-deploy, it triggers on every punch without a conscious decision."
       }
     ],
-    "tags": ["Heavy", "Military", "Republic Surplus", "MFTAS", "Sealed", "Vibroblade", "Restricted"]
+    "tags": [
+      "Heavy",
+      "Military",
+      "Republic Surplus",
+      "MFTAS",
+      "Sealed",
+      "Vibroblade",
+      "Restricted"
+    ]
+  },
+  {
+    "id": "arm_bounty_hunter_01",
+    "name": "Corellian PowerSuit",
+    "category": "medium",
+    "categoryLabel": "Medium Armor",
+    "description": "A modular bounty hunter's armor manufactured by Corellian Technologies. Heavy composite plating across the torso and shoulders absorbs kinetic impacts; a lighter energy-dispersal weave covers the extremities. No integrated helmet — hunters pair it with whatever bucket suits their species and style. Reliable, affordable, and common enough in bounty hunter circles that wearing one is a professional statement rather than a fashion choice.",
+    "cost": 2500,
+    "availability": "2/R",
+    "traits": [
+      {
+        "name": "Modular Hardpoints",
+        "description": "The PowerSuit's chassis includes four standardized equipment rails — two on the forearms, two across the back plate. Accessories like grapple launchers, wrist weapons, or sensor pods can be mounted without modification. Swapping a mounted accessory takes one Standard Action."
+      }
+    ],
+    "tags": [
+      "Medium",
+      "Restricted",
+      "Bounty Hunter",
+      "Modular",
+      "Black Market"
+    ]
+  },
+  {
+    "id": "arm_stalker_01",
+    "name": "Stalker Armor",
+    "category": "heavy",
+    "categoryLabel": "Heavy Armor",
+    "description": "Salus Corporation's answer to the question of what happens when you bolt weapons onto heavy armor and call it a hunting rig. Full-body composite plating rated against military-grade ordnance, with integrated armaments built directly into the suit. Extremely heavy — swimming, climbing, and anything requiring finesse are effectively impossible. The sensor pod compensates with superior target acquisition. Rare, expensive, and unmistakable. When someone in Stalker armor walks into a cantina, the conversation stops.",
+    "cost": 8000,
+    "availability": "3/R",
+    "traits": [
+      {
+        "name": "Integrated Sensor Pod",
+        "description": "A helmet-mounted sensor suite with targeting computer. Step up the Control die on Search and Detection actions. Ranged attacks against targets within 2 zones gain [Optimized]."
+      },
+      {
+        "name": "Sealed Kit",
+        "description": "Climate-controlled body glove and integrated breath systems. Allows short-duration operation in toxic-air environments and extreme temperatures."
+      }
+    ],
+    "gambits": [
+      {
+        "name": "Retractable Claws",
+        "rule": "When making a Brawl attack, the gauntlet claws extend as part of the strike — no draw required. The attack deals Melee damage instead of unarmed damage. On a Masterful or better result, the target gains [Bleeding — Lingering]."
+      }
+    ],
+    "tags": [
+      "Heavy",
+      "Restricted",
+      "Bounty Hunter",
+      "Sensor",
+      "Sealed",
+      "Black Market"
+    ]
+  },
+  {
+    "id": "arm_reflect_glove_01",
+    "name": "Reflect Body Glove",
+    "category": "light",
+    "categoryLabel": "Light Armor",
+    "description": "A Syncronics ENVC-370 energy-displacement undersuit — a skin-tight body glove woven with conductive filaments that scatter and redirect blaster bolt energy across the suit's surface. Effective against dispersed bolts at medium and long range; at close range, the bolt cohesion overwhelms the filament grid. Wears under clothing or over-armor without bulk. Five hits before the filament network burns out.",
+    "cost": 4000,
+    "availability": "3/X",
+    "traits": [
+      {
+        "name": "Energy Displacement",
+        "description": "When defending against energy weapon attacks originating from Zone 2 or farther, step up the Power die on Endure rolls. At Zone 1 or Engaged range, the suit provides no additional benefit — bolt cohesion at close range exceeds the filament capacity."
+      },
+      {
+        "name": "Filament Burnout",
+        "description": "The conductive filament grid absorbs five energy hits before the network is permanently destroyed. Track hits received while the suit is active. After five, the Energy Displacement trait is lost for the remainder of the session. Physical impacts do not count against this limit."
+      }
+    ],
+    "tags": [
+      "Light",
+      "Illegal",
+      "Bounty Hunter",
+      "Energy Rated",
+      "Consumable",
+      "Black Market"
+    ]
+  },
+  {
+    "id": "arm_gladiator_01",
+    "name": "Gladiator Armor",
+    "category": "medium",
+    "categoryLabel": "Medium Armor",
+    "evasionException": true,
+    "description": "A Min-Dal JX4 prototype — pit-fighter armor designed for arena combat where agility is survival. Heavy composite plating across the head, torso, and arms, engineered with a mobility-tuned suspension system that distributes weight without restricting movement. No Dexterity penalty despite its protection class. Not available for sale through any legitimate channel — Min-Dal produced a limited run for gladiatorial circuits on Rattatak and Loovria, and every surviving set has blood on it.",
+    "cost": 6000,
+    "availability": "4/X",
+    "traits": [
+      {
+        "name": "Arena-Tuned",
+        "description": "The JX4's articulated joint system and counterweight distribution does not impose the standard Reflex step-down for Evasion actions. Built for fighters who cannot afford to stand still."
+      },
+      {
+        "name": "Partial Coverage",
+        "description": "Covers head, torso, and arms only. Legs are unarmored — the design prioritizes mobility over full-body protection. Called shots targeting unarmored legs reduce the armor's Endure bonus by one step."
+      }
+    ],
+    "gambits": [
+      {
+        "name": "Retractable Vibro-Shiv",
+        "rule": "When making a Brawl attack, the gauntlet shiv deploys as part of the strike — no draw required. The attack deals Melee damage instead of unarmed damage."
+      }
+    ],
+    "tags": [
+      "Medium",
+      "Illegal",
+      "Gladiatorial",
+      "Arena",
+      "Black Market",
+      "Vibro-Shiv"
+    ]
+  },
+  {
+    "id": "arm_vacuum_suit_01",
+    "name": "Armored Vacuum Suit",
+    "category": "light",
+    "categoryLabel": "Light Armor",
+    "description": "Corellian Technologies boarding armor — a reinforced vacuum suit built for the uncomfortable overlap between EVA work and getting shot at. Composite plating over a sealed pressure suit with ten hours of atmosphere. Standard kit for smuggler crews who expect to breach hulls, work in depressurized compartments, or conduct business in places where the air is not included. The plating is modest, but it stops shrapnel and low-power blaster fire — which is most of what you encounter in a boarding action.",
+    "cost": 4000,
+    "availability": "2/R",
+    "traits": [
+      {
+        "name": "Vacuum Sealed",
+        "description": "Full pressure seal with integrated life support — ten hours of atmosphere in vacuum or toxic environments. After ten hours, the wearer must make a Physique check each hour or suffer a Wound. The suit seals automatically on pressure loss."
+      },
+      {
+        "name": "Zero-G Stabilizers",
+        "description": "Integrated magnetic boots and gyroscopic stabilizers. The wearer does not suffer step-down penalties for operating in zero-gravity environments."
+      }
+    ],
+    "tags": [
+      "Light",
+      "Restricted",
+      "Sealed",
+      "Vacuum",
+      "Spacer",
+      "Black Market"
+    ]
+  },
+  {
+    "id": "arm_a3aa_01",
+    "name": "A3AA Personal Defense Module",
+    "category": "medium",
+    "categoryLabel": "Medium Armor",
+    "description": "A Corellian Technologies integrated defense system — armor and countermeasure in one package. The base suit is standard medium armor: composite plating, decent coverage, standard Dexterity penalty. What makes it exceptional is the micro-nozzle spray system that generates a five-meter dispersal cloud, scattering charged energy beams before they reach the wearer. Three charges. Generally available only to Imperial hunters and the kinds of people who take things from Imperial hunters.",
+    "cost": 8500,
+    "availability": "4/X",
+    "traits": [
+      {
+        "name": "Energy Dispersal Cloud",
+        "description": "Activate as a Maneuver. The micro-nozzle system generates a five-meter cloud that disperses incoming energy weapon fire. For the remainder of the round, all energy weapon attacks targeting anyone within the cloud (friend or foe) have their Power result reduced by 2 before tier calculation. The cloud dissipates at the start of your next turn. Three charges per session — track usage."
+      }
+    ],
+    "gambits": [
+      {
+        "name": "Directional Cone",
+        "rule": "Reduce the cloud's coverage to a 30-degree forward-facing cone instead of a full sphere. The Power reduction increases to 3 instead of 2, but only applies to attacks originating from the forward arc. Allies behind you benefit; allies beside you do not."
+      }
+    ],
+    "tags": [
+      "Medium",
+      "Illegal",
+      "Bounty Hunter",
+      "Energy Rated",
+      "Countermeasure",
+      "Black Market"
+    ]
+  },
+  {
+    "id": "arm_raptor_commando_01",
+    "name": "Raptor Commando Armor",
+    "category": "light",
+    "categoryLabel": "Light Armor",
+    "description": "Lightweight composite combat armor issued to Raptor commandos — a special operations unit that no longer officially exists. The suit's defining feature is that it does not slow you down. Full coverage across all locations with no Dexterity penalty, achieved through micro-articulated plating and an internal suspension mesh that moves with the wearer rather than against them. Not available for sale. Every surviving set was either stolen, salvaged from a dead operator, or hidden by someone who knew what was coming.",
+    "cost": 5000,
+    "availability": "4/X",
+    "traits": [
+      {
+        "name": "Spec-Ops Profile",
+        "description": "The micro-articulated plating and internal suspension mesh preserves full range of motion under fire. Full coverage across all locations — head, torso, arms, and legs."
+      },
+      {
+        "name": "Low Signature",
+        "description": "The suit's matte-black composite surface and electromagnetic shielding reduce sensor cross-section. Step up the Control die on Stealth actions while the suit is sealed."
+      }
+    ],
+    "tags": [
+      "Light",
+      "Illegal",
+      "Military",
+      "Special Operations",
+      "Stealth",
+      "Black Market"
+    ]
   }
 ]
