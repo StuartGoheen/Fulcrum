@@ -6,6 +6,24 @@
       "title": "The Traitor's Gambit",
       "act": 1,
       "summary": "The heroes are drawn into a bar brawl on Jakku, discover a stolen Imperial code cylinder, rescue a frozen accountant, and break Admiral Varth out of a jungle prison — all for the promise of a stolen fortune.",
+      "gearNotes": [
+        { "item": "Breath Mask", "category": "needed", "reason": "Toxic fungal spores in the Ajan Kloss jungle. Without respiratory protection, characters take environmental penalties on all physical actions during the trek." },
+        { "item": "Syntherope", "category": "needed", "reason": "Jungle traversal — crossing gaps, climbing, rappelling. Without rope, certain routes become impossible or require much harder Athletics checks. The item everyone forgets to buy." },
+        { "item": "Security Kit", "category": "needed", "reason": "The Vanishing Place fortress has electronic locks, laser fences, and security panels. Without one, bypassing these is stepped down or impossible." },
+        { "item": "Field Toolkit", "category": "needed", "reason": "Generator sabotage as part of Mandrake's deal. Without proper tools, Tech actions are stepped down." },
+        { "item": "Starship Tool Kit", "category": "needed", "reason": "The Banshee crashes in the jungle. Without a starship tool kit, all repair rolls are stepped down. Hard permission gate for getting off-world." },
+        { "item": "Medpac", "category": "needed", "reason": "Multiple combats across both parts with no medical facilities. At least one is non-negotiable." },
+        { "item": "Macrobinoculars", "category": "good", "reason": "The Niima Landing Field read-aloud literally references macrobinoculars for recon. Also useful for jungle scouting." },
+        { "item": "Tox Detector", "category": "good", "reason": "Acid pools in the jungle are disguised as standing water. A tox detector identifies them without someone stepping in one." },
+        { "item": "Glow Rod", "category": "good", "reason": "Dim cantina, underground bunker, dense jungle canopy — multiple dark environments across both parts." },
+        { "item": "Disguise Kit", "category": "good", "reason": "The bluff approach at the Niima hangar requires impersonating Imperial crew or authorized personnel." },
+        { "item": "Smoke Grenade", "category": "good", "reason": "Covering retreat across open ground during the three-way climax with Shadow Troopers flanking." },
+        { "item": "Stim Pack", "category": "good", "reason": "Mid-combat trauma clearance. Valuable in the multi-fight climax sequence." },
+        { "item": "Field Rations", "category": "good", "reason": "Extended jungle trek. Fatigue penalties stack after 48 hours without food." },
+        { "item": "Coolth Backpack", "category": "good", "reason": "Jakku desert heat in Part 1. Environmental comfort only — no hard gate." },
+        { "item": "Encrypted Comlink", "category": "good", "reason": "Coordinating with Okeefe for extraction timing. Encrypted channel prevents Imperial interception." },
+        { "item": "Datapad (Slicer Config)", "category": "good", "reason": "Hacking terminals in the fortress Comms Center to intercept transmissions about Draco's arrival." }
+      ],
       "parts": [
         {
           "id": "adv1-p1",
@@ -221,6 +239,23 @@
       "title": "A Wretched Hive",
       "act": 1,
       "summary": "The heroes travel to Takodana to infiltrate Darga the Hutt's fortress, posing as entertainment to steal the encryption keys to Varth's fortune. They discover a captive Jedi Master and must choose between the mission and their conscience.",
+      "gearNotes": [
+        { "item": "Encrypted Comlink", "category": "needed", "reason": "Varth coaches the heroes over encrypted comms from outside Darga's palace. Open comlinks in a Hutt fortress means blown cover. Hard permission gate for the entire Long Con sequence." },
+        { "item": "Datapad (Slicer Config)", "category": "needed", "reason": "The entire mission objective is slicing Darga's datapad to extract the encryption keys. Without a proper slicing interface, the core technical challenge is stepped down or impossible." },
+        { "item": "Security Kit", "category": "needed", "reason": "High-security detention block locks where Jedi Master Denia is held. Without one, bypassing these suffers heavy penalties." },
+        { "item": "Field Toolkit", "category": "needed", "reason": "The Tech's audition — ordered to fix Darga's hover-sled with a blaster at their head. No toolkit means stepped-down rolls on a pass/fail moment." },
+        { "item": "Medpac", "category": "needed", "reason": "Multi-scene combat from the hit squad through the fortress escape. No medical facilities available." },
+        { "item": "Ryll Spice", "category": "good", "reason": "Underworld social currency in Blackwind Point. Opens doors in criminal circles where credits draw suspicion. Varth's shopping list should include this." },
+        { "item": "EAR Eavesdropping Unit", "category": "good", "reason": "Plant bugs near the Iron Ring delegation or Lady Sinde's private meetings. The intel from these events reveals Project Leviathan's slave labor connection." },
+        { "item": "Comm Scanner", "category": "good", "reason": "Intercepting unencrypted palace communications — security patrol schedules, delivery timings, who talks to whom." },
+        { "item": "Recording Rod", "category": "good", "reason": "Recording evidence of slave trade and Imperial deals. Leverage material for later adventures." },
+        { "item": "Ion Grenade", "category": "good", "reason": "Heavy combat droid at the filtration plant and elite security droids in the dungeon. Ion damage is the purpose-built counter." },
+        { "item": "Fusion Cutter", "category": "good", "reason": "Sealed blast doors during fortress lockdown. Overload Mode cuts through any door as a single action." },
+        { "item": "Smoke Grenade", "category": "good", "reason": "Covering movement through hostile corridors during lockdown and the hangar escape." },
+        { "item": "Slicer Spike", "category": "good", "reason": "Quick terminal bypass in the dungeon to access stasis controls. Consumable, single action." },
+        { "item": "Frag Grenade", "category": "good", "reason": "Hangar bay area denial against clustered Stormtroopers." },
+        { "item": "Stim Pack", "category": "good", "reason": "Multi-scene fighting with no rest. Someone is running on fumes by the hangar escape." }
+      ],
       "parts": [
         {
           "id": "adv2-p1",
@@ -458,6 +493,24 @@
       "title": "The Queen of Air and Darkness",
       "act": 1,
       "summary": "The heroes chase Darga the Hutt to Cloud City on Bespin, infiltrate a Sabacc tournament to intercept an Imperial payment, and face a desperate hangar bay showdown that ends with an orbital battle and a moral choice that defines the party.",
+      "gearNotes": [
+        { "item": "Encrypted Comlink", "category": "needed", "reason": "Varth coaches from the ship throughout — tournament strategy, Arandis identification, code decryption. Casino is crawling with Imperial undercover agents. Open comms = dead." },
+        { "item": "Starship Tool Kit", "category": "needed", "reason": "Commandeering the Glorious Chariot and Z-95s under fire with 30 seconds before a Stormtrooper platoon arrives. No time to improvise if something doesn't start cleanly." },
+        { "item": "Medpac", "category": "needed", "reason": "Casino shootout into hangar battle into orbital combat — sustained multi-scene fighting with zero rest." },
+        { "item": "Syntherope", "category": "good", "reason": "Catwalks over Bespin's atmosphere at Refinery Platform 13 and the open hangar bay. Safety line if someone gets knocked off — the drop is infinite." },
+        { "item": "Macrobinoculars", "category": "good", "reason": "Refinery recon ('they haven't seen you yet') and spotting Arandis's bodyguard positioning at the hotel." },
+        { "item": "Ion Grenade", "category": "good", "reason": "Three weaponized dealer droids with hidden blaster cannons plus a heavy security droid at the hangar. Four droid encounters in one adventure." },
+        { "item": "Smoke Grenade", "category": "good", "reason": "Casino three-way firefight, city chase, and hangar assault — sightline control across three consecutive combat scenes." },
+        { "item": "Disguise Kit", "category": "good", "reason": "Maintaining a convincing high-roller identity over a multi-day tournament. Also useful if Kessra from Adv2 shows up as hired muscle and might recognize a face." },
+        { "item": "EAR Eavesdropping Unit", "category": "good", "reason": "Bugging Arandis's hotel conversations or his comms with the Stormtrooper detail." },
+        { "item": "Comm Scanner", "category": "good", "reason": "Intercepting communications between Arandis and his handlers. Also useful during the chase to monitor Wing Guard frequencies." },
+        { "item": "Recording Rod", "category": "good", "reason": "Documenting Arandis's deliberate losing patterns as evidence of the Imperial payment scheme." },
+        { "item": "Fusion Cutter", "category": "good", "reason": "Sealed blast doors during the city chase if Varth's hack fails. Also cutting into the yacht if Darga seals the boarding ramp." },
+        { "item": "Frag Grenade", "category": "good", "reason": "Hangar bay area denial against clustered pilots scrambling to Z-95 cockpits." },
+        { "item": "Scanner Jammer", "category": "good", "reason": "Casino surveillance avoidance when infiltrating as droid maintenance crew. Also useful during the Gauntlet chase." },
+        { "item": "Stim Pack", "category": "good", "reason": "Patching up between the casino firefight and the hangar assault. No time to rest." },
+        { "item": "Field Toolkit", "category": "good", "reason": "Disabling the yacht's engines from outside if the heroes choose not to board." }
+      ],
       "parts": [
         {
           "id": "adv3-p1",
@@ -787,6 +840,21 @@
       "title": "The Ebon Spire",
       "act": 2,
       "summary": "The heroes journey to the Unknown Regions to find the Ebon Spire — a petrified ancient tree that holds the key to Project Leviathan's location.",
+      "gearNotes": [
+        { "item": "Breath Mask", "category": "needed", "reason": "Unknown Regions atmosphere. If jungle spores were a gate in Adv1, an alien world with no prior survey data is at least as dangerous." },
+        { "item": "Syntherope", "category": "needed", "reason": "Wilderness traversal in unknown terrain plus vertical descent into the Ebon Spire itself. Dead trees, ravines, cliff faces." },
+        { "item": "Field Rations", "category": "needed", "reason": "No civilization, no cantinas, no resupply. A dead petrified forest has zero foraging options. Extended time in the field." },
+        { "item": "Glow Rod", "category": "needed", "reason": "The Descent implies underground with zero ambient light. A dead petrified tree interior has no bioluminescence. Without light you cannot see." },
+        { "item": "Security Kit", "category": "needed", "reason": "Ancient sealed chambers and mechanisms inside the Ebon Spire. The key to Project Leviathan's location is not sitting on a shelf." },
+        { "item": "Medpac", "category": "needed", "reason": "No medical facilities anywhere in the Unknown Regions. Whatever lives in or around the Spire will cause injuries." },
+        { "item": "Tox Detector", "category": "good", "reason": "Unknown alien environment — identifying hazardous substances before contact. No prior survey data exists." },
+        { "item": "Macrobinoculars", "category": "good", "reason": "Scouting unknown terrain from elevation before committing to a route through the Dead Forest." },
+        { "item": "Field Toolkit", "category": "good", "reason": "Interacting with ancient mechanisms inside the Spire. The Web of the Revanchist likely has puzzles or traps." },
+        { "item": "Fusion Cutter", "category": "good", "reason": "Cutting through sealed ancient barriers if the Security Kit approach fails." },
+        { "item": "Slicer Spike", "category": "good", "reason": "If the Spire has any tech interfaces — ancient or otherwise — for extracting the Leviathan location data." },
+        { "item": "Datapad (Slicer Config)", "category": "good", "reason": "Extracting and recording whatever data the Spire contains about Project Leviathan's coordinates." },
+        { "item": "Scanner Jammer", "category": "good", "reason": "If ancient security systems in the Web of the Revanchist are scanning for intruders." }
+      ],
       "parts": [
         { "id": "adv4-p1", "number": 1, "title": "The Dead Forest", "scenes": [] },
         { "id": "adv4-p2", "number": 2, "title": "The Descent", "scenes": [] },
@@ -799,6 +867,23 @@
       "title": "The Malpaz Insurrection",
       "act": 2,
       "summary": "The heroes travel to the occupied industrial world of Malpaz to steal drift algorithms from an Imperial research station, sparking a local insurrection.",
+      "gearNotes": [
+        { "item": "Encrypted Comlink", "category": "needed", "reason": "Operating behind Imperial lines on an occupied world. Open comms are intercepted by Imperial signals intelligence instantly." },
+        { "item": "Disguise Kit", "category": "needed", "reason": "Imperial-occupied world with checkpoints and patrols. Without disguises or forged identification, you are not getting past the security gauntlet. Permission gate." },
+        { "item": "Datapad (Slicer Config)", "category": "needed", "reason": "The drift algorithms are data inside an Imperial research station. Slicing the systems to extract them is the core mission objective." },
+        { "item": "Security Kit", "category": "needed", "reason": "Imperial research station has military-grade locks and security systems. Multiple bypass points during the extraction." },
+        { "item": "Slicer Spike", "category": "needed", "reason": "Quick-bypassing research station terminals under time pressure during extraction. When Stormtroopers are converging, a consumable instant-bypass is the difference between escape and capture." },
+        { "item": "Field Toolkit", "category": "needed", "reason": "Industrial sabotage during the uprising — disabling Imperial infrastructure, rigging machinery, cutting power to create diversions." },
+        { "item": "Medpac", "category": "needed", "reason": "Urban guerrilla warfare with no hospital access. Combat casualties in a sustained fight across the uprising." },
+        { "item": "Fusion Cutter", "category": "good", "reason": "Breaching Imperial security doors and cutting through fences. Essential backup if the Security Kit approach is too slow." },
+        { "item": "Ion Grenade", "category": "good", "reason": "Imperial installations mean Imperial droids — probe droids, security droids, possibly AT-ST walkers during the uprising response." },
+        { "item": "Frag Grenade", "category": "good", "reason": "Urban combat area denial against Imperial squads responding to the insurrection." },
+        { "item": "Smoke Grenade", "category": "good", "reason": "Covering movement in urban firefights during the uprising and extraction." },
+        { "item": "Scanner Jammer", "category": "good", "reason": "Avoiding Imperial sensor sweeps and checkpoint scanners during the gauntlet approach." },
+        { "item": "Customs Holoseal", "category": "good", "reason": "Forged documentation for passing Imperial customs checkpoints. Works with the Disguise Kit for the full cover identity." },
+        { "item": "Comm Scanner", "category": "good", "reason": "Intercepting Imperial patrol frequencies and response schedules. Critical intel during the uprising." },
+        { "item": "Starship Tool Kit", "category": "good", "reason": "Getting the escape ship running if it takes damage during the extraction under fire." }
+      ],
       "parts": [
         { "id": "adv5-p1", "number": 1, "title": "The Gauntlet", "scenes": [] },
         { "id": "adv5-p2", "number": 2, "title": "The Uprising", "scenes": [] },
@@ -811,6 +896,21 @@
       "title": "The First to Strike",
       "act": 2,
       "summary": "Armed with the drift algorithms, the heroes launch a strike against a key Project Leviathan supply depot.",
+      "gearNotes": [
+        { "item": "Encrypted Comlink", "category": "needed", "reason": "Coordinating a multi-pronged assault on an Imperial depot. Imperial signals intelligence will intercept open comms instantly." },
+        { "item": "Security Kit", "category": "needed", "reason": "Military-grade locks on depot doors, armories, and control rooms. Multiple breach points during the raid." },
+        { "item": "Field Toolkit", "category": "needed", "reason": "Sabotaging depot systems, disabling automated defenses, rigging demolition charges." },
+        { "item": "Medpac", "category": "needed", "reason": "Commando raid with guaranteed casualties. No medevac available during the assault." },
+        { "item": "Starship Tool Kit", "category": "needed", "reason": "The escape likely requires ship repair under fire during the fallout. Getting off-world after kicking the hornet's nest." },
+        { "item": "Macrobinoculars", "category": "good", "reason": "Pre-raid reconnaissance of the depot layout, guard rotations, and defense positions. The Briefing scene is where this pays off." },
+        { "item": "Fusion Cutter", "category": "good", "reason": "Breaching reinforced depot walls and doors. Backup entry method if the Security Kit is too slow under fire." },
+        { "item": "Ion Grenade", "category": "good", "reason": "Imperial supply depots have automated defenses and security droids. Possibly AT-ST walkers in the motor pool." },
+        { "item": "Frag Grenade", "category": "good", "reason": "Demolition and area denial. A supply depot raid is the textbook use case for ordnance." },
+        { "item": "Smoke Grenade", "category": "good", "reason": "Assault cover during approach and extraction. Controlling sightlines against entrenched defenders." },
+        { "item": "Scanner Jammer", "category": "good", "reason": "Avoiding depot sensor arrays and perimeter detection during the approach phase." },
+        { "item": "Slicer Spike", "category": "good", "reason": "Quick-bypassing depot terminals to disable security systems or access inventory manifests." },
+        { "item": "Stim Pack", "category": "good", "reason": "Post-raid trauma recovery during the Fallout escape sequence." }
+      ],
       "parts": [
         { "id": "adv6-p1", "number": 1, "title": "The Briefing", "scenes": [] },
         { "id": "adv6-p2", "number": 2, "title": "The Raid", "scenes": [] },
@@ -823,6 +923,13 @@
       "title": "The Crucible",
       "act": 3,
       "summary": "The heroes face their greatest personal trials as the campaign's alliances are tested.",
+      "gearNotes": [
+        { "item": "Medpac", "category": "needed", "reason": "Personal trials and reckoning imply combat and consequences. Medical supplies are always non-negotiable." },
+        { "item": "Encrypted Comlink", "category": "needed", "reason": "If alliances are being tested, secure communications between party members and allies become critical. Trust is the theme — intercepted comms could shatter it." },
+        { "item": "Recording Rod", "category": "good", "reason": "If alliances are being tested, recording conversations as evidence or insurance could be the difference between proving loyalty and being framed." },
+        { "item": "Disguise Kit", "category": "good", "reason": "Personal trials may involve deception, infiltration, or hiding identity. Context-dependent on the specific trials." },
+        { "item": "Stim Pack", "category": "good", "reason": "The Reckoning implies a climactic confrontation. Combat recovery between scenes." }
+      ],
       "parts": [
         { "id": "adv7-p1", "number": 1, "title": "The Trial", "scenes": [] },
         { "id": "adv7-p2", "number": 2, "title": "The Reckoning", "scenes": [] }
@@ -834,6 +941,17 @@
       "title": "The Iron Blockade",
       "act": 3,
       "summary": "The Empire tightens its grip on the Western Reaches, and the heroes must break through an iron blockade.",
+      "gearNotes": [
+        { "item": "Starship Tool Kit", "category": "needed", "reason": "Breaking a blockade means ship combat and damage. Repair under fire is the difference between escape and destruction." },
+        { "item": "Encrypted Comlink", "category": "needed", "reason": "Coordinating a blockade breakthrough requires secure comms. Imperial signals intelligence is actively monitoring all traffic." },
+        { "item": "Medpac", "category": "needed", "reason": "Siege warfare and breakthrough combat. Sustained fighting with no safe harbor." },
+        { "item": "Field Toolkit", "category": "good", "reason": "Siege conditions may require improvised repairs, jury-rigged defenses, or sabotage of Imperial siege equipment." },
+        { "item": "Ion Grenade", "category": "good", "reason": "Imperial blockade means heavy droid deployment — probe droids for reconnaissance, security droids for enforcement." },
+        { "item": "Smoke Grenade", "category": "good", "reason": "Ground-level breakthrough scenes. Covering movement under Imperial fire." },
+        { "item": "Frag Grenade", "category": "good", "reason": "Breaking through entrenched Imperial positions during the breakthrough." },
+        { "item": "Scanner Jammer", "category": "good", "reason": "Avoiding Imperial sensor nets during the blockade approach. Stealth is survival." },
+        { "item": "Stim Pack", "category": "good", "reason": "Sustained combat across the siege and breakthrough. No downtime between engagements." }
+      ],
       "parts": [
         { "id": "adv8-p1", "number": 1, "title": "The Siege", "scenes": [] },
         { "id": "adv8-p2", "number": 2, "title": "The Breakthrough", "scenes": [] }
@@ -845,6 +963,16 @@
       "title": "The Point of No Return",
       "act": 3,
       "summary": "The final preparations for the assault on Project Leviathan. Alliances are forged or broken.",
+      "gearNotes": [
+        { "item": "Medpac", "category": "needed", "reason": "Final preparations before the climax. Stock up — there is no resupply after this point." },
+        { "item": "Encrypted Comlink", "category": "needed", "reason": "Forging alliances requires secure channels. The Empire is actively hunting the heroes by this point." },
+        { "item": "Stim Pack", "category": "needed", "reason": "Stock consumables before the finale. This is Varth's last shopping trip — buy everything." },
+        { "item": "Slicer Spike", "category": "needed", "reason": "Consumable. Stock multiples before the Leviathan assault. Once they are inside, every terminal bypass counts." },
+        { "item": "Frag Grenade", "category": "good", "reason": "Stock ordnance for the final assault. This is the last resupply opportunity." },
+        { "item": "Ion Grenade", "category": "good", "reason": "The Leviathan is an Imperial superweapon project — expect heavy droid and automated defenses. Stock up." },
+        { "item": "Smoke Grenade", "category": "good", "reason": "Tactical consumable for the finale. Buy in quantity." },
+        { "item": "Syntherope", "category": "good", "reason": "Replace any used rope. The Leviathan's interior may require vertical movement or emergency escape routes." }
+      ],
       "parts": [
         { "id": "adv9-p1", "number": 1, "title": "The Alliance", "scenes": [] },
         { "id": "adv9-p2", "number": 2, "title": "The Launch", "scenes": [] }
@@ -856,6 +984,22 @@
       "title": "Jaws of the Leviathan",
       "act": 3,
       "summary": "The campaign's climax. The heroes confront Project Leviathan and face Admiral Varth's ultimate betrayal.",
+      "gearNotes": [
+        { "item": "Security Kit", "category": "needed", "reason": "The Leviathan is an Imperial superweapon facility. Military-grade locks, blast doors, and security systems at every turn." },
+        { "item": "Datapad (Slicer Config)", "category": "needed", "reason": "The Final Hand likely requires accessing Leviathan's core systems — disabling weapons, exposing the project, or extracting proof of the conspiracy." },
+        { "item": "Slicer Spike", "category": "needed", "reason": "Terminal bypasses under extreme time pressure. Every spike the party stocked in Adv9 gets burned here." },
+        { "item": "Encrypted Comlink", "category": "needed", "reason": "Coordinating inside an Imperial superweapon during Varth's betrayal. If comms are compromised, Varth uses that against the party." },
+        { "item": "Starship Tool Kit", "category": "needed", "reason": "The Approach involves getting into the facility — damaged ships need repair. The escape after the Final Hand requires a working ship." },
+        { "item": "Medpac", "category": "needed", "reason": "The campaign climax. Multiple boss fights, Varth's betrayal, and the final escape. No resupply. Burn everything you have." },
+        { "item": "Field Toolkit", "category": "needed", "reason": "Sabotaging the Leviathan itself — disabling systems, rigging overloads, creating the opening to destroy or expose the project." },
+        { "item": "Fusion Cutter", "category": "good", "reason": "Cutting through Leviathan bulkheads, sealed sections, and emergency blast doors. Overload Mode for critical breaches." },
+        { "item": "Ion Grenade", "category": "good", "reason": "Imperial superweapon = maximum droid and automated defense density. Every ion grenade stocked pays off here." },
+        { "item": "Frag Grenade", "category": "good", "reason": "The final assault. Area denial against Imperial defenders in the facility corridors." },
+        { "item": "Smoke Grenade", "category": "good", "reason": "Covering movement through the facility and during the escape. Last chance to use them." },
+        { "item": "Stim Pack", "category": "good", "reason": "Multi-fight climax with no rest. Keep the party on their feet through the Betrayal and Final Hand." },
+        { "item": "Syntherope", "category": "good", "reason": "Emergency escape routes, vertical shafts, or crossing damaged sections of the facility." },
+        { "item": "Glow Rod", "category": "good", "reason": "Power failures inside the Leviathan during sabotage. Emergency lighting may not last." }
+      ],
       "parts": [
         { "id": "adv10-p1", "number": 1, "title": "The Approach", "scenes": [] },
         { "id": "adv10-p2", "number": 2, "title": "The Betrayal", "scenes": [] },
