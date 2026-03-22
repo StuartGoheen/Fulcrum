@@ -1801,5 +1801,74 @@
       "Infiltration",
       "Black Market"
     ]
+  },
+  {
+    "id": "gear_sedative_dart_01",
+    "name": "Sedative Dart (pack of 3)",
+    "category": "contraband",
+    "categoryLabel": "Contraband",
+    "description": "Three slim micro-darts loaded with a fast-acting medical-grade sedative compound. Designed for saberdart launchers and similar pneumatic delivery systems. Standard issue for bounty hunters who prefer their targets breathing. The sedative hits the bloodstream in seconds — how hard it hits depends on the shot placement.",
+    "cost": 75,
+    "availability": "2/R",
+    "traits": [
+      {
+        "name": "Sedative Payload",
+        "description": "Delivered via saberdart launcher. Roll Ranged (Reflex) vs target's Defend. On Fleeting: target gains [Disoriented] — Tactical. On Masterful: target gains [Stunned] — Lingering. On Legendary: target is unconscious for the remainder of the scene. No Vitality damage. Pack of 3 darts."
+      }
+    ],
+    "gambits": [],
+    "tags": [
+      "Contraband",
+      "Consumable",
+      "Restricted",
+      "Ammunition",
+      "Black Market"
+    ]
+  },
+  {
+    "id": "gear_neurotoxin_dart_01",
+    "name": "Neurotoxin Dart (pack of 3)",
+    "category": "contraband",
+    "categoryLabel": "Contraband",
+    "description": "Three micro-darts filled with a synthesized neurotoxin derived from Dxun jungle predators. The compound attacks the peripheral nervous system on contact with blood — progressive motor degradation, respiratory suppression, and if left untreated, organ failure. Not something you find at a pharmacy.",
+    "cost": 300,
+    "availability": "3/X",
+    "traits": [
+      {
+        "name": "Neurotoxin Payload",
+        "description": "Delivered via saberdart launcher. Roll Ranged (Reflex) vs target's Defend. On Fleeting: target gains [Hazard 1] — Tactical. On Masterful: target gains [Hazard 1] — Lingering. Requires Medicine check to clear. On Legendary: target gains [Hazard 2] — Lingering. Requires Medicine check to clear. Pack of 3 darts."
+      }
+    ],
+    "gambits": [],
+    "tags": [
+      "Contraband",
+      "Consumable",
+      "Illegal",
+      "Ammunition",
+      "Black Market"
+    ]
+  },
+  {
+    "id": "gear_kouhun_venom_dart_01",
+    "name": "Kouhun Venom Dart",
+    "category": "contraband",
+    "categoryLabel": "Contraband",
+    "description": "A single micro-dart loaded with concentrated Kouhun centipede venom — the same toxin Kamino assassins use. The venom is extraordinarily lethal and extraordinarily expensive. One dart, one target, no second chances. The kind of purchase that tells anyone watching exactly what you intend to do with your evening.",
+    "cost": 1000,
+    "availability": "4/X",
+    "traits": [
+      {
+        "name": "Kouhun Venom Payload",
+        "description": "Delivered via saberdart launcher. Roll Ranged (Reflex) vs target's Defend. On Fleeting: target gains [Hazard 1] — Lingering. Medicine check to neutralize. On Masterful: target gains [Hazard 2] — Lingering. Medicine check to neutralize. On Legendary: target gains [Hazard 2] — Scene. If reduced to 0 Vitality by this venom, the target is dead — no stabilization. Single dart."
+      }
+    ],
+    "gambits": [],
+    "tags": [
+      "Contraband",
+      "Consumable",
+      "Illegal",
+      "Ammunition",
+      "Black Market"
+    ]
   }
 ]
