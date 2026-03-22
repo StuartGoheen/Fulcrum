@@ -1,0 +1,114 @@
+[
+  {
+    "id": "hw_handling",
+    "name": "Handling",
+    "station": "Pilot",
+    "purpose": "Evasion, maneuvering, and repositioning. The Pilot's primary Power die for defensive and movement actions.",
+    "powerDieRange": "D4–D12",
+    "actions": ["Evasive Maneuvers", "Attack Run", "Terrain Run", "Break Away", "Evade"],
+    "impairment": {
+      "impaired": "Power die steps down 1 size. Ship responds sluggishly — turns are wide, reactions delayed.",
+      "debilitated": "Power die steps down 2 sizes. Ship barely maneuvers — drifting, overcorrecting, or locked into a heading.",
+      "offline": "System unavailable. Ship cannot change heading or execute evasive actions. Pilot actions that require Handling automatically fail."
+    },
+    "designNotes": [
+      "Handling is the ship's agility stat. Impairing Handling makes the ship a sitting target — Evade rolls lose their Power die, Attack Runs lose positioning advantage.",
+      "Handling is paired with Engines for Pilot actions. Handling governs precision (evasion, threading gaps), Engines govern raw speed (pursuit, escape, closing distance)."
+    ]
+  },
+  {
+    "id": "hw_engines",
+    "name": "Engines",
+    "station": "Pilot / Engineer",
+    "purpose": "Speed, pursuit, escape, and repositioning at range. The Pilot's Power die for speed-based actions and the Engineer's secondary Power die for rerouting.",
+    "powerDieRange": "D4–D12",
+    "actions": ["Pursue/Close", "Break Away", "Reroute Power"],
+    "impairment": {
+      "impaired": "Power die steps down 1 size. Ship loses acceleration — pursuit and escape become difficult.",
+      "debilitated": "Power die steps down 2 sizes. Ship is crawling — cannot close distance or break away without assistance.",
+      "offline": "System unavailable. Ship is dead in space. No pursuit, no escape, no repositioning. Hyperspace is impossible."
+    },
+    "designNotes": [
+      "Engines are the ship's speed stat. Impairing Engines turns a chase into a siege — the ship cannot run and cannot close.",
+      "Engines are the Engineer's primary reroute target — they can siphon engine power to boost other systems, or vice versa."
+    ]
+  },
+  {
+    "id": "hw_shields",
+    "name": "Shields",
+    "station": "Engineer",
+    "purpose": "Damage absorption and proactive defense. The Engineer's primary Power die for Reinforce Shields and the ship's passive Endure defense.",
+    "powerDieRange": "D4–D12",
+    "actions": ["Reinforce Shields", "Endure (passive)"],
+    "impairment": {
+      "impaired": "Power die steps down 1 size. Shield coverage is patchy — hits that should be absorbed start getting through.",
+      "debilitated": "Power die steps down 2 sizes. Shields are flickering — minimal absorption, catastrophic gaps in coverage.",
+      "offline": "System unavailable. No shield absorption. Endure defense is unavailable — all incoming damage lands at full effect."
+    },
+    "designNotes": [
+      "Shields are the ship's toughness stat. They mirror personal armor's Endure bonus — stepping up the Power die when absorbing hits.",
+      "Shields offline is the starship equivalent of being unarmored. The crew feels every hit at full force. Engineers should prioritize shield repair above almost everything else."
+    ]
+  },
+  {
+    "id": "hw_sensors",
+    "name": "Sensors",
+    "station": "Operator / Co-Pilot",
+    "purpose": "Scanning, jamming, targeting data, and electronic warfare. The Operator's primary Power die and the Co-Pilot's secondary Power die.",
+    "powerDieRange": "D4–D12",
+    "actions": ["Scan", "Jam", "Paint Target", "Coordinate", "Resist (passive)", "Deploy Countermeasures"],
+    "impairment": {
+      "impaired": "Power die steps down 1 size. Sensor data is degraded — scans are incomplete, targeting data is unreliable.",
+      "debilitated": "Power die steps down 2 sizes. Sensors are barely functional — the crew is flying half-blind.",
+      "offline": "System unavailable. No scanning, no electronic warfare, no targeting data. The ship is blind. Operator actions that require Sensors automatically fail. Resist defense is unavailable."
+    },
+    "designNotes": [
+      "Sensors are the ship's awareness stat. Impairing Sensors degrades the Operator and Co-Pilot simultaneously — a well-placed Called Shot to Sensors cripples the ship's information warfare.",
+      "Sensors offline means the crew cannot Scan, Jam, or Paint Target. The Gunner loses targeting data buffs. The Co-Pilot loses coordination tools. This is the electronic equivalent of [Blinded]."
+    ]
+  },
+  {
+    "id": "hw_weapon_mounts",
+    "name": "Weapon Mounts",
+    "station": "Gunner",
+    "purpose": "Offensive firepower. Each weapon mount has its own Power die. The Gunner's Power die is the mount they are firing.",
+    "powerDieRange": "D4–D12",
+    "actions": ["Attack", "Called Shot", "Suppressive Fire"],
+    "mountTypes": [
+      {
+        "type": "Light Mount",
+        "baseDie": "D6",
+        "chassis": "light",
+        "description": "Anti-fighter weapons. Fast tracking, low power. Effective against starfighters and small craft."
+      },
+      {
+        "type": "Medium Mount",
+        "baseDie": "D8",
+        "chassis": "medium",
+        "description": "General-purpose ship weapons. Effective against most targets. The workhorse of ship combat."
+      },
+      {
+        "type": "Heavy Mount",
+        "baseDie": "D10",
+        "chassis": "heavy",
+        "description": "Capital-grade weapons. Slow tracking, devastating power. Effective against large ships and structures."
+      },
+      {
+        "type": "Torpedo Mount",
+        "baseDie": "D12",
+        "chassis": "heavy",
+        "description": "Ordnance delivery. Limited ammunition, maximum impact. Proton torpedoes, concussion missiles."
+      }
+    ],
+    "impairment": {
+      "note": "Each weapon mount tracks impairment independently. Impairing one mount does not affect others.",
+      "impaired": "Mount Power die steps down 1 size. The weapon fires but with reduced output — power fluctuations, misaligned emitters.",
+      "debilitated": "Mount Power die steps down 2 sizes. The weapon barely functions — intermittent fire, severe power loss.",
+      "offline": "Mount unavailable. The weapon cannot fire. Physical damage to the mount requires repair before it can be brought back online."
+    },
+    "designNotes": [
+      "Weapon Mounts are unique among hardware systems because they are individually tracked. A ship with three weapon mounts has three independent Power dice that can be independently impaired.",
+      "The mount chassis determines the damage table used — identical to personal weapon chassis (Light, Medium, Heavy). Ship weapons use the same damage math as personal weapons, just at a different scale."
+    ]
+  }
+]

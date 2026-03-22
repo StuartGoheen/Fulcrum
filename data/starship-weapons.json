@@ -1,0 +1,204 @@
+[
+  {
+    "id": "swpn_light_laser_cannon",
+    "name": "Light Laser Cannon",
+    "chassis": "light",
+    "chassisLabel": "Light Mount",
+    "powerDie": "D6",
+    "range": ["Close", "Far"],
+    "arc": "Turret",
+    "traits": [
+      {
+        "name": "Fast Tracking",
+        "description": "Designed for anti-fighter work. No Control step-down when targeting small or fast-moving craft at Close range."
+      }
+    ],
+    "gambits": [],
+    "tags": ["Ship Weapon", "Light", "Energy", "Anti-Fighter"]
+  },
+  {
+    "id": "swpn_medium_laser_cannon",
+    "name": "Medium Laser Cannon",
+    "chassis": "medium",
+    "chassisLabel": "Medium Mount",
+    "powerDie": "D8",
+    "range": ["Close", "Far"],
+    "arc": "Forward",
+    "traits": [],
+    "gambits": [],
+    "tags": ["Ship Weapon", "Medium", "Energy", "General Purpose"]
+  },
+  {
+    "id": "swpn_medium_turbolaser",
+    "name": "Medium Turbolaser",
+    "chassis": "medium",
+    "chassisLabel": "Medium Mount",
+    "powerDie": "D8",
+    "range": ["Close", "Far"],
+    "arc": "Dorsal",
+    "traits": [
+      {
+        "name": "Turbolaser Cycling",
+        "description": "High-energy cycling between shots. Cannot fire on consecutive rounds unless the Engineer uses Reroute Power to feed additional energy to the mount."
+      }
+    ],
+    "gambits": [
+      {
+        "name": "Linked Fire",
+        "unlockDie": "D10",
+        "rule": "Reduce your Effect by 1 Tier. Fire a second mount in the same arc as part of the same attack action. The second mount resolves at the reduced tier. Both mounts spend ammunition/power."
+      }
+    ],
+    "tags": ["Ship Weapon", "Medium", "Energy", "Turbolaser"]
+  },
+  {
+    "id": "swpn_heavy_turbolaser",
+    "name": "Heavy Turbolaser",
+    "chassis": "heavy",
+    "chassisLabel": "Heavy Mount",
+    "powerDie": "D10",
+    "range": ["Close", "Far"],
+    "arc": "Forward",
+    "traits": [
+      {
+        "name": "Capital Grade",
+        "description": "Designed for ship-to-ship engagements against large targets. When targeting a ship of equal or larger Scale, ignore 1 step of the Scale Power die penalty (the weapon is built for punching above its weight class)."
+      }
+    ],
+    "gambits": [
+      {
+        "name": "Linked Fire",
+        "unlockDie": "D10",
+        "rule": "Reduce your Effect by 1 Tier. Fire a second mount in the same arc as part of the same attack action. The second mount resolves at the reduced tier. Both mounts spend ammunition/power."
+      },
+      {
+        "name": "Overcharge",
+        "unlockDie": "D12",
+        "rule": "Reduce your Effect by 1 Tier. Step up the Power die for this attack. After the attack resolves, the mount gains [Disabled] — it cannot fire until the Engineer spends an action to reset it."
+      }
+    ],
+    "tags": ["Ship Weapon", "Heavy", "Energy", "Capital Grade"]
+  },
+  {
+    "id": "swpn_ion_cannon",
+    "name": "Ion Cannon",
+    "chassis": "medium",
+    "chassisLabel": "Medium Mount",
+    "powerDie": "D8",
+    "range": ["Close", "Far"],
+    "arc": "Forward",
+    "traits": [
+      {
+        "name": "Ion Discharge",
+        "description": "Deals no hull damage. Instead, the Effect Tier determines the severity of system disruption. Fleeting: target system gains [Disoriented] equivalent (one action degraded). Masterful: target system is Impaired. Legendary: target system is Debilitated or Offline (attacker's choice)."
+      }
+    ],
+    "gambits": [
+      {
+        "name": "Ion Pulse",
+        "unlockDie": "D10",
+        "rule": "Reduce your Effect by 1 Tier. Instead of targeting a single system, the ion discharge cascades — affect a second system on the target ship at one tier lower than the resolved result."
+      }
+    ],
+    "tags": ["Ship Weapon", "Medium", "Ion", "Electronic Warfare"]
+  },
+  {
+    "id": "swpn_proton_torpedo",
+    "name": "Proton Torpedo Launcher",
+    "chassis": "heavy",
+    "chassisLabel": "Torpedo Mount",
+    "powerDie": "D12",
+    "range": ["Close", "Far"],
+    "arc": "Forward",
+    "traits": [
+      {
+        "name": "Ordnance",
+        "description": "Limited ammunition — typically 4–8 torpedoes per launcher. Each attack consumes one torpedo. When the magazine is empty, the mount is inert until rearmed at a facility."
+      },
+      {
+        "name": "Lock Required",
+        "description": "Requires a target lock from the Operator (Paint Target or Scan at Masterful+) before firing. Without a lock, the attack suffers a Control step-down."
+      }
+    ],
+    "gambits": [
+      {
+        "name": "Concussive Blast",
+        "unlockDie": "D10",
+        "rule": "Reduce your Effect by 1 Tier. The torpedo detonates in a zone-wide blast. All ships in the target's zone are affected at the reduced tier. Allies in the zone are not exempt."
+      },
+      {
+        "name": "Overcharge",
+        "unlockDie": "D12",
+        "rule": "Reduce your Effect by 1 Tier. Step up the Power die for this attack. The launcher gains [Disabled] after firing — the overcharged launch destabilizes the feed mechanism."
+      }
+    ],
+    "tags": ["Ship Weapon", "Heavy", "Ordnance", "Torpedo"]
+  },
+  {
+    "id": "swpn_concussion_missile",
+    "name": "Concussion Missile Launcher",
+    "chassis": "medium",
+    "chassisLabel": "Medium Mount",
+    "powerDie": "D8",
+    "range": ["Close", "Far"],
+    "arc": "Forward",
+    "traits": [
+      {
+        "name": "Ordnance",
+        "description": "Limited ammunition — typically 6–12 missiles per launcher. Each attack consumes one missile."
+      },
+      {
+        "name": "Dumbfire Capable",
+        "description": "Unlike torpedoes, concussion missiles can be fired without a target lock. Without a lock, no Control penalty — the missile tracks on its own short-range guidance."
+      }
+    ],
+    "gambits": [
+      {
+        "name": "Concussive Blast",
+        "unlockDie": "D10",
+        "rule": "Reduce your Effect by 1 Tier. The missile detonates in a zone-wide blast. All ships in the target's zone are affected at the reduced tier."
+      }
+    ],
+    "tags": ["Ship Weapon", "Medium", "Ordnance", "Missile"]
+  },
+  {
+    "id": "swpn_quad_laser_cannon",
+    "name": "Quad Laser Cannon",
+    "chassis": "medium",
+    "chassisLabel": "Medium Mount",
+    "powerDie": "D8",
+    "range": ["Close", "Far"],
+    "arc": "Turret",
+    "traits": [
+      {
+        "name": "Rapid Fire",
+        "description": "Four barrels cycling in sequence. When the Gunner's Control die result is 8+, the volume of fire grants an automatic +1 Effect Tier (in addition to the standard 8+ bonus)."
+      }
+    ],
+    "gambits": [
+      {
+        "name": "Linked Fire",
+        "unlockDie": "D10",
+        "rule": "Reduce your Effect by 1 Tier. Fire a second mount in the same arc as part of the same attack action. The second mount resolves at the reduced tier."
+      }
+    ],
+    "tags": ["Ship Weapon", "Medium", "Energy", "Turret", "Rapid Fire"]
+  },
+  {
+    "id": "swpn_ventral_cannon",
+    "name": "Ventral Cannon",
+    "chassis": "medium",
+    "chassisLabel": "Medium Mount",
+    "powerDie": "D8",
+    "range": ["Close"],
+    "arc": "Ventral",
+    "traits": [
+      {
+        "name": "Ground Attack",
+        "description": "Optimized for strafing runs against ground targets. When targeting ground installations or vehicles from above, step up the Power die."
+      }
+    ],
+    "gambits": [],
+    "tags": ["Ship Weapon", "Medium", "Energy", "Ground Attack", "Ventral"]
+  }
+]

@@ -834,5 +834,158 @@
       "Free Action Cascades — Abilities that grant free actions (free Assess, free attack, free maneuver) must be conditional and scoped. An unconditional free action every round is equivalent to doubling the character's action economy, which breaks encounter balance. Free actions should require a high roll threshold (Masterful 8+ on Control), cost a resource, or impose a scope restriction on what the free action can target.",
       "Narrative Abilities Without GM Hooks — Any ability that generates narrative information must give the GM a clear hook for what to reveal and how much. 'Learn something useful' is not a design. 'Learn the most recent significant event involving the subject — who was here, what they did, approximately when' is a design. The GM should be able to read the ability text and immediately know what to narrate."
     ]
+  },
+  {
+    "id": "scale_ship",
+    "name": "Scale (Starship)",
+    "type": "Starship Combat Rule",
+    "category": "Starship Combat",
+    "rule": "When ships of different sizes engage, Scale modifies the dice. Larger target = step up attacker's Control die, step down attacker's Power die (easier to hit, harder to damage meaningfully). Smaller target = step down attacker's Control die, step up attacker's Power die (harder to hit, devastating if it connects). Per step of Scale difference: +1 step to Control die toward the larger target, -1 step to Power die. Reverse when targeting smaller.",
+    "guide": "A starfighter can't casually scratch a Star Destroyer. But if a Star Destroyer manages to track a starfighter — one shot. Scale makes size matter the way it should."
+  },
+  {
+    "id": "hardware_die",
+    "name": "Hardware Die",
+    "type": "Starship Combat Rule",
+    "category": "Starship Combat",
+    "rule": "In starship combat, the Power die for each roll is determined by the ship's hardware systems (Handling, Engines, Shields, Sensors, Weapon Mounts), not the character's personal arena die. A character's discipline die still serves as the Control die. The hardware die replaces the arena die as the Power source.",
+    "guide": "Your personal strength doesn't matter when you're pulling the trigger on a quad laser. What matters is how powerful the quad laser is. That's the Hardware Die — the ship's stats, not yours."
+  },
+  {
+    "id": "station_ship",
+    "name": "Station (Starship)",
+    "type": "Starship Combat Rule",
+    "category": "Starship Combat",
+    "rule": "Each crew member occupies one station during starship combat: Pilot, Gunner, Operator, Engineer, or Co-Pilot. A station defines which discipline provides the Control die and which hardware system provides the Power die. Each station has its own set of available actions and reactions.",
+    "guide": "Everyone has a job on the ship. The Pilot flies. The Gunner shoots. The Operator sees. The Engineer fixes. The Co-Pilot makes everyone better. Pick your seat and do your job."
+  },
+  {
+    "id": "integrity_ship",
+    "name": "Integrity",
+    "type": "Starship Combat Rule",
+    "category": "Starship Combat",
+    "rule": "Integrity is the ship's equivalent of Vitality. When a ship takes hull damage, Integrity decreases. At 0 Integrity, the ship is destroyed or disabled (GM determines based on narrative context).",
+    "guide": "Integrity is how much punishment the hull can take before the ship stops being a ship and starts being debris. Watch the number. When it hits zero, you'd better be near an escape pod."
+  },
+  {
+    "id": "hull_rating",
+    "name": "Hull Rating",
+    "type": "Starship Combat Rule",
+    "category": "Starship Combat",
+    "rule": "Hull Rating is the ship's impairment soak threshold — equivalent to a character's Trauma threshold. When damage exceeds the Hull Rating, the crew may choose to impair a system to absorb the excess. This mirrors the character choice to take a Trauma to avoid Vitality loss.",
+    "guide": "The hull is built to take a beating. But past a certain point, something has to give — a system takes the strain so the hull doesn't crack. That's the Hull Rating line."
+  },
+  {
+    "id": "system_impairment",
+    "name": "System Impairment",
+    "type": "Starship Combat Rule",
+    "category": "Starship Combat",
+    "rule": "System impairment is the starship mirror of character trauma. Three levels: Impaired (Power die steps down 1), Debilitated (Power die steps down 2), Offline (system unavailable, actions requiring it auto-fail). When damage exceeds Hull Rating, crew may choose to impair a system to soak excess. Without a Called Shot, the crew chooses which system.",
+    "guide": "Something breaks to save the ship. That's the deal. You pick which system takes the hit — unless the enemy called their shot, in which case they already decided for you."
+  },
+  {
+    "id": "called_shot_ship",
+    "name": "Called Shot (Starship)",
+    "type": "Starship Combat Rule",
+    "category": "Starship Combat",
+    "rule": "When an attacker uses the Called Shot action, they designate which system must take the impairment if the defending crew chooses to impair to soak damage. Without a Called Shot, the defending crew chooses which system to impair. At Legendary, the designated system takes one extra step of impairment.",
+    "guide": "You point at their engines and say 'that one.' If they take the hit and need to soak, it's the engines that go. Precision violence."
+  },
+  {
+    "id": "evade_ship",
+    "name": "Evade (Starship)",
+    "type": "Starship Combat Rule",
+    "category": "Starship Combat",
+    "rule": "The ship's Dodge equivalent. The Pilot rolls Piloting (Reflex) + Handling to evade incoming fire. On success, the Power die result reduces the attacker's Effect Tier. On failure, no mitigation — full effect lands. On Control 8+, the evasion generates an Opening for Gunners.",
+    "guide": "Jink, roll, change vector. If you're good, the shot misses entirely. If you're great, the evasion opens up a shot for your Gunners. If you fail — well, the shields better hold."
+  },
+  {
+    "id": "endure_ship",
+    "name": "Endure (Starship)",
+    "type": "Starship Combat Rule",
+    "category": "Starship Combat",
+    "rule": "The ship's armor-soak equivalent. The Shields die absorbs incoming damage passively. Even on failure, reduces the attacker's Effect Tier by 1 — the shields always provide a minimum floor of protection, identical to character Endure.",
+    "guide": "Shields take the punch. Even when they flicker, they bleed off some energy. It's never nothing. That's the whole point of shields."
+  },
+  {
+    "id": "resist_ship",
+    "name": "Resist (Starship)",
+    "type": "Starship Combat Rule",
+    "category": "Starship Combat",
+    "rule": "Defense against electronic and ion attacks, Called Shots targeting systems, and jamming attempts. The Sensors die defends against non-physical threats. On failure, reduces the attacker's Effect Tier by 1 — same floor as Endure.",
+    "guide": "Electronic countermeasures. Your ship's immune system against ion bolts, jamming, and system intrusion. Even when it fails, it slows the attack down."
+  },
+  {
+    "id": "engaged_ship",
+    "name": "Engaged (Starship Range)",
+    "type": "Starship Combat Rule",
+    "category": "Starship Combat",
+    "rule": "Ships are in extremely close proximity — docking range, collision risk, boarding possible. Rare in open space combat. Equivalent to personal Engaged zone at starship scale.",
+    "guide": "Hull-to-hull. You can see the rivets on their plating. This is either a boarding action or a very bad day."
+  },
+  {
+    "id": "close_ship",
+    "name": "Close (Starship Range)",
+    "type": "Starship Combat Rule",
+    "category": "Starship Combat",
+    "rule": "Standard combat range. Most weapons are effective. Maneuvering matters — Attack Runs and Evasive Maneuvers operate primarily at this range band.",
+    "guide": "Normal fighting distance. Close enough to shoot, far enough to dodge. This is where most dogfights happen."
+  },
+  {
+    "id": "far_ship",
+    "name": "Far (Starship Range)",
+    "type": "Starship Combat Rule",
+    "category": "Starship Combat",
+    "rule": "Long range engagement. Only long-range weapons (turbolasers, torpedoes) are effective at this range. Pursuit and Break Away actions play out at Far range.",
+    "guide": "Barely visible on the scope. You need big guns or guided ordnance to touch anything out here. This is where chases happen."
+  },
+  {
+    "id": "weapon_mount",
+    "name": "Weapon Mount",
+    "type": "Starship Combat Rule",
+    "category": "Starship Combat",
+    "rule": "A weapon installation on a starship. Each mount has its own chassis type (Light/Medium/Heavy/Torpedo), Power die (D4–D12), firing arc (Forward/Dorsal/Ventral/Turret), and range capability. Multiple mounts allow multiple Gunners to operate simultaneously. Each mount tracks impairment independently.",
+    "guide": "A gun bolted to the hull. It has a size, a power output, and a direction it can shoot. More mounts means more Gunners, which means more firepower. Simple math."
+  },
+  {
+    "id": "firing_arc",
+    "name": "Firing Arc",
+    "type": "Starship Combat Rule",
+    "category": "Starship Combat",
+    "rule": "The directional coverage of a weapon mount. Forward: only targets ahead of the ship. Dorsal: covers the top hemisphere. Ventral: covers the bottom hemisphere. Turret: full 360-degree coverage. A mount can only fire at targets within its arc. The Pilot's positioning determines which arcs bear on the enemy.",
+    "guide": "Guns don't swivel in every direction. Forward guns shoot forward. Turrets shoot everywhere. Where the Pilot points the ship determines which guns can fire."
+  },
+  {
+    "id": "condition_elusive",
+    "name": "[Elusive]",
+    "type": "Condition",
+    "category": "Starship Combat",
+    "conditionType": "buff",
+    "defaultDuration": "tactical",
+    "fiction": "The ship is actively evading — jinking, rolling, changing vector unpredictably. Targeting solutions decay before they can be used.",
+    "rule": "Applied by the Pilot's Evasive Maneuvers action. All incoming attacks against the ship have their Control die stepped down. Duration: until start of the Pilot's next turn. Does not stack with itself.",
+    "guide": "The ship is dancing. Every targeting solution the enemy computes is obsolete before they can pull the trigger."
+  },
+  {
+    "id": "condition_jammed",
+    "name": "[Jammed]",
+    "type": "Condition",
+    "category": "Starship Combat",
+    "conditionType": "debuff",
+    "defaultDuration": "tactical",
+    "fiction": "The ship's electronic systems are flooded with interference. Sensors are unreliable, communications are disrupted, and targeting data is corrupted.",
+    "rule": "Applied by the Operator's Jam action. The affected ship's Operator actions automatically fail this round. At higher tiers, Gunner attacks from the jammed ship also have their Control die stepped down. Duration: until end of round.",
+    "guide": "Your screens are garbage. Your comms are static. Your targeting computer is lying to you. Someone out there is very good at electronic warfare."
+  },
+  {
+    "id": "condition_disabled",
+    "name": "[Disabled]",
+    "type": "Condition",
+    "category": "Starship Combat",
+    "conditionType": "debuff",
+    "defaultDuration": "lingering",
+    "fiction": "A specific system or weapon mount has been temporarily shut down — overheated, overloaded, or mechanically locked. It is not destroyed, but it is not available until reset.",
+    "rule": "Applied to a specific weapon mount or system. The affected mount/system cannot be used until the Engineer spends an action to reset it. Unlike Impairment (which degrades output), [Disabled] is binary — the system is either available or it is not.",
+    "guide": "The gun is locked. The system is down. Not broken — just offline. Someone needs to get down there and flip the right switches before it comes back."
   }
 ]

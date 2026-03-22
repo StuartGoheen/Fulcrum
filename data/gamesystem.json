@@ -880,5 +880,107 @@
       "Ability type variety prevents passive bloat. Each Vocation should mix passives, gambits, maneuvers, exploits, and/or permissions to create active decision points during play.",
       "Vocations interact with the existing systems (Openings, Exploits, Defenses, Conditions) rather than creating parallel mechanics. This keeps the core resolution math intact while layering specialist capabilities on top."
     ]
+  },
+  {
+    "id": "starship_combat",
+    "number": 15,
+    "name": "Starship Combat",
+    "tag": "System Rule",
+    "summary": "Starship combat governs space combat encounters using the same Fulcrum resolution math as character combat — adapted for crew stations aboard a starship. Ship combat runs as Challenge Mode: one meaningful action per crew member per round, free defensive reactions. Hardware dice replace personal Power dice. System impairment mirrors the character trauma/impairment model.",
+    "mode": "Challenge",
+    "modeNote": "Starship combat uses Challenge Mode structure. Each crew member gets one meaningful action per round. The GM calls on stations in dramatic order. Defensive reactions (Evade, Endure, Resist, Deploy Countermeasures) are free and do not consume the station's action.",
+    "scale": {
+      "rule": "When ships of different sizes engage, Scale modifies the dice. Larger target = step up attacker's Control die, step down attacker's Power die (easier to hit, harder to damage meaningfully). Smaller target = step down attacker's Control die, step up attacker's Power die (harder to hit, but devastating if it connects).",
+      "categories": [
+        { "scale": 1, "label": "Starfighter", "examples": "X-wing, TIE Fighter, Headhunter" },
+        { "scale": 2, "label": "Patrol Craft", "examples": "YT-1300, Firespray, Gauntlet" },
+        { "scale": 3, "label": "Corvette", "examples": "CR90, Raider, Hammerhead" },
+        { "scale": 4, "label": "Frigate", "examples": "Nebulon-B, Arquitens, Munificent" },
+        { "scale": 5, "label": "Capital Ship", "examples": "Imperial Star Destroyer, MC80, Venator" }
+      ],
+      "modifierPerStep": "Per step of Scale difference: +1 step to Control die toward the larger target, -1 step to Power die. Reverse when targeting smaller. Example: a Starfighter (Scale 1) attacking a Corvette (Scale 3) = 2 Scale steps difference → Control stepped up twice (easy to hit), Power stepped down twice (hard to hurt).",
+      "designNote": "Scale ensures that a lone starfighter cannot casually destroy a capital ship through raw dice. The Control bonus means you will hit — the Power penalty means your hits barely scratch the hull. Conversely, a capital ship's turbolaser can obliterate a starfighter with a single hit, but tracking the small target is the challenge."
+    },
+    "stations": {
+      "note": "Each crew member occupies one station. A station defines which discipline provides the Control die and which hardware system provides the Power die. Stations are detailed in starship-stations.json.",
+      "list": [
+        { "station": "Pilot", "control": "Piloting (Reflex)", "power": "Handling / Engines", "role": "Positioning, evasion, pursuit" },
+        { "station": "Gunner", "control": "Heavy Weapons (Physique)", "power": "Weapon Mount die", "role": "Offensive firepower" },
+        { "station": "Operator", "control": "Tech / Investigation / Tactics (Wits)", "power": "Sensors", "role": "Electronic warfare, scanning, targeting" },
+        { "station": "Engineer", "control": "Tech (Wits)", "power": "Shields / Engines / damaged system", "role": "Repair, shields, power management" },
+        { "station": "Co-Pilot", "control": "Tactics / Piloting (Wits / Reflex)", "power": "Sensors / Handling", "role": "Coordination, navigation, crew support" }
+      ]
+    },
+    "hardwareDice": {
+      "rule": "In starship combat, the Power die for each roll is determined by the ship's hardware systems, not the character's personal arena die. A character's discipline die still serves as the Control die — their personal skill matters. The hardware die replaces the arena die as the Power die.",
+      "systems": ["Handling", "Engines", "Shields", "Sensors", "Weapon Mounts"],
+      "reference": "Full hardware definitions in starship-hardware.json."
+    },
+    "integrity": {
+      "rule": "Integrity is the ship's equivalent of Vitality. When a ship takes hull damage, Integrity decreases. At 0 Integrity, the ship is destroyed or disabled (GM determines based on narrative).",
+      "hullRating": "Hull Rating is the ship's impairment soak threshold — equivalent to a character's Trauma threshold. When damage exceeds the Hull Rating, the crew may choose to impair a system to absorb the excess. This mirrors the character choice to take a Trauma to avoid Vitality loss."
+    },
+    "systemImpairment": {
+      "rule": "System impairment is the starship mirror of character trauma. When a ship takes damage that exceeds its Hull Rating, the crew may choose to impair a system to soak the excess damage. This is a player choice — exactly like choosing to take a Trauma in character combat.",
+      "levels": [
+        { "level": "Impaired", "effect": "System Power die steps down 1 size." },
+        { "level": "Debilitated", "effect": "System Power die steps down 2 sizes." },
+        { "level": "Offline", "effect": "System is unavailable. Actions requiring this system automatically fail." }
+      ],
+      "calledShot": "When an attacker uses Called Shot, they designate which system must take the impairment if the defending crew chooses to impair. Without a Called Shot, the defending crew chooses which system to impair.",
+      "repair": "The Engineer's Jury Rig action repairs impaired systems. Fleeting = 1 round fix. Masterful = fight-long. Legendary = permanent."
+    },
+    "shipDefenses": {
+      "rule": "Ship defenses mirror character defenses. Crew chooses Evade or Endure when attacked, exactly like a character choosing Dodge or Endure.",
+      "types": [
+        {
+          "name": "Evade",
+          "station": "Pilot",
+          "discipline": "Piloting (Reflex) + Handling",
+          "description": "The ship's Dodge equivalent. On success, Power die result reduces attacker's Effect Tier. On failure, no mitigation — full effect lands. On Control 8+, the evasion generates an Opening for the ship's Gunners."
+        },
+        {
+          "name": "Endure",
+          "station": "Engineer (passive) / Shields",
+          "discipline": "Shields die",
+          "description": "The ship's armor-soak equivalent. The Shields die absorbs incoming damage. Even on failure, reduces the attacker's Effect Tier by 1 — the shields always provide a minimum floor of protection (same as character Endure)."
+        },
+        {
+          "name": "Resist",
+          "station": "Operator (passive) / Sensors",
+          "discipline": "Sensors die",
+          "description": "Defense against electronic and ion attacks, Called Shots targeting systems, and jamming attempts. The Sensors die defends against non-physical threats. On failure, reduces the attacker's Effect Tier by 1 (same floor as Endure)."
+        }
+      ],
+      "choiceRule": "When the ship is attacked with physical weapons, the crew chooses between Evade (Pilot rolls, no floor on failure) or Endure (passive Shields, floor on failure). When attacked with electronic/ion weapons, Resist applies passively. This mirrors the character Dodge vs Endure choice exactly."
+    },
+    "combatFlow": {
+      "roundStructure": [
+        "1. GM describes the tactical situation — range, positioning, environmental hazards, enemy actions.",
+        "2. GM calls on each crew station in dramatic order (not fixed initiative — this is Challenge Mode).",
+        "3. Each crew member declares their one meaningful action for the round.",
+        "4. Roll resolution using Fulcrum math: Control die (discipline) minus Risk (enemy defense or static difficulty) = Net Result.",
+        "5. Power die (hardware system) determines effect magnitude on success.",
+        "6. Defensive reactions (Evade, Endure, Resist, Deploy Countermeasures) are free and triggered when the ship is attacked.",
+        "7. After all crew have acted, the GM advances the situation — enemy ships act, environmental changes occur, timers tick."
+      ],
+      "multipleGunners": "Ships with multiple weapon mounts may have multiple Gunners. Each Gunner acts independently on their turn, firing their assigned mount. This is the primary way to increase offensive output — more crew = more guns."
+    },
+    "rangeBands": {
+      "note": "Starship range bands define zones of engagement in space. They function identically to personal combat zones but at ship scale.",
+      "bands": [
+        { "band": "Engaged", "description": "Ships are in extremely close proximity — docking range, collision risk, boarding possible. Rare in open space combat." },
+        { "band": "Close", "description": "Standard combat range. Most weapons are effective. Maneuvering matters — Attack Runs and Evasive Maneuvers happen here." },
+        { "band": "Far", "description": "Long range engagement. Only long-range weapons (turbolasers, torpedoes) are effective. Pursuit and Break Away play out at this range." }
+      ]
+    },
+    "designNotes": [
+      "Starship combat uses the same Fulcrum math as character combat — Control minus Risk equals Net Result. The only difference is the source of the Power die: hardware systems instead of personal arena dice.",
+      "Challenge Mode (one action per round, free reactions) prevents starship combat from becoming a sub-game with its own action economy. Each crew member makes one meaningful decision per round. This keeps pacing tight and ensures every player contributes.",
+      "System impairment mirrors character trauma exactly: take a permanent penalty to absorb damage that would otherwise destroy you. Called Shots give attackers tactical influence over which system degrades, adding a layer of strategic targeting.",
+      "The Scale system ensures that ship-to-ship engagements respect size differences without making them impossible. A starfighter CAN damage a capital ship — it just needs to find the right angle, the right moment, and probably a torpedo.",
+      "Ship defenses mirror character defenses to reduce cognitive load. Players already know Dodge vs Endure — Evade vs Endure (Shields) is the same choice at ship scale. Resist handles the electronic dimension that does not exist in personal combat.",
+      "The five stations are designed so that each crew member has a distinct role with no mechanical overlap. The Pilot flies. The Gunner shoots. The Operator sees. The Engineer fixes. The Co-Pilot coordinates. No station can do another station's job."
+    ]
   }
 ]

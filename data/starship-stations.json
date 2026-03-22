@@ -1,0 +1,683 @@
+[
+  {
+    "id": "station_pilot",
+    "name": "Pilot",
+    "controlDiscipline": "Piloting",
+    "controlArena": "Reflex",
+    "powerSystems": ["Handling", "Engines"],
+    "summary": "The ship's driver and primary defensive asset. The Pilot controls positioning, evasion, and pursuit. Every crew member's survival depends on the Pilot keeping the ship where it needs to be.",
+    "actions": [
+      {
+        "id": "sa_evasive_maneuvers",
+        "name": "Evasive Maneuvers",
+        "type": "action",
+        "control": "Piloting (Reflex)",
+        "power": "Handling",
+        "description": "Commit to defensive flying. The ship jukes, rolls, and changes vector to make targeting impossible.",
+        "effect": [
+          {
+            "tier": 1,
+            "label": "Fleeting",
+            "range": "0–3",
+            "description": "Ship gains [Elusive] until start of Pilot's next turn. Incoming attacks have their Control die stepped down."
+          },
+          {
+            "tier": 2,
+            "label": "Masterful",
+            "range": "4–7",
+            "description": "Ship gains [Elusive] until start of Pilot's next turn. Additionally, one ally station gains [Cover 1] from the ship's positioning."
+          },
+          {
+            "tier": 3,
+            "label": "Legendary",
+            "range": "8+",
+            "description": "Ship gains [Elusive] until start of Pilot's next turn. All incoming attacks are stepped down. Ship repositions 1 zone as a free movement."
+          }
+        ],
+        "risk": "On failure, the ship's vector is predictable — all attacks against the ship until the Pilot's next turn gain [Optimized]."
+      },
+      {
+        "id": "sa_attack_run",
+        "name": "Attack Run",
+        "type": "action",
+        "control": "Piloting (Reflex)",
+        "power": "Engines",
+        "description": "Aggressive positioning — close distance, present firing solutions, and set up the Gunners. High reward, high risk.",
+        "effect": [
+          {
+            "tier": 1,
+            "label": "Fleeting",
+            "range": "0–3",
+            "description": "Ship closes 1 zone. All Gunners gain [Optimized] on their next attack this round."
+          },
+          {
+            "tier": 2,
+            "label": "Masterful",
+            "range": "4–7",
+            "description": "Ship closes 1 zone. All Gunners gain [Optimized] and [Empowered] on their next attack this round."
+          },
+          {
+            "tier": 3,
+            "label": "Legendary",
+            "range": "8+",
+            "description": "Ship closes 1 zone. All Gunners gain [Optimized] and [Empowered]. The target ship presents an Opening to all Gunners."
+          }
+        ],
+        "risk": "On failure, the aggressive approach presents an Opening to the target ship's Gunners. The ship is [Exposed] until the Pilot's next turn."
+      },
+      {
+        "id": "sa_pursue_close",
+        "name": "Pursue / Close",
+        "type": "action",
+        "control": "Piloting (Reflex)",
+        "power": "Engines",
+        "description": "Chase a fleeing target or close distance to engage. Opposed by the target Pilot's Piloting + Engines.",
+        "effect": [
+          {
+            "tier": 1,
+            "label": "Fleeting",
+            "range": "0–3",
+            "description": "Close 1 zone toward the target. Maintain pursuit — the target cannot increase the gap this round."
+          },
+          {
+            "tier": 2,
+            "label": "Masterful",
+            "range": "4–7",
+            "description": "Close 1 zone. The target is [Marked] — they cannot shake pursuit without a Legendary Break Away."
+          },
+          {
+            "tier": 3,
+            "label": "Legendary",
+            "range": "8+",
+            "description": "Close 2 zones. The target is [Marked] and the pursuing ship's Gunners gain [Optimized] on attacks against the fleeing target."
+          }
+        ],
+        "risk": "On failure, the target increases the gap by 1 zone. Pursuit is not broken, but the target has the initiative."
+      },
+      {
+        "id": "sa_break_away",
+        "name": "Break Away",
+        "type": "action",
+        "control": "Piloting (Reflex)",
+        "power": "Engines",
+        "description": "Disengage from combat. Increase distance, break pursuit, or set up a hyperspace jump.",
+        "effect": [
+          {
+            "tier": 1,
+            "label": "Fleeting",
+            "range": "0–3",
+            "description": "Increase gap by 1 zone. Pursuit is not broken, but the ship gains breathing room."
+          },
+          {
+            "tier": 2,
+            "label": "Masterful",
+            "range": "4–7",
+            "description": "Increase gap by 1 zone. The ship is no longer [Marked]. Pursuing ships must re-establish pursuit."
+          },
+          {
+            "tier": 3,
+            "label": "Legendary",
+            "range": "8+",
+            "description": "Increase gap by 2 zones. Pursuit is broken — the ship may jump to hyperspace if the Co-Pilot has plotted a course."
+          }
+        ],
+        "risk": "On failure, the ship cannot increase the gap. If [Marked], remain [Marked]. Pursuing ships gain [Optimized] on their next action."
+      },
+      {
+        "id": "sa_terrain_run",
+        "name": "Terrain Run",
+        "type": "action",
+        "control": "Piloting (Reflex)",
+        "power": "Handling",
+        "description": "Use the environment for cover and advantage — asteroid fields, debris clouds, atmospheric canyons, station infrastructure.",
+        "effect": [
+          {
+            "tier": 1,
+            "label": "Fleeting",
+            "range": "0–3",
+            "description": "Ship gains [Cover 1] from environmental obstruction until the Pilot's next turn."
+          },
+          {
+            "tier": 2,
+            "label": "Masterful",
+            "range": "4–7",
+            "description": "Ship gains [Cover 2]. Pursuing ships that follow must make a Piloting check or take Fleeting collision damage."
+          },
+          {
+            "tier": 3,
+            "label": "Legendary",
+            "range": "8+",
+            "description": "Ship gains [Cover 2] and concealment. Pursuing ships that follow take Masterful collision damage on a failed Piloting check."
+          }
+        ],
+        "risk": "On failure, the Pilot clips the terrain — the ship takes Fleeting collision damage (Light chassis) and loses [Cover] and concealment."
+      }
+    ],
+    "reactions": [
+      {
+        "id": "sr_evade",
+        "name": "Evade",
+        "type": "reaction",
+        "trigger": "Ship is targeted by an attack",
+        "control": "Piloting (Reflex)",
+        "power": "Handling",
+        "cost": "Free (defense reaction)",
+        "description": "The ship's Dodge equivalent. The Pilot rolls Piloting + Handling to evade incoming fire. On success, the Power die result reduces the attacker's Effect Tier. On failure, no mitigation — the hit lands at full effect. On a Control result of 8+, the evasive maneuver generates an Opening for the ship's Gunners.",
+        "rule": "Success: Power die result reduces attacker's Effect Tier. Failure: no mitigation. Control 8+: generates an Opening — any Gunner with an available Exploit pip may take a reactive attack against the attacker."
+      }
+    ],
+    "gambits": [
+      {
+        "name": "Punch It",
+        "unlockDie": "D8",
+        "rule": "Reduce your Effect by 1 Tier. On any Pilot action that involves movement (Attack Run, Pursue/Close, Break Away), double the zones moved. The Engines system takes strain — the Engineer must repair or the Engines gain [Impaired] at end of round."
+      },
+      {
+        "name": "Barrel Roll",
+        "unlockDie": "D10",
+        "rule": "Reduce your Effect by 1 Tier. On an Evade reaction, if successful, the evasion is so dramatic that the attacker's next attack against this ship has its Control die stepped down (carried disorientation from the unexpected maneuver)."
+      },
+      {
+        "name": "Bootlegger Reverse",
+        "unlockDie": "D10",
+        "rule": "Reduce your Effect by 1 Tier. On a Break Away action, instead of increasing the gap, the ship flips 180 degrees and is now facing the pursuer head-on at the same range. All Forward-arc weapons may fire. The pursuing ship is [Exposed] until end of round."
+      },
+      {
+        "name": "Thread the Needle",
+        "unlockDie": "D12",
+        "rule": "Reduce your Effect by 1 Tier. On a Terrain Run, if successful, one pursuing ship that follows must make a Legendary Piloting check or suffer Masterful collision damage and become [Disabled] for 1 round. The terrain gap is too narrow for anything but perfect execution."
+      }
+    ]
+  },
+  {
+    "id": "station_gunner",
+    "name": "Gunner",
+    "controlDiscipline": "Heavy Weapons",
+    "controlArena": "Physique",
+    "powerSystems": ["Weapon Mounts"],
+    "summary": "The ship's offensive firepower. The Gunner operates weapon mounts, designates targets, and delivers the damage. Multiple Gunners can operate simultaneously if the ship has multiple mounts.",
+    "actions": [
+      {
+        "id": "sa_attack",
+        "name": "Attack",
+        "type": "action",
+        "control": "Heavy Weapons (Physique)",
+        "power": "Weapon Mount die",
+        "description": "Fire a weapon mount at an enemy target. Uses the weapon's chassis damage table to determine damage dealt.",
+        "effect": [
+          {
+            "tier": 1,
+            "label": "Fleeting",
+            "range": "0–3",
+            "description": "Weapon chassis damage (Fleeting tier). Glancing hit — minimal structural impact."
+          },
+          {
+            "tier": 2,
+            "label": "Masterful",
+            "range": "4–7",
+            "description": "Weapon chassis damage (Masterful tier). Solid hit — meaningful structural damage."
+          },
+          {
+            "tier": 3,
+            "label": "Legendary",
+            "range": "8+",
+            "description": "Weapon chassis damage (Legendary tier). Devastating hit — critical structural damage."
+          }
+        ],
+        "risk": "On failure, the shot misses. No damage dealt."
+      },
+      {
+        "id": "sa_called_shot",
+        "name": "Called Shot",
+        "type": "action",
+        "control": "Heavy Weapons (Physique)",
+        "power": "Weapon Mount die",
+        "description": "Target a specific system on the enemy ship. If the enemy crew chooses to impair a system to soak damage, they must impair the system you designated.",
+        "effect": [
+          {
+            "tier": 1,
+            "label": "Fleeting",
+            "range": "0–3",
+            "description": "Weapon chassis damage (Fleeting tier). If the target crew impairs to soak, they must impair the designated system."
+          },
+          {
+            "tier": 2,
+            "label": "Masterful",
+            "range": "4–7",
+            "description": "Weapon chassis damage (Masterful tier). Designated system must be impaired if crew chooses to soak."
+          },
+          {
+            "tier": 3,
+            "label": "Legendary",
+            "range": "8+",
+            "description": "Weapon chassis damage (Legendary tier). Designated system must be impaired. Additionally, the designated system takes one extra step of impairment (Impaired becomes Debilitated, Debilitated becomes Offline)."
+          }
+        ],
+        "risk": "On failure, the shot misses. The called targeting was too precise — no damage dealt."
+      },
+      {
+        "id": "sa_suppressive_fire",
+        "name": "Suppressive Fire",
+        "type": "action",
+        "control": "Heavy Weapons (Physique)",
+        "power": "Weapon Mount die",
+        "description": "Saturate a zone with fire to deny movement and create pressure. No direct damage — tactical zone control.",
+        "effect": [
+          {
+            "tier": 1,
+            "label": "Fleeting",
+            "range": "0–3",
+            "description": "Target zone becomes suppressed — any ship that enters or exits the zone this round presents an Opening."
+          },
+          {
+            "tier": 2,
+            "label": "Masterful",
+            "range": "4–7",
+            "description": "Target zone is suppressed. All ships in the zone gain [Suppressed] — they present an Opening if they attempt to move."
+          },
+          {
+            "tier": 3,
+            "label": "Legendary",
+            "range": "8+",
+            "description": "Target zone is suppressed. All ships in the zone gain [Suppressed] and [Disoriented] on their next action — the volume of fire disrupts targeting and coordination."
+          }
+        ],
+        "risk": "On failure, the suppression is ineffective. Ammunition is expended without tactical effect."
+      }
+    ],
+    "reactions": [
+      {
+        "id": "sr_exploit_opening",
+        "name": "Exploit Opening",
+        "type": "exploit",
+        "trigger": "Pilot's Evade reaction generates an Opening (Control 8+)",
+        "control": "Heavy Weapons (Physique)",
+        "power": "Weapon Mount die",
+        "cost": "1 Exploit pip",
+        "description": "When the Pilot's Evade generates an Opening, any Gunner with an available Exploit pip may take a reactive attack at -1 Effect Tier (default Exploit rules).",
+        "rule": "Standard Exploit — reactive attack at -1 Effect Tier. Requires Exploit pip and a weapon mount that can target the attacker (arc and range must be valid)."
+      }
+    ],
+    "gambits": [
+      {
+        "name": "Linked Fire",
+        "unlockDie": "D10",
+        "rule": "Reduce your Effect by 1 Tier. Fire a second weapon mount in the same arc as part of the same attack action. The second mount resolves at the reduced tier. Both mounts spend ammunition/power."
+      },
+      {
+        "name": "Ion Pulse",
+        "unlockDie": "D10",
+        "rule": "Reduce your Effect by 1 Tier. Instead of dealing hull damage, the attack impairs a system on the target ship. The tier determines impairment severity: Fleeting = Impaired, Masterful = Debilitated, Legendary = Offline. Only available on mounts with the Ion tag or when the Operator has applied [Jammed] to the target."
+      },
+      {
+        "name": "Overcharge",
+        "unlockDie": "D12",
+        "rule": "Reduce your Effect by 1 Tier. Step up the weapon mount's Power die for this attack. After the attack resolves, the mount gains [Disabled] — it cannot fire until the Engineer spends an action to reset the weapon."
+      },
+      {
+        "name": "Concussive Blast",
+        "unlockDie": "D10",
+        "rule": "Reduce your Effect by 1 Tier. The attack detonates in a zone-wide blast. All ships in the target's zone are affected at the reduced tier. Only available on mounts with the Ordnance tag (missiles, torpedoes)."
+      }
+    ]
+  },
+  {
+    "id": "station_operator",
+    "name": "Operator",
+    "controlDiscipline": "Tech / Investigation / Tactics",
+    "controlArena": "Wits",
+    "powerSystems": ["Sensors"],
+    "summary": "The ship's electronic warfare specialist. The Operator scans, jams, and feeds targeting data to the crew. They are the crew's eyes and ears — and the enemy's nightmare on the sensor board.",
+    "actions": [
+      {
+        "id": "sa_scan",
+        "name": "Scan",
+        "type": "action",
+        "control": "Investigation (Wits)",
+        "power": "Sensors",
+        "description": "The starship equivalent of Assess. Probe the target ship's systems, crew, and tactical disposition. Reveals information and can grant buffs to allies.",
+        "effect": [
+          {
+            "tier": 1,
+            "label": "Fleeting",
+            "range": "0–3",
+            "description": "Learn one detail about the target: general ship class, approximate Integrity, or one system status (Impaired/Offline)."
+          },
+          {
+            "tier": 2,
+            "label": "Masterful",
+            "range": "4–7",
+            "description": "Learn full system status of the target ship. Grant [Optimized] to one ally's next action against the scanned target."
+          },
+          {
+            "tier": 3,
+            "label": "Legendary",
+            "range": "8+",
+            "description": "Full system status plus crew disposition. Grant [Optimized] to all ally actions against the scanned target until end of round. Establish a target lock (required for torpedoes)."
+          }
+        ],
+        "risk": "On failure, sensor data is inconclusive. The Operator learns nothing actionable. The target may detect the active scan."
+      },
+      {
+        "id": "sa_jam",
+        "name": "Jam",
+        "type": "action",
+        "control": "Tech (Wits)",
+        "power": "Sensors",
+        "description": "Electronic attack — disrupt the target ship's sensors, communications, or targeting systems. Inflicts conditions on enemy systems.",
+        "effect": [
+          {
+            "tier": 1,
+            "label": "Fleeting",
+            "range": "0–3",
+            "description": "Target ship's Sensors are [Disoriented] until end of round — their Operator and Co-Pilot actions are stepped down."
+          },
+          {
+            "tier": 2,
+            "label": "Masterful",
+            "range": "4–7",
+            "description": "Target ship's Sensors are [Jammed] — their Operator actions automatically fail this round. Communications are disrupted."
+          },
+          {
+            "tier": 3,
+            "label": "Legendary",
+            "range": "8+",
+            "description": "Target ship's Sensors are [Jammed] and all Gunner attacks from the target ship have their Control die stepped down — targeting data is corrupted."
+          }
+        ],
+        "risk": "On failure, the jamming signal is reflected — your own Sensors are [Disoriented] until end of round."
+      },
+      {
+        "id": "sa_paint_target",
+        "name": "Paint Target",
+        "type": "action",
+        "control": "Tactics (Wits)",
+        "power": "Sensors",
+        "description": "Feed precise targeting data to a specific Gunner. The data is so precise that the Gunner's Control die is stepped up for their next attack.",
+        "effect": [
+          {
+            "tier": 1,
+            "label": "Fleeting",
+            "range": "0–3",
+            "description": "One Gunner gains [Optimized] on their next attack against the painted target."
+          },
+          {
+            "tier": 2,
+            "label": "Masterful",
+            "range": "4–7",
+            "description": "One Gunner gains [Optimized] on their next attack. Establishes a target lock (satisfies torpedo requirements)."
+          },
+          {
+            "tier": 3,
+            "label": "Legendary",
+            "range": "8+",
+            "description": "All Gunners gain [Optimized] on their next attack against the painted target. Target lock established. The targeting data is so precise it reveals one system vulnerability — the GM names one system that is already Impaired or damaged."
+          }
+        ],
+        "risk": "On failure, targeting data is unreliable. No buff granted. The active painting may alert the target to incoming ordnance."
+      }
+    ],
+    "reactions": [
+      {
+        "id": "sr_deploy_countermeasures",
+        "name": "Deploy Countermeasures",
+        "type": "reaction",
+        "trigger": "Ship is targeted by ordnance (missiles, torpedoes) or an electronic attack (Jam)",
+        "control": "Tech (Wits)",
+        "power": "Sensors",
+        "cost": "Free (defense reaction)",
+        "description": "Release chaff, flares, or electronic decoys to disrupt incoming ordnance or jam attempts. Reduces the attacker's Effect Tier by the Operator's Power die result.",
+        "rule": "Success: Power die result reduces attacker's Effect Tier against ordnance or electronic attacks. Failure: reduces by 1 Tier (minimum mitigation floor, like Endure). Countermeasure stores are finite — GM tracks depletion narratively."
+      }
+    ],
+    "gambits": [
+      {
+        "name": "Ghost Protocol",
+        "unlockDie": "D10",
+        "rule": "Reduce your Effect by 1 Tier. On a successful Jam, the target ship loses all target locks on your ship. Additionally, your ship gains concealment on sensors — the target must re-acquire before attacking with guided ordnance."
+      },
+      {
+        "name": "Slice Systems",
+        "unlockDie": "D12",
+        "rule": "Reduce your Effect by 1 Tier. On a successful Jam at Masterful+, instead of disrupting sensors, directly impair one system of the Operator's choice on the target ship. The intrusion is deep — the impairment lasts until the target's Engineer repairs it."
+      }
+    ]
+  },
+  {
+    "id": "station_engineer",
+    "name": "Engineer",
+    "controlDiscipline": "Tech",
+    "controlArena": "Wits",
+    "powerSystems": ["Shields", "Engines", "damaged system"],
+    "summary": "The ship's mechanic and damage control specialist. The Engineer keeps systems running, reinforces defenses, and reroutes power where it is needed most. They do not fire weapons — they make sure everything else works.",
+    "actions": [
+      {
+        "id": "sa_reinforce_shields",
+        "name": "Reinforce Shields",
+        "type": "action",
+        "control": "Tech (Wits)",
+        "power": "Shields",
+        "description": "Proactively boost shield output before the next hit lands. Creates a damage buffer that absorbs incoming fire.",
+        "effect": [
+          {
+            "tier": 1,
+            "label": "Fleeting",
+            "range": "0–3",
+            "description": "Ship gains [Buffered 1] — absorbs 1 point of incoming hull damage before it lands."
+          },
+          {
+            "tier": 2,
+            "label": "Masterful",
+            "range": "4–7",
+            "description": "Ship gains [Buffered 2]. The shield reinforcement is clean — no power drain to other systems."
+          },
+          {
+            "tier": 3,
+            "label": "Legendary",
+            "range": "8+",
+            "description": "Ship gains [Buffered 3]. Additionally, the shields are so overcharged that the next attack against the ship has its Effect Tier reduced by 1 (shield flare disrupts targeting)."
+          }
+        ],
+        "risk": "On failure, the shield harmonics destabilize. No buffer gained. Shields are [Disoriented] until the Engineer's next turn."
+      },
+      {
+        "id": "sa_jury_rig",
+        "name": "Jury Rig",
+        "type": "action",
+        "control": "Tech (Wits)",
+        "power": "Damaged system die (current level)",
+        "description": "Repair an impaired or offline system. The tier of success determines the duration and quality of the repair.",
+        "effect": [
+          {
+            "tier": 1,
+            "label": "Fleeting",
+            "range": "0–3",
+            "description": "Temporary fix — the system comes back online (or impairment clears by 1 step) for 1 round. At the end of the round, the system degrades back to its previous state."
+          },
+          {
+            "tier": 2,
+            "label": "Masterful",
+            "range": "4–7",
+            "description": "Solid repair — the system comes back online (or impairment clears by 1 step) for the rest of the fight. Holding together with spit and wire."
+          },
+          {
+            "tier": 3,
+            "label": "Legendary",
+            "range": "8+",
+            "description": "Permanent repair — the system is fully restored to its pre-damage state. Clean fix, no degradation. The kind of repair that should take a dock crew two hours."
+          }
+        ],
+        "risk": "On failure, the repair attempt fails. The system remains in its current state. If the system was Offline, the failed attempt may cause collateral — GM may impose [Hazard 1] on the Engineering section."
+      },
+      {
+        "id": "sa_reroute_power",
+        "name": "Reroute Power",
+        "type": "action",
+        "control": "Tech (Wits)",
+        "power": "Source system die",
+        "description": "Trade power between systems — step down one system to step up another. Tactical resource management under fire.",
+        "effect": [
+          {
+            "tier": 1,
+            "label": "Fleeting",
+            "range": "0–3",
+            "description": "Step down one system's die by 1 size. Step up another system's die by 1 size. Lasts 1 round."
+          },
+          {
+            "tier": 2,
+            "label": "Masterful",
+            "range": "4–7",
+            "description": "Step down one system's die by 1 size. Step up another system's die by 1 size. Lasts until the end of the fight or until rerouted again."
+          },
+          {
+            "tier": 3,
+            "label": "Legendary",
+            "range": "8+",
+            "description": "Step down one system's die by 1 size. Step up the target system's die by 2 sizes. Lasts until the end of the fight. The power routing is so efficient it exceeds the system's rated output."
+          }
+        ],
+        "risk": "On failure, the power transfer is unstable. The source system steps down but the target system does not step up. The imbalance persists for 1 round."
+      }
+    ],
+    "reactions": [],
+    "gambits": [
+      {
+        "name": "Emergency Bypass",
+        "unlockDie": "D10",
+        "rule": "Reduce your Effect by 1 Tier. On a Jury Rig action, the repair takes effect immediately — before any other actions resolve this round. Additionally, the repaired system gains [Empowered] for its first use after repair."
+      },
+      {
+        "name": "Overload Reactor",
+        "unlockDie": "D12",
+        "rule": "Reduce your Effect by 1 Tier. On a Reroute Power action, instead of stepping down a source system, draw directly from the reactor. The target system steps up by 2 sizes with no source penalty. However, the reactor strain means all systems take 1 step of impairment at the end of the next round if not stabilized."
+      }
+    ]
+  },
+  {
+    "id": "station_copilot",
+    "name": "Co-Pilot",
+    "controlDiscipline": "Tactics / Piloting",
+    "controlArena": "Wits / Reflex",
+    "powerSystems": ["Sensors", "Handling"],
+    "summary": "The crew's coordinator and force multiplier. The Co-Pilot does not fly the ship or fire the guns — they make everyone else better at their jobs. Navigation, tactical coordination, and crew support.",
+    "actions": [
+      {
+        "id": "sa_coordinate",
+        "name": "Coordinate",
+        "type": "action",
+        "control": "Tactics (Wits)",
+        "power": "Sensors",
+        "description": "Direct the crew's efforts, share tactical data, and synchronize actions. The starship equivalent of the Command maneuver.",
+        "effect": [
+          {
+            "tier": 1,
+            "label": "Fleeting",
+            "range": "0–3",
+            "description": "Grant [Optimized] to one crew member's next action this round."
+          },
+          {
+            "tier": 2,
+            "label": "Masterful",
+            "range": "4–7",
+            "description": "Grant [Optimized] to one crew member and [Empowered] to a different crew member for their next actions this round."
+          },
+          {
+            "tier": 3,
+            "label": "Legendary",
+            "range": "8+",
+            "description": "Grant [Optimized] and [Empowered] to all crew members for their next actions this round. The coordination is seamless."
+          }
+        ],
+        "risk": "On failure, the coordination is muddled. No buffs granted. One crew member (GM's choice) has their next action [Disoriented] from conflicting instructions."
+      },
+      {
+        "id": "sa_assist_pilot",
+        "name": "Assist Pilot",
+        "type": "action",
+        "control": "Piloting (Reflex)",
+        "power": "Handling",
+        "description": "Directly support the Pilot's actions — managing secondary controls, calling out vectors, or taking the stick for repositioning.",
+        "effect": [
+          {
+            "tier": 1,
+            "label": "Fleeting",
+            "range": "0–3",
+            "description": "Pilot gains [Optimized] on their next action or Evade reaction this round."
+          },
+          {
+            "tier": 2,
+            "label": "Masterful",
+            "range": "4–7",
+            "description": "Pilot gains [Optimized] and [Empowered] on their next action or Evade reaction this round."
+          },
+          {
+            "tier": 3,
+            "label": "Legendary",
+            "range": "8+",
+            "description": "Pilot gains [Optimized] and [Empowered]. Additionally, the ship may reposition 1 zone as a free movement without requiring a Pilot action."
+          }
+        ],
+        "risk": "On failure, the assistance is counterproductive. The Pilot's next action suffers [Disoriented] from conflicting control inputs."
+      },
+      {
+        "id": "sa_plot_course",
+        "name": "Plot Course",
+        "type": "action",
+        "control": "Tactics (Wits)",
+        "power": "Sensors",
+        "description": "Calculate navigation solutions — hyperspace jumps, escape routes, or optimal approach vectors.",
+        "effect": [
+          {
+            "tier": 1,
+            "label": "Fleeting",
+            "range": "0–3",
+            "description": "Rough hyperspace calculation — jump is possible but imprecise. The GM may impose a navigation complication on arrival."
+          },
+          {
+            "tier": 2,
+            "label": "Masterful",
+            "range": "4–7",
+            "description": "Clean hyperspace calculation — jump is ready when the Pilot calls for it. No complications. Alternatively, identify one optimal escape route that grants +1 Tier to the next Break Away."
+          },
+          {
+            "tier": 3,
+            "label": "Legendary",
+            "range": "8+",
+            "description": "Perfect calculation — jump is ready, route is optimal, and the exit vector is calculated to emerge exactly where needed. Alternatively, identify a tactical approach that grants all crew [Optimized] for the next round."
+          }
+        ],
+        "risk": "On failure, the calculation is flawed. A hyperspace jump with a flawed calculation risks a navigation hazard — the GM determines severity."
+      }
+    ],
+    "reactions": [
+      {
+        "id": "sr_call_the_shot",
+        "name": "Call the Shot",
+        "type": "reaction",
+        "trigger": "An ally's action generates an Opening",
+        "control": "Tactics (Wits)",
+        "power": "Sensors",
+        "cost": "Free (reaction)",
+        "description": "When any crew action creates an Opening, the Co-Pilot calls out the perfect moment. Grant [Empowered] to the ally who exploits the Opening.",
+        "rule": "When an Opening is generated by any crew action (Pilot's Evade 8+, Suppressive Fire, etc.), the Co-Pilot may use this reaction to grant [Empowered] to the Exploit attack made by any crew member acting on the Opening."
+      }
+    ],
+    "gambits": [
+      {
+        "name": "Concentrate Fire",
+        "unlockDie": "D10",
+        "rule": "Reduce your Effect by 1 Tier. On a Coordinate action, instead of granting buffs, all Gunners who attack the same target this round gain +1 Effect Tier on their attacks. The targeting data is synchronized — every shot hits the same weak point."
+      },
+      {
+        "name": "Plot Escape",
+        "unlockDie": "D10",
+        "rule": "Reduce your Effect by 1 Tier. On a Plot Course action, the escape calculation is immediate — if the Pilot uses Break Away this round, the Break Away automatically succeeds at Masterful regardless of the roll. The Co-Pilot has already done the math."
+      },
+      {
+        "name": "Battle Meditation",
+        "unlockDie": "D12",
+        "rule": "Reduce your Effect by 1 Tier. On a Coordinate action at Masterful+, all crew members gain +1 Effect Tier on their next action this round in addition to any buffs granted. The coordination transcends instruction — the crew moves as one. Once per scene."
+      }
+    ]
+  }
+]
