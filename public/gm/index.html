@@ -920,7 +920,7 @@
     container.innerHTML = tokens.map(function (t, idx) {
       const isDark = t.side === 'toll';
       const tappedCls = t.tapped ? ' is-tapped' : '';
-      const label = t.side + (t.tapped ? ' (tapped)' : '');
+      const label = t.side + (t.tapped ? ' (tapped — right-click to untap)' : '');
       return '<div class="gm-destiny-token' + (isDark ? ' is-dark' : '') + tappedCls + '" data-index="' + idx + '" title="Click to flip — ' + label + '">' +
         '<div class="force-token-inner">' +
           '<div class="force-token-face force-token-front"></div>' +
@@ -933,6 +933,11 @@
       el.addEventListener('click', function () {
         const index = parseInt(el.dataset.index, 10);
         if (socket) socket.emit('destiny:flip', { index: index });
+      });
+      el.addEventListener('contextmenu', function (e) {
+        e.preventDefault();
+        const index = parseInt(el.dataset.index, 10);
+        if (socket) socket.emit('destiny:untap-one', { index: index });
       });
     });
 

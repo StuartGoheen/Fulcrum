@@ -168,6 +168,21 @@ function registerHandlers(io) {
       console.log(`[socket] Token ${index} tapped by ${role} (${socket.data.characterName || socket.id})`);
     });
 
+    socket.on('destiny:untap-one', ({ index }) => {
+      if (socket.data.role !== 'gm') {
+        socket.emit('error', { message: 'Only the GM can untap destiny tokens.' });
+        return;
+      }
+      if (!Number.isInteger(index)) return;
+      const pool = getDestinyPool();
+      if (index < 0 || index >= pool.length) return;
+      if (!pool[index].tapped) return;
+      pool[index].tapped = false;
+      saveDestinyPool(pool);
+      io.emit('destiny:sync', { pool });
+      console.log(`[socket] GM untapped token ${index}`);
+    });
+
     socket.on('destiny:untap', () => {
       if (socket.data.role !== 'gm') {
         socket.emit('error', { message: 'Only the GM can untap destiny tokens.' });
