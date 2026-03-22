@@ -1329,5 +1329,475 @@
       "Common",
       "Legal"
     ]
+  },
+  {
+    "id": "gear_ryll_spice_01",
+    "name": "Ryll Spice",
+    "category": "contraband",
+    "categoryLabel": "Contraband",
+    "description": "Raw ryll — a coarse amber powder processed from fungal deposits on Ryloth. Cheap, abundant, and the universal currency of the Outer Rim underworld. A pouch of ryll opens doors in cantinas, pays off docking bay attendants, and greases the kind of conversations that credits alone won't start. Medicinal in small doses. Recreational in larger ones. Addictive either way.",
+    "cost": 100,
+    "availability": "2/R",
+    "traits": [
+      {
+        "name": "Underworld Currency",
+        "description": "Ryll is accepted as payment or barter in most underworld dealings where hard credits might draw suspicion. Offering ryll during social encounters with criminal contacts, addicts, or corrupt officials may reduce resistance or unlock cooperation at GM discretion."
+      }
+    ],
+    "gambits": [],
+    "tags": [
+      "Contraband",
+      "Consumable",
+      "Restricted",
+      "Narcotic",
+      "Black Market"
+    ]
+  },
+  {
+    "id": "gear_death_sticks_01",
+    "name": "Death Sticks",
+    "category": "contraband",
+    "categoryLabel": "Contraband",
+    "description": "Slim translucent tubes filled with processed Ixetal Cilona extract. Snap the seal, inhale, and the galaxy gets warm and soft for about twenty minutes. Wildly addictive and genuinely toxic — repeated use deteriorates cognitive function permanently. Nobody with anything to lose touches them. But in the lowest cantinas on the lowest levels, a handful of death sticks buys you conversation with people who won't talk to anyone else.",
+    "cost": 50,
+    "availability": "3/X",
+    "traits": [
+      {
+        "name": "Bottom Rung Access",
+        "description": "Offering death sticks during social encounters with low-level criminals, addicts, street contacts, or desperate informants may open conversations that credits or reputation cannot. The user must actually share or distribute the product — merely possessing it is not sufficient."
+      }
+    ],
+    "gambits": [],
+    "tags": [
+      "Contraband",
+      "Consumable",
+      "Illegal",
+      "Narcotic",
+      "Black Market"
+    ]
+  },
+  {
+    "id": "gear_customs_holoseal_01",
+    "name": "Customs Holoseal",
+    "category": "contraband",
+    "categoryLabel": "Contraband",
+    "description": "A forged Imperial Customs holographic seal — a thin adhesive disc that projects an authentic-looking clearance hologram when scanned. Slap one on a cargo container and it reads as pre-inspected and approved for transit. The forgery is good enough to pass routine dock scans. A dedicated customs officer running a manual verification will catch it, but most port authorities don't bother.",
+    "cost": 500,
+    "availability": "2/R",
+    "traits": [
+      {
+        "name": "Forged Clearance",
+        "description": "When applied to a cargo container or shipping crate, the holoseal bypasses routine automated customs scans without a roll. Manual inspection by a customs officer or Imperial agent still requires a Deception or Con check to maintain the cover story. Single use — the seal is consumed on application."
+      }
+    ],
+    "gambits": [],
+    "tags": [
+      "Contraband",
+      "Consumable",
+      "Restricted",
+      "Smuggling",
+      "Black Market"
+    ]
+  },
+  {
+    "id": "gear_sleight_box_01",
+    "name": "Sleight Box",
+    "category": "contraband",
+    "categoryLabel": "Contraband",
+    "description": "A smuggler's shipping container rigged with internal repulsor baffles and mass-distribution plates. Load contraband inside and the box reads as a different weight on cargo scales — lighter, heavier, or distributed to mimic legitimate goods. Won't fool a physical search, but it defeats the automated mass-scanners that most ports rely on for flagging suspicious cargo.",
+    "cost": 750,
+    "availability": "3/X",
+    "traits": [
+      {
+        "name": "Mass Falsification",
+        "description": "Cargo stored in a Sleight Box registers as a different weight and mass distribution on automated cargo scanners. This defeats weight-based contraband flagging without a roll. Physical searches, chemical sniffers, or sensor-shielded scanners are unaffected. Holds up to 100 kilograms of actual cargo."
+      }
+    ],
+    "gambits": [],
+    "tags": [
+      "Contraband",
+      "Illegal",
+      "Smuggling",
+      "Black Market"
+    ]
+  },
+  {
+    "id": "gear_sensor_shielded_storage_01",
+    "name": "Sensor-Shielded Storage Compartment",
+    "category": "contraband",
+    "categoryLabel": "Contraband",
+    "description": "A hidden compartment lined with sensor-baffling material — the same tech the Hutts use in their sail barges and the Empire uses in intelligence courier ships. Install it in a vessel's hull and its contents become invisible to standard sensor sweeps. The personal version fits in a cargo hold; the ship-scale installation requires a technician and a dry dock.",
+    "cost": 500,
+    "availability": "3/X",
+    "traits": [
+      {
+        "name": "Sensor Baffle",
+        "description": "Contents stored inside are invisible to standard sensor sweeps and cargo scanners. Military-grade deep-penetration scans may detect the shielding itself (not the contents) at GM discretion. Personal version holds a single crate worth of goods. Ship-scale installation (8,000cr) conceals an entire hidden cargo bay."
+      }
+    ],
+    "gambits": [],
+    "tags": [
+      "Contraband",
+      "Illegal",
+      "Smuggling",
+      "Black Market"
+    ]
+  },
+  {
+    "id": "gear_surveillance_pod_01",
+    "name": "Surveillance Pod",
+    "category": "surveillance",
+    "categoryLabel": "Surveillance",
+    "description": "A fist-sized autonomous sensor unit with audio pickup, visual recording, and short-range burst transmission. Plant it in a room, a corridor, or mag-clamp it to the underside of a speeder. It records continuously and transmits compressed data packets to a paired receiver at timed intervals. Military-grade optics in a civilian-looking housing. The kind of gear that intelligence agencies deny owning.",
+    "cost": 8000,
+    "availability": "2/R",
+    "traits": [
+      {
+        "name": "Autonomous Surveillance",
+        "description": "Once placed, the pod records audio and visual data continuously for up to 72 hours. Data is burst-transmitted to a paired receiver every 15 minutes (range: 1 kilometer, or city-wide with HoloNet relay). The pod operates autonomously — no active monitoring required. Detection requires a deliberate search of the area."
+      }
+    ],
+    "gambits": [],
+    "tags": [
+      "Surveillance",
+      "Restricted",
+      "Tech",
+      "Black Market"
+    ]
+  },
+  {
+    "id": "gear_ear_eavesdropping_01",
+    "name": "\"EAR\" Eavesdropping Unit",
+    "category": "surveillance",
+    "categoryLabel": "Surveillance",
+    "description": "A thumbnail-sized adhesive audio transmitter paired with a compact wrist-mounted receiver. Stick the bug under a table, behind a light panel, or inside a comlink casing. Everything said within five meters is transmitted live to the receiver up to 500 meters away. Imperial Intelligence calls it the \"Extended Audio Receiver.\" Everyone else just calls it an ear.",
+    "cost": 750,
+    "availability": "2/R",
+    "traits": [
+      {
+        "name": "Audio Bug",
+        "description": "The transmitter picks up all conversation within 5 meters and relays it live to the paired wrist receiver (range: 500 meters, line of sight not required). Lasts 48 hours on internal power. Detection requires a deliberate sweep of the area or a scanner capable of picking up micro-frequency transmissions."
+      }
+    ],
+    "gambits": [],
+    "tags": [
+      "Surveillance",
+      "Restricted",
+      "Tech",
+      "Black Market"
+    ]
+  },
+  {
+    "id": "gear_comm_scanner_01",
+    "name": "Comm Scanner",
+    "category": "surveillance",
+    "categoryLabel": "Surveillance",
+    "description": "A handheld frequency-sweeping receiver that intercepts unencrypted comlink transmissions within a two-kilometer radius. Tune it to a frequency and listen in. Cycle through bands and hear everything — port authority chatter, security patrol check-ins, smuggler coordination channels. Encrypted Imperial military channels are beyond it, but most civilian and commercial traffic is wide open.",
+    "cost": 2500,
+    "availability": "2/R",
+    "traits": [
+      {
+        "name": "Signal Intercept",
+        "description": "Intercepts unencrypted comlink transmissions within a 2-kilometer radius. The user can lock onto a specific frequency or sweep across bands. Encrypted channels (military, Imperial command, high-security corporate) cannot be intercepted. Identifying a specific transmission among heavy traffic may require an Assess action at GM discretion."
+      }
+    ],
+    "gambits": [],
+    "tags": [
+      "Surveillance",
+      "Restricted",
+      "Tech",
+      "Black Market"
+    ]
+  },
+  {
+    "id": "gear_subspace_beacon_01",
+    "name": "Subspace Tracking Beacon",
+    "category": "surveillance",
+    "categoryLabel": "Surveillance",
+    "description": "A palm-sized magnetic transponder designed to attach to a ship's hull. Once activated, the beacon broadcasts a subspace ping at regular intervals — trackable across star systems by anyone with the paired receiver frequency. Bounty hunters plant them on targets' ships. Crime lords plant them on their own ships in case of theft. The Empire plants them on everything.",
+    "cost": 5000,
+    "availability": "3/X",
+    "traits": [
+      {
+        "name": "Hyperspace Tracker",
+        "description": "When magnetically attached to a ship's hull, broadcasts a subspace tracking signal at timed intervals. The signal is trackable across systems using the paired receiver. Operates for approximately one standard month on internal power. Detection requires a thorough external hull inspection or a dedicated counter-surveillance sweep of the ship's sensor profile."
+      }
+    ],
+    "gambits": [],
+    "tags": [
+      "Surveillance",
+      "Illegal",
+      "Tech",
+      "Black Market"
+    ]
+  },
+  {
+    "id": "gear_crab_tracer_01",
+    "name": "Crab Tracer",
+    "category": "surveillance",
+    "categoryLabel": "Surveillance",
+    "description": "A self-guided micro-tracker the size of a credit chit. Activate it near a target — person, vehicle, or container — and six articulated legs carry it to the nearest surface and clamp on. It transmits location data via HoloNet burst packets to a designated receiver address. Nearly impossible to find without knowing exactly what you're looking for. The legs retract flush against the body once attached.",
+    "cost": 3000,
+    "availability": "3/X",
+    "traits": [
+      {
+        "name": "Self-Guiding Tracker",
+        "description": "Once activated within short range of a target, the tracer autonomously attaches itself to the nearest viable surface on the designated target. Transmits location data via HoloNet burst to a paired receiver — range is effectively unlimited as long as HoloNet access exists. Internal power lasts approximately two standard weeks. Detection requires a focused counter-surveillance sweep."
+      }
+    ],
+    "gambits": [],
+    "tags": [
+      "Surveillance",
+      "Illegal",
+      "Tech",
+      "Black Market"
+    ]
+  },
+  {
+    "id": "gear_slave_collar_01",
+    "name": "Slave Collar",
+    "category": "contraband",
+    "categoryLabel": "Contraband",
+    "description": "A heavy durasteel collar fitted with an integrated electroshock mechanism and a paired handheld director unit. The collar delivers incapacitating shocks on command — or automatically if the wearer moves beyond a preset range from the director. Standard equipment in Zygerrian slaving operations and Hutt labor camps. Possession alone is a capital offense in Republic-legacy systems. Out here, nobody asks.",
+    "cost": 10000,
+    "availability": "3/X",
+    "traits": [
+      {
+        "name": "Compliance Device",
+        "description": "The director unit can trigger an electroshock at any time, inflicting [Stunned] on the wearer. If the wearer moves beyond the preset range (configurable, up to 100 meters), the shock triggers automatically. Removing the collar without the director unit's release code requires a Mechanics check and risks triggering a lethal-intensity discharge."
+      }
+    ],
+    "gambits": [],
+    "tags": [
+      "Contraband",
+      "Illegal",
+      "Restraint",
+      "Black Market"
+    ]
+  },
+  {
+    "id": "gear_fingerprint_masque_01",
+    "name": "Fingerprint Masque",
+    "category": "infiltration",
+    "categoryLabel": "Infiltration",
+    "description": "A pair of thin dermal gloves that bond to the wearer's fingertips at the cellular level, rewriting their fingerprint pattern to match a pre-loaded biometric profile. Apply them, wait sixty seconds for the cellular bonding to set, and every scanner in the galaxy reads you as someone else. The masque lasts approximately twelve hours before the cellular bond degrades and the wearer's natural prints reassert.",
+    "cost": 15000,
+    "availability": "4/X",
+    "traits": [
+      {
+        "name": "Biometric Forgery (Fingerprint)",
+        "description": "While active (approximately 12 hours), the wearer's fingerprints match a pre-loaded biometric profile. All fingerprint scanners, identity terminals, and biometric checkpoints read the forged identity. Requires a valid biometric profile to load — the masque does not generate fake prints, it replicates real ones. Single use."
+      }
+    ],
+    "gambits": [],
+    "tags": [
+      "Infiltration",
+      "Illegal",
+      "Consumable",
+      "Biometric",
+      "Black Market"
+    ]
+  },
+  {
+    "id": "gear_retinal_disguiser_01",
+    "name": "Retinal Disguiser",
+    "category": "infiltration",
+    "categoryLabel": "Infiltration",
+    "description": "A set of micro-thin contact lenses that project a false retinal pattern over the wearer's natural one. The most expensive piece of infiltration gear on the black market for a reason — retinal scans are the gold standard of Imperial biometric security. With a valid retinal profile loaded, these lenses defeat every civilian and military-grade retinal scanner currently deployed. The lenses degrade after a single use cycle.",
+    "cost": 25000,
+    "availability": "4/X",
+    "traits": [
+      {
+        "name": "Biometric Forgery (Retinal)",
+        "description": "While worn, the wearer's retinal pattern matches a pre-loaded biometric profile. Defeats all standard retinal scanners including Imperial military-grade checkpoints. Requires a valid retinal profile to load. Lenses degrade after approximately 8 hours or one scan cycle, whichever comes first. Single use."
+      }
+    ],
+    "gambits": [],
+    "tags": [
+      "Infiltration",
+      "Illegal",
+      "Consumable",
+      "Biometric",
+      "Black Market"
+    ]
+  },
+  {
+    "id": "gear_unitech_patch_01",
+    "name": "Unitech \"Patch\" Interface Bridge",
+    "category": "tech",
+    "categoryLabel": "Tech",
+    "description": "A universal cross-architecture adapter that bridges incompatible computer systems, droid architectures, and data formats. Plug one end into an Imperial terminal and the other into a Separatist-era droid brain and the Patch translates between them in real time. Designed by Unitech for corporate system integration work. Outlaw techs discovered it's equally useful for connecting things that were never meant to talk to each other.",
+    "cost": 5200,
+    "availability": "2/R",
+    "traits": [
+      {
+        "name": "Universal Bridge",
+        "description": "Allows data transfer, slicing, and interface actions between incompatible system architectures — different manufacturers, eras, or encryption standards. Without a Patch or equivalent bridge, cross-architecture operations are impossible regardless of skill. The bridge translates in real time but does not bypass security — it simply makes the connection possible."
+      }
+    ],
+    "gambits": [],
+    "tags": [
+      "Tech",
+      "Restricted",
+      "Slicing",
+      "Black Market"
+    ]
+  },
+  {
+    "id": "gear_andris_white_spice_01",
+    "name": "Andris White Spice",
+    "category": "contraband",
+    "categoryLabel": "Contraband",
+    "description": "Crystalline white powder refined from raw Kessel spice. Andris floods the sensory cortex — colors sharpen, sounds resolve into layers, micro-expressions become obvious. Military scouts dose before recon. Sabacc sharks dose before the final table. The cost is simple: while your brain is processing everything at maximum fidelity, your body forgets how to absorb punishment.",
+    "cost": 500,
+    "availability": "3/R",
+    "traits": [
+      {
+        "name": "Heightened Processing",
+        "description": "After ingestion (scene duration), gain [Optimized] on Assess maneuvers made with Insight or Investigation, and on the Join Battle maneuver. While under the effect, Arena Traumas soak 1 Vitality instead of the normal 2. One dose per scene. Addictive with repeated use at GM discretion."
+      }
+    ],
+    "gambits": [],
+    "tags": [
+      "Contraband",
+      "Consumable",
+      "Restricted",
+      "Narcotic",
+      "Black Market"
+    ]
+  },
+  {
+    "id": "gear_carsunum_black_spice_01",
+    "name": "Carsunum Black Spice",
+    "category": "contraband",
+    "categoryLabel": "Contraband",
+    "description": "Jet-black crystalline powder mined from the deepest caverns of Sevarcos. Carsunum doesn't sharpen one system — it overclocks everything. Reflexes, cognition, raw physical output. For a few hours, every action you take lands like you meant it. When the effect collapses, it takes pieces of you with it.",
+    "cost": 1000,
+    "availability": "4/X",
+    "traits": [
+      {
+        "name": "Total Override",
+        "description": "After ingestion (a few hours, GM discretion), every successful action is treated as at least Masterful — the Power result resolves as 8+ minimum, granting +1 Effect tier above Fleeting baseline. Natural Masterful or higher results are unaffected. When the effect ends, gain [Weakened] on all Power die rolls for a duration matching the enhanced period. Take 1 automatic Vitality damage per hour enhanced (no soak). Force-sensitive characters lose access to Force maneuvers for the full duration. Extremely addictive."
+      }
+    ],
+    "gambits": [],
+    "tags": [
+      "Contraband",
+      "Consumable",
+      "Illegal",
+      "Narcotic",
+      "Black Market"
+    ]
+  },
+  {
+    "id": "gear_glitterstim_01",
+    "name": "Glitterstim",
+    "category": "contraband",
+    "categoryLabel": "Contraband",
+    "description": "Sealed in slim black cylinders to protect the light-sensitive fibers within. Crack the seal, expose it to light, and the translucent strands glow pearlescent blue. Dissolve them on your tongue. For a brief, terrifying window, you can read the surface thoughts of anyone in the room. The most expensive spice in the galaxy. One hit and you understand why the Pyke Syndicate kills to control the supply.",
+    "cost": 6000,
+    "availability": "4/X",
+    "traits": [
+      {
+        "name": "Surface Telepathy",
+        "description": "After ingestion (one scene), Assess actions targeting sentient characters may include questions about surface thoughts and immediate intent — a category of information normally inaccessible. The roll and information economy function as normal; Glitterstim simply opens another book to ask questions from. On failure, the telepathic noise is too dense to parse. Force-sensitive targets feel the intrusion automatically. When the effect fades, gain [Disoriented] for the remainder of the scene. Single use. Extremely addictive."
+      }
+    ],
+    "gambits": [],
+    "tags": [
+      "Contraband",
+      "Consumable",
+      "Illegal",
+      "Narcotic",
+      "Black Market"
+    ]
+  },
+  {
+    "id": "gear_peer_snooper_goggles_01",
+    "name": "Peer Snooper Goggles",
+    "category": "surveillance",
+    "categoryLabel": "Surveillance",
+    "description": "Bulky low-profile goggles with layered optical filters — low-light amplification, infrared overlay, and 4x magnification. Originally designed for Corporate Sector security teams running night operations. Fell off a lot of transports. Half the bounty hunters on the Rim wear a pair pushed up on their foreheads.",
+    "cost": 300,
+    "availability": "2/X",
+    "traits": [
+      {
+        "name": "Night Eyes",
+        "description": "While worn, negate any increased Risk or narrative restrictions imposed by darkness, low-light, or obscured visibility. Extends effective observation range for Assess and ranged targeting to Long range in any lighting condition. Sudden bright flashes while in low-light mode inflict [Disoriented] — Immediate — as the amplifiers overload."
+      }
+    ],
+    "gambits": [],
+    "tags": [
+      "Surveillance",
+      "Illegal",
+      "Tech",
+      "Black Market"
+    ]
+  },
+  {
+    "id": "gear_veridicator_01",
+    "name": "Veridicator",
+    "category": "surveillance",
+    "categoryLabel": "Surveillance",
+    "description": "A palm-sized biometric scanner that reads pulse, respiration, galvanic skin response, and micro-expression patterns within a five-meter arc. Point it at someone during a conversation and the readout tells you whether they believe what they're saying. Imperial Intelligence developed it for interrogation rooms. Somehow, units keep ending up in the hands of fixers, lawyers, and very paranoid crime lords.",
+    "cost": 4000,
+    "availability": "4/R",
+    "traits": [
+      {
+        "name": "Truth Reader",
+        "description": "While active during conversation, the device's biometric readouts reinforce visual cues on an Assess (Insight) action. On success, the user immediately knows whether the target is being Deceptive or Truthful — not whether they are lying about a specific subject, but whether they are guarding their words or protective of information. If the target is actively resisting (aware of observation, trained in counter-interrogation), their Resolve reduces the Power result as normal — but the Deceptive/Truthful binary is delivered regardless of the final effect tier, as long as the Assess succeeds. Does not function on droids or species without standard biorhythms."
+      }
+    ],
+    "gambits": [],
+    "tags": [
+      "Surveillance",
+      "Restricted",
+      "Tech",
+      "Black Market"
+    ]
+  },
+  {
+    "id": "gear_jammer_pack_01",
+    "name": "Jammer Pack",
+    "category": "tech",
+    "categoryLabel": "Tech",
+    "description": "A heavy backpack-mounted broadband noise generator. Flip the switch and every comlink within a hundred and fifty meters goes dead — nothing but screaming static across all frequencies. Security channels, encrypted military bands, civilian calls. In that silence, nobody can call for backup.",
+    "cost": 1050,
+    "availability": "4/X",
+    "traits": [
+      {
+        "name": "Comms Blackout",
+        "description": "When activated, all comlink transmissions within the area are blocked — no outgoing calls, no incoming signals, no distress beacons. Any NPC attempting to call reinforcements, trigger a remote alarm, or coordinate a tactical response automatically fails. Allies are equally jammed unless using hardline or physical-contact communication. Does not affect sensor sweeps. Requires the pack to be worn and powered (occupies the back slot). Single action to activate or deactivate."
+      }
+    ],
+    "gambits": [],
+    "tags": [
+      "Tech",
+      "Illegal",
+      "Electronic",
+      "Black Market"
+    ]
+  },
+  {
+    "id": "gear_lock_breaking_kit_01",
+    "name": "Lock Breaking Kit",
+    "category": "tech",
+    "categoryLabel": "Tech",
+    "description": "A hardcase the size of a datapad containing a frequency scanner, magnetic pulse emitter, and a rack of adaptive code cylinders. Designed to defeat electronic locks, mag-seals, and coded entryways. The kit reads the lock's cycling frequency, generates a matching pulse, and convinces the mechanism it just received a valid code cylinder.",
+    "cost": 8000,
+    "availability": "4/X",
+    "traits": [
+      {
+        "name": "Code Breaker",
+        "description": "Required to attempt bypassing high-grade electronic locks, mag-seals, and coded security doors that cannot be defeated with improvised tools. Roll the Skulduggery or Security action normally. The kit's adaptive cylinders are consumed on use against the highest-grade locks (one cylinder per attempt, kit holds 3)."
+      }
+    ],
+    "gambits": [],
+    "tags": [
+      "Tech",
+      "Illegal",
+      "Infiltration",
+      "Black Market"
+    ]
   }
 ]
