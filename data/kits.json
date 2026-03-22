@@ -1205,7 +1205,7 @@
           "[Combat]",
           "[Narrative]"
         ],
-        "rule": "When piloting a vehicle or starship, you may use Piloting (Reflex) in place of Evasion for any defense roll against incoming fire, collisions, or environmental hazards. You treat ship-scale weapons the same as personal weapons for the purpose of resolving your defense — you dodge with the ship, not your body. Additionally, on a successful Join Battle while piloting, you may immediately reposition your vehicle one zone."
+        "rule": "When firing pilot-controlled ship weapons (forward cannons, linked guns, turret you're manning), you may use Piloting (Reflex) in place of Heavy Weapons (Physique) for the attack roll — you aim with the ship, not the gun. Additionally, when you score 8+ on your Join Battle roll while piloting, you may immediately take one Piloting maneuver before the first round begins."
       },
       {
         "id": "voc_ace_t2",
