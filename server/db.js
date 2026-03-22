@@ -2,10 +2,8 @@ const Database = require('better-sqlite3');
 const path     = require('path');
 const fs       = require('fs');
 
-const DB_PATH        = path.join(__dirname, '..', 'db', 'campaign.db');
-const SEED_PATH      = path.join(__dirname, '..', 'data', 'characters.seed.json');
-const TEST_CHAR_PATH = path.join(__dirname, '..', 'data', 'character-test.json');
-const PREGENS_PATH   = path.join(__dirname, '..', 'data', 'characters-pregens.json');
+const DB_PATH      = path.join(__dirname, '..', 'db', 'campaign.db');
+const PREGENS_PATH = path.join(__dirname, '..', 'data', 'characters-pregens.json');
 
 const db = new Database(DB_PATH);
 
@@ -72,45 +70,6 @@ if (!existingCols.includes('character_data')) {
   console.log('[db] Added character_data column to characters');
 }
 
-function seedCharacters() {
-  const count = db.prepare('SELECT COUNT(*) as c FROM characters').get().c;
-  if (count > 0) return;
-
-  const seed = JSON.parse(fs.readFileSync(SEED_PATH, 'utf8'));
-  const insert = db.prepare(
-    'INSERT INTO characters (name, slot_index) VALUES (@name, @slot_index)'
-  );
-
-  const insertMany = db.transaction((characters) => {
-    for (const char of characters) insert.run(char);
-  });
-
-  insertMany(seed.characters);
-  console.log(`[db] Seeded ${seed.characters.length} character slots.`);
-}
-
-function seedTestCharacter() {
-  if (!fs.existsSync(TEST_CHAR_PATH)) return;
-
-  const testChar = JSON.parse(fs.readFileSync(TEST_CHAR_PATH, 'utf8'));
-  const dataStr = JSON.stringify(testChar);
-  const existing = db.prepare('SELECT id, character_data FROM characters WHERE name = ?').get(testChar.name);
-
-  if (existing) {
-    if (existing.character_data !== dataStr) {
-      db.prepare('UPDATE characters SET character_data = ? WHERE id = ?')
-        .run(dataStr, existing.id);
-      console.log(`[db] Updated test character data: ${testChar.name}`);
-    }
-    return;
-  }
-
-  const maxSlot = db.prepare('SELECT MAX(slot_index) as m FROM characters').get().m || 0;
-  db.prepare('INSERT INTO characters (name, slot_index, character_data) VALUES (?, ?, ?)')
-    .run(testChar.name, maxSlot + 1, dataStr);
-  console.log(`[db] Seeded test character: ${testChar.name}`);
-}
-
 function seedPregenCharacters() {
   if (!fs.existsSync(PREGENS_PATH)) return;
 
@@ -139,8 +98,6 @@ function seedPregenCharacters() {
   if (seeded > 0) console.log(`[db] Seeded ${seeded} pre-gen character(s).`);
 }
 
-seedCharacters();
-seedTestCharacter();
 seedPregenCharacters();
 
 module.exports = db;
