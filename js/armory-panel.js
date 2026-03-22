@@ -398,14 +398,26 @@
     );
   }
 
-  function _buildAmmoBar(clipSize) {
+  function _getAmmo(weaponId, clipSize) {
+    try {
+      var stored = localStorage.getItem('ammo_' + weaponId);
+      if (stored !== null) {
+        var val = parseFloat(stored);
+        if (!isNaN(val)) return val;
+      }
+    } catch(e) {}
+    return clipSize;
+  }
+
+  function _buildAmmoBar(clipSize, weaponId) {
     if (!clipSize || clipSize <= 0) return '';
     var SEGS = 8;
-    var pct = 100;
+    var currentAmmo = weaponId ? _getAmmo(weaponId, clipSize) : clipSize;
+    var pct = Math.max(0, Math.min(100, Math.round((currentAmmo / clipSize) * 100)));
     var filled = Math.round((pct / 100) * SEGS);
     var segColor = pct >= 75 ? '#22c55e' : (pct >= 30 ? '#f59e0b' : '#ef4444');
     var glowColor = pct >= 75 ? '#22c55e40' : (pct >= 30 ? '#f59e0b40' : '#ef444440');
-    var currentAmmo = Math.round((pct / 100) * clipSize);
+    currentAmmo = Math.round(currentAmmo * 10) / 10;
     var html = '<div class="wpn-ammo-bar" data-clip-size="' + _esc(String(clipSize)) + '" data-ammo-pct="' + pct + '" title="' + currentAmmo + ' / ' + clipSize + ' charges">';
     for (var i = 0; i < SEGS; i++) {
       if (i < filled) {
@@ -567,7 +579,7 @@
         _dieImg(arenaDie) +
       '</div>';
 
-    var ammoBarHtml = _buildAmmoBar(weapon.clipSize);
+    var ammoBarHtml = _buildAmmoBar(weapon.clipSize, weapon.id);
 
     var dropBtnHtml = weapon.innate ? '' :
       '<div class="armory-item-actions">' +
@@ -976,6 +988,33 @@
 
         document.addEventListener('character:stateChanged', doRender);
         document.addEventListener('effects:changed',        doRender);
+
+        document.addEventListener('ammo-changed', function (e) {
+          var d = e.detail;
+          if (!d) return;
+          var panel = document.getElementById('panel-2');
+          if (!panel) return;
+          var cards = panel.querySelectorAll('.armory-weapon-card[data-weapon-id="' + d.weaponId + '"]');
+          for (var i = 0; i < cards.length; i++) {
+            var bar = cards[i].querySelector('.wpn-ammo-bar');
+            if (!bar) continue;
+            var SEGS = 8;
+            var pct = d.clipSize > 0 ? Math.max(0, Math.min(100, Math.round((d.current / d.clipSize) * 100))) : 0;
+            var filled = Math.round((pct / 100) * SEGS);
+            var segColor = pct >= 75 ? '#22c55e' : (pct >= 30 ? '#f59e0b' : '#ef4444');
+            var glowColor = pct >= 75 ? '#22c55e40' : (pct >= 30 ? '#f59e0b40' : '#ef444440');
+            var segsHtml = '';
+            for (var s = 0; s < SEGS; s++) {
+              segsHtml += s < filled
+                ? '<div class="wpn-ammo-seg" style="background:' + segColor + ';box-shadow:0 0 4px ' + glowColor + ';"></div>'
+                : '<div class="wpn-ammo-seg wpn-ammo-seg-empty"></div>';
+            }
+            var disp = Math.round(d.current * 10) / 10;
+            bar.setAttribute('data-ammo-pct', pct);
+            bar.title = disp + ' / ' + d.clipSize + ' charges';
+            bar.innerHTML = segsHtml;
+          }
+        });
       }
       tryRender();
     })

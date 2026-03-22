@@ -906,6 +906,7 @@
       var next  = Math.max(0, Math.round((current - drain) * 10) / 10);
       _setAmmo(wId, next);
       _refreshAmmoBar(fc.closest('.armory-weapon-card'), next, cs);
+      document.dispatchEvent(new CustomEvent('ammo-changed', { detail: { weaponId: wId, current: next, clipSize: cs } }));
       return;
     }
 
@@ -918,6 +919,7 @@
       var cs  = parseInt(fc.getAttribute('data-clip-size'), 10);
       _setAmmo(wId, cs);
       _refreshAmmoBar(fc.closest('.armory-weapon-card'), cs, cs);
+      document.dispatchEvent(new CustomEvent('ammo-changed', { detail: { weaponId: wId, current: cs, clipSize: cs } }));
       return;
     }
 
