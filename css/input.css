@@ -4097,9 +4097,55 @@
 
   .destiny-footer-right {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 4px 0.5rem;
+    gap: 2px;
+  }
+
+  .destiny-state {
+    font-family: 'Exo 2', sans-serif;
+    font-size: clamp(0.5rem, 0.9vw, 0.65rem);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  .destiny-state--equilibrium {
+    color: var(--color-text-secondary);
+  }
+
+  .destiny-state--hope {
+    color: #5ba8d8;
+  }
+
+  .destiny-state--soft-touch {
+    color: #80bcec;
+    text-shadow: 0 0 6px rgba(40,120,210,0.3);
+  }
+
+  .destiny-state--toll {
+    color: #cc4444;
+  }
+
+  .destiny-state--monster {
+    color: #ee3333;
+    text-shadow: 0 0 6px rgba(200,0,0,0.3);
+  }
+
+  .destiny-state-label {
+    font-family: 'Audiowide', sans-serif;
+    font-weight: 400;
+    display: block;
+  }
+
+  .destiny-state-bonus {
+    display: block;
+    font-size: 0.85em;
+    opacity: 0.8;
   }
 
   .destiny-label-text {

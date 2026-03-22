@@ -54,6 +54,49 @@
       return '<div class="' + cls + '" data-dest-idx="' + item.origIdx + '" title="' + title + '"' +
         (canTap ? ' style="cursor:pointer;"' : '') + '></div>';
     }).join('');
+
+    _renderDestinyState(pool);
+  }
+
+  function _renderDestinyState(pool) {
+    var el = document.getElementById('destiny-state');
+    if (!el) return;
+    if (!pool || pool.length === 0) { el.innerHTML = ''; return; }
+
+    var hope = 0; var toll = 0;
+    pool.forEach(function (t) {
+      if (t.side === 'hope') hope++;
+      else toll++;
+    });
+
+    var diff = hope - toll;
+    var label, cls, bonus;
+
+    if (diff >= 2) {
+      label = 'Soft Touch';
+      cls = 'destiny-state--soft-touch';
+      bonus = '+1 Charm/Persuasion \u2022 \u22121 Intimidate/Deception';
+    } else if (diff === 1) {
+      label = 'Hope Dominant';
+      cls = 'destiny-state--hope';
+      bonus = '+1 Charm/Persuasion';
+    } else if (diff === 0) {
+      label = 'Equilibrium';
+      cls = 'destiny-state--equilibrium';
+      bonus = 'No passive bonuses';
+    } else if (diff === -1) {
+      label = 'Toll Dominant';
+      cls = 'destiny-state--toll';
+      bonus = '+1 Intimidate/Deception';
+    } else {
+      label = 'The Monster';
+      cls = 'destiny-state--monster';
+      bonus = '+1 Intimidate/Deception \u2022 \u22121 Charm/Persuasion';
+    }
+
+    el.className = 'destiny-state ' + cls;
+    el.innerHTML = '<span class="destiny-state-label">' + label + '</span>' +
+      '<span class="destiny-state-bonus">' + bonus + '</span>';
   }
 
   document.addEventListener('click', function (e) {
