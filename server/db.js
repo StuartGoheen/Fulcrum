@@ -2,9 +2,10 @@ const Database = require('better-sqlite3');
 const path     = require('path');
 const fs       = require('fs');
 
-const DB_PATH      = path.join(__dirname, '..', 'db', 'campaign.db');
-const SEED_PATH    = path.join(__dirname, '..', 'data', 'characters.seed.json');
+const DB_PATH        = path.join(__dirname, '..', 'db', 'campaign.db');
+const SEED_PATH      = path.join(__dirname, '..', 'data', 'characters.seed.json');
 const TEST_CHAR_PATH = path.join(__dirname, '..', 'data', 'character-test.json');
+const PREGENS_PATH   = path.join(__dirname, '..', 'data', 'characters-pregens.json');
 
 const db = new Database(DB_PATH);
 
@@ -110,7 +111,36 @@ function seedTestCharacter() {
   console.log(`[db] Seeded test character: ${testChar.name}`);
 }
 
+function seedPregenCharacters() {
+  if (!fs.existsSync(PREGENS_PATH)) return;
+
+  const pregens = JSON.parse(fs.readFileSync(PREGENS_PATH, 'utf8'));
+  if (!Array.isArray(pregens) || pregens.length === 0) return;
+
+  let seeded = 0;
+  for (const char of pregens) {
+    const dataStr = JSON.stringify(char);
+    const existing = db.prepare('SELECT id, character_data FROM characters WHERE name = ?').get(char.name);
+
+    if (existing) {
+      if (existing.character_data !== dataStr) {
+        db.prepare('UPDATE characters SET character_data = ? WHERE id = ?')
+          .run(dataStr, existing.id);
+        console.log(`[db] Updated pre-gen character: ${char.name}`);
+      }
+      continue;
+    }
+
+    const maxSlot = db.prepare('SELECT MAX(slot_index) as m FROM characters').get().m || 0;
+    db.prepare('INSERT INTO characters (name, slot_index, character_data) VALUES (?, ?, ?)')
+      .run(char.name, maxSlot + 1, dataStr);
+    seeded++;
+  }
+  if (seeded > 0) console.log(`[db] Seeded ${seeded} pre-gen character(s).`);
+}
+
 seedCharacters();
 seedTestCharacter();
+seedPregenCharacters();
 
 module.exports = db;
