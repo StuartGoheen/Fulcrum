@@ -1187,5 +1187,107 @@
         "source": "weapon"
       }
     ]
+  },
+  {
+    "id": "voc_ace",
+    "name": "The Ace",
+    "governingArena": "reflex",
+    "favoredDiscipline": "piloting",
+    "description": "Throttle forward, stick back, and trust the ship. The Ace is a born pilot who reads starship combat the way ground fighters read a room — angles, closure rates, and the split-second window between a clean shot and a hull breach. Whether it's a freighter through an asteroid field or a starfighter through a capital ship's screen, the Ace puts the ship where it needs to be.",
+    "fluff": "Wedge Antilles survived two Death Star runs. Hera Syndulla flew a VCX-100 through an Imperial blockade sideways. Han Solo threaded the Kessel Run through a maelstrom that ate Star Destroyers for breakfast. They all had the same thing — not luck, not the Force, just an instinct for where the ship wants to go and the nerve to let it. You've got that instinct. Now you need a ship worth flying.",
+    "abilities": [
+      {
+        "id": "voc_ace_t1",
+        "tier": 1,
+        "type": "passive",
+        "name": "Seat of the Pants",
+        "tags": [
+          "[Combat]",
+          "[Narrative]"
+        ],
+        "rule": "When piloting a vehicle or starship, you may use Piloting (Reflex) in place of Evasion for any defense roll against incoming fire, collisions, or environmental hazards. You treat ship-scale weapons the same as personal weapons for the purpose of resolving your defense — you dodge with the ship, not your body. Additionally, on a successful Join Battle while piloting, you may immediately reposition your vehicle one zone."
+      },
+      {
+        "id": "voc_ace_t2",
+        "tier": 2,
+        "type": "maneuver",
+        "name": "Attack Run",
+        "tags": [
+          "[Combat]"
+        ],
+        "discipline": "piloting",
+        "arena": "reflex",
+        "defense": "resolve",
+        "rolled": true,
+        "rule": "Piloting (Reflex) vs target's Resolve. Push the ship into an aggressive approach vector — diving, strafing, or lining up a deflection shot that forces the target to react. This is a setup, not a shot. Risk: On failure, you present an Opening to the target — your approach was too predictable.",
+        "risk": "On failure, you present an Opening to the target — your approach was too predictable and they have the angle.",
+        "effect": [
+          {
+            "tier": 1,
+            "label": "Fleeting",
+            "range": "0-3",
+            "description": "Target gains [Rattled]. Your next ship weapon attack against this target before the end of your next turn gains [Optimized]."
+          },
+          {
+            "tier": 2,
+            "label": "Masterful",
+            "range": "4-7",
+            "description": "Target gains [Rattled]. Your next ship weapon attack against this target gains [Optimized] and [Empowered]. You may reposition one zone after the attack resolves."
+          },
+          {
+            "tier": 3,
+            "label": "Legendary",
+            "range": "8+",
+            "description": "Target gains [Rattled] and [Exposed]. Your next ship weapon attack against this target gains [Optimized] and [Empowered]. You may reposition one zone before or after the attack resolves."
+          }
+        ]
+      },
+      {
+        "id": "voc_ace_t3",
+        "tier": 3,
+        "type": "gambit",
+        "name": "Punch It",
+        "tags": [
+          "[Combat]",
+          "[Narrative]"
+        ],
+        "modifiesAction": "action_piloting",
+        "actionType": "Piloting Action or Defense",
+        "rule": "After resolving a Piloting action or defense, spend 1 tier. You immediately reposition your vehicle up to 2 zones instead of 1, and all Engaged contacts are broken. If pursued, pursuers must succeed on a Piloting check or lose contact. Usable during chases, dogfights, or any vehicle encounter."
+      },
+      {
+        "id": "voc_ace_t4",
+        "tier": 4,
+        "type": "exploit",
+        "name": "Thread the Needle",
+        "tags": [
+          "[Combat]",
+          "[Narrative]"
+        ],
+        "modifiesAction": "action_piloting",
+        "actionType": "Piloting Defense or Navigation",
+        "rule": "When you defend using Piloting (via Seat of the Pants) and score 8+ on your Control die, you may forgo the standard +1 Effect tier. Instead, choose one: (a) you fly through terrain that the attacker cannot follow — breaking line of sight and gaining concealment until your next turn, or (b) you redirect the incoming threat into an environmental hazard or another hostile target in your zone. The GM narrates the near-miss."
+      },
+      {
+        "id": "voc_ace_t5",
+        "tier": 5,
+        "type": "permission",
+        "name": "Impossible Maneuver",
+        "tags": [
+          "[Combat]",
+          "[Narrative]"
+        ],
+        "rule": "Once per Act, when the GM declares a piloting challenge impossible — too narrow, too fast, too many guns — you may attempt it anyway. Roll Piloting (Reflex) against the GM's stated difficulty. On any success, you pull it off. The GM narrates the impossible becoming possible. On a Masterful Success (8+ Control), you also gain [Optimized] on all actions for the remainder of the scene — you and the crew are riding the high of having just done the undoable. On failure, the ship takes critical damage but you survive — the Ace always walks away from the crash."
+      }
+    ],
+    "imageUrl": "/assets/vocations/voc_ace.png",
+    "startingItems": [
+      {
+        "id": "gear_flight_suit_01",
+        "name": "Flight Suit",
+        "cost": 100,
+        "source": "gear"
+      }
+    ]
   }
 ]

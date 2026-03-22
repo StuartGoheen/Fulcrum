@@ -1870,5 +1870,31 @@
       "Ammunition",
       "Black Market"
     ]
+  },
+  {
+    "id": "gear_flight_suit_01",
+    "name": "Flight Suit",
+    "category": "survival",
+    "categoryLabel": "Survival",
+    "description": "Pressure-sealed coverall with integrated life support, emergency oxygen, and thermal regulation. Standard issue for any pilot who expects to fly where the atmosphere ends. Won't save you from a direct hit, but it'll keep you alive long enough to curse the guy who shot you down.",
+    "cost": 100,
+    "availability": "2",
+    "traits": [
+      {
+        "name": "Vacuum Sealed",
+        "description": "Provides 10 minutes of sealed atmosphere in vacuum or toxic environments. Integrated helmet deploys automatically on pressure loss."
+      },
+      {
+        "name": "G-Suit",
+        "description": "Compression system reduces penalties from high-G maneuvers. The wearer ignores the first [Disoriented] condition gained from piloting actions per scene."
+      }
+    ],
+    "gambits": [],
+    "tags": [
+      "Survival",
+      "Clothing",
+      "Common",
+      "Legal"
+    ]
   }
 ]
