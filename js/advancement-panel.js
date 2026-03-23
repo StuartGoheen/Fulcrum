@@ -29,6 +29,7 @@
   var DIE_STEPS = ['D4', 'D6', 'D8', 'D10', 'D12'];
 
   var DISC_UPGRADE_COST = {
+    D4:  { adv: 2, elite: 0 },
     D6:  { adv: 1, elite: 0 },
     D8:  { adv: 1, elite: 1 },
     D10: { adv: 1, elite: 2 }
@@ -322,6 +323,7 @@
     } else {
       extra += '<div class="adv-track-ref">';
       extra += '<div class="adv-ref-title">Discipline Die Costs</div>';
+      extra += '<div class="adv-ref-row">D4 \u2192 D6 (Fixing a Flaw): 2 Advances</div>';
       extra += '<div class="adv-ref-row">D6 \u2192 D8: 1 Advance</div>';
       extra += '<div class="adv-ref-row">D8 \u2192 D10: 1 Advance + 1 Elite Token</div>';
       extra += '<div class="adv-ref-row">D10 \u2192 D12: 1 Advance + 2 Elite Tokens</div>';

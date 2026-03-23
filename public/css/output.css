@@ -9152,12 +9152,14 @@ body.is-col-resizing .resize-handle {
 
 .adv-marks-summary {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 12px;
   background: var(--color-bg-frame);
   border: 1px solid var(--color-border);
   border-radius: 6px;
   padding: 10px 14px;
+  flex-wrap: wrap;
+  overflow: hidden;
 }
 
 .adv-marks-total {
@@ -9210,7 +9212,8 @@ body.is-col-resizing .resize-handle {
   color: var(--color-text-primary);
   cursor: pointer;
   transition: background 0.15s, border-color 0.15s;
-  white-space: nowrap;
+  white-space: normal;
+  word-break: break-word;
 }
 
 .adv-btn:hover {
@@ -9327,7 +9330,8 @@ body.is-col-resizing .resize-handle {
 
 .adv-invest-locked {
   display: flex;
-  gap: 16px;
+  flex-wrap: wrap;
+  gap: 4px 16px;
   font-size: 0.75rem;
   color: var(--color-text-secondary);
 }
@@ -9552,8 +9556,9 @@ body.is-col-resizing .resize-handle {
 .adv-track-header {
   display: flex;
   align-items: baseline;
-  gap: 8px;
+  gap: 4px 8px;
   margin-bottom: 8px;
+  flex-wrap: wrap;
 }
 
 .adv-track-title {
@@ -9571,6 +9576,7 @@ body.is-col-resizing .resize-handle {
   display: flex;
   gap: 6px;
   margin-bottom: 6px;
+  flex-wrap: wrap;
 }
 
 .adv-pip {
@@ -9818,7 +9824,8 @@ body.is-col-resizing .resize-handle {
 .adv-spend-row {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2px 4px;
   padding: 5px 8px;
   border-radius: 4px;
   cursor: pointer;
