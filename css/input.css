@@ -9052,4 +9052,623 @@
     width: 1.2rem;
     height: 1.2rem;
   }
+
+  /* ═══════════════════════════════════════════════════════════════
+     STARSHIP COMBAT OVERLAY
+     ═══════════════════════════════════════════════════════════════ */
+
+  #shipcombat-overlay-mount {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    overflow-y: auto;
+    background: var(--color-bg-primary);
+  }
+
+  .sc-overlay {
+    min-height: 100vh;
+    padding: 1rem;
+    max-width: 56rem;
+    margin: 0 auto;
+  }
+
+  .sc-overlay-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 0 0.75rem;
+  }
+
+  .sc-overlay-title {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--color-accent-primary);
+    opacity: 0.8;
+  }
+
+  .sc-ship-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem 0.8rem;
+    margin-bottom: 0.5rem;
+    background: var(--color-bg-panel);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+  }
+
+  .sc-ship-identity {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+
+  .sc-ship-name {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.8rem;
+    color: var(--color-text-primary);
+  }
+
+  .sc-ship-class {
+    font-size: 0.5rem;
+    color: var(--color-text-secondary);
+  }
+
+  .sc-ship-hull {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.1rem;
+  }
+
+  .sc-hull-label {
+    font-size: 0.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-secondary);
+  }
+
+  .sc-hull-value {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.7rem;
+    color: var(--color-accent-primary);
+  }
+
+  .sc-systems-bar {
+    display: flex;
+    gap: 0.4rem;
+    margin-bottom: 0.75rem;
+    padding: 0.5rem;
+    background: var(--color-bg-frame);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    overflow-x: auto;
+  }
+
+  .sc-system-item {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.15rem;
+    padding: 0.3rem 0.2rem;
+    background: var(--color-bg-panel);
+    border-radius: 3px;
+    border: 1px solid color-mix(in srgb, var(--color-border) 50%, transparent);
+  }
+
+  .sc-system-name {
+    font-size: 0.38rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-text-secondary);
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .sc-system-die {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.5rem;
+    color: var(--color-text-primary);
+  }
+
+  .sc-system-status {
+    font-size: 0.35rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+  }
+
+  .sc-system-indicator {
+    width: 100%;
+    height: 3px;
+    border-radius: 2px;
+    opacity: 0.8;
+  }
+
+  .sc-station-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .sc-station-seat {
+    padding: 0.6rem;
+    background: var(--color-bg-panel);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    transition: border-color 0.2s;
+  }
+
+  .sc-station-seat:hover {
+    border-color: var(--color-accent-primary);
+  }
+
+  .sc-seat-mine {
+    border-color: var(--color-accent-primary);
+    box-shadow: 0 0 8px color-mix(in srgb, var(--color-accent-primary) 30%, transparent);
+  }
+
+  .sc-seat-taken {
+    opacity: 0.65;
+  }
+
+  .sc-seat-header {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 2px solid;
+  }
+
+  .sc-seat-icon {
+    font-size: 0.8rem;
+  }
+
+  .sc-seat-name {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.55rem;
+    color: var(--color-text-primary);
+  }
+
+  .sc-seat-disciplines {
+    font-size: 0.4rem;
+    color: var(--color-text-secondary);
+  }
+
+  .sc-seat-summary {
+    font-size: 0.38rem;
+    color: var(--color-text-secondary);
+    line-height: 1.4;
+  }
+
+  .sc-seat-occupant {
+    margin-top: 0.2rem;
+    padding: 0.2rem 0.4rem;
+    background: color-mix(in srgb, var(--color-accent-primary) 15%, transparent);
+    border-radius: 3px;
+    font-size: 0.4rem;
+    color: var(--color-accent-primary);
+    text-align: center;
+  }
+
+  .sc-seat-claim-btn,
+  .sc-seat-release-btn {
+    margin-top: auto;
+    padding: 0.3rem 0.5rem;
+    border: 1px solid var(--color-accent-primary);
+    border-radius: 3px;
+    background: transparent;
+    color: var(--color-accent-primary);
+    font-family: 'Exo 2', sans-serif;
+    font-size: 0.4rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    text-align: center;
+  }
+
+  .sc-seat-claim-btn:hover {
+    background: var(--color-accent-primary);
+    color: var(--color-btn-text);
+  }
+
+  .sc-seat-release-btn {
+    border-color: var(--color-accent-secondary, #ef4444);
+    color: var(--color-accent-secondary, #ef4444);
+  }
+
+  .sc-seat-release-btn:hover {
+    background: var(--color-accent-secondary, #ef4444);
+    color: var(--color-btn-text);
+  }
+
+  /* ── Station Detail View ────────────────────────────────────── */
+
+  .sc-station-detail {
+    margin-top: 0.5rem;
+  }
+
+  .sc-detail-header {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 0.6rem;
+    background: var(--color-bg-panel);
+    border: 1px solid var(--color-border);
+    border-left: 4px solid;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+  }
+
+  .sc-detail-icon {
+    font-size: 0.9rem;
+  }
+
+  .sc-detail-name {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.6rem;
+    color: var(--color-text-primary);
+    flex: 1;
+  }
+
+  .sc-detail-release-btn {
+    padding: 0.2rem 0.5rem;
+    border: 1px solid var(--color-accent-secondary, #ef4444);
+    border-radius: 3px;
+    background: transparent;
+    color: var(--color-accent-secondary, #ef4444);
+    font-family: 'Exo 2', sans-serif;
+    font-size: 0.35rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .sc-detail-release-btn:hover {
+    background: var(--color-accent-secondary, #ef4444);
+    color: var(--color-btn-text);
+  }
+
+  .sc-detail-meta {
+    display: flex;
+    gap: 0.6rem;
+    padding: 0.3rem 0.5rem;
+    margin-bottom: 0.4rem;
+    font-size: 0.4rem;
+    color: var(--color-text-secondary);
+  }
+
+  .sc-detail-section {
+    margin-bottom: 0.5rem;
+  }
+
+  .sc-section-label {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.42rem;
+    color: var(--color-accent-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.3rem 0;
+    margin-bottom: 0.25rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-border) 50%, transparent);
+  }
+
+  /* ── Action / Reaction Cards ───────────────────────────────── */
+
+  .sc-action-card {
+    background: var(--color-bg-panel);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    margin: 0.35rem 0;
+    overflow: hidden;
+  }
+
+  .sc-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.35rem 0.5rem;
+    border-left: 4px solid var(--color-accent-primary);
+    background: color-mix(in srgb, var(--color-bg-frame) 60%, var(--color-bg-panel));
+  }
+
+  .sc-card-header-left {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .sc-pip-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.35rem;
+    color: #fff;
+    flex-shrink: 0;
+  }
+
+  .sc-card-name {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.48rem;
+    color: var(--color-text-primary);
+  }
+
+  .sc-card-cost {
+    font-size: 0.35rem;
+    color: var(--color-accent-primary);
+    padding: 0.1rem 0.3rem;
+    border: 1px solid color-mix(in srgb, var(--color-accent-primary) 40%, transparent);
+    border-radius: 3px;
+  }
+
+  .sc-card-body {
+    padding: 0.4rem 0.5rem;
+  }
+
+  .sc-card-meta {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.3rem;
+    font-size: 0.38rem;
+  }
+
+  .sc-card-control {
+    color: var(--color-text-secondary);
+  }
+
+  .sc-card-power {
+    color: var(--color-accent-primary);
+  }
+
+  .sc-card-desc {
+    font-size: 0.4rem;
+    color: var(--color-text-primary);
+    line-height: 1.5;
+    margin-bottom: 0.3rem;
+  }
+
+  .sc-card-trigger {
+    font-size: 0.38rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 0.3rem;
+    padding: 0.2rem 0.4rem;
+    background: color-mix(in srgb, var(--color-accent-cyan, #06b6d4) 10%, transparent);
+    border-radius: 3px;
+  }
+
+  .sc-trigger-label {
+    font-weight: 600;
+    color: var(--color-accent-cyan, #06b6d4);
+    margin-right: 0.3rem;
+  }
+
+  .sc-card-risk {
+    margin-top: 0.25rem;
+    padding: 0.25rem 0.4rem;
+    background: color-mix(in srgb, var(--color-accent-red, #ef4444) 8%, transparent);
+    border-radius: 3px;
+    border-left: 3px solid var(--color-accent-red, #ef4444);
+  }
+
+  .sc-risk-label {
+    font-size: 0.35rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-accent-red, #ef4444);
+    margin-right: 0.3rem;
+  }
+
+  .sc-risk-text {
+    font-size: 0.38rem;
+    color: var(--color-text-secondary);
+  }
+
+  /* ── Effect Track ──────────────────────────────────────────── */
+
+  .sc-effect-track {
+    margin-top: 0.25rem;
+    border: 1px solid color-mix(in srgb, var(--color-border) 60%, transparent);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .sc-effect-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+    padding: 0.2rem 0.4rem;
+    font-size: 0.38rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-border) 30%, transparent);
+  }
+
+  .sc-effect-row:last-child {
+    border-bottom: none;
+  }
+
+  .sc-effect-range {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.35rem;
+    color: var(--color-accent-primary);
+    min-width: 2rem;
+    flex-shrink: 0;
+  }
+
+  .sc-effect-desc {
+    color: var(--color-text-primary);
+    line-height: 1.4;
+  }
+
+  /* ── Gambit Blocks ─────────────────────────────────────────── */
+
+  .sc-gambit-block {
+    margin: 0.25rem 0;
+    border: 1px solid var(--color-border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .sc-gambit-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.3rem 0.5rem;
+    background: var(--color-bg-frame);
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s;
+  }
+
+  .sc-gambit-toggle:hover {
+    background: color-mix(in srgb, var(--color-bg-frame) 80%, var(--color-accent-primary));
+  }
+
+  .sc-gambit-label {
+    font-size: 0.32rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-accent-amber, #f59e0b);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .sc-gambit-name {
+    font-size: 0.4rem;
+    color: var(--color-text-primary);
+    flex: 1;
+  }
+
+  .sc-gambit-die {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.35rem;
+    color: var(--color-accent-primary);
+    flex-shrink: 0;
+  }
+
+  .sc-gambit-chevron {
+    font-size: 0.4rem;
+    color: var(--color-text-secondary);
+    transition: transform 0.15s;
+    flex-shrink: 0;
+  }
+
+  .sc-gambit-block.is-open .sc-gambit-chevron {
+    transform: rotate(90deg);
+  }
+
+  .sc-gambit-body {
+    display: none;
+    padding: 0.35rem 0.5rem;
+    background: var(--color-bg-panel);
+  }
+
+  .sc-gambit-block.is-open .sc-gambit-body {
+    display: block;
+  }
+
+  .sc-gambit-text {
+    font-size: 0.38rem;
+    color: var(--color-text-primary);
+    line-height: 1.5;
+  }
+
+  /* ── Weapon Cards ──────────────────────────────────────────── */
+
+  .sc-weapon-card {
+    background: var(--color-bg-panel);
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--color-accent-red, #ef4444);
+    border-radius: 4px;
+    margin: 0.35rem 0;
+    padding: 0.5rem;
+  }
+
+  .sc-weapon-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.25rem;
+  }
+
+  .sc-weapon-name {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.48rem;
+    color: var(--color-text-primary);
+  }
+
+  .sc-weapon-mount-label {
+    font-size: 0.35rem;
+    color: var(--color-text-secondary);
+    font-style: italic;
+  }
+
+  .sc-weapon-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 0.3rem;
+    font-size: 0.36rem;
+  }
+
+  .sc-weapon-chassis-label {
+    color: var(--color-text-secondary);
+  }
+
+  .sc-weapon-power-die {
+    color: var(--color-accent-primary);
+    font-weight: 600;
+  }
+
+  .sc-weapon-arc {
+    padding: 0.05rem 0.3rem;
+    background: color-mix(in srgb, var(--color-accent-blue, #3b82f6) 15%, transparent);
+    color: var(--color-accent-blue, #3b82f6);
+    border-radius: 3px;
+    font-size: 0.34rem;
+    font-weight: 600;
+  }
+
+  .sc-weapon-status {
+    font-size: 0.34rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .sc-weapon-trait {
+    margin: 0.2rem 0;
+    padding: 0.25rem 0.4rem;
+    background: color-mix(in srgb, var(--color-bg-frame) 70%, transparent);
+    border-radius: 3px;
+  }
+
+  .sc-weapon-trait-name {
+    font-size: 0.38rem;
+    font-weight: 700;
+    color: var(--color-accent-primary);
+    margin-right: 0.3rem;
+  }
+
+  .sc-weapon-trait-desc {
+    font-size: 0.36rem;
+    color: var(--color-text-secondary);
+    line-height: 1.4;
+  }
   

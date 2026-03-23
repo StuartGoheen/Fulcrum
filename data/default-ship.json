@@ -1,0 +1,42 @@
+{
+  "id": "ship_krayt_fang",
+  "name": "Krayt Fang",
+  "class": "YT-1300 Light Freighter",
+  "scale": "Freighter",
+  "integrity": {
+    "max": 10,
+    "current": 10
+  },
+  "systems": {
+    "handling": { "id": "hw_handling", "name": "Handling", "baseDie": "D8", "status": "operational" },
+    "engines": { "id": "hw_engines", "name": "Engines", "baseDie": "D8", "status": "operational" },
+    "shields": { "id": "hw_shields", "name": "Shields", "baseDie": "D6", "status": "operational" },
+    "sensors": { "id": "hw_sensors", "name": "Sensors", "baseDie": "D6", "status": "operational" },
+    "weapon_mounts": { "id": "hw_weapon_mounts", "name": "Weapon Mounts", "baseDie": "D8", "status": "operational" }
+  },
+  "weapons": [
+    {
+      "mountId": "mount_dorsal",
+      "label": "Dorsal Turret",
+      "weaponId": "swpn_quad_laser_cannon",
+      "arc": "Turret",
+      "status": "operational"
+    },
+    {
+      "mountId": "mount_ventral",
+      "label": "Ventral Cannon",
+      "weaponId": "swpn_ventral_cannon",
+      "arc": "Ventral",
+      "status": "operational"
+    },
+    {
+      "mountId": "mount_forward",
+      "label": "Forward Launcher",
+      "weaponId": "swpn_concussion_missile",
+      "arc": "Forward",
+      "status": "operational"
+    }
+  ],
+  "stations": ["station_pilot", "station_gunner", "station_operator", "station_engineer", "station_copilot"],
+  "notes": "Modified YT-1300 light freighter. Fast, tough for her size, and bristling with aftermarket weapons. She may not look like much, but she's got it where it counts."
+}

@@ -27,6 +27,7 @@ A Star Wars TTRPG electronic character sheet and campaign management system buil
 ├── js/                   # Client-side JavaScript modules
 │   ├── crawl-data.js     # Mission crawl text data (extensible for future missions)
 │   ├── opening-crawl.js  # Star Wars opening crawl overlay engine
+│   ├── starship-combat.js # Starship combat overlay (seat claiming, station cards, systems bar)
 ├── data/                 # JSON data files (weapons, armor, gear, etc.)
 ├── assets/               # Images and icons
 ├── db/                   # SQLite database (gitignored)
@@ -52,6 +53,7 @@ A Star Wars TTRPG electronic character sheet and campaign management system buil
 - `data/starship-stations.json` — 5 crew station definitions (Pilot, Gunner, Operator, Engineer, Co-Pilot) with actions, reactions, and station-specific gambits for starship combat.
 - `data/starship-weapons.json` — 9 ship weapon mount definitions (Light/Medium/Heavy/Torpedo) with chassis types, power dice, arcs, range, traits, and weapon-specific gambits (Linked Fire, Ion Pulse, Overcharge, Concussive Blast).
 - `data/starship-hardware.json` — 5 hardware system definitions (Handling, Engines, Shields, Sensors, Weapon Mounts) serving as Power dice at stations, with impairment rules (Impaired/Debilitated/Offline).
+- `data/default-ship.json` — Default YT-1300-style ship (Krayt Fang) with hull integrity, systems, weapon mounts, and station assignments for starship combat mode.
 - `data/threats.json` — NPC/threat rules and trigger system (pending alignment with Opening/Exploit/Defense model)
 - `data/maneuvers.json` — universal actions + discipline gambits (object: `universalActions[15]` incl. Join Battle + Resist, `forceManeuvers[3]` (Centering Focus, Force Sense, Telekinesis), `disciplineGambits{25 sets, 75 gambits}` (Alter gambits: Force Shove D8, Mind Trick D10, Hurl D12), `vocationManeuvers[14]` — Dead Drop (Gunslinger T3), Slip (Ghost T3), Arise (Ichor Witch T4), True Possession (Ichor Witch T5), Read the Room (Noble T2), Compel (Noble T3), Keen Insight (Investigator T3), Shatterpoint Sense (Seer T3), Shatterpoint Strike (Seer T5), Enhance Attribute (Altus Sopor T2), Force Speed (Altus Sopor T3), Emptiness (Altus Sopor T5), Kinetic Impulse (Telekinetic Savant T1), Kinetic Combat (Telekinetic Savant T3)). Move action has explicit combat tiers. Join Battle uses Free type. Dodge/Endure/Resist are Defense type (free, no Exploit pip cost). Base Alter Telekinesis maneuver is pure object movement (tiered by scale); Kinetic Impulse (push/pull people) moved to Telekinetic Savant vocation. Crush gambit replaced by Hurl gambit (throw lifted objects at targets).
 - `data/glossary.json` — 73 entries including 23 conditions + Natural Recovery rule with conditionType/pcEffect/npcEffect fields. All 25 disciplines include `narrativeTiers`. 18 starship combat entries added (Scale, Hardware Die, Station, Integrity, Hull Rating, System Impairment, Called Shot, Evade/Endure/Resist ship versions, Engaged/Close/Far ship range bands, Weapon Mount, Firing Arc, plus conditions [Elusive], [Jammed], [Disabled]). Consumed by the Player's Handbook panel.

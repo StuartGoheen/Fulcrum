@@ -361,10 +361,14 @@
     </div>
 
     <div id="tab-starship-combat" class="tab-panel">
-      <div class="tbd-panel">
-        <h3>Starship Combat Tracker</h3>
-        <p style="font-size:0.75rem;color:var(--color-text-secondary);max-width:400px;margin:0.5rem auto;">Manage starship encounters including shields, hull integrity, weapon arcs, and crew positions.</p>
-        <div class="tbd-badge">Coming Soon &mdash; TBD</div>
+      <div style="padding:1rem;max-width:600px;margin:0 auto;">
+        <h3 style="font-family:'Audiowide',sans-serif;font-size:0.8rem;color:var(--color-accent-primary);margin-bottom:0.75rem;">Starship Combat</h3>
+        <div id="sc-gm-status" style="margin-bottom:0.75rem;font-size:0.6rem;color:var(--color-text-secondary);">Status: Inactive</div>
+        <div style="display:flex;gap:0.5rem;margin-bottom:1rem;">
+          <button id="sc-gm-start" class="btn-primary" style="font-size:0.5rem;padding:0.4rem 0.8rem;">Start Ship Combat</button>
+          <button id="sc-gm-end" class="btn-secondary" style="font-size:0.5rem;padding:0.4rem 0.8rem;">End Ship Combat</button>
+        </div>
+        <div id="sc-gm-seats" style="font-size:0.5rem;color:var(--color-text-secondary);"></div>
       </div>
     </div>
 
@@ -958,6 +962,55 @@
   document.getElementById('gm-destiny-untap').addEventListener('click', function () {
     if (socket) socket.emit('destiny:untap');
   });
+
+  /* ══════════════════════════════════════════════════════════
+     STARSHIP COMBAT — GM CONTROLS
+     ══════════════════════════════════════════════════════════ */
+
+  var _scActive = false;
+
+  document.getElementById('sc-gm-start').addEventListener('click', function () {
+    if (socket) socket.emit('shipcombat:enter');
+  });
+
+  document.getElementById('sc-gm-end').addEventListener('click', function () {
+    if (socket) socket.emit('shipcombat:exit');
+  });
+
+  if (socket) {
+    socket.emit('shipcombat:request');
+
+    socket.on('shipcombat:sync', function (data) {
+      _scActive = !!data.active;
+      var statusEl = document.getElementById('sc-gm-status');
+      if (statusEl) {
+        statusEl.textContent = _scActive ? 'Status: ACTIVE' : 'Status: Inactive';
+        statusEl.style.color = _scActive ? '#22c55e' : 'var(--color-text-secondary)';
+      }
+      if (data.seats) _renderGmSeats(data.seats);
+    });
+
+    socket.on('shipcombat:seats_update', function (data) {
+      if (data.seats) _renderGmSeats(data.seats);
+    });
+  }
+
+  function _renderGmSeats(seats) {
+    var el = document.getElementById('sc-gm-seats');
+    if (!el) return;
+    var keys = Object.keys(seats);
+    if (keys.length === 0) {
+      el.innerHTML = '<div style="color:var(--color-text-secondary);">No stations claimed.</div>';
+      return;
+    }
+    var html = '<div style="margin-top:0.3rem;"><strong>Crew Stations:</strong></div>';
+    keys.forEach(function (sid) {
+      var s = seats[sid];
+      var label = sid.replace('station_', '').replace(/^\w/, function (c) { return c.toUpperCase(); });
+      html += '<div style="padding:0.15rem 0;">' + label + ': <strong>' + (s.characterName || 'Unknown') + '</strong></div>';
+    });
+    el.innerHTML = html;
+  }
 
   /* ══════════════════════════════════════════════════════════
      RULES REFERENCE RENDERERS (unchanged)
