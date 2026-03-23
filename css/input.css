@@ -8766,7 +8766,7 @@
 
   @keyframes crawl-scroll {
     0% {
-      top: 180%;
+      top: 170%;
     }
     100% {
       top: -280%;
