@@ -4681,21 +4681,21 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .destiny-state--hope {
-  color: #5ba8d8;
+  color: var(--color-accent-primary);
 }
 
 .destiny-state--soft-touch {
-  color: #80bcec;
-  text-shadow: 0 0 6px rgba(40,120,210,0.3);
+  color: var(--color-accent-primary);
+  text-shadow: 0 0 6px color-mix(in srgb, var(--color-accent-primary) 30%, transparent);
 }
 
 .destiny-state--toll {
-  color: #cc4444;
+  color: var(--color-danger, #cc4444);
 }
 
 .destiny-state--monster {
-  color: #ee3333;
-  text-shadow: 0 0 6px rgba(200,0,0,0.3);
+  color: var(--color-danger, #ee3333);
+  text-shadow: 0 0 6px color-mix(in srgb, var(--color-danger, #ee3333) 30%, transparent);
 }
 
 .destiny-state-label {
