@@ -793,7 +793,8 @@
         { id: 'local_fixer', name: 'Local Fixer', interest: '30%', rate: 0.30 },
       ];
       var dCreditor = debtCreditors.find(function(c) { return c.id === char.debt.creditorId; }) || debtCreditors[0];
-      var owedAmt = Math.round(char.debt.balance * (1 + dCreditor.rate));
+      var effectiveRate = char.debt.rate !== undefined ? char.debt.rate : dCreditor.rate;
+      var owedAmt = Math.round(char.debt.balance * (1 + effectiveRate));
       html += '<div class="armory-category-label" style="color:#CC3333">The Ledger</div>';
       html += '<div class="armory-card" style="border-color:color-mix(in srgb,#CC3333 30%,transparent)">';
       html += '<div class="armory-card-header">';
