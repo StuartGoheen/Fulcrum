@@ -544,7 +544,8 @@
           "[Social]"
         ],
         "rule": "Upgrades Compel.\n\n**Address the Room:** Your Compel maneuver can now target a group of individuals rather than a single target. Roll once — all targets defend with their own Resolve individually, but the effect tier is determined by your single Control result.\n\n**Sustained Influence:** When you score a Masterful Success (8+ on Control), instead of increasing the effect tier by one level, you may choose to extend the duration of your Compel through the end of the Act. This does not guarantee compliance — but so long as you maintain your charming approach and targets are not endangered, their disposition toward you remains at the level your Compel established. Break the charm (threaten them, put them in danger) and it snaps immediately.",
-        "shorthand": "Compel targets groups. Optimized on Compel when Entourage NPC visibly supports you."
+        "shorthand": "Compel targets groups. Roll once — all targets resist individually.",
+        "modifiesAction": "voc_noble_t3"
       }
     ],
     "imageUrl": "/assets/vocations/voc_noble.png",
@@ -632,7 +633,8 @@
           "[Narrative]"
         ],
         "rule": "Upgrades Keen Insight.\n\nWhen you score a Masterful Success (8+ on Control) on Keen Insight, after resolving the reconstruction, you may immediately make an Assess maneuver at no additional action cost. This follow-up Assess gains +1 Tier to its effect result.\n\nYour questions on this Assess must pertain directly to details revealed by the Keen Insight reconstruction — you're drilling into what you just saw, not fishing for new information.",
-        "shorthand": "Keen Insight Masterful 8+ → spend Assess question for a second reconstruction angle."
+        "shorthand": "Keen Insight Masterful 8+ → spend Assess question for a second reconstruction angle.",
+        "modifiesAction": "voc_investigator_t3"
       },
       {
         "id": "voc_investigator_t5",
@@ -681,7 +683,8 @@
           "[Combat]"
         ],
         "rule": "You may use Sense (Wits) in place of Tactics (Wits) for Join Battle rolls. The Force whispers the shape of violence before it begins. Additionally, on a Masterful Success (Control 8+) on Join Battle, choose one: gain +1 Effect Tier on your initiative result, OR gain [Optimized] on all Attack and Defense rolls until the end of your first Action.",
-        "shorthand": "Use Sense (Wits) for Join Battle. Force warns of violence before it begins."
+        "shorthand": "Use Sense (Wits) for Join Battle. On success, sense one hidden or concealed combatant.",
+        "modifiesAction": "action_join_battle"
       },
       {
         "id": "voc_seer_t2",
@@ -1276,7 +1279,11 @@
           "[Narrative]"
         ],
         "rule": "When firing pilot-controlled ship weapons (forward cannons, linked guns, turret you're manning), you may use Piloting (Reflex) in place of Heavy Weapons (Physique) for the attack roll — you aim with the ship, not the gun. Additionally, when you score 8+ on your Join Battle roll while piloting, you may immediately take one Piloting maneuver before the first round begins.",
-        "shorthand": "Use Piloting (Reflex) for ship weapons. Join Battle 8+ → free Piloting maneuver."
+        "shorthand": "Use Piloting (Reflex) for ship weapons. Join Battle 8+ → free Piloting maneuver.",
+        "modifiesAction": "action_attack",
+        "targetWeaponTags": [
+          "Heavy"
+        ]
       },
       {
         "id": "voc_ace_t2",
