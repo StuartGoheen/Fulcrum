@@ -135,16 +135,20 @@
     return null;
   }
 
+  var TIER_LABELS = { 1: 'Fleeting', 2: 'Masterful', 3: 'Legendary' };
+
   function _buildEffectTrack(effectArr) {
     if (!effectArr || !effectArr.length) return '';
-    var html = '<div class="sc-effect-track">';
+    var html = '<div class="manv-effect-track">';
     for (var e = 0; e < effectArr.length; e++) {
       var tier = effectArr[e];
       var range = tier.range || TIER_RANGES[e] || String(e);
+      var label = tier.label || TIER_LABELS[tier.tier] || '';
       html +=
-        '<div class="sc-effect-row">' +
-          '<span class="sc-effect-range">' + _esc(range) + '</span>' +
-          '<span class="sc-effect-desc">' + _linkify(tier.description) + '</span>' +
+        '<div class="manv-effect-row">' +
+          '<span class="manv-tier-label">' + _esc(label) + '</span>' +
+          '<span class="manv-tier-range">' + _esc(range) + '</span>' +
+          '<span class="manv-tier-desc">' + _linkify(tier.description) + '</span>' +
         '</div>';
     }
     html += '</div>';
@@ -154,92 +158,96 @@
   function _pipBadge(actionType) {
     var info = ACTION_TYPE_LABELS[actionType];
     if (!info) return '';
-    return '<span class="sc-pip-badge" style="background:' + info.color + ';">' + info.pip + '</span>';
+    return '<span class="manv-pip-badge manv-pip-badge-header" style="background:' + info.color + ';">' + info.pip + '</span>';
   }
 
-  function _buildActionCard(action, stationColor) {
-    var controlHtml = action.control ? '<span class="sc-card-control">' + _esc(action.control) + '</span>' : '';
-    var powerHtml = action.power ? '<span class="sc-card-power">Power: ' + _esc(action.power) + '</span>' : '';
+  function _buildActionCard(action, stationColor, gambitsHtml) {
+    var metaHtml = '';
+    if (action.control || action.power) {
+      metaHtml = '<div class="manv-meta">';
+      if (action.control) metaHtml += '<span class="manv-rolled-badge">' + _esc(action.control) + '</span>';
+      if (action.power) metaHtml += '<span class="manv-rolled-badge">Power: ' + _esc(action.power) + '</span>';
+      metaHtml += '</div>';
+    }
 
-    var descHtml = '<div class="sc-card-desc">' + _linkify(action.description) + '</div>';
+    var descHtml = '<div class="manv-desc-text">' + _linkify(action.description) + '</div>';
 
     var riskHtml = '';
     if (action.risk) {
       riskHtml =
-        '<div class="sc-card-risk">' +
-          '<span class="sc-risk-label">Risk</span>' +
-          '<span class="sc-risk-text">' + _linkify(action.risk) + '</span>' +
+        '<div class="manv-risk-block">' +
+          '<span class="manv-risk-label">Risk</span>' +
+          '<span class="manv-risk-text">' + _linkify(action.risk) + '</span>' +
         '</div>';
     }
 
     var effectHtml = _buildEffectTrack(action.effect);
 
     return (
-      '<div class="sc-action-card sc-collapsible" data-action-id="' + _esc(action.id) + '">' +
-        '<div class="sc-card-header sc-collapse-toggle" style="border-left-color:' + stationColor + ';" role="button" tabindex="0">' +
-          '<div class="sc-card-header-left">' +
+      '<div class="manv-card sc-manv-card" data-action-id="' + _esc(action.id) + '">' +
+        '<div class="manv-header" style="border-left:2px solid ' + stationColor + ';" role="button" tabindex="0">' +
+          '<div class="manv-header-left" style="flex-direction:row;align-items:center;gap:5px;">' +
             _pipBadge(action.type) +
-            '<span class="sc-card-name">' + _esc(action.name) + '</span>' +
+            '<span class="manv-name">' + _esc(action.name) + '</span>' +
           '</div>' +
-          '<span class="sc-collapse-chevron">&#9656;</span>' +
         '</div>' +
-        '<div class="sc-card-body">' +
-          '<div class="sc-card-meta">' +
-            controlHtml +
-            powerHtml +
-          '</div>' +
+        '<div class="manv-body">' +
+          metaHtml +
           descHtml +
-          riskHtml +
           effectHtml +
+          riskHtml +
+          (gambitsHtml || '') +
         '</div>' +
       '</div>'
     );
   }
 
-  function _buildReactionCard(reaction, stationColor) {
+  function _buildReactionCard(reaction, stationColor, gambitsHtml) {
     var triggerHtml = reaction.trigger
-      ? '<div class="sc-card-trigger"><span class="sc-trigger-label">Trigger</span> ' + _linkify(reaction.trigger) + '</div>'
+      ? '<div class="manv-risk-block" style="border-top:none;padding-top:0;margin-top:0;">' +
+          '<span class="manv-risk-label" style="color:var(--color-accent-cyan,#06b6d4);">Trigger</span>' +
+          '<span class="manv-risk-text">' + _linkify(reaction.trigger) + '</span>' +
+        '</div>'
       : '';
-    var costHtml = reaction.cost ? '<span class="sc-card-cost">' + _esc(reaction.cost) + '</span>' : '';
 
     var ruleHtml = '';
     if (reaction.rule) {
-      ruleHtml = '<div class="sc-card-desc">' + _linkify(reaction.rule) + '</div>';
+      ruleHtml = '<div class="manv-desc-text">' + _linkify(reaction.rule) + '</div>';
     } else if (reaction.description) {
-      ruleHtml = '<div class="sc-card-desc">' + _linkify(reaction.description) + '</div>';
+      ruleHtml = '<div class="manv-desc-text">' + _linkify(reaction.description) + '</div>';
     }
 
+    var costHtml = reaction.cost ? '<span class="manv-rolled-badge">' + _esc(reaction.cost) + '</span>' : '';
+
     return (
-      '<div class="sc-action-card sc-reaction-card sc-collapsible" data-action-id="' + _esc(reaction.id) + '">' +
-        '<div class="sc-card-header sc-collapse-toggle" style="border-left-color:' + stationColor + ';" role="button" tabindex="0">' +
-          '<div class="sc-card-header-left">' +
+      '<div class="manv-card sc-manv-card" data-action-id="' + _esc(reaction.id) + '">' +
+        '<div class="manv-header" style="border-left:2px solid ' + stationColor + ';" role="button" tabindex="0">' +
+          '<div class="manv-header-left" style="flex-direction:row;align-items:center;gap:5px;">' +
             _pipBadge(reaction.type) +
-            '<span class="sc-card-name">' + _esc(reaction.name) + '</span>' +
+            '<span class="manv-name">' + _esc(reaction.name) + '</span>' +
           '</div>' +
-          '<div class="sc-card-header-right">' +
-            costHtml +
-            '<span class="sc-collapse-chevron">&#9656;</span>' +
-          '</div>' +
+          (costHtml ? '<div>' + costHtml + '</div>' : '') +
         '</div>' +
-        '<div class="sc-card-body">' +
+        '<div class="manv-body">' +
           triggerHtml +
           ruleHtml +
+          (gambitsHtml || '') +
         '</div>' +
       '</div>'
     );
   }
 
-  function _buildGambitCard(gambit, stationColor) {
+  function _buildGambitCard(gambit) {
     return (
-      '<div class="sc-gambit-block">' +
-        '<div class="sc-gambit-toggle" role="button" tabindex="0">' +
-          '<span class="sc-gambit-label">Gambit</span>' +
-          '<span class="sc-gambit-name">' + _esc(gambit.name) + '</span>' +
-          '<span class="sc-gambit-die">' + _esc(gambit.unlockDie) + '+</span>' +
-          '<span class="sc-gambit-chevron">&#9656;</span>' +
+      '<div class="armory-gambit-block manv-gambit-block">' +
+        '<div class="manv-gambit-toggle" role="button" tabindex="0">' +
+          '<span class="armory-gambit-label">Gambit</span>' +
+          '<span class="manv-gambit-name-preview">' + _esc(gambit.name) + '</span>' +
+          '<span class="manv-gambit-req-die">' + _esc(gambit.unlockDie) + '+</span>' +
+          '<span class="armory-gambit-chevron">&#9656;</span>' +
         '</div>' +
-        '<div class="sc-gambit-body">' +
-          '<div class="sc-gambit-text">' + _linkify(gambit.rule) + '</div>' +
+        '<div class="manv-gambit-body">' +
+          '<div class="manv-gambit-text">' + _linkify(gambit.rule) + '</div>' +
         '</div>' +
       '</div>'
     );
@@ -263,13 +271,14 @@
 
     var dmgHtml = '';
     if (chassis && chassis.tiers) {
-      dmgHtml = '<div class="sc-effect-track">';
+      dmgHtml = '<div class="manv-effect-track">';
       for (var d = 0; d < chassis.tiers.length; d++) {
         var tier = chassis.tiers[d];
         dmgHtml +=
-          '<div class="sc-effect-row">' +
-            '<span class="sc-effect-range">' + _esc(tier.range) + '</span>' +
-            '<span class="sc-effect-desc">' + _esc(tier.label) + ' \u2014 ' + _esc(String(tier.damage)) + ' Dmg</span>' +
+          '<div class="manv-effect-row">' +
+            '<span class="manv-tier-label">' + _esc(tier.label) + '</span>' +
+            '<span class="manv-tier-range">' + _esc(tier.range) + '</span>' +
+            '<span class="manv-tier-desc">' + _esc(String(tier.damage)) + ' Dmg</span>' +
           '</div>';
       }
       dmgHtml += '</div>';
@@ -438,13 +447,14 @@
       html += '<div class="sc-detail-section"><div class="sc-section-label">Actions</div>';
       for (var a = 0; a < stationDef.actions.length; a++) {
         var action = stationDef.actions[a];
-        html += _buildActionCard(action, color);
+        var gambitsHtml = '';
         var linked = gambitLinks.map[action.id];
         if (linked) {
           for (var lg = 0; lg < linked.length; lg++) {
-            html += '<div class="sc-gambit-inline">' + _buildGambitCard(linked[lg], color) + '</div>';
+            gambitsHtml += _buildGambitCard(linked[lg]);
           }
         }
+        html += _buildActionCard(action, color, gambitsHtml);
       }
       html += '</div>';
     }
@@ -469,21 +479,14 @@
       html += '<div class="sc-detail-section"><div class="sc-section-label">Reactions</div>';
       for (var r = 0; r < stationDef.reactions.length; r++) {
         var reaction = stationDef.reactions[r];
-        html += _buildReactionCard(reaction, color);
+        var rGambitsHtml = '';
         var rLinked = gambitLinks.map[reaction.id];
         if (rLinked) {
           for (var rg = 0; rg < rLinked.length; rg++) {
-            html += '<div class="sc-gambit-inline">' + _buildGambitCard(rLinked[rg], color) + '</div>';
+            rGambitsHtml += _buildGambitCard(rLinked[rg]);
           }
         }
-      }
-      html += '</div>';
-    }
-
-    if (gambitLinks.unlinked.length) {
-      html += '<div class="sc-detail-section"><div class="sc-section-label">Gambits</div>';
-      for (var ug = 0; ug < gambitLinks.unlinked.length; ug++) {
-        html += _buildGambitCard(gambitLinks.unlinked[ug], color);
+        html += _buildReactionCard(reaction, color, rGambitsHtml);
       }
       html += '</div>';
     }
@@ -659,18 +662,20 @@
       return;
     }
 
-    var collapseToggle = e.target.closest('.sc-collapse-toggle');
-    if (collapseToggle) {
-      var card = collapseToggle.closest('.sc-collapsible');
+    var manvHeader = e.target.closest('.manv-header');
+    if (manvHeader) {
+      var card = manvHeader.closest('.manv-card');
       if (card) {
         card.classList.toggle('is-open');
+        var body = card.querySelector('.manv-body');
+        if (body) body.classList.toggle('open');
       }
       return;
     }
 
-    var gambitToggle = e.target.closest('.sc-gambit-toggle');
+    var gambitToggle = e.target.closest('.manv-gambit-toggle');
     if (gambitToggle) {
-      var block = gambitToggle.closest('.sc-gambit-block');
+      var block = gambitToggle.closest('.manv-gambit-block');
       if (block) {
         block.classList.toggle('is-open');
       }

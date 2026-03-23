@@ -9063,7 +9063,7 @@
     inset: 0;
     z-index: 200;
     overflow-y: auto;
-    background: radial-gradient(ellipse at 50% 30%, rgba(15,20,35,0.97), rgba(5,5,12,0.99));
+    background: var(--color-bg-primary);
   }
 
   .sc-floating-indicator {
@@ -9141,8 +9141,8 @@
     justify-content: space-between;
     padding: 0.6rem 0.8rem;
     margin-bottom: 0.5rem;
-    background: linear-gradient(90deg, rgba(10,10,20,0.8), rgba(20,15,30,0.6));
-    border: 1px solid color-mix(in srgb, var(--color-border) 60%, transparent);
+    background: var(--color-bg-panel);
+    border: 1px solid var(--color-border);
     border-radius: 4px;
   }
 
@@ -9188,8 +9188,8 @@
     gap: 0.4rem;
     margin-bottom: 0.75rem;
     padding: 0.5rem;
-    background: linear-gradient(90deg, rgba(10,10,20,0.6), rgba(15,15,25,0.4));
-    border: 1px solid color-mix(in srgb, var(--color-border) 40%, transparent);
+    background: var(--color-bg-frame);
+    border: 1px solid var(--color-border);
     border-radius: 4px;
     overflow-x: auto;
   }
@@ -9202,9 +9202,9 @@
     align-items: center;
     gap: 0.15rem;
     padding: 0.3rem 0.2rem;
-    background: rgba(0,0,0,0.3);
+    background: var(--color-bg-panel);
     border-radius: 3px;
-    border: 1px solid color-mix(in srgb, var(--color-border) 30%, transparent);
+    border: 1px solid var(--color-border);
   }
 
   .sc-system-name {
@@ -9260,27 +9260,12 @@
     justify-content: center;
     gap: 0.3rem;
     padding: 1rem 0.5rem;
-    background: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(10,10,20,0.85) 100%);
+    background: var(--color-bg-panel);
     border: 1px solid color-mix(in srgb, var(--hud-color) 40%, transparent);
     border-radius: 6px;
     text-align: center;
     transition: border-color 0.3s, box-shadow 0.3s, opacity 0.3s;
     min-height: 8rem;
-  }
-
-  .sc-hud-panel::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 6px;
-    background: repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 2px,
-      rgba(255,255,255,0.015) 2px,
-      rgba(255,255,255,0.015) 4px
-    );
-    pointer-events: none;
   }
 
   .sc-hud-panel:hover {
@@ -9306,7 +9291,6 @@
   .sc-hud-icon {
     font-size: 1.6rem;
     color: var(--hud-color);
-    filter: drop-shadow(0 0 6px var(--hud-color));
     line-height: 1;
   }
 
@@ -9386,7 +9370,6 @@
   .sc-hud-claimed {
     opacity: 0.45;
   }
-  .sc-hud-claimed .sc-hud-icon { filter: none; }
 
   /* ── HUD Mini panels (seated wing panels) ─────────────────── */
 
@@ -9445,8 +9428,8 @@
     align-items: center;
     gap: 0.5rem;
     padding: 0.6rem 0.8rem;
-    background: linear-gradient(90deg, color-mix(in srgb, var(--hud-color) 12%, rgba(10,10,20,0.9)), rgba(10,10,20,0.7));
-    border: 1px solid color-mix(in srgb, var(--hud-color) 50%, transparent);
+    background: var(--color-bg-panel);
+    border: 1px solid var(--color-border);
     border-left: 4px solid var(--hud-color);
     border-radius: 4px;
     margin-bottom: 0.5rem;
@@ -9455,7 +9438,6 @@
   .sc-detail-icon {
     font-size: 1.1rem;
     color: var(--hud-color);
-    filter: drop-shadow(0 0 4px var(--hud-color));
   }
 
   .sc-detail-name {
@@ -9513,262 +9495,23 @@
     border-bottom: 1px solid color-mix(in srgb, var(--color-border) 50%, transparent);
   }
 
-  .sc-gambit-inline {
-    margin-left: 1rem;
-    border-left: 2px solid color-mix(in srgb, var(--color-accent-primary) 30%, transparent);
-    padding-left: 0.4rem;
+  .sc-manv-card {
+    margin-bottom: 4px;
   }
 
-  /* ── Action / Reaction Cards ───────────────────────────────── */
-
-  .sc-action-card {
-    background: var(--color-bg-panel);
-    border: 1px solid var(--color-border);
-    border-radius: 4px;
-    margin: 0.35rem 0;
-    overflow: hidden;
+  .sc-manv-card .manv-gambit-block {
+    margin-top: 3px;
   }
 
-  .sc-card-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.35rem 0.5rem;
-    border-left: 4px solid var(--color-accent-primary);
-    background: color-mix(in srgb, var(--color-bg-frame) 60%, var(--color-bg-panel));
-  }
-
-  .sc-card-header-left {
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
-  }
-
-  .sc-pip-badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 0.75rem;
-    height: 0.75rem;
-    border-radius: 50%;
+  .sc-manv-card .manv-gambit-req-die {
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.35rem;
-    color: #fff;
-    flex-shrink: 0;
-  }
-
-  .sc-card-name {
-    font-family: 'Audiowide', sans-serif;
-    font-size: 0.48rem;
-    color: var(--color-text-primary);
-  }
-
-  .sc-card-cost {
-    font-size: 0.35rem;
-    color: var(--color-accent-primary);
-    padding: 0.1rem 0.3rem;
-    border: 1px solid color-mix(in srgb, var(--color-accent-primary) 40%, transparent);
-    border-radius: 3px;
-  }
-
-  .sc-collapsible .sc-card-body {
-    display: none;
-    padding: 0.4rem 0.5rem;
-  }
-
-  .sc-collapsible.is-open .sc-card-body {
-    display: block;
-  }
-
-  .sc-collapse-chevron {
-    font-size: 0.45rem;
-    color: var(--color-text-secondary);
-    transition: transform 0.2s ease;
-    margin-left: auto;
-    flex-shrink: 0;
-  }
-
-  .sc-collapsible.is-open .sc-collapse-chevron {
-    transform: rotate(90deg);
-  }
-
-  .sc-collapse-toggle {
-    cursor: pointer;
-  }
-
-  .sc-card-header-right {
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
-  }
-
-  .sc-card-body {
-    padding: 0.4rem 0.5rem;
-  }
-
-  .sc-card-meta {
-    display: flex;
-    gap: 0.5rem;
-    margin-bottom: 0.3rem;
-    font-size: 0.38rem;
-  }
-
-  .sc-card-control {
-    color: var(--color-text-secondary);
-  }
-
-  .sc-card-power {
-    color: var(--color-accent-primary);
-  }
-
-  .sc-card-desc {
-    font-size: 0.4rem;
-    color: var(--color-text-primary);
-    line-height: 1.5;
-    margin-bottom: 0.3rem;
-  }
-
-  .sc-card-trigger {
-    font-size: 0.38rem;
-    color: var(--color-text-secondary);
-    margin-bottom: 0.3rem;
-    padding: 0.2rem 0.4rem;
-    background: color-mix(in srgb, var(--color-accent-cyan, #06b6d4) 10%, transparent);
-    border-radius: 3px;
-  }
-
-  .sc-trigger-label {
-    font-weight: 600;
-    color: var(--color-accent-cyan, #06b6d4);
-    margin-right: 0.3rem;
-  }
-
-  .sc-card-risk {
-    margin-top: 0.25rem;
-    padding: 0.25rem 0.4rem;
-    background: color-mix(in srgb, var(--color-accent-red, #ef4444) 8%, transparent);
-    border-radius: 3px;
-    border-left: 3px solid var(--color-accent-red, #ef4444);
-  }
-
-  .sc-risk-label {
-    font-size: 0.35rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--color-accent-red, #ef4444);
-    margin-right: 0.3rem;
-  }
-
-  .sc-risk-text {
-    font-size: 0.38rem;
-    color: var(--color-text-secondary);
-  }
-
-  /* ── Effect Track ──────────────────────────────────────────── */
-
-  .sc-effect-track {
-    margin-top: 0.25rem;
-    border: 1px solid color-mix(in srgb, var(--color-border) 60%, transparent);
-    border-radius: 3px;
-    overflow: hidden;
-  }
-
-  .sc-effect-row {
-    display: flex;
-    align-items: baseline;
-    gap: 0.4rem;
-    padding: 0.2rem 0.4rem;
-    font-size: 0.38rem;
-    border-bottom: 1px solid color-mix(in srgb, var(--color-border) 30%, transparent);
-  }
-
-  .sc-effect-row:last-child {
-    border-bottom: none;
-  }
-
-  .sc-effect-range {
-    font-family: 'Audiowide', sans-serif;
-    font-size: 0.35rem;
-    color: var(--color-accent-primary);
-    min-width: 2rem;
-    flex-shrink: 0;
-  }
-
-  .sc-effect-desc {
-    color: var(--color-text-primary);
-    line-height: 1.4;
-  }
-
-  /* ── Gambit Blocks ─────────────────────────────────────────── */
-
-  .sc-gambit-block {
-    margin: 0.25rem 0;
-    border: 1px solid var(--color-border);
-    border-radius: 3px;
-    overflow: hidden;
-  }
-
-  .sc-gambit-toggle {
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
-    padding: 0.3rem 0.5rem;
-    background: var(--color-bg-frame);
-    cursor: pointer;
-    user-select: none;
-    transition: background 0.15s;
-  }
-
-  .sc-gambit-toggle:hover {
-    background: color-mix(in srgb, var(--color-bg-frame) 80%, var(--color-accent-primary));
-  }
-
-  .sc-gambit-label {
-    font-size: 0.32rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--color-accent-amber, #f59e0b);
-    font-weight: 700;
-    flex-shrink: 0;
-  }
-
-  .sc-gambit-name {
-    font-size: 0.4rem;
-    color: var(--color-text-primary);
-    flex: 1;
-  }
-
-  .sc-gambit-die {
-    font-family: 'Audiowide', sans-serif;
-    font-size: 0.35rem;
+    font-size: 0.50rem;
     color: var(--color-accent-primary);
     flex-shrink: 0;
   }
 
-  .sc-gambit-chevron {
-    font-size: 0.4rem;
-    color: var(--color-text-secondary);
-    transition: transform 0.15s;
-    flex-shrink: 0;
-  }
-
-  .sc-gambit-block.is-open .sc-gambit-chevron {
-    transform: rotate(90deg);
-  }
-
-  .sc-gambit-body {
-    display: none;
-    padding: 0.35rem 0.5rem;
-    background: var(--color-bg-panel);
-  }
-
-  .sc-gambit-block.is-open .sc-gambit-body {
-    display: block;
-  }
-
-  .sc-gambit-text {
-    font-size: 0.38rem;
+  .sc-manv-card .manv-gambit-text {
+    font-size: 0.70rem;
     color: var(--color-text-primary);
     line-height: 1.5;
   }
