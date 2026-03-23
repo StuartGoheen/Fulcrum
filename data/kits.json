@@ -1279,11 +1279,7 @@
           "[Narrative]"
         ],
         "rule": "When firing pilot-controlled ship weapons (forward cannons, linked guns, turret you're manning), you may use Piloting (Reflex) in place of Heavy Weapons (Physique) for the attack roll — you aim with the ship, not the gun. Additionally, when you score 8+ on your Join Battle roll while piloting, you may immediately take one Piloting maneuver before the first round begins.",
-        "shorthand": "Use Piloting (Reflex) for ship weapons. Join Battle 8+ → free Piloting maneuver.",
-        "modifiesAction": "action_attack",
-        "targetWeaponTags": [
-          "Heavy"
-        ]
+        "shorthand": "Use Piloting (Reflex) for ship weapons. Join Battle 8+ → free Piloting maneuver."
       },
       {
         "id": "voc_ace_t2",
