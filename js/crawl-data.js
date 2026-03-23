@@ -4,9 +4,9 @@ var CRAWL_MISSIONS = {
     episode: 'Episode I',
     title: 'THE TRAITOR\u2019S GAMBIT',
     body: [
-      'It is a lawless time in the Western Reaches. The Galactic Empire has stretched its iron grip to the Outer Rim, but here, on the frontier, order is a thin promise backed by distant Star Destroyers.',
-      'On the desert world of Jakku, scoundrels, drifters, and the desperate scrape by in the shadow of a thousand crashed warships. The Empire calls it pacified. The locals call it forgotten.',
-      'A band of outcasts \u2014 smugglers, hired guns, and grifters \u2014 have gathered in a dusty cantina, chasing rumors of a score big enough to change their fortunes. But when a desperate woman crashes through the door with stolen Imperial secrets and a gang of killers on her heels, the promise of a simple payday becomes something far more dangerous\u2026.'
+      'It is three years since the fall of the Republic. The GALACTIC EMPIRE tightens its grip on the Core Worlds, but in the lawless Western Reaches, its authority is little more than a rumor backed by distant Star Destroyers.',
+      'On the frontier, survival has its own currency. Crime syndicates and loan sharks rule the trade lanes, and debts are collected not with writs but with blasters. Those who cannot pay disappear. Those who run end up somewhere worse.',
+      'Now, on a forgotten Outer Rim outpost, a band of desperate strangers \u2014 each haunted by a past they cannot outrun \u2014 finds themselves drawn together by a job too dangerous to refuse and too profitable to ignore\u2026.'
     ]
   }
 };
