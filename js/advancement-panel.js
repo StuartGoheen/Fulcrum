@@ -338,6 +338,164 @@
     return 'D6';
   }
 
+  var DEBT_CREDITORS = [
+    { id: 'hutt_cartel', name: 'The Hutt Cartel', interest: '10%', rate: 0.10 },
+    { id: 'black_sun', name: 'Black Sun', interest: '15%', rate: 0.15 },
+    { id: 'imperial_surplus', name: 'Imperial Surplus Broker', interest: '20%', rate: 0.20 },
+    { id: 'czerka_arms', name: 'Czerka Arms', interest: '25%', rate: 0.25 },
+    { id: 'local_fixer', name: 'Local Fixer', interest: '30%', rate: 0.30 },
+  ];
+
+  function _escHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+  function _buildCreditsAndLedger() {
+    if (!_char) return '';
+    var html = '';
+    var credits = _char.credits || 0;
+
+    html += '<div class="adv-section-divider" style="margin-top:18px">CREDITS &amp; DEBT</div>';
+
+    html += '<div class="char-credits-bar">' +
+      '<span class="char-credits-label">Credits on Hand</span>' +
+      '<span class="char-credits-value" id="adv-credits-display">' + credits.toLocaleString() + ' cr</span>' +
+      '<div class="char-credits-controls">' +
+        '<button class="char-credits-btn" id="adv-credits-add" title="Add credits">+</button>' +
+        '<button class="char-credits-btn" id="adv-credits-sub" title="Subtract credits">&minus;</button>' +
+      '</div>' +
+    '</div>';
+
+    var debt = _char.debt;
+    if (debt && debt.balance > 0) {
+      var creditor = DEBT_CREDITORS.find(function(c) { return c.id === debt.creditorId; }) || DEBT_CREDITORS[0];
+      var rateLabel = Math.round((debt.rate || creditor.rate) * 100) + '%';
+      var nextCycle = Math.round(debt.balance * (1 + (debt.rate || creditor.rate)));
+
+      html += '<div class="char-ledger-card">' +
+        '<div class="char-ledger-header">' +
+          '<span class="char-ledger-title">The Ledger</span>' +
+          '<span class="char-ledger-creditor">' + _escHtml(creditor.name) + '</span>' +
+        '</div>' +
+        '<div class="char-ledger-body">' +
+          '<div class="char-ledger-row">' +
+            '<span class="char-ledger-label">Principal</span>' +
+            '<span class="char-ledger-val">' + (debt.principal || 0).toLocaleString() + ' cr</span>' +
+          '</div>' +
+          '<div class="char-ledger-row char-ledger-row--balance">' +
+            '<span class="char-ledger-label">Balance Owed</span>' +
+            '<span class="char-ledger-val char-ledger-val--danger">' + debt.balance.toLocaleString() + ' cr</span>' +
+          '</div>' +
+          '<div class="char-ledger-row">' +
+            '<span class="char-ledger-label">Interest Rate</span>' +
+            '<span class="char-ledger-val">' + _escHtml(rateLabel) + ' compound</span>' +
+          '</div>' +
+          '<div class="char-ledger-row">' +
+            '<span class="char-ledger-label">Cycles Elapsed</span>' +
+            '<span class="char-ledger-val">' + (debt.cyclesElapsed || 0) + '</span>' +
+          '</div>' +
+          '<div class="char-ledger-row">' +
+            '<span class="char-ledger-label">After Next Cycle</span>' +
+            '<span class="char-ledger-val char-ledger-val--warn">' + nextCycle.toLocaleString() + ' cr</span>' +
+          '</div>' +
+        '</div>' +
+        '<div class="char-ledger-actions">' +
+          '<button class="char-ledger-pay-btn" id="adv-ledger-pay">Make Payment</button>' +
+          '<button class="char-ledger-accrue-btn" id="adv-ledger-accrue" title="Compound interest (end of adventure)">Accrue Interest</button>' +
+        '</div>';
+
+      var history = debt.history || [];
+      if (history.length > 0) {
+        html += '<div class="char-ledger-history">' +
+          '<div class="char-ledger-history-label">History</div>';
+        var recent = history.slice(-8).reverse();
+        for (var h = 0; h < recent.length; h++) {
+          var entry = recent[h];
+          if (entry.type === 'payment') {
+            html += '<div class="char-ledger-history-row char-ledger-history--payment">' +
+              '<span>Payment</span><span>-' + entry.amount.toLocaleString() + ' cr</span>' +
+              '<span>Bal: ' + entry.balanceAfter.toLocaleString() + ' cr</span></div>';
+          } else if (entry.type === 'interest') {
+            html += '<div class="char-ledger-history-row char-ledger-history--interest">' +
+              '<span>Cycle ' + entry.cycle + '</span><span>+' + entry.amount.toLocaleString() + ' cr</span>' +
+              '<span>Bal: ' + entry.balanceAfter.toLocaleString() + ' cr</span></div>';
+          }
+        }
+        html += '</div>';
+      }
+
+      html += '</div>';
+    } else if (!debt || debt.balance <= 0) {
+      html += '<div class="char-ledger-card" style="opacity:0.5">' +
+        '<div class="char-ledger-header">' +
+          '<span class="char-ledger-title">The Ledger</span>' +
+          '<span class="char-ledger-creditor" style="color:var(--color-primary,#4a6)">Debt Free</span>' +
+        '</div>' +
+      '</div>';
+    }
+
+    return html;
+  }
+
+  function _patchCredits(action, amount) {
+    if (!_charId) return;
+    fetch('/api/characters/' + encodeURIComponent(_charId) + '/credits', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: action, amount: amount })
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.ok && _char) {
+        _char.credits = data.credits;
+        var cp = window.CharacterPanel && window.CharacterPanel.currentChar;
+        if (cp) cp.credits = data.credits;
+        _render();
+      }
+    })
+    .catch(function(err) { console.error('[Credits]', err); });
+  }
+
+  function _patchDebtPay(amount) {
+    if (!_charId) return;
+    fetch('/api/characters/' + encodeURIComponent(_charId) + '/debt/pay', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ amount: amount })
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.ok && _char) {
+        _char.credits = data.credits;
+        _char.debt = data.debt;
+        var cp = window.CharacterPanel && window.CharacterPanel.currentChar;
+        if (cp) { cp.credits = data.credits; cp.debt = data.debt; }
+        _render();
+      } else if (data.error) {
+        alert(data.error);
+      }
+    })
+    .catch(function(err) { console.error('[DebtPay]', err); });
+  }
+
+  function _patchDebtAccrue() {
+    if (!_charId) return;
+    fetch('/api/characters/' + encodeURIComponent(_charId) + '/debt/accrue', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' }
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.ok && _char) {
+        _char.debt = data.debt;
+        var cp = window.CharacterPanel && window.CharacterPanel.currentChar;
+        if (cp) cp.debt = data.debt;
+        _render();
+      } else if (data.error) {
+        alert(data.error);
+      }
+    })
+    .catch(function(err) { console.error('[DebtAccrue]', err); });
+  }
+
   function _render() {
     var container = document.getElementById('panel-5');
     if (!container) return;
@@ -380,6 +538,8 @@
     html += _buildVocationTrack();
     html += '<div class="adv-4th-placeholder"><span class="adv-4th-placeholder-text">Additional track slot reserved</span></div>';
     html += '</div>';
+
+    html += _buildCreditsAndLedger();
 
     html += '</div>';
 
@@ -492,6 +652,46 @@
         _applyVocationUpgrade(idx);
       });
     });
+
+    var credAddBtn = container.querySelector('#adv-credits-add');
+    var credSubBtn = container.querySelector('#adv-credits-sub');
+    if (credAddBtn) {
+      credAddBtn.addEventListener('click', function () {
+        var val = prompt('Credits to add:');
+        if (val === null) return;
+        var amt = parseInt(val, 10);
+        if (isNaN(amt) || amt <= 0) return;
+        _patchCredits('add', amt);
+      });
+    }
+    if (credSubBtn) {
+      credSubBtn.addEventListener('click', function () {
+        var val = prompt('Credits to subtract:');
+        if (val === null) return;
+        var amt = parseInt(val, 10);
+        if (isNaN(amt) || amt <= 0) return;
+        _patchCredits('subtract', amt);
+      });
+    }
+
+    var payBtn = container.querySelector('#adv-ledger-pay');
+    if (payBtn) {
+      payBtn.addEventListener('click', function () {
+        var val = prompt('Payment amount (credits):');
+        if (val === null) return;
+        var amt = parseInt(val, 10);
+        if (isNaN(amt) || amt <= 0) return;
+        _patchDebtPay(amt);
+      });
+    }
+
+    var accrueBtn = container.querySelector('#adv-ledger-accrue');
+    if (accrueBtn) {
+      accrueBtn.addEventListener('click', function () {
+        if (!confirm('Compound interest on debt? This happens at end-of-adventure settlement.')) return;
+        _patchDebtAccrue();
+      });
+    }
   }
 
   function _spendMarks(cost) {
