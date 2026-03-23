@@ -606,15 +606,19 @@
     }
     html += '</div>';
 
+    var totalInvested = discInv + arenaInv + vocInv;
+    var displayMarks = inAdv ? totalInvested : uninvested;
+    var displayLabel = inAdv ? 'INVESTED' : 'AVAILABLE';
+
     html += '<div class="adv-marks-summary">';
     html += '<div class="adv-marks-total">';
-    html += '<span class="adv-marks-number">' + totalPool + '</span>';
-    html += '<span class="adv-marks-label">MARKS</span>';
+    html += '<span class="adv-marks-number">' + displayMarks + '</span>';
+    html += '<span class="adv-marks-label">' + displayLabel + '</span>';
     html += '</div>';
     html += '<div class="adv-marks-breakdown">';
     html += '<span class="adv-marks-detail">Earned this adventure: ' + earned + '</span>';
     if (banked > 0) html += '<span class="adv-marks-detail">Carried over: ' + banked + '</span>';
-    html += '<span class="adv-marks-detail adv-marks-detail--uninvested">Uninvested: ' + uninvested + '</span>';
+    if (!inAdv && totalInvested > 0) html += '<span class="adv-marks-detail">Invested: ' + totalInvested + '</span>';
     html += '</div>';
 
     if (!inAdv) {
