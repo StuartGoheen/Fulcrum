@@ -66,11 +66,36 @@
   }
 
   var DISCIPLINE_MAP = {
-    'ranged':       { arenaId: 'reflex',   discId: 'ranged'       },
-    'heavyweapons': { arenaId: 'physique', discId: 'heavyweapons' },
-    'melee':        { arenaId: 'physique', discId: 'melee'        },
-    'brawl':        { arenaId: 'physique', discId: 'brawl'        }
+    'ranged':        { arenaId: 'reflex',   discId: 'ranged'        },
+    'heavy_weapons': { arenaId: 'physique', discId: 'heavy_weapons' },
+    'heavyweapons':  { arenaId: 'physique', discId: 'heavy_weapons' },
+    'melee':         { arenaId: 'physique', discId: 'melee'         },
+    'brawl':         { arenaId: 'physique', discId: 'brawl'         }
   };
+
+  var _CATEGORY_TAGS = { 'Any': true, 'Combat': true, 'Force': true };
+
+  function _gambitMatchesWeapon(gambitTags, wpnTags) {
+    var hasSpecific = false;
+    var specificMatch = false;
+    for (var i = 0; i < gambitTags.length; i++) {
+      var raw = gambitTags[i].replace(/^\[|\]$/g, '');
+      if (_CATEGORY_TAGS[raw]) continue;
+      hasSpecific = true;
+      var parts = raw.split(/\s+/);
+      if (parts.length > 1) {
+        var allPresent = true;
+        for (var p = 0; p < parts.length; p++) {
+          if (wpnTags.indexOf(parts[p]) === -1) { allPresent = false; break; }
+        }
+        if (allPresent) { specificMatch = true; break; }
+      } else {
+        if (wpnTags.indexOf(raw) !== -1) { specificMatch = true; break; }
+      }
+    }
+    if (hasSpecific) return specificMatch;
+    return gambitTags.length > 0;
+  }
 
   var WEAPON_TIERS = [
     { range: '0\u20133', label: 'Fleeting' },
@@ -437,28 +462,22 @@
     }
 
     var disciplineGambitsList = [];
-    if (discGambits && weapon.discipline) {
-      var wpnDisc = weapon.discipline.toLowerCase();
+    if (discGambits) {
+      var wpnTags = weapon.tags || [];
       var seen = {};
       var discKeys = Object.keys(discGambits);
       for (var dk = 0; dk < discKeys.length; dk++) {
         var dkey = discKeys[dk];
         var discSet = discGambits[dkey];
         if (!discSet || !discSet.gambits) continue;
-        var isOwnDisc = (dkey === wpnDisc);
-        var dMapping = DISCIPLINE_MAP[dkey];
-        var charDie = dMapping ? _getDiscDie(char, dMapping.arenaId, dMapping.discId) : 'D4';
+        var dArena = discSet.arenaId;
+        var dDisc  = discSet.disciplineId;
+        var charDie = (dArena && dDisc) ? _getDiscDie(char, dArena, dDisc) : 'D4';
         for (var dg = 0; dg < discSet.gambits.length; dg++) {
           var dgam = discSet.gambits[dg];
           if (dgam.modifiesAction !== 'action_attack') continue;
           if (_dieIndex(charDie) < _dieIndex(dgam.requiredDie)) continue;
-          if (!isOwnDisc) {
-            var wpnRange = weapon.range || {};
-            var gambitTags = dgam.tags || [];
-            var isMeleeWeapon = wpnRange.engaged || wpnDisc === 'melee' || wpnDisc === 'brawl';
-            var isCombatGambit = gambitTags.indexOf('[Combat]') !== -1;
-            if (!isMeleeWeapon || !isCombatGambit) continue;
-          }
+          if (!_gambitMatchesWeapon(dgam.tags || [], wpnTags)) continue;
           if (seen[dgam.id || dgam.name]) continue;
           seen[dgam.id || dgam.name] = true;
           disciplineGambitsList.push({ name: dgam.name, die: dgam.requiredDie, source: discSet.name, text: dgam.rule });
