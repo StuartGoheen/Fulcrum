@@ -803,7 +803,7 @@
       html += '<div class="armory-card-body">';
       html += '<div style="display:flex;justify-content:space-between;font-family:Audiowide,sans-serif;font-size:0.48rem;letter-spacing:0.05em">';
       html += '<span style="color:var(--color-text-secondary)">Borrowed: ' + (char.debt.principal || char.debt.balance).toLocaleString() + ' cr</span>';
-      html += '<span style="color:#CC3333">Owed: ' + owedAmt + ' cr (' + dCreditor.interest + ')</span>';
+      html += '<span style="color:#CC3333">Owed: ' + owedAmt.toLocaleString() + ' cr (' + Math.round(effectiveRate * 100) + '%)</span>';
       html += '</div></div></div>';
     }
 
