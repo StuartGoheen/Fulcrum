@@ -5960,7 +5960,7 @@
 
   .outfitting-layout {
     display: grid;
-    grid-template-columns: 1fr 360px;
+    grid-template-columns: 3fr 2fr;
     gap: 1rem;
     width: 100%;
     max-width: 1400px;
