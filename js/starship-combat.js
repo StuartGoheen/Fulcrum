@@ -798,6 +798,15 @@
     mount.innerHTML = html;
   }
 
+  function _migrateSystemStatuses(ship) {
+    if (!ship || !ship.systems) return;
+    for (var key in ship.systems) {
+      if (ship.systems[key] && ship.systems[key].status === 'offline') {
+        ship.systems[key].status = 'disabled';
+      }
+    }
+  }
+
   function _onSync(data) {
     if (!data.active) {
       _state.active = false;
@@ -805,6 +814,7 @@
       return;
     }
     _state.active = true;
+    if (data.ship) _migrateSystemStatuses(data.ship);
     _state.ship = data.ship || _state.ship;
     _state.stations = data.stations || _state.stations;
     _state.weapons = data.weapons || _state.weapons;
