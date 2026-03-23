@@ -80,6 +80,9 @@ function registerHandlers(io) {
 
         console.log(`[socket] Player joined: ${name} (${socket.id})`);
         io.emit('player:connected', { characterId, name });
+
+        const pool = rebuildPool(io);
+        io.emit('destiny:sync', { pool });
       }
 
       if (role === 'gm') {
@@ -223,6 +226,9 @@ function registerHandlers(io) {
         `).run(characterId);
 
         io.emit('player:disconnected', { characterId, name: characterName || 'Unknown' });
+
+        const pool = rebuildPool(io);
+        io.emit('destiny:sync', { pool });
       }
     });
   });
