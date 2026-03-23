@@ -1570,11 +1570,11 @@
   var MASTERFUL_NORM = 0.5;
 
   var DEBT_CREDITORS = [
-    { id: 'hutt_cartel', name: 'The Hutt Cartel', interest: '20%', rate: 0.20, desc: 'They always collect. Always.' },
-    { id: 'black_sun', name: 'Black Sun', interest: '25%', rate: 0.25, desc: "Xizor's network has a long reach and longer memory." },
-    { id: 'czerka_arms', name: 'Czerka Arms', interest: '15%', rate: 0.15, desc: 'Corporate collections. Legal in most systems.' },
-    { id: 'local_fixer', name: 'Local Fixer', interest: '10%', rate: 0.10, desc: 'A friend of a friend. Favors owed.' },
-    { id: 'imperial_surplus', name: 'Imperial Surplus Broker', interest: '30%', rate: 0.30, desc: 'Stolen manifest, borrowed time.' },
+    { id: 'hutt_cartel', name: 'The Hutt Cartel', interest: '10%', rate: 0.10, desc: 'They always collect. Always.' },
+    { id: 'black_sun', name: 'Black Sun', interest: '15%', rate: 0.15, desc: "Xizor's network has a long reach and longer memory." },
+    { id: 'imperial_surplus', name: 'Imperial Surplus Broker', interest: '20%', rate: 0.20, desc: 'Stolen manifest, borrowed time.' },
+    { id: 'czerka_arms', name: 'Czerka Arms', interest: '25%', rate: 0.25, desc: 'Corporate collections. Legal in most systems.' },
+    { id: 'local_fixer', name: 'Local Fixer', interest: '30%', rate: 0.30, desc: 'A friend of a friend. Favors owed.' },
   ];
 
   var TAG_DANGER  = ['Contraband', 'Illegal'];
@@ -1874,7 +1874,7 @@
           renderCart();
           renderCatalogItems();
         } else {
-          state.debt = { creditorId: DEBT_CREDITORS[0].id, amount: 100 };
+          state.debt = { creditorId: DEBT_CREDITORS[0].id, amount: 1000 };
           saveState();
           renderDebtPanel();
           renderCart();
@@ -1933,9 +1933,9 @@
       amtLabel.textContent = 'Loan';
       var amtInput = document.createElement('input');
       amtInput.type = 'number';
-      amtInput.min = '50';
-      amtInput.max = '500';
-      amtInput.step = '50';
+      amtInput.min = '1000';
+      amtInput.max = '10000';
+      amtInput.step = '500';
       amtInput.value = debt.amount || 100;
       amtInput.addEventListener('change', function() {
         var v = parseInt(this.value) || 100;
