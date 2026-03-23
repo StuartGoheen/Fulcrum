@@ -1708,7 +1708,7 @@
   }
 
   function outfittingCreditsRemaining() {
-    var debtBonus = (state.debt && state.debt.amount) ? state.debt.amount : 0;
+    var debtBonus = (state.debt && state.debt.balance) ? state.debt.balance : 0;
     return STARTING_CREDITS - outfittingCreditsSpent() + (state.soldBackCredits || 0) + debtBonus;
   }
 
@@ -1874,7 +1874,7 @@
           renderCart();
           renderCatalogItems();
         } else {
-          state.debt = { creditorId: DEBT_CREDITORS[0].id, amount: 1000 };
+          var cr = DEBT_CREDITORS[0]; state.debt = { creditorId: cr.id, principal: 1000, balance: 1000, rate: cr.rate, cyclesElapsed: 0, history: [] };
           saveState();
           renderDebtPanel();
           renderCart();
@@ -1911,7 +1911,7 @@
         credSelect.appendChild(opt);
       });
       credSelect.addEventListener('change', function() {
-        state.debt.creditorId = this.value;
+        state.debt.creditorId = this.value; var selCred = DEBT_CREDITORS.find(function(c2) { return c2.id === state.debt.creditorId; }); if (selCred) state.debt.rate = selCred.rate;
         saveState();
         renderDebtPanel();
         renderCart();
@@ -1933,15 +1933,15 @@
       amtLabel.textContent = 'Loan';
 
       var DEBT_MIN = 1000, DEBT_MAX = 10000, DEBT_STEP = 500;
-      var amtVal = Math.max(DEBT_MIN, Math.min(DEBT_MAX, debt.amount || DEBT_MIN));
+      var amtVal = Math.max(DEBT_MIN, Math.min(DEBT_MAX, debt.balance || DEBT_MIN));
 
       var minusBtn = document.createElement('button');
       minusBtn.className = 'outfitting-debt-stepper';
       minusBtn.textContent = '−';
       minusBtn.addEventListener('click', function() {
-        var cur = state.debt.amount || DEBT_MIN;
+        var cur = state.debt.balance || DEBT_MIN;
         var nv = Math.max(DEBT_MIN, cur - DEBT_STEP);
-        state.debt.amount = nv;
+        state.debt.balance = nv; state.debt.principal = nv;
         saveState();
         renderDebtPanel();
         renderCart();
@@ -1950,15 +1950,15 @@
 
       var amtDisplay = document.createElement('span');
       amtDisplay.className = 'outfitting-debt-amount';
-      amtDisplay.textContent = amtVal + ' cr';
+      amtDisplay.textContent = amtVal.toLocaleString() + ' cr';
 
       var plusBtn = document.createElement('button');
       plusBtn.className = 'outfitting-debt-stepper';
       plusBtn.textContent = '+';
       plusBtn.addEventListener('click', function() {
-        var cur = state.debt.amount || DEBT_MIN;
+        var cur = state.debt.balance || DEBT_MIN;
         var nv = Math.min(DEBT_MAX, cur + DEBT_STEP);
-        state.debt.amount = nv;
+        state.debt.balance = nv; state.debt.principal = nv;
         saveState();
         renderDebtPanel();
         renderCart();
@@ -1971,10 +1971,10 @@
       amtRow.appendChild(plusBtn);
       panel.appendChild(amtRow);
 
-      var owedAmt = Math.round(debt.amount * (1 + creditor.rate));
+      var owedAmt = Math.round(debt.balance * (1 + creditor.rate));
       var summary = document.createElement('div');
       summary.className = 'outfitting-debt-summary';
-      summary.textContent = 'Total owed: ' + owedAmt + ' cr (principal + ' + creditor.interest + ')';
+      summary.textContent = 'After 1st cycle: ' + owedAmt + ' cr (principal + ' + creditor.interest + ')';
       panel.appendChild(summary);
 
       dc.appendChild(panel);
@@ -2439,7 +2439,7 @@
       var totalEl = document.getElementById("outfitting-cart-total");
       if (totalEl) {
         var soldBack = items.filter(function(g) { return g.acquisition === "sold-back"; }).reduce(function(acc, g) { return acc + (g.cost || 0); }, 0);
-        var debtBonus = (state.debt && state.debt.amount) ? state.debt.amount : 0;
+        var debtBonus = (state.debt && state.debt.balance) ? state.debt.balance : 0;
         var totalBudget = STARTING_CREDITS + (state.soldBackCredits || 0) + debtBonus;
         var totalLine = spent + " / " + totalBudget + " cr";
         var extras = [];
@@ -3429,6 +3429,7 @@
         soldBackCredits: state.soldBackCredits || 0,
         startingCredits: STARTING_CREDITS,
         debt: state.debt || null,
+        credits: outfittingCreditsRemaining(),
         creditsRemaining: outfittingCreditsRemaining(),
         arenaAdj:   state.arenaAdj,
         discValues: state.discValues,
@@ -3563,10 +3564,10 @@
       gearRows.push(sumRow('Credits Spent', outfittingCreditsSpent() + ' / ' + STARTING_CREDITS));
       gearRows.push(sumRow('Credits Remaining', outfittingCreditsRemaining() + ' cr'));
       if (state.soldBackCredits > 0) gearRows.push(sumRow('Sell-Back Bonus', '+' + state.soldBackCredits + ' cr'));
-      if (state.debt && state.debt.amount > 0) {
+      if (state.debt && state.debt.balance > 0) {
         var creditor = DEBT_CREDITORS.find(function(c) { return c.id === state.debt.creditorId; }) || DEBT_CREDITORS[0];
-        var owedAmt = Math.round(state.debt.amount * (1 + creditor.rate));
-        gearRows.push(sumRow('Debt Taken', '+' + state.debt.amount + ' cr from ' + creditor.name));
+        var owedAmt = Math.round(state.debt.balance * (1 + creditor.rate));
+        gearRows.push(sumRow('Debt Taken', '+' + state.debt.balance + ' cr from ' + creditor.name));
         gearRows.push(sumRow('Amount Owed', owedAmt + ' cr (' + creditor.interest + ' interest)'));
       }
     }
@@ -3798,6 +3799,11 @@
             state.spentAdv = d8Count + d10Count;
             state.eliteTokensUsed = d10Count;
           }
+        }
+        if (state.debt && state.debt.amount !== undefined && state.debt.balance === undefined) {
+          var migAmt = state.debt.amount || 0;
+          var migCred = DEBT_CREDITORS.find(function(c) { return c.id === state.debt.creditorId; }) || DEBT_CREDITORS[0];
+          state.debt = { creditorId: state.debt.creditorId || migCred.id, principal: migAmt, balance: migAmt, rate: migCred.rate, cyclesElapsed: 0, history: [] };
         }
         state.charName = data.name || '';
         state.editId = editId;

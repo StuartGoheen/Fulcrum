@@ -183,6 +183,8 @@ function expandCharacterData(flat) {
     else if (flat.advancement.vocationTrack.unspentAdvances === undefined) flat.advancement.vocationTrack.unspentAdvances = 0;
     if (!flat.advancement.vocationUnlocks) flat.advancement.vocationUnlocks = {};
     applyVocationUnlocks(flat.kits, flat.advancement.vocationUnlocks);
+    if (flat.credits === undefined) flat.credits = 0;
+    flat.debt = _migrateDebt(flat.debt);
     applyInventoryRemovals(flat, flat.inventoryRemovals);
     return flat;
   }
@@ -270,13 +272,34 @@ function expandCharacterData(flat) {
     talents: [],
     arenas,
     personalDestiny: flat.personalDestiny || null,
-    debt: flat.debt || null,
+    debt: _migrateDebt(flat.debt),
+    credits: flat.credits || 0,
     advancement,
   };
 
   applyInventoryRemovals(result, flat.inventoryRemovals);
 
   return result;
+}
+
+const DEBT_CREDITOR_RATES = {
+  hutt_cartel: 0.10, black_sun: 0.15, imperial_surplus: 0.20,
+  czerka_arms: 0.25, local_fixer: 0.30
+};
+
+function _migrateDebt(debt) {
+  if (!debt) return null;
+  if (debt.balance !== undefined) return debt;
+  const amt = debt.amount || 0;
+  if (amt <= 0) return null;
+  return {
+    creditorId: debt.creditorId || 'hutt_cartel',
+    principal: amt,
+    balance: amt,
+    rate: DEBT_CREDITOR_RATES[debt.creditorId] || 0.10,
+    cyclesElapsed: 0,
+    history: []
+  };
 }
 
 router.get('/characters', (req, res) => {
@@ -537,6 +560,95 @@ router.patch('/characters/:id/dice', (req, res) => {
   } catch (err) {
     console.error('[PATCH /dice]', err);
     return res.status(500).json({ error: 'Failed to update dice.' });
+  }
+});
+
+router.patch('/characters/:id/credits', (req, res) => {
+  const character = db.prepare('SELECT id, character_data FROM characters WHERE id = ?').get(req.params.id);
+  if (!character || !character.character_data) {
+    return res.status(404).json({ error: 'Character not found.' });
+  }
+  try {
+    const data = JSON.parse(character.character_data);
+    const { action, amount } = req.body;
+    const amt = parseInt(amount) || 0;
+    if (amt <= 0) return res.status(400).json({ error: 'Amount must be positive.' });
+
+    if (action === 'add') {
+      data.credits = (data.credits || 0) + amt;
+    } else if (action === 'subtract') {
+      data.credits = Math.max(0, (data.credits || 0) - amt);
+    } else if (action === 'set') {
+      data.credits = Math.max(0, amt);
+    } else {
+      return res.status(400).json({ error: 'Action must be add, subtract, or set.' });
+    }
+
+    db.prepare('UPDATE characters SET character_data = ? WHERE id = ?').run(JSON.stringify(data), character.id);
+    return res.json({ ok: true, credits: data.credits });
+  } catch (err) {
+    console.error('[PATCH /credits]', err);
+    return res.status(500).json({ error: 'Failed to update credits.' });
+  }
+});
+
+router.patch('/characters/:id/debt/pay', (req, res) => {
+  const character = db.prepare('SELECT id, character_data FROM characters WHERE id = ?').get(req.params.id);
+  if (!character || !character.character_data) {
+    return res.status(404).json({ error: 'Character not found.' });
+  }
+  try {
+    const data = JSON.parse(character.character_data);
+    data.debt = _migrateDebt(data.debt);
+    if (!data.debt || !data.debt.balance || data.debt.balance <= 0) {
+      return res.status(400).json({ error: 'No outstanding debt.' });
+    }
+    const amt = parseInt(req.body.amount) || 0;
+    if (amt <= 0) return res.status(400).json({ error: 'Payment must be positive.' });
+    const available = data.credits || 0;
+    if (amt > available) return res.status(400).json({ error: 'Insufficient credits.' });
+
+    const payment = Math.min(amt, data.debt.balance);
+    data.credits = available - payment;
+    data.debt.balance = Math.round(data.debt.balance - payment);
+    if (!data.debt.history) data.debt.history = [];
+    data.debt.history.push({ type: 'payment', amount: payment, balanceAfter: data.debt.balance, timestamp: Date.now() });
+
+    if (data.debt.balance <= 0) {
+      data.debt.balance = 0;
+    }
+
+    db.prepare('UPDATE characters SET character_data = ? WHERE id = ?').run(JSON.stringify(data), character.id);
+    return res.json({ ok: true, credits: data.credits, debt: data.debt });
+  } catch (err) {
+    console.error('[PATCH /debt/pay]', err);
+    return res.status(500).json({ error: 'Failed to process payment.' });
+  }
+});
+
+router.patch('/characters/:id/debt/accrue', (req, res) => {
+  const character = db.prepare('SELECT id, character_data FROM characters WHERE id = ?').get(req.params.id);
+  if (!character || !character.character_data) {
+    return res.status(404).json({ error: 'Character not found.' });
+  }
+  try {
+    const data = JSON.parse(character.character_data);
+    data.debt = _migrateDebt(data.debt);
+    if (!data.debt || !data.debt.balance || data.debt.balance <= 0) {
+      return res.status(400).json({ error: 'No outstanding debt to accrue interest on.' });
+    }
+    const rate = data.debt.rate || 0;
+    const interest = Math.round(data.debt.balance * rate);
+    data.debt.balance = data.debt.balance + interest;
+    data.debt.cyclesElapsed = (data.debt.cyclesElapsed || 0) + 1;
+    if (!data.debt.history) data.debt.history = [];
+    data.debt.history.push({ type: 'interest', amount: interest, rate: rate, balanceAfter: data.debt.balance, cycle: data.debt.cyclesElapsed, timestamp: Date.now() });
+
+    db.prepare('UPDATE characters SET character_data = ? WHERE id = ?').run(JSON.stringify(data), character.id);
+    return res.json({ ok: true, debt: data.debt });
+  } catch (err) {
+    console.error('[PATCH /debt/accrue]', err);
+    return res.status(500).json({ error: 'Failed to accrue interest.' });
   }
 });
 

@@ -8489,4 +8489,175 @@
     color: var(--color-text-secondary);
     font-style: italic;
   }
+
+  /* ── Credits Bar ─────────────────────────────────────── */
+  .char-credits-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    margin-top: 10px;
+    background: var(--color-surface, #1a1a2e);
+    border: 1px solid var(--color-border, #333);
+    border-radius: 6px;
+  }
+  .char-credits-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-text-secondary, #aaa);
+    font-weight: 600;
+  }
+  .char-credits-value {
+    flex: 1;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--color-credits, #f0c040);
+    font-variant-numeric: tabular-nums;
+  }
+  .char-credits-controls {
+    display: flex;
+    gap: 4px;
+  }
+  .char-credits-btn {
+    width: 26px;
+    height: 26px;
+    border-radius: 4px;
+    border: 1px solid var(--color-border, #444);
+    background: var(--color-surface-alt, #222);
+    color: var(--color-text-secondary, #ccc);
+    font-size: 1rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+  .char-credits-btn:hover {
+    background: var(--color-primary, #4a6);
+    color: #fff;
+  }
+
+  /* ── Ledger Card ─────────────────────────────────────── */
+  .char-ledger-card {
+    margin-top: 10px;
+    border: 1px solid var(--color-border, #333);
+    border-radius: 8px;
+    background: var(--color-surface, #1a1a2e);
+    overflow: hidden;
+  }
+  .char-ledger-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: rgba(180, 40, 40, 0.15);
+    border-bottom: 1px solid var(--color-border, #333);
+  }
+  .char-ledger-title {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-danger, #e44);
+  }
+  .char-ledger-creditor {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary, #aaa);
+    font-style: italic;
+  }
+  .char-ledger-body {
+    padding: 8px 12px;
+  }
+  .char-ledger-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 3px 0;
+    font-size: 0.8rem;
+  }
+  .char-ledger-row--balance {
+    padding: 5px 0;
+    border-top: 1px solid var(--color-border, #333);
+    border-bottom: 1px solid var(--color-border, #333);
+    margin: 2px 0;
+  }
+  .char-ledger-label {
+    color: var(--color-text-secondary, #aaa);
+  }
+  .char-ledger-val {
+    font-weight: 600;
+    color: var(--color-text, #ddd);
+    font-variant-numeric: tabular-nums;
+  }
+  .char-ledger-val--danger {
+    color: var(--color-danger, #e44);
+    font-size: 0.95rem;
+    font-weight: 700;
+  }
+  .char-ledger-val--warn {
+    color: var(--color-warning, #d90);
+    font-size: 0.85rem;
+  }
+  .char-ledger-actions {
+    display: flex;
+    gap: 6px;
+    padding: 8px 12px;
+    border-top: 1px solid var(--color-border, #333);
+  }
+  .char-ledger-pay-btn,
+  .char-ledger-accrue-btn {
+    flex: 1;
+    padding: 6px 10px;
+    border-radius: 4px;
+    border: 1px solid var(--color-border, #444);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+  .char-ledger-pay-btn {
+    background: rgba(60, 160, 80, 0.2);
+    color: var(--color-primary, #4a6);
+    border-color: rgba(60, 160, 80, 0.3);
+  }
+  .char-ledger-pay-btn:hover {
+    background: rgba(60, 160, 80, 0.4);
+    color: #fff;
+  }
+  .char-ledger-accrue-btn {
+    background: rgba(180, 40, 40, 0.15);
+    color: var(--color-danger, #e44);
+    border-color: rgba(180, 40, 40, 0.25);
+  }
+  .char-ledger-accrue-btn:hover {
+    background: rgba(180, 40, 40, 0.35);
+    color: #fff;
+  }
+
+  /* ── Ledger History ─────────────────────────────────── */
+  .char-ledger-history {
+    padding: 6px 12px 10px;
+    border-top: 1px solid var(--color-border, #333);
+  }
+  .char-ledger-history-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-secondary, #888);
+    margin-bottom: 4px;
+  }
+  .char-ledger-history-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.7rem;
+    padding: 2px 0;
+    gap: 8px;
+  }
+  .char-ledger-history--payment {
+    color: var(--color-primary, #4a6);
+  }
+  .char-ledger-history--interest {
+    color: var(--color-danger, #e44);
+  }
   
