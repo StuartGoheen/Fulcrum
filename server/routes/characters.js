@@ -270,6 +270,7 @@ function expandCharacterData(flat) {
     talents: [],
     arenas,
     personalDestiny: flat.personalDestiny || null,
+    debt: flat.debt || null,
     advancement,
   };
 

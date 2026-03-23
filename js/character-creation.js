@@ -1564,6 +1564,56 @@
 
   var STARTING_CREDITS = 500;
 
+  var MARKUP_MARKET = { '': { min: 0.90, max: 1.05 }, 'F': { min: 0.90, max: 1.05 } };
+  var MARKUP_BLACK  = { '': { min: 1.0, max: 1.2 }, 'F': { min: 1.2, max: 1.8 }, 'R': { min: 2.0, max: 3.5 }, 'X': { min: 3.0, max: 8.0 } };
+  var LICENSE_FEE_PCT = 0.15;
+  var MASTERFUL_NORM = 0.5;
+
+  var DEBT_CREDITORS = [
+    { id: 'hutt_cartel', name: 'The Hutt Cartel', interest: '20%', rate: 0.20, desc: 'They always collect. Always.' },
+    { id: 'black_sun', name: 'Black Sun', interest: '25%', rate: 0.25, desc: "Xizor's network has a long reach and longer memory." },
+    { id: 'czerka_arms', name: 'Czerka Arms', interest: '15%', rate: 0.15, desc: 'Corporate collections. Legal in most systems.' },
+    { id: 'local_fixer', name: 'Local Fixer', interest: '10%', rate: 0.10, desc: 'A friend of a friend. Favors owed.' },
+    { id: 'imperial_surplus', name: 'Imperial Surplus Broker', interest: '30%', rate: 0.30, desc: 'Stolen manifest, borrowed time.' },
+  ];
+
+  var TAG_DANGER  = ['Contraband', 'Illegal'];
+  var TAG_WARNING = ['Restricted', 'Black Market', 'Military'];
+  var TAG_SAFE    = ['Legal', 'Common'];
+
+  function tagLegalityClass(tagText) {
+    if (TAG_DANGER.indexOf(tagText) >= 0) return ' tag-danger';
+    if (TAG_WARNING.indexOf(tagText) >= 0) return ' tag-warning';
+    if (TAG_SAFE.indexOf(tagText) >= 0) return ' tag-safe';
+    return '';
+  }
+
+  function parseRestriction(avail) {
+    var s = String(avail || '').toUpperCase().trim();
+    var parts = s.split('/');
+    return parts.length > 1 ? parts[1].charAt(0) : '';
+  }
+
+  function calcOutfittingPrice(item, marketMode) {
+    var rest = parseRestriction(item.availability);
+    var baseCost = item.cost || 0;
+    if (baseCost === 0) return { total: 0, base: 0, fee: 0, mult: 1, label: '' };
+
+    if (marketMode === 'market') {
+      var range = MARKUP_MARKET[rest] || MARKUP_MARKET[''];
+      var mult = range.max - (MASTERFUL_NORM * (range.max - range.min));
+      var price = Math.round(baseCost * mult);
+      var fee = rest === 'F' ? Math.round(baseCost * LICENSE_FEE_PCT) : 0;
+      return { total: price + fee, base: price, fee: fee, mult: mult, label: fee > 0 ? '+' + fee + ' license' : '' };
+    } else {
+      var brange = MARKUP_BLACK[rest] || MARKUP_BLACK[''];
+      var bmult = brange.max - (MASTERFUL_NORM * (brange.max - brange.min));
+      var bprice = Math.round(baseCost * bmult);
+      var multLabel = bmult.toFixed(1) + '×';
+      return { total: bprice, base: bprice, fee: 0, mult: bmult, label: multLabel };
+    }
+  }
+
   function getVocationItems(vocId) {
     if (!window._kitsData) return [];
     var kit = window._kitsData.find(function(k) { return k.id === vocId; });
@@ -1658,7 +1708,8 @@
   }
 
   function outfittingCreditsRemaining() {
-    return STARTING_CREDITS - outfittingCreditsSpent() + (state.soldBackCredits || 0);
+    var debtBonus = (state.debt && state.debt.amount) ? state.debt.amount : 0;
+    return STARTING_CREDITS - outfittingCreditsSpent() + (state.soldBackCredits || 0) + debtBonus;
   }
 
   function initOutfittingScreen() {
@@ -1798,6 +1849,124 @@
     cartTotal.id = 'outfitting-cart-total';
     cartPanel.appendChild(cartTotal);
 
+    var debtContainer = document.createElement('div');
+    debtContainer.id = 'outfitting-debt-container';
+    cartPanel.appendChild(debtContainer);
+
+    function renderDebtPanel() {
+      var dc = document.getElementById('outfitting-debt-container');
+      if (!dc) return;
+      dc.innerHTML = '';
+      var debt = state.debt || null;
+
+      var toggleBtn = document.createElement('button');
+      toggleBtn.className = 'outfitting-debt-toggle' + (debt ? ' active' : '');
+      toggleBtn.textContent = debt ? 'The Ledger (Active)' : 'Need More Credits?';
+      toggleBtn.addEventListener('click', function() {
+        if (state.debt) {
+          var withoutDebt = STARTING_CREDITS - outfittingCreditsSpent() + (state.soldBackCredits || 0);
+          if (withoutDebt < 0) {
+            alert('Cannot remove debt: you would be ' + Math.abs(withoutDebt) + ' cr overspent. Remove items first.');
+            return;
+          }
+          state.debt = null;
+          saveState();
+          renderDebtPanel();
+          renderCart();
+          renderCatalogItems();
+        } else {
+          state.debt = { creditorId: DEBT_CREDITORS[0].id, amount: 100 };
+          saveState();
+          renderDebtPanel();
+          renderCart();
+          renderCatalogItems();
+        }
+      });
+      dc.appendChild(toggleBtn);
+
+      if (!debt) return;
+
+      var panel = document.createElement('div');
+      panel.className = 'outfitting-debt-panel';
+
+      var header = document.createElement('div');
+      header.className = 'outfitting-debt-header';
+      header.textContent = 'The Ledger';
+      panel.appendChild(header);
+
+      var desc = document.createElement('p');
+      desc.className = 'outfitting-debt-desc';
+      desc.textContent = 'Take on debt for extra buying power. Your creditor will come collecting — with interest.';
+      panel.appendChild(desc);
+
+      var creditorRow = document.createElement('div');
+      creditorRow.className = 'outfitting-debt-row';
+      var credLabel = document.createElement('label');
+      credLabel.textContent = 'Creditor';
+      var credSelect = document.createElement('select');
+      DEBT_CREDITORS.forEach(function(c) {
+        var opt = document.createElement('option');
+        opt.value = c.id;
+        opt.textContent = c.name + ' (' + c.interest + ' interest)';
+        if (debt.creditorId === c.id) opt.selected = true;
+        credSelect.appendChild(opt);
+      });
+      credSelect.addEventListener('change', function() {
+        state.debt.creditorId = this.value;
+        saveState();
+        renderDebtPanel();
+        renderCart();
+      });
+      creditorRow.appendChild(credLabel);
+      creditorRow.appendChild(credSelect);
+      panel.appendChild(creditorRow);
+
+      var creditor = DEBT_CREDITORS.find(function(c) { return c.id === debt.creditorId; }) || DEBT_CREDITORS[0];
+      var credDesc = document.createElement('p');
+      credDesc.className = 'outfitting-debt-desc';
+      credDesc.style.fontStyle = 'italic';
+      credDesc.textContent = creditor.desc;
+      panel.appendChild(credDesc);
+
+      var amtRow = document.createElement('div');
+      amtRow.className = 'outfitting-debt-row';
+      var amtLabel = document.createElement('label');
+      amtLabel.textContent = 'Loan';
+      var amtInput = document.createElement('input');
+      amtInput.type = 'number';
+      amtInput.min = '50';
+      amtInput.max = '500';
+      amtInput.step = '50';
+      amtInput.value = debt.amount || 100;
+      amtInput.addEventListener('change', function() {
+        var v = parseInt(this.value) || 100;
+        if (v < 50) v = 50;
+        if (v > 500) v = 500;
+        state.debt.amount = v;
+        this.value = v;
+        saveState();
+        renderCart();
+        renderCatalogItems();
+      });
+      var crSuffix = document.createElement('span');
+      crSuffix.style.cssText = 'font-size:0.42rem;color:var(--color-text-secondary)';
+      crSuffix.textContent = ' cr';
+      amtRow.appendChild(amtLabel);
+      amtRow.appendChild(amtInput);
+      amtRow.appendChild(crSuffix);
+      panel.appendChild(amtRow);
+
+      var owedAmt = Math.round(debt.amount * (1 + creditor.rate));
+      var summary = document.createElement('div');
+      summary.className = 'outfitting-debt-summary';
+      summary.textContent = 'Total owed: ' + owedAmt + ' cr (principal + ' + creditor.interest + ')';
+      panel.appendChild(summary);
+
+      dc.appendChild(panel);
+    }
+
+    renderDebtPanel();
+
     layout.appendChild(catalogPanel);
     layout.appendChild(cartPanel);
     container.appendChild(layout);
@@ -1812,6 +1981,7 @@
       if (!avail) return '';
       if (avail.indexOf('X') >= 0) return 'Illegal';
       if (avail.indexOf('R') >= 0) return 'Restricted';
+      if (avail.indexOf('F') >= 0) return 'Fee';
       return '';
     }
 
@@ -1844,6 +2014,13 @@
         d.appendChild(aMeta);
       }
 
+      if (item.source === 'gear' && item.availability) {
+        var gMeta = document.createElement('div');
+        gMeta.className = 'outfitting-detail-meta';
+        gMeta.innerHTML = '<span>Avail: ' + item.availability + '</span>';
+        d.appendChild(gMeta);
+      }
+
       if (item.trait) {
         var tb = document.createElement('div');
         tb.className = 'outfitting-detail-trait';
@@ -1872,7 +2049,7 @@
         pills.className = 'outfitting-detail-tags';
         item.tags.forEach(function(t) {
           var pill = document.createElement('span');
-          pill.className = 'outfitting-tag-pill';
+          pill.className = 'outfitting-tag-pill' + tagLegalityClass(t);
           pill.textContent = t;
           pills.appendChild(pill);
         });
@@ -1949,22 +2126,53 @@
           renderCatalogItems();
         });
 
+        var pricing = calcOutfittingPrice(item, activeMarket);
         var priceEl = document.createElement('span');
         priceEl.className = 'outfitting-item-price';
-        priceEl.textContent = item.cost + ' cr';
+        if (pricing.total !== item.cost && item.cost > 0) {
+          var baseSpan = document.createElement('span');
+          baseSpan.className = 'outfitting-price-base';
+          baseSpan.textContent = item.cost;
+          priceEl.appendChild(baseSpan);
+          priceEl.appendChild(document.createTextNode(' ' + pricing.total + ' cr'));
+          if (pricing.label) {
+            var markupSpan = document.createElement('span');
+            markupSpan.className = pricing.fee > 0 ? 'outfitting-price-fee' : 'outfitting-price-markup';
+            markupSpan.textContent = pricing.label;
+            priceEl.appendChild(markupSpan);
+          }
+        } else {
+          priceEl.textContent = pricing.total + ' cr';
+        }
+
+        var salvagePrice = Math.round(pricing.total / 2);
+        var canAffordSalvage = outfittingCreditsRemaining() >= salvagePrice;
 
         var addBtn = document.createElement('button');
         addBtn.className = 'outfitting-add-btn';
         addBtn.textContent = '+';
-        var canAfford = outfittingCreditsRemaining() >= item.cost;
+        addBtn.title = 'Buy for ' + pricing.total + ' cr';
+        var canAfford = outfittingCreditsRemaining() >= pricing.total;
         addBtn.disabled = !canAfford;
         addBtn.addEventListener('click', function(e) {
           e.stopPropagation();
           addToLoadout(item);
         });
 
+        var salvBtn = document.createElement('button');
+        salvBtn.className = 'outfitting-add-btn';
+        salvBtn.style.cssText = 'color:#b08d57;border-color:color-mix(in srgb,#b08d57 50%,transparent);font-size:0.42rem;';
+        salvBtn.textContent = '⚙';
+        salvBtn.title = 'Buy Salvaged for ' + salvagePrice + ' cr (half price, Jury-Rigged)';
+        salvBtn.disabled = !canAffordSalvage || item.cost === 0;
+        salvBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          addToLoadoutSalvaged(item);
+        });
+
         row.appendChild(info);
         row.appendChild(priceEl);
+        row.appendChild(salvBtn);
         row.appendChild(addBtn);
         wrapper.appendChild(row);
 
@@ -1977,10 +2185,22 @@
     }
 
     function addToLoadout(item) {
-      if (outfittingCreditsRemaining() < item.cost) return;
+      var pricing = calcOutfittingPrice(item, activeMarket);
+      if (outfittingCreditsRemaining() < pricing.total) return;
       if (!state.startingGear) state.startingGear = [];
       var acq = activeMarket === 'black-market' ? 'contraband' : 'registered';
-      state.startingGear.push({ id: item.id, name: item.name, cost: item.cost, source: item.source, acquisition: acq });
+      state.startingGear.push({ id: item.id, name: item.name, cost: pricing.total, baseCost: item.cost, source: item.source, acquisition: acq });
+      saveState();
+      renderCart();
+      renderCatalogItems();
+    }
+
+    function addToLoadoutSalvaged(item) {
+      var pricing = calcOutfittingPrice(item, activeMarket);
+      var salvagePrice = Math.round(pricing.total / 2);
+      if (outfittingCreditsRemaining() < salvagePrice) return;
+      if (!state.startingGear) state.startingGear = [];
+      state.startingGear.push({ id: item.id, name: item.name + ' [Jury-Rigged]', cost: salvagePrice, baseCost: item.cost, source: item.source, acquisition: 'salvaged' });
       saveState();
       renderCart();
       renderCatalogItems();
@@ -2164,8 +2384,10 @@
 
           if (item.acquisition) {
             var acqBadge = document.createElement("span");
-            acqBadge.className = "outfitting-acq-badge" + (item.acquisition === "contraband" ? " contraband" : " registered");
-            acqBadge.textContent = item.acquisition === "contraband" ? "Contraband" : "Registered";
+            var acqClass = item.acquisition === "contraband" ? " contraband" : item.acquisition === "salvaged" ? " salvaged" : " registered";
+            var acqText = item.acquisition === "contraband" ? "Contraband" : item.acquisition === "salvaged" ? "Salvaged" : "Registered";
+            acqBadge.className = "outfitting-acq-badge" + acqClass;
+            acqBadge.textContent = acqText;
             nameEl.appendChild(document.createTextNode(" "));
             nameEl.appendChild(acqBadge);
           }
@@ -2198,8 +2420,13 @@
       var totalEl = document.getElementById("outfitting-cart-total");
       if (totalEl) {
         var soldBack = items.filter(function(g) { return g.acquisition === "sold-back"; }).reduce(function(acc, g) { return acc + (g.cost || 0); }, 0);
-        var totalLine = spent + " / " + STARTING_CREDITS + " cr";
-        if (state.soldBackCredits > 0) totalLine += " (+ " + state.soldBackCredits + " cr sell-back)";
+        var debtBonus = (state.debt && state.debt.amount) ? state.debt.amount : 0;
+        var totalBudget = STARTING_CREDITS + (state.soldBackCredits || 0) + debtBonus;
+        var totalLine = spent + " / " + totalBudget + " cr";
+        var extras = [];
+        if (state.soldBackCredits > 0) extras.push('+' + state.soldBackCredits + ' sell-back');
+        if (debtBonus > 0) extras.push('+' + debtBonus + ' debt');
+        if (extras.length) totalLine += ' (' + extras.join(', ') + ')';
         totalEl.innerHTML = '<span class="outfitting-total-label">Total Spent</span><span class="outfitting-total-value">' + totalLine + '</span>';
       }
     }
@@ -3178,6 +3405,7 @@
         soldBackgroundKeys: state.soldBackgroundKeys || [],
         soldBackCredits: state.soldBackCredits || 0,
         startingCredits: STARTING_CREDITS,
+        debt: state.debt || null,
         creditsRemaining: outfittingCreditsRemaining(),
         arenaAdj:   state.arenaAdj,
         discValues: state.discValues,
@@ -3305,12 +3533,19 @@
       }
       if (shopGear.length > 0) {
         shopGear.forEach(function(item) {
-          gearRows.push(sumRow(item.name, item.cost + ' cr'));
+          var acqLabel = item.acquisition === 'contraband' ? ' [Contraband]' : item.acquisition === 'salvaged' ? ' [Salvaged]' : ' [Registered]';
+          gearRows.push(sumRow(item.name, item.cost + ' cr' + acqLabel));
         });
       }
       gearRows.push(sumRow('Credits Spent', outfittingCreditsSpent() + ' / ' + STARTING_CREDITS));
       gearRows.push(sumRow('Credits Remaining', outfittingCreditsRemaining() + ' cr'));
       if (state.soldBackCredits > 0) gearRows.push(sumRow('Sell-Back Bonus', '+' + state.soldBackCredits + ' cr'));
+      if (state.debt && state.debt.amount > 0) {
+        var creditor = DEBT_CREDITORS.find(function(c) { return c.id === state.debt.creditorId; }) || DEBT_CREDITORS[0];
+        var owedAmt = Math.round(state.debt.amount * (1 + creditor.rate));
+        gearRows.push(sumRow('Debt Taken', '+' + state.debt.amount + ' cr from ' + creditor.name));
+        gearRows.push(sumRow('Amount Owed', owedAmt + ' cr (' + creditor.interest + ' interest)'));
+      }
     }
     body.appendChild(buildSumSection('Starting Gear', gearRows));
 

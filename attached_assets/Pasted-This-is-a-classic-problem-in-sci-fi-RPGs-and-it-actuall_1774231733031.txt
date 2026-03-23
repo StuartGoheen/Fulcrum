@@ -1,0 +1,35 @@
+This is a classic problem in sci-fi RPGs, and it actually plays perfectly into the gritty, "scoundrel" tone of your game. 
+
+If characters start with enough money to buy top-tier military gear and heavy armor, they aren't hungry. And in a game called **The Ledger System**, you want your players to be hungry. 
+
+However, players love their toys. If a Vanguard player's entire vision for their character is wearing heavy Mandalorian-style armor, locking that away for 10 sessions feels bad. 
+
+To solve this, we give them what they want, but we make them **pay for it in narrative friction**. Here are three ways players can get extra gear at character creation, all of which generate instant plot hooks for the GM:
+
+### 1. THE LEDGER (Taking on Debt)
+If they want more than 500 credits, they can take out a loan. This directly ties into the name of your system!
+* **The Mechanic:** A player may choose to take on a **[Debt]** during character creation. For every level of Debt they take, they instantly receive an extra **1,000 Credits** to spend on gear.
+* **The Catch:** Debt isn't just a backstory element; it's a mechanical threat. They must choose who holds their Ledger (a Hutt cartel, the Crimson Dawn, a corrupt Imperial governor, or a Loan Shark). 
+* **The Friction:** At the end of every adventure or payout, the creditor comes to collect their "interest." If the player cannot (or will not) pay a percentage of their earnings, the GM adds immediate ticks to the **Heat Track**, or the creditor sends bounty hunters to break their legs.
+
+### 2. "HOT" OR STOLEN GEAR (The Wanted Tag)
+The player didn't buy that Heavy Repeater or pristine suit of armor... they "found" it. 
+* **The Mechanic:** A player can choose one piece of expensive gear or weaponry from the rulebook and get it for absolutely **Free**. 
+* **The Catch:** The GM applies the **[Hot]** or **[Stolen]** tag to that specific item. It belongs to someone dangerous, and its serial numbers or transponder codes are still active.
+* **The Friction:** Whenever the player uses that item in a civilized space or during a major firefight, any failure on the **Control Die** instantly generates **Heat** for the party. Eventually, the original owner is going to track them down to take it back.
+
+### 3. JURY-RIGGED / SALVAGED GEAR (The Flawed Tag)
+The player bought the gear, but they bought it out of the back of a Jawa Sandcrawler. It was cheap for a reason.
+* **The Mechanic:** A player can buy any piece of equipment for **Half Price** (allowing that 500 credits to stretch much further). 
+* **The Catch:** The item permanently gains the **[Jury-Rigged]** or **[Unstable]** tag. 
+* **The Friction:** The gear is incredibly unreliable. If the player rolls a **1 on their Power Die** while using it, the item immediately breaks down. A weapon jams, a shield generator shorts out, or armor servos lock up. It becomes unusable until the player or an ally spends an **Action (Override/Mechanics)** to smack it back into working order mid-fight. 
+
+---
+
+### Why this is great for the GM:
+By using these options, you never have to say "No" to a player who wants a cool toy. You just say, *"Yes, but how did you get it?"*
+
+* If the Slinger wants the 2,000-credit custom heavy blaster, they take **Debt**, and now the GM has a built-in reason to send goons after the party.
+* If the Vanguard wants the heavy armor, they take it as **Jury-Rigged**, creating amazing tactical tension in combat when their armor locks up at the worst possible moment.
+
+It forces the players to make interesting choices before the game even starts. Do you want to implement a formal **Debt/Ledger** subsystem to track this, or just let players apply negative **Tags** to cheap gear?

@@ -185,6 +185,7 @@
     var acq = acqMap[itemId];
     if (!acq) return '';
     if (acq === 'contraband') return '<span class="armory-legality-badge armory-legality-illegal">Contraband</span>';
+    if (acq === 'salvaged') return '<span class="armory-legality-badge" style="color:#b08d57;border-color:color-mix(in srgb,#b08d57 50%,transparent)">Salvaged</span>';
     return '<span class="armory-legality-badge armory-legality-legal">Registered</span>';
   }
 
@@ -383,6 +384,7 @@
         '<span class="armory-weapon-chassis">' + _esc(weapon.chassisLabel || '') + '</span>' +
         (rangeStr ? '<span class="armory-weapon-range">Range: ' + _esc(rangeStr) + '</span>' : '') +
         (weapon.cost && !weapon.innate ? '<span class="armory-weapon-cost">' + _esc(String(weapon.cost)) + ' cr</span>' : '') +
+        _acquisitionBadge(weapon.id, char) +
       '</div>';
 
     var effectHtml = '';
@@ -542,6 +544,7 @@
         _statusBadge(status, armor.id, 'armor') +
         '<span class="armory-weapon-chassis">' + _esc(armor.categoryLabel || armor.category) + '</span>' +
         (armor.cost ? '<span class="armory-weapon-cost">' + _esc(String(armor.cost)) + ' cr</span>' : '') +
+        _acquisitionBadge(armor.id, char) +
       '</div>';
 
     var ruleHtml = categoryRule
@@ -595,6 +598,7 @@
         (rangeStr ? '<span class="armory-weapon-range">Range: ' + _esc(rangeStr) + '</span>' : '') +
         (gear.cost ? '<span class="armory-weapon-cost">' + _esc(String(gear.cost)) + ' cr</span>' : '') +
         (gear.availability ? '<span class="armory-weapon-range">Avail: ' + _esc(gear.availability) + '</span>' : '') +
+        _acquisitionBadge(gear.id, char) +
       '</div>';
 
     var effectHtml = '';
@@ -778,6 +782,28 @@
         html += '<div class="armory-category-label">Gear</div>';
         activeGear.forEach(function (e) { html += _buildLoadoutGearCard(e.item, e.status, char, e.qty || 1); });
       }
+    }
+
+    if (char.debt && char.debt.amount > 0) {
+      var debtCreditors = [
+        { id: 'hutt_cartel', name: 'The Hutt Cartel', interest: '20%', rate: 0.20 },
+        { id: 'black_sun', name: 'Black Sun', interest: '25%', rate: 0.25 },
+        { id: 'czerka_arms', name: 'Czerka Arms', interest: '15%', rate: 0.15 },
+        { id: 'local_fixer', name: 'Local Fixer', interest: '10%', rate: 0.10 },
+        { id: 'imperial_surplus', name: 'Imperial Surplus Broker', interest: '30%', rate: 0.30 },
+      ];
+      var dCreditor = debtCreditors.find(function(c) { return c.id === char.debt.creditorId; }) || debtCreditors[0];
+      var owedAmt = Math.round(char.debt.amount * (1 + dCreditor.rate));
+      html += '<div class="armory-category-label" style="color:#CC3333">The Ledger</div>';
+      html += '<div class="armory-card" style="border-color:color-mix(in srgb,#CC3333 30%,transparent)">';
+      html += '<div class="armory-card-header">';
+      html += '<span class="armory-card-name" style="color:#CC3333">' + _esc(dCreditor.name) + '</span>';
+      html += '</div>';
+      html += '<div class="armory-card-body">';
+      html += '<div style="display:flex;justify-content:space-between;font-family:Audiowide,sans-serif;font-size:0.48rem;letter-spacing:0.05em">';
+      html += '<span style="color:var(--color-text-secondary)">Borrowed: ' + char.debt.amount + ' cr</span>';
+      html += '<span style="color:#CC3333">Owed: ' + owedAmt + ' cr (' + dCreditor.interest + ')</span>';
+      html += '</div></div></div>';
     }
 
     html += '</div>';
