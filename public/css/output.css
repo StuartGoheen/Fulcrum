@@ -9218,18 +9218,128 @@ body.is-col-resizing .resize-handle {
   border-color: var(--color-accent-primary);
 }
 
-.adv-btn--bank {
+.adv-btn--endmission {
   border-color: var(--color-accent-primary);
   color: var(--color-accent-primary);
+  font-weight: 700;
 }
 
-.adv-btn--newadv {
+.adv-btn--endmission:hover {
+  background: color-mix(in srgb, var(--color-accent-primary) 10%, transparent);
+}
+
+.adv-btn--startmission {
   border-color: var(--color-accent-secondary);
+  color: var(--color-accent-secondary);
+  font-weight: 700;
+}
+
+.adv-btn--startmission:hover {
+  background: color-mix(in srgb, var(--color-accent-secondary) 10%, transparent);
+}
+
+.adv-phase-badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 3px 8px;
+  border-radius: 3px;
+  display: inline-block;
+  margin-top: 4px;
+}
+
+.adv-phase-badge--mission {
+  background: color-mix(in srgb, var(--color-accent-secondary) 15%, transparent);
   color: var(--color-accent-secondary);
 }
 
-.adv-btn--newadv:hover {
+.adv-phase-badge--adv {
+  background: color-mix(in srgb, var(--color-accent-primary) 15%, transparent);
+  color: var(--color-accent-primary);
+}
+
+.adv-invest-section {
+  margin-top: 10px;
+  padding: 8px 0;
+}
+
+.adv-invest-title {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-secondary);
+  margin-bottom: 6px;
+}
+
+.adv-invest-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 0;
+}
+
+.adv-invest-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.adv-invest-stepper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.adv-invest-btn {
+  width: 26px;
+  height: 26px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-panel);
+  color: var(--color-text-primary);
+  font-size: 0.9rem;
+  font-weight: 700;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.adv-invest-btn:hover:not(:disabled) {
   border-color: var(--color-accent-primary);
+  background: color-mix(in srgb, var(--color-accent-primary) 10%, transparent);
+}
+
+.adv-invest-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.adv-invest-value {
+  font-size: 0.85rem;
+  font-weight: 700;
+  min-width: 24px;
+  text-align: center;
+  color: var(--color-accent-primary);
+}
+
+.adv-invest-locked {
+  display: flex;
+  gap: 16px;
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+}
+
+.adv-marks-detail--uninvested {
+  font-weight: 700;
+  color: var(--color-accent-primary);
+}
+
+.adv-pip--locked {
+  opacity: 0.5;
+  cursor: not-allowed !important;
 }
 
 .adv-btn--spend {

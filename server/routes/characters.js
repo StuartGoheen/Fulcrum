@@ -450,27 +450,32 @@ router.patch('/characters/:id/advancement', (req, res) => {
       return res.status(400).json({ error: 'Invalid advancement payload.' });
     }
     const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, parseInt(v, 10) || lo));
+    const validPhases = ['mission', 'advancement'];
     const sanitized = {
       marks: {
         earnedChecks: (adv.marks && typeof adv.marks.earnedChecks === 'object') ? adv.marks.earnedChecks : {},
         totalBanked: clamp(adv.marks && adv.marks.totalBanked, 0, 9999)
       },
+      missionPhase: (adv.missionPhase && validPhases.includes(adv.missionPhase)) ? adv.missionPhase : 'mission',
       disciplineTrack: {
         level: clamp(adv.disciplineTrack && adv.disciplineTrack.level, 1, 50),
         filled: clamp(adv.disciplineTrack && adv.disciplineTrack.filled, 0, 5),
         eliteTokens: clamp(adv.disciplineTrack && adv.disciplineTrack.eliteTokens, 0, 999),
         focusBurns: clamp(adv.disciplineTrack && adv.disciplineTrack.focusBurns, 0, 999),
-        unspentAdvances: clamp(adv.disciplineTrack && adv.disciplineTrack.unspentAdvances, 0, 999)
+        unspentAdvances: clamp(adv.disciplineTrack && adv.disciplineTrack.unspentAdvances, 0, 999),
+        invested: clamp(adv.disciplineTrack && adv.disciplineTrack.invested, 0, 9999)
       },
       arenaTrack: {
         level: clamp(adv.arenaTrack && adv.arenaTrack.level, 1, 50),
         filled: clamp(adv.arenaTrack && adv.arenaTrack.filled, 0, 3),
-        unspentAdvances: clamp(adv.arenaTrack && adv.arenaTrack.unspentAdvances, 0, 999)
+        unspentAdvances: clamp(adv.arenaTrack && adv.arenaTrack.unspentAdvances, 0, 999),
+        invested: clamp(adv.arenaTrack && adv.arenaTrack.invested, 0, 9999)
       },
       vocationTrack: {
         level: clamp(adv.vocationTrack && adv.vocationTrack.level, 1, 50),
         filled: clamp(adv.vocationTrack && adv.vocationTrack.filled, 0, 5),
-        unspentAdvances: clamp(adv.vocationTrack && adv.vocationTrack.unspentAdvances, 0, 999)
+        unspentAdvances: clamp(adv.vocationTrack && adv.vocationTrack.unspentAdvances, 0, 999),
+        invested: clamp(adv.vocationTrack && adv.vocationTrack.invested, 0, 9999)
       },
       vocationUnlocks: (adv.vocationUnlocks && typeof adv.vocationUnlocks === 'object') ? adv.vocationUnlocks : {}
     };

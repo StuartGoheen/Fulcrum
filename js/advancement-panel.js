@@ -172,13 +172,31 @@
   function _ensureDefaults() {
     if (!_advancement) _advancement = {};
     if (!_advancement.marks) _advancement.marks = { earnedChecks: {}, totalBanked: 0 };
-    if (!_advancement.disciplineTrack) _advancement.disciplineTrack = { level: 2, filled: 0, eliteTokens: 0, focusBurns: 0, unspentAdvances: 0 };
+    if (!_advancement.disciplineTrack) _advancement.disciplineTrack = { level: 2, filled: 0, eliteTokens: 0, focusBurns: 0, unspentAdvances: 0, invested: 0 };
     if (_advancement.disciplineTrack.unspentAdvances === undefined) _advancement.disciplineTrack.unspentAdvances = 0;
-    if (!_advancement.arenaTrack) _advancement.arenaTrack = { level: 2, filled: 0, unspentAdvances: 0 };
+    if (_advancement.disciplineTrack.invested === undefined) _advancement.disciplineTrack.invested = 0;
+    if (!_advancement.arenaTrack) _advancement.arenaTrack = { level: 2, filled: 0, unspentAdvances: 0, invested: 0 };
     if (_advancement.arenaTrack.unspentAdvances === undefined) _advancement.arenaTrack.unspentAdvances = 0;
-    if (!_advancement.vocationTrack) _advancement.vocationTrack = { level: 2, filled: 0, unspentAdvances: 0 };
+    if (_advancement.arenaTrack.invested === undefined) _advancement.arenaTrack.invested = 0;
+    if (!_advancement.vocationTrack) _advancement.vocationTrack = { level: 2, filled: 0, unspentAdvances: 0, invested: 0 };
     if (_advancement.vocationTrack.unspentAdvances === undefined) _advancement.vocationTrack.unspentAdvances = 0;
+    if (_advancement.vocationTrack.invested === undefined) _advancement.vocationTrack.invested = 0;
     if (!_advancement.vocationUnlocks) _advancement.vocationUnlocks = {};
+    if (!_advancement.missionPhase) _advancement.missionPhase = 'mission';
+  }
+
+  function _getUninvestedMarks() {
+    var earned = _countEarnedMarks();
+    var banked = (_advancement && _advancement.marks) ? (_advancement.marks.totalBanked || 0) : 0;
+    var totalPool = earned + banked;
+    var totalInvested = (_advancement.disciplineTrack.invested || 0)
+                      + (_advancement.arenaTrack.invested || 0)
+                      + (_advancement.vocationTrack.invested || 0);
+    return totalPool - totalInvested;
+  }
+
+  function _isAdvancementPhase() {
+    return _advancement && _advancement.missionPhase === 'advancement';
   }
 
   function _buildMarkChecklist() {
@@ -225,33 +243,53 @@
     return html;
   }
 
+  function _buildInvestRow(trackKey, label, currentInv, uninvested) {
+    var canAdd = uninvested > 0;
+    var canSub = currentInv > 0;
+    var html = '<div class="adv-invest-row">';
+    html += '<span class="adv-invest-label">' + _esc(label) + '</span>';
+    html += '<div class="adv-invest-stepper">';
+    html += '<button class="adv-invest-btn" data-invest-track="' + trackKey + '" data-invest-dir="sub"' + (canSub ? '' : ' disabled') + '>\u2212</button>';
+    html += '<span class="adv-invest-value">' + currentInv + '</span>';
+    html += '<button class="adv-invest-btn" data-invest-track="' + trackKey + '" data-invest-dir="add"' + (canAdd ? '' : ' disabled') + '>+</button>';
+    html += '</div>';
+    html += '</div>';
+    return html;
+  }
+
   function _buildPipTrack(trackKey, trackObj, trackSize, costMult, label, extraAfterPips) {
     var costPerBox = trackObj.level * costMult;
     var totalTrackCost = costPerBox * trackSize;
     var unspent = trackObj.unspentAdvances || 0;
+    var invested = trackObj.invested || 0;
+    var inAdv = _isAdvancementPhase();
     var pipShape = trackKey === 'disc' ? ' adv-pip--disc' : ' adv-pip--square';
     var html = '';
     html += '<div class="adv-track-section">';
     html += '<div class="adv-track-header">';
     html += '<span class="adv-track-title">' + _esc(label) + '</span>';
-    html += '<span class="adv-track-meta">Track ' + trackObj.level + ' \u2022 ' + costPerBox + ' Mark' + (costPerBox > 1 ? 's' : '') + '/box \u2022 ' + totalTrackCost + ' to clear</span>';
+    html += '<span class="adv-track-meta">Track ' + trackObj.level + ' \u2022 ' + costPerBox + ' Mark' + (costPerBox > 1 ? 's' : '') + '/pip \u2022 ' + totalTrackCost + ' to clear</span>';
     html += '</div>';
 
     html += '<div class="adv-track-pips">';
     for (var i = 0; i < trackSize; i++) {
       var filled = i < trackObj.filled ? ' adv-pip--filled' : '';
-      html += '<span class="adv-pip' + pipShape + filled + '" data-track="' + trackKey + '" data-index="' + i + '"></span>';
+      var clickable = inAdv ? '' : ' adv-pip--locked';
+      html += '<span class="adv-pip' + pipShape + filled + clickable + '" data-track="' + trackKey + '" data-index="' + i + '"></span>';
     }
     html += '</div>';
 
     html += '<div class="adv-track-stats">';
     html += '<span class="adv-stat"><b>Progress:</b> ' + trackObj.filled + '/' + trackSize + '</span>';
+    html += '<span class="adv-stat"><b>Invested:</b> ' + invested + '</span>';
     html += '<span class="adv-stat adv-stat--advances"><b>Unspent Advances:</b> ' + unspent + '</span>';
     html += '</div>';
 
-    html += '<div class="adv-track-actions">';
-    html += '<button class="adv-btn adv-btn--spend' + (unspent < 1 ? ' adv-btn--disabled' : '') + '" data-spend-track="' + trackKey + '"' + (unspent < 1 ? ' disabled' : '') + '>Spend Advance</button>';
-    html += '</div>';
+    if (inAdv) {
+      html += '<div class="adv-track-actions">';
+      html += '<button class="adv-btn adv-btn--spend' + (unspent < 1 ? ' adv-btn--disabled' : '') + '" data-spend-track="' + trackKey + '"' + (unspent < 1 ? ' disabled' : '') + '>Spend Advance</button>';
+      html += '</div>';
+    }
 
     if (extraAfterPips) html += extraAfterPips;
 
@@ -262,9 +300,10 @@
   function _buildDisciplineTrack() {
     var dt = _advancement.disciplineTrack;
     var costPerBox = dt.level;
-    var banked = (_advancement.marks) ? (_advancement.marks.totalBanked || 0) : 0;
+    var invested = dt.invested || 0;
     var focusBurnCost = costPerBox * 2;
-    var canFocusBurn = banked >= focusBurnCost;
+    var inAdv = _isAdvancementPhase();
+    var canFocusBurn = inAdv && invested >= focusBurnCost;
 
     var extra = '';
     extra += '<div class="adv-track-stats">';
@@ -272,9 +311,11 @@
     extra += '<span class="adv-stat"><b>Focus Burns:</b> ' + (dt.focusBurns || 0) + '</span>';
     extra += '</div>';
 
-    extra += '<div class="adv-track-actions">';
-    extra += '<button class="adv-btn adv-btn--focus' + (canFocusBurn ? '' : ' adv-btn--disabled') + '" id="adv-focus-burn-btn" title="Pay ' + focusBurnCost + ' Mark(s), fill 2 pips, skip die advance, accelerate toward Elite Token"' + (canFocusBurn ? '' : ' disabled') + '>Focus Burn (' + focusBurnCost + 'M)</button>';
-    extra += '</div>';
+    if (inAdv) {
+      extra += '<div class="adv-track-actions">';
+      extra += '<button class="adv-btn adv-btn--focus' + (canFocusBurn ? '' : ' adv-btn--disabled') + '" id="adv-focus-burn-btn" title="Pay ' + focusBurnCost + ' invested mark(s), fill 2 pips, skip die advance, accelerate toward Elite Token"' + (canFocusBurn ? '' : ' disabled') + '>Focus Burn (' + focusBurnCost + 'M)</button>';
+      extra += '</div>';
+    }
 
     if (_openSpendPanel === 'disc') {
       extra += _buildDisciplineSpendPanel();
@@ -543,35 +584,69 @@
     if (!container) return;
     _ensureDefaults();
 
-    var total = _totalMarks();
     var earned = _countEarnedMarks();
     var banked = (_advancement.marks) ? (_advancement.marks.totalBanked || 0) : 0;
+    var totalPool = earned + banked;
+    var uninvested = _getUninvestedMarks();
+    var inAdv = _isAdvancementPhase();
+    var discInv = _advancement.disciplineTrack.invested || 0;
+    var arenaInv = _advancement.arenaTrack.invested || 0;
+    var vocInv = _advancement.vocationTrack.invested || 0;
 
     var html = '<div class="adv-panel">';
 
     html += '<div class="adv-header">';
     html += '<div class="adv-header-title">ADVANCEMENT ENGINE</div>';
-    html += '<div class="adv-header-subtitle">Track marks earned. Spend advances. Forge your legend.</div>';
+    if (inAdv) {
+      html += '<div class="adv-header-subtitle adv-phase-badge adv-phase-badge--adv">ADVANCEMENT PHASE \u2014 Spend invested marks on upgrades</div>';
+    } else {
+      html += '<div class="adv-header-subtitle adv-phase-badge adv-phase-badge--mission">MISSION PHASE \u2014 Earn marks and invest into tracks</div>';
+    }
     html += '</div>';
 
     html += '<div class="adv-marks-summary">';
     html += '<div class="adv-marks-total">';
-    html += '<span class="adv-marks-number">' + total + '</span>';
+    html += '<span class="adv-marks-number">' + totalPool + '</span>';
     html += '<span class="adv-marks-label">MARKS</span>';
     html += '</div>';
     html += '<div class="adv-marks-breakdown">';
     html += '<span class="adv-marks-detail">Earned this adventure: ' + earned + '</span>';
-    html += '<span class="adv-marks-detail">Banked from previous: ' + banked + '</span>';
-    html += '</div>';
-    html += '<div class="adv-marks-actions">';
-    html += '<button class="adv-btn adv-btn--bank" id="adv-bank-btn" title="Bank earned marks and reset checklist for next adventure">Bank &amp; Reset</button>';
-    html += '<button class="adv-btn adv-btn--newadv" id="adv-new-adventure-btn" title="Start new adventure: reset checklist (requires banked marks spent to 0)">New Adventure</button>';
-    html += '</div>';
+    if (banked > 0) html += '<span class="adv-marks-detail">Carried over: ' + banked + '</span>';
+    html += '<span class="adv-marks-detail adv-marks-detail--uninvested">Uninvested: ' + uninvested + '</span>';
     html += '</div>';
 
-    html += '<div class="adv-checklist-wrap">';
-    html += _buildMarkChecklist();
+    if (!inAdv) {
+      html += '<div class="adv-invest-section">';
+      html += '<div class="adv-invest-title">Invest Marks Into Tracks</div>';
+      html += _buildInvestRow('disc', 'Discipline', discInv, uninvested);
+      html += _buildInvestRow('arena', 'Arena', arenaInv, uninvested);
+      html += _buildInvestRow('voc', 'Vocation', vocInv, uninvested);
+      html += '</div>';
+
+      html += '<div class="adv-marks-actions">';
+      html += '<button class="adv-btn adv-btn--endmission" id="adv-end-mission-btn" title="End mission: lock in investments and enable advancement spending">End Mission</button>';
+      html += '</div>';
+    } else {
+      html += '<div class="adv-invest-section">';
+      html += '<div class="adv-invest-title">Invested Marks</div>';
+      html += '<div class="adv-invest-locked">';
+      html += '<span>Discipline: ' + discInv + '</span>';
+      html += '<span>Arena: ' + arenaInv + '</span>';
+      html += '<span>Vocation: ' + vocInv + '</span>';
+      html += '</div>';
+      html += '</div>';
+
+      html += '<div class="adv-marks-actions">';
+      html += '<button class="adv-btn adv-btn--startmission" id="adv-start-mission-btn" title="Start new mission: reset marks and re-enable earning">Start Mission</button>';
+      html += '</div>';
+    }
     html += '</div>';
+
+    if (!inAdv) {
+      html += '<div class="adv-checklist-wrap">';
+      html += _buildMarkChecklist();
+      html += '</div>';
+    }
 
     html += '<div class="adv-tracks-wrap">';
     html += '<div class="adv-section-divider">ADVANCEMENT TRACKS</div>';
@@ -603,6 +678,7 @@
 
     var pips = container.querySelectorAll('.adv-pip');
     pips.forEach(function (pip) {
+      if (pip.classList.contains('adv-pip--locked')) return;
       pip.addEventListener('click', function () {
         var track = pip.getAttribute('data-track');
         var index = parseInt(pip.getAttribute('data-index'), 10);
@@ -610,26 +686,54 @@
       });
     });
 
-    var bankBtn = container.querySelector('#adv-bank-btn');
-    if (bankBtn) {
-      bankBtn.addEventListener('click', function () {
-        var earned = _countEarnedMarks();
-        _advancement.marks.totalBanked = (_advancement.marks.totalBanked || 0) + earned;
-        _advancement.marks.earnedChecks = {};
+    var investBtns = container.querySelectorAll('.adv-invest-btn');
+    investBtns.forEach(function (btn) {
+      if (btn.disabled) return;
+      btn.addEventListener('click', function () {
+        var trackKey = btn.getAttribute('data-invest-track');
+        var dir = btn.getAttribute('data-invest-dir');
+        var t = _getTrackObj(trackKey);
+        if (!t) return;
+        if (dir === 'add') {
+          if (_getUninvestedMarks() > 0) {
+            t.invested = (t.invested || 0) + 1;
+            _persist();
+            _render();
+          }
+        } else if (dir === 'sub') {
+          if ((t.invested || 0) > 0) {
+            t.invested = t.invested - 1;
+            _persist();
+            _render();
+          }
+        }
+      });
+    });
+
+    var endMissionBtn = container.querySelector('#adv-end-mission-btn');
+    if (endMissionBtn) {
+      endMissionBtn.addEventListener('click', function () {
+        var uninvested = _getUninvestedMarks();
+        if (uninvested > 0) {
+          alert('You have ' + uninvested + ' uninvested mark(s). Invest all marks into tracks before ending the mission.');
+          return;
+        }
+        _advancement.missionPhase = 'advancement';
         _persist();
         _render();
       });
     }
 
-    var newAdvBtn = container.querySelector('#adv-new-adventure-btn');
-    if (newAdvBtn) {
-      newAdvBtn.addEventListener('click', function () {
-        var banked = _advancement.marks.totalBanked || 0;
-        if (banked > 0) {
-          alert('You must spend all banked Marks before starting a new adventure. Current banked: ' + banked);
-          return;
-        }
+    var startMissionBtn = container.querySelector('#adv-start-mission-btn');
+    if (startMissionBtn) {
+      startMissionBtn.addEventListener('click', function () {
+        _advancement.missionPhase = 'mission';
+        var carry = (_advancement.disciplineTrack.invested || 0)
+                  + (_advancement.arenaTrack.invested || 0)
+                  + (_advancement.vocationTrack.invested || 0);
+        _advancement.marks.totalBanked = carry;
         _advancement.marks.earnedChecks = {};
+        _persistAdventureMarks();
         _persist();
         _render();
       });
@@ -745,17 +849,21 @@
     }
   }
 
-  function _spendMarks(cost) {
-    var banked = _advancement.marks.totalBanked || 0;
-    if (banked >= cost) {
-      _advancement.marks.totalBanked = banked - cost;
+  function _spendFromTrack(trackKey, cost) {
+    var t = _getTrackObj(trackKey);
+    if (!t) return false;
+    var inv = t.invested || 0;
+    if (inv >= cost) {
+      t.invested = inv - cost;
       return true;
     }
     return false;
   }
 
-  function _refundMarks(cost) {
-    _advancement.marks.totalBanked = (_advancement.marks.totalBanked || 0) + cost;
+  function _refundToTrack(trackKey, cost) {
+    var t = _getTrackObj(trackKey);
+    if (!t) return;
+    t.invested = (t.invested || 0) + cost;
   }
 
   function _getTrackObj(trackKey) {
@@ -778,13 +886,14 @@
   }
 
   function _handlePipClick(trackKey, index) {
+    if (!_isAdvancementPhase()) return;
     var t = _getTrackObj(trackKey);
     if (!t) return;
     var costPerBox = t.level * _getCostMult(trackKey);
     var trackSize = _getTrackSize(trackKey);
 
     if (index === t.filled) {
-      if (!_spendMarks(costPerBox)) return;
+      if (!_spendFromTrack(trackKey, costPerBox)) return;
       t.filled++;
       t.unspentAdvances = (t.unspentAdvances || 0) + 1;
       if (t.filled >= trackSize) {
@@ -797,7 +906,7 @@
       _persist();
       _render();
     } else if (index === t.filled - 1) {
-      _refundMarks(costPerBox);
+      _refundToTrack(trackKey, costPerBox);
       t.filled--;
       t.unspentAdvances = Math.max(0, (t.unspentAdvances || 0) - 1);
       _persist();
@@ -806,10 +915,11 @@
   }
 
   function _handleFocusBurn() {
+    if (!_isAdvancementPhase()) return;
     var dt = _advancement.disciplineTrack;
     var costPerBox = dt.level;
     var markCost = costPerBox * 2;
-    if (!_spendMarks(markCost)) return;
+    if (!_spendFromTrack('disc', markCost)) return;
     dt.focusBurns = (dt.focusBurns || 0) + 1;
     dt.filled += 2;
     if (dt.filled >= DISC_TRACK_SIZE) {
@@ -1126,9 +1236,11 @@
 
   function _updateMarksSummary() {
     var numEl = document.querySelector('.adv-marks-number');
-    var earnedEl = document.querySelectorAll('.adv-marks-detail');
-    if (numEl) numEl.textContent = _totalMarks();
-    if (earnedEl.length > 0) earnedEl[0].textContent = 'Earned this adventure: ' + _countEarnedMarks();
+    if (numEl) {
+      var earned = _countEarnedMarks();
+      var banked = (_advancement && _advancement.marks) ? (_advancement.marks.totalBanked || 0) : 0;
+      numEl.textContent = earned + banked;
+    }
   }
 
   function _loadDestinyData(cb) {
