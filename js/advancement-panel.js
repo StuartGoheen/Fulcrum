@@ -1,6 +1,81 @@
 (function () {
   'use strict';
 
+  function _showModal(opts) {
+    var existing = document.getElementById('adv-modal-overlay');
+    if (existing) existing.remove();
+
+    var overlay = document.createElement('div');
+    overlay.id = 'adv-modal-overlay';
+    overlay.className = 'adv-modal-overlay';
+
+    var box = document.createElement('div');
+    box.className = 'adv-modal-box';
+
+    var msg = document.createElement('div');
+    msg.className = 'adv-modal-msg';
+    msg.textContent = opts.message || '';
+    box.appendChild(msg);
+
+    if (opts.type === 'prompt') {
+      var input = document.createElement('input');
+      input.type = 'text';
+      input.className = 'adv-modal-input';
+      if (opts.placeholder) input.placeholder = opts.placeholder;
+      box.appendChild(input);
+      setTimeout(function () { input.focus(); }, 50);
+    }
+
+    var actions = document.createElement('div');
+    actions.className = 'adv-modal-actions';
+
+    if (opts.type === 'alert') {
+      var okBtn = document.createElement('button');
+      okBtn.className = 'adv-modal-btn adv-modal-btn--primary';
+      okBtn.textContent = 'OK';
+      okBtn.addEventListener('click', function () { overlay.remove(); if (opts.onOk) opts.onOk(); });
+      actions.appendChild(okBtn);
+    } else if (opts.type === 'confirm') {
+      var cancelBtn = document.createElement('button');
+      cancelBtn.className = 'adv-modal-btn adv-modal-btn--cancel';
+      cancelBtn.textContent = 'Cancel';
+      cancelBtn.addEventListener('click', function () { overlay.remove(); if (opts.onCancel) opts.onCancel(); });
+      actions.appendChild(cancelBtn);
+
+      var confirmBtn = document.createElement('button');
+      confirmBtn.className = 'adv-modal-btn adv-modal-btn--primary';
+      confirmBtn.textContent = opts.confirmLabel || 'Confirm';
+      confirmBtn.addEventListener('click', function () { overlay.remove(); if (opts.onConfirm) opts.onConfirm(); });
+      actions.appendChild(confirmBtn);
+    } else if (opts.type === 'prompt') {
+      var cancelBtn2 = document.createElement('button');
+      cancelBtn2.className = 'adv-modal-btn adv-modal-btn--cancel';
+      cancelBtn2.textContent = 'Cancel';
+      cancelBtn2.addEventListener('click', function () { overlay.remove(); if (opts.onCancel) opts.onCancel(); });
+      actions.appendChild(cancelBtn2);
+
+      var submitBtn = document.createElement('button');
+      submitBtn.className = 'adv-modal-btn adv-modal-btn--primary';
+      submitBtn.textContent = opts.confirmLabel || 'OK';
+      submitBtn.addEventListener('click', function () { overlay.remove(); if (opts.onSubmit) opts.onSubmit(input.value); });
+      actions.appendChild(submitBtn);
+
+      input.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') { overlay.remove(); if (opts.onSubmit) opts.onSubmit(input.value); }
+      });
+    }
+
+    box.appendChild(actions);
+    overlay.appendChild(box);
+    overlay.addEventListener('click', function (e) {
+      if (e.target === overlay) {
+        overlay.remove();
+        if (opts.onCancel) opts.onCancel();
+      }
+    });
+    document.body.appendChild(overlay);
+  }
+
   var ADVENTURE_TRIGGERS = [
     { id: 'act_milestone_1', label: 'Act I Milestone',  value: 1, desc: 'Crew completes Act 1 or a major objective.', group: true },
     { id: 'act_milestone_2', label: 'Act II Milestone', value: 1, desc: 'Crew completes Act 2 or a major objective.', group: true },
@@ -555,7 +630,7 @@
         if (cp) { cp.credits = data.credits; cp.debt = data.debt; }
         _render();
       } else if (data.error) {
-        alert(data.error);
+        _showModal({ type: 'alert', message: data.error });
       }
     })
     .catch(function(err) { console.error('[DebtPay]', err); });
@@ -575,7 +650,7 @@
         if (cp) cp.debt = data.debt;
         _render();
       } else if (data.error) {
-        alert(data.error);
+        _showModal({ type: 'alert', message: data.error });
       }
     })
     .catch(function(err) { console.error('[DebtAccrue]', err); });
@@ -721,7 +796,7 @@
       endMissionBtn.addEventListener('click', function () {
         var uninvested = _getUninvestedMarks();
         if (uninvested > 0) {
-          alert('You have ' + uninvested + ' uninvested mark(s). Invest all marks into tracks before ending the mission.');
+          _showModal({ type: 'alert', message: 'You have ' + uninvested + ' uninvested mark(s). Invest all marks into tracks before ending the mission.' });
           return;
         }
         _advancement.missionPhase = 'advancement';
@@ -818,39 +893,58 @@
     var credSubBtn = container.querySelector('#adv-credits-sub');
     if (credAddBtn) {
       credAddBtn.addEventListener('click', function () {
-        var val = prompt('Credits to add:');
-        if (val === null) return;
-        var amt = parseInt(val, 10);
-        if (isNaN(amt) || amt <= 0) return;
-        _patchCredits('add', amt);
+        _showModal({
+          type: 'prompt',
+          message: 'Credits to add:',
+          placeholder: 'Amount',
+          onSubmit: function (val) {
+            var amt = parseInt(val, 10);
+            if (isNaN(amt) || amt <= 0) return;
+            _patchCredits('add', amt);
+          }
+        });
       });
     }
     if (credSubBtn) {
       credSubBtn.addEventListener('click', function () {
-        var val = prompt('Credits to subtract:');
-        if (val === null) return;
-        var amt = parseInt(val, 10);
-        if (isNaN(amt) || amt <= 0) return;
-        _patchCredits('subtract', amt);
+        _showModal({
+          type: 'prompt',
+          message: 'Credits to subtract:',
+          placeholder: 'Amount',
+          onSubmit: function (val) {
+            var amt = parseInt(val, 10);
+            if (isNaN(amt) || amt <= 0) return;
+            _patchCredits('subtract', amt);
+          }
+        });
       });
     }
 
     var payBtn = container.querySelector('#adv-ledger-pay');
     if (payBtn) {
       payBtn.addEventListener('click', function () {
-        var val = prompt('Payment amount (credits):');
-        if (val === null) return;
-        var amt = parseInt(val, 10);
-        if (isNaN(amt) || amt <= 0) return;
-        _patchDebtPay(amt);
+        _showModal({
+          type: 'prompt',
+          message: 'Payment amount (credits):',
+          placeholder: 'Amount',
+          onSubmit: function (val) {
+            var amt = parseInt(val, 10);
+            if (isNaN(amt) || amt <= 0) return;
+            _patchDebtPay(amt);
+          }
+        });
       });
     }
 
     var accrueBtn = container.querySelector('#adv-ledger-accrue');
     if (accrueBtn) {
       accrueBtn.addEventListener('click', function () {
-        if (!confirm('Compound interest on debt? This happens at end-of-adventure settlement.')) return;
-        _patchDebtAccrue();
+        _showModal({
+          type: 'confirm',
+          message: 'Compound interest on debt? This happens at end-of-adventure settlement.',
+          confirmLabel: 'Accrue',
+          onConfirm: function () { _patchDebtAccrue(); }
+        });
       });
     }
   }
@@ -1001,6 +1095,16 @@
     var newDie = _nextDie(curDie);
     if (!newDie) return;
 
+    function _finishArenaUpgrade() {
+      at.unspentAdvances -= cost.adv;
+      arena.die = newDie;
+      _persist();
+      _persistDice({ type: 'arena', id: arena.id, newDie: newDie });
+      document.dispatchEvent(new CustomEvent('character:stateChanged'));
+      if (window.CharacterPanel && window.CharacterPanel.refreshFront) window.CharacterPanel.refreshFront();
+      _render();
+    }
+
     if (newDie === 'D12') {
       var existing = _countD12Arenas();
       if (existing >= 1) {
@@ -1009,20 +1113,22 @@
           if (a.die === 'D12' && a.id !== arena.id) otherArena = a;
         });
         if (otherArena) {
-          if (!confirm('Apex Rule: ' + otherArena.label + ' is currently D12 and will be degraded to D10. Continue?')) return;
-          otherArena.die = 'D10';
-          _persistDice({ type: 'arena', id: otherArena.id, newDie: 'D10' });
+          _showModal({
+            type: 'confirm',
+            message: 'Apex Rule: ' + otherArena.label + ' is currently D12 and will be degraded to D10. Continue?',
+            confirmLabel: 'Continue',
+            onConfirm: function () {
+              otherArena.die = 'D10';
+              _persistDice({ type: 'arena', id: otherArena.id, newDie: 'D10' });
+              _finishArenaUpgrade();
+            }
+          });
+          return;
         }
       }
     }
 
-    at.unspentAdvances -= cost.adv;
-    arena.die = newDie;
-    _persist();
-    _persistDice({ type: 'arena', id: arena.id, newDie: newDie });
-    document.dispatchEvent(new CustomEvent('character:stateChanged'));
-    if (window.CharacterPanel && window.CharacterPanel.refreshFront) window.CharacterPanel.refreshFront();
-    _render();
+    _finishArenaUpgrade();
   }
 
   function _applyVocationUpgrade(kitIdx) {

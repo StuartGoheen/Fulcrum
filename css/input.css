@@ -8071,6 +8071,76 @@
     opacity: 0.5;
     cursor: not-allowed !important;
   }
+
+  .adv-modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+  }
+  .adv-modal-box {
+    background: var(--color-bg-frame);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 20px 24px;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  }
+  .adv-modal-msg {
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: var(--color-text-primary);
+    margin-bottom: 16px;
+  }
+  .adv-modal-input {
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 0.85rem;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    background: var(--color-bg-panel);
+    color: var(--color-text-primary);
+    margin-bottom: 16px;
+    outline: none;
+  }
+  .adv-modal-input:focus {
+    border-color: var(--color-accent-primary);
+  }
+  .adv-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+  .adv-modal-btn {
+    font-size: 0.78rem;
+    padding: 6px 16px;
+    border-radius: 4px;
+    border: 1px solid var(--color-border);
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .adv-modal-btn--cancel {
+    background: var(--color-bg-panel);
+    color: var(--color-text-secondary);
+    border-color: var(--color-border);
+  }
+  .adv-modal-btn--cancel:hover {
+    border-color: var(--color-text-secondary);
+  }
+  .adv-modal-btn--primary {
+    background: color-mix(in srgb, var(--color-accent-primary) 15%, var(--color-bg-panel));
+    color: var(--color-accent-primary);
+    border-color: var(--color-accent-primary);
+  }
+  .adv-modal-btn--primary:hover {
+    background: color-mix(in srgb, var(--color-accent-primary) 25%, var(--color-bg-panel));
+  }
   .adv-btn--spend {
     border-color: var(--color-success);
     color: var(--color-success);
