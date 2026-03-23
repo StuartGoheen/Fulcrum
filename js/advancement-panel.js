@@ -262,7 +262,8 @@
     var dt = _advancement.disciplineTrack;
     var costPerBox = dt.level;
     var banked = (_advancement.marks) ? (_advancement.marks.totalBanked || 0) : 0;
-    var canFocusBurn = banked >= costPerBox;
+    var focusBurnCost = costPerBox * 2;
+    var canFocusBurn = banked >= focusBurnCost;
 
     var extra = '';
     extra += '<div class="adv-track-stats">';
@@ -271,7 +272,7 @@
     extra += '</div>';
 
     extra += '<div class="adv-track-actions">';
-    extra += '<button class="adv-btn adv-btn--focus' + (canFocusBurn ? '' : ' adv-btn--disabled') + '" id="adv-focus-burn-btn" title="Pay ' + costPerBox + ' Mark(s), skip die upgrade, gain progress toward Elite Token"' + (canFocusBurn ? '' : ' disabled') + '>Focus Burn (' + costPerBox + 'M)</button>';
+    extra += '<button class="adv-btn adv-btn--focus' + (canFocusBurn ? '' : ' adv-btn--disabled') + '" id="adv-focus-burn-btn" title="Pay ' + focusBurnCost + ' Mark(s), fill 2 pips, skip die advance, accelerate toward Elite Token"' + (canFocusBurn ? '' : ' disabled') + '>Focus Burn (' + focusBurnCost + 'M)</button>';
     extra += '</div>';
 
     if (_openSpendPanel === 'disc') {
@@ -282,7 +283,7 @@
       extra += '<div class="adv-ref-row">D6 \u2192 D8: 1 Advance</div>';
       extra += '<div class="adv-ref-row">D8 \u2192 D10: 1 Advance + 1 Elite Token</div>';
       extra += '<div class="adv-ref-row">D10 \u2192 D12: 1 Advance + 2 Elite Tokens</div>';
-      extra += '<div class="adv-ref-row adv-ref-note">Focus Burn: Pay Mark cost, skip die upgrade, accelerate toward Elite Token.</div>';
+      extra += '<div class="adv-ref-row adv-ref-note">Focus Burn: Pay 2\u00d7 Mark cost, fill 2 pips, skip die advance, accelerate toward Elite Token.</div>';
       extra += '</div>';
     }
 
@@ -797,14 +798,14 @@
   function _handleFocusBurn() {
     var dt = _advancement.disciplineTrack;
     var costPerBox = dt.level;
-    if (!_spendMarks(costPerBox)) return;
+    var markCost = costPerBox * 2;
+    if (!_spendMarks(markCost)) return;
     dt.focusBurns = (dt.focusBurns || 0) + 1;
-    dt.filled++;
-    dt.unspentAdvances = (dt.unspentAdvances || 0) + 1;
+    dt.filled += 2;
     if (dt.filled >= DISC_TRACK_SIZE) {
       dt.eliteTokens = (dt.eliteTokens || 0) + 1;
       dt.level++;
-      dt.filled = 0;
+      dt.filled = Math.max(0, dt.filled - DISC_TRACK_SIZE);
     }
     _persist();
     _render();
