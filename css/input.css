@@ -6276,6 +6276,9 @@
     flex-direction: column;
     gap: 0.4rem;
     align-self: flex-start;
+    overflow: visible;
+    position: sticky;
+    top: 0.5rem;
   }
 
   .outfitting-cart-title {

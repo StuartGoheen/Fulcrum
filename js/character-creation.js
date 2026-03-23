@@ -1851,6 +1851,7 @@
 
     var debtContainer = document.createElement('div');
     debtContainer.id = 'outfitting-debt-container';
+    debtContainer.style.marginTop = '0.4rem';
     cartPanel.appendChild(debtContainer);
 
     function renderDebtPanel() {
