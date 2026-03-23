@@ -1289,5 +1289,285 @@
         "source": "gear"
       }
     ]
+  },
+  {
+    "id": "voc_splice",
+    "name": "The Splice",
+    "governingArena": "wits",
+    "favoredDiscipline": "tech",
+    "description": "Slicers talk to machines and machines talk back. The Splice doesn't just use technology — they command it. Through a companion probe droid and a talent for invasive system access, they extend their reach into any networked system, locked terminal, or security grid that makes the mistake of having a physical port.",
+    "fluff": "Chopper kept the Ghost flying with attitude, bad wiring, and creative profanity. R2-D2 sliced Star Destroyers from the inside while everyone else was busy getting shot. The best slicers in the galaxy aren't the ones who sit behind terminals — they're the ones who send something small, fast, and expendable to do the job while they watch from a safe distance. Your droid isn't your pet. It's your hands where your hands can't reach.",
+    "abilities": [
+      {
+        "id": "voc_splice_t1",
+        "tier": 1,
+        "type": "passive",
+        "name": "Companion Droid",
+        "tags": [
+          "[Combat]",
+          "[Narrative]"
+        ],
+        "rule": "You begin play with a small hovering probe droid — a scomp-link equipped utility platform with a basic toolkit, sensor suite, and holoprojector. The droid occupies your zone and can move up to 3 zones from you. It acts on your initiative using your pips — commanding it costs the same as acting yourself.\n\nThe droid has no independent will. It does exactly what you tell it and nothing else. When the droid is targeted by an attack or hazard, you defend for it using Tech (Wits) as both Control and Power. If the defense fails, the droid enters [Shut Down] and must be repaired with a Tech action during a Short Rest.\n\nThe droid can interact with physical systems (plug into terminals, activate switches, carry small objects) but cannot attack, intimidate, or perform social actions. It is a tool, not a combatant."
+      },
+      {
+        "id": "voc_splice_t2",
+        "tier": 2,
+        "type": "passive",
+        "name": "Direct",
+        "tags": [
+          "[Combat]",
+          "[Narrative]"
+        ],
+        "rule": "When your droid or any system you have physically accessed via scomp-link is under your control, you may spend a Maneuver pip to issue a Direct command. The controlled system provides its own Power die (determined by the GM based on the system's capability), and you use Tech (Wits) as your Control die.\n\nThe system's capabilities determine what Direct can do — a turret can fire, a door can lock, a security camera can pan, a ventilation system can vent atmosphere. You cannot Direct a system to do something it was not built to do. No turret means no attack. No lock means no seal.\n\nDirect requires maintained physical connection (scomp-link) or active control via Companion Droid. Breaking the connection ends control immediately."
+      },
+      {
+        "id": "voc_splice_t3",
+        "tier": 3,
+        "type": "maneuver",
+        "name": "Reconfigure",
+        "tags": [
+          "[Narrative]"
+        ],
+        "discipline": "tech",
+        "arena": "wits",
+        "rolled": false,
+        "rule": "During a Short Rest, you may reconfigure your Companion Droid into one of three operational modes. The mode persists until the next Short Rest. Choose one:\n\n**Scout Mode:** The droid's operational range extends to unlimited distance (as long as comm signal is maintained). It gains enhanced sensors — you may Assess through the droid using Tech (Wits) at no range penalty. The droid cannot interact with systems in this mode — it observes only.\n\n**Combat Mode:** The droid gains a light blaster mount. It may make Ranged attacks using your Tech (Wits) as Control and a D6 Power die. Range: 2 zones. The droid's operational range remains 5 zones.\n\n**Fortify Mode:** The droid projects a localized energy shield. One ally in the droid's zone gains [Buffered 2] at the start of each round. The droid's operational range is reduced to 2 zones and it cannot interact with systems while maintaining the shield.",
+        "effect": [
+          {
+            "tier": 1,
+            "label": "Scout Mode",
+            "range": "Short Rest",
+            "description": "Unlimited range, enhanced sensors, Assess through droid at no penalty. Observation only — no system interaction."
+          },
+          {
+            "tier": 2,
+            "label": "Combat Mode",
+            "range": "Short Rest",
+            "description": "Light blaster mount (D6 Power, 2-zone range). Attacks use Tech (Wits). Operational range 5 zones."
+          },
+          {
+            "tier": 3,
+            "label": "Fortify Mode",
+            "range": "Short Rest",
+            "description": "Energy shield grants [Buffered 2] to one ally in droid zone each round. Operational range reduced to 2 zones, no system interaction."
+          }
+        ]
+      },
+      {
+        "id": "voc_splice_t4",
+        "tier": 4,
+        "type": "passive",
+        "name": "Autonomous Protocol",
+        "tags": [
+          "[Combat]"
+        ],
+        "rule": "Your Companion Droid gains limited autonomous behavior during Challenge scenes. It may take one independent Maneuver pip per round without costing you a pip — the droid acts on pre-programmed subroutines you've drilled into it.\n\nThe autonomous Maneuver must be consistent with the droid's current mode: Scout droid repositions or scans, Combat droid repositions or takes cover, Fortify droid repositions the shield. The droid still cannot take Actions independently — complex commands still require your Direct."
+      },
+      {
+        "id": "voc_splice_t5",
+        "tier": 5,
+        "type": "permission",
+        "name": "Parallel Processing",
+        "tags": [
+          "[Combat]"
+        ],
+        "rule": "Once per Act, you may activate Parallel Processing. For the remainder of the current Challenge scene, your Companion Droid gains a full independent combat turn — its own Action and Maneuver pips, acting on your initiative. You command both yourself and the droid simultaneously, splitting your attention across two bodies.\n\nThe droid uses Tech (Wits) for all rolls during Parallel Processing. Its capabilities are still limited by its current Reconfigure mode.\n\nIf you are rendered unconscious while Parallel Processing is active, the droid does not shut down. It continues operating on the last standing orders you gave it — a final act of programming foresight that keeps your tools in the fight even when you can't be."
+      }
+    ],
+    "imageUrl": "/assets/vocations/voc_splice.png",
+    "startingItems": [
+      {
+        "id": "gear_scomp_spiker_01",
+        "name": "Scomp Spiker",
+        "cost": 20,
+        "source": "gear"
+      },
+      {
+        "id": "gear_slicer_spike_01",
+        "name": "Slicer Spike",
+        "cost": 300,
+        "source": "gear"
+      }
+    ]
+  },
+  {
+    "id": "voc_grifter",
+    "name": "The Grifter",
+    "governingArena": "presence",
+    "favoredDiscipline": "deception",
+    "description": "The Grifter doesn't fight fair because the Grifter doesn't fight at all — not if the job is done right. They lie for a living, and they're so good at it that the truth becomes whatever they say it is. Their power isn't in the moment — it's in the setup, the preparation, the long game that pays off three scenes after the seed was planted.",
+    "fluff": "Hondo Ohnaka convinced both sides of a war he was on their side and walked away with both payments. Lando talked his way into Cloud City's administration and ran the place for years on charm and nerve. The best grifters don't need blasters — they need a mark, a story, and enough time to make both work. You've been running games since before you could shave, and the galaxy still hasn't caught on.",
+    "abilities": [
+      {
+        "id": "voc_grifter_t1",
+        "tier": 1,
+        "type": "passive",
+        "name": "Born Liar",
+        "tags": [
+          "[Narrative]"
+        ],
+        "rule": "You may use Deception in place of Charm or Persuasion for any social action. You're not charming them — you're deceiving them into feeling charmed. You're not persuading them — you're persuading them with information that isn't true.\n\nAdditionally, cross-discipline gambits that modify Charm or Persuasion actions may be applied when you use Deception in their place via Born Liar. The gambit functions identically — it simply triggers off your Deception roll instead."
+      },
+      {
+        "id": "voc_grifter_t2",
+        "tier": 2,
+        "type": "gambit",
+        "name": "The Hook",
+        "tags": [
+          "[Narrative]"
+        ],
+        "modifiesAction": "action_deceive",
+        "actionType": "Deception Action",
+        "rule": "After resolving a successful Deception action against an NPC, spend 1 tier. You plant a self-propagating lie — a piece of false information so well-constructed that the target not only believes it but acts on it unprompted in future scenes. The lie spreads without your involvement.\n\nThe GM determines how the NPC acts on the planted information, but the lie persists until contradicted by direct evidence. The target does not get a second chance to see through it — they already failed."
+      },
+      {
+        "id": "voc_grifter_t3",
+        "tier": 3,
+        "type": "maneuver",
+        "name": "The Play",
+        "tags": [
+          "[Narrative]"
+        ],
+        "discipline": "deception",
+        "arena": "presence",
+        "rolled": true,
+        "rule": "You construct permanent cover identities for yourself and your crew. This is an uncontested maneuver — roll Deception (Presence). The cover identities include documentation, backstory, and enough planted details to withstand casual inspection. One roll covers the entire crew.\n\nOn failure, the covers are created but contain a hidden flaw that you know exists but cannot identify. The GM holds this flaw and may activate it at a dramatically appropriate moment. You know your work wasn't clean — you just don't know where the crack is.",
+        "risk": "On failure, covers are built but contain a hidden flaw. You know something is wrong but not what. The GM holds the flaw.",
+        "effect": [
+          {
+            "tier": 1,
+            "label": "Fleeting",
+            "range": "0-3",
+            "description": "Cover identities hold under casual inspection but step down under active scrutiny. Anyone specifically investigating the crew's identities gets a step-up on their roll."
+          },
+          {
+            "tier": 2,
+            "label": "Masterful",
+            "range": "4-7",
+            "description": "Solid cover identities. They hold under normal investigation with no step-down. Only dedicated intelligence operations or Force-assisted interrogation might see through them."
+          },
+          {
+            "tier": 3,
+            "label": "Legendary",
+            "range": "8+",
+            "description": "Flawless covers. Identities step up under scrutiny — investigation actually reinforces the lie. Digital records, witness accounts, and paper trails all corroborate. Only someone who already knows the truth can see through them."
+          }
+        ]
+      },
+      {
+        "id": "voc_grifter_t4",
+        "tier": 4,
+        "type": "passive",
+        "name": "Deep Cover",
+        "tags": [
+          "[Narrative]"
+        ],
+        "rule": "While operating under cover identities created by The Play (T3), your allies gain a narrative step-up (maximum D8) on any discipline roll where their cover identity would reasonably provide expertise or authority. A cover identity as an Imperial officer grants a step-up on Command rolls when issuing orders to Imperials. A cover as a merchant grants a step-up on Negotiate when haggling.\n\nThis is a narrative benefit, not a mechanical override — the step-up cannot exceed D8 regardless of circumstances, and only applies when the cover identity is actively relevant to the action being taken."
+      },
+      {
+        "id": "voc_grifter_t5",
+        "tier": 5,
+        "type": "permission",
+        "name": "The Long Con",
+        "tags": [
+          "[Narrative]"
+        ],
+        "rule": "Once per adventure, you may declare that a single event happening right now was something you planned for. You retroactively establish one preparatory action that your character performed off-screen at some point before this moment — and that preparation is now paying off.\n\nThe retroactive action must be plausible given your character's capabilities, resources, and the time available. You cannot conjure items from nowhere, kill someone retroactively, or rewrite established events. You can reveal that you bribed the guard last week, planted a weapon under the table yesterday, or arranged for a contact to be in this port today.\n\nThe GM has final say on plausibility. If the declaration is reasonable, it simply happens — no roll required. The preparation was already done. You're just revealing it now."
+      }
+    ],
+    "imageUrl": "/assets/vocations/voc_grifter.png",
+    "startingItems": [
+      {
+        "id": "gear_disguise_kit_01",
+        "name": "Disguise Kit",
+        "cost": 250,
+        "source": "gear"
+      },
+      {
+        "id": "gear_datapad_01",
+        "name": "Datapad",
+        "cost": 50,
+        "source": "gear"
+      }
+    ]
+  },
+  {
+    "id": "voc_doc",
+    "name": "The Doc",
+    "governingArena": "wits",
+    "favoredDiscipline": "medicine",
+    "description": "The Doc keeps the crew alive. Not through miracles or Force healing — through skill, preparation, and the steady hands that come from knowing exactly what you're doing when everyone else is panicking. They make medical resources last longer, treat injuries more effectively, and when someone goes down at the end of a fight, they're the one you want standing over the body.",
+    "fluff": "Every crew in the Outer Rim knows the same truth: you can replace a pilot, you can find another gunner, but a good medic is worth their weight in aurodium. The Doc isn't flashy. They don't perform miracles. They just make sure that when the smoke clears and someone isn't moving, they start moving again. That's the job. That's all of it.",
+    "abilities": [
+      {
+        "id": "voc_doc_t1",
+        "tier": 1,
+        "type": "passive",
+        "name": "Field Medic",
+        "tags": [
+          "[Combat]",
+          "[Narrative]"
+        ],
+        "rule": "When you are adjacent to an ally and not Engaged, you may apply medical consumables (Bacta Patches, Stim Packs, Bacta Geltabs, and similar combat medical items) as a Maneuver instead of an Action. You still require the item and must meet all other requirements for its use.\n\nAdditionally, when you Assess a patient using Medicine (Wits), you may convert one Assess question into [Optimized] on your next Medicine action targeting that patient. Your diagnosis informs your treatment — you identified the condition and you know exactly how to address it."
+      },
+      {
+        "id": "voc_doc_t2",
+        "tier": 2,
+        "type": "passive",
+        "name": "Precise Dosage",
+        "tags": [
+          "[Narrative]"
+        ],
+        "rule": "When you perform Treat Injury, ignore 1 level of [Stimmed] when determining your Medicine Power die step-down. A patient at [Stimmed 3] is treated as [Stimmed 2] by you.\n\nThe [Stimmed] condition itself remains on the patient at its actual value — if another healer treats them, they face the full penalty. You are not removing the drugs from their system. You are skilled enough to work through the chemical interference."
+      },
+      {
+        "id": "voc_doc_t3",
+        "tier": 3,
+        "type": "passive",
+        "name": "Specialist",
+        "tags": [
+          "[Narrative]"
+        ],
+        "rule": "Your Treat Injury results are enhanced at every tier:\n\n**Fleeting:** Increase Trauma recovery by 2 instead of 1 for all allies resting with you. (Short rest: 3 Trauma instead of 1. Long rest: 4 instead of 2.)\n\n**Masterful:** As Fleeting, plus allies may convert 3 Vitality into 1 additional Trauma recovery instead of 2.\n\n**Legendary:** Increase Vitality regeneration by 2 instead of 1 for all allies. (Short rest: recover 2 Vitality. Long rest: recover 3 Vitality.)"
+      },
+      {
+        "id": "voc_doc_t4",
+        "tier": 4,
+        "type": "gambit",
+        "name": "Adrenaline Protocol",
+        "tags": [
+          "[Combat]"
+        ],
+        "rule": "Expend a Stim Pack or Medpac on an adjacent ally (as a Maneuver via Field Medic). The target gains [Stimmed] +1 as normal. Choose one:\n\n**Overdrive:** For a number of rounds equal to the target's current [Stimmed] level (after this application), their Reflex and Physique are stepped up. At the end of the target's turn when the duration expires, they crash — Reflex and Physique are stepped down until a Short Rest.\n\n**Sedate:** The target is rendered unconscious. On enemies, requires a successful Medicine (Wits) action to administer.\n\nAdditionally, your Precise Dosage (T2) now ignores 2 levels of [Stimmed] instead of 1.",
+        "modifiesAction": "action_interact",
+        "actionType": "Medical Consumable Application"
+      },
+      {
+        "id": "voc_doc_t5",
+        "tier": 5,
+        "type": "passive",
+        "name": "Resuscitation Protocol",
+        "tags": [
+          "[Combat]",
+          "[Narrative]"
+        ],
+        "rule": "When you perform a Stabilize (Interact) on an incapacitated ally, your result is increased by +1 effect tier. Your Fleeting result achieves what others need a Masterful for. Your Masterful achieves what others need a Legendary for. And your Legendary result exceeds what anyone else in the galaxy can accomplish with the same tools and the same patient."
+      }
+    ],
+    "imageUrl": "/assets/vocations/voc_doc.png",
+    "startingItems": [
+      {
+        "id": "gear_medpac_01",
+        "name": "Medpac",
+        "cost": 100,
+        "source": "gear"
+      },
+      {
+        "id": "gear_stim_pack_01",
+        "name": "Stim Pack",
+        "cost": 150,
+        "source": "gear"
+      }
+    ]
   }
 ]
