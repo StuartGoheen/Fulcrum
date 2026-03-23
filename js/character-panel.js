@@ -687,10 +687,7 @@
     var h = function(s) { return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); };
     if (nameEl) nameEl.textContent = pd.name;
     if (mechsEl) {
-      mechsEl.innerHTML =
-        '<span class="destiny-personal-mech"><span class="destiny-personal-mech-badge destiny-personal-mech-badge--hope">Hope</span><span class="destiny-personal-mech-text" title="' + h(pd.hopeRecovery.description) + '">' + h(pd.hopeRecovery.title) + '</span></span>' +
-        '<span class="destiny-personal-mech-sep">·</span>' +
-        '<span class="destiny-personal-mech"><span class="destiny-personal-mech-badge destiny-personal-mech-badge--toll">Toll</span><span class="destiny-personal-mech-text" title="' + h(pd.tollRecovery.description) + '">' + h(pd.tollRecovery.title) + '</span></span>';
+      mechsEl.innerHTML = '';
     }
   }
 

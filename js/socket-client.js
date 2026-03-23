@@ -45,14 +45,15 @@
 
     tracker.innerHTML = indexed.map(function (item) {
       var t = item.token;
-      var cls = 'destiny-pip';
-      cls += t.side === 'toll' ? ' is-toll' : ' is-hope';
-      if (t.tapped) cls += ' is-tapped';
+      var cls = 'destiny-token';
+      cls += t.side === 'toll' ? ' destiny-token--toll' : ' destiny-token--hope';
+      if (t.tapped) cls += ' destiny-token--tapped';
       var canTap = !t.tapped;
       var title = (t.side === 'toll' ? 'Toll' : 'Hope') + (t.tapped ? ' (tapped)' : '');
       if (canTap) title += ' \u2014 click to tap';
-      return '<div class="' + cls + '" data-dest-idx="' + item.origIdx + '" title="' + title + '"' +
-        (canTap ? ' style="cursor:pointer;"' : '') + '></div>';
+      var symbol = t.side === 'toll' ? '\u25CF' : '\u25CF';
+      return '<span class="' + cls + '" data-dest-idx="' + item.origIdx + '" title="' + title + '"' +
+        (canTap ? ' style="cursor:pointer;"' : '') + '>' + symbol + '</span>';
     }).join('');
 
     _renderDestinyState(pool);
@@ -100,7 +101,7 @@
   }
 
   document.addEventListener('click', function (e) {
-    var pip = e.target.closest('.destiny-pip[data-dest-idx]');
+    var pip = e.target.closest('.destiny-token[data-dest-idx]');
     if (!pip || !_currentSocket) return;
     var idx = parseInt(pip.getAttribute('data-dest-idx'), 10);
     if (isNaN(idx)) return;
