@@ -304,7 +304,16 @@
         "conditions": [
           {
             "condition": "[Marked]",
-            "effect": "No inherent mechanical effect. A target designation tag that abilities, traits, or Gambits interact with. Duration defined by source."
+            "effect": "Personal combat only. No inherent mechanical effect. A target designation tag that abilities, traits, or Gambits interact with. Duration defined by source."
+          }
+        ]
+      },
+      {
+        "category": "Starship Pursuit",
+        "conditions": [
+          {
+            "condition": "[Locked On]",
+            "effect": "Starship combat only. The pursuing ship has matched the target's vector and established pursuit lock. The locked-on ship's Pilot has Evade reactions [Weakened] against the locking ship (the pursuer knows their evasion patterns). The locking ship's Gunners gain [Optimized] against the locked-on target (pursuit vector provides a firing solution). Established by the Pilot's Pursue/Close at Masterful+. Persists until the target Breaks Away at Masterful+, the locking Pilot takes an action that contradicts pursuit (Evasive Maneuvers, Terrain Run), or the target escapes the encounter. Failing a Break Away while [Locked On] presents an Opening to the locking ship's Gunners. One-directional — multiple ships can have [Locked On] on the same target."
           }
         ]
       },
@@ -937,7 +946,7 @@
           "name": "Evade",
           "station": "Pilot",
           "discipline": "Piloting (Reflex) + Handling",
-          "description": "The ship's Dodge equivalent. On success, Power die result reduces attacker's Effect Tier. On failure, no mitigation — full effect lands. On Control 8+, the evasion generates an Opening for the ship's Gunners."
+          "description": "The ship's Dodge equivalent. On success, Power die result reduces attacker's Effect Tier. On failure, no mitigation — full effect lands. On Control 8+, the evasion generates an Opening for the ship's Gunners. When the ship is [Locked On] by the attacker, the Evade Power die is [Weakened] — the pursuer knows the ship's evasion patterns."
         },
         {
           "name": "Endure",

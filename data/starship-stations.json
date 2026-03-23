@@ -5,7 +5,7 @@
     "controlDiscipline": "Piloting",
     "controlArena": "Reflex",
     "powerSystems": ["Handling", "Engines"],
-    "summary": "The ship's driver and primary defensive asset. The Pilot controls positioning, evasion, and pursuit. Every crew member's survival depends on the Pilot keeping the ship where it needs to be.",
+    "summary": "The ship's driver and primary defensive asset. The Pilot controls geometry — positioning, evasion, and pursuit. Every crew member's effectiveness depends on where the Pilot puts the ship. The Pilot is the only station that can establish or break [Locked On].",
     "actions": [
       {
         "id": "sa_evasive_maneuvers",
@@ -13,7 +13,7 @@
         "type": "action",
         "control": "Piloting (Reflex)",
         "power": "Handling",
-        "description": "Commit to defensive flying. The ship jukes, rolls, and changes vector to make targeting impossible.",
+        "description": "Commit to defensive flying. The ship jukes, rolls, and changes vector to make targeting impossible. Taking Evasive Maneuvers breaks [Locked On] on any target — you abandoned pursuit to protect your ship.",
         "effect": [
           {
             "tier": 1,
@@ -34,7 +34,8 @@
             "description": "Ship gains [Elusive] until start of Pilot's next turn. All incoming attacks are stepped down. Ship repositions 1 zone as a free movement."
           }
         ],
-        "risk": "On failure, the ship's vector is predictable — all attacks against the ship until the Pilot's next turn gain [Optimized]."
+        "risk": "On failure, the ship's vector is predictable — all attacks against the ship until the Pilot's next turn gain [Optimized].",
+        "lockedOnInteraction": "Taking Evasive Maneuvers automatically breaks [Locked On] on any target the Pilot was pursuing. You cannot evade and chase simultaneously."
       },
       {
         "id": "sa_attack_run",
@@ -71,7 +72,7 @@
         "type": "action",
         "control": "Piloting (Reflex)",
         "power": "Engines",
-        "description": "Chase a fleeing target or close distance to engage. Roll Piloting (Reflex) vs the target Pilot's static Piloting defense.",
+        "description": "Chase a fleeing target or close distance to engage. Roll Piloting (Reflex) vs the target Pilot's static Piloting defense. The only way to establish [Locked On].",
         "effect": [
           {
             "tier": 1,
@@ -83,13 +84,13 @@
             "tier": 2,
             "label": "Masterful",
             "range": "4–7",
-            "description": "Close 1 zone. The target gains [Marked] — pursuit is locked. [Marked] persists until the Pilot fails a subsequent Pursue/Close or the target escapes the encounter (hyperspace, docking, etc.)."
+            "description": "Close 1 zone. The target gains [Locked On] — pursuit is locked. [Locked On] persists until the target Breaks Away at Masterful+, the locking Pilot takes an action that contradicts pursuit (Evasive Maneuvers, Terrain Run), or the target escapes the encounter."
           },
           {
             "tier": 3,
             "label": "Legendary",
             "range": "8+",
-            "description": "Close 2 zones. The target is [Marked] and the pursuing ship's Gunners gain [Optimized] on attacks against the fleeing target."
+            "description": "Close 2 zones. The target gains [Locked On]. The locking ship's Gunners gain [Optimized] on attacks against the locked-on target."
           }
         ],
         "risk": "On failure, the target increases the gap by 1 zone. Pursuit is not broken, but the target has the initiative."
@@ -100,28 +101,28 @@
         "type": "action",
         "control": "Piloting (Reflex)",
         "power": "Engines",
-        "description": "Disengage from combat. Increase distance, break pursuit, or set up a hyperspace jump.",
+        "description": "Disengage from combat. Increase distance, break pursuit, or set up a hyperspace jump. Roll Piloting (Reflex) vs pursuing Pilot's static Piloting defense.",
         "effect": [
           {
             "tier": 1,
             "label": "Fleeting",
             "range": "0–3",
-            "description": "Increase gap by 1 zone. Pursuit is not broken, but the ship gains breathing room."
+            "description": "Increase gap by 1 zone. If [Locked On], remain [Locked On]. Pursuit is not broken, but the ship gains breathing room."
           },
           {
             "tier": 2,
             "label": "Masterful",
             "range": "4–7",
-            "description": "Increase gap by 1 zone. The ship is no longer [Marked]. Pursuing ships lose contact — they cannot close distance or engage until the start of the next round."
+            "description": "Increase gap by 1 zone. [Locked On] is cleared. Pursuing ships lose contact — they cannot close distance or engage until the start of the next round."
           },
           {
             "tier": 3,
             "label": "Legendary",
             "range": "8+",
-            "description": "Increase gap by 2 zones. Pursuit is broken — the ship may jump to hyperspace if the Co-Pilot has plotted a course."
+            "description": "Increase gap by 2 zones. [Locked On] cleared. Pursuit is broken — the ship may jump to hyperspace if the Co-Pilot has plotted a course."
           }
         ],
-        "risk": "On failure, the ship cannot increase the gap. If [Marked], remain [Marked]. Pursuing ships gain [Optimized] on their next action."
+        "risk": "On failure, the ship cannot increase the gap. If [Locked On], remain [Locked On]. Pursuing ship's Gunners gain an Opening."
       },
       {
         "id": "sa_terrain_run",
@@ -129,7 +130,7 @@
         "type": "action",
         "control": "Piloting (Reflex)",
         "power": "Handling",
-        "description": "Use the environment as a weapon — asteroid fields, debris clouds, atmospheric canyons, station infrastructure. Roll Piloting (Reflex) vs the pursuing Pilot's static Piloting defense. Your roll determines both your cover and how badly the terrain punishes anyone who follows.",
+        "description": "Use the environment as a weapon — asteroid fields, debris clouds, atmospheric canyons, station infrastructure. Roll Piloting (Reflex) vs the pursuing Pilot's static Piloting defense. Your roll determines both your cover and how badly the terrain punishes anyone who follows. Taking Terrain Run breaks [Locked On] on any target — you veered into terrain, not continuing pursuit.",
         "effect": [
           {
             "tier": 1,
@@ -150,7 +151,8 @@
             "description": "Ship gains [Cover 2] and concealment. Pursuing ships that follow into the terrain take Masterful collision damage — the route you threaded was never meant for anyone else."
           }
         ],
-        "risk": "On failure, the Pilot clips the terrain — the ship takes Fleeting collision damage (Light chassis) and loses [Cover] and concealment."
+        "risk": "On failure, the Pilot clips the terrain — the ship takes Fleeting collision damage and loses [Cover] and concealment.",
+        "lockedOnInteraction": "Taking Terrain Run automatically breaks [Locked On] on any target the Pilot was pursuing. You cannot thread terrain and maintain pursuit simultaneously."
       }
     ],
     "reactions": [
@@ -163,7 +165,8 @@
         "power": "Handling",
         "cost": "Free (defense reaction)",
         "description": "The ship's Dodge equivalent. The Pilot rolls Piloting + Handling to evade incoming fire. On success, the Power die result reduces the attacker's Effect Tier. On failure, no mitigation — the hit lands at full effect. On a Control result of 8+, the evasive maneuver generates an Opening for the ship's Gunners.",
-        "rule": "Success: Power die result reduces attacker's Effect Tier. Failure: no mitigation. Control 8+: generates an Opening — any Gunner with an available Exploit pip may take a reactive attack against the attacker."
+        "rule": "Success: Power die result reduces attacker's Effect Tier. Failure: no mitigation. Control 8+: generates an Opening — any Gunner with an available Exploit pip may take a reactive attack against the attacker.",
+        "lockedOnInteraction": "When the ship is [Locked On] by the attacker, the Evade Power die is [Weakened] — the pursuer knows your evasion patterns."
       }
     ],
     "gambits": [
@@ -195,7 +198,7 @@
     "controlDiscipline": "Heavy Weapons",
     "controlArena": "Physique",
     "powerSystems": ["Weapon Mounts"],
-    "summary": "The ship's offensive firepower. The Gunner operates weapon mounts, designates targets, and delivers the damage. Multiple Gunners can operate simultaneously if the ship has multiple mounts.",
+    "summary": "The ship's offensive firepower. The Gunner operates weapon mounts, designates targets, and delivers the damage. Gunners don't control positioning — they execute within the geometry the Pilot established. Multiple Gunners can operate simultaneously if the ship has multiple mounts.",
     "actions": [
       {
         "id": "sa_attack",
@@ -327,7 +330,7 @@
     "controlDiscipline": "Tech / Investigation / Tactics",
     "controlArena": "Wits",
     "powerSystems": ["Sensors"],
-    "summary": "The ship's electronic warfare specialist. The Operator scans, jams, and feeds targeting data to the crew. They are the crew's eyes and ears — and the enemy's nightmare on the sensor board.",
+    "summary": "The ship's electronic warfare specialist. The Operator scans, jams, and feeds targeting data to the crew. They are the crew's eyes and ears — and the enemy's nightmare on the sensor board. The Operator determines what the crew knows and what the enemy can do with their sensors.",
     "actions": [
       {
         "id": "sa_scan",
@@ -364,7 +367,7 @@
         "type": "action",
         "control": "Tech (Wits)",
         "power": "Sensors",
-        "description": "Electronic attack — disrupt the target ship's sensors, communications, or targeting systems. Inflicts conditions on enemy systems.",
+        "description": "Electronic attack — disrupt the target ship's sensors, communications, or targeting systems. Roll Tech (Wits) vs target Sensor resistance. Inflicts conditions on enemy systems.",
         "effect": [
           {
             "tier": 1,
@@ -393,7 +396,7 @@
         "type": "action",
         "control": "Tactics (Wits)",
         "power": "Sensors",
-        "description": "Feed precise targeting data to a specific Gunner. The data is so precise that the Gunner's Control die is stepped up for their next attack.",
+        "description": "Feed precise targeting data to Gunners. The data is so precise that the Gunner's Control die is stepped up for their next attack.",
         "effect": [
           {
             "tier": 1,
@@ -449,7 +452,7 @@
     "controlDiscipline": "Tech",
     "controlArena": "Wits",
     "powerSystems": ["Shields", "Engines", "damaged system"],
-    "summary": "The ship's mechanic and damage control specialist. The Engineer keeps systems running, reinforces defenses, and reroutes power where it is needed most. They do not fire weapons — they make sure everything else works.",
+    "summary": "The ship's mechanic and damage control specialist. The Engineer keeps systems running, reinforces defenses, and reroutes power where it is needed most. They do not fire weapons — they make sure everything else works. The Engineer is what keeps a losing fight survivable.",
     "actions": [
       {
         "id": "sa_reinforce_shields",
@@ -559,7 +562,7 @@
     "controlDiscipline": "Tactics / Piloting",
     "controlArena": "Wits / Reflex",
     "powerSystems": ["Sensors", "Handling"],
-    "summary": "The crew's coordinator and force multiplier. The Co-Pilot does not fly the ship or fire the guns — they make everyone else better at their jobs. Navigation, tactical coordination, and crew support.",
+    "summary": "The crew's coordinator and force multiplier. The Co-Pilot does not fly the ship or fire the guns — they make everyone else better at their jobs. Navigation, tactical coordination, and crew support. The Co-Pilot is what separates a crew from a collection of individuals.",
     "actions": [
       {
         "id": "sa_coordinate",
@@ -643,40 +646,23 @@
             "tier": 3,
             "label": "Legendary",
             "range": "8+",
-            "description": "Perfect calculation — jump is ready, route is optimal, and the exit vector is calculated to emerge exactly where needed. Alternatively, identify a tactical approach that grants all crew [Optimized] for the next round."
+            "description": "Precision jump — ready with tactical advantage. Alternatively, identify a shortcut route granting +2 Tier to the next Break Away and concealment during the approach."
           }
         ],
-        "risk": "On failure, the calculation is flawed. A hyperspace jump with a flawed calculation risks a navigation hazard — the GM determines severity."
+        "risk": "On failure, calculation error. Jump not available this round. If the crew was counting on an escape route, the next Break Away is [Weakened]."
       }
     ],
-    "reactions": [
-      {
-        "id": "sr_call_the_shot",
-        "name": "Call the Shot",
-        "type": "reaction",
-        "trigger": "An ally's action generates an Opening",
-        "control": "Tactics (Wits)",
-        "power": "Sensors",
-        "cost": "Free (reaction)",
-        "description": "When any crew action creates an Opening, the Co-Pilot calls out the perfect moment. Grant [Empowered] to the ally who exploits the Opening.",
-        "rule": "When an Opening is generated by any crew action (Pilot's Evade 8+, Suppressive Fire, etc.), the Co-Pilot may use this reaction to grant [Empowered] to the Exploit attack made by any crew member acting on the Opening."
-      }
-    ],
+    "reactions": [],
     "gambits": [
       {
-        "name": "Concentrate Fire",
+        "name": "Anticipate",
         "unlockDie": "D10",
-        "rule": "Reduce your Effect by 1 Tier. On a Coordinate action, instead of granting buffs, all Gunners who attack the same target this round gain +1 Effect Tier on their attacks. The targeting data is synchronized — every shot hits the same weak point."
+        "rule": "Reduce your Effect by 1 Tier. On a Coordinate action, the buffed crew member's action cannot be [Disoriented] or [Weakened] by enemy abilities until end of round."
       },
       {
-        "name": "Plot Escape",
-        "unlockDie": "D10",
-        "rule": "Reduce your Effect by 1 Tier. On a Plot Course action, the escape calculation is immediate — if the Pilot uses Break Away this round, the Break Away automatically succeeds at Masterful regardless of the roll. The Co-Pilot has already done the math."
-      },
-      {
-        "name": "Battle Meditation",
+        "name": "Calculated Withdrawal",
         "unlockDie": "D12",
-        "rule": "Reduce your Effect by 1 Tier. On a Coordinate action at Masterful+, all crew members gain +1 Effect Tier on their next action this round in addition to any buffs granted. The coordination transcends instruction — the crew moves as one. Once per scene."
+        "rule": "Reduce your Effect by 1 Tier. On a Plot Course action at Masterful+, additionally all crew members gain +1 Tier on defensive reactions until end of round. The crew knows the exit is ready — they fight with clarity."
       }
     ]
   }
