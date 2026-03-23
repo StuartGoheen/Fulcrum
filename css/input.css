@@ -5954,11 +5954,15 @@
 
   /* ── Outfitting Screen ─────────────────────────────────────── */
 
+  #screen-outfitting .cc-stats-step-content {
+    max-width: 100%;
+  }
+
   .outfitting-layout {
     display: grid;
     grid-template-columns: 1fr 360px;
     gap: 1rem;
-    width: 80%;
+    width: 100%;
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 0.5rem;
