@@ -6531,7 +6531,7 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: #fff;
-  background: var(--color-accent);
+  background: var(--color-accent-primary);
   flex-shrink: 0;
 }
 
@@ -6618,7 +6618,7 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 0.68rem;
   font-weight: 700;
   color: #fff;
-  background: var(--color-accent);
+  background: var(--color-accent-primary);
   flex-shrink: 0;
 }
 
@@ -6723,7 +6723,7 @@ h1, h2, h3, h4, h5, h6 {
 .hb-arena-die-val {
   font-size: 0.9rem;
   font-weight: 700;
-  color: var(--color-accent);
+  color: var(--color-accent-primary);
 }
 
 .hb-species-block {
@@ -8809,9 +8809,9 @@ body.is-col-resizing .resize-handle {
   bottom: 2rem;
   left: 50%;
   transform: translateX(-50%) translateY(1rem);
-  background: var(--color-surface, #1a1a2e);
-  color: var(--color-text, #e0e0e0);
-  border: 1px solid var(--color-accent, #e94560);
+  background: var(--color-bg-frame);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-accent-primary);
   border-radius: 0.5rem;
   padding: 0.75rem 1.5rem;
   font-size: 0.875rem;
@@ -9828,8 +9828,8 @@ body.is-col-resizing .resize-handle {
   gap: 8px;
   padding: 8px 12px;
   margin-top: 10px;
-  background: var(--color-surface, #1a1a2e);
-  border: 1px solid var(--color-border, #333);
+  background: var(--color-bg-panel);
+  border: 1px solid var(--color-border);
   border-radius: 6px;
 }
 
@@ -9837,7 +9837,7 @@ body.is-col-resizing .resize-handle {
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: var(--color-text-secondary, #aaa);
+  color: var(--color-text-secondary);
   font-weight: 600;
 }
 
@@ -9845,7 +9845,7 @@ body.is-col-resizing .resize-handle {
   flex: 1;
   font-size: 1.05rem;
   font-weight: 700;
-  color: var(--color-credits, #f0c040);
+  color: var(--color-warn);
   font-variant-numeric: tabular-nums;
 }
 
@@ -9858,9 +9858,9 @@ body.is-col-resizing .resize-handle {
   width: 26px;
   height: 26px;
   border-radius: 4px;
-  border: 1px solid var(--color-border, #444);
-  background: var(--color-surface-alt, #222);
-  color: var(--color-text-secondary, #ccc);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-frame);
+  color: var(--color-text-secondary);
   font-size: 1rem;
   line-height: 1;
   cursor: pointer;
@@ -9868,17 +9868,17 @@ body.is-col-resizing .resize-handle {
 }
 
 .char-credits-btn:hover {
-  background: var(--color-primary, #4a6);
-  color: #fff;
+  background: var(--color-accent-primary);
+  color: var(--color-btn-text);
 }
 
 /* ── Ledger Card ─────────────────────────────────────── */
 
 .char-ledger-card {
   margin-top: 10px;
-  border: 1px solid var(--color-border, #333);
+  border: 1px solid var(--color-border);
   border-radius: 8px;
-  background: var(--color-surface, #1a1a2e);
+  background: var(--color-bg-panel);
   overflow: hidden;
 }
 
@@ -9887,8 +9887,8 @@ body.is-col-resizing .resize-handle {
   justify-content: space-between;
   align-items: center;
   padding: 8px 12px;
-  background: rgba(180, 40, 40, 0.15);
-  border-bottom: 1px solid var(--color-border, #333);
+  background: color-mix(in srgb, var(--color-fail) 15%, transparent);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .char-ledger-title {
@@ -9896,12 +9896,12 @@ body.is-col-resizing .resize-handle {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--color-danger, #e44);
+  color: var(--color-fail);
 }
 
 .char-ledger-creditor {
   font-size: 0.75rem;
-  color: var(--color-text-secondary, #aaa);
+  color: var(--color-text-secondary);
   font-style: italic;
 }
 
@@ -9919,29 +9919,29 @@ body.is-col-resizing .resize-handle {
 
 .char-ledger-row--balance {
   padding: 5px 0;
-  border-top: 1px solid var(--color-border, #333);
-  border-bottom: 1px solid var(--color-border, #333);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
   margin: 2px 0;
 }
 
 .char-ledger-label {
-  color: var(--color-text-secondary, #aaa);
+  color: var(--color-text-secondary);
 }
 
 .char-ledger-val {
   font-weight: 600;
-  color: var(--color-text, #ddd);
+  color: var(--color-text-primary);
   font-variant-numeric: tabular-nums;
 }
 
 .char-ledger-val--danger {
-  color: var(--color-danger, #e44);
+  color: var(--color-fail);
   font-size: 0.95rem;
   font-weight: 700;
 }
 
 .char-ledger-val--warn {
-  color: var(--color-warning, #d90);
+  color: var(--color-warn);
   font-size: 0.85rem;
 }
 
@@ -9949,7 +9949,7 @@ body.is-col-resizing .resize-handle {
   display: flex;
   gap: 6px;
   padding: 8px 12px;
-  border-top: 1px solid var(--color-border, #333);
+  border-top: 1px solid var(--color-border);
 }
 
 .char-ledger-pay-btn,
@@ -9957,7 +9957,7 @@ body.is-col-resizing .resize-handle {
   flex: 1;
   padding: 6px 10px;
   border-radius: 4px;
-  border: 1px solid var(--color-border, #444);
+  border: 1px solid var(--color-border);
   font-size: 0.75rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -9967,39 +9967,39 @@ body.is-col-resizing .resize-handle {
 }
 
 .char-ledger-pay-btn {
-  background: rgba(60, 160, 80, 0.2);
-  color: var(--color-primary, #4a6);
-  border-color: rgba(60, 160, 80, 0.3);
+  background: color-mix(in srgb, var(--color-success) 15%, transparent);
+  color: var(--color-success);
+  border-color: color-mix(in srgb, var(--color-success) 30%, transparent);
 }
 
 .char-ledger-pay-btn:hover {
-  background: rgba(60, 160, 80, 0.4);
-  color: #fff;
+  background: var(--color-success);
+  color: var(--color-btn-text);
 }
 
 .char-ledger-accrue-btn {
-  background: rgba(180, 40, 40, 0.15);
-  color: var(--color-danger, #e44);
-  border-color: rgba(180, 40, 40, 0.25);
+  background: color-mix(in srgb, var(--color-fail) 15%, transparent);
+  color: var(--color-fail);
+  border-color: color-mix(in srgb, var(--color-fail) 25%, transparent);
 }
 
 .char-ledger-accrue-btn:hover {
-  background: rgba(180, 40, 40, 0.35);
-  color: #fff;
+  background: var(--color-fail);
+  color: var(--color-btn-text);
 }
 
 /* ── Ledger History ─────────────────────────────────── */
 
 .char-ledger-history {
   padding: 6px 12px 10px;
-  border-top: 1px solid var(--color-border, #333);
+  border-top: 1px solid var(--color-border);
 }
 
 .char-ledger-history-label {
   font-size: 0.65rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--color-text-secondary, #888);
+  color: var(--color-text-secondary);
   margin-bottom: 4px;
 }
 
@@ -10012,11 +10012,11 @@ body.is-col-resizing .resize-handle {
 }
 
 .char-ledger-history--payment {
-  color: var(--color-primary, #4a6);
+  color: var(--color-success);
 }
 
 .char-ledger-history--interest {
-  color: var(--color-danger, #e44);
+  color: var(--color-fail);
 }
 
 .crawl-overlay {
