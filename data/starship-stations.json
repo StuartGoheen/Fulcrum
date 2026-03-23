@@ -71,7 +71,7 @@
         "type": "action",
         "control": "Piloting (Reflex)",
         "power": "Engines",
-        "description": "Chase a fleeing target or close distance to engage. Opposed by the target Pilot's Piloting + Engines.",
+        "description": "Chase a fleeing target or close distance to engage. Roll Piloting (Reflex) vs the target Pilot's static Piloting defense.",
         "effect": [
           {
             "tier": 1,
@@ -83,7 +83,7 @@
             "tier": 2,
             "label": "Masterful",
             "range": "4–7",
-            "description": "Close 1 zone. The target is [Marked] — they cannot shake pursuit without a Legendary Break Away."
+            "description": "Close 1 zone. The target gains [Marked] — pursuit is locked. [Marked] persists until the Pilot fails a subsequent Pursue/Close or the target escapes the encounter (hyperspace, docking, etc.)."
           },
           {
             "tier": 3,
@@ -112,7 +112,7 @@
             "tier": 2,
             "label": "Masterful",
             "range": "4–7",
-            "description": "Increase gap by 1 zone. The ship is no longer [Marked]. Pursuing ships must re-establish pursuit."
+            "description": "Increase gap by 1 zone. The ship is no longer [Marked]. Pursuing ships lose contact — they cannot close distance or engage until the start of the next round."
           },
           {
             "tier": 3,
@@ -129,7 +129,7 @@
         "type": "action",
         "control": "Piloting (Reflex)",
         "power": "Handling",
-        "description": "Use the environment for cover and advantage — asteroid fields, debris clouds, atmospheric canyons, station infrastructure.",
+        "description": "Use the environment as a weapon — asteroid fields, debris clouds, atmospheric canyons, station infrastructure. Roll Piloting (Reflex) vs the pursuing Pilot's static Piloting defense. Your roll determines both your cover and how badly the terrain punishes anyone who follows.",
         "effect": [
           {
             "tier": 1,
@@ -141,13 +141,13 @@
             "tier": 2,
             "label": "Masterful",
             "range": "4–7",
-            "description": "Ship gains [Cover 2]. Pursuing ships that follow must make a Piloting check or take Fleeting collision damage."
+            "description": "Ship gains [Cover 2]. Pursuing ships that follow into the terrain take Fleeting collision damage — the path you carved is yours alone."
           },
           {
             "tier": 3,
             "label": "Legendary",
             "range": "8+",
-            "description": "Ship gains [Cover 2] and concealment. Pursuing ships that follow take Masterful collision damage on a failed Piloting check."
+            "description": "Ship gains [Cover 2] and concealment. Pursuing ships that follow into the terrain take Masterful collision damage — the route you threaded was never meant for anyone else."
           }
         ],
         "risk": "On failure, the Pilot clips the terrain — the ship takes Fleeting collision damage (Light chassis) and loses [Cover] and concealment."
@@ -185,7 +185,7 @@
       {
         "name": "Thread the Needle",
         "unlockDie": "D12",
-        "rule": "Reduce your Effect by 1 Tier. On a Terrain Run, if successful, one pursuing ship that follows must make a Legendary Piloting check or suffer Masterful collision damage and become [Disabled] for 1 round. The terrain gap is too narrow for anything but perfect execution."
+        "rule": "Reduce your Effect by 1 Tier. On a Terrain Run, if successful, one pursuing ship that follows suffers Masterful collision damage and becomes [Disabled] for 1 round. The terrain gap is too narrow for anything but perfect execution — and you're the only one who executed it."
       }
     ]
   },
@@ -434,7 +434,7 @@
       {
         "name": "Ghost Protocol",
         "unlockDie": "D10",
-        "rule": "Reduce your Effect by 1 Tier. On a successful Jam, the target ship loses all target locks on your ship. Additionally, your ship gains concealment on sensors — the target must re-acquire before attacking with guided ordnance."
+        "rule": "Reduce your Effect by 1 Tier. On a successful Jam, the target ship loses all target locks on your ship. Additionally, your ship gains concealment on sensors — the target cannot use guided ordnance against your ship until the concealment is broken (your Pilot enters the same zone, your ship attacks the target, or the Operator's Jam effect expires)."
       },
       {
         "name": "Slice Systems",

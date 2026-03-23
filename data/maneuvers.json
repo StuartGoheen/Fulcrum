@@ -709,7 +709,7 @@
           "tags": [
             "[Combat]"
           ],
-          "rule": "After resolving a Dodge defense, spend 1 tier. All enemies in the zone lose track of you. They must succeed on an Assess before they can target you again.",
+          "rule": "After resolving a Dodge defense, spend 1 tier. You gain concealment from all enemies in the zone. Tactical. Enemies cannot target you until concealment is broken (you attack, enter Engaged range, or an ally reveals your position).",
           "duration": "Tactical"
         }
       ]

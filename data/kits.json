@@ -1327,7 +1327,7 @@
         ],
         "modifiesAction": "action_piloting",
         "actionType": "Piloting Action or Defense",
-        "rule": "After resolving a Piloting action or defense, spend 1 tier. You immediately reposition your vehicle up to 2 zones instead of 1, and all Engaged contacts are broken. If pursued, pursuers must succeed on a Piloting check or lose contact. Usable during chases, dogfights, or any vehicle encounter."
+        "rule": "After resolving a Piloting action or defense, spend 1 tier. You immediately reposition your vehicle up to 2 zones instead of 1, and all Engaged contacts are broken. Pursuers lose contact — they cannot close distance or engage until the start of the next round. Usable during chases, dogfights, or any vehicle encounter."
       },
       {
         "id": "voc_ace_t4",
