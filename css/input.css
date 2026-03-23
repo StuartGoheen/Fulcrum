@@ -4172,12 +4172,13 @@
   }
 
   .destiny-token {
-    font-size: clamp(1rem, 2vw, 1.5rem);
+    font-size: clamp(1.4rem, 2.8vw, 2rem);
     line-height: 1;
     transition: opacity 0.2s, text-shadow 0.2s;
     flex-shrink: 0;
     cursor: default;
     user-select: none;
+    padding: 2px;
   }
 
   .destiny-token--hope {
@@ -4186,9 +4187,8 @@
   }
 
   .destiny-token--toll {
-    color: #882222;
-    text-shadow: 0 0 4px rgba(80,0,0,0.3);
-    opacity: 0.7;
+    color: #ee3333;
+    text-shadow: 0 0 8px rgba(220,40,40,0.6);
   }
 
   .destiny-token--tapped {
