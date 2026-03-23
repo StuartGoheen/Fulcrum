@@ -248,15 +248,18 @@
   function _ensureDefaults() {
     if (!_advancement) _advancement = {};
     if (!_advancement.marks) _advancement.marks = { earnedChecks: {}, totalBanked: 0 };
-    if (!_advancement.disciplineTrack) _advancement.disciplineTrack = { level: 2, filled: 0, eliteTokens: 0, focusBurns: 0, unspentAdvances: 0, invested: 0 };
+    if (!_advancement.disciplineTrack) _advancement.disciplineTrack = { level: 2, filled: 0, eliteTokens: 0, focusBurns: 0, unspentAdvances: 0, invested: 0, lockedInvested: 0 };
     if (_advancement.disciplineTrack.unspentAdvances === undefined) _advancement.disciplineTrack.unspentAdvances = 0;
     if (_advancement.disciplineTrack.invested === undefined) _advancement.disciplineTrack.invested = 0;
-    if (!_advancement.arenaTrack) _advancement.arenaTrack = { level: 2, filled: 0, unspentAdvances: 0, invested: 0 };
+    if (_advancement.disciplineTrack.lockedInvested === undefined) _advancement.disciplineTrack.lockedInvested = 0;
+    if (!_advancement.arenaTrack) _advancement.arenaTrack = { level: 2, filled: 0, unspentAdvances: 0, invested: 0, lockedInvested: 0 };
     if (_advancement.arenaTrack.unspentAdvances === undefined) _advancement.arenaTrack.unspentAdvances = 0;
     if (_advancement.arenaTrack.invested === undefined) _advancement.arenaTrack.invested = 0;
-    if (!_advancement.vocationTrack) _advancement.vocationTrack = { level: 2, filled: 0, unspentAdvances: 0, invested: 0 };
+    if (_advancement.arenaTrack.lockedInvested === undefined) _advancement.arenaTrack.lockedInvested = 0;
+    if (!_advancement.vocationTrack) _advancement.vocationTrack = { level: 2, filled: 0, unspentAdvances: 0, invested: 0, lockedInvested: 0 };
     if (_advancement.vocationTrack.unspentAdvances === undefined) _advancement.vocationTrack.unspentAdvances = 0;
     if (_advancement.vocationTrack.invested === undefined) _advancement.vocationTrack.invested = 0;
+    if (_advancement.vocationTrack.lockedInvested === undefined) _advancement.vocationTrack.lockedInvested = 0;
     if (!_advancement.vocationUnlocks) _advancement.vocationUnlocks = {};
     if (!_advancement.missionPhase) _advancement.missionPhase = 'mission';
   }
@@ -320,13 +323,17 @@
   }
 
   function _buildInvestRow(trackKey, label, currentInv, uninvested) {
+    var t = _getTrackObj(trackKey);
+    var floor = (t && t.lockedInvested) ? t.lockedInvested : 0;
     var canAdd = uninvested > 0;
-    var canSub = currentInv > 0;
+    var canSub = currentInv > floor;
+    var newInv = currentInv - floor;
     var html = '<div class="adv-invest-row">';
     html += '<span class="adv-invest-label">' + _esc(label) + '</span>';
+    if (floor > 0) html += '<span class="adv-invest-locked">\uD83D\uDD12' + floor + '</span>';
     html += '<div class="adv-invest-stepper">';
     html += '<button class="adv-invest-btn" data-invest-track="' + trackKey + '" data-invest-dir="sub"' + (canSub ? '' : ' disabled') + '>\u2212</button>';
-    html += '<span class="adv-invest-value">' + currentInv + '</span>';
+    html += '<span class="adv-invest-value">' + (floor > 0 ? '+' + newInv : currentInv) + '</span>';
     html += '<button class="adv-invest-btn" data-invest-track="' + trackKey + '" data-invest-dir="add"' + (canAdd ? '' : ' disabled') + '>+</button>';
     html += '</div>';
     html += '</div>';
@@ -781,7 +788,8 @@
             _render();
           }
         } else if (dir === 'sub') {
-          if ((t.invested || 0) > 0) {
+          var floor = t.lockedInvested || 0;
+          if ((t.invested || 0) > floor) {
             t.invested = t.invested - 1;
             _persist();
             _render();
@@ -808,6 +816,9 @@
     if (startMissionBtn) {
       startMissionBtn.addEventListener('click', function () {
         _advancement.missionPhase = 'mission';
+        _advancement.disciplineTrack.lockedInvested = _advancement.disciplineTrack.invested || 0;
+        _advancement.arenaTrack.lockedInvested = _advancement.arenaTrack.invested || 0;
+        _advancement.vocationTrack.lockedInvested = _advancement.vocationTrack.invested || 0;
         var carry = (_advancement.disciplineTrack.invested || 0)
                   + (_advancement.arenaTrack.invested || 0)
                   + (_advancement.vocationTrack.invested || 0);
@@ -1365,7 +1376,8 @@
       if (dir === 'add') {
         btn.disabled = uninvested <= 0;
       } else if (dir === 'sub') {
-        btn.disabled = !t || (t.invested || 0) <= 0;
+        var floor = (t && t.lockedInvested) ? t.lockedInvested : 0;
+        btn.disabled = !t || (t.invested || 0) <= floor;
       }
     });
   }

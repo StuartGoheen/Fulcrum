@@ -8071,6 +8071,13 @@
     opacity: 0.5;
     cursor: not-allowed !important;
   }
+  .adv-invest-locked {
+    font-size: 0.7rem;
+    color: var(--color-text-secondary);
+    opacity: 0.7;
+    margin-right: 2px;
+    white-space: nowrap;
+  }
 
   .adv-modal-overlay {
     position: fixed;

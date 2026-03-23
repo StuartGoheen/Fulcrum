@@ -463,19 +463,22 @@ router.patch('/characters/:id/advancement', (req, res) => {
         eliteTokens: clamp(adv.disciplineTrack && adv.disciplineTrack.eliteTokens, 0, 999),
         focusBurns: clamp(adv.disciplineTrack && adv.disciplineTrack.focusBurns, 0, 999),
         unspentAdvances: clamp(adv.disciplineTrack && adv.disciplineTrack.unspentAdvances, 0, 999),
-        invested: clamp(adv.disciplineTrack && adv.disciplineTrack.invested, 0, 9999)
+        invested: clamp(adv.disciplineTrack && adv.disciplineTrack.invested, 0, 9999),
+        lockedInvested: clamp(adv.disciplineTrack && adv.disciplineTrack.lockedInvested, 0, 9999)
       },
       arenaTrack: {
         level: clamp(adv.arenaTrack && adv.arenaTrack.level, 1, 50),
         filled: clamp(adv.arenaTrack && adv.arenaTrack.filled, 0, 3),
         unspentAdvances: clamp(adv.arenaTrack && adv.arenaTrack.unspentAdvances, 0, 999),
-        invested: clamp(adv.arenaTrack && adv.arenaTrack.invested, 0, 9999)
+        invested: clamp(adv.arenaTrack && adv.arenaTrack.invested, 0, 9999),
+        lockedInvested: clamp(adv.arenaTrack && adv.arenaTrack.lockedInvested, 0, 9999)
       },
       vocationTrack: {
         level: clamp(adv.vocationTrack && adv.vocationTrack.level, 1, 50),
         filled: clamp(adv.vocationTrack && adv.vocationTrack.filled, 0, 5),
         unspentAdvances: clamp(adv.vocationTrack && adv.vocationTrack.unspentAdvances, 0, 999),
-        invested: clamp(adv.vocationTrack && adv.vocationTrack.invested, 0, 9999)
+        invested: clamp(adv.vocationTrack && adv.vocationTrack.invested, 0, 9999),
+        lockedInvested: clamp(adv.vocationTrack && adv.vocationTrack.lockedInvested, 0, 9999)
       },
       vocationUnlocks: (adv.vocationUnlocks && typeof adv.vocationUnlocks === 'object') ? adv.vocationUnlocks : {}
     };
