@@ -733,6 +733,8 @@
 
   window.CharacterPanel.refreshFront = function () {
     _refreshFront();
+    _calcVitality(_currentChar);
+    _refreshStatus();
   };
 
   window.CharacterPanel.getArenaTrauma = function () {
