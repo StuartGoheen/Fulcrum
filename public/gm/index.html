@@ -74,6 +74,17 @@
     .tab-panel.active { display: block; }
     .hidden-item { display: none !important; }
 
+    .hb-section { margin-bottom: 0.75rem; border: 1px solid var(--color-border); }
+    .hb-section-header { font-family: 'Audiowide', sans-serif; font-size: 0.7rem; color: var(--color-accent-primary); letter-spacing: 0.08em; text-transform: uppercase; padding: 0.6rem 0.75rem; background: var(--color-bg-panel); cursor: pointer; user-select: none; display: flex; align-items: center; gap: 0.4rem; transition: background 0.15s; }
+    .hb-section-header:hover { background: var(--color-bg-frame); }
+    .hb-chevron { font-size: 0.55rem; transition: transform 0.2s; display: inline-block; }
+    .hb-section:not(.hb-open) .hb-chevron { transform: rotate(-90deg); }
+    .hb-section-body { padding: 0.75rem; }
+    .hb-section:not(.hb-open) .hb-section-body { display: none; }
+    .hb-section-count { font-family: 'Exo 2', sans-serif; font-size: 0.55rem; color: var(--color-text-secondary); margin-left: auto; font-weight: 400; letter-spacing: 0; text-transform: none; }
+    .hb-section.hb-empty { opacity: 0.4; }
+    #handbook-search:focus { border-color: var(--color-accent-primary); }
+
     .risk-block { background: #1a0a0a; border-left: 3px solid #CC0000; padding: 0.35rem 0.6rem; margin: 0.4rem 0; font-size: 0.7rem; color: #CC7777; }
 
     .rule-section { margin-bottom: 1.5rem; }
@@ -308,14 +319,7 @@
       <button class="tab-btn active" data-tab="campaign">Campaign</button>
       <button class="tab-btn" data-tab="combat-tracker">Combat Tracker</button>
       <button class="tab-btn" data-tab="starship-combat">Starship Combat</button>
-      <button class="tab-btn" data-tab="arenas">Arenas &amp; Disciplines</button>
-      <button class="tab-btn" data-tab="conditions">Conditions</button>
-      <button class="tab-btn" data-tab="maneuvers">Maneuvers</button>
-      <button class="tab-btn" data-tab="threats">Threats</button>
-      <button class="tab-btn" data-tab="weapons">Weapons</button>
-      <button class="tab-btn" data-tab="armor">Armor</button>
-      <button class="tab-btn" data-tab="gamesystem">Game System</button>
-      <button class="tab-btn" data-tab="gear">Gear</button>
+      <button class="tab-btn" data-tab="handbook">GM Handbook</button>
     </nav>
   </header>
 
@@ -372,14 +376,43 @@
       </div>
     </div>
 
-    <div id="tab-arenas" class="tab-panel"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading&hellip;</p></div>
-    <div id="tab-conditions" class="tab-panel"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading&hellip;</p></div>
-    <div id="tab-maneuvers" class="tab-panel"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading&hellip;</p></div>
-    <div id="tab-threats" class="tab-panel"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading&hellip;</p></div>
-    <div id="tab-weapons" class="tab-panel"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading&hellip;</p></div>
-    <div id="tab-armor" class="tab-panel"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading&hellip;</p></div>
-    <div id="tab-gamesystem" class="tab-panel"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading&hellip;</p></div>
-    <div id="tab-gear" class="tab-panel"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading&hellip;</p></div>
+    <div id="tab-handbook" class="tab-panel">
+      <div style="margin-bottom:1rem;position:sticky;top:0;z-index:10;background:var(--color-bg-primary);padding:0.5rem 0;">
+        <input type="search" id="handbook-search" placeholder="Search all references..." style="background:var(--color-bg-frame);border:1px solid var(--color-border);color:var(--color-text-primary);padding:0.5rem 0.75rem;font-size:0.75rem;width:100%;outline:none;font-family:'Exo 2',sans-serif;" />
+      </div>
+      <div id="hb-section-gamesystem" class="hb-section">
+        <div class="hb-section-header" data-hb-section="gamesystem"><span class="hb-chevron">&#9662;</span> Game System<span class="hb-section-count"></span></div>
+        <div class="hb-section-body"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading&hellip;</p></div>
+      </div>
+      <div id="hb-section-arenas" class="hb-section">
+        <div class="hb-section-header" data-hb-section="arenas"><span class="hb-chevron">&#9662;</span> Arenas &amp; Disciplines<span class="hb-section-count"></span></div>
+        <div class="hb-section-body"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading&hellip;</p></div>
+      </div>
+      <div id="hb-section-conditions" class="hb-section">
+        <div class="hb-section-header" data-hb-section="conditions"><span class="hb-chevron">&#9662;</span> Conditions<span class="hb-section-count"></span></div>
+        <div class="hb-section-body"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading&hellip;</p></div>
+      </div>
+      <div id="hb-section-maneuvers" class="hb-section">
+        <div class="hb-section-header" data-hb-section="maneuvers"><span class="hb-chevron">&#9662;</span> Maneuvers<span class="hb-section-count"></span></div>
+        <div class="hb-section-body"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading&hellip;</p></div>
+      </div>
+      <div id="hb-section-threats" class="hb-section">
+        <div class="hb-section-header" data-hb-section="threats"><span class="hb-chevron">&#9662;</span> Threats<span class="hb-section-count"></span></div>
+        <div class="hb-section-body"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading&hellip;</p></div>
+      </div>
+      <div id="hb-section-weapons" class="hb-section">
+        <div class="hb-section-header" data-hb-section="weapons"><span class="hb-chevron">&#9662;</span> Weapons<span class="hb-section-count"></span></div>
+        <div class="hb-section-body"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading&hellip;</p></div>
+      </div>
+      <div id="hb-section-armor" class="hb-section">
+        <div class="hb-section-header" data-hb-section="armor"><span class="hb-chevron">&#9662;</span> Armor<span class="hb-section-count"></span></div>
+        <div class="hb-section-body"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading&hellip;</p></div>
+      </div>
+      <div id="hb-section-gear" class="hb-section">
+        <div class="hb-section-header" data-hb-section="gear"><span class="hb-chevron">&#9662;</span> Gear<span class="hb-section-count"></span></div>
+        <div class="hb-section-body"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading&hellip;</p></div>
+      </div>
+    </div>
     </div>
   </main>
 
@@ -406,7 +439,11 @@
       btn.classList.add('active');
       document.getElementById('tab-' + target).classList.add('active');
       currentTab = target;
-      filterSearch(document.getElementById('search-input').value);
+      const searchVal = document.getElementById('search-input').value;
+      if (target === 'handbook') {
+        document.getElementById('handbook-search').value = searchVal;
+      }
+      filterSearch(searchVal);
     });
   });
 
@@ -417,7 +454,12 @@
 
   function filterSearch(query) {
     const q = query.trim().toLowerCase();
+    if (currentTab === 'handbook') {
+      handbookSearch(q);
+      return;
+    }
     const panel = document.getElementById('tab-' + currentTab);
+    if (!panel) return;
     const items = panel.querySelectorAll('[data-search]');
     items.forEach(item => {
       if (!q || item.dataset.search.toLowerCase().includes(q)) {
@@ -427,6 +469,58 @@
       }
     });
   }
+
+  function handbookSearch(q) {
+    const sections = document.querySelectorAll('.hb-section');
+    sections.forEach(section => {
+      const body = section.querySelector('.hb-section-body');
+      if (!body) return;
+      const items = body.querySelectorAll('[data-search]');
+      let visibleCount = 0;
+      items.forEach(item => {
+        if (!q || item.dataset.search.toLowerCase().includes(q)) {
+          item.classList.remove('hidden-item');
+          visibleCount++;
+        } else {
+          item.classList.add('hidden-item');
+        }
+      });
+      const countEl = section.querySelector('.hb-section-count');
+      if (q) {
+        if (visibleCount > 0) {
+          section.classList.add('hb-open');
+          section.classList.remove('hb-empty');
+        } else {
+          section.classList.remove('hb-open');
+          section.classList.add('hb-empty');
+        }
+        if (countEl) countEl.textContent = visibleCount + ' match' + (visibleCount !== 1 ? 'es' : '');
+      } else {
+        section.classList.remove('hb-empty');
+        if (countEl) countEl.textContent = '';
+      }
+    });
+  }
+
+  function refreshHandbookFilter() {
+    const searchEl = document.getElementById('handbook-search');
+    if (!searchEl) return;
+    const q = searchEl.value.trim().toLowerCase();
+    if (q) handbookSearch(q);
+  }
+
+  document.getElementById('handbook-search').addEventListener('input', e => {
+    const val = e.target.value;
+    handbookSearch(val.trim().toLowerCase());
+    document.getElementById('search-input').value = val;
+  });
+
+  document.addEventListener('click', e => {
+    const header = e.target.closest('.hb-section-header');
+    if (header) {
+      header.closest('.hb-section').classList.toggle('hb-open');
+    }
+  });
 
   /* ── Collapse toggle ─────────────────────────────────────── */
   document.addEventListener('click', e => {
@@ -1018,7 +1112,7 @@
 
   /* ── Render Arenas & Disciplines ─────────────────────────── */
   function renderArenasDisciplines(data) {
-    const panel = document.getElementById('tab-arenas');
+    const panel = document.querySelector('#hb-section-arenas .hb-section-body');
     const attrOrder = ['Physique','Reflex','Grit','Wits','Presence'];
     const attrs = {};
     const force = [];
@@ -1098,11 +1192,12 @@
     }
 
     panel.innerHTML = html;
+    refreshHandbookFilter();
   }
 
   /* ── Render Conditions ─────────────────────────────────────── */
   function renderConditions(data) {
-    const panel = document.getElementById('tab-conditions');
+    const panel = document.querySelector('#hb-section-conditions .hb-section-body');
     const conditions = data.filter(e => e.type === 'Condition');
     let html = '<div style="columns:2;column-gap:1rem;">';
     conditions.forEach(entry => {
@@ -1129,11 +1224,12 @@
     });
     html += '</div>';
     panel.innerHTML = html;
+    refreshHandbookFilter();
   }
 
   /* ── Render Maneuvers ─────────────────────────────────────── */
   function renderManeuvers(data) {
-    const panel = document.getElementById('tab-maneuvers');
+    const panel = document.querySelector('#hb-section-maneuvers .hb-section-body');
     const groups = {};
     data.forEach(m => {
       const track = m.masteryTrack || 'Other';
@@ -1187,11 +1283,12 @@
       });
     });
     panel.innerHTML = html;
+    refreshHandbookFilter();
   }
 
   /* ── Render Threats ─────────────────────────────────────── */
   function renderThreats(data) {
-    const panel = document.getElementById('tab-threats');
+    const panel = document.querySelector('#hb-section-threats .hb-section-body');
     let html = '';
 
     const roster = data.exampleThreats || [];
@@ -1280,6 +1377,7 @@
     });
 
     panel.innerHTML = html;
+    refreshHandbookFilter();
   }
 
   /* ── Render Weapons ─────────────────────────────────────── */
@@ -1336,7 +1434,7 @@
   }
 
   function renderWeapons(data, chassisMap) {
-    const panel = document.getElementById('tab-weapons');
+    const panel = document.querySelector('#hb-section-weapons .hb-section-body');
     let html = '';
     const list = Array.isArray(data) ? data : (data.weapons || Object.values(data));
     const cmap = chassisMap || {};
@@ -1382,6 +1480,7 @@
         </div>`;
     });
     panel.innerHTML = html || '<p style="color:var(--color-text-secondary);font-size:0.75rem;">No weapon data found.</p>';
+    refreshHandbookFilter();
   }
 
   /* ── Render Armor ─────────────────────────────────────────── */
@@ -1400,7 +1499,7 @@
   };
 
   function renderArmor(data) {
-    const panel = document.getElementById('tab-armor');
+    const panel = document.querySelector('#hb-section-armor .hb-section-body');
     const groups = { light: [], medium: [], heavy: [] };
     data.forEach(a => { if (groups[a.category]) groups[a.category].push(a); });
 
@@ -1446,11 +1545,12 @@
     });
 
     panel.innerHTML = html || '<p style="color:var(--color-text-secondary);font-size:0.75rem;">No armor data found.</p>';
+    refreshHandbookFilter();
   }
 
   /* ── Render Game System ─────────────────────────────────────── */
   function renderGameSystem(data) {
-    const panel = document.getElementById('tab-gamesystem');
+    const panel = document.querySelector('#hb-section-gamesystem .hb-section-body');
     let html = '';
     const list = Array.isArray(data) ? data : [data];
 
@@ -1468,6 +1568,7 @@
     });
 
     panel.innerHTML = html;
+    refreshHandbookFilter();
   }
 
   function renderSystemObject(obj) {
@@ -1561,7 +1662,7 @@
   }
 
   function renderGear(data) {
-    const panel = document.getElementById('tab-gear');
+    const panel = document.querySelector('#hb-section-gear .hb-section-body');
     const groups = {};
     GEAR_CATEGORY_ORDER.forEach(c => { groups[c] = []; });
 
@@ -1636,6 +1737,7 @@
     });
 
     panel.innerHTML = html || '<p style="color:var(--color-text-secondary);font-size:0.75rem;">No gear data found.</p>';
+    refreshHandbookFilter();
   }
 
   /* ── Fetch all data ─────────────────────────────────────── */
@@ -1646,9 +1748,9 @@
       renderConditions(data);
     })
     .catch(err => {
-      ['tab-arenas','tab-conditions'].forEach(id => {
-        document.getElementById(id).innerHTML =
-          `<p style="color:var(--color-accent-primary);font-size:0.75rem;">Failed to load glossary: ${err.message}</p>`;
+      ['#hb-section-arenas .hb-section-body','#hb-section-conditions .hb-section-body'].forEach(sel => {
+        const el = document.querySelector(sel);
+        if (el) el.innerHTML = `<p style="color:var(--color-accent-primary);font-size:0.75rem;">Failed to load glossary: ${err.message}</p>`;
       });
     });
 
@@ -1665,8 +1767,8 @@
       .then(r => r.json())
       .then(data => render(data))
       .catch(err => {
-        document.getElementById('tab-' + key).innerHTML =
-          `<p style="color:var(--color-accent-primary);font-size:0.75rem;">Failed to load ${url}: ${err.message}</p>`;
+        const el = document.querySelector('#hb-section-' + key + ' .hb-section-body');
+        if (el) el.innerHTML = `<p style="color:var(--color-accent-primary);font-size:0.75rem;">Failed to load ${url}: ${err.message}</p>`;
       });
   });
 
@@ -1676,8 +1778,8 @@
   ])
     .then(([weapons, chassis]) => renderWeapons(weapons, chassis))
     .catch(err => {
-      document.getElementById('tab-weapons').innerHTML =
-        `<p style="color:var(--color-accent-primary);font-size:0.75rem;">Failed to load weapons: ${err.message}</p>`;
+      const el = document.querySelector('#hb-section-weapons .hb-section-body');
+      if (el) el.innerHTML = `<p style="color:var(--color-accent-primary);font-size:0.75rem;">Failed to load weapons: ${err.message}</p>`;
     });
 }());
 </script>
