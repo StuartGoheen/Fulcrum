@@ -4056,29 +4056,38 @@
   /* ── Destiny Pool / Force Balance Tracker ───────────────────────────────── */
 
   .destiny-footer-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
     align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    min-height: 0;
+    overflow: hidden;
+    padding: 2px 0;
+    gap: 2px 8px;
   }
 
   .destiny-footer-left {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 4px 0.75rem;
+    padding: 2px 0.5rem;
     gap: 2px;
+    min-width: 0;
+    flex: 1 1 auto;
   }
 
   .destiny-footer-row1 {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 4px;
+    flex-wrap: wrap;
+    min-width: 0;
   }
 
   .destiny-separator {
     font-family: 'Audiowide', sans-serif;
-    font-size: 1.00rem;
+    font-size: 0.85rem;
     color: var(--color-text-secondary);
     line-height: 1;
   }
@@ -4086,11 +4095,13 @@
   .destiny-footer-row2 {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 4px;
+    flex-wrap: wrap;
+    min-width: 0;
   }
 
   .destiny-personal-mech-sep {
-    font-size: 1.00rem;
+    font-size: 0.85rem;
     color: var(--color-text-secondary);
     line-height: 1;
   }
@@ -4100,8 +4111,10 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 4px 0.5rem;
+    padding: 2px 0.5rem;
     gap: 2px;
+    flex: 0 1 auto;
+    min-width: 0;
   }
 
   .destiny-state {
@@ -4150,7 +4163,7 @@
 
   .destiny-label-text {
     font-family: 'Audiowide', sans-serif;
-    font-size: 1.00rem;
+    font-size: clamp(0.7rem, 1.5vw, 1rem);
     letter-spacing: 0.1em;
     color: var(--color-accent-primary);
     text-transform: uppercase;
@@ -4232,11 +4245,14 @@
 
   .destiny-personal-name {
     font-family: 'Audiowide', sans-serif;
-    font-size: 1.00rem;
+    font-size: clamp(0.65rem, 1.4vw, 1rem);
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--color-accent-deep);
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
   }
 
   .destiny-personal-mech {
@@ -4248,7 +4264,7 @@
 
   .destiny-personal-mech-badge {
     font-family: 'Audiowide', sans-serif;
-    font-size: 0.96rem;
+    font-size: clamp(0.6rem, 1.3vw, 0.96rem);
     letter-spacing: 0.06em;
     text-transform: uppercase;
     padding: 1px 4px;
@@ -4272,12 +4288,13 @@
   }
 
   .destiny-personal-mech-text {
-    font-size: 1.00rem;
+    font-size: clamp(0.6rem, 1.3vw, 1rem);
     color: var(--color-text-secondary);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 14ch;
+    min-width: 0;
   }
 
 
