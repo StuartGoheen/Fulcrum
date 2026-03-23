@@ -9516,6 +9516,51 @@
     line-height: 1.5;
   }
 
+  .sc-action-dice {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+    margin-left: auto;
+  }
+
+  .sc-die-pair {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .sc-die-control {
+    opacity: 0.85;
+  }
+
+  .sc-die-power {
+    cursor: pointer;
+    border-radius: 3px;
+    padding: 1px;
+    transition: background 0.15s;
+  }
+
+  .sc-die-power:hover {
+    background: color-mix(in srgb, var(--color-accent-primary) 15%, transparent);
+  }
+
+  .sc-dice-sep {
+    font-size: 0.55rem;
+    color: var(--color-text-secondary);
+    opacity: 0.6;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .sc-header-right {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+    margin-left: auto;
+  }
+
   /* ── Weapon Cards ──────────────────────────────────────────── */
 
   .sc-weapon-card {

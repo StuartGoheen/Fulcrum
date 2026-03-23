@@ -331,6 +331,33 @@ function registerHandlers(io) {
       console.log('[socket] ' + (socket.data.characterName || socket.data.characterId) + ' released seat');
     });
 
+    socket.on('shipcombat:system_status', (payload) => {
+      const state = getShipCombatState();
+      if (!state) return;
+      if (!payload || typeof payload.systemKey !== 'string' || typeof payload.status !== 'string') return;
+      const validStatuses = ['operational', 'impaired', 'debilitated', 'offline'];
+      if (validStatuses.indexOf(payload.status) === -1) return;
+      const isGM = socket.data.role === 'gm';
+      const isSeated = socket.data.characterId && Object.values(state.seats || {}).some(s => s && s.characterId === socket.data.characterId);
+      if (!isGM && !isSeated) {
+        socket.emit('error', { message: 'Must be seated at a station or be the GM to update system status.' });
+        return;
+      }
+      if (state.ship && state.ship.systems && state.ship.systems[payload.systemKey]) {
+        state.ship.systems[payload.systemKey].status = payload.status;
+        io.emit('shipcombat:sync', {
+          active: true,
+          ship: state.ship,
+          stations: state.stations,
+          weapons: state.weapons,
+          hardware: state.hardware,
+          chassis: state.chassis,
+          seats: state.seats
+        });
+        console.log('[socket] System status updated: ' + payload.systemKey + ' → ' + payload.status);
+      }
+    });
+
     socket.on('shipcombat:request', () => {
       const state = getShipCombatState();
       if (state) {

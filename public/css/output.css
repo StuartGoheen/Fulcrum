@@ -1294,6 +1294,10 @@ h1, h2, h3, h4, h5, h6 {
   transition: filter 0.2s;
 }
 
+.below-d4 {
+  animation: arena-pulse 0.5s ease-in-out infinite alternate;
+}
+
 @keyframes arena-pulse {
   from {
     filter: sepia(1) hue-rotate(-60deg) saturate(15) brightness(0.9);
@@ -10968,6 +10972,51 @@ body.is-col-resizing .resize-handle {
   font-size: 0.70rem;
   color: var(--color-text-primary);
   line-height: 1.5;
+}
+
+.sc-action-dice {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.sc-die-pair {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.sc-die-control {
+  opacity: 0.85;
+}
+
+.sc-die-power {
+  cursor: pointer;
+  border-radius: 3px;
+  padding: 1px;
+  transition: background 0.15s;
+}
+
+.sc-die-power:hover {
+  background: color-mix(in srgb, var(--color-accent-primary) 15%, transparent);
+}
+
+.sc-dice-sep {
+  font-size: 0.55rem;
+  color: var(--color-text-secondary);
+  opacity: 0.6;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.sc-header-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  margin-left: auto;
 }
 
 /* ── Weapon Cards ──────────────────────────────────────────── */

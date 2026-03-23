@@ -27,7 +27,7 @@ A Star Wars TTRPG electronic character sheet and campaign management system buil
 ├── js/                   # Client-side JavaScript modules
 │   ├── crawl-data.js     # Mission crawl text data (extensible for future missions)
 │   ├── opening-crawl.js  # Star Wars opening crawl overlay engine
-│   ├── starship-combat.js # Starship combat cockpit HUD overlay (seat claiming, HUD panels, cockpit layout)
+│   ├── starship-combat.js # Starship combat cockpit HUD overlay (seat claiming, HUD panels, cockpit layout, action dice, power die cycling)
 ├── data/                 # JSON data files (weapons, armor, gear, etc.)
 ├── assets/               # Images and icons
 ├── db/                   # SQLite database (gitignored)

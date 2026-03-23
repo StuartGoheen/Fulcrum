@@ -2,6 +2,8 @@
   'use strict';
 
   var TIER_RANGES = ['0\u20133', '4\u20137', '8+'];
+  var DIE_ORDER = ['D4', 'D6', 'D8', 'D10', 'D12'];
+  var STATUS_CYCLE = ['operational', 'impaired', 'debilitated', 'offline'];
 
   var _CONDITION_MAP = {
     'disoriented': 'condition_disoriented',
@@ -124,6 +126,146 @@
     }
   }
 
+  function _dieIndex(dieStr) {
+    return DIE_ORDER.indexOf(dieStr.toUpperCase());
+  }
+
+  function _dieImg(dieType, extraClass) {
+    var cls = 'armory-weapon-disc-die';
+    if (extraClass) cls += ' ' + extraClass;
+    return '<img src="/assets/' + dieType.toLowerCase() + '.png" alt="' + _esc(dieType) + '" class="' + cls + '">';
+  }
+
+  function _getCharacter() {
+    if (window.CharacterPanel && window.CharacterPanel.currentChar) {
+      return window.CharacterPanel.currentChar;
+    }
+    return null;
+  }
+
+  function _parseControl(controlStr) {
+    if (!controlStr) return null;
+    var m = controlStr.match(/^(.+?)\s*\((.+?)\)$/);
+    if (!m) return null;
+    var discName = m[1].trim();
+    var arenaName = m[2].trim();
+    var discId = discName.toLowerCase().replace(/\s+/g, '_');
+    var arenaId = arenaName.toLowerCase().replace(/\s+/g, '_');
+    return { discId: discId, arenaId: arenaId };
+  }
+
+  function _getEffectiveDisciplineDie(char, arenaId, discId) {
+    var arenas = char.arenas || [];
+    var arenaObj = null;
+    for (var i = 0; i < arenas.length; i++) {
+      if (arenas[i].id === arenaId) { arenaObj = arenas[i]; break; }
+    }
+    if (!arenaObj) return null;
+    var discs = arenaObj.disciplines || [];
+    var discObj = null;
+    for (var j = 0; j < discs.length; j++) {
+      if (discs[j].id === discId) { discObj = discs[j]; break; }
+    }
+    if (!discObj) return null;
+    var baseIdx = _dieIndex(discObj.die.toUpperCase());
+    if (baseIdx < 0) return discObj.die.toUpperCase();
+    var discOffset = window.CharacterPanel ? window.CharacterPanel.getDiscEffectOffset(discId, arenaId) : 0;
+    var effIdx = baseIdx + (discOffset || 0);
+    if (effIdx < 0) effIdx = 0;
+    if (effIdx > 4) effIdx = 4;
+    return DIE_ORDER[effIdx];
+  }
+
+  function _getEffectiveArenaDie(char, arenaId) {
+    var trauma = window.CharacterPanel ? window.CharacterPanel.getArenaTrauma() : {};
+    var traumaLevel = (trauma && trauma[arenaId]) || 0;
+    var effectOffset = window.CharacterPanel ? (window.CharacterPanel.getArenaEffectOffset(arenaId) || 0) : 0;
+    var arenas = char.arenas || [];
+    var arenaObj = null;
+    for (var i = 0; i < arenas.length; i++) {
+      if (arenas[i].id === arenaId) { arenaObj = arenas[i]; break; }
+    }
+    if (!arenaObj) return 'D4';
+    var baseIdx = _dieIndex(arenaObj.die.toUpperCase());
+    var effIdx = baseIdx - traumaLevel + effectOffset;
+    if (effIdx < 0) effIdx = 0;
+    if (effIdx > 4) effIdx = 4;
+    return DIE_ORDER[effIdx];
+  }
+
+  function _getEffectivePowerDie(systemKey) {
+    if (!_state.ship || !_state.ship.systems) return null;
+    var normalKey = systemKey.toLowerCase().replace(/\s+/g, '_');
+    var sys = _state.ship.systems[normalKey];
+    if (!sys) return null;
+    var baseIdx = _dieIndex(sys.baseDie);
+    if (baseIdx < 0) return null;
+    var stepDown = 0;
+    if (sys.status === 'impaired') stepDown = 1;
+    else if (sys.status === 'debilitated') stepDown = 2;
+    else if (sys.status === 'offline') return { die: null, status: 'offline', key: normalKey };
+    var effIdx = baseIdx - stepDown;
+    if (effIdx < 0) return { die: null, status: sys.status, key: normalKey };
+    return { die: DIE_ORDER[effIdx], status: sys.status, key: normalKey };
+  }
+
+  function _buildControlDice(action) {
+    var parsed = _parseControl(action.control);
+    if (!parsed) return '';
+    var char = _getCharacter();
+    var discDieHtml = '';
+    if (char) {
+      var discDie = _getEffectiveDisciplineDie(char, parsed.arenaId, parsed.discId);
+      var arenaDie = _getEffectiveArenaDie(char, parsed.arenaId);
+      if (discDie && arenaDie) {
+        discDieHtml =
+          '<div class="sc-die-pair sc-die-control" title="' + _esc(action.control) + '">' +
+            _dieImg(discDie) +
+            '<span class="armory-weapon-disc-sep">/</span>' +
+            _dieImg(arenaDie) +
+          '</div>';
+      }
+    }
+    return discDieHtml;
+  }
+
+  function _buildPowerDie(action) {
+    if (!action.power) return '';
+    var result = _getEffectivePowerDie(action.power);
+    if (!result) return '';
+    var sysKey = result.key;
+    var statusCls = '';
+    if (result.status === 'impaired') statusCls = ' trauma-impaired';
+    else if (result.status === 'debilitated') statusCls = ' trauma-debilitated';
+
+    var dieHtml;
+    if (result.status === 'offline') {
+      dieHtml =
+        '<span class="char-disc-2die-stack below-d4" title="OFFLINE — ' + _esc(action.power) + '">' +
+          '<img src="/assets/d4.png" class="armory-weapon-disc-die char-arena-2die-back" alt="D4">' +
+          '<img src="/assets/d4.png" class="armory-weapon-disc-die char-arena-2die-front" alt="D4">' +
+        '</span>';
+    } else if (!result.die && (result.status === 'impaired' || result.status === 'debilitated')) {
+      dieHtml =
+        '<span class="char-disc-2die-stack below-d4">' +
+          '<img src="/assets/d4.png" class="armory-weapon-disc-die char-arena-2die-back" alt="D4">' +
+          '<img src="/assets/d4.png" class="armory-weapon-disc-die char-arena-2die-front trauma-debilitated" alt="D4">' +
+        '</span>';
+    } else if (result.die) {
+      dieHtml = _dieImg(result.die, statusCls.trim());
+    } else {
+      return '';
+    }
+
+    return (
+      '<div class="sc-die-pair sc-die-power sc-power-die-click" ' +
+        'data-system-key="' + _esc(sysKey) + '" ' +
+        'title="Power: ' + _esc(action.power) + ' (' + _esc(STATUS_LABELS[result.status] || result.status) + ') — Click to cycle">' +
+        dieHtml +
+      '</div>'
+    );
+  }
+
   function _findMyStation() {
     var charId = _state.myCharacterId;
     if (!charId) return null;
@@ -183,6 +325,14 @@
 
     var effectHtml = _buildEffectTrack(action.effect);
 
+    var diceHtml = '';
+    var controlDice = _buildControlDice(action);
+    var powerDice = _buildPowerDie(action);
+    if (controlDice || powerDice) {
+      var sep = (controlDice && powerDice) ? '<span class="sc-dice-sep">+</span>' : '';
+      diceHtml = '<div class="armory-weapon-disc sc-action-dice">' + controlDice + sep + powerDice + '</div>';
+    }
+
     return (
       '<div class="manv-card sc-manv-card" data-action-id="' + _esc(action.id) + '">' +
         '<div class="manv-header" style="border-left:2px solid ' + stationColor + ';" role="button" tabindex="0">' +
@@ -190,6 +340,7 @@
             _pipBadge(action.type) +
             '<span class="manv-name">' + _esc(action.name) + '</span>' +
           '</div>' +
+          diceHtml +
         '</div>' +
         '<div class="manv-body">' +
           metaHtml +
@@ -219,6 +370,14 @@
 
     var costHtml = reaction.cost ? '<span class="manv-rolled-badge">' + _esc(reaction.cost) + '</span>' : '';
 
+    var diceHtml = '';
+    var controlDice = _buildControlDice(reaction);
+    var powerDice = _buildPowerDie(reaction);
+    if (controlDice || powerDice) {
+      var sep = (controlDice && powerDice) ? '<span class="sc-dice-sep">+</span>' : '';
+      diceHtml = '<div class="armory-weapon-disc sc-action-dice">' + controlDice + sep + powerDice + '</div>';
+    }
+
     return (
       '<div class="manv-card sc-manv-card" data-action-id="' + _esc(reaction.id) + '">' +
         '<div class="manv-header" style="border-left:2px solid ' + stationColor + ';" role="button" tabindex="0">' +
@@ -226,7 +385,10 @@
             _pipBadge(reaction.type) +
             '<span class="manv-name">' + _esc(reaction.name) + '</span>' +
           '</div>' +
-          (costHtml ? '<div>' + costHtml + '</div>' : '') +
+          '<div class="sc-header-right">' +
+            diceHtml +
+            (costHtml ? '<div>' + costHtml + '</div>' : '') +
+          '</div>' +
         '</div>' +
         '<div class="manv-body">' +
           triggerHtml +
@@ -662,8 +824,25 @@
       return;
     }
 
+    var powerDieClick = e.target.closest('.sc-power-die-click');
+    if (powerDieClick) {
+      e.stopPropagation();
+      var sysKey = powerDieClick.getAttribute('data-system-key');
+      if (sysKey && _state.ship && _state.ship.systems && _state.ship.systems[sysKey]) {
+        var curStatus = _state.ship.systems[sysKey].status || 'operational';
+        var curIdx = STATUS_CYCLE.indexOf(curStatus);
+        var nextIdx = (curIdx + 1) % STATUS_CYCLE.length;
+        var newStatus = STATUS_CYCLE[nextIdx];
+        _state.ship.systems[sysKey].status = newStatus;
+        socket.emit('shipcombat:system_status', { systemKey: sysKey, status: newStatus });
+        render();
+      }
+      return;
+    }
+
     var manvHeader = e.target.closest('.manv-header');
-    if (manvHeader) {
+    if (manvHeader && manvHeader.closest('#shipcombat-overlay-mount')) {
+      e.stopImmediatePropagation();
       var card = manvHeader.closest('.manv-card');
       if (card) {
         card.classList.toggle('is-open');
@@ -674,7 +853,8 @@
     }
 
     var gambitToggle = e.target.closest('.manv-gambit-toggle');
-    if (gambitToggle) {
+    if (gambitToggle && gambitToggle.closest('#shipcombat-overlay-mount')) {
+      e.stopImmediatePropagation();
       var block = gambitToggle.closest('.manv-gambit-block');
       if (block) {
         block.classList.toggle('is-open');
