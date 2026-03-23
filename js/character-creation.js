@@ -1931,28 +1931,44 @@
       amtRow.className = 'outfitting-debt-row';
       var amtLabel = document.createElement('label');
       amtLabel.textContent = 'Loan';
-      var amtInput = document.createElement('input');
-      amtInput.type = 'number';
-      amtInput.min = '1000';
-      amtInput.max = '10000';
-      amtInput.step = '500';
-      amtInput.value = debt.amount || 100;
-      amtInput.addEventListener('change', function() {
-        var v = parseInt(this.value) || 100;
-        if (v < 50) v = 50;
-        if (v > 500) v = 500;
-        state.debt.amount = v;
-        this.value = v;
+
+      var DEBT_MIN = 1000, DEBT_MAX = 10000, DEBT_STEP = 500;
+      var amtVal = Math.max(DEBT_MIN, Math.min(DEBT_MAX, debt.amount || DEBT_MIN));
+
+      var minusBtn = document.createElement('button');
+      minusBtn.className = 'outfitting-debt-stepper';
+      minusBtn.textContent = '−';
+      minusBtn.addEventListener('click', function() {
+        var cur = state.debt.amount || DEBT_MIN;
+        var nv = Math.max(DEBT_MIN, cur - DEBT_STEP);
+        state.debt.amount = nv;
         saveState();
+        renderDebtPanel();
         renderCart();
         renderCatalogItems();
       });
-      var crSuffix = document.createElement('span');
-      crSuffix.style.cssText = 'font-size:0.42rem;color:var(--color-text-secondary)';
-      crSuffix.textContent = ' cr';
+
+      var amtDisplay = document.createElement('span');
+      amtDisplay.className = 'outfitting-debt-amount';
+      amtDisplay.textContent = amtVal + ' cr';
+
+      var plusBtn = document.createElement('button');
+      plusBtn.className = 'outfitting-debt-stepper';
+      plusBtn.textContent = '+';
+      plusBtn.addEventListener('click', function() {
+        var cur = state.debt.amount || DEBT_MIN;
+        var nv = Math.min(DEBT_MAX, cur + DEBT_STEP);
+        state.debt.amount = nv;
+        saveState();
+        renderDebtPanel();
+        renderCart();
+        renderCatalogItems();
+      });
+
       amtRow.appendChild(amtLabel);
-      amtRow.appendChild(amtInput);
-      amtRow.appendChild(crSuffix);
+      amtRow.appendChild(minusBtn);
+      amtRow.appendChild(amtDisplay);
+      amtRow.appendChild(plusBtn);
       panel.appendChild(amtRow);
 
       var owedAmt = Math.round(debt.amount * (1 + creditor.rate));

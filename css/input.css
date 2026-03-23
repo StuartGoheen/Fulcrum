@@ -6467,9 +6467,35 @@
     min-width: 8rem;
   }
 
-  .outfitting-debt-row input[type="number"] {
-    width: 4rem;
+  .outfitting-debt-stepper {
+    width: 2rem;
+    height: 2rem;
+    font-size: 0.7rem;
+    font-weight: bold;
+    background: var(--color-bg-panel);
+    border: 1px solid var(--color-border);
+    color: var(--color-accent-primary);
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s, border-color 0.15s;
     font-family: 'Audiowide', sans-serif;
+  }
+
+  .outfitting-debt-stepper:hover {
+    background: color-mix(in srgb, var(--color-accent-primary) 15%, transparent);
+    border-color: var(--color-accent-primary);
+  }
+
+  .outfitting-debt-amount {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.52rem;
+    color: var(--color-text-primary);
+    min-width: 5rem;
+    text-align: center;
+    letter-spacing: 0.05em;
   }
 
   .outfitting-debt-toggle {
