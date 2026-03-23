@@ -235,14 +235,14 @@
     if (result.status === 'disabled') {
       dieHtml =
         '<span class="char-disc-2die-stack below-d4" title="DISABLED — ' + _esc(action.power) + '">' +
-          '<img src="/assets/d4.png" class="armory-weapon-disc-die char-arena-2die-back" alt="D4">' +
-          '<img src="/assets/d4.png" class="armory-weapon-disc-die char-arena-2die-front" alt="D4">' +
+          '<img src="/assets/d4.png" class="armory-weapon-disc-die char-disc-2die-back" alt="D4">' +
+          '<img src="/assets/d4.png" class="armory-weapon-disc-die char-disc-2die-front" alt="D4">' +
         '</span>';
     } else if (!result.die) {
       dieHtml =
         '<span class="char-disc-2die-stack below-d4">' +
-          '<img src="/assets/d4.png" class="armory-weapon-disc-die char-arena-2die-back" alt="D4">' +
-          '<img src="/assets/d4.png" class="armory-weapon-disc-die char-arena-2die-front" alt="D4">' +
+          '<img src="/assets/d4.png" class="armory-weapon-disc-die char-disc-2die-back" alt="D4">' +
+          '<img src="/assets/d4.png" class="armory-weapon-disc-die char-disc-2die-front" alt="D4">' +
         '</span>';
     } else {
       dieHtml = _dieImg(result.die);
@@ -403,7 +403,7 @@
         '<div class="manv-gambit-toggle" role="button" tabindex="0">' +
           '<span class="armory-gambit-label">Gambit</span>' +
           '<span class="manv-gambit-name-preview">' + _esc(gambit.name) + '</span>' +
-          '<span class="manv-gambit-req-die">' + _esc(gambit.unlockDie) + '+</span>' +
+          '<span class="manv-gambit-req-die">' + _dieImg(gambit.unlockDie) + '</span>' +
           '<span class="armory-gambit-chevron">&#9656;</span>' +
         '</div>' +
         '<div class="manv-gambit-body">' +
