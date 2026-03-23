@@ -247,7 +247,7 @@
             "tier": 2,
             "label": "Masterful",
             "range": "4–7",
-            "description": "Weapon chassis damage (Masterful tier). Designated system must be impaired if crew chooses to soak."
+            "description": "Weapon chassis damage (Masterful tier). Designated system must be impaired."
           },
           {
             "tier": 3,
