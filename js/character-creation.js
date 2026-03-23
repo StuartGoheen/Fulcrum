@@ -3025,6 +3025,7 @@
       if (nameInput) {
         nameInput.addEventListener('input', function () {
           state.charName = nameInput.value.trim();
+          saveState();
           updateGenBtn();
         });
       }
@@ -3039,12 +3040,14 @@
       if (genderSel) {
         genderSel.addEventListener('change', function () {
           state.charGender = genderSel.value;
+          saveState();
         });
       }
 
       if (titleInput) {
         titleInput.addEventListener('input', function () {
           state.charTitle = titleInput.value.trim();
+          saveState();
         });
       }
 
@@ -3354,6 +3357,7 @@
         }
         state.charGender = gender;
         state.backstory  = data.backstory || '';
+        saveState();
 
         showProseState(state.backstory);
         if (genBtn) genBtn.disabled = false;
@@ -3797,6 +3801,7 @@
         }
         state.charName = data.name || '';
         state.editId = editId;
+        saveState();
         callback();
       })
       .catch(function () { callback(); });
