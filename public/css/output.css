@@ -10124,7 +10124,7 @@ body.is-col-resizing .resize-handle {
 
 @keyframes crawl-scroll {
   0% {
-    top: 170%;
+    top: 140%;
   }
 
   100% {
