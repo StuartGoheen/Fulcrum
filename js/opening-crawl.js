@@ -137,7 +137,7 @@
       perspective.classList.add('crawl-perspective--active');
     }, 6000));
 
-    var crawlDuration = 80000;
+    var crawlDuration = 90000;
     crawlTimers.push(setTimeout(function () {
       if (dismissed) return;
       dismissCrawl();
