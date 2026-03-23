@@ -15,7 +15,27 @@
       },
       "advanceTrigger": "When something that shaped the region, faction, or story ceases to exist because of you.",
       "narrativeHook": "This character is drawn toward endings — tearing down what is broken, corrupt, or dangerous. Whether they destroy to protect or destroy to control is the question that defines their path.",
-      "imageUrl": "/assets/destiny/destruction.png"
+      "imageUrl": "/assets/destiny/destruction.png",
+      "marks": [
+        {
+          "id": "destruction_t1",
+          "tier": 1,
+          "label": "Tactical Demolition",
+          "desc": "You destroyed something the enemy was actively relying on during a scene — a weapon emplacement, a vehicle, a comms array, a barricade — and it changed the tactical situation."
+        },
+        {
+          "id": "destruction_t2",
+          "tier": 2,
+          "label": "Permanent Elimination",
+          "desc": "You permanently eliminated a facility, operation, or resource that a faction depended on — a base, a supply line, a revenue stream, a ship. It's gone and it's not coming back."
+        },
+        {
+          "id": "destruction_t3",
+          "tier": 3,
+          "label": "World-Shaping Ruin",
+          "desc": "You ended something that shaped the region or story — a faction collapsed, an institution ceased to exist, a legacy was erased — because you tore it down."
+        }
+      ]
     },
     {
       "id": "discovery",
@@ -32,7 +52,27 @@
       },
       "advanceTrigger": "When a revelation you unearthed permanently alters the direction of events.",
       "narrativeHook": "This character is drawn toward hidden truths — lost knowledge, buried secrets, forgotten histories. Whether they share what they find or hoard it is the question that defines their path.",
-      "imageUrl": "/assets/destiny/discovery.png"
+      "imageUrl": "/assets/destiny/discovery.png",
+      "marks": [
+        {
+          "id": "discovery_t1",
+          "tier": 1,
+          "label": "Tactical Intel",
+          "desc": "You uncovered information that changed the crew's approach to the current problem — a hidden route, an intercepted transmission, a disguised enemy, a trap identified before it sprung."
+        },
+        {
+          "id": "discovery_t2",
+          "tier": 2,
+          "label": "Mission-Altering Secret",
+          "desc": "You revealed a secret that altered the direction of the mission — something no one knew that changed what the crew was actually dealing with."
+        },
+        {
+          "id": "discovery_t3",
+          "tier": 3,
+          "label": "Story-Shaping Truth",
+          "desc": "You brought a truth to light that reshapes the story going forward — a conspiracy exposed, a hidden identity unmasked, a buried history unearthed that changes how factions relate to each other."
+        }
+      ]
     },
     {
       "id": "rescue",
@@ -49,7 +89,27 @@
       },
       "advanceTrigger": "When someone whose fate was sealed is free because of your actions — not a close call in combat, but a rescue from a situation with no way out.",
       "narrativeHook": "This character is drawn toward the trapped and the doomed — prisoners, hostages, the condemned. Whether they save everyone or only the ones they choose is the question that defines their path.",
-      "imageUrl": "/assets/destiny/rescue.png"
+      "imageUrl": "/assets/destiny/rescue.png",
+      "marks": [
+        {
+          "id": "rescue_t1",
+          "tier": 1,
+          "label": "Pulled from Danger",
+          "desc": "You got someone out of immediate physical danger they couldn't escape alone — dragged a wounded ally to cover, pulled someone from a collapsing structure, shielded someone from fire long enough to move them."
+        },
+        {
+          "id": "rescue_t2",
+          "tier": 2,
+          "label": "Broke the Chains",
+          "desc": "You freed someone from captivity or a sealed fate — a prisoner, a hostage, someone who was going to die or disappear without your direct intervention."
+        },
+        {
+          "id": "rescue_t3",
+          "tier": 3,
+          "label": "Sacrificial Rescue",
+          "desc": "You saved someone at lasting personal cost — you traded your safety, your resources, your position, or your advantage to deliver someone from a fate they couldn't escape."
+        }
+      ]
     },
     {
       "id": "creation",
@@ -66,7 +126,27 @@
       },
       "advanceTrigger": "When something you built reshapes how people live, trade, fight, or survive in the region — a base, an alliance, a syndicate, a network, a legacy.",
       "narrativeHook": "This character is drawn toward making things — structures, organizations, alliances, legacies. Whether they build for everyone or build for themselves is the question that defines their path.",
-      "imageUrl": "/assets/destiny/creation.png"
+      "imageUrl": "/assets/destiny/creation.png",
+      "marks": [
+        {
+          "id": "creation_t1",
+          "tier": 1,
+          "label": "Field Engineering",
+          "desc": "You jury-rigged, repaired, or built something during a scene that the crew depended on — a fortification, a working vehicle from wreckage, a makeshift comms relay, a functional shelter."
+        },
+        {
+          "id": "creation_t2",
+          "tier": 2,
+          "label": "Lasting Foundation",
+          "desc": "You established something that persists beyond the current mission — an alliance brokered, a safe house created, a network established, a supply chain secured."
+        },
+        {
+          "id": "creation_t3",
+          "tier": 3,
+          "label": "Legacy Built",
+          "desc": "You built something that reshapes how people in the region live, trade, fight, or survive — a settlement, an organization, a lasting treaty, infrastructure that outlives your presence."
+        }
+      ]
     },
     {
       "id": "corruption",
@@ -83,7 +163,27 @@
       },
       "advanceTrigger": "When the power structure of a faction, territory, or institution is permanently different because of you.",
       "narrativeHook": "This character is drawn toward power — who holds it, who abuses it, who deserves it. Whether they dismantle corruption or become the new corruption is the question that defines their path.",
-      "imageUrl": "/assets/destiny/corruption.png"
+      "imageUrl": "/assets/destiny/corruption.png",
+      "marks": [
+        {
+          "id": "corruption_t1",
+          "tier": 1,
+          "label": "Undermined Authority",
+          "desc": "You undermined someone's authority or leverage within a scene — turned their subordinate, exposed their weakness publicly, stole their leverage, made them look weak in front of people who mattered."
+        },
+        {
+          "id": "corruption_t2",
+          "tier": 2,
+          "label": "Shifted the Balance",
+          "desc": "You permanently shifted the balance of power within a faction or territory — removed a key lieutenant, brokered a defection, cut a deal that changed who answers to whom."
+        },
+        {
+          "id": "corruption_t3",
+          "tier": 3,
+          "label": "Power Restructured",
+          "desc": "You permanently restructured who holds power in a region or institution — a leader fell, a faction was absorbed, a throne changed hands — and the new arrangement exists because of you."
+        }
+      ]
     },
     {
       "id": "atonement",
@@ -100,7 +200,27 @@
       },
       "advanceTrigger": "When a specific chapter of your past is permanently closed — through reconciliation or obliteration.",
       "narrativeHook": "This character is haunted by what they have done — or what was done in their name. Whether they face it honestly or bury it violently is the question that defines their path.",
-      "imageUrl": "/assets/destiny/atonement.png"
+      "imageUrl": "/assets/destiny/atonement.png",
+      "marks": [
+        {
+          "id": "atonement_t1",
+          "tier": 1,
+          "label": "Faced the Past",
+          "desc": "You encountered something from your past — a person, a place, a consequence of your actions — and you chose to face it rather than avoid it."
+        },
+        {
+          "id": "atonement_t2",
+          "tier": 2,
+          "label": "Costly Restitution",
+          "desc": "You made restitution that cost you something real — credits, safety, advantage, reputation — to address a specific wrong from your history."
+        },
+        {
+          "id": "atonement_t3",
+          "tier": 3,
+          "label": "Chapter Closed",
+          "desc": "You permanently closed a chapter of your past — through reconciliation, sacrifice, or confrontation — in a way that can't be undone or reopened."
+        }
+      ]
     },
     {
       "id": "liberation",
@@ -117,7 +237,27 @@
       },
       "advanceTrigger": "When a population, system, or territory that was under someone's control is no longer — because of you.",
       "narrativeHook": "This character is drawn toward captivity and oppression — wherever chains exist, they feel the pull to break them. Whether they free others cleanly or burn the cage with everyone inside is the question that defines their path.",
-      "imageUrl": "/assets/destiny/liberation.png"
+      "imageUrl": "/assets/destiny/liberation.png",
+      "marks": [
+        {
+          "id": "liberation_t1",
+          "tier": 1,
+          "label": "Broke the Instrument",
+          "desc": "You removed an immediate instrument of control during a scene — disabled a restraint system, jammed a tracking device, destroyed a guard post, cut a comms line that was coordinating captors."
+        },
+        {
+          "id": "liberation_t2",
+          "tier": 2,
+          "label": "Freed the Captives",
+          "desc": "You freed a group from active captivity or coercion — broke open a holding cell, smuggled workers off a site, disrupted an operation that was keeping people under someone's heel."
+        },
+        {
+          "id": "liberation_t3",
+          "tier": 3,
+          "label": "System Dismantled",
+          "desc": "You dismantled a system of control so that a population, territory, or community is no longer under a faction's grip — and the people know they're free because of what you did."
+        }
+      ]
     },
     {
       "id": "ascendancy",
@@ -134,7 +274,27 @@
       },
       "advanceTrigger": "When you hold a title, territory, rank, or seat of power that fundamentally changes your standing in the galaxy.",
       "narrativeHook": "This character is drawn upward — toward rank, influence, and legacy. Whether they lift others as they rise or stand on the fallen is the question that defines their path.",
-      "imageUrl": "/assets/destiny/ascendancy.png"
+      "imageUrl": "/assets/destiny/ascendancy.png",
+      "marks": [
+        {
+          "id": "ascendancy_t1",
+          "tier": 1,
+          "label": "Earned Deference",
+          "desc": "You earned visible recognition or deference within a scene — an NPC treated you as an authority, a rival backed down, a group looked to you for the call when it mattered."
+        },
+        {
+          "id": "ascendancy_t2",
+          "tier": 2,
+          "label": "Position Secured",
+          "desc": "You secured a position, title, or resource base that gives you standing you didn't have before — command of a crew, ownership of a significant asset, a seat at a table you were previously excluded from."
+        },
+        {
+          "id": "ascendancy_t3",
+          "tier": 3,
+          "label": "Power Claimed",
+          "desc": "You hold a title, territory, rank, or seat of power that fundamentally changes your standing in the region — and others recognize it without you having to assert it."
+        }
+      ]
     }
   ]
 }

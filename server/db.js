@@ -57,6 +57,16 @@ db.exec(`
     completed_at   DATETIME,
     gm_notes       TEXT
   );
+
+  CREATE TABLE IF NOT EXISTS adventure_marks (
+    id             INTEGER PRIMARY KEY AUTOINCREMENT,
+    character_id   INTEGER NOT NULL REFERENCES characters(id),
+    adventure_id   TEXT    NOT NULL,
+    mark_id        TEXT    NOT NULL,
+    bucket         TEXT    NOT NULL,
+    claimed_at     DATETIME DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(character_id, adventure_id, mark_id)
+  );
 `);
 
 db.exec(`

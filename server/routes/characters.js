@@ -652,6 +652,67 @@ router.patch('/characters/:id/debt/accrue', (req, res) => {
   }
 });
 
+router.get('/characters/:id/adventure-marks/:adventureId', (req, res) => {
+  const { id, adventureId } = req.params;
+  try {
+    const rows = db.prepare(
+      'SELECT mark_id, bucket, claimed_at FROM adventure_marks WHERE character_id = ? AND adventure_id = ?'
+    ).all(id, adventureId);
+    return res.json({ ok: true, marks: rows });
+  } catch (err) {
+    console.error('[GET /adventure-marks]', err);
+    return res.status(500).json({ error: 'Failed to load adventure marks.' });
+  }
+});
+
+router.get('/characters/:id/adventure-marks-all', (req, res) => {
+  const { id } = req.params;
+  try {
+    const rows = db.prepare(
+      'SELECT adventure_id, mark_id, bucket, claimed_at FROM adventure_marks WHERE character_id = ? ORDER BY adventure_id, claimed_at'
+    ).all(id);
+    const grouped = {};
+    for (const row of rows) {
+      if (!grouped[row.adventure_id]) grouped[row.adventure_id] = [];
+      grouped[row.adventure_id].push({ mark_id: row.mark_id, bucket: row.bucket, claimed_at: row.claimed_at });
+    }
+    return res.json({ ok: true, adventures: grouped });
+  } catch (err) {
+    console.error('[GET /adventure-marks-all]', err);
+    return res.status(500).json({ error: 'Failed to load adventure marks.' });
+  }
+});
+
+router.put('/characters/:id/adventure-marks/:adventureId', (req, res) => {
+  const { id, adventureId } = req.params;
+  const { marks } = req.body;
+  if (!Array.isArray(marks)) {
+    return res.status(400).json({ error: 'marks must be an array of { mark_id, bucket }.' });
+  }
+  try {
+    const del = db.prepare('DELETE FROM adventure_marks WHERE character_id = ? AND adventure_id = ?');
+    const ins = db.prepare(
+      'INSERT INTO adventure_marks (character_id, adventure_id, mark_id, bucket) VALUES (?, ?, ?, ?)'
+    );
+    const txn = db.transaction(() => {
+      del.run(id, adventureId);
+      for (const m of marks) {
+        if (m.mark_id && m.bucket) {
+          ins.run(id, adventureId, m.mark_id, m.bucket);
+        }
+      }
+    });
+    txn();
+    const rows = db.prepare(
+      'SELECT mark_id, bucket, claimed_at FROM adventure_marks WHERE character_id = ? AND adventure_id = ?'
+    ).all(id, adventureId);
+    return res.json({ ok: true, marks: rows });
+  } catch (err) {
+    console.error('[PUT /adventure-marks]', err);
+    return res.status(500).json({ error: 'Failed to save adventure marks.' });
+  }
+});
+
 router.post('/admin/release-all', (req, res) => {
   db.prepare('DELETE FROM sessions').run();
   db.prepare('UPDATE characters SET session_id = NULL, connected_at = NULL').run();

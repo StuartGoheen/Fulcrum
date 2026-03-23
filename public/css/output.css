@@ -9390,6 +9390,19 @@ body.is-col-resizing .resize-handle {
   border: 1px solid color-mix(in srgb, var(--color-accent-secondary) 30%, transparent);
 }
 
+.adv-tag--tier {
+  background: color-mix(in srgb, var(--color-accent-primary) 15%, transparent);
+  color: var(--color-accent-primary);
+  border: 1px solid color-mix(in srgb, var(--color-accent-primary) 30%, transparent);
+}
+
+.adv-trigger-empty {
+  padding: 8px 12px;
+  color: var(--color-text-secondary);
+  font-style: italic;
+  font-size: 0.8rem;
+}
+
 .adv-mark-value {
   font-size: 0.6rem;
   background: var(--color-accent-primary);

@@ -1,54 +1,25 @@
 (function () {
   'use strict';
 
-  var MARK_TRIGGERS = [
-    {
-      bucket: 'The Mission',
-      subtitle: 'Shared Struggle',
-      budget: '4\u20135 Marks',
-      icon: '\u2694',
-      triggers: [
-        { id: 'act_milestone_1', label: 'Act Milestone I',  value: 1, desc: 'Crew completes Act 1 or a major objective.', group: true },
-        { id: 'act_milestone_2', label: 'Act Milestone II', value: 1, desc: 'Crew completes Act 2 or a major objective.', group: true },
-        { id: 'act_milestone_3', label: 'Act Milestone III',value: 1, desc: 'Crew completes Act 3 or a major objective.', group: true },
-        { id: 'crucible',        label: 'The Crucible',     value: 1, desc: 'Crew survives a catastrophic setback, boss encounter, or brutal twist.', group: true },
-        { id: 'hard_call',       label: 'The Hard Call',    value: 1, desc: 'Crew makes a definitive, galaxy-altering choice.', group: true }
-      ]
-    },
-    {
-      bucket: 'The Past',
-      subtitle: 'Phase Trio Triggers',
-      budget: '2\u20133 Marks',
-      icon: '\u23F3',
-      triggers: [
-        { id: 'ghost_past',  label: 'Ghost of the Past', value: 1, desc: 'Used a Phase 1/2/3 detail to complicate the current mission.' },
-        { id: 'debt_paid',   label: 'The Debt Paid',     value: 1, desc: 'Went out of the way at personal risk to honor a bond or protect a crewmate.' },
-        { id: 'old_scars',   label: 'The Old Scars',     value: 1, desc: 'Intentionally failed a social/mental check due to background trauma, phobia, or bias.' }
-      ]
-    },
-    {
-      bucket: 'The Future',
-      subtitle: 'Destiny Triggers',
-      budget: '2\u20133 Marks',
-      icon: '\u2605',
-      triggers: [
-        { id: 'reckless_pursuit',  label: 'The Reckless Pursuit', value: 1, desc: 'Took a dangerous action specifically to inch closer to Destiny.' },
-        { id: 'destiny_milestone', label: 'The Destiny Milestone',value: 2, desc: 'Achieved a tangible, permanent step toward ultimate Destiny goal. Rare.' }
-      ]
-    },
-    {
-      bucket: 'The Mechanics',
-      subtitle: 'Action Triggers',
-      budget: '2\u20134 Marks',
-      icon: '\u2699',
-      triggers: [
-        { id: 'd4_burden_1',       label: 'The D4 Burden I',       value: 1, desc: 'Willingly auto-failed a roll tied to D4 Arena, narrating how the flaw ruined the moment.' },
-        { id: 'd4_burden_2',       label: 'The D4 Burden II',      value: 1, desc: 'Second auto-fail tied to D4 Arena this adventure. Max 2 per adventure.' },
-        { id: 'unleashed_miracle', label: 'The Unleashed Miracle', value: 1, desc: 'Went Unleashed at the most dramatic moment, turning failure into a scene-ending victory. Max 1 per adventure.' },
-        { id: 'edge_burn',         label: 'The Edge Burn',         value: 1, desc: 'Burned Edge pool to 0 to fuel a desperate Gambit/Maneuver saving a crewmate.' }
-      ]
-    }
+  var ADVENTURE_TRIGGERS = [
+    { id: 'act_milestone_1', label: 'Act I Milestone',  value: 1, desc: 'Crew completes Act 1 or a major objective.', group: true },
+    { id: 'act_milestone_2', label: 'Act II Milestone', value: 1, desc: 'Crew completes Act 2 or a major objective.', group: true },
+    { id: 'act_milestone_3', label: 'Act III Milestone',value: 1, desc: 'Crew completes Act 3 or a major objective.', group: true },
+    { id: 'crucible',        label: 'The Crucible',     value: 1, desc: 'The plan catastrophically fails and the crew improvises under fire to survive.', group: true },
+    { id: 'hard_call',       label: 'The Hard Call',    value: 1, desc: 'Crew makes a definitive choice that shapes the story. Flips a Destiny Token.', group: true }
   ];
+
+  var EDGE_TRIGGERS = [
+    { id: 'gear_solved',     label: 'Gear Solved It',            value: 1, desc: 'Your gear helped you achieve a significant challenge that without it may not have been possible or would have been extremely dangerous.' },
+    { id: 'env_weapon',      label: 'Environment Weapon',        value: 1, desc: 'You used the physical environment as a tactical tool — shot a steam pipe, toppled debris, lured someone into a hazard, used terrain to negate a disadvantage.' },
+    { id: 'raw_power',       label: 'Raw Power',                 value: 1, desc: 'You achieved Unleashed on a roll without your Power die exploding. Pure skill and base dice got you there.' },
+    { id: 'in_your_element', label: 'In Your Element',           value: 1, desc: 'One of your Favored Skills Unleashed and hit the Unleashed tier. Your specialty came through when it mattered.' },
+    { id: 'plan_b',          label: 'Plan B',                    value: 1, desc: 'You failed a challenge that significantly worsened the scene, then adapted and still accomplished the goals of the mission (even if partially).' },
+    { id: 'debt_collector',  label: 'Debt Collector',            value: 1, desc: 'You took on or paid off a debt (financial or narrative) during the adventure. Accrued interest, paid down a loan, called in a favor, or owed one.' }
+  ];
+
+  var _destinyData = null;
+  var _currentAdventureId = 'adv1';
 
   var DISC_TRACK_SIZE = 5;
   var ARENA_TRACK_SIZE = 3;
@@ -81,11 +52,53 @@
     return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
 
+  function _getMarkBuckets() {
+    var destinyTriggers = [];
+    var destinyName = 'Destiny';
+    if (_destinyData && _char && _char.personalDestiny) {
+      var pid = _char.personalDestiny.id || _char.personalDestiny;
+      var found = _destinyData.find(function (d) { return d.id === pid; });
+      if (found && found.marks) {
+        destinyName = found.name;
+        destinyTriggers = found.marks.map(function (m) {
+          return { id: m.id, label: m.label, value: 1, desc: m.desc, tier: m.tier };
+        });
+      }
+    }
+    return [
+      {
+        bucket: 'The Adventure',
+        subtitle: 'Shared Milestones',
+        budget: '5 Marks',
+        icon: '\u2694',
+        key: 'adventure',
+        triggers: ADVENTURE_TRIGGERS
+      },
+      {
+        bucket: destinyName,
+        subtitle: 'Destiny Marks',
+        budget: '3 Marks',
+        icon: '\u2605',
+        key: 'destiny',
+        triggers: destinyTriggers
+      },
+      {
+        bucket: 'The Edge',
+        subtitle: 'Systems & Grit',
+        budget: '6 Marks',
+        icon: '\u2699',
+        key: 'edge',
+        triggers: EDGE_TRIGGERS
+      }
+    ];
+  }
+
   function _countEarnedMarks() {
     if (!_advancement || !_advancement.marks) return 0;
     var checks = _advancement.marks.earnedChecks || {};
     var total = 0;
-    MARK_TRIGGERS.forEach(function (bucket) {
+    var buckets = _getMarkBuckets();
+    buckets.forEach(function (bucket) {
       bucket.triggers.forEach(function (t) {
         if (checks[t.id]) total += t.value;
       });
@@ -120,8 +133,30 @@
       }).catch(function (err) {
         console.error('[AdvancementPanel] save error', err);
       });
+      _persistAdventureMarks();
       _broadcastAdvancement();
     }, 400);
+  }
+
+  function _persistAdventureMarks() {
+    if (!_charId || !_advancement || !_advancement.marks) return;
+    var checks = _advancement.marks.earnedChecks || {};
+    var buckets = _getMarkBuckets();
+    var marks = [];
+    buckets.forEach(function (bucket) {
+      bucket.triggers.forEach(function (t) {
+        if (checks[t.id]) {
+          marks.push({ mark_id: t.id, bucket: bucket.key });
+        }
+      });
+    });
+    fetch('/api/characters/' + encodeURIComponent(_charId) + '/adventure-marks/' + encodeURIComponent(_currentAdventureId), {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ marks: marks })
+    }).catch(function (err) {
+      console.error('[AdvancementPanel] adventure marks save error', err);
+    });
   }
 
   function _countD12Arenas() {
@@ -147,15 +182,16 @@
 
   function _buildMarkChecklist() {
     var checks = (_advancement && _advancement.marks) ? (_advancement.marks.earnedChecks || {}) : {};
+    var buckets = _getMarkBuckets();
     var html = '';
 
-    MARK_TRIGGERS.forEach(function (bucket, bIdx) {
+    buckets.forEach(function (bucket, bIdx) {
       var collapsed = _collapsedBuckets[bIdx];
       var chevron = collapsed ? '\u25B6' : '\u25BC';
       var bucketEarned = 0;
       bucket.triggers.forEach(function (t) { if (checks[t.id]) bucketEarned += t.value; });
       var countBadge = bucketEarned > 0 ? ' <span class="adv-bucket-earned">' + bucketEarned + '</span>' : '';
-      html += '<div class="adv-bucket">';
+      html += '<div class="adv-bucket" data-bucket-key="' + _esc(bucket.key) + '">';
       html += '<div class="adv-bucket-header" data-bucket-idx="' + bIdx + '">';
       html += '<span class="adv-bucket-chevron">' + chevron + '</span>';
       html += '<span class="adv-bucket-icon">' + bucket.icon + '</span>';
@@ -164,20 +200,24 @@
       html += '<span class="adv-bucket-budget">' + _esc(bucket.budget) + '</span>';
       html += '</div>';
       if (!collapsed) {
-        html += '<div class="adv-bucket-triggers">';
-        bucket.triggers.forEach(function (t) {
-          var checked = checks[t.id] ? ' checked' : '';
-          var groupTag = t.group ? '<span class="adv-tag adv-tag--group">GROUP</span>' : '';
-          var valueBadge = t.value > 1 ? '<span class="adv-mark-value">' + t.value + '</span>' : '';
-          html += '<label class="adv-trigger-row">';
-          html += '<input type="checkbox" class="adv-trigger-check" data-trigger-id="' + _esc(t.id) + '"' + checked + ' />';
-          html += '<div class="adv-trigger-info">';
-          html += '<span class="adv-trigger-label">' + _esc(t.label) + groupTag + valueBadge + '</span>';
-          html += '<span class="adv-trigger-desc">' + _esc(t.desc) + '</span>';
+        if (bucket.triggers.length === 0) {
+          html += '<div class="adv-bucket-triggers"><div class="adv-trigger-empty">No destiny selected.</div></div>';
+        } else {
+          html += '<div class="adv-bucket-triggers">';
+          bucket.triggers.forEach(function (t) {
+            var checked = checks[t.id] ? ' checked' : '';
+            var groupTag = t.group ? '<span class="adv-tag adv-tag--group">GROUP</span>' : '';
+            var tierTag = t.tier ? '<span class="adv-tag adv-tag--tier">TIER ' + t.tier + '</span>' : '';
+            html += '<label class="adv-trigger-row">';
+            html += '<input type="checkbox" class="adv-trigger-check" data-trigger-id="' + _esc(t.id) + '" data-bucket="' + _esc(bucket.key) + '"' + checked + ' />';
+            html += '<div class="adv-trigger-info">';
+            html += '<span class="adv-trigger-label">' + _esc(t.label) + groupTag + tierTag + '</span>';
+            html += '<span class="adv-trigger-desc">' + _esc(t.desc) + '</span>';
+            html += '</div>';
+            html += '</label>';
+          });
           html += '</div>';
-          html += '</label>';
-        });
-        html += '</div>';
+        }
       }
       html += '</div>';
     });
@@ -1023,6 +1063,53 @@
     if (earnedEl.length > 0) earnedEl[0].textContent = 'Earned this adventure: ' + _countEarnedMarks();
   }
 
+  function _loadDestinyData(cb) {
+    fetch('/data/destinies.json')
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        _destinyData = data.destinies || [];
+        if (cb) cb();
+      })
+      .catch(function (err) {
+        console.error('[AdvancementPanel] Failed to load destinies:', err);
+        _destinyData = [];
+        if (cb) cb();
+      });
+  }
+
+  function _loadCampaignProgress(cb) {
+    fetch('/api/campaign/progress')
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        var advId = (data && data.progress && data.progress.adventure_id) || (data && data.adventure_id);
+        if (advId) _currentAdventureId = advId;
+        if (cb) cb();
+      })
+      .catch(function (err) {
+        console.error('[AdvancementPanel] Failed to load campaign progress:', err);
+        if (cb) cb();
+      });
+  }
+
+  function _loadAdventureMarks(cb) {
+    if (!_charId) { if (cb) cb(); return; }
+    fetch('/api/characters/' + encodeURIComponent(_charId) + '/adventure-marks/' + encodeURIComponent(_currentAdventureId))
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        _advancement.marks.earnedChecks = {};
+        if (data.ok && data.marks && data.marks.length > 0) {
+          data.marks.forEach(function (m) {
+            _advancement.marks.earnedChecks[m.mark_id] = true;
+          });
+        }
+        if (cb) cb();
+      })
+      .catch(function (err) {
+        console.error('[AdvancementPanel] Failed to load adventure marks:', err);
+        if (cb) cb();
+      });
+  }
+
   function init() {
     function tryRender() {
       var char = window.CharacterPanel && window.CharacterPanel.currentChar;
@@ -1038,8 +1125,21 @@
         _panelVisible = true;
       }
 
-      if (_panelVisible) _render();
-      _initialized = true;
+      var loaded = 0;
+      var totalLoads = 3;
+      function onLoaded() {
+        loaded++;
+        if (loaded >= totalLoads) {
+          if (_panelVisible) _render();
+          _initialized = true;
+        }
+      }
+
+      _loadDestinyData(onLoaded);
+      _loadCampaignProgress(function () {
+        _loadAdventureMarks(onLoaded);
+        onLoaded();
+      });
 
       document.addEventListener('character:stateChanged', function () {
         var c = window.CharacterPanel && window.CharacterPanel.currentChar;
