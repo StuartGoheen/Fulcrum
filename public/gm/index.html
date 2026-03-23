@@ -1203,7 +1203,7 @@
     let html = '<div style="columns:2;column-gap:1rem;">';
     conditions.forEach(entry => {
       const { pc, npc } = splitPcNpc(entry.rule);
-      const searchKey = [entry.name, entry.rule].join(' ');
+      const searchKey = [entry.name, entry.rule, entry.guide||''].join(' ');
       html += `
         <div class="card collapsible open" style="break-inside:avoid;margin-bottom:0.75rem;" data-search="${esc(searchKey)}">
           <div class="card-header collapse-toggle">${esc(entry.name)}</div>
@@ -1303,7 +1303,7 @@
         if (classTag === 'elite') classColor = 'tag-elite';
         else if (classTag === 'nemesis') classColor = 'tag-nemesis';
         else if (classTag === 'minion') classColor = 'tag-minion';
-        const searchKey = [t.name, t.classification, (t.tags||[]).join(' '), t.description||''].join(' ');
+        const searchKey = [t.name, t.classification, (t.tags||[]).join(' '), t.description||'', (t.actions||[]).map(a => a.name + ' ' + (a.type||'') + ' ' + (a.effects||[]).map(e => e.result||e.description||'').join(' ')).join(' ')].join(' ');
         html += `
           <div class="card collapsible open" data-search="${esc(searchKey)}">
             <div class="card-header collapse-toggle" style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
@@ -1348,7 +1348,7 @@
 
       if (Array.isArray(section)) {
         section.forEach(item => {
-          const searchKey = [item.name || item.id || '', item.summary || item.description || item.effect || ''].join(' ');
+          const searchKey = [item.name || item.id || '', item.summary||'', item.description||'', item.effect||'', (item.modifications||[]).join(' ')].join(' ');
           html += `<div class="card collapsible" data-search="${esc(searchKey)}">
             <div class="card-header collapse-toggle">${esc(item.name || item.id || '')}</div>
             <div class="card-body">
@@ -1442,8 +1442,8 @@
 
     list.forEach(w => {
       const rangeStr = renderWeaponRange(w.range);
-      const searchKey = [w.name, w.chassisLabel, w.discipline, (w.tags||[]).join(' ')].join(' ');
       const weaponGambits = w.gambits || (w.gambit ? [w.gambit] : []);
+      const searchKey = [w.name, w.chassisLabel, w.discipline, w.description, w.arena, (w.tags||[]).join(' '), (w.trait ? w.trait.name + ' ' + w.trait.description : ''), (weaponGambits.map(g => g.name + ' ' + (g.rule||'')).join(' '))].join(' ');
 
       html += `
         <div class="card collapsible open" data-search="${esc(searchKey)}">
@@ -1519,7 +1519,7 @@
           <div style="columns:2;column-gap:0.75rem;">
             ${items.map(a => {
               const traits = a.traits || [];
-              const searchKey = [a.name, a.category, a.categoryLabel, ...traits.map(t => t.name + ' ' + t.description)].join(' ');
+              const searchKey = [a.name, a.category, a.categoryLabel, a.description, ...traits.map(t => t.name + ' ' + t.description), ...(a.tags||[])].join(' ');
               return `
                 <div class="card collapsible" style="break-inside:avoid;margin-bottom:0.5rem;" data-search="${esc(searchKey)}">
                   <div class="card-header collapse-toggle" style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
@@ -1690,7 +1690,7 @@
               const wp = g.weaponProfile;
               const traits = g.traits || [];
               const gambits = g.gambits || [];
-              const searchKey = [g.name, g.category, ...(g.tags||[]), ...traits.map(t => t.name), ...gambits.map(b => b.name)].join(' ');
+              const searchKey = [g.name, g.category, g.categoryLabel, g.description, ...(g.tags||[]), ...traits.map(t => t.name + ' ' + t.description), ...gambits.map(b => b.name + ' ' + (b.rule||''))].join(' ');
 
               const rangeStr = wp && wp.range
                 ? (Array.isArray(wp.range)
