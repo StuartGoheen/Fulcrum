@@ -455,6 +455,7 @@
   function filterSearch(query) {
     const q = query.trim().toLowerCase();
     if (currentTab === 'handbook') {
+      document.getElementById('handbook-search').value = query;
       handbookSearch(q);
       return;
     }
