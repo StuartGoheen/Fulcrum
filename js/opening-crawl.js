@@ -137,11 +137,11 @@
       perspective.classList.add('crawl-perspective--active');
     }, 6000));
 
-    var crawlDuration = 65000;
+    var crawlDuration = 80000;
     crawlTimers.push(setTimeout(function () {
       if (dismissed) return;
       dismissCrawl();
-    }, crawlDuration + 6000));
+    }, crawlDuration + 8000));
 
     overlay.addEventListener('click', function (e) {
       e.stopPropagation();
