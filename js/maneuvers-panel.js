@@ -719,6 +719,7 @@
   document.addEventListener('click', function (e) {
     var header = e.target.closest && e.target.closest('.manv-header');
     if (header) {
+      if (header.closest('#shipcombat-overlay-mount')) return;
       var card = header.closest('.manv-card');
       if (!card) return;
       var body = card.querySelector('.manv-body');
@@ -738,6 +739,7 @@
     }
     var gambitToggle = e.target.closest && e.target.closest('.manv-gambit-toggle');
     if (gambitToggle) {
+      if (gambitToggle.closest('#shipcombat-overlay-mount')) return;
       var block = gambitToggle.closest('.manv-gambit-block');
       if (!block) return;
       block.classList.toggle('is-open');

@@ -10631,17 +10631,57 @@ body.is-col-resizing .resize-handle {
   white-space: nowrap;
 }
 
-.sc-system-die {
-  font-family: 'Audiowide', sans-serif;
-  font-size: 0.5rem;
-  color: var(--color-text-primary);
+.sc-system-clickable {
+  cursor: pointer;
+  transition: border-color 0.15s;
 }
 
-.sc-system-status {
-  font-size: 0.35rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  font-weight: 600;
+.sc-system-clickable:hover {
+  border-color: var(--color-accent-primary, #3b82f6);
+}
+
+.sc-system-die-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+}
+
+.sc-system-die-img {
+  width: 28px;
+  height: auto;
+}
+
+.sc-system-die-wrap .char-disc-2die-stack {
+  width: 22px;
+  height: 22px;
+}
+
+.sc-system-die-wrap .char-disc-2die-stack .armory-weapon-disc-die {
+  width: 16px;
+  height: auto;
+}
+
+.sc-system-die-wrap .char-arena-2die-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0.45;
+}
+
+.sc-system-die-wrap .char-arena-2die-front {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+}
+
+.sc-system-item .char-arena-trauma-pill {
+  font-size: 0.32rem;
+  margin-top: 0.1rem;
+}
+
+.trauma-pill-disabled {
+  color: #6b7280;
 }
 
 .sc-system-indicator {

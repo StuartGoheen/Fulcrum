@@ -20,21 +20,24 @@
       "label": "Dorsal Turret",
       "weaponId": "swpn_quad_laser_cannon",
       "arc": "Turret",
-      "status": "operational"
+      "status": "operational",
+      "controlStation": "station_gunner"
     },
     {
       "mountId": "mount_ventral",
       "label": "Ventral Cannon",
       "weaponId": "swpn_ventral_cannon",
       "arc": "Ventral",
-      "status": "operational"
+      "status": "operational",
+      "controlStation": "station_gunner"
     },
     {
       "mountId": "mount_forward",
       "label": "Forward Launcher",
       "weaponId": "swpn_concussion_missile",
       "arc": "Forward",
-      "status": "operational"
+      "status": "operational",
+      "controlStation": "station_gunner"
     }
   ],
   "stations": ["station_pilot", "station_gunner", "station_operator", "station_engineer", "station_copilot"],

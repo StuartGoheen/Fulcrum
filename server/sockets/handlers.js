@@ -335,7 +335,7 @@ function registerHandlers(io) {
       const state = getShipCombatState();
       if (!state) return;
       if (!payload || typeof payload.systemKey !== 'string' || typeof payload.status !== 'string') return;
-      const validStatuses = ['operational', 'impaired', 'debilitated', 'offline'];
+      const validStatuses = ['operational', 'impaired', 'debilitated', 'disabled'];
       if (validStatuses.indexOf(payload.status) === -1) return;
       const isGM = socket.data.role === 'gm';
       const isSeated = socket.data.characterId && Object.values(state.seats || {}).some(s => s && s.characterId === socket.data.characterId);
