@@ -1851,8 +1851,6 @@
 
     var debtContainer = document.createElement('div');
     debtContainer.id = 'outfitting-debt-container';
-    debtContainer.style.marginTop = '0.4rem';
-    cartPanel.appendChild(debtContainer);
 
     function renderDebtPanel() {
       var dc = document.getElementById('outfitting-debt-container');
@@ -1969,7 +1967,11 @@
     renderDebtPanel();
 
     layout.appendChild(catalogPanel);
-    layout.appendChild(cartPanel);
+    var rightCol = document.createElement('div');
+    rightCol.className = 'outfitting-right-col';
+    rightCol.appendChild(debtContainer);
+    rightCol.appendChild(cartPanel);
+    layout.appendChild(rightCol);
     container.appendChild(layout);
 
     searchInput.addEventListener('input', function() { renderCatalogItems(); });

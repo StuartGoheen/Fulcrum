@@ -6267,6 +6267,15 @@
     padding: 1.5rem 0;
   }
 
+  .outfitting-right-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-self: flex-start;
+    position: sticky;
+    top: 0.5rem;
+  }
+
   .outfitting-cart {
     background: var(--color-bg-frame);
     border: 1px solid var(--color-border);
@@ -6275,10 +6284,6 @@
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
-    align-self: flex-start;
-    overflow: visible;
-    position: sticky;
-    top: 0.5rem;
   }
 
   .outfitting-cart-title {
