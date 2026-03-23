@@ -427,7 +427,7 @@
       html += '<div class="char-ledger-card" style="opacity:0.5">' +
         '<div class="char-ledger-header">' +
           '<span class="char-ledger-title">The Ledger</span>' +
-          '<span class="char-ledger-creditor" style="color:var(--color-primary,#4a6)">Debt Free</span>' +
+          '<span class="char-ledger-creditor" style="color:var(--color-success)">Debt Free</span>' +
         '</div>' +
       '</div>';
     }

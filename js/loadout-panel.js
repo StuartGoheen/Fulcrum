@@ -795,15 +795,15 @@
       var dCreditor = debtCreditors.find(function(c) { return c.id === char.debt.creditorId; }) || debtCreditors[0];
       var effectiveRate = char.debt.rate !== undefined ? char.debt.rate : dCreditor.rate;
       var owedAmt = Math.round(char.debt.balance * (1 + effectiveRate));
-      html += '<div class="armory-category-label" style="color:#CC3333">The Ledger</div>';
-      html += '<div class="armory-card" style="border-color:color-mix(in srgb,#CC3333 30%,transparent)">';
+      html += '<div class="armory-category-label" style="color:var(--color-fail)">The Ledger</div>';
+      html += '<div class="armory-card" style="border-color:color-mix(in srgb,var(--color-fail) 30%,transparent)">';
       html += '<div class="armory-card-header">';
-      html += '<span class="armory-card-name" style="color:#CC3333">' + _esc(dCreditor.name) + '</span>';
+      html += '<span class="armory-card-name" style="color:var(--color-fail)">' + _esc(dCreditor.name) + '</span>';
       html += '</div>';
       html += '<div class="armory-card-body">';
       html += '<div style="display:flex;justify-content:space-between;font-family:Audiowide,sans-serif;font-size:0.48rem;letter-spacing:0.05em">';
       html += '<span style="color:var(--color-text-secondary)">Balance: ' + char.debt.balance.toLocaleString() + ' cr</span>';
-      html += '<span style="color:#CC3333">Next Cycle: ' + owedAmt.toLocaleString() + ' cr (' + Math.round(effectiveRate * 100) + '%)</span>';
+      html += '<span style="color:var(--color-fail)">Next Cycle: ' + owedAmt.toLocaleString() + ' cr (' + Math.round(effectiveRate * 100) + '%)</span>';
       html += '</div></div></div>';
     }
 
