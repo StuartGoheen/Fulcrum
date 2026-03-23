@@ -2994,6 +2994,14 @@ h1, h2, h3, h4, h5, h6 {
   padding-top: 1px;
 }
 
+.manv-tier-range {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 0.58rem;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
 .manv-tier-desc {
   font-size: 0.68rem;
   color: var(--color-text-primary);

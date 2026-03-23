@@ -2226,6 +2226,14 @@
     padding-top: 1px;
   }
 
+  .manv-tier-range {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.58rem;
+    color: var(--color-text-secondary);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
   .manv-tier-content {
     display: flex;
     flex-direction: column;

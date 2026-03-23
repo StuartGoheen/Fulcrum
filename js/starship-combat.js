@@ -320,7 +320,7 @@
     var controlDice = _buildControlDice(action);
     var powerDice = _buildPowerDie(action);
     if (controlDice || powerDice) {
-      var sep = (controlDice && powerDice) ? '<span class="sc-dice-sep">+</span>' : '';
+      var sep = (controlDice && powerDice) ? '<span class="sc-dice-sep">/</span>' : '';
       diceHtml = '<div class="armory-weapon-disc sc-action-dice">' + controlDice + sep + powerDice + '</div>';
     }
 
@@ -372,7 +372,7 @@
     var controlDice = _buildControlDice(reaction);
     var powerDice = _buildPowerDie(reaction);
     if (controlDice || powerDice) {
-      var sep = (controlDice && powerDice) ? '<span class="sc-dice-sep">+</span>' : '';
+      var sep = (controlDice && powerDice) ? '<span class="sc-dice-sep">/</span>' : '';
       diceHtml = '<div class="armory-weapon-disc sc-action-dice">' + controlDice + sep + powerDice + '</div>';
     }
 
