@@ -1964,8 +1964,6 @@
       dc.appendChild(panel);
     }
 
-    renderDebtPanel();
-
     layout.appendChild(catalogPanel);
     var rightCol = document.createElement('div');
     rightCol.className = 'outfitting-right-col';
@@ -1973,6 +1971,8 @@
     rightCol.appendChild(cartPanel);
     layout.appendChild(rightCol);
     container.appendChild(layout);
+
+    renderDebtPanel();
 
     searchInput.addEventListener('input', function() { renderCatalogItems(); });
 
