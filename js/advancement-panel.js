@@ -769,7 +769,6 @@
 
     var investBtns = container.querySelectorAll('.adv-invest-btn');
     investBtns.forEach(function (btn) {
-      if (btn.disabled) return;
       btn.addEventListener('click', function () {
         var trackKey = btn.getAttribute('data-invest-track');
         var dir = btn.getAttribute('data-invest-dir');
