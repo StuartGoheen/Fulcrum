@@ -343,71 +343,108 @@
     );
   }
 
-  function _buildStationSeat(stationDef, seatInfo, isMyStation, myCharId) {
+  function _buildHudPanel(stationDef, seatInfo, myCharId, mini) {
     var stationId = stationDef.id;
     var color = STATION_COLORS[stationId] || 'var(--color-accent-primary)';
     var icon = STATION_ICONS[stationId] || '\u2605';
     var claimed = !!seatInfo;
     var claimedByMe = claimed && seatInfo.characterId === myCharId;
 
+    var cls = 'sc-hud-panel';
+    if (mini) cls += ' sc-hud-mini';
+    if (claimedByMe) cls += ' sc-hud-mine';
+    else if (claimed) cls += ' sc-hud-claimed';
+
     var occupantHtml = '';
     if (claimed) {
-      occupantHtml =
-        '<div class="sc-seat-occupant">' +
-          '<span class="sc-seat-occupant-name">' + _esc(seatInfo.characterName) + '</span>' +
-        '</div>';
+      occupantHtml = '<div class="sc-hud-occupant">' + _esc(seatInfo.characterName) + '</div>';
     }
 
     var actionHtml = '';
-    if (!claimed) {
-      actionHtml = '<button class="sc-seat-claim-btn" data-station-id="' + _esc(stationId) + '">Claim Seat</button>';
-    } else if (claimedByMe) {
-      actionHtml = '<button class="sc-seat-release-btn" data-station-id="' + _esc(stationId) + '">Release</button>';
+    if (!mini) {
+      if (!claimed) {
+        actionHtml = '<button class="sc-seat-claim-btn sc-hud-btn" data-station-id="' + _esc(stationId) + '">ENGAGE</button>';
+      } else if (claimedByMe) {
+        actionHtml = '<button class="sc-seat-release-btn sc-hud-btn" data-station-id="' + _esc(stationId) + '">DISENGAGE</button>';
+      }
     }
 
-    var cls = 'sc-station-seat';
-    if (claimedByMe) cls += ' sc-seat-mine';
-    else if (claimed) cls += ' sc-seat-taken';
+    var disciplineHtml = mini ? '' :
+      '<div class="sc-hud-discipline">' + _esc(stationDef.controlDiscipline) + ' (' + _esc(stationDef.controlArena) + ')</div>';
+
+    var powerHtml = mini ? '' :
+      '<div class="sc-hud-power">' + _esc(stationDef.powerSystems.join(' \u2022 ')) + '</div>';
 
     return (
-      '<div class="' + cls + '" data-station-id="' + _esc(stationId) + '">' +
-        '<div class="sc-seat-header" style="border-color:' + color + ';">' +
-          '<span class="sc-seat-icon" style="color:' + color + ';">' + icon + '</span>' +
-          '<span class="sc-seat-name">' + _esc(stationDef.name) + '</span>' +
-        '</div>' +
-        '<div class="sc-seat-disciplines">' +
-          '<span class="sc-seat-control">' + _esc(stationDef.controlDiscipline) + ' (' + _esc(stationDef.controlArena) + ')</span>' +
-        '</div>' +
-        '<div class="sc-seat-summary">' + _esc(stationDef.summary.substring(0, 120)) + (stationDef.summary.length > 120 ? '...' : '') + '</div>' +
+      '<div class="' + cls + '" data-station-id="' + _esc(stationId) + '" style="--hud-color:' + color + ';">' +
+        '<div class="sc-hud-corner sc-hud-tl"></div>' +
+        '<div class="sc-hud-corner sc-hud-tr"></div>' +
+        '<div class="sc-hud-corner sc-hud-bl"></div>' +
+        '<div class="sc-hud-corner sc-hud-br"></div>' +
+        '<div class="sc-hud-icon">' + icon + '</div>' +
+        '<div class="sc-hud-name">' + _esc(stationDef.name) + '</div>' +
+        disciplineHtml +
+        powerHtml +
         occupantHtml +
         actionHtml +
       '</div>'
     );
   }
 
+  function _linkGambitsToActions(stationDef) {
+    var gambits = stationDef.gambits || [];
+    var actions = (stationDef.actions || []).concat(stationDef.reactions || []);
+    var map = {};
+    var unlinked = [];
+    for (var g = 0; g < gambits.length; g++) {
+      var gambit = gambits[g];
+      var rule = (gambit.rule || '').toLowerCase();
+      var linked = false;
+      for (var a = 0; a < actions.length; a++) {
+        var actName = (actions[a].name || '').toLowerCase();
+        if (actName && rule.indexOf(actName.toLowerCase()) !== -1) {
+          var aid = actions[a].id;
+          if (!map[aid]) map[aid] = [];
+          map[aid].push(gambit);
+          linked = true;
+        }
+      }
+      if (!linked) unlinked.push(gambit);
+    }
+    return { map: map, unlinked: unlinked };
+  }
+
   function _buildStationDetail(stationDef) {
     var stationId = stationDef.id;
     var color = STATION_COLORS[stationId] || 'var(--color-accent-primary)';
     var icon = STATION_ICONS[stationId] || '\u2605';
+    var gambitLinks = _linkGambitsToActions(stationDef);
 
     var html = '<div class="sc-station-detail">';
 
     html +=
-      '<div class="sc-detail-header" style="border-left-color:' + color + ';">' +
-        '<span class="sc-detail-icon" style="color:' + color + ';">' + icon + '</span>' +
+      '<div class="sc-detail-header" style="--hud-color:' + color + ';">' +
+        '<span class="sc-detail-icon">' + icon + '</span>' +
         '<span class="sc-detail-name">' + _esc(stationDef.name) + ' Station</span>' +
-        '<button class="sc-detail-release-btn">Release Seat</button>' +
+        '<button class="sc-detail-release-btn">DISENGAGE</button>' +
       '</div>';
 
     html += '<div class="sc-detail-meta">' +
-      '<span class="sc-detail-control">Control: ' + _esc(stationDef.controlDiscipline) + ' (' + _esc(stationDef.controlArena) + ')</span>' +
-      '<span class="sc-detail-power">Power Systems: ' + _esc(stationDef.powerSystems.join(', ')) + '</span>' +
+      '<span class="sc-detail-control">' + _esc(stationDef.controlDiscipline) + ' (' + _esc(stationDef.controlArena) + ')</span>' +
+      '<span class="sc-detail-power">' + _esc(stationDef.powerSystems.join(' \u2022 ')) + '</span>' +
     '</div>';
 
     if (stationDef.actions && stationDef.actions.length) {
       html += '<div class="sc-detail-section"><div class="sc-section-label">Actions</div>';
       for (var a = 0; a < stationDef.actions.length; a++) {
-        html += _buildActionCard(stationDef.actions[a], color);
+        var action = stationDef.actions[a];
+        html += _buildActionCard(action, color);
+        var linked = gambitLinks.map[action.id];
+        if (linked) {
+          for (var lg = 0; lg < linked.length; lg++) {
+            html += '<div class="sc-gambit-inline">' + _buildGambitCard(linked[lg], color) + '</div>';
+          }
+        }
       }
       html += '</div>';
     }
@@ -431,15 +468,22 @@
     if (stationDef.reactions && stationDef.reactions.length) {
       html += '<div class="sc-detail-section"><div class="sc-section-label">Reactions</div>';
       for (var r = 0; r < stationDef.reactions.length; r++) {
-        html += _buildReactionCard(stationDef.reactions[r], color);
+        var reaction = stationDef.reactions[r];
+        html += _buildReactionCard(reaction, color);
+        var rLinked = gambitLinks.map[reaction.id];
+        if (rLinked) {
+          for (var rg = 0; rg < rLinked.length; rg++) {
+            html += '<div class="sc-gambit-inline">' + _buildGambitCard(rLinked[rg], color) + '</div>';
+          }
+        }
       }
       html += '</div>';
     }
 
-    if (stationDef.gambits && stationDef.gambits.length) {
+    if (gambitLinks.unlinked.length) {
       html += '<div class="sc-detail-section"><div class="sc-section-label">Gambits</div>';
-      for (var g = 0; g < stationDef.gambits.length; g++) {
-        html += _buildGambitCard(stationDef.gambits[g], color);
+      for (var ug = 0; ug < gambitLinks.unlinked.length; ug++) {
+        html += _buildGambitCard(gambitLinks.unlinked[ug], color);
       }
       html += '</div>';
     }
@@ -517,13 +561,32 @@
     html += _buildSystemsBar(_state.ship);
 
     if (myStationDef) {
-      html += _buildStationDetail(myStationDef);
+      var leftPanels = [];
+      var rightPanels = [];
+      var otherCount = 0;
+      for (var oi = 0; oi < _state.stations.length; oi++) {
+        var ost = _state.stations[oi];
+        if (ost.id === _state.myStationId) continue;
+        var oSeat = _state.seats[ost.id] || null;
+        if (otherCount < 2) {
+          leftPanels.push(_buildHudPanel(ost, oSeat, _state.myCharacterId, true));
+        } else {
+          rightPanels.push(_buildHudPanel(ost, oSeat, _state.myCharacterId, true));
+        }
+        otherCount++;
+      }
+
+      html += '<div class="sc-cockpit-seated">';
+      html += '<div class="sc-cockpit-wing sc-cockpit-left">' + leftPanels.join('') + '</div>';
+      html += '<div class="sc-cockpit-center">' + _buildStationDetail(myStationDef) + '</div>';
+      html += '<div class="sc-cockpit-wing sc-cockpit-right">' + rightPanels.join('') + '</div>';
+      html += '</div>';
     } else {
-      html += '<div class="sc-station-grid">';
+      html += '<div class="sc-hud-grid">';
       for (var i = 0; i < _state.stations.length; i++) {
         var st = _state.stations[i];
         var seatInfo = _state.seats[st.id] || null;
-        html += _buildStationSeat(st, seatInfo, false, _state.myCharacterId);
+        html += _buildHudPanel(st, seatInfo, _state.myCharacterId, false);
       }
       html += '</div>';
     }

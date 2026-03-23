@@ -27,7 +27,7 @@ A Star Wars TTRPG electronic character sheet and campaign management system buil
 ├── js/                   # Client-side JavaScript modules
 │   ├── crawl-data.js     # Mission crawl text data (extensible for future missions)
 │   ├── opening-crawl.js  # Star Wars opening crawl overlay engine
-│   ├── starship-combat.js # Starship combat overlay (seat claiming, station cards, systems bar)
+│   ├── starship-combat.js # Starship combat cockpit HUD overlay (seat claiming, HUD panels, cockpit layout)
 ├── data/                 # JSON data files (weapons, armor, gear, etc.)
 ├── assets/               # Images and icons
 ├── db/                   # SQLite database (gitignored)
@@ -218,6 +218,12 @@ The GM Command Bridge (`public/gm/index.html`) features a full Campaign Engine a
 **UI Features:** Adventure navigator (10 adventures), part navigator, scene list with completion indicators, scene renderer (read-aloud block, GM notes, NPC roster, hazards, decision points), clickable lore tags with cross-reference modal, narrative link navigation, collapsible Party Monitor sidebar.
 
 **GM Command Bridge Tabs:** Campaign (default), Combat Tracker, Starship Combat, GM Handbook. The GM Handbook tab consolidates all 8 rules reference categories (Game System, Arenas & Disciplines, Conditions, Maneuvers, Threats, Weapons, Armor, Gear) into a single panel with collapsible `.hb-section` containers, a dedicated search input (`#handbook-search`), and unified real-time search that auto-expands matching sections and collapses empty ones. Each render function targets `#hb-section-<key> .hb-section-body`. The `refreshHandbookFilter()` function is called after every async data render to re-apply any active search query.
+
+**Starship Combat Cockpit HUD (`js/starship-combat.js`):** Full-screen overlay on the player UI (`#shipcombat-overlay-mount`). Uses a cockpit aesthetic with dark radial gradient background, scan-line texture, and station-colored glow borders. Two layout modes:
+- **Unseated (HUD Grid):** 5 equal `.sc-hud-panel` cards in a row via `.sc-hud-grid` (5-column CSS grid). Each panel has corner bracket decorations, a large station icon with color glow, station name, discipline, and power systems. Claimed panels dim (`opacity: 0.45`) and show occupant name. Unclaimed panels show "ENGAGE" button.
+- **Seated (Cockpit Layout):** `.sc-cockpit-seated` uses a 3-column grid (1fr 3fr 1fr). The player's station is in `.sc-cockpit-center` with full `_buildStationDetail()` output. The other 4 stations appear as `.sc-hud-mini` panels in `.sc-cockpit-wing` containers (2 left, 2 right).
+- **Gambit linking:** `_linkGambitsToActions()` parses gambit rule text to match action names and nests gambits inline under their linked action/reaction via `.sc-gambit-inline` divs. Unlinked gambits appear in a separate "Gambits" section.
+- **Socket events:** `shipcombat:sync` (full state), `shipcombat:seats_update` (seat changes), `shipcombat:claim_seat` / `shipcombat:release_seat` (player actions).
 
 ## Right Column Layout (frame-right)
 
