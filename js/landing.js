@@ -203,4 +203,13 @@
         });
     });
   }
+
+  var crawlBtn = document.getElementById('btn-crawl');
+  if (crawlBtn) {
+    crawlBtn.addEventListener('click', function () {
+      if (typeof window.launchCrawl === 'function') {
+        window.launchCrawl('mission1');
+      }
+    });
+  }
 }());

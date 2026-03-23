@@ -19,11 +19,14 @@ A Star Wars TTRPG electronic character sheet and campaign management system buil
 │   ├── player/index.html # Player character sheet
 │   ├── create/index.html # Character creation wizard
 │   ├── market/index.html # Black Market browser
-│   └── css/output.css    # Generated — do not edit directly
+│   ├── css/output.css    # Generated — do not edit directly
+│   └── audio/            # Audio assets (opening-crawl.mp3)
 ├── css/
 │   ├── input.css         # Tailwind source (custom components + layers)
 │   └── themes.css        # CSS variable theme definitions (6 themes: rebellion, r2d2, vader, fett, holo, fringe)
 ├── js/                   # Client-side JavaScript modules
+│   ├── crawl-data.js     # Mission crawl text data (extensible for future missions)
+│   ├── opening-crawl.js  # Star Wars opening crawl overlay engine
 ├── data/                 # JSON data files (weapons, armor, gear, etc.)
 ├── assets/               # Images and icons
 ├── db/                   # SQLite database (gitignored)
