@@ -1346,12 +1346,28 @@
   }
 
   function _updateMarksSummary() {
+    var earned = _countEarnedMarks();
+    var banked = (_advancement && _advancement.marks) ? (_advancement.marks.totalBanked || 0) : 0;
+    var totalPool = earned + banked;
+    var uninvested = _getUninvestedMarks();
+
     var numEl = document.querySelector('.adv-marks-number');
-    if (numEl) {
-      var earned = _countEarnedMarks();
-      var banked = (_advancement && _advancement.marks) ? (_advancement.marks.totalBanked || 0) : 0;
-      numEl.textContent = earned + banked;
-    }
+    if (numEl) numEl.textContent = uninvested;
+
+    var earnedEl = document.querySelector('.adv-marks-detail');
+    if (earnedEl) earnedEl.textContent = 'Earned this adventure: ' + earned;
+
+    var investBtns = document.querySelectorAll('.adv-invest-btn');
+    investBtns.forEach(function (btn) {
+      var dir = btn.getAttribute('data-invest-dir');
+      var trackKey = btn.getAttribute('data-invest-track');
+      var t = _getTrackObj(trackKey);
+      if (dir === 'add') {
+        btn.disabled = uninvested <= 0;
+      } else if (dir === 'sub') {
+        btn.disabled = !t || (t.invested || 0) <= 0;
+      }
+    });
   }
 
   function _loadDestinyData(cb) {
