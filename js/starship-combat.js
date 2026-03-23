@@ -175,12 +175,13 @@
     var effectHtml = _buildEffectTrack(action.effect);
 
     return (
-      '<div class="sc-action-card" data-action-id="' + _esc(action.id) + '">' +
-        '<div class="sc-card-header" style="border-left-color:' + stationColor + ';">' +
+      '<div class="sc-action-card sc-collapsible" data-action-id="' + _esc(action.id) + '">' +
+        '<div class="sc-card-header sc-collapse-toggle" style="border-left-color:' + stationColor + ';" role="button" tabindex="0">' +
           '<div class="sc-card-header-left">' +
             _pipBadge(action.type) +
             '<span class="sc-card-name">' + _esc(action.name) + '</span>' +
           '</div>' +
+          '<span class="sc-collapse-chevron">&#9656;</span>' +
         '</div>' +
         '<div class="sc-card-body">' +
           '<div class="sc-card-meta">' +
@@ -209,13 +210,16 @@
     }
 
     return (
-      '<div class="sc-action-card sc-reaction-card" data-action-id="' + _esc(reaction.id) + '">' +
-        '<div class="sc-card-header" style="border-left-color:' + stationColor + ';">' +
+      '<div class="sc-action-card sc-reaction-card sc-collapsible" data-action-id="' + _esc(reaction.id) + '">' +
+        '<div class="sc-card-header sc-collapse-toggle" style="border-left-color:' + stationColor + ';" role="button" tabindex="0">' +
           '<div class="sc-card-header-left">' +
             _pipBadge(reaction.type) +
             '<span class="sc-card-name">' + _esc(reaction.name) + '</span>' +
           '</div>' +
-          costHtml +
+          '<div class="sc-card-header-right">' +
+            costHtml +
+            '<span class="sc-collapse-chevron">&#9656;</span>' +
+          '</div>' +
         '</div>' +
         '<div class="sc-card-body">' +
           triggerHtml +
@@ -290,6 +294,7 @@
         '<div class="sc-weapon-meta">' +
           '<span class="sc-weapon-chassis-label">' + _esc(weaponDef.chassisLabel) + '</span>' +
           '<span class="sc-weapon-power-die">Power: ' + _esc(weaponDef.powerDie) + '</span>' +
+          (weaponDef.range ? '<span class="sc-weapon-range">Range: ' + _esc(weaponDef.range) + '</span>' : '') +
           arcBadge +
           statusBadge +
         '</div>' +
@@ -443,6 +448,32 @@
     return html;
   }
 
+  var _minimized = false;
+
+  function _ensureFloatingIndicator() {
+    var existing = document.getElementById('sc-floating-indicator');
+    if (!_state.active) {
+      if (existing) existing.remove();
+      return;
+    }
+    if (!_minimized) {
+      if (existing) existing.style.display = 'none';
+      return;
+    }
+    if (!existing) {
+      existing = document.createElement('button');
+      existing.id = 'sc-floating-indicator';
+      existing.className = 'sc-floating-indicator';
+      existing.innerHTML = '\u2726 SHIP COMBAT';
+      existing.addEventListener('click', function () {
+        _minimized = false;
+        render();
+      });
+      document.body.appendChild(existing);
+    }
+    existing.style.display = 'flex';
+  }
+
   function render() {
     var mount = _getMount();
     if (!mount) return;
@@ -450,10 +481,18 @@
     if (!_state.active) {
       mount.innerHTML = '';
       mount.style.display = 'none';
+      _ensureFloatingIndicator();
+      return;
+    }
+
+    if (_minimized) {
+      mount.style.display = 'none';
+      _ensureFloatingIndicator();
       return;
     }
 
     mount.style.display = 'block';
+    _ensureFloatingIndicator();
     _state.myCharacterId = _getMyCharacterId();
     _state.myStationId = _findMyStation();
 
@@ -471,6 +510,7 @@
 
     html += '<div class="sc-overlay-header">' +
       '<span class="sc-overlay-title">STARSHIP COMBAT</span>' +
+      '<button class="sc-minimize-btn" title="Minimize overlay">\u2014</button>' +
     '</div>';
 
     html += _buildShipHeader(_state.ship);
@@ -546,6 +586,22 @@
     var releaseBtn = e.target.closest('.sc-seat-release-btn') || e.target.closest('.sc-detail-release-btn');
     if (releaseBtn) {
       socket.emit('shipcombat:release_seat');
+      return;
+    }
+
+    var minimizeBtn = e.target.closest('.sc-minimize-btn');
+    if (minimizeBtn) {
+      _minimized = true;
+      render();
+      return;
+    }
+
+    var collapseToggle = e.target.closest('.sc-collapse-toggle');
+    if (collapseToggle) {
+      var card = collapseToggle.closest('.sc-collapsible');
+      if (card) {
+        card.classList.toggle('is-open');
+      }
       return;
     }
 

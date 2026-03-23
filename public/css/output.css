@@ -10461,6 +10461,57 @@ body.is-col-resizing .resize-handle {
   background: var(--color-bg-primary);
 }
 
+.sc-floating-indicator {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 201;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.4rem 0.8rem;
+  background: var(--color-accent-primary);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-family: 'Audiowide', sans-serif;
+  font-size: 0.42rem;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+  animation: sc-pulse 2s ease-in-out infinite;
+}
+
+@keyframes sc-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.sc-floating-indicator:hover {
+  filter: brightness(1.2);
+}
+
+.sc-minimize-btn {
+  background: transparent;
+  border: 1px solid var(--color-text-secondary);
+  color: var(--color-text-secondary);
+  border-radius: 4px;
+  padding: 0.1rem 0.4rem;
+  cursor: pointer;
+  font-size: 0.4rem;
+  margin-left: auto;
+}
+
+.sc-minimize-btn:hover {
+  color: var(--color-text-primary);
+  border-color: var(--color-text-primary);
+}
+
 .sc-overlay {
   min-height: 100vh;
   padding: 1rem;
@@ -10813,6 +10864,37 @@ body.is-col-resizing .resize-handle {
   border-radius: 3px;
 }
 
+.sc-collapsible .sc-card-body {
+  display: none;
+  padding: 0.4rem 0.5rem;
+}
+
+.sc-collapsible.is-open .sc-card-body {
+  display: block;
+}
+
+.sc-collapse-chevron {
+  font-size: 0.45rem;
+  color: var(--color-text-secondary);
+  transition: transform 0.2s ease;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.sc-collapsible.is-open .sc-collapse-chevron {
+  transform: rotate(90deg);
+}
+
+.sc-collapse-toggle {
+  cursor: pointer;
+}
+
+.sc-card-header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
 .sc-card-body {
   padding: 0.4rem 0.5rem;
 }
@@ -11030,6 +11112,15 @@ body.is-col-resizing .resize-handle {
 
 .sc-weapon-power-die {
   color: var(--color-accent-primary);
+  font-weight: 600;
+}
+
+.sc-weapon-range {
+  padding: 0.05rem 0.3rem;
+  background: color-mix(in srgb, var(--color-accent-cyan, #06b6d4) 15%, transparent);
+  color: var(--color-accent-cyan, #06b6d4);
+  border-radius: 3px;
+  font-size: 0.34rem;
   font-weight: 600;
 }
 
