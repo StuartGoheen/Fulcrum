@@ -15,7 +15,12 @@
         "tags": [
           "[Combat]"
         ],
-        "rule": "Firing a Pistol while Engaged does not present an Opening. You may draw or holster Pistols as part of any Attack action at no Maneuver cost. On a successful Join Battle, you may immediately draw one or both Pistols."
+        "rule": "Firing a Pistol while Engaged does not present an Opening. You may draw or holster Pistols as part of any Attack action at no Maneuver cost. On a successful Join Battle, you may immediately draw one or both Pistols.",
+        "modifiesAction": "action_attack",
+        "targetWeaponTags": [
+          "Pistol"
+        ],
+        "shorthand": "No Opening firing Engaged. Draw/holster Pistols free on Attack. Draw on Join Battle."
       },
       {
         "id": "voc_gunslinger_t2",
@@ -25,7 +30,11 @@
         "tags": [
           "[Combat]"
         ],
-        "rule": "When dual wielding Pistols, you ignore the Control die step-down penalty. You keep the Power die step-up. Gambits from either equipped Pistol may be declared on any Pistol attack."
+        "rule": "When dual wielding Pistols, you ignore the Control die step-down penalty. You keep the Power die step-up. Gambits from either equipped Pistol may be declared on any Pistol attack.",
+        "targetWeaponTags": [
+          "Pistol"
+        ],
+        "shorthand": "Dual-wield Pistols: no Control step-down. Cross-pistol gambits allowed."
       },
       {
         "id": "voc_gunslinger_t3",
@@ -82,7 +91,11 @@
         "tags": [
           "[Combat]"
         ],
-        "rule": "When you Exploit an Opening with a Pistol and the attack deals damage, the target presents another Opening to any ally in the zone. Your shots crack the door wide open for the whole crew."
+        "rule": "When you Exploit an Opening with a Pistol and the attack deals damage, the target presents another Opening to any ally in the zone. Your shots crack the door wide open for the whole crew.",
+        "targetWeaponTags": [
+          "Pistol"
+        ],
+        "shorthand": "Exploit Opening + Pistol damage → target presents Opening to ally in zone."
       }
     ],
     "imageUrl": "/assets/vocations/voc_gunslinger.png",
@@ -111,7 +124,12 @@
         "tags": [
           "[Combat]"
         ],
-        "rule": "You may use Brawl (Physique) in place of Endure for Defense rolls while Engaged. When you take Stun damage and remain conscious, gain [Optimized] on your next Brawl attack."
+        "rule": "You may use Brawl (Physique) in place of Endure for Defense rolls while Engaged. When you take Stun damage and remain conscious, gain [Optimized] on your next Brawl attack.",
+        "modifiesAction": "action_endure",
+        "targetWeaponTags": [
+          "Unarmed"
+        ],
+        "shorthand": "Use Brawl (Physique) for Endure while Engaged. Stun damage → Optimized next Brawl."
       },
       {
         "id": "voc_shockboxer_t2",
@@ -121,7 +139,12 @@
         "tags": [
           "[Combat]"
         ],
-        "rule": "Track Brawl hits that deal damage to the same target. On the 2nd hit: target gains [Rattled]. On the 3rd hit: target gains [Exposed]. Combo Counter resets at the end of your turn."
+        "rule": "Track Brawl hits that deal damage to the same target. On the 2nd hit: target gains [Rattled]. On the 3rd hit: target gains [Exposed]. Combo Counter resets at the end of your turn.",
+        "modifiesAction": "action_attack",
+        "targetWeaponTags": [
+          "Unarmed"
+        ],
+        "shorthand": "Track Brawl hits on same target: 2nd → Rattled, 3rd → Exposed. Resets end of turn."
       },
       {
         "id": "voc_shockboxer_t3",
@@ -155,7 +178,12 @@
         "tags": [
           "[Combat]"
         ],
-        "rule": "When your Combo Counter reaches 3+ on a target and your Brawl attack resolves at Masterful or higher, you may declare a Knockout. The target is immediately [Incapacitated]. Once per scene."
+        "rule": "When your Combo Counter reaches 3+ on a target and your Brawl attack resolves at Masterful or higher, you may declare a Knockout. The target is immediately [Incapacitated]. Once per scene.",
+        "modifiesAction": "action_attack",
+        "targetWeaponTags": [
+          "Unarmed"
+        ],
+        "shorthand": "Combo 3+ and Masterful+ Brawl → target Incapacitated. 1/scene."
       }
     ],
     "imageUrl": "/assets/vocations/voc_shockboxer.png",
@@ -185,7 +213,9 @@
           "[Combat]",
           "[Narrative]"
         ],
-        "rule": "When you benefit from concealment, you may use Stealth (Reflex) in place of Evasion on Dodge defense rolls. Additionally, while benefiting from concealment, you do not present Openings originating from the Engaged condition."
+        "rule": "When you benefit from concealment, you may use Stealth (Reflex) in place of Evasion on Dodge defense rolls. Additionally, while benefiting from concealment, you do not present Openings originating from the Engaged condition.",
+        "modifiesAction": "action_dodge",
+        "shorthand": "Use Stealth (Reflex) for Dodge while concealed. No Engaged Openings while concealed."
       },
       {
         "id": "voc_ghost_t2",
@@ -290,7 +320,9 @@
         "tags": [
           "[Force]"
         ],
-        "rule": "Your Force expression manifests as visible green ichor energy — unmistakably magick, never subtle. Targets who witness your ichor magick for the first time in a scene gain [Rattled]. You may use Alter (Presence) in place of Medicine (Wits) when performing Treat Injury — you channel ichor into wounds rather than applying conventional medicine."
+        "rule": "Your Force expression manifests as visible green ichor energy — unmistakably magick, never subtle. Targets who witness your ichor magick for the first time in a scene gain [Rattled]. You may use Alter (Presence) in place of Medicine (Wits) when performing Treat Injury — you channel ichor into wounds rather than applying conventional medicine.",
+        "modifiesAction": "action_treat_injury",
+        "shorthand": "Use Alter (Presence) for Treat Injury. First-time ichor witness → Rattled."
       },
       {
         "id": "voc_ichor_witch_t2",
@@ -300,7 +332,8 @@
         "tags": [
           "[Force]"
         ],
-        "rule": "**Creation**: Spend 1 Edge Point during a Narrative scene to imbue a portable object with ichor, creating a Force talisman. One active talisman at a time (until T3). The talisman must be willingly accepted by the bearer — it cannot be planted or hidden on an unwitting target. If not actively carried by the bearer, the talisman is inert. The talisman contains a portion of your Force signature — any Force-sensitive who examines it may identify its creator. In the wrong hands, it can be used to target you.\n\n**Attunement**: When creating the talisman, choose a discipline. The object should reflect the discipline's nature (a weapon for Melee or Ranged, a medpac for Medicine, a lockpick set for Skulduggery, a focus crystal for a Spark discipline, etc. — GM adjudicates). That discipline becomes a favored discipline for the bearer while carried.\n\n**Sense Through the Bond**: While the bearer carries your talisman, you may spend an Action to Assess using Sense (The Spark) through the bearer's senses — no line of sight required. This establishes a sympathetic connection for the remainder of the scene.\n\n**While the connection is active**:\n- **Ichor Surge** — Spend 1 of your own Edge Points (no action cost) to trigger an Edge spend for the talisman bearer. This functions as if the bearer spent their own Edge — Tier Boost on their favored disciplines, Unleashed effects, vocation abilities.\n- **Pervert the Bond** — Channel the dark side through the connection to use Arise (T4) or True Possession (T5) on or through the bearer — no line of sight required. This immediately flips one Hope to Toll. The talisman blackens and goes inert.\n\n**No connection, no channel.** If you haven't established the Sense link this scene, the talisman is just a charm (the favored discipline still applies passively). Ichor Surge and Pervert the Bond require the active connection."
+        "rule": "**Creation**: Spend 1 Edge Point during a Narrative scene to imbue a portable object with ichor, creating a Force talisman. One active talisman at a time (until T3). The talisman must be willingly accepted by the bearer — it cannot be planted or hidden on an unwitting target. If not actively carried by the bearer, the talisman is inert. The talisman contains a portion of your Force signature — any Force-sensitive who examines it may identify its creator. In the wrong hands, it can be used to target you.\n\n**Attunement**: When creating the talisman, choose a discipline. The object should reflect the discipline's nature (a weapon for Melee or Ranged, a medpac for Medicine, a lockpick set for Skulduggery, a focus crystal for a Spark discipline, etc. — GM adjudicates). That discipline becomes a favored discipline for the bearer while carried.\n\n**Sense Through the Bond**: While the bearer carries your talisman, you may spend an Action to Assess using Sense (The Spark) through the bearer's senses — no line of sight required. This establishes a sympathetic connection for the remainder of the scene.\n\n**While the connection is active**:\n- **Ichor Surge** — Spend 1 of your own Edge Points (no action cost) to trigger an Edge spend for the talisman bearer. This functions as if the bearer spent their own Edge — Tier Boost on their favored disciplines, Unleashed effects, vocation abilities.\n- **Pervert the Bond** — Channel the dark side through the connection to use Arise (T4) or True Possession (T5) on or through the bearer — no line of sight required. This immediately flips one Hope to Toll. The talisman blackens and goes inert.\n\n**No connection, no channel.** If you haven't established the Sense link this scene, the talisman is just a charm (the favored discipline still applies passively). Ichor Surge and Pervert the Bond require the active connection.",
+        "shorthand": "Spend 1 Edge to imbue an object with ichor. Talisman grants discipline die shift for 1 scene."
       },
       {
         "id": "voc_ichor_witch_t3",
@@ -316,7 +349,11 @@
             "name": "Blight",
             "rule": "When the bearer hits with an ichor-infused weapon and deals damage, spend 1 tier. The target gains [Rattled]. If the target is already [Rattled], they gain [Exposed] instead."
           }
-        ]
+        ],
+        "targetWeaponTags": [
+          "Melee"
+        ],
+        "shorthand": "Two active Talismans. Infuse melee weapon: attacks gain Blight gambit (1 tier → Vitality bleed)."
       },
       {
         "id": "voc_ichor_witch_t4",
@@ -414,7 +451,9 @@
         "tags": [
           "[Social]"
         ],
-        "rule": "Charm replaces Intimidate for any action where you would normally use Intimidate. You project authority through force of personality rather than threat of violence. When another ability or effect calls for an Intimidate roll, you may use Charm (Presence) instead."
+        "rule": "Charm replaces Intimidate for any action where you would normally use Intimidate. You project authority through force of personality rather than threat of violence. When another ability or effect calls for an Intimidate roll, you may use Charm (Presence) instead.",
+        "modifiesAction": "action_assess",
+        "shorthand": "Charm replaces Intimidate. Optimized on first social action per scene."
       },
       {
         "id": "voc_noble_t2",
@@ -492,7 +531,9 @@
         "tags": [
           "[Social]"
         ],
-        "rule": "When you arrive in a social scene, you may declare one willing NPC present as part of your Entourage. That NPC will carry out reasonable non-combat requests for you for the duration of the scene — run errands, make introductions, hold a position, relay messages.\n\nIf you attempt a social action while your Entourage member is visibly supporting you (backing your play, standing at your shoulder), that action gains [Optimized].\n\nLimit: one Entourage member per scene. The GM can rule an NPC unwilling if there's a strong narrative reason."
+        "rule": "When you arrive in a social scene, you may declare one willing NPC present as part of your Entourage. That NPC will carry out reasonable non-combat requests for you for the duration of the scene — run errands, make introductions, hold a position, relay messages.\n\nIf you attempt a social action while your Entourage member is visibly supporting you (backing your play, standing at your shoulder), that action gains [Optimized].\n\nLimit: one Entourage member per scene. The GM can rule an NPC unwilling if there's a strong narrative reason.",
+        "modifiesAction": "action_assess",
+        "shorthand": "Declare NPC ally in social scene. Optimized when they visibly support you."
       },
       {
         "id": "voc_noble_t5",
@@ -502,7 +543,8 @@
         "tags": [
           "[Social]"
         ],
-        "rule": "Upgrades Compel.\n\n**Address the Room:** Your Compel maneuver can now target a group of individuals rather than a single target. Roll once — all targets defend with their own Resolve individually, but the effect tier is determined by your single Control result.\n\n**Sustained Influence:** When you score a Masterful Success (8+ on Control), instead of increasing the effect tier by one level, you may choose to extend the duration of your Compel through the end of the Act. This does not guarantee compliance — but so long as you maintain your charming approach and targets are not endangered, their disposition toward you remains at the level your Compel established. Break the charm (threaten them, put them in danger) and it snaps immediately."
+        "rule": "Upgrades Compel.\n\n**Address the Room:** Your Compel maneuver can now target a group of individuals rather than a single target. Roll once — all targets defend with their own Resolve individually, but the effect tier is determined by your single Control result.\n\n**Sustained Influence:** When you score a Masterful Success (8+ on Control), instead of increasing the effect tier by one level, you may choose to extend the duration of your Compel through the end of the Act. This does not guarantee compliance — but so long as you maintain your charming approach and targets are not endangered, their disposition toward you remains at the level your Compel established. Break the charm (threaten them, put them in danger) and it snaps immediately.",
+        "shorthand": "Compel targets groups. Optimized on Compel when Entourage NPC visibly supports you."
       }
     ],
     "imageUrl": "/assets/vocations/voc_noble.png",
@@ -531,7 +573,9 @@
         "tags": [
           "[Narrative]"
         ],
-        "rule": "You may use Investigation in place of Insight when attempting to read an NPC target — you read people through observation and evidence rather than empathy. You notice the inconsistency in their story, not the tremor in their voice.\n\nAdditionally, even on a failed Assess, you still learn one detail related to the assessment target. You never walk away completely empty-handed."
+        "rule": "You may use Investigation in place of Insight when attempting to read an NPC target — you read people through observation and evidence rather than empathy. You notice the inconsistency in their story, not the tremor in their voice.\n\nAdditionally, even on a failed Assess, you still learn one detail related to the assessment target. You never walk away completely empty-handed.",
+        "modifiesAction": "action_assess",
+        "shorthand": "Use Investigation for Insight to read NPCs. Passive observation, no social engagement."
       },
       {
         "id": "voc_investigator_t2",
@@ -541,7 +585,9 @@
         "tags": [
           "[Narrative]"
         ],
-        "rule": "When you succeed on an Assess, you may spend one of your earned questions to instead make a **declaration**: state a connection between two facts, people, or events you've encountered this session. The GM must confirm if you're correct, partially correct, or wrong — and if partially correct, they adjust your declaration to the truth rather than simply saying no.\n\nThis isn't asking the GM for information — it's proposing a theory and forcing the narrative to respond."
+        "rule": "When you succeed on an Assess, you may spend one of your earned questions to instead make a **declaration**: state a connection between two facts, people, or events you've encountered this session. The GM must confirm if you're correct, partially correct, or wrong — and if partially correct, they adjust your declaration to the truth rather than simply saying no.\n\nThis isn't asking the GM for information — it's proposing a theory and forcing the narrative to respond.",
+        "modifiesAction": "action_assess",
+        "shorthand": "Spend Assess question to declare a connection. GM confirms or denies."
       },
       {
         "id": "voc_investigator_t3",
@@ -585,7 +631,8 @@
         "tags": [
           "[Narrative]"
         ],
-        "rule": "Upgrades Keen Insight.\n\nWhen you score a Masterful Success (8+ on Control) on Keen Insight, after resolving the reconstruction, you may immediately make an Assess maneuver at no additional action cost. This follow-up Assess gains +1 Tier to its effect result.\n\nYour questions on this Assess must pertain directly to details revealed by the Keen Insight reconstruction — you're drilling into what you just saw, not fishing for new information."
+        "rule": "Upgrades Keen Insight.\n\nWhen you score a Masterful Success (8+ on Control) on Keen Insight, after resolving the reconstruction, you may immediately make an Assess maneuver at no additional action cost. This follow-up Assess gains +1 Tier to its effect result.\n\nYour questions on this Assess must pertain directly to details revealed by the Keen Insight reconstruction — you're drilling into what you just saw, not fishing for new information.",
+        "shorthand": "Keen Insight Masterful 8+ → spend Assess question for a second reconstruction angle."
       },
       {
         "id": "voc_investigator_t5",
@@ -596,7 +643,8 @@
           "[Narrative]",
           "[Combat]"
         ],
-        "rule": "When you confront the target of your investigation — the person, group, or entity your Keen Insight and Assess results have been building toward — you gain [Optimized] on all Assess and social actions directed at them. You know their patterns, their tells, their pressure points. You've done the work.\n\nIf the confrontation turns hostile, you may spend 1 Edge Point. All allies gain [Optimized] and [Empowered] on their Join Battle rolls. You saw this coming. You briefed the crew. Nobody's caught flat-footed."
+        "rule": "When you confront the target of your investigation — the person, group, or entity your Keen Insight and Assess results have been building toward — you gain [Optimized] on all Assess and social actions directed at them. You know their patterns, their tells, their pressure points. You've done the work.\n\nIf the confrontation turns hostile, you may spend 1 Edge Point. All allies gain [Optimized] and [Empowered] on their Join Battle rolls. You saw this coming. You briefed the crew. Nobody's caught flat-footed.",
+        "shorthand": "Confront investigation target: Optimized and Empowered on first action against them. 1/arc."
       }
     ],
     "imageUrl": "/assets/vocations/voc_investigator.png",
@@ -632,7 +680,8 @@
           "[Force]",
           "[Combat]"
         ],
-        "rule": "You may use Sense (Wits) in place of Tactics (Wits) for Join Battle rolls. The Force whispers the shape of violence before it begins. Additionally, on a Masterful Success (Control 8+) on Join Battle, choose one: gain +1 Effect Tier on your initiative result, OR gain [Optimized] on all Attack and Defense rolls until the end of your first Action."
+        "rule": "You may use Sense (Wits) in place of Tactics (Wits) for Join Battle rolls. The Force whispers the shape of violence before it begins. Additionally, on a Masterful Success (Control 8+) on Join Battle, choose one: gain +1 Effect Tier on your initiative result, OR gain [Optimized] on all Attack and Defense rolls until the end of your first Action.",
+        "shorthand": "Use Sense (Wits) for Join Battle. Force warns of violence before it begins."
       },
       {
         "id": "voc_seer_t2",
@@ -643,7 +692,9 @@
           "[Force]",
           "[Both]"
         ],
-        "rule": "You may use Sense (Wits) in place of any discipline normally called for on Assess actions. Your perception extends beyond physical senses — you ignore darkness, cover, concealment, and solid barriers when assessing. You detect life presences, emotional states, and Force signatures. This does not replace Sense discipline gambits — those still function normally on top of this substitution. The GM adjudicates effective range based on the fiction."
+        "rule": "You may use Sense (Wits) in place of any discipline normally called for on Assess actions. Your perception extends beyond physical senses — you ignore darkness, cover, concealment, and solid barriers when assessing. You detect life presences, emotional states, and Force signatures. This does not replace Sense discipline gambits — those still function normally on top of this substitution. The GM adjudicates effective range based on the fiction.",
+        "modifiesAction": "action_assess",
+        "shorthand": "Use Sense (Wits) for any Assess. Perceive lies, intent, danger through the Force."
       },
       {
         "id": "voc_seer_t3",
@@ -766,7 +817,9 @@
           "[Force]",
           "[Combat]"
         ],
-        "rule": "You may use Control (Grit) in place of Evasion (Reflex) for all Dodge defense rolls — you evade through Force-guided movement: dodging traps, debris, hazards, and attacks with preternatural grace. You gain narrative permission for wall-running, Force-assisted leaps, and vertical traversal through the Force. This ability is DISABLED while you are affected by [Rattled], [Disoriented], or any condition that disrupts mental focus."
+        "rule": "You may use Control (Grit) in place of Evasion (Reflex) for all Dodge defense rolls — you evade through Force-guided movement: dodging traps, debris, hazards, and attacks with preternatural grace. You gain narrative permission for wall-running, Force-assisted leaps, and vertical traversal through the Force. This ability is DISABLED while you are affected by [Rattled], [Disoriented], or any condition that disrupts mental focus.",
+        "modifiesAction": "action_dodge",
+        "shorthand": "Use Control (Grit) for Dodge. No Openings from movement while Force-guided."
       },
       {
         "id": "voc_altus_sopor_t2",
@@ -923,7 +976,9 @@
         "tags": [
           "[Force]"
         ],
-        "rule": "You gain narrative permission to perform fine, complex manipulations with the Telekinesis maneuver — tasks that would normally require hands, tools, or direct physical contact. Examples: extracting a slug from a wound, typing an access code from across the room, picking a lock mechanism, disarming a detonator, threading a cable, removing a restraint bolt. The GM still sets difficulty based on complexity, but the permission is granted — your telekinesis is a scalpel when you need it to be, not just a battering ram. This does NOT grant discipline substitution — if the task calls for Medicine or Tech, you still roll that discipline. You just don’t need to be touching the thing."
+        "rule": "You gain narrative permission to perform fine, complex manipulations with the Telekinesis maneuver — tasks that would normally require hands, tools, or direct physical contact. Examples: extracting a slug from a wound, typing an access code from across the room, picking a lock mechanism, disarming a detonator, threading a cable, removing a restraint bolt. The GM still sets difficulty based on complexity, but the permission is granted — your telekinesis is a scalpel when you need it to be, not just a battering ram. This does NOT grant discipline substitution — if the task calls for Medicine or Tech, you still roll that discipline. You just don’t need to be touching the thing.",
+        "modifiesAction": "force_telekinesis",
+        "shorthand": "Fine telekinetic manipulation: pick locks, press buttons, write at distance."
       },
       {
         "id": "voc_telekinetic_savant_t3",
@@ -992,7 +1047,9 @@
             "name": "Force Repulse",
             "rule": "Modifies Kinetic Impulse. Range 0 (your zone only). Instead of targeting a single enemy, the impulse affects ALL targets in your zone — allies included. Everyone gets pushed. The Kinetic Impulse tier effect applies to all targets equally."
           }
-        ]
+        ],
+        "modifiesAction": "force_telekinesis",
+        "shorthand": "Ignore first scale step-down. Hurl objects as attacks. Sustain grip without action cost."
       }
     ],
     "imageUrl": "/assets/vocations/voc_telekinetic_savant.png",
@@ -1021,7 +1078,12 @@
         "tags": [
           "[Combat]"
         ],
-        "rule": "You may Endure melee attacks using Melee (Physique) in place of Endure. When you do, treat your armor rating as Light for the Physique step calculation — even if you are unarmored, your blade compensates. You may draw or ready a Melee weapon as part of any Attack action at no Maneuver cost."
+        "rule": "You may Endure melee attacks using Melee (Physique) in place of Endure. When you do, treat your armor rating as Light for the Physique step calculation — even if you are unarmored, your blade compensates. You may draw or ready a Melee weapon as part of any Attack action at no Maneuver cost.",
+        "modifiesAction": "action_endure",
+        "targetWeaponTags": [
+          "Melee"
+        ],
+        "shorthand": "Endure melee attacks using Melee (Physique). Armor treated as Light. Draw Melee free on Attack."
       },
       {
         "id": "voc_duelist_t2",
@@ -1122,7 +1184,11 @@
         "tags": [
           "[Combat]"
         ],
-        "rule": "When wielding a Light melee weapon or Lightsaber, you may attack using Melee (Reflex) instead of Melee (Physique). You may draw or ready Light melee weapons as part of any Attack action at no Maneuver cost."
+        "rule": "When wielding a Light melee weapon or Lightsaber, you may attack using Melee (Reflex) instead of Melee (Physique). You may draw or ready Light melee weapons as part of any Attack action at no Maneuver cost.",
+        "targetWeaponTags": [
+          "Light"
+        ],
+        "shorthand": "Attack with Melee (Reflex) using Light melee/Lightsaber. No Dodge Openings while wielding."
       },
       {
         "id": "voc_blade_dancer_t2",
@@ -1132,7 +1198,11 @@
         "tags": [
           "[Combat]"
         ],
-        "rule": "When dual-wielding Light melee weapons or Lightsabers, you ignore the Control die step-down penalty. You keep the Power die step-up. Gambits from either equipped weapon may be declared on any Light melee or Lightsaber attack."
+        "rule": "When dual-wielding Light melee weapons or Lightsabers, you ignore the Control die step-down penalty. You keep the Power die step-up. Gambits from either equipped weapon may be declared on any Light melee or Lightsaber attack.",
+        "targetWeaponTags": [
+          "Light"
+        ],
+        "shorthand": "Dual-wield Light melee/Lightsaber: no Control step-down. Cross-weapon gambits."
       },
       {
         "id": "voc_blade_dancer_t3",
@@ -1205,7 +1275,8 @@
           "[Combat]",
           "[Narrative]"
         ],
-        "rule": "When firing pilot-controlled ship weapons (forward cannons, linked guns, turret you're manning), you may use Piloting (Reflex) in place of Heavy Weapons (Physique) for the attack roll — you aim with the ship, not the gun. Additionally, when you score 8+ on your Join Battle roll while piloting, you may immediately take one Piloting maneuver before the first round begins."
+        "rule": "When firing pilot-controlled ship weapons (forward cannons, linked guns, turret you're manning), you may use Piloting (Reflex) in place of Heavy Weapons (Physique) for the attack roll — you aim with the ship, not the gun. Additionally, when you score 8+ on your Join Battle roll while piloting, you may immediately take one Piloting maneuver before the first round begins.",
+        "shorthand": "Use Piloting (Reflex) for ship weapons. Join Battle 8+ → free Piloting maneuver."
       },
       {
         "id": "voc_ace_t2",
@@ -1307,7 +1378,8 @@
           "[Combat]",
           "[Narrative]"
         ],
-        "rule": "You begin play with a small hovering probe droid — a scomp-link equipped utility platform with a basic toolkit, sensor suite, and holoprojector. The droid occupies your zone and can move up to 3 zones from you. It acts on your initiative using your pips — commanding it costs the same as acting yourself.\n\nThe droid has no independent will. It does exactly what you tell it and nothing else. When the droid is targeted by an attack or hazard, you defend for it using Tech (Wits) as both Control and Power. If the defense fails, the droid enters [Shut Down] and must be repaired with a Tech action during a Short Rest.\n\nThe droid can interact with physical systems (plug into terminals, activate switches, carry small objects) but cannot attack, intimidate, or perform social actions. It is a tool, not a combatant."
+        "rule": "You begin play with a small hovering probe droid — a scomp-link equipped utility platform with a basic toolkit, sensor suite, and holoprojector. The droid occupies your zone and can move up to 3 zones from you. It acts on your initiative using your pips — commanding it costs the same as acting yourself.\n\nThe droid has no independent will. It does exactly what you tell it and nothing else. When the droid is targeted by an attack or hazard, you defend for it using Tech (Wits) as both Control and Power. If the defense fails, the droid enters [Shut Down] and must be repaired with a Tech action during a Short Rest.\n\nThe droid can interact with physical systems (plug into terminals, activate switches, carry small objects) but cannot attack, intimidate, or perform social actions. It is a tool, not a combatant.",
+        "shorthand": "Companion probe droid with scomp-link, sensors, toolkit. Modes: Scout, Combat, Fortify."
       },
       {
         "id": "voc_splice_t2",
@@ -1318,7 +1390,8 @@
           "[Combat]",
           "[Narrative]"
         ],
-        "rule": "When your droid or any system you have physically accessed via scomp-link is under your control, you may spend a Maneuver pip to issue a Direct command. The controlled system provides its own Power die (determined by the GM based on the system's capability), and you use Tech (Wits) as your Control die.\n\nThe system's capabilities determine what Direct can do — a turret can fire, a door can lock, a security camera can pan, a ventilation system can vent atmosphere. You cannot Direct a system to do something it was not built to do. No turret means no attack. No lock means no seal.\n\nDirect requires maintained physical connection (scomp-link) or active control via Companion Droid. Breaking the connection ends control immediately."
+        "rule": "When your droid or any system you have physically accessed via scomp-link is under your control, you may spend a Maneuver pip to issue a Direct command. The controlled system provides its own Power die (determined by the GM based on the system's capability), and you use Tech (Wits) as your Control die.\n\nThe system's capabilities determine what Direct can do — a turret can fire, a door can lock, a security camera can pan, a ventilation system can vent atmosphere. You cannot Direct a system to do something it was not built to do. No turret means no attack. No lock means no seal.\n\nDirect requires maintained physical connection (scomp-link) or active control via Companion Droid. Breaking the connection ends control immediately.",
+        "shorthand": "Spend Maneuver to direct droid/sliced system. Tech (Wits) for complex commands."
       },
       {
         "id": "voc_splice_t3",
@@ -1361,7 +1434,8 @@
         "tags": [
           "[Combat]"
         ],
-        "rule": "Your Companion Droid gains limited autonomous behavior during Challenge scenes. It may take one independent Maneuver pip per round without costing you a pip — the droid acts on pre-programmed subroutines you've drilled into it.\n\nThe autonomous Maneuver must be consistent with the droid's current mode: Scout droid repositions or scans, Combat droid repositions or takes cover, Fortify droid repositions the shield. The droid still cannot take Actions independently — complex commands still require your Direct."
+        "rule": "Your Companion Droid gains limited autonomous behavior during Challenge scenes. It may take one independent Maneuver pip per round without costing you a pip — the droid acts on pre-programmed subroutines you've drilled into it.\n\nThe autonomous Maneuver must be consistent with the droid's current mode: Scout droid repositions or scans, Combat droid repositions or takes cover, Fortify droid repositions the shield. The droid still cannot take Actions independently — complex commands still require your Direct.",
+        "shorthand": "Droid gets 1 free Maneuver/round (autonomous). Must match current mode."
       },
       {
         "id": "voc_splice_t5",
@@ -1406,7 +1480,9 @@
         "tags": [
           "[Narrative]"
         ],
-        "rule": "You may use Deception in place of Charm or Persuasion for any social action. You're not charming them — you're deceiving them into feeling charmed. You're not persuading them — you're persuading them with information that isn't true.\n\nAdditionally, cross-discipline gambits that modify Charm or Persuasion actions may be applied when you use Deception in their place via Born Liar. The gambit functions identically — it simply triggers off your Deception roll instead."
+        "rule": "You may use Deception in place of Charm or Persuasion for any social action. You're not charming them — you're deceiving them into feeling charmed. You're not persuading them — you're persuading them with information that isn't true.\n\nAdditionally, cross-discipline gambits that modify Charm or Persuasion actions may be applied when you use Deception in their place via Born Liar. The gambit functions identically — it simply triggers off your Deception roll instead.",
+        "modifiesAction": "action_assess",
+        "shorthand": "Use Deception for Charm/Persuasion. Cross-discipline social gambits apply via Deception."
       },
       {
         "id": "voc_grifter_t2",
@@ -1462,7 +1538,8 @@
         "tags": [
           "[Narrative]"
         ],
-        "rule": "While operating under cover identities created by The Play (T3), your allies gain a narrative step-up (maximum D8) on any discipline roll where their cover identity would reasonably provide expertise or authority. A cover identity as an Imperial officer grants a step-up on Command rolls when issuing orders to Imperials. A cover as a merchant grants a step-up on Negotiate when haggling.\n\nThis is a narrative benefit, not a mechanical override — the step-up cannot exceed D8 regardless of circumstances, and only applies when the cover identity is actively relevant to the action being taken."
+        "rule": "While operating under cover identities created by The Play (T3), your allies gain a narrative step-up (maximum D8) on any discipline roll where their cover identity would reasonably provide expertise or authority. A cover identity as an Imperial officer grants a step-up on Command rolls when issuing orders to Imperials. A cover as a merchant grants a step-up on Negotiate when haggling.\n\nThis is a narrative benefit, not a mechanical override — the step-up cannot exceed D8 regardless of circumstances, and only applies when the cover identity is actively relevant to the action being taken.",
+        "shorthand": "Cover identities grant allies narrative step-up (max D8) when identity is relevant."
       },
       {
         "id": "voc_grifter_t5",
@@ -1508,7 +1585,9 @@
           "[Combat]",
           "[Narrative]"
         ],
-        "rule": "When you are adjacent to an ally and not Engaged, you may apply medical consumables (Bacta Patches, Stim Packs, Bacta Geltabs, and similar combat medical items) as a Maneuver instead of an Action. You still require the item and must meet all other requirements for its use.\n\nAdditionally, when you Assess a patient using Medicine (Wits), you may convert one Assess question into [Optimized] on your next Medicine action targeting that patient. Your diagnosis informs your treatment — you identified the condition and you know exactly how to address it."
+        "rule": "When you are adjacent to an ally and not Engaged, you may apply medical consumables (Bacta Patches, Stim Packs, Bacta Geltabs, and similar combat medical items) as a Maneuver instead of an Action. You still require the item and must meet all other requirements for its use.\n\nAdditionally, when you Assess a patient using Medicine (Wits), you may convert one Assess question into [Optimized] on your next Medicine action targeting that patient. Your diagnosis informs your treatment — you identified the condition and you know exactly how to address it.",
+        "modifiesAction": "action_treat_injury",
+        "shorthand": "Apply medical items as Maneuver when adjacent. Assess patient → Optimized next Medicine."
       },
       {
         "id": "voc_doc_t2",
@@ -1518,7 +1597,9 @@
         "tags": [
           "[Narrative]"
         ],
-        "rule": "When you perform Treat Injury, ignore 1 level of [Stimmed] when determining your Medicine Power die step-down. A patient at [Stimmed 3] is treated as [Stimmed 2] by you.\n\nThe [Stimmed] condition itself remains on the patient at its actual value — if another healer treats them, they face the full penalty. You are not removing the drugs from their system. You are skilled enough to work through the chemical interference."
+        "rule": "When you perform Treat Injury, ignore 1 level of [Stimmed] when determining your Medicine Power die step-down. A patient at [Stimmed 3] is treated as [Stimmed 2] by you.\n\nThe [Stimmed] condition itself remains on the patient at its actual value — if another healer treats them, they face the full penalty. You are not removing the drugs from their system. You are skilled enough to work through the chemical interference.",
+        "modifiesAction": "action_treat_injury",
+        "shorthand": "Ignore 1 Stimmed level on Treat Injury."
       },
       {
         "id": "voc_doc_t3",
@@ -1528,7 +1609,9 @@
         "tags": [
           "[Narrative]"
         ],
-        "rule": "Your Treat Injury results are enhanced at every tier:\n\n**Fleeting:** Increase Trauma recovery by 2 instead of 1 for all allies resting with you. (Short rest: 3 Trauma instead of 1. Long rest: 4 instead of 2.)\n\n**Masterful:** As Fleeting, plus allies may convert 3 Vitality into 1 additional Trauma recovery instead of 2.\n\n**Legendary:** Increase Vitality regeneration by 2 instead of 1 for all allies. (Short rest: recover 2 Vitality. Long rest: recover 3 Vitality.)"
+        "rule": "Your Treat Injury results are enhanced at every tier:\n\n**Fleeting:** Increase Trauma recovery by 2 instead of 1 for all allies resting with you. (Short rest: 3 Trauma instead of 1. Long rest: 4 instead of 2.)\n\n**Masterful:** As Fleeting, plus allies may convert 3 Vitality into 1 additional Trauma recovery instead of 2.\n\n**Legendary:** Increase Vitality regeneration by 2 instead of 1 for all allies. (Short rest: recover 2 Vitality. Long rest: recover 3 Vitality.)",
+        "modifiesAction": "action_treat_injury",
+        "shorthand": "Enhanced Treat Injury at every tier. Bonus Trauma/Vitality recovery."
       },
       {
         "id": "voc_doc_t4",
@@ -1551,7 +1634,9 @@
           "[Combat]",
           "[Narrative]"
         ],
-        "rule": "When you perform a Stabilize (Interact) on an incapacitated ally, your result is increased by +1 effect tier. Your Fleeting result achieves what others need a Masterful for. Your Masterful achieves what others need a Legendary for. And your Legendary result exceeds what anyone else in the galaxy can accomplish with the same tools and the same patient."
+        "rule": "When you perform a Stabilize (Interact) on an incapacitated ally, your result is increased by +1 effect tier. Your Fleeting result achieves what others need a Masterful for. Your Masterful achieves what others need a Legendary for. And your Legendary result exceeds what anyone else in the galaxy can accomplish with the same tools and the same patient.",
+        "modifiesAction": "action_interact",
+        "shorthand": "+1 effect tier on Stabilize. Fleeting stops bleed. Masterful restores 1 Vitality."
       }
     ],
     "imageUrl": "/assets/vocations/voc_doc.png",

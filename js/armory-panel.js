@@ -340,6 +340,23 @@
     );
   }
 
+  function _buildKitPassiveBlock(ability, kitName) {
+    var text = ability.shorthand || ability.rule;
+    return (
+      '<div class="armory-gambit-block kit-passive-block">' +
+        '<div class="armory-gambit-toggle" role="button" tabindex="0">' +
+          '<span class="armory-gambit-label kit-passive-label">' + _esc(kitName) + '</span>' +
+          '<span class="armory-gambit-name">' + _esc(ability.name) + '</span>' +
+          '<span class="kit-passive-badge">Passive</span>' +
+          '<span class="armory-gambit-chevron">&#9656;</span>' +
+        '</div>' +
+        '<div class="armory-gambit-body">' +
+          '<div class="armory-gambit-text">' + _linkifyText(text) + '</div>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
   function _buildArmorInArmory(armor, char, statusMap) {
     var discDie  = _getDiscDie(char, 'physique', 'endure');
     var arenaDie = _getEffectiveArenaDie(char, 'physique');
@@ -495,6 +512,7 @@
     }
 
     var kitGambits = [];
+    var kitPassives = [];
     var kits = char.kits || [];
     for (var ki = 0; ki < kits.length; ki++) {
       var kit = kits[ki];
@@ -503,9 +521,19 @@
       for (var ka = 0; ka < kitAbilities.length; ka++) {
         var kab = kitAbilities[ka];
         if (kab.tier > unlockedTier) continue;
-        if (kab.type !== 'gambit' || kab.targetType !== 'weapon') continue;
-        if (weapon.tags.indexOf(kab.target) !== -1) {
-          kitGambits.push({ ability: kab, kitName: kit.name });
+        if (kab.type === 'gambit' && kab.targetType === 'weapon') {
+          if (weapon.tags.indexOf(kab.target) !== -1) {
+            kitGambits.push({ ability: kab, kitName: kit.name });
+          }
+        } else if (kab.type === 'passive' && Array.isArray(kab.targetWeaponTags)) {
+          var wpn = weapon.tags || [];
+          var matched = false;
+          for (var tw = 0; tw < kab.targetWeaponTags.length; tw++) {
+            if (wpn.indexOf(kab.targetWeaponTags[tw]) !== -1) { matched = true; break; }
+          }
+          if (matched) {
+            kitPassives.push({ ability: kab, kitName: kit.name });
+          }
         }
       }
     }
@@ -588,6 +616,9 @@
     }
     for (var kg = 0; kg < kitGambits.length; kg++) {
       gambitsHtml += _buildKitGambitBlock(kitGambits[kg].ability, kitGambits[kg].kitName);
+    }
+    for (var kp = 0; kp < kitPassives.length; kp++) {
+      gambitsHtml += _buildKitPassiveBlock(kitPassives[kp].ability, kitPassives[kp].kitName);
     }
     for (var dgi = 0; dgi < disciplineGambitsList.length; dgi++) {
       var dgItem = disciplineGambitsList[dgi];

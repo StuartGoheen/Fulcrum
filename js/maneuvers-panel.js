@@ -414,6 +414,43 @@
     return result;
   }
 
+  function _getKitPassives(char, actionId) {
+    var result = [];
+    var kits = char.kits || [];
+    for (var ki = 0; ki < kits.length; ki++) {
+      var kit = kits[ki];
+      var unlockedTier = kit.tier || 0;
+      var abilities = kit.abilities || [];
+      for (var ai = 0; ai < abilities.length; ai++) {
+        var ab = abilities[ai];
+        if (ab.tier > unlockedTier) continue;
+        if (ab.type !== 'passive') continue;
+        if (!ab.modifiesAction) continue;
+        if (ab.modifiesAction === actionId) {
+          result.push({ ability: ab, kitName: kit.name });
+        }
+      }
+    }
+    return result;
+  }
+
+  function _buildKitPassiveBlock(ability, kitName) {
+    var text = ability.shorthand || ability.rule;
+    return (
+      '<div class="armory-gambit-block manv-gambit-block manv-passive-block">' +
+        '<div class="manv-gambit-toggle" role="button" tabindex="0">' +
+          '<span class="armory-gambit-label manv-passive-label">' + _esc(kitName) + '</span>' +
+          '<span class="manv-gambit-name-preview">' + _esc(ability.name) + '</span>' +
+          '<span class="manv-passive-badge">Passive</span>' +
+          '<span class="armory-gambit-chevron">&#9656;</span>' +
+        '</div>' +
+        '<div class="manv-gambit-body">' +
+          '<div class="armory-gambit-text">' + _linkify(text) + '</div>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
   function _buildActionWithGambits(action, data, char, activeGear) {
     var cardHtml = _buildUniversalActionCard(action, char);
     var gambitsHtml = '';
@@ -436,6 +473,11 @@
     var kitGambits = _getKitGambits(char, action.id);
     for (var kg = 0; kg < kitGambits.length; kg++) {
       gambitsHtml += _buildKitGambitBlock(kitGambits[kg].ability, kitGambits[kg].kitName);
+    }
+
+    var kitPassives = _getKitPassives(char, action.id);
+    for (var kp = 0; kp < kitPassives.length; kp++) {
+      gambitsHtml += _buildKitPassiveBlock(kitPassives[kp].ability, kitPassives[kp].kitName);
     }
 
     if (gambitsHtml) {
@@ -468,6 +510,11 @@
     var kitGambits = _getKitGambits(char, force.id);
     for (var kg = 0; kg < kitGambits.length; kg++) {
       gambitsHtml += _buildKitGambitBlock(kitGambits[kg].ability, kitGambits[kg].kitName);
+    }
+
+    var kitPassives = _getKitPassives(char, force.id);
+    for (var kp = 0; kp < kitPassives.length; kp++) {
+      gambitsHtml += _buildKitPassiveBlock(kitPassives[kp].ability, kitPassives[kp].kitName);
     }
 
     if (gambitsHtml) {

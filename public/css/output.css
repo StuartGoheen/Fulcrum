@@ -2402,6 +2402,37 @@ h1, h2, h3, h4, h5, h6 {
   border-top: 1px dashed var(--color-border);
 }
 
+.kit-passive-block {
+  border-top-color: var(--color-accent-secondary, #7c8ea0);
+}
+
+.kit-passive-label {
+  color: var(--color-accent-secondary, #7c8ea0);
+}
+
+.kit-passive-badge,
+  .manv-passive-badge {
+  font-size: 0.55rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-accent-secondary, #7c8ea0);
+  border: 1px solid var(--color-accent-secondary, #7c8ea0);
+  border-radius: 3px;
+  padding: 0 4px;
+  line-height: 1.4;
+  margin-left: auto;
+  margin-right: 4px;
+}
+
+.manv-passive-block {
+  border-top-color: var(--color-accent-secondary, #7c8ea0);
+}
+
+.manv-passive-label {
+  color: var(--color-accent-secondary, #7c8ea0);
+}
+
 .char-engine-core {
   padding: 6px 8px;
   border-top: 1px dashed var(--color-border);
