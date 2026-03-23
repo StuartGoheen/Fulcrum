@@ -563,6 +563,38 @@ router.patch('/characters/:id/dice', (req, res) => {
   }
 });
 
+router.post('/characters/:id/kits', (req, res) => {
+  const character = db.prepare('SELECT id, character_data FROM characters WHERE id = ?').get(req.params.id);
+  if (!character || !character.character_data) {
+    return res.status(404).json({ error: 'Character not found.' });
+  }
+  try {
+    const { kitId } = req.body;
+    if (!kitId) return res.status(400).json({ error: 'kitId is required.' });
+    const kitDef = KITS_DATA.find(k => k.id === kitId);
+    if (!kitDef) return res.status(400).json({ error: 'Unknown vocation.' });
+
+    const data = JSON.parse(character.character_data);
+    let kitsObj = data.kits || {};
+    if (Array.isArray(kitsObj)) {
+      const tmp = {};
+      kitsObj.forEach(k => { if (k && k.id) tmp[k.id] = k.tier || 1; });
+      kitsObj = tmp;
+    }
+    if (kitsObj[kitId]) return res.status(400).json({ error: 'Character already has this vocation.' });
+
+    kitsObj[kitId] = 1;
+    data.kits = kitsObj;
+    db.prepare('UPDATE characters SET character_data = ? WHERE id = ?').run(JSON.stringify(data), character.id);
+
+    const expanded = expandCharacterData(data);
+    return res.json({ ok: true, kits: expanded.kits });
+  } catch (err) {
+    console.error('[POST /kits]', err);
+    return res.status(500).json({ error: 'Failed to add vocation.' });
+  }
+});
+
 router.patch('/characters/:id/credits', (req, res) => {
   const character = db.prepare('SELECT id, character_data FROM characters WHERE id = ?').get(req.params.id);
   if (!character || !character.character_data) {

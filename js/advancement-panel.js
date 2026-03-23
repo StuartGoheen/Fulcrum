@@ -19,6 +19,7 @@
   ];
 
   var _destinyData = null;
+  var _allKitsData = null;
   var _currentAdventureId = 'adv1';
 
   var DISC_TRACK_SIZE = 5;
@@ -694,6 +695,15 @@
       });
     });
 
+    var learnRows = container.querySelectorAll('[data-learn-voc]');
+    learnRows.forEach(function (row) {
+      if (row.classList.contains('adv-spend-row--locked')) return;
+      row.addEventListener('click', function () {
+        var kitId = row.getAttribute('data-learn-voc');
+        _learnNewVocation(kitId);
+      });
+    });
+
     var credAddBtn = container.querySelector('#adv-credits-add');
     var credSubBtn = container.querySelector('#adv-credits-sub');
     if (credAddBtn) {
@@ -924,6 +934,36 @@
     _render();
   }
 
+  function _learnNewVocation(kitId) {
+    if (!_charId || !kitId) return;
+    var vt = _advancement.vocationTrack;
+    if ((vt.unspentAdvances || 0) < 1) return;
+
+    vt.unspentAdvances--;
+    _persist();
+
+    fetch('/api/characters/' + encodeURIComponent(_charId) + '/kits', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ kitId: kitId })
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (data.ok && data.kits) {
+          _char.kits = data.kits;
+        }
+        document.dispatchEvent(new CustomEvent('character:stateChanged'));
+        if (window.CharacterPanel && window.CharacterPanel.refreshFront) window.CharacterPanel.refreshFront();
+        _render();
+      })
+      .catch(function (err) {
+        console.error('[AdvancementPanel] Failed to learn vocation:', err);
+        vt.unspentAdvances++;
+        _persist();
+        _render();
+      });
+  }
+
   function _buildDisciplineSpendPanel() {
     var dt = _advancement.disciplineTrack;
     var unspent = dt.unspentAdvances || 0;
@@ -1028,33 +1068,60 @@
       return html;
     }
 
-    kits.forEach(function (kit, ki) {
-      var kitId = kit.id || kit.kitId || '';
-      var currentTier = kit.tier || kit.currentTier || 1;
-      var kitLabel = kit.name || kit.label || kitId;
-      var favDisc = kit.favoredDiscipline || '';
-      var favDie = _getFavoredDie(favDisc);
-      var maxTier = DISC_GATE[favDie] || 1;
-      var atMax = currentTier >= 5 || currentTier >= maxTier;
-      var locked = atMax || unspent < 1;
-      var cls = 'adv-spend-voc-row';
-      if (locked) cls += ' adv-spend-row--locked';
+    if (kits.length > 0) {
+      html += '<div class="adv-spend-section-label">Upgrade Existing</div>';
+      kits.forEach(function (kit, ki) {
+        var kitId = kit.id || kit.kitId || '';
+        var currentTier = kit.tier || kit.currentTier || 1;
+        var kitLabel = kit.name || kit.label || kitId;
+        var favDisc = kit.favoredDiscipline || '';
+        var favDie = _getFavoredDie(favDisc);
+        var maxTier = DISC_GATE[favDie] || 1;
+        var atMax = currentTier >= 5 || currentTier >= maxTier;
+        var locked = atMax || unspent < 1;
+        var cls = 'adv-spend-voc-row';
+        if (locked) cls += ' adv-spend-row--locked';
 
-      html += '<div class="' + cls + '" data-upgrade-voc="' + ki + '">';
-      html += '<div>';
-      html += '<div class="adv-spend-voc-name">' + _esc(kitLabel) + '</div>';
-      html += '<div class="adv-spend-voc-info">Gate: ' + _esc(favDisc) + ' (' + _esc(favDie) + ') \u2014 Max Tier ' + maxTier + '</div>';
-      html += '</div>';
-      if (!atMax) {
-        html += '<span class="adv-spend-voc-tier">T' + currentTier + ' \u2192 T' + (currentTier + 1) + '</span>';
-      } else {
-        html += '<span class="adv-spend-voc-tier" style="opacity:0.4">T' + currentTier + ' (MAX)</span>';
-      }
-      html += '</div>';
-    });
+        html += '<div class="' + cls + '" data-upgrade-voc="' + ki + '">';
+        html += '<div>';
+        html += '<div class="adv-spend-voc-name">' + _esc(kitLabel) + '</div>';
+        html += '<div class="adv-spend-voc-info">Gate: ' + _esc(favDisc) + ' (' + _esc(favDie) + ') \u2014 Max Tier ' + maxTier + '</div>';
+        html += '</div>';
+        if (!atMax) {
+          html += '<span class="adv-spend-voc-tier">T' + currentTier + ' \u2192 T' + (currentTier + 1) + '</span>';
+        } else {
+          html += '<span class="adv-spend-voc-tier" style="opacity:0.4">T' + currentTier + ' (MAX)</span>';
+        }
+        html += '</div>';
+      });
+    }
+
+    var availableKits = _getUnlearnedKits(kits);
+    if (availableKits.length > 0) {
+      html += '<div class="adv-spend-section-label">Learn New Vocation (1 Advance)</div>';
+      availableKits.forEach(function (kit) {
+        var locked = unspent < 1;
+        var cls = 'adv-spend-voc-row adv-spend-voc-row--new';
+        if (locked) cls += ' adv-spend-row--locked';
+        html += '<div class="' + cls + '" data-learn-voc="' + _esc(kit.id) + '">';
+        html += '<div>';
+        html += '<div class="adv-spend-voc-name">' + _esc(kit.name) + '</div>';
+        html += '<div class="adv-spend-voc-info">' + _esc(kit.governingArena || '') + ' \u2022 ' + _esc(kit.favoredDiscipline || '') + '</div>';
+        html += '</div>';
+        html += '<span class="adv-spend-voc-tier">New \u2192 T1</span>';
+        html += '</div>';
+      });
+    }
 
     html += '</div>';
     return html;
+  }
+
+  function _getUnlearnedKits(currentKits) {
+    if (!_allKitsData) return [];
+    var owned = {};
+    currentKits.forEach(function (k) { owned[k.id || k.kitId || ''] = true; });
+    return _allKitsData.filter(function (k) { return !owned[k.id]; });
   }
 
   function _updateMarksSummary() {
@@ -1074,6 +1141,20 @@
       .catch(function (err) {
         console.error('[AdvancementPanel] Failed to load destinies:', err);
         _destinyData = [];
+        if (cb) cb();
+      });
+  }
+
+  function _loadKitsData(cb) {
+    fetch('/data/kits.json')
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        _allKitsData = Array.isArray(data) ? data : [];
+        if (cb) cb();
+      })
+      .catch(function (err) {
+        console.error('[AdvancementPanel] Failed to load kits:', err);
+        _allKitsData = [];
         if (cb) cb();
       });
   }
@@ -1127,7 +1208,7 @@
       }
 
       var loaded = 0;
-      var totalLoads = 3;
+      var totalLoads = 4;
       function onLoaded() {
         loaded++;
         if (loaded >= totalLoads) {
@@ -1137,6 +1218,7 @@
       }
 
       _loadDestinyData(onLoaded);
+      _loadKitsData(onLoaded);
       _loadCampaignProgress(function () {
         _loadAdventureMarks(onLoaded);
         onLoaded();

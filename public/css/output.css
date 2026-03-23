@@ -9804,6 +9804,23 @@ body.is-col-resizing .resize-handle {
   color: var(--color-accent-primary);
 }
 
+.adv-spend-section-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-secondary);
+  margin-top: 8px;
+  margin-bottom: 4px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-text-secondary) 20%, transparent);
+}
+
+.adv-spend-voc-row--new .adv-spend-voc-tier {
+  color: var(--color-accent-primary);
+  font-weight: 700;
+}
+
 .adv-spend-note {
   font-size: 0.68rem;
   color: var(--color-text-secondary);
