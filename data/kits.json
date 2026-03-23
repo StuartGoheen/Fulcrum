@@ -1379,7 +1379,8 @@
           "[Narrative]"
         ],
         "rule": "You begin play with a small hovering probe droid — a scomp-link equipped utility platform with a basic toolkit, sensor suite, and holoprojector. The droid occupies your zone and can move up to 3 zones from you. It acts on your initiative using your pips — commanding it costs the same as acting yourself.\n\nThe droid has no independent will. It does exactly what you tell it and nothing else. When the droid is targeted by an attack or hazard, you defend for it using Tech (Wits) as both Control and Power. If the defense fails, the droid enters [Shut Down] and must be repaired with a Tech action during a Short Rest.\n\nThe droid can interact with physical systems (plug into terminals, activate switches, carry small objects) but cannot attack, intimidate, or perform social actions. It is a tool, not a combatant.",
-        "shorthand": "Companion probe droid with scomp-link, sensors, toolkit. Modes: Scout, Combat, Fortify."
+        "shorthand": "Companion droid can Interact with physical systems (terminals, switches, carry objects). Modes: Scout, Combat, Fortify.",
+        "modifiesAction": "action_interact"
       },
       {
         "id": "voc_splice_t2",
@@ -1391,7 +1392,8 @@
           "[Narrative]"
         ],
         "rule": "When your droid or any system you have physically accessed via scomp-link is under your control, you may spend a Maneuver pip to issue a Direct command. The controlled system provides its own Power die (determined by the GM based on the system's capability), and you use Tech (Wits) as your Control die.\n\nThe system's capabilities determine what Direct can do — a turret can fire, a door can lock, a security camera can pan, a ventilation system can vent atmosphere. You cannot Direct a system to do something it was not built to do. No turret means no attack. No lock means no seal.\n\nDirect requires maintained physical connection (scomp-link) or active control via Companion Droid. Breaking the connection ends control immediately.",
-        "shorthand": "Spend Maneuver to direct droid/sliced system. Tech (Wits) for complex commands."
+        "shorthand": "Spend Maneuver to direct droid/sliced system to Interact. Tech (Wits) for complex commands.",
+        "modifiesAction": "action_interact"
       },
       {
         "id": "voc_splice_t3",
@@ -1435,7 +1437,8 @@
           "[Combat]"
         ],
         "rule": "Your Companion Droid gains limited autonomous behavior during Challenge scenes. It may take one independent Maneuver pip per round without costing you a pip — the droid acts on pre-programmed subroutines you've drilled into it.\n\nThe autonomous Maneuver must be consistent with the droid's current mode: Scout droid repositions or scans, Combat droid repositions or takes cover, Fortify droid repositions the shield. The droid still cannot take Actions independently — complex commands still require your Direct.",
-        "shorthand": "Droid gets 1 free Maneuver/round (autonomous). Must match current mode."
+        "shorthand": "Droid gets 1 free Maneuver/round (autonomous). Can Interact independently in current mode.",
+        "modifiesAction": "action_interact"
       },
       {
         "id": "voc_splice_t5",
