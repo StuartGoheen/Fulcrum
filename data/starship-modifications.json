@@ -16,8 +16,8 @@
     "gate": "D8",
     "type": "gambit",
     "linkedManeuver": "Evasive Maneuvers",
-    "description": "On Evasive Maneuvers, pay -1 tier. The ship executes a violent axial roll that shakes all [Locked On] conditions targeting this ship. The roll is disorienting enough that any ship that had [Locked On] on this ship has their next Pursue/Close action [Weakened].",
-    "designNotes": "Defensive gambit. Breaks locks without needing to Break Away — lets the Pilot stay aggressive while shedding pursuit. The -1 tier means the Elusive effect is weaker, but the lock-shatter compensates tactically.",
+    "description": "On Evasive Maneuvers, pay -1 tier. The ship executes a violent axial roll that shakes all [Locked On] conditions targeting this ship. The roll is disorienting enough that any ship that had [Locked On] on this ship has their next Dogfight action [Weakened].",
+    "designNotes": "Defensive gambit. Breaks locks without needing to win a Dogfight disengage — the Pilot sheds pursuit through sheer violence of maneuver. The -1 tier means the Elusive effect is weaker, but the lock-shatter compensates tactically.",
     "unlockRequirement": "Handling D8"
   },
   {
@@ -36,9 +36,9 @@
     "system": "handling",
     "gate": "D10",
     "type": "gambit",
-    "linkedManeuver": "Break Away",
-    "description": "On Break Away, pay -1 tier. Instead of increasing the gap, the ship executes a 180-degree flip and is now facing the pursuer head-on at the same range. All Forward-arc weapons may fire. The pursuing ship is [Exposed] until end of round.",
-    "designNotes": "Aggressive defensive gambit. Turns a retreat into a counterattack opportunity. The pursuing ship expected you to run — instead you're staring them down with guns hot. The -1 tier means the Break Away effect itself is weaker, but the tactical reversal compensates.",
+    "linkedManeuver": "Dogfight",
+    "description": "On Dogfight (when choosing the disengage option), pay -1 tier. Instead of moving 1 zone away, the ship executes a 180-degree flip and remains in the zone — now facing the opponent head-on at point-blank range. All Forward-arc weapons may fire. The opponent is [Exposed] until end of round. You chose to break the lock, but instead of running you turned and bared your teeth.",
+    "designNotes": "Aggressive gambit on the Dogfight disengage option. Turns a disengagement into a counterattack opportunity. The opponent expected you to run — instead you're staring them down with guns hot. The -1 tier means the Dogfight disengage effect itself is weaker (you don't get the full tier benefit), but the tactical reversal compensates.",
     "unlockRequirement": "Handling D10"
   },
   {
@@ -161,7 +161,7 @@
     "system": "engines",
     "gate": "D8",
     "type": "passive",
-    "description": "Aftermarket injectors and upgraded thrust couplings push more raw output through the drive. Any maneuver that moves the ship X zones increases X by 1. Pursue/Close moves one zone further. Break Away opens one more zone of distance. Attack Run closes one extra zone. The ship is simply faster — a Corellian racing shop upgrade.",
+    "description": "Aftermarket injectors and upgraded thrust couplings push more raw output through the drive. Any maneuver that moves the ship X zones increases X by 1. Fly moves one zone further. Attack Run closes one extra zone. Dogfight disengage moves one extra zone. The ship is simply faster — a Corellian racing shop upgrade.",
     "designNotes": "Entry-level Engines upgrade. Simple, consistent benefit — more zones moved per action. Makes the Pilot's positioning actions strictly better without changing their structure.",
     "unlockRequirement": "Engines D8"
   },

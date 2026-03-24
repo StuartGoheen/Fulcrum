@@ -309,11 +309,11 @@
         ]
       },
       {
-        "category": "Starship Pursuit",
+        "category": "Starship Dogfight",
         "conditions": [
           {
             "condition": "[Locked On]",
-            "effect": "Starship combat only. The pursuing ship has matched the target's vector and established pursuit lock. The locked-on ship's Pilot has Evade reactions [Weakened] against the locking ship (the pursuer knows their evasion patterns). The locking ship's Gunners gain [Optimized] against the locked-on target (pursuit vector provides a firing solution). Established by the Pilot's Pursue/Close at Masterful+. Persists until the target Breaks Away at Masterful+, the locking Pilot takes an action that contradicts pursuit (Evasive Maneuvers, Terrain Run), or the target escapes the encounter. Failing a Break Away while [Locked On] presents an Opening to the locking ship's Gunners. One-directional — multiple ships can have [Locked On] on the same target."
+            "effect": "Starship combat only. Established by winning a Dogfight and choosing the 'press' option. One-directional, single target — a ship can only have [Locked On] on one target at a time, but any number of ships can have [Locked On] on the same target. The locked-on ship's Evade reactions are [Weakened] against the locking ship (the attacker knows their evasion patterns). The locking ship's Gunners gain [Optimized] against the locked-on target (pursuit vector provides a firing solution). Cleared when the locked-on ship wins a Dogfight and chooses the disengage option, or when the locking Pilot takes an action that abandons the engagement (Evasive Maneuvers or Terrain Run outside a Dogfight). Both ships are engaged in the same zone while the Dogfight persists."
           }
         ]
       },
@@ -913,7 +913,7 @@
     "stations": {
       "note": "Each crew member occupies one station. A station defines which discipline provides the Control die and which hardware system provides the Power die. Stations are detailed in starship-stations.json.",
       "list": [
-        { "station": "Pilot", "control": "Piloting (Reflex)", "power": "Handling / Engines", "role": "Positioning, evasion, pursuit" },
+        { "station": "Pilot", "control": "Piloting (Reflex)", "power": "Handling / Engines", "role": "Positioning, evasion, Dogfight engagement" },
         { "station": "Gunner", "control": "Heavy Weapons (Physique)", "power": "Fire Control", "role": "Offensive firepower" },
         { "station": "Operator", "control": "Tech / Investigation / Tactics (Wits)", "power": "Sensors", "role": "Electronic warfare, scanning, targeting" },
         { "station": "Engineer", "control": "Tech (Wits)", "power": "Shields / Engines / damaged system", "role": "Repair, shields, power management" },
@@ -963,6 +963,30 @@
       ],
       "choiceRule": "When the ship is attacked with physical weapons, the crew chooses between Evade (Pilot rolls, no floor on failure) or Endure (passive Shields, floor on failure). When attacked with electronic/ion weapons, Resist applies passively. This mirrors the character Dodge vs Endure choice exactly."
     },
+    "dogfight": {
+      "rule": "Dogfight is the starship equivalent of melee grapple. When a Pilot uses the Dogfight action against a target in their zone, both ships become engaged — locked in the same zone in a close-quarters positional contest. The Dogfight winner declares intent: press the attack (establish [Locked On]) or break free (clear [Locked On], move 1 zone). Dogfight is resolved as Piloting (Reflex) vs the target's Piloting defense, with Handling as the Power die.",
+      "engagement": {
+        "entering": "Using the Dogfight action against a target in your zone begins the engagement. Both ships are now locked in the same zone.",
+        "constraints": "While engaged in a Dogfight: the Pilot CANNOT use Fly (locked in zone) or Attack Run (pre-engagement action only). The Pilot CAN use Dogfight (press or disengage), Evasive Maneuvers (survival — concedes positional contest), or Terrain Run (exploit environment — concedes positional contest). The Evade reaction is always available.",
+        "stuckUntilYouWin": "To disengage from a Dogfight, the Pilot must win a Dogfight and choose the disengage option. There is no separate Disengage action.",
+        "gunnerIndependence": "Gunners act independently on their own turns regardless of the Pilot's Dogfight choices. They can fire at targets in range. Gunners receive Dogfight positioning bonuses ([Locked On] buffs, Openings) only when the Pilot actively presses the Dogfight."
+      },
+      "lockedOn": {
+        "rule": "[Locked On] is one-directional, single target. A ship can only have [Locked On] on one target at a time. Any number of ships can have [Locked On] on the same target.",
+        "effects": "The locked-on ship's Evade reactions are [Weakened] against the locking ship. The locking ship's Gunners gain [Optimized] against the locked-on target. These effects apply whenever [Locked On] is active, regardless of what action the locking Pilot takes on their turn.",
+        "clearing": "Cleared when the locked-on ship wins a Dogfight and chooses the disengage option, or when the locking Pilot takes an action that abandons the engagement (Evasive Maneuvers or Terrain Run while not in a Dogfight — i.e., the locking ship chose to stop pursuing). [Locked On] is NOT cleared when the locking Pilot takes Evasive Maneuvers or Terrain Run inside a Dogfight — both ships are still in the engagement zone and the lock persists. The locking Pilot concedes the positional contest for that round but does not lose the lock.",
+        "lockingPilotSurvivalActions": "If the locking Pilot uses Evasive Maneuvers or Terrain Run inside a Dogfight, [Locked On] persists (both ships are still in the engagement zone), but the Gunners do not receive Openings that round since the Pilot chose survival over pressing the advantage. [Locked On]'s passive effects ([Weakened] Evade, [Optimized] Gunners) remain active — the lock was established and has not been broken."
+      },
+      "swarming": {
+        "rule": "Multiple ships CAN Dogfight the same target. Each rolls separately against the target's Piloting defense. The target can only actively Dogfight one opponent per round — the rest roll against the target's static defense.",
+        "cost": "Every ship that enters a Dogfight is also stuck in the engagement zone. Swarming has a cost: all attacking ships are committed and cannot be elsewhere.",
+        "counterplay": "The answer to a swarm is crew coordination — Gunners shoot the engaged fighters while the Pilot survives or contests one at a time. The wingman dynamic: escorts Dogfight the interceptors while the bomber makes its run."
+      },
+      "zoneDrift": {
+        "rule": "When ships are locked in a Dogfight, the engagement can drift through space. The Dogfight winner may choose to drag the fight to an adjacent zone instead of holding position — all engaged ships drift together. This is Zone Drift.",
+        "narrative": "Zone Drift is the furball moving across the tactical display. Two ships pulling Gs, burning fuel, spiraling around each other — the fight moves without either pilot intentionally repositioning. Drift into hazardous terrain sets up Terrain Run opportunities for the following round."
+      }
+    },
     "combatFlow": {
       "roundStructure": [
         "1. GM describes the tactical situation — range, positioning, environmental hazards, enemy actions.",
@@ -980,7 +1004,7 @@
       "bands": [
         { "band": "Engaged", "description": "Ships are in extremely close proximity — docking range, collision risk, boarding possible. Rare in open space combat." },
         { "band": "Close", "description": "Standard combat range. Most weapons are effective. Maneuvering matters — Attack Runs and Evasive Maneuvers happen here." },
-        { "band": "Far", "description": "Long range engagement. Only long-range weapons (turbolasers, torpedoes) are effective. Pursuit and Break Away play out at this range." }
+        { "band": "Far", "description": "Long range engagement. Only long-range weapons (turbolasers, torpedoes) are effective. Ships must Fly to close the gap before entering a Dogfight." }
       ]
     },
     "modifications": {

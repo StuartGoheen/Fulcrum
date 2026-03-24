@@ -1268,6 +1268,7 @@
     "favoredDiscipline": "piloting",
     "description": "Throttle forward, stick back, and trust the ship. The Ace is a born pilot who reads starship combat the way ground fighters read a room — angles, closure rates, and the split-second window between a clean shot and a hull breach. Whether it's a freighter through an asteroid field or a starfighter through a capital ship's screen, the Ace puts the ship where it needs to be.",
     "fluff": "Wedge Antilles survived two Death Star runs. Hera Syndulla flew a VCX-100 through an Imperial blockade sideways. Han Solo threaded the Kessel Run through a maelstrom that ate Star Destroyers for breakfast. They all had the same thing — not luck, not the Force, just an instinct for where the ship wants to go and the nerve to let it. You've got that instinct. Now you need a ship worth flying.",
+    "designNotes": "The Ace operates on the vocation layer — above the base station actions (anyone in the seat) and separate from hardware modifications (the ship's capability). The Ace makes the pilot better regardless of the ship. Tier 1 changes HOW the pilot shoots (discipline swap). Tier 2 adds a new setup maneuver the station doesn't have (Strafing Run). Tier 3 enhances Dogfight economy (spend tier to gain extra actions). Tier 4 turns Evade into an offensive weapon (exploit the enemy's aggression). Tier 5 breaks the rules entirely (attempt the impossible). None of these duplicate hardware mods — they stack on top of whatever ship the Ace is flying.",
     "abilities": [
       {
         "id": "voc_ace_t1",
@@ -1278,14 +1279,14 @@
           "[Combat]",
           "[Narrative]"
         ],
-        "rule": "When firing pilot-controlled ship weapons (forward cannons, linked guns, turret you're manning), you may use Piloting (Reflex) in place of Heavy Weapons (Physique) for the attack roll — you aim with the ship, not the gun. Additionally, when you score 8+ on your Join Battle roll while piloting, you may immediately take one Piloting maneuver before the first round begins.",
-        "shorthand": "Use Piloting (Reflex) for ship weapons. Join Battle 8+ → free Piloting maneuver."
+        "rule": "When firing pilot-controlled ship weapons (forward cannons, linked guns, turret you're manning), you may use Piloting (Reflex) in place of Heavy Weapons (Physique) for the attack roll — you aim with the ship, not the gun. This is critical for Dogfight Openings at Masterful+: any pilot can take the reactive shot, but the Ace takes it with their best stat. Additionally, when you score 8+ on your Join Battle roll while piloting, you may immediately take one Piloting maneuver (Fly) before the first round begins — you read the battlefield before anyone else.",
+        "shorthand": "Use Piloting (Reflex) for ship weapons. Join Battle 8+ → free Fly maneuver."
       },
       {
         "id": "voc_ace_t2",
         "tier": 2,
         "type": "maneuver",
-        "name": "Attack Run",
+        "name": "Strafing Run",
         "tags": [
           "[Combat]"
         ],
@@ -1293,7 +1294,7 @@
         "arena": "reflex",
         "defense": "resolve",
         "rolled": true,
-        "rule": "Piloting (Reflex) vs target's Resolve. Push the ship into an aggressive approach vector — diving, strafing, or lining up a deflection shot that forces the target to react. This is a setup, not a shot. Risk: On failure, you present an Opening to the target — your approach was too predictable.",
+        "rule": "Piloting (Reflex) vs target's Resolve. A precision setup — the Ace pushes the ship into an aggressive approach vector: diving, strafing, or lining up a deflection shot that forces the target to react. This is the Ace's personal attack setup, distinct from the station's Attack Run (which buffs Gunners). The Strafing Run sets up the Ace's own next shot. Usable both inside and outside a Dogfight — the Ace can set up their own kill shot during a turning fight.",
         "risk": "On failure, you present an Opening to the target — your approach was too predictable and they have the angle.",
         "effect": [
           {
@@ -1306,13 +1307,13 @@
             "tier": 2,
             "label": "Masterful",
             "range": "4-7",
-            "description": "Target gains [Rattled]. Your next ship weapon attack against this target gains [Optimized] and [Empowered]. You may reposition one zone after the attack resolves."
+            "description": "Target gains [Rattled]. Your next ship weapon attack against this target gains [Optimized] and [Empowered]."
           },
           {
             "tier": 3,
             "label": "Legendary",
             "range": "8+",
-            "description": "Target gains [Rattled] and [Exposed]. Your next ship weapon attack against this target gains [Optimized] and [Empowered]. You may reposition one zone before or after the attack resolves."
+            "description": "Target gains [Rattled] and [Exposed]. Your next ship weapon attack against this target gains [Optimized] and [Empowered]."
           }
         ]
       },
@@ -1325,9 +1326,9 @@
           "[Combat]",
           "[Narrative]"
         ],
-        "modifiesAction": "action_piloting",
-        "actionType": "Piloting Action or Defense",
-        "rule": "After resolving a Piloting action or defense, spend 1 tier. You immediately reposition your vehicle up to 2 zones instead of 1, and all Engaged contacts are broken. Pursuers lose contact — they cannot close distance or engage until the start of the next round. Usable during chases, dogfights, or any vehicle encounter."
+        "modifiesAction": "sa_dogfight",
+        "actionType": "Dogfight (disengage)",
+        "rule": "When you win a Dogfight and choose to disengage, spend 1 tier. You break free with explosive force — move up to 2 zones instead of 1, and all ships that had [Locked On] on you lose contact entirely (they cannot close or engage until the start of the next round). This is the Han Solo escape: punch the throttle, leave the furball behind, and nobody can follow. Usable in any Dogfight disengage — ground vehicle chases, atmospheric pursuits, or space combat."
       },
       {
         "id": "voc_ace_t4",
@@ -1338,9 +1339,9 @@
           "[Combat]",
           "[Narrative]"
         ],
-        "modifiesAction": "action_piloting",
-        "actionType": "Piloting Defense or Navigation",
-        "rule": "When you defend using Piloting (via Seat of the Pants) and score 8+ on your Control die, you may forgo the standard +1 Effect tier. Instead, choose one: (a) you fly through terrain that the attacker cannot follow — breaking line of sight and gaining concealment until your next turn, or (b) you redirect the incoming threat into an environmental hazard or another hostile target in your zone. The GM narrates the near-miss."
+        "modifiesAction": "sr_evade",
+        "actionType": "Evade Reaction",
+        "rule": "When you Evade and score 8+ on your Control die, you may forgo the standard +1 Effect tier bonus and the Opening it generates. Instead, choose one: (a) you fly through terrain that the attacker cannot follow — breaking line of sight and gaining concealment until your next turn, disrupting Dogfight engagement (the attacker must re-enter the Dogfight next round), or (b) you redirect the incoming attack into an environmental hazard or another hostile ship in your zone — the GM determines the collision or friendly-fire damage. The Ace turns defense into a weapon."
       },
       {
         "id": "voc_ace_t5",
@@ -1351,7 +1352,7 @@
           "[Combat]",
           "[Narrative]"
         ],
-        "rule": "Once per Act, when the GM declares a piloting challenge impossible — too narrow, too fast, too many guns — you may attempt it anyway. Roll Piloting (Reflex) against the GM's stated difficulty. On any success, you pull it off. The GM narrates the impossible becoming possible. On a Masterful Success (8+ Control), you also gain [Optimized] on all actions for the remainder of the scene — you and the crew are riding the high of having just done the undoable. On failure, the ship takes critical damage but you survive — the Ace always walks away from the crash."
+        "rule": "Once per Act, when the GM declares a piloting challenge impossible — too narrow, too fast, too many guns, too many Dogfight opponents — you may attempt it anyway. Roll Piloting (Reflex) against the GM's stated difficulty. On any success, you pull it off: the GM narrates the impossible becoming possible. On a Masterful+ result, you also gain [Optimized] on all Piloting actions for the remainder of the scene — you and the crew are riding the high of having just done the undoable. On failure, the ship takes critical damage but you survive — the Ace always walks away from the crash. This ability explicitly overrides Dogfight engagement constraints: the Ace can attempt to disengage from multiple Dogfights simultaneously, thread impossible terrain at full speed, or execute maneuvers that should not be physically possible for the ship's class."
       }
     ],
     "imageUrl": "/assets/vocations/voc_ace.png",

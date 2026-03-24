@@ -5,15 +5,15 @@
     "station": "Pilot",
     "purpose": "Evasion, maneuvering, and repositioning. The Pilot's primary Power die for defensive and movement actions.",
     "powerDieRange": "D4–D12",
-    "actions": ["Evasive Maneuvers", "Attack Run", "Terrain Run", "Break Away", "Evade"],
+    "actions": ["Fly", "Dogfight", "Evasive Maneuvers", "Terrain Run", "Evade"],
     "impairment": {
       "impaired": "Power die steps down 1 size. Ship responds sluggishly — turns are wide, reactions delayed.",
       "debilitated": "Power die steps down 2 sizes. Ship barely maneuvers — drifting, overcorrecting, or locked into a heading.",
       "disabled": "System unavailable. Ship cannot change heading or execute evasive actions. Pilot actions that require Handling automatically fail."
     },
     "designNotes": [
-      "Handling is the ship's agility stat. Impairing Handling makes the ship a sitting target — Evade rolls lose their Power die, Attack Runs lose positioning advantage.",
-      "Handling is paired with Engines for Pilot actions. Handling governs precision (evasion, threading gaps), Engines govern raw speed (pursuit, escape, closing distance)."
+      "Handling is the ship's agility stat and the Dogfight Power die. Impairing Handling makes the ship a sitting target — Dogfight contests are harder to win, Evade rolls lose their Power die, and defensive actions degrade.",
+      "Handling governs precision (Dogfight, evasion, threading gaps). Engines govern raw speed (Fly, Attack Run, closing distance). A ship with great Handling and weak Engines is a knife-fighter that cannot run. A ship with great Engines and weak Handling is fast in a straight line but loses every turning fight."
     ]
   },
   {
@@ -22,10 +22,10 @@
     "station": "Pilot / Engineer",
     "purpose": "Speed, pursuit, escape, and repositioning at range. The Pilot's Power die for speed-based actions and the Engineer's secondary Power die for rerouting.",
     "powerDieRange": "D4–D12",
-    "actions": ["Pursue/Close", "Break Away", "Reroute Power"],
+    "actions": ["Fly", "Attack Run", "Reroute Power"],
     "impairment": {
       "impaired": "Power die steps down 1 size. Ship loses acceleration — pursuit and escape become difficult.",
-      "debilitated": "Power die steps down 2 sizes. Ship is crawling — cannot close distance or break away without assistance.",
+      "debilitated": "Power die steps down 2 sizes. Ship is crawling — cannot close distance or disengage without assistance.",
       "disabled": "System unavailable. Ship is dead in space. No pursuit, no escape, no repositioning. Hyperspace is impossible."
     },
     "designNotes": [

@@ -1010,33 +1010,33 @@
           "id": "gambit_piloting_d8",
           "name": "Evasive Maneuver",
           "requiredDie": "D8",
-          "modifiesAction": "action_move",
+          "modifiesAction": "sa_fly",
           "tags": [
             "[Vehicle]"
           ],
-          "rule": "After resolving a Move [Vehicle], spend 1 tier. Your vehicle is treated as 1 scale smaller for defensive actions. Tactical.",
+          "rule": "After resolving a Fly maneuver, spend 1 tier. Your vehicle is treated as 1 scale smaller for defensive actions until the start of your next turn. The arrival was smooth enough that the enemy's targeting solutions are based on a ship that isn't quite where they think it is.",
           "duration": "Tactical"
         },
         {
           "id": "gambit_piloting_d10",
           "name": "Attack Vector",
           "requiredDie": "D10",
-          "modifiesAction": "action_move",
+          "modifiesAction": "sa_fly",
           "tags": [
             "[Vehicle]"
           ],
-          "rule": "After resolving a Move [Vehicle], spend 1 tier. One gunner on your vehicle gains [Optimized] on their next attack.",
+          "rule": "After resolving a Fly maneuver, spend 1 tier. One Gunner on your vehicle gains [Optimized] on their next attack. The approach angle gave your Gunner a clean firing solution.",
           "duration": "Immediate"
         },
         {
           "id": "gambit_piloting_d12",
           "name": "Bold Maneuver",
           "requiredDie": "D12",
-          "modifiesAction": "action_move",
+          "modifiesAction": "sa_fly",
           "tags": [
             "[Vehicle]"
           ],
-          "rule": "After resolving a Move [Vehicle], spend 1 tier. The next attack from your vehicle is treated as 1 scale larger.",
+          "rule": "After resolving a Fly maneuver, spend 1 tier. The next attack from your vehicle is treated as 1 scale larger. The approach was so aggressive that the hit lands with the force of a larger ship.",
           "duration": "Immediate"
         }
       ]

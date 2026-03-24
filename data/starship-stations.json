@@ -5,37 +5,76 @@
     "controlDiscipline": "Piloting",
     "controlArena": "Reflex",
     "powerSystems": ["Handling", "Engines"],
-    "summary": "The ship's driver and primary defensive asset. The Pilot controls geometry — positioning, evasion, and pursuit. Every crew member's effectiveness depends on where the Pilot puts the ship. The Pilot is the only station that can establish or break [Locked On].",
+    "summary": "The ship's driver, combatant, and primary defensive asset. The Pilot controls geometry — positioning, evasion, and engagement. Every crew member's effectiveness depends on where the Pilot puts the ship. The Pilot is the only station that can establish or break [Locked On] through the Dogfight action. In Star Wars, this is the stick-and-rudder role: the person in the cockpit making life-or-death decisions at starfighter speeds.",
     "actions": [
       {
-        "id": "sa_evasive_maneuvers",
-        "name": "Evasive Maneuvers",
-        "type": "action",
+        "id": "sa_fly",
+        "name": "Fly",
+        "type": "maneuver",
         "control": "Piloting (Reflex)",
-        "power": "Handling",
-        "description": "Commit to defensive flying. The ship jukes, rolls, and changes vector to make targeting impossible. Taking Evasive Maneuvers breaks [Locked On] on any target — you abandoned pursuit to protect your ship.",
+        "power": "Engines",
+        "description": "Basic repositioning — move the ship through space. Diceless in open, uncontested space. Rolled only when navigating hazards (asteroid fields, debris), contested by an enemy (blockade, interdictor field), or under time pressure (outrunning a detonation). The Engines Power die determines maximum zone movement: D4–D6 = 1 zone, D8–D10 = 2 zones, D12 = 3 zones. A ship with bigger engines covers more ground. Cannot be used while engaged in a Dogfight — you are locked in until you win and disengage.",
         "effect": [
           {
             "tier": 1,
             "label": "Fleeting",
             "range": "0–3",
-            "description": "Ship gains [Elusive] until start of Pilot's next turn. Incoming attacks have their Control die stepped down."
+            "description": "Move up to your Engines maximum zones. Smooth transit, no complications."
           },
           {
             "tier": 2,
             "label": "Masterful",
             "range": "4–7",
-            "description": "Ship gains [Elusive] until start of Pilot's next turn. Additionally, one ally station gains [Cover 1] from the ship's positioning."
+            "description": "Move up to your Engines maximum zones. Arrive in an advantageous position — the GM grants a minor narrative benefit (favorable angle, unexpected approach vector, arrived undetected)."
           },
           {
             "tier": 3,
             "label": "Legendary",
             "range": "8+",
-            "description": "Ship gains [Elusive] until start of Pilot's next turn. All incoming attacks are stepped down. Ship repositions 1 zone as a free movement."
+            "description": "Move up to your Engines maximum zones +1 (exceed normal maximum). Arrive in a dominant position — choose one: arrive behind the target (immediate Dogfight opportunity next round), arrive with concealment (sensor shadow, debris cover), or arrive at a position that cuts off an escape route."
           }
         ],
-        "risk": "On failure, the ship's vector is predictable — all attacks against the ship until the Pilot's next turn gain [Optimized].",
-        "lockedOnInteraction": "Taking Evasive Maneuvers automatically breaks [Locked On] on any target the Pilot was pursuing. You cannot evade and chase simultaneously."
+        "risk": "On failure (when rolled), the ship arrives but at a disadvantage — the GM names a complication (overshoot, detected early, clipped an obstacle for Fleeting collision damage).",
+        "dogfightConstraint": "Cannot be used while engaged in a Dogfight. The ship is locked in the engagement zone until the Pilot wins a Dogfight and chooses to disengage."
+      },
+      {
+        "id": "sa_dogfight",
+        "name": "Dogfight",
+        "type": "action",
+        "control": "Piloting (Reflex)",
+        "power": "Handling",
+        "against": "Target's Piloting defense",
+        "description": "The starship equivalent of melee grapple. Enter a target's zone and engage them in close-quarters maneuvering — a spiraling, high-G contest for positional advantage. Once a Dogfight begins, both ships are locked in the same zone until one Pilot wins and chooses to disengage. The Dogfight winner declares intent: press the attack (establish [Locked On], earn a shot) or break free (clear [Locked On], escape the engagement). A D4 Handling ship is a barge trying to knife-fight. A D12 Handling ship is a blade that cuts angles no other ship can match.",
+        "effect": [
+          {
+            "tier": 1,
+            "label": "Fleeting",
+            "range": "0–3",
+            "description": "Choose one: establish [Locked On] on the target (you have their tail), OR break [Locked On] on yourself and move 1 zone (you slip out of the engagement)."
+          },
+          {
+            "tier": 2,
+            "label": "Masterful",
+            "range": "4–7",
+            "description": "Choose one: [Locked On] on the target + an Opening (you or a Gunner may make a reactive attack with pilot-controlled weapons — the split-second firing solution), OR break [Locked On] + move 1 zone + the loser's Gunners are [Weakened] (Tactical) (you escaped clean and left them disoriented)."
+          },
+          {
+            "tier": 3,
+            "label": "Legendary",
+            "range": "8+",
+            "description": "Choose one: [Locked On] + Opening + target is [Exposed] (Tactical) (total positional dominance — you own this fight), OR break all locks + move 1 zone + enemy loses contact entirely (cannot close or engage until next round — pursuit is broken)."
+          }
+        ],
+        "risk": "On failure, the target gets [Locked On] on YOU. You tried to gain the advantage and they reversed you. Universal risk — the aerial grapple flipped.",
+        "dogfightRules": {
+          "engagement": "Entering a Dogfight = entering the target's zone and becoming engaged. Both ships are committed to the zone. You cannot Fly or Attack Run while engaged in a Dogfight.",
+          "stuckUntilYouWin": "To disengage, you must win a Dogfight and choose the disengage option. There is no separate Disengage action.",
+          "lockedOnRules": "[Locked On] is one-directional, single target. You can only have [Locked On] on one target at a time. Any number of ships can have [Locked On] on you.",
+          "multipleAttackers": "Multiple ships CAN Dogfight the same target. Each rolls separately against the target's Piloting defense. The target can only actively Dogfight one opponent — the rest roll against their static defense. Every ship that enters the Dogfight is also stuck in the engagement zone.",
+          "zoneDrift": "The Dogfight winner may choose to drag the fight to an adjacent zone instead of holding position. Both (or all) engaged ships drift together. This is Zone Drift — the furball moves through space as a side effect of the engagement intensity. Drift into hazardous terrain sets up Terrain Run opportunities.",
+          "actionsWhileDogfighting": "While engaged in a Dogfight, the Pilot CAN: Dogfight (press or disengage), Evasive Maneuvers (survive — concedes positional contest), Terrain Run (exploit environment — concedes positional contest). The Pilot CANNOT: Fly (locked in zone), Attack Run (pre-engagement action only). Evade reaction is always available.",
+          "gunnerIndependence": "Gunners act independently on their own turns regardless of the Pilot's Dogfight choices. They can fire at targets in range. However, Gunners only receive Dogfight positioning bonuses ([Locked On] benefits, Openings) when the Pilot actively presses the Dogfight — choosing Evasive Maneuvers or Terrain Run instead means the Gunners shoot without those advantages."
+        }
       },
       {
         "id": "sa_attack_run",
@@ -43,7 +82,7 @@
         "type": "action",
         "control": "Piloting (Reflex)",
         "power": "Engines",
-        "description": "Aggressive positioning — close distance, present firing solutions, and set up the Gunners. High reward, high risk.",
+        "description": "Aggressive positioning — close distance, present firing solutions, and set up the Gunners. The strafing pass, the bombing run approach, the aggressive fly-by. This is a pre-engagement action: the Pilot is putting the ship in position for the crew to shoot, not entering a sustained close-quarters contest. Cannot be used while engaged in a Dogfight — if you are already locked in a turning fight, Attack Run is not available.",
         "effect": [
           {
             "tier": 1,
@@ -64,65 +103,38 @@
             "description": "Ship closes 1 zone. All Gunners gain [Optimized] and [Empowered]. The target ship presents an Opening to all Gunners."
           }
         ],
-        "risk": "On failure, the aggressive approach presents an Opening to the target ship's Gunners. The ship is [Exposed] until the Pilot's next turn."
+        "risk": "On failure, the aggressive approach presents an Opening to the target ship's Gunners. The ship is [Exposed] until the Pilot's next turn.",
+        "dogfightConstraint": "Cannot be used while engaged in a Dogfight. This is a pre-engagement approach action."
       },
       {
-        "id": "sa_pursue_close",
-        "name": "Pursue / Close",
+        "id": "sa_evasive_maneuvers",
+        "name": "Evasive Maneuvers",
         "type": "action",
         "control": "Piloting (Reflex)",
-        "power": "Engines",
-        "description": "Chase a fleeing target or close distance to engage. Roll Piloting (Reflex) vs the target Pilot's static Piloting defense. The only way to establish [Locked On].",
+        "power": "Handling",
+        "description": "Commit to defensive flying. The ship jukes, rolls, and changes vector to make targeting impossible. CAN be used inside a Dogfight — the Pilot is not contesting for position, just surviving. When used inside a Dogfight, the Pilot concedes the positional contest (the opponent likely maintains or gains [Locked On]) but becomes much harder to hit. When used outside a Dogfight, the Pilot breaks [Locked On] on any target they were pursuing — you cannot evade and chase simultaneously. Does NOT move the ship from its current zone.",
         "effect": [
           {
             "tier": 1,
             "label": "Fleeting",
             "range": "0–3",
-            "description": "Close 1 zone toward the target. Maintain pursuit — the target cannot increase the gap this round."
+            "description": "Ship gains [Elusive] until start of Pilot's next turn. Incoming attacks have their Control die stepped down."
           },
           {
             "tier": 2,
             "label": "Masterful",
             "range": "4–7",
-            "description": "Close 1 zone. The target gains [Locked On] — pursuit is locked. [Locked On] persists until the target Breaks Away at Masterful+, the locking Pilot takes an action that contradicts pursuit (Evasive Maneuvers, Terrain Run), or the target escapes the encounter."
+            "description": "Ship gains [Elusive] until start of Pilot's next turn. Additionally, one ally station gains [Cover 1] from the ship's positioning."
           },
           {
             "tier": 3,
             "label": "Legendary",
             "range": "8+",
-            "description": "Close 2 zones. The target gains [Locked On]. The locking ship's Gunners gain [Optimized] on attacks against the locked-on target."
+            "description": "Ship gains [Elusive] until start of Pilot's next turn. All incoming attacks are stepped down. If NOT in a Dogfight, ship repositions 1 zone as a free movement."
           }
         ],
-        "risk": "On failure, the target increases the gap by 1 zone. Pursuit is not broken, but the target has the initiative."
-      },
-      {
-        "id": "sa_break_away",
-        "name": "Break Away",
-        "type": "action",
-        "control": "Piloting (Reflex)",
-        "power": "Engines",
-        "description": "Disengage from combat. Increase distance, break pursuit, or set up a hyperspace jump. Roll Piloting (Reflex) vs pursuing Pilot's static Piloting defense.",
-        "effect": [
-          {
-            "tier": 1,
-            "label": "Fleeting",
-            "range": "0–3",
-            "description": "Increase gap by 1 zone. If [Locked On], remain [Locked On]. Pursuit is not broken, but the ship gains breathing room."
-          },
-          {
-            "tier": 2,
-            "label": "Masterful",
-            "range": "4–7",
-            "description": "Increase gap by 1 zone. [Locked On] is cleared. Pursuing ships lose contact — they cannot close distance or engage until the start of the next round."
-          },
-          {
-            "tier": 3,
-            "label": "Legendary",
-            "range": "8+",
-            "description": "Increase gap by 2 zones. [Locked On] cleared. Pursuit is broken — the ship may jump to hyperspace if the Co-Pilot has plotted a course."
-          }
-        ],
-        "risk": "On failure, the ship cannot increase the gap. If [Locked On], remain [Locked On]. Pursuing ship's Gunners gain an Opening."
+        "risk": "On failure, the ship's vector is predictable — all attacks against the ship until the Pilot's next turn gain [Optimized].",
+        "dogfightInteraction": "CAN be used inside a Dogfight. The Pilot is choosing survival over advantage — the opponent retains or gains [Locked On], but the Pilot is harder to hit. When used outside a Dogfight, automatically breaks [Locked On] on any target the Pilot was pursuing."
       },
       {
         "id": "sa_terrain_run",
@@ -130,7 +142,7 @@
         "type": "action",
         "control": "Piloting (Reflex)",
         "power": "Handling",
-        "description": "Use the environment as a weapon — asteroid fields, debris clouds, atmospheric canyons, station infrastructure. Roll Piloting (Reflex) vs the pursuing Pilot's static Piloting defense. Your roll determines both your cover and how badly the terrain punishes anyone who follows. Taking Terrain Run breaks [Locked On] on any target — you veered into terrain, not continuing pursuit.",
+        "description": "Use the environment as a weapon — asteroid fields, debris clouds, atmospheric canyons, station infrastructure. CAN be used inside a Dogfight — especially powerful when Zone Drift has dragged the engagement into hazardous terrain. The Pilot concedes the positional contest but exploits the environment for cover and to punish anyone following. When used outside a Dogfight, breaks [Locked On] on any target — you veered into terrain, not continuing pursuit.",
         "effect": [
           {
             "tier": 1,
@@ -142,17 +154,17 @@
             "tier": 2,
             "label": "Masterful",
             "range": "4–7",
-            "description": "Ship gains [Cover 2]. Pursuing ships that follow into the terrain take Fleeting collision damage — the path you carved is yours alone."
+            "description": "Ship gains [Cover 2]. Ships that follow into the terrain take Fleeting collision damage — the path you carved is yours alone."
           },
           {
             "tier": 3,
             "label": "Legendary",
             "range": "8+",
-            "description": "Ship gains [Cover 2] and concealment. Pursuing ships that follow into the terrain take Masterful collision damage — the route you threaded was never meant for anyone else."
+            "description": "Ship gains [Cover 2] and concealment. Ships that follow into the terrain take Masterful collision damage — the route you threaded was never meant for anyone else."
           }
         ],
         "risk": "On failure, the Pilot clips the terrain — the ship takes Fleeting collision damage and loses [Cover] and concealment.",
-        "lockedOnInteraction": "Taking Terrain Run automatically breaks [Locked On] on any target the Pilot was pursuing. You cannot thread terrain and maintain pursuit simultaneously."
+        "dogfightInteraction": "CAN be used inside a Dogfight. The Pilot concedes the positional contest to exploit the environment. When used outside a Dogfight, automatically breaks [Locked On] on any target the Pilot was pursuing."
       }
     ],
     "reactions": [
@@ -164,12 +176,18 @@
         "control": "Piloting (Reflex)",
         "power": "Handling",
         "cost": "Free (defense reaction)",
-        "description": "The ship's Dodge equivalent. The Pilot rolls Piloting + Handling to evade incoming fire. On success, the Power die result reduces the attacker's Effect Tier. On failure, no mitigation — the hit lands at full effect. On a Control result of 8+, the evasive maneuver generates an Opening for the ship's Gunners.",
+        "description": "The ship's Dodge equivalent. The Pilot rolls Piloting + Handling to evade incoming fire. On success, the Power die result reduces the attacker's Effect Tier. On failure, no mitigation — the hit lands at full effect. On a Control result of 8+, the evasive maneuver generates an Opening for the ship's Gunners. Always available — including inside a Dogfight.",
         "rule": "Success: Power die result reduces attacker's Effect Tier. Failure: no mitigation. Control 8+: generates an Opening — any Gunner with an available Exploit pip may take a reactive attack against the attacker.",
-        "lockedOnInteraction": "When the ship is [Locked On] by the attacker, the Evade Power die is [Weakened] — the pursuer knows your evasion patterns."
+        "lockedOnInteraction": "When the ship is [Locked On] by the attacker, the Evade Power die is [Weakened] — the attacker knows your evasion patterns from the Dogfight engagement."
       }
     ],
-    "gambits": []
+    "gambits": [],
+    "designNotes": [
+      "The Pilot's actions split cleanly across two Power dice: Handling (precision — Dogfight, Evasive Maneuvers, Terrain Run, Evade) and Engines (speed/distance — Fly, Attack Run). A ship with great Handling and weak Engines is a knife-fighter that cannot run. A ship with great Engines and weak Handling is fast in a straight line but loses every turning fight.",
+      "Dogfight is the starship equivalent of melee grapple. It constrains both ships to the same zone, requires the Pilot's action each round, and only ends when someone wins and chooses to disengage. This creates the same tactical pressure as melee engagement — commitment, risk, and the need for crew coordination to survive a swarm.",
+      "Any pilot can fire pilot-controlled weapons (forward cannons, linked guns) using the standard Attack action with Heavy Weapons (Physique) / Fire Control — same as a Gunner. The Ace vocation substitutes Piloting (Reflex) for Heavy Weapons, allowing the Ace to aim with the ship's movement rather than the gun's targeting. This is a discipline swap, not a permission grant.",
+      "Pursue/Close and Break Away were merged into the Dogfight action. The winner's tier choices encompass both pressing the attack (establishing [Locked On]) and disengaging (breaking [Locked On] and moving 1 zone). This eliminates the two-action split while preserving all tactical options."
+    ]
   },
   {
     "id": "station_gunner",
@@ -569,16 +587,16 @@
             "tier": 2,
             "label": "Masterful",
             "range": "4–7",
-            "description": "Clean hyperspace calculation — jump is ready when the Pilot calls for it. No complications. Alternatively, identify one optimal escape route that grants +1 Tier to the next Break Away."
+            "description": "Clean hyperspace calculation — jump is ready when the Pilot calls for it. No complications. Alternatively, identify one optimal escape route that grants +1 Tier to the Pilot's next Dogfight disengage."
           },
           {
             "tier": 3,
             "label": "Legendary",
             "range": "8+",
-            "description": "Precision jump — ready with tactical advantage. Alternatively, identify a shortcut route granting +2 Tier to the next Break Away and concealment during the approach."
+            "description": "Precision jump — ready with tactical advantage. Alternatively, identify a shortcut route granting +2 Tier to the Pilot's next Dogfight disengage and concealment during the approach."
           }
         ],
-        "risk": "On failure, calculation error. Jump not available this round. If the crew was counting on an escape route, the next Break Away is [Weakened]."
+        "risk": "On failure, calculation error. Jump not available this round. If the crew was counting on an escape route, the Pilot's next Dogfight disengage is [Weakened]."
       }
     ],
     "reactions": [],
