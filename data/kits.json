@@ -1689,8 +1689,8 @@
         "tags": [
           "[Combat]"
         ],
-        "rule": "While you are stationed on your designated vehicle and it suffers damage that reduces its vitality, you may spend 1 of your personal Edge as a reaction to prevent 1 point of that damage.",
-        "shorthand": "Spend 1 Edge as reaction to prevent 1 ship damage."
+        "rule": "While you are stationed on your designated vehicle and it suffers damage that reduces its Integrity, you may spend 1 of your personal Edge as a reaction to prevent 1 point of that damage.",
+        "shorthand": "Spend 1 Edge as reaction to prevent 1 ship Integrity damage."
       },
       {
         "id": "voc_ships_mechanic_t3",
