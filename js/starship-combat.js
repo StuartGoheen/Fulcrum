@@ -27,6 +27,7 @@
     'stunned':     'condition_stunned',
     'incapacitated': 'condition_incapacitated',
     'marked':      'condition_marked',
+    'locked on':   'condition_locked_on',
     'slowed':      'condition_slowed',
     'elusive':     'condition_elusive',
     'jammed':      'condition_jammed',
@@ -78,6 +79,7 @@
 
   var ACTION_TYPE_LABELS = {
     'action':   { pip: 'A', color: 'var(--color-accent-red, #ef4444)' },
+    'maneuver': { pip: 'M', color: 'var(--color-accent-green, #22c55e)' },
     'reaction': { pip: 'R', color: 'var(--color-accent-cyan, #06b6d4)' },
     'exploit':  { pip: 'E', color: 'var(--color-accent-blue, #3b82f6)' },
   };
@@ -631,6 +633,8 @@
     var effectHtml = '';
     if (mod.microJump && mod.microJump.effect) {
       effectHtml = _buildEffectTrack(mod.microJump.effect);
+    } else if (mod.feedbackCascade && mod.feedbackCascade.effect) {
+      effectHtml = _buildEffectTrack(mod.feedbackCascade.effect);
     }
     return (
       '<div class="sc-mod-card">' +
@@ -650,7 +654,9 @@
     var powerSystems = stationDef.powerSystems || [];
     var relevantMods = [];
     for (var m = 0; m < _state.ship.modifications.length; m++) {
-      var installedId = _state.ship.modifications[m];
+      var entry = _state.ship.modifications[m];
+      var installedId = (typeof entry === 'string') ? entry : (entry && entry.id ? entry.id : null);
+      if (!installedId) continue;
       for (var md = 0; md < _state.modifications.length; md++) {
         if (_state.modifications[md].id === installedId) {
           var mod = _state.modifications[md];

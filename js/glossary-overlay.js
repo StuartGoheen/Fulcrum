@@ -36,7 +36,9 @@
     'shut down': 'condition_shut_down', 'restrained': 'condition_restrained',
     'suppressed': 'condition_suppressed', 'bleeding': 'condition_bleeding',
     'stunned': 'condition_stunned', 'incapacitated': 'condition_incapacitated',
-    'marked': 'condition_marked', 'slowed': 'condition_slowed',
+    'marked': 'condition_marked', 'locked on': 'condition_locked_on',
+    'slowed': 'condition_slowed', 'elusive': 'condition_elusive',
+    'jammed': 'condition_jammed',
     'stimmed': 'stimmed', 'natural recovery': 'natural_recovery',
   };
 
