@@ -1,7 +1,8 @@
-const express    = require('express');
-const http       = require('http');
-const { Server } = require('socket.io');
-const path       = require('path');
+const express      = require('express');
+const http         = require('http');
+const { Server }   = require('socket.io');
+const path         = require('path');
+const cookieParser = require('cookie-parser');
 
 require('./db');
 
@@ -11,6 +12,7 @@ const equipmentRoutes = require('./routes/equipment');
 const inventoryRoutes = require('./routes/inventory');
 const backstoryRoutes = require('./routes/backstory');
 const socketHandlers  = require('./sockets/handlers');
+const { loginRoute, logoutRoute, gate, roleFromCookie, COOKIE_SECRET } = require('./auth');
 
 const app    = express();
 const server = http.createServer(app);
@@ -20,6 +22,7 @@ const PORT = process.env.PORT || 5000;
 const ROOT = path.join(__dirname, '..');
 
 app.use(express.json());
+app.use(cookieParser(COOKIE_SECRET));
 
 if (process.env.NODE_ENV !== 'production') {
   app.use(function(req, res, next) {
@@ -30,11 +33,26 @@ if (process.env.NODE_ENV !== 'production') {
   });
 }
 
+app.post('/api/auth/login',  loginRoute);
+app.post('/api/auth/logout', logoutRoute);
+
+app.get('/login',  (req, res) => {
+  const role = roleFromCookie(req);
+  if (role) return res.redirect('/');
+  res.sendFile(path.join(ROOT, 'public', 'login.html'));
+});
+app.get('/login/', (req, res) => res.redirect('/login'));
+
+app.use(gate);
+
 app.use(express.static(path.join(ROOT, 'public')));
 app.use('/js',     express.static(path.join(ROOT, 'js')));
 app.use('/data',   express.static(path.join(ROOT, 'data')));
 app.use('/assets', express.static(path.join(ROOT, 'assets')));
 
+app.get('/api/auth/role', (req, res) => {
+  res.json({ role: req.userRole || null });
+});
 
 app.use('/api', characterRoutes);
 app.use('/api', campaignRoutes);

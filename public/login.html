@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" class="theme-rebellion">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Access Terminal — Edge of the Empire</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/css/output.css" />
+  <style>
+    .login-card {
+      background: var(--color-bg-frame);
+      border: 1px solid var(--color-border);
+      max-width: 380px;
+      width: 100%;
+      padding: 2rem 1.75rem 1.5rem;
+    }
+    .login-input {
+      width: 100%;
+      padding: 0.6rem 0.75rem;
+      font-family: 'Exo 2', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      text-align: center;
+      background: var(--color-bg-primary);
+      border: 1px solid var(--color-border);
+      color: var(--color-text-primary);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .login-input:focus {
+      border-color: var(--color-accent-primary);
+    }
+    .login-input::placeholder {
+      color: var(--color-text-secondary);
+      opacity: 0.5;
+    }
+    .login-btn {
+      width: 100%;
+      padding: 0.55rem 0;
+      font-family: 'Exo 2', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      background: transparent;
+      border: 1px solid var(--color-accent-primary);
+      color: var(--color-accent-primary);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .login-btn:hover {
+      background: var(--color-accent-primary);
+      color: var(--color-bg-primary);
+    }
+    .login-error {
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      color: var(--color-accent-secondary, #CC2222);
+      text-align: center;
+      min-height: 1.2em;
+    }
+  </style>
+</head>
+<body class="font-body min-h-screen relative overflow-x-hidden" style="background-color:var(--color-bg-primary);color:var(--color-text-primary);">
+
+  <div class="starfield" aria-hidden="true"></div>
+
+  <div class="relative z-10 min-h-screen flex flex-col items-center justify-center px-6">
+
+    <div class="text-center mb-6">
+      <p class="text-xs tracking-widest uppercase mb-3" style="color:var(--color-accent-primary);">Restricted Frequency</p>
+      <h1 class="font-display text-2xl tracking-wide mb-2" style="color:var(--color-accent-deep);">Access Terminal</h1>
+      <p class="text-xs tracking-wide" style="color:var(--color-text-secondary);">
+        Enter your passcode to board the ship.
+      </p>
+    </div>
+
+    <div class="login-card">
+      <form id="login-form" autocomplete="off">
+        <input
+          id="passcode"
+          type="password"
+          class="login-input"
+          placeholder="Enter Passcode"
+          autocomplete="off"
+          autofocus
+        />
+        <div class="my-3">
+          <p id="login-error" class="login-error">&nbsp;</p>
+        </div>
+        <button type="submit" class="login-btn">Authenticate</button>
+      </form>
+    </div>
+
+    <footer class="mt-8 text-center text-xs" style="color:var(--color-text-secondary);opacity:0.4;">
+      <span class="tracking-widest uppercase">Edge of the Empire &mdash; Campaign System</span>
+    </footer>
+
+  </div>
+
+  <script>
+    (function () {
+      var form  = document.getElementById('login-form');
+      var input = document.getElementById('passcode');
+      var error = document.getElementById('login-error');
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        error.innerHTML = '&nbsp;';
+        var code = input.value.trim();
+        if (!code) { error.textContent = 'Enter a passcode.'; return; }
+
+        fetch('/api/auth/login', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body:    JSON.stringify({ passcode: code }),
+        })
+          .then(function (res) { return res.json().then(function (d) { return { ok: res.ok, data: d }; }); })
+          .then(function (result) {
+            if (!result.ok) {
+              error.textContent = result.data.error || 'Access denied.';
+              input.value = '';
+              input.focus();
+              return;
+            }
+            window.location.href = '/';
+          })
+          .catch(function () {
+            error.textContent = 'Connection failed.';
+          });
+      });
+    }());
+  </script>
+</body>
+</html>

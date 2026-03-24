@@ -4948,6 +4948,11 @@ h1, h2, h3, h4, h5, h6 {
   margin-right:       auto;
 }
 
+.my-3 {
+  margin-top:       0.75rem;
+  margin-bottom:       0.75rem;
+}
+
 .mb-2 {
   margin-bottom:       0.5rem;
 }
@@ -4970,6 +4975,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .mt-4 {
   margin-top:       1rem;
+}
+
+.mt-8 {
+  margin-top:       2rem;
 }
 
 .\!block {

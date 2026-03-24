@@ -9,11 +9,22 @@ A Star Wars TTRPG electronic character sheet and campaign management system buil
 **Database:** SQLite via `better-sqlite3` (stored at `db/campaign.db`)  
 **CSS:** Tailwind CSS v3 (source: `css/input.css` → output: `public/css/output.css`)
 
+## Authentication / Password Gate
+
+The app uses a passcode-based gate (cookie auth) to restrict access:
+- **PLAYER_PASSCODE** (env secret) — grants `player` role; can access everything except Command Bridge (`/gm/`)
+- **GM_PASSCODE** (env secret) — grants `gm` role; full access to all routes including Command Bridge
+- Login page at `/login` (themed Access Terminal)
+- Auth cookie is signed, httpOnly, 30-day TTL
+- Logout button in the landing page header
+- Server files: `server/auth.js` (middleware + routes), login UI at `public/login.html`
+
 ## Project Structure
 
 ```
 ├── public/               # Served as static root
 │   ├── index.html        # Landing page (Player / GM / Market selection)
+│   ├── login.html        # Passcode login page (Access Terminal)
 │   ├── icon.svg
 │   ├── gm/index.html     # GM Command Bridge
 │   ├── player/index.html # Player character sheet

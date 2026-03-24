@@ -163,7 +163,20 @@
       .catch(() => alert('Connection failed. Check server status.'));
   }
 
+  function applyRoleVisibility() {
+    fetch('/api/auth/role')
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        var gmBtn = document.getElementById('btn-gm');
+        if (d.role === 'player' && gmBtn) {
+          gmBtn.style.display = 'none';
+        }
+      })
+      .catch(function () {});
+  }
+
   loadTheme();
+  applyRoleVisibility();
 
   document.getElementById('theme-toggle').addEventListener('click', () => {
     const current = THEMES.find((t) => document.documentElement.classList.contains(t)) || DEFAULT_THEME;
@@ -171,8 +184,15 @@
     applyTheme(next);
   });
 
+  document.getElementById('btn-logout').addEventListener('click', function () {
+    fetch('/api/auth/logout', { method: 'POST' })
+      .then(function () { window.location.href = '/login'; })
+      .catch(function () { window.location.href = '/login'; });
+  });
+
   document.getElementById('btn-player').addEventListener('click', showModal);
-  document.getElementById('btn-gm').addEventListener('click', joinAsGM);
+  var gmBtn = document.getElementById('btn-gm');
+  if (gmBtn) gmBtn.addEventListener('click', joinAsGM);
   document.getElementById('modal-close').addEventListener('click', hideModal);
   document.getElementById('btn-create-character').addEventListener('click', () => {
     window.location.href = '/create/?new';
