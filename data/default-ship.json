@@ -9,11 +9,11 @@
   },
   "hullRating": 2,
   "systems": {
-    "handling": { "id": "hw_handling", "name": "Handling", "baseDie": "D8", "status": "operational" },
-    "engines": { "id": "hw_engines", "name": "Engines", "baseDie": "D8", "status": "operational" },
-    "shields": { "id": "hw_shields", "name": "Shields", "baseDie": "D6", "status": "operational" },
-    "sensors": { "id": "hw_sensors", "name": "Sensors", "baseDie": "D6", "status": "operational" },
-    "fire_control": { "id": "hw_fire_control", "name": "Fire Control", "baseDie": "D8", "status": "operational" }
+    "handling": { "id": "hw_handling", "name": "Handling", "baseDie": "D12", "status": "operational" },
+    "engines": { "id": "hw_engines", "name": "Engines", "baseDie": "D12", "status": "operational" },
+    "shields": { "id": "hw_shields", "name": "Shields", "baseDie": "D12", "status": "operational" },
+    "sensors": { "id": "hw_sensors", "name": "Sensors", "baseDie": "D12", "status": "operational" },
+    "fire_control": { "id": "hw_fire_control", "name": "Fire Control", "baseDie": "D12", "status": "operational" }
   },
   "weapons": [
     {
@@ -41,7 +41,92 @@
       "controlStation": "station_gunner"
     }
   ],
-  "modifications": [],
+  "modifications": [
+    {
+      "id": "mod_handling_d8_maneuvering_jet",
+      "system": "handling",
+      "gate": "D8",
+      "name": "Maneuvering Jet Overhaul",
+      "summary": "Evasive Maneuvers success also grants [Cover 1] alongside [Elusive]."
+    },
+    {
+      "id": "mod_handling_d10_brace_for_impact",
+      "system": "handling",
+      "gate": "D10",
+      "name": "Brace for Impact",
+      "summary": "Evade reaction gains a failure floor — reduces attacker's Effect Tier by 1 even on a miss."
+    },
+    {
+      "id": "mod_handling_d12_corellian_wake",
+      "system": "handling",
+      "gate": "D12",
+      "name": "The Corellian Wake",
+      "summary": "Control 8+ bonus on all Handling actions doubled to +2 Effect Tiers. Threading impossible gaps in hazardous terrain."
+    },
+    {
+      "id": "mod_engines_d8_overtuned_sublight",
+      "system": "engines",
+      "gate": "D8",
+      "name": "Overtuned Sublight Drive",
+      "summary": "All zone movement +1. Fly, Attack Run, and Dogfight disengage each move one extra zone."
+    },
+    {
+      "id": "mod_engines_d10_strafing_thrusters",
+      "system": "engines",
+      "gate": "D10",
+      "name": "Strafing Thrusters",
+      "summary": "On Attack Run, pay -1 tier. Ship repositions 1 zone in any direction after the run resolves."
+    },
+    {
+      "id": "mod_engines_d12_class_zero_hyperdrive",
+      "system": "engines",
+      "gate": "D12",
+      "name": "Class Zero Hyperdrive",
+      "summary": "Half hyperspace travel time. Cannot be caught. Unlocks Micro-Jump (Engines power die — engine sputter failure)."
+    },
+    {
+      "id": "mod_shields_d8_polarized_deflectors",
+      "system": "shields",
+      "gate": "D8",
+      "name": "Polarized Deflectors",
+      "summary": "Endure vs energy weapons has Shields die [Optimized]. No benefit against ordnance or kinetic."
+    },
+    {
+      "id": "mod_shields_d10_regenerative_cycling",
+      "system": "shields",
+      "gate": "D10",
+      "name": "Regenerative Cycling",
+      "summary": "Start of each round, if no [Buffered], automatically gain [Buffered 1]. Does not stack."
+    },
+    {
+      "id": "mod_shields_d12_impenetrable_baffles",
+      "system": "shields",
+      "gate": "D12",
+      "name": "Impenetrable Baffles",
+      "summary": "Reinforce Shields grants +1 extra buffer at every tier. Fleeting→[Buffered 2], Masterful→[Buffered 3], Legendary→[Buffered 4]."
+    },
+    {
+      "id": "mod_sensors_d8_targeting_uplink",
+      "system": "sensors",
+      "gate": "D8",
+      "name": "Targeting Uplink",
+      "summary": "Gunner's Control die [Optimized] when attacking a target the Operator has successfully Scanned."
+    },
+    {
+      "id": "mod_sensors_d10_sensor_prioritization",
+      "system": "sensors",
+      "gate": "D10",
+      "name": "Sensor Prioritization",
+      "summary": "Operator declares Offensive or Defensive Priority mode. Chosen side is [Empowered], other side loses sensor buffs."
+    },
+    {
+      "id": "mod_sensors_d12_crystal_gravfield_trap",
+      "system": "sensors",
+      "gate": "D12",
+      "name": "Crystal Gravfield Trap",
+      "summary": "System-wide scan range. Detects hidden/cloaked ships. Scan 8+ bonus doubled to +2 Effect Tiers."
+    }
+  ],
   "stations": ["station_pilot", "station_gunner", "station_operator", "station_engineer", "station_copilot"],
-  "notes": "Modified YT-1300 light freighter. Fast, tough for her size, and bristling with aftermarket weapons. She may not look like much, but she's got it where it counts."
+  "notes": "Modified YT-1300 light freighter. Fully upgraded to D12 across all systems for testing purposes (breaks the one-D12-system rule). Loaded with the Corellian Wake (precision flying), Class Zero Hyperdrive (speed + Micro-Jump), Impenetrable Baffles (shield fortress), and Crystal Gravfield Trap (all-seeing sensors). She may not look like much, but she's got it where it counts."
 }
