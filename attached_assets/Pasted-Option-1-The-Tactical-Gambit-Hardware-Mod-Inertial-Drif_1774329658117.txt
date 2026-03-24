@@ -1,0 +1,21 @@
+Option 1: The Tactical Gambit
+Hardware Mod: Inertial Drift Compensators
+“Most ships that try to slide laterally at attack speed shear their own stabilizer fins off. We installed repulsor-baffles that let us drift the corner.”
+
+The Gambit: [Vector Flip] * Trigger: The Pilot succeeds on an Evade or Break Away action.
+
+The Trade-off: The Pilot may voluntarily step down their Effect Tier by 1 to execute a sudden, physics-defying 180-degree flip while maintaining forward momentum.
+
+The Effect: If the enemy ship currently has [Locked On] against you, they immediately lose it. Furthermore, your Gunners instantly gain [Optimized] against that specific enemy for the remainder of the round as your weapon mounts are suddenly brought to bear directly on your pursuer.
+
+Why it works: It turns defense into an aggressive counter-attack. It costs a tier of success (meaning you might still take some damage from the incoming attack), but it completely shatters the enemy's pursuit geometry and sets your Gunners up for a devastating broadside.
+
+Option 2: The Structural Passive
+Hardware Mod: High-G Spaceframe Reinforcement
+“It’s not about how fast you can turn. It’s about whether the hull plates buckle when you pull a 9-G inertial break. This bird won't break.”
+
+The Passive: [Brace for Impact]
+
+The Effect: The ship's maneuverability is so heavily reinforced that it can intentionally throw itself into the path of fire at the exact right angle to deflect catastrophic damage. Whenever the Pilot takes the Evasive Maneuvers action, if the ship suffers damage that would cause a system to become Impaired or Debilitated, the Pilot may choose exactly which system takes the hit, regardless of where the enemy Gunner targeted.
+
+Why it works: This is a pure passive that changes how the crew survives. Normally, a called shot or a brutal hit strips away a vital system (like knocking out Fire Control right when you need it). This passive allows the Pilot to use their superior Handling to "roll with the punch," sacrificing a less critical system (like Sensors) to keep the Quad Lasers online.
