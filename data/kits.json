@@ -1660,5 +1660,92 @@
         "source": "gear"
       }
     ]
+  },
+  {
+    "id": "voc_ships_mechanic",
+    "name": "The Ship's Mechanic",
+    "governingArena": "wits",
+    "favoredDiscipline": "tech",
+    "description": "A master of starship systems, vehicle repair, and mid-combat optimization who keeps the vessel flying and buffs the crew's vehicle actions.",
+    "fluff": "Every ship has a heartbeat — the low hum of a reactor cycling, the whine of a converter pulling too hard, the silence right before something breaks. You hear all of it. While the Ace is pulling maneuvers and the gunner is lighting up the void, you're three decks down with your hands inside a junction box, rerouting power through conduits that weren't designed for it, coaxing one more jump out of a hyperdrive that should have been scrapped two parsecs ago. You're the reason the ship comes home.",
+    "abilities": [
+      {
+        "id": "voc_ships_mechanic_t1",
+        "tier": 1,
+        "type": "passive",
+        "name": "Chief Engineer",
+        "tags": [
+          "[Combat]",
+          "[Narrative]"
+        ],
+        "rule": "At the start of each adventure, designate one starship or vehicle under your crew's control. For the duration of the adventure, you are assumed to always have the right tools and minor repair components on hand when working on this vessel. Additionally, while seated or stationed as this vessel's engineer, you cannot be afflicted by the [Disoriented] condition.",
+        "shorthand": "Designate ship per adventure. Auto-equipped for repairs. Immune to [Disoriented] at Engineer station."
+      },
+      {
+        "id": "voc_ships_mechanic_t2",
+        "tier": 2,
+        "type": "passive",
+        "name": "Emergency Shunt",
+        "tags": [
+          "[Combat]"
+        ],
+        "rule": "While you are stationed on your designated vehicle and it suffers damage that reduces its vitality, you may spend 1 of your personal Edge as a reaction to prevent 1 point of that damage.",
+        "shorthand": "Spend 1 Edge as reaction to prevent 1 ship damage."
+      },
+      {
+        "id": "voc_ships_mechanic_t3",
+        "tier": 3,
+        "type": "gambit",
+        "name": "Optimal Calibration",
+        "tags": [
+          "[Combat]"
+        ],
+        "modifiesAction": "action_assess",
+        "actionType": "Assess (Starship/Vehicle)",
+        "rule": "When you make a successful Assess roll regarding a starship or vehicle's status, you may spend 1 Tier to convert your earned questions into Calibration Charges (1 charge per remaining tier). Until the start of your next turn, whenever an ally rolls one of the vessel's systems as a Power Die, you may spend 1 Calibration Charge to allow them to reroll that Power Die prior to finalizing the result. They keep the higher result."
+      },
+      {
+        "id": "voc_ships_mechanic_t4a",
+        "tier": 4,
+        "type": "passive",
+        "name": "Advanced Calibration",
+        "tags": [
+          "[Combat]"
+        ],
+        "rule": "Your Optimal Calibration ability expands. You may now choose to let an ally spend a Calibration Charge to reroll their Control Die instead of their Power Die. They still may not reroll both on the same action.",
+        "shorthand": "Calibration Charges now also allow Control Die reroll (one or the other)."
+      },
+      {
+        "id": "voc_ships_mechanic_t4b",
+        "tier": 4,
+        "type": "gambit",
+        "name": "Overcharged Routing",
+        "tags": [
+          "[Combat]"
+        ],
+        "modifiesAction": "action_reroute_power",
+        "actionType": "Reroute Power",
+        "rule": "When you successfully perform the Reroute Power maneuver, you may spend 1 Tier from the result. If you do, the system whose die was increased gains the Unleashed capability (the die explodes on a maximum result) for as long as it remains affected by the maneuver."
+      },
+      {
+        "id": "voc_ships_mechanic_t5",
+        "tier": 5,
+        "type": "permission",
+        "name": "Miracle Worker",
+        "tags": [
+          "[Combat]"
+        ],
+        "rule": "Once per adventure, when an ally on your designated vessel makes a roll using a die (Control or Power) that you have modified, buffed, or allowed them to reroll since the start of your last turn, you may spend 1 Edge to instantly set that die to its maximum natural result instead of rolling it. If applied to a Power die with the Unleashed capability, it automatically triggers the explosion."
+      }
+    ],
+    "imageUrl": "/assets/vocations/voc_ships_mechanic.png",
+    "startingItems": [
+      {
+        "id": "gear_engineering_toolkit_01",
+        "name": "Engineering Toolkit",
+        "cost": 200,
+        "source": "gear"
+      }
+    ]
   }
 ]
