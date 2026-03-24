@@ -628,6 +628,10 @@
   function _buildModCard(mod) {
     var gateBadge = '<span class="sc-mod-gate">' + _esc(mod.gate) + '</span>';
     var typeBadge = '<span class="sc-mod-type sc-mod-type-' + _esc(mod.type) + '">' + _esc(mod.type) + '</span>';
+    var effectHtml = '';
+    if (mod.microJump && mod.microJump.effect) {
+      effectHtml = _buildEffectTrack(mod.microJump.effect);
+    }
     return (
       '<div class="sc-mod-card">' +
         '<div class="sc-mod-header">' +
@@ -635,6 +639,7 @@
           '<span class="sc-mod-badges">' + gateBadge + typeBadge + '</span>' +
         '</div>' +
         '<div class="sc-mod-desc">' + _linkify(mod.description) + '</div>' +
+        effectHtml +
       '</div>'
     );
   }
