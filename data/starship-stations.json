@@ -306,7 +306,7 @@
   {
     "id": "station_operator",
     "name": "Operator",
-    "controlDiscipline": "Tech / Investigation",
+    "controlDiscipline": "Tech / Investigation / Tactics",
     "controlArena": "Wits",
     "powerSystems": ["Sensors"],
     "summary": "The ship's eyes, ears, and electronic warfare specialist. The Operator reads the universe through the sensor suite — scanning targets, jamming enemy electronics, and deploying countermeasures against guided threats. They determine what the crew knows and what the enemy can see. In Star Wars, this is the com-scan officer: the person monitoring the sensor board, managing the ship's electronic signature, and controlling the flow of information in combat.",
