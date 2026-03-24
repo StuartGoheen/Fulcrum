@@ -627,30 +627,9 @@
     return { map: map, unlinked: unlinked };
   }
 
-  function _buildModCard(mod) {
-    var gateBadge = '<span class="sc-mod-gate">' + _esc(mod.gate) + '</span>';
-    var typeBadge = '<span class="sc-mod-type sc-mod-type-' + _esc(mod.type) + '">' + _esc(mod.type) + '</span>';
-    var effectHtml = '';
-    if (mod.microJump && mod.microJump.effect) {
-      effectHtml = _buildEffectTrack(mod.microJump.effect);
-    } else if (mod.feedbackCascade && mod.feedbackCascade.effect) {
-      effectHtml = _buildEffectTrack(mod.feedbackCascade.effect);
-    }
-    return (
-      '<div class="sc-mod-card">' +
-        '<div class="sc-mod-header">' +
-          '<span class="sc-mod-name">' + _esc(mod.name) + '</span>' +
-          '<span class="sc-mod-badges">' + gateBadge + typeBadge + '</span>' +
-        '</div>' +
-        '<div class="sc-mod-desc">' + _linkify(mod.description) + '</div>' +
-        effectHtml +
-      '</div>'
-    );
-  }
-
-  function _buildModificationsSection(stationDef) {
-    if (!_state.ship || !_state.ship.modifications || !_state.ship.modifications.length) return '';
-    if (!_state.modifications || !_state.modifications.length) return '';
+  function _getRelevantMods(stationDef) {
+    if (!_state.ship || !_state.ship.modifications || !_state.ship.modifications.length) return [];
+    if (!_state.modifications || !_state.modifications.length) return [];
     var powerSystems = stationDef.powerSystems || [];
     var relevantMods = [];
     for (var m = 0; m < _state.ship.modifications.length; m++) {
@@ -671,12 +650,141 @@
         }
       }
     }
-    if (!relevantMods.length) return '';
-    var html = '<div class="sc-detail-section"><div class="sc-section-label">Modifications</div>';
-    for (var r = 0; r < relevantMods.length; r++) {
-      html += _buildModCard(relevantMods[r]);
+    return relevantMods;
+  }
+
+  function _linkModsToActions(relevantMods, stationDef) {
+    var allActions = (stationDef.actions || []).concat(stationDef.reactions || []);
+    var map = {};
+    var unlinkedActions = [];
+    for (var m = 0; m < relevantMods.length; m++) {
+      var mod = relevantMods[m];
+      if (mod.unlocksManeuver || (mod.type === 'maneuver' && !mod.linkedManeuver)) {
+        unlinkedActions.push(mod);
+        continue;
+      }
+      var linkedTo = null;
+      if (mod.linkedManeuver) {
+        for (var a = 0; a < allActions.length; a++) {
+          if (allActions[a].name.toLowerCase() === mod.linkedManeuver.toLowerCase()) {
+            linkedTo = allActions[a].id;
+            break;
+          }
+        }
+      }
+      if (!linkedTo && mod.type === 'passive') {
+        var descLower = (mod.description || '').toLowerCase();
+        var matchedAny = false;
+        for (var a2 = 0; a2 < allActions.length; a2++) {
+          var actName = (allActions[a2].name || '').toLowerCase().trim();
+          if (!actName) continue;
+          var escaped = actName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+          var wbRegex = new RegExp('\\b' + escaped + '\\b');
+          if (wbRegex.test(descLower)) {
+            var aid = allActions[a2].id;
+            if (!map[aid]) map[aid] = [];
+            map[aid].push(mod);
+            matchedAny = true;
+          }
+        }
+        if (matchedAny) continue;
+      }
+      if (linkedTo) {
+        if (!map[linkedTo]) map[linkedTo] = [];
+        map[linkedTo].push(mod);
+      } else {
+        unlinkedActions.push(mod);
+      }
     }
-    html += '</div>';
+    return { map: map, unlinked: unlinkedActions };
+  }
+
+  function _buildModGambitBlock(mod) {
+    var gateBadge = '<span class="sc-mod-gate" style="font-size:0.45rem;padding:1px 4px;margin-left:4px;">' + _esc(mod.gate) + '</span>';
+    return (
+      '<div class="armory-gambit-block manv-gambit-block">' +
+        '<div class="manv-gambit-toggle" role="button" tabindex="0">' +
+          '<span class="armory-gambit-label">Gambit</span>' +
+          '<span class="manv-gambit-name-preview">' + _esc(mod.name) + gateBadge + '</span>' +
+          '<span class="armory-gambit-chevron">&#9656;</span>' +
+        '</div>' +
+        '<div class="manv-gambit-body">' +
+          '<div class="manv-gambit-text">' + _linkify(mod.description) + '</div>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  function _buildModPassiveBlock(mod) {
+    var gateBadge = '<span class="sc-mod-gate" style="font-size:0.45rem;padding:1px 4px;margin-left:4px;">' + _esc(mod.gate) + '</span>';
+    return (
+      '<div class="armory-gambit-block manv-gambit-block manv-passive-block">' +
+        '<div class="manv-gambit-toggle" role="button" tabindex="0">' +
+          '<span class="armory-gambit-label manv-passive-label">' + _esc(mod.system) + '</span>' +
+          '<span class="manv-gambit-name-preview">' + _esc(mod.name) + gateBadge + '</span>' +
+          '<span class="manv-passive-badge">Passive</span>' +
+          '<span class="armory-gambit-chevron">&#9656;</span>' +
+        '</div>' +
+        '<div class="manv-gambit-body">' +
+          '<div class="armory-gambit-text">' + _linkify(mod.description) + '</div>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  function _buildModUnlockedAction(mod, stationColor) {
+    var effectData = null;
+    var metaParts = [];
+    if (mod.microJump) {
+      effectData = mod.microJump;
+    } else if (mod.feedbackCascade) {
+      effectData = mod.feedbackCascade;
+    }
+    if (effectData) {
+      if (effectData.control) metaParts.push('<span class="manv-rolled-badge">' + _esc(effectData.control) + '</span>');
+      if (effectData.power) metaParts.push('<span class="manv-rolled-badge">Power: ' + _esc(effectData.power) + '</span>');
+      if (effectData.against) metaParts.push('<span class="manv-rolled-badge">vs ' + _esc(effectData.against) + '</span>');
+      if (effectData.prerequisite) metaParts.push('<span class="manv-rolled-badge" style="background:var(--color-accent-amber,#f59e0b);color:#000;">' + _esc(effectData.prerequisite) + '</span>');
+    }
+    var metaHtml = metaParts.length ? '<div class="manv-meta">' + metaParts.join('') + '</div>' : '';
+    var effectHtml = (effectData && effectData.effect) ? _buildEffectTrack(effectData.effect) : '';
+    var riskHtml = '';
+    if (effectData && effectData.failure) {
+      riskHtml = '<div class="manv-risk-block"><span class="manv-risk-label">Risk</span><span class="manv-risk-text">' + _linkify(effectData.failure) + '</span></div>';
+    }
+    var gateBadge = '<span class="sc-mod-gate" style="font-size:0.45rem;padding:1px 4px;margin-left:4px;">' + _esc(mod.gate) + '</span>';
+    var typePip = (mod.type === 'maneuver' || mod.unlocksManeuver) ? _pipBadge('maneuver') : _pipBadge('action');
+    var displayName = mod.unlocksManeuver || mod.name;
+    return (
+      '<div class="manv-card sc-manv-card" data-mod-id="' + _esc(mod.id) + '">' +
+        '<div class="manv-header" style="border-left:2px solid ' + stationColor + ';" role="button" tabindex="0">' +
+          '<div class="manv-header-left" style="flex-direction:row;align-items:center;gap:5px;">' +
+            typePip +
+            '<span class="manv-name">' + _esc(displayName) + gateBadge + '</span>' +
+          '</div>' +
+        '</div>' +
+        '<div class="manv-body">' +
+          metaHtml +
+          '<div class="manv-desc-text">' + _linkify(mod.description) + '</div>' +
+          effectHtml +
+          riskHtml +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  function _buildModsHtmlForAction(actionId, modLinks) {
+    var mods = modLinks.map[actionId];
+    if (!mods || !mods.length) return '';
+    var html = '';
+    for (var i = 0; i < mods.length; i++) {
+      var mod = mods[i];
+      if (mod.type === 'gambit') {
+        html += _buildModGambitBlock(mod);
+      } else {
+        html += _buildModPassiveBlock(mod);
+      }
+    }
     return html;
   }
 
@@ -685,6 +793,8 @@
     var color = STATION_COLORS[stationId] || 'var(--color-accent-primary)';
     var icon = STATION_ICONS[stationId] || '\u2605';
     var gambitLinks = _linkGambitsToActions(stationDef);
+    var relevantMods = _getRelevantMods(stationDef);
+    var modLinks = _linkModsToActions(relevantMods, stationDef);
 
     var html = '<div class="sc-station-detail">';
 
@@ -711,7 +821,14 @@
             gambitsHtml += _buildGambitCard(linked[lg]);
           }
         }
+        gambitsHtml += _buildModsHtmlForAction(action.id, modLinks);
         html += _buildActionCard(action, color, gambitsHtml);
+      }
+      for (var u = 0; u < modLinks.unlinked.length; u++) {
+        var uMod = modLinks.unlinked[u];
+        if (uMod.unlocksManeuver || uMod.type === 'maneuver') {
+          html += _buildModUnlockedAction(uMod, color);
+        }
       }
       html += '</div>';
     }
@@ -743,12 +860,28 @@
             rGambitsHtml += _buildGambitCard(rLinked[rg]);
           }
         }
+        rGambitsHtml += _buildModsHtmlForAction(reaction.id, modLinks);
         html += _buildReactionCard(reaction, color, rGambitsHtml);
       }
       html += '</div>';
     }
 
-    html += _buildModificationsSection(stationDef);
+    if (modLinks.unlinked.length) {
+      var unlinkedPassives = [];
+      for (var up = 0; up < modLinks.unlinked.length; up++) {
+        var upm = modLinks.unlinked[up];
+        if (upm.type === 'passive' && !upm.unlocksManeuver) {
+          unlinkedPassives.push(upm);
+        }
+      }
+      if (unlinkedPassives.length) {
+        html += '<div class="sc-detail-section"><div class="sc-section-label">Ship Passives</div>';
+        for (var sp = 0; sp < unlinkedPassives.length; sp++) {
+          html += _buildModPassiveBlock(unlinkedPassives[sp]);
+        }
+        html += '</div>';
+      }
+    }
 
     html += '</div>';
     return html;
