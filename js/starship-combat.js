@@ -88,6 +88,7 @@
     stations: [],
     weapons: [],
     hardware: [],
+    modifications: [],
     chassis: {},
     seats: {},
     myCharacterId: null,
@@ -624,6 +625,50 @@
     return { map: map, unlinked: unlinked };
   }
 
+  function _buildModCard(mod) {
+    var gateBadge = '<span class="sc-mod-gate">' + _esc(mod.gate) + '</span>';
+    var typeBadge = '<span class="sc-mod-type sc-mod-type-' + _esc(mod.type) + '">' + _esc(mod.type) + '</span>';
+    return (
+      '<div class="sc-mod-card">' +
+        '<div class="sc-mod-header">' +
+          '<span class="sc-mod-name">' + _esc(mod.name) + '</span>' +
+          '<span class="sc-mod-badges">' + gateBadge + typeBadge + '</span>' +
+        '</div>' +
+        '<div class="sc-mod-desc">' + _linkify(mod.description) + '</div>' +
+      '</div>'
+    );
+  }
+
+  function _buildModificationsSection(stationDef) {
+    if (!_state.ship || !_state.ship.modifications || !_state.ship.modifications.length) return '';
+    if (!_state.modifications || !_state.modifications.length) return '';
+    var powerSystems = stationDef.powerSystems || [];
+    var relevantMods = [];
+    for (var m = 0; m < _state.ship.modifications.length; m++) {
+      var installedId = _state.ship.modifications[m];
+      for (var md = 0; md < _state.modifications.length; md++) {
+        if (_state.modifications[md].id === installedId) {
+          var mod = _state.modifications[md];
+          for (var ps = 0; ps < powerSystems.length; ps++) {
+            if (powerSystems[ps].toLowerCase() === (mod.system || '').toLowerCase() ||
+                powerSystems[ps].toLowerCase() === 'damaged system') {
+              relevantMods.push(mod);
+              break;
+            }
+          }
+          break;
+        }
+      }
+    }
+    if (!relevantMods.length) return '';
+    var html = '<div class="sc-detail-section"><div class="sc-section-label">Modifications</div>';
+    for (var r = 0; r < relevantMods.length; r++) {
+      html += _buildModCard(relevantMods[r]);
+    }
+    html += '</div>';
+    return html;
+  }
+
   function _buildStationDetail(stationDef) {
     var stationId = stationDef.id;
     var color = STATION_COLORS[stationId] || 'var(--color-accent-primary)';
@@ -691,6 +736,8 @@
       }
       html += '</div>';
     }
+
+    html += _buildModificationsSection(stationDef);
 
     html += '</div>';
     return html;
@@ -820,6 +867,7 @@
     _state.stations = data.stations || _state.stations;
     _state.weapons = data.weapons || _state.weapons;
     _state.hardware = data.hardware || _state.hardware;
+    _state.modifications = data.modifications || _state.modifications;
     _state.chassis = data.chassis || _state.chassis;
     _state.seats = data.seats || _state.seats;
     render();

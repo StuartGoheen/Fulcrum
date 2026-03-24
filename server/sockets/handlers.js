@@ -253,13 +253,17 @@ function registerHandlers(io) {
         const weaponsData = JSON.parse(fs.readFileSync(path.join(dataDir, 'starship-weapons.json'), 'utf8'));
         const hardwareData = JSON.parse(fs.readFileSync(path.join(dataDir, 'starship-hardware.json'), 'utf8'));
         const chassisData = JSON.parse(fs.readFileSync(path.join(dataDir, 'chassis.json'), 'utf8'));
+        let modificationsData = [];
+        try { modificationsData = JSON.parse(fs.readFileSync(path.join(dataDir, 'starship-modifications.json'), 'utf8')); } catch (_) {}
         const state = startShipCombat(shipData, stationsData, weaponsData, hardwareData, chassisData);
+        state.modifications = modificationsData;
         io.emit('shipcombat:sync', {
           active: true,
           ship: state.ship,
           stations: state.stations,
           weapons: state.weapons,
           hardware: state.hardware,
+          modifications: state.modifications,
           chassis: state.chassis,
           seats: state.seats
         });
@@ -354,6 +358,7 @@ function registerHandlers(io) {
           stations: state.stations,
           weapons: state.weapons,
           hardware: state.hardware,
+          modifications: state.modifications || [],
           chassis: state.chassis,
           seats: state.seats
         });
@@ -370,6 +375,7 @@ function registerHandlers(io) {
           stations: state.stations,
           weapons: state.weapons,
           hardware: state.hardware,
+          modifications: state.modifications || [],
           chassis: state.chassis,
           seats: state.seats
         });
