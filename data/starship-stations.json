@@ -232,7 +232,7 @@
             "tier": 3,
             "label": "Legendary",
             "range": "8+",
-            "description": "Weapon chassis damage (Legendary tier). Designated system must be impaired. Additionally, the designated system takes one extra step of impairment (Impaired becomes Debilitated, Debilitated becomes Offline)."
+            "description": "Weapon chassis damage (Legendary tier). Designated system must be impaired. Additionally, the designated system takes one extra step of impairment (Impaired becomes Debilitated, Debilitated becomes Disabled)."
           }
         ],
         "risk": "On failure, the shot misses. The called targeting was too precise — no damage dealt."
@@ -289,7 +289,7 @@
       {
         "name": "Ion Pulse",
         "unlockDie": "D10",
-        "rule": "Reduce your Effect by 1 Tier. Instead of dealing hull damage, the attack impairs a system on the target ship. The tier determines impairment severity: Fleeting = Impaired, Masterful = Debilitated, Legendary = Offline. Only available on mounts with the Ion tag or when the Operator has applied [Jammed] to the target."
+        "rule": "Reduce your Effect by 1 Tier. Instead of dealing hull damage, the attack impairs a system on the target ship. The tier determines impairment severity: Fleeting = Impaired, Masterful = Debilitated, Legendary = Disabled. Only available on mounts with the Ion tag or when the Operator has applied [Jammed] to the target."
       },
       {
         "name": "Overcharge",
@@ -306,124 +306,85 @@
   {
     "id": "station_operator",
     "name": "Operator",
-    "controlDiscipline": "Tech / Investigation / Tactics",
+    "controlDiscipline": "Tech / Investigation",
     "controlArena": "Wits",
     "powerSystems": ["Sensors"],
-    "summary": "The ship's electronic warfare specialist. The Operator scans, jams, and feeds targeting data to the crew. They are the crew's eyes and ears — and the enemy's nightmare on the sensor board. The Operator determines what the crew knows and what the enemy can do with their sensors.",
+    "summary": "The ship's eyes, ears, and electronic warfare specialist. The Operator reads the universe through the sensor suite — scanning targets, jamming enemy electronics, and deploying countermeasures against guided threats. They determine what the crew knows and what the enemy can see. In Star Wars, this is the com-scan officer: the person monitoring the sensor board, managing the ship's electronic signature, and controlling the flow of information in combat.",
     "actions": [
       {
         "id": "sa_scan",
         "name": "Scan",
-        "type": "action",
+        "type": "maneuver",
         "control": "Investigation (Wits)",
         "power": "Sensors",
-        "description": "The starship equivalent of Assess. Probe the target ship's systems, crew, and tactical disposition. Reveals information and can grant buffs to allies.",
+        "description": "The starship equivalent of Assess. Point the ship's sensors at a target — a ship, station, planet, asteroid field, debris cloud, anomaly, or any object of interest — and learn about it. Ask the GM questions based on the tier of effect. Works in and out of combat. Not hostile. A D4 sensor suite scanning a far-off contact gets a grainy blip and a rough size estimate. A D12 suite at the same range reads hull markings and counts crew signatures.",
         "effect": [
           {
             "tier": 1,
             "label": "Fleeting",
             "range": "0–3",
-            "description": "Learn one detail about the target: general ship class, approximate Integrity, or one system status (Impaired/Offline)."
+            "description": "Ask the GM 1 question about the target or situation. The GM answers honestly based on what the sensors can reasonably detect at this range and fidelity."
           },
           {
             "tier": 2,
             "label": "Masterful",
             "range": "4–7",
-            "description": "Learn full system status of the target ship. Grant [Optimized] to one ally's next action against the scanned target."
+            "description": "Ask the GM 2 questions. Answers may include details not immediately apparent — power output anomalies, life sign counts, concealed compartments, system damage, internal layout."
           },
           {
             "tier": 3,
             "label": "Legendary",
             "range": "8+",
-            "description": "Full system status plus crew disposition. Grant [Optimized] to all ally actions against the scanned target until end of round. Establish a target lock (required for torpedoes)."
+            "description": "Ask the GM 3 questions. Detailed, actionable intelligence. May detect things the target is actively concealing — masked transponder codes, powered-down weapons, a ship running silent in a debris field."
           }
         ],
-        "risk": "On failure, sensor data is inconclusive. The Operator learns nothing actionable. The target may detect the active scan."
+        "risk": "On failure, no useful information gained. Action spent."
       },
       {
         "id": "sa_jam",
         "name": "Jam",
-        "type": "action",
+        "type": "attack",
         "control": "Tech (Wits)",
         "power": "Sensors",
-        "description": "Electronic attack — disrupt the target ship's sensors, communications, or targeting systems. Roll Tech (Wits) vs target Sensor resistance. Inflicts conditions on enemy systems.",
+        "against": "Target's Resist",
+        "description": "Electronic attack. Flood the target's sensor frequencies with noise, false returns, and corrupted data to blind their sensors, corrupt their targeting data, and disrupt their communications. This is hostile — an attack action that rolls against the target's Resist defense. A D4 suite is blasting static on every frequency and hoping something sticks. A D12 suite is surgically targeting specific sensor frequencies, cycling through encryption protocols, and burying the target in perfectly crafted false returns.",
         "effect": [
           {
             "tier": 1,
             "label": "Fleeting",
             "range": "0–3",
-            "description": "Target ship's Sensors are [Disoriented] until end of round — their Operator and Co-Pilot actions are stepped down."
+            "description": "Target gains [Jammed] (Tactical). Sensor data is unreliable — crew judgment compromised by garbage data on every screen."
           },
           {
             "tier": 2,
             "label": "Masterful",
             "range": "4–7",
-            "description": "Target ship's Sensors are [Jammed] — their Operator actions automatically fail this round. Communications are disrupted."
+            "description": "Target gains [Jammed] (Tactical) and their Sensors are [Weakened] (Tactical). Judgment compromised AND sensor output degraded — the instruments are lying and their lies are getting quieter."
           },
           {
             "tier": 3,
             "label": "Legendary",
             "range": "8+",
-            "description": "Target ship's Sensors are [Jammed] and all Gunner attacks from the target ship have their Control die stepped down — targeting data is corrupted."
+            "description": "Target gains [Jammed] (Tactical), Sensors are [Weakened] (Tactical), and the ship is [Exposed] (Tactical). Total electronic collapse — blind, degraded, and vulnerable. Every system that relies on sensor data is compromised."
           }
         ],
-        "risk": "On failure, the jamming signal is reflected — your own Sensors are [Disoriented] until end of round."
-      },
-      {
-        "id": "sa_paint_target",
-        "name": "Paint Target",
-        "type": "action",
-        "control": "Tactics (Wits)",
-        "power": "Sensors",
-        "description": "Feed precise targeting data to Gunners. The data is so precise that the Gunner's Control die is stepped up for their next attack.",
-        "effect": [
-          {
-            "tier": 1,
-            "label": "Fleeting",
-            "range": "0–3",
-            "description": "One Gunner gains [Optimized] on their next attack against the painted target."
-          },
-          {
-            "tier": 2,
-            "label": "Masterful",
-            "range": "4–7",
-            "description": "One Gunner gains [Optimized] on their next attack. Establishes a target lock (satisfies torpedo requirements)."
-          },
-          {
-            "tier": 3,
-            "label": "Legendary",
-            "range": "8+",
-            "description": "All Gunners gain [Optimized] on their next attack against the painted target. Target lock established. The targeting data is so precise it reveals one system vulnerability — the GM names one system that is already Impaired or damaged."
-          }
-        ],
-        "risk": "On failure, targeting data is unreliable. No buff granted. The active painting may alert the target to incoming ordnance."
+        "risk": "On failure, no effect. Action spent."
       }
     ],
     "reactions": [
       {
-        "id": "sr_deploy_countermeasures",
-        "name": "Deploy Countermeasures",
+        "id": "sr_countermeasures",
+        "name": "Countermeasures",
         "type": "reaction",
-        "trigger": "Ship is targeted by ordnance (missiles, torpedoes) or an electronic attack (Jam)",
+        "trigger": "Ship is targeted by guided ordnance (missiles, torpedoes) or an electronic attack (Jam)",
         "control": "Tech (Wits)",
         "power": "Sensors",
         "cost": "Free (defense reaction)",
-        "description": "Release chaff, flares, or electronic decoys to disrupt incoming ordnance or jam attempts. Reduces the attacker's Effect Tier by the Operator's Power die result.",
-        "rule": "Success: Power die result reduces attacker's Effect Tier against ordnance or electronic attacks. Failure: reduces by 1 Tier (minimum mitigation floor, like Endure). Countermeasure stores are finite — GM tracks depletion narratively."
+        "description": "Deploy chaff, flares, electronic decoys, or signal spoofing to defend against incoming guided ordnance or electronic warfare attacks. A D4 suite pops a single flare canister and hopes the torpedo chases it. A D12 suite deploys a synchronized cloud of frequency-matched decoys that make every incoming missile think it has already hit something.",
+        "rule": "On success, the Power die result reduces the attacker's Effect Tier. On failure, reduce the attacker's Effect Tier by 1 (minimum mitigation floor, identical to Endure). Countermeasure stores are narratively finite — the GM tracks depletion."
       }
     ],
-    "gambits": [
-      {
-        "name": "Ghost Protocol",
-        "unlockDie": "D10",
-        "rule": "Reduce your Effect by 1 Tier. On a successful Jam, the target ship loses all target locks on your ship. Additionally, your ship gains concealment on sensors — the target cannot use guided ordnance against your ship until the concealment is broken (your Pilot enters the same zone, your ship attacks the target, or the Operator's Jam effect expires)."
-      },
-      {
-        "name": "Slice Systems",
-        "unlockDie": "D12",
-        "rule": "Reduce your Effect by 1 Tier. On a successful Jam at Masterful+, instead of disrupting sensors, directly impair one system of the Operator's choice on the target ship. The intrusion is deep — the impairment lasts until the target's Engineer repairs it."
-      }
-    ]
+    "gambits": []
   },
   {
     "id": "station_engineer",
@@ -468,7 +429,7 @@
         "type": "action",
         "control": "Tech (Wits)",
         "power": "Damaged system die (current level)",
-        "description": "Repair an impaired or offline system. The Power die is the damaged system's current die level — worse damage means a weaker Power die, making critical repairs harder. All repairs are permanent. Failure is a wasted action with no additional penalty.",
+        "description": "Repair an impaired or disabled system. The Power die is the damaged system's current die level — worse damage means a weaker Power die, making critical repairs harder. All repairs are permanent. Failure is a wasted action with no additional penalty.",
         "effect": [
           {
             "tier": 1,
@@ -480,7 +441,7 @@
             "tier": 2,
             "label": "Masterful",
             "range": "4–7",
-            "description": "Permanent repair — the system recovers 1 step of impairment. Debilitated becomes Impaired. Impaired becomes Operational. Offline becomes Debilitated."
+            "description": "Permanent repair — the system recovers 1 step of impairment. Debilitated becomes Impaired. Impaired becomes Operational. Disabled becomes Debilitated."
           },
           {
             "tier": 3,

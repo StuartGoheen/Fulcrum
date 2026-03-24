@@ -267,7 +267,8 @@
       { "condition": "[Suppressed]",  "onPC": "All opposing Resistance/Risk treated as +2 higher.", "onNPC": "This threat's Power is reduced by 2 on any action against PCs." },
       { "condition": "[Prone]",       "onPC": "[Exposed] to Melee. Moving costs a Maneuver.", "onNPC": "PC attacks resolve 1 tier higher in Melee. Threat's Move Maneuver costs its Action instead." },
       { "condition": "[Pinned]",      "onPC": "Cannot move. [Exposed] to all Melee.", "onNPC": "Threat cannot use Move Maneuver. PC Melee attacks resolve 1 tier higher." },
-      { "condition": "[Slowed]",      "onPC": "Max 1 Zone of voluntary movement per round.", "onNPC": "Threat may only move 1 Zone per round regardless of abilities." }
+      { "condition": "[Slowed]",      "onPC": "Max 1 Zone of voluntary movement per round.", "onNPC": "Threat may only move 1 Zone per round regardless of abilities." },
+      { "condition": "[Jammed]",      "onPC": "Crew gains [Rattled] for Sensor-associated actions (Wits-arena Control die stepped down).", "onNPC": "Presence -1 on Sensor-associated actions." }
     ],
     "note": "The principle: any die modifier that would step a PC's die up or down instead becomes a modifier on the relevant PC roll against the NPC. The player always rolls; the NPC's condition is expressed through that roll."
   },

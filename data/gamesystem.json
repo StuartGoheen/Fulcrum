@@ -897,7 +897,7 @@
     "tag": "System Rule",
     "summary": "Starship combat governs space combat encounters using the same Fulcrum resolution math as character combat — adapted for crew stations aboard a starship. Ship combat runs as Challenge Mode: one meaningful action per crew member per round, free defensive reactions. Hardware dice replace personal Power dice. System impairment mirrors the character trauma/impairment model.",
     "mode": "Challenge",
-    "modeNote": "Starship combat uses Challenge Mode structure. Each crew member gets one meaningful action per round. The GM calls on stations in dramatic order. Defensive reactions (Evade, Endure, Resist, Deploy Countermeasures) are free and do not consume the station's action.",
+    "modeNote": "Starship combat uses Challenge Mode structure. Each crew member gets one meaningful action per round. The GM calls on stations in dramatic order. Defensive reactions (Evade, Endure, Resist, Countermeasures) are free and do not consume the station's action.",
     "scale": {
       "rule": "When ships of different sizes engage, Scale modifies the dice. Larger target = step up attacker's Control die, step down attacker's Power die (easier to hit, harder to damage meaningfully). Smaller target = step down attacker's Control die, step up attacker's Power die (harder to hit, but devastating if it connects).",
       "categories": [
@@ -934,7 +934,7 @@
       "levels": [
         { "level": "Impaired", "effect": "System Power die steps down 1 size." },
         { "level": "Debilitated", "effect": "System Power die steps down 2 sizes." },
-        { "level": "Offline", "effect": "System is unavailable. Actions requiring this system automatically fail." }
+        { "level": "Disabled", "effect": "System is unavailable. Actions requiring this system automatically fail." }
       ],
       "calledShot": "When an attacker uses Called Shot, they designate which system must take the impairment if the defending crew chooses to impair. Without a Called Shot, the defending crew chooses which system to impair.",
       "repair": "The Engineer's Jury Rig action repairs impaired systems. Power die = the damaged system's current die (worse damage = weaker Power die). All repairs are permanent. Fleeting = tactical bypass (ignore impairment for 1 round). Masterful = recover 1 step. Legendary = recover 2 steps on one system OR 1 step on two systems. Failure = wasted action, no additional penalty."
@@ -970,7 +970,7 @@
         "3. Each crew member declares their one meaningful action for the round.",
         "4. Roll resolution using Fulcrum math: Control die (discipline) minus Risk (enemy defense or static difficulty) = Net Result.",
         "5. Power die (hardware system) determines effect magnitude on success.",
-        "6. Defensive reactions (Evade, Endure, Resist, Deploy Countermeasures) are free and triggered when the ship is attacked.",
+        "6. Defensive reactions (Evade, Endure, Resist, Countermeasures) are free and triggered when the ship is attacked.",
         "7. After all crew have acted, the GM advances the situation — enemy ships act, environmental changes occur, timers tick."
       ],
       "multipleGunners": "Ships with multiple weapon mounts may have multiple Gunners. Each Gunner acts independently on their turn, firing their assigned mount. All Gunners use the ship's single Fire Control Power die — individual weapons define chassis (damage table), arc, range, and traits, but the Power die is shared. This is the primary way to increase offensive output — more crew = more guns."

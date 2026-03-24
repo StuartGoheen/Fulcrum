@@ -891,7 +891,7 @@
     "name": "System Impairment",
     "type": "Starship Combat Rule",
     "category": "Starship Combat",
-    "rule": "System impairment is the starship mirror of character trauma. Three levels: Impaired (Power die steps down 1), Debilitated (Power die steps down 2), Offline (system unavailable, actions requiring it auto-fail). When damage exceeds Hull Rating, crew may choose to impair a system to soak excess. Without a Called Shot, the crew chooses which system.",
+    "rule": "System impairment is the starship mirror of character trauma. Three levels: Impaired (Power die steps down 1), Debilitated (Power die steps down 2), Disabled (system unavailable, actions requiring it auto-fail). When damage exceeds Hull Rating, crew may choose to impair a system to soak excess. Without a Called Shot, the crew chooses which system.",
     "guide": "Something breaks to save the ship. That's the deal. You pick which system takes the hit — unless the enemy called their shot, in which case they already decided for you."
   },
   {
@@ -984,9 +984,11 @@
     "category": "Starship Combat",
     "conditionType": "debuff",
     "defaultDuration": "tactical",
-    "fiction": "The ship's electronic systems are flooded with interference. Sensors are unreliable, communications are disrupted, and targeting data is corrupted.",
-    "rule": "Applied by the Operator's Jam action. The affected ship's Operator actions automatically fail this round. At higher tiers, Gunner attacks from the jammed ship also have their Control die stepped down. Duration: until end of round.",
-    "guide": "Your screens are garbage. Your comms are static. Your targeting computer is lying to you. Someone out there is very good at electronic warfare."
+    "fiction": "The ship's sensor suite is flooded with garbage data. Every screen is showing false returns, every instrument is unreliable. The crew cannot trust what they are seeing — their judgment is compromised because the information they are working from is corrupted.",
+    "rule": "Applied by the Operator's Jam action. On PC ship: crew gains [Rattled] — steps down the Wits-arena Control die for all Sensor-associated actions (Operator, Co-Pilot, Engineer actions that rely on sensor data). On NPC ship: reduce Presence by 1 when taking any actions associated with the ship's Sensors. Duration: Tactical.",
+    "pcEffect": "Crew gains [Rattled] for Sensor-associated actions (Wits-arena Control die stepped down)",
+    "npcEffect": "Presence -1 on Sensor-associated actions",
+    "guide": "Your screens are garbage. Your comms are static. Your targeting computer is lying to you. Someone out there is very good at electronic warfare — and your crew's judgment is compromised because they cannot trust what any instrument is telling them."
   },
   {
     "id": "condition_disabled",
@@ -997,6 +999,6 @@
     "defaultDuration": "lingering",
     "fiction": "A specific system or weapon mount has been temporarily shut down — overheated, overloaded, or mechanically locked. It is not destroyed, but it is not available until reset.",
     "rule": "Applied to a specific weapon mount or system. The affected mount/system cannot be used until the Engineer spends an action to reset it. Unlike Impairment (which degrades output), [Disabled] is binary — the system is either available or it is not.",
-    "guide": "The gun is locked. The system is down. Not broken — just offline. Someone needs to get down there and flip the right switches before it comes back."
+    "guide": "The gun is locked. The system is down. Not broken — just disabled. Someone needs to get down there and flip the right switches before it comes back."
   }
 ]

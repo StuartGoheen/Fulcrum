@@ -248,5 +248,94 @@
     "description": "The engine is massively over-spec for the hull — a power plant designed for a ship two size classes larger. When the crew chooses to impair Engines to soak damage, the Engines system soaks Hull Rating + 2 additional damage instead of the standard Hull Rating value. On a Hull 2 ship, most systems soak 2 per impairment — Engines soaks 4. On a Hull 1 fighter, most systems soak 1 — Engines soaks 3. The engine is so overbuilt that damage has to chew through layers of redundant machinery before it actually affects output. The crew has a tactical reason to direct damage into Engines whenever possible — it is the most efficient soak target on the ship.",
     "designNotes": "D12 Engines alternative passive. Turns Engines into the ship's armor — an oversized power plant that absorbs punishment like a capital ship. Two very different D12 Engine identities: Class Zero (the ship that cannot be caught, micro-jump escape) vs Oversized Reactor (the ship that refuses to die, engines absorb hits). Speed vs durability. The smuggler vs the blockade runner.",
     "unlockRequirement": "Engines D12"
+  },
+  {
+    "id": "mod_sensors_d8_targeting_uplink",
+    "name": "Targeting Uplink",
+    "system": "sensors",
+    "gate": "D8",
+    "type": "passive",
+    "description": "Upgraded sensor-to-weapons integration — the targeting computer feeds real-time tracking data directly to the gun mounts. When the Gunner makes an Attack or Called Shot, the Gunner's Control die gains [Optimized] when attacking a target that the Operator has successfully Scanned this fight. The X-Wing's targeting computer — military-grade sensors feeding precise firing solutions to the weapons. Without this mod, gunners aim on instinct and visual. With it, they have a computer painting the target for them.",
+    "designNotes": "D8 Sensors option A. Rewards Operator-Gunner coordination — the Operator scans, the Gunner shoots better. The benefit requires the Operator to have done their job (successful Scan) before the Gunner benefits. Makes Scan matter in combat without bolting mechanical effects onto the Scan maneuver itself.",
+    "unlockRequirement": "Sensors D8"
+  },
+  {
+    "id": "mod_sensors_d8_diagnostic_network",
+    "name": "Diagnostic Network",
+    "system": "sensors",
+    "gate": "D8",
+    "type": "passive",
+    "description": "Internal sensor feeds integrated across all stations — every console now has access to the ship's sensor suite. All stations gain access to the Scan maneuver (normally Operator-only). The Pilot can scan for terrain hazards, the Gunner can scan for weak points, the Engineer can scan for system diagnostics. Each station uses their own Control discipline but the Power die is always Sensors. Any Scan gambits not specifically restricted to a single station are available to all stations as well.",
+    "designNotes": "D8 Sensors option B. Spreads sensor capability across the whole crew. Dramatically increases crew flexibility — any station can spend their action to gather information. Makes the ship smarter through shared data, not individual power. Creates tactical choices: the Gunner could attack, or they could Scan to set up a better attack next round. Two different D8 sensor philosophies: Targeting Uplink (focused precision, Operator-Gunner partnership) vs Diagnostic Network (shared awareness, whole-crew benefit).",
+    "unlockRequirement": "Sensors D8"
+  },
+  {
+    "id": "mod_sensors_d10_signal_masking_array",
+    "name": "Signal Masking Array",
+    "system": "sensors",
+    "gate": "D10",
+    "type": "passive",
+    "description": "Upgraded emitter baffling and signal management software that lets the ship actively suppress its electronic signature while running at reduced power. The ship can run silent during narrative play — reducing power output, masking emissions with subspace noise, and minimizing its sensor footprint. When the crew is trying to avoid detection (slipping past a patrol, hiding in an asteroid field, approaching a station unnoticed), the Operator can use Scan to actively manage the ship's signature. The Sensors Power die is used as the ship's stealth rating for any opposed checks against enemy detection. Does not function in active starship combat — once detected and engaged, the masking is broken. Hiding a starship from active line-of-sight sensors in a dogfight is not realistic.",
+    "designNotes": "D10 Sensors option A. Narrative stealth capability — the Ghost, the Falcon clinging to the Star Destroyer's hull, a smuggler's ship drifting through a checkpoint. Gives the ship the ability to sneak, which most ships cannot do. Purely narrative — no combat stealth mechanics. The Operator uses Sensors as a stealth rating, which means upgrading sensors also upgrades stealth. Two different D10 sensor identities: Signal Masking (the ship that disappears outside combat) vs Sensor Prioritization (the Operator commanding the ship's electronic posture in combat).",
+    "unlockRequirement": "Sensors D10"
+  },
+  {
+    "id": "mod_sensors_d10_sensor_prioritization",
+    "name": "Sensor Prioritization",
+    "system": "sensors",
+    "gate": "D10",
+    "type": "maneuver",
+    "description": "Advanced sensor processing allows the Operator to dynamically allocate the ship's sensor bandwidth between offensive and defensive functions — but not both simultaneously. The Operator declares one of two modes as a maneuver: Offensive Priority ('All power to targeting') — all attacks from the ship (Gunner attacks, Pilot attack actions, Jam) are [Empowered], but all defensive reactions (Evade, Countermeasures, Endure) cannot benefit from any sensor-related buffs or gambits. Defensive Priority ('All power to shields and countermeasures') — all defensive reactions (Evade, Countermeasures, Endure) are [Empowered], but all attacks from the ship cannot benefit from any sensor-related buffs or gambits. The mode persists until the Operator spends another maneuver to switch it, or until they drop it entirely to return to balanced operation.",
+    "designNotes": "D10 Sensors option B. Tactical mode-switching that gives the Operator command over the ship's entire electronic posture. Creates a genuine decision every round — the tactical situation changes and the Operator must decide where sensor bandwidth goes. Very Star Wars: 'Angle the deflector shields!' is literally this. A D10 sensor suite has enough processing power to prioritize but not enough to fully cover both offense and defense simultaneously.",
+    "unlockRequirement": "Sensors D10"
+  },
+  {
+    "id": "mod_sensors_d12_crystal_gravfield_trap",
+    "name": "Crystal Gravfield Trap",
+    "system": "sensors",
+    "gate": "D12",
+    "type": "passive",
+    "description": "A gravitic sensor array so sensitive it detects mass disturbances at a system-wide scale. Originally designed for capital ships hunting cloaked vessels, this miniaturized version gives a freighter-class ship awareness that rivals a Star Destroyer's com-scan department. The Operator's Scan maneuver gains the following enhancements: Scan has no practical range limit — the Operator can scan targets anywhere in the system, not just in the immediate combat zone. Scan detects things that are normally invisible to sensors — ships running silent, powered-down vessels, objects hiding in debris fields or asteroid belts, even ships on hyperspace approach (the gravitic disturbance of their mass shadow is detectable seconds before arrival). When the Operator's Control roll on a Scan hits 8+, the standard +1 Effect Tier bonus is doubled to +2 Effect Tiers. Nothing is hidden from this ship.",
+    "designNotes": "D12 Sensors option A. The all-seeing eye — system-wide awareness, detecting the undetectable, information supremacy. Crystal gravfield traps are canon Imperial technology used on Interdictor cruisers and intelligence vessels since before 32 BBY. This mod miniaturizes that capability. The doubled 8+ bonus mirrors the Corellian Wake (Handling D12) design — rewarding the Operator's skill with exponentially better results. Exclusive with Feedback Cascade — pick one. The intelligence vessel vs the electronic warfare predator.",
+    "unlockRequirement": "Sensors D12"
+  },
+  {
+    "id": "mod_sensors_d12_feedback_cascade",
+    "name": "Feedback Cascade",
+    "system": "sensors",
+    "gate": "D12",
+    "type": "maneuver",
+    "unlocksManeuver": "Feedback Cascade",
+    "description": "The sensor suite is weaponized. The Operator captures the target's active sensor emissions, inverts them, and dumps the corrupted data back through the target's own sensor dish — creating a feedback loop that overwhelms their processing systems from the inside out. This is not hacking or slicing — it is brute-force electronic destruction, the sensor equivalent of pointing a microphone at its own speaker.",
+    "feedbackCascade": {
+      "control": "Tech (Wits)",
+      "power": "Sensors",
+      "against": "Target's Resist",
+      "classification": "Attack",
+      "prerequisite": "Target must currently be [Jammed] (the Operator has already mapped their sensor frequencies)",
+      "effect": [
+        {
+          "tier": 1,
+          "label": "Fleeting",
+          "range": "0–3",
+          "description": "Target's Sensors gain Impaired (Tactical). The feedback hits but they are managing the overload — cycling filters, rerouting processing. A debilitating blow, but contained."
+        },
+        {
+          "tier": 2,
+          "label": "Masterful",
+          "range": "4–7",
+          "description": "Duration increases to Lingering. If the target's Sensors are already Impaired by this maneuver, increase the impairment by one step (Impaired becomes Debilitated, Debilitated becomes Disabled). The cascade is eating through their countermeasures."
+        },
+        {
+          "tier": 3,
+          "label": "Legendary",
+          "range": "8+",
+          "description": "Target's Sensors are instantly Disabled. The system crashes catastrophically — receivers burned out, processing cores fused. Additionally, the cascading failure leaves the ship and crew [Rattled]. The electronic scream reverberates through every console on the ship."
+        }
+      ],
+      "failure": "No effect. Action spent. The target's countermeasures absorbed the feedback before it could cascade. The Operator cannot attempt Feedback Cascade against this target again this encounter — the target has identified and adapted to the attack pattern."
+    },
+    "designNotes": "D12 Sensors option B. Electronic warfare capstone — direct sensor system damage through a feedback loop. Requires [Jammed] prerequisite, making it a two-action combo: Jam first to map frequencies, then Cascade to burn them out. Fleeting imposes Impaired (Tactical), Masterful escalates to Lingering and stacks impairment, Legendary is the kill shot — instant Disabled plus [Rattled] across the crew. On failure, cannot reattempt against the same target — the enemy adapts. Exclusive with Crystal Gravfield Trap — pick one. One finds the needle in the haystack, the other sets the haystack on fire.",
+    "unlockRequirement": "Sensors D12"
   }
 ]

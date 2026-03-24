@@ -9,7 +9,7 @@
     "impairment": {
       "impaired": "Power die steps down 1 size. Ship responds sluggishly — turns are wide, reactions delayed.",
       "debilitated": "Power die steps down 2 sizes. Ship barely maneuvers — drifting, overcorrecting, or locked into a heading.",
-      "offline": "System unavailable. Ship cannot change heading or execute evasive actions. Pilot actions that require Handling automatically fail."
+      "disabled": "System unavailable. Ship cannot change heading or execute evasive actions. Pilot actions that require Handling automatically fail."
     },
     "designNotes": [
       "Handling is the ship's agility stat. Impairing Handling makes the ship a sitting target — Evade rolls lose their Power die, Attack Runs lose positioning advantage.",
@@ -26,7 +26,7 @@
     "impairment": {
       "impaired": "Power die steps down 1 size. Ship loses acceleration — pursuit and escape become difficult.",
       "debilitated": "Power die steps down 2 sizes. Ship is crawling — cannot close distance or break away without assistance.",
-      "offline": "System unavailable. Ship is dead in space. No pursuit, no escape, no repositioning. Hyperspace is impossible."
+      "disabled": "System unavailable. Ship is dead in space. No pursuit, no escape, no repositioning. Hyperspace is impossible."
     },
     "designNotes": [
       "Engines are the ship's speed stat. Impairing Engines turns a chase into a siege — the ship cannot run and cannot close.",
@@ -43,28 +43,29 @@
     "impairment": {
       "impaired": "Power die steps down 1 size. Shield coverage is patchy — hits that should be absorbed start getting through.",
       "debilitated": "Power die steps down 2 sizes. Shields are flickering — minimal absorption, catastrophic gaps in coverage.",
-      "offline": "System unavailable. No shield absorption. Endure defense is unavailable — all incoming damage lands at full effect."
+      "disabled": "System unavailable. No shield absorption. Endure defense is unavailable — all incoming damage lands at full effect."
     },
     "designNotes": [
       "Shields are the ship's toughness stat. They mirror personal armor's Endure bonus — stepping up the Power die when absorbing hits.",
-      "Shields offline is the starship equivalent of being unarmored. The crew feels every hit at full force. Engineers should prioritize shield repair above almost everything else."
+      "Shields Disabled is the starship equivalent of being unarmored. The crew feels every hit at full force. Engineers should prioritize shield repair above almost everything else."
     ]
   },
   {
     "id": "hw_sensors",
     "name": "Sensors",
     "station": "Operator / Co-Pilot",
-    "purpose": "Scanning, jamming, targeting data, and electronic warfare. The Operator's primary Power die and the Co-Pilot's secondary Power die.",
+    "purpose": "Scanning, jamming, electronic warfare, and countermeasures. The Operator's primary Power die and the Co-Pilot's secondary Power die. The ship's brain and nervous system — its awareness of the universe.",
     "powerDieRange": "D4–D12",
-    "actions": ["Scan", "Jam", "Paint Target", "Coordinate", "Resist (passive)", "Deploy Countermeasures"],
+    "actions": ["Scan", "Jam", "Countermeasures", "Coordinate", "Resist (passive)"],
     "impairment": {
-      "impaired": "Power die steps down 1 size. Sensor data is degraded — scans are incomplete, targeting data is unreliable.",
+      "impaired": "Power die steps down 1 size. Sensor data is degraded — scans are incomplete, electronic warfare output is unreliable.",
       "debilitated": "Power die steps down 2 sizes. Sensors are barely functional — the crew is flying half-blind.",
-      "offline": "System unavailable. No scanning, no electronic warfare, no targeting data. The ship is blind. Operator actions that require Sensors automatically fail. Resist defense is unavailable."
+      "disabled": "System unavailable. No scanning, no electronic warfare, no countermeasures. The ship is blind. Operator actions that require Sensors automatically fail. Resist defense is unavailable. This is the electronic equivalent of [Blinded]."
     },
     "designNotes": [
       "Sensors are the ship's awareness stat. Impairing Sensors degrades the Operator and Co-Pilot simultaneously — a well-placed Called Shot to Sensors cripples the ship's information warfare.",
-      "Sensors offline means the crew cannot Scan, Jam, or Paint Target. The Gunner loses targeting data buffs. The Co-Pilot loses coordination tools. This is the electronic equivalent of [Blinded]."
+      "Sensors Disabled means the crew cannot Scan or Jam. Countermeasures are unavailable. The Co-Pilot loses coordination tools. The sensor die also represents range and fidelity: D4 sees what is right in front of the ship, D12 finds the needle in the haystack from across the system.",
+      "The Operator's base maneuvers are Scan (information — mirrors character Assess), Jam (attack vs Resist), and Countermeasures (defense reaction). Paint Target was removed as a standalone action — targeting support is now handled through the Targeting Uplink modification (D8) and Scan gambits from character vocations."
     ]
   },
   {
@@ -77,7 +78,7 @@
     "impairment": {
       "impaired": "Power die steps down 1 size. Fire control solutions are degraded — targeting is sluggish, power distribution uneven.",
       "debilitated": "Power die steps down 2 sizes. Fire control barely functional — manual targeting, intermittent weapon power.",
-      "offline": "System unavailable. No fire control — weapons cannot acquire targets. All Gunner attack actions automatically fail."
+      "disabled": "System unavailable. No fire control — weapons cannot acquire targets. All Gunner attack actions automatically fail."
     },
     "designNotes": [
       "Fire Control is a single system die for all weapons. Individual weapons define chassis (damage table), arc, range, and traits — but the Power die comes from Fire Control, not the weapon itself.",

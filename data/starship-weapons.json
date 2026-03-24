@@ -64,7 +64,7 @@
     "traits": [
       {
         "name": "Ion Discharge",
-        "description": "Deals no hull damage. Instead, the Effect Tier determines the severity of system disruption. Fleeting: target system gains [Disoriented] equivalent (one action degraded). Masterful: target system is Impaired. Legendary: target system is Debilitated or Offline (attacker's choice)."
+        "description": "Deals no hull damage. Instead, the Effect Tier determines the severity of system disruption. Fleeting: target system gains [Disoriented] equivalent (one action degraded). Masterful: target system is Impaired. Legendary: target system is Debilitated or Disabled (attacker's choice)."
       }
     ],
     "tags": ["Ship Weapon", "Medium", "Ion", "Electronic Warfare"]
@@ -83,7 +83,7 @@
       },
       {
         "name": "Lock Required",
-        "description": "Requires a target lock from the Operator (Paint Target or Scan at Masterful+) before firing. Without a lock, the attack suffers a Control step-down."
+        "description": "Requires a target lock before firing. A lock is established when the Operator successfully Scans the target at Masterful+ (2+ questions answered about the target) or when the ship has the Targeting Uplink modification and the Operator has Scanned the target at any tier this fight. Without a lock, the torpedo can still fire but the attack suffers a Control step-down — the torpedo is relying on unguided ballistic trajectory."
       }
     ],
     "tags": ["Ship Weapon", "Heavy", "Ordnance", "Torpedo"]
