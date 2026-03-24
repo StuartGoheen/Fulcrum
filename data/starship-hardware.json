@@ -68,47 +68,21 @@
     ]
   },
   {
-    "id": "hw_weapon_mounts",
-    "name": "Weapon Mounts",
+    "id": "hw_fire_control",
+    "name": "Fire Control",
     "station": "Gunner",
-    "purpose": "Offensive firepower. Each weapon mount has its own Power die. The Gunner's Power die is the mount they are firing.",
+    "purpose": "Offensive firepower management. A single Power die representing the ship's fire control computer, targeting systems, and weapon power distribution. The Gunner's Power die for all weapon attacks regardless of which mount they fire.",
     "powerDieRange": "D4–D12",
     "actions": ["Attack", "Called Shot", "Suppressive Fire"],
-    "mountTypes": [
-      {
-        "type": "Light Mount",
-        "baseDie": "D6",
-        "chassis": "light",
-        "description": "Anti-fighter weapons. Fast tracking, low power. Effective against starfighters and small craft."
-      },
-      {
-        "type": "Medium Mount",
-        "baseDie": "D8",
-        "chassis": "medium",
-        "description": "General-purpose ship weapons. Effective against most targets. The workhorse of ship combat."
-      },
-      {
-        "type": "Heavy Mount",
-        "baseDie": "D10",
-        "chassis": "heavy",
-        "description": "Capital-grade weapons. Slow tracking, devastating power. Effective against large ships and structures."
-      },
-      {
-        "type": "Torpedo Mount",
-        "baseDie": "D12",
-        "chassis": "heavy",
-        "description": "Ordnance delivery. Limited ammunition, maximum impact. Proton torpedoes, concussion missiles."
-      }
-    ],
     "impairment": {
-      "note": "Each weapon mount tracks impairment independently. Impairing one mount does not affect others.",
-      "impaired": "Mount Power die steps down 1 size. The weapon fires but with reduced output — power fluctuations, misaligned emitters.",
-      "debilitated": "Mount Power die steps down 2 sizes. The weapon barely functions — intermittent fire, severe power loss.",
-      "offline": "Mount unavailable. The weapon cannot fire. Physical damage to the mount requires repair before it can be brought back online."
+      "impaired": "Power die steps down 1 size. Fire control solutions are degraded — targeting is sluggish, power distribution uneven.",
+      "debilitated": "Power die steps down 2 sizes. Fire control barely functional — manual targeting, intermittent weapon power.",
+      "offline": "System unavailable. No fire control — weapons cannot acquire targets. All Gunner attack actions automatically fail."
     },
     "designNotes": [
-      "Weapon Mounts are unique among hardware systems because they are individually tracked. A ship with three weapon mounts has three independent Power dice that can be independently impaired.",
-      "The mount chassis determines the damage table used — identical to personal weapon chassis (Light, Medium, Heavy). Ship weapons use the same damage math as personal weapons, just at a different scale."
+      "Fire Control is a single system die for all weapons. Individual weapons define chassis (damage table), arc, range, and traits — but the Power die comes from Fire Control, not the weapon itself.",
+      "Impairing Fire Control degrades ALL weapon output simultaneously. This is intentional — a single Called Shot to Fire Control is the most efficient way to reduce a ship's offensive threat. The crew must choose between absorbing damage elsewhere or watching all their guns weaken.",
+      "Weapons still track their own status independently (a disabled mount is a disabled mount), but the Power die that drives them all is Fire Control."
     ]
   }
 ]

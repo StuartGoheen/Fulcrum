@@ -169,44 +169,23 @@
         "lockedOnInteraction": "When the ship is [Locked On] by the attacker, the Evade Power die is [Weakened] — the pursuer knows your evasion patterns."
       }
     ],
-    "gambits": [
-      {
-        "name": "Punch It",
-        "unlockDie": "D8",
-        "rule": "Reduce your Effect by 1 Tier. On any Pilot action that involves movement (Attack Run, Pursue/Close, Break Away), double the zones moved. The Engines system takes strain — the Engineer must repair or the Engines gain [Impaired] at end of round."
-      },
-      {
-        "name": "Barrel Roll",
-        "unlockDie": "D10",
-        "rule": "Reduce your Effect by 1 Tier. On an Evade reaction, if successful, the evasion is so dramatic that the attacker's next attack against this ship has its Control die stepped down (carried disorientation from the unexpected maneuver)."
-      },
-      {
-        "name": "Bootlegger Reverse",
-        "unlockDie": "D10",
-        "rule": "Reduce your Effect by 1 Tier. On a Break Away action, instead of increasing the gap, the ship flips 180 degrees and is now facing the pursuer head-on at the same range. All Forward-arc weapons may fire. The pursuing ship is [Exposed] until end of round."
-      },
-      {
-        "name": "Thread the Needle",
-        "unlockDie": "D12",
-        "rule": "Reduce your Effect by 1 Tier. On a Terrain Run, if successful, one pursuing ship that follows suffers Masterful collision damage and becomes [Disabled] for 1 round. The terrain gap is too narrow for anything but perfect execution — and you're the only one who executed it."
-      }
-    ]
+    "gambits": []
   },
   {
     "id": "station_gunner",
     "name": "Gunner",
     "controlDiscipline": "Heavy Weapons",
     "controlArena": "Physique",
-    "powerSystems": ["Weapon Mounts"],
-    "summary": "The ship's offensive firepower. The Gunner operates weapon mounts, designates targets, and delivers the damage. Gunners don't control positioning — they execute within the geometry the Pilot established. Multiple Gunners can operate simultaneously if the ship has multiple mounts.",
+    "powerSystems": ["Fire Control"],
+    "summary": "The ship's offensive firepower. The Gunner operates weapon mounts through the ship's Fire Control system, designates targets, and delivers the damage. Gunners don't control positioning — they execute within the geometry the Pilot established. Multiple Gunners can operate simultaneously if the ship has multiple mounts.",
     "actions": [
       {
         "id": "sa_attack",
         "name": "Attack",
         "type": "action",
         "control": "Heavy Weapons (Physique)",
-        "power": "Weapon Mount die",
-        "description": "Fire a weapon mount at an enemy target. Uses the weapon's chassis damage table to determine damage dealt.",
+        "power": "Fire Control",
+        "description": "Fire a weapon mount at an enemy target. Uses the weapon's chassis damage table to determine damage dealt. Power die comes from the ship's Fire Control system.",
         "effect": [
           {
             "tier": 1,
@@ -234,7 +213,7 @@
         "name": "Called Shot",
         "type": "action",
         "control": "Heavy Weapons (Physique)",
-        "power": "Weapon Mount die",
+        "power": "Fire Control",
         "description": "Target a specific system on the enemy ship. If the enemy crew chooses to impair a system to soak damage, they must impair the system you designated.",
         "effect": [
           {
@@ -263,7 +242,7 @@
         "name": "Suppressive Fire",
         "type": "action",
         "control": "Heavy Weapons (Physique)",
-        "power": "Weapon Mount die",
+        "power": "Fire Control",
         "description": "Saturate a zone with fire to deny movement and create pressure. No direct damage — tactical zone control.",
         "effect": [
           {
@@ -295,7 +274,7 @@
         "type": "exploit",
         "trigger": "Pilot's Evade reaction generates an Opening (Control 8+)",
         "control": "Heavy Weapons (Physique)",
-        "power": "Weapon Mount die",
+        "power": "Fire Control",
         "cost": "1 Exploit pip",
         "description": "When the Pilot's Evade generates an Opening, any Gunner with an available Exploit pip may take a reactive attack at -1 Effect Tier (default Exploit rules).",
         "rule": "Standard Exploit — reactive attack at -1 Effect Tier. Requires Exploit pip and a weapon mount that can target the attacker (arc and range must be valid)."
@@ -315,7 +294,7 @@
       {
         "name": "Overcharge",
         "unlockDie": "D12",
-        "rule": "Reduce your Effect by 1 Tier. Step up the weapon mount's Power die for this attack. After the attack resolves, the mount gains [Disabled] — it cannot fire until the Engineer spends an action to reset the weapon."
+        "rule": "Reduce your Effect by 1 Tier. Step up the Fire Control Power die for this attack. After the attack resolves, the fired mount gains [Disabled] — it cannot fire until the Engineer spends an action to reset the weapon."
       },
       {
         "name": "Concussive Blast",
@@ -489,28 +468,28 @@
         "type": "action",
         "control": "Tech (Wits)",
         "power": "Damaged system die (current level)",
-        "description": "Repair an impaired or offline system. The tier of success determines the duration and quality of the repair.",
+        "description": "Repair an impaired or offline system. The Power die is the damaged system's current die level — worse damage means a weaker Power die, making critical repairs harder. All repairs are permanent. Failure is a wasted action with no additional penalty.",
         "effect": [
           {
             "tier": 1,
             "label": "Fleeting",
             "range": "0–3",
-            "description": "Temporary fix — the system comes back online (or impairment clears by 1 step) for 1 round. At the end of the round, the system degrades back to its previous state."
+            "description": "Tactical bypass — the system's impairment is ignored for 1 round. The system operates at its pre-damage level until the end of the next round, then reverts. The damage is not repaired — the Engineer is routing around it temporarily."
           },
           {
             "tier": 2,
             "label": "Masterful",
             "range": "4–7",
-            "description": "Solid repair — the system comes back online (or impairment clears by 1 step) for the rest of the fight. Holding together with spit and wire."
+            "description": "Permanent repair — the system recovers 1 step of impairment. Debilitated becomes Impaired. Impaired becomes Operational. Offline becomes Debilitated."
           },
           {
             "tier": 3,
             "label": "Legendary",
             "range": "8+",
-            "description": "Permanent repair — the system is fully restored to its pre-damage state. Clean fix, no degradation. The kind of repair that should take a dock crew two hours."
+            "description": "Major repair — recover 2 steps of impairment on one system, OR recover 1 step on two different systems. The kind of repair that should take a dock crew two hours, done under fire in thirty seconds."
           }
         ],
-        "risk": "On failure, the repair attempt fails. The system remains in its current state. If the system was Offline, the failed attempt may cause collateral — GM may impose [Hazard 1] on the Engineering section."
+        "risk": "On failure, the repair attempt fails. The system remains in its current state. Wasted action — no additional penalty."
       },
       {
         "id": "sa_reroute_power",
@@ -543,18 +522,7 @@
       }
     ],
     "reactions": [],
-    "gambits": [
-      {
-        "name": "Emergency Bypass",
-        "unlockDie": "D10",
-        "rule": "Reduce your Effect by 1 Tier. On a Jury Rig action, the repair takes effect immediately — before any other actions resolve this round. Additionally, the repaired system gains [Empowered] for its first use after repair."
-      },
-      {
-        "name": "Overload Reactor",
-        "unlockDie": "D12",
-        "rule": "Reduce your Effect by 1 Tier. On a Reroute Power action, instead of stepping down a source system, draw directly from the reactor. The target system steps up by 2 sizes with no source penalty. However, the reactor strain means all systems take 1 step of impairment at the end of the next round if not stabilized."
-      }
-    ]
+    "gambits": []
   },
   {
     "id": "station_copilot",

@@ -7,12 +7,13 @@
     "max": 10,
     "current": 10
   },
+  "hullRating": 2,
   "systems": {
     "handling": { "id": "hw_handling", "name": "Handling", "baseDie": "D8", "status": "operational" },
     "engines": { "id": "hw_engines", "name": "Engines", "baseDie": "D8", "status": "operational" },
     "shields": { "id": "hw_shields", "name": "Shields", "baseDie": "D6", "status": "operational" },
     "sensors": { "id": "hw_sensors", "name": "Sensors", "baseDie": "D6", "status": "operational" },
-    "weapon_mounts": { "id": "hw_weapon_mounts", "name": "Weapon Mounts", "baseDie": "D8", "status": "operational" }
+    "fire_control": { "id": "hw_fire_control", "name": "Fire Control", "baseDie": "D8", "status": "operational" }
   },
   "weapons": [
     {
@@ -40,6 +41,7 @@
       "controlStation": "station_gunner"
     }
   ],
+  "modifications": [],
   "stations": ["station_pilot", "station_gunner", "station_operator", "station_engineer", "station_copilot"],
   "notes": "Modified YT-1300 light freighter. Fast, tough for her size, and bristling with aftermarket weapons. She may not look like much, but she's got it where it counts."
 }

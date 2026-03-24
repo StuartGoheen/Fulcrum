@@ -49,7 +49,7 @@
     station_copilot:  'var(--color-accent-green, #22c55e)',
   };
 
-  var SYSTEM_KEYS = ['handling', 'engines', 'shields', 'sensors', 'weapon_mounts'];
+  var SYSTEM_KEYS = ['handling', 'engines', 'shields', 'sensors', 'fire_control'];
 
   var STATUS_LABELS = {
     operational:  'Online',
@@ -66,8 +66,10 @@
   };
 
   var POWER_ALIAS = {
-    'weapon mount die': 'weapon_mounts',
-    'weapon mounts':    'weapon_mounts',
+    'fire control':     'fire_control',
+    'fire_control':     'fire_control',
+    'weapon mount die': 'fire_control',
+    'weapon mounts':    'fire_control',
     'handling':         'handling',
     'engines':          'engines',
     'shields':          'shields',
@@ -462,8 +464,7 @@
         '</div>' +
         '<div class="sc-weapon-meta">' +
           '<span class="sc-weapon-chassis-label">' + _esc(weaponDef.chassisLabel) + '</span>' +
-          '<span class="sc-weapon-power-die">Power: ' + _esc(weaponDef.powerDie) + '</span>' +
-          (weaponDef.range ? '<span class="sc-weapon-range">Range: ' + _esc(weaponDef.range) + '</span>' : '') +
+          (weaponDef.range ? '<span class="sc-weapon-range">Range: ' + _esc(Array.isArray(weaponDef.range) ? weaponDef.range.join(', ') : weaponDef.range) + '</span>' : '') +
           arcBadge +
           statusBadge +
         '</div>' +
@@ -660,7 +661,7 @@
     }
 
     if (stationId === 'station_gunner' && _state.ship && _state.ship.weapons) {
-      html += '<div class="sc-detail-section"><div class="sc-section-label">Weapon Mounts</div>';
+      html += '<div class="sc-detail-section"><div class="sc-section-label">Fire Control</div>';
       for (var w = 0; w < _state.ship.weapons.length; w++) {
         var mount = _state.ship.weapons[w];
         var weaponDef = null;

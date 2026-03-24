@@ -859,7 +859,7 @@
     "name": "Hardware Die",
     "type": "Starship Combat Rule",
     "category": "Starship Combat",
-    "rule": "In starship combat, the Power die for each roll is determined by the ship's hardware systems (Handling, Engines, Shields, Sensors, Weapon Mounts), not the character's personal arena die. A character's discipline die still serves as the Control die. The hardware die replaces the arena die as the Power source.",
+    "rule": "In starship combat, the Power die for each roll is determined by the ship's hardware systems (Handling, Engines, Shields, Sensors, Fire Control), not the character's personal arena die. A character's discipline die still serves as the Control die. The hardware die replaces the arena die as the Power source.",
     "guide": "Your personal strength doesn't matter when you're pulling the trigger on a quad laser. What matters is how powerful the quad laser is. That's the Hardware Die — the ship's stats, not yours."
   },
   {
@@ -883,8 +883,8 @@
     "name": "Hull Rating",
     "type": "Starship Combat Rule",
     "category": "Starship Combat",
-    "rule": "Hull Rating is the ship's impairment soak threshold — equivalent to a character's Trauma threshold. When damage exceeds the Hull Rating, the crew may choose to impair a system to absorb the excess. This mirrors the character choice to take a Trauma to avoid Vitality loss.",
-    "guide": "The hull is built to take a beating. But past a certain point, something has to give — a system takes the strain so the hull doesn't crack. That's the Hull Rating line."
+    "rule": "Hull Rating is the soak value per impairment. Each system impairment absorbs UP TO Hull Rating points of damage — excess is wasted. On a Hull 2 ship, each impairment absorbs exactly 2 damage. Capital ships with high Hull Ratings soak fully per hit, but must spend entire impairments even on small hits — swarm tactics exploit this by forcing multiple small impairments that each waste soak capacity.",
+    "guide": "The hull soaks damage in chunks. Hull Rating 2 means every impairment absorbs 2 points — no more, no less. A 1-damage hit still costs the crew a full impairment. That's why swarms of fighters can bleed a Star Destroyer dry — each potshot costs a full system tick."
   },
   {
     "id": "system_impairment",
@@ -951,12 +951,12 @@
     "guide": "Barely visible on the scope. You need big guns or guided ordnance to touch anything out here. This is where chases happen."
   },
   {
-    "id": "weapon_mount",
-    "name": "Weapon Mount",
+    "id": "fire_control",
+    "name": "Fire Control",
     "type": "Starship Combat Rule",
     "category": "Starship Combat",
-    "rule": "A weapon installation on a starship. Each mount has its own chassis type (Light/Medium/Heavy/Torpedo), Power die (D4–D12), firing arc (Forward/Dorsal/Ventral/Turret), and range capability. Multiple mounts allow multiple Gunners to operate simultaneously. Each mount tracks impairment independently.",
-    "guide": "A gun bolted to the hull. It has a size, a power output, and a direction it can shoot. More mounts means more Gunners, which means more firepower. Simple math."
+    "rule": "The ship's unified weapons management system. Fire Control is a single hardware Power die (D4–D12) that governs ALL weapon output. Individual weapons define chassis (damage table), arc, range, and traits — but the Power die comes from Fire Control, not the weapon itself. Impairing Fire Control degrades ALL weapon output simultaneously. A Called Shot to Fire Control is the most efficient way to cripple a ship's offensive capability.",
+    "guide": "One system runs all the guns. When Fire Control is hot, every weapon on the ship hits harder. When it's damaged, every turret and torpedo tube suffers. One system, one throat to choke."
   },
   {
     "id": "firing_arc",

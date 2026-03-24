@@ -1,0 +1,234 @@
+[
+  {
+    "id": "mod_handling_d8_maneuvering_jet",
+    "name": "Maneuvering Jet Overhaul",
+    "system": "handling",
+    "gate": "D8",
+    "type": "passive",
+    "description": "Aftermarket attitude thrusters and upgraded reaction control systems. The ship rolls faster, pitches harder, and recovers from maneuvers with less overshoot. When the Pilot uses Evasive Maneuvers and succeeds, the [Elusive] condition also grants [Cover 1] to the ship for the same duration.",
+    "designNotes": "Entry-level Handling upgrade. Makes Evasive Maneuvers strictly better by bundling Cover with Elusive. Rewards defensive flying without changing the action's structure."
+  },
+  {
+    "id": "mod_handling_d8_snap_roll",
+    "name": "Snap Roll",
+    "system": "handling",
+    "gate": "D8",
+    "type": "gambit",
+    "linkedManeuver": "Evasive Maneuvers",
+    "description": "On Evasive Maneuvers, pay -1 tier. The ship executes a violent axial roll that shakes all [Locked On] conditions targeting this ship. The roll is disorienting enough that any ship that had [Locked On] on this ship has their next Pursue/Close action [Weakened].",
+    "designNotes": "Defensive gambit. Breaks locks without needing to Break Away — lets the Pilot stay aggressive while shedding pursuit. The -1 tier means the Elusive effect is weaker, but the lock-shatter compensates tactically."
+  },
+  {
+    "id": "mod_handling_d10_brace_for_impact",
+    "name": "Brace for Impact",
+    "system": "handling",
+    "gate": "D10",
+    "type": "passive",
+    "description": "Reinforced structural bracing and impact distribution framework integrated into the hull around the cockpit. When the Pilot's Evade reaction fails (Control result below the Risk), the ship still reduces the attacker's Effect Tier by 1 — a minimum floor on Evade, identical to how Endure always provides a floor. The bracing absorbs what the flying couldn't dodge.",
+    "designNotes": "Evade normally has no floor on failure — you either dodge or you don't. This mod gives Evade a safety net, making the Pilot's defensive choice less binary. Military-grade survivability upgrade."
+  },
+  {
+    "id": "mod_handling_d10_vector_flip",
+    "name": "Vector Flip",
+    "system": "handling",
+    "gate": "D10",
+    "type": "gambit",
+    "linkedManeuver": "Break Away",
+    "description": "On Break Away, pay -1 tier. Instead of increasing the gap, the ship executes a 180-degree flip and is now facing the pursuer head-on at the same range. All Forward-arc weapons may fire. The pursuing ship is [Exposed] until end of round.",
+    "designNotes": "Aggressive defensive gambit. Turns a retreat into a counterattack opportunity. The pursuing ship expected you to run — instead you're staring them down with guns hot. The -1 tier means the Break Away effect itself is weaker, but the tactical reversal compensates."
+  },
+  {
+    "id": "mod_handling_d12_corellian_wake",
+    "name": "The Corellian Wake",
+    "system": "handling",
+    "gate": "D12",
+    "type": "passive",
+    "description": "The ship's maneuvering systems are tuned to an almost supernatural level of precision. When the Pilot rolls a Control result of 8+ on any Handling-powered action (Evasive Maneuvers, Terrain Run, Evade), the standard +1 Effect Tier bonus is doubled to +2 Effect Tiers. In hazardous environments (asteroid fields, debris clouds, atmospheric hazards), the ship moves through obstacles that should be impassable — threading gaps that no sane pilot would attempt. The Corellian Wake is pure flying mastery — no gimmicks, no tricks, just the best hands on the stick in the sector.",
+    "designNotes": "D12 Handling option A. Pure flying enhancement — doubles the 8+ bonus on all Handling actions. The Pilot who picks this is betting on skill, not hyperspace shortcuts. Exclusive with Micro-Jump (Handling) — pick one."
+  },
+  {
+    "id": "mod_handling_d12_micro_jump_handling",
+    "name": "Micro-Jump (Handling)",
+    "system": "handling",
+    "gate": "D12",
+    "type": "passive",
+    "description": "The ship's navigation computer and maneuvering systems are integrated to a degree that allows short-range hyperspace skips — the ship jumps a fraction of a light-second, repositioning instantaneously within the combat zone. Uses Piloting (Control) / Handling (Power). The Handling version is precision — the Pilot threads the exit point with surgical accuracy. Failure is a navigation abort: the calculations collapse, the ship goes nowhere, and the Pilot is left [Exposed].",
+    "unlocksManeuver": "Micro-Jump",
+    "microJump": {
+      "power": "Handling",
+      "control": "Piloting (Reflex)",
+      "failureFlavor": "Navigation abort — the jump calculations collapse. The Pilot yanks the lever back. Ship goes nowhere, [Exposed] for the round.",
+      "effect": [
+        {
+          "tier": 0,
+          "label": "Failure",
+          "range": "1–3",
+          "description": "Navigation abort. The jump calculations collapse mid-sequence. Ship goes nowhere. [Exposed] for the round."
+        },
+        {
+          "tier": 1,
+          "label": "Fleeting",
+          "range": "0–3",
+          "description": "Violent skip. Jump to any zone, shatter all [Locked On]. Handling or Engines Impaired (Pilot's choice) from the stress."
+        },
+        {
+          "tier": 2,
+          "label": "Masterful",
+          "range": "4–7",
+          "description": "Clean jump. Reposition to any zone, shatter locks, establish [Locked On] on an enemy of choice."
+        },
+        {
+          "tier": 3,
+          "label": "Legendary",
+          "range": "8+",
+          "description": "Perfect jump. Reposition, shatter locks, establish [Locked On], all Gunners gain [Optimized] (Tactical)."
+        }
+      ]
+    },
+    "designNotes": "D12 Handling option B. Unlocks Micro-Jump using Handling as Power die — precision exit with nav-abort failure. Exclusive with Corellian Wake — pick one. The same Micro-Jump maneuver is available via D12 Engines (Class Zero Hyperdrive), but with Engines as Power and engine-sputter failure."
+  },
+  {
+    "id": "mod_shields_d8_polarized_deflectors",
+    "name": "Polarized Deflectors",
+    "system": "shields",
+    "gate": "D8",
+    "type": "passive",
+    "description": "Shield emitters are recalibrated to polarize against the most common energy weapon frequencies. When the ship uses Endure as its defense against energy weapons (lasers, turbolasers), the Shields Power die is [Optimized] for that roll. Does not apply against ordnance (torpedoes, missiles) or kinetic impacts.",
+    "designNotes": "Entry-level Shields upgrade. Makes Endure more reliable against the most common attack type (energy weapons). Simple, consistent benefit that rewards choosing Endure over Evade against blasters."
+  },
+  {
+    "id": "mod_shields_d8_energy_shunt",
+    "name": "Energy Shunt",
+    "system": "shields",
+    "gate": "D8",
+    "type": "gambit",
+    "linkedManeuver": "Reinforce Shields",
+    "description": "On Reinforce Shields, pay -1 tier. The shield energy that would have created a buffer is instead shunted into a friendly ship at Close range, granting them [Buffered 1]. The Engineer's own ship does not gain a buffer — the energy is redirected entirely. At Masterful (reduced to Fleeting by gambit cost), the friendly ship gains [Buffered 1] for 1 round. At Legendary (reduced to Masterful), they gain [Buffered 2] for the fight.",
+    "designNotes": "Support gambit. Lets the Engineer protect another ship instead of their own. Useful in escort scenarios or when flying alongside a more vulnerable ally. The -1 tier cost means the buffer granted is always one step weaker than a self-reinforce."
+  },
+  {
+    "id": "mod_shields_d10_regenerative_cycling",
+    "name": "Regenerative Cycling",
+    "system": "shields",
+    "gate": "D10",
+    "type": "passive",
+    "description": "Shield generators cycle through a regenerative feedback loop that restores depleted shield layers between hits. At the start of each round, if the ship has no [Buffered] condition, it automatically gains [Buffered 1]. This does not stack — if the ship already has [Buffered], the regeneration does not apply. The shields passively rebuild a minimal layer of protection every round without the Engineer spending an action.",
+    "designNotes": "Passive shield regeneration. Guarantees a minimum shield buffer every round without action cost. The non-stacking rule prevents it from being abused with Reinforce Shields — if you already have a buffer, regen doesn't add to it. This frees the Engineer to Jury Rig or Reroute instead of constantly Reinforcing."
+  },
+  {
+    "id": "mod_shields_d10_backscatter_flare",
+    "name": "Backscatter Flare",
+    "system": "shields",
+    "gate": "D10",
+    "type": "gambit",
+    "linkedManeuver": "Endure",
+    "description": "On Endure defense, pay -1 tier. The shield absorption releases a violent backscatter pulse toward the attacker. The attacker's next action this round has its Control die [Weakened]. The flare is blinding — concentrated shield energy reflected back along the attack vector. The -1 tier reduces the damage absorption, but the tactical disruption to the attacker compensates.",
+    "designNotes": "Defensive gambit that punishes the attacker. Turns the Endure reaction into a counterattack opportunity — the attacker lands the hit, but the shield flare degrades their next action. Good against enemies who focus fire on one target."
+  },
+  {
+    "id": "mod_shields_d12_impenetrable_baffles",
+    "name": "Impenetrable Baffles",
+    "system": "shields",
+    "gate": "D12",
+    "type": "passive",
+    "description": "Layered baffle plating and redundant shield generators create an almost impervious defensive envelope. When Reinforce Shields succeeds, the [Buffered X] value is increased by 1 above what the tier would normally grant. Fleeting grants [Buffered 2] instead of [Buffered 1]. Masterful grants [Buffered 3] instead of [Buffered 2]. Legendary grants [Buffered 4] instead of [Buffered 3]. The ship simply absorbs more punishment per reinforcement cycle.",
+    "designNotes": "D12 Shields passive. Strictly improves Reinforce Shields output. The extra buffer point per tier makes the Engineer's defensive actions significantly more efficient. Combined with Regenerative Cycling (D10), the ship becomes extremely hard to damage through sustained fire."
+  },
+  {
+    "id": "mod_shields_d12_aegis_protocol",
+    "name": "Aegis Protocol",
+    "system": "shields",
+    "gate": "D12",
+    "type": "passive",
+    "description": "Advanced shield networking allows the ship to extend its shield envelope to protect adjacent allied ships. When this ship has [Buffered X], allied ships at Close range can use this ship's [Buffered] value to absorb damage instead of their own defenses. The protecting ship's buffer decreases as normal when absorbing damage for an ally. Only one ship can benefit from the Aegis per attack — the Engineer chooses which ally to protect when the attack is declared.",
+    "designNotes": "D12 Shields alternative passive. Turns the ship into a mobile shield platform — a tank that protects its allies. Pairs naturally with Impenetrable Baffles (same gate, can't have both) to create two distinct D12 Shield identities: the self-sufficient fortress (Baffles) or the fleet protector (Aegis)."
+  },
+  {
+    "id": "mod_engines_d8_overtuned_sublight",
+    "name": "Overtuned Sublight Drive",
+    "system": "engines",
+    "gate": "D8",
+    "type": "passive",
+    "description": "Aftermarket injectors and upgraded thrust couplings push more raw output through the drive. Any maneuver that moves the ship X zones increases X by 1. Pursue/Close moves one zone further. Break Away opens one more zone of distance. Attack Run closes one extra zone. The ship is simply faster — a Corellian racing shop upgrade.",
+    "designNotes": "Entry-level Engines upgrade. Simple, consistent benefit — more zones moved per action. Makes the Pilot's positioning actions strictly better without changing their structure."
+  },
+  {
+    "id": "mod_engines_d8_power_bleed",
+    "name": "Power Bleed",
+    "system": "engines",
+    "gate": "D8",
+    "type": "gambit",
+    "linkedManeuver": "Reroute Power",
+    "description": "On Reroute Power, pay -1 tier. Engines steps down as normal (source system), but the rerouted power feeds two target systems instead of one — both step up per the resolved tier. The -1 tier affects duration: a Masterful result drops to Fleeting — two systems boosted but only for 1 round instead of fight-long. One system long-term, or two systems short-term.",
+    "designNotes": "Utility gambit. Doubles the targets of Reroute Power at the cost of reduced tier. Excellent for emergency situations where multiple systems need a boost simultaneously."
+  },
+  {
+    "id": "mod_engines_d10_field_serviceable_drive",
+    "name": "Field-Serviceable Drive",
+    "system": "engines",
+    "gate": "D10",
+    "type": "passive",
+    "description": "Modular engine housing with accessible maintenance panels and standardized components — military-grade serviceability designed for combat repairs. When the Engineer attempts to Jury Rig the Engines system during combat, their Control die is [Optimized]. The engines are built to be fixed under fire. Does not change what Jury Rig does — just makes it more likely to succeed and more likely to hit 8+ for the bonus tier shift.",
+    "designNotes": "Passive that improves Jury Rig specifically for Engines. Rewards the Engineer for maintaining the engine — the modular design means repairs are faster and more reliable. Pairs well with the D8 Overtuned Sublight (the racing engine that breaks more often, but is easier to fix)."
+  },
+  {
+    "id": "mod_engines_d10_strafing_thrusters",
+    "name": "Strafing Thrusters",
+    "system": "engines",
+    "gate": "D10",
+    "type": "gambit",
+    "linkedManeuver": "Attack Run",
+    "description": "On Attack Run, pay -1 tier. After the Attack Run resolves, the ship repositions 1 zone in any direction (including laterally) as a free movement. Close in, fire, keep moving. The Gunner gets a reduced-tier shot, but the ship is not sitting in front of the enemy's guns when the attack is over.",
+    "designNotes": "Aggressive mobility gambit. Turns Attack Run into a hit-and-run — close, shoot, reposition. The -1 tier means the Gunner buffs are weaker, but the repositioning prevents the ship from being a stationary target after committing to the attack."
+  },
+  {
+    "id": "mod_engines_d12_class_zero_hyperdrive",
+    "name": "Class Zero Hyperdrive",
+    "system": "engines",
+    "gate": "D12",
+    "type": "passive",
+    "description": "The hyperdrive motivator is modified to a classification that should not exist for this ship's size class. Imperial Star Destroyers run Class 2. Military interceptors run Class 1. This ship runs Class 0.5 or better. Between encounters, the ship reaches any known destination in half the expected travel time. Cannot be caught in hyperspace — nothing is faster. This passive also unlocks the Micro-Jump maneuver using Piloting (Control) / Engines (Power). The Engines version is raw power — the oversized drive punches through to hyperspace by brute force. Failure is mechanical: the hyperdrive sputters and chokes, the ship goes nowhere, [Exposed] for the round, and Engines steps down from the failed ignition.",
+    "unlocksManeuver": "Micro-Jump",
+    "microJump": {
+      "power": "Engines",
+      "control": "Piloting (Reflex)",
+      "failureFlavor": "Engine sputter — the hyperdrive coughs and chokes, refusing to engage. The Pilot is slamming the console. Ship goes nowhere, [Exposed] for the round. Engines steps down from the failed ignition sequence.",
+      "effect": [
+        {
+          "tier": 0,
+          "label": "Failure",
+          "range": "1–3",
+          "description": "The hyperdrive sputters and chokes — will not engage. Ship goes nowhere, [Exposed] for the round. Engines steps down from the failed ignition sequence."
+        },
+        {
+          "tier": 1,
+          "label": "Fleeting",
+          "range": "0–3",
+          "description": "Violent skip. Jump to any zone, shatter all [Locked On]. Engines or Handling Impaired (Pilot's choice) from the stress."
+        },
+        {
+          "tier": 2,
+          "label": "Masterful",
+          "range": "4–7",
+          "description": "Clean jump. Reposition to any zone, shatter locks, establish [Locked On] on an enemy of choice."
+        },
+        {
+          "tier": 3,
+          "label": "Legendary",
+          "range": "8+",
+          "description": "Perfect jump. Reposition, shatter locks, establish [Locked On], all Gunners gain [Optimized] (Tactical)."
+        }
+      ]
+    },
+    "designNotes": "D12 Engines option A. Bundles 0.5 hyperdrive travel speed + Micro-Jump access using Engines as Power die. Failure is mechanical — the drive will not fire — and costs an Engine step-down on top of [Exposed]. The Falcon moment: Chewie howling, Han punching the dashboard. Exclusive with Oversized Reactor Core — pick one."
+  },
+  {
+    "id": "mod_engines_d12_oversized_reactor_core",
+    "name": "Oversized Reactor Core",
+    "system": "engines",
+    "gate": "D12",
+    "type": "passive",
+    "description": "The engine is massively over-spec for the hull — a power plant designed for a ship two size classes larger. When the crew chooses to impair Engines to soak damage, the Engines system soaks Hull Rating + 2 additional damage instead of the standard Hull Rating value. On a Hull 2 ship, most systems soak 2 per impairment — Engines soaks 4. On a Hull 1 fighter, most systems soak 1 — Engines soaks 3. The engine is so overbuilt that damage has to chew through layers of redundant machinery before it actually affects output. The crew has a tactical reason to direct damage into Engines whenever possible — it is the most efficient soak target on the ship.",
+    "designNotes": "D12 Engines alternative passive. Turns Engines into the ship's armor — an oversized power plant that absorbs punishment like a capital ship. Two very different D12 Engine identities: Class Zero (the ship that cannot be caught, micro-jump escape) vs Oversized Reactor (the ship that refuses to die, engines absorb hits). Speed vs durability. The smuggler vs the blockade runner."
+  }
+]

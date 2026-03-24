@@ -914,7 +914,7 @@
       "note": "Each crew member occupies one station. A station defines which discipline provides the Control die and which hardware system provides the Power die. Stations are detailed in starship-stations.json.",
       "list": [
         { "station": "Pilot", "control": "Piloting (Reflex)", "power": "Handling / Engines", "role": "Positioning, evasion, pursuit" },
-        { "station": "Gunner", "control": "Heavy Weapons (Physique)", "power": "Weapon Mount die", "role": "Offensive firepower" },
+        { "station": "Gunner", "control": "Heavy Weapons (Physique)", "power": "Fire Control", "role": "Offensive firepower" },
         { "station": "Operator", "control": "Tech / Investigation / Tactics (Wits)", "power": "Sensors", "role": "Electronic warfare, scanning, targeting" },
         { "station": "Engineer", "control": "Tech (Wits)", "power": "Shields / Engines / damaged system", "role": "Repair, shields, power management" },
         { "station": "Co-Pilot", "control": "Tactics / Piloting (Wits / Reflex)", "power": "Sensors / Handling", "role": "Coordination, navigation, crew support" }
@@ -922,12 +922,12 @@
     },
     "hardwareDice": {
       "rule": "In starship combat, the Power die for each roll is determined by the ship's hardware systems, not the character's personal arena die. A character's discipline die still serves as the Control die — their personal skill matters. The hardware die replaces the arena die as the Power die.",
-      "systems": ["Handling", "Engines", "Shields", "Sensors", "Weapon Mounts"],
+      "systems": ["Handling", "Engines", "Shields", "Sensors", "Fire Control"],
       "reference": "Full hardware definitions in starship-hardware.json."
     },
     "integrity": {
       "rule": "Integrity is the ship's equivalent of Vitality. When a ship takes hull damage, Integrity decreases. At 0 Integrity, the ship is destroyed or disabled (GM determines based on narrative).",
-      "hullRating": "Hull Rating is the ship's impairment soak threshold — equivalent to a character's Trauma threshold. When damage exceeds the Hull Rating, the crew may choose to impair a system to absorb the excess. This mirrors the character choice to take a Trauma to avoid Vitality loss."
+      "hullRating": "Hull Rating is the soak value per impairment. Each system impairment absorbs UP TO Hull Rating points of damage. Excess damage beyond Hull Rating is wasted — the system took its hit, nothing more. On a Hull 2 ship, each impairment absorbs exactly 2 damage. Capital ships with high Hull Ratings soak each hit fully, but must spend entire impairments even on small hits — swarm tactics exploit this by forcing multiple small impairments that each waste soak capacity."
     },
     "systemImpairment": {
       "rule": "System impairment is the starship mirror of character trauma. When a ship takes damage that exceeds its Hull Rating, the crew may choose to impair a system to soak the excess damage. This is a player choice — exactly like choosing to take a Trauma in character combat.",
@@ -937,7 +937,7 @@
         { "level": "Offline", "effect": "System is unavailable. Actions requiring this system automatically fail." }
       ],
       "calledShot": "When an attacker uses Called Shot, they designate which system must take the impairment if the defending crew chooses to impair. Without a Called Shot, the defending crew chooses which system to impair.",
-      "repair": "The Engineer's Jury Rig action repairs impaired systems. Fleeting = 1 round fix. Masterful = fight-long. Legendary = permanent."
+      "repair": "The Engineer's Jury Rig action repairs impaired systems. Power die = the damaged system's current die (worse damage = weaker Power die). All repairs are permanent. Fleeting = tactical bypass (ignore impairment for 1 round). Masterful = recover 1 step. Legendary = recover 2 steps on one system OR 1 step on two systems. Failure = wasted action, no additional penalty."
     },
     "shipDefenses": {
       "rule": "Ship defenses mirror character defenses. Crew chooses Evade or Endure when attacked, exactly like a character choosing Dodge or Endure.",
@@ -973,7 +973,7 @@
         "6. Defensive reactions (Evade, Endure, Resist, Deploy Countermeasures) are free and triggered when the ship is attacked.",
         "7. After all crew have acted, the GM advances the situation — enemy ships act, environmental changes occur, timers tick."
       ],
-      "multipleGunners": "Ships with multiple weapon mounts may have multiple Gunners. Each Gunner acts independently on their turn, firing their assigned mount. This is the primary way to increase offensive output — more crew = more guns."
+      "multipleGunners": "Ships with multiple weapon mounts may have multiple Gunners. Each Gunner acts independently on their turn, firing their assigned mount. All Gunners use the ship's single Fire Control Power die — individual weapons define chassis (damage table), arc, range, and traits, but the Power die is shared. This is the primary way to increase offensive output — more crew = more guns."
     },
     "rangeBands": {
       "note": "Starship range bands define zones of engagement in space. They function identically to personal combat zones but at ship scale.",
@@ -982,6 +982,17 @@
         { "band": "Close", "description": "Standard combat range. Most weapons are effective. Maneuvering matters — Attack Runs and Evasive Maneuvers happen here." },
         { "band": "Far", "description": "Long range engagement. Only long-range weapons (turbolasers, torpedoes) are effective. Pursuit and Break Away play out at this range." }
       ]
+    },
+    "modifications": {
+      "rule": "Starship modifications are upgrades installed on hardware systems. Each system (Handling, Engines, Shields) has 6 available mods gated by die size: 2 at D8, 2 at D10, 2 at D12. A ship can only install mods at or below its system die level. At D12, two exclusive passives are offered — pick one. This choice defines the ship's identity.",
+      "gates": ["D8 (entry-level)", "D10 (military-grade)", "D12 (ship identity — pick one of two exclusive passives)"],
+      "designRules": [
+        "No [Weakened] as self-cost on gambits.",
+        "Gambits must enable something the base maneuver cannot do alone — not just a numerical bonus.",
+        "Same-name conditions never stack.",
+        "D12 gate = two exclusive passives, pick one = ship identity. Only one system can be D12 per ship."
+      ],
+      "reference": "Full modification definitions in starship-modifications.json."
     },
     "designNotes": [
       "Starship combat uses the same Fulcrum math as character combat — Control minus Risk equals Net Result. The only difference is the source of the Power die: hardware systems instead of personal arena dice.",
