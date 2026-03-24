@@ -1,4 +1,21 @@
-# Playtest Round 1: TIE Intercept
+# Playtest Round 1: TIE Intercept (v2 — Corrected Resolution)
+
+## Core Resolution Model (Reference)
+
+**Player acts against NPC:**
+1. **Control die** = pass/fail gate. Roll 4+ on the final die = success. NPC **Presence** steps down the Control die before rolling (Presence 1 = one step-down, Presence 2 = two, etc.). [Optimized] steps it up, [Disoriented] steps it down. Floor: 2d4-take-lowest (~6.25%).
+2. **Power die** = effect magnitude. On success, roll the Power die and subtract the NPC's relevant defensive stat (Defense, Evasion, or Resist). The remainder maps to the Effect Tier track: 0–3 Fleeting, 4–7 Masterful, 8–11 Legendary. [Empowered] steps up the Power die, [Weakened] steps it down.
+3. **Control 8+** = exceptional execution. Adds +1 Effect Tier shift (post-roll bonus). A Fleeting becomes Masterful, Masterful becomes Legendary, etc.
+4. **Same-name conditions do not stack.** [Optimized] from two sources = still one step-up.
+
+**NPC acts against player:**
+1. NPC has a static **Power rating** on their action (e.g., Laser Cannons Power 4).
+2. Player chooses defense: Dodge/Evade (no floor on failure) or Endure (floor: -1 tier even on failure).
+3. Player rolls **Control die** for the defense (4+ = success). On success, player rolls **Power die** (armor/shields/handling) — this is subtracted from the NPC's Power rating. Remainder = damage tier.
+4. On Dodge/Evade failure: no mitigation, NPC's full Power maps to the tier track.
+5. On Endure failure: still reduces NPC's effect by 1 tier (the floor).
+
+---
 
 ## Scenario Setup
 
@@ -11,32 +28,31 @@
 - Hull Integrity: 8
 
 **Crew (Pregens at Stations):**
-| Station    | Character | Control Die | Discipline         |
-|------------|-----------|-------------|--------------------|
-| Pilot      | Kael      | d8          | Piloting (Reflex)  |
+| Station    | Character | Control Die | Discipline              |
+|------------|-----------|-------------|-------------------------|
+| Pilot      | Kael      | d8          | Piloting (Reflex)       |
 | Gunner 1   | Voss      | d8          | Heavy Weapons (Physique) |
 | Gunner 2   | Mira      | d6          | Heavy Weapons (Physique) |
-| Operator   | Dex       | d8          | Tech (Wits)        |
-| Engineer   | Torr      | d8          | Tech (Wits)        |
-| Co-Pilot   | Senna     | d8          | Tactics (Wits)     |
+| Operator   | Dex       | d8          | Tech (Wits)             |
+| Engineer   | Torr      | d8          | Tech (Wits)             |
+| Co-Pilot   | Senna     | d8          | Tactics (Wits)          |
 
 **Enemy Ships (Static NPC Values — they are the Risk):**
-TIE/ln Fighters — fast, fragile, no shields.
+TIE/ln Fighters — fast, fragile, no shields. Standard threat, single-crew.
 
-| TIE       | Piloting Defense | Weapon Risk | Sensor Resistance | Hull |
-|-----------|-----------------|-------------|-------------------|------|
-| Alpha     | 4               | 4           | 2                 | 4    |
-| Beta      | 4               | 4           | 2                 | 4    |
+| Stat             | TIE Alpha | TIE Beta | Notes |
+|------------------|-----------|----------|-------|
+| Presence         | 1         | 1        | Steps down PC Control die ×1. Competent Imperial pilot. |
+| Defend           | 3         | 3        | Subtracted from PC's Power die on weapon attacks. |
+| Evasion          | 3         | 3        | Subtracted from PC's Power die on maneuvers targeting Evasion. |
+| Resist           | 1         | 1        | Subtracted from PC's Power die on electronic warfare (Jam, etc.). |
+| Weapon Power     | 4         | 4        | Static attack value. PC's defense Power die subtracts from this. |
+| Hull (Vitality)  | 4         | 4        | No shields. No impairment buffer. Damage = hull loss. |
 
-- Piloting Defense 4: The static value players roll against to hit, pursue, or outfly them.
-- Weapon Risk 4: When a TIE "attacks," the GM declares the attack and the player rolls defense vs Risk 4.
-- No shields (Endure floor = 0). No countermeasures.
-- Hull 4 means they go down fast once you connect.
-
-**Starting Position:** 
-- TIEs are at Medium range (Zone 2), closing to engage.
-- No environmental terrain available (open space).
-- No pre-existing conditions on anyone.
+**Starting Position:**
+- TIEs at Medium range (Zone 2), closing to engage.
+- Open space — no environmental terrain.
+- No pre-existing conditions.
 
 ---
 
@@ -44,9 +60,9 @@ TIE/ln Fighters — fast, fragile, no shields.
 
 Roll order this round: **TIE Alpha → Player Crew → TIE Beta**
 
-The crew did not win initiative. TIE Alpha acts first. The player crew goes second — they choose their internal station order (and this matters enormously). TIE Beta goes last.
+The crew did not win initiative. TIE Alpha acts first. The player crew goes second — they choose their internal station order (this matters enormously). TIE Beta goes last.
 
-Key tension: **Who goes first inside the player crew's turn determines what buffs are available for later stations.** The Co-Pilot or Operator going early can stack [Optimized]/[Empowered] on the Gunner. The Pilot going early with an Attack Run can buff all Gunners. But the Pilot going early means they can't react to what TIE Alpha did. Order is a tactical puzzle.
+Key tension: **Who goes first inside the player crew's turn determines what buffs cascade to later stations.** Support stations (Co-Pilot, Operator) going early means their buffs are live for the Gunners. But the Pilot going early commits the ship's geometry before knowing what support is available.
 
 ---
 
@@ -56,32 +72,36 @@ Key tension: **Who goes first inside the player crew's turn determines what buff
 
 ### Beat 1: TIE Alpha Acts
 
-**GM declares:** "TIE Alpha screams in from your port side, green lasers stitching across your hull. It's a strafing run — TIE Alpha attacks the Krayt's Tooth."
+**GM declares:** "TIE Alpha screams in from your port side, green lasers stitching across your hull. Strafing run — TIE Alpha attacks the Krayt's Tooth."
 
-**Mechanically:** TIE Alpha's Weapon Risk is 4. The crew chooses a defense.
+TIE Alpha's Weapon Power is **4**. The crew chooses a defense.
 
 **Crew Decision: Evade or Endure?**
-- **Evade** (Pilot rolls): Kael rolls Piloting d8 + Handling d6. On success, Handling die reduces TIE's effect tier. On failure, full hit lands (no floor). On Control 8+, generates an Opening for the Gunners.
-- **Endure** (passive Shields): Shields d8 absorbs. Even on failure, reduces effect by 1 tier (floor). Safer but no upside.
+- **Evade** (Pilot rolls): Kael rolls Piloting (Control) vs TIE's Presence, then Handling (Power) subtracts from TIE's Weapon Power 4. Success = mitigation. Failure = full hit, no floor. Control 8+ = Opening for Gunners.
+- **Endure** (Shields): Shields d8 subtracts from TIE's Weapon Power 4. Even on failure, -1 tier floor. Safer but no upside.
 
 **The crew picks Evade.** They want the chance at an Opening.
 
 > **Kael rolls Evade:**
-> - Control: Piloting d8 → rolls **6**
-> - Risk: TIE Alpha Weapon Risk = 4
-> - Net Result: 6 - 4 = **+2** → **Fleeting Success**
+> - Control: Piloting d8, stepped down ×1 by TIE Presence 1 → **d6** → rolls **6** ✓ (4+ = success)
+> - Control 8+ check: 6 is not 8+. No bonus tier shift.
 > - Power: Handling d6 → rolls **3**
-> - Effect: Attacker's effect reduced by Power die result (3). TIE's attack was aiming for Fleeting damage — reduced below Fleeting. **The shot misses.**
+> - TIE Weapon Power (4) minus Kael's Handling result (3) = **1** → **Fleeting effect**
+> - Fleeting damage on the Effect Track → minimal. The hit grazes.
 
-**Result:** Kael jerks the ship hard to port. The green bolts rake empty space where they were a half-second ago. No damage. But no Opening either — the roll wasn't spectacular enough (needed Control 8+ for that).
+**Result:** Kael yanks the stick hard. The green bolts clip the dorsal hull — a glancing hit, but the shields and hull plating absorb the worst of it. Fleeting damage.
 
-**Observation:** Evade worked but produced no bonus value. The crew is safe but didn't gain anything from this defensive beat. Endure would have been safer (guaranteed floor) but equally uneventful. The gamble on Evade paid off this time.
+**Damage to Krayt's Tooth:** Fleeting tier hit lands. Per the TIE's weapon effect track (simple action, Power 4): Fleeting = 1 damage. Hull: 8 → 7.
+
+**Observation:** Evade succeeded (Control 6 on d6 — needed 4+, got it). But the Handling d6 Power die only rolled a 3 against Weapon Power 4, so the TIE's attack still got through at Fleeting. Evade reduced it from a potential Masterful hit (Power 4 unmitigated = tier 4-7) down to Fleeting (net 1). If Kael had failed the Control roll, the full Power 4 would have landed as Masterful damage — much worse. If Kael had rolled higher on the Handling die (4+), the attack would have been completely negated.
+
+**The Presence 1 step-down mattered.** Kael's Piloting d8 became d6. On d8 he'd have had a 62.5% chance of success. On d6 it dropped to 50%. That's the TIE pilot's competence expressed mechanically — not as an NPC roll, but as pressure on the player's accuracy.
 
 ---
 
 ### Beat 2: Player Crew's Turn
 
-The crew gets to choose their station order. This is the tactical meat of the round.
+The crew chooses their station order. This is the tactical heart of the round.
 
 **Senna (Co-Pilot) proposes going first.** She wants to Coordinate before anyone else acts.
 
@@ -89,379 +109,293 @@ The crew gets to choose their station order. This is the tactical meat of the ro
 
 #### Beat 2a: Senna (Co-Pilot) — Coordinate
 
-**Action:** Coordinate — Tactics (Wits) vs... what?
+**Action:** Coordinate — Tactics (Wits).
 
-**DESIGN QUESTION:** Coordinate is a support action that buffs allies. What is the Risk/Resistance? Options:
-1. **Flat difficulty (Presence)** — GM sets a difficulty based on the chaos of the situation. Presence 2 in a standard dogfight.
-2. **No resistance** — Coordinate always succeeds at some tier, the roll just determines how good the coordination is.
-3. **Opposed by enemy Sensor Resistance** — the enemy's electronic presence makes coordination harder.
-
-**For this playtest, using option 1: Presence 2** (standard difficulty for a combat coordination action).
+**Resistance:** Coordinate buffs your own crew. No enemy opposes it directly. The GM sets a Presence based on combat intensity. Standard dogfight = **Presence 1** (steps down Senna's Control die once: d8 → d6).
 
 > **Senna rolls Coordinate:**
-> - Control: Tactics d8 → rolls **7**
-> - Risk: Presence 2
-> - Net Result: 7 - 2 = **+5** → **Masterful Success**
-> - Power: Sensors d6 → rolls **4** (not mechanically relevant for Coordinate — the tier is the effect)
+> - Control: Tactics d8, stepped down ×1 by combat Presence 1 → **d6** → rolls **5** ✓ (4+ = success)
+> - Power: Sensors d6 → rolls **4**
+> - Effect tier: Power 4 minus... what? There's no NPC resistance here. Coordinate's effect tiers are self-contained — the tier is determined by the Power die result on the effect track.
+> - Power result 4 → falls in the **4–7 range** → **Masterful**
 
 **Masterful Coordinate effect:** "Grant [Optimized] to one crew member and [Empowered] to a different crew member for their next actions this round."
 
-**Senna's choice:** She gives [Optimized] to **Voss (Gunner 1)** and [Empowered] to **Kael (Pilot)**.
+**Senna's choice:** She gives **[Optimized] to Kael (Pilot)** and **[Empowered] to Voss (Gunner 1)**.
 
-**Result:** Senna calls vectors from the copilot seat: "Alpha is pulling high — Kael, you've got a window on Beta if you commit to an attack run. Voss, I'm feeding you the deflection angle now."
+Why this allocation? Kael's Attack Run Control die will be stepped down by TIE Presence — [Optimized] counteracts that, restoring his d8. Voss's Weapon Mount d8 stepped up by [Empowered] → d10, which directly increases the Power die result that determines his damage tier after subtracting TIE Defend 3.
+
+**Result:** Senna calls vectors from the copilot seat: "Alpha pulled high after the strafing run — Kael, you've got an approach window on Beta if you commit now. Voss, I'm feeding deflection angles to your turret."
 
 **Active Conditions:**
-- Voss: [Optimized] (Control die stepped up: d8 → d10 for next action)
-- Kael: [Empowered] (Power die stepped up for next action)
+- Kael: [Optimized] (Control die stepped up ×1 for next action)
+- Voss: [Empowered] (Power die stepped up ×1 for next action)
 
-**Observation:** Going first was the right call. Senna's Masterful result buffs two crew members before they act. If she'd gone last, these buffs would have been wasted. This is the popcorn order payoff — support stations going early is huge.
+**Observation:** Senna's buff allocation is smart with the corrected model. [Optimized] on the Pilot offsets the TIE's Presence 1 step-down — Kael's effective Control is restored to d8 instead of suffering d6. [Empowered] on the Gunner steps up his Weapon Mount from d8 to d10, meaning after subtracting TIE Defend 3, his expected damage tier jumps significantly. d10 average is 5.5, minus Defend 3 = average net 2.5 (Fleeting). Without [Empowered], d8 average is 4.5, minus 3 = 1.5 (Fleeting but lower). The real swing comes at the top end: d10 can roll 10, yielding net 7 (Masterful). d8 maxes at 5 net (still Masterful, but barely).
+
+**DESIGN NOTE — Support Action Resistance:** For support actions that only affect your own crew (Coordinate, Assist Pilot, Reinforce Shields, Plot Course), the GM sets a flat Presence based on combat intensity. Presence 0 (calm prep), 1 (standard combat), 2 (chaos/suppression), 3+ (extreme pressure). This is consistent with Challenge Mode. The Power die for support actions has no NPC stat to subtract from — the raw Power result maps directly to the effect tier.
 
 ---
 
 #### Beat 2b: Kael (Pilot) — Attack Run on TIE Beta
 
-**Action:** Attack Run — Piloting (Reflex) vs TIE Beta's Piloting Defense 4. Kael has [Empowered] from Senna's Coordinate.
+**Action:** Attack Run — Piloting (Reflex) + Engines. Targeting TIE Beta.
+
+Kael has [Optimized] from Senna's Coordinate.
 
 > **Kael rolls Attack Run:**
-> - Control: Piloting d8 → rolls **5**
-> - Risk: TIE Beta Piloting Defense = 4
-> - Net Result: 5 - 4 = **+1** → **Fleeting Success**
-> - Power: Engines d6 [Empowered → d8] → rolls **6**
+> - Control: Piloting d8, stepped down ×1 by TIE Beta Presence 1 → d6, then stepped up ×1 by [Optimized] → **d8** (restored!) → rolls **8** ✓ — **Control 8+!**
+> - Power: Engines d6 → rolls **5**
+> - TIE Beta Evasion 3. Power result (5) minus Evasion (3) = **2** → **Fleeting** on the track.
+> - **Control 8+ bonus:** +1 Effect Tier shift. Fleeting → **Masterful!**
 
-**Fleeting Attack Run effect:** "Ship closes 1 zone. All Gunners gain [Optimized] on their next attack this round."
+**Masterful Attack Run effect:** "Ship closes 1 zone. All Gunners gain [Optimized] and [Empowered] on their next attack this round."
 
-**Result:** Kael rolls the Krayt's Tooth into an aggressive dive, closing from Zone 2 to Zone 1 (Close range). The angle is good — not perfect, but good enough. Both Gunners now have firing solutions.
+**Result:** Senna's [Optimized] restored Kael's die to d8, and he rolled the maximum — 8. The Control 8+ bonus bumped a Fleeting Power result into Masterful territory. This is the dual-axis payoff: Kael's accuracy (Control) was excellent, and even though the Engines (Power) only produced a modest result against the TIE's Evasion, the exceptional execution elevated the whole action.
+
+The Krayt's Tooth dives from Zone 2 to Zone 1 (Close range). The angle is aggressive and precise — both turrets have clean firing arcs.
 
 **Active Conditions:**
-- Voss: [Optimized] (from Senna) + [Optimized] (from Attack Run). **STACKING QUESTION: Do these stack?**
+- Voss: [Empowered] (from Senna) + [Optimized] and [Empowered] (from Attack Run). [Empowered] doesn't stack — still one step-up. [Optimized] is new. **Net: [Optimized] + [Empowered].**
+- Mira: [Optimized] + [Empowered] (from Attack Run).
+- Kael: [Optimized] consumed.
 
-**DESIGN QUESTION: [Optimized] Stacking**
-Per the condition engine, [Optimized] steps up the Control die. If Voss already has [Optimized] from Coordinate, and gains [Optimized] again from Attack Run:
-- **Option A:** They don't stack. Voss has [Optimized] — one step up, period. The second source is redundant.
-- **Option B:** They stack. d8 → d10 → d12. Two separate sources, two step-ups.
+**Observation:** The [Optimized] from Senna on Kael was the critical play. Without it, Kael would have been rolling d6 (50% success, 0% chance of 8+). With [Optimized] restoring d8, he had 62.5% success and a 12.5% chance at Control 8+, which hit. The Masterful Attack Run gives ALL Gunners both [Optimized] and [Empowered] — a massive crew-wide offensive buff that wouldn't have happened without the Co-Pilot's setup.
 
-**The system should probably NOT stack identical conditions from different sources** — otherwise support actions become exponentially broken. Voss has [Optimized] (d8 → d10). The Attack Run's [Optimized] is redundant for Voss but applies to Mira (Gunner 2), who didn't have it.
-
-**Updated Active Conditions:**
-- Voss: [Optimized] (d8 → d10 for next attack)
-- Mira: [Optimized] (d6 → d8 for next attack)
-- Kael: [Empowered] consumed by Attack Run Power die
-
-**Observation:** The [Empowered] on Kael's Attack Run stepped up his Engines d6 → d8 for the Power die, but since Attack Run's effect is tier-based (not Power-dependent), the [Empowered] was partially wasted — it only mattered if the Power die had a mechanical function here. **DESIGN QUESTION: Does the Power die matter on Attack Run?** The effect tiers are fixed by the Control net result. The Power die on Attack Run may not have a defined mechanical role beyond the tier table. If so, [Empowered] on a Pilot doing Attack Run is a suboptimal buff choice by the Co-Pilot.
-
-**This is a real play discovery:** Co-Pilots need to understand which stations benefit from [Optimized] (Control die step-up = higher tier chance) vs [Empowered] (Power die step-up = higher effect magnitude) vs both. Gunners benefit from both. Pilots benefit from [Optimized] more than [Empowered] on most actions since their effect is tier-driven. Senna should have given [Optimized] to Kael and [Empowered] to Voss.
+Voss already had [Empowered] from Senna, so the Attack Run's [Empowered] is redundant for him (no stacking). But he gains [Optimized] he didn't have. Mira gains both buffs fresh. The overlapping [Empowered] on Voss is a minor efficiency loss — Senna could have [Empowered] someone else if she'd known Kael would hit Masterful. But you can't predict dice. The redundancy is acceptable.
 
 ---
 
-#### Beat 2c: Dex (Operator) — Paint Target on TIE Alpha
+#### Beat 2c: Dex (Operator) — Jam TIE Beta
 
-Voss is about to shoot TIE Beta (where the Pilot positioned). But Mira (Gunner 2) is on the ventral turret and can target TIE Alpha. Dex decides to Paint Target on TIE Alpha to support Mira.
+Dex decides to Jam TIE Beta to degrade its attack before it acts in Beat 3.
 
-**Action:** Paint Target — Tactics (Wits) vs TIE Alpha's Sensor Resistance 2.
-
-> **Dex rolls Paint Target:**
-> - Control: Tactics... wait, Dex's discipline is Tech d8, not Tactics. 
-> - **Station allows Tech / Investigation / Tactics (Wits).** Dex uses Tech d8.
-> - Actually, Paint Target specifically says "Tactics (Wits)." Does Dex have Tactics? 
-
-**DESIGN QUESTION: Discipline Flexibility at Stations**
-The Operator station lists "Tech / Investigation / Tactics" as control disciplines. But each specific action calls out which discipline it uses:
-- Scan: Investigation (Wits)
-- Jam: Tech (Wits)
-- Paint Target: Tactics (Wits)
-
-If Dex only has Tech d8 and not Tactics, can he Paint Target? **The station says he can use Tech, Investigation, OR Tactics** — but the action specifies Tactics. 
-
-**Resolution for playtest:** Dex has Tactics at d6 (secondary discipline). He can Paint Target but with a smaller die.
-
-> **Dex rolls Paint Target:**
-> - Control: Tactics d6 → rolls **5**
-> - Risk: TIE Alpha Sensor Resistance = 2
-> - Net Result: 5 - 2 = **+3** → **Fleeting Success**
-> - Power: Sensors d6 → rolls **2**
-
-**Fleeting Paint Target effect:** "One Gunner gains [Optimized] on their next attack against the painted target."
-
-**Dex's choice:** Give [Optimized] to **Mira** on her attack against TIE Alpha.
-
-But wait — Mira already has [Optimized] from Kael's Attack Run. Same stacking question. If [Optimized] doesn't stack, this Paint Target is **redundant for Mira**.
-
-**Observation:** This is a coordination failure at the table. Dex's Paint Target was wasted because Kael's Attack Run already gave all Gunners [Optimized]. Dex should have:
-- **Scanned** TIE Alpha (to learn system status and grant a different buff), or
-- **Jammed** TIE Beta (to degrade its next attack before it acts), or
-- Painted a target that wasn't already [Optimized].
-
-**This is excellent emergent gameplay.** The crew's internal order and action choices create real tactical puzzles. Dex going after Kael's Attack Run with Paint Target was suboptimal — the table needs to learn to sequence and not double-buff.
-
-**Let's say Dex changes his mind (table talk before dice).** He Jams TIE Beta instead.
-
-#### Beat 2c (Revised): Dex (Operator) — Jam TIE Beta
-
-**Action:** Jam — Tech (Wits) vs TIE Beta's Sensor Resistance 2.
+**Action:** Jam — Tech (Wits) vs TIE Beta's Resist 1.
 
 > **Dex rolls Jam:**
-> - Control: Tech d8 → rolls **4**
-> - Risk: TIE Beta Sensor Resistance = 2
-> - Net Result: 4 - 2 = **+2** → **Fleeting Success**
-> - Power: Sensors d6 → rolls **3**
+> - Control: Tech d8, stepped down ×1 by TIE Beta Presence 1 → **d6** → rolls **4** ✓ (4+ = success, just barely)
+> - Power: Sensors d6 → rolls **5**
+> - TIE Resist 1. Power result (5) minus Resist (1) = **4** → **Masterful!**
 
-**Fleeting Jam effect:** "Target ship's Sensors are [Disoriented] until end of round — their Operator and Co-Pilot actions are stepped down."
+**Masterful Jam effect:** "Target ship's Sensors are [Jammed] — their Operator actions automatically fail this round. Communications are disrupted."
 
-**Result:** TIE Fighters don't have an Operator or Co-Pilot — they're single-pilot fighters. **Does [Disoriented] on Sensors do anything to a TIE?**
+**Result against a single-crew TIE:** TIEs don't have a separate Operator station. The [Jammed] on sensors means the pilot's sensor-dependent functions are disrupted. Communications are disrupted — the TIE can't coordinate with its wingmate or call for reinforcements.
 
-**DESIGN QUESTION: Jam vs Single-Crew Fighters**
-TIEs have no Operator or Co-Pilot station. The Fleeting Jam effect specifically degrades "Operator and Co-Pilot actions." Against a single-pilot fighter, this effect does... nothing mechanically.
+**DESIGN QUESTION (carried from v1): Jam vs Single-Crew Fighters**
+The Masterful Jam text says "Operator actions automatically fail." A TIE has no Operator. The comms disruption is narratively meaningful but mechanically unclear for single-crew fighters.
 
-The Masterful Jam ([Jammed] — Operator actions auto-fail, comms disrupted) is similarly hollow against a ship with no Operator station.
+However, at Masterful, the comms disruption is tactically real: TIE Beta can't call for backup, can't coordinate attack runs with TIE Alpha, can't report the freighter's position to the Star Destroyer. In a longer scenario, this matters. And if the TIE's pilot IS functioning as their own Operator (using sensors to target), then [Jammed] could reasonably degrade their targeting. 
 
-The Legendary Jam (Sensors [Jammed] + Gunner Control stepped down) would affect TIE Gunner (the pilot is also the gunner), so that works.
+Note: Fleeting Jam ("[Disoriented] on Operator/Co-Pilot actions") would still be mechanically hollow against a TIE. The gap at Fleeting tier remains. See design recommendations at end.
 
-**Observation:** Jam's Fleeting tier is useless against single-crew fighters. This is a real gap. The Operator's primary debuff action has a dead tier against the most common enemy type in Star Wars (single-pilot fighters). 
-
-**Possible fixes:**
-1. Fleeting Jam could also affect Piloting ("sensors disrupted, Piloting Defense reduced by 1") — but that's a big swing.
-2. Fleeting Jam could generically say "target's sensor-dependent actions are [Disoriented]" — which for a TIE pilot would affect any roll that uses sensor input (targeting).
-3. Accept it — Fleeting Jam is weak against small fighters, and the Operator should Scan or Paint Target instead. Jam is an anti-capital-ship tool at low tiers.
-
-**For this playtest:** The Fleeting Jam is effectively wasted against TIE Beta. Dex's action produced no mechanical effect.
-
-**Let's leave it as-is to surface the design issue and move on.**
+**Active Conditions:**
+- TIE Beta: Sensors [Jammed] (comms disrupted, sensor-dependent functions offline)
 
 ---
 
 #### Beat 2d: Torr (Engineer) — Reinforce Shields
 
-TIE Beta hasn't acted yet and will attack this round. Torr proactively shores up defenses.
+TIE Beta hasn't acted yet. Torr shores up defenses proactively.
 
 **Action:** Reinforce Shields — Tech (Wits) + Shields.
 
+Reinforce Shields is a self-buff (no enemy opposition). GM sets combat Presence 1.
+
 > **Torr rolls Reinforce Shields:**
-> - Control: Tech d8 → rolls **8** ← Control 8+!
-> - Risk: Presence 2 (standard combat difficulty)
-> - Net Result: 8 - 2 = **+6** → **Masterful Success** (and Control 8+ = +1 Tier → **Legendary!**)
+> - Control: Tech d8, stepped down ×1 by Presence 1 → **d6** → rolls **6** ✓
+> - Power: Shields d8 → rolls **6**
+> - No NPC stat to subtract (self-buff). Power result 6 → **Masterful** (4–7 range).
+> - Control 8+ check: 6 is not 8+. No bonus shift.
 
-Wait — does the Control 8+ tier bump apply to support/buff actions like Reinforce Shields? The gamesystem says: "Applies universally: attacks, maneuvers, defenses, and narrative rolls."
+**Masterful Reinforce Shields effect:** "Ship gains [Buffered 2]. The shield reinforcement is clean — no power drain to other systems."
 
-**DESIGN QUESTION: Control 8+ on Support Actions**
-The +1 Tier from Control 8+ should apply to Reinforce Shields. It's a maneuver-equivalent action. Net result was +6 (Masterful), bumped to Legendary.
-
-> **Legendary Reinforce Shields effect:** "Ship gains [Buffered 3]. Additionally, the shields are so overcharged that the next attack against the ship has its Effect Tier reduced by 1 (shield flare disrupts targeting)."
-
-**Result:** Torr's hands fly across the engineering console. The shields flare bright — overcharged well beyond spec. The ship is wrapped in reinforced deflector energy.
+**Result:** Torr locks the deflector harmonics and overcharges the forward grid. The shields hum with reinforced energy.
 
 **Active Conditions on Krayt's Tooth:**
-- [Buffered 3] — absorbs 3 points of hull damage before it lands
-- Next incoming attack: -1 Effect Tier (shield flare)
+- [Buffered 2] — absorbs 2 points of incoming hull damage before it touches the hull.
 
-**Observation:** Torr's lucky roll turned a Masterful into a Legendary via the 8+ bump. The ship is now extremely well-protected for TIE Beta's incoming attack. The Engineer's proactive value is clear — he didn't wait for damage, he prevented it.
+**Observation:** Solid result. [Buffered 2] means the next 2 hull damage that gets through Evade/Endure is absorbed. Combined with the defense choice on TIE Beta's attack, this provides meaningful insurance. The d8 Shields die being the Power die here is important — a ship with d6 Shields would have a harder time reaching Masterful on Reinforce.
 
 ---
 
 #### Beat 2e: Voss (Gunner 1) — Attack TIE Beta
 
-Voss has [Optimized] (from Senna's Coordinate). He's on the dorsal turret (d8 mount). TIE Beta is in Zone 1 (Close range, thanks to Kael's Attack Run).
+Voss is on the dorsal turret (d8 mount). TIE Beta is at Zone 1 (Close range).
+Voss has [Optimized] (from Attack Run) and [Empowered] (from Senna's Coordinate).
 
-**Action:** Attack — Heavy Weapons (Physique) vs TIE Beta's Piloting Defense 4.
+**Action:** Attack — Heavy Weapons (Physique) vs TIE Beta.
 
 > **Voss rolls Attack:**
-> - Control: Heavy Weapons d8 [Optimized → d10] → rolls **7**
-> - Risk: TIE Beta Piloting Defense = 4
-> - Net Result: 7 - 4 = **+3** → **Fleeting Success**
-> - Power: Weapon Mount d8 → rolls **5**
+> - Control: Heavy Weapons d8, stepped down ×1 by TIE Presence 1 → d6, stepped up ×1 by [Optimized] → **d8** (restored!) → rolls **7** ✓
+> - Power: Weapon Mount d8, stepped up ×1 by [Empowered] → **d10** → rolls **9**
+> - TIE Beta Defend 3. Power result (9) minus Defend (3) = **6** → **Masterful!**
+> - Control 8+ check: 7 is not 8+. No bonus shift.
 
-**Fleeting Attack effect:** "Weapon chassis damage (Fleeting tier). Glancing hit — minimal structural impact."
+**Masterful Attack effect:** "Weapon chassis damage (Masterful tier). Solid hit — meaningful structural damage."
 
-**TIE Beta defends:** TIE has no shields (Endure floor = 0). Does the TIE Evade? NPCs don't roll dice — TIE Beta's Evade is a static value that was already factored into the Piloting Defense of 4 that Voss rolled against.
+**Damage to TIE Beta:** Masterful damage. For a TIE (simple hull, no shields, no impairment buffer), Masterful = significant structural damage. Using tiered damage model: Masterful hit deals damage from the weapon effect track.
 
-**DESIGN QUESTION: How does TIE defense work under Frame B?**
-The TIE's Piloting Defense of 4 IS the evasion built in. When Voss's net result is positive, the shot hits. The damage tier (Fleeting) is what lands. There's no separate NPC defense roll — the static defense was the risk Voss rolled against.
+**DESIGN QUESTION: Damage Numbers**
+With the corrected model, the Power die result MINUS Defense IS the tier position, and the tier tells you the effect. But how much hull damage does each tier deliver? The station text describes tiers narratively ("glancing hit," "meaningful structural damage," "critical structural damage") but doesn't assign hull point values.
 
-But wait — damage. What does "Fleeting chassis damage" actually mean in hull points? 
+**For this playtest, using a simple model:** The net Power result (after subtracting Defense) IS the hull damage dealt. Voss's net was 6. TIE Beta takes 6 hull damage. TIE Beta has 4 Hull. **TIE Beta is destroyed.**
 
-**DESIGN QUESTION: Chassis Damage Table**
-The station says "Weapon chassis damage (Fleeting tier)" but doesn't define how much hull damage that translates to. Options:
-1. The Power die result IS the damage (5 in this case). Fleeting/Masterful/Legendary tiers are narrative color.
-2. Each tier has a fixed damage value. Fleeting = 1 hull, Masterful = 2, Legendary = 3.
-3. The tier determines the severity category and the Power die determines magnitude within that category.
+**Result:** Voss's turret erupts. The red bolts hammer into TIE Beta's cockpit viewport at close range. The solar panel shears off, the fuselage crumples, and the fighter detonates in a bloom of orange fire. TIE Beta is gone.
 
-**For this playtest, using option 3:** Fleeting tier means the hit connects but the Power die determines how hard. Power die result of 5 → 5 points of hull damage? That would one-shot a TIE with 4 Hull.
+**Observation:** The buff chain worked exactly as designed:
+1. Senna [Empowered] Voss → Weapon Mount d8 → d10.
+2. Kael's Attack Run [Optimized] Voss → Control d6 (after Presence step-down) → d8 (restored).
+3. Voss fires: Control d8 succeeds (7), Power d10 rolls 9. Net damage after Defend 3 = 6. TIE's 4 Hull can't absorb it.
 
-That seems too fast. **Let's use option 2 as a simpler model:** Tier = damage. Fleeting = 1 hull damage. Power die determines additional effects or whether you can target systems.
-
-**Applying Fleeting damage (1 hull) to TIE Beta:**
-- TIE Beta Hull: 4 → 3
-
-**Result:** Voss's turret barks a burst of red laser fire. It catches TIE Beta on the solar panel — a glancing hit, but it scorches through the panel and into the strut. The TIE shudders. First blood.
-
-**Observation:** The [Optimized] stepped Voss's Control from d8 to d10, which gave him a 7. Without [Optimized], he'd have been rolling a d8 — still could have hit, but less likely. The buff mattered but didn't create a dramatic swing here. Also surfaced: **we need a defined chassis damage model** — the current tier descriptions are narrative but don't specify hull point conversion.
+Without the buffs: Voss would have rolled Control d6 (50% success) and Power d8 (max net 5 after Defend 3, average net 1.5). The buffs elevated his chance of success from 50% to 62.5% and his expected damage from Fleeting-range to Masterful-range. **The crew's coordination killed that TIE — no single station could have done it this cleanly alone.**
 
 ---
 
 #### Beat 2f: Mira (Gunner 2) — Attack TIE Alpha
 
-Mira has [Optimized] from Kael's Attack Run. She's on the ventral turret (d6 mount). TIE Alpha is at Medium range (Zone 2 — it strafed from further out).
+Mira is on the ventral turret (d6 mount). TIE Alpha is at Zone 2 (Medium range — it strafed from further out and the ship moved toward Beta, not Alpha).
 
-**Action:** Attack — Heavy Weapons (Physique) vs TIE Alpha's Piloting Defense 4.
+Mira has [Optimized] + [Empowered] from Kael's Attack Run.
+
+**Action:** Attack — Heavy Weapons (Physique) vs TIE Alpha.
 
 > **Mira rolls Attack:**
-> - Control: Heavy Weapons d6 [Optimized → d8] → rolls **3**
-> - Risk: TIE Alpha Piloting Defense = 4
-> - Net Result: 3 - 4 = **-1** → **Fleeting Failure**
+> - Control: Heavy Weapons d6, stepped down ×1 by TIE Presence 1 → d4, stepped up ×1 by [Optimized] → **d6** (restored!) → rolls **4** ✓ (barely!)
+> - Power: Weapon Mount d6, stepped up ×1 by [Empowered] → **d8** → rolls **3**
+> - TIE Alpha Defend 3. Power result (3) minus Defend (3) = **0** → **Fleeting** (0–3 range).
+> - Control 8+ check: 4 is not 8+. No bonus shift.
 
-**Failure — Risk line:** "On failure, the shot misses. No damage dealt."
+**Fleeting Attack effect:** "Weapon chassis damage (Fleeting tier). Glancing hit — minimal structural impact."
 
-**Result:** Mira's ventral turret spits fire at TIE Alpha but the shots go wide — the angle from below was wrong, and TIE Alpha's jinking made the deflection shot impossible at this range.
+**Damage to TIE Alpha:** Net Power 0. Per the damage model (net = hull damage), 0 damage? That feels wrong — it's a hit (Control succeeded), but the Power die couldn't overcome the TIE's Defend.
 
-**Observation:** Mira's d6 base Control die, even [Optimized] to d8, wasn't enough to beat the TIE's Defense 4 on this roll. She needed a 5+ on d8 (50% chance) and rolled a 3. The weaker Gunner with the weaker mount is a real liability — she's statistically unreliable against Defense 4 targets. This is a meaningful crew weakness.
+**DESIGN QUESTION: Fleeting Floor on Damage**
+If the Power die result exactly equals or barely exceeds the NPC's Defense (net 0-3, Fleeting range), should there be minimum damage? Options:
+- A. Net 0 = minimum 1 hull damage (a hit is a hit — the Control success means you connected).
+- B. Net 0 = 0 damage (the hit connected but the TIE's hull absorbed it entirely — armor did its job).
+- C. Fleeting tier always deals 1 damage regardless of net value (tier = damage floor).
+
+**For this playtest, using option C.** Fleeting = 1 damage minimum. The shot hit. It counts.
+
+**Damage to TIE Alpha:** Hull 4 → 3.
+
+**Result:** Mira's ventral turret scores a hit on TIE Alpha's wing — a shallow burn across the solar panel. Cosmetic at worst, but the TIE shudders. Mira grins. "Got one!"
+
+**Observation:** Mira is the weak link in the crew, and the math shows it clearly:
+- Base Control d6, stepped to d4 by Presence 1. Without [Optimized], she'd need 4+ on d4 — **only 25% success.** With [Optimized] restoring d6, she's back to 50%. She barely made it (rolled 4 exactly).
+- Base Power d6, stepped to d8 by [Empowered]. Rolled 3 against Defend 3 — net 0. Even with the buff, her weapon mount couldn't overcome the TIE's armor meaningfully.
+
+Mira's contribution this round was 1 hull damage (Fleeting floor). Without both buffs from the Attack Run, she would have had a 25% chance to hit and near-zero expected damage. **The crew's setup actions are what made her viable at all.**
+
+This surfaces a real gameplay dynamic: weak crew members in secondary stations are carried by the support structure. A d6 Gunner on a d6 mount against Presence 1 / Defend 3 enemies is marginal even with help. Without help, she's almost irrelevant. This is working as intended — it creates crew upgrade pressure (better gunner, better turret) and makes the support stations feel essential.
 
 ---
 
 ### Beat 3: TIE Beta Acts
 
-**GM declares:** "TIE Beta, trailing smoke from Voss's hit, rolls into a revenge run. It's coming straight at you, guns blazing."
+**TIE Beta was destroyed by Voss in Beat 2e. It does not act.**
 
-TIE Beta attacks the Krayt's Tooth. Weapon Risk = 4.
+The popcorn initiative meant TIE Beta never got its turn. The crew's coordinated assault in their window deleted it before it could fire. **This is the reward for efficient crew play — you can eliminate threats before they act.**
 
-**Crew Decision: Evade or Endure?**
-
-The ship currently has:
-- [Buffered 3] from Torr's Reinforce Shields
-- Next incoming attack: -1 Effect Tier from shield flare
-
-**The crew picks Endure this time.** They've got massive shield buffs — let the shields do the work.
-
-**Endure is passive.** Shields d8 provides the defense floor. Even on failure, reduces attacker's effect by 1 tier.
-
-**So what happens mechanically?**
-- TIE Beta attacks with Weapon Risk 4.
-- The ship Endures. Endure is passive — the Shields die (d8) provides damage reduction.
-- Shield flare: -1 Effect Tier on this attack.
-- [Buffered 3]: absorbs 3 hull damage before it lands.
-
-**DESIGN QUESTION: Endure Resolution in Starship Combat**
-Endure is described as "passive Shields, floor on failure." But how does it resolve?
-- Does the crew roll the Shields die? That's an NPC-defense-equivalent roll, but the PLAYER is rolling it.
-- Or is Shields die a static soak value? (Shields d8 = always reduces by some fixed amount?)
-
-Per the gamesystem: "The Shields die absorbs incoming damage. Even on failure, reduces the attacker's Effect Tier by 1."
-
-**For this playtest:** The attacking TIE "hits" at whatever tier its attack would produce. Since NPCs don't roll, the GM sets the attack tier. TIE Beta's attack is Weapon Risk 4 — at baseline, this is a Fleeting hit (Risk 4 isn't a roll, it's a static value).
-
-Actually wait — this is the key Frame B question for incoming NPC attacks. The NPC doesn't roll. So how do we determine the EFFECT TIER of the NPC's attack?
-
-**CRITICAL DESIGN QUESTION: NPC Attack Effect Tier**
-When an NPC attacks and the player chooses Endure (passive defense), what determines the attacker's Effect Tier?
-
-Options:
-A. **NPC Weapon Risk IS the tier determinant.** Weapon Risk 4 = Masterful attack (falls in the 4-7 range on the effect track). This means every NPC attack is a fixed tier unless the player actively Evades to reduce it.
-B. **The GM assigns a tier based on narrative.** Standard TIE attack = Fleeting. Elite pilot = Masterful. Etc.
-C. **The player still rolls something.** Even on Endure, the player rolls the Shields die vs the Weapon Risk, and the net result determines how much gets through. Positive = soak absorbed it. Negative = damage tier.
-
-**Option C seems most consistent with Frame B.** The player always rolls. Endure means the player rolls Shields d8 vs Weapon Risk 4:
-
-> **Endure (Shields):**
-> - Power: Shields d8 → rolls **6**
-> - Risk: TIE Beta Weapon Risk = 4
-> - Net Result: 6 - 4 = **+2** → Shields absorb the hit.
-> - Shield flare: additional -1 tier on this attack.
-> - [Buffered 3]: not even needed — shields handled it.
-
-**Result:** TIE Beta's lasers slam into the overcharged deflector shields. The shields flare brilliant blue, dispersing the energy across the entire forward grid. Torr's reinforcement holds perfectly. Not a scratch.
-
-**Observation:** The Engineering investment paid off completely. Torr's Legendary Reinforce Shields created a defense stack ([Buffered 3] + shield flare + natural Shields d8) that made TIE Beta's attack irrelevant. The Engineer station proves its value as a proactive force multiplier.
+If the crew had been less coordinated (no buffs, Mira shooting Beta instead of Alpha, etc.), TIE Beta would have survived to fire here. The popcorn order punishes the ship that goes last if the middle actor is efficient enough.
 
 ---
 
 ## END OF ROUND 1
 
 ### Damage Summary
-| Ship            | Hull | Conditions | Status |
-|-----------------|------|------------|--------|
-| Krayt's Tooth   | 8/8  | [Buffered 3] (partially unused) | Untouched |
-| TIE Alpha       | 4/4  | None       | Untouched |
-| TIE Beta        | 3/4  | None       | Damaged |
+| Ship            | Hull | Conditions                  | Status     |
+|-----------------|------|-----------------------------|------------|
+| Krayt's Tooth   | 7/8  | [Buffered 2]                | Light damage (1 hull from TIE Alpha's strafing run) |
+| TIE Alpha       | 3/4  | None                        | Light damage (1 hull from Mira's Fleeting hit) |
+| TIE Beta        | 0/4  | —                           | **Destroyed** (Masterful hit from Voss) |
 
 ### Condition Tracker
-- [Buffered 3] on Krayt's Tooth: persists until consumed or refreshed.
-- All [Optimized]/[Empowered] from this round: expired (used or round ended).
+- [Buffered 2] on Krayt's Tooth: persists until consumed or refreshed.
+- TIE Beta: [Jammed] expired (target destroyed).
+- All [Optimized]/[Empowered] from this round: consumed by the actions they buffed.
+
+---
+
+## ROUND 1 ANALYSIS
+
+### What the Correct Resolution Model Reveals
+
+**1. Presence is the master difficulty dial.**
+TIE Presence 1 forced every player to roll one die size smaller on Control. This is a massive swing:
+- Kael's Piloting d8 → d6 (62% → 50% success). Senna's [Optimized] restored it.
+- Voss's Heavy Weapons d8 → d6. Attack Run's [Optimized] restored it.
+- Mira's Heavy Weapons d6 → d4 (50% → 25% success!). [Optimized] restored d6.
+- Without buffs, the whole crew was fighting at one die smaller. The Co-Pilot's Coordinate and the Pilot's Attack Run were not bonuses — they were corrections. Against Presence 0 enemies, those buffs would be pure upside. Against Presence 1, they're essential just to maintain baseline effectiveness.
+
+A Presence 2 threat would step everyone down twice. Mira's d6 would become d4 with [Optimized], or the 2d4-take-lowest floor without it. The crew would need multiple buff sources just to function. Presence is terrifying.
+
+**2. Defense subtracting from Power creates meaningful armor.**
+TIE Defend 3 meant Voss needed to roll 7+ on his Power die to reach Masterful damage (net 4+). On a d8 weapon mount, that's only 25% chance. On a d10 (with [Empowered]), it's 40%. The [Empowered] buff wasn't just "more damage" — it was the difference between mostly-Fleeting and sometimes-Masterful.
+
+Mira's d6 weapon mount (stepped to d8 by [Empowered]) had a maximum net of 5 against Defend 3. She physically cannot reach Legendary against a Defend 3 target with that weapon. Her ceiling is low Masterful on a perfect roll. This is a real hardware limitation, not a skill problem.
+
+**3. The dual-axis separation is clean and tactically rich.**
+[Optimized] = "can you hit?" [Empowered] = "how hard?" These are genuinely independent decisions for the Co-Pilot:
+- [Optimized] the Pilot: offsets Presence step-down, improves success rate, opens the Control 8+ bonus window.
+- [Empowered] the Gunner: directly increases damage tier after Defense subtraction.
+- Swapping them would be suboptimal: [Empowered] on Pilot improves Engines Power die (which determines Attack Run tier after Evasion subtraction — useful!), but [Optimized] on Gunner offsets Presence (more critical for a d6 Gunner who drops to d4 without it).
+
+The Co-Pilot's allocation IS the tactical puzzle. There is no universally correct answer — it depends on who needs accuracy (Control help) vs who needs power (Power help) vs what NPC values they're fighting against.
+
+**4. Control 8+ is a rare, high-impact event.**
+Kael hit it this round on a d8 (12.5% chance). It elevated a Fleeting Attack Run to Masterful, which unlocked [Optimized]+[Empowered] for ALL Gunners instead of just [Optimized]. That single tier bump cascaded through the entire crew's effectiveness.
+
+On d6 (the Presence-stepped die), Control 8+ is impossible (max 6). On d10, it's 30%. On d12, it's 42%. This means higher-skill characters don't just succeed more — they trigger bonus tier shifts that amplify the whole crew. Pilot skill is a force multiplier.
+
+**5. Popcorn initiative + crew order = two layers of tactical sequencing.**
+- Layer 1: TIE Alpha → Crew → TIE Beta. The crew's position in the sequence determines what threats they face before and after acting.
+- Layer 2: Within the crew's turn, station order determines buff cascading. Co-Pilot first = buffs available for everyone. Gunners last = maximum buff accumulation. Pilot in the middle = can react to the tactical picture AND set up Gunners.
+
+This round's order (Co-Pilot → Pilot → Operator → Engineer → Gunner 1 → Gunner 2) was near-optimal. The only waste was Dex's Jam producing limited effect against a single-crew fighter and the redundant [Empowered] on Voss.
 
 ---
 
 ## DESIGN QUESTIONS SURFACED
 
-### 1. [Optimized] Stacking
-**Issue:** If two sources grant [Optimized] to the same character (e.g., Coordinate + Attack Run), do they stack?
-**Recommendation:** No stacking. [Optimized] is binary — you have it or you don't. Multiple sources are redundant. This prevents support-action stacking from creating runaway Control die inflation (d8 → d10 → d12 → d14?). It also creates a real tactical decision: spread your buffs, don't pile them on one person.
-**Implication:** Co-Pilot and Operator need to coordinate who they buff to avoid waste. Kael's Attack Run granting "all Gunners [Optimized]" makes individual Paint Target/Coordinate [Optimized] to a Gunner redundant. The Co-Pilot should [Optimized] the Pilot or Operator, not the Gunner, when an Attack Run is planned.
+### 1. Jam vs Single-Crew Fighters (Carried from v1)
+**Issue:** Fleeting Jam ("[Disoriented] on Operator/Co-Pilot actions") does nothing against a TIE. Masterful Jam ("[Jammed], comms disrupted") has narrative value but unclear mechanical impact on a single-crew fighter.
+**Recommendation:** Rewrite Jam tiers to affect ALL sensor-dependent functions on the target ship, not just Operator/Co-Pilot stations. At Fleeting: "[Disoriented] on all sensor-assisted rolls (targeting, evasion reaction, communications)." This makes Jam universally useful — against fighters it degrades their pilot's targeting; against capital ships it degrades multiple stations. The scaling at higher tiers remains intact.
 
-### 2. Power Die Relevance on Pilot Actions
-**Issue:** Attack Run, Pursue/Close, Break Away, etc. call for a Power die (Engines or Handling), but the mechanical effect is tier-based (Fleeting/Masterful/Legendary), not Power-die-dependent. What does the Power die DO on these actions?
-**Options:**
-- A. Power die determines zone movement distance within the tier (Fleeting + Power 6 = close 1 zone fast; Fleeting + Power 2 = close 1 zone barely).
-- B. Power die is irrelevant for Pilot positioning actions — only the Control die and tier matter. (This makes [Empowered] useless on Pilot movement.)
-- C. Power die becomes relevant only on some Pilot actions (Terrain Run cover level, Evade soak) but not others.
-**Recommendation:** Option C. Power die matters on Evade (soak value) and Terrain Run (cover level / collision severity), but Attack Run and Pursue/Close are pure tier effects. This means [Empowered] on the Pilot is only valuable for defensive flying, not offensive positioning. Clean decision point for the Co-Pilot.
+### 2. Hull Damage Model
+**Issue:** The net Power result (Power die minus Defense) maps to the Effect Tier track, and the tier describes the hit narratively. But hull damage in hit points isn't defined.
+**Current playtest assumption:** Net Power result = hull damage directly. This produces clean, intuitive results: Voss's net 6 kills a 4-Hull TIE outright. Mira's net 0 deals 1 (Fleeting floor).
+**Concern:** If net = hull damage, then a d12 Weapon Mount [Empowered to d14?] against Defend 1 could deal 11+ hull damage in a single shot. Against a 4-Hull TIE, anything above 4 is overkill. Against an 8-Hull freighter, even Masterful hits might one-shot it.
+**Recommendation:** Define explicitly: "On a successful attack, the net Power result (Power die minus target Defense) is the hull damage dealt. Minimum 1 damage on any successful hit (Fleeting floor). System impairment is a separate effect triggered by tier, not by raw damage."
 
-### 3. Jam vs Single-Crew Fighters
-**Issue:** Jam's Fleeting tier ([Disoriented] on Operator/Co-Pilot actions) does nothing against a single-pilot fighter like a TIE. The Operator's primary debuff action has a dead first tier against the most common enemy type in Star Wars.
-**Options:**
-- A. Rewrite Fleeting Jam to affect all sensor-dependent rolls (including Piloting and Gunnery targeting). Broader but stronger.
-- B. Accept it — Jam is an anti-capital-ship tool at Fleeting. Against fighters, the Operator should Scan or Paint Target. Jam only becomes useful at Masterful+ (where comms disruption and Gunner debuffs kick in).
-- C. Add a Fleeting effect: "Target's Piloting Defense is reduced by 1 until end of round" — a small but meaningful debuff against fighters.
-**Recommendation:** Option C. A -1 Piloting Defense at Fleeting makes Jam always worth attempting against any target, while keeping the real power at Masterful+ tiers. It also means the Operator can soften up targets for the Gunners even against fighters.
+### 3. Support Action Resistance Model
+**Issue:** Coordinate, Assist Pilot, Reinforce Shields, Plot Course — these target your own crew, not an enemy. What Presence applies?
+**Recommendation:** GM-set Presence based on combat intensity (0 = prep/calm, 1 = standard combat, 2 = heavy fire/chaos, 3 = desperate). The Power die for support actions maps directly to the effect tier track (no NPC stat to subtract). This is clean, consistent with Challenge Mode, and already works in this playtest.
 
-### 4. Chassis Damage Model
-**Issue:** Gunner Attack says "Weapon chassis damage (Fleeting/Masterful/Legendary tier)" but never defines what that means in hull points.
-**Needed:** A damage conversion model. Either:
-- Tier = fixed hull damage (Fleeting 1, Masterful 2, Legendary 3) — simple, predictable, possibly too flat.
-- Power die = hull damage (swingy, makes [Empowered] and weapon mount quality very important) — more dynamic but harder to balance.
-- Tier determines damage range, Power die selects within range — middle ground.
-**Recommendation:** Power die = hull damage, modified by tier. Fleeting: Power die result ÷ 2 (round up). Masterful: Power die result. Legendary: Power die result × 1.5 (round up). This makes bigger weapon mounts (d8 vs d6) and [Empowered] meaningfully impact damage while keeping tiers as the primary damage gate.
-
-### 5. NPC Attack → Player Defense Flow
-**Issue:** When an NPC attacks and the player picks Endure, what determines the NPC's attack tier? NPCs don't roll dice.
-**Current text says:** "Defensive reactions (Evade, Endure, Resist) are free and triggered when the ship is attacked."
-**Needed clarity:** The NPC's Weapon Risk IS the static offense value. The player rolls their defense (Evade: Piloting + Handling; Endure: Shields) vs the Weapon Risk. Positive net = defense succeeds (damage reduced). Negative net = defense fails (damage lands).
-**For Endure specifically:** Success → Power die reduces effect tier. Failure → still reduces by 1 (floor). This means Endure is always "roll Shields vs Weapon Risk" — the player always rolls.
-
-### 6. Coordinate Resistance
-**Issue:** Coordinate is a support action buffing allies. What does the Co-Pilot roll against? The current playtest used Presence 2, but this isn't specified in the station data.
-**Recommendation:** Support actions that only affect your own crew (Coordinate, Assist Pilot, Reinforce Shields, Plot Course) should roll against a flat Presence set by the GM based on combat intensity. Presence 1 (calm), 2 (standard combat), 3 (intense), 4 (desperate). This is consistent with Challenge Mode difficulty.
+### 4. Fleeting Damage Floor
+**Issue:** If net Power is 0 (Power die exactly equals Defense), is it 0 damage or 1?
+**Recommendation:** Any successful hit (Control 4+) deals minimum 1 hull damage. The Control success means the shot connected — it should always mean something. Net 0 = Fleeting = 1 damage.
 
 ---
 
 ## PLAY OBSERVATIONS
 
 ### What Worked
-1. **Popcorn order creates real tactical decisions.** Senna going first to Coordinate before Kael's Attack Run was the right call and felt meaningful. If she'd gone last, her buffs would've been wasted.
-2. **Station interdependence is tangible.** The Pilot's Attack Run buffing all Gunners, the Co-Pilot's Coordinate stacking with it (or wasting on overlap), and the Engineer's shields preventing damage all feel like a real crew operating a ship.
-3. **NPCs as static values works.** TIE Alpha's attack was resolved entirely by Kael rolling Evade. TIE Beta's attack was resolved by Shields vs Risk. No GM dice ever hit the table. Frame B is clean.
-4. **Risk lines create tension.** The Pilot choosing between Evade (high upside, no floor) and Endure (safe, floor, no upside) is a genuine decision every time.
-5. **Engineer proactive value is clear.** Torr's Reinforce Shields before TIE Beta's attack created a satisfying "we prepared for this" moment.
+1. **Presence as Control step-down is elegant and terrifying.** One number changes the entire crew's probability landscape. The players immediately felt the pressure of fighting Presence 1 and understood why the Co-Pilot's [Optimized] was essential.
+2. **Defense subtracting from Power creates real armor.** Defend 3 on a TIE means d6 weapon mounts are marginal. You need d8+ to reliably deal Masterful damage. This creates weapon upgrade pressure and makes [Empowered] feel meaningful.
+3. **The buff chain is satisfying and learnable.** Co-Pilot → Pilot → Gunners is an obvious but rewarding sequence. Players who learn to chain buffs will dramatically outperform those who don't. This is good — it rewards crew coordination without requiring system mastery.
+4. **Frame B holds perfectly.** Not a single NPC die was rolled. TIE Alpha's attack was resolved by the Pilot rolling Evade. TIE Beta's attack never happened because the crew killed it first. Every outcome was determined by player rolls against static values.
+5. **Popcorn initiative creates real stakes.** TIE Beta never acted because the crew was efficient. If the order had been TIE Alpha → TIE Beta → Crew, the ship would have taken two attacks before responding. Initiative order is a genuine tactical dimension.
 
 ### What Needs Work
-1. **[Optimized] stacking ambiguity** will cause confusion at every table. Needs a definitive ruling in the condition engine.
-2. **Jam is useless at Fleeting vs fighters.** The Operator's primary debuff action has a dead tier against the most common enemy. This will frustrate Operator players.
-3. **Chassis damage is undefined.** Players will ask "how much damage did I do?" and the GM has no answer. This is the biggest gap.
-4. **Power die on Pilot positioning actions** has no clear role. Players will ask "why did I roll Engines d6 on Attack Run if it doesn't do anything?"
-5. **Coordinate resistance** isn't specified. Every GM will set it differently.
-6. **Mira (weak Gunner) was almost irrelevant.** A d6 Control die against Defense 4 means she needs a 5+ (33% chance) to hit at Fleeting, 50% with [Optimized]. The second Gunner slot may need a lower bar or a different contribution model for weaker crew members.
+1. **Jam needs rewriting for single-crew fighters.** The most common enemy in Star Wars is a single-pilot fighter. Jam must be relevant against them at every tier.
+2. **Hull damage model needs codification.** "Net Power = hull damage" works but needs to be written into the system, not assumed.
+3. **Support action Presence is ad hoc.** Needs a clear guideline in the starship combat rules.
+4. **Fleeting floor (1 damage minimum) needs explicit statement.** Without it, a successful hit can deal 0 damage, which feels wrong.
 
-### Turn Order Impact (Popcorn Analysis)
-**Going first in the crew's turn:**
-- Support stations (Co-Pilot, Operator) get maximum value — their buffs affect everyone after them.
-- Pilot going first commits the ship's geometry before knowing what support is available.
-
-**Going last in the crew's turn:**
-- Gunners going last benefit from all accumulated buffs.
-- Support stations going last waste their buffs (no one left to benefit).
-- The Pilot going last can react to the tactical picture but can't set up the Gunners.
-
-**Optimal crew order (this scenario):** Co-Pilot → Operator → Pilot → Engineer → Gunners
-- Co-Pilot buffs Pilot and Gunner
-- Operator debuffs target or buffs Gunner
-- Pilot positions ship and grants Attack Run buffs
-- Engineer reinforces before enemy counterattack
-- Gunners fire with all stacked buffs
-
-**But this isn't always optimal.** If the ship is being chased and needs to Break Away, the Pilot should go first (before the pursuer closes further). If a system is offline, the Engineer should go first to Jury Rig it before anyone tries to use it. The "right" order changes with the tactical situation.
+### Buff Allocation Cheat Sheet (Emergent from Play)
+| Buff        | Best Target       | Why |
+|-------------|-------------------|-----|
+| [Optimized] | Weakest Control die crew member, or anyone whose Control was stepped below d8 by Presence | Offsets Presence. Most impactful on crew members who drop to d4 without it (25% → 50% success). |
+| [Empowered] | Gunner with best base Power die | Directly increases net damage after Defense subtraction. More impactful on larger Power dice (d8→d10 gains more net damage than d6→d8). |
+| Both (Masterful Coordinate) | Split: [Optimized] to Pilot, [Empowered] to primary Gunner | Pilot needs accuracy to unlock Attack Run buffs. Gunner needs Power to overcome Defense. |
