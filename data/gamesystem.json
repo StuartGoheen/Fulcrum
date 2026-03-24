@@ -897,7 +897,7 @@
     "tag": "System Rule",
     "summary": "Starship combat governs space combat encounters using the same Fulcrum resolution math as character combat — adapted for crew stations aboard a starship. Ship combat runs as Challenge Mode: one meaningful action per crew member per round, free defensive reactions. Hardware dice replace personal Power dice. System impairment mirrors the character trauma/impairment model.",
     "mode": "Challenge",
-    "modeNote": "Starship combat uses Challenge Mode structure. Each crew member gets one meaningful action per round. The GM calls on stations in dramatic order. Defensive reactions (Evade, Endure, Resist, Countermeasures) are free and do not consume the station's action.",
+    "modeNote": "Starship combat uses Challenge Mode structure. Each crew member gets one meaningful action per round. The GM calls on stations in dramatic order. Defensive reactions (Evade, Angle Deflector Shields, Resist, Countermeasures) are free and do not consume the station's action.",
     "scale": {
       "rule": "When ships of different sizes engage, Scale modifies the dice. Larger target = step up attacker's Control die, step down attacker's Power die (easier to hit, harder to damage meaningfully). Smaller target = step down attacker's Control die, step up attacker's Power die (harder to hit, but devastating if it connects).",
       "categories": [
@@ -940,7 +940,7 @@
       "repair": "The Engineer's Jury Rig action repairs impaired systems. Power die = the damaged system's current die (worse damage = weaker Power die). All repairs are permanent. Fleeting = tactical bypass (ignore impairment for 1 round). Masterful = recover 1 step. Legendary = recover 2 steps on one system OR 1 step on two systems. Failure = wasted action, no additional penalty."
     },
     "shipDefenses": {
-      "rule": "Ship defenses mirror character defenses. Crew chooses Evade or Endure when attacked, exactly like a character choosing Dodge or Endure.",
+      "rule": "Ship defenses mirror character defenses. Crew chooses Evade or Angle Deflector Shields when attacked, exactly like a character choosing Dodge or Endure.",
       "types": [
         {
           "name": "Evade",
@@ -949,10 +949,10 @@
           "description": "The ship's Dodge equivalent. On success, Power die result reduces attacker's Effect Tier. On failure, no mitigation — full effect lands. On Control 8+, the evasion generates an Opening for the ship's Gunners. When the ship is [Locked On] by the attacker, the Evade Power die is [Weakened] — the pursuer knows the ship's evasion patterns."
         },
         {
-          "name": "Endure",
-          "station": "Engineer (passive) / Shields",
-          "discipline": "Shields die",
-          "description": "The ship's armor-soak equivalent. The Shields die absorbs incoming damage. Even on failure, reduces the attacker's Effect Tier by 1 — the shields always provide a minimum floor of protection (same as character Endure)."
+          "name": "Angle Deflector Shields",
+          "station": "Operator",
+          "discipline": "Tech (Wits) + Shields",
+          "description": "The ship's Endure equivalent. The Operator angles the shield envelope to absorb incoming fire. On success, the Shields Power die result reduces the attacker's Effect Tier. On failure, reduces the attacker's Effect Tier by 1 — the shields always provide a minimum floor of protection (same as character Endure)."
         },
         {
           "name": "Resist",
@@ -961,7 +961,7 @@
           "description": "Defense against electronic and ion attacks, Called Shots targeting systems, and jamming attempts. The Sensors die defends against non-physical threats. On failure, reduces the attacker's Effect Tier by 1 (same floor as Endure)."
         }
       ],
-      "choiceRule": "When the ship is attacked with physical weapons, the crew chooses between Evade (Pilot rolls, no floor on failure) or Endure (passive Shields, floor on failure). When attacked with electronic/ion weapons, Resist applies passively. This mirrors the character Dodge vs Endure choice exactly."
+      "choiceRule": "When the ship is attacked with physical weapons, the crew chooses between Evade (Pilot rolls, no floor on failure) or Angle Deflector Shields (Operator rolls, floor on failure). When attacked with electronic/ion weapons, Resist applies passively. This mirrors the character Dodge vs Endure choice exactly."
     },
     "dogfight": {
       "rule": "Dogfight is the starship equivalent of melee grapple. When a Pilot uses the Dogfight action against a target in their zone, both ships become engaged — locked in the same zone in a close-quarters positional contest. The Dogfight winner declares intent: press the attack (establish [Locked On]) or break free (clear [Locked On], move 1 zone). Dogfight is resolved as Piloting (Reflex) vs the target's Piloting defense, with Handling as the Power die.",
@@ -994,7 +994,7 @@
         "3. Each crew member declares their one meaningful action for the round.",
         "4. Roll resolution using Fulcrum math: Control die (discipline) minus Risk (enemy defense or static difficulty) = Net Result.",
         "5. Power die (hardware system) determines effect magnitude on success.",
-        "6. Defensive reactions (Evade, Endure, Resist, Countermeasures) are free and triggered when the ship is attacked.",
+        "6. Defensive reactions (Evade, Angle Deflector Shields, Resist, Countermeasures) are free and triggered when the ship is attacked.",
         "7. After all crew have acted, the GM advances the situation — enemy ships act, environmental changes occur, timers tick."
       ],
       "multipleGunners": "Ships with multiple weapon mounts may have multiple Gunners. Each Gunner acts independently on their turn, firing their assigned mount. All Gunners use the ship's single Fire Control Power die — individual weapons define chassis (damage table), arc, range, and traits, but the Power die is shared. This is the primary way to increase offensive output — more crew = more guns."
@@ -1023,7 +1023,7 @@
       "Challenge Mode (one action per round, free reactions) prevents starship combat from becoming a sub-game with its own action economy. Each crew member makes one meaningful decision per round. This keeps pacing tight and ensures every player contributes.",
       "System impairment mirrors character trauma exactly: take a permanent penalty to absorb damage that would otherwise destroy you. Called Shots give attackers tactical influence over which system degrades, adding a layer of strategic targeting.",
       "The Scale system ensures that ship-to-ship engagements respect size differences without making them impossible. A starfighter CAN damage a capital ship — it just needs to find the right angle, the right moment, and probably a torpedo.",
-      "Ship defenses mirror character defenses to reduce cognitive load. Players already know Dodge vs Endure — Evade vs Endure (Shields) is the same choice at ship scale. Resist handles the electronic dimension that does not exist in personal combat.",
+      "Ship defenses mirror character defenses to reduce cognitive load. Players already know Dodge vs Endure — Evade vs Angle Deflector Shields is the same choice at ship scale. Resist handles the electronic dimension that does not exist in personal combat.",
       "The five stations are designed so that each crew member has a distinct role with no mechanical overlap. The Pilot flies. The Gunner shoots. The Operator sees. The Engineer fixes. The Co-Pilot coordinates. No station can do another station's job."
     ]
   }

@@ -25,9 +25,10 @@
     "name": "Brace for Impact",
     "system": "handling",
     "gate": "D10",
-    "type": "passive",
-    "description": "Reinforced structural bracing and impact distribution framework integrated into the hull around the cockpit. When the Pilot's Evade reaction fails (Control result below the Risk), the ship still reduces the attacker's Effect Tier by 1 — a minimum floor on Evade, identical to how Endure always provides a floor. The bracing absorbs what the flying couldn't dodge.",
-    "designNotes": "Evade normally has no floor on failure — you either dodge or you don't. This mod gives Evade a safety net, making the Pilot's defensive choice less binary. Military-grade survivability upgrade.",
+    "type": "gambit",
+    "linkedManeuver": "Angle Deflector Shields",
+    "description": "On Angle Deflector Shields, pay -1 tier. The Pilot physically angles the ship to present the strongest shield facet to incoming fire while the Operator manages the deflector output — coordinated defense between two stations. On a successful Angle Deflector Shields, the Effect Tier is treated as +1 higher than rolled (net zero with the gambit cost at base, but +1 above the shield floor on failure). The Pilot's flying makes the Operator's shields more effective. 'Brace for impact' — the Pilot calls it, the ship turns, the shields catch it.",
+    "designNotes": "Cross-station gambit. The Pilot contributes to the Operator's shield defense by angling the ship. The -1 tier gambit cost is offset by the +1 tier bonus on success, making it net-neutral at base but creating a higher ceiling when the Operator rolls well. At Masterful (reduced to Fleeting by cost, then boosted back to Masterful by the bonus), the defense is the same — but at Legendary (reduced to Masterful, boosted to Legendary), the full effect fires. The real value is the +1 on the floor — even on failure, the Pilot's angling adds to the shield's minimum absorption.",
     "unlockRequirement": "Handling D10"
   },
   {
@@ -99,8 +100,8 @@
     "system": "shields",
     "gate": "D8",
     "type": "passive",
-    "description": "Shield emitters are recalibrated to polarize against the most common energy weapon frequencies. When the ship uses Endure as its defense against energy weapons (lasers, turbolasers), the Shields Power die is [Optimized] for that roll. Does not apply against ordnance (torpedoes, missiles) or kinetic impacts.",
-    "designNotes": "Entry-level Shields upgrade. Makes Endure more reliable against the most common attack type (energy weapons). Simple, consistent benefit that rewards choosing Endure over Evade against blasters.",
+    "description": "Shield emitters are recalibrated to polarize against the most common energy weapon frequencies. When the ship uses Angle Deflector Shields as its defense against energy weapons (lasers, turbolasers), the Shields Power die is [Optimized] for that roll. Does not apply against ordnance (torpedoes, missiles) or kinetic impacts.",
+    "designNotes": "Entry-level Shields upgrade. Makes Angle Deflector Shields more reliable against the most common attack type (energy weapons). Simple, consistent benefit that rewards choosing Angle Deflector Shields over Evade against blasters.",
     "unlockRequirement": "Shields D8"
   },
   {
@@ -130,9 +131,9 @@
     "system": "shields",
     "gate": "D10",
     "type": "gambit",
-    "linkedManeuver": "Endure",
-    "description": "On Endure defense, pay -1 tier. The shield absorption releases a violent backscatter pulse toward the attacker. The attacker's next action this round has its Control die [Weakened]. The flare is blinding — concentrated shield energy reflected back along the attack vector. The -1 tier reduces the damage absorption, but the tactical disruption to the attacker compensates.",
-    "designNotes": "Defensive gambit that punishes the attacker. Turns the Endure reaction into a counterattack opportunity — the attacker lands the hit, but the shield flare degrades their next action. Good against enemies who focus fire on one target.",
+    "linkedManeuver": "Angle Deflector Shields",
+    "description": "On Angle Deflector Shields, pay -1 tier. The shield absorption releases a violent backscatter pulse toward the attacker. The attacker's next action this round has its Control die [Weakened]. The flare is blinding — concentrated shield energy reflected back along the attack vector. The -1 tier reduces the damage absorption, but the tactical disruption to the attacker compensates.",
+    "designNotes": "Defensive gambit that punishes the attacker. Turns Angle Deflector Shields into a counterattack opportunity — the attacker lands the hit, but the shield flare degrades their next action. Good against enemies who focus fire on one target.",
     "unlockRequirement": "Shields D10"
   },
   {
@@ -285,7 +286,7 @@
     "system": "sensors",
     "gate": "D10",
     "type": "maneuver",
-    "description": "Advanced sensor processing allows the Operator to dynamically allocate the ship's sensor bandwidth between offensive and defensive functions — but not both simultaneously. The Operator declares one of two modes as a maneuver: Offensive Priority ('All power to targeting') — all attacks from the ship (Gunner attacks, Pilot attack actions, Jam) are [Empowered], but all defensive reactions (Evade, Countermeasures, Endure) cannot benefit from any sensor-related buffs or gambits. Defensive Priority ('All power to shields and countermeasures') — all defensive reactions (Evade, Countermeasures, Endure) are [Empowered], but all attacks from the ship cannot benefit from any sensor-related buffs or gambits. The mode persists until the Operator spends another maneuver to switch it, or until they drop it entirely to return to balanced operation.",
+    "description": "Advanced sensor processing allows the Operator to dynamically allocate the ship's sensor bandwidth between offensive and defensive functions — but not both simultaneously. The Operator declares one of two modes as a maneuver: Offensive Priority ('All power to targeting') — all attacks from the ship (Gunner attacks, Pilot attack actions, Jam) are [Empowered], but all defensive reactions (Evade, Countermeasures, Angle Deflector Shields) cannot benefit from any sensor-related buffs or gambits. Defensive Priority ('All power to shields and countermeasures') — all defensive reactions (Evade, Countermeasures, Angle Deflector Shields) are [Empowered], but all attacks from the ship cannot benefit from any sensor-related buffs or gambits. The mode persists until the Operator spends another maneuver to switch it, or until they drop it entirely to return to balanced operation.",
     "designNotes": "D10 Sensors option B. Tactical mode-switching that gives the Operator command over the ship's entire electronic posture. Creates a genuine decision every round — the tactical situation changes and the Operator must decide where sensor bandwidth goes. Very Star Wars: 'Angle the deflector shields!' is literally this. A D10 sensor suite has enough processing power to prioritize but not enough to fully cover both offense and defense simultaneously.",
     "unlockRequirement": "Sensors D10"
   },

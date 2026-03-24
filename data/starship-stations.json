@@ -326,8 +326,8 @@
     "name": "Operator",
     "controlDiscipline": "Tech / Investigation / Tactics",
     "controlArena": "Wits",
-    "powerSystems": ["Sensors"],
-    "summary": "The ship's eyes, ears, and electronic warfare specialist. The Operator reads the universe through the sensor suite — scanning targets, jamming enemy electronics, and deploying countermeasures against guided threats. They determine what the crew knows and what the enemy can see. In Star Wars, this is the com-scan officer: the person monitoring the sensor board, managing the ship's electronic signature, and controlling the flow of information in combat.",
+    "powerSystems": ["Sensors", "Shields"],
+    "summary": "The ship's eyes, ears, shields, and electronic warfare specialist. The Operator reads the universe through the sensor suite, angles the deflector shields against incoming fire, and deploys countermeasures against guided threats. They determine what the crew knows, what the enemy can see, and how much punishment the ship absorbs. In Star Wars, this is the com-scan officer and shield operator: 'Angle the deflector shields!' is literally this station's job.",
     "actions": [
       {
         "id": "sa_scan",
@@ -391,6 +391,38 @@
     ],
     "reactions": [
       {
+        "id": "sr_angle_deflectors",
+        "name": "Angle Deflector Shields",
+        "type": "reaction",
+        "trigger": "Ship takes damage from any source",
+        "control": "Tech (Wits)",
+        "power": "Shields",
+        "cost": "Free (defense reaction)",
+        "description": "The Operator angles the shield envelope to absorb incoming fire — concentrating deflector energy along the attack vector. The starship equivalent of Endure. A D4 shield suite flickers and catches what it can. A D12 suite reads the incoming fire pattern and reshapes the deflector geometry in real time to maximize absorption.",
+        "rule": "On success, the Shields Power die result reduces the attacker's Effect Tier. On failure, reduce the attacker's Effect Tier by 1 — the shields always provide a minimum floor of protection. This is the ship's baseline defense, available against any attack type.",
+        "effect": [
+          {
+            "tier": 1,
+            "label": "Fleeting",
+            "range": "0–3",
+            "description": "Reduce the attacker's Effect Tier by the Shields die result. Minimum mitigation — shields absorb what they can."
+          },
+          {
+            "tier": 2,
+            "label": "Masterful",
+            "range": "4–7",
+            "description": "Reduce the attacker's Effect Tier by the Shields die result. The deflector angle is precise — no shield bleedthrough or power drain."
+          },
+          {
+            "tier": 3,
+            "label": "Legendary",
+            "range": "8+",
+            "description": "Reduce the attacker's Effect Tier by the Shields die result. The shield geometry is so perfect that the ship also gains [Buffered 1] from residual deflector energy."
+          }
+        ],
+        "risk": "On failure, reduce the attacker's Effect Tier by 1 (minimum floor). The shields caught something, but the angle was wrong."
+      },
+      {
         "id": "sr_countermeasures",
         "name": "Countermeasures",
         "type": "reaction",
@@ -399,7 +431,7 @@
         "power": "Sensors",
         "cost": "Free (defense reaction)",
         "description": "Deploy chaff, flares, electronic decoys, or signal spoofing to defend against incoming guided ordnance or electronic warfare attacks. A D4 suite pops a single flare canister and hopes the torpedo chases it. A D12 suite deploys a synchronized cloud of frequency-matched decoys that make every incoming missile think it has already hit something.",
-        "rule": "On success, the Power die result reduces the attacker's Effect Tier. On failure, reduce the attacker's Effect Tier by 1 (minimum mitigation floor, identical to Endure). Countermeasure stores are narratively finite — the GM tracks depletion."
+        "rule": "On success, the Power die result reduces the attacker's Effect Tier. On failure, reduce the attacker's Effect Tier by 1 (minimum mitigation floor, identical to Angle Deflector Shields). Countermeasure stores are narratively finite — the GM tracks depletion."
       }
     ],
     "gambits": []

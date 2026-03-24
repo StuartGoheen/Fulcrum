@@ -913,19 +913,19 @@
     "guide": "Jink, roll, change vector. If you're good, the shot misses entirely. If you're great, the evasion opens up a shot for your Gunners. If you fail — well, the shields better hold."
   },
   {
-    "id": "endure_ship",
-    "name": "Endure (Starship)",
+    "id": "angle_deflector_shields",
+    "name": "Angle Deflector Shields",
     "type": "Starship Combat Rule",
     "category": "Starship Combat",
-    "rule": "The ship's armor-soak equivalent. The Shields die absorbs incoming damage passively. Even on failure, reduces the attacker's Effect Tier by 1 — the shields always provide a minimum floor of protection, identical to character Endure.",
-    "guide": "Shields take the punch. Even when they flicker, they bleed off some energy. It's never nothing. That's the whole point of shields."
+    "rule": "The ship's Endure equivalent. The Operator angles the shield envelope to absorb incoming fire — Tech (Wits) Control, Shields Power die. On success, the Shields die result reduces the attacker's Effect Tier. On failure, reduces the attacker's Effect Tier by 1 — the shields always provide a minimum floor of protection, identical to character Endure. This is the baseline ship defense, available against any attack type. The Operator declares 'Angle deflector shields!' and the shields rotate to catch the incoming fire.",
+    "guide": "The Operator's shield defense. Angle the shields, absorb the hit. Even when the angle is wrong, the shields bleed off some energy. It's never nothing."
   },
   {
     "id": "resist_ship",
     "name": "Resist (Starship)",
     "type": "Starship Combat Rule",
     "category": "Starship Combat",
-    "rule": "Defense against electronic and ion attacks, Called Shots targeting systems, and jamming attempts. The Sensors die defends against non-physical threats. On failure, reduces the attacker's Effect Tier by 1 — same floor as Endure.",
+    "rule": "Defense against electronic and ion attacks, Called Shots targeting systems, and jamming attempts. The Sensors die defends against non-physical threats. On failure, reduces the attacker's Effect Tier by 1 — same floor as Angle Deflector Shields.",
     "guide": "Electronic countermeasures. Your ship's immune system against ion bolts, jamming, and system intrusion. Even when it fails, it slows the attack down."
   },
   {
