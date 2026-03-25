@@ -319,11 +319,14 @@ router.get('/characters', (req, res) => {
   const characters = rows.map((c) => {
     let data = null;
     try { data = JSON.parse(c.character_data); } catch (_) {}
+    const debt = data ? _migrateDebt(data.debt) : null;
     return {
       id:           c.id,
       name:         c.name,
       species:      data ? (data.species || null) : null,
       archetype:    data ? (data.archetype || null) : null,
+      credits:      data ? (data.credits || 0) : 0,
+      debt:         debt ? { creditorId: debt.creditorId, balance: debt.balance, rate: debt.rate, principal: debt.principal, cyclesElapsed: debt.cyclesElapsed || 0 } : null,
       is_connected: c.is_connected,
     };
   });
@@ -689,6 +692,47 @@ router.patch('/characters/:id/debt/accrue', (req, res) => {
   } catch (err) {
     console.error('[PATCH /debt/accrue]', err);
     return res.status(500).json({ error: 'Failed to accrue interest.' });
+  }
+});
+
+router.post('/characters/:id/purchase', (req, res) => {
+  const character = db.prepare('SELECT id, character_data FROM characters WHERE id = ?').get(req.params.id);
+  if (!character || !character.character_data) {
+    return res.status(404).json({ error: 'Character not found.' });
+  }
+  try {
+    const data = JSON.parse(character.character_data);
+    const { items, totalCost } = req.body;
+    if (!Array.isArray(items) || items.length === 0) {
+      return res.status(400).json({ error: 'items array is required.' });
+    }
+    const cost = parseInt(totalCost) || 0;
+    if (cost < 0) return res.status(400).json({ error: 'Invalid cost.' });
+    const available = data.credits || 0;
+    if (cost > available) {
+      return res.status(400).json({ error: 'Insufficient credits.', available, cost });
+    }
+
+    data.credits = available - cost;
+
+    items.forEach(item => {
+      if (!item.id || !item.type) return;
+      if (item.type === 'weapon') {
+        if (!data.weaponIds) data.weaponIds = [];
+        if (data.weaponIds.indexOf(item.id) === -1) data.weaponIds.push(item.id);
+      } else if (item.type === 'armor') {
+        data.armorId = item.id;
+      } else if (item.type === 'gear') {
+        if (!data.gearIds) data.gearIds = [];
+        data.gearIds.push(item.id);
+      }
+    });
+
+    db.prepare('UPDATE characters SET character_data = ? WHERE id = ?').run(JSON.stringify(data), character.id);
+    return res.json({ ok: true, credits: data.credits, itemCount: items.length });
+  } catch (err) {
+    console.error('[POST /purchase]', err);
+    return res.status(500).json({ error: 'Failed to process purchase.' });
   }
 });
 

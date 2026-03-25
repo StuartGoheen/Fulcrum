@@ -29,17 +29,17 @@ The app uses a passcode-based gate (cookie auth) to restrict access:
 │   ├── gm/index.html     # GM Command Bridge
 │   ├── player/index.html # Player character sheet
 │   ├── create/index.html # Character creation wizard
-│   ├── market/index.html # Black Market browser (slim HTML shell)
+│   ├── market/index.html # Black Market (char gate → accordion browse → purchase flow)
 │   ├── css/output.css    # Generated — do not edit directly
-│   ├── css/market.css    # Black Market page styles (extracted from inline)
+│   ├── css/market.css    # Black Market styles (char gate, accordions, ledger, modals, responsive)
 │   └── audio/            # Audio assets (opening-crawl.mp3)
 ├── css/
 │   ├── input.css         # Tailwind source (custom components + layers)
 │   └── themes.css        # CSS variable theme definitions (6 themes: rebellion, r2d2, vader, fett, holo, fringe)
 ├── js/                   # Client-side JavaScript modules
 │   ├── command-bridge.js  # GM Command Bridge three-column layout JS
-│   ├── market.js          # Black Market browser logic (extracted from inline)
-│   ├── market-source-viewer.js # Source DB viewer overlay (extracted from inline)
+│   ├── market.js          # Black Market (char gate, accordion, salvaged, purchase, ledger)
+│   ├── market-source-viewer.js # Source DB viewer overlay
 │   ├── crawl-data.js     # Mission crawl text data (extensible for future missions)
 │   ├── opening-crawl.js  # Star Wars opening crawl overlay engine
 │   ├── starship-combat.js # Starship combat cockpit HUD overlay
@@ -353,6 +353,30 @@ Gear items tagged `Consumable` (Bacta Patches, Grenades, Stim Packs, etc.) can b
 - `POST /api/inventory/:charId/drop` — Drop any item (body: `{ itemId, itemType: "gear"|"weapon"|"armor" }`)
 
 **UI:** Use/Drop buttons appear in the body of expanded item cards in both Armory (panel-2) and Loadout (panel-4) panels. After action, character data is re-fetched and `character:stateChanged` event fires to re-render all panels. Innate weapons (Fists/Cathar Claws) cannot be dropped.
+
+## Black Market (/market/)
+
+Mid-campaign shopping interface with full purchase flow. Three files: `public/market/index.html` (HTML shell), `public/css/market.css`, `js/market.js`, `js/market-source-viewer.js`.
+
+**Character Selection Gate:** On load, a full-screen overlay shows all characters from `GET /api/characters` (now returns `credits` and `debt` summary). Player selects a character to enter the market; "Switch" button in header returns to gate.
+
+**Accordion Categories:** Items are grouped into collapsible accordion sections (Ranged Weapons, Melee Weapons, Armor, then gear subcategories) instead of flat filter buttons. Each section shows item count and can be collapsed/expanded.
+
+**In-Card Actions:** Each item card has "+ Add" and "⚙ Salvaged (50%)" buttons directly in the expanded card body. Salvaged option is disabled on R/X restricted items. Priceless items (no cost, no innate flag — e.g. Lightsaber) show "Beyond price — narrative acquisition only" instead of purchase buttons.
+
+**Salvaged Pricing:** Salvaged items cost 50% of the negotiated price (not base cost). They appear in the package list with a "SALVAGED" tag.
+
+**The Ledger (Loan System):** If the selected character has debt, a banner appears in the right column showing creditor name, balance owed, and an expandable drawer with principal, interest rate, cycles elapsed, and projected next-cycle amount. Uses debt data from `character_data.debt` (schema: `{ creditorId, principal, balance, rate, cyclesElapsed, history }`).
+
+**Purchase Flow:** "Confirm Purchase" button appears when a price total is calculated. Opens a modal showing itemized costs, total, current balance, and remaining balance after purchase. Calls `POST /api/characters/:id/purchase` which deducts credits and adds items to `weaponIds`/`armorId`/`gearIds` in character data.
+
+**Item Request Modal:** Floating action button ("+ Request Item") in bottom-right opens a modal form. Auto-fills character name from selected character. Submits to `POST /api/item-requests`.
+
+**Responsive Layout:** At ≤900px, the grid switches to single column with the deal panel below. All touch targets are 44px minimum. Header tagline is hidden. Source DB viewer goes single-pane.
+
+**API Endpoints:**
+- `GET /api/characters` — now includes `credits` and `debt` summary per character
+- `POST /api/characters/:id/purchase` — body: `{ items: [{id, type}], totalCost }`, deducts credits, adds items to inventory
 
 ## Deployment
 

@@ -13,10 +13,22 @@
 </head>
 <body class="font-body" style="background-color:var(--color-bg-primary);color:var(--color-text-primary);">
 <div class="starfield" aria-hidden="true"></div>
-<div class="mkt-page relative z-10">
+
+<div id="char-gate" class="char-gate">
+  <div class="char-gate-box">
+    <p class="char-gate-brand">Edge of the Empire</p>
+    <h1 class="char-gate-title">The Black Market</h1>
+    <p class="char-gate-sub">Choose your operative</p>
+    <div id="char-gate-list" class="char-gate-list">
+      <p class="char-gate-loading">Loading roster…</p>
+    </div>
+  </div>
+</div>
+
+<div id="mkt-app" class="mkt-page relative z-10" style="display:none;">
 
   <header class="mkt-header">
-    <div>
+    <div class="mkt-header-left">
       <p class="mkt-header-brand">Edge of the Empire</p>
       <h1 id="store-title" class="mkt-header-title" style="color:#CC2222;">The Black Market</h1>
     </div>
@@ -24,9 +36,14 @@
       <button id="btn-black" class="store-btn active-black">Black Market</button>
       <button id="btn-market" class="store-btn">The Market</button>
     </div>
+    <div class="mkt-header-char">
+      <span id="char-name-display" class="mkt-char-name"></span>
+      <span id="char-credits-display" class="mkt-char-credits"></span>
+    </div>
     <p id="store-tagline" class="mkt-header-tagline">No questions. No receipts. No refunds.</p>
-    <div style="display:flex;align-items:center;gap:0.75rem;">
+    <div class="mkt-header-actions">
       <button id="sv-open" class="mkt-header-link">Source DB</button>
+      <button id="char-switch" class="mkt-header-link">Switch</button>
       <a href="/" class="mkt-back-link">&#8592; Bridge</a>
     </div>
   </header>
@@ -35,13 +52,8 @@
 
     <div class="mkt-left">
       <div class="mkt-left-fixed">
-        <input id="search" type="text" class="mkt-search" placeholder="Search…" style="margin-bottom:0.35rem;" />
-
-        <div class="mkt-filters" id="cat-bar" style="margin-bottom:0.2rem;">
-          <button class="f-btn active" data-cat="all">All</button>
-        </div>
-
-        <div id="rest-bar" class="mkt-filters" style="margin-bottom:0;">
+        <input id="search" type="text" class="mkt-search" placeholder="Search inventory…" />
+        <div class="mkt-filters" id="rest-bar">
           <button class="f-btn active" data-rest="all">All</button>
           <button class="f-btn" data-rest="">Legal</button>
           <button class="f-btn rest-F" data-rest="F">F — Licensed</button>
@@ -52,29 +64,34 @@
 
       <div class="mkt-left-scroll">
         <div id="item-list">
-          <p style="font-size:0.7rem;color:var(--color-text-secondary);">Loading inventory…</p>
-        </div>
-
-        <div style="margin-top:1.5rem;padding-top:0.75rem;border-top:1px solid var(--color-border);">
-          <p class="deal-label" style="margin-bottom:0.5rem;">Request an Item</p>
-          <p style="font-size:0.62rem;color:var(--color-text-secondary);margin-bottom:0.6rem;line-height:1.6;">
-            Don't see what you need? Submit a request — GM reviews and converts before next game.
-          </p>
-          <input id="req-char" class="req-field" type="text" placeholder="Your character name" />
-          <input id="req-name" class="req-field" type="text" placeholder="Item name" />
-          <textarea id="req-desc" class="req-field" placeholder="What does it do in the fiction?"></textarea>
-          <input id="req-link" class="req-field" type="url" placeholder="Wookieepedia link (optional)" />
-          <button id="req-submit" class="mkt-btn">Submit Request</button>
-          <div id="req-status" style="display:none;font-size:0.65rem;margin-top:0.4rem;padding:0.4rem;border:1px solid var(--color-border);"></div>
+          <p class="mkt-loading-msg">Loading inventory…</p>
         </div>
       </div>
     </div>
 
     <div class="mkt-right">
-      <p id="deal-panel-title" class="deal-label" style="color:#CC2222;margin-bottom:0.4rem;flex-shrink:0;font-size:0.52rem;letter-spacing:0.12em;">The Art of the Deal</p>
+      <div id="ledger-banner" class="ledger-banner" style="display:none;">
+        <div class="ledger-banner-top">
+          <span class="ledger-icon">📒</span>
+          <span class="ledger-banner-title">The Ledger</span>
+          <button id="ledger-toggle" class="ledger-toggle-btn">Details ▾</button>
+        </div>
+        <div class="ledger-banner-summary">
+          <span id="ledger-creditor"></span>
+          <span id="ledger-balance" class="ledger-balance"></span>
+        </div>
+        <div id="ledger-drawer" class="ledger-drawer" style="display:none;">
+          <div class="ledger-detail-row"><span>Principal</span><span id="ledger-principal"></span></div>
+          <div class="ledger-detail-row"><span>Interest Rate</span><span id="ledger-rate"></span></div>
+          <div class="ledger-detail-row"><span>Cycles Elapsed</span><span id="ledger-cycles"></span></div>
+          <div class="ledger-detail-row"><span>Amount After Next Cycle</span><span id="ledger-next"></span></div>
+        </div>
+      </div>
 
-      <div id="deal-preview" class="deal-preview-bar" style="flex-shrink:0;">
-        <div style="display:flex;flex-direction:column;gap:0.1rem;flex:1;min-width:0;">
+      <p id="deal-panel-title" class="deal-label" style="color:#CC2222;">The Art of the Deal</p>
+
+      <div id="deal-preview" class="deal-preview-bar">
+        <div class="deal-preview-info">
           <p class="deal-label">Selected</p>
           <p id="d-name" class="deal-preview-name">— none —</p>
         </div>
@@ -82,20 +99,20 @@
         <button id="add-btn" class="deal-add-btn" disabled>+ Add</button>
       </div>
 
-      <div class="dice-grid" style="flex-shrink:0;margin-top:0.4rem;">
+      <div class="dice-grid">
         <div class="dice-cell">
           <p class="deal-label">Control</p>
           <input id="ctrl-in" class="dice-input" type="number" min="0" max="20" placeholder="—" />
-          <div id="ctrl-tag" class="dice-outcome" style="color:var(--color-text-secondary);">—</div>
-          <p class="deal-label" style="margin-top:0.25rem;font-size:0.38rem;">Step ↓ Avail</p>
-          <div id="ctrl-sd-pips" class="step-pips" style="justify-content:center;margin-top:0.1rem;"></div>
+          <div id="ctrl-tag" class="dice-outcome">—</div>
+          <p class="deal-label dice-sub-label">Step ↓ Avail</p>
+          <div id="ctrl-sd-pips" class="step-pips"></div>
         </div>
         <div id="pwr-cell" class="dice-cell">
           <p id="pwr-label" class="deal-label">Power</p>
           <input id="pwr-in" class="dice-input" type="number" min="0" max="12" placeholder="—" />
-          <div id="pwr-tag" class="dice-outcome" style="color:var(--color-text-secondary);">—</div>
-          <p id="pwr-sd-label" class="deal-label" style="margin-top:0.25rem;font-size:0.38rem;">Step ↓ Rest.</p>
-          <div id="pwr-sd-pips" class="step-pips" style="justify-content:center;margin-top:0.1rem;"></div>
+          <div id="pwr-tag" class="dice-outcome">—</div>
+          <p id="pwr-sd-label" class="deal-label dice-sub-label">Step ↓ Rest.</p>
+          <div id="pwr-sd-pips" class="step-pips"></div>
         </div>
         <div class="dice-cell">
           <p class="deal-label">Story %</p>
@@ -104,10 +121,10 @@
         </div>
       </div>
 
-      <div class="pkg-section" style="margin-top:0.5rem;">
+      <div class="pkg-section">
         <div class="pkg-header">
           <span class="deal-label" style="color:var(--color-accent-deep);">The Package</span>
-          <button id="pkg-clear" style="font-family:'Audiowide',sans-serif;font-size:0.4rem;letter-spacing:0.08em;text-transform:uppercase;background:transparent;border:none;color:var(--color-text-secondary);cursor:pointer;padding:0;" title="Clear all">Clear</button>
+          <button id="pkg-clear" class="pkg-clear-btn" title="Clear all">Clear</button>
         </div>
 
         <div id="no-deal" class="no-deal-block" style="display:none;">
@@ -115,7 +132,7 @@
           <span id="no-deal-sub" class="no-deal-sub"></span>
         </div>
 
-        <div id="pkg-list">
+        <div id="pkg-list" class="pkg-list-scroll">
           <p class="pkg-empty">Add items from the left<br/>to build your list.</p>
         </div>
 
@@ -123,11 +140,44 @@
           <span class="pkg-total-label">Total</span>
           <span id="pkg-total-val" class="pkg-total-val"></span>
         </div>
+
+        <button id="purchase-btn" class="purchase-btn" style="display:none;">Confirm Purchase</button>
       </div>
     </div>
 
   </div>
 </div>
+
+<div id="purchase-modal" class="modal-overlay" style="display:none;">
+  <div class="modal-box">
+    <h2 class="modal-title">Confirm Purchase</h2>
+    <div id="purchase-modal-body" class="modal-body"></div>
+    <div class="modal-actions">
+      <button id="purchase-cancel" class="modal-btn modal-btn-cancel">Cancel</button>
+      <button id="purchase-confirm" class="modal-btn modal-btn-confirm">Pay & Acquire</button>
+    </div>
+  </div>
+</div>
+
+<div id="request-modal" class="modal-overlay" style="display:none;">
+  <div class="modal-box">
+    <h2 class="modal-title">Request an Item</h2>
+    <p class="modal-desc">Don't see what you need? Submit a request — the GM reviews and converts before next game.</p>
+    <input id="req-name" class="modal-field" type="text" placeholder="Item name" />
+    <textarea id="req-desc" class="modal-field modal-textarea" placeholder="What does it do in the fiction?"></textarea>
+    <input id="req-link" class="modal-field" type="url" placeholder="Wookieepedia link (optional)" />
+    <div id="req-status" class="modal-status" style="display:none;"></div>
+    <div class="modal-actions">
+      <button id="req-cancel" class="modal-btn modal-btn-cancel">Cancel</button>
+      <button id="req-submit" class="modal-btn modal-btn-confirm">Submit Request</button>
+    </div>
+  </div>
+</div>
+
+<button id="request-fab" class="request-fab" style="display:none;" title="Request an Item">
+  <span class="request-fab-icon">+</span>
+  <span class="request-fab-label">Request Item</span>
+</button>
 
 <div id="sv-overlay" class="sv-overlay">
   <div class="sv-header">

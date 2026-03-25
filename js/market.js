@@ -30,13 +30,25 @@
     'X': 'No deal — and now someone is asking questions.'
   };
 
+  var DEBT_CREDITOR_NAMES = {
+    hutt_cartel: 'The Hutt Cartel',
+    black_sun: 'Black Sun',
+    imperial_surplus: 'Imperial Surplus Broker',
+    czerka_arms: 'Czerka Arms',
+    local_fixer: 'Local Fixer'
+  };
+
+  var CAT_ORDER = ['ranged', 'melee', 'armor'];
+  var CAT_LABELS = { ranged: 'Ranged Weapons', melee: 'Melee Weapons', armor: 'Armor' };
+
   var allItems = [];
   var selected = null;
   var shoppingList = [];
-  var activeCat = 'all';
   var activeRest = 'all';
   var mode = 'black';
   var chassisMap = {};
+  var activeChar = null;
+  var orderedCats = [];
 
   function parseAvail(raw) {
     var s = String(raw || '1').toUpperCase().trim().split('/');
@@ -45,6 +57,85 @@
 
   function esc(s) {
     return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function isPriceless(item) {
+    return !item.cost && item.cost !== 0 && !item.innate;
+  }
+
+  function isSalvageEligible(item) {
+    var a = parseAvail(item.availability);
+    return a.rest !== 'R' && a.rest !== 'X' && !isPriceless(item);
+  }
+
+  function loadCharacterGate() {
+    var gate = document.getElementById('char-gate');
+    var list = document.getElementById('char-gate-list');
+
+    fetch('/api/characters')
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        var chars = data.characters || [];
+        if (!chars.length) {
+          list.innerHTML = '<p class="char-gate-loading">No characters found. Create one first.</p>';
+          return;
+        }
+        list.innerHTML = '';
+        chars.forEach(function (c) {
+          var card = document.createElement('div');
+          card.className = 'char-gate-card';
+          card.innerHTML =
+            '<div class="char-gate-card-info">' +
+              '<div class="char-gate-card-name">' + esc(c.name || 'Unnamed') + '</div>' +
+              '<div class="char-gate-card-meta">' + esc(c.species || '') + (c.archetype ? ' · ' + esc(c.archetype) : '') + '</div>' +
+            '</div>' +
+            '<div class="char-gate-card-credits">' + (c.credits || 0).toLocaleString() + ' cr</div>';
+          card.addEventListener('click', function () { selectCharacter(c); });
+          list.appendChild(card);
+        });
+      })
+      .catch(function () {
+        list.innerHTML = '<p class="char-gate-loading">Failed to load roster.</p>';
+      });
+  }
+
+  function selectCharacter(c) {
+    activeChar = c;
+    document.getElementById('char-gate').style.display = 'none';
+    document.getElementById('mkt-app').style.display = 'flex';
+    document.getElementById('request-fab').style.display = 'flex';
+    document.getElementById('char-name-display').textContent = c.name || 'Unknown';
+    document.getElementById('char-credits-display').textContent = (c.credits || 0).toLocaleString() + ' cr';
+    updateLedger();
+    applyFilters();
+    recalc();
+  }
+
+  function switchCharacter() {
+    activeChar = null;
+    shoppingList = [];
+    selected = null;
+    document.getElementById('mkt-app').style.display = 'none';
+    document.getElementById('request-fab').style.display = 'none';
+    document.getElementById('char-gate').style.display = 'flex';
+    loadCharacterGate();
+  }
+
+  function updateLedger() {
+    var banner = document.getElementById('ledger-banner');
+    if (!activeChar || !activeChar.debt || !activeChar.debt.balance || activeChar.debt.balance <= 0) {
+      banner.style.display = 'none';
+      return;
+    }
+    var d = activeChar.debt;
+    banner.style.display = 'flex';
+    document.getElementById('ledger-creditor').textContent = DEBT_CREDITOR_NAMES[d.creditorId] || d.creditorId;
+    document.getElementById('ledger-balance').textContent = d.balance.toLocaleString() + ' cr owed';
+    document.getElementById('ledger-principal').textContent = (d.principal || 0).toLocaleString() + ' cr';
+    document.getElementById('ledger-rate').textContent = Math.round((d.rate || 0) * 100) + '%';
+    document.getElementById('ledger-cycles').textContent = String(d.cyclesElapsed || 0);
+    var nextBalance = Math.round(d.balance * (1 + (d.rate || 0)));
+    document.getElementById('ledger-next').textContent = nextBalance.toLocaleString() + ' cr';
   }
 
   function setMode(m) {
@@ -108,7 +199,8 @@
   function updateSdPips() {
     var items = shoppingList.length ? shoppingList : (selected ? [selected] : []);
     var maxCtrl = 0, maxPwr = 0;
-    items.forEach(function (item) {
+    items.forEach(function (entry) {
+      var item = entry.item || entry;
       var a = parseAvail(item.availability);
       maxCtrl = Math.max(maxCtrl, CTRL_SD[a.num] || 0);
       if (mode === 'black') maxPwr = Math.max(maxPwr, PWR_SD[a.rest] || 0);
@@ -176,19 +268,24 @@
     renderPackage(cVal, pVal, mVal, cl);
   }
 
-  function addToList() {
-    if (!selected) return;
-    if (shoppingList.find(function (e) { return e.id === selected.id; })) return;
-    shoppingList.push(selected);
-    document.getElementById('add-btn').disabled = true;
-    document.getElementById('add-btn').textContent = '✓ Added';
+  function addToList(item, salvaged) {
+    if (!item) return;
+    if (isPriceless(item)) return;
+    var existing = shoppingList.find(function (e) { return e.item.id === item.id && e.salvaged === salvaged; });
+    if (existing) return;
+    shoppingList.push({ item: item, salvaged: !!salvaged });
+    updateCardButtons(item);
     updateSdPips();
     recalc();
   }
 
-  function removeFromList(id) {
-    shoppingList = shoppingList.filter(function (e) { return e.id !== id; });
-    if (selected && selected.id === id) {
+  function removeFromList(itemId, salvaged) {
+    shoppingList = shoppingList.filter(function (e) {
+      return !(e.item.id === itemId && e.salvaged === salvaged);
+    });
+    var item = allItems.find(function (it) { return it.id === itemId; });
+    if (item) updateCardButtons(item);
+    if (selected && selected.id === itemId) {
       document.getElementById('add-btn').disabled = false;
       document.getElementById('add-btn').textContent = '+ Add';
     }
@@ -202,8 +299,27 @@
       document.getElementById('add-btn').disabled = false;
       document.getElementById('add-btn').textContent = '+ Add';
     }
+    document.querySelectorAll('.card-add-btn').forEach(function (b) { b.disabled = false; b.textContent = '+ Add'; });
+    document.querySelectorAll('.card-salvage-btn').forEach(function (b) { b.disabled = false; });
     updateSdPips();
     recalc();
+  }
+
+  function updateCardButtons(item) {
+    var card = document.querySelector('.armory-weapon-card[data-mid="' + item.id + '"]');
+    if (!card) return;
+    var inList = shoppingList.find(function (e) { return e.item.id === item.id && !e.salvaged; });
+    var inListSalvaged = shoppingList.find(function (e) { return e.item.id === item.id && e.salvaged; });
+    var addBtn = card.querySelector('.card-add-btn');
+    var salvBtn = card.querySelector('.card-salvage-btn');
+    if (addBtn) { addBtn.disabled = !!inList; addBtn.textContent = inList ? '✓ Added' : '+ Add'; }
+    if (salvBtn) { salvBtn.disabled = !!inListSalvaged; }
+
+    if (selected && selected.id === item.id) {
+      var headerAdd = document.getElementById('add-btn');
+      headerAdd.disabled = !!inList;
+      headerAdd.textContent = inList ? '✓ Added' : '+ Add';
+    }
   }
 
   function renderPackage(cVal, pVal, mVal, cl) {
@@ -211,11 +327,13 @@
     var noDeal   = document.getElementById('no-deal');
     var totalRow = document.getElementById('pkg-total-row');
     var totalVal = document.getElementById('pkg-total-val');
+    var purchaseBtn = document.getElementById('purchase-btn');
 
     if (!shoppingList.length) {
       pkgList.innerHTML      = '<p class="pkg-empty">Add items from the left<br/>to build your list.</p>';
       noDeal.style.display   = 'none';
       totalRow.style.display = 'none';
+      purchaseBtn.style.display = 'none';
       return;
     }
 
@@ -223,7 +341,9 @@
     var hasCalc  = cVal !== null && pVal !== null;
     var total = 0, html = '', outOfStockCount = 0;
 
-    shoppingList.forEach(function (item) {
+    shoppingList.forEach(function (entry) {
+      var item = entry.item;
+      var salvaged = entry.salvaged;
       var a = parseAvail(item.availability);
       var alwaysAvail = marketAlwaysAvailable(item);
       var notFound    = isFail && !alwaysAvail;
@@ -232,9 +352,10 @@
         outOfStockCount++;
         html += '<div class="pkg-row" style="opacity:0.35;">'
           + '<span class="pkg-row-name">' + esc(item.name) + '</span>'
-          + '<span class="rbadge rbadge-' + esc(a.rest || 'none') + '" style="font-size:0.4rem;padding:0.05rem 0.2rem;">' + esc(a.rest || 'LEGAL') + '</span>'
+          + (salvaged ? '<span class="pkg-row-salvage-tag">SALVAGED</span>' : '')
+          + '<span class="rbadge rbadge-' + esc(a.rest || 'none') + '" style="font-size:0.38rem;padding:0.04rem 0.18rem;">' + esc(a.rest || 'LEGAL') + '</span>'
           + '<span class="pkg-row-price pending">' + (mode === 'market' ? 'out of stock' : 'not found') + '</span>'
-          + '<button class="pkg-remove" data-remove-id="' + esc(item.id) + '">✕</button>'
+          + '<button class="pkg-remove" data-remove-id="' + esc(item.id) + '" data-salvaged="' + (salvaged ? '1' : '0') + '">✕</button>'
           + '</div>';
         return;
       }
@@ -243,14 +364,16 @@
         var effectivePval = (alwaysAvail && isFail) ? 0 : (pVal || 0);
         var effectiveCval = (alwaysAvail && isFail) ? 0 : (cVal || 0);
         var itemPrice  = calcPrice(item, effectiveCval, effectivePval, mVal);
-        var licFee     = calcLicenseFee(item);
+        if (salvaged) itemPrice = Math.round(itemPrice * 0.5);
+        var licFee     = salvaged ? 0 : calcLicenseFee(item);
         total += itemPrice + licFee;
 
         html += '<div class="pkg-row">'
           + '<span class="pkg-row-name">' + esc(item.name) + '</span>'
-          + '<span class="rbadge rbadge-' + esc(a.rest || 'none') + '" style="font-size:0.4rem;padding:0.05rem 0.2rem;">' + esc(a.rest || 'LEGAL') + '</span>'
+          + (salvaged ? '<span class="pkg-row-salvage-tag">SALVAGED</span>' : '')
+          + '<span class="rbadge rbadge-' + esc(a.rest || 'none') + '" style="font-size:0.38rem;padding:0.04rem 0.18rem;">' + esc(a.rest || 'LEGAL') + '</span>'
           + '<span class="pkg-row-price">' + itemPrice.toLocaleString() + ' cr</span>'
-          + '<button class="pkg-remove" data-remove-id="' + esc(item.id) + '">✕</button>'
+          + '<button class="pkg-remove" data-remove-id="' + esc(item.id) + '" data-salvaged="' + (salvaged ? '1' : '0') + '">✕</button>'
           + '</div>';
 
         if (licFee > 0) {
@@ -260,12 +383,15 @@
             + '</div>';
         }
       } else {
-        var licFee2 = calcLicenseFee(item);
+        var basePrice = item.cost || 0;
+        if (salvaged) basePrice = Math.round(basePrice * 0.5);
+        var licFee2 = salvaged ? 0 : calcLicenseFee(item);
         html += '<div class="pkg-row">'
           + '<span class="pkg-row-name">' + esc(item.name) + '</span>'
-          + '<span class="rbadge rbadge-' + esc(a.rest || 'none') + '" style="font-size:0.4rem;padding:0.05rem 0.2rem;">' + esc(a.rest || 'LEGAL') + '</span>'
-          + '<span class="pkg-row-price pending">' + (item.cost || 0).toLocaleString() + ' cr base</span>'
-          + '<button class="pkg-remove" data-remove-id="' + esc(item.id) + '">✕</button>'
+          + (salvaged ? '<span class="pkg-row-salvage-tag">SALVAGED</span>' : '')
+          + '<span class="rbadge rbadge-' + esc(a.rest || 'none') + '" style="font-size:0.38rem;padding:0.04rem 0.18rem;">' + esc(a.rest || 'LEGAL') + '</span>'
+          + '<span class="pkg-row-price pending">' + basePrice.toLocaleString() + ' cr base</span>'
+          + '<button class="pkg-remove" data-remove-id="' + esc(item.id) + '" data-salvaged="' + (salvaged ? '1' : '0') + '">✕</button>'
           + '</div>';
         if (licFee2 > 0) {
           html += '<div class="pkg-row-license">'
@@ -279,7 +405,9 @@
     pkgList.innerHTML = html;
 
     pkgList.querySelectorAll('.pkg-remove[data-remove-id]').forEach(function (btn) {
-      btn.addEventListener('click', function () { removeFromList(btn.dataset.removeId); });
+      btn.addEventListener('click', function () {
+        removeFromList(btn.dataset.removeId, btn.dataset.salvaged === '1');
+      });
     });
 
     if (isFail) {
@@ -289,8 +417,8 @@
         if (mode === 'market') {
           noDeal.textContent = 'Out of stock — check back next port.';
         } else {
-          var worstRest = shoppingList.reduce(function (w, it) {
-            var r = parseAvail(it.availability).rest;
+          var worstRest = shoppingList.reduce(function (w, entry) {
+            var r = parseAvail(entry.item.availability).rest;
             var rank = { 'X': 3, 'R': 2, 'F': 1, '': 0 };
             return (rank[r] || 0) > (rank[w] || 0) ? r : w;
           }, '');
@@ -307,7 +435,7 @@
       noDeal.style.display = 'none';
     }
 
-    var showTotal = hasCalc || (isFail && shoppingList.some(function (it) { return marketAlwaysAvailable(it); }));
+    var showTotal = hasCalc || (isFail && shoppingList.some(function (entry) { return marketAlwaysAvailable(entry.item); }));
     if (showTotal && outOfStockCount < shoppingList.length) {
       totalRow.style.display = 'flex';
       totalVal.textContent   = total.toLocaleString() + ' cr';
@@ -318,8 +446,11 @@
         totalVal.title       = '';
         totalVal.style.color = mode === 'market' ? '#44CC66' : '';
       }
+      purchaseBtn.style.display = 'block';
+      purchaseBtn.disabled = false;
     } else {
       totalRow.style.display = 'none';
+      purchaseBtn.style.display = 'none';
     }
   }
 
@@ -338,9 +469,14 @@
     badge.className   = 'rbadge rbadge-' + (a.rest || 'none');
 
     var addBtn = document.getElementById('add-btn');
-    var alreadyIn = shoppingList.find(function (e) { return e.id === item.id; });
-    addBtn.disabled    = !!alreadyIn;
-    addBtn.textContent = alreadyIn ? '✓ Added' : '+ Add';
+    if (isPriceless(item)) {
+      addBtn.disabled = true;
+      addBtn.textContent = 'Priceless';
+    } else {
+      var alreadyIn = shoppingList.find(function (e) { return e.item.id === item.id && !e.salvaged; });
+      addBtn.disabled    = !!alreadyIn;
+      addBtn.textContent = alreadyIn ? '✓ Added' : '+ Add';
+    }
 
     updateSdPips();
   }
@@ -390,6 +526,7 @@
     var traits  = item.traits  || [];
     var gambits = item.gambits || [];
     var cost    = item.cost ? item.cost.toLocaleString() + ' cr' : '—';
+    var priceless = isPriceless(item);
 
     var metaSdParts = [];
     if (ctrlSD > 0) metaSdParts.push('Ctrl ↓' + ctrlSD);
@@ -401,7 +538,7 @@
     var meta = '<div class="armory-weapon-meta">';
     meta += '<span class="armory-weapon-chassis">' + esc(item.categoryLabel || item.category || '') + '</span>';
     if (wp && wp.range) meta += '<span class="armory-weapon-range">Range: ' + esc(renderRange(wp.range)) + '</span>';
-    meta += '<span class="armory-weapon-cost">' + esc(cost) + '</span>';
+    meta += '<span class="armory-weapon-cost">' + (priceless ? 'Priceless' : esc(cost)) + '</span>';
     if (item.availability) meta += '<span class="armory-weapon-range">Avail: ' + esc(item.availability) + '</span>';
     if (metaSd) meta += '<span class="armory-weapon-range" style="color:var(--color-text-secondary);">' + esc(metaSd) + '</span>';
     meta += '</div>';
@@ -458,18 +595,33 @@
         + '</div>';
     });
 
+    var actionsHtml = '<div class="card-actions">';
+    if (priceless) {
+      actionsHtml += '<span class="card-priceless-tag">Beyond price — narrative acquisition only</span>';
+    } else {
+      var inList = shoppingList.find(function (e) { return e.item.id === item.id && !e.salvaged; });
+      actionsHtml += '<button class="card-add-btn" data-add-id="' + esc(item.id) + '"' + (inList ? ' disabled' : '') + '>' + (inList ? '✓ Added' : '+ Add') + '</button>';
+      if (isSalvageEligible(item)) {
+        var inSalv = shoppingList.find(function (e) { return e.item.id === item.id && e.salvaged; });
+        actionsHtml += '<button class="card-salvage-btn" data-salvage-id="' + esc(item.id) + '"' + (inSalv ? ' disabled' : '') + '>⚙ Salvaged (50%)</button>';
+      }
+    }
+    actionsHtml += '</div>';
+
     return '<div class="armory-weapon-card" data-mid="' + esc(item.id) + '">'
       + '<div class="armory-weapon-header">'
       + '<span class="armory-weapon-name">' + esc(item.name) + '</span>'
       + '<span class="rbadge rbadge-' + esc(a.rest || 'none') + '">' + esc(a.rest || 'LEGAL') + '</span>'
       + '</div>'
       + '<div class="armory-weapon-body">'
-      + meta + effectHtml + descHtml + traitsHtml + gambitsHtml
+      + meta + effectHtml + descHtml + traitsHtml + gambitsHtml + actionsHtml
       + '</div>'
       + '</div>';
   }
 
-  function handleCardClick(cardEl) {
+  function handleCardClick(cardEl, e) {
+    if (e.target.closest('.card-add-btn') || e.target.closest('.card-salvage-btn') || e.target.closest('.armory-gambit-toggle')) return;
+
     var mid = cardEl.dataset.mid;
     var item = allItems.find(function (it) { return it.id === mid; });
     if (!item) return;
@@ -484,36 +636,87 @@
     var isOpen = body.classList.toggle('open');
     cardEl.classList.toggle('is-open', isOpen);
     selectItem(item);
-    cardEl.querySelectorAll('.armory-gambit-toggle').forEach(function (t) {
-      t.onclick = function (e) {
+  }
+
+  function bindCardEvents(container) {
+    container.querySelectorAll('.armory-weapon-card').forEach(function (card) {
+      card.addEventListener('click', function (e) { handleCardClick(card, e); });
+    });
+    container.querySelectorAll('.card-add-btn[data-add-id]').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var item = allItems.find(function (it) { return it.id === btn.dataset.addId; });
+        if (item) addToList(item, false);
+      });
+    });
+    container.querySelectorAll('.card-salvage-btn[data-salvage-id]').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var item = allItems.find(function (it) { return it.id === btn.dataset.salvageId; });
+        if (item) addToList(item, true);
+      });
+    });
+    container.querySelectorAll('.armory-gambit-toggle').forEach(function (t) {
+      t.addEventListener('click', function (e) {
         e.stopPropagation();
         var block = t.closest('.armory-gambit-block');
         if (block) block.classList.toggle('is-open');
-      };
+      });
     });
   }
 
   function renderList(items) {
     var list = document.getElementById('item-list');
     if (!items.length) {
-      list.innerHTML = '<p style="font-size:0.7rem;color:var(--color-text-secondary);padding:0.5rem 0;">No items match.</p>';
+      list.innerHTML = '<p class="mkt-loading-msg">No items match.</p>';
       return;
     }
     var groups = {};
     items.forEach(function (item) {
-      var cat = item.categoryLabel || item.category || 'Other';
+      var cat = item.category || 'other';
       (groups[cat] = groups[cat] || []).push(item);
     });
+
     var html = '';
-    Object.entries(groups).forEach(function (entry) {
-      html += '<p class="cat-label">' + esc(entry[0]) + '</p>';
-      entry[1].forEach(function (item) { html += buildCard(item); });
+    orderedCats.forEach(function (cat) {
+      if (!groups[cat]) return;
+      var label = CAT_LABELS[cat] || cat;
+      var count = groups[cat].length;
+      html += '<div class="accordion-section open" data-acc-cat="' + esc(cat) + '">';
+      html += '<div class="accordion-header">';
+      html += '<span class="accordion-chevron">&#9656;</span>';
+      html += '<span class="accordion-label">' + esc(label) + '</span>';
+      html += '<span class="accordion-count">' + count + '</span>';
+      html += '</div>';
+      html += '<div class="accordion-body">';
+      groups[cat].forEach(function (item) { html += buildCard(item); });
+      html += '</div></div>';
     });
+
+    Object.keys(groups).forEach(function (cat) {
+      if (orderedCats.indexOf(cat) !== -1) return;
+      var label = CAT_LABELS[cat] || cat;
+      var count = groups[cat].length;
+      html += '<div class="accordion-section open" data-acc-cat="' + esc(cat) + '">';
+      html += '<div class="accordion-header">';
+      html += '<span class="accordion-chevron">&#9656;</span>';
+      html += '<span class="accordion-label">' + esc(label) + '</span>';
+      html += '<span class="accordion-count">' + count + '</span>';
+      html += '</div>';
+      html += '<div class="accordion-body">';
+      groups[cat].forEach(function (item) { html += buildCard(item); });
+      html += '</div></div>';
+    });
+
     list.innerHTML = html;
 
-    list.querySelectorAll('.armory-weapon-card').forEach(function (card) {
-      card.addEventListener('click', function () { handleCardClick(card); });
+    list.querySelectorAll('.accordion-header').forEach(function (hdr) {
+      hdr.addEventListener('click', function () {
+        hdr.closest('.accordion-section').classList.toggle('open');
+      });
     });
+
+    bindCardEvents(list);
   }
 
   function applyFilters() {
@@ -526,19 +729,11 @@
         if (a.num >= 4) return false;
       }
 
-      var matchCat  = activeCat  === 'all' || item.category === activeCat;
       var matchRest = activeRest === 'all' || a.rest === activeRest;
       var matchQ    = !q || item.name.toLowerCase().includes(q) || (item.description || '').toLowerCase().includes(q);
-      return matchCat && matchRest && matchQ;
+      return matchRest && matchQ;
     });
     renderList(filtered);
-  }
-
-  function setCat(btn) {
-    activeCat = btn.dataset.cat;
-    document.querySelectorAll('#cat-bar .f-btn').forEach(function (b) { b.classList.remove('active'); });
-    btn.classList.add('active');
-    applyFilters();
   }
 
   function setRest(btn) {
@@ -548,12 +743,118 @@
     applyFilters();
   }
 
+  function openPurchaseModal() {
+    var cRaw = document.getElementById('ctrl-in').value;
+    var pRaw = document.getElementById('pwr-in').value;
+    var mRaw = document.getElementById('mod-in').value;
+    var cVal = cRaw === '' ? null : parseInt(cRaw);
+    var pVal = pRaw === '' ? null : Math.min(Math.max(parseInt(pRaw), 0), 12);
+    var mVal = parseFloat(mRaw) || 0;
+
+    var total = 0;
+    var bodyHtml = '';
+    shoppingList.forEach(function (entry) {
+      var item = entry.item;
+      var salvaged = entry.salvaged;
+      var alwaysAvail = marketAlwaysAvailable(item);
+      var cl = ctrlLabel(cVal);
+      if (cl.fail && !alwaysAvail) return;
+
+      var effectivePval = (alwaysAvail && cl.fail) ? 0 : (pVal || 0);
+      var effectiveCval = (alwaysAvail && cl.fail) ? 0 : (cVal || 0);
+      var price = calcPrice(item, effectiveCval, effectivePval, mVal);
+      if (salvaged) price = Math.round(price * 0.5);
+      var lic = salvaged ? 0 : calcLicenseFee(item);
+      var lineTotal = price + lic;
+      total += lineTotal;
+
+      bodyHtml += '<div class="modal-purchase-item">'
+        + '<span>' + esc(item.name) + (salvaged ? ' <em style="color:#C8A000">(salvaged)</em>' : '') + '</span>'
+        + '<span>' + lineTotal.toLocaleString() + ' cr</span>'
+        + '</div>';
+    });
+
+    var credits = activeChar ? (activeChar.credits || 0) : 0;
+    var remaining = credits - total;
+
+    bodyHtml += '<div class="modal-purchase-total"><span>Total</span><span>' + total.toLocaleString() + ' cr</span></div>';
+    bodyHtml += '<div class="modal-purchase-balance"><span>Current Balance</span><span>' + credits.toLocaleString() + ' cr</span></div>';
+    bodyHtml += '<div class="modal-purchase-balance"><span>After Purchase</span><span style="color:' + (remaining < 0 ? '#CC3333' : 'var(--color-text-primary)') + '">' + remaining.toLocaleString() + ' cr</span></div>';
+
+    document.getElementById('purchase-modal-body').innerHTML = bodyHtml;
+    document.getElementById('purchase-modal').style.display = 'flex';
+
+    var confirmBtn = document.getElementById('purchase-confirm');
+    confirmBtn.disabled = remaining < 0;
+    confirmBtn.dataset.total = total;
+  }
+
+  function executePurchase() {
+    var total = parseInt(document.getElementById('purchase-confirm').dataset.total) || 0;
+    if (!activeChar) return;
+
+    var cRaw = document.getElementById('ctrl-in').value;
+    var cVal = cRaw === '' ? null : parseInt(cRaw);
+    var cl = ctrlLabel(cVal);
+
+    var items = [];
+    shoppingList.forEach(function (entry) {
+      var alwaysAvail = marketAlwaysAvailable(entry.item);
+      if (cl.fail && !alwaysAvail) return;
+      var cat = entry.item.category;
+      var type = 'gear';
+      if (cat === 'ranged' || cat === 'melee') type = 'weapon';
+      else if (cat === 'armor') type = 'armor';
+      items.push({ id: entry.item.id, type: type, salvaged: entry.salvaged });
+    });
+
+    if (!items.length) return;
+
+    document.getElementById('purchase-confirm').disabled = true;
+    document.getElementById('purchase-confirm').textContent = 'Processing…';
+
+    fetch('/api/characters/' + activeChar.id + '/purchase', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ items: items, totalCost: total })
+    })
+    .then(function (r) {
+      if (!r.ok) return r.json().then(function (d) { throw new Error(d.error || 'Purchase failed'); });
+      return r.json();
+    })
+    .then(function (data) {
+      activeChar.credits = data.credits;
+      document.getElementById('char-credits-display').textContent = data.credits.toLocaleString() + ' cr';
+      shoppingList = [];
+      document.getElementById('purchase-modal').style.display = 'none';
+      document.getElementById('purchase-confirm').textContent = 'Pay & Acquire';
+      recalc();
+      applyFilters();
+    })
+    .catch(function (err) {
+      alert(err.message || 'Purchase failed.');
+      document.getElementById('purchase-confirm').disabled = false;
+      document.getElementById('purchase-confirm').textContent = 'Pay & Acquire';
+    });
+  }
+
+  function openRequestModal() {
+    document.getElementById('request-modal').style.display = 'flex';
+    document.getElementById('req-name').value = '';
+    document.getElementById('req-desc').value = '';
+    document.getElementById('req-link').value = '';
+    document.getElementById('req-status').style.display = 'none';
+  }
+
+  function closeRequestModal() {
+    document.getElementById('request-modal').style.display = 'none';
+  }
+
   function submitRequest() {
-    var charName = document.getElementById('req-char').value.trim();
     var itemName = document.getElementById('req-name').value.trim();
     var statusEl = document.getElementById('req-status');
-    if (!charName) { alert('Enter your character name.'); return; }
     if (!itemName) { alert('Enter an item name.'); return; }
+    if (!activeChar) { alert('No character selected.'); return; }
     var desc = document.getElementById('req-desc').value.trim();
     var link = document.getElementById('req-link').value.trim();
     statusEl.style.display = 'block';
@@ -563,7 +864,7 @@
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        characterName: charName,
+        characterName: activeChar.name,
         itemName: itemName,
         description: desc || undefined,
         referenceUrl: link || undefined
@@ -574,9 +875,7 @@
     }).then(function () {
       statusEl.style.color = '#44AA66';
       statusEl.textContent = 'Request submitted! The GM will review it before next session.';
-      document.getElementById('req-name').value = '';
-      document.getElementById('req-desc').value = '';
-      document.getElementById('req-link').value = '';
+      setTimeout(closeRequestModal, 2000);
     }).catch(function () {
       statusEl.style.color = 'var(--color-accent-primary)';
       statusEl.textContent = 'Failed to submit. Try again.';
@@ -591,20 +890,44 @@
 
     document.getElementById('btn-black').addEventListener('click', function () { setMode('black'); });
     document.getElementById('btn-market').addEventListener('click', function () { setMode('market'); });
-    document.getElementById('add-btn').addEventListener('click', addToList);
-    document.getElementById('pkg-clear').addEventListener('click', clearList);
-    document.getElementById('req-submit').addEventListener('click', submitRequest);
-
-    document.querySelectorAll('#cat-bar .f-btn').forEach(function (btn) {
-      btn.addEventListener('click', function () { setCat(btn); });
+    document.getElementById('add-btn').addEventListener('click', function () {
+      if (selected && !isPriceless(selected)) addToList(selected, false);
     });
+    document.getElementById('pkg-clear').addEventListener('click', clearList);
+    document.getElementById('char-switch').addEventListener('click', switchCharacter);
+
     document.querySelectorAll('#rest-bar .f-btn').forEach(function (btn) {
       btn.addEventListener('click', function () { setRest(btn); });
+    });
+
+    document.getElementById('ledger-toggle').addEventListener('click', function () {
+      var drawer = document.getElementById('ledger-drawer');
+      var open = drawer.style.display === 'none';
+      drawer.style.display = open ? 'block' : 'none';
+      this.textContent = open ? 'Details ▴' : 'Details ▾';
+    });
+
+    document.getElementById('purchase-btn').addEventListener('click', openPurchaseModal);
+    document.getElementById('purchase-cancel').addEventListener('click', function () {
+      document.getElementById('purchase-modal').style.display = 'none';
+    });
+    document.getElementById('purchase-confirm').addEventListener('click', executePurchase);
+
+    document.getElementById('request-fab').addEventListener('click', openRequestModal);
+    document.getElementById('req-cancel').addEventListener('click', closeRequestModal);
+    document.getElementById('req-submit').addEventListener('click', submitRequest);
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        document.getElementById('purchase-modal').style.display = 'none';
+        closeRequestModal();
+      }
     });
   }
 
   function boot() {
     bindEvents();
+    loadCharacterGate();
 
     Promise.all([
       fetch('/data/gear.json').then(function (r) { return r.json(); }),
@@ -629,29 +952,19 @@
 
       allItems = [].concat(gear, normWeapons, normArmor);
 
-      var catOrder = ['ranged', 'melee', 'armor'];
       var gearCats = [];
       gear.forEach(function (d) {
         if (d.category && gearCats.indexOf(d.category) === -1) gearCats.push(d.category);
       });
-      var orderedCats = catOrder.concat(gearCats.filter(function (c) { return catOrder.indexOf(c) === -1; }));
+      orderedCats = CAT_ORDER.concat(gearCats.filter(function (c) { return CAT_ORDER.indexOf(c) === -1; }));
 
-      var catLabels = { ranged: 'Ranged Weapons', melee: 'Melee Weapons', armor: 'Armor' };
       gear.forEach(function (d) {
-        if (d.category && d.categoryLabel) catLabels[d.category] = d.categoryLabel;
+        if (d.category && d.categoryLabel && !CAT_LABELS[d.category]) {
+          CAT_LABELS[d.category] = d.categoryLabel;
+        }
       });
 
-      var bar = document.getElementById('cat-bar');
-      orderedCats.forEach(function (cat) {
-        var btn = document.createElement('button');
-        btn.className = 'f-btn';
-        btn.dataset.cat = cat;
-        btn.textContent = catLabels[cat] || cat;
-        btn.addEventListener('click', function () { setCat(btn); });
-        bar.appendChild(btn);
-      });
-
-      renderList(allItems);
+      applyFilters();
       recalc();
     });
   }

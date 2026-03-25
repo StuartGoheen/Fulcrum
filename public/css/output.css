@@ -3445,22 +3445,12 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--color-btn-text);
 }
 
-.char-add-chip.\!selected {
-  background: var(--color-accent-primary) !important;
-  border-color: var(--color-accent-primary) !important;
-  color: var(--color-btn-text) !important;
-}
-
 .char-add-chip-all {
   border-style: dashed;
 }
 
 .char-add-chip-all.selected {
   border-style: solid;
-}
-
-.char-add-chip-all.\!selected {
-  border-style: solid !important;
 }
 
 .char-add-target-static {
