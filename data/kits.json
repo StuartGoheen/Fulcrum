@@ -1748,5 +1748,102 @@
         "source": "gear"
       }
     ]
+  },
+  {
+    "id": "voc_hound",
+    "name": "The Hound",
+    "governingArena": "wits",
+    "favoredDiscipline": "investigation",
+    "description": "You don't chase your prey — you make their world smaller. Every contact they call is one you've already spoken to. Every safe house they run to is one you've already mapped. By the time they see your face, the hunt is already over. They just don't know it yet.",
+    "fluff": "The Bounty Hunters' Guild doesn't train Hounds — it recognizes them. They're the ones who return the impossible bounties, the ones who find the target everyone else gave up on three systems ago. Ask a Hound how they do it and they'll tell you there's no trick to it: you study the mark, you work the contacts, you follow the thread, and you don't stop. Ever. Some hunters are fast. Some are deadly. A Hound is inevitable.",
+    "abilities": [
+      {
+        "id": "voc_hound_t1",
+        "tier": 1,
+        "type": "passive",
+        "name": "Acquire the Scent",
+        "tags": [
+          "[Narrative]",
+          "[Social]"
+        ],
+        "rule": "Once per episode, if you do not already have a Mark, you may declare one. Your Mark is a specific individual — a bounty contract, a personal target, or someone the hunt demands you find. This Mark persists until they are acquired, killed, or the GM agrees a change is warranted. You may only have one active Mark at a time.\n\nWhile in direct pursuit of your Mark, you may substitute Wits for Presence as the governing Arena when making Assess or Interact maneuvers during narrative scenes. This applies only to actions directly related to the hunt — questioning informants about your Mark's whereabouts, intimidating a contact into giving up a safe house, reading a room for your Mark's associates. It won't help you charm your way into unrelated social situations.",
+        "shorthand": "Declare a Mark (1/episode). Wits replaces Presence on hunt-related Assess/Interact in narrative scenes."
+      },
+      {
+        "id": "voc_hound_t2",
+        "tier": 2,
+        "type": "passive",
+        "name": "Closing In",
+        "tags": [
+          "[Narrative]"
+        ],
+        "rule": "While pursuing your Mark, each successful Assess or Interact maneuver directly related to the hunt generates a Lead — a piece of actionable intelligence. You may hold up to 3 Leads at a time. Leads expire when you change your Mark.\n\nWhen the trail has gone cold — when you've hit a dead end, failed a critical roll, or simply can't see the next step — you may spend one Lead to go back over the information you've gathered. The GM must provide one actionable, truthful piece of intel or direction that moves the hunt forward. This isn't new information appearing from nowhere — it's something you already had that suddenly clicks into place.",
+        "shorthand": "Successful hunt Assess/Interact → generate a Lead (max 3). Spend 1 Lead when stuck → GM provides actionable intel."
+      },
+      {
+        "id": "voc_hound_t3",
+        "tier": 3,
+        "type": "passive",
+        "name": "Secondary Acquisition",
+        "tags": [
+          "[Narrative]"
+        ],
+        "rule": "You may designate a Secondary Mark in addition to your primary Mark. The Secondary Mark may be declared once per Act and does not require GM approval to change. It does not replace or affect your primary Mark in any way.\n\nYour T1 and T2 abilities (Wits-for-Presence swap on hunt-related Assess/Interact, and Lead generation) apply to your Secondary Mark as well. However, Leads generated from the Secondary Mark draw from the same pool (still max 3).\n\nExperienced Hounds use their Secondary Mark to run down associates of their primary target, take contracts of opportunity, or lend their talents to the crew's current objective — all without losing the scent on their real quarry.",
+        "shorthand": "Designate a Secondary Mark (1/Act, no GM approval needed). T1/T2 abilities apply to both Marks. Shared Lead pool."
+      },
+      {
+        "id": "voc_hound_t4",
+        "tier": 4,
+        "type": "gambit",
+        "name": "The Right Questions",
+        "tags": [
+          "[Narrative]",
+          "[Tactical]"
+        ],
+        "modifiesAction": "action_assess",
+        "actionType": "Assess / Interact (Hunt)",
+        "rule": "When you make an Assess or Interact maneuver in direct pursuit of a Mark, you may invoke this Gambit: accept a -1 Tier shift on the effect of the roll, and generate +1 Lead in addition to the roll's normal outcome (even on a Fleeting success). You know the right questions to ask — sometimes the answer matters more than the impression.\n\nAdditionally, you may now spend a Lead as you would spend Edge when directly confronting your Mark, regardless of scene type. The preparation pays off — every Lead represents something you learned during the hunt that gives you an edge in the moment of truth.",
+        "shorthand": "Gambit: -1 Tier on Assess/Interact → +1 Lead. Leads may be spent as Edge when confronting your Mark."
+      },
+      {
+        "id": "voc_hound_t5",
+        "tier": 5,
+        "type": "maneuver",
+        "name": "Dead to Rights",
+        "tags": [
+          "[Combat]",
+          "[Social]",
+          "[Tactical]"
+        ],
+        "discipline": "tactics",
+        "arena": "wits",
+        "defense": "resolve",
+        "rolled": true,
+        "rule": "Upon the initial confrontation with your Mark — the first time they see you in a scene — you may make an immediate Tactics (Wits) attack vs the target's Resolve. You've tailored your approach, chosen the moment, and made sure they know exactly who's standing in front of them.",
+        "risk": "On failure, your Mark is unimpressed — they've been hunted before. They may act first in the resulting encounter.",
+        "effect": [
+          {
+            "tier": 1,
+            "label": "Fleeting",
+            "range": "0-3",
+            "description": "Your Mark gains [Rattled]. They know what you are. The hunt is over and they feel it."
+          },
+          {
+            "tier": 2,
+            "label": "Masterful",
+            "range": "4-7",
+            "description": "Your Mark gains [Stunned]. The weight of realization hits them — you found them, and there's nowhere left to go."
+          },
+          {
+            "tier": 3,
+            "label": "Legendary",
+            "range": "8+",
+            "description": "Your Mark gains [Stunned]. Choose one: Demand Surrender — you must possess enough Leads to match or exceed the target's Presence score (1-for-1). If met, the Mark surrenders unless they possess a trait that allows them to resist. Leads are not spent if the Mark does not surrender. Strike First — the Mark immediately presents an Opening to you. You may Exploit it as a reaction, then take the first full combat turn (Maneuver and Action) without a Join Battle roll. Combat proceeds normally afterward. In either case, if the Mark refuses surrender, they immediately present an Opening to you. You may Exploit it as a reaction and take the first full combat turn before anyone else acts. Unspent Leads remain available as Edge for the confrontation."
+          }
+        ]
+      }
+    ],
+    "imageUrl": "/assets/vocations/voc_hound.png",
+    "startingItems": []
   }
 ]

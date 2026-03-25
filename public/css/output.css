@@ -4431,16 +4431,18 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 0.5rem;
   overflow: hidden;
   width: 100%;
-  height: 100%;
 }
 
 .ph3-img-col {
-  flex: 0 0 350px;
+  flex: 0 0 auto;
+  width: 300px;
+  min-width: 200px;
+  max-width: 350px;
   background: var(--color-bg-frame);
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: stretch;
   overflow: hidden;
   border-right: 1px solid var(--color-border);
 }
@@ -4450,6 +4452,8 @@ h1, h2, h3, h4, h5, h6 {
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
+  -o-object-position: top center;
+     object-position: top center;
 }
 
 .ph3-detail-col {
@@ -8915,6 +8919,8 @@ body.is-col-resizing .resize-handle {
 
   .ph3-img-col {
     flex: 0 0 160px;
+    min-width: 0;
+    width: 160px;
   }
 
   .ph3-card-name {
@@ -9036,6 +9042,8 @@ body.is-col-resizing .resize-handle {
 
   .ph3-img-col {
     flex: 0 0 140px;
+    min-width: 0;
+    width: 140px;
     border-right: 1px solid var(--color-border);
     border-bottom: none;
   }
