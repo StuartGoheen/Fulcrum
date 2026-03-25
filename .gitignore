@@ -8,3 +8,5 @@ db/campaign.db-wal
 .env
 dist/
 .cache/
+attached_assets/
+.canvas/assets/
