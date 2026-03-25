@@ -198,8 +198,8 @@
     if (state.tripleMode) {
       if (slotMid) slotMid.style.display = '';
       if (handle2) handle2.style.display = '';
-      if (tabsMid) tabsMid.style.display = '';
-      for (var d = 0; d < triDividers.length; d++) triDividers[d].style.display = '';
+      if (tabsMid) tabsMid.style.display = 'flex';
+      for (var d = 0; d < triDividers.length; d++) triDividers[d].style.display = 'block';
     } else {
       if (slotMid) slotMid.style.display = 'none';
       if (handle2) handle2.style.display = 'none';
