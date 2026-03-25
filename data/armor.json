@@ -219,7 +219,8 @@
       "Beskar",
       "Sealed",
       "Restricted"
-    ]
+    ],
+    "evasionReduction": 1
   },
   {
     "id": "arm_katarn_01",

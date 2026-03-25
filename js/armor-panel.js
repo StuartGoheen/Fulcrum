@@ -62,7 +62,11 @@
     var cat = armor.category || 'light';
     var endureSteps = ENDURE_STEP[cat] != null ? ENDURE_STEP[cat] : 0;
     var evadeSteps  = EVADE_STEP[cat] != null ? EVADE_STEP[cat] : 0;
-    if (armor.evasionException) evadeSteps = 0;
+    if (armor.evasionException) {
+      evadeSteps = 0;
+    } else if (typeof armor.evasionReduction === 'number' && evadeSteps < 0) {
+      evadeSteps = Math.min(0, evadeSteps + armor.evasionReduction);
+    }
 
     var physiqueDie = _findArenaDie(char, 'physique');
     var reflexDie   = _findArenaDie(char, 'reflex');
@@ -88,7 +92,13 @@
 
     if (cat === 'medium' || cat === 'heavy') {
       html += '<div class="armor-dice-group">';
-      html += '<div class="armor-dice-group-label">Evade' + (armor.evasionException ? ' <span class="armor-exception">(No Penalty)</span>' : '') + '</div>';
+      var evadeLabel = 'Evade';
+      if (armor.evasionException) {
+        evadeLabel += ' <span class="armor-exception">(No Penalty)</span>';
+      } else if (typeof armor.evasionReduction === 'number' && EVADE_STEP[cat] < 0) {
+        evadeLabel += ' <span class="armor-exception">(Reduced Penalty)</span>';
+      }
+      html += '<div class="armor-dice-group-label">' + evadeLabel + '</div>';
       html += '<div class="armor-dice-row">';
       html += _dieImgHtml(evadeDie, 'Control', '');
       html += '<span class="armor-dice-sep">+</span>';
@@ -282,7 +292,7 @@
         function tryRender() {
           var char = window.CharacterPanel && window.CharacterPanel.currentChar;
           if (!char || !char.id) { setTimeout(tryRender, 50); return; }
-          fetch('/api/equipment/' + char.id)
+          fetch('/api/equipment/' + encodeURIComponent(char.id))
             .then(function (r) { return r.ok ? r.json() : {}; })
             .then(function (statusMap) {
               window._armorStatusMap = statusMap;
@@ -292,7 +302,7 @@
           function _rerender() {
             var c = window.CharacterPanel && window.CharacterPanel.currentChar;
             if (!c) return;
-            fetch('/api/equipment/' + c.id)
+            fetch('/api/equipment/' + encodeURIComponent(c.id))
               .then(function (r) { return r.ok ? r.json() : {}; })
               .then(function (statusMap) {
                 window._armorStatusMap = statusMap;

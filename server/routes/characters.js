@@ -777,23 +777,40 @@ router.post('/characters/:id/purchase', (req, res) => {
       data.armorIds = data.armorId ? [data.armorId] : [];
       delete data.armorId;
     }
+    if (!data.inventoryRemovals) data.inventoryRemovals = { gear: [], weapons: [], armor: [] };
+    if (!Array.isArray(data.inventoryRemovals.armor)) {
+      data.inventoryRemovals.armor = data.inventoryRemovals.armor === true
+        ? (data.armorIds || []).slice() : [];
+    }
+
+    const charId = String(character.id);
     items.forEach(item => {
       if (!item.id || !item.type) return;
       if (item.type === 'weapon') {
         if (!data.weaponIds) data.weaponIds = [];
         if (data.weaponIds.indexOf(item.id) === -1) data.weaponIds.push(item.id);
+        if (Array.isArray(data.inventoryRemovals.weapons)) {
+          const ri = data.inventoryRemovals.weapons.indexOf(item.id);
+          if (ri !== -1) data.inventoryRemovals.weapons.splice(ri, 1);
+        }
       } else if (item.type === 'armor') {
         if (data.armorIds.indexOf(item.id) === -1) data.armorIds.push(item.id);
+        const ri = data.inventoryRemovals.armor.indexOf(item.id);
+        if (ri !== -1) data.inventoryRemovals.armor.splice(ri, 1);
       } else if (item.type === 'gear') {
         if (!data.gearIds) data.gearIds = [];
         data.gearIds.push(item.id);
+        if (Array.isArray(data.inventoryRemovals.gear)) {
+          const ri = data.inventoryRemovals.gear.indexOf(item.id);
+          if (ri !== -1) data.inventoryRemovals.gear.splice(ri, 1);
+        }
       }
       if (item.acquisition) data.acquisitionMap[item.id] = item.acquisition;
       db.prepare(`
         INSERT INTO equipment_status (character_id, item_id, item_type, status, updated_at)
         VALUES (?, ?, ?, 'stowed', CURRENT_TIMESTAMP)
-        ON CONFLICT(character_id, item_id) DO NOTHING
-      `).run(character.id, item.id, item.type);
+        ON CONFLICT(character_id, item_id) DO UPDATE SET status = 'stowed', updated_at = CURRENT_TIMESTAMP
+      `).run(charId, item.id, item.type);
     });
 
     db.prepare('UPDATE characters SET character_data = ? WHERE id = ?').run(JSON.stringify(data), character.id);
