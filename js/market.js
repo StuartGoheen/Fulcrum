@@ -285,7 +285,6 @@
       });
     }
 
-    shoppingList = [];
     if (selected) {
       document.getElementById('add-btn').disabled    = false;
       document.getElementById('add-btn').textContent = '+ Add';

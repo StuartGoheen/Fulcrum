@@ -2256,29 +2256,6 @@ h1, h2, h3, h4, h5, h6 {
   border-color: #5fbb7d;
 }
 
-.armory-legality-badge {
-  font-family: 'Audiowide', sans-serif;
-  font-size: 0.48rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding: 1px 5px;
-  border: 1px solid;
-  flex-shrink: 0;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
-}
-
-.armory-legality-legal {
-  color: #5fbb7d;
-  border-color: color-mix(in srgb, #5fbb7d 50%, transparent);
-}
-
-.armory-legality-illegal {
-  color: #CC3333;
-  border-color: color-mix(in srgb, #CC3333 50%, transparent);
-}
-
 .loadout-status-badge {
   cursor: default;
 }

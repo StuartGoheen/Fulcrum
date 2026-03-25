@@ -242,14 +242,14 @@
     return '<img src="/assets/' + dieType.toLowerCase() + '.png" alt="' + _esc(dieType) + '" class="armory-weapon-disc-die">';
   }
 
-  function _acquisitionBadge(itemId, char) {
+  function _acquisitionIcon(itemId, char) {
     var acqMap = char && char.acquisitionMap ? char.acquisitionMap : {};
     var acq = acqMap[itemId];
     if (!acq) return '';
-    if (acq === 'contraband') return '<span class="armory-legality-badge armory-legality-illegal">Contraband</span>';
-    if (acq === 'salvaged') return '<span class="armory-legality-badge" style="color:#b08d57;border-color:color-mix(in srgb,#b08d57 50%,transparent)">Salvaged</span>';
-    if (acq === 'legal') return '<span class="armory-legality-badge" style="color:#6fad6f;border-color:color-mix(in srgb,#6fad6f 50%,transparent)">Legal</span>';
-    return '<span class="armory-legality-badge armory-legality-legal">Registered</span>';
+    if (acq === 'contraband') return '<span class="acq-icon acq-contraband" title="Contraband">\u26A0</span>';
+    if (acq === 'salvaged') return '<span class="acq-icon acq-salvaged" title="Salvaged">\u2699</span>';
+    if (acq === 'legal') return '<span class="acq-icon acq-legal" title="Legal">\u2713</span>';
+    return '<span class="acq-icon acq-registered" title="Registered">\u25C8</span>';
   }
 
   function _renderRange(range) {
@@ -447,7 +447,6 @@
         '<span class="armory-weapon-chassis">' + _esc(weapon.chassisLabel || '') + '</span>' +
         (rangeStr ? '<span class="armory-weapon-range">Range: ' + _esc(rangeStr) + '</span>' : '') +
         (weapon.cost && !weapon.innate ? '<span class="armory-weapon-cost">' + _esc(String(weapon.cost)) + ' cr</span>' : '') +
-        _acquisitionBadge(weapon.id, char) +
       '</div>';
 
     var effectHtml = '';
@@ -621,6 +620,7 @@
     return (
       '<div class="armory-weapon-card" data-weapon-id="' + _esc(weapon.id) + '">' +
         '<div class="armory-weapon-header">' +
+          _acquisitionIcon(weapon.id, char) +
           '<span class="armory-weapon-name">' + _esc(weapon.name) + '</span>' +
           ammoBarHtml +
           discHtml +
@@ -648,7 +648,6 @@
         _statusBadge(status, armor.id, 'armor') +
         '<span class="armory-weapon-chassis">' + _esc(armor.categoryLabel || armor.category) + '</span>' +
         (armor.cost ? '<span class="armory-weapon-cost">' + _esc(String(armor.cost)) + ' cr</span>' : '') +
-        _acquisitionBadge(armor.id, char) +
       '</div>';
 
     var ruleHtml = categoryRule
@@ -680,6 +679,7 @@
     return (
       '<div class="armory-weapon-card" data-armor-id="' + _esc(armor.id) + '">' +
         '<div class="armory-weapon-header">' +
+          _acquisitionIcon(armor.id, char) +
           '<span class="armory-weapon-name">' + _esc(armor.name) + '</span>' +
           discHtml +
         '</div>' +
@@ -702,7 +702,6 @@
         (rangeStr ? '<span class="armory-weapon-range">Range: ' + _esc(rangeStr) + '</span>' : '') +
         (gear.cost ? '<span class="armory-weapon-cost">' + _esc(String(gear.cost)) + ' cr</span>' : '') +
         (gear.availability ? '<span class="armory-weapon-range">Avail: ' + _esc(gear.availability) + '</span>' : '') +
-        _acquisitionBadge(gear.id, char) +
       '</div>';
 
     var effectHtml = '';
@@ -778,6 +777,7 @@
     return (
       '<div class="armory-weapon-card" data-gear-id="' + _esc(gear.id) + '">' +
         '<div class="armory-weapon-header">' +
+          _acquisitionIcon(gear.id, char) +
           '<span class="armory-weapon-name">' + _esc(gear.name) + (qty > 1 ? ' <span class="gear-qty-badge">\u00d7' + qty + '</span>' : '') + '</span>' +
           gearDiscHtml +
         '</div>' +
