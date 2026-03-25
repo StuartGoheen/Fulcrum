@@ -1744,6 +1744,56 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: 0;
 }
 
+.loadout-carried-section,
+.armory-collapse-section {
+  margin-bottom: 2px;
+}
+
+.loadout-carried-header,
+.armory-collapse-header {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 0.45rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  padding: 3px 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+  border-bottom: 1px solid var(--color-border);
+  transition: color 0.15s;
+}
+
+.loadout-carried-header:hover,
+.armory-collapse-header:hover {
+  color: var(--color-accent-primary);
+}
+
+.loadout-carried-chevron,
+.armory-collapse-chevron {
+  font-size: 0.55rem;
+  transition: transform 0.2s;
+}
+
+.loadout-carried-section:not(.open) .loadout-carried-chevron,
+.armory-collapse-section:not(.open) .armory-collapse-chevron {
+  transform: rotate(-90deg);
+}
+
+.loadout-carried-body,
+.armory-collapse-body {
+  overflow: hidden;
+  transition: max-height 0.25s ease;
+  max-height: 2000px;
+}
+
+.loadout-carried-section:not(.open) .loadout-carried-body,
+.armory-collapse-section:not(.open) .armory-collapse-body {
+  max-height: 0;
+}
+
 .armory-weapon-card {
   border: 1px solid var(--color-border);
   background-color: var(--color-bg-panel);

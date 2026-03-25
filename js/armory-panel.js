@@ -820,20 +820,29 @@
 
     var html = '<div class="armory-panel-wrap">';
     if (equippedArmor) {
-      html += '<div class="armory-category-label">Armor</div>';
+      html += '<div class="armory-collapse-section open">';
+      html += '<div class="armory-collapse-header" data-toggle-armory>Armor <span class="armory-collapse-chevron">\u25BE</span></div>';
+      html += '<div class="armory-collapse-body">';
       html += _buildArmorInArmory(equippedArmor, char, statusMap);
+      html += '</div></div>';
     }
     if (rangedWeapons.length > 0) {
-      html += '<div class="armory-category-label">Ranged</div>';
+      html += '<div class="armory-collapse-section open">';
+      html += '<div class="armory-collapse-header" data-toggle-armory>Ranged <span class="armory-collapse-chevron">\u25BE</span></div>';
+      html += '<div class="armory-collapse-body">';
       for (var r = 0; r < rangedWeapons.length; r++) {
         html += _buildWeaponCard(rangedWeapons[r], char, chassisMap, statusMap, discGambits);
       }
+      html += '</div></div>';
     }
     if (meleeWeapons.length > 0) {
-      html += '<div class="armory-category-label">Melee</div>';
+      html += '<div class="armory-collapse-section open">';
+      html += '<div class="armory-collapse-header" data-toggle-armory>Melee <span class="armory-collapse-chevron">\u25BE</span></div>';
+      html += '<div class="armory-collapse-body">';
       for (var m = 0; m < meleeWeapons.length; m++) {
         html += _buildWeaponCard(meleeWeapons[m], char, chassisMap, statusMap, discGambits);
       }
+      html += '</div></div>';
     }
 
     var charGearIds = char.gearIds || [];
@@ -851,10 +860,13 @@
       }
     }
     if (charGear.length > 0) {
-      html += '<div class="armory-category-label">Gear</div>';
+      html += '<div class="armory-collapse-section open">';
+      html += '<div class="armory-collapse-header" data-toggle-armory>Gear <span class="armory-collapse-chevron">\u25BE</span></div>';
+      html += '<div class="armory-collapse-body">';
       for (var gc = 0; gc < charGear.length; gc++) {
         html += _buildGearCard(charGear[gc].item, statusMap, char, charGear[gc].qty);
       }
+      html += '</div></div>';
     }
 
     html += '</div>';
@@ -913,6 +925,13 @@
   }
 
   document.addEventListener('click', function (e) {
+    var armoryHdr = e.target.closest && e.target.closest('[data-toggle-armory]');
+    if (armoryHdr) {
+      var section = armoryHdr.closest('.armory-collapse-section');
+      if (section) section.classList.toggle('open');
+      return;
+    }
+
     var useBtn = e.target.closest && e.target.closest('.armory-use-btn');
     if (useBtn && useBtn.closest('[id="panel-2"]')) {
       e.stopPropagation();

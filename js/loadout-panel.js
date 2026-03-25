@@ -861,30 +861,65 @@
       }
     }
 
+    var equippedArmor2 = activeArmor && activeArmor.status === 'equipped' ? activeArmor : null;
+    var equippedWeapons = activeWeapons.filter(function (e) { return e.status === 'equipped'; });
+    var equippedGear = activeGear.filter(function (e) { return e.status === 'equipped'; });
+
+    var carriedArmor = activeArmor && activeArmor.status === 'carried' ? activeArmor : null;
+    var carriedWeapons = activeWeapons.filter(function (e) { return e.status === 'carried'; });
+    var carriedGear = activeGear.filter(function (e) { return e.status === 'carried'; });
+
+    var hasEquipped = equippedArmor2 || equippedWeapons.length > 0 || equippedGear.length > 0;
+    var hasCarried = carriedArmor || carriedWeapons.length > 0 || carriedGear.length > 0;
+
     var html = '<div class="armory-panel-wrap">';
 
-    if (!activeArmor && activeWeapons.length === 0 && activeGear.length === 0) {
+    if (!hasEquipped && !hasCarried) {
       html += '<div class="loadout-empty"><span>Nothing equipped or carried.</span><span class="loadout-empty-hint">Open the Armory and set items to Carried or Equipped.</span></div>';
     } else {
-      if (activeArmor) {
-        html += '<div class="armory-category-label">Armor</div>';
-        html += _buildLoadoutArmorCard(activeArmor.armor, char, activeArmor.status);
+      if (hasEquipped) {
+        html += '<div class="armory-category-label">Equipped</div>';
+        if (equippedArmor2) {
+          html += _buildLoadoutArmorCard(equippedArmor2.armor, char, 'equipped');
+        }
+        equippedWeapons.forEach(function (e) { html += _buildLoadoutWeaponCard(e.weapon, char, chassisMap, 'equipped', discGambits); });
+        equippedGear.forEach(function (e) { html += _buildLoadoutGearCard(e.item, 'equipped', char, e.qty || 1); });
       }
 
-      var ranged = activeWeapons.filter(function (e) { return (e.weapon.tags || []).indexOf('Melee') === -1; });
-      var melee  = activeWeapons.filter(function (e) { return (e.weapon.tags || []).indexOf('Melee') !== -1; });
+      if (hasCarried) {
+        html += '<div class="armory-category-label">Carried</div>';
 
-      if (ranged.length) {
-        html += '<div class="armory-category-label">Ranged</div>';
-        ranged.forEach(function (e) { html += _buildLoadoutWeaponCard(e.weapon, char, chassisMap, e.status, discGambits); });
-      }
-      if (melee.length) {
-        html += '<div class="armory-category-label">Melee</div>';
-        melee.forEach(function (e) { html += _buildLoadoutWeaponCard(e.weapon, char, chassisMap, e.status, discGambits); });
-      }
-      if (activeGear.length) {
-        html += '<div class="armory-category-label">Gear</div>';
-        activeGear.forEach(function (e) { html += _buildLoadoutGearCard(e.item, e.status, char, e.qty || 1); });
+        var carriedRanged = carriedWeapons.filter(function (e) { return (e.weapon.tags || []).indexOf('Melee') === -1; });
+        var carriedMelee  = carriedWeapons.filter(function (e) { return (e.weapon.tags || []).indexOf('Melee') !== -1; });
+
+        if (carriedArmor) {
+          html += '<div class="loadout-carried-section open">';
+          html += '<div class="loadout-carried-header" data-toggle-carried>Armor <span class="loadout-carried-chevron">\u25BE</span></div>';
+          html += '<div class="loadout-carried-body">';
+          html += _buildLoadoutArmorCard(carriedArmor.armor, char, 'carried');
+          html += '</div></div>';
+        }
+        if (carriedRanged.length) {
+          html += '<div class="loadout-carried-section open">';
+          html += '<div class="loadout-carried-header" data-toggle-carried>Ranged <span class="loadout-carried-chevron">\u25BE</span></div>';
+          html += '<div class="loadout-carried-body">';
+          carriedRanged.forEach(function (e) { html += _buildLoadoutWeaponCard(e.weapon, char, chassisMap, 'carried', discGambits); });
+          html += '</div></div>';
+        }
+        if (carriedMelee.length) {
+          html += '<div class="loadout-carried-section open">';
+          html += '<div class="loadout-carried-header" data-toggle-carried>Melee <span class="loadout-carried-chevron">\u25BE</span></div>';
+          html += '<div class="loadout-carried-body">';
+          carriedMelee.forEach(function (e) { html += _buildLoadoutWeaponCard(e.weapon, char, chassisMap, 'carried', discGambits); });
+          html += '</div></div>';
+        }
+        if (carriedGear.length) {
+          html += '<div class="loadout-carried-section open">';
+          html += '<div class="loadout-carried-header" data-toggle-carried>Gear <span class="loadout-carried-chevron">\u25BE</span></div>';
+          html += '<div class="loadout-carried-body">';
+          carriedGear.forEach(function (e) { html += _buildLoadoutGearCard(e.item, 'carried', char, e.qty || 1); });
+          html += '</div></div>';
+        }
       }
     }
 
@@ -965,6 +1000,13 @@
   }
 
   document.addEventListener('click', function (e) {
+    var carriedHdr = e.target.closest && e.target.closest('[data-toggle-carried]');
+    if (carriedHdr) {
+      var section = carriedHdr.closest('.loadout-carried-section');
+      if (section) section.classList.toggle('open');
+      return;
+    }
+
     var useBtn = e.target.closest && e.target.closest('.armory-use-btn');
     if (useBtn && useBtn.closest('[id="panel-4"]')) {
       e.stopPropagation();
