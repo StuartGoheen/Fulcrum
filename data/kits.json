@@ -1845,5 +1845,112 @@
     ],
     "imageUrl": "/assets/vocations/voc_hound.png",
     "startingItems": []
+  },
+  {
+    "id": "voc_rifleman",
+    "name": "The Rifleman",
+    "governingArena": "wits",
+    "favoredDiscipline": "tactics",
+    "description": "The Rifleman is not an assassin, not a gunfighter, and not a hero. He is a professional — a light infantryman trained to read terrain, hold positions, and make the squad more lethal than its parts. He fights from cover, moves by bounds, and when the line is threatened, he calls the fire that stops everything cold. The rifle is his tool. His weapon is his mind.",
+    "fluff": "The old Alderaanian Regulars had a saying: 'The rifleman is the army.' Not the walkers, not the starfleet, not the officer corps. The rifleman. The professional who reads the ground, holds the line, and puts rounds on target while the galaxy burns around him. Every army in history has learned this lesson. Most forget it between wars.",
+    "abilities": [
+      {
+        "id": "voc_rifleman_t1",
+        "tier": 1,
+        "type": "passive",
+        "name": "Calculated Shooter",
+        "tags": [
+          "[Combat]"
+        ],
+        "rule": "When you Aim with a Rifle, use Wits as your Power die instead of Reflex. You do not snap-shoot — you calculate angles, read wind, and track movement before you pull the trigger.\n\nWhile in Cover, you never need to spend a Maneuver pip to maintain it. Holding position, watching lines of fire, and tracking enemy vectors is second nature. You still must use Take Cover to establish your position — this ability only waives the round-to-round maintenance cost.",
+        "modifiesAction": "action_aim",
+        "targetWeaponTags": [
+          "Rifle"
+        ],
+        "shorthand": "Wits replaces Reflex as Aim Power die with Rifles. Free Cover maintenance — no pip cost to hold position."
+      },
+      {
+        "id": "voc_rifleman_t2",
+        "tier": 2,
+        "type": "gambit",
+        "name": "Battlefield Read",
+        "tags": [
+          "[Combat]"
+        ],
+        "modifiesAction": "action_aim",
+        "actionType": "Aim",
+        "rule": "After resolving an Aim, spend 1 tier. Ask the GM one tactical question about the combat zone — not about the target you are aiming at, but about everything else. Your trained eye absorbs the full scene while your scope is trained.\n\nExamples: Where is the best cover in the adjacent zone? Are there overwatch positions above us? What hazards are in the eastern corridor? Where are the enemy reinforcement routes? What is the quality of cover the target is using?\n\nThe answer is honest and based on what a trained eye could reasonably observe from your current position and line of sight. This is not an Assess on the target — it is the sum of everything your senses take in while your rifle is up.",
+        "shorthand": "After Aim, spend 1 tier. Ask GM one tactical question about the combat zone (not the target)."
+      },
+      {
+        "id": "voc_rifleman_t3",
+        "tier": 3,
+        "type": "maneuver",
+        "name": "Leapfrog",
+        "tags": [
+          "[Combat]"
+        ],
+        "discipline": "tactics",
+        "arena": "wits",
+        "rolled": true,
+        "rule": "You and one ally reposition together — bounding movement, covering each other as you advance or withdraw. You spend your Maneuver pip to initiate. The ally spends their Exploit pip to move.",
+        "risk": "The ally must spend their Exploit pip to participate. If the Rifleman fails the roll, both characters remain in place and the pips are spent.",
+        "effect": [
+          {
+            "tier": 1,
+            "label": "Fleeting",
+            "range": "0-3",
+            "description": "You and the ally each move 1 zone. If cover is available in the destination zone, each of you may Take Cover as a free maneuver (still rolls Tactics for Cover value)."
+          },
+          {
+            "tier": 2,
+            "label": "Masterful",
+            "range": "4-7",
+            "description": "As Fleeting, plus either you or the ally moves 1 additional zone."
+          },
+          {
+            "tier": 3,
+            "label": "Legendary",
+            "range": "8+",
+            "description": "As Masterful, plus the ally may make a free Ranged attack exploit against a target the Rifleman has fired at this round."
+          }
+        ],
+        "shorthand": "Tactics (Wits). Both move 1 zone + free Take Cover. Masterful: +1 zone. Legendary: ally gets free Ranged exploit."
+      },
+      {
+        "id": "voc_rifleman_t4",
+        "tier": 4,
+        "type": "passive",
+        "name": "Affix Bayonets",
+        "tags": [
+          "[Combat]"
+        ],
+        "rule": "While you have a Rifle equipped, you may use it as a Melee weapon using Melee (Physique). Defaults to Light chassis — butt stroke, stock slam — unless a Bayonet or other melee attachment alters the chassis.\n\nWhen an enemy enters your Engaged zone while you are in Cover, they present an Opening which you may Exploit with your Melee attack. The blade meets them before they can close — they thought rushing a dug-in rifleman was the smart play. It was not.",
+        "targetWeaponTags": [
+          "Rifle"
+        ],
+        "shorthand": "Rifle usable as Melee weapon (Physique, Light chassis unless attachment alters). Enemies entering Engaged zone while in Cover present an Opening for Melee exploit."
+      },
+      {
+        "id": "voc_rifleman_t5",
+        "tier": 5,
+        "type": "passive",
+        "name": "Final Protective Line",
+        "tags": [
+          "[Combat]"
+        ],
+        "rule": "When you activate Coordinated Fire (Tactics D8 gambit on Aim), you may spend 1 Edge. If you do, the Aim benefit is shared with all allies who can hear you, not just one. All eligible targets in the aimed target's zone present an Opening to those allies. Allies may spend their Exploit pip to make a Ranged attack reaction against any target in that zone. All attacks made this way gain [Optimized].\n\nFire on my mark. You call the line, you take aim, and the squad lights up the zone.",
+        "shorthand": "On Coordinated Fire, spend 1 Edge: Aim benefit to ALL allies. Targets in zone present Openings. Allies Exploit with [Optimized]."
+      }
+    ],
+    "imageUrl": "/assets/vocations/voc_rifleman.png",
+    "startingItems": [
+      {
+        "id": "wpn_bryar_rifle_01",
+        "name": "Bryar Rifle",
+        "cost": 1000,
+        "source": "weapon"
+      }
+    ]
   }
 ]
