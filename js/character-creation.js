@@ -1557,12 +1557,99 @@
     if (!container) return;
     var track = container.querySelector(".ph-carousel-track");
     if (!track) return;
-    var oldSlide = track.children[cs.current];
-    if (!oldSlide) return;
-    var newSlide = buildVocationCardFlat(kit);
-    newSlide.dataset.index = cs.current;
-    newSlide.classList.add("ph-slide-active");
-    track.replaceChild(newSlide, oldSlide);
+    var slide = track.children[cs.current];
+    if (!slide) return;
+
+    var cardEl = slide.querySelector(".ph3-species-card");
+    if (!cardEl) { var newSlide = buildVocationCardFlat(kit); newSlide.dataset.index = cs.current; newSlide.classList.add("ph-slide-active"); track.replaceChild(newSlide, slide); return; }
+
+    var choices = state.kitChoices || {};
+    var currentTier = choices[kit.id] || 0;
+    var spent = kitsSpent();
+    var avail = KITS_BUDGET - spent;
+    var isForce = kit.favoredDiscipline && kit.favoredDiscipline.indexOf("_spark") !== -1;
+    var maxTier = kitMaxTier(kit);
+    var abilities = kit.abilities || [];
+    var discName = formatDiscName(kit.favoredDiscipline);
+
+    cardEl.classList.toggle("voc-card--active", currentTier > 0);
+    cardEl.classList.toggle("voc-card--force", isForce);
+
+    var d = statsGetDerived();
+    var discId = kit.favoredDiscipline || kit.alignedDiscipline;
+    var dieVal = discId ? statsGetDiscValue(discId, d) : "D6";
+    var capInfo = cardEl.querySelector(".cc-kit-flat-cap");
+    if (capInfo) capInfo.textContent = discName + " at " + dieVal + " → max Tier " + maxTier;
+
+    var tierActions = cardEl.querySelector(".cc-kit-flat-actions");
+    if (tierActions) {
+      tierActions.innerHTML = "";
+      if (currentTier === 0) {
+        var takeBtn = document.createElement("button");
+        takeBtn.className = "cc-kit-btn cc-kit-btn--take";
+        takeBtn.textContent = "Take T1 (1pt)";
+        takeBtn.disabled = avail < 1;
+        takeBtn.addEventListener("click", function() { handleKitSelect(kit.id, 1); });
+        tierActions.appendChild(takeBtn);
+      } else {
+        var tierLabel = document.createElement("span");
+        tierLabel.className = "cc-kit-flat-tier-label";
+        tierLabel.textContent = "Tier " + currentTier;
+        tierActions.appendChild(tierLabel);
+        if (currentTier < maxTier && avail >= 1) {
+          var upBtn = document.createElement("button");
+          upBtn.className = "cc-kit-btn cc-kit-btn--take";
+          upBtn.textContent = "+1 Tier";
+          upBtn.title = "Upgrade to Tier " + (currentTier + 1) + " (1pt)";
+          upBtn.addEventListener("click", function() { handleKitSelect(kit.id, currentTier + 1); });
+          tierActions.appendChild(upBtn);
+        }
+        if (currentTier > 1) {
+          var dnBtn = document.createElement("button");
+          dnBtn.className = "cc-kit-btn";
+          dnBtn.textContent = "− 1 Tier";
+          dnBtn.title = "Downgrade to Tier " + (currentTier - 1) + " (refund 1pt)";
+          dnBtn.addEventListener("click", function() { handleKitSelect(kit.id, currentTier - 1); });
+          tierActions.appendChild(dnBtn);
+        }
+        var remBtn = document.createElement("button");
+        remBtn.className = "cc-kit-btn cc-kit-btn--remove";
+        remBtn.textContent = "Remove";
+        remBtn.addEventListener("click", function() { handleKitSelect(kit.id, 0); });
+        tierActions.appendChild(remBtn);
+      }
+    }
+
+    var rows = cardEl.querySelectorAll(".cc-kit-flat-ab-row");
+    rows.forEach(function(row, i) {
+      var t = i + 1;
+      var locked = t > maxTier;
+      var active = t <= currentTier;
+      row.classList.toggle("cc-kit-flat-ab-row--active", active);
+      row.classList.toggle("cc-kit-flat-ab-row--locked", locked);
+
+      var abBody = row.querySelector(".cc-kit-flat-ab-body");
+      if (!abBody) return;
+      var existingRule = abBody.querySelector(".cc-kit-flat-ab-rule");
+      var existingLock = abBody.querySelector(".cc-kit-flat-ab-lock-msg");
+      var ab = abilities.find(function(a) { return a.tier === t; });
+      if (!ab) return;
+
+      if (!locked && !existingRule) {
+        if (existingLock) existingLock.remove();
+        var abRule = document.createElement("p");
+        abRule.className = "cc-kit-flat-ab-rule";
+        abRule.textContent = ab.rule;
+        abBody.appendChild(abRule);
+      } else if (locked && !existingLock) {
+        if (existingRule) existingRule.remove();
+        var lockMsg = document.createElement("p");
+        lockMsg.className = "cc-kit-flat-ab-lock-msg";
+        var dieName = ["D4","D6","D8","D10","D12"][t-1] || "D12";
+        lockMsg.textContent = "Requires " + discName + " at " + dieName;
+        abBody.appendChild(lockMsg);
+      }
+    });
   }
 
   function normalizeKitChoices() {
