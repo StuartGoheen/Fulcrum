@@ -40,15 +40,16 @@
 
   function _getEquippedArmorMods() {
     var armorData = window._equippedArmorData;
-    var cat = armorData ? (armorData.category || 'light') : 'none';
+    if (!armorData) return { endureStep: 0, evadeStep: 0, hasArmor: false };
+    var cat = armorData.category || 'light';
     var endureStep = ARMOR_ENDURE_STEP[cat] != null ? ARMOR_ENDURE_STEP[cat] : 0;
     var evadeStep  = ARMOR_EVADE_STEP[cat] != null ? ARMOR_EVADE_STEP[cat] : 0;
-    if (armorData && armorData.evasionException) {
+    if (armorData.evasionException) {
       evadeStep = 0;
-    } else if (armorData && typeof armorData.evasionReduction === 'number' && evadeStep < 0) {
+    } else if (typeof armorData.evasionReduction === 'number' && evadeStep < 0) {
       evadeStep = Math.min(0, evadeStep + armorData.evasionReduction);
     }
-    return { endureStep: endureStep, evadeStep: evadeStep };
+    return { endureStep: endureStep, evadeStep: evadeStep, hasArmor: true };
   }
 
   function _steppedDie(baseDie, steps) {
@@ -837,11 +838,6 @@
                 if (armorList[aj].id === charArmorIds[ai]) { eqArmor = armorList[aj]; break; }
               }
               if (eqArmor) break;
-            }
-          }
-          if (!eqArmor && charArmorIds.length > 0) {
-            for (var ak = 0; ak < armorList.length; ak++) {
-              if (armorList[ak].id === charArmorIds[0]) { eqArmor = armorList[ak]; break; }
             }
           }
           window._equippedArmorData = eqArmor;
