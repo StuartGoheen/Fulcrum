@@ -89,6 +89,7 @@
     justify-content: center;
     gap: 0;
     width: 100%;
+    padding: 4px 0;
   }
 
   .panel-tab-group {
@@ -126,15 +127,7 @@
   }
 
   .panel-tab-label {
-    font-family: var(--font-display, 'Audiowide', sans-serif);
-    font-size: 0.32rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100%;
-    line-height: 1;
+    display: none;
   }
 
   .panel-tab:hover:not(.blocked) {
