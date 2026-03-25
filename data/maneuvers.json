@@ -96,11 +96,41 @@
       "name": "Take Cover",
       "actionType": "Maneuver",
       "pip": "M",
-      "rolled": false,
+      "rolled": true,
       "tags": [
         "[Combat]"
       ],
-      "description": "Move to the nearest cover in your zone. Gain [Cover X] based on available terrain (GM adjudicates: 1 = low wall/crate, 2 = heavy debris/pillar, 3 = armored barricade, 4 = fortified emplacement, 5 = nearly total cover). Requires cover to be available in the zone."
+      "discipline": "tactics",
+      "arena": "wits",
+      "description": "Move to the nearest cover in your zone and establish a defensive position. Roll Tactics (Wits). Floor: always gain at least [Cover 1] regardless of result. Higher results reflect better positioning, tighter angles, or stacked obstacles. Requires cover to be available in the zone. Cover must be maintained — spend a Maneuver pip each round to hold your position. If you cannot or choose not to maintain, you lose Cover at the start of your next turn.",
+      "risk": "Requires cover to be available in the zone. GM adjudicates maximum Cover available based on terrain.",
+      "effect": [
+        {
+          "tier": 0,
+          "label": "Floor",
+          "range": "Failure",
+          "description": "Gain [Cover 1]. You dove behind the nearest thing — it is not ideal but it is something."
+        },
+        {
+          "tier": 1,
+          "label": "Fleeting",
+          "range": "0-3",
+          "description": "Gain [Cover 2]. Solid position behind real terrain — low wall, debris pile, upturned table."
+        },
+        {
+          "tier": 2,
+          "label": "Masterful",
+          "range": "4-7",
+          "description": "Gain [Cover 3]. You read the geometry fast — armored barricade, vehicle hull, overlapping angles."
+        },
+        {
+          "tier": 3,
+          "label": "Legendary",
+          "range": "8+",
+          "description": "Gain [Cover 4]. Fortified position — you found the best spot in the zone and locked it down."
+        }
+      ],
+      "note": "Cover 5 (nearly total cover — blast door with firing slit) is reserved for fiction. It cannot be rolled for; the GM places it. Maximum Cover from this roll is capped by what the terrain actually offers — rolling Legendary in an open field still yields nothing."
     },
     {
       "id": "action_draw_holster",

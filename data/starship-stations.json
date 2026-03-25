@@ -124,7 +124,7 @@
             "tier": 2,
             "label": "Masterful",
             "range": "4–7",
-            "description": "Ship gains [Elusive] until start of Pilot's next turn. Additionally, one ally station gains [Cover 2] from the ship's positioning."
+            "description": "Ship gains [Elusive] until start of Pilot's next turn. All incoming attacks have their Control die stepped down once in addition to the standard [Elusive] step-down."
           },
           {
             "tier": 3,

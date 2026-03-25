@@ -47,7 +47,7 @@
       "system": "handling",
       "gate": "D8",
       "name": "Maneuvering Jet Overhaul",
-      "summary": "Evasive Maneuvers success also grants [Cover 2] alongside [Elusive]."
+      "summary": "Evasive Maneuvers success extends [Elusive] duration by 1 round."
     },
     {
       "id": "mod_handling_d10_brace_for_impact",
