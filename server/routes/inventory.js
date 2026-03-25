@@ -16,7 +16,7 @@ router.post('/inventory/:charId/use', (req, res) => {
   }
 
   const data = JSON.parse(row.character_data);
-  if (!data.inventoryRemovals) data.inventoryRemovals = { gear: [], weapons: [], armor: false };
+  if (!data.inventoryRemovals) data.inventoryRemovals = { gear: [], weapons: [], armor: [] };
 
   if (itemType === 'gear') {
     data.inventoryRemovals.gear.push(itemId);
@@ -44,7 +44,12 @@ router.post('/inventory/:charId/drop', (req, res) => {
   }
 
   const data = JSON.parse(row.character_data);
-  if (!data.inventoryRemovals) data.inventoryRemovals = { gear: [], weapons: [], armor: false };
+  if (!data.inventoryRemovals) data.inventoryRemovals = { gear: [], weapons: [], armor: [] };
+  if (data.inventoryRemovals.armor === true) {
+    data.inventoryRemovals.armor = (data.armorIds || (data.armorId ? [data.armorId] : [])).slice();
+  } else if (!Array.isArray(data.inventoryRemovals.armor)) {
+    data.inventoryRemovals.armor = [];
+  }
 
   if (itemType === 'gear') {
     data.inventoryRemovals.gear.push(itemId);
@@ -52,7 +57,7 @@ router.post('/inventory/:charId/drop', (req, res) => {
     if (!data.inventoryRemovals.weapons) data.inventoryRemovals.weapons = [];
     data.inventoryRemovals.weapons.push(itemId);
   } else if (itemType === 'armor') {
-    data.inventoryRemovals.armor = true;
+    data.inventoryRemovals.armor.push(itemId);
   } else {
     return res.status(400).json({ error: 'Invalid itemType. Must be gear, weapon, or armor.' });
   }

@@ -206,11 +206,25 @@
     });
   }
 
+  function _getEquippedArmorId(char, statusMap) {
+    var ids = char.armorIds || (char.armorId ? [char.armorId] : []);
+    for (var i = 0; i < ids.length; i++) {
+      var entry = statusMap && statusMap[ids[i]];
+      if (entry && entry.status === 'equipped') return ids[i];
+    }
+    if (ids.length > 0) return ids[0];
+    return null;
+  }
+
   function _render(armors, char) {
-    var armorId = char.armorId || null;
+    var statusMap = {};
+    if (window._armorStatusMap) statusMap = window._armorStatusMap;
+    var equippedId = _getEquippedArmorId(char, statusMap);
     var equipped = null;
-    for (var i = 0; i < armors.length; i++) {
-      if (armors[i].id === armorId) { equipped = armors[i]; break; }
+    if (equippedId) {
+      for (var i = 0; i < armors.length; i++) {
+        if (armors[i].id === equippedId) { equipped = armors[i]; break; }
+      }
     }
 
     var html = '<div class="armory-panel-wrap">';
@@ -267,13 +281,27 @@
       .then(function (armors) {
         function tryRender() {
           var char = window.CharacterPanel && window.CharacterPanel.currentChar;
-          if (!char) { setTimeout(tryRender, 50); return; }
-          _render(armors, char);
+          if (!char || !char.id) { setTimeout(tryRender, 50); return; }
+          fetch('/api/equipment/' + char.id)
+            .then(function (r) { return r.ok ? r.json() : {}; })
+            .then(function (statusMap) {
+              window._armorStatusMap = statusMap;
+              _render(armors, char);
+            })
+            .catch(function () { _render(armors, char); });
           function _rerender() {
             var c = window.CharacterPanel && window.CharacterPanel.currentChar;
-            if (c) _render(armors, c);
+            if (!c) return;
+            fetch('/api/equipment/' + c.id)
+              .then(function (r) { return r.ok ? r.json() : {}; })
+              .then(function (statusMap) {
+                window._armorStatusMap = statusMap;
+                _render(armors, c);
+              })
+              .catch(function () { _render(armors, c); });
           }
           document.addEventListener('character:stateChanged', _rerender);
+          document.addEventListener('equipment:changed', _rerender);
         }
         tryRender();
       })

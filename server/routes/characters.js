@@ -150,8 +150,13 @@ function applyInventoryRemovals(result, removals) {
       if (idx !== -1) result.weaponIds.splice(idx, 1);
     }
   }
-  if (removals.armor === true) {
-    result.armorId = null;
+  if (Array.isArray(removals.armor)) {
+    removals.armor.forEach(armId => {
+      const idx = result.armorIds.indexOf(armId);
+      if (idx !== -1) result.armorIds.splice(idx, 1);
+    });
+  } else if (removals.armor === true) {
+    result.armorIds = [];
   }
 }
 
@@ -173,6 +178,10 @@ function expandCharacterData(flat) {
     const wrongId   = spLower === 'cathar' ? 'wpn_fists_01' : 'wpn_cathar_claws_01';
     flat.weaponIds = flat.weaponIds.filter(id => !UNARMED.includes(id));
     flat.weaponIds.push(correctId);
+    if (!Array.isArray(flat.armorIds)) {
+      flat.armorIds = flat.armorId ? [flat.armorId] : [];
+      delete flat.armorId;
+    }
     if (!flat.advancement) flat.advancement = {};
     if (!flat.advancement.marks) flat.advancement.marks = { earnedChecks: {}, totalBanked: 0 };
     if (!flat.advancement.disciplineTrack) flat.advancement.disciplineTrack = { level: 2, filled: 0, eliteTokens: 0, focusBurns: 0, unspentAdvances: 0 };
@@ -220,14 +229,15 @@ function expandCharacterData(flat) {
 
   const weaponIds = Array.isArray(flat.weaponIds) ? flat.weaponIds.slice() : [];
   const gearIds = Array.isArray(flat.gearIds) ? flat.gearIds.slice() : [];
-  let armorId = flat.armorId || null;
+  const armorIds = Array.isArray(flat.armorIds) ? flat.armorIds.slice()
+                 : (flat.armorId ? [flat.armorId] : []);
   const startingGear = Array.isArray(flat.startingGear) ? flat.startingGear : [];
   const acquisitionMap = flat.acquisitionMap || {};
   startingGear.forEach(item => {
     if (!item || !item.id) return;
     if (item.acquisition) acquisitionMap[item.id] = item.acquisition;
     if (item.source === 'weapon') { if (weaponIds.indexOf(item.id) === -1) weaponIds.push(item.id); }
-    else if (item.source === 'armor') { if (!armorId) armorId = item.id; }
+    else if (item.source === 'armor') { if (armorIds.indexOf(item.id) === -1) armorIds.push(item.id); }
     else if (item.source === 'gear') { gearIds.push(item.id); }
   });
 
@@ -264,7 +274,7 @@ function expandCharacterData(flat) {
     backgroundFavored: resolveBackgroundFavored(flat),
     vitalityModifier: 0,
     weaponIds,
-    armorId,
+    armorIds,
     gearIds,
     acquisitionMap,
     engine: kits.length > 0 ? Object.assign({}, ENGINE_DATA, { governingArenas: engineArenas }) : null,
@@ -763,18 +773,27 @@ router.post('/characters/:id/purchase', (req, res) => {
     data.credits = available - cost;
 
     if (!data.acquisitionMap) data.acquisitionMap = {};
+    if (!Array.isArray(data.armorIds)) {
+      data.armorIds = data.armorId ? [data.armorId] : [];
+      delete data.armorId;
+    }
     items.forEach(item => {
       if (!item.id || !item.type) return;
       if (item.type === 'weapon') {
         if (!data.weaponIds) data.weaponIds = [];
         if (data.weaponIds.indexOf(item.id) === -1) data.weaponIds.push(item.id);
       } else if (item.type === 'armor') {
-        data.armorId = item.id;
+        if (data.armorIds.indexOf(item.id) === -1) data.armorIds.push(item.id);
       } else if (item.type === 'gear') {
         if (!data.gearIds) data.gearIds = [];
         data.gearIds.push(item.id);
       }
       if (item.acquisition) data.acquisitionMap[item.id] = item.acquisition;
+      db.prepare(`
+        INSERT INTO equipment_status (character_id, item_id, item_type, status, updated_at)
+        VALUES (?, ?, ?, 'stowed', CURRENT_TIMESTAMP)
+        ON CONFLICT(character_id, item_id) DO NOTHING
+      `).run(character.id, item.id, item.type);
     });
 
     db.prepare('UPDATE characters SET character_data = ? WHERE id = ?').run(JSON.stringify(data), character.id);

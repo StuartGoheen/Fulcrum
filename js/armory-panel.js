@@ -809,21 +809,26 @@
       }
     }
 
-    var equippedArmor = null;
-    if (armors && char.armorId) {
-      for (var a = 0; a < armors.length; a++) {
-        if (armors[a].id === char.armorId) { equippedArmor = armors[a]; break; }
+    var charArmorIds = char.armorIds || (char.armorId ? [char.armorId] : []);
+    var ownedArmors = [];
+    if (armors && charArmorIds.length > 0) {
+      for (var ai = 0; ai < charArmorIds.length; ai++) {
+        for (var a = 0; a < armors.length; a++) {
+          if (armors[a].id === charArmorIds[ai]) { ownedArmors.push(armors[a]); break; }
+        }
       }
     }
 
     var statusMap = _statusMap;
 
     var html = '<div class="armory-panel-wrap">';
-    if (equippedArmor) {
+    if (ownedArmors.length > 0) {
       html += '<div class="armory-collapse-section open">';
       html += '<div class="armory-collapse-header" data-toggle-armory>Armor <span class="armory-collapse-chevron">\u25BE</span></div>';
       html += '<div class="armory-collapse-body">';
-      html += _buildArmorInArmory(equippedArmor, char, statusMap);
+      for (var oa = 0; oa < ownedArmors.length; oa++) {
+        html += _buildArmorInArmory(ownedArmors[oa], char, statusMap);
+      }
       html += '</div></div>';
     }
     if (rangedWeapons.length > 0) {

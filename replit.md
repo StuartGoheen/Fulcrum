@@ -253,6 +253,10 @@ The right column (`#frame-right`, 25vw fixed sidebar) serves as the **combat coc
 
 **Action Economy pips** are rendered inline inside the Operational Status section (below Start/End Turn buttons). End Turn automatically resets all pips. Bonuses from kit abilities auto-calculated.
 
+## Armor Storage (armorIds Migration)
+
+Armor is stored as an **array** (`armorIds: [...]`) in character_data, supporting multiple owned armor pieces. Legacy characters with `armorId` (single string) are auto-migrated to `armorIds` on expansion. All client panels (`armor-panel.js`, `armory-panel.js`, `loadout-panel.js`) fall back to `char.armorId` if `char.armorIds` is missing. The `inventoryRemovals.armor` field is now an array of removed armor IDs (was previously a boolean `true`). `applyInventoryRemovals` handles both array and legacy boolean formats. Equipment status determines which armor is equipped/carried/stowed; armor without a status entry defaults to `carried` in the loadout panel.
+
 ## Database
 
 SQLite database auto-created and seeded on first run at `db/campaign.db`.  

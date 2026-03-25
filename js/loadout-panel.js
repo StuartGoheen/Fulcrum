@@ -831,16 +831,21 @@
       }
     });
 
-    var activeArmor = null;
-    if (char.armorId) {
-      var armorEntry = statusMap[char.armorId];
-      var armorStatus = armorEntry ? armorEntry.status : 'stowed';
+    var activeArmors = [];
+    var charArmorIds = char.armorIds || (char.armorId ? [char.armorId] : []);
+    for (var ali = 0; ali < charArmorIds.length; ali++) {
+      var armorEntry = statusMap[charArmorIds[ali]];
+      var armorStatus = armorEntry ? armorEntry.status : 'carried';
       if (ACTIVE_STATUSES[armorStatus]) {
         for (var a = 0; a < armors.length; a++) {
-          if (armors[a].id === char.armorId) { activeArmor = { armor: armors[a], status: armorStatus }; break; }
+          if (armors[a].id === charArmorIds[ali]) {
+            activeArmors.push({ armor: armors[a], status: armorStatus });
+            break;
+          }
         }
       }
     }
+    var activeArmor = activeArmors.length > 0 ? activeArmors[0] : null;
 
     var charGearIds = char.gearIds || [];
     var gearQtyMap = {};
