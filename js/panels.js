@@ -127,10 +127,23 @@
   }
 
   function updateLabels() {
-    const leftLabel  = document.getElementById('slot-left-label');
-    const rightLabel = document.getElementById('slot-right-label');
-    if (leftLabel)  leftLabel.textContent  = PANELS[state.leftIndex].label;
-    if (rightLabel) rightLabel.textContent = PANELS[state.rightIndex].label;
+    updateTabs();
+  }
+
+  function updateTabs() {
+    var allTabs = document.querySelectorAll('.panel-tab');
+    for (var i = 0; i < allTabs.length; i++) {
+      var tab = allTabs[i];
+      var slot = tab.getAttribute('data-slot');
+      var panelIdx = parseInt(tab.getAttribute('data-panel'), 10);
+      var isActiveLeft  = (slot === 'left'  && panelIdx === state.leftIndex);
+      var isActiveRight = (slot === 'right' && panelIdx === state.rightIndex);
+      var isBlocked     = (slot === 'left'  && panelIdx === state.rightIndex) ||
+                          (slot === 'right' && panelIdx === state.leftIndex);
+      tab.classList.toggle('active', isActiveLeft || isActiveRight);
+      tab.classList.toggle('blocked', isBlocked);
+      tab.disabled = isBlocked;
+    }
   }
 
   // ─── Theme ────────────────────────────────────────────────────────────────────
@@ -239,22 +252,19 @@
     // Listen for viewport size changes across the tablet breakpoint
     _tabletMQ.addEventListener('change', onTabletChange);
 
-    // Center panel navigation
-    document.getElementById('slot-left-prev').addEventListener('click', () => {
-      state.leftIndex = prevIndex(state.leftIndex, state.rightIndex);
-      render();
-    });
-    document.getElementById('slot-left-next').addEventListener('click', () => {
-      state.leftIndex = nextIndex(state.leftIndex, state.rightIndex);
-      render();
-    });
-    document.getElementById('slot-right-prev').addEventListener('click', () => {
-      state.rightIndex = prevIndex(state.rightIndex, state.leftIndex);
-      render();
-    });
-    document.getElementById('slot-right-next').addEventListener('click', () => {
-      state.rightIndex = nextIndex(state.rightIndex, state.leftIndex);
-      render();
+    document.addEventListener('click', function (e) {
+      var tab = e.target.closest('.panel-tab');
+      if (!tab) return;
+      var slot = tab.getAttribute('data-slot');
+      var panelIdx = parseInt(tab.getAttribute('data-panel'), 10);
+      if (isNaN(panelIdx) || panelIdx < 0 || panelIdx >= PANELS.length) return;
+      if (slot === 'left' && panelIdx !== state.rightIndex) {
+        state.leftIndex = panelIdx;
+        render();
+      } else if (slot === 'right' && panelIdx !== state.leftIndex) {
+        state.rightIndex = panelIdx;
+        render();
+      }
     });
 
     // Global click delegation
