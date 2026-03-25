@@ -40,7 +40,7 @@
 
   function _getEquippedArmorMods() {
     var armorData = window._equippedArmorData;
-    if (!armorData) return { endureStep: 0, evadeStep: 0, hasArmor: false };
+    if (!armorData) return { endureStep: -1, evadeStep: 0, hasArmor: false };
     var cat = armorData.category || 'light';
     var endureStep = ARMOR_ENDURE_STEP[cat] != null ? ARMOR_ENDURE_STEP[cat] : 0;
     var evadeStep  = ARMOR_EVADE_STEP[cat] != null ? ARMOR_EVADE_STEP[cat] : 0;
