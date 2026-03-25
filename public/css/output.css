@@ -895,8 +895,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .panel-tab svg {
-  width: 16px;
-  height: 16px;
+  width: 24px;
+  height: 24px;
   flex-shrink: 0;
 }
 
