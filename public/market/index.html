@@ -486,14 +486,14 @@
         <div style="margin-top:1.5rem;padding-top:0.75rem;border-top:1px solid var(--color-border);">
           <p class="deal-label" style="margin-bottom:0.5rem;">Request an Item</p>
           <p style="font-size:0.62rem;color:var(--color-text-secondary);margin-bottom:0.6rem;line-height:1.6;">
-            Don't see what you need? Submit between sessions — GM reviews and converts before next game.
+            Don't see what you need? Submit a request — GM reviews and converts before next game.
           </p>
+          <input id="req-char" class="req-field" type="text" placeholder="Your character name" />
           <input id="req-name" class="req-field" type="text" placeholder="Item name" />
           <textarea id="req-desc" class="req-field" placeholder="What does it do in the fiction?"></textarea>
           <input id="req-link" class="req-field" type="url" placeholder="Wookieepedia link (optional)" />
-          <button class="mkt-btn" onclick="formatRequest()">Format for GM Review</button>
-          <div id="req-output" class="req-output"></div>
-          <button id="req-copy" class="mkt-btn" onclick="copyRequest()" style="display:none;margin-top:0.3rem;border-color:var(--color-accent-primary);color:var(--color-accent-primary);">Copy to Clipboard</button>
+          <button class="mkt-btn" onclick="submitRequest()">Submit Request</button>
+          <div id="req-status" style="display:none;font-size:0.65rem;margin-top:0.4rem;padding:0.4rem;border:1px solid var(--color-border);"></div>
         </div>
 
       </div>
@@ -1146,26 +1146,33 @@
   }
 
   /* ── Request form ──────────────────────────────────────────── */
-  function formatRequest() {
-    const name = document.getElementById('req-name').value.trim();
-    if (!name) { alert('Enter an item name.'); return; }
-    const desc = document.getElementById('req-desc').value.trim();
-    const link = document.getElementById('req-link').value.trim();
-    const date = new Date().toLocaleDateString('en-US', { year:'numeric', month:'short', day:'numeric' });
-    const text = [`ITEM REQUEST — ${date}`, '─'.repeat(26), `Name: ${name}`,
-      desc ? `Description: ${desc}` : null, link ? `Reference: ${link}` : null,
-      '─'.repeat(26), 'Status: Pending GM Review'].filter(Boolean).join('\n');
-    document.getElementById('req-output').textContent = text;
-    document.getElementById('req-output').style.display = 'block';
-    document.getElementById('req-copy').style.display = 'block';
-  }
-
-  function copyRequest() {
-    navigator.clipboard.writeText(document.getElementById('req-output').textContent).then(() => {
-      const btn = document.getElementById('req-copy');
-      const orig = btn.textContent;
-      btn.textContent = 'Copied.';
-      setTimeout(() => { btn.textContent = orig; }, 1500);
+  function submitRequest() {
+    var charName = document.getElementById('req-char').value.trim();
+    var itemName = document.getElementById('req-name').value.trim();
+    var statusEl = document.getElementById('req-status');
+    if (!charName) { alert('Enter your character name.'); return; }
+    if (!itemName) { alert('Enter an item name.'); return; }
+    var desc = document.getElementById('req-desc').value.trim();
+    var link = document.getElementById('req-link').value.trim();
+    statusEl.style.display = 'block';
+    statusEl.style.color = 'var(--color-text-secondary)';
+    statusEl.textContent = 'Submitting...';
+    fetch('/api/item-requests', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ characterName: charName, itemName: itemName, description: desc || undefined, referenceUrl: link || undefined })
+    }).then(function(r) {
+      if (!r.ok) throw new Error('Server error');
+      return r.json();
+    }).then(function() {
+      statusEl.style.color = '#44AA66';
+      statusEl.textContent = 'Request submitted! The GM will review it before next session.';
+      document.getElementById('req-name').value = '';
+      document.getElementById('req-desc').value = '';
+      document.getElementById('req-link').value = '';
+    }).catch(function() {
+      statusEl.style.color = 'var(--color-accent-primary)';
+      statusEl.textContent = 'Failed to submit. Try again.';
     });
   }
 

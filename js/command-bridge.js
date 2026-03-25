@@ -655,9 +655,76 @@
     if (e.target === e.currentTarget) e.currentTarget.classList.remove('active');
   });
 
+  function loadItemRequests() {
+    fetch('/api/item-requests')
+      .then(function (r) { return r.json(); })
+      .then(function (data) { renderItemRequests(data.requests || []); })
+      .catch(function () {
+        var el = document.getElementById('item-requests-list');
+        if (el) el.innerHTML = '<p class="cb-muted">Failed to load requests.</p>';
+      });
+  }
+
+  function renderItemRequests(requests) {
+    var list = document.getElementById('item-requests-list');
+    var badge = document.getElementById('req-badge');
+    if (!list) return;
+
+    var pendingCount = requests.filter(function (r) { return r.status === 'pending'; }).length;
+    if (badge) {
+      if (pendingCount > 0) {
+        badge.textContent = pendingCount;
+        badge.style.display = '';
+      } else {
+        badge.style.display = 'none';
+      }
+    }
+
+    if (!requests.length) {
+      list.innerHTML = '<p class="cb-muted" style="font-style:italic;">No item requests yet.</p>';
+      return;
+    }
+
+    list.innerHTML = requests.map(function (req) {
+      var date = new Date(req.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+      var html = '<div class="cb-req-card status-' + esc(req.status) + '">';
+      html += '<span class="cb-req-status-tag ' + esc(req.status) + '">' + esc(req.status) + '</span>';
+      html += '<div class="cb-req-item-name">' + esc(req.item_name) + '</div>';
+      html += '<div class="cb-req-char">' + esc(req.character_name) + ' &middot; ' + date + '</div>';
+      if (req.description) html += '<div class="cb-req-desc">' + esc(req.description) + '</div>';
+      if (req.reference_url) html += '<div><a class="cb-req-link" href="' + esc(req.reference_url) + '" target="_blank">' + esc(req.reference_url) + '</a></div>';
+      if (req.gm_notes) html += '<div style="font-size:0.7rem;color:var(--color-accent-secondary);margin-top:0.2rem;">GM: ' + esc(req.gm_notes) + '</div>';
+      if (req.status === 'pending') {
+        html += '<div class="cb-req-actions">';
+        html += '<button class="cb-req-action approve" data-req-id="' + req.id + '" data-req-action="approved">Approve</button>';
+        html += '<button class="cb-req-action deny" data-req-id="' + req.id + '" data-req-action="denied">Deny</button>';
+        html += '<button class="cb-req-action" data-req-id="' + req.id + '" data-req-action="converted">Converted</button>';
+        html += '</div>';
+      }
+      html += '</div>';
+      return html;
+    }).join('');
+
+    list.querySelectorAll('.cb-req-action').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var reqId = btn.dataset.reqId;
+        var action = btn.dataset.reqAction;
+        fetch('/api/item-requests/' + reqId, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status: action })
+        }).then(function (r) {
+          if (!r.ok) throw new Error('Server error');
+          loadItemRequests();
+        }).catch(function (err) { console.error('Failed to update request:', err); });
+      });
+    });
+  }
+
   initTheme();
   initDragHandles();
   initSockets();
   initCampaign();
   loadGlossary();
+  loadItemRequests();
 }());

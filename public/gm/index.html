@@ -543,6 +543,81 @@
       color: var(--color-text-secondary);
     }
 
+    .cb-req-badge {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.6rem;
+      background: var(--color-accent-primary);
+      color: var(--color-btn-text, var(--color-bg-primary));
+      padding: 0.1rem 0.4rem;
+      margin-left: 0.3rem;
+      vertical-align: middle;
+    }
+    .cb-req-card {
+      background: var(--color-bg-frame);
+      border: 1px solid var(--color-border);
+      padding: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .cb-req-card.status-approved { border-left: 3px solid #44AA66; }
+    .cb-req-card.status-denied { border-left: 3px solid var(--color-accent-primary); opacity: 0.6; }
+    .cb-req-card.status-converted { border-left: 3px solid #5588CC; opacity: 0.6; }
+    .cb-req-card.status-pending { border-left: 3px solid var(--color-accent-secondary); }
+    .cb-req-item-name {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.75rem;
+      color: var(--color-text-primary);
+    }
+    .cb-req-char {
+      font-size: 0.7rem;
+      color: var(--color-text-secondary);
+    }
+    .cb-req-desc {
+      font-size: 0.7rem;
+      color: var(--color-text-secondary);
+      margin: 0.3rem 0;
+      font-style: italic;
+      line-height: 1.5;
+    }
+    .cb-req-link {
+      font-size: 0.65rem;
+      color: #5588CC;
+      word-break: break-all;
+    }
+    .cb-req-actions {
+      display: flex;
+      gap: 4px;
+      margin-top: 0.4rem;
+    }
+    .cb-req-action {
+      flex: 1;
+      background: transparent;
+      border: 1px solid var(--color-border);
+      color: var(--color-text-secondary);
+      font-family: 'Exo 2', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.3rem;
+      cursor: pointer;
+      transition: all 0.15s;
+      min-height: 36px;
+    }
+    .cb-req-action:hover { border-color: var(--color-accent-primary); color: var(--color-accent-primary); }
+    .cb-req-action.approve:hover { border-color: #44AA66; color: #44AA66; }
+    .cb-req-action.deny:hover { border-color: var(--color-accent-primary); color: var(--color-accent-primary); }
+    .cb-req-status-tag {
+      font-size: 0.6rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.15rem 0.4rem;
+      border: 1px solid;
+      float: right;
+    }
+    .cb-req-status-tag.pending { border-color: var(--color-accent-secondary); color: var(--color-accent-secondary); }
+    .cb-req-status-tag.approved { border-color: #44AA66; color: #44AA66; }
+    .cb-req-status-tag.denied { border-color: var(--color-accent-primary); color: var(--color-accent-primary); }
+    .cb-req-status-tag.converted { border-color: #5588CC; color: #5588CC; }
+
     .lore-modal-overlay {
       position: fixed; inset: 0;
       background: rgba(0,0,0,0.8);
@@ -628,6 +703,13 @@
         <div class="cb-destiny-btns">
           <button class="cb-destiny-btn" id="gm-destiny-untap">Untap All</button>
           <button class="cb-destiny-btn" id="gm-destiny-reset">Reset Pool</button>
+        </div>
+      </div>
+
+      <div class="cb-destiny-section">
+        <div class="cb-col-title">Item Requests <span id="req-badge" class="cb-req-badge" style="display:none;"></span></div>
+        <div id="item-requests-list">
+          <p class="cb-muted" style="font-style:italic;">Loading&hellip;</p>
         </div>
       </div>
     </div>

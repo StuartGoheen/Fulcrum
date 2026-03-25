@@ -67,6 +67,18 @@ db.exec(`
     claimed_at     DATETIME DEFAULT CURRENT_TIMESTAMP,
     UNIQUE(character_id, adventure_id, mark_id)
   );
+
+  CREATE TABLE IF NOT EXISTS item_requests (
+    id             INTEGER PRIMARY KEY AUTOINCREMENT,
+    character_name TEXT    NOT NULL,
+    item_name      TEXT    NOT NULL,
+    description    TEXT,
+    reference_url  TEXT,
+    status         TEXT    NOT NULL DEFAULT 'pending',
+    gm_notes       TEXT,
+    created_at     DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at     DATETIME DEFAULT CURRENT_TIMESTAMP
+  );
 `);
 
 db.exec(`
