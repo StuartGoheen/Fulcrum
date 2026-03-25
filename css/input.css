@@ -172,6 +172,11 @@
     flex-shrink: 0;
   }
 
+  .panel-tab-group--triple,
+  .panel-nav-divider--triple {
+    display: none;
+  }
+
   .center-resize-handle {
     width: 6px;
     flex-shrink: 0;

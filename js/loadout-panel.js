@@ -790,7 +790,7 @@
   }
 
   var _lastHtml = '';
-  var SLOT_IDS  = ['slot-left-content', 'slot-right-content'];
+  var SLOT_IDS  = ['slot-left-content', 'slot-mid-content', 'slot-right-content'];
 
   function _injectIntoVisibleSlots(innerHtml) {
     SLOT_IDS.forEach(function (slotId) {

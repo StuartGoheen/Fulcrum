@@ -19,12 +19,14 @@
     { id: 'panel-5', label: 'Advancement' },
   ];
 
+  const TRIPLE_MIN_WIDTH = 900;
+
   const state = {
     leftIndex:  0,
     rightIndex: 1,
+    midIndex:   2,
+    tripleMode: false,
   };
-
-  // ─── Panel Navigation ─────────────────────────────────────────────────────────
 
   function loadState() {
     try {
@@ -41,15 +43,38 @@
           state.leftIndex  = parsed.leftIndex;
           state.rightIndex = parsed.rightIndex;
         }
+        if (typeof parsed.midIndex === 'number' &&
+            parsed.midIndex >= 0 && parsed.midIndex < PANELS.length) {
+          state.midIndex = parsed.midIndex;
+        }
       }
     } catch (_) {}
+    _ensureUnique();
+  }
+
+  function _ensureUnique() {
+    var used = [state.leftIndex, state.rightIndex];
+    if (state.tripleMode) {
+      if (used.indexOf(state.midIndex) !== -1) {
+        for (var i = 0; i < PANELS.length; i++) {
+          if (used.indexOf(i) === -1) { state.midIndex = i; break; }
+        }
+      }
+    }
   }
 
   function saveState() {
     sessionStorage.setItem(SESSION_PANELS_KEY, JSON.stringify({
       leftIndex:  state.leftIndex,
       rightIndex: state.rightIndex,
+      midIndex:   state.midIndex,
     }));
+  }
+
+  function _allOccupied() {
+    var arr = [state.leftIndex, state.rightIndex];
+    if (state.tripleMode) arr.push(state.midIndex);
+    return arr;
   }
 
   function nextIndex(current, blocked) {
@@ -77,52 +102,49 @@
     return dock;
   }
 
+  function _dockSlot(contentEl, dock) {
+    while (contentEl.firstChild) {
+      var child = contentEl.firstChild;
+      if (child.classList) {
+        child.classList.add('hidden');
+        child.classList.remove('block');
+      }
+      dock.appendChild(child);
+    }
+  }
+
+  function _fillSlot(contentEl, panelIndex) {
+    var panel = document.getElementById(PANELS[panelIndex].id);
+    if (panel) {
+      panel.classList.remove('hidden');
+      panel.classList.add('block');
+      contentEl.appendChild(panel);
+      document.dispatchEvent(new CustomEvent('panel:shown', {
+        detail: { panelId: PANELS[panelIndex].id, label: PANELS[panelIndex].label }
+      }));
+    }
+  }
+
   function render() {
     const leftContent  = document.getElementById('slot-left-content');
     const rightContent = document.getElementById('slot-right-content');
+    const midContent   = document.getElementById('slot-mid-content');
     if (!leftContent || !rightContent) return;
 
     const dock = _ensureDock();
 
-    while (leftContent.firstChild) {
-      var child = leftContent.firstChild;
-      if (child.classList) {
-        child.classList.add('hidden');
-        child.classList.remove('block');
-      }
-      dock.appendChild(child);
-    }
-    while (rightContent.firstChild) {
-      var child = rightContent.firstChild;
-      if (child.classList) {
-        child.classList.add('hidden');
-        child.classList.remove('block');
-      }
-      dock.appendChild(child);
+    _dockSlot(leftContent, dock);
+    _dockSlot(rightContent, dock);
+    if (midContent) _dockSlot(midContent, dock);
+
+    _fillSlot(leftContent, state.leftIndex);
+    _fillSlot(rightContent, state.rightIndex);
+
+    if (state.tripleMode && midContent) {
+      _fillSlot(midContent, state.midIndex);
     }
 
-    const leftPanel  = document.getElementById(PANELS[state.leftIndex].id);
-    const rightPanel = document.getElementById(PANELS[state.rightIndex].id);
-
-    if (leftPanel) {
-      leftPanel.classList.remove('hidden');
-      leftPanel.classList.add('block');
-      leftContent.appendChild(leftPanel);
-      document.dispatchEvent(new CustomEvent('panel:shown', {
-        detail: { panelId: PANELS[state.leftIndex].id, label: PANELS[state.leftIndex].label }
-      }));
-    }
-
-    if (rightPanel) {
-      rightPanel.classList.remove('hidden');
-      rightPanel.classList.add('block');
-      rightContent.appendChild(rightPanel);
-      document.dispatchEvent(new CustomEvent('panel:shown', {
-        detail: { panelId: PANELS[state.rightIndex].id, label: PANELS[state.rightIndex].label }
-      }));
-    }
-
-    updateLabels();
+    updateTabs();
     saveState();
   }
 
@@ -131,18 +153,58 @@
   }
 
   function updateTabs() {
+    var occupied = _allOccupied();
     var allTabs = document.querySelectorAll('.panel-tab');
     for (var i = 0; i < allTabs.length; i++) {
       var tab = allTabs[i];
       var slot = tab.getAttribute('data-slot');
       var panelIdx = parseInt(tab.getAttribute('data-panel'), 10);
-      var isActiveLeft  = (slot === 'left'  && panelIdx === state.leftIndex);
-      var isActiveRight = (slot === 'right' && panelIdx === state.rightIndex);
-      var isBlocked     = (slot === 'left'  && panelIdx === state.rightIndex) ||
-                          (slot === 'right' && panelIdx === state.leftIndex);
-      tab.classList.toggle('active', isActiveLeft || isActiveRight);
+
+      var isActive = false;
+      if (slot === 'left')  isActive = (panelIdx === state.leftIndex);
+      if (slot === 'right') isActive = (panelIdx === state.rightIndex);
+      if (slot === 'mid')   isActive = (panelIdx === state.midIndex);
+
+      var isBlocked = false;
+      if (slot === 'left')  isBlocked = occupied.indexOf(panelIdx) !== -1 && panelIdx !== state.leftIndex;
+      if (slot === 'right') isBlocked = occupied.indexOf(panelIdx) !== -1 && panelIdx !== state.rightIndex;
+      if (slot === 'mid')   isBlocked = occupied.indexOf(panelIdx) !== -1 && panelIdx !== state.midIndex;
+
+      tab.classList.toggle('active', isActive);
       tab.classList.toggle('blocked', isBlocked);
       tab.disabled = isBlocked;
+    }
+  }
+
+  function _checkTripleMode() {
+    var center = document.getElementById('center-content');
+    if (!center) return;
+    var w = center.offsetWidth;
+    var shouldTriple = w >= TRIPLE_MIN_WIDTH;
+    if (shouldTriple === state.tripleMode) return;
+    state.tripleMode = shouldTriple;
+    _ensureUnique();
+    _applyTripleVisibility();
+    render();
+    document.dispatchEvent(new CustomEvent('triplemode:changed', { detail: { tripleMode: shouldTriple } }));
+  }
+
+  function _applyTripleVisibility() {
+    var slotMid = document.getElementById('slot-mid');
+    var handle2 = document.getElementById('center-resize-handle-2');
+    var tabsMid = document.getElementById('tabs-mid');
+    var triDividers = document.querySelectorAll('.panel-nav-divider--triple');
+
+    if (state.tripleMode) {
+      if (slotMid) slotMid.style.display = '';
+      if (handle2) handle2.style.display = '';
+      if (tabsMid) tabsMid.style.display = '';
+      for (var d = 0; d < triDividers.length; d++) triDividers[d].style.display = '';
+    } else {
+      if (slotMid) slotMid.style.display = 'none';
+      if (handle2) handle2.style.display = 'none';
+      if (tabsMid) tabsMid.style.display = 'none';
+      for (var d = 0; d < triDividers.length; d++) triDividers[d].style.display = 'none';
     }
   }
 
@@ -167,18 +229,9 @@
 
   // ─── Tablet Tab System ────────────────────────────────────────────────────────
 
-  // matchMedia for tablet breakpoint (must match CSS @media max-width: 1280px)
   const _tabletMQ = window.matchMedia('(max-width: 1280px)');
   let   _isTablet = _tabletMQ.matches;
 
-  /**
-   * Physically moves #char-status-container between its two homes:
-   *   tablet  → #tab-status  (left frame Status tab)
-   *   desktop → #frame-right (original right column)
-   *
-   * All child elements keep their IDs so effect-manager.js and
-   * character-panel.js continue to find them with getElementById.
-   */
   function syncStatusContainer() {
     const statusContainer = document.getElementById('char-status-container');
     if (!statusContainer) return;
@@ -196,16 +249,13 @@
     }
   }
 
-  /** Switch the active left-frame tab. */
   function activateFrameTab(tabName) {
-    // Update tab buttons
     document.querySelectorAll('.frame-left-tab').forEach((btn) => {
       const active = btn.getAttribute('data-tab') === tabName;
       btn.classList.toggle('is-active', active);
       btn.setAttribute('aria-selected', active ? 'true' : 'false');
     });
 
-    // Update tab panels — force animation by removing/re-adding is-active
     document.querySelectorAll('.frame-tab-panel').forEach((panel) => {
       const targetId = 'tab-' + tabName;
       if (panel.id === targetId) {
@@ -216,7 +266,6 @@
     });
   }
 
-  /** Wire up tab button clicks. */
   function initFrameTabs() {
     document.querySelectorAll('.frame-left-tab').forEach((btn) => {
       btn.addEventListener('click', () => {
@@ -226,13 +275,10 @@
     });
   }
 
-  /** Handle viewport crossing the 1280px breakpoint. */
   function onTabletChange(e) {
     _isTablet = e.matches;
     syncStatusContainer();
 
-    // When switching back to desktop, reset left frame to Character tab
-    // so the status content isn't visually missing from the right frame
     if (!_isTablet) {
       activateFrameTab('character');
     }
@@ -243,14 +289,17 @@
   function init() {
     loadState();
     initTheme();
+
+    _applyTripleVisibility();
     render();
     initFrameTabs();
 
-    // Sync status container placement on load
     syncStatusContainer();
 
-    // Listen for viewport size changes across the tablet breakpoint
     _tabletMQ.addEventListener('change', onTabletChange);
+
+    setTimeout(function () { _checkTripleMode(); }, 100);
+    window.addEventListener('resize', function () { _checkTripleMode(); });
 
     document.addEventListener('click', function (e) {
       var tab = e.target.closest('.panel-tab');
@@ -258,16 +307,22 @@
       var slot = tab.getAttribute('data-slot');
       var panelIdx = parseInt(tab.getAttribute('data-panel'), 10);
       if (isNaN(panelIdx) || panelIdx < 0 || panelIdx >= PANELS.length) return;
-      if (slot === 'left' && panelIdx !== state.rightIndex) {
+
+      var occupied = _allOccupied();
+      if (occupied.indexOf(panelIdx) !== -1) return;
+
+      if (slot === 'left') {
         state.leftIndex = panelIdx;
         render();
-      } else if (slot === 'right' && panelIdx !== state.leftIndex) {
+      } else if (slot === 'right') {
         state.rightIndex = panelIdx;
+        render();
+      } else if (slot === 'mid' && state.tripleMode) {
+        state.midIndex = panelIdx;
         render();
       }
     });
 
-    // Global click delegation
     document.addEventListener('click', (e) => {
       if (e.target.closest('#char-theme-toggle')) cycleTheme();
       if (e.target.closest('#destiny-info-btn')) {
@@ -277,7 +332,7 @@
 
   }
 
-  window.PanelSystem = { render: render };
+  window.PanelSystem = { render: render, checkTripleMode: _checkTripleMode };
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
