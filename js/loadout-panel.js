@@ -634,13 +634,28 @@
     );
   }
 
+  var ENDURE_STEP  = { none: -1, light: 0, medium: 1, heavy: 2 };
+
+  function _steppedDie(baseDie, steps) {
+    var idx = DIE_ORDER.indexOf(baseDie.toUpperCase());
+    if (idx < 0) return baseDie;
+    var eff = Math.max(0, Math.min(DIE_ORDER.length - 1, idx + steps));
+    return DIE_ORDER[eff];
+  }
+
   function _buildLoadoutArmorCard(armor, char, status) {
+    var cat = armor.category || 'light';
+    var endureSteps = ENDURE_STEP[cat] != null ? ENDURE_STEP[cat] : 0;
     var discDie  = _getDiscDie(char, 'physique', 'endure');
-    var arenaDie = _getEffectiveArenaDie(char, 'physique');
+    var baseArenaDie = _getEffectiveArenaDie(char, 'physique');
+    var arenaDie = _steppedDie(baseArenaDie, endureSteps);
 
     var categoryRule = ARMOR_CATEGORY_RULES[armor.category] || '';
     if (armor.evasionException && categoryRule) {
       categoryRule = categoryRule.replace(' \u00b7 Step Down Reflex for Evasion.', '') + ' \u00b7 No Evasion penalty (see Trait).';
+    }
+    if (typeof armor.evasionReduction === 'number' && categoryRule) {
+      categoryRule = categoryRule.replace(/Step Down Reflex( twice)? for Evasion\./i, 'Evasion penalty reduced (see Trait).');
     }
 
     var metaHtml =

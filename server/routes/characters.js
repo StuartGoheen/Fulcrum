@@ -9,9 +9,14 @@ const KITS_DATA = JSON.parse(fsx.readFileSync(path.join(__dirname, '..', '..', '
 const SPECIES_ARENAS = {
   'Human':   { physique: 'D6', reflex: 'D6', grit: 'D6', wits: 'D6', presence: 'D6' },
   "Twi'lek": { physique: 'D6', reflex: 'D6', grit: 'D6', wits: 'D6', presence: 'D6' },
-  'Wookiee': { physique: 'D8', reflex: 'D6', grit: 'D6', wits: 'D6', presence: 'D6' },
+  'Wookiee': { physique: 'D8', reflex: 'D4', grit: 'D6', wits: 'D6', presence: 'D6' },
   'Duros':   { physique: 'D6', reflex: 'D6', grit: 'D6', wits: 'D6', presence: 'D6' },
   'Zabrak':  { physique: 'D6', reflex: 'D6', grit: 'D6', wits: 'D6', presence: 'D6' },
+  'Kel Dor': { physique: 'D6', reflex: 'D6', grit: 'D6', wits: 'D8', presence: 'D6' },
+  'Togruta': { physique: 'D4', reflex: 'D8', grit: 'D6', wits: 'D6', presence: 'D6' },
+  'Rodian':  { physique: 'D6', reflex: 'D8', grit: 'D6', wits: 'D6', presence: 'D4' },
+  'Sullustan': { physique: 'D4', reflex: 'D6', grit: 'D6', wits: 'D8', presence: 'D6' },
+  'Cathar':  { physique: 'D6', reflex: 'D6', grit: 'D8', wits: 'D4', presence: 'D6' },
 };
 
 const ARENA_META = [
