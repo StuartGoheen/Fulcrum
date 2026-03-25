@@ -5737,64 +5737,68 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .cc-reset-panel {
-  background: var(--color-bg-secondary, #1a1a2e);
-  border: 1px solid var(--color-border);
+  background: var(--color-bg-frame);
+  border: 1px solid var(--color-accent-primary);
   border-radius: 8px;
-  padding: 1.5rem 2rem;
+  padding: 24px 28px;
   max-width: 360px;
   width: 90%;
   text-align: center;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
 }
 
 .cc-reset-title {
   font-family: var(--font-heading);
   font-size: 1rem;
   margin: 0 0 0.5rem;
-  color: var(--color-text-primary);
+  color: var(--color-accent-primary);
 }
 
 .cc-reset-msg {
-  font-size: 0.8rem;
-  color: var(--color-text-secondary);
+  font-size: 0.85rem;
+  color: var(--color-text-primary);
   margin: 0 0 1.25rem;
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 .cc-reset-actions {
   display: flex;
-  gap: 0.75rem;
+  gap: 10px;
   justify-content: center;
 }
 
 .cc-reset-cancel-btn,
   .cc-reset-confirm-btn {
-  padding: 0.4rem 1.2rem;
-  font-size: 0.8rem;
   font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 6px 18px;
   border-radius: 4px;
   cursor: pointer;
   border: 1px solid var(--color-border);
-  transition: background 0.2s, color 0.2s;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
 }
 
 .cc-reset-cancel-btn {
-  background: transparent;
+  background: var(--color-bg-panel);
   color: var(--color-text-secondary);
+  border-color: var(--color-border);
 }
 
 .cc-reset-cancel-btn:hover {
-  background: var(--color-bg-tertiary, rgba(255,255,255,0.05));
+  border-color: var(--color-text-secondary);
 }
 
 .cc-reset-confirm-btn {
-  background: var(--color-danger, #ef4444);
-  color: #fff;
-  border-color: var(--color-danger, #ef4444);
+  background: color-mix(in srgb, var(--color-accent-primary) 15%, var(--color-bg-panel));
+  color: var(--color-accent-primary);
+  border-color: var(--color-accent-primary);
 }
 
 .cc-reset-confirm-btn:hover {
-  background: #dc2626;
-  border-color: #dc2626;
+  background: color-mix(in srgb, var(--color-accent-primary) 25%, var(--color-bg-panel));
 }
 
 /* ── Status bar (badges + advance dots) ──────────────────────────────── */
