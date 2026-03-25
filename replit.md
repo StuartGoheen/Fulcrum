@@ -257,6 +257,14 @@ The right column (`#frame-right`, 25vw fixed sidebar) serves as the **combat coc
 
 Armor is stored as an **array** (`armorIds: [...]`) in character_data, supporting multiple owned armor pieces. Legacy characters with `armorId` (single string) are auto-migrated to `armorIds` on expansion. All client panels (`armor-panel.js`, `armory-panel.js`, `loadout-panel.js`) fall back to `char.armorId` if `char.armorIds` is missing. The `inventoryRemovals.armor` field is now an array of removed armor IDs (was previously a boolean `true`). `applyInventoryRemovals` handles both array and legacy boolean formats. Equipment status determines which armor is equipped/carried/stowed; armor without a status entry defaults to `carried` in the loadout panel. The maneuvers panel (`js/maneuvers-panel.js`) applies equipped armor category modifiers to Dodge and Endure defense dice: Endure steps the Physique power die (none=-1, light=0, medium=+1, heavy=+2), Dodge steps the Reflex power die (none=0, light=0, medium=-1, heavy=-2) with `evasionException` and `evasionReduction` support. The panel fetches `data/armor.json` and resolves the equipped armor from equipment status on each render.
 
+## Armory → Market Flow
+
+The Armory panel (`js/armory-panel.js`) includes a "Visit the Market" link at the bottom that navigates to `/market/` with `charId`, `mode=market`, and `returnTo=player` URL params. The Market page (`js/market.js`) reads these params on boot: if `charId` is present, it fetches the character via `/api/characters/:id` and auto-selects them (skipping the character gate). The player's theme carries via `localStorage` (`eote-theme`). When `returnTo=player`, a "Character Sheet" return link appears in the market header. After purchasing, the player can return to their character sheet where the new equipment will be loaded.
+
+## Sell Items
+
+Items in the Armory panel have a "Sell" button (amber-styled) alongside existing Drop buttons. Clicking it opens a sell confirmation modal with a percentage stepper (default 50%, adjustable 5–100% in 5% increments). The sell endpoint (`POST /api/inventory/:charId/sell`) removes the item from inventory (via `inventoryRemovals`), adds credits to the character, and cleans up `equipment_status`. Items with `cost: 0` or no cost do not show a sell button.
+
 ## Database
 
 SQLite database auto-created and seeded on first run at `db/campaign.db`.  

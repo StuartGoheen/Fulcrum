@@ -432,8 +432,10 @@
         '</div>';
     }
 
+    var armorSellValue = armor.cost || 0;
     var armorDropHtml =
       '<div class="armory-item-actions">' +
+        (armorSellValue > 0 ? '<button class="armory-sell-btn" data-sell-id="' + _esc(armor.id) + '" data-sell-type="armor" data-sell-cost="' + armorSellValue + '" data-sell-name="' + _esc(armor.name) + '">Sell</button>' : '') +
         '<button class="armory-drop-btn" data-drop-id="' + _esc(armor.id) + '" data-drop-type="armor">Drop</button>' +
       '</div>';
 
@@ -660,8 +662,10 @@
 
     var ammoBarHtml = _buildAmmoBar(weapon.clipSize, weapon.id);
 
+    var wpnSellValue = weapon.cost || 0;
     var dropBtnHtml = weapon.innate ? '' :
       '<div class="armory-item-actions">' +
+        (wpnSellValue > 0 ? '<button class="armory-sell-btn" data-sell-id="' + _esc(weapon.id) + '" data-sell-type="weapon" data-sell-cost="' + wpnSellValue + '" data-sell-name="' + _esc(weapon.name) + '">Sell</button>' : '') +
         '<button class="armory-drop-btn" data-drop-id="' + _esc(weapon.id) + '" data-drop-type="weapon">Drop</button>' +
       '</div>';
 
@@ -761,9 +765,11 @@
     }
 
     var isConsumable = (gear.tags || []).indexOf('Consumable') !== -1;
+    var gearSellValue = gear.cost || 0;
     var gearActionsHtml =
       '<div class="armory-item-actions">' +
         (isConsumable ? '<button class="armory-use-btn" data-use-id="' + _esc(gear.id) + '">Use' + (qty > 1 ? ' 1' : '') + '</button>' : '') +
+        (gearSellValue > 0 ? '<button class="armory-sell-btn" data-sell-id="' + _esc(gear.id) + '" data-sell-type="gear" data-sell-cost="' + gearSellValue + '" data-sell-name="' + _esc(gear.name) + '">Sell</button>' : '') +
         '<button class="armory-drop-btn" data-drop-id="' + _esc(gear.id) + '" data-drop-type="gear">Drop</button>' +
       '</div>';
 
@@ -889,6 +895,14 @@
       html += '</div></div>';
     }
 
+    var charId = char.id || '';
+    html +=
+      '<div class="armory-market-link-wrap">' +
+        '<a href="/market/?charId=' + encodeURIComponent(charId) + '&mode=market&returnTo=player" class="armory-market-link">' +
+          '&#9733; Visit the Market' +
+        '</a>' +
+      '</div>';
+
     html += '</div>';
 
     _lastHtml = html;
@@ -944,11 +958,87 @@
     });
   }
 
+  function _showSellConfirm(itemName, baseCost, onConfirm) {
+    var existing = document.getElementById('sell-confirm-overlay');
+    if (existing) existing.remove();
+
+    var pct = 50;
+    var sellPrice = Math.round(baseCost * pct / 100);
+
+    var overlay = document.createElement('div');
+    overlay.id = 'sell-confirm-overlay';
+    overlay.className = 'inv-confirm-overlay';
+    overlay.innerHTML =
+      '<div class="inv-confirm-modal sell-confirm-modal">' +
+        '<div class="sell-confirm-title">Sell Item</div>' +
+        '<div class="sell-confirm-name">' + _esc(itemName) + '</div>' +
+        '<div class="sell-confirm-base">Base value: ' + baseCost.toLocaleString() + ' cr</div>' +
+        '<div class="sell-stepper-row">' +
+          '<button class="sell-step-btn sell-step-down" data-step="-5">&minus;</button>' +
+          '<span class="sell-pct-display">' + pct + '%</span>' +
+          '<button class="sell-step-btn sell-step-up" data-step="5">+</button>' +
+        '</div>' +
+        '<div class="sell-price-display">Sale price: <strong class="sell-price-val">' + sellPrice.toLocaleString() + ' cr</strong></div>' +
+        '<div class="inv-confirm-actions">' +
+          '<button class="inv-confirm-cancel">Cancel</button>' +
+          '<button class="inv-confirm-ok sell-confirm-ok">Sell for ' + sellPrice.toLocaleString() + ' cr</button>' +
+        '</div>' +
+      '</div>';
+    document.body.appendChild(overlay);
+
+    function updatePrice() {
+      sellPrice = Math.round(baseCost * pct / 100);
+      overlay.querySelector('.sell-pct-display').textContent = pct + '%';
+      overlay.querySelector('.sell-price-val').textContent = sellPrice.toLocaleString() + ' cr';
+      overlay.querySelector('.sell-confirm-ok').textContent = 'Sell for ' + sellPrice.toLocaleString() + ' cr';
+    }
+
+    overlay.querySelector('.sell-step-down').addEventListener('click', function () {
+      pct = Math.max(5, pct - 5);
+      updatePrice();
+    });
+    overlay.querySelector('.sell-step-up').addEventListener('click', function () {
+      pct = Math.min(100, pct + 5);
+      updatePrice();
+    });
+    overlay.querySelector('.inv-confirm-cancel').addEventListener('click', function () { overlay.remove(); });
+    overlay.addEventListener('click', function (ev) { if (ev.target === overlay) overlay.remove(); });
+    overlay.querySelector('.sell-confirm-ok').addEventListener('click', function () {
+      overlay.remove();
+      onConfirm(pct);
+    });
+  }
+
   document.addEventListener('click', function (e) {
     var armoryHdr = e.target.closest && e.target.closest('[data-toggle-armory]');
     if (armoryHdr) {
       var section = armoryHdr.closest('.armory-collapse-section');
       if (section) section.classList.toggle('open');
+      return;
+    }
+
+    var sellBtn = e.target.closest && e.target.closest('.armory-sell-btn');
+    if (sellBtn && sellBtn.closest('[id="panel-2"]')) {
+      e.stopPropagation();
+      var sellId = sellBtn.dataset.sellId;
+      var sellType = sellBtn.dataset.sellType;
+      var sellCost = parseInt(sellBtn.dataset.sellCost) || 0;
+      var sellName = sellBtn.dataset.sellName || 'Item';
+      if (!sellId || !sellType || !_currentCharId) return;
+      var charId = _currentCharId;
+      _showSellConfirm(sellName, sellCost, function (sellPct) {
+        fetch('/api/inventory/' + encodeURIComponent(charId) + '/sell', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ itemId: sellId, itemType: sellType, pct: sellPct })
+        })
+        .then(function (res) {
+          if (!res.ok) throw new Error('Sell failed: ' + res.status);
+          return res.json();
+        })
+        .then(function () { _refreshCharacterAfterInventory(); })
+        .catch(function (err) { console.error('[ArmoryPanel] sell error', err); });
+      });
       return;
     }
 

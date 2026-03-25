@@ -1037,9 +1037,47 @@
     });
   }
 
+  function getUrlParams() {
+    var params = {};
+    var search = window.location.search.substring(1);
+    if (!search) return params;
+    search.split('&').forEach(function (pair) {
+      var parts = pair.split('=');
+      params[decodeURIComponent(parts[0])] = decodeURIComponent(parts[1] || '');
+    });
+    return params;
+  }
+
+  function applyThemeFromStorage() {
+    var saved = localStorage.getItem('eote-theme');
+    if (saved) {
+      document.documentElement.className = saved;
+    }
+  }
+
+  function showReturnLink() {
+    var params = getUrlParams();
+    if (params.returnTo === 'player') {
+      var link = document.getElementById('mkt-return-player');
+      if (link) link.style.display = '';
+    }
+  }
+
   function boot() {
+    applyThemeFromStorage();
     bindEvents();
-    loadCharacterGate();
+
+    var params = getUrlParams();
+
+    if (params.mode === 'market') {
+      setTimeout(function () { setMode('market'); }, 100);
+    }
+
+    if (params.charId) {
+      document.getElementById('char-gate').style.display = 'none';
+    } else {
+      loadCharacterGate();
+    }
 
     Promise.all([
       fetch('/data/gear.json').then(function (r) { return r.json(); }),
@@ -1078,6 +1116,25 @@
 
       applyFilters();
       recalc();
+
+      var urlParams = getUrlParams();
+      if (urlParams.charId) {
+        fetch('/api/characters/' + encodeURIComponent(urlParams.charId))
+          .then(function (r) { return r.json(); })
+          .then(function (charData) {
+            if (charData && charData.name) {
+              selectCharacter(charData);
+              showReturnLink();
+            } else {
+              loadCharacterGate();
+              document.getElementById('char-gate').style.display = 'flex';
+            }
+          })
+          .catch(function () {
+            loadCharacterGate();
+            document.getElementById('char-gate').style.display = 'flex';
+          });
+      }
     });
   }
 

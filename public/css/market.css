@@ -159,6 +159,14 @@ html, body { height: 100%; overflow: hidden; }
   text-decoration: none;
   font-family: 'Audiowide', sans-serif;
 }
+.mkt-return-link {
+  color: var(--color-accent-primary);
+  font-size: 0.55rem;
+  font-weight: 600;
+}
+.mkt-return-link:hover {
+  text-decoration: underline;
+}
 
 .mkt-content {
   flex: 1;
