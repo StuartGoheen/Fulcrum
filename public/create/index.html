@@ -17,7 +17,12 @@
   <div class="relative z-10 h-screen flex flex-col">
 
     <header class="cc-header">
-      <a href="/" class="cc-back-link">&larr; Back</a>
+      <div class="cc-header-left">
+        <a href="/" class="cc-back-link">&larr; Back</a>
+        <button id="cc-info-btn" class="cc-info-btn" title="Player's Handbook" aria-label="Open Player's Handbook">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        </button>
+      </div>
       <div class="cc-step-nav-wrap">
         <button id="cc-nav-prev" class="cc-nav-btn cc-nav-prev-btn hidden"></button>
         <div class="cc-step-track">
@@ -261,6 +266,8 @@
   </div>
 
 
+  <div id="glossary-overlay-mount"></div>
+  <script src="/js/glossary-overlay.js"></script>
   <script src="/js/character-creation.js"></script>
 </body>
 </html>

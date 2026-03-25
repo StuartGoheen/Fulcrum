@@ -4103,9 +4103,42 @@
     }
   }
 
+  var GLOSSARY_STEP_MAP = {
+    species:    { type: 'provider', target: 'species' },
+    phase1:     { type: 'browse' },
+    phase2:     { type: 'browse' },
+    phase3:     { type: 'browse' },
+    stats:      { type: 'provider', target: 'arenas' },
+    kits:       { type: 'provider', target: 'vocations' },
+    outfitting: { type: 'provider', target: 'equipment' },
+    destiny:    { type: 'entry',    target: 'destiny_pool' },
+    backstory:  { type: 'browse' }
+  };
+
+  function initInfoButton() {
+    var trigger = document.getElementById('handbook-trigger');
+    if (trigger) trigger.style.display = 'none';
+
+    var btn = document.getElementById('cc-info-btn');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      if (!window.GlossaryOverlay) return;
+      var mapping = GLOSSARY_STEP_MAP[currentScreen];
+      if (!mapping) { window.GlossaryOverlay.open(); return; }
+      if (mapping.type === 'entry') {
+        window.GlossaryOverlay.open(mapping.target);
+      } else if (mapping.type === 'provider') {
+        window.GlossaryOverlay.openToProvider(mapping.target);
+      } else {
+        window.GlossaryOverlay.open();
+      }
+    });
+  }
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
+    document.addEventListener('DOMContentLoaded', function () { init(); initInfoButton(); });
   } else {
     init();
+    initInfoButton();
   }
 }());

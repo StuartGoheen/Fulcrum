@@ -4038,6 +4038,34 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--color-accent-primary);
 }
 
+.cc-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cc-info-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color-bg-frame);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, box-shadow 0.15s;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.cc-info-btn:hover {
+  color: var(--color-accent-primary);
+  border-color: var(--color-accent-primary);
+  box-shadow: 0 0 6px rgba(var(--color-accent-primary-rgb, 100, 180, 255), 0.35);
+}
+
 .cc-theme-btn {
   font-size: 0.5rem;
   letter-spacing: 0.1em;

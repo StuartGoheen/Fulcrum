@@ -1658,5 +1658,29 @@
     init();
   }
 
-  window.GlossaryOverlay = { open: _open, close: _close };
+  function _openToProvider(providerId) {
+    if (!_dataReady) return;
+    _panel.setAttribute('aria-hidden', 'false');
+    _panel.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    _isOpen = true;
+
+    for (var i = 0; i < _providers.length; i++) {
+      _expandedCategories[_providers[i].id] = (_providers[i].id === providerId);
+    }
+    _buildSidebarIndex();
+
+    var prov = null;
+    for (var j = 0; j < _providers.length; j++) {
+      if (_providers[j].id === providerId) { prov = _providers[j]; break; }
+    }
+    if (prov) {
+      var groups = prov.getGroups();
+      if (groups.length && groups[0].entries && groups[0].entries.length) {
+        _showEntry(groups[0].entries[0].id);
+      }
+    }
+  }
+
+  window.GlossaryOverlay = { open: _open, close: _close, openToProvider: _openToProvider };
 }());
