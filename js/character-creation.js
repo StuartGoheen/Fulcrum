@@ -422,6 +422,75 @@
   var _statsPhase = 'incomp'; // 'incomp' | 'arenas' | 'disciplines'
   var _selectedCell = null;   // { type:'arena'|'disc', id:string } or null
 
+  function resetDisciplines() {
+    state.discIncomp      = {};
+    state.discValues      = {};
+    state.arenaAdj        = {};
+    state.spentAdv        = 0;
+    state.eliteTokensUsed = 0;
+
+    FORCE_DISC_IDS.forEach(function(fid) {
+      state.discIncomp[fid] = true;
+      state.discValues[fid] = 'D4';
+    });
+    state._forceAutoSet = true;
+
+    _statsPhase   = 'incomp';
+    _selectedCell = null;
+    saveState();
+    renderStatsContent();
+    _toast('Disciplines reset to species defaults.');
+  }
+
+  function showResetConfirm() {
+    var existing = document.getElementById('cc-reset-confirm-overlay');
+    if (existing) existing.remove();
+
+    var overlay = document.createElement('div');
+    overlay.id = 'cc-reset-confirm-overlay';
+    overlay.className = 'cc-reset-overlay';
+
+    var panel = document.createElement('div');
+    panel.className = 'cc-reset-panel';
+
+    var title = document.createElement('h3');
+    title.className = 'cc-reset-title';
+    title.textContent = 'Reset Disciplines?';
+    panel.appendChild(title);
+
+    var msg = document.createElement('p');
+    msg.className = 'cc-reset-msg';
+    msg.textContent = 'This will clear all weakness, arena, and discipline choices and return you to the Weaknesses phase.';
+    panel.appendChild(msg);
+
+    var actions = document.createElement('div');
+    actions.className = 'cc-reset-actions';
+
+    var cancelBtn = document.createElement('button');
+    cancelBtn.className = 'cc-reset-cancel-btn';
+    cancelBtn.textContent = 'Cancel';
+    cancelBtn.addEventListener('click', function() { overlay.remove(); });
+
+    var confirmBtn = document.createElement('button');
+    confirmBtn.className = 'cc-reset-confirm-btn';
+    confirmBtn.textContent = 'Reset';
+    confirmBtn.addEventListener('click', function() {
+      overlay.remove();
+      resetDisciplines();
+    });
+
+    actions.appendChild(cancelBtn);
+    actions.appendChild(confirmBtn);
+    panel.appendChild(actions);
+    overlay.appendChild(panel);
+
+    overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) overlay.remove();
+    });
+
+    document.body.appendChild(overlay);
+  }
+
   function initStatsScreen() {
     if (!state.discValues)      state.discValues      = {};
     if (!state.discIncomp)      state.discIncomp      = {};
@@ -548,6 +617,13 @@
 
       el.appendChild(pip);
     });
+
+    var resetBtn = document.createElement('button');
+    resetBtn.className = 'cc-reset-disciplines-btn';
+    resetBtn.textContent = 'Reset Disciplines';
+    resetBtn.title = 'Clear all discipline choices and start over';
+    resetBtn.addEventListener('click', function() { showResetConfirm(); });
+    el.appendChild(resetBtn);
 
     // Update subtitle
     var sub = document.getElementById('stats-phase-sub');

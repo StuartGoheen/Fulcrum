@@ -4776,6 +4776,88 @@
     font-size: 0.45rem;
   }
 
+  .cc-reset-disciplines-btn {
+    margin-left: auto;
+    padding: 0.15rem 0.5rem;
+    font-size: 0.55rem;
+    font-family: var(--font-body);
+    background: transparent;
+    color: var(--color-text-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s, color 0.2s, border-color 0.2s;
+  }
+  .cc-reset-disciplines-btn:hover {
+    opacity: 1;
+    color: var(--color-danger, #ef4444);
+    border-color: var(--color-danger, #ef4444);
+  }
+
+  .cc-reset-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+  }
+  .cc-reset-panel {
+    background: var(--color-bg-secondary, #1a1a2e);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 1.5rem 2rem;
+    max-width: 360px;
+    width: 90%;
+    text-align: center;
+  }
+  .cc-reset-title {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    margin: 0 0 0.5rem;
+    color: var(--color-text-primary);
+  }
+  .cc-reset-msg {
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+    margin: 0 0 1.25rem;
+    line-height: 1.4;
+  }
+  .cc-reset-actions {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+  }
+  .cc-reset-cancel-btn,
+  .cc-reset-confirm-btn {
+    padding: 0.4rem 1.2rem;
+    font-size: 0.8rem;
+    font-family: var(--font-body);
+    border-radius: 4px;
+    cursor: pointer;
+    border: 1px solid var(--color-border);
+    transition: background 0.2s, color 0.2s;
+  }
+  .cc-reset-cancel-btn {
+    background: transparent;
+    color: var(--color-text-secondary);
+  }
+  .cc-reset-cancel-btn:hover {
+    background: var(--color-bg-tertiary, rgba(255,255,255,0.05));
+  }
+  .cc-reset-confirm-btn {
+    background: var(--color-danger, #ef4444);
+    color: #fff;
+    border-color: var(--color-danger, #ef4444);
+  }
+  .cc-reset-confirm-btn:hover {
+    background: #dc2626;
+    border-color: #dc2626;
+  }
+
   /* ── Status bar (badges + advance dots) ──────────────────────────────── */
   .stats-status-bar {
     display: flex;
@@ -7947,6 +8029,10 @@
       width: 14px;
       height: 14px;
       font-size: 0.34rem;
+    }
+    .cc-reset-disciplines-btn {
+      font-size: 0.4rem;
+      padding: 0.1rem 0.35rem;
     }
     .stats-status-bar {
       padding: 0 0.5rem 0.15rem;
