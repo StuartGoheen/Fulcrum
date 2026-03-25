@@ -838,52 +838,6 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-.btn-primary {
-  padding-left:       1.5rem;
-  padding-right:       1.5rem;
-  padding-top:       0.75rem;
-  padding-bottom:       0.75rem;
-  font-family:       Exo 2, sans-serif;
-  font-size:       0.833rem;
-  line-height:       1.25rem;
-  font-weight:       600;
-  text-transform:       uppercase;
-  letter-spacing:       0.05em;
-  transition-property:       all;
-  transition-timing-function:       cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration:       200ms;
-  background-color: var(--color-accent-primary);
-  color: var(--color-btn-text);
-}
-
-.btn-primary:hover {
-  filter: brightness(1.1);
-}
-
-.btn-secondary {
-  padding-left:       1.5rem;
-  padding-right:       1.5rem;
-  padding-top:       0.75rem;
-  padding-bottom:       0.75rem;
-  font-family:       Exo 2, sans-serif;
-  font-size:       0.833rem;
-  line-height:       1.25rem;
-  font-weight:       600;
-  text-transform:       uppercase;
-  letter-spacing:       0.05em;
-  transition-property:       all;
-  transition-timing-function:       cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration:       200ms;
-  background-color: transparent;
-  color: var(--color-accent-primary);
-  border: 1px solid var(--color-accent-primary);
-}
-
-.btn-secondary:hover {
-  background-color: var(--color-accent-primary);
-  color: var(--color-btn-text);
-}
-
 .panel-card {
   background-color: var(--color-bg-panel);
   border: 1px solid var(--color-border);
@@ -4896,10 +4850,6 @@ h1, h2, h3, h4, h5, h6 {
 
 .relative {
   position:       relative;
-}
-
-.sticky {
-  position:       sticky;
 }
 
 .inset-0 {

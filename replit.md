@@ -36,6 +36,7 @@ The app uses a passcode-based gate (cookie auth) to restrict access:
 │   ├── input.css         # Tailwind source (custom components + layers)
 │   └── themes.css        # CSS variable theme definitions (6 themes: rebellion, r2d2, vader, fett, holo, fringe)
 ├── js/                   # Client-side JavaScript modules
+│   ├── command-bridge.js  # GM Command Bridge three-column layout JS (campaign engine, party monitor, destiny, glossary, starship combat controls)
 │   ├── crawl-data.js     # Mission crawl text data (extensible for future missions)
 │   ├── opening-crawl.js  # Star Wars opening crawl overlay engine
 │   ├── starship-combat.js # Starship combat cockpit HUD overlay (seat claiming, HUD panels, cockpit layout, action dice, power die cycling)

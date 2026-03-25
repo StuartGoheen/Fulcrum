@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="theme-vader">
+<html lang="en" class="theme-rebellion">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,220 +11,175 @@
   <link rel="stylesheet" href="/css/output.css" />
   <script src="/socket.io/socket.io.js"></script>
   <style>
-    :root.theme-vader {
-      --color-bg-primary: #0D0D0D;
-      --color-bg-panel: #151515;
-      --color-bg-frame: #1C1C1C;
-      --color-accent-primary: #CC0000;
-      --color-accent-secondary: #C47A1E;
-      --color-accent-deep: #BBBBBB;
-      --color-text-primary: #E0E0E0;
-      --color-text-secondary: #888888;
-      --color-border: #2E2E2E;
-      --color-card-hover: #242424;
+    body {
+      background-color: var(--color-bg-primary);
+      color: var(--color-text-primary);
+      font-family: 'Exo 2', sans-serif;
+      font-size: 0.85rem;
+      margin: 0;
+      overflow: hidden;
+      height: 100vh;
     }
-    body { background-color: var(--color-bg-primary); color: var(--color-text-primary); font-family: 'Exo 2', sans-serif; margin: 0; }
     .font-display { font-family: 'Audiowide', sans-serif; }
 
-    .tab-btn { padding: 0.5rem 1.25rem; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; border-bottom: 2px solid transparent; color: var(--color-text-secondary); background: transparent; border-top: none; border-left: none; border-right: none; cursor: pointer; transition: all 0.15s; }
-    .tab-btn:hover { color: var(--color-text-primary); }
-    .tab-btn.active { color: var(--color-accent-primary); border-bottom-color: var(--color-accent-primary); }
-
-    .card { background: var(--color-bg-panel); border: 1px solid var(--color-border); padding: 1rem; margin-bottom: 0.75rem; }
-    .card-header { font-family: 'Audiowide', sans-serif; font-size: 0.75rem; color: var(--color-accent-deep); margin-bottom: 0.5rem; }
-    .tag { display: inline-block; font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; padding: 0.15rem 0.5rem; border: 1px solid; margin-right: 0.35rem; margin-bottom: 0.25rem; }
-    .tag-combat { border-color: #CC0000; color: #CC0000; }
-    .tag-narrative { border-color: #C47A1E; color: #C47A1E; }
-    .tag-both { border-color: #888; color: #888; }
-    .tag-d10 { border-color: #5588CC; color: #5588CC; }
-    .tag-d12 { border-color: #AA44AA; color: #AA44AA; }
-    .tag-minion { border-color: #888; color: #888; }
-    .tag-standard { border-color: #5588CC; color: #5588CC; }
-    .tag-elite { border-color: #C47A1E; color: #C47A1E; }
-    .tag-nemesis { border-color: #CC0000; color: #CC0000; }
-
-    .tier-row { display: grid; grid-template-columns: 80px 1fr; gap: 0.5rem; padding: 0.35rem 0; border-bottom: 1px solid var(--color-border); font-size: 0.72rem; }
-    .tier-row:last-child { border-bottom: none; }
-    .tier-label { font-weight: 600; color: var(--color-accent-secondary); }
-
-    .dual-box { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 0.4rem; }
-    .dual-side { background: var(--color-bg-frame); padding: 0.4rem 0.6rem; font-size: 0.68rem; }
-    .dual-side-label { font-size: 0.58rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700; margin-bottom: 0.2rem; opacity: 0.6; }
-
-    .stat-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.5rem 0; }
-    .stat-pill { background: var(--color-bg-frame); border: 1px solid var(--color-border); padding: 0.25rem 0.6rem; font-size: 0.68rem; text-align: center; }
-    .stat-pill .stat-val { font-family: 'Audiowide', sans-serif; font-size: 0.85rem; color: var(--color-accent-primary); display: block; }
-    .stat-pill .stat-name { font-size: 0.55rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-text-secondary); display: block; }
-
-    .gambit-block { background: var(--color-bg-frame); border-left: 3px solid; padding: 0.4rem 0.6rem; margin-top: 0.4rem; font-size: 0.7rem; }
-    .gambit-block.d10 { border-color: #5588CC; }
-    .gambit-block.d12 { border-color: #AA44AA; }
-    .gambit-name { font-weight: 700; margin-bottom: 0.15rem; }
-
-    .collapsible > .card-body { display: none; }
-    .collapsible.open > .card-body { display: block; }
-    .collapse-toggle { cursor: pointer; user-select: none; }
-    .collapse-toggle::after { content: ' \25B8'; font-size: 0.6rem; opacity: 0.5; }
-    .collapsible.open .collapse-toggle::after { content: ' \25BE'; }
-
-    #search-input { background: var(--color-bg-frame); border: 1px solid var(--color-border); color: var(--color-text-primary); padding: 0.4rem 0.75rem; font-size: 0.75rem; width: 100%; max-width: 320px; outline: none; }
-    #search-input:focus { border-color: var(--color-accent-primary); }
-
-    .tab-panel { display: none; }
-    .tab-panel.active { display: block; }
-    .hidden-item { display: none !important; }
-
-    .hb-section { margin-bottom: 0.75rem; border: 1px solid var(--color-border); }
-    .hb-section-header { font-family: 'Audiowide', sans-serif; font-size: 0.7rem; color: var(--color-accent-primary); letter-spacing: 0.08em; text-transform: uppercase; padding: 0.6rem 0.75rem; background: var(--color-bg-panel); cursor: pointer; user-select: none; display: flex; align-items: center; gap: 0.4rem; transition: background 0.15s; }
-    .hb-section-header:hover { background: var(--color-bg-frame); }
-    .hb-chevron { font-size: 0.55rem; transition: transform 0.2s; display: inline-block; }
-    .hb-section:not(.hb-open) .hb-chevron { transform: rotate(-90deg); }
-    .hb-section-body { padding: 0.75rem; }
-    .hb-section:not(.hb-open) .hb-section-body { display: none; }
-    .hb-section-count { font-family: 'Exo 2', sans-serif; font-size: 0.55rem; color: var(--color-text-secondary); margin-left: auto; font-weight: 400; letter-spacing: 0; text-transform: none; }
-    .hb-section.hb-empty { display: none; }
-    #handbook-search:focus { border-color: var(--color-accent-primary); }
-
-    .risk-block { background: #1a0a0a; border-left: 3px solid #CC0000; padding: 0.35rem 0.6rem; margin: 0.4rem 0; font-size: 0.7rem; color: #CC7777; }
-
-    .rule-section { margin-bottom: 1.5rem; }
-    .rule-section h3 { font-family: 'Audiowide', sans-serif; font-size: 0.7rem; color: var(--color-accent-secondary); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; padding-bottom: 0.25rem; border-bottom: 1px solid var(--color-border); }
-
-    scrollbar-width: thin;
-    scrollbar-color: var(--color-accent-primary) var(--color-bg-frame);
-
-    /* Campaign styles */
-    .campaign-layout { display: grid; grid-template-columns: 1fr 280px; gap: 1rem; }
-    .campaign-layout.sidebar-collapsed { grid-template-columns: 1fr 40px; }
-
-    .adv-nav { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
-    .adv-nav-btn { background: var(--color-bg-frame); border: 1px solid var(--color-border); color: var(--color-text-secondary); padding: 0.4rem 0.8rem; font-size: 0.65rem; font-family: 'Exo 2', sans-serif; cursor: pointer; letter-spacing: 0.05em; transition: all 0.15s; }
-    .adv-nav-btn:hover { border-color: var(--color-accent-secondary); color: var(--color-text-primary); }
-    .adv-nav-btn.active { border-color: var(--color-accent-primary); color: var(--color-accent-primary); background: rgba(204,0,0,0.08); }
-
-    .part-nav { display: flex; gap: 0.35rem; margin-bottom: 1rem; }
-    .part-nav-btn { background: transparent; border: none; color: var(--color-text-secondary); font-size: 0.68rem; font-family: 'Exo 2', sans-serif; cursor: pointer; padding: 0.3rem 0.6rem; border-bottom: 2px solid transparent; }
-    .part-nav-btn:hover { color: var(--color-text-primary); }
-    .part-nav-btn.active { color: var(--color-accent-secondary); border-bottom-color: var(--color-accent-secondary); }
-
-    .scene-list { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1rem; }
-    .scene-btn { display: flex; align-items: center; gap: 0.5rem; background: var(--color-bg-frame); border: 1px solid var(--color-border); padding: 0.5rem 0.75rem; cursor: pointer; transition: all 0.15s; text-align: left; width: 100%; font-family: 'Exo 2', sans-serif; color: var(--color-text-primary); font-size: 0.72rem; }
-    .scene-btn:hover { border-color: var(--color-accent-secondary); }
-    .scene-btn.active { border-color: var(--color-accent-primary); background: rgba(204,0,0,0.06); }
-    .scene-btn .scene-num { font-family: 'Audiowide', sans-serif; font-size: 0.65rem; color: var(--color-accent-primary); min-width: 1.5rem; }
-    .scene-btn .scene-check { font-size: 0.8rem; margin-left: auto; }
-    .scene-btn .scene-check.done { color: #44AA66; }
-
-    .read-aloud {
-      background: linear-gradient(135deg, #1a1a0a 0%, #1a150a 100%);
-      border-left: 3px solid var(--color-accent-secondary);
-      padding: 0.75rem 1rem;
-      margin-bottom: 1rem;
-      font-size: 0.78rem;
-      line-height: 1.6;
-      color: #D4C090;
-      font-style: italic;
-      white-space: pre-line;
-    }
-    .read-aloud-label {
-      font-family: 'Audiowide', sans-serif;
-      font-size: 0.6rem;
-      color: var(--color-accent-secondary);
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      margin-bottom: 0.4rem;
-      font-style: normal;
-    }
-
-    .gm-notes-block {
-      background: var(--color-bg-frame);
-      border-left: 3px solid var(--color-accent-deep);
-      padding: 0.6rem 0.8rem;
-      margin-bottom: 1rem;
-      font-size: 0.72rem;
-      line-height: 1.5;
-      color: var(--color-text-primary);
-      white-space: pre-line;
-    }
-    .gm-notes-label {
-      font-family: 'Audiowide', sans-serif;
-      font-size: 0.6rem;
-      color: var(--color-accent-deep);
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      margin-bottom: 0.4rem;
-    }
-
-    .npc-roster { margin-bottom: 1rem; }
-    .npc-row { display: grid; grid-template-columns: 200px 160px 50px 1fr; gap: 0.5rem; padding: 0.35rem 0; border-bottom: 1px solid var(--color-border); font-size: 0.7rem; align-items: center; }
-    .npc-row:last-child { border-bottom: none; }
-
-    .decision-block { background: var(--color-bg-frame); border: 1px solid var(--color-border); padding: 0.5rem 0.75rem; margin-bottom: 0.5rem; }
-    .decision-choice { font-weight: 600; color: var(--color-accent-secondary); font-size: 0.72rem; margin-bottom: 0.2rem; }
-    .decision-consequence { font-size: 0.68rem; color: var(--color-text-secondary); }
-
-    .lore-tag { display: inline-block; font-size: 0.58rem; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600; padding: 0.2rem 0.5rem; border: 1px solid #5588CC; color: #5588CC; margin-right: 0.3rem; margin-bottom: 0.3rem; cursor: pointer; transition: all 0.15s; }
-    .lore-tag:hover { background: rgba(85,136,204,0.15); }
-
-    .narrative-link { display: block; font-size: 0.68rem; color: var(--color-accent-secondary); margin-bottom: 0.3rem; cursor: pointer; text-decoration: none; }
-    .narrative-link:hover { color: var(--color-text-primary); }
-
-    .scene-complete-btn { background: var(--color-bg-frame); border: 1px solid var(--color-border); color: var(--color-text-secondary); padding: 0.5rem 1rem; font-size: 0.7rem; font-family: 'Exo 2', sans-serif; cursor: pointer; letter-spacing: 0.06em; text-transform: uppercase; transition: all 0.15s; display: flex; align-items: center; gap: 0.5rem; }
-    .scene-complete-btn:hover { border-color: #44AA66; color: #44AA66; }
-    .scene-complete-btn.completed { border-color: #44AA66; color: #44AA66; background: rgba(68,170,102,0.08); }
-
-    .party-sidebar { background: var(--color-bg-panel); border: 1px solid var(--color-border); padding: 0.75rem; overflow: hidden; }
-    .party-sidebar-header { font-family: 'Audiowide', sans-serif; font-size: 0.65rem; color: var(--color-accent-deep); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: space-between; }
-    .party-card { background: var(--color-bg-frame); border: 1px solid var(--color-border); padding: 0.5rem; margin-bottom: 0.4rem; }
-    .party-card .pc-name { font-family: 'Audiowide', sans-serif; font-size: 0.7rem; color: var(--color-text-primary); }
-    .party-card .pc-detail { font-size: 0.62rem; color: var(--color-text-secondary); }
-    .party-card .pc-vitality { font-family: 'Audiowide', sans-serif; font-size: 0.75rem; color: var(--color-accent-primary); }
-    .party-card.connected { border-left: 2px solid #44AA66; }
-    .party-card.disconnected { border-left: 2px solid var(--color-text-secondary); opacity: 0.6; }
-
-    .sidebar-toggle { background: transparent; border: 1px solid var(--color-border); color: var(--color-text-secondary); cursor: pointer; font-size: 0.7rem; padding: 0.2rem 0.4rem; }
-
-    .tbd-panel { background: var(--color-bg-panel); border: 1px solid var(--color-border); padding: 2rem; text-align: center; margin-bottom: 1rem; }
-    .tbd-panel h3 { font-family: 'Audiowide', sans-serif; font-size: 0.85rem; color: var(--color-text-secondary); margin: 0 0 0.5rem; }
-    .tbd-panel .tbd-badge { display: inline-block; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; padding: 0.25rem 0.75rem; border: 1px solid var(--color-accent-secondary); color: var(--color-accent-secondary); margin-top: 0.5rem; }
-
-    .lore-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 100; display: none; justify-content: center; align-items: center; }
-    .lore-modal-overlay.active { display: flex; }
-    .lore-modal { background: var(--color-bg-panel); border: 1px solid var(--color-border); padding: 1.5rem; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; }
-    .lore-modal h3 { font-family: 'Audiowide', sans-serif; font-size: 0.8rem; color: #5588CC; margin: 0 0 1rem; }
-    .lore-modal .lore-scene-link { background: var(--color-bg-frame); border: 1px solid var(--color-border); padding: 0.5rem 0.75rem; margin-bottom: 0.5rem; cursor: pointer; transition: all 0.15s; }
-    .lore-modal .lore-scene-link:hover { border-color: var(--color-accent-secondary); }
-    .lore-modal .close-btn { background: transparent; border: 1px solid var(--color-border); color: var(--color-text-secondary); padding: 0.3rem 0.8rem; cursor: pointer; font-size: 0.7rem; float: right; }
-
-    .gm-destiny-panel {
+    .cb-header {
       background: var(--color-bg-panel);
-      border: 1px solid var(--color-border);
-      padding: 0.75rem;
-      position: sticky;
-      top: 7rem;
-      align-self: start;
+      border-bottom: 1px solid var(--color-border);
       display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.25rem;
+      height: 3rem;
+      flex-shrink: 0;
     }
-    .gm-destiny-panel-header {
+    .cb-header-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .cb-header-title {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.8rem;
+      color: var(--color-accent-deep);
+      letter-spacing: 0.06em;
+    }
+    .cb-header-right {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .cb-header-btn {
+      background: var(--color-bg-frame);
+      border: 1px solid var(--color-border);
+      color: var(--color-text-secondary);
+      font-family: 'Exo 2', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 600;
+      padding: 0.4rem 0.75rem;
+      cursor: pointer;
+      transition: all 0.15s;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+    }
+    .cb-header-btn:hover {
+      border-color: var(--color-accent-primary);
+      color: var(--color-text-primary);
+    }
+    .cb-header-btn.accent {
+      border-color: var(--color-accent-primary);
+      color: var(--color-accent-primary);
+    }
+    .cb-header-btn.accent:hover {
+      background: var(--color-accent-primary);
+      color: var(--color-btn-text, var(--color-bg-primary));
+    }
+    .cb-home-link {
       font-family: 'Audiowide', sans-serif;
       font-size: 0.65rem;
+      color: var(--color-accent-primary);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+    }
+
+    #bridge-grid {
+      display: grid;
+      grid-template-columns: 260px 6px 1fr 6px 300px;
+      height: calc(100vh - 3rem);
+      width: 95%;
+      max-width: 100%;
+      margin: 0 auto;
+    }
+
+    .cb-col-left, .cb-col-center, .cb-col-right {
+      overflow-y: auto;
+      padding: 1rem;
+      scrollbar-width: thin;
+      scrollbar-color: var(--color-accent-primary) var(--color-bg-frame);
+    }
+    .cb-col-left {
+      background: var(--color-bg-panel);
+      border-right: 1px solid var(--color-border);
+    }
+    .cb-col-right {
+      background: var(--color-bg-panel);
+      border-left: 1px solid var(--color-border);
+    }
+
+    .cb-drag-handle {
+      width: 6px;
+      background: var(--color-border);
+      cursor: col-resize;
+      transition: background 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .cb-drag-handle:hover, .cb-drag-handle:active {
+      background: var(--color-accent-primary);
+    }
+
+    .cb-col-title {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.7rem;
       color: var(--color-accent-deep);
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      padding-bottom: 0.4rem;
+      padding-bottom: 0.5rem;
+      margin-bottom: 0.75rem;
       border-bottom: 1px solid var(--color-border);
+    }
+
+    .cb-player-card {
+      background: var(--color-bg-frame);
+      border: 1px solid var(--color-border);
+      padding: 0.6rem;
+      margin-bottom: 0.5rem;
+    }
+    .cb-player-card.connected { border-left: 3px solid #44AA66; }
+    .cb-player-card.disconnected { border-left: 3px solid var(--color-text-secondary); opacity: 0.6; }
+    .cb-player-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .cb-player-name {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.8rem;
+      color: var(--color-text-primary);
+    }
+    .cb-player-detail {
+      font-size: 0.7rem;
+      color: var(--color-text-secondary);
+    }
+    .cb-player-vitality {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 1rem;
+      color: var(--color-accent-primary);
+    }
+    .cb-player-status {
+      font-size: 0.7rem;
+      color: var(--color-text-secondary);
+      margin-top: 0.3rem;
+    }
+
+    .cb-destiny-section {
+      margin-top: 1rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--color-border);
     }
     .gm-destiny-tokens {
       display: flex;
       flex-wrap: wrap;
       gap: 0.5rem;
       justify-content: center;
+      margin: 0.75rem 0;
     }
     .gm-destiny-token {
-      width: 40px;
-      height: 40px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
       cursor: pointer;
       perspective: 400px;
@@ -233,8 +188,7 @@
     }
     .gm-destiny-token:hover { transform: scale(1.15); }
     .gm-destiny-token .force-token-inner {
-      width: 100%;
-      height: 100%;
+      width: 100%; height: 100%;
       position: relative;
       transform-style: preserve-3d;
       transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
@@ -242,179 +196,464 @@
     }
     .gm-destiny-token.is-dark .force-token-inner { transform: rotateY(180deg); }
     .gm-destiny-token .force-token-face {
-      position: absolute;
-      inset: 0;
-      border-radius: 50%;
-      overflow: hidden;
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
+      position: absolute; inset: 0;
+      border-radius: 50%; overflow: hidden;
+      backface-visibility: hidden; -webkit-backface-visibility: hidden;
     }
     .gm-destiny-token .force-token-front {
       background: radial-gradient(circle at 38% 32%, #d8eeff 0%, #80bcec 18%, #2a78c0 46%, #0a3870 74%, #030e20 100%);
-      box-shadow: 0 0 0 1.5px rgba(100,180,255,0.35), 0 0 10px rgba(40,120,210,0.45), inset 0 1px 0 rgba(220,240,255,0.2);
+      box-shadow: 0 0 0 1.5px rgba(100,180,255,0.35), 0 0 10px rgba(40,120,210,0.45);
     }
     .gm-destiny-token .force-token-back {
-      background: radial-gradient(circle at 50% 44%, #7a0000 0%, #3d0000 38%, #0a0000 72%, #000000 100%);
+      background: radial-gradient(circle at 50% 44%, #7a0000 0%, #3d0000 38%, #0a0000 72%, #000 100%);
       transform: rotateY(180deg);
       animation: toll-pulse 2.5s ease-in-out infinite;
     }
     @keyframes toll-pulse {
-      0%, 100% { box-shadow: 0 0 0 1.5px rgba(180,0,0,0.2), 0 0 6px rgba(160,0,0,0.25), inset 0 0 8px rgba(100,0,0,0.15); }
-      50% { box-shadow: 0 0 0 2px rgba(220,0,0,0.55), 0 0 16px rgba(200,0,0,0.6), inset 0 0 14px rgba(160,0,0,0.45); }
+      0%, 100% { box-shadow: 0 0 0 1.5px rgba(180,0,0,0.2), 0 0 6px rgba(160,0,0,0.25); }
+      50% { box-shadow: 0 0 0 2px rgba(220,0,0,0.55), 0 0 16px rgba(200,0,0,0.6); }
     }
+    .gm-destiny-token.is-tapped { opacity: 0.3; filter: grayscale(0.6); }
     .gm-destiny-count {
       font-family: 'Audiowide', sans-serif;
-      font-size: 0.65rem;
+      font-size: 0.75rem;
       color: var(--color-text-secondary);
       text-align: center;
     }
-    .gm-destiny-count .hope-count { color: #2a78c0; }
-    .gm-destiny-count .toll-count { color: #CC0000; }
-    .gm-destiny-reset {
+    .hope-count { color: #2a78c0; }
+    .toll-count { color: #CC0000; }
+    .cb-destiny-btns {
+      display: flex;
+      gap: 4px;
+      margin-top: 0.5rem;
+    }
+    .cb-destiny-btn {
+      flex: 1;
       background: transparent;
       border: 1px solid var(--color-border);
       color: var(--color-text-secondary);
       font-family: 'Exo 2', sans-serif;
-      font-size: 0.6rem;
+      font-size: 0.65rem;
       letter-spacing: 0.06em;
       text-transform: uppercase;
-      padding: 0.35rem 0.6rem;
+      padding: 0.4rem;
       cursor: pointer;
       transition: all 0.15s;
-      width: 100%;
+      min-height: 44px;
     }
-    .gm-destiny-reset:hover { border-color: var(--color-accent-primary); color: var(--color-accent-primary); }
-    .gm-destiny-token.is-tapped {
-      opacity: 0.3;
-      filter: grayscale(0.6);
+    .cb-destiny-btn:hover {
+      border-color: var(--color-accent-primary);
+      color: var(--color-accent-primary);
     }
-    .gm-destiny-token.is-tapped .force-token-inner {
-      box-shadow: none;
-    }
-    .gm-destiny-btns {
+
+    .cb-nav-bar {
       display: flex;
-      gap: 4px;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.75rem;
     }
-    .gm-destiny-btns button {
-      flex: 1;
+    .cb-nav-btn {
+      background: var(--color-bg-frame);
+      border: 1px solid var(--color-border);
+      color: var(--color-text-secondary);
+      padding: 0.4rem 0.8rem;
+      font-size: 0.75rem;
+      font-family: 'Exo 2', sans-serif;
+      cursor: pointer;
+      transition: all 0.15s;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
     }
-    .gm-destiny-empty {
-      font-size: 0.65rem;
+    .cb-nav-btn:hover {
+      border-color: var(--color-accent-secondary);
+      color: var(--color-text-primary);
+    }
+    .cb-nav-btn.active {
+      border-color: var(--color-accent-primary);
+      color: var(--color-accent-primary);
+      background: rgba(204,0,0,0.06);
+    }
+    .cb-nav-num {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.7rem;
+      color: var(--color-accent-primary);
+    }
+    .cb-part-btn {
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      font-size: 0.8rem;
+      padding: 0.4rem 0.6rem;
+    }
+    .cb-part-btn.active {
+      color: var(--color-accent-secondary);
+      border-bottom-color: var(--color-accent-secondary);
+      background: transparent;
+    }
+
+    .cb-scene-counter {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.7rem;
+      color: var(--color-text-secondary);
+      text-align: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .cb-scene-header h2 {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 1.1rem;
+      color: var(--color-accent-primary);
+      margin: 0 0 0.25rem;
+    }
+    .cb-scene-subtitle {
+      font-size: 0.8rem;
+      color: var(--color-text-secondary);
+      margin-bottom: 0.75rem;
+    }
+
+    .cb-read-aloud {
+      background: linear-gradient(135deg, rgba(200,180,100,0.08) 0%, rgba(180,140,60,0.05) 100%);
+      border-left: 3px solid var(--color-accent-secondary);
+      padding: 0.75rem 1rem;
+      margin-bottom: 1rem;
+    }
+    .cb-read-aloud-text {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--color-accent-secondary);
+      font-style: italic;
+      white-space: pre-line;
+    }
+
+    .cb-gm-notes {
+      background: var(--color-bg-frame);
+      border-left: 3px solid var(--color-accent-deep);
+      padding: 0.65rem 0.85rem;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      white-space: pre-line;
+    }
+
+    .cb-section-label {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.4rem;
+      color: var(--color-accent-deep);
+    }
+
+    .cb-card {
+      background: var(--color-bg-frame);
+      border: 1px solid var(--color-border);
+      padding: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .cb-npc-grid {
+      font-size: 0.8rem;
+    }
+    .cb-npc-row {
+      display: grid;
+      grid-template-columns: 180px 140px 50px 1fr;
+      gap: 0.5rem;
+      padding: 0.4rem 0;
+      border-bottom: 1px solid var(--color-border);
+      align-items: center;
+    }
+    .cb-npc-row:last-child { border-bottom: none; }
+    .cb-npc-header {
+      font-weight: 600;
+      color: var(--color-accent-secondary);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .cb-npc-name { font-weight: 600; }
+
+    .cb-decision {
+      background: var(--color-bg-panel);
+      border: 1px solid var(--color-border);
+      padding: 0.5rem 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+    .cb-decision-choice {
+      font-weight: 600;
+      color: var(--color-accent-secondary);
+      font-size: 0.85rem;
+      margin-bottom: 0.2rem;
+    }
+    .cb-decision-consequence {
+      font-size: 0.8rem;
+      color: var(--color-text-secondary);
+    }
+
+    .cb-lore-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+    }
+    .cb-lore-tag {
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 600;
+      padding: 0.3rem 0.6rem;
+      border: 1px solid #5588CC;
+      color: #5588CC;
+      cursor: pointer;
+      transition: all 0.15s;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+    }
+    .cb-lore-tag:hover { background: rgba(85,136,204,0.15); }
+
+    .cb-narrative-link {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--color-accent-secondary);
+      margin-bottom: 0.3rem;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .cb-narrative-link:hover { color: var(--color-text-primary); }
+
+    .cb-scene-footer {
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .cb-complete-btn {
+      background: var(--color-bg-frame);
+      border: 1px solid var(--color-border);
+      color: var(--color-text-secondary);
+      padding: 0.5rem 1rem;
+      font-size: 0.8rem;
+      font-family: 'Exo 2', sans-serif;
+      cursor: pointer;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: all 0.15s;
+      min-height: 44px;
+    }
+    .cb-complete-btn:hover { border-color: #44AA66; color: #44AA66; }
+    .cb-complete-btn.completed { border-color: #44AA66; color: #44AA66; background: rgba(68,170,102,0.08); }
+
+    .cb-scene-nav-arrows {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .cb-arrow-btn {
+      background: var(--color-bg-frame);
+      border: 1px solid var(--color-border);
+      color: var(--color-text-secondary);
+      padding: 0.5rem 1rem;
+      font-size: 0.8rem;
+      font-family: 'Exo 2', sans-serif;
+      cursor: pointer;
+      transition: all 0.15s;
+      min-height: 44px;
+    }
+    .cb-arrow-btn:hover:not([disabled]) { border-color: var(--color-accent-primary); color: var(--color-accent-primary); }
+    .cb-arrow-btn[disabled] { opacity: 0.3; cursor: default; }
+
+    .cb-empty-scene {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--color-text-secondary);
+    }
+    .cb-empty-scene h3 {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.9rem;
+      color: var(--color-text-secondary);
+      margin: 0 0 0.5rem;
+    }
+
+    .cb-condition-link {
+      color: var(--color-accent-primary);
+      cursor: pointer;
+      border-bottom: 1px dotted var(--color-accent-primary);
+    }
+    .cb-condition-link:hover {
+      color: var(--color-text-primary);
+    }
+
+    .cb-glossary-placeholder {
+      text-align: center;
+      padding: 2rem 1rem;
       color: var(--color-text-secondary);
       font-style: italic;
-      text-align: center;
+      font-size: 0.85rem;
     }
+    .cb-glossary-header {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 1rem;
+      color: var(--color-accent-primary);
+      margin-bottom: 0.3rem;
+    }
+    .cb-glossary-type {
+      font-size: 0.75rem;
+      color: var(--color-text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.75rem;
+    }
+    .cb-glossary-rule {
+      font-size: 0.85rem;
+      line-height: 1.6;
+      margin-bottom: 0.75rem;
+      white-space: pre-line;
+    }
+    .cb-glossary-guide {
+      font-size: 0.8rem;
+      color: var(--color-text-secondary);
+      font-style: italic;
+      line-height: 1.5;
+      margin-top: 0.5rem;
+    }
+    .cb-glossary-dual {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .cb-glossary-dual-side {
+      background: var(--color-bg-frame);
+      padding: 0.5rem 0.6rem;
+      font-size: 0.8rem;
+    }
+    .cb-glossary-dual-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+      opacity: 0.8;
+    }
+
+    .cb-muted {
+      font-size: 0.8rem;
+      color: var(--color-text-secondary);
+    }
+
+    .lore-modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.8);
+      z-index: 100;
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+    .lore-modal-overlay.active { display: flex; }
+    .lore-modal {
+      background: var(--color-bg-panel);
+      border: 1px solid var(--color-border);
+      padding: 1.5rem;
+      max-width: 600px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+    .lore-modal h3 {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.9rem;
+      color: #5588CC;
+      margin: 0 0 1rem;
+    }
+    .lore-modal .close-btn {
+      background: transparent;
+      border: 1px solid var(--color-border);
+      color: var(--color-text-secondary);
+      padding: 0.3rem 0.8rem;
+      cursor: pointer;
+      font-size: 0.8rem;
+      float: right;
+      min-height: 44px;
+    }
+    .cb-lore-scene-link {
+      background: var(--color-bg-frame);
+      border: 1px solid var(--color-border);
+      padding: 0.6rem 0.85rem;
+      margin-bottom: 0.5rem;
+      cursor: pointer;
+      transition: all 0.15s;
+      font-size: 0.85rem;
+    }
+    .cb-lore-scene-link:hover { border-color: var(--color-accent-secondary); }
+
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-accent-primary) var(--color-bg-frame);
   </style>
 </head>
 <body>
-  <header style="background:var(--color-bg-panel);border-bottom:1px solid var(--color-border);position:sticky;top:0;z-index:50;">
-    <div style="max-width:1400px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:3rem;">
-      <div style="display:flex;align-items:center;gap:1rem;">
-        <a href="/" style="font-family:'Audiowide',sans-serif;font-size:0.7rem;color:var(--color-accent-primary);text-decoration:none;letter-spacing:0.08em;">&larr; BRIDGE</a>
-        <span style="font-family:'Audiowide',sans-serif;font-size:0.75rem;color:var(--color-accent-deep);letter-spacing:0.06em;">COMMAND BRIDGE</span>
-      </div>
-      <input type="search" id="search-input" placeholder="Search..." />
+  <header class="cb-header">
+    <div class="cb-header-left">
+      <a href="/" class="cb-home-link">&larr; HOME</a>
+      <span class="cb-header-title">COMMAND BRIDGE</span>
     </div>
-    <nav style="max-width:1400px;margin:0 auto;padding:0 1.5rem;display:flex;gap:0;border-top:1px solid var(--color-border);overflow-x:auto;" id="tab-nav">
-      <button class="tab-btn active" data-tab="campaign">Campaign</button>
-      <button class="tab-btn" data-tab="combat-tracker">Combat Tracker</button>
-      <button class="tab-btn" data-tab="starship-combat">Starship Combat</button>
-      <button class="tab-btn" data-tab="handbook">GM Handbook</button>
-    </nav>
+    <div class="cb-header-right">
+      <span style="font-size:0.7rem;color:var(--color-text-secondary);margin-right:0.25rem;">Ship Combat: <span id="sc-status" style="color:var(--color-text-secondary);">Inactive</span></span>
+      <button class="cb-header-btn accent" id="cb-launch-starship">Launch Starship Combat</button>
+      <button class="cb-header-btn accent" id="cb-end-starship" style="display:none;">End Ship Combat</button>
+      <button class="cb-header-btn" id="cb-theme-toggle">Theme</button>
+      <button class="cb-header-btn" id="cb-logout">Logout</button>
+    </div>
   </header>
 
-  <main style="max-width:1400px;margin:0 auto;padding:1.5rem;display:grid;grid-template-columns:180px 1fr;gap:1rem;">
-    <aside class="gm-destiny-panel" id="gm-destiny-panel">
-      <div class="gm-destiny-panel-header">Crew Destiny</div>
-      <div class="gm-destiny-tokens" id="gm-destiny-tokens">
-        <span class="gm-destiny-empty">No crew connected</span>
+  <div id="bridge-grid">
+    <div class="cb-col-left">
+      <div class="cb-col-title">Crew Monitor</div>
+      <div id="party-list">
+        <p class="cb-muted" style="font-style:italic;">Loading crew data&hellip;</p>
       </div>
-      <div class="gm-destiny-count" id="gm-destiny-count"></div>
-      <div class="gm-destiny-btns">
-        <button class="gm-destiny-reset" id="gm-destiny-untap" title="Restore all tapped tokens">Untap All</button>
-        <button class="gm-destiny-reset" id="gm-destiny-reset" title="Rebuild pool from connected crew">Reset Pool</button>
+
+      <div class="cb-destiny-section" id="sc-seats-section" style="display:none;">
+        <div class="cb-col-title">Crew Stations</div>
+        <div id="sc-seats"><div class="cb-muted">No stations claimed.</div></div>
       </div>
-    </aside>
-    <div>
-    <div id="tab-campaign" class="tab-panel active">
-      <div class="campaign-layout" id="campaign-layout">
-        <div id="campaign-main">
-          <div id="adv-nav" class="adv-nav"></div>
-          <div id="part-nav" class="part-nav"></div>
-          <div id="scene-list" class="scene-list"></div>
-          <div id="scene-content"></div>
+
+      <div class="cb-destiny-section">
+        <div class="cb-col-title">Crew Destiny</div>
+        <div class="gm-destiny-tokens" id="gm-destiny-tokens">
+          <span class="cb-muted" style="font-style:italic;">No crew connected</span>
         </div>
-        <div id="party-sidebar-container">
-          <div class="party-sidebar" id="party-sidebar">
-            <div class="party-sidebar-header">
-              <span>Party Monitor</span>
-              <button class="sidebar-toggle" id="sidebar-toggle" title="Collapse">&times;</button>
-            </div>
-            <div id="party-list"></div>
-          </div>
+        <div class="gm-destiny-count" id="gm-destiny-count"></div>
+        <div class="cb-destiny-btns">
+          <button class="cb-destiny-btn" id="gm-destiny-untap">Untap All</button>
+          <button class="cb-destiny-btn" id="gm-destiny-reset">Reset Pool</button>
         </div>
       </div>
     </div>
 
-    <div id="tab-combat-tracker" class="tab-panel">
-      <div class="tbd-panel">
-        <h3>Combat Tracker</h3>
-        <p style="font-size:0.75rem;color:var(--color-text-secondary);max-width:400px;margin:0.5rem auto;">Track initiative, conditions, vitality, and action economy for all combatants in the current encounter.</p>
-        <div class="tbd-badge">Coming Soon &mdash; TBD</div>
+    <div class="cb-drag-handle" id="drag-left" title="Drag to resize"></div>
+
+    <div class="cb-col-center">
+      <div class="cb-nav-bar" id="adv-nav"></div>
+      <div class="cb-nav-bar" id="part-nav"></div>
+      <div class="cb-scene-counter" id="scene-counter"></div>
+      <div id="scene-carousel">
+        <div class="cb-empty-scene"><p>Loading campaign data&hellip;</p></div>
       </div>
     </div>
 
-    <div id="tab-starship-combat" class="tab-panel">
-      <div style="padding:1rem;max-width:600px;margin:0 auto;">
-        <h3 style="font-family:'Audiowide',sans-serif;font-size:0.8rem;color:var(--color-accent-primary);margin-bottom:0.75rem;">Starship Combat</h3>
-        <div id="sc-gm-status" style="margin-bottom:0.75rem;font-size:0.6rem;color:var(--color-text-secondary);">Status: Inactive</div>
-        <div style="display:flex;gap:0.5rem;margin-bottom:1rem;">
-          <button id="sc-gm-start" class="btn-primary" style="font-size:0.5rem;padding:0.4rem 0.8rem;">Start Ship Combat</button>
-          <button id="sc-gm-end" class="btn-secondary" style="font-size:0.5rem;padding:0.4rem 0.8rem;">End Ship Combat</button>
+    <div class="cb-drag-handle" id="drag-right" title="Drag to resize"></div>
+
+    <div class="cb-col-right">
+      <div class="cb-col-title">Glossary</div>
+      <div id="glossary-content">
+        <div class="cb-glossary-placeholder">
+          Click a <span style="color:var(--color-accent-primary);">[Condition]</span> in any scene text to view its details here.
         </div>
-        <div id="sc-gm-seats" style="font-size:0.5rem;color:var(--color-text-secondary);"></div>
       </div>
     </div>
-
-    <div id="tab-handbook" class="tab-panel">
-      <div style="margin-bottom:1rem;position:sticky;top:0;z-index:10;background:var(--color-bg-primary);padding:0.5rem 0;">
-        <input type="search" id="handbook-search" placeholder="Search all references..." style="background:var(--color-bg-frame);border:1px solid var(--color-border);color:var(--color-text-primary);padding:0.5rem 0.75rem;font-size:0.75rem;width:100%;outline:none;font-family:'Exo 2',sans-serif;" />
-      </div>
-      <div id="hb-section-gamesystem" class="hb-section">
-        <div class="hb-section-header" data-hb-section="gamesystem"><span class="hb-chevron">&#9662;</span> Game System<span class="hb-section-count"></span></div>
-        <div class="hb-section-body"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading&hellip;</p></div>
-      </div>
-      <div id="hb-section-arenas" class="hb-section">
-        <div class="hb-section-header" data-hb-section="arenas"><span class="hb-chevron">&#9662;</span> Arenas &amp; Disciplines<span class="hb-section-count"></span></div>
-        <div class="hb-section-body"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading&hellip;</p></div>
-      </div>
-      <div id="hb-section-conditions" class="hb-section">
-        <div class="hb-section-header" data-hb-section="conditions"><span class="hb-chevron">&#9662;</span> Conditions<span class="hb-section-count"></span></div>
-        <div class="hb-section-body"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading&hellip;</p></div>
-      </div>
-      <div id="hb-section-maneuvers" class="hb-section">
-        <div class="hb-section-header" data-hb-section="maneuvers"><span class="hb-chevron">&#9662;</span> Maneuvers<span class="hb-section-count"></span></div>
-        <div class="hb-section-body"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading&hellip;</p></div>
-      </div>
-      <div id="hb-section-threats" class="hb-section">
-        <div class="hb-section-header" data-hb-section="threats"><span class="hb-chevron">&#9662;</span> Threats<span class="hb-section-count"></span></div>
-        <div class="hb-section-body"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading&hellip;</p></div>
-      </div>
-      <div id="hb-section-weapons" class="hb-section">
-        <div class="hb-section-header" data-hb-section="weapons"><span class="hb-chevron">&#9662;</span> Weapons<span class="hb-section-count"></span></div>
-        <div class="hb-section-body"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading&hellip;</p></div>
-      </div>
-      <div id="hb-section-armor" class="hb-section">
-        <div class="hb-section-header" data-hb-section="armor"><span class="hb-chevron">&#9662;</span> Armor<span class="hb-section-count"></span></div>
-        <div class="hb-section-body"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading&hellip;</p></div>
-      </div>
-      <div id="hb-section-gear" class="hb-section">
-        <div class="hb-section-header" data-hb-section="gear"><span class="hb-chevron">&#9662;</span> Gear<span class="hb-section-count"></span></div>
-        <div class="hb-section-body"><p style="color:var(--color-text-secondary);font-size:0.75rem;">Loading&hellip;</p></div>
-      </div>
-    </div>
-    </div>
-  </main>
+  </div>
 
   <div class="lore-modal-overlay" id="lore-modal-overlay">
     <div class="lore-modal" id="lore-modal">
@@ -424,1365 +663,6 @@
     </div>
   </div>
 
-<script>
-(function () {
-  /* ── Tab switching ─────────────────────────────────────── */
-  const tabBtns  = document.querySelectorAll('.tab-btn');
-  const tabPanels = document.querySelectorAll('.tab-panel');
-  let currentTab = 'campaign';
-
-  tabBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const target = btn.dataset.tab;
-      tabBtns.forEach(b => b.classList.remove('active'));
-      tabPanels.forEach(p => p.classList.remove('active'));
-      btn.classList.add('active');
-      document.getElementById('tab-' + target).classList.add('active');
-      currentTab = target;
-      const searchVal = document.getElementById('search-input').value;
-      if (target === 'handbook') {
-        document.getElementById('handbook-search').value = searchVal;
-      }
-      filterSearch(searchVal);
-    });
-  });
-
-  /* ── Search ─────────────────────────────────────────────── */
-  document.getElementById('search-input').addEventListener('input', e => {
-    filterSearch(e.target.value);
-  });
-
-  function filterSearch(query) {
-    const q = query.trim().toLowerCase();
-    if (currentTab === 'handbook') {
-      document.getElementById('handbook-search').value = query;
-      handbookSearch(q);
-      return;
-    }
-    const panel = document.getElementById('tab-' + currentTab);
-    if (!panel) return;
-    const items = panel.querySelectorAll('[data-search]');
-    items.forEach(item => {
-      if (!q || item.dataset.search.toLowerCase().includes(q)) {
-        item.classList.remove('hidden-item');
-      } else {
-        item.classList.add('hidden-item');
-      }
-    });
-  }
-
-  function handbookSearch(q) {
-    const sections = document.querySelectorAll('.hb-section');
-    sections.forEach(section => {
-      const body = section.querySelector('.hb-section-body');
-      if (!body) return;
-      const items = body.querySelectorAll('[data-search]');
-      let visibleCount = 0;
-      items.forEach(item => {
-        if (!q || item.dataset.search.toLowerCase().includes(q)) {
-          item.classList.remove('hidden-item');
-          visibleCount++;
-        } else {
-          item.classList.add('hidden-item');
-        }
-      });
-      const countEl = section.querySelector('.hb-section-count');
-      if (q) {
-        if (visibleCount > 0) {
-          section.classList.add('hb-open');
-          section.classList.remove('hb-empty');
-        } else {
-          section.classList.remove('hb-open');
-          section.classList.add('hb-empty');
-        }
-        if (countEl) countEl.textContent = visibleCount + ' match' + (visibleCount !== 1 ? 'es' : '');
-      } else {
-        section.classList.remove('hb-empty');
-        if (countEl) countEl.textContent = '';
-      }
-    });
-  }
-
-  function refreshHandbookFilter() {
-    const searchEl = document.getElementById('handbook-search');
-    if (!searchEl) return;
-    const q = searchEl.value.trim().toLowerCase();
-    if (q) handbookSearch(q);
-  }
-
-  document.getElementById('handbook-search').addEventListener('input', e => {
-    const val = e.target.value;
-    handbookSearch(val.trim().toLowerCase());
-    document.getElementById('search-input').value = val;
-  });
-
-  document.addEventListener('click', e => {
-    const header = e.target.closest('.hb-section-header');
-    if (header) {
-      header.closest('.hb-section').classList.toggle('hb-open');
-    }
-  });
-
-  /* ── Collapse toggle ─────────────────────────────────────── */
-  document.addEventListener('click', e => {
-    const toggle = e.target.closest('.collapse-toggle');
-    if (toggle) {
-      toggle.closest('.collapsible').classList.toggle('open');
-    }
-  });
-
-  /* ── Helpers ─────────────────────────────────────────────── */
-  function esc(s) {
-    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  }
-
-  function arenaTagClass(tag) {
-    if (!tag) return '';
-    const t = tag.toLowerCase();
-    if (t.includes('combat')) return 'tag-combat';
-    if (t.includes('narrative')) return 'tag-narrative';
-    if (t.includes('both')) return 'tag-both';
-    return '';
-  }
-
-  function splitPcNpc(ruleText) {
-    if (!ruleText) return { pc: '', npc: '' };
-    const pcMatch  = ruleText.match(/PC:\s*(.*?)(?=\s*NPC:|$)/s);
-    const npcMatch = ruleText.match(/NPC:\s*(.*?)(?=\s*PC:|$)/s);
-    return {
-      pc:  pcMatch  ? pcMatch[1].trim()  : '',
-      npc: npcMatch ? npcMatch[1].trim() : ''
-    };
-  }
-
-  /* ══════════════════════════════════════════════════════════
-     CAMPAIGN ENGINE
-     ══════════════════════════════════════════════════════════ */
-
-  let adventuresData = null;
-  let progressData = { adventure_id: 'adv1', part_id: 'adv1-p1', scene_id: 'adv1-p1-s1' };
-  let completionsData = {};
-  let currentAdventure = null;
-  let currentPart = null;
-  let currentScene = null;
-  let sidebarCollapsed = false;
-
-  async function initCampaign() {
-    try {
-      const [advRes, progRes] = await Promise.all([
-        fetch('/api/campaign/adventures').then(r => r.json()),
-        fetch('/api/campaign/progress').then(r => r.json())
-      ]);
-      adventuresData = advRes;
-      progressData = progRes.progress;
-      completionsData = progRes.completions || {};
-
-      currentAdventure = progressData.adventure_id;
-      currentPart = progressData.part_id;
-      currentScene = progressData.scene_id;
-
-      renderAdvNav();
-      renderPartNav();
-      renderSceneList();
-      renderScene();
-      loadPartyMonitor();
-    } catch (err) {
-      document.getElementById('campaign-main').innerHTML =
-        '<p style="color:var(--color-accent-primary);font-size:0.75rem;">Failed to load campaign data: ' + esc(err.message) + '</p>';
-    }
-  }
-
-  function getAdventure(id) {
-    return adventuresData.adventures.find(a => a.id === id);
-  }
-
-  function getPart(adv, partId) {
-    return (adv.parts || []).find(p => p.id === partId);
-  }
-
-  function getScene(part, sceneId) {
-    return (part.scenes || []).find(s => s.id === sceneId);
-  }
-
-  function renderAdvNav() {
-    const nav = document.getElementById('adv-nav');
-    nav.innerHTML = adventuresData.adventures.map(adv => {
-      const hasScenes = (adv.parts || []).some(p => (p.scenes || []).length > 0);
-      const isActive = adv.id === currentAdventure;
-      const cls = isActive ? 'adv-nav-btn active' : 'adv-nav-btn';
-      return `<button class="${cls}" data-adv="${adv.id}" ${!hasScenes ? 'title="Scene content coming soon"' : ''}>
-        <span style="font-family:'Audiowide',sans-serif;font-size:0.6rem;">${adv.number}</span>
-        <span style="font-size:0.6rem;margin-left:0.3rem;">${esc(adv.title)}${!hasScenes ? ' *' : ''}</span>
-      </button>`;
-    }).join('');
-
-    nav.querySelectorAll('.adv-nav-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const advId = btn.dataset.adv;
-        const adv = getAdventure(advId);
-        if (!adv || !(adv.parts || []).length) return;
-        currentAdventure = advId;
-        currentPart = adv.parts[0].id;
-        const firstScene = (adv.parts[0].scenes || [])[0];
-        currentScene = firstScene ? firstScene.id : null;
-        renderAdvNav();
-        renderPartNav();
-        renderSceneList();
-        renderScene();
-        if (currentScene) saveProgress();
-      });
-    });
-  }
-
-  function renderPartNav() {
-    const adv = getAdventure(currentAdventure);
-    if (!adv) return;
-    const nav = document.getElementById('part-nav');
-    nav.innerHTML = (adv.parts || []).map(part => {
-      const isActive = part.id === currentPart;
-      const hasScenes = (part.scenes || []).length > 0;
-      return `<button class="part-nav-btn ${isActive ? 'active' : ''}" data-part="${part.id}" ${!hasScenes ? 'style="opacity:0.6"' : ''}>
-        Part ${part.number}: ${esc(part.title)}
-      </button>`;
-    }).join('');
-
-    nav.querySelectorAll('.part-nav-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const partId = btn.dataset.part;
-        const adv = getAdventure(currentAdventure);
-        const part = getPart(adv, partId);
-        if (!part) return;
-        currentPart = partId;
-        const firstScene = (part.scenes || [])[0];
-        currentScene = firstScene ? firstScene.id : null;
-        renderPartNav();
-        renderSceneList();
-        renderScene();
-        if (currentScene) saveProgress();
-      });
-    });
-  }
-
-  function renderSceneList() {
-    const adv = getAdventure(currentAdventure);
-    const part = adv ? getPart(adv, currentPart) : null;
-    const list = document.getElementById('scene-list');
-    if (!part || !(part.scenes || []).length) {
-      list.innerHTML = '<p style="color:var(--color-text-secondary);font-size:0.72rem;font-style:italic;">No scene content available yet for this part.</p>';
-      return;
-    }
-    list.innerHTML = part.scenes.map(scene => {
-      const isActive = scene.id === currentScene;
-      const comp = completionsData[scene.id];
-      const isDone = comp && comp.completed;
-      return `<button class="scene-btn ${isActive ? 'active' : ''}" data-scene="${scene.id}">
-        <span class="scene-num">${scene.number}</span>
-        <span>${esc(scene.title)}${scene.subtitle ? ' <span style="color:var(--color-text-secondary);font-size:0.65rem;">(' + esc(scene.subtitle) + ')</span>' : ''}</span>
-        <span class="scene-check ${isDone ? 'done' : ''}">${isDone ? '\u2713' : '\u25CB'}</span>
-      </button>`;
-    }).join('');
-
-    list.querySelectorAll('.scene-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        currentScene = btn.dataset.scene;
-        renderSceneList();
-        renderScene();
-        saveProgress();
-      });
-    });
-  }
-
-  function renderScene() {
-    const container = document.getElementById('scene-content');
-    const adv = getAdventure(currentAdventure);
-    const part = adv ? getPart(adv, currentPart) : null;
-    const scene = part ? getScene(part, currentScene) : null;
-
-    if (!scene) {
-      if (adv && part && !(part.scenes || []).length) {
-        container.innerHTML = `<div class="card" style="text-align:center;padding:2rem;">
-          <h3 style="font-family:'Audiowide',sans-serif;font-size:0.85rem;color:var(--color-text-secondary);margin:0 0 0.5rem;">
-            ${esc(adv.title)} &mdash; Part ${part.number}: ${esc(part.title)}
-          </h3>
-          <p style="font-size:0.72rem;color:var(--color-text-secondary);max-width:400px;margin:0.5rem auto;">Scene content for this part is coming soon. The adventure structure is in place and ready for content.</p>
-          ${adv.summary ? `<p style="font-size:0.68rem;color:var(--color-accent-secondary);margin-top:1rem;max-width:500px;margin-left:auto;margin-right:auto;font-style:italic;">${esc(adv.summary)}</p>` : ''}
-        </div>`;
-      } else {
-        container.innerHTML = '<p style="color:var(--color-text-secondary);font-size:0.72rem;font-style:italic;">Select a scene to view its content.</p>';
-      }
-      return;
-    }
-
-    const comp = completionsData[scene.id];
-    const isDone = comp && comp.completed;
-
-    let html = '';
-
-    html += `<div style="margin-bottom:1rem;">
-      <h2 style="font-family:'Audiowide',sans-serif;font-size:1rem;color:var(--color-accent-primary);margin:0;">
-        Scene ${scene.number}: ${esc(scene.title)}
-      </h2>
-      ${scene.subtitle ? `<div style="font-size:0.68rem;color:var(--color-text-secondary);margin-top:0.2rem;">${esc(scene.subtitle)}</div>` : ''}
-    </div>`;
-
-    if (scene.readAloud) {
-      html += `<div class="read-aloud collapsible open">
-        <div class="read-aloud-label collapse-toggle">\u{1F4D6} Player Read-Aloud</div>
-        <div class="card-body">${esc(scene.readAloud)}</div>
-      </div>`;
-    }
-
-    if (scene.gmNotes) {
-      html += `<div class="gm-notes-block collapsible open">
-        <div class="gm-notes-label collapse-toggle">\u{1F512} GM Notes</div>
-        <div class="card-body">${esc(scene.gmNotes)}</div>
-      </div>`;
-    }
-
-    if (scene.npcs && scene.npcs.length) {
-      html += `<div class="card collapsible open" style="margin-bottom:1rem;">
-        <div class="card-header collapse-toggle">NPC Roster</div>
-        <div class="card-body">
-          <div class="npc-roster">
-            <div class="npc-row" style="font-weight:600;color:var(--color-accent-secondary);font-size:0.62rem;text-transform:uppercase;letter-spacing:0.08em;">
-              <div>Name</div><div>Type</div><div>Count</div><div>Notes</div>
-            </div>
-            ${scene.npcs.map(npc => `
-              <div class="npc-row">
-                <div style="font-weight:600;">${esc(npc.name)}</div>
-                <div style="color:var(--color-text-secondary);">${esc(npc.type)}</div>
-                <div style="text-align:center;font-family:'Audiowide',sans-serif;color:var(--color-accent-primary);">${npc.count}</div>
-                <div style="color:var(--color-text-secondary);font-size:0.65rem;">${esc(npc.notes || '')}</div>
-              </div>`).join('')}
-          </div>
-        </div>
-      </div>`;
-    }
-
-    if (scene.hazards) {
-      html += `<div class="card collapsible open" style="margin-bottom:1rem;">
-        <div class="card-header collapse-toggle">\u26A0 Hazards / Environment</div>
-        <div class="card-body">
-          <p style="font-size:0.72rem;">${esc(scene.hazards)}</p>
-        </div>
-      </div>`;
-    }
-
-    if (scene.decisions && scene.decisions.length) {
-      html += `<div class="card collapsible open" style="margin-bottom:1rem;">
-        <div class="card-header collapse-toggle">\u2694 Decision Points</div>
-        <div class="card-body">
-          ${scene.decisions.map(d => `
-            <div class="decision-block">
-              <div class="decision-choice">${esc(d.choice)}</div>
-              <div class="decision-consequence">\u2192 ${esc(d.consequence)}</div>
-            </div>`).join('')}
-        </div>
-      </div>`;
-    }
-
-    if (scene.loreTags && scene.loreTags.length) {
-      html += `<div style="margin-bottom:1rem;">
-        <div style="font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-text-secondary);margin-bottom:0.4rem;">Lore Tags</div>
-        ${scene.loreTags.map(tag => `<span class="lore-tag" data-lore-tag="${esc(tag)}">${esc(tag)}</span>`).join('')}
-      </div>`;
-    }
-
-    if (scene.narrativeLinks && scene.narrativeLinks.length) {
-      html += `<div style="margin-bottom:1rem;">
-        <div style="font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-text-secondary);margin-bottom:0.4rem;">Narrative Links</div>
-        ${scene.narrativeLinks.map(link => `
-          <a class="narrative-link" data-nav-scene="${esc(link.targetScene)}">
-            \u2192 ${esc(link.note)}
-          </a>`).join('')}
-      </div>`;
-    }
-
-    html += `<div style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--color-border);display:flex;align-items:center;gap:1rem;">
-      <button class="scene-complete-btn ${isDone ? 'completed' : ''}" id="scene-complete-btn" data-scene="${scene.id}">
-        <span>${isDone ? '\u2713' : '\u25CB'}</span>
-        <span>${isDone ? 'Scene Complete' : 'Mark Scene Complete'}</span>
-      </button>
-    </div>`;
-
-    container.innerHTML = html;
-
-    container.querySelectorAll('.lore-tag').forEach(el => {
-      el.addEventListener('click', () => openLoreModal(el.dataset.loreTag));
-    });
-
-    container.querySelectorAll('.narrative-link').forEach(el => {
-      el.addEventListener('click', () => navigateToScene(el.dataset.navScene));
-    });
-
-    const completeBtn = document.getElementById('scene-complete-btn');
-    if (completeBtn) {
-      completeBtn.addEventListener('click', () => toggleSceneComplete(completeBtn.dataset.scene));
-    }
-  }
-
-  async function toggleSceneComplete(sceneId) {
-    const current = completionsData[sceneId];
-    const newState = !(current && current.completed);
-    try {
-      const res = await fetch('/api/campaign/scene/' + sceneId + '/complete', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ completed: newState })
-      });
-      if (!res.ok) throw new Error('Server returned ' + res.status);
-      if (!completionsData[sceneId]) completionsData[sceneId] = {};
-      completionsData[sceneId].completed = newState ? 1 : 0;
-      renderSceneList();
-      renderScene();
-    } catch (err) {
-      console.error('Failed to update scene completion:', err);
-    }
-  }
-
-  async function saveProgress() {
-    if (!currentAdventure || !currentPart || !currentScene) return;
-    try {
-      const res = await fetch('/api/campaign/progress', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          adventure_id: currentAdventure,
-          part_id: currentPart,
-          scene_id: currentScene
-        })
-      });
-      if (!res.ok) throw new Error('Server returned ' + res.status);
-    } catch (err) {
-      console.error('Failed to save progress:', err);
-    }
-  }
-
-  function navigateToScene(sceneId) {
-    if (!adventuresData) return;
-    for (const adv of adventuresData.adventures) {
-      for (const part of (adv.parts || [])) {
-        for (const scene of (part.scenes || [])) {
-          if (scene.id === sceneId) {
-            currentAdventure = adv.id;
-            currentPart = part.id;
-            currentScene = scene.id;
-            renderAdvNav();
-            renderPartNav();
-            renderSceneList();
-            renderScene();
-            saveProgress();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            return;
-          }
-        }
-      }
-    }
-  }
-
-  async function openLoreModal(tag) {
-    const overlay = document.getElementById('lore-modal-overlay');
-    const title = document.getElementById('lore-modal-title');
-    const body = document.getElementById('lore-modal-body');
-    title.textContent = 'Lore: ' + tag;
-    body.innerHTML = '<p style="color:var(--color-text-secondary);font-size:0.72rem;">Loading...</p>';
-    overlay.classList.add('active');
-
-    try {
-      const res = await fetch('/api/campaign/lore-tags/' + encodeURIComponent(tag));
-      const data = await res.json();
-      if (!data.scenes || !data.scenes.length) {
-        body.innerHTML = '<p style="color:var(--color-text-secondary);font-size:0.72rem;">No scenes found with this tag.</p>';
-        return;
-      }
-      body.innerHTML = data.scenes.map(s => `
-        <div class="lore-scene-link" data-nav-scene="${esc(s.sceneId)}">
-          <div style="font-size:0.72rem;font-weight:600;">Adventure ${s.adventureNumber}: ${esc(s.adventureTitle)}</div>
-          <div style="font-size:0.65rem;color:var(--color-text-secondary);">Part ${s.partNumber}: ${esc(s.partTitle)} \u2014 Scene ${s.sceneNumber}: ${esc(s.sceneTitle)}</div>
-        </div>`).join('');
-
-      body.querySelectorAll('.lore-scene-link').forEach(el => {
-        el.addEventListener('click', () => {
-          overlay.classList.remove('active');
-          navigateToScene(el.dataset.navScene);
-        });
-      });
-    } catch (err) {
-      body.innerHTML = '<p style="color:var(--color-accent-primary);font-size:0.72rem;">Failed to load lore data.</p>';
-    }
-  }
-
-  document.getElementById('lore-modal-close').addEventListener('click', () => {
-    document.getElementById('lore-modal-overlay').classList.remove('active');
-  });
-  document.getElementById('lore-modal-overlay').addEventListener('click', (e) => {
-    if (e.target === e.currentTarget) e.currentTarget.classList.remove('active');
-  });
-
-  /* ── Party Monitor ─────────────────────────────────────── */
-  async function loadPartyMonitor() {
-    try {
-      const res = await fetch('/api/campaign/party');
-      const data = await res.json();
-      renderPartyList(data.party || []);
-    } catch {
-      document.getElementById('party-list').innerHTML =
-        '<p style="color:var(--color-text-secondary);font-size:0.65rem;">Failed to load party data.</p>';
-    }
-  }
-
-  function renderPartyList(party) {
-    const list = document.getElementById('party-list');
-    if (!party.length) {
-      list.innerHTML = '<p style="color:var(--color-text-secondary);font-size:0.65rem;font-style:italic;">No characters with data found.</p>';
-      return;
-    }
-    list.innerHTML = party.map(pc => `
-      <div class="party-card ${pc.connected ? 'connected' : 'disconnected'}">
-        <div style="display:flex;justify-content:space-between;align-items:center;">
-          <div>
-            <div class="pc-name">${esc(pc.name)}</div>
-            <div class="pc-detail">${esc(pc.species || '')}${pc.archetype ? ' \u2014 ' + esc(pc.archetype) : ''}</div>
-          </div>
-          <div style="text-align:right;">
-            ${pc.vitality !== null ? `<div class="pc-vitality">${pc.vitality}</div><div class="pc-detail">Vitality</div>` : ''}
-          </div>
-        </div>
-        <div class="pc-detail" style="margin-top:0.25rem;">${pc.connected ? '\u{1F7E2} Connected' : '\u26AB Offline'}${pc.marks != null ? ' \u2022 <span style="color:var(--color-accent-primary);">' + pc.marks + ' Marks</span>' : ''}</div>
-      </div>`).join('');
-  }
-
-  document.getElementById('sidebar-toggle').addEventListener('click', () => {
-    sidebarCollapsed = !sidebarCollapsed;
-    const layout = document.getElementById('campaign-layout');
-    const sidebar = document.getElementById('party-sidebar');
-    const toggle = document.getElementById('sidebar-toggle');
-    if (sidebarCollapsed) {
-      layout.classList.add('sidebar-collapsed');
-      sidebar.querySelectorAll(':scope > *:not(.party-sidebar-header)').forEach(el => el.style.display = 'none');
-      sidebar.querySelector('.party-sidebar-header span').style.display = 'none';
-      toggle.textContent = '\u25C0';
-      toggle.title = 'Expand';
-    } else {
-      layout.classList.remove('sidebar-collapsed');
-      sidebar.querySelectorAll(':scope > *').forEach(el => el.style.display = '');
-      sidebar.querySelector('.party-sidebar-header span').style.display = '';
-      toggle.textContent = '\u00D7';
-      toggle.title = 'Collapse';
-    }
-  });
-
-  initCampaign();
-
-  /* ── Socket.io — Party Monitor live updates ─────────────── */
-  const socket = typeof io !== 'undefined' ? io() : null;
-  if (socket) {
-    socket.emit('session:join', { role: 'gm' });
-
-    socket.on('player:connected', ({ characterId, name }) => {
-      console.log('[socket] Player connected:', name);
-      loadPartyMonitor();
-    });
-
-    socket.on('player:disconnected', ({ characterId, name }) => {
-      console.log('[socket] Player disconnected:', name);
-      loadPartyMonitor();
-    });
-
-    socket.on('connect', () => {
-      console.log('[socket] GM connected to server');
-      socket.emit('session:join', { role: 'gm' });
-    });
-
-    socket.on('destiny:sync', ({ pool }) => {
-      renderGmDestinyPool(pool);
-    });
-
-    socket.on('advancement:sync', () => {
-      loadPartyMonitor();
-    });
-  }
-
-  function renderGmDestinyPool(pool) {
-    const container = document.getElementById('gm-destiny-tokens');
-    const countEl = document.getElementById('gm-destiny-count');
-    if (!container) return;
-
-    if (!pool || pool.length === 0) {
-      container.innerHTML = '<span class="gm-destiny-empty">No crew connected</span>';
-      if (countEl) countEl.textContent = '';
-      return;
-    }
-
-    var tokens = pool;
-
-    container.innerHTML = tokens.map(function (t, idx) {
-      const isDark = t.side === 'toll';
-      const tappedCls = t.tapped ? ' is-tapped' : '';
-      const label = t.side + (t.tapped ? ' (tapped — right-click to untap)' : '');
-      return '<div class="gm-destiny-token' + (isDark ? ' is-dark' : '') + tappedCls + '" data-index="' + idx + '" title="Click to flip — ' + label + '">' +
-        '<div class="force-token-inner">' +
-          '<div class="force-token-face force-token-front"></div>' +
-          '<div class="force-token-face force-token-back"></div>' +
-        '</div>' +
-      '</div>';
-    }).join('');
-
-    container.querySelectorAll('.gm-destiny-token').forEach(function (el) {
-      el.addEventListener('click', function () {
-        const index = parseInt(el.dataset.index, 10);
-        if (socket) socket.emit('destiny:flip', { index: index });
-      });
-      el.addEventListener('contextmenu', function (e) {
-        e.preventDefault();
-        const index = parseInt(el.dataset.index, 10);
-        if (socket) socket.emit('destiny:untap-one', { index: index });
-      });
-    });
-
-    if (countEl) {
-      const hopeCount = tokens.filter(function (t) { return t.side === 'hope'; }).length;
-      const tollCount = tokens.filter(function (t) { return t.side === 'toll'; }).length;
-      const tappedCount = tokens.filter(function (t) { return t.tapped; }).length;
-      var summary = '<span class="hope-count">' + hopeCount + 'H</span> / <span class="toll-count">' + tollCount + 'T</span>';
-      if (tappedCount > 0) summary += ' <span style="color:var(--color-text-secondary);font-size:0.7rem;">(' + tappedCount + ' tapped)</span>';
-      countEl.innerHTML = summary;
-    }
-  }
-
-  document.getElementById('gm-destiny-reset').addEventListener('click', function () {
-    if (socket) socket.emit('destiny:reset');
-  });
-
-  document.getElementById('gm-destiny-untap').addEventListener('click', function () {
-    if (socket) socket.emit('destiny:untap');
-  });
-
-  /* ══════════════════════════════════════════════════════════
-     STARSHIP COMBAT — GM CONTROLS
-     ══════════════════════════════════════════════════════════ */
-
-  var _scActive = false;
-
-  document.getElementById('sc-gm-start').addEventListener('click', function () {
-    if (socket) socket.emit('shipcombat:enter');
-  });
-
-  document.getElementById('sc-gm-end').addEventListener('click', function () {
-    if (socket) socket.emit('shipcombat:exit');
-  });
-
-  if (socket) {
-    socket.emit('shipcombat:request');
-
-    socket.on('shipcombat:sync', function (data) {
-      _scActive = !!data.active;
-      var statusEl = document.getElementById('sc-gm-status');
-      if (statusEl) {
-        statusEl.textContent = _scActive ? 'Status: ACTIVE' : 'Status: Inactive';
-        statusEl.style.color = _scActive ? '#22c55e' : 'var(--color-text-secondary)';
-      }
-      if (data.seats) _renderGmSeats(data.seats);
-    });
-
-    socket.on('shipcombat:seats_update', function (data) {
-      if (data.seats) _renderGmSeats(data.seats);
-    });
-  }
-
-  function _renderGmSeats(seats) {
-    var el = document.getElementById('sc-gm-seats');
-    if (!el) return;
-    var keys = Object.keys(seats);
-    if (keys.length === 0) {
-      el.innerHTML = '<div style="color:var(--color-text-secondary);">No stations claimed.</div>';
-      return;
-    }
-    var html = '<div style="margin-top:0.3rem;"><strong>Crew Stations:</strong></div>';
-    keys.forEach(function (sid) {
-      var s = seats[sid];
-      var label = sid.replace('station_', '').replace(/^\w/, function (c) { return c.toUpperCase(); });
-      html += '<div style="padding:0.15rem 0;">' + label + ': <strong>' + (s.characterName || 'Unknown') + '</strong></div>';
-    });
-    el.innerHTML = html;
-  }
-
-  /* ══════════════════════════════════════════════════════════
-     RULES REFERENCE RENDERERS (unchanged)
-     ══════════════════════════════════════════════════════════ */
-
-  /* ── Render Arenas & Disciplines ─────────────────────────── */
-  function renderArenasDisciplines(data) {
-    const panel = document.querySelector('#hb-section-arenas .hb-section-body');
-    const attrOrder = ['Physique','Reflex','Grit','Wits','Presence'];
-    const attrs = {};
-    const force = [];
-    attrOrder.forEach(a => { attrs[a] = { attr: null, disciplines: [] }; });
-
-    data.forEach(entry => {
-      const t = entry.type || '';
-      if (t === 'Core Attribute') {
-        const key = attrOrder.find(a => a === entry.name);
-        if (key) attrs[key].attr = entry;
-      } else if (t.startsWith('Discipline (')) {
-        const attrName = t.replace('Discipline (','').replace(')','').trim();
-        const keys = attrName.split(' or ').map(s=>s.trim());
-        keys.forEach(k => { if (attrs[k]) attrs[k].disciplines.push(entry); });
-      } else if (t.startsWith('Force Discipline')) {
-        force.push(entry);
-      }
-    });
-
-    let html = '';
-    attrOrder.forEach(attrName => {
-      const group = attrs[attrName];
-      if (!group.attr && !group.disciplines.length) return;
-      const a = group.attr;
-      html += `
-        <div style="margin-bottom:1.5rem;">
-          <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.6rem;padding-bottom:0.35rem;border-bottom:2px solid var(--color-accent-primary);">
-            <h2 style="font-family:'Audiowide',sans-serif;font-size:0.85rem;color:var(--color-accent-primary);margin:0;">${esc(attrName)}</h2>
-            <span style="font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-text-secondary);">Core Attribute</span>
-          </div>
-          ${a ? `<div class="card collapsible open" style="margin-bottom:0.5rem;" data-search="${esc(a.name)} ${esc(a.rule||'')}">
-            <div class="card-header collapse-toggle" style="display:flex;align-items:center;gap:0.5rem;">
-              <span>${esc(a.name)}</span>
-              <span class="tag" style="border-color:var(--color-accent-primary);color:var(--color-accent-primary);">Attribute</span>
-            </div>
-            <div class="card-body">
-              <p style="font-size:0.72rem;">${esc(a.rule||'')}</p>
-              ${a.guide ? `<p style="font-size:0.68rem;color:var(--color-text-secondary);margin-top:0.4rem;font-style:italic;">${esc(a.guide)}</p>` : ''}
-            </div>
-          </div>` : ''}
-          <div style="columns:2;column-gap:0.75rem;">
-            ${group.disciplines.map(d => `
-              <div class="card collapsible" style="break-inside:avoid;margin-bottom:0.5rem;" data-search="${esc(d.name)} ${esc(d.type||'')} ${esc(d.rule||'')}">
-                <div class="card-header collapse-toggle" style="display:flex;align-items:center;gap:0.5rem;">
-                  <span>${esc(d.name)}</span>
-                  <span class="tag tag-narrative" style="font-size:0.55rem;">${esc(d.type||'')}</span>
-                </div>
-                <div class="card-body">
-                  <p style="font-size:0.7rem;">${esc(d.rule||'')}</p>
-                  ${d.guide ? `<p style="font-size:0.65rem;color:var(--color-text-secondary);margin-top:0.4rem;font-style:italic;">${esc(d.guide)}</p>` : ''}
-                </div>
-              </div>`).join('')}
-          </div>
-        </div>`;
-    });
-
-    if (force.length) {
-      html += `<div style="margin-bottom:1.5rem;">
-        <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.6rem;padding-bottom:0.35rem;border-bottom:2px solid #AA44AA;">
-          <h2 style="font-family:'Audiowide',sans-serif;font-size:0.85rem;color:#AA44AA;margin:0;">Force Disciplines</h2>
-          <span style="font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-text-secondary);">Requires Force Sensitivity</span>
-        </div>
-        <div style="columns:2;column-gap:0.75rem;">
-          ${force.map(d => `
-            <div class="card collapsible" style="break-inside:avoid;margin-bottom:0.5rem;" data-search="${esc(d.name)} ${esc(d.type||'')} ${esc(d.rule||'')}">
-              <div class="card-header collapse-toggle" style="display:flex;align-items:center;gap:0.5rem;">
-                <span>${esc(d.name)}</span>
-                <span class="tag" style="border-color:#AA44AA;color:#AA44AA;font-size:0.55rem;">${esc(d.type||'')}</span>
-              </div>
-              <div class="card-body">
-                <p style="font-size:0.7rem;">${esc(d.rule||'')}</p>
-                ${d.guide ? `<p style="font-size:0.65rem;color:var(--color-text-secondary);margin-top:0.4rem;font-style:italic;">${esc(d.guide)}</p>` : ''}
-              </div>
-            </div>`).join('')}
-        </div>
-      </div>`;
-    }
-
-    panel.innerHTML = html;
-    refreshHandbookFilter();
-  }
-
-  /* ── Render Conditions ─────────────────────────────────────── */
-  function renderConditions(data) {
-    const panel = document.querySelector('#hb-section-conditions .hb-section-body');
-    const conditions = data.filter(e => e.type === 'Condition');
-    let html = '<div style="columns:2;column-gap:1rem;">';
-    conditions.forEach(entry => {
-      const { pc, npc } = splitPcNpc(entry.rule);
-      const searchKey = [entry.name, entry.rule, entry.guide||''].join(' ');
-      html += `
-        <div class="card collapsible open" style="break-inside:avoid;margin-bottom:0.75rem;" data-search="${esc(searchKey)}">
-          <div class="card-header collapse-toggle">${esc(entry.name)}</div>
-          <div class="card-body">
-            ${pc || npc ? `
-            <div class="dual-box">
-              <div class="dual-side">
-                <div class="dual-side-label" style="color:#5588CC;">PC Effect</div>
-                <div>${esc(pc || entry.rule)}</div>
-              </div>
-              <div class="dual-side">
-                <div class="dual-side-label" style="color:#C47A1E;">NPC Effect</div>
-                <div>${esc(npc || '\u2014')}</div>
-              </div>
-            </div>` : `<p style="font-size:0.72rem;">${esc(entry.rule || '')}</p>`}
-            ${entry.guide ? `<p style="font-size:0.68rem;color:var(--color-text-secondary);margin-top:0.5rem;font-style:italic;">${esc(entry.guide)}</p>` : ''}
-          </div>
-        </div>`;
-    });
-    html += '</div>';
-    panel.innerHTML = html;
-    refreshHandbookFilter();
-  }
-
-  /* ── Render Maneuvers ─────────────────────────────────────── */
-  function renderManeuvers(data) {
-    const panel = document.querySelector('#hb-section-maneuvers .hb-section-body');
-    const groups = {};
-    data.forEach(m => {
-      const track = m.masteryTrack || 'Other';
-      if (!groups[track]) groups[track] = [];
-      groups[track].push(m);
-    });
-
-    const tierColors = { 'Fleeting':'#888', 'Masterful':'#5588CC', 'Legendary':'#C47A1E' };
-
-    let html = '';
-    Object.keys(groups).sort().forEach(track => {
-      html += `<h2 style="font-family:'Audiowide',sans-serif;font-size:0.65rem;letter-spacing:0.12em;color:var(--color-text-secondary);text-transform:uppercase;padding:0.75rem 0 0.25rem;border-top:1px solid var(--color-border);margin-top:1rem;">${esc(track)}</h2>`;
-      groups[track].forEach(m => {
-        const searchKey = [m.name, m.masteryTrack, m.arenaTag, (m.effect||[]).map(e=>e.description).join(' '), (m.gambits||[]).map(g=>g.name+' '+g.rule).join(' ')].join(' ');
-        html += `
-          <div class="card collapsible open" data-search="${esc(searchKey)}">
-            <div class="card-header collapse-toggle" style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
-              <span>${esc(m.name)}</span>
-              ${m.arenaTag ? `<span class="tag ${arenaTagClass(m.arenaTag)}">${esc(m.arenaTag)}</span>` : ''}
-              <span style="font-size:0.62rem;color:var(--color-text-secondary);margin-left:auto;">${esc(m.roll || '')} \u00b7 min ${esc(m.disciplineRequirement?.minDie || '')}</span>
-            </div>
-            <div class="card-body">
-              ${m.risk ? `<div class="risk-block">\u26A0 ${esc(m.risk)}</div>` : ''}
-              <div style="margin:0.5rem 0;">
-                ${(m.effect || []).map(tier => `
-                  <div class="tier-row">
-                    <div class="tier-label" style="color:${tierColors[tier.label]||'var(--color-accent-secondary)'};">${esc(tier.label)}</div>
-                    <div>
-                      ${tier.name ? `<strong style="font-size:0.7rem;">${esc(tier.name)}</strong> \u2014 ` : ''}
-                      <span style="font-size:0.7rem;">${esc(tier.description || '')}</span>
-                      ${tier.duration ? `<span style="font-size:0.62rem;color:var(--color-text-secondary);margin-left:0.4rem;">[${esc(tier.duration)}]</span>` : ''}
-                    </div>
-                  </div>`).join('')}
-              </div>
-              ${(m.gambits || []).length ? `
-                <div style="margin-top:0.6rem;">
-                  <div style="font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-text-secondary);margin-bottom:0.25rem;">Gambits</div>
-                  ${m.gambits.map(g => `
-                    <div class="gambit-block ${g.requiredDie === 'D10' ? 'd10' : 'd12'}">
-                      <div class="gambit-name">
-                        <span class="tag ${g.requiredDie === 'D10' ? 'tag-d10' : 'tag-d12'}">${esc(g.requiredDie)}</span>
-                        ${esc(g.name)}
-                      </div>
-                      <div style="font-size:0.68rem;">${esc(g.rule || '')}</div>
-                      ${g.duration ? `<div style="font-size:0.62rem;color:var(--color-text-secondary);margin-top:0.15rem;">[${esc(g.duration)}]</div>` : ''}
-                    </div>`).join('')}
-                </div>` : ''}
-              ${m.target ? `<div style="font-size:0.62rem;color:var(--color-text-secondary);margin-top:0.4rem;">Target: ${esc(m.target)}</div>` : ''}
-            </div>
-          </div>`;
-      });
-    });
-    panel.innerHTML = html;
-    refreshHandbookFilter();
-  }
-
-  /* ── Render Threats ─────────────────────────────────────── */
-  function renderThreats(data) {
-    const panel = document.querySelector('#hb-section-threats .hb-section-body');
-    let html = '';
-
-    const roster = data.exampleThreats || [];
-    if (roster.length) {
-      html += `<h2 style="font-family:'Audiowide',sans-serif;font-size:0.65rem;letter-spacing:0.12em;color:var(--color-text-secondary);text-transform:uppercase;padding-bottom:0.25rem;border-bottom:1px solid var(--color-border);margin-bottom:0.75rem;">Threat Roster</h2>`;
-      roster.forEach(t => {
-        const s = t.stats || {};
-        const tp = t.tpCost ? t.tpCost.total : undefined;
-        const classTag = (t.classification || '').toLowerCase();
-        let classColor = 'tag-standard';
-        if (classTag === 'elite') classColor = 'tag-elite';
-        else if (classTag === 'nemesis') classColor = 'tag-nemesis';
-        else if (classTag === 'minion') classColor = 'tag-minion';
-        const searchKey = [t.name, t.classification, (t.tags||[]).join(' '), t.description||'', (t.actions||[]).map(a => a.name + ' ' + (a.type||'') + ' ' + (a.effects||[]).map(e => e.result||e.description||'').join(' ')).join(' ')].join(' ');
-        html += `
-          <div class="card collapsible open" data-search="${esc(searchKey)}">
-            <div class="card-header collapse-toggle" style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
-              <span>${esc(t.name)}</span>
-              <span class="tag ${classColor}">${esc(t.classification || '')}</span>
-              ${(t.tags||[]).map(tag=>`<span class="tag" style="border-color:var(--color-border);color:var(--color-text-secondary);">${esc(tag)}</span>`).join('')}
-              ${tp !== undefined ? `<span style="margin-left:auto;font-size:0.62rem;color:var(--color-accent-primary);">${tp} TP</span>` : ''}
-            </div>
-            <div class="card-body">
-              ${t.description ? `<p style="font-size:0.7rem;color:var(--color-text-secondary);margin-bottom:0.5rem;">${esc(t.description)}</p>` : ''}
-              <div class="stat-grid">
-                ${s.presence !== undefined ? `<div class="stat-pill"><span class="stat-val">${esc(s.presence)}</span><span class="stat-name">Presence</span></div>` : ''}
-                ${s.defense  !== undefined ? `<div class="stat-pill"><span class="stat-val">${esc(s.defense)}</span><span class="stat-name">Defense</span></div>` : ''}
-                ${s.evasion  !== undefined ? `<div class="stat-pill"><span class="stat-val">${esc(s.evasion)}</span><span class="stat-name">Evasion</span></div>` : ''}
-                ${s.resolve  !== undefined ? `<div class="stat-pill"><span class="stat-val">${esc(s.resolve)}</span><span class="stat-name">Resolve</span></div>` : ''}
-                ${s.vitality !== undefined ? `<div class="stat-pill"><span class="stat-val">${esc(s.vitality)}</span><span class="stat-name">Vitality</span></div>` : ''}
-              </div>
-              ${(t.actions || []).length ? `
-                <div style="margin-top:0.5rem;">
-                  <div style="font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-text-secondary);margin-bottom:0.25rem;">Actions</div>
-                  ${t.actions.map(a => `
-                    <div class="gambit-block d10" style="margin-bottom:0.35rem;">
-                      <div class="gambit-name">${esc(a.name || '')} ${a.type ? `<span class="tag" style="border-color:var(--color-border);color:var(--color-text-secondary);font-size:0.5rem;">${esc(a.type)}</span>` : ''} ${a.power !== undefined ? `<span style="font-size:0.6rem;margin-left:0.3rem;color:var(--color-accent-primary);">Power ${a.power}</span>` : ''}</div>
-                      ${(a.effects || []).map(eff => `
-                        <div class="tier-row" style="grid-template-columns:70px 1fr;padding:0.15rem 0;">
-                          <div style="font-size:0.6rem;color:var(--color-accent-secondary);">${esc(eff.tier || '')}</div>
-                          <div style="font-size:0.65rem;">${esc(eff.result || eff.description || '')}</div>
-                        </div>`).join('')}
-                    </div>`).join('')}
-                </div>` : ''}
-            </div>
-          </div>`;
-      });
-    }
-
-    const buildSections = ['classifications','stats','templates','triggers','maneuvers','conditionsOnThreats','tags','tpBudgetTargets'];
-    buildSections.forEach(sectionKey => {
-      const section = data[sectionKey];
-      if (!section) return;
-      const title = sectionKey.replace(/([A-Z])/g, ' $1').replace(/^./, s=>s.toUpperCase());
-      html += `<h2 style="font-family:'Audiowide',sans-serif;font-size:0.65rem;letter-spacing:0.12em;color:var(--color-text-secondary);text-transform:uppercase;padding:0.75rem 0 0.25rem;border-top:1px solid var(--color-border);margin-top:1rem;">${esc(title)}</h2>`;
-
-      if (Array.isArray(section)) {
-        section.forEach(item => {
-          const searchKey = [item.name || item.id || '', item.summary||'', item.description||'', item.effect||'', (item.modifications||[]).join(' ')].join(' ');
-          html += `<div class="card collapsible" data-search="${esc(searchKey)}">
-            <div class="card-header collapse-toggle">${esc(item.name || item.id || '')}</div>
-            <div class="card-body">
-              ${item.summary ? `<p style="font-size:0.72rem;margin-bottom:0.4rem;">${esc(item.summary)}</p>` : ''}
-              ${item.effect ? `<p style="font-size:0.72rem;">${esc(item.effect)}</p>` : ''}
-              ${item.description ? `<p style="font-size:0.7rem;color:var(--color-text-secondary);">${esc(item.description)}</p>` : ''}
-              ${(item.modifications || []).length ? `<ul style="margin:0.4rem 0;padding-left:1rem;">${item.modifications.map(m=>`<li style="font-size:0.68rem;margin-bottom:0.2rem;">${esc(m)}</li>`).join('')}</ul>` : ''}
-              ${(item.designNotes || []).length ? `<div style="margin-top:0.4rem;">${item.designNotes.map(n=>`<p style="font-size:0.65rem;color:var(--color-text-secondary);font-style:italic;margin:0.2rem 0;">${esc(n)}</p>`).join('')}</div>` : ''}
-            </div>
-          </div>`;
-        });
-      } else if (typeof section === 'object') {
-        const searchKey = [section.name || sectionKey, section.description || ''].join(' ');
-        html += `<div class="card collapsible" data-search="${esc(searchKey)}">
-          <div class="card-header collapse-toggle">${esc(section.name || title)}</div>
-          <div class="card-body">
-            ${section.description ? `<p style="font-size:0.72rem;margin-bottom:0.4rem;">${esc(section.description)}</p>` : ''}
-            ${section.values ? section.values.map(v => `
-              <div class="tier-row" style="grid-template-columns:40px 80px 1fr;">
-                <div style="font-family:'Audiowide',sans-serif;color:var(--color-accent-primary);">${esc(v.rating !== undefined ? v.rating : (v.range || ''))}</div>
-                <div style="font-weight:600;color:var(--color-accent-secondary);">${esc(v.label || '')}</div>
-                <div style="font-size:0.68rem;">${esc(v.effect || v.note || '')}</div>
-              </div>`).join('') : ''}
-          </div>
-        </div>`;
-      }
-    });
-
-    panel.innerHTML = html;
-    refreshHandbookFilter();
-  }
-
-  /* ── Render Weapons ─────────────────────────────────────── */
-  const tierColors2 = { 'Fleeting':'#888', 'Masterful':'#5588CC', 'Legendary':'#C47A1E' };
-
-  function renderEffectPairs(pairs) {
-    if (!pairs || !Array.isArray(pairs)) return '';
-    return pairs.map(pair => {
-      const [val, label] = Array.isArray(pair) ? pair : [pair.value||'', pair.label||''];
-      const display = (typeof val === 'number') ? `${val} dmg` : String(val);
-      return `<div class="tier-row">
-        <div class="tier-label" style="font-size:0.65rem;color:${tierColors2[label]||'var(--color-accent-secondary)'};">${esc(label)}</div>
-        <div style="font-size:0.7rem;">${esc(display)}</div>
-      </div>`;
-    }).join('');
-  }
-
-  function renderWeaponRange(range) {
-    if (!range) return '';
-    if (range.engaged) return 'Engaged';
-    if (Array.isArray(range)) {
-      const e = range[0], m = range[1], x = range[2];
-      return `0\u2013${e} \u00b7 ${e+1}\u2013${m} \u00b7 ${m+1}\u2013${x}`;
-    }
-    if (range.min !== undefined && range.max !== undefined) {
-      return range.min === range.max ? `Zone ${range.min}` : `Zones ${range.min}\u2013${range.max}`;
-    }
-    return '';
-  }
-
-  function renderWeaponDamageTrack(w, chassisMap) {
-    const TIERS = [
-      { range: '0\u20133', label: 'Fleeting' },
-      { range: '4\u20137', label: 'Masterful' },
-      { range: '8+',       label: 'Legendary' }
-    ];
-    let dmg = null;
-    if (w.customDamage && Array.isArray(w.customDamage)) {
-      dmg = w.customDamage;
-    } else if (w.chassisId && chassisMap[w.chassisId]) {
-      dmg = chassisMap[w.chassisId].tiers.map(t => t.damage);
-    }
-    if (!dmg) return '';
-    return `
-      <div style="margin:0.4rem 0;">
-        <div style="font-size:0.58rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-text-secondary);margin-bottom:0.2rem;">Damage Track</div>
-        ${TIERS.map((tier, i) => `
-          <div class="tier-row">
-            <div class="tier-label" style="font-size:0.62rem;color:var(--color-text-secondary);">${esc(tier.range)}</div>
-            <div style="font-size:0.65rem;color:var(--color-text-secondary);">${esc(tier.label)}</div>
-            <div style="font-size:0.7rem;font-weight:600;">${dmg[i] !== undefined ? dmg[i] + ' dmg' : '\u2014'}</div>
-          </div>`).join('')}
-      </div>`;
-  }
-
-  function renderWeapons(data, chassisMap) {
-    const panel = document.querySelector('#hb-section-weapons .hb-section-body');
-    let html = '';
-    const list = Array.isArray(data) ? data : (data.weapons || Object.values(data));
-    const cmap = chassisMap || {};
-
-    list.forEach(w => {
-      const rangeStr = renderWeaponRange(w.range);
-      const weaponGambits = w.gambits || (w.gambit ? [w.gambit] : []);
-      const searchKey = [w.name, w.chassisLabel, w.discipline, w.description, w.arena, (w.tags||[]).join(' '), (w.trait ? w.trait.name + ' ' + w.trait.description : ''), (weaponGambits.map(g => g.name + ' ' + (g.rule||'')).join(' '))].join(' ');
-
-      html += `
-        <div class="card collapsible open" data-search="${esc(searchKey)}">
-          <div class="card-header collapse-toggle" style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
-            <span>${esc(w.name || '')}</span>
-            ${w.chassisLabel ? `<span class="tag" style="border-color:var(--color-border);color:var(--color-text-secondary);">${esc(w.chassisLabel)}</span>` : ''}
-            ${w.stunSetting ? `<span class="tag" style="border-color:var(--color-accent-secondary);color:var(--color-accent-secondary);">Stun</span>` : ''}
-            <span style="margin-left:auto;font-size:0.62rem;color:var(--color-text-secondary);">
-              ${w.discipline ? esc(w.discipline) : ''}
-              ${rangeStr ? ' \u00b7 ' + esc(rangeStr) : ''}
-              ${w.cost ? ' \u00b7 ' + esc(String(w.cost)) + ' cr' : ''}
-            </span>
-          </div>
-          <div class="card-body">
-            <div class="stat-grid">
-              ${w.arena ? `<div class="stat-pill"><span class="stat-val" style="font-size:0.65rem;">${esc(w.arena)}</span><span class="stat-name">Arena</span></div>` : ''}
-            </div>
-            ${w.description ? `<p style="font-size:0.7rem;color:var(--color-text-secondary);margin-bottom:0.5rem;">${esc(w.description)}</p>` : ''}
-            ${renderWeaponDamageTrack(w, cmap)}
-            ${w.trait ? `
-              <div style="background:var(--color-bg-frame);border-left:3px solid var(--color-accent-secondary);padding:0.35rem 0.6rem;margin-top:0.4rem;font-size:0.7rem;">
-                <strong>${esc(w.trait.name||'')}</strong>: ${esc(w.trait.description||'')}
-              </div>` : ''}
-            ${weaponGambits.length ? `
-              <div style="margin-top:0.5rem;">
-                <div style="font-size:0.58rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-text-secondary);margin-bottom:0.2rem;">Weapon Gambits</div>
-                ${weaponGambits.map(g => `
-                  <div class="gambit-block d10">
-                    <div class="gambit-name">${esc(g.name||'')}</div>
-                    <div style="font-size:0.68rem;">${esc(g.rule||'')}</div>
-                  </div>`).join('')}
-              </div>` : ''}
-            ${(w.tags||[]).length ? `<div style="margin-top:0.4rem;">${w.tags.map(t=>`<span class="tag" style="border-color:var(--color-border);color:var(--color-text-secondary);">${esc(t)}</span>`).join('')}</div>` : ''}
-          </div>
-        </div>`;
-    });
-    panel.innerHTML = html || '<p style="color:var(--color-text-secondary);font-size:0.75rem;">No weapon data found.</p>';
-    refreshHandbookFilter();
-  }
-
-  /* ── Render Armor ─────────────────────────────────────────── */
-  const ARMOR_CATEGORY_RULES_GM = {
-    none:   'Step Down Physique to Endure.',
-    light:  'No modification to Physique when Enduring.',
-    medium: 'Step Up Physique to Endure \u00b7 Step Down Reflex for Evasion.',
-    heavy:  'Step Up Physique twice to Endure \u00b7 Step Down Reflex twice for Evasion.'
-  };
-
-  const ARMOR_CATEGORY_ORDER = ['light', 'medium', 'heavy'];
-  const ARMOR_CATEGORY_COLORS = {
-    light:  'var(--color-accent-secondary)',
-    medium: '#5588CC',
-    heavy:  '#CC0000'
-  };
-
-  function renderArmor(data) {
-    const panel = document.querySelector('#hb-section-armor .hb-section-body');
-    const groups = { light: [], medium: [], heavy: [] };
-    data.forEach(a => { if (groups[a.category]) groups[a.category].push(a); });
-
-    let html = '';
-    ARMOR_CATEGORY_ORDER.forEach(cat => {
-      const items = groups[cat];
-      if (!items.length) return;
-      const color = ARMOR_CATEGORY_COLORS[cat] || 'var(--color-text-secondary)';
-      const rule  = ARMOR_CATEGORY_RULES_GM[cat] || '';
-      html += `
-        <div style="margin-bottom:1.25rem;">
-          <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.5rem;padding-bottom:0.3rem;border-bottom:2px solid ${color};">
-            <h2 style="font-family:'Audiowide',sans-serif;font-size:0.75rem;color:${color};margin:0;text-transform:capitalize;">${esc(cat)} Armor</h2>
-            <span style="font-size:0.6rem;color:var(--color-text-secondary);">${esc(rule)}</span>
-          </div>
-          <div style="columns:2;column-gap:0.75rem;">
-            ${items.map(a => {
-              const traits = a.traits || [];
-              const searchKey = [a.name, a.category, a.categoryLabel, a.description, ...traits.map(t => t.name + ' ' + t.description), ...(a.tags||[])].join(' ');
-              return `
-                <div class="card collapsible" style="break-inside:avoid;margin-bottom:0.5rem;" data-search="${esc(searchKey)}">
-                  <div class="card-header collapse-toggle" style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
-                    <span>${esc(a.name)}</span>
-                    <span class="tag" style="border-color:${color};color:${color};">${esc(a.categoryLabel||cat)}</span>
-                    ${a.evasionException ? `<span class="tag" style="border-color:var(--color-accent-secondary);color:var(--color-accent-secondary);">No Evasion Penalty</span>` : ''}
-                    <span style="margin-left:auto;font-size:0.62rem;color:var(--color-text-secondary);">
-                      ${a.cost ? esc(String(a.cost)) + ' cr' : 'Not for sale'}
-                      ${a.availability ? ' \u00b7 Avail: ' + esc(a.availability) : ''}
-                    </span>
-                  </div>
-                  <div class="card-body">
-                    ${a.description ? `<p style="font-size:0.7rem;color:var(--color-text-secondary);margin-bottom:0.4rem;">${esc(a.description)}</p>` : ''}
-                    ${traits.map(t => `
-                      <div style="background:var(--color-bg-frame);border-left:3px solid var(--color-accent-secondary);padding:0.35rem 0.6rem;margin-top:0.3rem;font-size:0.7rem;">
-                        <strong>${esc(t.name)}</strong>: ${esc(t.description)}
-                      </div>`).join('')}
-                    ${(a.tags||[]).length ? `<div style="margin-top:0.4rem;">${a.tags.map(t=>`<span class="tag" style="border-color:var(--color-border);color:var(--color-text-secondary);">${esc(t)}</span>`).join('')}</div>` : ''}
-                  </div>
-                </div>`;
-            }).join('')}
-          </div>
-        </div>`;
-    });
-
-    panel.innerHTML = html || '<p style="color:var(--color-text-secondary);font-size:0.75rem;">No armor data found.</p>';
-    refreshHandbookFilter();
-  }
-
-  /* ── Render Game System ─────────────────────────────────────── */
-  function renderGameSystem(data) {
-    const panel = document.querySelector('#hb-section-gamesystem .hb-section-body');
-    let html = '';
-    const list = Array.isArray(data) ? data : [data];
-
-    list.forEach(section => {
-      html += `
-        <div class="card collapsible open" style="margin-bottom:0.75rem;" data-search="${esc(section.name || section.id || '')} ${esc(section.summary || '')}">
-          <div class="card-header collapse-toggle">${esc(section.name || section.id || 'Section')}</div>
-          <div class="card-body">
-            ${section.tag ? `<span class="tag" style="border-color:var(--color-accent-secondary);color:var(--color-accent-secondary);">${esc(section.tag)}</span>` : ''}
-            ${section.summary ? `<p style="font-size:0.72rem;margin:0.4rem 0 0.6rem;">${esc(section.summary)}</p>` : ''}
-            ${section.description ? `<p style="font-size:0.72rem;color:var(--color-text-secondary);margin-bottom:0.5rem;">${esc(section.description)}</p>` : ''}
-            ${renderSystemObject(section)}
-          </div>
-        </div>`;
-    });
-
-    panel.innerHTML = html;
-    refreshHandbookFilter();
-  }
-
-  function renderSystemObject(obj) {
-    let html = '';
-    const skip = new Set(['id','name','tag','summary','description']);
-    Object.keys(obj).forEach(key => {
-      if (skip.has(key)) return;
-      const val = obj[key];
-      if (val === null || val === undefined) return;
-      html += `<div class="rule-section">
-        <h3>${esc(key)}</h3>`;
-      if (typeof val === 'string') {
-        html += `<p style="font-size:0.7rem;">${esc(val)}</p>`;
-      } else if (Array.isArray(val)) {
-        html += `<ul style="margin:0;padding-left:1.2rem;">`;
-        val.forEach(item => {
-          if (typeof item === 'string') {
-            html += `<li style="font-size:0.7rem;margin-bottom:0.2rem;">${esc(item)}</li>`;
-          } else if (typeof item === 'object') {
-            html += `<li style="font-size:0.7rem;margin-bottom:0.35rem;list-style:none;margin-left:-1.2rem;background:var(--color-bg-frame);padding:0.3rem 0.5rem;margin-bottom:0.3rem;">`;
-            Object.keys(item).forEach(k => {
-              if (item[k] !== null && item[k] !== undefined) {
-                html += `<span style="color:var(--color-accent-secondary);margin-right:0.3rem;">${esc(k)}:</span><span style="margin-right:0.75rem;">${esc(item[k])}</span>`;
-              }
-            });
-            html += `</li>`;
-          }
-        });
-        html += `</ul>`;
-      } else if (typeof val === 'object') {
-        Object.keys(val).forEach(k => {
-          if (val[k] !== null && val[k] !== undefined) {
-            html += `<div style="font-size:0.7rem;margin-bottom:0.2rem;"><span style="color:var(--color-accent-secondary);margin-right:0.35rem;">${esc(k)}</span>${typeof val[k] === 'string' ? esc(val[k]) : JSON.stringify(val[k])}</div>`;
-          }
-        });
-      }
-      html += `</div>`;
-    });
-    return html;
-  }
-
-  /* ── Render Gear ─────────────────────────────────────────── */
-  const GEAR_TIERS = [
-    { range: '0\u20133', label: 'Fleeting' },
-    { range: '4\u20137', label: 'Masterful' },
-    { range: '8+',       label: 'Legendary' }
-  ];
-
-  const GEAR_CATEGORY_ORDER = ['medical','explosive','tech','infiltration','surveillance','communication','survival','tools'];
-  const GEAR_CATEGORY_COLORS = {
-    medical:       '#44AA66',
-    explosive:     '#CC0000',
-    tech:          '#AA44AA',
-    infiltration:  '#44AAAA',
-    surveillance:  '#5588CC',
-    communication: '#5588CC',
-    survival:      'var(--color-accent-secondary)',
-    tools:         '#888888'
-  };
-
-  function renderGearEffectTrack(gear) {
-    if (gear.customEffectRows && Array.isArray(gear.customEffectRows)) {
-      return `
-        <div style="margin:0.4rem 0;">
-          <div style="font-size:0.58rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-text-secondary);margin-bottom:0.2rem;">Effect Track</div>
-          ${GEAR_TIERS.map((tier, i) => `
-            <div class="tier-row" style="grid-template-columns:80px 80px 1fr;">
-              <div class="tier-label" style="font-size:0.62rem;color:var(--color-text-secondary);">${esc(tier.range)}</div>
-              <div style="font-size:0.65rem;color:var(--color-text-secondary);">${esc(tier.label)}</div>
-              <div style="font-size:0.68rem;">${gear.customEffectRows[i] !== undefined ? esc(gear.customEffectRows[i]) : '\u2014'}</div>
-            </div>`).join('')}
-        </div>`;
-    }
-    const wp = gear.weaponProfile;
-    if (wp && wp.customDamage && Array.isArray(wp.customDamage)) {
-      return `
-        <div style="margin:0.4rem 0;">
-          <div style="font-size:0.58rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-text-secondary);margin-bottom:0.2rem;">Damage Track</div>
-          ${GEAR_TIERS.map((tier, i) => `
-            <div class="tier-row">
-              <div class="tier-label" style="font-size:0.62rem;color:var(--color-text-secondary);">${esc(tier.range)}</div>
-              <div style="font-size:0.65rem;color:var(--color-text-secondary);">${esc(tier.label)}</div>
-              <div style="font-size:0.7rem;font-weight:600;">${wp.customDamage[i] !== undefined ? wp.customDamage[i] + ' dmg' : '\u2014'}</div>
-            </div>`).join('')}
-        </div>`;
-    }
-    if (wp && wp.fixedPowerDie) {
-      return `<div style="margin:0.4rem 0;font-size:0.7rem;">Power Die: <strong>2\u00d7${esc(wp.fixedPowerDie)}</strong> (take highest)</div>`;
-    }
-    return '';
-  }
-
-  function renderGear(data) {
-    const panel = document.querySelector('#hb-section-gear .hb-section-body');
-    const groups = {};
-    GEAR_CATEGORY_ORDER.forEach(c => { groups[c] = []; });
-
-    data.forEach(g => {
-      const cat = g.category || 'tools';
-      if (!groups[cat]) groups[cat] = [];
-      groups[cat].push(g);
-    });
-
-    let html = '';
-    GEAR_CATEGORY_ORDER.forEach(cat => {
-      const items = groups[cat];
-      if (!items || !items.length) return;
-      const color = GEAR_CATEGORY_COLORS[cat] || '#888';
-      const label = items[0].categoryLabel || cat.charAt(0).toUpperCase() + cat.slice(1);
-
-      html += `
-        <div style="margin-bottom:1.25rem;">
-          <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.5rem;padding-bottom:0.3rem;border-bottom:2px solid ${color};">
-            <h2 style="font-family:'Audiowide',sans-serif;font-size:0.75rem;color:${color};margin:0;text-transform:capitalize;">${esc(label)}</h2>
-          </div>
-          <div style="columns:2;column-gap:0.75rem;">
-            ${items.map(g => {
-              const wp = g.weaponProfile;
-              const traits = g.traits || [];
-              const gambits = g.gambits || [];
-              const searchKey = [g.name, g.category, g.categoryLabel, g.description, ...(g.tags||[]), ...traits.map(t => t.name + ' ' + t.description), ...gambits.map(b => b.name + ' ' + (b.rule||''))].join(' ');
-
-              const rangeStr = wp && wp.range
-                ? (Array.isArray(wp.range)
-                  ? 'Range: 0\u2013' + wp.range[0] + ' \u00b7 ' + (wp.range[0]+1) + '\u2013' + wp.range[1] + ' \u00b7 ' + (wp.range[1]+1) + '\u2013' + wp.range[2]
-                  : '')
-                : '';
-
-              return `
-                <div class="card collapsible" style="break-inside:avoid;margin-bottom:0.5rem;" data-search="${esc(searchKey)}">
-                  <div class="card-header collapse-toggle" style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
-                    <span>${esc(g.name)}</span>
-                    <span class="tag" style="border-color:${color};color:${color};">${esc(g.categoryLabel || cat)}</span>
-                    <span style="margin-left:auto;font-size:0.62rem;color:var(--color-text-secondary);">
-                      ${g.cost ? esc(String(g.cost)) + ' cr' : ''}
-                      ${g.availability ? ' \u00b7 Avail: ' + esc(g.availability) : ''}
-                    </span>
-                  </div>
-                  <div class="card-body">
-                    ${g.description ? `<p style="font-size:0.7rem;color:var(--color-text-secondary);margin-bottom:0.4rem;">${esc(g.description)}</p>` : ''}
-                    ${wp ? `<div style="font-size:0.65rem;color:var(--color-text-secondary);margin-bottom:0.3rem;">
-                      ${wp.discipline ? esc(wp.discipline) + ' (' + esc(wp.arena||'') + ')' : ''}
-                      ${wp.defense ? ' \u00b7 vs. ' + esc(wp.defense) : ''}
-                      ${rangeStr ? ' \u00b7 ' + esc(rangeStr) : ''}
-                    </div>` : ''}
-                    ${renderGearEffectTrack(g)}
-                    ${traits.map(t => `
-                      <div style="background:var(--color-bg-frame);border-left:3px solid var(--color-accent-secondary);padding:0.35rem 0.6rem;margin-top:0.3rem;font-size:0.7rem;">
-                        <strong>${esc(t.name)}</strong>: ${esc(t.description)}
-                      </div>`).join('')}
-                    ${gambits.length ? `
-                      <div style="margin-top:0.4rem;">
-                        <div style="font-size:0.58rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-text-secondary);margin-bottom:0.2rem;">Gambits</div>
-                        ${gambits.map(b => `
-                          <div class="gambit-block d10" style="margin-top:0.25rem;">
-                            <div class="gambit-name">${esc(b.name||'')}${b.targetManeuver ? ' <span style="font-size:0.6rem;font-weight:400;opacity:0.7;">\u2192 ' + esc(b.targetManeuver) + '</span>' : ''}</div>
-                            <div style="font-size:0.68rem;">${esc(b.rule||'')}</div>
-                          </div>`).join('')}
-                      </div>` : ''}
-                    ${(g.tags||[]).length ? `<div style="margin-top:0.4rem;">${g.tags.map(t=>`<span class="tag" style="border-color:var(--color-border);color:var(--color-text-secondary);">${esc(t)}</span>`).join('')}</div>` : ''}
-                  </div>
-                </div>`;
-            }).join('')}
-          </div>
-        </div>`;
-    });
-
-    panel.innerHTML = html || '<p style="color:var(--color-text-secondary);font-size:0.75rem;">No gear data found.</p>';
-    refreshHandbookFilter();
-  }
-
-  /* ── Fetch all data ─────────────────────────────────────── */
-  fetch('/data/glossary.json')
-    .then(r => r.json())
-    .then(data => {
-      renderArenasDisciplines(data);
-      renderConditions(data);
-    })
-    .catch(err => {
-      ['#hb-section-arenas .hb-section-body','#hb-section-conditions .hb-section-body'].forEach(sel => {
-        const el = document.querySelector(sel);
-        if (el) el.innerHTML = `<p style="color:var(--color-accent-primary);font-size:0.75rem;">Failed to load glossary: ${err.message}</p>`;
-      });
-    });
-
-  const files = [
-    { key: 'maneuvers',  url: '/data/maneuvers.json',   render: renderManeuvers },
-    { key: 'threats',    url: '/data/threats.json',     render: renderThreats },
-    { key: 'armor',      url: '/data/armor.json',       render: renderArmor },
-    { key: 'gamesystem', url: '/data/gamesystem.json',  render: renderGameSystem },
-    { key: 'gear',       url: '/data/gear.json',        render: renderGear },
-  ];
-
-  files.forEach(({ key, url, render }) => {
-    fetch(url)
-      .then(r => r.json())
-      .then(data => render(data))
-      .catch(err => {
-        const el = document.querySelector('#hb-section-' + key + ' .hb-section-body');
-        if (el) el.innerHTML = `<p style="color:var(--color-accent-primary);font-size:0.75rem;">Failed to load ${url}: ${err.message}</p>`;
-      });
-  });
-
-  Promise.all([
-    fetch('/data/weapons.json').then(r => r.json()),
-    fetch('/data/chassis.json').then(r => r.json()),
-  ])
-    .then(([weapons, chassis]) => renderWeapons(weapons, chassis))
-    .catch(err => {
-      const el = document.querySelector('#hb-section-weapons .hb-section-body');
-      if (el) el.innerHTML = `<p style="color:var(--color-accent-primary);font-size:0.75rem;">Failed to load weapons: ${err.message}</p>`;
-    });
-}());
-</script>
+  <script src="/js/command-bridge.js"></script>
 </body>
 </html>
