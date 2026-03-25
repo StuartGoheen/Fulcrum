@@ -102,7 +102,7 @@
       ],
       "discipline": "tactics",
       "arena": "wits",
-      "description": "Move to the nearest cover in your zone and establish a defensive position. Roll Tactics (Wits). Floor: always gain at least [Cover 1] regardless of result. Higher results reflect better positioning, tighter angles, or stacked obstacles. Requires cover to be available in the zone. Cover must be maintained — spend a Maneuver pip each round to hold your position. If you cannot or choose not to maintain, you lose Cover at the start of your next turn.",
+      "description": "Move to the nearest cover in your zone and establish a defensive position. Roll Tactics (Wits). Floor: always gain at least [Cover 1] regardless of result. Higher results reflect better positioning, tighter angles, or stacked obstacles. Requires cover to be available in the zone. Cover must be maintained — spend a Maneuver pip each round to hold your position. If you cannot or choose not to maintain, your Cover degrades to [Cover 1] at the start of your next turn. You remain behind the obstacle but you are no longer actively managing your angles.",
       "risk": "Requires cover to be available in the zone. GM adjudicates maximum Cover available based on terrain.",
       "effect": [
         {
