@@ -9,480 +9,52 @@
   <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="icon" href="/icon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="/css/output.css" />
-  <style>
-    /* ── Viewport lock ────────────────────────────────────────── */
-    html, body { height: 100%; overflow: hidden; }
-
-    .mkt-page { display: flex; flex-direction: column; height: 100vh; }
-
-    .mkt-header {
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.5rem 1rem;
-      border-bottom: 1px solid var(--color-border);
-    }
-
-    .mkt-content {
-      flex: 1;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      overflow: hidden;
-    }
-
-    /* ── Left column ──────────────────────────────────────────── */
-    .mkt-left {
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* Pinned search + filters */
-    .mkt-left-fixed {
-      flex-shrink: 0;
-      padding: 0.6rem 0.75rem 0.4rem;
-      border-bottom: 1px solid var(--color-border);
-    }
-
-    /* Scrollable item list */
-    .mkt-left-scroll {
-      flex: 1;
-      overflow-y: auto;
-      padding: 0.5rem 0.75rem 1rem;
-    }
-
-    /* ── Right column ─────────────────────────────────────────── */
-    .mkt-right {
-      overflow-y: auto;
-      border-left: 1px solid var(--color-border);
-      padding: 0.75rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
-    /* ── Filter bar ───────────────────────────────────────────── */
-    .mkt-filters {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.25rem;
-      padding-bottom: 0.25rem;
-      flex-shrink: 0;
-    }
-
-    .f-btn {
-      font-family: 'Audiowide', sans-serif;
-      font-size: 0.52rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 0.2rem 0.5rem;
-      border: 1px solid var(--color-border);
-      background: transparent;
-      color: var(--color-text-secondary);
-      cursor: pointer;
-      transition: all 0.12s;
-    }
-    .f-btn:hover, .f-btn.active {
-      border-color: var(--color-accent-primary);
-      color: var(--color-accent-primary);
-    }
-    .f-btn.rest-X.active  { border-color: #CC2222; color: #CC2222; }
-    .f-btn.rest-R.active  { border-color: #DC6400; color: #DC6400; }
-    .f-btn.rest-F.active  { border-color: #C8A000; color: #C8A000; }
-
-    /* ── Search ───────────────────────────────────────────────── */
-    .mkt-search {
-      width: 100%;
-      background: var(--color-bg-frame);
-      border: 1px solid var(--color-border);
-      color: var(--color-text-primary);
-      font-family: 'Exo 2', sans-serif;
-      font-size: 0.72rem;
-      padding: 0.3rem 0.6rem;
-      box-sizing: border-box;
-    }
-    .mkt-search:focus { outline: none; border-color: var(--color-accent-primary); }
-
-    /* ── Category group label ─────────────────────────────────── */
-    .cat-label {
-      font-family: 'Audiowide', sans-serif;
-      font-size: 0.52rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--color-text-secondary);
-      padding: 0.5rem 0 0.2rem;
-    }
-
-    /* ── Restriction badge (header inline) ───────────────────── */
-    .rbadge {
-      font-family: 'Audiowide', sans-serif;
-      font-size: 0.48rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      padding: 0.1rem 0.35rem;
-      flex-shrink: 0;
-    }
-    .rbadge-none { color: #666;    border: 1px solid #555; }
-    .rbadge-F    { color: #C8A000; border: 1px solid #C8A000; }
-    .rbadge-R    { color: #DC6400; border: 1px solid #DC6400; }
-    .rbadge-X    { color: #CC2222; border: 1px solid #CC2222; }
-
-    /* ── Selected card highlight ──────────────────────────────── */
-    .armory-weapon-card.mkt-selected {
-      border-color: var(--color-accent-primary) !important;
-      background: color-mix(in srgb, var(--color-accent-primary) 6%, var(--color-bg-panel)) !important;
-    }
-
-    /* ── Open card header accent ──────────────────────────────── */
-    .armory-weapon-card.is-open > .armory-weapon-header {
-      background: color-mix(in srgb, var(--color-accent-primary) 10%, var(--color-bg-panel));
-      border-left: 2px solid var(--color-accent-primary);
-    }
-    .armory-weapon-card.is-open {
-      border-color: color-mix(in srgb, var(--color-accent-primary) 40%, var(--color-border));
-    }
-
-    /* ── Deal panel elements ──────────────────────────────────── */
-    .deal-label {
-      font-family: 'Audiowide', sans-serif;
-      font-size: 0.48rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--color-text-secondary);
-    }
-
-    /* Compact preview bar (selected item + Add button) */
-    .deal-preview-bar {
-      display: flex;
-      align-items: center;
-      gap: 0.35rem;
-      padding: 0.3rem 0.45rem;
-      background: var(--color-bg-frame);
-      border: 1px solid var(--color-border);
-    }
-    .deal-preview-name {
-      flex: 1;
-      min-width: 0;
-      font-size: 0.75rem;
-      font-weight: 600;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      color: var(--color-text-primary);
-    }
-    .deal-add-btn {
-      font-family: 'Audiowide', sans-serif;
-      font-size: 0.45rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 0.2rem 0.5rem;
-      background: transparent;
-      border: 1px solid var(--color-accent-primary);
-      color: var(--color-accent-primary);
-      cursor: pointer;
-      flex-shrink: 0;
-      transition: all 0.12s;
-    }
-    .deal-add-btn:hover { background: color-mix(in srgb, var(--color-accent-primary) 15%, transparent); }
-    .deal-add-btn:disabled { opacity: 0.35; cursor: default; border-color: var(--color-border); color: var(--color-text-secondary); }
-
-    /* Compact 3-column dice inputs */
-    .dice-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 0.3rem;
-      padding: 0.4rem;
-      background: var(--color-bg-frame);
-      border: 1px solid var(--color-border);
-    }
-    .dice-cell { display: flex; flex-direction: column; gap: 0.15rem; }
-    .dice-input {
-      width: 100%;
-      box-sizing: border-box;
-      background: var(--color-bg-primary);
-      border: 1px solid var(--color-border);
-      color: var(--color-text-primary);
-      font-family: 'Audiowide', sans-serif;
-      font-size: 1.0rem;
-      text-align: center;
-      padding: 0.2rem 0.1rem;
-    }
-    .dice-input:focus { outline: none; border-color: var(--color-accent-primary); }
-    .dice-outcome {
-      font-family: 'Audiowide', sans-serif;
-      font-size: 0.42rem;
-      letter-spacing: 0.06em;
-      text-align: center;
-      min-height: 0.8rem;
-      line-height: 1.1;
-    }
-
-    .step-pips { display: flex; gap: 3px; align-items: center; }
-    .pip       { width: 6px; height: 6px; border-radius: 1px; background: var(--color-accent-primary); }
-    .pip.empty { background: transparent; border: 1px solid var(--color-border); opacity: 0.4; }
-
-    /* Package list */
-    .pkg-section {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-      min-height: 0;
-    }
-    .pkg-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-bottom: 0.3rem;
-      margin-bottom: 0.2rem;
-      border-bottom: 1px solid var(--color-border);
-    }
-    .pkg-empty {
-      font-family: 'Audiowide', sans-serif;
-      font-size: 0.55rem;
-      letter-spacing: 0.08em;
-      color: var(--color-text-secondary);
-      text-align: center;
-      padding: 1.2rem 0;
-    }
-    .pkg-row {
-      display: flex;
-      align-items: center;
-      gap: 0.3rem;
-      padding: 0.3rem 0;
-      border-bottom: 1px solid color-mix(in srgb, var(--color-border) 40%, transparent);
-    }
-    .pkg-row-name {
-      flex: 1;
-      min-width: 0;
-      font-size: 0.68rem;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      color: var(--color-text-primary);
-    }
-    .pkg-row-price {
-      font-family: 'Audiowide', sans-serif;
-      font-size: 0.6rem;
-      color: var(--color-accent-primary);
-      flex-shrink: 0;
-    }
-    .pkg-row-price.pending { color: var(--color-text-secondary); font-style: italic; }
-    .pkg-remove {
-      background: transparent;
-      border: none;
-      color: var(--color-text-secondary);
-      cursor: pointer;
-      font-size: 0.7rem;
-      line-height: 1;
-      padding: 0 0.15rem;
-      flex-shrink: 0;
-    }
-    .pkg-remove:hover { color: #CC3333; }
-
-    .pkg-total-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-top: 0.35rem;
-      margin-top: 0.1rem;
-      border-top: 1px solid var(--color-border);
-    }
-    .pkg-total-label {
-      font-family: 'Audiowide', sans-serif;
-      font-size: 0.5rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--color-text-secondary);
-    }
-    .pkg-total-val {
-      font-family: 'Audiowide', sans-serif;
-      font-size: 0.9rem;
-      color: var(--color-accent-primary);
-    }
-
-    .no-deal-block {
-      background: rgba(180,20,20,0.08);
-      border: 1px solid #CC2222;
-      color: #CC3333;
-      font-family: 'Audiowide', sans-serif;
-      font-size: 0.6rem;
-      letter-spacing: 0.1em;
-      text-align: center;
-      padding: 0.5rem;
-      margin-top: 0.3rem;
-    }
-    .no-deal-sub {
-      display: block;
-      font-family: 'Exo 2', sans-serif;
-      font-size: 0.6rem;
-      letter-spacing: 0.04em;
-      margin-top: 0.2rem;
-      color: #AA3333;
-    }
-
-    /* ── Store toggle ─────────────────────────────────────────── */
-    .store-toggle {
-      display: flex;
-      gap: 0;
-      flex-shrink: 0;
-    }
-    .store-btn {
-      font-family: 'Audiowide', sans-serif;
-      font-size: 0.5rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 0.3rem 0.75rem;
-      background: transparent;
-      border: 1px solid var(--color-border);
-      color: var(--color-text-secondary);
-      cursor: pointer;
-      transition: all 0.15s;
-      white-space: nowrap;
-    }
-    .store-btn:first-child { border-right: none; }
-    .store-btn.active-market {
-      border-color: #44CC66;
-      color: #44CC66;
-      background: rgba(68,204,102,0.06);
-    }
-    .store-btn.active-black {
-      border-color: #CC2222;
-      color: #CC2222;
-      background: rgba(204,34,34,0.06);
-    }
-
-    /* ── Out of stock notice (Market mode) ────────────────────── */
-    .out-of-stock-block {
-      background: rgba(68,204,102,0.05);
-      border: 1px solid #44CC66;
-      color: #44CC66;
-      font-family: 'Audiowide', sans-serif;
-      font-size: 0.6rem;
-      letter-spacing: 0.1em;
-      text-align: center;
-      padding: 0.4rem;
-      margin-top: 0.3rem;
-    }
-
-    /* License fee sub-row */
-    .pkg-row-license {
-      display: flex;
-      align-items: center;
-      gap: 0.3rem;
-      padding: 0.1rem 0 0.25rem 0.5rem;
-      border-bottom: 1px solid color-mix(in srgb, var(--color-border) 40%, transparent);
-    }
-    .pkg-row-license-label {
-      flex: 1;
-      font-size: 0.58rem;
-      font-style: italic;
-      color: #C8A000;
-    }
-    .pkg-row-license-val {
-      font-family: 'Audiowide', sans-serif;
-      font-size: 0.55rem;
-      color: #C8A000;
-      flex-shrink: 0;
-    }
-
-    /* ── Request section ──────────────────────────────────────── */
-    .req-field {
-      width: 100%;
-      background: var(--color-bg-frame);
-      border: 1px solid var(--color-border);
-      color: var(--color-text-primary);
-      font-family: 'Exo 2', sans-serif;
-      font-size: 0.7rem;
-      padding: 0.4rem 0.6rem;
-      margin-bottom: 0.35rem;
-    }
-    .req-field:focus { outline: none; border-color: var(--color-accent-primary); }
-    textarea.req-field { resize: vertical; min-height: 50px; }
-
-    .mkt-btn {
-      font-family: 'Audiowide', sans-serif;
-      font-size: 0.52rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 0.4rem 0.75rem;
-      background: transparent;
-      border: 1px solid var(--color-border);
-      color: var(--color-text-secondary);
-      cursor: pointer;
-      width: 100%;
-      transition: all 0.12s;
-    }
-    .mkt-btn:hover { border-color: var(--color-accent-primary); color: var(--color-accent-primary); }
-
-    .req-output {
-      display: none;
-      background: var(--color-bg-frame);
-      border: 1px solid var(--color-border);
-      padding: 0.5rem;
-      font-size: 0.6rem;
-      font-family: monospace;
-      color: var(--color-text-secondary);
-      white-space: pre-wrap;
-      margin-top: 0.35rem;
-    }
-  </style>
+  <link rel="stylesheet" href="/css/market.css" />
 </head>
 <body class="font-body" style="background-color:var(--color-bg-primary);color:var(--color-text-primary);">
 <div class="starfield" aria-hidden="true"></div>
 <div class="mkt-page relative z-10">
 
-  <!-- Header -->
   <header class="mkt-header">
     <div>
-      <p style="font-family:'Audiowide',sans-serif;font-size:0.48rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--color-text-secondary);">Edge of the Empire</p>
-      <h1 id="store-title" style="font-family:'Audiowide',sans-serif;font-size:0.9rem;letter-spacing:0.1em;line-height:1.2;color:#CC2222;">The Black Market</h1>
+      <p class="mkt-header-brand">Edge of the Empire</p>
+      <h1 id="store-title" class="mkt-header-title" style="color:#CC2222;">The Black Market</h1>
     </div>
     <div class="store-toggle">
-      <button id="btn-black"  class="store-btn active-black"  onclick="setMode('black')">Black Market</button>
-      <button id="btn-market" class="store-btn"               onclick="setMode('market')">The Market</button>
+      <button id="btn-black" class="store-btn active-black">Black Market</button>
+      <button id="btn-market" class="store-btn">The Market</button>
     </div>
-    <p id="store-tagline" style="font-size:0.58rem;color:var(--color-text-secondary);font-style:italic;letter-spacing:0.05em;">No questions. No receipts. No refunds.</p>
+    <p id="store-tagline" class="mkt-header-tagline">No questions. No receipts. No refunds.</p>
     <div style="display:flex;align-items:center;gap:0.75rem;">
-      <button onclick="openSourceViewer()" style="font-family:'Audiowide',sans-serif;font-size:0.48rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.25rem 0.6rem;border:1px solid var(--color-border);background:transparent;color:var(--color-text-secondary);cursor:pointer;" onmouseover="this.style.borderColor='var(--color-accent-primary)';this.style.color='var(--color-accent-primary)'" onmouseout="this.style.borderColor='var(--color-border)';this.style.color='var(--color-text-secondary)'">Source DB</button>
-      <a href="/" style="font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-text-secondary);text-decoration:none;font-family:'Audiowide',sans-serif;">&#8592; Bridge</a>
+      <button id="sv-open" class="mkt-header-link">Source DB</button>
+      <a href="/" class="mkt-back-link">&#8592; Bridge</a>
     </div>
   </header>
 
   <div class="mkt-content">
 
-    <!-- ── LEFT: Item Browser ──────────────────────────────── -->
     <div class="mkt-left">
-
-      <!-- Pinned: search + filters -->
       <div class="mkt-left-fixed">
-        <input id="search" type="text" class="mkt-search" placeholder="Search…" oninput="applyFilters()" style="margin-bottom:0.35rem;" />
+        <input id="search" type="text" class="mkt-search" placeholder="Search…" style="margin-bottom:0.35rem;" />
 
-        <!-- Category filters -->
         <div class="mkt-filters" id="cat-bar" style="margin-bottom:0.2rem;">
-          <button class="f-btn active" data-cat="all" onclick="setCat(this)">All</button>
+          <button class="f-btn active" data-cat="all">All</button>
         </div>
 
-        <!-- Restriction filters -->
         <div id="rest-bar" class="mkt-filters" style="margin-bottom:0;">
-          <button class="f-btn active" data-rest="all" onclick="setRest(this)">All</button>
-          <button class="f-btn" data-rest="" onclick="setRest(this)">Legal</button>
-          <button class="f-btn rest-F" data-rest="F" onclick="setRest(this)">F — Licensed</button>
-          <button class="f-btn rest-R" data-rest="R" id="rest-btn-R" onclick="setRest(this)">R — Restricted</button>
-          <button class="f-btn rest-X" data-rest="X" id="rest-btn-X" onclick="setRest(this)">X — Illegal</button>
+          <button class="f-btn active" data-rest="all">All</button>
+          <button class="f-btn" data-rest="">Legal</button>
+          <button class="f-btn rest-F" data-rest="F">F — Licensed</button>
+          <button class="f-btn rest-R" data-rest="R" id="rest-btn-R">R — Restricted</button>
+          <button class="f-btn rest-X" data-rest="X" id="rest-btn-X">X — Illegal</button>
         </div>
       </div>
 
-      <!-- Scrollable: item cards + request form -->
       <div class="mkt-left-scroll">
-
-        <!-- Item cards rendered here -->
         <div id="item-list">
           <p style="font-size:0.7rem;color:var(--color-text-secondary);">Loading inventory…</p>
         </div>
 
-        <!-- Item Request -->
         <div style="margin-top:1.5rem;padding-top:0.75rem;border-top:1px solid var(--color-border);">
           <p class="deal-label" style="margin-bottom:0.5rem;">Request an Item</p>
           <p style="font-size:0.62rem;color:var(--color-text-secondary);margin-bottom:0.6rem;line-height:1.6;">
@@ -492,901 +64,94 @@
           <input id="req-name" class="req-field" type="text" placeholder="Item name" />
           <textarea id="req-desc" class="req-field" placeholder="What does it do in the fiction?"></textarea>
           <input id="req-link" class="req-field" type="url" placeholder="Wookieepedia link (optional)" />
-          <button class="mkt-btn" onclick="submitRequest()">Submit Request</button>
+          <button id="req-submit" class="mkt-btn">Submit Request</button>
           <div id="req-status" style="display:none;font-size:0.65rem;margin-top:0.4rem;padding:0.4rem;border:1px solid var(--color-border);"></div>
         </div>
-
       </div>
-
     </div>
 
-    <!-- ── RIGHT: Deal panel ───────────────────────────────── -->
     <div class="mkt-right">
+      <p id="deal-panel-title" class="deal-label" style="color:#CC2222;margin-bottom:0.4rem;flex-shrink:0;font-size:0.52rem;letter-spacing:0.12em;">The Art of the Deal</p>
 
-      <p id="deal-panel-title" style="font-family:'Audiowide',sans-serif;font-size:0.52rem;letter-spacing:0.12em;text-transform:uppercase;color:#CC2222;margin-bottom:0.4rem;flex-shrink:0;">The Art of the Deal</p>
-
-      <!-- Selected item preview + Add button -->
       <div id="deal-preview" class="deal-preview-bar" style="flex-shrink:0;">
         <div style="display:flex;flex-direction:column;gap:0.1rem;flex:1;min-width:0;">
           <p class="deal-label">Selected</p>
           <p id="d-name" class="deal-preview-name">— none —</p>
         </div>
-        <span id="d-rbadge" class="rbadge rbadge-none" style="flex-shrink:0;"></span>
-        <button id="add-btn" class="deal-add-btn" onclick="addToList()" disabled>+ Add</button>
+        <span id="d-rbadge" class="rbadge rbadge-none"></span>
+        <button id="add-btn" class="deal-add-btn" disabled>+ Add</button>
       </div>
 
-      <!-- Compact dice parameters -->
       <div class="dice-grid" style="flex-shrink:0;margin-top:0.4rem;">
-        <!-- Control -->
         <div class="dice-cell">
           <p class="deal-label">Control</p>
-          <input id="ctrl-in" class="dice-input" type="number" min="0" max="20" placeholder="—" oninput="recalc()" />
+          <input id="ctrl-in" class="dice-input" type="number" min="0" max="20" placeholder="—" />
           <div id="ctrl-tag" class="dice-outcome" style="color:var(--color-text-secondary);">—</div>
           <p class="deal-label" style="margin-top:0.25rem;font-size:0.38rem;">Step ↓ Avail</p>
           <div id="ctrl-sd-pips" class="step-pips" style="justify-content:center;margin-top:0.1rem;"></div>
         </div>
-        <!-- Power -->
         <div id="pwr-cell" class="dice-cell">
           <p id="pwr-label" class="deal-label">Power</p>
-          <input id="pwr-in" class="dice-input" type="number" min="0" max="12" placeholder="—" oninput="recalc()" />
+          <input id="pwr-in" class="dice-input" type="number" min="0" max="12" placeholder="—" />
           <div id="pwr-tag" class="dice-outcome" style="color:var(--color-text-secondary);">—</div>
           <p id="pwr-sd-label" class="deal-label" style="margin-top:0.25rem;font-size:0.38rem;">Step ↓ Rest.</p>
           <div id="pwr-sd-pips" class="step-pips" style="justify-content:center;margin-top:0.1rem;"></div>
         </div>
-        <!-- Story mod -->
         <div class="dice-cell">
           <p class="deal-label">Story %</p>
-          <input id="mod-in" class="dice-input" type="number" placeholder="0" oninput="recalc()" />
+          <input id="mod-in" class="dice-input" type="number" placeholder="0" />
           <div class="dice-outcome" style="color:var(--color-text-secondary);">modifier</div>
         </div>
       </div>
 
-      <!-- THE PACKAGE -->
       <div class="pkg-section" style="margin-top:0.5rem;">
         <div class="pkg-header">
           <span class="deal-label" style="color:var(--color-accent-deep);">The Package</span>
-          <button onclick="clearList()" style="font-family:'Audiowide',sans-serif;font-size:0.4rem;letter-spacing:0.08em;text-transform:uppercase;background:transparent;border:none;color:var(--color-text-secondary);cursor:pointer;padding:0;" title="Clear all">Clear</button>
+          <button id="pkg-clear" style="font-family:'Audiowide',sans-serif;font-size:0.4rem;letter-spacing:0.08em;text-transform:uppercase;background:transparent;border:none;color:var(--color-text-secondary);cursor:pointer;padding:0;" title="Clear all">Clear</button>
         </div>
 
-        <!-- No deal banner -->
         <div id="no-deal" class="no-deal-block" style="display:none;">
           NO DEAL
           <span id="no-deal-sub" class="no-deal-sub"></span>
         </div>
 
-        <!-- Item rows -->
         <div id="pkg-list">
           <p class="pkg-empty">Add items from the left<br/>to build your list.</p>
         </div>
 
-        <!-- Total row (hidden until items present) -->
         <div id="pkg-total-row" class="pkg-total-row" style="display:none;">
           <span class="pkg-total-label">Total</span>
           <span id="pkg-total-val" class="pkg-total-val"></span>
         </div>
       </div>
-
     </div>
 
   </div>
 </div>
 
-<script>
-  /* ── Constants ─────────────────────────────────────────────── */
-
-  const WEAPON_TIERS = [
-    { range: '0–3', label: 'Fleeting' },
-    { range: '4–7', label: 'Masterful' },
-    { range: '8+',  label: 'Legendary' }
-  ];
-
-  /* Black Market: full underworld markup */
-  const MARKUP_BLACK = {
-    '':  { min: 1.0,  max: 1.2,  label: 'Street Tax'    },
-    'F': { min: 1.2,  max: 1.8,  label: 'Off-Book'       },
-    'R': { min: 2.0,  max: 3.5,  label: 'Risk Premium'   },
-    'X': { min: 3.0,  max: 8.0,  label: 'Death Sentence' }
-  };
-
-  /* The Market: legal storefront, tight range — F license fee added separately */
-  const MARKUP_MARKET = {
-    '':  { min: 0.90, max: 1.05 },
-    'F': { min: 0.90, max: 1.05 }   /* item price only — license is a flat addition */
-  };
-
-  /* Imperial license surcharge (non-negotiable, on top of item price) */
-  const LICENSE_FEE_PCT = 0.15;
-
-  const CTRL_SD = { 1: 0, 2: 1, 3: 2, 4: 3 };
-  const PWR_SD  = { '': 0, 'F': 1, 'R': 2, 'X': 3 };
-
-  const NO_DEAL_MSG_BLACK = {
-    '':  'No contact. Try again next port.',
-    'F': 'No contact. Try again next port.',
-    'R': 'No contact. Someone may have noticed.',
-    'X': 'No deal — and now someone is asking questions.'
-  };
-
-  /* ── State ─────────────────────────────────────────────────── */
-  let allItems = [], selected = null, shoppingList = [], activeCat = 'all', activeRest = 'all';
-  let mode = 'black'; /* 'black' | 'market' */
-  let chassisMap = {};
-
-  function parseAvail(raw) {
-    const s = String(raw || '1').toUpperCase().trim().split('/');
-    return { num: parseInt(s[0]) || 1, rest: s[1] || '' };
-  }
-
-  /* ── Store mode ────────────────────────────────────────────── */
-  function setMode(m) {
-    mode = m;
-
-    /* Toggle buttons */
-    document.getElementById('btn-black').className  = 'store-btn' + (m === 'black'  ? ' active-black'  : '');
-    document.getElementById('btn-market').className = 'store-btn' + (m === 'market' ? ' active-market' : '');
-
-    /* Header text */
-    const title    = document.getElementById('store-title');
-    const tagline  = document.getElementById('store-tagline');
-    const panelLbl = document.getElementById('deal-panel-title');
-
-    if (m === 'market') {
-      title.textContent    = 'The Market';
-      title.style.color    = '#44CC66';
-      tagline.textContent  = 'Licensed. Registered. Theoretically legal.';
-      panelLbl.textContent = 'The Purchase';
-      panelLbl.style.color = '#44CC66';
-    } else {
-      title.textContent    = 'The Black Market';
-      title.style.color    = '#CC2222';
-      tagline.textContent  = 'No questions. No receipts. No refunds.';
-      panelLbl.textContent = 'The Art of the Deal';
-      panelLbl.style.color = '#CC2222';
-    }
-
-    /* Power cell label + pip label in market mode (no restriction step-down at a legal store) */
-    const pwrSdLabel = document.getElementById('pwr-sd-label');
-    if (pwrSdLabel) pwrSdLabel.style.display = m === 'market' ? 'none' : '';
-
-    /* R / X restriction filter buttons hidden in Market mode */
-    const btnR = document.getElementById('rest-btn-R');
-    const btnX = document.getElementById('rest-btn-X');
-    if (btnR) btnR.style.display = m === 'market' ? 'none' : '';
-    if (btnX) btnX.style.display = m === 'market' ? 'none' : '';
-
-    /* If current rest filter is R or X and we switch to market, reset to All */
-    if (m === 'market' && (activeRest === 'R' || activeRest === 'X')) {
-      activeRest = 'all';
-      document.querySelectorAll('#rest-bar .f-btn').forEach(b => b.classList.toggle('active', b.dataset.rest === 'all'));
-    }
-
-    /* Clear shopping list on mode switch — prices are fundamentally different */
-    shoppingList = [];
-    if (selected) {
-      document.getElementById('add-btn').disabled    = false;
-      document.getElementById('add-btn').textContent = '+ Add';
-    }
-
-    updateSdPips();
-    applyFilters();
-    recalc();
-  }
-
-  /* ── Step-down pip rendering ──────────────────────────────── */
-  function renderSdPips(el, filled) {
-    if (!el) return;
-    let h = '';
-    for (let i = 0; i < 4; i++) h += `<div class="pip${i < filled ? '' : ' empty'}"></div>`;
-    if (filled === 0) h += '<span style="font-size:0.38rem;color:var(--color-text-secondary);margin-left:3px;">none</span>';
-    el.innerHTML = h;
-  }
-
-  function updateSdPips() {
-    const items = shoppingList.length ? shoppingList : (selected ? [selected] : []);
-    let maxCtrl = 0, maxPwr = 0;
-    items.forEach(item => {
-      const { num, rest } = parseAvail(item.availability);
-      maxCtrl = Math.max(maxCtrl, CTRL_SD[num] ?? 0);
-      if (mode === 'black') maxPwr = Math.max(maxPwr, PWR_SD[rest] ?? 0);
-    });
-    renderSdPips(document.getElementById('ctrl-sd-pips'), maxCtrl);
-    renderSdPips(document.getElementById('pwr-sd-pips'),  mode === 'market' ? 0 : maxPwr);
-  }
-
-  /* ── Outcome labels ────────────────────────────────────────── */
-  function ctrlLabel(n) {
-    if (n === null) return { text: '—', color: 'var(--color-text-secondary)', fail: null };
-    if (n >= 8) return { text: 'MASTERY', color: '#44CC66', fail: false };
-    if (n >= 4) return { text: 'SUCCESS', color: 'var(--color-accent-primary)', fail: false };
-    return { text: 'FAIL', color: '#CC3333', fail: true };
-  }
-  function pwrLabel(n) {
-    if (n === null) return { text: '—', color: 'var(--color-text-secondary)' };
-    if (n >= 8) return { text: 'Legendary', color: '#44CC66' };
-    if (n >= 4) return { text: 'Masterful', color: 'var(--color-accent-primary)' };
-    return { text: 'Fleeting', color: '#CC3333' };
-  }
-
-  /* ── Price calc ────────────────────────────────────────────── */
-  function calcPrice(item, cVal, pVal, mVal) {
-    const { rest } = parseAvail(item.availability);
-    const table   = mode === 'market' ? MARKUP_MARKET : MARKUP_BLACK;
-    const range   = table[rest] || table[''];
-    const norm    = pVal !== null ? Math.min(Math.max(pVal, 0), 12) / 12 : 0;
-    let mult      = range.max - (norm * (range.max - range.min));
-    if (cVal >= 8) mult *= 0.95;
-    mult *= (1 + mVal / 100);
-    return Math.round((item.cost || 0) * mult);
-  }
-
-  /* Imperial license fee — flat 15% of base cost, Market mode F items only */
-  function calcLicenseFee(item) {
-    if (mode !== 'market') return 0;
-    const { rest } = parseAvail(item.availability);
-    return rest === 'F' ? Math.round((item.cost || 0) * LICENSE_FEE_PCT) : 0;
-  }
-
-  /* In Market mode, avail-1 items are always in stock (fail still grants purchase at sticker) */
-  function marketAlwaysAvailable(item) {
-    const { num } = parseAvail(item.availability);
-    return mode === 'market' && num <= 1;
-  }
-
-  /* ── Recalc: update labels + render package ────────────────── */
-  function recalc() {
-    const cRaw = document.getElementById('ctrl-in').value;
-    const pRaw = document.getElementById('pwr-in').value;
-    const mRaw = document.getElementById('mod-in').value;
-
-    const cVal = cRaw === '' ? null : parseInt(cRaw);
-    const pVal = pRaw === '' ? null : Math.min(Math.max(parseInt(pRaw), 0), 12);
-    const mVal = parseFloat(mRaw) || 0;
-
-    const cl = ctrlLabel(cVal);
-    const pl = pwrLabel(pVal);
-
-    const ctrlTag = document.getElementById('ctrl-tag');
-    ctrlTag.textContent = cl.text; ctrlTag.style.color = cl.color;
-
-    const pwrTag = document.getElementById('pwr-tag');
-    pwrTag.textContent = pl.text; pwrTag.style.color = pl.color;
-
-    renderPackage(cVal, pVal, mVal, cl);
-  }
-
-  /* ── Shopping list management ──────────────────────────────── */
-  function addToList() {
-    if (!selected) return;
-    if (shoppingList.find(e => e.id === selected.id)) return;
-    shoppingList.push(selected);
-    document.getElementById('add-btn').disabled = true;
-    document.getElementById('add-btn').textContent = '✓ Added';
-    updateSdPips();
-    recalc();
-  }
-
-  function removeFromList(id) {
-    shoppingList = shoppingList.filter(e => e.id !== id);
-    if (selected && selected.id === id) {
-      document.getElementById('add-btn').disabled = false;
-      document.getElementById('add-btn').textContent = '+ Add';
-    }
-    updateSdPips();
-    recalc();
-  }
-
-  function clearList() {
-    shoppingList = [];
-    if (selected) {
-      document.getElementById('add-btn').disabled = false;
-      document.getElementById('add-btn').textContent = '+ Add';
-    }
-    updateSdPips();
-    recalc();
-  }
-
-  /* ── Render the package list ───────────────────────────────── */
-  function renderPackage(cVal, pVal, mVal, cl) {
-    const pkgList  = document.getElementById('pkg-list');
-    const noDeal   = document.getElementById('no-deal');
-    const totalRow = document.getElementById('pkg-total-row');
-    const totalVal = document.getElementById('pkg-total-val');
-
-    if (!shoppingList.length) {
-      pkgList.innerHTML      = '<p class="pkg-empty">Add items from the left<br/>to build your list.</p>';
-      noDeal.style.display   = 'none';
-      totalRow.style.display = 'none';
-      return;
-    }
-
-    const isFail   = cl && cl.fail === true;
-    const hasCalc  = cVal !== null && pVal !== null;
-    let total = 0, html = '', outOfStockCount = 0;
-
-    /* In market mode, avail-1 items are always available even on fail */
-    shoppingList.forEach(item => {
-      const { rest, num } = parseAvail(item.availability);
-      const alwaysAvail   = marketAlwaysAvailable(item);
-      const notFound      = isFail && !alwaysAvail;
-
-      if (notFound) {
-        outOfStockCount++;
-        /* Dim and mark out of stock */
-        html += `<div class="pkg-row" style="opacity:0.35;">
-          <span class="pkg-row-name">${esc(item.name)}</span>
-          <span class="rbadge rbadge-${esc(rest || 'none')}" style="font-size:0.4rem;padding:0.05rem 0.2rem;">${esc(rest || 'LEGAL')}</span>
-          <span class="pkg-row-price pending">${mode === 'market' ? 'out of stock' : 'not found'}</span>
-          <button class="pkg-remove" onclick="removeFromList('${esc(item.id)}')">✕</button>
-        </div>`;
-        return;
-      }
-
-      /* Item is available — calculate price */
-      let priceText, priceClass;
-      if (hasCalc || alwaysAvail) {
-        /* alwaysAvail on fail: use pVal=0 (sticker/max price, no negotiation) */
-        const effectivePval = (alwaysAvail && isFail) ? 0 : (pVal ?? 0);
-        const effectiveCval = (alwaysAvail && isFail) ? 0 : (cVal ?? 0);
-        const itemPrice  = calcPrice(item, effectiveCval, effectivePval, mVal);
-        const licFee     = calcLicenseFee(item);
-        total += itemPrice + licFee;
-        priceText  = itemPrice.toLocaleString() + ' cr';
-        priceClass = 'pkg-row-price';
-
-        html += `<div class="pkg-row">
-          <span class="pkg-row-name">${esc(item.name)}</span>
-          <span class="rbadge rbadge-${esc(rest || 'none')}" style="font-size:0.4rem;padding:0.05rem 0.2rem;">${esc(rest || 'LEGAL')}</span>
-          <span class="${priceClass}">${priceText}</span>
-          <button class="pkg-remove" onclick="removeFromList('${esc(item.id)}')">✕</button>
-        </div>`;
-
-        /* License fee sub-row for Market mode F items */
-        if (licFee > 0) {
-          html += `<div class="pkg-row-license">
-            <span class="pkg-row-license-label">+ Imperial License (F)</span>
-            <span class="pkg-row-license-val">+${licFee.toLocaleString()} cr</span>
-          </div>`;
-        }
-      } else {
-        /* No dice entered yet — show base price as reference */
-        const licFee    = calcLicenseFee(item);
-        const basePrice = (item.cost || 0).toLocaleString() + ' cr base';
-        html += `<div class="pkg-row">
-          <span class="pkg-row-name">${esc(item.name)}</span>
-          <span class="rbadge rbadge-${esc(rest || 'none')}" style="font-size:0.4rem;padding:0.05rem 0.2rem;">${esc(rest || 'LEGAL')}</span>
-          <span class="pkg-row-price pending">${basePrice}</span>
-          <button class="pkg-remove" onclick="removeFromList('${esc(item.id)}')">✕</button>
-        </div>`;
-        if (licFee > 0) {
-          html += `<div class="pkg-row-license">
-            <span class="pkg-row-license-label">+ Imperial License (F)</span>
-            <span class="pkg-row-license-val">+${licFee.toLocaleString()} cr est.</span>
-          </div>`;
-        }
-      }
-    });
-
-    pkgList.innerHTML = html;
-
-    /* No deal banner */
-    if (isFail) {
-      if (outOfStockCount === shoppingList.length) {
-        /* All items unavailable */
-        noDeal.style.display = 'block';
-        noDeal.className     = mode === 'market' ? 'out-of-stock-block' : 'no-deal-block';
-        if (mode === 'market') {
-          noDeal.textContent = 'Out of stock — check back next port.';
-        } else {
-          const worstRest = shoppingList.reduce((w, it) => {
-            const r = parseAvail(it.availability).rest;
-            const rank = { 'X': 3, 'R': 2, 'F': 1, '': 0 };
-            return (rank[r] ?? 0) > (rank[w] ?? 0) ? r : w;
-          }, '');
-          noDeal.innerHTML = `NO DEAL<span class="no-deal-sub">${NO_DEAL_MSG_BLACK[worstRest] || ''}</span>`;
-        }
-      } else if (outOfStockCount > 0) {
-        /* Partial — some found, some not */
-        noDeal.style.display = 'block';
-        noDeal.className     = mode === 'market' ? 'out-of-stock-block' : 'no-deal-block';
-        noDeal.textContent   = mode === 'market' ? 'Some items out of stock.' : 'Partial fill — some items unavailable.';
-      } else {
-        noDeal.style.display = 'none';
-      }
-    } else {
-      noDeal.style.display = 'none';
-    }
-
-    /* Total row */
-    const showTotal = hasCalc || (isFail && shoppingList.some(it => marketAlwaysAvailable(it)));
-    if (showTotal && outOfStockCount < shoppingList.length) {
-      totalRow.style.display = 'flex';
-      totalVal.textContent   = total.toLocaleString() + ' cr';
-      if (cVal >= 8) {
-        totalVal.title       = '− 5% Friends & Family included';
-        totalVal.style.color = '#44CC66';
-      } else {
-        totalVal.title       = '';
-        totalVal.style.color = mode === 'market' ? '#44CC66' : '';
-      }
-    } else {
-      totalRow.style.display = 'none';
-    }
-  }
-
-  /* ── Select item (preview bar only) ───────────────────────── */
-  function selectItem(item) {
-    selected = item;
-
-    document.querySelectorAll('.armory-weapon-card').forEach(c => c.classList.remove('mkt-selected'));
-    const card = document.querySelector(`.armory-weapon-card[data-mid="${item.id}"]`);
-    if (card) card.classList.add('mkt-selected');
-
-    const { rest } = parseAvail(item.availability);
-    document.getElementById('d-name').textContent = item.name;
-
-    const badge = document.getElementById('d-rbadge');
-    badge.textContent = rest || 'LEGAL';
-    badge.className   = 'rbadge rbadge-' + (rest || 'none');
-
-    const addBtn = document.getElementById('add-btn');
-    const alreadyIn = shoppingList.find(e => e.id === item.id);
-    addBtn.disabled    = !!alreadyIn;
-    addBtn.textContent = alreadyIn ? '✓ Added' : '+ Add';
-
-    updateSdPips();
-  }
-
-  /* ── Build item card (armory format) ───────────────────────── */
-  function esc(s) {
-    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-  }
-
-  function renderRange(range) {
-    if (!range) return '';
-    if (range.engaged) return 'Engaged';
-    if (Array.isArray(range)) {
-      const [eff, med, max] = range;
-      return `0–${eff} · ${eff+1}–${med} · ${med+1}–${max}`;
-    }
-    if (range.min === 0 && range.max === 0) return 'Engaged';
-    if (range.min === range.max) return `Zone ${range.min}`;
-    return `Zones ${range.min}–${range.max}`;
-  }
-
-  function buildDamageTrack(dmgArr) {
-    let h = '<div class="armory-effect-track">';
-    WEAPON_TIERS.forEach((tier, i) => {
-      if (dmgArr[i] == null) return;
-      h += `<div class="armory-effect-row">
-        <span class="armory-effect-range">${esc(tier.range)}</span>
-        <span class="armory-effect-name">${esc(tier.label)}</span>
-        <span class="armory-effect-value">${esc(String(dmgArr[i]))} Dmg</span>
-      </div>`;
-    });
-    return h + '</div>';
-  }
-
-  function buildCustomEffectTrack(rows) {
-    if (!rows || !rows.length) return '';
-    let h = '<div class="armory-effect-track">';
-    rows.forEach(row => {
-      h += `<div class="armory-effect-row">
-        <span class="armory-effect-range">${esc(row.tier || '')}</span>
-        <span class="armory-effect-name">${esc(row.label || '')}</span>
-        <span class="armory-effect-value" style="font-size:0.55rem;max-width:90px;white-space:normal;text-align:right;">${esc(row.effect || '')}</span>
-      </div>`;
-    });
-    return h + '</div>';
-  }
-
-  function buildCard(item) {
-    const { num, rest } = parseAvail(item.availability);
-    const ctrlSD = CTRL_SD[num] ?? 0;
-    const pwrSD  = PWR_SD[rest]  ?? 0;
-    const traits  = item.traits  || [];
-    const gambits = item.gambits || [];
-    const cost    = item.cost ? item.cost.toLocaleString() + ' cr' : '—';
-
-    const metaSd = [
-      ctrlSD > 0 ? `Ctrl ↓${ctrlSD}` : null,
-      pwrSD  > 0 ? `Pwr ↓${pwrSD}`  : null
-    ].filter(Boolean).join(' · ');
-
-    /* Resolve weapon profile — weapons have top-level fields; gear may have weaponProfile */
-    const wp = item.discipline ? item : (item.weaponProfile || null);
-
-    let meta = `<div class="armory-weapon-meta">`;
-    meta += `<span class="armory-weapon-chassis">${esc(item.categoryLabel || item.category || '')}</span>`;
-    if (wp && wp.range) meta += `<span class="armory-weapon-range">Range: ${esc(renderRange(wp.range))}</span>`;
-    meta += `<span class="armory-weapon-cost">${esc(cost)}</span>`;
-    if (item.availability) meta += `<span class="armory-weapon-range">Avail: ${esc(item.availability)}</span>`;
-    if (metaSd) meta += `<span class="armory-weapon-range" style="color:var(--color-text-secondary);">${esc(metaSd)}</span>`;
-    meta += `</div>`;
-
-    /* Damage / effect track */
-    let effectHtml = '';
-    if (wp) {
-      if (wp.customEffectRows) {
-        effectHtml = buildCustomEffectTrack(wp.customEffectRows);
-      } else if (wp.fixedPowerDie) {
-        effectHtml = `<div class="armory-effect-track"><div class="armory-effect-row">
-          <span class="armory-effect-range" style="color:var(--color-accent-primary);">Fixed</span>
-          <span class="armory-effect-name">Power Die</span>
-          <span class="armory-effect-value">${esc(wp.fixedPowerDie)}</span>
-        </div></div>`;
-      } else if (wp.customDamage) {
-        effectHtml = buildDamageTrack(wp.customDamage);
-      } else if (wp.chassisId && chassisMap[wp.chassisId]) {
-        effectHtml = buildDamageTrack(chassisMap[wp.chassisId].tiers.map(t => t.damage));
-      }
-      /* Stun setting */
-      if (wp.stunSetting && wp.chassisId && chassisMap[wp.chassisId]) {
-        const stunTiers = chassisMap[wp.chassisId].tiers;
-        effectHtml += `<div class="armory-effect-track" style="margin-top:2px;">`;
-        stunTiers.forEach((t, i) => {
-          effectHtml += `<div class="armory-effect-row">
-            <span class="armory-effect-range">${esc(t.range)}</span>
-            <span class="armory-effect-name" style="color:var(--color-accent-secondary);">Stun</span>
-            <span class="armory-effect-value">${esc(String(t.stunDamage))} Dmg · ${esc(t.stunCondition)}</span>
-          </div>`;
-        });
-        effectHtml += `</div>`;
-      }
-    }
-
-    /* Description: show if no traits AND no weapon profile, or always for armor */
-    const showDesc = item.description && (traits.length === 0 && !wp);
-    const descHtml = showDesc
-      ? `<div class="armory-gambit-text" style="margin-bottom:3px;">${esc(item.description)}</div>` : '';
-
-    let traitsHtml = '';
-    traits.forEach(t => {
-      traitsHtml += `<div class="armory-trait-block"><div class="armory-trait-name">${esc(t.name)}</div><div class="armory-trait-text">${esc(t.description)}</div></div>`;
-    });
-
-    let gambitsHtml = '';
-    gambits.forEach(g => {
-      gambitsHtml += `
-        <div class="armory-gambit-block">
-          <div class="armory-gambit-toggle" role="button" tabindex="0">
-            <span class="armory-gambit-label">Gambit</span>
-            <span class="armory-gambit-name">${esc(g.name || '')}</span>
-            <span class="armory-gambit-chevron">&#9656;</span>
-          </div>
-          <div class="armory-gambit-body">
-            <div class="armory-gambit-text">${esc(g.rule || '')}</div>
-          </div>
-        </div>`;
-    });
-
-    return `
-      <div class="armory-weapon-card" data-mid="${esc(item.id)}" onclick="handleCardClick(this, ${JSON.stringify(item).replace(/"/g,'&quot;')})">
-        <div class="armory-weapon-header">
-          <span class="armory-weapon-name">${esc(item.name)}</span>
-          <span class="rbadge rbadge-${esc(rest || 'none')}">${esc(rest || 'LEGAL')}</span>
-        </div>
-        <div class="armory-weapon-body">
-          ${meta}${effectHtml}${descHtml}${traitsHtml}${gambitsHtml}
-        </div>
-      </div>`;
-  }
-
-  function handleCardClick(cardEl, item) {
-    document.querySelectorAll('#item-list .armory-weapon-card.is-open').forEach(c => {
-      if (c !== cardEl) {
-        c.classList.remove('is-open');
-        c.querySelector('.armory-weapon-body').classList.remove('open');
-      }
-    });
-    const body = cardEl.querySelector('.armory-weapon-body');
-    const isOpen = body.classList.toggle('open');
-    cardEl.classList.toggle('is-open', isOpen);
-    selectItem(item);
-    cardEl.querySelectorAll('.armory-gambit-toggle').forEach(t => {
-      t.onclick = e => {
-        e.stopPropagation();
-        const block = t.closest('.armory-gambit-block');
-        if (block) block.classList.toggle('is-open');
-      };
-    });
-  }
-
-  /* ── Render item list ──────────────────────────────────────── */
-  function renderList(items) {
-    const list = document.getElementById('item-list');
-    if (!items.length) {
-      list.innerHTML = '<p style="font-size:0.7rem;color:var(--color-text-secondary);padding:0.5rem 0;">No items match.</p>';
-      return;
-    }
-    const groups = {};
-    items.forEach(item => {
-      const cat = item.categoryLabel || item.category || 'Other';
-      (groups[cat] = groups[cat] || []).push(item);
-    });
-    let html = '';
-    Object.entries(groups).forEach(([cat, catItems]) => {
-      html += `<p class="cat-label">${esc(cat)}</p>`;
-      catItems.forEach(item => { html += buildCard(item); });
-    });
-    list.innerHTML = html;
-  }
-
-  /* ── Filters ───────────────────────────────────────────────── */
-  function applyFilters() {
-    const q = (document.getElementById('search').value || '').toLowerCase();
-    const filtered = allItems.filter(item => {
-      const { rest, num } = parseAvail(item.availability);
-
-      /* Market mode: only legal (no restriction) and F (licensed) items; avail 4 not stocked */
-      if (mode === 'market') {
-        if (rest === 'R' || rest === 'X') return false;
-        if (num >= 4) return false;
-      }
-
-      const matchCat  = activeCat  === 'all' || item.category === activeCat;
-      const matchRest = activeRest === 'all' || rest === activeRest;
-      const matchQ    = !q || item.name.toLowerCase().includes(q) || (item.description || '').toLowerCase().includes(q);
-      return matchCat && matchRest && matchQ;
-    });
-    renderList(filtered);
-  }
-
-  function setCat(btn) {
-    activeCat = btn.dataset.cat;
-    document.querySelectorAll('#cat-bar .f-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    applyFilters();
-  }
-
-  function setRest(btn) {
-    activeRest = btn.dataset.rest;
-    document.querySelectorAll('.mkt-filters')[1].querySelectorAll('.f-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    applyFilters();
-  }
-
-  /* ── Request form ──────────────────────────────────────────── */
-  function submitRequest() {
-    var charName = document.getElementById('req-char').value.trim();
-    var itemName = document.getElementById('req-name').value.trim();
-    var statusEl = document.getElementById('req-status');
-    if (!charName) { alert('Enter your character name.'); return; }
-    if (!itemName) { alert('Enter an item name.'); return; }
-    var desc = document.getElementById('req-desc').value.trim();
-    var link = document.getElementById('req-link').value.trim();
-    statusEl.style.display = 'block';
-    statusEl.style.color = 'var(--color-text-secondary)';
-    statusEl.textContent = 'Submitting...';
-    fetch('/api/item-requests', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ characterName: charName, itemName: itemName, description: desc || undefined, referenceUrl: link || undefined })
-    }).then(function(r) {
-      if (!r.ok) throw new Error('Server error');
-      return r.json();
-    }).then(function() {
-      statusEl.style.color = '#44AA66';
-      statusEl.textContent = 'Request submitted! The GM will review it before next session.';
-      document.getElementById('req-name').value = '';
-      document.getElementById('req-desc').value = '';
-      document.getElementById('req-link').value = '';
-    }).catch(function() {
-      statusEl.style.color = 'var(--color-accent-primary)';
-      statusEl.textContent = 'Failed to submit. Try again.';
-    });
-  }
-
-  /* ── Boot ──────────────────────────────────────────────────── */
-  Promise.all([
-    fetch('/data/gear.json').then(r => r.json()),
-    fetch('/data/weapons.json').then(r => r.json()),
-    fetch('/data/armor.json').then(r => r.json()),
-    fetch('/data/chassis.json').then(r => r.json())
-  ]).then(([gear, weapons, armor, chassis]) => {
-    chassisMap = chassis;
-
-    /* Normalize weapons: use chassisLabel for display grouping, unified top-level category */
-    const normWeapons = weapons.map(w => ({
-      ...w,
-      category: w.discipline === 'melee' ? 'melee' : 'ranged',
-      categoryLabel: w.chassisLabel || (w.discipline === 'melee' ? 'Melee Weapon' : 'Ranged Weapon'),
-      traits: w.trait ? [w.trait] : []
-    }));
-
-    /* Normalize armor: unified top-level category key, keep their categoryLabel (Light/Medium/Heavy Armor) */
-    const normArmor = armor.map(a => ({
-      ...a,
-      category: 'armor'
-    }));
-
-    allItems = [...gear, ...normWeapons, ...normArmor];
-
-    /* Category order: ranged, melee, armor, then gear subcategories */
-    const catOrder = ['ranged', 'melee', 'armor'];
-    const gearCats = [...new Set(gear.map(d => d.category).filter(Boolean))];
-    const orderedCats = [...catOrder, ...gearCats.filter(c => !catOrder.includes(c))];
-
-    const catLabels = {
-      ranged: 'Ranged Weapons',
-      melee:  'Melee Weapons',
-      armor:  'Armor'
-    };
-    gear.forEach(d => { if (d.category && d.categoryLabel) catLabels[d.category] = d.categoryLabel; });
-
-    const bar = document.getElementById('cat-bar');
-    orderedCats.forEach(cat => {
-      const btn = document.createElement('button');
-      btn.className = 'f-btn';
-      btn.dataset.cat = cat;
-      btn.textContent = catLabels[cat] || cat;
-      btn.onclick = () => setCat(btn);
-      bar.appendChild(btn);
-    });
-
-    renderList(allItems);
-    recalc();
-  });
-</script>
-
-<!-- ── Source DB Viewer ──────────────────────────────────────────── -->
-<div id="sv-overlay" style="display:none;position:fixed;inset:0;z-index:9000;background:var(--color-bg-primary);flex-direction:column;">
-
-  <!-- Header -->
-  <div style="flex-shrink:0;display:flex;align-items:center;gap:0.75rem;padding:0.5rem 1rem;border-bottom:1px solid var(--color-border);overflow:hidden;">
-    <span style="font-family:'Audiowide',sans-serif;font-size:0.8rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-accent-primary);flex-shrink:0;">Source DB</span>
-    <!-- Dataset toggle -->
+<div id="sv-overlay" class="sv-overlay">
+  <div class="sv-header">
+    <span class="sv-title">Source DB</span>
     <div style="display:flex;gap:0.3rem;flex-shrink:0;">
-      <button id="sv-tab-eq" onclick="svSetDataset('equipment')" style="font-family:'Audiowide',sans-serif;font-size:0.46rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.2rem 0.55rem;border:1px solid var(--color-accent-primary);background:var(--color-accent-primary);color:#000;cursor:pointer;">Equipment</button>
-      <button id="sv-tab-wp" onclick="svSetDataset('weapons')" style="font-family:'Audiowide',sans-serif;font-size:0.46rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.2rem 0.55rem;border:1px solid var(--color-border);background:transparent;color:var(--color-text-secondary);cursor:pointer;">Weapons</button>
+      <button class="sv-tab active" data-ds="equipment">Equipment</button>
+      <button class="sv-tab" data-ds="weapons">Weapons</button>
     </div>
-    <!-- Search -->
-    <input id="sv-search" type="text" placeholder="Search…" oninput="svFilter()" style="flex:1;min-width:0;max-width:260px;background:var(--color-bg-frame);border:1px solid var(--color-border);color:var(--color-text-primary);font-family:'Exo 2',sans-serif;font-size:0.7rem;padding:0.25rem 0.5rem;" />
-    <!-- Type filter -->
-    <select id="sv-type-filter" onchange="svFilter()" style="flex-shrink:0;max-width:180px;background:var(--color-bg-frame);border:1px solid var(--color-border);color:var(--color-text-primary);font-family:'Exo 2',sans-serif;font-size:0.68rem;padding:0.22rem 0.4rem;">
+    <input id="sv-search" type="text" class="sv-search" placeholder="Search…" />
+    <select id="sv-type-filter" class="sv-type-filter">
       <option value="">All Types</option>
     </select>
-    <span style="font-family:'Audiowide',sans-serif;font-size:0.46rem;color:var(--color-text-secondary);letter-spacing:0.06em;flex-shrink:0;" id="sv-count"></span>
-    <button onclick="closeSourceViewer()" style="flex-shrink:0;font-family:'Audiowide',sans-serif;font-size:0.7rem;background:transparent;border:1px solid var(--color-border);color:var(--color-text-secondary);padding:0.2rem 0.6rem;cursor:pointer;">✕</button>
+    <span id="sv-count" class="sv-count"></span>
+    <button id="sv-close-btn" class="sv-close">✕</button>
   </div>
-
-  <!-- Body: list + detail -->
-  <div style="flex:1;display:grid;grid-template-columns:320px 1fr;overflow:hidden;">
-
-    <!-- Item list -->
-    <div style="overflow-y:auto;border-right:1px solid var(--color-border);" id="sv-list"></div>
-
-    <!-- Detail panel -->
-    <div style="overflow-y:auto;padding:1rem 1.25rem;" id="sv-detail">
-      <p style="font-family:'Audiowide',sans-serif;font-size:0.55rem;color:var(--color-text-secondary);letter-spacing:0.1em;">Select an item to view its fields.</p>
+  <div class="sv-body">
+    <div id="sv-list" class="sv-list"></div>
+    <div id="sv-detail" class="sv-detail">
+      <p class="sv-detail-empty">Select an item to view its fields.</p>
     </div>
-
   </div>
 </div>
 
-<script>
-(function(){
-  const DATASETS = {
-    equipment: { url: '/data/equipment_source.json', label: 'Equipment' },
-    weapons:   { url: '/data/weapons_source.json',   label: 'Weapons' }
-  };
-  let svData = { equipment: null, weapons: null };
-  let svActive = 'equipment';
-  let svFiltered = [];
-  let svSelected = null;
-
-  const SKIP_FIELDS = new Set(['cost_raw','availability_raw','name','source']);
-  const FIELD_ORDER = ['model','type','scale','skill','cost','availability',
-    'damage','fire rate','fire control','range','blast radius','ammo','crew',
-    'body strength','move','cover','altitude range','space range','atmosphere range',
-    'shield code','cyber points','weight','length','capacity','size',
-    'game notes','game effects','notes','source'];
-
-  window.openSourceViewer = async function() {
-    const el = document.getElementById('sv-overlay');
-    el.style.display = 'flex';
-    await svLoad(svActive);
-  };
-
-  window.closeSourceViewer = function() {
-    document.getElementById('sv-overlay').style.display = 'none';
-  };
-
-  window.svSetDataset = async function(ds) {
-    svActive = ds;
-    document.getElementById('sv-tab-eq').style.background = ds === 'equipment' ? 'var(--color-accent-primary)' : 'transparent';
-    document.getElementById('sv-tab-eq').style.color      = ds === 'equipment' ? '#000' : 'var(--color-text-secondary)';
-    document.getElementById('sv-tab-eq').style.borderColor= ds === 'equipment' ? 'var(--color-accent-primary)' : 'var(--color-border)';
-    document.getElementById('sv-tab-wp').style.background = ds === 'weapons'   ? 'var(--color-accent-primary)' : 'transparent';
-    document.getElementById('sv-tab-wp').style.color      = ds === 'weapons'   ? '#000' : 'var(--color-text-secondary)';
-    document.getElementById('sv-tab-wp').style.borderColor= ds === 'weapons'   ? 'var(--color-accent-primary)' : 'var(--color-border)';
-    document.getElementById('sv-search').value = '';
-    document.getElementById('sv-type-filter').value = '';
-    svSelected = null;
-    svClearDetail();
-    await svLoad(ds);
-  };
-
-  async function svLoad(ds) {
-    if (!svData[ds]) {
-      const r = await fetch(DATASETS[ds].url);
-      svData[ds] = await r.json();
-    }
-    svBuildTypeFilter(ds);
-    svFilter();
-  }
-
-  function svBuildTypeFilter(ds) {
-    const types = [...new Set((svData[ds] || []).map(x => x.type).filter(Boolean))].sort();
-    const sel = document.getElementById('sv-type-filter');
-    sel.innerHTML = '<option value="">All Types</option>';
-    types.forEach(t => {
-      const o = document.createElement('option');
-      o.value = t; o.textContent = t;
-      sel.appendChild(o);
-    });
-  }
-
-  window.svFilter = function() {
-    const data = svData[svActive] || [];
-    const q    = (document.getElementById('sv-search').value || '').toLowerCase();
-    const type = document.getElementById('sv-type-filter').value;
-    svFiltered = data.filter(item => {
-      if (type && item.type !== type) return false;
-      if (!q) return true;
-      return (item.name  || '').toLowerCase().includes(q)
-          || (item.type  || '').toLowerCase().includes(q)
-          || (item.source|| '').toLowerCase().includes(q);
-    });
-    svRenderList();
-  };
-
-  function svRenderList() {
-    const list = document.getElementById('sv-list');
-    document.getElementById('sv-count').textContent = svFiltered.length + ' items';
-    list.innerHTML = '';
-    svFiltered.forEach((item, idx) => {
-      const row = document.createElement('div');
-      row.style.cssText = 'padding:0.4rem 0.75rem;border-bottom:1px solid color-mix(in srgb,var(--color-border) 35%,transparent);cursor:pointer;';
-      row.dataset.idx = idx;
-      row.innerHTML = `<div style="font-family:'Audiowide',sans-serif;font-size:0.52rem;letter-spacing:0.06em;color:var(--color-text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${item.model || item.name || '—'}</div>`
-                    + `<div style="font-size:0.56rem;color:var(--color-text-secondary);margin-top:0.1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${item.type || ''}</div>`;
-      row.addEventListener('click', () => svSelectItem(item, row));
-      list.appendChild(row);
-    });
-  }
-
-  function svSelectItem(item, rowEl) {
-    document.querySelectorAll('#sv-list > div').forEach(r => r.style.background = '');
-    rowEl.style.background = 'color-mix(in srgb,var(--color-accent-primary) 12%,transparent)';
-    svSelected = item;
-    svRenderDetail(item);
-  }
-
-  function svRenderDetail(item) {
-    const panel = document.getElementById('sv-detail');
-    const allKeys = [...new Set([...FIELD_ORDER, ...Object.keys(item)])].filter(k => !SKIP_FIELDS.has(k) && k in item);
-    let html = `<div style="font-family:'Audiowide',sans-serif;font-size:0.75rem;letter-spacing:0.1em;color:var(--color-accent-primary);margin-bottom:0.75rem;">${item.model || item.name || '—'}</div>`;
-    html += '<table style="width:100%;border-collapse:collapse;font-size:0.68rem;">';
-    allKeys.forEach(k => {
-      const val = item[k];
-      if (val === null || val === undefined || val === '') return;
-      html += `<tr style="border-bottom:1px solid color-mix(in srgb,var(--color-border) 30%,transparent);">
-        <td style="font-family:'Audiowide',sans-serif;font-size:0.44rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-text-secondary);padding:0.35rem 0.75rem 0.35rem 0;white-space:nowrap;vertical-align:top;width:130px;">${k}</td>
-        <td style="color:var(--color-text-primary);padding:0.35rem 0;line-height:1.5;">${String(val)}</td>
-      </tr>`;
-    });
-    html += '</table>';
-    panel.innerHTML = html;
-  }
-
-  function svClearDetail() {
-    document.getElementById('sv-detail').innerHTML = '<p style="font-family:\'Audiowide\',sans-serif;font-size:0.55rem;color:var(--color-text-secondary);letter-spacing:0.1em;">Select an item to view its fields.</p>';
-  }
-
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeSourceViewer();
-  });
-})();
-</script>
+<script src="/js/market.js"></script>
+<script src="/js/market-source-viewer.js"></script>
 </body>
 </html>

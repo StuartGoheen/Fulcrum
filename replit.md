@@ -29,17 +29,20 @@ The app uses a passcode-based gate (cookie auth) to restrict access:
 │   ├── gm/index.html     # GM Command Bridge
 │   ├── player/index.html # Player character sheet
 │   ├── create/index.html # Character creation wizard
-│   ├── market/index.html # Black Market browser
+│   ├── market/index.html # Black Market browser (slim HTML shell)
 │   ├── css/output.css    # Generated — do not edit directly
+│   ├── css/market.css    # Black Market page styles (extracted from inline)
 │   └── audio/            # Audio assets (opening-crawl.mp3)
 ├── css/
 │   ├── input.css         # Tailwind source (custom components + layers)
 │   └── themes.css        # CSS variable theme definitions (6 themes: rebellion, r2d2, vader, fett, holo, fringe)
 ├── js/                   # Client-side JavaScript modules
-│   ├── command-bridge.js  # GM Command Bridge three-column layout JS (campaign engine, party monitor, destiny, glossary, starship combat controls)
+│   ├── command-bridge.js  # GM Command Bridge three-column layout JS
+│   ├── market.js          # Black Market browser logic (extracted from inline)
+│   ├── market-source-viewer.js # Source DB viewer overlay (extracted from inline)
 │   ├── crawl-data.js     # Mission crawl text data (extensible for future missions)
 │   ├── opening-crawl.js  # Star Wars opening crawl overlay engine
-│   ├── starship-combat.js # Starship combat cockpit HUD overlay (seat claiming, HUD panels, cockpit layout, action dice, power die cycling)
+│   ├── starship-combat.js # Starship combat cockpit HUD overlay
 ├── data/                 # JSON data files (weapons, armor, gear, etc.)
 ├── assets/               # Images and icons
 ├── db/                   # SQLite database (gitignored)
