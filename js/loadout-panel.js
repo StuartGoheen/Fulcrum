@@ -248,6 +248,7 @@
     if (!acq) return '';
     if (acq === 'contraband') return '<span class="armory-legality-badge armory-legality-illegal">Contraband</span>';
     if (acq === 'salvaged') return '<span class="armory-legality-badge" style="color:#b08d57;border-color:color-mix(in srgb,#b08d57 50%,transparent)">Salvaged</span>';
+    if (acq === 'legal') return '<span class="armory-legality-badge" style="color:#6fad6f;border-color:color-mix(in srgb,#6fad6f 50%,transparent)">Legal</span>';
     return '<span class="armory-legality-badge armory-legality-legal">Registered</span>';
   }
 

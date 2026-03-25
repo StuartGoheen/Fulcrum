@@ -30,13 +30,15 @@
     'X': 'No deal — and now someone is asking questions.'
   };
 
-  var DEBT_CREDITOR_NAMES = {
-    hutt_cartel: 'The Hutt Cartel',
-    black_sun: 'Black Sun',
-    imperial_surplus: 'Imperial Surplus Broker',
-    czerka_arms: 'Czerka Arms',
-    local_fixer: 'Local Fixer'
-  };
+  var DEBT_CREDITORS = [
+    { id: 'hutt_cartel', name: 'The Hutt Cartel', interest: '10%', rate: 0.10, desc: 'They always collect. Always.' },
+    { id: 'black_sun', name: 'Black Sun', interest: '15%', rate: 0.15, desc: "Xizor's network has a long reach and longer memory." },
+    { id: 'imperial_surplus', name: 'Imperial Surplus Broker', interest: '20%', rate: 0.20, desc: 'Stolen manifest, borrowed time.' },
+    { id: 'czerka_arms', name: 'Czerka Arms', interest: '25%', rate: 0.25, desc: 'Corporate collections. Legal in most systems.' },
+    { id: 'local_fixer', name: 'Local Fixer', interest: '30%', rate: 0.30, desc: 'A friend of a friend. Favors owed.' },
+  ];
+  var DEBT_CREDITOR_NAMES = {};
+  DEBT_CREDITORS.forEach(function(c) { DEBT_CREDITOR_NAMES[c.id] = c.name; });
 
   var CAT_ORDER = ['ranged', 'melee', 'armor'];
   var CAT_LABELS = { ranged: 'Ranged Weapons', melee: 'Melee Weapons', armor: 'Armor' };
@@ -66,6 +68,30 @@
   function isSalvageEligible(item) {
     var a = parseAvail(item.availability);
     return a.rest !== 'R' && a.rest !== 'X' && !isPriceless(item);
+  }
+
+  var ALWAYS_CONTRABAND_IDS = [];
+  function isAlwaysContraband(item) {
+    if (ALWAYS_CONTRABAND_IDS.indexOf(item.id) >= 0) return true;
+    var tags = item.tags || [];
+    for (var i = 0; i < tags.length; i++) {
+      var t = (tags[i] || '').toLowerCase();
+      if (t === 'illegal' || t === 'contraband') return true;
+    }
+    var a = parseAvail(item.availability);
+    if (a.rest === 'X') return true;
+    return false;
+  }
+
+  function determineAcquisition(item, salvaged) {
+    if (salvaged) return 'salvaged';
+    if (isAlwaysContraband(item)) return 'contraband';
+    var a = parseAvail(item.availability);
+    if (a.rest === 'R') return 'contraband';
+    if (a.rest === 'F') {
+      return mode === 'market' ? 'registered' : 'contraband';
+    }
+    return 'legal';
   }
 
   function loadCharacterGate() {
@@ -121,21 +147,103 @@
     loadCharacterGate();
   }
 
+  var loanAmount = 1000;
+  var loanCreditorIdx = 0;
+
   function updateLedger() {
     var banner = document.getElementById('ledger-banner');
-    if (!activeChar || !activeChar.debt || !activeChar.debt.balance || activeChar.debt.balance <= 0) {
+    var loanOffer = document.getElementById('loan-offer');
+    if (!activeChar) {
       banner.style.display = 'none';
+      if (loanOffer) loanOffer.style.display = 'none';
       return;
     }
-    var d = activeChar.debt;
-    banner.style.display = 'flex';
-    document.getElementById('ledger-creditor').textContent = DEBT_CREDITOR_NAMES[d.creditorId] || d.creditorId;
-    document.getElementById('ledger-balance').textContent = d.balance.toLocaleString() + ' cr owed';
-    document.getElementById('ledger-principal').textContent = (d.principal || 0).toLocaleString() + ' cr';
-    document.getElementById('ledger-rate').textContent = Math.round((d.rate || 0) * 100) + '%';
-    document.getElementById('ledger-cycles').textContent = String(d.cyclesElapsed || 0);
-    var nextBalance = Math.round(d.balance * (1 + (d.rate || 0)));
-    document.getElementById('ledger-next').textContent = nextBalance.toLocaleString() + ' cr';
+
+    var hasDebt = activeChar.debt && activeChar.debt.balance && activeChar.debt.balance > 0;
+    if (hasDebt) {
+      banner.style.display = 'flex';
+      if (loanOffer) loanOffer.style.display = 'none';
+      var d = activeChar.debt;
+      document.getElementById('ledger-creditor').textContent = DEBT_CREDITOR_NAMES[d.creditorId] || d.creditorId;
+      document.getElementById('ledger-balance').textContent = d.balance.toLocaleString() + ' cr owed';
+      document.getElementById('ledger-principal').textContent = (d.principal || 0).toLocaleString() + ' cr';
+      document.getElementById('ledger-rate').textContent = Math.round((d.rate || 0) * 100) + '%';
+      document.getElementById('ledger-cycles').textContent = String(d.cyclesElapsed || 0);
+      var nextBalance = Math.round(d.balance * (1 + (d.rate || 0)));
+      document.getElementById('ledger-next').textContent = nextBalance.toLocaleString() + ' cr';
+    } else {
+      banner.style.display = 'none';
+      if (loanOffer) {
+        loanOffer.style.display = 'block';
+        renderLoanOffer();
+      }
+    }
+  }
+
+  function renderLoanOffer() {
+    var container = document.getElementById('loan-offer');
+    if (!container) return;
+    var cred = DEBT_CREDITORS[loanCreditorIdx];
+    var html = '<div class="loan-offer-header"><span class="ledger-icon">📒</span><span class="ledger-banner-title">The Ledger</span></div>'
+      + '<p class="loan-offer-desc">Need credits? Take on debt for extra buying power. Your creditor will come collecting — with interest.</p>'
+      + '<div class="loan-offer-row"><label>Creditor</label><select id="loan-creditor-select">';
+    DEBT_CREDITORS.forEach(function(c, i) {
+      html += '<option value="' + i + '"' + (i === loanCreditorIdx ? ' selected' : '') + '>' + esc(c.name) + ' (' + c.interest + ')</option>';
+    });
+    html += '</select></div>'
+      + '<p class="loan-offer-flavor">' + esc(cred.desc) + '</p>'
+      + '<div class="loan-offer-row"><label>Loan Amount</label>'
+      + '<div class="loan-stepper">'
+      + '<button id="loan-minus" class="loan-step-btn">−</button>'
+      + '<span id="loan-amount-display" class="loan-amount">' + loanAmount.toLocaleString() + ' cr</span>'
+      + '<button id="loan-plus" class="loan-step-btn">+</button>'
+      + '</div></div>'
+      + '<button id="loan-borrow-btn" class="loan-borrow-btn">Borrow ' + loanAmount.toLocaleString() + ' cr</button>';
+    container.innerHTML = html;
+
+    document.getElementById('loan-creditor-select').addEventListener('change', function() {
+      loanCreditorIdx = parseInt(this.value);
+      renderLoanOffer();
+    });
+    document.getElementById('loan-minus').addEventListener('click', function() {
+      loanAmount = Math.max(1000, loanAmount - 500);
+      renderLoanOffer();
+    });
+    document.getElementById('loan-plus').addEventListener('click', function() {
+      loanAmount = Math.min(10000, loanAmount + 500);
+      renderLoanOffer();
+    });
+    document.getElementById('loan-borrow-btn').addEventListener('click', function() {
+      takeLoan();
+    });
+  }
+
+  function takeLoan() {
+    if (!activeChar) return;
+    var cred = DEBT_CREDITORS[loanCreditorIdx];
+    var btn = document.getElementById('loan-borrow-btn');
+    if (btn) { btn.disabled = true; btn.textContent = 'Processing…'; }
+
+    fetch('/api/characters/' + activeChar.id + '/debt/take', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ creditorId: cred.id, amount: loanAmount })
+    })
+    .then(function(r) {
+      if (!r.ok) return r.json().then(function(d) { throw new Error(d.error || 'Loan failed'); });
+      return r.json();
+    })
+    .then(function(data) {
+      activeChar.credits = data.credits;
+      activeChar.debt = data.debt;
+      document.getElementById('char-credits-display').textContent = data.credits.toLocaleString() + ' cr';
+      updateLedger();
+      recalc();
+    })
+    .catch(function(err) {
+      alert(err.message || 'Failed to take loan.');
+      if (btn) { btn.disabled = false; btn.textContent = 'Borrow ' + loanAmount.toLocaleString() + ' cr'; }
+    });
   }
 
   function setMode(m) {
@@ -727,6 +835,7 @@
       if (mode === 'market') {
         if (a.rest === 'R' || a.rest === 'X') return false;
         if (a.num >= 4) return false;
+        if (isAlwaysContraband(item)) return false;
       }
 
       var matchRest = activeRest === 'all' || a.rest === activeRest;
@@ -768,8 +877,11 @@
       var lineTotal = price + lic;
       total += lineTotal;
 
+      var acq = determineAcquisition(item, salvaged);
+      var acqColor = acq === 'contraband' ? '#CC3333' : acq === 'salvaged' ? '#C8A000' : acq === 'registered' ? '#6fad6f' : '#6fad6f';
+      var acqLabel = acq.charAt(0).toUpperCase() + acq.slice(1);
       bodyHtml += '<div class="modal-purchase-item">'
-        + '<span>' + esc(item.name) + (salvaged ? ' <em style="color:#C8A000">(salvaged)</em>' : '') + '</span>'
+        + '<span>' + esc(item.name) + ' <em style="color:' + acqColor + ';font-size:0.85em">(' + acqLabel + ')</em></span>'
         + '<span>' + lineTotal.toLocaleString() + ' cr</span>'
         + '</div>';
     });
@@ -805,7 +917,8 @@
       var type = 'gear';
       if (cat === 'ranged' || cat === 'melee') type = 'weapon';
       else if (cat === 'armor') type = 'armor';
-      items.push({ id: entry.item.id, type: type, salvaged: entry.salvaged });
+      var acq = determineAcquisition(entry.item, entry.salvaged);
+      items.push({ id: entry.item.id, type: type, salvaged: entry.salvaged, acquisition: acq });
     });
 
     if (!items.length) return;

@@ -209,7 +209,7 @@ New step added between Kits and Destiny. Players spend 500 starting credits on g
 
 **Debt System (The Ledger):** Players can take on debt (50-500 cr in 50 cr increments) from 5 creditors: Hutt Cartel (20%), Black Sun (25%), Czerka Arms (15%), Local Fixer (10%), Imperial Surplus Broker (30%). Debt adds to available credits. Removing debt is blocked if it would overspend. Debt data (`state.debt = { creditorId, amount }`) persists to `charData.debt`, flows through `expandCharacterData` to the loadout panel's "The Ledger" card showing borrowed/owed amounts. Creditor definitions in `DEBT_CREDITORS` array. CSS classes: `.outfitting-debt-panel`, `.outfitting-debt-toggle`, `.outfitting-debt-summary`.
 
-**Acquisition Types:** `registered` (Market tab, green badge), `contraband` (Black Market tab, red badge), `salvaged` (half price, bronze badge), `background` (free from phases/vocations), `innate` (natural weapons). Badges render in chargen cart, character summary, and loadout panel cards via `_acquisitionBadge()`.
+**Acquisition Types:** `legal` (unrestricted items, green badge), `registered` (F-restricted with fee paid via Market tab, green badge), `contraband` (F without fee, R, X, or inherently illegal items, red badge), `salvaged` (half price, bronze badge), `background` (free from phases/vocations), `innate` (natural weapons). Badges render in chargen cart, character summary, and loadout panel cards via `_acquisitionBadge()`. Stored in `character_data.acquisitionMap[itemId]` for GM scanning.
 
 **Background Items System:** Phase 1 cards grant 2-3 free items thematically tied to origin. Phase 2 cards grant 1-2 items tied to catalyst. Phase 3 cards grant NO items (debt/burdens only). Vocations grant a signature weapon/tool at Tier 1+. All background items use `acquisition: 'background'` and an `origin` field (e.g. "Deep Fringe", "Disbanded Regular", "The Gunslinger"). Background items are FREE (excluded from `outfittingCreditsSpent()`). Players can sell background items back for half value via `sellBackgroundItem()`, which tracks sold keys in `state.soldBackgroundKeys[]` to prevent re-sell exploits. `initOutfittingScreen()` reconciles background items on every entry (adds new, removes stale from phase changes, skips sold items). The cart shows two sections: "Background Gear" (with origin badges + sell buttons) and "Purchased Gear" (with remove buttons). CSS classes: `.outfitting-acq-badge.background`, `.outfitting-cart-section-head`, `.outfitting-sell-btn`, `.outfitting-cart-row--bg`.
 
@@ -366,9 +366,19 @@ Mid-campaign shopping interface with full purchase flow. Three files: `public/ma
 
 **Salvaged Pricing:** Salvaged items cost 50% of the negotiated price (not base cost). They appear in the package list with a "SALVAGED" tag.
 
-**The Ledger (Loan System):** If the selected character has debt, a banner appears in the right column showing creditor name, balance owed, and an expandable drawer with principal, interest rate, cycles elapsed, and projected next-cycle amount. Uses debt data from `character_data.debt` (schema: `{ creditorId, principal, balance, rate, cyclesElapsed, history }`).
+**The Ledger (Loan System):** Two states based on character debt:
+- **Has debt:** Banner shows creditor name, balance owed, expandable drawer with principal, interest rate, cycles elapsed, projected next-cycle amount.
+- **No debt:** Loan offer panel appears with creditor selector (5 creditors with flavor text), amount stepper (1,000–10,000 cr in 500 cr increments), and "Borrow" button. Calls `POST /api/characters/:id/debt/take` to create loan and add credits.
+Uses debt data from `character_data.debt` (schema: `{ creditorId, principal, balance, rate, cyclesElapsed, history }`). Creditors: Hutt Cartel (10%), Black Sun (15%), Imperial Surplus Broker (20%), Czerka Arms (25%), Local Fixer (30%).
 
-**Purchase Flow:** "Confirm Purchase" button appears when a price total is calculated. Opens a modal showing itemized costs, total, current balance, and remaining balance after purchase. Calls `POST /api/characters/:id/purchase` which deducts credits and adds items to `weaponIds`/`armorId`/`gearIds` in character data.
+**Purchase Flow:** "Confirm Purchase" button appears when a price total is calculated. Opens a modal showing itemized costs with acquisition tags (Legal/Registered/Contraband/Salvaged), total, current balance, and remaining balance after purchase. Calls `POST /api/characters/:id/purchase` which deducts credits, adds items to `weaponIds`/`armorId`/`gearIds`, and stores acquisition type in `character_data.acquisitionMap`.
+
+**Acquisition Tracking:** Each purchased item is tagged with its legality status, stored in `character_data.acquisitionMap[itemId]`:
+- `legal` — no restriction (unrestricted items, no fees needed)
+- `registered` — F-restricted item bought on The Market (license fee paid)
+- `contraband` — F-restricted bought on Black Market (no fee), R-restricted, X-illegal, or items tagged Illegal/Contraband
+- `salvaged` — bought at 50% price via Salvaged option
+These labels appear in the purchase confirmation modal, loadout panel (`_acquisitionBadge()`), and character creation cart. The GM can scan for contraband via the `acquisitionMap` in character data.
 
 **Item Request Modal:** Floating action button ("+ Request Item") in bottom-right opens a modal form. Auto-fills character name from selected character. Submits to `POST /api/item-requests`.
 
@@ -376,7 +386,8 @@ Mid-campaign shopping interface with full purchase flow. Three files: `public/ma
 
 **API Endpoints:**
 - `GET /api/characters` — now includes `credits` and `debt` summary per character
-- `POST /api/characters/:id/purchase` — body: `{ items: [{id, type}], totalCost }`, deducts credits, adds items to inventory
+- `POST /api/characters/:id/purchase` — body: `{ items: [{id, type, acquisition}], totalCost }`, deducts credits, adds items to inventory, stores acquisition in `acquisitionMap`
+- `POST /api/characters/:id/debt/take` — body: `{ creditorId, amount }`, creates new loan (requires no existing debt), adds credits
 
 ## Deployment
 

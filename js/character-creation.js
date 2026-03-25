@@ -1701,6 +1701,28 @@
     return parts.length > 1 ? parts[1].charAt(0) : '';
   }
 
+  function isItemAlwaysContraband(item) {
+    var rest = parseRestriction(item.availability);
+    if (rest === 'X') return true;
+    var tags = item.tags || [];
+    for (var i = 0; i < tags.length; i++) {
+      var t = (tags[i] || '').toLowerCase();
+      if (t === 'illegal' || t === 'contraband') return true;
+    }
+    return false;
+  }
+
+  function determineOutfitAcquisition(item, salvaged) {
+    if (salvaged) return 'salvaged';
+    if (isItemAlwaysContraband(item)) return 'contraband';
+    var rest = parseRestriction(item.availability);
+    if (rest === 'R') return 'contraband';
+    if (rest === 'F') {
+      return activeMarket === 'market' ? 'registered' : 'contraband';
+    }
+    return 'legal';
+  }
+
   function calcOutfittingPrice(item, marketMode) {
     var rest = parseRestriction(item.availability);
     var baseCost = item.cost || 0;
@@ -2314,7 +2336,7 @@
       var pricing = calcOutfittingPrice(item, activeMarket);
       if (outfittingCreditsRemaining() < pricing.total) return;
       if (!state.startingGear) state.startingGear = [];
-      var acq = activeMarket === 'black-market' ? 'contraband' : 'registered';
+      var acq = determineOutfitAcquisition(item, false);
       state.startingGear.push({ id: item.id, name: item.name, cost: pricing.total, baseCost: item.cost, source: item.source, acquisition: acq });
       saveState();
       renderCart();
@@ -2510,8 +2532,8 @@
 
           if (item.acquisition) {
             var acqBadge = document.createElement("span");
-            var acqClass = item.acquisition === "contraband" ? " contraband" : item.acquisition === "salvaged" ? " salvaged" : " registered";
-            var acqText = item.acquisition === "contraband" ? "Contraband" : item.acquisition === "salvaged" ? "Salvaged" : "Registered";
+            var acqClass = item.acquisition === "contraband" ? " contraband" : item.acquisition === "salvaged" ? " salvaged" : item.acquisition === "legal" ? " legal" : " registered";
+            var acqText = item.acquisition === "contraband" ? "Contraband" : item.acquisition === "salvaged" ? "Salvaged" : item.acquisition === "legal" ? "Legal" : "Registered";
             acqBadge.className = "outfitting-acq-badge" + acqClass;
             acqBadge.textContent = acqText;
             nameEl.appendChild(document.createTextNode(" "));
@@ -3664,7 +3686,7 @@
       }
       if (shopGear.length > 0) {
         shopGear.forEach(function(item) {
-          var acqLabel = item.acquisition === 'contraband' ? ' [Contraband]' : item.acquisition === 'salvaged' ? ' [Salvaged]' : ' [Registered]';
+          var acqLabel = item.acquisition === 'contraband' ? ' [Contraband]' : item.acquisition === 'salvaged' ? ' [Salvaged]' : item.acquisition === 'legal' ? ' [Legal]' : ' [Registered]';
           gearRows.push(sumRow(item.name, item.cost + ' cr' + acqLabel));
         });
       }

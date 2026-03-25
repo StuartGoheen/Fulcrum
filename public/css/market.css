@@ -608,6 +608,105 @@ html, body { height: 100%; overflow: hidden; }
   padding: 0.12rem 0;
 }
 
+.loan-offer {
+  background: color-mix(in srgb, var(--color-accent-secondary) 6%, var(--color-bg-frame));
+  border: 1px solid color-mix(in srgb, var(--color-accent-secondary) 40%, var(--color-border));
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.loan-offer-header {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.loan-offer-desc {
+  font-size: 0.48rem;
+  color: var(--color-text-secondary);
+  margin: 0;
+  line-height: 1.4;
+}
+.loan-offer-flavor {
+  font-size: 0.44rem;
+  color: var(--color-text-muted, #888);
+  font-style: italic;
+  margin: 0;
+}
+.loan-offer-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.35rem;
+}
+.loan-offer-row label {
+  font-size: 0.48rem;
+  color: var(--color-text-secondary);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.loan-offer-row select {
+  flex: 1;
+  font-size: 0.45rem;
+  padding: 0.2rem 0.3rem;
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border);
+  font-family: inherit;
+}
+.loan-stepper {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+.loan-step-btn {
+  width: 1.2rem;
+  height: 1.2rem;
+  min-height: 44px;
+  min-width: 44px;
+  font-size: 0.7rem;
+  line-height: 1;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.loan-step-btn:hover {
+  border-color: var(--color-accent-secondary);
+  color: var(--color-accent-secondary);
+}
+.loan-amount {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 0.55rem;
+  color: var(--color-accent-secondary);
+  min-width: 4rem;
+  text-align: center;
+}
+.loan-borrow-btn {
+  width: 100%;
+  padding: 0.35rem 0.5rem;
+  min-height: 44px;
+  font-family: 'Audiowide', sans-serif;
+  font-size: 0.48rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: color-mix(in srgb, var(--color-accent-secondary) 15%, var(--color-bg-primary));
+  color: var(--color-accent-secondary);
+  border: 1px solid var(--color-accent-secondary);
+  cursor: pointer;
+  margin-top: 0.15rem;
+}
+.loan-borrow-btn:hover {
+  background: color-mix(in srgb, var(--color-accent-secondary) 25%, var(--color-bg-primary));
+}
+.loan-borrow-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
 .pkg-section {
   flex: 1;
   display: flex;

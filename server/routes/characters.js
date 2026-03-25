@@ -695,6 +695,53 @@ router.patch('/characters/:id/debt/accrue', (req, res) => {
   }
 });
 
+const DEBT_CREDITORS = {
+  hutt_cartel: { rate: 0.10 },
+  black_sun: { rate: 0.15 },
+  imperial_surplus: { rate: 0.20 },
+  czerka_arms: { rate: 0.25 },
+  local_fixer: { rate: 0.30 },
+};
+const DEBT_MIN = 1000;
+const DEBT_MAX = 10000;
+
+router.post('/characters/:id/debt/take', (req, res) => {
+  const character = db.prepare('SELECT id, character_data FROM characters WHERE id = ?').get(req.params.id);
+  if (!character || !character.character_data) {
+    return res.status(404).json({ error: 'Character not found.' });
+  }
+  try {
+    const data = JSON.parse(character.character_data);
+    data.debt = _migrateDebt(data.debt);
+    if (data.debt && data.debt.balance && data.debt.balance > 0) {
+      return res.status(400).json({ error: 'Character already has outstanding debt.' });
+    }
+    const { creditorId, amount } = req.body;
+    const creditor = DEBT_CREDITORS[creditorId];
+    if (!creditor) return res.status(400).json({ error: 'Invalid creditor.' });
+    const amt = parseInt(amount) || 0;
+    if (amt < DEBT_MIN || amt > DEBT_MAX || amt % 500 !== 0) {
+      return res.status(400).json({ error: 'Loan must be between ' + DEBT_MIN + ' and ' + DEBT_MAX + ' credits in 500 cr increments.' });
+    }
+
+    data.debt = {
+      creditorId,
+      principal: amt,
+      balance: amt,
+      rate: creditor.rate,
+      cyclesElapsed: 0,
+      history: [{ type: 'loan', amount: amt, balanceAfter: amt, timestamp: Date.now() }],
+    };
+    data.credits = (data.credits || 0) + amt;
+
+    db.prepare('UPDATE characters SET character_data = ? WHERE id = ?').run(JSON.stringify(data), character.id);
+    return res.json({ ok: true, credits: data.credits, debt: data.debt });
+  } catch (err) {
+    console.error('[POST /debt/take]', err);
+    return res.status(500).json({ error: 'Failed to create loan.' });
+  }
+});
+
 router.post('/characters/:id/purchase', (req, res) => {
   const character = db.prepare('SELECT id, character_data FROM characters WHERE id = ?').get(req.params.id);
   if (!character || !character.character_data) {
@@ -715,6 +762,7 @@ router.post('/characters/:id/purchase', (req, res) => {
 
     data.credits = available - cost;
 
+    if (!data.acquisitionMap) data.acquisitionMap = {};
     items.forEach(item => {
       if (!item.id || !item.type) return;
       if (item.type === 'weapon') {
@@ -726,6 +774,7 @@ router.post('/characters/:id/purchase', (req, res) => {
         if (!data.gearIds) data.gearIds = [];
         data.gearIds.push(item.id);
       }
+      if (item.acquisition) data.acquisitionMap[item.id] = item.acquisition;
     });
 
     db.prepare('UPDATE characters SET character_data = ? WHERE id = ?').run(JSON.stringify(data), character.id);
