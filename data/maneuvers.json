@@ -100,7 +100,7 @@
       "tags": [
         "[Combat]"
       ],
-      "description": "Move to the nearest cover in your zone. Gain [Cover 1] (or [Cover 2] for heavy fortifications, GM adjudicates). Requires cover to be available in the zone."
+      "description": "Move to the nearest cover in your zone. Gain [Cover X] based on available terrain (GM adjudicates: 1 = low wall/crate, 2 = heavy debris/pillar, 3 = armored barricade, 4 = fortified emplacement, 5 = nearly total cover). Requires cover to be available in the zone."
     },
     {
       "id": "action_draw_holster",

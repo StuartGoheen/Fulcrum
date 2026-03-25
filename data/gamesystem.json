@@ -188,7 +188,7 @@
           },
           {
             "source": "[Cover X]",
-            "note": "Absorbs X incoming tiers from Ranged attacks before the effect resolves."
+            "note": "When a PC has Cover: reduces attacker's Power by X on ranged attacks against that PC. When an NPC has Cover: increases NPC Defense by X vs ranged attacks."
           },
           {
             "source": "Endure (Success)",
@@ -292,7 +292,7 @@
           },
           {
             "condition": "[Cover X]",
-            "effect": "Absorbs X incoming tiers from Ranged attacks before resolution."
+            "effect": "When a PC has Cover: reduces attacker's Power by X on ranged attacks against that PC. When an NPC has Cover: increases NPC Defense by X vs ranged attacks."
           },
           {
             "condition": "[Buffered X]",
@@ -837,7 +837,7 @@
     "tag": "System Rule",
     "summary": "Visual obscurity that makes targets harder to pin down. Unlike Cover, concealment does not physically stop attacks — it disrupts targeting.",
     "mechanic": "Concealment represents visual obscurity — smoke, darkness, dense foliage, crowd cover. When attacking a concealed target, the attack cannot benefit from [Optimized]. Concealment can be negated by technology (thermal optics, sensor suites, enhanced visor modes on trooper helmets, etc.).",
-    "concealmentVsCover": "Cover (the [Cover X] condition) physically blocks incoming fire and reduces damage. Concealment disrupts targeting but does not reduce damage. A character can benefit from both simultaneously — behind a crate ([Cover 2]) in a smoke-filled room (concealment).",
+    "concealmentVsCover": "Cover (the [Cover X] condition) physically blocks incoming fire by reducing attacker Power (PC) or increasing Defense (NPC). Concealment disrupts targeting but does not reduce damage. A character can benefit from both simultaneously — behind a barricade ([Cover 3]) in a smoke-filled room (concealment).",
     "targetSpecific": "Concealment from Vocation abilities (e.g. Slip, Vanishing Act) is target-specific — you are concealed from a particular enemy, not from the entire battlefield. Environmental concealment (smoke, darkness) is zone-wide and applies to all targets.",
     "designNotes": [
       "Concealment's baseline effect is deliberately light — stripping [Optimized] from attackers. This prevents aim-based setups from working but does not penalize baseline attacks. Vocation abilities (The Ghost) are what make concealment mechanically powerful.",
