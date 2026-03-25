@@ -538,7 +538,7 @@
           '<div class="rl-mods-title">Tier Modifiers</div>' +
           '<div class="rl-mod">' +
             '<span class="rl-mod-tag rl-mod-tag--up">+1</span>' +
-            '<span class="rl-mod-list">Control 8+ &middot; Destiny Tap &middot; Edge Point &middot; [Exposed]</span>' +
+            '<span class="rl-mod-list">Control 8+ &middot; Destiny Tap &middot; [Exposed]</span>' +
           '</div>' +
           '<div class="rl-mod">' +
             '<span class="rl-mod-tag rl-mod-tag--down">&minus;1</span>' +

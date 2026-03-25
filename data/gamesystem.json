@@ -166,10 +166,6 @@
             "note": "When the Control Die result is 8 or higher, the action resolves at +1 Effect Tier automatically. This is the standard resolution bonus for exceptional execution — the action lands exactly where intended. Applies universally: attacks, maneuvers, defenses, and narrative rolls. This is a Tier shift, not an Opening. Openings are only created by specific kit traits or threat abilities that explicitly grant them."
           },
           {
-            "source": "Edge Point",
-            "note": "Spend 1 personal stamina resource post-roll to step up the effect. Strictly limited."
-          },
-          {
             "source": "Destiny Token",
             "note": "Shared table resource. Always 2 per player at the table (5 PCs = 10 tokens). Spent for a guaranteed +1 Tier gain. Pool is constant — it does not scale beyond headcount."
           },
@@ -216,8 +212,21 @@
     ]
   },
   {
-    "id": "lever_condition_engine",
+    "id": "lever_edge_reroll",
     "number": 3,
+    "name": "Edge Reroll",
+    "tag": "Post-Roll",
+    "summary": "Spend 1 Edge Point after a roll to reroll either the Control die or the Power die. Favored Disciplines only. A second chance, not a guaranteed improvement.",
+    "mechanic": "After a roll is resolved, the character may spend 1 Edge Point to pick up either their Control die or their Power die and reroll it. The new result replaces the original — it may be higher or lower. This can only be used on rolls involving a favored discipline. The reroll does not stack with itself (you cannot reroll the same die twice on a single roll). Edge pool maximum equals the highest governing arena die across the character's Vocations.",
+    "designNotes": [
+      "Edge is the personal resource — trained expertise and muscle memory. Unlike Destiny (a guaranteed +1 Tier from the shared pool), Edge is a gamble. The player risks spending a limited resource for a result that might be worse. This tension is deliberate.",
+      "Allowing the choice of Control or Power creates a tactical decision: reroll Control to chase the 8+ accuracy threshold, or reroll Power to push for a higher Effect Tier. Both are valid depending on the situation.",
+      "The favored discipline restriction ensures Edge rewards specialization. Generalists have other tools; Edge belongs to characters who have committed to a discipline deeply enough for it to define them."
+    ]
+  },
+  {
+    "id": "lever_condition_engine",
+    "number": 4,
     "name": "The Condition Engine",
     "tag": "Tactical",
     "summary": "Changes what characters are permitted to do, or changes how the environment responds to them. Does not directly modify dice — it modifies possibility space.",
@@ -357,37 +366,6 @@
       "Duration matters as much as the effect itself. Tactical conditions clear at the start of the affected character's next turn. Lingering conditions persist until actively cleared.",
       "The distinction between [Pinned] (prone + held) and [Restrained] (immobilized but upright) and [Prone] (on ground but free to stand) is intentional and meaningful. These are not synonyms.",
       "[Stimmed X] is the only stacking numeric condition in the system. Every other condition is binary (present or not). The X value represents compounding chemical saturation — each point steps down Medicine Power die, making the next treatment less effective."
-    ]
-  },
-  {
-    "id": "lever_meta_currency_rerolls",
-    "number": 4,
-    "name": "Meta-Currency Rerolls",
-    "tag": "Safety",
-    "summary": "Prevents a single bad roll from collapsing a well-executed plan. Strictly resource-gated and discipline-scoped — this lever is never passive and never universal.",
-    "mechanic": "Reroll the Control Die on a roll within the resource's associated disciplines. Keep the new result regardless of outcome. Because this shifts probability on demand, it is gated behind a limited pool sized to the character's attribute die (D4=1 through D12=5, typical range 3–4).",
-    "characterResources": {
-      "note": "Each character selects one resource archetype at creation. Every archetype follows the same pool-size formula (attribute die size) but applies to a different thematic set of disciplines and may interact with different levers.",
-      "examples": [
-        {
-          "name": "Edge",
-          "theme": "Scoundrel's Luck",
-          "associatedDisciplines": [
-            "Charm",
-            "Evasion",
-            "Skulduggery"
-          ],
-          "lever": "Control Die reroll on associated disciplines",
-          "designNote": "Luck as accuracy — the scoundrel gets a second chance to land the dodge, the bluff, or the trick. Not to hit harder, just not to miss. Spending Edge on a non-associated discipline is not permitted."
-        }
-      ],
-      "futureArchetypes": "Other resource types will share this structure but map to different disciplines and may target the Power Die, trigger tier shifts, or enable other lever interactions. The key constraint: each resource is discipline-scoped, never universal."
-    },
-    "designNotes": [
-      "This lever exists to ensure that skilled play and smart setup are not negated by a single catastrophic roll. It does not guarantee success — it grants a second chance.",
-      "Control Die reroll (not Power Die) is the intentional default for most resources. It affects accuracy — whether the action lands — not impact magnitude. A scoundrel's luck is about not blowing it, not about hitting harder.",
-      "Because resources are discipline-scoped, they are not a universal party buffer. A non-scoundrel PC has effectively 0 Edge in combat. Encounter budgets should not treat resource pools as party-wide safety nets.",
-      "Destiny Tokens are reserved for Lever 2 (Tier Shifting), not Lever 4 (Rerolls). This separation preserves the distinct identity of each meta-currency."
     ]
   },
   {
@@ -874,8 +852,8 @@
     "tag": "Character Progression",
     "summary": "Vocations are 5-tier ability trees that define a character's combat and narrative identity. Each Vocation grants a favored discipline, Edge spending permissions, and a progression of abilities from Tier 1 to Tier 5. Background phases also grant favored disciplines.",
     "mechanic": "Each Vocation has 5 tiers, purchased 1 point per tier. Characters start with a 5-point creation budget. Tier access is capped by the character's discipline die in the Vocation's favored discipline: D6 = Tier 2 max, D8 = Tier 3 max, D10 = Tier 4 max, D12 = Tier 5 max. There is no limit on the number of Vocations a character may invest in.",
-    "favoredDiscipline": "Favored disciplines come from two sources: Background (one from each phase during character creation) and Vocations (one per Vocation at Tier 1). This is the key to the Unleashed mechanic — the favored discipline's die explodes (on max result, reroll and add). Additionally, the character may spend 1 Edge to reroll their Control die on any roll using a favored discipline. Background favored disciplines follow the same rules as Vocation favored disciplines.",
-    "edgeEngine": "Edge pool max = highest governing arena die across Vocations. Tier Boost: Spend 1 Edge after a roll to boost Power by +1 Effect Tier. Favored Disciplines only.",
+    "favoredDiscipline": "Favored disciplines come from two sources: Background (one from each phase during character creation) and Vocations (one per Vocation at Tier 1). This is the key to the Unleashed mechanic — the favored discipline's die explodes (on max result, reroll and add). Additionally, the character may spend 1 Edge to reroll either their Control die or their Power die on any roll using a favored discipline. Background favored disciplines follow the same rules as Vocation favored disciplines.",
+    "edgeEngine": "Edge pool max = highest governing arena die across Vocations. Reroll: Spend 1 Edge after a roll to reroll either your Control die or your Power die. Favored Disciplines only.",
     "abilityTypes": {
       "passive": "Always-on permissions or conditional triggers. No action cost.",
       "gambit": "Active choice during play. Spend 1 tier from a roll result to gain an additional effect. Requires a decision point.",

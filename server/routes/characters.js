@@ -95,9 +95,9 @@ const ENGINE_DATA = {
   name: 'The Edge',
   poolName: 'Edge Points',
   coreUtility: {
-    name: 'Tier Boost',
+    name: 'Reroll',
     cost: '1 Edge Point',
-    rule: 'Spend 1 Edge after a roll to boost Power by +1 Effect Tier. Favored Disciplines only.',
+    rule: 'Spend 1 Edge after a roll to reroll either your Control die or your Power die. Favored Disciplines only.',
   },
 };
 
