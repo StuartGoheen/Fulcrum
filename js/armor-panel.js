@@ -236,6 +236,7 @@
         if (armors[i].id === equippedId) { equipped = armors[i]; break; }
       }
     }
+    window._equippedArmorData = equipped || null;
 
     var html = '<div class="armory-panel-wrap">';
     html += '<div class="armory-category-label">Armor</div>';

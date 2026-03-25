@@ -35,6 +35,29 @@
     'natural recovery': 'natural_recovery',
   };
 
+  var ARMOR_ENDURE_STEP = { none: -1, light: 0, medium: 1, heavy: 2 };
+  var ARMOR_EVADE_STEP  = { none: 0,  light: 0, medium: -1, heavy: -2 };
+
+  function _getEquippedArmorMods() {
+    var armorData = window._equippedArmorData;
+    var cat = armorData ? (armorData.category || 'light') : 'none';
+    var endureStep = ARMOR_ENDURE_STEP[cat] != null ? ARMOR_ENDURE_STEP[cat] : 0;
+    var evadeStep  = ARMOR_EVADE_STEP[cat] != null ? ARMOR_EVADE_STEP[cat] : 0;
+    if (armorData && armorData.evasionException) {
+      evadeStep = 0;
+    } else if (armorData && typeof armorData.evasionReduction === 'number' && evadeStep < 0) {
+      evadeStep = Math.min(0, evadeStep + armorData.evasionReduction);
+    }
+    return { endureStep: endureStep, evadeStep: evadeStep };
+  }
+
+  function _steppedDie(baseDie, steps) {
+    var idx = DIE_ORDER.indexOf(baseDie.toUpperCase());
+    if (idx < 0) return baseDie;
+    var eff = Math.max(0, Math.min(DIE_ORDER.length - 1, idx + steps));
+    return DIE_ORDER[eff];
+  }
+
   var ACTION_TYPE_ORDER = { 'Action': 0, 'Maneuver': 1, 'Exploit': 2, 'Defense': 3, 'Free': 4 };
   var ACTION_TYPE_LABELS = {
     'Action':   { pip: 'A', color: 'var(--color-accent-red, #ef4444)' },
@@ -160,6 +183,12 @@
       var discDie  = _getEffectiveDisciplineDie(char, action.arena, action.discipline);
       var arenaDie = _getEffectiveArenaDie(char, action.arena);
       if (discDie && arenaDie) {
+        var armorMods = _getEquippedArmorMods();
+        if (action.discipline === 'endure' && action.arena === 'physique') {
+          arenaDie = _steppedDie(arenaDie, armorMods.endureStep);
+        } else if (action.discipline === 'evasion' && action.arena === 'reflex') {
+          arenaDie = _steppedDie(arenaDie, armorMods.evadeStep);
+        }
         discDieHtml =
           '<div class="armory-weapon-disc">' +
             _dieImg(discDie) +
@@ -780,11 +809,16 @@
       fetch('/data/gear.json').then(function (res) {
         if (!res.ok) throw new Error('Failed to load gear: ' + res.status);
         return res.json();
+      }),
+      fetch('/data/armor.json').then(function (res) {
+        if (!res.ok) throw new Error('Failed to load armor: ' + res.status);
+        return res.json();
       })
     ])
     .then(function (results) {
       var data = results[0];
       var gear = results[1];
+      var armorList = results[2];
 
       function tryRender() {
         var char = window.CharacterPanel && window.CharacterPanel.currentChar;
@@ -793,7 +827,25 @@
         var charId = char.id || null;
 
         function doRender(statusMap) {
-          var activeGear = _buildActiveGear(gear, statusMap || {}, char);
+          var sm = statusMap || {};
+          var charArmorIds = char.armorIds || (char.armorId ? [char.armorId] : []);
+          var eqArmor = null;
+          for (var ai = 0; ai < charArmorIds.length; ai++) {
+            var ae = sm[charArmorIds[ai]];
+            if (ae && ae.status === 'equipped') {
+              for (var aj = 0; aj < armorList.length; aj++) {
+                if (armorList[aj].id === charArmorIds[ai]) { eqArmor = armorList[aj]; break; }
+              }
+              if (eqArmor) break;
+            }
+          }
+          if (!eqArmor && charArmorIds.length > 0) {
+            for (var ak = 0; ak < armorList.length; ak++) {
+              if (armorList[ak].id === charArmorIds[0]) { eqArmor = armorList[ak]; break; }
+            }
+          }
+          window._equippedArmorData = eqArmor;
+          var activeGear = _buildActiveGear(gear, sm, char);
           _render(data, char, activeGear);
         }
 
