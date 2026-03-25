@@ -667,10 +667,10 @@
     "summary": "A shared pool of double-sided tokens representing the crew's collective reputation and moral standing. 2 tokens per player, any side up at campaign start. The ratio persists between sessions — it is a running ledger, not a mood ring.",
     "setup": "Each player contributes 2 tokens at campaign start, placed any side up. A 4-player table has 8 tokens in the pool. The ratio never resets between sessions.",
     "karmaState": {
-      "note": "The current Hope/Toll ratio grants passive bonuses to social actions based on which side is dominant.",
-      "hopeDominant": "+1 Tier on Charm/Persuasion vs. honorable or neutral contacts.",
-      "tollDominant": "+1 Tier on Intimidate/Deception vs. the underworld.",
-      "infamyPenalty": "When one side leads by 2 or more tokens, the dominant side also imposes a penalty on the opposite social approach. Soft Touch (Hope leads by 2+): −1 Tier on Intimidate/Deception. The Monster (Toll leads by 2+): −1 Tier on Charm/Persuasion."
+      "note": "The current Hope/Toll ratio grants passive bonuses to social actions based on which side is dominant. Since each token flip shifts the difference by 2, thresholds are set at even intervals: ±2 for the small effect, ±4 for the full effect with penalty.",
+      "hopeDominant": "Hope leads by 2+ tokens: +1 Tier on Charm/Persuasion vs. honorable or neutral contacts.",
+      "tollDominant": "Toll leads by 2+ tokens: +1 Tier on Intimidate/Deception vs. the underworld.",
+      "infamyPenalty": "When one side leads by 4 or more tokens, the dominant side also imposes a penalty on the opposite social approach. Soft Touch (Hope leads by 4+): −1 Tier on Intimidate/Deception. The Monster (Toll leads by 4+): −1 Tier on Charm/Persuasion."
     },
     "tapping": {
       "rule": "Once per scene, after any roll, any player may tap one available token to increase the result by +1 Tier. Tapped tokens slide aside for the scene — they do not flip.",
