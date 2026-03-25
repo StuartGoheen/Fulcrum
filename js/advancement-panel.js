@@ -121,6 +121,7 @@
   var _char = null;
   var _saveTimeout = null;
   var _collapsedBuckets = {};
+  var _collapsedSections = {};
   var _panelVisible = false;
   var _initialized = false;
   var _openSpendPanel = null;
@@ -347,34 +348,41 @@
     var invested = trackObj.invested || 0;
     var inAdv = _isAdvancementPhase();
     var pipShape = trackKey === 'disc' ? ' adv-pip--disc' : ' adv-pip--square';
+    var collapsed = _collapsedSections[trackKey];
     var html = '';
-    html += '<div class="adv-track-section">';
-    html += '<div class="adv-track-header">';
+    html += '<div class="adv-track-section adv-collapsible-section' + (collapsed ? '' : ' open') + '">';
+    html += '<div class="adv-track-header adv-collapsible-toggle" data-collapse-key="' + trackKey + '">';
     html += '<span class="adv-track-title">' + _esc(label) + '</span>';
     html += '<span class="adv-track-meta">Track ' + trackObj.level + ' \u2022 ' + costPerBox + ' Mark' + (costPerBox > 1 ? 's' : '') + '/pip \u2022 ' + totalTrackCost + ' to clear</span>';
+    html += '<span class="adv-track-progress-badge">' + trackObj.filled + '/' + trackSize;
+    if (unspent > 0) html += ' \u2022 ' + unspent + ' Adv';
+    html += '</span>';
+    html += '<span class="adv-collapse-chevron">' + (collapsed ? '\u25B8' : '\u25BE') + '</span>';
     html += '</div>';
 
-    html += '<div class="adv-track-pips">';
-    for (var i = 0; i < trackSize; i++) {
-      var filled = i < trackObj.filled ? ' adv-pip--filled' : '';
-      var clickable = inAdv ? '' : ' adv-pip--locked';
-      html += '<span class="adv-pip' + pipShape + filled + clickable + '" data-track="' + trackKey + '" data-index="' + i + '"></span>';
-    }
-    html += '</div>';
-
-    html += '<div class="adv-track-stats">';
-    html += '<span class="adv-stat"><b>Progress:</b> ' + trackObj.filled + '/' + trackSize + '</span>';
-    html += '<span class="adv-stat"><b>Invested:</b> ' + invested + '</span>';
-    html += '<span class="adv-stat adv-stat--advances"><b>Unspent Advances:</b> ' + unspent + '</span>';
-    html += '</div>';
-
-    if (inAdv) {
-      html += '<div class="adv-track-actions">';
-      html += '<button class="adv-btn adv-btn--spend' + (unspent < 1 ? ' adv-btn--disabled' : '') + '" data-spend-track="' + trackKey + '"' + (unspent < 1 ? ' disabled' : '') + '>Spend Advance</button>';
+    if (!collapsed) {
+      html += '<div class="adv-track-pips">';
+      for (var i = 0; i < trackSize; i++) {
+        var filled = i < trackObj.filled ? ' adv-pip--filled' : '';
+        var clickable = inAdv ? '' : ' adv-pip--locked';
+        html += '<span class="adv-pip' + pipShape + filled + clickable + '" data-track="' + trackKey + '" data-index="' + i + '"></span>';
+      }
       html += '</div>';
-    }
 
-    if (extraAfterPips) html += extraAfterPips;
+      html += '<div class="adv-track-stats">';
+      html += '<span class="adv-stat"><b>Progress:</b> ' + trackObj.filled + '/' + trackSize + '</span>';
+      html += '<span class="adv-stat"><b>Invested:</b> ' + invested + '</span>';
+      html += '<span class="adv-stat adv-stat--advances"><b>Unspent Advances:</b> ' + unspent + '</span>';
+      html += '</div>';
+
+      if (inAdv) {
+        html += '<div class="adv-track-actions">';
+        html += '<button class="adv-btn adv-btn--spend' + (unspent < 1 ? ' adv-btn--disabled' : '') + '" data-spend-track="' + trackKey + '"' + (unspent < 1 ? ' disabled' : '') + '>Spend Advance</button>';
+        html += '</div>';
+      }
+
+      if (extraAfterPips) html += extraAfterPips;
+    }
 
     html += '</div>';
     return html;
@@ -515,34 +523,30 @@
 
   function _escHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
-  function _buildCreditsAndLedger() {
+  function _buildLedger() {
     if (!_char) return '';
     var html = '';
-    var credits = _char.credits || 0;
-
-    html += '<div class="adv-section-divider" style="margin-top:18px">CREDITS &amp; DEBT</div>';
-
-    html += '<div class="char-credits-bar">' +
-      '<span class="char-credits-label">Credits on Hand</span>' +
-      '<span class="char-credits-value" id="adv-credits-display">' + credits.toLocaleString() + ' cr</span>' +
-      '<div class="char-credits-controls">' +
-        '<button class="char-credits-btn" id="adv-credits-add" title="Add credits">+</button>' +
-        '<button class="char-credits-btn" id="adv-credits-sub" title="Subtract credits">&minus;</button>' +
-      '</div>' +
-    '</div>';
-
     var debt = _char.debt;
+    var collapsed = _collapsedSections['ledger'];
+
     if (debt && debt.balance > 0) {
       var creditor = DEBT_CREDITORS.find(function(c) { return c.id === debt.creditorId; }) || DEBT_CREDITORS[0];
       var rateLabel = Math.round((debt.rate || creditor.rate) * 100) + '%';
       var nextCycle = Math.round(debt.balance * (1 + (debt.rate || creditor.rate)));
 
-      html += '<div class="char-ledger-card">' +
-        '<div class="char-ledger-header">' +
-          '<span class="char-ledger-title">The Ledger</span>' +
-          '<span class="char-ledger-creditor">' + _escHtml(creditor.name) + '</span>' +
-        '</div>' +
-        '<div class="char-ledger-body">' +
+      html += '<div class="char-ledger-card adv-collapsible-section' + (collapsed ? '' : ' open') + '">';
+      html += '<div class="char-ledger-header adv-collapsible-toggle" data-collapse-key="ledger">';
+      html += '<span class="char-ledger-title">The Ledger</span>';
+      html += '<span class="char-ledger-summary-inline">' + debt.balance.toLocaleString() + ' cr owed</span>';
+      html += '<span class="adv-collapse-chevron">' + (collapsed ? '\u25B8' : '\u25BE') + '</span>';
+      html += '</div>';
+
+      if (!collapsed) {
+        html += '<div class="char-ledger-body">' +
+          '<div class="char-ledger-row">' +
+            '<span class="char-ledger-label">Creditor</span>' +
+            '<span class="char-ledger-val">' + _escHtml(creditor.name) + '</span>' +
+          '</div>' +
           '<div class="char-ledger-row">' +
             '<span class="char-ledger-label">Principal</span>' +
             '<span class="char-ledger-val">' + (debt.principal || 0).toLocaleString() + ' cr</span>' +
@@ -569,29 +573,30 @@
           '<button class="char-ledger-accrue-btn" id="adv-ledger-accrue" title="Compound interest (end of adventure)">Accrue Interest</button>' +
         '</div>';
 
-      var history = debt.history || [];
-      if (history.length > 0) {
-        html += '<div class="char-ledger-history">' +
-          '<div class="char-ledger-history-label">History</div>';
-        var recent = history.slice(-8).reverse();
-        for (var h = 0; h < recent.length; h++) {
-          var entry = recent[h];
-          if (entry.type === 'payment') {
-            html += '<div class="char-ledger-history-row char-ledger-history--payment">' +
-              '<span>Payment</span><span>-' + entry.amount.toLocaleString() + ' cr</span>' +
-              '<span>Bal: ' + entry.balanceAfter.toLocaleString() + ' cr</span></div>';
-          } else if (entry.type === 'interest') {
-            html += '<div class="char-ledger-history-row char-ledger-history--interest">' +
-              '<span>Cycle ' + entry.cycle + '</span><span>+' + entry.amount.toLocaleString() + ' cr</span>' +
-              '<span>Bal: ' + entry.balanceAfter.toLocaleString() + ' cr</span></div>';
+        var history = debt.history || [];
+        if (history.length > 0) {
+          html += '<div class="char-ledger-history">' +
+            '<div class="char-ledger-history-label">History</div>';
+          var recent = history.slice(-8).reverse();
+          for (var h = 0; h < recent.length; h++) {
+            var entry = recent[h];
+            if (entry.type === 'payment') {
+              html += '<div class="char-ledger-history-row char-ledger-history--payment">' +
+                '<span>Payment</span><span>-' + entry.amount.toLocaleString() + ' cr</span>' +
+                '<span>Bal: ' + entry.balanceAfter.toLocaleString() + ' cr</span></div>';
+            } else if (entry.type === 'interest') {
+              html += '<div class="char-ledger-history-row char-ledger-history--interest">' +
+                '<span>Cycle ' + entry.cycle + '</span><span>+' + entry.amount.toLocaleString() + ' cr</span>' +
+                '<span>Bal: ' + entry.balanceAfter.toLocaleString() + ' cr</span></div>';
+            }
           }
+          html += '</div>';
         }
-        html += '</div>';
       }
 
       html += '</div>';
     } else if (!debt || debt.balance <= 0) {
-      html += '<div class="char-ledger-card" style="opacity:0.5">' +
+      html += '<div class="char-ledger-card adv-collapsible-section" style="opacity:0.5">' +
         '<div class="char-ledger-header">' +
           '<span class="char-ledger-title">The Ledger</span>' +
           '<span class="char-ledger-creditor" style="color:var(--color-success)">Debt Free</span>' +
@@ -688,6 +693,8 @@
     }
     html += '</div>';
 
+    html += _buildLedger();
+
     var totalInvested = discInv + arenaInv + vocInv;
     var displayMarks = inAdv ? totalInvested : uninvested;
     var displayLabel = inAdv ? 'INVESTED' : 'AVAILABLE';
@@ -743,8 +750,6 @@
     html += _buildVocationTrack();
     html += '<div class="adv-4th-placeholder"><span class="adv-4th-placeholder-text">Additional track slot reserved</span></div>';
     html += '</div>';
-
-    html += _buildCreditsAndLedger();
 
     html += '</div>';
 
@@ -899,36 +904,17 @@
       });
     });
 
-    var credAddBtn = container.querySelector('#adv-credits-add');
-    var credSubBtn = container.querySelector('#adv-credits-sub');
-    if (credAddBtn) {
-      credAddBtn.addEventListener('click', function () {
-        _showModal({
-          type: 'prompt',
-          message: 'Credits to add:',
-          placeholder: 'Amount',
-          onSubmit: function (val) {
-            var amt = parseInt(val, 10);
-            if (isNaN(amt) || amt <= 0) return;
-            _patchCredits('add', amt);
-          }
-        });
+    var collapsibleToggles = container.querySelectorAll('.adv-collapsible-toggle');
+    collapsibleToggles.forEach(function (toggle) {
+      toggle.addEventListener('click', function (e) {
+        if (e.target.closest('.adv-pip') || e.target.closest('button')) return;
+        var key = toggle.getAttribute('data-collapse-key');
+        if (key) {
+          _collapsedSections[key] = !_collapsedSections[key];
+          _render();
+        }
       });
-    }
-    if (credSubBtn) {
-      credSubBtn.addEventListener('click', function () {
-        _showModal({
-          type: 'prompt',
-          message: 'Credits to subtract:',
-          placeholder: 'Amount',
-          onSubmit: function (val) {
-            var amt = parseInt(val, 10);
-            if (isNaN(amt) || amt <= 0) return;
-            _patchCredits('subtract', amt);
-          }
-        });
-      });
-    }
+    });
 
     var payBtn = container.querySelector('#adv-ledger-pay');
     if (payBtn) {

@@ -943,29 +943,6 @@
       }
     }
 
-    if (char.debt && char.debt.balance > 0) {
-      var debtCreditors = [
-        { id: 'hutt_cartel', name: 'The Hutt Cartel', interest: '10%', rate: 0.10 },
-        { id: 'black_sun', name: 'Black Sun', interest: '15%', rate: 0.15 },
-        { id: 'imperial_surplus', name: 'Imperial Surplus Broker', interest: '20%', rate: 0.20 },
-        { id: 'czerka_arms', name: 'Czerka Arms', interest: '25%', rate: 0.25 },
-        { id: 'local_fixer', name: 'Local Fixer', interest: '30%', rate: 0.30 },
-      ];
-      var dCreditor = debtCreditors.find(function(c) { return c.id === char.debt.creditorId; }) || debtCreditors[0];
-      var effectiveRate = char.debt.rate !== undefined ? char.debt.rate : dCreditor.rate;
-      var owedAmt = Math.round(char.debt.balance * (1 + effectiveRate));
-      html += '<div class="armory-category-label" style="color:var(--color-fail)">The Ledger</div>';
-      html += '<div class="armory-card" style="border-color:color-mix(in srgb,var(--color-fail) 30%,transparent)">';
-      html += '<div class="armory-card-header">';
-      html += '<span class="armory-card-name" style="color:var(--color-fail)">' + _esc(dCreditor.name) + '</span>';
-      html += '</div>';
-      html += '<div class="armory-card-body">';
-      html += '<div style="display:flex;justify-content:space-between;font-family:Audiowide,sans-serif;font-size:0.48rem;letter-spacing:0.05em">';
-      html += '<span style="color:var(--color-text-secondary)">Balance: ' + char.debt.balance.toLocaleString() + ' cr</span>';
-      html += '<span style="color:var(--color-fail)">Next Cycle: ' + owedAmt.toLocaleString() + ' cr (' + Math.round(effectiveRate * 100) + '%)</span>';
-      html += '</div></div></div>';
-    }
-
     html += '</div>';
     _lastHtml = html;
 

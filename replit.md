@@ -259,7 +259,7 @@ Armor is stored as an **array** (`armorIds: [...]`) in character_data, supportin
 
 ## Armory → Market Flow
 
-The Armory panel (`js/armory-panel.js`) includes a "Visit the Market" link at the bottom that navigates to `/market/` with `charId`, `mode=market`, and `returnTo=player` URL params. The Market page (`js/market.js`) reads these params on boot: if `charId` is present, it fetches the character via `/api/characters/:id` and auto-selects them (skipping the character gate). The player's theme carries via `localStorage` (`eote-theme`). When `returnTo=player`, a "Character Sheet" return link appears in the market header. After purchasing, the player can return to their character sheet where the new equipment will be loaded.
+The Armory panel (`js/armory-panel.js`) has a sticky top bar containing the "Visit the Market" link and a Credits display with +/- controls. The market link navigates to `/market/` with `charId`, `mode=market`, and `returnTo=player` URL params. Credits were moved here from the Advancement panel — the Armory top bar is always visible when scrolling through inventory. The Market page (`js/market.js`) reads these params on boot: if `charId` is present, it fetches the character via `/api/characters/:id` and auto-selects them (skipping the character gate). The player's theme carries via `localStorage` (`eote-theme`). When `returnTo=player`, a "Character Sheet" return link appears in the market header. After purchasing, the player can return to their character sheet where the new equipment will be loaded.
 
 ## Sell Items
 
@@ -272,7 +272,7 @@ Tables: `characters`, `campaign_state`, `equipment_status`, `sessions`, `campaig
 
 ## Advancement Panel (Panel 5)
 
-5th player character sheet panel for tracking Marks earned during play and spending them on advancement tracks. Uses CSS theme variables exclusively (all 6 themes supported).
+5th player character sheet panel for tracking Marks earned during play and spending them on advancement tracks. Uses CSS theme variables exclusively (all 6 themes supported). The Ledger (debt tracker) is displayed at the top of this panel and is collapsible. Credits have been moved to the Armory panel's sticky header. All advancement tracks (Discipline, Arena, Vocation) are collapsible — when collapsed, the track header still shows progress (e.g. "3/5 • 1 Adv"). Darker container backgrounds have been removed for a cleaner look consistent with other panels. Unfilled pips now have improved contrast.
 
 **File:** `js/advancement-panel.js`
 

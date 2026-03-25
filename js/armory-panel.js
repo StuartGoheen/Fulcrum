@@ -842,7 +842,23 @@
 
     var statusMap = _statusMap;
 
+    var credits = char.credits || 0;
+    var charId = char.id || '';
+
     var html = '<div class="armory-panel-wrap">';
+
+    html += '<div class="armory-top-bar">';
+    html += '<a href="/market/?charId=' + encodeURIComponent(charId) + '&mode=market&returnTo=player" class="armory-market-link">&#9733; Visit the Market</a>';
+    html += '<div class="armory-credits-display">';
+    html += '<span class="armory-credits-label">Credits</span>';
+    html += '<span class="armory-credits-value" id="armory-credits-val">' + credits.toLocaleString() + ' cr</span>';
+    html += '<div class="armory-credits-controls">';
+    html += '<button class="char-credits-btn" id="armory-credits-add" title="Add credits">+</button>';
+    html += '<button class="char-credits-btn" id="armory-credits-sub" title="Subtract credits">&minus;</button>';
+    html += '</div>';
+    html += '</div>';
+    html += '</div>';
+
     if (ownedArmors.length > 0) {
       html += '<div class="armory-collapse-section open">';
       html += '<div class="armory-collapse-header" data-toggle-armory>Armor <span class="armory-collapse-chevron">\u25BE</span></div>';
@@ -895,14 +911,6 @@
       html += '</div></div>';
     }
 
-    var charId = char.id || '';
-    html +=
-      '<div class="armory-market-link-wrap">' +
-        '<a href="/market/?charId=' + encodeURIComponent(charId) + '&mode=market&returnTo=player" class="armory-market-link">' +
-          '&#9733; Visit the Market' +
-        '</a>' +
-      '</div>';
-
     html += '</div>';
 
     _lastHtml = html;
@@ -933,6 +941,56 @@
         if (window.CharacterPanel) window.CharacterPanel.currentChar = updated;
         document.dispatchEvent(new CustomEvent('character:stateChanged'));
       });
+  }
+
+  function _patchCredits(action, amount) {
+    if (!_currentCharId) return;
+    fetch('/api/characters/' + encodeURIComponent(_currentCharId) + '/credits', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: action, amount: amount })
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.ok) {
+        var cp = window.CharacterPanel && window.CharacterPanel.currentChar;
+        if (cp) cp.credits = data.credits;
+        document.dispatchEvent(new CustomEvent('character:stateChanged'));
+      }
+    })
+    .catch(function(err) { console.error('[ArmoryCredits]', err); });
+  }
+
+  function _showCreditPrompt(action) {
+    var serverAction = action === 'sub' ? 'subtract' : 'add';
+    var label = action === 'add' ? 'Add Credits' : 'Subtract Credits';
+    var existing = document.getElementById('armory-credit-prompt');
+    if (existing) existing.remove();
+    var overlay = document.createElement('div');
+    overlay.id = 'armory-credit-prompt';
+    overlay.className = 'inv-confirm-overlay';
+    overlay.innerHTML =
+      '<div class="inv-confirm-modal">' +
+        '<div class="sell-confirm-title">' + label + '</div>' +
+        '<input type="number" class="armory-credit-input" placeholder="Amount" min="1" autofocus />' +
+        '<div class="inv-confirm-actions">' +
+          '<button class="inv-confirm-btn inv-confirm-ok inv-btn-' + action + '">' + label + '</button>' +
+          '<button class="inv-confirm-btn inv-confirm-cancel">Cancel</button>' +
+        '</div>' +
+      '</div>';
+    document.body.appendChild(overlay);
+    overlay.querySelector('.inv-confirm-cancel').addEventListener('click', function () { overlay.remove(); });
+    overlay.addEventListener('click', function (ev) { if (ev.target === overlay) overlay.remove(); });
+    var input = overlay.querySelector('.armory-credit-input');
+    overlay.querySelector('.inv-confirm-ok').addEventListener('click', function () {
+      var val = parseInt(input.value, 10);
+      if (!val || val < 1) return;
+      overlay.remove();
+      _patchCredits(serverAction, val);
+    });
+    input.addEventListener('keydown', function (ev) {
+      if (ev.key === 'Enter') overlay.querySelector('.inv-confirm-ok').click();
+    });
   }
 
   function _showInventoryConfirm(message, actionLabel, actionClass, onConfirm) {
@@ -1014,6 +1072,17 @@
     if (armoryHdr) {
       var section = armoryHdr.closest('.armory-collapse-section');
       if (section) section.classList.toggle('open');
+      return;
+    }
+
+    if (e.target.id === 'armory-credits-add' || (e.target.closest && e.target.closest('#armory-credits-add'))) {
+      e.stopPropagation();
+      _showCreditPrompt('add');
+      return;
+    }
+    if (e.target.id === 'armory-credits-sub' || (e.target.closest && e.target.closest('#armory-credits-sub'))) {
+      e.stopPropagation();
+      _showCreditPrompt('sub');
       return;
     }
 

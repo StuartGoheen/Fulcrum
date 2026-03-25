@@ -1779,7 +1779,7 @@ h1, h2, h3, h4, h5, h6 {
 /* ── Armory Panel ─────────────────────────────────────────────────────────── */
 
 .armory-panel-wrap {
-  padding: 5px;
+  padding: 10px;
 }
 
 .armory-category-label {
@@ -2139,31 +2139,76 @@ h1, h2, h3, h4, h5, h6 {
   color: #fff;
 }
 
-.armory-market-link-wrap {
-  margin-top: 16px;
-  padding: 12px 0 4px;
-  text-align: center;
-  border-top: 1px solid rgba(var(--color-accent-primary-rgb, 255,204,0), 0.15);
+.armory-top-bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 12px;
+  background: var(--color-bg-panel);
+  border-bottom: 1px solid var(--color-border);
+  margin: -10px -10px 10px;
 }
 
 .armory-market-link {
   font-family: var(--font-display);
-  font-size: 0.85rem;
+  font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--color-accent-primary);
   text-decoration: none;
-  padding: 8px 20px;
+  padding: 6px 14px;
   border: 1px solid var(--color-accent-primary);
   border-radius: 4px;
-  display: inline-block;
+  white-space: nowrap;
   transition: background 0.2s, color 0.2s;
 }
 
 .armory-market-link:hover {
   background: var(--color-accent-primary);
   color: var(--color-bg-primary);
+}
+
+.armory-credits-display {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.armory-credits-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-secondary);
+  font-weight: 600;
+}
+
+.armory-credits-value {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-warn);
+  font-variant-numeric: tabular-nums;
+}
+
+.armory-credits-controls {
+  display: flex;
+  gap: 4px;
+}
+
+.armory-credit-input {
+  width: 100%;
+  padding: 8px 10px;
+  margin: 8px 0;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  background: var(--color-bg-frame);
+  color: var(--color-text-primary);
+  font-size: 1rem;
+  text-align: center;
 }
 
 .armory-weapon-disc {
@@ -9603,7 +9648,6 @@ body.is-col-resizing .resize-handle {
   display: flex;
   align-items: flex-start;
   gap: 12px;
-  background: var(--color-bg-frame);
   border: 1px solid var(--color-border);
   border-radius: 6px;
   padding: 10px 14px;
@@ -9657,7 +9701,7 @@ body.is-col-resizing .resize-handle {
   padding: 5px 12px;
   border: 1px solid var(--color-border);
   border-radius: 4px;
-  background: var(--color-bg-frame);
+  background: transparent;
   color: var(--color-text-primary);
   cursor: pointer;
   transition: background 0.15s, border-color 0.15s;
@@ -9901,7 +9945,6 @@ body.is-col-resizing .resize-handle {
 }
 
 .adv-bucket {
-  background: var(--color-bg-frame);
   border: 1px solid var(--color-border);
   border-radius: 6px;
   overflow: hidden;
@@ -10084,7 +10127,6 @@ body.is-col-resizing .resize-handle {
 }
 
 .adv-track-section {
-  background: var(--color-bg-frame);
   border: 1px solid var(--color-border);
   border-radius: 6px;
   padding: 10px 12px;
@@ -10096,6 +10138,15 @@ body.is-col-resizing .resize-handle {
   gap: 4px 8px;
   margin-bottom: 8px;
   flex-wrap: wrap;
+  cursor: pointer;
+}
+
+.adv-track-header:hover .adv-track-title {
+  opacity: 0.85;
+}
+
+.adv-collapsible-section:not(.open) .adv-track-header {
+  margin-bottom: 0;
 }
 
 .adv-track-title {
@@ -10107,6 +10158,40 @@ body.is-col-resizing .resize-handle {
 .adv-track-meta {
   font-size: 0.72rem;
   color: var(--color-text-secondary);
+  flex: 1;
+}
+
+.adv-track-progress-badge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--color-accent-primary);
+  background: color-mix(in srgb, var(--color-accent-primary) 12%, transparent);
+  padding: 2px 8px;
+  border-radius: 10px;
+  white-space: nowrap;
+}
+
+.adv-collapse-chevron {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  margin-left: auto;
+  transition: transform 0.15s;
+}
+
+.char-ledger-summary-inline {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--color-fail);
+  flex: 1;
+  text-align: right;
+}
+
+.char-ledger-header {
+  cursor: pointer;
+}
+
+.char-ledger-header .adv-collapse-chevron {
+  margin-left: 8px;
 }
 
 .adv-track-pips {
@@ -10119,10 +10204,11 @@ body.is-col-resizing .resize-handle {
 .adv-pip {
   width: 24px;
   height: 24px;
-  border: 2px solid var(--color-border);
+  border: 2px solid color-mix(in srgb, var(--color-text-secondary) 60%, transparent);
   border-radius: 4px;
   cursor: pointer;
   transition: background 0.15s, border-color 0.15s, transform 0.1s;
+  background: color-mix(in srgb, var(--color-text-secondary) 8%, transparent);
 }
 
 .adv-pip:hover {
