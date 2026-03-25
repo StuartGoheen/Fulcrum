@@ -71,6 +71,8 @@
   var currentPart = null;
   var currentScene = null;
   var glossaryData = null;
+  var sceneIntelData = null;
+  var partyCache = [];
 
   function getAdventure(id) { return adventuresData ? adventuresData.adventures.find(function (a) { return a.id === id; }) : null; }
   function getPart(adv, pid) { return (adv.parts || []).find(function (p) { return p.id === pid; }); }
@@ -106,6 +108,7 @@
       renderScene();
       renderSceneCounter();
       loadPartyMonitor();
+      loadSceneIntel(currentScene);
     }).catch(function (err) {
       var el = document.getElementById('scene-carousel');
       if (el) el.innerHTML = '<p style="color:var(--color-accent-primary);font-size:0.85rem;">Failed to load campaign data: ' + esc(err.message) + '</p>';
@@ -329,6 +332,7 @@
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ adventure_id: currentAdventure, part_id: currentPart, scene_id: currentScene })
     }).catch(function (err) { console.error('Failed to save progress:', err); });
+    loadSceneIntel(currentScene);
   }
 
   function navigateToScene(sceneId) {
@@ -384,10 +388,27 @@
   function loadPartyMonitor() {
     fetch('/api/campaign/party')
       .then(function (r) { return r.json(); })
-      .then(function (data) { renderPartyList(data.party || []); })
+      .then(function (data) {
+        partyCache = data.party || [];
+        renderPartyList(partyCache);
+      })
       .catch(function () {
         var el = document.getElementById('party-list');
         if (el) el.innerHTML = '<p class="cb-muted">Failed to load party data.</p>';
+      });
+  }
+
+  function loadSceneIntel(sceneId) {
+    if (!sceneId) { sceneIntelData = null; renderPartyList(partyCache); return; }
+    fetch('/api/campaign/scene-intel/' + encodeURIComponent(sceneId))
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        sceneIntelData = data;
+        renderPartyList(partyCache);
+      })
+      .catch(function () {
+        sceneIntelData = null;
+        renderPartyList(partyCache);
       });
   }
 
@@ -398,21 +419,159 @@
       list.innerHTML = '<p class="cb-muted" style="font-style:italic;">No characters found.</p>';
       return;
     }
-    list.innerHTML = party.map(function (pc) {
-      return '<div class="cb-player-card ' + (pc.connected ? 'connected' : 'disconnected') + '">' +
-        '<div class="cb-player-top">' +
-          '<div>' +
-            '<div class="cb-player-name">' + esc(pc.name) + '</div>' +
-            '<div class="cb-player-detail">' + esc(pc.species || '') + (pc.archetype ? ' — ' + esc(pc.archetype) : '') + '</div>' +
-          '</div>' +
-          (pc.vitality !== null ? '<div class="cb-player-vitality">' + pc.vitality + '</div>' : '') +
-        '</div>' +
-        '<div class="cb-player-status">' +
-          (pc.connected ? '<span style="color:#44AA66;">&#9679; Connected</span>' : '<span>&#9899; Offline</span>') +
-          (pc.marks != null ? ' <span style="color:var(--color-accent-primary);margin-left:0.5rem;">' + pc.marks + ' Marks</span>' : '') +
-        '</div>' +
-      '</div>';
+
+    var hasIntel = sceneIntelData && sceneIntelData.hasTags;
+    var html = '';
+
+    if (hasIntel) {
+      var typeLabel = sceneIntelData.challengeType ? sceneIntelData.challengeType.toUpperCase() : 'TAGGED';
+      html += '<div class="cb-scene-intel-bar"><span class="cb-intel-pulse"></span> Scene Intel Active — ' + esc(typeLabel) + '</div>';
+    }
+
+    html += party.map(function (pc) {
+      var intelForChar = null;
+      if (hasIntel && sceneIntelData.intel) {
+        intelForChar = sceneIntelData.intel.find(function (i) { return i.id === pc.id; });
+      }
+      var insights = intelForChar ? intelForChar.insights || [] : [];
+
+      var vocLabel = '';
+      if (pc.vocations && pc.vocations.length) {
+        vocLabel = pc.vocations.map(function (v) {
+          return esc(v.name || v.kitId || '') + ' T' + (v.tier || 1);
+        }).join(', ');
+      }
+
+      var cardHtml = '<div class="cb-player-card ' + (pc.connected ? 'connected' : 'disconnected') + '" data-char-id="' + esc(pc.id) + '">';
+      cardHtml += '<div class="cb-player-top">';
+      cardHtml += '<div>';
+      cardHtml += '<div class="cb-player-name">' + esc(pc.name) + ' <span class="cb-player-expand-icon">&#9654;</span></div>';
+      cardHtml += '<div class="cb-player-detail">' + esc(pc.species || '') + (pc.archetype ? ' — ' + esc(pc.archetype) : '') + '</div>';
+      cardHtml += '</div>';
+      cardHtml += (pc.vitality !== null ? '<div class="cb-player-vitality">' + pc.vitality + '</div>' : '');
+      cardHtml += '</div>';
+
+      cardHtml += '<div class="cb-player-status">';
+      cardHtml += (pc.connected ? '<span style="color:#44AA66;">&#9679; Connected</span>' : '<span>&#9899; Offline</span>');
+      cardHtml += (pc.marks != null ? ' <span style="color:var(--color-accent-primary);margin-left:0.5rem;">' + pc.marks + ' Marks</span>' : '');
+      cardHtml += '</div>';
+
+      if (insights.length) {
+        insights.forEach(function (ins) {
+          var ratingCls = '';
+          var labelHtml = esc(ins.label);
+          if (ins.rating) {
+            ratingCls = ' rating-' + ins.rating;
+            labelHtml = '<span class="rating-' + esc(ins.rating) + '">' + esc(ins.label) + '</span>';
+          }
+          cardHtml += '<div class="cb-intel-row type-' + esc(ins.type) + ratingCls + '">';
+          cardHtml += '<span class="cb-intel-icon">' + (ins.icon || '·') + '</span>';
+          cardHtml += '<span>' + labelHtml + '</span>';
+          cardHtml += '</div>';
+        });
+      }
+
+      cardHtml += '<div class="cb-player-body">';
+
+      if (vocLabel) {
+        cardHtml += '<div class="cb-player-vocations">' + vocLabel + '</div>';
+      }
+
+      if (pc.vocationAbilities && pc.vocationAbilities.length) {
+        cardHtml += '<div class="cb-intel-section">';
+        cardHtml += '<div style="font-size:0.6rem;color:var(--color-text-secondary);margin-bottom:0.15rem;">Abilities</div>';
+        pc.vocationAbilities.forEach(function (a) {
+          cardHtml += '<div style="font-size:0.6rem;color:var(--color-text-secondary);padding:0.02rem 0;">';
+          cardHtml += '<span style="color:var(--color-accent-primary);">T' + a.tier + '</span> ';
+          cardHtml += esc(a.name);
+          if (a.type) cardHtml += ' <span style="opacity:0.5;">(' + esc(a.type) + ')</span>';
+          cardHtml += '</div>';
+        });
+        cardHtml += '</div>';
+      }
+
+      if (pc.conditions && pc.conditions.length) {
+        cardHtml += '<div class="cb-player-conditions">';
+        pc.conditions.forEach(function (c) {
+          cardHtml += '<span class="cb-condition-pip">' + esc(c) + '</span>';
+        });
+        cardHtml += '</div>';
+      }
+
+      if (pc.destiny) {
+        var destName = pc.destiny.name || pc.destiny.id || '';
+        if (destName) {
+          cardHtml += '<div style="font-size:0.65rem;color:var(--color-accent-secondary,#c084fc);margin-top:0.2rem;">Destiny: ' + esc(destName) + '</div>';
+          if (pc.destiny.coreQuestion) {
+            cardHtml += '<div style="font-size:0.55rem;color:var(--color-text-secondary);opacity:0.7;padding-left:0.3rem;">' + esc(pc.destiny.coreQuestion) + '</div>';
+          }
+        }
+      }
+
+      if (pc.backgroundFavored && pc.backgroundFavored.length) {
+        cardHtml += '<div style="font-size:0.6rem;color:var(--color-accent-deep,#818cf8);margin-top:0.15rem;">Favored: ' + pc.backgroundFavored.map(function (f) { return esc(f.replace(/_/g, ' ')); }).join(', ') + '</div>';
+      }
+
+      var ARENA_GROUPS = [
+        { id: 'physique', label: 'PHY', discs: ['athletics','brawl','endure','melee','heavy_weapons'] },
+        { id: 'reflex', label: 'REF', discs: ['evasion','piloting','ranged','skulduggery','stealth'] },
+        { id: 'grit', label: 'GRT', discs: ['beast_handling','intimidate','resolve','survival','control_spark'] },
+        { id: 'wits', label: 'WIT', discs: ['investigation','medicine','tactics','tech','sense_spark'] },
+        { id: 'presence', label: 'PRS', discs: ['charm','deception','insight','persuasion','alter_spark'] },
+      ];
+
+      if (pc.disciplines && Object.keys(pc.disciplines).length) {
+        cardHtml += '<div class="cb-intel-section">';
+        cardHtml += '<div style="font-size:0.6rem;color:var(--color-text-secondary);margin-bottom:0.15rem;">Disciplines</div>';
+        ARENA_GROUPS.forEach(function (arena) {
+          var arenaDie = pc.arenas && pc.arenas[arena.id] ? pc.arenas[arena.id] : '';
+          cardHtml += '<div style="font-size:0.58rem;margin-top:0.15rem;">';
+          cardHtml += '<span style="color:var(--color-accent-primary);font-family:Audiowide,sans-serif;">' + arena.label + '</span>';
+          if (arenaDie) cardHtml += ' <span style="color:var(--color-text-secondary);opacity:0.7;">' + esc(arenaDie) + '</span>';
+          cardHtml += '</div>';
+          arena.discs.forEach(function (discId) {
+            var disc = pc.disciplines[discId];
+            if (!disc) return;
+            var trained = disc.training === 'trained' || disc.training === 'formative';
+            var color = disc.favored ? 'var(--color-accent-secondary,#c084fc)' : trained ? 'var(--color-text-primary)' : 'var(--color-text-secondary)';
+            var opacity = trained || disc.favored ? '1' : '0.4';
+            cardHtml += '<div style="font-size:0.55rem;color:' + color + ';opacity:' + opacity + ';padding:0.01rem 0 0.01rem 0.5rem;">';
+            cardHtml += esc(discId.replace(/_/g, ' '));
+            if (disc.die) cardHtml += ' ' + esc(disc.die);
+            if (disc.favored) cardHtml += ' ★';
+            cardHtml += '</div>';
+          });
+        });
+        cardHtml += '</div>';
+      }
+
+      if (pc.gear && pc.gear.length) {
+        cardHtml += '<div class="cb-intel-section">';
+        cardHtml += '<div style="font-size:0.6rem;color:var(--color-text-secondary);margin-bottom:0.15rem;">Gear (' + pc.gear.length + ')</div>';
+        pc.gear.forEach(function (g) {
+          var tagStr = (g.tags || []).concat(g.traits || []).filter(Boolean).join(', ');
+          var isRestricted = (g.tags || []).some(function(t){ return /restricted|illegal/i.test(t); }) || (g.availability && /restricted|illegal/i.test(g.availability));
+          var color = isRestricted ? 'var(--color-danger,#ef4444)' : 'var(--color-text-secondary)';
+          cardHtml += '<div style="font-size:0.6rem;color:' + color + ';padding:0.05rem 0;">' + esc(g.name);
+          if (g.availability) cardHtml += ' <span style="opacity:0.6;">[' + esc(g.availability) + ']</span>';
+          if (tagStr) cardHtml += ' <span style="opacity:0.5;">(' + esc(tagStr) + ')</span>';
+          cardHtml += '</div>';
+        });
+        cardHtml += '</div>';
+      }
+
+      cardHtml += '</div>';
+      cardHtml += '</div>';
+      return cardHtml;
     }).join('');
+
+    list.innerHTML = html;
+
+    list.querySelectorAll('.cb-player-card').forEach(function (card) {
+      card.addEventListener('click', function (e) {
+        card.classList.toggle('expanded');
+      });
+    });
   }
 
   function renderGmDestinyPool(pool) {
