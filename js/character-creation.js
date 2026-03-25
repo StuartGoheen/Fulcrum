@@ -139,20 +139,27 @@
     var detailCol = document.createElement("div");
     detailCol.className = "ph3-detail-col";
 
+    var detailHeader = document.createElement("div");
+    detailHeader.className = "ph3-detail-header";
+
     var nameEl = document.createElement("h2");
     nameEl.className = "ph3-card-name";
     nameEl.textContent = sp.name;
-    detailCol.appendChild(nameEl);
+    detailHeader.appendChild(nameEl);
 
     var tagEl = document.createElement("p");
     tagEl.className = "ph3-card-symbol";
     tagEl.textContent = sp.tagline;
-    detailCol.appendChild(tagEl);
+    detailHeader.appendChild(tagEl);
 
     var loreEl = document.createElement("p");
     loreEl.className = "ph3-narrative";
     loreEl.textContent = sp.lore || "";
-    detailCol.appendChild(loreEl);
+    detailHeader.appendChild(loreEl);
+    detailCol.appendChild(detailHeader);
+
+    var detailScroll = document.createElement("div");
+    detailScroll.className = "ph3-detail-scroll";
 
     var arenaBlock = document.createElement("div");
     arenaBlock.className = "ph3-knack-block";
@@ -168,7 +175,7 @@
     arenaDesc.className = "ph3-knack-desc";
     arenaDesc.textContent = sp.arenaShift.desc;
     arenaBlock.appendChild(arenaDesc);
-    detailCol.appendChild(arenaBlock);
+    detailScroll.appendChild(arenaBlock);
 
     var favBlock = document.createElement("div");
     favBlock.className = "ph3-knack-block";
@@ -223,7 +230,7 @@
       });
       favBlock.appendChild(pillWrap);
     }
-    detailCol.appendChild(favBlock);
+    detailScroll.appendChild(favBlock);
 
     var bioBlock = document.createElement("div");
     bioBlock.className = "ph3-knack-block";
@@ -239,7 +246,7 @@
     bioDesc.className = "ph3-knack-desc";
     bioDesc.textContent = sp.biologicalTruth.desc;
     bioBlock.appendChild(bioDesc);
-    detailCol.appendChild(bioBlock);
+    detailScroll.appendChild(bioBlock);
 
     if (sp.speciesTrait) {
       var traitBlock = document.createElement("div");
@@ -256,8 +263,13 @@
       traitDesc.className = "ph3-knack-desc";
       traitDesc.textContent = sp.speciesTrait.desc;
       traitBlock.appendChild(traitDesc);
-      detailCol.appendChild(traitBlock);
+      detailScroll.appendChild(traitBlock);
     }
+
+    detailCol.appendChild(detailScroll);
+
+    var detailFooter = document.createElement("div");
+    detailFooter.className = "ph3-detail-footer";
 
     var selectBtn = document.createElement("button");
     selectBtn.className = "cc-select-btn";
@@ -266,7 +278,8 @@
       e.stopPropagation();
       selectFn(sp);
     });
-    detailCol.appendChild(selectBtn);
+    detailFooter.appendChild(selectBtn);
+    detailCol.appendChild(detailFooter);
 
     cardEl.appendChild(imgCol);
     cardEl.appendChild(detailCol);
@@ -1387,26 +1400,29 @@
     var detailCol = document.createElement("div");
     detailCol.className = "ph3-detail-col voc-detail-col";
 
+    var vocHeader = document.createElement("div");
+    vocHeader.className = "ph3-detail-header";
+
     var nameEl = document.createElement("h2");
     nameEl.className = "ph3-card-name";
     nameEl.textContent = kit.name;
-    detailCol.appendChild(nameEl);
+    vocHeader.appendChild(nameEl);
 
     var meta = document.createElement("p");
     meta.className = "ph3-card-symbol";
     meta.textContent = arenaName + " / " + discName;
-    detailCol.appendChild(meta);
+    vocHeader.appendChild(meta);
 
     var desc = document.createElement("p");
     desc.className = "ph3-narrative";
     desc.textContent = kit.description || "";
-    detailCol.appendChild(desc);
+    vocHeader.appendChild(desc);
 
     if (kit.fluff) {
       var fluff = document.createElement("p");
       fluff.className = "ph3-narrative voc-fluff";
       fluff.textContent = kit.fluff;
-      detailCol.appendChild(fluff);
+      vocHeader.appendChild(fluff);
     }
 
     var capInfo = document.createElement("div");
@@ -1415,7 +1431,7 @@
     var discId = kit.favoredDiscipline || kit.alignedDiscipline;
     var dieVal = discId ? statsGetDiscValue(discId, d) : "D6";
     capInfo.textContent = discName + " at " + dieVal + " → max Tier " + maxTier;
-    detailCol.appendChild(capInfo);
+    vocHeader.appendChild(capInfo);
 
     var tierActions = document.createElement("div");
     tierActions.className = "cc-kit-flat-actions";
@@ -1453,7 +1469,8 @@
       remBtn.addEventListener("click", function() { handleKitSelect(kit.id, 0); });
       tierActions.appendChild(remBtn);
     }
-    detailCol.appendChild(tierActions);
+    vocHeader.appendChild(tierActions);
+    detailCol.appendChild(vocHeader);
 
     var abilitiesWrap = document.createElement("div");
     abilitiesWrap.className = "voc-abilities-wrap";
@@ -1501,7 +1518,10 @@
       row.appendChild(abBody);
       abilitiesWrap.appendChild(row);
     }
-    detailCol.appendChild(abilitiesWrap);
+    var vocScroll = document.createElement("div");
+    vocScroll.className = "ph3-detail-scroll";
+    vocScroll.appendChild(abilitiesWrap);
+    detailCol.appendChild(vocScroll);
 
     cardEl.appendChild(imgCol);
     cardEl.appendChild(detailCol);
