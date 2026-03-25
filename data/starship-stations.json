@@ -124,7 +124,7 @@
             "tier": 2,
             "label": "Masterful",
             "range": "4–7",
-            "description": "Ship gains [Elusive] until start of Pilot's next turn. Additionally, one ally station gains [Cover 1] from the ship's positioning."
+            "description": "Ship gains [Elusive] until start of Pilot's next turn. Additionally, one ally station gains [Cover 2] from the ship's positioning."
           },
           {
             "tier": 3,
@@ -148,19 +148,19 @@
             "tier": 1,
             "label": "Fleeting",
             "range": "0–3",
-            "description": "Ship gains [Cover 1] from environmental obstruction until the Pilot's next turn."
+            "description": "Ship gains [Cover 2] from environmental obstruction until the Pilot's next turn."
           },
           {
             "tier": 2,
             "label": "Masterful",
             "range": "4–7",
-            "description": "Ship gains [Cover 2]. Ships that follow into the terrain take Fleeting collision damage — the path you carved is yours alone."
+            "description": "Ship gains [Cover 3]. Ships that follow into the terrain take Fleeting collision damage — the path you carved is yours alone."
           },
           {
             "tier": 3,
             "label": "Legendary",
             "range": "8+",
-            "description": "Ship gains [Cover 2] and concealment. Ships that follow into the terrain take Masterful collision damage — the route you threaded was never meant for anyone else."
+            "description": "Ship gains [Cover 3] and concealment. Ships that follow into the terrain take Masterful collision damage — the route you threaded was never meant for anyone else."
           }
         ],
         "risk": "On failure, the Pilot clips the terrain — the ship takes Fleeting collision damage and loses [Cover] and concealment.",

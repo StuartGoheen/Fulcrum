@@ -5,7 +5,7 @@
     "system": "handling",
     "gate": "D8",
     "type": "passive",
-    "description": "Aftermarket attitude thrusters and upgraded reaction control systems. The ship rolls faster, pitches harder, and recovers from maneuvers with less overshoot. When the Pilot uses Evasive Maneuvers and succeeds, the [Elusive] condition also grants [Cover 1] to the ship for the same duration.",
+    "description": "Aftermarket attitude thrusters and upgraded reaction control systems. The ship rolls faster, pitches harder, and recovers from maneuvers with less overshoot. When the Pilot uses Evasive Maneuvers and succeeds, the [Elusive] condition also grants [Cover 2] to the ship for the same duration.",
     "designNotes": "Entry-level Handling upgrade. Makes Evasive Maneuvers strictly better by bundling Cover with Elusive. Rewards defensive flying without changing the action's structure.",
     "unlockRequirement": "Handling D8"
   },
