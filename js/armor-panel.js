@@ -1,12 +1,105 @@
 (function () {
   'use strict';
 
+  var DIE_ORDER = ['D4', 'D6', 'D8', 'D10', 'D12'];
+
   var CATEGORY_RULES = {
     none:   'Step Down Physique to Endure.',
     light:  'No modification to Physique when Enduring.',
     medium: 'Step Up Physique to Endure. Step Down Reflex for Evasion.',
     heavy:  'Step Up Physique twice to Endure. Step Down Reflex twice for Evasion.'
   };
+
+  var ENDURE_STEP  = { none: -1, light: 0, medium: 1, heavy: 2 };
+  var EVADE_STEP   = { none: 0,  light: 0, medium: -1, heavy: -2 };
+
+  function _steppedDie(baseDie, steps) {
+    var idx = DIE_ORDER.indexOf(baseDie.toUpperCase());
+    if (idx < 0) return baseDie;
+    var eff = Math.max(0, Math.min(DIE_ORDER.length - 1, idx + steps));
+    return DIE_ORDER[eff];
+  }
+
+  function _findArenaDie(char, arenaId) {
+    if (!char || !char.arenas) return 'D6';
+    for (var i = 0; i < char.arenas.length; i++) {
+      if (char.arenas[i].id === arenaId) return char.arenas[i].die || 'D6';
+    }
+    return 'D6';
+  }
+
+  function _findDiscDie(char, arenaId, discId) {
+    if (!char || !char.arenas) return 'D6';
+    for (var i = 0; i < char.arenas.length; i++) {
+      if (char.arenas[i].id === arenaId) {
+        var discs = char.arenas[i].disciplines || [];
+        for (var j = 0; j < discs.length; j++) {
+          if (discs[j].id === discId) return discs[j].die || 'D6';
+        }
+      }
+    }
+    return 'D6';
+  }
+
+  function _dieImgHtml(dieName, label, arrowDir) {
+    var src = '/assets/' + dieName.toLowerCase() + '.png';
+    var arrowHtml = '';
+    if (arrowDir === 'up') {
+      arrowHtml = '<svg class="armor-die-arrow armor-die-arrow--up" viewBox="0 0 12 12" width="10" height="10"><polygon points="6,1 11,9 1,9" fill="var(--color-accent-primary)"/></svg>';
+    } else if (arrowDir === 'down') {
+      arrowHtml = '<svg class="armor-die-arrow armor-die-arrow--down" viewBox="0 0 12 12" width="10" height="10"><polygon points="6,11 1,3 11,3" fill="#ef4444"/></svg>';
+    }
+    return (
+      '<div class="armor-die-cell">' +
+        '<img src="' + src + '" alt="' + dieName + '" class="armor-die-img">' +
+        arrowHtml +
+        '<span class="armor-die-label">' + label + '</span>' +
+      '</div>'
+    );
+  }
+
+  function _buildDiceDisplay(armor, char) {
+    var cat = armor.category || 'light';
+    var endureSteps = ENDURE_STEP[cat] != null ? ENDURE_STEP[cat] : 0;
+    var evadeSteps  = EVADE_STEP[cat] != null ? EVADE_STEP[cat] : 0;
+    if (armor.evasionException) evadeSteps = 0;
+
+    var physiqueDie = _findArenaDie(char, 'physique');
+    var reflexDie   = _findArenaDie(char, 'reflex');
+    var endureDie   = _findDiscDie(char, 'physique', 'endure');
+    var evadeDie    = _findDiscDie(char, 'reflex', 'evasion');
+
+    var effPhysiqueForEndure = _steppedDie(physiqueDie, endureSteps);
+    var effReflexForEvade    = _steppedDie(reflexDie, evadeSteps);
+
+    var endureArrow = endureSteps > 0 ? 'up' : (endureSteps < 0 ? 'down' : '');
+    var evadeArrow  = evadeSteps < 0 ? 'down' : '';
+
+    var html = '<div class="armor-dice-display">';
+
+    html += '<div class="armor-dice-group">';
+    html += '<div class="armor-dice-group-label">Endure</div>';
+    html += '<div class="armor-dice-row">';
+    html += _dieImgHtml(endureDie, 'Control', '');
+    html += '<span class="armor-dice-sep">+</span>';
+    html += _dieImgHtml(effPhysiqueForEndure, 'Power' + (endureSteps !== 0 ? ' (' + physiqueDie + ')' : ''), endureArrow);
+    html += '</div>';
+    html += '</div>';
+
+    if (cat === 'medium' || cat === 'heavy') {
+      html += '<div class="armor-dice-group">';
+      html += '<div class="armor-dice-group-label">Evade' + (armor.evasionException ? ' <span class="armor-exception">(No Penalty)</span>' : '') + '</div>';
+      html += '<div class="armor-dice-row">';
+      html += _dieImgHtml(evadeDie, 'Control', '');
+      html += '<span class="armor-dice-sep">+</span>';
+      html += _dieImgHtml(effReflexForEvade, 'Power' + (evadeSteps !== 0 ? ' (' + reflexDie + ')' : ''), evadeArrow);
+      html += '</div>';
+      html += '</div>';
+    }
+
+    html += '</div>';
+    return html;
+  }
 
   function _esc(str) {
     return String(str)
@@ -16,8 +109,10 @@
       .replace(/"/g, '&quot;');
   }
 
-  function _buildArmorCard(armor) {
+  function _buildArmorCard(armor, char) {
     var categoryRule = CATEGORY_RULES[armor.category] || '';
+
+    var diceHtml = _buildDiceDisplay(armor, char);
 
     var metaHtml =
       '<div class="armor-card-meta">' +
@@ -34,7 +129,7 @@
     if (categoryRule) {
       var displayRule = categoryRule;
       if (armor.evasionException) {
-        displayRule = displayRule.replace('Step Down Reflex for Evasion.', '').trim();
+        displayRule = displayRule.replace(/Step Down Reflex( twice)? for Evasion\./i, '').trim();
         displayRule += ' <span class="armor-exception">(See Trait)</span>';
       }
       ruleHtml =
@@ -74,6 +169,7 @@
         '</div>' +
         '<div class="armor-card-body">' +
           metaHtml +
+          diceHtml +
           ruleHtml +
           (armor.description
             ? '<div class="armor-card-desc">' + _esc(armor.description) + '</div>'
@@ -121,7 +217,7 @@
     html += '<div class="armory-category-label">Armor</div>';
 
     if (equipped) {
-      html += _buildArmorCard(equipped);
+      html += _buildArmorCard(equipped, char);
     } else {
       html +=
         '<div class="armor-none-equipped">' +

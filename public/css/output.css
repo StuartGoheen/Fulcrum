@@ -2905,6 +2905,71 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--color-text-secondary);
 }
 
+.armor-dice-display {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 6px;
+  padding: 6px 8px;
+  background: var(--color-bg-frame);
+  border-radius: 4px;
+  border: 1px solid color-mix(in srgb, var(--color-border) 60%, transparent);
+}
+
+.armor-dice-group {
+  flex: 1;
+  min-width: 0;
+}
+
+.armor-dice-group-label {
+  font-size: 0.48rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-secondary);
+  margin-bottom: 3px;
+}
+
+.armor-dice-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.armor-die-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.armor-die-img {
+  width: 22px;
+  height: 22px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+.armor-die-arrow {
+  position: absolute;
+  top: -2px;
+  right: -4px;
+}
+
+.armor-die-label {
+  font-size: 0.4rem;
+  color: var(--color-text-secondary);
+  margin-top: 1px;
+  white-space: nowrap;
+}
+
+.armor-dice-sep {
+  font-size: 0.6rem;
+  color: var(--color-text-secondary);
+  margin: 0 2px;
+  align-self: center;
+  padding-bottom: 10px;
+}
+
 .armor-category-rule {
   font-size: 0.52rem;
   color: var(--color-accent-primary);
