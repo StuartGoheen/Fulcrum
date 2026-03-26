@@ -103,6 +103,15 @@
   var DISC_GATE = { D4: 1, D6: 2, D8: 3, D10: 4, D12: 5 };
   var DIE_STEPS = ['D4', 'D6', 'D8', 'D10', 'D12'];
 
+  var HERO_TIERS = [
+    { tier: 0, name: 'Drifter',      threshold: 0,   shortBenefit: 'Baseline — no additional benefits.' },
+    { tier: 1, name: 'Survivor',     threshold: 30,  shortBenefit: 'Adaptability: one-time respec — step down an arena, discipline, or vocation to step up a lower one.' },
+    { tier: 2, name: 'Veteran',      threshold: 55,  shortBenefit: '+1 Exploit pip (2E per round).' },
+    { tier: 3, name: 'Name',         threshold: 80,  shortBenefit: 'Signature Move: define a narrative trigger — once per scene, gain 1 Edge.' },
+    { tier: 4, name: 'Heavy Hitter', threshold: 115, shortBenefit: 'Edge Mastery: reroll both Control AND Power on Edge spend. Keep best of each.' },
+    { tier: 5, name: 'The Name',     threshold: 150, shortBenefit: '+1 Exploit pip (3E). Choose one Arena — all its disciplines become Favored. Choose your moniker.' }
+  ];
+
   var DISC_UPGRADE_COST = {
     D4:  { adv: 2, elite: 0 },
     D6:  { adv: 1, elite: 0 },
@@ -263,6 +272,119 @@
     if (_advancement.vocationTrack.lockedInvested === undefined) _advancement.vocationTrack.lockedInvested = 0;
     if (!_advancement.vocationUnlocks) _advancement.vocationUnlocks = {};
     if (!_advancement.missionPhase) _advancement.missionPhase = 'mission';
+    if (_advancement.careerMarksEarned === undefined) _advancement.careerMarksEarned = 0;
+    if (!_advancement.heroTier) _advancement.heroTier = { current: 0, respecUsed: false, signatureMove: '', customMoniker: '', favoredArena: '' };
+  }
+
+  function _getHeroTier() {
+    var marks = _advancement.careerMarksEarned || 0;
+    var result = HERO_TIERS[0];
+    for (var i = HERO_TIERS.length - 1; i >= 0; i--) {
+      if (marks >= HERO_TIERS[i].threshold) {
+        result = HERO_TIERS[i];
+        break;
+      }
+    }
+    return result;
+  }
+
+  function _getNextHeroTier() {
+    var current = _getHeroTier();
+    if (current.tier >= 5) return null;
+    return HERO_TIERS[current.tier + 1];
+  }
+
+  function _buildHeroTierCard() {
+    var ht = _getHeroTier();
+    var next = _getNextHeroTier();
+    var marks = _advancement.careerMarksEarned || 0;
+    var htData = _advancement.heroTier || {};
+    var displayName = (ht.tier === 5 && htData.customMoniker) ? htData.customMoniker : ht.name;
+    var collapsed = _collapsedSections['heroTier'];
+
+    var html = '<div class="adv-hero-tier-card adv-collapsible-section' + (collapsed ? '' : ' open') + '">';
+    html += '<div class="adv-hero-tier-header adv-collapsible-toggle" data-collapse-key="heroTier">';
+    html += '<span class="adv-hero-tier-badge">HT' + ht.tier + '</span>';
+    html += '<span class="adv-hero-tier-name">' + _esc(displayName) + '</span>';
+    html += '<span class="adv-hero-tier-marks">' + marks + ' Career Marks</span>';
+    html += '<span class="adv-collapse-chevron">' + (collapsed ? '\u25B8' : '\u25BE') + '</span>';
+    html += '</div>';
+
+    if (!collapsed) {
+      html += '<div class="adv-hero-tier-body">';
+      html += '<div class="adv-hero-tier-benefit">' + _esc(ht.shortBenefit) + '</div>';
+
+      if (next) {
+        var progress = marks - ht.threshold;
+        var needed = next.threshold - ht.threshold;
+        var pct = Math.min(100, Math.round((progress / needed) * 100));
+        html += '<div class="adv-hero-tier-next">';
+        html += '<div class="adv-hero-tier-next-label">Next: <b>' + _esc(next.name) + '</b> at ' + next.threshold + ' marks (' + (next.threshold - marks) + ' remaining)</div>';
+        html += '<div class="adv-hero-tier-bar"><div class="adv-hero-tier-bar-fill" style="width:' + pct + '%"></div></div>';
+        html += '</div>';
+      } else {
+        html += '<div class="adv-hero-tier-next"><div class="adv-hero-tier-next-label">Campaign capstone reached.</div></div>';
+      }
+
+      html += '<div class="adv-hero-tier-all">';
+      for (var i = 0; i < HERO_TIERS.length; i++) {
+        var t = HERO_TIERS[i];
+        var unlocked = marks >= t.threshold;
+        var cls = 'adv-hero-tier-row' + (unlocked ? ' adv-hero-tier-row--unlocked' : '') + (t.tier === ht.tier ? ' adv-hero-tier-row--current' : '');
+        html += '<div class="' + cls + '">';
+        html += '<span class="adv-hero-tier-row-badge">HT' + t.tier + '</span>';
+        html += '<span class="adv-hero-tier-row-name">' + _esc(t.name) + '</span>';
+        html += '<span class="adv-hero-tier-row-threshold">' + t.threshold + '</span>';
+        html += '</div>';
+      }
+      html += '</div>';
+
+      if (ht.tier >= 3 && _isAdvancementPhase()) {
+        html += '<div class="adv-hero-tier-inputs">';
+        if (ht.tier >= 3) {
+          html += '<div class="adv-hero-tier-input-group">';
+          html += '<label class="adv-hero-tier-input-label">Signature Move Trigger</label>';
+          html += '<input type="text" class="adv-hero-tier-input" id="adv-ht-signature" placeholder="When I..." value="' + _esc(htData.signatureMove || '') + '" />';
+          html += '</div>';
+        }
+        if (ht.tier >= 5) {
+          html += '<div class="adv-hero-tier-input-group">';
+          html += '<label class="adv-hero-tier-input-label">Personal Moniker</label>';
+          html += '<input type="text" class="adv-hero-tier-input" id="adv-ht-moniker" placeholder="What do they call you?" value="' + _esc(htData.customMoniker || '') + '" />';
+          html += '</div>';
+          html += '<div class="adv-hero-tier-input-group">';
+          html += '<label class="adv-hero-tier-input-label">Favored Arena</label>';
+          html += '<select class="adv-hero-tier-input" id="adv-ht-arena">';
+          html += '<option value="">— Select —</option>';
+          if (_char && _char.arenas) {
+            _char.arenas.forEach(function (a) {
+              var sel = (htData.favoredArena === a.id) ? ' selected' : '';
+              html += '<option value="' + _esc(a.id) + '"' + sel + '>' + _esc(a.label) + ' (' + _esc(a.die) + ')</option>';
+            });
+          }
+          html += '</select>';
+          html += '</div>';
+        }
+        html += '</div>';
+      } else if (ht.tier >= 3) {
+        if (htData.signatureMove) {
+          html += '<div class="adv-hero-tier-display"><b>Signature Move:</b> ' + _esc(htData.signatureMove) + '</div>';
+        }
+        if (ht.tier >= 5 && htData.favoredArena) {
+          var arenaLabel = htData.favoredArena;
+          if (_char && _char.arenas) {
+            var found = _char.arenas.find(function (a) { return a.id === htData.favoredArena; });
+            if (found) arenaLabel = found.label;
+          }
+          html += '<div class="adv-hero-tier-display"><b>Favored Arena:</b> ' + _esc(arenaLabel) + '</div>';
+        }
+      }
+
+      html += '</div>';
+    }
+
+    html += '</div>';
+    return html;
   }
 
   function _getUninvestedMarks() {
@@ -744,11 +866,12 @@
     }
 
     html += '<div class="adv-tracks-wrap">';
+    html += '<div class="adv-section-divider">HERO TIER</div>';
+    html += _buildHeroTierCard();
     html += '<div class="adv-section-divider">ADVANCEMENT TRACKS</div>';
     html += _buildDisciplineTrack();
     html += _buildArenaTrack();
     html += _buildVocationTrack();
-    html += '<div class="adv-4th-placeholder"><span class="adv-4th-placeholder-text">Additional track slot reserved</span></div>';
     html += '</div>';
 
     html += '</div>';
@@ -811,9 +934,17 @@
           _showModal({ type: 'alert', message: 'You have ' + uninvested + ' uninvested mark(s). Invest all marks into tracks before ending the mission.' });
           return;
         }
+        var earned = _countEarnedMarks();
+        _advancement.careerMarksEarned = (_advancement.careerMarksEarned || 0) + earned;
+        var oldTier = _advancement.heroTier ? _advancement.heroTier.current : 0;
+        var newHt = _getHeroTier();
+        _advancement.heroTier.current = newHt.tier;
         _advancement.missionPhase = 'advancement';
         _persist();
         _render();
+        if (newHt.tier > oldTier) {
+          _showModal({ type: 'alert', message: 'Hero Tier reached: ' + newHt.name + ' (HT' + newHt.tier + ')!\n\n' + newHt.shortBenefit });
+        }
       });
     }
 
@@ -915,6 +1046,29 @@
         }
       });
     });
+
+    var htSignature = container.querySelector('#adv-ht-signature');
+    if (htSignature) {
+      htSignature.addEventListener('change', function () {
+        _advancement.heroTier.signatureMove = htSignature.value;
+        _persist();
+      });
+    }
+    var htMoniker = container.querySelector('#adv-ht-moniker');
+    if (htMoniker) {
+      htMoniker.addEventListener('change', function () {
+        _advancement.heroTier.customMoniker = htMoniker.value;
+        _persist();
+        _render();
+      });
+    }
+    var htArena = container.querySelector('#adv-ht-arena');
+    if (htArena) {
+      htArena.addEventListener('change', function () {
+        _advancement.heroTier.favoredArena = htArena.value;
+        _persist();
+      });
+    }
 
     var payBtn = container.querySelector('#adv-ledger-pay');
     if (payBtn) {

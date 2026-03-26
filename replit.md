@@ -291,7 +291,8 @@ Tables: `characters`, `campaign_state`, `equipment_status`, `sessions`, `campaig
   - Arena: all 5 arenas with current die, cost (D4→D6: 2 Adv, D6→D8: 1 Adv, D8→D10: 3 Adv, D10→D12: 5 Adv), Apex Rule enforcement
   - Vocation: eligible vocations with tier display, 1 Advance per tier bump, gated by Discipline die
 - Actual die-stepping: upgrades modify character data in-memory and persist via `PATCH /api/characters/:id/dice`
-- 4th track placeholder slot reserved in layout
+- Hero Tier meta-progression card (replaces 4th placeholder slot): 6-tier career arc (Drifter→Survivor→Veteran→Name→Heavy Hitter→The Name) driven by cumulative `careerMarksEarned` across 150-mark campaign. Thresholds: 0/30/55/80/115/150. Displays progress bar to next tier, full tier ladder with locked/unlocked/current states. Text input fields for Signature Move (HT3), Favored Arena (HT5), and Moniker (HT5). Career marks accumulated on End Mission (Bank & Reset). Unlock notification modal fires on tier-up.
+- Hero Tier benefits: HT1 one-time respec (die swap + vocation swap), HT2 +1 Exploit pip (2E/round), HT3 Signature Move naming, HT4 Edge Mastery (dual-roll both Control+Power on Edge spend), HT5 +1 Exploit pip (3E/round) + arena-wide Favored + moniker
 - Persistence via `PATCH /api/characters/:id/advancement` (tracks) + `PATCH /api/characters/:id/dice` (die changes)
 
 **Data model:** `character_data.advancement` JSON field with:
@@ -300,6 +301,8 @@ Tables: `characters`, `campaign_state`, `equipment_status`, `sessions`, `campaig
 - `arenaTrack` (level/filled/unspentAdvances)
 - `vocationTrack` (level/filled/unspentAdvances)
 - `vocationUnlocks` (kitId → additional tiers unlocked)
+- `careerMarksEarned` (monotonically increasing total; drives Hero Tier)
+- `heroTier` (signatureMove, favoredArena, moniker — persisted text fields for HT3/HT5 rewards)
 Defaults initialized in both branches of `expandCharacterData()`.
 
 **Handbook entry:** "Marks & Advancement" added as a Rule entry in the Player's Handbook Rules section via `_loadAdvancementEntry()` in `js/glossary-overlay.js`.

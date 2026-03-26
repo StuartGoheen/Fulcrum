@@ -808,7 +808,7 @@
     "actionEconomy": {
       "perRound": "Each character has 3 pip types per round: Action (A), Maneuver (M), Exploit (E). Defenses are free and unlimited.",
       "defaults": { "action": 1, "maneuver": 1, "exploit": 1 },
-      "note": "Kit abilities may increase pip maximums. The Exploit pip is consumed only by offensive reactions — Defenses never cost a pip."
+      "note": "Hero Tier progression increases Exploit pip maximums: HT2 (Veteran, 55 marks) grants 2E per round, HT5 (The Name, 150 marks) grants 3E per round. The Exploit pip is consumed only by offensive reactions — Defenses never cost a pip."
     },
     "designNotes": [
       "The separation of Openings (conditions), Exploits (offensive reactions), and Defenses (free reactive rolls) creates clean decision points: when you are attacked, you always defend. When an enemy is vulnerable, you choose whether to spend your Exploit pip.",
@@ -846,14 +846,75 @@
     ]
   },
   {
-    "id": "vocation_system",
+    "id": "hero_tier",
     "number": 14,
+    "name": "Hero Tier",
+    "tag": "Character Progression",
+    "summary": "As characters accumulate career marks across adventures, they cross Hero Tier thresholds that grant permanent meta-progression benefits. These are not abilities — they are expansions of what the character can do per round, how efficiently they spend resources, and how the galaxy recognizes them.",
+    "mechanic": "Hero Tier is determined by total career marks earned (cumulative across all adventures). Each threshold grants a permanent benefit. Benefits are cumulative — a character at HT3 has HT1, HT2, and HT3 benefits.",
+    "tiers": [
+      {
+        "tier": 0,
+        "name": "Drifter",
+        "threshold": 0,
+        "benefit": "Baseline. No additional benefits beyond character creation and system assumptions.",
+        "designNote": "The starting state. Fresh off chargen. Nobody knows your name."
+      },
+      {
+        "tier": 1,
+        "name": "Survivor",
+        "threshold": 30,
+        "benefit": "Adaptability. One-time respec: step down any single arena die to step up a lower arena die, OR step down any discipline die to step up a lower discipline die, OR reduce one vocation tier to increase another vocation you already possess by one tier. Does not bypass discipline gates. This fires once, when the character first crosses 30 career marks during an advancement phase.",
+        "designNote": "By 30 marks the player knows what they actually want their character to be. The system gives them a course correction — narratively, they have been out in the galaxy long enough to know who they really are."
+      },
+      {
+        "tier": 2,
+        "name": "Veteran",
+        "threshold": 55,
+        "benefit": "+1 Exploit pip (2E per round). The character has seen enough fights that their body responds before their brain catches up.",
+        "exploitPips": 2,
+        "designNote": "The action economy opens up. Multi-vocation builds come online — a character can now Reflect a bolt and Exploit a Vornskyr Opening in the same round."
+      },
+      {
+        "tier": 3,
+        "name": "Name",
+        "threshold": 80,
+        "benefit": "Signature Move. Define a personal narrative trigger. Once per scene, when the trigger fires, gain 1 Edge. The player writes the trigger. The GM adjudicates whether it fires.",
+        "designNote": "The player has been playing this character for 6+ arcs. They know who this person is. The system says: codify it. Tell me your thing. The game will reward you for doing it."
+      },
+      {
+        "tier": 4,
+        "name": "Heavy Hitter",
+        "threshold": 115,
+        "benefit": "Edge Mastery. When spending Edge on a favored discipline, reroll both Control AND Power dice simultaneously. Keep the best Control result from either roll and the best Power result from either roll independently.",
+        "designNote": "Edge spends on the generic reroll become dramatically more valuable at a point in the campaign where vocation abilities offer competing Edge-spend options. This keeps the base Edge spend relevant against the fancy alternatives."
+      },
+      {
+        "tier": 5,
+        "name": "The Name",
+        "threshold": 150,
+        "benefit": "+1 Exploit pip (3E per round). Choose one Arena — all disciplines that use that arena as their Power die are treated as Favored Disciplines (eligible for Unleashed exploding dice and Edge spend rerolls). The player chooses a personal moniker — they have earned the right to name themselves.",
+        "exploitPips": 3,
+        "customMoniker": true,
+        "designNote": "Domain mastery. If you choose Physique, then Melee, Endure, Brawl, Athletics — every discipline rolling Physique as Power — all become favored. Combined with HT4 double-reroll, every Edge spend on that arena is devastating."
+      }
+    ],
+    "designNotes": [
+      "Marks have diminishing returns — track level escalation means each successive advance costs more marks. Early marks are efficient, late marks are expensive. The Hero Tier thresholds (30/55/80/115/150) reflect this: front-loaded gaps match the mark-to-power efficiency curve.",
+      "Each tier hits a different system lever: respec (HT1), action economy (HT2), narrative identity (HT3), resource efficiency (HT4), action economy + discipline scope (HT5). No two tiers feel the same.",
+      "The Exploit pip increases at HT2 and HT5 are the primary action economy expansions in the entire system. They are deliberately rare — going from 1E to 2E is a massive power spike.",
+      "HT5's arena-wide Favored status is the capstone because it breaks the fundamental assumption that Favored status is discipline-specific. It turns a specialist into a domain master."
+    ]
+  },
+  {
+    "id": "vocation_system",
+    "number": 15,
     "name": "Vocation System (Kit System v2)",
     "tag": "Character Progression",
     "summary": "Vocations are 5-tier ability trees that define a character's combat and narrative identity. Each Vocation grants a favored discipline, Edge spending permissions, and a progression of abilities from Tier 1 to Tier 5. Background phases also grant favored disciplines.",
     "mechanic": "Each Vocation has 5 tiers, purchased 1 point per tier. Characters start with a 5-point creation budget. Tier access is capped by the character's discipline die in the Vocation's favored discipline: D6 = Tier 2 max, D8 = Tier 3 max, D10 = Tier 4 max, D12 = Tier 5 max. There is no limit on the number of Vocations a character may invest in.",
     "favoredDiscipline": "Favored disciplines come from two sources: Background (one from each phase during character creation) and Vocations (one per Vocation at Tier 1). This is the key to the Unleashed mechanic — the favored discipline's die explodes (on max result, reroll and add). Additionally, the character may spend 1 Edge to reroll either their Control die or their Power die on any roll using a favored discipline. Background favored disciplines follow the same rules as Vocation favored disciplines.",
-    "edgeEngine": "Edge pool max = highest governing arena die across Vocations. Reroll: Spend 1 Edge after a roll to reroll either your Control die or your Power die. Favored Disciplines only.",
+    "edgeEngine": "Edge pool max = highest governing arena die across Vocations. Reroll: Spend 1 Edge after a roll to reroll either your Control die or your Power die. Favored Disciplines only. At Hero Tier 4 (Heavy Hitter, 115 marks), Edge spend rerolls BOTH Control and Power — keep the best of each independently.",
     "abilityTypes": {
       "passive": "Always-on permissions or conditional triggers. No action cost.",
       "gambit": "Active choice during play. Spend 1 tier from a roll result to gain an additional effect. Requires a decision point.",
@@ -870,7 +931,7 @@
   },
   {
     "id": "starship_combat",
-    "number": 15,
+    "number": 16,
     "name": "Starship Combat",
     "tag": "System Rule",
     "summary": "Starship combat governs space combat encounters using the same Fulcrum resolution math as character combat — adapted for crew stations aboard a starship. Ship combat runs as Challenge Mode: one meaningful action per crew member per round, free defensive reactions. Hardware dice replace personal Power dice. System impairment mirrors the character trauma/impairment model.",

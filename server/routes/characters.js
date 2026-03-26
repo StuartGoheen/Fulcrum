@@ -196,6 +196,8 @@ function expandCharacterData(flat) {
     if (!flat.advancement.vocationTrack) flat.advancement.vocationTrack = { level: 2, filled: 0, unspentAdvances: 0 };
     else if (flat.advancement.vocationTrack.unspentAdvances === undefined) flat.advancement.vocationTrack.unspentAdvances = 0;
     if (!flat.advancement.vocationUnlocks) flat.advancement.vocationUnlocks = {};
+    if (flat.advancement.careerMarksEarned === undefined) flat.advancement.careerMarksEarned = 0;
+    if (!flat.advancement.heroTier) flat.advancement.heroTier = { signatureMove: '', favoredArena: '', moniker: '', respecUsed: false };
     applyVocationUnlocks(flat.kits, flat.advancement.vocationUnlocks);
     if (flat.credits === undefined) flat.credits = 0;
     flat.debt = _migrateDebt(flat.debt);
@@ -263,6 +265,8 @@ function expandCharacterData(flat) {
   if (!advancement.vocationTrack) advancement.vocationTrack = { level: 2, filled: 0, unspentAdvances: 0 };
   else if (advancement.vocationTrack.unspentAdvances === undefined) advancement.vocationTrack.unspentAdvances = 0;
   if (!advancement.vocationUnlocks) advancement.vocationUnlocks = {};
+  if (advancement.careerMarksEarned === undefined) advancement.careerMarksEarned = 0;
+  if (!advancement.heroTier) advancement.heroTier = { signatureMove: '', favoredArena: '', moniker: '', respecUsed: false };
   applyVocationUnlocks(kits, advancement.vocationUnlocks);
 
   const result = {
@@ -498,7 +502,14 @@ router.patch('/characters/:id/advancement', (req, res) => {
         invested: clamp(adv.vocationTrack && adv.vocationTrack.invested, 0, 9999),
         lockedInvested: clamp(adv.vocationTrack && adv.vocationTrack.lockedInvested, 0, 9999)
       },
-      vocationUnlocks: (adv.vocationUnlocks && typeof adv.vocationUnlocks === 'object') ? adv.vocationUnlocks : {}
+      vocationUnlocks: (adv.vocationUnlocks && typeof adv.vocationUnlocks === 'object') ? adv.vocationUnlocks : {},
+      careerMarksEarned: clamp(adv.careerMarksEarned, 0, 9999),
+      heroTier: {
+        signatureMove: (adv.heroTier && typeof adv.heroTier.signatureMove === 'string') ? adv.heroTier.signatureMove.slice(0, 200) : '',
+        favoredArena: (adv.heroTier && typeof adv.heroTier.favoredArena === 'string') ? adv.heroTier.favoredArena.slice(0, 100) : '',
+        moniker: (adv.heroTier && typeof adv.heroTier.moniker === 'string') ? adv.heroTier.moniker.slice(0, 100) : '',
+        respecUsed: !!(adv.heroTier && adv.heroTier.respecUsed)
+      }
     };
     const data = JSON.parse(character.character_data);
     data.advancement = sanitized;

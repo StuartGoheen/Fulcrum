@@ -9224,18 +9224,162 @@
     line-height: 1.4;
   }
 
-  .adv-4th-placeholder {
-    border: 1px dashed var(--color-border);
+  .adv-hero-tier-card {
+    border: 1px solid var(--color-border);
     border-radius: 6px;
-    padding: 16px;
-    text-align: center;
-    margin-top: 8px;
-    opacity: 0.4;
+    background: var(--color-surface);
+    margin-bottom: 10px;
+    overflow: hidden;
   }
-  .adv-4th-placeholder-text {
+  .adv-hero-tier-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    cursor: pointer;
+    user-select: none;
+    background: rgba(255, 200, 50, 0.06);
+    border-bottom: 1px solid transparent;
+  }
+  .adv-hero-tier-card.open .adv-hero-tier-header {
+    border-bottom-color: var(--color-border);
+  }
+  .adv-hero-tier-badge {
+    background: var(--color-accent);
+    color: var(--color-bg);
+    font-weight: 700;
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+  }
+  .adv-hero-tier-name {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--color-text);
+    flex: 1;
+  }
+  .adv-hero-tier-marks {
     font-size: 0.75rem;
     color: var(--color-text-secondary);
-    font-style: italic;
+    flex-shrink: 0;
+  }
+  .adv-hero-tier-body {
+    padding: 10px 12px;
+  }
+  .adv-hero-tier-benefit {
+    font-size: 0.8rem;
+    color: var(--color-text);
+    line-height: 1.5;
+    margin-bottom: 10px;
+    padding: 6px 8px;
+    background: rgba(255, 200, 50, 0.08);
+    border-radius: 4px;
+    border-left: 3px solid var(--color-accent);
+  }
+  .adv-hero-tier-next {
+    margin-bottom: 10px;
+  }
+  .adv-hero-tier-next-label {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 4px;
+  }
+  .adv-hero-tier-next-label b {
+    color: var(--color-text);
+  }
+  .adv-hero-tier-bar {
+    height: 6px;
+    background: var(--color-border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .adv-hero-tier-bar-fill {
+    height: 100%;
+    background: var(--color-accent);
+    border-radius: 3px;
+    transition: width 0.3s ease;
+  }
+  .adv-hero-tier-all {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+  }
+  .adv-hero-tier-row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    opacity: 0.4;
+    font-size: 0.7rem;
+  }
+  .adv-hero-tier-row--unlocked {
+    opacity: 1;
+    border-color: var(--color-accent);
+  }
+  .adv-hero-tier-row--current {
+    background: rgba(255, 200, 50, 0.12);
+    border-color: var(--color-accent);
+    box-shadow: 0 0 4px rgba(255, 200, 50, 0.2);
+  }
+  .adv-hero-tier-row-badge {
+    font-weight: 700;
+    color: var(--color-accent);
+    font-size: 0.65rem;
+  }
+  .adv-hero-tier-row-name {
+    color: var(--color-text);
+    font-weight: 500;
+  }
+  .adv-hero-tier-row-threshold {
+    color: var(--color-text-secondary);
+    margin-left: auto;
+    font-size: 0.65rem;
+  }
+  .adv-hero-tier-inputs {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .adv-hero-tier-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .adv-hero-tier-input-label {
+    font-size: 0.7rem;
+    color: var(--color-text-secondary);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .adv-hero-tier-input {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    color: var(--color-text);
+    padding: 6px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-family: inherit;
+  }
+  .adv-hero-tier-input:focus {
+    outline: none;
+    border-color: var(--color-accent);
+  }
+  .adv-hero-tier-display {
+    font-size: 0.78rem;
+    color: var(--color-text-secondary);
+    padding: 4px 0;
+    line-height: 1.4;
+  }
+  .adv-hero-tier-display b {
+    color: var(--color-text);
   }
 
   /* ── Credits Bar ─────────────────────────────────────── */
