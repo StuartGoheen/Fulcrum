@@ -1896,5 +1896,25 @@
       "Common",
       "Legal"
     ]
+  },
+  {
+    "id": "gear_armor_repair_kit_01",
+    "name": "Armor Repair Kit",
+    "cost": 200,
+    "availability": "2",
+    "description": "A compact field maintenance kit containing micro-welders, composite patches, ablative sealant, and replacement fasteners for most standard armor systems. Designed for field repair between engagements — not mid-combat. The tools are precise enough for medium and heavy plate work, and the sealant bonds in under a minute. One kit contains enough material for approximately six full repairs before the consumables are exhausted.",
+    "traits": [
+      {
+        "name": "Field Repair",
+        "description": "Between encounters, the user may repair damaged armor. Requires 10 minutes per repair. Restores one lost armor trait or structural integrity point (if using armor degradation rules). Cannot restore armor that has been completely destroyed."
+      }
+    ],
+    "gambits": [],
+    "tags": [
+      "Tool",
+      "Maintenance",
+      "Common",
+      "Legal"
+    ]
   }
 ]

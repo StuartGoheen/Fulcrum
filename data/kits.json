@@ -2257,5 +2257,111 @@
         "source": "weapon"
       }
     ]
+  },
+  {
+    "id": "voc_ironclad",
+    "name": "The Ironclad",
+    "governingArena": "grit",
+    "favoredDiscipline": "endure",
+    "description": "The Ironclad does not dodge. He does not flinch. He walks into the blast zone, shrugs off the hit, and keeps moving. Where others build around speed and reflexes, the Ironclad builds around the armor on his back — learning to move in it, fight in it, and turn what most treat as a burden into a weapon. Light, medium, heavy — the weight is irrelevant. What matters is how you wear it.",
+    "fluff": "Every soldier learns to wear armor. Most learn to tolerate it. A few learn to depend on it. The Ironclad is the professional who treats their kit the way a swordsman treats a blade — as an extension of the body, maintained, understood, and trusted absolutely. When the rest of the squad is ducking behind crates, the Ironclad is standing in the open, drawing fire, and refusing to go down.",
+    "abilities": [
+      {
+        "id": "voc_ironclad_t1",
+        "tier": 1,
+        "type": "passive",
+        "name": "Worn In",
+        "tags": [
+          "[Combat]",
+          "[Armor]"
+        ],
+        "rule": "While wearing armor, you gain +1 Vitality threshold (you can absorb one additional hit before taking trauma). This applies regardless of armor category — light, medium, or heavy.\n\nAdditionally, wearing armor no longer imposes penalties on Athletics or Stealth checks. You have trained to move in your kit — the weight distribution is second nature. All other armor penalties (Evasion step-downs for medium/heavy) still apply normally.",
+        "shorthand": "+1 Vitality while armored. No Athletics/Stealth penalty from armor weight."
+      },
+      {
+        "id": "voc_ironclad_t2",
+        "tier": 2,
+        "type": "gambit",
+        "name": "Brace for Impact",
+        "tags": [
+          "[Combat]",
+          "[Defense]",
+          "[Armor]"
+        ],
+        "modifiesAction": "defense_endure",
+        "actionType": "Endure",
+        "rule": "When you successfully Endure an attack while wearing armor, you may spend 1 tier from the result. If you do, gain [Fortified] until the start of your next turn: the next attack against you this round has its Effect Tier reduced by 1 (applied after your defense roll resolves).\n\nYou planted your feet, tucked your chin, and let the armor do its job. The second hit lands on a surface that was already braced for it.",
+        "shorthand": "On successful Endure while armored, spend 1 tier. Gain [Fortified]: next attack's Effect Tier reduced by 1 until your next turn."
+      },
+      {
+        "id": "voc_ironclad_t3",
+        "tier": 3,
+        "type": "passive",
+        "name": "Load Bearer",
+        "tags": [
+          "[Combat]",
+          "[Armor]"
+        ],
+        "rule": "While wearing medium or heavy armor, reduce the Evasion step-down penalty by 1 step. Medium armor now imposes no Evasion penalty. Heavy armor now imposes only a 1-step Evasion penalty instead of 2.\n\nAdditionally, when you Endure and the result is Masterful (Control 8+), you may immediately move 1 zone as a free action. You absorbed the hit and used the momentum — stepping through the blast rather than being driven back by it.",
+        "shorthand": "Reduce armor Evasion penalty by 1 step (medium = 0, heavy = -1). Masterful Endure: free 1-zone move."
+      },
+      {
+        "id": "voc_ironclad_t4",
+        "tier": 4,
+        "type": "maneuver",
+        "name": "Armored Advance",
+        "tags": [
+          "[Combat]",
+          "[Armor]"
+        ],
+        "discipline": "endure",
+        "arena": "grit",
+        "rolled": true,
+        "rule": "You move forward under fire, using your armor as a mobile barricade. Spend your Maneuver pip. Roll Endure (Grit). You move up to 2 zones toward a hostile target. Until the start of your next turn, allies behind you (in zones you passed through or your current zone) may use your Endure result as Cover value against ranged attacks originating from the direction you advanced toward.",
+        "risk": "On failure, you move 1 zone but provide no Cover benefit — you stumbled, lost your footing, and the advance was ragged rather than controlled.",
+        "effect": [
+          {
+            "tier": 1,
+            "label": "Fleeting",
+            "range": "0-3",
+            "description": "Move 1 zone. Allies in your zone gain Cover equal to your Power die result against ranged attacks from the direction you advanced toward until your next turn."
+          },
+          {
+            "tier": 2,
+            "label": "Masterful",
+            "range": "4-7",
+            "description": "Move up to 2 zones. Allies in your zone or the zone you passed through gain Cover as above. Attackers targeting you from the direction you advanced toward have their attack [Weakened]."
+          },
+          {
+            "tier": 3,
+            "label": "Legendary",
+            "range": "8+",
+            "description": "As Masterful, plus enemies in your destination zone who are Engaged with you present an Opening — your armored arrival is itself an assault. You may Exploit this Opening immediately if you have a pip available."
+          }
+        ],
+        "shorthand": "Endure (Grit). Advance 1-2 zones, act as mobile Cover for allies. Masterful: attackers [Weakened]. Legendary: enemies present Opening on arrival."
+      },
+      {
+        "id": "voc_ironclad_t5",
+        "tier": 5,
+        "type": "passive",
+        "name": "Walking Fortress",
+        "tags": [
+          "[Combat]",
+          "[Armor]"
+        ],
+        "rule": "While wearing armor, your Endure defense rolls gain [Optimized] (roll twice, take the better result). You have transcended wearing armor — it is part of your body now.\n\nAdditionally, once per round when you take damage that would inflict a Trauma, you may reduce the incoming damage by your armor's Endure step-up bonus (light = 0, medium = 1, heavy = 2) before determining whether the Trauma applies. This reduction stacks with your normal Endure defense — it represents the armor absorbing punishment beyond what a lesser wearer could manage.\n\nAt this tier, you no longer suffer any Evasion penalty from any armor category. Heavy armor imposes no Evasion step-down.",
+        "shorthand": "Endure defense is [Optimized]. Once/round reduce pre-Trauma damage by armor's Endure bonus. No Evasion penalty from any armor."
+      }
+    ],
+    "imageUrl": "/assets/vocations/voc_ironclad.png",
+    "startingItems": [
+      {
+        "id": "gear_armor_repair_kit_01",
+        "name": "Armor Repair Kit",
+        "cost": 200,
+        "source": "gear"
+      }
+    ]
   }
 ]
