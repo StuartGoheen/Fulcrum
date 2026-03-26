@@ -2146,5 +2146,116 @@
         "source": "weapon"
       }
     ]
+  },
+  {
+    "id": "voc_juyo_adept",
+    "name": "The Juyo Adept",
+    "governingArena": "presence",
+    "favoredDiscipline": "alter_spark",
+    "description": "Form VII — The Ferocity Form. The forbidden seventh lightsaber discipline, and the last one the Order ever sanctioned. Juyo does not defend. It does not endure. It overwhelms. The practitioner opens themselves to the dark side — not to be consumed by it, but to channel it outward through the blade. Every swing carries the weight of fury held in perfect focus. The superconducting loop: aggression flows in, amplified aggression flows out. The more the enemy fights, the stronger the Adept becomes.",
+    "fluff": "Only two Jedi ever mastered Vaapad. One of them nearly killed a Sith Lord who had destroyed every other Master sent against him. The other fell to the dark side. The Order forbade this form for good reason. You are learning it anyway.",
+    "abilities": [
+      {
+        "id": "voc_juyo_adept_t1",
+        "tier": 1,
+        "type": "passive",
+        "name": "The Ferocity Form",
+        "tags": [
+          "[Combat]",
+          "[Force]"
+        ],
+        "rule": "You may roll Melee (Presence) instead of Melee (Physique) when attacking with a lightsaber or light melee weapon. The blade is driven by will, not strength. Every strike carries the weight of your intent — not your body.\n\nWhen you attack with a lightsaber, light melee weapon, or Alter, you may tap a Toll token from the Destiny Pool. You open yourself to the Force, leaning into the thrill of the fight. For a number of rounds equal to your current Hope count, you gain +1 Effect Tier on all attacks made with a lightsaber, light melee weapon, or Alter.",
+        "modifiesAction": "action_attack",
+        "targetWeaponTags": [
+          "Lightsaber",
+          "Melee"
+        ],
+        "shorthand": "Melee (Presence) replaces Melee (Physique) with lightsaber or light melee. Tap Toll token: +1 Effect Tier on lightsaber/light melee/Alter attacks for rounds equal to current Hope count."
+      },
+      {
+        "id": "voc_juyo_adept_t2",
+        "tier": 2,
+        "type": "maneuver",
+        "name": "Vornskyr's Grasp",
+        "tags": [
+          "[Combat]",
+          "[Force]"
+        ],
+        "discipline": "alter_spark",
+        "arena": "presence",
+        "defense": "resist",
+        "rolled": true,
+        "rule": "Alter (Presence) vs target's Resist. Range 0-1. You reach out through the Force and drag your prey closer.",
+        "risk": "On failure, the Force does not answer — the target holds their ground. Wasted Maneuver.",
+        "effect": [
+          {
+            "tier": 1,
+            "label": "Fleeting",
+            "range": "0-3",
+            "description": "Pull the target up to 1 zone closer to you."
+          },
+          {
+            "tier": 2,
+            "label": "Masterful",
+            "range": "4-7",
+            "description": "Pull the target up to 1 zone closer. You gain [Empowered] on your next attack this round using Alter or a lightsaber or light melee weapon against that target."
+          },
+          {
+            "tier": 3,
+            "label": "Legendary",
+            "range": "8+",
+            "description": "Pull the target up to 1 zone closer. The target presents an Opening — you may Exploit to make an immediate [Empowered] attack using Alter or a lightsaber or light melee weapon."
+          }
+        ],
+        "shorthand": "Alter (Presence) vs Resist, range 0-1. Pull target 1 zone. Masterful: [Empowered] next attack. Legendary: Opening, Exploit for immediate [Empowered] attack."
+      },
+      {
+        "id": "voc_juyo_adept_t3",
+        "tier": 3,
+        "type": "passive",
+        "name": "Ferocity",
+        "tags": [
+          "[Combat]",
+          "[Force]"
+        ],
+        "rule": "When you successfully defend against a Force-related power using Endure or Resist, you gain [Optimized] on your next attack using Alter or a lightsaber or light melee weapon against that target. Their Force aggression feeds your blade.",
+        "modifiesAction": "action_endure",
+        "shorthand": "On successful Endure/Resist vs Force power: gain [Optimized] on next attack against that target."
+      },
+      {
+        "id": "voc_juyo_adept_t4",
+        "tier": 4,
+        "type": "passive",
+        "name": "Redirect",
+        "tags": [
+          "[Combat]",
+          "[Force]"
+        ],
+        "rule": "When you successfully defend against a Force-related power using Endure or Resist, you may spend 1 Edge to redirect the attack back at the caster. Make an Alter (Presence) attack against them. If Ferocity (Tier 3) triggered on the same defense, the redirect is [Optimized].",
+        "modifiesAction": "action_endure",
+        "shorthand": "On successful Endure/Resist vs Force power: spend 1 Edge to redirect as Alter (Presence) attack. Stacks with T3 [Optimized]."
+      },
+      {
+        "id": "voc_juyo_adept_t5",
+        "tier": 5,
+        "type": "passive",
+        "name": "The Dark Bargain",
+        "tags": [
+          "[Combat]",
+          "[Force]"
+        ],
+        "rule": "When you deal damage to a target that has attacked you since the end of your last turn, you may flip a Hope token to Toll. Add the new Toll count to the damage dealt. The loop completes — their aggression became yours, and it cost the galaxy a piece of its light.",
+        "shorthand": "On damaging a target that attacked you last round: flip Hope to Toll, add new Toll count as bonus damage."
+      }
+    ],
+    "imageUrl": "/assets/vocations/voc_juyo_adept.png",
+    "startingItems": [
+      {
+        "id": "wpn_lightsaber_01",
+        "name": "Lightsaber",
+        "cost": 0,
+        "source": "weapon"
+      }
+    ]
   }
 ]
