@@ -1952,5 +1952,111 @@
         "source": "weapon"
       }
     ]
+  },
+  {
+    "id": "voc_soresu_guardian",
+    "name": "The Soresu Guardian",
+    "governingArena": "wits",
+    "favoredDiscipline": "sense_spark",
+    "description": "Form III — The Way of the Mynock. The Soresu Guardian is the Jedi who chose to stop chasing glory and start keeping people alive. Form III was born in the age of blasters — when lightsabers met a galaxy that fought at range, and the old dueling forms couldn't answer the volume of fire. Soresu answered it. Not with speed, not with aggression, but with patience. Economy. The smallest movement that turns death aside.",
+    "fluff": "Be a wall. Every bolt finds the blade. Every second they spend firing is a second they are losing. A Soresu Guardian does not win fights. The enemy loses them.",
+    "abilities": [
+      {
+        "id": "voc_soresu_guardian_t1",
+        "tier": 1,
+        "type": "passive",
+        "name": "Shien Gate",
+        "tags": [
+          "[Combat]"
+        ],
+        "rule": "When you Endure a Ranged attack while wielding a lightsaber, you may use Sense Spark in place of Endure as your defense discipline. You roll Sense Spark (Physique). The Force whispers the bolt's path before the trigger is pulled. The blade is already there.",
+        "modifiesAction": "action_endure",
+        "targetWeaponTags": [
+          "Lightsaber"
+        ],
+        "shorthand": "Sense Spark replaces Endure discipline vs Ranged attacks with lightsaber. Roll Sense Spark (Physique)."
+      },
+      {
+        "id": "voc_soresu_guardian_t2",
+        "tier": 2,
+        "type": "exploit",
+        "name": "Reflect",
+        "tags": [
+          "[Combat]"
+        ],
+        "modifiesAction": "action_endure",
+        "rule": "When you Endure a Ranged attack while wielding a lightsaber, if your Control die rolls 8+: instead of gaining the standard +1 tier, you may spend your Exploit pip to redirect the bolt at any target within 5 zones. This redirected attack is rolled using Sense (Wits). You don't aim — you already know where they are.",
+        "targetWeaponTags": [
+          "Lightsaber"
+        ],
+        "shorthand": "On Endure vs Ranged with lightsaber, Control 8+: trade +1 tier, spend Exploit pip to redirect bolt at target within 5 zones. Attack is Sense (Wits)."
+      },
+      {
+        "id": "voc_soresu_guardian_t3",
+        "tier": 3,
+        "type": "maneuver",
+        "name": "Resilience Stance",
+        "tags": [
+          "[Combat]"
+        ],
+        "discipline": "sense_spark",
+        "arena": "wits",
+        "rolled": true,
+        "rule": "You plant your feet and let the Form take over. Tight arcs. Minimal movement. The blade becomes a wall of light. Costs a Maneuver pip each round to maintain. If you leave your zone, the stance breaks immediately.",
+        "risk": "If the roll fails, you do not enter the stance. The Maneuver pip is spent.",
+        "effect": [
+          {
+            "tier": 1,
+            "label": "Fleeting",
+            "range": "0-3",
+            "description": "Gain [Optimized] on all defense rolls against Ranged attacks."
+          },
+          {
+            "tier": 2,
+            "label": "Masterful",
+            "range": "4-7",
+            "description": "Gain [Optimized] on all defense rolls against Ranged attacks. You act as Cover 2 in your zone — allies may Take Cover behind you."
+          },
+          {
+            "tier": 3,
+            "label": "Legendary",
+            "range": "8+",
+            "description": "Gain [Optimized] on all defense rolls against Ranged attacks. You act as Cover 4 in your zone — allies may Take Cover behind you."
+          }
+        ],
+        "shorthand": "Stance: [Optimized] vs Ranged defense. Masterful: act as Cover 2. Legendary: act as Cover 4. Allies must Take Cover. You don't benefit from own Cover. Breaks on zone change."
+      },
+      {
+        "id": "voc_soresu_guardian_t4",
+        "tier": 4,
+        "type": "passive",
+        "name": "Circle of Shelter",
+        "tags": [
+          "[Combat]"
+        ],
+        "rule": "While in Resilience Stance, when an ally in your zone who is benefitting from Cover you provide fails a defense against a Ranged attack, you may spend 1 Edge to intercept the shot. You sense the killing bolt before it lands. You become the new target and must Endure.\n\nYou choose: retain [Optimized] on this Endure roll, but the stance breaks. Or ignore [Optimized] on this Endure roll, and the stance holds.",
+        "shorthand": "While in Resilience Stance, spend 1 Edge to intercept Ranged attack on ally using your Cover. Endure the shot: keep [Optimized] but break stance, or forgo [Optimized] and stance holds."
+      },
+      {
+        "id": "voc_soresu_guardian_t5",
+        "tier": 5,
+        "type": "passive",
+        "name": "March of the Mynock",
+        "tags": [
+          "[Combat]"
+        ],
+        "rule": "While maintaining Resilience Stance:\n\nYou may spend your Action pip to make the Move maneuver [Weakened] without breaking the stance or losing your zone effects. When you do, all allies in your zone may spend their Exploit pip to move with you. This movement does not trigger Openings from Ranged attackers.\n\nYou may spend Edge instead of your Exploit pip to Reflect (Tier 2).",
+        "shorthand": "While in Resilience Stance: Action pip for [Weakened] Move without breaking stance, allies may spend Exploit to move with you (no Ranged Openings). Edge can replace Exploit pip for Reflect."
+      }
+    ],
+    "imageUrl": "/assets/vocations/voc_soresu_guardian.png",
+    "startingItems": [
+      {
+        "id": "wpn_lightsaber_01",
+        "name": "Lightsaber",
+        "cost": 0,
+        "source": "weapon"
+      }
+    ]
   }
 ]
