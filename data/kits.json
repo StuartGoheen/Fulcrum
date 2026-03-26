@@ -2259,30 +2259,55 @@
     ]
   },
   {
-    "id": "voc_ironclad",
-    "name": "The Ironclad",
+    "id": "voc_juggernaut",
+    "name": "The Juggernaut",
     "governingArena": "physique",
     "favoredDiscipline": "endure",
-    "description": "The Ironclad does not dodge. He does not flinch. He walks into the blast zone, shrugs off the hit, and keeps moving. Where others build around speed and reflexes, the Ironclad builds around the armor on his back — learning to move in it, fight in it, and turn what most treat as a burden into a weapon. Light, medium, heavy — the weight is irrelevant. What matters is how you wear it.",
-    "fluff": "Every soldier learns to wear armor. Most learn to tolerate it. A few learn to depend on it. The Ironclad is the professional who treats their kit the way a swordsman treats a blade — as an extension of the body, maintained, understood, and trusted absolutely. When the rest of the squad is ducking behind crates, the Ironclad is standing in the open, drawing fire, and refusing to go down.",
+    "description": "The Juggernaut does not dodge. He does not flinch. He walks into the blast zone, shrugs off the hit, and keeps moving. Where others build around speed and reflexes, the Juggernaut builds around the armor on his back — not to overcome its limitations, but to lean into its strengths. The heavier the plate, the harder the hit, the more punishment he can absorb. He is not fast. He is not subtle. He is the reason they stopped shooting.",
+    "fluff": "Every soldier learns to wear armor. Most learn to tolerate it. A few learn to depend on it. The Juggernaut is the professional who treats their armor the way a swordsman treats a blade — as an extension of the body, maintained, understood, and trusted absolutely. On the Outer Rim, when the blaster fire starts and the squad dives for cover, there is always one who stays standing. The enemy empties a power cell into his chest. He does not go down. He does not slow down. Eventually, the enemy stops shooting — not because they ran out of ammunition, but because they realized it was not working.",
     "abilities": [
       {
-        "id": "voc_ironclad_t1",
+        "id": "voc_juggernaut_t1",
         "tier": 1,
         "type": "passive",
-        "name": "Worn In",
+        "name": "Broken In",
         "tags": [
           "[Combat]",
           "[Armor]"
         ],
-        "rule": "While wearing armor, you gain +1 Vitality threshold (you can absorb one additional hit before taking trauma). This applies regardless of armor category — light, medium, or heavy.\n\nAdditionally, wearing armor no longer imposes penalties on Athletics or Stealth checks. You have trained to move in your kit — the weight distribution is second nature. All other armor penalties (Evasion step-downs for medium/heavy) still apply normally.",
-        "shorthand": "+1 Vitality while armored. No Athletics/Stealth penalty from armor weight."
+        "rule": "While wearing armor, you suffer no penalties to your Control die (disciplines) due to encumbrance or bulk. You have trained to operate in your armor — the weight distribution is second nature and your fine motor control is unaffected. You still suffer any penalties to your Reflex arena, including the Evasion step-down for medium and heavy armor.\n\nAdditionally, when you choose to take Trauma to your Physique while wearing armor, you may soak 1 additional Vitality (3 instead of the normal 2).",
+        "shorthand": "No Control die penalties from armor. Reflex penalties still apply. Physique Trauma soaks 3 Vitality instead of 2 while armored."
       },
       {
-        "id": "voc_ironclad_t2",
+        "id": "voc_juggernaut_t2",
         "tier": 2,
+        "type": "passive",
+        "name": "Durasteel Nerve",
+        "tags": [
+          "[Combat]",
+          "[Defense]",
+          "[Armor]"
+        ],
+        "rule": "When you fail an Endure defense roll and spend Edge to reroll, you are [Optimized] for the reroll — your Control die steps up for that Endure roll. The first hit found a gap. The second one will not.\n\nYour armor taught you something most soldiers never learn: the moment after you get hit is the moment you are most dangerous, because now you know exactly where you are vulnerable and you will not make that mistake twice.",
+        "shorthand": "Failed Endure + Edge reroll = [Optimized] (Control die steps up for the reroll)."
+      },
+      {
+        "id": "voc_juggernaut_t3",
+        "tier": 3,
+        "type": "passive",
+        "name": "Plated Conditioning",
+        "tags": [
+          "[Combat]",
+          "[Armor]"
+        ],
+        "rule": "Your conditioning while wearing armor is fully ingrained. When you choose to take Trauma to your Physique, the additional Vitality soaked now scales with your armor type:\n\n- Light armor: +1 additional Vitality soaked (3 total)\n- Medium armor: +2 additional Vitality soaked (4 total)\n- Heavy armor: +3 additional Vitality soaked (5 total)\n\nThis replaces the flat +1 from Broken In — heavier armor now rewards your investment with greater damage absorption per Trauma.\n\nAdditionally, you do not suffer any penalties from exhaustion faster than someone not wearing armor. Extended marches, desert heat, sustained combat — the armor is not a factor in your fatigue.",
+        "shorthand": "Physique Trauma soak scales with armor: light +1 (3), medium +2 (4), heavy +3 (5). No exhaustion penalties from wearing armor."
+      },
+      {
+        "id": "voc_juggernaut_t4",
+        "tier": 4,
         "type": "gambit",
-        "name": "Brace for Impact",
+        "name": "\"Is That All?\"",
         "tags": [
           "[Combat]",
           "[Defense]",
@@ -2290,71 +2315,23 @@
         ],
         "modifiesAction": "defense_endure",
         "actionType": "Endure",
-        "rule": "When you successfully Endure an attack while wearing armor, you may spend 1 tier from the result. If you do, gain [Fortified] until the start of your next turn: the next attack against you this round has its Effect Tier reduced by 1 (applied after your defense roll resolves).\n\nYou planted your feet, tucked your chin, and let the armor do its job. The second hit lands on a surface that was already braced for it.",
-        "shorthand": "On successful Endure while armored, spend 1 tier. Gain [Fortified]: next attack's Effect Tier reduced by 1 until your next turn."
+        "rule": "Gambit on Endure. When you successfully Endure an attack, you may spend 1 tier from your result to reduce the incoming effect by 1 tier and impose [Rattled] on the attacker. You took the hit clean and did not flinch — they expected you to go down and you did not. That shakes people.\n\n[Rattled]: Mental debuff — the attacker's Control die steps down on mental actions. They are shaken, demoralized, and second-guessing whether hitting you again is worth the effort.",
+        "shorthand": "Endure gambit: spend 1 tier → reduce incoming effect by 1 tier + attacker gains [Rattled]."
       },
       {
-        "id": "voc_ironclad_t3",
-        "tier": 3,
-        "type": "passive",
-        "name": "Load Bearer",
-        "tags": [
-          "[Combat]",
-          "[Armor]"
-        ],
-        "rule": "While wearing medium or heavy armor, reduce the Evasion step-down penalty by 1 step. Medium armor now imposes no Evasion penalty. Heavy armor now imposes only a 1-step Evasion penalty instead of 2.\n\nAdditionally, when you Endure and the result is Masterful (Control 8+), you may immediately move 1 zone as a free action. You absorbed the hit and used the momentum — stepping through the blast rather than being driven back by it.",
-        "shorthand": "Reduce armor Evasion penalty by 1 step (medium = 0, heavy = -1). Masterful Endure: free 1-zone move."
-      },
-      {
-        "id": "voc_ironclad_t4",
-        "tier": 4,
-        "type": "maneuver",
-        "name": "Armored Advance",
-        "tags": [
-          "[Combat]",
-          "[Armor]"
-        ],
-        "discipline": "endure",
-        "arena": "physique",
-        "rolled": true,
-        "rule": "You move forward under fire, using your armor as a mobile barricade. Spend your Maneuver pip. Roll Endure (Physique). You move up to 2 zones toward a hostile target. Until the start of your next turn, allies behind you (in zones you passed through or your current zone) may use your Endure result as Cover value against ranged attacks originating from the direction you advanced toward.",
-        "risk": "On failure, you move 1 zone but provide no Cover benefit — you stumbled, lost your footing, and the advance was ragged rather than controlled.",
-        "effect": [
-          {
-            "tier": 1,
-            "label": "Fleeting",
-            "range": "0-3",
-            "description": "Move 1 zone. Allies in your zone gain Cover equal to your Power die result against ranged attacks from the direction you advanced toward until your next turn."
-          },
-          {
-            "tier": 2,
-            "label": "Masterful",
-            "range": "4-7",
-            "description": "Move up to 2 zones. Allies in your zone or the zone you passed through gain Cover as above. Attackers targeting you from the direction you advanced toward have their attack [Weakened]."
-          },
-          {
-            "tier": 3,
-            "label": "Legendary",
-            "range": "8+",
-            "description": "As Masterful, plus enemies in your destination zone who are Engaged with you present an Opening — your armored arrival is itself an assault. You may Exploit this Opening immediately if you have a pip available."
-          }
-        ],
-        "shorthand": "Endure (Physique). Advance 1-2 zones, act as mobile Cover for allies. Masterful: attackers [Weakened]. Legendary: enemies present Opening on arrival."
-      },
-      {
-        "id": "voc_ironclad_t5",
+        "id": "voc_juggernaut_t5",
         "tier": 5,
         "type": "passive",
-        "name": "Walking Fortress",
+        "name": "Siege Engine",
         "tags": [
           "[Combat]",
           "[Armor]"
         ],
-        "rule": "While wearing armor, your Endure defense rolls gain [Optimized] (roll twice, take the better result). You have transcended wearing armor — it is part of your body now.\n\nAdditionally, once per round when you take damage that would inflict a Trauma, you may reduce the incoming damage by your armor's Endure step-up bonus (light = 0, medium = 1, heavy = 2) before determining whether the Trauma applies. This reduction stacks with your normal Endure defense — it represents the armor absorbing punishment beyond what a lesser wearer could manage.\n\nAt this tier, you no longer suffer any Evasion penalty from any armor category. Heavy armor imposes no Evasion step-down.",
-        "shorthand": "Endure defense is [Optimized]. Once/round reduce pre-Trauma damage by armor's Endure bonus. No Evasion penalty from any armor."
+        "rule": "When you Endure an attack and score 8+ on your Control die, you may choose to immediately clear any mental condition affecting you instead of taking the normal +1 effect tier bonus. The hit snaps you back to focus — pain has a way of cutting through fear, confusion, and demoralization.\n\nAdditionally, your armor works for you even when you are not actively defending. When you are attacked by any attack you could Endure (regardless of whether you actually Endure or Dodge), your armor passively reduces the attacker's Power rating before you even roll:\n\n- Light armor: Power -1\n- Medium armor: Power -2\n- Heavy armor: Power -3\n\nThis reduction applies before your defense roll. The enemy's weapon is simply less effective against you — the blast dissipates across the plate, the vibroblade skitters off a pauldron, the slug flattens against durasteel. They are not fighting you. They are fighting your armor. And your armor is winning.",
+        "shorthand": "Endure 8+ Control: clear mental condition instead of +1 effect. Armor passively reduces attacker Power (light -1, medium -2, heavy -3) before rolling."
       }
     ],
-    "imageUrl": "/assets/vocations/voc_ironclad.png",
+    "imageUrl": "/assets/vocations/voc_juggernaut.png",
     "startingItems": [
       {
         "id": "gear_armor_repair_kit_01",
