@@ -8503,6 +8503,22 @@
   .adv-btn--startmission:hover {
     background: color-mix(in srgb, var(--color-accent-secondary) 10%, transparent);
   }
+  .adv-btn--respec {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    font-weight: 700;
+    font-size: 0.78rem;
+    margin-bottom: 8px;
+  }
+  .adv-btn--respec:hover {
+    background: rgba(255, 200, 50, 0.12);
+  }
+  .adv-btn--primary {
+    background: var(--color-accent);
+    color: var(--color-bg);
+    border-color: var(--color-accent);
+    font-weight: 700;
+  }
   .adv-phase-badge {
     font-size: 0.68rem;
     font-weight: 700;
