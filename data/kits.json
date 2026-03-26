@@ -2261,7 +2261,7 @@
   {
     "id": "voc_ironclad",
     "name": "The Ironclad",
-    "governingArena": "grit",
+    "governingArena": "physique",
     "favoredDiscipline": "endure",
     "description": "The Ironclad does not dodge. He does not flinch. He walks into the blast zone, shrugs off the hit, and keeps moving. Where others build around speed and reflexes, the Ironclad builds around the armor on his back — learning to move in it, fight in it, and turn what most treat as a burden into a weapon. Light, medium, heavy — the weight is irrelevant. What matters is how you wear it.",
     "fluff": "Every soldier learns to wear armor. Most learn to tolerate it. A few learn to depend on it. The Ironclad is the professional who treats their kit the way a swordsman treats a blade — as an extension of the body, maintained, understood, and trusted absolutely. When the rest of the squad is ducking behind crates, the Ironclad is standing in the open, drawing fire, and refusing to go down.",
@@ -2315,9 +2315,9 @@
           "[Armor]"
         ],
         "discipline": "endure",
-        "arena": "grit",
+        "arena": "physique",
         "rolled": true,
-        "rule": "You move forward under fire, using your armor as a mobile barricade. Spend your Maneuver pip. Roll Endure (Grit). You move up to 2 zones toward a hostile target. Until the start of your next turn, allies behind you (in zones you passed through or your current zone) may use your Endure result as Cover value against ranged attacks originating from the direction you advanced toward.",
+        "rule": "You move forward under fire, using your armor as a mobile barricade. Spend your Maneuver pip. Roll Endure (Physique). You move up to 2 zones toward a hostile target. Until the start of your next turn, allies behind you (in zones you passed through or your current zone) may use your Endure result as Cover value against ranged attacks originating from the direction you advanced toward.",
         "risk": "On failure, you move 1 zone but provide no Cover benefit — you stumbled, lost your footing, and the advance was ragged rather than controlled.",
         "effect": [
           {
@@ -2339,7 +2339,7 @@
             "description": "As Masterful, plus enemies in your destination zone who are Engaged with you present an Opening — your armored arrival is itself an assault. You may Exploit this Opening immediately if you have a pip available."
           }
         ],
-        "shorthand": "Endure (Grit). Advance 1-2 zones, act as mobile Cover for allies. Masterful: attackers [Weakened]. Legendary: enemies present Opening on arrival."
+        "shorthand": "Endure (Physique). Advance 1-2 zones, act as mobile Cover for allies. Masterful: attackers [Weakened]. Legendary: enemies present Opening on arrival."
       },
       {
         "id": "voc_ironclad_t5",
