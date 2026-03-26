@@ -2058,5 +2058,93 @@
         "source": "weapon"
       }
     ]
+  },
+  {
+    "id": "voc_shiicho_knight",
+    "name": "The Shii-Cho Knight",
+    "governingArena": "grit",
+    "favoredDiscipline": "control_spark",
+    "description": "Form I — The Way of the Sarlacc. The oldest lightsaber discipline, and the one every Jedi learns first. Shii-Cho is not elegant. It is not subtle. It is the foundation — wide sweeping arcs that trace the six zones of attack, powered by determination rather than finesse. Where other forms specialize, Shii-Cho endures. Where other forms seek advantage, Shii-Cho seeks resolution. The blade does not stop moving until the fight is over — or until the Jedi decides it is.",
+    "fluff": "Every form that came after was built on this one. When the duelist's precision fails, when the guardian's wall breaks, when the aggressor's fury burns out — what remains is Shii-Cho. The first thing you learned. The last thing still standing.",
+    "abilities": [
+      {
+        "id": "voc_shiicho_knight_t1",
+        "tier": 1,
+        "type": "passive",
+        "name": "The Determination Form",
+        "tags": [
+          "[Combat]"
+        ],
+        "rule": "When you attack with a Lightsaber or a Light or Medium bladed melee weapon, you may roll Melee (Grit) instead of Melee (Physique). Power comes from determination, not muscle. The Force disciplines the body — every strike lands with the certainty of absolute resolve.\n\nSun Djem: When your melee attack with a lightsaber would reduce a target to 0 Vitality, you may declare Sun Djem. The target is left at 1 Vitality and rendered Helpless. You determine whether they fall unconscious or immediately exit the scene — alive, but injured. The fight is over. You chose to let them walk away from it.",
+        "modifiesAction": "action_attack",
+        "targetWeaponTags": [
+          "Lightsaber",
+          "Melee"
+        ],
+        "shorthand": "Melee (Grit) replaces Melee (Physique) with lightsaber or light/medium bladed melee. Sun Djem: on reducing target to 0 Vitality, may leave at 1 Vitality + Helpless instead."
+      },
+      {
+        "id": "voc_shiicho_knight_t2",
+        "tier": 2,
+        "type": "exploit",
+        "name": "Sarlacc Sweep",
+        "tags": [
+          "[Combat]"
+        ],
+        "rule": "When you are Engaged with two or more enemies and your melee attack reduces a target to 0 Vitality, or anytime you declare Sun Djem on a target, the next Engaged enemy presents an Opening. You may Exploit this Opening to make a new melee attack against them. If this attack also reduces its target to 0 Vitality or you declare Sun Djem, the chain continues — the next Engaged enemy presents another Opening. The sweep continues as long as there are Engaged enemies, targets keep falling, and you have Exploit pips to spend.",
+        "modifiesAction": "action_attack",
+        "targetWeaponTags": [
+          "Lightsaber",
+          "Melee"
+        ],
+        "shorthand": "On kill or Sun Djem while Engaged with 2+: next Engaged enemy presents Opening. Exploit to attack. Chain continues on each kill/Sun Djem."
+      },
+      {
+        "id": "voc_shiicho_knight_t3",
+        "tier": 3,
+        "type": "gambit",
+        "name": "Disarming Slash",
+        "tags": [
+          "[Combat]"
+        ],
+        "rule": "After resolving a melee attack with a lightsaber, you may activate this gambit. Increase your effect tier by 1 — if this would reduce the target to 0 Vitality, you may declare Sun Djem. The target is left at 1 Vitality and rendered Helpless. If the increased tier would not reduce them to 0 Vitality, deal damage at your original effect tier minus 1 instead. The reach for mercy costs you when it falls short.",
+        "modifiesAction": "action_attack",
+        "targetWeaponTags": [
+          "Lightsaber"
+        ],
+        "shorthand": "Gambit: +1 tier check. If would reduce to 0 Vitality, declare Sun Djem (1 Vitality, Helpless). If not, deal original tier minus 1."
+      },
+      {
+        "id": "voc_shiicho_knight_t4",
+        "tier": 4,
+        "type": "passive",
+        "name": "Inner Peace",
+        "tags": [
+          "[Combat]"
+        ],
+        "rule": "At the start of any action or reaction, you may spend 1 Edge to clear one of the following conditions affecting you: Disoriented, Rattled, Staggered, or one instance of Weakened (such as Weakened Attacks, Weakened Defenses, or Weakened to a specific arena). The oldest form teaches that the blade begins in the mind — when the mind is clear, the blade follows.",
+        "shorthand": "Spend 1 Edge at start of action/reaction to clear Disoriented, Rattled, Staggered, or one Weakened instance."
+      },
+      {
+        "id": "voc_shiicho_knight_t5",
+        "tier": 5,
+        "type": "passive",
+        "name": "The Foundation",
+        "tags": [
+          "[Combat]"
+        ],
+        "rule": "You have mastered the foundation. All lightsaber forms descend from Form I — and now you understand this truth completely. You gain the Tier 1 ability of every other lightsaber form vocation. These are not borrowed techniques. They were always here, inside the oldest form, waiting to be recognized.",
+        "shorthand": "Gain the T1 ability of every other lightsaber form vocation."
+      }
+    ],
+    "imageUrl": "/assets/vocations/voc_shiicho_knight.png",
+    "startingItems": [
+      {
+        "id": "wpn_lightsaber_01",
+        "name": "Lightsaber",
+        "cost": 0,
+        "source": "weapon"
+      }
+    ]
   }
 ]
