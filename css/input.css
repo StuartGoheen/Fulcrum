@@ -4318,6 +4318,14 @@
     }
     .ph3-species-card {
       flex-direction: column;
+      overflow: hidden;
+    }
+    .ph3-species-card > .ph3-detail-col {
+      min-height: 0;
+      overflow: hidden;
+    }
+    .ph3-species-card > .ph3-detail-col > .ph3-detail-scroll {
+      min-height: 0;
     }
     .ph-card-wrap {
       max-width: 560px;
@@ -4330,6 +4338,8 @@
     }
     .ph3-detail-col {
       padding: 0.75rem 1rem;
+      min-height: 0;
+      overflow: hidden;
     }
     .ph3-narrative {
       font-size: 0.48rem;
