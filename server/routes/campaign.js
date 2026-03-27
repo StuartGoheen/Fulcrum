@@ -667,7 +667,15 @@ router.get('/campaign/scene-intel/:sceneId', (req, res) => {
             } catch (e) { return false; }
           });
           if (connected.length) {
-            insights.push({ type: 'background', icon: '⧫', label: 'Background tie: ' + connected.map(p => p.title || p.id).join(', ') + ' (familiar environment)' });
+            const envDesc = connected.map(p => p.title || p.id).join(', ');
+            const favored = profile.backgroundFavored.filter(f => connected.some(c => c.id === f.phaseId));
+            insights.push({
+              type: 'background', icon: '⧫',
+              title: envDesc,
+              label: 'Background tie: ' + envDesc + ' (familiar environment)',
+              description: 'This character grew up in or spent formative time in similar environments. They may have practical knowledge, contacts, or instincts relevant to this terrain.',
+              details: favored.length ? favored.map(f => ({ title: f.name || 'Favored Skill', text: f.desc || f.name })) : null,
+            });
           }
         }
       }
@@ -685,7 +693,13 @@ router.get('/campaign/scene-intel/:sceneId', (req, res) => {
             } catch (e) { return false; }
           });
           if (connected.length) {
-            insights.push({ type: 'background', icon: '⧫', label: 'Theme resonance: ' + matchedThemes.join(', ') + ' — from ' + connected.map(p => p.title || p.id).join(', ') });
+            insights.push({
+              type: 'background', icon: '⧫',
+              title: 'Theme: ' + matchedThemes.join(', '),
+              label: 'Theme resonance: ' + matchedThemes.join(', ') + ' — from ' + connected.map(p => p.title || p.id).join(', '),
+              description: 'This scene echoes themes from the character\'s past. These thematic connections can deepen roleplay and create moments of personal reflection or recognition.',
+              details: matchedThemes.map(t => ({ title: t, text: 'Resonates with ' + connected.filter(c => { try { const pd = loadPhases(); const pl = pd[c.phase]||[]; const def = pl.find(x=>x.id===c.id); return def&&def._meta&&def._meta.themes&&def._meta.themes.includes(t); } catch(e){return false;} }).map(c => c.title||c.id).join(', ') })),
+            });
           }
         }
       }
