@@ -324,6 +324,11 @@
                 "twilek",
                 "keldor",
                 "wookiee"
+              ],
+              "themeTags": [
+                "criminal networks",
+                "street smarts",
+                "survival under duress"
               ]
             },
             {
@@ -492,6 +497,11 @@
                 "twilek",
                 "human",
                 "duros"
+              ],
+              "themeTags": [
+                "information brokering",
+                "criminal networks",
+                "trade networks"
               ]
             },
             {
@@ -675,6 +685,11 @@
                 "cathar",
                 "zabrak",
                 "rodian"
+              ],
+              "themeTags": [
+                "criminal networks",
+                "Imperial oppression",
+                "survival under duress"
               ]
             },
             {
@@ -891,6 +906,11 @@
                 "rodian",
                 "togruta",
                 "sullustan"
+              ],
+              "themeTags": [
+                "Imperial oppression",
+                "escape and survival",
+                "tactical instinct"
               ]
             }
           ]
@@ -1086,6 +1106,11 @@
                 "sullustan",
                 "human",
                 "keldor"
+              ],
+              "themeTags": [
+                "political intrigue",
+                "found family",
+                "independence"
               ]
             },
             {
@@ -1264,6 +1289,11 @@
                 "cathar",
                 "duros",
                 "sullustan"
+              ],
+              "themeTags": [
+                "survival under duress",
+                "resource scarcity",
+                "mechanical aptitude"
               ]
             },
             {
@@ -1467,6 +1497,11 @@
                 "cathar",
                 "keldor",
                 "sullustan"
+              ],
+              "themeTags": [
+                "frontier justice",
+                "independence",
+                "survival under duress"
               ]
             },
             {
@@ -1693,6 +1728,11 @@
                 "togruta",
                 "rodian",
                 "human"
+              ],
+              "themeTags": [
+                "Imperial oppression",
+                "political intrigue",
+                "secret knowledge"
               ]
             },
             {
@@ -1880,6 +1920,11 @@
                 "human",
                 "keldor",
                 "cathar"
+              ],
+              "themeTags": [
+                "escape and survival",
+                "tactical instinct",
+                "Imperial complicity"
               ]
             },
             {

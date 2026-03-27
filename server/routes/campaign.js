@@ -423,6 +423,7 @@ function extractCharacterProfile(data) {
   }
 
   const backgroundEnvironments = [];
+  const backgroundThemes = [];
   backgroundPhases.forEach(bp => {
     if (!bp.id) return;
     try {
@@ -430,13 +431,20 @@ function extractCharacterProfile(data) {
       const phaseKey = bp.phase;
       const phaseList = phasesData[phaseKey] || [];
       const phaseDef = phaseList.find(p => p.id === bp.id);
-      if (phaseDef && phaseDef._meta && phaseDef._meta.environment) {
-        backgroundEnvironments.push(phaseDef._meta.environment);
+      if (phaseDef && phaseDef._meta) {
+        if (phaseDef._meta.environment) {
+          backgroundEnvironments.push(phaseDef._meta.environment);
+        }
+        if (phaseDef._meta.themes && Array.isArray(phaseDef._meta.themes)) {
+          phaseDef._meta.themes.forEach(t => {
+            if (!backgroundThemes.includes(t)) backgroundThemes.push(t);
+          });
+        }
       }
     } catch (e) {}
   });
 
-  return { destiny, backgroundPhases, backgroundFavored, backgroundEnvironments, vocations, vocationAbilities, disciplines, arenas, gear, conditions, knacks, species };
+  return { destiny, backgroundPhases, backgroundFavored, backgroundEnvironments, backgroundThemes, vocations, vocationAbilities, disciplines, arenas, gear, conditions, knacks, species };
 }
 
 router.get('/campaign/party', (req, res) => {
@@ -497,7 +505,8 @@ router.get('/campaign/scene-intel/:sceneId', (req, res) => {
     const hasTags = scene.challengeType || (scene.destinyTags && scene.destinyTags.length) ||
       (scene.vocationTags && scene.vocationTags.length) || (scene.disciplineTags && scene.disciplineTags.length) ||
       (scene.gearFlags && scene.gearFlags.length) || (scene.knackTags && scene.knackTags.length) ||
-      (scene.speciesTags && scene.speciesTags.length) || (scene.backgroundTags && scene.backgroundTags.length);
+      (scene.speciesTags && scene.speciesTags.length) || (scene.backgroundTags && scene.backgroundTags.length) ||
+      (scene.themeTags && scene.themeTags.length);
 
     if (!hasTags) return res.json({ sceneId, hasTags: false, intel: [] });
 
@@ -661,7 +670,27 @@ router.get('/campaign/scene-intel/:sceneId', (req, res) => {
             insights.push({ type: 'background', icon: '⧫', label: 'Background tie: ' + connected.map(p => p.title || p.id).join(', ') + ' (familiar environment)' });
           }
         }
-      } else if (profile.backgroundPhases.length) {
+      }
+
+      if (scene.themeTags && scene.themeTags.length && profile.backgroundThemes.length) {
+        const matchedThemes = profile.backgroundThemes.filter(t => scene.themeTags.includes(t));
+        if (matchedThemes.length) {
+          const connected = profile.backgroundPhases.filter(p => {
+            if (!p.id) return false;
+            try {
+              const phasesData = loadPhases();
+              const phaseList = phasesData[p.phase] || [];
+              const phaseDef = phaseList.find(pd => pd.id === p.id);
+              return phaseDef && phaseDef._meta && phaseDef._meta.themes && phaseDef._meta.themes.some(t => matchedThemes.includes(t));
+            } catch (e) { return false; }
+          });
+          if (connected.length) {
+            insights.push({ type: 'background', icon: '⧫', label: 'Theme resonance: ' + matchedThemes.join(', ') + ' — from ' + connected.map(p => p.title || p.id).join(', ') });
+          }
+        }
+      }
+
+      if (!scene.backgroundTags && !scene.themeTags && profile.backgroundPhases.length) {
         const connected = profile.backgroundPhases.filter(p => {
           if (!p.id) return false;
           if (scene.destinyTags && scene.destinyTags.some(t => p.id.includes(t))) return true;
