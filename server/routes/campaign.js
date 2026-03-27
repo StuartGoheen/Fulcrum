@@ -615,19 +615,33 @@ router.get('/campaign/scene-intel/:sceneId', (req, res) => {
       if (scene.knackTags && scene.knackTags.length && profile.knacks.length) {
         profile.knacks.forEach(k => {
           if (scene.knackTags.includes(k.phaseId)) {
-            const knackLabel = k.knackName ? (k.knackName + ' — ' + (k.knack || '').substring(0, 120) + (k.knack && k.knack.length > 120 ? '…' : '')) : k.phaseId;
-            insights.push({ type: 'knack', icon: '◆', label: 'Knack: ' + knackLabel });
+            insights.push({
+              type: 'knack',
+              icon: '◆',
+              title: k.knackName || k.phaseId,
+              label: 'Knack: ' + (k.knackName || k.phaseId),
+              description: k.knack || null,
+              knackType: k.knackType || null,
+            });
           }
         });
       }
 
       if (scene.speciesTags && scene.speciesTags.length && profile.species) {
         if (scene.speciesTags.includes(profile.species.id)) {
-          let speciesLabel = profile.species.name;
-          if (profile.species.biologicalTruth) {
-            speciesLabel += ' — ' + profile.species.biologicalTruth.substring(0, 120) + (profile.species.biologicalTruth.length > 120 ? '…' : '');
-          }
-          insights.push({ type: 'species', icon: '◎', label: 'Species: ' + speciesLabel });
+          const parts = [profile.species.name];
+          const details = [];
+          if (profile.species.biologicalTruthName) parts.push(profile.species.biologicalTruthName);
+          if (profile.species.biologicalTruth) details.push({ title: profile.species.biologicalTruthName || 'Biological Truth', text: profile.species.biologicalTruth });
+          if (profile.species.speciesTrait) details.push({ title: profile.species.speciesTraitName || 'Species Trait', text: profile.species.speciesTrait });
+          insights.push({
+            type: 'species',
+            icon: '◎',
+            title: profile.species.name,
+            label: 'Species: ' + parts.join(' — '),
+            description: profile.species.biologicalTruth || null,
+            details,
+          });
         }
       }
 

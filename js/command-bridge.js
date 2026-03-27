@@ -272,6 +272,18 @@
         html += '<div style="font-size:0.7rem;color:var(--color-text-secondary);margin-bottom:0.15rem;"><strong>Trigger:</strong> ' + linkify(enc.trigger) + '</div>';
         html += '<div style="font-size:0.7rem;color:var(--color-text-secondary);margin-bottom:0.15rem;">' + linkify(enc.description) + '</div>';
         if (enc.tactics) html += '<div style="font-size:0.7rem;color:var(--color-accent-primary);"><strong>Tactics:</strong> ' + linkify(enc.tactics) + '</div>';
+        if (enc.composition) {
+          html += '<div style="font-size:0.65rem;margin-top:0.2rem;padding:0.25rem;background:rgba(0,0,0,0.1);border-radius:3px;">';
+          if (enc.composition.enemies) {
+            enc.composition.enemies.forEach(function(e) {
+              var threatColor = e.threat === 'rival' ? '#f59e0b' : e.threat === 'nemesis' ? '#ef4444' : 'var(--color-text-secondary)';
+              html += '<div><span style="color:' + threatColor + ';text-transform:uppercase;font-size:0.55rem;font-family:Audiowide,sans-serif;">' + esc(e.threat) + '</span> ' + esc(e.type) + ' x' + e.count + '</div>';
+            });
+          }
+          if (enc.composition.terrain) html += '<div style="color:var(--color-text-secondary);margin-top:0.1rem;"><strong>Terrain:</strong> ' + esc(enc.composition.terrain) + '</div>';
+          if (enc.composition.positioning) html += '<div style="color:var(--color-text-secondary);"><strong>Positioning:</strong> ' + esc(enc.composition.positioning) + '</div>';
+          html += '</div>';
+        }
         html += '</div>';
       });
       html += '</div>';
@@ -286,7 +298,10 @@
         html += '<div style="display:flex;align-items:center;gap:0.4rem;margin-bottom:0.15rem;">';
         html += '<span style="font-size:0.75rem;color:var(--color-accent-primary);font-family:Audiowide,sans-serif;">' + esc((sc.discipline || '').replace(/_/g, ' ')) + '</span>';
         html += '<span style="font-size:0.6rem;padding:0.05rem 0.25rem;border-radius:3px;background:' + diffColor + ';color:#000;font-family:Audiowide,sans-serif;">' + esc(sc.difficulty) + '</span>';
+        if (sc.isOptional) html += '<span style="font-size:0.55rem;padding:0.05rem 0.2rem;border-radius:3px;background:rgba(255,255,255,0.15);color:var(--color-text-secondary);margin-left:0.2rem;">OPTIONAL</span>';
+        if (sc.isGated) html += '<span style="font-size:0.55rem;padding:0.05rem 0.2rem;border-radius:3px;background:rgba(239,68,68,0.2);color:#f97316;margin-left:0.2rem;">GATED</span>';
         html += '</div>';
+        if (sc.isGated) html += '<div style="font-size:0.6rem;color:#f97316;font-style:italic;margin-bottom:0.1rem;">&#128274; ' + esc(sc.isGated) + '</div>';
         html += '<div style="font-size:0.7rem;color:var(--color-text-secondary);margin-bottom:0.1rem;">' + linkify(sc.context) + '</div>';
         html += '<div style="font-size:0.65rem;color:#22c55e;">&#10003; ' + linkify(sc.success) + '</div>';
         html += '<div style="font-size:0.65rem;color:#ef4444;">&#10007; ' + linkify(sc.failure) + '</div>';
@@ -548,10 +563,22 @@
             ratingCls = ' rating-' + ins.rating;
             labelHtml = '<span class="rating-' + esc(ins.rating) + '">' + esc(ins.label) + '</span>';
           }
-          cardHtml += '<div class="cb-intel-row type-' + esc(ins.type) + ratingCls + '">';
+          var hasExpandable = ins.description || (ins.details && ins.details.length);
+          cardHtml += '<div class="cb-intel-row type-' + esc(ins.type) + ratingCls + (hasExpandable ? ' cb-intel-expandable' : '') + '">';
           cardHtml += '<span class="cb-intel-icon">' + (ins.icon || '·') + '</span>';
-          cardHtml += '<span>' + labelHtml + '</span>';
+          cardHtml += '<span>' + labelHtml + (hasExpandable ? ' <span class="cb-intel-expand-arrow">&#9660;</span>' : '') + '</span>';
           cardHtml += '</div>';
+          if (hasExpandable) {
+            cardHtml += '<div class="cb-intel-detail" style="display:none;padding:0.2rem 0.4rem 0.3rem 1.2rem;font-size:0.6rem;line-height:1.4;">';
+            if (ins.details && ins.details.length) {
+              ins.details.forEach(function(d) {
+                cardHtml += '<div style="margin-bottom:0.2rem;"><strong style="color:var(--color-accent-primary);">' + esc(d.title) + ':</strong> <span style="color:var(--color-text-secondary);">' + esc(d.text) + '</span></div>';
+              });
+            } else if (ins.description) {
+              cardHtml += '<div style="color:var(--color-text-secondary);">' + esc(ins.description) + '</div>';
+            }
+            cardHtml += '</div>';
+          }
         });
       }
 
@@ -653,6 +680,18 @@
 
     list.querySelectorAll('.cb-player-card').forEach(function (card) {
       card.addEventListener('click', function (e) {
+        if (e.target.closest('.cb-intel-expandable')) {
+          e.stopPropagation();
+          var row = e.target.closest('.cb-intel-expandable');
+          var detail = row.nextElementSibling;
+          if (detail && detail.classList.contains('cb-intel-detail')) {
+            var isOpen = detail.style.display !== 'none';
+            detail.style.display = isOpen ? 'none' : 'block';
+            var arrow = row.querySelector('.cb-intel-expand-arrow');
+            if (arrow) arrow.innerHTML = isOpen ? '&#9660;' : '&#9650;';
+          }
+          return;
+        }
         card.classList.toggle('expanded');
       });
     });

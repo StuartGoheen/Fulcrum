@@ -194,7 +194,23 @@
                   "type": "combat",
                   "trigger": "Only if someone throws the first punch or social resolution fails badly",
                   "description": "Bar brawl in a cramped cantina. Overturned tables, thrown bottles, panicking patrons. Blasters stay holstered unless someone draws first.",
-                  "tactics": "Weequay grapples and brawls. Kyuzo headbutt with helms and fight as a pair to flank. If a hero draws a blaster, all three draw."
+                  "tactics": "Weequay grapples and brawls. Kyuzo headbutt with helms and fight as a pair to flank. If a hero draws a blaster, all three draw.",
+                  "composition": {
+                    "enemies": [
+                      {
+                        "type": "Weequay Enforcer",
+                        "count": 1,
+                        "threat": "rival"
+                      },
+                      {
+                        "type": "Kyuzo Enforcer",
+                        "count": 2,
+                        "threat": "minion"
+                      }
+                    ],
+                    "terrain": "Cramped cantina interior",
+                    "positioning": "Weequay at center, Kyuzo flanking from sides"
+                  }
                 },
                 {
                   "id": "enc-s1-pitch",
@@ -244,7 +260,8 @@
                   "difficulty": "Easy",
                   "context": "Treating Maya's blaster wound after resolution.",
                   "success": "Wound cleaned and dressed. Maya is grateful and more forthcoming.",
-                  "failure": "Basic patch job. Maya stays functional."
+                  "failure": "Basic patch job. Maya stays functional.",
+                  "isOptional": true
                 }
               ],
               "environmentMechanics": [
@@ -412,7 +429,8 @@
                   "difficulty": "Moderate",
                   "context": "Examining the decrypted data for hidden details.",
                   "success": "Additional details: the asset was shipped from Eriadu. Shipping codes match 'Project Leviathan.'",
-                  "failure": "Manifest is straightforward — just a shipping record and pickup time."
+                  "failure": "Manifest is straightforward — just a shipping record and pickup time.",
+                  "isOptional": true
                 },
                 {
                   "id": "sc-s2-tech",
@@ -547,7 +565,23 @@
                   "type": "combat",
                   "trigger": "Motion sensors scream. Hatch explodes inward.",
                   "description": "Ganga Lor and four enforcers breach Switch's bunker. Close-quarters combat with environmental hazards. Switch's turrets can be turned against attackers.",
-                  "tactics": "Ganga Lor bulldozes through cover. Enforcers enter in pairs, flanking. They target Maya first."
+                  "tactics": "Ganga Lor bulldozes through cover. Enforcers enter in pairs, flanking. They target Maya first.",
+                  "composition": {
+                    "enemies": [
+                      {
+                        "type": "Chevin Lieutenant (Ganga Lor)",
+                        "count": 1,
+                        "threat": "rival"
+                      },
+                      {
+                        "type": "Mixed-Species Enforcers",
+                        "count": 4,
+                        "threat": "minion"
+                      }
+                    ],
+                    "terrain": "Switch's bunker — narrow corridors, droid stacks, steam pipes",
+                    "positioning": "Ganga Lor breaches from above, enforcers enter in pairs behind"
+                  }
                 }
               ],
               "skillChecks": [
@@ -747,7 +781,23 @@
                   "type": "combat",
                   "trigger": "Alarm sounds or shuttle lands",
                   "description": "Running firefight across landing field. Shuttle disgorges reinforcements. Must reach ship with carbonite block.",
-                  "tactics": "Stormtroopers establish firing lines. Heavy machinery provides mobile cover but explosive hazards."
+                  "tactics": "Stormtroopers establish firing lines. Heavy machinery provides mobile cover but explosive hazards.",
+                  "composition": {
+                    "enemies": [
+                      {
+                        "type": "Stormtrooper",
+                        "count": 6,
+                        "threat": "minion"
+                      },
+                      {
+                        "type": "Stormtrooper Reinforcements",
+                        "count": 4,
+                        "threat": "minion"
+                      }
+                    ],
+                    "terrain": "Open landing field with heavy machinery",
+                    "positioning": "Stormtroopers in firing lines, reinforcements from shuttle"
+                  }
                 }
               ],
               "skillChecks": [
@@ -949,7 +999,8 @@
                   "difficulty": "Moderate",
                   "context": "Treating The Accountant's hibernation sickness after carbonite thaw.",
                   "success": "Sickness fades quickly. The Accountant is lucid and able to provide detailed intel.",
-                  "failure": "Hibernation sickness lingers. Accountant is nauseous and disoriented — information comes in fragments."
+                  "failure": "Hibernation sickness lingers. Accountant is nauseous and disoriented — information comes in fragments.",
+                  "isOptional": true
                 },
                 {
                   "id": "sc-s5-insight-accountant",
@@ -1154,7 +1205,8 @@
                   "difficulty": "Moderate",
                   "context": "Treating crash injuries — impact trauma, lacerations from debris.",
                   "success": "Injuries stabilized. Everyone is mobile.",
-                  "failure": "Injuries are field-dressed but not properly treated. Penalties to physical actions until proper care."
+                  "failure": "Injuries are field-dressed but not properly treated. Penalties to physical actions until proper care.",
+                  "isOptional": true
                 }
               ],
               "environmentMechanics": [
@@ -1565,7 +1617,8 @@
                   "difficulty": "Moderate",
                   "context": "Sabotaging the generator per Mandrake's deal.",
                   "success": "Clean sabotage with delayed detonation — heroes can get clear before it blows.",
-                  "failure": "Immediate detonation. Heroes are caught in the blast radius. Chaos starts now whether they're ready or not."
+                  "failure": "Immediate detonation. Heroes are caught in the blast radius. Chaos starts now whether they're ready or not.",
+                  "isGated": "Requires Mandrake's deal (Scene 7)"
                 },
                 {
                   "id": "sc-s8-investigation-medbay",
@@ -1573,7 +1626,8 @@
                   "difficulty": "Moderate",
                   "context": "Examining Vischera's research and data terminals.",
                   "success": "Detailed information about Skarn's operation, Varth's status, and references to Project Leviathan.",
-                  "failure": "Research is encrypted beyond easy access. Only surface-level observations."
+                  "failure": "Research is encrypted beyond easy access. Only surface-level observations.",
+                  "isOptional": true
                 }
               ],
               "environmentMechanics": [
@@ -1752,7 +1806,8 @@
                   "difficulty": "Hard",
                   "context": "Cracking Skarn's vault to retrieve the data cylinders.",
                   "success": "Clean entry. Cylinders secured. No additional alarms.",
-                  "failure": "The vault alarm triggers. Guards converge on the east wing."
+                  "failure": "The vault alarm triggers. Guards converge on the east wing.",
+                  "isGated": "Only if heroes agree to retrieve Varth's cylinders"
                 },
                 {
                   "id": "sc-s9-investigation-cylinders",
@@ -1760,7 +1815,8 @@
                   "difficulty": "Moderate",
                   "context": "Examining the cylinders while Varth isn't watching.",
                   "success": "The cylinders contain financial records — massive sums routed through shell accounts. 'Project Leviathan' appears repeatedly.",
-                  "failure": "The cylinders are heavily encrypted. Can't read them without specialized equipment."
+                  "failure": "The cylinders are heavily encrypted. Can't read them without specialized equipment.",
+                  "isOptional": true
                 }
               ],
               "environmentMechanics": [
@@ -1917,7 +1973,23 @@
                   "type": "combat",
                   "trigger": "The landing pad erupts as Imperials and Skarn's forces clash",
                   "description": "The fortress becomes a warzone. Three factions: Imperials securing the perimeter, Skarn's mercenaries defending their territory, and the heroes trying to escape through the middle.",
-                  "tactics": "Use the chaos. The Imperials and mercs are fighting each other — the heroes can exploit the confusion to slip through. But Shadow Troopers are specifically hunting for anyone trying to leave."
+                  "tactics": "Use the chaos. The Imperials and mercs are fighting each other — the heroes can exploit the confusion to slip through. But Shadow Troopers are specifically hunting for anyone trying to leave.",
+                  "composition": {
+                    "enemies": [
+                      {
+                        "type": "Stormtroopers",
+                        "count": 8,
+                        "threat": "minion"
+                      },
+                      {
+                        "type": "Skarn's Mercenaries",
+                        "count": 6,
+                        "threat": "minion"
+                      }
+                    ],
+                    "terrain": "Fortress grounds — three-way crossfire zone",
+                    "positioning": "Imperials and mercs fighting each other; heroes threading through"
+                  }
                 },
                 {
                   "id": "enc-s10-shadow-troopers",
@@ -1925,7 +1997,18 @@
                   "type": "combat",
                   "trigger": "When the heroes reach the jungle perimeter",
                   "description": "Four Shadow Troopers emerge from concealment in the treeline. Black armor, stealth suits, precision fire. They are the real obstacle to escape.",
-                  "tactics": "Shadow Troopers fight smart — overlapping fields of fire, tactical movement, targeting the weakest member. They don't charge; they control the engagement distance."
+                  "tactics": "Shadow Troopers fight smart — overlapping fields of fire, tactical movement, targeting the weakest member. They don't charge; they control the engagement distance.",
+                  "composition": {
+                    "enemies": [
+                      {
+                        "type": "Shadow Trooper",
+                        "count": 4,
+                        "threat": "rival"
+                      }
+                    ],
+                    "terrain": "Jungle treeline at fortress perimeter",
+                    "positioning": "Concealed in canopy, overlapping fields of fire"
+                  }
                 },
                 {
                   "id": "enc-s10-extraction",
