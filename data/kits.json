@@ -2340,5 +2340,115 @@
         "source": "gear"
       }
     ]
+  },
+  {
+    "id": "voc_pathfinder",
+    "name": "The Pathfinder",
+    "governingArena": "grit",
+    "favoredDiscipline": "survival",
+    "description": "The Pathfinder does not conquer the wilderness — she reads it. Where others see hostile terrain, she sees shelter, sustenance, and safe passage. She moves through fungal jungles and toxic wastes the way a dockworker moves through a spaceport: with the casual confidence of someone who has been here before, even when she has not. The galaxy is full of planets that want to kill you. The Pathfinder is the reason your squad walks out the other side.",
+    "fluff": "Every expedition needs someone who can read the ground. Not with sensors or satellite maps, but with instinct earned from years of sleeping in places where the air can kill you and the water fights back. The Pathfinder is the one who stops the column before the sinkhole, identifies the spore bloom before the first sneeze, and somehow produces a medpac from a pile of moss and tree bark. On Felucia, the clone troopers had their training and their armor. It was the scouts who kept them alive — the ones who knew which fungi were footholds and which were digestive tracts. In the Outer Rim, when the nav computer fails and the terrain stretches past the edge of the map, you follow the Pathfinder. She has never needed a map.",
+    "abilities": [
+      {
+        "id": "voc_pathfinder_t1",
+        "tier": 1,
+        "type": "passive",
+        "name": "Wilderness Awareness",
+        "tags": [
+          "[Narrative]",
+          "[Exploration]"
+        ],
+        "rule": "In wilderness or natural terrain, you may use Survival (Grit) in place of Tactics (Wits) when rolling Join Battle. You read terrain the way a tactician reads a battlefield — sight lines, choke points, elevation, and escape routes are instinctive.\n\nAdditionally, you may use Survival (Grit) in place of Medicine (Wits) when treating natural wounds, poisons, diseases, or environmental injuries — even with scant or improvised supplies. You know which root draws out venom, which bark reduces fever, and which moss stops bleeding. A proper medpac helps, but you do not need one.",
+        "shorthand": "Survival replaces Tactics for Join Battle in wilderness. Survival replaces Medicine for natural wounds/poisons/diseases, even with scant supplies."
+      },
+      {
+        "id": "voc_pathfinder_t2",
+        "tier": 2,
+        "type": "maneuver",
+        "name": "Scrounge",
+        "tags": [
+          "[Narrative]",
+          "[Exploration]"
+        ],
+        "discipline": "survival",
+        "arena": "grit",
+        "rolled": true,
+        "rule": "During a Long Rest in wilderness or natural terrain, you may spend a maneuver to scavenge your surroundings. Roll Survival (Grit). Based on your result tier, choose one item from the corresponding menu. You choose one item from the highest tier you qualify for. Items scrounged are improvised equivalents — they function identically but look like they were assembled from bark, sap, and whatever was in your pockets.",
+        "risk": "On failure, you find nothing useful — the terrain has been picked clean, or the local flora is simply inedible.",
+        "effect": [
+          {
+            "tier": 1,
+            "label": "Fleeting",
+            "range": "0-3",
+            "description": "Choose one: Field Rations (10cr equivalent), Glow Rod (25cr equivalent), or Syntherope (10cr equivalent)."
+          },
+          {
+            "tier": 2,
+            "label": "Masterful",
+            "range": "4-7",
+            "description": "Choose one: Bacta Patch (20cr equivalent), Stimulant Tabs (20cr equivalent), or Camouflaged Camp (concealed rest site — the party cannot be found by passive patrols during this rest)."
+          },
+          {
+            "tier": 3,
+            "label": "Legendary",
+            "range": "8+",
+            "description": "Choose one: Medpac (100cr equivalent) or Rare Find (GM determines — a useful item, resource, or material native to the environment that would not normally be available without a market)."
+          }
+        ],
+        "shorthand": "Long Rest maneuver: roll Survival (Grit). Choose one item from a tier-based menu — rations/glow rod/rope at Fleeting, bacta patch/stimulant tabs/camo camp at Masterful, medpac/rare find at Legendary."
+      },
+      {
+        "id": "voc_pathfinder_t3",
+        "tier": 3,
+        "type": "permission",
+        "name": "Vanguard",
+        "tags": [
+          "[Narrative]",
+          "[Exploration]"
+        ],
+        "rule": "When you take the Assess action in wilderness or natural terrain, you may declare that you are scouting along your proposed path of travel. Your questions are scoped to the route ahead: what dangers lie along this path, what terrain changes are coming, whether the path is passable, and what lives or operates in the area you are heading toward.\n\nThis uses Survival (Grit) for the Assess roll. On success, you gain your questions as normal. On failure, you gain no information, and the GM may trigger an encounter as a consequence of your scouting — you pushed too far ahead and something found you first.",
+        "shorthand": "Assess in wilderness using Survival (Grit), scoped to scouting the route ahead. Failure = no info + GM may trigger encounter."
+      },
+      {
+        "id": "voc_pathfinder_t4",
+        "tier": 4,
+        "type": "permission",
+        "name": "Instinct",
+        "tags": [
+          "[Narrative]",
+          "[Exploration]",
+          "[Defense]"
+        ],
+        "rule": "When an ally would be attacked or affected by an unknown, unidentified hazard in natural terrain, you may spend 1 Edge to immediately assume the risk. You take the hit instead of your ally and resist the hazard with Survival (Grit). This roll is [Optimized] — your Control die steps up.\n\nYou saw it before they did. The discolored ground, the shift in the air, the way the canopy went quiet. You shoved them aside and took the hit because you knew exactly what was coming — and more importantly, you knew exactly how to take it.",
+        "shorthand": "Spend 1 Edge when ally faces unknown natural hazard. You assume the risk and resist with Survival (Grit), [Optimized]."
+      },
+      {
+        "id": "voc_pathfinder_t5",
+        "tier": 5,
+        "type": "passive",
+        "name": "Native Ground",
+        "tags": [
+          "[Narrative]",
+          "[Exploration]"
+        ],
+        "rule": "When you Assess using Survival in natural terrain and score 8+ on your Control die, you replenish 1 Edge. Your mastery of the wild is self-sustaining — the more you read the terrain, the more confident you become, and confidence is currency.\n\nAdditionally, once per session, you may spend Edge to retroactively declare that you prepared for a specific environmental contingency. \"I cached water at the ridge two hours ago.\" \"I marked this trail on the way in.\" \"I set a perimeter alarm last night.\" \"I brought thermal wraps — I have been to ice planets before.\" The GM determines whether the preparation is plausible given the environment, your travel time, and available materials, but cannot deny it simply because you did not announce it earlier. You are always preparing. The party just does not notice until it matters.",
+        "shorthand": "Assess with Survival in natural terrain, 8+ Control = replenish 1 Edge. Once per session, spend Edge to retroactively declare environmental preparation."
+      }
+    ],
+    "imageUrl": "/assets/vocations/voc_pathfinder.png",
+    "startingItems": [
+      {
+        "id": "gear_field_rations_01",
+        "name": "Field Rations",
+        "cost": 10,
+        "source": "gear"
+      },
+      {
+        "id": "gear_syntherope_01",
+        "name": "Syntherope",
+        "cost": 10,
+        "source": "gear"
+      }
+    ]
   }
 ]
