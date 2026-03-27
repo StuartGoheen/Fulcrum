@@ -2346,6 +2346,109 @@
     ]
   },
   {
+    "id": "voc_skirmisher",
+    "name": "The Skirmisher",
+    "governingArena": "wits",
+    "favoredDiscipline": "tactics",
+    "description": "The Skirmisher does not hold ground — she takes it, uses it, and abandons it before the enemy can respond. Light weapons, constant movement, and an instinct for angles that turns every battlefield into a series of one-sided engagements. She fights the way a river erodes stone: not by force, but by refusing to be where the resistance is. The enemy shoots at where she was. She is already somewhere else, and she is already shooting back.",
+    "fluff": "Every army has its line infantry. Every rebellion has its skirmishers. They are the ones who hit the supply convoy and vanish into the tree line. The ones who fire from a rooftop, relocate before the return volley, and are three blocks away before the stormtroopers kick down the door. The Empire calls them insurgents. The Rebellion calls them force multipliers. On the Outer Rim, where the war is fought in alleyways and cantina back rooms, they are simply the ones who survive — because they never stop moving and they never fight fair.",
+    "abilities": [
+      {
+        "id": "voc_skirmisher_t1",
+        "tier": 1,
+        "type": "passive",
+        "name": "Running Battle",
+        "tags": [
+          "[Combat]"
+        ],
+        "rule": "While carrying only light weapons (blaster pistols, light melee weapons, thrown weapons — no rifles, heavy weapons, or two-handed weapons), you may use Tactics (Wits) in place of the weapon's normal discipline (Ranged or Melee) for attack rolls, but only if you have moved since the start of your turn.\n\nYour combat effectiveness comes from positioning, not marksmanship. The shot is accurate because you chose the right angle, the strike lands because you found the gap in their guard while they were still tracking your last position. Stand still and you are just another fighter. Move and you fight with your mind.",
+        "shorthand": "Tactics (Wits) replaces weapon discipline for light weapon attacks if you have moved since the start of your turn."
+      },
+      {
+        "id": "voc_skirmisher_t2",
+        "tier": 2,
+        "type": "exploit",
+        "name": "Reactionary Movement",
+        "tags": [
+          "[Combat]",
+          "[Defense]"
+        ],
+        "modifiesAction": "action_exploit",
+        "actionType": "Exploit",
+        "rule": "When an enemy enters your zone, you may declare an Opening and spend your Exploit pip to immediately take a Move maneuver instead of making an attack. You read the approach and you are already gone — by the time they arrive at your position, you are not in it.\n\nThis uses your Exploit pip for the round. You cannot use Reactionary Movement and also make an offensive Exploit this round — you chose escape over damage. If you are currently Engaged with other enemies, the normal disengagement rules apply to your Move (you may present Openings to enemies you are already Engaged with).",
+        "shorthand": "When enemy enters your zone, spend Exploit pip to Move instead of attack."
+      },
+      {
+        "id": "voc_skirmisher_t3",
+        "tier": 3,
+        "type": "passive",
+        "name": "Evasive Footwork",
+        "tags": [
+          "[Combat]",
+          "[Defense]"
+        ],
+        "rule": "If you have moved since the start of your turn, your Dodge defense rolls are [Optimized] (Control die steps up) against ranged, non-area-of-effect attacks. Single-target ranged fire cannot track you — you are a moving target and every shot arrives where you were, not where you are.\n\nThis does not apply to area-of-effect weapons (grenades, explosives, suppressive fire), melee attacks, or Force powers. You cannot dodge a blast radius by running. The protection requires movement — if you have not moved since the start of your turn, your Dodge functions normally.",
+        "shorthand": "Dodge is [Optimized] vs ranged non-AoE attacks if you have moved since the start of your turn."
+      },
+      {
+        "id": "voc_skirmisher_t4",
+        "tier": 4,
+        "type": "maneuver",
+        "name": "Harrying Strike",
+        "tags": [
+          "[Combat]"
+        ],
+        "discipline": "tactics",
+        "arena": "wits",
+        "defense": "resolve",
+        "rolled": true,
+        "rule": "Light weapons only. As part of this maneuver, you Move 1 zone before making the roll — this movement counts for activating Running Battle and Evasive Footwork. Roll Tactics (Wits) vs target's Resolve. You fire to control, not to kill — cutting off angles, herding the target, forcing them where you want them.",
+        "risk": "On failure, you present an Opening — you committed to the repositioning shot and left yourself exposed.",
+        "effect": [
+          {
+            "tier": 1,
+            "label": "Fleeting",
+            "range": "0-3",
+            "description": "Target gains [Disoriented] (immediate)."
+          },
+          {
+            "tier": 2,
+            "label": "Masterful",
+            "range": "4-7",
+            "description": "Target gains [Disoriented] (immediate) and is forced to Move 1 zone in a direction you choose."
+          },
+          {
+            "tier": 3,
+            "label": "Legendary",
+            "range": "8+",
+            "description": "Target gains [Disoriented] (tactical duration) and is forced to Move 1 zone in a direction you choose."
+          }
+        ],
+        "shorthand": "Move 1 zone, then Tactics (Wits) vs Resolve. Fleeting: [Disoriented]. Masterful: [Disoriented] + forced Move 1 zone. Legendary: [Disoriented] (tactical) + forced Move 1 zone. Risk: present Opening."
+      },
+      {
+        "id": "voc_skirmisher_t5",
+        "tier": 5,
+        "type": "passive",
+        "name": "Ghost Protocol",
+        "tags": [
+          "[Combat]"
+        ],
+        "rule": "Enemies you have inflicted [Disoriented] on cannot target you with attacks while the condition persists. You have scrambled their ability to track you — they know you are out there, but they cannot find you. They can target your allies, take cover, attempt to clear the condition, or act in any other way. They simply cannot aim at the thing that rattled their coordination.\n\nThis applies only to enemies you personally inflicted [Disoriented] on. An ally's grenade or a separate source of [Disoriented] does not feed this ability. Area-of-effect attacks that do not require targeting (explosions, suppressive fire zones) can still affect you normally — they are not aimed at you, they are aimed at the ground.",
+        "shorthand": "Enemies you inflicted [Disoriented] on cannot target you with attacks while the condition persists."
+      }
+    ],
+    "imageUrl": "/assets/vocations/voc_skirmisher.png",
+    "startingItems": [
+      {
+        "id": "gear_smoke_grenade_01",
+        "name": "Smoke Grenade",
+        "cost": 25,
+        "source": "gear"
+      }
+    ]
+  },
+  {
     "id": "voc_splice",
     "name": "The Splice",
     "governingArena": "wits",
