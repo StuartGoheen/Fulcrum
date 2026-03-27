@@ -99,29 +99,46 @@
               "number": 1,
               "title": "Bad Business at Sienar's Regret",
               "subtitle": "In Media Res",
-              "readAloud": "The blast doors of the cantina hiss open violently, admitting the blinding white glare of the Jakku sun. A young human woman — disheveled, clutching a datapad to her chest — bursts in. She scans the room with desperate eyes, spots your table, and sprints toward you. She hooks her foot on a chair leg and crashes into your table, sending drinks and credits scattering across the floor.\n\nBefore you can react, her pursuers storm in: a heavy-set Weequay and two Kyuzo enforcers wearing wide-brimmed war helms, blasters drawn. They see the woman cowering behind you and make a fatal assumption. The Weequay barks a threat in Huttese and raises a heavy vibro-ax.",
-              "gmNotes": "This is the campaign's inciting incident. The thugs are shooting to kill, forcing the heroes to defend themselves. Maya intentionally dragged the heroes into this — she used them as a shield. After the fight, she offers a business proposition, not a noble speech. She has stolen an encrypted Imperial Code Cylinder from Darga the Hutt's operation and claims it leads to a stash of embezzled credits. She needs the heroes to help decrypt it in exchange for a cut.",
+              "readAloud": "The blast doors of Sienar's Regret hiss open, admitting the blinding white glare of the Jakku sun. A young human woman stumbles through — clutching her side where a blaster burn has scorched through her jacket. Blood seeps between her fingers, but she's moving fast. She scans the room with desperate eyes, spots your table, and crashes into it, sending drinks and credits scattering across the floor.\n\n\"They're coming,\" she gasps, pressing a datapad against the table. \"Please — just look like you're with me.\"\n\nBefore you can respond, her pursuers fill the doorway: a heavy-set Weequay and two Kyuzo enforcers wearing wide-brimmed war helms. Their blasters are holstered. They're not here to kill — they're here to collect. The Weequay rolls his shoulders, looks at your table, and makes a decision. \"The girl owes Darga the Hutt. You want to be part of her debt?\"",
+              "gmNotes": "This is the campaign's inciting incident — but it is NOT an assassination. The thugs are debt collectors for Darga the Hutt's local operation. They have NOT drawn weapons. Maya deliberately crashed into the heroes' table to create the impression they're her crew — she used them as a shield.\n\nMAYA'S WOUND: Real. A blaster graze to her side from a warning shot outside the cantina. Non-lethal but painful and bleeding. She is desperate, not performing — but she IS calculating. She chose this table because she saw armed people sitting at it.\n\nRESOLUTION PATHS:\n• INTIMIDATION: A Gunslinger can draw and stare down the Weequay. An Intimidate check (Moderate) ends the confrontation without violence — the thugs are collectors, not killers, and they'll back off from armed resistance.\n• SOCIAL: Charm, Deception, or Persuasion (Moderate) can convince the thugs Maya isn't worth the trouble, redirect them, or negotiate a delay.\n• BRAWL: If anyone throws a punch, the Kyuzo respond in kind. Bar brawl — no blasters unless someone draws first.\n• FIREFIGHT: Only if the heroes draw first or escalate. The thugs will draw in response. Cantina becomes a kill zone.\n\nAFTER RESOLUTION: Maya offers a business proposition, not a noble speech. She has stolen an encrypted Imperial Code Cylinder from Darga the Hutt's operation and claims it leads to a stash of embezzled credits. She needs the heroes to help decrypt it in exchange for a cut.\n\nKEY LORE: 16 BBY. Imperial presence on Jakku is thin — Arkanis Sector patrols, no garrison. Darga the Hutt runs the real economy here: smuggling, debt, protection. A cantina fight draws local attention, not Imperial attention.",
               "npcs": [
                 {
                   "name": "Maya",
                   "type": "Human Grifter",
                   "count": 1,
-                  "notes": "Desperate but calculating. She used the heroes as muscle."
+                  "notes": "Desperate but calculating. She used the heroes as muscle.",
+                  "behavior": "Stays behind the heroes, clutching her wound. If combat starts, she ducks behind the bar. After resolution, switches to confident pitch mode.",
+                  "dialogue": [
+                    "\"They're coming. Please — just look like you're with me.\"",
+                    "\"I have something worth more than what I owe. A lot more. But I need people with blasters to collect it.\"",
+                    "\"The wound? A disagreement about payment terms. They're not subtle.\""
+                  ],
+                  "intel": "Maya stole an encrypted Imperial Code Cylinder from Darga's operation. She doesn't know exactly what's on it — she thought it was vault coordinates."
                 },
                 {
-                  "name": "Weequay Enforcer",
-                  "type": "Standard Thug",
+                  "name": "Krev Tosk",
+                  "type": "Weequay Enforcer",
                   "count": 1,
-                  "notes": "Darga's local muscle."
+                  "notes": "Darga's local muscle. Senior collector.",
+                  "behavior": "Tries intimidation first. Will back down from a real show of force. Only draws if the heroes draw first.",
+                  "dialogue": [
+                    "\"The girl owes Darga the Hutt. You want to be part of her debt?\"",
+                    "\"Walk away. This isn't your business yet.\"",
+                    "\"Darga remembers faces. Think about that.\""
+                  ],
+                  "intel": "Knows Maya stole something from Darga's warehouse. Doesn't know what."
                 },
                 {
                   "name": "Kyuzo Enforcers",
                   "type": "Standard Thug",
                   "count": 2,
-                  "notes": "Wearing wide-brimmed war helms. Armed with blasters."
+                  "notes": "Wide-brimmed war helms. Armed but holstered. Follow Krev's lead.",
+                  "behavior": "Silent and watchful. Position to flank. Respond to violence but don't initiate.",
+                  "dialogue": [],
+                  "intel": null
                 }
               ],
-              "hazards": "Cantina environment — overturned tables, broken glass, panicking patrons. Dim lighting from failing glow-rods.",
+              "hazards": "Cantina environment — dim lighting, overturned tables, broken glass, panicking patrons. A fight on Jakku draws local attention (Darga's people, scavenger gangs) but NOT Imperial attention.",
               "decisions": [
                 {
                   "choice": "Help Maya fight the thugs",
@@ -161,7 +178,136 @@
                 "evasion",
                 "endure"
               ],
-              "gearFlags": []
+              "gearFlags": [],
+              "encounters": [
+                {
+                  "id": "enc-s1-confrontation",
+                  "name": "The Collection",
+                  "type": "social",
+                  "trigger": "Immediate — thugs in the doorway",
+                  "description": "Darga's collectors confront Maya at the heroes' table. Debt collection, not a hit. Heroes must decide whether to get involved.",
+                  "tactics": "Krev leads with intimidation. Kyuzo watch exits. If heroes show force, Krev reassesses — not paid enough to die on Jakku."
+                },
+                {
+                  "id": "enc-s1-brawl",
+                  "name": "Cantina Brawl",
+                  "type": "combat",
+                  "trigger": "Only if someone throws the first punch or social resolution fails badly",
+                  "description": "Bar brawl in a cramped cantina. Overturned tables, thrown bottles, panicking patrons. Blasters stay holstered unless someone draws first.",
+                  "tactics": "Weequay grapples and brawls. Kyuzo headbutt with helms and fight as a pair to flank. If a hero draws a blaster, all three draw."
+                },
+                {
+                  "id": "enc-s1-pitch",
+                  "name": "Maya's Proposition",
+                  "type": "social",
+                  "trigger": "After the thugs are dealt with",
+                  "description": "Maya shifts to a calculated pitch. Offers the heroes a cut of whatever the Code Cylinder leads to.",
+                  "tactics": "Maya reads the room — appeals to greed for mercenaries, justice for idealists, curiosity for investigators."
+                }
+              ],
+              "skillChecks": [
+                {
+                  "id": "sc-s1-read-maya",
+                  "discipline": "insight",
+                  "difficulty": "Easy",
+                  "context": "Reading Maya — genuine desperation or performance?",
+                  "success": "The wound is real. The fear is real. But she chose this table on purpose.",
+                  "failure": "She seems genuinely terrified. No indication of ulterior motives."
+                },
+                {
+                  "id": "sc-s1-intimidate",
+                  "discipline": "intimidate",
+                  "difficulty": "Moderate",
+                  "context": "Staring down the Weequay and his crew.",
+                  "success": "Krev backs off: 'Not worth it today.' Warns Darga remembers faces.",
+                  "failure": "Krev isn't impressed. Steps forward. Situation escalates."
+                },
+                {
+                  "id": "sc-s1-charm",
+                  "discipline": "charm",
+                  "difficulty": "Moderate",
+                  "context": "Talking the thugs down or redirecting them.",
+                  "success": "Thugs are mollified or confused enough to withdraw.",
+                  "failure": "Krev sees through it. 'Nice try. Hand her over.'"
+                },
+                {
+                  "id": "sc-s1-deception",
+                  "discipline": "deception",
+                  "difficulty": "Moderate",
+                  "context": "Claiming Maya is under protection or the debt is settled.",
+                  "success": "Krev hesitates — leaves to confirm with his boss.",
+                  "failure": "'I know everyone Darga deals with. You're nobody.'"
+                },
+                {
+                  "id": "sc-s1-medicine",
+                  "discipline": "medicine",
+                  "difficulty": "Easy",
+                  "context": "Treating Maya's blaster wound after resolution.",
+                  "success": "Wound cleaned and dressed. Maya is grateful and more forthcoming.",
+                  "failure": "Basic patch job. Maya stays functional."
+                }
+              ],
+              "environmentMechanics": [
+                {
+                  "name": "Dim Cantina Lighting",
+                  "trigger": "Active throughout",
+                  "effect": "Failing glow-rods create shadow pools. Ranged attacks at distance stepped down.",
+                  "mitigation": "Close range unaffected. Rodian infrared / Sullustan darkvision ignore penalty."
+                },
+                {
+                  "name": "Cantina Furniture",
+                  "trigger": "If combat begins",
+                  "effect": "Overturned tables = light cover. Bar = hard cover. Chairs and bottles as improvised weapons.",
+                  "mitigation": "Athletics check to flip a table for instant cover."
+                },
+                {
+                  "name": "Panicking Patrons",
+                  "trigger": "If weapons drawn",
+                  "effect": "Civilians scramble for exits. Ranged attacks into crowds risk bystanders.",
+                  "mitigation": "Careful shot placement or waiting for clear lines."
+                }
+              ],
+              "rewards": {
+                "credits": 0,
+                "items": [
+                  "Imperial Code Cylinder (encrypted)"
+                ],
+                "intel": [
+                  "Maya stole from Darga the Hutt's operation",
+                  "Cylinder needs a specialist — Switch in the Starship Graveyard"
+                ],
+                "connections": [
+                  "Maya (unreliable contact)"
+                ]
+              },
+              "pacing": {
+                "openingBeat": "Maya crashes in wounded, thugs follow. Heroes are in the middle before they choose.",
+                "risingAction": "Confrontation with Krev. Social pressure escalates.",
+                "climax": "The decision — fight, talk, or intimidate.",
+                "resolution": "Maya's pitch. Code Cylinder revealed. Hook set.",
+                "estimatedMinutes": 25
+              },
+              "knackTags": [
+                "hutt-marked",
+                "notorious",
+                "hunted",
+                "false-identity",
+                "witness"
+              ],
+              "backgroundTags": [
+                "outer-rim-desert",
+                "urban-underworld",
+                "spaceport-crossroads",
+                "conflict-zone"
+              ],
+              "speciesTags": [
+                "cathar",
+                "rodian",
+                "togruta",
+                "twilek",
+                "keldor",
+                "wookiee"
+              ]
             },
             {
               "id": "adv1-p1-s2",
@@ -174,7 +320,14 @@
                   "name": "Switch",
                   "type": "Protocol Droid Crime Lord",
                   "count": 1,
-                  "notes": "Decades without memory wipes. Sits behind a priceless Japor ivory desk. A businessman, not an ally."
+                  "notes": "Decades without memory wipes. Japor ivory desk. Businessman, not ally.",
+                  "behavior": "Calculated precision. Uses silence as a weapon. Always running cost-benefit analysis.",
+                  "dialogue": [
+                    "\"I don't do favors. I do transactions.\"",
+                    "\"The cylinder's encryption is Imperial-grade. Military. Decrypting it will cost you — not in credits. In obligation.\"",
+                    "\"The contents are... not what your friend expected. Shall I continue?\""
+                  ],
+                  "intel": "Knows cylinder was stolen from Darga. Knows Darga is connected to Imperial logistics. Suspects it's more valuable than Maya realizes."
                 }
               ],
               "hazards": "Cramped underground bunker. Motion sensors active.",
@@ -217,7 +370,111 @@
                 "investigation",
                 "tech"
               ],
-              "gearFlags": []
+              "gearFlags": [],
+              "encounters": [
+                {
+                  "id": "enc-s2-negotiation",
+                  "name": "The Deal with Switch",
+                  "type": "social",
+                  "trigger": "When heroes present the Code Cylinder",
+                  "description": "Switch names his price: a future favor, no questions asked. He won't accept credits — he wants leverage.",
+                  "tactics": "Patient and immovable. Heroes need him more than he needs them. Uses their desperation and Maya's impatience."
+                },
+                {
+                  "id": "enc-s2-reveal",
+                  "name": "The Decryption Reveal",
+                  "type": "social",
+                  "trigger": "After the deal is struck",
+                  "description": "The cylinder doesn't contain vault coordinates. It's a shipping manifest for 'The Accountant' — an Imperial officer frozen in carbonite at Niima Landing Field.",
+                  "tactics": "Switch delivers with clinical detachment. Watches reactions carefully."
+                }
+              ],
+              "skillChecks": [
+                {
+                  "id": "sc-s2-negotiate",
+                  "discipline": "charm",
+                  "difficulty": "Hard",
+                  "context": "Negotiating Switch's price down from open-ended favor.",
+                  "success": "Switch agrees to a single, defined favor instead.",
+                  "failure": "Open-ended favor stands."
+                },
+                {
+                  "id": "sc-s2-insight",
+                  "discipline": "insight",
+                  "difficulty": "Hard",
+                  "context": "Reading Switch's motives.",
+                  "success": "Switch is building a network of obligations — positioning as the indispensable middleman.",
+                  "failure": "Switch is inscrutable."
+                },
+                {
+                  "id": "sc-s2-investigation",
+                  "discipline": "investigation",
+                  "difficulty": "Moderate",
+                  "context": "Examining the decrypted data for hidden details.",
+                  "success": "Additional details: the asset was shipped from Eriadu. Shipping codes match 'Project Leviathan.'",
+                  "failure": "Manifest is straightforward — just a shipping record and pickup time."
+                },
+                {
+                  "id": "sc-s2-tech",
+                  "discipline": "tech",
+                  "difficulty": "Moderate",
+                  "context": "Verifying Switch's decryption is genuine.",
+                  "success": "Decryption appears complete and unaltered.",
+                  "failure": "No way to independently verify."
+                }
+              ],
+              "environmentMechanics": [
+                {
+                  "name": "Switch's Security Systems",
+                  "trigger": "Any aggressive action or theft attempt",
+                  "effect": "Hidden ceiling turrets deploy. Motion sensors track all movement. Single exit locks remotely.",
+                  "mitigation": "Don't threaten the droid. Treat this as a business meeting."
+                },
+                {
+                  "name": "Cramped Quarters",
+                  "trigger": "If combat begins",
+                  "effect": "Narrow bunker cluttered with droid parts. No flanking. Melee range only.",
+                  "mitigation": "Use clutter for cover. Japor desk = indestructible hard cover."
+                }
+              ],
+              "rewards": {
+                "credits": 0,
+                "items": [],
+                "intel": [
+                  "Cylinder contains a shipping manifest, not vault coordinates",
+                  "The Accountant is frozen in carbonite at Niima Landing Field",
+                  "Imperial pickup is imminent",
+                  "Manifest references 'Project Leviathan'"
+                ],
+                "connections": [
+                  "Switch (info broker, transactional)"
+                ]
+              },
+              "pacing": {
+                "openingBeat": "Descent into Switch's bunker beneath the Starship Graveyard. First impression: this droid is more than he seems.",
+                "risingAction": "Negotiation. Switch names his price. Maya argues.",
+                "climax": "The decryption reveal — the job just changed.",
+                "resolution": "Heroes know about The Accountant. Clock is ticking.",
+                "estimatedMinutes": 30
+              },
+              "knackTags": [
+                "debtor",
+                "false-identity",
+                "hutt-marked",
+                "notorious",
+                "defector"
+              ],
+              "backgroundTags": [
+                "junkyard-planet",
+                "urban-underworld",
+                "spaceport-crossroads"
+              ],
+              "speciesTags": [
+                "keldor",
+                "twilek",
+                "human",
+                "duros"
+              ]
             },
             {
               "id": "adv1-p1-s3",
@@ -230,13 +487,23 @@
                   "name": "Ganga Lor",
                   "type": "Chevin Lieutenant",
                   "count": 1,
-                  "notes": "Darga's enforcer. Massive, trunked alien. Wants to make an example."
+                  "notes": "Darga's enforcer. Massive trunked alien. Making an example.",
+                  "behavior": "Leads from front. Uses size to dominate enclosed space. Targets Maya. Fights to the death rather than face Darga.",
+                  "dialogue": [
+                    "\"Nobody steals from the Mighty Darga. Not the girl. Not the droid. And definitely not you.\"",
+                    "\"Bring me the cylinder and the girl. The rest of you can walk.\"",
+                    "\"Darga's patience has a limit. Mine ended ten minutes ago.\""
+                  ],
+                  "intel": "Knows exactly what was stolen — the Code Cylinder. Does NOT know what's on it."
                 },
                 {
                   "name": "Enforcers",
                   "type": "Standard Thugs",
                   "count": 4,
-                  "notes": "Ganga Lor's backup."
+                  "notes": "Mixed species — two humans, a Trandoshan, a Nikto.",
+                  "behavior": "Stack behind Ganga Lor. Enter in pairs. Spread to cover angles. Experienced street fighters.",
+                  "dialogue": [],
+                  "intel": null
                 }
               ],
               "hazards": "Cramped bunker — collapsing droid stacks, steam pipes, Switch's security turrets can be activated as environmental weapons.",
@@ -272,7 +539,109 @@
                 "endure",
                 "tech"
               ],
-              "gearFlags": []
+              "gearFlags": [],
+              "encounters": [
+                {
+                  "id": "enc-s3-ambush",
+                  "name": "Ganga Lor's Raid",
+                  "type": "combat",
+                  "trigger": "Motion sensors scream. Hatch explodes inward.",
+                  "description": "Ganga Lor and four enforcers breach Switch's bunker. Close-quarters combat with environmental hazards. Switch's turrets can be turned against attackers.",
+                  "tactics": "Ganga Lor bulldozes through cover. Enforcers enter in pairs, flanking. They target Maya first."
+                }
+              ],
+              "skillChecks": [
+                {
+                  "id": "sc-s3-turrets",
+                  "discipline": "tech",
+                  "difficulty": "Moderate",
+                  "context": "Activating Switch's ceiling turrets against intruders.",
+                  "success": "Turrets deploy and fire on Ganga Lor's crew. Suppressive fire.",
+                  "failure": "Turrets activate but target indiscriminately."
+                },
+                {
+                  "id": "sc-s3-environment",
+                  "discipline": "athletics",
+                  "difficulty": "Easy",
+                  "context": "Toppling droid stacks onto enforcers.",
+                  "success": "Cascade buries two enforcers, pinning them.",
+                  "failure": "Stack shifts but doesn't fall convincingly."
+                },
+                {
+                  "id": "sc-s3-steam",
+                  "discipline": "ranged",
+                  "difficulty": "Moderate",
+                  "context": "Shooting out steam pipes for a scalding barrier.",
+                  "success": "Steam fills corridor, forcing enforcers back. Creates concealment.",
+                  "failure": "Pipe bursts unpredictably — could hit allies."
+                },
+                {
+                  "id": "sc-s3-protect",
+                  "discipline": "evasion",
+                  "difficulty": "Moderate",
+                  "context": "Getting Maya behind cover when enforcers target her.",
+                  "success": "Maya is shielded and stays down.",
+                  "failure": "Maya takes a hit — serious medical need."
+                }
+              ],
+              "environmentMechanics": [
+                {
+                  "name": "Collapsing Droid Stacks",
+                  "trigger": "Athletics check or powerful impact",
+                  "effect": "Scrap cascades down — difficult terrain, pins combatants.",
+                  "mitigation": "Stay clear of stacks or use them as area denial."
+                },
+                {
+                  "name": "Steam Pipes",
+                  "trigger": "Shooting or striking exposed pipes",
+                  "effect": "Superheated steam — burn damage in a line, concealment.",
+                  "mitigation": "Breath mask reduces damage. Stay low — steam rises."
+                },
+                {
+                  "name": "Switch's Security Turrets",
+                  "trigger": "Tech check (Moderate) or convincing Switch",
+                  "effect": "Ceiling turrets fire on hostiles. Suppressive fire.",
+                  "mitigation": "Switch controls targeting. Specify targets or turrets fire on everyone."
+                }
+              ],
+              "rewards": {
+                "credits": 50,
+                "items": [
+                  "Ganga Lor's heavy blaster",
+                  "Enforcer weapons (4x blaster pistols)"
+                ],
+                "intel": [
+                  "Cylinder was in Darga's secure warehouse",
+                  "Darga has a bounty on Maya",
+                  "Switch reveals The Accountant's location post-fight"
+                ],
+                "connections": []
+              },
+              "pacing": {
+                "openingBeat": "Motion sensors scream. Explosion from above. Ganga Lor fills the breach.",
+                "risingAction": "Close-quarters combat. Environment is the key — turrets, steam, scrap.",
+                "climax": "Ganga Lor pushes through to Maya. Someone has to stop him.",
+                "resolution": "Ganga Lor falls. Switch reveals The Accountant — carbonite at Niima Landing Field.",
+                "estimatedMinutes": 35
+              },
+              "knackTags": [
+                "hutt-marked",
+                "witness",
+                "hunted",
+                "traumatized",
+                "blood-price"
+              ],
+              "backgroundTags": [
+                "urban-underworld",
+                "conflict-zone",
+                "junkyard-planet"
+              ],
+              "speciesTags": [
+                "wookiee",
+                "cathar",
+                "zabrak",
+                "rodian"
+              ]
             },
             {
               "id": "adv1-p1-s4",
@@ -285,13 +654,26 @@
                   "name": "Stormtrooper Squad",
                   "type": "Standard Stormtroopers",
                   "count": 6,
-                  "notes": "Transition-era armor, dirty from the desert. Overseeing the transfer."
+                  "notes": "Transition-era armor, dirty from desert. Overseeing transfer.",
+                  "behavior": "Professional but bored. Two on carbonite, two on perimeter, two at shuttle pad. Follow procedure.",
+                  "dialogue": [
+                    "\"Cargo manifest shows one carbonite unit. Confirm for transfer.\"",
+                    "\"Halt! Present your authorization codes.\"",
+                    "\"All units, unauthorized personnel in the hangar. Lock it down.\""
+                  ],
+                  "intel": "Real Imperial soldiers. Operate with discipline. Call for backup. Killing troopers has consequences."
                 },
                 {
                   "name": "Warlord's Guards",
                   "type": "Standard Thugs",
                   "count": 4,
-                  "notes": "Perimeter security."
+                  "notes": "Perimeter security. Lazy and bribeable.",
+                  "behavior": "Complacent. More interested in next meal than dying for a cargo transfer. Can be bribed (200 credits).",
+                  "dialogue": [
+                    "\"I don't care what's in the box. I just get paid to stand here.\"",
+                    "\"You got a work order? No? Then walk away.\""
+                  ],
+                  "intel": "Know the block arrived three days ago. Know it's 'some Imperial prisoner' but nothing more."
                 }
               ],
               "hazards": "Militarized hangar — heavy machinery, incoming Imperial shuttle providing time pressure. Open terrain with limited cover.",
@@ -341,6 +723,124 @@
               "gearFlags": [
                 "Restricted",
                 "Military"
+              ],
+              "encounters": [
+                {
+                  "id": "enc-s4-infiltration",
+                  "name": "Hangar Approach",
+                  "type": "infiltration",
+                  "trigger": "Heroes must cross open ground to the hangar",
+                  "description": "Three approaches: bluff as Imperial pickup crew, sneak through maintenance vents, or direct assault with heavy machinery cover.",
+                  "tactics": "Perimeter guards are outer layer (lazy). Stormtroopers are inner layer (disciplined). Getting past guards is easy; troopers are the real challenge."
+                },
+                {
+                  "id": "enc-s4-extraction",
+                  "name": "Carbonite Extraction",
+                  "type": "technical",
+                  "trigger": "Heroes reach the carbonite block",
+                  "description": "Block is heavy (two people or repulsor cart) and connected to monitoring station. Disconnecting triggers 60-second alarm delay.",
+                  "tactics": "Speed is everything. Imperial shuttle visible on approach."
+                },
+                {
+                  "id": "enc-s4-escape",
+                  "name": "The Hot Exit",
+                  "type": "combat",
+                  "trigger": "Alarm sounds or shuttle lands",
+                  "description": "Running firefight across landing field. Shuttle disgorges reinforcements. Must reach ship with carbonite block.",
+                  "tactics": "Stormtroopers establish firing lines. Heavy machinery provides mobile cover but explosive hazards."
+                }
+              ],
+              "skillChecks": [
+                {
+                  "id": "sc-s4-deception",
+                  "discipline": "deception",
+                  "difficulty": "Hard",
+                  "context": "Impersonating Imperial pickup crew to walk in.",
+                  "success": "Troopers accept credentials. Walk in unchallenged.",
+                  "failure": "Codes don't match. Alarm raised."
+                },
+                {
+                  "id": "sc-s4-stealth",
+                  "discipline": "stealth",
+                  "difficulty": "Moderate",
+                  "context": "Crawling through maintenance vents.",
+                  "success": "Emerge inside hangar behind trooper positions.",
+                  "failure": "Vent grate clangs. Nearest trooper investigates."
+                },
+                {
+                  "id": "sc-s4-tech",
+                  "discipline": "tech",
+                  "difficulty": "Moderate",
+                  "context": "Disconnecting carbonite monitoring without alarm.",
+                  "success": "Clean disconnect. Head start.",
+                  "failure": "Alarm triggers immediately."
+                },
+                {
+                  "id": "sc-s4-piloting",
+                  "discipline": "piloting",
+                  "difficulty": "Hard",
+                  "context": "Flying out under fire with carbonite strapped to hull.",
+                  "success": "Clean escape. Break atmosphere before fighters scramble.",
+                  "failure": "Ship takes hits. Engine/hull damage."
+                }
+              ],
+              "environmentMechanics": [
+                {
+                  "name": "Open Terrain",
+                  "trigger": "Active during approach and escape",
+                  "effect": "Landing field is flat and exposed. No natural cover.",
+                  "mitigation": "Use heavy machinery as mobile cover."
+                },
+                {
+                  "name": "Imperial Shuttle Countdown",
+                  "trigger": "Active from scene start",
+                  "effect": "Shuttle on final approach. Visible clock — when it lands, reinforcements pour out.",
+                  "mitigation": "Move fast. Every wasted round brings shuttle closer."
+                },
+                {
+                  "name": "Explosive Fuel Stores",
+                  "trigger": "Stray or deliberate shot hits fuel containers",
+                  "effect": "Massive explosion — area damage and fire.",
+                  "mitigation": "Stay away or use as deliberate diversion."
+                }
+              ],
+              "rewards": {
+                "credits": 0,
+                "items": [
+                  "Carbonite block containing The Accountant"
+                ],
+                "intel": [
+                  "Empire actively operating on Jakku",
+                  "Carbonite destined for Imperial facility",
+                  "Stormtrooper presence confirms Imperial interest in The Accountant"
+                ],
+                "connections": []
+              },
+              "pacing": {
+                "openingBeat": "Recon through macrobinoculars. Hangar, troopers, carbonite, shuttle on approach.",
+                "risingAction": "The approach — whichever method chosen. Tension builds near inner perimeter.",
+                "climax": "Extraction. Alarms. Blaster fire. Shuttle landing.",
+                "resolution": "Heroes escape Jakku with carbonite. First act ends in hyperspace.",
+                "estimatedMinutes": 45
+              },
+              "knackTags": [
+                "defector",
+                "false-identity",
+                "witness",
+                "hunted",
+                "hutt-marked"
+              ],
+              "backgroundTags": [
+                "spaceport-crossroads",
+                "conflict-zone",
+                "imperial-detention",
+                "outer-rim-desert"
+              ],
+              "speciesTags": [
+                "human",
+                "rodian",
+                "togruta",
+                "sullustan"
               ]
             }
           ]
@@ -361,13 +861,27 @@
                   "name": "The Accountant",
                   "type": "Imperial Logistics Officer",
                   "count": 1,
-                  "notes": "Just thawed from carbonite. Terrified but has critical intel."
+                  "notes": "Just thawed from carbonite. Terrified but has critical intel.",
+                  "behavior": "Disoriented and frightened. Cooperative once he realizes the heroes aren't Imperial. Becomes increasingly agitated as he reveals Varth's situation — he knows the timeline is tight.",
+                  "dialogue": [
+                    "\"Varth is the only one with the codes. And Varth isn't dead or hiding in luxury.\"",
+                    "\"He's being held at a secret prison on the jungle moon of Ajan Kloss. The warlord is about to trade him to the Empire.\"",
+                    "\"If you want your payday, you have to break him out — before the Empire takes custody.\""
+                  ],
+                  "intel": "The Accountant was Varth's logistics officer. He was frozen because he knew the shipping routes for Project Leviathan. He knows Varth embezzled a fortune but doesn't have the codes himself."
                 },
                 {
                   "name": "Captain Sirona Okeefe",
                   "type": "Veteran Smuggler",
                   "count": 1,
-                  "notes": "Pilots the Banshee, a modified Baudo-class star yacht. Professional and competent."
+                  "notes": "Pilots the Banshee, a modified Baudo-class star yacht. Professional and competent.",
+                  "behavior": "All business. Respects competence, despises whiners. Will risk her ship for the right price but not for free. She's done this run before — blockade experience shows.",
+                  "dialogue": [
+                    "\"I know a vector through the Rishi Maze debris field. Uncharted. Dangerous. But it avoids the Imperial patrol lanes.\"",
+                    "\"My ship, my rules. You shoot from my turrets, you follow my calls.\"",
+                    "\"The fee is non-negotiable. I'm not running a charity for broke spacers.\""
+                  ],
+                  "intel": "Okeefe has smuggled through this sector for years. She knows the Victory-class Star Destroyer 'Assiduous' patrols the Ajan Kloss approach. She's heard rumors about Skarn's fortress."
                 }
               ],
               "hazards": "Imperial blockade — Venator-class Star Destroyers patrolling the hyperlanes. Dangerous smuggler's vector through debris fields.",
@@ -409,7 +923,119 @@
                 "survival",
                 "medicine"
               ],
-              "gearFlags": []
+              "gearFlags": [],
+              "encounters": [
+                {
+                  "id": "enc-s5-thaw",
+                  "name": "The Thawing",
+                  "type": "social",
+                  "trigger": "Safe in hyperspace after Jakku escape",
+                  "description": "The heroes thaw the carbonite block. The Accountant revives — disoriented, terrified, and immediately delivering bad news. The job has changed again.",
+                  "tactics": "The Accountant is cooperative but desperate. He knows the timeline is tight and tries to convey urgency."
+                },
+                {
+                  "id": "enc-s5-blockade",
+                  "name": "The Blockade Run",
+                  "type": "technical",
+                  "trigger": "Approaching Ajan Kloss system",
+                  "description": "Okeefe's smuggler's vector through the Rishi Maze debris field. The heroes must assist with navigation, turret defense, and damage control as they thread past Imperial patrols.",
+                  "tactics": "The debris field provides cover but also hazards. Imperial V-wing patrols sweep in predictable patterns — timing is crucial."
+                }
+              ],
+              "skillChecks": [
+                {
+                  "id": "sc-s5-medicine-carbonite",
+                  "discipline": "medicine",
+                  "difficulty": "Moderate",
+                  "context": "Treating The Accountant's hibernation sickness after carbonite thaw.",
+                  "success": "Sickness fades quickly. The Accountant is lucid and able to provide detailed intel.",
+                  "failure": "Hibernation sickness lingers. Accountant is nauseous and disoriented — information comes in fragments."
+                },
+                {
+                  "id": "sc-s5-insight-accountant",
+                  "discipline": "insight",
+                  "difficulty": "Moderate",
+                  "context": "Assessing whether The Accountant is telling the truth about Varth and the codes.",
+                  "success": "He's telling the truth — he's too scared to lie. But he's also holding something back about Varth's character.",
+                  "failure": "Seems genuine. No red flags detected."
+                },
+                {
+                  "id": "sc-s5-piloting-vector",
+                  "discipline": "piloting",
+                  "difficulty": "Hard",
+                  "context": "Following Okeefe's telemetry through the debris field while avoiding patrols.",
+                  "success": "Clean run through the debris. Arrive at Ajan Kloss undetected.",
+                  "failure": "Clipped by debris or detected by a patrol. The ship takes damage and the approach is compromised."
+                },
+                {
+                  "id": "sc-s5-tech-damage",
+                  "discipline": "tech",
+                  "difficulty": "Moderate",
+                  "context": "Repairing damage sustained during the blockade run.",
+                  "success": "Systems patched. Ship is operational for atmospheric entry.",
+                  "failure": "Repairs are temporary. Ship is fragile going into atmosphere."
+                }
+              ],
+              "environmentMechanics": [
+                {
+                  "name": "Rishi Maze Debris Field",
+                  "trigger": "During blockade run",
+                  "effect": "Massive chunks of ancient wreckage. Provides concealment from sensors but requires constant course corrections. Collision risk on failed piloting checks.",
+                  "mitigation": "Follow Okeefe's telemetry precisely. Co-pilot assistance steps up the check."
+                },
+                {
+                  "name": "Imperial Patrol Patterns",
+                  "trigger": "During blockade run",
+                  "effect": "V-wing patrols sweep the approaches on predictable schedules. Being caught in the open triggers pursuit.",
+                  "mitigation": "Time the approach between patrol sweeps. Investigation check reveals the pattern."
+                },
+                {
+                  "name": "Carbonite Hibernation Sickness",
+                  "trigger": "When The Accountant is thawed",
+                  "effect": "Temporary blindness, disorientation, nausea. The Accountant can't function until treated.",
+                  "mitigation": "Medicine check to accelerate recovery. Without treatment, lasts 1-2 hours."
+                }
+              ],
+              "rewards": {
+                "credits": 0,
+                "items": [],
+                "intel": [
+                  "Varth is held at 'The Vanishing Place' on Ajan Kloss",
+                  "General Skarn controls the prison — a warlord, not Imperial military",
+                  "Inquisitor Draco is expected to take custody imminently",
+                  "Varth has the codes to an embezzled fortune",
+                  "Project Leviathan is referenced but details remain unclear"
+                ],
+                "connections": [
+                  "Captain Sirona Okeefe (pilot, professional relationship)",
+                  "The Accountant (informant, cooperative under duress)"
+                ]
+              },
+              "pacing": {
+                "openingBeat": "Hyperspace. Safety — for now. The carbonite block sits in the hold, frost still clinging.",
+                "risingAction": "The thawing. The Accountant's reveal. The job changes for the third time — from heist to prison break.",
+                "climax": "The blockade run. Threading through debris and patrols.",
+                "resolution": "Arrival at Ajan Kloss. The jungle moon fills the viewport. A Star Destroyer hangs in orbit.",
+                "estimatedMinutes": 35
+              },
+              "knackTags": [
+                "debtor",
+                "witness",
+                "defector",
+                "hunted",
+                "shadow-stalked"
+              ],
+              "backgroundTags": [
+                "deep-space-freighter",
+                "conflict-zone",
+                "spaceport-crossroads"
+              ],
+              "speciesTags": [
+                "duros",
+                "sullustan",
+                "human",
+                "keldor"
+              ]
             },
             {
               "id": "adv1-p2-s2",
@@ -417,7 +1043,34 @@
               "title": "The Crash",
               "readAloud": "You break the cloud layer and the lush, overgrown jungle of Ajan Kloss rushes up to meet you. The moon is a Green Hell — massive ancient trees, fungal overgrowth, and air so thick with humidity your viewport fogs instantly.\n\nA glancing hit from a perimeter defense turret clips your wing. The ship shears through the treeline, branches snapping like bones, and skids to a halt in the mud. You're safe from sensors — but grounded, miles from the fortress.",
               "gmNotes": "The ship is damaged and grounded until repairs are made. The heroes must proceed on foot through hostile jungle to reach Skarn's fortress, 'The Vanishing Place.' This establishes the environmental threat of Ajan Kloss and forces the heroes into the wilderness.",
-              "npcs": [],
+              "npcs": [
+                {
+                  "name": "Captain Sirona Okeefe",
+                  "type": "Veteran Smuggler / Pilot",
+                  "count": 1,
+                  "notes": "At the helm during the crash. Keeps her composure under fire.",
+                  "behavior": "Okeefe is calm under pressure. She manages the crash landing with professional detachment, calling out altitude and obstacle warnings. After the crash, she immediately assesses her ship and becomes protective of the Banshee — she expects the heroes to help with repairs or at least not make things worse.",
+                  "dialogue": [
+                    "\"Brace for impact — I'm putting us into the canopy. It's going to be rough.\"",
+                    "\"My ship. My beautiful ship. You're going to help me fix this.\"",
+                    "\"The fortress is northwest. Twelve klicks through that mess. We better move before a patrol spots the smoke.\""
+                  ],
+                  "intel": "Okeefe knows this jungle from previous smuggling runs to Ajan Kloss. She can identify the most dangerous fauna and knows that the fortress is approximately 12 klicks northwest."
+                },
+                {
+                  "name": "The Accountant",
+                  "type": "Imperial Logistics Officer (recovering)",
+                  "count": 1,
+                  "notes": "Still suffering from hibernation sickness. A liability during the trek.",
+                  "behavior": "The Accountant is weak and disoriented. He slows the group down. He complains but provides useful intel about the fortress when lucid. He's terrified of being recaptured.",
+                  "dialogue": [
+                    "\"I can't... my legs aren't working right. The carbonite...\"",
+                    "\"Skarn's fortress has a perimeter defense grid. That's what hit us.\"",
+                    "\"If the Empire gets me back, I disappear. You understand? I disappear.\""
+                  ],
+                  "intel": "The Accountant recognizes the perimeter turret pattern — he helped design Skarn's defense procurement. He knows the grid has a blind spot on the northeast face where the drainage sluice exits."
+                }
+              ],
               "hazards": "Crash landing — ship damage, potential injuries. Dense jungle terrain ahead. Perimeter defense turrets.",
               "decisions": [
                 {
@@ -451,6 +1104,114 @@
               ],
               "gearFlags": [
                 "Environmental"
+              ],
+              "encounters": [
+                {
+                  "id": "enc-s6-crash",
+                  "name": "Crash Landing",
+                  "type": "technical",
+                  "trigger": "Perimeter turret clips the ship during atmospheric entry",
+                  "description": "The ship shears through treeline and skids into mud. Heroes must survive the landing and assess damage. Potential injuries from impact.",
+                  "tactics": "This is environmental — no opponents. The jungle itself is the threat. Quick decisions about priorities: repair vs. move."
+                },
+                {
+                  "id": "enc-s6-triage",
+                  "name": "Crash Triage",
+                  "type": "survival",
+                  "trigger": "Immediately after the crash",
+                  "description": "Assess injuries, salvage essential gear, determine ship damage severity. Decision point: repair first or push toward the fortress?",
+                  "tactics": "The longer the heroes stay at the crash site, the higher the risk of Imperial patrols finding the wreckage from the air."
+                }
+              ],
+              "skillChecks": [
+                {
+                  "id": "sc-s6-piloting-crash",
+                  "discipline": "piloting",
+                  "difficulty": "Hard",
+                  "context": "Controlled crash landing through dense jungle canopy.",
+                  "success": "Rough but controlled. Ship is damaged but structurally intact. No injuries.",
+                  "failure": "Violent impact. Ship takes severe damage. One or more heroes take Physique trauma from the crash."
+                },
+                {
+                  "id": "sc-s6-tech-assess",
+                  "discipline": "tech",
+                  "difficulty": "Easy",
+                  "context": "Assessing the ship's damage after the crash.",
+                  "success": "Clear picture: engines need parts, hull breaches need patching. Estimated repair time: 4-6 hours with proper tools.",
+                  "failure": "Damage is worse than it looks. Hidden structural failures will manifest later."
+                },
+                {
+                  "id": "sc-s6-survival-orient",
+                  "discipline": "survival",
+                  "difficulty": "Moderate",
+                  "context": "Orienting in the dense jungle. Determining direction to the fortress.",
+                  "success": "Natural navigation using canopy gaps, water flow, and moss patterns. Clear heading established.",
+                  "failure": "The jungle is disorienting. Progress is slow and uncertain."
+                },
+                {
+                  "id": "sc-s6-medicine-injuries",
+                  "discipline": "medicine",
+                  "difficulty": "Moderate",
+                  "context": "Treating crash injuries — impact trauma, lacerations from debris.",
+                  "success": "Injuries stabilized. Everyone is mobile.",
+                  "failure": "Injuries are field-dressed but not properly treated. Penalties to physical actions until proper care."
+                }
+              ],
+              "environmentMechanics": [
+                {
+                  "name": "Dense Jungle Canopy",
+                  "trigger": "Active from crash forward",
+                  "effect": "Blocks line of sight to sky. Provides concealment from aerial patrols but also blocks navigation reference points.",
+                  "mitigation": "Survival check to navigate by natural signs."
+                },
+                {
+                  "name": "Humid Atmosphere",
+                  "trigger": "Active throughout",
+                  "effect": "Air is thick with moisture and fungal spores. Breath masks recommended. Without respiratory protection, characters make Endure checks every few hours or suffer fatigue.",
+                  "mitigation": "Breath mask eliminates the hazard entirely."
+                },
+                {
+                  "name": "Crash Site Detection Risk",
+                  "trigger": "Each hour spent at the crash site",
+                  "effect": "Imperial V-wing patrols may spot the wreckage. Chance increases over time.",
+                  "mitigation": "Camouflage the ship (Stealth or Survival check) or move out quickly."
+                }
+              ],
+              "rewards": {
+                "credits": 0,
+                "items": [],
+                "intel": [
+                  "The fortress is approximately 12 klicks northwest through dense jungle",
+                  "Perimeter defense turrets confirm an active military presence",
+                  "The jungle itself is a significant threat — acid pools, toxic flora, hostile fauna"
+                ],
+                "connections": []
+              },
+              "pacing": {
+                "openingBeat": "Breaking atmosphere. Lush jungle rushing up. The turret hit. The crash.",
+                "risingAction": "Aftermath. Damage assessment. The decision: repair or push forward?",
+                "climax": "The realization of how far they are from the fortress and what's between them and it.",
+                "resolution": "The heroes set out into the jungle. The Green Hell begins.",
+                "estimatedMinutes": 20
+              },
+              "knackTags": [
+                "traumatized",
+                "shadow-stalked",
+                "blood-price",
+                "exile"
+              ],
+              "backgroundTags": [
+                "deep-space-freighter",
+                "ancient-nexus-world",
+                "farming-world",
+                "conflict-zone"
+              ],
+              "speciesTags": [
+                "wookiee",
+                "rodian",
+                "cathar",
+                "duros",
+                "sullustan"
               ]
             },
             {
@@ -464,7 +1225,14 @@
                   "name": "Vazus Mandrake",
                   "type": "Separatist Holdout Commando",
                   "count": 1,
-                  "notes": "Weary veteran. Refused the shutdown order. Waging a one-man guerilla war against Skarn."
+                  "notes": "Weary veteran. Refused the CIS shutdown order. Waging guerilla war against Skarn alone for 3 years.",
+                  "behavior": "Paranoid and precise. Tests the heroes before revealing himself. Ambushes from the canopy — drops down with rifle aimed. Once convinced they're anti-Empire, becomes a cautious ally.",
+                  "dialogue": [
+                    "\"Don't move. I've had a bead on you since the river crossing.\"",
+                    "\"You're going to The Vanishing Place? Then we have a common interest. Skarn took something from me too.\"",
+                    "\"I know a way in — a drainage sluice on the northeast face. But I need something in return. The generator. I need it destroyed.\""
+                  ],
+                  "intel": "Mandrake knows the fortress layout intimately. He's been running recon for years. He knows guard rotations, blind spots, and the drainage sluice entrance. He also knows Vischera is conducting experiments in the Medical Bay."
                 }
               ],
               "hazards": "Acid Pools disguised as standing water. Exploding Fungus Blooms that detonate when disturbed. Semi-sentient hostile flora. Lethal fauna.",
@@ -504,6 +1272,149 @@
               ],
               "gearFlags": [
                 "Environmental"
+              ],
+              "encounters": [
+                {
+                  "id": "enc-s7-acid-pools",
+                  "name": "Acid Pool Hazard",
+                  "type": "environmental",
+                  "trigger": "First encountered 2 klicks from the crash site",
+                  "description": "Standing water that hisses when disturbed. Disguised acid pools — indistinguishable from regular water without testing. A thrown rock triggers the telltale hiss.",
+                  "tactics": "Environmental hazard. No opponents. Tox detector identifies them automatically. Without one, Survival or Investigation check required."
+                },
+                {
+                  "id": "enc-s7-fungus",
+                  "name": "Exploding Fungus Blooms",
+                  "type": "environmental",
+                  "trigger": "Encountered along the jungle trail",
+                  "description": "Massive fungal formations pulse with sickly bioluminescence. Physical contact triggers violent detonation of toxic spores in a 5-meter radius.",
+                  "tactics": "Avoidance is key. Ranged detonation from safe distance clears the path. Breath mask provides protection against spore damage."
+                },
+                {
+                  "id": "enc-s7-ambush",
+                  "name": "Mandrake's Ambush",
+                  "type": "social",
+                  "trigger": "After navigating through the worst of the jungle hazards",
+                  "description": "A figure in tattered Separatist commando gear drops from the canopy with a rifle aimed at the heroes. This is first contact with Vazus Mandrake.",
+                  "tactics": "Mandrake is testing them. He won't shoot unless they shoot first. He's been watching them navigate the jungle — their competence has already told him a lot about who they are."
+                },
+                {
+                  "id": "enc-s7-negotiation",
+                  "name": "Mandrake's Deal",
+                  "type": "social",
+                  "trigger": "After Mandrake is convinced the heroes aren't Imperial",
+                  "description": "Mandrake offers to guide the heroes to a secret entrance in exchange for sabotaging the fortress generator.",
+                  "tactics": "Mandrake is firm but fair. He won't guide them without the deal. He's been planning this for years and needs the generator down to execute his own endgame."
+                }
+              ],
+              "skillChecks": [
+                {
+                  "id": "sc-s7-survival-pools",
+                  "discipline": "survival",
+                  "difficulty": "Moderate",
+                  "context": "Identifying acid pools before someone steps in one.",
+                  "success": "The subtle differences become clear — slight discoloration, absence of insects, faint chemical smell.",
+                  "failure": "Someone steps in. Acid damage to boots/legs. The pool is shallow but the acid is strong."
+                },
+                {
+                  "id": "sc-s7-athletics-terrain",
+                  "discipline": "athletics",
+                  "difficulty": "Moderate",
+                  "context": "Navigating difficult jungle terrain — root systems, steep ravines, mudslides.",
+                  "success": "The party makes good time. No injuries from the terrain.",
+                  "failure": "Someone slips or falls. Minor injury, time lost, noise made."
+                },
+                {
+                  "id": "sc-s7-stealth-approach",
+                  "discipline": "stealth",
+                  "difficulty": "Moderate",
+                  "context": "Moving through the jungle without alerting patrols or wildlife.",
+                  "success": "Silent progress. No encounters with hostile fauna or Imperial scouts.",
+                  "failure": "Something notices them — a territorial predator, a sensor drone, or worse."
+                },
+                {
+                  "id": "sc-s7-insight-mandrake",
+                  "discipline": "insight",
+                  "difficulty": "Moderate",
+                  "context": "Reading Mandrake during his ambush — is he going to shoot?",
+                  "success": "He's testing you. His finger isn't on the trigger. He wants allies, not corpses.",
+                  "failure": "Impossible to read. The tattered uniform and hard eyes give nothing away."
+                },
+                {
+                  "id": "sc-s7-persuasion-deal",
+                  "discipline": "persuasion",
+                  "difficulty": "Moderate",
+                  "context": "Negotiating with Mandrake for guidance without committing to the generator sabotage.",
+                  "success": "Mandrake agrees to guide them to the entrance. The sabotage becomes optional — but he'll be disappointed.",
+                  "failure": "No deal without the sabotage. Mandrake is immovable on this point."
+                }
+              ],
+              "environmentMechanics": [
+                {
+                  "name": "Acid Pools",
+                  "trigger": "Scattered throughout the jungle",
+                  "effect": "Disguised as standing water. Contact causes immediate acid damage. Deeper pools can dissolve equipment.",
+                  "mitigation": "Tox detector identifies automatically. Thrown rock test. Survival check to spot visual tells."
+                },
+                {
+                  "name": "Exploding Fungus Blooms",
+                  "trigger": "Physical contact with the fungal formations",
+                  "effect": "Violent spore detonation in 5m radius. Toxic spores cause Endure trauma and temporary respiratory distress.",
+                  "mitigation": "Breath mask blocks spore damage. Ranged detonation from safe distance. Stealth to navigate around."
+                },
+                {
+                  "name": "Toxic Atmosphere (Canopy Level)",
+                  "trigger": "Active in dense canopy areas",
+                  "effect": "Fungal spore density increases near the canopy. Extended exposure without protection causes escalating fatigue.",
+                  "mitigation": "Breath mask. Stay low. Move through open clearings when possible."
+                },
+                {
+                  "name": "Hostile Fauna",
+                  "trigger": "Random encounter potential",
+                  "effect": "Ajan Kloss wildlife is territorial and predatory. Large arthropods, hunting birds, venomous ground-crawlers.",
+                  "mitigation": "Stealth to avoid. Beast Handling to redirect. Combat as last resort — gunfire attracts attention."
+                }
+              ],
+              "rewards": {
+                "credits": 0,
+                "items": [],
+                "intel": [
+                  "Detailed fortress layout from Mandrake",
+                  "Guard rotation patterns",
+                  "Location of the drainage sluice entrance",
+                  "Captain Vischera's experiments in the Medical Bay",
+                  "Generator location and vulnerabilities"
+                ],
+                "connections": [
+                  "Vazus Mandrake (guide, conditional ally — depends on sabotage deal)"
+                ]
+              },
+              "pacing": {
+                "openingBeat": "The jungle closes in. Every step is a negotiation with the terrain.",
+                "risingAction": "Environmental hazards escalate. Acid pools, fungus, hostile fauna.",
+                "climax": "Mandrake's ambush. Rifle in your face from the canopy.",
+                "resolution": "The deal is struck. Mandrake leads them toward the fortress.",
+                "estimatedMinutes": 40
+              },
+              "knackTags": [
+                "traumatized",
+                "shadow-stalked",
+                "exile",
+                "witness",
+                "addiction"
+              ],
+              "backgroundTags": [
+                "ancient-nexus-world",
+                "conflict-zone",
+                "farming-world",
+                "corporate-mining-site"
+              ],
+              "speciesTags": [
+                "rodian",
+                "togruta",
+                "cathar",
+                "keldor",
+                "sullustan"
               ]
             },
             {
@@ -517,19 +1428,37 @@
                   "name": "Captain Vischera",
                   "type": "Imperial Scientist",
                   "count": 1,
-                  "notes": "On loan to Skarn. Conducting biological experiments in the Medical Bay."
+                  "notes": "On loan to Skarn. Conducting biological experiments in the Medical Bay.",
+                  "behavior": "Cold, clinical, and fascinated by the jungle's biology. Not a fighter. Will surrender if cornered. Tries to negotiate with scientific data as leverage.",
+                  "dialogue": [
+                    "\"I'm a researcher, not a soldier. The specimens here are worth more than whatever you're after.\"",
+                    "\"You want to know what Skarn is really doing here? I can tell you. Just don't touch my samples.\"",
+                    "\"The Imperial officer in the holding cells? Charming man. Completely amoral.\""
+                  ],
+                  "intel": "Vischera knows Draco is coming specifically for Varth. She knows Skarn is stalling the Imperial handoff to extract more payment. She's seen Varth's data cylinders and knows they contain financial records."
                 },
                 {
                   "name": "Skarn's Mercenaries",
                   "type": "Standard Guards",
                   "count": 8,
-                  "notes": "Grimy, undisciplined compared to Stormtroopers."
+                  "notes": "Grimy, undisciplined compared to Stormtroopers. Mixed species.",
+                  "behavior": "Patrol in pairs. Bored and complacent in the fortress interior. Alert near the detention block and communications center. Respond to alarms slowly.",
+                  "dialogue": [
+                    "\"Did you hear something in the sluice?\"",
+                    "\"Skarn says no one goes near the Imperial's cell without authorization.\""
+                  ],
+                  "intel": "The mercs know Skarn is playing a dangerous game with the Empire. Morale is low — they're afraid of Draco."
                 },
                 {
                   "name": "Stormtrooper Squad",
                   "type": "Standard Stormtroopers",
                   "count": 6,
-                  "notes": "Pristine armor. Standing at attention near the shuttle."
+                  "notes": "Pristine armor. At the landing pad near the shuttle. Separate from Skarn's people.",
+                  "behavior": "Maintain their own perimeter. Don't mix with mercs. Professional and alert. Answer only to the Imperial officer on site.",
+                  "dialogue": [
+                    "\"This area is under Imperial jurisdiction. Move along.\""
+                  ],
+                  "intel": "The troopers know Draco is en route. They're the advance team. Their orders are to secure the landing pad and wait."
                 }
               ],
               "hazards": "Fortified temple ruin — laser fences, gun emplacements, Clone Wars-era tech security. Hard clock: Inquisitor Draco is en route.",
@@ -570,6 +1499,146 @@
               ],
               "gearFlags": [
                 "Restricted"
+              ],
+              "encounters": [
+                {
+                  "id": "enc-s8-sluice",
+                  "name": "The Drainage Sluice",
+                  "type": "infiltration",
+                  "trigger": "Mandrake leads them to the northeast face",
+                  "description": "A drainage tunnel barely wide enough for a Wookiee. Knee-deep in runoff. Leads into the fortress basement level. Trip wires and crude motion sensors line the route.",
+                  "tactics": "Slow, careful progress. Skulduggery to disarm traps. Tech to bypass sensors. Athletics for the tight squeeze."
+                },
+                {
+                  "id": "enc-s8-medbay",
+                  "name": "The Medical Bay",
+                  "type": "social",
+                  "trigger": "Optional — the heroes can explore the medical bay",
+                  "description": "Vischera's laboratory. Specimens in tanks. Data terminals with research logs. Vischera herself is here, working late.",
+                  "tactics": "Vischera is not hostile. She can be interrogated, intimidated, or bargained with. She values her research above her loyalty to Skarn."
+                },
+                {
+                  "id": "enc-s8-comms",
+                  "name": "The Communications Center",
+                  "type": "technical",
+                  "trigger": "Optional — the heroes can access the comms center",
+                  "description": "Intercepting transmissions reveals that Inquisitor Valin Draco is en route. This creates the hard clock: get Varth before Draco lands.",
+                  "tactics": "Tech or Investigation check to decrypt the transmissions. The clock starts NOW."
+                },
+                {
+                  "id": "enc-s8-generator",
+                  "name": "Generator Sabotage",
+                  "type": "technical",
+                  "trigger": "If the heroes honor Mandrake's deal",
+                  "description": "The fortress generator is a repurposed Clone Wars power unit. Sabotaging it kills lights, disables laser fences, and creates chaos. But it also alerts the entire garrison.",
+                  "tactics": "Tech check to sabotage cleanly. The explosion is impressive and immediate. Mandrake uses the distraction for his own strike."
+                }
+              ],
+              "skillChecks": [
+                {
+                  "id": "sc-s8-skulduggery-traps",
+                  "discipline": "skulduggery",
+                  "difficulty": "Moderate",
+                  "context": "Disarming trip wires and crude sensors in the drainage sluice.",
+                  "success": "Clean passage. No alarms triggered.",
+                  "failure": "A sensor trips. Distant alarm sounds. Guards begin investigating."
+                },
+                {
+                  "id": "sc-s8-stealth-interior",
+                  "discipline": "stealth",
+                  "difficulty": "Moderate",
+                  "context": "Moving through fortress corridors without alerting patrols.",
+                  "success": "Ghost-like progress. Patrols pass without noticing.",
+                  "failure": "A patrol spots movement. Alert is raised in that section."
+                },
+                {
+                  "id": "sc-s8-tech-comms",
+                  "discipline": "tech",
+                  "difficulty": "Moderate",
+                  "context": "Hacking the communications center to intercept transmissions.",
+                  "success": "Draco's ETA is confirmed. The heroes know exactly how much time they have.",
+                  "failure": "Partial intercept — they know someone important is coming, but not who or when exactly."
+                },
+                {
+                  "id": "sc-s8-tech-generator",
+                  "discipline": "tech",
+                  "difficulty": "Moderate",
+                  "context": "Sabotaging the generator per Mandrake's deal.",
+                  "success": "Clean sabotage with delayed detonation — heroes can get clear before it blows.",
+                  "failure": "Immediate detonation. Heroes are caught in the blast radius. Chaos starts now whether they're ready or not."
+                },
+                {
+                  "id": "sc-s8-investigation-medbay",
+                  "discipline": "investigation",
+                  "difficulty": "Moderate",
+                  "context": "Examining Vischera's research and data terminals.",
+                  "success": "Detailed information about Skarn's operation, Varth's status, and references to Project Leviathan.",
+                  "failure": "Research is encrypted beyond easy access. Only surface-level observations."
+                }
+              ],
+              "environmentMechanics": [
+                {
+                  "name": "Laser Fences",
+                  "trigger": "Active along perimeter and key corridors",
+                  "effect": "Lethal energy barriers. Contact causes severe damage. Block passage entirely.",
+                  "mitigation": "Generator sabotage disables all laser fences. Tech check can disable individual sections."
+                },
+                {
+                  "name": "Clone Wars Security Systems",
+                  "trigger": "Active throughout fortress",
+                  "effect": "Aging but functional security cameras, motion sensors, and automated turrets in key areas.",
+                  "mitigation": "Tech or Skulduggery to bypass. Generator sabotage knocks them all offline."
+                },
+                {
+                  "name": "Draco Clock",
+                  "trigger": "Activated when heroes intercept communications (or after 45 real-world minutes)",
+                  "effect": "Inquisitor Draco is en route. Hard deadline. If the heroes are still inside when he arrives, the difficulty escalates dramatically.",
+                  "mitigation": "Move fast. Prioritize Varth over exploration."
+                }
+              ],
+              "rewards": {
+                "credits": 0,
+                "items": [
+                  "Security codes from comms center (optional)",
+                  "Vischera's research data (optional)"
+                ],
+                "intel": [
+                  "Inquisitor Draco is en route — hard clock",
+                  "Skarn is stalling the Imperial handoff for more money",
+                  "Varth has data cylinders he considers essential",
+                  "Vischera's research hints at Project Leviathan's biological component"
+                ],
+                "connections": [
+                  "Vazus Mandrake (solidified if generator is sabotaged)",
+                  "Captain Vischera (possible reluctant informant)"
+                ]
+              },
+              "pacing": {
+                "openingBeat": "The fortress from the ridge. Moss-covered temple ruin. Laser fences. Gun emplacements. The Lambda shuttle on the pad.",
+                "risingAction": "The sluice. The corridors. Optional encounters — medbay, comms, generator. Information and choices.",
+                "climax": "The Draco clock starts. Time is running out.",
+                "resolution": "The heroes reach the detention block level. Varth is close.",
+                "estimatedMinutes": 45
+              },
+              "knackTags": [
+                "defector",
+                "witness",
+                "false-identity",
+                "shadow-stalked",
+                "hunted"
+              ],
+              "backgroundTags": [
+                "imperial-detention",
+                "conflict-zone",
+                "hidden-community",
+                "ancient-nexus-world"
+              ],
+              "speciesTags": [
+                "sullustan",
+                "keldor",
+                "togruta",
+                "rodian",
+                "human"
               ]
             },
             {
@@ -583,7 +1652,15 @@
                   "name": "Admiral Gilder Varth",
                   "type": "Corrupt Imperial Admiral / Grifter",
                   "count": 1,
-                  "notes": "The campaign's central NPC. Charming, cynical, and self-serving. Refuses to leave without his data cylinders."
+                  "notes": "The campaign's central NPC. Charming, cynical, self-serving. Refuses to leave without his data cylinders.",
+                  "behavior": "Treats the rescue like a hired service. Completely unbothered. Gambling with his guard when the heroes arrive. Uses nicknames: 'Kid,' 'Pilot,' 'Heavy.' Establishes his 'Cool Uncle' persona immediately.",
+                  "dialogue": [
+                    "\"You're late. I had credits on the second moonrise.\"",
+                    "\"I appreciate the dramatic entrance, but I'm not leaving without my cylinders. They're in Skarn's vault — second floor, east wing.\"",
+                    "\"Don't look at me like that. Those cylinders are worth more than everything in this fortress combined. Including me.\"",
+                    "\"Call me Varth. Everyone does. Even people who want me dead — which is most of them.\""
+                  ],
+                  "intel": "Varth embezzled a fortune from Project Leviathan. His data cylinders contain the financial ledger — account numbers, routing codes, and the encryption keys. He didn't defect for moral reasons. He's a grifter in an admiral's uniform."
                 }
               ],
               "hazards": "Detention block — automated defenses, elite guards. Time pressure from Inquisitor's arrival.",
@@ -625,7 +1702,129 @@
                 "persuasion",
                 "deception"
               ],
-              "gearFlags": []
+              "gearFlags": [],
+              "encounters": [
+                {
+                  "id": "enc-s9-meeting",
+                  "name": "Meeting Varth",
+                  "type": "social",
+                  "trigger": "Heroes breach the detention block",
+                  "description": "Varth is not a broken prisoner — he's been waiting. He's already packed. The guard is confused and half-charmed. Varth treats this like a business meeting, not a rescue.",
+                  "tactics": "Varth controls the conversation. He assesses the heroes immediately and decides how to handle each one. He's testing them."
+                },
+                {
+                  "id": "enc-s9-cylinders",
+                  "name": "The Cylinder Retrieval",
+                  "type": "infiltration",
+                  "trigger": "Varth insists on retrieving his data cylinders from Skarn's vault",
+                  "description": "Side mission under time pressure. The vault is on the second floor, east wing. Two guards, an electronic lock, and Skarn's paranoia.",
+                  "tactics": "Speed vs. thoroughness. The Draco clock is still running. Every minute spent here is a minute less for escape."
+                }
+              ],
+              "skillChecks": [
+                {
+                  "id": "sc-s9-insight-varth",
+                  "discipline": "insight",
+                  "difficulty": "Moderate",
+                  "context": "Reading Varth — is he an ally, a liability, or something worse?",
+                  "success": "Varth is charming because it's a survival strategy. He's genuinely brilliant, genuinely selfish, and genuinely dangerous. He will betray anyone if the math works out.",
+                  "failure": "He seems like a charismatic, slightly eccentric officer who got in over his head."
+                },
+                {
+                  "id": "sc-s9-persuasion-leave",
+                  "discipline": "persuasion",
+                  "difficulty": "Hard",
+                  "context": "Convincing Varth to leave WITHOUT the cylinders.",
+                  "success": "Varth reluctantly agrees — but makes it clear this will cost them later. He holds it over the heroes.",
+                  "failure": "Varth flatly refuses. 'Without those cylinders, I'm just a dead admiral. With them, I'm rich. We're getting the cylinders.'"
+                },
+                {
+                  "id": "sc-s9-charm-varth",
+                  "discipline": "charm",
+                  "difficulty": "Easy",
+                  "context": "Building rapport with Varth during the initial meeting.",
+                  "success": "Varth warms to the heroes. Gives them a genuine piece of advice about Draco: 'He doesn't negotiate. He collects.'",
+                  "failure": "Varth is polite but guarded. Treats the heroes as hired help."
+                },
+                {
+                  "id": "sc-s9-skulduggery-vault",
+                  "discipline": "skulduggery",
+                  "difficulty": "Hard",
+                  "context": "Cracking Skarn's vault to retrieve the data cylinders.",
+                  "success": "Clean entry. Cylinders secured. No additional alarms.",
+                  "failure": "The vault alarm triggers. Guards converge on the east wing."
+                },
+                {
+                  "id": "sc-s9-investigation-cylinders",
+                  "discipline": "investigation",
+                  "difficulty": "Moderate",
+                  "context": "Examining the cylinders while Varth isn't watching.",
+                  "success": "The cylinders contain financial records — massive sums routed through shell accounts. 'Project Leviathan' appears repeatedly.",
+                  "failure": "The cylinders are heavily encrypted. Can't read them without specialized equipment."
+                }
+              ],
+              "environmentMechanics": [
+                {
+                  "name": "Draco Clock (Continued)",
+                  "trigger": "Active from Scene 8",
+                  "effect": "The clock keeps ticking. Every detour — including the cylinder retrieval — eats into escape time.",
+                  "mitigation": "Move fast. Make hard choices about what's worth the time."
+                },
+                {
+                  "name": "Detention Block Security",
+                  "trigger": "Active in the detention area",
+                  "effect": "Heavier guard presence than other fortress sections. Automated cell locks. Surveillance cameras.",
+                  "mitigation": "Generator sabotage (if completed in Scene 8) disables most of this."
+                },
+                {
+                  "name": "Varth's Cooperation",
+                  "trigger": "Conditional on cylinder retrieval",
+                  "effect": "Varth fully cooperates and shares intel only if his cylinders are secured. Without them, he's sulky, uncooperative, and may try to escape on his own later.",
+                  "mitigation": "Get the cylinders. Or be very persuasive."
+                }
+              ],
+              "rewards": {
+                "credits": 0,
+                "items": [
+                  "Varth's encrypted data cylinders (if retrieved)",
+                  "Detention block security codes"
+                ],
+                "intel": [
+                  "Varth embezzled from Project Leviathan",
+                  "The codes to his fortune are held by his former partner — Darga the Hutt",
+                  "Project Leviathan is described as a 'mobile siege platform in the Unknown Regions'",
+                  "Varth's warning about Draco: 'He doesn't negotiate. He collects.'"
+                ],
+                "connections": [
+                  "Admiral Gilder Varth (the campaign's central NPC — charming, unreliable, essential)"
+                ]
+              },
+              "pacing": {
+                "openingBeat": "Blow the door expecting a broken man. Find Varth gambling with his guard.",
+                "risingAction": "Varth's demands. The cylinder retrieval. Time pressure mounting.",
+                "climax": "The choice: get the cylinders and risk Draco, or drag Varth out now.",
+                "resolution": "Varth is secured. The heroes have what they came for — maybe more.",
+                "estimatedMinutes": 30
+              },
+              "knackTags": [
+                "defector",
+                "debtor",
+                "notorious",
+                "witness",
+                "false-identity"
+              ],
+              "backgroundTags": [
+                "imperial-detention",
+                "core-world-city",
+                "conflict-zone",
+                "urban-underworld"
+              ],
+              "speciesTags": [
+                "twilek",
+                "human",
+                "keldor",
+                "cathar"
+              ]
             },
             {
               "id": "adv1-p2-s6",
@@ -639,19 +1838,31 @@
                   "name": "Inquisitor Valin Draco",
                   "type": "Nemesis",
                   "count": 1,
-                  "notes": "Arrives via shuttle. Deploys Shadow Troopers. The campaign's recurring villain."
+                  "notes": "Arrives via shuttle. The campaign's recurring villain. Does not appear in person in this scene — glimpsed from distance.",
+                  "behavior": "Draco does not engage the heroes directly in this scene. He arrives, deploys his Shadow Troopers, and begins methodically securing the fortress. The heroes see him from a distance — a dark figure descending from the shuttle ramp. This is a preview, not a confrontation.",
+                  "dialogue": [],
+                  "intel": "Draco is an Inquisitor — a Force-sensitive Imperial operative. He is here specifically for Varth. The heroes will face him directly in later adventures."
                 },
                 {
                   "name": "Shadow Troopers",
                   "type": "Elite Stormtroopers",
                   "count": 4,
-                  "notes": "Black-armored elite commandos. Cutting off retreat."
+                  "notes": "Black-armored elite commandos. Stealth suits. Cutting off retreat.",
+                  "behavior": "Deployed to the jungle perimeter. They move through the trees like ghosts. Their job is to prevent anyone leaving the fortress alive. They are significantly more dangerous than standard Stormtroopers.",
+                  "dialogue": [],
+                  "intel": "Shadow Troopers are Inquisitorius assets — black ops. Stealth-equipped, enhanced training, independent targeting."
                 },
                 {
                   "name": "Captain Okeefe",
                   "type": "Veteran Smuggler",
                   "count": 1,
-                  "notes": "Provides air support and extraction."
+                  "notes": "Provides air support and extraction.",
+                  "behavior": "Okeefe brings the Banshee in hot, strafing Imperial positions to buy the heroes time. She's risking everything — this is beyond her contract.",
+                  "dialogue": [
+                    "\"I see you! Get to the clearing — I'm making one pass!\"",
+                    "\"That's an Inquisitor shuttle. You didn't mention an Inquisitor. My fee just tripled.\""
+                  ],
+                  "intel": null
                 }
               ],
               "hazards": "Three-way firefight. Imperial walkers approaching. Shadow Troopers flanking. Time-critical extraction.",
@@ -698,6 +1909,140 @@
               ],
               "gearFlags": [
                 "Military"
+              ],
+              "encounters": [
+                {
+                  "id": "enc-s10-threeway",
+                  "name": "Three-Way Firefight",
+                  "type": "combat",
+                  "trigger": "The landing pad erupts as Imperials and Skarn's forces clash",
+                  "description": "The fortress becomes a warzone. Three factions: Imperials securing the perimeter, Skarn's mercenaries defending their territory, and the heroes trying to escape through the middle.",
+                  "tactics": "Use the chaos. The Imperials and mercs are fighting each other — the heroes can exploit the confusion to slip through. But Shadow Troopers are specifically hunting for anyone trying to leave."
+                },
+                {
+                  "id": "enc-s10-shadow-troopers",
+                  "name": "Shadow Trooper Ambush",
+                  "type": "combat",
+                  "trigger": "When the heroes reach the jungle perimeter",
+                  "description": "Four Shadow Troopers emerge from concealment in the treeline. Black armor, stealth suits, precision fire. They are the real obstacle to escape.",
+                  "tactics": "Shadow Troopers fight smart — overlapping fields of fire, tactical movement, targeting the weakest member. They don't charge; they control the engagement distance."
+                },
+                {
+                  "id": "enc-s10-extraction",
+                  "name": "Okeefe's Extraction",
+                  "type": "technical",
+                  "trigger": "After clearing or bypassing the Shadow Troopers",
+                  "description": "Okeefe swoops in with the Banshee, strafing Imperial positions. The heroes must reach the clearing and board under fire. Varth provides coordinates for the hyperspace jump.",
+                  "tactics": "Running to the ship while Okeefe covers them. Someone needs to man the dorsal turret. The ship takes hits during liftoff."
+                }
+              ],
+              "skillChecks": [
+                {
+                  "id": "sc-s10-tactics-chaos",
+                  "discipline": "tactics",
+                  "difficulty": "Moderate",
+                  "context": "Reading the three-way battle to find the safest path through.",
+                  "success": "A gap in the fighting — the heroes can move through with minimal contact.",
+                  "failure": "No clear path. They have to fight through at least one engagement."
+                },
+                {
+                  "id": "sc-s10-evasion-fire",
+                  "discipline": "evasion",
+                  "difficulty": "Hard",
+                  "context": "Dodging through crossfire between Imperial and mercenary positions.",
+                  "success": "Clean movement through the kill zone. No hits taken.",
+                  "failure": "Caught in crossfire. Ranged damage from stray shots."
+                },
+                {
+                  "id": "sc-s10-ranged-shadow",
+                  "discipline": "ranged",
+                  "difficulty": "Hard",
+                  "context": "Engaging the Shadow Troopers in the treeline.",
+                  "success": "Precise fire drops or suppresses them. Path to the clearing opens.",
+                  "failure": "Shadow Troopers return devastating fire from cover. Heroes are pinned."
+                },
+                {
+                  "id": "sc-s10-athletics-run",
+                  "discipline": "athletics",
+                  "difficulty": "Moderate",
+                  "context": "Sprint to Okeefe's ship across open ground.",
+                  "success": "Full speed. Board the ship. Go.",
+                  "failure": "Stumble, exhaustion, or carrying wounded slows the run. More time under fire."
+                },
+                {
+                  "id": "sc-s10-piloting-escape",
+                  "discipline": "piloting",
+                  "difficulty": "Hard",
+                  "context": "Liftoff under fire. Breaking atmosphere with a Star Destroyer in orbit.",
+                  "success": "Clean escape. Jump to hyperspace before fighters can intercept.",
+                  "failure": "Ship takes heavy damage during liftoff. Emergency repairs needed in hyperspace."
+                }
+              ],
+              "environmentMechanics": [
+                {
+                  "name": "Three-Way Crossfire",
+                  "trigger": "Active throughout the fortress",
+                  "effect": "Stray fire from all directions. Moving through contested areas without cover risks catching bolts from any faction.",
+                  "mitigation": "Use Tactics to read the battle. Move during lulls. Use smoke grenades for concealment."
+                },
+                {
+                  "name": "Shadow Trooper Stealth",
+                  "trigger": "At the jungle perimeter",
+                  "effect": "Shadow Troopers are nearly invisible in the treeline. First shot comes without warning.",
+                  "mitigation": "Togruta echolocation, Rodian infrared, or Cathar hearing can detect them before visual contact. Investigation check to spot thermal shimmer."
+                },
+                {
+                  "name": "Imperial Walker Approach",
+                  "trigger": "After 3-4 combat rounds in the fortress",
+                  "effect": "AT-DP walkers breach the treeline. Heavy weapons fire. The fortress is about to be overrun.",
+                  "mitigation": "Leave NOW. The walkers make escape on foot nearly impossible."
+                },
+                {
+                  "name": "Okeefe's Strafing Window",
+                  "trigger": "When heroes reach the clearing",
+                  "effect": "Okeefe provides one strafing pass that suppresses Imperial positions for 2 rounds. After that, she has to pull up or get shot down.",
+                  "mitigation": "Time the run to the clearing with Okeefe's pass."
+                }
+              ],
+              "rewards": {
+                "credits": 0,
+                "items": [],
+                "intel": [
+                  "Project Leviathan is a massive mobile siege platform being built in the Unknown Regions",
+                  "The encryption keys to Varth's fortune are held by Darga the Hutt — his former partner",
+                  "Inquisitor Draco is now aware the heroes exist",
+                  "Varth reveals the setup for Adventure 2: they must go to Darga to get the keys"
+                ],
+                "connections": [
+                  "Captain Okeefe (loyalty proven — she risked everything)",
+                  "Admiral Varth (the 'Cool Uncle' — charming, dangerous, essential)"
+                ]
+              },
+              "pacing": {
+                "openingBeat": "The landing pad erupts. Stormtroopers vs. mercenaries. Draco's shuttle screams overhead.",
+                "risingAction": "Running through a three-way firefight. Shadow Troopers in the treeline. Walkers approaching.",
+                "climax": "The Shadow Trooper ambush at the perimeter. The hardest fight of the adventure.",
+                "resolution": "Okeefe's extraction. Liftoff under fire. Hyperspace. Varth's reveal: Darga the Hutt holds the keys. Adventure 2 begins.",
+                "estimatedMinutes": 45
+              },
+              "knackTags": [
+                "hunted",
+                "traumatized",
+                "shadow-stalked",
+                "blood-price",
+                "defector"
+              ],
+              "backgroundTags": [
+                "conflict-zone",
+                "deep-space-freighter",
+                "imperial-detention"
+              ],
+              "speciesTags": [
+                "wookiee",
+                "zabrak",
+                "cathar",
+                "togruta",
+                "rodian"
               ]
             }
           ]

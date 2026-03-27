@@ -195,6 +195,8 @@ const WEAPONS_PATH = path.join(__dirname, '..', '..', 'data', 'weapons.json');
 const ARMOR_PATH = path.join(__dirname, '..', '..', 'data', 'armor.json');
 const GEAR_PATH = path.join(__dirname, '..', '..', 'data', 'gear.json');
 const DESTINIES_PATH = path.join(__dirname, '..', '..', 'data', 'destinies.json');
+const PHASES_PATH = path.join(__dirname, '..', '..', 'data', 'phases.json');
+const SPECIES_PATH = path.join(__dirname, '..', '..', 'data', 'species.json');
 
 let equipmentCache = null;
 function loadEquipment() {
@@ -218,6 +220,23 @@ function loadDestinies() {
     destiniesCache = raw.destinies || raw;
   }
   return destiniesCache;
+}
+
+let phasesCache = null;
+function loadPhases() {
+  if (!phasesCache) {
+    phasesCache = JSON.parse(fs.readFileSync(PHASES_PATH, 'utf8'));
+  }
+  return phasesCache;
+}
+
+let speciesCache = null;
+function loadSpecies() {
+  if (!speciesCache) {
+    const raw = JSON.parse(fs.readFileSync(SPECIES_PATH, 'utf8'));
+    speciesCache = Array.isArray(raw) ? raw : (raw.species || []);
+  }
+  return speciesCache;
 }
 
 const BACKGROUND_FAVORED = {
@@ -361,7 +380,63 @@ function extractCharacterProfile(data) {
     }
   });
 
-  return { destiny, backgroundPhases, backgroundFavored, vocations, vocationAbilities, disciplines, arenas, gear, conditions };
+  const knacks = [];
+  const phase3Entry = backgroundPhases.find(bp => bp.phase === 'phase3');
+  if (phase3Entry && phase3Entry.id) {
+    try {
+      const phasesData = loadPhases();
+      const phase3List = phasesData.phase3 || [];
+      const phase3Def = phase3List.find(p => p.id === phase3Entry.id);
+      if (phase3Def && phase3Def._meta) {
+        knacks.push({
+          phaseId: phase3Def.id,
+          knackName: phase3Def._meta.knackName || null,
+          knackType: phase3Def._meta.knackType || null,
+          knack: phase3Def._meta.knack || null,
+        });
+      }
+    } catch (e) {}
+  }
+
+  let species = null;
+  const rawSpecies = typeof data.species === 'string' ? data.species : (data.species && data.species.id ? data.species.id : null);
+  if (rawSpecies) {
+    const speciesIdNorm = rawSpecies.toLowerCase().replace(/[^a-z0-9]/g, '').replace(/keldor/,'keldor');
+    try {
+      const speciesList = loadSpecies();
+      const specDef = speciesList.find(s => s.id === speciesIdNorm || s.name && s.name.toLowerCase().replace(/[^a-z0-9]/g, '') === speciesIdNorm);
+      if (specDef) {
+        const bioTruth = specDef.biologicalTruth;
+        const spTrait = specDef.speciesTrait;
+        species = {
+          id: specDef.id,
+          name: specDef.name || rawSpecies,
+          biologicalTruth: bioTruth ? (typeof bioTruth === 'string' ? bioTruth : bioTruth.desc || bioTruth.name || null) : null,
+          biologicalTruthName: bioTruth && typeof bioTruth === 'object' ? bioTruth.name || null : null,
+          speciesTrait: spTrait ? (typeof spTrait === 'string' ? spTrait : spTrait.desc || spTrait.name || null) : null,
+          speciesTraitName: spTrait && typeof spTrait === 'object' ? spTrait.name || null : null,
+        };
+      } else {
+        species = { id: speciesIdNorm, name: rawSpecies, biologicalTruth: null, speciesTrait: null };
+      }
+    } catch (e) {}
+  }
+
+  const backgroundEnvironments = [];
+  backgroundPhases.forEach(bp => {
+    if (!bp.id) return;
+    try {
+      const phasesData = loadPhases();
+      const phaseKey = bp.phase;
+      const phaseList = phasesData[phaseKey] || [];
+      const phaseDef = phaseList.find(p => p.id === bp.id);
+      if (phaseDef && phaseDef._meta && phaseDef._meta.environment) {
+        backgroundEnvironments.push(phaseDef._meta.environment);
+      }
+    } catch (e) {}
+  });
+
+  return { destiny, backgroundPhases, backgroundFavored, backgroundEnvironments, vocations, vocationAbilities, disciplines, arenas, gear, conditions, knacks, species };
 }
 
 router.get('/campaign/party', (req, res) => {
@@ -421,7 +496,8 @@ router.get('/campaign/scene-intel/:sceneId', (req, res) => {
 
     const hasTags = scene.challengeType || (scene.destinyTags && scene.destinyTags.length) ||
       (scene.vocationTags && scene.vocationTags.length) || (scene.disciplineTags && scene.disciplineTags.length) ||
-      (scene.gearFlags && scene.gearFlags.length);
+      (scene.gearFlags && scene.gearFlags.length) || (scene.knackTags && scene.knackTags.length) ||
+      (scene.speciesTags && scene.speciesTags.length) || (scene.backgroundTags && scene.backgroundTags.length);
 
     if (!hasTags) return res.json({ sceneId, hasTags: false, intel: [] });
 
@@ -536,7 +612,42 @@ router.get('/campaign/scene-intel/:sceneId', (req, res) => {
         }
       }
 
-      if (profile.backgroundPhases.length) {
+      if (scene.knackTags && scene.knackTags.length && profile.knacks.length) {
+        profile.knacks.forEach(k => {
+          if (scene.knackTags.includes(k.phaseId)) {
+            const knackLabel = k.knackName ? (k.knackName + ' — ' + (k.knack || '').substring(0, 120) + (k.knack && k.knack.length > 120 ? '…' : '')) : k.phaseId;
+            insights.push({ type: 'knack', icon: '◆', label: 'Knack: ' + knackLabel });
+          }
+        });
+      }
+
+      if (scene.speciesTags && scene.speciesTags.length && profile.species) {
+        if (scene.speciesTags.includes(profile.species.id)) {
+          let speciesLabel = profile.species.name;
+          if (profile.species.biologicalTruth) {
+            speciesLabel += ' — ' + profile.species.biologicalTruth.substring(0, 120) + (profile.species.biologicalTruth.length > 120 ? '…' : '');
+          }
+          insights.push({ type: 'species', icon: '◎', label: 'Species: ' + speciesLabel });
+        }
+      }
+
+      if (scene.backgroundTags && scene.backgroundTags.length && profile.backgroundEnvironments.length) {
+        const matchedEnvs = profile.backgroundEnvironments.filter(env => scene.backgroundTags.includes(env));
+        if (matchedEnvs.length) {
+          const connected = profile.backgroundPhases.filter(p => {
+            if (!p.id) return false;
+            try {
+              const phasesData = loadPhases();
+              const phaseList = phasesData[p.phase] || [];
+              const phaseDef = phaseList.find(pd => pd.id === p.id);
+              return phaseDef && phaseDef._meta && phaseDef._meta.environment && matchedEnvs.includes(phaseDef._meta.environment);
+            } catch (e) { return false; }
+          });
+          if (connected.length) {
+            insights.push({ type: 'background', icon: '⧫', label: 'Background tie: ' + connected.map(p => p.title || p.id).join(', ') + ' (familiar environment)' });
+          }
+        }
+      } else if (profile.backgroundPhases.length) {
         const connected = profile.backgroundPhases.filter(p => {
           if (!p.id) return false;
           if (scene.destinyTags && scene.destinyTags.some(t => p.id.includes(t))) return true;

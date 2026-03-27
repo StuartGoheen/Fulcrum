@@ -242,6 +242,15 @@
       html += '<div class="cb-npc-row cb-npc-header"><div>Name</div><div>Type</div><div>Count</div><div>Notes</div></div>';
       scene.npcs.forEach(function (npc) {
         html += '<div class="cb-npc-row"><div class="cb-npc-name">' + esc(npc.name) + '</div><div>' + esc(npc.type) + '</div><div style="text-align:center;font-family:Audiowide,sans-serif;color:var(--color-accent-primary);">' + npc.count + '</div><div style="color:var(--color-text-secondary);">' + linkify(npc.notes || '') + '</div></div>';
+        if (npc.behavior) {
+          html += '<div class="cb-npc-detail-row" style="grid-column:1/-1;padding:0.15rem 0.5rem;font-size:0.7rem;color:var(--color-text-secondary);border-left:2px solid var(--color-accent-primary);margin-left:0.5rem;"><strong>Behavior:</strong> ' + linkify(npc.behavior) + '</div>';
+        }
+        if (npc.dialogue && npc.dialogue.length) {
+          html += '<div class="cb-npc-detail-row" style="grid-column:1/-1;padding:0.15rem 0.5rem;font-size:0.7rem;color:var(--color-accent-secondary,#c084fc);border-left:2px solid var(--color-accent-secondary,#c084fc);margin-left:0.5rem;"><strong>Dialogue:</strong> ' + npc.dialogue.map(function(d){ return linkify(d); }).join(' ') + '</div>';
+        }
+        if (npc.intel) {
+          html += '<div class="cb-npc-detail-row" style="grid-column:1/-1;padding:0.15rem 0.5rem;font-size:0.7rem;color:#f59e0b;border-left:2px solid #f59e0b;margin-left:0.5rem;"><strong>Intel:</strong> ' + linkify(npc.intel) + '</div>';
+        }
       });
       html += '</div></div>';
     }
@@ -250,6 +259,81 @@
       html += '<div class="cb-card">';
       html += '<div class="cb-section-label">Hazards / Environment</div>';
       html += '<div>' + linkify(scene.hazards) + '</div>';
+      html += '</div>';
+    }
+
+    if (scene.encounters && scene.encounters.length) {
+      html += '<div class="cb-card">';
+      html += '<div class="cb-section-label">Encounters</div>';
+      scene.encounters.forEach(function (enc) {
+        var typeColor = enc.type === 'combat' ? 'var(--color-danger,#ef4444)' : enc.type === 'social' ? 'var(--color-accent-secondary,#c084fc)' : enc.type === 'infiltration' ? '#818cf8' : 'var(--color-accent-primary)';
+        html += '<div style="margin-bottom:0.5rem;padding:0.4rem;border-left:3px solid ' + typeColor + ';background:rgba(0,0,0,0.15);border-radius:0 4px 4px 0;">';
+        html += '<div style="display:flex;align-items:center;gap:0.4rem;margin-bottom:0.2rem;"><strong style="color:var(--color-text-primary);font-size:0.8rem;">' + esc(enc.name) + '</strong><span style="font-size:0.6rem;padding:0.1rem 0.3rem;border-radius:3px;background:' + typeColor + ';color:#000;font-family:Audiowide,sans-serif;text-transform:uppercase;">' + esc(enc.type) + '</span></div>';
+        html += '<div style="font-size:0.7rem;color:var(--color-text-secondary);margin-bottom:0.15rem;"><strong>Trigger:</strong> ' + linkify(enc.trigger) + '</div>';
+        html += '<div style="font-size:0.7rem;color:var(--color-text-secondary);margin-bottom:0.15rem;">' + linkify(enc.description) + '</div>';
+        if (enc.tactics) html += '<div style="font-size:0.7rem;color:var(--color-accent-primary);"><strong>Tactics:</strong> ' + linkify(enc.tactics) + '</div>';
+        html += '</div>';
+      });
+      html += '</div>';
+    }
+
+    if (scene.skillChecks && scene.skillChecks.length) {
+      html += '<div class="cb-card">';
+      html += '<div class="cb-section-label">Skill Checks</div>';
+      scene.skillChecks.forEach(function (sc) {
+        var diffColor = sc.difficulty === 'Easy' ? '#22c55e' : sc.difficulty === 'Moderate' ? '#eab308' : sc.difficulty === 'Hard' ? '#f97316' : '#ef4444';
+        html += '<div style="margin-bottom:0.4rem;padding:0.3rem 0.4rem;border-radius:4px;background:rgba(0,0,0,0.1);">';
+        html += '<div style="display:flex;align-items:center;gap:0.4rem;margin-bottom:0.15rem;">';
+        html += '<span style="font-size:0.75rem;color:var(--color-accent-primary);font-family:Audiowide,sans-serif;">' + esc((sc.discipline || '').replace(/_/g, ' ')) + '</span>';
+        html += '<span style="font-size:0.6rem;padding:0.05rem 0.25rem;border-radius:3px;background:' + diffColor + ';color:#000;font-family:Audiowide,sans-serif;">' + esc(sc.difficulty) + '</span>';
+        html += '</div>';
+        html += '<div style="font-size:0.7rem;color:var(--color-text-secondary);margin-bottom:0.1rem;">' + linkify(sc.context) + '</div>';
+        html += '<div style="font-size:0.65rem;color:#22c55e;">&#10003; ' + linkify(sc.success) + '</div>';
+        html += '<div style="font-size:0.65rem;color:#ef4444;">&#10007; ' + linkify(sc.failure) + '</div>';
+        html += '</div>';
+      });
+      html += '</div>';
+    }
+
+    if (scene.environmentMechanics && scene.environmentMechanics.length) {
+      html += '<div class="cb-card">';
+      html += '<div class="cb-section-label">Environment Mechanics</div>';
+      scene.environmentMechanics.forEach(function (em) {
+        html += '<div style="margin-bottom:0.4rem;padding:0.3rem 0.4rem;border-left:2px solid var(--color-accent-deep,#818cf8);border-radius:0 4px 4px 0;background:rgba(0,0,0,0.1);">';
+        html += '<div style="font-size:0.8rem;color:var(--color-text-primary);font-weight:bold;margin-bottom:0.1rem;">' + esc(em.name) + '</div>';
+        html += '<div style="font-size:0.7rem;color:var(--color-text-secondary);margin-bottom:0.1rem;"><strong>Trigger:</strong> ' + linkify(em.trigger) + '</div>';
+        html += '<div style="font-size:0.7rem;color:var(--color-text-secondary);margin-bottom:0.1rem;"><strong>Effect:</strong> ' + linkify(em.effect) + '</div>';
+        html += '<div style="font-size:0.7rem;color:var(--color-accent-primary);"><strong>Mitigation:</strong> ' + linkify(em.mitigation) + '</div>';
+        html += '</div>';
+      });
+      html += '</div>';
+    }
+
+    if (scene.rewards) {
+      var r = scene.rewards;
+      var hasRewardContent = r.credits || (r.items && r.items.length) || (r.intel && r.intel.length) || (r.connections && r.connections.length);
+      if (hasRewardContent) {
+        html += '<div class="cb-card">';
+        html += '<div class="cb-section-label">Rewards</div>';
+        if (r.credits) html += '<div style="font-size:0.7rem;color:var(--color-accent-primary);margin-bottom:0.15rem;">&#9670; Credits: ' + r.credits + '</div>';
+        if (r.items && r.items.length) html += '<div style="font-size:0.7rem;color:var(--color-text-secondary);margin-bottom:0.15rem;">&#9670; Items: ' + r.items.map(function(i){return esc(i);}).join(', ') + '</div>';
+        if (r.intel && r.intel.length) {
+          html += '<div style="font-size:0.7rem;color:#f59e0b;margin-bottom:0.15rem;">&#9670; Intel:</div>';
+          r.intel.forEach(function(i){ html += '<div style="font-size:0.65rem;color:var(--color-text-secondary);padding-left:0.8rem;">• ' + linkify(i) + '</div>'; });
+        }
+        if (r.connections && r.connections.length) html += '<div style="font-size:0.7rem;color:var(--color-accent-secondary,#c084fc);margin-bottom:0.15rem;">&#9670; Connections: ' + r.connections.map(function(c){return esc(c);}).join(', ') + '</div>';
+        html += '</div>';
+      }
+    }
+
+    if (scene.pacing) {
+      var p = scene.pacing;
+      html += '<div class="cb-card">';
+      html += '<div class="cb-section-label">Pacing Guide' + (p.estimatedMinutes ? ' (~' + p.estimatedMinutes + ' min)' : '') + '</div>';
+      if (p.openingBeat) html += '<div style="font-size:0.7rem;margin-bottom:0.15rem;"><span style="color:var(--color-accent-primary);font-family:Audiowide,sans-serif;font-size:0.6rem;">OPENING</span> ' + linkify(p.openingBeat) + '</div>';
+      if (p.risingAction) html += '<div style="font-size:0.7rem;margin-bottom:0.15rem;"><span style="color:#eab308;font-family:Audiowide,sans-serif;font-size:0.6rem;">RISING</span> ' + linkify(p.risingAction) + '</div>';
+      if (p.climax) html += '<div style="font-size:0.7rem;margin-bottom:0.15rem;"><span style="color:var(--color-danger,#ef4444);font-family:Audiowide,sans-serif;font-size:0.6rem;">CLIMAX</span> ' + linkify(p.climax) + '</div>';
+      if (p.resolution) html += '<div style="font-size:0.7rem;margin-bottom:0.15rem;"><span style="color:#22c55e;font-family:Audiowide,sans-serif;font-size:0.6rem;">RESOLUTION</span> ' + linkify(p.resolution) + '</div>';
       html += '</div>';
     }
 
