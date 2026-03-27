@@ -1,55 +1,376 @@
 [
   {
-    "id": "voc_gunslinger",
-    "name": "The Gunslinger",
-    "governingArena": "reflex",
-    "favoredDiscipline": "ranged",
-    "description": "Fast hands, sharp instincts, and a blaster that never leaves your side. The Gunslinger is a pistol specialist who thrives in the chaos of close-to-mid range firefights — drawing first, shooting last, and making every Opening count.",
-    "fluff": "They say Cad Bane could clear a room before anyone heard the first shot. Captain Rex would draw both DC-17s mid-roll and put rounds on target before he hit the ground. Han Solo shot Greedo under a table because he was bored of the conversation. You're not that good. Not yet.",
+    "id": "voc_altus_sopor",
+    "name": "The Altus Sopor",
+    "governingArena": "grit",
+    "favoredDiscipline": "control_spark",
+    "description": "The ancient practice of deepening one’s focus on the Force through mastery of the body and breath. Altus Sopor encompasses the Art of Movement, Force Speed, and the meditative void of Emptiness — the foundational Control disciplines that allow a practitioner to channel the Force inward and become something more than their physical form allows.",
+    "fluff": "Altus Sopor was the traditional term for the ability to increase a user’s focus on the Force. It incorporated alchaka, breath control, Force speed, and the meditative void — the foundation of every Jedi’s control training. Masters who perfected the sopor could merge so deeply into the Force that they became nearly invisible to others. You have begun walking that path.",
     "abilities": [
       {
-        "id": "voc_gunslinger_t1",
+        "id": "voc_altus_sopor_t1",
         "tier": 1,
         "type": "passive",
-        "name": "Born to the Blaster",
+        "name": "Art of Movement",
         "tags": [
+          "[Force]",
           "[Combat]"
         ],
-        "rule": "Firing a Pistol while Engaged does not present an Opening. You may draw or holster Pistols as part of any Attack action at no Maneuver cost. On a successful Join Battle, you may immediately draw one or both Pistols.",
-        "modifiesAction": "action_attack",
-        "targetWeaponTags": [
-          "Pistol"
-        ],
-        "shorthand": "No Opening firing Engaged. Draw/holster Pistols free on Attack. Draw on Join Battle."
+        "rule": "You may use Control (Grit) in place of Evasion (Reflex) for all Dodge defense rolls — you evade through Force-guided movement: dodging traps, debris, hazards, and attacks with preternatural grace. You gain narrative permission for wall-running, Force-assisted leaps, and vertical traversal through the Force. This ability is DISABLED while you are affected by [Rattled], [Disoriented], or any condition that disrupts mental focus.",
+        "modifiesAction": "action_dodge",
+        "shorthand": "Use Control (Grit) for Dodge. No Openings from movement while Force-guided."
       },
       {
-        "id": "voc_gunslinger_t2",
+        "id": "voc_altus_sopor_t2",
         "tier": 2,
-        "type": "passive",
-        "name": "Akimbo",
+        "type": "maneuver",
+        "name": "Enhance Attribute",
         "tags": [
-          "[Combat]"
+          "[Force]"
         ],
-        "rule": "When dual wielding Pistols, you ignore the Control die step-down penalty. You keep the Power die step-up. Gambits from either equipped Pistol may be declared on any Pistol attack.",
-        "targetWeaponTags": [
-          "Pistol"
-        ],
-        "shorthand": "Dual-wield Pistols: no Control step-down. Cross-pistol gambits allowed."
+        "rolled": false,
+        "rule": "Diceless Maneuver. Spend 1 Edge + your Maneuver pip. Choose one arena: Physique or Reflex. That arena gains +1 Effect Tier on all rolls. Duration: Tactical. At the start of each subsequent turn, you may spend 1 Edge to sustain the enhancement — no action cost. You may only enhance one arena at a time. Switching arenas requires a new activation."
       },
       {
-        "id": "voc_gunslinger_t3",
+        "id": "voc_altus_sopor_t3",
         "tier": 3,
         "type": "maneuver",
-        "name": "Dead Drop",
+        "name": "Force Speed",
+        "tags": [
+          "[Force]",
+          "[Combat]"
+        ],
+        "discipline": "control_spark",
+        "arena": "grit",
+        "rolled": true,
+        "rule": "Channel the Force into explosive velocity. Roll Control (Grit). The result generates Move Points that must be spent on your Move action this turn (1 point = 1 zone). Movement fueled by Force Speed presents NO Openings, even when leaving Engaged zones. Unspent points are lost at the end of your turn. Force Speed movement fuels Art of Movement traversal (wall-running, vertical movement).",
+        "risk": "Failure wastes the maneuver — the Force does not answer your call for speed this round.",
+        "effect": [
+          {
+            "tier": 1,
+            "label": "Fleeting",
+            "range": "0-3",
+            "description": "2 Move Points."
+          },
+          {
+            "tier": 2,
+            "label": "Masterful",
+            "range": "4-7",
+            "description": "4 Move Points."
+          },
+          {
+            "tier": 3,
+            "label": "Legendary",
+            "range": "8+",
+            "description": "6 Move Points."
+          }
+        ]
+      },
+      {
+        "id": "voc_altus_sopor_t4",
+        "tier": 4,
+        "type": "exploit",
+        "name": "Flowing Counter",
+        "tags": [
+          "[Force]",
+          "[Combat]"
+        ],
+        "modifiesAction": "action_dodge",
+        "actionType": "Dodge",
+        "rule": "When you Dodge against an Engaged attacker and achieve a Masterful Success (Control 8+), instead of the standard +1 Tier bonus, the attacker presents an Opening to you which you may immediately Exploit (costs your Exploit pip). Your evasion flows seamlessly into a counterattack position."
+      },
+      {
+        "id": "voc_altus_sopor_t5",
+        "tier": 5,
+        "type": "maneuver",
+        "name": "Emptiness",
+        "tags": [
+          "[Force]"
+        ],
+        "discipline": "control_spark",
+        "arena": "grit",
+        "rolled": true,
+        "rule": "Short Rest only. Roll Control (Grit). The current Toll count on the Destiny tracker sets the static difficulty. While meditating (narrative truth, always active during the rest): you are undetectable by Force senses, you clear 1 mental condition ([Rattled] or [Disoriented]), and you are physically vulnerable and interruptible. To carry effects into the next scene, spend 1 Edge.",
+        "risk": "On failure, the Edge spent to carry effects forward is wasted — the meditation did not reach sufficient depth.",
+        "effect": [
+          {
+            "tier": 1,
+            "label": "Fleeting",
+            "range": "0-3",
+            "description": "Force detection against you is [Weakened] until the end of the next scene."
+          },
+          {
+            "tier": 2,
+            "label": "Masterful",
+            "range": "4-7",
+            "description": "As Fleeting. Additionally, you are immune to [Rattled] and [Disoriented] until the end of the next scene."
+          },
+          {
+            "tier": 3,
+            "label": "Legendary",
+            "range": "8+",
+            "description": "As Masterful. Additionally, gain +1 Effect Tier on all Control (Grit) rolls until the end of the next scene."
+          }
+        ]
+      }
+    ],
+    "imageUrl": "/assets/vocations/voc_altus_sopor.png",
+    "startingItems": [
+      {
+        "id": "gear_glow_rod_01",
+        "name": "Glow Rod",
+        "cost": 10,
+        "source": "gear"
+      }
+    ]
+  },
+  {
+    "id": "voc_pathfinder",
+    "name": "The Pathfinder",
+    "governingArena": "grit",
+    "favoredDiscipline": "survival",
+    "description": "The Pathfinder does not conquer the wilderness — she reads it. Where others see hostile terrain, she sees shelter, sustenance, and safe passage. She moves through fungal jungles and toxic wastes the way a dockworker moves through a spaceport: with the casual confidence of someone who has been here before, even when she has not. The galaxy is full of planets that want to kill you. The Pathfinder is the reason your squad walks out the other side.",
+    "fluff": "Every expedition needs someone who can read the ground. Not with sensors or satellite maps, but with instinct earned from years of sleeping in places where the air can kill you and the water fights back. The Pathfinder is the one who stops the column before the sinkhole, identifies the spore bloom before the first sneeze, and somehow produces a medpac from a pile of moss and tree bark. On Felucia, the clone troopers had their training and their armor. It was the scouts who kept them alive — the ones who knew which fungi were footholds and which were digestive tracts. In the Outer Rim, when the nav computer fails and the terrain stretches past the edge of the map, you follow the Pathfinder. She has never needed a map.",
+    "abilities": [
+      {
+        "id": "voc_pathfinder_t1",
+        "tier": 1,
+        "type": "passive",
+        "name": "Wilderness Awareness",
+        "tags": [
+          "[Narrative]",
+          "[Exploration]"
+        ],
+        "rule": "In wilderness or natural terrain, you may use Survival (Grit) in place of Tactics (Wits) when rolling Join Battle. You read terrain the way a tactician reads a battlefield — sight lines, choke points, elevation, and escape routes are instinctive.\n\nAdditionally, you may use Survival (Grit) in place of Medicine (Wits) when treating natural wounds, poisons, diseases, or environmental injuries — even with scant or improvised supplies. You know which root draws out venom, which bark reduces fever, and which moss stops bleeding. A proper medpac helps, but you do not need one.",
+        "shorthand": "Survival replaces Tactics for Join Battle in wilderness. Survival replaces Medicine for natural wounds/poisons/diseases, even with scant supplies."
+      },
+      {
+        "id": "voc_pathfinder_t2",
+        "tier": 2,
+        "type": "maneuver",
+        "name": "Scrounge",
+        "tags": [
+          "[Narrative]",
+          "[Exploration]"
+        ],
+        "discipline": "survival",
+        "arena": "grit",
+        "rolled": true,
+        "rule": "During a Long Rest in wilderness or natural terrain, you may spend a maneuver to scavenge your surroundings. Roll Survival (Grit). Based on your result tier, choose one item from the corresponding menu. You choose one item from the highest tier you qualify for. Items scrounged are improvised equivalents — they function identically but look like they were assembled from bark, sap, and whatever was in your pockets.",
+        "risk": "On failure, you find nothing useful — the terrain has been picked clean, or the local flora is simply inedible.",
+        "effect": [
+          {
+            "tier": 1,
+            "label": "Fleeting",
+            "range": "0-3",
+            "description": "Choose one: Field Rations (10cr equivalent), Glow Rod (25cr equivalent), or Syntherope (10cr equivalent)."
+          },
+          {
+            "tier": 2,
+            "label": "Masterful",
+            "range": "4-7",
+            "description": "Choose one: Bacta Patch (20cr equivalent), Stimulant Tabs (20cr equivalent), or Camouflaged Camp (concealed rest site — the party cannot be found by passive patrols during this rest)."
+          },
+          {
+            "tier": 3,
+            "label": "Legendary",
+            "range": "8+",
+            "description": "Choose one: Medpac (100cr equivalent) or Rare Find (GM determines — a useful item, resource, or material native to the environment that would not normally be available without a market)."
+          }
+        ],
+        "shorthand": "Long Rest maneuver: roll Survival (Grit). Choose one item from a tier-based menu — rations/glow rod/rope at Fleeting, bacta patch/stimulant tabs/camo camp at Masterful, medpac/rare find at Legendary."
+      },
+      {
+        "id": "voc_pathfinder_t3",
+        "tier": 3,
+        "type": "permission",
+        "name": "Vanguard",
+        "tags": [
+          "[Narrative]",
+          "[Exploration]"
+        ],
+        "rule": "When you take the Assess action in wilderness or natural terrain, you may declare that you are scouting along your proposed path of travel. Your questions are scoped to the route ahead: what dangers lie along this path, what terrain changes are coming, whether the path is passable, and what lives or operates in the area you are heading toward.\n\nThis uses Survival (Grit) for the Assess roll. On success, you gain your questions as normal. On failure, you gain no information, and the GM may trigger an encounter as a consequence of your scouting — you pushed too far ahead and something found you first.",
+        "shorthand": "Assess in wilderness using Survival (Grit), scoped to scouting the route ahead. Failure = no info + GM may trigger encounter."
+      },
+      {
+        "id": "voc_pathfinder_t4",
+        "tier": 4,
+        "type": "permission",
+        "name": "Instinct",
+        "tags": [
+          "[Narrative]",
+          "[Exploration]",
+          "[Defense]"
+        ],
+        "rule": "When an ally would be attacked or affected by an unknown, unidentified hazard in natural terrain, you may spend 1 Edge to immediately assume the risk. You take the hit instead of your ally and resist the hazard with Survival (Grit). This roll is [Optimized] — your Control die steps up.\n\nYou saw it before they did. The discolored ground, the shift in the air, the way the canopy went quiet. You shoved them aside and took the hit because you knew exactly what was coming — and more importantly, you knew exactly how to take it.",
+        "shorthand": "Spend 1 Edge when ally faces unknown natural hazard. You assume the risk and resist with Survival (Grit), [Optimized]."
+      },
+      {
+        "id": "voc_pathfinder_t5",
+        "tier": 5,
+        "type": "passive",
+        "name": "Native Ground",
+        "tags": [
+          "[Narrative]",
+          "[Exploration]"
+        ],
+        "rule": "When you Assess using Survival in natural terrain and score 8+ on your Control die, you replenish 1 Edge. Your mastery of the wild is self-sustaining — the more you read the terrain, the more confident you become, and confidence is currency.\n\nAdditionally, once per session, you may spend Edge to retroactively declare that you prepared for a specific environmental contingency. \"I cached water at the ridge two hours ago.\" \"I marked this trail on the way in.\" \"I set a perimeter alarm last night.\" \"I brought thermal wraps — I have been to ice planets before.\" The GM determines whether the preparation is plausible given the environment, your travel time, and available materials, but cannot deny it simply because you did not announce it earlier. You are always preparing. The party just does not notice until it matters.",
+        "shorthand": "Assess with Survival in natural terrain, 8+ Control = replenish 1 Edge. Once per session, spend Edge to retroactively declare environmental preparation."
+      }
+    ],
+    "imageUrl": "/assets/vocations/voc_pathfinder.png",
+    "startingItems": [
+      {
+        "id": "gear_field_rations_01",
+        "name": "Field Rations",
+        "cost": 10,
+        "source": "gear"
+      },
+      {
+        "id": "gear_syntherope_01",
+        "name": "Syntherope",
+        "cost": 10,
+        "source": "gear"
+      }
+    ]
+  },
+  {
+    "id": "voc_shiicho_knight",
+    "name": "The Shii-Cho Knight",
+    "governingArena": "grit",
+    "favoredDiscipline": "control_spark",
+    "description": "Form I — The Way of the Sarlacc. The oldest lightsaber discipline, and the one every Jedi learns first. Shii-Cho is not elegant. It is not subtle. It is the foundation — wide sweeping arcs that trace the six zones of attack, powered by determination rather than finesse. Where other forms specialize, Shii-Cho endures. Where other forms seek advantage, Shii-Cho seeks resolution. The blade does not stop moving until the fight is over — or until the Jedi decides it is.",
+    "fluff": "Every form that came after was built on this one. When the duelist's precision fails, when the guardian's wall breaks, when the aggressor's fury burns out — what remains is Shii-Cho. The first thing you learned. The last thing still standing.",
+    "abilities": [
+      {
+        "id": "voc_shiicho_knight_t1",
+        "tier": 1,
+        "type": "passive",
+        "name": "The Determination Form",
         "tags": [
           "[Combat]"
         ],
-        "discipline": "ranged",
-        "arena": "reflex",
+        "rule": "When you attack with a Lightsaber or a Light or Medium bladed melee weapon, you may roll Melee (Grit) instead of Melee (Physique). Power comes from determination, not muscle. The Force disciplines the body — every strike lands with the certainty of absolute resolve.\n\nSun Djem: When your melee attack with a lightsaber would reduce a target to 0 Vitality, you may declare Sun Djem. The target is left at 1 Vitality and rendered Helpless. You determine whether they fall unconscious or immediately exit the scene — alive, but injured. The fight is over. You chose to let them walk away from it.",
+        "modifiesAction": "action_attack",
+        "targetWeaponTags": [
+          "Lightsaber",
+          "Melee"
+        ],
+        "shorthand": "Melee (Grit) replaces Melee (Physique) with lightsaber or light/medium bladed melee. Sun Djem: on reducing target to 0 Vitality, may leave at 1 Vitality + Helpless instead."
+      },
+      {
+        "id": "voc_shiicho_knight_t2",
+        "tier": 2,
+        "type": "exploit",
+        "name": "Sarlacc Sweep",
+        "tags": [
+          "[Combat]"
+        ],
+        "rule": "When you are Engaged with two or more enemies and your melee attack reduces a target to 0 Vitality, or anytime you declare Sun Djem on a target, the next Engaged enemy presents an Opening. You may Exploit this Opening to make a new melee attack against them. If this attack also reduces its target to 0 Vitality or you declare Sun Djem, the chain continues — the next Engaged enemy presents another Opening. The sweep continues as long as there are Engaged enemies, targets keep falling, and you have Exploit pips to spend.",
+        "modifiesAction": "action_attack",
+        "targetWeaponTags": [
+          "Lightsaber",
+          "Melee"
+        ],
+        "shorthand": "On kill or Sun Djem while Engaged with 2+: next Engaged enemy presents Opening. Exploit to attack. Chain continues on each kill/Sun Djem."
+      },
+      {
+        "id": "voc_shiicho_knight_t3",
+        "tier": 3,
+        "type": "gambit",
+        "name": "Disarming Slash",
+        "tags": [
+          "[Combat]"
+        ],
+        "rule": "After resolving a melee attack with a lightsaber, you may activate this gambit. Increase your effect tier by 1 — if this would reduce the target to 0 Vitality, you may declare Sun Djem. The target is left at 1 Vitality and rendered Helpless. If the increased tier would not reduce them to 0 Vitality, deal damage at your original effect tier minus 1 instead. The reach for mercy costs you when it falls short.",
+        "modifiesAction": "action_attack",
+        "targetWeaponTags": [
+          "Lightsaber"
+        ],
+        "shorthand": "Gambit: +1 tier check. If would reduce to 0 Vitality, declare Sun Djem (1 Vitality, Helpless). If not, deal original tier minus 1."
+      },
+      {
+        "id": "voc_shiicho_knight_t4",
+        "tier": 4,
+        "type": "passive",
+        "name": "Inner Peace",
+        "tags": [
+          "[Combat]"
+        ],
+        "rule": "At the start of any action or reaction, you may spend 1 Edge to clear one of the following conditions affecting you: Disoriented, Rattled, Staggered, or one instance of Weakened (such as Weakened Attacks, Weakened Defenses, or Weakened to a specific arena). The oldest form teaches that the blade begins in the mind — when the mind is clear, the blade follows.",
+        "shorthand": "Spend 1 Edge at start of action/reaction to clear Disoriented, Rattled, Staggered, or one Weakened instance."
+      },
+      {
+        "id": "voc_shiicho_knight_t5",
+        "tier": 5,
+        "type": "passive",
+        "name": "The Foundation",
+        "tags": [
+          "[Combat]"
+        ],
+        "rule": "You have mastered the foundation. All lightsaber forms descend from Form I — and now you understand this truth completely. You gain the Tier 1 ability of every other lightsaber form vocation. These are not borrowed techniques. They were always here, inside the oldest form, waiting to be recognized.",
+        "shorthand": "Gain the T1 ability of every other lightsaber form vocation."
+      }
+    ],
+    "imageUrl": "/assets/vocations/voc_shiicho_knight.png",
+    "startingItems": [
+      {
+        "id": "wpn_lightsaber_01",
+        "name": "Lightsaber",
+        "cost": 0,
+        "source": "weapon"
+      }
+    ]
+  },
+  {
+    "id": "voc_duelist",
+    "name": "The Duelist",
+    "governingArena": "physique",
+    "favoredDiscipline": "melee",
+    "description": "Precision, timing, and a blade held with intent. The Duelist is a trained close-combat specialist who controls the fight through footwork, measure, and reading their opponent — parrying, waiting, and striking when the geometry is right. Whether the weapon is a vibroblade or a lightsaber, the discipline is the same.",
+    "fluff": "Makashi was a lightsaber form built for dueling other saber-wielders — precise, economical, and contemptuous of brute strength. Count Dooku used it to dismantle two Jedi at once without breaking a sweat. But the same principles show up in fencing salons on Coruscant, vibroblade pits on Nar Shaddaa, and back-alley knife fights on Corellia. A Kel Dor bodyguard with a force pike. A Mandalorian with a beskad. A dock worker who took three months of lessons and kept the blade. The weapon doesn't make the duelist. The hours do.",
+    "abilities": [
+      {
+        "id": "voc_duelist_t1",
+        "tier": 1,
+        "type": "passive",
+        "name": "En Garde",
+        "tags": [
+          "[Combat]"
+        ],
+        "rule": "You may Endure melee attacks using Melee (Physique) in place of Endure. When you do, treat your armor rating as Light for the Physique step calculation — even if you are unarmored, your blade compensates. You may draw or ready a Melee weapon as part of any Attack action at no Maneuver cost.",
+        "modifiesAction": "action_endure",
+        "targetWeaponTags": [
+          "Melee"
+        ],
+        "shorthand": "Endure melee attacks using Melee (Physique). Armor treated as Light. Draw Melee free on Attack."
+      },
+      {
+        "id": "voc_duelist_t2",
+        "tier": 2,
+        "type": "gambit",
+        "name": "Read the Blade",
+        "tags": [
+          "[Combat]"
+        ],
+        "modifiesAction": "action_endure",
+        "actionType": "Endure Defense (via En Garde)",
+        "rule": "After resolving an Endure defense using Melee (via En Garde), spend 1 tier. You gain [Optimized] on your next Melee weapon attack against that attacker before the end of your next turn. You read their technique in the exchange and positioned yourself for the counter."
+      },
+      {
+        "id": "voc_duelist_t3",
+        "tier": 3,
+        "type": "maneuver",
+        "name": "Press the Advantage",
+        "tags": [
+          "[Combat]"
+        ],
+        "discipline": "melee",
+        "arena": "physique",
         "defense": "resolve",
         "rolled": true,
-        "rule": "Ranged (Reflex) vs target's Resolve. Draw down on a target and force them to react — you don't fire, you just let them see where this is going. Risk: On failure, you present an Opening to the target.",
-        "risk": "On failure, you present an Opening to the target — you've shown your hand.",
+        "rule": "Melee (Physique) vs target's Resolve. Drive forward with controlled aggression — precise bladework that tests your opponent's nerve and forces them to give ground. Risk: On failure, you present an Opening to the target.",
+        "risk": "On failure, you present an Opening to the target — you overextended and they saw it.",
         "effect": [
           {
             "tier": 1,
@@ -61,50 +382,132 @@
             "tier": 2,
             "label": "Masterful",
             "range": "4-7",
-            "description": "Target gains [Rattled]. Choose one: the target must spend their next Maneuver taking Cover, OR they present an Opening to you."
+            "description": "Target gains [Rattled]. Target presents an Opening to you."
           },
           {
             "tier": 3,
             "label": "Legendary",
             "range": "8+",
-            "description": "Target gains [Rattled] and [Exposed]. They present an Opening to you. If you Exploit it this round, step up Effect by 1 Tier."
+            "description": "Target gains [Rattled] and [Exposed]. Target presents an Opening to you."
           }
         ]
       },
       {
-        "id": "voc_gunslinger_t4",
+        "id": "voc_duelist_t4",
         "tier": 4,
-        "type": "gambit",
-        "name": "Fan the Hammer",
+        "type": "exploit",
+        "name": "Riposte",
         "tags": [
           "[Combat]"
         ],
-        "modifiesAction": "action_attack",
-        "actionType": "Pistol Attack",
-        "rule": "After resolving a Pistol attack, spend 1 tier. If your Control die result was 8+ and the target takes damage, the target immediately presents an Opening to you which you may Exploit."
+        "modifiesAction": "action_endure",
+        "actionType": "Endure Defense (via En Garde)",
+        "rule": "When you defend using Melee (via En Garde) and score 8+ on your Control die, you may forgo the standard +1 Effect tier. Instead, the attacker immediately presents an Opening which you may Exploit to make an immediate Melee attack against them."
       },
       {
-        "id": "voc_gunslinger_t5",
+        "id": "voc_duelist_t5",
         "tier": 5,
-        "type": "passive",
-        "name": "Two for Flinching",
+        "type": "maneuver",
+        "name": "Measure of a Man",
         "tags": [
           "[Combat]"
         ],
-        "rule": "When you Exploit an Opening with a Pistol and the attack deals damage, the target presents another Opening to any ally in the zone. Your shots crack the door wide open for the whole crew.",
-        "targetWeaponTags": [
-          "Pistol"
-        ],
-        "shorthand": "Exploit Opening + Pistol damage → target presents Opening to ally in zone."
+        "discipline": "melee",
+        "arena": "wits",
+        "rolled": true,
+        "rule": "Use your Maneuver to Assess an Engaged opponent using Melee (Wits) — reading their guard, footwork, and tells. You gain the normal Assess questions from the GM (as if using Tactics). Additionally, you may spend 1 Edge. If you do, your next Melee weapon attack against that target this round gains [Optimized] and [Empowered]. You've already won. They just don't know it yet."
       }
     ],
-    "imageUrl": "/assets/vocations/voc_gunslinger.png",
+    "imageUrl": "/assets/vocations/voc_duelist.png",
     "startingItems": [
       {
-        "id": "wpn_quick_six_01",
-        "name": "Merr-Sonn Quick-Six",
-        "cost": 325,
+        "id": "wpn_vibrorapier_01",
+        "name": "Duelist Vibrorapier",
+        "cost": 300,
         "source": "weapon"
+      }
+    ]
+  },
+  {
+    "id": "voc_juggernaut",
+    "name": "The Juggernaut",
+    "governingArena": "physique",
+    "favoredDiscipline": "endure",
+    "description": "The Juggernaut does not dodge. He does not flinch. He walks into the blast zone, shrugs off the hit, and keeps moving. Where others build around speed and reflexes, the Juggernaut builds around the armor on his back — not to overcome its limitations, but to lean into its strengths. The heavier the plate, the harder the hit, the more punishment he can absorb. He is not fast. He is not subtle. He is the reason they stopped shooting.",
+    "fluff": "Every soldier learns to wear armor. Most learn to tolerate it. A few learn to depend on it. The Juggernaut is the professional who treats their armor the way a swordsman treats a blade — as an extension of the body, maintained, understood, and trusted absolutely. On the Outer Rim, when the blaster fire starts and the squad dives for cover, there is always one who stays standing. The enemy empties a power cell into his chest. He does not go down. He does not slow down. Eventually, the enemy stops shooting — not because they ran out of ammunition, but because they realized it was not working.",
+    "abilities": [
+      {
+        "id": "voc_juggernaut_t1",
+        "tier": 1,
+        "type": "passive",
+        "name": "Broken In",
+        "tags": [
+          "[Combat]",
+          "[Armor]"
+        ],
+        "rule": "While wearing armor, you suffer no penalties to your Control die (disciplines) due to encumbrance or bulk. You have trained to operate in your armor — the weight distribution is second nature and your fine motor control is unaffected. You still suffer any penalties to your Reflex arena, including the Evasion step-down for medium and heavy armor.\n\nAdditionally, when you choose to take Trauma to your Physique while wearing armor, you may soak 1 additional Vitality (3 instead of the normal 2).",
+        "shorthand": "No Control die penalties from armor. Reflex penalties still apply. Physique Trauma soaks 3 Vitality instead of 2 while armored."
+      },
+      {
+        "id": "voc_juggernaut_t2",
+        "tier": 2,
+        "type": "passive",
+        "name": "Durasteel Nerve",
+        "tags": [
+          "[Combat]",
+          "[Defense]",
+          "[Armor]"
+        ],
+        "rule": "When you fail an Endure defense roll and spend Edge to reroll, you are [Optimized] for the reroll — your Control die steps up for that Endure roll. The first hit found a gap. The second one will not.\n\nYour armor taught you something most soldiers never learn: the moment after you get hit is the moment you are most dangerous, because now you know exactly where you are vulnerable and you will not make that mistake twice.",
+        "shorthand": "Failed Endure + Edge reroll = [Optimized] (Control die steps up for the reroll)."
+      },
+      {
+        "id": "voc_juggernaut_t3",
+        "tier": 3,
+        "type": "passive",
+        "name": "Plated Conditioning",
+        "tags": [
+          "[Combat]",
+          "[Armor]"
+        ],
+        "rule": "Your conditioning while wearing armor is fully ingrained. When you choose to take Trauma to your Physique, the additional Vitality soaked now scales with your armor type:\n\n- Light armor: +1 additional Vitality soaked (3 total)\n- Medium armor: +2 additional Vitality soaked (4 total)\n- Heavy armor: +3 additional Vitality soaked (5 total)\n\nThis replaces the flat +1 from Broken In — heavier armor now rewards your investment with greater damage absorption per Trauma.\n\nAdditionally, you do not suffer any penalties from exhaustion faster than someone not wearing armor. Extended marches, desert heat, sustained combat — the armor is not a factor in your fatigue.",
+        "shorthand": "Physique Trauma soak scales with armor: light +1 (3), medium +2 (4), heavy +3 (5). No exhaustion penalties from wearing armor."
+      },
+      {
+        "id": "voc_juggernaut_t4",
+        "tier": 4,
+        "type": "gambit",
+        "name": "\"Is That All?\"",
+        "tags": [
+          "[Combat]",
+          "[Defense]",
+          "[Armor]"
+        ],
+        "modifiesAction": "defense_endure",
+        "actionType": "Endure",
+        "rule": "Gambit on Endure. When you successfully Endure an attack, you may spend 1 tier from your result to reduce the incoming effect by 1 tier and impose [Rattled] on the attacker. You took the hit clean and did not flinch — they expected you to go down and you did not. That shakes people.\n\n[Rattled]: Mental debuff — the attacker's Control die steps down on mental actions. They are shaken, demoralized, and second-guessing whether hitting you again is worth the effort.",
+        "shorthand": "Endure gambit: spend 1 tier → reduce incoming effect by 1 tier + attacker gains [Rattled]."
+      },
+      {
+        "id": "voc_juggernaut_t5",
+        "tier": 5,
+        "type": "passive",
+        "name": "Siege Engine",
+        "tags": [
+          "[Combat]",
+          "[Armor]"
+        ],
+        "rule": "When you Endure an attack and score 8+ on your Control die, you may choose to immediately clear any mental condition affecting you instead of taking the normal +1 effect tier bonus. The hit snaps you back to focus — pain has a way of cutting through fear, confusion, and demoralization.\n\nAdditionally, your armor works for you even when you are not actively defending. When you are attacked by any attack you could Endure (regardless of whether you actually Endure or Dodge), your armor passively reduces the attacker's Power rating before you even roll:\n\n- Light armor: Power -1\n- Medium armor: Power -2\n- Heavy armor: Power -3\n\nThis reduction applies before your defense roll. The enemy's weapon is simply less effective against you — the blast dissipates across the plate, the vibroblade skitters off a pauldron, the slug flattens against durasteel. They are not fighting you. They are fighting your armor. And your armor is winning.",
+        "shorthand": "Endure 8+ Control: clear mental condition instead of +1 effect. Armor passively reduces attacker Power (light -1, medium -2, heavy -3) before rolling."
+      }
+    ],
+    "imageUrl": "/assets/vocations/voc_juggernaut.png",
+    "startingItems": [
+      {
+        "id": "gear_armor_repair_kit_01",
+        "name": "Armor Repair Kit",
+        "cost": 200,
+        "source": "gear"
       }
     ]
   },
@@ -197,109 +600,105 @@
     ]
   },
   {
-    "id": "voc_ghost",
-    "name": "The Ghost",
-    "governingArena": "reflex",
-    "favoredDiscipline": "stealth",
-    "description": "Misdirection, concealment, and the art of not being where anyone expects you. The Ghost doesn't fight fair — they fight from positions the enemy didn't know existed, and when the walls close in, they get everyone out.",
-    "fluff": "Intelligence operatives, resistance saboteurs, and the kind of people who walk through Imperial checkpoints without anyone remembering their face. The Ghost doesn't win fights. They win extractions. They win infiltrations. They win by making the enemy argue about whether anyone was ever really there. Cassian Andor walked into Scarif knowing he wasn't coming back. You walk into places knowing you will.",
+    "id": "voc_grifter",
+    "name": "The Grifter",
+    "governingArena": "presence",
+    "favoredDiscipline": "deception",
+    "description": "The Grifter doesn't fight fair because the Grifter doesn't fight at all — not if the job is done right. They lie for a living, and they're so good at it that the truth becomes whatever they say it is. Their power isn't in the moment — it's in the setup, the preparation, the long game that pays off three scenes after the seed was planted.",
+    "fluff": "Hondo Ohnaka convinced both sides of a war he was on their side and walked away with both payments. Lando talked his way into Cloud City's administration and ran the place for years on charm and nerve. The best grifters don't need blasters — they need a mark, a story, and enough time to make both work. You've been running games since before you could shave, and the galaxy still hasn't caught on.",
     "abilities": [
       {
-        "id": "voc_ghost_t1",
+        "id": "voc_grifter_t1",
         "tier": 1,
         "type": "passive",
-        "name": "Gray Man",
+        "name": "Born Liar",
         "tags": [
-          "[Combat]",
           "[Narrative]"
         ],
-        "rule": "When you benefit from concealment, you may use Stealth (Reflex) in place of Evasion on Dodge defense rolls. Additionally, while benefiting from concealment, you do not present Openings originating from the Engaged condition.",
-        "modifiesAction": "action_dodge",
-        "shorthand": "Use Stealth (Reflex) for Dodge while concealed. No Engaged Openings while concealed."
+        "rule": "You may use Deception in place of Charm or Persuasion for any social action. You're not charming them — you're deceiving them into feeling charmed. You're not persuading them — you're persuading them with information that isn't true.\n\nAdditionally, cross-discipline gambits that modify Charm or Persuasion actions may be applied when you use Deception in their place via Born Liar. The gambit functions identically — it simply triggers off your Deception roll instead.",
+        "modifiesAction": "action_assess",
+        "shorthand": "Use Deception for Charm/Persuasion. Cross-discipline social gambits apply via Deception."
       },
       {
-        "id": "voc_ghost_t2",
+        "id": "voc_grifter_t2",
         "tier": 2,
         "type": "gambit",
-        "name": "Blind Spot",
+        "name": "The Hook",
         "tags": [
-          "[Combat]"
+          "[Narrative]"
         ],
-        "modifiesAction": "action_dodge",
-        "actionType": "Dodge",
-        "rule": "When you Dodge an attack from an Engaged target, spend 1 tier. Your next attack against that target before the end of your next turn gains [Optimized]."
+        "modifiesAction": "action_deceive",
+        "actionType": "Deception Action",
+        "rule": "After resolving a successful Deception action against an NPC, spend 1 tier. You plant a self-propagating lie — a piece of false information so well-constructed that the target not only believes it but acts on it unprompted in future scenes. The lie spreads without your involvement.\n\nThe GM determines how the NPC acts on the planted information, but the lie persists until contradicted by direct evidence. The target does not get a second chance to see through it — they already failed."
       },
       {
-        "id": "voc_ghost_t3",
+        "id": "voc_grifter_t3",
         "tier": 3,
         "type": "maneuver",
-        "name": "Slip",
+        "name": "The Play",
         "tags": [
-          "[Combat]"
+          "[Narrative]"
         ],
-        "discipline": "stealth",
-        "arena": "reflex",
-        "defense": "resolve",
+        "discipline": "deception",
+        "arena": "presence",
         "rolled": true,
-        "rule": "Stealth (Reflex) vs target's Resolve. Use movement and misdirection to fade from a target's focus — a feint, a peripheral slide, blending into the chaos. Risk: On failure, you present an Opening to the target.",
-        "risk": "On failure, you present an Opening to the target — you tried to be clever and they saw right through it.",
+        "rule": "You construct permanent cover identities for yourself and your crew. This is an uncontested maneuver — roll Deception (Presence). The cover identities include documentation, backstory, and enough planted details to withstand casual inspection. One roll covers the entire crew.\n\nOn failure, the covers are created but contain a hidden flaw that you know exists but cannot identify. The GM holds this flaw and may activate it at a dramatically appropriate moment. You know your work wasn't clean — you just don't know where the crack is.",
+        "risk": "On failure, covers are built but contain a hidden flaw. You know something is wrong but not what. The GM holds the flaw.",
         "effect": [
           {
             "tier": 1,
             "label": "Fleeting",
             "range": "0-3",
-            "description": "You gain concealment from the target. Duration: Immediate."
+            "description": "Cover identities hold under casual inspection but step down under active scrutiny. Anyone specifically investigating the crew's identities gets a step-up on their roll."
           },
           {
             "tier": 2,
             "label": "Masterful",
             "range": "4-7",
-            "description": "You gain concealment from the target. Duration: Tactical (until start of your next turn)."
+            "description": "Solid cover identities. They hold under normal investigation with no step-down. Only dedicated intelligence operations or Force-assisted interrogation might see through them."
           },
           {
             "tier": 3,
             "label": "Legendary",
             "range": "8+",
-            "description": "You gain concealment from the target. Duration: Tactical. Immediately move 1 zone."
+            "description": "Flawless covers. Identities step up under scrutiny — investigation actually reinforces the lie. Digital records, witness accounts, and paper trails all corroborate. Only someone who already knows the truth can see through them."
           }
         ]
       },
       {
-        "id": "voc_ghost_t4",
+        "id": "voc_grifter_t4",
         "tier": 4,
-        "type": "exploit",
-        "name": "Vanishing Act",
+        "type": "passive",
+        "name": "Deep Cover",
         "tags": [
-          "[Combat]"
-        ],
-        "modifiesAction": "action_dodge",
-        "actionType": "Dodge",
-        "rule": "When you Dodge and your Control die is 8+, spend your Exploit pip. You gain concealment from the attacker. Duration: Tactical."
-      },
-      {
-        "id": "voc_ghost_t5",
-        "tier": 5,
-        "type": "permission",
-        "name": "Exit Strategy",
-        "tags": [
-          "[Combat]",
           "[Narrative]"
         ],
-        "rule": "Once per Act, if all allies and yourself have concealment and none are restrained or held in place, you may declare an Opening for all allies and yourself explicitly to escape the scene. There must be a plausible means of egress, even if unconventional — a grate, a shaft, a window, a crowd. The GM narrates the escape."
+        "rule": "While operating under cover identities created by The Play (T3), your allies gain a narrative step-up (maximum D8) on any discipline roll where their cover identity would reasonably provide expertise or authority. A cover identity as an Imperial officer grants a step-up on Command rolls when issuing orders to Imperials. A cover as a merchant grants a step-up on Negotiate when haggling.\n\nThis is a narrative benefit, not a mechanical override — the step-up cannot exceed D8 regardless of circumstances, and only applies when the cover identity is actively relevant to the action being taken.",
+        "shorthand": "Cover identities grant allies narrative step-up (max D8) when identity is relevant."
+      },
+      {
+        "id": "voc_grifter_t5",
+        "tier": 5,
+        "type": "permission",
+        "name": "The Long Con",
+        "tags": [
+          "[Narrative]"
+        ],
+        "rule": "Once per adventure, you may declare that a single event happening right now was something you planned for. You retroactively establish one preparatory action that your character performed off-screen at some point before this moment — and that preparation is now paying off.\n\nThe retroactive action must be plausible given your character's capabilities, resources, and the time available. You cannot conjure items from nowhere, kill someone retroactively, or rewrite established events. You can reveal that you bribed the guard last week, planted a weapon under the table yesterday, or arranged for a contact to be in this port today.\n\nThe GM has final say on plausibility. If the declaration is reasonable, it simply happens — no roll required. The preparation was already done. You're just revealing it now."
       }
     ],
-    "imageUrl": "/assets/vocations/voc_ghost.png",
+    "imageUrl": "/assets/vocations/voc_grifter.png",
     "startingItems": [
       {
-        "id": "gear_smoke_grenade_01",
-        "name": "Smoke Grenade",
-        "cost": 25,
+        "id": "gear_disguise_kit_01",
+        "name": "Disguise Kit",
+        "cost": 250,
         "source": "gear"
       },
       {
-        "id": "gear_scomp_spiker_01",
-        "name": "Scomp Spiker",
-        "cost": 20,
+        "id": "gear_datapad_01",
+        "name": "Datapad",
+        "cost": 50,
         "source": "gear"
       }
     ]
@@ -436,6 +835,117 @@
     ]
   },
   {
+    "id": "voc_juyo_adept",
+    "name": "The Juyo Adept",
+    "governingArena": "presence",
+    "favoredDiscipline": "alter_spark",
+    "description": "Form VII — The Ferocity Form. The forbidden seventh lightsaber discipline, and the last one the Order ever sanctioned. Juyo does not defend. It does not endure. It overwhelms. The practitioner opens themselves to the dark side — not to be consumed by it, but to channel it outward through the blade. Every swing carries the weight of fury held in perfect focus. The superconducting loop: aggression flows in, amplified aggression flows out. The more the enemy fights, the stronger the Adept becomes.",
+    "fluff": "Only two Jedi ever mastered Vaapad. One of them nearly killed a Sith Lord who had destroyed every other Master sent against him. The other fell to the dark side. The Order forbade this form for good reason. You are learning it anyway.",
+    "abilities": [
+      {
+        "id": "voc_juyo_adept_t1",
+        "tier": 1,
+        "type": "passive",
+        "name": "The Ferocity Form",
+        "tags": [
+          "[Combat]",
+          "[Force]"
+        ],
+        "rule": "You may roll Melee (Presence) instead of Melee (Physique) when attacking with a lightsaber or light melee weapon. The blade is driven by will, not strength. Every strike carries the weight of your intent — not your body.\n\nWhen you attack with a lightsaber, light melee weapon, or Alter, you may tap a Toll token from the Destiny Pool. You open yourself to the Force, leaning into the thrill of the fight. For a number of rounds equal to your current Hope count, you gain +1 Effect Tier on all attacks made with a lightsaber, light melee weapon, or Alter.",
+        "modifiesAction": "action_attack",
+        "targetWeaponTags": [
+          "Lightsaber",
+          "Melee"
+        ],
+        "shorthand": "Melee (Presence) replaces Melee (Physique) with lightsaber or light melee. Tap Toll token: +1 Effect Tier on lightsaber/light melee/Alter attacks for rounds equal to current Hope count."
+      },
+      {
+        "id": "voc_juyo_adept_t2",
+        "tier": 2,
+        "type": "maneuver",
+        "name": "Vornskyr's Grasp",
+        "tags": [
+          "[Combat]",
+          "[Force]"
+        ],
+        "discipline": "alter_spark",
+        "arena": "presence",
+        "defense": "resist",
+        "rolled": true,
+        "rule": "Alter (Presence) vs target's Resist. Range 0-1. You reach out through the Force and drag your prey closer.",
+        "risk": "On failure, the Force does not answer — the target holds their ground. Wasted Maneuver.",
+        "effect": [
+          {
+            "tier": 1,
+            "label": "Fleeting",
+            "range": "0-3",
+            "description": "Pull the target up to 1 zone closer to you."
+          },
+          {
+            "tier": 2,
+            "label": "Masterful",
+            "range": "4-7",
+            "description": "Pull the target up to 1 zone closer. You gain [Empowered] on your next attack this round using Alter or a lightsaber or light melee weapon against that target."
+          },
+          {
+            "tier": 3,
+            "label": "Legendary",
+            "range": "8+",
+            "description": "Pull the target up to 1 zone closer. The target presents an Opening — you may Exploit to make an immediate [Empowered] attack using Alter or a lightsaber or light melee weapon."
+          }
+        ],
+        "shorthand": "Alter (Presence) vs Resist, range 0-1. Pull target 1 zone. Masterful: [Empowered] next attack. Legendary: Opening, Exploit for immediate [Empowered] attack."
+      },
+      {
+        "id": "voc_juyo_adept_t3",
+        "tier": 3,
+        "type": "passive",
+        "name": "Ferocity",
+        "tags": [
+          "[Combat]",
+          "[Force]"
+        ],
+        "rule": "When you successfully defend against a Force-related power using Endure or Resist, you gain [Optimized] on your next attack using Alter or a lightsaber or light melee weapon against that target. Their Force aggression feeds your blade.",
+        "modifiesAction": "action_endure",
+        "shorthand": "On successful Endure/Resist vs Force power: gain [Optimized] on next attack against that target."
+      },
+      {
+        "id": "voc_juyo_adept_t4",
+        "tier": 4,
+        "type": "passive",
+        "name": "Redirect",
+        "tags": [
+          "[Combat]",
+          "[Force]"
+        ],
+        "rule": "When you successfully defend against a Force-related power using Endure or Resist, you may spend 1 Edge to redirect the attack back at the caster. Make an Alter (Presence) attack against them. If Ferocity (Tier 3) triggered on the same defense, the redirect is [Optimized].",
+        "modifiesAction": "action_endure",
+        "shorthand": "On successful Endure/Resist vs Force power: spend 1 Edge to redirect as Alter (Presence) attack. Stacks with T3 [Optimized]."
+      },
+      {
+        "id": "voc_juyo_adept_t5",
+        "tier": 5,
+        "type": "passive",
+        "name": "The Dark Bargain",
+        "tags": [
+          "[Combat]",
+          "[Force]"
+        ],
+        "rule": "When you deal damage to a target that has attacked you since the end of your last turn, you may flip a Hope token to Toll. Add the new Toll count to the damage dealt. The loop completes — their aggression became yours, and it cost the galaxy a piece of its light.",
+        "shorthand": "On damaging a target that attacked you last round: flip Hope to Toll, add new Toll count as bonus damage."
+      }
+    ],
+    "imageUrl": "/assets/vocations/voc_juyo_adept.png",
+    "startingItems": [
+      {
+        "id": "wpn_lightsaber_01",
+        "name": "Lightsaber",
+        "cost": 0,
+        "source": "weapon"
+      }
+    ]
+  },
+  {
     "id": "voc_noble",
     "name": "The Noble",
     "governingArena": "presence",
@@ -554,376 +1064,6 @@
         "id": "gear_pocket_secretary_01",
         "name": "Pocket Secretary",
         "cost": 150,
-        "source": "gear"
-      }
-    ]
-  },
-  {
-    "id": "voc_investigator",
-    "name": "The Investigator",
-    "governingArena": "wits",
-    "favoredDiscipline": "investigation",
-    "description": "Notices what others miss, connects what others can't, and arrives at the truth before anyone else knows there's a question. The Investigator doesn't fight harder or talk smoother — they simply know more, see more, and understand the significance of what they find.",
-    "fluff": "Obi-Wan traced a single saberdart through a deleted archive to uncover a secret clone army. Cassian Andor survived fifteen years of intelligence work by reading rooms faster than anyone in them. Thrawn studied a species' art and reverse-engineered their entire battle doctrine. You've been doing this long enough that the galaxy stopped surprising you — now it just confirms what you already suspected.",
-    "abilities": [
-      {
-        "id": "voc_investigator_t1",
-        "tier": 1,
-        "type": "passive",
-        "name": "Trained Eye",
-        "tags": [
-          "[Narrative]"
-        ],
-        "rule": "You may use Investigation in place of Insight when attempting to read an NPC target — you read people through observation and evidence rather than empathy. You notice the inconsistency in their story, not the tremor in their voice.\n\nAdditionally, even on a failed Assess, you still learn one detail related to the assessment target. You never walk away completely empty-handed.",
-        "modifiesAction": "action_assess",
-        "shorthand": "Use Investigation for Insight to read NPCs. Passive observation, no social engagement."
-      },
-      {
-        "id": "voc_investigator_t2",
-        "tier": 2,
-        "type": "passive",
-        "name": "Connect the Dots",
-        "tags": [
-          "[Narrative]"
-        ],
-        "rule": "When you succeed on an Assess, you may spend one of your earned questions to instead make a **declaration**: state a connection between two facts, people, or events you've encountered this session. The GM must confirm if you're correct, partially correct, or wrong — and if partially correct, they adjust your declaration to the truth rather than simply saying no.\n\nThis isn't asking the GM for information — it's proposing a theory and forcing the narrative to respond.",
-        "modifiesAction": "action_assess",
-        "shorthand": "Spend Assess question to declare a connection. GM confirms or denies."
-      },
-      {
-        "id": "voc_investigator_t3",
-        "tier": 3,
-        "type": "maneuver",
-        "name": "Keen Insight",
-        "tags": [
-          "[Narrative]"
-        ],
-        "discipline": "investigation",
-        "arena": "wits",
-        "rolled": true,
-        "rule": "Dedicate your full attention to a single person, object, or location that the GM confirms is narratively significant — a crime scene, a key NPC, a suspicious artifact, a location tied to an active lead. If the target holds no relevant information, the GM may simply say \"Nothing to see here\" and the maneuver is not spent.\n\nThis goes deeper than Assess — you're not asking questions, you're reconstructing what happened.",
-        "risk": "Tunnel vision. You are fully absorbed — you cannot act on or respond to anything else happening in the scene until your next beat. If the situation shifts around you, you miss it entirely.",
-        "effect": [
-          {
-            "tier": 1,
-            "label": "Fleeting",
-            "range": "0-3",
-            "description": "Learn the most recent significant event involving the subject — who was here, what they did, approximately when."
-          },
-          {
-            "tier": 2,
-            "label": "Masterful",
-            "range": "4-7",
-            "description": "Learn the above, plus the GM reveals a hidden detail — something concealed, altered, or deliberately obscured. A false trail, a removed object, a covered wound."
-          },
-          {
-            "tier": 3,
-            "label": "Legendary",
-            "range": "8+",
-            "description": "Full reconstruction. The GM narrates a brief flashback of what happened at this location or to this subject. You see it play out. The crew may act on this as reliable intelligence."
-          }
-        ]
-      },
-      {
-        "id": "voc_investigator_t4",
-        "tier": 4,
-        "type": "passive",
-        "name": "Follow the Thread",
-        "tags": [
-          "[Narrative]"
-        ],
-        "rule": "Upgrades Keen Insight.\n\nWhen you score a Masterful Success (8+ on Control) on Keen Insight, after resolving the reconstruction, you may immediately make an Assess maneuver at no additional action cost. This follow-up Assess gains +1 Tier to its effect result.\n\nYour questions on this Assess must pertain directly to details revealed by the Keen Insight reconstruction — you're drilling into what you just saw, not fishing for new information.",
-        "shorthand": "Keen Insight Masterful 8+ → spend Assess question for a second reconstruction angle.",
-        "modifiesAction": "voc_investigator_t3"
-      },
-      {
-        "id": "voc_investigator_t5",
-        "tier": 5,
-        "type": "passive",
-        "name": "The Confrontation",
-        "tags": [
-          "[Narrative]",
-          "[Combat]"
-        ],
-        "rule": "When you confront the target of your investigation — the person, group, or entity your Keen Insight and Assess results have been building toward — you gain [Optimized] on all Assess and social actions directed at them. You know their patterns, their tells, their pressure points. You've done the work.\n\nIf the confrontation turns hostile, you may spend 1 Edge Point. All allies gain [Optimized] and [Empowered] on their Join Battle rolls. You saw this coming. You briefed the crew. Nobody's caught flat-footed.",
-        "shorthand": "Confront investigation target: Optimized and Empowered on first action against them. 1/arc."
-      }
-    ],
-    "imageUrl": "/assets/vocations/voc_investigator.png",
-    "startingItems": [
-      {
-        "id": "gear_recording_rod_01",
-        "name": "Recording Rod",
-        "cost": 30,
-        "source": "gear"
-      },
-      {
-        "id": "gear_macrobinoculars_01",
-        "name": "Macro-binoculars",
-        "cost": 100,
-        "source": "gear"
-      }
-    ]
-  },
-  {
-    "id": "voc_seer",
-    "name": "The Seer",
-    "governingArena": "wits",
-    "favoredDiscipline": "sense_spark",
-    "description": "The Force is a river of information — past, present, and the faintest currents of what may come. The Seer drinks from that river. They perceive what others cannot: the fracture lines in people and events, the split-second warnings that turn impossible dodges into casual sidesteps, and the shatterpoints where everything can break.",
-    "fluff": "Quinlan Vos touched a wall and watched a murder happen three days after the blood dried. Cal Kestis picked up a fallen lightsaber and lived its owner’s last stand. Mace Windu saw the fracture in the Confederacy before anyone else knew it existed. You’re not that powerful. Not yet. But when the Force shows you the crack in everything — pay attention.",
-    "abilities": [
-      {
-        "id": "voc_seer_t1",
-        "tier": 1,
-        "type": "passive",
-        "name": "Combat Sense",
-        "tags": [
-          "[Force]",
-          "[Combat]"
-        ],
-        "rule": "You may use Sense (Wits) in place of Tactics (Wits) for Join Battle rolls. The Force whispers the shape of violence before it begins. Additionally, on a Masterful Success (Control 8+) on Join Battle, choose one: gain +1 Effect Tier on your initiative result, OR gain [Optimized] on all Attack and Defense rolls until the end of your first Action.",
-        "shorthand": "Use Sense (Wits) for Join Battle. On success, sense one hidden or concealed combatant.",
-        "modifiesAction": "action_join_battle"
-      },
-      {
-        "id": "voc_seer_t2",
-        "tier": 2,
-        "type": "passive",
-        "name": "Force Sight",
-        "tags": [
-          "[Force]",
-          "[Both]"
-        ],
-        "rule": "You may use Sense (Wits) in place of any discipline normally called for on Assess actions. Your perception extends beyond physical senses — you ignore darkness, cover, concealment, and solid barriers when assessing. You detect life presences, emotional states, and Force signatures. This does not replace Sense discipline gambits — those still function normally on top of this substitution. The GM adjudicates effective range based on the fiction.",
-        "modifiesAction": "action_assess",
-        "shorthand": "Use Sense (Wits) for any Assess. Perceive lies, intent, danger through the Force."
-      },
-      {
-        "id": "voc_seer_t3",
-        "tier": 3,
-        "type": "maneuver",
-        "name": "Shatterpoint Sense",
-        "tags": [
-          "[Force]",
-          "[Narrative]"
-        ],
-        "discipline": "sense_spark",
-        "arena": "wits",
-        "rolled": true,
-        "rule": "Perceive the connections between people, events, and objects through the Force. Roll Sense (Wits), no defense. You do not learn facts — you perceive relationships, emotional weight, and the web of causality that binds things together.",
-        "risk": "On failure, you gain [Disoriented]. Particularly traumatic echoes may add [Rattled] at the GM’s discretion.",
-        "effect": [
-          {
-            "tier": 1,
-            "label": "Fleeting",
-            "range": "0-3",
-            "description": "A vague sense that a connection exists between two elements in the scene. You know something links them, but not the nature or significance."
-          },
-          {
-            "tier": 2,
-            "label": "Masterful",
-            "range": "4-7",
-            "description": "You perceive the nature and emotional weight of the connection. The GM reveals the relationship’s character — loyalty, fear, debt, hatred, love, obligation. You may ask 1 question about the connection."
-          },
-          {
-            "tier": 3,
-            "label": "Legendary",
-            "range": "8+",
-            "description": "The full web of connections unfolds. You see how multiple elements relate — the chain of causality, the pressure points, the fault lines. The GM reveals the key pressure point in the web. You may ask 2 questions."
-          }
-        ]
-      },
-      {
-        "id": "voc_seer_t4",
-        "tier": 4,
-        "type": "exploit",
-        "name": "Precognitive Counter",
-        "tags": [
-          "[Force]",
-          "[Combat]"
-        ],
-        "modifiesAction": [
-          "action_endure",
-          "action_dodge"
-        ],
-        "actionType": "Endure or Dodge",
-        "rule": "When you Endure or Dodge and your Control die is 8+, spend your Exploit pip. Instead of the standard +1 Tier bonus from Masterful Success, the attacker presents an Opening to you. You saw the strike before it landed and positioned yourself to punish it."
-      },
-      {
-        "id": "voc_seer_t5",
-        "tier": 5,
-        "type": "maneuver",
-        "name": "Shatterpoint Strike",
-        "tags": [
-          "[Force]",
-          "[Combat]"
-        ],
-        "discipline": "sense_spark",
-        "arena": "wits",
-        "defense": "resolve",
-        "rolled": true,
-        "rule": "Once per scene. Roll Sense (Wits) vs target’s Resolve. You perceive the shatterpoint — the exact fracture line in the target’s defense, stance, or resolve. You must attack the target before the end of the round or the moment passes. If the attack is not made, the shatterpoint closes and the maneuver is wasted.",
-        "risk": "On failure, the maneuver is wasted and the target knows you tried to read them — they sense the probe.",
-        "effect": [
-          {
-            "tier": 1,
-            "label": "Fleeting",
-            "range": "0-3",
-            "description": "Target gains [Exposed]."
-          },
-          {
-            "tier": 2,
-            "label": "Masterful",
-            "range": "4-7",
-            "description": "Target gains [Exposed] and [Optimized] applies to your next attack against them this round."
-          },
-          {
-            "tier": 3,
-            "label": "Legendary",
-            "range": "8+",
-            "description": "Target gains [Exposed]. Your next attack against them this round gains [Optimized] and [Empowered]."
-          }
-        ]
-      }
-    ],
-    "imageUrl": "/assets/vocations/voc_seer.png",
-    "startingItems": [
-      {
-        "id": "gear_glow_rod_01",
-        "name": "Glow Rod",
-        "cost": 10,
-        "source": "gear"
-      },
-      {
-        "id": "gear_holo_journal_01",
-        "name": "Holo-Journal",
-        "cost": 75,
-        "source": "gear"
-      }
-    ]
-  },
-  {
-    "id": "voc_altus_sopor",
-    "name": "The Altus Sopor",
-    "governingArena": "grit",
-    "favoredDiscipline": "control_spark",
-    "description": "The ancient practice of deepening one’s focus on the Force through mastery of the body and breath. Altus Sopor encompasses the Art of Movement, Force Speed, and the meditative void of Emptiness — the foundational Control disciplines that allow a practitioner to channel the Force inward and become something more than their physical form allows.",
-    "fluff": "Altus Sopor was the traditional term for the ability to increase a user’s focus on the Force. It incorporated alchaka, breath control, Force speed, and the meditative void — the foundation of every Jedi’s control training. Masters who perfected the sopor could merge so deeply into the Force that they became nearly invisible to others. You have begun walking that path.",
-    "abilities": [
-      {
-        "id": "voc_altus_sopor_t1",
-        "tier": 1,
-        "type": "passive",
-        "name": "Art of Movement",
-        "tags": [
-          "[Force]",
-          "[Combat]"
-        ],
-        "rule": "You may use Control (Grit) in place of Evasion (Reflex) for all Dodge defense rolls — you evade through Force-guided movement: dodging traps, debris, hazards, and attacks with preternatural grace. You gain narrative permission for wall-running, Force-assisted leaps, and vertical traversal through the Force. This ability is DISABLED while you are affected by [Rattled], [Disoriented], or any condition that disrupts mental focus.",
-        "modifiesAction": "action_dodge",
-        "shorthand": "Use Control (Grit) for Dodge. No Openings from movement while Force-guided."
-      },
-      {
-        "id": "voc_altus_sopor_t2",
-        "tier": 2,
-        "type": "maneuver",
-        "name": "Enhance Attribute",
-        "tags": [
-          "[Force]"
-        ],
-        "rolled": false,
-        "rule": "Diceless Maneuver. Spend 1 Edge + your Maneuver pip. Choose one arena: Physique or Reflex. That arena gains +1 Effect Tier on all rolls. Duration: Tactical. At the start of each subsequent turn, you may spend 1 Edge to sustain the enhancement — no action cost. You may only enhance one arena at a time. Switching arenas requires a new activation."
-      },
-      {
-        "id": "voc_altus_sopor_t3",
-        "tier": 3,
-        "type": "maneuver",
-        "name": "Force Speed",
-        "tags": [
-          "[Force]",
-          "[Combat]"
-        ],
-        "discipline": "control_spark",
-        "arena": "grit",
-        "rolled": true,
-        "rule": "Channel the Force into explosive velocity. Roll Control (Grit). The result generates Move Points that must be spent on your Move action this turn (1 point = 1 zone). Movement fueled by Force Speed presents NO Openings, even when leaving Engaged zones. Unspent points are lost at the end of your turn. Force Speed movement fuels Art of Movement traversal (wall-running, vertical movement).",
-        "risk": "Failure wastes the maneuver — the Force does not answer your call for speed this round.",
-        "effect": [
-          {
-            "tier": 1,
-            "label": "Fleeting",
-            "range": "0-3",
-            "description": "2 Move Points."
-          },
-          {
-            "tier": 2,
-            "label": "Masterful",
-            "range": "4-7",
-            "description": "4 Move Points."
-          },
-          {
-            "tier": 3,
-            "label": "Legendary",
-            "range": "8+",
-            "description": "6 Move Points."
-          }
-        ]
-      },
-      {
-        "id": "voc_altus_sopor_t4",
-        "tier": 4,
-        "type": "exploit",
-        "name": "Flowing Counter",
-        "tags": [
-          "[Force]",
-          "[Combat]"
-        ],
-        "modifiesAction": "action_dodge",
-        "actionType": "Dodge",
-        "rule": "When you Dodge against an Engaged attacker and achieve a Masterful Success (Control 8+), instead of the standard +1 Tier bonus, the attacker presents an Opening to you which you may immediately Exploit (costs your Exploit pip). Your evasion flows seamlessly into a counterattack position."
-      },
-      {
-        "id": "voc_altus_sopor_t5",
-        "tier": 5,
-        "type": "maneuver",
-        "name": "Emptiness",
-        "tags": [
-          "[Force]"
-        ],
-        "discipline": "control_spark",
-        "arena": "grit",
-        "rolled": true,
-        "rule": "Short Rest only. Roll Control (Grit). The current Toll count on the Destiny tracker sets the static difficulty. While meditating (narrative truth, always active during the rest): you are undetectable by Force senses, you clear 1 mental condition ([Rattled] or [Disoriented]), and you are physically vulnerable and interruptible. To carry effects into the next scene, spend 1 Edge.",
-        "risk": "On failure, the Edge spent to carry effects forward is wasted — the meditation did not reach sufficient depth.",
-        "effect": [
-          {
-            "tier": 1,
-            "label": "Fleeting",
-            "range": "0-3",
-            "description": "Force detection against you is [Weakened] until the end of the next scene."
-          },
-          {
-            "tier": 2,
-            "label": "Masterful",
-            "range": "4-7",
-            "description": "As Fleeting. Additionally, you are immune to [Rattled] and [Disoriented] until the end of the next scene."
-          },
-          {
-            "tier": 3,
-            "label": "Legendary",
-            "range": "8+",
-            "description": "As Masterful. Additionally, gain +1 Effect Tier on all Control (Grit) rolls until the end of the next scene."
-          }
-        ]
-      }
-    ],
-    "imageUrl": "/assets/vocations/voc_altus_sopor.png",
-    "startingItems": [
-      {
-        "id": "gear_glow_rod_01",
-        "name": "Glow Rod",
-        "cost": 10,
         "source": "gear"
       }
     ]
@@ -1066,202 +1206,6 @@
     ]
   },
   {
-    "id": "voc_duelist",
-    "name": "The Duelist",
-    "governingArena": "physique",
-    "favoredDiscipline": "melee",
-    "description": "Precision, timing, and a blade held with intent. The Duelist is a trained close-combat specialist who controls the fight through footwork, measure, and reading their opponent — parrying, waiting, and striking when the geometry is right. Whether the weapon is a vibroblade or a lightsaber, the discipline is the same.",
-    "fluff": "Makashi was a lightsaber form built for dueling other saber-wielders — precise, economical, and contemptuous of brute strength. Count Dooku used it to dismantle two Jedi at once without breaking a sweat. But the same principles show up in fencing salons on Coruscant, vibroblade pits on Nar Shaddaa, and back-alley knife fights on Corellia. A Kel Dor bodyguard with a force pike. A Mandalorian with a beskad. A dock worker who took three months of lessons and kept the blade. The weapon doesn't make the duelist. The hours do.",
-    "abilities": [
-      {
-        "id": "voc_duelist_t1",
-        "tier": 1,
-        "type": "passive",
-        "name": "En Garde",
-        "tags": [
-          "[Combat]"
-        ],
-        "rule": "You may Endure melee attacks using Melee (Physique) in place of Endure. When you do, treat your armor rating as Light for the Physique step calculation — even if you are unarmored, your blade compensates. You may draw or ready a Melee weapon as part of any Attack action at no Maneuver cost.",
-        "modifiesAction": "action_endure",
-        "targetWeaponTags": [
-          "Melee"
-        ],
-        "shorthand": "Endure melee attacks using Melee (Physique). Armor treated as Light. Draw Melee free on Attack."
-      },
-      {
-        "id": "voc_duelist_t2",
-        "tier": 2,
-        "type": "gambit",
-        "name": "Read the Blade",
-        "tags": [
-          "[Combat]"
-        ],
-        "modifiesAction": "action_endure",
-        "actionType": "Endure Defense (via En Garde)",
-        "rule": "After resolving an Endure defense using Melee (via En Garde), spend 1 tier. You gain [Optimized] on your next Melee weapon attack against that attacker before the end of your next turn. You read their technique in the exchange and positioned yourself for the counter."
-      },
-      {
-        "id": "voc_duelist_t3",
-        "tier": 3,
-        "type": "maneuver",
-        "name": "Press the Advantage",
-        "tags": [
-          "[Combat]"
-        ],
-        "discipline": "melee",
-        "arena": "physique",
-        "defense": "resolve",
-        "rolled": true,
-        "rule": "Melee (Physique) vs target's Resolve. Drive forward with controlled aggression — precise bladework that tests your opponent's nerve and forces them to give ground. Risk: On failure, you present an Opening to the target.",
-        "risk": "On failure, you present an Opening to the target — you overextended and they saw it.",
-        "effect": [
-          {
-            "tier": 1,
-            "label": "Fleeting",
-            "range": "0-3",
-            "description": "Target gains [Rattled]."
-          },
-          {
-            "tier": 2,
-            "label": "Masterful",
-            "range": "4-7",
-            "description": "Target gains [Rattled]. Target presents an Opening to you."
-          },
-          {
-            "tier": 3,
-            "label": "Legendary",
-            "range": "8+",
-            "description": "Target gains [Rattled] and [Exposed]. Target presents an Opening to you."
-          }
-        ]
-      },
-      {
-        "id": "voc_duelist_t4",
-        "tier": 4,
-        "type": "exploit",
-        "name": "Riposte",
-        "tags": [
-          "[Combat]"
-        ],
-        "modifiesAction": "action_endure",
-        "actionType": "Endure Defense (via En Garde)",
-        "rule": "When you defend using Melee (via En Garde) and score 8+ on your Control die, you may forgo the standard +1 Effect tier. Instead, the attacker immediately presents an Opening which you may Exploit to make an immediate Melee attack against them."
-      },
-      {
-        "id": "voc_duelist_t5",
-        "tier": 5,
-        "type": "maneuver",
-        "name": "Measure of a Man",
-        "tags": [
-          "[Combat]"
-        ],
-        "discipline": "melee",
-        "arena": "wits",
-        "rolled": true,
-        "rule": "Use your Maneuver to Assess an Engaged opponent using Melee (Wits) — reading their guard, footwork, and tells. You gain the normal Assess questions from the GM (as if using Tactics). Additionally, you may spend 1 Edge. If you do, your next Melee weapon attack against that target this round gains [Optimized] and [Empowered]. You've already won. They just don't know it yet."
-      }
-    ],
-    "imageUrl": "/assets/vocations/voc_duelist.png",
-    "startingItems": [
-      {
-        "id": "wpn_vibrorapier_01",
-        "name": "Duelist Vibrorapier",
-        "cost": 300,
-        "source": "weapon"
-      }
-    ]
-  },
-  {
-    "id": "voc_blade_dancer",
-    "name": "The Blade Dancer",
-    "governingArena": "reflex",
-    "favoredDiscipline": "melee",
-    "description": "Speed over strength, precision through motion. The Blade Dancer wields light weapons with preternatural agility — twin blades tracing lethal arcs faster than the eye can follow. Where brutes swing heavy iron, you have already cut three times and moved on.",
-    "fluff": "Ahsoka Tano reversed her grips and carved through MagnaGuards like they were standing still. Asajj Ventress danced through clone troopers with paired curved-hilts, each kill flowing into the next. A Mandalorian knife-fighter on Concordia who never drew the same blade twice. A Twi'lek assassin on Nar Shaddaa who could open four throats before the first body hit the floor. The Blade Dancer doesn't overpower. They overwhelm.",
-    "abilities": [
-      {
-        "id": "voc_blade_dancer_t1",
-        "tier": 1,
-        "type": "passive",
-        "name": "Light Step",
-        "tags": [
-          "[Combat]"
-        ],
-        "rule": "When wielding a Light melee weapon or Lightsaber, you may attack using Melee (Reflex) instead of Melee (Physique). You may draw or ready Light melee weapons as part of any Attack action at no Maneuver cost.",
-        "targetWeaponTags": [
-          "Light"
-        ],
-        "shorthand": "Attack with Melee (Reflex) using Light melee/Lightsaber. No Dodge Openings while wielding."
-      },
-      {
-        "id": "voc_blade_dancer_t2",
-        "tier": 2,
-        "type": "passive",
-        "name": "Twin Blades",
-        "tags": [
-          "[Combat]"
-        ],
-        "rule": "When dual-wielding Light melee weapons or Lightsabers, you ignore the Control die step-down penalty. You keep the Power die step-up. Gambits from either equipped weapon may be declared on any Light melee or Lightsaber attack.",
-        "targetWeaponTags": [
-          "Light"
-        ],
-        "shorthand": "Dual-wield Light melee/Lightsaber: no Control step-down. Cross-weapon gambits."
-      },
-      {
-        "id": "voc_blade_dancer_t3",
-        "tier": 3,
-        "type": "gambit",
-        "name": "Relentless",
-        "tags": [
-          "[Combat]"
-        ],
-        "modifiesAction": "action_attack",
-        "actionType": "Light Melee or Lightsaber Attack",
-        "rule": "After resolving a Light melee or Lightsaber attack that deals damage, spend 1 Effect tier. The target immediately presents an Opening. If you are dual-wielding, you may Exploit this Opening with your off-hand weapon as a reaction."
-      },
-      {
-        "id": "voc_blade_dancer_t4",
-        "tier": 4,
-        "type": "exploit",
-        "name": "Slip Strike",
-        "tags": [
-          "[Combat]"
-        ],
-        "modifiesAction": "action_dodge",
-        "actionType": "Dodge",
-        "rule": "When you Dodge a melee attack and score 8+ on your Control die, the attacker immediately presents an Opening that you may Exploit with a Melee attack. Additionally, at this tier you may spend Edge to fuel Melee Exploits."
-      },
-      {
-        "id": "voc_blade_dancer_t5",
-        "tier": 5,
-        "type": "maneuver",
-        "name": "Tempest",
-        "tags": [
-          "[Combat]"
-        ],
-        "discipline": "tactics",
-        "arena": "wits",
-        "rolled": true,
-        "rule": "Assess using Tactics (Wits). Study all targets in your zone or an adjacent zone. The number of Assess questions scored determines how many targets you may designate (up to 3). Your next attack action this turn targets all designated targets provided they are in the same zone. Make a single attack roll — use the highest Presence among the designated targets for your Control die, then apply your Power die to each target individually (each target's defense rating may produce different results). You end your action Engaged in that zone with any survivors. On subsequent rounds, the assessment holds — spend the Maneuver (no roll required) and 1 Edge to activate the multi-target attack again."
-      }
-    ],
-    "imageUrl": "/assets/vocations/voc_blade_dancer.png",
-    "startingItems": [
-      {
-        "id": "wpn_vibroblade_01",
-        "name": "Vibroblade",
-        "cost": 250,
-        "source": "weapon"
-      },
-      {
-        "id": "wpn_vibroblade_01",
-        "name": "Vibroblade",
-        "cost": 250,
-        "source": "weapon"
-      }
-    ]
-  },
-  {
     "id": "voc_ace",
     "name": "The Ace",
     "governingArena": "reflex",
@@ -1366,212 +1310,309 @@
     ]
   },
   {
-    "id": "voc_splice",
-    "name": "The Splice",
-    "governingArena": "wits",
-    "favoredDiscipline": "tech",
-    "description": "Slicers talk to machines and machines talk back. The Splice doesn't just use technology — they command it. Through a companion probe droid and a talent for invasive system access, they extend their reach into any networked system, locked terminal, or security grid that makes the mistake of having a physical port.",
-    "fluff": "Chopper kept the Ghost flying with attitude, bad wiring, and creative profanity. R2-D2 sliced Star Destroyers from the inside while everyone else was busy getting shot. The best slicers in the galaxy aren't the ones who sit behind terminals — they're the ones who send something small, fast, and expendable to do the job while they watch from a safe distance. Your droid isn't your pet. It's your hands where your hands can't reach.",
+    "id": "voc_blade_dancer",
+    "name": "The Blade Dancer",
+    "governingArena": "reflex",
+    "favoredDiscipline": "melee",
+    "description": "Speed over strength, precision through motion. The Blade Dancer wields light weapons with preternatural agility — twin blades tracing lethal arcs faster than the eye can follow. Where brutes swing heavy iron, you have already cut three times and moved on.",
+    "fluff": "Ahsoka Tano reversed her grips and carved through MagnaGuards like they were standing still. Asajj Ventress danced through clone troopers with paired curved-hilts, each kill flowing into the next. A Mandalorian knife-fighter on Concordia who never drew the same blade twice. A Twi'lek assassin on Nar Shaddaa who could open four throats before the first body hit the floor. The Blade Dancer doesn't overpower. They overwhelm.",
     "abilities": [
       {
-        "id": "voc_splice_t1",
+        "id": "voc_blade_dancer_t1",
         "tier": 1,
         "type": "passive",
-        "name": "Companion Droid",
+        "name": "Light Step",
         "tags": [
-          "[Combat]",
-          "[Narrative]"
+          "[Combat]"
         ],
-        "rule": "You begin play with a small hovering probe droid — a scomp-link equipped utility platform with a basic toolkit, sensor suite, and holoprojector. The droid occupies your zone and can move up to 3 zones from you. It acts on your initiative using your pips — commanding it costs the same as acting yourself.\n\nThe droid has no independent will. It does exactly what you tell it and nothing else. When the droid is targeted by an attack or hazard, you defend for it using Tech (Wits) as both Control and Power. If the defense fails, the droid enters [Shut Down] and must be repaired with a Tech action during a Short Rest.\n\nThe droid can interact with physical systems (plug into terminals, activate switches, carry small objects) but cannot attack, intimidate, or perform social actions. It is a tool, not a combatant.",
-        "shorthand": "Companion droid can Interact with physical systems (terminals, switches, carry objects). Modes: Scout, Combat, Fortify.",
-        "modifiesAction": "action_interact"
+        "rule": "When wielding a Light melee weapon or Lightsaber, you may attack using Melee (Reflex) instead of Melee (Physique). You may draw or ready Light melee weapons as part of any Attack action at no Maneuver cost.",
+        "targetWeaponTags": [
+          "Light"
+        ],
+        "shorthand": "Attack with Melee (Reflex) using Light melee/Lightsaber. No Dodge Openings while wielding."
       },
       {
-        "id": "voc_splice_t2",
+        "id": "voc_blade_dancer_t2",
         "tier": 2,
         "type": "passive",
-        "name": "Direct",
+        "name": "Twin Blades",
         "tags": [
-          "[Combat]",
-          "[Narrative]"
+          "[Combat]"
         ],
-        "rule": "When your droid or any system you have physically accessed via scomp-link is under your control, you may spend a Maneuver pip to issue a Direct command. The controlled system provides its own Power die (determined by the GM based on the system's capability), and you use Tech (Wits) as your Control die.\n\nThe system's capabilities determine what Direct can do — a turret can fire, a door can lock, a security camera can pan, a ventilation system can vent atmosphere. You cannot Direct a system to do something it was not built to do. No turret means no attack. No lock means no seal.\n\nDirect requires maintained physical connection (scomp-link) or active control via Companion Droid. Breaking the connection ends control immediately.",
-        "shorthand": "Spend Maneuver to direct droid/sliced system to Interact. Tech (Wits) for complex commands.",
-        "modifiesAction": "action_interact"
+        "rule": "When dual-wielding Light melee weapons or Lightsabers, you ignore the Control die step-down penalty. You keep the Power die step-up. Gambits from either equipped weapon may be declared on any Light melee or Lightsaber attack.",
+        "targetWeaponTags": [
+          "Light"
+        ],
+        "shorthand": "Dual-wield Light melee/Lightsaber: no Control step-down. Cross-weapon gambits."
       },
       {
-        "id": "voc_splice_t3",
+        "id": "voc_blade_dancer_t3",
         "tier": 3,
-        "type": "maneuver",
-        "name": "Reconfigure",
+        "type": "gambit",
+        "name": "Relentless",
         "tags": [
-          "[Narrative]"
+          "[Combat]"
         ],
-        "discipline": "tech",
-        "arena": "wits",
-        "rolled": false,
-        "rule": "During a Short Rest, you may reconfigure your Companion Droid into one of three operational modes. The mode persists until the next Short Rest. Choose one:\n\n**Scout Mode:** The droid's operational range extends to unlimited distance (as long as comm signal is maintained). It gains enhanced sensors — you may Assess through the droid using Tech (Wits) at no range penalty. The droid cannot interact with systems in this mode — it observes only.\n\n**Combat Mode:** The droid gains a light blaster mount. It may make Ranged attacks using your Tech (Wits) as Control and a D6 Power die. Range: 2 zones. The droid's operational range remains 5 zones.\n\n**Fortify Mode:** The droid projects a localized energy shield. One ally in the droid's zone gains [Buffered 2] at the start of each round. The droid's operational range is reduced to 2 zones and it cannot interact with systems while maintaining the shield.",
-        "effect": [
-          {
-            "tier": 1,
-            "label": "Scout Mode",
-            "range": "Short Rest",
-            "description": "Unlimited range, enhanced sensors, Assess through droid at no penalty. Observation only — no system interaction."
-          },
-          {
-            "tier": 2,
-            "label": "Combat Mode",
-            "range": "Short Rest",
-            "description": "Light blaster mount (D6 Power, 2-zone range). Attacks use Tech (Wits). Operational range 5 zones."
-          },
-          {
-            "tier": 3,
-            "label": "Fortify Mode",
-            "range": "Short Rest",
-            "description": "Energy shield grants [Buffered 2] to one ally in droid zone each round. Operational range reduced to 2 zones, no system interaction."
-          }
-        ]
+        "modifiesAction": "action_attack",
+        "actionType": "Light Melee or Lightsaber Attack",
+        "rule": "After resolving a Light melee or Lightsaber attack that deals damage, spend 1 Effect tier. The target immediately presents an Opening. If you are dual-wielding, you may Exploit this Opening with your off-hand weapon as a reaction."
       },
       {
-        "id": "voc_splice_t4",
+        "id": "voc_blade_dancer_t4",
         "tier": 4,
-        "type": "passive",
-        "name": "Autonomous Protocol",
+        "type": "exploit",
+        "name": "Slip Strike",
         "tags": [
           "[Combat]"
         ],
-        "rule": "Your Companion Droid gains limited autonomous behavior during Challenge scenes. It may take one independent Maneuver pip per round without costing you a pip — the droid acts on pre-programmed subroutines you've drilled into it.\n\nThe autonomous Maneuver must be consistent with the droid's current mode: Scout droid repositions or scans, Combat droid repositions or takes cover, Fortify droid repositions the shield. The droid still cannot take Actions independently — complex commands still require your Direct.",
-        "shorthand": "Droid gets 1 free Maneuver/round (autonomous). Can Interact independently in current mode.",
-        "modifiesAction": "action_interact"
+        "modifiesAction": "action_dodge",
+        "actionType": "Dodge",
+        "rule": "When you Dodge a melee attack and score 8+ on your Control die, the attacker immediately presents an Opening that you may Exploit with a Melee attack. Additionally, at this tier you may spend Edge to fuel Melee Exploits."
       },
       {
-        "id": "voc_splice_t5",
+        "id": "voc_blade_dancer_t5",
         "tier": 5,
-        "type": "permission",
-        "name": "Parallel Processing",
+        "type": "maneuver",
+        "name": "Tempest",
         "tags": [
           "[Combat]"
         ],
-        "rule": "Once per Act, you may activate Parallel Processing. For the remainder of the current Challenge scene, your Companion Droid gains a full independent combat turn — its own Action and Maneuver pips, acting on your initiative. You command both yourself and the droid simultaneously, splitting your attention across two bodies.\n\nThe droid uses Tech (Wits) for all rolls during Parallel Processing. Its capabilities are still limited by its current Reconfigure mode.\n\nIf you are rendered unconscious while Parallel Processing is active, the droid does not shut down. It continues operating on the last standing orders you gave it — a final act of programming foresight that keeps your tools in the fight even when you can't be."
+        "discipline": "tactics",
+        "arena": "wits",
+        "rolled": true,
+        "rule": "Assess using Tactics (Wits). Study all targets in your zone or an adjacent zone. The number of Assess questions scored determines how many targets you may designate (up to 3). Your next attack action this turn targets all designated targets provided they are in the same zone. Make a single attack roll — use the highest Presence among the designated targets for your Control die, then apply your Power die to each target individually (each target's defense rating may produce different results). You end your action Engaged in that zone with any survivors. On subsequent rounds, the assessment holds — spend the Maneuver (no roll required) and 1 Edge to activate the multi-target attack again."
       }
     ],
-    "imageUrl": "/assets/vocations/voc_splice.png",
+    "imageUrl": "/assets/vocations/voc_blade_dancer.png",
     "startingItems": [
       {
-        "id": "gear_scomp_spiker_01",
-        "name": "Scomp Spiker",
-        "cost": 20,
-        "source": "gear"
+        "id": "wpn_vibroblade_01",
+        "name": "Vibroblade",
+        "cost": 250,
+        "source": "weapon"
       },
       {
-        "id": "gear_slicer_spike_01",
-        "name": "Slicer Spike",
-        "cost": 300,
-        "source": "gear"
+        "id": "wpn_vibroblade_01",
+        "name": "Vibroblade",
+        "cost": 250,
+        "source": "weapon"
       }
     ]
   },
   {
-    "id": "voc_grifter",
-    "name": "The Grifter",
-    "governingArena": "presence",
-    "favoredDiscipline": "deception",
-    "description": "The Grifter doesn't fight fair because the Grifter doesn't fight at all — not if the job is done right. They lie for a living, and they're so good at it that the truth becomes whatever they say it is. Their power isn't in the moment — it's in the setup, the preparation, the long game that pays off three scenes after the seed was planted.",
-    "fluff": "Hondo Ohnaka convinced both sides of a war he was on their side and walked away with both payments. Lando talked his way into Cloud City's administration and ran the place for years on charm and nerve. The best grifters don't need blasters — they need a mark, a story, and enough time to make both work. You've been running games since before you could shave, and the galaxy still hasn't caught on.",
+    "id": "voc_ghost",
+    "name": "The Ghost",
+    "governingArena": "reflex",
+    "favoredDiscipline": "stealth",
+    "description": "Misdirection, concealment, and the art of not being where anyone expects you. The Ghost doesn't fight fair — they fight from positions the enemy didn't know existed, and when the walls close in, they get everyone out.",
+    "fluff": "Intelligence operatives, resistance saboteurs, and the kind of people who walk through Imperial checkpoints without anyone remembering their face. The Ghost doesn't win fights. They win extractions. They win infiltrations. They win by making the enemy argue about whether anyone was ever really there. Cassian Andor walked into Scarif knowing he wasn't coming back. You walk into places knowing you will.",
     "abilities": [
       {
-        "id": "voc_grifter_t1",
+        "id": "voc_ghost_t1",
         "tier": 1,
         "type": "passive",
-        "name": "Born Liar",
+        "name": "Gray Man",
         "tags": [
+          "[Combat]",
           "[Narrative]"
         ],
-        "rule": "You may use Deception in place of Charm or Persuasion for any social action. You're not charming them — you're deceiving them into feeling charmed. You're not persuading them — you're persuading them with information that isn't true.\n\nAdditionally, cross-discipline gambits that modify Charm or Persuasion actions may be applied when you use Deception in their place via Born Liar. The gambit functions identically — it simply triggers off your Deception roll instead.",
-        "modifiesAction": "action_assess",
-        "shorthand": "Use Deception for Charm/Persuasion. Cross-discipline social gambits apply via Deception."
+        "rule": "When you benefit from concealment, you may use Stealth (Reflex) in place of Evasion on Dodge defense rolls. Additionally, while benefiting from concealment, you do not present Openings originating from the Engaged condition.",
+        "modifiesAction": "action_dodge",
+        "shorthand": "Use Stealth (Reflex) for Dodge while concealed. No Engaged Openings while concealed."
       },
       {
-        "id": "voc_grifter_t2",
+        "id": "voc_ghost_t2",
         "tier": 2,
         "type": "gambit",
-        "name": "The Hook",
+        "name": "Blind Spot",
         "tags": [
-          "[Narrative]"
+          "[Combat]"
         ],
-        "modifiesAction": "action_deceive",
-        "actionType": "Deception Action",
-        "rule": "After resolving a successful Deception action against an NPC, spend 1 tier. You plant a self-propagating lie — a piece of false information so well-constructed that the target not only believes it but acts on it unprompted in future scenes. The lie spreads without your involvement.\n\nThe GM determines how the NPC acts on the planted information, but the lie persists until contradicted by direct evidence. The target does not get a second chance to see through it — they already failed."
+        "modifiesAction": "action_dodge",
+        "actionType": "Dodge",
+        "rule": "When you Dodge an attack from an Engaged target, spend 1 tier. Your next attack against that target before the end of your next turn gains [Optimized]."
       },
       {
-        "id": "voc_grifter_t3",
+        "id": "voc_ghost_t3",
         "tier": 3,
         "type": "maneuver",
-        "name": "The Play",
+        "name": "Slip",
         "tags": [
-          "[Narrative]"
+          "[Combat]"
         ],
-        "discipline": "deception",
-        "arena": "presence",
+        "discipline": "stealth",
+        "arena": "reflex",
+        "defense": "resolve",
         "rolled": true,
-        "rule": "You construct permanent cover identities for yourself and your crew. This is an uncontested maneuver — roll Deception (Presence). The cover identities include documentation, backstory, and enough planted details to withstand casual inspection. One roll covers the entire crew.\n\nOn failure, the covers are created but contain a hidden flaw that you know exists but cannot identify. The GM holds this flaw and may activate it at a dramatically appropriate moment. You know your work wasn't clean — you just don't know where the crack is.",
-        "risk": "On failure, covers are built but contain a hidden flaw. You know something is wrong but not what. The GM holds the flaw.",
+        "rule": "Stealth (Reflex) vs target's Resolve. Use movement and misdirection to fade from a target's focus — a feint, a peripheral slide, blending into the chaos. Risk: On failure, you present an Opening to the target.",
+        "risk": "On failure, you present an Opening to the target — you tried to be clever and they saw right through it.",
         "effect": [
           {
             "tier": 1,
             "label": "Fleeting",
             "range": "0-3",
-            "description": "Cover identities hold under casual inspection but step down under active scrutiny. Anyone specifically investigating the crew's identities gets a step-up on their roll."
+            "description": "You gain concealment from the target. Duration: Immediate."
           },
           {
             "tier": 2,
             "label": "Masterful",
             "range": "4-7",
-            "description": "Solid cover identities. They hold under normal investigation with no step-down. Only dedicated intelligence operations or Force-assisted interrogation might see through them."
+            "description": "You gain concealment from the target. Duration: Tactical (until start of your next turn)."
           },
           {
             "tier": 3,
             "label": "Legendary",
             "range": "8+",
-            "description": "Flawless covers. Identities step up under scrutiny — investigation actually reinforces the lie. Digital records, witness accounts, and paper trails all corroborate. Only someone who already knows the truth can see through them."
+            "description": "You gain concealment from the target. Duration: Tactical. Immediately move 1 zone."
           }
         ]
       },
       {
-        "id": "voc_grifter_t4",
+        "id": "voc_ghost_t4",
         "tier": 4,
-        "type": "passive",
-        "name": "Deep Cover",
+        "type": "exploit",
+        "name": "Vanishing Act",
         "tags": [
-          "[Narrative]"
+          "[Combat]"
         ],
-        "rule": "While operating under cover identities created by The Play (T3), your allies gain a narrative step-up (maximum D8) on any discipline roll where their cover identity would reasonably provide expertise or authority. A cover identity as an Imperial officer grants a step-up on Command rolls when issuing orders to Imperials. A cover as a merchant grants a step-up on Negotiate when haggling.\n\nThis is a narrative benefit, not a mechanical override — the step-up cannot exceed D8 regardless of circumstances, and only applies when the cover identity is actively relevant to the action being taken.",
-        "shorthand": "Cover identities grant allies narrative step-up (max D8) when identity is relevant."
+        "modifiesAction": "action_dodge",
+        "actionType": "Dodge",
+        "rule": "When you Dodge and your Control die is 8+, spend your Exploit pip. You gain concealment from the attacker. Duration: Tactical."
       },
       {
-        "id": "voc_grifter_t5",
+        "id": "voc_ghost_t5",
         "tier": 5,
         "type": "permission",
-        "name": "The Long Con",
+        "name": "Exit Strategy",
         "tags": [
+          "[Combat]",
           "[Narrative]"
         ],
-        "rule": "Once per adventure, you may declare that a single event happening right now was something you planned for. You retroactively establish one preparatory action that your character performed off-screen at some point before this moment — and that preparation is now paying off.\n\nThe retroactive action must be plausible given your character's capabilities, resources, and the time available. You cannot conjure items from nowhere, kill someone retroactively, or rewrite established events. You can reveal that you bribed the guard last week, planted a weapon under the table yesterday, or arranged for a contact to be in this port today.\n\nThe GM has final say on plausibility. If the declaration is reasonable, it simply happens — no roll required. The preparation was already done. You're just revealing it now."
+        "rule": "Once per Act, if all allies and yourself have concealment and none are restrained or held in place, you may declare an Opening for all allies and yourself explicitly to escape the scene. There must be a plausible means of egress, even if unconventional — a grate, a shaft, a window, a crowd. The GM narrates the escape."
       }
     ],
-    "imageUrl": "/assets/vocations/voc_grifter.png",
+    "imageUrl": "/assets/vocations/voc_ghost.png",
     "startingItems": [
       {
-        "id": "gear_disguise_kit_01",
-        "name": "Disguise Kit",
-        "cost": 250,
+        "id": "gear_smoke_grenade_01",
+        "name": "Smoke Grenade",
+        "cost": 25,
         "source": "gear"
       },
       {
-        "id": "gear_datapad_01",
-        "name": "Datapad",
-        "cost": 50,
+        "id": "gear_scomp_spiker_01",
+        "name": "Scomp Spiker",
+        "cost": 20,
         "source": "gear"
+      }
+    ]
+  },
+  {
+    "id": "voc_gunslinger",
+    "name": "The Gunslinger",
+    "governingArena": "reflex",
+    "favoredDiscipline": "ranged",
+    "description": "Fast hands, sharp instincts, and a blaster that never leaves your side. The Gunslinger is a pistol specialist who thrives in the chaos of close-to-mid range firefights — drawing first, shooting last, and making every Opening count.",
+    "fluff": "They say Cad Bane could clear a room before anyone heard the first shot. Captain Rex would draw both DC-17s mid-roll and put rounds on target before he hit the ground. Han Solo shot Greedo under a table because he was bored of the conversation. You're not that good. Not yet.",
+    "abilities": [
+      {
+        "id": "voc_gunslinger_t1",
+        "tier": 1,
+        "type": "passive",
+        "name": "Born to the Blaster",
+        "tags": [
+          "[Combat]"
+        ],
+        "rule": "Firing a Pistol while Engaged does not present an Opening. You may draw or holster Pistols as part of any Attack action at no Maneuver cost. On a successful Join Battle, you may immediately draw one or both Pistols.",
+        "modifiesAction": "action_attack",
+        "targetWeaponTags": [
+          "Pistol"
+        ],
+        "shorthand": "No Opening firing Engaged. Draw/holster Pistols free on Attack. Draw on Join Battle."
+      },
+      {
+        "id": "voc_gunslinger_t2",
+        "tier": 2,
+        "type": "passive",
+        "name": "Akimbo",
+        "tags": [
+          "[Combat]"
+        ],
+        "rule": "When dual wielding Pistols, you ignore the Control die step-down penalty. You keep the Power die step-up. Gambits from either equipped Pistol may be declared on any Pistol attack.",
+        "targetWeaponTags": [
+          "Pistol"
+        ],
+        "shorthand": "Dual-wield Pistols: no Control step-down. Cross-pistol gambits allowed."
+      },
+      {
+        "id": "voc_gunslinger_t3",
+        "tier": 3,
+        "type": "maneuver",
+        "name": "Dead Drop",
+        "tags": [
+          "[Combat]"
+        ],
+        "discipline": "ranged",
+        "arena": "reflex",
+        "defense": "resolve",
+        "rolled": true,
+        "rule": "Ranged (Reflex) vs target's Resolve. Draw down on a target and force them to react — you don't fire, you just let them see where this is going. Risk: On failure, you present an Opening to the target.",
+        "risk": "On failure, you present an Opening to the target — you've shown your hand.",
+        "effect": [
+          {
+            "tier": 1,
+            "label": "Fleeting",
+            "range": "0-3",
+            "description": "Target gains [Rattled]."
+          },
+          {
+            "tier": 2,
+            "label": "Masterful",
+            "range": "4-7",
+            "description": "Target gains [Rattled]. Choose one: the target must spend their next Maneuver taking Cover, OR they present an Opening to you."
+          },
+          {
+            "tier": 3,
+            "label": "Legendary",
+            "range": "8+",
+            "description": "Target gains [Rattled] and [Exposed]. They present an Opening to you. If you Exploit it this round, step up Effect by 1 Tier."
+          }
+        ]
+      },
+      {
+        "id": "voc_gunslinger_t4",
+        "tier": 4,
+        "type": "gambit",
+        "name": "Fan the Hammer",
+        "tags": [
+          "[Combat]"
+        ],
+        "modifiesAction": "action_attack",
+        "actionType": "Pistol Attack",
+        "rule": "After resolving a Pistol attack, spend 1 tier. If your Control die result was 8+ and the target takes damage, the target immediately presents an Opening to you which you may Exploit."
+      },
+      {
+        "id": "voc_gunslinger_t5",
+        "tier": 5,
+        "type": "passive",
+        "name": "Two for Flinching",
+        "tags": [
+          "[Combat]"
+        ],
+        "rule": "When you Exploit an Opening with a Pistol and the attack deals damage, the target presents another Opening to any ally in the zone. Your shots crack the door wide open for the whole crew.",
+        "targetWeaponTags": [
+          "Pistol"
+        ],
+        "shorthand": "Exploit Opening + Pistol damage → target presents Opening to ally in zone."
+      }
+    ],
+    "imageUrl": "/assets/vocations/voc_gunslinger.png",
+    "startingItems": [
+      {
+        "id": "wpn_quick_six_01",
+        "name": "Merr-Sonn Quick-Six",
+        "cost": 325,
+        "source": "weapon"
       }
     ]
   },
@@ -1658,93 +1699,6 @@
         "id": "gear_stim_pack_01",
         "name": "Stim Pack",
         "cost": 150,
-        "source": "gear"
-      }
-    ]
-  },
-  {
-    "id": "voc_ships_mechanic",
-    "name": "The Ship's Mechanic",
-    "governingArena": "wits",
-    "favoredDiscipline": "tech",
-    "description": "A master of starship systems, vehicle repair, and mid-combat optimization who keeps the vessel flying and buffs the crew's vehicle actions.",
-    "fluff": "Every ship has a heartbeat — the low hum of a reactor cycling, the whine of a converter pulling too hard, the silence right before something breaks. You hear all of it. While the Ace is pulling maneuvers and the gunner is lighting up the void, you're three decks down with your hands inside a junction box, rerouting power through conduits that weren't designed for it, coaxing one more jump out of a hyperdrive that should have been scrapped two parsecs ago. You're the reason the ship comes home.",
-    "abilities": [
-      {
-        "id": "voc_ships_mechanic_t1",
-        "tier": 1,
-        "type": "passive",
-        "name": "Chief Engineer",
-        "tags": [
-          "[Combat]",
-          "[Narrative]"
-        ],
-        "rule": "At the start of each adventure, designate one starship or vehicle under your crew's control. For the duration of the adventure, you are assumed to always have the right tools and minor repair components on hand when working on this vessel. Additionally, while seated or stationed as this vessel's engineer, you cannot be afflicted by the [Disoriented] condition.",
-        "shorthand": "Designate ship per adventure. Auto-equipped for repairs. Immune to [Disoriented] at Engineer station."
-      },
-      {
-        "id": "voc_ships_mechanic_t2",
-        "tier": 2,
-        "type": "passive",
-        "name": "Emergency Shunt",
-        "tags": [
-          "[Combat]"
-        ],
-        "rule": "While you are stationed on your designated vehicle and it suffers damage that reduces its Integrity, you may spend 1 of your personal Edge as a reaction to prevent 1 point of that damage.",
-        "shorthand": "Spend 1 Edge as reaction to prevent 1 ship Integrity damage."
-      },
-      {
-        "id": "voc_ships_mechanic_t3",
-        "tier": 3,
-        "type": "gambit",
-        "name": "Optimal Calibration",
-        "tags": [
-          "[Combat]"
-        ],
-        "modifiesAction": "action_assess",
-        "actionType": "Assess (Starship/Vehicle)",
-        "rule": "When you make a successful Assess roll regarding a starship or vehicle's status, you may spend 1 Tier to convert your earned questions into Calibration Charges (1 charge per remaining tier). Until the start of your next turn, whenever an ally rolls one of the vessel's systems as a Power Die, you may spend 1 Calibration Charge to allow them to reroll that Power Die prior to finalizing the result. They keep the higher result."
-      },
-      {
-        "id": "voc_ships_mechanic_t4a",
-        "tier": 4,
-        "type": "passive",
-        "name": "Advanced Calibration",
-        "tags": [
-          "[Combat]"
-        ],
-        "rule": "Your Optimal Calibration ability expands. You may now choose to let an ally spend a Calibration Charge to reroll their Control Die instead of their Power Die. They still may not reroll both on the same action.",
-        "shorthand": "Calibration Charges now also allow Control Die reroll (one or the other)."
-      },
-      {
-        "id": "voc_ships_mechanic_t4b",
-        "tier": 4,
-        "type": "gambit",
-        "name": "Overcharged Routing",
-        "tags": [
-          "[Combat]"
-        ],
-        "modifiesAction": "action_reroute_power",
-        "actionType": "Reroute Power",
-        "rule": "When you successfully perform the Reroute Power maneuver, you may spend 1 Tier from the result. If you do, the system whose die was increased gains the Unleashed capability (the die explodes on a maximum result) for as long as it remains affected by the maneuver."
-      },
-      {
-        "id": "voc_ships_mechanic_t5",
-        "tier": 5,
-        "type": "permission",
-        "name": "Miracle Worker",
-        "tags": [
-          "[Combat]"
-        ],
-        "rule": "Once per adventure, when an ally on your designated vessel makes a roll using a die (Control or Power) that you have modified, buffed, or allowed them to reroll since the start of your last turn, you may spend 1 Edge to instantly set that die to its maximum natural result instead of rolling it. If applied to a Power die with the Unleashed capability, it automatically triggers the explosion."
-      }
-    ],
-    "imageUrl": "/assets/vocations/voc_ships_mechanic.png",
-    "startingItems": [
-      {
-        "id": "gear_engineering_toolkit_01",
-        "name": "Engineering Toolkit",
-        "cost": 200,
         "source": "gear"
       }
     ]
@@ -1845,6 +1799,113 @@
     ],
     "imageUrl": "/assets/vocations/voc_hound.png",
     "startingItems": []
+  },
+  {
+    "id": "voc_investigator",
+    "name": "The Investigator",
+    "governingArena": "wits",
+    "favoredDiscipline": "investigation",
+    "description": "Notices what others miss, connects what others can't, and arrives at the truth before anyone else knows there's a question. The Investigator doesn't fight harder or talk smoother — they simply know more, see more, and understand the significance of what they find.",
+    "fluff": "Obi-Wan traced a single saberdart through a deleted archive to uncover a secret clone army. Cassian Andor survived fifteen years of intelligence work by reading rooms faster than anyone in them. Thrawn studied a species' art and reverse-engineered their entire battle doctrine. You've been doing this long enough that the galaxy stopped surprising you — now it just confirms what you already suspected.",
+    "abilities": [
+      {
+        "id": "voc_investigator_t1",
+        "tier": 1,
+        "type": "passive",
+        "name": "Trained Eye",
+        "tags": [
+          "[Narrative]"
+        ],
+        "rule": "You may use Investigation in place of Insight when attempting to read an NPC target — you read people through observation and evidence rather than empathy. You notice the inconsistency in their story, not the tremor in their voice.\n\nAdditionally, even on a failed Assess, you still learn one detail related to the assessment target. You never walk away completely empty-handed.",
+        "modifiesAction": "action_assess",
+        "shorthand": "Use Investigation for Insight to read NPCs. Passive observation, no social engagement."
+      },
+      {
+        "id": "voc_investigator_t2",
+        "tier": 2,
+        "type": "passive",
+        "name": "Connect the Dots",
+        "tags": [
+          "[Narrative]"
+        ],
+        "rule": "When you succeed on an Assess, you may spend one of your earned questions to instead make a **declaration**: state a connection between two facts, people, or events you've encountered this session. The GM must confirm if you're correct, partially correct, or wrong — and if partially correct, they adjust your declaration to the truth rather than simply saying no.\n\nThis isn't asking the GM for information — it's proposing a theory and forcing the narrative to respond.",
+        "modifiesAction": "action_assess",
+        "shorthand": "Spend Assess question to declare a connection. GM confirms or denies."
+      },
+      {
+        "id": "voc_investigator_t3",
+        "tier": 3,
+        "type": "maneuver",
+        "name": "Keen Insight",
+        "tags": [
+          "[Narrative]"
+        ],
+        "discipline": "investigation",
+        "arena": "wits",
+        "rolled": true,
+        "rule": "Dedicate your full attention to a single person, object, or location that the GM confirms is narratively significant — a crime scene, a key NPC, a suspicious artifact, a location tied to an active lead. If the target holds no relevant information, the GM may simply say \"Nothing to see here\" and the maneuver is not spent.\n\nThis goes deeper than Assess — you're not asking questions, you're reconstructing what happened.",
+        "risk": "Tunnel vision. You are fully absorbed — you cannot act on or respond to anything else happening in the scene until your next beat. If the situation shifts around you, you miss it entirely.",
+        "effect": [
+          {
+            "tier": 1,
+            "label": "Fleeting",
+            "range": "0-3",
+            "description": "Learn the most recent significant event involving the subject — who was here, what they did, approximately when."
+          },
+          {
+            "tier": 2,
+            "label": "Masterful",
+            "range": "4-7",
+            "description": "Learn the above, plus the GM reveals a hidden detail — something concealed, altered, or deliberately obscured. A false trail, a removed object, a covered wound."
+          },
+          {
+            "tier": 3,
+            "label": "Legendary",
+            "range": "8+",
+            "description": "Full reconstruction. The GM narrates a brief flashback of what happened at this location or to this subject. You see it play out. The crew may act on this as reliable intelligence."
+          }
+        ]
+      },
+      {
+        "id": "voc_investigator_t4",
+        "tier": 4,
+        "type": "passive",
+        "name": "Follow the Thread",
+        "tags": [
+          "[Narrative]"
+        ],
+        "rule": "Upgrades Keen Insight.\n\nWhen you score a Masterful Success (8+ on Control) on Keen Insight, after resolving the reconstruction, you may immediately make an Assess maneuver at no additional action cost. This follow-up Assess gains +1 Tier to its effect result.\n\nYour questions on this Assess must pertain directly to details revealed by the Keen Insight reconstruction — you're drilling into what you just saw, not fishing for new information.",
+        "shorthand": "Keen Insight Masterful 8+ → spend Assess question for a second reconstruction angle.",
+        "modifiesAction": "voc_investigator_t3"
+      },
+      {
+        "id": "voc_investigator_t5",
+        "tier": 5,
+        "type": "passive",
+        "name": "The Confrontation",
+        "tags": [
+          "[Narrative]",
+          "[Combat]"
+        ],
+        "rule": "When you confront the target of your investigation — the person, group, or entity your Keen Insight and Assess results have been building toward — you gain [Optimized] on all Assess and social actions directed at them. You know their patterns, their tells, their pressure points. You've done the work.\n\nIf the confrontation turns hostile, you may spend 1 Edge Point. All allies gain [Optimized] and [Empowered] on their Join Battle rolls. You saw this coming. You briefed the crew. Nobody's caught flat-footed.",
+        "shorthand": "Confront investigation target: Optimized and Empowered on first action against them. 1/arc."
+      }
+    ],
+    "imageUrl": "/assets/vocations/voc_investigator.png",
+    "startingItems": [
+      {
+        "id": "gear_recording_rod_01",
+        "name": "Recording Rod",
+        "cost": 30,
+        "source": "gear"
+      },
+      {
+        "id": "gear_macrobinoculars_01",
+        "name": "Macro-binoculars",
+        "cost": 100,
+        "source": "gear"
+      }
+    ]
   },
   {
     "id": "voc_rifleman",
@@ -1950,6 +2011,231 @@
         "name": "Bryar Rifle",
         "cost": 1000,
         "source": "weapon"
+      }
+    ]
+  },
+  {
+    "id": "voc_seer",
+    "name": "The Seer",
+    "governingArena": "wits",
+    "favoredDiscipline": "sense_spark",
+    "description": "The Force is a river of information — past, present, and the faintest currents of what may come. The Seer drinks from that river. They perceive what others cannot: the fracture lines in people and events, the split-second warnings that turn impossible dodges into casual sidesteps, and the shatterpoints where everything can break.",
+    "fluff": "Quinlan Vos touched a wall and watched a murder happen three days after the blood dried. Cal Kestis picked up a fallen lightsaber and lived its owner’s last stand. Mace Windu saw the fracture in the Confederacy before anyone else knew it existed. You’re not that powerful. Not yet. But when the Force shows you the crack in everything — pay attention.",
+    "abilities": [
+      {
+        "id": "voc_seer_t1",
+        "tier": 1,
+        "type": "passive",
+        "name": "Combat Sense",
+        "tags": [
+          "[Force]",
+          "[Combat]"
+        ],
+        "rule": "You may use Sense (Wits) in place of Tactics (Wits) for Join Battle rolls. The Force whispers the shape of violence before it begins. Additionally, on a Masterful Success (Control 8+) on Join Battle, choose one: gain +1 Effect Tier on your initiative result, OR gain [Optimized] on all Attack and Defense rolls until the end of your first Action.",
+        "shorthand": "Use Sense (Wits) for Join Battle. On success, sense one hidden or concealed combatant.",
+        "modifiesAction": "action_join_battle"
+      },
+      {
+        "id": "voc_seer_t2",
+        "tier": 2,
+        "type": "passive",
+        "name": "Force Sight",
+        "tags": [
+          "[Force]",
+          "[Both]"
+        ],
+        "rule": "You may use Sense (Wits) in place of any discipline normally called for on Assess actions. Your perception extends beyond physical senses — you ignore darkness, cover, concealment, and solid barriers when assessing. You detect life presences, emotional states, and Force signatures. This does not replace Sense discipline gambits — those still function normally on top of this substitution. The GM adjudicates effective range based on the fiction.",
+        "modifiesAction": "action_assess",
+        "shorthand": "Use Sense (Wits) for any Assess. Perceive lies, intent, danger through the Force."
+      },
+      {
+        "id": "voc_seer_t3",
+        "tier": 3,
+        "type": "maneuver",
+        "name": "Shatterpoint Sense",
+        "tags": [
+          "[Force]",
+          "[Narrative]"
+        ],
+        "discipline": "sense_spark",
+        "arena": "wits",
+        "rolled": true,
+        "rule": "Perceive the connections between people, events, and objects through the Force. Roll Sense (Wits), no defense. You do not learn facts — you perceive relationships, emotional weight, and the web of causality that binds things together.",
+        "risk": "On failure, you gain [Disoriented]. Particularly traumatic echoes may add [Rattled] at the GM’s discretion.",
+        "effect": [
+          {
+            "tier": 1,
+            "label": "Fleeting",
+            "range": "0-3",
+            "description": "A vague sense that a connection exists between two elements in the scene. You know something links them, but not the nature or significance."
+          },
+          {
+            "tier": 2,
+            "label": "Masterful",
+            "range": "4-7",
+            "description": "You perceive the nature and emotional weight of the connection. The GM reveals the relationship’s character — loyalty, fear, debt, hatred, love, obligation. You may ask 1 question about the connection."
+          },
+          {
+            "tier": 3,
+            "label": "Legendary",
+            "range": "8+",
+            "description": "The full web of connections unfolds. You see how multiple elements relate — the chain of causality, the pressure points, the fault lines. The GM reveals the key pressure point in the web. You may ask 2 questions."
+          }
+        ]
+      },
+      {
+        "id": "voc_seer_t4",
+        "tier": 4,
+        "type": "exploit",
+        "name": "Precognitive Counter",
+        "tags": [
+          "[Force]",
+          "[Combat]"
+        ],
+        "modifiesAction": [
+          "action_endure",
+          "action_dodge"
+        ],
+        "actionType": "Endure or Dodge",
+        "rule": "When you Endure or Dodge and your Control die is 8+, spend your Exploit pip. Instead of the standard +1 Tier bonus from Masterful Success, the attacker presents an Opening to you. You saw the strike before it landed and positioned yourself to punish it."
+      },
+      {
+        "id": "voc_seer_t5",
+        "tier": 5,
+        "type": "maneuver",
+        "name": "Shatterpoint Strike",
+        "tags": [
+          "[Force]",
+          "[Combat]"
+        ],
+        "discipline": "sense_spark",
+        "arena": "wits",
+        "defense": "resolve",
+        "rolled": true,
+        "rule": "Once per scene. Roll Sense (Wits) vs target’s Resolve. You perceive the shatterpoint — the exact fracture line in the target’s defense, stance, or resolve. You must attack the target before the end of the round or the moment passes. If the attack is not made, the shatterpoint closes and the maneuver is wasted.",
+        "risk": "On failure, the maneuver is wasted and the target knows you tried to read them — they sense the probe.",
+        "effect": [
+          {
+            "tier": 1,
+            "label": "Fleeting",
+            "range": "0-3",
+            "description": "Target gains [Exposed]."
+          },
+          {
+            "tier": 2,
+            "label": "Masterful",
+            "range": "4-7",
+            "description": "Target gains [Exposed] and [Optimized] applies to your next attack against them this round."
+          },
+          {
+            "tier": 3,
+            "label": "Legendary",
+            "range": "8+",
+            "description": "Target gains [Exposed]. Your next attack against them this round gains [Optimized] and [Empowered]."
+          }
+        ]
+      }
+    ],
+    "imageUrl": "/assets/vocations/voc_seer.png",
+    "startingItems": [
+      {
+        "id": "gear_glow_rod_01",
+        "name": "Glow Rod",
+        "cost": 10,
+        "source": "gear"
+      },
+      {
+        "id": "gear_holo_journal_01",
+        "name": "Holo-Journal",
+        "cost": 75,
+        "source": "gear"
+      }
+    ]
+  },
+  {
+    "id": "voc_ships_mechanic",
+    "name": "The Ship's Mechanic",
+    "governingArena": "wits",
+    "favoredDiscipline": "tech",
+    "description": "A master of starship systems, vehicle repair, and mid-combat optimization who keeps the vessel flying and buffs the crew's vehicle actions.",
+    "fluff": "Every ship has a heartbeat — the low hum of a reactor cycling, the whine of a converter pulling too hard, the silence right before something breaks. You hear all of it. While the Ace is pulling maneuvers and the gunner is lighting up the void, you're three decks down with your hands inside a junction box, rerouting power through conduits that weren't designed for it, coaxing one more jump out of a hyperdrive that should have been scrapped two parsecs ago. You're the reason the ship comes home.",
+    "abilities": [
+      {
+        "id": "voc_ships_mechanic_t1",
+        "tier": 1,
+        "type": "passive",
+        "name": "Chief Engineer",
+        "tags": [
+          "[Combat]",
+          "[Narrative]"
+        ],
+        "rule": "At the start of each adventure, designate one starship or vehicle under your crew's control. For the duration of the adventure, you are assumed to always have the right tools and minor repair components on hand when working on this vessel. Additionally, while seated or stationed as this vessel's engineer, you cannot be afflicted by the [Disoriented] condition.",
+        "shorthand": "Designate ship per adventure. Auto-equipped for repairs. Immune to [Disoriented] at Engineer station."
+      },
+      {
+        "id": "voc_ships_mechanic_t2",
+        "tier": 2,
+        "type": "passive",
+        "name": "Emergency Shunt",
+        "tags": [
+          "[Combat]"
+        ],
+        "rule": "While you are stationed on your designated vehicle and it suffers damage that reduces its Integrity, you may spend 1 of your personal Edge as a reaction to prevent 1 point of that damage.",
+        "shorthand": "Spend 1 Edge as reaction to prevent 1 ship Integrity damage."
+      },
+      {
+        "id": "voc_ships_mechanic_t3",
+        "tier": 3,
+        "type": "gambit",
+        "name": "Optimal Calibration",
+        "tags": [
+          "[Combat]"
+        ],
+        "modifiesAction": "action_assess",
+        "actionType": "Assess (Starship/Vehicle)",
+        "rule": "When you make a successful Assess roll regarding a starship or vehicle's status, you may spend 1 Tier to convert your earned questions into Calibration Charges (1 charge per remaining tier). Until the start of your next turn, whenever an ally rolls one of the vessel's systems as a Power Die, you may spend 1 Calibration Charge to allow them to reroll that Power Die prior to finalizing the result. They keep the higher result."
+      },
+      {
+        "id": "voc_ships_mechanic_t4a",
+        "tier": 4,
+        "type": "passive",
+        "name": "Advanced Calibration",
+        "tags": [
+          "[Combat]"
+        ],
+        "rule": "Your Optimal Calibration ability expands. You may now choose to let an ally spend a Calibration Charge to reroll their Control Die instead of their Power Die. They still may not reroll both on the same action.",
+        "shorthand": "Calibration Charges now also allow Control Die reroll (one or the other)."
+      },
+      {
+        "id": "voc_ships_mechanic_t4b",
+        "tier": 4,
+        "type": "gambit",
+        "name": "Overcharged Routing",
+        "tags": [
+          "[Combat]"
+        ],
+        "modifiesAction": "action_reroute_power",
+        "actionType": "Reroute Power",
+        "rule": "When you successfully perform the Reroute Power maneuver, you may spend 1 Tier from the result. If you do, the system whose die was increased gains the Unleashed capability (the die explodes on a maximum result) for as long as it remains affected by the maneuver."
+      },
+      {
+        "id": "voc_ships_mechanic_t5",
+        "tier": 5,
+        "type": "permission",
+        "name": "Miracle Worker",
+        "tags": [
+          "[Combat]"
+        ],
+        "rule": "Once per adventure, when an ally on your designated vessel makes a roll using a die (Control or Power) that you have modified, buffed, or allowed them to reroll since the start of your last turn, you may spend 1 Edge to instantly set that die to its maximum natural result instead of rolling it. If applied to a Power die with the Unleashed capability, it automatically triggers the explosion."
+      }
+    ],
+    "imageUrl": "/assets/vocations/voc_ships_mechanic.png",
+    "startingItems": [
+      {
+        "id": "gear_engineering_toolkit_01",
+        "name": "Engineering Toolkit",
+        "cost": 200,
+        "source": "gear"
       }
     ]
   },
@@ -2060,393 +2346,107 @@
     ]
   },
   {
-    "id": "voc_shiicho_knight",
-    "name": "The Shii-Cho Knight",
-    "governingArena": "grit",
-    "favoredDiscipline": "control_spark",
-    "description": "Form I — The Way of the Sarlacc. The oldest lightsaber discipline, and the one every Jedi learns first. Shii-Cho is not elegant. It is not subtle. It is the foundation — wide sweeping arcs that trace the six zones of attack, powered by determination rather than finesse. Where other forms specialize, Shii-Cho endures. Where other forms seek advantage, Shii-Cho seeks resolution. The blade does not stop moving until the fight is over — or until the Jedi decides it is.",
-    "fluff": "Every form that came after was built on this one. When the duelist's precision fails, when the guardian's wall breaks, when the aggressor's fury burns out — what remains is Shii-Cho. The first thing you learned. The last thing still standing.",
+    "id": "voc_splice",
+    "name": "The Splice",
+    "governingArena": "wits",
+    "favoredDiscipline": "tech",
+    "description": "Slicers talk to machines and machines talk back. The Splice doesn't just use technology — they command it. Through a companion probe droid and a talent for invasive system access, they extend their reach into any networked system, locked terminal, or security grid that makes the mistake of having a physical port.",
+    "fluff": "Chopper kept the Ghost flying with attitude, bad wiring, and creative profanity. R2-D2 sliced Star Destroyers from the inside while everyone else was busy getting shot. The best slicers in the galaxy aren't the ones who sit behind terminals — they're the ones who send something small, fast, and expendable to do the job while they watch from a safe distance. Your droid isn't your pet. It's your hands where your hands can't reach.",
     "abilities": [
       {
-        "id": "voc_shiicho_knight_t1",
+        "id": "voc_splice_t1",
         "tier": 1,
         "type": "passive",
-        "name": "The Determination Form",
+        "name": "Companion Droid",
         "tags": [
-          "[Combat]"
+          "[Combat]",
+          "[Narrative]"
         ],
-        "rule": "When you attack with a Lightsaber or a Light or Medium bladed melee weapon, you may roll Melee (Grit) instead of Melee (Physique). Power comes from determination, not muscle. The Force disciplines the body — every strike lands with the certainty of absolute resolve.\n\nSun Djem: When your melee attack with a lightsaber would reduce a target to 0 Vitality, you may declare Sun Djem. The target is left at 1 Vitality and rendered Helpless. You determine whether they fall unconscious or immediately exit the scene — alive, but injured. The fight is over. You chose to let them walk away from it.",
-        "modifiesAction": "action_attack",
-        "targetWeaponTags": [
-          "Lightsaber",
-          "Melee"
-        ],
-        "shorthand": "Melee (Grit) replaces Melee (Physique) with lightsaber or light/medium bladed melee. Sun Djem: on reducing target to 0 Vitality, may leave at 1 Vitality + Helpless instead."
+        "rule": "You begin play with a small hovering probe droid — a scomp-link equipped utility platform with a basic toolkit, sensor suite, and holoprojector. The droid occupies your zone and can move up to 3 zones from you. It acts on your initiative using your pips — commanding it costs the same as acting yourself.\n\nThe droid has no independent will. It does exactly what you tell it and nothing else. When the droid is targeted by an attack or hazard, you defend for it using Tech (Wits) as both Control and Power. If the defense fails, the droid enters [Shut Down] and must be repaired with a Tech action during a Short Rest.\n\nThe droid can interact with physical systems (plug into terminals, activate switches, carry small objects) but cannot attack, intimidate, or perform social actions. It is a tool, not a combatant.",
+        "shorthand": "Companion droid can Interact with physical systems (terminals, switches, carry objects). Modes: Scout, Combat, Fortify.",
+        "modifiesAction": "action_interact"
       },
       {
-        "id": "voc_shiicho_knight_t2",
+        "id": "voc_splice_t2",
         "tier": 2,
-        "type": "exploit",
-        "name": "Sarlacc Sweep",
+        "type": "passive",
+        "name": "Direct",
         "tags": [
-          "[Combat]"
+          "[Combat]",
+          "[Narrative]"
         ],
-        "rule": "When you are Engaged with two or more enemies and your melee attack reduces a target to 0 Vitality, or anytime you declare Sun Djem on a target, the next Engaged enemy presents an Opening. You may Exploit this Opening to make a new melee attack against them. If this attack also reduces its target to 0 Vitality or you declare Sun Djem, the chain continues — the next Engaged enemy presents another Opening. The sweep continues as long as there are Engaged enemies, targets keep falling, and you have Exploit pips to spend.",
-        "modifiesAction": "action_attack",
-        "targetWeaponTags": [
-          "Lightsaber",
-          "Melee"
-        ],
-        "shorthand": "On kill or Sun Djem while Engaged with 2+: next Engaged enemy presents Opening. Exploit to attack. Chain continues on each kill/Sun Djem."
+        "rule": "When your droid or any system you have physically accessed via scomp-link is under your control, you may spend a Maneuver pip to issue a Direct command. The controlled system provides its own Power die (determined by the GM based on the system's capability), and you use Tech (Wits) as your Control die.\n\nThe system's capabilities determine what Direct can do — a turret can fire, a door can lock, a security camera can pan, a ventilation system can vent atmosphere. You cannot Direct a system to do something it was not built to do. No turret means no attack. No lock means no seal.\n\nDirect requires maintained physical connection (scomp-link) or active control via Companion Droid. Breaking the connection ends control immediately.",
+        "shorthand": "Spend Maneuver to direct droid/sliced system to Interact. Tech (Wits) for complex commands.",
+        "modifiesAction": "action_interact"
       },
       {
-        "id": "voc_shiicho_knight_t3",
+        "id": "voc_splice_t3",
         "tier": 3,
-        "type": "gambit",
-        "name": "Disarming Slash",
-        "tags": [
-          "[Combat]"
-        ],
-        "rule": "After resolving a melee attack with a lightsaber, you may activate this gambit. Increase your effect tier by 1 — if this would reduce the target to 0 Vitality, you may declare Sun Djem. The target is left at 1 Vitality and rendered Helpless. If the increased tier would not reduce them to 0 Vitality, deal damage at your original effect tier minus 1 instead. The reach for mercy costs you when it falls short.",
-        "modifiesAction": "action_attack",
-        "targetWeaponTags": [
-          "Lightsaber"
-        ],
-        "shorthand": "Gambit: +1 tier check. If would reduce to 0 Vitality, declare Sun Djem (1 Vitality, Helpless). If not, deal original tier minus 1."
-      },
-      {
-        "id": "voc_shiicho_knight_t4",
-        "tier": 4,
-        "type": "passive",
-        "name": "Inner Peace",
-        "tags": [
-          "[Combat]"
-        ],
-        "rule": "At the start of any action or reaction, you may spend 1 Edge to clear one of the following conditions affecting you: Disoriented, Rattled, Staggered, or one instance of Weakened (such as Weakened Attacks, Weakened Defenses, or Weakened to a specific arena). The oldest form teaches that the blade begins in the mind — when the mind is clear, the blade follows.",
-        "shorthand": "Spend 1 Edge at start of action/reaction to clear Disoriented, Rattled, Staggered, or one Weakened instance."
-      },
-      {
-        "id": "voc_shiicho_knight_t5",
-        "tier": 5,
-        "type": "passive",
-        "name": "The Foundation",
-        "tags": [
-          "[Combat]"
-        ],
-        "rule": "You have mastered the foundation. All lightsaber forms descend from Form I — and now you understand this truth completely. You gain the Tier 1 ability of every other lightsaber form vocation. These are not borrowed techniques. They were always here, inside the oldest form, waiting to be recognized.",
-        "shorthand": "Gain the T1 ability of every other lightsaber form vocation."
-      }
-    ],
-    "imageUrl": "/assets/vocations/voc_shiicho_knight.png",
-    "startingItems": [
-      {
-        "id": "wpn_lightsaber_01",
-        "name": "Lightsaber",
-        "cost": 0,
-        "source": "weapon"
-      }
-    ]
-  },
-  {
-    "id": "voc_juyo_adept",
-    "name": "The Juyo Adept",
-    "governingArena": "presence",
-    "favoredDiscipline": "alter_spark",
-    "description": "Form VII — The Ferocity Form. The forbidden seventh lightsaber discipline, and the last one the Order ever sanctioned. Juyo does not defend. It does not endure. It overwhelms. The practitioner opens themselves to the dark side — not to be consumed by it, but to channel it outward through the blade. Every swing carries the weight of fury held in perfect focus. The superconducting loop: aggression flows in, amplified aggression flows out. The more the enemy fights, the stronger the Adept becomes.",
-    "fluff": "Only two Jedi ever mastered Vaapad. One of them nearly killed a Sith Lord who had destroyed every other Master sent against him. The other fell to the dark side. The Order forbade this form for good reason. You are learning it anyway.",
-    "abilities": [
-      {
-        "id": "voc_juyo_adept_t1",
-        "tier": 1,
-        "type": "passive",
-        "name": "The Ferocity Form",
-        "tags": [
-          "[Combat]",
-          "[Force]"
-        ],
-        "rule": "You may roll Melee (Presence) instead of Melee (Physique) when attacking with a lightsaber or light melee weapon. The blade is driven by will, not strength. Every strike carries the weight of your intent — not your body.\n\nWhen you attack with a lightsaber, light melee weapon, or Alter, you may tap a Toll token from the Destiny Pool. You open yourself to the Force, leaning into the thrill of the fight. For a number of rounds equal to your current Hope count, you gain +1 Effect Tier on all attacks made with a lightsaber, light melee weapon, or Alter.",
-        "modifiesAction": "action_attack",
-        "targetWeaponTags": [
-          "Lightsaber",
-          "Melee"
-        ],
-        "shorthand": "Melee (Presence) replaces Melee (Physique) with lightsaber or light melee. Tap Toll token: +1 Effect Tier on lightsaber/light melee/Alter attacks for rounds equal to current Hope count."
-      },
-      {
-        "id": "voc_juyo_adept_t2",
-        "tier": 2,
         "type": "maneuver",
-        "name": "Vornskyr's Grasp",
+        "name": "Reconfigure",
         "tags": [
-          "[Combat]",
-          "[Force]"
+          "[Narrative]"
         ],
-        "discipline": "alter_spark",
-        "arena": "presence",
-        "defense": "resist",
-        "rolled": true,
-        "rule": "Alter (Presence) vs target's Resist. Range 0-1. You reach out through the Force and drag your prey closer.",
-        "risk": "On failure, the Force does not answer — the target holds their ground. Wasted Maneuver.",
+        "discipline": "tech",
+        "arena": "wits",
+        "rolled": false,
+        "rule": "During a Short Rest, you may reconfigure your Companion Droid into one of three operational modes. The mode persists until the next Short Rest. Choose one:\n\n**Scout Mode:** The droid's operational range extends to unlimited distance (as long as comm signal is maintained). It gains enhanced sensors — you may Assess through the droid using Tech (Wits) at no range penalty. The droid cannot interact with systems in this mode — it observes only.\n\n**Combat Mode:** The droid gains a light blaster mount. It may make Ranged attacks using your Tech (Wits) as Control and a D6 Power die. Range: 2 zones. The droid's operational range remains 5 zones.\n\n**Fortify Mode:** The droid projects a localized energy shield. One ally in the droid's zone gains [Buffered 2] at the start of each round. The droid's operational range is reduced to 2 zones and it cannot interact with systems while maintaining the shield.",
         "effect": [
           {
             "tier": 1,
-            "label": "Fleeting",
-            "range": "0-3",
-            "description": "Pull the target up to 1 zone closer to you."
+            "label": "Scout Mode",
+            "range": "Short Rest",
+            "description": "Unlimited range, enhanced sensors, Assess through droid at no penalty. Observation only — no system interaction."
           },
           {
             "tier": 2,
-            "label": "Masterful",
-            "range": "4-7",
-            "description": "Pull the target up to 1 zone closer. You gain [Empowered] on your next attack this round using Alter or a lightsaber or light melee weapon against that target."
+            "label": "Combat Mode",
+            "range": "Short Rest",
+            "description": "Light blaster mount (D6 Power, 2-zone range). Attacks use Tech (Wits). Operational range 5 zones."
           },
           {
             "tier": 3,
-            "label": "Legendary",
-            "range": "8+",
-            "description": "Pull the target up to 1 zone closer. The target presents an Opening — you may Exploit to make an immediate [Empowered] attack using Alter or a lightsaber or light melee weapon."
+            "label": "Fortify Mode",
+            "range": "Short Rest",
+            "description": "Energy shield grants [Buffered 2] to one ally in droid zone each round. Operational range reduced to 2 zones, no system interaction."
           }
-        ],
-        "shorthand": "Alter (Presence) vs Resist, range 0-1. Pull target 1 zone. Masterful: [Empowered] next attack. Legendary: Opening, Exploit for immediate [Empowered] attack."
+        ]
       },
       {
-        "id": "voc_juyo_adept_t3",
-        "tier": 3,
-        "type": "passive",
-        "name": "Ferocity",
-        "tags": [
-          "[Combat]",
-          "[Force]"
-        ],
-        "rule": "When you successfully defend against a Force-related power using Endure or Resist, you gain [Optimized] on your next attack using Alter or a lightsaber or light melee weapon against that target. Their Force aggression feeds your blade.",
-        "modifiesAction": "action_endure",
-        "shorthand": "On successful Endure/Resist vs Force power: gain [Optimized] on next attack against that target."
-      },
-      {
-        "id": "voc_juyo_adept_t4",
+        "id": "voc_splice_t4",
         "tier": 4,
         "type": "passive",
-        "name": "Redirect",
+        "name": "Autonomous Protocol",
         "tags": [
-          "[Combat]",
-          "[Force]"
+          "[Combat]"
         ],
-        "rule": "When you successfully defend against a Force-related power using Endure or Resist, you may spend 1 Edge to redirect the attack back at the caster. Make an Alter (Presence) attack against them. If Ferocity (Tier 3) triggered on the same defense, the redirect is [Optimized].",
-        "modifiesAction": "action_endure",
-        "shorthand": "On successful Endure/Resist vs Force power: spend 1 Edge to redirect as Alter (Presence) attack. Stacks with T3 [Optimized]."
+        "rule": "Your Companion Droid gains limited autonomous behavior during Challenge scenes. It may take one independent Maneuver pip per round without costing you a pip — the droid acts on pre-programmed subroutines you've drilled into it.\n\nThe autonomous Maneuver must be consistent with the droid's current mode: Scout droid repositions or scans, Combat droid repositions or takes cover, Fortify droid repositions the shield. The droid still cannot take Actions independently — complex commands still require your Direct.",
+        "shorthand": "Droid gets 1 free Maneuver/round (autonomous). Can Interact independently in current mode.",
+        "modifiesAction": "action_interact"
       },
       {
-        "id": "voc_juyo_adept_t5",
+        "id": "voc_splice_t5",
         "tier": 5,
-        "type": "passive",
-        "name": "The Dark Bargain",
-        "tags": [
-          "[Combat]",
-          "[Force]"
-        ],
-        "rule": "When you deal damage to a target that has attacked you since the end of your last turn, you may flip a Hope token to Toll. Add the new Toll count to the damage dealt. The loop completes — their aggression became yours, and it cost the galaxy a piece of its light.",
-        "shorthand": "On damaging a target that attacked you last round: flip Hope to Toll, add new Toll count as bonus damage."
-      }
-    ],
-    "imageUrl": "/assets/vocations/voc_juyo_adept.png",
-    "startingItems": [
-      {
-        "id": "wpn_lightsaber_01",
-        "name": "Lightsaber",
-        "cost": 0,
-        "source": "weapon"
-      }
-    ]
-  },
-  {
-    "id": "voc_juggernaut",
-    "name": "The Juggernaut",
-    "governingArena": "physique",
-    "favoredDiscipline": "endure",
-    "description": "The Juggernaut does not dodge. He does not flinch. He walks into the blast zone, shrugs off the hit, and keeps moving. Where others build around speed and reflexes, the Juggernaut builds around the armor on his back — not to overcome its limitations, but to lean into its strengths. The heavier the plate, the harder the hit, the more punishment he can absorb. He is not fast. He is not subtle. He is the reason they stopped shooting.",
-    "fluff": "Every soldier learns to wear armor. Most learn to tolerate it. A few learn to depend on it. The Juggernaut is the professional who treats their armor the way a swordsman treats a blade — as an extension of the body, maintained, understood, and trusted absolutely. On the Outer Rim, when the blaster fire starts and the squad dives for cover, there is always one who stays standing. The enemy empties a power cell into his chest. He does not go down. He does not slow down. Eventually, the enemy stops shooting — not because they ran out of ammunition, but because they realized it was not working.",
-    "abilities": [
-      {
-        "id": "voc_juggernaut_t1",
-        "tier": 1,
-        "type": "passive",
-        "name": "Broken In",
-        "tags": [
-          "[Combat]",
-          "[Armor]"
-        ],
-        "rule": "While wearing armor, you suffer no penalties to your Control die (disciplines) due to encumbrance or bulk. You have trained to operate in your armor — the weight distribution is second nature and your fine motor control is unaffected. You still suffer any penalties to your Reflex arena, including the Evasion step-down for medium and heavy armor.\n\nAdditionally, when you choose to take Trauma to your Physique while wearing armor, you may soak 1 additional Vitality (3 instead of the normal 2).",
-        "shorthand": "No Control die penalties from armor. Reflex penalties still apply. Physique Trauma soaks 3 Vitality instead of 2 while armored."
-      },
-      {
-        "id": "voc_juggernaut_t2",
-        "tier": 2,
-        "type": "passive",
-        "name": "Durasteel Nerve",
-        "tags": [
-          "[Combat]",
-          "[Defense]",
-          "[Armor]"
-        ],
-        "rule": "When you fail an Endure defense roll and spend Edge to reroll, you are [Optimized] for the reroll — your Control die steps up for that Endure roll. The first hit found a gap. The second one will not.\n\nYour armor taught you something most soldiers never learn: the moment after you get hit is the moment you are most dangerous, because now you know exactly where you are vulnerable and you will not make that mistake twice.",
-        "shorthand": "Failed Endure + Edge reroll = [Optimized] (Control die steps up for the reroll)."
-      },
-      {
-        "id": "voc_juggernaut_t3",
-        "tier": 3,
-        "type": "passive",
-        "name": "Plated Conditioning",
-        "tags": [
-          "[Combat]",
-          "[Armor]"
-        ],
-        "rule": "Your conditioning while wearing armor is fully ingrained. When you choose to take Trauma to your Physique, the additional Vitality soaked now scales with your armor type:\n\n- Light armor: +1 additional Vitality soaked (3 total)\n- Medium armor: +2 additional Vitality soaked (4 total)\n- Heavy armor: +3 additional Vitality soaked (5 total)\n\nThis replaces the flat +1 from Broken In — heavier armor now rewards your investment with greater damage absorption per Trauma.\n\nAdditionally, you do not suffer any penalties from exhaustion faster than someone not wearing armor. Extended marches, desert heat, sustained combat — the armor is not a factor in your fatigue.",
-        "shorthand": "Physique Trauma soak scales with armor: light +1 (3), medium +2 (4), heavy +3 (5). No exhaustion penalties from wearing armor."
-      },
-      {
-        "id": "voc_juggernaut_t4",
-        "tier": 4,
-        "type": "gambit",
-        "name": "\"Is That All?\"",
-        "tags": [
-          "[Combat]",
-          "[Defense]",
-          "[Armor]"
-        ],
-        "modifiesAction": "defense_endure",
-        "actionType": "Endure",
-        "rule": "Gambit on Endure. When you successfully Endure an attack, you may spend 1 tier from your result to reduce the incoming effect by 1 tier and impose [Rattled] on the attacker. You took the hit clean and did not flinch — they expected you to go down and you did not. That shakes people.\n\n[Rattled]: Mental debuff — the attacker's Control die steps down on mental actions. They are shaken, demoralized, and second-guessing whether hitting you again is worth the effort.",
-        "shorthand": "Endure gambit: spend 1 tier → reduce incoming effect by 1 tier + attacker gains [Rattled]."
-      },
-      {
-        "id": "voc_juggernaut_t5",
-        "tier": 5,
-        "type": "passive",
-        "name": "Siege Engine",
-        "tags": [
-          "[Combat]",
-          "[Armor]"
-        ],
-        "rule": "When you Endure an attack and score 8+ on your Control die, you may choose to immediately clear any mental condition affecting you instead of taking the normal +1 effect tier bonus. The hit snaps you back to focus — pain has a way of cutting through fear, confusion, and demoralization.\n\nAdditionally, your armor works for you even when you are not actively defending. When you are attacked by any attack you could Endure (regardless of whether you actually Endure or Dodge), your armor passively reduces the attacker's Power rating before you even roll:\n\n- Light armor: Power -1\n- Medium armor: Power -2\n- Heavy armor: Power -3\n\nThis reduction applies before your defense roll. The enemy's weapon is simply less effective against you — the blast dissipates across the plate, the vibroblade skitters off a pauldron, the slug flattens against durasteel. They are not fighting you. They are fighting your armor. And your armor is winning.",
-        "shorthand": "Endure 8+ Control: clear mental condition instead of +1 effect. Armor passively reduces attacker Power (light -1, medium -2, heavy -3) before rolling."
-      }
-    ],
-    "imageUrl": "/assets/vocations/voc_juggernaut.png",
-    "startingItems": [
-      {
-        "id": "gear_armor_repair_kit_01",
-        "name": "Armor Repair Kit",
-        "cost": 200,
-        "source": "gear"
-      }
-    ]
-  },
-  {
-    "id": "voc_pathfinder",
-    "name": "The Pathfinder",
-    "governingArena": "grit",
-    "favoredDiscipline": "survival",
-    "description": "The Pathfinder does not conquer the wilderness — she reads it. Where others see hostile terrain, she sees shelter, sustenance, and safe passage. She moves through fungal jungles and toxic wastes the way a dockworker moves through a spaceport: with the casual confidence of someone who has been here before, even when she has not. The galaxy is full of planets that want to kill you. The Pathfinder is the reason your squad walks out the other side.",
-    "fluff": "Every expedition needs someone who can read the ground. Not with sensors or satellite maps, but with instinct earned from years of sleeping in places where the air can kill you and the water fights back. The Pathfinder is the one who stops the column before the sinkhole, identifies the spore bloom before the first sneeze, and somehow produces a medpac from a pile of moss and tree bark. On Felucia, the clone troopers had their training and their armor. It was the scouts who kept them alive — the ones who knew which fungi were footholds and which were digestive tracts. In the Outer Rim, when the nav computer fails and the terrain stretches past the edge of the map, you follow the Pathfinder. She has never needed a map.",
-    "abilities": [
-      {
-        "id": "voc_pathfinder_t1",
-        "tier": 1,
-        "type": "passive",
-        "name": "Wilderness Awareness",
-        "tags": [
-          "[Narrative]",
-          "[Exploration]"
-        ],
-        "rule": "In wilderness or natural terrain, you may use Survival (Grit) in place of Tactics (Wits) when rolling Join Battle. You read terrain the way a tactician reads a battlefield — sight lines, choke points, elevation, and escape routes are instinctive.\n\nAdditionally, you may use Survival (Grit) in place of Medicine (Wits) when treating natural wounds, poisons, diseases, or environmental injuries — even with scant or improvised supplies. You know which root draws out venom, which bark reduces fever, and which moss stops bleeding. A proper medpac helps, but you do not need one.",
-        "shorthand": "Survival replaces Tactics for Join Battle in wilderness. Survival replaces Medicine for natural wounds/poisons/diseases, even with scant supplies."
-      },
-      {
-        "id": "voc_pathfinder_t2",
-        "tier": 2,
-        "type": "maneuver",
-        "name": "Scrounge",
-        "tags": [
-          "[Narrative]",
-          "[Exploration]"
-        ],
-        "discipline": "survival",
-        "arena": "grit",
-        "rolled": true,
-        "rule": "During a Long Rest in wilderness or natural terrain, you may spend a maneuver to scavenge your surroundings. Roll Survival (Grit). Based on your result tier, choose one item from the corresponding menu. You choose one item from the highest tier you qualify for. Items scrounged are improvised equivalents — they function identically but look like they were assembled from bark, sap, and whatever was in your pockets.",
-        "risk": "On failure, you find nothing useful — the terrain has been picked clean, or the local flora is simply inedible.",
-        "effect": [
-          {
-            "tier": 1,
-            "label": "Fleeting",
-            "range": "0-3",
-            "description": "Choose one: Field Rations (10cr equivalent), Glow Rod (25cr equivalent), or Syntherope (10cr equivalent)."
-          },
-          {
-            "tier": 2,
-            "label": "Masterful",
-            "range": "4-7",
-            "description": "Choose one: Bacta Patch (20cr equivalent), Stimulant Tabs (20cr equivalent), or Camouflaged Camp (concealed rest site — the party cannot be found by passive patrols during this rest)."
-          },
-          {
-            "tier": 3,
-            "label": "Legendary",
-            "range": "8+",
-            "description": "Choose one: Medpac (100cr equivalent) or Rare Find (GM determines — a useful item, resource, or material native to the environment that would not normally be available without a market)."
-          }
-        ],
-        "shorthand": "Long Rest maneuver: roll Survival (Grit). Choose one item from a tier-based menu — rations/glow rod/rope at Fleeting, bacta patch/stimulant tabs/camo camp at Masterful, medpac/rare find at Legendary."
-      },
-      {
-        "id": "voc_pathfinder_t3",
-        "tier": 3,
         "type": "permission",
-        "name": "Vanguard",
+        "name": "Parallel Processing",
         "tags": [
-          "[Narrative]",
-          "[Exploration]"
+          "[Combat]"
         ],
-        "rule": "When you take the Assess action in wilderness or natural terrain, you may declare that you are scouting along your proposed path of travel. Your questions are scoped to the route ahead: what dangers lie along this path, what terrain changes are coming, whether the path is passable, and what lives or operates in the area you are heading toward.\n\nThis uses Survival (Grit) for the Assess roll. On success, you gain your questions as normal. On failure, you gain no information, and the GM may trigger an encounter as a consequence of your scouting — you pushed too far ahead and something found you first.",
-        "shorthand": "Assess in wilderness using Survival (Grit), scoped to scouting the route ahead. Failure = no info + GM may trigger encounter."
-      },
-      {
-        "id": "voc_pathfinder_t4",
-        "tier": 4,
-        "type": "permission",
-        "name": "Instinct",
-        "tags": [
-          "[Narrative]",
-          "[Exploration]",
-          "[Defense]"
-        ],
-        "rule": "When an ally would be attacked or affected by an unknown, unidentified hazard in natural terrain, you may spend 1 Edge to immediately assume the risk. You take the hit instead of your ally and resist the hazard with Survival (Grit). This roll is [Optimized] — your Control die steps up.\n\nYou saw it before they did. The discolored ground, the shift in the air, the way the canopy went quiet. You shoved them aside and took the hit because you knew exactly what was coming — and more importantly, you knew exactly how to take it.",
-        "shorthand": "Spend 1 Edge when ally faces unknown natural hazard. You assume the risk and resist with Survival (Grit), [Optimized]."
-      },
-      {
-        "id": "voc_pathfinder_t5",
-        "tier": 5,
-        "type": "passive",
-        "name": "Native Ground",
-        "tags": [
-          "[Narrative]",
-          "[Exploration]"
-        ],
-        "rule": "When you Assess using Survival in natural terrain and score 8+ on your Control die, you replenish 1 Edge. Your mastery of the wild is self-sustaining — the more you read the terrain, the more confident you become, and confidence is currency.\n\nAdditionally, once per session, you may spend Edge to retroactively declare that you prepared for a specific environmental contingency. \"I cached water at the ridge two hours ago.\" \"I marked this trail on the way in.\" \"I set a perimeter alarm last night.\" \"I brought thermal wraps — I have been to ice planets before.\" The GM determines whether the preparation is plausible given the environment, your travel time, and available materials, but cannot deny it simply because you did not announce it earlier. You are always preparing. The party just does not notice until it matters.",
-        "shorthand": "Assess with Survival in natural terrain, 8+ Control = replenish 1 Edge. Once per session, spend Edge to retroactively declare environmental preparation."
+        "rule": "Once per Act, you may activate Parallel Processing. For the remainder of the current Challenge scene, your Companion Droid gains a full independent combat turn — its own Action and Maneuver pips, acting on your initiative. You command both yourself and the droid simultaneously, splitting your attention across two bodies.\n\nThe droid uses Tech (Wits) for all rolls during Parallel Processing. Its capabilities are still limited by its current Reconfigure mode.\n\nIf you are rendered unconscious while Parallel Processing is active, the droid does not shut down. It continues operating on the last standing orders you gave it — a final act of programming foresight that keeps your tools in the fight even when you can't be."
       }
     ],
-    "imageUrl": "/assets/vocations/voc_pathfinder.png",
+    "imageUrl": "/assets/vocations/voc_splice.png",
     "startingItems": [
       {
-        "id": "gear_field_rations_01",
-        "name": "Field Rations",
-        "cost": 10,
+        "id": "gear_scomp_spiker_01",
+        "name": "Scomp Spiker",
+        "cost": 20,
         "source": "gear"
       },
       {
-        "id": "gear_syntherope_01",
-        "name": "Syntherope",
-        "cost": 10,
+        "id": "gear_slicer_spike_01",
+        "name": "Slicer Spike",
+        "cost": 300,
         "source": "gear"
       }
     ]
