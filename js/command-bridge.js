@@ -1011,7 +1011,7 @@
     var colRight = document.querySelector('.cb-col-right');
     var panelMap = { left: colLeft, center: colCenter, right: colRight };
 
-    function isMobile() { return window.innerWidth <= 520; }
+    function isMobile() { return window.innerWidth <= 768; }
 
     function activatePanel(panel) {
       Object.keys(panelMap).forEach(function (k) {
