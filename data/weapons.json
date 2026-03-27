@@ -243,6 +243,39 @@
     ]
   },
   {
+    "id": "wpn_energy_bow_01",
+    "name": "Nightsister Energy Bow",
+    "description": "A handcrafted carbon-alloy bow strung with a plasma coupler — the signature weapon of the Nightsister Hunters of Dathomir. When drawn, the string pulls concentrated plasma from a reservoir in the grip to form a glowing arrow of superheated energy. The bow is silent, terrifyingly accurate, and punches through armor that would shrug off a blaster bolt. When the reservoir runs dry, the plasma string itself becomes a cutting weapon — white-hot and capable of severing limbs at engaged range. The bow folds down for concealment. Possession marks the bearer as either a Dathomiri witch or someone who killed one.",
+    "chassisId": "exotic",
+    "chassisLabel": "Exotic Ranged",
+    "discipline": "athletics",
+    "arena": "physique",
+    "range": [3, 12, 35],
+    "stunSetting": false,
+    "cost": 2800,
+    "trait": {
+      "name": "Whisper Bow",
+      "description": "Silent: The bow fires without sound or muzzle flash — attacks do not reveal the wielder's position or break concealment. Concealable: The bow folds to half its length for transport and can be hidden under a cloak or in a standard gear bag. Dual-Mode: When Engaged, the Energy Bow may be used as a Melee weapon — the plasma coupler string cuts and electrocutes. Use Athletics (Physique) for the melee attack; the string deals damage as a Light Melee weapon."
+    },
+    "gambits": [
+      {
+        "name": "Plasma Pierce",
+        "rule": "Reduce your Effect by 1 Tier. This shot ignores armor, forcing the opponent to defend with Reflexes alone. Against NPCs, target Evasion unless a special trait determines otherwise."
+      }
+    ],
+    "availability": "4/R",
+    "tags": [
+      "Ranged",
+      "Exotic",
+      "Bow",
+      "Plasma",
+      "Light",
+      "Silent",
+      "Concealable"
+    ],
+    "clipSize": 25
+  },
+  {
     "id": "wpn_bryar_rifle_01",
     "name": "Bryar Rifle",
     "description": "A rugged outer rim blaster rifle built from surplus parts and hard-won experience. Undersells its lethality — the long barrel keeps bolts on target well beyond what its battered frame suggests. A favorite of independent operators who can't afford to be picky.",

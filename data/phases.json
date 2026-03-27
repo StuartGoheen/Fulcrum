@@ -11,13 +11,15 @@
           "id": "gear_breath_mask_01",
           "name": "Breath Mask",
           "cost": 50,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "legal"
         },
         {
           "id": "gear_thermal_cloak_01",
           "name": "Thermal Cloak",
           "cost": 300,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "legal"
         }
       ],
       "_meta": {
@@ -51,13 +53,15 @@
           "id": "gear_disguise_kit_01",
           "name": "Disguise Kit",
           "cost": 250,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "contraband"
         },
         {
           "id": "gear_smoke_grenade_01",
           "name": "Smoke Grenade",
           "cost": 25,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "contraband"
         }
       ],
       "_meta": {
@@ -91,13 +95,15 @@
           "id": "gear_hydrospanner_01",
           "name": "Hydrospanner",
           "cost": 50,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "legal"
         },
         {
           "id": "gear_fusion_cutter_01",
           "name": "Fusion Cutter",
           "cost": 75,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "legal"
         }
       ],
       "_meta": {
@@ -130,13 +136,15 @@
           "id": "gear_datapad_01",
           "name": "Datapad",
           "cost": 50,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "legal"
         },
         {
           "id": "gear_pocket_secretary_01",
           "name": "Pocket Secretary",
           "cost": 150,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "legal"
         }
       ],
       "_meta": {
@@ -170,19 +178,22 @@
           "id": "gear_field_rations_01",
           "name": "Field Rations",
           "cost": 10,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "legal"
         },
         {
           "id": "gear_syntherope_01",
           "name": "Syntherope",
           "cost": 10,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "legal"
         },
         {
           "id": "gear_gear_bag_01",
           "name": "Gear Bag",
           "cost": 50,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "legal"
         }
       ],
       "_meta": {
@@ -216,19 +227,22 @@
           "id": "gear_comlink_basic_01",
           "name": "Comlink",
           "cost": 50,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "legal"
         },
         {
           "id": "gear_bacta_patch_01",
           "name": "Bacta Patch",
           "cost": 20,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "legal"
         },
         {
           "id": "gear_smoke_grenade_01",
           "name": "Smoke Grenade",
           "cost": 25,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "contraband"
         }
       ],
       "_meta": {
@@ -262,19 +276,22 @@
           "id": "gear_glow_rod_01",
           "name": "Glow Rod",
           "cost": 10,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "legal"
         },
         {
           "id": "gear_recording_rod_01",
           "name": "Recording Rod",
           "cost": 30,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "legal"
         },
         {
           "id": "gear_macrobinoculars_01",
           "name": "Macro-binoculars",
           "cost": 100,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "legal"
         }
       ],
       "_meta": {
@@ -308,19 +325,22 @@
           "id": "gear_comlink_basic_01",
           "name": "Comlink",
           "cost": 50,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "legal"
         },
         {
           "id": "gear_datapad_01",
           "name": "Datapad",
           "cost": 50,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "legal"
         },
         {
           "id": "gear_wrist_chrono_01",
           "name": "Wrist Chronometer",
           "cost": 50,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "legal"
         }
       ],
       "_meta": {
@@ -354,13 +374,15 @@
           "id": "gear_binders_01",
           "name": "Binders",
           "cost": 50,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "legal"
         },
         {
           "id": "gear_stimulant_tabs_01",
           "name": "Stimulant Tabs",
           "cost": 20,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "legal"
         }
       ],
       "_meta": {
@@ -394,19 +416,22 @@
           "id": "gear_hydrospanner_01",
           "name": "Hydrospanner",
           "cost": 50,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "legal"
         },
         {
           "id": "gear_comlink_basic_01",
           "name": "Comlink",
           "cost": 50,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "legal"
         },
         {
           "id": "gear_breath_mask_01",
           "name": "Breath Mask",
           "cost": 50,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "legal"
         }
       ],
       "_meta": {
@@ -440,19 +465,22 @@
           "id": "gear_rock_boots_01",
           "name": "Rock Boots",
           "cost": 50,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "legal"
         },
         {
           "id": "gear_power_prybar_01",
           "name": "Power Prybar",
           "cost": 30,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "legal"
         },
         {
           "id": "gear_syntherope_01",
           "name": "Syntherope",
           "cost": 10,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "legal"
         }
       ],
       "_meta": {
@@ -486,19 +514,22 @@
           "id": "gear_glow_rod_01",
           "name": "Glow Rod",
           "cost": 10,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "legal"
         },
         {
           "id": "gear_mem_stik_01",
           "name": "Mem-Stik",
           "cost": 50,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "legal"
         },
         {
           "id": "gear_gear_bag_01",
           "name": "Gear Bag",
           "cost": 50,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "legal"
         }
       ],
       "_meta": {
@@ -534,13 +565,15 @@
           "id": "gear_comlink_basic_01",
           "name": "Comlink",
           "cost": 50,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "legal"
         },
         {
           "id": "arm_combat_jumpsuit_01",
           "name": "Combat Jumpsuit",
           "cost": 300,
-          "source": "armor"
+          "source": "armor",
+          "legalStatus": "legal"
         }
       ],
       "_meta": {
@@ -569,13 +602,15 @@
           "id": "gear_field_toolkit_01",
           "name": "Field Toolkit",
           "cost": 250,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "legal"
         },
         {
           "id": "gear_scomp_spiker_01",
           "name": "Scomp Spiker",
           "cost": 20,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "contraband"
         }
       ],
       "_meta": {
@@ -604,13 +639,15 @@
           "id": "gear_datapad_01",
           "name": "Datapad",
           "cost": 50,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "legal"
         },
         {
           "id": "arm_heavy_jacket_01",
           "name": "Heavy Jacket",
           "cost": 50,
-          "source": "armor"
+          "source": "armor",
+          "legalStatus": "legal"
         }
       ],
       "_meta": {
@@ -639,13 +676,15 @@
           "id": "gear_breath_mask_01",
           "name": "Breath Mask",
           "cost": 50,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "legal"
         },
         {
           "id": "gear_comlink_basic_01",
           "name": "Comlink",
           "cost": 50,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "legal"
         }
       ],
       "_meta": {
@@ -674,13 +713,15 @@
           "id": "gear_thermal_cloak_01",
           "name": "Thermal Cloak",
           "cost": 300,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "legal"
         },
         {
           "id": "gear_bacta_patch_01",
           "name": "Bacta Patch",
           "cost": 20,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "legal"
         }
       ],
       "_meta": {
@@ -709,13 +750,15 @@
           "id": "gear_medpac_01",
           "name": "Medpac",
           "cost": 100,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "legal"
         },
         {
           "id": "gear_stim_pack_01",
           "name": "Stim Pack",
           "cost": 150,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "legal"
         }
       ],
       "_meta": {
@@ -744,13 +787,15 @@
           "id": "wpn_combat_gloves_01",
           "name": "Combat Gloves",
           "cost": 200,
-          "source": "weapon"
+          "source": "weapon",
+          "legalStatus": "contraband"
         },
         {
           "id": "gear_binders_01",
           "name": "Binders",
           "cost": 50,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "legal"
         }
       ],
       "_meta": {
@@ -779,13 +824,15 @@
           "id": "gear_macrobinoculars_01",
           "name": "Macro-binoculars",
           "cost": 100,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "legal"
         },
         {
           "id": "gear_syntherope_01",
           "name": "Syntherope",
           "cost": 10,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "legal"
         }
       ],
       "_meta": {
@@ -814,13 +861,15 @@
           "id": "gear_disguise_kit_01",
           "name": "Disguise Kit",
           "cost": 250,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "contraband"
         },
         {
           "id": "gear_stimulant_tabs_01",
           "name": "Stimulant Tabs",
           "cost": 20,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "legal"
         }
       ],
       "_meta": {
@@ -849,13 +898,15 @@
           "id": "gear_bacta_patch_01",
           "name": "Bacta Patch",
           "cost": 20,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "legal"
         },
         {
           "id": "gear_fusion_cutter_01",
           "name": "Fusion Cutter",
           "cost": 75,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "legal"
         }
       ],
       "_meta": {
@@ -884,13 +935,15 @@
           "id": "gear_datapad_01",
           "name": "Datapad",
           "cost": 50,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "legal"
         },
         {
           "id": "gear_comlink_basic_01",
           "name": "Comlink",
           "cost": 50,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "legal"
         }
       ],
       "_meta": {
@@ -919,13 +972,15 @@
           "id": "wpn_vibroblade_01",
           "name": "Vibroblade",
           "cost": 250,
-          "source": "weapon"
+          "source": "weapon",
+          "legalStatus": "contraband"
         },
         {
           "id": "gear_tox_detector_01",
           "name": "Tox Detector",
           "cost": 20,
-          "source": "gear"
+          "source": "gear",
+          "legalStatus": "legal"
         }
       ],
       "_meta": {

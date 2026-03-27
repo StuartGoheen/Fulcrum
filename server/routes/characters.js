@@ -240,9 +240,21 @@ function expandCharacterData(flat) {
                  : (flat.armorId ? [flat.armorId] : []);
   const startingGear = Array.isArray(flat.startingGear) ? flat.startingGear : [];
   const acquisitionMap = flat.acquisitionMap || {};
+  const legalSeverity = { legal: 0, registered: 1, salvaged: 2, contraband: 3 };
   startingGear.forEach(item => {
     if (!item || !item.id) return;
-    if (item.acquisition) acquisitionMap[item.id] = item.acquisition;
+    let newStatus;
+    if (item.acquisition === 'background' && item.legalStatus) {
+      newStatus = item.legalStatus;
+    } else if (item.acquisition && item.acquisition !== 'background' && item.acquisition !== 'innate') {
+      newStatus = item.acquisition;
+    }
+    if (newStatus) {
+      var existing = acquisitionMap[item.id];
+      if (!existing || (legalSeverity[newStatus] || 0) > (legalSeverity[existing] || 0)) {
+        acquisitionMap[item.id] = newStatus;
+      }
+    }
     if (item.source === 'weapon') { if (weaponIds.indexOf(item.id) === -1) weaponIds.push(item.id); }
     else if (item.source === 'armor') { if (armorIds.indexOf(item.id) === -1) armorIds.push(item.id); }
     else if (item.source === 'gear') { gearIds.push(item.id); }

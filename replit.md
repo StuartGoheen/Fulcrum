@@ -122,6 +122,7 @@ Bars are stored on DOM elements as `data-clip-size` and `data-ammo-pct` for futu
 - Intimidator, KYD-21, Lancer, Luxan, QuickSnap, E-5, DDC Defender, Quick-Six: 50
 - Standard rifles/pistols (DL-18, DH-17, Westar, Relby, Bryar, E-11, DC-15 Rifle, EE-3, A280): 100
 - DLT-19 (belt-fed): 200
+- Nightsister Energy Bow: 25 (plasma reservoir)
 
 ## Carousel System — Character Creation
 
@@ -395,6 +396,14 @@ Uses debt data from `character_data.debt` (schema: `{ creditorId, principal, bal
 - `contraband` — F-restricted bought on Black Market (no fee), R-restricted, X-illegal, or items tagged Illegal/Contraband
 - `salvaged` — bought at 50% price via Salvaged option
 These labels appear in the purchase confirmation modal, loadout panel (`_acquisitionBadge()`), and character creation cart. The GM can scan for contraband via the `acquisitionMap` in character data.
+
+**Starting Gear Acquisition Tracking:** All starting items from vocations (`data/kits.json`) and backgrounds (`data/phases.json`) now carry a `legalStatus` field (`legal`, `registered`, or `contraband`) that flows into the character's `acquisitionMap` at finalization. Rules:
+- Items with no availability suffix (e.g. "1", "2") → `legal` (common items, no registration exists)
+- /F items from vocations → `registered` (legitimate purchase, fee paid)
+- /F items from criminal backgrounds (Syndicate Enforcer, Betrayal, etc.) → `contraband` (no fee paid)
+- /R items → `contraband` (restricted, no civilian authority)
+- /X items → `contraband` (illegal possession)
+Background gear section in the creation cart now shows Contraband/Registered badges alongside the origin badge for non-legal items.
 
 **Item Request Modal:** Floating action button ("+ Request Item") in bottom-right opens a modal form. Auto-fills character name from selected character. Submits to `POST /api/item-requests`.
 

@@ -1831,12 +1831,12 @@
     var phase2Card = state.phase2 ? PHASE2_CARDS.find(function(c) { return c.id === state.phase2; }) : null;
     if (phase1Card && phase1Card.backgroundItems) {
       phase1Card.backgroundItems.forEach(function(item) {
-        items.push({ id: item.id, name: item.name, cost: item.cost, source: item.source, acquisition: 'background', origin: phase1Card.title });
+        items.push({ id: item.id, name: item.name, cost: item.cost, source: item.source, acquisition: 'background', legalStatus: item.legalStatus || 'legal', origin: phase1Card.title });
       });
     }
     if (phase2Card && phase2Card.backgroundItems) {
       phase2Card.backgroundItems.forEach(function(item) {
-        items.push({ id: item.id, name: item.name, cost: item.cost, source: item.source, acquisition: 'background', origin: phase2Card.title });
+        items.push({ id: item.id, name: item.name, cost: item.cost, source: item.source, acquisition: 'background', legalStatus: item.legalStatus || 'legal', origin: phase2Card.title });
       });
     }
     var kc = state.kitChoices || {};
@@ -1845,7 +1845,7 @@
         var vocName = vocId.replace('voc_', '').replace(/_/g, ' ');
         vocName = vocName.charAt(0).toUpperCase() + vocName.slice(1);
         getVocationItems(vocId).forEach(function(item) {
-          items.push({ id: item.id, name: item.name, cost: item.cost, source: item.source, acquisition: 'background', origin: 'Vocation: ' + vocName });
+          items.push({ id: item.id, name: item.name, cost: item.cost, source: item.source, acquisition: 'background', legalStatus: item.legalStatus || 'legal', origin: 'Vocation: ' + vocName });
         });
       }
     });
@@ -2543,6 +2543,17 @@
           originBadge.textContent = originLabel;
           nameEl.appendChild(document.createTextNode(" "));
           nameEl.appendChild(originBadge);
+
+          var bgLegal = item.legalStatus || "legal";
+          if (bgLegal !== "legal") {
+            var legalBadge = document.createElement("span");
+            var legalClass = bgLegal === "contraband" ? " contraband" : " registered";
+            var legalText = bgLegal === "contraband" ? "Contraband" : "Registered";
+            legalBadge.className = "outfitting-acq-badge" + legalClass;
+            legalBadge.textContent = legalText;
+            nameEl.appendChild(document.createTextNode(" "));
+            nameEl.appendChild(legalBadge);
+          }
 
           var priceEl = document.createElement("span");
           priceEl.className = "outfitting-cart-item-price outfitting-cart-item-price--free";

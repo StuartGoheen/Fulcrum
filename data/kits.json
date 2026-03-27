@@ -120,7 +120,8 @@
         "id": "gear_glow_rod_01",
         "name": "Glow Rod",
         "cost": 10,
-        "source": "gear"
+        "source": "gear",
+        "legalStatus": "legal"
       }
     ]
   },
@@ -224,13 +225,15 @@
         "id": "gear_field_rations_01",
         "name": "Field Rations",
         "cost": 10,
-        "source": "gear"
+        "source": "gear",
+        "legalStatus": "legal"
       },
       {
         "id": "gear_syntherope_01",
         "name": "Syntherope",
         "cost": 10,
-        "source": "gear"
+        "source": "gear",
+        "legalStatus": "legal"
       }
     ]
   },
@@ -318,7 +321,8 @@
         "id": "wpn_lightsaber_01",
         "name": "Lightsaber",
         "cost": 0,
-        "source": "weapon"
+        "source": "weapon",
+        "legalStatus": "contraband"
       }
     ]
   },
@@ -424,7 +428,8 @@
         "id": "wpn_vibrorapier_01",
         "name": "Duelist Vibrorapier",
         "cost": 300,
-        "source": "weapon"
+        "source": "weapon",
+        "legalStatus": "contraband"
       }
     ]
   },
@@ -507,7 +512,8 @@
         "id": "gear_armor_repair_kit_01",
         "name": "Armor Repair Kit",
         "cost": 200,
-        "source": "gear"
+        "source": "gear",
+        "legalStatus": "legal"
       }
     ]
   },
@@ -595,7 +601,8 @@
         "id": "wpn_combat_gloves_01",
         "name": "Combat Gloves",
         "cost": 200,
-        "source": "weapon"
+        "source": "weapon",
+        "legalStatus": "registered"
       }
     ]
   },
@@ -693,13 +700,15 @@
         "id": "gear_disguise_kit_01",
         "name": "Disguise Kit",
         "cost": 250,
-        "source": "gear"
+        "source": "gear",
+        "legalStatus": "contraband"
       },
       {
         "id": "gear_datapad_01",
         "name": "Datapad",
         "cost": 50,
-        "source": "gear"
+        "source": "gear",
+        "legalStatus": "legal"
       }
     ]
   },
@@ -830,7 +839,15 @@
         "id": "gear_glow_rod_01",
         "name": "Glow Rod",
         "cost": 10,
-        "source": "gear"
+        "source": "gear",
+        "legalStatus": "legal"
+      },
+      {
+        "id": "wpn_energy_bow_01",
+        "name": "Nightsister Energy Bow",
+        "cost": 0,
+        "source": "weapon",
+        "legalStatus": "contraband"
       }
     ]
   },
@@ -941,7 +958,8 @@
         "id": "wpn_lightsaber_01",
         "name": "Lightsaber",
         "cost": 0,
-        "source": "weapon"
+        "source": "weapon",
+        "legalStatus": "contraband"
       }
     ]
   },
@@ -1064,7 +1082,8 @@
         "id": "gear_pocket_secretary_01",
         "name": "Pocket Secretary",
         "cost": 150,
-        "source": "gear"
+        "source": "gear",
+        "legalStatus": "legal"
       }
     ]
   },
@@ -1201,7 +1220,8 @@
         "id": "gear_glow_rod_01",
         "name": "Glow Rod",
         "cost": 10,
-        "source": "gear"
+        "source": "gear",
+        "legalStatus": "legal"
       }
     ]
   },
@@ -1305,7 +1325,8 @@
         "id": "gear_flight_suit_01",
         "name": "Flight Suit",
         "cost": 100,
-        "source": "gear"
+        "source": "gear",
+        "legalStatus": "legal"
       }
     ]
   },
@@ -1389,13 +1410,15 @@
         "id": "wpn_vibroblade_01",
         "name": "Vibroblade",
         "cost": 250,
-        "source": "weapon"
+        "source": "weapon",
+        "legalStatus": "registered"
       },
       {
         "id": "wpn_vibroblade_01",
         "name": "Vibroblade",
         "cost": 250,
-        "source": "weapon"
+        "source": "weapon",
+        "legalStatus": "registered"
       }
     ]
   },
@@ -1497,13 +1520,15 @@
         "id": "gear_smoke_grenade_01",
         "name": "Smoke Grenade",
         "cost": 25,
-        "source": "gear"
+        "source": "gear",
+        "legalStatus": "contraband"
       },
       {
         "id": "gear_scomp_spiker_01",
         "name": "Scomp Spiker",
         "cost": 20,
-        "source": "gear"
+        "source": "gear",
+        "legalStatus": "contraband"
       }
     ]
   },
@@ -1612,7 +1637,8 @@
         "id": "wpn_quick_six_01",
         "name": "Merr-Sonn Quick-Six",
         "cost": 325,
-        "source": "weapon"
+        "source": "weapon",
+        "legalStatus": "registered"
       }
     ]
   },
@@ -1693,13 +1719,15 @@
         "id": "gear_medpac_01",
         "name": "Medpac",
         "cost": 100,
-        "source": "gear"
+        "source": "gear",
+        "legalStatus": "legal"
       },
       {
         "id": "gear_stim_pack_01",
         "name": "Stim Pack",
         "cost": 150,
-        "source": "gear"
+        "source": "gear",
+        "legalStatus": "legal"
       }
     ]
   },
@@ -1897,13 +1925,15 @@
         "id": "gear_recording_rod_01",
         "name": "Recording Rod",
         "cost": 30,
-        "source": "gear"
+        "source": "gear",
+        "legalStatus": "legal"
       },
       {
         "id": "gear_macrobinoculars_01",
         "name": "Macro-binoculars",
         "cost": 100,
-        "source": "gear"
+        "source": "gear",
+        "legalStatus": "legal"
       }
     ]
   },
@@ -2010,7 +2040,8 @@
         "id": "wpn_bryar_rifle_01",
         "name": "Bryar Rifle",
         "cost": 1000,
-        "source": "weapon"
+        "source": "weapon",
+        "legalStatus": "contraband"
       }
     ]
   },
@@ -2142,13 +2173,15 @@
         "id": "gear_glow_rod_01",
         "name": "Glow Rod",
         "cost": 10,
-        "source": "gear"
+        "source": "gear",
+        "legalStatus": "legal"
       },
       {
         "id": "gear_holo_journal_01",
         "name": "Holo-Journal",
         "cost": 75,
-        "source": "gear"
+        "source": "gear",
+        "legalStatus": "legal"
       }
     ]
   },
@@ -2235,7 +2268,8 @@
         "id": "gear_engineering_toolkit_01",
         "name": "Engineering Toolkit",
         "cost": 200,
-        "source": "gear"
+        "source": "gear",
+        "legalStatus": "legal"
       }
     ]
   },
@@ -2341,7 +2375,8 @@
         "id": "wpn_lightsaber_01",
         "name": "Lightsaber",
         "cost": 0,
-        "source": "weapon"
+        "source": "weapon",
+        "legalStatus": "contraband"
       }
     ]
   },
@@ -2444,7 +2479,8 @@
         "id": "gear_smoke_grenade_01",
         "name": "Smoke Grenade",
         "cost": 25,
-        "source": "gear"
+        "source": "gear",
+        "legalStatus": "contraband"
       }
     ]
   },
@@ -2544,13 +2580,15 @@
         "id": "gear_scomp_spiker_01",
         "name": "Scomp Spiker",
         "cost": 20,
-        "source": "gear"
+        "source": "gear",
+        "legalStatus": "contraband"
       },
       {
         "id": "gear_slicer_spike_01",
         "name": "Slicer Spike",
         "cost": 300,
-        "source": "gear"
+        "source": "gear",
+        "legalStatus": "contraband"
       }
     ]
   }
