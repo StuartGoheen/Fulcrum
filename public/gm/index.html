@@ -762,6 +762,158 @@
 
     scrollbar-width: thin;
     scrollbar-color: var(--color-accent-primary) var(--color-bg-frame);
+
+    .cb-mobile-tabs {
+      display: none;
+    }
+
+    @media (max-width: 520px) {
+      body { overflow: hidden; }
+
+      .cb-header {
+        padding: 0 0.5rem;
+        height: 2.5rem;
+      }
+      .cb-header-title { font-size: 0.65rem; }
+      .cb-home-link { font-size: 0.55rem; }
+      .cb-header-left { gap: 0.5rem; }
+      .cb-header-right { gap: 0.25rem; }
+      .cb-header-btn {
+        font-size: 0.55rem;
+        padding: 0.25rem 0.4rem;
+        min-height: 36px;
+      }
+      .cb-header-right > span:first-child { display: none; }
+
+      #bridge-grid {
+        display: flex;
+        flex-direction: column;
+        grid-template-columns: unset;
+        height: calc(100vh - 2.5rem - 3.2rem);
+        width: 100%;
+      }
+
+      .cb-drag-handle { display: none !important; }
+
+      .cb-col-left,
+      .cb-col-center,
+      .cb-col-right {
+        display: none;
+        width: 100%;
+        height: 100%;
+        overflow-y: auto;
+        padding: 0.6rem;
+        border: none;
+      }
+      .cb-col-left { border-right: none; }
+      .cb-col-right { border-left: none; }
+
+      .cb-col-left.cb-mobile-active,
+      .cb-col-center.cb-mobile-active,
+      .cb-col-right.cb-mobile-active {
+        display: block;
+      }
+
+      .cb-mobile-tabs {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 3.2rem;
+        background: var(--color-bg-panel);
+        border-top: 1px solid var(--color-border);
+        z-index: 50;
+      }
+      .cb-mobile-tab {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.15rem;
+        background: none;
+        border: none;
+        color: var(--color-text-secondary);
+        font-family: 'Exo 2', sans-serif;
+        font-size: 0.55rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: color 0.15s;
+        padding: 0;
+      }
+      .cb-mobile-tab-icon {
+        font-size: 1.1rem;
+        line-height: 1;
+      }
+      .cb-mobile-tab.active {
+        color: var(--color-accent-primary);
+      }
+      .cb-mobile-tab:hover {
+        color: var(--color-accent-primary);
+      }
+
+      .cb-col-title {
+        font-size: 0.65rem;
+        padding-bottom: 0.35rem;
+        margin-bottom: 0.5rem;
+      }
+      .cb-player-card { padding: 0.5rem; margin-bottom: 0.4rem; }
+      .cb-player-name { font-size: 0.7rem; }
+      .cb-player-vitality { font-size: 0.85rem; }
+      .cb-player-detail { font-size: 0.65rem; }
+      .cb-player-status { font-size: 0.6rem; }
+      .cb-intel-row { font-size: 0.6rem; gap: 0.2rem; }
+      .cb-intel-icon { font-size: 0.65rem; width: 0.8rem; }
+
+      .cb-nav-bar { gap: 0.25rem; margin-bottom: 0.5rem; }
+      .cb-nav-btn {
+        padding: 0.3rem 0.5rem;
+        font-size: 0.6rem;
+        min-height: 36px;
+      }
+      .cb-nav-num { font-size: 0.6rem; }
+      .cb-part-btn { font-size: 0.65rem; padding: 0.3rem 0.4rem; }
+      .cb-scene-counter { font-size: 0.6rem; margin-bottom: 0.5rem; }
+
+      .cb-scene-header h2 { font-size: 0.9rem; }
+      .cb-scene-subtitle { font-size: 0.7rem; }
+      .cb-read-aloud { padding: 0.5rem 0.6rem; }
+      .cb-read-aloud-text { font-size: 0.75rem; line-height: 1.5; }
+      .cb-gm-notes { padding: 0.5rem 0.6rem; font-size: 0.75rem; line-height: 1.5; }
+      .cb-section-label { font-size: 0.6rem; }
+      .cb-card { padding: 0.5rem; margin-bottom: 0.5rem; }
+
+      .cb-npc-row {
+        grid-template-columns: 1fr;
+        gap: 0.15rem;
+      }
+      .cb-npc-header { display: none; }
+
+      .cb-scene-footer { flex-direction: column; gap: 0.5rem; }
+      .cb-complete-btn { width: 100%; text-align: center; }
+      .cb-scene-nav-arrows { width: 100%; }
+      .cb-arrow-btn { flex: 1; text-align: center; }
+
+      .cb-destiny-section { margin-top: 0.6rem; padding-top: 0.5rem; }
+      .gm-destiny-tokens { gap: 0.35rem; margin: 0.5rem 0; }
+      .gm-destiny-token { width: 36px; height: 36px; }
+      .cb-destiny-btn { font-size: 0.55rem; min-height: 36px; padding: 0.3rem; }
+
+      .cb-req-card { padding: 0.4rem; margin-bottom: 0.4rem; }
+      .cb-req-item-name { font-size: 0.65rem; }
+      .cb-req-action { font-size: 0.55rem; min-height: 32px; }
+
+      .cb-glossary-dual { grid-template-columns: 1fr; }
+      .cb-glossary-header { font-size: 0.85rem; }
+      .cb-glossary-rule { font-size: 0.75rem; }
+
+      .cb-lore-tag { font-size: 0.6rem; padding: 0.2rem 0.4rem; min-height: 36px; }
+
+      .lore-modal { padding: 1rem; max-height: 85vh; }
+      .lore-modal h3 { font-size: 0.8rem; }
+    }
   </style>
 </head>
 <body>
@@ -833,6 +985,21 @@
       </div>
     </div>
   </div>
+
+  <nav class="cb-mobile-tabs" id="cb-mobile-tabs">
+    <button class="cb-mobile-tab" data-panel="left">
+      <span class="cb-mobile-tab-icon">&#9783;</span>
+      Crew
+    </button>
+    <button class="cb-mobile-tab active" data-panel="center">
+      <span class="cb-mobile-tab-icon">&#9881;</span>
+      Scene
+    </button>
+    <button class="cb-mobile-tab" data-panel="right">
+      <span class="cb-mobile-tab-icon">&#9782;</span>
+      Glossary
+    </button>
+  </nav>
 
   <div class="lore-modal-overlay" id="lore-modal-overlay">
     <div class="lore-modal" id="lore-modal">

@@ -1003,8 +1003,50 @@
     });
   }
 
+  function initMobileTabs() {
+    var tabs = document.getElementById('cb-mobile-tabs');
+    if (!tabs) return;
+    var colLeft = document.querySelector('.cb-col-left');
+    var colCenter = document.querySelector('.cb-col-center');
+    var colRight = document.querySelector('.cb-col-right');
+    var panelMap = { left: colLeft, center: colCenter, right: colRight };
+
+    function isMobile() { return window.innerWidth <= 520; }
+
+    function activatePanel(panel) {
+      Object.keys(panelMap).forEach(function (k) {
+        panelMap[k].classList.remove('cb-mobile-active');
+      });
+      if (panelMap[panel]) panelMap[panel].classList.add('cb-mobile-active');
+      tabs.querySelectorAll('.cb-mobile-tab').forEach(function (t) {
+        t.classList.toggle('active', t.dataset.panel === panel);
+      });
+    }
+
+    tabs.querySelectorAll('.cb-mobile-tab').forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        activatePanel(tab.dataset.panel);
+      });
+    });
+
+    function checkMobile() {
+      if (isMobile()) {
+        var activeTab = tabs.querySelector('.cb-mobile-tab.active');
+        activatePanel(activeTab ? activeTab.dataset.panel : 'center');
+      } else {
+        Object.keys(panelMap).forEach(function (k) {
+          panelMap[k].classList.remove('cb-mobile-active');
+        });
+      }
+    }
+
+    window.addEventListener('resize', checkMobile);
+    checkMobile();
+  }
+
   initTheme();
   initDragHandles();
+  initMobileTabs();
   initSockets();
   initCampaign();
   loadGlossary();

@@ -37,7 +37,7 @@ The app uses a passcode-based gate (cookie auth) to restrict access:
 │   ├── input.css         # Tailwind source (custom components + layers)
 │   └── themes.css        # CSS variable theme definitions (6 themes: rebellion, r2d2, vader, fett, holo, fringe)
 ├── js/                   # Client-side JavaScript modules
-│   ├── command-bridge.js  # GM Command Bridge three-column layout JS
+│   ├── command-bridge.js  # GM Command Bridge three-column layout JS (mobile responsive via tab navigation at ≤520px)
 │   ├── market.js          # Black Market (char gate, accordion, salvaged, purchase, ledger)
 │   ├── market-source-viewer.js # Source DB viewer overlay
 │   ├── crawl-data.js     # Mission crawl text data (extensible for future missions)
