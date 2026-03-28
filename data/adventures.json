@@ -398,7 +398,7 @@
                     "label": "Entrance (West)",
                     "passable": true,
                     "cover": "none",
-                    "lighting": "bright",
+                    "lighting": "normal",
                     "terrain": "Blast door entrance. Jakku sunlight pours in. No cover — anyone standing here is fully exposed. Door controls on the wall."
                   },
                   {
@@ -406,7 +406,7 @@
                     "label": "Entrance (East)",
                     "passable": true,
                     "cover": "none",
-                    "lighting": "bright",
+                    "lighting": "normal",
                     "terrain": "Blast door entrance. Wide enough for three abreast. No cover. The glare from outside imposes no penalty but is narratively blinding."
                   },
                   {
@@ -422,7 +422,7 @@
                     "label": "Booth Row",
                     "passable": true,
                     "cover": "light",
-                    "lighting": "dim",
+                    "lighting": "shadow",
                     "terrain": "Curved booth seating along the wall. Light cover from booth backs. Shadow pool — dim lighting penalty applies to ranged attacks targeting or from this zone at range. A few patrons nursing drinks."
                   },
                   {
@@ -446,7 +446,7 @@
                     "label": "Alcove",
                     "passable": true,
                     "cover": "light",
-                    "lighting": "dim",
+                    "lighting": "shadow",
                     "terrain": "Recessed alcove with a sabacc table. Light cover from the table edge. Deep shadow — dim lighting penalty applies. A patron or two hiding here."
                   },
                   {
@@ -454,7 +454,7 @@
                     "label": "Back Hallway",
                     "passable": true,
                     "cover": "none",
-                    "lighting": "dim",
+                    "lighting": "shadow",
                     "terrain": "Narrow corridor to the back exit. No cover. Leads to the alley behind the cantina — the escape route. Dim lighting from a single failing glow-rod."
                   },
                   {
@@ -478,7 +478,7 @@
                     "label": "Store Room",
                     "passable": true,
                     "cover": "full",
-                    "lighting": "dark",
+                    "lighting": "shadow",
                     "terrain": "Closed door (requires maneuver to open). Full cover once inside. Dark — no light source. Crates of supplies, kegs. Dead end — defensible but no exit. A cornered position."
                   }
                 ],
