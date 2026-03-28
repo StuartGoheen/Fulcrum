@@ -95,10 +95,11 @@
       powers[arena] = a[arena] - 1 + tier;
     });
 
+    var stunDef = threatData.system && threatData.system.stunScaling ? threatData.system.stunScaling : null;
     var stun = {
-      fleeting: 1 + tier,
-      masterful: 3 + tier,
-      legendary: 5 + tier
+      fleeting: (stunDef && stunDef.fleeting ? stunDef.fleeting.base : 1) + tier,
+      masterful: (stunDef && stunDef.masterful ? stunDef.masterful.base : 3) + tier,
+      legendary: (stunDef && stunDef.legendary ? stunDef.legendary.base : 5) + tier
     };
 
     var rolePowerBonus = role && role.powerBonus ? role.powerBonus : null;

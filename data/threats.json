@@ -41,9 +41,9 @@
     },
     "stunScaling": {
       "description": "Stun damage per result tier. Base values + 1 per NPC Tier.",
-      "fleeting": "1 + Tier",
-      "masterful": "3 + Tier",
-      "legendary": "5 + Tier"
+      "fleeting": { "base": 1, "formula": "1 + Tier" },
+      "masterful": { "base": 3, "formula": "3 + Tier" },
+      "legendary": { "base": 5, "formula": "5 + Tier" }
     }
   },
 
