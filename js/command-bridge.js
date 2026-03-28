@@ -226,6 +226,9 @@
   }
 
   function renderScene() {
+    if (window.CombatTracker && window.CombatTracker.isActive()) {
+      window.CombatTracker.end();
+    }
     var container = document.getElementById('scene-carousel');
     if (!container) return;
     var adv = getAdventure(currentAdventure);
@@ -315,6 +318,9 @@
           if (enc.composition.terrain) html += '<div style="color:var(--color-text-secondary);margin-top:0.1rem;"><strong>Terrain:</strong> ' + esc(enc.composition.terrain) + '</div>';
           if (enc.composition.positioning) html += '<div style="color:var(--color-text-secondary);"><strong>Positioning:</strong> ' + esc(enc.composition.positioning) + '</div>';
           html += '</div>';
+        }
+        if (enc.type === 'combat' && window.CombatTracker) {
+          html += '<button class="ct-start-encounter-btn" data-enc-idx="' + scene.encounters.indexOf(enc) + '">&#9876; Start Encounter</button>';
         }
         html += '</div>';
       });
@@ -430,6 +436,18 @@
     });
     container.querySelectorAll('.cb-condition-link').forEach(function (el) {
       el.addEventListener('click', function () { showGlossaryEntry(el.dataset.conditionId); });
+    });
+    container.querySelectorAll('.ct-start-encounter-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var encIdx = parseInt(btn.dataset.encIdx, 10);
+        if (isNaN(encIdx) || !scene.encounters || !scene.encounters[encIdx]) return;
+        var enc = scene.encounters[encIdx];
+        if (window.CombatTracker) {
+          window.CombatTracker.start(enc, scene, scene.npcs || []);
+          var ctPanel = document.getElementById('combat-tracker-panel');
+          if (ctPanel) ctPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
     });
     var completeBtn = container.querySelector('.cb-complete-btn');
     if (completeBtn) {
