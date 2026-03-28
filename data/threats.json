@@ -22,7 +22,29 @@
     },
     "tierRange": [0, 1, 2, 3, 4, 5],
     "arenaRange": [1, 2, 3, 4, 5],
-    "arenas": ["Physique", "Reflex", "Grit", "Wits", "Presence"]
+    "arenas": ["Physique", "Reflex", "Grit", "Wits", "Presence"],
+    "controlDie": {
+      "description": "The GM rolls one Control Die per NPC per round to determine action budget.",
+      "tiers": {
+        "0": { "die": "d6", "actions": 1, "notes": "Civilian-grade. Single action only." },
+        "1": { "die": "d6", "actions": 1, "notes": "Basic trained combatant." },
+        "2": { "die": "d8", "actions": 1, "notes": "Professional soldier. Access to gambits." },
+        "3": { "die": "d10", "actions": 2, "notes": "Veteran. Two actions per round." },
+        "4": { "die": "d12", "actions": 2, "notes": "Elite specialist. Full gambit access." },
+        "5": { "die": "d12", "actions": 3, "notes": "Legendary threat. Three actions per round." }
+      }
+    },
+    "damageScales": {
+      "fleeting": { "min": 1, "max": 3, "description": "Light damage. Scratches, bruises, glancing hits." },
+      "masterful": { "min": 3, "max": 7, "description": "Solid damage. Clean hits, deep cuts, broken bones." },
+      "legendary": { "min": 5, "max": 11, "description": "Devastating damage. Critical wounds, dismemberment." }
+    },
+    "stunScaling": {
+      "description": "Stun damage per result tier. Base values + 1 per NPC Tier.",
+      "fleeting": "1 + Tier",
+      "masterful": "3 + Tier",
+      "legendary": "5 + Tier"
+    }
   },
 
   "classifications": [

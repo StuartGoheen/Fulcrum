@@ -35,6 +35,21 @@
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(savedNpcs)); } catch (e) {}
   }
 
+  function seedAttacksFromRole() {
+    if (!threatData || !currentNpc.role) {
+      currentNpc.attacks = [];
+      return;
+    }
+    var role = threatData.roles.find(function (r) { return r.id === currentNpc.role; });
+    if (!role || !role.actions) {
+      currentNpc.attacks = [];
+      return;
+    }
+    currentNpc.attacks = role.actions.map(function (a) {
+      return { name: a.name, damageScale: 'fleeting', canStun: false, sourceAction: a.name };
+    });
+  }
+
   function calcStats(npc) {
     var role = npc.role ? threatData.roles.find(function (r) { return r.id === npc.role; }) : null;
     var mods = role ? role.arenaMods || {} : {};
@@ -271,6 +286,15 @@
       body: JSON.stringify({ itemId: item.id, itemType: item.type })
     }).then(function (r) { return r.json(); }).then(function (data) {
       if (data.ok) {
+        var lootEntry = currentNpc.loot.find(function (l) { return l.id === item.id; });
+        if (lootEntry) {
+          lootEntry.qty = (lootEntry.qty || 1) - 1;
+          if (lootEntry.qty <= 0) {
+            currentNpc.loot = currentNpc.loot.filter(function (l) { return l.id !== item.id; });
+          }
+        }
+        renderBuilderRight();
+        renderNpcCard();
         showNpcToast(esc(item.name) + ' assigned to character.');
       } else {
         showNpcToast('Error: ' + (data.error || 'Unknown error'));
@@ -384,6 +408,8 @@
 
     document.getElementById('npc-role-select').addEventListener('change', function (e) {
       currentNpc.role = e.target.value;
+      seedAttacksFromRole();
+      renderBuilderRight();
       renderNpcCard();
     });
 
@@ -418,6 +444,7 @@
       currentNpc.traits = pb.traits ? pb.traits.slice() : [];
       currentNpc.tags = pb.tags ? pb.tags.slice() : [];
       currentNpc.loot = pb.loot ? JSON.parse(JSON.stringify(pb.loot)) : [];
+      seedAttacksFromRole();
       renderBuilderLeft();
       renderBuilderRight();
       renderNpcCard();
