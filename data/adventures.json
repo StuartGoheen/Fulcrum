@@ -99,8 +99,8 @@
               "number": 1,
               "title": "Bad Business at Sienar's Regret",
               "subtitle": "In Media Res",
-              "readAloud": "The blast doors of Sienar's Regret hiss open, admitting the blinding white glare of the Jakku sun. A young human woman stumbles through — clutching her side where a blaster burn has scorched through her jacket. Blood seeps between her fingers, but she's moving fast. She scans the room with desperate eyes, spots your table, and crashes into it, sending drinks and credits scattering across the floor.\n\n\"They're coming,\" she gasps, pressing a datapad against the table. \"Please — just look like you're with me.\"\n\nBefore you can respond, her pursuers fill the doorway: a heavy-set Weequay and two Kyuzo enforcers wearing wide-brimmed war helms. Their blasters are holstered. They're not here to kill — they're here to collect. The Weequay rolls his shoulders, looks at your table, and makes a decision. \"The girl owes Darga the Hutt. You want to be part of her debt?\"",
-              "gmNotes": "This is the campaign's inciting incident — but it is NOT an assassination. The thugs are debt collectors for Darga the Hutt's local operation. They have NOT drawn weapons. Maya deliberately crashed into the heroes' table to create the impression they're her crew — she used them as a shield.\n\nMAYA'S WOUND: Real. A blaster graze to her side from a warning shot outside the cantina. Non-lethal but painful and bleeding. She is desperate, not performing — but she IS calculating. She chose this table because she saw armed people sitting at it.\n\nRESOLUTION PATHS:\n• INTIMIDATION: A Gunslinger can draw and stare down the Weequay. An Intimidate check (Moderate) ends the confrontation without violence — the thugs are collectors, not killers, and they'll back off from armed resistance.\n• SOCIAL: Charm, Deception, or Persuasion (Moderate) can convince the thugs Maya isn't worth the trouble, redirect them, or negotiate a delay.\n• BRAWL: If anyone throws a punch, the Kyuzo respond in kind. Bar brawl — no blasters unless someone draws first.\n• FIREFIGHT: Only if the heroes draw first or escalate. The thugs will draw in response. Cantina becomes a kill zone.\n\nAFTER RESOLUTION: Maya offers a business proposition, not a noble speech. She has stolen an encrypted Imperial Code Cylinder from Darga the Hutt's operation and claims it leads to a stash of embezzled credits. She needs the heroes to help decrypt it in exchange for a cut.\n\nKEY LORE: 16 BBY. Imperial presence on Jakku is thin — Arkanis Sector patrols, no garrison. Darga the Hutt runs the real economy here: smuggling, debt, protection. A cantina fight draws local attention, not Imperial attention.",
+              "readAloud": "Jakku. A world the galaxy forgot — if it ever noticed. Out here on the Western Reaches, the holonet feeds are weeks old, the Republic is a memory, and the Empire is a rumor that sometimes wears a uniform. You've heard the stories filtering through the spacer lanes: whole systems pacified, Separatist holdouts burned out of their bunkers, the clone army quietly replaced by men who volunteer. The Core worlds call it order. Out here, people just call it the new way things are.\n\nNiima Outpost squats on the desert flats like something the sand is trying to swallow. Scavengers, smugglers, moisture farmers with nothing left to farm. Darga the Hutt runs what passes for an economy — debt, protection, and the quiet understanding that Imperial patrols from Arkanis Sector come through maybe twice a standard year, and they never stay.\n\nExcept today. You noticed it when you docked: a Lambda-class shuttle sitting on the landing field, flanked by two stormtroopers standing in the heat like they were carved from plastoid. Nobody docks a Lambda on Jakku without a reason. The streets were quieter on the walk in. Fewer faces in the stalls. The regulars at Sienar's Regret are nursing their drinks a little harder, talking a little softer. Something has changed the arithmetic, and nobody knows the new numbers yet.\n\nYou've been here an hour. Long enough for the ice in your drinks to surrender to the heat. Long enough to notice the bartender checking the door every few minutes.\n\nThen the blast doors hiss open.\n\nA young human woman stumbles through — clutching her side where a blaster burn has scorched through her jacket. Blood seeps between her fingers, but she's moving fast. She scans the room with desperate eyes, spots your table, and crashes into it, sending drinks and credits scattering across the floor.\n\n\"They're coming,\" she gasps, pressing a datapad against the table. \"Please — just look like you're with me.\"\n\nBefore you can respond, her pursuers fill the doorway: a heavy-set Weequay and two Kyuzo enforcers wearing wide-brimmed war helms. Their blasters are holstered. They're not here to kill — they're here to collect. The Weequay rolls his shoulders, looks at your table, and makes a decision. \"The girl owes Darga the Hutt. You want to be part of her debt?\"",
+              "gmNotes": "This is the campaign's inciting incident — but it is NOT an assassination. The thugs are debt collectors for Darga the Hutt's local operation. They have NOT drawn weapons. Maya deliberately crashed into the heroes' table to create the impression they're her crew — she used them as a shield.\n\nNARRATIVE PACING: This scene runs on narrative pacing. Do NOT call for dice unless failure forks the story. Maya crashing in — narrative. Krev's ultimatum — narrative. The bartender's nervousness — narrative. Only roll when a PC takes an action where failure has real consequences (escalation, loss of initiative, or missed intelligence).\n\nTHE IMPERIAL SHUTTLE: Foreshadowing only. The Lambda on the landing field is not part of this scene — it seeds future tension. If players investigate, the stormtroopers say nothing. Locals don't know why it's here. This pays off later.\n\nMAYA'S WOUND: Real. A blaster graze to her side from a warning shot outside the cantina. Non-lethal but painful and bleeding. She is desperate, not performing — but she IS calculating. She chose this table because she saw armed people sitting at it.\n\nRESOLUTION PATHS:\n• QUICK-DRAW INTIMIDATION: A Gunslinger draws fast — blaster out before the thugs can react. This IS the Intimidate check (Moderate), not a separate action. The draw is the statement. The blaster is leverage, not escalation. Success: Krev folds ('Not worth it today'). Failure: Krev calls the bluff ('You won't shoot over some girl you don't know') — now the PC must decide: pull the trigger (firefight) or holster (Krev smells weakness, uses Lean In).\n• SOCIAL: Charm, Deception, or Persuasion (Moderate) can convince the thugs Maya isn't worth the trouble, redirect them, or negotiate a delay.\n• BRAWL: If anyone throws a punch, the Kyuzo respond in kind. Bar brawl — fists, headbutts, bottles. Stun damage. Blasters stay holstered.\n• FIREFIGHT: Only triggers if (a) a brawl is already happening AND someone draws a blaster, OR (b) the social check fails AND a PC with blaster already drawn refuses to hand Maya over. A drawn blaster alone is not an escalation — it's a negotiating tool. This is Star Wars.\n\nIF COMBAT TRIGGERS (FIRST COMBAT TUTORIAL): This may be the players' first tactical encounter. Walk them through it:\n• Initiative: NPCs use static initiative (Wits + Tier). PCs roll normally.\n• Zones: The cantina is a 4×3 grid of 15-foot zones (see tacticalMap). Moving one zone = one maneuver. Two zones = your whole turn.\n• Cover: Explain Find Cover maneuver ('You can flip that table — that's a maneuver, gives you light cover'). Point out the bar as hard cover.\n• Maneuvers: Each turn you get one maneuver and one action. Maneuvers are movement, drawing weapons, flipping tables, grabbing bottles. Actions are attacks, social checks, using abilities.\n• Krev uses Loom (maneuver) to advance and Threaten (action) for social pressure. If brawl, he switches to Physique attacks.\n• Kyuzo use Reposition (maneuver, no reactions provoked) to flank — one to A2, one to D2. Then Hit and Run (action) for war-helm headbutts.\n\nAFTER RESOLUTION: Maya offers a business proposition, not a noble speech. She has stolen an encrypted Imperial Code Cylinder from Darga the Hutt's operation and claims it leads to a stash of embezzled credits. She needs the heroes to help decrypt it in exchange for a cut.\n\nKEY LORE: 16 BBY. Imperial presence on Jakku is thin — Arkanis Sector patrols, no garrison. The Lambda shuttle today is unusual and unsettling. Darga the Hutt runs the real economy here: smuggling, debt, protection. A cantina fight draws local attention (Darga's people, scavenger gangs) but NOT Imperial attention — the troopers at the landing field don't care about Hutt business.",
               "npcs": [
                 {
                   "name": "Maya",
@@ -119,23 +119,104 @@
                   "name": "Krev Tosk",
                   "type": "Weequay Enforcer",
                   "count": 1,
-                  "notes": "Darga's local muscle. Senior collector.",
-                  "behavior": "Tries intimidation first. Will back down from a real show of force. Only draws if the heroes draw first.",
+                  "notes": "Darga's local muscle. Senior collector. A professional — he collects debts, not corpses.",
+                  "behavior": "Opens with Loom (maneuver): fills the doorway, rolls his shoulders, walks to the PCs' table. Then Threaten (action): social pressure using implied violence. Will back down from a genuine show of force — a fast-drawn blaster makes him recalculate. Does NOT draw his own weapon unless the social situation has completely collapsed AND violence is already happening. If the Intimidate check fails, uses Lean In to escalate pressure. In a brawl, fights with fists (Physique 3) — grapples, shoves, uses furniture.",
                   "dialogue": [
                     "\"The girl owes Darga the Hutt. You want to be part of her debt?\"",
                     "\"Walk away. This isn't your business yet.\"",
-                    "\"Darga remembers faces. Think about that.\""
+                    "\"Darga remembers faces. Think about that.\"",
+                    "\"You won't shoot over some girl you don't know.\""
                   ],
-                  "intel": "Knows Maya stole something from Darga's warehouse. Doesn't know what."
+                  "intel": "Knows Maya stole something from Darga's warehouse. Doesn't know what.",
+                  "threatBuild": {
+                    "role": "enforcer",
+                    "tier": 1,
+                    "classification": "standard",
+                    "threatCategory": "character",
+                    "arenas": {
+                      "physique": 3,
+                      "reflex": 2,
+                      "grit": 2,
+                      "wits": 1,
+                      "presence": 2
+                    },
+                    "weaponChassis": "light",
+                    "traits": [],
+                    "tags": [],
+                    "computed": {
+                      "power": 4,
+                      "defense": 4,
+                      "evasion": 2,
+                      "resist": 2,
+                      "vitality": 7,
+                      "initiative": 2,
+                      "controlDie": "d6",
+                      "actions": 1
+                    },
+                    "roleKit": {
+                      "passive": {
+                        "name": "Implied Violence",
+                        "description": "Social attacks can inflict [Shaken] instead of normal social conditions."
+                      },
+                      "actions": [
+                        { "name": "Threaten", "type": "action", "arena": "physique", "description": "Social attack using implied force. Targets Resist." },
+                        { "name": "Lean In", "type": "action", "arena": "presence", "powerMod": 1, "description": "Escalate social pressure. +1 Power if target already has a social condition." }
+                      ],
+                      "maneuver": { "name": "Loom", "description": "Move to close range. Target must resist or gain [Rattled]." },
+                      "gambit": { "name": "Break Something", "cost": "-1 Power", "description": "Demonstrate capacity for violence. All witnesses gain [Shaken]." },
+                      "exploit": { "name": "Last Warning", "description": "If target has [Shaken], automatically escalate to [Incapacitated] (surrender/flee)." }
+                    },
+                    "notes": "Power 4 = (effective Physique 4 - 1) + Tier 1. Defense 4 = max(4,2)-1+1. Vitality 7 = Phys 4 + Grit 2 + Tier 1. Wits clamped to 1 (base 1, Enforcer -1, floor 1). Vs a starting PC with Resist ~3, net +1 = Fleeting social hit. Enough to apply pressure, not devastating."
+                  }
                 },
                 {
                   "name": "Kyuzo Enforcers",
-                  "type": "Standard Thug",
+                  "type": "Kyuzo Skirmisher",
                   "count": 2,
-                  "notes": "Wide-brimmed war helms. Armed but holstered. Follow Krev's lead.",
-                  "behavior": "Silent and watchful. Position to flank. Respond to violence but don't initiate.",
+                  "notes": "Wide-brimmed war helms. Armed but holstered. Follow Krev's lead. Silent and disciplined.",
+                  "behavior": "During social phase: silent and watchful, use Reposition (maneuver) to cut off exits — one moves to booth row (A2), one to alcove (D2). Do not initiate violence. In a brawl: war-helm headbutts (Hit and Run — melee attack + free disengage). Fight as a pair to flank. As Minions, Masterful+ result = instant takedown. They are speed bumps, not real threats.",
                   "dialogue": [],
-                  "intel": null
+                  "intel": null,
+                  "threatBuild": {
+                    "role": "skirmisher",
+                    "tier": 0,
+                    "classification": "minion",
+                    "threatCategory": "character",
+                    "arenas": {
+                      "physique": 2,
+                      "reflex": 3,
+                      "grit": 2,
+                      "wits": 1,
+                      "presence": 1
+                    },
+                    "weaponChassis": "light",
+                    "traits": [],
+                    "tags": [],
+                    "computed": {
+                      "power": 3,
+                      "defense": 3,
+                      "evasion": 3,
+                      "resist": 0,
+                      "vitality": 3,
+                      "initiative": 1,
+                      "controlDie": "d6",
+                      "actions": 1
+                    },
+                    "roleKit": {
+                      "passive": {
+                        "name": "Fleet Footed",
+                        "description": "May take 2 maneuvers per turn instead of 1."
+                      },
+                      "actions": [
+                        { "name": "Hit and Run", "type": "action", "arena": "reflex", "description": "Melee attack + free disengage." },
+                        { "name": "Harrying Shot", "type": "action", "arena": "reflex", "description": "Ranged attack at close range. Target cannot take reactions until next turn." }
+                      ],
+                      "maneuver": { "name": "Reposition", "description": "Move without provoking reactions." },
+                      "gambit": { "name": "Hamstring", "cost": "-1 Power", "description": "Target gains [Slowed] on hit." },
+                      "exploit": { "name": "Ambush", "description": "If attacking from stealth or flanking, +2 Power on the attack." }
+                    },
+                    "notes": "Power 3 = (effective Reflex 4 - 1) + Tier 0. Defense 3 = max(2,4)-1+0. Evasion 3 = Ref 4 - 1 + 0. Resist 0 = Grit 1 - 1 + 0 (extremely vulnerable to social/grit attacks). Vitality 3 = Phys 2 + Grit 1 + Tier 0 (fragile). Minion: Masterful+ = instant takedown. They exist to make the room feel dangerous, not to be a real fight."
+                  }
                 }
               ],
               "hazards": "Cantina environment — dim lighting, overturned tables, broken glass, panicking patrons. A fight on Jakku draws local attention (Darga's people, scavenger gangs) but NOT Imperial attention.",
@@ -153,7 +234,9 @@
                 "Darga the Hutt",
                 "Jakku",
                 "The Code Cylinder",
-                "Maya"
+                "Maya",
+                "Pacification Campaigns",
+                "Imperial Shuttle"
               ],
               "narrativeLinks": [
                 {
@@ -161,7 +244,7 @@
                   "note": "Darga's enforcers here foreshadow the full encounter with his organization on Takodana."
                 }
               ],
-              "challengeType": "combat",
+              "challengeType": "social",
               "destinyTags": [
                 "destruction",
                 "rescue"
@@ -185,40 +268,46 @@
                   "name": "The Collection",
                   "type": "social",
                   "trigger": "Immediate — thugs in the doorway",
-                  "description": "Darga's collectors confront Maya at the heroes' table. Debt collection, not a hit. Heroes must decide whether to get involved.",
-                  "tactics": "Krev leads with intimidation. Kyuzo watch exits. If heroes show force, Krev reassesses — not paid enough to die on Jakku."
+                  "description": "Darga's collectors confront Maya at the heroes' table. Debt collection, not a hit. Heroes must decide whether to get involved. This is narrative pacing — no dice until a PC takes an action where failure matters.",
+                  "tactics": "Krev uses Loom (maneuver) — walks to the table, fills the space. Then Threaten (action) — social pressure via implied violence. Kyuzo silently Reposition to flank (one toward A2 booths, one toward D2 alcove). If a hero draws a blaster, that's leverage — it feeds into the Intimidate check, not a trigger for combat. Krev reassesses: is this debt worth a blaster bolt? If the Intimidate succeeds, he folds. If it fails, he calls the bluff and uses Lean In."
                 },
                 {
                   "id": "enc-s1-brawl",
                   "name": "Cantina Brawl",
                   "type": "combat",
-                  "trigger": "Only if someone throws the first punch or social resolution fails badly",
-                  "description": "Bar brawl in a cramped cantina. Overturned tables, thrown bottles, panicking patrons. Blasters stay holstered unless someone draws first.",
-                  "tactics": "Weequay grapples and brawls. Kyuzo headbutt with helms and fight as a pair to flank. If a hero draws a blaster, all three draw.",
+                  "trigger": "Only if someone throws the first punch, or social resolution fails badly and PCs refuse to back down",
+                  "description": "Bar brawl in a cramped cantina. Fists, headbutts, thrown bottles, overturned tables. Stun damage — no one is trying to kill. Blasters stay holstered. Combat only escalates to lethal if: (a) a brawl is already happening AND someone draws a blaster, OR (b) social failed AND a PC with blaster drawn refuses to hand Maya over.",
+                  "tactics": "Krev grapples and shoves (Physique 3). Kyuzo headbutt with war helms — Hit and Run (melee attack + free disengage), then Reposition to flank. They fight as a pair. If a blaster comes out during the brawl, all three draw — the scene shifts to lethal. Tutorial note: walk players through maneuvers (flip table = Find Cover, grab bottle = Equip improvised weapon, move one zone = maneuver).",
                   "composition": {
                     "enemies": [
                       {
-                        "type": "Weequay Enforcer",
+                        "type": "Weequay Enforcer (Krev Tosk)",
                         "count": 1,
-                        "threat": "rival"
+                        "threat": "standard",
+                        "classification": "standard",
+                        "role": "enforcer",
+                        "tier": 1
                       },
                       {
-                        "type": "Kyuzo Enforcer",
+                        "type": "Kyuzo Skirmisher",
                         "count": 2,
-                        "threat": "minion"
+                        "threat": "minion",
+                        "classification": "minion",
+                        "role": "skirmisher",
+                        "tier": 0
                       }
                     ],
-                    "terrain": "Cramped cantina interior",
-                    "positioning": "Weequay at center, Kyuzo flanking from sides"
+                    "terrain": "Cramped cantina interior (see tacticalMap)",
+                    "positioning": "Krev at B1/C1 entrance, Kyuzo split B1 and C1. Kyuzo Reposition to A2 and D2 to flank."
                   }
                 },
                 {
                   "id": "enc-s1-pitch",
                   "name": "Maya's Proposition",
                   "type": "social",
-                  "trigger": "After the thugs are dealt with",
-                  "description": "Maya shifts to a calculated pitch. Offers the heroes a cut of whatever the Code Cylinder leads to.",
-                  "tactics": "Maya reads the room — appeals to greed for mercenaries, justice for idealists, curiosity for investigators."
+                  "trigger": "After the thugs are dealt with (any resolution path)",
+                  "description": "Maya shifts to a calculated pitch. The desperation is gone — replaced by a confidence that was always there underneath. She offers the heroes a cut of whatever the Code Cylinder leads to.",
+                  "tactics": "Maya reads the room — appeals to greed for mercenaries, justice for idealists, curiosity for investigators. This is narrative — no roll needed unless PCs actively resist the hook (and even then, the Code Cylinder is too interesting to walk away from)."
                 }
               ],
               "skillChecks": [
@@ -226,33 +315,37 @@
                   "id": "sc-s1-read-maya",
                   "discipline": "insight",
                   "difficulty": "Easy",
-                  "context": "Reading Maya — genuine desperation or performance?",
-                  "success": "The wound is real. The fear is real. But she chose this table on purpose.",
-                  "failure": "She seems genuinely terrified. No indication of ulterior motives."
+                  "context": "Reading Maya — genuine desperation or performance? Only roll if a PC specifically asks. Failure matters: it hides that she chose this table on purpose, which colors trust going forward.",
+                  "success": "The wound is real. The fear is real. But she chose this table on purpose — she saw armed people and made a calculation.",
+                  "failure": "She seems genuinely terrified. No indication of ulterior motives.",
+                  "narrativePacing": "Roll only if asked. Do not prompt for this check."
                 },
                 {
                   "id": "sc-s1-intimidate",
                   "discipline": "intimidate",
                   "difficulty": "Moderate",
-                  "context": "Staring down the Weequay and his crew.",
-                  "success": "Krev backs off: 'Not worth it today.' Warns Darga remembers faces.",
-                  "failure": "Krev isn't impressed. Steps forward. Situation escalates."
+                  "context": "The Gunslinger's fast draw IS this check — blaster out before the thugs can react. The draw is the statement, the blaster is leverage. Other vocations can use presence, posture, or reputation. This is the ONE roll that determines whether violence happens.",
+                  "success": "Krev reads the situation: this person is faster than his crew. 'Not worth it today.' Backs off, warns Darga remembers faces, leaves with the Kyuzo.",
+                  "failure": "Krev doesn't flinch. 'You won't shoot over some girl you don't know.' The PC now has a choice: pull the trigger (firefight) or holster it (Krev uses Lean In, smells weakness, situation gets worse).",
+                  "narrativePacing": "This is a story fork. Always roll."
                 },
                 {
                   "id": "sc-s1-charm",
                   "discipline": "charm",
                   "difficulty": "Moderate",
-                  "context": "Talking the thugs down or redirecting them.",
+                  "context": "Talking the thugs down or redirecting them. Failure matters: escalation.",
                   "success": "Thugs are mollified or confused enough to withdraw.",
-                  "failure": "Krev sees through it. 'Nice try. Hand her over.'"
+                  "failure": "Krev sees through it. 'Nice try. Hand her over.'",
+                  "narrativePacing": "Story fork. Always roll."
                 },
                 {
                   "id": "sc-s1-deception",
                   "discipline": "deception",
                   "difficulty": "Moderate",
-                  "context": "Claiming Maya is under protection or the debt is settled.",
+                  "context": "Claiming Maya is under protection or the debt is settled. Failure matters: escalation.",
                   "success": "Krev hesitates — leaves to confirm with his boss.",
-                  "failure": "'I know everyone Darga deals with. You're nobody.'"
+                  "failure": "'I know everyone Darga deals with. You're nobody.'",
+                  "narrativePacing": "Story fork. Always roll."
                 },
                 {
                   "id": "sc-s1-medicine",
@@ -261,7 +354,8 @@
                   "context": "Treating Maya's blaster wound after resolution.",
                   "success": "Wound cleaned and dressed. Maya is grateful and more forthcoming.",
                   "failure": "Basic patch job. Maya stays functional.",
-                  "isOptional": true
+                  "isOptional": true,
+                  "narrativePacing": "Failure doesn't fork the story. Skip the roll unless a player specifically wants to treat her — reward the effort narratively."
                 }
               ],
               "environmentMechanics": [
@@ -284,6 +378,120 @@
                   "mitigation": "Careful shot placement or waiting for clear lines."
                 }
               ],
+              "tacticalMap": {
+                "gridColumns": 4,
+                "gridRows": 3,
+                "zoneSize": "15ft",
+                "columnLabels": ["A", "B", "C", "D"],
+                "rowLabels": [1, 2, 3],
+                "zones": [
+                  {
+                    "id": "A1",
+                    "label": "Solid Wall",
+                    "passable": false,
+                    "cover": "none",
+                    "lighting": "normal",
+                    "terrain": "Duracrete wall. Impassable. Channels all traffic through B1/C1 entrance."
+                  },
+                  {
+                    "id": "B1",
+                    "label": "Entrance (West)",
+                    "passable": true,
+                    "cover": "none",
+                    "lighting": "bright",
+                    "terrain": "Blast door entrance. Jakku sunlight pours in. No cover — anyone standing here is fully exposed. Door controls on the wall."
+                  },
+                  {
+                    "id": "C1",
+                    "label": "Entrance (East)",
+                    "passable": true,
+                    "cover": "none",
+                    "lighting": "bright",
+                    "terrain": "Blast door entrance. Wide enough for three abreast. No cover. The glare from outside imposes no penalty but is narratively blinding."
+                  },
+                  {
+                    "id": "D1",
+                    "label": "Solid Wall",
+                    "passable": false,
+                    "cover": "none",
+                    "lighting": "normal",
+                    "terrain": "Duracrete wall. Impassable. Storage crates stacked against the outside."
+                  },
+                  {
+                    "id": "A2",
+                    "label": "Booth Row",
+                    "passable": true,
+                    "cover": "light",
+                    "lighting": "dim",
+                    "terrain": "Curved booth seating along the wall. Light cover from booth backs. Shadow pool — dim lighting penalty applies to ranged attacks targeting or from this zone at range. A few patrons nursing drinks."
+                  },
+                  {
+                    "id": "B2",
+                    "label": "Center Floor (PCs' Table)",
+                    "passable": true,
+                    "cover": "light",
+                    "lighting": "normal",
+                    "terrain": "The heroes' table. Light cover from furniture. A PC can use Find Cover (maneuver) to flip the table for improved light cover. Central position — adjacent to all Row 2 and Row 1/3 zones. This is where the action starts."
+                  },
+                  {
+                    "id": "C2",
+                    "label": "Open Floor",
+                    "passable": true,
+                    "cover": "none",
+                    "lighting": "normal",
+                    "terrain": "Open cantina floor. No cover, no obstacles. Clear sightlines to every other zone. The kill zone if blasters come out."
+                  },
+                  {
+                    "id": "D2",
+                    "label": "Alcove",
+                    "passable": true,
+                    "cover": "light",
+                    "lighting": "dim",
+                    "terrain": "Recessed alcove with a sabacc table. Light cover from the table edge. Deep shadow — dim lighting penalty applies. A patron or two hiding here."
+                  },
+                  {
+                    "id": "A3",
+                    "label": "Back Hallway",
+                    "passable": true,
+                    "cover": "none",
+                    "lighting": "dim",
+                    "terrain": "Narrow corridor to the back exit. No cover. Leads to the alley behind the cantina — the escape route. Dim lighting from a single failing glow-rod."
+                  },
+                  {
+                    "id": "B3",
+                    "label": "Bar (West)",
+                    "passable": true,
+                    "cover": "hard",
+                    "lighting": "normal",
+                    "terrain": "West end of the bar counter. Hard cover — the bar is solid durasteel and wood. Bottles and glasses as improvised weapons (Light chassis, stun). The bartender's position. Maya flees here if combat starts."
+                  },
+                  {
+                    "id": "C3",
+                    "label": "Bar (East)",
+                    "passable": true,
+                    "cover": "hard",
+                    "lighting": "normal",
+                    "terrain": "East end of the bar counter. Hard cover. Tap system and storage underneath. Same improvised weapon access as B3. Good defensive position with sightlines to the entrance."
+                  },
+                  {
+                    "id": "D3",
+                    "label": "Store Room",
+                    "passable": true,
+                    "cover": "full",
+                    "lighting": "dark",
+                    "terrain": "Closed door (requires maneuver to open). Full cover once inside. Dark — no light source. Crates of supplies, kegs. Dead end — defensible but no exit. A cornered position."
+                  }
+                ],
+                "startingPositions": [
+                  { "who": "PCs", "zone": "B2", "notes": "Seated at their table. Central position with light cover." },
+                  { "who": "Maya", "zone": "B2", "notes": "Crashes into B2. Flees to B3 (bar, hard cover) if combat starts." },
+                  { "who": "Krev Tosk", "zone": "B1", "notes": "Enters through blast doors. Exposed — no cover. Advances to B2/C2 via Loom maneuver." },
+                  { "who": "Kyuzo #1", "zone": "B1", "notes": "Behind Krev at entrance. Repositions to A2 (booth row) to flank." },
+                  { "who": "Kyuzo #2", "zone": "C1", "notes": "Flanking the entrance. Repositions to D2 (alcove) to cut off the far side." },
+                  { "who": "Patrons", "zone": "A2,C2,D2", "notes": "Scattered. Flee to B1/C1 (entrance) or A3 (back exit) if weapons are drawn." }
+                ],
+                "gmTacticalNotes": "Krev starts exposed at B1 — intentional. He's a collector, not a tactician. He expects compliance. The Kyuzo use Fleet Footed (2 maneuvers/turn) + Reposition (no reactions) to silently flank to A2 and D2 during the social phase — cutting off the booth row and alcove. This is positioning, not aggression. If combat triggers: Krev advances to B2 or C2 for melee range. Kyuzo attack with Hit and Run from flanking positions — headbutt then disengage. The bar (B3/C3) is the strongest defensive position. The open floor (C2) is the worst — no cover, clear sightlines. The back hallway (A3) is the escape route. The store room (D3) is a trap — full cover but no exit. Teach players: 'You can flip that table (Find Cover maneuver). You can grab a bottle (Equip maneuver). Moving to the next zone costs your maneuver. Two zones costs your whole turn.'"
+              },
               "rewards": {
                 "credits": 0,
                 "items": [
@@ -298,11 +506,11 @@
                 ]
               },
               "pacing": {
-                "openingBeat": "Maya crashes in wounded, thugs follow. Heroes are in the middle before they choose.",
-                "risingAction": "Confrontation with Krev. Social pressure escalates.",
-                "climax": "The decision — fight, talk, or intimidate.",
+                "openingBeat": "Narrative intro establishes Jakku, the galaxy at 16 BBY, the Imperial shuttle foreshadow, and the subdued cantina mood. Players settle into the setting before the action hits.",
+                "risingAction": "Maya crashes in wounded. Thugs fill the doorway. Krev delivers his ultimatum. Kyuzo silently flank. Social pressure mounts.",
+                "climax": "The decision — fast-draw intimidation, social play, or let it go to fists. One roll that matters.",
                 "resolution": "Maya's pitch. Code Cylinder revealed. Hook set.",
-                "estimatedMinutes": 25
+                "estimatedMinutes": 30
               },
               "knackTags": [
                 "hutt-marked",
