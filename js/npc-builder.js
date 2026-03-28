@@ -182,12 +182,7 @@
       html += '<div class="npc-card-ironclad">IRON CLAD: Uses Defense for Evasion. Endures grenades/AoE. Bypassed by lightsabers &amp; armor-piercing.</div>';
     }
     if (stats.scale) {
-      var scaleDiff = stats.scaleLevel - 1;
-      html += '<div class="npc-card-scale">SCALE: ' + esc(stats.scale.charAt(0).toUpperCase() + stats.scale.slice(1)) + ' (' + stats.scaleLevel + ')';
-      if (scaleDiff > 0) {
-        html += ' — Character attacks: step up Control x' + scaleDiff + ', reduce effect tier by ' + scaleDiff;
-      }
-      html += '</div>';
+      html += '<div class="npc-card-scale">SCALE: ' + esc(stats.scale.charAt(0).toUpperCase() + stats.scale.slice(1)) + ' (Level ' + stats.scaleLevel + ')</div>';
     }
 
     if (currentNpc.classification === 'minion') {

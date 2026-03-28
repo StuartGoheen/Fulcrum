@@ -53,7 +53,7 @@
       }
     },
     "scaleReference": {
-      "description": "Scale determines cross-scale combat penalties. Each step of difference: attacker steps up Control die, but reduces effect tier by the difference.",
+      "description": "Scale difference modifies both Control and Effect. Attacking a LARGER target: step down Control per difference, step up Effect per difference. Attacking a SMALLER target: step up Control per difference, step down Effect per difference. Scale difference is absolute between attacker and target.",
       "levels": [
         { "level": 1, "name": "Character", "examples": "People, droids, beasts" },
         { "level": 2, "name": "Vehicle", "examples": "AT-ST, speeders, walkers" },
@@ -354,10 +354,10 @@
     { "id": "veteran", "name": "Veteran", "description": "+1 additional Exploit slot.", "exploitMod": 1 },
     { "id": "shield_generator", "name": "Shield Generator", "description": "+2 Defense. Shield breaks after absorbing Masterful+ hit. Recharges after 1 round without damage.", "defenseMod": 2, "shieldBreak": "masterful" },
     { "id": "jetpack", "name": "Jetpack", "description": "Can fly. Ignore terrain. +1 Evasion while airborne.", "evasionMod": 1, "grantsFlight": true },
-    { "id": "scale_vehicle", "name": "Scale: Vehicle", "description": "Vehicle scale (AT-ST, speeder). Attacks from Character scale: step up Control die x1, reduce effect tier by 1.", "scale": "vehicle", "scaleLevel": 2 },
-    { "id": "scale_starship", "name": "Scale: Starship", "description": "Starship scale (fighters, freighters). Attacks from Character scale: step up Control die x2, reduce effect tier by 2.", "scale": "starship", "scaleLevel": 3 },
-    { "id": "scale_capital", "name": "Scale: Capital Ship", "description": "Capital ship scale (Star Destroyers). Attacks from Character scale: step up Control die x3, reduce effect tier by 3.", "scale": "capital", "scaleLevel": 4 },
-    { "id": "scale_station", "name": "Scale: Station", "description": "Station scale (space stations, superweapons). Attacks from Character scale: step up Control die x4, reduce effect tier by 4.", "scale": "station", "scaleLevel": 5 }
+    { "id": "scale_vehicle", "name": "Scale: Vehicle", "description": "Vehicle scale (AT-ST, speeder, walker).", "scale": "vehicle", "scaleLevel": 2 },
+    { "id": "scale_starship", "name": "Scale: Starship", "description": "Starship scale (fighters, freighters, gunships).", "scale": "starship", "scaleLevel": 3 },
+    { "id": "scale_capital", "name": "Scale: Capital Ship", "description": "Capital ship scale (Star Destroyers, cruisers).", "scale": "capital", "scaleLevel": 4 },
+    { "id": "scale_station", "name": "Scale: Station", "description": "Station scale (space stations, superweapons).", "scale": "station", "scaleLevel": 5 }
   ],
 
   "tags": [
