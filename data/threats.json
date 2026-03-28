@@ -346,24 +346,19 @@
   ],
 
   "tags": [
-    { "id": "imperial", "name": "Imperial", "effect": "Access to Imperial comms and reinforcements. +1 Power vs Rebels." },
-    { "id": "rebel", "name": "Rebel", "effect": "Access to Rebel safehouses. +1 Power vs Imperials." },
-    { "id": "criminal", "name": "Criminal", "effect": "Access to black market contacts. Can fence stolen goods." },
-    { "id": "bounty_hunter", "name": "Bounty Hunter", "effect": "Tracks targets relentlessly. +1 Power vs bounty targets." },
-    { "id": "droid", "name": "Droid", "effect": "Immune to social conditions and [Poisoned]. Vulnerable to [Ionized]." },
-    { "id": "force_user", "name": "Force User", "effect": "Can sense Force-sensitive PCs. May use Force maneuvers." },
-    { "id": "beast_tag", "name": "Beast", "effect": "Cannot use equipment. Immune to [Disoriented]. May track by scent." },
-    { "id": "mercenary", "name": "Mercenary", "effect": "Loyalty is purchasable. Can be bribed to switch sides." },
-    { "id": "civilian", "name": "Civilian", "effect": "Non-combatant. Attacking civilians causes Obligation gain." },
-    { "id": "pirate", "name": "Pirate", "effect": "Access to smuggling routes. +1 Power during boarding actions." },
-    { "id": "mandalorian", "name": "Mandalorian", "effect": "+1 Defense from beskar armor. Immune to [Shaken] in combat." },
-    { "id": "hutt_cartel", "name": "Hutt Cartel", "effect": "Access to Hutt resources. Can place bounties on PCs." },
-    { "id": "black_sun", "name": "Black Sun", "effect": "Underworld network. Can arrange ambushes in civilized areas." },
-    { "id": "separatist", "name": "Separatist", "effect": "Access to droid armies. +1 Power when commanding droids." },
-    { "id": "clone_wars", "name": "Clone Wars", "effect": "Veteran of galactic conflict. +1 to initiative rolls." },
-    { "id": "inquisitor", "name": "Inquisitor", "effect": "Imperial authority + Force sensitivity. Can sense Force users." },
-    { "id": "jedi", "name": "Jedi", "effect": "Lightsaber proficient. +1 Defense vs ranged. Can deflect blaster bolts." },
-    { "id": "sith", "name": "Sith", "effect": "Dark Side powers. +1 Power on Force attacks. Immune to [Shaken]." }
+    { "id": "imperial", "name": "Imperial", "effect": "Access to Imperial comms and reinforcements. Can call for backup within 1d6 rounds in Imperial-controlled areas." },
+    { "id": "criminal", "name": "Criminal", "effect": "Access to black market contacts. Can fence stolen goods. Knows local underworld safe routes." },
+    { "id": "hutt_cartel", "name": "Hutt Cartel", "effect": "Access to Hutt resources and enforcers. Can place bounties on PCs. Connected to Darga's network." },
+    { "id": "droid", "name": "Droid", "effect": "Immune to social conditions, [Poisoned], and fear effects. Vulnerable to [Ionized]. Cannot be bribed or intimidated." },
+    { "id": "force_user", "name": "Force User", "effect": "Can sense Force-sensitive PCs. May use Force maneuvers. Detectable by other Force users." },
+    { "id": "inquisitor", "name": "Inquisitor", "effect": "Imperial authority + Force sensitivity. Can sense Force users. Carries Inquisitor lightsaber. Imperial assets obey without question." },
+    { "id": "jedi", "name": "Jedi", "effect": "Lightsaber proficient. +1 Defense vs ranged. Can deflect blaster bolts. A relic of a fallen Order." },
+    { "id": "mercenary", "name": "Mercenary", "effect": "Loyalty is purchasable. Can be bribed to switch sides or stand down. No faction loyalty." },
+    { "id": "civilian", "name": "Civilian", "effect": "Non-combatant. Attacking civilians causes Obligation gain. Flees at first sign of violence." },
+    { "id": "separatist", "name": "Separatist", "effect": "Clone Wars holdout. Access to hidden droid caches and Separatist-era weapons. Distrusts both Empire and Republic." },
+    { "id": "slaver", "name": "Slaver", "effect": "Deals in sentient trafficking. Carries restraint equipment. Connected to Iron Ring network. Attacking slavers does not cause Obligation." },
+    { "id": "swoop_gang", "name": "Swoop Gang", "effect": "Controls local territory. Fights dirty — ambushes, numbers, and speed. Loyalty to the gang above all." },
+    { "id": "informant", "name": "Informant", "effect": "Trades in secrets. Knows one piece of intel about each PC (GM chooses). Can be pumped for information with the right leverage." }
   ],
 
   "prebuilts": [
@@ -399,7 +394,7 @@
       "role": "operative",
       "arenas": { "physique": 2, "reflex": 4, "grit": 3, "wits": 3, "presence": 2 },
       "traits": ["armored_light", "veteran"],
-      "tags": ["bounty_hunter", "criminal"],
+      "tags": ["criminal", "mercenary"],
       "loot": [],
       "notes": "Dangerous solo threat. Elite gives +1 Exploit and x1.5 Vitality."
     },
@@ -435,7 +430,7 @@
       "role": "brute",
       "arenas": { "physique": 4, "reflex": 2, "grit": 3, "wits": 1, "presence": 2 },
       "traits": ["tough"],
-      "tags": ["criminal", "bounty_hunter"],
+      "tags": ["criminal", "mercenary"],
       "loot": [],
       "notes": "Tough + Brute. Ignores Fleeting damage AND first Weakened condition."
     },
@@ -447,7 +442,7 @@
       "role": "beast",
       "arenas": { "physique": 4, "reflex": 3, "grit": 3, "wits": 1, "presence": 1 },
       "traits": ["tough"],
-      "tags": ["beast_tag"],
+      "tags": [],
       "loot": [],
       "notes": "Feral creature. Natural weapons, cannot be disarmed. Pack Tactics with allies."
     },
