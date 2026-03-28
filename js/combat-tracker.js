@@ -531,7 +531,7 @@
         var delta = parseInt(btn.dataset.delta, 10);
         var npc = combatState.combatants.find(function (n) { return n.id === npcId; });
         if (npc) {
-          npc.vitalityCurrent = Math.max(0, Math.min(npc.vitalityMax * 2, npc.vitalityCurrent + delta));
+          npc.vitalityCurrent = Math.max(0, Math.min(npc.vitalityMax, npc.vitalityCurrent + delta));
           renderCombatTracker();
         }
       });
