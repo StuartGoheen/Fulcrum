@@ -483,8 +483,13 @@
         if (isNaN(newInit) || newInit < 1) return;
         var pc = combatState.pcSlots.find(function (p) { return p.id === pcId; });
         if (pc) pc.initiative = newInit;
-        var entry = combatState.turnOrder.find(function (e) { return e.id === pcId; });
-        if (entry) entry.initiative = newInit;
+        var currentId = combatState.turnOrder[combatState.currentTurnIndex] ? combatState.turnOrder[combatState.currentTurnIndex].id : null;
+        rebuildTurnOrder();
+        if (currentId) {
+          for (var ri = 0; ri < combatState.turnOrder.length; ri++) {
+            if (combatState.turnOrder[ri].id === currentId) { combatState.currentTurnIndex = ri; break; }
+          }
+        }
         renderCombatTracker();
       });
     });

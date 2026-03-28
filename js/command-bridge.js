@@ -225,10 +225,12 @@
     saveProgress();
   }
 
+  var _lastRenderedScene = null;
   function renderScene() {
-    if (window.CombatTracker && window.CombatTracker.isActive()) {
+    if (window.CombatTracker && window.CombatTracker.isActive() && currentScene !== _lastRenderedScene) {
       window.CombatTracker.end();
     }
+    _lastRenderedScene = currentScene;
     var container = document.getElementById('scene-carousel');
     if (!container) return;
     var adv = getAdventure(currentAdventure);
