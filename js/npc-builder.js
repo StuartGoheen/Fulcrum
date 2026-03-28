@@ -270,7 +270,8 @@
     var body = document.getElementById('npc-loot-assign-body');
     if (!overlay || !body) return;
 
-    var activePCs = partyCacheNpc.filter(function (pc) { return pc.is_connected || pc.name; });
+    var connectedPCs = partyCacheNpc.filter(function (pc) { return pc.is_connected; });
+    var activePCs = connectedPCs.length > 0 ? connectedPCs : partyCacheNpc.filter(function (pc) { return pc.name; });
     var html = '<div class="npc-assign-title">Assign: ' + esc(item.name) + '</div>';
     if (!activePCs.length) {
       html += '<div class="npc-assign-empty">No characters found. Load the party monitor first.</div>';
