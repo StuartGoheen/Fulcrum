@@ -909,26 +909,35 @@
   }
 
   var mobileTabsInitialized = false;
-  function initMobileBuilderTabs() {
-    if (mobileTabsInitialized) return;
-    var tabs = document.getElementById('npc-builder-mobile-tabs');
-    if (!tabs) return;
-    mobileTabsInitialized = true;
+  function switchMobilePanel(panelKey) {
     var panels = {
       config: document.getElementById('npc-builder-left'),
       preview: document.getElementById('npc-card-preview'),
       extras: document.getElementById('npc-builder-right')
     };
+    var tabs = document.getElementById('npc-builder-mobile-tabs');
+    if (tabs) {
+      tabs.querySelectorAll('.npc-mobile-tab').forEach(function (t) {
+        t.classList.toggle('active', t.dataset.panel === panelKey);
+      });
+    }
+    Object.keys(panels).forEach(function (k) {
+      if (panels[k]) panels[k].style.display = k === panelKey ? '' : 'none';
+    });
+  }
+  function initMobileBuilderTabs() {
+    if (mobileTabsInitialized) return;
+    var tabs = document.getElementById('npc-builder-mobile-tabs');
+    if (!tabs) return;
+    mobileTabsInitialized = true;
     tabs.querySelectorAll('.npc-mobile-tab').forEach(function (tab) {
       tab.addEventListener('click', function () {
-        tabs.querySelectorAll('.npc-mobile-tab').forEach(function (t) { t.classList.remove('active'); });
-        tab.classList.add('active');
-        var target = tab.dataset.panel;
-        Object.keys(panels).forEach(function (k) {
-          if (panels[k]) panels[k].style.display = k === target ? '' : 'none';
-        });
+        switchMobilePanel(tab.dataset.panel);
       });
     });
+    if (window.innerWidth <= 768) {
+      switchMobilePanel('config');
+    }
   }
 
   document.addEventListener('DOMContentLoaded', function () {

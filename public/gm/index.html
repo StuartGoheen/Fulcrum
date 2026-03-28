@@ -1801,15 +1801,25 @@
     }
 
     @media screen and (max-width: 768px) {
+      .npc-builder-overlay {
+        align-items: stretch;
+        justify-content: stretch;
+      }
       .npc-builder-modal {
         width: 100vw;
         height: 100vh;
+        height: 100dvh;
         max-width: none;
+        border: none;
+      }
+      .npc-builder-header {
+        padding: 0.4rem 0.75rem;
       }
       .npc-builder-mobile-tabs {
         display: flex;
         border-bottom: 1px solid var(--color-border);
         flex-shrink: 0;
+        background: var(--color-bg-frame);
       }
       .npc-mobile-tab {
         flex: 1;
@@ -1830,18 +1840,47 @@
         border-bottom-color: var(--color-accent-primary);
       }
       .npc-builder-body {
-        display: block;
+        display: flex;
+        flex-direction: column;
         overflow: hidden;
         flex: 1;
+        min-height: 0;
       }
       .npc-builder-panel {
         border: none;
-        height: 100%;
+        flex: 1;
+        min-height: 0;
         overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      .npc-builder-panel-left {
+        border-right: none;
+      }
+      .npc-builder-panel-right {
+        border-left: none;
       }
       .npc-builder-panel-center,
       .npc-builder-panel-right {
         display: none;
+      }
+      .npc-category-btn {
+        padding: 0.5rem 0.3rem;
+        font-size: 0.65rem;
+      }
+      .npc-card {
+        max-width: none;
+      }
+    }
+    @media screen and (max-width: 768px) and (orientation: landscape) {
+      .npc-builder-header {
+        padding: 0.25rem 0.75rem;
+      }
+      .npc-builder-title {
+        font-size: 0.65rem;
+      }
+      .npc-mobile-tab {
+        padding: 0.35rem;
+        font-size: 0.6rem;
       }
     }
   </style>
