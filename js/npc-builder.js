@@ -66,6 +66,10 @@
     var evasionTrait = 0;
     var resistTrait = 0;
     var traitImmunities = [];
+    var traitVulnerabilities = [];
+    var scale = null;
+    var scaleLevel = 1;
+    var hasIronClad = false;
     (npc.traits || []).forEach(function (tid) {
       var t = threatData.traits.find(function (tr) { return tr.id === tid; });
       if (!t) return;
@@ -73,6 +77,9 @@
       if (t.evasionMod) evasionTrait += t.evasionMod;
       if (t.resistMod) resistTrait += t.resistMod;
       if (t.immunities) traitImmunities = traitImmunities.concat(t.immunities);
+      if (t.vulnerabilities) traitVulnerabilities = traitVulnerabilities.concat(t.vulnerabilities);
+      if (t.scale) { scale = t.scale; scaleLevel = t.scaleLevel || 1; }
+      if (t.useDefenseForEvasion) hasIronClad = true;
     });
 
     var defense = Math.max(a.physique, a.reflex) - 1 + tier + defenseTrait;
@@ -112,7 +119,11 @@
       role: role,
       classification: cls,
       rolePowerBonus: rolePowerBonus,
-      immunities: traitImmunities
+      immunities: traitImmunities,
+      vulnerabilities: traitVulnerabilities,
+      scale: scale,
+      scaleLevel: scaleLevel,
+      ironClad: hasIronClad
     };
   }
 
@@ -163,6 +174,20 @@
 
     if (stats.immunities && stats.immunities.length) {
       html += '<div class="npc-card-immunities">IMMUNE: ' + stats.immunities.map(esc).join(', ') + '</div>';
+    }
+    if (stats.vulnerabilities && stats.vulnerabilities.length) {
+      html += '<div class="npc-card-vulnerabilities">VULNERABLE: ' + stats.vulnerabilities.map(esc).join(', ') + '</div>';
+    }
+    if (stats.ironClad) {
+      html += '<div class="npc-card-ironclad">IRON CLAD: Uses Defense for Evasion. Endures grenades/AoE. Bypassed by lightsabers &amp; armor-piercing.</div>';
+    }
+    if (stats.scale) {
+      var scaleDiff = stats.scaleLevel - 1;
+      html += '<div class="npc-card-scale">SCALE: ' + esc(stats.scale.charAt(0).toUpperCase() + stats.scale.slice(1)) + ' (' + stats.scaleLevel + ')';
+      if (scaleDiff > 0) {
+        html += ' — Character attacks: step up Control x' + scaleDiff + ', reduce effect tier by ' + scaleDiff;
+      }
+      html += '</div>';
     }
 
     if (currentNpc.classification === 'minion') {

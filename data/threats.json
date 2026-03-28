@@ -51,6 +51,16 @@
         "pcDamage": { "fleeting": 2, "masterful": 4, "legendary": 7 },
         "pcStun": { "fleeting": 3, "masterful": 5, "legendary": 8 }
       }
+    },
+    "scaleReference": {
+      "description": "Scale determines cross-scale combat penalties. Each step of difference: attacker steps up Control die, but reduces effect tier by the difference.",
+      "levels": [
+        { "level": 1, "name": "Character", "examples": "People, droids, beasts" },
+        { "level": 2, "name": "Vehicle", "examples": "AT-ST, speeders, walkers" },
+        { "level": 3, "name": "Starship", "examples": "Fighters, freighters, gunships" },
+        { "level": 4, "name": "Capital Ship", "examples": "Star Destroyers, cruisers" },
+        { "level": 5, "name": "Station", "examples": "Space stations, superweapons" }
+      ]
     }
   },
 
@@ -332,17 +342,22 @@
 
   "traits": [
     { "id": "armored_light", "name": "Armored (Light)", "description": "+1 to Defense.", "defenseMod": 1 },
-    { "id": "armored_medium", "name": "Armored (Medium)", "description": "+2 to Defense.", "defenseMod": 2 },
-    { "id": "armored_heavy", "name": "Armored (Heavy)", "description": "+3 to Defense.", "defenseMod": 3 },
+    { "id": "armored_medium", "name": "Armored (Medium)", "description": "+2 to Defense. -1 Evasion.", "defenseMod": 2, "evasionMod": -1 },
+    { "id": "armored_heavy", "name": "Armored (Heavy)", "description": "+3 to Defense. -2 Evasion.", "defenseMod": 3, "evasionMod": -2 },
+    { "id": "iron_clad", "name": "Iron Clad", "description": "Use Defense in place of Evasion. Can Endure grenades and AoE that target Evasion. Overridden by lightsabers and armor-piercing weapons.", "useDefenseForEvasion": true },
     { "id": "tough", "name": "Tough", "description": "Ignore Fleeting damage results. Require Masterful (3+) to damage.", "minDamageScale": "masterful" },
     { "id": "disciplined", "name": "Disciplined", "description": "+1 to Resist.", "resistMod": 1 },
     { "id": "agile", "name": "Agile", "description": "+1 to Evasion.", "evasionMod": 1 },
     { "id": "force_sensitive", "name": "Force Sensitive", "description": "Can use Force-related abilities. Required for Mystic role.", "allowsForce": true },
-    { "id": "cybernetic", "name": "Cybernetic", "description": "+1 to one Arena (chosen at build). Immune to [Stunned].", "arenaBonusChoice": 1, "immunities": ["Stunned"] },
+    { "id": "cybernetic", "name": "Cybernetic", "description": "+1 to one Arena (chosen at build). Immune to [Stunned]. Vulnerable to Ion damage.", "arenaBonusChoice": 1, "immunities": ["Stunned"], "vulnerabilities": ["Ion"] },
     { "id": "fearless", "name": "Fearless", "description": "Immune to [Shaken] and [Rattled].", "immunities": ["Shaken", "Rattled"] },
     { "id": "veteran", "name": "Veteran", "description": "+1 additional Exploit slot.", "exploitMod": 1 },
     { "id": "shield_generator", "name": "Shield Generator", "description": "+2 Defense. Shield breaks after absorbing Masterful+ hit. Recharges after 1 round without damage.", "defenseMod": 2, "shieldBreak": "masterful" },
-    { "id": "jetpack", "name": "Jetpack", "description": "Can fly. Ignore terrain. +1 Evasion while airborne.", "evasionMod": 1, "grantsFlight": true }
+    { "id": "jetpack", "name": "Jetpack", "description": "Can fly. Ignore terrain. +1 Evasion while airborne.", "evasionMod": 1, "grantsFlight": true },
+    { "id": "scale_vehicle", "name": "Scale: Vehicle", "description": "Vehicle scale (AT-ST, speeder). Attacks from Character scale: step up Control die x1, reduce effect tier by 1.", "scale": "vehicle", "scaleLevel": 2 },
+    { "id": "scale_starship", "name": "Scale: Starship", "description": "Starship scale (fighters, freighters). Attacks from Character scale: step up Control die x2, reduce effect tier by 2.", "scale": "starship", "scaleLevel": 3 },
+    { "id": "scale_capital", "name": "Scale: Capital Ship", "description": "Capital ship scale (Star Destroyers). Attacks from Character scale: step up Control die x3, reduce effect tier by 3.", "scale": "capital", "scaleLevel": 4 },
+    { "id": "scale_station", "name": "Scale: Station", "description": "Station scale (space stations, superweapons). Attacks from Character scale: step up Control die x4, reduce effect tier by 4.", "scale": "station", "scaleLevel": 5 }
   ],
 
   "tags": [
@@ -358,7 +373,8 @@
     { "id": "separatist", "name": "Separatist", "effect": "Clone Wars holdout. Access to hidden droid caches and Separatist-era weapons. Distrusts both Empire and Republic." },
     { "id": "slaver", "name": "Slaver", "effect": "Deals in sentient trafficking. Carries restraint equipment. Connected to Iron Ring network. Attacking slavers does not cause Obligation." },
     { "id": "swoop_gang", "name": "Swoop Gang", "effect": "Controls local territory. Fights dirty — ambushes, numbers, and speed. Loyalty to the gang above all." },
-    { "id": "informant", "name": "Informant", "effect": "Trades in secrets. Knows one piece of intel about each PC (GM chooses). Can be pumped for information with the right leverage." }
+    { "id": "informant", "name": "Informant", "effect": "Trades in secrets. Knows one piece of intel about each PC (GM chooses). Can be pumped for information with the right leverage." },
+    { "id": "leader", "name": "Leader", "effect": "Allied Minion and Standard NPCs gain +1 Tier while this leader is active in the same scene. Removing the leader drops their bonus — incentivizes targeting them." }
   ],
 
   "prebuilts": [
