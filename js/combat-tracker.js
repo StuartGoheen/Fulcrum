@@ -90,13 +90,33 @@
       });
     }
 
+    var spKeys = Object.keys(startPositions);
+    var usedSPKeys = {};
     npcEntries.forEach(function (npc) {
-      if (npc.name.indexOf('Krev') !== -1 && startPositions['Krev Tosk']) {
-        npc.zone = startPositions['Krev Tosk'];
-      } else if (npc.name.indexOf('#1') !== -1 && startPositions['Kyuzo #1']) {
-        npc.zone = startPositions['Kyuzo #1'];
-      } else if (npc.name.indexOf('#2') !== -1 && startPositions['Kyuzo #2']) {
-        npc.zone = startPositions['Kyuzo #2'];
+      var bestKey = null;
+      for (var k = 0; k < spKeys.length; k++) {
+        var key = spKeys[k];
+        if (key === 'PCs' || key === 'Patrons' || usedSPKeys[key]) continue;
+        var keyLower = key.toLowerCase();
+        var npcNameLower = npc.name.toLowerCase();
+        if (keyLower === npcNameLower || npcNameLower.indexOf(keyLower) !== -1 || keyLower.indexOf(npcNameLower.replace(/ #\d+$/, '')) !== -1) {
+          bestKey = key;
+          break;
+        }
+      }
+      if (!bestKey) {
+        for (var k2 = 0; k2 < spKeys.length; k2++) {
+          var key2 = spKeys[k2];
+          if (key2 === 'PCs' || key2 === 'Patrons' || usedSPKeys[key2]) continue;
+          var keyWords = key2.toLowerCase().split(/\s+/);
+          var nameWords = npc.name.toLowerCase().replace(/ #\d+$/, '').split(/\s+/);
+          var overlap = nameWords.some(function (w) { return w.length > 2 && keyWords.some(function (kw) { return kw.indexOf(w) !== -1 || w.indexOf(kw) !== -1; }); });
+          if (overlap) { bestKey = key2; break; }
+        }
+      }
+      if (bestKey) {
+        npc.zone = startPositions[bestKey];
+        usedSPKeys[bestKey] = true;
       }
     });
 
@@ -111,9 +131,12 @@
       combatants: npcEntries,
       pcSlots: [],
       tacticalMap: scene.tacticalMap || null,
+      turnOrder: [],
       tokenPositions: {},
       selectedToken: null
     };
+
+    rebuildTurnOrder();
 
     if (pcTokenZone) {
       combatState.tokenPositions['PCs'] = pcTokenZone;
@@ -134,8 +157,8 @@
     }
   }
 
-  function getAllCombatants() {
-    if (!combatState) return [];
+  function rebuildTurnOrder() {
+    if (!combatState) return;
     var all = [];
     combatState.pcSlots.forEach(function (pc) {
       all.push({ id: pc.id, name: pc.name, type: 'pc', initiative: pc.initiative || 0 });
@@ -144,7 +167,12 @@
       all.push({ id: npc.id, name: npc.name, type: 'npc', initiative: npc.initiative });
     });
     all.sort(function (a, b) { return b.initiative - a.initiative; });
-    return all;
+    combatState.turnOrder = all;
+  }
+
+  function getTurnOrder() {
+    if (!combatState || !combatState.turnOrder) return [];
+    return combatState.turnOrder;
   }
 
   function renderCombatTracker() {
@@ -195,16 +223,24 @@
     html += '</div>';
     html += '</div>';
 
-    var allCombatants = getAllCombatants();
+    var turnOrder = getTurnOrder();
     html += '<div class="ct-turn-list" id="ct-turn-list">';
-    allCombatants.forEach(function (c, idx) {
+    turnOrder.forEach(function (c, idx) {
       var isCurrent = idx === combatState.currentTurnIndex;
       var isNpc = c.type === 'npc';
       var cls = 'ct-turn-entry' + (isCurrent ? ' ct-current-turn' : '') + (isNpc ? ' ct-npc-entry' : ' ct-pc-entry');
       html += '<div class="' + cls + '">';
-      html += '<span class="ct-turn-init">' + c.initiative + '</span>';
+      if (!isNpc) {
+        html += '<input type="number" class="ct-input ct-inline-init" data-pc-id="' + esc(c.id) + '" value="' + c.initiative + '" min="1" max="15" title="Edit initiative" />';
+      } else {
+        html += '<span class="ct-turn-init">' + c.initiative + '</span>';
+      }
       html += '<span class="ct-turn-name">' + esc(c.name) + '</span>';
       html += '<span class="ct-turn-type ' + (isNpc ? 'ct-type-npc' : 'ct-type-pc') + '">' + (isNpc ? 'NPC' : 'PC') + '</span>';
+      html += '<span class="ct-reorder-btns">';
+      html += '<button class="ct-reorder-btn" data-dir="up" data-idx="' + idx + '"' + (idx === 0 ? ' disabled' : '') + '>&uarr;</button>';
+      html += '<button class="ct-reorder-btn" data-dir="down" data-idx="' + idx + '"' + (idx === turnOrder.length - 1 ? ' disabled' : '') + '>&darr;</button>';
+      html += '</span>';
       if (!isNpc) {
         html += '<button class="ct-remove-pc" data-pc-id="' + esc(c.id) + '">&times;</button>';
       }
@@ -401,10 +437,11 @@
       var init = parseInt(initInput.value, 10);
       if (!name || isNaN(init)) return;
       combatState.pcSlots.push({
-        id: 'pc_' + name.toLowerCase().replace(/\s+/g, '_'),
+        id: 'pc_' + name.toLowerCase().replace(/\s+/g, '_') + '_' + Date.now(),
         name: name,
         initiative: init
       });
+      rebuildTurnOrder();
       combatState.currentTurnIndex = 0;
       renderCombatTracker();
     });
@@ -413,28 +450,62 @@
       btn.addEventListener('click', function () {
         var pcId = btn.dataset.pcId;
         combatState.pcSlots = combatState.pcSlots.filter(function (p) { return p.id !== pcId; });
+        combatState.turnOrder = combatState.turnOrder.filter(function (e) { return e.id !== pcId; });
         combatState.currentTurnIndex = 0;
+        renderCombatTracker();
+      });
+    });
+
+    container.querySelectorAll('.ct-reorder-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var idx = parseInt(btn.dataset.idx, 10);
+        var dir = btn.dataset.dir;
+        var order = combatState.turnOrder;
+        if (!order || isNaN(idx)) return;
+        var swapIdx = dir === 'up' ? idx - 1 : idx + 1;
+        if (swapIdx < 0 || swapIdx >= order.length) return;
+        var tmp = order[idx];
+        order[idx] = order[swapIdx];
+        order[swapIdx] = tmp;
+        if (combatState.currentTurnIndex === idx) {
+          combatState.currentTurnIndex = swapIdx;
+        } else if (combatState.currentTurnIndex === swapIdx) {
+          combatState.currentTurnIndex = idx;
+        }
+        renderCombatTracker();
+      });
+    });
+
+    container.querySelectorAll('.ct-inline-init').forEach(function (input) {
+      input.addEventListener('change', function () {
+        var pcId = input.dataset.pcId;
+        var newInit = parseInt(input.value, 10);
+        if (isNaN(newInit) || newInit < 1) return;
+        var pc = combatState.pcSlots.find(function (p) { return p.id === pcId; });
+        if (pc) pc.initiative = newInit;
+        var entry = combatState.turnOrder.find(function (e) { return e.id === pcId; });
+        if (entry) entry.initiative = newInit;
         renderCombatTracker();
       });
     });
 
     var nextTurnBtn = container.querySelector('#ct-next-turn');
     if (nextTurnBtn) nextTurnBtn.addEventListener('click', function () {
-      var all = getAllCombatants();
-      if (all.length === 0) return;
-      combatState.currentTurnIndex = (combatState.currentTurnIndex + 1) % all.length;
+      var order = getTurnOrder();
+      if (order.length === 0) return;
+      combatState.currentTurnIndex = (combatState.currentTurnIndex + 1) % order.length;
       if (combatState.currentTurnIndex === 0) combatState.round++;
       renderCombatTracker();
     });
 
     var prevTurnBtn = container.querySelector('#ct-prev-turn');
     if (prevTurnBtn) prevTurnBtn.addEventListener('click', function () {
-      var all = getAllCombatants();
-      if (all.length === 0) return;
+      var order = getTurnOrder();
+      if (order.length === 0) return;
       if (combatState.currentTurnIndex === 0) {
         if (combatState.round > 1) {
           combatState.round--;
-          combatState.currentTurnIndex = all.length - 1;
+          combatState.currentTurnIndex = order.length - 1;
         }
       } else {
         combatState.currentTurnIndex--;

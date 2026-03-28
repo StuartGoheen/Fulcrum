@@ -2102,6 +2102,37 @@
       border-color: var(--color-danger, #ef4444);
       color: var(--color-danger, #ef4444);
     }
+    .ct-reorder-btns {
+      display: flex;
+      gap: 1px;
+    }
+    .ct-reorder-btn {
+      background: transparent;
+      border: 1px solid var(--color-border);
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      font-size: 0.6rem;
+      padding: 0.05rem 0.25rem;
+      line-height: 1;
+      transition: all 0.15s;
+    }
+    .ct-reorder-btn:hover:not([disabled]) {
+      border-color: var(--color-accent-primary);
+      color: var(--color-accent-primary);
+    }
+    .ct-reorder-btn[disabled] { opacity: 0.25; cursor: default; }
+    .ct-inline-init {
+      width: 36px;
+      min-height: 22px;
+      padding: 0.1rem 0.2rem;
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.68rem;
+      text-align: center;
+      color: var(--color-accent-primary);
+      background: var(--color-bg-primary);
+      border: 1px solid var(--color-border);
+    }
+    .ct-inline-init:focus { border-color: var(--color-accent-primary); outline: none; }
     .ct-turn-controls {
       display: flex;
       gap: 0.3rem;
