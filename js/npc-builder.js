@@ -8,6 +8,7 @@
   var currentNpc = {
     name: '',
     tier: 1,
+    threatCategory: 'character',
     arenas: { physique: 2, reflex: 2, grit: 2, wits: 2, presence: 2 },
     role: '',
     classification: 'standard',
@@ -70,6 +71,7 @@
     var scale = null;
     var scaleLevel = 1;
     var hasIronClad = false;
+    var isStationary = false;
     (npc.traits || []).forEach(function (tid) {
       var t = threatData.traits.find(function (tr) { return tr.id === tid; });
       if (!t) return;
@@ -80,10 +82,11 @@
       if (t.vulnerabilities) traitVulnerabilities = traitVulnerabilities.concat(t.vulnerabilities);
       if (t.scale) { scale = t.scale; scaleLevel = t.scaleLevel || 1; }
       if (t.useDefenseForEvasion) hasIronClad = true;
+      if (t.isStationary) isStationary = true;
     });
 
     var defense = Math.max(a.physique, a.reflex) - 1 + tier + defenseTrait;
-    var evasion = a.reflex - 1 + tier + evasionTrait;
+    var evasion = isStationary ? 0 : (a.reflex - 1 + tier + evasionTrait);
     var resist = a.grit - 1 + tier + resistTrait;
     var rawVitality = a.physique + a.grit + tier;
 
@@ -123,7 +126,8 @@
       vulnerabilities: traitVulnerabilities,
       scale: scale,
       scaleLevel: scaleLevel,
-      ironClad: hasIronClad
+      ironClad: hasIronClad,
+      isStationary: isStationary
     };
   }
 
@@ -141,7 +145,8 @@
     html += '<div class="npc-card-header">';
     html += '<div class="npc-card-name">' + esc(currentNpc.name || 'Unnamed NPC') + '</div>';
     html += '<div class="npc-card-meta">';
-    html += 'Tier ' + currentNpc.tier;
+    var catLabel = (currentNpc.threatCategory || 'character').charAt(0).toUpperCase() + (currentNpc.threatCategory || 'character').slice(1);
+    html += esc(catLabel) + ' — Tier ' + currentNpc.tier;
     if (cls) html += ' ' + esc(cls.name);
     if (role) html += ' ' + esc(role.name);
     html += '</div>';
@@ -180,6 +185,9 @@
     }
     if (stats.ironClad) {
       html += '<div class="npc-card-ironclad">IRON CLAD: Uses Defense for Evasion. Endures grenades/AoE. Bypassed by lightsabers &amp; armor-piercing.</div>';
+    }
+    if (stats.isStationary) {
+      html += '<div class="npc-card-stationary">STATIONARY: Cannot move. Evasion 0.</div>';
     }
     if (stats.scale) {
       html += '<div class="npc-card-scale">SCALE: ' + esc(stats.scale.charAt(0).toUpperCase() + stats.scale.slice(1)) + ' (Level ' + stats.scaleLevel + ')</div>';
@@ -377,6 +385,16 @@
     var html = '';
 
     html += '<div class="npc-input-group">';
+    html += '<label class="npc-label">Threat Category</label>';
+    html += '<div class="npc-category-btns">';
+    (threatData.threatCategories || []).forEach(function (cat) {
+      var active = (currentNpc.threatCategory || 'character') === cat.id;
+      html += '<button class="npc-category-btn' + (active ? ' active' : '') + '" data-cat="' + cat.id + '" title="' + esc(cat.description) + '">' + esc(cat.name) + '</button>';
+    });
+    html += '</div>';
+    html += '</div>';
+
+    html += '<div class="npc-input-group">';
     html += '<label class="npc-label">NPC Name</label>';
     html += '<input type="text" id="npc-name-input" class="npc-text-input" value="' + esc(currentNpc.name) + '" placeholder="Unnamed NPC" />';
     html += '</div>';
@@ -445,6 +463,23 @@
 
     el.innerHTML = html;
 
+    el.querySelectorAll('.npc-category-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        currentNpc.threatCategory = btn.dataset.cat;
+        currentNpc.traits = currentNpc.traits.filter(function (tid) {
+          var t = threatData.traits.find(function (tr) { return tr.id === tid; });
+          return t && (!t.categories || t.categories.indexOf(currentNpc.threatCategory) !== -1);
+        });
+        currentNpc.tags = currentNpc.tags.filter(function (tagId) {
+          var tag = threatData.tags.find(function (tg) { return tg.id === tagId; });
+          return tag && (!tag.categories || tag.categories.indexOf(currentNpc.threatCategory) !== -1);
+        });
+        renderBuilderLeft();
+        renderBuilderRight();
+        renderNpcCard();
+      });
+    });
+
     document.getElementById('npc-name-input').addEventListener('input', function (e) {
       currentNpc.name = e.target.value;
       renderNpcCard();
@@ -496,6 +531,7 @@
       if (!pb) return;
       currentNpc.name = pb.name;
       currentNpc.tier = pb.tier;
+      currentNpc.threatCategory = pb.threatCategory || 'character';
       currentNpc.classification = pb.classification;
       currentNpc.role = pb.role;
       currentNpc.arenas = JSON.parse(JSON.stringify(pb.arenas));
@@ -515,9 +551,17 @@
 
     var html = '';
 
+    var activeCat = currentNpc.threatCategory || 'character';
+    var filteredTraits = threatData.traits.filter(function (t) {
+      return !t.categories || t.categories.indexOf(activeCat) !== -1;
+    });
+    var filteredTags = threatData.tags.filter(function (tag) {
+      return !tag.categories || tag.categories.indexOf(activeCat) !== -1;
+    });
+
     html += '<div class="npc-input-group">';
     html += '<label class="npc-label">Traits</label>';
-    threatData.traits.forEach(function (t) {
+    filteredTraits.forEach(function (t) {
       var checked = (currentNpc.traits || []).indexOf(t.id) !== -1;
       html += '<label class="npc-checkbox-label">';
       html += '<input type="checkbox" class="npc-trait-cb" data-trait="' + t.id + '"' + (checked ? ' checked' : '') + ' /> ';
@@ -530,7 +574,7 @@
     html += '<div class="npc-input-group">';
     html += '<label class="npc-label">Tags</label>';
     html += '<div class="npc-tags-grid">';
-    threatData.tags.forEach(function (tag) {
+    filteredTags.forEach(function (tag) {
       var active = (currentNpc.tags || []).indexOf(tag.id) !== -1;
       html += '<button class="npc-tag-btn' + (active ? ' active' : '') + '" data-tag="' + esc(tag.id) + '" title="' + esc(tag.effect) + '">' + esc(tag.name) + '</button>';
     });
@@ -599,7 +643,8 @@
     } else {
       savedNpcs.forEach(function (npc, idx) {
         html += '<div class="npc-saved-entry">';
-        html += '<span class="npc-saved-name" data-idx="' + idx + '">' + esc(npc.name || 'Unnamed') + ' <span class="npc-saved-meta">T' + npc.tier + ' ' + esc(npc.classification) + '</span></span>';
+        var catBadge = (npc.threatCategory && npc.threatCategory !== 'character') ? esc(npc.threatCategory.charAt(0).toUpperCase() + npc.threatCategory.slice(1)) + ' ' : '';
+        html += '<span class="npc-saved-name" data-idx="' + idx + '">' + esc(npc.name || 'Unnamed') + ' <span class="npc-saved-meta">' + catBadge + 'T' + npc.tier + ' ' + esc(npc.classification) + '</span></span>';
         html += '<button class="npc-saved-dup" data-idx="' + idx + '" title="Duplicate">&#x2398;</button>';
         html += '<button class="npc-saved-delete" data-idx="' + idx + '">&times;</button>';
         html += '</div>';
@@ -710,7 +755,7 @@
 
     document.getElementById('npc-clear-btn').addEventListener('click', function () {
       currentNpc = {
-        name: '', tier: 1,
+        name: '', tier: 1, threatCategory: 'character',
         arenas: { physique: 2, reflex: 2, grit: 2, wits: 2, presence: 2 },
         role: '', classification: 'standard',
         traits: [], tags: [], loot: [], attacks: [], numPlayers: 4
@@ -726,6 +771,7 @@
         var npc = savedNpcs[idx];
         if (!npc) return;
         currentNpc = JSON.parse(JSON.stringify(npc));
+        if (!currentNpc.threatCategory) currentNpc.threatCategory = 'character';
         if (currentNpc.attacks) {
           currentNpc.attacks.forEach(function (atk) {
             if (!atk.arena) atk.arena = 'physique';

@@ -991,6 +991,33 @@
     .npc-input-group {
       margin-bottom: 0.75rem;
     }
+    .npc-category-btns {
+      display: flex;
+      gap: 0.35rem;
+    }
+    .npc-category-btn {
+      flex: 1;
+      padding: 0.4rem 0.3rem;
+      background: var(--color-bg-frame);
+      border: 1px solid var(--color-border);
+      color: var(--color-text-secondary);
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      transition: all 0.15s;
+      text-align: center;
+    }
+    .npc-category-btn:hover {
+      border-color: var(--color-accent-primary);
+      color: var(--color-text-primary);
+    }
+    .npc-category-btn.active {
+      background: var(--color-accent-primary);
+      border-color: var(--color-accent-primary);
+      color: #000;
+    }
     .npc-label {
       display: block;
       font-family: 'Audiowide', sans-serif;
@@ -1550,6 +1577,12 @@
     .npc-card-ironclad {
       font-size: 0.55rem;
       color: #60a5fa;
+      padding: 0.2rem 0.5rem;
+      letter-spacing: 0.04em;
+    }
+    .npc-card-stationary {
+      font-size: 0.55rem;
+      color: #f59e0b;
       padding: 0.2rem 0.5rem;
       letter-spacing: 0.04em;
     }
