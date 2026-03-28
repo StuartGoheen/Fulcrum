@@ -253,8 +253,9 @@
       ],
       "discipline": "tactics",
       "arena": "wits",
-      "description": "Roll initiative when combat begins. Roll Tactics (Wits). Your raw Power Die result is your place in the turn order — higher results act first. If a gambit or effect causes you to spend a tier of initiative, your position drops to the midpoint of the next band down (Fleeting → 2, Masterful → 6, Legendary → 10, Unleashed → 14).",
-      "risk": "Failed Control (1-3): You are surprised — you gain [Disoriented] and [Exposed] until the end of your first turn. You still act in your rolled order, but carry these conditions into your opening action.",
+      "description": "Roll initiative when combat begins. Roll Tactics (Wits). Your Control Die is stepped down by the highest enemy Tier in the scene (Tier 1 = step down once, Tier 2 = step down twice, etc.). Your raw Power Die result is your place in the turn order — higher results act first. NPCs do not roll — they act at their static Initiative (Wits + Tier). If a gambit or effect causes you to spend a tier of initiative, your position drops to the midpoint of the next band down (Fleeting → 2, Masterful → 6, Legendary → 10, Unleashed → 14).",
+      "risk": "Failed Control (1-3 on the stepped-down Control Die): You are surprised — you gain [Disoriented] and [Exposed] until the end of your first turn. You still act in your rolled order, but carry these conditions into your opening action.",
+      "mastery": "Control 8+: You may designate one enemy as surprised. That enemy gains [Disoriented] and [Exposed] until the end of their first turn. Against higher-Tier enemies, achieving Mastery requires a larger base Control Die to overcome the step-down.",
       "effect": [
         {
           "tier": 1,

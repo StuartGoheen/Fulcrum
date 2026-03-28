@@ -709,7 +709,7 @@
       {
         "mode": "Combat",
         "structure": "Structured rounds with dice-based initiative (Join Battle). Each character has a defined turn with Action, Maneuver, and Exploit pips. Defenses (Dodge, Endure, Resist) are free reactive rolls.",
-        "initiative": "Roll Tactics (Wits) for turn order. Higher results act first.",
+        "initiative": "Roll Tactics (Wits) for turn order. Control Die is stepped down by the highest enemy Tier in the scene. Power Die result = initiative slot (higher acts first). NPCs act at static Initiative (Wits + Tier). Failed Control (1-3): PC is surprised ([Disoriented] + [Exposed]). Control 8+: PC designates one enemy as surprised ([Disoriented] + [Exposed]).",
         "availableActions": "All universal actions, Force maneuvers, discipline gambits, weapon attacks, Defenses (Dodge, Endure, Resist), Exploits. The full tactical toolkit.",
         "resolution": "Discipline roll vs target Defense or Evasion (contested). Power die determines damage/effect magnitude.",
         "when": "Violence has broken out or is about to. The situation demands tactical precision and turn-by-turn accountability."

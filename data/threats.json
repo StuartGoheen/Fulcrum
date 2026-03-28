@@ -24,7 +24,7 @@
     "arenaRange": [1, 2, 3, 4, 5],
     "arenas": ["Physique", "Reflex", "Grit", "Wits", "Presence"],
     "controlDie": {
-      "description": "The GM rolls one Control Die per NPC per round to determine action budget.",
+      "description": "NPCs do not roll dice. The Control Die tier sets the NPC's fixed action budget per round and determines the die size referenced by NPC abilities and gambits. PCs roll against the NPC's static Power, Defense, and Evasion values.",
       "tiers": {
         "0": { "die": "d6", "actions": 1, "notes": "Civilian-grade. Single action only." },
         "1": { "die": "d6", "actions": 1, "notes": "Basic trained combatant." },
