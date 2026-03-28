@@ -1,502 +1,403 @@
 {
-  "vitalityReference": {
-    "note": "PC Vitality = DIE_SIZE[Physique] + DIE_SIZE[Grit]. D4=1, D6=2, D8=3, D10=4, D12=5.",
-    "arenas": ["Physique", "Reflex", "Grit", "Wits", "Presence"],
-    "pcRange": {
-      "minimum": 3,
-      "typical_starting": "4–6",
-      "typical_experienced": "6–8",
-      "maximum_raw": 10
+  "system": {
+    "formulas": {
+      "power": "(Arena - 1) + Tier",
+      "defense": "max(Physique, Reflex) - 1 + Tier",
+      "evasion": "Reflex - 1 + Tier",
+      "resist": "Grit - 1 + Tier",
+      "vitality": "Physique + Grit + Tier",
+      "stun": "Lethal scale values + 1 per Tier"
     },
-    "impairmentBuffer": {
-      "note": "Each Arena Die can be Impaired twice (Step Down once per Impairment). Each Impairment absorbs 2 incoming damage before it hits Vitality. With 5 arenas × 2 impairments each = 10 total impairments × 2 damage = up to 20 additional mitigation. Theoretical maximum effective health = 10 (raw Vitality) + 20 (full impairment buffer) = 30.",
-      "spiral": "This is an intentional death spiral. Each Impairment degrades the Arena Die for all Discipline rolls in that arena. Taking two Physique Impairments collapses it from D8 → D4 — every Athletics, Brawl, Endure, Melee, and Heavy Weapons control roll suffers. The buffer is real, but the cost is compounding mechanical degradation. A PC fighting at full impairment is alive but badly compromised.",
-      "npcNote": "NPCs have no Trauma system — they absorb raw Vitality damage only. This is why NPC Vitality pools run higher than the PC base numbers suggest."
-    }
+    "resolutionTable": {
+      "failure": [
+        { "range": [-1, -3], "tier": "Fleeting" },
+        { "range": [-4, -7], "tier": "Masterful" },
+        { "range": [-8, -11], "tier": "Legendary" }
+      ],
+      "success": [
+        { "range": [0, 3], "tier": "Fleeting" },
+        { "range": [4, 7], "tier": "Masterful" },
+        { "range": [8, 11], "tier": "Legendary" }
+      ]
+    },
+    "tierRange": [0, 1, 2, 3, 4, 5],
+    "arenaRange": [1, 2, 3, 4, 5],
+    "arenas": ["Physique", "Reflex", "Grit", "Wits", "Presence"]
   },
 
   "classifications": [
     {
       "id": "standard",
       "name": "Standard",
-      "label": "Standard Threat",
-      "summary": "The workhorse. Built from the stat menu, fully functional, but runs on a fixed action cadence. The squad of Stormtroopers, the bounty hunter's muscle, the dockside enforcer.",
-      "actionEconomy": {
-        "actions": 1,
-        "maneuvers": 1,
-        "triggers": 1,
-        "gambitsMax": 2
-      },
-      "tpMultiplier": 1.0,
-      "designNotes": [
-        "Standards are calibrated around the idea that 2–4 of them represent a meaningful encounter for a party. Their stats may vary wildly — a Standard can have a brutal Presence or high Defense — but their options per round are always fixed.",
-        "The squad leader is a Standard without the Minion template. Same stats, just more Vitality. No need to make him stronger — survival is enough differentiation."
-      ]
+      "description": "Base template. Full stats, fixed action cadence. The workhorse NPC.",
+      "vitalityMod": 1.0,
+      "exploitMod": 0,
+      "notes": "2-4 Standards represent a meaningful encounter for a party."
+    },
+    {
+      "id": "minion",
+      "name": "Minion",
+      "description": "Bolt-on. Full Vitality stat but any Masterful+ net result is an instant takedown. Keeps all other stats intact.",
+      "vitalityMod": 1.0,
+      "exploitMod": 0,
+      "special": "Masterful+ net result = instant takedown. Full stats otherwise.",
+      "notes": "Minion status is a longevity downgrade, not a power downgrade."
     },
     {
       "id": "elite",
       "name": "Elite",
-      "label": "Elite Threat",
-      "summary": "The featured enemy. Reads the battlefield and responds. The ISB agent, the veteran bounty hunter, the assassin droid. Represents a serious individual threat that demands respect.",
-      "actionEconomy": {
-        "actions": 1,
-        "maneuvers": 1,
-        "triggers": 2,
-        "gambitsMax": 4,
-        "note": "Extra trigger means they can respond to two Openings per round, or hold one for a reaction. More gambits mean more tactical flexibility per action — they have options, not just strength."
-      },
-      "tpMultiplier": 1.5,
-      "designNotes": [
-        "An Elite is not automatically stronger than a Standard in raw stats. They are harder to fight because they do more per round with what they have.",
-        "A single Elite can replace 2–3 Standards in an encounter budget and provide a more interesting fight than a larger mob."
-      ]
+      "description": "Bolt-on. Tougher and more versatile. The featured enemy that demands respect.",
+      "vitalityMod": 1.5,
+      "exploitMod": 1,
+      "notes": "An Elite can replace 2-3 Standards and provide a more interesting fight."
     },
     {
-      "id": "nemesis",
-      "name": "Nemesis",
-      "label": "Nemesis",
-      "summary": "Every bit as capable as a player character. Darth Maul. The Grand Inquisitor. The rival scoundrel who keeps showing up. A Nemesis is a fully-realized threat with their own action suite, gambits, and signature capabilities — not just a stat block.",
-      "actionEconomy": {
-        "actions": "1–2",
-        "maneuvers": 1,
-        "triggers": "2 base, +1 per 2 PCs in the scene",
-        "gambitsMax": "Unlimited — built to the role",
-        "note": "Trigger scaling with PC count is intentional. A Nemesis who only ever reacts to one PC while five are attacking is neither threatening nor narratively satisfying."
-      },
-      "tpMultiplier": 2.0,
-      "designNotes": [
-        "A Nemesis should feel like fighting a PC. They have a role, a toolkit, and a style. Build them like a character, not a spreadsheet.",
-        "A Nemesis without the BOSS tag is Darth Maul: lethal, focused, single-minded. He will wreck someone but doesn't control the whole room.",
-        "A Nemesis with the BOSS tag is Darth Vader: he controls the encounter economy. Add SWEEPING and RELENTLESS to taste."
-      ]
+      "id": "boss",
+      "name": "Boss",
+      "description": "Bolt-on. Encounter-defining threat. Controls the action economy with multiple Exploits.",
+      "vitalityMod": 2.0,
+      "exploitMod": "N-1",
+      "special": "N = Number of Players (min 1 Exploit). Dominates the encounter.",
+      "notes": "A Boss should feel like fighting a PC. Build them like a character."
     }
   ],
 
-  "templates": [
+  "roles": [
     {
-      "id": "minion",
-      "name": "Minion",
-      "summary": "Applied to any Standard threat. Keeps all stats intact — Presence, Defense, Actions, Gambits — but strips their survivability to near zero. These are the bodies that fill the room.",
-      "modifications": [
-        "Vitality is treated as 1 regardless of stat cost — they die on any damage result, including 1-point Fleeting hits.",
-        "TOUGH tag exception: if a Minion also has TOUGH, they ignore Fleeting damage and maneuver conditions. They require a Masterful result (minimum 3 damage) to kill.",
-        "All other stats remain fully functional. A Minion with Presence -2 and Lightsaber 6 hits just as hard as its non-Minion version."
-      ],
-      "tpModifier": 0.4,
-      "designNotes": [
-        "Minion status is a longevity downgrade, not a power downgrade. A squad of six Stormtrooper Minions will miss a lot, but the ones that hit hurt the same.",
-        "The TOUGH+Minion combination is intentional — it creates the 'veteran grunt' who survives the first Fleeting shot but still dies clean to any real hit.",
-        "TP modifier of 0.4 reflects that a Minion's contribution to an encounter is roughly cut in half by their inability to absorb even grazing hits."
-      ]
-    }
-  ],
-
-  "stats": {
-    "presence": {
-      "name": "Presence",
-      "description": "The threat's difficulty rating. Applied universally to ALL PC rolls against this threat — attacks, negotiations, stealth, everything. Steps the PC's Control Die down before the roll is made. Higher rating = harder. Scale is 0–5, no negatives. Step-Up bonuses for PCs come from conditions, traits, or positioning — never from a negative Presence value.",
-      "values": [
-        { "rating": 0, "label": "Standard",    "effect": "No modification",             "pcD6Success": "50%",  "pcD8Success": "62%", "tp": 0 },
-        { "rating": 1, "label": "Challenging", "effect": "Step Down PC Control Die ×1", "pcD6Success": "25%",  "pcD8Success": "50%", "tp": 2 },
-        { "rating": 2, "label": "Dangerous",   "effect": "Step Down PC Control Die ×2", "pcD6Success": "~6%",  "pcD8Success": "25%", "tp": 4 },
-        { "rating": 3, "label": "Lethal",      "effect": "Step Down PC Control Die ×3", "pcD8Success": "~6%",  "pcD10Success": "25%","tp": 6 },
-        { "rating": 4, "label": "Elite",       "effect": "Step Down PC Control Die ×4", "pcD10Success": "~6%", "pcD12Success": "25%","tp": 9 },
-        { "rating": 5, "label": "Apex",        "effect": "Step Down PC Control Die ×5", "pcD12Success": "~6%", "note": "Even the most skilled PC is near the 2D4-take-lowest floor (~6.25%).", "tp": 13 }
-      ],
-      "floor": "2D4 take the lowest — approximately 6.25% success. This is the hard minimum regardless of how many additional steps down are applied.",
-      "mathNote": "Success threshold is rolling 4+ on the final die. D6: 3/6=50%. D8: 5/8=62.5%. Each Step Down moves to the next smaller die, D4 floor = 25%, 2D4-take-lowest = 6.25%.",
-      "stepUpSources": "PCs gain Step-Up bonuses to their Control Die from conditions ([Optimized], NPC [Disoriented], NPC [Stunned]), traits, or environmental advantages — never from a negative Presence value. Presence is a one-directional difficulty dial."
-    },
-
-    "defense": {
-      "name": "Defense",
-      "description": "Primary physical resistance. Represents armor, combat training, durability, and defensive discipline. When a PC attacks, subtract the threat's Defense rating from the PC's Power Die result to determine the tier of effect. Generally equal to or higher than Evasion for armored threats.",
-      "values": [
-        { "rating": 1, "label": "Undefended",  "note": "Scavengers, civilians. Any hit lands clean.", "tp": 0 },
-        { "rating": 2, "label": "Light",       "note": "Basic armor or combat training. D6 PC still gets Fleeting most rolls.", "tp": 0 },
-        { "rating": 3, "label": "Moderate",    "note": "Military-grade. D6 PC mostly Fleeting. D8 PC reaches Masterful occasionally.", "tp": 1 },
-        { "rating": 4, "label": "Hardened",    "note": "Heavy armor or elite training. D8 PC mostly Fleeting. D10+ for reliable Masterful.", "tp": 2 },
-        { "rating": 5, "label": "Fortified",   "note": "Serious armor. D10 PC averages Masterful. D6 PC nearly always Fleeting.", "tp": 3 },
-        { "rating": 6, "label": "Apex",        "note": "Near-impenetrable. Nemesis-grade. D12 PC needed for Solid results.", "tp": 5 }
-      ]
-    },
-
-    "evasion": {
-      "name": "Evasion",
-      "description": "Ability to avoid area effects, forced movement, and gambits that specifically target Evasion. Mechanically identical to Defense but resolved against the PC's Reflex-based roll. Generally ≤ Defense for armored threats — armor helps absorb hits but impedes dodging.",
-      "values": [
-        { "rating": 1, "tp": 0 },
-        { "rating": 2, "tp": 0 },
-        { "rating": 3, "tp": 1 },
-        { "rating": 4, "tp": 1 },
-        { "rating": 5, "tp": 2 },
-        { "rating": 6, "tp": 3 }
-      ],
-      "designNote": "A threat with Defense 4 / Evasion 2 rewards players who find gambits that force Evasion checks. This asymmetry is intentional and GM-exploitable."
-    },
-
-    "resolve": {
-      "name": "Resolve",
-      "description": "Mental resistance. Applied against social, psychological, and Force-based actions. Identical mechanic to Defense and Evasion, just against a different target type. Narrative threats may have high Resolve and low Defense.",
-      "values": [
-        { "rating": 1, "tp": 0 },
-        { "rating": 2, "tp": 0 },
-        { "rating": 3, "tp": 1 },
-        { "rating": 4, "tp": 1 },
-        { "rating": 5, "tp": 2 },
-        { "rating": 6, "tp": 3 }
-      ]
-    },
-
-    "vitality": {
-      "name": "Vitality",
-      "description": "Raw hit points. NPCs have no Trauma system and cannot negate damage via Impairment. Their Vitality pools run higher than PCs to compensate. A Minion template overrides this to 1 regardless of build.",
-      "values": [
-        { "range": "1–3",  "label": "Fragile",   "note": "Minion-grade survivability even without the template.", "tp": 0 },
-        { "range": "4–6",  "label": "Light",     "note": "Standard grunt. Can take 1–2 solid hits.", "tp": 1 },
-        { "range": "7–10", "label": "Durable",   "note": "Squad leader, enforcer. Survives a short engagement.", "tp": 2 },
-        { "range": "11–15","label": "Tough",     "note": "Elite combatant. Requires focused fire to remove.", "tp": 3 },
-        { "range": "16–22","label": "Resilient", "note": "Boss-grade. Will survive the whole scene without sustained pressure.", "tp": 5 },
-        { "range": "23+",  "label": "Apex",      "note": "Nemesis with BOSS tag. The last fight of the session.", "tp": 8 }
-      ]
-    },
-
-    "actions": {
-      "name": "Actions",
-      "description": "Each discrete action available to the threat in their Action slot. A Standard has 1 action. An Elite may have 1–2 options to choose from each turn. Each action has a Power rating and a pre-built tiered effect track the GM reads off during play.",
-      "actionCosts": [
-        { "type": "Simple",        "description": "Flat result: deals damage at a set rating. No tiered effects.", "powerRange": "2–3", "tp": 1 },
-        { "type": "Simple",        "description": "Flat result: deals damage at a set rating. No tiered effects.", "powerRange": "4–5", "tp": 2 },
-        { "type": "Simple",        "description": "Flat result: deals damage at a set rating. No tiered effects.", "powerRange": "6+",  "tp": 3 },
-        { "type": "Tiered",        "description": "Pre-built effect track: each tier has defined damage + condition results. GM reads the tier line and applies it.", "powerRange": "3–5", "tp": 3 },
-        { "type": "Tiered",        "description": "Pre-built effect track.", "powerRange": "6+", "tp": 4 },
-        { "type": "Condition-Only","description": "No damage. Applies one or more conditions at the resolved tier level. Used for Force powers, crowd control, narrative actions.", "tp": 2 },
-        { "type": "Area",          "description": "Affects all targets in a Zone or all Engaged PCs simultaneously. Add +1 TP on top of the base action cost.", "modifier": "+1 TP" }
-      ],
-      "tieredEffectFormat": {
-        "note": "Tiered actions should have all effects pre-written by the GM. During play, determine the tier from (NPC Power Rating − PC Power Die result), then read the matching line.",
-        "example": {
-          "name": "Lightsaber Strike",
-          "power": 6,
-          "gambitAvailable": "Force Evasion",
-          "effects": [
-            { "tier": "Fleeting", "range": "1–3",  "result": "1 damage + [Exposed]" },
-            { "tier": "Masterful",    "range": "4–7",   "result": "3 damage" },
-            { "tier": "Legendary",    "range": "8–11",  "result": "5 damage + [Prone]" },
-            { "tier": "Epic", "range": "12+",   "result": "7 damage + Push 1 Zone + [Prone]" }
-          ]
-        }
-      }
-    },
-
-    "gambits": {
-      "name": "Gambits",
-      "description": "Action-specific options the GM declares before resolving an attack. They cost the GM a tier step down in exchange for imposing a specific condition or forcing a specific defensive response from the PC.",
-      "types": [
-        {
-          "type": "Force Defense Type",
-          "description": "GM declares the gambit before the PC defends. The PC must use the specified defense (Evasion instead of Defense, or Resolve instead of Defense). After the tier resolves, step the final effect down by 1 tier.",
-          "tp": 1,
-          "example": "Lightsaber Strike — Force Evasion gambit. PC must roll Evasion. NPC Power 7 vs PC Evasion roll 1: 7−1=6 (Solid). Step down for gambit: Masterful. Deal 3 damage."
-        },
-        {
-          "type": "Condition on Hit",
-          "description": "On any successful hit, apply a specified condition in addition to the damage result. The condition is applied at the same tier.",
-          "tp": 1
-        },
-        {
-          "type": "Combo",
-          "description": "On a Solid or higher result: deal damage + forced movement + condition in a single resolution. Used for Force powers and signature abilities.",
-          "tp": 2,
-          "example": "Force Slam: Solid result = 4 damage + Push 2 Zones + [Prone]."
-        }
-      ]
-    }
-  },
-
-  "triggers": {
-    "description": "A Trigger is a reactive option spent in response to an Opening. Threats hold their Triggers and spend them when an Opening is presented. Triggers are not automatic — the GM declares the spend and the effect.",
-    "default": {
-      "name": "Basic Attack",
-      "rule": "Apply [Disoriented] to the target and make a Basic Attack against them (resolve as a Simple action at the threat's Power rating). This is the fallback Trigger action when an Opening does not specify a different permitted action. Unique threats should define role-specific Triggers that replace or extend this default.",
-      "note": "Unique threats should have role-specific triggers in addition to or replacing this default. A Trandoshan bounty hunter and a protocol droid have very different reactive instincts."
-    },
-    "openings": {
-      "description": "An Opening is a moment of vulnerability that allows a Trigger to fire — but the Opening itself defines what that Trigger may do. The source of the Opening (a threat's movement, a kit trait, a scenario event, a Gambit) always specifies the permitted action and its valid targets. An Opening is not a blank permission to spend a Trigger on anything; it is a scoped window. If the source does not specify a permitted action, it defaults to a Basic Attack against the target that created it. Examples: a threat Moving creates an Opening permitting any PC in range to make a Basic Attack against it; a terminal hack disrupting droids creates an Opening permitting each engaged PC to make a single Ranged or Melee attack against the disrupted droid specifically; The Warden's Justice creates an Opening permitting one ally to make a Brawl or Melee attack against the Pinned target. The action, the target, and any restrictions come from the Opening's source — not from the character spending the Trigger.",
-      "pcGenerated": {
-        "rule": "When a PC rolls 8+ on their Control Die on any roll against a threat (attack, maneuver, or defense), the result gains +1 Effect Tier automatically — the action lands with exceptional precision. This is a standard resolution benefit, not a trigger for an Opening. Openings are generated only by specific kit traits or threat abilities that explicitly grant them.",
-        "probabilities": [
-          { "die": "D4", "chance": "0%",   "note": "Impossible. D4 max is 4." },
-          { "die": "D6", "chance": "0%",   "note": "Impossible. D6 max is 6." },
-          { "die": "D8", "chance": "12.5%","note": "1-in-8. Occasional +1 Tier bonus for experienced characters." },
-          { "die": "D10","chance": "30%",  "note": "3-in-10. Consistent +1 Tier bonus for advanced characters." },
-          { "die": "D12","chance": "~42%", "note": "5-in-12. Skilled characters gain +1 Tier on nearly half their rolls." }
-        ],
-        "design": "D4 and D6 characters never reach this threshold — novices are just surviving. As Control improves, characters naturally land cleaner, higher-tier results. This rewards skilled play without requiring a separate mechanic. Openings for ally cooperation are not a baseline assumption — they must be earned through specific kit abilities that explicitly grant them."
-      },
-      "threatGenerated": {
-        "rule": "Moving always creates an Opening permitting any PC with narrative justification to make a Basic Attack against the moving threat. Specific threat actions, gambits, or abilities may create Openings with different permitted actions — these are defined in the threat's stat block. The GM always declares both the Opening and its permitted Trigger action before PCs respond.",
-        "bossTag": "A threat with the BOSS tag may intentionally create an Opening by spending one of its Triggers — sacrificing a reaction to destabilize the encounter economy and draw PC responses."
-      }
-    }
-  },
-
-  "maneuvers": {
-    "description": "A threat's Maneuver slot works like a PC's Maneuver. The basic threat Maneuver is Moving — repositioning within or between Zones. Moving always generates an Opening. Threats may also use any skill-based Maneuver the GM deems appropriate for their role, resolved against the relevant target.",
-    "basicManeuver": {
-      "name": "Move",
-      "effect": "The threat repositions 1 Zone. This always generates an Opening any PC may spend a Trigger against."
-    },
-    "skillManeuvers": {
-      "note": "A threat may use any discipline Maneuver that fits its role. The GM adjudicates the Power rating. Default to Power 4 when no specific value is defined. Resolve against the appropriate PC target (Defense, Evasion, or Resolve).",
-      "examples": [
-        "A Wookiee threat uses an Athletics Maneuver (The Bantha Rush) with Power 5 to shove a PC.",
-        "An ISB Interrogator uses an Intimidate Maneuver with Power 4 to apply [Suppressed] during a social encounter."
-      ]
-    }
-  },
-
-  "conditionsOnThreats": {
-    "description": "Conditions apply to threats the same as PCs. However, because NPCs do not roll dice, any condition that would modify a die instead shifts the modifier to the PC's roll.",
-    "translations": [
-      { "condition": "[Disoriented]",  "onPC": "Step Down Control Die on affected action.", "onNPC": "PC Steps Up their Control Die against this threat." },
-      { "condition": "[Stunned]",     "onPC": "Step Down Control Die on all rolls. Lingering.", "onNPC": "PC Steps Up their Control Die against this threat on all rolls. Lingering." },
-      { "condition": "[Weakened]",    "onPC": "Step Down Power Die on affected roll.", "onNPC": "PC Steps Up their Power Die when attacking this threat." },
-      { "condition": "[Empowered]",   "onPC": "Step Up Power Die on affected roll.", "onNPC": "PC Steps Down their Power Die on the relevant defense — the NPC's attack hits harder." },
-      { "condition": "[Exposed]",     "onPC": "All attacks resolve 1 tier higher against this PC.", "onNPC": "All PC attacks against this threat resolve 1 tier higher." },
-      { "condition": "[Suppressed]",  "onPC": "All opposing Resistance/Risk treated as +2 higher.", "onNPC": "This threat's Power is reduced by 2 on any action against PCs." },
-      { "condition": "[Prone]",       "onPC": "[Exposed] to Melee. Moving costs a Maneuver.", "onNPC": "PC attacks resolve 1 tier higher in Melee. Threat's Move Maneuver costs its Action instead." },
-      { "condition": "[Pinned]",      "onPC": "Cannot move. [Exposed] to all Melee.", "onNPC": "Threat cannot use Move Maneuver. PC Melee attacks resolve 1 tier higher." },
-      { "condition": "[Slowed]",      "onPC": "Max 1 Zone of voluntary movement per round.", "onNPC": "Threat may only move 1 Zone per round regardless of abilities." },
-      { "condition": "[Jammed]",      "onPC": "Crew gains [Rattled] for Sensor-associated actions (Wits-arena Control die stepped down).", "onNPC": "Presence -1 on Sensor-associated actions." }
-    ],
-    "note": "The principle: any die modifier that would step a PC's die up or down instead becomes a modifier on the relevant PC roll against the NPC. The player always rolls; the NPC's condition is expressed through that roll."
-  },
-
-  "tpBudgetTargets": {
-    "description": "Target TP ranges when building threats for a party. Build the stat block first (sum stat TP), then apply the classification multiplier for encounter budgeting. These ranges produce Challenging encounters (20–50% resource cost) as the baseline.",
-    "formula": "Base Stat TP × Classification Multiplier = Encounter Budget Cost",
-    "classificationMultipliers": {
-      "note": "The multiplier accounts for the action economy premium — extra triggers and gambits the classification gets for free beyond its stat block.",
-      "standard": 1.0,
-      "elite": 1.5,
-      "nemesis": 2.0,
-      "minion": 0.25,
-      "toughMinion": 0.5,
-      "minionNote": "Normal Minions die on any successful hit (Fleeting = 1 Dmg = dead). Defense provides no durability benefit — only Presence gates survival. TOUGH Minions ignore Fleeting results, making Defense a real barrier and justifying the higher multiplier."
-    },
-    "targetsByPartyLevel": [
-      {
-        "partyLevel": "Starting",
-        "ppr": 10,
-        "easyBudget": 10,
-        "standardBudget": 20,
-        "challengingBudget": 35,
-        "epicBudget": 60,
-        "standard":  { "baseTP": "8–12",  "note": "1 Standard + 4 Minions = 20 TP (Standard encounter). 2 Standards + 6 Minions = 35 TP (Challenging)." },
-        "elite":     { "baseTP": "12–16", "budgetCost": "18–24", "note": "1 Elite fills most of a Standard budget. Add Minions to reach Challenging." },
-        "nemesis":   { "baseTP": "16–22", "budgetCost": "32–44", "note": "Solo Nemesis is Challenging to Epic. Reserve for act climaxes." },
-        "minion":    { "baseTP": "8–12",  "budgetCost": "2–3 each", "note": "8 Minions = Standard budget. 14 Minions = Challenging. TOUGH Minions use ×0.5 — roughly double the per-unit cost." }
-      },
-      {
-        "partyLevel": "Experienced",
-        "ppr": 15,
-        "easyBudget": 15,
-        "standardBudget": 30,
-        "challengingBudget": 52,
-        "epicBudget": 90,
-        "standard":  { "baseTP": "10–15", "note": "Presence 1, Defense 5+ keeps Standards threatening at this level." },
-        "elite":     { "baseTP": "15–20", "budgetCost": "22–30", "note": "1 Elite = Standard budget. 1 Elite + Standards = Challenging." },
-        "nemesis":   { "baseTP": "20–28", "budgetCost": "40–56", "note": "Solo Nemesis = Challenging. With support = Epic." },
-        "minion":    { "baseTP": "10–15", "budgetCost": "2.5–3.75 each", "note": "12 Minions = Standard budget. TOUGH Minions use ×0.5." }
-      },
-      {
-        "partyLevel": "Advanced",
-        "ppr": 20,
-        "easyBudget": 20,
-        "standardBudget": 40,
-        "challengingBudget": 70,
-        "epicBudget": 120,
-        "standard":  { "baseTP": "12–18", "note": "Presence 1–2 mandatory to stay relevant. Defense 5–6." },
-        "elite":     { "baseTP": "18–25", "budgetCost": "27–37", "note": "1 Elite + 2 Standards = Challenging." },
-        "nemesis":   { "baseTP": "28–38", "budgetCost": "56–76", "note": "Full session climax. BOSS + SWEEPING tags expected." },
-        "minion":    { "baseTP": "12–18", "budgetCost": "3–4.5 each", "note": "PACK tag critical at this level — density creates Presence pressure." }
-      }
-    ]
-  },
-
-  "tags": [
-    { "id": "tough",      "name": "TOUGH",      "tp": 2, "effect": "Ignores Fleeting damage results and Fleeting-tier maneuver conditions. Requires a Masterful result (minimum) to deal damage or apply conditions." },
-    { "id": "pack",       "name": "PACK",        "tp": 1, "effect": "When 2 or more PACK threats are in the same Zone, each gains +1 Presence (Step Down PC Control Die by 1). Coordinated fire is harder to avoid. Rewards PCs for breaking up the group." },
-    { "id": "relentless", "name": "RELENTLESS",  "tp": 3, "effect": "+1 Trigger per round. Can respond to additional Openings or use a second reaction per round." },
-    { "id": "shielded",   "name": "SHIELDED X",  "tp": 2, "perStack": true, "effect": "[Buffered X] that refreshes at the start of the threat's turn each round. Represents energy shields, Force barriers, or hardened plating." },
-    { "id": "sweeping",   "name": "SWEEPING",    "tp": 4, "effect": "One Action per round may target all Engaged PCs simultaneously. Each PC defends separately. Used for Nemesis-grade boss threats." },
-    { "id": "boss",       "name": "BOSS",        "tp": 6, "effect": "Triggers scale with PC count: base 2 triggers + 1 per 2 PCs in the scene. May spend Triggers on any Opening in the scene, not just against one target. The threat can create Openings intentionally by declaring a Trigger spend.", "requiresClassification": "nemesis" }
-  ],
-
-  "encounterBudget": {
-    "partyPowerRating": {
-      "description": "Each player contributes a rating based on their average Control Die across the disciplines relevant to the encounter type. Sum across all PCs to get the Party Power Rating (PPR).",
-      "dieRatings": [
-        { "die": "D4", "rating": 1, "label": "Untrained" },
-        { "die": "D6", "rating": 2, "label": "Starting" },
-        { "die": "D8", "rating": 3, "label": "Experienced" },
-        { "die": "D10", "rating": 4, "label": "Advanced" },
-        { "die": "D12", "rating": 5, "label": "Apex" }
-      ],
-      "examples": [
-        { "party": "5× Starting (D6)",     "ppr": 10, "note": "Standard campaign start." },
-        { "party": "5× Experienced (D8)", "ppr": 15, "note": "Mid-campaign." },
-        { "party": "5× Advanced (D10)",   "ppr": 20, "note": "Late campaign." },
-        { "party": "Mixed (2×D6, 2×D8, 1×D10)", "ppr": 15, "note": "Typical mixed-level group." }
-      ]
-    },
-    "resourceBenchmark": {
-      "description": "Difficulty is measured by what percentage of the party's total resources the encounter is expected to consume. Resources include Vitality (raw + impairment buffer), character-specific resource pools (e.g. Edge), and Destiny Tokens. This is the design target — TP ratios are calibrated against it.",
-      "resources": {
-        "vitality": {
-          "note": "Raw Vitality pool per PC. Typical starting range 4–7. The real accumulating cost across an act — Vitality does not reset between encounters.",
-          "partyPool_5pc": "20–35 raw Vitality across the party at start of act."
-        },
-        "trauma": {
-          "note": "Impairments (Trauma) are the soft buffer — they largely reset between encounters via Short Rest. A healer can convert 2 Vitality damage into 1 Trauma, making it recoverable. Trauma is NOT the primary resource to track across an act; Vitality is.",
-          "shortRest": {
-            "availability": "Assumed after almost every encounter — a few moments to collect, bandage, and move on.",
-            "recovery": "1 Trauma clears automatically. A healer may clear 1 additional Trauma. A healer may also convert 2 Vitality damage → 1 Trauma (making it recoverable next rest instead of permanent drain)."
-          },
-          "longRest": {
-            "availability": "Once per 24 hours.",
-            "recovery": "All Trauma clears automatically. 1 Vitality recovers. A healer may restore 1 additional Vitality. A healer may still convert 2 Vitality → 1 Trauma. Anything beyond this requires extended downtime or a bacta tank."
-          }
-        },
-        "characterResource": {
-          "note": "Each PC has one discipline-scoped resource pool (e.g. Edge for scoundrels). Pool size = attribute die size, typical range 3–4. Scoped to 3 disciplines — not a universal party buffer. Only relevant when the encounter engages those disciplines.",
-          "partyPool_5pc": "Variable. Assume ~3 per PC if all PCs share the same resource type, or lower if mixed archetypes and the encounter doesn't align with every PC's scope.",
-          "refresh": "Long Rest (once per 24 hours). Aligns with Vitality recovery — both reset on the same clock. In-play recovery opportunities may exist in the future but are not yet defined. Treat as a daily resource for budgeting purposes."
-        },
-        "destinyTokens": {
-          "note": "Shared table resource. Always 2 per player at the table. Spent for guaranteed +1 Tier shifts (Lever 2). Pool is static — it does not grow with party size beyond headcount.",
-          "partyPool_5pc": 10,
-          "partyPool_4pc": 8,
-          "partyPool_3pc": 6,
-          "refresh": "Narrative break only — once per act, and some acts may not permit a reset at all. An act typically contains 3–5 significant encounters. This means Destiny Tokens are an act-level resource, not a per-encounter one.",
-          "perEncounterExpectation": {
-            "note": "With 10 tokens across a 4-encounter act, a party spending conservatively has roughly 2–3 tokens available per encounter. Heavy spending early depletes the cushion for the act's climax. This is the intended pressure — token scarcity escalates as the act progresses.",
-            "easyEncounter": "0 tokens expected. Party should not need them.",
-            "standardEncounter": "1–2 tokens. Optional use for favorable outcomes.",
-            "challengingEncounter": "2–3 tokens. Likely spent on clutch tier shifts.",
-            "epicEncounter": "3–5 tokens. Full commitment — this is the climax the act's token budget was being preserved for."
-          }
-        }
-      }
-    },
-    "difficultyMultipliers": [
-      {
-        "feel": "Easy",
-        "resourceCost": "0–10%",
-        "tpRatio": 1.0,
-        "description": "The party handles it without breaking a sweat. Vitality barely touched, no Edge Points spent, no impairments. Minion sweeps, trivial patrols, obstacles rather than threats. Useful for pacing — not every scene should cost something."
-      },
-      {
-        "feel": "Standard",
-        "resourceCost": "10–20%",
-        "tpRatio": 2.0,
-        "description": "A real fight, but a comfortable one. A few Edge Points spent, minor Vitality damage, no impairments expected. The party leaves intact but not untouched. 1 Standard + 4 Minions is the canonical Standard encounter at starting level."
-      },
-      {
-        "feel": "Challenging",
-        "resourceCost": "20–50%",
-        "tpRatio": 3.5,
-        "description": "The baseline design target. Edge Points will be spent. Vitality takes meaningful hits. One or two impairments are plausible. Someone may briefly be in danger. Smart play matters. A short rest afterward is reasonable."
-      },
-      {
-        "feel": "Epic",
-        "resourceCost": "50–100%",
-        "tpRatio": 6.0,
-        "description": "Incapacitation is likely for at least one PC. Collective trauma will be prevalent — multiple impairments across the party. Vitality pools severely depleted. Edge Points and Destiny Tokens will be fully consumed. Reserved for climax encounters, boss fights, and scenes that should feel like survival. A long rest is mandatory after."
-      }
-    ],
-    "exampleCalculation": {
-      "party": "5× Starting (D6), PPR = 10, Standard encounter = 20 TP budget",
-      "threats": [
-        {
-          "build": "1× Stormtrooper (Standard)",
-          "stats": "Presence 0 (0 TP), Defense 5 (3 TP), Evasion 4 (1 TP), Resolve 4 (1 TP), Vitality 5 (1 TP), Action Power 5 (2 TP), Suppressing Fire gambit (1 TP), PACK tag (1 TP) = 10 TP × 1.0 = 10 TP",
-          "feel": "Half the Standard budget. Durable, hits hard, needs support."
-        },
-        {
-          "build": "4× Stormtrooper Minions",
-          "stats": "Same 10 TP build × Minion modifier (0.25) = 2.5 TP each × 4 = 10 TP",
-          "totalBudget": "10 + 10 = 20 TP",
-          "feel": "Standard encounter (20 of 20 budget). Minions die fast but pressure the party while the Standard absorbs attention. With PACK active (2+ troopers in Zone), Presence rises to 1 — D6 PCs now at 25% success."
-        }
-      ]
-    },
-    "calibrationNotes": [
-      "These values are design targets, not playtested certainties. Adjust multipliers based on table experience.",
-      "Zone count and terrain matter. 5 Standards in one Zone (PACK bonus applies) vs spread across 3 Zones is a very different encounter with the same TP budget.",
-      "Normal Minion 0.25 multiplier: any PC success kills them (Fleeting = 1 Dmg = dead at Vitality 1). Defense provides no survivability — only Presence gates it. TOUGH Minion 0.5 multiplier: Fleeting ignored, Defense becomes a real barrier.",
-      "A single Nemesis at 2.0× TP should equal roughly 1 Epic encounter worth of party pressure — they are multi-round fights by design."
-    ]
-  },
-
-  "exampleThreats": [
-    {
-      "id": "threat_stormtrooper",
-      "name": "Stormtrooper",
-      "classification": "Standard",
-      "description": "Imperial line infantry. Light body armor, E-11 blaster carbine, military training. Individually manageable — in numbers, genuinely dangerous.",
-      "stats": {
-        "presence": 0,
-        "defense": 5,
-        "evasion": 4,
-        "resolve": 4,
-        "vitality": 5
-      },
-      "actionEconomy": {
-        "actions": 1,
-        "maneuvers": 1,
-        "triggers": 1
+      "id": "trooper",
+      "name": "Trooper",
+      "category": "combat",
+      "description": "Disciplined ranged combatant. Reliable, consistent, operates best in squads.",
+      "arenaMods": {},
+      "passive": {
+        "name": "Disciplined Fire",
+        "description": "+1 Power on weapon attacks."
       },
       "actions": [
-        {
-          "name": "E-11 Blaster Carbine",
-          "type": "Simple",
-          "power": 5,
-          "range": "1–3 Zones",
-          "note": "Failed PC Dodge = Legendary tier. Successful defense with D6 Power Die averages Masterful. Full effect on Control failure."
-        }
+        { "name": "Blaster Volley", "type": "action", "description": "Ranged attack against one target. Uses Reflex arena." },
+        { "name": "Bayonet Strike", "type": "action", "description": "Melee attack against adjacent target. Uses Physique arena." }
       ],
-      "gambits": [
-        {
-          "name": "Suppressing Fire",
-          "type": "Condition on Hit",
-          "rule": "Reduce effect by 1 Tier. On any successful hit, the target gains [Suppressed].",
-          "duration": "Tactical"
-        }
+      "maneuver": { "name": "Take Cover", "description": "Move to cover. Gain [Cover] until leaving position." },
+      "gambit": { "name": "Suppressive Fire", "cost": "-1 Power", "description": "Target gains [Pinned] on hit." },
+      "exploit": { "name": "Coordinated Fire", "description": "All allied Troopers targeting the same enemy gain +1 Power this round." }
+    },
+    {
+      "id": "brute",
+      "name": "Brute",
+      "category": "combat",
+      "description": "Heavy melee combatant. Hits hard, absorbs punishment, terrifies the opposition.",
+      "arenaMods": { "physique": 1, "reflex": -1 },
+      "passive": {
+        "name": "Unrelenting",
+        "description": "Ignore the first [Weakened] condition applied per scene."
+      },
+      "actions": [
+        { "name": "Crushing Blow", "type": "action", "description": "Melee attack with +1 Power. Uses Physique arena." },
+        { "name": "Hurl", "type": "action", "description": "Throw object or enemy at short range. Uses Physique arena." }
       ],
-      "tags": ["PACK"],
-      "tagNotes": {
-        "PACK": "When 2+ Stormtroopers share a Zone, each gains +1 Presence (now Presence 1 — Step Down PC Control Die ×1). Coordinated fire. Break them up."
+      "maneuver": { "name": "Intimidating Advance", "description": "Move toward target. Target must resist or gain [Shaken]." },
+      "gambit": { "name": "Knockdown", "cost": "-1 Power", "description": "Target gains [Prone] on hit." },
+      "exploit": { "name": "Rampage", "description": "When dropping a target to 0 Vitality, immediately make another melee attack against a different adjacent target." }
+    },
+    {
+      "id": "marksman",
+      "name": "Marksman",
+      "category": "combat",
+      "description": "Precision ranged specialist. Deadly at distance, patient, methodical.",
+      "arenaMods": { "reflex": 1, "physique": -1 },
+      "passive": {
+        "name": "Long Shot",
+        "description": "+1 Power when attacking at long range."
       },
-      "trigger": "Default: Apply [Disoriented] and make a Basic Attack against the target.",
-      "tpCost": {
-        "presence_0": 0,
-        "defense_5": 3,
-        "evasion_4": 1,
-        "resolve_4": 1,
-        "vitality_5": 1,
-        "action_simple_power5": 2,
-        "gambit_suppress": 1,
-        "tag_pack": 1,
-        "total": 10,
-        "asMinion": "10 × 0.25 = 2.5 TP per Minion"
+      "actions": [
+        { "name": "Precision Shot", "type": "action", "description": "Ranged attack with +1 Power if no movement this turn. Uses Reflex arena." },
+        { "name": "Snap Shot", "type": "action", "description": "Quick ranged attack as reaction when target moves. Uses Reflex arena." }
+      ],
+      "maneuver": { "name": "Find Vantage", "description": "Move to elevated or concealed position. +1 Power on next ranged attack." },
+      "gambit": { "name": "Called Shot", "cost": "-1 Power", "description": "Target gains [Bleeding] on hit." },
+      "exploit": { "name": "Overwatch", "description": "Hold action. Shoot the first enemy that moves in line of sight before they complete movement." }
+    },
+    {
+      "id": "skirmisher",
+      "name": "Skirmisher",
+      "category": "combat",
+      "description": "Mobile fighter. Strikes fast, repositions constantly, never stays pinned.",
+      "arenaMods": { "reflex": 1, "grit": -1 },
+      "passive": {
+        "name": "Fleet Footed",
+        "description": "May take 2 maneuvers per turn instead of 1."
       },
-      "designNotes": [
-        "Defense 5 means a D6/D8 PC deals Masterful damage at best (2 Dmg). D10/D12 can reach Legendary (4 Dmg). Armor is real.",
-        "Power 5 attack: failed Dodge = Legendary tier (4 Dmg on Medium Rifle scale). A hit lands. Stormtroopers aren't harmless.",
-        "PACK is the key threat multiplier. A squad of 4 in one Zone is Presence 1 — D6 PCs are now at 25% success. Spread them out or spend resources."
-      ]
+      "actions": [
+        { "name": "Hit and Run", "type": "action", "description": "Melee attack + free disengage. Uses Reflex arena." },
+        { "name": "Harrying Shot", "type": "action", "description": "Ranged attack at close range. Target cannot take reactions until next turn." }
+      ],
+      "maneuver": { "name": "Reposition", "description": "Move without provoking reactions." },
+      "gambit": { "name": "Hamstring", "cost": "-1 Power", "description": "Target gains [Slowed] on hit." },
+      "exploit": { "name": "Ambush", "description": "If attacking from stealth or flanking, +2 Power on the attack." }
+    },
+    {
+      "id": "operative",
+      "name": "Operative",
+      "category": "combat",
+      "description": "Stealth specialist. Infiltrator, saboteur, assassin. Strikes from shadow.",
+      "arenaMods": { "reflex": 1, "presence": -1 },
+      "passive": {
+        "name": "Shadow Strike",
+        "description": "Attacks from stealth gain +1 Power and do not break concealment on a miss."
+      },
+      "actions": [
+        { "name": "Silent Kill", "type": "action", "description": "Melee attack from concealment. +2 Power if target is unaware. Uses Reflex arena." },
+        { "name": "Sabotage", "type": "action", "description": "Disable equipment, lock, or system. Uses Wits arena." }
+      ],
+      "maneuver": { "name": "Vanish", "description": "If in cover or obscured, become hidden." },
+      "gambit": { "name": "Disarm", "cost": "-1 Power", "description": "Target drops held weapon on hit." },
+      "exploit": { "name": "Assassination", "description": "If attacking an unaware target, double Power for this attack." }
+    },
+    {
+      "id": "commander",
+      "name": "Commander",
+      "category": "combat",
+      "description": "Tactical leader. Amplifies allies, directs the battlefield, controls tempo.",
+      "arenaMods": { "presence": 1, "physique": -1 },
+      "passive": {
+        "name": "Rallying Presence",
+        "description": "Allies within close range gain +1 to resist [Shaken] and [Rattled]."
+      },
+      "actions": [
+        { "name": "Direct Fire", "type": "action", "description": "Order one ally to immediately make an attack as a reaction." },
+        { "name": "Rally", "type": "action", "description": "Remove [Shaken] or [Rattled] from one ally in range." }
+      ],
+      "maneuver": { "name": "Issue Orders", "description": "One ally gains a bonus maneuver on their next turn." },
+      "gambit": { "name": "Tactical Withdrawal", "cost": "-1 Power", "description": "One ally may immediately move to cover." },
+      "exploit": { "name": "Coordinated Assault", "description": "All allies gain +1 Power until end of round." }
+    },
+    {
+      "id": "technician",
+      "name": "Technician",
+      "category": "combat",
+      "description": "Tech specialist. Deploys gadgets, hacks systems, disrupts enemy equipment.",
+      "arenaMods": { "wits": 1, "physique": -1 },
+      "passive": {
+        "name": "Field Engineer",
+        "description": "Can repair equipment and droids as an action. Can interact with tech at range."
+      },
+      "actions": [
+        { "name": "Overload", "type": "action", "description": "Tech attack at short range. Targets Evasion. Uses Wits arena." },
+        { "name": "Deploy Drone", "type": "action", "description": "Place a drone turret. Acts on this NPC's turn with 2 Power ranged attack." }
+      ],
+      "maneuver": { "name": "Scan", "description": "Reveal one hidden enemy or identify one target's weakness (+1 Power vs them next attack)." },
+      "gambit": { "name": "System Glitch", "cost": "-1 Power", "description": "Target's equipment malfunctions. [Jammed] on hit." },
+      "exploit": { "name": "Slice", "description": "Take control of one enemy droid or automated system for 1 round." }
+    },
+    {
+      "id": "mystic",
+      "name": "Mystic",
+      "category": "combat",
+      "description": "Force user. Telekinesis, mind tricks, precognition. Fights with the invisible.",
+      "arenaMods": { "grit": 1, "reflex": -1 },
+      "passive": {
+        "name": "Force Awareness",
+        "description": "Can sense Force-sensitive beings. Immune to [Blinded]."
+      },
+      "actions": [
+        { "name": "Force Push", "type": "action", "description": "Ranged Force attack. Targets Endure only (invisible, can't dodge). Uses Grit arena." },
+        { "name": "Mind Trick", "type": "action", "description": "Social Force attack. Targets Resist only. Uses Presence arena." }
+      ],
+      "maneuver": { "name": "Force Pull", "description": "Move one object or enemy one range band closer." },
+      "gambit": { "name": "Force Stagger", "cost": "-1 Power", "description": "Target gains [Disoriented] on hit." },
+      "exploit": { "name": "Force Choke", "description": "If target is below half Vitality, automatically apply [Restrained]. Targets Endure." }
+    },
+    {
+      "id": "face",
+      "name": "Face",
+      "category": "social",
+      "description": "Social operator. Negotiates, manipulates, deceives. Fights with words.",
+      "arenaMods": { "presence": 1, "physique": -1 },
+      "passive": {
+        "name": "Silver Tongue",
+        "description": "Can attempt social actions in combat without provoking reactions."
+      },
+      "actions": [
+        { "name": "Cutting Words", "type": "action", "description": "Social attack. Targets Resist. Uses Presence arena." },
+        { "name": "Negotiate", "type": "action", "description": "Attempt to change NPC disposition or broker deal. Uses Presence arena." }
+      ],
+      "maneuver": { "name": "Read the Room", "description": "Learn one target's motivation, fear, or current condition." },
+      "gambit": { "name": "Taunt", "cost": "-1 Power", "description": "Target must attack Face on next turn. Target gains [Marked]." },
+      "exploit": { "name": "Turn Coat", "description": "If target is below half Vitality or has 2+ social conditions, offer surrender terms." }
+    },
+    {
+      "id": "beast",
+      "name": "Beast",
+      "category": "combat",
+      "description": "Feral combatant. Natural weapons, pack instincts, raw predatory aggression.",
+      "arenaMods": { "physique": 1, "wits": -1, "presence": -1 },
+      "passive": {
+        "name": "Natural Weapons",
+        "description": "Cannot be disarmed. Immune to [Disoriented]."
+      },
+      "actions": [
+        { "name": "Savage Bite", "type": "action", "description": "Melee attack with +1 Power. Uses Physique arena." },
+        { "name": "Pounce", "type": "action", "description": "Charge from short range + melee attack. Uses Physique arena." }
+      ],
+      "maneuver": { "name": "Stalk", "description": "Move silently. Gain concealment if cover is available." },
+      "gambit": { "name": "Rend", "cost": "-1 Power", "description": "Target gains [Bleeding] on hit." },
+      "exploit": { "name": "Pack Tactics", "description": "If another allied Beast is adjacent to target, +2 Power on this attack." }
+    },
+    {
+      "id": "enforcer",
+      "name": "Enforcer",
+      "category": "social",
+      "description": "Social bruiser. Intimidates, threatens, uses implied violence as leverage.",
+      "arenaMods": { "physique": 1, "wits": -1 },
+      "passive": {
+        "name": "Implied Violence",
+        "description": "Social attacks can inflict [Shaken] instead of normal social conditions."
+      },
+      "actions": [
+        { "name": "Threaten", "type": "action", "description": "Social attack using implied force. Targets Resist. Uses Physique arena." },
+        { "name": "Lean In", "type": "action", "description": "Escalate social pressure. +1 Power if target already has a social condition." }
+      ],
+      "maneuver": { "name": "Loom", "description": "Move to close range. Target must resist or gain [Rattled]." },
+      "gambit": { "name": "Break Something", "cost": "-1 Power", "description": "Demonstrate capacity for violence. All witnesses gain [Shaken]." },
+      "exploit": { "name": "Last Warning", "description": "If target has [Shaken], automatically escalate to [Incapacitated] (surrender/flee)." }
+    },
+    {
+      "id": "informant",
+      "name": "Informant",
+      "category": "social",
+      "description": "Intelligence operative. Trades secrets, exposes weaknesses, leverages information.",
+      "arenaMods": { "wits": 1, "physique": -1 },
+      "passive": {
+        "name": "Connected",
+        "description": "Always knows one piece of intel about each PC (GM chooses what)."
+      },
+      "actions": [
+        { "name": "Expose Secret", "type": "action", "description": "Social attack. Reveal damaging information. Targets Resist. Uses Wits arena." },
+        { "name": "Offer Intel", "type": "action", "description": "Trade information for a concession. Uses Presence arena." }
+      ],
+      "maneuver": { "name": "Observe", "description": "Study target. Learn one discipline rating or active condition." },
+      "gambit": { "name": "Blackmail", "cost": "-1 Power", "description": "If target doesn't comply, consequence is revealed to a third party." },
+      "exploit": { "name": "Network", "description": "Summon reinforcements, deliver intel to a faction, or trigger a pre-arranged contingency." }
+    }
+  ],
+
+  "traits": [
+    { "id": "armored_light", "name": "Armored (Light)", "description": "+1 to Defense.", "defenseMod": 1 },
+    { "id": "armored_medium", "name": "Armored (Medium)", "description": "+2 to Defense.", "defenseMod": 2 },
+    { "id": "armored_heavy", "name": "Armored (Heavy)", "description": "+3 to Defense.", "defenseMod": 3 },
+    { "id": "tough", "name": "Tough", "description": "Ignore Fleeting damage results. Require Masterful (3+) to damage." },
+    { "id": "disciplined", "name": "Disciplined", "description": "+1 to Resist." },
+    { "id": "agile", "name": "Agile", "description": "+1 to Evasion." },
+    { "id": "force_sensitive", "name": "Force Sensitive", "description": "Can use Force-related abilities. Required for Mystic role." },
+    { "id": "cybernetic", "name": "Cybernetic", "description": "+1 to one Arena (chosen at build). Immune to [Stunned]." },
+    { "id": "fearless", "name": "Fearless", "description": "Immune to [Shaken] and [Rattled]." },
+    { "id": "veteran", "name": "Veteran", "description": "+1 additional Exploit slot." },
+    { "id": "shield_generator", "name": "Shield Generator", "description": "+2 Defense. Shield breaks after absorbing Masterful+ hit. Recharges after 1 round without damage." },
+    { "id": "jetpack", "name": "Jetpack", "description": "Can fly. Ignore terrain. +1 Evasion while airborne." }
+  ],
+
+  "tags": [
+    "Imperial", "Rebel", "Criminal", "Bounty Hunter", "Droid", "Force User",
+    "Beast", "Mercenary", "Civilian", "Pirate", "Mandalorian", "Hutt Cartel",
+    "Black Sun", "Separatist", "Clone Wars", "Inquisitor", "Jedi", "Sith"
+  ],
+
+  "prebuilts": [
+    {
+      "id": "stormtrooper",
+      "name": "Stormtrooper",
+      "tier": 1,
+      "classification": "minion",
+      "role": "trooper",
+      "arenas": { "physique": 3, "reflex": 2, "grit": 2, "wits": 1, "presence": 1 },
+      "traits": ["armored_medium"],
+      "tags": ["Imperial"],
+      "loot": [],
+      "notes": "Standard Imperial infantry. Disciplined Fire gives +1 Power. Minion bolt-on means Masterful+ = takedown."
+    },
+    {
+      "id": "stormtrooper_sergeant",
+      "name": "Stormtrooper Sergeant",
+      "tier": 1,
+      "classification": "standard",
+      "role": "trooper",
+      "arenas": { "physique": 3, "reflex": 2, "grit": 2, "wits": 2, "presence": 2 },
+      "traits": ["armored_medium"],
+      "tags": ["Imperial"],
+      "loot": [],
+      "notes": "Squad leader. Same base stats, but full Vitality makes them notably harder to drop."
+    },
+    {
+      "id": "bounty_hunter",
+      "name": "Bounty Hunter",
+      "tier": 2,
+      "classification": "elite",
+      "role": "operative",
+      "arenas": { "physique": 2, "reflex": 4, "grit": 3, "wits": 3, "presence": 2 },
+      "traits": ["armored_light", "veteran"],
+      "tags": ["Bounty Hunter", "Criminal"],
+      "loot": [],
+      "notes": "Dangerous solo threat. Elite gives +1 Exploit and x1.5 Vitality."
+    },
+    {
+      "id": "crime_lord",
+      "name": "Crime Lord",
+      "tier": 3,
+      "classification": "boss",
+      "role": "face",
+      "arenas": { "physique": 2, "reflex": 2, "grit": 3, "wits": 4, "presence": 5 },
+      "traits": ["fearless", "veteran"],
+      "tags": ["Criminal", "Hutt Cartel"],
+      "loot": [],
+      "notes": "Social encounter boss. N-1 Exploits where N = number of players."
+    },
+    {
+      "id": "dark_side_adept",
+      "name": "Dark Side Adept",
+      "tier": 3,
+      "classification": "elite",
+      "role": "mystic",
+      "arenas": { "physique": 2, "reflex": 3, "grit": 4, "wits": 3, "presence": 3 },
+      "traits": ["force_sensitive", "fearless"],
+      "tags": ["Force User", "Imperial", "Inquisitor"],
+      "loot": [],
+      "notes": "Force Push targets Endure only. Mind Trick targets Resist only."
+    },
+    {
+      "id": "trandoshan_enforcer",
+      "name": "Trandoshan Enforcer",
+      "tier": 2,
+      "classification": "standard",
+      "role": "brute",
+      "arenas": { "physique": 4, "reflex": 2, "grit": 3, "wits": 1, "presence": 2 },
+      "traits": ["tough"],
+      "tags": ["Criminal", "Bounty Hunter"],
+      "loot": [],
+      "notes": "Tough + Brute. Ignores Fleeting damage AND first Weakened condition."
+    },
+    {
+      "id": "pit_beast",
+      "name": "Pit Beast",
+      "tier": 2,
+      "classification": "standard",
+      "role": "beast",
+      "arenas": { "physique": 4, "reflex": 3, "grit": 3, "wits": 1, "presence": 1 },
+      "traits": ["tough"],
+      "tags": ["Beast"],
+      "loot": [],
+      "notes": "Feral creature. Natural weapons, cannot be disarmed. Pack Tactics with allies."
+    },
+    {
+      "id": "imperial_officer",
+      "name": "Imperial Officer",
+      "tier": 2,
+      "classification": "standard",
+      "role": "commander",
+      "arenas": { "physique": 2, "reflex": 2, "grit": 3, "wits": 3, "presence": 4 },
+      "traits": ["disciplined"],
+      "tags": ["Imperial"],
+      "loot": [],
+      "notes": "Tactical leader. Direct Fire lets an ally attack. Coordinated Assault gives +1 Power to all allies."
     }
   ]
 }
