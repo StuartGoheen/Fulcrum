@@ -278,6 +278,24 @@
       "maneuver": { "name": "Observe", "description": "Study target. Learn one discipline rating or active condition." },
       "gambit": { "name": "Blackmail", "cost": "-1 Power", "description": "If target doesn't comply, consequence is revealed to a third party." },
       "exploit": { "name": "Network", "description": "Summon reinforcements, deliver intel to a faction, or trigger a pre-arranged contingency." }
+    },
+    {
+      "id": "diplomat",
+      "name": "Diplomat",
+      "category": "social",
+      "description": "Professional negotiator. Defuses conflict, brokers alliances, commands authority through legitimacy.",
+      "arenaMods": { "presence": 1, "physique": -1 },
+      "passive": {
+        "name": "Diplomatic Immunity",
+        "description": "Cannot be targeted by social attacks while actively negotiating in good faith."
+      },
+      "actions": [
+        { "name": "Appeal to Reason", "type": "action", "description": "Social attack that bypasses [Shaken]. Targets Resist. Uses Presence arena." },
+        { "name": "Broker Terms", "type": "action", "description": "Propose mutual agreement. If accepted, both sides gain a binding condition. Uses Presence arena." }
+      ],
+      "maneuver": { "name": "Invoke Authority", "description": "Declare faction backing. +1 Power on next social action if faction is recognized." },
+      "gambit": { "name": "Ultimatum", "cost": "-1 Power", "description": "Target must accept terms or lose faction standing. Target gains [Marked]." },
+      "exploit": { "name": "Ceasefire", "description": "Force all combatants in the scene to pause for one round. Broken by any attack." }
     }
   ],
 
@@ -297,9 +315,24 @@
   ],
 
   "tags": [
-    "Imperial", "Rebel", "Criminal", "Bounty Hunter", "Droid", "Force User",
-    "Beast", "Mercenary", "Civilian", "Pirate", "Mandalorian", "Hutt Cartel",
-    "Black Sun", "Separatist", "Clone Wars", "Inquisitor", "Jedi", "Sith"
+    { "id": "imperial", "name": "Imperial", "effect": "Access to Imperial comms and reinforcements. +1 Power vs Rebels." },
+    { "id": "rebel", "name": "Rebel", "effect": "Access to Rebel safehouses. +1 Power vs Imperials." },
+    { "id": "criminal", "name": "Criminal", "effect": "Access to black market contacts. Can fence stolen goods." },
+    { "id": "bounty_hunter", "name": "Bounty Hunter", "effect": "Tracks targets relentlessly. +1 Power vs bounty targets." },
+    { "id": "droid", "name": "Droid", "effect": "Immune to social conditions and [Poisoned]. Vulnerable to [Ionized]." },
+    { "id": "force_user", "name": "Force User", "effect": "Can sense Force-sensitive PCs. May use Force maneuvers." },
+    { "id": "beast_tag", "name": "Beast", "effect": "Cannot use equipment. Immune to [Disoriented]. May track by scent." },
+    { "id": "mercenary", "name": "Mercenary", "effect": "Loyalty is purchasable. Can be bribed to switch sides." },
+    { "id": "civilian", "name": "Civilian", "effect": "Non-combatant. Attacking civilians causes Obligation gain." },
+    { "id": "pirate", "name": "Pirate", "effect": "Access to smuggling routes. +1 Power during boarding actions." },
+    { "id": "mandalorian", "name": "Mandalorian", "effect": "+1 Defense from beskar armor. Immune to [Shaken] in combat." },
+    { "id": "hutt_cartel", "name": "Hutt Cartel", "effect": "Access to Hutt resources. Can place bounties on PCs." },
+    { "id": "black_sun", "name": "Black Sun", "effect": "Underworld network. Can arrange ambushes in civilized areas." },
+    { "id": "separatist", "name": "Separatist", "effect": "Access to droid armies. +1 Power when commanding droids." },
+    { "id": "clone_wars", "name": "Clone Wars", "effect": "Veteran of galactic conflict. +1 to initiative rolls." },
+    { "id": "inquisitor", "name": "Inquisitor", "effect": "Imperial authority + Force sensitivity. Can sense Force users." },
+    { "id": "jedi", "name": "Jedi", "effect": "Lightsaber proficient. +1 Defense vs ranged. Can deflect blaster bolts." },
+    { "id": "sith", "name": "Sith", "effect": "Dark Side powers. +1 Power on Force attacks. Immune to [Shaken]." }
   ],
 
   "prebuilts": [
@@ -311,7 +344,7 @@
       "role": "trooper",
       "arenas": { "physique": 3, "reflex": 2, "grit": 2, "wits": 1, "presence": 1 },
       "traits": ["armored_medium"],
-      "tags": ["Imperial"],
+      "tags": ["imperial"],
       "loot": [],
       "notes": "Standard Imperial infantry. Disciplined Fire gives +1 Power. Minion bolt-on means Masterful+ = takedown."
     },
@@ -323,7 +356,7 @@
       "role": "trooper",
       "arenas": { "physique": 3, "reflex": 2, "grit": 2, "wits": 2, "presence": 2 },
       "traits": ["armored_medium"],
-      "tags": ["Imperial"],
+      "tags": ["imperial"],
       "loot": [],
       "notes": "Squad leader. Same base stats, but full Vitality makes them notably harder to drop."
     },
@@ -335,7 +368,7 @@
       "role": "operative",
       "arenas": { "physique": 2, "reflex": 4, "grit": 3, "wits": 3, "presence": 2 },
       "traits": ["armored_light", "veteran"],
-      "tags": ["Bounty Hunter", "Criminal"],
+      "tags": ["bounty_hunter", "criminal"],
       "loot": [],
       "notes": "Dangerous solo threat. Elite gives +1 Exploit and x1.5 Vitality."
     },
@@ -347,7 +380,7 @@
       "role": "face",
       "arenas": { "physique": 2, "reflex": 2, "grit": 3, "wits": 4, "presence": 5 },
       "traits": ["fearless", "veteran"],
-      "tags": ["Criminal", "Hutt Cartel"],
+      "tags": ["criminal", "hutt_cartel"],
       "loot": [],
       "notes": "Social encounter boss. N-1 Exploits where N = number of players."
     },
@@ -359,7 +392,7 @@
       "role": "mystic",
       "arenas": { "physique": 2, "reflex": 3, "grit": 4, "wits": 3, "presence": 3 },
       "traits": ["force_sensitive", "fearless"],
-      "tags": ["Force User", "Imperial", "Inquisitor"],
+      "tags": ["force_user", "imperial", "inquisitor"],
       "loot": [],
       "notes": "Force Push targets Endure only. Mind Trick targets Resist only."
     },
@@ -371,7 +404,7 @@
       "role": "brute",
       "arenas": { "physique": 4, "reflex": 2, "grit": 3, "wits": 1, "presence": 2 },
       "traits": ["tough"],
-      "tags": ["Criminal", "Bounty Hunter"],
+      "tags": ["criminal", "bounty_hunter"],
       "loot": [],
       "notes": "Tough + Brute. Ignores Fleeting damage AND first Weakened condition."
     },
@@ -383,7 +416,7 @@
       "role": "beast",
       "arenas": { "physique": 4, "reflex": 3, "grit": 3, "wits": 1, "presence": 1 },
       "traits": ["tough"],
-      "tags": ["Beast"],
+      "tags": ["beast_tag"],
       "loot": [],
       "notes": "Feral creature. Natural weapons, cannot be disarmed. Pack Tactics with allies."
     },
@@ -395,7 +428,7 @@
       "role": "commander",
       "arenas": { "physique": 2, "reflex": 2, "grit": 3, "wits": 3, "presence": 4 },
       "traits": ["disciplined"],
-      "tags": ["Imperial"],
+      "tags": ["imperial"],
       "loot": [],
       "notes": "Tactical leader. Direct Fire lets an ally attack. Coordinated Assault gives +1 Power to all allies."
     }

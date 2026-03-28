@@ -14,7 +14,7 @@
     traits: [],
     tags: [],
     loot: [],
-    attackName: '',
+    attacks: [],
     numPlayers: 4
   };
 
@@ -183,10 +183,28 @@
       html += '</div>';
     }
 
-    if (currentNpc.tags && currentNpc.tags.length) {
+    if (currentNpc.attacks && currentNpc.attacks.length) {
+      html += '<div class="npc-card-attacks">';
+      html += '<div class="npc-attacks-label">ATTACKS</div>';
+      currentNpc.attacks.forEach(function (atk) {
+        var scaleLabel = atk.damageScale ? atk.damageScale.charAt(0).toUpperCase() + atk.damageScale.slice(1) : 'Fleeting';
+        html += '<div class="npc-attack-card-item">';
+        html += '<strong>' + esc(atk.name) + '</strong>';
+        html += ' <span class="npc-attack-scale-badge">' + scaleLabel + '</span>';
+        if (atk.canStun) html += ' <span class="npc-attack-stun-badge">Stun</span>';
+        html += '</div>';
+      });
+      html += '</div>';
+    }
+
+    if (currentNpc.tags && currentNpc.tags.length && threatData.tags) {
       html += '<div class="npc-card-tags">';
-      currentNpc.tags.forEach(function (tag) {
-        html += '<span class="npc-tag">' + esc(tag) + '</span>';
+      html += '<div class="npc-tags-label">TAGS</div>';
+      currentNpc.tags.forEach(function (tagId) {
+        var tagObj = threatData.tags.find(function (t) { return t.id === tagId; });
+        if (tagObj) {
+          html += '<div class="npc-tag-card-item"><span class="npc-tag">' + esc(tagObj.name) + '</span><span class="npc-tag-effect">' + esc(tagObj.effect) + '</span></div>';
+        }
       });
       html += '</div>';
     }
@@ -428,10 +446,34 @@
     html += '<label class="npc-label">Tags</label>';
     html += '<div class="npc-tags-grid">';
     threatData.tags.forEach(function (tag) {
-      var active = (currentNpc.tags || []).indexOf(tag) !== -1;
-      html += '<button class="npc-tag-btn' + (active ? ' active' : '') + '" data-tag="' + esc(tag) + '">' + esc(tag) + '</button>';
+      var active = (currentNpc.tags || []).indexOf(tag.id) !== -1;
+      html += '<button class="npc-tag-btn' + (active ? ' active' : '') + '" data-tag="' + esc(tag.id) + '" title="' + esc(tag.effect) + '">' + esc(tag.name) + '</button>';
     });
     html += '</div>';
+    html += '</div>';
+
+    html += '<div class="npc-input-group">';
+    html += '<label class="npc-label">Attacks</label>';
+    if (!currentNpc.attacks || !currentNpc.attacks.length) {
+      html += '<div class="npc-attacks-empty">No custom attacks. Add one below.</div>';
+    } else {
+      currentNpc.attacks.forEach(function (atk, idx) {
+        html += '<div class="npc-attack-entry" data-atk-idx="' + idx + '">';
+        html += '<input type="text" class="npc-text-input npc-attack-name" data-atk-idx="' + idx + '" value="' + esc(atk.name) + '" placeholder="Attack name" />';
+        html += '<div class="npc-attack-controls">';
+        html += '<label class="npc-attack-scale-label">Scale:</label>';
+        html += '<select class="npc-select npc-attack-scale" data-atk-idx="' + idx + '">';
+        ['fleeting', 'masterful', 'legendary'].forEach(function (s) {
+          html += '<option value="' + s + '"' + (atk.damageScale === s ? ' selected' : '') + '>' + s.charAt(0).toUpperCase() + s.slice(1) + '</option>';
+        });
+        html += '</select>';
+        html += '<label class="npc-attack-stun-label"><input type="checkbox" class="npc-attack-stun-cb" data-atk-idx="' + idx + '"' + (atk.canStun ? ' checked' : '') + ' /> Stun</label>';
+        html += '<button class="npc-attack-remove" data-atk-idx="' + idx + '">&times;</button>';
+        html += '</div>';
+        html += '</div>';
+      });
+    }
+    html += '<button class="npc-action-btn npc-add-attack-btn" id="npc-add-attack-btn">+ Add Attack</button>';
     html += '</div>';
 
     html += '<div class="npc-input-group">';
@@ -467,6 +509,7 @@
       savedNpcs.forEach(function (npc, idx) {
         html += '<div class="npc-saved-entry">';
         html += '<span class="npc-saved-name" data-idx="' + idx + '">' + esc(npc.name || 'Unnamed') + ' <span class="npc-saved-meta">T' + npc.tier + ' ' + esc(npc.classification) + '</span></span>';
+        html += '<button class="npc-saved-dup" data-idx="' + idx + '" title="Duplicate">&#x2398;</button>';
         html += '<button class="npc-saved-delete" data-idx="' + idx + '">&times;</button>';
         html += '</div>';
       });
@@ -475,6 +518,41 @@
     html += '</div>';
 
     el.innerHTML = html;
+
+    el.querySelectorAll('.npc-attack-name').forEach(function (inp) {
+      inp.addEventListener('input', function () {
+        var idx = parseInt(inp.dataset.atkIdx, 10);
+        if (currentNpc.attacks[idx]) { currentNpc.attacks[idx].name = inp.value; renderNpcCard(); }
+      });
+    });
+    el.querySelectorAll('.npc-attack-scale').forEach(function (sel) {
+      sel.addEventListener('change', function () {
+        var idx = parseInt(sel.dataset.atkIdx, 10);
+        if (currentNpc.attacks[idx]) { currentNpc.attacks[idx].damageScale = sel.value; renderNpcCard(); }
+      });
+    });
+    el.querySelectorAll('.npc-attack-stun-cb').forEach(function (cb) {
+      cb.addEventListener('change', function () {
+        var idx = parseInt(cb.dataset.atkIdx, 10);
+        if (currentNpc.attacks[idx]) { currentNpc.attacks[idx].canStun = cb.checked; renderNpcCard(); }
+      });
+    });
+    el.querySelectorAll('.npc-attack-remove').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        currentNpc.attacks.splice(parseInt(btn.dataset.atkIdx, 10), 1);
+        renderBuilderRight();
+        renderNpcCard();
+      });
+    });
+    var addAtkBtn = document.getElementById('npc-add-attack-btn');
+    if (addAtkBtn) {
+      addAtkBtn.addEventListener('click', function () {
+        if (!currentNpc.attacks) currentNpc.attacks = [];
+        currentNpc.attacks.push({ name: 'Attack ' + (currentNpc.attacks.length + 1), damageScale: 'fleeting', canStun: false });
+        renderBuilderRight();
+        renderNpcCard();
+      });
+    }
 
     el.querySelectorAll('.npc-trait-cb').forEach(function (cb) {
       cb.addEventListener('change', function () {
@@ -538,7 +616,7 @@
         name: '', tier: 1,
         arenas: { physique: 2, reflex: 2, grit: 2, wits: 2, presence: 2 },
         role: '', classification: 'standard',
-        traits: [], tags: [], loot: [], attackName: '', numPlayers: 4
+        traits: [], tags: [], loot: [], attacks: [], numPlayers: 4
       };
       renderBuilderLeft();
       renderBuilderRight();
@@ -554,6 +632,21 @@
         renderBuilderLeft();
         renderBuilderRight();
         renderNpcCard();
+      });
+    });
+
+    el.querySelectorAll('.npc-saved-dup').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var idx = parseInt(btn.dataset.idx, 10);
+        var original = savedNpcs[idx];
+        if (!original) return;
+        var copy = JSON.parse(JSON.stringify(original));
+        copy.name = (copy.name || 'Unnamed') + ' (Copy)';
+        savedNpcs.push(copy);
+        persistSavedNpcs();
+        renderBuilderRight();
+        showNpcToast('Duplicated: ' + esc(copy.name));
       });
     });
 

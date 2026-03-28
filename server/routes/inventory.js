@@ -216,6 +216,12 @@ router.post('/inventory/:charId/add', (req, res) => {
   db.prepare('UPDATE characters SET character_data = ? WHERE id = ?')
     .run(JSON.stringify(data), charId);
 
+  db.prepare(
+    `INSERT INTO equipment_status (character_id, item_id, item_type, status, updated_at)
+     VALUES (?, ?, ?, 'carried', datetime('now'))
+     ON CONFLICT(character_id, item_id) DO UPDATE SET status = 'carried', updated_at = datetime('now')`
+  ).run(charId, itemId, itemType);
+
   res.json({ ok: true, action: 'added', charId, itemId, itemType });
 });
 
