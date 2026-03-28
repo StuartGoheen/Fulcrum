@@ -97,8 +97,8 @@
         "description": "+1 Power on weapon attacks."
       },
       "actions": [
-        { "name": "Blaster Volley", "type": "action", "description": "Ranged attack against one target. Uses Reflex arena." },
-        { "name": "Bayonet Strike", "type": "action", "description": "Melee attack against adjacent target. Uses Physique arena." }
+        { "name": "Blaster Volley", "type": "action", "arena": "reflex", "description": "Ranged attack against one target." },
+        { "name": "Bayonet Strike", "type": "action", "arena": "physique", "description": "Melee attack against adjacent target." }
       ],
       "maneuver": { "name": "Take Cover", "description": "Move to cover. Gain [Cover] until leaving position." },
       "gambit": { "name": "Suppressive Fire", "cost": "-1 Power", "description": "Target gains [Pinned] on hit." },
@@ -115,8 +115,8 @@
         "description": "Ignore the first [Weakened] condition applied per scene."
       },
       "actions": [
-        { "name": "Crushing Blow", "type": "action", "description": "Melee attack with +1 Power. Uses Physique arena." },
-        { "name": "Hurl", "type": "action", "description": "Throw object or enemy at short range. Uses Physique arena." }
+        { "name": "Crushing Blow", "type": "action", "arena": "physique", "powerMod": 1, "description": "Melee attack with +1 Power." },
+        { "name": "Hurl", "type": "action", "arena": "physique", "description": "Throw object or enemy at short range." }
       ],
       "maneuver": { "name": "Intimidating Advance", "description": "Move toward target. Target must resist or gain [Shaken]." },
       "gambit": { "name": "Knockdown", "cost": "-1 Power", "description": "Target gains [Prone] on hit." },
@@ -134,8 +134,8 @@
         "description": "+1 Power when attacking at long range."
       },
       "actions": [
-        { "name": "Precision Shot", "type": "action", "description": "Ranged attack with +1 Power if no movement this turn. Uses Reflex arena." },
-        { "name": "Snap Shot", "type": "action", "description": "Quick ranged attack as reaction when target moves. Uses Reflex arena." }
+        { "name": "Precision Shot", "type": "action", "arena": "reflex", "powerMod": 1, "description": "Ranged attack with +1 Power if no movement this turn." },
+        { "name": "Snap Shot", "type": "action", "arena": "reflex", "description": "Quick ranged attack as reaction when target moves." }
       ],
       "maneuver": { "name": "Find Vantage", "description": "Move to elevated or concealed position. +1 Power on next ranged attack." },
       "gambit": { "name": "Called Shot", "cost": "-1 Power", "description": "Target gains [Bleeding] on hit." },
@@ -152,8 +152,8 @@
         "description": "May take 2 maneuvers per turn instead of 1."
       },
       "actions": [
-        { "name": "Hit and Run", "type": "action", "description": "Melee attack + free disengage. Uses Reflex arena." },
-        { "name": "Harrying Shot", "type": "action", "description": "Ranged attack at close range. Target cannot take reactions until next turn." }
+        { "name": "Hit and Run", "type": "action", "arena": "reflex", "description": "Melee attack + free disengage." },
+        { "name": "Harrying Shot", "type": "action", "arena": "reflex", "description": "Ranged attack at close range. Target cannot take reactions until next turn." }
       ],
       "maneuver": { "name": "Reposition", "description": "Move without provoking reactions." },
       "gambit": { "name": "Hamstring", "cost": "-1 Power", "description": "Target gains [Slowed] on hit." },
@@ -170,8 +170,8 @@
         "description": "Attacks from stealth gain +1 Power and do not break concealment on a miss."
       },
       "actions": [
-        { "name": "Silent Kill", "type": "action", "description": "Melee attack from concealment. +2 Power if target is unaware. Uses Reflex arena." },
-        { "name": "Sabotage", "type": "action", "description": "Disable equipment, lock, or system. Uses Wits arena." }
+        { "name": "Silent Kill", "type": "action", "arena": "reflex", "description": "Melee attack from concealment. +2 Power if target is unaware." },
+        { "name": "Sabotage", "type": "action", "arena": "wits", "description": "Disable equipment, lock, or system." }
       ],
       "maneuver": { "name": "Vanish", "description": "If in cover or obscured, become hidden." },
       "gambit": { "name": "Disarm", "cost": "-1 Power", "description": "Target drops held weapon on hit." },
@@ -188,8 +188,8 @@
         "description": "Allies within close range gain +1 to resist [Shaken] and [Rattled]."
       },
       "actions": [
-        { "name": "Direct Fire", "type": "action", "description": "Order one ally to immediately make an attack as a reaction." },
-        { "name": "Rally", "type": "action", "description": "Remove [Shaken] or [Rattled] from one ally in range." }
+        { "name": "Direct Fire", "type": "action", "arena": "presence", "description": "Order one ally to immediately make an attack as a reaction." },
+        { "name": "Rally", "type": "action", "arena": "presence", "description": "Remove [Shaken] or [Rattled] from one ally in range." }
       ],
       "maneuver": { "name": "Issue Orders", "description": "One ally gains a bonus maneuver on their next turn." },
       "gambit": { "name": "Tactical Withdrawal", "cost": "-1 Power", "description": "One ally may immediately move to cover." },
@@ -206,8 +206,8 @@
         "description": "Can repair equipment and droids as an action. Can interact with tech at range."
       },
       "actions": [
-        { "name": "Overload", "type": "action", "description": "Tech attack at short range. Targets Evasion. Uses Wits arena." },
-        { "name": "Deploy Drone", "type": "action", "description": "Place a drone turret. Acts on this NPC's turn with 2 Power ranged attack." }
+        { "name": "Overload", "type": "action", "arena": "wits", "description": "Tech attack at short range. Targets Evasion." },
+        { "name": "Deploy Drone", "type": "action", "arena": "wits", "description": "Place a drone turret. Acts on this NPC's turn with 2 Power ranged attack." }
       ],
       "maneuver": { "name": "Scan", "description": "Reveal one hidden enemy or identify one target's weakness (+1 Power vs them next attack)." },
       "gambit": { "name": "System Glitch", "cost": "-1 Power", "description": "Target's equipment malfunctions. [Jammed] on hit." },
@@ -224,8 +224,8 @@
         "description": "Can sense Force-sensitive beings. Immune to [Blinded]."
       },
       "actions": [
-        { "name": "Force Push", "type": "action", "description": "Ranged Force attack. Targets Endure only (invisible, can't dodge). Uses Grit arena." },
-        { "name": "Mind Trick", "type": "action", "description": "Social Force attack. Targets Resist only. Uses Presence arena." }
+        { "name": "Force Push", "type": "action", "arena": "grit", "description": "Ranged Force attack. Targets Endure only (invisible, can't dodge)." },
+        { "name": "Mind Trick", "type": "action", "arena": "presence", "description": "Social Force attack. Targets Resist only." }
       ],
       "maneuver": { "name": "Force Pull", "description": "Move one object or enemy one range band closer." },
       "gambit": { "name": "Force Stagger", "cost": "-1 Power", "description": "Target gains [Disoriented] on hit." },
@@ -242,8 +242,8 @@
         "description": "Can attempt social actions in combat without provoking reactions."
       },
       "actions": [
-        { "name": "Cutting Words", "type": "action", "description": "Social attack. Targets Resist. Uses Presence arena." },
-        { "name": "Negotiate", "type": "action", "description": "Attempt to change NPC disposition or broker deal. Uses Presence arena." }
+        { "name": "Cutting Words", "type": "action", "arena": "presence", "description": "Social attack. Targets Resist." },
+        { "name": "Negotiate", "type": "action", "arena": "presence", "description": "Attempt to change NPC disposition or broker deal." }
       ],
       "maneuver": { "name": "Read the Room", "description": "Learn one target's motivation, fear, or current condition." },
       "gambit": { "name": "Taunt", "cost": "-1 Power", "description": "Target must attack Face on next turn. Target gains [Marked]." },
@@ -260,8 +260,8 @@
         "description": "Cannot be disarmed. Immune to [Disoriented]."
       },
       "actions": [
-        { "name": "Savage Bite", "type": "action", "description": "Melee attack with +1 Power. Uses Physique arena." },
-        { "name": "Pounce", "type": "action", "description": "Charge from short range + melee attack. Uses Physique arena." }
+        { "name": "Savage Bite", "type": "action", "arena": "physique", "powerMod": 1, "description": "Melee attack with +1 Power." },
+        { "name": "Pounce", "type": "action", "arena": "physique", "description": "Charge from short range + melee attack." }
       ],
       "maneuver": { "name": "Stalk", "description": "Move silently. Gain concealment if cover is available." },
       "gambit": { "name": "Rend", "cost": "-1 Power", "description": "Target gains [Bleeding] on hit." },
@@ -278,8 +278,8 @@
         "description": "Social attacks can inflict [Shaken] instead of normal social conditions."
       },
       "actions": [
-        { "name": "Threaten", "type": "action", "description": "Social attack using implied force. Targets Resist. Uses Physique arena." },
-        { "name": "Lean In", "type": "action", "description": "Escalate social pressure. +1 Power if target already has a social condition." }
+        { "name": "Threaten", "type": "action", "arena": "physique", "description": "Social attack using implied force. Targets Resist." },
+        { "name": "Lean In", "type": "action", "arena": "presence", "powerMod": 1, "description": "Escalate social pressure. +1 Power if target already has a social condition." }
       ],
       "maneuver": { "name": "Loom", "description": "Move to close range. Target must resist or gain [Rattled]." },
       "gambit": { "name": "Break Something", "cost": "-1 Power", "description": "Demonstrate capacity for violence. All witnesses gain [Shaken]." },
@@ -296,8 +296,8 @@
         "description": "Always knows one piece of intel about each PC (GM chooses what)."
       },
       "actions": [
-        { "name": "Expose Secret", "type": "action", "description": "Social attack. Reveal damaging information. Targets Resist. Uses Wits arena." },
-        { "name": "Offer Intel", "type": "action", "description": "Trade information for a concession. Uses Presence arena." }
+        { "name": "Expose Secret", "type": "action", "arena": "wits", "description": "Social attack. Reveal damaging information. Targets Resist." },
+        { "name": "Offer Intel", "type": "action", "arena": "presence", "description": "Trade information for a concession." }
       ],
       "maneuver": { "name": "Observe", "description": "Study target. Learn one discipline rating or active condition." },
       "gambit": { "name": "Blackmail", "cost": "-1 Power", "description": "If target doesn't comply, consequence is revealed to a third party." },
@@ -314,8 +314,8 @@
         "description": "Cannot be targeted by social attacks while actively negotiating in good faith."
       },
       "actions": [
-        { "name": "Appeal to Reason", "type": "action", "description": "Social attack that bypasses [Shaken]. Targets Resist. Uses Presence arena." },
-        { "name": "Broker Terms", "type": "action", "description": "Propose mutual agreement. If accepted, both sides gain a binding condition. Uses Presence arena." }
+        { "name": "Appeal to Reason", "type": "action", "arena": "presence", "description": "Social attack that bypasses [Shaken]. Targets Resist." },
+        { "name": "Broker Terms", "type": "action", "arena": "presence", "description": "Propose mutual agreement. If accepted, both sides gain a binding condition." }
       ],
       "maneuver": { "name": "Invoke Authority", "description": "Declare faction backing. +1 Power on next social action if faction is recognized." },
       "gambit": { "name": "Ultimatum", "cost": "-1 Power", "description": "Target must accept terms or lose faction standing. Target gains [Marked]." },
