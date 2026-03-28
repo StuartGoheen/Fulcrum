@@ -46,7 +46,7 @@
       return;
     }
     currentNpc.attacks = role.actions.map(function (a) {
-      return { name: a.name, arena: a.arena || '', powerMod: a.powerMod || 0, damageScale: 'fleeting', canStun: false, sourceAction: a.name };
+      return { name: a.name, arena: a.arena || '', powerMod: a.powerMod || 0, chassis: 'medium', canStun: false, sourceAction: a.name };
     });
   }
 
@@ -95,13 +95,6 @@
       powers[arena] = a[arena] - 1 + tier;
     });
 
-    var stunDef = threatData.system && threatData.system.stunScaling ? threatData.system.stunScaling : null;
-    var stun = {
-      fleeting: (stunDef && stunDef.fleeting ? stunDef.fleeting.base : 1) + tier,
-      masterful: (stunDef && stunDef.masterful ? stunDef.masterful.base : 3) + tier,
-      legendary: (stunDef && stunDef.legendary ? stunDef.legendary.base : 5) + tier
-    };
-
     var rolePowerBonus = role && role.powerBonus ? role.powerBonus : null;
 
     return {
@@ -113,7 +106,6 @@
       rawVitality: rawVitality,
       powers: powers,
       exploits: exploits,
-      stun: stun,
       role: role,
       classification: cls,
       rolePowerBonus: rolePowerBonus,
@@ -211,24 +203,41 @@
     if (currentNpc.attacks && currentNpc.attacks.length) {
       html += '<div class="npc-card-attacks">';
       html += '<div class="npc-attacks-label">ATTACKS</div>';
+      var chassisData = threatData.system && threatData.system.weaponChassis ? threatData.system.weaponChassis : {};
       currentNpc.attacks.forEach(function (atk) {
-        var scaleLabel = atk.damageScale ? atk.damageScale.charAt(0).toUpperCase() + atk.damageScale.slice(1) : 'Fleeting';
+        var chassisKey = atk.chassis || 'medium';
+        var ch = chassisData[chassisKey] || chassisData.medium || { pcDamage: { fleeting: 1, masterful: 3, legendary: 5 }, pcStun: { fleeting: 2, masterful: 4, legendary: 6 } };
+        var npcDmgF = (ch.pcDamage.fleeting || 1) + 1;
+        var npcDmgM = (ch.pcDamage.masterful || 3) + 1;
+        var npcDmgL = (ch.pcDamage.legendary || 5) + 1;
         var arenaScore = 0;
         if (atk.arena && stats.arenas && stats.arenas[atk.arena] !== undefined) {
           arenaScore = stats.arenas[atk.arena];
         }
         var attackPower = (arenaScore - 1) + (currentNpc.tier || 0) + (atk.powerMod || 0);
-        var stunValue = '';
-        if (atk.canStun && stats.stun) {
-          var scaleKey = atk.damageScale || 'fleeting';
-          stunValue = stats.stun[scaleKey] || 0;
-        }
+        var chassisLabel = ch.label || chassisKey.charAt(0).toUpperCase() + chassisKey.slice(1);
         html += '<div class="npc-attack-card-item">';
+        html += '<div class="npc-attack-header">';
         html += '<strong>' + esc(atk.name) + '</strong>';
         html += ' <span class="npc-attack-power-badge">Power ' + attackPower + '</span>';
-        html += ' <span class="npc-attack-scale-badge">' + scaleLabel + '</span>';
+        html += ' <span class="npc-attack-chassis-badge">' + chassisLabel + '</span>';
         if (atk.arena) html += ' <span class="npc-attack-arena-badge">' + atk.arena.charAt(0).toUpperCase() + atk.arena.slice(1) + '</span>';
-        if (atk.canStun) html += ' <span class="npc-attack-stun-badge">Stun ' + stunValue + '</span>';
+        html += '</div>';
+        html += '<div class="npc-attack-damage-row">';
+        html += '<span class="npc-dmg-tier"><span class="npc-dmg-label">F</span> ' + npcDmgF + '</span>';
+        html += '<span class="npc-dmg-tier"><span class="npc-dmg-label">M</span> ' + npcDmgM + '</span>';
+        html += '<span class="npc-dmg-tier"><span class="npc-dmg-label">L</span> ' + npcDmgL + '</span>';
+        html += '</div>';
+        if (atk.canStun) {
+          var npcStunF = (ch.pcStun.fleeting || 2) + 1;
+          var npcStunM = (ch.pcStun.masterful || 4) + 1;
+          var npcStunL = (ch.pcStun.legendary || 6) + 1;
+          html += '<div class="npc-attack-stun-row">';
+          html += '<span class="npc-stun-tier"><span class="npc-stun-label-sm">Stun F</span> ' + npcStunF + '</span>';
+          html += '<span class="npc-stun-tier"><span class="npc-stun-label-sm">M</span> ' + npcStunM + '</span>';
+          html += '<span class="npc-stun-tier"><span class="npc-stun-label-sm">L</span> ' + npcStunL + '</span>';
+          html += '</div>';
+        }
         html += '</div>';
       });
       html += '</div>';
@@ -519,10 +528,10 @@
           html += '<option value="' + a + '"' + (atk.arena === a ? ' selected' : '') + '>' + a.charAt(0).toUpperCase() + a.slice(1) + '</option>';
         });
         html += '</select>';
-        html += '<label class="npc-attack-scale-label">Scale:</label>';
-        html += '<select class="npc-select npc-attack-scale" data-atk-idx="' + idx + '">';
-        ['fleeting', 'masterful', 'legendary'].forEach(function (s) {
-          html += '<option value="' + s + '"' + (atk.damageScale === s ? ' selected' : '') + '>' + s.charAt(0).toUpperCase() + s.slice(1) + '</option>';
+        html += '<label class="npc-attack-scale-label">Chassis:</label>';
+        html += '<select class="npc-select npc-attack-chassis" data-atk-idx="' + idx + '">';
+        ['light', 'medium', 'heavy'].forEach(function (c) {
+          html += '<option value="' + c + '"' + (atk.chassis === c ? ' selected' : '') + '>' + c.charAt(0).toUpperCase() + c.slice(1) + '</option>';
         });
         html += '</select>';
         html += '<label class="npc-attack-stun-label"><input type="checkbox" class="npc-attack-stun-cb" data-atk-idx="' + idx + '"' + (atk.canStun ? ' checked' : '') + ' /> Stun</label>';
@@ -589,10 +598,10 @@
         if (currentNpc.attacks[idx]) { currentNpc.attacks[idx].arena = sel.value; renderNpcCard(); }
       });
     });
-    el.querySelectorAll('.npc-attack-scale').forEach(function (sel) {
+    el.querySelectorAll('.npc-attack-chassis').forEach(function (sel) {
       sel.addEventListener('change', function () {
         var idx = parseInt(sel.dataset.atkIdx, 10);
-        if (currentNpc.attacks[idx]) { currentNpc.attacks[idx].damageScale = sel.value; renderNpcCard(); }
+        if (currentNpc.attacks[idx]) { currentNpc.attacks[idx].chassis = sel.value; renderNpcCard(); }
       });
     });
     el.querySelectorAll('.npc-attack-stun-cb').forEach(function (cb) {
@@ -612,7 +621,7 @@
     if (addAtkBtn) {
       addAtkBtn.addEventListener('click', function () {
         if (!currentNpc.attacks) currentNpc.attacks = [];
-        currentNpc.attacks.push({ name: 'Attack ' + (currentNpc.attacks.length + 1), arena: 'physique', powerMod: 0, damageScale: 'fleeting', canStun: false });
+        currentNpc.attacks.push({ name: 'Attack ' + (currentNpc.attacks.length + 1), arena: 'physique', powerMod: 0, chassis: 'medium', canStun: false });
         renderBuilderRight();
         renderNpcCard();
       });
@@ -697,6 +706,11 @@
           currentNpc.attacks.forEach(function (atk) {
             if (!atk.arena) atk.arena = 'physique';
             if (atk.powerMod === undefined) atk.powerMod = 0;
+            if (!atk.chassis) {
+              var scaleMap = { fleeting: 'light', masterful: 'medium', legendary: 'heavy' };
+              atk.chassis = (atk.damageScale && scaleMap[atk.damageScale]) || 'medium';
+            }
+            delete atk.damageScale;
           });
         }
         renderBuilderLeft();
