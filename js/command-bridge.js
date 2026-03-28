@@ -103,7 +103,9 @@
       currentAdventure = progressData.adventure_id;
       currentPart = progressData.part_id;
       currentScene = progressData.scene_id;
+      renderAdvSelect();
       renderAdvNav();
+      renderPartSelect();
       renderPartNav();
       renderScene();
       renderSceneCounter();
@@ -113,6 +115,32 @@
       var el = document.getElementById('scene-carousel');
       if (el) el.innerHTML = '<p style="color:var(--color-accent-primary);font-size:0.85rem;">Failed to load campaign data: ' + esc(err.message) + '</p>';
     });
+  }
+
+  function selectAdventure(advId) {
+    var adv = getAdventure(advId);
+    if (!adv || !(adv.parts || []).length) return;
+    currentAdventure = advId;
+    currentPart = adv.parts[0].id;
+    var firstScene = (adv.parts[0].scenes || [])[0];
+    currentScene = firstScene ? firstScene.id : null;
+    renderAdvNav();
+    renderAdvSelect();
+    renderPartNav();
+    renderPartSelect();
+    renderScene();
+    renderSceneCounter();
+    if (currentScene) saveProgress();
+  }
+
+  function renderAdvSelect() {
+    var sel = document.getElementById('adv-select');
+    if (!sel || !adventuresData) return;
+    sel.innerHTML = adventuresData.adventures.map(function (adv) {
+      return '<option value="' + adv.id + '"' + (adv.id === currentAdventure ? ' selected' : '') + '>' +
+        adv.number + '. ' + esc(adv.title) + '</option>';
+    }).join('');
+    sel.onchange = function () { selectAdventure(sel.value); };
   }
 
   function renderAdvNav() {
@@ -127,20 +155,34 @@
     }).join('');
     nav.querySelectorAll('.cb-nav-btn').forEach(function (btn) {
       btn.addEventListener('click', function () {
-        var advId = btn.dataset.adv;
-        var adv = getAdventure(advId);
-        if (!adv || !(adv.parts || []).length) return;
-        currentAdventure = advId;
-        currentPart = adv.parts[0].id;
-        var firstScene = (adv.parts[0].scenes || [])[0];
-        currentScene = firstScene ? firstScene.id : null;
-        renderAdvNav();
-        renderPartNav();
-        renderScene();
-        renderSceneCounter();
-        if (currentScene) saveProgress();
+        selectAdventure(btn.dataset.adv);
       });
     });
+  }
+
+  function selectPart(partId) {
+    var adv = getAdventure(currentAdventure);
+    var part = getPart(adv, partId);
+    if (!part) return;
+    currentPart = partId;
+    var firstScene = (part.scenes || [])[0];
+    currentScene = firstScene ? firstScene.id : null;
+    renderPartNav();
+    renderPartSelect();
+    renderScene();
+    renderSceneCounter();
+    if (currentScene) saveProgress();
+  }
+
+  function renderPartSelect() {
+    var sel = document.getElementById('part-select');
+    var adv = getAdventure(currentAdventure);
+    if (!sel || !adv) return;
+    sel.innerHTML = (adv.parts || []).map(function (part) {
+      return '<option value="' + part.id + '"' + (part.id === currentPart ? ' selected' : '') + '>' +
+        'Part ' + part.number + ': ' + esc(part.title) + '</option>';
+    }).join('');
+    sel.onchange = function () { selectPart(sel.value); };
   }
 
   function renderPartNav() {
@@ -155,17 +197,7 @@
     }).join('');
     nav.querySelectorAll('.cb-part-btn').forEach(function (btn) {
       btn.addEventListener('click', function () {
-        var partId = btn.dataset.part;
-        var adv = getAdventure(currentAdventure);
-        var part = getPart(adv, partId);
-        if (!part) return;
-        currentPart = partId;
-        var firstScene = (part.scenes || [])[0];
-        currentScene = firstScene ? firstScene.id : null;
-        renderPartNav();
-        renderScene();
-        renderSceneCounter();
-        if (currentScene) saveProgress();
+        selectPart(btn.dataset.part);
       });
     });
   }
@@ -444,7 +476,9 @@
             currentPart = part.id;
             currentScene = scene.id;
             renderAdvNav();
+            renderAdvSelect();
             renderPartNav();
+            renderPartSelect();
             renderScene();
             renderSceneCounter();
             saveProgress();

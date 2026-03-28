@@ -764,21 +764,45 @@
       display: none;
     }
 
+    .cb-adv-select {
+      display: none;
+      width: 100%;
+      background: var(--color-bg-frame);
+      border: 1px solid var(--color-border);
+      color: var(--color-text-primary);
+      font-family: 'Exo 2', sans-serif;
+      font-size: 0.75rem;
+      padding: 0.4rem 0.5rem;
+      cursor: pointer;
+      outline: none;
+      margin-bottom: 0.5rem;
+    }
+    .cb-adv-select:focus {
+      border-color: var(--color-accent-primary);
+    }
+
     @media screen and (max-width: 768px) {
       body { overflow: hidden; }
 
       .cb-header {
         padding: 0 0.5rem;
-        height: 2.5rem;
+        height: auto;
+        min-height: 2.2rem;
+        flex-wrap: wrap;
+        gap: 0.2rem;
       }
-      .cb-header-title { font-size: 0.65rem; }
-      .cb-home-link { font-size: 0.55rem; }
-      .cb-header-left { gap: 0.5rem; }
-      .cb-header-right { gap: 0.25rem; }
+      .cb-header-title { font-size: 0.6rem; }
+      .cb-home-link { font-size: 0.5rem; }
+      .cb-header-left { gap: 0.4rem; }
+      .cb-header-right {
+        gap: 0.2rem;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
       .cb-header-btn {
-        font-size: 0.55rem;
-        padding: 0.25rem 0.4rem;
-        min-height: 36px;
+        font-size: 0.5rem;
+        padding: 0.2rem 0.35rem;
+        min-height: 28px;
       }
       .cb-header-right > span:first-child { display: none; }
 
@@ -786,7 +810,8 @@
         display: flex;
         flex-direction: column;
         grid-template-columns: unset;
-        height: calc(100vh - 2.5rem - 3.2rem);
+        height: calc(100vh - 2.2rem - 3.2rem);
+        height: calc(100dvh - 2.2rem - 3.2rem);
         width: 100%;
       }
 
@@ -799,8 +824,10 @@
         width: 100%;
         height: 100%;
         overflow-y: auto;
-        padding: 0.6rem;
+        -webkit-overflow-scrolling: touch;
+        padding: 0.5rem;
         border: none;
+        box-sizing: border-box;
       }
       .cb-col-left { border-right: none; }
       .cb-col-right { border-left: none; }
@@ -864,15 +891,16 @@
       .cb-intel-row { font-size: 0.6rem; gap: 0.2rem; }
       .cb-intel-icon { font-size: 0.65rem; width: 0.8rem; }
 
-      .cb-nav-bar { gap: 0.25rem; margin-bottom: 0.5rem; }
-      .cb-nav-btn {
-        padding: 0.3rem 0.5rem;
-        font-size: 0.6rem;
-        min-height: 36px;
+      .cb-nav-bar {
+        display: none;
       }
-      .cb-nav-num { font-size: 0.6rem; }
-      .cb-part-btn { font-size: 0.65rem; padding: 0.3rem 0.4rem; }
-      .cb-scene-counter { font-size: 0.6rem; margin-bottom: 0.5rem; }
+      .cb-adv-select {
+        display: block;
+        font-size: 0.7rem;
+        padding: 0.35rem 0.4rem;
+        margin-bottom: 0.4rem;
+      }
+      .cb-scene-counter { font-size: 0.6rem; margin-bottom: 0.4rem; }
 
       .cb-scene-header h2 { font-size: 0.9rem; }
       .cb-scene-subtitle { font-size: 0.7rem; }
@@ -910,6 +938,21 @@
 
       .lore-modal { padding: 1rem; max-height: 85vh; }
       .lore-modal h3 { font-size: 0.8rem; }
+
+      .cb-col-left,
+      .cb-col-center,
+      .cb-col-right {
+        overflow-x: hidden;
+        word-break: break-word;
+      }
+      .cb-read-aloud,
+      .cb-gm-notes,
+      .cb-card,
+      .cb-player-card {
+        max-width: 100%;
+        overflow-x: hidden;
+        box-sizing: border-box;
+      }
     }
 
     .npc-builder-overlay {
@@ -1935,6 +1978,8 @@
     <div class="cb-drag-handle" id="drag-left" title="Drag to resize"></div>
 
     <div class="cb-col-center">
+      <select class="cb-adv-select" id="adv-select"></select>
+      <select class="cb-adv-select" id="part-select"></select>
       <div class="cb-nav-bar" id="adv-nav"></div>
       <div class="cb-nav-bar" id="part-nav"></div>
       <div class="cb-scene-counter" id="scene-counter"></div>
