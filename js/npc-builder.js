@@ -97,6 +97,8 @@
 
     var rolePowerBonus = role && role.powerBonus ? role.powerBonus : null;
 
+    var initiative = a.wits + tier;
+
     return {
       arenas: a,
       defense: defense,
@@ -106,6 +108,7 @@
       rawVitality: rawVitality,
       powers: powers,
       exploits: exploits,
+      initiative: initiative,
       role: role,
       classification: cls,
       rolePowerBonus: rolePowerBonus,
@@ -139,6 +142,7 @@
     html += '<div class="npc-stat"><div class="npc-stat-label">EVA</div><div class="npc-stat-val">' + stats.evasion + '</div></div>';
     html += '<div class="npc-stat"><div class="npc-stat-label">RES</div><div class="npc-stat-val">' + stats.resist + '</div></div>';
     html += '<div class="npc-stat"><div class="npc-stat-label">VIT</div><div class="npc-stat-val npc-stat-vit">' + stats.vitality + '</div></div>';
+    html += '<div class="npc-stat"><div class="npc-stat-label">INIT</div><div class="npc-stat-val npc-stat-init">' + stats.initiative + '</div></div>';
     html += '</div>';
     html += '</div>';
 
