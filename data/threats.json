@@ -91,6 +91,7 @@
       "category": "combat",
       "description": "Disciplined ranged combatant. Reliable, consistent, operates best in squads.",
       "arenaMods": {},
+      "powerBonus": { "value": 1, "condition": "weapon attacks" },
       "passive": {
         "name": "Disciplined Fire",
         "description": "+1 Power on weapon attacks."
@@ -127,6 +128,7 @@
       "category": "combat",
       "description": "Precision ranged specialist. Deadly at distance, patient, methodical.",
       "arenaMods": { "reflex": 1, "physique": -1 },
+      "powerBonus": { "value": 1, "condition": "long range attacks" },
       "passive": {
         "name": "Long Shot",
         "description": "+1 Power when attacking at long range."
@@ -232,7 +234,7 @@
     {
       "id": "face",
       "name": "Face",
-      "category": "social",
+      "category": "combat",
       "description": "Social operator. Negotiates, manipulates, deceives. Fights with words.",
       "arenaMods": { "presence": 1, "physique": -1 },
       "passive": {
@@ -325,15 +327,15 @@
     { "id": "armored_light", "name": "Armored (Light)", "description": "+1 to Defense.", "defenseMod": 1 },
     { "id": "armored_medium", "name": "Armored (Medium)", "description": "+2 to Defense.", "defenseMod": 2 },
     { "id": "armored_heavy", "name": "Armored (Heavy)", "description": "+3 to Defense.", "defenseMod": 3 },
-    { "id": "tough", "name": "Tough", "description": "Ignore Fleeting damage results. Require Masterful (3+) to damage." },
-    { "id": "disciplined", "name": "Disciplined", "description": "+1 to Resist." },
-    { "id": "agile", "name": "Agile", "description": "+1 to Evasion." },
-    { "id": "force_sensitive", "name": "Force Sensitive", "description": "Can use Force-related abilities. Required for Mystic role." },
-    { "id": "cybernetic", "name": "Cybernetic", "description": "+1 to one Arena (chosen at build). Immune to [Stunned]." },
-    { "id": "fearless", "name": "Fearless", "description": "Immune to [Shaken] and [Rattled]." },
-    { "id": "veteran", "name": "Veteran", "description": "+1 additional Exploit slot." },
-    { "id": "shield_generator", "name": "Shield Generator", "description": "+2 Defense. Shield breaks after absorbing Masterful+ hit. Recharges after 1 round without damage." },
-    { "id": "jetpack", "name": "Jetpack", "description": "Can fly. Ignore terrain. +1 Evasion while airborne." }
+    { "id": "tough", "name": "Tough", "description": "Ignore Fleeting damage results. Require Masterful (3+) to damage.", "minDamageScale": "masterful" },
+    { "id": "disciplined", "name": "Disciplined", "description": "+1 to Resist.", "resistMod": 1 },
+    { "id": "agile", "name": "Agile", "description": "+1 to Evasion.", "evasionMod": 1 },
+    { "id": "force_sensitive", "name": "Force Sensitive", "description": "Can use Force-related abilities. Required for Mystic role.", "allowsForce": true },
+    { "id": "cybernetic", "name": "Cybernetic", "description": "+1 to one Arena (chosen at build). Immune to [Stunned].", "arenaBonusChoice": 1, "immunities": ["Stunned"] },
+    { "id": "fearless", "name": "Fearless", "description": "Immune to [Shaken] and [Rattled].", "immunities": ["Shaken", "Rattled"] },
+    { "id": "veteran", "name": "Veteran", "description": "+1 additional Exploit slot.", "exploitMod": 1 },
+    { "id": "shield_generator", "name": "Shield Generator", "description": "+2 Defense. Shield breaks after absorbing Masterful+ hit. Recharges after 1 round without damage.", "defenseMod": 2, "shieldBreak": "masterful" },
+    { "id": "jetpack", "name": "Jetpack", "description": "Can fly. Ignore terrain. +1 Evasion while airborne.", "evasionMod": 1, "grantsFlight": true }
   ],
 
   "tags": [

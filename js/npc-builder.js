@@ -63,18 +63,21 @@
     var tier = npc.tier;
 
     var defenseTrait = 0;
+    var evasionTrait = 0;
+    var resistTrait = 0;
+    var traitImmunities = [];
     (npc.traits || []).forEach(function (tid) {
       var t = threatData.traits.find(function (tr) { return tr.id === tid; });
-      if (t && t.defenseMod) defenseTrait += t.defenseMod;
+      if (!t) return;
+      if (t.defenseMod) defenseTrait += t.defenseMod;
+      if (t.evasionMod) evasionTrait += t.evasionMod;
+      if (t.resistMod) resistTrait += t.resistMod;
+      if (t.immunities) traitImmunities = traitImmunities.concat(t.immunities);
     });
-    var hasAgile = (npc.traits || []).indexOf('agile') !== -1;
-    var hasDisciplined = (npc.traits || []).indexOf('disciplined') !== -1;
-    var hasJetpack = (npc.traits || []).indexOf('jetpack') !== -1;
-    var hasShield = (npc.traits || []).indexOf('shield_generator') !== -1;
 
-    var defense = Math.max(a.physique, a.reflex) - 1 + tier + defenseTrait + (hasShield ? 2 : 0);
-    var evasion = a.reflex - 1 + tier + (hasAgile ? 1 : 0) + (hasJetpack ? 1 : 0);
-    var resist = a.grit - 1 + tier + (hasDisciplined ? 1 : 0);
+    var defense = Math.max(a.physique, a.reflex) - 1 + tier + defenseTrait;
+    var evasion = a.reflex - 1 + tier + evasionTrait;
+    var resist = a.grit - 1 + tier + resistTrait;
     var rawVitality = a.physique + a.grit + tier;
 
     var cls = threatData.classifications.find(function (c) { return c.id === npc.classification; });
@@ -98,6 +101,8 @@
       legendary: 5 + tier
     };
 
+    var rolePowerBonus = role && role.powerBonus ? role.powerBonus : null;
+
     return {
       arenas: a,
       defense: defense,
@@ -109,7 +114,9 @@
       exploits: exploits,
       stun: stun,
       role: role,
-      classification: cls
+      classification: cls,
+      rolePowerBonus: rolePowerBonus,
+      immunities: traitImmunities
     };
   }
 
@@ -152,6 +159,14 @@
       html += '</div>';
     });
     html += '</div>';
+
+    if (stats.rolePowerBonus) {
+      html += '<div class="npc-card-power-bonus">ROLE BONUS: +' + stats.rolePowerBonus.value + ' Power (' + esc(stats.rolePowerBonus.condition) + ')</div>';
+    }
+
+    if (stats.immunities && stats.immunities.length) {
+      html += '<div class="npc-card-immunities">IMMUNE: ' + stats.immunities.map(esc).join(', ') + '</div>';
+    }
 
     if (currentNpc.classification === 'minion') {
       html += '<div class="npc-card-special">MINION: Masterful+ result = instant takedown</div>';
@@ -255,12 +270,14 @@
     var body = document.getElementById('npc-loot-assign-body');
     if (!overlay || !body) return;
 
+    var activePCs = partyCacheNpc.filter(function (pc) { return pc.is_connected || pc.name; });
     var html = '<div class="npc-assign-title">Assign: ' + esc(item.name) + '</div>';
-    if (!partyCacheNpc.length) {
+    if (!activePCs.length) {
       html += '<div class="npc-assign-empty">No characters found. Load the party monitor first.</div>';
     } else {
-      partyCacheNpc.forEach(function (pc) {
-        html += '<button class="npc-assign-pc-btn" data-char-id="' + esc(pc.id) + '">' + esc(pc.name) + '</button>';
+      activePCs.forEach(function (pc) {
+        var connLabel = pc.is_connected ? ' (active)' : '';
+        html += '<button class="npc-assign-pc-btn" data-char-id="' + esc(pc.id) + '">' + esc(pc.name) + connLabel + '</button>';
       });
     }
     html += '<button class="npc-assign-cancel">Cancel</button>';
