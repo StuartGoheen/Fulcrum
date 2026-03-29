@@ -2076,6 +2076,14 @@
     line-height: 1.5;
   }
 
+  .char-engine-core--mastery {
+    border-color: color-mix(in srgb, var(--color-accent-primary) 40%, var(--color-border));
+    background: color-mix(in srgb, var(--color-accent-primary) 6%, var(--color-bg-panel));
+  }
+  .char-engine-core--mastery .char-engine-core-name {
+    color: var(--color-accent-primary);
+  }
+
   .char-sig-move {
     margin-top: 8px;
     padding: 8px 10px;

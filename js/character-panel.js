@@ -395,23 +395,30 @@
       }
     }
 
+    var htData = (window.AdvancementPanel && window.AdvancementPanel.getHeroTierData)
+      ? window.AdvancementPanel.getHeroTierData() : null;
+
     var coreHtml = '';
     if (char.engine.coreUtility) {
       var cu = char.engine.coreUtility;
+      var cuName = cu.name;
+      var cuCost = cu.cost;
+      var cuRule = cu.rule;
+      if (htData && htData.tier >= 4) {
+        cuName = 'Edge Mastery';
+        cuRule = 'Reroll both Control AND Power on Edge spend. Keep best of each.';
+      }
       coreHtml =
-        '<div class="char-engine-core">' +
+        '<div class="char-engine-core' + (htData && htData.tier >= 4 ? ' char-engine-core--mastery' : '') + '">' +
           '<div class="char-engine-core-header">' +
             '<span class="char-engine-core-type">Core Utility</span>' +
-            '<span class="char-engine-core-name">' + _esc(cu.name) + '</span>' +
-            '<span class="char-engine-core-cost">' + _esc(cu.cost) + '</span>' +
+            '<span class="char-engine-core-name">' + _esc(cuName) + '</span>' +
+            '<span class="char-engine-core-cost">' + _esc(cuCost) + '</span>' +
           '</div>' +
-          '<div class="char-engine-core-rule">' + _esc(cu.rule) + '</div>' +
+          '<div class="char-engine-core-rule">' + _esc(cuRule) + '</div>' +
         '</div>';
     }
-
     var sigHtml = '';
-    var htData = (window.AdvancementPanel && window.AdvancementPanel.getHeroTierData)
-      ? window.AdvancementPanel.getHeroTierData() : null;
     if (htData && htData.tier >= 3) {
       var triggerText = htData.signatureMove || '';
       sigHtml =
