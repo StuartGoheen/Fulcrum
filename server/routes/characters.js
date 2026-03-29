@@ -340,9 +340,8 @@ router.get('/characters', (req, res) => {
       c.name,
       c.slot_index,
       c.character_data,
-      CASE WHEN s.id IS NOT NULL THEN 1 ELSE 0 END AS is_connected
+      CASE WHEN c.session_id IS NOT NULL THEN 1 ELSE 0 END AS is_connected
     FROM characters c
-    LEFT JOIN sessions s ON s.character_id = c.id
     WHERE c.character_data IS NOT NULL
     ORDER BY c.slot_index ASC
   `).all();
@@ -418,7 +417,7 @@ router.post('/characters/save', (req, res) => {
   if (editId) {
     const editRow = db.prepare('SELECT id FROM characters WHERE id = ?').get(editId);
     if (editRow) {
-      const inSession = db.prepare('SELECT id FROM sessions WHERE character_id = ?').get(editId);
+      const inSession = db.prepare('SELECT session_id FROM characters WHERE id = ? AND session_id IS NOT NULL').get(editId);
       if (inSession) {
         return res.status(409).json({ error: 'Character is currently in session. Disconnect first.' });
       }

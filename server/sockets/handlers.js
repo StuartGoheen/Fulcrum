@@ -392,6 +392,8 @@ function registerHandlers(io) {
           UPDATE characters SET session_id = NULL, connected_at = NULL WHERE id = ?
         `).run(characterId);
 
+        db.prepare(`DELETE FROM sessions WHERE character_id = ?`).run(characterId);
+
         io.emit('player:disconnected', { characterId, name: characterName || 'Unknown' });
 
         const pool = rebuildPool(io);
