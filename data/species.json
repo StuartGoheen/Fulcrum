@@ -567,7 +567,7 @@
     },
     "speciesTrait": {
       "name": "Unyielding",
-      "desc": "You are immune to the [Shaken] condition. Fear effects, intimidation attempts, and morale-breaking tactics simply do not work on you. Your cultural conditioning and biological pain tolerance make you an immovable psychological anchor."
+      "desc": "Once per round, you may spend a Maneuver to throw off one ongoing mental condition — fear, confusion, despair, [Shaken], or any similar effect. The condition still lands and applies on the round it hits, but you recover faster than anyone expects. Your cultural conditioning and biological pain tolerance let you grit your teeth and push through what would paralyze others."
     },
     "arenas": {
       "physique": "D6",
@@ -579,10 +579,10 @@
     "_aiMeta": {
       "loreAnchors": [
         "Redundant Biology — Physique/Reflex Trauma soaks 3 instead of 2; built to absorb punishment.",
-        "Unyielding — Immune to [Shaken]; fear, intimidation, and morale-breaking tactics have no effect.",
+        "Unyielding — Once per round, spend a Maneuver to throw off one ongoing mental condition (fear, [Shaken], confusion, despair, etc.).",
         "Defiant Culture — Culturally resistant to authoritarian rule, natural enemies of Imperial governors."
       ],
-      "directives": "Highlight their physical resilience and stubborn pride. Emphasize a background of enduring extreme physical hardship. The Unyielding trait should feel like an unshakable core, not just a mechanical immunity."
+      "directives": "Highlight their physical resilience and stubborn pride. Emphasize a background of enduring extreme physical hardship. The Unyielding trait costs a Maneuver — it is not free immunity, it is the Zabrak gritting their teeth and shaking it off through effort and will."
     }
   }
 ]
