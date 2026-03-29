@@ -72,7 +72,7 @@
       return;
     }
 
-    characters.forEach((char) => {
+    characters.filter(c => c.name).forEach((char) => {
       const card = document.createElement('div');
       card.className = 'crew-card';
       card.style.cssText = 'background:var(--color-bg-frame);border:1px solid var(--color-border);padding:0.5rem 0.6rem;display:flex;flex-direction:column;gap:0.2rem;' + (char.is_connected ? 'opacity:0.45;' : '');

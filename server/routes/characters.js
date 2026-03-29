@@ -343,6 +343,7 @@ router.get('/characters', (req, res) => {
       CASE WHEN c.session_id IS NOT NULL THEN 1 ELSE 0 END AS is_connected
     FROM characters c
     WHERE c.character_data IS NOT NULL
+      AND c.name IS NOT NULL AND c.name != ''
     ORDER BY c.slot_index ASC
   `).all();
 
