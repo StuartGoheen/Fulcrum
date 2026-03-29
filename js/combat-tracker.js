@@ -40,7 +40,7 @@
     return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
 
-  function startEncounter(encounter, scene, npcs) {
+  function startEncounter(encounter, scene, npcs, partyData) {
     var highestTier = 0;
     var npcEntries = [];
 
@@ -122,6 +122,17 @@
 
     var pcTokenZone = startPositions['PCs'] || null;
 
+    var pcSlots = [];
+    if (partyData && partyData.length) {
+      partyData.forEach(function (pc) {
+        pcSlots.push({
+          id: 'pc_' + (pc.id || pc.name.toLowerCase().replace(/\s+/g, '_')),
+          name: pc.name,
+          initiative: 0
+        });
+      });
+    }
+
     combatState = {
       encounter: encounter,
       scene: scene,
@@ -129,7 +140,8 @@
       currentTurnIndex: 0,
       highestTier: highestTier,
       combatants: npcEntries,
-      pcSlots: [],
+      pcSlots: pcSlots,
+      collapsed: false,
       tacticalMap: scene.tacticalMap || null,
       turnOrder: [],
       tokenPositions: {},
@@ -184,14 +196,19 @@
     html += '<div class="ct-header">';
     html += '<div class="ct-title">' + esc(combatState.encounter.name) + '</div>';
     html += '<div class="ct-round">Round <span id="ct-round-num">' + combatState.round + '</span></div>';
+    html += '<div class="ct-header-actions">';
+    html += '<button class="ct-collapse-btn" id="ct-collapse">' + (combatState.collapsed ? '&#9654; Expand' : '&#9660; Collapse') + '</button>';
     html += '<button class="ct-end-btn" id="ct-end-encounter">End Encounter</button>';
     html += '</div>';
+    html += '</div>';
 
-    html += renderJoinBattleRef();
-    html += renderInitiativeTracker();
-    html += renderNpcCards();
-    if (combatState.tacticalMap) {
-      html += renderTacticalMap();
+    if (!combatState.collapsed) {
+      html += renderJoinBattleRef();
+      html += renderInitiativeTracker();
+      html += renderNpcCards();
+      if (combatState.tacticalMap) {
+        html += renderTacticalMap();
+      }
     }
 
     container.innerHTML = html;
@@ -428,6 +445,12 @@
   function attachCombatEvents(container) {
     var endBtn = container.querySelector('#ct-end-encounter');
     if (endBtn) endBtn.addEventListener('click', endEncounter);
+
+    var collapseBtn = container.querySelector('#ct-collapse');
+    if (collapseBtn) collapseBtn.addEventListener('click', function () {
+      combatState.collapsed = !combatState.collapsed;
+      renderCombatTracker();
+    });
 
     var addPcBtn = container.querySelector('#ct-add-pc');
     if (addPcBtn) addPcBtn.addEventListener('click', function () {

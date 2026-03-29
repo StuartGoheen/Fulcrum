@@ -445,7 +445,7 @@
         if (isNaN(encIdx) || !scene.encounters || !scene.encounters[encIdx]) return;
         var enc = scene.encounters[encIdx];
         if (window.CombatTracker) {
-          window.CombatTracker.start(enc, scene, scene.npcs || []);
+          window.CombatTracker.start(enc, scene, scene.npcs || [], partyCache);
           var ctPanel = document.getElementById('combat-tracker-panel');
           if (ctPanel) ctPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
