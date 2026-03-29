@@ -3,6 +3,7 @@ const http         = require('http');
 const { Server }   = require('socket.io');
 const path         = require('path');
 const cookieParser = require('cookie-parser');
+const compression  = require('compression');
 
 require('./db');
 
@@ -22,6 +23,7 @@ const io     = new Server(server);
 const PORT = process.env.PORT || 5000;
 const ROOT = path.join(__dirname, '..');
 
+app.use(compression());
 app.use(express.json());
 app.use(cookieParser(COOKIE_SECRET));
 

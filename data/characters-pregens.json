@@ -8,7 +8,7 @@
     "destiny": "rescue",
     "phase1": "The Shipboard Born",
     "phase2": "The Purge Survivor",
-    "phase3": "The Wreck",
+    "phase3": "The Hunted",
     "backgroundFavored": [
       "survival",
       "piloting",
@@ -53,11 +53,31 @@
         "subtitle": "Strength, Structure, Endurance",
         "die": "D6",
         "disciplines": [
-          { "id": "athletics", "label": "Athletics", "die": "D4" },
-          { "id": "brawl", "label": "Brawl", "die": "D6" },
-          { "id": "endure", "label": "Endure", "die": "D6" },
-          { "id": "melee", "label": "Melee", "die": "D6" },
-          { "id": "heavy_weapons", "label": "Heavy Weapons", "die": "D4" }
+          {
+            "id": "athletics",
+            "label": "Athletics",
+            "die": "D4"
+          },
+          {
+            "id": "brawl",
+            "label": "Brawl",
+            "die": "D6"
+          },
+          {
+            "id": "endure",
+            "label": "Endure",
+            "die": "D6"
+          },
+          {
+            "id": "melee",
+            "label": "Melee",
+            "die": "D6"
+          },
+          {
+            "id": "heavy_weapons",
+            "label": "Heavy Weapons",
+            "die": "D4"
+          }
         ]
       },
       {
@@ -66,11 +86,31 @@
         "subtitle": "Speed, Agility, Hand-Eye Coordination",
         "die": "D8",
         "disciplines": [
-          { "id": "evasion", "label": "Evasion", "die": "D8" },
-          { "id": "piloting", "label": "Piloting", "die": "D8" },
-          { "id": "ranged", "label": "Ranged", "die": "D8" },
-          { "id": "skulduggery", "label": "Skulduggery", "die": "D8" },
-          { "id": "stealth", "label": "Stealth", "die": "D10" }
+          {
+            "id": "evasion",
+            "label": "Evasion",
+            "die": "D8"
+          },
+          {
+            "id": "piloting",
+            "label": "Piloting",
+            "die": "D8"
+          },
+          {
+            "id": "ranged",
+            "label": "Ranged",
+            "die": "D8"
+          },
+          {
+            "id": "skulduggery",
+            "label": "Skulduggery",
+            "die": "D8"
+          },
+          {
+            "id": "stealth",
+            "label": "Stealth",
+            "die": "D10"
+          }
         ]
       },
       {
@@ -79,11 +119,31 @@
         "subtitle": "Instinct, Stamina, Spiritual Willpower",
         "die": "D8",
         "disciplines": [
-          { "id": "beast_handling", "label": "Beast Handling", "die": "D4" },
-          { "id": "control_spark", "label": "Control (The Spark)", "die": "D4" },
-          { "id": "intimidate", "label": "Intimidate", "die": "D6" },
-          { "id": "resolve", "label": "Resolve", "die": "D6" },
-          { "id": "survival", "label": "Survival", "die": "D8" }
+          {
+            "id": "beast_handling",
+            "label": "Beast Handling",
+            "die": "D4"
+          },
+          {
+            "id": "control_spark",
+            "label": "Control (The Spark)",
+            "die": "D4"
+          },
+          {
+            "id": "intimidate",
+            "label": "Intimidate",
+            "die": "D6"
+          },
+          {
+            "id": "resolve",
+            "label": "Resolve",
+            "die": "D6"
+          },
+          {
+            "id": "survival",
+            "label": "Survival",
+            "die": "D8"
+          }
         ]
       },
       {
@@ -92,11 +152,31 @@
         "subtitle": "Logic, Awareness, Technical Knowledge",
         "die": "D8",
         "disciplines": [
-          { "id": "investigation", "label": "Investigation", "die": "D8" },
-          { "id": "medicine", "label": "Medicine", "die": "D6" },
-          { "id": "sense_spark", "label": "Sense (The Spark)", "die": "D4" },
-          { "id": "tactics", "label": "Tactics", "die": "D6" },
-          { "id": "tech", "label": "Tech", "die": "D6" }
+          {
+            "id": "investigation",
+            "label": "Investigation",
+            "die": "D8"
+          },
+          {
+            "id": "medicine",
+            "label": "Medicine",
+            "die": "D6"
+          },
+          {
+            "id": "sense_spark",
+            "label": "Sense (The Spark)",
+            "die": "D4"
+          },
+          {
+            "id": "tactics",
+            "label": "Tactics",
+            "die": "D6"
+          },
+          {
+            "id": "tech",
+            "label": "Tech",
+            "die": "D6"
+          }
         ]
       },
       {
@@ -105,11 +185,31 @@
         "subtitle": "Charisma, Authority, Projection of Will",
         "die": "D6",
         "disciplines": [
-          { "id": "alter_spark", "label": "Alter (The Spark)", "die": "D4" },
-          { "id": "charm", "label": "Charm", "die": "D4" },
-          { "id": "deception", "label": "Deception", "die": "D6" },
-          { "id": "insight", "label": "Insight", "die": "D6" },
-          { "id": "persuasion", "label": "Persuasion", "die": "D4" }
+          {
+            "id": "alter_spark",
+            "label": "Alter (The Spark)",
+            "die": "D4"
+          },
+          {
+            "id": "charm",
+            "label": "Charm",
+            "die": "D4"
+          },
+          {
+            "id": "deception",
+            "label": "Deception",
+            "die": "D6"
+          },
+          {
+            "id": "insight",
+            "label": "Insight",
+            "die": "D6"
+          },
+          {
+            "id": "persuasion",
+            "label": "Persuasion",
+            "die": "D4"
+          }
         ]
       }
     ],
@@ -128,531 +228,6 @@
       },
       "advanceTrigger": "When someone whose fate was sealed is free because of your actions — not a close call in combat, but a rescue from a situation with no way out.",
       "narrativeHook": "This character is drawn toward the trapped and the doomed — prisoners, hostages, the condemned. Whether they save everyone or only the ones they choose is the question that defines their path."
-    }
-  },
-  {
-    "name": "Vara Kethri",
-    "species": "Twi'lek",
-    "archetype": "Shadow Diplomat",
-    "gender": "Female",
-    "narrative": "Vara grew up in the upper tiers of a Coreward city, learning politics before she learned to walk. When the Republic fell and the Empire rose, she watched her family pivot seamlessly from democracy to tyranny — and hated them for it. She defected, burning every bridge behind her, taking nothing but her name and the skills she'd spent a lifetime perfecting. Now she moves through the Western Reaches reshaping power wherever she finds it corrupted, using words where others would use blasters. The question that follows her: when she topples a tyrant, who does she install in their place?",
-    "destiny": "corruption",
-    "phase1": "The Coreward Spires",
-    "phase2": "The Imperial Defector",
-    "phase3": "The Ascent",
-    "backgroundFavored": [
-      "charm",
-      "persuasion",
-      "deception"
-    ],
-    "vitalityModifier": 0,
-    "weaponIds": [
-      "wpn_ddc_defender_01"
-    ],
-    "armorId": "arm_heavy_jacket_01",
-    "gearIds": [
-      "gear_comlink_encrypted_01",
-      "gear_disguise_kit_01",
-      "gear_datapad_01",
-      "gear_recording_rod_01",
-      "gear_stim_pack_01"
-    ],
-    "engine": {
-      "id": "edge",
-      "name": "The Edge",
-      "poolName": "Edge Points",
-      "coreUtility": {
-        "name": "Tier Boost",
-        "cost": "1 Edge Point",
-        "rule": "Spend 1 Edge after a roll to boost Power by +1 Effect Tier. Favored Disciplines only."
-      },
-      "governingArenas": [
-        "presence",
-        "wits"
-      ]
-    },
-    "kits": {
-      "voc_noble": 3,
-      "voc_investigator": 2
-    },
-    "talents": [],
-    "arenas": [
-      {
-        "id": "physique",
-        "label": "PHYSIQUE",
-        "subtitle": "Strength, Structure, Endurance",
-        "die": "D6",
-        "disciplines": [
-          { "id": "athletics", "label": "Athletics", "die": "D4" },
-          { "id": "brawl", "label": "Brawl", "die": "D4" },
-          { "id": "endure", "label": "Endure", "die": "D6" },
-          { "id": "melee", "label": "Melee", "die": "D4" },
-          { "id": "heavy_weapons", "label": "Heavy Weapons", "die": "D4" }
-        ]
-      },
-      {
-        "id": "reflex",
-        "label": "REFLEX",
-        "subtitle": "Speed, Agility, Hand-Eye Coordination",
-        "die": "D6",
-        "disciplines": [
-          { "id": "evasion", "label": "Evasion", "die": "D8" },
-          { "id": "piloting", "label": "Piloting", "die": "D6" },
-          { "id": "ranged", "label": "Ranged", "die": "D6" },
-          { "id": "skulduggery", "label": "Skulduggery", "die": "D6" },
-          { "id": "stealth", "label": "Stealth", "die": "D8" }
-        ]
-      },
-      {
-        "id": "grit",
-        "label": "GRIT",
-        "subtitle": "Instinct, Stamina, Spiritual Willpower",
-        "die": "D6",
-        "disciplines": [
-          { "id": "beast_handling", "label": "Beast Handling", "die": "D4" },
-          { "id": "control_spark", "label": "Control (The Spark)", "die": "D4" },
-          { "id": "intimidate", "label": "Intimidate", "die": "D6" },
-          { "id": "resolve", "label": "Resolve", "die": "D6" },
-          { "id": "survival", "label": "Survival", "die": "D6" }
-        ]
-      },
-      {
-        "id": "wits",
-        "label": "WITS",
-        "subtitle": "Logic, Awareness, Technical Knowledge",
-        "die": "D8",
-        "disciplines": [
-          { "id": "investigation", "label": "Investigation", "die": "D8" },
-          { "id": "medicine", "label": "Medicine", "die": "D6" },
-          { "id": "sense_spark", "label": "Sense (The Spark)", "die": "D4" },
-          { "id": "tactics", "label": "Tactics", "die": "D6" },
-          { "id": "tech", "label": "Tech", "die": "D6" }
-        ]
-      },
-      {
-        "id": "presence",
-        "label": "PRESENCE",
-        "subtitle": "Charisma, Authority, Projection of Will",
-        "die": "D10",
-        "disciplines": [
-          { "id": "alter_spark", "label": "Alter (The Spark)", "die": "D4" },
-          { "id": "charm", "label": "Charm", "die": "D10" },
-          { "id": "deception", "label": "Deception", "die": "D8" },
-          { "id": "insight", "label": "Insight", "die": "D8" },
-          { "id": "persuasion", "label": "Persuasion", "die": "D8" }
-        ]
-      }
-    ],
-    "personalDestiny": {
-      "id": "corruption",
-      "name": "Corruption",
-      "tagline": "Your fate is to reshape power in the galaxy.",
-      "coreQuestion": "Did power change hands because of you?",
-      "hopeRecovery": {
-        "title": "The Overthrow",
-        "description": "When you topple a corrupt power structure that has held a population under its heel — expose the governor's crimes, turn a crime lord's lieutenants against him, trigger the collapse of a cartel's hold on a system."
-      },
-      "tollRecovery": {
-        "title": "The Coup",
-        "description": "When you seize control of a power structure for yourself — take over the syndicate you were sent to destroy, install yourself as the authority in the vacuum you created, replace the tyrant and inherit their throne."
-      },
-      "advanceTrigger": "When the power structure of a faction, territory, or institution is permanently different because of you.",
-      "narrativeHook": "This character is drawn toward power — who holds it, who abuses it, who deserves it. Whether they dismantle corruption or become the new corruption is the question that defines their path."
-    }
-  },
-  {
-    "name": "Gorn Kessek",
-    "species": "Zabrak",
-    "archetype": "The Unchained",
-    "gender": "Male",
-    "narrative": "Gorn spent four years in an Imperial labor camp on the Outer Rim, breaking rocks and breaking men who tried to break him. The Zabrak pain threshold that made him valuable to the overseers is the same thing that let him survive the riot he started. He walked out of the camp carrying nothing but scars and a promise: no one stays in chains while he's breathing. He fights with his fists because blasters are impersonal, and the people who cage others deserve to see the face of the thing that's coming for them.",
-    "destiny": "liberation",
-    "phase1": "The Labor Camp",
-    "phase2": "The Pacification Survivor",
-    "phase3": "The Betrayal",
-    "backgroundFavored": [
-      "resolve",
-      "athletics",
-      "survival"
-    ],
-    "vitalityModifier": 0,
-    "weaponIds": [
-      "wpn_combat_gloves_01",
-      "wpn_vibroblade_01"
-    ],
-    "armorId": "arm_blast_vest_01",
-    "gearIds": [
-      "gear_medpac_01",
-      "gear_stim_pack_01",
-      "gear_field_rations_01",
-      "gear_frag_grenade_01",
-      "gear_comlink_basic_01",
-      "gear_glow_rod_01"
-    ],
-    "engine": {
-      "id": "edge",
-      "name": "The Edge",
-      "poolName": "Edge Points",
-      "coreUtility": {
-        "name": "Tier Boost",
-        "cost": "1 Edge Point",
-        "rule": "Spend 1 Edge after a roll to boost Power by +1 Effect Tier. Favored Disciplines only."
-      },
-      "governingArenas": [
-        "physique",
-        "physique"
-      ]
-    },
-    "kits": {
-      "voc_shockboxer": 3,
-      "voc_duelist": 2
-    },
-    "talents": [],
-    "arenas": [
-      {
-        "id": "physique",
-        "label": "PHYSIQUE",
-        "subtitle": "Strength, Structure, Endurance",
-        "die": "D10",
-        "disciplines": [
-          { "id": "athletics", "label": "Athletics", "die": "D8" },
-          { "id": "brawl", "label": "Brawl", "die": "D10" },
-          { "id": "endure", "label": "Endure", "die": "D8" },
-          { "id": "melee", "label": "Melee", "die": "D8" },
-          { "id": "heavy_weapons", "label": "Heavy Weapons", "die": "D6" }
-        ]
-      },
-      {
-        "id": "reflex",
-        "label": "REFLEX",
-        "subtitle": "Speed, Agility, Hand-Eye Coordination",
-        "die": "D6",
-        "disciplines": [
-          { "id": "evasion", "label": "Evasion", "die": "D6" },
-          { "id": "piloting", "label": "Piloting", "die": "D4" },
-          { "id": "ranged", "label": "Ranged", "die": "D6" },
-          { "id": "skulduggery", "label": "Skulduggery", "die": "D4" },
-          { "id": "stealth", "label": "Stealth", "die": "D6" }
-        ]
-      },
-      {
-        "id": "grit",
-        "label": "GRIT",
-        "subtitle": "Instinct, Stamina, Spiritual Willpower",
-        "die": "D8",
-        "disciplines": [
-          { "id": "beast_handling", "label": "Beast Handling", "die": "D6" },
-          { "id": "control_spark", "label": "Control (The Spark)", "die": "D4" },
-          { "id": "intimidate", "label": "Intimidate", "die": "D8" },
-          { "id": "resolve", "label": "Resolve", "die": "D8" },
-          { "id": "survival", "label": "Survival", "die": "D8" }
-        ]
-      },
-      {
-        "id": "wits",
-        "label": "WITS",
-        "subtitle": "Logic, Awareness, Technical Knowledge",
-        "die": "D6",
-        "disciplines": [
-          { "id": "investigation", "label": "Investigation", "die": "D6" },
-          { "id": "medicine", "label": "Medicine", "die": "D6" },
-          { "id": "sense_spark", "label": "Sense (The Spark)", "die": "D4" },
-          { "id": "tactics", "label": "Tactics", "die": "D6" },
-          { "id": "tech", "label": "Tech", "die": "D4" }
-        ]
-      },
-      {
-        "id": "presence",
-        "label": "PRESENCE",
-        "subtitle": "Charisma, Authority, Projection of Will",
-        "die": "D6",
-        "disciplines": [
-          { "id": "alter_spark", "label": "Alter (The Spark)", "die": "D4" },
-          { "id": "charm", "label": "Charm", "die": "D4" },
-          { "id": "deception", "label": "Deception", "die": "D6" },
-          { "id": "insight", "label": "Insight", "die": "D6" },
-          { "id": "persuasion", "label": "Persuasion", "die": "D4" }
-        ]
-      }
-    ],
-    "personalDestiny": {
-      "id": "liberation",
-      "name": "Liberation",
-      "tagline": "Your fate is to break chains — literal or otherwise.",
-      "coreQuestion": "Were the oppressed freed because of you?",
-      "hopeRecovery": {
-        "title": "The Emancipation",
-        "description": "When you dismantle a system of captivity and accept the target it paints on you — free an entire labor camp, broadcast the truth that breaks an Empire's grip on a sector, destroy the mechanism that keeps a population compliant."
-      },
-      "tollRecovery": {
-        "title": "The Purifier",
-        "description": "When you annihilate the captor with no regard for what else burns — destroy the prison with loyalists still inside, assassinate the warden in a way that destabilizes the entire region, tear down the institution even though thousands depend on it for survival."
-      },
-      "advanceTrigger": "When a population, system, or territory that was under someone's control is no longer — because of you.",
-      "narrativeHook": "This character is drawn toward captivity and oppression — wherever chains exist, they feel the pull to break them. Whether they free others cleanly or burn the cage with everyone inside is the question that defines their path."
-    }
-  },
-  {
-    "name": "Tira Shennal",
-    "species": "Sullustan",
-    "archetype": "Signal Chaser",
-    "gender": "Female",
-    "narrative": "Tira was a communications technician aboard a Separatist listening post that the Republic forgot to decommission. She spent two years after the war ended intercepting Imperial transmissions nobody was supposed to hear — classified fleet movements, disappeared-person manifests, ghost prison coordinates. When the Empire finally tracked the signal leak, she ran with a datapad full of secrets and a head full of questions. Now she moves through the Western Reaches following encrypted breadcrumbs, convinced that the Empire's darkest operations are hidden in the static between frequencies.",
-    "destiny": "discovery",
-    "phase1": "The Salvage Yards",
-    "phase2": "The Post-War Tracker",
-    "phase3": "The Wreck",
-    "backgroundFavored": [
-      "skulduggery",
-      "tech",
-      "investigation"
-    ],
-    "vitalityModifier": 0,
-    "weaponIds": [
-      "wpn_quick_six_01"
-    ],
-    "armorId": "arm_combat_jumpsuit_01",
-    "gearIds": [
-      "gear_security_kit_01",
-      "gear_datapad_slicer_01",
-      "gear_slicer_spike_01",
-      "gear_field_toolkit_01",
-      "gear_starship_toolkit_01",
-      "gear_comlink_encrypted_01"
-    ],
-    "engine": {
-      "id": "edge",
-      "name": "The Edge",
-      "poolName": "Edge Points",
-      "coreUtility": {
-        "name": "Tier Boost",
-        "cost": "1 Edge Point",
-        "rule": "Spend 1 Edge after a roll to boost Power by +1 Effect Tier. Favored Disciplines only."
-      },
-      "governingArenas": [
-        "wits",
-        "wits"
-      ]
-    },
-    "kits": {
-      "voc_investigator": 3,
-      "voc_ghost": 2
-    },
-    "talents": [],
-    "arenas": [
-      {
-        "id": "physique",
-        "label": "PHYSIQUE",
-        "subtitle": "Strength, Structure, Endurance",
-        "die": "D4",
-        "disciplines": [
-          { "id": "athletics", "label": "Athletics", "die": "D6" },
-          { "id": "brawl", "label": "Brawl", "die": "D4" },
-          { "id": "endure", "label": "Endure", "die": "D6" },
-          { "id": "melee", "label": "Melee", "die": "D4" },
-          { "id": "heavy_weapons", "label": "Heavy Weapons", "die": "D4" }
-        ]
-      },
-      {
-        "id": "reflex",
-        "label": "REFLEX",
-        "subtitle": "Speed, Agility, Hand-Eye Coordination",
-        "die": "D8",
-        "disciplines": [
-          { "id": "evasion", "label": "Evasion", "die": "D6" },
-          { "id": "piloting", "label": "Piloting", "die": "D8" },
-          { "id": "ranged", "label": "Ranged", "die": "D4" },
-          { "id": "skulduggery", "label": "Skulduggery", "die": "D8" },
-          { "id": "stealth", "label": "Stealth", "die": "D8" }
-        ]
-      },
-      {
-        "id": "grit",
-        "label": "GRIT",
-        "subtitle": "Instinct, Stamina, Spiritual Willpower",
-        "die": "D8",
-        "disciplines": [
-          { "id": "beast_handling", "label": "Beast Handling", "die": "D6" },
-          { "id": "control_spark", "label": "Control (The Spark)", "die": "D4" },
-          { "id": "intimidate", "label": "Intimidate", "die": "D4" },
-          { "id": "resolve", "label": "Resolve", "die": "D6" },
-          { "id": "survival", "label": "Survival", "die": "D8" }
-        ]
-      },
-      {
-        "id": "wits",
-        "label": "WITS",
-        "subtitle": "Logic, Awareness, Technical Knowledge",
-        "die": "D10",
-        "disciplines": [
-          { "id": "investigation", "label": "Investigation", "die": "D10" },
-          { "id": "medicine", "label": "Medicine", "die": "D8" },
-          { "id": "sense_spark", "label": "Sense (The Spark)", "die": "D4" },
-          { "id": "tactics", "label": "Tactics", "die": "D6" },
-          { "id": "tech", "label": "Tech", "die": "D8" }
-        ]
-      },
-      {
-        "id": "presence",
-        "label": "PRESENCE",
-        "subtitle": "Charisma, Authority, Projection of Will",
-        "die": "D6",
-        "disciplines": [
-          { "id": "alter_spark", "label": "Alter (The Spark)", "die": "D4" },
-          { "id": "charm", "label": "Charm", "die": "D6" },
-          { "id": "deception", "label": "Deception", "die": "D6" },
-          { "id": "insight", "label": "Insight", "die": "D6" },
-          { "id": "persuasion", "label": "Persuasion", "die": "D6" }
-        ]
-      }
-    ],
-    "personalDestiny": {
-      "id": "discovery",
-      "name": "Discovery",
-      "tagline": "Your fate is to uncover what has been hidden or forgotten.",
-      "coreQuestion": "Did something hidden come to light because of you?",
-      "hopeRecovery": {
-        "title": "The Revelation",
-        "description": "When you bring a buried truth into the open that changes the fate of others — reveal the conspiracy to the people it would have destroyed, decode the star chart that leads refugees to safety, publish the evidence that topples a regime."
-      },
-      "tollRecovery": {
-        "title": "The Theft",
-        "description": "When you claim a world-shaping secret and ensure no one else ever learns it — seize the Sith archive, erase the witnesses, lock away the cure so only you control who lives."
-      },
-      "advanceTrigger": "When a revelation you unearthed permanently alters the direction of events.",
-      "narrativeHook": "This character is drawn toward hidden truths — lost knowledge, buried secrets, forgotten histories. Whether they share what they find or hoard it is the question that defines their path."
-    }
-  },
-  {
-    "name": "Dax Corrin",
-    "species": "Human",
-    "archetype": "The Burned Healer",
-    "gender": "Male",
-    "narrative": "Dax was a field medic attached to a Republic garrison that became an Imperial garrison overnight. He kept patching soldiers together because the wounded don't care about politics — until he was ordered to withhold treatment from civilian prisoners. He put a blaster bolt through the officer who gave the order and walked into the desert. Now he carries two things: a medkit and a pair of pistols. He saves who he can and shoots who he must, and every life he takes is another entry on a ledger he's not sure he'll ever balance. The Western Reaches are full of people who need both his skills.",
-    "destiny": "atonement",
-    "phase1": "The War Front",
-    "phase2": "The Field Medic",
-    "phase3": "The Betrayal",
-    "backgroundFavored": [
-      "ranged",
-      "evasion",
-      "medicine"
-    ],
-    "vitalityModifier": 0,
-    "weaponIds": [
-      "wpn_westar34_01",
-      "wpn_dl18_01"
-    ],
-    "armorId": "arm_combat_jumpsuit_01",
-    "gearIds": [
-      "gear_medpac_01",
-      "gear_stim_pack_01",
-      "gear_trauma_kit_01",
-      "gear_breath_mask_01",
-      "gear_comlink_encrypted_01",
-      "gear_utility_belt_01"
-    ],
-    "engine": {
-      "id": "edge",
-      "name": "The Edge",
-      "poolName": "Edge Points",
-      "coreUtility": {
-        "name": "Tier Boost",
-        "cost": "1 Edge Point",
-        "rule": "Spend 1 Edge after a roll to boost Power by +1 Effect Tier. Favored Disciplines only."
-      },
-      "governingArenas": [
-        "reflex",
-        "reflex"
-      ]
-    },
-    "kits": {
-      "voc_gunslinger": 3,
-      "voc_ghost": 2
-    },
-    "talents": [],
-    "arenas": [
-      {
-        "id": "physique",
-        "label": "PHYSIQUE",
-        "subtitle": "Strength, Structure, Endurance",
-        "die": "D6",
-        "disciplines": [
-          { "id": "athletics", "label": "Athletics", "die": "D4" },
-          { "id": "brawl", "label": "Brawl", "die": "D4" },
-          { "id": "endure", "label": "Endure", "die": "D6" },
-          { "id": "melee", "label": "Melee", "die": "D6" },
-          { "id": "heavy_weapons", "label": "Heavy Weapons", "die": "D4" }
-        ]
-      },
-      {
-        "id": "reflex",
-        "label": "REFLEX",
-        "subtitle": "Speed, Agility, Hand-Eye Coordination",
-        "die": "D8",
-        "disciplines": [
-          { "id": "evasion", "label": "Evasion", "die": "D8" },
-          { "id": "piloting", "label": "Piloting", "die": "D6" },
-          { "id": "ranged", "label": "Ranged", "die": "D10" },
-          { "id": "skulduggery", "label": "Skulduggery", "die": "D6" },
-          { "id": "stealth", "label": "Stealth", "die": "D8" }
-        ]
-      },
-      {
-        "id": "grit",
-        "label": "GRIT",
-        "subtitle": "Instinct, Stamina, Spiritual Willpower",
-        "die": "D8",
-        "disciplines": [
-          { "id": "beast_handling", "label": "Beast Handling", "die": "D4" },
-          { "id": "control_spark", "label": "Control (The Spark)", "die": "D4" },
-          { "id": "intimidate", "label": "Intimidate", "die": "D6" },
-          { "id": "resolve", "label": "Resolve", "die": "D8" },
-          { "id": "survival", "label": "Survival", "die": "D8" }
-        ]
-      },
-      {
-        "id": "wits",
-        "label": "WITS",
-        "subtitle": "Logic, Awareness, Technical Knowledge",
-        "die": "D8",
-        "disciplines": [
-          { "id": "investigation", "label": "Investigation", "die": "D8" },
-          { "id": "medicine", "label": "Medicine", "die": "D8" },
-          { "id": "sense_spark", "label": "Sense (The Spark)", "die": "D4" },
-          { "id": "tactics", "label": "Tactics", "die": "D8" },
-          { "id": "tech", "label": "Tech", "die": "D6" }
-        ]
-      },
-      {
-        "id": "presence",
-        "label": "PRESENCE",
-        "subtitle": "Charisma, Authority, Projection of Will",
-        "die": "D6",
-        "disciplines": [
-          { "id": "alter_spark", "label": "Alter (The Spark)", "die": "D4" },
-          { "id": "charm", "label": "Charm", "die": "D4" },
-          { "id": "deception", "label": "Deception", "die": "D6" },
-          { "id": "insight", "label": "Insight", "die": "D6" },
-          { "id": "persuasion", "label": "Persuasion", "die": "D6" }
-        ]
-      }
-    ],
-    "personalDestiny": {
-      "id": "atonement",
-      "name": "Atonement",
-      "tagline": "Your fate is to settle a debt that can never be repaid.",
-      "coreQuestion": "Was a chapter of your past closed because of you?",
-      "hopeRecovery": {
-        "title": "The Reckoning",
-        "description": "When you make restitution that materially changes the lives of those you wronged — return to the place you devastated and rebuild it, surrender yourself to the people you betrayed, sacrifice your position or fortune to undo the damage."
-      },
-      "tollRecovery": {
-        "title": "The Erasure",
-        "description": "When you erase your debt by destroying the evidence or the people who hold it — silence the last witness, burn the records that prove what you did, eliminate the faction that remembers your crime."
-      },
-      "advanceTrigger": "When a specific chapter of your past is permanently closed — through reconciliation or obliteration.",
-      "narrativeHook": "This character is haunted by what they have done — or what was done in their name. Whether they face it honestly or bury it violently is the question that defines their path."
     }
   }
 ]
