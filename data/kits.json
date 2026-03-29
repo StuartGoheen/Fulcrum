@@ -1826,7 +1826,22 @@
       }
     ],
     "imageUrl": "/assets/vocations/voc_hound.png",
-    "startingItems": []
+    "startingItems": [
+      {
+        "id": "gear_binders_01",
+        "name": "Binders",
+        "cost": 50,
+        "source": "gear",
+        "legalStatus": "legal"
+      },
+      {
+        "id": "gear_macrobinoculars_01",
+        "name": "Macro-binoculars",
+        "cost": 100,
+        "source": "gear",
+        "legalStatus": "legal"
+      }
+    ]
   },
   {
     "id": "voc_investigator",
