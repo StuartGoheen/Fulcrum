@@ -345,14 +345,12 @@
       }
       html += '</div>';
 
-      if (ht.tier >= 3 && _isAdvancementPhase()) {
+      if (ht.tier >= 3) {
         html += '<div class="adv-hero-tier-inputs">';
-        if (ht.tier >= 3) {
-          html += '<div class="adv-hero-tier-input-group">';
-          html += '<label class="adv-hero-tier-input-label">Signature Move Trigger</label>';
-          html += '<input type="text" class="adv-hero-tier-input" id="adv-ht-signature" placeholder="When I..." value="' + _esc(htData.signatureMove || '') + '" />';
-          html += '</div>';
-        }
+        html += '<div class="adv-hero-tier-input-group">';
+        html += '<label class="adv-hero-tier-input-label">Signature Move Trigger</label>';
+        html += '<input type="text" class="adv-hero-tier-input" id="adv-ht-signature" placeholder="When I..." value="' + _esc(htData.signatureMove || '') + '" />';
+        html += '</div>';
         if (ht.tier >= 5) {
           html += '<div class="adv-hero-tier-input-group">';
           html += '<label class="adv-hero-tier-input-label">Personal Moniker</label>';
@@ -372,18 +370,6 @@
           html += '</div>';
         }
         html += '</div>';
-      } else if (ht.tier >= 3) {
-        if (htData.signatureMove) {
-          html += '<div class="adv-hero-tier-display"><b>Signature Move:</b> ' + _esc(htData.signatureMove) + '</div>';
-        }
-        if (ht.tier >= 5 && htData.favoredArena) {
-          var arenaLabel = htData.favoredArena;
-          if (_char && _char.arenas) {
-            var found = _char.arenas.find(function (a) { return a.id === htData.favoredArena; });
-            if (found) arenaLabel = found.label;
-          }
-          html += '<div class="adv-hero-tier-display"><b>Favored Arena:</b> ' + _esc(arenaLabel) + '</div>';
-        }
       }
 
       html += '</div>';
