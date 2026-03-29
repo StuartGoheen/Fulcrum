@@ -408,62 +408,90 @@
     overlay.className = 'adv-modal-overlay';
 
     var box = document.createElement('div');
-    box.className = 'adv-modal-box';
-    box.style.maxWidth = '480px';
-    box.style.width = '90vw';
+    box.className = 'adv-modal-box respec-modal';
 
-    var respecState = { mode: null, downTarget: null, upTarget: null };
+    var respecState = {
+      activeTab: 'discipline',
+      disc: { downTarget: null, upTarget: null, applied: false },
+      arena: { downTarget: null, upTarget: null, applied: false },
+      vocation: { fromKit: null, toKit: null, amount: 0, applied: false }
+    };
+
+    function _discLabel(id) {
+      if (!_char || !_char.arenas) return id;
+      var lbl = id;
+      _char.arenas.forEach(function (a) {
+        a.disciplines.forEach(function (d) { if (d.id === id) lbl = d.label || id; });
+      });
+      return lbl;
+    }
+
+    function _arenaLabel(id) {
+      if (!_char || !_char.arenas) return id;
+      var lbl = id;
+      _char.arenas.forEach(function (a) { if (a.id === id) lbl = a.label; });
+      return lbl;
+    }
 
     function renderRespecContent() {
       box.innerHTML = '';
 
-      var title = document.createElement('div');
-      title.className = 'adv-modal-msg';
-      title.style.fontWeight = '700';
-      title.style.marginBottom = '8px';
-      title.textContent = 'Survivor Respec';
-      box.appendChild(title);
+      var header = document.createElement('div');
+      header.className = 'respec-header';
+      header.innerHTML = '<div class="respec-title">Survivor Respec</div>' +
+        '<div class="respec-desc">One-time respec. You may make <b>one swap in each category</b>. ' +
+        'Step down a die to step up a lower one. Vocation tiers can be reallocated freely between two vocations.</div>';
+      box.appendChild(header);
 
-      var desc = document.createElement('div');
-      desc.className = 'adv-hero-tier-display';
-      desc.style.marginBottom = '12px';
-      desc.innerHTML = 'One-time respec. Choose a swap type, then select what to step <b>down</b> and what to step <b>up</b>. The die being stepped down must be higher than the one being stepped up.';
-      box.appendChild(desc);
+      var summaryItems = [];
+      if (respecState.disc.applied) summaryItems.push('Discipline: ' + _discLabel(respecState.disc.downTarget) + ' \u2193 / ' + _discLabel(respecState.disc.upTarget) + ' \u2191');
+      if (respecState.arena.applied) summaryItems.push('Arena: ' + _arenaLabel(respecState.arena.downTarget) + ' \u2193 / ' + _arenaLabel(respecState.arena.upTarget) + ' \u2191');
+      if (respecState.vocation.applied) {
+        var kits = (_char && _char.kits) ? _char.kits : [];
+        var fk = kits[respecState.vocation.fromKit];
+        var tk = kits[respecState.vocation.toKit];
+        summaryItems.push('Vocation: ' + (fk ? fk.name : '?') + ' \u2192 ' + (tk ? tk.name : '?') + ' (' + respecState.vocation.amount + ' tiers)');
+      }
+      if (summaryItems.length > 0) {
+        var summary = document.createElement('div');
+        summary.className = 'respec-summary';
+        summary.innerHTML = '<b>Queued changes:</b> ' + summaryItems.join(' \u2022 ');
+        box.appendChild(summary);
+      }
 
       var tabs = document.createElement('div');
-      tabs.style.cssText = 'display:flex;gap:6px;margin-bottom:12px;';
-
-      var modes = [
-        { key: 'discipline', label: 'Discipline' },
-        { key: 'arena', label: 'Arena' },
-        { key: 'vocation', label: 'Vocation' }
+      tabs.className = 'respec-tabs';
+      var tabDefs = [
+        { key: 'discipline', label: 'Disciplines', done: respecState.disc.applied },
+        { key: 'arena', label: 'Arenas', done: respecState.arena.applied },
+        { key: 'vocation', label: 'Vocations', done: respecState.vocation.applied }
       ];
-      modes.forEach(function (m) {
+      tabDefs.forEach(function (t) {
         var btn = document.createElement('button');
-        btn.className = 'adv-btn' + (respecState.mode === m.key ? ' adv-btn--primary' : '');
-        btn.textContent = m.label;
-        btn.style.cssText = 'flex:1;padding:6px 4px;font-size:0.78rem;';
+        btn.className = 'respec-tab' + (respecState.activeTab === t.key ? ' respec-tab--active' : '') + (t.done ? ' respec-tab--done' : '');
+        btn.innerHTML = t.label + (t.done ? ' &#10003;' : '');
         btn.addEventListener('click', function () {
-          respecState.mode = m.key;
-          respecState.downTarget = null;
-          respecState.upTarget = null;
+          respecState.activeTab = t.key;
           renderRespecContent();
         });
         tabs.appendChild(btn);
       });
       box.appendChild(tabs);
 
-      if (respecState.mode === 'discipline') {
-        renderDisciplineRespec();
-      } else if (respecState.mode === 'arena') {
-        renderArenaRespec();
-      } else if (respecState.mode === 'vocation') {
-        renderVocationRespec();
+      var body = document.createElement('div');
+      body.className = 'respec-body';
+
+      if (respecState.activeTab === 'discipline') {
+        renderDisciplineRespec(body);
+      } else if (respecState.activeTab === 'arena') {
+        renderArenaRespec(body);
+      } else if (respecState.activeTab === 'vocation') {
+        renderVocationRespec(body);
       }
+      box.appendChild(body);
 
       var actions = document.createElement('div');
-      actions.className = 'adv-modal-actions';
-      actions.style.marginTop = '12px';
+      actions.className = 'respec-actions';
 
       var cancelBtn = document.createElement('button');
       cancelBtn.className = 'adv-modal-btn adv-modal-btn--cancel';
@@ -471,10 +499,11 @@
       cancelBtn.addEventListener('click', function () { overlay.remove(); });
       actions.appendChild(cancelBtn);
 
-      if (respecState.downTarget !== null && respecState.upTarget !== null) {
+      var anyApplied = respecState.disc.applied || respecState.arena.applied || respecState.vocation.applied;
+      if (anyApplied) {
         var confirmBtn = document.createElement('button');
         confirmBtn.className = 'adv-modal-btn adv-modal-btn--primary';
-        confirmBtn.textContent = 'Confirm Respec';
+        confirmBtn.textContent = 'Confirm All Changes';
         confirmBtn.addEventListener('click', function () {
           _executeRespec(respecState);
           overlay.remove();
@@ -485,157 +514,324 @@
       box.appendChild(actions);
     }
 
-    function makeRow(label, dieOrTier, isDown, targetKey, isSelected, isDisabled) {
+    function makeRow(container, label, dieOrTier, isDown, targetKey, isSelected, isDisabled, stateObj) {
       var row = document.createElement('div');
-      row.style.cssText = 'display:flex;align-items:center;gap:8px;padding:5px 8px;border-radius:4px;cursor:' + (isDisabled ? 'not-allowed' : 'pointer') + ';border:1px solid var(--color-border);margin-bottom:4px;opacity:' + (isDisabled ? '0.35' : '1') + ';' + (isSelected ? 'border-color:var(--color-accent);background:rgba(255,200,50,0.12);' : '');
+      row.className = 'respec-row' + (isSelected ? ' respec-row--selected' : '') + (isDisabled ? ' respec-row--disabled' : '');
       var nameEl = document.createElement('span');
-      nameEl.style.cssText = 'flex:1;font-size:0.8rem;color:var(--color-text);';
+      nameEl.className = 'respec-row-name';
       nameEl.textContent = label;
       row.appendChild(nameEl);
       var dieEl = document.createElement('span');
-      dieEl.style.cssText = 'font-size:0.75rem;font-weight:600;color:var(--color-accent);';
+      dieEl.className = 'respec-row-die';
       dieEl.textContent = dieOrTier;
       row.appendChild(dieEl);
       if (!isDisabled) {
         row.addEventListener('click', function () {
           if (isDown) {
-            respecState.downTarget = (respecState.downTarget === targetKey) ? null : targetKey;
-            if (respecState.downTarget === respecState.upTarget) respecState.upTarget = null;
+            stateObj.downTarget = (stateObj.downTarget === targetKey) ? null : targetKey;
+            if (stateObj.downTarget === stateObj.upTarget) stateObj.upTarget = null;
           } else {
-            respecState.upTarget = (respecState.upTarget === targetKey) ? null : targetKey;
+            stateObj.upTarget = (stateObj.upTarget === targetKey) ? null : targetKey;
           }
+          stateObj.applied = !!(stateObj.downTarget && stateObj.upTarget);
           renderRespecContent();
         });
       }
-      return row;
+      container.appendChild(row);
     }
 
-    function renderDisciplineRespec() {
+    function renderDisciplineRespec(container) {
       if (!_char || !_char.arenas) return;
-      var downLabel = document.createElement('div');
-      downLabel.style.cssText = 'font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--color-text-secondary);margin-bottom:4px;';
-      downLabel.textContent = 'Step Down (must be D8 or higher)';
-      box.appendChild(downLabel);
-
-      _char.arenas.forEach(function (arena) {
-        arena.disciplines.forEach(function (disc) {
-          var die = disc.die || 'D6';
-          var canDown = DIE_STEPS.indexOf(die) >= 2;
-          var key = disc.id;
-          var selected = respecState.downTarget === key;
-          box.appendChild(makeRow(disc.label || disc.id, die, true, key, selected, !canDown));
+      if (respecState.disc.applied) {
+        var note = document.createElement('div');
+        note.className = 'respec-applied-note';
+        note.innerHTML = 'Discipline swap queued: <b>' + _discLabel(respecState.disc.downTarget) + '</b> \u2193 and <b>' + _discLabel(respecState.disc.upTarget) + '</b> \u2191.';
+        var editBtn = document.createElement('button');
+        editBtn.className = 'adv-btn';
+        editBtn.style.cssText = 'margin-left:8px;font-size:0.7rem;padding:3px 8px;';
+        editBtn.textContent = 'Change';
+        editBtn.addEventListener('click', function () {
+          respecState.disc.applied = false;
+          respecState.disc.downTarget = null;
+          respecState.disc.upTarget = null;
+          renderRespecContent();
         });
-      });
+        note.appendChild(editBtn);
+        container.appendChild(note);
+        return;
+      }
 
+      var grid = document.createElement('div');
+      grid.className = 'respec-disc-grid';
+
+      var downCol = document.createElement('div');
+      downCol.className = 'respec-col';
+      var downLabel = document.createElement('div');
+      downLabel.className = 'respec-col-label respec-col-label--down';
+      downLabel.textContent = 'Step Down (D8+)';
+      downCol.appendChild(downLabel);
+
+      var upCol = document.createElement('div');
+      upCol.className = 'respec-col';
       var upLabel = document.createElement('div');
-      upLabel.style.cssText = 'font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--color-text-secondary);margin:8px 0 4px;';
-      upLabel.textContent = 'Step Up (must be lower than the one being stepped down)';
-      box.appendChild(upLabel);
+      upLabel.className = 'respec-col-label respec-col-label--up';
+      upLabel.textContent = 'Step Up (must be lower)';
+      upCol.appendChild(upLabel);
 
       var downDie = null;
-      if (respecState.downTarget) {
+      if (respecState.disc.downTarget) {
         _char.arenas.forEach(function (arena) {
           arena.disciplines.forEach(function (disc) {
-            if (disc.id === respecState.downTarget) downDie = disc.die || 'D6';
+            if (disc.id === respecState.disc.downTarget) downDie = disc.die || 'D6';
           });
         });
       }
 
       _char.arenas.forEach(function (arena) {
+        var arenaHeader1 = document.createElement('div');
+        arenaHeader1.className = 'respec-arena-header';
+        arenaHeader1.textContent = arena.label + ' (' + arena.die + ')';
+        downCol.appendChild(arenaHeader1);
+
+        var arenaHeader2 = document.createElement('div');
+        arenaHeader2.className = 'respec-arena-header';
+        arenaHeader2.textContent = arena.label + ' (' + arena.die + ')';
+        upCol.appendChild(arenaHeader2);
+
         arena.disciplines.forEach(function (disc) {
           var die = disc.die || 'D6';
           var key = disc.id;
-          if (key === respecState.downTarget) return;
-          var canUp = downDie && DIE_STEPS.indexOf(die) < DIE_STEPS.indexOf(downDie) && DIE_STEPS.indexOf(die) < DIE_STEPS.length - 1;
-          var selected = respecState.upTarget === key;
-          box.appendChild(makeRow(disc.label || disc.id, die, false, key, selected, !canUp));
+          var canDown = DIE_STEPS.indexOf(die) >= 2;
+          makeRow(downCol, disc.label || disc.id, die, true, key, respecState.disc.downTarget === key, !canDown, respecState.disc);
+
+          if (key === respecState.disc.downTarget) {
+            var placeholder = document.createElement('div');
+            placeholder.className = 'respec-row respec-row--disabled';
+            placeholder.style.opacity = '0.2';
+            placeholder.innerHTML = '<span class="respec-row-name">' + _esc(disc.label || disc.id) + '</span><span class="respec-row-die">' + die + '</span>';
+            upCol.appendChild(placeholder);
+          } else {
+            var canUp = downDie && DIE_STEPS.indexOf(die) < DIE_STEPS.indexOf(downDie) && DIE_STEPS.indexOf(die) < DIE_STEPS.length - 1;
+            makeRow(upCol, disc.label || disc.id, die, false, key, respecState.disc.upTarget === key, !canUp, respecState.disc);
+          }
         });
       });
+
+      grid.appendChild(downCol);
+      grid.appendChild(upCol);
+      container.appendChild(grid);
     }
 
-    function renderArenaRespec() {
+    function renderArenaRespec(container) {
       if (!_char || !_char.arenas) return;
-      var downLabel = document.createElement('div');
-      downLabel.style.cssText = 'font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--color-text-secondary);margin-bottom:4px;';
-      downLabel.textContent = 'Step Down (must be D8 or higher)';
-      box.appendChild(downLabel);
-
-      _char.arenas.forEach(function (arena) {
-        var die = arena.die || 'D6';
-        var canDown = DIE_STEPS.indexOf(die) >= 2;
-        var key = arena.id;
-        var selected = respecState.downTarget === key;
-        box.appendChild(makeRow(arena.label, die, true, key, selected, !canDown));
-      });
-
-      var upLabel = document.createElement('div');
-      upLabel.style.cssText = 'font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--color-text-secondary);margin:8px 0 4px;';
-      upLabel.textContent = 'Step Up (must be lower than the one being stepped down)';
-      box.appendChild(upLabel);
-
-      var downDie = null;
-      if (respecState.downTarget) {
-        _char.arenas.forEach(function (arena) {
-          if (arena.id === respecState.downTarget) downDie = arena.die || 'D6';
-        });
-      }
-
-      _char.arenas.forEach(function (arena) {
-        var die = arena.die || 'D6';
-        var key = arena.id;
-        if (key === respecState.downTarget) return;
-        var canUp = downDie && DIE_STEPS.indexOf(die) < DIE_STEPS.indexOf(downDie) && DIE_STEPS.indexOf(die) < DIE_STEPS.length - 1;
-        var selected = respecState.upTarget === key;
-        box.appendChild(makeRow(arena.label, die, false, key, selected, !canUp));
-      });
-    }
-
-    function renderVocationRespec() {
-      var kits = (_char && _char.kits) ? _char.kits : [];
-      if (kits.length < 2) {
+      if (respecState.arena.applied) {
         var note = document.createElement('div');
-        note.className = 'adv-hero-tier-display';
-        note.textContent = 'Need at least 2 vocations to swap tiers.';
-        box.appendChild(note);
+        note.className = 'respec-applied-note';
+        note.innerHTML = 'Arena swap queued: <b>' + _arenaLabel(respecState.arena.downTarget) + '</b> \u2193 and <b>' + _arenaLabel(respecState.arena.upTarget) + '</b> \u2191.';
+        var editBtn = document.createElement('button');
+        editBtn.className = 'adv-btn';
+        editBtn.style.cssText = 'margin-left:8px;font-size:0.7rem;padding:3px 8px;';
+        editBtn.textContent = 'Change';
+        editBtn.addEventListener('click', function () {
+          respecState.arena.applied = false;
+          respecState.arena.downTarget = null;
+          respecState.arena.upTarget = null;
+          renderRespecContent();
+        });
+        note.appendChild(editBtn);
+        container.appendChild(note);
         return;
       }
 
+      var grid = document.createElement('div');
+      grid.className = 'respec-disc-grid';
+
+      var downCol = document.createElement('div');
+      downCol.className = 'respec-col';
       var downLabel = document.createElement('div');
-      downLabel.style.cssText = 'font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--color-text-secondary);margin-bottom:4px;';
-      downLabel.textContent = 'Reduce Tier (must be Tier 2+)';
-      box.appendChild(downLabel);
+      downLabel.className = 'respec-col-label respec-col-label--down';
+      downLabel.textContent = 'Step Down (D8+)';
+      downCol.appendChild(downLabel);
 
-      kits.forEach(function (kit, idx) {
-        var tier = kit.tier || kit.currentTier || 1;
-        var canDown = tier >= 2;
-        var key = 'kit_' + idx;
-        var selected = respecState.downTarget === key;
-        box.appendChild(makeRow(kit.name || kit.id, 'T' + tier, true, key, selected, !canDown));
-      });
-
+      var upCol = document.createElement('div');
+      upCol.className = 'respec-col';
       var upLabel = document.createElement('div');
-      upLabel.style.cssText = 'font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--color-text-secondary);margin:8px 0 4px;';
-      upLabel.textContent = 'Increase Tier (gated by Favored Discipline die)';
-      box.appendChild(upLabel);
+      upLabel.className = 'respec-col-label respec-col-label--up';
+      upLabel.textContent = 'Step Up (must be lower)';
+      upCol.appendChild(upLabel);
 
-      var downTierVal = 0;
-      if (respecState.downTarget) {
-        var dIdx = parseInt((respecState.downTarget || '').replace('kit_', ''), 10);
-        var dKit = kits[dIdx];
-        if (dKit) downTierVal = dKit.tier || dKit.currentTier || 1;
+      var downDie = null;
+      if (respecState.arena.downTarget) {
+        _char.arenas.forEach(function (arena) {
+          if (arena.id === respecState.arena.downTarget) downDie = arena.die || 'D6';
+        });
       }
 
+      _char.arenas.forEach(function (arena) {
+        var die = arena.die || 'D6';
+        var key = arena.id;
+        var canDown = DIE_STEPS.indexOf(die) >= 2;
+        makeRow(downCol, arena.label, die, true, key, respecState.arena.downTarget === key, !canDown, respecState.arena);
+
+        if (key === respecState.arena.downTarget) {
+          var placeholder = document.createElement('div');
+          placeholder.className = 'respec-row respec-row--disabled';
+          placeholder.style.opacity = '0.2';
+          placeholder.innerHTML = '<span class="respec-row-name">' + _esc(arena.label) + '</span><span class="respec-row-die">' + die + '</span>';
+          upCol.appendChild(placeholder);
+        } else {
+          var canUp = downDie && DIE_STEPS.indexOf(die) < DIE_STEPS.indexOf(downDie) && DIE_STEPS.indexOf(die) < DIE_STEPS.length - 1;
+          makeRow(upCol, arena.label, die, false, key, respecState.arena.upTarget === key, !canUp, respecState.arena);
+        }
+      });
+
+      grid.appendChild(downCol);
+      grid.appendChild(upCol);
+      container.appendChild(grid);
+    }
+
+    function renderVocationRespec(container) {
+      var kits = (_char && _char.kits) ? _char.kits : [];
+      if (kits.length < 2) {
+        var note = document.createElement('div');
+        note.className = 'respec-applied-note';
+        note.textContent = 'Need at least 2 vocations to reallocate tiers.';
+        container.appendChild(note);
+        return;
+      }
+      if (respecState.vocation.applied) {
+        var fk = kits[respecState.vocation.fromKit];
+        var tk = kits[respecState.vocation.toKit];
+        var doneNote = document.createElement('div');
+        doneNote.className = 'respec-applied-note';
+        doneNote.innerHTML = 'Vocation reallocation queued: <b>' + (fk ? fk.name : '?') + '</b> \u2192 <b>' + (tk ? tk.name : '?') + '</b> (' + respecState.vocation.amount + ' tiers).';
+        var editBtn = document.createElement('button');
+        editBtn.className = 'adv-btn';
+        editBtn.style.cssText = 'margin-left:8px;font-size:0.7rem;padding:3px 8px;';
+        editBtn.textContent = 'Change';
+        editBtn.addEventListener('click', function () {
+          respecState.vocation.applied = false;
+          respecState.vocation.fromKit = null;
+          respecState.vocation.toKit = null;
+          respecState.vocation.amount = 0;
+          renderRespecContent();
+        });
+        doneNote.appendChild(editBtn);
+        container.appendChild(doneNote);
+        return;
+      }
+
+      var desc = document.createElement('div');
+      desc.className = 'respec-voc-desc';
+      desc.textContent = 'Select a source and destination vocation, then choose how many tiers to move. The destination must still qualify (gated by its Favored Discipline die).';
+      container.appendChild(desc);
+
+      var grid = document.createElement('div');
+      grid.className = 'respec-disc-grid';
+
+      var fromCol = document.createElement('div');
+      fromCol.className = 'respec-col';
+      var fromLabel = document.createElement('div');
+      fromLabel.className = 'respec-col-label respec-col-label--down';
+      fromLabel.textContent = 'Take Tiers From';
+      fromCol.appendChild(fromLabel);
+
+      var toCol = document.createElement('div');
+      toCol.className = 'respec-col';
+      var toLabel = document.createElement('div');
+      toLabel.className = 'respec-col-label respec-col-label--up';
+      toLabel.textContent = 'Give Tiers To';
+      toCol.appendChild(toLabel);
+
       kits.forEach(function (kit, idx) {
         var tier = kit.tier || kit.currentTier || 1;
-        var key = 'kit_' + idx;
-        if (key === respecState.downTarget) return;
+        var canFrom = tier >= 2;
+        var isFromSel = respecState.vocation.fromKit === idx;
+        var fromRow = document.createElement('div');
+        fromRow.className = 'respec-row' + (isFromSel ? ' respec-row--selected' : '') + (!canFrom ? ' respec-row--disabled' : '');
+        fromRow.innerHTML = '<span class="respec-row-name">' + _esc(kit.name || kit.id) + '</span><span class="respec-row-die">T' + tier + '</span>';
+        if (canFrom) {
+          fromRow.addEventListener('click', function () {
+            respecState.vocation.fromKit = isFromSel ? null : idx;
+            if (respecState.vocation.fromKit === respecState.vocation.toKit) respecState.vocation.toKit = null;
+            respecState.vocation.amount = 0;
+            respecState.vocation.applied = false;
+            renderRespecContent();
+          });
+        }
+        fromCol.appendChild(fromRow);
+
+        var isToSel = respecState.vocation.toKit === idx;
         var favDisc = kit.favoredDiscipline || '';
         var favDie = _getFavoredDie(favDisc);
         var maxTier = DISC_GATE[favDie] || 1;
-        var canUp = downTierVal > 0 && tier < downTierVal && tier < 5 && tier < maxTier;
-        var selected = respecState.upTarget === key;
-        box.appendChild(makeRow(kit.name || kit.id, 'T' + tier, false, key, selected, !canUp));
+        var canTo = respecState.vocation.fromKit !== null && respecState.vocation.fromKit !== idx && tier < maxTier && tier < 5;
+        var toRow = document.createElement('div');
+        toRow.className = 'respec-row' + (isToSel ? ' respec-row--selected' : '') + (!canTo ? ' respec-row--disabled' : '');
+        toRow.innerHTML = '<span class="respec-row-name">' + _esc(kit.name || kit.id) + '</span><span class="respec-row-die">T' + tier + ' <span style="font-size:0.6rem;opacity:0.6;">(max T' + maxTier + ')</span></span>';
+        if (canTo) {
+          toRow.addEventListener('click', function () {
+            respecState.vocation.toKit = isToSel ? null : idx;
+            respecState.vocation.amount = 0;
+            respecState.vocation.applied = false;
+            renderRespecContent();
+          });
+        }
+        toCol.appendChild(toRow);
       });
+
+      grid.appendChild(fromCol);
+      grid.appendChild(toCol);
+      container.appendChild(grid);
+
+      if (respecState.vocation.fromKit !== null && respecState.vocation.toKit !== null) {
+        var fKit = kits[respecState.vocation.fromKit];
+        var tKit = kits[respecState.vocation.toKit];
+        var fTier = fKit.tier || fKit.currentTier || 1;
+        var tTier = tKit.tier || tKit.currentTier || 1;
+        var tFavDisc = tKit.favoredDiscipline || '';
+        var tFavDie = _getFavoredDie(tFavDisc);
+        var tMaxTier = DISC_GATE[tFavDie] || 1;
+        var maxTransfer = Math.min(fTier - 1, Math.min(5, tMaxTier) - tTier);
+        if (maxTransfer < 1) maxTransfer = 0;
+
+        var amtWrap = document.createElement('div');
+        amtWrap.className = 'respec-amount-wrap';
+        amtWrap.innerHTML = '<span class="respec-amount-label">Tiers to move from <b>' + _esc(fKit.name) + '</b> (T' + fTier + ') to <b>' + _esc(tKit.name) + '</b> (T' + tTier + ', max T' + tMaxTier + '):</span>';
+
+        var stepper = document.createElement('div');
+        stepper.className = 'respec-stepper';
+        var minusBtn = document.createElement('button');
+        minusBtn.className = 'respec-stepper-btn';
+        minusBtn.textContent = '\u2212';
+        minusBtn.disabled = respecState.vocation.amount <= 0;
+        minusBtn.addEventListener('click', function () {
+          if (respecState.vocation.amount > 0) { respecState.vocation.amount--; respecState.vocation.applied = respecState.vocation.amount > 0; renderRespecContent(); }
+        });
+        var valSpan = document.createElement('span');
+        valSpan.className = 'respec-stepper-val';
+        valSpan.textContent = respecState.vocation.amount;
+        var plusBtn = document.createElement('button');
+        plusBtn.className = 'respec-stepper-btn';
+        plusBtn.textContent = '+';
+        plusBtn.disabled = respecState.vocation.amount >= maxTransfer;
+        plusBtn.addEventListener('click', function () {
+          if (respecState.vocation.amount < maxTransfer) { respecState.vocation.amount++; respecState.vocation.applied = true; renderRespecContent(); }
+        });
+        stepper.appendChild(minusBtn);
+        stepper.appendChild(valSpan);
+        stepper.appendChild(plusBtn);
+        amtWrap.appendChild(stepper);
+
+        if (respecState.vocation.amount > 0) {
+          var preview = document.createElement('div');
+          preview.className = 'respec-preview';
+          preview.innerHTML = _esc(fKit.name) + ': T' + fTier + ' \u2192 T' + (fTier - respecState.vocation.amount) + ' &nbsp;\u2022&nbsp; ' + _esc(tKit.name) + ': T' + tTier + ' \u2192 T' + (tTier + respecState.vocation.amount);
+          amtWrap.appendChild(preview);
+        }
+
+        container.appendChild(amtWrap);
+      }
     }
 
     overlay.appendChild(box);
@@ -647,59 +843,68 @@
   }
 
   function _executeRespec(state) {
-    if (state.mode === 'discipline') {
+    if (state.disc.applied && state.disc.downTarget && state.disc.upTarget) {
       var downDisc = null, upDisc = null;
       _char.arenas.forEach(function (arena) {
         arena.disciplines.forEach(function (disc) {
-          if (disc.id === state.downTarget) downDisc = disc;
-          if (disc.id === state.upTarget) upDisc = disc;
+          if (disc.id === state.disc.downTarget) downDisc = disc;
+          if (disc.id === state.disc.upTarget) upDisc = disc;
         });
       });
-      if (!downDisc || !upDisc) return;
-      if (DIE_STEPS.indexOf(upDisc.die) >= DIE_STEPS.indexOf(downDisc.die)) return;
-      var prevDown = _prevDie(downDisc.die);
-      var nextUp = _nextDie(upDisc.die);
-      if (!prevDown || !nextUp) return;
-      downDisc.die = prevDown;
-      upDisc.die = nextUp;
-      _persistDice({ type: 'discipline', id: downDisc.id, newDie: prevDown });
-      _persistDice({ type: 'discipline', id: upDisc.id, newDie: nextUp });
-    } else if (state.mode === 'arena') {
+      if (downDisc && upDisc && DIE_STEPS.indexOf(upDisc.die) < DIE_STEPS.indexOf(downDisc.die)) {
+        var prevDown = _prevDie(downDisc.die);
+        var nextUp = _nextDie(upDisc.die);
+        if (prevDown && nextUp) {
+          downDisc.die = prevDown;
+          upDisc.die = nextUp;
+          _persistDice({ type: 'discipline', id: downDisc.id, newDie: prevDown });
+          _persistDice({ type: 'discipline', id: upDisc.id, newDie: nextUp });
+        }
+      }
+    }
+
+    if (state.arena.applied && state.arena.downTarget && state.arena.upTarget) {
       var downArena = null, upArena = null;
       _char.arenas.forEach(function (arena) {
-        if (arena.id === state.downTarget) downArena = arena;
-        if (arena.id === state.upTarget) upArena = arena;
+        if (arena.id === state.arena.downTarget) downArena = arena;
+        if (arena.id === state.arena.upTarget) upArena = arena;
       });
-      if (!downArena || !upArena) return;
-      if (DIE_STEPS.indexOf(upArena.die) >= DIE_STEPS.indexOf(downArena.die)) return;
-      var prevDown2 = _prevDie(downArena.die);
-      var nextUp2 = _nextDie(upArena.die);
-      if (!prevDown2 || !nextUp2) return;
-      downArena.die = prevDown2;
-      upArena.die = nextUp2;
-      _persistDice({ type: 'arena', id: downArena.id, newDie: prevDown2 });
-      _persistDice({ type: 'arena', id: upArena.id, newDie: nextUp2 });
-    } else if (state.mode === 'vocation') {
+      if (downArena && upArena && DIE_STEPS.indexOf(upArena.die) < DIE_STEPS.indexOf(downArena.die)) {
+        var prevDown2 = _prevDie(downArena.die);
+        var nextUp2 = _nextDie(upArena.die);
+        if (prevDown2 && nextUp2) {
+          downArena.die = prevDown2;
+          upArena.die = nextUp2;
+          _persistDice({ type: 'arena', id: downArena.id, newDie: prevDown2 });
+          _persistDice({ type: 'arena', id: upArena.id, newDie: nextUp2 });
+        }
+      }
+    }
+
+    if (state.vocation.applied && state.vocation.fromKit !== null && state.vocation.toKit !== null && state.vocation.amount > 0) {
       var kits = (_char && _char.kits) ? _char.kits : [];
-      var downIdx = parseInt((state.downTarget || '').replace('kit_', ''), 10);
-      var upIdx = parseInt((state.upTarget || '').replace('kit_', ''), 10);
-      var downKit = kits[downIdx];
-      var upKit = kits[upIdx];
-      if (!downKit || !upKit) return;
-      var downTier = downKit.tier || downKit.currentTier || 1;
-      var upTier = upKit.tier || upKit.currentTier || 1;
-      if (downTier < 2 || upTier >= 5 || upTier >= downTier) return;
-      var upFavDisc = upKit.favoredDiscipline || '';
-      var upFavDie = _getFavoredDie(upFavDisc);
-      var upMaxTier = DISC_GATE[upFavDie] || 1;
-      if (upTier + 1 > upMaxTier) return;
-      downKit.tier = downTier - 1;
-      upKit.tier = upTier + 1;
-      var downKitId = downKit.id || downKit.kitId || '';
-      var upKitId = upKit.id || upKit.kitId || '';
-      if (!_advancement.vocationUnlocks) _advancement.vocationUnlocks = {};
-      _advancement.vocationUnlocks[downKitId] = Math.max(0, (_advancement.vocationUnlocks[downKitId] || 0) - 1);
-      _advancement.vocationUnlocks[upKitId] = (_advancement.vocationUnlocks[upKitId] || 0) + 1;
+      var downKit = kits[state.vocation.fromKit];
+      var upKit = kits[state.vocation.toKit];
+      if (downKit && upKit) {
+        var dTier = downKit.tier || downKit.currentTier || 1;
+        var uTier = upKit.tier || upKit.currentTier || 1;
+        var amt = state.vocation.amount;
+        var upFavDisc = upKit.favoredDiscipline || '';
+        var upFavDie = _getFavoredDie(upFavDisc);
+        var upMaxTier = DISC_GATE[upFavDie] || 1;
+        var maxSafe = Math.min(dTier - 1, Math.min(5, upMaxTier) - uTier);
+        if (maxSafe < 1) maxSafe = 0;
+        if (amt > maxSafe) amt = maxSafe;
+        if (amt > 0) {
+          downKit.tier = dTier - amt;
+          upKit.tier = uTier + amt;
+          var downKitId = downKit.id || downKit.kitId || '';
+          var upKitId = upKit.id || upKit.kitId || '';
+          if (!_advancement.vocationUnlocks) _advancement.vocationUnlocks = {};
+          _advancement.vocationUnlocks[downKitId] = Math.max(0, (_advancement.vocationUnlocks[downKitId] || 0) - amt);
+          _advancement.vocationUnlocks[upKitId] = (_advancement.vocationUnlocks[upKitId] || 0) + amt;
+        }
+      }
     }
 
     _advancement.heroTier.respecUsed = true;
@@ -1935,6 +2140,7 @@
         if (loaded >= totalLoads) {
           if (_panelVisible) _render();
           _initialized = true;
+          document.dispatchEvent(new CustomEvent('advancement:ready'));
         }
       }
 
@@ -1979,6 +2185,12 @@
     }
     tryRender();
   }
+
+  window.AdvancementPanel = window.AdvancementPanel || {};
+  window.AdvancementPanel.getHeroTierLevel = function () {
+    if (!_advancement) return 0;
+    return _getHeroTier().tier;
+  };
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);

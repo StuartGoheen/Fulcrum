@@ -434,6 +434,10 @@
         if (ab.actionBonus.maneuver) budget.maneuver += ab.actionBonus.maneuver;
       });
     });
+    var htLevel = (window.AdvancementPanel && window.AdvancementPanel.getHeroTierLevel)
+      ? window.AdvancementPanel.getHeroTierLevel() : 0;
+    if (htLevel >= 2) budget.trigger += 1;
+    if (htLevel >= 5) budget.trigger += 1;
     return budget;
   }
 
@@ -801,6 +805,10 @@
     if (_currentChar) {
       _refreshFront();
     }
+  });
+
+  document.addEventListener('advancement:ready', function () {
+    _refreshActionEconomy();
   });
 
 }());
