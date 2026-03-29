@@ -428,6 +428,44 @@
     ]
   },
   {
+    "id": "wpn_dlt19x_01",
+    "name": "BlasTech DLT-19x Targeting Blaster",
+    "description": "The precision variant of the DLT-19 platform. Where the standard model suppresses a corridor, the 19x kills one person at the far end of it. BlasTech replaced the belt-feed mechanism with an enhanced galven pattern and integrated a military-grade targeting scope — the result is a single-shot heavy blaster rifle that reaches farther and hits harder than anything in the Imperial infantry arsenal. Stormtrooper sharpshooters carried them on Jedha and Lothal. ISB fielded them for long-range elimination work. If you see the barrel, you are already in range. If you don't see it, you are still in range.",
+    "chassisId": "heavy",
+    "chassisLabel": "Heavy Rifle",
+    "discipline": "ranged",
+    "arena": "reflex",
+    "range": [
+      14,
+      44,
+      100
+    ],
+    "stunSetting": false,
+    "cost": 2200,
+    "trait": {
+      "name": "Integrated Targeting Scope",
+      "description": "Military-grade optics synchronized with the weapon's galven rings. When using the Overwatch Maneuver, Step Up both your Control Die and your Power Die for the triggered attack — the scope does not just help you aim, it calculates bolt coherence at distance. Additionally, attacks beyond your second range band (zones 45+) impose only −1 Control step instead of the standard −2."
+    },
+    "gambits": [
+      {
+        "name": "Zeroed In",
+        "rule": "If you did not move since the start of your last turn, Step Up your Power Die for this attack. The weapon rewards stillness — you have had time to range the target, adjust for atmospherics, and let the scope do what it was designed to do."
+      }
+    ],
+    "availability": "2/R",
+    "tags": [
+      "Ranged",
+      "Heavy",
+      "Rifle",
+      "Energy",
+      "Military",
+      "Imperial",
+      "Sniper",
+      "Long-Range"
+    ],
+    "clipSize": 30
+  },
+  {
     "id": "wpn_ee3_01",
     "name": "BlasTech EE-3",
     "description": "A compact, hard-hitting blaster carbine built for professionals. Short enough to clear a doorway, heavy enough to put down what comes through it. The pistol grip is the tell — this weapon is designed to work in your hands at any distance, no stock required.",
