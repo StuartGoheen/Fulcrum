@@ -4835,19 +4835,6 @@
   /* Left frame: 33vw on tablet — more room for character data */
   #frame-left {
     width: 33vw !important;
-    min-width: 240px !important;
-  }
-
-  #center-content {
-    margin-left: 33vw !important;
-  }
-
-  #navbar {
-    left: 33vw !important;
-  }
-
-  #player-footer {
-    left: 33vw !important;
   }
 
   .handbook-trigger:not([style*="left"]) {
@@ -4859,16 +4846,6 @@
   @media (max-width: 900px) {
     #frame-left {
       width: 240px !important;
-      min-width: 200px !important;
-    }
-    #center-content {
-      margin-left: 240px !important;
-    }
-    #navbar {
-      left: 240px !important;
-    }
-    #player-footer {
-      left: 240px !important;
     }
   }
 }
@@ -7126,30 +7103,12 @@
     #frame-right {
       max-width: 380px;
     }
-    #navbar,
-    #player-footer {
-      left: 380px !important;
-      right: 380px !important;
-    }
-    #center-content {
-      margin-left: 380px !important;
-      margin-right: 380px !important;
-    }
   }
 
   @media (min-width: 1920px) {
     #frame-left,
     #frame-right {
       max-width: 420px;
-    }
-    #navbar,
-    #player-footer {
-      left: 420px !important;
-      right: 420px !important;
-    }
-    #center-content {
-      margin-left: 420px !important;
-      margin-right: 420px !important;
     }
   }
   

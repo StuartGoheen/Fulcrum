@@ -43,7 +43,6 @@
     if (rightPx > maxSide) rightPx = maxSide;
 
     var rHidden = isRightHidden();
-    var effectiveRight = rHidden ? 0 : rightPx;
 
     frameLeft.style.setProperty('width', leftPx + 'px', 'important');
 
@@ -51,25 +50,30 @@
       frameRight.style.setProperty('width', rightPx + 'px', 'important');
     }
 
-    center.style.setProperty('margin-left', leftPx + 'px', 'important');
-    center.style.setProperty('margin-right', effectiveRight + 'px', 'important');
+    void frameLeft.offsetHeight;
+
+    var actualLeft = frameLeft.offsetWidth || leftPx;
+    var actualRight = rHidden ? 0 : (frameRight.offsetWidth || rightPx);
+
+    center.style.setProperty('margin-left', actualLeft + 'px', 'important');
+    center.style.setProperty('margin-right', actualRight + 'px', 'important');
 
     if (navbar) {
-      navbar.style.setProperty('left', leftPx + 'px', 'important');
-      navbar.style.setProperty('right', effectiveRight + 'px', 'important');
+      navbar.style.setProperty('left', actualLeft + 'px', 'important');
+      navbar.style.setProperty('right', actualRight + 'px', 'important');
     }
     if (footer) {
-      footer.style.setProperty('left', leftPx + 'px', 'important');
-      footer.style.setProperty('right', effectiveRight + 'px', 'important');
+      footer.style.setProperty('left', actualLeft + 'px', 'important');
+      footer.style.setProperty('right', actualRight + 'px', 'important');
     }
 
-    handleL.style.left = leftPx + 'px';
+    handleL.style.left = actualLeft + 'px';
 
     if (rHidden) {
       handleR.style.display = 'none';
     } else {
       handleR.style.display = '';
-      handleR.style.left = (w - rightPx) + 'px';
+      handleR.style.left = (w - actualRight) + 'px';
     }
 
     applyCenterSplit();
