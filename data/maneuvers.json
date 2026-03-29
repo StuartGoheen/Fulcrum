@@ -133,6 +133,19 @@
       "note": "Cover 5 (nearly total cover — blast door with firing slit) is reserved for fiction. It cannot be rolled for; the GM places it. Maximum Cover from this roll is capped by what the terrain actually offers — rolling Legendary in an open field still yields nothing."
     },
     {
+      "id": "action_overwatch",
+      "name": "Overwatch",
+      "actionType": "Maneuver",
+      "pip": "M",
+      "rolled": false,
+      "tags": [
+        "[Combat]"
+      ],
+      "description": "Declare a zone within your equipped Ranged weapon's range. You must have line of sight, a loaded weapon, and must be in Cover or have not moved since the start of your turn. You gain +1 Exploit this round. Until the start of your next turn, any enemy in the declared zone who moves, attacks, or uses an ability presents an Opening. You may Exploit that Opening to make a Ranged attack against them using your equipped weapon, following normal Exploit rules. The Opening occurs at the moment of the trigger — before the enemy's action resolves. If your attack inflicts a condition, it applies before their action. Each enemy who acts in the zone presents a separate Opening — spend an Exploit for each one you wish to take. Unused Overwatch expires at the start of your next turn.",
+      "risk": "Requires Cover or no movement since start of turn. Requires loaded Ranged weapon and line of sight to the declared zone.",
+      "note": "Weapon traits that reference Overwatch (scopes, targeting systems) modify the Overwatch attack — for example, stepping up Control or Power dice on the triggered shot. The +1 Exploit ensures a baseline character can always take at least one Overwatch shot. Characters with additional Exploits from vocations or gear can punish multiple targets moving through a kill zone."
+    },
+    {
       "id": "action_draw_holster",
       "name": "Draw / Holster",
       "actionType": "Maneuver",
