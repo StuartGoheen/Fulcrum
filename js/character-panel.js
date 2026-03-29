@@ -409,6 +409,24 @@
         '</div>';
     }
 
+    var sigHtml = '';
+    var htData = (window.AdvancementPanel && window.AdvancementPanel.getHeroTierData)
+      ? window.AdvancementPanel.getHeroTierData() : null;
+    if (htData && htData.tier >= 3) {
+      var triggerText = htData.signatureMove || '';
+      sigHtml =
+        '<div class="char-sig-move">' +
+          '<div class="char-sig-move-header">' +
+            '<span class="char-sig-move-label">Signature Move</span>' +
+            '<span class="char-sig-move-badge">1 Edge / scene</span>' +
+          '</div>' +
+          (triggerText
+            ? '<div class="char-sig-move-trigger" id="char-sig-move-display" title="Click to edit">' + _esc(triggerText) + '</div>'
+            : '<button class="char-sig-move-set" id="char-sig-move-set-btn">Set Trigger...</button>'
+          ) +
+        '</div>';
+    }
+
     return (
       '<div class="char-engine-section">' +
         '<div class="char-engine-header">' +
@@ -418,6 +436,7 @@
         '<div class="char-engine-subtitle">' + _esc(char.engine.name) + '</div>' +
         '<div class="char-engine-pips">' + pips + '</div>' +
         coreHtml +
+        sigHtml +
       '</div>'
     );
   }
@@ -664,6 +683,22 @@
 
 
 
+    var sigDisplay = e.target.closest('#char-sig-move-display');
+    var sigSetBtn = e.target.closest('#char-sig-move-set-btn');
+    if (sigDisplay || sigSetBtn) {
+      var curVal = '';
+      if (window.AdvancementPanel && window.AdvancementPanel.getHeroTierData) {
+        var htd = window.AdvancementPanel.getHeroTierData();
+        if (htd) curVal = htd.signatureMove || '';
+      }
+      var newVal = prompt('Signature Move Trigger (e.g. "When I outsmart or defeat someone"):', curVal);
+      if (newVal !== null && window.AdvancementPanel && window.AdvancementPanel.setSignatureMove) {
+        window.AdvancementPanel.setSignatureMove(newVal);
+        _refreshEngine();
+      }
+      return;
+    }
+
         var enginePip = e.target.closest('.char-engine-pip[data-engine-pip]');
     if (enginePip) {
       var epVal = parseInt(enginePip.getAttribute('data-engine-pip'), 10);
@@ -809,6 +844,7 @@
 
   document.addEventListener('advancement:ready', function () {
     _refreshActionEconomy();
+    _refreshEngine();
   });
 
 }());

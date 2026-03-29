@@ -2177,6 +2177,23 @@
     if (!_advancement) return 0;
     return _getHeroTier().tier;
   };
+  window.AdvancementPanel.getHeroTierData = function () {
+    if (!_advancement || !_advancement.heroTier) return null;
+    return {
+      tier: _getHeroTier().tier,
+      tierName: _getHeroTier().name,
+      signatureMove: _advancement.heroTier.signatureMove || '',
+      moniker: _advancement.heroTier.moniker || '',
+      favoredArena: _advancement.heroTier.favoredArena || ''
+    };
+  };
+  window.AdvancementPanel.setSignatureMove = function (val) {
+    if (!_advancement) return;
+    if (!_advancement.heroTier) _advancement.heroTier = { current: 0, respecUsed: false, signatureMove: '', moniker: '', favoredArena: '' };
+    _advancement.heroTier.signatureMove = val;
+    _persist();
+    _render();
+  };
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);

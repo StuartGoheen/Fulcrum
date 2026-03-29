@@ -2754,6 +2754,71 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.5;
 }
 
+.char-sig-move {
+  margin-top: 8px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid color-mix(in srgb, var(--color-accent-primary) 30%, var(--color-border));
+  background: color-mix(in srgb, var(--color-accent-primary) 5%, var(--color-bg-panel));
+}
+
+.char-sig-move-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.char-sig-move-label {
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-accent-primary);
+}
+
+.char-sig-move-badge {
+  font-size: 0.58rem;
+  font-weight: 600;
+  padding: 1px 6px;
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--color-success) 15%, var(--color-bg-panel));
+  color: var(--color-success);
+  border: 1px solid color-mix(in srgb, var(--color-success) 30%, var(--color-border));
+}
+
+.char-sig-move-trigger {
+  font-size: 0.72rem;
+  color: var(--color-text-primary);
+  line-height: 1.4;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 3px;
+  transition: background 0.15s;
+  font-style: italic;
+}
+
+.char-sig-move-trigger:hover {
+  background: color-mix(in srgb, var(--color-accent-primary) 10%, var(--color-bg-panel));
+}
+
+.char-sig-move-set {
+  font-size: 0.68rem;
+  color: var(--color-accent-primary);
+  background: none;
+  border: 1px dashed color-mix(in srgb, var(--color-accent-primary) 40%, var(--color-border));
+  border-radius: 3px;
+  padding: 4px 8px;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.15s;
+}
+
+.char-sig-move-set:hover {
+  background: color-mix(in srgb, var(--color-accent-primary) 10%, var(--color-bg-panel));
+}
+
 /* ── Action Economy ───────────────────────────────────────────────────── */
 
 /* ── Action Pips (inline in Operational Status) ───────────────────────── */
