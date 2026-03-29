@@ -179,6 +179,16 @@
     (char.backgroundFavored || []).forEach(function (id) {
       if (id) ids[id] = true;
     });
+    var htData = (window.AdvancementPanel && window.AdvancementPanel.getHeroTierData)
+      ? window.AdvancementPanel.getHeroTierData() : null;
+    if (htData && htData.tier >= 5 && htData.favoredArena && char.arenas) {
+      var favArena = char.arenas.find(function (a) { return a.id === htData.favoredArena; });
+      if (favArena && favArena.disciplines) {
+        favArena.disciplines.forEach(function (disc) {
+          ids[disc.id] = true;
+        });
+      }
+    }
     return ids;
   }
 
@@ -187,6 +197,13 @@
     var favoredIds = _favoredDisciplineIds(char);
 
     // Identity header
+    var htIdentity = (window.AdvancementPanel && window.AdvancementPanel.getHeroTierData)
+      ? window.AdvancementPanel.getHeroTierData() : null;
+    var hasMoniker = htIdentity && htIdentity.tier >= 5 && htIdentity.moniker;
+    var subtitleHtml = hasMoniker
+      ? '<div class="char-meta char-meta--moniker">' + _esc(char.species) + ' &mdash; <span class="char-moniker">' + _esc(htIdentity.moniker) + '</span></div>'
+      : '<div class="char-meta">' + _esc(char.species) + ' &mdash; ' + _esc(char.archetype) + '</div>';
+
     html +=
       '<div class="char-identity">' +
         '<div class="char-name-row">' +
@@ -201,7 +218,7 @@
             '</svg>' +
           '</button>' +
         '</div>' +
-        '<div class="char-meta">' + _esc(char.species) + ' &mdash; ' + _esc(char.archetype) + '</div>' +
+        subtitleHtml +
       '</div>';
 
     // Arena / discipline grid

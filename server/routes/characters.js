@@ -520,7 +520,8 @@ router.patch('/characters/:id/advancement', (req, res) => {
         signatureMove: (adv.heroTier && typeof adv.heroTier.signatureMove === 'string') ? adv.heroTier.signatureMove.slice(0, 200) : '',
         favoredArena: (adv.heroTier && typeof adv.heroTier.favoredArena === 'string') ? adv.heroTier.favoredArena.slice(0, 100) : '',
         moniker: (adv.heroTier && typeof adv.heroTier.moniker === 'string') ? adv.heroTier.moniker.slice(0, 100) : '',
-        respecUsed: !!(adv.heroTier && adv.heroTier.respecUsed)
+        respecUsed: !!(adv.heroTier && adv.heroTier.respecUsed),
+        ht5Finalized: !!(adv.heroTier && adv.heroTier.ht5Finalized)
       }
     };
     const data = JSON.parse(character.character_data);

@@ -352,22 +352,37 @@
         html += '<input type="text" class="adv-hero-tier-input" id="adv-ht-signature" placeholder="When I..." value="' + _esc(htData.signatureMove || '') + '" />';
         html += '</div>';
         if (ht.tier >= 5) {
-          html += '<div class="adv-hero-tier-input-group">';
-          html += '<label class="adv-hero-tier-input-label">Personal Moniker</label>';
-          html += '<input type="text" class="adv-hero-tier-input" id="adv-ht-moniker" placeholder="What do they call you?" value="' + _esc(htData.moniker || '') + '" />';
-          html += '</div>';
-          html += '<div class="adv-hero-tier-input-group">';
-          html += '<label class="adv-hero-tier-input-label">Favored Arena</label>';
-          html += '<select class="adv-hero-tier-input" id="adv-ht-arena">';
-          html += '<option value="">— Select —</option>';
-          if (_char && _char.arenas) {
-            _char.arenas.forEach(function (a) {
-              var sel = (htData.favoredArena === a.id) ? ' selected' : '';
-              html += '<option value="' + _esc(a.id) + '"' + sel + '>' + _esc(a.label) + ' (' + _esc(a.die) + ')</option>';
-            });
+          if (htData.ht5Finalized) {
+            html += '<div class="adv-hero-tier-display"><b>Moniker:</b> ' + _esc(htData.moniker || '—') + '</div>';
+            if (htData.favoredArena) {
+              var arenaLabel5 = htData.favoredArena;
+              if (_char && _char.arenas) {
+                var found5 = _char.arenas.find(function (a) { return a.id === htData.favoredArena; });
+                if (found5) arenaLabel5 = found5.label;
+              }
+              html += '<div class="adv-hero-tier-display"><b>Favored Arena:</b> ' + _esc(arenaLabel5) + ' (all disciplines Favored)</div>';
+            }
+            html += '<div class="adv-hero-tier-display" style="opacity:0.5;font-size:0.68rem;">The Name tier finalized.</div>';
+          } else {
+            html += '<div class="adv-hero-tier-input-group">';
+            html += '<label class="adv-hero-tier-input-label">Personal Moniker</label>';
+            html += '<input type="text" class="adv-hero-tier-input" id="adv-ht-moniker" placeholder="What do they call you?" value="' + _esc(htData.moniker || '') + '" />';
+            html += '</div>';
+            html += '<div class="adv-hero-tier-input-group">';
+            html += '<label class="adv-hero-tier-input-label">Favored Arena</label>';
+            html += '<select class="adv-hero-tier-input" id="adv-ht-arena">';
+            html += '<option value="">— Select —</option>';
+            if (_char && _char.arenas) {
+              _char.arenas.forEach(function (a) {
+                var sel = (htData.favoredArena === a.id) ? ' selected' : '';
+                html += '<option value="' + _esc(a.id) + '"' + sel + '>' + _esc(a.label) + ' (' + _esc(a.die) + ')</option>';
+              });
+            }
+            html += '</select>';
+            html += '</div>';
+            var canFinalize = (htData.moniker || '').trim() && (htData.favoredArena || '').trim();
+            html += '<button class="adv-btn adv-btn--spend' + (canFinalize ? '' : ' adv-btn--disabled') + '" id="adv-ht5-finalize"' + (canFinalize ? '' : ' disabled') + '>Finalize The Name</button>';
           }
-          html += '</select>';
-          html += '</div>';
         }
         html += '</div>';
       }
@@ -1588,6 +1603,28 @@
       htArena.addEventListener('change', function () {
         _advancement.heroTier.favoredArena = htArena.value;
         _persist();
+        _render();
+      });
+    }
+    var ht5Finalize = container.querySelector('#adv-ht5-finalize');
+    if (ht5Finalize) {
+      ht5Finalize.addEventListener('click', function () {
+        var mon = (_advancement.heroTier.moniker || '').trim();
+        var fav = (_advancement.heroTier.favoredArena || '').trim();
+        if (!mon || !fav) return;
+        _showModal({
+          type: 'confirm',
+          message: 'Finalize "The Name" tier?\n\nMoniker: ' + mon + '\nFavored Arena: ' + fav + '\n\nThis is permanent — all disciplines in that arena become Favored and your moniker replaces your archetype title.',
+          onConfirm: function () {
+            _advancement.heroTier.ht5Finalized = true;
+            _persist();
+            _render();
+            document.dispatchEvent(new CustomEvent('character:stateChanged'));
+            if (window.CharacterPanel && window.CharacterPanel.refresh) {
+              window.CharacterPanel.refresh();
+            }
+          }
+        });
       });
     }
 
@@ -2184,7 +2221,8 @@
       tierName: _getHeroTier().name,
       signatureMove: _advancement.heroTier.signatureMove || '',
       moniker: _advancement.heroTier.moniker || '',
-      favoredArena: _advancement.heroTier.favoredArena || ''
+      favoredArena: _advancement.heroTier.favoredArena || '',
+      ht5Finalized: !!_advancement.heroTier.ht5Finalized
     };
   };
   window.AdvancementPanel.setSignatureMove = function (val) {
