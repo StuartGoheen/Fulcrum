@@ -247,25 +247,29 @@
       html += '<div class="npc-card-stationary">STATIONARY: Cannot move. Evasion 0.</div>';
     }
     if (stats.scale) {
-      html += '<div class="npc-card-scale">SCALE: ' + esc(stats.scale.charAt(0).toUpperCase() + stats.scale.slice(1)) + ' (Level ' + stats.scaleLevel + ')</div>';
+      var scaleDisplay = stats.scale.replace(/_/g, ' ').replace(/\b\w/g, function (c) { return c.toUpperCase(); });
+      html += '<div class="npc-card-scale">SCALE: ' + esc(scaleDisplay) + ' (Level ' + stats.scaleLevel + ')</div>';
     }
 
     if (isShipCategory(cat) || cat === 'vehicle') {
       var sd = currentNpc.shipDetails || {};
-      var hasAnyDetail = sd.hullType || sd.crew || sd.hyperdrive || sd.sensors || sd.shields || sd.cargo || sd.speed;
-      if (hasAnyDetail) {
-        var detailTitle = isShipCategory(cat) ? 'SHIP DETAILS' : 'VEHICLE DETAILS';
-        html += '<div class="npc-ship-details">';
-        html += '<div class="npc-ship-details-title">' + detailTitle + '</div>';
-        if (sd.hullType) html += '<div class="npc-ship-detail-row"><span class="npc-ship-detail-label">Hull Type</span><span class="npc-ship-detail-val">' + esc(sd.hullType) + '</span></div>';
-        if (sd.crew) html += '<div class="npc-ship-detail-row"><span class="npc-ship-detail-label">Crew</span><span class="npc-ship-detail-val">' + esc(sd.crew) + '</span></div>';
-        if (sd.speed) html += '<div class="npc-ship-detail-row"><span class="npc-ship-detail-label">Speed / Maneuver</span><span class="npc-ship-detail-val">' + esc(sd.speed) + '</span></div>';
-        if (sd.shields) html += '<div class="npc-ship-detail-row"><span class="npc-ship-detail-label">Shield Config</span><span class="npc-ship-detail-val">' + esc(sd.shields) + '</span></div>';
-        if (sd.hyperdrive) html += '<div class="npc-ship-detail-row"><span class="npc-ship-detail-label">Hyperdrive</span><span class="npc-ship-detail-val">' + esc(sd.hyperdrive) + '</span></div>';
-        if (sd.sensors) html += '<div class="npc-ship-detail-row"><span class="npc-ship-detail-label">Sensor Range</span><span class="npc-ship-detail-val">' + esc(sd.sensors) + '</span></div>';
-        if (sd.cargo) html += '<div class="npc-ship-detail-row"><span class="npc-ship-detail-label">Cargo</span><span class="npc-ship-detail-val">' + esc(sd.cargo) + '</span></div>';
-        html += '</div>';
-      }
+      var detailTitle = isShipCategory(cat) ? 'SHIP DETAILS' : 'VEHICLE DETAILS';
+      html += '<div class="npc-ship-details">';
+      html += '<div class="npc-ship-details-title">' + detailTitle + '</div>';
+      var detailFields = [
+        { key: 'hullType', label: 'Hull Type' },
+        { key: 'crew', label: 'Crew' },
+        { key: 'speed', label: 'Speed / Maneuver' },
+        { key: 'shields', label: 'Shield Config' },
+        { key: 'hyperdrive', label: 'Hyperdrive' },
+        { key: 'sensors', label: 'Sensor Range' },
+        { key: 'cargo', label: 'Cargo' }
+      ];
+      detailFields.forEach(function (f) {
+        var val = sd[f.key] || '—';
+        html += '<div class="npc-ship-detail-row"><span class="npc-ship-detail-label">' + f.label + '</span><span class="npc-ship-detail-val">' + esc(val) + '</span></div>';
+      });
+      html += '</div>';
     }
 
     if (currentNpc.classification === 'minion') {
