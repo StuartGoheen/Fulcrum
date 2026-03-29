@@ -104,10 +104,10 @@ function seedPregenCharacters() {
     const existing = db.prepare('SELECT id, character_data FROM characters WHERE name = ?').get(char.name);
 
     if (existing) {
-      if (existing.character_data !== dataStr) {
+      if (!existing.character_data) {
         db.prepare('UPDATE characters SET character_data = ? WHERE id = ?')
           .run(dataStr, existing.id);
-        console.log(`[db] Updated pre-gen character: ${char.name}`);
+        console.log(`[db] Initialized pre-gen character: ${char.name}`);
       }
       continue;
     }
