@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  :root {
+    --gold: #d4af37;
+    --obsidian: #050505;
+    --grid-line: #333;
+    --cover-bg: #2a2a2a;
+    --hazard-red: #ff3333;
+  }
+  
+  body { 
+    background: #000; 
+    color: white; 
+    font-family: 'Segoe UI', monospace; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh; 
+    margin: 0; 
+  }
+
+  .tactical-frame {
+    position: relative;
+    width: 380px;  /* 7 cols * 50px + borders */
+    height: 550px; /* 10 rows * 50px + borders */
+    border: 8px solid var(--gold);
+    background: var(--obsidian);
+    box-shadow: 0 0 50px rgba(212, 175, 55, 0.2);
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    gap: 2px;
+    padding: 5px;
+  }
+
+  .cell {
+    background: #111;
+    border: 1px solid var(--grid-line);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    font-size: 10px;
+    color: #444;
+  }
+
+  /* Terrain Types */
+  .stairs { 
+    background: repeating-linear-gradient(0deg, #151515, #151515 5px, #222 5px, #222 10px); 
+  }
+  
+  .cover { 
+    background: var(--cover-bg); 
+    border: 2px solid #666; 
+    color: var(--gold); 
+    font-weight: bold;
+    z-index: 2;
+  }
+  
+  .pillar {
+    background: #000;
+    border: 2px solid var(--gold);
+    box-shadow: 0 0 5px var(--gold);
+  }
+
+  /* Entities */
+  .turret {
+    background: #400;
+    border: 2px solid var(--hazard-red);
+    color: var(--hazard-red);
+    font-weight: bold;
+    box-shadow: 0 0 10px var(--hazard-red);
+  }
+  
+  .mob {
+    background: #800;
+    color: white;
+    width: 90%; height: 90%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: bold;
+    border-radius: 4px;
+  }
+  
+  .horizon {
+    background: #060;
+    color: #afa;
+    width: 90%; height: 90%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: bold;
+    border-radius: 4px;
+    border: 1px dashed #afa;
+  }
+  
+  .start {
+    border: 2px solid cyan;
+    color: cyan;
+    box-shadow: inset 0 0 10px rgba(0, 255, 255, 0.3);
+  }
+
+  /* Labels */
+  .coord { position: absolute; top: 2px; left: 2px; font-size: 7px; opacity: 0.5; }
+  .label-text { z-index: 5; text-align: center; }
+
+  /* Overlay Lines */
+  .zone-line {
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background: var(--gold);
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="tactical-frame">
+  
+  <!-- ROW 10 (TOP) - The Breach -->
+  <div class="cell stairs"><span class="coord">A10</span></div>
+  <div class="cell stairs"><span class="coord">B10</span><div class="mob">ONI A</div></div>
+  <div class="cell stairs"><span class="coord">C10</span><div class="mob">ONI A</div></div>
+  <div class="cell stairs"><span class="coord">D10</span><div class="mob">CMDR</div></div>
+  <div class="cell stairs"><span class="coord">E10</span><div class="mob">ONI B</div></div>
+  <div class="cell stairs"><span class="coord">F10</span><div class="mob">ONI B</div></div>
+  <div class="cell stairs"><span class="coord">G10</span></div>
+
+  <!-- ROW 09 - Stairs + Top Pillars -->
+  <div class="cell stairs pillar"><span class="coord">A09</span><span class="label-text">█</span></div>
+  <div class="cell stairs"><span class="coord">B09</span></div>
+  <div class="cell stairs"><span class="coord">C09</span></div>
+  <div class="cell stairs"><span class="coord">D09</span></div>
+  <div class="cell stairs"><span class="coord">E09</span></div>
+  <div class="cell stairs"><span class="coord">F09</span></div>
+  <div class="cell stairs pillar"><span class="coord">G09</span><span class="label-text">█</span></div>
+
+  <!-- ROW 08 - Base of Stairs -->
+  <div class="cell stairs"><span class="coord">A08</span></div>
+  <div class="cell stairs"><span class="coord">B08</span></div>
+  <div class="cell stairs"><span class="coord">C08</span></div>
+  <div class="cell stairs"><span class="coord">D08</span></div>
+  <div class="cell stairs"><span class="coord">E08</span></div>
+  <div class="cell stairs"><span class="coord">F08</span></div>
+  <div class="cell stairs"><span class="coord">G08</span></div>
+
+  <!-- ROW 07 - Dragon Rear + Pillars -->
+  <div class="cell pillar"><span class="coord">A07</span><span class="label-text">█</span></div>
+  <div class="cell"><span class="coord">B07</span></div>
+  <div class="cell cover"><span class="coord">C07</span>DRGN</div>
+  <div class="cell cover"><span class="coord">D07</span>DRGN</div>
+  <div class="cell cover"><span class="coord">E07</span>DRGN</div>
+  <div class="cell"><span class="coord">F07</span></div>
+  <div class="cell pillar"><span class="coord">G07</span><span class="label-text">█</span></div>
+
+  <!-- ROW 06 - Horizon Pinned -->
+  <div class="cell"><span class="coord">A06</span></div>
+  <div class="cell"><span class="coord">B06</span></div>
+  <div class="cell cover"><span class="coord">C06</span>DRGN</div>
+  <div class="cell cover"><span class="coord">D06</span><div class="horizon">HRZN</div></div>
+  <div class="cell cover"><span class="coord">E06</span>DRGN</div>
+  <div class="cell"><span class="coord">F06</span></div>
+  <div class="cell"><span class="coord">G06</span></div>
+
+  <!-- ROW 05 - Turrets + Dragon Front -->
+  <div class="cell turret"><span class="coord">A05</span>T-L</div>
+  <div class="cell"><span class="coord">B05</span></div>
+  <div class="cell"><span class="coord">C05</span></div>
+  <div class="cell cover"><span class="coord">D05</span>DRGN</div>
+  <div class="cell"><span class="coord">E05</span></div>
+  <div class="cell"><span class="coord">F05</span></div>
+  <div class="cell turret"><span class="coord">G05</span>T-R</div>
+
+  <!-- ROW 04 - Open Kill Box -->
+  <div class="cell"><span class="coord">A04</span></div>
+  <div class="cell"><span class="coord">B04</span></div>
+  <div class="cell"><span class="coord">C04</span></div>
+  <div class="cell"><span class="coord">D04</span></div>
+  <div class="cell"><span class="coord">E04</span></div>
+  <div class="cell"><span class="coord">F04</span></div>
+  <div class="cell"><span class="coord">G04</span></div>
+
+  <!-- ROW 03 - Mid Pillars -->
+  <div class="cell pillar"><span class="coord">A03</span><span class="label-text">█</span></div>
+  <div class="cell"><span class="coord">B03</span></div>
+  <div class="cell"><span class="coord">C03</span></div>
+  <div class="cell"><span class="coord">D03</span></div>
+  <div class="cell"><span class="coord">E03</span></div>
+  <div class="cell"><span class="coord">F03</span></div>
+  <div class="cell pillar"><span class="coord">G03</span><span class="label-text">█</span></div>
+
+  <!-- ROW 02 - Open Kill Box -->
+  <div class="cell"><span class="coord">A02</span></div>
+  <div class="cell"><span class="coord">B02</span></div>
+  <div class="cell"><span class="coord">C02</span></div>
+  <div class="cell"><span class="coord">D02</span></div>
+  <div class="cell"><span class="coord">E02</span></div>
+  <div class="cell"><span class="coord">F02</span></div>
+  <div class="cell"><span class="coord">G02</span></div>
+
+  <!-- ROW 01 - Entry + Flank Cover -->
+  <div class="cell pillar"><span class="coord">A01</span><span class="label-text">█</span></div>
+  <div class="cell"><span class="coord">B01</span></div>
+  <div class="cell cover"><span class="coord">C01</span><span class="label-text">█</span></div>
+  <div class="cell start"><span class="coord">D01</span>START</div>
+  <div class="cell cover"><span class="coord">E01</span><span class="label-text">█</span></div>
+  <div class="cell"><span class="coord">F01</span></div>
+  <div class="cell pillar"><span class="coord">G01</span><span class="label-text">█</span></div>
+
+  <!-- Zone Lines Overlay -->
+  <div style="position: absolute; top: 165px; width: 100%; border-top: 2px dashed var(--gold); opacity: 0.5; pointer-events: none;"></div>
+  <div style="position: absolute; right: 5px; top: 150px; color: var(--gold); font-size: 10px;">ZONE 3: THE RISE</div>
+  
+  <div style="position: absolute; top: 385px; width: 100%; border-top: 2px dashed var(--gold); opacity: 0.5; pointer-events: none;"></div>
+  <div style="position: absolute; right: 5px; top: 370px; color: var(--gold); font-size: 10px;">ZONE 2: THE DRAGON</div>
+  
+  <div style="position: absolute; right: 5px; bottom: 5px; color: var(--gold); font-size: 10px;">ZONE 1: KILL BOX</div>
+
+</div>
+
+</body>
+</html>

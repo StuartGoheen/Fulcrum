@@ -14,12 +14,6 @@
     { id: 'broken', name: 'Broken', color: '#1f2937', effect: 'Cannot take offensive actions. May only Defend, Move, or Surrender.' }
   ];
 
-  var COVER_COLORS = {
-    'none': 'rgba(255,255,255,0.03)',
-    'light': 'rgba(234,179,8,0.12)',
-    'hard': 'rgba(59,130,246,0.15)',
-    'full': 'rgba(34,197,94,0.15)'
-  };
 
   var COVER_LABELS = {
     'none': 'No Cover',
@@ -365,6 +359,7 @@
 
     var html = '<div class="ct-tactical-map">';
     html += '<div class="ct-section-label">Tactical Map &mdash; ' + esc(tm.zoneSize || '15ft') + ' zones</div>';
+    html += '<div class="ct-map-frame">';
     html += '<div class="ct-map-grid" style="grid-template-columns:repeat(' + cols + ',1fr);">';
 
     for (var r = 0; r < rows; r++) {
@@ -376,15 +371,18 @@
           continue;
         }
         var passable = zone.passable !== false;
-        var coverBg = COVER_COLORS[zone.cover] || COVER_COLORS['none'];
         var lightIcon = LIGHTING_ICONS[zone.lighting] || '';
         var coverLabel = COVER_LABELS[zone.cover] || 'None';
         var selected = combatState.selectedToken ? ' ct-zone-targetable' : '';
+        var coverClass = ' ct-zone-cover-' + (zone.cover || 'none');
+        var lightClass = '';
+        if (zone.lighting === 'dim') lightClass = ' ct-zone-dim';
+        else if (zone.lighting === 'shadow') lightClass = ' ct-zone-shadow';
 
-        html += '<div class="ct-zone' + (passable ? '' : ' ct-zone-impassable') + selected + '" data-zone-id="' + zid + '" style="background:' + coverBg + ';">';
+        html += '<div class="ct-zone' + (passable ? '' : ' ct-zone-impassable') + coverClass + lightClass + selected + '" data-zone-id="' + zid + '">';
         html += '<div class="ct-zone-header">';
         html += '<span class="ct-zone-id">' + zid + '</span>';
-        html += '<span class="ct-zone-light" title="' + esc(zone.lighting) + '">' + lightIcon + '</span>';
+        html += '<span class="ct-zone-light" title="' + esc(zone.lighting || 'Normal') + '">' + lightIcon + '</span>';
         html += '</div>';
         html += '<div class="ct-zone-label">' + esc(zone.label) + '</div>';
         html += '<div class="ct-zone-cover">' + esc(coverLabel) + '</div>';
@@ -404,6 +402,14 @@
       }
     }
 
+    html += '</div>';
+    html += '</div>';
+
+    html += '<div class="ct-map-legend">';
+    html += '<span class="ct-legend-item"><span class="ct-legend-swatch" style="border-color:rgba(234,179,8,0.6);background:rgba(234,179,8,0.15);"></span>Light Cover</span>';
+    html += '<span class="ct-legend-item"><span class="ct-legend-swatch" style="border-color:rgba(59,130,246,0.7);background:rgba(59,130,246,0.2);"></span>Hard Cover</span>';
+    html += '<span class="ct-legend-item"><span class="ct-legend-swatch" style="border-color:rgba(34,197,94,0.6);background:rgba(34,197,94,0.2);"></span>Full Cover</span>';
+    html += '<span class="ct-legend-item"><span class="ct-legend-swatch" style="border-color:rgba(100,100,100,0.4);background:repeating-linear-gradient(45deg,rgba(100,100,100,0.2),rgba(100,100,100,0.2) 2px,transparent 2px,transparent 4px);"></span>Impassable</span>';
     html += '</div>';
 
     if (tm.gmTacticalNotes) {
