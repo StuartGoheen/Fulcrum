@@ -8242,20 +8242,6 @@ h1, h2, h3, h4, h5, h6 {
      Cap side frames so they don't grow too wide on large monitors.
      ══════════════════════════════════════════════════════════════ */
 
-@media (min-width: 1600px) {
-  #frame-left,
-    #frame-right {
-    max-width: 380px;
-  }
-}
-
-@media (min-width: 1920px) {
-  #frame-left,
-    #frame-right {
-    max-width: 420px;
-  }
-}
-
 /* ══════════════════════════════════════════════════════════════════════════
    CHARACTER DETAILS PANEL (Panel 1 — Quick Reference)
    Identity · Abilities · Species Traits · Kit Progression · Backstory

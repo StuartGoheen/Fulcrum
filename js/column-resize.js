@@ -34,15 +34,26 @@
     return window.getComputedStyle(frameRight).display === 'none';
   }
 
+  function getMaxCap() {
+    var w = window.innerWidth;
+    if (w >= 1920) return 420;
+    if (w >= 1600) return 380;
+    return Infinity;
+  }
+
   function applyLayout() {
     var w = window.innerWidth;
     var maxSide = Math.floor(w * 0.4);
+    var cap = getMaxCap();
+    if (cap < maxSide) maxSide = cap;
+
     if (leftPx < MIN_PX) leftPx = MIN_PX;
     if (leftPx > maxSide) leftPx = maxSide;
     if (rightPx < MIN_PX) rightPx = MIN_PX;
     if (rightPx > maxSide) rightPx = maxSide;
 
     var rHidden = isRightHidden();
+    var effectiveRight = rHidden ? 0 : rightPx;
 
     frameLeft.style.setProperty('width', leftPx + 'px', 'important');
 
@@ -50,30 +61,25 @@
       frameRight.style.setProperty('width', rightPx + 'px', 'important');
     }
 
-    void frameLeft.offsetHeight;
-
-    var actualLeft = frameLeft.offsetWidth || leftPx;
-    var actualRight = rHidden ? 0 : (frameRight.offsetWidth || rightPx);
-
-    center.style.setProperty('margin-left', actualLeft + 'px', 'important');
-    center.style.setProperty('margin-right', actualRight + 'px', 'important');
+    center.style.setProperty('margin-left', leftPx + 'px', 'important');
+    center.style.setProperty('margin-right', effectiveRight + 'px', 'important');
 
     if (navbar) {
-      navbar.style.setProperty('left', actualLeft + 'px', 'important');
-      navbar.style.setProperty('right', actualRight + 'px', 'important');
+      navbar.style.setProperty('left', leftPx + 'px', 'important');
+      navbar.style.setProperty('right', effectiveRight + 'px', 'important');
     }
     if (footer) {
-      footer.style.setProperty('left', actualLeft + 'px', 'important');
-      footer.style.setProperty('right', actualRight + 'px', 'important');
+      footer.style.setProperty('left', leftPx + 'px', 'important');
+      footer.style.setProperty('right', effectiveRight + 'px', 'important');
     }
 
-    handleL.style.left = actualLeft + 'px';
+    handleL.style.left = leftPx + 'px';
 
     if (rHidden) {
       handleR.style.display = 'none';
     } else {
       handleR.style.display = '';
-      handleR.style.left = (w - actualRight) + 'px';
+      handleR.style.left = (w - rightPx) + 'px';
     }
 
     applyCenterSplit();
