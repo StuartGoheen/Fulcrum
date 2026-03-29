@@ -451,7 +451,7 @@ router.get('/campaign/party', (req, res) => {
   const characters = db.prepare(`
     SELECT id, name, session_id, character_data
     FROM characters
-    WHERE character_data IS NOT NULL
+    WHERE character_data IS NOT NULL AND session_id IS NOT NULL
   `).all();
   const party = characters.map(c => {
     let data = {};
@@ -512,7 +512,7 @@ router.get('/campaign/scene-intel/:sceneId', (req, res) => {
 
     const characters = db.prepare(`
       SELECT id, name, session_id, character_data
-      FROM characters WHERE character_data IS NOT NULL
+      FROM characters WHERE character_data IS NOT NULL AND session_id IS NOT NULL
     `).all();
 
     const intel = characters.map(c => {

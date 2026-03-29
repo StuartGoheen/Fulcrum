@@ -569,7 +569,7 @@
     var list = document.getElementById('party-list');
     if (!list) return;
     if (!party.length) {
-      list.innerHTML = '<p class="cb-muted" style="font-style:italic;">No characters found.</p>';
+      list.innerHTML = '<p class="cb-muted" style="font-style:italic;">No crew online.</p>';
       return;
     }
 
