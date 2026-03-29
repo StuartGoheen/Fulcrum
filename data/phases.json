@@ -39,7 +39,10 @@
         ],
         "favored": "Survival (Grit)",
         "favoredName": "Dust-Born Tenacity",
-        "favoredDesc": "Years of rationing water, patching shelters against sandstorms, and reading the land for hidden dangers forged an instinct for staying alive where nothing wants you to."
+        "favoredDesc": "Years of rationing water, patching shelters against sandstorms, and reading the land for hidden dangers forged an instinct for staying alive where nothing wants you to.",
+        "knackName": "Fringe-Read",
+        "knackType": "Narrative Truth",
+        "knack": "You read terrain for water, shelter, and danger the way city people read street signs. You know whether a settlement is thriving or dying from its water infrastructure alone. You recognize the signs of a sandstorm, a predator's territory, or a dried-up well before anyone else looks twice. In places where civilization thins out, you are never lost — you are home."
       }
     },
     {
@@ -81,7 +84,10 @@
         ],
         "favored": "Stealth (Reflex)",
         "favoredName": "Underlevel Ghost",
-        "favoredDesc": "Moving unseen through the stacked warrens of the underworld taught you how to vanish mid-stride — slipping through crowds, ducking sensor sweeps, and leaving no trace."
+        "favoredDesc": "Moving unseen through the stacked warrens of the underworld taught you how to vanish mid-stride — slipping through crowds, ducking sensor sweeps, and leaving no trace.",
+        "knackName": "Street Calculus",
+        "knackType": "Narrative Truth",
+        "knack": "You read a room's angles before you finish walking through the door — who runs this place, who owes whom, where the exits are, and whether the deal being offered has a hidden clause. You know how underworld economies work: which vendors are fronts, which debts are real, and which smiles are transactions. In any settlement with a criminal layer, you see the machinery underneath."
       }
     },
     {
@@ -122,7 +128,10 @@
         ],
         "favored": "Tech (Wits)",
         "favoredName": "Scrapyard Intuition",
-        "favoredDesc": "You learned to coax dying machines back to life with salvaged parts and sheer stubbornness. Every hull fragment whispers its history if you know where to press your ear."
+        "favoredDesc": "You learned to coax dying machines back to life with salvaged parts and sheer stubbornness. Every hull fragment whispers its history if you know where to press your ear.",
+        "knackName": "Wreck-Reader",
+        "knackType": "Narrative Truth",
+        "knack": "You see the history in machines. A ship's hull tells you where it has been, what hit it, and whether it was repaired by someone who knew what they were doing. You recognize salvageable tech in wreckage that others dismiss as scrap. When someone says something is broken beyond repair, you know whether that is true or whether they just do not know where to look."
       }
     },
     {
@@ -164,7 +173,10 @@
         ],
         "favored": "Persuasion (Presence)",
         "favoredName": "Courtly Tongue",
-        "favoredDesc": "Growing up among senators and industrialists taught you how words shape power. You know how to frame an argument so it feels like the listener's own idea."
+        "favoredDesc": "Growing up among senators and industrialists taught you how words shape power. You know how to frame an argument so it feels like the listener's own idea.",
+        "knackName": "Institutional Fluency",
+        "knackType": "Narrative Truth",
+        "knack": "You understand how power structures work — corporate hierarchies, political favors, the language of bureaucracy. You recognize when someone is performing authority versus actually holding it. You know the customs, protocols, and social codes of the educated elite, and you can tell the difference between old money and new money by how someone enters a room."
       }
     },
     {
@@ -213,7 +225,10 @@
         ],
         "favored": "Resolve (Grit)",
         "favoredName": "Rootstock Will",
-        "favoredDesc": "Seasons of drought, Imperial levy collectors, and backbreaking harvests taught you to endure what would break others. When the soil fights you, you plant deeper."
+        "favoredDesc": "Seasons of drought, Imperial levy collectors, and backbreaking harvests taught you to endure what would break others. When the soil fights you, you plant deeper.",
+        "knackName": "Harvest Eye",
+        "knackType": "Narrative Truth",
+        "knack": "You read weather, soil, and seasons instinctively. You know whether a community is self-sustaining or dependent, whether a harvest will last the winter, and you recognize the signs of Imperial taxation squeezing a settlement dry — the thinning herds, the hollow granaries, the look on a farmer's face when the levy collector's ship lands. You know what cooperation holds a community together, and what happens when it breaks."
       }
     },
     {
@@ -262,7 +277,10 @@
         ],
         "favored": "Evasion (Reflex)",
         "favoredName": "Shell-Shock Reflexes",
-        "favoredDesc": "Artillery and ambushes rewired your nervous system. You don't think about dodging — your body moves before the blast hits, honed by years of living where standing still means dying."
+        "favoredDesc": "Artillery and ambushes rewired your nervous system. You don't think about dodging — your body moves before the blast hits, honed by years of living where standing still means dying.",
+        "knackName": "Threat Weather",
+        "knackType": "Narrative Truth",
+        "knack": "You read environments for threat before you read them for anything else. You know the difference between a patrol and a sweep, between a checkpoint and a kill zone. You recognize military hardware, unit markings, and the body language of soldiers who are about to use force versus soldiers who are just bored. In any place where violence has happened recently, you see the evidence others walk past."
       }
     },
     {
@@ -311,7 +329,10 @@
         ],
         "favored": "Investigation (Wits)",
         "favoredName": "Ruin-Reader's Eye",
-        "favoredDesc": "Tracing glyphs by lamplight and cross-referencing crumbling datapads trained you to spot what others overlook. Patterns emerge for you where everyone else sees noise."
+        "favoredDesc": "Tracing glyphs by lamplight and cross-referencing crumbling datapads trained you to spot what others overlook. Patterns emerge for you where everyone else sees noise.",
+        "knackName": "Deep Time",
+        "knackType": "Narrative Truth",
+        "knack": "You notice things that do not belong to the present — inscriptions, architectural remnants, artifacts that predate the Republic. You recognize when a site has been disturbed, when someone has been excavating, and when the age of a place does not match the official story. In any location with ancient roots, the past speaks to you in a language most people have forgotten exists."
       }
     },
     {
@@ -360,7 +381,10 @@
         ],
         "favored": "Insight (Presence)",
         "favoredName": "Crossroads Intuition",
-        "favoredDesc": "A lifetime of reading merchants, refugees, and con artists at the crossroads gave you an ear for half-truths. You sense the angle before the pitch is finished."
+        "favoredDesc": "A lifetime of reading merchants, refugees, and con artists at the crossroads gave you an ear for half-truths. You sense the angle before the pitch is finished.",
+        "knackName": "Trade Tongue",
+        "knackType": "Narrative Truth",
+        "knack": "You speak the language of trade — literally and figuratively. You recognize the origins of goods by their markings, you know when a price is fair across multiple markets, and you read the flow of a port to know what is moving, what is scarce, and who is desperate to sell. In any settlement where commerce flows, you understand the economy before anyone explains it to you."
       }
     },
     {
@@ -402,7 +426,10 @@
         ],
         "favored": "Endure (Physique)",
         "favoredName": "Iron Constitution",
-        "favoredDesc": "Starvation rations, forced marches, and interrogation droids taught your body to absorb punishment that would drop anyone else. Pain is just a signal you learned to override."
+        "favoredDesc": "Starvation rations, forced marches, and interrogation droids taught your body to absorb punishment that would drop anyone else. Pain is just a signal you learned to override.",
+        "knackName": "Cage Sense",
+        "knackType": "Narrative Truth",
+        "knack": "You know how confinement works — guard rotations, the rhythm of institutional control, which rules are enforced and which are theater. You recognize the architecture of containment: where the monitoring points are, where the blind spots are, and how facilities control movement. When you walk into any place designed to hold people, you already understand its logic."
       }
     },
     {
@@ -451,7 +478,10 @@
         ],
         "favored": "Piloting (Reflex)",
         "favoredName": "Void-Born Hands",
-        "favoredDesc": "Born between hyperspace jumps, you feel a ship's rhythm the way grounders feel gravity. Thrust vectors, drift corrections, and emergency burns are second nature — the cockpit is the only room that ever felt like home."
+        "favoredDesc": "Born between hyperspace jumps, you feel a ship's rhythm the way grounders feel gravity. Thrust vectors, drift corrections, and emergency burns are second nature — the cockpit is the only room that ever felt like home.",
+        "knackName": "Hull Whisper",
+        "knackType": "Narrative Truth",
+        "knack": "Ships talk to you. You hear the difference between a healthy engine and one running hot. You know a freighter's layout by its class, you can navigate a vessel in the dark by the vibration of the deck plates, and you recognize the sounds that mean something is about to go very wrong. When you board any ship, you already know its condition, its age, and whether it has been cared for or ridden hard."
       }
     },
     {
@@ -500,7 +530,10 @@
         ],
         "favored": "Athletics (Physique)",
         "favoredName": "Quarry-Forged Strength",
-        "favoredDesc": "Hauling ore carts, climbing unstable shafts, and breaking rock with crude tools sculpted a body built for raw physical output. When the ground shakes, you keep swinging."
+        "favoredDesc": "Hauling ore carts, climbing unstable shafts, and breaking rock with crude tools sculpted a body built for raw physical output. When the ground shakes, you keep swinging.",
+        "knackName": "Quota Eyes",
+        "knackType": "Narrative Truth",
+        "knack": "You know the economics of exploitation — work quotas, ration schedules, the calculations that treat people as output. You recognize when a community is being squeezed, when workers are being underpaid, and you see the difference between someone who has been broken by labor and someone who is about to break free. In any place where the powerful profit from the labor of others, you see the system for what it is."
       }
     },
     {
@@ -549,7 +582,10 @@
         ],
         "favored": "Charm (Presence)",
         "favoredName": "Voice of the Inner Circle",
-        "favoredDesc": "Years of communal ritual and close-quarter diplomacy gave you an effortless warmth that disarms strangers. People want to trust you — and you learned exactly how to invite that."
+        "favoredDesc": "Years of communal ritual and close-quarter diplomacy gave you an effortless warmth that disarms strangers. People want to trust you — and you learned exactly how to invite that.",
+        "knackName": "Circle Sight",
+        "knackType": "Narrative Truth",
+        "knack": "You understand closed systems — the rituals, hierarchies, and unspoken rules that hold insular groups together. You recognize when someone has left a community they loved, when a tradition is being maintained out of faith versus fear, and you know the signs of a group that is tightening its borders against outsiders. In any community held together by belief or belonging, you see the bonds and the fractures."
       }
     }
   ],
@@ -588,7 +624,10 @@
         "favored": "Tactics (Wits)",
         "favoredName": "Veteran's Calculus",
         "favoredDesc": "Years of reading battlefields — counting exits, gauging fire arcs, and timing advances — gave you an instinct for turning chaos into a plan before anyone else has stopped flinching.",
-        "variability": "Disciplined squad leader (Tactics/Ranged) or heavy-infantry trench fighter (Athletics/Ranged)?"
+        "variability": "Disciplined squad leader (Tactics/Ranged) or heavy-infantry trench fighter (Athletics/Ranged)?",
+        "knackName": "Old Soldier's Eye",
+        "knackType": "Narrative Truth",
+        "knack": "You know how military organizations function — chain of command, logistics, the gap between orders and execution. You recognize military discipline in people who have served by how they stand, how they scan a room, and how they respond to sudden noise. You can assess a fighting force's readiness, morale, and command quality at a glance. Veterans see you the same way — and they know you have been in the mud."
       }
     },
     {
@@ -625,7 +664,10 @@
         "favored": "Ranged (Reflex)",
         "favoredName": "Siege-Line Marksman",
         "favoredDesc": "Defending crumbling positions against clone battalions taught you to make every shot count. You learned to shoot straight under fire when bolts were too precious to waste.",
-        "variability": "Guerrilla mechanic (Tech/Ranged) or hardened survivor of the sieges (Endure/Ranged)?"
+        "variability": "Guerrilla mechanic (Tech/Ranged) or hardened survivor of the sieges (Endure/Ranged)?",
+        "knackName": "Cause Reader",
+        "knackType": "Narrative Truth",
+        "knack": "You recognize Separatist-era technology, insignia, and ideology even when it has been buried or disguised. You know which worlds sympathized with the Cause, which communities still harbor holdouts, and you can tell when someone's hatred of the Republic — now Empire — comes from conviction rather than convenience. In settlements with old CIS sympathies, you see the signs that have been painted over but not erased."
       }
     },
     {
@@ -662,7 +704,10 @@
         "favored": "Deception (Presence)",
         "favoredName": "Imperial Mask",
         "favoredDesc": "You wore the Empire's face long enough to learn how authority sounds. Even after defecting, you can slip back into that cold, confident cadence — and most people never question the uniform in the voice.",
-        "variability": "Rogue TIE pilot (Piloting/Tactics) or quartermaster who stole Imperial codes (Tactics/Skulduggery)?"
+        "variability": "Rogue TIE pilot (Piloting/Tactics) or quartermaster who stole Imperial codes (Tactics/Skulduggery)?",
+        "knackName": "Inside Knowledge",
+        "knackType": "Narrative Truth",
+        "knack": "You know how the Empire operates from the inside — rank structure, comm protocols, patrol patterns, the specific laziness of Outer Rim garrison duty. You recognize Imperial equipment variants by era and theatre, you know the difference between a competent officer and a political appointee, and you understand the bureaucratic seams where procedure breaks down. When the Empire is present, you see what civilians miss."
       }
     },
     {
@@ -699,7 +744,10 @@
         "favored": "Piloting (Reflex)",
         "favoredName": "Blockade Nerve",
         "favoredDesc": "Running contraband past capital ships taught your hands to fly on instinct. You thread needle-gaps in debris fields and outrun tractor beams before your conscious mind catches up.",
-        "variability": "Ace smuggler pilot (Piloting/Insight) or smooth-talking contraband broker (Deception/Insight)?"
+        "variability": "Ace smuggler pilot (Piloting/Insight) or smooth-talking contraband broker (Deception/Insight)?",
+        "knackName": "Lane Sense",
+        "knackType": "Narrative Truth",
+        "knack": "You read spacelanes the way navigators read charts — but for what is hidden. You know which routes are patrolled, which ports ask questions, and which customs officers look the other way. You recognize a ship that is running cargo it should not be by how it flies and where it docks. In any spaceport, you know the difference between legitimate freight and a smuggling operation before the ramp drops."
       }
     },
     {
@@ -736,7 +784,10 @@
         "favored": "Survival (Grit)",
         "favoredName": "Scorched-Earth Instinct",
         "favoredDesc": "When the Empire burned your home, the wilderness became your classroom. You learned to find water in ash, set traps from wreckage, and outlast garrison patrols by knowing the land better than they ever will.",
-        "variability": "Wilderness ambush specialist (Stealth/Survival) or nimble hit-and-run saboteur (Stealth/Evasion)?"
+        "variability": "Wilderness ambush specialist (Stealth/Survival) or nimble hit-and-run saboteur (Stealth/Evasion)?",
+        "knackName": "Occupation Scars",
+        "knackType": "Narrative Truth",
+        "knack": "You know what Imperial pacification looks like before it arrives — the staging patterns, the propaganda broadcasts, the sudden interest in census data. You recognize the signs of a community being prepared for subjugation, and you know which direction people flee when it starts. In any settlement under Imperial pressure, you see the fear that the residents are trying to hide, because you have worn that same face."
       }
     },
     {
@@ -773,7 +824,10 @@
         "favored": "Medicine (Wits)",
         "favoredName": "Triage Precision",
         "favoredDesc": "Digging shrapnel out of screaming soldiers while artillery shook the ceiling taught you to think in seconds. You diagnose by touch, prioritize by instinct, and never waste a stim-pack.",
-        "variability": "Hardened combat surgeon (Medicine/Resolve) or perceptive, empathetic healer (Medicine/Insight)?"
+        "variability": "Hardened combat surgeon (Medicine/Resolve) or perceptive, empathetic healer (Medicine/Insight)?",
+        "knackName": "Wound Literacy",
+        "knackType": "Narrative Truth",
+        "knack": "You assess injuries by sight — severity, cause, time since infliction. You know what weapons leave what wounds, whether someone has been treated by a professional or a desperate amateur, and you can tell when someone is hiding pain behind a steady voice. You know the smell of a med-bay that is running low on supplies, and you recognize the signs of field-surgery scars on anyone who carries them."
       }
     },
     {
@@ -810,7 +864,10 @@
         "favored": "Intimidate (Grit)",
         "favoredName": "Syndicate Menace",
         "favoredDesc": "Collecting debts for the Hutts taught you that violence is most effective when it stays implied. A look, a silence, and the weight of what you represent make most targets cooperate before you raise a fist.",
-        "variability": "Immovable heavy enforcer (Brawl/Endure) or terrifying interrogator/debt collector (Intimidate/Brawl)?"
+        "variability": "Immovable heavy enforcer (Brawl/Endure) or terrifying interrogator/debt collector (Intimidate/Brawl)?",
+        "knackName": "Power Map",
+        "knackType": "Narrative Truth",
+        "knack": "You know how criminal organizations project power — the enforcers, the accountants, the figurehead versus the real boss. You recognize when someone owes a debt by how they carry themselves in a room, you know the difference between a shakedown and a genuine warning, and you understand what it means when a name is spoken quietly instead of loudly. In any place where the syndicates have reach, you see the hierarchy."
       }
     },
     {
@@ -847,7 +904,10 @@
         "favored": "Investigation (Wits)",
         "favoredName": "Hunter's Patience",
         "favoredDesc": "Tracking war criminals across a dozen shattered systems taught you to read a cold trail — a discarded fuel receipt, a nervous docking clerk, the faintest pattern in hyperspace logs.",
-        "variability": "Urban detective hunting leads (Investigation/Ranged) or relentless Outer Rim tracker (Survival/Ranged)?"
+        "variability": "Urban detective hunting leads (Investigation/Ranged) or relentless Outer Rim tracker (Survival/Ranged)?",
+        "knackName": "Quarry Sight",
+        "knackType": "Narrative Truth",
+        "knack": "You read people for flight risk — the ones who check exits, the ones who pay in cash, the ones whose stories do not match their clothes. You know how people run: which routes they take, which aliases they favor, and what mistakes they make when they think they have gotten away. In any crowd, you see the person who does not want to be found, because you know every pattern of evasion."
       }
     },
     {
@@ -884,7 +944,10 @@
         "favored": "Stealth (Reflex)",
         "favoredName": "Purge Shadow",
         "favoredDesc": "Three years of hiding your true nature from Inquisitors and informants made invisibility a reflex. You move through occupied space like smoke — present, but impossible to grasp.",
-        "variability": "Force-sensitive hiding their signature (Sense/Stealth) or purged political scholar under a fake identity (Deception/Stealth)?"
+        "variability": "Force-sensitive hiding their signature (Sense/Stealth) or purged political scholar under a fake identity (Deception/Stealth)?",
+        "knackName": "Informant Sense",
+        "knackType": "Narrative Truth",
+        "knack": "You know what persecution looks like from the inside — informant networks, loyalty tests, the slow tightening of surveillance around a community. You recognize when someone is reporting to an authority they are afraid of, when a question is really an interrogation, and when a settlement has been seeded with watchers. In any place where the Empire is hunting for something specific, you see the net before it closes."
       }
     },
     {
@@ -921,7 +984,10 @@
         "favored": "Endure (Physique)",
         "favoredName": "Wreck-Hardened Frame",
         "favoredDesc": "Surviving the catastrophe branded endurance into your bones. Decompression, impact trauma, and days of crawling through wreckage taught your body to keep functioning long past the point of collapse.",
-        "variability": "Engineer who kept the ship alive long enough (Tech/Endure) or gunner who survived the hull breach (Survival/Endure)?"
+        "variability": "Engineer who kept the ship alive long enough (Tech/Endure) or gunner who survived the hull breach (Survival/Endure)?",
+        "knackName": "Fracture Sight",
+        "knackType": "Narrative Truth",
+        "knack": "You know what catastrophic failure looks like — structural, mechanical, human. You recognize when a ship, a building, or a plan is about to come apart by the stress fractures that others miss. You see the hairline crack in the bulkhead, the overloaded power coupling, the team dynamic that is one bad decision away from collapse. You have lived through what happens when those fractures give way, and that knowledge never turns off."
       }
     },
     {
@@ -958,7 +1024,10 @@
         "favored": "Persuasion (Presence)",
         "favoredName": "Command Presence",
         "favoredDesc": "You climbed hierarchies by making people believe in you — or fear you. That voice of authority never left, even after you walked away from power. People still follow when you speak.",
-        "variability": "Former Imperial officer with codes and contacts (Tactics/Deception) or syndicate lieutenant who went independent (Persuasion/Tactics)?"
+        "variability": "Former Imperial officer with codes and contacts (Tactics/Deception) or syndicate lieutenant who went independent (Persuasion/Tactics)?",
+        "knackName": "Ladder Vision",
+        "knackType": "Narrative Truth",
+        "knack": "You understand institutional power — how hierarchies reward loyalty, punish independence, and protect themselves from exposure. You recognize bureaucratic maneuvering, you know when someone is consolidating power versus performing it, and you can read the politics of any organization by watching who speaks, who stays silent, and who leaves the room when decisions are made."
       }
     },
     {
@@ -995,7 +1064,10 @@
         "favored": "Insight (Wits)",
         "favoredName": "Betrayal Sense",
         "favoredDesc": "Being sold out carved a permanent edge into your perception. You read micro-expressions, catch the pause before a lie, and notice the hand drifting toward a hidden weapon — because you learned what it costs not to.",
-        "variability": "Intelligence operative burned by their handler (Insight/Deception) or soldier set up by their lieutenant (Skulduggery/Stealth)?"
+        "variability": "Intelligence operative burned by their handler (Insight/Deception) or soldier set up by their lieutenant (Skulduggery/Stealth)?",
+        "knackName": "Trust Arithmetic",
+        "knackType": "Narrative Truth",
+        "knack": "You read trust like a threat assessment. You notice when someone's generosity has conditions attached, when loyalty is being performed rather than felt, and when a deal is designed to leave you holding the consequences. You know what betrayal looks like before it lands — the rehearsed sincerity, the offer that is too clean, the friend who suddenly needs to know your schedule. You learned what it costs not to see these things, and you will not pay that price again."
       }
     }
   ],
