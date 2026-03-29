@@ -1788,13 +1788,13 @@
     return false;
   }
 
-  function determineOutfitAcquisition(item, salvaged) {
+  function determineOutfitAcquisition(item, salvaged, marketMode) {
     if (salvaged) return 'salvaged';
     if (isItemAlwaysContraband(item)) return 'contraband';
     var rest = parseRestriction(item.availability);
     if (rest === 'R') return 'contraband';
     if (rest === 'F') {
-      return activeMarket === 'market' ? 'registered' : 'contraband';
+      return marketMode === 'market' ? 'registered' : 'contraband';
     }
     return 'legal';
   }
@@ -2412,7 +2412,7 @@
       var pricing = calcOutfittingPrice(item, activeMarket);
       if (outfittingCreditsRemaining() < pricing.total) return;
       if (!state.startingGear) state.startingGear = [];
-      var acq = determineOutfitAcquisition(item, false);
+      var acq = determineOutfitAcquisition(item, false, activeMarket);
       state.startingGear.push({ id: item.id, name: item.name, cost: pricing.total, baseCost: item.cost, source: item.source, acquisition: acq });
       saveState();
       renderCart();
