@@ -16,8 +16,57 @@
     tags: [],
     loot: [],
     attacks: [],
-    numPlayers: 4
+    numPlayers: 4,
+    shipDetails: {
+      hullType: '',
+      crew: '',
+      hyperdrive: '',
+      sensors: '',
+      shields: '',
+      cargo: '',
+      speed: ''
+    }
   };
+
+  var SHIP_CATEGORIES = ['starship', 'capital_ship', 'station'];
+
+  function isShipCategory(cat) {
+    return SHIP_CATEGORIES.indexOf(cat) !== -1;
+  }
+
+  function isVehicleOrShip(cat) {
+    return cat === 'vehicle' || isShipCategory(cat);
+  }
+
+  var ARENA_LABELS = {
+    character: { physique: 'Physique', reflex: 'Reflex', grit: 'Grit', wits: 'Wits', presence: 'Presence' },
+    vehicle: { physique: 'Armor', reflex: 'Handling', grit: 'Hull', wits: 'Sensors', presence: 'Presence' },
+    starship: { physique: 'Firepower', reflex: 'Handling', grit: 'Hull', wits: 'Sensors', presence: 'Command' },
+    capital_ship: { physique: 'Firepower', reflex: 'Handling', grit: 'Hull', wits: 'Sensors', presence: 'Command' },
+    station: { physique: 'Firepower', reflex: 'Targeting', grit: 'Hull', wits: 'Sensors', presence: 'Command' }
+  };
+
+  var STAT_LABELS = {
+    character: { def: 'DEF', eva: 'EVA', res: 'RES', vit: 'VIT', init: 'INIT' },
+    vehicle: { def: 'ARM', eva: 'EVA', res: 'RES', vit: 'HULL', init: 'INIT' },
+    starship: { def: 'SHIELDS', eva: 'EVA', res: 'SYS', vit: 'HULL', init: 'INIT' },
+    capital_ship: { def: 'SHIELDS', eva: 'EVA', res: 'SYS', vit: 'HULL', init: 'INIT' },
+    station: { def: 'SHIELDS', eva: 'EVA', res: 'SYS', vit: 'HULL', init: 'INIT' }
+  };
+
+  function getArenaLabels(cat) {
+    return ARENA_LABELS[cat] || ARENA_LABELS.character;
+  }
+
+  function getStatLabels(cat) {
+    return STAT_LABELS[cat] || STAT_LABELS.character;
+  }
+
+  function getCategoryLabel(cat) {
+    if (!threatData) return cat;
+    var found = (threatData.threatCategories || []).find(function(c) { return c.id === cat; });
+    return found ? found.name : cat.charAt(0).toUpperCase() + cat.slice(1);
+  }
 
   var STORAGE_KEY = 'eote-saved-npcs';
 
@@ -66,6 +115,8 @@
     var defenseTrait = 0;
     var evasionTrait = 0;
     var resistTrait = 0;
+    var powerTrait = 0;
+    var initiativeTrait = 0;
     var traitImmunities = [];
     var traitVulnerabilities = [];
     var scale = null;
@@ -78,6 +129,8 @@
       if (t.defenseMod) defenseTrait += t.defenseMod;
       if (t.evasionMod) evasionTrait += t.evasionMod;
       if (t.resistMod) resistTrait += t.resistMod;
+      if (t.powerMod) powerTrait += t.powerMod;
+      if (t.initiativeMod) initiativeTrait += t.initiativeMod;
       if (t.immunities) traitImmunities = traitImmunities.concat(t.immunities);
       if (t.vulnerabilities) traitVulnerabilities = traitVulnerabilities.concat(t.vulnerabilities);
       if (t.scale) { scale = t.scale; scaleLevel = t.scaleLevel || 1; }
@@ -102,12 +155,12 @@
 
     var powers = {};
     ['physique', 'reflex', 'grit', 'wits', 'presence'].forEach(function (arena) {
-      powers[arena] = a[arena] - 1 + tier;
+      powers[arena] = a[arena] - 1 + tier + powerTrait;
     });
 
     var rolePowerBonus = role && role.powerBonus ? role.powerBonus : null;
 
-    var initiative = a.wits + tier;
+    var initiative = a.wits + tier + initiativeTrait;
 
     return {
       arenas: a,
@@ -139,14 +192,17 @@
     var role = stats.role;
     var cls = stats.classification;
 
+    var cat = currentNpc.threatCategory || 'character';
+    var sLabels = getStatLabels(cat);
+    var aLabels = getArenaLabels(cat);
+
     var html = '';
     html += '<div class="npc-card">';
 
     html += '<div class="npc-card-header">';
-    html += '<div class="npc-card-name">' + esc(currentNpc.name || 'Unnamed NPC') + '</div>';
+    html += '<div class="npc-card-name">' + esc(currentNpc.name || (isShipCategory(cat) ? 'Unnamed Vessel' : 'Unnamed NPC')) + '</div>';
     html += '<div class="npc-card-meta">';
-    var catLabel = (currentNpc.threatCategory || 'character').charAt(0).toUpperCase() + (currentNpc.threatCategory || 'character').slice(1);
-    html += esc(catLabel) + ' — Tier ' + currentNpc.tier;
+    html += esc(getCategoryLabel(cat)) + ' — Tier ' + currentNpc.tier;
     if (cls) html += ' ' + esc(cls.name);
     if (role) html += ' ' + esc(role.name);
     html += '</div>';
@@ -154,19 +210,20 @@
 
     html += '<div class="npc-card-stats">';
     html += '<div class="npc-stat-row">';
-    html += '<div class="npc-stat"><div class="npc-stat-label">DEF</div><div class="npc-stat-val">' + stats.defense + '</div></div>';
-    html += '<div class="npc-stat"><div class="npc-stat-label">EVA</div><div class="npc-stat-val">' + stats.evasion + '</div></div>';
-    html += '<div class="npc-stat"><div class="npc-stat-label">RES</div><div class="npc-stat-val">' + stats.resist + '</div></div>';
-    html += '<div class="npc-stat"><div class="npc-stat-label">VIT</div><div class="npc-stat-val npc-stat-vit">' + stats.vitality + '</div></div>';
-    html += '<div class="npc-stat"><div class="npc-stat-label">INIT</div><div class="npc-stat-val npc-stat-init">' + stats.initiative + '</div></div>';
+    html += '<div class="npc-stat"><div class="npc-stat-label">' + sLabels.def + '</div><div class="npc-stat-val">' + stats.defense + '</div></div>';
+    html += '<div class="npc-stat"><div class="npc-stat-label">' + sLabels.eva + '</div><div class="npc-stat-val">' + stats.evasion + '</div></div>';
+    html += '<div class="npc-stat"><div class="npc-stat-label">' + sLabels.res + '</div><div class="npc-stat-val">' + stats.resist + '</div></div>';
+    html += '<div class="npc-stat"><div class="npc-stat-label">' + sLabels.vit + '</div><div class="npc-stat-val npc-stat-vit">' + stats.vitality + '</div></div>';
+    html += '<div class="npc-stat"><div class="npc-stat-label">' + sLabels.init + '</div><div class="npc-stat-val npc-stat-init">' + stats.initiative + '</div></div>';
     html += '</div>';
     html += '</div>';
 
     html += '<div class="npc-card-arenas">';
     ['physique', 'reflex', 'grit', 'wits', 'presence'].forEach(function (arena) {
-      var label = arena.charAt(0).toUpperCase() + arena.slice(1, 3).toUpperCase();
+      var label = aLabels[arena] || arena;
+      var shortLabel = label.substring(0, 3).toUpperCase();
       html += '<div class="npc-arena-pip">';
-      html += '<span class="npc-arena-label">' + label + '</span>';
+      html += '<span class="npc-arena-label">' + shortLabel + '</span>';
       html += '<span class="npc-arena-val">' + stats.arenas[arena] + '</span>';
       html += '<span class="npc-arena-power">Pwr ' + stats.powers[arena] + '</span>';
       html += '</div>';
@@ -191,6 +248,24 @@
     }
     if (stats.scale) {
       html += '<div class="npc-card-scale">SCALE: ' + esc(stats.scale.charAt(0).toUpperCase() + stats.scale.slice(1)) + ' (Level ' + stats.scaleLevel + ')</div>';
+    }
+
+    if (isShipCategory(cat) || cat === 'vehicle') {
+      var sd = currentNpc.shipDetails || {};
+      var hasAnyDetail = sd.hullType || sd.crew || sd.hyperdrive || sd.sensors || sd.shields || sd.cargo || sd.speed;
+      if (hasAnyDetail) {
+        var detailTitle = isShipCategory(cat) ? 'SHIP DETAILS' : 'VEHICLE DETAILS';
+        html += '<div class="npc-ship-details">';
+        html += '<div class="npc-ship-details-title">' + detailTitle + '</div>';
+        if (sd.hullType) html += '<div class="npc-ship-detail-row"><span class="npc-ship-detail-label">Hull Type</span><span class="npc-ship-detail-val">' + esc(sd.hullType) + '</span></div>';
+        if (sd.crew) html += '<div class="npc-ship-detail-row"><span class="npc-ship-detail-label">Crew</span><span class="npc-ship-detail-val">' + esc(sd.crew) + '</span></div>';
+        if (sd.speed) html += '<div class="npc-ship-detail-row"><span class="npc-ship-detail-label">Speed / Maneuver</span><span class="npc-ship-detail-val">' + esc(sd.speed) + '</span></div>';
+        if (sd.shields) html += '<div class="npc-ship-detail-row"><span class="npc-ship-detail-label">Shield Config</span><span class="npc-ship-detail-val">' + esc(sd.shields) + '</span></div>';
+        if (sd.hyperdrive) html += '<div class="npc-ship-detail-row"><span class="npc-ship-detail-label">Hyperdrive</span><span class="npc-ship-detail-val">' + esc(sd.hyperdrive) + '</span></div>';
+        if (sd.sensors) html += '<div class="npc-ship-detail-row"><span class="npc-ship-detail-label">Sensor Range</span><span class="npc-ship-detail-val">' + esc(sd.sensors) + '</span></div>';
+        if (sd.cargo) html += '<div class="npc-ship-detail-row"><span class="npc-ship-detail-label">Cargo</span><span class="npc-ship-detail-val">' + esc(sd.cargo) + '</span></div>';
+        html += '</div>';
+      }
     }
 
     if (currentNpc.classification === 'minion') {
@@ -246,14 +321,16 @@
         if (atk.arena && stats.arenas && stats.arenas[atk.arena] !== undefined) {
           arenaScore = stats.arenas[atk.arena];
         }
-        var attackPower = (arenaScore - 1) + (currentNpc.tier || 0) + (atk.powerMod || 0);
+        var attackPower = (stats.powers && stats.powers[atk.arena] !== undefined) ? stats.powers[atk.arena] : ((arenaScore - 1) + (currentNpc.tier || 0));
+        attackPower += (atk.powerMod || 0);
         var chassisLabel = ch.label || chassisKey.charAt(0).toUpperCase() + chassisKey.slice(1);
+        var atkCatLabels = getArenaLabels(currentNpc.threatCategory || 'character');
         html += '<div class="npc-attack-card-item">';
         html += '<div class="npc-attack-header">';
         html += '<strong>' + esc(atk.name) + '</strong>';
         html += ' <span class="npc-attack-power-badge">Power ' + attackPower + '</span>';
         html += ' <span class="npc-attack-chassis-badge">' + chassisLabel + '</span>';
-        if (atk.arena) html += ' <span class="npc-attack-arena-badge">' + atk.arena.charAt(0).toUpperCase() + atk.arena.slice(1) + '</span>';
+        if (atk.arena) html += ' <span class="npc-attack-arena-badge">' + (atkCatLabels[atk.arena] || atk.arena) + '</span>';
         html += '</div>';
         html += '<div class="npc-attack-damage-row">';
         html += '<span class="npc-dmg-tier"><span class="npc-dmg-label">F</span> ' + npcDmgF + '</span>';
@@ -378,6 +455,20 @@
     setTimeout(function () { toast.classList.remove('active'); }, 2500);
   }
 
+  function autoApplyScaleTraits(cat) {
+    if (!threatData) return;
+    threatData.traits.forEach(function (t) {
+      if (!t.autoApply) return;
+      var isForCat = !t.categories || t.categories.indexOf(cat) !== -1;
+      var idx = currentNpc.traits.indexOf(t.id);
+      if (isForCat && idx === -1) {
+        currentNpc.traits.push(t.id);
+      } else if (!isForCat && idx !== -1) {
+        currentNpc.traits.splice(idx, 1);
+      }
+    });
+  }
+
   function renderBuilderLeft() {
     var el = document.getElementById('npc-builder-left');
     if (!el || !threatData) return;
@@ -404,10 +495,13 @@
     html += '<input type="range" id="npc-tier-slider" class="npc-slider" min="0" max="5" value="' + currentNpc.tier + '" />';
     html += '</div>';
 
+    var activeCat = currentNpc.threatCategory || 'character';
+    var aLabels = getArenaLabels(activeCat);
+
     html += '<div class="npc-input-group">';
     html += '<label class="npc-label">Arena Scores</label>';
     ['physique', 'reflex', 'grit', 'wits', 'presence'].forEach(function (arena) {
-      var label = arena.charAt(0).toUpperCase() + arena.slice(1);
+      var label = aLabels[arena] || arena.charAt(0).toUpperCase() + arena.slice(1);
       html += '<div class="npc-arena-input">';
       html += '<span class="npc-arena-input-label">' + esc(label) + '</span>';
       html += '<input type="range" class="npc-slider npc-arena-slider" data-arena="' + arena + '" min="1" max="5" value="' + currentNpc.arenas[arena] + '" />';
@@ -461,19 +555,41 @@
     html += '</select>';
     html += '</div>';
 
+    if (isVehicleOrShip(activeCat)) {
+      var sd = currentNpc.shipDetails || {};
+      var detailGroupTitle = isShipCategory(activeCat) ? 'Ship Details' : 'Vehicle Details';
+      html += '<div class="npc-input-group npc-ship-details-inputs">';
+      html += '<label class="npc-label">' + esc(detailGroupTitle) + '</label>';
+      html += '<input type="text" class="npc-text-input npc-ship-field" data-field="hullType" value="' + esc(sd.hullType || '') + '" placeholder="Hull Type (e.g. YT-1300)" />';
+      html += '<input type="text" class="npc-text-input npc-ship-field" data-field="crew" value="' + esc(sd.crew || '') + '" placeholder="Crew (e.g. 2 pilots, 1 gunner)" />';
+      html += '<input type="text" class="npc-text-input npc-ship-field" data-field="speed" value="' + esc(sd.speed || '') + '" placeholder="Speed / Maneuver (e.g. 4 / 1)" />';
+      html += '<input type="text" class="npc-text-input npc-ship-field" data-field="shields" value="' + esc(sd.shields || '') + '" placeholder="Shield Config (e.g. 2/1/1/1)" />';
+      html += '<input type="text" class="npc-text-input npc-ship-field" data-field="hyperdrive" value="' + esc(sd.hyperdrive || '') + '" placeholder="Hyperdrive Class (e.g. Class 2)" />';
+      html += '<input type="text" class="npc-text-input npc-ship-field" data-field="sensors" value="' + esc(sd.sensors || '') + '" placeholder="Sensor Range (e.g. Medium)" />';
+      html += '<input type="text" class="npc-text-input npc-ship-field" data-field="cargo" value="' + esc(sd.cargo || '') + '" placeholder="Cargo (e.g. 100 enc)" />';
+      html += '</div>';
+    }
+
     el.innerHTML = html;
 
     el.querySelectorAll('.npc-category-btn').forEach(function (btn) {
       btn.addEventListener('click', function () {
-        currentNpc.threatCategory = btn.dataset.cat;
+        var newCat = btn.dataset.cat;
+        currentNpc.threatCategory = newCat;
         currentNpc.traits = currentNpc.traits.filter(function (tid) {
           var t = threatData.traits.find(function (tr) { return tr.id === tid; });
-          return t && (!t.categories || t.categories.indexOf(currentNpc.threatCategory) !== -1);
+          if (!t) return false;
+          if (t.autoApply) return false;
+          return !t.categories || t.categories.indexOf(newCat) !== -1;
         });
         currentNpc.tags = currentNpc.tags.filter(function (tagId) {
           var tag = threatData.tags.find(function (tg) { return tg.id === tagId; });
-          return tag && (!tag.categories || tag.categories.indexOf(currentNpc.threatCategory) !== -1);
+          return tag && (!tag.categories || tag.categories.indexOf(newCat) !== -1);
         });
+        autoApplyScaleTraits(newCat);
+        if (!isVehicleOrShip(newCat)) {
+          currentNpc.shipDetails = { hullType: '', crew: '', hyperdrive: '', sensors: '', shields: '', cargo: '', speed: '' };
+        }
         renderBuilderLeft();
         renderBuilderRight();
         renderNpcCard();
@@ -538,10 +654,20 @@
       currentNpc.traits = pb.traits ? pb.traits.slice() : [];
       currentNpc.tags = pb.tags ? pb.tags.slice() : [];
       currentNpc.loot = pb.loot ? JSON.parse(JSON.stringify(pb.loot)) : [];
+      currentNpc.shipDetails = pb.shipDetails ? JSON.parse(JSON.stringify(pb.shipDetails)) : { hullType: '', crew: '', hyperdrive: '', sensors: '', shields: '', cargo: '', speed: '' };
+      autoApplyScaleTraits(currentNpc.threatCategory);
       seedAttacksFromRole();
       renderBuilderLeft();
       renderBuilderRight();
       renderNpcCard();
+    });
+
+    el.querySelectorAll('.npc-ship-field').forEach(function (inp) {
+      inp.addEventListener('input', function () {
+        if (!currentNpc.shipDetails) currentNpc.shipDetails = {};
+        currentNpc.shipDetails[inp.dataset.field] = inp.value;
+        renderNpcCard();
+      });
     });
   }
 
@@ -563,9 +689,10 @@
     html += '<label class="npc-label">Traits</label>';
     filteredTraits.forEach(function (t) {
       var checked = (currentNpc.traits || []).indexOf(t.id) !== -1;
-      html += '<label class="npc-checkbox-label">';
-      html += '<input type="checkbox" class="npc-trait-cb" data-trait="' + t.id + '"' + (checked ? ' checked' : '') + ' /> ';
-      html += '<span>' + esc(t.name) + '</span>';
+      var isAuto = t.autoApply;
+      html += '<label class="npc-checkbox-label' + (isAuto ? ' npc-trait-auto' : '') + '">';
+      html += '<input type="checkbox" class="npc-trait-cb" data-trait="' + t.id + '"' + (checked ? ' checked' : '') + (isAuto ? ' disabled' : '') + ' /> ';
+      html += '<span>' + esc(t.name) + (isAuto ? ' (auto)' : '') + '</span>';
       html += '<span class="npc-trait-desc">' + esc(t.description) + '</span>';
       html += '</label>';
     });
@@ -590,10 +717,11 @@
         html += '<div class="npc-attack-entry" data-atk-idx="' + idx + '">';
         html += '<input type="text" class="npc-text-input npc-attack-name" data-atk-idx="' + idx + '" value="' + esc(atk.name) + '" placeholder="Attack name" />';
         html += '<div class="npc-attack-controls">';
+        var atkArenaLabels = getArenaLabels(currentNpc.threatCategory || 'character');
         html += '<label class="npc-attack-scale-label">Arena:</label>';
         html += '<select class="npc-select npc-attack-arena" data-atk-idx="' + idx + '">';
         ['physique', 'reflex', 'grit', 'wits', 'presence'].forEach(function (a) {
-          html += '<option value="' + a + '"' + (atk.arena === a ? ' selected' : '') + '>' + a.charAt(0).toUpperCase() + a.slice(1) + '</option>';
+          html += '<option value="' + a + '"' + (atk.arena === a ? ' selected' : '') + '>' + (atkArenaLabels[a] || a) + '</option>';
         });
         html += '</select>';
         html += '<label class="npc-attack-scale-label">Chassis:</label>';
@@ -758,7 +886,8 @@
         name: '', tier: 1, threatCategory: 'character',
         arenas: { physique: 2, reflex: 2, grit: 2, wits: 2, presence: 2 },
         role: '', classification: 'standard',
-        traits: [], tags: [], loot: [], attacks: [], numPlayers: 4
+        traits: [], tags: [], loot: [], attacks: [], numPlayers: 4,
+        shipDetails: { hullType: '', crew: '', hyperdrive: '', sensors: '', shields: '', cargo: '', speed: '' }
       };
       renderBuilderLeft();
       renderBuilderRight();
@@ -772,6 +901,8 @@
         if (!npc) return;
         currentNpc = JSON.parse(JSON.stringify(npc));
         if (!currentNpc.threatCategory) currentNpc.threatCategory = 'character';
+        if (!currentNpc.shipDetails) currentNpc.shipDetails = { hullType: '', crew: '', hyperdrive: '', sensors: '', shields: '', cargo: '', speed: '' };
+        autoApplyScaleTraits(currentNpc.threatCategory);
         if (currentNpc.attacks) {
           currentNpc.attacks.forEach(function (atk) {
             if (!atk.arena) atk.arena = 'physique';
@@ -893,6 +1024,7 @@
 
     Promise.all(loadPromises).then(function () {
       overlay.classList.add('active');
+      autoApplyScaleTraits(currentNpc.threatCategory || 'character');
       renderBuilderLeft();
       renderBuilderRight();
       renderNpcCard();
