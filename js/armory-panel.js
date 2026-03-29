@@ -848,15 +848,17 @@
     var html = '<div class="armory-panel-wrap">';
 
     html += '<div class="armory-top-bar">';
-    html += '<a href="/market/?charId=' + encodeURIComponent(charId) + '&mode=market&returnTo=player" class="armory-market-link">&#9733; Visit the Market</a>';
-    html += '<div class="armory-credits-display">';
-    html += '<span class="armory-credits-label">Credits</span>';
-    html += '<span class="armory-credits-value" id="armory-credits-val">' + credits.toLocaleString() + ' cr</span>';
+    html += '<div class="armory-credits-block">';
+    html += '<div class="armory-credits-amount">';
+    html += '<span class="armory-credits-value" id="armory-credits-val">' + credits.toLocaleString() + '</span>';
+    html += '<span class="armory-credits-unit">cr</span>';
+    html += '</div>';
     html += '<div class="armory-credits-controls">';
-    html += '<button class="char-credits-btn" id="armory-credits-add" title="Add credits">+</button>';
     html += '<button class="char-credits-btn" id="armory-credits-sub" title="Subtract credits">&minus;</button>';
+    html += '<button class="char-credits-btn" id="armory-credits-add" title="Add credits">+</button>';
     html += '</div>';
     html += '</div>';
+    html += '<a href="/market/?charId=' + encodeURIComponent(charId) + '&mode=market&returnTo=player" class="armory-market-link">&#9733; Market</a>';
     html += '</div>';
 
     if (ownedArmors.length > 0) {
