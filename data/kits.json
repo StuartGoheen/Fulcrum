@@ -234,6 +234,13 @@
         "cost": 10,
         "source": "gear",
         "legalStatus": "legal"
+      },
+      {
+        "id": "gear_macrobinoculars_01",
+        "name": "Macro-binoculars",
+        "cost": 100,
+        "source": "gear",
+        "legalStatus": "legal"
       }
     ]
   },
@@ -1529,6 +1536,13 @@
         "cost": 20,
         "source": "gear",
         "legalStatus": "contraband"
+      },
+      {
+        "id": "gear_comlink_basic_01",
+        "name": "Comlink",
+        "cost": 25,
+        "source": "gear",
+        "legalStatus": "legal"
       }
     ]
   },
@@ -2496,6 +2510,13 @@
         "cost": 25,
         "source": "gear",
         "legalStatus": "contraband"
+      },
+      {
+        "id": "gear_comlink_basic_01",
+        "name": "Comlink",
+        "cost": 25,
+        "source": "gear",
+        "legalStatus": "legal"
       }
     ]
   },
