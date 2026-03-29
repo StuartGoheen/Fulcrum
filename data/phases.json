@@ -1084,7 +1084,7 @@
         "tone": "debt, fear, criminal leverage",
         "knackName": "Marked for Collection",
         "knackType": "Narrative Truth",
-        "knack": "You know how the Hutt underworld operates from the inside. You can identify syndicate affiliations, read the hierarchy of a criminal operation, and assess who in a room is connected, who is an informant, and what cartel they serve. You know the local price of silence — who can be bribed, how much it costs, and whether it will stick."
+        "knack": "You recognize syndicate affiliations on sight — tattoos, burn-marks, hand signals, the way someone positions themselves relative to the door. You know how Hutt operations are structured: who collects, who enforces, who reports up. In any settlement where the cartels operate, you know the local price of silence — who can be bribed, how much it costs, and whether it will hold."
       }
     },
     {
@@ -1099,7 +1099,7 @@
         "tone": "dangerous knowledge, paranoia, silence",
         "knackName": "The Wrong Eyes",
         "knackType": "Narrative Truth",
-        "knack": "You have seen what the Empire does when it thinks nobody is watching. You recognize the patterns — falsified manifests, patrol routes that avoid specific buildings, officers whose rank does not match their assignment, equipment that does not belong at a frontier garrison. When the official story does not add up, you notice. You always notice."
+        "knack": "You have seen what the Empire does when it thinks nobody is watching. You recognize the patterns — falsified manifests, patrol routes that deliberately avoid specific buildings, officers whose rank does not match their posting, equipment that has no business at a frontier garrison. In any Imperial-controlled area, when the official story does not add up, you notice. You always notice."
       }
     },
     {
@@ -1114,7 +1114,7 @@
         "tone": "inner wound, triggers, survival guilt",
         "knackName": "Adrenaline Lock",
         "knackType": "Narrative Truth",
-        "knack": "When the worst happens, your body remembers before your mind does. You have survived things that should have killed you, and your reflexes carry the scar of that survival. When genuine mortal danger presents itself, you do not freeze — you move. The problem is what comes after: the shaking, the silence, the hours you cannot account for."
+        "knack": "You recognize the precursors to violence before they register for anyone else — the change in air pressure before an explosion, the specific silence that falls over a room before someone draws a weapon, the hum of a charging power cell. You know what a place looks like after it has been destroyed, and you see the ghost of that destruction in places that are still standing. In any situation where sudden violence is imminent, your body knows before your mind catches up."
       }
     },
     {
@@ -1129,7 +1129,7 @@
         "tone": "Force sensitivity, pursuit, unwanted power",
         "knackName": "Prescience",
         "knackType": "Narrative Truth",
-        "knack": "You feel things before they happen. Not clearly — never clearly — but enough. A chill before the ambush, a wrongness in the air before the betrayal, a pull toward a door you should not open. You cannot control it and you cannot explain it. But you have learned to trust it, because the times you did not are the reason you are out here."
+        "knack": "You feel the weight of places and people in ways you cannot fully explain. A room where something terrible happened feels wrong to you even if it looks clean. A person who intends harm carries a coldness you sense before they speak. You are drawn toward things that matter — doors, artifacts, decisions — without understanding why. The Force does not speak to you in words; it speaks in pressure, temperature, and the pull of something ancient and patient."
       }
     },
     {
@@ -1144,7 +1144,7 @@
         "tone": "treason, hunted by empire, fractured identity",
         "knackName": "Authority Bypass",
         "knackType": "Narrative Truth",
-        "knack": "You know how the Empire works because you were the Empire. You understand military bureaucracy, checkpoint procedure, rank structure, and the specific laziness of garrison duty in the Outer Rim. You know which codes are checked and which are waved through, which uniforms draw salutes and which draw suspicion, and how to speak like someone who belongs inside a facility."
+        "knack": "You know how the Empire works because you were the Empire. You understand checkpoint procedure, supply chain logistics, shift rotations, and the specific laziness of garrison duty in the Outer Rim. You know which codes are checked and which are waved through, which uniforms draw salutes and which draw suspicion, and how to speak like someone who belongs inside a facility. The difference between you and a civilian is that you do not have to guess — you remember."
       }
     },
     {
@@ -1159,7 +1159,7 @@
         "tone": "financial ruin, obligation, desperation",
         "knackName": "Collateral Access",
         "knackType": "Narrative Truth",
-        "knack": "You understand how credits flow through the frontier — who extends credit, who launders it, who owes whom, and which settlements operate on barter because the Banking Clan has not reached them yet. You know the difference between a legitimate merchant and a front, and you can assess the economic pressure points of any community you walk into. Debt taught you the architecture of money."
+        "knack": "You understand how credits flow through the frontier — who extends credit, who launders it, who owes whom, and which settlements operate on barter because the Banking Clan has not reached them yet. You recognize a front operation by its inventory, you know when a merchant is underwater by the desperation in their pricing, and you can assess the economic pressure points of any community you walk into. Debt taught you the architecture of money."
       }
     },
     {
@@ -1189,7 +1189,7 @@
         "tone": "chemical dependency, weakness, hidden cost",
         "knackName": "The Fix",
         "knackType": "Narrative Truth",
-        "knack": "You know the substance economy of the frontier. You can identify a dealer, a pharmacist, or a supplier in any settlement — not because you are connected, but because you have had to. You understand chemical dependencies, withdrawal symptoms, and the specific desperation of people who need something they cannot easily get. You know what people will do — and what they will trade — when they are running out."
+        "knack": "You know the substance economy of the frontier. You identify a dealer, a pharmacist, or a backroom supplier in any settlement — not because you are connected, but because you have had to. You recognize withdrawal in someone's hands before it reaches their face. You know the look of a person who is three days from running out, and you know what that scarcity will make them willing to trade. In any place where controlled substances move, you see the supply chain."
       }
     },
     {
@@ -1204,7 +1204,7 @@
         "tone": "deception, buried past, fear of exposure",
         "knackName": "Identity Buffer",
         "knackType": "Narrative Truth",
-        "knack": "You have lived as someone else long enough that the fabrication has its own weight. You understand how identity works on the frontier — which documents matter, which settlements do not check, which Imperial systems have gaps. You know how to build a cover story that holds under casual scrutiny, and you recognize when someone else is doing the same thing, because you know every trick in the book."
+        "knack": "You understand how identity works on the frontier — which documents matter, which settlements do not check, which Imperial systems have gaps that a forged ident-card can slip through. You recognize when someone else is living under a fabricated name, because you see the same tells you have trained out of yourself: the half-second pause before answering to the wrong name, the reflexive check when an old alias is spoken nearby. In any place where identities are verified, you know how deep the scrutiny goes."
       }
     },
     {
@@ -1219,7 +1219,7 @@
         "tone": "infamy, identity, the cost of being known",
         "knackName": "The Name",
         "knackType": "Narrative Truth",
-        "knack": "Your reputation precedes you. In any community where word travels — cantinas, criminal networks, mercenary circles, frontier settlements — people have heard a version of your story. Some of it is true. Some of it is not. But it means you are never a stranger: people either want something from you or want nothing to do with you. The name opens doors. It also makes sure certain doors never close behind you quietly."
+        "knack": "You know what recognition looks like — the double-take at the bar, the whispered conversation that stops when you approach, the bartender who pours your drink before you order it. In any community where word travels — cantinas, criminal networks, mercenary circles, frontier settlements — you can read the room to know whether your name has arrived before you. You see who wants something from you, who is afraid of you, and who has already sent a message to someone else about your presence."
       }
     },
     {
@@ -1234,7 +1234,7 @@
         "tone": "guilt, obligation, chosen sacrifice",
         "knackName": "Dead Reckoning",
         "knackType": "Narrative Truth",
-        "knack": "You carry the weight of someone else’s sacrifice, and it has made you incapable of watching others pay the same price. You put yourself between danger and the people around you without hesitation — not because you are brave, but because you have already survived the thing you are most afraid of. You know what it costs to be the one left standing, and you will not let someone else carry that debt."
+        "knack": "You see the cost of sacrifice in other people before they name it. The person carrying someone else's grief, the one making decisions out of guilt rather than logic, the leader who is spending lives they cannot afford to lose — you recognize all of them, because you have been on both sides of that equation. You know what a situation looks like when someone is about to make a trade they cannot take back, and you know the silence that follows when they do."
       }
     },
     {
@@ -1249,7 +1249,7 @@
         "tone": "paranoia, animal awareness, the weight of being prey",
         "knackName": "Prey Sense",
         "knackType": "Narrative Truth",
-        "knack": "You have been hunted long enough that awareness is no longer a skill — it is a condition. You notice things that settled people do not: a ship that refueled but did not unload cargo, a question asked twice by different strangers, a figure who watches the exits instead of the bar. You read environments the way prey reads the wind — not for opportunity, but for threat. It keeps you alive. It also means you never fully rest."
+        "knack": "You have been hunted long enough that awareness is no longer a skill — it is a condition. You notice things that settled people do not: a ship that refueled but did not unload cargo, a question asked twice by different strangers, a figure who watches the exits instead of the bar. You read every environment for threat — not opportunity. When someone is watching you, following you, or asking about you, you know. It keeps you alive. It also means you never fully rest."
       }
     }
   ]
