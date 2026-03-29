@@ -1,4 +1,4 @@
-const db = require('../db');
+const { pool } = require('../db');
 const fs = require('fs');
 const path = require('path');
 
@@ -25,32 +25,32 @@ function endShipCombat() {
   _shipCombatState = null;
 }
 
-function getDestinyPool() {
-  const row = db.prepare("SELECT value FROM campaign_state WHERE key = 'destiny_pool'").get();
-  if (row) {
+async function getDestinyPool() {
+  const result = await pool.query("SELECT value FROM campaign_state WHERE key = 'destiny_pool'");
+  if (result.rows.length > 0) {
     try {
-      const parsed = JSON.parse(row.value);
+      const parsed = JSON.parse(result.rows[0].value);
       if (Array.isArray(parsed)) return parsed;
     } catch (_) {}
   }
   return [];
 }
 
-function saveDestinyPool(pool) {
-  const serialized = JSON.stringify(pool);
-  db.prepare(`
+async function saveDestinyPool(destinyPool) {
+  const serialized = JSON.stringify(destinyPool);
+  await pool.query(`
     INSERT INTO campaign_state (key, value, updated_at)
-    VALUES ('destiny_pool', ?, CURRENT_TIMESTAMP)
-    ON CONFLICT(key) DO UPDATE SET value = excluded.value, updated_at = excluded.updated_at
-  `).run(serialized);
+    VALUES ('destiny_pool', $1, NOW())
+    ON CONFLICT(key) DO UPDATE SET value = EXCLUDED.value, updated_at = NOW()
+  `, [serialized]);
 }
 
-function getCharDestinyTokens(charId) {
-  const row = db.prepare('SELECT character_data FROM characters WHERE id = ?').get(charId);
+async function getCharDestinyTokens(charId) {
+  const result = await pool.query('SELECT character_data FROM characters WHERE id = $1', [charId]);
   let destiny = 'Light & Dark';
-  if (row && row.character_data) {
+  if (result.rows.length > 0 && result.rows[0].character_data) {
     try {
-      const parsed = JSON.parse(row.character_data);
+      const parsed = JSON.parse(result.rows[0].character_data);
       if (parsed.destiny) destiny = parsed.destiny;
     } catch (_) {}
   }
@@ -59,7 +59,7 @@ function getCharDestinyTokens(charId) {
   return [{ side: 'hope', tapped: false }, { side: 'toll', tapped: false }];
 }
 
-function rebuildPool(io) {
+async function rebuildPool(io) {
   const sockets = Array.from(io.sockets.sockets.values());
   const uniqueCharacters = new Set();
   sockets.forEach(s => {
@@ -68,21 +68,21 @@ function rebuildPool(io) {
     }
   });
 
-  const pool = [];
+  const destinyPool = [];
   for (const charId of uniqueCharacters) {
-    const tokens = getCharDestinyTokens(charId);
-    pool.push(...tokens);
+    const tokens = await getCharDestinyTokens(charId);
+    destinyPool.push(...tokens);
   }
 
-  saveDestinyPool(pool);
-  return pool;
+  await saveDestinyPool(destinyPool);
+  return destinyPool;
 }
 
 function registerHandlers(io) {
   io.on('connection', (socket) => {
     console.log(`[socket] Connected: ${socket.id}`);
 
-    socket.on('session:join', ({ role, characterId, sessionToken }) => {
+    socket.on('session:join', async ({ role, characterId, sessionToken }) => {
       if (!role) {
         socket.emit('error', { message: 'role is required.' });
         return;
@@ -92,147 +92,176 @@ function registerHandlers(io) {
       socket.data.characterId = characterId || null;
       socket.data.sessionToken = sessionToken || null;
 
-      if (role === 'player' && characterId) {
-        db.prepare(`
-          UPDATE characters SET session_id = ? WHERE id = ?
-        `).run(socket.id, characterId);
+      try {
+        if (role === 'player' && characterId) {
+          await pool.query('UPDATE characters SET session_id = $1 WHERE id = $2', [socket.id, characterId]);
 
-        const character = db.prepare('SELECT name FROM characters WHERE id = ?').get(characterId);
-        const name = character ? character.name : 'Unknown';
+          const result = await pool.query('SELECT name FROM characters WHERE id = $1', [characterId]);
+          const name = result.rows.length > 0 ? result.rows[0].name : 'Unknown';
 
-        socket.data.characterName = name;
-        socket.join('players');
+          socket.data.characterName = name;
+          socket.join('players');
 
-        console.log(`[socket] Player joined: ${name} (${socket.id})`);
-        io.emit('player:connected', { characterId, name });
+          console.log(`[socket] Player joined: ${name} (${socket.id})`);
+          io.emit('player:connected', { characterId, name });
 
-        const pool = rebuildPool(io);
-        io.emit('destiny:sync', { pool });
+          const destinyPool = await rebuildPool(io);
+          io.emit('destiny:sync', { pool: destinyPool });
+        }
+
+        if (role === 'gm') {
+          socket.join('gm');
+          console.log(`[socket] GM joined: ${socket.id}`);
+        }
+
+        const stateResult = await pool.query('SELECT key, value FROM campaign_state');
+        const state = stateResult.rows.reduce((acc, row) => {
+          try { acc[row.key] = JSON.parse(row.value); }
+          catch { acc[row.key] = row.value; }
+          return acc;
+        }, {});
+
+        socket.emit('state:sync', { state });
+
+        const destinyPool = await getDestinyPool();
+        socket.emit('destiny:sync', { pool: destinyPool });
+      } catch (err) {
+        console.error('[socket] session:join error:', err);
       }
-
-      if (role === 'gm') {
-        socket.join('gm');
-        console.log(`[socket] GM joined: ${socket.id}`);
-      }
-
-      const rows = db.prepare('SELECT key, value FROM campaign_state').all();
-      const state = rows.reduce((acc, row) => {
-        try { acc[row.key] = JSON.parse(row.value); }
-        catch { acc[row.key] = row.value; }
-        return acc;
-      }, {});
-
-      socket.emit('state:sync', { state });
-
-      const pool = getDestinyPool();
-      socket.emit('destiny:sync', { pool });
     });
 
-    socket.on('state:request', () => {
-      const rows = db.prepare('SELECT key, value FROM campaign_state').all();
-      const state = rows.reduce((acc, row) => {
-        try { acc[row.key] = JSON.parse(row.value); }
-        catch { acc[row.key] = row.value; }
-        return acc;
-      }, {});
-
-      socket.emit('state:sync', { state });
+    socket.on('state:request', async () => {
+      try {
+        const result = await pool.query('SELECT key, value FROM campaign_state');
+        const state = result.rows.reduce((acc, row) => {
+          try { acc[row.key] = JSON.parse(row.value); }
+          catch { acc[row.key] = row.value; }
+          return acc;
+        }, {});
+        socket.emit('state:sync', { state });
+      } catch (err) {
+        console.error('[socket] state:request error:', err);
+      }
     });
 
-    socket.on('state:update', ({ key, value }) => {
+    socket.on('state:update', async ({ key, value }) => {
       if (socket.data.role !== 'gm') {
         socket.emit('error', { message: 'Only the GM can push state updates.' });
         return;
       }
 
-      const serialized = typeof value === 'string' ? value : JSON.stringify(value);
+      try {
+        const serialized = typeof value === 'string' ? value : JSON.stringify(value);
 
-      db.prepare(`
-        INSERT INTO campaign_state (key, value, updated_at)
-        VALUES (?, ?, CURRENT_TIMESTAMP)
-        ON CONFLICT(key) DO UPDATE SET value = excluded.value, updated_at = excluded.updated_at
-      `).run(key, serialized);
+        await pool.query(`
+          INSERT INTO campaign_state (key, value, updated_at)
+          VALUES ($1, $2, NOW())
+          ON CONFLICT(key) DO UPDATE SET value = EXCLUDED.value, updated_at = NOW()
+        `, [key, serialized]);
 
-      const rows = db.prepare('SELECT key, value FROM campaign_state').all();
-      const state = rows.reduce((acc, row) => {
-        try { acc[row.key] = JSON.parse(row.value); }
-        catch { acc[row.key] = row.value; }
-        return acc;
-      }, {});
+        const result = await pool.query('SELECT key, value FROM campaign_state');
+        const state = result.rows.reduce((acc, row) => {
+          try { acc[row.key] = JSON.parse(row.value); }
+          catch { acc[row.key] = row.value; }
+          return acc;
+        }, {});
 
-      io.emit('state:sync', { state });
-      console.log(`[socket] State updated by GM: ${key}`);
+        io.emit('state:sync', { state });
+        console.log(`[socket] State updated by GM: ${key}`);
+      } catch (err) {
+        console.error('[socket] state:update error:', err);
+      }
     });
 
-    socket.on('destiny:flip', ({ index }) => {
+    socket.on('destiny:flip', async ({ index }) => {
       if (socket.data.role !== 'gm') {
         socket.emit('error', { message: 'Only the GM can flip destiny tokens.' });
         return;
       }
       if (!Number.isInteger(index)) return;
 
-      const pool = getDestinyPool();
-      if (index < 0 || index >= pool.length) return;
+      try {
+        const destinyPool = await getDestinyPool();
+        if (index < 0 || index >= destinyPool.length) return;
 
-      pool[index].side = pool[index].side === 'hope' ? 'toll' : 'hope';
-      saveDestinyPool(pool);
-      io.emit('destiny:sync', { pool });
-      console.log(`[socket] GM flipped token ${index} to ${pool[index].side}`);
+        destinyPool[index].side = destinyPool[index].side === 'hope' ? 'toll' : 'hope';
+        await saveDestinyPool(destinyPool);
+        io.emit('destiny:sync', { pool: destinyPool });
+        console.log(`[socket] GM flipped token ${index} to ${destinyPool[index].side}`);
+      } catch (err) {
+        console.error('[socket] destiny:flip error:', err);
+      }
     });
 
-    socket.on('destiny:tap', ({ index }) => {
+    socket.on('destiny:tap', async ({ index }) => {
       if (!Number.isInteger(index)) return;
       const role = socket.data.role;
       if (role !== 'player' && role !== 'gm') {
         socket.emit('error', { message: 'You must be in a session to tap tokens.' });
         return;
       }
-      const pool = getDestinyPool();
-      if (index < 0 || index >= pool.length) return;
-      if (pool[index].tapped) return;
-      pool[index].tapped = true;
-      saveDestinyPool(pool);
-      io.emit('destiny:sync', { pool });
-      console.log(`[socket] Token ${index} tapped by ${role} (${socket.data.characterName || socket.id})`);
+      try {
+        const destinyPool = await getDestinyPool();
+        if (index < 0 || index >= destinyPool.length) return;
+        if (destinyPool[index].tapped) return;
+        destinyPool[index].tapped = true;
+        await saveDestinyPool(destinyPool);
+        io.emit('destiny:sync', { pool: destinyPool });
+        console.log(`[socket] Token ${index} tapped by ${role} (${socket.data.characterName || socket.id})`);
+      } catch (err) {
+        console.error('[socket] destiny:tap error:', err);
+      }
     });
 
-    socket.on('destiny:untap-one', ({ index }) => {
+    socket.on('destiny:untap-one', async ({ index }) => {
       if (socket.data.role !== 'gm') {
         socket.emit('error', { message: 'Only the GM can untap destiny tokens.' });
         return;
       }
       if (!Number.isInteger(index)) return;
-      const pool = getDestinyPool();
-      if (index < 0 || index >= pool.length) return;
-      if (!pool[index].tapped) return;
-      pool[index].tapped = false;
-      saveDestinyPool(pool);
-      io.emit('destiny:sync', { pool });
-      console.log(`[socket] GM untapped token ${index}`);
+      try {
+        const destinyPool = await getDestinyPool();
+        if (index < 0 || index >= destinyPool.length) return;
+        if (!destinyPool[index].tapped) return;
+        destinyPool[index].tapped = false;
+        await saveDestinyPool(destinyPool);
+        io.emit('destiny:sync', { pool: destinyPool });
+        console.log(`[socket] GM untapped token ${index}`);
+      } catch (err) {
+        console.error('[socket] destiny:untap-one error:', err);
+      }
     });
 
-    socket.on('destiny:untap', () => {
+    socket.on('destiny:untap', async () => {
       if (socket.data.role !== 'gm') {
         socket.emit('error', { message: 'Only the GM can untap destiny tokens.' });
         return;
       }
 
-      const pool = getDestinyPool();
-      pool.forEach(t => { t.tapped = false; });
-      saveDestinyPool(pool);
-      io.emit('destiny:sync', { pool });
-      console.log(`[socket] GM untapped all destiny tokens`);
+      try {
+        const destinyPool = await getDestinyPool();
+        destinyPool.forEach(t => { t.tapped = false; });
+        await saveDestinyPool(destinyPool);
+        io.emit('destiny:sync', { pool: destinyPool });
+        console.log(`[socket] GM untapped all destiny tokens`);
+      } catch (err) {
+        console.error('[socket] destiny:untap error:', err);
+      }
     });
 
-    socket.on('destiny:reset', () => {
+    socket.on('destiny:reset', async () => {
       if (socket.data.role !== 'gm') {
         socket.emit('error', { message: 'Only the GM can reset the destiny pool.' });
         return;
       }
 
-      const pool = rebuildPool(io);
-      io.emit('destiny:sync', { pool });
-      console.log(`[socket] GM reset destiny pool (${pool.length} tokens)`);
+      try {
+        const destinyPool = await rebuildPool(io);
+        io.emit('destiny:sync', { pool: destinyPool });
+        console.log(`[socket] GM reset destiny pool (${destinyPool.length} tokens)`);
+      } catch (err) {
+        console.error('[socket] destiny:reset error:', err);
+      }
     });
 
     socket.on('advancement:update', ({ characterId, advancement }) => {
@@ -383,21 +412,26 @@ function registerHandlers(io) {
       }
     });
 
-    socket.on('disconnect', () => {
+    socket.on('disconnect', async () => {
       const { role, characterId, characterName } = socket.data;
       console.log(`[socket] Disconnected: ${socket.id} (${role || 'unknown'})`);
 
       if (role === 'player' && characterId) {
-        db.prepare(`
-          UPDATE characters SET session_id = NULL, connected_at = NULL WHERE id = ?
-        `).run(characterId);
-
-        db.prepare(`DELETE FROM sessions WHERE character_id = ?`).run(characterId);
+        try {
+          await pool.query('UPDATE characters SET session_id = NULL, connected_at = NULL WHERE id = $1', [characterId]);
+          await pool.query('DELETE FROM sessions WHERE character_id = $1', [characterId]);
+        } catch (err) {
+          console.error('[socket] disconnect cleanup error:', err);
+        }
 
         io.emit('player:disconnected', { characterId, name: characterName || 'Unknown' });
 
-        const pool = rebuildPool(io);
-        io.emit('destiny:sync', { pool });
+        try {
+          const destinyPool = await rebuildPool(io);
+          io.emit('destiny:sync', { pool: destinyPool });
+        } catch (err) {
+          console.error('[socket] destiny rebuild error:', err);
+        }
 
         const scState = getShipCombatState();
         if (scState) {

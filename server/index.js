@@ -5,7 +5,7 @@ const path         = require('path');
 const cookieParser = require('cookie-parser');
 const compression  = require('compression');
 
-require('./db');
+const { initialize } = require('./db');
 
 const characterRoutes = require('./routes/characters');
 const campaignRoutes  = require('./routes/campaign');
@@ -78,8 +78,13 @@ app.get('/market/', (req, res) => res.sendFile(path.join(ROOT, 'public', 'market
 
 socketHandlers(io);
 
-server.listen(PORT, '0.0.0.0', () => {
-  console.log(`[server] The Edge of the Empire — listening on port ${PORT}`);
-  console.log(`[server] Local:   http://localhost:${PORT}`);
-  console.log(`[server] Network: http://<your-local-ip>:${PORT}`);
+initialize().then(() => {
+  server.listen(PORT, '0.0.0.0', () => {
+    console.log(`[server] The Edge of the Empire — listening on port ${PORT}`);
+    console.log(`[server] Local:   http://localhost:${PORT}`);
+    console.log(`[server] Network: http://<your-local-ip>:${PORT}`);
+  });
+}).catch(err => {
+  console.error('[db] Failed to initialize database:', err);
+  process.exit(1);
 });

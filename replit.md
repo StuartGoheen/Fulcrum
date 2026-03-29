@@ -6,7 +6,7 @@ A Star Wars TTRPG electronic character sheet and campaign management system buil
 
 **Runtime:** Node.js 20  
 **Server:** Express + Socket.io (real-time multiplayer via WebSockets)  
-**Database:** SQLite via `better-sqlite3` (stored at `db/campaign.db`)  
+**Database:** PostgreSQL via `pg` (Replit-managed, connection via `DATABASE_URL`)  
 **CSS:** Tailwind CSS v3 (source: `css/input.css` → output: `public/css/output.css`)
 
 ## Authentication / Password Gate
@@ -47,7 +47,7 @@ The app uses a passcode-based gate (cookie auth) to restrict access:
 │   ├── starship-combat.js # Starship combat cockpit HUD overlay
 ├── data/                 # JSON data files (weapons, armor, gear, etc.)
 ├── assets/               # Images and icons
-├── db/                   # SQLite database (gitignored)
+├── db/                   # (legacy, unused — now using PostgreSQL)
 ├── server/
 │   ├── index.js          # Express + Socket.io entrypoint (port 5000)
 │   ├── db.js             # Database init, schema, seeding

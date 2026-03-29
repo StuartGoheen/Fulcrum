@@ -2,7 +2,7 @@ const express = require('express');
 const router  = express.Router();
 const path    = require('path');
 const fsx     = require('fs');
-const db      = require('../db');
+const { pool } = require('../db');
 
 const KITS_DATA = JSON.parse(fsx.readFileSync(path.join(__dirname, '..', '..', 'data', 'kits.json'), 'utf8'));
 
@@ -180,7 +180,6 @@ function expandCharacterData(flat) {
     const UNARMED = ['wpn_fists_01', 'wpn_cathar_claws_01'];
     const spLower = (flat.species || '').toLowerCase();
     const correctId = spLower === 'cathar' ? 'wpn_cathar_claws_01' : 'wpn_fists_01';
-    const wrongId   = spLower === 'cathar' ? 'wpn_fists_01' : 'wpn_cathar_claws_01';
     flat.weaponIds = flat.weaponIds.filter(id => !UNARMED.includes(id));
     flat.weaponIds.push(correctId);
     if (!Array.isArray(flat.armorIds)) {
@@ -231,7 +230,6 @@ function expandCharacterData(flat) {
   });
 
   const kits = resolveKits(flat.kits);
-
   const engineArenas = kits.map(k => k.governingArena).filter(Boolean);
 
   const weaponIds = Array.isArray(flat.weaponIds) ? flat.weaponIds.slice() : [];
@@ -309,7 +307,6 @@ function expandCharacterData(flat) {
   };
 
   applyInventoryRemovals(result, flat.inventoryRemovals);
-
   return result;
 }
 
@@ -333,130 +330,145 @@ function _migrateDebt(debt) {
   };
 }
 
-router.get('/characters', (req, res) => {
-  const rows = db.prepare(`
-    SELECT
-      c.id,
-      c.name,
-      c.slot_index,
-      c.character_data,
-      CASE WHEN c.session_id IS NOT NULL THEN 1 ELSE 0 END AS is_connected
-    FROM characters c
-    WHERE c.character_data IS NOT NULL
-      AND c.name IS NOT NULL AND c.name != ''
-    ORDER BY c.slot_index ASC
-  `).all();
+router.get('/characters', async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT
+        c.id,
+        c.name,
+        c.slot_index,
+        c.character_data,
+        CASE WHEN c.session_id IS NOT NULL THEN 1 ELSE 0 END AS is_connected
+      FROM characters c
+      WHERE c.character_data IS NOT NULL
+        AND c.name IS NOT NULL AND c.name != ''
+      ORDER BY c.slot_index ASC
+    `);
 
-  const characters = rows.map((c) => {
-    let data = null;
-    try { data = JSON.parse(c.character_data); } catch (_) {}
-    const debt = data ? _migrateDebt(data.debt) : null;
-    return {
-      id:           c.id,
-      name:         c.name,
-      species:      data ? (data.species || null) : null,
-      archetype:    data ? (data.archetype || null) : null,
-      credits:      data ? (data.credits || 0) : 0,
-      debt:         debt ? { creditorId: debt.creditorId, balance: debt.balance, rate: debt.rate, principal: debt.principal, cyclesElapsed: debt.cyclesElapsed || 0 } : null,
-      is_connected: c.is_connected,
-    };
-  });
+    const characters = result.rows.map((c) => {
+      let data = null;
+      try { data = JSON.parse(c.character_data); } catch (_) {}
+      const debt = data ? _migrateDebt(data.debt) : null;
+      return {
+        id:           c.id,
+        name:         c.name,
+        species:      data ? (data.species || null) : null,
+        archetype:    data ? (data.archetype || null) : null,
+        credits:      data ? (data.credits || 0) : 0,
+        debt:         debt ? { creditorId: debt.creditorId, balance: debt.balance, rate: debt.rate, principal: debt.principal, cyclesElapsed: debt.cyclesElapsed || 0 } : null,
+        is_connected: parseInt(c.is_connected),
+      };
+    });
 
-  res.json({ characters });
+    res.json({ characters });
+  } catch (err) {
+    console.error('[GET /characters]', err);
+    res.status(500).json({ error: 'Failed to load characters.' });
+  }
 });
 
-router.post('/session/join', (req, res) => {
+router.post('/session/join', async (req, res) => {
   const { role, characterId } = req.body;
 
   if (!role || !['player', 'gm'].includes(role)) {
     return res.status(400).json({ error: 'Invalid role. Must be "player" or "gm".' });
   }
 
-  if (role === 'player') {
-    if (!characterId) {
-      return res.status(400).json({ error: 'characterId is required for player role.' });
+  try {
+    if (role === 'player') {
+      if (!characterId) {
+        return res.status(400).json({ error: 'characterId is required for player role.' });
+      }
+
+      const charResult = await pool.query('SELECT * FROM characters WHERE id = $1', [characterId]);
+      if (charResult.rows.length === 0) {
+        return res.status(404).json({ error: 'Character not found.' });
+      }
+      const character = charResult.rows[0];
+
+      const token = `session_${Date.now()}_${Math.random().toString(36).slice(2)}`;
+
+      await pool.query(`
+        INSERT INTO sessions (id, character_id, role)
+        VALUES ($1, $2, $3)
+        ON CONFLICT(id) DO NOTHING
+      `, [token, characterId, role]);
+
+      await pool.query('UPDATE characters SET session_id = $1, connected_at = NOW() WHERE id = $2', [token, characterId]);
+
+      return res.json({ token, role, characterId, characterName: character.name });
     }
 
-    const character = db.prepare('SELECT * FROM characters WHERE id = ?').get(characterId);
-    if (!character) {
-      return res.status(404).json({ error: 'Character not found.' });
-    }
+    const token = `gm_session_${Date.now()}`;
 
-    const token = `session_${Date.now()}_${Math.random().toString(36).slice(2)}`;
-
-    db.prepare(`
+    await pool.query(`
       INSERT INTO sessions (id, character_id, role)
-      VALUES (?, ?, ?)
+      VALUES ($1, NULL, $2)
       ON CONFLICT(id) DO NOTHING
-    `).run(token, characterId, role);
+    `, [token, role]);
 
-    db.prepare(`
-      UPDATE characters SET session_id = ?, connected_at = CURRENT_TIMESTAMP WHERE id = ?
-    `).run(token, characterId);
-
-    return res.json({ token, role, characterId, characterName: character.name });
+    return res.json({ token, role });
+  } catch (err) {
+    console.error('[POST /session/join]', err);
+    res.status(500).json({ error: 'Failed to join session.' });
   }
-
-  const token = `gm_session_${Date.now()}`;
-
-  db.prepare(`
-    INSERT INTO sessions (id, character_id, role)
-    VALUES (?, NULL, ?)
-    ON CONFLICT(id) DO NOTHING
-  `).run(token, role);
-
-  return res.json({ token, role });
 });
 
-router.post('/characters/save', (req, res) => {
+router.post('/characters/save', async (req, res) => {
   const { name, character_data, editId } = req.body;
   if (!name || !character_data) {
     return res.status(400).json({ error: 'name and character_data are required.' });
   }
   const dataStr = typeof character_data === 'string' ? character_data : JSON.stringify(character_data);
 
-  if (editId) {
-    const editRow = db.prepare('SELECT id FROM characters WHERE id = ?').get(editId);
-    if (editRow) {
-      const inSession = db.prepare('SELECT session_id FROM characters WHERE id = ? AND session_id IS NOT NULL').get(editId);
-      if (inSession) {
-        return res.status(409).json({ error: 'Character is currently in session. Disconnect first.' });
+  try {
+    if (editId) {
+      const editResult = await pool.query('SELECT id FROM characters WHERE id = $1', [editId]);
+      if (editResult.rows.length > 0) {
+        const inSession = await pool.query('SELECT session_id FROM characters WHERE id = $1 AND session_id IS NOT NULL', [editId]);
+        if (inSession.rows.length > 0) {
+          return res.status(409).json({ error: 'Character is currently in session. Disconnect first.' });
+        }
+        await pool.query('UPDATE characters SET name = $1, character_data = $2 WHERE id = $3', [name, dataStr, editId]);
+        return res.json({ ok: true, id: editId, action: 'updated' });
       }
-      db.prepare('UPDATE characters SET name = ?, character_data = ? WHERE id = ?').run(name, dataStr, editId);
-      return res.json({ ok: true, id: editId, action: 'updated' });
     }
-  }
 
-  // Check for name collision with a different slot
-  const existing = db.prepare('SELECT id, name FROM characters WHERE name = ?').get(name);
-  if (existing) {
-    // Update the existing slot that already has this name
-    db.prepare('UPDATE characters SET character_data = ? WHERE id = ?').run(dataStr, existing.id);
-    return res.json({ ok: true, id: existing.id, action: 'updated' });
-  }
+    const existing = await pool.query('SELECT id, name FROM characters WHERE name = $1', [name]);
+    if (existing.rows.length > 0) {
+      await pool.query('UPDATE characters SET character_data = $1 WHERE id = $2', [dataStr, existing.rows[0].id]);
+      return res.json({ ok: true, id: existing.rows[0].id, action: 'updated' });
+    }
 
-  // Find the first slot with no character_data
-  const emptySlot = db.prepare('SELECT id FROM characters WHERE character_data IS NULL ORDER BY slot_index ASC LIMIT 1').get();
-  if (emptySlot) {
-    db.prepare('UPDATE characters SET name = ?, character_data = ? WHERE id = ?').run(name, dataStr, emptySlot.id);
-    return res.json({ ok: true, id: emptySlot.id, action: 'created' });
-  }
+    const emptySlot = await pool.query('SELECT id FROM characters WHERE character_data IS NULL ORDER BY slot_index ASC LIMIT 1');
+    if (emptySlot.rows.length > 0) {
+      await pool.query('UPDATE characters SET name = $1, character_data = $2 WHERE id = $3', [name, dataStr, emptySlot.rows[0].id]);
+      return res.json({ ok: true, id: emptySlot.rows[0].id, action: 'created' });
+    }
 
-  // No empty slots — insert a new one
-  const maxSlot = db.prepare('SELECT MAX(slot_index) as m FROM characters').get().m || 0;
-  const info = db.prepare('INSERT INTO characters (name, slot_index, character_data) VALUES (?, ?, ?)').run(name, maxSlot + 1, dataStr);
-  return res.json({ ok: true, id: info.lastInsertRowid, action: 'inserted' });
+    const maxSlotResult = await pool.query('SELECT COALESCE(MAX(slot_index), 0) as m FROM characters');
+    const maxSlot = maxSlotResult.rows[0].m;
+    const insertResult = await pool.query(
+      'INSERT INTO characters (name, slot_index, character_data) VALUES ($1, $2, $3) RETURNING id',
+      [name, maxSlot + 1, dataStr]
+    );
+    return res.json({ ok: true, id: insertResult.rows[0].id, action: 'inserted' });
+  } catch (err) {
+    console.error('[POST /characters/save]', err);
+    res.status(500).json({ error: 'Failed to save character.' });
+  }
 });
 
-router.get('/characters/:id', (req, res) => {
-  const character = db.prepare('SELECT id, name, character_data FROM characters WHERE id = ?').get(req.params.id);
-  if (!character) {
-    return res.status(404).json({ error: 'Character not found.' });
-  }
-  if (!character.character_data) {
-    return res.status(404).json({ error: 'Character has no data.' });
-  }
+router.get('/characters/:id', async (req, res) => {
   try {
+    const result = await pool.query('SELECT id, name, character_data FROM characters WHERE id = $1', [req.params.id]);
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'Character not found.' });
+    }
+    const character = result.rows[0];
+    if (!character.character_data) {
+      return res.status(404).json({ error: 'Character has no data.' });
+    }
     const data = JSON.parse(character.character_data);
     data.name = data.name || character.name;
     if (req.query.raw === '1') {
@@ -465,20 +477,22 @@ router.get('/characters/:id', (req, res) => {
     const expanded = expandCharacterData(data);
     expanded.id = character.id;
     return res.json(expanded);
-  } catch (_) {
-    return res.status(500).json({ error: 'Corrupt character data.' });
+  } catch (err) {
+    console.error('[GET /characters/:id]', err);
+    return res.status(500).json({ error: 'Failed to load character.' });
   }
 });
 
-router.patch('/characters/:id/advancement', (req, res) => {
-  const character = db.prepare('SELECT id, character_data, session_id FROM characters WHERE id = ?').get(req.params.id);
-  if (!character || !character.character_data) {
-    return res.status(404).json({ error: 'Character not found.' });
-  }
-  if (!character.session_id) {
-    return res.status(403).json({ error: 'Character is not in an active session.' });
-  }
+router.patch('/characters/:id/advancement', async (req, res) => {
   try {
+    const result = await pool.query('SELECT id, character_data, session_id FROM characters WHERE id = $1', [req.params.id]);
+    if (result.rows.length === 0 || !result.rows[0].character_data) {
+      return res.status(404).json({ error: 'Character not found.' });
+    }
+    const character = result.rows[0];
+    if (!character.session_id) {
+      return res.status(403).json({ error: 'Character is not in an active session.' });
+    }
     const adv = req.body;
     if (!adv || typeof adv !== 'object') {
       return res.status(400).json({ error: 'Invalid advancement payload.' });
@@ -526,22 +540,24 @@ router.patch('/characters/:id/advancement', (req, res) => {
     };
     const data = JSON.parse(character.character_data);
     data.advancement = sanitized;
-    db.prepare('UPDATE characters SET character_data = ? WHERE id = ?').run(JSON.stringify(data), character.id);
+    await pool.query('UPDATE characters SET character_data = $1 WHERE id = $2', [JSON.stringify(data), character.id]);
     return res.json({ ok: true });
-  } catch (_) {
+  } catch (err) {
+    console.error('[PATCH /advancement]', err);
     return res.status(500).json({ error: 'Failed to update advancement.' });
   }
 });
 
-router.patch('/characters/:id/dice', (req, res) => {
-  const character = db.prepare('SELECT id, character_data, session_id FROM characters WHERE id = ?').get(req.params.id);
-  if (!character || !character.character_data) {
-    return res.status(404).json({ error: 'Character not found.' });
-  }
-  if (!character.session_id) {
-    return res.status(403).json({ error: 'Character is not in an active session.' });
-  }
+router.patch('/characters/:id/dice', async (req, res) => {
   try {
+    const result = await pool.query('SELECT id, character_data, session_id FROM characters WHERE id = $1', [req.params.id]);
+    if (result.rows.length === 0 || !result.rows[0].character_data) {
+      return res.status(404).json({ error: 'Character not found.' });
+    }
+    const character = result.rows[0];
+    if (!character.session_id) {
+      return res.status(403).json({ error: 'Character is not in an active session.' });
+    }
     const data = JSON.parse(character.character_data);
     const { type, id, newDie } = req.body;
     if (!type) return res.status(400).json({ error: 'Missing type.' });
@@ -605,7 +621,7 @@ router.patch('/characters/:id/dice', (req, res) => {
       return res.status(400).json({ error: 'Unknown type. Use discipline or arena.' });
     }
 
-    db.prepare('UPDATE characters SET character_data = ? WHERE id = ?').run(JSON.stringify(data), character.id);
+    await pool.query('UPDATE characters SET character_data = $1 WHERE id = $2', [JSON.stringify(data), character.id]);
     return res.json({ ok: true });
   } catch (err) {
     console.error('[PATCH /dice]', err);
@@ -613,12 +629,13 @@ router.patch('/characters/:id/dice', (req, res) => {
   }
 });
 
-router.post('/characters/:id/kits', (req, res) => {
-  const character = db.prepare('SELECT id, character_data FROM characters WHERE id = ?').get(req.params.id);
-  if (!character || !character.character_data) {
-    return res.status(404).json({ error: 'Character not found.' });
-  }
+router.post('/characters/:id/kits', async (req, res) => {
   try {
+    const result = await pool.query('SELECT id, character_data FROM characters WHERE id = $1', [req.params.id]);
+    if (result.rows.length === 0 || !result.rows[0].character_data) {
+      return res.status(404).json({ error: 'Character not found.' });
+    }
+    const character = result.rows[0];
     const { kitId } = req.body;
     if (!kitId) return res.status(400).json({ error: 'kitId is required.' });
     const kitDef = KITS_DATA.find(k => k.id === kitId);
@@ -635,7 +652,7 @@ router.post('/characters/:id/kits', (req, res) => {
 
     kitsObj[kitId] = 1;
     data.kits = kitsObj;
-    db.prepare('UPDATE characters SET character_data = ? WHERE id = ?').run(JSON.stringify(data), character.id);
+    await pool.query('UPDATE characters SET character_data = $1 WHERE id = $2', [JSON.stringify(data), character.id]);
 
     const expanded = expandCharacterData(data);
     return res.json({ ok: true, kits: expanded.kits });
@@ -645,13 +662,13 @@ router.post('/characters/:id/kits', (req, res) => {
   }
 });
 
-router.patch('/characters/:id/credits', (req, res) => {
-  const character = db.prepare('SELECT id, character_data FROM characters WHERE id = ?').get(req.params.id);
-  if (!character || !character.character_data) {
-    return res.status(404).json({ error: 'Character not found.' });
-  }
+router.patch('/characters/:id/credits', async (req, res) => {
   try {
-    const data = JSON.parse(character.character_data);
+    const result = await pool.query('SELECT id, character_data FROM characters WHERE id = $1', [req.params.id]);
+    if (result.rows.length === 0 || !result.rows[0].character_data) {
+      return res.status(404).json({ error: 'Character not found.' });
+    }
+    const data = JSON.parse(result.rows[0].character_data);
     const { action, amount } = req.body;
     const amt = parseInt(amount) || 0;
     if (amt <= 0) return res.status(400).json({ error: 'Amount must be positive.' });
@@ -666,7 +683,7 @@ router.patch('/characters/:id/credits', (req, res) => {
       return res.status(400).json({ error: 'Action must be add, subtract, or set.' });
     }
 
-    db.prepare('UPDATE characters SET character_data = ? WHERE id = ?').run(JSON.stringify(data), character.id);
+    await pool.query('UPDATE characters SET character_data = $1 WHERE id = $2', [JSON.stringify(data), result.rows[0].id]);
     return res.json({ ok: true, credits: data.credits });
   } catch (err) {
     console.error('[PATCH /credits]', err);
@@ -674,13 +691,13 @@ router.patch('/characters/:id/credits', (req, res) => {
   }
 });
 
-router.patch('/characters/:id/debt/pay', (req, res) => {
-  const character = db.prepare('SELECT id, character_data FROM characters WHERE id = ?').get(req.params.id);
-  if (!character || !character.character_data) {
-    return res.status(404).json({ error: 'Character not found.' });
-  }
+router.patch('/characters/:id/debt/pay', async (req, res) => {
   try {
-    const data = JSON.parse(character.character_data);
+    const result = await pool.query('SELECT id, character_data FROM characters WHERE id = $1', [req.params.id]);
+    if (result.rows.length === 0 || !result.rows[0].character_data) {
+      return res.status(404).json({ error: 'Character not found.' });
+    }
+    const data = JSON.parse(result.rows[0].character_data);
     data.debt = _migrateDebt(data.debt);
     if (!data.debt || !data.debt.balance || data.debt.balance <= 0) {
       return res.status(400).json({ error: 'No outstanding debt.' });
@@ -700,7 +717,7 @@ router.patch('/characters/:id/debt/pay', (req, res) => {
       data.debt.balance = 0;
     }
 
-    db.prepare('UPDATE characters SET character_data = ? WHERE id = ?').run(JSON.stringify(data), character.id);
+    await pool.query('UPDATE characters SET character_data = $1 WHERE id = $2', [JSON.stringify(data), result.rows[0].id]);
     return res.json({ ok: true, credits: data.credits, debt: data.debt });
   } catch (err) {
     console.error('[PATCH /debt/pay]', err);
@@ -708,13 +725,13 @@ router.patch('/characters/:id/debt/pay', (req, res) => {
   }
 });
 
-router.patch('/characters/:id/debt/accrue', (req, res) => {
-  const character = db.prepare('SELECT id, character_data FROM characters WHERE id = ?').get(req.params.id);
-  if (!character || !character.character_data) {
-    return res.status(404).json({ error: 'Character not found.' });
-  }
+router.patch('/characters/:id/debt/accrue', async (req, res) => {
   try {
-    const data = JSON.parse(character.character_data);
+    const result = await pool.query('SELECT id, character_data FROM characters WHERE id = $1', [req.params.id]);
+    if (result.rows.length === 0 || !result.rows[0].character_data) {
+      return res.status(404).json({ error: 'Character not found.' });
+    }
+    const data = JSON.parse(result.rows[0].character_data);
     data.debt = _migrateDebt(data.debt);
     if (!data.debt || !data.debt.balance || data.debt.balance <= 0) {
       return res.status(400).json({ error: 'No outstanding debt to accrue interest on.' });
@@ -726,7 +743,7 @@ router.patch('/characters/:id/debt/accrue', (req, res) => {
     if (!data.debt.history) data.debt.history = [];
     data.debt.history.push({ type: 'interest', amount: interest, rate: rate, balanceAfter: data.debt.balance, cycle: data.debt.cyclesElapsed, timestamp: Date.now() });
 
-    db.prepare('UPDATE characters SET character_data = ? WHERE id = ?').run(JSON.stringify(data), character.id);
+    await pool.query('UPDATE characters SET character_data = $1 WHERE id = $2', [JSON.stringify(data), result.rows[0].id]);
     return res.json({ ok: true, debt: data.debt });
   } catch (err) {
     console.error('[PATCH /debt/accrue]', err);
@@ -744,13 +761,13 @@ const DEBT_CREDITORS = {
 const DEBT_MIN = 1000;
 const DEBT_MAX = 10000;
 
-router.post('/characters/:id/debt/take', (req, res) => {
-  const character = db.prepare('SELECT id, character_data FROM characters WHERE id = ?').get(req.params.id);
-  if (!character || !character.character_data) {
-    return res.status(404).json({ error: 'Character not found.' });
-  }
+router.post('/characters/:id/debt/take', async (req, res) => {
   try {
-    const data = JSON.parse(character.character_data);
+    const result = await pool.query('SELECT id, character_data FROM characters WHERE id = $1', [req.params.id]);
+    if (result.rows.length === 0 || !result.rows[0].character_data) {
+      return res.status(404).json({ error: 'Character not found.' });
+    }
+    const data = JSON.parse(result.rows[0].character_data);
     data.debt = _migrateDebt(data.debt);
     if (data.debt && data.debt.balance && data.debt.balance > 0) {
       return res.status(400).json({ error: 'Character already has outstanding debt.' });
@@ -773,7 +790,7 @@ router.post('/characters/:id/debt/take', (req, res) => {
     };
     data.credits = (data.credits || 0) + amt;
 
-    db.prepare('UPDATE characters SET character_data = ? WHERE id = ?').run(JSON.stringify(data), character.id);
+    await pool.query('UPDATE characters SET character_data = $1 WHERE id = $2', [JSON.stringify(data), result.rows[0].id]);
     return res.json({ ok: true, credits: data.credits, debt: data.debt });
   } catch (err) {
     console.error('[POST /debt/take]', err);
@@ -781,12 +798,13 @@ router.post('/characters/:id/debt/take', (req, res) => {
   }
 });
 
-router.post('/characters/:id/purchase', (req, res) => {
-  const character = db.prepare('SELECT id, character_data FROM characters WHERE id = ?').get(req.params.id);
-  if (!character || !character.character_data) {
-    return res.status(404).json({ error: 'Character not found.' });
-  }
+router.post('/characters/:id/purchase', async (req, res) => {
   try {
+    const result = await pool.query('SELECT id, character_data FROM characters WHERE id = $1', [req.params.id]);
+    if (result.rows.length === 0 || !result.rows[0].character_data) {
+      return res.status(404).json({ error: 'Character not found.' });
+    }
+    const character = result.rows[0];
     const data = JSON.parse(character.character_data);
     const { items, totalCost } = req.body;
     if (!Array.isArray(items) || items.length === 0) {
@@ -813,8 +831,8 @@ router.post('/characters/:id/purchase', (req, res) => {
     }
 
     const charId = String(character.id);
-    items.forEach(item => {
-      if (!item.id || !item.type) return;
+    for (const item of items) {
+      if (!item.id || !item.type) continue;
       if (item.type === 'weapon') {
         if (!data.weaponIds) data.weaponIds = [];
         if (data.weaponIds.indexOf(item.id) === -1) data.weaponIds.push(item.id);
@@ -835,14 +853,14 @@ router.post('/characters/:id/purchase', (req, res) => {
         }
       }
       if (item.acquisition) data.acquisitionMap[item.id] = item.acquisition;
-      db.prepare(`
+      await pool.query(`
         INSERT INTO equipment_status (character_id, item_id, item_type, status, updated_at)
-        VALUES (?, ?, ?, 'stowed', CURRENT_TIMESTAMP)
-        ON CONFLICT(character_id, item_id) DO UPDATE SET status = 'stowed', updated_at = CURRENT_TIMESTAMP
-      `).run(charId, item.id, item.type);
-    });
+        VALUES ($1, $2, $3, 'stowed', NOW())
+        ON CONFLICT(character_id, item_id) DO UPDATE SET status = 'stowed', updated_at = NOW()
+      `, [charId, item.id, item.type]);
+    }
 
-    db.prepare('UPDATE characters SET character_data = ? WHERE id = ?').run(JSON.stringify(data), character.id);
+    await pool.query('UPDATE characters SET character_data = $1 WHERE id = $2', [JSON.stringify(data), character.id]);
     return res.json({ ok: true, credits: data.credits, itemCount: items.length });
   } catch (err) {
     console.error('[POST /purchase]', err);
@@ -850,27 +868,29 @@ router.post('/characters/:id/purchase', (req, res) => {
   }
 });
 
-router.get('/characters/:id/adventure-marks/:adventureId', (req, res) => {
+router.get('/characters/:id/adventure-marks/:adventureId', async (req, res) => {
   const { id, adventureId } = req.params;
   try {
-    const rows = db.prepare(
-      'SELECT mark_id, bucket, claimed_at FROM adventure_marks WHERE character_id = ? AND adventure_id = ?'
-    ).all(id, adventureId);
-    return res.json({ ok: true, marks: rows });
+    const result = await pool.query(
+      'SELECT mark_id, bucket, claimed_at FROM adventure_marks WHERE character_id = $1 AND adventure_id = $2',
+      [id, adventureId]
+    );
+    return res.json({ ok: true, marks: result.rows });
   } catch (err) {
     console.error('[GET /adventure-marks]', err);
     return res.status(500).json({ error: 'Failed to load adventure marks.' });
   }
 });
 
-router.get('/characters/:id/adventure-marks-all', (req, res) => {
+router.get('/characters/:id/adventure-marks-all', async (req, res) => {
   const { id } = req.params;
   try {
-    const rows = db.prepare(
-      'SELECT adventure_id, mark_id, bucket, claimed_at FROM adventure_marks WHERE character_id = ? ORDER BY adventure_id, claimed_at'
-    ).all(id);
+    const result = await pool.query(
+      'SELECT adventure_id, mark_id, bucket, claimed_at FROM adventure_marks WHERE character_id = $1 ORDER BY adventure_id, claimed_at',
+      [id]
+    );
     const grouped = {};
-    for (const row of rows) {
+    for (const row of result.rows) {
       if (!grouped[row.adventure_id]) grouped[row.adventure_id] = [];
       grouped[row.adventure_id].push({ mark_id: row.mark_id, bucket: row.bucket, claimed_at: row.claimed_at });
     }
@@ -881,40 +901,48 @@ router.get('/characters/:id/adventure-marks-all', (req, res) => {
   }
 });
 
-router.put('/characters/:id/adventure-marks/:adventureId', (req, res) => {
+router.put('/characters/:id/adventure-marks/:adventureId', async (req, res) => {
   const { id, adventureId } = req.params;
   const { marks } = req.body;
   if (!Array.isArray(marks)) {
     return res.status(400).json({ error: 'marks must be an array of { mark_id, bucket }.' });
   }
+  const client = await pool.connect();
   try {
-    const del = db.prepare('DELETE FROM adventure_marks WHERE character_id = ? AND adventure_id = ?');
-    const ins = db.prepare(
-      'INSERT INTO adventure_marks (character_id, adventure_id, mark_id, bucket) VALUES (?, ?, ?, ?)'
-    );
-    const txn = db.transaction(() => {
-      del.run(id, adventureId);
-      for (const m of marks) {
-        if (m.mark_id && m.bucket) {
-          ins.run(id, adventureId, m.mark_id, m.bucket);
-        }
+    await client.query('BEGIN');
+    await client.query('DELETE FROM adventure_marks WHERE character_id = $1 AND adventure_id = $2', [id, adventureId]);
+    for (const m of marks) {
+      if (m.mark_id && m.bucket) {
+        await client.query(
+          'INSERT INTO adventure_marks (character_id, adventure_id, mark_id, bucket) VALUES ($1, $2, $3, $4)',
+          [id, adventureId, m.mark_id, m.bucket]
+        );
       }
-    });
-    txn();
-    const rows = db.prepare(
-      'SELECT mark_id, bucket, claimed_at FROM adventure_marks WHERE character_id = ? AND adventure_id = ?'
-    ).all(id, adventureId);
-    return res.json({ ok: true, marks: rows });
+    }
+    await client.query('COMMIT');
+    const result = await pool.query(
+      'SELECT mark_id, bucket, claimed_at FROM adventure_marks WHERE character_id = $1 AND adventure_id = $2',
+      [id, adventureId]
+    );
+    return res.json({ ok: true, marks: result.rows });
   } catch (err) {
+    await client.query('ROLLBACK');
     console.error('[PUT /adventure-marks]', err);
     return res.status(500).json({ error: 'Failed to save adventure marks.' });
+  } finally {
+    client.release();
   }
 });
 
-router.post('/admin/release-all', (req, res) => {
-  db.prepare('DELETE FROM sessions').run();
-  db.prepare('UPDATE characters SET session_id = NULL, connected_at = NULL').run();
-  res.json({ ok: true, message: 'All character sessions released.' });
+router.post('/admin/release-all', async (req, res) => {
+  try {
+    await pool.query('DELETE FROM sessions');
+    await pool.query('UPDATE characters SET session_id = NULL, connected_at = NULL');
+    res.json({ ok: true, message: 'All character sessions released.' });
+  } catch (err) {
+    console.error('[POST /admin/release-all]', err);
+    res.status(500).json({ error: 'Failed to release sessions.' });
+  }
 });
 
 module.exports = router;
