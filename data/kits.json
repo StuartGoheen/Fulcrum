@@ -614,6 +614,121 @@
     ]
   },
   {
+    "id": "voc_teras_kasi",
+    "name": "The Teräs Käsi",
+    "governingArena": "grit",
+    "favoredDiscipline": "brawl",
+    "description": "Teräs Käsi — the steel hand. A martial discipline born on Bunduki among the Followers of Palawa, forged not for sport but for survival against opponents who could move objects with their minds and see the future. Where other fighters train the body, the Teräs Käsi practitioner trains the space between intention and action — the still point where the Force flows through muscle and bone without ever reaching outward. Every strike is a single sentence. Every defense is a question already answered.",
+    "fluff": "The Followers of Palawa were exiled to Bunduki for refusing to abandon their fighting art when the Jedi Council declared unarmed combat insufficient against the lightsaber. They proved the Council wrong. Teräs Käsi masters learned to read the micro-tremors in a Force user's stance — the way the shoulders commit a half-second before the blade moves, the way the eyes track a target the Force has already chosen. They turned that foreknowledge into a wall. Rancor Rising. Striking Sarlacc. Slashing Wampa. The names sound primitive. The techniques are anything but. A trained practitioner does not block a lightsaber. She reads the intention behind it, steps inside the arc, and makes the weapon irrelevant. The blade is not the danger. The mind holding it is. And Teräs Käsi was built to fight minds.",
+    "abilities": [
+      {
+        "id": "voc_teras_kasi_t1",
+        "tier": 1,
+        "type": "passive",
+        "name": "Steel Hands",
+        "tags": [
+          "[Force]",
+          "[Combat]"
+        ],
+        "rule": "You may use Brawl (Grit) in place of Brawl (Physique) for all unarmed attack rolls — the Force disciplines the body, channeling strikes through resolve rather than raw strength. Your unarmed strikes deal damage using the Light Melee weapon chassis instead of the standard unarmed chassis. You may declare any unarmed attack as Stun damage.\n\nAdditionally, you may use Brawl (Grit) in place of Endure (Physique) when defending against melee attacks while Engaged and not wielding a weapon. You deflect and redirect with Force-hardened hands — reading the arc of the strike before it lands.\n\nThis ability is DISABLED while you are affected by [Rattled] or [Disoriented]. The Force conditioning requires internal stillness. While disabled, revert to Brawl (Physique) at standard unarmed damage.",
+        "modifiesAction": "action_endure",
+        "targetWeaponTags": [
+          "Unarmed"
+        ],
+        "shorthand": "Brawl (Grit) for unarmed attacks and melee Endure while Engaged. Unarmed = Light Melee chassis. Stun option. Disabled by [Rattled] or [Disoriented]."
+      },
+      {
+        "id": "voc_teras_kasi_t2",
+        "tier": 2,
+        "type": "passive",
+        "name": "Flowing Water",
+        "tags": [
+          "[Force]",
+          "[Combat]"
+        ],
+        "rule": "When you successfully defend using Brawl (Grit) via Steel Hands, your next unarmed Brawl attack against that attacker before the end of your next turn is [Empowered]. You absorbed their energy and redirected it — Force-conditioned muscles store the kinetic memory of the blow and release it on the counter.\n\nEach successful defense fuels exactly one [Empowered] counter. The effect does not stack with itself — a second successful defense against a different attacker replaces the stored energy, it does not add a second step-up. You carry one borrowed strike at a time.",
+        "shorthand": "Successful Brawl (Grit) defense → next unarmed attack vs that attacker is [Empowered]. Single target, does not stack."
+      },
+      {
+        "id": "voc_teras_kasi_t3",
+        "tier": 3,
+        "type": "maneuver",
+        "name": "Rancor Rising",
+        "tags": [
+          "[Force]",
+          "[Combat]"
+        ],
+        "discipline": "control_spark",
+        "arena": "grit",
+        "rolled": true,
+        "rule": "Channel the Force inward through meditative combat focus. Roll Control (Grit). Power = Roll. Breath slows, awareness sharpens, and the Force hardens the body from within — not armor, but something older. The stillness before the rancor charges.",
+        "risk": "Failure wastes the maneuver — the meditative state does not hold under the pressure of combat.",
+        "effect": [
+          {
+            "tier": 1,
+            "label": "Fleeting",
+            "range": "0-3",
+            "description": "Gain [Guarded 1]. Clear one of [Rattled] or [Disoriented] affecting you."
+          },
+          {
+            "tier": 2,
+            "label": "Masterful",
+            "range": "4-7",
+            "description": "Gain [Guarded 2]. Clear one mental condition ([Rattled], [Disoriented], or [Shaken]). Your next unarmed attack before end of scene ignores [Guarded] on the target."
+          },
+          {
+            "tier": 3,
+            "label": "Legendary",
+            "range": "8+",
+            "description": "Gain [Guarded 3]. Clear all mental conditions affecting you. Your next unarmed attack before end of scene ignores [Guarded] on the target and is [Optimized]."
+          }
+        ]
+      },
+      {
+        "id": "voc_teras_kasi_t4",
+        "tier": 4,
+        "type": "gambit",
+        "name": "Slashing Wampa",
+        "tags": [
+          "[Force]",
+          "[Combat]"
+        ],
+        "modifiesAction": "action_attack",
+        "actionType": "Brawl Attack (Unarmed)",
+        "rule": "After resolving an unarmed Brawl attack that deals damage, spend 1 tier. The strike threads through the target's guard — a precision blow to a joint, nerve cluster, or pressure point that armor cannot protect. The target's next Endure defense roll (against any attack, from any source) is [Weakened]. If the target is unarmored, they gain [Exposed] instead.\n\nThe Slashing Wampa does not overpower defenses. It makes the next strike — yours or an ally's — land where the armor isn't."
+      },
+      {
+        "id": "voc_teras_kasi_t5",
+        "tier": 5,
+        "type": "passive",
+        "name": "The Open Hand",
+        "tags": [
+          "[Force]",
+          "[Combat]"
+        ],
+        "rule": "You may defend against Lightsaber attacks using Brawl (Grit). When you do, your defense roll is [Optimized]. You do not catch the blade — you read the intention behind it, step inside the arc, and make the weapon irrelevant. If your Control die scores 8+ on this defense, the attacker gains [Exposed].\n\nAdditionally, once per scene, when your unarmed attack reduces an opponent to 0 Vitality, you may leave them at 1 Vitality and impose [Incapacitated] instead. The open hand offers mercy. The closed fist does not. The choice is yours.",
+        "shorthand": "Endure lightsaber attacks with Brawl (Grit), [Optimized]. Control 8+ → attacker [Exposed]. 1/scene: reduce to 0 Vitality → 1 Vitality + [Incapacitated] instead."
+      }
+    ],
+    "imageUrl": "/assets/vocations/voc_teras_kasi.png",
+    "startingItems": [
+      {
+        "id": "gear_training_wraps_01",
+        "name": "Teräs Käsi Training Wraps",
+        "cost": 50,
+        "source": "gear",
+        "legalStatus": "legal"
+      },
+      {
+        "id": "gear_meditation_focus_01",
+        "name": "Palawa Meditation Focus",
+        "cost": 75,
+        "source": "gear",
+        "legalStatus": "legal"
+      }
+    ]
+  },
+  {
     "id": "voc_grifter",
     "name": "The Grifter",
     "governingArena": "presence",
