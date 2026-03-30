@@ -236,6 +236,65 @@
   }
 
   var _lastRenderedScene = null;
+  function renderThreatBlock(tb) {
+    var h = '';
+    var c = tb.computed || {};
+    h += '<div class="cb-threat-block" style="grid-column:1/-1;margin:0.2rem 0.5rem 0.4rem;padding:0.4rem 0.6rem;background:rgba(0,0,0,0.2);border-radius:4px;font-size:0.7rem;border-left:2px solid var(--color-accent-deep,#6b4c9a);">';
+
+    h += '<div style="display:flex;flex-wrap:wrap;gap:0.6rem;margin-bottom:0.3rem;">';
+    h += '<span style="color:var(--color-accent-primary);">T' + (tb.tier || 0) + '</span>';
+    h += '<span>' + esc((tb.role || '').charAt(0).toUpperCase() + (tb.role || '').slice(1)) + '</span>';
+    h += '<span>' + esc((tb.classification || '').charAt(0).toUpperCase() + (tb.classification || '').slice(1)) + '</span>';
+    if (c.controlDie) h += '<span>Control: ' + esc(c.controlDie) + '</span>';
+    if (c.actions) h += '<span>Actions: ' + c.actions + '/rnd</span>';
+    h += '</div>';
+
+    h += '<div style="display:flex;flex-wrap:wrap;gap:0.8rem;margin-bottom:0.3rem;font-family:Audiowide,sans-serif;font-size:0.65rem;">';
+    h += '<span>Pwr <span style="color:var(--color-accent-primary);">' + (c.power != null ? c.power : '—') + '</span></span>';
+    h += '<span>Def <span style="color:var(--color-accent-primary);">' + (c.defense != null ? c.defense : '—') + '</span></span>';
+    h += '<span>Eva <span style="color:var(--color-accent-primary);">' + (c.evasion != null ? c.evasion : '—') + '</span></span>';
+    h += '<span>Res <span style="color:var(--color-accent-primary);">' + (c.resist != null ? c.resist : '—') + '</span></span>';
+    h += '<span>Vit <span style="color:var(--color-accent-primary);">' + (c.vitality != null ? c.vitality : '—') + '</span></span>';
+    h += '<span>Init <span style="color:var(--color-accent-primary);">' + (c.initiative != null ? c.initiative : '—') + '</span></span>';
+    h += '</div>';
+
+    if (c.damageTiers) {
+      var dt = c.damageTiers;
+      h += '<div style="margin-bottom:0.3rem;font-size:0.65rem;">Damage (' + esc(dt.label) + '): ';
+      h += '<span style="color:var(--color-text-secondary);">Fleeting </span><span style="color:var(--color-accent-primary);">' + dt.fleeting + '</span>';
+      h += '<span style="color:var(--color-text-secondary);"> · Masterful </span><span style="color:var(--color-accent-primary);">' + dt.masterful + '</span>';
+      h += '<span style="color:var(--color-text-secondary);"> · Legendary </span><span style="color:var(--color-accent-primary);">' + dt.legendary + '</span>';
+      h += '</div>';
+    }
+
+    if (tb.roleKit) {
+      var rk = tb.roleKit;
+      if (rk.passive) {
+        h += '<div style="margin-bottom:0.2rem;"><span style="color:var(--color-accent-secondary,#c084fc);font-size:0.6rem;text-transform:uppercase;">Passive:</span> <strong>' + esc(rk.passive.name) + '</strong> — ' + linkify(rk.passive.description) + '</div>';
+      }
+      if (rk.actions && rk.actions.length) {
+        rk.actions.forEach(function (a) {
+          h += '<div style="margin-bottom:0.15rem;"><span style="color:var(--color-accent-primary);font-size:0.6rem;text-transform:uppercase;">Action:</span> <strong>' + esc(a.name) + '</strong>';
+          if (a.attackPower != null) h += ' <span style="font-family:Audiowide,sans-serif;color:var(--color-accent-primary);">P' + a.attackPower + '</span>';
+          if (a.arena) h += ' <span style="color:var(--color-text-secondary);">(' + esc(a.arena) + ')</span>';
+          h += ' — ' + linkify(a.description) + '</div>';
+        });
+      }
+      if (rk.maneuver) {
+        h += '<div style="margin-bottom:0.15rem;"><span style="color:#60a5fa;font-size:0.6rem;text-transform:uppercase;">Maneuver:</span> <strong>' + esc(rk.maneuver.name) + '</strong> — ' + linkify(rk.maneuver.description) + '</div>';
+      }
+      if (rk.gambit) {
+        h += '<div style="margin-bottom:0.15rem;"><span style="color:#f59e0b;font-size:0.6rem;text-transform:uppercase;">Gambit</span> <span style="color:var(--color-text-secondary);font-size:0.6rem;">(optional, costs 1 Power)</span>: <strong>' + esc(rk.gambit.name) + '</strong> — ' + linkify(rk.gambit.description) + '</div>';
+      }
+      if (rk.exploit) {
+        h += '<div style="margin-bottom:0.15rem;"><span style="color:#34d399;font-size:0.6rem;text-transform:uppercase;">Exploit:</span> <strong>' + esc(rk.exploit.name) + '</strong> — ' + linkify(rk.exploit.description) + '</div>';
+      }
+    }
+
+    h += '</div>';
+    return h;
+  }
+
   function renderScene() {
     if (window.CombatTracker && window.CombatTracker.isActive() && currentScene !== _lastRenderedScene) {
       window.CombatTracker.end();
@@ -297,6 +356,9 @@
         }
         if (npc.intel) {
           html += '<div class="cb-npc-detail-row" style="grid-column:1/-1;padding:0.15rem 0.5rem;font-size:0.7rem;color:#f59e0b;border-left:2px solid #f59e0b;margin-left:0.5rem;"><strong>Intel:</strong> ' + linkify(npc.intel) + '</div>';
+        }
+        if (npc.threatBuild) {
+          html += renderThreatBlock(npc.threatBuild);
         }
       });
       html += '</div></div>';
