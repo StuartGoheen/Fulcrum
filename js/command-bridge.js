@@ -245,7 +245,6 @@
     h += '<span style="color:var(--color-accent-primary);">T' + (tb.tier || 0) + '</span>';
     h += '<span>' + esc((tb.role || '').charAt(0).toUpperCase() + (tb.role || '').slice(1)) + '</span>';
     h += '<span>' + esc((tb.classification || '').charAt(0).toUpperCase() + (tb.classification || '').slice(1)) + '</span>';
-    if (c.controlDie) h += '<span>Control: ' + esc(c.controlDie) + '</span>';
     if (c.actions) h += '<span>Actions: ' + c.actions + '/rnd</span>';
     h += '</div>';
 
