@@ -247,7 +247,7 @@
                         "description": "If target has [Shaken], automatically escalate to [Incapacitated] (surrender/flee)."
                       }
                     },
-                    "notes": "Power 4 = (effective Physique 4 - 1) + Tier 1. Defense 4 = max(4,2)-1+1. Vitality 7 = Phys 4 + Grit 2 + Tier 1. Wits clamped to 1 (base 1, Enforcer -1, floor 1). Vs a starting PC with Resist ~3, net +1 = Fleeting social hit. Enough to apply pressure, not devastating."
+                    "notes": "Power 4 = (effective Physique 4 - 1) + Tier 1. Defense 4 = max(4,2)-1+1. Wits clamped to 1 (base 1, Enforcer -1, floor 1). Vs a starting PC with Resist ~3, net +1 = Fleeting social hit. Enough to apply pressure, not devastating."
                   }
                 },
                 {
@@ -316,7 +316,7 @@
                         "description": "If attacking from stealth or flanking, +2 Power on the attack."
                       }
                     },
-                    "notes": "Power 3 = (effective Reflex 4 - 1) + Tier 0. Defense 3 = max(2,4)-1+0. Evasion 3 = Ref 4 - 1 + 0. Resist 0 = Grit 1 - 1 + 0 (extremely vulnerable to social/grit attacks). Vitality 3 = Phys 2 + Grit 1 + Tier 0 (fragile). Minion: Masterful+ = instant takedown. They exist to make the room feel dangerous, not to be a real fight."
+                    "notes": "Power 3 = (effective Reflex 4 - 1) + Tier 0. Defense 3 = max(2,4)-1+0. Evasion 3 = Ref 4 - 1 + 0. Resist 0 = Grit 1 - 1 + 0 (extremely vulnerable to social/grit attacks). Minion: Masterful+ = instant takedown. They exist to make the room feel dangerous, not to be a real fight."
                   }
                 }
               ],
@@ -749,7 +749,7 @@
                         "description": "Activate hidden ceiling turrets and lock the single exit. All hostiles gain [Suppressed]."
                       }
                     },
-                    "notes": "Switch is a social threat, not a physical one. His security systems are his teeth. Wits 4 with Informant +1 = effective 5, clamped to max. Power 4 = (Wits 5-1)+1. Resist 3 = Grit 3-1+1. Extremely hard to bluff or intimidate.",
+                    "notes": "Switch is a social threat, not a physical one. His security systems are his teeth. Wits 4 with Informant +1 = effective 5, clamped to max. Resist 3 = Grit 3-1+1. Extremely hard to bluff or intimidate.",
                     "computed": {
                       "power": 4,
                       "defense": 1,
@@ -991,7 +991,7 @@
                         "description": "When dropping a target to 0 Vitality, immediately make another melee attack against a different adjacent target."
                       }
                     },
-                    "notes": "Elite Brute. Power 5 = (Phys 5-1)+1. Defense 5 = max(5,2)-1+1. Evasion 1 = Ref 2-1+1-1(slow). Resist 3 = Grit 3-1+1. Vitality 12 = (5+3+1)*1.5. Tough: ignore Fleeting damage. A serious fight for the party.",
+                    "notes": "Elite Brute. Defense 5 = max(5,2)-1+1. Evasion 1 = Ref 2-1+1-1(slow). Resist 3 = Grit 3-1+1. 5. Tough: ignore Fleeting damage. A serious fight for the party.",
                     "computed": {
                       "power": 4,
                       "defense": 4,
@@ -1060,7 +1060,7 @@
                         "description": "If adjacent to another Enforcer, +1 Power on next attack."
                       }
                     },
-                    "notes": "Minion thugs. Power 1 = (Ref 2-1)+0. Defense 1 = max(2,2)-1+0. Vitality 3 = 2+1+0. Masterful+ = instant takedown. Exist to make the room feel crowded, not dangerous.",
+                    "notes": "Minion thugs. Defense 1 = max(2,2)-1+0. Masterful+ = instant takedown. Exist to make the room feel crowded, not dangerous.",
                     "computed": {
                       "power": 1,
                       "defense": 1,
@@ -1309,7 +1309,7 @@
                         "description": "All allied Troopers targeting the same enemy gain +1 Power this round."
                       }
                     },
-                    "notes": "Minion Troopers. Power 3 = (Ref 3-1)+1. Defense 3 = max(2,3)-1+1+1(armor). Evasion 3 = Ref 3-1+1. Resist 2 = Grit 2-1+1+1(disciplined)-1... Resist 2 = 2-1+1. Vitality 5 = 2+2+1. Masterful+ = takedown.",
+                    "notes": "Minion Troopers. Defense 3 = max(2,3)-1+1+1(armor). Evasion 3 = Ref 3-1+1. Resist 2 = Grit 2-1+1+1(disciplined)-1... Resist 2 = 2-1+1. Masterful+ = takedown.",
                     "computed": {
                       "power": 3,
                       "defense": 4,
@@ -1381,7 +1381,7 @@
                         "description": "Call for backup. Reinforcements arrive in 2 rounds."
                       }
                     },
-                    "notes": "Minion guards. Power 1 = (Ref 2-1)+0. Defense 1 = max(2,2)-1+0. Vitality 3 = 2+1+0. Lazy and bribeable — Charm T0/P0 to bribe. Masterful+ = takedown.",
+                    "notes": "Minion guards. Defense 1 = max(2,2)-1+0. Lazy and bribeable — Charm T0/P0 to bribe. Masterful+ = takedown.",
                     "computed": {
                       "power": 1,
                       "defense": 1,
@@ -1656,7 +1656,7 @@
                       "gambit": null,
                       "exploit": null
                     },
-                    "notes": "Non-combatant. Wits 3 with Informant +1 = effective 4. Power 3 = (4-1)+0. He is a walking intel source, not a fighter. Hibernation sickness: all physical actions [Weakened] until treated.",
+                    "notes": "Non-combatant. Wits 3 with Informant +1 = effective 4. He is a walking intel source, not a fighter. Hibernation sickness: all physical actions [Weakened] until treated.",
                     "computed": {
                       "power": 2,
                       "defense": 0,
@@ -1734,7 +1734,7 @@
                         "description": "When an ally would take a fatal hit in the Banshee, Okeefe can roll Piloting to interpose the ship."
                       }
                     },
-                    "notes": "Okeefe is a veteran NPC ally, not under player control. Power 5 = (Ref 5-1)+2. Defense 5 = max(2,5)-1+2. Evasion 5 = 5-1+2-1(agile cancels). She fights from the cockpit. On foot she is competent but not exceptional.",
+                    "notes": "Okeefe is a veteran NPC ally, not under player control. Defense 5 = max(2,5)-1+2. Evasion 5 = 5-1+2-1(agile cancels). She fights from the cockpit. On foot she is competent but not exceptional.",
                     "computed": {
                       "power": 5,
                       "defense": 5,
@@ -2291,7 +2291,7 @@
                         "description": "If Mandrake is reduced to 0 Vitality, a pre-set charge detonates. Area damage in his zone."
                       }
                     },
-                    "notes": "Mandrake is a potential ally, not necessarily an enemy. Power 4 = (Ref 4-1)+2. Defense 4 = max(3,4)-1+2. Resist 5 = Grit 4-1+2. Vitality 9 = 3+4+2. Veteran grants +1 Exploit. He is dangerous, desperate, and potentially trustworthy.",
+                    "notes": "Mandrake is a potential ally, not necessarily an enemy. Defense 4 = max(3,4)-1+2. Resist 5 = Grit 4-1+2. Veteran grants +1 Exploit. He is dangerous, desperate, and potentially trustworthy.",
                     "computed": {
                       "power": 4,
                       "defense": 4,
@@ -2569,7 +2569,7 @@
                         "description": "Vent containment. The lab fills with sterilizing gas. All characters take [Hazard 2] for 2 rounds."
                       }
                     },
-                    "notes": "Vischera is a scientist, not a soldier. Power 4 = (Wits 5-1)+1. Defense 1 = max(1,1)-1+1. Vitality 4 = 1+2+1. She relies on her lab environment and security systems, not personal combat ability.",
+                    "notes": "Vischera is a scientist, not a soldier. Defense 1 = max(1,1)-1+1. She relies on her lab environment and security systems, not personal combat ability.",
                     "computed": {
                       "power": 4,
                       "defense": 1,
@@ -2641,7 +2641,7 @@
                         "description": "Alert nearby mercenaries. 2 additional minions arrive in 2 rounds."
                       }
                     },
-                    "notes": "Minion guards. Power 1 = (Ref 2-1)+0. Defense 1 = max(2,2)-1+0. Vitality 4 = 2+2+0. Grimy and undisciplined — easier to intimidate than Stormtroopers. Masterful+ = takedown.",
+                    "notes": "Minion guards. Defense 1 = max(2,2)-1+0. Grimy and undisciplined — easier to intimidate than Stormtroopers. Masterful+ = takedown.",
                     "computed": {
                       "power": 1,
                       "defense": 1,
@@ -2718,7 +2718,7 @@
                         "description": "All allied Troopers targeting the same enemy gain +1 Power this round."
                       }
                     },
-                    "notes": "Minion Troopers. Power 3 = (Ref 3-1)+1. Defense 3 = max(2,3)-1+1+1(armor). Vitality 5 = 2+2+1. Pristine armor — at the landing pad. Separate command from Skarn's mercs.",
+                    "notes": "Minion Troopers. Defense 3 = max(2,3)-1+1+1(armor). Pristine armor — at the landing pad. Separate command from Skarn's mercs.",
                     "computed": {
                       "power": 3,
                       "defense": 4,
@@ -2997,7 +2997,7 @@
                         "description": "If a social exchange turns against Varth, he immediately redirects the conversation to a new topic. Resets social conditions on himself."
                       }
                     },
-                    "notes": "Varth is the campaign's central NPC — charming, cynical, self-serving. Power 5 = (Pres 5-1)+2. Defense 2 = max(1,2)-1+2. Resist 4 = Grit 3-1+2+1(disciplined). He is VERY hard to read (Resist 4) and VERY good at reading others. In combat, he hides behind the party.",
+                    "notes": "Varth is the campaign's central NPC — charming, cynical, self-serving. Defense 2 = max(1,2)-1+2. Resist 4 = Grit 3-1+2+1(disciplined). He is VERY hard to read (Resist 4) and VERY good at reading others. In combat, he hides behind the party.",
                     "computed": {
                       "power": 5,
                       "defense": 3,
@@ -3265,7 +3265,7 @@
                         "description": "When Draco would be reduced to 0 Vitality, he instead drops to 1 Vitality and gains [Buffered 3]. Once per encounter."
                       }
                     },
-                    "notes": "NEMESIS. Draco does NOT fight the party in Adv1 — he arrives, demonstrates power, and leaves. This stat block is for the campaign. Power 8 = (Grit 5-1)+4. Defense 7 = max(3,3)-1+4+1. Evasion 5 = 3-1+4-1(mystic). Resist 8 = 5-1+4. Vitality 16 = (3+5+4)*2(boss). 2 actions/round. Boss: N-1 Exploits. He is designed to be unbeatable at this point in the campaign.",
+                    "notes": "NEMESIS. Draco does NOT fight the party in Adv1 — he arrives, demonstrates power, and leaves. This stat block is for the campaign. Defense 7 = max(3,3)-1+4+1. Evasion 5 = 3-1+4-1(mystic). Resist 8 = 5-1+4. 2 actions/round. Boss: N-1 Exploits. He is designed to be unbeatable at this point in the campaign.",
                     "computed": {
                       "power": 7,
                       "defense": 7,
@@ -3341,7 +3341,7 @@
                         "description": "If all Shadow Troopers attack the same target in the same round, +2 Power on each attack."
                       }
                     },
-                    "notes": "Elite Imperial commandos. Power 4 = (Ref 4-1)+2. Defense 5 = max(2,4)-1+2+2(medium armor). Evasion 4 = 4-1+2-1(medium armor). Resist 4 = Grit 3-1+2. Vitality 7 = 2+3+2. These are the real threat in the finale — the party should feel outmatched.",
+                    "notes": "Elite Imperial commandos. Defense 5 = max(2,4)-1+2+2(medium armor). Evasion 4 = 4-1+2-1(medium armor). Resist 4 = Grit 3-1+2. These are the real threat in the finale — the party should feel outmatched.",
                     "computed": {
                       "power": 4,
                       "defense": 6,
@@ -3815,7 +3815,7 @@
                         "description": "After attacking, immediately mount swoop and move 2 zones."
                       }
                     },
-                    "notes": "Kessra is a recurring NPC. Power 3 = (Ref 4-1)+1. May reappear as hired muscle in Darga's palace later."
+                    "notes": "Kessra is a recurring NPC. May reappear as hired muscle in Darga's palace later."
                   }
                 },
                 {
@@ -3883,7 +3883,7 @@
                         "description": "If leader is downed, all Vipers disengage and flee."
                       }
                     },
-                    "notes": "Minion gang. Power 2 = (Ref 3-1)+0. Masterful+ = takedown. Paper tigers — flee if Kessra falls."
+                    "notes": "Minion gang. Masterful+ = takedown. Paper tigers — flee if Kessra falls."
                   }
                 }
               ],
@@ -4252,7 +4252,7 @@
                       "gambit": null,
                       "exploit": null
                     },
-                    "notes": "Raden is not a fighter. Power 3 = (Wits 4-1)+0. His value is information, not combat."
+                    "notes": "Raden is not a fighter. His value is information, not combat."
                   }
                 }
               ],
@@ -4450,7 +4450,7 @@
                         "description": "At end of turn, heal 1 Vitality. Trandoshan biology."
                       }
                     },
-                    "notes": "Standard Brutes. Power 4 = (Phys 4-1)+1. Tough = ignore Fleeting damage. Scent Track bypasses steam concealment. A real fight."
+                    "notes": "Standard Brutes. Tough = ignore Fleeting damage. Scent Track bypasses steam concealment. A real fight."
                   }
                 },
                 {
@@ -4523,7 +4523,7 @@
                         "description": "When reduced to 0 Vitality, explodes. [Hazard 3] in zone."
                       }
                     },
-                    "notes": "Elite Brute Droid. Power 6 = (Phys 5-1)+2. Defense 8 = max(5,1)-1+2+3(heavy armor)-1. Iron Clad: uses Defense vs Evasion attacks. Vitality 13 = (5+3+2)*1.5. Vulnerable to Ion damage. The DPS check of the encounter."
+                    "notes": "Elite Brute Droid. Defense 8 = max(5,1)-1+2+3(heavy armor)-1. Iron Clad: uses Defense vs Evasion attacks. 5. Vulnerable to Ion damage. The DPS check of the encounter."
                   }
                 }
               ],
@@ -4716,7 +4716,7 @@
                       "gambit": null,
                       "exploit": null
                     },
-                    "notes": "Raden is not a fighter. Power 3 = (Wits 4-1)+0. His value is information, not combat. (Recurring — same stat block as earlier scene.)"
+                    "notes": "Raden is not a fighter. His value is information, not combat. (Recurring — same stat block as earlier scene.)"
                   }
                 }
               ],
@@ -5035,7 +5035,7 @@
                         "description": "Once per encounter, double Power on a Force attack. Costs 2 Vitality."
                       }
                     },
-                    "notes": "Elite mini-boss. Power 5 = (Grit 4-1)+2. Vitality 10 = (2+4+2)*1.5. Untrained Force user — dangerous but sloppy. Plotting to usurp Darga."
+                    "notes": "Elite mini-boss. 5. Untrained Force user — dangerous but sloppy. Plotting to usurp Darga."
                   }
                 },
                 {
@@ -5106,7 +5106,7 @@
                         "description": "When below half Vitality, +1 Power on all attacks."
                       }
                     },
-                    "notes": "Minion Brutes. Power 4 = (Phys 4-1)+1. Tough. Masterful+ = takedown. Palace guards — vibro-axes and bad attitudes."
+                    "notes": "Minion Brutes. Tough. Masterful+ = takedown. Palace guards — vibro-axes and bad attitudes."
                   }
                 }
               ],
@@ -5308,7 +5308,7 @@
                         "description": "If a target is [Prone], automatically apply [Restrained]."
                       }
                     },
-                    "notes": "Enforcer slavers. Power 4 = (Phys 4-1)+1. Fearless: immune to [Shaken]/[Rattled]. Loathsome but dangerous."
+                    "notes": "Enforcer slavers. Fearless: immune to [Shaken]/[Rattled]. Loathsome but dangerous."
                   }
                 },
                 {
@@ -5379,7 +5379,7 @@
                         "description": "Summon 4 Stormtrooper minions to her location."
                       }
                     },
-                    "notes": "Commander. Power 5 = (Pres 4-1)+2. Resist 5 = Grit 3-1+2+1(disciplined). She is a logistics officer, not a frontline fighter. Her danger is the army behind her."
+                    "notes": "Commander. Resist 5 = Grit 3-1+2+1(disciplined). She is a logistics officer, not a frontline fighter. Her danger is the army behind her."
                   }
                 },
                 {
@@ -6021,7 +6021,7 @@
                         "description": "When below half Vitality, +1 Power on all attacks."
                       }
                     },
-                    "notes": "Minion Brutes. Power 4 = (Phys 4-1)+1. Tough. Masterful+ = takedown. Palace guards — vibro-axes and bad attitudes. (Recurring — same stat block as earlier scene.)"
+                    "notes": "Minion Brutes. Tough. Masterful+ = takedown. Palace guards — vibro-axes and bad attitudes. (Recurring — same stat block as earlier scene.)"
                   }
                 },
                 {
@@ -6092,7 +6092,7 @@
                         "description": "At end of turn, heal 1 Vitality. Trandoshan biology."
                       }
                     },
-                    "notes": "Standard Brutes. Power 4 = (Phys 4-1)+1. Tough = ignore Fleeting damage. Scent Track bypasses steam concealment. A real fight. (Recurring — same stat block.)"
+                    "notes": "Standard Brutes. Tough = ignore Fleeting damage. Scent Track bypasses steam concealment. A real fight. (Recurring — same stat block.)"
                   }
                 }
               ],
@@ -6286,7 +6286,7 @@
                         "description": "Once per encounter, double Power on a Force attack. Costs 2 Vitality."
                       }
                     },
-                    "notes": "Elite mini-boss. Power 5 = (Grit 4-1)+2. Vitality 10 = (2+4+2)*1.5. Untrained Force user — dangerous but sloppy. Plotting to usurp Darga. (Recurring — same stat block as earlier scene.)"
+                    "notes": "Elite mini-boss. 5. Untrained Force user — dangerous but sloppy. Plotting to usurp Darga. (Recurring — same stat block as earlier scene.)"
                   }
                 },
                 {
@@ -6547,7 +6547,7 @@
                         "description": "Summon 4 Stormtrooper minions to her location."
                       }
                     },
-                    "notes": "Commander. Power 5 = (Pres 4-1)+2. Resist 5 = Grit 3-1+2+1(disciplined). She is a logistics officer, not a frontline fighter. Her danger is the army behind her. (Recurring — same stat block as earlier scene.)"
+                    "notes": "Commander. Resist 5 = Grit 3-1+2+1(disciplined). She is a logistics officer, not a frontline fighter. Her danger is the army behind her. (Recurring — same stat block as earlier scene.)"
                   }
                 },
                 {
@@ -7623,7 +7623,7 @@
                         "description": "If killed, a pre-recorded message alerts the Assiduous."
                       }
                     },
-                    "notes": "Operative. Power 5 = (Wits 5-1)+2. Disciplined: +1 Resist. Arandis is a genius pretending to be a gambler. His death triggers an alert to Draco."
+                    "notes": "Operative. Disciplined: +1 Resist. Arandis is a genius pretending to be a gambler. His death triggers an alert to Draco."
                   }
                 },
                 {
@@ -7896,7 +7896,7 @@
                         "description": "Once per scene, automatically succeed on a social attack against any non-Force user. They comply or suffer."
                       }
                     },
-                    "notes": "Campaign nemesis. NOT meant to be fought at this tier — he is an orbital threat. Power 8 = (Ref 5-1)+4. Boss Vitality 28 = (3+4+4+3)*2. If the heroes face him directly, they will die. He is the reason to run."
+                    "notes": "Campaign nemesis. NOT meant to be fought at this tier — he is an orbital threat. Power 8 = (Ref 5-1)+4. If the heroes face him directly, they will die. He is the reason to run."
                   }
                 }
               ],
@@ -8080,7 +8080,7 @@
                         "description": "When cornered, threaten to destroy the prize (Fioro/datapad). Forces negotiation."
                       }
                     },
-                    "notes": "The third-party wildcard. Power 4 = (Pres 4-1)+2. Agile: +1 Evasion. He's been planning this heist for months. The heroes don't see him coming."
+                    "notes": "The third-party wildcard. Agile: +1 Evasion. He's been planning this heist for months. The heroes don't see him coming."
                   }
                 },
                 {
@@ -8649,7 +8649,7 @@
                         "description": "If killed, a pre-recorded message alerts the Assiduous."
                       }
                     },
-                    "notes": "Operative. Power 5 = (Wits 5-1)+2. Disciplined: +1 Resist. Arandis is a genius pretending to be a gambler. His death triggers an alert to Draco. (Recurring — now making the final transfer.)"
+                    "notes": "Operative. Disciplined: +1 Resist. Arandis is a genius pretending to be a gambler. His death triggers an alert to Draco. (Recurring — now making the final transfer.)"
                   }
                 },
                 {
@@ -8907,7 +8907,7 @@
                         "description": "When cornered, threaten to destroy the prize (Fioro/datapad). Forces negotiation."
                       }
                     },
-                    "notes": "The third-party wildcard. Power 4 = (Pres 4-1)+2. Agile: +1 Evasion. He's been planning this heist for months. The heroes don't see him coming. (Recurring — same stat block. Now he reveals his true nature.)"
+                    "notes": "The third-party wildcard. Agile: +1 Evasion. He's been planning this heist for months. The heroes don't see him coming. (Recurring — same stat block. Now he reveals his true nature.)"
                   }
                 },
                 {
@@ -11435,7 +11435,7 @@
                         "description": "Summon 20 additional Ewok warriors. Takes 10 minutes."
                       }
                     },
-                    "notes": "Chirpa is a diplomat first, warrior second. Power 3 = (Presence 4-1)+1. His value is as a guide-provider, not a combatant."
+                    "notes": "Chirpa is a diplomat first, warrior second. His value is as a guide-provider, not a combatant."
                   }
                 }
               ],
@@ -12100,7 +12100,7 @@
                         "description": "If the hero passes a Resolve check (T2/P0), the Reflection admits defeat and dissolves. Hero gains [Clarity] — +1 Power for the rest of the adventure."
                       }
                     },
-                    "notes": "Psychological enemies, not physical. Cannot be fought with weapons — only Resolve. Vitality 1 = they dissolve instantly if \"defeated\" but the conditions persist unless Resolved."
+                    "notes": "Psychological enemies, not physical. Cannot be fought with weapons — only Resolve."
                   }
                 }
               ],
@@ -12355,7 +12355,7 @@
                         "description": "Intense light (fusion cutter overload, fire) causes the Brood Mother to retreat for 3 rounds."
                       }
                     },
-                    "notes": "Elite apex predator. Power 5 = (Phys 5-1)+2. Vitality 13 = (4+3+2)*1.5. Can be driven off with intense light rather than killed."
+                    "notes": "Elite apex predator. 5. Can be driven off with intense light rather than killed."
                   }
                 }
               ],
