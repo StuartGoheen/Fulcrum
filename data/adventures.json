@@ -139,13 +139,15 @@
                           "name": "Sympathetic Appeal",
                           "type": "action",
                           "arena": "presence",
-                          "description": "Social attack that targets empathy. Targets Resist."
+                          "description": "Social attack that targets empathy. Targets Resist.",
+                          "attackPower": 2
                         },
                         {
                           "name": "Redirect Attention",
                           "type": "action",
                           "arena": "presence",
-                          "description": "Shift blame or focus to another target. Targets Resist."
+                          "description": "Shift blame or focus to another target. Targets Resist.",
+                          "attackPower": 2
                         }
                       ],
                       "maneuver": {
@@ -171,7 +173,14 @@
                       "vitality": 3,
                       "initiative": 2,
                       "controlDie": "d6",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "light",
+                        "label": "Light",
+                        "fleeting": 2,
+                        "masterful": 3,
+                        "legendary": 4
+                      }
                     }
                   }
                 },
@@ -211,7 +220,14 @@
                       "vitality": 6,
                       "initiative": 2,
                       "controlDie": "d6",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "light",
+                        "label": "Light",
+                        "fleeting": 2,
+                        "masterful": 3,
+                        "legendary": 4
+                      }
                     },
                     "roleKit": {
                       "passive": {
@@ -223,14 +239,16 @@
                           "name": "Threaten",
                           "type": "action",
                           "arena": "physique",
-                          "description": "Social attack using implied force. Targets Resist."
+                          "description": "Social attack using implied force. Targets Resist.",
+                          "attackPower": 3
                         },
                         {
                           "name": "Lean In",
                           "type": "action",
                           "arena": "presence",
                           "powerMod": 1,
-                          "description": "Escalate social pressure. +1 Power if target already has a social condition."
+                          "description": "Escalate social pressure. +1 Power if target already has a social condition.",
+                          "attackPower": 3
                         }
                       ],
                       "maneuver": {
@@ -281,7 +299,14 @@
                       "vitality": 4,
                       "initiative": 1,
                       "controlDie": "d6",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "light",
+                        "label": "Light",
+                        "fleeting": 2,
+                        "masterful": 3,
+                        "legendary": 4
+                      }
                     },
                     "roleKit": {
                       "passive": {
@@ -293,13 +318,15 @@
                           "name": "Hit and Run",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "Melee attack + free disengage."
+                          "description": "Melee attack + free disengage.",
+                          "attackPower": 2
                         },
                         {
                           "name": "Harrying Shot",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "Ranged attack at close range. Target cannot take reactions until next turn."
+                          "description": "Ranged attack at close range. Target cannot take reactions until next turn.",
+                          "attackPower": 2
                         }
                       ],
                       "maneuver": {
@@ -726,13 +753,15 @@
                           "name": "Expose Leverage",
                           "type": "action",
                           "arena": "wits",
-                          "description": "Reveal embarrassing or dangerous information. Social attack targeting Resist."
+                          "description": "Reveal embarrassing or dangerous information. Social attack targeting Resist.",
+                          "attackPower": 4
                         },
                         {
                           "name": "Offer Terms",
                           "type": "action",
                           "arena": "presence",
-                          "description": "Propose a deal. Both sides gain a binding obligation if accepted."
+                          "description": "Propose a deal. Both sides gain a binding obligation if accepted.",
+                          "attackPower": 3
                         }
                       ],
                       "maneuver": {
@@ -968,13 +997,15 @@
                           "type": "action",
                           "arena": "physique",
                           "powerMod": 1,
-                          "description": "Melee attack with +1 Power. The trunk slams down like a battering ram."
+                          "description": "Melee attack with +1 Power. The trunk slams down like a battering ram.",
+                          "attackPower": 5
                         },
                         {
                           "name": "Hurl",
                           "type": "action",
                           "arena": "physique",
-                          "description": "Throw a PC or heavy object at short range. Targets Evasion."
+                          "description": "Throw a PC or heavy object at short range. Targets Evasion.",
+                          "attackPower": 4
                         }
                       ],
                       "maneuver": {
@@ -1000,7 +1031,14 @@
                       "vitality": 12,
                       "initiative": 2,
                       "controlDie": "d6",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "medium",
+                        "label": "Medium",
+                        "fleeting": 2,
+                        "masterful": 4,
+                        "legendary": 6
+                      }
                     }
                   }
                 },
@@ -1037,13 +1075,15 @@
                           "name": "Blaster Volley",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "Ranged attack against one target."
+                          "description": "Ranged attack against one target.",
+                          "attackPower": 1
                         },
                         {
                           "name": "Brawl",
                           "type": "action",
                           "arena": "physique",
-                          "description": "Melee attack against adjacent target."
+                          "description": "Melee attack against adjacent target.",
+                          "attackPower": 1
                         }
                       ],
                       "maneuver": {
@@ -1069,7 +1109,14 @@
                       "vitality": 3,
                       "initiative": 1,
                       "controlDie": "d6",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "light",
+                        "label": "Light",
+                        "fleeting": 2,
+                        "masterful": 3,
+                        "legendary": 4
+                      }
                     }
                   }
                 }
@@ -1286,13 +1333,15 @@
                           "name": "Blaster Volley",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "E-11 ranged attack against one target."
+                          "description": "E-11 ranged attack against one target.",
+                          "attackPower": 3
                         },
                         {
                           "name": "Bayonet Strike",
                           "type": "action",
                           "arena": "physique",
-                          "description": "Melee attack against adjacent target."
+                          "description": "Melee attack against adjacent target.",
+                          "attackPower": 2
                         }
                       ],
                       "maneuver": {
@@ -1318,7 +1367,14 @@
                       "vitality": 5,
                       "initiative": 2,
                       "controlDie": "d6",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "medium",
+                        "label": "Medium",
+                        "fleeting": 2,
+                        "masterful": 4,
+                        "legendary": 6
+                      }
                     }
                   }
                 },
@@ -1358,13 +1414,15 @@
                           "name": "Blaster Volley",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "Ranged attack against one target."
+                          "description": "Ranged attack against one target.",
+                          "attackPower": 1
                         },
                         {
                           "name": "Brawl",
                           "type": "action",
                           "arena": "physique",
-                          "description": "Melee attack against adjacent target."
+                          "description": "Melee attack against adjacent target.",
+                          "attackPower": 1
                         }
                       ],
                       "maneuver": {
@@ -1390,7 +1448,14 @@
                       "vitality": 3,
                       "initiative": 1,
                       "controlDie": "d6",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "light",
+                        "label": "Light",
+                        "fleeting": 2,
+                        "masterful": 3,
+                        "legendary": 4
+                      }
                     }
                   }
                 }
@@ -1640,13 +1705,15 @@
                           "name": "Reveal Detail",
                           "type": "action",
                           "arena": "wits",
-                          "description": "Provide a specific piece of intel about Imperial operations. Information quality scales with how safe he feels."
+                          "description": "Provide a specific piece of intel about Imperial operations. Information quality scales with how safe he feels.",
+                          "attackPower": 2
                         },
                         {
                           "name": "Plead",
                           "type": "action",
                           "arena": "presence",
-                          "description": "Beg for protection. Social pressure targeting Resist."
+                          "description": "Beg for protection. Social pressure targeting Resist.",
+                          "attackPower": 1
                         }
                       ],
                       "maneuver": {
@@ -1711,13 +1778,15 @@
                           "name": "Precision Shot",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "Ranged attack. Clean, professional, no wasted shots."
+                          "description": "Ranged attack. Clean, professional, no wasted shots.",
+                          "attackPower": 5
                         },
                         {
                           "name": "Evasive Maneuvers",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "Ship-scale piloting action. The Banshee jinks through fire."
+                          "description": "Ship-scale piloting action. The Banshee jinks through fire.",
+                          "attackPower": 5
                         }
                       ],
                       "maneuver": {
@@ -1743,7 +1812,14 @@
                       "vitality": 7,
                       "initiative": 4,
                       "controlDie": "d8",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "medium",
+                        "label": "Medium",
+                        "fleeting": 2,
+                        "masterful": 4,
+                        "legendary": 6
+                      }
                     }
                   }
                 }
@@ -1958,7 +2034,14 @@
                       "vitality": 7,
                       "initiative": 4,
                       "controlDie": "d8",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "medium",
+                        "label": "Medium",
+                        "fleeting": 2,
+                        "masterful": 4,
+                        "legendary": 6
+                      }
                     },
                     "roleKit": {
                       "passive": {
@@ -1970,13 +2053,15 @@
                           "name": "Precision Shot",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "Ranged attack. Clean, professional."
+                          "description": "Ranged attack. Clean, professional.",
+                          "attackPower": 5
                         },
                         {
                           "name": "Evasive Maneuvers",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "Ship-scale piloting action."
+                          "description": "Ship-scale piloting action.",
+                          "attackPower": 5
                         }
                       ],
                       "maneuver": {
@@ -2045,13 +2130,15 @@
                           "name": "Reveal Detail",
                           "type": "action",
                           "arena": "wits",
-                          "description": "Provide intel about Imperial operations."
+                          "description": "Provide intel about Imperial operations.",
+                          "attackPower": 2
                         },
                         {
                           "name": "Plead",
                           "type": "action",
                           "arena": "presence",
-                          "description": "Beg for protection."
+                          "description": "Beg for protection.",
+                          "attackPower": 1
                         }
                       ],
                       "maneuver": {
@@ -2268,13 +2355,15 @@
                           "type": "action",
                           "arena": "reflex",
                           "powerMod": 1,
-                          "description": "Ranged attack from concealment. +1 Power if target is unaware."
+                          "description": "Ranged attack from concealment. +1 Power if target is unaware.",
+                          "attackPower": 5
                         },
                         {
                           "name": "Thermal Charge",
                           "type": "action",
                           "arena": "wits",
-                          "description": "Place or throw an explosive. Area damage in one zone."
+                          "description": "Place or throw an explosive. Area damage in one zone.",
+                          "attackPower": 3
                         }
                       ],
                       "maneuver": {
@@ -2300,7 +2389,14 @@
                       "vitality": 9,
                       "initiative": 4,
                       "controlDie": "d8",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "medium",
+                        "label": "Medium",
+                        "fleeting": 2,
+                        "masterful": 4,
+                        "legendary": 6
+                      }
                     }
                   }
                 }
@@ -2546,13 +2642,15 @@
                           "name": "Injector",
                           "type": "action",
                           "arena": "wits",
-                          "description": "Melee attack with a sedative injector. Target must Endure or gain [Stunned]."
+                          "description": "Melee attack with a sedative injector. Target must Endure or gain [Stunned].",
+                          "attackPower": 4
                         },
                         {
                           "name": "Activate Security",
                           "type": "action",
                           "arena": "wits",
-                          "description": "Lock down the Medical Bay. Blast doors seal, containment protocols activate."
+                          "description": "Lock down the Medical Bay. Blast doors seal, containment protocols activate.",
+                          "attackPower": 4
                         }
                       ],
                       "maneuver": {
@@ -2578,7 +2676,14 @@
                       "vitality": 4,
                       "initiative": 5,
                       "controlDie": "d6",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "light",
+                        "label": "Light",
+                        "fleeting": 2,
+                        "masterful": 3,
+                        "legendary": 4
+                      }
                     }
                   }
                 },
@@ -2618,13 +2723,15 @@
                           "name": "Blaster Shot",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "Ranged attack against one target."
+                          "description": "Ranged attack against one target.",
+                          "attackPower": 1
                         },
                         {
                           "name": "Club Strike",
                           "type": "action",
                           "arena": "physique",
-                          "description": "Melee attack with weapon butt."
+                          "description": "Melee attack with weapon butt.",
+                          "attackPower": 1
                         }
                       ],
                       "maneuver": {
@@ -2650,7 +2757,14 @@
                       "vitality": 4,
                       "initiative": 1,
                       "controlDie": "d6",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "light",
+                        "label": "Light",
+                        "fleeting": 2,
+                        "masterful": 3,
+                        "legendary": 4
+                      }
                     }
                   }
                 },
@@ -2695,13 +2809,15 @@
                           "name": "Blaster Volley",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "E-11 ranged attack against one target."
+                          "description": "E-11 ranged attack against one target.",
+                          "attackPower": 3
                         },
                         {
                           "name": "Bayonet Strike",
                           "type": "action",
                           "arena": "physique",
-                          "description": "Melee attack against adjacent target."
+                          "description": "Melee attack against adjacent target.",
+                          "attackPower": 2
                         }
                       ],
                       "maneuver": {
@@ -2727,7 +2843,14 @@
                       "vitality": 5,
                       "initiative": 2,
                       "controlDie": "d6",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "medium",
+                        "label": "Medium",
+                        "fleeting": 2,
+                        "masterful": 4,
+                        "legendary": 6
+                      }
                     }
                   }
                 }
@@ -2974,13 +3097,15 @@
                           "name": "Cutting Observation",
                           "type": "action",
                           "arena": "presence",
-                          "description": "Social attack that exposes insecurity. Targets Resist."
+                          "description": "Social attack that exposes insecurity. Targets Resist.",
+                          "attackPower": 5
                         },
                         {
                           "name": "Strategic Flattery",
                           "type": "action",
                           "arena": "presence",
-                          "description": "Charm-based social attack. Target gains [Rattled] if they realize the flattery was calculated."
+                          "description": "Charm-based social attack. Target gains [Rattled] if they realize the flattery was calculated.",
+                          "attackPower": 5
                         }
                       ],
                       "maneuver": {
@@ -3006,7 +3131,14 @@
                       "vitality": 6,
                       "initiative": 6,
                       "controlDie": "d8",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "light",
+                        "label": "Light",
+                        "fleeting": 2,
+                        "masterful": 3,
+                        "legendary": 4
+                      }
                     }
                   }
                 }
@@ -3236,19 +3368,22 @@
                           "type": "action",
                           "arena": "physique",
                           "powerMod": 1,
-                          "description": "Melee attack with lightsaber. +1 Power. Exploding Power die."
+                          "description": "Melee attack with lightsaber. +1 Power. Exploding Power die.",
+                          "attackPower": 7
                         },
                         {
                           "name": "Force Crush",
                           "type": "action",
                           "arena": "grit",
-                          "description": "Ranged Force attack. Targets Endure only. Ignores cover."
+                          "description": "Ranged Force attack. Targets Endure only. Ignores cover.",
+                          "attackPower": 7
                         },
                         {
                           "name": "Mind Probe",
                           "type": "action",
                           "arena": "presence",
-                          "description": "Force-assisted interrogation. Social attack bypassing [Guarded]. Targets Resist."
+                          "description": "Force-assisted interrogation. Social attack bypassing [Guarded]. Targets Resist.",
+                          "attackPower": 7
                         }
                       ],
                       "maneuver": {
@@ -3274,7 +3409,14 @@
                       "vitality": 22,
                       "initiative": 7,
                       "controlDie": "d12",
-                      "actions": 2
+                      "actions": 2,
+                      "damageTiers": {
+                        "chassis": "heavy",
+                        "label": "Heavy",
+                        "fleeting": 3,
+                        "masterful": 5,
+                        "legendary": 8
+                      }
                     }
                   }
                 },
@@ -3318,13 +3460,15 @@
                           "type": "action",
                           "arena": "reflex",
                           "powerMod": 1,
-                          "description": "Ranged attack from concealment. +1 Power if target is unaware."
+                          "description": "Ranged attack from concealment. +1 Power if target is unaware.",
+                          "attackPower": 5
                         },
                         {
                           "name": "Vibroblade",
                           "type": "action",
                           "arena": "physique",
-                          "description": "Silent melee attack. Does not break team concealment."
+                          "description": "Silent melee attack. Does not break team concealment.",
+                          "attackPower": 3
                         }
                       ],
                       "maneuver": {
@@ -3350,7 +3494,14 @@
                       "vitality": 7,
                       "initiative": 4,
                       "controlDie": "d8",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "medium",
+                        "label": "Medium",
+                        "fleeting": 2,
+                        "masterful": 4,
+                        "legendary": 6
+                      }
                     }
                   }
                 },
@@ -3395,13 +3546,15 @@
                           "name": "Strafing Run",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "Ship-scale attack run. Area damage in one zone."
+                          "description": "Ship-scale attack run. Area damage in one zone.",
+                          "attackPower": 5
                         },
                         {
                           "name": "Covering Fire",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "Suppressive fire from the Banshee's turrets. Targets gain [Suppressed]."
+                          "description": "Suppressive fire from the Banshee's turrets. Targets gain [Suppressed].",
+                          "attackPower": 5
                         }
                       ],
                       "maneuver": {
@@ -3427,7 +3580,14 @@
                       "vitality": 7,
                       "initiative": 4,
                       "controlDie": "d8",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "medium",
+                        "label": "Medium",
+                        "fleeting": 2,
+                        "masterful": 4,
+                        "legendary": 6
+                      }
                     }
                   }
                 }
@@ -3780,7 +3940,14 @@
                       "vitality": 5,
                       "initiative": 3,
                       "controlDie": "d6",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "medium",
+                        "label": "Medium",
+                        "fleeting": 2,
+                        "masterful": 4,
+                        "legendary": 6
+                      }
                     },
                     "roleKit": {
                       "passive": {
@@ -3792,13 +3959,15 @@
                           "name": "Vibroblade Slash",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "Melee attack with vibroblade. Fast and vicious."
+                          "description": "Melee attack with vibroblade. Fast and vicious.",
+                          "attackPower": 3
                         },
                         {
                           "name": "Drive-By Shot",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "Ranged attack from a moving swoop. +1 zone movement after."
+                          "description": "Ranged attack from a moving swoop. +1 zone movement after.",
+                          "attackPower": 3
                         }
                       ],
                       "maneuver": {
@@ -3848,7 +4017,14 @@
                       "vitality": 3,
                       "initiative": 1,
                       "controlDie": "d6",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "light",
+                        "label": "Light",
+                        "fleeting": 2,
+                        "masterful": 3,
+                        "legendary": 4
+                      }
                     },
                     "roleKit": {
                       "passive": {
@@ -3860,13 +4036,15 @@
                           "name": "Blaster Snap",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "Ranged attack."
+                          "description": "Ranged attack.",
+                          "attackPower": 1
                         },
                         {
                           "name": "Vibroblade Lunge",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "Melee attack."
+                          "description": "Melee attack.",
+                          "attackPower": 1
                         }
                       ],
                       "maneuver": {
@@ -4054,13 +4232,15 @@
                           "name": "Tip Off",
                           "type": "action",
                           "arena": "wits",
-                          "description": "Provide information about a local person or place."
+                          "description": "Provide information about a local person or place.",
+                          "attackPower": 1
                         },
                         {
                           "name": "Warn Away",
                           "type": "action",
                           "arena": "presence",
-                          "description": "Social pressure to make strangers leave."
+                          "description": "Social pressure to make strangers leave.",
+                          "attackPower": 1
                         }
                       ],
                       "maneuver": {
@@ -4224,7 +4404,14 @@
                       "vitality": 2,
                       "initiative": 3,
                       "controlDie": "d6",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "light",
+                        "label": "Light",
+                        "fleeting": 2,
+                        "masterful": 3,
+                        "legendary": 4
+                      }
                     },
                     "roleKit": {
                       "passive": {
@@ -4236,13 +4423,15 @@
                           "name": "Spill Info",
                           "type": "action",
                           "arena": "wits",
-                          "description": "Provide palace intel when motivated."
+                          "description": "Provide palace intel when motivated.",
+                          "attackPower": 2
                         },
                         {
                           "name": "Panic Shot",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "Wild blaster shot when cornered. Low accuracy."
+                          "description": "Wild blaster shot when cornered. Low accuracy.",
+                          "attackPower": 1
                         }
                       ],
                       "maneuver": {
@@ -4414,7 +4603,14 @@
                       "vitality": 7,
                       "initiative": 2,
                       "controlDie": "d6",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "medium",
+                        "label": "Medium",
+                        "fleeting": 2,
+                        "masterful": 4,
+                        "legendary": 6
+                      }
                     },
                     "roleKit": {
                       "passive": {
@@ -4427,13 +4623,15 @@
                           "type": "action",
                           "arena": "physique",
                           "powerMod": 1,
-                          "description": "Melee attack with natural claws. +1 Power."
+                          "description": "Melee attack with natural claws. +1 Power.",
+                          "attackPower": 4
                         },
                         {
                           "name": "Hunting Rifle",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "Ranged attack at medium range."
+                          "description": "Ranged attack at medium range.",
+                          "attackPower": 2
                         }
                       ],
                       "maneuver": {
@@ -4487,7 +4685,14 @@
                       "vitality": 13,
                       "initiative": 3,
                       "controlDie": "d8",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "heavy",
+                        "label": "Heavy",
+                        "fleeting": 3,
+                        "masterful": 5,
+                        "legendary": 8
+                      }
                     },
                     "roleKit": {
                       "passive": {
@@ -4500,13 +4705,15 @@
                           "type": "action",
                           "arena": "physique",
                           "powerMod": 1,
-                          "description": "Ranged attack with integrated heavy blaster. +1 Power."
+                          "description": "Ranged attack with integrated heavy blaster. +1 Power.",
+                          "attackPower": 6
                         },
                         {
                           "name": "Battering Ram",
                           "type": "action",
                           "arena": "physique",
-                          "description": "Charge + melee. Destroys cover."
+                          "description": "Charge + melee. Destroys cover.",
+                          "attackPower": 5
                         }
                       ],
                       "maneuver": {
@@ -4688,7 +4895,14 @@
                       "vitality": 2,
                       "initiative": 3,
                       "controlDie": "d6",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "light",
+                        "label": "Light",
+                        "fleeting": 2,
+                        "masterful": 3,
+                        "legendary": 4
+                      }
                     },
                     "roleKit": {
                       "passive": {
@@ -4700,13 +4914,15 @@
                           "name": "Spill Info",
                           "type": "action",
                           "arena": "wits",
-                          "description": "Provide palace intel when motivated."
+                          "description": "Provide palace intel when motivated.",
+                          "attackPower": 2
                         },
                         {
                           "name": "Panic Shot",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "Wild blaster shot when cornered. Low accuracy."
+                          "description": "Wild blaster shot when cornered. Low accuracy.",
+                          "attackPower": 1
                         }
                       ],
                       "maneuver": {
@@ -4878,14 +5094,16 @@
                           "name": "Command",
                           "type": "action",
                           "arena": "presence",
-                          "description": "Order one ally to immediately attack or take an action."
+                          "description": "Order one ally to immediately attack or take an action.",
+                          "attackPower": 6
                         },
                         {
                           "name": "Crushing Tail",
                           "type": "action",
                           "arena": "physique",
                           "powerMod": 2,
-                          "description": "Melee attack at engaged range. +2 Power. Hutt mass."
+                          "description": "Melee attack at engaged range. +2 Power. Hutt mass.",
+                          "attackPower": 9
                         }
                       ],
                       "maneuver": {
@@ -4948,13 +5166,15 @@
                           "name": "Translate",
                           "type": "action",
                           "arena": "wits",
-                          "description": "Translate Huttese. Can subtly alter translations to help or hinder."
+                          "description": "Translate Huttese. Can subtly alter translations to help or hinder.",
+                          "attackPower": 2
                         },
                         {
                           "name": "Whispered Intel",
                           "type": "action",
                           "arena": "wits",
-                          "description": "Pass information discreetly during court proceedings."
+                          "description": "Pass information discreetly during court proceedings.",
+                          "attackPower": 2
                         }
                       ],
                       "maneuver": {
@@ -5000,7 +5220,14 @@
                       "vitality": 10,
                       "initiative": 5,
                       "controlDie": "d8",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "medium",
+                        "label": "Medium",
+                        "fleeting": 2,
+                        "masterful": 4,
+                        "legendary": 6
+                      }
                     },
                     "roleKit": {
                       "passive": {
@@ -5012,13 +5239,15 @@
                           "name": "Force Slam",
                           "type": "action",
                           "arena": "grit",
-                          "description": "Crude Force push. Targets Endure. Knocks target back 1 zone."
+                          "description": "Crude Force push. Targets Endure. Knocks target back 1 zone.",
+                          "attackPower": 4
                         },
                         {
                           "name": "Vibro-Staff Strike",
                           "type": "action",
                           "arena": "physique",
-                          "description": "Melee attack with vibro-staff."
+                          "description": "Melee attack with vibro-staff.",
+                          "attackPower": 3
                         }
                       ],
                       "maneuver": {
@@ -5070,7 +5299,14 @@
                       "vitality": 6,
                       "initiative": 2,
                       "controlDie": "d6",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "medium",
+                        "label": "Medium",
+                        "fleeting": 2,
+                        "masterful": 4,
+                        "legendary": 6
+                      }
                     },
                     "roleKit": {
                       "passive": {
@@ -5083,13 +5319,15 @@
                           "type": "action",
                           "arena": "physique",
                           "powerMod": 1,
-                          "description": "Melee attack. +1 Power."
+                          "description": "Melee attack. +1 Power.",
+                          "attackPower": 4
                         },
                         {
                           "name": "Headbutt",
                           "type": "action",
                           "arena": "physique",
-                          "description": "Close range. Target must Endure or gain [Stunned]."
+                          "description": "Close range. Target must Endure or gain [Stunned].",
+                          "attackPower": 3
                         }
                       ],
                       "maneuver": {
@@ -5273,7 +5511,14 @@
                       "vitality": 6,
                       "initiative": 2,
                       "controlDie": "d6",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "medium",
+                        "label": "Medium",
+                        "fleeting": 2,
+                        "masterful": 4,
+                        "legendary": 6
+                      }
                     },
                     "roleKit": {
                       "passive": {
@@ -5285,13 +5530,15 @@
                           "name": "Slaver's Lash",
                           "type": "action",
                           "arena": "physique",
-                          "description": "Melee attack with shock-whip. Targets Endure."
+                          "description": "Melee attack with shock-whip. Targets Endure.",
+                          "attackPower": 3
                         },
                         {
                           "name": "Threaten",
                           "type": "action",
                           "arena": "physique",
-                          "description": "Social attack using implied force. Targets Resist."
+                          "description": "Social attack using implied force. Targets Resist.",
+                          "attackPower": 3
                         }
                       ],
                       "maneuver": {
@@ -5344,7 +5591,14 @@
                       "vitality": 6,
                       "initiative": 6,
                       "controlDie": "d8",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "light",
+                        "label": "Light",
+                        "fleeting": 2,
+                        "masterful": 3,
+                        "legendary": 4
+                      }
                     },
                     "roleKit": {
                       "passive": {
@@ -5356,13 +5610,15 @@
                           "name": "Direct Fire",
                           "type": "action",
                           "arena": "presence",
-                          "description": "Order a Stormtrooper to attack immediately."
+                          "description": "Order a Stormtrooper to attack immediately.",
+                          "attackPower": 4
                         },
                         {
                           "name": "Cutting Assessment",
                           "type": "action",
                           "arena": "presence",
-                          "description": "Social attack that dismantles cover stories. Targets Resist."
+                          "description": "Social attack that dismantles cover stories. Targets Resist.",
+                          "attackPower": 4
                         }
                       ],
                       "maneuver": {
@@ -5424,13 +5680,15 @@
                           "name": "Financial Breakdown",
                           "type": "action",
                           "arena": "wits",
-                          "description": "Explain Darga's shipping operations in excruciating detail."
+                          "description": "Explain Darga's shipping operations in excruciating detail.",
+                          "attackPower": 3
                         },
                         {
                           "name": "Shrug",
                           "type": "action",
                           "arena": "presence",
-                          "description": "Deflect moral questions with bureaucratic indifference."
+                          "description": "Deflect moral questions with bureaucratic indifference.",
+                          "attackPower": 0
                         }
                       ],
                       "maneuver": {
@@ -5645,13 +5903,15 @@
                           "name": "Force Barrier",
                           "type": "action",
                           "arena": "grit",
-                          "description": "Create a telekinetic shield. Allies in zone gain [Cover 2] for 1 round."
+                          "description": "Create a telekinetic shield. Allies in zone gain [Cover 2] for 1 round.",
+                          "attackPower": 6
                         },
                         {
                           "name": "Telepathic Bond",
                           "type": "action",
                           "arena": "presence",
-                          "description": "Communicate silently with one target. Share images, emotions, warnings."
+                          "description": "Communicate silently with one target. Share images, emotions, warnings.",
+                          "attackPower": 5
                         }
                       ],
                       "maneuver": {
@@ -5705,7 +5965,14 @@
                       "vitality": 7,
                       "initiative": 4,
                       "controlDie": "d8",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "medium",
+                        "label": "Medium",
+                        "fleeting": 2,
+                        "masterful": 4,
+                        "legendary": 6
+                      }
                     },
                     "roleKit": {
                       "passive": {
@@ -5717,13 +5984,15 @@
                           "name": "Integrated Blaster",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "Built-in medium blaster. Cannot be disarmed."
+                          "description": "Built-in medium blaster. Cannot be disarmed.",
+                          "attackPower": 4
                         },
                         {
                           "name": "Stun Shock",
                           "type": "action",
                           "arena": "physique",
-                          "description": "Melee. Target must Endure or gain [Stunned]."
+                          "description": "Melee. Target must Endure or gain [Stunned].",
+                          "attackPower": 4
                         }
                       ],
                       "maneuver": {
@@ -5926,14 +6195,16 @@
                           "name": "Command",
                           "type": "action",
                           "arena": "presence",
-                          "description": "Order one ally to immediately attack or take an action."
+                          "description": "Order one ally to immediately attack or take an action.",
+                          "attackPower": 6
                         },
                         {
                           "name": "Crushing Tail",
                           "type": "action",
                           "arena": "physique",
                           "powerMod": 2,
-                          "description": "Melee attack at engaged range. +2 Power. Hutt mass."
+                          "description": "Melee attack at engaged range. +2 Power. Hutt mass.",
+                          "attackPower": 9
                         }
                       ],
                       "maneuver": {
@@ -5985,7 +6256,14 @@
                       "vitality": 6,
                       "initiative": 2,
                       "controlDie": "d6",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "medium",
+                        "label": "Medium",
+                        "fleeting": 2,
+                        "masterful": 4,
+                        "legendary": 6
+                      }
                     },
                     "roleKit": {
                       "passive": {
@@ -5998,13 +6276,15 @@
                           "type": "action",
                           "arena": "physique",
                           "powerMod": 1,
-                          "description": "Melee attack. +1 Power."
+                          "description": "Melee attack. +1 Power.",
+                          "attackPower": 4
                         },
                         {
                           "name": "Headbutt",
                           "type": "action",
                           "arena": "physique",
-                          "description": "Close range. Target must Endure or gain [Stunned]."
+                          "description": "Close range. Target must Endure or gain [Stunned].",
+                          "attackPower": 3
                         }
                       ],
                       "maneuver": {
@@ -6056,7 +6336,14 @@
                       "vitality": 7,
                       "initiative": 2,
                       "controlDie": "d6",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "medium",
+                        "label": "Medium",
+                        "fleeting": 2,
+                        "masterful": 4,
+                        "legendary": 6
+                      }
                     },
                     "roleKit": {
                       "passive": {
@@ -6069,13 +6356,15 @@
                           "type": "action",
                           "arena": "physique",
                           "powerMod": 1,
-                          "description": "Melee attack with natural claws. +1 Power."
+                          "description": "Melee attack with natural claws. +1 Power.",
+                          "attackPower": 4
                         },
                         {
                           "name": "Hunting Rifle",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "Ranged attack at medium range."
+                          "description": "Ranged attack at medium range.",
+                          "attackPower": 2
                         }
                       ],
                       "maneuver": {
@@ -6251,7 +6540,14 @@
                       "vitality": 10,
                       "initiative": 5,
                       "controlDie": "d8",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "medium",
+                        "label": "Medium",
+                        "fleeting": 2,
+                        "masterful": 4,
+                        "legendary": 6
+                      }
                     },
                     "roleKit": {
                       "passive": {
@@ -6263,13 +6559,15 @@
                           "name": "Force Slam",
                           "type": "action",
                           "arena": "grit",
-                          "description": "Crude Force push. Targets Endure. Knocks target back 1 zone."
+                          "description": "Crude Force push. Targets Endure. Knocks target back 1 zone.",
+                          "attackPower": 4
                         },
                         {
                           "name": "Vibro-Staff Strike",
                           "type": "action",
                           "arena": "physique",
-                          "description": "Melee attack with vibro-staff."
+                          "description": "Melee attack with vibro-staff.",
+                          "attackPower": 3
                         }
                       ],
                       "maneuver": {
@@ -6321,7 +6619,14 @@
                       "vitality": 7,
                       "initiative": 2,
                       "controlDie": "d6",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "medium",
+                        "label": "Medium",
+                        "fleeting": 2,
+                        "masterful": 4,
+                        "legendary": 6
+                      }
                     },
                     "roleKit": {
                       "passive": {
@@ -6334,13 +6639,15 @@
                           "type": "action",
                           "arena": "physique",
                           "powerMod": 1,
-                          "description": "Heavy melee attack. +1 Power."
+                          "description": "Heavy melee attack. +1 Power.",
+                          "attackPower": 4
                         },
                         {
                           "name": "Claw Rake",
                           "type": "action",
                           "arena": "physique",
-                          "description": "Unarmed attack. Natural weapons."
+                          "description": "Unarmed attack. Natural weapons.",
+                          "attackPower": 3
                         }
                       ],
                       "maneuver": {
@@ -6512,7 +6819,14 @@
                       "vitality": 6,
                       "initiative": 6,
                       "controlDie": "d8",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "light",
+                        "label": "Light",
+                        "fleeting": 2,
+                        "masterful": 3,
+                        "legendary": 4
+                      }
                     },
                     "roleKit": {
                       "passive": {
@@ -6524,13 +6838,15 @@
                           "name": "Direct Fire",
                           "type": "action",
                           "arena": "presence",
-                          "description": "Order a Stormtrooper to attack immediately."
+                          "description": "Order a Stormtrooper to attack immediately.",
+                          "attackPower": 4
                         },
                         {
                           "name": "Cutting Assessment",
                           "type": "action",
                           "arena": "presence",
-                          "description": "Social attack that dismantles cover stories. Targets Resist."
+                          "description": "Social attack that dismantles cover stories. Targets Resist.",
+                          "attackPower": 4
                         }
                       ],
                       "maneuver": {
@@ -6584,7 +6900,14 @@
                       "vitality": 5,
                       "initiative": 2,
                       "controlDie": "d6",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "medium",
+                        "label": "Medium",
+                        "fleeting": 2,
+                        "masterful": 4,
+                        "legendary": 6
+                      }
                     },
                     "roleKit": {
                       "passive": {
@@ -6596,13 +6919,15 @@
                           "name": "E-11 Volley",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "Ranged attack."
+                          "description": "Ranged attack.",
+                          "attackPower": 3
                         },
                         {
                           "name": "Bayonet Strike",
                           "type": "action",
                           "arena": "physique",
-                          "description": "Melee attack."
+                          "description": "Melee attack.",
+                          "attackPower": 2
                         }
                       ],
                       "maneuver": {
@@ -6907,13 +7232,15 @@
                           "name": "Deflect",
                           "type": "action",
                           "arena": "presence",
-                          "description": "Redirect conversation away from Darga."
+                          "description": "Redirect conversation away from Darga.",
+                          "attackPower": 1
                         },
                         {
                           "name": "Nervous Tip",
                           "type": "action",
                           "arena": "wits",
-                          "description": "If trust is earned, provide one piece of intel."
+                          "description": "If trust is earned, provide one piece of intel.",
+                          "attackPower": 1
                         }
                       ],
                       "maneuver": {
@@ -7089,13 +7416,15 @@
                           "name": "Briefing",
                           "type": "action",
                           "arena": "wits",
-                          "description": "Provide detailed tactical intel about refinery operations."
+                          "description": "Provide detailed tactical intel about refinery operations.",
+                          "attackPower": 2
                         },
                         {
                           "name": "Appeal",
                           "type": "action",
                           "arena": "presence",
-                          "description": "Emotional plea for help. Makes moral cost of refusal clear."
+                          "description": "Emotional plea for help. Makes moral cost of refusal clear.",
+                          "attackPower": 1
                         }
                       ],
                       "maneuver": {
@@ -7150,13 +7479,15 @@
                           "name": "Technical Assessment",
                           "type": "action",
                           "arena": "wits",
-                          "description": "Evaluate equipment or infrastructure."
+                          "description": "Evaluate equipment or infrastructure.",
+                          "attackPower": 1
                         },
                         {
                           "name": "Refuse",
                           "type": "action",
                           "arena": "presence",
-                          "description": "Push back against requests until trust is earned."
+                          "description": "Push back against requests until trust is earned.",
+                          "attackPower": 0
                         }
                       ],
                       "maneuver": {
@@ -7312,7 +7643,14 @@
                       "vitality": 7,
                       "initiative": 2,
                       "controlDie": "d6",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "medium",
+                        "label": "Medium",
+                        "fleeting": 2,
+                        "masterful": 4,
+                        "legendary": 6
+                      }
                     },
                     "roleKit": {
                       "passive": {
@@ -7324,14 +7662,16 @@
                           "name": "Blaster Carbine",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "Ranged attack at medium range."
+                          "description": "Ranged attack at medium range.",
+                          "attackPower": 2
                         },
                         {
                           "name": "Claw Slash",
                           "type": "action",
                           "arena": "physique",
                           "powerMod": 1,
-                          "description": "Melee attack. +1 Power."
+                          "description": "Melee attack. +1 Power.",
+                          "attackPower": 4
                         }
                       ],
                       "maneuver": {
@@ -7393,7 +7733,8 @@
                           "name": "Flee",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "Run toward the nearest exit."
+                          "description": "Run toward the nearest exit.",
+                          "attackPower": 0
                         }
                       ],
                       "maneuver": {
@@ -7588,7 +7929,14 @@
                       "vitality": 7,
                       "initiative": 6,
                       "controlDie": "d8",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "light",
+                        "label": "Light",
+                        "fleeting": 2,
+                        "masterful": 3,
+                        "legendary": 4
+                      }
                     },
                     "roleKit": {
                       "passive": {
@@ -7600,13 +7948,15 @@
                           "name": "Concealed Blaster",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "Military-grade holdout blaster. Devastating accuracy."
+                          "description": "Military-grade holdout blaster. Devastating accuracy.",
+                          "attackPower": 4
                         },
                         {
                           "name": "Cold Read",
                           "type": "action",
                           "arena": "wits",
-                          "description": "Study a target. Learn one piece of intel about their cover or intentions."
+                          "description": "Study a target. Learn one piece of intel about their cover or intentions.",
+                          "attackPower": 5
                         }
                       ],
                       "maneuver": {
@@ -7659,7 +8009,14 @@
                       "vitality": 5,
                       "initiative": 2,
                       "controlDie": "d6",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "medium",
+                        "label": "Medium",
+                        "fleeting": 2,
+                        "masterful": 4,
+                        "legendary": 6
+                      }
                     },
                     "roleKit": {
                       "passive": {
@@ -7671,13 +8028,15 @@
                           "name": "Concealed Blaster",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "Draw and fire holdout blaster."
+                          "description": "Draw and fire holdout blaster.",
+                          "attackPower": 3
                         },
                         {
                           "name": "Close Protection",
                           "type": "action",
                           "arena": "physique",
-                          "description": "Grapple or restrain a threat to Arandis."
+                          "description": "Grapple or restrain a threat to Arandis.",
+                          "attackPower": 2
                         }
                       ],
                       "maneuver": {
@@ -7860,7 +8219,14 @@
                       "vitality": 22,
                       "initiative": 7,
                       "controlDie": "d12",
-                      "actions": 2
+                      "actions": 2,
+                      "damageTiers": {
+                        "chassis": "heavy",
+                        "label": "Heavy",
+                        "fleeting": 3,
+                        "masterful": 5,
+                        "legendary": 8
+                      }
                     },
                     "roleKit": {
                       "passive": {
@@ -7873,13 +8239,15 @@
                           "type": "action",
                           "arena": "reflex",
                           "powerMod": 2,
-                          "description": "Crimson lightsaber attack. +2 Power. Ignores non-cortosis armor."
+                          "description": "Crimson lightsaber attack. +2 Power. Ignores non-cortosis armor.",
+                          "attackPower": 9
                         },
                         {
                           "name": "Force Choke",
                           "type": "action",
                           "arena": "grit",
-                          "description": "Ranged Force attack. Target must Endure or gain [Stunned] and take damage."
+                          "description": "Ranged Force attack. Target must Endure or gain [Stunned] and take damage.",
+                          "attackPower": 7
                         }
                       ],
                       "maneuver": {
@@ -8045,7 +8413,14 @@
                       "vitality": 6,
                       "initiative": 5,
                       "controlDie": "d8",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "medium",
+                        "label": "Medium",
+                        "fleeting": 2,
+                        "masterful": 4,
+                        "legendary": 6
+                      }
                     },
                     "roleKit": {
                       "passive": {
@@ -8057,13 +8432,15 @@
                           "name": "Quick Draw",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "Pull and fire a concealed heavy blaster. Surprises on first round."
+                          "description": "Pull and fire a concealed heavy blaster. Surprises on first round.",
+                          "attackPower": 4
                         },
                         {
                           "name": "Smug Deflection",
                           "type": "action",
                           "arena": "presence",
-                          "description": "Social attack disguised as charm. Disarms suspicion."
+                          "description": "Social attack disguised as charm. Disarms suspicion.",
+                          "attackPower": 4
                         }
                       ],
                       "maneuver": {
@@ -8115,7 +8492,14 @@
                       "vitality": 4,
                       "initiative": 4,
                       "controlDie": "d6",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "light",
+                        "label": "Light",
+                        "fleeting": 2,
+                        "masterful": 3,
+                        "legendary": 4
+                      }
                     },
                     "roleKit": {
                       "passive": {
@@ -8127,13 +8511,15 @@
                           "name": "Holdout Blaster",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "Concealed blaster. Elegant and deadly."
+                          "description": "Concealed blaster. Elegant and deadly.",
+                          "attackPower": 2
                         },
                         {
                           "name": "Cutting Remark",
                           "type": "action",
                           "arena": "presence",
-                          "description": "Social attack that targets ego."
+                          "description": "Social attack that targets ego.",
+                          "attackPower": 3
                         }
                       ],
                       "maneuver": {
@@ -8193,7 +8579,8 @@
                           "name": "Gamble",
                           "type": "action",
                           "arena": "wits",
-                          "description": "Play Sabacc. Some are good, most aren't."
+                          "description": "Play Sabacc. Some are good, most aren't.",
+                          "attackPower": 1
                         }
                       ],
                       "maneuver": {
@@ -8359,7 +8746,14 @@
                       "vitality": 3,
                       "initiative": 2,
                       "controlDie": "d6",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "light",
+                        "label": "Light",
+                        "fleeting": 2,
+                        "masterful": 3,
+                        "legendary": 4
+                      }
                     },
                     "roleKit": {
                       "passive": {
@@ -8371,13 +8765,15 @@
                           "name": "Wild Shot",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "Fires holdout blaster wildly. -1 Power from panic."
+                          "description": "Fires holdout blaster wildly. -1 Power from panic.",
+                          "attackPower": 1
                         },
                         {
                           "name": "Flail",
                           "type": "action",
                           "arena": "physique",
-                          "description": "Unarmed resistance if grappled."
+                          "description": "Unarmed resistance if grappled.",
+                          "attackPower": 1
                         }
                       ],
                       "maneuver": {
@@ -8433,13 +8829,15 @@
                           "name": "Grant Access",
                           "type": "action",
                           "arena": "wits",
-                          "description": "Open restricted areas for the heroes."
+                          "description": "Open restricted areas for the heroes.",
+                          "attackPower": 3
                         },
                         {
                           "name": "Look Away",
                           "type": "action",
                           "arena": "presence",
-                          "description": "Deliberately ignore suspicious activity."
+                          "description": "Deliberately ignore suspicious activity.",
+                          "attackPower": 3
                         }
                       ],
                       "maneuver": {
@@ -8614,7 +9012,14 @@
                       "vitality": 7,
                       "initiative": 6,
                       "controlDie": "d8",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "light",
+                        "label": "Light",
+                        "fleeting": 2,
+                        "masterful": 3,
+                        "legendary": 4
+                      }
                     },
                     "roleKit": {
                       "passive": {
@@ -8626,13 +9031,15 @@
                           "name": "Concealed Blaster",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "Military-grade holdout blaster. Devastating accuracy."
+                          "description": "Military-grade holdout blaster. Devastating accuracy.",
+                          "attackPower": 4
                         },
                         {
                           "name": "Cold Read",
                           "type": "action",
                           "arena": "wits",
-                          "description": "Study a target. Learn one piece of intel about their cover or intentions."
+                          "description": "Study a target. Learn one piece of intel about their cover or intentions.",
+                          "attackPower": 5
                         }
                       ],
                       "maneuver": {
@@ -8684,7 +9091,14 @@
                       "vitality": 4,
                       "initiative": 4,
                       "controlDie": "d6",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "light",
+                        "label": "Light",
+                        "fleeting": 2,
+                        "masterful": 3,
+                        "legendary": 4
+                      }
                     },
                     "roleKit": {
                       "passive": {
@@ -8696,13 +9110,15 @@
                           "name": "Holdout Blaster",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "Concealed blaster. Elegant and deadly."
+                          "description": "Concealed blaster. Elegant and deadly.",
+                          "attackPower": 2
                         },
                         {
                           "name": "Cutting Remark",
                           "type": "action",
                           "arena": "presence",
-                          "description": "Social attack that targets ego."
+                          "description": "Social attack that targets ego.",
+                          "attackPower": 3
                         }
                       ],
                       "maneuver": {
@@ -8872,7 +9288,14 @@
                       "vitality": 6,
                       "initiative": 5,
                       "controlDie": "d8",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "medium",
+                        "label": "Medium",
+                        "fleeting": 2,
+                        "masterful": 4,
+                        "legendary": 6
+                      }
                     },
                     "roleKit": {
                       "passive": {
@@ -8884,13 +9307,15 @@
                           "name": "Quick Draw",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "Pull and fire a concealed heavy blaster. Surprises on first round."
+                          "description": "Pull and fire a concealed heavy blaster. Surprises on first round.",
+                          "attackPower": 4
                         },
                         {
                           "name": "Smug Deflection",
                           "type": "action",
                           "arena": "presence",
-                          "description": "Social attack disguised as charm. Disarms suspicion."
+                          "description": "Social attack disguised as charm. Disarms suspicion.",
+                          "attackPower": 4
                         }
                       ],
                       "maneuver": {
@@ -8940,7 +9365,14 @@
                       "vitality": 5,
                       "initiative": 2,
                       "controlDie": "d6",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "medium",
+                        "label": "Medium",
+                        "fleeting": 2,
+                        "masterful": 4,
+                        "legendary": 6
+                      }
                     },
                     "roleKit": {
                       "passive": {
@@ -8952,13 +9384,15 @@
                           "name": "Blaster Shot",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "Ranged attack."
+                          "description": "Ranged attack.",
+                          "attackPower": 2
                         },
                         {
                           "name": "Pistol Whip",
                           "type": "action",
                           "arena": "physique",
-                          "description": "Melee attack."
+                          "description": "Melee attack.",
+                          "attackPower": 2
                         }
                       ],
                       "maneuver": {
@@ -9011,7 +9445,14 @@
                       "vitality": 3,
                       "initiative": 3,
                       "controlDie": "d6",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "light",
+                        "label": "Light",
+                        "fleeting": 2,
+                        "masterful": 3,
+                        "legendary": 4
+                      }
                     },
                     "roleKit": {
                       "passive": {
@@ -9023,13 +9464,15 @@
                           "name": "Hidden Blaster Cannon",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "Fires in 360 degrees. No cover bonus against this attack."
+                          "description": "Fires in 360 degrees. No cover bonus against this attack.",
+                          "attackPower": 3
                         },
                         {
                           "name": "Ram",
                           "type": "action",
                           "arena": "physique",
-                          "description": "Fly into a target. Weak but disruptive."
+                          "description": "Fly into a target. Weak but disruptive.",
+                          "attackPower": 1
                         }
                       ],
                       "maneuver": {
@@ -9225,7 +9668,14 @@
                       "vitality": 4,
                       "initiative": 4,
                       "controlDie": "d6",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "light",
+                        "label": "Light",
+                        "fleeting": 2,
+                        "masterful": 3,
+                        "legendary": 4
+                      }
                     },
                     "roleKit": {
                       "passive": {
@@ -9237,13 +9687,15 @@
                           "name": "Holdout Blaster",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "Concealed blaster. Elegant and deadly."
+                          "description": "Concealed blaster. Elegant and deadly.",
+                          "attackPower": 2
                         },
                         {
                           "name": "Cutting Remark",
                           "type": "action",
                           "arena": "presence",
-                          "description": "Social attack that targets ego."
+                          "description": "Social attack that targets ego.",
+                          "attackPower": 3
                         }
                       ],
                       "maneuver": {
@@ -9402,7 +9854,14 @@
                       "vitality": 5,
                       "initiative": 3,
                       "controlDie": "d6",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "medium",
+                        "label": "Medium",
+                        "fleeting": 2,
+                        "masterful": 4,
+                        "legendary": 6
+                      }
                     },
                     "roleKit": {
                       "passive": {
@@ -9414,13 +9873,15 @@
                           "name": "Blaster Carbine",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "Standard ranged attack."
+                          "description": "Standard ranged attack.",
+                          "attackPower": 3
                         },
                         {
                           "name": "Stun Baton",
                           "type": "action",
                           "arena": "physique",
-                          "description": "Melee. Target must Endure or gain [Stunned]."
+                          "description": "Melee. Target must Endure or gain [Stunned].",
+                          "attackPower": 2
                         }
                       ],
                       "maneuver": {
@@ -9474,7 +9935,14 @@
                       "vitality": 5,
                       "initiative": 2,
                       "controlDie": "d6",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "medium",
+                        "label": "Medium",
+                        "fleeting": 2,
+                        "masterful": 4,
+                        "legendary": 6
+                      }
                     },
                     "roleKit": {
                       "passive": {
@@ -9486,13 +9954,15 @@
                           "name": "E-11 Volley",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "Ranged attack."
+                          "description": "Ranged attack.",
+                          "attackPower": 3
                         },
                         {
                           "name": "Bayonet Strike",
                           "type": "action",
                           "arena": "physique",
-                          "description": "Melee attack."
+                          "description": "Melee attack.",
+                          "attackPower": 2
                         }
                       ],
                       "maneuver": {
@@ -9697,14 +10167,16 @@
                           "name": "Command",
                           "type": "action",
                           "arena": "presence",
-                          "description": "Order one ally to immediately attack or take an action."
+                          "description": "Order one ally to immediately attack or take an action.",
+                          "attackPower": 6
                         },
                         {
                           "name": "Crushing Tail",
                           "type": "action",
                           "arena": "physique",
                           "powerMod": 2,
-                          "description": "Melee attack at engaged range. +2 Power. Hutt mass."
+                          "description": "Melee attack at engaged range. +2 Power. Hutt mass.",
+                          "attackPower": 9
                         }
                       ],
                       "maneuver": {
@@ -9766,13 +10238,15 @@
                           "name": "Scramble",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "Sprint to cockpit. If uninterrupted for 2 rounds, the fighter launches."
+                          "description": "Sprint to cockpit. If uninterrupted for 2 rounds, the fighter launches.",
+                          "attackPower": 2
                         },
                         {
                           "name": "Sidearm Shot",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "Holdout blaster. Last resort."
+                          "description": "Holdout blaster. Last resort.",
+                          "attackPower": 2
                         }
                       ],
                       "maneuver": {
@@ -9822,7 +10296,14 @@
                       "vitality": 13,
                       "initiative": 3,
                       "controlDie": "d8",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "heavy",
+                        "label": "Heavy",
+                        "fleeting": 3,
+                        "masterful": 5,
+                        "legendary": 8
+                      }
                     },
                     "roleKit": {
                       "passive": {
@@ -9835,13 +10316,15 @@
                           "type": "action",
                           "arena": "physique",
                           "powerMod": 1,
-                          "description": "Devastating ranged fire. +1 Power."
+                          "description": "Devastating ranged fire. +1 Power.",
+                          "attackPower": 6
                         },
                         {
                           "name": "Battering Ram",
                           "type": "action",
                           "arena": "physique",
-                          "description": "Charge attack. Destroys cover."
+                          "description": "Charge attack. Destroys cover.",
+                          "attackPower": 5
                         }
                       ],
                       "maneuver": {
@@ -9889,7 +10372,14 @@
                       "vitality": 4,
                       "initiative": 1,
                       "controlDie": "d6",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "light",
+                        "label": "Light",
+                        "fleeting": 2,
+                        "masterful": 3,
+                        "legendary": 4
+                      }
                     },
                     "roleKit": {
                       "passive": {
@@ -9901,13 +10391,15 @@
                           "name": "Blaster Shot",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "Ranged attack."
+                          "description": "Ranged attack.",
+                          "attackPower": 1
                         },
                         {
                           "name": "Brawl",
                           "type": "action",
                           "arena": "physique",
-                          "description": "Melee punch/kick."
+                          "description": "Melee punch/kick.",
+                          "attackPower": 1
                         }
                       ],
                       "maneuver": {
@@ -10098,14 +10590,16 @@
                           "name": "Command",
                           "type": "action",
                           "arena": "presence",
-                          "description": "Order one ally to immediately attack or take an action."
+                          "description": "Order one ally to immediately attack or take an action.",
+                          "attackPower": 6
                         },
                         {
                           "name": "Crushing Tail",
                           "type": "action",
                           "arena": "physique",
                           "powerMod": 2,
-                          "description": "Melee attack at engaged range. +2 Power. Hutt mass."
+                          "description": "Melee attack at engaged range. +2 Power. Hutt mass.",
+                          "attackPower": 9
                         }
                       ],
                       "maneuver": {
@@ -10153,7 +10647,14 @@
                       "vitality": 4,
                       "initiative": 1,
                       "controlDie": "d6",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "medium",
+                        "label": "Medium",
+                        "fleeting": 2,
+                        "masterful": 4,
+                        "legendary": 6
+                      }
                     },
                     "roleKit": {
                       "passive": {
@@ -10165,13 +10666,15 @@
                           "name": "Blaster Shot",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "Ranged attack."
+                          "description": "Ranged attack.",
+                          "attackPower": 1
                         },
                         {
                           "name": "Club Strike",
                           "type": "action",
                           "arena": "physique",
-                          "description": "Melee."
+                          "description": "Melee.",
+                          "attackPower": 1
                         }
                       ],
                       "maneuver": {
@@ -10353,7 +10856,14 @@
                       "vitality": 5,
                       "initiative": 2,
                       "controlDie": "d6",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "medium",
+                        "label": "Medium",
+                        "fleeting": 2,
+                        "masterful": 4,
+                        "legendary": 6
+                      }
                     },
                     "roleKit": {
                       "passive": {
@@ -10365,7 +10875,8 @@
                           "name": "E-11 Volley",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "Ranged attack."
+                          "description": "Ranged attack.",
+                          "attackPower": 3
                         }
                       ],
                       "maneuver": {
@@ -10532,7 +11043,14 @@
                       "vitality": 7,
                       "initiative": 4,
                       "controlDie": "d8",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "medium",
+                        "label": "Medium",
+                        "fleeting": 2,
+                        "masterful": 4,
+                        "legendary": 6
+                      }
                     },
                     "roleKit": {
                       "passive": {
@@ -10544,13 +11062,15 @@
                           "name": "Emergency Piloting",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "Ship-scale piloting under extreme duress."
+                          "description": "Ship-scale piloting under extreme duress.",
+                          "attackPower": 5
                         },
                         {
                           "name": "Comms Call",
                           "type": "action",
                           "arena": "presence",
-                          "description": "Communicate with heroes. Coordinate actions."
+                          "description": "Communicate with heroes. Coordinate actions.",
+                          "attackPower": 3
                         }
                       ],
                       "maneuver": {
@@ -10599,7 +11119,14 @@
                       "vitality": 3,
                       "initiative": 2,
                       "controlDie": "d6",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "medium",
+                        "label": "Medium",
+                        "fleeting": 2,
+                        "masterful": 4,
+                        "legendary": 6
+                      }
                     },
                     "roleKit": {
                       "passive": {
@@ -10611,7 +11138,8 @@
                           "name": "Laser Cannon Burst",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "Twin laser cannon fire."
+                          "description": "Twin laser cannon fire.",
+                          "attackPower": 3
                         }
                       ],
                       "maneuver": {
@@ -10803,7 +11331,14 @@
                       "vitality": 7,
                       "initiative": 6,
                       "controlDie": "d8",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "light",
+                        "label": "Light",
+                        "fleeting": 2,
+                        "masterful": 3,
+                        "legendary": 4
+                      }
                     },
                     "roleKit": {
                       "passive": {
@@ -10815,13 +11350,15 @@
                           "name": "Tactical Analysis",
                           "type": "action",
                           "arena": "wits",
-                          "description": "Provide intel on an enemy or situation."
+                          "description": "Provide intel on an enemy or situation.",
+                          "attackPower": 5
                         },
                         {
                           "name": "Holdout Blaster",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "Small concealed weapon. Last resort."
+                          "description": "Small concealed weapon. Last resort.",
+                          "attackPower": 3
                         }
                       ],
                       "maneuver": {
@@ -10874,7 +11411,14 @@
                       "vitality": 7,
                       "initiative": 4,
                       "controlDie": "d8",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "medium",
+                        "label": "Medium",
+                        "fleeting": 2,
+                        "masterful": 4,
+                        "legendary": 6
+                      }
                     },
                     "roleKit": {
                       "passive": {
@@ -10886,13 +11430,15 @@
                           "name": "Emergency Piloting",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "Ship-scale piloting under extreme duress."
+                          "description": "Ship-scale piloting under extreme duress.",
+                          "attackPower": 5
                         },
                         {
                           "name": "Comms Call",
                           "type": "action",
                           "arena": "presence",
-                          "description": "Communicate with heroes. Coordinate actions."
+                          "description": "Communicate with heroes. Coordinate actions.",
+                          "attackPower": 3
                         }
                       ],
                       "maneuver": {
@@ -11161,13 +11707,15 @@
                           "name": "Force Guidance",
                           "type": "action",
                           "arena": "presence",
-                          "description": "Telepathic guidance. One ally gains +1 Power on their next check."
+                          "description": "Telepathic guidance. One ally gains +1 Power on their next check.",
+                          "attackPower": 5
                         },
                         {
                           "name": "Sense Danger",
                           "type": "action",
                           "arena": "grit",
-                          "description": "Warn of incoming threats. Party cannot be surprised."
+                          "description": "Warn of incoming threats. Party cannot be surprised.",
+                          "attackPower": 6
                         }
                       ],
                       "maneuver": {
@@ -11331,7 +11879,14 @@
                       "vitality": 3,
                       "initiative": 1,
                       "controlDie": "d6",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "light",
+                        "label": "Light",
+                        "fleeting": 2,
+                        "masterful": 3,
+                        "legendary": 4
+                      }
                     },
                     "roleKit": {
                       "passive": {
@@ -11343,13 +11898,15 @@
                           "name": "Spear Throw",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "Ranged primitive attack."
+                          "description": "Ranged primitive attack.",
+                          "attackPower": 2
                         },
                         {
                           "name": "Rock Drop",
                           "type": "action",
                           "arena": "physique",
-                          "description": "Drop rocks from canopy. Area attack from above."
+                          "description": "Drop rocks from canopy. Area attack from above.",
+                          "attackPower": 0
                         }
                       ],
                       "maneuver": {
@@ -11400,7 +11957,14 @@
                       "vitality": 5,
                       "initiative": 3,
                       "controlDie": "d6",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "light",
+                        "label": "Light",
+                        "fleeting": 2,
+                        "masterful": 3,
+                        "legendary": 4
+                      }
                     },
                     "roleKit": {
                       "passive": {
@@ -11412,13 +11976,15 @@
                           "name": "Command",
                           "type": "action",
                           "arena": "presence",
-                          "description": "Order warriors to attack, retreat, or set traps."
+                          "description": "Order warriors to attack, retreat, or set traps.",
+                          "attackPower": 3
                         },
                         {
                           "name": "Assess Strangers",
                           "type": "action",
                           "arena": "wits",
-                          "description": "Study outsiders. Determine if they are predator or prey."
+                          "description": "Study outsiders. Determine if they are predator or prey.",
+                          "attackPower": 2
                         }
                       ],
                       "maneuver": {
@@ -11732,7 +12298,14 @@
                       "vitality": 15,
                       "initiative": 3,
                       "controlDie": "d8",
-                      "actions": 1
+                      "actions": 1,
+                      "damageTiers": {
+                        "chassis": "heavy",
+                        "label": "Heavy",
+                        "fleeting": 3,
+                        "masterful": 5,
+                        "legendary": 8
+                      }
                     },
                     "roleKit": {
                       "passive": {
@@ -11745,13 +12318,15 @@
                           "type": "action",
                           "arena": "physique",
                           "powerMod": 2,
-                          "description": "Massive stone punch. +2 Power. Destroys cover."
+                          "description": "Massive stone punch. +2 Power. Destroys cover.",
+                          "attackPower": 7
                         },
                         {
                           "name": "Crystal Beam",
                           "type": "action",
                           "arena": "physique",
-                          "description": "Green energy beam from embedded crystals. Ranged."
+                          "description": "Green energy beam from embedded crystals. Ranged.",
+                          "attackPower": 5
                         }
                       ],
                       "maneuver": {
@@ -12077,13 +12652,15 @@
                           "name": "Whispered Truth",
                           "type": "action",
                           "arena": "presence",
-                          "description": "Social attack. Reveals a painful truth. Target must Resolve or gain [Rattled]."
+                          "description": "Social attack. Reveals a painful truth. Target must Resolve or gain [Rattled].",
+                          "attackPower": 5
                         },
                         {
                           "name": "Show the Future",
                           "type": "action",
                           "arena": "grit",
-                          "description": "Vision of the hero's worst possible future. Target must Endure or gain [Shaken]."
+                          "description": "Vision of the hero's worst possible future. Target must Endure or gain [Shaken].",
+                          "attackPower": 4
                         }
                       ],
                       "maneuver": {
@@ -12258,13 +12835,15 @@
                           "name": "Venomous Bite",
                           "type": "action",
                           "arena": "physique",
-                          "description": "Melee. Target must Endure or gain [Poisoned] — 1 damage per round for 3 rounds."
+                          "description": "Melee. Target must Endure or gain [Poisoned] — 1 damage per round for 3 rounds.",
+                          "attackPower": 2
                         },
                         {
                           "name": "Web Shot",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "Ranged. Target must Athletics or gain [Restrained]."
+                          "description": "Ranged. Target must Athletics or gain [Restrained].",
+                          "attackPower": 3
                         }
                       ],
                       "maneuver": {
@@ -12332,13 +12911,15 @@
                           "type": "action",
                           "arena": "physique",
                           "powerMod": 2,
-                          "description": "Massive bite. +2 Power. Can grab medium-sized targets."
+                          "description": "Massive bite. +2 Power. Can grab medium-sized targets.",
+                          "attackPower": 7
                         },
                         {
                           "name": "Mass Web",
                           "type": "action",
                           "arena": "reflex",
-                          "description": "Area web. All targets in zone must Athletics or [Restrained]."
+                          "description": "Area web. All targets in zone must Athletics or [Restrained].",
+                          "attackPower": 3
                         }
                       ],
                       "maneuver": {
@@ -12648,13 +13229,15 @@
                           "name": "Question",
                           "type": "action",
                           "arena": "wits",
-                          "description": "Ask a philosophical question. The hero must answer with Insight or Resolve."
+                          "description": "Ask a philosophical question. The hero must answer with Insight or Resolve.",
+                          "attackPower": 7
                         },
                         {
                           "name": "Reveal",
                           "type": "action",
                           "arena": "presence",
-                          "description": "Share one piece of navigational data. Requires a correct or honest answer first."
+                          "description": "Share one piece of navigational data. Requires a correct or honest answer first.",
+                          "attackPower": 6
                         }
                       ],
                       "maneuver": {
@@ -12951,13 +13534,15 @@
                           "name": "Feast",
                           "type": "action",
                           "arena": "presence",
-                          "description": "Share food and drink. Remove [Fatigued] from all heroes."
+                          "description": "Share food and drink. Remove [Fatigued] from all heroes.",
+                          "attackPower": 1
                         },
                         {
                           "name": "Gift",
                           "type": "action",
                           "arena": "presence",
-                          "description": "Present carved token of alliance."
+                          "description": "Present carved token of alliance.",
+                          "attackPower": 1
                         }
                       ],
                       "maneuver": {
