@@ -40,6 +40,15 @@
     'slowed': 'condition_slowed', 'elusive': 'condition_elusive',
     'jammed': 'condition_jammed',
     'stimmed': 'stimmed', 'natural recovery': 'natural_recovery',
+    'attack': 'action_attack', 'aim': 'action_aim', 'move': 'action_move',
+    'reload': 'action_reload', 'take cover': 'action_take_cover',
+    'overwatch': 'action_overwatch', 'draw / holster': 'action_draw_holster',
+    'assess': 'action_assess', 'treat injury': 'action_treat_injury',
+    'interact': 'action_interact', 'join battle': 'action_join_battle',
+    'dodge': 'action_dodge', 'endure': 'action_endure', 'resist': 'action_resist',
+    'coordinate': 'action_coordinate', 'command beast': 'action_command_beast',
+    'centering focus': 'force_centering_focus', 'force sense': 'force_sense',
+    'telekinesis': 'force_telekinesis',
   };
 
   function _linkify(str) {

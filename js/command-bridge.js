@@ -38,6 +38,15 @@
     'slowed': 'condition_slowed', 'elusive': 'condition_elusive',
     'jammed': 'condition_jammed',
     'stimmed': 'stimmed', 'natural recovery': 'natural_recovery',
+    'attack': 'action_attack', 'aim': 'action_aim', 'move': 'action_move',
+    'reload': 'action_reload', 'take cover': 'action_take_cover',
+    'overwatch': 'action_overwatch', 'draw / holster': 'action_draw_holster',
+    'assess': 'action_assess', 'treat injury': 'action_treat_injury',
+    'interact': 'action_interact', 'join battle': 'action_join_battle',
+    'dodge': 'action_dodge', 'endure': 'action_endure', 'resist': 'action_resist',
+    'coordinate': 'action_coordinate', 'command beast': 'action_command_beast',
+    'centering focus': 'force_centering_focus', 'force sense': 'force_sense',
+    'telekinesis': 'force_telekinesis',
   };
 
   function linkify(str) {
@@ -71,6 +80,7 @@
   var currentPart = null;
   var currentScene = null;
   var glossaryData = null;
+  var maneuversData = null;
   var sceneIntelData = null;
   var partyCache = [];
 
@@ -794,46 +804,83 @@
       .then(function (r) { return r.json(); })
       .then(function (data) { glossaryData = data; })
       .catch(function () { console.error('Failed to load glossary'); });
+    fetch('/data/maneuvers.json')
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        maneuversData = [];
+        Object.keys(data).forEach(function (k) {
+          if (Array.isArray(data[k])) {
+            data[k].forEach(function (a) { if (a.id) maneuversData.push(a); });
+          }
+        });
+      })
+      .catch(function () { console.error('Failed to load maneuvers'); });
   }
 
   function showGlossaryEntry(id) {
     var panel = document.getElementById('glossary-content');
     if (!panel) return;
-    if (!glossaryData) {
-      panel.innerHTML = '<p class="cb-muted">Glossary data not loaded.</p>';
-      return;
-    }
-    var entry = glossaryData.find(function (e) { return e.id === id; });
-    if (!entry) {
-      panel.innerHTML = '<p class="cb-muted">Entry not found: ' + esc(id) + '</p>';
-      return;
-    }
 
-    var html = '';
-    html += '<div class="cb-glossary-header">' + esc(entry.name) + '</div>';
-    if (entry.type) html += '<div class="cb-glossary-type">' + esc(entry.type) + '</div>';
+    var entry = glossaryData ? glossaryData.find(function (e) { return e.id === id; }) : null;
 
-    if (entry.rule) {
-      var pcNpc = splitPcNpc(entry.rule);
-      if (pcNpc.pc || pcNpc.npc) {
-        html += '<div class="cb-glossary-dual">';
-        html += '<div class="cb-glossary-dual-side"><div class="cb-glossary-dual-label" style="color:#5588CC;">PC Effect</div><div>' + linkify(pcNpc.pc || entry.rule) + '</div></div>';
-        html += '<div class="cb-glossary-dual-side"><div class="cb-glossary-dual-label" style="color:var(--color-accent-secondary);">NPC Effect</div><div>' + linkify(pcNpc.npc || '—') + '</div></div>';
-        html += '</div>';
-      } else {
-        html += '<div class="cb-glossary-rule">' + linkify(entry.rule) + '</div>';
+    if (entry) {
+      var html = '';
+      html += '<div class="cb-glossary-header">' + esc(entry.name) + '</div>';
+      if (entry.type) html += '<div class="cb-glossary-type">' + esc(entry.type) + '</div>';
+
+      if (entry.rule) {
+        var pcNpc = splitPcNpc(entry.rule);
+        if (pcNpc.pc || pcNpc.npc) {
+          html += '<div class="cb-glossary-dual">';
+          html += '<div class="cb-glossary-dual-side"><div class="cb-glossary-dual-label" style="color:#5588CC;">PC Effect</div><div>' + linkify(pcNpc.pc || entry.rule) + '</div></div>';
+          html += '<div class="cb-glossary-dual-side"><div class="cb-glossary-dual-label" style="color:var(--color-accent-secondary);">NPC Effect</div><div>' + linkify(pcNpc.npc || '—') + '</div></div>';
+          html += '</div>';
+        } else {
+          html += '<div class="cb-glossary-rule">' + linkify(entry.rule) + '</div>';
+        }
       }
+
+      if (entry.guide) {
+        html += '<div class="cb-glossary-guide">' + esc(entry.guide) + '</div>';
+      }
+
+      panel.innerHTML = html;
+      panel.querySelectorAll('.cb-condition-link').forEach(function (el) {
+        el.addEventListener('click', function () { showGlossaryEntry(el.dataset.conditionId); });
+      });
+      return;
     }
 
-    if (entry.guide) {
-      html += '<div class="cb-glossary-guide">' + esc(entry.guide) + '</div>';
+    var action = maneuversData ? maneuversData.find(function (a) { return a.id === id; }) : null;
+
+    if (action) {
+      var html = '';
+      html += '<div class="cb-glossary-header">' + esc(action.name) + '</div>';
+      html += '<div class="cb-glossary-type">' + esc(action.actionType || 'Action');
+      if (action.discipline) html += ' — ' + esc(action.discipline.charAt(0).toUpperCase() + action.discipline.slice(1));
+      if (action.arena) html += ' (' + esc(action.arena.charAt(0).toUpperCase() + action.arena.slice(1)) + ')';
+      if (action.tags) html += ' ' + esc(action.tags.join(' '));
+      html += '</div>';
+      if (action.description) html += '<div class="cb-glossary-rule">' + linkify(action.description) + '</div>';
+      if (action.risk) html += '<div class="cb-glossary-guide" style="border-left:2px solid var(--color-accent-secondary);padding-left:8px;margin-top:6px;"><strong>Risk:</strong> ' + linkify(action.risk) + '</div>';
+      if (action.mastery) html += '<div class="cb-glossary-guide" style="border-left:2px solid #5588CC;padding-left:8px;margin-top:6px;"><strong>Mastery:</strong> ' + linkify(action.mastery) + '</div>';
+      if (action.effect && Array.isArray(action.effect)) {
+        html += '<div style="margin-top:8px;">';
+        action.effect.forEach(function (e) {
+          html += '<div style="margin-top:4px;"><span style="color:var(--color-accent);">' + esc(e.label || ('Tier ' + e.tier)) + '</span>';
+          if (e.range) html += ' <span class="cb-muted">(' + esc(e.range) + ')</span>';
+          html += ' — ' + linkify(e.description) + '</div>';
+        });
+        html += '</div>';
+      }
+      panel.innerHTML = html;
+      panel.querySelectorAll('.cb-condition-link').forEach(function (el) {
+        el.addEventListener('click', function () { showGlossaryEntry(el.dataset.conditionId); });
+      });
+      return;
     }
 
-    panel.innerHTML = html;
-
-    panel.querySelectorAll('.cb-condition-link').forEach(function (el) {
-      el.addEventListener('click', function () { showGlossaryEntry(el.dataset.conditionId); });
-    });
+    panel.innerHTML = '<p class="cb-muted">Entry not found: ' + esc(id) + '</p>';
   }
 
   function splitPcNpc(ruleText) {
