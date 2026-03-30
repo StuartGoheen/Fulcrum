@@ -1,0 +1,497 @@
+{
+  "locations": [
+    {
+      "id": "jakku",
+      "name": "Jakku",
+      "type": "planet",
+      "astrography": {
+        "region": "Inner Rim (Western Reaches)",
+        "sector": "Arkanis",
+        "system": "Jakku",
+        "gridSquare": "I-13",
+        "suns": [
+          { "name": "Jakku's sun", "count": 1 }
+        ],
+        "moons": 0,
+        "tradeRoutes": [],
+        "rotationPeriod": "26 standard hours",
+        "orbitalPeriod": "340 standard days"
+      },
+      "physical": {
+        "class": "Terrestrial",
+        "atmosphere": "Type I (breathable)",
+        "climate": "Arid",
+        "terrain": ["Deserts", "Badlands", "Dunes", "Mesas", "Buttes"],
+        "surfaceWater": "Minimal",
+        "gravity": "Standard"
+      },
+      "society": {
+        "nativeSpecies": ["Teedo", "Uthuthma"],
+        "otherSpecies": ["Human", "Weequay", "Kyuzo"],
+        "population": "Sparse",
+        "majorSettlements": ["Niima Outpost", "Tuanul", "Reestkii", "Cratertown"],
+        "government": "None (de facto Hutt control via Darga)",
+        "majorExports": ["Scavenged starship components"],
+        "affiliation": "Galactic Empire (nominal)"
+      },
+      "pointsOfInterest": [
+        "Niima Outpost",
+        "Sienar's Regret (cantina)",
+        "Starship Graveyard",
+        "Niima Landing Field"
+      ],
+      "fauna": ["Steelpecker", "Happabore", "Nightwatcher worm", "Ripper-raptor", "Luggabeast"],
+      "flora": ["Tuanulberry", "Spine-barrel cactus"],
+      "campaignNotes": {
+        "adventures": ["adv1"],
+        "era": "17 BBY — pre-Battle of Jakku. A forgotten nowhere rock. Darga the Hutt runs what passes for an economy through debt and protection. Imperial patrols from Arkanis Sector come through maybe twice a standard year. The galaxy forgot Jakku — if it ever noticed.",
+        "keyLocations": {
+          "niima_outpost": "A junkyard settlement squatting on the desert flats like something the sand is trying to swallow. Scavengers, smugglers, moisture farmers with nothing left to farm.",
+          "sienars_regret": "The local cantina. Where the campaign begins — a bar brawl and a desperate woman clutching a stolen code cylinder.",
+          "starship_graveyard": "The ribs of fallen capital ships and dunes of rust. Switch's hidden bunker is built from buried shipping containers beneath this field.",
+          "niima_landing_field": "A militarized zone on the outskirts. Where the carbonite-frozen Accountant is held, waiting for Imperial pickup."
+        }
+      },
+      "lore": "Once a verdant world with forests and water, some past calamity turned Jakku into a barren globe of scorched badlands and marching dunes. Out here on the Western Reaches, the holonet feeds are weeks old, the Republic is a memory, and the Empire is a rumor that sometimes wears a uniform."
+    },
+    {
+      "id": "ajan-kloss",
+      "name": "Ajan Kloss",
+      "type": "moon",
+      "astrography": {
+        "region": "Outer Rim Territories",
+        "sector": "Cademimu",
+        "system": "Ajara",
+        "gridSquare": "L-5",
+        "suns": [
+          { "name": "Ajara system star", "count": 1 }
+        ],
+        "moons": 2,
+        "parentBody": "Ajara (gas giant)",
+        "tradeRoutes": [],
+        "rotationPeriod": "Unknown",
+        "orbitalPeriod": "Unknown"
+      },
+      "physical": {
+        "class": "Terrestrial (moon)",
+        "atmosphere": "Type I (breathable, humid)",
+        "climate": "Tropical",
+        "terrain": ["Jungles", "Mountains", "Rivers"],
+        "surfaceWater": "Significant",
+        "gravity": "Standard",
+        "notes": "Ajara reflects sunlight onto the surface, allowing plants to grow even at night. The gas giant shields the moon from harmful radiation."
+      },
+      "society": {
+        "nativeSpecies": ["The Kloss (extinct or ancient)"],
+        "otherSpecies": [],
+        "population": "Minimal — isolated warlord compound",
+        "majorSettlements": ["The Vanishing Place (Skarn's fortress)"],
+        "government": "Warlord Skarn",
+        "majorExports": [],
+        "affiliation": "Independent (Imperial patrols in orbit)"
+      },
+      "pointsOfInterest": [
+        "The Vanishing Place (Skarn's jungle fortress)",
+        "Perimeter defense turrets",
+        "Ancient jungle ruins"
+      ],
+      "fauna": ["Large arthropods", "Hunting birds", "Venomous ground-crawlers"],
+      "flora": ["Fungal overgrowth", "Massive ancient trees", "Toxic fungal spores"],
+      "campaignNotes": {
+        "adventures": ["adv1"],
+        "era": "17 BBY — a remote jungle moon deep in the Cademimu sector. A Victory-class Star Destroyer hangs in orbit. Warlord Skarn runs a secret prison called The Vanishing Place from his jungle fortress. The moon is a Green Hell — massive ancient trees, fungal overgrowth, and air so thick with humidity your viewport fogs instantly.",
+        "keyLocations": {
+          "the_vanishing_place": "Skarn's fortress. Where Admiral Varth is imprisoned. A compound hidden deep in the jungle, accessible only after a brutal 12-klick trek through hostile wilderness.",
+          "crash_site": "Where the heroes' ship goes down after clipping a perimeter turret. The Banshee (or the heroes' ship) skids through the treeline and bogs in the mud, miles from the fortress."
+        }
+      },
+      "lore": "A lush, verdant moon compared to Dagobah — wet, warm, green, and overflowing with life, but without the smell. The jungle resonates with life. In this era, it is unknown to the wider galaxy — a perfect place to hide a prison that doesn't officially exist."
+    },
+    {
+      "id": "takodana",
+      "name": "Takodana",
+      "type": "planet",
+      "astrography": {
+        "region": "Mid Rim (Western Reaches border)",
+        "sector": "Noonian",
+        "system": "Takodana",
+        "gridSquare": "J-16",
+        "suns": [
+          { "name": "Takodana's sun", "count": 1 }
+        ],
+        "moons": 0,
+        "tradeRoutes": ["Great Gran Run", "Biox Detour"],
+        "rotationPeriod": "Unknown",
+        "orbitalPeriod": "Unknown"
+      },
+      "physical": {
+        "class": "Terrestrial",
+        "atmosphere": "Type I (breathable)",
+        "climate": "Temperate",
+        "terrain": ["Forests", "Lakes", "Rivers", "Grasslands"],
+        "surfaceWater": "Significant",
+        "gravity": "Standard"
+      },
+      "society": {
+        "nativeSpecies": [],
+        "otherSpecies": ["Human", "Devaronian", "Ithorian", "Rodian", "Weequay", "Trandoshan"],
+        "population": "Moderate",
+        "majorSettlements": ["Maz Kanata's Castle", "Blackwind Point", "Nymeve Lake settlements"],
+        "government": "Neutral territory (Maz Kanata's rule at the castle)",
+        "majorExports": [],
+        "affiliation": "Neutral"
+      },
+      "pointsOfInterest": [
+        "Maz Kanata's Castle",
+        "Nymeve Lake",
+        "Blackwind Point",
+        "Darga's Fortress"
+      ],
+      "fauna": [],
+      "flora": ["Dense forest canopy"],
+      "campaignNotes": {
+        "adventures": ["adv2"],
+        "era": "17 BBY — a popular departure point offering easy access between the Inner and Outer Rim. For those heading outward, a last taste of civilization. For those heading Corewards, a last grasp of frontier living. Takodana's neutrality attracts fugitives, smugglers, and explorers. Maz Kanata enforces a 'no politics, no war' rule at her castle — but across the lake, at Blackwind Point, there are no rules at all.",
+        "keyLocations": {
+          "blackwind_point": "A muddy, desperate shantytown on the far shore of Nymeve Lake. Refugees, criminals, and swoop gangs. The Vipers demand a landing tax from everyone who touches down.",
+          "dargas_fortress": "The Hutt crime lord's palace on Takodana. A den of debauchery where the heroes must infiltrate to learn about Darga's Imperial connections."
+        }
+      },
+      "lore": "Covered in lush forests and dotted with small lakes, Takodana was a haven for those seeking to avoid the galaxy's conflicts. 'I didn't know there was this much green in the whole galaxy.' A transitional world between the settled galaxy and the frontier, where civilization and lawlessness exist within sight of each other across Nymeve Lake."
+    },
+    {
+      "id": "bespin",
+      "name": "Bespin",
+      "type": "planet",
+      "astrography": {
+        "region": "Outer Rim Territories",
+        "sector": "Anoat (Javin)",
+        "system": "Bespin",
+        "gridSquare": "K-18",
+        "suns": [
+          { "name": "Bespin's sun", "count": 1 }
+        ],
+        "moons": 2,
+        "tradeRoutes": ["Ison Corridor"],
+        "rotationPeriod": "12 standard hours",
+        "orbitalPeriod": "14 standard years"
+      },
+      "physical": {
+        "class": "Gas giant",
+        "atmosphere": "Thin habitable stratum (Type I in Life Zone); otherwise unbreathable",
+        "climate": "Temperate (within habitable zone)",
+        "terrain": ["Gas clouds", "No solid surface"],
+        "surfaceWater": "None",
+        "gravity": "1.5 standard (at Cloud City altitude)",
+        "notes": "Sunsets last 2 hours viewed from the upper levels of Cloud City."
+      },
+      "society": {
+        "nativeSpecies": [],
+        "otherSpecies": ["Human", "Ugnaught", "Various"],
+        "population": "6 million (Cloud City)",
+        "majorSettlements": ["Cloud City", "Chinook Station", "Ugnorgrad"],
+        "government": "Baron Administrator (Cloud City)",
+        "majorExports": ["Tibanna gas"],
+        "affiliation": "Independent (Imperial interest in tibanna)"
+      },
+      "pointsOfInterest": [
+        "Cloud City",
+        "Yerith Bespin Hotel",
+        "Royal Casino",
+        "Refinery Platform 13",
+        "Industrial District",
+        "Docking Bay 4414"
+      ],
+      "fauna": ["Beldons (gas-bag creatures)", "Velkers", "Rawwks"],
+      "flora": [],
+      "campaignNotes": {
+        "adventures": ["adv3"],
+        "era": "16 BBY — Cloud City is not a polished resort. It is a rough-and-tumble mining boomtown, a Wild West in the clouds. Prospectors, gamblers, and fugitives pack the Cloudscape Platforms. Darga has bribed the Wing Guard and port officials. The annual sabacc tournament at the Royal Casino draws Imperial bagmen, Hutt proxies, and the worst the Outer Rim has to offer.",
+        "keyLocations": {
+          "cloud_city": "A repulsorlift tibanna gas mining colony floating in Bespin's atmosphere. In this era, rough and industrial, not the gleaming resort of later decades.",
+          "royal_casino": "A loud, smoky, aggressive establishment where the three-day sabacc tournament drives the central heist.",
+          "refinery_platform_13": "Deep in the gas giant's atmosphere. Trandoshan mercenaries and corrupt Ugnaught riggers loading gas canisters onto shuttles. Catwalks over a lethal drop.",
+          "docking_bay_4414": "Where Darga keeps the Shackles of Nizon in orbit on slave circuits. The final confrontation location."
+        }
+      },
+      "lore": "An immense gas giant whose riches manifest in rare tibanna gas. No land, no water — just an endless ocean of roiling clouds and a thin band of breathable atmosphere where mining colonies float like steel lilies on an infinite amber sea."
+    },
+    {
+      "id": "endor",
+      "name": "Endor (Forest Moon)",
+      "type": "moon",
+      "astrography": {
+        "region": "Outer Rim Territories",
+        "sector": "Moddell",
+        "system": "Endor",
+        "gridSquare": "H-16",
+        "suns": [
+          { "name": "Endor I", "count": 1 },
+          { "name": "Endor II", "count": 1 }
+        ],
+        "moons": 0,
+        "parentBody": "Endor (gas giant)",
+        "designation": "IX3244-A",
+        "tradeRoutes": [],
+        "rotationPeriod": "18 standard hours",
+        "orbitalPeriod": "Unknown",
+        "navigationHazards": "The Moddell sector is notorious for numerous hyperspace eddies and sinkholes. Travel is akin to tiptoeing across an unmapped minefield. No reliable hyperspace routes exist in this era — the Imperial Sanctuary Pipeline will not be constructed for years."
+      },
+      "physical": {
+        "class": "Terrestrial (moon)",
+        "atmosphere": "Type I (breathable)",
+        "climate": "Temperate",
+        "terrain": ["Dense forests", "Mountains", "Savannas"],
+        "surfaceWater": "8%",
+        "gravity": "0.85 standard",
+        "notes": "Trees exceed 1,000 meters in height. The forest canopy creates a layered ecosystem — the upper canopy in sunlight, the forest floor in perpetual twilight."
+      },
+      "society": {
+        "nativeSpecies": ["Ewok", "Dulok", "Yuzzum"],
+        "otherSpecies": [],
+        "population": "Primitive tribal (Ewok villages)",
+        "majorSettlements": ["Bright Tree Village (Ewok)"],
+        "government": "Tribal (Ewok council of elders)",
+        "majorExports": [],
+        "affiliation": "Unaffiliated (unknown to the wider galaxy)"
+      },
+      "pointsOfInterest": [
+        "The Ebon Spire (Revan's ancient forward base)",
+        "Bright Tree Village",
+        "Ancient forest ruins",
+        "Force nexus beneath the canopy"
+      ],
+      "fauna": ["Gorax (semi-sentient giant)", "Wisties (luminous sprites)", "Boar-wolves", "Condor dragons", "Temptor", "Lantern birds"],
+      "flora": ["Giant sequoia-analog trees (1,000+ meters)", "Hanging moss", "Bioluminescent fungi"],
+      "campaignNotes": {
+        "adventures": ["adv4"],
+        "era": "16 BBY — completely untouched by the Empire. The Death Star II is decades away. The Moddell sector's hyperspace anomalies make the forest moon effectively unreachable without specific route data — which is why Denia (Jedi Historian) is the key to finding it. Revan used this isolation thousands of years ago for the same reason: nobody stumbles onto Endor by accident.",
+        "keyLocations": {
+          "the_ebon_spire": "An ancient black stone tower rising above the forest canopy, half-swallowed by millennia of growth. Revan's forward operating base, built on a Force nexus, containing his navigational Holocrons for the Unknown Regions expeditions. The structure predates the Ewoks' recorded history — they regard it with superstitious reverence and fear.",
+          "the_forest_floor": "Perpetual twilight beneath the kilometer-high canopy. The dark side has grown strong in the ruins — a domain of shadows and echoes, much like the cave on Dagobah."
+        }
+      },
+      "lore": "A remote forest moon shielded from the galaxy by the Moddell sector's treacherous hyperspace conditions. Trees taller than skyscrapers, a layered ecosystem from canopy to forest floor, and three sentient species who have never seen a starship. In the deep forest, beneath the roots and the moss, something ancient waits — a tower of black stone that was old when the Ewoks' ancestors first climbed the trees."
+    },
+    {
+      "id": "malpaz",
+      "name": "Malpaz",
+      "type": "planet",
+      "astrography": {
+        "region": "Outer Rim Territories",
+        "sector": "Wazta",
+        "system": "Malpaz",
+        "gridSquare": "I-17",
+        "suns": [
+          { "name": "Malpaz's sun", "count": 1 }
+        ],
+        "moons": 0,
+        "tradeRoutes": [],
+        "rotationPeriod": "Unknown",
+        "orbitalPeriod": "Unknown"
+      },
+      "physical": {
+        "class": "Terrestrial",
+        "atmosphere": "Type I (breathable, industrial pollutants)",
+        "climate": "Temperate to industrial",
+        "terrain": ["Industrial zones", "Scarred landscapes", "Urban centers", "Contaminated zones"],
+        "surfaceWater": "Unknown",
+        "gravity": "Standard"
+      },
+      "society": {
+        "nativeSpecies": ["Avian species (unnamed)"],
+        "otherSpecies": ["Human", "Various colonists"],
+        "population": "Moderate (native avians plus colonial settlers)",
+        "majorSettlements": ["Capital city (unnamed)", "Imperial research station"],
+        "government": "Imperial occupation",
+        "majorExports": ["Industrial output", "Research data"],
+        "affiliation": "Galactic Empire (occupied)"
+      },
+      "pointsOfInterest": [
+        "Imperial Research Station (drift algorithm repository)",
+        "Reactor meltdown site (Krennic's cover-up)",
+        "Resistance safehouse network",
+        "Industrial district"
+      ],
+      "fauna": ["Native avian species (sentient)"],
+      "flora": [],
+      "campaignNotes": {
+        "adventures": ["adv5", "adv10"],
+        "era": "16-15 BBY — a world bearing the fresh scars of Tarkin's pacification campaigns. Orson Krennic used the campaigns as cover for Death Star-related projects here. A nuclear reactor meltdown was officially blamed on Separatist holdouts to conceal the mishap. The native avian population and colonial settlers live under Imperial occupation, nursing a decade of resentment. An Imperial research station houses the drift algorithm data — modern navigational surveys of how the region's hyperspace hazards have shifted over time.",
+        "keyLocations": {
+          "research_station": "Where the drift algorithms are stored — modern Imperial survey data tracking stellar drift, gravitational shifts, and hyperspace anomaly positions. The data Varth needs to overlay Revan's ancient routes onto the modern star chart.",
+          "reactor_site": "The scar where Krennic's reactor melted down. Still contaminated. The locals know the Empire lied about what happened here — that knowledge is the tinder for the insurrection.",
+          "resistance_network": "Underground cells of native avians and colonial dissidents. They've been waiting for a catalyst. The heroes are that catalyst."
+        },
+        "adventure10Notes": "Leviathan's demonstration target. Tarkin ordered Varth to prove the weapon's capabilities by deploying it against the world the heroes liberated. The insurrection the players sparked in Adventure 5 is the pretext for the demonstration — crush the rebellion and prove the weapon in one stroke."
+      },
+      "lore": "A scarred industrial world where the Empire buried its mistakes. During the Clone Wars, Malpaz suffered invasions from both sides. During the pacification, Krennic's projects left deeper wounds — a reactor meltdown blamed on the locals, contaminated zones, and a population that knows the official story is a lie. Home to a sentient avian species integrated with colonists from across the sector."
+    },
+    {
+      "id": "eriadu",
+      "name": "Eriadu",
+      "type": "planet",
+      "astrography": {
+        "region": "Outer Rim Territories",
+        "sector": "Seswenna",
+        "system": "Eriadu",
+        "gridSquare": "M-18",
+        "suns": [
+          { "name": "Eriadu's sun", "count": 1 }
+        ],
+        "moons": 0,
+        "tradeRoutes": ["Hydian Way", "Rimma Trade Route"],
+        "rotationPeriod": "Unknown",
+        "orbitalPeriod": "Unknown"
+      },
+      "physical": {
+        "class": "Terrestrial",
+        "atmosphere": "Type I (breathable, heavily polluted — black industrial pall)",
+        "climate": "Temperate (obscured by industrial output)",
+        "terrain": ["Mountains", "Jungles", "Industrial urban zones", "Weapons factories", "Refineries"],
+        "surfaceWater": "Unknown",
+        "gravity": "Standard"
+      },
+      "society": {
+        "nativeSpecies": [],
+        "otherSpecies": ["Human (dominant)"],
+        "population": "Billions",
+        "majorSettlements": ["Eriadu City (capital)", "Tarkin compound"],
+        "government": "Grand Moff Wilhuff Tarkin (Sector Governor)",
+        "majorExports": ["Lommite ore", "Weapons", "Military hardware"],
+        "affiliation": "Galactic Empire (Tarkin's seat of power)"
+      },
+      "pointsOfInterest": [
+        "Tarkin's Citadel",
+        "The Glass Bridge (transparisteel walkway between spires)",
+        "Primary Data Center",
+        "Lower-level sumps (resistance safehouse)",
+        "Weapons factories",
+        "Red refineries"
+      ],
+      "fauna": [],
+      "flora": ["Jungle remnants (beyond industrial zones)"],
+      "campaignNotes": {
+        "adventures": ["adv6", "adv7"],
+        "era": "15 BBY — Tarkin's capital. A jagged, brutalist expanse of black armor-plating and glowing red refineries. The sky is choked with exhaust from ten thousand weapons factories. Acid rain smears your viewport. Tarkin's punishment for sedition is swift and complete. This is not a battlefield — it is a cage.",
+        "keyLocations": {
+          "tarkins_citadel": "The seat of Grand Moff Tarkin's power. Black spires connected by enclosed transparisteel walkways. The upper levels house Tarkin's office — a grand, open-air balcony overlooking the city. The lower levels are sterile, freezing corridors of Imperial bureaucracy.",
+          "the_glass_bridge": "An enclosed transparisteel walkway between two Citadel spires. Where the heroes witness Varth receiving command of Leviathan from Tarkin — a silent tableau played out across a wind-whipped expanse.",
+          "primary_data_center": "Massive room of glowing server racks. Where the heroes slice the Citadel's systems to download Varth's transit orders and destination.",
+          "lower_sumps": "The decaying lower levels. Where the quiet resistance operates — not fighting, just funneling resources to the Western Reaches. Where Denia serves as the heroes' 'guy in the chair.'"
+        }
+      },
+      "lore": "Every day, on their own, as pioneers and settlers, the Tarkin ancestors waged battles with the beasts that ruled this planet. Their triumph only altered the balance, not the reality. Life remains an ongoing battle for survival, with the strong or the smart at the top of the heap, and the rest kept in check by firepower and laws. Eriadu's chief industry is lommite ore, but its true export is power — the Tarkin family has shaped galactic military doctrine from this toxic, brutalist fortress world."
+    },
+    {
+      "id": "batuu",
+      "name": "Batuu",
+      "type": "planet",
+      "astrography": {
+        "region": "Outer Rim Territories (Western Reaches)",
+        "sector": "Trilon",
+        "system": "Batuu",
+        "gridSquare": "G-15",
+        "suns": [
+          { "name": "Ubaat I", "count": 1 },
+          { "name": "Ubaat II", "count": 1 },
+          { "name": "Ubaat III", "count": 1 }
+        ],
+        "moons": 0,
+        "tradeRoutes": [],
+        "rotationPeriod": "Unknown",
+        "orbitalPeriod": "Unknown"
+      },
+      "physical": {
+        "class": "Terrestrial",
+        "atmosphere": "Type I (breathable)",
+        "climate": "Temperate",
+        "terrain": ["Jungles", "Oceans", "Petrified spire forests", "Rocky outcrops"],
+        "surfaceWater": "Significant",
+        "gravity": "Standard",
+        "notes": "Once host to massive trees destroyed in an ancient cataclysm. The remains became petrified gray-brown stone spires towering over the landscape. Three suns create complex light patterns and extended twilights."
+      },
+      "society": {
+        "nativeSpecies": ["Batuuan"],
+        "otherSpecies": ["Human", "Blutopian", "Various fringe species"],
+        "population": "Small (concentrated at Black Spire Outpost)",
+        "majorSettlements": ["Black Spire Outpost", "Peka", "Surabat", "Galma"],
+        "government": "Oga Garra (crime boss, de facto ruler of Black Spire Outpost)",
+        "majorExports": ["Smuggled goods", "Black market trade"],
+        "affiliation": "Independent (too remote for sustained Imperial interest)"
+      },
+      "pointsOfInterest": [
+        "Black Spire Outpost",
+        "Oga's Cantina",
+        "Ancient Fae ruins",
+        "Petrified spire forest",
+        "Savi & Son Salvage",
+        "Dok-Ondar's Den of Antiquities"
+      ],
+      "fauna": [],
+      "flora": ["Batuu trees (dark green conifers)", "Golden lichen", "Petrified ancient spires"],
+      "campaignNotes": {
+        "adventures": ["adv8"],
+        "era": "15 BBY — the definitive smuggler's haven of the deep Western Reaches. Oga Garra — a Blutopian orphan raised by the Hutts — controls Black Spire Outpost with an iron grip. From docking permits to farm imports, she gets a cut of everything. She's rarely seen but her reputation is mythic. The outpost is too remote and too useless for the Empire to bother with — which is exactly why everyone here prefers it that way.",
+        "keyLocations": {
+          "black_spire_outpost": "The largest settlement on Batuu. An ancient trading post that has devolved into a seedy smuggler's haven. Petrified stone spires loom over the market stalls. Secret passageways honeycomb the structures beneath.",
+          "ogas_cantina": "The notorious watering hole. Oga's hidden office is underneath — connected by ancient passageways built by the Fae. She watches everything from below.",
+          "the_spire_forest": "Beyond the outpost, the petrified remains of the ancient mega-trees. Kilometers of stone columns rising from the jungle. Navigation landmarks for the Batuuans."
+        }
+      },
+      "lore": "A remote world on the galaxy's edge where once-mighty trees were destroyed in a cataclysm and became stone spires that tower over the landscape. Black Spire Outpost was once a thriving trade port — then hyperspace routes shifted and left it behind. Now it caters to those who prefer not to be found. The market stalls carry goods from every corner of the galaxy, and the cantina serves drinks to smugglers, bounty hunters, and fugitives who know better than to ask each other's names."
+    },
+    {
+      "id": "xala",
+      "name": "Xala",
+      "type": "planet",
+      "astrography": {
+        "region": "Wild Space",
+        "sector": "Unknown",
+        "system": "Xala",
+        "gridSquare": "H-14",
+        "suns": [
+          { "name": "Xala's sun", "count": 1 }
+        ],
+        "moons": 1,
+        "tradeRoutes": ["Xala-Cermau hyperlane"],
+        "rotationPeriod": "Unknown",
+        "orbitalPeriod": "Unknown",
+        "navigationHazards": "Navigable hyperspace routes in Wild Space are incredibly rare. The Xala-Cermau hyperlane is one of the few reliable corridors into this region. Without specific route data, reaching Xala is nearly impossible."
+      },
+      "physical": {
+        "class": "Terrestrial",
+        "atmosphere": "Type I (breathable)",
+        "climate": "Unknown",
+        "terrain": ["Unknown surface features"],
+        "surfaceWater": "Unknown",
+        "gravity": "Standard"
+      },
+      "society": {
+        "nativeSpecies": [],
+        "otherSpecies": [],
+        "population": "Minimal or none",
+        "majorSettlements": [],
+        "government": "None",
+        "majorExports": [],
+        "affiliation": "None (Wild Space — beyond effective Imperial authority)"
+      },
+      "pointsOfInterest": [
+        "Xala's moon (site of recorded confrontation)",
+        "Draco's stronghold (campaign-specific)"
+      ],
+      "fauna": [],
+      "flora": [],
+      "campaignNotes": {
+        "adventures": ["adv9"],
+        "era": "15 BBY — the edge of known space. Wild Space. Imperial authority is present but isolated — only those with experimental ships or rare hyperspace data can reach this system reliably. Inquisitor Draco has established a stronghold here precisely because of its remoteness — no Moffs looking over his shoulder, no bureaucracy, no witnesses.",
+        "keyLocations": {
+          "dracos_stronghold": "Where Draco holds Master Denia. A place beyond oversight where an Inquisitor can do whatever he wants to a captured Jedi. The isolation is the point — no one hears screaming in Wild Space.",
+          "xalas_moon": "The recorded site of Captain Korda's confrontation with the Graf children in 18 BBY. A precedent for betrayal in this system."
+        },
+        "optionalAdventure": "Adventure 9 is structurally optional. If the players choose not to pursue Denia, the campaign proceeds directly from Batuu (Adventure 8) to Malpaz (Adventure 10). The cost of skipping Xala: whatever advantage Draco's stronghold would have provided for the finale — intel, command codes, a weakened Draco — the players face the finale without it."
+      },
+      "lore": "Defined by its remoteness. Xala exists in the untamed, largely unmapped frontier where Imperial authority is present but isolated, and survival relies heavily on navigating dangerous, uncharted space. The Xala-Cermau hyperlane is one of the galaxy's rarest commodities — a navigable route through Wild Space. Those who know it guard that knowledge with their lives."
+    }
+  ]
+}

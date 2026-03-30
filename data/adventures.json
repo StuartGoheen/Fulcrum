@@ -159,12 +159,33 @@
                         "description": "Social attacks can inflict [Shaken] instead of normal social conditions."
                       },
                       "actions": [
-                        { "name": "Threaten", "type": "action", "arena": "physique", "description": "Social attack using implied force. Targets Resist." },
-                        { "name": "Lean In", "type": "action", "arena": "presence", "powerMod": 1, "description": "Escalate social pressure. +1 Power if target already has a social condition." }
+                        {
+                          "name": "Threaten",
+                          "type": "action",
+                          "arena": "physique",
+                          "description": "Social attack using implied force. Targets Resist."
+                        },
+                        {
+                          "name": "Lean In",
+                          "type": "action",
+                          "arena": "presence",
+                          "powerMod": 1,
+                          "description": "Escalate social pressure. +1 Power if target already has a social condition."
+                        }
                       ],
-                      "maneuver": { "name": "Loom", "description": "Move to close range. Target must resist or gain [Rattled]." },
-                      "gambit": { "name": "Break Something", "cost": "-1 Power", "description": "Demonstrate capacity for violence. All witnesses gain [Shaken]." },
-                      "exploit": { "name": "Last Warning", "description": "If target has [Shaken], automatically escalate to [Incapacitated] (surrender/flee)." }
+                      "maneuver": {
+                        "name": "Loom",
+                        "description": "Move to close range. Target must resist or gain [Rattled]."
+                      },
+                      "gambit": {
+                        "name": "Break Something",
+                        "cost": "-1 Power",
+                        "description": "Demonstrate capacity for violence. All witnesses gain [Shaken]."
+                      },
+                      "exploit": {
+                        "name": "Last Warning",
+                        "description": "If target has [Shaken], automatically escalate to [Incapacitated] (surrender/flee)."
+                      }
                     },
                     "notes": "Power 4 = (effective Physique 4 - 1) + Tier 1. Defense 4 = max(4,2)-1+1. Vitality 7 = Phys 4 + Grit 2 + Tier 1. Wits clamped to 1 (base 1, Enforcer -1, floor 1). Vs a starting PC with Resist ~3, net +1 = Fleeting social hit. Enough to apply pressure, not devastating."
                   }
@@ -208,12 +229,32 @@
                         "description": "May take 2 maneuvers per turn instead of 1."
                       },
                       "actions": [
-                        { "name": "Hit and Run", "type": "action", "arena": "reflex", "description": "Melee attack + free disengage." },
-                        { "name": "Harrying Shot", "type": "action", "arena": "reflex", "description": "Ranged attack at close range. Target cannot take reactions until next turn." }
+                        {
+                          "name": "Hit and Run",
+                          "type": "action",
+                          "arena": "reflex",
+                          "description": "Melee attack + free disengage."
+                        },
+                        {
+                          "name": "Harrying Shot",
+                          "type": "action",
+                          "arena": "reflex",
+                          "description": "Ranged attack at close range. Target cannot take reactions until next turn."
+                        }
                       ],
-                      "maneuver": { "name": "Reposition", "description": "Move without provoking reactions." },
-                      "gambit": { "name": "Hamstring", "cost": "-1 Power", "description": "Target gains [Slowed] on hit." },
-                      "exploit": { "name": "Ambush", "description": "If attacking from stealth or flanking, +2 Power on the attack." }
+                      "maneuver": {
+                        "name": "Reposition",
+                        "description": "Move without provoking reactions."
+                      },
+                      "gambit": {
+                        "name": "Hamstring",
+                        "cost": "-1 Power",
+                        "description": "Target gains [Slowed] on hit."
+                      },
+                      "exploit": {
+                        "name": "Ambush",
+                        "description": "If attacking from stealth or flanking, +2 Power on the attack."
+                      }
                     },
                     "notes": "Power 3 = (effective Reflex 4 - 1) + Tier 0. Defense 3 = max(2,4)-1+0. Evasion 3 = Ref 4 - 1 + 0. Resist 0 = Grit 1 - 1 + 0 (extremely vulnerable to social/grit attacks). Vitality 3 = Phys 2 + Grit 1 + Tier 0 (fragile). Minion: Masterful+ = instant takedown. They exist to make the room feel dangerous, not to be a real fight."
                   }
@@ -382,8 +423,17 @@
                 "gridColumns": 4,
                 "gridRows": 3,
                 "zoneSize": "15ft",
-                "columnLabels": ["A", "B", "C", "D"],
-                "rowLabels": [1, 2, 3],
+                "columnLabels": [
+                  "A",
+                  "B",
+                  "C",
+                  "D"
+                ],
+                "rowLabels": [
+                  1,
+                  2,
+                  3
+                ],
                 "zones": [
                   {
                     "id": "A1",
@@ -483,12 +533,36 @@
                   }
                 ],
                 "startingPositions": [
-                  { "who": "PCs", "zone": "B2", "notes": "Seated at their table. Central position with light cover." },
-                  { "who": "Maya", "zone": "B2", "notes": "Crashes into B2. Flees to B3 (bar, hard cover) if combat starts." },
-                  { "who": "Krev Tosk", "zone": "B1", "notes": "Enters through blast doors. Exposed — no cover. Advances to B2/C2 via Loom maneuver." },
-                  { "who": "Kyuzo #1", "zone": "B1", "notes": "Behind Krev at entrance. Repositions to A2 (booth row) to flank." },
-                  { "who": "Kyuzo #2", "zone": "C1", "notes": "Flanking the entrance. Repositions to D2 (alcove) to cut off the far side." },
-                  { "who": "Patrons", "zone": "A2,C2,D2", "notes": "Scattered. Flee to B1/C1 (entrance) or A3 (back exit) if weapons are drawn." }
+                  {
+                    "who": "PCs",
+                    "zone": "B2",
+                    "notes": "Seated at their table. Central position with light cover."
+                  },
+                  {
+                    "who": "Maya",
+                    "zone": "B2",
+                    "notes": "Crashes into B2. Flees to B3 (bar, hard cover) if combat starts."
+                  },
+                  {
+                    "who": "Krev Tosk",
+                    "zone": "B1",
+                    "notes": "Enters through blast doors. Exposed — no cover. Advances to B2/C2 via Loom maneuver."
+                  },
+                  {
+                    "who": "Kyuzo #1",
+                    "zone": "B1",
+                    "notes": "Behind Krev at entrance. Repositions to A2 (booth row) to flank."
+                  },
+                  {
+                    "who": "Kyuzo #2",
+                    "zone": "C1",
+                    "notes": "Flanking the entrance. Repositions to D2 (alcove) to cut off the far side."
+                  },
+                  {
+                    "who": "Patrons",
+                    "zone": "A2,C2,D2",
+                    "notes": "Scattered. Flee to B1/C1 (entrance) or A3 (back exit) if weapons are drawn."
+                  }
                 ],
                 "gmTacticalNotes": "Krev starts exposed at B1 — intentional. He's a collector, not a tactician. He expects compliance. The Kyuzo use Fleet Footed (2 maneuvers/turn) + Reposition (no reactions) to silently flank to A2 and D2 during the social phase — cutting off the booth row and alcove. This is positioning, not aggression. If combat triggers: Krev advances to B2 or C2 for melee range. Kyuzo attack with Hit and Run from flanking positions — headbutt then disengage. The bar (B3/C3) is the strongest defensive position. The open floor (C2) is the worst — no cover, clear sightlines. The back hallway (A3) is the escape route. The store room (D3) is a trap — full cover but no exit. Teach players: 'You can flip that table (Find Cover maneuver). You can grab a bottle (Equip maneuver). Moving to the next zone costs your maneuver. Two zones costs your whole turn.'"
               },
@@ -2383,6 +2457,10 @@
             }
           ]
         }
+      ],
+      "locations": [
+        "jakku",
+        "ajan-kloss"
       ]
     },
     {
@@ -3163,6 +3241,9 @@
             }
           ]
         }
+      ],
+      "locations": [
+        "takodana"
       ]
     },
     {
@@ -4224,6 +4305,9 @@
             }
           ]
         }
+      ],
+      "locations": [
+        "bespin"
       ]
     },
     {
@@ -4231,7 +4315,7 @@
       "number": 4,
       "title": "The Ebon Spire",
       "act": 2,
-      "summary": "The heroes journey to the Unknown Regions to find the Ebon Spire — a petrified ancient tree that holds the key to Project Leviathan's location.",
+      "summary": "Master Denia sends the heroes to the Forest Moon of Endor, deep in the Moddell sector, to find the Ebon Spire — Revan's ancient forward base containing Holocrons with navigational data for the Unknown Regions. The sector's hyperspace anomalies make the journey treacherous, and the dark side has grown strong in the ancient ruins beneath the canopy.",
       "gearNotes": [
         {
           "item": "Breath Mask",
@@ -4318,6 +4402,9 @@
           "title": "The Web of the Revanchist",
           "scenes": []
         }
+      ],
+      "locations": [
+        "endor"
       ]
     },
     {
@@ -4422,14 +4509,17 @@
           "title": "The Extraction",
           "scenes": []
         }
+      ],
+      "locations": [
+        "malpaz"
       ]
     },
     {
       "id": "adv6",
       "number": 6,
-      "title": "The First to Strike",
+      "title": "The Core of Corruption",
       "act": 2,
-      "summary": "Armed with the drift algorithms, the heroes launch a strike against a key Project Leviathan supply depot.",
+      "summary": "The heroes track Varth to Eriadu — Grand Moff Tarkin's seat of power — and infiltrate his Citadel to learn the truth. Through the Glass Bridge, they witness Varth receive command of Leviathan from Tarkin himself. They must slice the Primary Data Center for Varth's transit orders while fighting Death Troopers and Draco's Apprentice, then escape through the acid rain of Eriadu's industrial hellscape.",
       "gearNotes": [
         {
           "item": "Encrypted Comlink",
@@ -4516,6 +4606,9 @@
           "title": "The Fallout",
           "scenes": []
         }
+      ],
+      "locations": [
+        "eriadu"
       ]
     },
     {
@@ -4523,7 +4616,7 @@
       "number": 7,
       "title": "The Crucible",
       "act": 3,
-      "summary": "The heroes face their greatest personal trials as the campaign's alliances are tested.",
+      "summary": "Trapped on Eriadu with the Empire closing in, the heroes fight their way out of the lower sumps and off-world. As they reach the rendezvous coordinates, the Resurgence drops out of hyperspace — and a Star Destroyer follows. Draco intercepts Denia's escape pod. The heroes watch the Resurgence die, TIE fighters swarming the survivors, and are forced to jump to hyperspace with nothing.",
       "gearNotes": [
         {
           "item": "Medpac",
@@ -4564,6 +4657,9 @@
           "title": "The Reckoning",
           "scenes": []
         }
+      ],
+      "locations": [
+        "eriadu"
       ]
     },
     {
@@ -4571,7 +4667,7 @@
       "number": 8,
       "title": "The Iron Blockade",
       "act": 3,
-      "summary": "The Empire tightens its grip on the Western Reaches, and the heroes must break through an iron blockade.",
+      "summary": "Desperate and hunted, the heroes flee to Batuu — the smuggler's haven at the edge of the Western Reaches. To stop Leviathan's demonstration strike on Malpaz, they need a fleet. That means convincing Oga Garra, the Blutopian crime boss who controls Black Spire Outpost, that Leviathan is bad for everyone's business — including hers.",
       "gearNotes": [
         {
           "item": "Starship Tool Kit",
@@ -4632,6 +4728,9 @@
           "title": "The Breakthrough",
           "scenes": []
         }
+      ],
+      "locations": [
+        "batuu"
       ]
     },
     {
@@ -4639,7 +4738,7 @@
       "number": 9,
       "title": "The Point of No Return",
       "act": 3,
-      "summary": "The final preparations for the assault on Project Leviathan. Alliances are forged or broken.",
+      "summary": "The heroes travel the Xala-Cermau hyperlane into Wild Space to assault Inquisitor Draco's stronghold on Xala. Master Denia is held there — if she survived. The rescue attempt ends in sacrifice, and the heroes leave the edge of known space carrying the cost. This adventure is structurally optional — players who choose not to pursue Denia proceed directly to the finale, but without whatever advantage Xala would have provided.",
       "gearNotes": [
         {
           "item": "Medpac",
@@ -4695,6 +4794,9 @@
           "title": "The Launch",
           "scenes": []
         }
+      ],
+      "locations": [
+        "xala"
       ]
     },
     {
@@ -4702,7 +4804,7 @@
       "number": 10,
       "title": "Jaws of the Leviathan",
       "act": 3,
-      "summary": "The campaign's climax. The heroes confront Project Leviathan and face Admiral Varth's ultimate betrayal.",
+      "summary": "Leviathan drops out of hyperspace over Malpaz — the world the heroes liberated, now targeted for Tarkin's demonstration of the weapon they helped Varth unlock. With Oga Garra's pirate fleet and whatever allies remain, the heroes race to stop the superweapon before it annihilates the planet and proves that the Unknown Regions corridor works. The campaign ends where the betrayal began.",
       "gearNotes": [
         {
           "item": "Security Kit",
@@ -4794,6 +4896,9 @@
           "title": "The Final Hand",
           "scenes": []
         }
+      ],
+      "locations": [
+        "malpaz"
       ]
     }
   ]

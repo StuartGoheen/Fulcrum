@@ -5,6 +5,7 @@ const fs      = require('fs');
 const { pool } = require('../db');
 
 const ADVENTURES_PATH = path.join(__dirname, '..', '..', 'data', 'adventures.json');
+const LOCATIONS_PATH = path.join(__dirname, '..', '..', 'data', 'locations.json');
 
 let adventuresCache = null;
 let adventuresCacheMtime = 0;
@@ -22,6 +23,24 @@ function loadAdventures() {
     }
   }
   return adventuresCache;
+}
+
+let locationsCache = null;
+let locationsCacheMtime = 0;
+function loadLocations() {
+  try {
+    const stat = fs.statSync(LOCATIONS_PATH);
+    const mtime = stat.mtimeMs;
+    if (!locationsCache || mtime > locationsCacheMtime) {
+      locationsCache = JSON.parse(fs.readFileSync(LOCATIONS_PATH, 'utf8'));
+      locationsCacheMtime = mtime;
+    }
+  } catch (e) {
+    if (!locationsCache) {
+      locationsCache = JSON.parse(fs.readFileSync(LOCATIONS_PATH, 'utf8'));
+    }
+  }
+  return locationsCache;
 }
 
 router.get('/health', (req, res) => {
@@ -60,6 +79,26 @@ router.get('/campaign/adventures/:adventureId', (req, res) => {
     res.json(adv);
   } catch (err) {
     res.status(500).json({ error: 'Failed to load adventure', detail: err.message });
+  }
+});
+
+router.get('/campaign/locations', (req, res) => {
+  try {
+    const data = loadLocations();
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to load locations', detail: err.message });
+  }
+});
+
+router.get('/campaign/locations/:locationId', (req, res) => {
+  try {
+    const data = loadLocations();
+    const loc = data.locations.find(l => l.id === req.params.locationId);
+    if (!loc) return res.status(404).json({ error: 'Location not found' });
+    res.json(loc);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to load location', detail: err.message });
   }
 });
 
