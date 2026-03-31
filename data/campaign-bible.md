@@ -82,8 +82,9 @@ Varth's solution: use the heroes (expendable, deniable contractors) to retrieve 
 
 **Key Moments:**
 - Adv1 P2 S5: "You're late. I had credits on the second moonrise." The heroes meet Varth — charming, unbothered, gambling with his guards.
-- Adv2 S3: "Grab her. She could be useful." — Varth immediately recognizes Denia's value as a Jedi historian and Force-sensitive key.
-- Adv3 P3 S5: Orders the heroes to jump to hyperspace while Maya is on the slave ship. "It's too hot. Jump. Now."
+- Adv2 S3: "Grab her. She could be useful." — Varth immediately recognizes Denia's value as a Jedi historian and Force-sensitive key. First red flag.
+- Adv2 S6: **Executes Warrick Raden** at the hangar. The heroes just rescued Raden from the dungeons. Varth greets him almost warmly, then draws and shoots him between the eyes. "I told you the next time I saw you, I would kill you." Second red flag — and far worse than the first. (See Raden entry below for backstory.)
+- Adv3 P3 S5: Orders the heroes to jump to hyperspace while Maya is on the slave ship. "It's too hot. Jump. Now." Third red flag.
 - Adv3 P3 S6: Unlocks the Darga account, pays the heroes. Then pivots to the "bigger score" at Vel Shara, casually steering Denia into suggesting the Ebon Spire.
 - Adv6: The betrayal. The heroes watch Varth receive command of the Leviathan from Grand Moff Tarkin on Eriadu. Everything they did served his agenda.
 
@@ -121,7 +122,7 @@ Varth used Darga's network to embezzle millions from the Empire. The stolen cred
 **Arc:** Distant threat (Adv1) → Primary antagonist (Adv2) → Hunted quarry (Adv3) → Defeated/resolved (Adv3 climax)
 
 **Key Moments:**
-- Adv1: His thugs chase Maya for stealing the code cylinder. Ganga Lor attacks Switch's bunker.
+- Adv1: His thugs chase Maya for stealing the code cylinder. Ganga Lor attacks Switch's bunker and is killed.
 - Adv2: The heroes infiltrate his fortress on Takodana. He flees in the *Glorious Chariot* to Bespin.
 - Adv3: Cornered on Cloud City. Heroes board the Chariot. Darga is killed during the boarding — his arc as Act 1 antagonist ends here.
 
@@ -144,6 +145,59 @@ Varth used Darga's network to embezzle millions from the Empire. The stolen cred
 **What the Players See:** A powerful crime boss on Batuu (Black Spire Outpost). The heroes need her help to build a fleet capable of stopping the Leviathan's demonstration strike.
 
 **What the GM Knows:** Oga is pragmatic. She helps because the Empire's superweapon is bad for business, not because of moral conviction. She provides the pirate fleet the heroes lead in the finale. Her alliance is transactional — and she'll collect on the debt.
+
+---
+
+### Switch
+**Species:** Protocol Droid (rogue) | **Role:** Information Broker, Recurring Fixer
+
+**What the Players See:** A protocol droid running an information brokerage out of a fortified bunker on Jakku. He's been skipping memory wipes for decades and thinks in long-term investments. He examines the code cylinder and offers a deal.
+
+**What the GM Knows:** Switch is a genuinely useful recurring asset. His network (including TC-663 inside Darga's fortress) spans the criminal underworld. He's not aligned with anyone — he sells information to whoever pays. His deal with the heroes is transactional but honest: he reduces his diagnostic fee in exchange for the heroes becoming information assets. As they travel, they pass along intel — names, locations, movements, deals. If the intel is validated and leads to actionable resources, Switch compensates them. He also serves as a black market connection for gear, smuggling contacts, and fencing stolen goods.
+
+**Arc:** One-scene info broker → Recurring intelligence fixer → Black market connection → (potential) Act 3 resource
+
+**Key Moments:**
+- Adv1 S2: Examines the code cylinder. Quotes a diagnostic fee the heroes can't afford. Offers the discount deal — reduced fee in exchange for the heroes becoming information assets for his network.
+- Adv2 S1: TC-663 (Switch's agent inside Darga's fortress) is encountered — proof that Switch's network is real and far-reaching.
+- Ongoing: Available as a contact for intel, identification, black market deals, and underworld connections.
+
+---
+
+### Warrick Raden
+**Species:** Human | **Role:** Fixer (deceased)
+
+**What the Players See:** A desperate man hiding in a water filtration plant on Takodana. He used to work for Darga but fell out of favor. He has a bounty on his head and is terrified. He knows the inside of Darga's fortress and can get the heroes in. Later, the heroes find him in Darga's dungeons and rescue him.
+
+**What the GM Knows:** Raden was a middleman in Darga's network — a fixer who facilitated deals, moved money, and made introductions. When Varth was actively embezzling through Darga's operation, Raden profited as a go-between and took his cut. When Varth went dark (captured, imprisoned), Raden lost his income stream. He tried to run Varth's play on his own — skimming from Darga directly. But Raden isn't Varth. He got caught, Darga put a bounty on him, and he went into hiding.
+
+Varth did his research before sending the heroes to Takodana. He knew Raden was on the outs with Darga and desperate. A man with a bounty on his head who knows the inside of the fortress is the perfect entry ticket. Varth didn't pick Raden out of loyalty — he picked him because he's useful and disposable. Raden knows too much about how the embezzlement pipeline worked and would talk to anyone who offered protection. He's a liability.
+
+**Arc:** Contact → Entry ticket → Captured → Rescued → Executed by Varth at the hangar
+
+**Key Moments:**
+- Adv2 S1: Heroes find Raden hiding in the water filtration plant. He's terrified but agrees to help.
+- Adv2 S2: Raden gets the heroes inside Darga's fortress.
+- Adv2 S4: Raden is discovered and dragged to the dungeons.
+- Adv2 S5: Heroes find him in the dungeons alongside Denia. They rescue both.
+- Adv2 S6: **At the hangar, Varth kills him.** Raden is walking toward freedom on the ship's ramp. Varth greets him, then draws and shoots him between the eyes. "I told you the next time I saw you, I would kill you." The line references their last dealing — when Varth discovered Raden was running his own skim. It sounds personal. It's not. It's operational. Varth is eliminating a liability who knew too much about the embezzlement pipeline.
+
+**What the heroes see:** A man they rescued, walking toward freedom, shot dead by the man who sent them to find him. Varth doesn't break stride.
+
+---
+
+### Igren Demos
+**Species:** Neimoidian | **Role:** Darga's Majordomo (deceased)
+
+**What the Players See:** Darga's majordomo — officious, ambitious, Force-sensitive (untrained). He runs the fortress's daily operations and watches the heroes with suspicion throughout their time in the court.
+
+**What the GM Knows:** Demos is a Force-sensitive Neimoidian who dreams of turning Denia over to the Inquisitorius to buy his way into Imperial favor. He's deluding himself — the Empire is deeply speciesist and doesn't trust Neimoidians (associated with the Separatist cause and the Trade Federation). They would take Denia and discard Demos. He dies chasing a reward he'd never receive — which quietly mirrors what the heroes are doing by chasing Varth's payday, though they don't know it yet.
+
+**Arc:** Suspicious observer → Mini-boss → Killed during the escape
+
+**Key Moments:**
+- Adv2 S5: Blocks the heroes' escape route after they retrieve Denia from the dungeon. Uses untrained Force Slam. Dies fighting.
+- When Demos falls, Denia senses his untrained Force sensitivity: "He was touched by the Force... untrained, but there." This humanizes the kill and establishes Denia's sensitivity.
 
 ---
 
@@ -212,9 +266,10 @@ Varth used Darga's network to embezzle millions from the Empire. The stolen cred
 
 **Key Plot Beats:**
 - Maya crashes the heroes' table, fleeing Darga's debt collectors
+- Switch examines the cylinder — quotes a diagnostic fee the heroes can't afford. Offers a deal: reduced fee if they agree to become information assets for his network (pass along validated intel as they travel, get compensated). This establishes Switch as a recurring contact.
 - Switch identifies the cylinder as ghost transfer authorization — no location data, but it can authenticate into Imperial shuttle systems
 - Maya reveals she's been tracking an Imperial shuttle on the Niima Landing Field
-- Ganga Lor attacks Switch's bunker — Darga wants the cylinder because it could lead someone to Varth before Darga gets to him (Darga needs Varth alive to unlock the encrypted account)
+- Ganga Lor attacks Switch's bunker — Darga wants the cylinder because it could lead someone to Varth before Darga gets to him (Darga needs Varth alive to unlock the encrypted account). **Ganga Lor is killed in the fight.**
 - The Heist: heroes infiltrate the landing field, use the cylinder to access the shuttle's nav computer, download coordinates for the Vanishing Place
 - Maya flies the Banshee through the Rishi Maze to Ajan Kloss
 - Jungle trek, alliance with Vazus Mandrake, infiltration of the Vanishing Place
@@ -225,6 +280,8 @@ Varth used Darga's network to embezzle millions from the Empire. The stolen cred
 **What Changes by the End:**
 - Heroes have Varth (their employer and secret manipulator)
 - Heroes have the Banshee (Maya's ship) as transport
+- Heroes have an ongoing deal with Switch — information assets in exchange for reduced fees, intel compensation, and black market access
+- **Ganga Lor is dead** — killed at Switch's bunker
 - Varth reveals: "The money is locked inside Darga's network. I have the key, but the Hutt moved the account after I was captured. We need to get inside his operation."
 - First encounter with Inquisitor Draco establishes recurring threat
 
@@ -233,10 +290,12 @@ Varth used Darga's network to embezzle millions from the Empire. The stolen cred
 - Project Leviathan mentioned in Vischera's research notes (→ ongoing)
 - Inquisitor Draco (→ ongoing)
 - Darga as antagonist (→ Adv2-3)
+- Switch's intelligence network / info broker deal (→ ongoing)
 
 **Threads Resolved:**
 - Code cylinder (used and dead)
 - Vanishing Place / Varth's rescue
+- Ganga Lor (killed at Switch's bunker)
 
 ---
 
@@ -254,17 +313,19 @@ Varth used Darga's network to embezzle millions from the Empire. The stolen cred
 - Raden gets the heroes inside the fortress as "entertainment" (gladiators, gamblers, or mercs)
 - The Audition: Darga demands a demonstration. TC-663 (Switch's agent inside the fortress) is introduced.
 - Life in the Court: Lady Sinde negotiates Leviathan supplies with Darga. The Iron Ring slavers arrive (foreshadowing the Shackles of Nizon in Adv3).
-- The Complication: Heroes find Denia in a stasis pod in the dungeon. Varth's voice changes — interested, not cold: "Grab her. She could be useful. She's a Jedi historian... or at least worth a fortune in bounty."
-- The Turn: Darga discovers the infiltration. Initiates network lockdown. Heroes get partial routing data at best.
-- Igren Demos (Force-sensitive Neimoidian majordomo) blocks the escape — mini-boss fight
-- Hangar Bay: Lady Sinde's Stormtroopers execute witnesses. Darga flees in the *Glorious Chariot*. Heroes track his trajectory to Bespin.
+- The Turn: Darga discovers the infiltration. Initiates network lockdown. Heroes get partial routing data at best. Raden is caught and dragged to the dungeons.
+- The Complication: Heroes find Denia in a stasis pod in the dungeon. **Warrick Raden is also found in the dungeons** — beaten but alive. Heroes rescue both. Varth's voice changes — interested, not cold: "Grab her. She could be useful. She's a Jedi historian... or at least worth a fortune in bounty." First red flag.
+- **Igren Demos** (Force-sensitive Neimoidian majordomo) blocks the escape — mini-boss fight. He uses untrained Force Slam. **He is killed.** When Demos falls, Denia senses his Force sensitivity: "He was touched by the Force... untrained, but there."
+- Hangar Bay: Lady Sinde's Stormtroopers execute witnesses. Darga flees in the *Glorious Chariot*. **Varth executes Warrick Raden** on the ship's ramp — shoots him between the eyes. "I told you the next time I saw you, I would kill you." The heroes just rescued this man. Varth doesn't break stride. Second red flag. Heroes track Darga's trajectory to Bespin.
 
 **What Changes by the End:**
 - Heroes have Denia — a new ally and Varth's secret instrument (rescue is mandatory; Varth insists)
 - Partial routing data from Darga's network (not enough to unlock the account alone)
 - Darga's escape vector points to Bespin / Cloud City
 - First exposure to Leviathan supply chain through Lady Sinde's negotiations
-- Varth's first red flag: treating Denia as an "asset" to grab, not a person to rescue
+- **Warrick Raden is dead** — executed by Varth at the hangar after the heroes rescued him
+- **Igren Demos is dead** — killed during the escape; Denia senses his Force sensitivity
+- Two Varth red flags: (1) treating Denia as an "asset" to grab, not a person to rescue; (2) executing Raden in cold blood in front of the crew
 
 **Open Threads Carried Forward:**
 - Darga's escape to Bespin (→ Adv3)
@@ -275,7 +336,8 @@ Varth used Darga's network to embezzle millions from the Empire. The stolen cred
 
 **Threads Resolved:**
 - Getting inside Darga's fortress
-- Warrick Raden's role (gets the heroes in; dragged to dungeons — see Dead Ends)
+- Warrick Raden (gets the heroes in → captured → rescued from dungeons → executed by Varth at hangar)
+- Igren Demos (killed during escape — mini-boss fight)
 
 ---
 
@@ -593,17 +655,17 @@ This transformation is the emotional core of Act 3. The heroes started as mercen
 
 ## Dead End Tracker
 
-Characters and threads flagged as currently unresolved. Each entry includes a disposition recommendation.
+All previously flagged characters and threads have been resolved with final dispositions.
 
-| Character/Thread | Last Seen | Status | Recommendation |
-|---|---|---|---|
-| **Warrick Raden** | Adv2 S1 — dragged to Darga's dungeons | Unresolved | Could be found during the dungeon exploration (same scene as Denia). Either dead (raises stakes) or alive and grateful (potential future contact). Should not be ignored entirely — the heroes watched him get taken. |
-| **Igren Demos** | Adv2 S5 — mini-boss fight | Unresolved | Force-sensitive Neimoidian is too interesting to waste. If he survives, he could resurface as an Inquisitor recruit in Act 2-3. If killed, his death is clean. Recommend: survives, appears later. |
-| **Vazus Mandrake** | Adv1 P2 S3 — jungle guide | One-scene character | Separatist holdout is flavorful but disappears after the Vanishing Place. Could reappear as a Rebel contact in Act 3 (he's been fighting the Empire longer than anyone). Recommend: leave as flavor unless Act 3 needs more allies. |
-| **Silas Draver** | Adv3 P2 S4 — casino robbery | One-adventure character | Independent heist specialist. Disappears after the firefight. Could reappear in Act 3 as a mercenary ally or rival. Recommend: leave as flavor unless needed. |
-| **Lady Sinde** | Adv2 S2, S6 — Imperial logistics officer | Disappears after Adv2 | She negotiated Leviathan supplies with Darga and executed witnesses. She knows about the supply chain. Could resurface in Act 2 as an Imperial contact or interrogation target. Recommend: consider for Adv5-6 if an Imperial insider is needed. |
-| **Kessra / The Vipers** | Adv2 S1 — swoop gang shakedown | Tone-setting only | Disposable. Fine as flavor. |
-| **Ganga Lor** | Adv1 S3 — Darga's lieutenant | Defeated, disappears | Could be encountered again in Darga's fortress (Adv2) or on Bespin (Adv3) as a recurring enforcer. Recommend: at minimum reference his fate. |
-| **TC-663 / Switch network** | Adv1 S2, Adv2 S1 | Unclear payoff | TC-663 is Switch's agent inside Darga's palace. The info broker network is a nice world-building element. Could be a source of intel in later adventures. Recommend: keep as background asset, activate if needed. |
-| **Darga's resolution** | Adv3 P3 — hangar fight | **Resolved (Continuity Rule)** | Darga is killed during the boarding of the Glorious Chariot. His arc as Act 1 antagonist concludes here. See Continuity Rules. |
-| **Denia rescue** | Adv2 S3 | **Resolved (Continuity Rule)** | Denia's rescue is mandatory — Varth insists ("Grab her"). She is required for the holocron retrieval in Adv4 and her capture by Draco in Adv7. See Continuity Rules. |
+| Character/Thread | Last Seen | Disposition |
+|---|---|---|
+| **Warrick Raden** | Adv2 S6 | **DEAD.** Found in Darga's dungeons, rescued by heroes, then executed by Varth at the hangar. "I told you the next time I saw you, I would kill you." Backstory: Raden was Varth's middleman in the embezzlement pipeline. After Varth went dark, Raden tried to skim from Darga on his own, got caught, earned a bounty. Varth sent the heroes to find him because a desperate man with inside knowledge is the perfect entry ticket — then killed him because he was a liability who knew too much. Second major Varth red flag. |
+| **Igren Demos** | Adv2 S5 | **DEAD.** Killed during the heroes' escape with Denia. Mini-boss fight — uses untrained Force Slam to block the corridor. His death is tragic: he was fighting to turn Denia over to the Inquisitorius to buy his way into Imperial favor, but the Empire would never accept a Neimoidian. He died chasing a reward he'd never receive. Denia senses his untrained Force sensitivity as he falls. |
+| **Ganga Lor** | Adv1 S3 | **DEAD.** Killed at Switch's bunker when he attacks to recover the code cylinder. |
+| **Vazus Mandrake** | Adv1 P2 S3 | **POTENTIAL RETURN.** Separatist holdout on Ajan Kloss. Disposition depends on table chemistry and player interaction. Could reappear as a Rebel contact in Act 3 if needed. Left open. |
+| **Silas Draver** | Adv3 P2 S4 | **POTENTIAL RETURN IN ACT 3.** Independent heist specialist. His status after the casino firefight determines availability. Natural recruit for the pirate fleet assembly on Batuu (Adv8). |
+| **Lady Sinde** | Adv2 S2, S6 | **RECURRING — KEPT.** Imperial logistics officer tied to the Leviathan supply chain. She negotiated supplies with Darga and executed witnesses in the hangar. Available for Adv5 (Malpaz), Adv6 (Eriadu), or wherever an Imperial supply chain presence is needed. She knows the operational side of Leviathan. |
+| **Switch / TC-663 network** | Adv1 S2, Adv2 S1 | **RECURRING — KEPT.** Switch is now a recurring information broker and black market fixer. His deal with the heroes (reduced fees in exchange for passing along validated intel) establishes an ongoing transactional relationship. TC-663 inside Darga's fortress is proof of his network's reach. Switch serves as the heroes' contact for intel, identification, black market gear, and underworld connections throughout the campaign. |
+| **Kessra / The Vipers** | Adv2 S1 | **FLAVOR ONLY.** Tone-setting swoop gang encounter. Disposable. |
+| **Darga** | Adv3 P3 | **DEAD (Continuity Rule).** Killed during the boarding of the Glorious Chariot. See Continuity Rules. |
+| **Denia** | Adv2 S3 | **RESCUED (Continuity Rule).** Mandatory rescue — Varth insists. Required for Adv4 holocrons and Adv7 capture by Draco. See Continuity Rules. |
