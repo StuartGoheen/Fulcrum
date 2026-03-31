@@ -469,9 +469,10 @@ function registerHandlers(io) {
     socket.on('combat:sync-state', (data) => {
       if (socket.data.role !== 'gm') return;
       if (!_combatState || !_combatState.active) return;
-      if (data.combatants !== undefined) _combatState.combatants = data.combatants;
-      if (data.pcSlots !== undefined) _combatState.pcSlots = data.pcSlots;
-      if (data.turnOrder !== undefined) _combatState.turnOrder = data.turnOrder;
+      if (!data || typeof data !== 'object') return;
+      if (data.combatants !== undefined && Array.isArray(data.combatants)) _combatState.combatants = data.combatants;
+      if (data.pcSlots !== undefined && Array.isArray(data.pcSlots)) _combatState.pcSlots = data.pcSlots;
+      if (data.turnOrder !== undefined && Array.isArray(data.turnOrder)) _combatState.turnOrder = data.turnOrder;
       if (data.round !== undefined) _combatState.round = data.round;
       if (data.currentTurnIndex !== undefined) _combatState.currentTurnIndex = data.currentTurnIndex;
       if (data.tokenPositions !== undefined) _combatState.tokenPositions = data.tokenPositions;
