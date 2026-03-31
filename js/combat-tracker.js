@@ -148,7 +148,7 @@
     if (partyData && partyData.length) {
       partyData.forEach(function (pc) {
         pcSlots.push({
-          id: pc.id || ('pc_' + pc.name.toLowerCase().replace(/\s+/g, '_')),
+          id: String(pc.id || ('pc_' + pc.name.toLowerCase().replace(/\s+/g, '_'))),
           name: pc.name,
           type: 'pc',
           initiative: 0,
@@ -197,8 +197,8 @@
 
       function onJoinResult(data) {
         if (!combatState) return;
-        combatState.pcResponses[data.characterId] = data;
-        var pc = combatState.pcSlots.find(function (p) { return p.id === data.characterId; });
+        combatState.pcResponses[String(data.characterId)] = data;
+        var pc = combatState.pcSlots.find(function (p) { return p.id === String(data.characterId); });
         if (pc) {
           pc.initiative = data.initiative;
           pc.surprised = data.surprised;
@@ -217,7 +217,7 @@
 
       function onPlayerSync(data) {
         if (!combatState) return;
-        var pc = combatState.pcSlots.find(function (p) { return p.id === data.characterId; });
+        var pc = combatState.pcSlots.find(function (p) { return p.id === String(data.characterId); });
         if (pc) {
           pc.conditions = (data.effects || []).map(function (e) { return e.effectId || e; });
           renderCombatTracker();
