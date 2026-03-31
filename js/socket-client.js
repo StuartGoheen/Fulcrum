@@ -246,7 +246,7 @@
     document.addEventListener('effects:changed', function () {
       if (window.EffectManager && socket && socket.connected) {
         var effects = window.EffectManager.activeEffects || [];
-        var summary = effects.map(function (e) { return { effectId: e.effectId, target: e.target, uid: e.uid }; });
+        var summary = effects.map(function (e) { return { effectId: e.effectId, target: e.target, uid: e.uid, duration: e.duration, hazardValue: e.hazardValue, source: e.source }; });
         socket.emit('condition:sync', { effects: summary });
       }
     });
