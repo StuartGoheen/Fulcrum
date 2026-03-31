@@ -115,77 +115,192 @@
                   ],
                   "intel": "Maya stole an encrypted Imperial Code Cylinder from Darga's operation. She doesn't know exactly what's on it — she thought it was vault coordinates.",
                   "threatBuild": {
-                    "role": "face",
-                    "tier": 0,
+                    "role": "operative",
+                    "tier": 1,
                     "classification": "standard",
                     "threatCategory": "character",
                     "arenas": {
-                      "physique": 1,
-                      "reflex": 2,
-                      "grit": 2,
-                      "wits": 2,
-                      "presence": 3
+                      "physique": 2,
+                      "reflex": 4,
+                      "grit": 3,
+                      "wits": 3,
+                      "presence": 1
                     },
                     "weaponChassis": "light",
                     "traits": [],
                     "tags": [],
                     "roleKit": {
-                      "passive": {
-                        "name": "Calculated Desperation",
-                        "description": "Maya reads the room instinctively. Social attacks against targets she has studied gain +1 Power."
-                      },
+                      "passive": null,
                       "actions": [
                         {
-                          "name": "Sympathetic Appeal",
+                          "name": "Silent Kill",
                           "type": "action",
-                          "arena": "presence",
-                          "description": "Social attack that targets empathy. Targets Resist.",
-                          "attackPower": 2
+                          "arena": "reflex",
+                          "description": "Melee attack from concealment. +2 Power if target is unaware."
                         },
                         {
-                          "name": "Redirect Attention",
+                          "name": "Sabotage",
                           "type": "action",
-                          "arena": "presence",
-                          "description": "Shift blame or focus to another target. Targets Resist.",
-                          "attackPower": 2
+                          "arena": "wits",
+                          "description": "Disable equipment, lock, or system."
                         }
                       ],
-                      "maneuver": {
-                        "name": "Read the Room",
-                        "description": "Learn one target's motivation or current disposition."
-                      },
-                      "gambit": {
-                        "name": "Crocodile Tears",
-                        "cost": "-1 Power",
-                        "description": "Performance of distress. Target gains [Rattled] on social hit."
-                      },
-                      "exploit": {
-                        "name": "Vanishing Act",
-                        "description": "If combat breaks out, Maya disappears into the crowd. She reappears when it is safe."
-                      }
+                      "maneuver": null,
+                      "gambit": null,
+                      "exploit": null
                     },
                     "notes": "Maya is not a combat threat. She is a social operator who chose this table on purpose. Her Face kit represents con artistry, not diplomacy.",
                     "computed": {
-                      "power": 2,
-                      "defense": 1,
-                      "evasion": 1,
-                      "resist": 1,
-                      "vitality": 3,
-                      "initiative": 4,
-                      "controlDie": "d6",
-                      "actions": 1,
-                      "damageTiers": {
-                        "chassis": "light",
-                        "label": "Light",
-                        "fleeting": 2,
-                        "masterful": 3,
-                        "legendary": 4
+                      "arenas": {
+                        "physique": 2,
+                        "reflex": 4,
+                        "grit": 3,
+                        "wits": 3,
+                        "presence": 1
+                      },
+                      "defense": 4,
+                      "evasion": 4,
+                      "resist": 3,
+                      "vitality": 6,
+                      "rawVitality": 6,
+                      "powers": {
+                        "physique": 2,
+                        "reflex": 4,
+                        "grit": 3,
+                        "wits": 3,
+                        "presence": 1
+                      },
+                      "exploits": 0,
+                      "initiative": 7,
+                      "role": {
+                        "id": "operative",
+                        "name": "Operative",
+                        "category": "combat",
+                        "description": "Stealth specialist. Infiltrator, saboteur, assassin. Strikes from shadow.",
+                        "arenaMods": {
+                          "reflex": 1,
+                          "presence": -1
+                        },
+                        "passive": {
+                          "name": "Shadow Strike",
+                          "description": "Attacks from stealth gain +1 Power and do not break concealment on a miss."
+                        },
+                        "actions": [
+                          {
+                            "name": "Silent Kill",
+                            "type": "action",
+                            "arena": "reflex",
+                            "description": "Melee attack from concealment. +2 Power if target is unaware."
+                          },
+                          {
+                            "name": "Sabotage",
+                            "type": "action",
+                            "arena": "wits",
+                            "description": "Disable equipment, lock, or system."
+                          }
+                        ],
+                        "maneuver": {
+                          "name": "Vanish",
+                          "description": "If in cover or obscured, become hidden."
+                        },
+                        "gambit": {
+                          "name": "Disarm",
+                          "cost": "-1 Power",
+                          "description": "Target drops held weapon on hit."
+                        },
+                        "exploit": {
+                          "name": "Assassination",
+                          "description": "If attacking an unaware target, double Power for this attack."
+                        }
+                      },
+                      "classification": {
+                        "id": "standard",
+                        "name": "Standard",
+                        "description": "Base template. Full stats, fixed action cadence. The workhorse NPC.",
+                        "vitalityMod": 1,
+                        "exploitMod": 0,
+                        "notes": "2-4 Standards represent a meaningful encounter for a party."
+                      },
+                      "rolePowerBonus": null,
+                      "immunities": [],
+                      "vulnerabilities": [],
+                      "scale": null,
+                      "scaleLevel": 1,
+                      "ironClad": false,
+                      "isStationary": false
+                    },
+                    "name": "Maya",
+                    "shipDetails": {
+                      "hullType": "",
+                      "crew": "",
+                      "hyperdrive": "",
+                      "sensors": "",
+                      "shields": "",
+                      "cargo": "",
+                      "speed": ""
+                    },
+                    "loot": [
+                      {
+                        "id": "wpn_quickfire4_01",
+                        "name": "Merr-Sonn Quickfire-4",
+                        "type": "weapon",
+                        "qty": 1
+                      },
+                      {
+                        "id": "wpn_vibroblade_01",
+                        "name": "Vibroblade",
+                        "type": "weapon",
+                        "qty": 1
+                      },
+                      {
+                        "id": "gear_medpac_01",
+                        "name": "Medpac",
+                        "type": "gear",
+                        "qty": 1
                       }
+                    ],
+                    "attacks": [
+                      {
+                        "name": "Hold-Out Blaster",
+                        "arena": "reflex",
+                        "powerMod": 0,
+                        "chassis": "medium",
+                        "canStun": false,
+                        "sourceAction": "Silent Kill"
+                      },
+                      {
+                        "name": "Vibro-Shiv",
+                        "arena": "wits",
+                        "powerMod": 0,
+                        "chassis": "medium",
+                        "canStun": false,
+                        "sourceAction": "Sabotage"
+                      }
+                    ]
+                  },
+                  "loot": [
+                    {
+                      "id": "wpn_quickfire4_01",
+                      "name": "Merr-Sonn Quickfire-4",
+                      "type": "weapon",
+                      "qty": 1
+                    },
+                    {
+                      "id": "wpn_vibroblade_01",
+                      "name": "Vibroblade",
+                      "type": "weapon",
+                      "qty": 1
+                    },
+                    {
+                      "id": "gear_medpac_01",
+                      "name": "Medpac",
+                      "type": "gear",
+                      "qty": 1
                     }
-                  }
+                  ]
                 },
                 {
-                  "name": "Krev Tosk",
+                  "name": "Kyuzo Enforcer",
                   "type": "Weequay Enforcer",
                   "count": 1,
                   "notes": "Darga's local muscle. Senior collector. A professional — he collects debts, not corpses.",
@@ -198,152 +313,668 @@
                   ],
                   "intel": "Knows Maya stole something from Darga's warehouse. Doesn't know what.",
                   "threatBuild": {
-                    "role": "enforcer",
-                    "tier": 1,
-                    "classification": "standard",
-                    "threatCategory": "character",
-                    "arenas": {
-                      "physique": 3,
-                      "reflex": 2,
-                      "grit": 2,
-                      "wits": 1,
-                      "presence": 2
-                    },
-                    "weaponChassis": "light",
-                    "traits": [],
-                    "tags": [],
-                    "computed": {
-                      "power": 3,
-                      "defense": 3,
-                      "evasion": 2,
-                      "resist": 2,
-                      "vitality": 6,
-                      "initiative": 3,
-                      "controlDie": "d6",
-                      "actions": 1,
-                      "damageTiers": {
-                        "chassis": "light",
-                        "label": "Light",
-                        "fleeting": 2,
-                        "masterful": 3,
-                        "legendary": 4
-                      }
-                    },
-                    "roleKit": {
-                      "passive": {
-                        "name": "Implied Violence",
-                        "description": "Social attacks can inflict [Shaken] instead of normal social conditions."
-                      },
-                      "actions": [
-                        {
-                          "name": "Threaten",
-                          "type": "action",
-                          "arena": "physique",
-                          "description": "Social attack using implied force. Targets Resist.",
-                          "attackPower": 3
-                        },
-                        {
-                          "name": "Lean In",
-                          "type": "action",
-                          "arena": "presence",
-                          "powerMod": 1,
-                          "description": "Escalate social pressure. +1 Power if target already has a social condition.",
-                          "attackPower": 3
-                        }
-                      ],
-                      "maneuver": {
-                        "name": "Loom",
-                        "description": "Move to close range. Target must resist or gain [Rattled]."
-                      },
-                      "gambit": {
-                        "name": "Break Something",
-                        "cost": "-1 Power",
-                        "description": "Demonstrate capacity for violence. All witnesses gain [Shaken]."
-                      },
-                      "exploit": {
-                        "name": "Last Warning",
-                        "description": "If target has [Shaken], automatically escalate to [Incapacitated] (surrender/flee)."
-                      }
-                    },
-                    "notes": "Power 4 = (effective Physique 4 - 1) + Tier 1. Defense 4 = max(4,2)-1+1. Wits clamped to 1 (base 1, Enforcer -1, floor 1). Vs a starting PC with Resist ~3, net +1 = Fleeting social hit. Enough to apply pressure, not devastating."
-                  }
-                },
-                {
-                  "name": "Kyuzo Enforcers",
-                  "type": "Kyuzo Skirmisher",
-                  "count": 2,
-                  "notes": "Wide-brimmed war helms. Armed but holstered. Follow Krev's lead. Silent and disciplined.",
-                  "behavior": "During social phase: silent and watchful, use Reposition (maneuver) to cut off exits — one moves to booth row (A2), one to alcove (D2). Do not initiate violence. In a brawl: war-helm headbutts (Hit and Run — melee attack + free disengage). Fight as a pair to flank. As Minions, Masterful+ result = instant takedown. They are speed bumps, not real threats.",
-                  "dialogue": [],
-                  "intel": null,
-                  "threatBuild": {
-                    "role": "skirmisher",
+                    "role": "brute",
                     "tier": 0,
                     "classification": "minion",
                     "threatCategory": "character",
                     "arenas": {
-                      "physique": 2,
-                      "reflex": 3,
-                      "grit": 2,
-                      "wits": 1,
-                      "presence": 1
+                      "physique": 5,
+                      "reflex": 2,
+                      "grit": 1,
+                      "wits": 2,
+                      "presence": 2
                     },
-                    "weaponChassis": "light",
-                    "traits": [],
-                    "tags": [],
                     "computed": {
-                      "power": 2,
-                      "defense": 2,
-                      "evasion": 2,
-                      "resist": 1,
-                      "vitality": 4,
-                      "initiative": 2,
-                      "controlDie": "d6",
-                      "actions": 1,
-                      "damageTiers": {
-                        "chassis": "light",
-                        "label": "Light",
-                        "fleeting": 2,
-                        "masterful": 3,
-                        "legendary": 4
-                      }
-                    },
-                    "roleKit": {
-                      "passive": {
-                        "name": "Fleet Footed",
-                        "description": "May take 2 maneuvers per turn instead of 1."
+                      "arenas": {
+                        "physique": 5,
+                        "reflex": 2,
+                        "grit": 1,
+                        "wits": 2,
+                        "presence": 2
                       },
+                      "defense": 5,
+                      "evasion": 1,
+                      "resist": 0,
+                      "vitality": 6,
+                      "rawVitality": 6,
+                      "powers": {
+                        "physique": 4,
+                        "reflex": 1,
+                        "grit": 0,
+                        "wits": 1,
+                        "presence": 1
+                      },
+                      "exploits": 0,
+                      "initiative": 4,
+                      "role": {
+                        "id": "brute",
+                        "name": "Brute",
+                        "category": "combat",
+                        "description": "Heavy melee combatant. Hits hard, absorbs punishment, terrifies the opposition.",
+                        "arenaMods": {
+                          "physique": 1,
+                          "reflex": -1
+                        },
+                        "passive": {
+                          "name": "Unrelenting",
+                          "description": "Ignore the first [Weakened] condition applied per scene."
+                        },
+                        "actions": [
+                          {
+                            "name": "Crushing Blow",
+                            "type": "action",
+                            "arena": "physique",
+                            "powerMod": 1,
+                            "description": "Melee attack with +1 Power."
+                          },
+                          {
+                            "name": "Hurl",
+                            "type": "action",
+                            "arena": "physique",
+                            "description": "Throw object or enemy at short range."
+                          }
+                        ],
+                        "maneuver": {
+                          "name": "Intimidating Advance",
+                          "description": "Move toward target. Target must resist or gain [Shaken]."
+                        },
+                        "gambit": {
+                          "name": "Knockdown",
+                          "cost": "-1 Power",
+                          "description": "Target gains [Prone] on hit."
+                        },
+                        "exploit": {
+                          "name": "Rampage",
+                          "description": "When dropping a target to 0 Vitality, immediately make another melee attack against a different adjacent target."
+                        }
+                      },
+                      "classification": {
+                        "id": "minion",
+                        "name": "Minion",
+                        "description": "Bolt-on. Full Vitality stat but any Masterful+ net result is an instant takedown. Keeps all other stats intact.",
+                        "vitalityMod": 1,
+                        "exploitMod": 0,
+                        "special": "Masterful+ net result = instant takedown. Full stats otherwise.",
+                        "notes": "Minion status is a longevity downgrade, not a power downgrade."
+                      },
+                      "rolePowerBonus": null,
+                      "immunities": [],
+                      "vulnerabilities": [],
+                      "scale": null,
+                      "scaleLevel": 1,
+                      "ironClad": false,
+                      "isStationary": false
+                    },
+                    "traits": [
+                      "armored_light"
+                    ],
+                    "tags": [
+                      "criminal",
+                      "hutt_cartel"
+                    ],
+                    "roleKit": {
+                      "passive": null,
                       "actions": [
                         {
-                          "name": "Hit and Run",
+                          "name": "Crushing Blow",
                           "type": "action",
-                          "arena": "reflex",
-                          "description": "Melee attack + free disengage.",
-                          "attackPower": 2
+                          "arena": "physique",
+                          "powerMod": 1,
+                          "description": "Melee attack with +1 Power."
                         },
                         {
-                          "name": "Harrying Shot",
+                          "name": "Hurl",
                           "type": "action",
-                          "arena": "reflex",
-                          "description": "Ranged attack at close range. Target cannot take reactions until next turn.",
-                          "attackPower": 2
+                          "arena": "physique",
+                          "description": "Throw object or enemy at short range."
                         }
                       ],
-                      "maneuver": {
-                        "name": "Reposition",
-                        "description": "Move without provoking reactions."
-                      },
-                      "gambit": {
-                        "name": "Hamstring",
-                        "cost": "-1 Power",
-                        "description": "Target gains [Slowed] on hit."
-                      },
-                      "exploit": {
-                        "name": "Ambush",
-                        "description": "If attacking from stealth or flanking, +2 Power on the attack."
-                      }
+                      "maneuver": null,
+                      "gambit": null,
+                      "exploit": null
                     },
-                    "notes": "Power 3 = (effective Reflex 4 - 1) + Tier 0. Defense 3 = max(2,4)-1+0. Evasion 3 = Ref 4 - 1 + 0. Resist 0 = Grit 1 - 1 + 0 (extremely vulnerable to social/grit attacks). Minion: Masterful+ = instant takedown. They exist to make the room feel dangerous, not to be a real fight."
+                    "weaponChassis": "light",
+                    "loot": [
+                      {
+                        "id": "wpn_combat_gloves_01",
+                        "name": "Combat Gloves",
+                        "type": "weapon",
+                        "qty": 1
+                      },
+                      {
+                        "id": "arm_heavy_jacket_01",
+                        "name": "Heavy Jacket",
+                        "type": "armor",
+                        "qty": 1
+                      },
+                      {
+                        "id": "wpn_quick_six_01",
+                        "name": "Merr-Sonn Quick-Six",
+                        "type": "weapon",
+                        "qty": 1
+                      },
+                      {
+                        "id": "gear_glitterstim_01",
+                        "name": "Glitterstim",
+                        "type": "gear",
+                        "qty": 1
+                      },
+                      {
+                        "id": "wpn_knife_01",
+                        "name": "Knife",
+                        "type": "weapon",
+                        "qty": 1
+                      }
+                    ],
+                    "name": "Kyuzo Enforcer",
+                    "shipDetails": {
+                      "hullType": "",
+                      "crew": "",
+                      "hyperdrive": "",
+                      "sensors": "",
+                      "shields": "",
+                      "cargo": "",
+                      "speed": ""
+                    },
+                    "attacks": [
+                      {
+                        "name": "Beat-em",
+                        "arena": "physique",
+                        "powerMod": 1,
+                        "chassis": "light",
+                        "canStun": true,
+                        "sourceAction": "Crushing Blow"
+                      },
+                      {
+                        "name": "Blast-em",
+                        "arena": "reflex",
+                        "powerMod": 0,
+                        "chassis": "light",
+                        "canStun": false,
+                        "sourceAction": "Hurl"
+                      },
+                      {
+                        "name": "Stick-em",
+                        "arena": "physique",
+                        "powerMod": 0,
+                        "chassis": "light",
+                        "canStun": false
+                      }
+                    ]
+                  },
+                  "loot": [
+                    {
+                      "id": "wpn_combat_gloves_01",
+                      "name": "Combat Gloves",
+                      "type": "weapon",
+                      "qty": 1
+                    },
+                    {
+                      "id": "arm_heavy_jacket_01",
+                      "name": "Heavy Jacket",
+                      "type": "armor",
+                      "qty": 1
+                    },
+                    {
+                      "id": "wpn_quick_six_01",
+                      "name": "Merr-Sonn Quick-Six",
+                      "type": "weapon",
+                      "qty": 1
+                    },
+                    {
+                      "id": "gear_glitterstim_01",
+                      "name": "Glitterstim",
+                      "type": "gear",
+                      "qty": 1
+                    },
+                    {
+                      "id": "wpn_knife_01",
+                      "name": "Knife",
+                      "type": "weapon",
+                      "qty": 1
+                    }
+                  ]
+                },
+                {
+                  "name": "Kyuzo Enforcer",
+                  "type": "Character",
+                  "count": 1,
+                  "loot": [
+                    {
+                      "id": "wpn_combat_gloves_01",
+                      "name": "Combat Gloves",
+                      "type": "weapon",
+                      "qty": 1
+                    },
+                    {
+                      "id": "arm_heavy_jacket_01",
+                      "name": "Heavy Jacket",
+                      "type": "armor",
+                      "qty": 1
+                    },
+                    {
+                      "id": "wpn_quick_six_01",
+                      "name": "Merr-Sonn Quick-Six",
+                      "type": "weapon",
+                      "qty": 1
+                    },
+                    {
+                      "id": "gear_glitterstim_01",
+                      "name": "Glitterstim",
+                      "type": "gear",
+                      "qty": 1
+                    },
+                    {
+                      "id": "wpn_knife_01",
+                      "name": "Knife",
+                      "type": "weapon",
+                      "qty": 1
+                    }
+                  ],
+                  "threatBuild": {
+                    "role": "brute",
+                    "tier": 0,
+                    "classification": "minion",
+                    "threatCategory": "character",
+                    "arenas": {
+                      "physique": 5,
+                      "reflex": 2,
+                      "grit": 1,
+                      "wits": 2,
+                      "presence": 2
+                    },
+                    "computed": {
+                      "arenas": {
+                        "physique": 5,
+                        "reflex": 2,
+                        "grit": 1,
+                        "wits": 2,
+                        "presence": 2
+                      },
+                      "defense": 5,
+                      "evasion": 1,
+                      "resist": 0,
+                      "vitality": 6,
+                      "rawVitality": 6,
+                      "powers": {
+                        "physique": 4,
+                        "reflex": 1,
+                        "grit": 0,
+                        "wits": 1,
+                        "presence": 1
+                      },
+                      "exploits": 0,
+                      "initiative": 4,
+                      "role": {
+                        "id": "brute",
+                        "name": "Brute",
+                        "category": "combat",
+                        "description": "Heavy melee combatant. Hits hard, absorbs punishment, terrifies the opposition.",
+                        "arenaMods": {
+                          "physique": 1,
+                          "reflex": -1
+                        },
+                        "passive": {
+                          "name": "Unrelenting",
+                          "description": "Ignore the first [Weakened] condition applied per scene."
+                        },
+                        "actions": [
+                          {
+                            "name": "Crushing Blow",
+                            "type": "action",
+                            "arena": "physique",
+                            "powerMod": 1,
+                            "description": "Melee attack with +1 Power."
+                          },
+                          {
+                            "name": "Hurl",
+                            "type": "action",
+                            "arena": "physique",
+                            "description": "Throw object or enemy at short range."
+                          }
+                        ],
+                        "maneuver": {
+                          "name": "Intimidating Advance",
+                          "description": "Move toward target. Target must resist or gain [Shaken]."
+                        },
+                        "gambit": {
+                          "name": "Knockdown",
+                          "cost": "-1 Power",
+                          "description": "Target gains [Prone] on hit."
+                        },
+                        "exploit": {
+                          "name": "Rampage",
+                          "description": "When dropping a target to 0 Vitality, immediately make another melee attack against a different adjacent target."
+                        }
+                      },
+                      "classification": {
+                        "id": "minion",
+                        "name": "Minion",
+                        "description": "Bolt-on. Full Vitality stat but any Masterful+ net result is an instant takedown. Keeps all other stats intact.",
+                        "vitalityMod": 1,
+                        "exploitMod": 0,
+                        "special": "Masterful+ net result = instant takedown. Full stats otherwise.",
+                        "notes": "Minion status is a longevity downgrade, not a power downgrade."
+                      },
+                      "rolePowerBonus": null,
+                      "immunities": [],
+                      "vulnerabilities": [],
+                      "scale": null,
+                      "scaleLevel": 1,
+                      "ironClad": false,
+                      "isStationary": false
+                    },
+                    "traits": [
+                      "armored_light"
+                    ],
+                    "tags": [
+                      "criminal",
+                      "hutt_cartel"
+                    ],
+                    "roleKit": {
+                      "passive": null,
+                      "actions": [
+                        {
+                          "name": "Crushing Blow",
+                          "type": "action",
+                          "arena": "physique",
+                          "powerMod": 1,
+                          "description": "Melee attack with +1 Power."
+                        },
+                        {
+                          "name": "Hurl",
+                          "type": "action",
+                          "arena": "physique",
+                          "description": "Throw object or enemy at short range."
+                        }
+                      ],
+                      "maneuver": null,
+                      "gambit": null,
+                      "exploit": null
+                    },
+                    "weaponChassis": "light",
+                    "loot": [
+                      {
+                        "id": "wpn_combat_gloves_01",
+                        "name": "Combat Gloves",
+                        "type": "weapon",
+                        "qty": 1
+                      },
+                      {
+                        "id": "arm_heavy_jacket_01",
+                        "name": "Heavy Jacket",
+                        "type": "armor",
+                        "qty": 1
+                      },
+                      {
+                        "id": "wpn_quick_six_01",
+                        "name": "Merr-Sonn Quick-Six",
+                        "type": "weapon",
+                        "qty": 1
+                      },
+                      {
+                        "id": "gear_glitterstim_01",
+                        "name": "Glitterstim",
+                        "type": "gear",
+                        "qty": 1
+                      },
+                      {
+                        "id": "wpn_knife_01",
+                        "name": "Knife",
+                        "type": "weapon",
+                        "qty": 1
+                      }
+                    ],
+                    "name": "Kyuzo Enforcer",
+                    "shipDetails": {
+                      "hullType": "",
+                      "crew": "",
+                      "hyperdrive": "",
+                      "sensors": "",
+                      "shields": "",
+                      "cargo": "",
+                      "speed": ""
+                    },
+                    "attacks": [
+                      {
+                        "name": "Beat-em",
+                        "arena": "physique",
+                        "powerMod": 1,
+                        "chassis": "light",
+                        "canStun": true,
+                        "sourceAction": "Crushing Blow"
+                      },
+                      {
+                        "name": "Blast-em",
+                        "arena": "reflex",
+                        "powerMod": 0,
+                        "chassis": "light",
+                        "canStun": false,
+                        "sourceAction": "Hurl"
+                      },
+                      {
+                        "name": "Stick-em",
+                        "arena": "physique",
+                        "powerMod": 0,
+                        "chassis": "light",
+                        "canStun": false
+                      }
+                    ]
+                  }
+                },
+                {
+                  "name": "Krev Tosk",
+                  "type": "Character",
+                  "count": 1,
+                  "loot": [
+                    {
+                      "id": "wpn_vibroblade_01",
+                      "name": "Vibroblade",
+                      "type": "weapon",
+                      "qty": 1
+                    },
+                    {
+                      "id": "wpn_westar34_01",
+                      "name": "Westar-34",
+                      "type": "weapon",
+                      "qty": 1
+                    },
+                    {
+                      "id": "arm_blast_vest_01",
+                      "name": "Blast Vest",
+                      "type": "armor",
+                      "qty": 1
+                    },
+                    {
+                      "id": "gear_glitterstim_01",
+                      "name": "Glitterstim",
+                      "type": "gear",
+                      "qty": 1
+                    }
+                  ],
+                  "threatBuild": {
+                    "role": "brute",
+                    "tier": 1,
+                    "classification": "standard",
+                    "threatCategory": "character",
+                    "arenas": {
+                      "physique": 5,
+                      "reflex": 2,
+                      "grit": 3,
+                      "wits": 2,
+                      "presence": 3
+                    },
+                    "computed": {
+                      "arenas": {
+                        "physique": 5,
+                        "reflex": 2,
+                        "grit": 3,
+                        "wits": 2,
+                        "presence": 3
+                      },
+                      "defense": 6,
+                      "evasion": 2,
+                      "resist": 3,
+                      "vitality": 9,
+                      "rawVitality": 9,
+                      "powers": {
+                        "physique": 5,
+                        "reflex": 2,
+                        "grit": 3,
+                        "wits": 2,
+                        "presence": 3
+                      },
+                      "exploits": 0,
+                      "initiative": 5,
+                      "role": {
+                        "id": "brute",
+                        "name": "Brute",
+                        "category": "combat",
+                        "description": "Heavy melee combatant. Hits hard, absorbs punishment, terrifies the opposition.",
+                        "arenaMods": {
+                          "physique": 1,
+                          "reflex": -1
+                        },
+                        "passive": {
+                          "name": "Unrelenting",
+                          "description": "Ignore the first [Weakened] condition applied per scene."
+                        },
+                        "actions": [
+                          {
+                            "name": "Crushing Blow",
+                            "type": "action",
+                            "arena": "physique",
+                            "powerMod": 1,
+                            "description": "Melee attack with +1 Power."
+                          },
+                          {
+                            "name": "Hurl",
+                            "type": "action",
+                            "arena": "physique",
+                            "description": "Throw object or enemy at short range."
+                          }
+                        ],
+                        "maneuver": {
+                          "name": "Intimidating Advance",
+                          "description": "Move toward target. Target must resist or gain [Shaken]."
+                        },
+                        "gambit": {
+                          "name": "Knockdown",
+                          "cost": "-1 Power",
+                          "description": "Target gains [Prone] on hit."
+                        },
+                        "exploit": {
+                          "name": "Rampage",
+                          "description": "When dropping a target to 0 Vitality, immediately make another melee attack against a different adjacent target."
+                        }
+                      },
+                      "classification": {
+                        "id": "standard",
+                        "name": "Standard",
+                        "description": "Base template. Full stats, fixed action cadence. The workhorse NPC.",
+                        "vitalityMod": 1,
+                        "exploitMod": 0,
+                        "notes": "2-4 Standards represent a meaningful encounter for a party."
+                      },
+                      "rolePowerBonus": null,
+                      "immunities": [],
+                      "vulnerabilities": [],
+                      "scale": null,
+                      "scaleLevel": 1,
+                      "ironClad": false,
+                      "isStationary": false
+                    },
+                    "traits": [
+                      "armored_light",
+                      "tough"
+                    ],
+                    "tags": [
+                      "criminal",
+                      "hutt_cartel"
+                    ],
+                    "roleKit": {
+                      "passive": null,
+                      "actions": [
+                        {
+                          "name": "Crushing Blow",
+                          "type": "action",
+                          "arena": "physique",
+                          "powerMod": 1,
+                          "description": "Melee attack with +1 Power."
+                        },
+                        {
+                          "name": "Hurl",
+                          "type": "action",
+                          "arena": "physique",
+                          "description": "Throw object or enemy at short range."
+                        }
+                      ],
+                      "maneuver": null,
+                      "gambit": null,
+                      "exploit": null
+                    },
+                    "weaponChassis": "light",
+                    "loot": [
+                      {
+                        "id": "wpn_vibroblade_01",
+                        "name": "Vibroblade",
+                        "type": "weapon",
+                        "qty": 1
+                      },
+                      {
+                        "id": "wpn_westar34_01",
+                        "name": "Westar-34",
+                        "type": "weapon",
+                        "qty": 1
+                      },
+                      {
+                        "id": "arm_blast_vest_01",
+                        "name": "Blast Vest",
+                        "type": "armor",
+                        "qty": 1
+                      },
+                      {
+                        "id": "gear_glitterstim_01",
+                        "name": "Glitterstim",
+                        "type": "gear",
+                        "qty": 1
+                      }
+                    ],
+                    "name": "Krev Tosk",
+                    "shipDetails": {
+                      "hullType": "",
+                      "crew": "",
+                      "hyperdrive": "",
+                      "sensors": "",
+                      "shields": "",
+                      "cargo": "",
+                      "speed": ""
+                    },
+                    "attacks": [
+                      {
+                        "name": "Beat Down",
+                        "arena": "physique",
+                        "powerMod": 1,
+                        "chassis": "light",
+                        "canStun": true,
+                        "sourceAction": "Crushing Blow"
+                      },
+                      {
+                        "name": "Blast-em",
+                        "arena": "reflex",
+                        "powerMod": 0,
+                        "chassis": "medium",
+                        "canStun": false,
+                        "sourceAction": "Hurl"
+                      },
+                      {
+                        "name": "Stab-em",
+                        "arena": "physique",
+                        "powerMod": 0,
+                        "chassis": "light",
+                        "canStun": false
+                      }
+                    ]
                   }
                 }
               ],

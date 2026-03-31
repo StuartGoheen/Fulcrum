@@ -366,30 +366,36 @@
     });
     h += '</div>';
 
-    if (isCombat) {
-      h += '<div class="cb-npc-stat-bar">';
-      h += '<div class="cb-npc-stat combat-key">Init <span class="val">' + (c.initiative != null ? c.initiative : '—') + '</span></div>';
-      h += '<div class="cb-npc-stat combat-key">Def <span class="val">' + (c.defense != null ? c.defense : '—') + '</span></div>';
-      h += '<div class="cb-npc-stat combat-key">Eva <span class="val">' + (c.evasion != null ? c.evasion : '—') + '</span></div>';
-      h += '<div class="cb-npc-stat">Pwr <span class="val">' + (c.power != null ? c.power : '—') + '</span></div>';
-      h += '<div class="cb-npc-stat">Res <span class="val">' + (c.resist != null ? c.resist : '—') + '</span></div>';
-      h += '<div class="cb-npc-stat">Vit <span class="val">' + (c.vitality != null ? c.vitality : '—') + '</span></div>';
-      if (baseC.actions) h += '<div class="cb-npc-stat">' + baseC.actions + ' act/rnd</div>';
-      h += '</div>';
+    var displayPower = c.power;
+    if (displayPower == null && c.powers) {
+      displayPower = 0;
+      Object.keys(c.powers).forEach(function (k) { if (c.powers[k] > displayPower) displayPower = c.powers[k]; });
+    }
+    if (displayPower == null) {
+      var tier = tb.tier || 0;
+      var maxArena = 0;
+      var a = tb.arenas || {};
+      ['physique','reflex','grit','wits','presence'].forEach(function (k) { if ((a[k] || 0) > maxArena) maxArena = a[k]; });
+      displayPower = maxArena > 0 ? (maxArena - 1 + tier) : 0;
+    }
 
+    h += '<div class="cb-npc-stat-bar">';
+    h += '<div class="cb-npc-stat combat-key">Init <span class="val">' + (c.initiative != null ? c.initiative : '—') + '</span></div>';
+    h += '<div class="cb-npc-stat combat-key">Def <span class="val">' + (c.defense != null ? c.defense : '—') + '</span></div>';
+    h += '<div class="cb-npc-stat combat-key">Eva <span class="val">' + (c.evasion != null ? c.evasion : '—') + '</span></div>';
+    h += '<div class="cb-npc-stat">Pwr <span class="val">' + displayPower + '</span></div>';
+    h += '<div class="cb-npc-stat">Res <span class="val">' + (c.resist != null ? c.resist : '—') + '</span></div>';
+    h += '<div class="cb-npc-stat">Vit <span class="val">' + (c.vitality != null ? c.vitality : '—') + '</span></div>';
+    if (baseC.actions) h += '<div class="cb-npc-stat">' + baseC.actions + ' act/rnd</div>';
+    h += '</div>';
+
+    if (isCombat) {
       var dt = baseC.damageTiers;
       h += '<div class="cb-npc-dmg-bar">';
       h += '<span class="dmg-label">' + esc(dt.label) + '</span>';
       h += '<span class="dmg-label">F</span><span class="dmg-val">' + dt.fleeting + '</span>';
       h += '<span class="dmg-label">M</span><span class="dmg-val">' + dt.masterful + '</span>';
       h += '<span class="dmg-label">L</span><span class="dmg-val">' + dt.legendary + '</span>';
-      h += '</div>';
-    } else {
-      h += '<div class="cb-npc-stat-bar">';
-      h += '<div class="cb-npc-stat">Pwr <span class="val">' + (c.power != null ? c.power : '—') + '</span></div>';
-      h += '<div class="cb-npc-stat">Res <span class="val">' + (c.resist != null ? c.resist : '—') + '</span></div>';
-      h += '<div class="cb-npc-stat">Vit <span class="val">' + (c.vitality != null ? c.vitality : '—') + '</span></div>';
-      if (baseC.actions) h += '<div class="cb-npc-stat">' + baseC.actions + ' act/rnd</div>';
       h += '</div>';
     }
 
