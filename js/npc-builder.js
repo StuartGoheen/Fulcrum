@@ -1141,12 +1141,64 @@
     }
   });
 
+  function ensureThreatData() {
+    if (threatData) return Promise.resolve();
+    return fetch('/data/threats.json')
+      .then(function (r) { return r.json(); })
+      .then(function (d) { threatData = d; });
+  }
+
+  function buildNpcFromSaved(savedNpc) {
+    return ensureThreatData().then(function () {
+      var stats = calcStats(savedNpc);
+      var role = savedNpc.role && threatData ? threatData.roles.find(function (r) { return r.id === savedNpc.role; }) : null;
+      var roleKit = null;
+      if (role) {
+        roleKit = {
+          passive: (role.passives && role.passives[0]) || null,
+          actions: role.actions || [],
+          maneuver: (role.maneuvers && role.maneuvers[0]) || null,
+          gambit: (role.gambits && role.gambits[0]) || null,
+          exploit: (role.exploits && role.exploits[0]) || null
+        };
+      }
+      var cls = savedNpc.classification && threatData ? threatData.classifications.find(function (c) { return c.id === savedNpc.classification; }) : null;
+      var maxPower = 0;
+      if (stats.powers) {
+        Object.keys(stats.powers).forEach(function (k) { if (stats.powers[k] > maxPower) maxPower = stats.powers[k]; });
+      }
+      var computed = {
+        defense: stats.defense,
+        evasion: stats.evasion,
+        resist: stats.resist,
+        vitality: stats.vitality,
+        initiative: stats.initiative,
+        power: maxPower,
+        powers: stats.powers,
+        actions: cls && cls.actionsMod ? cls.actionsMod : 1,
+        exploits: stats.exploits || 0,
+        damageTiers: null
+      };
+      var weaponChassis = savedNpc.weaponChassis || 'medium';
+      var chassisMap = { light: { fleeting: 2, masterful: 4, legendary: 6 }, medium: { fleeting: 3, masterful: 5, legendary: 8 }, heavy: { fleeting: 4, masterful: 7, legendary: 10 } };
+      var chassis = chassisMap[weaponChassis] || chassisMap.medium;
+      computed.damageTiers = { label: weaponChassis, fleeting: chassis.fleeting, masterful: chassis.masterful, legendary: chassis.legendary };
+
+      return {
+        computed: computed,
+        roleKit: roleKit
+      };
+    });
+  }
+
   window.NpcBuilder = {
     getSavedNpcs: function () {
       loadSavedNpcs();
       return savedNpcs.slice();
     },
     openWithNpc: openWithNpc,
-    calcStats: calcStats
+    calcStats: calcStats,
+    ensureThreatData: ensureThreatData,
+    buildNpcFromSaved: buildNpcFromSaved
   };
 })();

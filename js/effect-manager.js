@@ -1186,6 +1186,10 @@
 
   // ─── Bootstrap ────────────────────────────────────────────────────────────────
 
+  document.addEventListener('effects:changed', function () {
+    _render();
+  });
+
   function init() {
     _loadEffects();
     _loadLog();

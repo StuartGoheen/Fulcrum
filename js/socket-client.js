@@ -251,6 +251,17 @@
       }
     });
 
+    socket.on('inventory:added', function (data) {
+      var char = window.CharacterPanel && window.CharacterPanel.currentChar;
+      if (!char || String(char.id) !== String(data.charId)) return;
+      fetch('/api/characters/' + encodeURIComponent(char.id))
+        .then(function (res) { return res.json(); })
+        .then(function (updated) {
+          if (window.CharacterPanel) window.CharacterPanel.currentChar = updated;
+          document.dispatchEvent(new CustomEvent('character:stateChanged'));
+        });
+    });
+
     socket.on('session:joined', function () {
       socket.emit('combat:request');
     });

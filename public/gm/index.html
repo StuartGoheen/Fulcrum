@@ -504,7 +504,6 @@
     .cb-npc-init-badge {
       font-family: 'Audiowide', sans-serif;
       font-size: 0.6rem;
-      margin-left: auto;
       flex-shrink: 0;
       color: var(--color-text-secondary);
     }
@@ -615,6 +614,182 @@
       font-size: 0.7rem;
       border-left: 2px solid;
       margin: 0.25rem 0;
+    }
+    .cb-npc-card-actions {
+      display: flex;
+      gap: 0.2rem;
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+    .cb-npc-edit-btn, .cb-npc-remove-btn {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--color-text-secondary);
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 0.75rem;
+      padding: 0.1rem 0.35rem;
+      line-height: 1;
+      transition: all 0.15s;
+    }
+    .cb-npc-edit-btn:hover {
+      background: rgba(var(--color-accent-primary-rgb,199,146,52),0.2);
+      color: var(--color-accent-primary);
+      border-color: var(--color-accent-primary);
+    }
+    .cb-npc-remove-btn:hover {
+      background: rgba(239,68,68,0.2);
+      color: #ef4444;
+      border-color: #ef4444;
+    }
+    .cb-add-npc-btn {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.6rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      background: rgba(var(--color-accent-primary-rgb,199,146,52),0.15);
+      color: var(--color-accent-primary);
+      border: 1px solid rgba(var(--color-accent-primary-rgb,199,146,52),0.3);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .cb-add-npc-btn:hover {
+      background: rgba(var(--color-accent-primary-rgb,199,146,52),0.3);
+    }
+    .cb-add-npc-panel {
+      padding: 0.3rem;
+      margin-bottom: 0.3rem;
+    }
+    .cb-add-npc-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    .cb-add-npc-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0.5rem;
+      background: rgba(0,0,0,0.2);
+      border: 1px solid var(--color-border);
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.15s;
+      text-align: left;
+      color: var(--color-text-primary);
+    }
+    .cb-add-npc-item:hover {
+      background: rgba(var(--color-accent-primary-rgb,199,146,52),0.1);
+      border-color: var(--color-accent-primary);
+    }
+    .cb-add-npc-item-name {
+      font-weight: 600;
+      font-size: 0.8rem;
+    }
+    .cb-add-npc-item-meta {
+      font-size: 0.6rem;
+      font-family: 'Audiowide', sans-serif;
+      color: var(--color-text-secondary);
+      text-transform: capitalize;
+    }
+    .cb-npc-loot-section {
+      margin-top: 0.4rem;
+      padding-top: 0.3rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .cb-npc-loot-label {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.55rem;
+      color: #f59e0b;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.2rem;
+    }
+    .cb-npc-loot-row {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.15rem 0.3rem;
+      background: rgba(245,158,11,0.06);
+      border-radius: 3px;
+      margin-bottom: 0.15rem;
+      position: relative;
+    }
+    .cb-npc-loot-name {
+      font-size: 0.7rem;
+      color: var(--color-text-primary);
+      flex: 1;
+    }
+    .cb-npc-loot-type {
+      font-size: 0.55rem;
+      font-family: 'Audiowide', sans-serif;
+      color: var(--color-text-secondary);
+      text-transform: uppercase;
+    }
+    .cb-npc-loot-assign-btn {
+      font-size: 0.55rem;
+      padding: 0.1rem 0.3rem;
+      border-radius: 3px;
+      background: rgba(34,197,94,0.15);
+      color: #22c55e;
+      border: 1px solid rgba(34,197,94,0.3);
+      cursor: pointer;
+      font-family: 'Audiowide', sans-serif;
+      transition: all 0.15s;
+      flex-shrink: 0;
+    }
+    .cb-npc-loot-assign-btn:hover {
+      background: rgba(34,197,94,0.3);
+    }
+    .cb-loot-assign-menu {
+      position: absolute;
+      right: 0;
+      top: 100%;
+      z-index: 20;
+      background: var(--color-bg-secondary, #1e1e2e);
+      border: 1px solid var(--color-border);
+      border-radius: 4px;
+      min-width: 120px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      display: flex;
+      flex-direction: column;
+    }
+    .cb-loot-assign-option {
+      padding: 0.3rem 0.5rem;
+      font-size: 0.7rem;
+      color: var(--color-text-primary);
+      background: none;
+      border: none;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      cursor: pointer;
+      text-align: left;
+      transition: background 0.15s;
+    }
+    .cb-loot-assign-option:last-child { border-bottom: none; }
+    .cb-loot-assign-option:hover {
+      background: rgba(34,197,94,0.15);
+    }
+    .cb-loot-toast {
+      position: fixed;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(1rem);
+      background: var(--color-bg-secondary, #1e1e2e);
+      color: var(--color-text-primary);
+      border: 1px solid var(--color-accent-primary);
+      padding: 0.4rem 1rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      opacity: 0;
+      transition: all 0.3s;
+      z-index: 9999;
+      pointer-events: none;
+    }
+    .cb-loot-toast.visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
     }
     .cb-npc-arena-bar {
       display: flex;

@@ -298,6 +298,12 @@ function registerHandlers(io) {
       socket.broadcast.emit('advancement:sync', { characterId, advancement });
     });
 
+    socket.on('inventory:added', ({ charId, itemId, itemType }) => {
+      if (socket.data.role !== 'gm') return;
+      if (!charId || !itemId || !itemType) return;
+      io.emit('inventory:added', { charId: String(charId), itemId, itemType });
+    });
+
     socket.on('shipcombat:enter', () => {
       if (socket.data.role !== 'gm') {
         socket.emit('error', { message: 'Only the GM can start ship combat.' });

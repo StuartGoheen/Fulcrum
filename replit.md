@@ -37,9 +37,9 @@ The app uses a passcode-based gate (cookie auth) to restrict access:
 │   ├── input.css         # Tailwind source (custom components + layers)
 │   └── themes.css        # CSS variable theme definitions (6 themes: rebellion, r2d2, vader, fett, holo, fringe)
 ├── js/                   # Client-side JavaScript modules
-│   ├── command-bridge.js  # GM Command Bridge three-column layout JS (mobile responsive via tab navigation at ≤520px)
+│   ├── command-bridge.js  # GM Command Bridge three-column layout JS (mobile responsive via tab navigation at ≤520px), scene NPC roster with Add/Edit/Remove, duplicate NPC numeric labeling (#1/#2), loot rendering + PC assignment via inventory:added socket, override-aware NPC data flow to Combat Tracker
 │   ├── combat-tracker.js   # GM Combat Tracker — two-panel layout (initiative rail + detail panel), glossary-driven NPC conditions, WebSocket Join Battle flow, bidirectional condition sync, tactical map with token movement, full server-side state persistence (combat:sync-state), GM refresh reconnect (restoreFromState), duration-aware PC condition push with picker UI, styled condition pills on PC cards, mid-combat NPC add/remove/edit via Threat Builder integration
-│   ├── npc-builder.js     # NPC Threat Builder full-screen overlay (5-category system: character/vehicle/starship/capital_ship/station, auto-applied scale traits, ship-flavored arena/stat labels, ship details panel, powerMod/initiativeMod trait support, loot attachment, save/recall)
+│   ├── npc-builder.js     # NPC Threat Builder full-screen overlay (5-category system: character/vehicle/starship/capital_ship/station, auto-applied scale traits, ship-flavored arena/stat labels, ship details panel, powerMod/initiativeMod trait support, loot attachment, save/recall, buildNpcFromSaved async API for external consumers)
 │   ├── market.js          # Black Market (char gate, accordion, salvaged, purchase, ledger)
 │   ├── market-source-viewer.js # Source DB viewer overlay
 │   ├── crawl-data.js     # Mission crawl text data (extensible for future missions)

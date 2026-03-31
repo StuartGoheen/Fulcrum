@@ -237,6 +237,42 @@
 
   var _lastRenderedScene = null;
   var _npcExpandState = {};
+  var _sceneNpcOverrides = {};
+
+  function getSceneNpcs() {
+    var adv = getAdventure(currentAdventure);
+    var part = adv ? getPart(adv, currentPart) : null;
+    var scene = part ? getScene(part, currentScene) : null;
+    if (!scene) return [];
+    if (_sceneNpcOverrides[currentScene]) return _sceneNpcOverrides[currentScene];
+    return (scene.npcs || []).slice();
+  }
+
+  function setSceneNpcs(npcs) {
+    _sceneNpcOverrides[currentScene] = npcs;
+  }
+
+  function getNpcTypeId(npc) {
+    if (npc._templateName) return npc._templateName;
+    return (npc.name || '').toLowerCase().trim();
+  }
+
+  function buildNpcLabels(npcs) {
+    var counts = {};
+    npcs.forEach(function (npc) {
+      var key = getNpcTypeId(npc);
+      counts[key] = (counts[key] || 0) + 1;
+    });
+    var indices = {};
+    return npcs.map(function (npc) {
+      var key = getNpcTypeId(npc);
+      indices[key] = (indices[key] || 0) + 1;
+      return {
+        number: indices[key],
+        total: counts[key]
+      };
+    });
+  }
 
   function renderNpcCardBody(npc, expandKey) {
     var tb = npc.threatBuild;
@@ -324,10 +360,24 @@
       }
     }
 
+    var loot = npc.loot || (tb && tb.loot) || [];
+    if (loot.length) {
+      h += '<div class="cb-npc-loot-section">';
+      h += '<div class="cb-npc-loot-label">Loot</div>';
+      loot.forEach(function (item, li) {
+        h += '<div class="cb-npc-loot-row" data-npc-idx="' + expandKey + '" data-loot-idx="' + li + '">';
+        h += '<span class="cb-npc-loot-name">' + esc(item.name) + (item.qty > 1 ? ' x' + item.qty : '') + '</span>';
+        if (item.type) h += '<span class="cb-npc-loot-type">' + esc(item.type) + '</span>';
+        h += '<button class="cb-npc-loot-assign-btn" data-loot-idx="' + li + '" title="Assign to PC">&#9654; Assign</button>';
+        h += '</div>';
+      });
+      h += '</div>';
+    }
+
     return h;
   }
 
-  function renderNpcCard(npc, idx) {
+  function renderNpcCard(npc, idx, label) {
     var tb = npc.threatBuild;
     var c = tb ? (tb.computed || {}) : {};
     var cls = tb ? (tb.classification || '') : '';
@@ -339,16 +389,25 @@
 
     var init = c.initiative;
 
-    var h = '<div class="cb-npc-card' + (isExpanded ? ' expanded' : '') + '" id="' + cardId + '">';
+    var displayName = npc.name || 'Unnamed';
+    if (label && label.total > 1) {
+      displayName += ' #' + label.number;
+    }
+
+    var h = '<div class="cb-npc-card' + (isExpanded ? ' expanded' : '') + '" id="' + cardId + '" data-npc-idx="' + idx + '">';
 
     h += '<div class="cb-npc-card-header" data-npc-toggle="' + esc(expandKey) + '">';
     h += '<span class="cb-npc-chevron">&#9654;</span>';
-    h += '<span class="cb-npc-name">' + esc(npc.name) + '</span>';
+    h += '<span class="cb-npc-name">' + esc(displayName) + '</span>';
     if (tier != null) h += '<span class="cb-npc-tier-badge">T' + tier + '</span>';
     if (cls) h += '<span class="cb-npc-class-badge ' + esc(cls) + '">' + esc(cls) + '</span>';
     if (role) h += '<span style="font-size:0.6rem;color:var(--color-text-secondary);text-transform:capitalize;">' + esc(role) + '</span>';
-    h += '<span class="cb-npc-count-badge">x' + npc.count + '</span>';
+    h += '<span class="cb-npc-count-badge">x' + (npc.count || 1) + '</span>';
     if (init != null) h += '<span class="cb-npc-init-badge">Init <span>' + init + '</span></span>';
+    h += '<span class="cb-npc-card-actions">';
+    h += '<button class="cb-npc-edit-btn" data-npc-idx="' + idx + '" title="Edit in Threat Builder">&#9998;</button>';
+    h += '<button class="cb-npc-remove-btn" data-npc-idx="' + idx + '" title="Remove NPC">&times;</button>';
+    h += '</span>';
     h += '</div>';
 
     h += '<div class="cb-npc-card-body">';
@@ -358,6 +417,48 @@
 
     h += '</div>';
     return h;
+  }
+
+  function showLootToast(msg) {
+    var t = document.createElement('div');
+    t.className = 'cb-loot-toast';
+    t.textContent = msg;
+    document.body.appendChild(t);
+    setTimeout(function () { t.classList.add('visible'); }, 10);
+    setTimeout(function () { t.classList.remove('visible'); setTimeout(function () { t.remove(); }, 300); }, 2500);
+  }
+
+  function assignLootToPC(npcIdx, lootIdx, charId, charName) {
+    var npcs = getSceneNpcs();
+    var npc = npcs[npcIdx];
+    if (!npc) return;
+    var lootSource = npc.loot || (npc.threatBuild && npc.threatBuild.loot) || [];
+    var item = lootSource[lootIdx];
+    if (!item) return;
+    var itemType = (item.type || 'gear').toLowerCase();
+    if (itemType === 'weapon') itemType = 'weapon';
+    else if (itemType === 'armor') itemType = 'armor';
+    else itemType = 'gear';
+    fetch('/api/inventory/' + encodeURIComponent(charId) + '/add', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ itemId: item.id, itemType: itemType })
+    }).then(function (res) {
+      if (!res.ok) throw new Error('Failed');
+      return res.json();
+    }).then(function () {
+      showLootToast(esc(item.name) + ' assigned to ' + esc(charName));
+      if (socket) socket.emit('inventory:added', { charId: String(charId), itemId: item.id, itemType: itemType });
+      if (item.qty && item.qty > 1) {
+        item.qty -= 1;
+      } else {
+        lootSource.splice(lootIdx, 1);
+      }
+      setSceneNpcs(npcs);
+      renderScene();
+    }).catch(function (err) {
+      showLootToast('Failed to assign loot: ' + err.message);
+    });
   }
 
   function renderScene() {
@@ -406,15 +507,24 @@
       html += '</div>';
     }
 
-    if (scene.npcs && scene.npcs.length) {
-      html += '<div class="cb-card">';
-      html += '<div class="cb-section-label">NPC Roster</div>';
+    var sceneNpcs = getSceneNpcs();
+    html += '<div class="cb-card" id="cb-npc-roster-card">';
+    html += '<div class="cb-section-label" style="display:flex;align-items:center;justify-content:space-between;">';
+    html += '<span>NPC Roster</span>';
+    html += '<button class="cb-add-npc-btn" id="cb-add-npc-btn">+ NPC</button>';
+    html += '</div>';
+    html += '<div id="cb-add-npc-panel" class="cb-add-npc-panel" style="display:none;"></div>';
+    if (sceneNpcs.length) {
+      var labels = buildNpcLabels(sceneNpcs);
       html += '<div class="cb-npc-grid">';
-      scene.npcs.forEach(function (npc, idx) {
-        html += renderNpcCard(npc, idx);
+      sceneNpcs.forEach(function (npc, idx) {
+        html += renderNpcCard(npc, idx, labels[idx]);
       });
-      html += '</div></div>';
+      html += '</div>';
+    } else {
+      html += '<p class="cb-muted" style="font-style:italic;font-size:0.75rem;">No NPCs in this scene. Click "+ NPC" to add one.</p>';
     }
+    html += '</div>';
 
     if (scene.hazards) {
       html += '<div class="cb-card">';
@@ -565,11 +675,157 @@
     });
     container.querySelectorAll('.cb-npc-card-header').forEach(function (el) {
       el.addEventListener('click', function (e) {
+        if (e.target.closest('.cb-npc-edit-btn') || e.target.closest('.cb-npc-remove-btn')) return;
         var card = el.closest('.cb-npc-card');
         if (!card) return;
         var expandKey = el.dataset.npcToggle;
         card.classList.toggle('expanded');
         _npcExpandState[expandKey] = card.classList.contains('expanded');
+      });
+    });
+    container.querySelectorAll('.cb-npc-edit-btn').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var idx = parseInt(btn.dataset.npcIdx, 10);
+        var npcs = getSceneNpcs();
+        var npc = npcs[idx];
+        if (!npc || !npc.threatBuild) return;
+        var buildData = JSON.parse(JSON.stringify(npc.threatBuild));
+        buildData.name = npc.name || buildData.name || '';
+        if (npc.loot) buildData.loot = JSON.parse(JSON.stringify(npc.loot));
+        if (window.NpcBuilder) {
+          window.NpcBuilder.openWithNpc(buildData, function (updated) {
+            npc.name = updated.name || npc.name;
+            npc.threatBuild = updated;
+            npc.threatBuild.computed = updated.computed;
+            if (updated.roleKit) {
+              var rk = updated.roleKit;
+              npc.threatBuild.roleKit = {
+                passive: rk.passive || (rk.passives && rk.passives[0]) || null,
+                actions: rk.actions || [],
+                maneuver: rk.maneuver || (rk.maneuvers && rk.maneuvers[0]) || null,
+                gambit: rk.gambit || (rk.gambits && rk.gambits[0]) || null,
+                exploit: rk.exploit || (rk.exploits && rk.exploits[0]) || null
+              };
+            }
+            if (updated.loot) npc.loot = updated.loot;
+            setSceneNpcs(npcs);
+            renderScene();
+          });
+        }
+      });
+    });
+    container.querySelectorAll('.cb-npc-remove-btn').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var idx = parseInt(btn.dataset.npcIdx, 10);
+        var npcs = getSceneNpcs();
+        if (idx < 0 || idx >= npcs.length) return;
+        npcs.splice(idx, 1);
+        setSceneNpcs(npcs);
+        renderScene();
+      });
+    });
+    var addNpcBtn = document.getElementById('cb-add-npc-btn');
+    if (addNpcBtn) {
+      addNpcBtn.addEventListener('click', function () {
+        var panel = document.getElementById('cb-add-npc-panel');
+        if (!panel) return;
+        if (panel.style.display !== 'none') {
+          panel.style.display = 'none';
+          return;
+        }
+        var saved = window.NpcBuilder ? window.NpcBuilder.getSavedNpcs() : [];
+        if (!saved.length) {
+          panel.style.display = 'block';
+          panel.innerHTML = '<p class="cb-muted" style="font-size:0.7rem;">No saved NPCs in Threat Builder. Open the Threat Builder and save some first.</p>';
+          return;
+        }
+        var ph = '<div class="cb-add-npc-list">';
+        saved.forEach(function (npc, si) {
+          var catBadge = (npc.threatCategory && npc.threatCategory !== 'character') ? esc(npc.threatCategory.charAt(0).toUpperCase() + npc.threatCategory.slice(1)) + ' ' : '';
+          ph += '<button class="cb-add-npc-item" data-saved-idx="' + si + '">';
+          ph += '<span class="cb-add-npc-item-name">' + esc(npc.name || 'Unnamed') + '</span>';
+          ph += '<span class="cb-add-npc-item-meta">' + catBadge + 'T' + (npc.tier || 0) + ' ' + esc(npc.classification || '') + ' ' + esc(npc.role || '') + '</span>';
+          ph += '</button>';
+        });
+        ph += '</div>';
+        panel.innerHTML = ph;
+        panel.style.display = 'block';
+        panel.querySelectorAll('.cb-add-npc-item').forEach(function (item) {
+          item.addEventListener('click', function () {
+            var si = parseInt(item.dataset.savedIdx, 10);
+            var savedNpc = saved[si];
+            if (!savedNpc) return;
+            window.NpcBuilder.buildNpcFromSaved(savedNpc).then(function (built) {
+              var newNpc = {
+                name: savedNpc.name || 'Unnamed',
+                _templateName: (savedNpc.name || 'unnamed').toLowerCase().trim(),
+                type: (savedNpc.threatCategory || 'character').charAt(0).toUpperCase() + (savedNpc.threatCategory || 'character').slice(1),
+                count: 1,
+                loot: savedNpc.loot ? JSON.parse(JSON.stringify(savedNpc.loot)) : [],
+                threatBuild: {
+                  role: savedNpc.role,
+                  tier: savedNpc.tier,
+                  classification: savedNpc.classification,
+                  threatCategory: savedNpc.threatCategory,
+                  arenas: JSON.parse(JSON.stringify(savedNpc.arenas)),
+                  computed: built.computed,
+                  traits: savedNpc.traits ? JSON.parse(JSON.stringify(savedNpc.traits)) : [],
+                  tags: savedNpc.tags ? JSON.parse(JSON.stringify(savedNpc.tags)) : [],
+                  roleKit: built.roleKit,
+                  weaponChassis: savedNpc.weaponChassis || 'medium',
+                  loot: savedNpc.loot ? JSON.parse(JSON.stringify(savedNpc.loot)) : []
+                }
+              };
+              var npcs = getSceneNpcs();
+              npcs.push(newNpc);
+              setSceneNpcs(npcs);
+              panel.style.display = 'none';
+              renderScene();
+            });
+          });
+        });
+      });
+    }
+    container.querySelectorAll('.cb-npc-loot-assign-btn').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (btn.dataset.menuOpen === 'true') return;
+        btn.dataset.menuOpen = 'true';
+        var lootIdx = parseInt(btn.dataset.lootIdx, 10);
+        var card = btn.closest('.cb-npc-card');
+        var npcIdx = card ? parseInt(card.dataset.npcIdx, 10) : -1;
+        var online = partyCache.filter(function (pc) { return pc.id; });
+        if (!online.length) {
+          showLootToast('No players online.');
+          btn.dataset.menuOpen = 'false';
+          return;
+        }
+        var menu = document.createElement('div');
+        menu.className = 'cb-loot-assign-menu';
+        online.forEach(function (pc) {
+          var opt = document.createElement('button');
+          opt.className = 'cb-loot-assign-option';
+          opt.textContent = pc.name || ('PC #' + pc.id);
+          opt.addEventListener('click', function () {
+            assignLootToPC(npcIdx, lootIdx, pc.id, pc.name || ('PC #' + pc.id));
+            menu.remove();
+            btn.dataset.menuOpen = 'false';
+          });
+          menu.appendChild(opt);
+        });
+        btn.parentNode.style.position = 'relative';
+        btn.parentNode.appendChild(menu);
+        setTimeout(function () {
+          document.addEventListener('click', function closeMenu(ev) {
+            if (!menu.contains(ev.target)) {
+              menu.remove();
+              btn.dataset.menuOpen = 'false';
+              document.removeEventListener('click', closeMenu);
+            }
+          });
+        }, 0);
       });
     });
     container.querySelectorAll('.ct-start-encounter-btn').forEach(function (btn) {
@@ -579,7 +835,7 @@
         var enc = scene.encounters[encIdx];
         if (window.CombatTracker) {
           window._cbSocket = socket;
-          window.CombatTracker.start(enc, scene, scene.npcs || [], partyCache, socket);
+          window.CombatTracker.start(enc, scene, getSceneNpcs(), partyCache, socket);
           var ctPanel = document.getElementById('combat-tracker-panel');
           if (ctPanel) ctPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
