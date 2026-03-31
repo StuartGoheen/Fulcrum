@@ -1,44 +1,66 @@
 (function () {
   'use strict';
 
-  var CONDITIONS = [
-    { id: 'shaken', name: 'Shaken', color: '#f59e0b', effect: 'Outgoing results drop 1 tier. Affects own actions, not incoming attacks.' },
-    { id: 'rattled', name: 'Rattled', color: '#f97316', effect: 'Step Down Control Die on social and Wits-based rolls.' },
-    { id: 'disoriented', name: 'Disoriented', color: '#818cf8', effect: 'Step Down Control Die on the affected action.' },
-    { id: 'exposed', name: 'Exposed', color: '#ef4444', effect: 'Attacks against this target resolve +1 Effect Tier.' },
-    { id: 'bleeding', name: 'Bleeding', color: '#dc2626', effect: 'Lose 1 Vitality at start of each turn. Persists until treated.' },
-    { id: 'slowed', name: 'Slowed', color: '#6b7280', effect: 'Max 1 zone movement per round. Shifts create Openings if Engaged.' },
-    { id: 'stunned', name: 'Stunned', color: '#a855f7', effect: 'Step Down Control Die on all rolls. Compounds with Disoriented.' },
-    { id: 'pinned', name: 'Pinned', color: '#78716c', effect: 'Prone and held. Cannot move. Exposed to all Melee attacks.' },
-    { id: 'weakened', name: 'Weakened', color: '#92400e', effect: 'Step Down Power Die on all rolls.' },
-    { id: 'broken', name: 'Broken', color: '#1f2937', effect: 'Cannot take offensive actions. May only Defend, Move, or Surrender.' }
+  var EFFECT_DEFS = [];
+  if (window.EffectManager && window.EffectManager.EFFECT_DEFS) {
+    EFFECT_DEFS = window.EffectManager.EFFECT_DEFS;
+  }
+
+  var NPC_CONDITIONS = [
+    'disoriented', 'rattled', 'stunned', 'exposed', 'shaken',
+    'weakened', 'empowered', 'optimized',
+    'prone', 'restrained', 'slowed', 'pinned', 'suppressed',
+    'blinded', 'bleeding', 'hazard', 'incapacitated',
+    'marked', 'guarded', 'cover', 'stimmed'
   ];
 
-
-  var COVER_LABELS = {
-    'none': 'No Cover',
-    'light': 'Light',
-    'hard': 'Hard',
-    'full': 'Full'
-  };
-
-  var LIGHTING_ICONS = {
-    'normal': '&#9728;',
-    'dim': '&#9789;',
-    'shadow': '&#9790;'
-  };
-
   var combatState = null;
+  var _socket = null;
+  var _socketHandlers = [];
 
   function esc(s) {
     return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
 
-  function startEncounter(encounter, scene, npcs, partyData) {
+  function getEffectDef(id) {
+    if (EFFECT_DEFS.length === 0 && window.EffectManager && window.EffectManager.EFFECT_DEFS) {
+      EFFECT_DEFS = window.EffectManager.EFFECT_DEFS;
+    }
+    for (var i = 0; i < EFFECT_DEFS.length; i++) {
+      if (EFFECT_DEFS[i].id === id) return EFFECT_DEFS[i];
+    }
+    return null;
+  }
+
+  function condColor(id) {
+    var colors = {
+      disoriented: '#818cf8', rattled: '#f97316', stunned: '#a855f7',
+      exposed: '#ef4444', shaken: '#f59e0b', weakened: '#92400e',
+      empowered: '#22c55e', optimized: '#3b82f6', prone: '#6b7280',
+      restrained: '#78716c', slowed: '#6b7280', pinned: '#78716c',
+      suppressed: '#0ea5e9', blinded: '#1f2937', bleeding: '#dc2626',
+      hazard: '#dc2626', incapacitated: '#1f2937', marked: '#d946ef',
+      guarded: '#14b8a6', cover: '#3b82f6', stimmed: '#10b981'
+    };
+    return colors[id] || '#6b7280';
+  }
+
+  function getSocket() {
+    if (!_socket) {
+      var cb = document.querySelector('script[src*="command-bridge"]');
+      if (typeof io !== 'undefined') {
+        _socket = window._cbSocket || null;
+      }
+    }
+    return _socket;
+  }
+
+  function startEncounter(encounter, scene, npcs, partyData, socket) {
+    if (socket) _socket = socket;
     var highestTier = 0;
     var npcEntries = [];
-
     var npcIdCounter = 0;
+
     if (encounter.composition && encounter.composition.enemies) {
       encounter.composition.enemies.forEach(function (enemy) {
         var npcData = null;
@@ -54,6 +76,8 @@
         for (var i = 0; i < enemy.count; i++) {
           npcIdCounter++;
           var label = enemy.count > 1 ? enemy.type + ' #' + (i + 1) : enemy.type;
+          var tb = npcData && npcData.threatBuild ? npcData.threatBuild : null;
+          var comp = tb ? (tb.computed || {}) : {};
           npcEntries.push({
             id: 'npc_' + npcIdCounter,
             name: label,
@@ -61,17 +85,20 @@
             threat: enemy.threat || enemy.classification || 'standard',
             tier: tier,
             role: enemy.role || '',
-            initiative: npcData && npcData.threatBuild ? npcData.threatBuild.computed.initiative : (1 + tier),
-            power: npcData && npcData.threatBuild ? npcData.threatBuild.computed.power : 0,
-            defense: npcData && npcData.threatBuild ? npcData.threatBuild.computed.defense : 0,
-            evasion: npcData && npcData.threatBuild ? npcData.threatBuild.computed.evasion : 0,
-            resist: npcData && npcData.threatBuild ? npcData.threatBuild.computed.resist : 0,
-            vitalityMax: npcData && npcData.threatBuild ? npcData.threatBuild.computed.vitality : 5,
-            vitalityCurrent: npcData && npcData.threatBuild ? npcData.threatBuild.computed.vitality : 5,
-            actions: npcData && npcData.threatBuild ? npcData.threatBuild.computed.actions : 1,
+            initiative: comp.initiative || (1 + tier),
+            power: comp.power || 0,
+            defense: comp.defense || 0,
+            evasion: comp.evasion || 0,
+            resist: comp.resist || 0,
+            vitalityMax: comp.vitality || 5,
+            vitalityCurrent: comp.vitality || 5,
+            actions: comp.actions || 1,
             conditions: [],
-            roleKit: npcData && npcData.threatBuild ? npcData.threatBuild.roleKit : null,
-            zone: null
+            roleKit: tb ? tb.roleKit : null,
+            arenas: tb ? (tb.arenas || {}) : {},
+            damageTiers: comp.damageTiers || null,
+            zone: null,
+            npcData: npcData
           });
         }
       });
@@ -120,9 +147,18 @@
     if (partyData && partyData.length) {
       partyData.forEach(function (pc) {
         pcSlots.push({
-          id: 'pc_' + (pc.id || pc.name.toLowerCase().replace(/\s+/g, '_')),
+          id: pc.id || ('pc_' + pc.name.toLowerCase().replace(/\s+/g, '_')),
           name: pc.name,
-          initiative: 0
+          type: 'pc',
+          initiative: 0,
+          arenas: pc.arenas || {},
+          disciplines: pc.disciplines || {},
+          vitality: pc.vitality,
+          conditions: pc.conditions || [],
+          vocations: pc.vocations || [],
+          species: pc.species || '',
+          archetype: pc.archetype || '',
+          connected: pc.connected
         });
       });
     }
@@ -135,11 +171,14 @@
       highestTier: highestTier,
       combatants: npcEntries,
       pcSlots: pcSlots,
+      selectedId: null,
       collapsed: false,
       tacticalMap: scene.tacticalMap || null,
       turnOrder: [],
       tokenPositions: {},
-      selectedToken: null
+      selectedToken: null,
+      joinBattleSent: false,
+      pcResponses: {}
     };
 
     rebuildTurnOrder();
@@ -151,15 +190,85 @@
       if (npc.zone) combatState.tokenPositions[npc.id] = npc.zone;
     });
 
+    var sock = getSocket();
+    if (sock) {
+      _cleanupSocketHandlers();
+
+      function onJoinResult(data) {
+        if (!combatState) return;
+        combatState.pcResponses[data.characterId] = data;
+        var pc = combatState.pcSlots.find(function (p) { return p.id === data.characterId; });
+        if (pc) {
+          pc.initiative = data.initiative;
+          pc.surprised = data.surprised;
+          pc.mastery = data.mastery;
+          pc.controlResult = data.controlResult;
+        }
+        rebuildTurnOrder();
+        renderCombatTracker();
+      }
+
+      function onAllJoined() {
+        if (!combatState) return;
+        rebuildTurnOrder();
+        renderCombatTracker();
+      }
+
+      function onPlayerSync(data) {
+        if (!combatState) return;
+        var pc = combatState.pcSlots.find(function (p) { return p.id === data.characterId; });
+        if (pc) {
+          pc.conditions = (data.effects || []).map(function (e) { return e.effectId || e; });
+          renderCombatTracker();
+        }
+      }
+
+      sock.on('combat:join-battle-result', onJoinResult);
+      sock.on('combat:all-joined', onAllJoined);
+      sock.on('condition:player-sync', onPlayerSync);
+
+      _socketHandlers = [
+        { event: 'combat:join-battle-result', fn: onJoinResult },
+        { event: 'combat:all-joined', fn: onAllJoined },
+        { event: 'condition:player-sync', fn: onPlayerSync }
+      ];
+    }
+
     renderCombatTracker();
   }
 
+  function _cleanupSocketHandlers() {
+    var sock = getSocket();
+    if (sock && _socketHandlers.length) {
+      _socketHandlers.forEach(function (h) { sock.off(h.event, h.fn); });
+    }
+    _socketHandlers = [];
+  }
+
   function endEncounter() {
+    _cleanupSocketHandlers();
+    var sock = getSocket();
+    if (sock) {
+      sock.emit('combat:end');
+    }
     combatState = null;
     var container = document.getElementById('combat-tracker-panel');
     if (container) {
       container.style.display = 'none';
       container.innerHTML = '';
+    }
+  }
+
+  function triggerJoinBattle() {
+    if (!combatState || combatState.joinBattleSent) return;
+    var sock = getSocket();
+    if (sock) {
+      sock.emit('combat:start', {
+        encounterName: combatState.encounter.name,
+        highestTier: combatState.highestTier
+      });
+      combatState.joinBattleSent = true;
+      renderCombatTracker();
     }
   }
 
@@ -181,6 +290,17 @@
     return combatState.turnOrder;
   }
 
+  function getPresenceEffect(conditions) {
+    var mod = 0;
+    conditions.forEach(function (cid) {
+      if (cid === 'disoriented') mod -= 1;
+      if (cid === 'rattled') mod -= 1;
+      if (cid === 'stunned') mod -= 2;
+      if (cid === 'optimized') mod += 1;
+    });
+    return mod;
+  }
+
   function renderCombatTracker() {
     var container = document.getElementById('combat-tracker-panel');
     if (!container || !combatState) return;
@@ -191,156 +311,290 @@
     html += '<div class="ct-title">' + esc(combatState.encounter.name) + '</div>';
     html += '<div class="ct-round">Round <span id="ct-round-num">' + combatState.round + '</span></div>';
     html += '<div class="ct-header-actions">';
-    html += '<button class="ct-collapse-btn" id="ct-collapse">' + (combatState.collapsed ? '&#9654; Expand' : '&#9660; Collapse') + '</button>';
-    html += '<button class="ct-end-btn" id="ct-end-encounter">End Encounter</button>';
+    if (!combatState.joinBattleSent) {
+      html += '<button class="ct-jb-trigger" id="ct-trigger-jb">Join Battle</button>';
+    } else {
+      var responded = Object.keys(combatState.pcResponses).length;
+      var total = combatState.pcSlots.length;
+      html += '<span class="ct-jb-status">' + responded + '/' + total + ' joined</span>';
+    }
+    html += '<button class="ct-end-btn" id="ct-end-encounter">End</button>';
     html += '</div>';
     html += '</div>';
 
-    if (!combatState.collapsed) {
-      html += renderJoinBattleRef();
-      html += renderInitiativeTracker();
-      html += renderNpcCards();
-      if (combatState.tacticalMap) {
-        html += renderTacticalMap();
-      }
+    html += '<div class="ct-two-panel">';
+
+    html += renderInitRail();
+
+    html += renderDetailPanel();
+
+    html += '</div>';
+
+    if (combatState.tacticalMap) {
+      html += renderTacticalMap();
     }
 
     container.innerHTML = html;
     attachCombatEvents(container);
   }
 
-  function renderJoinBattleRef() {
-    var tier = combatState.highestTier;
-    var html = '<div class="ct-jb-ref">';
-    html += '<div class="ct-section-label">Join Battle Reference</div>';
-    html += '<div class="ct-jb-body">';
-    html += '<div class="ct-jb-rule"><span class="ct-jb-key">Control Step-Down:</span> Highest enemy Tier = <strong>' + tier + '</strong> &rarr; step down Control Die <strong>' + tier + '</strong> time' + (tier !== 1 ? 's' : '') + '</div>';
-    html += '<div class="ct-jb-rule ct-jb-fail"><span class="ct-jb-key">Failed Control (1-3):</span> PC is <strong>surprised</strong> &mdash; [Disoriented] + [Exposed] until end of first turn</div>';
-    html += '<div class="ct-jb-rule ct-jb-master"><span class="ct-jb-key">Mastery (8+):</span> PC designates one enemy as surprised &mdash; [Disoriented] + [Exposed] on that NPC</div>';
-    html += '<div class="ct-jb-rule"><span class="ct-jb-key">Power Die result</span> = initiative slot (higher acts first). NPCs act at static Initiative (Tier + Wits\u00d72 + Mods).</div>';
-    html += '</div></div>';
-    return html;
-  }
-
-  function renderInitiativeTracker() {
-    var html = '<div class="ct-initiative">';
-    html += '<div class="ct-section-label">Initiative Order</div>';
-
-    html += '<div class="ct-pc-inputs" id="ct-pc-inputs">';
-    html += '<div class="ct-add-pc-row">';
-    html += '<input type="text" class="ct-input ct-pc-name-input" id="ct-new-pc-name" placeholder="PC Name" />';
-    html += '<input type="number" class="ct-input ct-pc-init-input" id="ct-new-pc-init" placeholder="Init" min="1" max="15" />';
-    html += '<button class="ct-add-pc-btn" id="ct-add-pc">+ Add PC</button>';
-    html += '</div>';
-    html += '</div>';
-
+  function renderInitRail() {
     var turnOrder = getTurnOrder();
-    html += '<div class="ct-turn-list" id="ct-turn-list">';
+    var html = '<div class="ct-init-rail">';
+
+    html += '<div class="ct-rail-header">';
+    html += '<span>Initiative</span>';
+    html += '<span class="ct-rail-round">R' + combatState.round + '</span>';
+    html += '</div>';
+
+    html += '<div class="ct-rail-list">';
     turnOrder.forEach(function (c, idx) {
       var isCurrent = idx === combatState.currentTurnIndex;
+      var isSelected = combatState.selectedId === c.id;
       var isNpc = c.type === 'npc';
-      var cls = 'ct-turn-entry' + (isCurrent ? ' ct-current-turn' : '') + (isNpc ? ' ct-npc-entry' : ' ct-pc-entry');
-      html += '<div class="' + cls + '">';
-      if (!isNpc) {
-        html += '<input type="number" class="ct-input ct-inline-init" data-pc-id="' + esc(c.id) + '" value="' + c.initiative + '" min="1" max="15" title="Edit initiative" />';
-      } else {
-        html += '<span class="ct-turn-init">' + c.initiative + '</span>';
+      var npc = isNpc ? combatState.combatants.find(function (n) { return n.id === c.id; }) : null;
+      var pc = !isNpc ? combatState.pcSlots.find(function (p) { return p.id === c.id; }) : null;
+      var isDown = npc && npc.vitalityCurrent <= 0;
+      var isSurprised = pc && pc.surprised;
+
+      var cls = 'ct-rail-entry';
+      if (isCurrent) cls += ' ct-rail-current';
+      if (isSelected) cls += ' ct-rail-selected';
+      if (isNpc) cls += ' ct-rail-npc';
+      else cls += ' ct-rail-pc';
+      if (isDown) cls += ' ct-rail-down';
+      if (isSurprised) cls += ' ct-rail-surprised';
+
+      html += '<div class="' + cls + '" data-select-id="' + esc(c.id) + '">';
+      html += '<span class="ct-rail-init">' + (c.initiative || '—') + '</span>';
+      html += '<span class="ct-rail-name">' + esc(c.name) + '</span>';
+      if (isNpc && npc) {
+        var pct = npc.vitalityMax > 0 ? Math.round((npc.vitalityCurrent / npc.vitalityMax) * 100) : 0;
+        html += '<span class="ct-rail-hp" style="color:' + (pct > 60 ? '#22c55e' : pct > 30 ? '#eab308' : '#ef4444') + ';">' + npc.vitalityCurrent + '</span>';
       }
-      html += '<span class="ct-turn-name">' + esc(c.name) + '</span>';
-      html += '<span class="ct-turn-type ' + (isNpc ? 'ct-type-npc' : 'ct-type-pc') + '">' + (isNpc ? 'NPC' : 'PC') + '</span>';
-      html += '<span class="ct-reorder-btns">';
-      html += '<button class="ct-reorder-btn" data-dir="up" data-idx="' + idx + '"' + (idx === 0 ? ' disabled' : '') + '>&uarr;</button>';
-      html += '<button class="ct-reorder-btn" data-dir="down" data-idx="' + idx + '"' + (idx === turnOrder.length - 1 ? ' disabled' : '') + '>&darr;</button>';
-      html += '</span>';
-      if (!isNpc) {
-        html += '<button class="ct-remove-pc" data-pc-id="' + esc(c.id) + '">&times;</button>';
-      }
+      if (isSurprised) html += '<span class="ct-rail-tag ct-tag-surprised">!</span>';
+      if (pc && pc.mastery) html += '<span class="ct-rail-tag ct-tag-mastery">M</span>';
       html += '</div>';
     });
     html += '</div>';
 
-    html += '<div class="ct-turn-controls">';
-    html += '<button class="ct-ctrl-btn" id="ct-prev-turn">&larr; Prev Turn</button>';
-    html += '<button class="ct-ctrl-btn ct-ctrl-primary" id="ct-next-turn">Next Turn &rarr;</button>';
-    html += '<button class="ct-ctrl-btn" id="ct-next-round">Next Round &#8635;</button>';
+    html += '<div class="ct-rail-controls">';
+    html += '<button class="ct-ctrl-btn" id="ct-prev-turn" title="Previous Turn">&larr;</button>';
+    html += '<button class="ct-ctrl-btn ct-ctrl-primary" id="ct-next-turn" title="Next Turn">&rarr;</button>';
+    html += '<button class="ct-ctrl-btn" id="ct-next-round" title="Next Round">&#8635;</button>';
     html += '</div>';
 
     html += '</div>';
     return html;
   }
 
-  function renderNpcCards() {
-    if (!combatState) return '';
-    var html = '<div class="ct-npc-cards">';
-    html += '<div class="ct-section-label">NPC Combat Status</div>';
+  function renderDetailPanel() {
+    var html = '<div class="ct-detail-panel">';
 
-    combatState.combatants.forEach(function (npc) {
-      var hpPercent = npc.vitalityMax > 0 ? Math.max(0, Math.min(100, (npc.vitalityCurrent / npc.vitalityMax) * 100)) : 0;
-      var hpColor = hpPercent > 60 ? '#22c55e' : hpPercent > 30 ? '#eab308' : '#ef4444';
-      var isDown = npc.vitalityCurrent <= 0;
+    var selectedId = combatState.selectedId;
+    if (!selectedId && combatState.turnOrder.length > 0) {
+      selectedId = combatState.turnOrder[combatState.currentTurnIndex] ? combatState.turnOrder[combatState.currentTurnIndex].id : null;
+    }
 
-      html += '<div class="ct-npc-card' + (isDown ? ' ct-npc-down' : '') + '" data-npc-id="' + esc(npc.id) + '">';
-      html += '<div class="ct-npc-card-header">';
-      html += '<div class="ct-npc-card-name">' + esc(npc.name) + '</div>';
-      var threatColor = npc.threat === 'minion' ? '#6b7280' : npc.threat === 'boss' ? '#ef4444' : 'var(--color-accent-primary)';
-      html += '<span class="ct-npc-threat" style="color:' + threatColor + ';">' + esc(npc.threat).toUpperCase() + '</span>';
+    if (!selectedId) {
+      html += '<div class="ct-detail-empty">Select a combatant from the initiative rail</div>';
       html += '</div>';
+      return html;
+    }
 
-      html += '<div class="ct-npc-stats">';
-      html += '<span class="ct-stat" title="Power">PWR <strong>' + npc.power + '</strong></span>';
-      html += '<span class="ct-stat" title="Defense">DEF <strong>' + npc.defense + '</strong></span>';
-      html += '<span class="ct-stat" title="Evasion">EVA <strong>' + npc.evasion + '</strong></span>';
-      html += '<span class="ct-stat" title="Resist">RES <strong>' + npc.resist + '</strong></span>';
-      html += '<span class="ct-stat" title="Initiative">INIT <strong>' + npc.initiative + '</strong></span>';
-      html += '</div>';
+    var npc = combatState.combatants.find(function (n) { return n.id === selectedId; });
+    var pc = combatState.pcSlots.find(function (p) { return p.id === selectedId; });
 
-      html += '<div class="ct-vitality-row">';
-      html += '<button class="ct-vit-btn ct-vit-minus" data-npc-id="' + esc(npc.id) + '" data-delta="-1">&minus;</button>';
-      html += '<div class="ct-vitality-bar-wrap">';
-      html += '<div class="ct-vitality-bar" style="width:' + hpPercent + '%;background:' + hpColor + ';"></div>';
-      html += '<span class="ct-vitality-text">' + npc.vitalityCurrent + ' / ' + npc.vitalityMax + '</span>';
-      html += '</div>';
-      html += '<button class="ct-vit-btn ct-vit-plus" data-npc-id="' + esc(npc.id) + '" data-delta="1">+</button>';
-      html += '</div>';
+    if (npc) {
+      html += renderNpcDetail(npc);
+    } else if (pc) {
+      html += renderPcDetail(pc);
+    } else {
+      html += '<div class="ct-detail-empty">Combatant not found</div>';
+    }
 
-      html += '<div class="ct-conditions-row">';
-      html += '<div class="ct-active-conditions" data-npc-id="' + esc(npc.id) + '">';
-      npc.conditions.forEach(function (cid) {
-        var cond = CONDITIONS.find(function (c) { return c.id === cid; });
-        if (cond) {
-          html += '<span class="ct-condition-chip" style="background:' + cond.color + '22;color:' + cond.color + ';border-color:' + cond.color + '44;" title="' + esc(cond.effect) + '" data-npc-id="' + esc(npc.id) + '" data-cond="' + cond.id + '">' + esc(cond.name) + ' &times;</span>';
-        }
-      });
-      html += '</div>';
-      html += '<button class="ct-add-condition-btn" data-npc-id="' + esc(npc.id) + '">+ Condition</button>';
-      html += '</div>';
+    html += '</div>';
+    return html;
+  }
 
-      if (npc.roleKit) {
-        html += '<details class="ct-rolekit-details">';
-        html += '<summary class="ct-rolekit-summary">Role Kit</summary>';
-        html += '<div class="ct-rolekit-body">';
-        if (npc.roleKit.passive) {
-          html += '<div class="ct-rk-entry"><span class="ct-rk-label">Passive:</span> <strong>' + esc(npc.roleKit.passive.name) + '</strong> &mdash; ' + esc(npc.roleKit.passive.description) + '</div>';
-        }
-        if (npc.roleKit.actions) {
-          npc.roleKit.actions.forEach(function (a) {
-            html += '<div class="ct-rk-entry"><span class="ct-rk-label">Action:</span> <strong>' + esc(a.name) + '</strong> &mdash; ' + esc(a.description) + '</div>';
+  function renderNpcDetail(npc) {
+    var html = '';
+    var threatColor = npc.threat === 'minion' ? '#6b7280' : npc.threat === 'boss' ? '#ef4444' : 'var(--color-accent-primary)';
+    var presMod = getPresenceEffect(npc.conditions);
+
+    html += '<div class="ct-detail-header">';
+    html += '<div class="ct-detail-name">' + esc(npc.name) + '</div>';
+    html += '<span class="ct-detail-threat" style="color:' + threatColor + ';">' + esc(npc.threat).toUpperCase() + '</span>';
+    if (npc.tier != null) html += '<span class="ct-detail-tier">T' + npc.tier + '</span>';
+    if (npc.role) html += '<span class="ct-detail-role">' + esc(npc.role) + '</span>';
+    html += '</div>';
+
+    html += '<div class="ct-detail-stats">';
+    html += '<div class="ct-stat-cell"><span class="ct-stat-label">Init</span><span class="ct-stat-val">' + npc.initiative + '</span></div>';
+    html += '<div class="ct-stat-cell"><span class="ct-stat-label">Def</span><span class="ct-stat-val">' + npc.defense + '</span></div>';
+    html += '<div class="ct-stat-cell"><span class="ct-stat-label">Eva</span><span class="ct-stat-val">' + npc.evasion + '</span></div>';
+    html += '<div class="ct-stat-cell"><span class="ct-stat-label">Pwr</span><span class="ct-stat-val">' + npc.power + '</span></div>';
+    html += '<div class="ct-stat-cell"><span class="ct-stat-label">Res</span><span class="ct-stat-val">' + npc.resist + '</span></div>';
+    html += '<div class="ct-stat-cell"><span class="ct-stat-label">Act</span><span class="ct-stat-val">' + (npc.actions || 1) + '</span></div>';
+    html += '</div>';
+
+    var presBase = npc.arenas.presence || 1;
+    var presEff = Math.max(0, presBase + presMod);
+    html += '<div class="ct-presence-row">';
+    html += '<span class="ct-presence-label">Presence</span>';
+    html += '<span class="ct-presence-val' + (presMod < 0 ? ' ct-pres-debuff' : presMod > 0 ? ' ct-pres-buff' : '') + '">' + presEff + '</span>';
+    if (presMod !== 0) html += '<span class="ct-presence-mod">(' + (presMod > 0 ? '+' : '') + presMod + ')</span>';
+    html += '<span class="ct-presence-hint">PCs roll against this</span>';
+    html += '</div>';
+
+    var hpPercent = npc.vitalityMax > 0 ? Math.max(0, Math.min(100, (npc.vitalityCurrent / npc.vitalityMax) * 100)) : 0;
+    var hpColor = hpPercent > 60 ? '#22c55e' : hpPercent > 30 ? '#eab308' : '#ef4444';
+    html += '<div class="ct-vitality-row">';
+    html += '<button class="ct-vit-btn ct-vit-minus" data-npc-id="' + esc(npc.id) + '" data-delta="-1">&minus;</button>';
+    html += '<div class="ct-vitality-bar-wrap">';
+    html += '<div class="ct-vitality-bar" style="width:' + hpPercent + '%;background:' + hpColor + ';"></div>';
+    html += '<span class="ct-vitality-text">' + npc.vitalityCurrent + ' / ' + npc.vitalityMax + '</span>';
+    html += '</div>';
+    html += '<button class="ct-vit-btn ct-vit-plus" data-npc-id="' + esc(npc.id) + '" data-delta="1">+</button>';
+    html += '</div>';
+
+    if (npc.damageTiers) {
+      var dt = npc.damageTiers;
+      html += '<div class="ct-dmg-bar">';
+      html += '<span class="ct-dmg-label">' + esc(dt.label) + '</span>';
+      html += '<span class="ct-dmg-tier">F<strong>' + dt.fleeting + '</strong></span>';
+      html += '<span class="ct-dmg-tier">M<strong>' + dt.masterful + '</strong></span>';
+      html += '<span class="ct-dmg-tier">L<strong>' + dt.legendary + '</strong></span>';
+      html += '</div>';
+    }
+
+    html += '<div class="ct-conditions-section">';
+    html += '<div class="ct-section-label">Conditions</div>';
+    html += '<div class="ct-active-conditions">';
+    npc.conditions.forEach(function (cid) {
+      var def = getEffectDef(cid);
+      var label = def ? def.label : cid;
+      var color = condColor(cid);
+      var desc = def ? def.description : '';
+      html += '<span class="ct-condition-chip" style="background:' + color + '22;color:' + color + ';border-color:' + color + '44;" title="' + esc(desc) + '" data-npc-id="' + esc(npc.id) + '" data-cond="' + esc(cid) + '">' + esc(label) + ' &times;</span>';
+    });
+    html += '</div>';
+    html += '<button class="ct-add-condition-btn" data-npc-id="' + esc(npc.id) + '">+ Condition</button>';
+    html += '</div>';
+
+    if (npc.roleKit) {
+      html += renderRoleKit(npc.roleKit);
+    }
+
+    return html;
+  }
+
+  function renderPcDetail(pc) {
+    var html = '';
+
+    html += '<div class="ct-detail-header ct-detail-header-pc">';
+    html += '<div class="ct-detail-name">' + esc(pc.name) + '</div>';
+    html += '<span class="ct-detail-type-badge">PC</span>';
+    if (pc.species) html += '<span class="ct-detail-species">' + esc(pc.species) + '</span>';
+    if (pc.archetype) html += '<span class="ct-detail-archetype">' + esc(pc.archetype) + '</span>';
+    html += '</div>';
+
+    if (pc.surprised) {
+      html += '<div class="ct-surprised-banner">SURPRISED &mdash; [Disoriented] + [Exposed] until end of first turn</div>';
+    }
+    if (pc.mastery) {
+      html += '<div class="ct-mastery-banner">MASTERY &mdash; Designate one enemy as surprised</div>';
+    }
+
+    if (pc.vitality != null) {
+      html += '<div class="ct-pc-vitality">Vitality: <strong>' + pc.vitality + '</strong></div>';
+    }
+
+    var ARENA_GROUPS = [
+      { id: 'physique', label: 'PHY', discs: ['athletics','brawl','endure','melee','heavy_weapons'] },
+      { id: 'reflex', label: 'REF', discs: ['evasion','piloting','ranged','skulduggery','stealth'] },
+      { id: 'grit', label: 'GRT', discs: ['beast_handling','intimidate','resolve','survival','control_spark'] },
+      { id: 'wits', label: 'WIT', discs: ['investigation','medicine','tactics','tech','sense_spark'] },
+      { id: 'presence', label: 'PRS', discs: ['charm','deception','insight','persuasion','alter_spark'] },
+    ];
+
+    if (pc.arenas && Object.keys(pc.arenas).length) {
+      html += '<div class="ct-pc-arenas">';
+      ARENA_GROUPS.forEach(function (ag) {
+        var die = pc.arenas[ag.id] || '';
+        html += '<div class="ct-pc-arena-group">';
+        html += '<div class="ct-pc-arena-header"><span class="ct-arena-lbl">' + ag.label + '</span>';
+        if (die) html += ' <span class="ct-arena-die">' + esc(die) + '</span>';
+        html += '</div>';
+
+        if (pc.disciplines) {
+          ag.discs.forEach(function (dId) {
+            var disc = pc.disciplines[dId];
+            if (!disc || !disc.die) return;
+            var dieNum = parseInt((disc.die || '').replace(/[^\d]/g, ''), 10);
+            if (dieNum <= 6) return;
+            var label = dId.replace(/_/g, ' ');
+            html += '<div class="ct-pc-disc"><span>' + esc(label) + '</span> <span class="ct-disc-die">' + esc(disc.die) + '</span>';
+            if (disc.favored) html += ' <span class="ct-disc-fav">\u2605</span>';
+            html += '</div>';
           });
         }
-        if (npc.roleKit.maneuver) {
-          html += '<div class="ct-rk-entry"><span class="ct-rk-label">Maneuver:</span> <strong>' + esc(npc.roleKit.maneuver.name) + '</strong> &mdash; ' + esc(npc.roleKit.maneuver.description) + '</div>';
-        }
-        if (npc.roleKit.gambit) {
-          html += '<div class="ct-rk-entry"><span class="ct-rk-label">Gambit:</span> <strong>' + esc(npc.roleKit.gambit.name) + '</strong> (' + esc(npc.roleKit.gambit.cost) + ') &mdash; ' + esc(npc.roleKit.gambit.description) + '</div>';
-        }
-        if (npc.roleKit.exploit) {
-          html += '<div class="ct-rk-entry"><span class="ct-rk-label">Exploit:</span> <strong>' + esc(npc.roleKit.exploit.name) + '</strong> &mdash; ' + esc(npc.roleKit.exploit.description) + '</div>';
-        }
-        html += '</div></details>';
-      }
 
+        html += '</div>';
+      });
       html += '</div>';
-    });
+    }
+
+    if (pc.vocations && pc.vocations.length) {
+      html += '<div class="ct-pc-vocations">';
+      pc.vocations.forEach(function (v) {
+        html += '<span class="ct-voc-badge">' + esc(v.name || v.kitId || '') + ' T' + (v.tier || 1) + '</span>';
+      });
+      html += '</div>';
+    }
+
+    html += '<div class="ct-conditions-section">';
+    html += '<div class="ct-section-label">Conditions</div>';
+    html += '<div class="ct-active-conditions">';
+    if (pc.conditions && pc.conditions.length) {
+      pc.conditions.forEach(function (cid) {
+        var def = getEffectDef(cid);
+        var label = def ? def.label : cid;
+        var color = condColor(cid);
+        html += '<span class="ct-condition-pip" style="color:' + color + ';">' + esc(label) + '</span>';
+      });
+    }
+    html += '</div>';
+    html += '<button class="ct-push-condition-btn" data-pc-id="' + esc(pc.id) + '">+ Push Condition</button>';
+    html += '</div>';
+
+    return html;
+  }
+
+  function renderRoleKit(rk) {
+    var html = '<div class="ct-rolekit">';
+    html += '<div class="ct-section-label">Role Kit</div>';
+
+    if (rk.passive) {
+      html += '<div class="ct-rk-entry"><span class="ct-rk-tag ct-rk-passive">Passive</span> <strong>' + esc(rk.passive.name) + '</strong> &mdash; ' + esc(rk.passive.description) + '</div>';
+    }
+    if (rk.actions && rk.actions.length) {
+      rk.actions.forEach(function (a) {
+        html += '<div class="ct-rk-entry"><span class="ct-rk-tag ct-rk-action">Action</span> <strong>' + esc(a.name) + '</strong>';
+        if (a.attackPower != null) html += ' <span class="ct-rk-power">P' + a.attackPower + '</span>';
+        if (a.arena) html += ' <span class="ct-rk-arena">(' + esc(a.arena) + ')</span>';
+        html += ' &mdash; ' + esc(a.description) + '</div>';
+      });
+    }
+    if (rk.maneuver) {
+      html += '<div class="ct-rk-entry"><span class="ct-rk-tag ct-rk-maneuver">Maneuver</span> <strong>' + esc(rk.maneuver.name) + '</strong> &mdash; ' + esc(rk.maneuver.description) + '</div>';
+    }
+    if (rk.gambit) {
+      html += '<div class="ct-rk-entry"><span class="ct-rk-tag ct-rk-gambit">Gambit</span> <strong>' + esc(rk.gambit.name) + '</strong> <span class="ct-rk-cost">(1 Pwr)</span> &mdash; ' + esc(rk.gambit.description) + '</div>';
+    }
+    if (rk.exploit) {
+      html += '<div class="ct-rk-entry"><span class="ct-rk-tag ct-rk-exploit">Exploit</span> <strong>' + esc(rk.exploit.name) + '</strong> &mdash; ' + esc(rk.exploit.description) + '</div>';
+    }
 
     html += '</div>';
     return html;
@@ -353,6 +607,9 @@
     var rows = tm.gridRows || 3;
     var colLabels = tm.columnLabels || ['A', 'B', 'C', 'D'];
     var rowLabels = tm.rowLabels || ['1', '2', '3'];
+
+    var COVER_LABELS = { 'none': 'No Cover', 'light': 'Light', 'hard': 'Hard', 'full': 'Full' };
+    var LIGHTING_ICONS = { 'normal': '&#9728;', 'dim': '&#9789;', 'shadow': '&#9790;' };
 
     var zoneMap = {};
     tm.zones.forEach(function (z) { zoneMap[z.id] = z; });
@@ -448,77 +705,175 @@
     return tokens;
   }
 
+  function showConditionPalette(anchorEl, npcId) {
+    var existing = document.querySelector('.ct-condition-palette');
+    if (existing) existing.remove();
+
+    var npc = combatState.combatants.find(function (n) { return n.id === npcId; });
+    if (!npc) return;
+
+    var palette = document.createElement('div');
+    palette.className = 'ct-condition-palette';
+
+    var html = '<div class="ct-palette-title">Apply Condition</div>';
+    NPC_CONDITIONS.forEach(function (condId) {
+      var def = getEffectDef(condId);
+      if (!def) return;
+      var active = npc.conditions.indexOf(condId) !== -1;
+      var color = condColor(condId);
+      var needsArena = (condId === 'weakened' || condId === 'empowered');
+      html += '<div class="ct-palette-item' + (active ? ' ct-palette-active' : '') + '" data-cond="' + esc(condId) + '" data-npc-id="' + esc(npcId) + '"' + (needsArena ? ' data-needs-arena="1"' : '') + ' title="' + esc(def.description) + '">';
+      html += '<span class="ct-palette-dot" style="background:' + color + ';"></span>';
+      html += '<span class="ct-palette-name">' + esc(def.label) + '</span>';
+      html += '<span class="ct-palette-effect">' + esc(def.description.split('.')[0]) + '</span>';
+      html += '</div>';
+    });
+    palette.innerHTML = html;
+
+    anchorEl.parentElement.appendChild(palette);
+
+    palette.querySelectorAll('.ct-palette-item').forEach(function (item) {
+      item.addEventListener('click', function () {
+        var condId = item.dataset.cond;
+        var targetNpcId = item.dataset.npcId;
+        var targetNpc = combatState.combatants.find(function (n) { return n.id === targetNpcId; });
+        if (!targetNpc) return;
+
+        if (item.dataset.needsArena === '1') {
+          showArenaPicker(item, targetNpc, condId);
+          return;
+        }
+
+        var idx = targetNpc.conditions.indexOf(condId);
+        if (idx === -1) {
+          targetNpc.conditions.push(condId);
+        } else {
+          targetNpc.conditions.splice(idx, 1);
+        }
+        palette.remove();
+        renderCombatTracker();
+      });
+    });
+
+    setTimeout(function () {
+      function closePalette(e) {
+        if (!palette.contains(e.target)) {
+          palette.remove();
+          document.removeEventListener('click', closePalette);
+        }
+      }
+      document.addEventListener('click', closePalette);
+    }, 10);
+  }
+
+  function showArenaPicker(anchorItem, npc, condId) {
+    var existing = document.querySelector('.ct-arena-picker');
+    if (existing) existing.remove();
+
+    var picker = document.createElement('div');
+    picker.className = 'ct-arena-picker';
+    var arenas = ['physique', 'reflex', 'grit', 'wits', 'presence'];
+    var labels = { physique: 'Physique', reflex: 'Reflex', grit: 'Grit', wits: 'Wits', presence: 'Presence' };
+
+    var def = getEffectDef(condId);
+    picker.innerHTML = '<div class="ct-picker-title">Target Arena for ' + (def ? def.label : condId) + '</div>' +
+      arenas.map(function (a) {
+        return '<div class="ct-picker-option" data-arena="' + a + '">' + labels[a] + '</div>';
+      }).join('');
+
+    anchorItem.appendChild(picker);
+
+    picker.querySelectorAll('.ct-picker-option').forEach(function (opt) {
+      opt.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var idx = npc.conditions.indexOf(condId);
+        if (idx === -1) {
+          npc.conditions.push(condId);
+        }
+        picker.remove();
+        var palette = document.querySelector('.ct-condition-palette');
+        if (palette) palette.remove();
+        renderCombatTracker();
+      });
+    });
+  }
+
+  function showPcConditionPalette(anchorEl, pcId) {
+    var existing = document.querySelector('.ct-condition-palette');
+    if (existing) existing.remove();
+
+    var pc = combatState.pcSlots.find(function (p) { return p.id === pcId; });
+    if (!pc) return;
+
+    var palette = document.createElement('div');
+    palette.className = 'ct-condition-palette';
+
+    var pcConditions = ['disoriented', 'rattled', 'stunned', 'exposed', 'shaken',
+      'weakened', 'empowered', 'optimized', 'prone', 'restrained', 'slowed',
+      'blinded', 'bleeding', 'hazard', 'incapacitated', 'suppressed', 'marked'];
+
+    var html = '<div class="ct-palette-title">Push Condition to PC</div>';
+    pcConditions.forEach(function (condId) {
+      var def = getEffectDef(condId);
+      if (!def) return;
+      var color = condColor(condId);
+      html += '<div class="ct-palette-item" data-cond="' + esc(condId) + '" data-pc-id="' + esc(pcId) + '" title="' + esc(def.description) + '">';
+      html += '<span class="ct-palette-dot" style="background:' + color + ';"></span>';
+      html += '<span class="ct-palette-name">' + esc(def.label) + '</span>';
+      html += '<span class="ct-palette-effect">' + esc(def.description.split('.')[0]) + '</span>';
+      html += '</div>';
+    });
+    palette.innerHTML = html;
+
+    anchorEl.parentElement.appendChild(palette);
+
+    palette.querySelectorAll('.ct-palette-item').forEach(function (item) {
+      item.addEventListener('click', function () {
+        var condId = item.dataset.cond;
+        var targetPcId = item.dataset.pcId;
+        var def = getEffectDef(condId);
+        if (!def) return;
+
+        var target = 'universal';
+        if (def.targetMode === 'fixed_arenas' || def.targetMode === 'fixed') target = 'fixed';
+        if (def.targetMode === 'arena_only') target = 'physique';
+
+        var sock = getSocket();
+        if (sock) {
+          sock.emit('condition:apply', {
+            characterId: targetPcId,
+            conditionId: condId,
+            target: target,
+            duration: def.defaultDuration || 'tactical'
+          });
+        }
+
+        palette.remove();
+      });
+    });
+
+    setTimeout(function () {
+      function closePalette(e) {
+        if (!palette.contains(e.target)) {
+          palette.remove();
+          document.removeEventListener('click', closePalette);
+        }
+      }
+      document.addEventListener('click', closePalette);
+    }, 10);
+  }
+
   function attachCombatEvents(container) {
     var endBtn = container.querySelector('#ct-end-encounter');
     if (endBtn) endBtn.addEventListener('click', endEncounter);
 
-    var collapseBtn = container.querySelector('#ct-collapse');
-    if (collapseBtn) collapseBtn.addEventListener('click', function () {
-      combatState.collapsed = !combatState.collapsed;
-      renderCombatTracker();
-    });
+    var jbBtn = container.querySelector('#ct-trigger-jb');
+    if (jbBtn) jbBtn.addEventListener('click', triggerJoinBattle);
 
-    var addPcBtn = container.querySelector('#ct-add-pc');
-    if (addPcBtn) addPcBtn.addEventListener('click', function () {
-      var nameInput = container.querySelector('#ct-new-pc-name');
-      var initInput = container.querySelector('#ct-new-pc-init');
-      var name = (nameInput.value || '').trim();
-      var init = parseInt(initInput.value, 10);
-      if (!name || isNaN(init)) return;
-      combatState.pcSlots.push({
-        id: 'pc_' + name.toLowerCase().replace(/\s+/g, '_') + '_' + Date.now(),
-        name: name,
-        initiative: init
-      });
-      rebuildTurnOrder();
-      combatState.currentTurnIndex = 0;
-      renderCombatTracker();
-    });
-
-    container.querySelectorAll('.ct-remove-pc').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var pcId = btn.dataset.pcId;
-        combatState.pcSlots = combatState.pcSlots.filter(function (p) { return p.id !== pcId; });
-        combatState.turnOrder = combatState.turnOrder.filter(function (e) { return e.id !== pcId; });
-        combatState.currentTurnIndex = 0;
-        renderCombatTracker();
-      });
-    });
-
-    container.querySelectorAll('.ct-reorder-btn').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var idx = parseInt(btn.dataset.idx, 10);
-        var dir = btn.dataset.dir;
-        var order = combatState.turnOrder;
-        if (!order || isNaN(idx)) return;
-        var swapIdx = dir === 'up' ? idx - 1 : idx + 1;
-        if (swapIdx < 0 || swapIdx >= order.length) return;
-        var tmp = order[idx];
-        order[idx] = order[swapIdx];
-        order[swapIdx] = tmp;
-        if (combatState.currentTurnIndex === idx) {
-          combatState.currentTurnIndex = swapIdx;
-        } else if (combatState.currentTurnIndex === swapIdx) {
-          combatState.currentTurnIndex = idx;
-        }
-        renderCombatTracker();
-      });
-    });
-
-    container.querySelectorAll('.ct-inline-init').forEach(function (input) {
-      input.addEventListener('change', function () {
-        var pcId = input.dataset.pcId;
-        var newInit = parseInt(input.value, 10);
-        if (isNaN(newInit) || newInit < 1) return;
-        var pc = combatState.pcSlots.find(function (p) { return p.id === pcId; });
-        if (pc) pc.initiative = newInit;
-        var currentId = combatState.turnOrder[combatState.currentTurnIndex] ? combatState.turnOrder[combatState.currentTurnIndex].id : null;
-        rebuildTurnOrder();
-        if (currentId) {
-          for (var ri = 0; ri < combatState.turnOrder.length; ri++) {
-            if (combatState.turnOrder[ri].id === currentId) { combatState.currentTurnIndex = ri; break; }
-          }
-        }
+    container.querySelectorAll('.ct-rail-entry').forEach(function (entry) {
+      entry.addEventListener('click', function () {
+        var id = entry.dataset.selectId;
+        combatState.selectedId = combatState.selectedId === id ? null : id;
         renderCombatTracker();
       });
     });
@@ -529,6 +884,7 @@
       if (order.length === 0) return;
       combatState.currentTurnIndex = (combatState.currentTurnIndex + 1) % order.length;
       if (combatState.currentTurnIndex === 0) combatState.round++;
+      combatState.selectedId = null;
       renderCombatTracker();
     });
 
@@ -544,6 +900,7 @@
       } else {
         combatState.currentTurnIndex--;
       }
+      combatState.selectedId = null;
       renderCombatTracker();
     });
 
@@ -551,6 +908,7 @@
     if (nextRoundBtn) nextRoundBtn.addEventListener('click', function () {
       combatState.round++;
       combatState.currentTurnIndex = 0;
+      combatState.selectedId = null;
       renderCombatTracker();
     });
 
@@ -580,8 +938,13 @@
 
     container.querySelectorAll('.ct-add-condition-btn').forEach(function (btn) {
       btn.addEventListener('click', function () {
-        var npcId = btn.dataset.npcId;
-        showConditionPalette(btn, npcId);
+        showConditionPalette(btn, btn.dataset.npcId);
+      });
+    });
+
+    container.querySelectorAll('.ct-push-condition-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        showPcConditionPalette(btn, btn.dataset.pcId);
       });
     });
 
@@ -602,57 +965,6 @@
         }
       });
     });
-  }
-
-  function showConditionPalette(anchorEl, npcId) {
-    var existing = document.querySelector('.ct-condition-palette');
-    if (existing) existing.remove();
-
-    var npc = combatState.combatants.find(function (n) { return n.id === npcId; });
-    if (!npc) return;
-
-    var palette = document.createElement('div');
-    palette.className = 'ct-condition-palette';
-
-    var html = '<div class="ct-palette-title">Apply Condition</div>';
-    CONDITIONS.forEach(function (cond) {
-      var active = npc.conditions.indexOf(cond.id) !== -1;
-      html += '<div class="ct-palette-item' + (active ? ' ct-palette-active' : '') + '" data-cond="' + cond.id + '" data-npc-id="' + esc(npcId) + '" title="' + esc(cond.effect) + '">';
-      html += '<span class="ct-palette-dot" style="background:' + cond.color + ';"></span>';
-      html += '<span class="ct-palette-name">' + esc(cond.name) + '</span>';
-      html += '<span class="ct-palette-effect">' + esc(cond.effect) + '</span>';
-      html += '</div>';
-    });
-    palette.innerHTML = html;
-
-    anchorEl.parentElement.appendChild(palette);
-
-    palette.querySelectorAll('.ct-palette-item').forEach(function (item) {
-      item.addEventListener('click', function () {
-        var condId = item.dataset.cond;
-        var targetNpcId = item.dataset.npcId;
-        var targetNpc = combatState.combatants.find(function (n) { return n.id === targetNpcId; });
-        if (!targetNpc) return;
-        var idx = targetNpc.conditions.indexOf(condId);
-        if (idx === -1) {
-          targetNpc.conditions.push(condId);
-        } else {
-          targetNpc.conditions.splice(idx, 1);
-        }
-        palette.remove();
-        renderCombatTracker();
-      });
-    });
-
-    setTimeout(function () {
-      function closePalette(e) {
-        if (!palette.contains(e.target)) {
-          palette.remove();
-          document.removeEventListener('click', closePalette);
-        }
-      }
-      document.addEventListener('click', closePalette);
-    }, 10);
   }
 
   window.CombatTracker = {

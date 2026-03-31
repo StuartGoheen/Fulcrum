@@ -195,6 +195,121 @@
     socket.on('error', ({ message }) => {
       console.error('[socket] Server error:', message);
     });
+
+    socket.on('combat:join-battle-prompt', ({ encounterName, highestTier }) => {
+      _showJoinBattleModal(encounterName, highestTier);
+    });
+
+    socket.on('combat:ended', () => {
+      var modal = document.getElementById('join-battle-modal');
+      if (modal) modal.remove();
+    });
+
+    socket.on('condition:applied', (entry) => {
+      if (window.EffectManager && window.EffectManager.applyEffect) {
+        window.EffectManager.applyEffect(entry.effectId, entry.target || 'universal', entry.duration || 'tactical', entry.hazardValue || 0);
+      }
+    });
+
+    socket.on('condition:removed', ({ conditionId, uid }) => {
+      if (window.EffectManager) {
+        if (uid) {
+          window.EffectManager.removeEffect(uid);
+        } else if (conditionId) {
+          var effects = window.EffectManager.activeEffects || [];
+          for (var i = 0; i < effects.length; i++) {
+            if (effects[i].effectId === conditionId) {
+              window.EffectManager.removeEffect(effects[i].uid);
+              break;
+            }
+          }
+        }
+      }
+    });
+
+    document.addEventListener('effects:changed', function () {
+      if (window.EffectManager && socket && socket.connected) {
+        var effects = window.EffectManager.activeEffects || [];
+        var summary = effects.map(function (e) { return { effectId: e.effectId, target: e.target, uid: e.uid }; });
+        socket.emit('condition:sync', { effects: summary });
+      }
+    });
+
+    socket.emit('combat:request');
+  }
+
+  function _showJoinBattleModal(encounterName, highestTier) {
+    var existing = document.getElementById('join-battle-modal');
+    if (existing) existing.remove();
+
+    var overlay = document.createElement('div');
+    overlay.id = 'join-battle-modal';
+    overlay.className = 'jb-modal-overlay';
+
+    var stepDownText = highestTier > 0
+      ? 'Step down your Control Die <strong>' + highestTier + '</strong> time' + (highestTier !== 1 ? 's' : '') + ' (highest enemy Tier).'
+      : 'No step-down (no enemy Tier advantage).';
+
+    overlay.innerHTML =
+      '<div class="jb-modal">' +
+        '<div class="jb-modal-header">' +
+          '<div class="jb-modal-icon">&#9876;</div>' +
+          '<h2 class="jb-modal-title">JOIN BATTLE</h2>' +
+          '<div class="jb-modal-encounter">' + (encounterName || 'Combat') + '</div>' +
+        '</div>' +
+        '<div class="jb-modal-body">' +
+          '<div class="jb-step-down">' + stepDownText + '</div>' +
+          '<div class="jb-rules">' +
+            '<div class="jb-rule jb-rule-fail"><strong>Control 1-3:</strong> Surprised &mdash; [Disoriented] + [Exposed]</div>' +
+            '<div class="jb-rule jb-rule-master"><strong>Control 8+:</strong> Mastery &mdash; designate one enemy as surprised</div>' +
+            '<div class="jb-rule"><strong>Power Die result</strong> = your initiative slot</div>' +
+          '</div>' +
+          '<div class="jb-inputs">' +
+            '<div class="jb-input-group">' +
+              '<label for="jb-control">Control Result</label>' +
+              '<input type="number" id="jb-control" min="1" max="12" placeholder="1-12" />' +
+            '</div>' +
+            '<div class="jb-input-group">' +
+              '<label for="jb-power">Power Result</label>' +
+              '<input type="number" id="jb-power" min="1" max="12" placeholder="1-12" />' +
+            '</div>' +
+          '</div>' +
+          '<button id="jb-submit" class="jb-submit-btn">ENTER THE FRAY</button>' +
+        '</div>' +
+      '</div>';
+
+    document.body.appendChild(overlay);
+
+    var submitBtn = overlay.querySelector('#jb-submit');
+    submitBtn.addEventListener('click', function () {
+      var control = parseInt(document.getElementById('jb-control').value, 10);
+      var power = parseInt(document.getElementById('jb-power').value, 10);
+      if (isNaN(control) || isNaN(power) || control < 1 || power < 1) return;
+
+      if (_currentSocket) {
+        _currentSocket.emit('combat:join-battle', {
+          controlResult: control,
+          powerResult: power
+        });
+      }
+
+      overlay.innerHTML =
+        '<div class="jb-modal">' +
+          '<div class="jb-modal-header">' +
+            '<div class="jb-modal-icon">&#9876;</div>' +
+            '<h2 class="jb-modal-title">BATTLE JOINED</h2>' +
+          '</div>' +
+          '<div class="jb-modal-body">' +
+            '<div class="jb-result">' +
+              '<div>Control: <strong>' + control + '</strong>' + (control <= 3 ? ' <span style="color:#ef4444;">SURPRISED</span>' : control >= 8 ? ' <span style="color:#22c55e;">MASTERY</span>' : '') + '</div>' +
+              '<div>Initiative Slot: <strong>' + power + '</strong></div>' +
+            '</div>' +
+            '<div class="jb-waiting">Waiting for GM to begin round...</div>' +
+          '</div>' +
+        '</div>';
+
+      setTimeout(function () { overlay.remove(); }, 8000);
+    });
   }
 
   function initAdminTools() {

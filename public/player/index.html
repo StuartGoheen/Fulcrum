@@ -9,6 +9,143 @@
   <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="icon" href="/icon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="/css/output.css" />
+  <style>
+    .jb-modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9000;
+      background: rgba(0,0,0,0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: jbFadeIn 0.3s ease;
+    }
+    @keyframes jbFadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .jb-modal {
+      background: var(--color-bg-panel, #1a1a2e);
+      border: 2px solid var(--color-danger, #ef4444);
+      max-width: 420px;
+      width: 90%;
+      box-shadow: 0 0 40px rgba(239,68,68,0.3), 0 0 80px rgba(0,0,0,0.6);
+      animation: jbSlideUp 0.35s ease;
+    }
+    @keyframes jbSlideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    .jb-modal-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 0.75rem;
+      background: rgba(239,68,68,0.1);
+      border-bottom: 1px solid var(--color-danger, #ef4444);
+    }
+    .jb-modal-icon {
+      font-size: 1.2rem;
+    }
+    .jb-modal-title {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.85rem;
+      color: var(--color-danger, #ef4444);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .jb-modal-encounter {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.65rem;
+      color: var(--color-accent-primary, #c79234);
+      margin-left: auto;
+    }
+    .jb-modal-body {
+      padding: 0.75rem;
+    }
+    .jb-step-down {
+      background: rgba(249,115,22,0.1);
+      border: 1px solid rgba(249,115,22,0.3);
+      padding: 0.4rem 0.6rem;
+      margin-bottom: 0.6rem;
+      font-size: 0.7rem;
+      color: #f97316;
+      font-weight: 600;
+    }
+    .jb-rules {
+      margin-bottom: 0.6rem;
+      font-size: 0.68rem;
+      line-height: 1.6;
+    }
+    .jb-rule {
+      color: var(--color-text-secondary, #9ca3af);
+      margin-bottom: 0.15rem;
+    }
+    .jb-rule-fail {
+      color: #f97316;
+    }
+    .jb-rule-master {
+      color: #22c55e;
+    }
+    .jb-inputs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 0.6rem;
+    }
+    .jb-input-group {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+    .jb-input-group label {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.6rem;
+      color: var(--color-accent-primary, #c79234);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .jb-input-group input {
+      background: var(--color-bg-primary, #0d0d1a);
+      border: 1px solid var(--color-border, #2a2a3e);
+      color: var(--color-text-primary, #e5e5e5);
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.85rem;
+      padding: 0.4rem;
+      text-align: center;
+      outline: none;
+      transition: border-color 0.15s;
+      min-height: 38px;
+    }
+    .jb-input-group input:focus {
+      border-color: var(--color-accent-primary, #c79234);
+    }
+    .jb-submit-btn {
+      width: 100%;
+      background: transparent;
+      border: 2px solid var(--color-danger, #ef4444);
+      color: var(--color-danger, #ef4444);
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 0.5rem;
+      cursor: pointer;
+      transition: all 0.15s;
+      min-height: 40px;
+    }
+    .jb-submit-btn:hover {
+      background: var(--color-danger, #ef4444);
+      color: #000;
+    }
+    .jb-result {
+      text-align: center;
+      padding: 0.6rem;
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.8rem;
+    }
+    .jb-waiting {
+      text-align: center;
+      padding: 0.5rem;
+      font-size: 0.7rem;
+      color: var(--color-text-secondary, #9ca3af);
+      font-style: italic;
+    }
+  </style>
 </head>
 <body class="font-body" style="background-color:var(--color-bg-primary);color:var(--color-text-primary);overflow:hidden;height:100vh;">
 

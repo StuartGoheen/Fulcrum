@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 let _shipCombatState = null;
+let _combatState = null;
 
 function getShipCombatState() {
   return _shipCombatState;
@@ -410,6 +411,170 @@ function registerHandlers(io) {
       } else {
         socket.emit('shipcombat:sync', { active: false });
       }
+    });
+
+    socket.on('combat:start', ({ encounterName, highestTier }) => {
+      if (socket.data.role !== 'gm') {
+        socket.emit('error', { message: 'Only the GM can start combat.' });
+        return;
+      }
+      _combatState = {
+        active: true,
+        encounterName: encounterName || 'Combat',
+        highestTier: highestTier || 0,
+        responses: {},
+        startedAt: Date.now()
+      };
+      io.to('players').emit('combat:join-battle-prompt', {
+        encounterName: _combatState.encounterName,
+        highestTier: _combatState.highestTier
+      });
+      console.log(`[socket] GM started combat: ${encounterName} (highest tier ${highestTier})`);
+    });
+
+    socket.on('combat:join-battle', ({ controlResult, powerResult }) => {
+      if (socket.data.role !== 'player' || !socket.data.characterId) return;
+      if (!_combatState || !_combatState.active) return;
+
+      const control = parseInt(controlResult, 10) || 0;
+      const power = parseInt(powerResult, 10) || 0;
+      const surprised = control >= 1 && control <= 3;
+      const mastery = control >= 8;
+
+      _combatState.responses[socket.data.characterId] = {
+        characterId: socket.data.characterId,
+        name: socket.data.characterName || 'Unknown',
+        controlResult: control,
+        powerResult: power,
+        surprised,
+        mastery,
+        initiative: power
+      };
+
+      io.to('gm').emit('combat:join-battle-result', {
+        characterId: socket.data.characterId,
+        name: socket.data.characterName || 'Unknown',
+        controlResult: control,
+        powerResult: power,
+        surprised,
+        mastery,
+        initiative: power
+      });
+
+      const playerCount = Array.from(io.sockets.sockets.values())
+        .filter(s => s.data.role === 'player' && s.data.characterId).length;
+      const responseCount = Object.keys(_combatState.responses).length;
+
+      if (responseCount >= playerCount) {
+        io.to('gm').emit('combat:all-joined', { responses: _combatState.responses });
+      }
+
+      console.log(`[socket] ${socket.data.characterName} joined battle: control=${control} power=${power} surprised=${surprised} mastery=${mastery}`);
+    });
+
+    socket.on('combat:end', () => {
+      if (socket.data.role !== 'gm') {
+        socket.emit('error', { message: 'Only the GM can end combat.' });
+        return;
+      }
+      _combatState = null;
+      io.to('players').emit('combat:ended');
+      console.log('[socket] GM ended combat');
+    });
+
+    socket.on('combat:request', () => {
+      if (_combatState && _combatState.active) {
+        socket.emit('combat:join-battle-prompt', {
+          encounterName: _combatState.encounterName,
+          highestTier: _combatState.highestTier
+        });
+      }
+    });
+
+    socket.on('condition:apply', async ({ characterId, conditionId, target, duration, value }) => {
+      if (socket.data.role !== 'gm') {
+        socket.emit('error', { message: 'Only the GM can push conditions.' });
+        return;
+      }
+      if (!characterId || !conditionId) return;
+
+      try {
+        const result = await pool.query('SELECT character_data FROM characters WHERE id = $1', [characterId]);
+        if (result.rows.length === 0) return;
+
+        let charData = {};
+        try { charData = JSON.parse(result.rows[0].character_data) || {}; } catch (_) {}
+
+        if (!charData.activeEffects) charData.activeEffects = [];
+        const entry = {
+          uid: 'gm_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6),
+          effectId: conditionId,
+          target: target || 'universal',
+          duration: duration || 'tactical',
+          hazardValue: value || 0,
+          source: 'gm'
+        };
+        charData.activeEffects.push(entry);
+
+        await pool.query('UPDATE characters SET character_data = $1 WHERE id = $2', [JSON.stringify(charData), characterId]);
+
+        const targetSockets = Array.from(io.sockets.sockets.values())
+          .filter(s => s.data.characterId === characterId);
+        targetSockets.forEach(s => {
+          s.emit('condition:applied', entry);
+        });
+
+        socket.emit('condition:apply-ack', { characterId, entry });
+        console.log(`[socket] GM applied ${conditionId} to ${characterId}`);
+      } catch (err) {
+        console.error('[socket] condition:apply error:', err);
+      }
+    });
+
+    socket.on('condition:remove', async ({ characterId, conditionId, uid }) => {
+      if (socket.data.role !== 'gm') {
+        socket.emit('error', { message: 'Only the GM can remove conditions.' });
+        return;
+      }
+      if (!characterId) return;
+
+      try {
+        const result = await pool.query('SELECT character_data FROM characters WHERE id = $1', [characterId]);
+        if (result.rows.length === 0) return;
+
+        let charData = {};
+        try { charData = JSON.parse(result.rows[0].character_data) || {}; } catch (_) {}
+
+        if (charData.activeEffects) {
+          if (uid) {
+            charData.activeEffects = charData.activeEffects.filter(e => e.uid !== uid);
+          } else if (conditionId) {
+            const idx = charData.activeEffects.findIndex(e => e.effectId === conditionId);
+            if (idx !== -1) charData.activeEffects.splice(idx, 1);
+          }
+          await pool.query('UPDATE characters SET character_data = $1 WHERE id = $2', [JSON.stringify(charData), characterId]);
+        }
+
+        const targetSockets = Array.from(io.sockets.sockets.values())
+          .filter(s => s.data.characterId === characterId);
+        targetSockets.forEach(s => {
+          s.emit('condition:removed', { conditionId, uid });
+        });
+
+        socket.emit('condition:remove-ack', { characterId, conditionId, uid });
+        console.log(`[socket] GM removed ${conditionId || uid} from ${characterId}`);
+      } catch (err) {
+        console.error('[socket] condition:remove error:', err);
+      }
+    });
+
+    socket.on('condition:sync', ({ effects }) => {
+      if (socket.data.role !== 'player' || !socket.data.characterId) return;
+      io.to('gm').emit('condition:player-sync', {
+        characterId: socket.data.characterId,
+        name: socket.data.characterName || 'Unknown',
+        effects: effects || []
+      });
     });
 
     socket.on('disconnect', async () => {
