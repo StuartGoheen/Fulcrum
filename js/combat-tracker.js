@@ -1189,7 +1189,15 @@
     });
   }
 
+  var _syncTimer = null;
   function syncStateToServer() {
+    if (_syncTimer) return;
+    _syncTimer = setTimeout(function () {
+      _syncTimer = null;
+      _doSyncStateToServer();
+    }, 300);
+  }
+  function _doSyncStateToServer() {
     var sock = getSocket();
     if (!sock || !combatState) return;
     sock.emit('combat:sync-state', {
