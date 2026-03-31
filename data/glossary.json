@@ -647,6 +647,23 @@
     "guide": "Your head is ringing. The lights are too bright. Everything is slightly behind where it should be. Body and mind both took the hit. You're still in the fight — you just need a moment your enemy is absolutely not going to give you."
   },
   {
+    "id": "condition_surprised",
+    "name": "[Surprised]",
+    "type": "Condition (Combined)",
+    "category": "Combined",
+    "conditionType": "combined",
+    "components": [
+      "condition_disoriented",
+      "condition_exposed"
+    ],
+    "defaultDuration": "immediate",
+    "fiction": "Caught completely off guard — the enemy struck before you knew they were there. Your coordination is shot and your defenses are wide open.",
+    "rule": "Combined condition: [Disoriented] + [Exposed] applied automatically at the start of combat when caught unaware. Lasts until the end of your first turn. The mechanical effects of both component conditions apply. Cannot act during the surprise round. Clearing [Surprised] clears both components at end of first turn.",
+    "pcEffect": "Step down Control die on physical rolls + incoming attacks step up 1 tier (until end of first turn)",
+    "npcEffect": "Presence -1 (physical) + PC attacks step up 1 tier (until end of first turn)",
+    "guide": "You didn't see it coming. The ambush, the betrayal, the thing in the shadows — it got the drop on you. Your body hasn't caught up to the danger yet. By the time your first turn ends, the adrenaline kicks in and the components clear. Until then, you're reacting late and exposed."
+  },
+  {
     "id": "condition_marked",
     "name": "[Marked]",
     "type": "Condition",

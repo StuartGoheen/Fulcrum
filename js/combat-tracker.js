@@ -406,7 +406,7 @@
       var npc = isNpc ? combatState.combatants.find(function (n) { return n.id === c.id; }) : null;
       var pc = !isNpc ? combatState.pcSlots.find(function (p) { return p.id === c.id; }) : null;
       var isDown = npc && npc.vitalityCurrent <= 0;
-      var isSurprised = (pc && pc.surprised) || (npc && npc.surprised);
+      var isSurprised = (pc && (pc.surprised || (pc.conditions && pc.conditions.indexOf('surprised') !== -1))) || (npc && npc.surprised);
 
       var cls = 'ct-rail-entry';
       if (isCurrent) cls += ' ct-rail-current';
@@ -577,7 +577,8 @@
     if (pc.archetype) html += '<span class="ct-detail-archetype">' + esc(pc.archetype) + '</span>';
     html += '</div>';
 
-    if (pc.surprised) {
+    var isSurprised = pc.surprised || (pc.conditions && pc.conditions.indexOf('surprised') !== -1);
+    if (isSurprised) {
       html += '<div class="ct-surprised-banner">SURPRISED &mdash; [Disoriented] + [Exposed] until end of first turn</div>';
     }
     if (pc.mastery) {
@@ -915,7 +916,7 @@
     var palette = document.createElement('div');
     palette.className = 'ct-condition-palette';
 
-    var pcConditions = ['disoriented', 'rattled', 'stunned', 'exposed', 'shaken',
+    var pcConditions = ['surprised', 'disoriented', 'rattled', 'stunned', 'exposed', 'shaken',
       'weakened', 'empowered', 'optimized', 'prone', 'restrained', 'slowed',
       'blinded', 'bleeding', 'hazard', 'incapacitated', 'suppressed', 'marked'];
 

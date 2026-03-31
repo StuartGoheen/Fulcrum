@@ -215,6 +215,18 @@
       description: 'Combined: [Disoriented] + [Rattled]. Both effects stack. Physical -1, mental/social -2. Shared source/duration/recovery.',
     },
     {
+      id: 'surprised',
+      label: 'Surprised',
+      category: 'combined',
+      conditionType: 'combined',
+      modifier: { type: 'combined' },
+      components: ['disoriented', 'exposed'],
+      targetMode: 'fixed_arenas',
+      fixedArenas: ['physique', 'reflex'],
+      defaultDuration: 'immediate',
+      description: 'Combined: [Disoriented] + [Exposed]. Caught off guard at combat start. Physical coordination compromised and defenses open. Clears at end of first turn.',
+    },
+    {
       id: 'marked',
       label: 'Marked',
       category: 'operational_status',

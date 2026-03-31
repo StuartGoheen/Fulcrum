@@ -462,21 +462,25 @@ function registerHandlers(io) {
       });
 
       if (surprised) {
-        const surpriseConditions = ['disoriented', 'exposed'];
+        const surpriseEffects = [
+          { effectId: 'surprised', target: 'fixed', source: 'gm_surprise' },
+          { effectId: 'disoriented', target: 'fixed', source: 'gm_surprise' },
+          { effectId: 'exposed', target: 'universal', source: 'gm_surprise' }
+        ];
         try {
           const result = await pool.query('SELECT character_data FROM characters WHERE id = $1', [socket.data.characterId]);
           if (result.rows.length > 0) {
             let charData = {};
             try { charData = JSON.parse(result.rows[0].character_data) || {}; } catch (_) {}
             if (!charData.activeEffects) charData.activeEffects = [];
-            for (const condId of surpriseConditions) {
+            for (const eff of surpriseEffects) {
               const entry = {
-                uid: 'gm_surprise_' + condId + '_' + Date.now(),
-                effectId: condId,
-                target: 'universal',
-                duration: 'tactical',
+                uid: 'gm_surprise_' + eff.effectId + '_' + Date.now(),
+                effectId: eff.effectId,
+                target: eff.target,
+                duration: 'immediate',
                 hazardValue: 0,
-                source: 'gm_surprise'
+                source: eff.source
               };
               charData.activeEffects.push(entry);
               socket.emit('condition:applied', entry);
