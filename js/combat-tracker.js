@@ -322,12 +322,13 @@
     return combatState.turnOrder;
   }
 
-  function getPresenceEffect(conditions) {
+  function getTierEffect(conditions) {
     var mod = 0;
     conditions.forEach(function (cid) {
       if (cid === 'disoriented') mod -= 1;
       if (cid === 'rattled') mod -= 1;
       if (cid === 'stunned') mod -= 2;
+      if (cid === 'blinded') mod -= 1;
       if (cid === 'optimized') mod += 1;
     });
     return mod;
@@ -492,7 +493,7 @@
   function renderNpcDetail(npc) {
     var html = '';
     var threatColor = npc.threat === 'minion' ? '#6b7280' : npc.threat === 'boss' ? '#ef4444' : 'var(--color-accent-primary)';
-    var presMod = getPresenceEffect(npc.conditions);
+    var tierMod = getTierEffect(npc.conditions);
     var arenaMods = getNpcArenaMods(npc);
 
     html += '<div class="ct-detail-header">';
@@ -541,12 +542,12 @@
       }
     }
 
-    var presBase = npc.arenas.presence || 1;
-    var presEff = Math.max(0, presBase + presMod);
+    var tierBase = npc.tier || 0;
+    var tierEff = Math.max(0, tierBase + tierMod);
     html += '<div class="ct-presence-row">';
-    html += '<span class="ct-presence-label">Presence</span>';
-    html += '<span class="ct-presence-val' + (presMod < 0 ? ' ct-pres-debuff' : presMod > 0 ? ' ct-pres-buff' : '') + '">' + presEff + '</span>';
-    if (presMod !== 0) html += '<span class="ct-presence-mod">(' + (presMod > 0 ? '+' : '') + presMod + ')</span>';
+    html += '<span class="ct-presence-label">Tier</span>';
+    html += '<span class="ct-presence-val' + (tierMod < 0 ? ' ct-pres-debuff' : tierMod > 0 ? ' ct-pres-buff' : '') + '">' + tierEff + '</span>';
+    if (tierMod !== 0) html += '<span class="ct-presence-mod">(' + (tierMod > 0 ? '+' : '') + tierMod + ')</span>';
     html += '<span class="ct-presence-hint">PCs roll against this</span>';
     html += '</div>';
 

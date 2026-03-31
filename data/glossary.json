@@ -428,9 +428,9 @@
     "conditionType": "physical",
     "defaultDuration": "immediate",
     "fiction": "Physical coordination disrupted — a flash, concussion blast, inner ear damage, or sensory overload has compromised your body's ability to function precisely.",
-    "rule": "Physical coordination compromised. PC: Step Down the Control Die on physical rolls (Physique, Reflex-based actions). NPC: Presence -1 (physical actions). Does not stack with itself. Superseded by [Blinded]. Combined with [Rattled] to form [Stunned].",
+    "rule": "Physical coordination compromised. PC: Step Down the Control Die on physical rolls (Physique, Reflex-based actions). NPC: Tier -1 (physical actions). Does not stack with itself. Superseded by [Blinded]. Combined with [Rattled] to form [Stunned].",
     "pcEffect": "Step down Control die on physical rolls",
-    "npcEffect": "Presence -1 (physical actions)",
+    "npcEffect": "Tier -1 (physical actions)",
     "guide": "Your hands aren't listening to your brain. A flash grenade, a concussion blast, a hard knock to the skull — something has scrambled the connection between intention and execution. Your aim is off, your footwork is wrong, and everything physical is a half-step behind where it should be."
   },
   {
@@ -441,9 +441,9 @@
     "conditionType": "mental",
     "defaultDuration": "immediate",
     "fiction": "Mental focus broken — fear, confusion, demoralization, or psychological shock has disrupted your ability to think clearly and act decisively.",
-    "rule": "Mental focus compromised. PC: Step Down the Control Die on mental and social rolls (Grit, Wits, Presence-based actions). NPC: Presence -1 (mental/social actions). Does not stack with itself. Combined with [Disoriented] to form [Stunned].",
+    "rule": "Mental focus compromised. PC: Step Down the Control Die on mental and social rolls (Grit, Wits, Presence-based actions). NPC: Tier -1 (mental/social actions). Does not stack with itself. Combined with [Disoriented] to form [Stunned].",
     "pcEffect": "Step down Control die on mental/social rolls",
-    "npcEffect": "Presence -1 (mental/social actions)",
+    "npcEffect": "Tier -1 (mental/social actions)",
     "guide": "Your head isn't in the fight. Fear, confusion, a terrifying display of violence — something has cracked your composure. You can still swing a blade or pull a trigger, but trying to think, persuade, or keep your nerve? That's where the cracks show."
   },
   {
@@ -454,9 +454,9 @@
     "conditionType": "buff",
     "defaultDuration": "immediate",
     "fiction": "Everything has clicked into place — position, angle, timing. A state of tactical or psychological advantage.",
-    "rule": "Tactical advantage. PC: Step Up the Control Die (source specifies scope — a single Arena, specific action, or Universal). Does not stack with itself. NPC: Presence +1 (scoped). Each instance tracked with source, scope, duration, and recovery.",
+    "rule": "Tactical advantage. PC: Step Up the Control Die (source specifies scope — a single Arena, specific action, or Universal). Does not stack with itself. NPC: Tier +1 (scoped). Each instance tracked with source, scope, duration, and recovery.",
     "pcEffect": "Step up Control die (scoped)",
-    "npcEffect": "Presence +1 (scoped)",
+    "npcEffect": "Tier +1 (scoped)",
     "guide": "Everything clicks. The angle is perfect, the target is wide open, and you can see exactly what needs to happen. Don't waste it."
   },
   {
@@ -580,9 +580,9 @@
     "conditionType": "physical",
     "defaultDuration": "immediate",
     "fiction": "Your visual input is gone — smoke, sand, a spiked visor, or physical damage to the eyes. This is an environmental or physical reality.",
-    "rule": "Visual input compromised. PC: Cannot make targeted Ranged attacks. Step Down the Control Die on all physical actions. Supersedes [Disoriented]. NPC: Cannot make targeted Ranged attacks. Presence -1 (physical actions). Supersedes [Disoriented].",
+    "rule": "Visual input compromised. PC: Cannot make targeted Ranged attacks. Step Down the Control Die on all physical actions. Supersedes [Disoriented]. NPC: Cannot make targeted Ranged attacks. Tier -1 (physical actions). Supersedes [Disoriented].",
     "pcEffect": "No targeted ranged. Step down Control die all physical",
-    "npcEffect": "No targeted ranged. Presence -1 (physical)",
+    "npcEffect": "No targeted ranged. Tier -1 (physical)",
     "guide": "Visor spiked, smoke in your eyes, sand in your face — doesn't matter how it happened. What matters is you can't aim at what you can't see."
   },
   {
@@ -643,7 +643,7 @@
     "fiction": "A concussive impact has disrupted both body and mind — nervous system scrambled, thoughts lagging. Everything is compromised.",
     "rule": "Combined condition: [Disoriented] + [Rattled] from a single source, with shared duration and recovery. The mechanical effects of both component conditions apply and stack naturally. Physical actions: -1 from [Disoriented]. Mental/social actions: -1 from [Disoriented] AND -1 from [Rattled] = -2 total. Clearing [Stunned] clears both components.",
     "pcEffect": "Step down Control die on ALL rolls (physical -1, mental/social -2)",
-    "npcEffect": "Presence -1 (all), additional Presence -1 (mental/social)",
+    "npcEffect": "Tier -1 (all), additional Tier -1 (mental/social)",
     "guide": "Your head is ringing. The lights are too bright. Everything is slightly behind where it should be. Body and mind both took the hit. You're still in the fight — you just need a moment your enemy is absolutely not going to give you."
   },
   {
@@ -660,7 +660,7 @@
     "fiction": "Caught completely off guard — the enemy struck before you knew they were there. Your coordination is shot and your defenses are wide open.",
     "rule": "Combined condition: [Disoriented] + [Exposed] applied automatically at the start of combat when caught unaware. Lasts until the end of your first turn. The mechanical effects of both component conditions apply. Cannot act during the surprise round. Clearing [Surprised] clears both components at end of first turn.",
     "pcEffect": "Step down Control die on physical rolls + incoming attacks step up 1 tier (until end of first turn)",
-    "npcEffect": "Presence -1 (physical) + PC attacks step up 1 tier (until end of first turn)",
+    "npcEffect": "Tier -1 (physical) + PC attacks step up 1 tier (until end of first turn)",
     "guide": "You didn't see it coming. The ambush, the betrayal, the thing in the shadows — it got the drop on you. Your body hasn't caught up to the danger yet. By the time your first turn ends, the adrenaline kicks in and the components clear. Until then, you're reacting late and exposed."
   },
   {
@@ -1004,9 +1004,9 @@
     "conditionType": "debuff",
     "defaultDuration": "tactical",
     "fiction": "The ship's sensor suite is flooded with garbage data. Every screen is showing false returns, every instrument is unreliable. The crew cannot trust what they are seeing — their judgment is compromised because the information they are working from is corrupted.",
-    "rule": "Applied by the Operator's Jam action. On PC ship: crew gains [Rattled] — steps down the Wits-arena Control die for all Sensor-associated actions (Operator, Co-Pilot, Engineer actions that rely on sensor data). On NPC ship: reduce Presence by 1 when taking any actions associated with the ship's Sensors. Duration: Tactical.",
+    "rule": "Applied by the Operator's Jam action. On PC ship: crew gains [Rattled] — steps down the Wits-arena Control die for all Sensor-associated actions (Operator, Co-Pilot, Engineer actions that rely on sensor data). On NPC ship: reduce Tier by 1 when taking any actions associated with the ship's Sensors. Duration: Tactical.",
     "pcEffect": "Crew gains [Rattled] for Sensor-associated actions (Wits-arena Control die stepped down)",
-    "npcEffect": "Presence -1 on Sensor-associated actions",
+    "npcEffect": "Tier -1 on Sensor-associated actions",
     "guide": "Your screens are garbage. Your comms are static. Your targeting computer is lying to you. Someone out there is very good at electronic warfare — and your crew's judgment is compromised because they cannot trust what any instrument is telling them."
   },
   {
