@@ -251,7 +251,9 @@
       }
     });
 
-    socket.emit('combat:request');
+    socket.on('session:joined', function () {
+      socket.emit('combat:request');
+    });
   }
 
   function _escHtml(s) {

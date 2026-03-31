@@ -1133,7 +1133,9 @@
         if (ctPanel) ctPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     });
-    socket.emit('combat:request-state');
+    socket.on('session:joined', function () {
+      socket.emit('combat:request-state');
+    });
   }
 
   var destinyUntapBtn = document.getElementById('gm-destiny-untap');

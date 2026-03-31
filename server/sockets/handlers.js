@@ -140,6 +140,8 @@ function registerHandlers(io) {
           console.log(`[socket] GM joined: ${socket.id}`);
         }
 
+        socket.emit('session:joined', { role, characterId: characterId || null });
+
         const stateResult = await pool.query('SELECT key, value FROM campaign_state');
         const state = stateResult.rows.reduce((acc, row) => {
           try { acc[row.key] = JSON.parse(row.value); }
