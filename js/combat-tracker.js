@@ -219,7 +219,9 @@
         if (!combatState) return;
         var pc = combatState.pcSlots.find(function (p) { return p.id === String(data.characterId); });
         if (pc) {
-          pc.conditions = (data.effects || []).map(function (e) { return e.effectId || e; });
+          var effs = data.effects || [];
+          pc.conditions = effs.map(function (e) { return e.effectId || e; });
+          pc.activeEffects = effs.filter(function (e) { return e.effectId; });
           renderCombatTracker();
         }
       }
@@ -234,7 +236,8 @@
             pc.conditions.push(condId);
           }
           if (!pc.activeEffects) pc.activeEffects = [];
-          pc.activeEffects.push(data.entry);
+          var existing = pc.activeEffects.findIndex(function (e) { return e.uid === data.entry.uid; });
+          if (existing === -1) pc.activeEffects.push(data.entry);
           renderCombatTracker();
         }
       }
@@ -678,24 +681,37 @@
     html += '<div class="ct-conditions-section">';
     html += '<div class="ct-section-label">Conditions</div>';
     html += '<div class="ct-active-conditions">';
-    if (pc.conditions && pc.conditions.length) {
+    if (pc.activeEffects && pc.activeEffects.length) {
+      pc.activeEffects.forEach(function (eff) {
+        var cid = eff.effectId || eff;
+        var def = getEffectDef(cid);
+        var label = def ? def.label : cid;
+        var color = condColor(cid);
+        var scopeStr = '';
+        if (eff.target) {
+          if (eff.target === 'fixed') scopeStr = 'fixed';
+          else if (eff.target === 'universal') scopeStr = 'all';
+          else if (typeof eff.target === 'string' && eff.target.indexOf('arena:') === 0) {
+            scopeStr = eff.target.replace('arena:', '');
+          }
+        }
+        var durMap = { immediate: '1T', tactical: 'S', lingering: 'L', ongoing: '\u221E' };
+        var durStr = durMap[eff.duration] || eff.duration || '';
+        var meta = '';
+        if (scopeStr || durStr) {
+          var parts = [];
+          if (scopeStr) parts.push(scopeStr);
+          if (durStr) parts.push(durStr);
+          meta = ' <small class="ct-dur-tag">(' + parts.join('/') + ')</small>';
+        }
+        html += '<span class="ct-condition-chip ct-pc-chip" style="background:' + color + '22;color:' + color + ';border-color:' + color + '44;">' + esc(label) + meta + '</span>';
+      });
+    } else if (pc.conditions && pc.conditions.length) {
       pc.conditions.forEach(function (cid) {
         var def = getEffectDef(cid);
         var label = def ? def.label : cid;
         var color = condColor(cid);
-        var durationTag = '';
-        if (pc.activeEffects) {
-          for (var ei = 0; ei < pc.activeEffects.length; ei++) {
-            if (pc.activeEffects[ei].effectId === cid) {
-              var d = pc.activeEffects[ei].duration;
-              if (d === 'immediate') durationTag = ' <small class="ct-dur-tag">(1T)</small>';
-              else if (d === 'persistent') durationTag = ' <small class="ct-dur-tag">(P)</small>';
-              else durationTag = ' <small class="ct-dur-tag">(S)</small>';
-              break;
-            }
-          }
-        }
-        html += '<span class="ct-condition-chip ct-pc-chip" style="background:' + color + '22;color:' + color + ';border-color:' + color + '44;">' + esc(label) + durationTag + '</span>';
+        html += '<span class="ct-condition-chip ct-pc-chip" style="background:' + color + '22;color:' + color + ';border-color:' + color + '44;">' + esc(label) + '</span>';
       });
     }
     html += '</div>';
@@ -953,9 +969,10 @@
     html += '<div class="ct-duration-row">';
     html += '<span class="ct-duration-label">Duration:</span>';
     html += '<select class="ct-duration-select" id="ct-pc-duration-select">';
-    html += '<option value="tactical">Tactical (scene)</option>';
     html += '<option value="immediate">Immediate (1 turn)</option>';
-    html += '<option value="persistent">Persistent</option>';
+    html += '<option value="tactical" selected>Tactical (scene)</option>';
+    html += '<option value="lingering">Lingering (multi-scene)</option>';
+    html += '<option value="ongoing">Ongoing (permanent)</option>';
     html += '</select>';
     html += '</div>';
     pcConditions.forEach(function (condId) {
@@ -1250,7 +1267,9 @@
         if (!combatState) return;
         var pc = combatState.pcSlots.find(function (p) { return p.id === String(data.characterId); });
         if (pc) {
-          pc.conditions = (data.effects || []).map(function (e) { return e.effectId || e; });
+          var effs = data.effects || [];
+          pc.conditions = effs.map(function (e) { return e.effectId || e; });
+          pc.activeEffects = effs.filter(function (e) { return e.effectId; });
           _origRenderCombatTracker();
           syncStateToServer();
         }
@@ -1266,7 +1285,8 @@
             pc.conditions.push(condId);
           }
           if (!pc.activeEffects) pc.activeEffects = [];
-          pc.activeEffects.push(data.entry);
+          var existing = pc.activeEffects.findIndex(function (e) { return e.uid === data.entry.uid; });
+          if (existing === -1) pc.activeEffects.push(data.entry);
           _origRenderCombatTracker();
           syncStateToServer();
         }

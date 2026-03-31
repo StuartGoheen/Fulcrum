@@ -98,7 +98,7 @@ function _getPlayerCombatState() {
     pcSlots: (_combatState.pcSlots || []).map(function (p) {
       return {
         id: p.id, name: p.name, type: 'pc', initiative: p.initiative,
-        conditions: p.conditions, surprised: p.surprised, mastery: p.mastery
+        conditions: p.conditions, activeEffects: p.activeEffects, surprised: p.surprised, mastery: p.mastery
       };
     })
   };
@@ -624,7 +624,18 @@ function registerHandlers(io) {
           s.emit('condition:applied', entry);
         });
 
+        if (_combatState && _combatState.active && _combatState.pcSlots) {
+          const pc = _combatState.pcSlots.find(p => String(p.id) === charIdStr);
+          if (pc) {
+            if (!pc.conditions) pc.conditions = [];
+            if (pc.conditions.indexOf(conditionId) === -1) pc.conditions.push(conditionId);
+            if (!pc.activeEffects) pc.activeEffects = [];
+            pc.activeEffects.push(entry);
+          }
+        }
+
         socket.emit('condition:apply-ack', { characterId: charIdStr, entry });
+        io.to('players').emit('combat:state-update', _getPlayerCombatState());
         console.log(`[socket] GM applied ${conditionId} to ${characterId}`);
       } catch (err) {
         console.error('[socket] condition:apply error:', err);
@@ -662,7 +673,23 @@ function registerHandlers(io) {
           s.emit('condition:removed', { conditionId, uid });
         });
 
+        if (_combatState && _combatState.active && _combatState.pcSlots) {
+          const pc = _combatState.pcSlots.find(p => String(p.id) === charIdStr);
+          if (pc) {
+            if (pc.activeEffects) {
+              if (uid) {
+                pc.activeEffects = pc.activeEffects.filter(e => e.uid !== uid);
+              } else if (conditionId) {
+                const idx = pc.activeEffects.findIndex(e => e.effectId === conditionId);
+                if (idx !== -1) pc.activeEffects.splice(idx, 1);
+              }
+              pc.conditions = pc.activeEffects.map(e => e.effectId);
+            }
+          }
+        }
+
         socket.emit('condition:remove-ack', { characterId: charIdStr, conditionId, uid });
+        io.to('players').emit('combat:state-update', _getPlayerCombatState());
         console.log(`[socket] GM removed ${conditionId || uid} from ${characterId}`);
       } catch (err) {
         console.error('[socket] condition:remove error:', err);
@@ -673,6 +700,15 @@ function registerHandlers(io) {
       if (socket.data.role !== 'player' || !socket.data.characterId) return;
       const charId = socket.data.characterId;
       const safeEffects = effects || [];
+
+      if (_combatState && _combatState.active && _combatState.pcSlots) {
+        const charIdStr = String(charId);
+        const pc = _combatState.pcSlots.find(p => String(p.id) === charIdStr);
+        if (pc) {
+          pc.conditions = safeEffects.map(e => e.effectId || e);
+          pc.activeEffects = safeEffects.filter(e => e.effectId);
+        }
+      }
 
       io.to('gm').emit('condition:player-sync', {
         characterId: charId,

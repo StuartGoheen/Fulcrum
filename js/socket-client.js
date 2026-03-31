@@ -316,9 +316,13 @@
         html += '<span class="pit-hp" style="color:' + hpColor + ';">' + npc.vitalityCurrent + '/' + npc.vitalityMax + '</span>';
       }
 
-      if (npc && npc.conditions && npc.conditions.length) {
+      var condList = null;
+      if (npc && npc.conditions && npc.conditions.length) condList = npc.conditions;
+      else if (pc && pc.conditions && pc.conditions.length) condList = pc.conditions;
+
+      if (condList) {
         html += '<span class="pit-conds">';
-        npc.conditions.forEach(function (c) {
+        condList.forEach(function (c) {
           html += '<span class="pit-cond">' + _escHtml(c) + '</span>';
         });
         html += '</span>';
