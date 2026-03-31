@@ -57,7 +57,9 @@ Leviathan is the Empire's ambition made physical — a weapon so large it requir
 
 **Key Moments:**
 - Adv1 S1: Crashes the heroes' table on Jakku, pitches the job
-- Adv1 P2: Flies the Banshee through the Rishi Maze, stays with the ship during the Vanishing Place infiltration, provides air support for extraction
+- Adv1 P2 S1: Invites the Ace Pilot to the co-pilot seat for the Rishi Maze. Bonding moment — teaches them to read the Maze.
+- Adv1 P2 S2: Takes shrapnel during V-wing strafing on approach. The Ace takes the stick and crash-lands the Banshee. Maya stays behind to repair and gives the heroes a secondary objective: disable the turret defenses so she can fly extraction.
+- Adv1 P2 S6: Extraction is conditional on turrets being down. If they're destroyed, she swoops in clean. If not, she takes heavy fire. Either way, she proves she's not just a grifter — she's the crew's pilot under fire.
 - Adv2: Stays with the Banshee as extraction plan during the Darga infiltration
 - Adv3 P2: Argues with Varth about the slave ship; goes silent; infiltrates the *Shackles of Nizon* voluntarily
 - Adv3 P3 S5: Breaks open comms during the orbital battle — "Hey — I could use a little more time here"
@@ -161,6 +163,25 @@ Varth used Darga's network to embezzle millions from the Empire. The stolen cred
 - Adv1 S2: Examines the code cylinder. Quotes a diagnostic fee the heroes can't afford. Offers the discount deal — reduced fee in exchange for the heroes becoming information assets for his network.
 - Adv2 S1: TC-663 (Switch's agent inside Darga's fortress) is encountered — proof that Switch's network is real and far-reaching.
 - Ongoing: Available as a contact for intel, identification, black market deals, and underworld connections.
+
+---
+
+### Vazus Mandrake
+**Species:** Human | **Role:** Separatist Holdout, Jungle Guerrilla, Conditional Ally
+
+**What the Players See:** A gaunt, dangerous figure in tattered Separatist commando gear who drops from the jungle canopy with a rifle aimed at their heads. He's been fighting a one-man guerrilla war against Skarn's occupation for three years and knows the Vanishing Place intimately. He offers a deal: guide the heroes inside through a secret drainage sluice in exchange for sabotaging the fortress generator.
+
+**What the GM Knows:** Mandrake was a Separatist commando during the Clone Wars. When the shutdown order came — when Grievous died and the Separatist Council was massacred on Mustafar — Mandrake refused to stand down. He'd spent the final year of the war deployed to Ajan Kloss, and during that time he formed deep bonds with the indigenous population of the jungle moon. When Skarn's warlord forces moved in and repurposed the old temple complex as the Vanishing Place, they displaced and brutalized the local indigenous communities. Skarn's operation — holding Imperial prisoners for profit, running biological experiments — required forced labor and territorial control. The indigenous people who resisted were rounded up and held in makeshift detention pens inside the fortress, penned behind laser fences and security doors powered by the central generator.
+
+Mandrake went native. He adopted the indigenous culture, learned their language, and became their protector. His guerrilla war isn't ideological anymore — he's not fighting for the Confederacy. He's fighting for the people who took him in when his cause died. The generator sabotage isn't about disrupting Skarn's operations in the abstract — it's about freeing his people. The generator powers four critical systems: the perimeter turret defenses, the laser fences penning the prisoners, the security doors blocking the detention area, and the sensor grid that detects movement around the fortress. Destroying it accomplishes everything Mandrake needs in one stroke.
+
+**Arc:** Ambusher → Cautious ally → Splits off to free his people → Covers the heroes' retreat → Fate determined by crew's destiny alignment
+
+**Key Moments:**
+- Adv1 P2 S3: Ambushes the heroes in the jungle. Tests them. Offers the deal: guidance for generator sabotage.
+- Adv1 P2 S3: Reveals his motivation — the indigenous prisoners. His people. Not generic revenge against Skarn.
+- Adv1 P2 S4: Leads the heroes through the drainage sluice into the fortress. Splits off to position himself near the detention pens, ready to free the prisoners once the generator goes down.
+- Adv1 P2 S6: Covers the heroes' retreat during the climax. His survival is destiny-gated: if the crew is Hope-dominant, Mandrake escapes into the jungle with his people; if the crew is Toll-dominant, Inquisitor Draco cuts him down as the Banshee lifts off.
 
 ---
 
@@ -271,19 +292,25 @@ Varth did his research before sending the heroes to Takodana. He knew Raden was 
 - Maya reveals she's been tracking an Imperial shuttle on the Niima Landing Field
 - Ganga Lor attacks Switch's bunker — Darga wants the cylinder because it could lead someone to Varth before Darga gets to him (Darga needs Varth alive to unlock the encrypted account). **Ganga Lor is killed in the fight.**
 - The Heist: heroes infiltrate the landing field, use the cylinder to access the shuttle's nav computer, download coordinates for the Vanishing Place
-- Maya flies the Banshee through the Rishi Maze to Ajan Kloss
-- Jungle trek, alliance with Vazus Mandrake, infiltration of the Vanishing Place
-- Varth is found gambling with his guards. "You're late."
-- Three-way climax: Imperials vs. Skarn's warlord forces vs. heroes. Inquisitor Draco arrives — overwhelming, unbeatable, must flee.
-- Maya provides air support and extraction in the Banshee
+- **Co-Pilot Dynamic:** Maya invites the Ace Pilot to the co-pilot seat for the Rishi Maze run. Bonding moment between Maya and the crew as she teaches them to read the Maze. This is the Ace spotlight — they're not passengers, they're flying.
+- **Maya Wounded:** During the Ajan Kloss approach, V-wing strafing damages the Banshee. Maya takes shrapnel — a serious wound. The Ace takes the stick and brings the Banshee down in a controlled crash. Maya stays behind to repair the ship and gives the heroes a secondary objective: disable the perimeter turret defenses so she can fly the extraction safely.
+- **Mandrake's Deal (Revised):** Mandrake's motivation is personal — he's protecting indigenous locals who were rounded up and imprisoned by Skarn after they resisted the occupation. The generator powers four systems: turret defenses, laser fences penning prisoners, security doors blocking the detention area, and the sensor grid. Sabotage serves four purposes: honors Mandrake's deal (frees the prisoners), clears Maya's flight path (turrets down), opens the detention block (security doors down), and creates chaos cover.
+- **Mandrake Splits Off:** Inside the fortress, Mandrake separates to position himself near the detention pens, ready to free his people when the generator goes down. Heroes proceed to find Varth.
+- Varth is found gambling with his guards. "You're late." He carries nothing physical — his authentication key for the encrypted account is memorized.
+- **Conditional Extraction:** Maya's extraction depends on whether the turrets were destroyed. If the generator was sabotaged, Maya swoops in clean. If the turrets are still active, she takes heavy fire and the extraction is far more dangerous.
+- **Mandrake's Fate (Destiny-Gated):** During the retreat, Mandrake covers the heroes' escape. If the crew is Hope-dominant, Mandrake escapes into the jungle with his freed people. If the crew is Toll-dominant, Inquisitor Draco cuts him down as the Banshee lifts off — a cost the heroes witness.
+- Inquisitor Draco arrives — overwhelming, unbeatable, must flee. First encounter establishes recurring threat.
 
 **What Changes by the End:**
 - Heroes have Varth (their employer and secret manipulator)
 - Heroes have the Banshee (Maya's ship) as transport
 - Heroes have an ongoing deal with Switch — information assets in exchange for reduced fees, intel compensation, and black market access
 - **Ganga Lor is dead** — killed at Switch's bunker
+- Maya is wounded but alive — her trust in the crew is deepened by how they handled the crash and turret objective
 - Varth reveals: "The money is locked inside Darga's network. I have the key, but the Hutt moved the account after I was captured. We need to get inside his operation."
 - First encounter with Inquisitor Draco establishes recurring threat
+- Mandrake's fate is determined by crew destiny alignment (Hope = survives; Toll = killed by Draco)
+- Indigenous prisoners freed (if generator sabotaged) — establishes the crew's capacity for doing right even when it costs them
 
 **Open Threads Carried Forward:**
 - Encrypted account in Darga's network (→ Adv2-3)
@@ -291,11 +318,13 @@ Varth did his research before sending the heroes to Takodana. He knew Raden was 
 - Inquisitor Draco (→ ongoing)
 - Darga as antagonist (→ Adv2-3)
 - Switch's intelligence network / info broker deal (→ ongoing)
+- Vazus Mandrake (→ potential return in Act 3 if Hope-dominant)
 
 **Threads Resolved:**
 - Code cylinder (used and dead)
 - Vanishing Place / Varth's rescue
 - Ganga Lor (killed at Switch's bunker)
+- Indigenous prisoner situation (resolved via generator sabotage, if completed)
 
 ---
 
@@ -662,7 +691,7 @@ All previously flagged characters and threads have been resolved with final disp
 | **Warrick Raden** | Adv2 S6 | **DEAD.** Found in Darga's dungeons, rescued by heroes, then executed by Varth at the hangar. "I told you the next time I saw you, I would kill you." Backstory: Raden was Varth's middleman in the embezzlement pipeline. After Varth went dark, Raden tried to skim from Darga on his own, got caught, earned a bounty. Varth sent the heroes to find him because a desperate man with inside knowledge is the perfect entry ticket — then killed him because he was a liability who knew too much. Second major Varth red flag. |
 | **Igren Demos** | Adv2 S5 | **DEAD.** Killed during the heroes' escape with Denia. Mini-boss fight — uses untrained Force Slam to block the corridor. His death is tragic: he was fighting to turn Denia over to the Inquisitorius to buy his way into Imperial favor, but the Empire would never accept a Neimoidian. He died chasing a reward he'd never receive. Denia senses his untrained Force sensitivity as he falls. |
 | **Ganga Lor** | Adv1 S3 | **DEAD.** Killed at Switch's bunker when he attacks to recover the code cylinder. |
-| **Vazus Mandrake** | Adv1 P2 S3 | **POTENTIAL RETURN.** Separatist holdout on Ajan Kloss. Disposition depends on table chemistry and player interaction. Could reappear as a Rebel contact in Act 3 if needed. Left open. |
+| **Vazus Mandrake** | Adv1 P2 S6 | **DESTINY-GATED SURVIVAL.** Separatist commando gone native on Ajan Kloss. Adopted indigenous culture, protects local population from Skarn's occupation. Fought alongside heroes at the Vanishing Place, covered their retreat during extraction. **Hope-dominant crew:** Mandrake escapes into the jungle with his freed people. Available as a Rebel contact in Act 3. **Toll-dominant crew:** Inquisitor Draco cuts him down as the Banshee lifts off. The heroes watch him die covering their escape. Either outcome carries weight — survival rewards the crew's compassion; death is a consequence they carry. |
 | **Silas Draver** | Adv3 P2 S4 | **POTENTIAL RETURN IN ACT 3.** Independent heist specialist. His status after the casino firefight determines availability. Natural recruit for the pirate fleet assembly on Batuu (Adv8). |
 | **Lady Sinde** | Adv2 S2, S6 | **RECURRING — KEPT.** Imperial logistics officer tied to the Leviathan supply chain. She negotiated supplies with Darga and executed witnesses in the hangar. Available for Adv5 (Malpaz), Adv6 (Eriadu), or wherever an Imperial supply chain presence is needed. She knows the operational side of Leviathan. |
 | **Switch / TC-663 network** | Adv1 S2, Adv2 S1 | **RECURRING — KEPT.** Switch is now a recurring information broker and black market fixer. His deal with the heroes (reduced fees in exchange for passing along validated intel) establishes an ongoing transactional relationship. TC-663 inside Darga's fortress is proof of his network's reach. Switch serves as the heroes' contact for intel, identification, black market gear, and underworld connections throughout the campaign. |

@@ -2266,22 +2266,23 @@
           "id": "adv1-p2-s1",
           "number": 1,
           "title": "The Banshee",
-          "readAloud": "Maya banks the Banshee hard as you clear Jakku's atmosphere, the desert world shrinking behind you. She's already plotting the jump — not to a standard hyperspace lane, but to the Rishi Maze, a tangle of unstable routes that only the desperate or the skilled attempt.\n\n\"The Empire patrols the main lanes out of Arkanis Sector,\" she says, not looking up from the nav computer. \"We go through the Maze or we don't go at all.\"\n\nThe Rishi Maze is a nightmare of gravity shadows, rogue comets, and collapsed hyperspace tunnels. Maya flies with a confidence that borders on recklessness — threading corridors that would shred a capital ship, reading the Maze like she's done it before.\n\nWhen you finally drop out of hyperspace, the viewport fills with green. Ajan Kloss — a jungle moon orbiting a gas giant in the Cademimu Sector. And in orbit, barely visible against the planet's curve, the angular silhouette of a Victory-class Star Destroyer.",
-          "gmNotes": "Maya owns and flies the Banshee. She is the pilot for the entire campaign. This scene establishes her competence and her ship.\n\nTHE RISHI MAZE: A hazardous hyperspace route that avoids Imperial patrols. Maya has run it before — she's a smuggler, and the Maze is how the Outer Rim moves contraband. The heroes can assist with the navigation (Piloting checks) but Maya handles the flying.\n\nAJAN KLOSS APPROACH: Upon arrival, the heroes detect a Victory-class Star Destroyer in orbit and V-wing patrols. The Vanishing Place is on the surface. Landing must avoid Imperial detection — Maya identifies a canyon approach that masks their signature from orbital sensors.\n\nNARRATIVE FUNCTION: This scene transitions from Part 1 to Part 2. It establishes:\n1. Maya as the crew's pilot and ship owner\n2. The Banshee as the party's transport\n3. The Imperial military presence at Ajan Kloss\n4. The urgency — Varth is being held at the Vanishing Place and the Empire is about to take custody",
+          "readAloud": "Maya banks the Banshee hard as you clear Jakku's atmosphere, the desert world shrinking behind you. She's already plotting the jump — not to a standard hyperspace lane, but to the Rishi Maze, a tangle of unstable routes that only the desperate or the skilled attempt.\n\n\"The Empire patrols the main lanes out of Arkanis Sector,\" she says, not looking up from the nav computer. \"We go through the Maze or we don't go at all.\"\n\nThen she glances at the co-pilot seat — empty — and back at one of you. A half-smile. \"You fly, right? Get up here. I need someone on the secondaries who knows what a yaw compensator does.\"\n\nThe Rishi Maze is a nightmare of gravity shadows, rogue comets, and collapsed hyperspace tunnels. Maya flies with a confidence that borders on recklessness — but she's teaching as she goes, calling out readings, sharing the stick on the tight corrections. Threading corridors that would shred a capital ship, reading the Maze like she's done it before — and for the first time, letting someone else read it with her.\n\nWhen you finally drop out of hyperspace, the viewport fills with green. Ajan Kloss — a jungle moon orbiting a gas giant in the Cademimu Sector. And in orbit, barely visible against the planet's curve, the angular silhouette of a Victory-class Star Destroyer.",
+          "gmNotes": "Maya owns and flies the Banshee. She is the pilot for the entire campaign. This scene establishes her competence, her ship, and the co-pilot dynamic with the Ace.\n\nCO-PILOT SEAT: Maya invites whoever has piloting skill (ideally the party's Ace Pilot) to sit co-pilot. This is NOT a test — it's a genuine invitation born from practicality and the beginnings of trust. She teaches them to read the Maze, calls out corrections, shares the stick on tight maneuvers. This is the Ace Pilot's first spotlight moment. If no one has piloting skill, Maya handles it solo but comments that she could use a co-pilot — planting the seed.\n\nBONDING MOMENT: The Rishi Maze run is a crucible. Maya and the co-pilot are working in sync under pressure — and Maya lets her guard down. She stops performing the 'cool smuggler' act and becomes someone focused, skilled, and genuinely collaborative. This is the first real human connection she makes with the crew.\n\nTHE RISHI MAZE: A hazardous hyperspace route that avoids Imperial patrols. Maya has run it before — she's a smuggler, and the Maze is how the Outer Rim moves contraband. The Ace co-pilot makes real contributions: calling out gravity shadows, adjusting deflector angles, managing power distribution.\n\nAJAN KLOSS APPROACH: Upon arrival, the heroes detect a Victory-class Star Destroyer in orbit and V-wing patrols. The Vanishing Place is on the surface. Landing must avoid Imperial detection — Maya identifies a canyon approach that masks their signature from orbital sensors.\n\nNARRATIVE FUNCTION: This scene transitions from Part 1 to Part 2. It establishes:\n1. Maya as the crew's pilot and ship owner\n2. The co-pilot dynamic — the Ace is not a passenger, they're crew\n3. The Banshee as the party's transport\n4. The Imperial military presence at Ajan Kloss\n5. The urgency — Varth is being held at the Vanishing Place and the Empire is about to take custody",
           "npcs": [
             {
               "name": "Maya",
               "type": "Smuggler / Pilot",
               "count": 1,
-              "notes": "Owner and pilot of the Banshee. Confident, skilled, increasingly invested in the crew.",
-              "behavior": "All business during the Maze run. Focused, precise, occasionally cracking dark humor about the route. After arrival, shifts to tactical — assessing the orbital situation and planning the landing approach.",
+              "notes": "Owner and pilot of the Banshee. Confident, skilled, increasingly invested in the crew. Invites the Ace to co-pilot.",
+              "behavior": "Invites the Ace to co-pilot. Teaching mode during the Maze — calling out readings, sharing the stick, letting her guard down. This is the first time she treats someone like crew instead of a passenger. After arrival, shifts to tactical — assessing the orbital situation and planning the landing approach.",
               "dialogue": [
                 "\"The Empire patrols the main lanes out of Arkanis Sector. We go through the Maze or we don't go at all.\"",
-                "\"Hold onto something. The next corridor is... creative.\"",
+                "\"You fly, right? Get up here. I need someone on the secondaries who knows what a yaw compensator does.\"",
+                "\"See that gravity shadow? Call it out before I hit it next time. That's what co-pilots do.\"",
                 "\"Victory-class in orbit. V-wing patrols. Someone important is down there — or someone important is coming to collect.\"",
                 "\"I can get us down through the canyon approach. Their sensors won't pick us up in the magnetic interference. Probably.\""
               ],
-              "intel": "Maya has run the Rishi Maze before — smuggling routes. She knows the Banshee's limits and pushes them. She has no idea what the Vanishing Place is, but the Imperial presence tells her it matters.",
+              "intel": "Maya has run the Rishi Maze before — smuggling routes. She knows the Banshee's limits and pushes them. She has no idea what the Vanishing Place is, but the Imperial presence tells her it matters. The co-pilot invitation is genuine — she needs the help and she's starting to trust the crew.",
               "threatBuild": {
                 "role": "operative",
                 "tier": 1,
@@ -2507,8 +2508,8 @@
               "name": "The Rishi Maze",
               "type": "technical",
               "trigger": "Departing Jakku",
-              "description": "Maya navigates the Banshee through the Rishi Maze — a hazardous hyperspace route that avoids Imperial patrols. Heroes can assist with Piloting or Tech checks. Failure means hull damage and a rough exit.",
-              "tactics": "Maya handles primary piloting. Heroes assist. The Maze is unpredictable — gravity wells, debris fields, and collapsed tunnels require quick reactions."
+              "description": "Maya navigates the Banshee through the Rishi Maze with the Ace in the co-pilot seat. This is a shared piloting experience — Maya on primaries, the Ace on secondaries. Maya teaches as she flies, calling out readings and sharing the stick on tight corrections. Failure means hull damage and a rough exit.",
+              "tactics": "Maya handles primary piloting. The Ace co-pilot makes real contributions: calling out gravity shadows, adjusting deflector angles, managing power distribution. Other heroes can assist with Tech or Gunnery checks. The Maze is unpredictable — gravity wells, debris fields, and collapsed tunnels require quick reactions."
             },
             {
               "id": "enc-s5-approach",
@@ -2523,9 +2524,9 @@
             {
               "id": "sc-s5-piloting-maze",
               "discipline": "piloting",
-              "context": "Assisting Maya through the Rishi Maze.",
-              "success": "Clean transit. No hull damage. Arrive ahead of schedule.",
-              "failure": "Rough exit. Minor hull damage. The Banshee needs field repairs.",
+              "context": "Co-piloting with Maya through the Rishi Maze. The Ace handles secondaries — deflectors, power distribution, calling out hazards.",
+              "success": "Clean transit. No hull damage. Arrive ahead of schedule. Maya nods at the co-pilot with genuine respect.",
+              "failure": "Rough exit. Minor hull damage. The Banshee needs field repairs. Maya corrects without judgment — 'You'll get it next time.'",
               "tier": 1,
               "power": 2
             },
@@ -2602,21 +2603,23 @@
           "id": "adv1-p2-s2",
           "number": 2,
           "title": "The Crash",
-          "readAloud": "You break the cloud layer and the lush, overgrown jungle of Ajan Kloss rushes up to meet you. The moon is a Green Hell — massive ancient trees, fungal overgrowth, and air so thick with humidity your viewport fogs instantly.\n\nMaya fights the controls as the Banshee clips the canopy. \"The magnetic interference is worse than I thought — instruments are going haywire.\"\n\nThe landing is controlled chaos. Maya brings the Banshee down hard in a narrow clearing, shearing branches and gouging earth. The ship groans to a stop, listing to port, smoke curling from the starboard engine.\n\n\"Well,\" Maya says, wiping blood from a cut on her forehead, \"we're here. The bad news is we're walking the rest of the way. The good news is the ship's in one piece. Mostly.\"",
-          "gmNotes": "The Banshee is damaged and grounded until repairs are made. Maya stays with the ship to begin repairs — she's a pilot and knows her ship, but she needs time and a Starship Tool Kit. The heroes must proceed on foot through hostile jungle to reach the Vanishing Place.\n\nThis establishes the environmental threat of Ajan Kloss and forces the party into the jungle on foot. Maya remains with the Banshee — she'll be ready for extraction when the time comes.\n\nIMPORTANT: Maya does NOT accompany the heroes into the jungle or the fortress. She stays with the Banshee. This is both practical (someone needs to fix the ship) and narrative (she provides air support and extraction in the climax).",
+          "readAloud": "You break the cloud layer and the lush, overgrown jungle of Ajan Kloss rushes up to meet you. The moon is a Green Hell — massive ancient trees, fungal overgrowth, and air so thick with humidity your viewport fogs instantly.\n\nThen the proximity alarm screams. Two V-wings, dropping out of a patrol pattern — they've spotted you. Laser fire stitches across the Banshee's hull. The cockpit fills with sparks and the shriek of shearing metal.\n\nMaya jerks sideways in the pilot's seat. A jagged piece of shrapnel from the shattered viewport frame has punched through her left shoulder. Blood spreads fast across her flight jacket. Her hands slip on the stick.\n\n\"I can't—\" She grits her teeth, pulls her hands back from the controls. \"Take it. Take the stick. NOW.\"\n\nThe jungle rushes up. The Banshee is shuddering, starboard engine trailing smoke, and the pilot is bleeding out in the seat next to you. The canyon walls are closing in. You have maybe ten seconds to put this ship on the ground in one piece.\n\nThe landing is controlled chaos — you bring the Banshee down hard in a narrow clearing, shearing branches and gouging earth. The ship groans to a stop, listing to port.\n\nMaya is pale, pressing her hand against the wound. \"Good landing,\" she manages. \"Now get me a medpac before I pass out.\"",
+          "gmNotes": "V-WING STRAFING: Two V-wings on patrol detect the Banshee during the canyon approach and open fire. The cockpit takes damage — shrapnel from the shattered viewport frame hits Maya in the left shoulder. This is a serious wound: she's bleeding, losing grip strength, and cannot fly. The Ace Pilot (or whoever is in the co-pilot seat) must take the stick and bring the Banshee down.\n\nACE TAKES THE STICK: This is THE Ace Pilot spotlight moment. Maya is wounded and physically cannot fly. The Ace must perform a controlled crash landing — Piloting check (Hard). Success means a clean enough landing; failure means additional hull damage and injuries. Either way, they get down alive. The GM should make this feel earned — the jungle canopy, the canyon walls, the failing instruments, the smoke.\n\nMAYA'S WOUND: Real and serious. Shrapnel to the left shoulder — not life-threatening with proper treatment, but she's lost blood and can't use her left arm fully. A Medicine check stabilizes her. She's conscious and lucid — and immediately starts thinking about repairs.\n\nMAYA STAYS BEHIND: Maya stays with the Banshee to repair. She gives the heroes TWO objectives:\n1. PRIMARY: Find and extract Varth.\n2. SECONDARY: Disable the perimeter turret defenses. Maya has detected automated turret emplacements ringing the fortress from the Banshee's damaged sensors. If those turrets are active when she tries to fly extraction, she'll be shot down. \"I can't come get you if those guns are still up. Find a way to kill them or I'm flying into a kill box.\"\n\nThis creates a hard permission gate: turrets up = dangerous extraction. Turrets down = clean extraction. This ties directly to the generator sabotage in Mandrake's deal.\n\nIMPORTANT: Maya does NOT accompany the heroes into the jungle or the fortress. She stays with the Banshee. This is both practical (someone needs to fix the ship and she's wounded) and narrative (her conditional extraction is the climax payoff).",
           "npcs": [
             {
               "name": "Maya",
               "type": "Smuggler / Pilot",
               "count": 1,
-              "notes": "Stays with the Banshee to repair. Establishes comlink contact for updates.",
-              "behavior": "Pragmatic. Assesses damage quickly. Tells the heroes to go — she'll have the ship ready. Maintains comlink contact throughout the trek.",
+              "notes": "Wounded — shrapnel to left shoulder. Stays with the Banshee to repair. Gives heroes the turret objective.",
+              "behavior": "In pain but focused. Gets stabilized, then immediately shifts to ship assessment. Gives the heroes two objectives: get Varth AND disable the turret defenses. She's not asking — she's telling them what she needs to stay alive during extraction.",
               "dialogue": [
-                "\"The starboard engine took the worst of it. I can fix it, but I need time. And tools.\"",
-                "\"Go. Find your admiral. I'll have the Banshee flight-ready when you need me.\"",
+                "\"Good landing. Now get me a medpac before I pass out.\"",
+                "\"The starboard engine took the worst of it. I can fix it, but I need time. And tools. And for someone to stop the bleeding.\"",
+                "\"Listen — I picked up turret emplacements on the approach. Automated defense grid ringing the fortress. If those are still active when I come to get you, I'm flying into a kill box. You need to find a way to shut them down.\"",
+                "\"Go. Find your admiral. Kill those turrets. I'll have the Banshee ready.\"",
                 "\"Keep your comlink on. If things go sideways, I want to know about it before the shooting stops.\""
               ],
-              "intel": "Maya estimates 12-18 hours for repairs with proper tools. Without a Starship Tool Kit, all repair rolls are stepped down.",
+              "intel": "Maya estimates 12-18 hours for repairs with proper tools. Without a Starship Tool Kit, all repair rolls are stepped down. Her wound is stabilized but she's operating one-handed. The turret defense grid she detected is powered by the fortress generator — but she doesn't know that yet.",
               "threatBuild": {
                 "role": "operative",
                 "tier": 1,
@@ -2803,15 +2806,19 @@
               ]
             }
           ],
-          "hazards": "Crash landing — ship damage, potential injuries. Dense jungle terrain ahead. Perimeter defense turrets.",
+          "hazards": "V-wing strafing run. Crash landing — ship damage, Maya wounded. Dense jungle terrain ahead. Perimeter defense turrets.",
           "decisions": [
             {
               "choice": "Leave Maya with tools and supplies",
-              "consequence": "Repairs proceed at normal pace. Banshee will be ready for extraction."
+              "consequence": "Repairs proceed at normal pace. Banshee will be ready for extraction — if the turrets are down."
             },
             {
               "choice": "Split the party — some stay to help repair",
-              "consequence": "Faster repairs but fewer fighters for the fortress infiltration."
+              "consequence": "Faster repairs but fewer fighters for the fortress infiltration and turret objective."
+            },
+            {
+              "choice": "Prioritize the turret objective alongside the rescue",
+              "consequence": "More complex infiltration but Maya can extract safely. Ties into Mandrake's generator deal."
             }
           ],
           "loreTags": [
@@ -2840,29 +2847,37 @@
           ],
           "encounters": [
             {
+              "id": "enc-s6-strafing",
+              "name": "V-Wing Strafing Run",
+              "type": "combat",
+              "trigger": "During canyon approach to landing zone",
+              "description": "Two V-wings detect the Banshee and open fire. Cockpit takes shrapnel damage. Maya is hit — serious wound to left shoulder. She cannot fly. The Ace must take the stick.",
+              "tactics": "This is not a dogfight — the Banshee is damaged, in a canyon, and descending. The V-wings make one strafing pass. The real challenge is landing the ship, not shooting back."
+            },
+            {
               "id": "enc-s6-crash",
               "name": "The Hard Landing",
               "type": "technical",
-              "trigger": "Approaching the landing zone",
-              "description": "Magnetic interference disrupts instruments. Maya brings the Banshee down hard. The ship is damaged but intact. Assessment and triage.",
-              "tactics": "Piloting check to mitigate crash damage. Medicine for injuries. Tech for initial damage assessment."
+              "trigger": "Immediately after Maya is hit",
+              "description": "The Ace takes the stick from wounded Maya and must perform a controlled crash landing. Jungle canopy, canyon walls, failing instruments, smoke. This is the Ace Pilot spotlight — they save the ship and everyone aboard.",
+              "tactics": "Piloting check (Hard) to land clean. Failure = additional hull damage and injuries but they survive. Make this feel earned."
             },
             {
               "id": "enc-s6-triage",
-              "name": "Damage Assessment",
+              "name": "Triage and Objectives",
               "type": "survival",
               "trigger": "After the crash",
-              "description": "The Banshee needs starboard engine repairs. Maya stays with the ship. Heroes must proceed on foot.",
-              "tactics": "Leave Maya with a Starship Tool Kit if available. Establish comlink protocols. Choose the jungle route."
+              "description": "Stabilize Maya (Medicine). Assess Banshee damage (Tech). Maya gives the heroes their objectives: find Varth AND disable the turret defenses so she can fly extraction. Leave her with tools and proceed on foot.",
+              "tactics": "Leave Maya with a Starship Tool Kit if available. Establish comlink protocols. The turret objective connects to the generator sabotage — but the heroes don't know that yet."
             }
           ],
           "skillChecks": [
             {
               "id": "sc-s6-piloting",
               "discipline": "piloting",
-              "context": "Mitigating crash damage during the hard landing.",
-              "success": "Controlled landing. Minimal damage. Repairs take less time.",
-              "failure": "Hard crash. Additional hull damage. Repairs take longer.",
+              "context": "The Ace takes the stick from wounded Maya and performs a controlled crash landing through jungle canopy.",
+              "success": "Controlled landing. Minimal damage. The Ace just saved everyone. Maya: 'Good landing.'",
+              "failure": "Hard crash. Additional hull damage and injuries. But they're alive. Maya: 'We're down. That's what matters.'",
               "tier": 1,
               "power": 2
             },
@@ -2914,16 +2929,17 @@
             "intel": [
               "Banshee repair estimate: 12-18 hours",
               "Vanishing Place is approximately 15 km through dense jungle",
-              "Maya will maintain comlink contact and be ready for extraction"
+              "Turret defense grid detected — must be disabled for safe extraction",
+              "Maya will maintain comlink contact and be ready for extraction once turrets are down"
             ],
             "connections": []
           },
           "pacing": {
-            "openingBeat": "Break the cloud layer. Magnetic interference. The landing goes wrong.",
-            "risingAction": "Crash assessment. Injuries. Damage evaluation.",
-            "climax": "The choice: leave Maya with the ship, proceed into the jungle.",
-            "resolution": "Heroes set out on foot. The Green Hell swallows them.",
-            "estimatedMinutes": 20
+            "openingBeat": "Break the cloud layer. V-wings spot them. Laser fire.",
+            "risingAction": "Maya takes shrapnel. The Ace takes the stick. Controlled crash through jungle canopy.",
+            "climax": "Triage. Maya gives the dual objectives: rescue Varth AND disable the turret defenses.",
+            "resolution": "Heroes set out on foot with two missions. The Green Hell swallows them.",
+            "estimatedMinutes": 25
           },
           "knackTags": [
             "traumatized",
@@ -2954,21 +2970,23 @@
           "id": "adv1-p2-s3",
           "number": 3,
           "title": "The Jungle Trek",
-          "readAloud": "The jungle is alive — and hungry. Every step forward is a negotiation with the terrain. Acid pools disguised as standing water hiss when a thrown rock disturbs them. Fungal blooms the size of speeder bikes pulse with a sickly bioluminescence, and you quickly learn that disturbing them triggers a violent detonation of toxic spores.\n\nThen the ambush comes — not from Imperials, but from a ghost. A lone figure in tattered Separatist commando gear drops from the canopy, rifle aimed at your heads.",
-          "gmNotes": "Environmental hazards: Acid Pools (disguised as standing water) and Exploding Fungus Blooms (detonate when disturbed). The ambusher is Vazus Mandrake, a Separatist Holdout Commando who refused the shutdown order 3 years ago. He's been waging guerilla war against Skarn. Once convinced the heroes are against the Empire, he agrees to guide them to a secret drainage sluice into the fortress — in exchange for sabotaging the facility's generator.",
+          "readAloud": "The jungle is alive — and hungry. Every step forward is a negotiation with the terrain. Acid pools disguised as standing water hiss when a thrown rock disturbs them. Fungal blooms the size of speeder bikes pulse with a sickly bioluminescence, and you quickly learn that disturbing them triggers a violent detonation of toxic spores.\n\nThen the ambush comes — not from Imperials, but from a ghost. A lone figure drops from the canopy — lean, hard, wearing tattered Separatist commando gear patched with strips of woven plant fiber and beadwork you don't recognize. Indigenous craftsmanship. Whoever this man is, he's been here a long time.\n\nHis rifle is aimed at your heads. But his finger isn't on the trigger. He's studying you.",
+          "gmNotes": "Environmental hazards: Acid Pools (disguised as standing water) and Exploding Fungus Blooms (detonate when disturbed). The ambusher is Vazus Mandrake, a Separatist Holdout Commando who refused the shutdown order 3 years ago. He's gone native — adopted the indigenous culture of Ajan Kloss, learned their language, wears their craftsmanship woven into his old gear.\n\nMANDRAKE'S MOTIVATION (REVISED): Mandrake is NOT fighting a generic guerrilla war against Skarn. He's protecting the indigenous people of Ajan Kloss who took him in after his cause died. When Skarn's warlord forces occupied the Vanishing Place, they displaced local indigenous communities and rounded up those who resisted. These prisoners are held inside the fortress behind laser fences and security doors — all powered by the central generator.\n\nMandrake's deal is personal: guide the heroes inside through a secret drainage sluice in exchange for sabotaging the generator. The generator powers FOUR critical systems: (1) perimeter turret defenses, (2) laser fences penning the prisoners, (3) security doors blocking the detention area, and (4) the sensor grid. Destroying it accomplishes everything: honors his deal (frees the prisoners), clears Maya's extraction flight path (turrets down), opens access to the detention block (security doors down), and creates chaos cover.\n\nTHE FOUR-PURPOSE CONVERGENCE: When the heroes learn about the generator from Mandrake, they should realize that sabotaging it also solves Maya's turret problem from Scene 2. One action, four payoffs. This is the moment the plan clicks together.\n\nOnce convinced the heroes are against the Empire (or at least against Skarn), Mandrake reveals the full picture. He's been planning this for years but lacked the firepower to do it alone.",
           "npcs": [
             {
               "name": "Vazus Mandrake",
               "type": "Separatist Holdout Commando",
               "count": 1,
-              "notes": "Weary veteran. Refused the CIS shutdown order. Waging guerilla war against Skarn alone for 3 years.",
-              "behavior": "Paranoid and precise. Tests the heroes before revealing himself. Ambushes from the canopy — drops down with rifle aimed. Once convinced they're anti-Empire, becomes a cautious ally.",
+              "notes": "Separatist commando gone native. Adopted indigenous culture of Ajan Kloss. Protects local population from Skarn's occupation. Wears CIS gear patched with indigenous beadwork and woven plant fiber.",
+              "behavior": "Paranoid and precise. Tests the heroes before revealing himself. Ambushes from the canopy — drops down with rifle aimed but finger off the trigger. Once convinced they're against Skarn, reveals his real motivation: freeing indigenous prisoners held inside the fortress. Becomes a cautious but genuine ally. Speaks with deep conviction about 'his people' — and he means the locals, not the Separatists.",
               "dialogue": [
                 "\"Don't move. I've had a bead on you since the river crossing.\"",
-                "\"You're going to The Vanishing Place? Then we have a common interest. Skarn took something from me too.\"",
-                "\"I know a way in — a drainage sluice on the northeast face. But I need something in return. The generator. I need it destroyed.\""
+                "\"You're going to The Vanishing Place? Then we have a common interest. Skarn has my people penned up inside that fortress.\"",
+                "\"When his forces moved in, the locals resisted. Skarn rounded up everyone who fought back. They're behind laser fences and locked doors — all powered by one generator.\"",
+                "\"I know a way in — a drainage sluice on the northeast face. But I need something in return. The generator. I need it destroyed. It powers the turret defenses, the fences, the security doors, and the sensor grid. One target, and everything Skarn built falls apart.\"",
+                "\"They took me in when my war ended. I won't leave them in cages.\""
               ],
-              "intel": "Mandrake knows the fortress layout intimately. He's been running recon for years. He knows guard rotations, blind spots, and the drainage sluice entrance. He also knows Vischera is conducting experiments in the Medical Bay.",
+              "intel": "Mandrake knows the fortress layout intimately. He's been running recon for years. He knows guard rotations, blind spots, the drainage sluice entrance, and critically, the generator's role in powering turrets, laser fences, security doors, and the sensor grid. He also knows Vischera is conducting experiments in the Medical Bay. His indigenous people — the locals who adopted him — are held in detention pens near the fortress's east wing.",
               "threatBuild": {
                 "role": "operative",
                 "tier": 2,
@@ -3049,12 +3067,12 @@
           "hazards": "Acid Pools disguised as standing water. Exploding Fungus Blooms that detonate when disturbed. Semi-sentient hostile flora. Lethal fauna.",
           "decisions": [
             {
-              "choice": "Accept Mandrake's deal",
-              "consequence": "He guides you to a secret entrance. You must sabotage the generator in return."
+              "choice": "Accept Mandrake's deal — sabotage the generator",
+              "consequence": "He guides you to a secret entrance. Generator sabotage frees prisoners, kills turrets (enabling Maya's extraction), drops security doors, and blinds the sensor grid. One action, four payoffs."
             },
             {
               "choice": "Refuse and find your own way in",
-              "consequence": "Much harder infiltration without a guide. The fortress is heavily fortified."
+              "consequence": "Much harder infiltration without a guide. The fortress is heavily fortified. Turrets remain active — Maya's extraction will be extremely dangerous. Prisoners remain penned."
             }
           ],
           "loreTags": [
@@ -3106,16 +3124,16 @@
               "name": "Mandrake's Ambush",
               "type": "social",
               "trigger": "After navigating through the worst of the jungle hazards",
-              "description": "A figure in tattered Separatist commando gear drops from the canopy with a rifle aimed at the heroes. This is first contact with Vazus Mandrake.",
-              "tactics": "Mandrake is testing them. He won't shoot unless they shoot first. He's been watching them navigate the jungle — their competence has already told him a lot about who they are."
+              "description": "A figure in tattered Separatist commando gear patched with indigenous beadwork drops from the canopy with a rifle aimed at the heroes. This is first contact with Vazus Mandrake — a man who went native years ago and fights for the locals, not the Confederacy.",
+              "tactics": "Mandrake is testing them. He won't shoot unless they shoot first. His finger isn't on the trigger. He's been watching them navigate the jungle — their competence has already told him a lot about who they are."
             },
             {
               "id": "enc-s7-negotiation",
               "name": "Mandrake's Deal",
               "type": "social",
               "trigger": "After Mandrake is convinced the heroes aren't Imperial",
-              "description": "Mandrake offers to guide the heroes to a secret entrance in exchange for sabotaging the fortress generator.",
-              "tactics": "Mandrake is firm but fair. He won't guide them without the deal. He's been planning this for years and needs the generator down to execute his own endgame."
+              "description": "Mandrake reveals his motivation: indigenous locals who took him in are held prisoner inside the fortress, penned behind laser fences and security doors powered by the central generator. He offers to guide the heroes inside via a drainage sluice in exchange for sabotaging the generator. The generator powers four systems: turret defenses, laser fences, security doors, and the sensor grid. This is the convergence point — one sabotage action solves Maya's turret problem, frees the prisoners, opens the detention block, and blinds the sensors.",
+              "tactics": "Mandrake is firm but fair. He won't guide them without the deal. He's been planning this for years and needs the generator down to free his people. When the heroes realize the generator also powers the turrets Maya warned them about, the deal should click."
             }
           ],
           "skillChecks": [
@@ -3199,17 +3217,19 @@
               "Guard rotation patterns",
               "Location of the drainage sluice entrance",
               "Captain Vischera's experiments in the Medical Bay",
-              "Generator location and vulnerabilities"
+              "Generator powers four systems: turrets, laser fences, security doors, sensor grid",
+              "Indigenous prisoners held in east wing detention pens",
+              "Generator sabotage = turrets down = Maya can extract safely"
             ],
             "connections": [
-              "Vazus Mandrake (guide, conditional ally — depends on sabotage deal)"
+              "Vazus Mandrake (guide, ally — adopted indigenous culture, fights for his people)"
             ]
           },
           "pacing": {
             "openingBeat": "The jungle closes in. Every step is a negotiation with the terrain.",
             "risingAction": "Environmental hazards escalate. Acid pools, fungus, hostile fauna.",
-            "climax": "Mandrake's ambush. Rifle in your face from the canopy.",
-            "resolution": "The deal is struck. Mandrake leads them toward the fortress.",
+            "climax": "Mandrake's ambush. Rifle in your face from the canopy. But his finger isn't on the trigger.",
+            "resolution": "The deal is struck — and the plan clicks. Generator sabotage solves everything: frees prisoners, kills turrets, opens doors, blinds sensors. Mandrake leads them toward the fortress.",
             "estimatedMinutes": 40
           },
           "knackTags": [
@@ -3243,7 +3263,7 @@
           "number": 4,
           "title": "The Vanishing Place — Infiltration",
           "readAloud": "From the ridge, you see the fortress. It is not a pristine Imperial garrison but a repurposed, moss-covered temple ruin fortified with scavenged Clone Wars technology. Laser fences line the perimeter. Gun emplacements squat on the walls like armored toads.\n\nAnd there, on the landing pad — a Lambda-class shuttle. A squad of pristine Stormtroopers stands at attention, a stark contrast to Skarn's grimy mercenaries. The Empire is already here.",
-          "gmNotes": "Mandrake leads the heroes through the drainage sluice into the fortress interior. Key locations: the Medical Bay (Captain Vischera conducts biological experiments on wildlife) and the Communications Center. Intercepted transmissions reveal that the Imperial officer outside is stalling — Inquisitor Valin Draco is en route to take personal custody of Varth. This creates a hard clock: grab Varth before the Inquisitor lands.",
+          "gmNotes": "Mandrake leads the heroes through the drainage sluice into the fortress interior. Once inside, Mandrake splits off — he positions himself near the east wing detention pens where his people are held, ready to move the moment the generator goes down. He tells the heroes: 'I'll be at the pens. When the lights go out, I'm getting them out. You get your admiral. We meet at the north clearing for extraction.'\n\nKey locations: the Medical Bay (Captain Vischera conducts biological experiments on wildlife), the Communications Center, and the Generator Room. Intercepted transmissions reveal that the Imperial officer outside is stalling — Inquisitor Valin Draco is en route to take personal custody of Varth. This creates a hard clock: grab Varth before the Inquisitor lands.\n\nGENERATOR SABOTAGE (UPDATED): The generator encounter now has four-purpose significance. When sabotaged, it simultaneously: (1) kills the perimeter turret defenses — clearing Maya's extraction flight path, (2) drops the laser fences penning the indigenous prisoners — enabling Mandrake's rescue, (3) unlocks the security doors blocking the detention area, and (4) blinds the sensor grid — creating chaos cover. The GM should make this payoff chain explicit when the generator blows.",
           "npcs": [
             {
               "name": "Captain Vischera",
@@ -3256,7 +3276,7 @@
                 "\"You want to know what Skarn is really doing here? I can tell you. Just don't touch my samples.\"",
                 "\"The Imperial officer in the holding cells? Charming man. Completely amoral.\""
               ],
-              "intel": "Vischera knows Draco is coming specifically for Varth. She knows Skarn is stalling the Imperial handoff to extract more payment. She's seen Varth's memorized authentication key and knows they contain financial records.",
+              "intel": "Vischera knows Draco is coming specifically for Varth. She knows Skarn is stalling the Imperial handoff to extract more payment. She knows Varth has a memorized authentication key that he considers essential — something tied to financial records — but she doesn't know the details.",
               "threatBuild": {
                 "role": "technician",
                 "tier": 1,
@@ -3504,11 +3524,11 @@
           "decisions": [
             {
               "choice": "Sabotage the generator per Mandrake's deal",
-              "consequence": "Creates chaos and a distraction. Alerts the garrison but disables many defenses."
+              "consequence": "Four-purpose payoff: kills turrets (Maya can extract), drops laser fences (prisoners freed), unlocks security doors (detention block opens), blinds sensor grid (chaos cover). Alerts the garrison but cripples their infrastructure."
             },
             {
               "choice": "Skip the sabotage and head straight for Varth",
-              "consequence": "Faster but Mandrake may refuse further help. Full security remains active."
+              "consequence": "Faster but turrets remain active (Maya's extraction becomes extremely dangerous), prisoners remain penned, Mandrake is betrayed. Full security remains active."
             }
           ],
           "loreTags": [
@@ -3569,8 +3589,8 @@
               "name": "Generator Sabotage",
               "type": "technical",
               "trigger": "If the heroes honor Mandrake's deal",
-              "description": "The fortress generator is a repurposed Clone Wars power unit. Sabotaging it kills lights, disables laser fences, and creates chaos. But it also alerts the entire garrison.",
-              "tactics": "Tech check to sabotage cleanly. The explosion is impressive and immediate. Mandrake uses the distraction for his own strike."
+              "description": "The fortress generator is a repurposed Clone Wars power unit powering four critical systems: perimeter turret defenses, laser fences penning indigenous prisoners, security doors blocking the detention area, and the sensor grid. Sabotaging it produces a four-purpose payoff: turrets die (Maya can extract), fences drop (prisoners freed), doors unlock (detention block opens), sensors blind (chaos cover). The explosion alerts the entire garrison.",
+              "tactics": "Tech check to sabotage cleanly with delayed detonation — heroes can get clear before it blows. On failure, immediate detonation catches them in the blast. Either way, when it goes: lights out, turrets dead, fences down, doors open. Mandrake moves to free his people the moment power drops."
             }
           ],
           "skillChecks": [
@@ -3604,10 +3624,10 @@
             {
               "id": "sc-s8-tech-generator",
               "discipline": "tech",
-              "context": "Sabotaging the generator per Mandrake's deal.",
-              "success": "Clean sabotage with delayed detonation — heroes can get clear before it blows.",
-              "failure": "Immediate detonation. Heroes are caught in the blast radius. Chaos starts now whether they're ready or not.",
-              "isGated": "Requires Mandrake's deal (Scene 7)",
+              "context": "Sabotaging the fortress generator. Four-purpose payoff: kills turrets, drops fences, unlocks doors, blinds sensors.",
+              "success": "Clean sabotage with delayed detonation — heroes get clear. When it blows: turrets die, fences drop, doors unlock, sensors blind. Mandrake moves to free his people.",
+              "failure": "Immediate detonation. Heroes caught in blast radius. Same four-purpose payoff, but chaos starts NOW. Mandrake still moves.",
+              "isGated": "Requires Mandrake's deal (Scene 3)",
               "tier": 1,
               "power": 0
             },
@@ -3651,18 +3671,19 @@
             "intel": [
               "Inquisitor Draco is en route — hard clock",
               "Skarn is stalling the Imperial handoff for more money",
-              "Varth has memorized authentication key he considers essential",
-              "Vischera's research hints at Project Leviathan's biological component"
+              "Varth has memorized authentication key — no physical storage",
+              "Vischera's research hints at Project Leviathan's biological component",
+              "Generator sabotage produces four-purpose payoff chain"
             ],
             "connections": [
-              "Vazus Mandrake (solidified if generator is sabotaged)",
+              "Vazus Mandrake (splits off to position at detention pens — solidified if generator is sabotaged)",
               "Captain Vischera (possible reluctant informant)"
             ]
           },
           "pacing": {
             "openingBeat": "The fortress from the ridge. Moss-covered temple ruin. Laser fences. Gun emplacements. The Lambda shuttle on the pad.",
-            "risingAction": "The sluice. The corridors. Optional encounters — medbay, comms, generator. Information and choices.",
-            "climax": "The Draco clock starts. Time is running out.",
+            "risingAction": "The sluice. Mandrake splits off to the detention pens. Corridors. Optional encounters — medbay, comms, generator. Information and choices.",
+            "climax": "Generator sabotage: the four-purpose payoff. Turrets die, fences drop, doors unlock, sensors blind. Mandrake moves to free his people. The Draco clock starts.",
             "resolution": "The heroes reach the detention block level. Varth is close.",
             "estimatedMinutes": 45
           },
@@ -3862,21 +3883,21 @@
           "environmentMechanics": [
             {
               "name": "Draco Clock (Continued)",
-              "trigger": "Active from Scene 8",
-              "effect": "The clock keeps ticking. Every detour — including the cylinder retrieval — eats into escape time.",
-              "mitigation": "Move fast. Make hard choices about what's worth the time."
+              "trigger": "Active from Scene 4",
+              "effect": "The clock keeps ticking. Every minute spent with Varth is a minute closer to Draco's arrival.",
+              "mitigation": "Move fast. Grab Varth and go."
             },
             {
               "name": "Detention Block Security",
               "trigger": "Active in the detention area",
               "effect": "Heavier guard presence than other fortress sections. Automated cell locks. Surveillance cameras.",
-              "mitigation": "Generator sabotage (if completed in Scene 8) disables most of this."
+              "mitigation": "Generator sabotage (if completed in Scene 4) disables most of this — security doors unlocked, sensors blind."
             },
             {
               "name": "Varth's Cooperation",
-              "trigger": "Conditional on cylinder retrieval",
-              "effect": "Varth fully cooperates and shares intel only if his cylinders are secured. Without them, he's sulky, uncooperative, and may try to escape on his own later.",
-              "mitigation": "Get the cylinders. Or be very persuasive."
+              "trigger": "Immediate — Varth is ready to leave",
+              "effect": "Varth carries nothing physical. His authentication key is memorized. He fully cooperates and is ready to walk immediately. No retrieval side quest — just grab him and go.",
+              "mitigation": "Varth is cooperative by default. He wants out."
             }
           ],
           "rewards": {
@@ -3897,9 +3918,9 @@
           },
           "pacing": {
             "openingBeat": "Blow the door expecting a broken man. Find Varth gambling with his guard.",
-            "risingAction": "Varth's demands. The cylinder retrieval. Time pressure mounting.",
-            "climax": "The choice: get the cylinders and risk Draco, or drag Varth out now.",
-            "resolution": "Varth is secured. The heroes have what they came for — maybe more.",
+            "risingAction": "Varth's pitch: the money, the authentication key in his head, the plan to infiltrate Darga's operation.",
+            "climax": "Time pressure from Draco's approach. Grab Varth and move.",
+            "resolution": "Varth is secured. He carries nothing but what he knows. The heroes head for extraction.",
             "estimatedMinutes": 30
           },
           "knackTags": [
@@ -3932,8 +3953,12 @@
           "number": 6,
           "title": "The Deal Gone Bad",
           "subtitle": "Climax",
-          "readAloud": "The landing pad erupts. The Stormtroopers open fire on Skarn's mercenaries. The fortress becomes a three-way warzone — Imperials, the Warlord's forces, and you caught in the middle.\n\nThen a shadow falls across the compound. A shuttle descends through the canopy — sleek, black, unmarked. The ramp drops and a dark figure emerges. Even from a distance, you feel it — a cold pressure in your chest, a wrongness that makes your teeth ache.\n\nInquisitor Draco has arrived.\n\nThe comlink crackles. Maya's voice, tense but steady: \"I see the fireworks. Banshee's in the air. Tell me where you need me.\"",
-          "gmNotes": "Three-way firefight: Imperials vs. Warlord vs. Heroes. Draco's shuttle deploys Shadow Troopers to cut off retreat. Maya swoops in with the Banshee, strafing Imperial positions and providing extraction.\n\nDRACO: Does NOT engage directly. He is glimpsed from distance — a dark figure, a presence. Force-sensitive characters feel nausea and dread. He is here for Varth but arrives too late. This is a preview, not a confrontation. If the heroes try to fight him, he is unbeatable at this level.\n\nMAYA'S EXTRACTION: Maya brings the Banshee in hot — strafing run across the Imperial perimeter, then landing on the pad for pickup. She's the extraction. This is her moment — proving she's not just a grifter with a fast mouth but a real pilot under fire.\n\nEXTRACTION SEQUENCE: The heroes must cross open ground under fire to reach the Banshee. Shadow Troopers flank from the jungle. Skarn's mercenaries are fighting the Imperials but some target the heroes opportunistically. Smoke grenades, covering fire, and speed are key.\n\nOnce aboard, Maya punches the engines and breaks atmosphere. Jump to hyperspace before the Star Destroyer can scramble TIEs.\n\nVARTH'S PITCH: In the debrief, Varth lays out the next step: 'The money is locked inside Darga's network. I have the key, but the Hutt moved the account after I was captured. We need to get inside his operation.' This sets up Adventure 2.",
+          "readAloud": "The landing pad erupts. The Stormtroopers open fire on Skarn's mercenaries. The fortress becomes a three-way warzone — Imperials, the Warlord's forces, and you caught in the middle.\n\nThen a shadow falls across the compound. A shuttle descends through the canopy — sleek, black, unmarked. The ramp drops and a dark figure emerges. Even from a distance, you feel it — a cold pressure in your chest, a wrongness that makes your teeth ache.\n\nInquisitor Draco has arrived.\n\nThe comlink crackles. Maya's voice, tense but steady: \"I see the fireworks. Banshee's patched and in the air. Tell me those turrets are down.\"",
+          "readAloudVariants": {
+            "generatorSabotaged": "From the east wing, you hear shouting — Mandrake's voice, barking orders in a language you don't recognize. He's moving. His people are moving. The laser fences are down, the security doors are open, and the turret emplacements sit dark and dead on the walls. Whatever you did to that generator, it worked.",
+            "generatorIntact": "The turret emplacements on the walls are still tracking, barrels sweeping the sky. Maya's going to fly into a kill box. From somewhere in the fortress, you hear Mandrake's voice — frustrated, urgent — still trying to reach his people through locked doors and active fences. The generator is still running. The plan didn't come together."
+          },
+          "gmNotes": "Three-way firefight: Imperials vs. Warlord vs. Heroes. Draco's shuttle deploys Shadow Troopers to cut off retreat. Maya's extraction is CONDITIONAL on turret status.\n\nCONDITIONAL EXTRACTION: If the generator was sabotaged (turrets down), Maya swoops in clean — strafing run across the Imperial perimeter, then landing at the north clearing for pickup. If the turrets are STILL ACTIVE (heroes skipped the sabotage), Maya takes heavy fire on approach. She still comes — she's not leaving them — but the Banshee takes serious damage and the extraction is far more dangerous. The GM should make the turret-down path feel like a reward for honoring Mandrake's deal.\n\nDRACO: Does NOT engage directly. He is glimpsed from distance — a dark figure, a presence. Force-sensitive characters feel nausea and dread. He is here for Varth but arrives too late. This is a preview, not a confrontation. If the heroes try to fight him, he is unbeatable at this level.\n\nMANDRAKE COVERS THE RETREAT: During the extraction, Mandrake and his freed people provide covering fire from the east wing. Mandrake personally covers the heroes' run to the Banshee — laying down suppressive fire, detonating pre-set charges, drawing Shadow Troopers away from the extraction zone.\n\nMANDRAKE'S FATE (DESTINY-GATED): The GM checks the crew's destiny alignment at this point.\n• HOPE-DOMINANT: Mandrake breaks contact successfully. As the Banshee lifts off, the heroes see him disappear into the jungle treeline with his people — a silhouette swallowed by green. He lives. He's free. He could return.\n• TOLL-DOMINANT: Mandrake is covering the last stretch when Draco's Shadow Troopers pin him down. As the Banshee lifts off, the heroes see Draco — a distant dark figure — ignite a red blade. Mandrake doesn't run. The jungle swallows the light. He dies covering their escape. The cost is real.\n\nEXTRACTION SEQUENCE: The heroes must cross open ground under fire to reach the Banshee. Shadow Troopers flank from the jungle. Skarn's mercenaries are fighting the Imperials but some target the heroes opportunistically. Mandrake's covering fire helps clear the path. Smoke grenades, covering fire, and speed are key.\n\nOnce aboard, Maya punches the engines and breaks atmosphere. Jump to hyperspace before the Star Destroyer can scramble TIEs.\n\nVARTH'S PITCH: In the debrief, Varth lays out the next step: 'The money is locked inside Darga's network. I have the key, but the Hutt moved the account after I was captured. We need to get inside his operation.' This sets up Adventure 2.",
           "npcs": [
             {
               "name": "Inquisitor Valin Draco",
@@ -4118,15 +4143,15 @@
               "name": "Maya",
               "type": "Smuggler / Pilot",
               "count": 1,
-              "notes": "Provides air support and extraction in the Banshee. Her defining moment in Adventure 1.",
-              "behavior": "Strafing runs across Imperial positions. Lands on the pad under fire. Calm under pressure — this is what she does. After extraction, she's the one flying them to safety.",
+              "notes": "Provides conditional extraction in the Banshee. Still wounded but flying one-handed. Her defining moment in Adventure 1.",
+              "behavior": "Strafing runs across Imperial positions. Extraction approach depends on turret status: clean approach if turrets are down, heavy fire if turrets are still up. Calm under pressure despite her wound — this is what she does. After extraction, she's the one flying them to safety.",
               "dialogue": [
-                "\"I see the fireworks. Banshee's in the air. Tell me where you need me.\"",
-                "\"Strafing run in three... two... GO! Move to the pad!\"",
-                "\"Everybody aboard? Hang on — this is going to be fast.\"",
+                "\"I see the fireworks. Banshee's patched and in the air. Tell me those turrets are down.\"",
+                "\"Turrets are dead? Then I'm coming in hot. Strafing run in three... two... GO! Move to the clearing!\"",
+                "\"Everybody aboard? Hang on — this is going to be fast. And someone check my shoulder — I think I reopened it.\"",
                 "\"Star Destroyer is launching fighters. Jumping in thirty seconds whether you're strapped in or not.\""
               ],
-              "intel": "Maya had the Banshee repaired and flight-ready. She monitored the Imperial comms and moved when the shooting started.",
+              "intel": "Maya had the Banshee repaired and flight-ready despite her wound. She monitored the Imperial comms and moved when the shooting started. If the turrets are down, her extraction is clean. If the turrets are up, she takes heavy fire but still comes — she's not leaving them.",
               "threatBuild": {
                 "role": "operative",
                 "tier": 1,
@@ -4316,12 +4341,16 @@
           "hazards": "Three-way firefight. Imperial walkers approaching. Shadow Troopers flanking. Time-critical extraction.",
           "decisions": [
             {
-              "choice": "Fight through to the landing pad",
-              "consequence": "Direct but dangerous — heavy Imperial presence."
+              "choice": "Fight through to the north clearing (turrets down)",
+              "consequence": "Maya extracts clean. Mandrake covers the retreat. The plan worked."
             },
             {
-              "choice": "Flee into the jungle for Maya's pickup",
-              "consequence": "Must evade Shadow Troopers in dense canopy. Maya provides strafing support."
+              "choice": "Fight through to the clearing (turrets still up)",
+              "consequence": "Maya takes heavy fire on approach. Banshee is damaged. Extraction is chaotic and costly."
+            },
+            {
+              "choice": "Flee into the jungle for an alternate pickup",
+              "consequence": "Must evade Shadow Troopers in dense canopy. Maya provides strafing support from a distance."
             }
           ],
           "loreTags": [
@@ -4329,7 +4358,9 @@
             "The Vanishing Place",
             "Maya",
             "The Banshee",
-            "Admiral Varth"
+            "Admiral Varth",
+            "Vazus Mandrake",
+            "Indigenous People of Ajan Kloss"
           ],
           "narrativeLinks": [
             {
@@ -4404,11 +4435,11 @@
             },
             {
               "id": "enc-s10-extraction",
-              "name": "Maya's Extraction",
+              "name": "Maya's Conditional Extraction",
               "type": "technical",
               "trigger": "After clearing or bypassing the Shadow Troopers",
-              "description": "Maya swoops in with the Banshee, strafing Imperial positions. The heroes must reach the clearing and board under fire. Varth provides coordinates for the hyperspace jump.",
-              "tactics": "Running to the ship while Maya covers them. Someone needs to man the dorsal turret. The ship takes hits during liftoff."
+              "description": "Maya swoops in with the Banshee. If turrets were destroyed (generator sabotaged), she comes in clean — strafing run, then landing at the north clearing. If turrets are still active, she takes heavy fire on approach and the Banshee is badly damaged. Either way, the heroes must reach the clearing and board under fire while Mandrake covers their retreat.",
+              "tactics": "Running to the ship while Maya and Mandrake cover them. Someone needs to man the dorsal turret. The ship takes hits during liftoff. Mandrake's fate plays out as the Banshee lifts off — the GM narrates the destiny-gated outcome."
             }
           ],
           "skillChecks": [
@@ -4478,10 +4509,22 @@
               "mitigation": "Leave NOW. The walkers make escape on foot nearly impossible."
             },
             {
-              "name": "Maya's Strafing Window",
+              "name": "Maya's Conditional Extraction",
               "trigger": "When heroes reach the clearing",
-              "effect": "Maya provides one strafing pass that suppresses Imperial positions for 2 rounds. After that, she has to pull up or get shot down.",
-              "mitigation": "Time the run to the clearing with Maya's pass."
+              "effect": "If turrets are down: Maya provides clean strafing pass and lands at the north clearing. If turrets are up: Maya takes heavy fire on approach — Banshee is damaged, extraction is chaotic.",
+              "mitigation": "Sabotage the generator in Scene 4 to ensure turrets are down. This is the payoff for honoring Mandrake's deal."
+            },
+            {
+              "name": "Mandrake's Cover Fire",
+              "trigger": "During the extraction run",
+              "effect": "Mandrake and his freed people provide covering fire from the east wing. Mandrake personally covers the heroes' run to the Banshee.",
+              "mitigation": "Mandrake's covering fire suppresses Shadow Troopers for 2 rounds, creating a window to reach the ship."
+            },
+            {
+              "name": "Mandrake's Fate (Destiny-Gated)",
+              "trigger": "As the Banshee lifts off",
+              "effect": "Hope-dominant crew: Mandrake escapes into the jungle with his people. Toll-dominant crew: Draco cuts Mandrake down as the Banshee lifts off. The heroes witness the outcome.",
+              "mitigation": "This is not a choice — it's a consequence of the crew's cumulative destiny alignment."
             }
           ],
           "rewards": {
@@ -4491,18 +4534,20 @@
               "Inquisitor Draco is real — and terrifying",
               "The Empire invested military resources to hold Varth",
               "Varth's pitch: the money is in Darga's network, need to infiltrate his operation",
-              "Maya proved herself under fire — she's the crew's pilot"
+              "Maya proved herself under fire — she's the crew's pilot",
+              "Mandrake's fate determined by crew destiny alignment"
             ],
             "connections": [
               "Admiral Gilder Varth (employer — charming, transactional)",
-              "Maya (pilot, partner — proved her worth)"
+              "Maya (pilot, partner — proved her worth under fire and wounded)",
+              "Vazus Mandrake (fate determined by destiny alignment — potential Act 3 return if Hope-dominant)"
             ]
           },
           "pacing": {
-            "openingBeat": "The fortress erupts. Three-way firefight. Chaos.",
-            "risingAction": "Shadow Troopers deploy. Draco arrives. The exit is closing.",
-            "climax": "Maya's strafing run. Sprint to the Banshee. Extraction under fire.",
-            "resolution": "Break atmosphere. Jump to hyperspace. Varth's pitch for the next job.",
+            "openingBeat": "The fortress erupts. Three-way firefight. Mandrake's people moving in the east wing.",
+            "risingAction": "Shadow Troopers deploy. Draco arrives. Mandrake covers the retreat. The exit is closing.",
+            "climax": "Maya's conditional extraction — turrets down means clean pickup, turrets up means heavy fire. Sprint to the Banshee while Mandrake holds the line.",
+            "resolution": "Break atmosphere. Mandrake's fate plays out below — Hope or Toll. Jump to hyperspace. Varth's pitch for the next job.",
             "estimatedMinutes": 45
           },
           "knackTags": [
