@@ -3,7 +3,7 @@
   "number": 3,
   "title": "The Queen of Air and Darkness",
   "act": 1,
-  "summary": "The heroes chase Darga the Hutt to Cloud City on Bespin, infiltrate a Sabacc tournament to intercept an Imperial payment, and face a desperate hangar bay showdown that ends with an orbital battle and a moral choice that defines the party.",
+  "summary": "The heroes chase Varga the Hutt to Cloud City on Bespin, infiltrate a Sabacc tournament to intercept an Imperial payment, and face a desperate hangar bay showdown that ends with an orbital battle and a moral choice that defines the party.",
   "gearNotes": [
     {
       "item": "Encrypted Comlink",
@@ -63,7 +63,7 @@
     {
       "item": "Fusion Cutter",
       "category": "good",
-      "reason": "Sealed blast doors during the city chase if Varth's hack fails. Also cutting into the yacht if Darga seals the boarding ramp."
+      "reason": "Sealed blast doors during the city chase if Varth's hack fails. Also cutting into the yacht if Varga seals the boarding ramp."
     },
     {
       "item": "Frag Grenade",
@@ -96,14 +96,14 @@
           "id": "adv3-p1-s1",
           "number": 1,
           "title": "The Brick Wall",
-          "readAloud": "Cloud City rises from the roiling orange clouds of Bespin like a crown of durasteel. In this era, it is not a polished resort — it is a rough-and-tumble mining boomtown, a Wild West in the clouds. Prospectors, gamblers, and fugitives pack the Cloudscape Platforms.\n\nYou hit the streets to find Darga — but the underworld is sealed tight. Every contact clams up. Then your datapads beep with an unsigned message:\n\n\"Stop digging. The drop is long, and the gas pressure is high. Go home.\"",
-          "gmNotes": "Cloud City in 16 BBY is a mining boomtown, not Lando's resort. The heroes face a wall of silence — Darga has bribed the Wing Guard and port officials. The threatening message traces to the Parliament of Guilds (Ugnaught labor leadership), not Darga. Varth acts as 'The Man in the Chair,' analyzing data from the ship. The investigation leads to the Industrial District.",
+          "readAloud": "Cloud City rises from the roiling orange clouds of Bespin like a crown of durasteel. In this era, it is not a polished resort — it is a rough-and-tumble mining boomtown, a Wild West in the clouds. Prospectors, gamblers, and fugitives pack the Cloudscape Platforms.\n\nYou hit the streets to find Varga — but the underworld is sealed tight. Every contact clams up. Then your datapads beep with an unsigned message:\n\n\"Stop digging. The drop is long, and the gas pressure is high. Go home.\"",
+          "gmNotes": "Cloud City in 16 BBY is a mining boomtown, not Lando's resort. The heroes face a wall of silence — Varga has bribed the Wing Guard and port officials. The threatening message traces to the Parliament of Guilds (Ugnaught labor leadership), not Varga. Varth acts as 'The Man in the Chair,' analyzing data from the ship. The investigation leads to the Industrial District.",
           "npcs": [
             {
               "name": "Local Contacts",
               "type": "Various",
               "count": 3,
-              "notes": "Tight-lipped. Darga has bribed everyone.",
+              "notes": "Tight-lipped. Varga has bribed everyone.",
               "threatBuild": {
                 "role": "informant",
                 "tier": 0,
@@ -139,7 +139,7 @@
                       "name": "Deflect",
                       "type": "action",
                       "arena": "presence",
-                      "description": "Redirect conversation away from Darga.",
+                      "description": "Redirect conversation away from Varga.",
                       "attackPower": 1
                     },
                     {
@@ -157,11 +157,11 @@
                   "gambit": null,
                   "exploit": null
                 },
-                "notes": "Non-combatant social targets. Represent the wall of silence Darga has built."
+                "notes": "Non-combatant social targets. Represent the wall of silence Varga has built."
               }
             }
           ],
-          "hazards": "Imperial spies. Darga's informant network. Wing Guard patrols.",
+          "hazards": "Imperial spies. Varga's informant network. Wing Guard patrols.",
           "decisions": [
             {
               "choice": "Trace the threatening message",
@@ -169,13 +169,13 @@
             },
             {
               "choice": "Continue investigating openly",
-              "consequence": "Risk attracting Darga's attention and Imperial surveillance."
+              "consequence": "Risk attracting Varga's attention and Imperial surveillance."
             }
           ],
           "loreTags": [
             "Cloud City",
             "Bespin",
-            "Darga the Hutt",
+            "Varga the Hutt",
             "Ugnaught Guilds"
           ],
           "narrativeLinks": [],
@@ -212,18 +212,18 @@
               "discipline": "charm",
               "tier": 1,
               "power": 2,
-              "context": "Getting locals to talk about Darga. Everyone is bribed or scared.",
+              "context": "Getting locals to talk about Varga. Everyone is bribed or scared.",
               "success": "A bartender whispers: \"Try the Ugnaughts in the Works. They hate him more than they fear him.\"",
-              "failure": "Stone wall. Nobody talks. Darga's money is louder than your charm."
+              "failure": "Stone wall. Nobody talks. Varga's money is louder than your charm."
             },
             {
               "id": "sc-a3s1-stealth",
               "discipline": "stealth",
               "tier": 1,
               "power": 0,
-              "context": "Moving through Cloud City without attracting Darga's informants.",
+              "context": "Moving through Cloud City without attracting Varga's informants.",
               "success": "Clean movement. No one flags your presence.",
-              "failure": "A street rat clocks you and runs toward the cantina district. Darga may know you're here."
+              "failure": "A street rat clocks you and runs toward the cantina district. Varga may know you're here."
             },
             {
               "id": "sc-a3s1-deception",
@@ -248,15 +248,15 @@
           "encounters": [],
           "environmentMechanics": [
             {
-              "name": "Darga's Informant Network",
+              "name": "Varga's Informant Network",
               "trigger": "Active throughout Cloud City",
-              "effect": "Street-level contacts are bribed. Aggressive questioning reaches Darga within hours.",
-              "mitigation": "Work through intermediaries. Don't mention Darga by name."
+              "effect": "Street-level contacts are bribed. Aggressive questioning reaches Varga within hours.",
+              "mitigation": "Work through intermediaries. Don't mention Varga by name."
             },
             {
               "name": "Wing Guard Patrols",
               "trigger": "Public areas",
-              "effect": "Some Wing Guards are on Darga's payroll. Will report unusual activity.",
+              "effect": "Some Wing Guards are on Varga's payroll. Will report unusual activity.",
               "mitigation": "Blend in. Don't carry visible weapons in tourist areas."
             }
           ],
@@ -278,14 +278,14 @@
           "id": "adv3-p1-s2",
           "number": 2,
           "title": "The Industrial Connection",
-          "readAloud": "You descend into The Works — the noisy, steam-filled industrial bowels of Cloud City. The Ugnaughts who sent the threat aren't enemies; they're terrified administrators named Fyren and Krygg.\n\nThey admit they were trying to scare you away to prevent a gang war. They hate Darga. The Hutt is forcing Ugnaught riggers to siphon military-grade gas directly to Imperial ships, bypassing Guild quotas.\n\n\"Help us stop his thugs from stealing a shipment right now, and we'll tell you exactly how the handover at the tournament works.\"",
-          "gmNotes": "The Ugnaughts are potential allies. They offer a trade: stop Darga's thugs from stealing a gas shipment at Refinery Platform 13, and they'll reveal the tournament handover structure. This establishes the Ugnaught labor exploitation angle and gives the heroes a clear objective.",
+          "readAloud": "You descend into The Works — the noisy, steam-filled industrial bowels of Cloud City. The Ugnaughts who sent the threat aren't enemies; they're terrified administrators named Fyren and Krygg.\n\nThey admit they were trying to scare you away to prevent a gang war. They hate Varga. The Hutt is forcing Ugnaught riggers to siphon military-grade gas directly to Imperial ships, bypassing Guild quotas.\n\n\"Help us stop his thugs from stealing a shipment right now, and we'll tell you exactly how the handover at the tournament works.\"",
+          "gmNotes": "The Ugnaughts are potential allies. They offer a trade: stop Varga's thugs from stealing a gas shipment at Refinery Platform 13, and they'll reveal the tournament handover structure. This establishes the Ugnaught labor exploitation angle and gives the heroes a clear objective.",
           "npcs": [
             {
               "name": "Fyren",
               "type": "Ugnaught Administrator",
               "count": 1,
-              "notes": "Terrified but cooperative. Wants Darga gone.",
+              "notes": "Terrified but cooperative. Wants Varga gone.",
               "threatBuild": {
                 "role": "informant",
                 "tier": 0,
@@ -422,7 +422,7 @@
           "loreTags": [
             "Ugnaught Guilds",
             "Cloud City",
-            "Darga the Hutt",
+            "Varga the Hutt",
             "Tibanna Gas"
           ],
           "narrativeLinks": [],
@@ -450,7 +450,7 @@
               "discipline": "persuasion",
               "tier": 1,
               "power": 0,
-              "context": "Convincing the Ugnaughts you're allies, not Darga's agents.",
+              "context": "Convincing the Ugnaughts you're allies, not Varga's agents.",
               "success": "Fyren and Krygg open up. They describe the gas siphoning operation.",
               "failure": "They're not convinced. Demand proof of your intentions."
             },
@@ -468,7 +468,7 @@
               "discipline": "investigation",
               "tier": 1,
               "power": 0,
-              "context": "Reviewing the Ugnaughts' evidence of Darga's gas siphoning.",
+              "context": "Reviewing the Ugnaughts' evidence of Varga's gas siphoning.",
               "success": "Shipping manifests confirm military-grade Tibanna going to Imperial warships. The scale is staggering.",
               "failure": "Evidence is circumstantial. Need more proof."
             },
@@ -522,7 +522,7 @@
               "name": "Trandoshan Mercenaries",
               "type": "Standard Combatants",
               "count": 5,
-              "notes": "Darga's muscle. Loading stolen gas.",
+              "notes": "Varga's muscle. Loading stolen gas.",
               "threatBuild": {
                 "role": "brute",
                 "tier": 1,
@@ -651,7 +651,7 @@
                   "gambit": null,
                   "exploit": null
                 },
-                "notes": "Non-combatant. Will surrender or flee. Questioning them provides limited intel about Darga's operation."
+                "notes": "Non-combatant. Will surrender or flee. Questioning them provides limited intel about Varga's operation."
               }
             }
           ],
@@ -800,8 +800,8 @@
           "id": "adv3-p1-s4",
           "number": 4,
           "title": "The Imperial Mark",
-          "readAloud": "The Ugnaughts pay their debt. The handover isn't happening in secret — Darga insisted it occur in plain sight during the Cloud City Sabacc Tournament.\n\nAt the Yerith Bespin Hotel, you spot the Imperial Bagman: Lieutenant Armen Arandis. Dressed in civilian luxury but moving with military stiffness, flanked by 'bodyguards' who are clearly undercover Stormtroopers.\n\nVarth's voice crackles in your ear: \"That's the Bagman. He isn't here to play cards — he's here to transfer credits to Darga's proxy by losing intentionally. We need to be at that table.\"",
-          "gmNotes": "Arandis is an Imperial math genius posing as a gambler. His job is to lose the pot intentionally to Darga's proxy. The heroes need to infiltrate the tournament to intercept the credits. The buy-in is massive (10,000 credits) — Varth provides the stake. Heroes must decide roles: The Player (gambler), The Security (hired guards), The Cheat (droid maintenance infiltrator).",
+          "readAloud": "The Ugnaughts pay their debt. The handover isn't happening in secret — Varga insisted it occur in plain sight during the Cloud City Sabacc Tournament.\n\nAt the Yerith Bespin Hotel, you spot the Imperial Bagman: Lieutenant Armen Arandis. Dressed in civilian luxury but moving with military stiffness, flanked by 'bodyguards' who are clearly undercover Stormtroopers.\n\nVarth's voice crackles in your ear: \"That's the Bagman. He isn't here to play cards — he's here to transfer credits to Varga's proxy by losing intentionally. We need to be at that table.\"",
+          "gmNotes": "Arandis is an Imperial math genius posing as a gambler. His job is to lose the pot intentionally to Varga's proxy. The heroes need to infiltrate the tournament to intercept the credits. The buy-in is massive (10,000 credits) — Varth provides the stake. Heroes must decide roles: The Player (gambler), The Security (hired guards), The Cheat (droid maintenance infiltrator).",
           "npcs": [
             {
               "name": "Lt. Armen Arandis",
@@ -983,7 +983,7 @@
             "Lt. Armen Arandis",
             "Cloud City",
             "Sabacc Tournament",
-            "Darga the Hutt"
+            "Varga the Hutt"
           ],
           "narrativeLinks": [],
           "challengeType": "infiltration",
@@ -1075,7 +1075,7 @@
             "narrative": "Tournament roles assigned. The heist is planned."
           },
           "pacing": {
-            "openingBeat": "The Ugnaughts deliver: Darga's payment happens at the Sabacc tournament.",
+            "openingBeat": "The Ugnaughts deliver: Varga's payment happens at the Sabacc tournament.",
             "risingAction": "Arandis is identified. His bodyguards are Stormtroopers. Stakes escalate.",
             "climax": "The heroes choose their tournament roles.",
             "resolution": "Plan is set. Buy-in secured. The game begins.",
@@ -1087,7 +1087,7 @@
           "number": 5,
           "title": "The Buy-In",
           "subtitle": "Preparation",
-          "readAloud": "As you finalize your entry strategy, Varth's voice cuts in — tight with genuine fear.\n\n\"We have a problem. A massive energy spike just hit the system edge. An Imperial Star Destroyer just dropped out of hyperspace. It's the Assiduous — Inquisitor Draco's flagship.\"\n\nA beat of silence.\n\n\"That ship is the clean-up crew. If Arandis loses the money wrong, or if Darga double-crosses them, Draco won't bother with arrests. He'll glass the city to bury the evidence. Win that pot and get the codes before Draco gets impatient.\"",
+          "readAloud": "As you finalize your entry strategy, Varth's voice cuts in — tight with genuine fear.\n\n\"We have a problem. A massive energy spike just hit the system edge. An Imperial Star Destroyer just dropped out of hyperspace. It's the Assiduous — Inquisitor Draco's flagship.\"\n\nA beat of silence.\n\n\"That ship is the clean-up crew. If Arandis loses the money wrong, or if Varga double-crosses them, Draco won't bother with arrests. He'll glass the city to bury the evidence. Win that pot and get the codes before Draco gets impatient.\"",
           "gmNotes": "The Assiduous arrives — escalating the stakes dramatically. Draco is the 'clean-up crew' for Project Leviathan. If the deal goes wrong, he'll destroy Cloud City to bury the evidence. This puts a hard clock on the entire tournament arc. The heroes must win the pot and get the gas codes before Draco loses patience.",
           "npcs": [
             {
@@ -1182,7 +1182,7 @@
               "consequence": "Must win the pot before Draco acts. High pressure."
             },
             {
-              "choice": "Try to grab Darga directly",
+              "choice": "Try to grab Varga directly",
               "consequence": "Skips the tournament but alerts everyone. Extremely dangerous without the credits."
             }
           ],
@@ -1286,7 +1286,7 @@
           "title": "The Elimination Rounds",
           "subtitle": "Days 1 & 2",
           "readAloud": "The Royal Casino is a loud, smoky, aggressive establishment where prospectors gamble away fortunes and refugees bet their last credits. Over fifty competitors crowd the tables. The air is thick with Corellian whiskey, Ryll spice smoke, and the mechanical whir of shuffling droids.\n\nYou notice two players worth watching: a flamboyant human named Silas Draver who seems drunk but isn't, and a cold Hapan noblewoman named Lady Fioro who bankrupts a weeping Dug in the first hour.",
-          "gmNotes": "Days 1-2 of the tournament. The heroes identify key players:\n- Lt. Arandis at Table 4: plays like a machine. Folds strong hands, raises weak ones against specific opponents.\n- Silas Draver: loud and arrogant but stone cold sober. Casing the room and checking camera sightlines. He's planning a heist.\n- Lady Mirana Fioro: icy Hapan noblewoman. Keeps glancing at Arandis with calculation — she's Darga's proxy.\n\nVarth coaches via comms: 'Watch who Arandis loses to. He's not allowed to lose to anyone but Darga's proxy.'",
+          "gmNotes": "Days 1-2 of the tournament. The heroes identify key players:\n- Lt. Arandis at Table 4: plays like a machine. Folds strong hands, raises weak ones against specific opponents.\n- Silas Draver: loud and arrogant but stone cold sober. Casing the room and checking camera sightlines. He's planning a heist.\n- Lady Mirana Fioro: icy Hapan noblewoman. Keeps glancing at Arandis with calculation — she's Varga's proxy.\n\nVarth coaches via comms: 'Watch who Arandis loses to. He's not allowed to lose to anyone but Varga's proxy.'",
           "npcs": [
             {
               "name": "Silas Draver",
@@ -1369,7 +1369,7 @@
             },
             {
               "name": "Lady Mirana Fioro",
-              "type": "Hapan Noblewoman / Darga's Proxy",
+              "type": "Hapan Noblewoman / Varga's Proxy",
               "count": 1,
               "notes": "Icy and ruthless. The person Arandis is supposed to lose to.",
               "threatBuild": {
@@ -1440,10 +1440,10 @@
                   },
                   "exploit": {
                     "name": "Insurance",
-                    "description": "If captured, reveal Darga's location in exchange for freedom."
+                    "description": "If captured, reveal Varga's location in exchange for freedom."
                   }
                 },
-                "notes": "Darga's proxy. Not a fighter. Her value is the credits she holds and the information she'll spill under pressure."
+                "notes": "Varga's proxy. Not a fighter. Her value is the credits she holds and the information she'll spill under pressure."
               }
             },
             {
@@ -1553,7 +1553,7 @@
               "discipline": "insight",
               "tier": 1,
               "power": 0,
-              "context": "Reading other players — identifying Darga's proxy.",
+              "context": "Reading other players — identifying Varga's proxy.",
               "success": "Lady Fioro keeps glancing at Arandis. She's the proxy.",
               "failure": "Too many players to read. Can't identify the connection."
             },
@@ -1581,7 +1581,7 @@
               "tier": 1,
               "power": 0,
               "context": "Building rapport with other players to gather intel.",
-              "success": "A talkative Bothan reveals: Fioro arrived on a ship registered to Darga's company.",
+              "success": "A talkative Bothan reveals: Fioro arrived on a ship registered to Varga's company.",
               "failure": "Other players are guarded. Tournament atmosphere is tense.",
               "isOptional": true
             }
@@ -1884,7 +1884,7 @@
           "title": "The Final Table",
           "subtitle": "Day 4",
           "readAloud": "The final day. Five players remain under a harsh spotlight: Arandis, Fioro, Draver, the Rodian Creeska, and you.\n\nArandis plays strangely — folding strong hands against everyone except Fioro. He goes All In against her. She calls.\n\nHe reveals a losing hand. The crowd erupts. But instead of sweeping his cards away, Arandis deliberately arranges them on the table: One of Coins. Three of Sabers. Seven of Flasks.\n\nVarth decodes it instantly: \"1-3-7. That's a frequency — 137.12. It's the slave circuit control code for the Shackles of Nizon. He just handed her the keys to the getaway car AND the money.\"",
-          "gmNotes": "The climax of the game. Arandis deliberately loses the massive pot to Fioro (Darga's proxy), transferring the Imperial payment. The card arrangement is a code — the slave circuit frequency for the Shackles of Nizon. Fioro now has the credits (digitally transferred to a datapad) and the ship code. The heroes must grab her before she leaves. This is the moment the heist transitions to action.",
+          "gmNotes": "The climax of the game. Arandis deliberately loses the massive pot to Fioro (Varga's proxy), transferring the Imperial payment. The card arrangement is a code — the slave circuit frequency for the Shackles of Nizon. Fioro now has the credits (digitally transferred to a datapad) and the ship code. The heroes must grab her before she leaves. This is the moment the heist transitions to action.",
           "npcs": [
             {
               "name": "Lt. Armen Arandis",
@@ -1968,7 +1968,7 @@
             },
             {
               "name": "Lady Mirana Fioro",
-              "type": "Darga's Proxy",
+              "type": "Varga's Proxy",
               "count": 1,
               "notes": "Now holds the credits and ship code. Must be intercepted before she escapes.",
               "threatBuild": {
@@ -2039,10 +2039,10 @@
                   },
                   "exploit": {
                     "name": "Insurance",
-                    "description": "If captured, reveal Darga's location in exchange for freedom."
+                    "description": "If captured, reveal Varga's location in exchange for freedom."
                   }
                 },
-                "notes": "Darga's proxy. Not a fighter. Her value is the credits she holds and the information she'll spill under pressure. (Recurring — now receiving the credits.)"
+                "notes": "Varga's proxy. Not a fighter. Her value is the credits she holds and the information she'll spill under pressure. (Recurring — now receiving the credits.)"
               }
             }
           ],
@@ -2054,7 +2054,7 @@
             },
             {
               "choice": "Follow Fioro and grab her outside",
-              "consequence": "Cleaner but she might reach Darga's people first."
+              "consequence": "Cleaner but she might reach Varga's people first."
             }
           ],
           "loreTags": [
@@ -2062,7 +2062,7 @@
             "Shackles of Nizon",
             "Lady Fioro",
             "Lt. Armen Arandis",
-            "Darga the Hutt"
+            "Varga the Hutt"
           ],
           "narrativeLinks": [],
           "challengeType": "social",
@@ -2161,7 +2161,7 @@
           "title": "The Heist",
           "subtitle": "Combat",
           "readAloud": "Just as you move to intercept Fioro, Silas Draver makes his play. He stands, pulls a heavy blaster, and fires into the ceiling.\n\n\"Nobody moves! The Empire isn't the only one getting paid today!\"\n\nThe dealer droids spin around, revealing hidden blaster cannons. Draver's men — disguised as waiters and guests — pull weapons and secure the exits. Draver grabs Fioro, pressing a blaster to her temple.\n\n\"The datapad. Now.\"",
-          "gmNotes": "Three-way crossfire in a crowded casino. Draver weaponized the dealer droids and planted his men as staff. The heroes are caught between Draver's heist crew, panicking civilians, and Arandis who draws a concealed military blaster to protect the transaction's secrecy. Arandis likely dies in the crossfire, removing the Imperial witness. Varth: 'Forget the civilians! Get the datapad!' After defeating Draver, Fioro spills Darga's location: Docking Bay 4414.",
+          "gmNotes": "Three-way crossfire in a crowded casino. Draver weaponized the dealer droids and planted his men as staff. The heroes are caught between Draver's heist crew, panicking civilians, and Arandis who draws a concealed military blaster to protect the transaction's secrecy. Arandis likely dies in the crossfire, removing the Imperial witness. Varth: 'Forget the civilians! Get the datapad!' After defeating Draver, Fioro spills Varga's location: Docking Bay 4414.",
           "npcs": [
             {
               "name": "Silas Draver",
@@ -2404,18 +2404,18 @@
           "decisions": [
             {
               "choice": "Save Fioro from Draver",
-              "consequence": "Secures the datapad intel. She'll reveal Darga's location in gratitude/fear."
+              "consequence": "Secures the datapad intel. She'll reveal Varga's location in gratitude/fear."
             },
             {
               "choice": "Grab the datapad in the chaos",
-              "consequence": "May not get Darga's location. But secures the credits."
+              "consequence": "May not get Varga's location. But secures the credits."
             }
           ],
           "loreTags": [
             "Silas Draver",
             "Lady Fioro",
             "Sabacc Tournament",
-            "Darga the Hutt",
+            "Varga the Hutt",
             "Cloud City"
           ],
           "narrativeLinks": [],
@@ -2523,16 +2523,16 @@
             "items": [
               {
                 "name": "Fioro's Datapad",
-                "note": "If secured — contains credits and Darga's docking bay location."
+                "note": "If secured — contains credits and Varga's docking bay location."
               }
             ],
-            "narrative": "Casino heist resolved. Darga's location revealed. The chase begins."
+            "narrative": "Casino heist resolved. Varga's location revealed. The chase begins."
           },
           "pacing": {
             "openingBeat": "Moving to intercept Fioro — then Draver strikes.",
             "risingAction": "Three-way crossfire erupts. Chaos in the casino.",
             "climax": "Free Fioro from Draver. Secure the datapad.",
-            "resolution": "Arandis dies in the crossfire. Fioro spills Darga's location.",
+            "resolution": "Arandis dies in the crossfire. Fioro spills Varga's location.",
             "estimatedMinutes": 35
           }
         },
@@ -2540,8 +2540,8 @@
           "id": "adv3-p2-s5",
           "number": 5,
           "title": "The Aftermath",
-          "readAloud": "The casino is a wreck. Sirens wail in the distance. Lady Fioro, wounded and terrified, spills everything.\n\n\"He's at the lower docks — Docking Bay 4414. He has the Shackles of Nizon holding in orbit on slave circuits. He's taking the gas and the slaves and leaving the sector tonight!\"\n\nVarth scans the system. His voice is grim: \"The Shackles just activated its engines. And... damn it. The Assiduous just entered the system. Draco is here. Get to the hangar. If Darga launches, we lose everything.\"",
-          "gmNotes": "Fioro reveals Darga's location and the Shackles of Nizon's status. Varth confirms Draco has entered the system. The heroes must flee the crime scene and race through Cloud City to the industrial docks before Darga escapes. This is a transition scene — setting up Part 3.",
+          "readAloud": "The casino is a wreck. Sirens wail in the distance. Lady Fioro, wounded and terrified, spills everything.\n\n\"He's at the lower docks — Docking Bay 4414. He has the Shackles of Nizon holding in orbit on slave circuits. He's taking the gas and the slaves and leaving the sector tonight!\"\n\nVarth scans the system. His voice is grim: \"The Shackles just activated its engines. And... damn it. The Assiduous just entered the system. Draco is here. Get to the hangar. If Varga launches, we lose everything.\"",
+          "gmNotes": "Fioro reveals Varga's location and the Shackles of Nizon's status. Varth confirms Draco has entered the system. The heroes must flee the crime scene and race through Cloud City to the industrial docks before Varga escapes. This is a transition scene — setting up Part 3.",
           "npcs": [
             {
               "name": "Lady Fioro",
@@ -2616,10 +2616,10 @@
                   },
                   "exploit": {
                     "name": "Insurance",
-                    "description": "If captured, reveal Darga's location in exchange for freedom."
+                    "description": "If captured, reveal Varga's location in exchange for freedom."
                   }
                 },
-                "notes": "Darga's proxy. Not a fighter. Her value is the credits she holds and the information she'll spill under pressure. (Recurring — wounded, providing intel under duress.)"
+                "notes": "Varga's proxy. Not a fighter. Her value is the credits she holds and the information she'll spill under pressure. (Recurring — wounded, providing intel under duress.)"
               }
             }
           ],
@@ -2631,7 +2631,7 @@
             }
           ],
           "loreTags": [
-            "Darga the Hutt",
+            "Varga the Hutt",
             "Shackles of Nizon",
             "Inquisitor Draco",
             "The Assiduous",
@@ -2667,7 +2667,7 @@
               "discipline": "insight",
               "tier": 0,
               "power": 0,
-              "context": "Reading Fioro — is she telling the truth about Darga's location?",
+              "context": "Reading Fioro — is she telling the truth about Varga's location?",
               "success": "Genuine terror. She's not lying. Docking Bay 4414.",
               "failure": "Hard to read through the shock. Could be lying."
             },
@@ -2677,7 +2677,7 @@
               "tier": 1,
               "power": 0,
               "context": "Sprint through Cloud City to the industrial docks.",
-              "success": "Fast transit. Arrive before Darga launches.",
+              "success": "Fast transit. Arrive before Varga launches.",
               "failure": "Delayed by traffic, crowds, or Wing Guard. Lose time."
             },
             {
@@ -2686,7 +2686,7 @@
               "tier": 0,
               "power": 0,
               "context": "Verifying Fioro's intel against what Varth can see from the ship.",
-              "success": "Confirmed: Shackles of Nizon is activating engines. Darga is loading cargo at Bay 4414.",
+              "success": "Confirmed: Shackles of Nizon is activating engines. Varga is loading cargo at Bay 4414.",
               "failure": "Can't verify independently. Trust her or don't.",
               "isOptional": true
             }
@@ -2704,7 +2704,7 @@
             "credits": 0,
             "xp": "Scene completion",
             "items": [],
-            "narrative": "Darga's location confirmed. Race to the docks begins."
+            "narrative": "Varga's location confirmed. Race to the docks begins."
           },
           "pacing": {
             "openingBeat": "Casino wreckage. Sirens. Fioro talks.",
@@ -2726,14 +2726,14 @@
           "number": 1,
           "title": "The Gauntlet",
           "subtitle": "Streets of Cloud City",
-          "readAloud": "The journey to the lower docks is a sprint through a city in lockdown. Darga has bribed the Wing Guard to declare you 'Enemy Saboteurs.'\n\nThe chase transitions from pristine white corridors into the steam-filled, rusted catwalks of the Industrial District. Tibanna gas vents hiss, obscuring vision, and the orange glow of the Bespin sunset filters through heavy industrial grates.\n\nVarth hacks door controls from the ship: \"Left at the junction! No, the other left! I'm jamming their comms, but I can't stop them from shooting at you. Move!\"",
+          "readAloud": "The journey to the lower docks is a sprint through a city in lockdown. Varga has bribed the Wing Guard to declare you 'Enemy Saboteurs.'\n\nThe chase transitions from pristine white corridors into the steam-filled, rusted catwalks of the Industrial District. Tibanna gas vents hiss, obscuring vision, and the orange glow of the Bespin sunset filters through heavy industrial grates.\n\nVarth hacks door controls from the ship: \"Left at the junction! No, the other left! I'm jamming their comms, but I can't stop them from shooting at you. Move!\"",
           "gmNotes": "Running battle through Cloud City. The heroes are pinned down by corrupt Wing Guard and Stormtroopers. This is a chase — stopping to fight every enemy means being overwhelmed. Use the environment: shoot steam pipes to scald pursuers, jump onto moving cargo skiffs, cut through maintenance ducts. Varth acts as 'The Man in the Chair,' hacking door controls.",
           "npcs": [
             {
               "name": "Elite Bespin Security Guards",
               "type": "Corrupt Wing Guard",
               "count": 6,
-              "notes": "Bribed by Darga. Hunting the heroes.",
+              "notes": "Bribed by Varga. Hunting the heroes.",
               "threatBuild": {
                 "role": "trooper",
                 "tier": 1,
@@ -2805,7 +2805,7 @@
                     "description": "Alert checkpoint ahead. Guards set up ambush."
                   }
                 },
-                "notes": "Corrupt Wing Guard. Better trained than street thugs. Bribed by Darga to hunt the heroes."
+                "notes": "Corrupt Wing Guard. Better trained than street thugs. Bribed by Varga to hunt the heroes."
               }
             },
             {
@@ -2903,7 +2903,7 @@
           ],
           "loreTags": [
             "Cloud City",
-            "Darga the Hutt",
+            "Varga the Hutt",
             "Admiral Varth"
           ],
           "narrativeLinks": [],
@@ -3025,11 +3025,11 @@
           "number": 2,
           "title": "Hutt's Hangar",
           "subtitle": "Docking Bay 4414",
-          "readAloud": "You kick open the blast doors to Docking Bay 4414. The cavernous hangar is open to the roiling clouds of Bespin on one side, wind howling through the magnetic field.\n\nDominating the center is Darga's personal luxury yacht — the Glorious Chariot. Gold and purple, engines whining with a turbine squeal that vibrates in your teeth. Six Z-95 Headhunters idle on the deck, pilots scrambling into cockpits.\n\nDarga stands at the base of the ramp, screaming at his loading crews. When he sees you, fear becomes rage.\n\n\"Kill them! They brought the Inquisitor down on us! I want their heads!\"",
-          "gmNotes": "The final confrontation with Darga. The Glorious Chariot is priming for launch. Six Z-95 fighters are scrambling — if they get airborne, they'll strafe the hangar. Savvy heroes might shoot pilots on ladders to hijack fighters. Darga retreats up the ramp as mercenaries fall. Heroes must breach the ship or disable its engines. If they board, they fight Darga in the yacht's narrow corridors where his massive bulk is a weapon.",
+          "readAloud": "You kick open the blast doors to Docking Bay 4414. The cavernous hangar is open to the roiling clouds of Bespin on one side, wind howling through the magnetic field.\n\nDominating the center is Varga's personal luxury yacht — the Glorious Chariot. Gold and purple, engines whining with a turbine squeal that vibrates in your teeth. Six Z-95 Headhunters idle on the deck, pilots scrambling into cockpits.\n\nVarga stands at the base of the ramp, screaming at his loading crews. When he sees you, fear becomes rage.\n\n\"Kill them! They brought the Inquisitor down on us! I want their heads!\"",
+          "gmNotes": "The final confrontation with Varga. The Glorious Chariot is priming for launch. Six Z-95 fighters are scrambling — if they get airborne, they'll strafe the hangar. Savvy heroes might shoot pilots on ladders to hijack fighters. Varga retreats up the ramp as mercenaries fall. Heroes must breach the ship or disable its engines. If they board, they fight Varga in the yacht's narrow corridors where his massive bulk is a weapon.",
           "npcs": [
             {
-              "name": "Darga the Hutt",
+              "name": "Varga the Hutt",
               "type": "Hutt Crime Lord (Boss)",
               "count": 1,
               "notes": "Desperate and enraged. Will fight with his bulk in the yacht's corridors.",
@@ -3067,7 +3067,7 @@
                 "roleKit": {
                   "passive": {
                     "name": "Absolute Authority",
-                    "description": "All allies in Darga's court gain +1 to Resist social attacks. His presence is law."
+                    "description": "All allies in Varga's court gain +1 to Resist social attacks. His presence is law."
                   },
                   "actions": [
                     {
@@ -3100,7 +3100,7 @@
                     "description": "Declare a bounty on one target. All mercenaries in the fortress gain +1 Power vs that target for the scene."
                   }
                 },
-                "notes": "Darga is a crime lord, not a fighter. Boss x2 Vitality = 24 = (5+4+3)*2. Power 7 via Commander (Presence 5-1)+3. He fights through his army. Direct combat is a mistake — he's a Hutt on a hover-sled surrounded by guards. (Recurring — same stat block from Adv2. Now desperate and enraged.)"
+                "notes": "Varga is a crime lord, not a fighter. Boss x2 Vitality = 24 = (5+4+3)*2. Power 7 via Commander (Presence 5-1)+3. He fights through his army. Direct combat is a mistake — he's a Hutt on a hover-sled surrounded by guards. (Recurring — same stat block from Adv2. Now desperate and enraged.)"
               }
             },
             {
@@ -3173,7 +3173,7 @@
               "name": "Heavy Security Droid",
               "type": "Elite Droid",
               "count": 1,
-              "notes": "Flanking Darga at the ramp.",
+              "notes": "Flanking Varga at the ramp.",
               "threatBuild": {
                 "role": "brute",
                 "tier": 2,
@@ -3255,7 +3255,7 @@
               "name": "Loading Crews / Thugs",
               "type": "Standard Combatants",
               "count": 6,
-              "notes": "Darga's remaining muscle.",
+              "notes": "Varga's remaining muscle.",
               "threatBuild": {
                 "role": "trooper",
                 "tier": 0,
@@ -3316,10 +3316,10 @@
                   "gambit": null,
                   "exploit": {
                     "name": "Scatter",
-                    "description": "If Darga falls, thugs flee."
+                    "description": "If Varga falls, thugs flee."
                   }
                 },
-                "notes": "Generic minion thugs. Masterful+ = takedown. Last line of defense for Darga."
+                "notes": "Generic minion thugs. Masterful+ = takedown. Last line of defense for Varga."
               }
             }
           ],
@@ -3330,12 +3330,12 @@
               "consequence": "Prevents aerial strafing. Heroes might hijack fighters for the escape."
             },
             {
-              "choice": "Rush Darga directly",
+              "choice": "Rush Varga directly",
               "consequence": "Risk being strafed if fighters launch, but could end the fight faster."
             }
           ],
           "loreTags": [
-            "Darga the Hutt",
+            "Varga the Hutt",
             "The Glorious Chariot",
             "Cloud City"
           ],
@@ -3396,7 +3396,7 @@
               "tier": 1,
               "power": 0,
               "context": "Sprinting across the hangar to reach the Glorious Chariot.",
-              "success": "Full speed. Reach the ramp before Darga seals it.",
+              "success": "Full speed. Reach the ramp before Varga seals it.",
               "failure": "Intercepted by thugs. Delayed."
             }
           ],
@@ -3406,8 +3406,8 @@
               "name": "Hangar Bay Assault",
               "type": "combat",
               "trigger": "Heroes enter Docking Bay 4414",
-              "description": "Darga's yacht prepping for launch. 6 Z-95s scrambling. Security droid and thugs defending.",
-              "tactics": "Darga screams orders from the ramp. Thugs create a screen. Z-95 pilots scramble. Security droid guards the yacht."
+              "description": "Varga's yacht prepping for launch. 6 Z-95s scrambling. Security droid and thugs defending.",
+              "tactics": "Varga screams orders from the ramp. Thugs create a screen. Z-95 pilots scramble. Security droid guards the yacht."
             }
           ],
           "environmentMechanics": [
@@ -3434,12 +3434,12 @@
             "credits": 0,
             "xp": "Combat encounter",
             "items": [],
-            "narrative": "Hangar contested. Z-95s prevented from launching (or hijacked). Darga on the yacht."
+            "narrative": "Hangar contested. Z-95s prevented from launching (or hijacked). Varga on the yacht."
           },
           "pacing": {
             "openingBeat": "Blast doors open. The Glorious Chariot dominates the bay.",
             "risingAction": "Z-95s scrambling. Security droid advancing. Thugs opening fire.",
-            "climax": "Reach the yacht before Darga seals the ramp.",
+            "climax": "Reach the yacht before Varga seals the ramp.",
             "resolution": "Hangar control established (or not). The firefight continues on the ship.",
             "estimatedMinutes": 35
           }
@@ -3448,11 +3448,11 @@
           "id": "adv3-p3-s3",
           "number": 3,
           "title": "The Firefight",
-          "readAloud": "The hangar erupts into chaos. Blaster bolts ricochet off hull plating and fuel crates. The Z-95 engines roar to life one by one. Darga, seeing his mercenaries fall, turns and lumbers up the boarding ramp of the Glorious Chariot.\n\nThe yacht's engines begin their warm-up cycle. If he seals that ramp, he's gone.",
-          "gmNotes": "The climactic ground fight. Heroes must cross the hangar using fuel crates and machinery for cover. Primary objective: stop the Glorious Chariot from launching. If Z-95s get airborne, they strafe the hangar floor. If heroes breach the yacht, they fight Darga in opulent but narrow corridors. Darga fights desperately — he knows this is his last stand.",
+          "readAloud": "The hangar erupts into chaos. Blaster bolts ricochet off hull plating and fuel crates. The Z-95 engines roar to life one by one. Varga, seeing his mercenaries fall, turns and lumbers up the boarding ramp of the Glorious Chariot.\n\nThe yacht's engines begin their warm-up cycle. If he seals that ramp, he's gone.",
+          "gmNotes": "The climactic ground fight. Heroes must cross the hangar using fuel crates and machinery for cover. Primary objective: stop the Glorious Chariot from launching. If Z-95s get airborne, they strafe the hangar floor. If heroes breach the yacht, they fight Varga in opulent but narrow corridors. Varga fights desperately — he knows this is his last stand.",
           "npcs": [
             {
-              "name": "Darga the Hutt",
+              "name": "Varga the Hutt",
               "type": "Boss",
               "count": 1,
               "notes": "Retreating up the ramp. Will fight in the ship's corridors.",
@@ -3490,7 +3490,7 @@
                 "roleKit": {
                   "passive": {
                     "name": "Absolute Authority",
-                    "description": "All allies in Darga's court gain +1 to Resist social attacks. His presence is law."
+                    "description": "All allies in Varga's court gain +1 to Resist social attacks. His presence is law."
                   },
                   "actions": [
                     {
@@ -3523,14 +3523,14 @@
                     "description": "Declare a bounty on one target. All mercenaries in the fortress gain +1 Power vs that target for the scene."
                   }
                 },
-                "notes": "Darga is a crime lord, not a fighter. Boss x2 Vitality = 24 = (5+4+3)*2. Power 7 via Commander (Presence 5-1)+3. He fights through his army. Direct combat is a mistake — he's a Hutt on a hover-sled surrounded by guards. (Recurring — same stat block from Adv2. Now desperate and enraged.) (Final fight. Desperate and dangerous.)"
+                "notes": "Varga is a crime lord, not a fighter. Boss x2 Vitality = 24 = (5+4+3)*2. Power 7 via Commander (Presence 5-1)+3. He fights through his army. Direct combat is a mistake — he's a Hutt on a hover-sled surrounded by guards. (Recurring — same stat block from Adv2. Now desperate and enraged.) (Final fight. Desperate and dangerous.)"
               }
             },
             {
               "name": "Remaining Mercenaries",
               "type": "Standard Combatants",
               "count": 4,
-              "notes": "Fighting to cover Darga's retreat.",
+              "notes": "Fighting to cover Varga's retreat.",
               "threatBuild": {
                 "role": "trooper",
                 "tier": 0,
@@ -3591,10 +3591,10 @@
                   "gambit": null,
                   "exploit": {
                     "name": "Last Stand",
-                    "description": "When Darga falls, mercs either surrender or fight to the death (50/50)."
+                    "description": "When Varga falls, mercs either surrender or fight to the death (50/50)."
                   }
                 },
-                "notes": "Generic minion mercenaries. Darga's last loyal muscle."
+                "notes": "Generic minion mercenaries. Varga's last loyal muscle."
               }
             }
           ],
@@ -3602,15 +3602,15 @@
           "decisions": [
             {
               "choice": "Board the Glorious Chariot",
-              "consequence": "Close-quarters fight with Darga in his own ship. Can capture the yacht."
+              "consequence": "Close-quarters fight with Varga in his own ship. Can capture the yacht."
             },
             {
               "choice": "Disable engines from outside",
-              "consequence": "Safer but Darga might have an escape pod."
+              "consequence": "Safer but Varga might have an escape pod."
             }
           ],
           "loreTags": [
-            "Darga the Hutt",
+            "Varga the Hutt",
             "The Glorious Chariot"
           ],
           "narrativeLinks": [],
@@ -3641,16 +3641,16 @@
               "discipline": "melee",
               "tier": 2,
               "power": 0,
-              "context": "Close-quarters combat with Darga in the yacht's corridors.",
-              "success": "Decisive blow. Darga takes heavy damage.",
-              "failure": "Darga's bulk fills the corridor. He crushes you against the wall."
+              "context": "Close-quarters combat with Varga in the yacht's corridors.",
+              "success": "Decisive blow. Varga takes heavy damage.",
+              "failure": "Varga's bulk fills the corridor. He crushes you against the wall."
             },
             {
               "id": "sc-a3s13-endure",
               "discipline": "endure",
               "tier": 1,
               "power": 0,
-              "context": "Surviving Darga's tail whip in tight quarters.",
+              "context": "Surviving Varga's tail whip in tight quarters.",
               "success": "Absorb the blow. Stay standing.",
               "failure": "Knocked into bulkhead. [Stunned] for 1 round."
             },
@@ -3676,18 +3676,18 @@
           "encounters": [
             {
               "id": "enc-a3s13-darga",
-              "name": "Darga's Last Stand",
+              "name": "Varga's Last Stand",
               "type": "combat",
-              "trigger": "Heroes board the yacht or Darga's mercs are defeated",
-              "description": "Darga fights desperately in the yacht's corridors. His massive bulk is a weapon in the tight space. Remaining mercs cover his retreat.",
-              "tactics": "Darga uses Crushing Tail in corridors where heroes can't dodge. Commands remaining forces. He knows this is the end."
+              "trigger": "Heroes board the yacht or Varga's mercs are defeated",
+              "description": "Varga fights desperately in the yacht's corridors. His massive bulk is a weapon in the tight space. Remaining mercs cover his retreat.",
+              "tactics": "Varga uses Crushing Tail in corridors where heroes can't dodge. Commands remaining forces. He knows this is the end."
             }
           ],
           "environmentMechanics": [
             {
               "name": "Narrow Yacht Corridors",
               "trigger": "If heroes board",
-              "effect": "Only 1 character can engage Darga at a time. His bulk fills the corridor. No flanking.",
+              "effect": "Only 1 character can engage Varga at a time. His bulk fills the corridor. No flanking.",
               "mitigation": "Ranged attacks from behind the front fighter. Or disable from the engine room."
             },
             {
@@ -3708,17 +3708,17 @@
             "xp": "Boss encounter",
             "items": [
               {
-                "name": "Darga's Personal Datapad",
+                "name": "Varga's Personal Datapad",
                 "note": "Project Leviathan files, shipping records, Imperial contacts."
               }
             ],
-            "narrative": "Darga defeated. The Glorious Chariot is captured. Act I climax approaching."
+            "narrative": "Varga defeated. The Glorious Chariot is captured. Act I climax approaching."
           },
           "pacing": {
             "openingBeat": "The hangar erupts. Blaster fire and engine roar.",
-            "risingAction": "Darga retreats to the yacht. Mercs cover him.",
+            "risingAction": "Varga retreats to the yacht. Mercs cover him.",
             "climax": "Boarding the yacht. Close-quarters fight with a Hutt.",
-            "resolution": "Darga falls. The yacht is secured.",
+            "resolution": "Varga falls. The yacht is secured.",
             "estimatedMinutes": 35
           }
         },
@@ -3726,7 +3726,7 @@
           "id": "adv3-p3-s4",
           "number": 4,
           "title": "Grand Theft Starship",
-          "readAloud": "With Darga defeated and the hangar secured, you barely have time to breathe before Varth barks over the comms:\n\n\"Imperial stormtroopers have breached the elevator shaft! You have thirty seconds before a platoon comes through that door. You can't go back the way you came. Take the ships! Steal the yacht! I'll rendezvous with you in orbit!\"",
+          "readAloud": "With Varga defeated and the hangar secured, you barely have time to breathe before Varth barks over the comms:\n\n\"Imperial stormtroopers have breached the elevator shaft! You have thirty seconds before a platoon comes through that door. You can't go back the way you came. Take the ships! Steal the yacht! I'll rendezvous with you in orbit!\"",
           "gmNotes": "The heroes commandeer the Glorious Chariot and any intact Z-95 Headhunters. As hangar doors blast open and Stormtroopers pour in, the heroes punch the throttles and blast out of the hangar bay into the orange clouds of Bespin. This transitions to the orbital battle.",
           "npcs": [
             {
@@ -3893,7 +3893,7 @@
             "items": [
               {
                 "name": "The Glorious Chariot",
-                "note": "Darga's luxury yacht. Now the heroes' ship."
+                "note": "Varga's luxury yacht. Now the heroes' ship."
               },
               {
                 "name": "Z-95 Headhunters",
@@ -4203,7 +4203,7 @@
           "title": "The Choice",
           "subtitle": "End of Act I",
           "readAloud": "The Tibanna Gas Hauler explodes in a massive fireball just meters from the slave ship. Okeefe's voice, shaking with relief: \"Slave circuits fried. Nav-computer is green. We are jumping to the rendezvous...\"\n\nA pause.\n\n\"...and Varth? You and I are going to have a very long talk.\"\n\nThe Assiduous opens fire with turbolasers. Green bolts flash past your cockpit. Varth screams:\n\n\"We overstayed our welcome! PUNCH IT!\"\n\nThe stars stretch into lines and you're gone.",
-          "gmNotes": "The aftermath of Act I. At the rendezvous: Okeefe punches Varth in the jaw. He takes it, claiming it was a 'tactical calculation that changed.' Rewards: The Glorious Chariot, Z-95 fighters, tournament winnings, Darga's assets, Project Leviathan files. Varth's tease: 'This data points to a massive construction project in the Unknown Regions. If you want to know what the Empire is really building, we have to go off the map.' This concludes Act I and sets up the campaign's second act.",
+          "gmNotes": "The aftermath of Act I. At the rendezvous: Okeefe punches Varth in the jaw. He takes it, claiming it was a 'tactical calculation that changed.' Rewards: The Glorious Chariot, Z-95 fighters, tournament winnings, Varga's assets, Project Leviathan files. Varth's tease: 'This data points to a massive construction project in the Unknown Regions. If you want to know what the Empire is really building, we have to go off the map.' This concludes Act I and sets up the campaign's second act.",
           "npcs": [
             {
               "name": "Admiral Varth",
@@ -4451,7 +4451,7 @@
             "items": [
               {
                 "name": "The Glorious Chariot",
-                "note": "Darga's luxury yacht. The party's new ship."
+                "note": "Varga's luxury yacht. The party's new ship."
               },
               {
                 "name": "Z-95 Headhunters",
@@ -4462,11 +4462,11 @@
                 "note": "Data pointing to a massive construction project in the Unknown Regions."
               },
               {
-                "name": "Darga's Fortune",
-                "note": "Tournament winnings + Darga's liquid assets."
+                "name": "Varga's Fortune",
+                "note": "Tournament winnings + Varga's liquid assets."
               }
             ],
-            "narrative": "Act I concludes. The heroes have Darga's fortune, his ship, and critical intelligence. But they also know what Varth is capable of. The campaign shifts from \"survive and profit\" to \"what is the Empire building in the Unknown Regions?\""
+            "narrative": "Act I concludes. The heroes have Varga's fortune, his ship, and critical intelligence. But they also know what Varth is capable of. The campaign shifts from \"survive and profit\" to \"what is the Empire building in the Unknown Regions?\""
           },
           "pacing": {
             "openingBeat": "The Gas Hauler explodes. Okeefe is safe. The Assiduous opens fire.",

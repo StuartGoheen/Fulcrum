@@ -30,7 +30,7 @@
         "otherSpecies": ["Human", "Weequay", "Kyuzo"],
         "population": "Sparse",
         "majorSettlements": ["Niima Outpost", "Tuanul", "Reestkii", "Cratertown"],
-        "government": "None (de facto Hutt control via Darga)",
+        "government": "None (de facto Hutt control via Varga)",
         "majorExports": ["Scavenged starship components"],
         "affiliation": "Galactic Empire (nominal)"
       },
@@ -44,7 +44,7 @@
       "flora": ["Tuanulberry", "Spine-barrel cactus"],
       "campaignNotes": {
         "adventures": ["adv1"],
-        "era": "17 BBY — pre-Battle of Jakku. A forgotten nowhere rock. Darga the Hutt runs what passes for an economy through debt and protection. Imperial patrols from Arkanis Sector come through maybe twice a standard year. The galaxy forgot Jakku — if it ever noticed.",
+        "era": "17 BBY — pre-Battle of Jakku. A forgotten nowhere rock. Varga the Hutt runs what passes for an economy through debt and protection. Imperial patrols from Arkanis Sector come through maybe twice a standard year. The galaxy forgot Jakku — if it ever noticed.",
         "keyLocations": {
           "niima_outpost": "A junkyard settlement squatting on the desert flats like something the sand is trying to swallow. Scavengers, smugglers, moisture farmers with nothing left to farm.",
           "sienars_regret": "The local cantina. Where the campaign begins — a bar brawl and a desperate woman clutching a stolen code cylinder.",
@@ -145,7 +145,7 @@
         "Maz Kanata's Castle",
         "Nymeve Lake",
         "Blackwind Point",
-        "Darga's Fortress"
+        "Varga's Fortress"
       ],
       "fauna": [],
       "flora": ["Dense forest canopy"],
@@ -154,7 +154,7 @@
         "era": "17 BBY — a popular departure point offering easy access between the Inner and Outer Rim. For those heading outward, a last taste of civilization. For those heading Corewards, a last grasp of frontier living. Takodana's neutrality attracts fugitives, smugglers, and explorers. Maz Kanata enforces a 'no politics, no war' rule at her castle — but across the lake, at Blackwind Point, there are no rules at all.",
         "keyLocations": {
           "blackwind_point": "A muddy, desperate shantytown on the far shore of Nymeve Lake. Refugees, criminals, and swoop gangs. The Vipers demand a landing tax from everyone who touches down.",
-          "dargas_fortress": "The Hutt crime lord's palace on Takodana. A den of debauchery where the heroes must infiltrate to learn about Darga's Imperial connections."
+          "dargas_fortress": "The Hutt crime lord's palace on Takodana. A den of debauchery where the heroes must infiltrate to learn about Varga's Imperial connections."
         }
       },
       "lore": "Covered in lush forests and dotted with small lakes, Takodana was a haven for those seeking to avoid the galaxy's conflicts. 'I didn't know there was this much green in the whole galaxy.' A transitional world between the settled galaxy and the frontier, where civilization and lawlessness exist within sight of each other across Nymeve Lake."
@@ -206,12 +206,12 @@
       "flora": [],
       "campaignNotes": {
         "adventures": ["adv3"],
-        "era": "16 BBY — Cloud City is not a polished resort. It is a rough-and-tumble mining boomtown, a Wild West in the clouds. Prospectors, gamblers, and fugitives pack the Cloudscape Platforms. Darga has bribed the Wing Guard and port officials. The annual sabacc tournament at the Royal Casino draws Imperial bagmen, Hutt proxies, and the worst the Outer Rim has to offer.",
+        "era": "16 BBY — Cloud City is not a polished resort. It is a rough-and-tumble mining boomtown, a Wild West in the clouds. Prospectors, gamblers, and fugitives pack the Cloudscape Platforms. Varga has bribed the Wing Guard and port officials. The annual sabacc tournament at the Royal Casino draws Imperial bagmen, Hutt proxies, and the worst the Outer Rim has to offer.",
         "keyLocations": {
           "cloud_city": "A repulsorlift tibanna gas mining colony floating in Bespin's atmosphere. In this era, rough and industrial, not the gleaming resort of later decades.",
           "royal_casino": "A loud, smoky, aggressive establishment where the three-day sabacc tournament drives the central heist.",
           "refinery_platform_13": "Deep in the gas giant's atmosphere. Trandoshan mercenaries and corrupt Ugnaught riggers loading gas canisters onto shuttles. Catwalks over a lethal drop.",
-          "docking_bay_4414": "Where Darga keeps the Shackles of Nizon in orbit on slave circuits. The final confrontation location."
+          "docking_bay_4414": "Where Varga keeps the Shackles of Nizon in orbit on slave circuits. The final confrontation location."
         }
       },
       "lore": "An immense gas giant whose riches manifest in rare tibanna gas. No land, no water — just an endless ocean of roiling clouds and a thin band of breathable atmosphere where mining colonies float like steel lilies on an infinite amber sea."
