@@ -452,24 +452,170 @@
 
     .cb-npc-grid {
       font-size: 0.8rem;
-    }
-    .cb-npc-row {
-      display: grid;
-      grid-template-columns: 180px 140px 50px 1fr;
+      display: flex;
+      flex-direction: column;
       gap: 0.5rem;
-      padding: 0.4rem 0;
-      border-bottom: 1px solid var(--color-border);
+    }
+    .cb-npc-card {
+      background: rgba(0,0,0,0.15);
+      border-radius: 6px;
+      border: 1px solid var(--color-border);
+      overflow: hidden;
+    }
+    .cb-npc-card-header {
+      display: flex;
       align-items: center;
+      gap: 0.5rem;
+      padding: 0.45rem 0.6rem;
+      cursor: pointer;
+      user-select: none;
     }
-    .cb-npc-row:last-child { border-bottom: none; }
-    .cb-npc-header {
+    .cb-npc-card-header:hover {
+      background: rgba(255,255,255,0.03);
+    }
+    .cb-npc-name {
       font-weight: 600;
-      color: var(--color-accent-secondary);
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
+      font-size: 0.85rem;
+      flex-shrink: 0;
     }
-    .cb-npc-name { font-weight: 600; }
+    .cb-npc-tier-badge {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.6rem;
+      padding: 0.1rem 0.35rem;
+      border-radius: 3px;
+      background: var(--color-accent-deep, #6b4c9a);
+      color: var(--color-accent-primary);
+      flex-shrink: 0;
+      letter-spacing: 0.04em;
+    }
+    .cb-npc-class-badge {
+      font-size: 0.55rem;
+      padding: 0.08rem 0.3rem;
+      border-radius: 3px;
+      text-transform: uppercase;
+      font-family: 'Audiowide', sans-serif;
+      letter-spacing: 0.04em;
+      flex-shrink: 0;
+    }
+    .cb-npc-class-badge.minion { background: rgba(100,116,139,0.3); color: #94a3b8; }
+    .cb-npc-class-badge.standard { background: rgba(234,179,8,0.2); color: #eab308; }
+    .cb-npc-class-badge.elite { background: rgba(249,115,22,0.2); color: #f97316; }
+    .cb-npc-class-badge.boss { background: rgba(239,68,68,0.2); color: #ef4444; }
+    .cb-npc-init-badge {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.6rem;
+      margin-left: auto;
+      flex-shrink: 0;
+      color: var(--color-text-secondary);
+    }
+    .cb-npc-init-badge span {
+      color: var(--color-accent-primary);
+      font-size: 0.7rem;
+    }
+    .cb-npc-count-badge {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.65rem;
+      color: var(--color-accent-primary);
+      flex-shrink: 0;
+    }
+    .cb-npc-chevron {
+      font-size: 0.55rem;
+      color: var(--color-text-secondary);
+      transition: transform 0.2s;
+      flex-shrink: 0;
+    }
+    .cb-npc-card.expanded .cb-npc-chevron {
+      transform: rotate(90deg);
+    }
+    .cb-npc-card-body {
+      display: none;
+      padding: 0 0.6rem 0.5rem;
+      font-size: 0.7rem;
+    }
+    .cb-npc-card.expanded .cb-npc-card-body {
+      display: block;
+    }
+    .cb-npc-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem 0.6rem;
+      padding: 0.2rem 0;
+      font-size: 0.7rem;
+      color: var(--color-text-secondary);
+    }
+    .cb-npc-stat-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.15rem;
+      margin: 0.35rem 0;
+    }
+    .cb-npc-stat {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.6rem;
+      padding: 0.2rem 0.4rem;
+      border-radius: 3px;
+      background: rgba(0,0,0,0.25);
+    }
+    .cb-npc-stat .val {
+      color: var(--color-accent-primary);
+      font-size: 0.7rem;
+    }
+    .cb-npc-stat.combat-key {
+      background: rgba(var(--color-accent-primary-rgb, 199,146,52), 0.15);
+      border: 1px solid rgba(var(--color-accent-primary-rgb, 199,146,52), 0.3);
+    }
+    .cb-npc-dmg-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin: 0.25rem 0;
+      font-size: 0.6rem;
+      padding: 0.2rem 0.4rem;
+      background: rgba(0,0,0,0.15);
+      border-radius: 3px;
+    }
+    .cb-npc-dmg-bar .dmg-label {
+      font-family: 'Audiowide', sans-serif;
+      color: var(--color-text-secondary);
+      text-transform: uppercase;
+      font-size: 0.5rem;
+    }
+    .cb-npc-dmg-bar .dmg-val {
+      font-family: 'Audiowide', sans-serif;
+      color: var(--color-accent-primary);
+      font-size: 0.7rem;
+    }
+    .cb-npc-ability {
+      padding: 0.2rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .cb-npc-ability:last-child { border-bottom: none; }
+    .cb-npc-ability-tag {
+      font-size: 0.55rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 0.05rem 0.25rem;
+      border-radius: 2px;
+      display: inline-block;
+      margin-right: 0.2rem;
+    }
+    .cb-power-badge {
+      display: inline-block;
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.65rem;
+      padding: 0.05rem 0.3rem;
+      border-radius: 3px;
+      background: rgba(var(--color-accent-primary-rgb, 199,146,52), 0.2);
+      color: var(--color-accent-primary);
+      border: 1px solid rgba(var(--color-accent-primary-rgb, 199,146,52), 0.35);
+      margin: 0 0.15rem;
+    }
+    .cb-npc-detail-section {
+      padding: 0.15rem 0.4rem;
+      font-size: 0.7rem;
+      border-left: 2px solid;
+      margin: 0.25rem 0;
+    }
 
     .cb-decision {
       background: var(--color-bg-panel);
@@ -906,11 +1052,16 @@
       .cb-section-label { font-size: 0.6rem; }
       .cb-card { padding: 0.5rem; margin-bottom: 0.5rem; }
 
-      .cb-npc-row {
-        grid-template-columns: 1fr;
-        gap: 0.15rem;
+      .cb-npc-card-header {
+        flex-wrap: wrap;
+        gap: 0.3rem;
+        padding: 0.35rem 0.45rem;
       }
-      .cb-npc-header { display: none; }
+      .cb-npc-name { font-size: 0.78rem; }
+      .cb-npc-init-badge { margin-left: 0; }
+      .cb-npc-stat-bar { gap: 0.1rem; }
+      .cb-npc-stat { font-size: 0.55rem; padding: 0.15rem 0.3rem; }
+      .cb-power-badge { font-size: 0.6rem; }
 
       .cb-scene-footer { flex-direction: column; gap: 0.5rem; }
       .cb-complete-btn { width: 100%; text-align: center; }

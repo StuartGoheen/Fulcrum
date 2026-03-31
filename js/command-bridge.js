@@ -236,59 +236,101 @@
   }
 
   var _lastRenderedScene = null;
-  function renderThreatBlock(tb) {
+  var _npcExpandState = {};
+
+  function renderNpcCardBody(npc) {
+    var tb = npc.threatBuild;
     var h = '';
+
+    if (npc.notes) {
+      h += '<div class="cb-npc-meta-row">' + linkify(npc.notes) + '</div>';
+    }
+    if (npc.behavior) {
+      h += '<div class="cb-npc-detail-section" style="border-color:var(--color-accent-primary);"><strong>Behavior:</strong> ' + linkify(npc.behavior) + '</div>';
+    }
+    if (npc.dialogue && npc.dialogue.length) {
+      h += '<div class="cb-npc-detail-section" style="border-color:var(--color-accent-secondary,#c084fc);color:var(--color-accent-secondary,#c084fc);"><strong>Dialogue:</strong> ' + npc.dialogue.map(function(d){ return linkify(d); }).join(' ') + '</div>';
+    }
+    if (npc.intel) {
+      h += '<div class="cb-npc-detail-section" style="border-color:#f59e0b;color:#f59e0b;"><strong>Intel:</strong> ' + linkify(npc.intel) + '</div>';
+    }
+
+    if (!tb) return h;
     var c = tb.computed || {};
-    h += '<div class="cb-threat-block" style="grid-column:1/-1;margin:0.2rem 0.5rem 0.4rem;padding:0.4rem 0.6rem;background:rgba(0,0,0,0.2);border-radius:4px;font-size:0.7rem;border-left:2px solid var(--color-accent-deep,#6b4c9a);">';
+    var hasDamage = c.damageTiers;
 
-    h += '<div style="display:flex;flex-wrap:wrap;gap:0.6rem;margin-bottom:0.3rem;">';
-    h += '<span style="color:var(--color-accent-primary);">T' + (tb.tier || 0) + '</span>';
-    h += '<span>' + esc((tb.role || '').charAt(0).toUpperCase() + (tb.role || '').slice(1)) + '</span>';
-    h += '<span>' + esc((tb.classification || '').charAt(0).toUpperCase() + (tb.classification || '').slice(1)) + '</span>';
-    if (c.actions) h += '<span>Actions: ' + c.actions + '/rnd</span>';
+    h += '<div class="cb-npc-stat-bar">';
+    h += '<div class="cb-npc-stat combat-key">Def <span class="val">' + (c.defense != null ? c.defense : '—') + '</span></div>';
+    h += '<div class="cb-npc-stat combat-key">Eva <span class="val">' + (c.evasion != null ? c.evasion : '—') + '</span></div>';
+    h += '<div class="cb-npc-stat">Res <span class="val">' + (c.resist != null ? c.resist : '—') + '</span></div>';
+    h += '<div class="cb-npc-stat">Vit <span class="val">' + (c.vitality != null ? c.vitality : '—') + '</span></div>';
+    if (c.actions) h += '<div class="cb-npc-stat">' + c.actions + ' act/rnd</div>';
     h += '</div>';
 
-    h += '<div style="display:flex;flex-wrap:wrap;gap:0.8rem;margin-bottom:0.3rem;font-family:Audiowide,sans-serif;font-size:0.65rem;">';
-    h += '<span>Pwr <span style="color:var(--color-accent-primary);">' + (c.power != null ? c.power : '—') + '</span></span>';
-    h += '<span>Def <span style="color:var(--color-accent-primary);">' + (c.defense != null ? c.defense : '—') + '</span></span>';
-    h += '<span>Eva <span style="color:var(--color-accent-primary);">' + (c.evasion != null ? c.evasion : '—') + '</span></span>';
-    h += '<span>Res <span style="color:var(--color-accent-primary);">' + (c.resist != null ? c.resist : '—') + '</span></span>';
-    h += '<span>Vit <span style="color:var(--color-accent-primary);">' + (c.vitality != null ? c.vitality : '—') + '</span></span>';
-    h += '<span>Init <span style="color:var(--color-accent-primary);">' + (c.initiative != null ? c.initiative : '—') + '</span></span>';
-    h += '</div>';
-
-    if (c.damageTiers) {
+    if (hasDamage) {
       var dt = c.damageTiers;
-      h += '<div style="margin-bottom:0.3rem;font-size:0.65rem;">Damage (' + esc(dt.label) + '): ';
-      h += '<span style="color:var(--color-text-secondary);">Fleeting </span><span style="color:var(--color-accent-primary);">' + dt.fleeting + '</span>';
-      h += '<span style="color:var(--color-text-secondary);"> · Masterful </span><span style="color:var(--color-accent-primary);">' + dt.masterful + '</span>';
-      h += '<span style="color:var(--color-text-secondary);"> · Legendary </span><span style="color:var(--color-accent-primary);">' + dt.legendary + '</span>';
+      h += '<div class="cb-npc-dmg-bar">';
+      h += '<span class="dmg-label">' + esc(dt.label) + '</span>';
+      h += '<span class="dmg-label">F</span><span class="dmg-val">' + dt.fleeting + '</span>';
+      h += '<span class="dmg-label">M</span><span class="dmg-val">' + dt.masterful + '</span>';
+      h += '<span class="dmg-label">L</span><span class="dmg-val">' + dt.legendary + '</span>';
       h += '</div>';
     }
 
     if (tb.roleKit) {
       var rk = tb.roleKit;
       if (rk.passive) {
-        h += '<div style="margin-bottom:0.2rem;"><span style="color:var(--color-accent-secondary,#c084fc);font-size:0.6rem;text-transform:uppercase;">Passive:</span> <strong>' + esc(rk.passive.name) + '</strong> — ' + linkify(rk.passive.description) + '</div>';
+        h += '<div class="cb-npc-ability"><span class="cb-npc-ability-tag" style="background:rgba(192,132,252,0.15);color:#c084fc;">Passive</span> <strong>' + esc(rk.passive.name) + '</strong> — ' + linkify(rk.passive.description) + '</div>';
       }
       if (rk.actions && rk.actions.length) {
         rk.actions.forEach(function (a) {
-          h += '<div style="margin-bottom:0.15rem;"><span style="color:var(--color-accent-primary);font-size:0.6rem;text-transform:uppercase;">Action:</span> <strong>' + esc(a.name) + '</strong>';
-          if (a.attackPower != null) h += ' <span style="font-family:Audiowide,sans-serif;color:var(--color-accent-primary);">P' + a.attackPower + '</span>';
-          if (a.arena) h += ' <span style="color:var(--color-text-secondary);">(' + esc(a.arena) + ')</span>';
+          h += '<div class="cb-npc-ability"><span class="cb-npc-ability-tag" style="background:rgba(var(--color-accent-primary-rgb,199,146,52),0.15);color:var(--color-accent-primary);">Action</span> <strong>' + esc(a.name) + '</strong>';
+          if (a.attackPower != null) h += ' <span class="cb-power-badge">P' + a.attackPower + '</span>';
+          if (a.arena) h += ' <span style="color:var(--color-text-secondary);font-size:0.6rem;">(' + esc(a.arena) + ')</span>';
           h += ' — ' + linkify(a.description) + '</div>';
         });
       }
       if (rk.maneuver) {
-        h += '<div style="margin-bottom:0.15rem;"><span style="color:#60a5fa;font-size:0.6rem;text-transform:uppercase;">Maneuver:</span> <strong>' + esc(rk.maneuver.name) + '</strong> — ' + linkify(rk.maneuver.description) + '</div>';
+        h += '<div class="cb-npc-ability"><span class="cb-npc-ability-tag" style="background:rgba(96,165,250,0.15);color:#60a5fa;">Maneuver</span> <strong>' + esc(rk.maneuver.name) + '</strong> — ' + linkify(rk.maneuver.description) + '</div>';
       }
       if (rk.gambit) {
-        h += '<div style="margin-bottom:0.15rem;"><span style="color:#f59e0b;font-size:0.6rem;text-transform:uppercase;">Gambit</span> <span style="color:var(--color-text-secondary);font-size:0.6rem;">(optional, costs 1 Power)</span>: <strong>' + esc(rk.gambit.name) + '</strong> — ' + linkify(rk.gambit.description) + '</div>';
+        h += '<div class="cb-npc-ability"><span class="cb-npc-ability-tag" style="background:rgba(245,158,11,0.15);color:#f59e0b;">Gambit</span> <strong>' + esc(rk.gambit.name) + '</strong> <span style="color:var(--color-text-secondary);font-size:0.6rem;">(costs 1 Pwr)</span> — ' + linkify(rk.gambit.description) + '</div>';
       }
       if (rk.exploit) {
-        h += '<div style="margin-bottom:0.15rem;"><span style="color:#34d399;font-size:0.6rem;text-transform:uppercase;">Exploit:</span> <strong>' + esc(rk.exploit.name) + '</strong> — ' + linkify(rk.exploit.description) + '</div>';
+        h += '<div class="cb-npc-ability"><span class="cb-npc-ability-tag" style="background:rgba(52,211,153,0.15);color:#34d399;">Exploit</span> <strong>' + esc(rk.exploit.name) + '</strong> — ' + linkify(rk.exploit.description) + '</div>';
       }
     }
+
+    return h;
+  }
+
+  function renderNpcCard(npc, idx) {
+    var tb = npc.threatBuild;
+    var c = tb ? (tb.computed || {}) : {};
+    var cls = tb ? (tb.classification || '') : '';
+    var tier = tb ? tb.tier : null;
+    var role = tb ? tb.role : '';
+    var init = c.initiative;
+    var cardId = 'npc-card-' + idx;
+    var expandKey = currentScene + ':' + idx + ':' + npc.name;
+    var isExpanded = _npcExpandState[expandKey];
+
+    var h = '<div class="cb-npc-card' + (isExpanded ? ' expanded' : '') + '" id="' + cardId + '">';
+
+    h += '<div class="cb-npc-card-header" data-npc-toggle="' + esc(expandKey) + '">';
+    h += '<span class="cb-npc-chevron">&#9654;</span>';
+    h += '<span class="cb-npc-name">' + esc(npc.name) + '</span>';
+    if (tier != null) h += '<span class="cb-npc-tier-badge">T' + tier + '</span>';
+    if (cls) h += '<span class="cb-npc-class-badge ' + esc(cls) + '">' + esc(cls) + '</span>';
+    if (role) h += '<span style="font-size:0.6rem;color:var(--color-text-secondary);text-transform:capitalize;">' + esc(role) + '</span>';
+    h += '<span class="cb-npc-count-badge">x' + npc.count + '</span>';
+    if (init != null) h += '<span class="cb-npc-init-badge">Init <span>' + init + '</span></span>';
+    h += '</div>';
+
+    h += '<div class="cb-npc-card-body">';
+    h += '<div class="cb-npc-meta-row"><span>' + esc(npc.type) + '</span></div>';
+    h += renderNpcCardBody(npc);
+    h += '</div>';
 
     h += '</div>';
     return h;
@@ -344,21 +386,8 @@
       html += '<div class="cb-card">';
       html += '<div class="cb-section-label">NPC Roster</div>';
       html += '<div class="cb-npc-grid">';
-      html += '<div class="cb-npc-row cb-npc-header"><div>Name</div><div>Type</div><div>Count</div><div>Notes</div></div>';
-      scene.npcs.forEach(function (npc) {
-        html += '<div class="cb-npc-row"><div class="cb-npc-name">' + esc(npc.name) + '</div><div>' + esc(npc.type) + '</div><div style="text-align:center;font-family:Audiowide,sans-serif;color:var(--color-accent-primary);">' + npc.count + '</div><div style="color:var(--color-text-secondary);">' + linkify(npc.notes || '') + '</div></div>';
-        if (npc.behavior) {
-          html += '<div class="cb-npc-detail-row" style="grid-column:1/-1;padding:0.15rem 0.5rem;font-size:0.7rem;color:var(--color-text-secondary);border-left:2px solid var(--color-accent-primary);margin-left:0.5rem;"><strong>Behavior:</strong> ' + linkify(npc.behavior) + '</div>';
-        }
-        if (npc.dialogue && npc.dialogue.length) {
-          html += '<div class="cb-npc-detail-row" style="grid-column:1/-1;padding:0.15rem 0.5rem;font-size:0.7rem;color:var(--color-accent-secondary,#c084fc);border-left:2px solid var(--color-accent-secondary,#c084fc);margin-left:0.5rem;"><strong>Dialogue:</strong> ' + npc.dialogue.map(function(d){ return linkify(d); }).join(' ') + '</div>';
-        }
-        if (npc.intel) {
-          html += '<div class="cb-npc-detail-row" style="grid-column:1/-1;padding:0.15rem 0.5rem;font-size:0.7rem;color:#f59e0b;border-left:2px solid #f59e0b;margin-left:0.5rem;"><strong>Intel:</strong> ' + linkify(npc.intel) + '</div>';
-        }
-        if (npc.threatBuild) {
-          html += renderThreatBlock(npc.threatBuild);
-        }
+      scene.npcs.forEach(function (npc, idx) {
+        html += renderNpcCard(npc, idx);
       });
       html += '</div></div>';
     }
@@ -509,6 +538,15 @@
     });
     container.querySelectorAll('.cb-condition-link').forEach(function (el) {
       el.addEventListener('click', function () { showGlossaryEntry(el.dataset.conditionId); });
+    });
+    container.querySelectorAll('.cb-npc-card-header').forEach(function (el) {
+      el.addEventListener('click', function () {
+        var card = el.closest('.cb-npc-card');
+        if (!card) return;
+        var expandKey = el.dataset.npcToggle;
+        card.classList.toggle('expanded');
+        _npcExpandState[expandKey] = card.classList.contains('expanded');
+      });
     });
     container.querySelectorAll('.ct-start-encounter-btn').forEach(function (btn) {
       btn.addEventListener('click', function () {
