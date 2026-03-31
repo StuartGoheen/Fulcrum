@@ -1076,18 +1076,77 @@
     }
   }
 
+  var _editCallback = null;
+
+  function openWithNpc(npcData, callback) {
+    _editCallback = callback || null;
+    currentNpc = JSON.parse(JSON.stringify(npcData));
+    if (!currentNpc.threatCategory) currentNpc.threatCategory = 'character';
+    if (!currentNpc.shipDetails) currentNpc.shipDetails = { hullType: '', crew: '', hyperdrive: '', sensors: '', shields: '', cargo: '', speed: '' };
+    if (!currentNpc.traits) currentNpc.traits = [];
+    if (!currentNpc.tags) currentNpc.tags = [];
+    if (!currentNpc.loot) currentNpc.loot = [];
+    if (!currentNpc.attacks) currentNpc.attacks = [];
+    if (currentNpc.attacks) {
+      currentNpc.attacks.forEach(function (atk) {
+        if (!atk.arena) atk.arena = 'physique';
+        if (atk.powerMod === undefined) atk.powerMod = 0;
+        if (!atk.chassis) {
+          var scaleMap = { fleeting: 'light', masterful: 'medium', legendary: 'heavy' };
+          atk.chassis = (atk.damageScale && scaleMap[atk.damageScale]) || 'medium';
+        }
+        delete atk.damageScale;
+      });
+    }
+    openNpcBuilder();
+  }
+
+  function closeNpcBuilderWithCallback() {
+    if (_editCallback) {
+      var stats = calcStats(currentNpc);
+      var result = JSON.parse(JSON.stringify(currentNpc));
+      result.computed = stats;
+      var role = currentNpc.role && threatData ? threatData.roles.find(function (r) { return r.id === currentNpc.role; }) : null;
+      if (role) {
+        result.roleKit = {
+          passives: role.passives || [],
+          actions: role.actions || [],
+          maneuvers: role.maneuvers || [],
+          gambits: role.gambits || [],
+          exploits: role.exploits || []
+        };
+      }
+      result.arenas = stats.arenas || currentNpc.arenas;
+      _editCallback(result);
+      _editCallback = null;
+    }
+    closeNpcBuilder();
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     var buildBtn = document.getElementById('cb-build-threat');
-    if (buildBtn) buildBtn.addEventListener('click', openNpcBuilder);
+    if (buildBtn) buildBtn.addEventListener('click', function () {
+      _editCallback = null;
+      openNpcBuilder();
+    });
 
     var closeBtn = document.getElementById('npc-builder-close');
-    if (closeBtn) closeBtn.addEventListener('click', closeNpcBuilder);
+    if (closeBtn) closeBtn.addEventListener('click', closeNpcBuilderWithCallback);
 
     var overlayBg = document.getElementById('npc-builder-overlay');
     if (overlayBg) {
       overlayBg.addEventListener('click', function (e) {
-        if (e.target === e.currentTarget) closeNpcBuilder();
+        if (e.target === e.currentTarget) closeNpcBuilderWithCallback();
       });
     }
   });
+
+  window.NpcBuilder = {
+    getSavedNpcs: function () {
+      loadSavedNpcs();
+      return savedNpcs.slice();
+    },
+    openWithNpc: openWithNpc,
+    calcStats: calcStats
+  };
 })();

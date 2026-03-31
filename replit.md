@@ -38,7 +38,7 @@ The app uses a passcode-based gate (cookie auth) to restrict access:
 │   └── themes.css        # CSS variable theme definitions (6 themes: rebellion, r2d2, vader, fett, holo, fringe)
 ├── js/                   # Client-side JavaScript modules
 │   ├── command-bridge.js  # GM Command Bridge three-column layout JS (mobile responsive via tab navigation at ≤520px)
-│   ├── combat-tracker.js   # GM Combat Tracker — two-panel layout (initiative rail + detail panel), glossary-driven NPC conditions, WebSocket Join Battle flow, bidirectional condition sync, tactical map with token movement, full server-side state persistence (combat:sync-state), GM refresh reconnect (restoreFromState), duration-aware PC condition push with picker UI, styled condition pills on PC cards
+│   ├── combat-tracker.js   # GM Combat Tracker — two-panel layout (initiative rail + detail panel), glossary-driven NPC conditions, WebSocket Join Battle flow, bidirectional condition sync, tactical map with token movement, full server-side state persistence (combat:sync-state), GM refresh reconnect (restoreFromState), duration-aware PC condition push with picker UI, styled condition pills on PC cards, mid-combat NPC add/remove/edit via Threat Builder integration
 │   ├── npc-builder.js     # NPC Threat Builder full-screen overlay (5-category system: character/vehicle/starship/capital_ship/station, auto-applied scale traits, ship-flavored arena/stat labels, ship details panel, powerMod/initiativeMod trait support, loot attachment, save/recall)
 │   ├── market.js          # Black Market (char gate, accordion, salvaged, purchase, ledger)
 │   ├── market-source-viewer.js # Source DB viewer overlay

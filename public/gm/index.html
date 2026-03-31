@@ -2234,6 +2234,7 @@
       display: flex;
       gap: 0.4rem;
       align-items: center;
+      position: relative;
     }
     .ct-jb-trigger {
       background: transparent;
@@ -2275,6 +2276,110 @@
     .ct-end-btn:hover {
       background: var(--color-danger, #ef4444);
       color: #000;
+    }
+    .ct-add-npc-btn {
+      background: transparent;
+      border: 1px solid var(--color-accent-primary);
+      color: var(--color-accent-primary);
+      font-family: 'Exo 2', sans-serif;
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.3rem 0.5rem;
+      cursor: pointer;
+      transition: all 0.15s;
+      min-height: 32px;
+    }
+    .ct-add-npc-btn:hover {
+      background: var(--color-accent-primary);
+      color: #000;
+    }
+    .ct-add-npc-panel {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      z-index: 200;
+      background: var(--color-bg-primary, #1a1a2e);
+      border: 1px solid var(--color-accent-primary);
+      border-radius: 6px;
+      padding: 0.5rem;
+      min-width: 220px;
+      max-height: 300px;
+      overflow-y: auto;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+    }
+    .ct-add-npc-title {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--color-accent-primary);
+      margin-bottom: 0.4rem;
+      padding-bottom: 0.3rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .ct-add-npc-empty {
+      font-size: 0.6rem;
+      color: rgba(255,255,255,0.4);
+      padding: 0.3rem;
+    }
+    .ct-add-npc-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .ct-add-npc-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.3rem 0.4rem;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background 0.15s;
+    }
+    .ct-add-npc-item:hover {
+      background: rgba(255,255,255,0.08);
+    }
+    .ct-add-npc-name {
+      font-size: 0.65rem;
+      color: var(--color-text-primary);
+    }
+    .ct-add-npc-meta {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.5rem;
+      letter-spacing: 0.04em;
+    }
+    .ct-npc-actions {
+      display: flex;
+      gap: 0.3rem;
+      margin-left: auto;
+    }
+    .ct-npc-edit-btn,
+    .ct-npc-remove-btn {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.5);
+      font-size: 0.7rem;
+      width: 26px;
+      height: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.15s;
+      padding: 0;
+      line-height: 1;
+    }
+    .ct-npc-edit-btn:hover {
+      border-color: var(--color-accent-primary);
+      color: var(--color-accent-primary);
+      background: rgba(var(--color-accent-primary-rgb, 96,165,250), 0.1);
+    }
+    .ct-npc-remove-btn:hover {
+      border-color: var(--color-danger, #ef4444);
+      color: var(--color-danger, #ef4444);
+      background: rgba(239,68,68,0.1);
     }
     .ct-section-label {
       font-family: 'Audiowide', sans-serif;

@@ -389,6 +389,7 @@
       var total = combatState.pcSlots.length;
       html += '<span class="ct-jb-status">' + responded + '/' + total + ' joined</span>';
     }
+    html += '<button class="ct-add-npc-btn" id="ct-add-npc" title="Add NPC">+ NPC</button>';
     html += '<button class="ct-end-btn" id="ct-end-encounter">End</button>';
     html += '</div>';
     html += '</div>';
@@ -500,6 +501,10 @@
     if (npc.tier != null) html += '<span class="ct-detail-tier">T' + npc.tier + '</span>';
     if (npc.role) html += '<span class="ct-detail-role">' + esc(npc.role) + '</span>';
     if (npc.surprised) html += '<span class="ct-rail-tag ct-tag-surprised" style="margin-left:0.3rem;">SURPRISED</span>';
+    html += '<div class="ct-npc-actions">';
+    if (npc.npcData || npc.arenas) html += '<button class="ct-npc-edit-btn" data-npc-id="' + esc(npc.id) + '" title="Edit in Threat Builder">&#9998;</button>';
+    html += '<button class="ct-npc-remove-btn" data-npc-id="' + esc(npc.id) + '" title="Remove from combat">&times;</button>';
+    html += '</div>';
     html += '</div>';
 
     function statCell(label, val) {
@@ -1071,12 +1076,201 @@
     });
   }
 
+  function removeNpcFromCombat(npcId) {
+    if (!combatState) return;
+    combatState.combatants = combatState.combatants.filter(function (n) { return n.id !== npcId; });
+    combatState.turnOrder = combatState.turnOrder.filter(function (t) { return t.id !== npcId; });
+    if (combatState.currentTurnIndex >= combatState.turnOrder.length) {
+      combatState.currentTurnIndex = Math.max(0, combatState.turnOrder.length - 1);
+    }
+    if (combatState.selectedId === npcId) combatState.selectedId = null;
+    if (combatState.tokenPositions) delete combatState.tokenPositions[npcId];
+    renderCombatTracker();
+  }
+
+  function addNpcToCombat(npcBuild) {
+    if (!combatState) return;
+    var nextId = 1;
+    combatState.combatants.forEach(function (n) {
+      var m = n.id.match(/^npc_(\d+)$/);
+      if (m) nextId = Math.max(nextId, parseInt(m[1], 10) + 1);
+    });
+    var id = 'npc_' + nextId;
+    var comp = npcBuild.computed || {};
+    var maxPower = 0;
+    if (comp.powers) {
+      var pKeys = Object.keys(comp.powers);
+      pKeys.forEach(function (k) { if (comp.powers[k] > maxPower) maxPower = comp.powers[k]; });
+    }
+    var entry = {
+      id: id,
+      name: npcBuild.name || 'Unknown NPC',
+      type: 'npc',
+      threat: npcBuild.classification || 'standard',
+      tier: npcBuild.tier || 0,
+      role: npcBuild.role || '',
+      initiative: comp.initiative || (1 + (npcBuild.tier || 0)),
+      power: comp.power || maxPower || 0,
+      defense: comp.defense || 0,
+      evasion: comp.evasion || 0,
+      resist: comp.resist || 0,
+      vitalityMax: comp.vitality || 5,
+      vitalityCurrent: comp.vitality || 5,
+      actions: comp.actions || 1,
+      conditions: [],
+      conditionArenas: {},
+      roleKit: npcBuild.roleKit || null,
+      arenas: npcBuild.arenas || {},
+      damageTiers: comp.damageTiers || null,
+      zone: null,
+      npcData: npcBuild
+    };
+    combatState.combatants.push(entry);
+    combatState.turnOrder.push({ id: id, type: 'npc', name: entry.name, initiative: entry.initiative });
+    combatState.turnOrder.sort(function (a, b) { return (b.initiative || 0) - (a.initiative || 0); });
+    combatState.selectedId = id;
+    renderCombatTracker();
+  }
+
+  function showAddNpcPanel(anchorBtn) {
+    var existing = document.querySelector('.ct-add-npc-panel');
+    if (existing) { existing.remove(); return; }
+
+    var saved = (window.NpcBuilder && window.NpcBuilder.getSavedNpcs) ? window.NpcBuilder.getSavedNpcs() : [];
+
+    var panel = document.createElement('div');
+    panel.className = 'ct-add-npc-panel';
+    var html = '<div class="ct-add-npc-title">Add NPC to Combat</div>';
+    if (saved.length === 0) {
+      html += '<div class="ct-add-npc-empty">No saved NPCs. Build one in the Threat Builder first.</div>';
+    } else {
+      html += '<div class="ct-add-npc-list">';
+      saved.forEach(function (npc, idx) {
+        var cls = npc.classification || 'standard';
+        var clsColor = cls === 'minion' ? '#6b7280' : cls === 'boss' ? '#ef4444' : cls === 'elite' ? '#a855f7' : 'var(--color-accent-primary)';
+        html += '<div class="ct-add-npc-item" data-saved-idx="' + idx + '">';
+        html += '<span class="ct-add-npc-name">' + esc(npc.name || 'Unnamed') + '</span>';
+        html += '<span class="ct-add-npc-meta" style="color:' + clsColor + ';">' + esc(cls).toUpperCase() + ' T' + (npc.tier || 0) + '</span>';
+        html += '</div>';
+      });
+      html += '</div>';
+    }
+    panel.innerHTML = html;
+
+    anchorBtn.parentNode.appendChild(panel);
+
+    panel.querySelectorAll('.ct-add-npc-item').forEach(function (item) {
+      item.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var idx = parseInt(item.dataset.savedIdx, 10);
+        var npc = saved[idx];
+        if (!npc) return;
+        var build = JSON.parse(JSON.stringify(npc));
+        if (window.NpcBuilder && window.NpcBuilder.calcStats) {
+          var stats = window.NpcBuilder.calcStats(build);
+          build.computed = stats;
+        }
+        addNpcToCombat(build);
+        panel.remove();
+      });
+    });
+
+    setTimeout(function () {
+      function closePanel(e) {
+        if (!panel.contains(e.target) && e.target !== anchorBtn) {
+          panel.remove();
+          document.removeEventListener('click', closePanel);
+        }
+      }
+      document.addEventListener('click', closePanel);
+    }, 10);
+  }
+
+  function editNpcInBuilder(npcId) {
+    if (!combatState) return;
+    var npc = combatState.combatants.find(function (n) { return n.id === npcId; });
+    if (!npc) return;
+
+    var buildData = null;
+    if (npc.npcData && npc.npcData.threatBuild) {
+      buildData = JSON.parse(JSON.stringify(npc.npcData.threatBuild));
+    } else if (npc.npcData && npc.npcData.arenas) {
+      buildData = JSON.parse(JSON.stringify(npc.npcData));
+    }
+    if (!buildData) {
+      buildData = {
+        name: npc.name.replace(/ #\d+$/, ''),
+        tier: npc.tier || 0,
+        threatCategory: 'character',
+        arenas: npc.arenas || { physique: 2, reflex: 2, grit: 2, wits: 2, presence: 2 },
+        role: npc.role || '',
+        classification: npc.threat || 'standard',
+        traits: [], tags: [], loot: [], attacks: [],
+        numPlayers: 4
+      };
+    }
+    if (!buildData.name) buildData.name = npc.name.replace(/ #\d+$/, '');
+
+    if (window.NpcBuilder && window.NpcBuilder.openWithNpc) {
+      window.NpcBuilder.openWithNpc(buildData, function (updatedBuild) {
+        if (!updatedBuild) return;
+        var comp = updatedBuild.computed || {};
+        npc.name = updatedBuild.name || npc.name;
+        npc.tier = updatedBuild.tier != null ? updatedBuild.tier : npc.tier;
+        npc.threat = updatedBuild.classification || npc.threat;
+        npc.role = updatedBuild.role || npc.role;
+        npc.initiative = comp.initiative || npc.initiative;
+        npc.power = comp.power || npc.power;
+        npc.defense = comp.defense || npc.defense;
+        npc.evasion = comp.evasion || npc.evasion;
+        npc.resist = comp.resist || npc.resist;
+        npc.vitalityMax = comp.vitality || npc.vitalityMax;
+        npc.vitalityCurrent = Math.min(npc.vitalityCurrent, npc.vitalityMax);
+        npc.actions = comp.actions || npc.actions;
+        npc.arenas = updatedBuild.arenas || npc.arenas;
+        npc.roleKit = updatedBuild.roleKit || npc.roleKit;
+        npc.damageTiers = comp.damageTiers || npc.damageTiers;
+        npc.npcData = updatedBuild;
+
+        var tEntry = combatState.turnOrder.find(function (t) { return t.id === npc.id; });
+        if (tEntry) {
+          tEntry.name = npc.name;
+          tEntry.initiative = npc.initiative;
+          combatState.turnOrder.sort(function (a, b) { return (b.initiative || 0) - (a.initiative || 0); });
+        }
+        renderCombatTracker();
+      });
+    }
+  }
+
   function attachCombatEvents(container) {
     var endBtn = container.querySelector('#ct-end-encounter');
     if (endBtn) endBtn.addEventListener('click', endEncounter);
 
     var jbBtn = container.querySelector('#ct-trigger-jb');
     if (jbBtn) jbBtn.addEventListener('click', triggerJoinBattle);
+
+    var addNpcBtn = container.querySelector('#ct-add-npc');
+    if (addNpcBtn) addNpcBtn.addEventListener('click', function () { showAddNpcPanel(addNpcBtn); });
+
+    container.querySelectorAll('.ct-npc-remove-btn').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var npcId = btn.dataset.npcId;
+        var npc = combatState.combatants.find(function (n) { return n.id === npcId; });
+        var name = npc ? npc.name : 'this NPC';
+        if (confirm('Remove ' + name + ' from combat?')) {
+          removeNpcFromCombat(npcId);
+        }
+      });
+    });
+
+    container.querySelectorAll('.ct-npc-edit-btn').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        editNpcInBuilder(btn.dataset.npcId);
+      });
+    });
 
     container.querySelectorAll('.ct-rail-entry').forEach(function (entry) {
       entry.addEventListener('click', function () {
