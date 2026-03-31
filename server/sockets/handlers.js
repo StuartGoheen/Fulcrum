@@ -503,9 +503,12 @@ function registerHandlers(io) {
       const surprised = control >= 1 && control <= 3;
       const mastery = control >= 8;
 
+      const charIdStr = String(socket.data.characterId);
+      const charName = socket.data.characterName || 'Unknown';
+
       _combatState.responses[socket.data.characterId] = {
         characterId: socket.data.characterId,
-        name: socket.data.characterName || 'Unknown',
+        name: charName,
         controlResult: control,
         powerResult: power,
         surprised,
@@ -513,15 +516,34 @@ function registerHandlers(io) {
         initiative: power
       };
 
+      if (!_combatState.pcSlots) _combatState.pcSlots = [];
+      let existingPc = _combatState.pcSlots.find(p => String(p.id) === charIdStr);
+      if (!existingPc) {
+        existingPc = { id: charIdStr, name: charName, type: 'pc', conditions: [], activeEffects: [] };
+        _combatState.pcSlots.push(existingPc);
+      }
+      existingPc.initiative = power;
+      existingPc.surprised = surprised;
+      existingPc.mastery = mastery;
+
+      if (!_combatState.turnOrder) _combatState.turnOrder = [];
+      const alreadyInOrder = _combatState.turnOrder.find(t => t.id === charIdStr && t.type === 'pc');
+      if (!alreadyInOrder) {
+        _combatState.turnOrder.push({ id: charIdStr, type: 'pc', name: charName, initiative: power });
+        _combatState.turnOrder.sort((a, b) => (b.initiative || 0) - (a.initiative || 0));
+      }
+
       io.to('gm').emit('combat:join-battle-result', {
         characterId: socket.data.characterId,
-        name: socket.data.characterName || 'Unknown',
+        name: charName,
         controlResult: control,
         powerResult: power,
         surprised,
         mastery,
         initiative: power
       });
+
+      io.to('players').emit('combat:state-update', _getPlayerCombatState());
 
       if (surprised) {
         const surpriseEffects = [
@@ -699,14 +721,28 @@ function registerHandlers(io) {
     socket.on('condition:sync', async ({ effects }) => {
       if (socket.data.role !== 'player' || !socket.data.characterId) return;
       const charId = socket.data.characterId;
-      const safeEffects = effects || [];
+      const rawEffects = Array.isArray(effects) ? effects : [];
+
+      const ALLOWED_DURATIONS = ['immediate', 'tactical', 'lingering', 'ongoing'];
+      const ALLOWED_TARGETS = /^(fixed|universal|arena:(physique|reflex|grit|wits|presence|power|evasion|resist|defense))$/;
+      const safeEffects = rawEffects.map(e => {
+        if (!e || typeof e !== 'object') return null;
+        const effectId = typeof e.effectId === 'string' ? e.effectId.replace(/[^a-z0-9_-]/gi, '').slice(0, 40) : '';
+        if (!effectId) return null;
+        const uid = typeof e.uid === 'string' ? e.uid.replace(/[^a-z0-9_]/gi, '').slice(0, 60) : '';
+        const target = (typeof e.target === 'string' && ALLOWED_TARGETS.test(e.target)) ? e.target : 'universal';
+        const duration = (typeof e.duration === 'string' && ALLOWED_DURATIONS.includes(e.duration)) ? e.duration : 'tactical';
+        const hazardValue = typeof e.hazardValue === 'number' ? Math.max(0, Math.min(e.hazardValue, 99)) : 0;
+        const source = typeof e.source === 'string' ? e.source.slice(0, 20) : '';
+        return { effectId, uid, target, duration, hazardValue, source };
+      }).filter(Boolean);
 
       if (_combatState && _combatState.active && _combatState.pcSlots) {
         const charIdStr = String(charId);
         const pc = _combatState.pcSlots.find(p => String(p.id) === charIdStr);
         if (pc) {
-          pc.conditions = safeEffects.map(e => e.effectId || e);
-          pc.activeEffects = safeEffects.filter(e => e.effectId);
+          pc.conditions = safeEffects.map(e => e.effectId);
+          pc.activeEffects = safeEffects;
         }
       }
 

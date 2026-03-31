@@ -689,19 +689,22 @@
         var color = condColor(cid);
         var scopeStr = '';
         if (eff.target) {
-          if (eff.target === 'fixed') scopeStr = 'fixed';
-          else if (eff.target === 'universal') scopeStr = 'all';
-          else if (typeof eff.target === 'string' && eff.target.indexOf('arena:') === 0) {
-            scopeStr = eff.target.replace('arena:', '');
+          var allowedScopes = { fixed: 'fixed', universal: 'all' };
+          if (allowedScopes[eff.target]) {
+            scopeStr = allowedScopes[eff.target];
+          } else if (typeof eff.target === 'string' && eff.target.indexOf('arena:') === 0) {
+            var arenaVal = eff.target.replace('arena:', '');
+            var allowedArenas = ['physique','reflex','grit','wits','presence','power','evasion','resist','defense'];
+            scopeStr = allowedArenas.indexOf(arenaVal) !== -1 ? arenaVal : '';
           }
         }
         var durMap = { immediate: '1T', tactical: 'S', lingering: 'L', ongoing: '\u221E' };
-        var durStr = durMap[eff.duration] || eff.duration || '';
+        var durStr = durMap[eff.duration] || '';
         var meta = '';
         if (scopeStr || durStr) {
           var parts = [];
-          if (scopeStr) parts.push(scopeStr);
-          if (durStr) parts.push(durStr);
+          if (scopeStr) parts.push(esc(scopeStr));
+          if (durStr) parts.push(esc(durStr));
           meta = ' <small class="ct-dur-tag">(' + parts.join('/') + ')</small>';
         }
         html += '<span class="ct-condition-chip ct-pc-chip" style="background:' + color + '22;color:' + color + ';border-color:' + color + '44;">' + esc(label) + meta + '</span>';
