@@ -586,16 +586,16 @@
     html += '</div>';
 
     if (scene.readAloud) {
-      html += '<div class="cb-read-aloud">';
-      html += '<div class="cb-section-label">Player Read-Aloud</div>';
-      html += '<div class="cb-read-aloud-text">' + linkify(scene.readAloud) + '</div>';
+      html += '<div class="cb-read-aloud cb-collapsible collapsed">';
+      html += '<div class="cb-section-label cb-collapse-toggle"><span class="cb-collapse-chevron">&#9654;</span> Player Read-Aloud</div>';
+      html += '<div class="cb-collapse-body"><div class="cb-read-aloud-text">' + linkify(scene.readAloud) + '</div></div>';
       html += '</div>';
     }
 
     if (scene.gmNotes) {
-      html += '<div class="cb-gm-notes">';
-      html += '<div class="cb-section-label">GM Notes</div>';
-      html += '<div>' + linkify(scene.gmNotes) + '</div>';
+      html += '<div class="cb-gm-notes cb-collapsible collapsed">';
+      html += '<div class="cb-section-label cb-collapse-toggle"><span class="cb-collapse-chevron">&#9654;</span> GM Notes</div>';
+      html += '<div class="cb-collapse-body"><div>' + linkify(scene.gmNotes) + '</div></div>';
       html += '</div>';
     }
 
@@ -764,6 +764,12 @@
     });
     container.querySelectorAll('.cb-condition-link').forEach(function (el) {
       el.addEventListener('click', function () { showGlossaryEntry(el.dataset.conditionId); });
+    });
+    container.querySelectorAll('.cb-collapse-toggle').forEach(function (el) {
+      el.addEventListener('click', function () {
+        var section = el.closest('.cb-collapsible');
+        if (section) section.classList.toggle('collapsed');
+      });
     });
     container.querySelectorAll('.cb-npc-card-header').forEach(function (el) {
       el.addEventListener('click', function (e) {

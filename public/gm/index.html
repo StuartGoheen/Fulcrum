@@ -424,6 +424,32 @@
       white-space: pre-line;
     }
 
+    .cb-collapsible .cb-collapse-toggle {
+      cursor: pointer;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .cb-collapse-chevron {
+      display: inline-block;
+      font-size: 0.55rem;
+      transition: transform 0.2s ease;
+    }
+    .cb-collapsible:not(.collapsed) .cb-collapse-chevron {
+      transform: rotate(90deg);
+    }
+    .cb-collapsible .cb-collapse-body {
+      overflow: hidden;
+      transition: max-height 0.25s ease, opacity 0.2s ease;
+      max-height: 2000px;
+      opacity: 1;
+    }
+    .cb-collapsible.collapsed .cb-collapse-body {
+      max-height: 0;
+      opacity: 0;
+    }
+
     .cb-gm-notes {
       background: var(--color-bg-frame);
       border-left: 3px solid var(--color-accent-deep);
