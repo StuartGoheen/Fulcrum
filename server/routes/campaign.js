@@ -170,6 +170,85 @@ router.put('/campaign/scene/:sceneId/complete', async (req, res) => {
   }
 });
 
+function findSceneById(data, sceneId) {
+  for (const adv of data.adventures) {
+    for (const part of (adv.parts || [])) {
+      for (const scene of (part.scenes || [])) {
+        if (scene.id === sceneId) return scene;
+      }
+    }
+  }
+  return null;
+}
+
+function writeAdventures(data) {
+  fs.writeFileSync(ADVENTURES_PATH, JSON.stringify(data, null, 2), 'utf8');
+  adventuresCache = data;
+  adventuresCacheMtime = Date.now();
+}
+
+router.put('/campaign/scene/:sceneId/npc/:npcIndex', (req, res) => {
+  const { sceneId, npcIndex } = req.params;
+  const idx = parseInt(npcIndex, 10);
+  const updatedNpc = req.body;
+  if (!updatedNpc || typeof updatedNpc !== 'object') {
+    return res.status(400).json({ error: 'NPC data required' });
+  }
+  try {
+    const data = loadAdventures();
+    const scene = findSceneById(data, sceneId);
+    if (!scene) return res.status(404).json({ error: 'Scene not found' });
+    if (!scene.npcs || idx < 0 || idx >= scene.npcs.length) {
+      return res.status(404).json({ error: 'NPC index out of range' });
+    }
+    scene.npcs[idx] = updatedNpc;
+    writeAdventures(data);
+    res.json({ success: true });
+  } catch (err) {
+    console.error('[PUT /campaign/scene/npc]', err);
+    res.status(500).json({ error: 'Failed to update NPC', detail: err.message });
+  }
+});
+
+router.post('/campaign/scene/:sceneId/npc', (req, res) => {
+  const { sceneId } = req.params;
+  const newNpc = req.body;
+  if (!newNpc || typeof newNpc !== 'object') {
+    return res.status(400).json({ error: 'NPC data required' });
+  }
+  try {
+    const data = loadAdventures();
+    const scene = findSceneById(data, sceneId);
+    if (!scene) return res.status(404).json({ error: 'Scene not found' });
+    if (!scene.npcs) scene.npcs = [];
+    scene.npcs.push(newNpc);
+    writeAdventures(data);
+    res.json({ success: true, index: scene.npcs.length - 1 });
+  } catch (err) {
+    console.error('[POST /campaign/scene/npc]', err);
+    res.status(500).json({ error: 'Failed to add NPC', detail: err.message });
+  }
+});
+
+router.delete('/campaign/scene/:sceneId/npc/:npcIndex', (req, res) => {
+  const { sceneId, npcIndex } = req.params;
+  const idx = parseInt(npcIndex, 10);
+  try {
+    const data = loadAdventures();
+    const scene = findSceneById(data, sceneId);
+    if (!scene) return res.status(404).json({ error: 'Scene not found' });
+    if (!scene.npcs || idx < 0 || idx >= scene.npcs.length) {
+      return res.status(404).json({ error: 'NPC index out of range' });
+    }
+    scene.npcs.splice(idx, 1);
+    writeAdventures(data);
+    res.json({ success: true });
+  } catch (err) {
+    console.error('[DELETE /campaign/scene/npc]', err);
+    res.status(500).json({ error: 'Failed to remove NPC', detail: err.message });
+  }
+});
+
 router.get('/campaign/lore-tags', (req, res) => {
   try {
     const data = loadAdventures();

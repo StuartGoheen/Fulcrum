@@ -239,17 +239,74 @@
   var _npcExpandState = {};
   var _sceneNpcOverrides = {};
 
+  function ensureComputedAttacks(npc) {
+    if (!npc.threatBuild) return;
+    var tb = npc.threatBuild;
+    if (tb.attacks && tb.attacks.length && !tb.computedAttacks) {
+      if (window.NpcBuilder) {
+        window.NpcBuilder.ensureThreatData().then(function () {
+          window.NpcBuilder.buildNpcFromSaved(tb).then(function (built) {
+            tb.computedAttacks = built.computedAttacks || [];
+            renderScene();
+          });
+        });
+      }
+    }
+  }
+
   function getSceneNpcs() {
     var adv = getAdventure(currentAdventure);
     var part = adv ? getPart(adv, currentPart) : null;
     var scene = part ? getScene(part, currentScene) : null;
     if (!scene) return [];
     if (_sceneNpcOverrides[currentScene]) return _sceneNpcOverrides[currentScene];
-    return (scene.npcs || []).slice();
+    var npcs = (scene.npcs || []).slice();
+    npcs.forEach(ensureComputedAttacks);
+    return npcs;
   }
 
   function setSceneNpcs(npcs) {
     _sceneNpcOverrides[currentScene] = npcs;
+  }
+
+  function stripTransientFields(npc) {
+    var copy = JSON.parse(JSON.stringify(npc));
+    if (copy.threatBuild) {
+      delete copy.threatBuild.computedAttacks;
+    }
+    delete copy._templateName;
+    return copy;
+  }
+
+  function persistSceneNpc(idx, npc) {
+    if (!currentScene) return;
+    fetch('/api/campaign/scene/' + encodeURIComponent(currentScene) + '/npc/' + idx, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(stripTransientFields(npc))
+    }).then(function (r) {
+      if (!r.ok) console.error('Failed to persist NPC update', r.status);
+    }).catch(function (err) { console.error('NPC persist error', err); });
+  }
+
+  function addSceneNpc(npc) {
+    if (!currentScene) return;
+    fetch('/api/campaign/scene/' + encodeURIComponent(currentScene) + '/npc', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(stripTransientFields(npc))
+    }).then(function (r) {
+      if (!r.ok) console.error('Failed to persist NPC add', r.status);
+    }).catch(function (err) { console.error('NPC add error', err); });
+  }
+
+  function deleteSceneNpc(idx) {
+    if (!currentScene) return;
+    fetch('/api/campaign/scene/' + encodeURIComponent(currentScene) + '/npc/' + idx, {
+      method: 'DELETE'
+    }).then(function (r) {
+      if (!r.ok) console.error('Failed to persist NPC delete', r.status);
+    }).catch(function (err) { console.error('NPC delete error', err); });
   }
 
   function getNpcTypeId(npc) {
@@ -740,6 +797,7 @@
             npc.threatBuild.computedAttacks = updated.computedAttacks || [];
             if (updated.loot) npc.loot = updated.loot;
             setSceneNpcs(npcs);
+            persistSceneNpc(idx, npc);
             renderScene();
           });
         }
@@ -753,6 +811,7 @@
         if (idx < 0 || idx >= npcs.length) return;
         npcs.splice(idx, 1);
         setSceneNpcs(npcs);
+        deleteSceneNpc(idx);
         renderScene();
       });
     });
@@ -812,6 +871,7 @@
               var npcs = getSceneNpcs();
               npcs.push(newNpc);
               setSceneNpcs(npcs);
+              addSceneNpc(newNpc);
               panel.style.display = 'none';
               renderScene();
             });
