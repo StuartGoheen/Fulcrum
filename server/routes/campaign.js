@@ -4,23 +4,43 @@ const path    = require('path');
 const fs      = require('fs');
 const { pool } = require('../db');
 
-const ADVENTURES_PATH = path.join(__dirname, '..', '..', 'data', 'adventures.json');
+const ADVENTURES_DIR = path.join(__dirname, '..', '..', 'data', 'adventures');
 const LOCATIONS_PATH = path.join(__dirname, '..', '..', 'data', 'locations.json');
 
 let adventuresCache = null;
-let adventuresCacheMtime = 0;
+let adventuresCacheMtimes = {};
 function loadAdventures() {
-  try {
-    const stat = fs.statSync(ADVENTURES_PATH);
-    const mtime = stat.mtimeMs;
-    if (!adventuresCache || mtime > adventuresCacheMtime) {
-      adventuresCache = JSON.parse(fs.readFileSync(ADVENTURES_PATH, 'utf8'));
-      adventuresCacheMtime = mtime;
+  const files = fs.readdirSync(ADVENTURES_DIR).filter(f => /^adv\d+\.json$/.test(f)).sort((a, b) => {
+    const na = parseInt(a.match(/\d+/)[0], 10);
+    const nb = parseInt(b.match(/\d+/)[0], 10);
+    return na - nb;
+  });
+  let needsReload = !adventuresCache;
+  if (!needsReload) {
+    for (const f of files) {
+      const fp = path.join(ADVENTURES_DIR, f);
+      try {
+        const mtime = fs.statSync(fp).mtimeMs;
+        if (!adventuresCacheMtimes[f] || mtime > adventuresCacheMtimes[f]) {
+          needsReload = true;
+          break;
+        }
+      } catch (e) {
+        needsReload = true;
+        break;
+      }
     }
-  } catch (e) {
-    if (!adventuresCache) {
-      adventuresCache = JSON.parse(fs.readFileSync(ADVENTURES_PATH, 'utf8'));
+  }
+  if (needsReload) {
+    const adventures = [];
+    const newMtimes = {};
+    for (const f of files) {
+      const fp = path.join(ADVENTURES_DIR, f);
+      adventures.push(JSON.parse(fs.readFileSync(fp, 'utf8')));
+      newMtimes[f] = fs.statSync(fp).mtimeMs;
     }
+    adventuresCache = { adventures };
+    adventuresCacheMtimes = newMtimes;
   }
   return adventuresCache;
 }
@@ -182,9 +202,13 @@ function findSceneById(data, sceneId) {
 }
 
 function writeAdventures(data) {
-  fs.writeFileSync(ADVENTURES_PATH, JSON.stringify(data, null, 2), 'utf8');
+  for (const adv of data.adventures) {
+    const filename = 'adv' + adv.number + '.json';
+    const fp = path.join(ADVENTURES_DIR, filename);
+    fs.writeFileSync(fp, JSON.stringify(adv, null, 2), 'utf8');
+    adventuresCacheMtimes[filename] = Date.now();
+  }
   adventuresCache = data;
-  adventuresCacheMtime = Date.now();
 }
 
 router.put('/campaign/scene/:sceneId/npc/:npcIndex', (req, res) => {

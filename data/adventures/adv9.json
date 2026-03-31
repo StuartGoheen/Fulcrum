@@ -1,0 +1,66 @@
+{
+  "id": "adv9",
+  "number": 9,
+  "title": "The Point of No Return",
+  "act": 3,
+  "summary": "The heroes travel the Xala-Cermau hyperlane into Wild Space to assault Inquisitor Draco's stronghold on Xala. Master Denia is held there — if she survived. The rescue attempt ends in sacrifice, and the heroes leave the edge of known space carrying the cost. This adventure is structurally optional — players who choose not to pursue Denia proceed directly to the finale, but without whatever advantage Xala would have provided.",
+  "gearNotes": [
+    {
+      "item": "Medpac",
+      "category": "needed",
+      "reason": "Final preparations before the climax. Stock up — there is no resupply after this point."
+    },
+    {
+      "item": "Encrypted Comlink",
+      "category": "needed",
+      "reason": "Forging alliances requires secure channels. The Empire is actively hunting the heroes by this point."
+    },
+    {
+      "item": "Stim Pack",
+      "category": "needed",
+      "reason": "Stock consumables before the finale. This is Varth's last shopping trip — buy everything."
+    },
+    {
+      "item": "Slicer Spike",
+      "category": "needed",
+      "reason": "Consumable. Stock multiples before the Leviathan assault. Once they are inside, every terminal bypass counts."
+    },
+    {
+      "item": "Frag Grenade",
+      "category": "good",
+      "reason": "Stock ordnance for the final assault. This is the last resupply opportunity."
+    },
+    {
+      "item": "Ion Grenade",
+      "category": "good",
+      "reason": "The Leviathan is an Imperial superweapon project — expect heavy droid and automated defenses. Stock up."
+    },
+    {
+      "item": "Smoke Grenade",
+      "category": "good",
+      "reason": "Tactical consumable for the finale. Buy in quantity."
+    },
+    {
+      "item": "Syntherope",
+      "category": "good",
+      "reason": "Replace any used rope. The Leviathan's interior may require vertical movement or emergency escape routes."
+    }
+  ],
+  "parts": [
+    {
+      "id": "adv9-p1",
+      "number": 1,
+      "title": "The Alliance",
+      "scenes": []
+    },
+    {
+      "id": "adv9-p2",
+      "number": 2,
+      "title": "The Launch",
+      "scenes": []
+    }
+  ],
+  "locations": [
+    "xala"
+  ]
+}

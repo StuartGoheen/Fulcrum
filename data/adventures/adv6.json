@@ -1,0 +1,97 @@
+{
+  "id": "adv6",
+  "number": 6,
+  "title": "The Core of Corruption",
+  "act": 2,
+  "summary": "The heroes track Varth to Eriadu — Grand Moff Tarkin's seat of power — and infiltrate his Citadel to learn the truth. Through the Glass Bridge, they witness Varth receive command of Leviathan from Tarkin himself. They must slice the Primary Data Center for Varth's transit orders while fighting Death Troopers and Draco's Apprentice, then escape through the acid rain of Eriadu's industrial hellscape.",
+  "gearNotes": [
+    {
+      "item": "Encrypted Comlink",
+      "category": "needed",
+      "reason": "Coordinating a multi-pronged assault on an Imperial depot. Imperial signals intelligence will intercept open comms instantly."
+    },
+    {
+      "item": "Security Kit",
+      "category": "needed",
+      "reason": "Military-grade locks on depot doors, armories, and control rooms. Multiple breach points during the raid."
+    },
+    {
+      "item": "Field Toolkit",
+      "category": "needed",
+      "reason": "Sabotaging depot systems, disabling automated defenses, rigging demolition charges."
+    },
+    {
+      "item": "Medpac",
+      "category": "needed",
+      "reason": "Commando raid with guaranteed casualties. No medevac available during the assault."
+    },
+    {
+      "item": "Starship Tool Kit",
+      "category": "needed",
+      "reason": "The escape likely requires ship repair under fire during the fallout. Getting off-world after kicking the hornet's nest."
+    },
+    {
+      "item": "Macrobinoculars",
+      "category": "good",
+      "reason": "Pre-raid reconnaissance of the depot layout, guard rotations, and defense positions. The Briefing scene is where this pays off."
+    },
+    {
+      "item": "Fusion Cutter",
+      "category": "good",
+      "reason": "Breaching reinforced depot walls and doors. Backup entry method if the Security Kit is too slow under fire."
+    },
+    {
+      "item": "Ion Grenade",
+      "category": "good",
+      "reason": "Imperial supply depots have automated defenses and security droids. Possibly AT-ST walkers in the motor pool."
+    },
+    {
+      "item": "Frag Grenade",
+      "category": "good",
+      "reason": "Demolition and area denial. A supply depot raid is the textbook use case for ordnance."
+    },
+    {
+      "item": "Smoke Grenade",
+      "category": "good",
+      "reason": "Assault cover during approach and extraction. Controlling sightlines against entrenched defenders."
+    },
+    {
+      "item": "Scanner Jammer",
+      "category": "good",
+      "reason": "Avoiding depot sensor arrays and perimeter detection during the approach phase."
+    },
+    {
+      "item": "Slicer Spike",
+      "category": "good",
+      "reason": "Quick-bypassing depot terminals to disable security systems or access inventory manifests."
+    },
+    {
+      "item": "Stim Pack",
+      "category": "good",
+      "reason": "Post-raid trauma recovery during the Fallout escape sequence."
+    }
+  ],
+  "parts": [
+    {
+      "id": "adv6-p1",
+      "number": 1,
+      "title": "The Briefing",
+      "scenes": []
+    },
+    {
+      "id": "adv6-p2",
+      "number": 2,
+      "title": "The Raid",
+      "scenes": []
+    },
+    {
+      "id": "adv6-p3",
+      "number": 3,
+      "title": "The Fallout",
+      "scenes": []
+    }
+  ],
+  "locations": [
+    "eriadu"
+  ]
+}

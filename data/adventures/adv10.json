@@ -1,0 +1,102 @@
+{
+  "id": "adv10",
+  "number": 10,
+  "title": "Jaws of the Leviathan",
+  "act": 3,
+  "summary": "Leviathan drops out of hyperspace over Malpaz — the world the heroes liberated, now targeted for Tarkin's demonstration of the weapon they helped Varth unlock. With Oga Garra's pirate fleet and whatever allies remain, the heroes race to stop the superweapon before it annihilates the planet and proves that the Unknown Regions corridor works. The campaign ends where the betrayal began.",
+  "gearNotes": [
+    {
+      "item": "Security Kit",
+      "category": "needed",
+      "reason": "The Leviathan is an Imperial superweapon facility. Military-grade locks, blast doors, and security systems at every turn."
+    },
+    {
+      "item": "Datapad (Slicer Config)",
+      "category": "needed",
+      "reason": "The Final Hand likely requires accessing Leviathan's core systems — disabling weapons, exposing the project, or extracting proof of the conspiracy."
+    },
+    {
+      "item": "Slicer Spike",
+      "category": "needed",
+      "reason": "Terminal bypasses under extreme time pressure. Every spike the party stocked in Adv9 gets burned here."
+    },
+    {
+      "item": "Encrypted Comlink",
+      "category": "needed",
+      "reason": "Coordinating inside an Imperial superweapon during Varth's betrayal. If comms are compromised, Varth uses that against the party."
+    },
+    {
+      "item": "Starship Tool Kit",
+      "category": "needed",
+      "reason": "The Approach involves getting into the facility — damaged ships need repair. The escape after the Final Hand requires a working ship."
+    },
+    {
+      "item": "Medpac",
+      "category": "needed",
+      "reason": "The campaign climax. Multiple boss fights, Varth's betrayal, and the final escape. No resupply. Burn everything you have."
+    },
+    {
+      "item": "Field Toolkit",
+      "category": "needed",
+      "reason": "Sabotaging the Leviathan itself — disabling systems, rigging overloads, creating the opening to destroy or expose the project."
+    },
+    {
+      "item": "Fusion Cutter",
+      "category": "good",
+      "reason": "Cutting through Leviathan bulkheads, sealed sections, and emergency blast doors. Overload Mode for critical breaches."
+    },
+    {
+      "item": "Ion Grenade",
+      "category": "good",
+      "reason": "Imperial superweapon = maximum droid and automated defense density. Every ion grenade stocked pays off here."
+    },
+    {
+      "item": "Frag Grenade",
+      "category": "good",
+      "reason": "The final assault. Area denial against Imperial defenders in the facility corridors."
+    },
+    {
+      "item": "Smoke Grenade",
+      "category": "good",
+      "reason": "Covering movement through the facility and during the escape. Last chance to use them."
+    },
+    {
+      "item": "Stim Pack",
+      "category": "good",
+      "reason": "Multi-fight climax with no rest. Keep the party on their feet through the Betrayal and Final Hand."
+    },
+    {
+      "item": "Syntherope",
+      "category": "good",
+      "reason": "Emergency escape routes, vertical shafts, or crossing damaged sections of the facility."
+    },
+    {
+      "item": "Glow Rod",
+      "category": "good",
+      "reason": "Power failures inside the Leviathan during sabotage. Emergency lighting may not last."
+    }
+  ],
+  "parts": [
+    {
+      "id": "adv10-p1",
+      "number": 1,
+      "title": "The Approach",
+      "scenes": []
+    },
+    {
+      "id": "adv10-p2",
+      "number": 2,
+      "title": "The Betrayal",
+      "scenes": []
+    },
+    {
+      "id": "adv10-p3",
+      "number": 3,
+      "title": "The Final Hand",
+      "scenes": []
+    }
+  ],
+  "locations": [
+    "malpaz"
+  ]
+}

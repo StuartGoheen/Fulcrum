@@ -1,0 +1,51 @@
+{
+  "id": "adv7",
+  "number": 7,
+  "title": "The Crucible",
+  "act": 3,
+  "summary": "Trapped on Eriadu with the Empire closing in, the heroes fight their way out of the lower sumps and off-world. As they reach the rendezvous coordinates, the Resurgence drops out of hyperspace — and a Star Destroyer follows. Draco intercepts Denia's escape pod. The heroes watch the Resurgence die, TIE fighters swarming the survivors, and are forced to jump to hyperspace with nothing.",
+  "gearNotes": [
+    {
+      "item": "Medpac",
+      "category": "needed",
+      "reason": "Personal trials and reckoning imply combat and consequences. Medical supplies are always non-negotiable."
+    },
+    {
+      "item": "Encrypted Comlink",
+      "category": "needed",
+      "reason": "If alliances are being tested, secure communications between party members and allies become critical. Trust is the theme — intercepted comms could shatter it."
+    },
+    {
+      "item": "Recording Rod",
+      "category": "good",
+      "reason": "If alliances are being tested, recording conversations as evidence or insurance could be the difference between proving loyalty and being framed."
+    },
+    {
+      "item": "Disguise Kit",
+      "category": "good",
+      "reason": "Personal trials may involve deception, infiltration, or hiding identity. Context-dependent on the specific trials."
+    },
+    {
+      "item": "Stim Pack",
+      "category": "good",
+      "reason": "The Reckoning implies a climactic confrontation. Combat recovery between scenes."
+    }
+  ],
+  "parts": [
+    {
+      "id": "adv7-p1",
+      "number": 1,
+      "title": "The Trial",
+      "scenes": []
+    },
+    {
+      "id": "adv7-p2",
+      "number": 2,
+      "title": "The Reckoning",
+      "scenes": []
+    }
+  ],
+  "locations": [
+    "eriadu"
+  ]
+}

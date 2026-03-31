@@ -1,0 +1,107 @@
+{
+  "id": "adv5",
+  "number": 5,
+  "title": "The Malpaz Insurrection",
+  "act": 2,
+  "summary": "The heroes travel to the occupied industrial world of Malpaz to steal drift algorithms from an Imperial research station, sparking a local insurrection.",
+  "gearNotes": [
+    {
+      "item": "Encrypted Comlink",
+      "category": "needed",
+      "reason": "Operating behind Imperial lines on an occupied world. Open comms are intercepted by Imperial signals intelligence instantly."
+    },
+    {
+      "item": "Disguise Kit",
+      "category": "needed",
+      "reason": "Imperial-occupied world with checkpoints and patrols. Without disguises or forged identification, you are not getting past the security gauntlet. Permission gate."
+    },
+    {
+      "item": "Datapad (Slicer Config)",
+      "category": "needed",
+      "reason": "The drift algorithms are data inside an Imperial research station. Slicing the systems to extract them is the core mission objective."
+    },
+    {
+      "item": "Security Kit",
+      "category": "needed",
+      "reason": "Imperial research station has military-grade locks and security systems. Multiple bypass points during the extraction."
+    },
+    {
+      "item": "Slicer Spike",
+      "category": "needed",
+      "reason": "Quick-bypassing research station terminals under time pressure during extraction. When Stormtroopers are converging, a consumable instant-bypass is the difference between escape and capture."
+    },
+    {
+      "item": "Field Toolkit",
+      "category": "needed",
+      "reason": "Industrial sabotage during the uprising — disabling Imperial infrastructure, rigging machinery, cutting power to create diversions."
+    },
+    {
+      "item": "Medpac",
+      "category": "needed",
+      "reason": "Urban guerrilla warfare with no hospital access. Combat casualties in a sustained fight across the uprising."
+    },
+    {
+      "item": "Fusion Cutter",
+      "category": "good",
+      "reason": "Breaching Imperial security doors and cutting through fences. Essential backup if the Security Kit approach is too slow."
+    },
+    {
+      "item": "Ion Grenade",
+      "category": "good",
+      "reason": "Imperial installations mean Imperial droids — probe droids, security droids, possibly AT-ST walkers during the uprising response."
+    },
+    {
+      "item": "Frag Grenade",
+      "category": "good",
+      "reason": "Urban combat area denial against Imperial squads responding to the insurrection."
+    },
+    {
+      "item": "Smoke Grenade",
+      "category": "good",
+      "reason": "Covering movement in urban firefights during the uprising and extraction."
+    },
+    {
+      "item": "Scanner Jammer",
+      "category": "good",
+      "reason": "Avoiding Imperial sensor sweeps and checkpoint scanners during the gauntlet approach."
+    },
+    {
+      "item": "Customs Holoseal",
+      "category": "good",
+      "reason": "Forged documentation for passing Imperial customs checkpoints. Works with the Disguise Kit for the full cover identity."
+    },
+    {
+      "item": "Comm Scanner",
+      "category": "good",
+      "reason": "Intercepting Imperial patrol frequencies and response schedules. Critical intel during the uprising."
+    },
+    {
+      "item": "Starship Tool Kit",
+      "category": "good",
+      "reason": "Getting the escape ship running if it takes damage during the extraction under fire."
+    }
+  ],
+  "parts": [
+    {
+      "id": "adv5-p1",
+      "number": 1,
+      "title": "The Gauntlet",
+      "scenes": []
+    },
+    {
+      "id": "adv5-p2",
+      "number": 2,
+      "title": "The Uprising",
+      "scenes": []
+    },
+    {
+      "id": "adv5-p3",
+      "number": 3,
+      "title": "The Extraction",
+      "scenes": []
+    }
+  ],
+  "locations": [
+    "malpaz"
+  ]
+}

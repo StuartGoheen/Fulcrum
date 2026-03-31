@@ -1,0 +1,3279 @@
+{
+  "id": "adv2",
+  "number": 2,
+  "title": "A Wretched Hive",
+  "act": 1,
+  "summary": "The heroes travel to Takodana to infiltrate Darga the Hutt's fortress, posing as entertainment to steal the encryption keys to Varth's fortune. They discover a captive Jedi Master and must choose between the mission and their conscience.",
+  "gearNotes": [
+    {
+      "item": "Encrypted Comlink",
+      "category": "needed",
+      "reason": "Varth coaches the heroes over encrypted comms from outside Darga's palace. Open comlinks in a Hutt fortress means blown cover. Hard permission gate for the entire Long Con sequence."
+    },
+    {
+      "item": "Datapad (Slicer Config)",
+      "category": "needed",
+      "reason": "The entire mission objective is slicing Darga's datapad to extract the encryption keys. Without a proper slicing interface, the core technical challenge is stepped down or impossible."
+    },
+    {
+      "item": "Security Kit",
+      "category": "needed",
+      "reason": "High-security detention block locks where Jedi Master Denia is held. Without one, bypassing these suffers heavy penalties."
+    },
+    {
+      "item": "Field Toolkit",
+      "category": "needed",
+      "reason": "The Tech's audition — ordered to fix Darga's hover-sled with a blaster at their head. No toolkit means stepped-down rolls on a pass/fail moment."
+    },
+    {
+      "item": "Medpac",
+      "category": "needed",
+      "reason": "Multi-scene combat from the hit squad through the fortress escape. No medical facilities available."
+    },
+    {
+      "item": "Ryll Spice",
+      "category": "good",
+      "reason": "Underworld social currency in Blackwind Point. Opens doors in criminal circles where credits draw suspicion. Varth's shopping list should include this."
+    },
+    {
+      "item": "EAR Eavesdropping Unit",
+      "category": "good",
+      "reason": "Plant bugs near the Iron Ring delegation or Lady Sinde's private meetings. The intel from these events reveals Project Leviathan's slave labor connection."
+    },
+    {
+      "item": "Comm Scanner",
+      "category": "good",
+      "reason": "Intercepting unencrypted palace communications — security patrol schedules, delivery timings, who talks to whom."
+    },
+    {
+      "item": "Recording Rod",
+      "category": "good",
+      "reason": "Recording evidence of slave trade and Imperial deals. Leverage material for later adventures."
+    },
+    {
+      "item": "Ion Grenade",
+      "category": "good",
+      "reason": "Heavy combat droid at the filtration plant and elite security droids in the dungeon. Ion damage is the purpose-built counter."
+    },
+    {
+      "item": "Fusion Cutter",
+      "category": "good",
+      "reason": "Sealed blast doors during fortress lockdown. Overload Mode cuts through any door as a single action."
+    },
+    {
+      "item": "Smoke Grenade",
+      "category": "good",
+      "reason": "Covering movement through hostile corridors during lockdown and the hangar escape."
+    },
+    {
+      "item": "Slicer Spike",
+      "category": "good",
+      "reason": "Quick terminal bypass in the dungeon to access stasis controls. Consumable, single action."
+    },
+    {
+      "item": "Frag Grenade",
+      "category": "good",
+      "reason": "Hangar bay area denial against clustered Stormtroopers."
+    },
+    {
+      "item": "Stim Pack",
+      "category": "good",
+      "reason": "Multi-scene fighting with no rest. Someone is running on fumes by the hangar escape."
+    }
+  ],
+  "parts": [
+    {
+      "id": "adv2-p1",
+      "number": 1,
+      "title": "The Shakedown",
+      "scenes": [
+        {
+          "id": "adv2-p1-s1",
+          "number": 1,
+          "title": "The Welcoming Committee",
+          "readAloud": "You disembark at Blackwind Point — a muddy, desperate shantytown on the far shore of Nymeve Lake. The air is thick with the smell of rotting vegetation and desperation. Refugees huddle in makeshift shelters while criminals eye your gear with open hunger.\n\nThe growl of repulsor-bikes cuts through the noise. A swoop gang circles your landing pad, engines revving. Their leader — a scarred human woman with a vibro-blade strapped to her leg — pulls up and kills her engine.\n\n\"Welcome to the other side of the lake. Landing tax is five hundred credits. Non-negotiable.\"",
+          "gmNotes": "Kessra and The Vipers demand a landing tax. This sets the tone for Takodana's dark side: might makes right. If the heroes fight and win, locals regard them with respect and fear. If they pay, they're marked as easy targets. Kessra may reappear later as a hired guard in Darga's palace, holding a grudge. Varth has briefed the heroes: they need to find his contact Warrick Raden, a Devaronian fixer who can get them into Darga's court.",
+          "npcs": [
+            {
+              "name": "Kessra",
+              "type": "Swoop Gang Leader",
+              "count": 1,
+              "notes": "Scarred human woman. Leader of The Vipers. May reappear in Darga's fortress.",
+              "threatBuild": {
+                "role": "skirmisher",
+                "tier": 1,
+                "classification": "standard",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 2,
+                  "reflex": 3,
+                  "grit": 2,
+                  "wits": 2,
+                  "presence": 3
+                },
+                "weaponChassis": "medium",
+                "traits": [
+                  "agile"
+                ],
+                "tags": [
+                  "Swoop Gang"
+                ],
+                "computed": {
+                  "power": 3,
+                  "defense": 3,
+                  "evasion": 4,
+                  "resist": 2,
+                  "vitality": 5,
+                  "initiative": 5,
+                  "controlDie": "d6",
+                  "actions": 1,
+                  "damageTiers": {
+                    "chassis": "medium",
+                    "label": "Medium",
+                    "fleeting": 2,
+                    "masterful": 4,
+                    "legendary": 6
+                  }
+                },
+                "roleKit": {
+                  "passive": {
+                    "name": "Fleet Footed",
+                    "description": "May take 2 maneuvers per turn instead of 1."
+                  },
+                  "actions": [
+                    {
+                      "name": "Vibroblade Slash",
+                      "type": "action",
+                      "arena": "reflex",
+                      "description": "Melee attack with vibroblade. Fast and vicious.",
+                      "attackPower": 3
+                    },
+                    {
+                      "name": "Drive-By Shot",
+                      "type": "action",
+                      "arena": "reflex",
+                      "description": "Ranged attack from a moving swoop. +1 zone movement after.",
+                      "attackPower": 3
+                    }
+                  ],
+                  "maneuver": {
+                    "name": "Reposition",
+                    "description": "Move without provoking reactions."
+                  },
+                  "gambit": {
+                    "name": "Hamstring",
+                    "cost": "-1 Power",
+                    "description": "Target gains [Slowed] on hit."
+                  },
+                  "exploit": {
+                    "name": "Hit and Fade",
+                    "description": "After attacking, immediately mount swoop and move 2 zones."
+                  }
+                },
+                "notes": "Kessra is a recurring NPC. May reappear as hired muscle in Darga's palace later."
+              }
+            },
+            {
+              "name": "The Vipers",
+              "type": "Swoop Gang Members",
+              "count": 6,
+              "notes": "Armed with blasters and vibro-blades. Intimidation over combat skill.",
+              "threatBuild": {
+                "role": "skirmisher",
+                "tier": 0,
+                "classification": "minion",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 2,
+                  "reflex": 2,
+                  "grit": 1,
+                  "wits": 1,
+                  "presence": 1
+                },
+                "weaponChassis": "light",
+                "traits": [],
+                "tags": [
+                  "Swoop Gang"
+                ],
+                "computed": {
+                  "power": 1,
+                  "defense": 1,
+                  "evasion": 1,
+                  "resist": 0,
+                  "vitality": 3,
+                  "initiative": 2,
+                  "controlDie": "d6",
+                  "actions": 1,
+                  "damageTiers": {
+                    "chassis": "light",
+                    "label": "Light",
+                    "fleeting": 2,
+                    "masterful": 3,
+                    "legendary": 4
+                  }
+                },
+                "roleKit": {
+                  "passive": {
+                    "name": "Fleet Footed",
+                    "description": "May take 2 maneuvers per turn."
+                  },
+                  "actions": [
+                    {
+                      "name": "Blaster Snap",
+                      "type": "action",
+                      "arena": "reflex",
+                      "description": "Ranged attack.",
+                      "attackPower": 1
+                    },
+                    {
+                      "name": "Vibroblade Lunge",
+                      "type": "action",
+                      "arena": "reflex",
+                      "description": "Melee attack.",
+                      "attackPower": 1
+                    }
+                  ],
+                  "maneuver": {
+                    "name": "Reposition",
+                    "description": "Move without provoking reactions."
+                  },
+                  "gambit": {
+                    "name": "Hamstring",
+                    "cost": "-1 Power",
+                    "description": "Target gains [Slowed]."
+                  },
+                  "exploit": {
+                    "name": "Scatter",
+                    "description": "If leader is downed, all Vipers disengage and flee."
+                  }
+                },
+                "notes": "Minion gang. Masterful+ = takedown. Paper tigers — flee if Kessra falls."
+              }
+            }
+          ],
+          "hazards": "Open landing pad — surrounded by hostile gang. Muddy terrain. Refugees as potential collateral.",
+          "decisions": [
+            {
+              "choice": "Pay the landing tax",
+              "consequence": "Marked as easy targets. Pickpockets and grifters will target you."
+            },
+            {
+              "choice": "Intimidate the gang",
+              "consequence": "If successful, the Vipers back down. Local respect earned."
+            },
+            {
+              "choice": "Fight the Vipers",
+              "consequence": "Vipers retreat if beaten. Newfound respect (and fear) from locals. Kessra holds a grudge."
+            }
+          ],
+          "loreTags": [
+            "Takodana",
+            "Darga the Hutt",
+            "Kessra",
+            "Blackwind Point"
+          ],
+          "narrativeLinks": [],
+          "challengeType": "social",
+          "destinyTags": [
+            "discovery",
+            "corruption"
+          ],
+          "vocationTags": [
+            "voc_noble",
+            "voc_grifter",
+            "voc_investigator"
+          ],
+          "disciplineTags": [
+            "charm",
+            "deception",
+            "insight",
+            "persuasion",
+            "investigation"
+          ],
+          "gearFlags": [],
+          "skillChecks": [
+            {
+              "id": "sc-a2s1-intimidate",
+              "discipline": "intimidate",
+              "tier": 1,
+              "power": 0,
+              "context": "Staring down Kessra and the Vipers to avoid paying landing tax.",
+              "success": "Kessra reads you as dangerous. Backs off with a sneer. Locals take notice.",
+              "failure": "Kessra doesn't flinch. The Vipers close in.",
+              "narrativePacing": "Story fork. Always roll."
+            },
+            {
+              "id": "sc-a2s1-charm",
+              "discipline": "charm",
+              "tier": 1,
+              "power": 0,
+              "context": "Talking down the situation without violence or payment.",
+              "success": "Kessra laughs — she likes confidence. Waives the tax \"just this once.\"",
+              "failure": "Kessra sees through it. Price doubles.",
+              "narrativePacing": "Story fork. Always roll."
+            },
+            {
+              "id": "sc-a2s1-insight",
+              "discipline": "insight",
+              "tier": 0,
+              "power": 0,
+              "context": "Reading Kessra's intentions — shakedown or genuine threat?",
+              "success": "Pure shakedown. The Vipers are a paper tiger — they won't fight someone who pushes back.",
+              "failure": "Can't tell. She seems genuinely dangerous.",
+              "isOptional": true
+            },
+            {
+              "id": "sc-a2s1-investigation",
+              "discipline": "investigation",
+              "tier": 1,
+              "power": 0,
+              "context": "Scanning the landing pad area for tactical details.",
+              "success": "Vipers positioned to flee, not fight. Their swoops are running — they want a quick exit if things go wrong.",
+              "failure": "Chaotic scene. Too many variables.",
+              "isOptional": true
+            }
+          ],
+          "encounters": [
+            {
+              "id": "enc-a2s1-vipers",
+              "name": "Viper Shakedown",
+              "type": "social",
+              "trigger": "On arrival at Blackwind Point",
+              "description": "Kessra and 6 Vipers demand 500 credits. Social challenge with combat fallback.",
+              "tactics": "Kessra leads verbally. Vipers fan out to cut off exits. If fighting starts, they use swoops for hit-and-run."
+            }
+          ],
+          "environmentMechanics": [
+            {
+              "name": "Muddy Landing Pad",
+              "trigger": "Active during scene",
+              "effect": "Difficult terrain. Movement costs double. Swoops ignore this.",
+              "mitigation": "Stay on the ferrocrete pad edges."
+            },
+            {
+              "name": "Refugee Crowd",
+              "trigger": "If combat breaks out",
+              "effect": "Civilians scatter. Stray shots risk hitting bystanders.",
+              "mitigation": "Controlled fire only. Area attacks cause collateral."
+            }
+          ],
+          "rewards": {
+            "credits": 0,
+            "xp": "Scene completion",
+            "items": [],
+            "narrative": "Local reputation established — respected or marked as easy targets."
+          },
+          "pacing": {
+            "openingBeat": "The Vipers circle the landing pad.",
+            "risingAction": "Kessra makes her demand. Tension builds.",
+            "climax": "The party's response — pay, talk, or fight.",
+            "resolution": "The Vipers withdraw one way or another. The party enters Blackwind Point.",
+            "estimatedMinutes": 25
+          }
+        },
+        {
+          "id": "adv2-p1-s2",
+          "number": 2,
+          "title": "Hunting the Fixer",
+          "readAloud": "The encampment is a maze of tents, grounded starships, and mud-brick hovels. Every face you pass wears the same expression — guarded suspicion.\n\nThrough bribes, threats, and persistence, a pattern emerges: Warrick Raden has gone to ground. The nervous Devaronian used to run errands for Darga but vanished from the cantinas recently. Word is he skimmed money from the Hutt and is hiding out at the old Water Filtration Plant on the edge of the swamp.",
+          "gmNotes": "A social/investigation scene. The heroes must navigate the underworld of Blackwind Point to find Raden. Local bartenders, refugees, and fences can provide information. The Water Filtration Plant is a rusted industrial facility half-sunk in the bog. This is a good opportunity for roleplaying and gathering intel about Darga's current state — he's become paranoid and obsessed with his new Imperial guests.",
+          "npcs": [
+            {
+              "name": "Local Contacts",
+              "type": "Various NPCs",
+              "count": 3,
+              "notes": "Bartenders, refugees, fences who can point to Raden's location.",
+              "threatBuild": {
+                "role": "informant",
+                "tier": 0,
+                "classification": "standard",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 1,
+                  "reflex": 1,
+                  "grit": 1,
+                  "wits": 2,
+                  "presence": 2
+                },
+                "weaponChassis": null,
+                "traits": [],
+                "tags": [],
+                "computed": {
+                  "power": 1,
+                  "defense": 0,
+                  "evasion": 0,
+                  "resist": 0,
+                  "vitality": 2,
+                  "initiative": 4,
+                  "controlDie": "d6",
+                  "actions": 1
+                },
+                "roleKit": {
+                  "passive": {
+                    "name": "Street Smart",
+                    "description": "Knows the local power structure and who to avoid."
+                  },
+                  "actions": [
+                    {
+                      "name": "Tip Off",
+                      "type": "action",
+                      "arena": "wits",
+                      "description": "Provide information about a local person or place.",
+                      "attackPower": 1
+                    },
+                    {
+                      "name": "Warn Away",
+                      "type": "action",
+                      "arena": "presence",
+                      "description": "Social pressure to make strangers leave.",
+                      "attackPower": 1
+                    }
+                  ],
+                  "maneuver": {
+                    "name": "Gossip Network",
+                    "description": "Spread or gather rumors."
+                  },
+                  "gambit": null,
+                  "exploit": null
+                },
+                "notes": "Non-combatant NPCs. Social interaction targets only. Represent bartenders, fences, refugees."
+              }
+            }
+          ],
+          "hazards": "Pickpockets, grifters, and informants who might tip off Darga's network.",
+          "decisions": [
+            {
+              "choice": "Bribe locals for information",
+              "consequence": "Fastest method. Costs credits but gets reliable intel."
+            },
+            {
+              "choice": "Intimidate for information",
+              "consequence": "Free but may attract attention from Darga's informants."
+            }
+          ],
+          "loreTags": [
+            "Warrick Raden",
+            "Takodana",
+            "Darga the Hutt"
+          ],
+          "narrativeLinks": [],
+          "challengeType": "social",
+          "destinyTags": [
+            "corruption",
+            "discovery"
+          ],
+          "vocationTags": [
+            "voc_noble",
+            "voc_grifter"
+          ],
+          "disciplineTags": [
+            "charm",
+            "deception",
+            "insight",
+            "investigation",
+            "persuasion"
+          ],
+          "gearFlags": [],
+          "skillChecks": [
+            {
+              "id": "sc-a2s2-investigation",
+              "discipline": "investigation",
+              "tier": 1,
+              "power": 0,
+              "context": "Gathering intel on Raden's location from the encampment.",
+              "success": "Multiple sources confirm: Water Filtration Plant, edge of the swamp. He's been hiding there 3 days.",
+              "failure": "Conflicting information. Two locations — one is a trap.",
+              "narrativePacing": "Core scene check. Always roll."
+            },
+            {
+              "id": "sc-a2s2-charm",
+              "discipline": "charm",
+              "tier": 1,
+              "power": 0,
+              "context": "Loosening tongues at the cantinas. Buying drinks, making friends.",
+              "success": "A bartender opens up. Raden was in yesterday, jumpy. Mentioned \"the plant.\"",
+              "failure": "Everyone clams up. Strangers asking about Raden draws suspicion."
+            },
+            {
+              "id": "sc-a2s2-deception",
+              "discipline": "deception",
+              "tier": 1,
+              "power": 0,
+              "context": "Posing as someone Raden owes money to, or as Darga's people.",
+              "success": "A fence points you to the filtration plant, hoping to collect a finder's fee.",
+              "failure": "The fence reports your inquiry to Darga's network. Hit squad arrives faster."
+            },
+            {
+              "id": "sc-a2s2-stealth",
+              "discipline": "stealth",
+              "tier": 1,
+              "power": 0,
+              "context": "Avoiding Darga's informants while asking questions.",
+              "success": "Your inquiries stay below the radar. No alert to Darga.",
+              "failure": "Someone tips off Darga. The hit squad in Scene 4 arrives 1 round earlier.",
+              "isOptional": true
+            },
+            {
+              "id": "sc-a2s2-insight",
+              "discipline": "insight",
+              "tier": 0,
+              "power": 0,
+              "context": "Reading the encampment's social dynamics. Who runs what.",
+              "success": "Clear picture: Darga's reach extends through the cantinas but not the refugee camp. The refugees are an information blind spot.",
+              "failure": "Everyone seems equally untrustworthy.",
+              "isOptional": true
+            }
+          ],
+          "encounters": [],
+          "environmentMechanics": [
+            {
+              "name": "Informant Network",
+              "trigger": "Active throughout",
+              "effect": "Darga has eyes in Blackwind Point. Aggressive questioning or mentions of \"Varth\" trigger alerts.",
+              "mitigation": "Use cover identities. Ask about Raden obliquely."
+            },
+            {
+              "name": "Refugee Camp Buffer",
+              "trigger": "If heroes investigate the refugee area",
+              "effect": "Refugees distrust everyone equally — harder to get info but also harder for Darga's network to track inquiries here.",
+              "mitigation": "Spend time. Build trust. Medicine or supply gifts open doors."
+            }
+          ],
+          "rewards": {
+            "credits": 0,
+            "xp": "Scene completion",
+            "items": [],
+            "narrative": "Location of Warrick Raden confirmed."
+          },
+          "pacing": {
+            "openingBeat": "The encampment is a maze. Every face is guarded.",
+            "risingAction": "Leads converge on the Water Filtration Plant.",
+            "climax": "The heroes decide how to approach the plant.",
+            "resolution": "Raden's location is confirmed. The party moves out.",
+            "estimatedMinutes": 30
+          }
+        },
+        {
+          "id": "adv2-p1-s3",
+          "number": 3,
+          "title": "The Rat in the Trap",
+          "readAloud": "The filtration plant is a noisy, steam-venting structure half-sunk in the bog. You find Warrick Raden hiding in a maintenance shed — a nervous wreck clutching a blaster and jumping at shadows.\n\nWhen you mention Varth's name, Raden's face cycles through shock, fear, and desperate hope in rapid succession. \"Varth? He's alive? Stars help me — he's alive.\"",
+          "gmNotes": "Raden thought Varth was dead. He confirms he can get the heroes into Darga's palace but refuses to go back freely. He reveals that Darga has 'changed' — becoming paranoid and obsessed with Imperial guests. The heroes must de-escalate Raden's panic and convince him to cooperate. He's their ticket into the palace.",
+          "npcs": [
+            {
+              "name": "Warrick Raden",
+              "type": "Devaronian Fixer",
+              "count": 1,
+              "notes": "Nervous wreck. Owes Varth a debt. The heroes' entry ticket to Darga's palace.",
+              "threatBuild": {
+                "role": "informant",
+                "tier": 0,
+                "classification": "standard",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 1,
+                  "reflex": 2,
+                  "grit": 1,
+                  "wits": 3,
+                  "presence": 2
+                },
+                "weaponChassis": "light",
+                "traits": [],
+                "tags": [
+                  "Devaronian"
+                ],
+                "computed": {
+                  "power": 2,
+                  "defense": 1,
+                  "evasion": 1,
+                  "resist": 0,
+                  "vitality": 2,
+                  "initiative": 6,
+                  "controlDie": "d6",
+                  "actions": 1,
+                  "damageTiers": {
+                    "chassis": "light",
+                    "label": "Light",
+                    "fleeting": 2,
+                    "masterful": 3,
+                    "legendary": 4
+                  }
+                },
+                "roleKit": {
+                  "passive": {
+                    "name": "Fixer's Contacts",
+                    "description": "Raden knows everyone in Darga's operation. Can identify guards, routines, and weak points."
+                  },
+                  "actions": [
+                    {
+                      "name": "Spill Info",
+                      "type": "action",
+                      "arena": "wits",
+                      "description": "Provide palace intel when motivated.",
+                      "attackPower": 2
+                    },
+                    {
+                      "name": "Panic Shot",
+                      "type": "action",
+                      "arena": "reflex",
+                      "description": "Wild blaster shot when cornered. Low accuracy.",
+                      "attackPower": 1
+                    }
+                  ],
+                  "maneuver": {
+                    "name": "Bolt",
+                    "description": "Attempt to flee. Must be intercepted with Athletics or Evasion."
+                  },
+                  "gambit": null,
+                  "exploit": null
+                },
+                "notes": "Raden is not a fighter. His value is information, not combat."
+              }
+            }
+          ],
+          "hazards": "Steam pipes, unstable industrial equipment. Raden is armed and panicky.",
+          "decisions": [
+            {
+              "choice": "Calm Raden down and negotiate",
+              "consequence": "He agrees to help if the heroes protect him from Darga's retribution."
+            },
+            {
+              "choice": "Threaten Raden into compliance",
+              "consequence": "He cooperates but may betray the heroes at a critical moment."
+            }
+          ],
+          "loreTags": [
+            "Warrick Raden",
+            "Darga the Hutt",
+            "Admiral Varth"
+          ],
+          "narrativeLinks": [],
+          "challengeType": "infiltration",
+          "destinyTags": [
+            "discovery",
+            "corruption"
+          ],
+          "vocationTags": [
+            "voc_ghost",
+            "voc_grifter",
+            "voc_noble"
+          ],
+          "disciplineTags": [
+            "deception",
+            "charm",
+            "stealth",
+            "insight",
+            "skulduggery"
+          ],
+          "gearFlags": [
+            "Restricted"
+          ],
+          "skillChecks": [
+            {
+              "id": "sc-a2s3-charm",
+              "discipline": "charm",
+              "tier": 1,
+              "power": 0,
+              "context": "Calming Raden down. He's panicking with a blaster aimed at you.",
+              "success": "Raden lowers the blaster. Starts talking. Relieved that Varth is alive.",
+              "failure": "Raden stays panicky. Blaster stays up. Additional checks needed to de-escalate."
+            },
+            {
+              "id": "sc-a2s3-persuasion",
+              "discipline": "persuasion",
+              "tier": 1,
+              "power": 0,
+              "context": "Convincing Raden to help get the heroes into Darga's palace.",
+              "success": "Raden agrees if the heroes promise to protect him from Darga.",
+              "failure": "Raden wants more — credits, guaranteed extraction, or Darga dead."
+            },
+            {
+              "id": "sc-a2s3-intimidate",
+              "discipline": "intimidate",
+              "tier": 0,
+              "power": 0,
+              "context": "Threatening Raden into compliance.",
+              "success": "Raden caves immediately — he's a wreck. But he'll look for ways to betray you later.",
+              "failure": "Raden's panic overrides his fear. He bolts or shoots wildly."
+            },
+            {
+              "id": "sc-a2s3-insight",
+              "discipline": "insight",
+              "tier": 1,
+              "power": 0,
+              "context": "Reading Raden. Is he trustworthy?",
+              "success": "Genuinely terrified. He owes Varth a real debt. He'll cooperate as long as he believes you can protect him.",
+              "failure": "Hard to read through the panic. Could be genuine or could be stalling."
+            },
+            {
+              "id": "sc-a2s3-investigation",
+              "discipline": "investigation",
+              "tier": 0,
+              "power": 0,
+              "context": "Searching the maintenance shed for intel.",
+              "success": "Raden's notes: sketched palace maps, guard shift times, Darga's paranoid habits. Useful intelligence.",
+              "failure": "Just a panicking man's hideout. Nothing organized.",
+              "isOptional": true
+            }
+          ],
+          "encounters": [],
+          "environmentMechanics": [
+            {
+              "name": "Steam-Filled Shed",
+              "trigger": "Active throughout",
+              "effect": "Hissing pipes, condensation, poor visibility at distance. Concealment for anyone more than 1 zone away.",
+              "mitigation": "Stay close. Voice carries — social checks are unaffected."
+            },
+            {
+              "name": "Armed Panicker",
+              "trigger": "On entry",
+              "effect": "Raden has a blaster and twitchy trigger finger. First social failure may result in him firing wildly.",
+              "mitigation": "De-escalate before approaching. Slow movements."
+            }
+          ],
+          "rewards": {
+            "credits": 0,
+            "xp": "Scene completion",
+            "items": [
+              {
+                "name": "Palace Maps (sketch)",
+                "note": "Raden's hand-drawn maps of Darga's fortress. Rough but useful."
+              }
+            ],
+            "narrative": "Raden agrees to get the heroes into Darga's court."
+          },
+          "pacing": {
+            "openingBeat": "Raden has a blaster aimed at the door.",
+            "risingAction": "Negotiation — what does Raden need to cooperate?",
+            "climax": "The deal is struck or forced.",
+            "resolution": "Raden commits to the palace infiltration plan.",
+            "estimatedMinutes": 25
+          }
+        },
+        {
+          "id": "adv2-p1-s4",
+          "number": 4,
+          "title": "The Hit Squad",
+          "readAloud": "The negotiation is interrupted by the sound of heavy boots on metal. Through the grimy windows, you see movement — Trandoshan Mercenaries, heavily armed, surrounding the filtration plant. A heavy combat droid stomps into position at the main entrance.\n\nDarga has grown tired of waiting for Raden to come home.",
+          "gmNotes": "Darga sent a hit squad to silence Raden. Trandoshan Mercenaries and a heavy combat droid besiege the shed. The fight takes place in cramped machinery — steam pipes burst, obscuring vision. The Trandoshans use the environment to hunt. The heroes MUST protect Raden — if he dies, their easy route into the palace dies with him.",
+          "npcs": [
+            {
+              "name": "Trandoshan Mercenaries",
+              "type": "Standard Combatants",
+              "count": 4,
+              "notes": "Hired guns. Using the industrial environment to hunt.",
+              "threatBuild": {
+                "role": "brute",
+                "tier": 1,
+                "classification": "standard",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 3,
+                  "reflex": 2,
+                  "grit": 3,
+                  "wits": 1,
+                  "presence": 1
+                },
+                "weaponChassis": "medium",
+                "traits": [
+                  "tough"
+                ],
+                "tags": [
+                  "Trandoshan"
+                ],
+                "computed": {
+                  "power": 3,
+                  "defense": 3,
+                  "evasion": 2,
+                  "resist": 3,
+                  "vitality": 7,
+                  "initiative": 3,
+                  "controlDie": "d6",
+                  "actions": 1,
+                  "damageTiers": {
+                    "chassis": "medium",
+                    "label": "Medium",
+                    "fleeting": 2,
+                    "masterful": 4,
+                    "legendary": 6
+                  }
+                },
+                "roleKit": {
+                  "passive": {
+                    "name": "Unrelenting",
+                    "description": "Ignore the first [Weakened] condition per scene."
+                  },
+                  "actions": [
+                    {
+                      "name": "Claw Slash",
+                      "type": "action",
+                      "arena": "physique",
+                      "powerMod": 1,
+                      "description": "Melee attack with natural claws. +1 Power.",
+                      "attackPower": 4
+                    },
+                    {
+                      "name": "Hunting Rifle",
+                      "type": "action",
+                      "arena": "reflex",
+                      "description": "Ranged attack at medium range.",
+                      "attackPower": 2
+                    }
+                  ],
+                  "maneuver": {
+                    "name": "Scent Track",
+                    "description": "In obscured conditions, locate one hidden enemy. Ignores concealment from steam."
+                  },
+                  "gambit": {
+                    "name": "Knockdown",
+                    "cost": "-1 Power",
+                    "description": "Target gains [Prone]."
+                  },
+                  "exploit": {
+                    "name": "Regeneration",
+                    "description": "At end of turn, heal 1 Vitality. Trandoshan biology."
+                  }
+                },
+                "notes": "Standard Brutes. Tough = ignore Fleeting damage. Scent Track bypasses steam concealment. A real fight."
+              }
+            },
+            {
+              "name": "Heavy Combat Droid",
+              "type": "Elite Droid",
+              "count": 1,
+              "notes": "Blocking the main entrance. Heavy armor and weapons.",
+              "threatBuild": {
+                "role": "brute",
+                "tier": 2,
+                "classification": "elite",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 4,
+                  "reflex": 1,
+                  "grit": 3,
+                  "wits": 1,
+                  "presence": 1
+                },
+                "weaponChassis": "heavy",
+                "traits": [
+                  "armored_heavy",
+                  "tough",
+                  "iron_clad"
+                ],
+                "tags": [
+                  "Droid"
+                ],
+                "computed": {
+                  "power": 5,
+                  "defense": 8,
+                  "evasion": 0,
+                  "resist": 4,
+                  "vitality": 13,
+                  "initiative": 4,
+                  "controlDie": "d8",
+                  "actions": 1,
+                  "damageTiers": {
+                    "chassis": "heavy",
+                    "label": "Heavy",
+                    "fleeting": 3,
+                    "masterful": 5,
+                    "legendary": 8
+                  }
+                },
+                "roleKit": {
+                  "passive": {
+                    "name": "Unrelenting",
+                    "description": "Ignore the first [Weakened] condition per scene."
+                  },
+                  "actions": [
+                    {
+                      "name": "Heavy Blaster Cannon",
+                      "type": "action",
+                      "arena": "physique",
+                      "powerMod": 1,
+                      "description": "Ranged attack with integrated heavy blaster. +1 Power.",
+                      "attackPower": 6
+                    },
+                    {
+                      "name": "Battering Ram",
+                      "type": "action",
+                      "arena": "physique",
+                      "description": "Charge + melee. Destroys cover.",
+                      "attackPower": 5
+                    }
+                  ],
+                  "maneuver": {
+                    "name": "Advance",
+                    "description": "Move forward 1 zone. Ignores difficult terrain."
+                  },
+                  "gambit": {
+                    "name": "Suppressive Barrage",
+                    "cost": "-1 Power",
+                    "description": "Area fire. All targets in zone gain [Suppressed]."
+                  },
+                  "exploit": {
+                    "name": "Overload",
+                    "description": "When reduced to 0 Vitality, explodes. [Hazard 3] in zone."
+                  }
+                },
+                "notes": "Elite Brute Droid. Defense 8 = max(5,1)-1+2+3(heavy armor)-1. Iron Clad: uses Defense vs Evasion attacks. 5. Vulnerable to Ion damage. The DPS check of the encounter."
+              }
+            }
+          ],
+          "hazards": "Cramped industrial machinery. Bursting steam pipes (obscure vision, scald damage). Collapsing catwalks.",
+          "decisions": [
+            {
+              "choice": "Hold position and defend",
+              "consequence": "Protect Raden but risk being overwhelmed in a fixed position."
+            },
+            {
+              "choice": "Fight through and escape",
+              "consequence": "Must punch through the Trandoshans to reach an exit. Raden is vulnerable during movement."
+            }
+          ],
+          "loreTags": [
+            "Darga the Hutt",
+            "Warrick Raden",
+            "Trandoshan Mercenaries"
+          ],
+          "narrativeLinks": [],
+          "challengeType": "combat",
+          "destinyTags": [
+            "corruption",
+            "discovery",
+            "atonement"
+          ],
+          "vocationTags": [
+            "voc_noble",
+            "voc_grifter",
+            "voc_investigator"
+          ],
+          "disciplineTags": [
+            "charm",
+            "deception",
+            "insight",
+            "investigation",
+            "persuasion"
+          ],
+          "gearFlags": [],
+          "skillChecks": [
+            {
+              "id": "sc-a2s4-tactics",
+              "discipline": "tactics",
+              "tier": 1,
+              "power": 0,
+              "context": "Reading the hit squad's approach pattern.",
+              "success": "They're coming from three directions — rear maintenance hatch is unguarded.",
+              "failure": "No clear picture. React to contact."
+            },
+            {
+              "id": "sc-a2s4-tech",
+              "discipline": "tech",
+              "tier": 1,
+              "power": 0,
+              "context": "Overloading the filtration machinery for area denial.",
+              "success": "Steam erupts in a wall of scalding vapor. Trandoshans are forced back 2 rounds.",
+              "failure": "Machinery sputters. Partial obstruction only."
+            },
+            {
+              "id": "sc-a2s4-athletics",
+              "discipline": "athletics",
+              "tier": 1,
+              "power": 0,
+              "context": "Collapsing catwalks onto the attacking Trandoshans.",
+              "success": "Catwalk falls. Two Trandoshans are pinned under wreckage.",
+              "failure": "Catwalk buckles but holds. Creates difficult terrain only."
+            },
+            {
+              "id": "sc-a2s4-medicine",
+              "discipline": "medicine",
+              "tier": 1,
+              "power": 0,
+              "context": "Treating Raden if he takes fire during the ambush.",
+              "success": "Raden is patched up and mobile.",
+              "failure": "Raden is alive but badly hurt. Must be carried.",
+              "isOptional": true
+            }
+          ],
+          "encounters": [
+            {
+              "id": "enc-a2s4-trandoshans",
+              "name": "Trandoshan Ambush",
+              "type": "combat",
+              "trigger": "Darga's hit squad arrives",
+              "description": "4 Trandoshan Mercenaries breach from multiple entry points. Heavy Combat Droid blocks the main exit.",
+              "tactics": "Trandoshans use scent-tracking in the steam. The droid advances slowly, absorbing fire. Protect Raden."
+            }
+          ],
+          "environmentMechanics": [
+            {
+              "name": "Industrial Steam",
+              "trigger": "Burst pipes or deliberate overload",
+              "effect": "Scalding steam fills a zone. [Hazard 1] per round. Concealment.",
+              "mitigation": "Breath mask reduces to no damage. Stay low."
+            },
+            {
+              "name": "Cramped Machinery",
+              "trigger": "Active throughout",
+              "effect": "Narrow corridors between machinery. No flanking. Limits movement to single-file.",
+              "mitigation": "Use chokepoints defensively."
+            },
+            {
+              "name": "Collapsible Catwalks",
+              "trigger": "Athletics check or heavy impact",
+              "effect": "Overhead catwalks can be dropped. Pins targets underneath. Difficult terrain.",
+              "mitigation": "Don't stand under catwalks during firefights."
+            }
+          ],
+          "rewards": {
+            "credits": 0,
+            "xp": "Combat encounter",
+            "items": [
+              {
+                "name": "Trandoshan Weapons",
+                "note": "Scavenged medium blasters and a hunting rifle."
+              }
+            ],
+            "narrative": "Raden survives. Hit squad eliminated. Path to the palace is clear."
+          },
+          "pacing": {
+            "openingBeat": "Heavy boots on metal. Shadows in the windows.",
+            "risingAction": "Trandoshans breach from multiple points. Steam and chaos.",
+            "climax": "The heavy combat droid advances. Must be dealt with to escape.",
+            "resolution": "Hit squad is down. Raden is shaken but alive.",
+            "estimatedMinutes": 35
+          }
+        },
+        {
+          "id": "adv2-p1-s5",
+          "number": 5,
+          "title": "The Proposition",
+          "readAloud": "With the hit squad defeated, Raden is terrified but alive. He realizes he can never stay in the encampment. His eyes dart to your weapons, to the door, and finally settle on acceptance.\n\n\"Alright. I know how to get you in. Darga is hosting a delegation of high rollers and business partners. He wants entertainment — gladiators, gamblers, mercenaries. I'll present you to the Hutt as 'prime talent.' But once we're inside...\" He swallows hard. \"...you're on your own.\"",
+          "gmNotes": "Raden proposes presenting the heroes as entertainment for Darga's court. Options: gladiators for his arena, high-stakes gamblers, or specialized mercenaries. He warns that Darga is hosting Imperial Mining Guild members — heroes must hide political affiliations. The skiff ride across Nymeve Lake to Darga's fortress is atmospheric: the moss-covered stone ruin retrofitted with gaudy tech and heavy weapons looms through the mist.",
+          "npcs": [
+            {
+              "name": "Warrick Raden",
+              "type": "Devaronian Fixer",
+              "count": 1,
+              "notes": "Reluctant guide. Will present the heroes as entertainment.",
+              "threatBuild": {
+                "role": "informant",
+                "tier": 0,
+                "classification": "standard",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 1,
+                  "reflex": 2,
+                  "grit": 1,
+                  "wits": 3,
+                  "presence": 2
+                },
+                "weaponChassis": "light",
+                "traits": [],
+                "tags": [
+                  "Devaronian"
+                ],
+                "computed": {
+                  "power": 2,
+                  "defense": 1,
+                  "evasion": 1,
+                  "resist": 0,
+                  "vitality": 2,
+                  "initiative": 6,
+                  "controlDie": "d6",
+                  "actions": 1,
+                  "damageTiers": {
+                    "chassis": "light",
+                    "label": "Light",
+                    "fleeting": 2,
+                    "masterful": 3,
+                    "legendary": 4
+                  }
+                },
+                "roleKit": {
+                  "passive": {
+                    "name": "Fixer's Contacts",
+                    "description": "Raden knows everyone in Darga's operation. Can identify guards, routines, and weak points."
+                  },
+                  "actions": [
+                    {
+                      "name": "Spill Info",
+                      "type": "action",
+                      "arena": "wits",
+                      "description": "Provide palace intel when motivated.",
+                      "attackPower": 2
+                    },
+                    {
+                      "name": "Panic Shot",
+                      "type": "action",
+                      "arena": "reflex",
+                      "description": "Wild blaster shot when cornered. Low accuracy.",
+                      "attackPower": 1
+                    }
+                  ],
+                  "maneuver": {
+                    "name": "Bolt",
+                    "description": "Attempt to flee. Must be intercepted with Athletics or Evasion."
+                  },
+                  "gambit": null,
+                  "exploit": null
+                },
+                "notes": "Raden is not a fighter. His value is information, not combat. (Recurring — same stat block as earlier scene.)"
+              }
+            }
+          ],
+          "hazards": "Crossing Nymeve Lake by skiff. Darga's fortress visible through the mist.",
+          "decisions": [
+            {
+              "choice": "Pose as gladiators",
+              "consequence": "Physical challenge. Must prove combat prowess in Darga's arena."
+            },
+            {
+              "choice": "Pose as gamblers",
+              "consequence": "Social/mental challenge. High-stakes games in Darga's court."
+            },
+            {
+              "choice": "Pose as specialized mercenaries",
+              "consequence": "Most flexible cover but requires convincing backstory."
+            }
+          ],
+          "loreTags": [
+            "Warrick Raden",
+            "Darga the Hutt",
+            "Takodana"
+          ],
+          "narrativeLinks": [
+            {
+              "targetScene": "adv2-p2-s1",
+              "note": "The heroes' chosen cover determines their audition in Darga's throne room."
+            }
+          ],
+          "challengeType": "social",
+          "destinyTags": [
+            "corruption",
+            "discovery"
+          ],
+          "vocationTags": [
+            "voc_noble",
+            "voc_grifter",
+            "voc_investigator"
+          ],
+          "disciplineTags": [
+            "charm",
+            "deception",
+            "insight",
+            "persuasion",
+            "investigation"
+          ],
+          "gearFlags": [],
+          "skillChecks": [
+            {
+              "id": "sc-a2s5-deception",
+              "discipline": "deception",
+              "tier": 1,
+              "power": 0,
+              "context": "Building a convincing cover identity for the palace infiltration.",
+              "success": "Air-tight cover. Raden vouches convincingly.",
+              "failure": "Cover has gaps. Darga's people may ask uncomfortable questions."
+            },
+            {
+              "id": "sc-a2s5-persuasion",
+              "discipline": "persuasion",
+              "tier": 1,
+              "power": 0,
+              "context": "Reassuring Raden during the skiff ride. He's getting cold feet.",
+              "success": "Raden steadies. He'll play his part.",
+              "failure": "Raden is visibly nervous. Darga's court may notice."
+            },
+            {
+              "id": "sc-a2s5-survival",
+              "discipline": "survival",
+              "tier": 0,
+              "power": 0,
+              "context": "Reading the lake conditions during the skiff crossing.",
+              "success": "Notice: the lake is patrolled by aquatic predators. Useful if escape requires the water route.",
+              "failure": "Unremarkable crossing.",
+              "isOptional": true
+            }
+          ],
+          "encounters": [],
+          "environmentMechanics": [
+            {
+              "name": "Nymeve Lake Crossing",
+              "trigger": "During transit",
+              "effect": "Open water. No cover. If attacked, swimming in Takodana's lake is dangerous — aquatic predators.",
+              "mitigation": "Stay on the skiff. Don't fall in."
+            }
+          ],
+          "rewards": {
+            "credits": 0,
+            "xp": "Scene completion",
+            "items": [],
+            "narrative": "Cover identities established. Entry to Darga's court secured."
+          },
+          "pacing": {
+            "openingBeat": "Raden outlines the plan. The party chooses their cover.",
+            "risingAction": "The skiff ride across the misty lake. The fortress looms.",
+            "climax": "The fortress gates open. No turning back.",
+            "resolution": "The heroes enter Darga's court under false pretenses.",
+            "estimatedMinutes": 20
+          }
+        }
+      ]
+    },
+    {
+      "id": "adv2-p2",
+      "number": 2,
+      "title": "The Court of the Crime Lord",
+      "scenes": [
+        {
+          "id": "adv2-p2-s1",
+          "number": 1,
+          "title": "The Audition",
+          "subtitle": "The Throne Room",
+          "readAloud": "The heroes are led through damp, torch-lit corridors that smell of mold and roasting meat. You emerge into Darga's Throne Room — a sensory assault of thick smoke, frantic jizz-wailer music, and a crowd of sycophants, thieves, and scavengers.\n\nAt the far end, resting on a massive reinforced hover-sled, sits Darga the Hutt. He is bloated, scarred, and flanked by a polished silver protocol droid. Darga barks in Huttese, his deep voice shaking the room. The droid translates:\n\n\"The Mighty Darga is bored with beggars. Prove you are worth his air.\"",
+          "gmNotes": "Darga demands an immediate demonstration. The Muscle gets a fight against a bodyguard or beast. The Face gets a battle of wits. The Tech gets ordered to fix something on Darga's hover-sled with a blaster at their head. If heroes succeed, Darga welcomes them as 'guests' (prisoners with privileges). He then turns on Raden — ordering Gamorreans to drag him to the dungeons as punishment. Raden's screams serve as a warning of the price of failure.",
+          "npcs": [
+            {
+              "name": "Darga the Hutt",
+              "type": "Hutt Crime Lord",
+              "count": 1,
+              "notes": "Bloated, scarred, paranoid. Sits on an electrum-plated hover-sled. Never speaks Basic — uses TC-663.",
+              "threatBuild": {
+                "role": "commander",
+                "tier": 3,
+                "classification": "boss",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 5,
+                  "reflex": 1,
+                  "grit": 4,
+                  "wits": 3,
+                  "presence": 4
+                },
+                "weaponChassis": null,
+                "traits": [
+                  "tough",
+                  "fearless"
+                ],
+                "tags": [
+                  "Hutt",
+                  "Crime Lord"
+                ],
+                "computed": {
+                  "power": 6,
+                  "defense": 7,
+                  "evasion": 3,
+                  "resist": 6,
+                  "vitality": 24,
+                  "initiative": 9,
+                  "controlDie": "d10",
+                  "actions": 2
+                },
+                "roleKit": {
+                  "passive": {
+                    "name": "Absolute Authority",
+                    "description": "All allies in Darga's court gain +1 to Resist social attacks. His presence is law."
+                  },
+                  "actions": [
+                    {
+                      "name": "Command",
+                      "type": "action",
+                      "arena": "presence",
+                      "description": "Order one ally to immediately attack or take an action.",
+                      "attackPower": 6
+                    },
+                    {
+                      "name": "Crushing Tail",
+                      "type": "action",
+                      "arena": "physique",
+                      "powerMod": 2,
+                      "description": "Melee attack at engaged range. +2 Power. Hutt mass.",
+                      "attackPower": 9
+                    }
+                  ],
+                  "maneuver": {
+                    "name": "Hover-Sled",
+                    "description": "Move on repulsor sled. Not impeded by terrain."
+                  },
+                  "gambit": {
+                    "name": "Example",
+                    "cost": "-1 Power",
+                    "description": "Order guards to execute a prisoner or destroy property. All witnesses gain [Shaken]."
+                  },
+                  "exploit": {
+                    "name": "Bounty",
+                    "description": "Declare a bounty on one target. All mercenaries in the fortress gain +1 Power vs that target for the scene."
+                  }
+                },
+                "notes": "Darga is a crime lord, not a fighter. Boss x2 Vitality = 24 = (5+4+3)*2. Power 7 via Commander (Presence 5-1)+3. He fights through his army. Direct combat is a mistake — he's a Hutt on a hover-sled surrounded by guards."
+              }
+            },
+            {
+              "name": "TC-663 ('Six-Six')",
+              "type": "Silver Protocol Droid",
+              "count": 1,
+              "notes": "Darga's translator. Secretly an agent of Switch from Adventure 1.",
+              "threatBuild": {
+                "role": "informant",
+                "tier": 0,
+                "classification": "standard",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 1,
+                  "reflex": 1,
+                  "grit": 1,
+                  "wits": 3,
+                  "presence": 3
+                },
+                "weaponChassis": null,
+                "traits": [],
+                "tags": [
+                  "Droid",
+                  "Spy"
+                ],
+                "computed": {
+                  "power": 2,
+                  "defense": 0,
+                  "evasion": 0,
+                  "resist": 0,
+                  "vitality": 2,
+                  "initiative": 6,
+                  "controlDie": "d6",
+                  "actions": 1
+                },
+                "roleKit": {
+                  "passive": {
+                    "name": "Double Agent",
+                    "description": "TC-663 serves Switch. If heroes use Switch's code phrase, he provides palace maps and datapad location."
+                  },
+                  "actions": [
+                    {
+                      "name": "Translate",
+                      "type": "action",
+                      "arena": "wits",
+                      "description": "Translate Huttese. Can subtly alter translations to help or hinder.",
+                      "attackPower": 2
+                    },
+                    {
+                      "name": "Whispered Intel",
+                      "type": "action",
+                      "arena": "wits",
+                      "description": "Pass information discreetly during court proceedings.",
+                      "attackPower": 2
+                    }
+                  ],
+                  "maneuver": {
+                    "name": "Blend In",
+                    "description": "As a protocol droid, TC-663 is invisible to court security. Can move freely."
+                  },
+                  "gambit": null,
+                  "exploit": null
+                },
+                "notes": "Non-combatant spy. His real value is turning him into an asset using Switch's code phrase from Adventure 1."
+              }
+            },
+            {
+              "name": "Igren Demos",
+              "type": "Neimoidian Majordomo",
+              "count": 1,
+              "notes": "Darga's right hand. Secretly Force-sensitive and plotting a coup.",
+              "threatBuild": {
+                "role": "mystic",
+                "tier": 2,
+                "classification": "elite",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 2,
+                  "reflex": 2,
+                  "grit": 3,
+                  "wits": 3,
+                  "presence": 3
+                },
+                "weaponChassis": "medium",
+                "traits": [
+                  "force_sensitive"
+                ],
+                "tags": [
+                  "Neimoidian",
+                  "Force User"
+                ],
+                "computed": {
+                  "power": 4,
+                  "defense": 3,
+                  "evasion": 3,
+                  "resist": 4,
+                  "vitality": 10,
+                  "initiative": 8,
+                  "controlDie": "d8",
+                  "actions": 1,
+                  "damageTiers": {
+                    "chassis": "medium",
+                    "label": "Medium",
+                    "fleeting": 2,
+                    "masterful": 4,
+                    "legendary": 6
+                  }
+                },
+                "roleKit": {
+                  "passive": {
+                    "name": "Untrained Sensitivity",
+                    "description": "Demos can sense Force disturbances but cannot control it. He senses Denia's awakening and any Force use in the palace."
+                  },
+                  "actions": [
+                    {
+                      "name": "Force Slam",
+                      "type": "action",
+                      "arena": "grit",
+                      "description": "Crude Force push. Targets Endure. Knocks target back 1 zone.",
+                      "attackPower": 4
+                    },
+                    {
+                      "name": "Vibro-Staff Strike",
+                      "type": "action",
+                      "arena": "physique",
+                      "description": "Melee attack with vibro-staff.",
+                      "attackPower": 3
+                    }
+                  ],
+                  "maneuver": {
+                    "name": "Force Pull",
+                    "description": "Yank one object or person 1 zone closer."
+                  },
+                  "gambit": {
+                    "name": "Force Stagger",
+                    "cost": "-1 Power",
+                    "description": "Target gains [Disoriented]."
+                  },
+                  "exploit": {
+                    "name": "Desperate Surge",
+                    "description": "Once per encounter, double Power on a Force attack. Costs 2 Vitality."
+                  }
+                },
+                "notes": "Elite mini-boss. 5. Untrained Force user — dangerous but sloppy. Plotting to usurp Darga."
+              }
+            },
+            {
+              "name": "Gamorrean Guards",
+              "type": "Standard Guards",
+              "count": 6,
+              "notes": "Vibro-axe wielding palace guards.",
+              "threatBuild": {
+                "role": "brute",
+                "tier": 1,
+                "classification": "minion",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 3,
+                  "reflex": 1,
+                  "grit": 2,
+                  "wits": 1,
+                  "presence": 1
+                },
+                "weaponChassis": "medium",
+                "traits": [
+                  "tough"
+                ],
+                "tags": [
+                  "Gamorrean"
+                ],
+                "computed": {
+                  "power": 3,
+                  "defense": 3,
+                  "evasion": 1,
+                  "resist": 2,
+                  "vitality": 6,
+                  "initiative": 3,
+                  "controlDie": "d6",
+                  "actions": 1,
+                  "damageTiers": {
+                    "chassis": "medium",
+                    "label": "Medium",
+                    "fleeting": 2,
+                    "masterful": 4,
+                    "legendary": 6
+                  }
+                },
+                "roleKit": {
+                  "passive": {
+                    "name": "Unrelenting",
+                    "description": "Ignore first [Weakened] per scene."
+                  },
+                  "actions": [
+                    {
+                      "name": "Vibro-Axe Chop",
+                      "type": "action",
+                      "arena": "physique",
+                      "powerMod": 1,
+                      "description": "Melee attack. +1 Power.",
+                      "attackPower": 4
+                    },
+                    {
+                      "name": "Headbutt",
+                      "type": "action",
+                      "arena": "physique",
+                      "description": "Close range. Target must Endure or gain [Stunned].",
+                      "attackPower": 3
+                    }
+                  ],
+                  "maneuver": {
+                    "name": "Intimidating Advance",
+                    "description": "Move + target resists or gains [Shaken]."
+                  },
+                  "gambit": {
+                    "name": "Knockdown",
+                    "cost": "-1 Power",
+                    "description": "Target gains [Prone]."
+                  },
+                  "exploit": {
+                    "name": "Berserk",
+                    "description": "When below half Vitality, +1 Power on all attacks."
+                  }
+                },
+                "notes": "Minion Brutes. Tough. Masterful+ = takedown. Palace guards — vibro-axes and bad attitudes."
+              }
+            }
+          ],
+          "hazards": "Hostile court environment. Surrounded by Darga's forces. No easy escape.",
+          "decisions": [
+            {
+              "choice": "Impress Darga with a spectacular audition",
+              "consequence": "Earn 'guest' status and freedom to move within the palace."
+            },
+            {
+              "choice": "Try to intervene when Raden is taken",
+              "consequence": "Extremely dangerous — would blow cover immediately. Darga's court is heavily armed."
+            }
+          ],
+          "loreTags": [
+            "Darga the Hutt",
+            "TC-663",
+            "Igren Demos",
+            "Warrick Raden"
+          ],
+          "narrativeLinks": [],
+          "challengeType": "social",
+          "destinyTags": [
+            "corruption",
+            "discovery"
+          ],
+          "vocationTags": [
+            "voc_grifter",
+            "voc_noble",
+            "voc_investigator"
+          ],
+          "disciplineTags": [
+            "deception",
+            "charm",
+            "insight",
+            "investigation",
+            "skulduggery"
+          ],
+          "gearFlags": [],
+          "skillChecks": [
+            {
+              "id": "sc-a2s6-melee",
+              "discipline": "melee",
+              "tier": 1,
+              "power": 0,
+              "context": "The Muscle's audition — fighting a Gamorrean in Darga's pit.",
+              "success": "Decisive victory. Darga is impressed. [Guest] status earned.",
+              "failure": "A sloppy showing. Darga is unimpressed. Cover is thinner."
+            },
+            {
+              "id": "sc-a2s6-charm",
+              "discipline": "charm",
+              "tier": 1,
+              "power": 2,
+              "context": "The Face's audition — a battle of wits with Darga's courtiers.",
+              "success": "Darga laughs. He likes you. The court takes notice.",
+              "failure": "Flat performance. Darga yawns. Cover survives but barely."
+            },
+            {
+              "id": "sc-a2s6-tech",
+              "discipline": "tech",
+              "tier": 1,
+              "power": 0,
+              "context": "The Tech's audition — fixing Darga's hover-sled with a blaster at your head.",
+              "success": "Sled purrs like new. Darga is delighted. Gives you run of the workshop.",
+              "failure": "Sled sputters. Not broken worse, but Darga is skeptical."
+            },
+            {
+              "id": "sc-a2s6-deception",
+              "discipline": "deception",
+              "tier": 2,
+              "power": 0,
+              "context": "Maintaining cover identity under Darga's scrutiny.",
+              "success": "Darga buys it completely. No further questions.",
+              "failure": "Darga is suspicious. Igren Demos is ordered to watch you closely."
+            },
+            {
+              "id": "sc-a2s6-insight",
+              "discipline": "insight",
+              "tier": 1,
+              "power": 0,
+              "context": "Reading the court dynamics — who has power, who is plotting.",
+              "success": "TC-663 keeps glancing at you meaningfully. Igren Demos watches Darga like a predator.",
+              "failure": "Overwhelming sensory chaos. Too many players to read.",
+              "isOptional": true
+            }
+          ],
+          "encounters": [
+            {
+              "id": "enc-a2s6-audition",
+              "name": "The Audition",
+              "type": "social",
+              "trigger": "On presentation to Darga",
+              "description": "Each PC must prove their worth to Darga in their specialty. Muscle fights, Face talks, Tech fixes.",
+              "tactics": "Darga is bored and jaded. Only genuine skill or entertainment impresses him."
+            }
+          ],
+          "environmentMechanics": [
+            {
+              "name": "Hostile Court",
+              "trigger": "Active throughout",
+              "effect": "Surrounded by Darga's forces. No weapons allowed in the throne room (confiscated at the door). Violence = instant death.",
+              "mitigation": "Play the part. Do not break cover."
+            },
+            {
+              "name": "Darga's Attention Span",
+              "trigger": "During auditions",
+              "effect": "Darga loses interest quickly. Failed auditions don't cause immediate expulsion but reduce trust.",
+              "mitigation": "Make it entertaining. Darga values spectacle over competence."
+            }
+          ],
+          "rewards": {
+            "credits": 0,
+            "xp": "Scene completion",
+            "items": [],
+            "narrative": "\"Guest\" status in Darga's court — freedom to move within approved areas."
+          },
+          "pacing": {
+            "openingBeat": "Led through damp corridors into the sensory assault of Darga's throne room.",
+            "risingAction": "Each PC faces their audition.",
+            "climax": "Darga's judgment. Then Raden is dragged to the dungeon.",
+            "resolution": "The heroes are \"welcomed\" to court. The clock starts.",
+            "estimatedMinutes": 35
+          }
+        },
+        {
+          "id": "adv2-p2-s2",
+          "number": 2,
+          "title": "The Long Con",
+          "subtitle": "The Court",
+          "readAloud": "Over the next day cycle, you navigate the dangerous politics of Darga's court. Admiral Varth coaches you over encrypted comms, pointing out targets and reminding you to keep your eyes on the prize.\n\nThree events unfold that reveal the true scale of what you've stumbled into...",
+          "gmNotes": "Three key events during the 'free roaming' phase:\n\n1. THE IRON RING DELEGATION: Trandoshan Slavers drag chained Nazren prisoners into court, arguing about payment. Eavesdropping reveals Darga supplies slave labor for Project Leviathan.\n\n2. THE IMPERIAL BUYER: Lady Sinde arrives — a severe logistics officer for Project Leviathan. Varth recognizes her voice. She's negotiating the next shipment.\n\n3. THE DROID RACE: Darga announces a droid race to celebrate his deal. This is the heroes' best chance — while Darga is distracted gambling, they can slip away to slice the datapad or explore secure areas.\n\nTC-663 can be turned if heroes treat him with respect or use Switch's code phrase — he'll provide palace maps and datapad location.",
+          "npcs": [
+            {
+              "name": "Iron Ring Slavers",
+              "type": "Trandoshan Delegation",
+              "count": 4,
+              "notes": "Arguing about 'damaged merchandise' (dying slaves). Led by a brutal Zabrak.",
+              "threatBuild": {
+                "role": "enforcer",
+                "tier": 1,
+                "classification": "standard",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 3,
+                  "reflex": 2,
+                  "grit": 2,
+                  "wits": 1,
+                  "presence": 2
+                },
+                "weaponChassis": "medium",
+                "traits": [
+                  "fearless"
+                ],
+                "tags": [
+                  "Trandoshan",
+                  "Slaver"
+                ],
+                "computed": {
+                  "power": 3,
+                  "defense": 3,
+                  "evasion": 2,
+                  "resist": 2,
+                  "vitality": 6,
+                  "initiative": 3,
+                  "controlDie": "d6",
+                  "actions": 1,
+                  "damageTiers": {
+                    "chassis": "medium",
+                    "label": "Medium",
+                    "fleeting": 2,
+                    "masterful": 4,
+                    "legendary": 6
+                  }
+                },
+                "roleKit": {
+                  "passive": {
+                    "name": "Implied Violence",
+                    "description": "Social attacks inflict [Shaken] instead of normal social conditions."
+                  },
+                  "actions": [
+                    {
+                      "name": "Slaver's Lash",
+                      "type": "action",
+                      "arena": "physique",
+                      "description": "Melee attack with shock-whip. Targets Endure.",
+                      "attackPower": 3
+                    },
+                    {
+                      "name": "Threaten",
+                      "type": "action",
+                      "arena": "physique",
+                      "description": "Social attack using implied force. Targets Resist.",
+                      "attackPower": 3
+                    }
+                  ],
+                  "maneuver": {
+                    "name": "Loom",
+                    "description": "Move to close range. Target resists or gains [Rattled]."
+                  },
+                  "gambit": {
+                    "name": "Crack the Whip",
+                    "cost": "-1 Power",
+                    "description": "Area social attack. All witnesses gain [Shaken]."
+                  },
+                  "exploit": {
+                    "name": "Chain Gang",
+                    "description": "If a target is [Prone], automatically apply [Restrained]."
+                  }
+                },
+                "notes": "Enforcer slavers. Fearless: immune to [Shaken]/[Rattled]. Loathsome but dangerous."
+              }
+            },
+            {
+              "name": "Lady Sinde",
+              "type": "Imperial Logistics Officer",
+              "count": 1,
+              "notes": "Project Leviathan buyer. Severe, authoritative, views Darga as a necessary tool.",
+              "threatBuild": {
+                "role": "commander",
+                "tier": 2,
+                "classification": "standard",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 1,
+                  "reflex": 2,
+                  "grit": 3,
+                  "wits": 4,
+                  "presence": 3
+                },
+                "weaponChassis": "light",
+                "traits": [
+                  "disciplined"
+                ],
+                "tags": [
+                  "Imperial",
+                  "Officer"
+                ],
+                "computed": {
+                  "power": 4,
+                  "defense": 3,
+                  "evasion": 3,
+                  "resist": 5,
+                  "vitality": 6,
+                  "initiative": 10,
+                  "controlDie": "d8",
+                  "actions": 1,
+                  "damageTiers": {
+                    "chassis": "light",
+                    "label": "Light",
+                    "fleeting": 2,
+                    "masterful": 3,
+                    "legendary": 4
+                  }
+                },
+                "roleKit": {
+                  "passive": {
+                    "name": "Imperial Authority",
+                    "description": "Lady Sinde commands Stormtroopers. Her orders are obeyed without question."
+                  },
+                  "actions": [
+                    {
+                      "name": "Direct Fire",
+                      "type": "action",
+                      "arena": "presence",
+                      "description": "Order a Stormtrooper to attack immediately.",
+                      "attackPower": 4
+                    },
+                    {
+                      "name": "Cutting Assessment",
+                      "type": "action",
+                      "arena": "presence",
+                      "description": "Social attack that dismantles cover stories. Targets Resist.",
+                      "attackPower": 4
+                    }
+                  ],
+                  "maneuver": {
+                    "name": "Issue Orders",
+                    "description": "One ally gains a bonus maneuver."
+                  },
+                  "gambit": {
+                    "name": "Ultimatum",
+                    "cost": "-1 Power",
+                    "description": "Target must comply or be marked for elimination."
+                  },
+                  "exploit": {
+                    "name": "Call Reinforcements",
+                    "description": "Summon 4 Stormtrooper minions to her location."
+                  }
+                },
+                "notes": "Commander. Resist 5 = Grit 3-1+2+1(disciplined). She is a logistics officer, not a frontline fighter. Her danger is the army behind her."
+              }
+            },
+            {
+              "name": "Gome",
+              "type": "Duros Accountant",
+              "count": 1,
+              "notes": "Elderly palace accountant. Doesn't care about crime — loves numbers. Can explain Darga's Imperial shipments.",
+              "threatBuild": {
+                "role": "informant",
+                "tier": 0,
+                "classification": "standard",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 1,
+                  "reflex": 1,
+                  "grit": 2,
+                  "wits": 4,
+                  "presence": 1
+                },
+                "weaponChassis": null,
+                "traits": [],
+                "tags": [
+                  "Duros"
+                ],
+                "computed": {
+                  "power": 3,
+                  "defense": 0,
+                  "evasion": 0,
+                  "resist": 1,
+                  "vitality": 3,
+                  "initiative": 8,
+                  "controlDie": "d6",
+                  "actions": 1
+                },
+                "roleKit": {
+                  "passive": {
+                    "name": "Loves Numbers",
+                    "description": "Gome will talk endlessly about financial details if asked. He doesn't care about crime — only about elegant accounting."
+                  },
+                  "actions": [
+                    {
+                      "name": "Financial Breakdown",
+                      "type": "action",
+                      "arena": "wits",
+                      "description": "Explain Darga's shipping operations in excruciating detail.",
+                      "attackPower": 3
+                    },
+                    {
+                      "name": "Shrug",
+                      "type": "action",
+                      "arena": "presence",
+                      "description": "Deflect moral questions with bureaucratic indifference.",
+                      "attackPower": 0
+                    }
+                  ],
+                  "maneuver": {
+                    "name": "Pull Records",
+                    "description": "Access accounting data from memory."
+                  },
+                  "gambit": null,
+                  "exploit": null
+                },
+                "notes": "Non-combatant. The only NPC who will freely discuss Darga's operations — he just doesn't see the moral dimension."
+              }
+            }
+          ],
+          "hazards": "Court politics — any misstep can blow the heroes' cover. Imperial presence increases stakes.",
+          "decisions": [
+            {
+              "choice": "Use the droid race as cover to find the datapad",
+              "consequence": "Best window of opportunity. Darga is distracted."
+            },
+            {
+              "choice": "Turn TC-663 into an asset",
+              "consequence": "If successful, he provides palace maps and the datapad's exact location."
+            },
+            {
+              "choice": "Confront the slavers",
+              "consequence": "Moral victory but extremely dangerous — could blow cover and start a war."
+            }
+          ],
+          "loreTags": [
+            "Darga the Hutt",
+            "Project Leviathan",
+            "Lady Sinde",
+            "TC-663",
+            "Iron Ring Slavers",
+            "Slave Trade"
+          ],
+          "narrativeLinks": [
+            {
+              "targetScene": "adv3-p2-s4",
+              "note": "Lady Sinde's presence connects to the Imperial deal at the Cloud City tournament."
+            }
+          ],
+          "challengeType": "social",
+          "destinyTags": [
+            "discovery",
+            "corruption",
+            "liberation"
+          ],
+          "vocationTags": [
+            "voc_grifter",
+            "voc_noble",
+            "voc_seer"
+          ],
+          "disciplineTags": [
+            "deception",
+            "charm",
+            "insight",
+            "investigation",
+            "tech"
+          ],
+          "gearFlags": [],
+          "skillChecks": [
+            {
+              "id": "sc-a2s7-deception",
+              "discipline": "deception",
+              "tier": 1,
+              "power": 0,
+              "context": "Maintaining cover during the court events.",
+              "success": "Cover holds perfectly throughout the day cycle.",
+              "failure": "A suspicious courtier begins asking pointed questions. Demos takes notice."
+            },
+            {
+              "id": "sc-a2s7-investigation",
+              "discipline": "investigation",
+              "tier": 1,
+              "power": 0,
+              "context": "Gathering intel during the Iron Ring delegation arrival.",
+              "success": "Overhear: Darga supplies slave labor for \"Project Leviathan.\" Shipping manifests mention Bespin.",
+              "failure": "Caught only fragments. Know slaves are involved but not the destination."
+            },
+            {
+              "id": "sc-a2s7-stealth",
+              "discipline": "stealth",
+              "tier": 1,
+              "power": 0,
+              "context": "Eavesdropping on Lady Sinde's private meeting with Darga.",
+              "success": "Full conversation: next shipment coordinates, payment terms, mention of \"the Accountant's records.\"",
+              "failure": "Spotted by a guard. Must talk your way out — Deception check or cover blown."
+            },
+            {
+              "id": "sc-a2s7-insight",
+              "discipline": "insight",
+              "tier": 1,
+              "power": 0,
+              "context": "Reading Lady Sinde's relationship with Darga.",
+              "success": "She despises Darga. He's a tool. The Empire is already planning to cut him loose once Project Leviathan is complete.",
+              "failure": "Professional demeanor. Hard to read."
+            },
+            {
+              "id": "sc-a2s7-charm",
+              "discipline": "charm",
+              "tier": 1,
+              "power": 2,
+              "context": "Turning TC-663 into an asset using Switch's code phrase.",
+              "success": "TC-663's photoreceptors flash recognition. He provides palace maps, datapad location, and guard rotations.",
+              "failure": "TC-663 is cautious. Provides partial information only.",
+              "narrativePacing": "Key check. The code phrase from Adv1 reduces this to T0/P0."
+            },
+            {
+              "id": "sc-a2s7-tech",
+              "discipline": "tech",
+              "tier": 2,
+              "power": 0,
+              "context": "Slicing Darga's datapad during the droid race distraction.",
+              "success": "Encryption keys extracted cleanly. No trace left.",
+              "failure": "Partial extraction. Silent alarm triggers. Lockdown in 5 rounds."
+            }
+          ],
+          "encounters": [
+            {
+              "id": "enc-a2s7-droid-race",
+              "name": "The Droid Race",
+              "type": "social",
+              "trigger": "Darga announces the race",
+              "description": "A droid race through the palace corridors. Darga gambles heavily. The heroes' window to act.",
+              "tactics": "While Darga watches the race, security is reduced. Best chance to slice the datapad or explore restricted areas."
+            }
+          ],
+          "environmentMechanics": [
+            {
+              "name": "Court Surveillance",
+              "trigger": "Active throughout",
+              "effect": "Darga's court has eyes everywhere. Extended absence or unusual behavior is noticed.",
+              "mitigation": "Coordinate with TC-663. Use the droid race as cover."
+            },
+            {
+              "name": "The Droid Race Window",
+              "trigger": "During race event",
+              "effect": "Security reduced for 20 minutes (game time). Guards distracted by the race.",
+              "mitigation": "Use this window for the datapad heist."
+            }
+          ],
+          "rewards": {
+            "credits": 0,
+            "xp": "Scene completion",
+            "items": [
+              {
+                "name": "Encryption Keys",
+                "note": "Varth's fortune access codes — if the heist succeeds."
+              }
+            ],
+            "narrative": "Intelligence gathered. Heist attempted. The adventure's fate pivots here."
+          },
+          "pacing": {
+            "openingBeat": "A day in Darga's court. Three events unfold.",
+            "risingAction": "Iron Ring slavers arrive. Lady Sinde negotiates. TC-663 can be turned.",
+            "climax": "The droid race — the heroes' window to act.",
+            "resolution": "Heist succeeds or fails. Either way, the next scene is triggered.",
+            "estimatedMinutes": 45
+          }
+        },
+        {
+          "id": "adv2-p2-s3",
+          "number": 3,
+          "title": "The Complication",
+          "subtitle": "The Dungeon",
+          "readAloud": "Using the cover of the droid race, you slip into the restricted lower levels. Instead of a vault, you find a high-security detention block guarded by elite droids.\n\nInside the most secure cell is a stasis pod hooked to life-support machinery. Through the frost-covered viewport, you see a human woman in tattered Jedi robes, suspended in a Force-induced coma. Her eyes are closed, but you feel something — a whisper at the edge of your consciousness.\n\nAdmiral Varth's voice turns cold over the comms: \"Leave her. She is a liability. If you wake a Jedi, every Inquisitor in the sector will hunt us down. Get the keys and get out.\"",
+          "gmNotes": "This is the campaign's first major Moral Event Horizon. Jedi Master Denia was found by Darga after Order 66 and kept as a trophy to auction to the Inquisitorius. She's weak, barely alive, and telepathically reaching out to the heroes. Varth is furious — a Jedi is a heat magnet. This decision shapes the rest of the campaign. Saving Denia brings the Inquisitorius down on the heroes but gains them a powerful ally. Leaving her preserves the 'scoundrel' path but at a moral cost.",
+          "npcs": [
+            {
+              "name": "Jedi Master Denia",
+              "type": "Captured Jedi",
+              "count": 1,
+              "notes": "In stasis for 3 years since Order 66. Powerful but frail. Doesn't know the Empire exists yet.",
+              "threatBuild": {
+                "role": "mystic",
+                "tier": 3,
+                "classification": "standard",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 1,
+                  "reflex": 2,
+                  "grit": 4,
+                  "wits": 3,
+                  "presence": 3
+                },
+                "weaponChassis": null,
+                "traits": [
+                  "force_sensitive"
+                ],
+                "tags": [
+                  "Jedi",
+                  "Weakened"
+                ],
+                "computed": {
+                  "power": 6,
+                  "defense": 3,
+                  "evasion": 1,
+                  "resist": 6,
+                  "vitality": 4,
+                  "initiative": 9,
+                  "controlDie": "d10",
+                  "actions": 1
+                },
+                "roleKit": {
+                  "passive": {
+                    "name": "Weakened Master",
+                    "description": "Denia's stats represent her full potential. Currently: all physical actions [Weakened], Vitality halved (4), single action per round. Recovers over Adventures 4-9."
+                  },
+                  "actions": [
+                    {
+                      "name": "Force Barrier",
+                      "type": "action",
+                      "arena": "grit",
+                      "description": "Create a telekinetic shield. Allies in zone gain [Cover 2] for 1 round.",
+                      "attackPower": 6
+                    },
+                    {
+                      "name": "Telepathic Bond",
+                      "type": "action",
+                      "arena": "presence",
+                      "description": "Communicate silently with one target. Share images, emotions, warnings.",
+                      "attackPower": 5
+                    }
+                  ],
+                  "maneuver": {
+                    "name": "Sense Danger",
+                    "description": "Detect hostile intent within the scene. Provides tactical warning."
+                  },
+                  "gambit": {
+                    "name": "Force Calm",
+                    "cost": "-1 Power",
+                    "description": "Remove [Shaken] or [Rattled] from one ally."
+                  },
+                  "exploit": {
+                    "name": "Desperate Burst",
+                    "description": "Once per adventure, unleash full Force power. All enemies in zone gain [Stunned]. Denia collapses afterward."
+                  }
+                },
+                "notes": "Denia is a Jedi Master at full power — but she has been in stasis for 3 years. Current effective stats are halved. She recovers gradually through the campaign. She is an NPC ally, not under player control."
+              }
+            },
+            {
+              "name": "Elite Guard Droids",
+              "type": "Elite Security Droids",
+              "count": 2,
+              "notes": "Guarding the high-security detention block.",
+              "threatBuild": {
+                "role": "trooper",
+                "tier": 2,
+                "classification": "standard",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 3,
+                  "reflex": 3,
+                  "grit": 2,
+                  "wits": 2,
+                  "presence": 1
+                },
+                "weaponChassis": "medium",
+                "traits": [
+                  "armored_medium",
+                  "iron_clad"
+                ],
+                "tags": [
+                  "Droid",
+                  "Security"
+                ],
+                "computed": {
+                  "power": 4,
+                  "defense": 6,
+                  "evasion": 3,
+                  "resist": 3,
+                  "vitality": 7,
+                  "initiative": 6,
+                  "controlDie": "d8",
+                  "actions": 1,
+                  "damageTiers": {
+                    "chassis": "medium",
+                    "label": "Medium",
+                    "fleeting": 2,
+                    "masterful": 4,
+                    "legendary": 6
+                  }
+                },
+                "roleKit": {
+                  "passive": {
+                    "name": "Disciplined Fire",
+                    "description": "+1 Power on weapon attacks."
+                  },
+                  "actions": [
+                    {
+                      "name": "Integrated Blaster",
+                      "type": "action",
+                      "arena": "reflex",
+                      "description": "Built-in medium blaster. Cannot be disarmed.",
+                      "attackPower": 4
+                    },
+                    {
+                      "name": "Stun Shock",
+                      "type": "action",
+                      "arena": "physique",
+                      "description": "Melee. Target must Endure or gain [Stunned].",
+                      "attackPower": 4
+                    }
+                  ],
+                  "maneuver": {
+                    "name": "Lock Down",
+                    "description": "Seal one door or access point in the zone."
+                  },
+                  "gambit": {
+                    "name": "Overwatch Protocol",
+                    "cost": "-1 Power",
+                    "description": "Hold action. Fire on first movement in line of sight."
+                  },
+                  "exploit": {
+                    "name": "Alert Network",
+                    "description": "Trigger palace-wide alarm. All security responds."
+                  }
+                },
+                "notes": "Iron Clad security droids. Defense 6 = max(3,3)-1+2+2(medium armor). Vulnerable to Ion damage — Ion Grenade drops them instantly."
+              }
+            }
+          ],
+          "hazards": "High-security zone. Silent alarms if stasis machinery is tampered with. Igren Demos can sense Force disturbances.",
+          "decisions": [
+            {
+              "choice": "Rescue Jedi Master Denia",
+              "consequence": "Triggers silent alarm. Igren Demos senses the Force disturbance. Inquisitors will hunt the heroes. But gains a powerful ally."
+            },
+            {
+              "choice": "Follow Varth's orders — leave her",
+              "consequence": "Preserves cover for a clean getaway. But abandons a helpless prisoner to torture and sale."
+            }
+          ],
+          "loreTags": [
+            "Jedi Master Denia",
+            "Inquisitor Draco",
+            "Admiral Varth",
+            "Varth's True Nature",
+            "Order 66"
+          ],
+          "narrativeLinks": [
+            {
+              "targetScene": "adv2-p2-s4",
+              "note": "Rescuing Denia (or failing the datapad heist) triggers the fortress lockdown."
+            }
+          ],
+          "challengeType": "infiltration",
+          "destinyTags": [
+            "rescue",
+            "liberation",
+            "atonement"
+          ],
+          "vocationTags": [
+            "voc_noble",
+            "voc_seer",
+            "voc_investigator"
+          ],
+          "disciplineTags": [
+            "insight",
+            "persuasion",
+            "charm",
+            "resolve",
+            "investigation"
+          ],
+          "gearFlags": [],
+          "skillChecks": [
+            {
+              "id": "sc-a2s8-stealth",
+              "discipline": "stealth",
+              "tier": 1,
+              "power": 0,
+              "context": "Slipping into the restricted lower levels during the droid race.",
+              "success": "Clean entry. No guards notice.",
+              "failure": "A guard sees movement. Must be dealt with quietly."
+            },
+            {
+              "id": "sc-a2s8-tech",
+              "discipline": "tech",
+              "tier": 2,
+              "power": 0,
+              "context": "Disabling the stasis pod's life support to free Denia.",
+              "success": "Clean disconnect. Denia wakes slowly, disoriented but alive.",
+              "failure": "Alarm triggers. Igren Demos senses the Force disturbance. Lockdown imminent."
+            },
+            {
+              "id": "sc-a2s8-skulduggery",
+              "discipline": "skulduggery",
+              "tier": 1,
+              "power": 2,
+              "context": "Bypassing the high-security cell locks.",
+              "success": "Locks open silently. No alarm.",
+              "failure": "Lock triggers backup alarm. Guards dispatched."
+            },
+            {
+              "id": "sc-a2s8-medicine",
+              "discipline": "medicine",
+              "tier": 1,
+              "power": 0,
+              "context": "Stabilizing Denia after 3 years in stasis.",
+              "success": "Denia is weak but mobile. Can walk with support.",
+              "failure": "Denia is barely conscious. Must be carried. All movement checks are stepped up."
+            },
+            {
+              "id": "sc-a2s8-resolve",
+              "discipline": "resolve",
+              "tier": 1,
+              "power": 0,
+              "context": "Resisting Denia's telepathic plea — it's emotionally overwhelming.",
+              "success": "You feel her pain but maintain composure. Clear decision-making.",
+              "failure": "The emotional weight is staggering. [Rattled] until you act on it or leave."
+            }
+          ],
+          "encounters": [
+            {
+              "id": "enc-a2s8-droids",
+              "name": "Elite Guard Droids",
+              "type": "combat",
+              "trigger": "If alarm triggers or droids detect intruders",
+              "description": "Two elite security droids activate and engage. Heavy armor, integrated weapons.",
+              "tactics": "Droids fight methodically. Ion weapons are extremely effective."
+            }
+          ],
+          "environmentMechanics": [
+            {
+              "name": "Stasis Machinery",
+              "trigger": "If tampered with",
+              "effect": "Disconnecting improperly kills Denia. Tech check required.",
+              "mitigation": "Careful technical work. Slicer Spike provides +1 tier on the check."
+            },
+            {
+              "name": "Force Echo",
+              "trigger": "If Denia is disturbed",
+              "effect": "Force-sensitive characters feel nausea and dread. Igren Demos senses the disturbance from anywhere in the palace.",
+              "mitigation": "Nothing. This is unavoidable if Denia is freed."
+            }
+          ],
+          "rewards": {
+            "credits": 0,
+            "xp": "Major story choice",
+            "items": [],
+            "narrative": "Jedi Master Denia rescued or abandoned. Campaign-defining moment."
+          },
+          "pacing": {
+            "openingBeat": "The restricted lower levels. Cold, dark, humming machinery.",
+            "risingAction": "Discovery of the stasis pod. Denia's telepathic plea.",
+            "climax": "The choice: rescue or leave. Varth argues against it.",
+            "resolution": "The consequences begin — alarm, pursuit, or clean getaway.",
+            "estimatedMinutes": 30
+          }
+        },
+        {
+          "id": "adv2-p2-s4",
+          "number": 4,
+          "title": "The Turn",
+          "subtitle": "The Alarm",
+          "readAloud": "Klaxons scream through the stone corridors. The fortress goes into lockdown — blast doors grinding shut, red emergency lighting flooding every hall.\n\nIn the Throne Room above, Darga's booming voice shakes the walls:\n\n\"SPIES! They are Varth's ghosts! KILL THEM ALL!\"\n\nDarga's hover-sled engages its repulsors as he flees toward his private hangar bay, clutching the datapad with the encryption keys.",
+          "gmNotes": "The alarm is triggered either by rescuing Denia (stasis disconnect + Demos sensing the Force) or by a failed datapad heist. The fortress is now hostile. Heroes in the dungeon are blocked by blast doors. Heroes in the court are surrounded by Gamorreans and Trandoshans. Darga is fleeing with the datapad. The heist has become a fight for survival and a race to catch the Hutt.",
+          "npcs": [
+            {
+              "name": "Darga the Hutt",
+              "type": "Fleeing Crime Lord",
+              "count": 1,
+              "notes": "Retreating to his hangar with the encryption keys.",
+              "threatBuild": {
+                "role": "commander",
+                "tier": 3,
+                "classification": "boss",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 5,
+                  "reflex": 1,
+                  "grit": 4,
+                  "wits": 3,
+                  "presence": 4
+                },
+                "weaponChassis": null,
+                "traits": [
+                  "tough",
+                  "fearless"
+                ],
+                "tags": [
+                  "Hutt",
+                  "Crime Lord"
+                ],
+                "computed": {
+                  "power": 6,
+                  "defense": 7,
+                  "evasion": 3,
+                  "resist": 6,
+                  "vitality": 24,
+                  "initiative": 9,
+                  "controlDie": "d10",
+                  "actions": 2
+                },
+                "roleKit": {
+                  "passive": {
+                    "name": "Absolute Authority",
+                    "description": "All allies in Darga's court gain +1 to Resist social attacks. His presence is law."
+                  },
+                  "actions": [
+                    {
+                      "name": "Command",
+                      "type": "action",
+                      "arena": "presence",
+                      "description": "Order one ally to immediately attack or take an action.",
+                      "attackPower": 6
+                    },
+                    {
+                      "name": "Crushing Tail",
+                      "type": "action",
+                      "arena": "physique",
+                      "powerMod": 2,
+                      "description": "Melee attack at engaged range. +2 Power. Hutt mass.",
+                      "attackPower": 9
+                    }
+                  ],
+                  "maneuver": {
+                    "name": "Hover-Sled",
+                    "description": "Move on repulsor sled. Not impeded by terrain."
+                  },
+                  "gambit": {
+                    "name": "Example",
+                    "cost": "-1 Power",
+                    "description": "Order guards to execute a prisoner or destroy property. All witnesses gain [Shaken]."
+                  },
+                  "exploit": {
+                    "name": "Bounty",
+                    "description": "Declare a bounty on one target. All mercenaries in the fortress gain +1 Power vs that target for the scene."
+                  }
+                },
+                "notes": "Darga is a crime lord, not a fighter. Boss x2 Vitality = 24 = (5+4+3)*2. Power 7 via Commander (Presence 5-1)+3. He fights through his army. Direct combat is a mistake — he's a Hutt on a hover-sled surrounded by guards. (Recurring — same stat block as earlier scene.)"
+              }
+            },
+            {
+              "name": "Gamorrean Guards",
+              "type": "Standard Guards",
+              "count": 8,
+              "notes": "Palace guards responding to lockdown.",
+              "threatBuild": {
+                "role": "brute",
+                "tier": 1,
+                "classification": "minion",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 3,
+                  "reflex": 1,
+                  "grit": 2,
+                  "wits": 1,
+                  "presence": 1
+                },
+                "weaponChassis": "medium",
+                "traits": [
+                  "tough"
+                ],
+                "tags": [
+                  "Gamorrean"
+                ],
+                "computed": {
+                  "power": 3,
+                  "defense": 3,
+                  "evasion": 1,
+                  "resist": 2,
+                  "vitality": 6,
+                  "initiative": 3,
+                  "controlDie": "d6",
+                  "actions": 1,
+                  "damageTiers": {
+                    "chassis": "medium",
+                    "label": "Medium",
+                    "fleeting": 2,
+                    "masterful": 4,
+                    "legendary": 6
+                  }
+                },
+                "roleKit": {
+                  "passive": {
+                    "name": "Unrelenting",
+                    "description": "Ignore first [Weakened] per scene."
+                  },
+                  "actions": [
+                    {
+                      "name": "Vibro-Axe Chop",
+                      "type": "action",
+                      "arena": "physique",
+                      "powerMod": 1,
+                      "description": "Melee attack. +1 Power.",
+                      "attackPower": 4
+                    },
+                    {
+                      "name": "Headbutt",
+                      "type": "action",
+                      "arena": "physique",
+                      "description": "Close range. Target must Endure or gain [Stunned].",
+                      "attackPower": 3
+                    }
+                  ],
+                  "maneuver": {
+                    "name": "Intimidating Advance",
+                    "description": "Move + target resists or gains [Shaken]."
+                  },
+                  "gambit": {
+                    "name": "Knockdown",
+                    "cost": "-1 Power",
+                    "description": "Target gains [Prone]."
+                  },
+                  "exploit": {
+                    "name": "Berserk",
+                    "description": "When below half Vitality, +1 Power on all attacks."
+                  }
+                },
+                "notes": "Minion Brutes. Tough. Masterful+ = takedown. Palace guards — vibro-axes and bad attitudes. (Recurring — same stat block as earlier scene.)"
+              }
+            },
+            {
+              "name": "Trandoshan Mercenaries",
+              "type": "Standard Combatants",
+              "count": 4,
+              "notes": "Darga's hired muscle.",
+              "threatBuild": {
+                "role": "brute",
+                "tier": 1,
+                "classification": "standard",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 3,
+                  "reflex": 2,
+                  "grit": 3,
+                  "wits": 1,
+                  "presence": 1
+                },
+                "weaponChassis": "medium",
+                "traits": [
+                  "tough"
+                ],
+                "tags": [
+                  "Trandoshan"
+                ],
+                "computed": {
+                  "power": 3,
+                  "defense": 3,
+                  "evasion": 2,
+                  "resist": 3,
+                  "vitality": 7,
+                  "initiative": 3,
+                  "controlDie": "d6",
+                  "actions": 1,
+                  "damageTiers": {
+                    "chassis": "medium",
+                    "label": "Medium",
+                    "fleeting": 2,
+                    "masterful": 4,
+                    "legendary": 6
+                  }
+                },
+                "roleKit": {
+                  "passive": {
+                    "name": "Unrelenting",
+                    "description": "Ignore the first [Weakened] condition per scene."
+                  },
+                  "actions": [
+                    {
+                      "name": "Claw Slash",
+                      "type": "action",
+                      "arena": "physique",
+                      "powerMod": 1,
+                      "description": "Melee attack with natural claws. +1 Power.",
+                      "attackPower": 4
+                    },
+                    {
+                      "name": "Hunting Rifle",
+                      "type": "action",
+                      "arena": "reflex",
+                      "description": "Ranged attack at medium range.",
+                      "attackPower": 2
+                    }
+                  ],
+                  "maneuver": {
+                    "name": "Scent Track",
+                    "description": "In obscured conditions, locate one hidden enemy. Ignores concealment from steam."
+                  },
+                  "gambit": {
+                    "name": "Knockdown",
+                    "cost": "-1 Power",
+                    "description": "Target gains [Prone]."
+                  },
+                  "exploit": {
+                    "name": "Regeneration",
+                    "description": "At end of turn, heal 1 Vitality. Trandoshan biology."
+                  }
+                },
+                "notes": "Standard Brutes. Tough = ignore Fleeting damage. Scent Track bypasses steam concealment. A real fight. (Recurring — same stat block.)"
+              }
+            }
+          ],
+          "hazards": "Fortress lockdown — blast doors sealing, hostile forces converging. Darga is escaping with the objective.",
+          "decisions": [
+            {
+              "choice": "Chase Darga to the hangar",
+              "consequence": "Race through hostile corridors. Must fight through Demos first."
+            },
+            {
+              "choice": "Fight through to the surface",
+              "consequence": "Escape with Denia but lose the encryption keys. Darga gets away."
+            }
+          ],
+          "loreTags": [
+            "Darga the Hutt",
+            "Igren Demos",
+            "The Encryption Keys"
+          ],
+          "narrativeLinks": [],
+          "challengeType": "combat",
+          "destinyTags": [
+            "destruction",
+            "rescue",
+            "liberation"
+          ],
+          "vocationTags": [
+            "voc_gunslinger",
+            "voc_shockboxer",
+            "voc_duelist"
+          ],
+          "disciplineTags": [
+            "ranged",
+            "brawl",
+            "melee",
+            "evasion",
+            "endure",
+            "tactics"
+          ],
+          "gearFlags": [
+            "Military"
+          ],
+          "skillChecks": [
+            {
+              "id": "sc-a2s9-athletics",
+              "discipline": "athletics",
+              "tier": 1,
+              "power": 0,
+              "context": "Forcing through blast doors during lockdown.",
+              "success": "Door forced open. Path cleared.",
+              "failure": "Door holds. Must find alternate route — costs time."
+            },
+            {
+              "id": "sc-a2s9-tech",
+              "discipline": "tech",
+              "tier": 1,
+              "power": 0,
+              "context": "Hacking lockdown controls to open sealed corridors.",
+              "success": "Blast doors retract. Clear path to the hangar wing.",
+              "failure": "Partial override. Some doors open, others stay sealed."
+            },
+            {
+              "id": "sc-a2s9-evasion",
+              "discipline": "evasion",
+              "tier": 1,
+              "power": 0,
+              "context": "Dodging through crossfire in the corridors.",
+              "success": "Clean movement. No hits taken.",
+              "failure": "Caught in a crossfire. Take ranged damage."
+            },
+            {
+              "id": "sc-a2s9-tactics",
+              "discipline": "tactics",
+              "tier": 1,
+              "power": 0,
+              "context": "Finding the fastest route through the hostile fortress.",
+              "success": "Optimal path identified. Avoid 2 guard stations.",
+              "failure": "Must fight through every checkpoint."
+            }
+          ],
+          "encounters": [
+            {
+              "id": "enc-a2s9-lockdown",
+              "name": "Fortress Lockdown",
+              "type": "combat",
+              "trigger": "Alarm sounds",
+              "description": "Running battle through corridors. Gamorreans and Trandoshans converge. Darga is escaping.",
+              "tactics": "Enemies come in waves. Speed is more valuable than kills. Every round spent fighting is a round Darga gains."
+            }
+          ],
+          "environmentMechanics": [
+            {
+              "name": "Blast Door Lockdown",
+              "trigger": "Active from alarm",
+              "effect": "Sealed durasteel doors block major corridors. Athletics or Tech to bypass.",
+              "mitigation": "Fusion Cutter cuts through in 1 action. Tech hack opens them remotely."
+            },
+            {
+              "name": "Converging Guards",
+              "trigger": "Each round after alarm",
+              "effect": "Additional minion guards arrive every 2 rounds.",
+              "mitigation": "Move fast. Don't get bogged down in fights."
+            }
+          ],
+          "rewards": {
+            "credits": 0,
+            "xp": "Combat encounter",
+            "items": [],
+            "narrative": "Path to the hangar or escape route secured."
+          },
+          "pacing": {
+            "openingBeat": "Klaxons. Red light. Darga's voice booming through the corridors.",
+            "risingAction": "Running fight through sealed corridors. Guards converge.",
+            "climax": "Demos blocks the path. Or the heroes bypass him.",
+            "resolution": "Either confronting Demos or reaching the hangar.",
+            "estimatedMinutes": 30
+          }
+        },
+        {
+          "id": "adv2-p2-s5",
+          "number": 5,
+          "title": "The Majordomo's Stand",
+          "readAloud": "Blocking your path stands Igren Demos, the Neimoidian Majordomo. He is no longer simpering. He holds a vibro-staff with lethal confidence, flanked by his elite Trandoshan bodyguards.\n\nHis red eyes widen as he senses the Jedi behind you. \"The Jedi... she's awake. Give her to me. I will take her to the Inquisitorius myself and claim what Darga never could.\"",
+          "gmNotes": "Demos is the boss fight of this location. He reveals his Force-sensitivity (untrained) and uses minor Force powers — Force Slam to separate heroes, Force Push to knock them into environmental hazards. His elite Trandoshan bodyguards provide additional threat. Varth screams over comms that Darga is getting away — Demos is stalling. The fight must be decisive.",
+          "npcs": [
+            {
+              "name": "Igren Demos",
+              "type": "Force-Sensitive Majordomo (Mini-Boss)",
+              "count": 1,
+              "notes": "Untrained Force-sensitive. Uses vibro-staff and minor Force powers. Wants to claim Denia for the Inquisitorius.",
+              "threatBuild": {
+                "role": "mystic",
+                "tier": 2,
+                "classification": "elite",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 2,
+                  "reflex": 2,
+                  "grit": 3,
+                  "wits": 3,
+                  "presence": 3
+                },
+                "weaponChassis": "medium",
+                "traits": [
+                  "force_sensitive"
+                ],
+                "tags": [
+                  "Neimoidian",
+                  "Force User"
+                ],
+                "computed": {
+                  "power": 4,
+                  "defense": 3,
+                  "evasion": 3,
+                  "resist": 4,
+                  "vitality": 10,
+                  "initiative": 8,
+                  "controlDie": "d8",
+                  "actions": 1,
+                  "damageTiers": {
+                    "chassis": "medium",
+                    "label": "Medium",
+                    "fleeting": 2,
+                    "masterful": 4,
+                    "legendary": 6
+                  }
+                },
+                "roleKit": {
+                  "passive": {
+                    "name": "Untrained Sensitivity",
+                    "description": "Demos can sense Force disturbances but cannot control it. He senses Denia's awakening and any Force use in the palace."
+                  },
+                  "actions": [
+                    {
+                      "name": "Force Slam",
+                      "type": "action",
+                      "arena": "grit",
+                      "description": "Crude Force push. Targets Endure. Knocks target back 1 zone.",
+                      "attackPower": 4
+                    },
+                    {
+                      "name": "Vibro-Staff Strike",
+                      "type": "action",
+                      "arena": "physique",
+                      "description": "Melee attack with vibro-staff.",
+                      "attackPower": 3
+                    }
+                  ],
+                  "maneuver": {
+                    "name": "Force Pull",
+                    "description": "Yank one object or person 1 zone closer."
+                  },
+                  "gambit": {
+                    "name": "Force Stagger",
+                    "cost": "-1 Power",
+                    "description": "Target gains [Disoriented]."
+                  },
+                  "exploit": {
+                    "name": "Desperate Surge",
+                    "description": "Once per encounter, double Power on a Force attack. Costs 2 Vitality."
+                  }
+                },
+                "notes": "Elite mini-boss. 5. Untrained Force user — dangerous but sloppy. Plotting to usurp Darga. (Recurring — same stat block as earlier scene.)"
+              }
+            },
+            {
+              "name": "Trandoshan Bodyguards",
+              "type": "Elite Guards",
+              "count": 2,
+              "notes": "Demos's personal muscle.",
+              "threatBuild": {
+                "role": "brute",
+                "tier": 1,
+                "classification": "standard",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 3,
+                  "reflex": 2,
+                  "grit": 3,
+                  "wits": 1,
+                  "presence": 1
+                },
+                "weaponChassis": "medium",
+                "traits": [
+                  "tough"
+                ],
+                "tags": [
+                  "Trandoshan"
+                ],
+                "computed": {
+                  "power": 3,
+                  "defense": 3,
+                  "evasion": 2,
+                  "resist": 3,
+                  "vitality": 7,
+                  "initiative": 3,
+                  "controlDie": "d6",
+                  "actions": 1,
+                  "damageTiers": {
+                    "chassis": "medium",
+                    "label": "Medium",
+                    "fleeting": 2,
+                    "masterful": 4,
+                    "legendary": 6
+                  }
+                },
+                "roleKit": {
+                  "passive": {
+                    "name": "Unrelenting",
+                    "description": "Ignore first [Weakened] per scene."
+                  },
+                  "actions": [
+                    {
+                      "name": "Vibroblade Chop",
+                      "type": "action",
+                      "arena": "physique",
+                      "powerMod": 1,
+                      "description": "Heavy melee attack. +1 Power.",
+                      "attackPower": 4
+                    },
+                    {
+                      "name": "Claw Rake",
+                      "type": "action",
+                      "arena": "physique",
+                      "description": "Unarmed attack. Natural weapons.",
+                      "attackPower": 3
+                    }
+                  ],
+                  "maneuver": {
+                    "name": "Shield Demos",
+                    "description": "Interpose between Demos and attacker. Take the hit instead."
+                  },
+                  "gambit": {
+                    "name": "Knockdown",
+                    "cost": "-1 Power",
+                    "description": "Target gains [Prone]."
+                  },
+                  "exploit": {
+                    "name": "Regeneration",
+                    "description": "Heal 1 Vitality at end of turn."
+                  }
+                },
+                "notes": "Standard Brutes. Same stats as Scene 4 Trandoshans. Bodyguard behavior — they protect Demos."
+              }
+            }
+          ],
+          "hazards": "Force powers — Slam and Push. Environmental hazards (braziers, statues). Narrow corridors favor Demos's staff.",
+          "decisions": [
+            {
+              "choice": "Fight Demos head-on",
+              "consequence": "Tough fight but clears the path. Risk: Darga gains more escape time."
+            },
+            {
+              "choice": "Split the party — some fight, some chase Darga",
+              "consequence": "Risky but potentially catches Darga. Smaller groups are more vulnerable."
+            }
+          ],
+          "loreTags": [
+            "Igren Demos",
+            "Jedi Master Denia",
+            "Inquisitor Draco"
+          ],
+          "narrativeLinks": [],
+          "challengeType": "combat",
+          "destinyTags": [
+            "destruction",
+            "rescue"
+          ],
+          "vocationTags": [
+            "voc_gunslinger",
+            "voc_shockboxer",
+            "voc_duelist"
+          ],
+          "disciplineTags": [
+            "ranged",
+            "brawl",
+            "melee",
+            "evasion",
+            "endure",
+            "tactics"
+          ],
+          "gearFlags": [
+            "Military"
+          ],
+          "skillChecks": [
+            {
+              "id": "sc-a2s10-resolve",
+              "discipline": "resolve",
+              "tier": 1,
+              "power": 0,
+              "context": "Resisting Demos's Force Slam.",
+              "success": "Stand your ground. The Force push washes over you.",
+              "failure": "Knocked back 1 zone. [Disoriented] for 1 round."
+            },
+            {
+              "id": "sc-a2s10-insight",
+              "discipline": "insight",
+              "tier": 1,
+              "power": 0,
+              "context": "Reading Demos's Force abilities — is he trained?",
+              "success": "Untrained. Powerful raw talent but no discipline. His attacks are predictable if you know the pattern.",
+              "failure": "Terrifying display. His abilities seem formidable.",
+              "isOptional": true
+            },
+            {
+              "id": "sc-a2s10-persuasion",
+              "discipline": "persuasion",
+              "tier": 2,
+              "power": 0,
+              "context": "Convincing Demos to stand down — Darga has already abandoned him.",
+              "success": "Demos hesitates. Realizes Darga is fleeing without him. Steps aside in bitter rage.",
+              "failure": "Demos is too far gone. Fights to the death."
+            }
+          ],
+          "encounters": [
+            {
+              "id": "enc-a2s10-demos",
+              "name": "Igren Demos Showdown",
+              "type": "combat",
+              "trigger": "Heroes encounter Demos in the corridor",
+              "description": "Demos with vibro-staff and minor Force powers, flanked by 2 Trandoshan bodyguards. Mini-boss fight.",
+              "tactics": "Demos uses Force Slam to separate the party. Bodyguards flank isolated targets. Focus on the strongest-looking PC first."
+            }
+          ],
+          "environmentMechanics": [
+            {
+              "name": "Narrow Corridor",
+              "trigger": "Active throughout",
+              "effect": "Only 2 characters can engage Demos simultaneously. Limits flanking.",
+              "mitigation": "Use ranged attacks from behind the front line."
+            },
+            {
+              "name": "Force Hazards",
+              "trigger": "When Demos uses Force powers",
+              "effect": "Braziers and statues become projectiles. Environmental damage in the zone.",
+              "mitigation": "Take cover behind pillars. Force projectiles are indirect."
+            }
+          ],
+          "rewards": {
+            "credits": 0,
+            "xp": "Mini-boss encounter",
+            "items": [
+              {
+                "name": "Demos's Vibro-Staff",
+                "note": "Medium melee weapon. Quality craftsmanship."
+              }
+            ],
+            "narrative": "Demos is defeated or persuaded to stand down. Path to the hangar is clear."
+          },
+          "pacing": {
+            "openingBeat": "Demos blocks the corridor. He is no longer simpering.",
+            "risingAction": "Force powers and bodyguards. A real fight.",
+            "climax": "Demos is cornered — fight or talk?",
+            "resolution": "Demos falls or surrenders. The hangar awaits.",
+            "estimatedMinutes": 30
+          }
+        },
+        {
+          "id": "adv2-p2-s6",
+          "number": 6,
+          "title": "The Hangar Bay",
+          "readAloud": "You burst through the blast doors into the humid, open-air hangar. You're too late — Darga's massive luxury yacht, the Glorious Chariot, is already hovering on repulsors, engines flaring blue-white. The boarding ramp retracts as the gold-and-purple hull begins to rise.\n\nBut it's not just Darga. Lady Sinde has ordered her Stormtrooper escort to secure the hangar and eliminate all witnesses.\n\nBlaster fire erupts from behind crates of Tibanna gas as white-armored figures take firing positions.",
+          "gmNotes": "Darga escapes in the Glorious Chariot, collapsing part of the ceiling to discourage pursuit. Lady Sinde's Stormtroopers are eliminating witnesses to protect Project Leviathan's secrecy. The heroes fight across the hangar using crates and equipment for cover. If fast enough, they can reach their ship and launch. They see Darga's yacht rocket toward the atmosphere and jump to hyperspace. Varth gets a partial trajectory lock — the vector aligns with the Anoat Sector. Bespin. Cloud City.",
+          "npcs": [
+            {
+              "name": "Lady Sinde",
+              "type": "Imperial Logistics Officer",
+              "count": 1,
+              "notes": "Ordering the elimination of all witnesses.",
+              "threatBuild": {
+                "role": "commander",
+                "tier": 2,
+                "classification": "standard",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 1,
+                  "reflex": 2,
+                  "grit": 3,
+                  "wits": 4,
+                  "presence": 3
+                },
+                "weaponChassis": "light",
+                "traits": [
+                  "disciplined"
+                ],
+                "tags": [
+                  "Imperial",
+                  "Officer"
+                ],
+                "computed": {
+                  "power": 4,
+                  "defense": 3,
+                  "evasion": 3,
+                  "resist": 5,
+                  "vitality": 6,
+                  "initiative": 10,
+                  "controlDie": "d8",
+                  "actions": 1,
+                  "damageTiers": {
+                    "chassis": "light",
+                    "label": "Light",
+                    "fleeting": 2,
+                    "masterful": 3,
+                    "legendary": 4
+                  }
+                },
+                "roleKit": {
+                  "passive": {
+                    "name": "Imperial Authority",
+                    "description": "Lady Sinde commands Stormtroopers. Her orders are obeyed without question."
+                  },
+                  "actions": [
+                    {
+                      "name": "Direct Fire",
+                      "type": "action",
+                      "arena": "presence",
+                      "description": "Order a Stormtrooper to attack immediately.",
+                      "attackPower": 4
+                    },
+                    {
+                      "name": "Cutting Assessment",
+                      "type": "action",
+                      "arena": "presence",
+                      "description": "Social attack that dismantles cover stories. Targets Resist.",
+                      "attackPower": 4
+                    }
+                  ],
+                  "maneuver": {
+                    "name": "Issue Orders",
+                    "description": "One ally gains a bonus maneuver."
+                  },
+                  "gambit": {
+                    "name": "Ultimatum",
+                    "cost": "-1 Power",
+                    "description": "Target must comply or be marked for elimination."
+                  },
+                  "exploit": {
+                    "name": "Call Reinforcements",
+                    "description": "Summon 4 Stormtrooper minions to her location."
+                  }
+                },
+                "notes": "Commander. Resist 5 = Grit 3-1+2+1(disciplined). She is a logistics officer, not a frontline fighter. Her danger is the army behind her. (Recurring — same stat block as earlier scene.)"
+              }
+            },
+            {
+              "name": "Stormtrooper Squad",
+              "type": "Standard Stormtroopers",
+              "count": 8,
+              "notes": "Securing the hangar. Professional and lethal.",
+              "threatBuild": {
+                "role": "trooper",
+                "tier": 1,
+                "classification": "minion",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 2,
+                  "reflex": 3,
+                  "grit": 2,
+                  "wits": 1,
+                  "presence": 1
+                },
+                "weaponChassis": "medium",
+                "traits": [
+                  "armored_light",
+                  "disciplined"
+                ],
+                "tags": [
+                  "Imperial",
+                  "Military"
+                ],
+                "computed": {
+                  "power": 3,
+                  "defense": 4,
+                  "evasion": 3,
+                  "resist": 3,
+                  "vitality": 5,
+                  "initiative": 3,
+                  "controlDie": "d6",
+                  "actions": 1,
+                  "damageTiers": {
+                    "chassis": "medium",
+                    "label": "Medium",
+                    "fleeting": 2,
+                    "masterful": 4,
+                    "legendary": 6
+                  }
+                },
+                "roleKit": {
+                  "passive": {
+                    "name": "Disciplined Fire",
+                    "description": "+1 Power on weapon attacks."
+                  },
+                  "actions": [
+                    {
+                      "name": "E-11 Volley",
+                      "type": "action",
+                      "arena": "reflex",
+                      "description": "Ranged attack.",
+                      "attackPower": 3
+                    },
+                    {
+                      "name": "Bayonet Strike",
+                      "type": "action",
+                      "arena": "physique",
+                      "description": "Melee attack.",
+                      "attackPower": 2
+                    }
+                  ],
+                  "maneuver": {
+                    "name": "Take Cover",
+                    "description": "Move to cover. Gain [Cover 1]."
+                  },
+                  "gambit": {
+                    "name": "Suppressive Fire",
+                    "cost": "-1 Power",
+                    "description": "Target gains [Pinned]."
+                  },
+                  "exploit": {
+                    "name": "Coordinated Fire",
+                    "description": "All Troopers on same target gain +1 Power."
+                  }
+                },
+                "notes": "Standard Stormtrooper minions. Same as Adv1. Power 3. Defense 4. Masterful+ = takedown."
+              }
+            }
+          ],
+          "hazards": "Open hangar bay. Tibanna gas crates (explosive if hit). Collapsing ceiling from Darga's escape. Stormtrooper crossfire.",
+          "decisions": [
+            {
+              "choice": "Fight to the ship and pursue Darga",
+              "consequence": "Can get a trajectory lock on Darga's escape vector. Leads to Cloud City."
+            },
+            {
+              "choice": "Eliminate Lady Sinde and the Stormtroopers",
+              "consequence": "Removes Imperial witnesses but costs time. Darga gets further away."
+            }
+          ],
+          "loreTags": [
+            "Darga the Hutt",
+            "Lady Sinde",
+            "Project Leviathan",
+            "The Glorious Chariot",
+            "Cloud City"
+          ],
+          "narrativeLinks": [
+            {
+              "targetScene": "adv3-p1-s1",
+              "note": "Darga flees to Cloud City, setting up the entire Adventure 3 pursuit."
+            }
+          ],
+          "challengeType": "technical",
+          "destinyTags": [
+            "rescue",
+            "destruction"
+          ],
+          "vocationTags": [
+            "voc_ace",
+            "voc_ships_mechanic",
+            "voc_gunslinger"
+          ],
+          "disciplineTags": [
+            "piloting",
+            "tech",
+            "ranged",
+            "evasion",
+            "athletics"
+          ],
+          "gearFlags": [
+            "Military"
+          ],
+          "skillChecks": [
+            {
+              "id": "sc-a2s11-ranged",
+              "discipline": "ranged",
+              "tier": 1,
+              "power": 0,
+              "context": "Firefight across the hangar bay.",
+              "success": "Accurate fire. Stormtroopers suppressed or eliminated.",
+              "failure": "Pinned by return fire. [Suppressed] for 1 round."
+            },
+            {
+              "id": "sc-a2s11-tech",
+              "discipline": "tech",
+              "tier": 1,
+              "power": 0,
+              "context": "Hot-wiring the heroes' ship or bypassing hangar controls.",
+              "success": "Ship systems online. Ready for launch.",
+              "failure": "Delayed launch. 2 additional rounds under fire."
+            },
+            {
+              "id": "sc-a2s11-piloting",
+              "discipline": "piloting",
+              "tier": 1,
+              "power": 2,
+              "context": "Launching under heavy fire with Stormtroopers targeting the ship.",
+              "success": "Clean launch. Break atmosphere.",
+              "failure": "Ship takes hits during liftoff. Hull damage. Emergency repairs needed."
+            },
+            {
+              "id": "sc-a2s11-athletics",
+              "discipline": "athletics",
+              "tier": 1,
+              "power": 0,
+              "context": "Sprinting across the open hangar to the ship.",
+              "success": "Full speed. Reach the ship.",
+              "failure": "Stumble or take fire. Slowed.",
+              "isOptional": true
+            },
+            {
+              "id": "sc-a2s11-tactics",
+              "discipline": "tactics",
+              "tier": 1,
+              "power": 0,
+              "context": "Tracking Darga's escape trajectory.",
+              "success": "Partial trajectory lock. The vector aligns with the Anoat Sector. Bespin. Cloud City.",
+              "failure": "Lost him. Must rely on other intel to find Darga."
+            }
+          ],
+          "encounters": [
+            {
+              "id": "enc-a2s11-stormtroopers",
+              "name": "Hangar Bay Firefight",
+              "type": "combat",
+              "trigger": "Heroes enter the hangar",
+              "description": "Lady Sinde's Stormtroopers are eliminating witnesses. 8 troopers in firing positions behind crates.",
+              "tactics": "Stormtroopers use Tibanna crates as cover. Shooting the crates causes explosions — area damage but clears positions."
+            }
+          ],
+          "environmentMechanics": [
+            {
+              "name": "Tibanna Gas Crates",
+              "trigger": "If hit by blaster fire",
+              "effect": "Explosive decompression. [Hazard 3] in the zone. Destroys cover.",
+              "mitigation": "Don't shoot near the crates. Or do — area denial works both ways."
+            },
+            {
+              "name": "Collapsing Ceiling",
+              "trigger": "From Darga's escape",
+              "effect": "Rubble blocks sections of the hangar. Difficult terrain. Some paths completely blocked.",
+              "mitigation": "Athletics to climb over. Tech to find alternate routes."
+            },
+            {
+              "name": "Open Air Hangar",
+              "trigger": "Active throughout",
+              "effect": "Takodana jungle visible below. Falls from the platform are survivable but result in a 2-scene delay.",
+              "mitigation": "Stay away from the edges."
+            }
+          ],
+          "rewards": {
+            "credits": 0,
+            "xp": "Adventure completion",
+            "items": [],
+            "narrative": "Escape from Darga's fortress. Trajectory to Bespin/Cloud City. Denia rescued (or not). The adventure ends on the ship, in hyperspace, with Varth analyzing the trajectory data."
+          },
+          "pacing": {
+            "openingBeat": "Burst through blast doors into the hangar. Darga's yacht is already lifting off.",
+            "risingAction": "Stormtroopers open fire. Crates explode. Ceiling collapses.",
+            "climax": "The sprint to the ship under fire.",
+            "resolution": "Liftoff. Hyperspace. Varth's trajectory lock on Bespin.",
+            "estimatedMinutes": 35
+          }
+        }
+      ]
+    }
+  ],
+  "locations": [
+    "takodana"
+  ]
+}
