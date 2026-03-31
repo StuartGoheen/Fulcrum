@@ -217,7 +217,7 @@
     html += '<div class="ct-jb-rule"><span class="ct-jb-key">Control Step-Down:</span> Highest enemy Tier = <strong>' + tier + '</strong> &rarr; step down Control Die <strong>' + tier + '</strong> time' + (tier !== 1 ? 's' : '') + '</div>';
     html += '<div class="ct-jb-rule ct-jb-fail"><span class="ct-jb-key">Failed Control (1-3):</span> PC is <strong>surprised</strong> &mdash; [Disoriented] + [Exposed] until end of first turn</div>';
     html += '<div class="ct-jb-rule ct-jb-master"><span class="ct-jb-key">Mastery (8+):</span> PC designates one enemy as surprised &mdash; [Disoriented] + [Exposed] on that NPC</div>';
-    html += '<div class="ct-jb-rule"><span class="ct-jb-key">Power Die result</span> = initiative slot (higher acts first). NPCs act at static Initiative (Wits + Tier).</div>';
+    html += '<div class="ct-jb-rule"><span class="ct-jb-key">Power Die result</span> = initiative slot (higher acts first). NPCs act at static Initiative (Tier + Wits\u00d72 + Mods).</div>';
     html += '</div></div>';
     return html;
   }

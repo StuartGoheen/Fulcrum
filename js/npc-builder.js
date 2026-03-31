@@ -160,7 +160,7 @@
 
     var rolePowerBonus = role && role.powerBonus ? role.powerBonus : null;
 
-    var initiative = a.wits + tier + initiativeTrait;
+    var initiative = tier + (a.wits * 2) + initiativeTrait;
 
     return {
       arenas: a,

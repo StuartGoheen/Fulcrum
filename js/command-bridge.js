@@ -237,8 +237,36 @@
 
   var _lastRenderedScene = null;
   var _npcExpandState = {};
+  var _npcArenaMods = {};
 
-  function renderNpcCardBody(npc) {
+  function recalcNpcStats(tb, mods) {
+    var base = tb.arenas || {};
+    var tier = tb.tier || 0;
+    var a = {
+      physique: Math.max(0, (base.physique || 1) + (mods.physique || 0)),
+      reflex: Math.max(0, (base.reflex || 1) + (mods.reflex || 0)),
+      grit: Math.max(0, (base.grit || 1) + (mods.grit || 0)),
+      wits: Math.max(0, (base.wits || 1) + (mods.wits || 0)),
+      presence: Math.max(0, (base.presence || 1) + (mods.presence || 0))
+    };
+    var defense = Math.max(a.physique, a.reflex) - 1 + tier;
+    var evasion = a.reflex - 1 + tier;
+    var resist = a.grit - 1 + tier;
+    var vitality = a.physique + a.grit + tier;
+    var power = Math.max(a.physique, a.reflex, a.grit, a.wits, a.presence) - 1 + tier;
+    var initiative = tier + (a.wits * 2);
+    return {
+      arenas: a,
+      defense: defense,
+      evasion: evasion,
+      resist: resist,
+      vitality: vitality,
+      power: power,
+      initiative: initiative
+    };
+  }
+
+  function renderNpcCardBody(npc, expandKey) {
     var tb = npc.threatBuild;
     var h = '';
 
@@ -256,9 +284,36 @@
     }
 
     if (!tb) return h;
-    var c = tb.computed || {};
-    var hasDamage = c.damageTiers;
+    var baseC = tb.computed || {};
+    var mods = _npcArenaMods[expandKey] || {};
+    var hasMods = Object.keys(mods).some(function(k) { return mods[k] !== 0; });
+    var live = hasMods ? recalcNpcStats(tb, mods) : null;
+    var c = live || baseC;
+    var liveA = live ? live.arenas : (tb.arenas || {});
+    var baseA = tb.arenas || {};
+    var hasDamage = baseC.damageTiers;
     var isCombat = !!hasDamage;
+
+    var arenaNames = ['physique', 'reflex', 'grit', 'wits', 'presence'];
+    var arenaLabels = { physique: 'PHY', reflex: 'REF', grit: 'GRT', wits: 'WIT', presence: 'PRE' };
+    h += '<div class="cb-npc-arena-bar" data-npc-key="' + esc(expandKey) + '">';
+    arenaNames.forEach(function (an) {
+      var baseVal = baseA[an] || 1;
+      var modVal = mods[an] || 0;
+      var curVal = liveA[an] || baseVal;
+      var modClass = modVal > 0 ? ' arena-buffed' : modVal < 0 ? ' arena-debuffed' : '';
+      h += '<div class="cb-arena-cell">';
+      h += '<span class="cb-arena-label">' + arenaLabels[an] + '</span>';
+      h += '<button class="cb-arena-mod-btn" data-arena="' + an + '" data-dir="-1">−</button>';
+      h += '<span class="cb-arena-val' + modClass + '">' + curVal + '</span>';
+      h += '<button class="cb-arena-mod-btn" data-arena="' + an + '" data-dir="1">+</button>';
+      if (modVal !== 0) h += '<span class="cb-arena-mod-indicator">' + (modVal > 0 ? '+' : '') + modVal + '</span>';
+      h += '</div>';
+    });
+    if (hasMods) {
+      h += '<button class="cb-arena-reset-btn" data-npc-key="' + esc(expandKey) + '" title="Reset modifiers">&#x21ba;</button>';
+    }
+    h += '</div>';
 
     if (isCombat) {
       h += '<div class="cb-npc-stat-bar">';
@@ -268,10 +323,10 @@
       h += '<div class="cb-npc-stat">Pwr <span class="val">' + (c.power != null ? c.power : '—') + '</span></div>';
       h += '<div class="cb-npc-stat">Res <span class="val">' + (c.resist != null ? c.resist : '—') + '</span></div>';
       h += '<div class="cb-npc-stat">Vit <span class="val">' + (c.vitality != null ? c.vitality : '—') + '</span></div>';
-      if (c.actions) h += '<div class="cb-npc-stat">' + c.actions + ' act/rnd</div>';
+      if (baseC.actions) h += '<div class="cb-npc-stat">' + baseC.actions + ' act/rnd</div>';
       h += '</div>';
 
-      var dt = c.damageTiers;
+      var dt = baseC.damageTiers;
       h += '<div class="cb-npc-dmg-bar">';
       h += '<span class="dmg-label">' + esc(dt.label) + '</span>';
       h += '<span class="dmg-label">F</span><span class="dmg-val">' + dt.fleeting + '</span>';
@@ -283,7 +338,7 @@
       h += '<div class="cb-npc-stat">Pwr <span class="val">' + (c.power != null ? c.power : '—') + '</span></div>';
       h += '<div class="cb-npc-stat">Res <span class="val">' + (c.resist != null ? c.resist : '—') + '</span></div>';
       h += '<div class="cb-npc-stat">Vit <span class="val">' + (c.vitality != null ? c.vitality : '—') + '</span></div>';
-      if (c.actions) h += '<div class="cb-npc-stat">' + c.actions + ' act/rnd</div>';
+      if (baseC.actions) h += '<div class="cb-npc-stat">' + baseC.actions + ' act/rnd</div>';
       h += '</div>';
     }
 
@@ -320,12 +375,16 @@
     var cls = tb ? (tb.classification || '') : '';
     var tier = tb ? tb.tier : null;
     var role = tb ? tb.role : '';
-    var init = c.initiative;
     var cardId = 'npc-card-' + idx;
     var expandKey = currentScene + ':' + idx + ':' + npc.name;
     var isExpanded = _npcExpandState[expandKey];
 
-    var h = '<div class="cb-npc-card' + (isExpanded ? ' expanded' : '') + '" id="' + cardId + '">';
+    var mods = _npcArenaMods[expandKey] || {};
+    var hasMods = Object.keys(mods).some(function(k) { return mods[k] !== 0; });
+    var liveStats = (hasMods && tb) ? recalcNpcStats(tb, mods) : null;
+    var init = liveStats ? liveStats.initiative : c.initiative;
+
+    var h = '<div class="cb-npc-card' + (isExpanded ? ' expanded' : '') + (hasMods ? ' has-mods' : '') + '" id="' + cardId + '">';
 
     h += '<div class="cb-npc-card-header" data-npc-toggle="' + esc(expandKey) + '">';
     h += '<span class="cb-npc-chevron">&#9654;</span>';
@@ -339,7 +398,7 @@
 
     h += '<div class="cb-npc-card-body">';
     h += '<div class="cb-npc-meta-row"><span>' + esc(npc.type) + '</span></div>';
-    h += renderNpcCardBody(npc);
+    h += renderNpcCardBody(npc, expandKey);
     h += '</div>';
 
     h += '</div>';
@@ -550,12 +609,35 @@
       el.addEventListener('click', function () { showGlossaryEntry(el.dataset.conditionId); });
     });
     container.querySelectorAll('.cb-npc-card-header').forEach(function (el) {
-      el.addEventListener('click', function () {
+      el.addEventListener('click', function (e) {
+        if (e.target.closest('.cb-arena-mod-btn') || e.target.closest('.cb-arena-reset-btn')) return;
         var card = el.closest('.cb-npc-card');
         if (!card) return;
         var expandKey = el.dataset.npcToggle;
         card.classList.toggle('expanded');
         _npcExpandState[expandKey] = card.classList.contains('expanded');
+      });
+    });
+    container.querySelectorAll('.cb-arena-mod-btn').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var bar = btn.closest('.cb-npc-arena-bar');
+        if (!bar) return;
+        var npcKey = bar.dataset.npcKey;
+        var arena = btn.dataset.arena;
+        var dir = parseInt(btn.dataset.dir, 10);
+        if (!_npcArenaMods[npcKey]) _npcArenaMods[npcKey] = {};
+        var cur = _npcArenaMods[npcKey][arena] || 0;
+        _npcArenaMods[npcKey][arena] = cur + dir;
+        renderScene();
+      });
+    });
+    container.querySelectorAll('.cb-arena-reset-btn').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var npcKey = btn.dataset.npcKey;
+        delete _npcArenaMods[npcKey];
+        renderScene();
       });
     });
     container.querySelectorAll('.ct-start-encounter-btn').forEach(function (btn) {

@@ -171,7 +171,7 @@
                       "evasion": 1,
                       "resist": 1,
                       "vitality": 3,
-                      "initiative": 2,
+                      "initiative": 4,
                       "controlDie": "d6",
                       "actions": 1,
                       "damageTiers": {
@@ -218,7 +218,7 @@
                       "evasion": 2,
                       "resist": 2,
                       "vitality": 6,
-                      "initiative": 2,
+                      "initiative": 3,
                       "controlDie": "d6",
                       "actions": 1,
                       "damageTiers": {
@@ -297,7 +297,7 @@
                       "evasion": 2,
                       "resist": 1,
                       "vitality": 4,
-                      "initiative": 1,
+                      "initiative": 2,
                       "controlDie": "d6",
                       "actions": 1,
                       "damageTiers": {
@@ -785,7 +785,7 @@
                       "evasion": 1,
                       "resist": 4,
                       "vitality": 5,
-                      "initiative": 5,
+                      "initiative": 9,
                       "controlDie": "d6",
                       "actions": 1
                     }
@@ -1029,7 +1029,7 @@
                       "evasion": 2,
                       "resist": 3,
                       "vitality": 12,
-                      "initiative": 2,
+                      "initiative": 3,
                       "controlDie": "d6",
                       "actions": 1,
                       "damageTiers": {
@@ -1107,7 +1107,7 @@
                       "evasion": 1,
                       "resist": 0,
                       "vitality": 3,
-                      "initiative": 1,
+                      "initiative": 2,
                       "controlDie": "d6",
                       "actions": 1,
                       "damageTiers": {
@@ -1365,7 +1365,7 @@
                       "evasion": 3,
                       "resist": 3,
                       "vitality": 5,
-                      "initiative": 2,
+                      "initiative": 3,
                       "controlDie": "d6",
                       "actions": 1,
                       "damageTiers": {
@@ -1446,7 +1446,7 @@
                       "evasion": 1,
                       "resist": 0,
                       "vitality": 3,
-                      "initiative": 1,
+                      "initiative": 2,
                       "controlDie": "d6",
                       "actions": 1,
                       "damageTiers": {
@@ -1730,7 +1730,7 @@
                       "evasion": 0,
                       "resist": 0,
                       "vitality": 2,
-                      "initiative": 3,
+                      "initiative": 6,
                       "controlDie": "d6",
                       "actions": 1
                     }
@@ -1810,7 +1810,7 @@
                       "evasion": 6,
                       "resist": 4,
                       "vitality": 7,
-                      "initiative": 4,
+                      "initiative": 6,
                       "controlDie": "d8",
                       "actions": 1,
                       "damageTiers": {
@@ -2032,7 +2032,7 @@
                       "evasion": 6,
                       "resist": 4,
                       "vitality": 7,
-                      "initiative": 4,
+                      "initiative": 6,
                       "controlDie": "d8",
                       "actions": 1,
                       "damageTiers": {
@@ -2116,7 +2116,7 @@
                       "evasion": 0,
                       "resist": 0,
                       "vitality": 2,
-                      "initiative": 3,
+                      "initiative": 6,
                       "controlDie": "d6",
                       "actions": 1
                     },
@@ -2387,7 +2387,7 @@
                       "evasion": 4,
                       "resist": 5,
                       "vitality": 9,
-                      "initiative": 4,
+                      "initiative": 6,
                       "controlDie": "d8",
                       "actions": 1,
                       "damageTiers": {
@@ -2674,7 +2674,7 @@
                       "evasion": 1,
                       "resist": 3,
                       "vitality": 4,
-                      "initiative": 5,
+                      "initiative": 9,
                       "controlDie": "d6",
                       "actions": 1,
                       "damageTiers": {
@@ -2755,7 +2755,7 @@
                       "evasion": 1,
                       "resist": 1,
                       "vitality": 4,
-                      "initiative": 1,
+                      "initiative": 2,
                       "controlDie": "d6",
                       "actions": 1,
                       "damageTiers": {
@@ -2841,7 +2841,7 @@
                       "evasion": 3,
                       "resist": 3,
                       "vitality": 5,
-                      "initiative": 2,
+                      "initiative": 3,
                       "controlDie": "d6",
                       "actions": 1,
                       "damageTiers": {
@@ -3129,7 +3129,7 @@
                       "evasion": 3,
                       "resist": 5,
                       "vitality": 6,
-                      "initiative": 6,
+                      "initiative": 10,
                       "controlDie": "d8",
                       "actions": 1,
                       "damageTiers": {
@@ -3407,7 +3407,7 @@
                       "evasion": 6,
                       "resist": 7,
                       "vitality": 22,
-                      "initiative": 7,
+                      "initiative": 10,
                       "controlDie": "d12",
                       "actions": 2,
                       "damageTiers": {
@@ -3492,7 +3492,7 @@
                       "evasion": 3,
                       "resist": 4,
                       "vitality": 7,
-                      "initiative": 4,
+                      "initiative": 6,
                       "controlDie": "d8",
                       "actions": 1,
                       "damageTiers": {
@@ -3578,7 +3578,7 @@
                       "evasion": 6,
                       "resist": 4,
                       "vitality": 7,
-                      "initiative": 4,
+                      "initiative": 6,
                       "controlDie": "d8",
                       "actions": 1,
                       "damageTiers": {
@@ -3938,7 +3938,7 @@
                       "evasion": 4,
                       "resist": 2,
                       "vitality": 5,
-                      "initiative": 3,
+                      "initiative": 5,
                       "controlDie": "d6",
                       "actions": 1,
                       "damageTiers": {
@@ -4015,7 +4015,7 @@
                       "evasion": 1,
                       "resist": 0,
                       "vitality": 3,
-                      "initiative": 1,
+                      "initiative": 2,
                       "controlDie": "d6",
                       "actions": 1,
                       "damageTiers": {
@@ -4218,7 +4218,7 @@
                       "evasion": 0,
                       "resist": 0,
                       "vitality": 2,
-                      "initiative": 2,
+                      "initiative": 4,
                       "controlDie": "d6",
                       "actions": 1
                     },
@@ -4402,7 +4402,7 @@
                       "evasion": 1,
                       "resist": 0,
                       "vitality": 2,
-                      "initiative": 3,
+                      "initiative": 6,
                       "controlDie": "d6",
                       "actions": 1,
                       "damageTiers": {
@@ -4601,7 +4601,7 @@
                       "evasion": 2,
                       "resist": 3,
                       "vitality": 7,
-                      "initiative": 2,
+                      "initiative": 3,
                       "controlDie": "d6",
                       "actions": 1,
                       "damageTiers": {
@@ -4683,7 +4683,7 @@
                       "evasion": 0,
                       "resist": 4,
                       "vitality": 13,
-                      "initiative": 3,
+                      "initiative": 4,
                       "controlDie": "d8",
                       "actions": 1,
                       "damageTiers": {
@@ -4893,7 +4893,7 @@
                       "evasion": 1,
                       "resist": 0,
                       "vitality": 2,
-                      "initiative": 3,
+                      "initiative": 6,
                       "controlDie": "d6",
                       "actions": 1,
                       "damageTiers": {
@@ -5080,7 +5080,7 @@
                       "evasion": 3,
                       "resist": 6,
                       "vitality": 24,
-                      "initiative": 6,
+                      "initiative": 9,
                       "controlDie": "d10",
                       "actions": 2
                     },
@@ -5152,7 +5152,7 @@
                       "evasion": 0,
                       "resist": 0,
                       "vitality": 2,
-                      "initiative": 3,
+                      "initiative": 6,
                       "controlDie": "d6",
                       "actions": 1
                     },
@@ -5218,7 +5218,7 @@
                       "evasion": 3,
                       "resist": 4,
                       "vitality": 10,
-                      "initiative": 5,
+                      "initiative": 8,
                       "controlDie": "d8",
                       "actions": 1,
                       "damageTiers": {
@@ -5297,7 +5297,7 @@
                       "evasion": 1,
                       "resist": 2,
                       "vitality": 6,
-                      "initiative": 2,
+                      "initiative": 3,
                       "controlDie": "d6",
                       "actions": 1,
                       "damageTiers": {
@@ -5509,7 +5509,7 @@
                       "evasion": 2,
                       "resist": 2,
                       "vitality": 6,
-                      "initiative": 2,
+                      "initiative": 3,
                       "controlDie": "d6",
                       "actions": 1,
                       "damageTiers": {
@@ -5589,7 +5589,7 @@
                       "evasion": 3,
                       "resist": 5,
                       "vitality": 6,
-                      "initiative": 6,
+                      "initiative": 10,
                       "controlDie": "d8",
                       "actions": 1,
                       "damageTiers": {
@@ -5666,7 +5666,7 @@
                       "evasion": 0,
                       "resist": 1,
                       "vitality": 3,
-                      "initiative": 4,
+                      "initiative": 8,
                       "controlDie": "d6",
                       "actions": 1
                     },
@@ -5889,7 +5889,7 @@
                       "evasion": 1,
                       "resist": 6,
                       "vitality": 4,
-                      "initiative": 6,
+                      "initiative": 9,
                       "controlDie": "d10",
                       "actions": 1
                     },
@@ -5963,7 +5963,7 @@
                       "evasion": 3,
                       "resist": 3,
                       "vitality": 7,
-                      "initiative": 4,
+                      "initiative": 6,
                       "controlDie": "d8",
                       "actions": 1,
                       "damageTiers": {
@@ -6181,7 +6181,7 @@
                       "evasion": 3,
                       "resist": 6,
                       "vitality": 24,
-                      "initiative": 6,
+                      "initiative": 9,
                       "controlDie": "d10",
                       "actions": 2
                     },
@@ -6254,7 +6254,7 @@
                       "evasion": 1,
                       "resist": 2,
                       "vitality": 6,
-                      "initiative": 2,
+                      "initiative": 3,
                       "controlDie": "d6",
                       "actions": 1,
                       "damageTiers": {
@@ -6334,7 +6334,7 @@
                       "evasion": 2,
                       "resist": 3,
                       "vitality": 7,
-                      "initiative": 2,
+                      "initiative": 3,
                       "controlDie": "d6",
                       "actions": 1,
                       "damageTiers": {
@@ -6538,7 +6538,7 @@
                       "evasion": 3,
                       "resist": 4,
                       "vitality": 10,
-                      "initiative": 5,
+                      "initiative": 8,
                       "controlDie": "d8",
                       "actions": 1,
                       "damageTiers": {
@@ -6617,7 +6617,7 @@
                       "evasion": 2,
                       "resist": 3,
                       "vitality": 7,
-                      "initiative": 2,
+                      "initiative": 3,
                       "controlDie": "d6",
                       "actions": 1,
                       "damageTiers": {
@@ -6817,7 +6817,7 @@
                       "evasion": 3,
                       "resist": 5,
                       "vitality": 6,
-                      "initiative": 6,
+                      "initiative": 10,
                       "controlDie": "d8",
                       "actions": 1,
                       "damageTiers": {
@@ -6898,7 +6898,7 @@
                       "evasion": 3,
                       "resist": 3,
                       "vitality": 5,
-                      "initiative": 2,
+                      "initiative": 3,
                       "controlDie": "d6",
                       "actions": 1,
                       "damageTiers": {
@@ -7218,7 +7218,7 @@
                       "evasion": 0,
                       "resist": 0,
                       "vitality": 2,
-                      "initiative": 2,
+                      "initiative": 4,
                       "controlDie": "d6",
                       "actions": 1
                     },
@@ -7402,7 +7402,7 @@
                       "evasion": 0,
                       "resist": 1,
                       "vitality": 3,
-                      "initiative": 3,
+                      "initiative": 6,
                       "controlDie": "d6",
                       "actions": 1
                     },
@@ -7465,7 +7465,7 @@
                       "evasion": 0,
                       "resist": 1,
                       "vitality": 4,
-                      "initiative": 2,
+                      "initiative": 4,
                       "controlDie": "d6",
                       "actions": 1
                     },
@@ -7641,7 +7641,7 @@
                       "evasion": 2,
                       "resist": 3,
                       "vitality": 7,
-                      "initiative": 2,
+                      "initiative": 3,
                       "controlDie": "d6",
                       "actions": 1,
                       "damageTiers": {
@@ -7719,7 +7719,7 @@
                       "evasion": 0,
                       "resist": 1,
                       "vitality": 3,
-                      "initiative": 2,
+                      "initiative": 4,
                       "controlDie": "d6",
                       "actions": 1
                     },
@@ -7927,7 +7927,7 @@
                       "evasion": 4,
                       "resist": 5,
                       "vitality": 7,
-                      "initiative": 6,
+                      "initiative": 10,
                       "controlDie": "d8",
                       "actions": 1,
                       "damageTiers": {
@@ -8007,7 +8007,7 @@
                       "evasion": 3,
                       "resist": 3,
                       "vitality": 5,
-                      "initiative": 2,
+                      "initiative": 3,
                       "controlDie": "d6",
                       "actions": 1,
                       "damageTiers": {
@@ -8217,7 +8217,7 @@
                       "evasion": 7,
                       "resist": 7,
                       "vitality": 22,
-                      "initiative": 7,
+                      "initiative": 10,
                       "controlDie": "d12",
                       "actions": 2,
                       "damageTiers": {
@@ -8411,7 +8411,7 @@
                       "evasion": 5,
                       "resist": 3,
                       "vitality": 6,
-                      "initiative": 5,
+                      "initiative": 8,
                       "controlDie": "d8",
                       "actions": 1,
                       "damageTiers": {
@@ -8490,7 +8490,7 @@
                       "evasion": 2,
                       "resist": 3,
                       "vitality": 4,
-                      "initiative": 4,
+                      "initiative": 7,
                       "controlDie": "d6",
                       "actions": 1,
                       "damageTiers": {
@@ -8565,7 +8565,7 @@
                       "evasion": 0,
                       "resist": 0,
                       "vitality": 2,
-                      "initiative": 2,
+                      "initiative": 4,
                       "controlDie": "d6",
                       "actions": 1
                     },
@@ -8744,7 +8744,7 @@
                       "evasion": 1,
                       "resist": 0,
                       "vitality": 3,
-                      "initiative": 2,
+                      "initiative": 4,
                       "controlDie": "d6",
                       "actions": 1,
                       "damageTiers": {
@@ -8815,7 +8815,7 @@
                       "evasion": 1,
                       "resist": 2,
                       "vitality": 4,
-                      "initiative": 4,
+                      "initiative": 7,
                       "controlDie": "d6",
                       "actions": 1
                     },
@@ -9010,7 +9010,7 @@
                       "evasion": 4,
                       "resist": 5,
                       "vitality": 7,
-                      "initiative": 6,
+                      "initiative": 10,
                       "controlDie": "d8",
                       "actions": 1,
                       "damageTiers": {
@@ -9089,7 +9089,7 @@
                       "evasion": 2,
                       "resist": 3,
                       "vitality": 4,
-                      "initiative": 4,
+                      "initiative": 7,
                       "controlDie": "d6",
                       "actions": 1,
                       "damageTiers": {
@@ -9286,7 +9286,7 @@
                       "evasion": 5,
                       "resist": 3,
                       "vitality": 6,
-                      "initiative": 5,
+                      "initiative": 8,
                       "controlDie": "d8",
                       "actions": 1,
                       "damageTiers": {
@@ -9363,7 +9363,7 @@
                       "evasion": 2,
                       "resist": 2,
                       "vitality": 5,
-                      "initiative": 2,
+                      "initiative": 3,
                       "controlDie": "d6",
                       "actions": 1,
                       "damageTiers": {
@@ -9443,7 +9443,7 @@
                       "evasion": 3,
                       "resist": 1,
                       "vitality": 3,
-                      "initiative": 3,
+                      "initiative": 5,
                       "controlDie": "d6",
                       "actions": 1,
                       "damageTiers": {
@@ -9666,7 +9666,7 @@
                       "evasion": 2,
                       "resist": 3,
                       "vitality": 4,
-                      "initiative": 4,
+                      "initiative": 7,
                       "controlDie": "d6",
                       "actions": 1,
                       "damageTiers": {
@@ -9852,7 +9852,7 @@
                       "evasion": 3,
                       "resist": 3,
                       "vitality": 5,
-                      "initiative": 3,
+                      "initiative": 5,
                       "controlDie": "d6",
                       "actions": 1,
                       "damageTiers": {
@@ -9933,7 +9933,7 @@
                       "evasion": 3,
                       "resist": 3,
                       "vitality": 5,
-                      "initiative": 2,
+                      "initiative": 3,
                       "controlDie": "d6",
                       "actions": 1,
                       "damageTiers": {
@@ -10153,7 +10153,7 @@
                       "evasion": 3,
                       "resist": 6,
                       "vitality": 24,
-                      "initiative": 6,
+                      "initiative": 9,
                       "controlDie": "d10",
                       "actions": 2
                     },
@@ -10224,7 +10224,7 @@
                       "evasion": 2,
                       "resist": 0,
                       "vitality": 2,
-                      "initiative": 2,
+                      "initiative": 4,
                       "controlDie": "d6",
                       "actions": 1
                     },
@@ -10294,7 +10294,7 @@
                       "evasion": 0,
                       "resist": 4,
                       "vitality": 13,
-                      "initiative": 3,
+                      "initiative": 4,
                       "controlDie": "d8",
                       "actions": 1,
                       "damageTiers": {
@@ -10370,7 +10370,7 @@
                       "evasion": 1,
                       "resist": 1,
                       "vitality": 4,
-                      "initiative": 1,
+                      "initiative": 2,
                       "controlDie": "d6",
                       "actions": 1,
                       "damageTiers": {
@@ -10576,7 +10576,7 @@
                       "evasion": 3,
                       "resist": 6,
                       "vitality": 24,
-                      "initiative": 6,
+                      "initiative": 9,
                       "controlDie": "d10",
                       "actions": 2
                     },
@@ -10645,7 +10645,7 @@
                       "evasion": 1,
                       "resist": 1,
                       "vitality": 4,
-                      "initiative": 1,
+                      "initiative": 2,
                       "controlDie": "d6",
                       "actions": 1,
                       "damageTiers": {
@@ -10854,7 +10854,7 @@
                       "evasion": 3,
                       "resist": 3,
                       "vitality": 5,
-                      "initiative": 2,
+                      "initiative": 3,
                       "controlDie": "d6",
                       "actions": 1,
                       "damageTiers": {
@@ -11041,7 +11041,7 @@
                       "evasion": 6,
                       "resist": 4,
                       "vitality": 7,
-                      "initiative": 4,
+                      "initiative": 6,
                       "controlDie": "d8",
                       "actions": 1,
                       "damageTiers": {
@@ -11117,7 +11117,7 @@
                       "evasion": 4,
                       "resist": 1,
                       "vitality": 3,
-                      "initiative": 2,
+                      "initiative": 3,
                       "controlDie": "d6",
                       "actions": 1,
                       "damageTiers": {
@@ -11329,7 +11329,7 @@
                       "evasion": 3,
                       "resist": 5,
                       "vitality": 7,
-                      "initiative": 6,
+                      "initiative": 10,
                       "controlDie": "d8",
                       "actions": 1,
                       "damageTiers": {
@@ -11409,7 +11409,7 @@
                       "evasion": 6,
                       "resist": 4,
                       "vitality": 7,
-                      "initiative": 4,
+                      "initiative": 6,
                       "controlDie": "d8",
                       "actions": 1,
                       "damageTiers": {
@@ -11693,7 +11693,7 @@
                       "evasion": 4,
                       "resist": 6,
                       "vitality": 4,
-                      "initiative": 6,
+                      "initiative": 9,
                       "controlDie": "d10",
                       "actions": 1
                     },
@@ -11877,7 +11877,7 @@
                       "evasion": 3,
                       "resist": 1,
                       "vitality": 3,
-                      "initiative": 1,
+                      "initiative": 2,
                       "controlDie": "d6",
                       "actions": 1,
                       "damageTiers": {
@@ -11955,7 +11955,7 @@
                       "evasion": 2,
                       "resist": 3,
                       "vitality": 5,
-                      "initiative": 3,
+                      "initiative": 5,
                       "controlDie": "d6",
                       "actions": 1,
                       "damageTiers": {
@@ -12296,7 +12296,7 @@
                       "evasion": 0,
                       "resist": 5,
                       "vitality": 15,
-                      "initiative": 3,
+                      "initiative": 4,
                       "controlDie": "d8",
                       "actions": 1,
                       "damageTiers": {
@@ -12638,7 +12638,7 @@
                       "evasion": 0,
                       "resist": 4,
                       "vitality": 1,
-                      "initiative": 5,
+                      "initiative": 8,
                       "controlDie": "d8",
                       "actions": 1
                     },
@@ -12821,7 +12821,7 @@
                       "evasion": 4,
                       "resist": 2,
                       "vitality": 5,
-                      "initiative": 2,
+                      "initiative": 3,
                       "controlDie": "d6",
                       "actions": 1
                     },
@@ -12896,7 +12896,7 @@
                       "evasion": 3,
                       "resist": 4,
                       "vitality": 13,
-                      "initiative": 3,
+                      "initiative": 4,
                       "controlDie": "d8",
                       "actions": 1
                     },
@@ -13215,7 +13215,7 @@
                       "evasion": 0,
                       "resist": 7,
                       "vitality": 1,
-                      "initiative": 8,
+                      "initiative": 13,
                       "controlDie": "d10",
                       "actions": 2
                     },
@@ -13520,7 +13520,7 @@
                       "evasion": 0,
                       "resist": 1,
                       "vitality": 3,
-                      "initiative": 1,
+                      "initiative": 2,
                       "controlDie": "d6",
                       "actions": 1
                     },
