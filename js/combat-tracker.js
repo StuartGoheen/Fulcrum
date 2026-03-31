@@ -313,30 +313,17 @@
     return mod;
   }
 
-  function getNpcStatMods(npc) {
-    var mods = { defense: 0, evasion: 0, power: 0, resist: 0, actions: 0, initiative: 0 };
-    (npc.conditions || []).forEach(function (cid) {
-      if (cid === 'exposed') { mods.defense -= 1; mods.evasion -= 1; }
-      if (cid === 'shaken') mods.resist -= 1;
-      if (cid === 'stunned') { mods.actions -= 1; }
-      if (cid === 'slowed') mods.initiative -= 2;
-      if (cid === 'pinned') mods.evasion -= 2;
-      if (cid === 'suppressed') mods.power -= 1;
-      if (cid === 'optimized') mods.initiative += 1;
-    });
-    var weakArena = npc.conditionArenas && npc.conditionArenas.weakened;
-    var empArena = npc.conditionArenas && npc.conditionArenas.empowered;
-    if (weakArena && npc.conditions.indexOf('weakened') !== -1) {
-      if (weakArena === 'defense') mods.defense -= 1;
-      if (weakArena === 'evasion') mods.evasion -= 1;
-      if (weakArena === 'power') mods.power -= 1;
-      if (weakArena === 'resist') mods.resist -= 1;
+  function getNpcArenaMods(npc) {
+    var mods = {};
+    var arenas = ['physique','reflex','grit','wits','presence'];
+    arenas.forEach(function (a) { mods[a] = 0; });
+    if (npc.conditionArenas && npc.conditionArenas.weakened && npc.conditions.indexOf('weakened') !== -1) {
+      var wa = npc.conditionArenas.weakened;
+      if (mods[wa] !== undefined) mods[wa] -= 1;
     }
-    if (empArena && npc.conditions.indexOf('empowered') !== -1) {
-      if (empArena === 'defense') mods.defense += 1;
-      if (empArena === 'evasion') mods.evasion += 1;
-      if (empArena === 'power') mods.power += 1;
-      if (empArena === 'resist') mods.resist += 1;
+    if (npc.conditionArenas && npc.conditionArenas.empowered && npc.conditions.indexOf('empowered') !== -1) {
+      var ea = npc.conditionArenas.empowered;
+      if (mods[ea] !== undefined) mods[ea] += 1;
     }
     return mods;
   }
@@ -485,7 +472,7 @@
     var html = '';
     var threatColor = npc.threat === 'minion' ? '#6b7280' : npc.threat === 'boss' ? '#ef4444' : 'var(--color-accent-primary)';
     var presMod = getPresenceEffect(npc.conditions);
-    var statMods = getNpcStatMods(npc);
+    var arenaMods = getNpcArenaMods(npc);
 
     html += '<div class="ct-detail-header">';
     html += '<div class="ct-detail-name">' + esc(npc.name) + '</div>';
@@ -495,20 +482,39 @@
     if (npc.surprised) html += '<span class="ct-rail-tag ct-tag-surprised" style="margin-left:0.3rem;">SURPRISED</span>';
     html += '</div>';
 
-    function statCell(label, base, mod) {
+    function statCell(label, val) {
+      return '<div class="ct-stat-cell"><span class="ct-stat-label">' + label + '</span><span class="ct-stat-val">' + val + '</span></div>';
+    }
+    function arenaCell(label, base, mod) {
       var eff = Math.max(0, base + mod);
       var cls = mod < 0 ? ' ct-pres-debuff' : mod > 0 ? ' ct-pres-buff' : '';
       var display = mod !== 0 ? eff + ' <small style="opacity:0.5;">(' + base + ')</small>' : '' + eff;
       return '<div class="ct-stat-cell"><span class="ct-stat-label">' + label + '</span><span class="ct-stat-val' + cls + '">' + display + '</span></div>';
     }
     html += '<div class="ct-detail-stats">';
-    html += statCell('Init', npc.initiative, statMods.initiative);
-    html += statCell('Def', npc.defense, statMods.defense);
-    html += statCell('Eva', npc.evasion, statMods.evasion);
-    html += statCell('Pwr', npc.power, statMods.power);
-    html += statCell('Res', npc.resist, statMods.resist);
-    html += statCell('Act', npc.actions || 1, statMods.actions);
+    html += statCell('Init', npc.initiative);
+    html += statCell('Def', npc.defense);
+    html += statCell('Eva', npc.evasion);
+    html += statCell('Pwr', npc.power);
+    html += statCell('Res', npc.resist);
+    html += statCell('Act', npc.actions || 1);
     html += '</div>';
+
+    if (npc.arenas && Object.keys(npc.arenas).length) {
+      var ARENA_LABELS = {physique:'PHY',reflex:'REF',grit:'GRT',wits:'WIT',presence:'PRS'};
+      var arenaKeys = ['physique','reflex','grit','wits','presence'];
+      var hasArenaMod = arenaKeys.some(function (a) { return arenaMods[a] !== 0; });
+      if (hasArenaMod || arenaKeys.some(function (a) { return npc.arenas[a]; })) {
+        html += '<div class="ct-detail-stats" style="margin-bottom:0.3rem;">';
+        arenaKeys.forEach(function (a) {
+          var base = npc.arenas[a] || 0;
+          if (base || arenaMods[a]) {
+            html += arenaCell(ARENA_LABELS[a], base, arenaMods[a]);
+          }
+        });
+        html += '</div>';
+      }
+    }
 
     var presBase = npc.arenas.presence || 1;
     var presEff = Math.max(0, presBase + presMod);
@@ -935,9 +941,13 @@
         var def = getEffectDef(condId);
         if (!def) return;
 
+        if (def.targetMode === 'arena_only') {
+          showPcArenaPicker(item, targetPcId, condId, palette);
+          return;
+        }
+
         var target = 'universal';
         if (def.targetMode === 'fixed_arenas' || def.targetMode === 'fixed') target = 'fixed';
-        if (def.targetMode === 'arena_only') target = 'physique';
 
         var sock = getSocket();
         if (sock) {
@@ -962,6 +972,42 @@
       }
       document.addEventListener('click', closePalette);
     }, 10);
+  }
+
+  function showPcArenaPicker(anchorItem, pcId, condId, palette) {
+    var existing = document.querySelector('.ct-arena-picker');
+    if (existing) existing.remove();
+
+    var picker = document.createElement('div');
+    picker.className = 'ct-arena-picker';
+    var arenas = ['physique', 'reflex', 'grit', 'wits', 'presence'];
+    var labels = { physique: 'Physique', reflex: 'Reflex', grit: 'Grit', wits: 'Wits', presence: 'Presence' };
+
+    var def = getEffectDef(condId);
+    picker.innerHTML = '<div class="ct-picker-title">Arena for ' + (def ? def.label : condId) + '</div>' +
+      arenas.map(function (a) {
+        return '<div class="ct-picker-option" data-arena="' + a + '">' + labels[a] + '</div>';
+      }).join('');
+
+    anchorItem.appendChild(picker);
+
+    picker.querySelectorAll('.ct-picker-option').forEach(function (opt) {
+      opt.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var arena = opt.dataset.arena;
+        var sock = getSocket();
+        if (sock) {
+          sock.emit('condition:apply', {
+            characterId: pcId,
+            conditionId: condId,
+            target: 'arena:' + arena,
+            duration: (def && def.defaultDuration) || 'tactical'
+          });
+        }
+        picker.remove();
+        if (palette) palette.remove();
+      });
+    });
   }
 
   function attachCombatEvents(container) {

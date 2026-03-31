@@ -595,13 +595,30 @@ function registerHandlers(io) {
       }
     });
 
-    socket.on('condition:sync', ({ effects }) => {
+    socket.on('condition:sync', async ({ effects }) => {
       if (socket.data.role !== 'player' || !socket.data.characterId) return;
+      const charId = socket.data.characterId;
+      const safeEffects = effects || [];
+
       io.to('gm').emit('condition:player-sync', {
-        characterId: socket.data.characterId,
+        characterId: charId,
         name: socket.data.characterName || 'Unknown',
-        effects: effects || []
+        effects: safeEffects
       });
+
+      try {
+        const result = await pool.query('SELECT character_data FROM characters WHERE id = $1', [charId]);
+        if (result.rows.length > 0) {
+          let charData = {};
+          if (result.rows[0].character_data) {
+            try { charData = JSON.parse(result.rows[0].character_data) || {}; } catch (_) {}
+          }
+          charData.activeEffects = Array.isArray(safeEffects) ? safeEffects : [];
+          await pool.query('UPDATE characters SET character_data = $1 WHERE id = $2', [JSON.stringify(charData), charId]);
+        }
+      } catch (err) {
+        console.error('[socket] condition:sync DB persist error:', err);
+      }
     });
 
     socket.on('disconnect', async () => {
