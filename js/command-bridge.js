@@ -1124,6 +1124,16 @@
     socket.on('shipcombat:seats_update', function (data) {
       if (data.seats) renderStarshipStatus(window._scActive, data.seats);
     });
+
+    socket.on('combat:state', function (data) {
+      if (data && data.active && window.CombatTracker && !window.CombatTracker.isActive()) {
+        window._cbSocket = socket;
+        window.CombatTracker.restore(data);
+        var ctPanel = document.getElementById('combat-tracker-panel');
+        if (ctPanel) ctPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+    socket.emit('combat:request-state');
   }
 
   var destinyUntapBtn = document.getElementById('gm-destiny-untap');

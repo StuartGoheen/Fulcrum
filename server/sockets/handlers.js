@@ -79,6 +79,31 @@ async function rebuildPool(io) {
   return destinyPool;
 }
 
+function _getPlayerCombatState() {
+  if (!_combatState || !_combatState.active) return { active: false };
+  return {
+    active: true,
+    encounterName: _combatState.encounterName,
+    highestTier: _combatState.highestTier,
+    round: _combatState.round,
+    currentTurnIndex: _combatState.currentTurnIndex,
+    turnOrder: _combatState.turnOrder,
+    combatants: (_combatState.combatants || []).map(function (n) {
+      return {
+        id: n.id, name: n.name, type: 'npc', threat: n.threat, tier: n.tier,
+        vitalityCurrent: n.vitalityCurrent, vitalityMax: n.vitalityMax,
+        conditions: n.conditions, initiative: n.initiative
+      };
+    }),
+    pcSlots: (_combatState.pcSlots || []).map(function (p) {
+      return {
+        id: p.id, name: p.name, type: 'pc', initiative: p.initiative,
+        conditions: p.conditions, surprised: p.surprised, mastery: p.mastery
+      };
+    })
+  };
+}
+
 function registerHandlers(io) {
   io.on('connection', (socket) => {
     console.log(`[socket] Connected: ${socket.id}`);
@@ -423,13 +448,50 @@ function registerHandlers(io) {
         encounterName: encounterName || 'Combat',
         highestTier: highestTier || 0,
         responses: {},
-        startedAt: Date.now()
+        startedAt: Date.now(),
+        combatants: [],
+        pcSlots: [],
+        turnOrder: [],
+        round: 1,
+        currentTurnIndex: 0,
+        tokenPositions: {},
+        joinBattleSent: true
       };
       io.to('players').emit('combat:join-battle-prompt', {
         encounterName: _combatState.encounterName,
         highestTier: _combatState.highestTier
       });
       console.log(`[socket] GM started combat: ${encounterName} (highest tier ${highestTier})`);
+    });
+
+    socket.on('combat:sync-state', (data) => {
+      if (socket.data.role !== 'gm') return;
+      if (!_combatState || !_combatState.active) return;
+      if (data.combatants !== undefined) _combatState.combatants = data.combatants;
+      if (data.pcSlots !== undefined) _combatState.pcSlots = data.pcSlots;
+      if (data.turnOrder !== undefined) _combatState.turnOrder = data.turnOrder;
+      if (data.round !== undefined) _combatState.round = data.round;
+      if (data.currentTurnIndex !== undefined) _combatState.currentTurnIndex = data.currentTurnIndex;
+      if (data.tokenPositions !== undefined) _combatState.tokenPositions = data.tokenPositions;
+      if (data.encounterName !== undefined) _combatState.encounterName = data.encounterName;
+      if (data.highestTier !== undefined) _combatState.highestTier = data.highestTier;
+      if (data.joinBattleSent !== undefined) _combatState.joinBattleSent = data.joinBattleSent;
+      if (data.tacticalMap !== undefined) _combatState.tacticalMap = data.tacticalMap;
+      io.to('players').emit('combat:state-update', _getPlayerCombatState());
+    });
+
+    socket.on('combat:request-state', () => {
+      if (!_combatState || !_combatState.active) {
+        socket.emit('combat:state', { active: false });
+        return;
+      }
+      if (socket.data.role === 'gm') {
+        socket.emit('combat:state', _combatState);
+      } else {
+        const charId = socket.data.characterId;
+        const alreadyJoined = charId && _combatState.responses[charId];
+        socket.emit('combat:state', Object.assign({}, _getPlayerCombatState(), { alreadyJoined: !!alreadyJoined }));
+      }
     });
 
     socket.on('combat:join-battle', async ({ controlResult, powerResult }) => {
@@ -515,10 +577,16 @@ function registerHandlers(io) {
 
     socket.on('combat:request', () => {
       if (_combatState && _combatState.active) {
-        socket.emit('combat:join-battle-prompt', {
-          encounterName: _combatState.encounterName,
-          highestTier: _combatState.highestTier
-        });
+        const charId = socket.data.characterId;
+        const alreadyJoined = charId && _combatState.responses[charId];
+        if (alreadyJoined) {
+          socket.emit('combat:state', Object.assign({}, _getPlayerCombatState(), { alreadyJoined: true }));
+        } else {
+          socket.emit('combat:join-battle-prompt', {
+            encounterName: _combatState.encounterName,
+            highestTier: _combatState.highestTier
+          });
+        }
       }
     });
 
@@ -549,13 +617,14 @@ function registerHandlers(io) {
 
         await pool.query('UPDATE characters SET character_data = $1 WHERE id = $2', [JSON.stringify(charData), characterId]);
 
+        const charIdStr = String(characterId);
         const targetSockets = Array.from(io.sockets.sockets.values())
-          .filter(s => s.data.characterId === characterId);
+          .filter(s => String(s.data.characterId) === charIdStr);
         targetSockets.forEach(s => {
           s.emit('condition:applied', entry);
         });
 
-        socket.emit('condition:apply-ack', { characterId, entry });
+        socket.emit('condition:apply-ack', { characterId: charIdStr, entry });
         console.log(`[socket] GM applied ${conditionId} to ${characterId}`);
       } catch (err) {
         console.error('[socket] condition:apply error:', err);
@@ -586,13 +655,14 @@ function registerHandlers(io) {
           await pool.query('UPDATE characters SET character_data = $1 WHERE id = $2', [JSON.stringify(charData), characterId]);
         }
 
+        const charIdStr = String(characterId);
         const targetSockets = Array.from(io.sockets.sockets.values())
-          .filter(s => s.data.characterId === characterId);
+          .filter(s => String(s.data.characterId) === charIdStr);
         targetSockets.forEach(s => {
           s.emit('condition:removed', { conditionId, uid });
         });
 
-        socket.emit('condition:remove-ack', { characterId, conditionId, uid });
+        socket.emit('condition:remove-ack', { characterId: charIdStr, conditionId, uid });
         console.log(`[socket] GM removed ${conditionId || uid} from ${characterId}`);
       } catch (err) {
         console.error('[socket] condition:remove error:', err);

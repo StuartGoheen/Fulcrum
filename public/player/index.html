@@ -145,6 +145,109 @@
       color: var(--color-text-secondary, #9ca3af);
       font-style: italic;
     }
+
+    .pit-container {
+      position: fixed;
+      bottom: 8vh;
+      right: 26vw;
+      z-index: 8000;
+      width: 220px;
+      background: var(--color-bg-panel, #1a1a2e);
+      border: 1px solid var(--color-border, #2a2a3e);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      font-family: 'Exo 2', sans-serif;
+      font-size: 0.7rem;
+      max-height: 50vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .pit-header {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.5rem;
+      background: rgba(239,68,68,0.1);
+      border-bottom: 1px solid var(--color-border, #2a2a3e);
+      cursor: grab;
+      user-select: none;
+    }
+    .pit-header:active { cursor: grabbing; }
+    .pit-title {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.6rem;
+      color: var(--color-danger, #ef4444);
+      letter-spacing: 0.08em;
+      flex: 1;
+    }
+    .pit-round {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.6rem;
+      color: var(--color-accent-primary, #c79234);
+    }
+    .pit-collapse-btn {
+      background: none;
+      border: none;
+      color: var(--color-text-secondary, #9ca3af);
+      font-size: 0.8rem;
+      cursor: pointer;
+      padding: 0 0.2rem;
+      line-height: 1;
+    }
+    .pit-body {
+      overflow-y: auto;
+      max-height: 40vh;
+      scrollbar-width: thin;
+      scrollbar-color: var(--color-accent-primary, #c79234) transparent;
+    }
+    .pit-turn-list { display: flex; flex-direction: column; }
+    .pit-entry {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.25rem 0.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      transition: background 0.15s;
+    }
+    .pit-entry.pit-current {
+      background: rgba(239,68,68,0.12);
+      border-left: 3px solid var(--color-danger, #ef4444);
+    }
+    .pit-entry.pit-pc { color: #22c55e; }
+    .pit-entry.pit-npc { color: var(--color-text-secondary, #9ca3af); }
+    .pit-entry.pit-down { opacity: 0.35; text-decoration: line-through; }
+    .pit-init {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.6rem;
+      width: 1.4rem;
+      text-align: center;
+      color: var(--color-accent-primary, #c79234);
+    }
+    .pit-name {
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .pit-hp {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.55rem;
+      flex-shrink: 0;
+    }
+    .pit-conds {
+      display: flex;
+      gap: 0.15rem;
+      flex-wrap: wrap;
+    }
+    .pit-cond {
+      font-size: 0.5rem;
+      padding: 0 0.2rem;
+      border-radius: 2px;
+      background: rgba(239,68,68,0.15);
+      color: #ef4444;
+      border: 1px solid rgba(239,68,68,0.3);
+      text-transform: capitalize;
+    }
   </style>
 </head>
 <body class="font-body" style="background-color:var(--color-bg-primary);color:var(--color-text-primary);overflow:hidden;height:100vh;">

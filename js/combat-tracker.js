@@ -224,14 +224,31 @@
         }
       }
 
+      function onApplyAck(data) {
+        if (!combatState || !data || !data.entry) return;
+        var pc = combatState.pcSlots.find(function (p) { return p.id === String(data.characterId); });
+        if (pc) {
+          if (!pc.conditions) pc.conditions = [];
+          var condId = data.entry.effectId;
+          if (pc.conditions.indexOf(condId) === -1) {
+            pc.conditions.push(condId);
+          }
+          if (!pc.activeEffects) pc.activeEffects = [];
+          pc.activeEffects.push(data.entry);
+          renderCombatTracker();
+        }
+      }
+
       sock.on('combat:join-battle-result', onJoinResult);
       sock.on('combat:all-joined', onAllJoined);
       sock.on('condition:player-sync', onPlayerSync);
+      sock.on('condition:apply-ack', onApplyAck);
 
       _socketHandlers = [
         { event: 'combat:join-battle-result', fn: onJoinResult },
         { event: 'combat:all-joined', fn: onAllJoined },
-        { event: 'condition:player-sync', fn: onPlayerSync }
+        { event: 'condition:player-sync', fn: onPlayerSync },
+        { event: 'condition:apply-ack', fn: onApplyAck }
       ];
     }
 
@@ -666,7 +683,19 @@
         var def = getEffectDef(cid);
         var label = def ? def.label : cid;
         var color = condColor(cid);
-        html += '<span class="ct-condition-pip" style="color:' + color + ';">' + esc(label) + '</span>';
+        var durationTag = '';
+        if (pc.activeEffects) {
+          for (var ei = 0; ei < pc.activeEffects.length; ei++) {
+            if (pc.activeEffects[ei].effectId === cid) {
+              var d = pc.activeEffects[ei].duration;
+              if (d === 'immediate') durationTag = ' <small class="ct-dur-tag">(1T)</small>';
+              else if (d === 'persistent') durationTag = ' <small class="ct-dur-tag">(P)</small>';
+              else durationTag = ' <small class="ct-dur-tag">(S)</small>';
+              break;
+            }
+          }
+        }
+        html += '<span class="ct-condition-chip ct-pc-chip" style="background:' + color + '22;color:' + color + ';border-color:' + color + '44;">' + esc(label) + durationTag + '</span>';
       });
     }
     html += '</div>';
@@ -921,6 +950,14 @@
       'blinded', 'bleeding', 'hazard', 'incapacitated', 'suppressed', 'marked'];
 
     var html = '<div class="ct-palette-title">Push Condition to PC</div>';
+    html += '<div class="ct-duration-row">';
+    html += '<span class="ct-duration-label">Duration:</span>';
+    html += '<select class="ct-duration-select" id="ct-pc-duration-select">';
+    html += '<option value="tactical">Tactical (scene)</option>';
+    html += '<option value="immediate">Immediate (1 turn)</option>';
+    html += '<option value="persistent">Persistent</option>';
+    html += '</select>';
+    html += '</div>';
     pcConditions.forEach(function (condId) {
       var def = getEffectDef(condId);
       if (!def) return;
@@ -942,8 +979,11 @@
         var def = getEffectDef(condId);
         if (!def) return;
 
+        var durationSelect = document.getElementById('ct-pc-duration-select');
+        var duration = durationSelect ? durationSelect.value : (def.defaultDuration || 'tactical');
+
         if (def.targetMode === 'arena_only') {
-          showPcArenaPicker(item, targetPcId, condId, palette);
+          showPcArenaPicker(item, targetPcId, condId, palette, duration);
           return;
         }
 
@@ -956,7 +996,7 @@
             characterId: targetPcId,
             conditionId: condId,
             target: target,
-            duration: def.defaultDuration || 'tactical'
+            duration: duration
           });
         }
 
@@ -975,7 +1015,7 @@
     }, 10);
   }
 
-  function showPcArenaPicker(anchorItem, pcId, condId, palette) {
+  function showPcArenaPicker(anchorItem, pcId, condId, palette, duration) {
     var existing = document.querySelector('.ct-arena-picker');
     if (existing) existing.remove();
 
@@ -1002,7 +1042,7 @@
             characterId: pcId,
             conditionId: condId,
             target: 'arena:' + arena,
-            duration: (def && def.defaultDuration) || 'tactical'
+            duration: duration || (def && def.defaultDuration) || 'tactical'
           });
         }
         picker.remove();
@@ -1129,9 +1169,134 @@
     });
   }
 
+  function syncStateToServer() {
+    var sock = getSocket();
+    if (!sock || !combatState) return;
+    sock.emit('combat:sync-state', {
+      combatants: combatState.combatants,
+      pcSlots: combatState.pcSlots.map(function (p) {
+        return { id: p.id, name: p.name, type: 'pc', initiative: p.initiative,
+          conditions: p.conditions, surprised: p.surprised, mastery: p.mastery,
+          controlResult: p.controlResult, vitality: p.vitality,
+          arenas: p.arenas, disciplines: p.disciplines, vocations: p.vocations,
+          species: p.species, archetype: p.archetype, connected: p.connected,
+          activeEffects: p.activeEffects || [] };
+      }),
+      turnOrder: combatState.turnOrder,
+      round: combatState.round,
+      currentTurnIndex: combatState.currentTurnIndex,
+      tokenPositions: combatState.tokenPositions,
+      encounterName: combatState.encounter ? combatState.encounter.name : '',
+      highestTier: combatState.highestTier,
+      joinBattleSent: combatState.joinBattleSent,
+      tacticalMap: combatState.tacticalMap || null
+    });
+  }
+
+  var _origRenderCombatTracker = renderCombatTracker;
+  renderCombatTracker = function () {
+    _origRenderCombatTracker();
+    syncStateToServer();
+  };
+
+  function restoreFromState(serverState) {
+    if (!serverState || !serverState.active) return;
+
+    combatState = {
+      encounter: { name: serverState.encounterName || 'Combat' },
+      scene: {},
+      round: serverState.round || 1,
+      currentTurnIndex: serverState.currentTurnIndex || 0,
+      highestTier: serverState.highestTier || 0,
+      combatants: serverState.combatants || [],
+      pcSlots: serverState.pcSlots || [],
+      selectedId: null,
+      collapsed: false,
+      tacticalMap: serverState.tacticalMap || null,
+      turnOrder: serverState.turnOrder || [],
+      tokenPositions: serverState.tokenPositions || {},
+      selectedToken: null,
+      joinBattleSent: serverState.joinBattleSent !== false,
+      pcResponses: serverState.responses || {}
+    };
+
+    var sock = getSocket();
+    if (sock) {
+      _cleanupSocketHandlers();
+
+      function onJoinResult(data) {
+        if (!combatState) return;
+        combatState.pcResponses[String(data.characterId)] = data;
+        var pc = combatState.pcSlots.find(function (p) { return p.id === String(data.characterId); });
+        if (pc) {
+          pc.initiative = data.initiative;
+          pc.surprised = data.surprised;
+          pc.mastery = data.mastery;
+          pc.controlResult = data.controlResult;
+        }
+        rebuildTurnOrder();
+        _origRenderCombatTracker();
+        syncStateToServer();
+      }
+
+      function onAllJoined() {
+        if (!combatState) return;
+        rebuildTurnOrder();
+        _origRenderCombatTracker();
+        syncStateToServer();
+      }
+
+      function onPlayerSync(data) {
+        if (!combatState) return;
+        var pc = combatState.pcSlots.find(function (p) { return p.id === String(data.characterId); });
+        if (pc) {
+          pc.conditions = (data.effects || []).map(function (e) { return e.effectId || e; });
+          _origRenderCombatTracker();
+          syncStateToServer();
+        }
+      }
+
+      function onApplyAck(data) {
+        if (!combatState || !data || !data.entry) return;
+        var pc = combatState.pcSlots.find(function (p) { return p.id === String(data.characterId); });
+        if (pc) {
+          if (!pc.conditions) pc.conditions = [];
+          var condId = data.entry.effectId;
+          if (pc.conditions.indexOf(condId) === -1) {
+            pc.conditions.push(condId);
+          }
+          if (!pc.activeEffects) pc.activeEffects = [];
+          pc.activeEffects.push(data.entry);
+          _origRenderCombatTracker();
+          syncStateToServer();
+        }
+      }
+
+      sock.on('combat:join-battle-result', onJoinResult);
+      sock.on('combat:all-joined', onAllJoined);
+      sock.on('condition:player-sync', onPlayerSync);
+      sock.on('condition:apply-ack', onApplyAck);
+
+      _socketHandlers = [
+        { event: 'combat:join-battle-result', fn: onJoinResult },
+        { event: 'combat:all-joined', fn: onAllJoined },
+        { event: 'condition:player-sync', fn: onPlayerSync },
+        { event: 'condition:apply-ack', fn: onApplyAck }
+      ];
+    }
+
+    var container = document.getElementById('combat-tracker-panel');
+    if (container) {
+      container.style.display = 'block';
+      _origRenderCombatTracker();
+    }
+  }
+
   window.CombatTracker = {
     start: startEncounter,
     end: endEncounter,
+    restore: restoreFromState,
+    getState: function () { return combatState; },
     isActive: function () { return combatState !== null; }
   };
 }());

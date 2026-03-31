@@ -200,9 +200,25 @@
       _showJoinBattleModal(encounterName, highestTier);
     });
 
+    socket.on('combat:state', function (data) {
+      if (!data || !data.active) return;
+      if (data.alreadyJoined) {
+        var modal = document.getElementById('join-battle-modal');
+        if (modal) modal.remove();
+        _showInitiativeTracker(data);
+      }
+    });
+
+    socket.on('combat:state-update', function (data) {
+      if (!data || !data.active) return;
+      _showInitiativeTracker(data);
+    });
+
     socket.on('combat:ended', () => {
       var modal = document.getElementById('join-battle-modal');
       if (modal) modal.remove();
+      var tracker = document.getElementById('player-init-tracker');
+      if (tracker) tracker.remove();
     });
 
     socket.on('condition:applied', (entry) => {
@@ -237,6 +253,124 @@
 
     socket.emit('combat:request');
   }
+
+  function _escHtml(s) {
+    return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  var _initTrackerDrag = { active: false, x: 0, y: 0, startX: 0, startY: 0 };
+
+  function _showInitiativeTracker(state) {
+    var tracker = document.getElementById('player-init-tracker');
+    if (!tracker) {
+      tracker = document.createElement('div');
+      tracker.id = 'player-init-tracker';
+      tracker.className = 'pit-container';
+      document.body.appendChild(tracker);
+    }
+
+    var turnOrder = state.turnOrder || [];
+    var round = state.round || 1;
+    var currentIdx = state.currentTurnIndex || 0;
+    var combatants = state.combatants || [];
+    var pcSlots = state.pcSlots || [];
+
+    var html = '<div class="pit-header" id="pit-drag-handle">';
+    html += '<span class="pit-title">INITIATIVE</span>';
+    html += '<span class="pit-round">R' + round + '</span>';
+    html += '<button class="pit-collapse-btn" id="pit-collapse-btn">&minus;</button>';
+    html += '</div>';
+
+    html += '<div class="pit-body" id="pit-body">';
+    html += '<div class="pit-turn-list">';
+
+    turnOrder.forEach(function (entry, idx) {
+      var isCurrent = idx === currentIdx;
+      var isNpc = entry.type === 'npc';
+      var npc = null;
+      var pc = null;
+      if (isNpc) {
+        for (var i = 0; i < combatants.length; i++) {
+          if (combatants[i].id === entry.id) { npc = combatants[i]; break; }
+        }
+      } else {
+        for (var j = 0; j < pcSlots.length; j++) {
+          if (pcSlots[j].id === entry.id) { pc = pcSlots[j]; break; }
+        }
+      }
+
+      var isDown = npc && npc.vitalityCurrent <= 0;
+      var cls = 'pit-entry';
+      if (isCurrent) cls += ' pit-current';
+      if (isNpc) cls += ' pit-npc';
+      else cls += ' pit-pc';
+      if (isDown) cls += ' pit-down';
+
+      html += '<div class="' + cls + '">';
+      html += '<span class="pit-init">' + (entry.initiative || '—') + '</span>';
+      html += '<span class="pit-name">' + _escHtml(entry.name) + '</span>';
+
+      if (isNpc && npc) {
+        var pct = npc.vitalityMax > 0 ? Math.round((npc.vitalityCurrent / npc.vitalityMax) * 100) : 0;
+        var hpColor = pct > 60 ? '#22c55e' : pct > 30 ? '#eab308' : '#ef4444';
+        html += '<span class="pit-hp" style="color:' + hpColor + ';">' + npc.vitalityCurrent + '/' + npc.vitalityMax + '</span>';
+      }
+
+      if (npc && npc.conditions && npc.conditions.length) {
+        html += '<span class="pit-conds">';
+        npc.conditions.forEach(function (c) {
+          html += '<span class="pit-cond">' + _escHtml(c) + '</span>';
+        });
+        html += '</span>';
+      }
+
+      html += '</div>';
+    });
+
+    html += '</div>';
+    html += '</div>';
+
+    tracker.innerHTML = html;
+
+    var handle = document.getElementById('pit-drag-handle');
+    if (handle) {
+      handle.addEventListener('mousedown', function (e) {
+        if (e.target.id === 'pit-collapse-btn') return;
+        _initTrackerDrag.active = true;
+        _initTrackerDrag.startX = e.clientX - (tracker.offsetLeft || 0);
+        _initTrackerDrag.startY = e.clientY - (tracker.offsetTop || 0);
+        e.preventDefault();
+      });
+    }
+
+    var collapseBtn = document.getElementById('pit-collapse-btn');
+    if (collapseBtn) {
+      collapseBtn.addEventListener('click', function () {
+        var body = document.getElementById('pit-body');
+        if (!body) return;
+        if (body.style.display === 'none') {
+          body.style.display = '';
+          collapseBtn.textContent = '\u2212';
+        } else {
+          body.style.display = 'none';
+          collapseBtn.textContent = '+';
+        }
+      });
+    }
+  }
+
+  document.addEventListener('mousemove', function (e) {
+    if (!_initTrackerDrag.active) return;
+    var tracker = document.getElementById('player-init-tracker');
+    if (!tracker) { _initTrackerDrag.active = false; return; }
+    tracker.style.left = (e.clientX - _initTrackerDrag.startX) + 'px';
+    tracker.style.top = (e.clientY - _initTrackerDrag.startY) + 'px';
+    tracker.style.right = 'auto';
+    tracker.style.bottom = 'auto';
+  });
+  document.addEventListener('mouseup', function () {
+    _initTrackerDrag.active = false;
+  });
 
   function _showJoinBattleModal(encounterName, highestTier) {
     var existing = document.getElementById('join-battle-modal');
