@@ -609,6 +609,53 @@
       border: 1px solid rgba(var(--color-accent-primary-rgb, 199,146,52), 0.35);
       margin: 0 0.15rem;
     }
+    .cb-npc-attacks-section {
+      margin-top: 0.3rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 0.25rem;
+    }
+    .cb-npc-attacks-label {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.5rem;
+      letter-spacing: 0.1em;
+      color: var(--color-accent-primary);
+      margin-bottom: 0.2rem;
+    }
+    .cb-npc-attack-card {
+      background: rgba(0,0,0,0.2);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 4px;
+      padding: 0.25rem 0.35rem;
+      margin-bottom: 0.2rem;
+    }
+    .cb-npc-attack-header {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.2rem;
+      font-size: 0.6rem;
+    }
+    .cb-chassis-badge {
+      display: inline-block;
+      font-size: 0.5rem;
+      padding: 0.02rem 0.2rem;
+      border-radius: 2px;
+      background: rgba(255,255,255,0.08);
+      color: var(--color-text-secondary);
+      text-transform: capitalize;
+    }
+    .cb-npc-attack-dmg-row, .cb-npc-attack-stun-row {
+      display: flex;
+      gap: 0.5rem;
+      font-size: 0.55rem;
+      margin-top: 0.1rem;
+    }
+    .cb-dmg-tier, .cb-stun-tier {
+      font-family: 'Audiowide', sans-serif;
+    }
+    .cb-dmg-lbl { color: var(--color-accent-primary); margin-right: 0.1rem; }
+    .cb-stun-lbl { color: #60a5fa; margin-right: 0.1rem; font-size: 0.5rem; }
+    .cb-npc-attack-stun-row { color: #60a5fa; }
     .cb-npc-detail-section {
       padding: 0.15rem 0.4rem;
       font-size: 0.7rem;
@@ -3157,6 +3204,53 @@
       font-size: 0.55rem;
       color: var(--color-text-secondary);
     }
+    .ct-attacks-section {
+      margin-top: 0.4rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 0.3rem;
+    }
+    .ct-attacks-label {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.5rem;
+      letter-spacing: 0.1em;
+      color: var(--color-accent-primary);
+      margin-bottom: 0.2rem;
+    }
+    .ct-attack-card {
+      background: rgba(0,0,0,0.25);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 4px;
+      padding: 0.3rem 0.4rem;
+      margin-bottom: 0.25rem;
+    }
+    .ct-attack-header {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.2rem;
+      font-size: 0.6rem;
+    }
+    .ct-chassis-badge {
+      display: inline-block;
+      font-size: 0.5rem;
+      padding: 0.02rem 0.2rem;
+      border-radius: 2px;
+      background: rgba(255,255,255,0.08);
+      color: var(--color-text-secondary);
+      text-transform: capitalize;
+    }
+    .ct-attack-dmg-row, .ct-attack-stun-row {
+      display: flex;
+      gap: 0.5rem;
+      font-size: 0.55rem;
+      margin-top: 0.15rem;
+    }
+    .ct-dmg-tier, .ct-stun-tier {
+      font-family: 'Audiowide', sans-serif;
+    }
+    .ct-dmg-lbl { color: var(--color-accent-primary); margin-right: 0.1rem; }
+    .ct-stun-lbl { color: #60a5fa; margin-right: 0.1rem; font-size: 0.5rem; }
+    .ct-attack-stun-row { color: #60a5fa; }
 
     .ct-tactical-map {
       background: var(--color-bg-frame);

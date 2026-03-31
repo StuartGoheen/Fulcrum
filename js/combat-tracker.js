@@ -96,6 +96,7 @@
             conditions: [],
             conditionArenas: {},
             roleKit: tb ? tb.roleKit : null,
+            computedAttacks: tb ? (tb.computedAttacks || []) : [],
             arenas: tb ? (tb.arenas || {}) : {},
             damageTiers: comp.damageTiers || null,
             zone: null,
@@ -588,6 +589,35 @@
 
     if (npc.roleKit) {
       html += renderRoleKit(npc.roleKit);
+    }
+
+    var attacks = npc.computedAttacks || (npc.threatBuild && npc.threatBuild.computedAttacks) || [];
+    if (attacks.length) {
+      html += '<div class="ct-attacks-section">';
+      html += '<div class="ct-attacks-label">ATTACKS</div>';
+      attacks.forEach(function (atk) {
+        html += '<div class="ct-attack-card">';
+        html += '<div class="ct-attack-header">';
+        html += '<strong>' + esc(atk.name) + '</strong>';
+        html += ' <span class="ct-rk-power">Power ' + atk.attackPower + '</span>';
+        html += ' <span class="ct-chassis-badge">' + esc(atk.chassisLabel) + '</span>';
+        if (atk.arena) html += ' <span class="ct-rk-arena">(' + esc(atk.arena) + ')</span>';
+        html += '</div>';
+        html += '<div class="ct-attack-dmg-row">';
+        html += '<span class="ct-dmg-tier"><span class="ct-dmg-lbl">F</span> ' + atk.damage.fleeting + '</span>';
+        html += '<span class="ct-dmg-tier"><span class="ct-dmg-lbl">M</span> ' + atk.damage.masterful + '</span>';
+        html += '<span class="ct-dmg-tier"><span class="ct-dmg-lbl">L</span> ' + atk.damage.legendary + '</span>';
+        html += '</div>';
+        if (atk.canStun && atk.stun) {
+          html += '<div class="ct-attack-stun-row">';
+          html += '<span class="ct-stun-tier"><span class="ct-stun-lbl">Stun F</span> ' + atk.stun.fleeting + '</span>';
+          html += '<span class="ct-stun-tier"><span class="ct-stun-lbl">M</span> ' + atk.stun.masterful + '</span>';
+          html += '<span class="ct-stun-tier"><span class="ct-stun-lbl">L</span> ' + atk.stun.legendary + '</span>';
+          html += '</div>';
+        }
+        html += '</div>';
+      });
+      html += '</div>';
     }
 
     return html;
@@ -1121,6 +1151,7 @@
       conditions: [],
       conditionArenas: {},
       roleKit: npcBuild.roleKit || null,
+      computedAttacks: npcBuild.computedAttacks || [],
       arenas: npcBuild.arenas || {},
       damageTiers: comp.damageTiers || null,
       zone: null,
@@ -1230,6 +1261,7 @@
         npc.actions = comp.actions || npc.actions;
         npc.arenas = updatedBuild.arenas || npc.arenas;
         npc.roleKit = updatedBuild.roleKit || npc.roleKit;
+        npc.computedAttacks = updatedBuild.computedAttacks || npc.computedAttacks || [];
         npc.damageTiers = comp.damageTiers || npc.damageTiers;
         npc.npcData = updatedBuild;
 

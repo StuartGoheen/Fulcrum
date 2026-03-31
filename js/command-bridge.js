@@ -360,6 +360,35 @@
       }
     }
 
+    var attacks = tb.computedAttacks || [];
+    if (attacks.length) {
+      h += '<div class="cb-npc-attacks-section">';
+      h += '<div class="cb-npc-attacks-label">ATTACKS</div>';
+      attacks.forEach(function (atk) {
+        h += '<div class="cb-npc-attack-card">';
+        h += '<div class="cb-npc-attack-header">';
+        h += '<strong>' + esc(atk.name) + '</strong>';
+        h += ' <span class="cb-power-badge">Power ' + atk.attackPower + '</span>';
+        h += ' <span class="cb-chassis-badge">' + esc(atk.chassisLabel) + '</span>';
+        if (atk.arena) h += ' <span style="color:var(--color-text-secondary);font-size:0.6rem;">(' + esc(atk.arena) + ')</span>';
+        h += '</div>';
+        h += '<div class="cb-npc-attack-dmg-row">';
+        h += '<span class="cb-dmg-tier"><span class="cb-dmg-lbl">F</span> ' + atk.damage.fleeting + '</span>';
+        h += '<span class="cb-dmg-tier"><span class="cb-dmg-lbl">M</span> ' + atk.damage.masterful + '</span>';
+        h += '<span class="cb-dmg-tier"><span class="cb-dmg-lbl">L</span> ' + atk.damage.legendary + '</span>';
+        h += '</div>';
+        if (atk.canStun && atk.stun) {
+          h += '<div class="cb-npc-attack-stun-row">';
+          h += '<span class="cb-stun-tier"><span class="cb-stun-lbl">Stun F</span> ' + atk.stun.fleeting + '</span>';
+          h += '<span class="cb-stun-tier"><span class="cb-stun-lbl">M</span> ' + atk.stun.masterful + '</span>';
+          h += '<span class="cb-stun-tier"><span class="cb-stun-lbl">L</span> ' + atk.stun.legendary + '</span>';
+          h += '</div>';
+        }
+        h += '</div>';
+      });
+      h += '</div>';
+    }
+
     var loot = npc.loot || (tb && tb.loot) || [];
     if (loot.length) {
       h += '<div class="cb-npc-loot-section">';
@@ -708,6 +737,7 @@
                 exploit: rk.exploit || (rk.exploits && rk.exploits[0]) || null
               };
             }
+            npc.threatBuild.computedAttacks = updated.computedAttacks || [];
             if (updated.loot) npc.loot = updated.loot;
             setSceneNpcs(npcs);
             renderScene();
@@ -774,6 +804,7 @@
                   traits: savedNpc.traits ? JSON.parse(JSON.stringify(savedNpc.traits)) : [],
                   tags: savedNpc.tags ? JSON.parse(JSON.stringify(savedNpc.tags)) : [],
                   roleKit: built.roleKit,
+                  computedAttacks: built.computedAttacks || [],
                   weaponChassis: savedNpc.weaponChassis || 'medium',
                   loot: savedNpc.loot ? JSON.parse(JSON.stringify(savedNpc.loot)) : []
                 }

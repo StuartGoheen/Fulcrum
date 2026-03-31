@@ -1101,6 +1101,33 @@
     openNpcBuilder();
   }
 
+  function computeAttackDisplayData(attacks, stats, npc) {
+    if (!attacks || !attacks.length) return [];
+    var chassisData = threatData && threatData.system && threatData.system.weaponChassis ? threatData.system.weaponChassis : {};
+    var defaultChassis = { pcDamage: { fleeting: 1, masterful: 3, legendary: 5 }, pcStun: { fleeting: 2, masterful: 4, legendary: 6 } };
+    return attacks.map(function (atk) {
+      var chassisKey = atk.chassis || 'medium';
+      var ch = chassisData[chassisKey] || chassisData.medium || defaultChassis;
+      var attackPower = (stats.powers && stats.powers[atk.arena] !== undefined) ? stats.powers[atk.arena] : (((stats.arenas && stats.arenas[atk.arena]) || 1) - 1 + (npc.tier || 0));
+      attackPower += (atk.powerMod || 0);
+      var chassisLabel = (ch.label || chassisKey.charAt(0).toUpperCase() + chassisKey.slice(1));
+      var dmg = ch.pcDamage || defaultChassis.pcDamage;
+      var result = {
+        name: atk.name,
+        arena: atk.arena || '',
+        attackPower: attackPower,
+        chassisLabel: chassisLabel,
+        damage: { fleeting: (dmg.fleeting || 1) + 1, masterful: (dmg.masterful || 3) + 1, legendary: (dmg.legendary || 5) + 1 },
+        canStun: !!atk.canStun
+      };
+      if (atk.canStun) {
+        var st = ch.pcStun || defaultChassis.pcStun;
+        result.stun = { fleeting: (st.fleeting || 2) + 1, masterful: (st.masterful || 4) + 1, legendary: (st.legendary || 6) + 1 };
+      }
+      return result;
+    });
+  }
+
   function closeNpcBuilderWithCallback() {
     if (_editCallback) {
       var stats = calcStats(currentNpc);
@@ -1117,6 +1144,7 @@
         };
       }
       result.arenas = stats.arenas || currentNpc.arenas;
+      result.computedAttacks = computeAttackDisplayData(currentNpc.attacks, stats, currentNpc);
       _editCallback(result);
       _editCallback = null;
     }
@@ -1186,7 +1214,8 @@
 
       return {
         computed: computed,
-        roleKit: roleKit
+        roleKit: roleKit,
+        computedAttacks: computeAttackDisplayData(savedNpc.attacks, stats, savedNpc)
       };
     });
   }
