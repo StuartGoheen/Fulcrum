@@ -432,7 +432,7 @@ function registerHandlers(io) {
       console.log(`[socket] GM started combat: ${encounterName} (highest tier ${highestTier})`);
     });
 
-    socket.on('combat:join-battle', ({ controlResult, powerResult }) => {
+    socket.on('combat:join-battle', async ({ controlResult, powerResult }) => {
       if (socket.data.role !== 'player' || !socket.data.characterId) return;
       if (!_combatState || !_combatState.active) return;
 
@@ -460,6 +460,33 @@ function registerHandlers(io) {
         mastery,
         initiative: power
       });
+
+      if (surprised) {
+        const surpriseConditions = ['disoriented', 'exposed'];
+        try {
+          const result = await pool.query('SELECT character_data FROM characters WHERE id = $1', [socket.data.characterId]);
+          if (result.rows.length > 0) {
+            let charData = {};
+            try { charData = JSON.parse(result.rows[0].character_data) || {}; } catch (_) {}
+            if (!charData.activeEffects) charData.activeEffects = [];
+            for (const condId of surpriseConditions) {
+              const entry = {
+                uid: 'gm_surprise_' + condId + '_' + Date.now(),
+                effectId: condId,
+                target: 'universal',
+                duration: 'tactical',
+                hazardValue: 0,
+                source: 'gm_surprise'
+              };
+              charData.activeEffects.push(entry);
+              socket.emit('condition:applied', entry);
+            }
+            await pool.query('UPDATE characters SET character_data = $1 WHERE id = $2', [JSON.stringify(charData), socket.data.characterId]);
+          }
+        } catch (err) {
+          console.error('[socket] surprise condition auto-apply error:', err);
+        }
+      }
 
       const playerCount = Array.from(io.sockets.sockets.values())
         .filter(s => s.data.role === 'player' && s.data.characterId).length;

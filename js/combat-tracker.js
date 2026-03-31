@@ -94,6 +94,7 @@
             vitalityCurrent: comp.vitality || 5,
             actions: comp.actions || 1,
             conditions: [],
+            conditionArenas: {},
             roleKit: tb ? tb.roleKit : null,
             arenas: tb ? (tb.arenas || {}) : {},
             damageTiers: comp.damageTiers || null,
@@ -235,6 +236,8 @@
     }
 
     renderCombatTracker();
+
+    triggerJoinBattle();
   }
 
   function _cleanupSocketHandlers() {
@@ -272,6 +275,15 @@
     }
   }
 
+  function designateNpcSurprised(npcId) {
+    var npc = combatState ? combatState.combatants.find(function (n) { return n.id === npcId; }) : null;
+    if (!npc) return;
+    if (npc.conditions.indexOf('disoriented') === -1) npc.conditions.push('disoriented');
+    if (npc.conditions.indexOf('exposed') === -1) npc.conditions.push('exposed');
+    npc.surprised = true;
+    renderCombatTracker();
+  }
+
   function rebuildTurnOrder() {
     if (!combatState) return;
     var all = [];
@@ -299,6 +311,58 @@
       if (cid === 'optimized') mod += 1;
     });
     return mod;
+  }
+
+  function getNpcStatMods(npc) {
+    var mods = { defense: 0, evasion: 0, power: 0, resist: 0, actions: 0, initiative: 0 };
+    (npc.conditions || []).forEach(function (cid) {
+      if (cid === 'exposed') { mods.defense -= 1; mods.evasion -= 1; }
+      if (cid === 'shaken') mods.resist -= 1;
+      if (cid === 'stunned') { mods.actions -= 1; }
+      if (cid === 'slowed') mods.initiative -= 2;
+      if (cid === 'pinned') mods.evasion -= 2;
+      if (cid === 'suppressed') mods.power -= 1;
+      if (cid === 'optimized') mods.initiative += 1;
+    });
+    var weakArena = npc.conditionArenas && npc.conditionArenas.weakened;
+    var empArena = npc.conditionArenas && npc.conditionArenas.empowered;
+    if (weakArena && npc.conditions.indexOf('weakened') !== -1) {
+      if (weakArena === 'defense') mods.defense -= 1;
+      if (weakArena === 'evasion') mods.evasion -= 1;
+      if (weakArena === 'power') mods.power -= 1;
+      if (weakArena === 'resist') mods.resist -= 1;
+    }
+    if (empArena && npc.conditions.indexOf('empowered') !== -1) {
+      if (empArena === 'defense') mods.defense += 1;
+      if (empArena === 'evasion') mods.evasion += 1;
+      if (empArena === 'power') mods.power += 1;
+      if (empArena === 'resist') mods.resist += 1;
+    }
+    return mods;
+  }
+
+  var DIE_STEPS = ['—','D4','D6','D8','D10','D12','D20'];
+  function stepDie(dieStr, steps) {
+    var idx = -1;
+    for (var i = 0; i < DIE_STEPS.length; i++) {
+      if (DIE_STEPS[i].toLowerCase() === (dieStr || '').toLowerCase()) { idx = i; break; }
+    }
+    if (idx < 0) return dieStr;
+    var newIdx = Math.max(0, Math.min(DIE_STEPS.length - 1, idx + steps));
+    return DIE_STEPS[newIdx];
+  }
+
+  function getPcEffectiveDie(dieStr, conditions) {
+    var steps = 0;
+    (conditions || []).forEach(function (cid) {
+      if (cid === 'disoriented') steps -= 1;
+      if (cid === 'stunned') steps -= 2;
+      if (cid === 'optimized') steps += 1;
+      if (cid === 'empowered') steps += 1;
+      if (cid === 'weakened') steps -= 1;
+    });
+    if (steps === 0) return dieStr;
+    return stepDie(dieStr, steps);
   }
 
   function renderCombatTracker() {
@@ -355,7 +419,7 @@
       var npc = isNpc ? combatState.combatants.find(function (n) { return n.id === c.id; }) : null;
       var pc = !isNpc ? combatState.pcSlots.find(function (p) { return p.id === c.id; }) : null;
       var isDown = npc && npc.vitalityCurrent <= 0;
-      var isSurprised = pc && pc.surprised;
+      var isSurprised = (pc && pc.surprised) || (npc && npc.surprised);
 
       var cls = 'ct-rail-entry';
       if (isCurrent) cls += ' ct-rail-current';
@@ -421,21 +485,29 @@
     var html = '';
     var threatColor = npc.threat === 'minion' ? '#6b7280' : npc.threat === 'boss' ? '#ef4444' : 'var(--color-accent-primary)';
     var presMod = getPresenceEffect(npc.conditions);
+    var statMods = getNpcStatMods(npc);
 
     html += '<div class="ct-detail-header">';
     html += '<div class="ct-detail-name">' + esc(npc.name) + '</div>';
     html += '<span class="ct-detail-threat" style="color:' + threatColor + ';">' + esc(npc.threat).toUpperCase() + '</span>';
     if (npc.tier != null) html += '<span class="ct-detail-tier">T' + npc.tier + '</span>';
     if (npc.role) html += '<span class="ct-detail-role">' + esc(npc.role) + '</span>';
+    if (npc.surprised) html += '<span class="ct-rail-tag ct-tag-surprised" style="margin-left:0.3rem;">SURPRISED</span>';
     html += '</div>';
 
+    function statCell(label, base, mod) {
+      var eff = Math.max(0, base + mod);
+      var cls = mod < 0 ? ' ct-pres-debuff' : mod > 0 ? ' ct-pres-buff' : '';
+      var display = mod !== 0 ? eff + ' <small style="opacity:0.5;">(' + base + ')</small>' : '' + eff;
+      return '<div class="ct-stat-cell"><span class="ct-stat-label">' + label + '</span><span class="ct-stat-val' + cls + '">' + display + '</span></div>';
+    }
     html += '<div class="ct-detail-stats">';
-    html += '<div class="ct-stat-cell"><span class="ct-stat-label">Init</span><span class="ct-stat-val">' + npc.initiative + '</span></div>';
-    html += '<div class="ct-stat-cell"><span class="ct-stat-label">Def</span><span class="ct-stat-val">' + npc.defense + '</span></div>';
-    html += '<div class="ct-stat-cell"><span class="ct-stat-label">Eva</span><span class="ct-stat-val">' + npc.evasion + '</span></div>';
-    html += '<div class="ct-stat-cell"><span class="ct-stat-label">Pwr</span><span class="ct-stat-val">' + npc.power + '</span></div>';
-    html += '<div class="ct-stat-cell"><span class="ct-stat-label">Res</span><span class="ct-stat-val">' + npc.resist + '</span></div>';
-    html += '<div class="ct-stat-cell"><span class="ct-stat-label">Act</span><span class="ct-stat-val">' + (npc.actions || 1) + '</span></div>';
+    html += statCell('Init', npc.initiative, statMods.initiative);
+    html += statCell('Def', npc.defense, statMods.defense);
+    html += statCell('Eva', npc.evasion, statMods.evasion);
+    html += statCell('Pwr', npc.power, statMods.power);
+    html += statCell('Res', npc.resist, statMods.resist);
+    html += statCell('Act', npc.actions || 1, statMods.actions);
     html += '</div>';
 
     var presBase = npc.arenas.presence || 1;
@@ -503,7 +575,17 @@
       html += '<div class="ct-surprised-banner">SURPRISED &mdash; [Disoriented] + [Exposed] until end of first turn</div>';
     }
     if (pc.mastery) {
-      html += '<div class="ct-mastery-banner">MASTERY &mdash; Designate one enemy as surprised</div>';
+      html += '<div class="ct-mastery-banner">MASTERY &mdash; Designate one enemy as surprised';
+      if (!pc.masteryUsed) {
+        combatState.combatants.forEach(function (npc) {
+          if (!npc.surprised) {
+            html += ' <button class="ct-ctrl-btn" style="display:inline;padding:0.1rem 0.4rem;margin-left:0.3rem;font-size:0.55rem;" data-mastery-target="' + esc(npc.id) + '">' + esc(npc.name) + '</button>';
+          }
+        });
+      } else {
+        html += ' <span style="opacity:0.6;">(used)</span>';
+      }
+      html += '</div>';
     }
 
     if (pc.vitality != null) {
@@ -521,10 +603,19 @@
     if (pc.arenas && Object.keys(pc.arenas).length) {
       html += '<div class="ct-pc-arenas">';
       ARENA_GROUPS.forEach(function (ag) {
-        var die = pc.arenas[ag.id] || '';
+        var baseDie = pc.arenas[ag.id] || '';
+        var effDie = getPcEffectiveDie(baseDie, pc.conditions);
+        var dieChanged = effDie !== baseDie && baseDie;
         html += '<div class="ct-pc-arena-group">';
         html += '<div class="ct-pc-arena-header"><span class="ct-arena-lbl">' + ag.label + '</span>';
-        if (die) html += ' <span class="ct-arena-die">' + esc(die) + '</span>';
+        if (baseDie) {
+          if (dieChanged) {
+            html += ' <span class="ct-arena-die" style="color:' + (effDie < baseDie ? '#ef4444' : '#22c55e') + ';">' + esc(effDie) + '</span>';
+            html += ' <small style="opacity:0.4;text-decoration:line-through;">' + esc(baseDie) + '</small>';
+          } else {
+            html += ' <span class="ct-arena-die">' + esc(baseDie) + '</span>';
+          }
+        }
         html += '</div>';
 
         if (pc.disciplines) {
@@ -533,8 +624,15 @@
             if (!disc || !disc.die) return;
             var dieNum = parseInt((disc.die || '').replace(/[^\d]/g, ''), 10);
             if (dieNum <= 6) return;
+            var effDiscDie = getPcEffectiveDie(disc.die, pc.conditions);
+            var discChanged = effDiscDie !== disc.die;
             var label = dId.replace(/_/g, ' ');
-            html += '<div class="ct-pc-disc"><span>' + esc(label) + '</span> <span class="ct-disc-die">' + esc(disc.die) + '</span>';
+            html += '<div class="ct-pc-disc"><span>' + esc(label) + '</span> ';
+            if (discChanged) {
+              html += '<span class="ct-disc-die" style="color:' + (effDiscDie < disc.die ? '#ef4444' : '#22c55e') + ';">' + esc(effDiscDie) + '</span>';
+            } else {
+              html += '<span class="ct-disc-die">' + esc(disc.die) + '</span>';
+            }
             if (disc.favored) html += ' <span class="ct-disc-fav">\u2605</span>';
             html += '</div>';
           });
@@ -786,10 +884,13 @@
     picker.querySelectorAll('.ct-picker-option').forEach(function (opt) {
       opt.addEventListener('click', function (e) {
         e.stopPropagation();
+        var arena = opt.dataset.arena;
         var idx = npc.conditions.indexOf(condId);
         if (idx === -1) {
           npc.conditions.push(condId);
         }
+        if (!npc.conditionArenas) npc.conditionArenas = {};
+        npc.conditionArenas[condId] = arena;
         picker.remove();
         var palette = document.querySelector('.ct-condition-palette');
         if (palette) palette.remove();
@@ -945,6 +1046,20 @@
     container.querySelectorAll('.ct-push-condition-btn').forEach(function (btn) {
       btn.addEventListener('click', function () {
         showPcConditionPalette(btn, btn.dataset.pcId);
+      });
+    });
+
+    container.querySelectorAll('[data-mastery-target]').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var npcId = btn.dataset.masteryTarget;
+        designateNpcSurprised(npcId);
+        var pcId = btn.closest('.ct-detail-panel') ? combatState.selectedId : null;
+        if (pcId) {
+          var pc = combatState.pcSlots.find(function (p) { return p.id === pcId; });
+          if (pc) pc.masteryUsed = true;
+        }
+        renderCombatTracker();
       });
     });
 
