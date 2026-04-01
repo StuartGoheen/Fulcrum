@@ -757,6 +757,7 @@
       currentNpc.arenas = JSON.parse(JSON.stringify(pb.arenas));
       currentNpc.traits = pb.traits ? pb.traits.slice() : [];
       currentNpc.tags = pb.tags ? pb.tags.slice() : [];
+      currentNpc.extraGambits = pb.extraGambits ? pb.extraGambits.slice() : [];
       currentNpc.loot = pb.loot ? JSON.parse(JSON.stringify(pb.loot)) : [];
       currentNpc.socialNotes = pb.socialNotes || '';
       currentNpc.shipDetails = pb.shipDetails ? JSON.parse(JSON.stringify(pb.shipDetails)) : { hullType: '', crew: '', hyperdrive: '', sensors: '', shields: '', cargo: '', speed: '' };
