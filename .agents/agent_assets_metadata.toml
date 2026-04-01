@@ -1,0 +1,14 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "ONFXj54KxqE3-SokB-XBG"
+uri = "file://attached_assets/leviathan_spindle.png"
+type = "image"
+title = "Leviathan Spindle vertical ship"
+
+[[generated]]
+id = "jTK1PL5DRNlBIs06w3slz"
+uri = "file://attached_assets/leviathan_maw.png"
+type = "image"
+title = "Maw horseshoe spacecraft"
