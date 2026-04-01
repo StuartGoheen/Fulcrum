@@ -14,6 +14,76 @@
     'marked', 'guarded', 'cover', 'stimmed'
   ];
 
+  var ALL_CONDITIONS = [
+    'surprised', 'disoriented', 'rattled', 'stunned', 'exposed', 'shaken',
+    'weakened', 'empowered', 'optimized', 'prone', 'restrained', 'slowed',
+    'blinded', 'bleeding', 'hazard', 'incapacitated', 'suppressed', 'marked',
+    'pinned', 'guarded', 'cover', 'stimmed'
+  ];
+
+  var _conditionPanelState = {
+    targetId: null,
+    targetType: null,
+    sourceLabel: null,
+    selectedCondition: null
+  };
+
+  function npcCondIds(npc) {
+    if (!npc || !npc.conditions) return [];
+    return npc.conditions.map(function (c) { return typeof c === 'object' ? c.id : c; });
+  }
+
+  function npcHasCond(npc, condId) {
+    return npcCondIds(npc).indexOf(condId) !== -1;
+  }
+
+  function npcAddCond(npc, condId, duration, arena) {
+    if (!npc) return;
+    if (!npc.conditions) npc.conditions = [];
+    var def = getEffectDef(condId);
+    var dur = duration || (def && def.defaultDuration) || 'tactical';
+    var entry = { id: condId, duration: dur };
+    if (arena) entry.arena = arena;
+    var existing = npc.conditions.findIndex(function (c) {
+      return (typeof c === 'object' ? c.id : c) === condId;
+    });
+    if (existing !== -1) {
+      npc.conditions[existing] = entry;
+    } else {
+      npc.conditions.push(entry);
+    }
+  }
+
+  function npcRemoveCond(npc, condId) {
+    if (!npc) return;
+    npc.conditions = npc.conditions.filter(function (c) {
+      return (typeof c === 'object' ? c.id : c) !== condId;
+    });
+  }
+
+  function migrateNpcConditions(npc) {
+    if (!npc) return;
+    if (!npc.conditions) npc.conditions = [];
+    npc.conditions = npc.conditions.map(function (c) {
+      if (typeof c === 'string') {
+        var def = getEffectDef(c);
+        var entry = { id: c, duration: (def && def.defaultDuration) || 'tactical' };
+        if (npc.conditionArenas && npc.conditionArenas[c]) {
+          entry.arena = npc.conditionArenas[c];
+        }
+        return entry;
+      }
+      return c;
+    });
+    if (npc.conditionArenas) {
+      npc.conditions.forEach(function (c) {
+        if (typeof c === 'object' && !c.arena && npc.conditionArenas[c.id]) {
+          c.arena = npc.conditionArenas[c.id];
+        }
+      });
+    }
+  }
+
   var combatState = null;
   var _socket = null;
   var _socketHandlers = [];
@@ -256,6 +326,8 @@
       ];
     }
 
+    combatState.combatants.forEach(function (npc) { migrateNpcConditions(npc); });
+    setupRightColumnTabs();
     renderCombatTracker();
 
     triggerJoinBattle();
@@ -276,6 +348,8 @@
       sock.emit('combat:end');
     }
     combatState = null;
+    _conditionPanelState = { targetId: null, targetType: null, sourceLabel: null, selectedCondition: null };
+    teardownRightColumnTabs();
     var container = document.getElementById('combat-tracker-panel');
     if (container) {
       container.style.display = 'none';
@@ -299,8 +373,8 @@
   function designateNpcSurprised(npcId) {
     var npc = combatState ? combatState.combatants.find(function (n) { return n.id === npcId; }) : null;
     if (!npc) return;
-    if (npc.conditions.indexOf('disoriented') === -1) npc.conditions.push('disoriented');
-    if (npc.conditions.indexOf('exposed') === -1) npc.conditions.push('exposed');
+    if (!npcHasCond(npc, 'disoriented')) npcAddCond(npc, 'disoriented', 'immediate');
+    if (!npcHasCond(npc, 'exposed')) npcAddCond(npc, 'exposed', 'immediate');
     npc.surprised = true;
     renderCombatTracker();
   }
@@ -325,7 +399,8 @@
 
   function getTierEffect(conditions) {
     var mod = 0;
-    conditions.forEach(function (cid) {
+    conditions.forEach(function (c) {
+      var cid = typeof c === 'object' ? c.id : c;
       if (cid === 'disoriented') mod -= 1;
       if (cid === 'rattled') mod -= 1;
       if (cid === 'stunned') mod -= 2;
@@ -339,13 +414,25 @@
     var mods = {};
     var arenas = ['physique','reflex','grit','wits','presence'];
     arenas.forEach(function (a) { mods[a] = 0; });
-    if (npc.conditionArenas && npc.conditionArenas.weakened && npc.conditions.indexOf('weakened') !== -1) {
+    var ids = npcCondIds(npc);
+    npc.conditions.forEach(function (c) {
+      if (typeof c !== 'object') return;
+      if (c.id === 'weakened' && c.arena && mods[c.arena] !== undefined) {
+        mods[c.arena] -= 1;
+      }
+      if (c.id === 'empowered' && c.arena && mods[c.arena] !== undefined) {
+        mods[c.arena] += 1;
+      }
+    });
+    if (npc.conditionArenas && npc.conditionArenas.weakened && ids.indexOf('weakened') !== -1) {
       var wa = npc.conditionArenas.weakened;
-      if (mods[wa] !== undefined) mods[wa] -= 1;
+      var alreadyHandled = npc.conditions.some(function (c) { return typeof c === 'object' && c.id === 'weakened' && c.arena; });
+      if (!alreadyHandled && mods[wa] !== undefined) mods[wa] -= 1;
     }
-    if (npc.conditionArenas && npc.conditionArenas.empowered && npc.conditions.indexOf('empowered') !== -1) {
+    if (npc.conditionArenas && npc.conditionArenas.empowered && ids.indexOf('empowered') !== -1) {
       var ea = npc.conditionArenas.empowered;
-      if (mods[ea] !== undefined) mods[ea] += 1;
+      var alreadyHandledE = npc.conditions.some(function (c) { return typeof c === 'object' && c.id === 'empowered' && c.arena; });
+      if (!alreadyHandledE && mods[ea] !== undefined) mods[ea] += 1;
     }
     return mods;
   }
@@ -576,15 +663,25 @@
     html += '<div class="ct-conditions-section">';
     html += '<div class="ct-section-label">Conditions</div>';
     html += '<div class="ct-active-conditions">';
-    npc.conditions.forEach(function (cid) {
+    npc.conditions.forEach(function (c) {
+      var cid = typeof c === 'object' ? c.id : c;
+      var dur = typeof c === 'object' ? c.duration : null;
+      var arena = typeof c === 'object' ? c.arena : (npc.conditionArenas && npc.conditionArenas[cid]);
       var def = getEffectDef(cid);
       var label = def ? def.label : cid;
       var color = condColor(cid);
       var desc = def ? def.description : '';
-      html += '<span class="ct-condition-chip" style="background:' + color + '22;color:' + color + ';border-color:' + color + '44;" title="' + esc(desc) + '" data-npc-id="' + esc(npc.id) + '" data-cond="' + esc(cid) + '">' + esc(label) + ' &times;</span>';
+      var durMap = { immediate: '1T', tactical: 'S', lingering: 'L', ongoing: '\u221E' };
+      var meta = '';
+      var parts = [];
+      if (arena) parts.push(esc(arena));
+      if (dur && durMap[dur]) parts.push(esc(durMap[dur]));
+      if (parts.length) meta = ' <small class="ct-dur-tag">(' + parts.join('/') + ')</small>';
+      html += '<span class="ct-condition-chip" style="background:' + color + '22;color:' + color + ';border-color:' + color + '44;" title="' + esc(desc) + '" data-npc-id="' + esc(npc.id) + '" data-cond="' + esc(cid) + '">' + esc(label) + meta + ' &times;</span>';
     });
     html += '</div>';
     html += '<button class="ct-add-condition-btn" data-npc-id="' + esc(npc.id) + '">+ Condition</button>';
+    html += '<button class="ct-push-to-pc-btn" data-npc-id="' + esc(npc.id) + '" data-npc-name="' + esc(npc.name) + '">Push to PC</button>';
     html += '</div>';
 
     if (npc.roleKit) {
@@ -894,218 +991,407 @@
     return tokens;
   }
 
-  function showConditionPalette(anchorEl, npcId) {
-    var existing = document.querySelector('.ct-condition-palette');
-    if (existing) existing.remove();
+  function openConditionPanel(targetId, targetType, sourceLabel) {
+    _conditionPanelState.targetId = targetId || null;
+    _conditionPanelState.targetType = targetType || null;
+    _conditionPanelState.sourceLabel = sourceLabel || null;
+    _conditionPanelState.selectedCondition = null;
+    activateRightColumnTab('conditions');
+    renderConditionPanel();
+  }
 
-    var npc = combatState.combatants.find(function (n) { return n.id === npcId; });
-    if (!npc) return;
-
-    var palette = document.createElement('div');
-    palette.className = 'ct-condition-palette';
-
-    var html = '<div class="ct-palette-title">Apply Condition</div>';
-    NPC_CONDITIONS.forEach(function (condId) {
-      var def = getEffectDef(condId);
-      if (!def) return;
-      var active = npc.conditions.indexOf(condId) !== -1;
-      var color = condColor(condId);
-      var needsArena = (condId === 'weakened' || condId === 'empowered');
-      html += '<div class="ct-palette-item' + (active ? ' ct-palette-active' : '') + '" data-cond="' + esc(condId) + '" data-npc-id="' + esc(npcId) + '"' + (needsArena ? ' data-needs-arena="1"' : '') + ' title="' + esc(def.description) + '">';
-      html += '<span class="ct-palette-dot" style="background:' + color + ';"></span>';
-      html += '<span class="ct-palette-name">' + esc(def.label) + '</span>';
-      html += '<span class="ct-palette-effect">' + esc(def.description.split('.')[0]) + '</span>';
-      html += '</div>';
+  function activateRightColumnTab(tab) {
+    var colRight = document.querySelector('.cb-col-right');
+    if (!colRight) return;
+    var tabBtns = colRight.querySelectorAll('.ct-right-tab-btn');
+    tabBtns.forEach(function (btn) {
+      btn.classList.toggle('active', btn.dataset.tab === tab);
     });
-    palette.innerHTML = html;
+    var glossaryContent = document.getElementById('glossary-content');
+    var condPanel = document.getElementById('ct-condition-panel');
+    var glossaryTitle = colRight.querySelector('.cb-col-title');
+    if (tab === 'conditions') {
+      if (glossaryContent) glossaryContent.style.display = 'none';
+      if (condPanel) condPanel.style.display = 'block';
+      if (glossaryTitle) glossaryTitle.style.display = 'none';
+    } else {
+      if (glossaryContent) glossaryContent.style.display = '';
+      if (condPanel) condPanel.style.display = 'none';
+      if (glossaryTitle) glossaryTitle.style.display = '';
+    }
+  }
 
-    anchorEl.parentElement.appendChild(palette);
+  function setupRightColumnTabs() {
+    var colRight = document.querySelector('.cb-col-right');
+    if (!colRight) return;
+    var existing = colRight.querySelector('.ct-right-tab-bar');
+    if (existing) return;
 
-    palette.querySelectorAll('.ct-palette-item').forEach(function (item) {
-      item.addEventListener('click', function () {
-        var condId = item.dataset.cond;
-        var targetNpcId = item.dataset.npcId;
-        var targetNpc = combatState.combatants.find(function (n) { return n.id === targetNpcId; });
-        if (!targetNpc) return;
+    var tabBar = document.createElement('div');
+    tabBar.className = 'ct-right-tab-bar';
+    tabBar.innerHTML = '<button class="ct-right-tab-btn active" data-tab="conditions">Conditions</button>' +
+      '<button class="ct-right-tab-btn" data-tab="glossary">Glossary</button>';
 
-        if (item.dataset.needsArena === '1') {
-          showArenaPicker(item, targetNpc, condId);
-          return;
-        }
+    var glossaryTitle = colRight.querySelector('.cb-col-title');
+    var buildBtn = colRight.querySelector('#cb-build-threat');
+    if (buildBtn && buildBtn.nextSibling) {
+      colRight.insertBefore(tabBar, buildBtn.nextSibling);
+    } else if (glossaryTitle) {
+      colRight.insertBefore(tabBar, glossaryTitle);
+    } else {
+      colRight.prepend(tabBar);
+    }
 
-        var idx = targetNpc.conditions.indexOf(condId);
-        if (idx === -1) {
-          targetNpc.conditions.push(condId);
-        } else {
-          targetNpc.conditions.splice(idx, 1);
-        }
-        palette.remove();
-        renderCombatTracker();
+    var condPanel = document.createElement('div');
+    condPanel.id = 'ct-condition-panel';
+    condPanel.className = 'ct-condition-panel';
+    if (glossaryTitle) {
+      colRight.insertBefore(condPanel, glossaryTitle);
+    } else {
+      colRight.appendChild(condPanel);
+    }
+
+    tabBar.querySelectorAll('.ct-right-tab-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        activateRightColumnTab(btn.dataset.tab);
       });
     });
 
-    setTimeout(function () {
-      function closePalette(e) {
-        if (!palette.contains(e.target)) {
-          palette.remove();
-          document.removeEventListener('click', closePalette);
-        }
+    activateRightColumnTab('conditions');
+
+    var mobileNav = document.getElementById('cb-mobile-tabs');
+    if (mobileNav && !mobileNav.querySelector('[data-panel="conditions"]')) {
+      var condTab = document.createElement('button');
+      condTab.className = 'cb-mobile-tab';
+      condTab.dataset.panel = 'conditions';
+      condTab.innerHTML = '<span class="cb-mobile-tab-icon">&#9876;</span>Conditions';
+      var glossaryTab = mobileNav.querySelector('[data-panel="right"]');
+      if (glossaryTab) {
+        mobileNav.insertBefore(condTab, glossaryTab);
+      } else {
+        mobileNav.appendChild(condTab);
       }
-      document.addEventListener('click', closePalette);
-    }, 10);
-  }
-
-  function showArenaPicker(anchorItem, npc, condId) {
-    var existing = document.querySelector('.ct-arena-picker');
-    if (existing) existing.remove();
-
-    var picker = document.createElement('div');
-    picker.className = 'ct-arena-picker';
-    var arenas = ['physique', 'reflex', 'grit', 'wits', 'presence'];
-    var labels = { physique: 'Physique', reflex: 'Reflex', grit: 'Grit', wits: 'Wits', presence: 'Presence' };
-
-    var def = getEffectDef(condId);
-    picker.innerHTML = '<div class="ct-picker-title">Target Arena for ' + (def ? def.label : condId) + '</div>' +
-      arenas.map(function (a) {
-        return '<div class="ct-picker-option" data-arena="' + a + '">' + labels[a] + '</div>';
-      }).join('');
-
-    anchorItem.appendChild(picker);
-
-    picker.querySelectorAll('.ct-picker-option').forEach(function (opt) {
-      opt.addEventListener('click', function (e) {
-        e.stopPropagation();
-        var arena = opt.dataset.arena;
-        var idx = npc.conditions.indexOf(condId);
-        if (idx === -1) {
-          npc.conditions.push(condId);
-        }
-        if (!npc.conditionArenas) npc.conditionArenas = {};
-        npc.conditionArenas[condId] = arena;
-        picker.remove();
-        var palette = document.querySelector('.ct-condition-palette');
-        if (palette) palette.remove();
-        renderCombatTracker();
+      condTab.addEventListener('click', function () {
+        activateRightColumnTab('conditions');
+        var colLeft = document.querySelector('.cb-col-left');
+        var colCenter = document.querySelector('.cb-col-center');
+        if (colLeft) colLeft.classList.remove('cb-mobile-active');
+        if (colCenter) colCenter.classList.remove('cb-mobile-active');
+        if (colRight) colRight.classList.add('cb-mobile-active');
+        mobileNav.querySelectorAll('.cb-mobile-tab').forEach(function (t) {
+          t.classList.toggle('active', t === condTab);
+        });
       });
-    });
+    }
+
+    renderConditionPanel();
   }
 
-  function showPcConditionPalette(anchorEl, pcId) {
-    var existing = document.querySelector('.ct-condition-palette');
-    if (existing) existing.remove();
+  function teardownRightColumnTabs() {
+    var colRight = document.querySelector('.cb-col-right');
+    if (!colRight) return;
+    var tabBar = colRight.querySelector('.ct-right-tab-bar');
+    if (tabBar) tabBar.remove();
+    var condPanel = document.getElementById('ct-condition-panel');
+    if (condPanel) condPanel.remove();
+    var glossaryContent = document.getElementById('glossary-content');
+    if (glossaryContent) glossaryContent.style.display = '';
+    var glossaryTitle = colRight.querySelector('.cb-col-title');
+    if (glossaryTitle) glossaryTitle.style.display = '';
 
-    var pc = combatState.pcSlots.find(function (p) { return p.id === pcId; });
-    if (!pc) return;
+    var mobileNav = document.getElementById('cb-mobile-tabs');
+    if (mobileNav) {
+      var condTab = mobileNav.querySelector('[data-panel="conditions"]');
+      if (condTab) condTab.remove();
+    }
+  }
 
-    var palette = document.createElement('div');
-    palette.className = 'ct-condition-palette';
+  function renderConditionPanel() {
+    var panel = document.getElementById('ct-condition-panel');
+    if (!panel || !combatState) return;
 
-    var pcConditions = ['surprised', 'disoriented', 'rattled', 'stunned', 'exposed', 'shaken',
-      'weakened', 'empowered', 'optimized', 'prone', 'restrained', 'slowed',
-      'blinded', 'bleeding', 'hazard', 'incapacitated', 'suppressed', 'marked'];
+    var html = '';
+    var st = _conditionPanelState;
 
-    var html = '<div class="ct-palette-title">Push Condition to PC</div>';
-    html += '<div class="ct-duration-row">';
-    html += '<span class="ct-duration-label">Duration:</span>';
-    html += '<select class="ct-duration-select" id="ct-pc-duration-select">';
-    html += '<option value="immediate">Immediate (1 turn)</option>';
-    html += '<option value="tactical" selected>Tactical (scene)</option>';
-    html += '<option value="lingering">Lingering (multi-scene)</option>';
-    html += '<option value="ongoing">Ongoing (permanent)</option>';
+    html += '<div class="ct-cpanel-section">';
+    html += '<div class="ct-cpanel-title">Apply Condition</div>';
+
+    if (st.sourceLabel) {
+      html += '<div class="ct-cpanel-source">From: <strong>' + esc(st.sourceLabel) + '</strong></div>';
+    }
+
+    html += '<div class="ct-cpanel-field">';
+    html += '<label class="ct-cpanel-label">Target</label>';
+    html += '<select class="ct-cpanel-select" id="ct-cpanel-target">';
+    html += '<option value="">— Select Target —</option>';
+
+    var pcGroup = combatState.pcSlots;
+    var npcGroup = combatState.combatants;
+    if (pcGroup.length) {
+      html += '<optgroup label="PCs">';
+      pcGroup.forEach(function (pc) {
+        var sel = (st.targetType === 'pc' && st.targetId === pc.id) ? ' selected' : '';
+        html += '<option value="pc:' + esc(pc.id) + '"' + sel + '>' + esc(pc.name) + '</option>';
+      });
+      html += '</optgroup>';
+    }
+    if (npcGroup.length) {
+      html += '<optgroup label="NPCs">';
+      npcGroup.forEach(function (npc) {
+        var sel = (st.targetType === 'npc' && st.targetId === npc.id) ? ' selected' : '';
+        html += '<option value="npc:' + esc(npc.id) + '"' + sel + '>' + esc(npc.name) + '</option>';
+      });
+      html += '</optgroup>';
+    }
     html += '</select>';
     html += '</div>';
-    pcConditions.forEach(function (condId) {
+
+    var condList = st.targetType === 'npc' ? NPC_CONDITIONS : ALL_CONDITIONS;
+
+    html += '<div class="ct-cpanel-condlist">';
+    condList.forEach(function (condId) {
       var def = getEffectDef(condId);
       if (!def) return;
       var color = condColor(condId);
-      html += '<div class="ct-palette-item" data-cond="' + esc(condId) + '" data-pc-id="' + esc(pcId) + '" title="' + esc(def.description) + '">';
+      var selected = st.selectedCondition === condId;
+      html += '<div class="ct-cpanel-cond-item' + (selected ? ' ct-cpanel-cond-selected' : '') + '" data-cond="' + esc(condId) + '">';
       html += '<span class="ct-palette-dot" style="background:' + color + ';"></span>';
-      html += '<span class="ct-palette-name">' + esc(def.label) + '</span>';
-      html += '<span class="ct-palette-effect">' + esc(def.description.split('.')[0]) + '</span>';
+      html += '<span class="ct-cpanel-cond-name">' + esc(def.label) + '</span>';
+      html += '<span class="ct-cpanel-cond-desc">' + esc(def.description.split('.')[0]) + '</span>';
       html += '</div>';
     });
-    palette.innerHTML = html;
+    html += '</div>';
 
-    anchorEl.parentElement.appendChild(palette);
-
-    palette.querySelectorAll('.ct-palette-item').forEach(function (item) {
-      item.addEventListener('click', function () {
-        var condId = item.dataset.cond;
-        var targetPcId = item.dataset.pcId;
-        var def = getEffectDef(condId);
-        if (!def) return;
-
-        var durationSelect = document.getElementById('ct-pc-duration-select');
-        var duration = durationSelect ? durationSelect.value : (def.defaultDuration || 'tactical');
-
-        if (def.targetMode === 'arena_only') {
-          showPcArenaPicker(item, targetPcId, condId, palette, duration);
-          return;
-        }
-
-        var target = 'universal';
-        if (def.targetMode === 'fixed_arenas' || def.targetMode === 'fixed') target = 'fixed';
-
-        var sock = getSocket();
-        if (sock) {
-          sock.emit('condition:apply', {
-            characterId: targetPcId,
-            conditionId: condId,
-            target: target,
-            duration: duration
-          });
-        }
-
-        palette.remove();
+    if (st.selectedCondition) {
+      var selDef = getEffectDef(st.selectedCondition);
+      var defaultDur = selDef ? selDef.defaultDuration : 'tactical';
+      html += '<div class="ct-cpanel-field">';
+      html += '<label class="ct-cpanel-label">Duration</label>';
+      html += '<div class="ct-cpanel-dur-row">';
+      var durs = [
+        { val: 'immediate', label: 'Immediate (1 turn)', badge: '1T' },
+        { val: 'tactical', label: 'Tactical (scene)', badge: 'S' },
+        { val: 'lingering', label: 'Lingering (multi-scene)', badge: 'L' },
+        { val: 'ongoing', label: 'Ongoing (permanent)', badge: '\u221E' }
+      ];
+      durs.forEach(function (d) {
+        var isDefault = d.val === defaultDur;
+        html += '<button class="ct-cpanel-dur-btn' + (isDefault ? ' ct-cpanel-dur-active' : '') + '" data-dur="' + d.val + '" title="' + esc(d.label) + '">' + d.badge + '</button>';
       });
-    });
+      html += '</div>';
+      html += '</div>';
 
-    setTimeout(function () {
-      function closePalette(e) {
-        if (!palette.contains(e.target)) {
-          palette.remove();
-          document.removeEventListener('click', closePalette);
-        }
+      var needsArena = (st.selectedCondition === 'weakened' || st.selectedCondition === 'empowered');
+      if (needsArena) {
+        html += '<div class="ct-cpanel-field">';
+        html += '<label class="ct-cpanel-label">Target Arena</label>';
+        html += '<div class="ct-cpanel-arena-row">';
+        var arenas = ['physique', 'reflex', 'grit', 'wits', 'presence'];
+        var arenaLabels = { physique: 'PHY', reflex: 'REF', grit: 'GRT', wits: 'WIT', presence: 'PRS' };
+        arenas.forEach(function (a) {
+          html += '<button class="ct-cpanel-arena-btn" data-arena="' + a + '">' + arenaLabels[a] + '</button>';
+        });
+        html += '</div>';
+        html += '</div>';
       }
-      document.addEventListener('click', closePalette);
-    }, 10);
+
+      html += '<button class="ct-cpanel-apply-btn" id="ct-cpanel-apply"' + (needsArena ? ' disabled' : '') + '>Apply Condition</button>';
+    }
+
+    html += '</div>';
+
+    html += '<div class="ct-cpanel-section ct-cpanel-summary">';
+    html += '<div class="ct-cpanel-title">Active Conditions</div>';
+
+    var allCombatants = [];
+    combatState.pcSlots.forEach(function (pc) {
+      var conds = [];
+      if (pc.activeEffects && pc.activeEffects.length) {
+        pc.activeEffects.forEach(function (eff) {
+          var cid = eff.effectId || eff;
+          var dur = eff.duration || null;
+          var target = eff.target || null;
+          conds.push({ id: cid, duration: dur, target: target, uid: eff.uid });
+        });
+      } else if (pc.conditions && pc.conditions.length) {
+        pc.conditions.forEach(function (cid) {
+          conds.push({ id: cid });
+        });
+      }
+      if (conds.length) {
+        allCombatants.push({ name: pc.name, id: pc.id, type: 'pc', conditions: conds });
+      }
+    });
+    combatState.combatants.forEach(function (npc) {
+      if (npc.conditions && npc.conditions.length) {
+        var conds = npc.conditions.map(function (c) {
+          if (typeof c === 'object') return c;
+          return { id: c };
+        });
+        allCombatants.push({ name: npc.name, id: npc.id, type: 'npc', conditions: conds });
+      }
+    });
+
+    if (allCombatants.length === 0) {
+      html += '<div class="ct-cpanel-empty">No active conditions</div>';
+    } else {
+      allCombatants.forEach(function (combatant) {
+        html += '<div class="ct-cpanel-combatant">';
+        html += '<div class="ct-cpanel-cname">' + esc(combatant.name) + ' <small>(' + combatant.type.toUpperCase() + ')</small></div>';
+        html += '<div class="ct-cpanel-chips">';
+        combatant.conditions.forEach(function (c) {
+          var cid = typeof c === 'object' ? (c.id || c.effectId) : c;
+          var def = getEffectDef(cid);
+          var label = def ? def.label : cid;
+          var color = condColor(cid);
+          var durMap = { immediate: '1T', tactical: 'S', lingering: 'L', ongoing: '\u221E' };
+          var meta = '';
+          if (c.duration && durMap[c.duration]) meta = ' (' + durMap[c.duration] + ')';
+          var uidAttr = c.uid ? ' data-remove-uid="' + esc(c.uid) + '"' : '';
+          html += '<span class="ct-cpanel-chip" style="background:' + color + '22;color:' + color + ';border-color:' + color + '44;" data-remove-type="' + esc(combatant.type) + '" data-remove-id="' + esc(combatant.id) + '" data-remove-cond="' + esc(cid) + '"' + uidAttr + '>' + esc(label) + meta + ' &times;</span>';
+        });
+        html += '</div>';
+        html += '</div>';
+      });
+    }
+    html += '</div>';
+
+    panel.innerHTML = html;
+    attachConditionPanelEvents(panel);
   }
 
-  function showPcArenaPicker(anchorItem, pcId, condId, palette, duration) {
-    var existing = document.querySelector('.ct-arena-picker');
-    if (existing) existing.remove();
-
-    var picker = document.createElement('div');
-    picker.className = 'ct-arena-picker';
-    var arenas = ['physique', 'reflex', 'grit', 'wits', 'presence'];
-    var labels = { physique: 'Physique', reflex: 'Reflex', grit: 'Grit', wits: 'Wits', presence: 'Presence' };
-
-    var def = getEffectDef(condId);
-    picker.innerHTML = '<div class="ct-picker-title">Arena for ' + (def ? def.label : condId) + '</div>' +
-      arenas.map(function (a) {
-        return '<div class="ct-picker-option" data-arena="' + a + '">' + labels[a] + '</div>';
-      }).join('');
-
-    anchorItem.appendChild(picker);
-
-    picker.querySelectorAll('.ct-picker-option').forEach(function (opt) {
-      opt.addEventListener('click', function (e) {
-        e.stopPropagation();
-        var arena = opt.dataset.arena;
-        var sock = getSocket();
-        if (sock) {
-          sock.emit('condition:apply', {
-            characterId: pcId,
-            conditionId: condId,
-            target: 'arena:' + arena,
-            duration: duration || (def && def.defaultDuration) || 'tactical'
-          });
+  function attachConditionPanelEvents(panel) {
+    var targetSelect = panel.querySelector('#ct-cpanel-target');
+    if (targetSelect) {
+      targetSelect.addEventListener('change', function () {
+        var val = targetSelect.value;
+        if (val) {
+          var parts = val.split(':');
+          _conditionPanelState.targetType = parts[0];
+          _conditionPanelState.targetId = parts[1];
+        } else {
+          _conditionPanelState.targetType = null;
+          _conditionPanelState.targetId = null;
         }
-        picker.remove();
-        if (palette) palette.remove();
+        _conditionPanelState.selectedCondition = null;
+        renderConditionPanel();
+      });
+    }
+
+    panel.querySelectorAll('.ct-cpanel-cond-item').forEach(function (item) {
+      item.addEventListener('click', function () {
+        _conditionPanelState.selectedCondition = item.dataset.cond;
+        renderConditionPanel();
+      });
+    });
+
+    var selectedArena = null;
+    panel.querySelectorAll('.ct-cpanel-arena-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        panel.querySelectorAll('.ct-cpanel-arena-btn').forEach(function (b) { b.classList.remove('ct-cpanel-arena-active'); });
+        btn.classList.add('ct-cpanel-arena-active');
+        selectedArena = btn.dataset.arena;
+        var applyBtn = panel.querySelector('#ct-cpanel-apply');
+        if (applyBtn) applyBtn.disabled = false;
+      });
+    });
+
+    var activeDur = null;
+    panel.querySelectorAll('.ct-cpanel-dur-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        panel.querySelectorAll('.ct-cpanel-dur-btn').forEach(function (b) { b.classList.remove('ct-cpanel-dur-active'); });
+        btn.classList.add('ct-cpanel-dur-active');
+        activeDur = btn.dataset.dur;
+      });
+    });
+
+    var applyBtn = panel.querySelector('#ct-cpanel-apply');
+    if (applyBtn) {
+      applyBtn.addEventListener('click', function () {
+        var st = _conditionPanelState;
+        if (!st.targetId || !st.selectedCondition) return;
+
+        var condId = st.selectedCondition;
+        var def = getEffectDef(condId);
+        var activeBtn = panel.querySelector('.ct-cpanel-dur-btn.ct-cpanel-dur-active');
+        var duration = activeBtn ? activeBtn.dataset.dur : (def ? def.defaultDuration : 'tactical');
+        var arena = selectedArena || null;
+
+        if (st.targetType === 'pc') {
+          var target = 'universal';
+          if (def && def.targetMode === 'fixed_arenas') target = 'fixed';
+          if (def && def.targetMode === 'arena_only' && arena) target = 'arena:' + arena;
+          var sock = getSocket();
+          if (sock) {
+            sock.emit('condition:apply', {
+              characterId: st.targetId,
+              conditionId: condId,
+              target: target,
+              duration: duration
+            });
+          }
+        } else if (st.targetType === 'npc') {
+          var npc = combatState.combatants.find(function (n) { return n.id === st.targetId; });
+          if (npc) {
+            npcAddCond(npc, condId, duration, arena);
+            renderCombatTracker();
+          }
+        }
+
+        _conditionPanelState.selectedCondition = null;
+        renderConditionPanel();
+      });
+    }
+
+    panel.querySelectorAll('.ct-cpanel-chip').forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        var type = chip.dataset.removeType;
+        var id = chip.dataset.removeId;
+        var condId = chip.dataset.removeCond;
+        var uid = chip.dataset.removeUid || null;
+        if (type === 'npc') {
+          var npc = combatState.combatants.find(function (n) { return n.id === id; });
+          if (npc) {
+            npcRemoveCond(npc, condId);
+            renderCombatTracker();
+          }
+        } else if (type === 'pc') {
+          var sock = getSocket();
+          if (sock) {
+            var removePayload = { characterId: id, conditionId: condId };
+            if (uid) removePayload.uid = uid;
+            sock.emit('condition:remove', removePayload);
+          }
+          var pc = combatState.pcSlots.find(function (p) { return p.id === id; });
+          if (pc) {
+            if (uid) {
+              pc.activeEffects = (pc.activeEffects || []).filter(function (e) { return e.uid !== uid; });
+              var stillHas = (pc.activeEffects || []).some(function (e) { return (e.effectId || e) === condId; });
+              if (!stillHas) {
+                pc.conditions = (pc.conditions || []).filter(function (c) { return c !== condId; });
+              }
+            } else {
+              pc.conditions = (pc.conditions || []).filter(function (c) { return c !== condId; });
+              pc.activeEffects = (pc.activeEffects || []).filter(function (e) { return (e.effectId || e) !== condId; });
+            }
+          }
+        }
+        renderConditionPanel();
       });
     });
   }
+
+  function showConditionPalette(anchorEl, npcId) {
+    openConditionPanel(npcId, 'npc');
+  }
+
+  function showArenaPicker() {}
+
+  function showPcConditionPalette(anchorEl, pcId) {
+    openConditionPanel(pcId, 'pc');
+  }
+
+  function showPcArenaPicker() {}
 
   function removeNpcFromCombat(npcId) {
     if (!combatState) return;
@@ -1363,9 +1649,10 @@
       chip.addEventListener('click', function () {
         var npcId = chip.dataset.npcId;
         var condId = chip.dataset.cond;
+        if (!npcId) return;
         var npc = combatState.combatants.find(function (n) { return n.id === npcId; });
         if (npc) {
-          npc.conditions = npc.conditions.filter(function (c) { return c !== condId; });
+          npcRemoveCond(npc, condId);
           renderCombatTracker();
         }
       });
@@ -1373,13 +1660,19 @@
 
     container.querySelectorAll('.ct-add-condition-btn').forEach(function (btn) {
       btn.addEventListener('click', function () {
-        showConditionPalette(btn, btn.dataset.npcId);
+        openConditionPanel(btn.dataset.npcId, 'npc');
       });
     });
 
     container.querySelectorAll('.ct-push-condition-btn').forEach(function (btn) {
       btn.addEventListener('click', function () {
-        showPcConditionPalette(btn, btn.dataset.pcId);
+        openConditionPanel(btn.dataset.pcId, 'pc');
+      });
+    });
+
+    container.querySelectorAll('.ct-push-to-pc-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        openConditionPanel(null, 'pc', btn.dataset.npcName);
       });
     });
 
@@ -1452,6 +1745,7 @@
   renderCombatTracker = function () {
     _origRenderCombatTracker();
     syncStateToServer();
+    renderConditionPanel();
   };
 
   function restoreFromState(serverState) {
@@ -1543,11 +1837,15 @@
       ];
     }
 
+    combatState.combatants.forEach(function (npc) { migrateNpcConditions(npc); });
+    setupRightColumnTabs();
+
     var container = document.getElementById('combat-tracker-panel');
     if (container) {
       container.style.display = 'block';
       _origRenderCombatTracker();
     }
+    renderConditionPanel();
   }
 
   window.CombatTracker = {
