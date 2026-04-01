@@ -1753,264 +1753,6 @@
           "gmNotes": "Ganga Lor wants to recover the code cylinder and make an example of everyone involved. Varga wants the cylinder because it could lead someone to Varth before Varga gets to him — Varga needs Varth alive to unlock the encrypted account in his own financial network.\n\nThe fight takes place in cramped quarters — use the environment: toppling droid part stacks, shooting steam pipes, activating Switch's security turrets. This is a significant combat — Ganga Lor is a real threat.\n\nGANGA LOR IS KILLED IN THIS FIGHT. This is a mandatory outcome. He does not escape or retreat. His death establishes that the heroes' actions have real consequences and removes Varga's local enforcer from the board.\n\nAfter the fight, if the deal with Switch was struck earlier, Switch finishes the cylinder analysis and delivers the ghost transfer authorization reveal. If the analysis was already complete, the fight simply confirms that Varga is actively hunting the cylinder.",
           "npcs": [
             {
-              "name": "Ganga Lor",
-              "type": "Chevin Lieutenant",
-              "count": 1,
-              "notes": "Varga's enforcer. Massive trunked alien. Making an example.",
-              "behavior": "Leads from front. Uses size to dominate enclosed space. Targets Maya. Fights to the death rather than face Varga.",
-              "dialogue": [
-                "\"Nobody steals from the Mighty Varga. Not the girl. Not the droid. And definitely not you.\"",
-                "\"Bring me the cylinder and the girl. The rest of you can walk.\"",
-                "\"Varga's patience has a limit. Mine ended ten minutes ago.\""
-              ],
-              "intel": "Knows exactly what was stolen — the Code Cylinder. Does NOT know what's on it.",
-              "threatBuild": {
-                "role": "commander",
-                "tier": 1,
-                "classification": "elite",
-                "threatCategory": "character",
-                "arenas": {
-                  "physique": 2,
-                  "reflex": 2,
-                  "grit": 3,
-                  "wits": 1,
-                  "presence": 4
-                },
-                "weaponChassis": "medium",
-                "traits": [
-                  "tough",
-                  "disciplined",
-                  "veteran",
-                  "loyal"
-                ],
-                "tags": [
-                  "Chevin"
-                ],
-                "roleKit": {
-                  "passive": null,
-                  "actions": [
-                    {
-                      "name": "Direct Fire",
-                      "type": "action",
-                      "arena": "presence",
-                      "defense": "none",
-                      "description": "Order one ally to immediately make an attack as a reaction.",
-                      "npcEffects": [
-                        {
-                          "tier": "F",
-                          "range": "-1 to -3",
-                          "description": "One ally makes a basic attack as a reaction."
-                        },
-                        {
-                          "tier": "M",
-                          "range": "-4 to -7",
-                          "description": "One ally attacks with [Optimized]."
-                        },
-                        {
-                          "tier": "L",
-                          "range": "-8+",
-                          "description": "Two allies each make an attack. One gains [Optimized]."
-                        }
-                      ]
-                    },
-                    {
-                      "name": "Rally",
-                      "type": "action",
-                      "arena": "presence",
-                      "defense": "none",
-                      "description": "Remove [Shaken] or [Rattled] from one ally in range.",
-                      "npcEffects": [
-                        {
-                          "tier": "F",
-                          "range": "-1 to -3",
-                          "description": "Remove [Rattled] or [Shaken] from one ally."
-                        },
-                        {
-                          "tier": "M",
-                          "range": "-4 to -7",
-                          "description": "Remove one condition from one ally. Ally gains [Buffered 1]."
-                        },
-                        {
-                          "tier": "L",
-                          "range": "-8+",
-                          "description": "Remove all [Rattled]/[Shaken] from one ally. Ally gains [Buffered 2]."
-                        }
-                      ]
-                    }
-                  ],
-                  "maneuver": null,
-                  "gambit": null,
-                  "exploit": null
-                },
-                "notes": "Elite Brute. Defense 5 = max(5,2)-1+1. Evasion 1 = Ref 2-1+1-1(slow). Resist 3 = Grit 3-1+1. 5. Tough: ignore Fleeting damage. A serious fight for the party.",
-                "computed": {
-                  "arenas": {
-                    "physique": 2,
-                    "reflex": 2,
-                    "grit": 3,
-                    "wits": 1,
-                    "presence": 4
-                  },
-                  "defense": 3,
-                  "evasion": 3,
-                  "resist": 5,
-                  "vitality": 9,
-                  "rawVitality": 6,
-                  "powers": {
-                    "physique": 3,
-                    "reflex": 3,
-                    "grit": 4,
-                    "wits": 2,
-                    "presence": 5
-                  },
-                  "exploits": 2,
-                  "initiative": 3,
-                  "role": {
-                    "id": "commander",
-                    "name": "Commander",
-                    "category": "combat",
-                    "description": "Tactical leader. Amplifies allies, directs the battlefield, controls tempo.",
-                    "arenaMods": {
-                      "presence": 1,
-                      "physique": -1
-                    },
-                    "passive": {
-                      "name": "Rallying Presence",
-                      "description": "Allies within close range gain +1 to resist [Shaken] and [Rattled]."
-                    },
-                    "actions": [
-                      {
-                        "name": "Direct Fire",
-                        "type": "action",
-                        "arena": "presence",
-                        "defense": "none",
-                        "description": "Order one ally to immediately make an attack as a reaction.",
-                        "npcEffects": [
-                          {
-                            "tier": "F",
-                            "range": "-1 to -3",
-                            "description": "One ally makes a basic attack as a reaction."
-                          },
-                          {
-                            "tier": "M",
-                            "range": "-4 to -7",
-                            "description": "One ally attacks with [Optimized]."
-                          },
-                          {
-                            "tier": "L",
-                            "range": "-8+",
-                            "description": "Two allies each make an attack. One gains [Optimized]."
-                          }
-                        ]
-                      },
-                      {
-                        "name": "Rally",
-                        "type": "action",
-                        "arena": "presence",
-                        "defense": "none",
-                        "description": "Remove [Shaken] or [Rattled] from one ally in range.",
-                        "npcEffects": [
-                          {
-                            "tier": "F",
-                            "range": "-1 to -3",
-                            "description": "Remove [Rattled] or [Shaken] from one ally."
-                          },
-                          {
-                            "tier": "M",
-                            "range": "-4 to -7",
-                            "description": "Remove one condition from one ally. Ally gains [Buffered 1]."
-                          },
-                          {
-                            "tier": "L",
-                            "range": "-8+",
-                            "description": "Remove all [Rattled]/[Shaken] from one ally. Ally gains [Buffered 2]."
-                          }
-                        ]
-                      }
-                    ],
-                    "maneuver": {
-                      "name": "Issue Orders",
-                      "defense": "none",
-                      "description": "One ally gains a bonus maneuver on their next turn."
-                    },
-                    "gambit": {
-                      "name": "Tactical Withdrawal",
-                      "cost": "-1 Power",
-                      "modifies": "Direct Fire",
-                      "description": "Instead of ordering an attack, one ally moves 1 zone without presenting an Opening.",
-                      "rider": "Ally moves 1 zone safely"
-                    },
-                    "exploit": {
-                      "name": "Coordinated Assault",
-                      "trigger": "An ally is attacked by a PC.",
-                      "description": "All allies gain +1 Power until end of round."
-                    }
-                  },
-                  "classification": {
-                    "id": "elite",
-                    "name": "Elite",
-                    "description": "Bolt-on. Tougher and more versatile. The featured enemy that demands respect.",
-                    "vitalityMod": 1.5,
-                    "exploitMod": 1,
-                    "notes": "An Elite can replace 2-3 Standards and provide a more interesting fight."
-                  },
-                  "rolePowerBonus": null,
-                  "immunities": [],
-                  "vulnerabilities": [],
-                  "scale": null,
-                  "scaleLevel": 1,
-                  "ironClad": false,
-                  "isStationary": false
-                },
-                "name": "Ganga Lor",
-                "shipDetails": {
-                  "hullType": "",
-                  "crew": "",
-                  "hyperdrive": "",
-                  "sensors": "",
-                  "shields": "",
-                  "cargo": "",
-                  "speed": ""
-                },
-                "loot": [
-                  {
-                    "id": "wpn_quick_six_01",
-                    "name": "Merr-Sonn Quick-Six",
-                    "type": "weapon",
-                    "qty": 1
-                  }
-                ],
-                "attacks": [
-                  {
-                    "name": "Blast-em",
-                    "arena": "reflex",
-                    "powerMod": 0,
-                    "chassis": "light",
-                    "canStun": true,
-                    "sourceAction": "Direct Fire"
-                  },
-                  {
-                    "name": "Pummel-em",
-                    "arena": "physique",
-                    "powerMod": 0,
-                    "chassis": "light",
-                    "canStun": true,
-                    "sourceAction": "Rally"
-                  }
-                ],
-                "socialNotes": "",
-                "extraGambits": []
-              },
-              "loot": [
-                {
-                  "id": "wpn_quick_six_01",
-                  "name": "Merr-Sonn Quick-Six",
-                  "type": "weapon",
-                  "qty": 1
-                }
-              ]
-            },
-            {
               "name": "Switch's Thugs",
               "type": "Character",
               "count": 1,
@@ -2802,6 +2544,129 @@
                 "roleKit": null,
                 "weaponChassis": "medium",
                 "loot": []
+              }
+            },
+            {
+              "name": "Ganga Lor",
+              "type": "Character",
+              "count": 1,
+              "loot": [
+                {
+                  "id": "wpn_quick_six_01",
+                  "name": "Merr-Sonn Quick-Six",
+                  "type": "weapon",
+                  "qty": 1
+                }
+              ],
+              "threatBuild": {
+                "role": "commander",
+                "tier": 1,
+                "classification": "elite",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 3,
+                  "reflex": 2,
+                  "grit": 3,
+                  "wits": 1,
+                  "presence": 3
+                },
+                "computed": {
+                  "defense": 3,
+                  "evasion": 3,
+                  "resist": 5,
+                  "vitality": 9,
+                  "initiative": 3,
+                  "power": 5,
+                  "powers": {
+                    "physique": 3,
+                    "reflex": 3,
+                    "grit": 4,
+                    "wits": 2,
+                    "presence": 5
+                  },
+                  "actions": 1,
+                  "exploits": 2,
+                  "damageTiers": {
+                    "label": "medium",
+                    "fleeting": 3,
+                    "masterful": 5,
+                    "legendary": 8
+                  }
+                },
+                "traits": [
+                  "tough",
+                  "disciplined",
+                  "veteran",
+                  "loyal"
+                ],
+                "tags": [
+                  "Chevin"
+                ],
+                "roleKit": {
+                  "passive": null,
+                  "actions": [
+                    {
+                      "name": "Direct Fire",
+                      "type": "action",
+                      "arena": "presence",
+                      "defense": "none",
+                      "description": "Order one ally to immediately make an attack as a reaction.",
+                      "npcEffects": [
+                        {
+                          "tier": "F",
+                          "range": "-1 to -3",
+                          "description": "One ally makes a basic attack as a reaction."
+                        },
+                        {
+                          "tier": "M",
+                          "range": "-4 to -7",
+                          "description": "One ally attacks with [Optimized]."
+                        },
+                        {
+                          "tier": "L",
+                          "range": "-8+",
+                          "description": "Two allies each make an attack. One gains [Optimized]."
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Rally",
+                      "type": "action",
+                      "arena": "presence",
+                      "defense": "none",
+                      "description": "Remove [Shaken] or [Rattled] from one ally in range.",
+                      "npcEffects": [
+                        {
+                          "tier": "F",
+                          "range": "-1 to -3",
+                          "description": "Remove [Rattled] or [Shaken] from one ally."
+                        },
+                        {
+                          "tier": "M",
+                          "range": "-4 to -7",
+                          "description": "Remove one condition from one ally. Ally gains [Buffered 1]."
+                        },
+                        {
+                          "tier": "L",
+                          "range": "-8+",
+                          "description": "Remove all [Rattled]/[Shaken] from one ally. Ally gains [Buffered 2]."
+                        }
+                      ]
+                    }
+                  ],
+                  "maneuver": null,
+                  "gambit": null,
+                  "exploit": null
+                },
+                "weaponChassis": "medium",
+                "loot": [
+                  {
+                    "id": "wpn_quick_six_01",
+                    "name": "Merr-Sonn Quick-Six",
+                    "type": "weapon",
+                    "qty": 1
+                  }
+                ]
               }
             }
           ],

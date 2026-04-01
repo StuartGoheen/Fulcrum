@@ -1342,12 +1342,24 @@
       var role = currentNpc.role && threatData ? threatData.roles.find(function (r) { return r.id === currentNpc.role; }) : null;
       if (role) {
         result.roleKit = {
-          passives: role.passives || [],
-          actions: role.actions || [],
-          maneuvers: role.maneuvers || [],
-          gambits: role.gambits || [],
-          exploits: role.exploits || []
+          roleName: role.name || '',
+          passive: role.passive || null,
+          actions: (role.actions || []).map(function (a) {
+            var aClone = JSON.parse(JSON.stringify(a));
+            if (a.arena && stats.powers[a.arena] !== undefined) {
+              aClone.attackPower = stats.powers[a.arena] + (a.powerMod || 0);
+            }
+            return aClone;
+          }),
+          maneuver: role.maneuver || null,
+          gambit: role.gambit || null,
+          exploit: role.exploit || null
         };
+      }
+      if (currentNpc.extraGambits && currentNpc.extraGambits.length && threatData.npcGambitPool) {
+        result.extraGambits = currentNpc.extraGambits.map(function (gid) {
+          return threatData.npcGambitPool.find(function (g) { return g.id === gid; });
+        }).filter(Boolean);
       }
       result.arenas = stats.arenas || currentNpc.arenas;
       result.computedAttacks = computeAttackDisplayData(currentNpc.attacks, stats, currentNpc);
@@ -1389,12 +1401,25 @@
       var roleKit = null;
       if (role) {
         roleKit = {
-          passive: (role.passives && role.passives[0]) || null,
-          actions: role.actions || [],
-          maneuver: (role.maneuvers && role.maneuvers[0]) || null,
-          gambit: (role.gambits && role.gambits[0]) || null,
-          exploit: (role.exploits && role.exploits[0]) || null
+          roleName: role.name || '',
+          passive: role.passive || null,
+          actions: (role.actions || []).map(function (a) {
+            var aClone = JSON.parse(JSON.stringify(a));
+            if (a.arena && stats.powers[a.arena] !== undefined) {
+              aClone.attackPower = stats.powers[a.arena] + (a.powerMod || 0);
+            }
+            return aClone;
+          }),
+          maneuver: role.maneuver || null,
+          gambit: role.gambit || null,
+          exploit: role.exploit || null
         };
+      }
+      var extraGambitsResolved = null;
+      if (savedNpc.extraGambits && savedNpc.extraGambits.length && threatData.npcGambitPool) {
+        extraGambitsResolved = savedNpc.extraGambits.map(function (gid) {
+          return threatData.npcGambitPool.find(function (g) { return g.id === gid; });
+        }).filter(Boolean);
       }
       var cls = savedNpc.classification && threatData ? threatData.classifications.find(function (c) { return c.id === savedNpc.classification; }) : null;
       var maxPower = 0;
@@ -1421,6 +1446,7 @@
       return {
         computed: computed,
         roleKit: roleKit,
+        extraGambits: extraGambitsResolved,
         computedAttacks: computeAttackDisplayData(savedNpc.attacks, stats, savedNpc)
       };
     });

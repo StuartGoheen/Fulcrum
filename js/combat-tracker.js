@@ -724,7 +724,7 @@
     html += '</div>';
 
     if (npc.roleKit) {
-      html += renderRoleKit(npc.roleKit);
+      html += renderRoleKit(npc.roleKit, npc.threatBuild || npc);
     }
 
     var attacks = npc.computedAttacks || (npc.threatBuild && npc.threatBuild.computedAttacks) || [];
@@ -895,29 +895,78 @@
     return html;
   }
 
-  function renderRoleKit(rk) {
+  function renderRoleKit(rk, tb) {
     var html = '<div class="ct-rolekit">';
-    html += '<div class="ct-section-label">Role Kit</div>';
+    html += '<div class="ct-section-label">' + (rk.roleName ? esc(rk.roleName) : 'Role Kit') + '</div>';
 
     if (rk.passive) {
       html += '<div class="ct-rk-entry"><span class="ct-rk-tag ct-rk-passive">Passive</span> <strong>' + esc(rk.passive.name) + '</strong> &mdash; ' + esc(rk.passive.description) + '</div>';
     }
     if (rk.actions && rk.actions.length) {
       rk.actions.forEach(function (a) {
+        var defLabel = '';
+        if (a.defense && a.defense !== 'none') {
+          defLabel = a.defense === 'dodge/endure' ? 'PC Defense' : a.defense.charAt(0).toUpperCase() + a.defense.slice(1);
+        }
+        var isUnopposed = (!a.defense || a.defense === 'none');
         html += '<div class="ct-rk-entry"><span class="ct-rk-tag ct-rk-action">Action</span> <strong>' + esc(a.name) + '</strong>';
         if (a.attackPower != null) html += ' <span class="ct-rk-power">P' + a.attackPower + '</span>';
         if (a.arena) html += ' <span class="ct-rk-arena">(' + esc(a.arena) + ')</span>';
-        html += ' &mdash; ' + esc(a.description) + '</div>';
+        if (defLabel) html += ' <span style="font-size:0.55rem;color:#60a5fa;">vs ' + esc(defLabel) + '</span>';
+        if (isUnopposed && a.npcEffects && a.npcEffects.length && a.attackPower != null) {
+          html += ' <span style="font-size:0.5rem;color:#60a5fa;background:rgba(96,165,250,0.12);padding:0 0.15rem;border-radius:2px;">Unopposed P' + a.attackPower + '</span>';
+        }
+        html += ' &mdash; ' + esc(a.description);
+        if (a.npcEffects && a.npcEffects.length) {
+          var autoT = (isUnopposed && a.attackPower != null) ? (a.attackPower >= 8 ? 'L' : (a.attackPower >= 4 ? 'M' : 'F')) : '';
+          a.npcEffects.forEach(function (ef) {
+            var active = (autoT && ef.tier === autoT);
+            var style = active ? 'opacity:1;color:var(--color-text-primary);background:rgba(96,165,250,0.12);border-left:2px solid #60a5fa;padding-left:0.15rem;' : 'opacity:0.5;';
+            html += '<div style="font-size:0.5rem;line-height:1.3;margin-left:0.5rem;' + style + '"><strong style="color:#60a5fa;">' + esc(ef.tier) + '</strong> <span style="color:rgba(255,255,255,0.4);">' + esc(ef.range) + '</span> ' + esc(ef.description) + '</div>';
+          });
+        }
+        html += '</div>';
       });
     }
     if (rk.maneuver) {
-      html += '<div class="ct-rk-entry"><span class="ct-rk-tag ct-rk-maneuver">Maneuver</span> <strong>' + esc(rk.maneuver.name) + '</strong> &mdash; ' + esc(rk.maneuver.description) + '</div>';
+      var manDef = '';
+      if (rk.maneuver.defense && rk.maneuver.defense !== 'none') {
+        manDef = rk.maneuver.defense === 'dodge/endure' ? 'PC Defense' : rk.maneuver.defense.charAt(0).toUpperCase() + rk.maneuver.defense.slice(1);
+      }
+      html += '<div class="ct-rk-entry"><span class="ct-rk-tag ct-rk-maneuver">Maneuver</span> <strong>' + esc(rk.maneuver.name) + '</strong>';
+      if (manDef) html += ' <span style="font-size:0.55rem;color:#60a5fa;">vs ' + esc(manDef) + '</span>';
+      html += ' &mdash; ' + esc(rk.maneuver.description);
+      if (rk.maneuver.npcEffects && rk.maneuver.npcEffects.length) {
+        rk.maneuver.npcEffects.forEach(function (ef) {
+          html += '<div style="font-size:0.5rem;line-height:1.3;margin-left:0.5rem;color:var(--color-text-secondary);"><strong style="color:#60a5fa;">' + esc(ef.tier) + '</strong> <span style="color:rgba(255,255,255,0.4);">' + esc(ef.range) + '</span> ' + esc(ef.description) + '</div>';
+        });
+      }
+      html += '</div>';
     }
     if (rk.gambit) {
       html += '<div class="ct-rk-entry"><span class="ct-rk-tag ct-rk-gambit">Gambit</span> <strong>' + esc(rk.gambit.name) + '</strong> <span class="ct-rk-cost">(1 Pwr)</span> &mdash; ' + esc(rk.gambit.description) + '</div>';
     }
+    if (tb && tb.extraGambits && tb.extraGambits.length) {
+      tb.extraGambits.forEach(function (eg) {
+        html += '<div class="ct-rk-entry"><span class="ct-rk-tag ct-rk-gambit">Gambit</span> <strong>' + esc(eg.name) + '</strong> <span class="ct-rk-cost">(1 Pwr)</span> &mdash; ' + esc(eg.description) + '</div>';
+      });
+    }
     if (rk.exploit) {
-      html += '<div class="ct-rk-entry"><span class="ct-rk-tag ct-rk-exploit">Exploit</span> <strong>' + esc(rk.exploit.name) + '</strong> &mdash; ' + esc(rk.exploit.description) + '</div>';
+      html += '<div class="ct-rk-entry"><span class="ct-rk-tag ct-rk-exploit">Exploit</span> <strong>' + esc(rk.exploit.name) + '</strong>';
+      if (rk.exploit.defense && rk.exploit.defense !== 'none') {
+        var expDef = rk.exploit.defense === 'dodge/endure' ? 'PC Defense' : rk.exploit.defense.charAt(0).toUpperCase() + rk.exploit.defense.slice(1);
+        html += ' <span style="font-size:0.55rem;color:#60a5fa;">vs ' + esc(expDef) + '</span>';
+      }
+      if (rk.exploit.trigger) {
+        html += '<div style="font-size:0.5rem;color:var(--color-warn,#f59e0b);"><strong>TRIGGER:</strong> ' + esc(rk.exploit.trigger) + '</div>';
+      }
+      html += ' &mdash; ' + esc(rk.exploit.description);
+      if (rk.exploit.npcEffects && rk.exploit.npcEffects.length) {
+        rk.exploit.npcEffects.forEach(function (ef) {
+          html += '<div style="font-size:0.5rem;line-height:1.3;margin-left:0.5rem;color:var(--color-text-secondary);"><strong style="color:#60a5fa;">' + esc(ef.tier) + '</strong> <span style="color:rgba(255,255,255,0.4);">' + esc(ef.range) + '</span> ' + esc(ef.description) + '</div>';
+        });
+      }
+      html += '</div>';
     }
 
     html += '</div>';
