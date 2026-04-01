@@ -3,17 +3,17 @@
   "number": 10,
   "title": "Jaws of the Leviathan",
   "act": 3,
-  "summary": "Leviathan drops out of hyperspace over Malpaz — the world the heroes liberated, now targeted for Tarkin's demonstration of the weapon they helped Varth unlock. With Oga Garra's pirate fleet and whatever allies remain, the heroes race to stop the superweapon before it annihilates the planet and proves that the Unknown Regions corridor works. The campaign ends where the betrayal began.",
+  "summary": "The Maw drops out of hyperspace over Malpaz — the world the heroes liberated, now targeted for Tarkin's demonstration of the gravity well superweapon they helped Varth unlock. Its crescent arms open and the sky begins to distort as asteroids shift orbit. With Oga Garra's pirate fleet and whatever allies remain, the heroes race to board the Leviathan and disable the gravity well array before it buries the planet under a rain of kinetic impactors. The campaign ends where the betrayal began.",
   "gearNotes": [
     {
       "item": "Security Kit",
       "category": "needed",
-      "reason": "The Leviathan is an Imperial superweapon facility. Military-grade locks, blast doors, and security systems at every turn."
+      "reason": "The Leviathan is an Imperial gravity well siege platform. Military-grade locks, blast doors, and security systems protecting the projector arrays at every turn."
     },
     {
       "item": "Datapad (Slicer Config)",
       "category": "needed",
-      "reason": "The Final Hand likely requires accessing Leviathan's core systems — disabling weapons, exposing the project, or extracting proof of the conspiracy."
+      "reason": "The Final Hand likely requires accessing Leviathan's core systems — disabling the gravity well projector array, exposing the project, or extracting proof of the conspiracy."
     },
     {
       "item": "Slicer Spike",
@@ -38,7 +38,7 @@
     {
       "item": "Field Toolkit",
       "category": "needed",
-      "reason": "Sabotaging the Leviathan itself — disabling systems, rigging overloads, creating the opening to destroy or expose the project."
+      "reason": "Sabotaging the Leviathan's gravity well generators — disabling projector systems, rigging reactor overloads, creating the opening to cripple the weapon or expose the project."
     },
     {
       "item": "Fusion Cutter",

@@ -1019,5 +1019,12 @@
     "fiction": "A specific system or weapon mount has been temporarily shut down — overheated, overloaded, or mechanically locked. It is not destroyed, but it is not available until reset.",
     "rule": "Applied to a specific weapon mount or system. The affected mount/system cannot be used until the Engineer spends an action to reset it. Unlike Impairment (which degrades output), [Disabled] is binary — the system is either available or it is not.",
     "guide": "The gun is locked. The system is down. Not broken — just disabled. Someone needs to get down there and flip the right switches before it comes back."
+  },
+  {
+    "id": "leviathan",
+    "name": "The Leviathan (The Maw)",
+    "type": "Campaign Lore",
+    "rule": "Project Leviathan — codename: The Maw — is a Mobile Gravity Well Siege Platform constructed at Vel Shara in the Unknown Regions. Super Star Destroyer class (~19km). Its crescent-shaped hull features two massive curved arms sweeping forward from a central reactor body, with oversized gravity well projector arrays lining the inner arc. The weapon redirects celestial mass — asteroids, moonlets, orbital debris — into planetary targets via focused tidal forces, producing sustained kinetic bombardment indistinguishable from natural catastrophe. Secondary capability: tidal destabilization of planetary geology. Commander: Admiral Gilder Varth, appointed by Grand Moff Tarkin.",
+    "guide": "Two jaws made of dark grey Imperial armor, each one nine klicks long, curving forward like something opening its mouth. Between the arms, space bends. Light warps. Rocks start moving that shouldn't be moving. It doesn't fire a beam. It doesn't glow. It just makes the sky fall on you — slowly, for hours, until there's nothing left but craters and ash. And the best part? On the report, it reads 'asteroid impact.' No weapon signature. No evidence. Just a dead world and a very satisfied Grand Moff."
   }
 ]

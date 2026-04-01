@@ -225,7 +225,7 @@ Varth did his research before sending the heroes to Takodana. He knew Raden was 
 ## Faction Tracker
 
 ### The Empire
-**Goal:** Complete Project Leviathan — a superweapon being constructed at Vel Shara in the Unknown Regions. Secure stable hyperspace routes to reach it.
+**Goal:** Complete Project Leviathan — a gravity well siege platform (codename: The Maw) being constructed at Vel Shara in the Unknown Regions. Secure stable hyperspace routes to reach it.
 **Problem:** The old lanes have collapsed. They need new navigation data.
 **Interaction:** The Empire doesn't know the heroes exist for most of Act 1. By Act 2, they become targets. By Act 3, they're enemy combatants.
 
@@ -242,6 +242,71 @@ Varth did his research before sending the heroes to Takodana. He knew Raden was 
 ### The Proto-Rebellion / Resurgence
 **Goal:** Resist the Empire. Build a network of like-minded operators.
 **Interaction:** The Resurgence serves as the heroes' allied ship and base of operations through Act 2. Its destruction in Adventure 7 is a devastating blow that strips the heroes of their support infrastructure.
+
+---
+
+## The Leviathan — Technical Profile
+
+**Project Designation:** Project Leviathan
+**Codename:** The Maw
+**Classification:** Mobile Gravity Well Siege Platform
+**Scale:** Super Star Destroyer class (~19km bow-to-stern)
+**Construction Site:** Vel Shara shipyard complex, Unknown Regions
+**Commander:** Admiral Gilder Varth (appointed by Grand Moff Tarkin, Adventure 6)
+
+### Physical Form
+
+The Leviathan is a crescent-shaped capital ship unlike anything in the Imperial fleet. Two enormous armored hull sections — each nearly 9km long — curve forward from a central reactor-and-engine block, forming a wide open arc or "jaw." The gravity well projector arrays line the inner surfaces of both curved arms, aimed inward toward the focal point between them. When the projectors activate, space visibly distorts between the arms — light bends, debris begins to drift inward, and the surrounding starfield warps.
+
+The central body houses multiple redundant reactor cores (the power requirements for offensive-scale gravity manipulation are staggering), the bridge superstructure, crew quarters, and docking bays for its escort complement. The ship's profile is distinctly Imperial — angular dark grey armor plating, geometric panel lines, industrial greeble — but its shape is alien to standard Imperial naval doctrine. It was not designed to fight other ships. It was designed to kill worlds.
+
+### Weapon Mechanism
+
+The Leviathan does not fire turbolasers or superlasers. It weaponizes gravity itself.
+
+**Primary capability:** The oversized gravity well projectors — evolved far beyond standard Interdictor interdiction technology — generate focused tidal forces that can capture and redirect celestial mass. The ship enters a target system, identifies available mass (asteroid belts, small moons, cometary bodies, orbital debris fields), and uses gravity manipulation to accelerate that mass into the target world. The result is a sustained bombardment of kinetic impactors that looks like a natural catastrophe — no superlaser signature, no turbolaser scorch marks. Just rocks falling from the sky for hours.
+
+**Secondary capability:** At closer range, the gravity well array can destabilize a planet's own tidal forces, triggering earthquakes, tsunamis, and volcanic eruptions. This softens a target before the mass impacts arrive.
+
+**Scalability:** The weapon is dial-able. Redirect a handful of small asteroids to flatten a city. Redirect a moonlet to end a civilization. Every system has rocks.
+
+### Why It's Terrifying
+
+- **Plausible deniability.** "A tragic asteroid collision." No energy weapon signature. No smoking gun. Tarkin can erase a world and blame the universe.
+- **Reusable.** Unlike single-shot superweapons, the Leviathan can fire in every system it enters. Ammunition is the cosmos itself.
+- **Scalable.** From surgical city-strikes to extinction-level impacts, depending on available mass and projector intensity.
+- **Psychological.** Once word spreads, every inhabited system with an asteroid belt lives in fear of the sky.
+
+### Why It Fits Tarkin
+
+The Death Star is a hammer — visible, political, designed to terrify through spectacle. The Leviathan is a scalpel disguised as an accident. Tarkin's doctrine has always been about control through fear, but the Leviathan adds something the Death Star never could: the ability to destroy a world and have the Senate believe it was a natural disaster. It is the ultimate expression of Tarkin's political mind — power that cannot be traced, denied, or prosecuted.
+
+### Why It's in the Unknown Regions
+
+- **Secrecy.** Far from Rebel intelligence networks and Senate oversight.
+- **Testing.** Uninhabited systems provide limitless mass for live-fire calibration without witnesses.
+- **Access problem.** The old hyperspace lanes to Vel Shara have collapsed. The Empire's own supply lines are compromised. This is why Varth needs the holocron charts and drift algorithms — to open a new, stable corridor.
+
+### Slave Labor Connection (Adventure 2)
+
+The Iron Ring slave network (exposed through Lady Sinde's operations on Cato Neimoidia) is funneling forced labor to Vel Shara for the massive construction effort. The gravity well projectors require precision assembly at enormous scale — work that the Empire would rather not pay for or document.
+
+### Campaign Thread
+
+| Adventure | What the heroes learn |
+|-----------|----------------------|
+| Adv1 | "Project Leviathan" appears in shuttle metadata — a mysterious reference |
+| Adv2 | Slave labor connected to an unnamed Imperial construction project |
+| Adv3 | Project Leviathan files acquired from Varga's records — still cryptic |
+| Adv4 | Ancient hyperspace routes needed to reach it — the Ebon Spire's charts |
+| Adv5 | Heroes liberate Malpaz (unknowingly painting the demonstration target) |
+| Adv6 | Varth receives command from Tarkin on Eriadu (Glass Bridge) — the betrayal revealed |
+| Adv9 | Heroes assault Leviathan at Vel Shara — heavy droid/automated defenses protecting the gravity well generators |
+| Adv10 | Leviathan deploys over Malpaz — the demonstration / final confrontation |
+
+### The Name
+
+A leviathan is a creature of the deep that drags you down. This weapon literally uses gravity — the force that pulls everything down — as its instrument. It does not blast you. It makes the universe fall on you. The codename "The Maw" reinforces the visual identity: two massive jaws opening to swallow the sky.
 
 ---
 
