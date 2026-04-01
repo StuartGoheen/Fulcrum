@@ -1067,59 +1067,6 @@
               "tactics": "Maya reads the room — appeals to greed for mercenaries, justice for idealists, curiosity for investigators. This is narrative — no roll needed unless PCs actively resist the hook (and even then, the Code Cylinder is too interesting to walk away from)."
             }
           ],
-          "skillChecks": [
-            {
-              "id": "sc-s1-read-maya",
-              "discipline": "insight",
-              "context": "Reading Maya — genuine desperation or performance? Only roll if a PC specifically asks. Failure matters: it hides that she chose this table on purpose, which colors trust going forward.",
-              "success": "The wound is real. The fear is real. But she chose this table on purpose — she saw armed people and made a calculation.",
-              "failure": "She seems genuinely terrified. No indication of ulterior motives.",
-              "narrativePacing": "Roll only if asked. Do not prompt for this check.",
-              "tier": 0,
-              "power": 0
-            },
-            {
-              "id": "sc-s1-intimidate",
-              "discipline": "intimidate",
-              "context": "The Gunslinger's fast draw IS this check — blaster out before the thugs can react. The draw is the statement, the blaster is leverage. Other vocations can use presence, posture, or reputation. This is the ONE roll that determines whether violence happens.",
-              "success": "Krev reads the situation: this person is faster than his crew. 'Not worth it today.' Backs off, warns Varga remembers faces, leaves with the Kyuzo.",
-              "failure": "Krev doesn't flinch. 'You won't shoot over some girl you don't know.' The PC now has a choice: pull the trigger (firefight) or holster it (Krev uses Lean In, smells weakness, situation gets worse).",
-              "narrativePacing": "This is a story fork. Always roll.",
-              "tier": 1,
-              "power": 0
-            },
-            {
-              "id": "sc-s1-charm",
-              "discipline": "charm",
-              "context": "Talking the thugs down or redirecting them. Failure matters: escalation.",
-              "success": "Thugs are mollified or confused enough to withdraw.",
-              "failure": "Krev sees through it. 'Nice try. Hand her over.'",
-              "narrativePacing": "Story fork. Always roll.",
-              "tier": 1,
-              "power": 0
-            },
-            {
-              "id": "sc-s1-deception",
-              "discipline": "deception",
-              "context": "Claiming Maya is under protection or the debt is settled. Failure matters: escalation.",
-              "success": "Krev hesitates — leaves to confirm with his boss.",
-              "failure": "'I know everyone Varga deals with. You're nobody.'",
-              "narrativePacing": "Story fork. Always roll.",
-              "tier": 1,
-              "power": 0
-            },
-            {
-              "id": "sc-s1-medicine",
-              "discipline": "medicine",
-              "context": "Treating Maya's blaster wound after resolution.",
-              "success": "Wound cleaned and dressed. Maya is grateful and more forthcoming.",
-              "failure": "Basic patch job. Maya stays functional.",
-              "isOptional": true,
-              "narrativePacing": "Failure doesn't fork the story. Skip the roll unless a player specifically wants to treat her — reward the effort narratively.",
-              "tier": 0,
-              "power": 0
-            }
-          ],
           "environmentMechanics": [
             {
               "name": "Dim Cantina Lighting",
@@ -1332,6 +1279,109 @@
             "criminal networks",
             "street smarts",
             "survival under duress"
+          ],
+          "disciplineChallenges": [
+            {
+              "id": "sc-s1-read-maya",
+              "actionType": "assess",
+              "discipline": "insight",
+              "arena": "wits",
+              "target": "Maya",
+              "resist": 3,
+              "risk": 4,
+              "context": "Reading Maya — genuine desperation or performance? Only roll if a PC specifically asks. Failure matters: it hides that she chose this table on purpose, which colors trust going forward.",
+              "narrativePacing": "Roll only if asked. Do not prompt for this check.",
+              "control": {
+                "failure": "Maya's terror reads as genuine. No indication of ulterior motives. The PCs trust her as a victim — which she partly is, but she also chose their table deliberately.",
+                "success": "Refer to effect tiers.",
+                "mastery": "The PC also notices Maya scanning the room before she crashed in — she clocked every armed person at every table. She's sharper than she's letting on."
+              },
+              "effect": {
+                "fleeting": "The wound is real. The fear is real. But something about the way she hit this specific table feels deliberate.",
+                "masterful": "She chose this table on purpose — she saw armed people and made a calculation. The desperation is real, but the target selection was tactical.",
+                "legendary": "All of the above, plus: her injuries are from a warning shot, not a real attempt to kill. Whoever shot her wanted her scared, not dead. This is debt collection, not a hit."
+              }
+            },
+            {
+              "id": "sc-s1-intimidate",
+              "actionType": "interact",
+              "discipline": "intimidate",
+              "arena": "presence",
+              "target": "Krev Tosk",
+              "resist": 2,
+              "risk": 4,
+              "context": "The Gunslinger's fast draw IS this check — blaster out before the thugs can react. The draw is the statement, the blaster is leverage. Other vocations can use presence, posture, or reputation. This is the ONE roll that determines whether violence happens.",
+              "narrativePacing": "This is a story fork. Always roll.",
+              "control": {
+                "failure": "Krev doesn't flinch. 'You won't shoot over some girl you don't know.' The PC must decide: pull the trigger (firefight) or holster it (Krev uses Lean In, smells weakness, pressure escalates).",
+                "success": "Refer to effect tiers.",
+                "mastery": "The draw is so fast that one Kyuzo involuntarily steps back. Krev's crew is shaken — even if Krev holds, his backup has lost confidence."
+              },
+              "effect": {
+                "fleeting": "Krev pauses. He's recalculating but hasn't decided to leave. 'Varga's going to hear about this.' Buys time but doesn't resolve — a second social action may be needed.",
+                "masterful": "'Not worth it today.' Krev withdraws with the Kyuzo. Warns that Varga remembers faces. Clean resolution — no combat.",
+                "legendary": "Krev folds immediately and drops intel on the way out: 'Varga's got bigger problems than this girl — something about an Imperial deal gone wrong.' Seeds future plot threads."
+              }
+            },
+            {
+              "id": "sc-s1-charm",
+              "actionType": "interact",
+              "discipline": "charm",
+              "arena": "presence",
+              "target": "Krev Tosk",
+              "resist": 2,
+              "risk": 4,
+              "context": "Talking the thugs down or redirecting them. Appealing to Krev's professionalism — he's a collector, not a killer. Failure matters: escalation.",
+              "narrativePacing": "Story fork. Always roll.",
+              "control": {
+                "failure": "Krev sees through it. 'Nice try. Hand her over.' Social approach has failed — next move is violence or surrender.",
+                "success": "Refer to effect tiers."
+              },
+              "effect": {
+                "fleeting": "Krev hesitates — he's listening, but not convinced. He'll give one more chance to make a real offer. A second social action can close this.",
+                "masterful": "Thugs are mollified or confused enough to withdraw. Krev leaves muttering but doesn't escalate.",
+                "legendary": "Krev is genuinely charmed. Leaves on almost-friendly terms. 'You're smooth. Tell the girl Varga's patience isn't infinite, but today she gets a pass.'"
+              }
+            },
+            {
+              "id": "sc-s1-deception",
+              "actionType": "interact",
+              "discipline": "deception",
+              "arena": "presence",
+              "target": "Krev Tosk",
+              "resist": 2,
+              "risk": 4,
+              "context": "Claiming Maya is under protection or the debt is settled. Selling a lie to a professional enforcer. Failure matters: escalation.",
+              "narrativePacing": "Story fork. Always roll.",
+              "control": {
+                "failure": "'I know everyone Varga deals with. You're nobody.' The lie collapses. Krev's suspicion is now active hostility.",
+                "success": "Refer to effect tiers."
+              },
+              "effect": {
+                "fleeting": "Krev hesitates — the story doesn't quite add up but he can't immediately disprove it. He'll leave to verify, buying the PCs time but not resolving the situation permanently.",
+                "masterful": "Krev buys it. Leaves to confirm with his boss. By the time he realizes the deception, the PCs are long gone.",
+                "legendary": "Krev completely buys it and offers an apology. 'Didn't know she had people. Tell your boss we're square.' The PCs have created a false paper trail that could be useful later."
+              }
+            },
+            {
+              "id": "sc-s1-medicine",
+              "actionType": "interact",
+              "discipline": "medicine",
+              "arena": "wits",
+              "target": "Maya (blaster wound)",
+              "context": "Treating Maya's blaster graze after the confrontation resolves. Non-critical wound but painful.",
+              "isOptional": true,
+              "narrativePacing": "Failure doesn't fork the story. Skip the roll unless a player specifically wants to treat her — reward the effort narratively.",
+              "control": {
+                "failure": "Basic patch job. Bleeding stops but Maya winces through the rest of the conversation.",
+                "success": "Refer to effect tiers."
+              },
+              "effect": {
+                "fleeting": "Wound cleaned and dressed competently. Maya is grateful.",
+                "masterful": "Professional treatment. Maya visibly relaxes and becomes more forthcoming with details about the code cylinder.",
+                "legendary": "Expert field surgery — minimal scarring. Maya is impressed and trusts the PCs significantly more. She volunteers information she would otherwise hold back."
+              }
+            }
           ]
         },
         {
@@ -1553,45 +1603,6 @@
               "tactics": "Switch delivers with clinical detachment. Watches reactions carefully. He knows the cylinder's value and is already calculating angles."
             }
           ],
-          "skillChecks": [
-            {
-              "id": "sc-s2-negotiate",
-              "discipline": "charm",
-              "context": "Negotiating Switch's terms for a better deal on the information asset arrangement.",
-              "success": "Switch sweetens the deal — offers a small advance on future intel value.",
-              "failure": "Standard terms stand — reduced fee, no advance.",
-              "tier": 1,
-              "power": 2
-            },
-            {
-              "id": "sc-s2-insight",
-              "discipline": "insight",
-              "context": "Reading Switch's motives.",
-              "success": "Switch is building a network of obligations — positioning as the indispensable middleman across the Outer Rim.",
-              "failure": "Switch is inscrutable.",
-              "tier": 2,
-              "power": 0
-            },
-            {
-              "id": "sc-s2-investigation",
-              "discipline": "investigation",
-              "context": "Examining the cylinder data for hidden details after Switch's analysis.",
-              "success": "Additional details: the authorization codes reference shipping routes connected to 'Project Leviathan.'",
-              "failure": "The analysis is straightforward — just authorization protocols.",
-              "isOptional": true,
-              "tier": 1,
-              "power": 0
-            },
-            {
-              "id": "sc-s2-tech",
-              "discipline": "tech",
-              "context": "Verifying Switch's analysis is genuine and complete.",
-              "success": "Analysis appears complete and unaltered.",
-              "failure": "No way to independently verify.",
-              "tier": 1,
-              "power": 0
-            }
-          ],
           "environmentMechanics": [
             {
               "name": "Switch's Security Systems",
@@ -1648,6 +1659,86 @@
             "information brokering",
             "criminal networks",
             "trade networks"
+          ],
+          "disciplineChallenges": [
+            {
+              "id": "sc-s2-negotiate",
+              "actionType": "interact",
+              "discipline": "charm",
+              "arena": "presence",
+              "target": "Switch",
+              "resist": 4,
+              "risk": 4,
+              "context": "Negotiating Switch's terms for a better deal on the information asset arrangement. Switch is [Transactional] — his Resist drops by 2 when offered something he wants.",
+              "narrativePacing": "Roll if PCs push for better terms. Switch's default offer is fair but not generous.",
+              "control": {
+                "failure": "Standard terms stand — reduced fee, no advance. Switch is unmoved.",
+                "success": "Refer to effect tiers."
+              },
+              "effect": {
+                "fleeting": "Minor concession — Switch throws in a data chip with local intel as a sweetener.",
+                "masterful": "Switch sweetens the deal — offers a small advance on future intel value.",
+                "legendary": "Switch offers partnership terms — ongoing intelligence sharing arrangement. The PCs have a droid broker in their pocket."
+              }
+            },
+            {
+              "id": "sc-s2-insight",
+              "actionType": "assess",
+              "discipline": "insight",
+              "arena": "wits",
+              "target": "Switch",
+              "resist": 4,
+              "risk": 4,
+              "context": "Reading Switch's motives. What does this droid actually want?",
+              "narrativePacing": "Roll only if asked.",
+              "control": {
+                "failure": "Switch is inscrutable — droid body language gives nothing away.",
+                "success": "Refer to effect tiers."
+              },
+              "effect": {
+                "fleeting": "Switch is genuinely interested in the cylinder — this is business, not a trap.",
+                "masterful": "Switch is building a network of obligations — positioning as the indispensable middleman across the Outer Rim.",
+                "legendary": "Switch is afraid. Something about the Imperial connection on this cylinder has him worried. He wants the PCs to succeed because it gets a dangerous asset out of his shop."
+              }
+            },
+            {
+              "id": "sc-s2-investigation",
+              "actionType": "assess",
+              "discipline": "investigation",
+              "arena": "wits",
+              "target": "Code Cylinder data",
+              "context": "Examining the cylinder data for hidden details after Switch's analysis.",
+              "isOptional": true,
+              "narrativePacing": "Optional. Rewards curiosity with plot seeds.",
+              "control": {
+                "failure": "The analysis is straightforward — just authorization protocols.",
+                "success": "Refer to effect tiers."
+              },
+              "effect": {
+                "fleeting": "The authorization codes are military-grade, not civilian. This cylinder came from someone important.",
+                "masterful": "Additional details: the authorization codes reference shipping routes connected to 'Project Leviathan.'",
+                "legendary": "The cylinder contains a ghost layer — hidden metadata showing it was deliberately copied, not stolen. Someone wanted this cylinder to leave the facility."
+              }
+            },
+            {
+              "id": "sc-s2-tech",
+              "actionType": "interact",
+              "discipline": "tech",
+              "arena": "wits",
+              "target": "Switch's analysis equipment",
+              "context": "Verifying Switch's analysis is genuine and complete — is the droid holding anything back?",
+              "isOptional": true,
+              "narrativePacing": "Optional. Trust verification.",
+              "control": {
+                "failure": "No way to independently verify without comparable equipment.",
+                "success": "Refer to effect tiers."
+              },
+              "effect": {
+                "fleeting": "Analysis appears complete based on surface-level review.",
+                "masterful": "Analysis is genuine and unaltered. Switch gave them everything.",
+                "legendary": "Analysis is complete, AND the PC notices Switch's equipment could decrypt the cylinder's secondary partition — but Switch didn't offer that service. There's more data locked inside."
+              }
+            }
           ]
         },
         {
@@ -1867,44 +1958,6 @@
               "tactics": "Ganga Lor uses his size and heavy weapons in the tight space. Enforcers cover flanks. Switch's security turrets activate against the intruders if the heroes struck a deal."
             }
           ],
-          "skillChecks": [
-            {
-              "id": "sc-s3-turrets",
-              "discipline": "tech",
-              "context": "Activating Switch's ceiling turrets against intruders.",
-              "success": "Turrets deploy and fire on Ganga Lor's crew. Suppressive fire.",
-              "failure": "Turrets activate but target indiscriminately.",
-              "tier": 1,
-              "power": 0
-            },
-            {
-              "id": "sc-s3-environment",
-              "discipline": "athletics",
-              "context": "Toppling droid stacks onto enforcers.",
-              "success": "Cascade buries two enforcers, pinning them.",
-              "failure": "Stack shifts but doesn't fall convincingly.",
-              "tier": 0,
-              "power": 0
-            },
-            {
-              "id": "sc-s3-steam",
-              "discipline": "ranged",
-              "context": "Shooting out steam pipes for a scalding barrier.",
-              "success": "Steam fills corridor, forcing enforcers back. Creates concealment.",
-              "failure": "Pipe bursts unpredictably — could hit allies.",
-              "tier": 1,
-              "power": 0
-            },
-            {
-              "id": "sc-s3-protect",
-              "discipline": "evasion",
-              "context": "Getting Maya behind cover when enforcers target her.",
-              "success": "Maya is shielded and stays down.",
-              "failure": "Maya takes a hit — serious medical need.",
-              "tier": 1,
-              "power": 0
-            }
-          ],
           "environmentMechanics": [
             {
               "name": "Collapsing Droid Stacks",
@@ -1964,6 +2017,84 @@
             "criminal networks",
             "Imperial oppression",
             "survival under duress"
+          ],
+          "disciplineChallenges": [
+            {
+              "id": "sc-s3-turrets",
+              "actionType": "interact",
+              "discipline": "tech",
+              "arena": "wits",
+              "target": "Switch's security turrets",
+              "risk": 4,
+              "context": "Activating Switch's ceiling turrets against the intruders during combat.",
+              "narrativePacing": "In-combat Interact. Costs Action pip.",
+              "control": {
+                "failure": "Turrets activate but target indiscriminately — friendly fire risk.",
+                "success": "Refer to effect tiers."
+              },
+              "effect": {
+                "fleeting": "Turrets deploy and fire erratically. Suppressive fire only — forces enforcers to take cover but no direct hits.",
+                "masterful": "Turrets deploy and target Ganga Lor's crew specifically. Sustained suppressive fire pins two enforcers.",
+                "legendary": "Turrets lock on with precision. One enforcer is hit immediately. The rest are pinned and [Suppressed]."
+              }
+            },
+            {
+              "id": "sc-s3-environment",
+              "actionType": "interact",
+              "discipline": "athletics",
+              "arena": "physique",
+              "target": "Droid stacks",
+              "risk": 4,
+              "context": "Toppling heavy droid stacks onto enforcers during combat.",
+              "narrativePacing": "In-combat Interact. Creative use of environment.",
+              "control": {
+                "failure": "Stack shifts but doesn't fall convincingly. Wasted action.",
+                "success": "Refer to effect tiers."
+              },
+              "effect": {
+                "fleeting": "Stack tumbles — creates difficult terrain in the zone. Enforcers must spend extra movement.",
+                "masterful": "Cascade buries two enforcers. They're [Restrained] until they spend an action to dig out.",
+                "legendary": "Massive collapse blocks the corridor. Two enforcers are [Pinned]. The entry point is now impassable — cuts off reinforcements."
+              }
+            },
+            {
+              "id": "sc-s3-steam",
+              "actionType": "interact",
+              "discipline": "ranged",
+              "arena": "reflex",
+              "target": "Steam pipes",
+              "risk": 4,
+              "context": "Shooting out steam pipes to create a scalding barrier.",
+              "narrativePacing": "In-combat Interact. Precision shot at environment.",
+              "control": {
+                "failure": "Pipe bursts unpredictably — steam sprays in random directions, could hit allies.",
+                "success": "Refer to effect tiers."
+              },
+              "effect": {
+                "fleeting": "Steam hisses out — light concealment in the zone. Minor deterrent.",
+                "masterful": "Steam fills the corridor, forcing enforcers back. Creates full concealment and [Hazard 2] zone.",
+                "legendary": "Precision shot ruptures multiple pipes. Entire corridor becomes a scalding killzone — [Hazard 3] and full concealment. Enforcers retreat."
+              }
+            },
+            {
+              "id": "sc-s3-protect",
+              "actionType": "interact",
+              "discipline": "evasion",
+              "arena": "reflex",
+              "target": "Maya (protection)",
+              "risk": 4,
+              "context": "Getting Maya behind cover when enforcers target her.",
+              "narrativePacing": "Reactive. Only when Maya is targeted.",
+              "control": {
+                "failure": "Maya takes a hit — serious blaster wound. Needs medical attention or she's out.",
+                "success": "Refer to effect tiers."
+              },
+              "effect": {
+                "fleeting": "Maya is shoved behind partial cover. She's grazed but functional.",
+                "masterful": "Maya is shielded and stays down. No damage taken.",
+                "legendary": "Maya is safely behind hard cover AND the PC's defensive move exposes the shooter — the attacker is now [Exposed]."
+              }
+            }
           ]
         },
         {
@@ -2222,45 +2353,6 @@
               "tactics": "Running firefight across the landing field. Maya has the Banshee prepped at a secondary pad. Once aboard, they break atmosphere and jump."
             }
           ],
-          "skillChecks": [
-            {
-              "id": "sc-s4-deception",
-              "discipline": "deception",
-              "context": "Bluffing past the perimeter guards as Imperial personnel.",
-              "success": "Guards wave the heroes through. No alarm raised.",
-              "failure": "Guards are suspicious. Call for verification — heroes have seconds to act.",
-              "tier": 1,
-              "power": 2
-            },
-            {
-              "id": "sc-s4-stealth",
-              "discipline": "stealth",
-              "context": "Sneaking to the shuttle through maintenance areas.",
-              "success": "Reach the shuttle undetected.",
-              "failure": "Spotted by a patrol. Must deal with guards before they raise the alarm.",
-              "tier": 1,
-              "power": 2
-            },
-            {
-              "id": "sc-s4-tech",
-              "discipline": "tech",
-              "context": "Accessing the shuttle nav computer with the code cylinder.",
-              "success": "Authentication successful. Nav logs download — Ajan Kloss coordinates acquired.",
-              "failure": "Partial download. Coordinates acquired but additional data is corrupted.",
-              "tier": 1,
-              "power": 2
-            },
-            {
-              "id": "sc-s4-investigation",
-              "discipline": "investigation",
-              "context": "Examining the downloaded nav data for hidden details.",
-              "success": "Shipping metadata references 'Project Leviathan' and labels the destination as a high-security detention site.",
-              "failure": "Just coordinates and standard flight logs.",
-              "isOptional": true,
-              "tier": 1,
-              "power": 0
-            }
-          ],
           "environmentMechanics": [
             {
               "name": "Imperial Security Perimeter",
@@ -2321,6 +2413,87 @@
             "Imperial oppression",
             "escape and survival",
             "tactical instinct"
+          ],
+          "disciplineChallenges": [
+            {
+              "id": "sc-s4-deception",
+              "actionType": "interact",
+              "discipline": "deception",
+              "arena": "presence",
+              "target": "Perimeter Guards",
+              "resist": 2,
+              "risk": 4,
+              "context": "Bluffing past the perimeter guards as Imperial personnel or authorized visitors.",
+              "narrativePacing": "Story fork. Failure triggers alarm countdown.",
+              "control": {
+                "failure": "Guards are suspicious. Call for verification — heroes have seconds to act before alarm.",
+                "success": "Refer to effect tiers."
+              },
+              "effect": {
+                "fleeting": "Guards wave them through but radio ahead — the PCs are on a clock. Next checkpoint will be harder.",
+                "masterful": "Guards wave the heroes through. No alarm raised. Clean entry.",
+                "legendary": "Guards are completely fooled and provide useful intel: shuttle crew rotation, security camera blind spots, or officer schedules."
+              }
+            },
+            {
+              "id": "sc-s4-stealth",
+              "actionType": "interact",
+              "discipline": "stealth",
+              "arena": "reflex",
+              "target": "Imperial patrol routes",
+              "resist": 2,
+              "risk": 4,
+              "context": "Sneaking to the shuttle through maintenance areas and cargo bays.",
+              "narrativePacing": "Alternative to Deception approach. Story fork.",
+              "control": {
+                "failure": "Spotted by a patrol. Must deal with guards before they raise the alarm.",
+                "success": "Refer to effect tiers."
+              },
+              "effect": {
+                "fleeting": "Reach the shuttle perimeter but guards are close. One more stealth check or distraction needed.",
+                "masterful": "Reach the shuttle undetected. Clean approach.",
+                "legendary": "Ghost through the entire facility. Also spot a secondary data terminal that could be sliced for bonus intel."
+              }
+            },
+            {
+              "id": "sc-s4-tech",
+              "actionType": "interact",
+              "discipline": "tech",
+              "arena": "wits",
+              "target": "Lambda shuttle nav computer",
+              "risk": 4,
+              "context": "Accessing the shuttle nav computer with the code cylinder. This is the critical data extraction.",
+              "isGated": "Requires Code Cylinder from Scene 2",
+              "narrativePacing": "Always roll. This is the mission objective.",
+              "control": {
+                "failure": "Partial download. Coordinates acquired but secondary data is corrupted — no Project Leviathan metadata.",
+                "success": "Refer to effect tiers."
+              },
+              "effect": {
+                "fleeting": "Ajan Kloss coordinates acquired. Basic nav data only.",
+                "masterful": "Full nav log download — Ajan Kloss coordinates plus facility classification as high-security detention.",
+                "legendary": "Complete data dump including prisoner manifests, guard rotation schedules, and a reference to 'Admiral Varth — priority detainee.'"
+              }
+            },
+            {
+              "id": "sc-s4-investigation",
+              "actionType": "assess",
+              "discipline": "investigation",
+              "arena": "wits",
+              "target": "Downloaded nav data",
+              "context": "Examining the downloaded nav data for hidden details beyond raw coordinates.",
+              "isOptional": true,
+              "narrativePacing": "Optional. Rewards curiosity.",
+              "control": {
+                "failure": "Just coordinates and standard flight logs.",
+                "success": "Refer to effect tiers."
+              },
+              "effect": {
+                "fleeting": "The destination is labeled as a restricted zone — no civilian traffic permitted.",
+                "masterful": "Shipping metadata references 'Project Leviathan' and labels the destination as a high-security detention site.",
+                "legendary": "Hidden in the nav computer's cache: a partial communication log suggesting the prisoner at the facility volunteered information to earn transfer. Varth has been cooperating — but with whom?"
+              }
+            }
           ]
         }
       ]
@@ -2588,36 +2761,6 @@
               "tactics": "Stealth approach. Piloting check to thread the canyon without detection. Failure means detected — V-wings scramble."
             }
           ],
-          "skillChecks": [
-            {
-              "id": "sc-s5-piloting-maze",
-              "discipline": "piloting",
-              "context": "Co-piloting with Maya through the Rishi Maze. The Ace handles secondaries — deflectors, power distribution, calling out hazards.",
-              "success": "Clean transit. No hull damage. Arrive ahead of schedule. Maya nods at the co-pilot with genuine respect.",
-              "failure": "Rough exit. Minor hull damage. The Banshee needs field repairs. Maya corrects without judgment — 'You'll get it next time.'",
-              "tier": 1,
-              "power": 2
-            },
-            {
-              "id": "sc-s5-piloting-approach",
-              "discipline": "piloting",
-              "context": "Canyon approach to avoid orbital detection.",
-              "success": "Clean landing. Undetected.",
-              "failure": "Detected briefly. V-wings investigate the area — adds time pressure.",
-              "tier": 1,
-              "power": 2
-            },
-            {
-              "id": "sc-s5-tech-sensors",
-              "discipline": "tech",
-              "context": "Monitoring Imperial sensor sweeps during approach.",
-              "success": "Identify patrol patterns and gaps in coverage.",
-              "failure": "Sensor data is inconclusive. Blind approach.",
-              "isOptional": true,
-              "tier": 1,
-              "power": 0
-            }
-          ],
           "environmentMechanics": [
             {
               "name": "Rishi Maze Hazards",
@@ -2665,6 +2808,64 @@
             "smuggling",
             "Imperial military",
             "hyperspace navigation"
+          ],
+          "disciplineChallenges": [
+            {
+              "id": "sc-s5-piloting-maze",
+              "actionType": "interact",
+              "discipline": "piloting",
+              "arena": "reflex",
+              "target": "Rishi Maze navigation",
+              "risk": 5,
+              "context": "Co-piloting with Maya through the Rishi Maze. The Ace handles secondaries — deflectors, countermeasures, sensor sweeps. Dense asteroid debris and gravitational anomalies.",
+              "narrativePacing": "Always roll. Sets the tone for Part 2.",
+              "control": {
+                "failure": "Rough transit. Minor hull damage — the Banshee needs field repairs before she can take off again.",
+                "success": "Refer to effect tiers."
+              },
+              "effect": {
+                "fleeting": "Clean transit but slow — no hull damage, but the approach window is tight. Less time on the ground.",
+                "masterful": "Clean transit ahead of schedule. Arrive with time to plan the approach.",
+                "legendary": "Maya is impressed. The Ace found a shortcut through the debris field. Extra time on the ground AND Maya shares tactical intel about the facility she was holding back."
+              }
+            },
+            {
+              "id": "sc-s5-piloting-approach",
+              "actionType": "interact",
+              "discipline": "piloting",
+              "arena": "reflex",
+              "target": "Orbital detection grid",
+              "risk": 4,
+              "context": "Canyon approach to avoid orbital detection. Flying NOE through jungle terrain.",
+              "narrativePacing": "Always roll. Determines approach conditions.",
+              "control": {
+                "failure": "Detected briefly. V-wings investigate the area — adds time pressure and patrol awareness.",
+                "success": "Refer to effect tiers."
+              },
+              "effect": {
+                "fleeting": "Clean landing but close to a patrol route. Must move quickly.",
+                "masterful": "Clean landing in concealed position. Undetected.",
+                "legendary": "Perfect insertion. The landing site is ideal — natural camouflage, near a drainage sluice that leads toward the facility."
+              }
+            },
+            {
+              "id": "sc-s5-tech-sensors",
+              "actionType": "assess",
+              "discipline": "tech",
+              "arena": "wits",
+              "target": "Imperial sensor sweeps",
+              "context": "Monitoring Imperial sensor sweeps during approach to identify gaps.",
+              "narrativePacing": "Optional but valuable. Informs approach strategy.",
+              "control": {
+                "failure": "Sensor data is inconclusive. Blind approach.",
+                "success": "Refer to effect tiers."
+              },
+              "effect": {
+                "fleeting": "Basic sweep pattern identified — roughly every 20 minutes.",
+                "masterful": "Identify patrol patterns and gaps in coverage. Clear windows for movement.",
+                "legendary": "Complete sensor map of the area. One sector has a dead zone — maintenance failure the Imperials haven't fixed. Safe corridor directly to the facility perimeter."
+              }
+            }
           ]
         },
         {
@@ -2939,44 +3140,6 @@
               "tactics": "Leave Maya with a Starship Tool Kit if available. Establish comlink protocols. The turret objective connects to the generator sabotage — but the heroes don't know that yet."
             }
           ],
-          "skillChecks": [
-            {
-              "id": "sc-s6-piloting",
-              "discipline": "piloting",
-              "context": "The Ace takes the stick from wounded Maya and performs a controlled crash landing through jungle canopy.",
-              "success": "Controlled landing. Minimal damage. The Ace just saved everyone. Maya: 'Good landing.'",
-              "failure": "Hard crash. Additional hull damage and injuries. But they're alive. Maya: 'We're down. That's what matters.'",
-              "tier": 1,
-              "power": 2
-            },
-            {
-              "id": "sc-s6-tech",
-              "discipline": "tech",
-              "context": "Assessing Banshee damage and estimating repair time.",
-              "success": "Precise assessment. Maya knows exactly what to fix first.",
-              "failure": "Vague assessment. Repair time is uncertain.",
-              "tier": 1,
-              "power": 0
-            },
-            {
-              "id": "sc-s6-medicine",
-              "discipline": "medicine",
-              "context": "Treating injuries from the crash.",
-              "success": "All injuries treated. No penalties.",
-              "failure": "Minor injuries persist. Some characters have penalties until treated.",
-              "tier": 1,
-              "power": 0
-            },
-            {
-              "id": "sc-s6-survival",
-              "discipline": "survival",
-              "context": "Assessing the jungle environment and planning the route.",
-              "success": "Identify the best path to the Vanishing Place. Avoid worst hazards.",
-              "failure": "Route is uncertain. More environmental encounters.",
-              "tier": 1,
-              "power": 0
-            }
-          ],
           "environmentMechanics": [
             {
               "name": "Ajan Kloss Humidity",
@@ -3032,6 +3195,82 @@
             "survival",
             "isolation",
             "jungle environment"
+          ],
+          "disciplineChallenges": [
+            {
+              "id": "sc-s6-piloting",
+              "actionType": "interact",
+              "discipline": "piloting",
+              "arena": "reflex",
+              "target": "Damaged Banshee",
+              "risk": 5,
+              "context": "The Ace takes the stick from wounded Maya and performs a controlled crash landing through dense jungle canopy. The Banshee is losing power.",
+              "narrativePacing": "Always roll. This determines crash severity.",
+              "control": {
+                "failure": "Hard crash. Additional hull damage, injuries to crew. Everyone survives but battered.",
+                "success": "Refer to effect tiers.",
+                "mastery": "The landing is so controlled it barely qualifies as a crash. Maya stares. \"Where did you learn to fly?\""
+              },
+              "effect": {
+                "fleeting": "Trees slow the descent. Everyone walks away but the Banshee is in rough shape. Extended repair time.",
+                "masterful": "Controlled landing. Minimal additional damage. The Ace saved everyone.",
+                "legendary": "Near-perfect emergency landing. The Banshee's hull took minimal extra damage — repair time is halved."
+              }
+            },
+            {
+              "id": "sc-s6-tech",
+              "actionType": "assess",
+              "discipline": "tech",
+              "arena": "wits",
+              "target": "Banshee hull damage",
+              "context": "Assessing Banshee damage and estimating repair time.",
+              "narrativePacing": "Roll to determine repair estimate accuracy.",
+              "control": {
+                "failure": "Vague assessment. Repair time is uncertain — could be hours or days.",
+                "success": "Refer to effect tiers."
+              },
+              "effect": {
+                "fleeting": "General damage assessment — hull breach, engine misalignment. Needs work.",
+                "masterful": "Precise assessment. Maya knows exactly what to fix first and estimates 6-8 hours.",
+                "legendary": "Complete diagnostic reveals a priority repair sequence that could get the Banshee flight-ready in 4 hours if they have tools."
+              }
+            },
+            {
+              "id": "sc-s6-medicine",
+              "actionType": "interact",
+              "discipline": "medicine",
+              "arena": "wits",
+              "target": "Crash injuries",
+              "context": "Treating injuries from the crash landing.",
+              "narrativePacing": "Roll if anyone was injured in the crash.",
+              "control": {
+                "failure": "Minor injuries persist. Some characters carry penalties until next rest.",
+                "success": "Refer to effect tiers."
+              },
+              "effect": {
+                "fleeting": "Basic first aid. Worst injuries stabilized.",
+                "masterful": "All injuries treated. No lasting penalties.",
+                "legendary": "Expert trauma care. Everyone is at full capacity and the medic identifies local plants that can supplement their medpac supply."
+              }
+            },
+            {
+              "id": "sc-s6-survival",
+              "actionType": "assess",
+              "discipline": "survival",
+              "arena": "grit",
+              "target": "Ajan Kloss jungle",
+              "context": "Assessing the jungle environment and planning the route to the Vanishing Place.",
+              "narrativePacing": "Always roll. Determines trek difficulty.",
+              "control": {
+                "failure": "Route is uncertain. More environmental encounters and hazards.",
+                "success": "Refer to effect tiers."
+              },
+              "effect": {
+                "fleeting": "General direction is clear. Expect 8-10 hours of difficult jungle travel.",
+                "masterful": "Identify the best path — avoid worst hazards. 6-hour trek with manageable terrain.",
+                "legendary": "Discover animal trails that parallel the facility's drainage system. 4-hour route that arrives near an entry point."
+              }
+            }
           ]
         },
         {
@@ -3204,53 +3443,6 @@
               "tactics": "Mandrake is firm but fair. He won't guide them without the deal. He's been planning this for years and needs the generator down to free his people. When the heroes realize the generator also powers the turrets Maya warned them about, the deal should click."
             }
           ],
-          "skillChecks": [
-            {
-              "id": "sc-s7-survival-pools",
-              "discipline": "survival",
-              "context": "Identifying acid pools before someone steps in one.",
-              "success": "The subtle differences become clear — slight discoloration, absence of insects, faint chemical smell.",
-              "failure": "Someone steps in. Acid damage to boots/legs. The pool is shallow but the acid is strong.",
-              "tier": 1,
-              "power": 0
-            },
-            {
-              "id": "sc-s7-athletics-terrain",
-              "discipline": "athletics",
-              "context": "Navigating difficult jungle terrain — root systems, steep ravines, mudslides.",
-              "success": "The party makes good time. No injuries from the terrain.",
-              "failure": "Someone slips or falls. Minor injury, time lost, noise made.",
-              "tier": 1,
-              "power": 0
-            },
-            {
-              "id": "sc-s7-stealth-approach",
-              "discipline": "stealth",
-              "context": "Moving through the jungle without alerting patrols or wildlife.",
-              "success": "Silent progress. No encounters with hostile fauna or Imperial scouts.",
-              "failure": "Something notices them — a territorial predator, a sensor drone, or worse.",
-              "tier": 1,
-              "power": 0
-            },
-            {
-              "id": "sc-s7-insight-mandrake",
-              "discipline": "insight",
-              "context": "Reading Mandrake during his ambush — is he going to shoot?",
-              "success": "He's testing you. His finger isn't on the trigger. He wants allies, not corpses.",
-              "failure": "Impossible to read. The tattered uniform and hard eyes give nothing away.",
-              "tier": 1,
-              "power": 0
-            },
-            {
-              "id": "sc-s7-persuasion-deal",
-              "discipline": "persuasion",
-              "context": "Negotiating with Mandrake for guidance without committing to the generator sabotage.",
-              "success": "Mandrake agrees to guide them to the entrance. The sabotage becomes optional — but he'll be disappointed.",
-              "failure": "No deal without the sabotage. Mandrake is immovable on this point.",
-              "tier": 1,
-              "power": 0
-            }
-          ],
           "environmentMechanics": [
             {
               "name": "Acid Pools",
@@ -3324,6 +3516,106 @@
             "frontier justice",
             "independence",
             "survival under duress"
+          ],
+          "disciplineChallenges": [
+            {
+              "id": "sc-s7-survival-pools",
+              "actionType": "assess",
+              "discipline": "survival",
+              "arena": "grit",
+              "target": "Acid pools (disguised as standing water)",
+              "context": "Identifying acid pools before someone steps in one. The pools look like normal jungle puddles.",
+              "narrativePacing": "Roll when the party approaches standing water.",
+              "control": {
+                "failure": "Someone steps in. Acid damage to boots/legs. The pool is shallow but corrosive.",
+                "success": "Refer to effect tiers."
+              },
+              "effect": {
+                "fleeting": "Subtle discoloration spotted — \"Don't step there.\" One pool identified.",
+                "masterful": "Pattern recognized — dead vegetation around the edges gives them away. All pools in the area identified.",
+                "legendary": "The PC identifies the acid source — a mineral seep from the facility's waste system. The seep trail leads directly toward the fortress drainage outflow."
+              }
+            },
+            {
+              "id": "sc-s7-athletics-terrain",
+              "actionType": "interact",
+              "discipline": "athletics",
+              "arena": "physique",
+              "target": "Jungle terrain (ravines, root systems, mudslides)",
+              "risk": 4,
+              "context": "Navigating difficult jungle terrain — root systems, steep ravines, mudslides.",
+              "narrativePacing": "Roll at major terrain obstacles.",
+              "control": {
+                "failure": "Someone slips or falls. Minor injury, time lost, noise made.",
+                "success": "Refer to effect tiers."
+              },
+              "effect": {
+                "fleeting": "Slow but safe progress. Extra time spent finding handholds.",
+                "masterful": "Good time through the obstacle. No injuries from the terrain.",
+                "legendary": "The PC finds the fastest route and helps the whole party through efficiently. Time saved."
+              }
+            },
+            {
+              "id": "sc-s7-stealth-approach",
+              "actionType": "interact",
+              "discipline": "stealth",
+              "arena": "reflex",
+              "target": "Jungle patrols and wildlife",
+              "resist": 2,
+              "risk": 4,
+              "context": "Moving through the jungle without alerting Imperial patrols or territorial predators.",
+              "narrativePacing": "Roll when approaching known patrol areas.",
+              "control": {
+                "failure": "Something notices them — a territorial predator, a sensor drone, or a patrol. Encounter triggered.",
+                "success": "Refer to effect tiers."
+              },
+              "effect": {
+                "fleeting": "Slip past but leave traces. The next stealth check will be harder — they're looking.",
+                "masterful": "Silent progress. No encounters with hostile fauna or Imperial patrols.",
+                "legendary": "Ghost through the jungle. Also observe a patrol pattern that reveals a gap in fortress security."
+              }
+            },
+            {
+              "id": "sc-s7-insight-mandrake",
+              "actionType": "assess",
+              "discipline": "insight",
+              "arena": "wits",
+              "target": "Mandrake",
+              "resist": 3,
+              "risk": 4,
+              "context": "Reading Mandrake during his ambush — is he going to shoot? What does he want?",
+              "narrativePacing": "Roll when Mandrake appears. Critical social read.",
+              "control": {
+                "failure": "Impossible to read. The tattered uniform and hard eyes give nothing away. He could be anything.",
+                "success": "Refer to effect tiers.",
+                "mastery": "The PC also notices Mandrake's weapon is Imperial issue but modified — he's ex-military, not a deserter. He LEFT the service."
+              },
+              "effect": {
+                "fleeting": "He's not going to shoot immediately. His finger isn't on the trigger.",
+                "masterful": "He's testing you. He wants something — this is a negotiation, not an ambush.",
+                "legendary": "He's desperate. The tattered uniform is from months in the jungle. He needs the generator gone because it powers the perimeter that keeps him trapped in this sector."
+              }
+            },
+            {
+              "id": "sc-s7-persuasion-deal",
+              "actionType": "interact",
+              "discipline": "persuasion",
+              "arena": "presence",
+              "target": "Mandrake",
+              "resist": 3,
+              "risk": 4,
+              "context": "Negotiating with Mandrake for guidance to the fortress without committing to the generator sabotage.",
+              "narrativePacing": "Roll if PCs try to negotiate different terms. Mandrake's default: sabotage or nothing.",
+              "control": {
+                "failure": "No deal without the sabotage. Mandrake is immovable on this point.",
+                "success": "Refer to effect tiers."
+              },
+              "effect": {
+                "fleeting": "Mandrake reduces his demand — sabotage the generator OR provide him with supplies and a comm unit.",
+                "masterful": "Mandrake agrees to guide them to the entrance. The sabotage becomes optional — he'll accept a promise of extraction instead.",
+                "legendary": "Full alliance. Mandrake guides them in, provides detailed facility intel, and agrees to create a diversion when they're ready to extract."
+              }
+            }
           ]
         },
         {
@@ -3661,55 +3953,6 @@
               "tactics": "Tech check to sabotage cleanly with delayed detonation — heroes can get clear before it blows. On failure, immediate detonation catches them in the blast. Either way, when it goes: lights out, turrets dead, fences down, doors open. Mandrake moves to free his people the moment power drops."
             }
           ],
-          "skillChecks": [
-            {
-              "id": "sc-s8-skulduggery-traps",
-              "discipline": "skulduggery",
-              "context": "Disarming trip wires and crude sensors in the drainage sluice.",
-              "success": "Clean passage. No alarms triggered.",
-              "failure": "A sensor trips. Distant alarm sounds. Guards begin investigating.",
-              "tier": 1,
-              "power": 0
-            },
-            {
-              "id": "sc-s8-stealth-interior",
-              "discipline": "stealth",
-              "context": "Moving through fortress corridors without alerting patrols.",
-              "success": "Ghost-like progress. Patrols pass without noticing.",
-              "failure": "A patrol spots movement. Alert is raised in that section.",
-              "tier": 1,
-              "power": 0
-            },
-            {
-              "id": "sc-s8-tech-comms",
-              "discipline": "tech",
-              "context": "Hacking the communications center to intercept transmissions.",
-              "success": "Draco's ETA is confirmed. The heroes know exactly how much time they have.",
-              "failure": "Partial intercept — they know someone important is coming, but not who or when exactly.",
-              "tier": 1,
-              "power": 0
-            },
-            {
-              "id": "sc-s8-tech-generator",
-              "discipline": "tech",
-              "context": "Sabotaging the fortress generator. Four-purpose payoff: kills turrets, drops fences, unlocks doors, blinds sensors.",
-              "success": "Clean sabotage with delayed detonation — heroes get clear. When it blows: turrets die, fences drop, doors unlock, sensors blind. Mandrake moves to free his people.",
-              "failure": "Immediate detonation. Heroes caught in blast radius. Same four-purpose payoff, but chaos starts NOW. Mandrake still moves.",
-              "isGated": "Requires Mandrake's deal (Scene 3)",
-              "tier": 1,
-              "power": 0
-            },
-            {
-              "id": "sc-s8-investigation-medbay",
-              "discipline": "investigation",
-              "context": "Examining Vischera's research and data terminals.",
-              "success": "Detailed information about Skarn's operation, Varth's status, and references to Project Leviathan.",
-              "failure": "Research is encrypted beyond easy access. Only surface-level observations.",
-              "isOptional": true,
-              "tier": 1,
-              "power": 0
-            }
-          ],
           "environmentMechanics": [
             {
               "name": "Laser Fences",
@@ -3779,6 +4022,107 @@
             "Imperial oppression",
             "political intrigue",
             "secret knowledge"
+          ],
+          "disciplineChallenges": [
+            {
+              "id": "sc-s8-skulduggery-traps",
+              "actionType": "interact",
+              "discipline": "skulduggery",
+              "arena": "reflex",
+              "target": "Drainage sluice traps and sensors",
+              "risk": 4,
+              "context": "Disarming trip wires and crude sensors in the drainage sluice entry.",
+              "isGated": "Requires Security Kit for electronic sensors",
+              "narrativePacing": "Roll at each trap cluster. Failure has immediate consequences.",
+              "control": {
+                "failure": "A sensor trips. Distant alarm sounds. Guards begin investigating this section.",
+                "success": "Refer to effect tiers."
+              },
+              "effect": {
+                "fleeting": "Trap disarmed but it took time. The party is behind schedule.",
+                "masterful": "Clean passage. No alarms triggered.",
+                "legendary": "Traps disarmed AND reconfigured — they'll now alert the PCs if anyone follows them in."
+              }
+            },
+            {
+              "id": "sc-s8-stealth-interior",
+              "actionType": "interact",
+              "discipline": "stealth",
+              "arena": "reflex",
+              "target": "Fortress interior patrols",
+              "resist": 3,
+              "risk": 4,
+              "context": "Moving through fortress corridors without alerting patrols. Tight spaces, regular patrol routes.",
+              "narrativePacing": "Roll per major corridor section.",
+              "control": {
+                "failure": "A patrol spots movement. Alert is raised in that section — guards converge.",
+                "success": "Refer to effect tiers."
+              },
+              "effect": {
+                "fleeting": "Progress but close calls. The party can hear patrols just around corners.",
+                "masterful": "Ghost-like progress. Patrols pass without noticing.",
+                "legendary": "Perfect infiltration — the party also identifies the command center location and an alternate extraction route."
+              }
+            },
+            {
+              "id": "sc-s8-tech-comms",
+              "actionType": "interact",
+              "discipline": "tech",
+              "arena": "wits",
+              "target": "Fortress communications center",
+              "risk": 4,
+              "context": "Hacking the communications center to intercept transmissions about Inquisitor Draco's arrival.",
+              "narrativePacing": "Roll if PCs find the comms center. High-value intel.",
+              "control": {
+                "failure": "Partial intercept — they know someone important is coming, but no ETA or identity.",
+                "success": "Refer to effect tiers."
+              },
+              "effect": {
+                "fleeting": "Draco is en route. No specific ETA but \"within hours.\"",
+                "masterful": "Draco's ETA confirmed. The heroes know exactly how much time they have.",
+                "legendary": "Full intercept: Draco's ETA, his orders (terminate Varth if extraction is compromised), and the fortress command codes that control the laser fence."
+              }
+            },
+            {
+              "id": "sc-s8-tech-generator",
+              "actionType": "interact",
+              "discipline": "tech",
+              "arena": "wits",
+              "target": "Fortress backup generator",
+              "risk": 4,
+              "context": "Sabotaging the fortress generator. Kills turrets, drops fences, disables comms, enables extraction. Four-purpose payoff.",
+              "isGated": "Requires Field Toolkit for clean sabotage",
+              "narrativePacing": "Always roll if attempted. Major tactical decision.",
+              "control": {
+                "failure": "Immediate detonation. Heroes caught in blast radius. Same fortress-wide effects but at personal cost.",
+                "success": "Refer to effect tiers.",
+                "mastery": "The sabotage is so clean it looks like equipment failure, not sabotage. No one suspects intruders — they think it's a mechanical fault."
+              },
+              "effect": {
+                "fleeting": "Delayed detonation — heroes get 1 round to clear the area. Fortress systems go down.",
+                "masterful": "Clean sabotage with controlled shutdown — heroes get clear, fortress goes dark systematically.",
+                "legendary": "Precision sabotage: the generator fails in sequence, taking down systems one at a time. Heroes can choose WHICH systems fail first (turrets first? fences first? comms first?)."
+              }
+            },
+            {
+              "id": "sc-s8-investigation-medbay",
+              "actionType": "assess",
+              "discipline": "investigation",
+              "arena": "wits",
+              "target": "Vischera's research terminals",
+              "context": "Examining Vischera's research data and medical terminals for intel.",
+              "isOptional": true,
+              "narrativePacing": "Optional but narratively rich. Seeds future plot.",
+              "control": {
+                "failure": "Research is encrypted beyond easy access. Only surface-level observations.",
+                "success": "Refer to effect tiers."
+              },
+              "effect": {
+                "fleeting": "Vischera is conducting medical research on the prisoners. Purpose unclear.",
+                "masterful": "Detailed information about Skarn's operation, Varth's status, and references to a biological research program.",
+                "legendary": "Full research access: Vischera is studying Force sensitivity in prisoners. Project Leviathan isn't just a prison — it's a research program. And Varth was a willing test subject."
+              }
+            }
           ]
         },
         {
@@ -3928,26 +4272,6 @@
               "tactics": "Varth controls the social terrain. He's the one with all the answers and he knows it. He's charming but transactional — everything is a deal."
             }
           ],
-          "skillChecks": [
-            {
-              "id": "sc-s9-insight",
-              "discipline": "insight",
-              "context": "Reading Varth's true motives.",
-              "success": "Varth is genuinely self-serving. His charm is practiced, not natural. He views the heroes as hired help, not allies.",
-              "failure": "Varth seems genuine — roguish but trustworthy.",
-              "tier": 2,
-              "power": 0
-            },
-            {
-              "id": "sc-s9-persuasion",
-              "discipline": "persuasion",
-              "context": "Negotiating a bigger cut of the fortune.",
-              "success": "Varth agrees to a larger split — 'You've earned it. Besides, I need you motivated.'",
-              "failure": "Varth's terms stand. 'You'll get what I promised. That's how deals work.'",
-              "tier": 1,
-              "power": 2
-            }
-          ],
           "environmentMechanics": [
             {
               "name": "Draco Clock (Continued)",
@@ -4014,6 +4338,49 @@
             "escape and survival",
             "tactical instinct",
             "Imperial complicity"
+          ],
+          "disciplineChallenges": [
+            {
+              "id": "sc-s9-insight",
+              "actionType": "assess",
+              "discipline": "insight",
+              "arena": "wits",
+              "target": "Admiral Varth",
+              "resist": 4,
+              "risk": 4,
+              "context": "Reading Varth's true motives when you meet the man you came to rescue. Is the charm genuine?",
+              "narrativePacing": "Roll if any PC is suspicious. Critical long-term consequence.",
+              "control": {
+                "failure": "Varth seems genuine — roguish, grateful, trustworthy. The charm lands.",
+                "success": "Refer to effect tiers.",
+                "mastery": "The PC catches a micro-expression when Varth mentions Denia — a flash of something calculating, possessive. He doesn't see Denia as a person."
+              },
+              "effect": {
+                "fleeting": "Something is off but can't pinpoint it. Varth is a little TOO smooth for a man who's been in a cell.",
+                "masterful": "Varth is genuinely self-serving. His charm is practiced, not natural. He's reading the PCs as much as they're reading him.",
+                "legendary": "Varth's gratitude is real but conditional — he's already calculating how to use the PCs. His \"rescue\" pitch was rehearsed. He's been waiting for this."
+              }
+            },
+            {
+              "id": "sc-s9-persuasion",
+              "actionType": "interact",
+              "discipline": "persuasion",
+              "arena": "presence",
+              "target": "Admiral Varth",
+              "resist": 4,
+              "risk": 4,
+              "context": "Negotiating better terms for the rescue — a bigger cut of whatever Varth is offering.",
+              "narrativePacing": "Roll if PCs push for better deal.",
+              "control": {
+                "failure": "Varth's terms stand. \"You'll get what I promised. That's how this works.\"",
+                "success": "Refer to effect tiers."
+              },
+              "effect": {
+                "fleeting": "Minor concession — Varth promises priority access to intel once they reach his contacts.",
+                "masterful": "Varth agrees to a larger split. \"You've earned it. Besides, there's plenty where this leads.\"",
+                "legendary": "Varth offers full partnership. \"I need capable people. Not hired guns — partners. The thing I'm pointing you at is bigger than any one score.\" This is the hook into the campaign arc."
+              }
+            }
           ]
         },
         {
@@ -4510,53 +4877,6 @@
               "tactics": "Running to the ship while Maya and Mandrake cover them. Someone needs to man the dorsal turret. The ship takes hits during liftoff. Mandrake's fate plays out as the Banshee lifts off — the GM narrates the destiny-gated outcome."
             }
           ],
-          "skillChecks": [
-            {
-              "id": "sc-s10-tactics-chaos",
-              "discipline": "tactics",
-              "context": "Reading the three-way battle to find the safest path through.",
-              "success": "A gap in the fighting — the heroes can move through with minimal contact.",
-              "failure": "No clear path. They have to fight through at least one engagement.",
-              "tier": 1,
-              "power": 0
-            },
-            {
-              "id": "sc-s10-evasion-fire",
-              "discipline": "evasion",
-              "context": "Dodging through crossfire between Imperial and mercenary positions.",
-              "success": "Clean movement through the kill zone. No hits taken.",
-              "failure": "Caught in crossfire. Ranged damage from stray shots.",
-              "tier": 2,
-              "power": 0
-            },
-            {
-              "id": "sc-s10-ranged-shadow",
-              "discipline": "ranged",
-              "context": "Engaging the Shadow Troopers in the treeline.",
-              "success": "Precise fire drops or suppresses them. Path to the clearing opens.",
-              "failure": "Shadow Troopers return devastating fire from cover. Heroes are pinned.",
-              "tier": 1,
-              "power": 2
-            },
-            {
-              "id": "sc-s10-athletics-run",
-              "discipline": "athletics",
-              "context": "Sprint to Maya's ship across open ground.",
-              "success": "Full speed. Board the ship. Go.",
-              "failure": "Stumble, exhaustion, or carrying wounded slows the run. More time under fire.",
-              "tier": 1,
-              "power": 0
-            },
-            {
-              "id": "sc-s10-piloting-escape",
-              "discipline": "piloting",
-              "context": "Liftoff under fire. Breaking atmosphere with a Star Destroyer in orbit.",
-              "success": "Clean escape. Jump to hyperspace before fighters can intercept.",
-              "failure": "Ship takes heavy damage during liftoff. Emergency repairs needed in hyperspace.",
-              "tier": 2,
-              "power": 1
-            }
-          ],
           "environmentMechanics": [
             {
               "name": "Three-Way Crossfire",
@@ -4636,6 +4956,106 @@
             "cathar",
             "togruta",
             "rodian"
+          ],
+          "disciplineChallenges": [
+            {
+              "id": "sc-s10-tactics-chaos",
+              "actionType": "assess",
+              "discipline": "tactics",
+              "arena": "wits",
+              "target": "Three-way battle (Imperials vs Mercenaries vs PCs)",
+              "risk": 5,
+              "context": "Reading the three-way battle to find the safest extraction path. Chaos everywhere.",
+              "narrativePacing": "Roll at the start of the climax. Sets up the escape route.",
+              "control": {
+                "failure": "No clear path. They have to fight through at least one engagement.",
+                "success": "Refer to effect tiers.",
+                "mastery": "The PC also identifies which faction is winning — critical for knowing who'll be chasing them."
+              },
+              "effect": {
+                "fleeting": "One gap spotted — narrow and closing. They have 2 rounds to reach it.",
+                "masterful": "A clear gap in the fighting — the heroes can move through with minimal contact.",
+                "legendary": "Perfect read. The PC identifies a route AND a timing window where both factions are focused on each other. Free passage if they move NOW."
+              }
+            },
+            {
+              "id": "sc-s10-evasion-fire",
+              "actionType": "interact",
+              "discipline": "evasion",
+              "arena": "reflex",
+              "target": "Crossfire zone",
+              "risk": 5,
+              "context": "Dodging through crossfire between Imperial and mercenary positions. Running and weaving.",
+              "narrativePacing": "Roll when crossing the killzone.",
+              "control": {
+                "failure": "Caught in crossfire. Ranged damage from stray shots.",
+                "success": "Refer to effect tiers."
+              },
+              "effect": {
+                "fleeting": "Through but singed — minor damage from near misses.",
+                "masterful": "Clean movement through the kill zone. No hits taken.",
+                "legendary": "The PC's evasive movement is so effective that they draw fire away from the rest of the party — everyone gets through."
+              }
+            },
+            {
+              "id": "sc-s10-ranged-shadow",
+              "actionType": "interact",
+              "discipline": "ranged",
+              "arena": "reflex",
+              "target": "Shadow Troopers",
+              "resist": 4,
+              "risk": 5,
+              "context": "Engaging the Shadow Troopers in the treeline. Elite enemies with stealth capabilities.",
+              "narrativePacing": "In-combat. The hardest fight of the adventure.",
+              "control": {
+                "failure": "Shadow Troopers return devastating fire from cover. Heroes are [Suppressed].",
+                "success": "Refer to effect tiers."
+              },
+              "effect": {
+                "fleeting": "Suppressive fire forces one Shadow Trooper to relocate. Buys a round of movement.",
+                "masterful": "Precise fire drops or suppresses them. Path to the clearing opens.",
+                "legendary": "Headshot. One Shadow Trooper eliminated, the other breaks position. The treeline is clear."
+              }
+            },
+            {
+              "id": "sc-s10-athletics-run",
+              "actionType": "interact",
+              "discipline": "athletics",
+              "arena": "physique",
+              "target": "Open ground sprint to the Banshee",
+              "risk": 4,
+              "context": "Sprint to Maya's ship across open ground. Final push with wounded, exhausted characters.",
+              "narrativePacing": "The final check. Make it dramatic.",
+              "control": {
+                "failure": "Stumble, exhaustion, or carrying wounded slows the run. More rounds in the open.",
+                "success": "Refer to effect tiers."
+              },
+              "effect": {
+                "fleeting": "Staggering run. They make it but it costs — arrive exhausted, last ones aboard.",
+                "masterful": "Full speed. Board the ship. Go.",
+                "legendary": "Adrenaline surge. The PC carries a wounded ally AND makes the ramp. Heroic moment."
+              }
+            },
+            {
+              "id": "sc-s10-piloting-escape",
+              "actionType": "interact",
+              "discipline": "piloting",
+              "arena": "reflex",
+              "target": "Imperial pursuit (Star Destroyer in orbit)",
+              "risk": 5,
+              "context": "Liftoff under fire. Breaking atmosphere with a Star Destroyer in orbit and TIE fighters scrambling.",
+              "narrativePacing": "Final roll of the adventure. Go big.",
+              "control": {
+                "failure": "Ship takes heavy damage during liftoff. Emergency repairs needed in hyperspace. They escape but battered.",
+                "success": "Refer to effect tiers.",
+                "mastery": "The escape is so clean that the Imperials lose tracking. No pursuit into hyperspace."
+              },
+              "effect": {
+                "fleeting": "Rough liftoff. TIE fighters score hits but the Banshee makes it to hyperspace. Hull integrity is concerning.",
+                "masterful": "Clean escape. Jump to hyperspace before fighters can intercept. The stars streak.",
+                "legendary": "Perfect escape — the Ace threads through the TIE formation, using the Star Destroyer's own mass shadow to mask the hyperspace vector. Imperials have no idea where they went."
+              }
+            }
           ]
         }
       ]

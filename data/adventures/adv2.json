@@ -550,62 +550,6 @@
             "tactics"
           ],
           "gearFlags": [],
-          "skillChecks": [
-            {
-              "id": "sc-a2s1-intimidate",
-              "discipline": "intimidate",
-              "tier": 1,
-              "power": 0,
-              "context": "Staring down Kessra and the Vipers to avoid paying landing tax.",
-              "success": "Kessra reads you as dangerous. Backs off with a sneer. Locals take notice.",
-              "failure": "Kessra doesn't flinch. The Vipers close in."
-            },
-            {
-              "id": "sc-a2s1-investigation",
-              "discipline": "investigation",
-              "tier": 1,
-              "power": 0,
-              "context": "Gathering intel on Raden's location from the encampment.",
-              "success": "Multiple sources confirm: Water Filtration Plant, edge of the swamp. He's been hiding there 3 days.",
-              "failure": "Conflicting information. Two locations — one is a trap."
-            },
-            {
-              "id": "sc-a2s1-charm",
-              "discipline": "charm",
-              "tier": 1,
-              "power": 0,
-              "context": "Calming Raden down. He's panicking with a blaster aimed at you.",
-              "success": "Raden lowers the blaster. Starts talking. Relieved that Varth is alive.",
-              "failure": "Raden stays panicky. Blaster stays up. Additional checks needed."
-            },
-            {
-              "id": "sc-a2s1-tactics",
-              "discipline": "tactics",
-              "tier": 1,
-              "power": 0,
-              "context": "Reading the hit squad's approach pattern at the filtration plant.",
-              "success": "They're coming from three directions — rear maintenance hatch is unguarded.",
-              "failure": "No clear picture. React to contact."
-            },
-            {
-              "id": "sc-a2s1-tech",
-              "discipline": "tech",
-              "tier": 1,
-              "power": 0,
-              "context": "Overloading the filtration machinery for area denial against the hit squad.",
-              "success": "Steam erupts in a wall of scalding vapor. Trandoshans are forced back 2 rounds.",
-              "failure": "Machinery sputters. Partial obstruction only."
-            },
-            {
-              "id": "sc-a2s1-deception",
-              "discipline": "deception",
-              "tier": 1,
-              "power": 0,
-              "context": "Building a convincing cover identity for the palace infiltration.",
-              "success": "Air-tight cover. Raden vouches convincingly.",
-              "failure": "Cover has gaps. Varga's people may ask uncomfortable questions."
-            }
-          ],
           "encounters": [
             {
               "id": "enc-a2s1-vipers",
@@ -665,7 +609,75 @@
             "climax": "The heavy combat droid advances. Must be dealt with to escape.",
             "resolution": "The skiff ride across Nymeve Lake. Varga's fortress looms through the mist.",
             "estimatedMinutes": 60
-          }
+          },
+          "disciplineChallenges": [
+            {
+              "id": "sc-a2s1-intimidate",
+              "discipline": "intimidate",
+              "context": "Staring down Kessra and the Vipers to avoid paying landing tax.",
+              "arena": "presence",
+              "actionType": "interact",
+              "control": {
+                "failure": "Kessra doesn't flinch. The Vipers close in.",
+                "success": "Kessra reads you as dangerous. Backs off with a sneer. Locals take notice."
+              }
+            },
+            {
+              "id": "sc-a2s1-investigation",
+              "discipline": "investigation",
+              "context": "Gathering intel on Raden's location from the encampment.",
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "Conflicting information. Two locations — one is a trap.",
+                "success": "Multiple sources confirm: Water Filtration Plant, edge of the swamp. He's been hiding there 3 days."
+              }
+            },
+            {
+              "id": "sc-a2s1-charm",
+              "discipline": "charm",
+              "context": "Calming Raden down. He's panicking with a blaster aimed at you.",
+              "arena": "presence",
+              "actionType": "interact",
+              "control": {
+                "failure": "Raden stays panicky. Blaster stays up. Additional checks needed.",
+                "success": "Raden lowers the blaster. Starts talking. Relieved that Varth is alive."
+              }
+            },
+            {
+              "id": "sc-a2s1-tactics",
+              "discipline": "tactics",
+              "context": "Reading the hit squad's approach pattern at the filtration plant.",
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "No clear picture. React to contact.",
+                "success": "They're coming from three directions — rear maintenance hatch is unguarded."
+              }
+            },
+            {
+              "id": "sc-a2s1-tech",
+              "discipline": "tech",
+              "context": "Overloading the filtration machinery for area denial against the hit squad.",
+              "arena": "wits",
+              "actionType": "interact",
+              "control": {
+                "failure": "Machinery sputters. Partial obstruction only.",
+                "success": "Steam erupts in a wall of scalding vapor. Trandoshans are forced back 2 rounds."
+              }
+            },
+            {
+              "id": "sc-a2s1-deception",
+              "discipline": "deception",
+              "context": "Building a convincing cover identity for the palace infiltration.",
+              "arena": "presence",
+              "actionType": "interact",
+              "control": {
+                "failure": "Cover has gaps. Varga's people may ask uncomfortable questions.",
+                "success": "Air-tight cover. Raden vouches convincingly."
+              }
+            }
+          ]
         },
         {
           "id": "adv2-p1-s2",
@@ -1028,54 +1040,6 @@
             "investigation"
           ],
           "gearFlags": [],
-          "skillChecks": [
-            {
-              "id": "sc-a2s2-melee",
-              "discipline": "melee",
-              "tier": 1,
-              "power": 0,
-              "context": "The Muscle's audition — fighting a Gamorrean in Varga's pit.",
-              "success": "Decisive victory. Varga is impressed. [Guest] status earned.",
-              "failure": "A sloppy showing. Varga is unimpressed. Cover is thinner."
-            },
-            {
-              "id": "sc-a2s2-charm",
-              "discipline": "charm",
-              "tier": 1,
-              "power": 2,
-              "context": "The Face's audition — a battle of wits with Varga's courtiers.",
-              "success": "Varga laughs. He likes you. The court takes notice.",
-              "failure": "Flat performance. Varga yawns. Cover survives but barely."
-            },
-            {
-              "id": "sc-a2s2-tech",
-              "discipline": "tech",
-              "tier": 1,
-              "power": 0,
-              "context": "The Tech's audition — fixing Varga's hover-sled with a blaster at your head.",
-              "success": "Sled purrs like new. Varga is delighted. Gives you run of the workshop.",
-              "failure": "Sled sputters. Not broken worse, but Varga is skeptical."
-            },
-            {
-              "id": "sc-a2s2-deception",
-              "discipline": "deception",
-              "tier": 2,
-              "power": 0,
-              "context": "Maintaining cover identity under Varga's scrutiny.",
-              "success": "Varga buys it completely. No further questions.",
-              "failure": "Varga is suspicious. Igren Demos is ordered to watch you closely."
-            },
-            {
-              "id": "sc-a2s2-insight",
-              "discipline": "insight",
-              "tier": 1,
-              "power": 0,
-              "context": "Reading the court dynamics — who has power, who is plotting.",
-              "success": "TC-663 keeps glancing at you meaningfully. Igren Demos watches Varga like a predator.",
-              "failure": "Overwhelming sensory chaos. Too many players to read.",
-              "isOptional": true
-            }
-          ],
           "encounters": [
             {
               "id": "enc-a2s2-audition",
@@ -1112,7 +1076,65 @@
             "climax": "Varga's judgment. Then Raden is recognized and dragged to the dungeon.",
             "resolution": "The heroes are 'welcomed' to court. TC-663 may become an ally. The clock starts.",
             "estimatedMinutes": 35
-          }
+          },
+          "disciplineChallenges": [
+            {
+              "id": "sc-a2s2-melee",
+              "discipline": "melee",
+              "context": "The Muscle's audition — fighting a Gamorrean in Varga's pit.",
+              "arena": "physique",
+              "actionType": "interact",
+              "control": {
+                "failure": "A sloppy showing. Varga is unimpressed. Cover is thinner.",
+                "success": "Decisive victory. Varga is impressed. [Guest] status earned."
+              }
+            },
+            {
+              "id": "sc-a2s2-charm",
+              "discipline": "charm",
+              "context": "The Face's audition — a battle of wits with Varga's courtiers.",
+              "arena": "presence",
+              "actionType": "interact",
+              "control": {
+                "failure": "Flat performance. Varga yawns. Cover survives but barely.",
+                "success": "Varga laughs. He likes you. The court takes notice."
+              }
+            },
+            {
+              "id": "sc-a2s2-tech",
+              "discipline": "tech",
+              "context": "The Tech's audition — fixing Varga's hover-sled with a blaster at your head.",
+              "arena": "wits",
+              "actionType": "interact",
+              "control": {
+                "failure": "Sled sputters. Not broken worse, but Varga is skeptical.",
+                "success": "Sled purrs like new. Varga is delighted. Gives you run of the workshop."
+              }
+            },
+            {
+              "id": "sc-a2s2-deception",
+              "discipline": "deception",
+              "context": "Maintaining cover identity under Varga's scrutiny.",
+              "arena": "presence",
+              "actionType": "interact",
+              "control": {
+                "failure": "Varga is suspicious. Igren Demos is ordered to watch you closely.",
+                "success": "Varga buys it completely. No further questions."
+              }
+            },
+            {
+              "id": "sc-a2s2-insight",
+              "discipline": "insight",
+              "context": "Reading the court dynamics — who has power, who is plotting.",
+              "isOptional": true,
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "Overwhelming sensory chaos. Too many players to read.",
+                "success": "TC-663 keeps glancing at you meaningfully. Igren Demos watches Varga like a predator."
+              }
+            }
+          ]
         }
       ]
     },
@@ -1813,81 +1835,6 @@
             "stealth"
           ],
           "gearFlags": [],
-          "skillChecks": [
-            {
-              "id": "sc-a2s3-melee-gladiator",
-              "discipline": "melee",
-              "tier": 1,
-              "power": 0,
-              "context": "Fighting Gorrak in the gladiator arena.",
-              "success": "Decisive victory. The crowd roars. Varga is delighted. Significant court reputation earned.",
-              "failure": "Gorrak wins. The hero survives (arena fights are to submission) but reputation suffers."
-            },
-            {
-              "id": "sc-a2s3-insight-poison",
-              "discipline": "insight",
-              "tier": 1,
-              "power": 0,
-              "context": "Noticing Narek's poison attempt during the Iron Ring delegation.",
-              "success": "You spot Narek's hand trembling as he serves the goblet. Something is in the drink.",
-              "failure": "Nothing seems unusual. The drink reaches Varga."
-            },
-            {
-              "id": "sc-a2s3-deception",
-              "discipline": "deception",
-              "tier": 1,
-              "power": 0,
-              "context": "Maintaining cover throughout the multi-day court phase.",
-              "success": "Cover holds perfectly throughout the stay.",
-              "failure": "A suspicious courtier begins asking pointed questions. Demos takes notice."
-            },
-            {
-              "id": "sc-a2s3-investigation-sinde",
-              "discipline": "investigation",
-              "tier": 2,
-              "power": 0,
-              "context": "Discovering Lady Sinde's ISB identity through her encrypted comms or behaviour patterns.",
-              "success": "Her comm frequencies don't match standard logistics channels. ISB encryption protocols. She's a double agent.",
-              "failure": "She appears to be exactly what she claims — a logistics officer."
-            },
-            {
-              "id": "sc-a2s3-stealth-eavesdrop",
-              "discipline": "stealth",
-              "tier": 1,
-              "power": 0,
-              "context": "Eavesdropping on Lady Sinde's private meeting with Varga.",
-              "success": "Full conversation: next Tibanna shipment coordinates, payment terms, mention of 'the Accountant's records.'",
-              "failure": "Spotted by a guard. Must talk your way out — Deception check or cover blown."
-            },
-            {
-              "id": "sc-a2s3-charm-gome",
-              "discipline": "charm",
-              "tier": 0,
-              "power": 0,
-              "context": "Engaging Gome in conversation about Varga's finances.",
-              "success": "Gome rambles about contingency accounts, departure plans, Cloud City banking. Critical Bespin intel acquired.",
-              "failure": "Gome talks about exchange rates for 20 minutes. No actionable intel."
-            },
-            {
-              "id": "sc-a2s3-charm-tc663",
-              "discipline": "charm",
-              "tier": 1,
-              "power": 2,
-              "context": "Activating TC-663 using Switch's code phrase.",
-              "success": "TC-663's photoreceptors flash recognition. He provides Demos's encrypted comms referencing 'the prisoner.'",
-              "failure": "TC-663 is cautious. Provides partial information only.",
-              "narrativePacing": "Key check. The code phrase from Adv1 reduces this to T0/P0."
-            },
-            {
-              "id": "sc-a2s3-tech-slice",
-              "discipline": "tech",
-              "tier": 2,
-              "power": 0,
-              "context": "Slicing Varga's datapad to extract the encryption keys during a window of opportunity.",
-              "success": "Encryption keys extracted cleanly. No trace left.",
-              "failure": "Partial extraction. Silent alarm triggers. Lockdown in 5 rounds."
-            }
-          ],
           "encounters": [
             {
               "id": "enc-a2s3-gladiator",
@@ -1965,7 +1912,98 @@
             "climax": "Knife in the Dark — assassination attempt at night. Then the dungeon investigation begins.",
             "resolution": "The heroes have intel, reputation, and a lead on the dungeons. Time to move.",
             "estimatedMinutes": 90
-          }
+          },
+          "disciplineChallenges": [
+            {
+              "id": "sc-a2s3-melee-gladiator",
+              "discipline": "melee",
+              "context": "Fighting Gorrak in the gladiator arena.",
+              "arena": "physique",
+              "actionType": "interact",
+              "control": {
+                "failure": "Gorrak wins. The hero survives (arena fights are to submission) but reputation suffers.",
+                "success": "Decisive victory. The crowd roars. Varga is delighted. Significant court reputation earned."
+              }
+            },
+            {
+              "id": "sc-a2s3-insight-poison",
+              "discipline": "insight",
+              "context": "Noticing Narek's poison attempt during the Iron Ring delegation.",
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "Nothing seems unusual. The drink reaches Varga.",
+                "success": "You spot Narek's hand trembling as he serves the goblet. Something is in the drink."
+              }
+            },
+            {
+              "id": "sc-a2s3-deception",
+              "discipline": "deception",
+              "context": "Maintaining cover throughout the multi-day court phase.",
+              "arena": "presence",
+              "actionType": "interact",
+              "control": {
+                "failure": "A suspicious courtier begins asking pointed questions. Demos takes notice.",
+                "success": "Cover holds perfectly throughout the stay."
+              }
+            },
+            {
+              "id": "sc-a2s3-investigation-sinde",
+              "discipline": "investigation",
+              "context": "Discovering Lady Sinde's ISB identity through her encrypted comms or behaviour patterns.",
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "She appears to be exactly what she claims — a logistics officer.",
+                "success": "Her comm frequencies don't match standard logistics channels. ISB encryption protocols. She's a double agent."
+              }
+            },
+            {
+              "id": "sc-a2s3-stealth-eavesdrop",
+              "discipline": "stealth",
+              "context": "Eavesdropping on Lady Sinde's private meeting with Varga.",
+              "arena": "reflex",
+              "actionType": "interact",
+              "control": {
+                "failure": "Spotted by a guard. Must talk your way out — Deception check or cover blown.",
+                "success": "Full conversation: next Tibanna shipment coordinates, payment terms, mention of 'the Accountant's records.'"
+              }
+            },
+            {
+              "id": "sc-a2s3-charm-gome",
+              "discipline": "charm",
+              "context": "Engaging Gome in conversation about Varga's finances.",
+              "arena": "presence",
+              "actionType": "interact",
+              "control": {
+                "failure": "Gome talks about exchange rates for 20 minutes. No actionable intel.",
+                "success": "Gome rambles about contingency accounts, departure plans, Cloud City banking. Critical Bespin intel acquired."
+              }
+            },
+            {
+              "id": "sc-a2s3-charm-tc663",
+              "discipline": "charm",
+              "context": "Activating TC-663 using Switch's code phrase.",
+              "narrativePacing": "Key check. The code phrase from Adv1 reduces this to T0/P0.",
+              "arena": "presence",
+              "actionType": "interact",
+              "control": {
+                "failure": "TC-663 is cautious. Provides partial information only.",
+                "success": "TC-663's photoreceptors flash recognition. He provides Demos's encrypted comms referencing 'the prisoner.'"
+              }
+            },
+            {
+              "id": "sc-a2s3-tech-slice",
+              "discipline": "tech",
+              "context": "Slicing Varga's datapad to extract the encryption keys during a window of opportunity.",
+              "arena": "wits",
+              "actionType": "interact",
+              "control": {
+                "failure": "Partial extraction. Silent alarm triggers. Lockdown in 5 rounds.",
+                "success": "Encryption keys extracted cleanly. No trace left."
+              }
+            }
+          ]
         },
         {
           "id": "adv2-p2-s4",
@@ -2186,63 +2224,6 @@
             "medicine"
           ],
           "gearFlags": [],
-          "skillChecks": [
-            {
-              "id": "sc-a2s4-stealth",
-              "discipline": "stealth",
-              "tier": 1,
-              "power": 0,
-              "context": "Slipping into the restricted lower levels.",
-              "success": "Clean entry. No guards notice.",
-              "failure": "A guard sees movement. Must be dealt with quietly."
-            },
-            {
-              "id": "sc-a2s4-tech",
-              "discipline": "tech",
-              "tier": 2,
-              "power": 0,
-              "context": "Disabling the stasis pod's life support to free Denia safely.",
-              "success": "Clean disconnect. Denia wakes slowly, disoriented but alive.",
-              "failure": "Alarm triggers. Igren Demos senses the Force disturbance. Lockdown imminent."
-            },
-            {
-              "id": "sc-a2s4-skulduggery",
-              "discipline": "skulduggery",
-              "tier": 1,
-              "power": 2,
-              "context": "Bypassing the high-security cell locks.",
-              "success": "Locks open silently. No alarm.",
-              "failure": "Lock triggers backup alarm. Guards dispatched."
-            },
-            {
-              "id": "sc-a2s4-medicine",
-              "discipline": "medicine",
-              "tier": 1,
-              "power": 0,
-              "context": "Stabilizing Denia after ~2 years in stasis.",
-              "success": "Denia is weak but mobile. Can walk with support.",
-              "failure": "Denia is barely conscious. Must be carried. All movement checks are stepped up."
-            },
-            {
-              "id": "sc-a2s4-resolve",
-              "discipline": "resolve",
-              "tier": 1,
-              "power": 0,
-              "context": "Resisting Denia's telepathic plea — it's emotionally overwhelming.",
-              "success": "You feel her pain but maintain composure. Clear decision-making.",
-              "failure": "The emotional weight is staggering. [Rattled] until you act on it or leave."
-            },
-            {
-              "id": "sc-a2s4-stealth-eavesdrop",
-              "discipline": "stealth",
-              "tier": 1,
-              "power": 0,
-              "context": "Eavesdropping on Demos's holo-call with Inquisitor Draco.",
-              "success": "Full conversation overheard. Draco: 'I am on my way, with the Assiduous.' Death clock confirmed.",
-              "failure": "Partial audio. Know someone Imperial is coming but not the timeline.",
-              "isOptional": true
-            }
-          ],
           "encounters": [
             {
               "id": "enc-a2s4-droids",
@@ -2279,7 +2260,76 @@
             "climax": "Varth's voice: 'Grab her.' Eavesdrop on Demos/Draco: 'I am on my way.' The alarm sounds.",
             "resolution": "The heroes have Denia and Raden. The fortress is going hostile. Run.",
             "estimatedMinutes": 30
-          }
+          },
+          "disciplineChallenges": [
+            {
+              "id": "sc-a2s4-stealth",
+              "discipline": "stealth",
+              "context": "Slipping into the restricted lower levels.",
+              "arena": "reflex",
+              "actionType": "interact",
+              "control": {
+                "failure": "A guard sees movement. Must be dealt with quietly.",
+                "success": "Clean entry. No guards notice."
+              }
+            },
+            {
+              "id": "sc-a2s4-tech",
+              "discipline": "tech",
+              "context": "Disabling the stasis pod's life support to free Denia safely.",
+              "arena": "wits",
+              "actionType": "interact",
+              "control": {
+                "failure": "Alarm triggers. Igren Demos senses the Force disturbance. Lockdown imminent.",
+                "success": "Clean disconnect. Denia wakes slowly, disoriented but alive."
+              }
+            },
+            {
+              "id": "sc-a2s4-skulduggery",
+              "discipline": "skulduggery",
+              "context": "Bypassing the high-security cell locks.",
+              "arena": "reflex",
+              "actionType": "interact",
+              "control": {
+                "failure": "Lock triggers backup alarm. Guards dispatched.",
+                "success": "Locks open silently. No alarm."
+              }
+            },
+            {
+              "id": "sc-a2s4-medicine",
+              "discipline": "medicine",
+              "context": "Stabilizing Denia after ~2 years in stasis.",
+              "arena": "wits",
+              "actionType": "interact",
+              "control": {
+                "failure": "Denia is barely conscious. Must be carried. All movement checks are stepped up.",
+                "success": "Denia is weak but mobile. Can walk with support."
+              }
+            },
+            {
+              "id": "sc-a2s4-resolve",
+              "discipline": "resolve",
+              "context": "Resisting Denia's telepathic plea — it's emotionally overwhelming.",
+              "arena": "grit",
+              "actionType": "interact",
+              "control": {
+                "failure": "The emotional weight is staggering. [Rattled] until you act on it or leave.",
+                "success": "You feel her pain but maintain composure. Clear decision-making."
+              }
+            },
+            {
+              "id": "sc-a2s4-stealth-eavesdrop",
+              "discipline": "stealth",
+              "context": "Eavesdropping on Demos's holo-call with Inquisitor Draco.",
+              "isOptional": true,
+              "arena": "reflex",
+              "actionType": "interact",
+              "control": {
+                "failure": "Partial audio. Know someone Imperial is coming but not the timeline.",
+                "success": "Full conversation overheard. Draco: 'I am on my way, with the Assiduous.' Death clock confirmed."
+              }
+            }
+          ]
         },
         {
           "id": "adv2-p2-s5",
@@ -2493,54 +2543,6 @@
           "gearFlags": [
             "Military"
           ],
-          "skillChecks": [
-            {
-              "id": "sc-a2s5-resolve",
-              "discipline": "resolve",
-              "tier": 1,
-              "power": 0,
-              "context": "Resisting Demos's Force Slam.",
-              "success": "Stand your ground. The Force push washes over you.",
-              "failure": "Knocked back 1 zone. [Disoriented] for 1 round."
-            },
-            {
-              "id": "sc-a2s5-insight",
-              "discipline": "insight",
-              "tier": 1,
-              "power": 0,
-              "context": "Reading Demos's Force abilities — is he trained?",
-              "success": "Untrained. Powerful raw talent but no discipline. His attacks are predictable.",
-              "failure": "Terrifying display. His abilities seem formidable.",
-              "isOptional": true
-            },
-            {
-              "id": "sc-a2s5-persuasion",
-              "discipline": "persuasion",
-              "tier": 2,
-              "power": 0,
-              "context": "Convincing Demos to stand down — Varga has already abandoned him.",
-              "success": "Demos hesitates. Realizes Varga is fleeing without him. Steps aside in bitter rage.",
-              "failure": "Demos is too far gone. Fights to the death."
-            },
-            {
-              "id": "sc-a2s5-athletics",
-              "discipline": "athletics",
-              "tier": 1,
-              "power": 0,
-              "context": "Forcing through blast doors during fortress lockdown.",
-              "success": "Door forced open. Path cleared.",
-              "failure": "Door holds. Must find alternate route — costs time."
-            },
-            {
-              "id": "sc-a2s5-tech",
-              "discipline": "tech",
-              "tier": 1,
-              "power": 0,
-              "context": "Hacking lockdown controls to open sealed corridors.",
-              "success": "Blast doors retract. Clear path to the hangar wing.",
-              "failure": "Partial override. Some doors open, others stay sealed."
-            }
-          ],
           "encounters": [
             {
               "id": "enc-a2s5-demos",
@@ -2588,7 +2590,65 @@
             "climax": "Demos is cornered — fight or talk?",
             "resolution": "Demos falls or surrenders. Denia's quiet observation. The hangar awaits.",
             "estimatedMinutes": 30
-          }
+          },
+          "disciplineChallenges": [
+            {
+              "id": "sc-a2s5-resolve",
+              "discipline": "resolve",
+              "context": "Resisting Demos's Force Slam.",
+              "arena": "grit",
+              "actionType": "interact",
+              "control": {
+                "failure": "Knocked back 1 zone. [Disoriented] for 1 round.",
+                "success": "Stand your ground. The Force push washes over you."
+              }
+            },
+            {
+              "id": "sc-a2s5-insight",
+              "discipline": "insight",
+              "context": "Reading Demos's Force abilities — is he trained?",
+              "isOptional": true,
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "Terrifying display. His abilities seem formidable.",
+                "success": "Untrained. Powerful raw talent but no discipline. His attacks are predictable."
+              }
+            },
+            {
+              "id": "sc-a2s5-persuasion",
+              "discipline": "persuasion",
+              "context": "Convincing Demos to stand down — Varga has already abandoned him.",
+              "arena": "presence",
+              "actionType": "interact",
+              "control": {
+                "failure": "Demos is too far gone. Fights to the death.",
+                "success": "Demos hesitates. Realizes Varga is fleeing without him. Steps aside in bitter rage."
+              }
+            },
+            {
+              "id": "sc-a2s5-athletics",
+              "discipline": "athletics",
+              "context": "Forcing through blast doors during fortress lockdown.",
+              "arena": "physique",
+              "actionType": "interact",
+              "control": {
+                "failure": "Door holds. Must find alternate route — costs time.",
+                "success": "Door forced open. Path cleared."
+              }
+            },
+            {
+              "id": "sc-a2s5-tech",
+              "discipline": "tech",
+              "context": "Hacking lockdown controls to open sealed corridors.",
+              "arena": "wits",
+              "actionType": "interact",
+              "control": {
+                "failure": "Partial override. Some doors open, others stay sealed.",
+                "success": "Blast doors retract. Clear path to the hangar wing."
+              }
+            }
+          ]
         },
         {
           "id": "adv2-p2-s6",
@@ -2808,54 +2868,6 @@
           "gearFlags": [
             "Military"
           ],
-          "skillChecks": [
-            {
-              "id": "sc-a2s6-ranged",
-              "discipline": "ranged",
-              "tier": 1,
-              "power": 0,
-              "context": "Firefight across the hangar bay.",
-              "success": "Accurate fire. Stormtroopers suppressed or eliminated.",
-              "failure": "Pinned by return fire. [Suppressed] for 1 round."
-            },
-            {
-              "id": "sc-a2s6-tech",
-              "discipline": "tech",
-              "tier": 1,
-              "power": 0,
-              "context": "Hot-wiring the heroes' ship or bypassing hangar controls.",
-              "success": "Ship systems online. Ready for launch.",
-              "failure": "Delayed launch. 2 additional rounds under fire."
-            },
-            {
-              "id": "sc-a2s6-piloting",
-              "discipline": "piloting",
-              "tier": 1,
-              "power": 2,
-              "context": "Launching under heavy fire with Stormtroopers targeting the ship.",
-              "success": "Clean launch. Break atmosphere.",
-              "failure": "Ship takes hits during liftoff. Hull damage. Emergency repairs needed."
-            },
-            {
-              "id": "sc-a2s6-tactics",
-              "discipline": "tactics",
-              "tier": 1,
-              "power": 0,
-              "context": "Tracking Varga's escape trajectory.",
-              "success": "Partial trajectory lock. The vector aligns with the Anoat Sector. Bespin. Cloud City.",
-              "failure": "Lost him. Must rely on Gome's intel to find Varga."
-            },
-            {
-              "id": "sc-a2s6-athletics",
-              "discipline": "athletics",
-              "tier": 1,
-              "power": 0,
-              "context": "Sprinting across the open hangar to the ship.",
-              "success": "Full speed. Reach the ship.",
-              "failure": "Stumble or take fire. Slowed.",
-              "isOptional": true
-            }
-          ],
           "encounters": [
             {
               "id": "enc-a2s6-stormtroopers",
@@ -2898,7 +2910,65 @@
             "climax": "Varth executes Raden on the ramp. The sprint to the ship under fire.",
             "resolution": "Liftoff. Hyperspace. Silence. Varth's trajectory lock on Bespin.",
             "estimatedMinutes": 35
-          }
+          },
+          "disciplineChallenges": [
+            {
+              "id": "sc-a2s6-ranged",
+              "discipline": "ranged",
+              "context": "Firefight across the hangar bay.",
+              "arena": "reflex",
+              "actionType": "interact",
+              "control": {
+                "failure": "Pinned by return fire. [Suppressed] for 1 round.",
+                "success": "Accurate fire. Stormtroopers suppressed or eliminated."
+              }
+            },
+            {
+              "id": "sc-a2s6-tech",
+              "discipline": "tech",
+              "context": "Hot-wiring the heroes' ship or bypassing hangar controls.",
+              "arena": "wits",
+              "actionType": "interact",
+              "control": {
+                "failure": "Delayed launch. 2 additional rounds under fire.",
+                "success": "Ship systems online. Ready for launch."
+              }
+            },
+            {
+              "id": "sc-a2s6-piloting",
+              "discipline": "piloting",
+              "context": "Launching under heavy fire with Stormtroopers targeting the ship.",
+              "arena": "reflex",
+              "actionType": "interact",
+              "control": {
+                "failure": "Ship takes hits during liftoff. Hull damage. Emergency repairs needed.",
+                "success": "Clean launch. Break atmosphere."
+              }
+            },
+            {
+              "id": "sc-a2s6-tactics",
+              "discipline": "tactics",
+              "context": "Tracking Varga's escape trajectory.",
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "Lost him. Must rely on Gome's intel to find Varga.",
+                "success": "Partial trajectory lock. The vector aligns with the Anoat Sector. Bespin. Cloud City."
+              }
+            },
+            {
+              "id": "sc-a2s6-athletics",
+              "discipline": "athletics",
+              "context": "Sprinting across the open hangar to the ship.",
+              "isOptional": true,
+              "arena": "physique",
+              "actionType": "interact",
+              "control": {
+                "failure": "Stumble or take fire. Slowed.",
+                "success": "Full speed. Reach the ship."
+              }
+            }
+          ]
         }
       ]
     }

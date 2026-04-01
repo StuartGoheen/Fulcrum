@@ -193,45 +193,6 @@
           "gearFlags": [
             "Environmental"
           ],
-          "skillChecks": [
-            {
-              "id": "sc-a4s1-piloting",
-              "discipline": "piloting",
-              "tier": 2,
-              "power": 0,
-              "context": "Navigating the Moddell sector's hyperspace anomalies.",
-              "success": "Clean arrival. Ship undamaged.",
-              "failure": "Rough transit. Ship takes minor hull damage. One system offline."
-            },
-            {
-              "id": "sc-a4s1-survival",
-              "discipline": "survival",
-              "tier": 1,
-              "power": 0,
-              "context": "Identifying a safe landing zone from orbit.",
-              "success": "Clear landing spot 5 klicks from target. Good approach route visible.",
-              "failure": "Best option is a narrow clearing. Tight approach."
-            },
-            {
-              "id": "sc-a4s1-tech",
-              "discipline": "tech",
-              "tier": 1,
-              "power": 0,
-              "context": "Scanning the dead forest zone for energy signatures or life signs.",
-              "success": "Nothing alive. But a faint energy reading deep underground — the Spire.",
-              "failure": "Scanners can't penetrate the petrified canopy. Must investigate on foot."
-            },
-            {
-              "id": "sc-a4s1-resolve",
-              "discipline": "resolve",
-              "tier": 1,
-              "power": 0,
-              "context": "Resisting the oppressive dark side emanation from the dead forest.",
-              "success": "Uncomfortable but manageable. You push through the dread.",
-              "failure": "[Rattled] until you leave the dead zone or pass a subsequent Resolve check.",
-              "isOptional": true
-            }
-          ],
           "encounters": [],
           "environmentMechanics": [
             {
@@ -259,7 +220,54 @@
             "climax": "Landing approach through dense canopy.",
             "resolution": "Boots on the ground. The petrified forest awaits.",
             "estimatedMinutes": 20
-          }
+          },
+          "disciplineChallenges": [
+            {
+              "id": "sc-a4s1-piloting",
+              "discipline": "piloting",
+              "context": "Navigating the Moddell sector's hyperspace anomalies.",
+              "arena": "reflex",
+              "actionType": "interact",
+              "control": {
+                "failure": "Rough transit. Ship takes minor hull damage. One system offline.",
+                "success": "Clean arrival. Ship undamaged."
+              }
+            },
+            {
+              "id": "sc-a4s1-survival",
+              "discipline": "survival",
+              "context": "Identifying a safe landing zone from orbit.",
+              "arena": "grit",
+              "actionType": "assess",
+              "control": {
+                "failure": "Best option is a narrow clearing. Tight approach.",
+                "success": "Clear landing spot 5 klicks from target. Good approach route visible."
+              }
+            },
+            {
+              "id": "sc-a4s1-tech",
+              "discipline": "tech",
+              "context": "Scanning the dead forest zone for energy signatures or life signs.",
+              "arena": "wits",
+              "actionType": "interact",
+              "control": {
+                "failure": "Scanners can't penetrate the petrified canopy. Must investigate on foot.",
+                "success": "Nothing alive. But a faint energy reading deep underground — the Spire."
+              }
+            },
+            {
+              "id": "sc-a4s1-resolve",
+              "discipline": "resolve",
+              "context": "Resisting the oppressive dark side emanation from the dead forest.",
+              "isOptional": true,
+              "arena": "grit",
+              "actionType": "interact",
+              "control": {
+                "failure": "[Rattled] until you leave the dead zone or pass a subsequent Resolve check.",
+                "success": "Uncomfortable but manageable. You push through the dread."
+              }
+            }
+          ]
         },
         {
           "id": "adv4-p1-s2",
@@ -469,54 +477,6 @@
           "gearFlags": [
             "Environmental"
           ],
-          "skillChecks": [
-            {
-              "id": "sc-a4s2-charm",
-              "discipline": "charm",
-              "tier": 1,
-              "power": 2,
-              "context": "First contact with Ewoks. No shared language — gesture and tone.",
-              "success": "The Ewoks lower their weapons. Chirpa approaches cautiously.",
-              "failure": "The Ewoks remain hostile. Warning shots from the canopy."
-            },
-            {
-              "id": "sc-a4s2-persuasion",
-              "discipline": "persuasion",
-              "tier": 1,
-              "power": 0,
-              "context": "Convincing Chirpa to provide a guide to the dead zone.",
-              "success": "Chirpa assigns a scout named Paploo. He knows the safest route.",
-              "failure": "Chirpa refuses. The dead forest is taboo. The heroes are on their own."
-            },
-            {
-              "id": "sc-a4s2-survival",
-              "discipline": "survival",
-              "tier": 1,
-              "power": 0,
-              "context": "Navigating the living jungle without an Ewok guide.",
-              "success": "Find a game trail that leads toward the dead zone.",
-              "failure": "Lost for hours. Encounter hostile fauna."
-            },
-            {
-              "id": "sc-a4s2-insight",
-              "discipline": "insight",
-              "tier": 0,
-              "power": 0,
-              "context": "Understanding Ewok customs from body language.",
-              "success": "Gift-giving earns trust. They respect strength and generosity.",
-              "failure": "Alien social cues. Hard to read.",
-              "isOptional": true
-            },
-            {
-              "id": "sc-a4s2-athletics",
-              "discipline": "athletics",
-              "tier": 1,
-              "power": 0,
-              "context": "Keeping up with Ewoks who move through canopy, not ground.",
-              "success": "Match their pace. Efficient travel.",
-              "failure": "Exhausting trek. [Fatigued] by arrival at the dead zone edge."
-            }
-          ],
           "encounters": [
             {
               "id": "enc-a4s2-fauna",
@@ -558,7 +518,65 @@
             "climax": "The negotiation with Chirpa — guide or no guide.",
             "resolution": "Path to the dead zone established.",
             "estimatedMinutes": 30
-          }
+          },
+          "disciplineChallenges": [
+            {
+              "id": "sc-a4s2-charm",
+              "discipline": "charm",
+              "context": "First contact with Ewoks. No shared language — gesture and tone.",
+              "arena": "presence",
+              "actionType": "interact",
+              "control": {
+                "failure": "The Ewoks remain hostile. Warning shots from the canopy.",
+                "success": "The Ewoks lower their weapons. Chirpa approaches cautiously."
+              }
+            },
+            {
+              "id": "sc-a4s2-persuasion",
+              "discipline": "persuasion",
+              "context": "Convincing Chirpa to provide a guide to the dead zone.",
+              "arena": "presence",
+              "actionType": "interact",
+              "control": {
+                "failure": "Chirpa refuses. The dead forest is taboo. The heroes are on their own.",
+                "success": "Chirpa assigns a scout named Paploo. He knows the safest route."
+              }
+            },
+            {
+              "id": "sc-a4s2-survival",
+              "discipline": "survival",
+              "context": "Navigating the living jungle without an Ewok guide.",
+              "arena": "grit",
+              "actionType": "assess",
+              "control": {
+                "failure": "Lost for hours. Encounter hostile fauna.",
+                "success": "Find a game trail that leads toward the dead zone."
+              }
+            },
+            {
+              "id": "sc-a4s2-insight",
+              "discipline": "insight",
+              "context": "Understanding Ewok customs from body language.",
+              "isOptional": true,
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "Alien social cues. Hard to read.",
+                "success": "Gift-giving earns trust. They respect strength and generosity."
+              }
+            },
+            {
+              "id": "sc-a4s2-athletics",
+              "discipline": "athletics",
+              "context": "Keeping up with Ewoks who move through canopy, not ground.",
+              "arena": "physique",
+              "actionType": "interact",
+              "control": {
+                "failure": "Exhausting trek. [Fatigued] by arrival at the dead zone edge.",
+                "success": "Match their pace. Efficient travel."
+              }
+            }
+          ]
         },
         {
           "id": "adv4-p1-s3",
@@ -605,44 +623,6 @@
           "gearFlags": [
             "Environmental"
           ],
-          "skillChecks": [
-            {
-              "id": "sc-a4s3-resolve",
-              "discipline": "resolve",
-              "tier": 2,
-              "power": 0,
-              "context": "Crossing the boundary into the dead zone. The dark side hits like a wall.",
-              "success": "You push through the dread. Your will holds.",
-              "failure": "[Rattled]. The dark side whispers — memories of failure, loss, fear."
-            },
-            {
-              "id": "sc-a4s3-survival",
-              "discipline": "survival",
-              "tier": 1,
-              "power": 0,
-              "context": "Navigating the featureless petrified forest. No landmarks.",
-              "success": "Use Revan's coordinates to maintain bearing. Direct route to the Spire.",
-              "failure": "Disoriented. Wander for hours. Sinkholes become a risk."
-            },
-            {
-              "id": "sc-a4s3-athletics",
-              "discipline": "athletics",
-              "tier": 1,
-              "power": 0,
-              "context": "Crossing unstable ground over ancient sinkhole cavities.",
-              "success": "Identify weak spots. Navigate safely.",
-              "failure": "Ground collapses. Fall into an ancient tunnel. Take damage. Must climb out."
-            },
-            {
-              "id": "sc-a4s3-endure",
-              "discipline": "endure",
-              "tier": 1,
-              "power": 0,
-              "context": "Physical toll of hiking through the dead zone. No water, no food sources, oppressive atmosphere.",
-              "success": "Push through. Arrive at the Spire entrance functional.",
-              "failure": "[Fatigued]. -1 Power on physical checks in the next scene."
-            }
-          ],
           "encounters": [],
           "environmentMechanics": [
             {
@@ -676,7 +656,53 @@
             "climax": "The dark side crescendo — can you keep going?",
             "resolution": "The Ebon Spire becomes visible.",
             "estimatedMinutes": 30
-          }
+          },
+          "disciplineChallenges": [
+            {
+              "id": "sc-a4s3-resolve",
+              "discipline": "resolve",
+              "context": "Crossing the boundary into the dead zone. The dark side hits like a wall.",
+              "arena": "grit",
+              "actionType": "interact",
+              "control": {
+                "failure": "[Rattled]. The dark side whispers — memories of failure, loss, fear.",
+                "success": "You push through the dread. Your will holds."
+              }
+            },
+            {
+              "id": "sc-a4s3-survival",
+              "discipline": "survival",
+              "context": "Navigating the featureless petrified forest. No landmarks.",
+              "arena": "grit",
+              "actionType": "assess",
+              "control": {
+                "failure": "Disoriented. Wander for hours. Sinkholes become a risk.",
+                "success": "Use Revan's coordinates to maintain bearing. Direct route to the Spire."
+              }
+            },
+            {
+              "id": "sc-a4s3-athletics",
+              "discipline": "athletics",
+              "context": "Crossing unstable ground over ancient sinkhole cavities.",
+              "arena": "physique",
+              "actionType": "interact",
+              "control": {
+                "failure": "Ground collapses. Fall into an ancient tunnel. Take damage. Must climb out.",
+                "success": "Identify weak spots. Navigate safely."
+              }
+            },
+            {
+              "id": "sc-a4s3-endure",
+              "discipline": "endure",
+              "context": "Physical toll of hiking through the dead zone. No water, no food sources, oppressive atmosphere.",
+              "arena": "physique",
+              "actionType": "interact",
+              "control": {
+                "failure": "[Fatigued]. -1 Power on physical checks in the next scene.",
+                "success": "Push through. Arrive at the Spire entrance functional."
+              }
+            }
+          ]
         },
         {
           "id": "adv4-p1-s4",
@@ -816,45 +842,6 @@
           "gearFlags": [
             "Environmental"
           ],
-          "skillChecks": [
-            {
-              "id": "sc-a4s4-investigation",
-              "discipline": "investigation",
-              "tier": 1,
-              "power": 0,
-              "context": "Studying the geometric patterns on the Spire's exterior.",
-              "success": "Ancient language fragments. This is pre-Republic technology. Revan was a visitor, not a builder.",
-              "failure": "Beautiful but incomprehensible. Alien design philosophy."
-            },
-            {
-              "id": "sc-a4s4-resolve",
-              "discipline": "resolve",
-              "tier": 2,
-              "power": 0,
-              "context": "The entrance test. The Guardian probes your intentions via the Force.",
-              "success": "You seek knowledge, not power. The Guardian stands down. The entrance opens.",
-              "failure": "Your fear or ambition triggers the Guardian. It attacks."
-            },
-            {
-              "id": "sc-a4s4-tech",
-              "discipline": "tech",
-              "tier": 2,
-              "power": 2,
-              "context": "Bypassing the ancient security system to avoid the Guardian.",
-              "success": "Security disabled. Entrance opens without combat.",
-              "failure": "Security responds aggressively. Guardian emerges in attack mode.",
-              "isOptional": true
-            },
-            {
-              "id": "sc-a4s4-insight",
-              "discipline": "insight",
-              "tier": 1,
-              "power": 0,
-              "context": "Sensing the Guardian's nature — is it hostile or testing?",
-              "success": "It's a test, not a kill order. The Guardian wants you to pass. Approach with respect.",
-              "failure": "Reads as purely hostile. Defensive stance recommended."
-            }
-          ],
           "encounters": [
             {
               "id": "enc-a4s4-guardian",
@@ -891,7 +878,54 @@
             "climax": "The Guardian emerges. Test or fight?",
             "resolution": "Entrance opens. Darkness below.",
             "estimatedMinutes": 30
-          }
+          },
+          "disciplineChallenges": [
+            {
+              "id": "sc-a4s4-investigation",
+              "discipline": "investigation",
+              "context": "Studying the geometric patterns on the Spire's exterior.",
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "Beautiful but incomprehensible. Alien design philosophy.",
+                "success": "Ancient language fragments. This is pre-Republic technology. Revan was a visitor, not a builder."
+              }
+            },
+            {
+              "id": "sc-a4s4-resolve",
+              "discipline": "resolve",
+              "context": "The entrance test. The Guardian probes your intentions via the Force.",
+              "arena": "grit",
+              "actionType": "interact",
+              "control": {
+                "failure": "Your fear or ambition triggers the Guardian. It attacks.",
+                "success": "You seek knowledge, not power. The Guardian stands down. The entrance opens."
+              }
+            },
+            {
+              "id": "sc-a4s4-tech",
+              "discipline": "tech",
+              "context": "Bypassing the ancient security system to avoid the Guardian.",
+              "isOptional": true,
+              "arena": "wits",
+              "actionType": "interact",
+              "control": {
+                "failure": "Security responds aggressively. Guardian emerges in attack mode.",
+                "success": "Security disabled. Entrance opens without combat."
+              }
+            },
+            {
+              "id": "sc-a4s4-insight",
+              "discipline": "insight",
+              "context": "Sensing the Guardian's nature — is it hostile or testing?",
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "Reads as purely hostile. Defensive stance recommended.",
+                "success": "It's a test, not a kill order. The Guardian wants you to pass. Approach with respect."
+              }
+            }
+          ]
         }
       ]
     },
@@ -944,44 +978,6 @@
           "gearFlags": [
             "Environmental"
           ],
-          "skillChecks": [
-            {
-              "id": "sc-a4s5-investigation",
-              "discipline": "investigation",
-              "tier": 1,
-              "power": 0,
-              "context": "Deciphering Revan's star charts carved into the walls.",
-              "success": "Partial navigation data for the Unknown Regions. Supplementary to the Holocron.",
-              "failure": "Beautiful but incomplete. Need the Holocron for the full picture."
-            },
-            {
-              "id": "sc-a4s5-athletics",
-              "discipline": "athletics",
-              "tier": 1,
-              "power": 0,
-              "context": "Descending the spiral passage safely. Syntherope anchoring.",
-              "success": "Controlled descent. No incidents.",
-              "failure": "Loose stone. Someone slips. Minor fall damage."
-            },
-            {
-              "id": "sc-a4s5-survival",
-              "discipline": "survival",
-              "tier": 1,
-              "power": 0,
-              "context": "Monitoring air quality and temperature in the deep.",
-              "success": "Air is breathable but thin. Temperature is survivable with gear.",
-              "failure": "Don't notice the thinning air until someone gets dizzy."
-            },
-            {
-              "id": "sc-a4s5-tech",
-              "discipline": "tech",
-              "tier": 1,
-              "power": 2,
-              "context": "Recording the star chart carvings with a datapad.",
-              "success": "Clean recording. Navigation data saved for later analysis.",
-              "failure": "Glow rod flicker corrupts the scan. Partial data."
-            }
-          ],
           "encounters": [],
           "environmentMechanics": [
             {
@@ -1020,7 +1016,53 @@
             "climax": "The transition zone — from Revan's work to something much older.",
             "resolution": "The heroes pass into the ancient ruins below.",
             "estimatedMinutes": 25
-          }
+          },
+          "disciplineChallenges": [
+            {
+              "id": "sc-a4s5-investigation",
+              "discipline": "investigation",
+              "context": "Deciphering Revan's star charts carved into the walls.",
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "Beautiful but incomplete. Need the Holocron for the full picture.",
+                "success": "Partial navigation data for the Unknown Regions. Supplementary to the Holocron."
+              }
+            },
+            {
+              "id": "sc-a4s5-athletics",
+              "discipline": "athletics",
+              "context": "Descending the spiral passage safely. Syntherope anchoring.",
+              "arena": "physique",
+              "actionType": "interact",
+              "control": {
+                "failure": "Loose stone. Someone slips. Minor fall damage.",
+                "success": "Controlled descent. No incidents."
+              }
+            },
+            {
+              "id": "sc-a4s5-survival",
+              "discipline": "survival",
+              "context": "Monitoring air quality and temperature in the deep.",
+              "arena": "grit",
+              "actionType": "assess",
+              "control": {
+                "failure": "Don't notice the thinning air until someone gets dizzy.",
+                "success": "Air is breathable but thin. Temperature is survivable with gear."
+              }
+            },
+            {
+              "id": "sc-a4s5-tech",
+              "discipline": "tech",
+              "context": "Recording the star chart carvings with a datapad.",
+              "arena": "wits",
+              "actionType": "interact",
+              "control": {
+                "failure": "Glow rod flicker corrupts the scan. Partial data.",
+                "success": "Clean recording. Navigation data saved for later analysis."
+              }
+            }
+          ]
         },
         {
           "id": "adv4-p2-s2",
@@ -1138,35 +1180,6 @@
             "persuasion"
           ],
           "gearFlags": [],
-          "skillChecks": [
-            {
-              "id": "sc-a4s6-resolve-1",
-              "discipline": "resolve",
-              "tier": 2,
-              "power": 0,
-              "context": "Facing your Dark Reflection. It knows everything about you.",
-              "success": "You acknowledge the shadow but refuse it. [Clarity] — +1 Power for the rest of the adventure.",
-              "failure": "[Corrupted] — the shadow lingers. -1 Power on Resolve checks until you confront it again."
-            },
-            {
-              "id": "sc-a4s6-insight",
-              "discipline": "insight",
-              "tier": 1,
-              "power": 0,
-              "context": "Understanding the nature of the visions — are they real?",
-              "success": "These are possibilities, not prophecies. The dark side shows what COULD be, not what MUST be.",
-              "failure": "They feel absolutely real. The emotional weight is crushing."
-            },
-            {
-              "id": "sc-a4s6-persuasion",
-              "discipline": "persuasion",
-              "tier": 2,
-              "power": 0,
-              "context": "Talking another PC through their vision. Helping them resist.",
-              "success": "Your words break through. The other hero gains +1 tier on their Resolve check.",
-              "failure": "Your help feels hollow. The shadow uses your words against them."
-            }
-          ],
           "encounters": [
             {
               "id": "enc-a4s6-shadows",
@@ -1203,7 +1216,42 @@
             "climax": "The Offer — power in exchange for compromise.",
             "resolution": "Shadows dissolve or linger. The descent continues.",
             "estimatedMinutes": 40
-          }
+          },
+          "disciplineChallenges": [
+            {
+              "id": "sc-a4s6-resolve-1",
+              "discipline": "resolve",
+              "context": "Facing your Dark Reflection. It knows everything about you.",
+              "arena": "grit",
+              "actionType": "interact",
+              "control": {
+                "failure": "[Corrupted] — the shadow lingers. -1 Power on Resolve checks until you confront it again.",
+                "success": "You acknowledge the shadow but refuse it. [Clarity] — +1 Power for the rest of the adventure."
+              }
+            },
+            {
+              "id": "sc-a4s6-insight",
+              "discipline": "insight",
+              "context": "Understanding the nature of the visions — are they real?",
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "They feel absolutely real. The emotional weight is crushing.",
+                "success": "These are possibilities, not prophecies. The dark side shows what COULD be, not what MUST be."
+              }
+            },
+            {
+              "id": "sc-a4s6-persuasion",
+              "discipline": "persuasion",
+              "context": "Talking another PC through their vision. Helping them resist.",
+              "arena": "presence",
+              "actionType": "interact",
+              "control": {
+                "failure": "Your help feels hollow. The shadow uses your words against them.",
+                "success": "Your words break through. The other hero gains +1 tier on their Resolve check."
+              }
+            }
+          ]
         },
         {
           "id": "adv4-p2-s3",
@@ -1403,45 +1451,6 @@
           "gearFlags": [
             "Environmental"
           ],
-          "skillChecks": [
-            {
-              "id": "sc-a4s7-stealth",
-              "discipline": "stealth",
-              "tier": 2,
-              "power": 0,
-              "context": "Moving through the spider nest without triggering an attack.",
-              "success": "Silent movement in darkness. Spiders don't notice.",
-              "failure": "A web strand vibrates. Spiders investigate."
-            },
-            {
-              "id": "sc-a4s7-survival",
-              "discipline": "survival",
-              "tier": 1,
-              "power": 0,
-              "context": "Identifying the spiders' behavior — threats vs territorial displays.",
-              "success": "They're territorial but not hunting. Avoid their web-centers and you're safe.",
-              "failure": "They all look aggressive. Can't tell defensive from predatory."
-            },
-            {
-              "id": "sc-a4s7-athletics",
-              "discipline": "athletics",
-              "tier": 1,
-              "power": 0,
-              "context": "Breaking free from web restraints if caught.",
-              "success": "Tear free. Full movement restored.",
-              "failure": "Webbed tighter. Need help from an ally."
-            },
-            {
-              "id": "sc-a4s7-investigation",
-              "discipline": "investigation",
-              "tier": 1,
-              "power": 0,
-              "context": "Finding an alternate route that bypasses the main nest.",
-              "success": "A narrow side passage. Spider-free but tight — single file.",
-              "failure": "No alternate route visible. Must go through.",
-              "isOptional": true
-            }
-          ],
           "encounters": [
             {
               "id": "enc-a4s7-spiders",
@@ -1484,7 +1493,54 @@
             "climax": "The Brood Mother blocks the deepest passage.",
             "resolution": "Through the Nest. The Web of the Revanchist below.",
             "estimatedMinutes": 35
-          }
+          },
+          "disciplineChallenges": [
+            {
+              "id": "sc-a4s7-stealth",
+              "discipline": "stealth",
+              "context": "Moving through the spider nest without triggering an attack.",
+              "arena": "reflex",
+              "actionType": "interact",
+              "control": {
+                "failure": "A web strand vibrates. Spiders investigate.",
+                "success": "Silent movement in darkness. Spiders don't notice."
+              }
+            },
+            {
+              "id": "sc-a4s7-survival",
+              "discipline": "survival",
+              "context": "Identifying the spiders' behavior — threats vs territorial displays.",
+              "arena": "grit",
+              "actionType": "assess",
+              "control": {
+                "failure": "They all look aggressive. Can't tell defensive from predatory.",
+                "success": "They're territorial but not hunting. Avoid their web-centers and you're safe."
+              }
+            },
+            {
+              "id": "sc-a4s7-athletics",
+              "discipline": "athletics",
+              "context": "Breaking free from web restraints if caught.",
+              "arena": "physique",
+              "actionType": "interact",
+              "control": {
+                "failure": "Webbed tighter. Need help from an ally.",
+                "success": "Tear free. Full movement restored."
+              }
+            },
+            {
+              "id": "sc-a4s7-investigation",
+              "discipline": "investigation",
+              "context": "Finding an alternate route that bypasses the main nest.",
+              "isOptional": true,
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "No alternate route visible. Must go through.",
+                "success": "A narrow side passage. Spider-free but tight — single file."
+              }
+            }
+          ]
         },
         {
           "id": "adv4-p2-s4",
@@ -1539,35 +1595,6 @@
             "charm"
           ],
           "gearFlags": [],
-          "skillChecks": [
-            {
-              "id": "sc-a4s8-resolve",
-              "discipline": "resolve",
-              "tier": 2,
-              "power": 0,
-              "context": "Expressing a fundamental truth to the doorway mechanism.",
-              "success": "The patterns align. The door opens. Your truth is accepted.",
-              "failure": "The door rejects your expression. Try a different approach or force it."
-            },
-            {
-              "id": "sc-a4s8-investigation",
-              "discipline": "investigation",
-              "tier": 1,
-              "power": 2,
-              "context": "Deciphering the pattern logic — what sequence opens the door.",
-              "success": "The patterns represent philosophical concepts. Identify the \"truth\" the door expects.",
-              "failure": "The logic is alien. Trial and error only."
-            },
-            {
-              "id": "sc-a4s8-tech",
-              "discipline": "tech",
-              "tier": 2,
-              "power": 2,
-              "context": "Brute-forcing the ancient mechanism with modern tools.",
-              "success": "Door opens mechanically. Bypasses the philosophical test.",
-              "failure": "Mechanism resists. Fusion Cutter can force it but triggers defensive protocols in the next chamber."
-            }
-          ],
           "encounters": [],
           "environmentMechanics": [
             {
@@ -1589,7 +1616,42 @@
             "climax": "The truth expressed. The door responds.",
             "resolution": "The door opens. The final chamber.",
             "estimatedMinutes": 20
-          }
+          },
+          "disciplineChallenges": [
+            {
+              "id": "sc-a4s8-resolve",
+              "discipline": "resolve",
+              "context": "Expressing a fundamental truth to the doorway mechanism.",
+              "arena": "grit",
+              "actionType": "interact",
+              "control": {
+                "failure": "The door rejects your expression. Try a different approach or force it.",
+                "success": "The patterns align. The door opens. Your truth is accepted."
+              }
+            },
+            {
+              "id": "sc-a4s8-investigation",
+              "discipline": "investigation",
+              "context": "Deciphering the pattern logic — what sequence opens the door.",
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "The logic is alien. Trial and error only.",
+                "success": "The patterns represent philosophical concepts. Identify the \"truth\" the door expects."
+              }
+            },
+            {
+              "id": "sc-a4s8-tech",
+              "discipline": "tech",
+              "context": "Brute-forcing the ancient mechanism with modern tools.",
+              "arena": "wits",
+              "actionType": "interact",
+              "control": {
+                "failure": "Mechanism resists. Fusion Cutter can force it but triggers defensive protocols in the next chamber.",
+                "success": "Door opens mechanically. Bypasses the philosophical test."
+              }
+            }
+          ]
         }
       ]
     },
@@ -1717,45 +1779,6 @@
             "charm"
           ],
           "gearFlags": [],
-          "skillChecks": [
-            {
-              "id": "sc-a4s9-resolve",
-              "discipline": "resolve",
-              "tier": 2,
-              "power": 0,
-              "context": "Revan's first question: \"What is worth dying for?\"",
-              "success": "An honest answer. Revan nods. First lock opens.",
-              "failure": "A glib or dishonest answer. Revan is disappointed. \"Try again.\""
-            },
-            {
-              "id": "sc-a4s9-insight",
-              "discipline": "insight",
-              "tier": 2,
-              "power": 0,
-              "context": "Revan's second question: \"What is the difference between sacrifice and waste?\"",
-              "success": "A thoughtful answer. Second lock opens.",
-              "failure": "Revan challenges the answer. Must try another approach."
-            },
-            {
-              "id": "sc-a4s9-persuasion",
-              "discipline": "persuasion",
-              "tier": 2,
-              "power": 0,
-              "context": "Revan's third question: \"Why should I trust you with the paths between the stars?\"",
-              "success": "Full access granted. Navigational data downloaded.",
-              "failure": "Partial access. Some routes are withheld. Must be supplemented with Adv5 drift algorithms."
-            },
-            {
-              "id": "sc-a4s9-investigation",
-              "discipline": "investigation",
-              "tier": 1,
-              "power": 0,
-              "context": "Studying the three-dimensional star map for Project Leviathan clues.",
-              "success": "One route leads to the Xala system — deep in the Unknown Regions. The Empire has been using this route.",
-              "failure": "The map is vast. Need more time to analyze.",
-              "isOptional": true
-            }
-          ],
           "encounters": [],
           "environmentMechanics": [
             {
@@ -1788,7 +1811,54 @@
             "climax": "The third question — \"Why should I trust you?\"",
             "resolution": "Data downloaded. The Holocron dims. Time to leave.",
             "estimatedMinutes": 30
-          }
+          },
+          "disciplineChallenges": [
+            {
+              "id": "sc-a4s9-resolve",
+              "discipline": "resolve",
+              "context": "Revan's first question: \"What is worth dying for?\"",
+              "arena": "grit",
+              "actionType": "interact",
+              "control": {
+                "failure": "A glib or dishonest answer. Revan is disappointed. \"Try again.\"",
+                "success": "An honest answer. Revan nods. First lock opens."
+              }
+            },
+            {
+              "id": "sc-a4s9-insight",
+              "discipline": "insight",
+              "context": "Revan's second question: \"What is the difference between sacrifice and waste?\"",
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "Revan challenges the answer. Must try another approach.",
+                "success": "A thoughtful answer. Second lock opens."
+              }
+            },
+            {
+              "id": "sc-a4s9-persuasion",
+              "discipline": "persuasion",
+              "context": "Revan's third question: \"Why should I trust you with the paths between the stars?\"",
+              "arena": "presence",
+              "actionType": "interact",
+              "control": {
+                "failure": "Partial access. Some routes are withheld. Must be supplemented with Adv5 drift algorithms.",
+                "success": "Full access granted. Navigational data downloaded."
+              }
+            },
+            {
+              "id": "sc-a4s9-investigation",
+              "discipline": "investigation",
+              "context": "Studying the three-dimensional star map for Project Leviathan clues.",
+              "isOptional": true,
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "The map is vast. Need more time to analyze.",
+                "success": "One route leads to the Xala system — deep in the Unknown Regions. The Empire has been using this route."
+              }
+            }
+          ]
         },
         {
           "id": "adv4-p3-s2",
@@ -1834,44 +1904,6 @@
           "gearFlags": [
             "Environmental"
           ],
-          "skillChecks": [
-            {
-              "id": "sc-a4s10-athletics",
-              "discipline": "athletics",
-              "tier": 1,
-              "power": 0,
-              "context": "Sprinting up the spiral passage as it collapses.",
-              "success": "Full speed. Gain a round on the collapse.",
-              "failure": "Stumble. Falling stone forces a detour."
-            },
-            {
-              "id": "sc-a4s10-evasion",
-              "discipline": "evasion",
-              "tier": 1,
-              "power": 0,
-              "context": "Dodging falling stone and energy arcs.",
-              "success": "Clean dodge. No damage.",
-              "failure": "Glancing hit from debris. Minor damage."
-            },
-            {
-              "id": "sc-a4s10-endure",
-              "discipline": "endure",
-              "tier": 1,
-              "power": 0,
-              "context": "Maintaining pace despite exhaustion and injuries.",
-              "success": "Push through. Keep running.",
-              "failure": "Flagging. Another hero must help or you fall behind."
-            },
-            {
-              "id": "sc-a4s10-survival",
-              "discipline": "survival",
-              "tier": 1,
-              "power": 0,
-              "context": "Identifying the safest route through the collapsing structure.",
-              "success": "Spot a stable passage. Avoid the worst collapses.",
-              "failure": "Take the obvious route. More exposure to falling stone."
-            }
-          ],
           "encounters": [],
           "environmentMechanics": [
             {
@@ -1905,7 +1937,53 @@
             "climax": "The final stretch — the entrance is visible but collapsing.",
             "resolution": "Burst into daylight. The Spire collapses behind you.",
             "estimatedMinutes": 25
-          }
+          },
+          "disciplineChallenges": [
+            {
+              "id": "sc-a4s10-athletics",
+              "discipline": "athletics",
+              "context": "Sprinting up the spiral passage as it collapses.",
+              "arena": "physique",
+              "actionType": "interact",
+              "control": {
+                "failure": "Stumble. Falling stone forces a detour.",
+                "success": "Full speed. Gain a round on the collapse."
+              }
+            },
+            {
+              "id": "sc-a4s10-evasion",
+              "discipline": "evasion",
+              "context": "Dodging falling stone and energy arcs.",
+              "arena": "reflex",
+              "actionType": "interact",
+              "control": {
+                "failure": "Glancing hit from debris. Minor damage.",
+                "success": "Clean dodge. No damage."
+              }
+            },
+            {
+              "id": "sc-a4s10-endure",
+              "discipline": "endure",
+              "context": "Maintaining pace despite exhaustion and injuries.",
+              "arena": "physique",
+              "actionType": "interact",
+              "control": {
+                "failure": "Flagging. Another hero must help or you fall behind.",
+                "success": "Push through. Keep running."
+              }
+            },
+            {
+              "id": "sc-a4s10-survival",
+              "discipline": "survival",
+              "context": "Identifying the safest route through the collapsing structure.",
+              "arena": "grit",
+              "actionType": "assess",
+              "control": {
+                "failure": "Take the obvious route. More exposure to falling stone.",
+                "success": "Spot a stable passage. Avoid the worst collapses."
+              }
+            }
+          ]
         },
         {
           "id": "adv4-p3-s3",
@@ -2022,36 +2100,6 @@
             "persuasion"
           ],
           "gearFlags": [],
-          "skillChecks": [
-            {
-              "id": "sc-a4s11-investigation",
-              "discipline": "investigation",
-              "tier": 1,
-              "power": 0,
-              "context": "Analyzing the complete navigational data with Varth.",
-              "success": "Clear picture: the Unknown Regions route is viable but needs drift algorithms from Malpaz to be safe.",
-              "failure": "Data is dense. Varth needs time. Analysis continues in transit."
-            },
-            {
-              "id": "sc-a4s11-insight",
-              "discipline": "insight",
-              "tier": 1,
-              "power": 0,
-              "context": "Reading Varth's reaction to the Holocron data — what is he planning?",
-              "success": "He's excited. Too excited. He sees this data as his key to Leviathan — and to power.",
-              "failure": "Varth seems appropriately professional. Nothing unusual."
-            },
-            {
-              "id": "sc-a4s11-charm",
-              "discipline": "charm",
-              "tier": 0,
-              "power": 0,
-              "context": "Celebrating with the Ewoks (if alliance exists).",
-              "success": "Full celebration. Gifts: Ewok-crafted equipment, medicinal herbs, and a carved token of alliance.",
-              "failure": "Polite farewell. No special gifts.",
-              "isOptional": true
-            }
-          ],
           "encounters": [],
           "environmentMechanics": [
             {
@@ -2090,7 +2138,43 @@
             "climax": "Varth's analysis: \"We need the drift algorithms from Malpaz.\"",
             "resolution": "Liftoff. Hyperspace. Act II continues.",
             "estimatedMinutes": 20
-          }
+          },
+          "disciplineChallenges": [
+            {
+              "id": "sc-a4s11-investigation",
+              "discipline": "investigation",
+              "context": "Analyzing the complete navigational data with Varth.",
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "Data is dense. Varth needs time. Analysis continues in transit.",
+                "success": "Clear picture: the Unknown Regions route is viable but needs drift algorithms from Malpaz to be safe."
+              }
+            },
+            {
+              "id": "sc-a4s11-insight",
+              "discipline": "insight",
+              "context": "Reading Varth's reaction to the Holocron data — what is he planning?",
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "Varth seems appropriately professional. Nothing unusual.",
+                "success": "He's excited. Too excited. He sees this data as his key to Leviathan — and to power."
+              }
+            },
+            {
+              "id": "sc-a4s11-charm",
+              "discipline": "charm",
+              "context": "Celebrating with the Ewoks (if alliance exists).",
+              "isOptional": true,
+              "arena": "presence",
+              "actionType": "interact",
+              "control": {
+                "failure": "Polite farewell. No special gifts.",
+                "success": "Full celebration. Gifts: Ewok-crafted equipment, medicinal herbs, and a carved token of alliance."
+              }
+            }
+          ]
         }
       ]
     }

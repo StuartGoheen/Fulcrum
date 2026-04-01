@@ -197,54 +197,6 @@
             "stealth"
           ],
           "gearFlags": [],
-          "skillChecks": [
-            {
-              "id": "sc-a3s1-investigation",
-              "discipline": "investigation",
-              "tier": 1,
-              "power": 0,
-              "context": "Tracing the threatening message to its source.",
-              "success": "Digital forensics trace the origin to the Ugnaught Parliament of Guilds — an industrial administrator terminal.",
-              "failure": "Message was routed through multiple proxies. Dead end on the digital trail."
-            },
-            {
-              "id": "sc-a3s1-charm",
-              "discipline": "charm",
-              "tier": 1,
-              "power": 2,
-              "context": "Getting locals to talk about Varga. Everyone is bribed or scared.",
-              "success": "A bartender whispers: \"Try the Ugnaughts in the Works. They hate him more than they fear him.\"",
-              "failure": "Stone wall. Nobody talks. Varga's money is louder than your charm."
-            },
-            {
-              "id": "sc-a3s1-stealth",
-              "discipline": "stealth",
-              "tier": 1,
-              "power": 0,
-              "context": "Moving through Cloud City without attracting Varga's informants.",
-              "success": "Clean movement. No one flags your presence.",
-              "failure": "A street rat clocks you and runs toward the cantina district. Varga may know you're here."
-            },
-            {
-              "id": "sc-a3s1-deception",
-              "discipline": "deception",
-              "tier": 1,
-              "power": 0,
-              "context": "Creating a cover story for why you're on Cloud City.",
-              "success": "Convincing cover as prospectors or traders.",
-              "failure": "Cover is thin. First serious scrutiny will blow it."
-            },
-            {
-              "id": "sc-a3s1-insight",
-              "discipline": "insight",
-              "tier": 0,
-              "power": 0,
-              "context": "Reading the threatening message — is it a real threat or a warning?",
-              "success": "The tone is scared, not hostile. Whoever sent this is trying to protect themselves, not threaten you.",
-              "failure": "Reads as a genuine threat. Approach with caution.",
-              "isOptional": true
-            }
-          ],
           "encounters": [],
           "environmentMechanics": [
             {
@@ -272,7 +224,65 @@
             "climax": "The trail converges on the Ugnaught Works.",
             "resolution": "Decision to approach the Ugnaughts.",
             "estimatedMinutes": 25
-          }
+          },
+          "disciplineChallenges": [
+            {
+              "id": "sc-a3s1-investigation",
+              "discipline": "investigation",
+              "context": "Tracing the threatening message to its source.",
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "Message was routed through multiple proxies. Dead end on the digital trail.",
+                "success": "Digital forensics trace the origin to the Ugnaught Parliament of Guilds — an industrial administrator terminal."
+              }
+            },
+            {
+              "id": "sc-a3s1-charm",
+              "discipline": "charm",
+              "context": "Getting locals to talk about Varga. Everyone is bribed or scared.",
+              "arena": "presence",
+              "actionType": "interact",
+              "control": {
+                "failure": "Stone wall. Nobody talks. Varga's money is louder than your charm.",
+                "success": "A bartender whispers: \"Try the Ugnaughts in the Works. They hate him more than they fear him.\""
+              }
+            },
+            {
+              "id": "sc-a3s1-stealth",
+              "discipline": "stealth",
+              "context": "Moving through Cloud City without attracting Varga's informants.",
+              "arena": "reflex",
+              "actionType": "interact",
+              "control": {
+                "failure": "A street rat clocks you and runs toward the cantina district. Varga may know you're here.",
+                "success": "Clean movement. No one flags your presence."
+              }
+            },
+            {
+              "id": "sc-a3s1-deception",
+              "discipline": "deception",
+              "context": "Creating a cover story for why you're on Cloud City.",
+              "arena": "presence",
+              "actionType": "interact",
+              "control": {
+                "failure": "Cover is thin. First serious scrutiny will blow it.",
+                "success": "Convincing cover as prospectors or traders."
+              }
+            },
+            {
+              "id": "sc-a3s1-insight",
+              "discipline": "insight",
+              "context": "Reading the threatening message — is it a real threat or a warning?",
+              "isOptional": true,
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "Reads as a genuine threat. Approach with caution.",
+                "success": "The tone is scared, not hostile. Whoever sent this is trying to protect themselves, not threaten you."
+              }
+            }
+          ]
         },
         {
           "id": "adv3-p1-s2",
@@ -444,45 +454,6 @@
             "deception"
           ],
           "gearFlags": [],
-          "skillChecks": [
-            {
-              "id": "sc-a3s2-persuasion",
-              "discipline": "persuasion",
-              "tier": 1,
-              "power": 0,
-              "context": "Convincing the Ugnaughts you're allies, not Varga's agents.",
-              "success": "Fyren and Krygg open up. They describe the gas siphoning operation.",
-              "failure": "They're not convinced. Demand proof of your intentions."
-            },
-            {
-              "id": "sc-a3s2-insight",
-              "discipline": "insight",
-              "tier": 0,
-              "power": 0,
-              "context": "Reading Fyren and Krygg — are they trustworthy?",
-              "success": "Genuine terror and anger. They've been exploited. This is real.",
-              "failure": "Hard to read. Ugnaught body language is unfamiliar."
-            },
-            {
-              "id": "sc-a3s2-investigation",
-              "discipline": "investigation",
-              "tier": 1,
-              "power": 0,
-              "context": "Reviewing the Ugnaughts' evidence of Varga's gas siphoning.",
-              "success": "Shipping manifests confirm military-grade Tibanna going to Imperial warships. The scale is staggering.",
-              "failure": "Evidence is circumstantial. Need more proof."
-            },
-            {
-              "id": "sc-a3s2-charm",
-              "discipline": "charm",
-              "tier": 1,
-              "power": 0,
-              "context": "Building rapport with the Ugnaughts for a deeper alliance.",
-              "success": "They commit fully. Will provide ongoing support — safe houses, equipment, information.",
-              "failure": "They'll trade info for the refinery job but nothing more.",
-              "isOptional": true
-            }
-          ],
           "encounters": [],
           "environmentMechanics": [
             {
@@ -509,7 +480,54 @@
             "climax": "The deal: stop the theft at the refinery, get the tournament intel.",
             "resolution": "Alliance formed. Heroes prep for the refinery.",
             "estimatedMinutes": 20
-          }
+          },
+          "disciplineChallenges": [
+            {
+              "id": "sc-a3s2-persuasion",
+              "discipline": "persuasion",
+              "context": "Convincing the Ugnaughts you're allies, not Varga's agents.",
+              "arena": "presence",
+              "actionType": "interact",
+              "control": {
+                "failure": "They're not convinced. Demand proof of your intentions.",
+                "success": "Fyren and Krygg open up. They describe the gas siphoning operation."
+              }
+            },
+            {
+              "id": "sc-a3s2-insight",
+              "discipline": "insight",
+              "context": "Reading Fyren and Krygg — are they trustworthy?",
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "Hard to read. Ugnaught body language is unfamiliar.",
+                "success": "Genuine terror and anger. They've been exploited. This is real."
+              }
+            },
+            {
+              "id": "sc-a3s2-investigation",
+              "discipline": "investigation",
+              "context": "Reviewing the Ugnaughts' evidence of Varga's gas siphoning.",
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "Evidence is circumstantial. Need more proof.",
+                "success": "Shipping manifests confirm military-grade Tibanna going to Imperial warships. The scale is staggering."
+              }
+            },
+            {
+              "id": "sc-a3s2-charm",
+              "discipline": "charm",
+              "context": "Building rapport with the Ugnaughts for a deeper alliance.",
+              "isOptional": true,
+              "arena": "presence",
+              "actionType": "interact",
+              "control": {
+                "failure": "They'll trade info for the refinery job but nothing more.",
+                "success": "They commit fully. Will provide ongoing support — safe houses, equipment, information."
+              }
+            }
+          ]
         },
         {
           "id": "adv3-p1-s3",
@@ -693,54 +711,6 @@
           "gearFlags": [
             "Environmental"
           ],
-          "skillChecks": [
-            {
-              "id": "sc-a3s3-stealth",
-              "discipline": "stealth",
-              "tier": 1,
-              "power": 0,
-              "context": "Approaching the refinery platform undetected.",
-              "success": "Perfect approach. Element of surprise secured.",
-              "failure": "Spotted at the platform edge. Trandoshans scramble to defensive positions."
-            },
-            {
-              "id": "sc-a3s3-ranged",
-              "discipline": "ranged",
-              "tier": 1,
-              "power": 0,
-              "context": "Ambush fire on the Trandoshan loading crew.",
-              "success": "First volley drops one Trandoshan. Others scatter for cover.",
-              "failure": "Shots go wide in the wind. Trandoshans return fire immediately."
-            },
-            {
-              "id": "sc-a3s3-athletics",
-              "discipline": "athletics",
-              "tier": 1,
-              "power": 0,
-              "context": "Fighting on narrow catwalks in high winds.",
-              "success": "Sure-footed. Move freely across the platform.",
-              "failure": "Wind catches you. [Slowed] for 1 round or risk falling."
-            },
-            {
-              "id": "sc-a3s3-tech",
-              "discipline": "tech",
-              "tier": 1,
-              "power": 0,
-              "context": "Disabling the shuttle to prevent the Trandoshans from escaping with the gas.",
-              "success": "Shuttle engines shut down. No escape.",
-              "failure": "Shuttle is still operational. Must be stopped physically."
-            },
-            {
-              "id": "sc-a3s3-investigation",
-              "discipline": "investigation",
-              "tier": 0,
-              "power": 0,
-              "context": "Searching the Trandoshan leader's datapad after the fight.",
-              "success": "Gas is destined for the Imperial Navy. Mentions \"Shackles of Nizon\" — a slave transport ship.",
-              "failure": "Datapad is damaged. Partial data only.",
-              "isOptional": true
-            }
-          ],
           "encounters": [
             {
               "id": "enc-a3s3-refinery",
@@ -794,7 +764,65 @@
             "climax": "The shuttle — stop it from escaping with the gas.",
             "resolution": "Platform secured. Datapad recovered.",
             "estimatedMinutes": 35
-          }
+          },
+          "disciplineChallenges": [
+            {
+              "id": "sc-a3s3-stealth",
+              "discipline": "stealth",
+              "context": "Approaching the refinery platform undetected.",
+              "arena": "reflex",
+              "actionType": "interact",
+              "control": {
+                "failure": "Spotted at the platform edge. Trandoshans scramble to defensive positions.",
+                "success": "Perfect approach. Element of surprise secured."
+              }
+            },
+            {
+              "id": "sc-a3s3-ranged",
+              "discipline": "ranged",
+              "context": "Ambush fire on the Trandoshan loading crew.",
+              "arena": "reflex",
+              "actionType": "interact",
+              "control": {
+                "failure": "Shots go wide in the wind. Trandoshans return fire immediately.",
+                "success": "First volley drops one Trandoshan. Others scatter for cover."
+              }
+            },
+            {
+              "id": "sc-a3s3-athletics",
+              "discipline": "athletics",
+              "context": "Fighting on narrow catwalks in high winds.",
+              "arena": "physique",
+              "actionType": "interact",
+              "control": {
+                "failure": "Wind catches you. [Slowed] for 1 round or risk falling.",
+                "success": "Sure-footed. Move freely across the platform."
+              }
+            },
+            {
+              "id": "sc-a3s3-tech",
+              "discipline": "tech",
+              "context": "Disabling the shuttle to prevent the Trandoshans from escaping with the gas.",
+              "arena": "wits",
+              "actionType": "interact",
+              "control": {
+                "failure": "Shuttle is still operational. Must be stopped physically.",
+                "success": "Shuttle engines shut down. No escape."
+              }
+            },
+            {
+              "id": "sc-a3s3-investigation",
+              "discipline": "investigation",
+              "context": "Searching the Trandoshan leader's datapad after the fight.",
+              "isOptional": true,
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "Datapad is damaged. Partial data only.",
+                "success": "Gas is destined for the Imperial Navy. Mentions \"Shackles of Nizon\" — a slave transport ship."
+              }
+            }
+          ]
         },
         {
           "id": "adv3-p1-s4",
@@ -1006,53 +1034,6 @@
           "gearFlags": [
             "Restricted"
           ],
-          "skillChecks": [
-            {
-              "id": "sc-a3s4-investigation",
-              "discipline": "investigation",
-              "tier": 1,
-              "power": 0,
-              "context": "Identifying Arandis's bodyguards as undercover Stormtroopers.",
-              "success": "Military bearing, identical boots, comm earpieces. Stormtroopers in civilian clothes.",
-              "failure": "They look like professional bodyguards. Nothing unusual."
-            },
-            {
-              "id": "sc-a3s4-deception",
-              "discipline": "deception",
-              "tier": 1,
-              "power": 0,
-              "context": "Creating a tournament entry identity — the Player persona.",
-              "success": "Convincing high-roller identity with a fabricated fortune history.",
-              "failure": "Identity is thin. Casino staff may flag it."
-            },
-            {
-              "id": "sc-a3s4-stealth",
-              "discipline": "stealth",
-              "tier": 1,
-              "power": 0,
-              "context": "Casing the Yerith Bespin Hotel without being noticed.",
-              "success": "Full layout mapped. Security camera blind spots identified.",
-              "failure": "Hotel security notices your loitering. You're remembered."
-            },
-            {
-              "id": "sc-a3s4-tech",
-              "discipline": "tech",
-              "tier": 1,
-              "power": 2,
-              "context": "Infiltrating the casino's droid maintenance network.",
-              "success": "Access to dealer droid firmware. Can monitor or modify card dealing.",
-              "failure": "Firewalled. Need physical access to a maintenance terminal."
-            },
-            {
-              "id": "sc-a3s4-insight",
-              "discipline": "insight",
-              "tier": 1,
-              "power": 0,
-              "context": "Studying Arandis's playing pattern over surveillance.",
-              "success": "He's not gambling — he's executing a mathematical transfer. Every loss is calculated.",
-              "failure": "His play seems erratic. Hard to find a pattern."
-            }
-          ],
           "encounters": [],
           "environmentMechanics": [
             {
@@ -1080,7 +1061,64 @@
             "climax": "The heroes choose their tournament roles.",
             "resolution": "Plan is set. Buy-in secured. The game begins.",
             "estimatedMinutes": 30
-          }
+          },
+          "disciplineChallenges": [
+            {
+              "id": "sc-a3s4-investigation",
+              "discipline": "investigation",
+              "context": "Identifying Arandis's bodyguards as undercover Stormtroopers.",
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "They look like professional bodyguards. Nothing unusual.",
+                "success": "Military bearing, identical boots, comm earpieces. Stormtroopers in civilian clothes."
+              }
+            },
+            {
+              "id": "sc-a3s4-deception",
+              "discipline": "deception",
+              "context": "Creating a tournament entry identity — the Player persona.",
+              "arena": "presence",
+              "actionType": "interact",
+              "control": {
+                "failure": "Identity is thin. Casino staff may flag it.",
+                "success": "Convincing high-roller identity with a fabricated fortune history."
+              }
+            },
+            {
+              "id": "sc-a3s4-stealth",
+              "discipline": "stealth",
+              "context": "Casing the Yerith Bespin Hotel without being noticed.",
+              "arena": "reflex",
+              "actionType": "interact",
+              "control": {
+                "failure": "Hotel security notices your loitering. You're remembered.",
+                "success": "Full layout mapped. Security camera blind spots identified."
+              }
+            },
+            {
+              "id": "sc-a3s4-tech",
+              "discipline": "tech",
+              "context": "Infiltrating the casino's droid maintenance network.",
+              "arena": "wits",
+              "actionType": "interact",
+              "control": {
+                "failure": "Firewalled. Need physical access to a maintenance terminal.",
+                "success": "Access to dealer droid firmware. Can monitor or modify card dealing."
+              }
+            },
+            {
+              "id": "sc-a3s4-insight",
+              "discipline": "insight",
+              "context": "Studying Arandis's playing pattern over surveillance.",
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "His play seems erratic. Hard to find a pattern.",
+                "success": "He's not gambling — he's executing a mathematical transfer. Every loss is calculated."
+              }
+            }
+          ]
         },
         {
           "id": "adv3-p1-s5",
@@ -1211,45 +1249,6 @@
             "investigation"
           ],
           "gearFlags": [],
-          "skillChecks": [
-            {
-              "id": "sc-a3s5-deception",
-              "discipline": "deception",
-              "tier": 1,
-              "power": 0,
-              "context": "Finalizing tournament entry with fabricated credentials.",
-              "success": "Entry secured. No flags raised.",
-              "failure": "Minor discrepancy noted. Casino staff will verify — check may come back during the tournament."
-            },
-            {
-              "id": "sc-a3s5-tactics",
-              "discipline": "tactics",
-              "tier": 1,
-              "power": 0,
-              "context": "Planning the overall heist approach based on available intel.",
-              "success": "Clear plan with contingencies. Each team member knows their role.",
-              "failure": "Plan has gaps. Improvisation will be needed."
-            },
-            {
-              "id": "sc-a3s5-tech",
-              "discipline": "tech",
-              "tier": 1,
-              "power": 0,
-              "context": "Scanning the system for the Assiduous's capabilities.",
-              "success": "Star Destroyer identified. Full sensor profile. Draco is aboard.",
-              "failure": "Confirm it's an ISD. Details unclear."
-            },
-            {
-              "id": "sc-a3s5-resolve",
-              "discipline": "resolve",
-              "tier": 1,
-              "power": 0,
-              "context": "Staying focused despite the escalation — Star Destroyer in orbit.",
-              "success": "Steel nerves. The plan holds.",
-              "failure": "[Rattled] from the weight of the stakes. -1 Power on first tournament check.",
-              "isOptional": true
-            }
-          ],
           "encounters": [],
           "environmentMechanics": [
             {
@@ -1271,7 +1270,54 @@
             "climax": "The decision: go forward with the plan or abort.",
             "resolution": "The heroes commit. Tournament begins tomorrow.",
             "estimatedMinutes": 20
-          }
+          },
+          "disciplineChallenges": [
+            {
+              "id": "sc-a3s5-deception",
+              "discipline": "deception",
+              "context": "Finalizing tournament entry with fabricated credentials.",
+              "arena": "presence",
+              "actionType": "interact",
+              "control": {
+                "failure": "Minor discrepancy noted. Casino staff will verify — check may come back during the tournament.",
+                "success": "Entry secured. No flags raised."
+              }
+            },
+            {
+              "id": "sc-a3s5-tactics",
+              "discipline": "tactics",
+              "context": "Planning the overall heist approach based on available intel.",
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "Plan has gaps. Improvisation will be needed.",
+                "success": "Clear plan with contingencies. Each team member knows their role."
+              }
+            },
+            {
+              "id": "sc-a3s5-tech",
+              "discipline": "tech",
+              "context": "Scanning the system for the Assiduous's capabilities.",
+              "arena": "wits",
+              "actionType": "interact",
+              "control": {
+                "failure": "Confirm it's an ISD. Details unclear.",
+                "success": "Star Destroyer identified. Full sensor profile. Draco is aboard."
+              }
+            },
+            {
+              "id": "sc-a3s5-resolve",
+              "discipline": "resolve",
+              "context": "Staying focused despite the escalation — Star Destroyer in orbit.",
+              "isOptional": true,
+              "arena": "grit",
+              "actionType": "interact",
+              "control": {
+                "failure": "[Rattled] from the weight of the stakes. -1 Power on first tournament check.",
+                "success": "Steel nerves. The plan holds."
+              }
+            }
+          ]
         }
       ]
     },
@@ -1538,54 +1584,6 @@
             "skulduggery"
           ],
           "gearFlags": [],
-          "skillChecks": [
-            {
-              "id": "sc-a3s6-deception",
-              "discipline": "deception",
-              "tier": 1,
-              "power": 0,
-              "context": "Playing Sabacc — maintaining a poker face while reading opponents.",
-              "success": "Win the hand. Advance in the tournament.",
-              "failure": "Lose the hand. Credits lost. Risk of elimination."
-            },
-            {
-              "id": "sc-a3s6-insight",
-              "discipline": "insight",
-              "tier": 1,
-              "power": 0,
-              "context": "Reading other players — identifying Varga's proxy.",
-              "success": "Lady Fioro keeps glancing at Arandis. She's the proxy.",
-              "failure": "Too many players to read. Can't identify the connection."
-            },
-            {
-              "id": "sc-a3s6-investigation",
-              "discipline": "investigation",
-              "tier": 1,
-              "power": 0,
-              "context": "Analyzing Arandis's playing pattern between hands.",
-              "success": "He folds strong hands against everyone except Fioro. The pattern is mathematical.",
-              "failure": "His play seems random. No clear pattern."
-            },
-            {
-              "id": "sc-a3s6-stealth",
-              "discipline": "stealth",
-              "tier": 1,
-              "power": 0,
-              "context": "Slipping away from the table to investigate Draver's activities.",
-              "success": "Draver is checking camera sightlines and testing dealer droid response times. He's planning a heist.",
-              "failure": "Draver notices your interest. Plays drunker to throw you off."
-            },
-            {
-              "id": "sc-a3s6-charm",
-              "discipline": "charm",
-              "tier": 1,
-              "power": 0,
-              "context": "Building rapport with other players to gather intel.",
-              "success": "A talkative Bothan reveals: Fioro arrived on a ship registered to Varga's company.",
-              "failure": "Other players are guarded. Tournament atmosphere is tense.",
-              "isOptional": true
-            }
-          ],
           "encounters": [],
           "environmentMechanics": [
             {
@@ -1613,7 +1611,65 @@
             "climax": "Draver's suspicious behavior. Fioro's connection to Arandis.",
             "resolution": "Advancement to the next round. Intel gathered.",
             "estimatedMinutes": 35
-          }
+          },
+          "disciplineChallenges": [
+            {
+              "id": "sc-a3s6-deception",
+              "discipline": "deception",
+              "context": "Playing Sabacc — maintaining a poker face while reading opponents.",
+              "arena": "presence",
+              "actionType": "interact",
+              "control": {
+                "failure": "Lose the hand. Credits lost. Risk of elimination.",
+                "success": "Win the hand. Advance in the tournament."
+              }
+            },
+            {
+              "id": "sc-a3s6-insight",
+              "discipline": "insight",
+              "context": "Reading other players — identifying Varga's proxy.",
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "Too many players to read. Can't identify the connection.",
+                "success": "Lady Fioro keeps glancing at Arandis. She's the proxy."
+              }
+            },
+            {
+              "id": "sc-a3s6-investigation",
+              "discipline": "investigation",
+              "context": "Analyzing Arandis's playing pattern between hands.",
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "His play seems random. No clear pattern.",
+                "success": "He folds strong hands against everyone except Fioro. The pattern is mathematical."
+              }
+            },
+            {
+              "id": "sc-a3s6-stealth",
+              "discipline": "stealth",
+              "context": "Slipping away from the table to investigate Draver's activities.",
+              "arena": "reflex",
+              "actionType": "interact",
+              "control": {
+                "failure": "Draver notices your interest. Plays drunker to throw you off.",
+                "success": "Draver is checking camera sightlines and testing dealer droid response times. He's planning a heist."
+              }
+            },
+            {
+              "id": "sc-a3s6-charm",
+              "discipline": "charm",
+              "context": "Building rapport with other players to gather intel.",
+              "isOptional": true,
+              "arena": "presence",
+              "actionType": "interact",
+              "control": {
+                "failure": "Other players are guarded. Tournament atmosphere is tense.",
+                "success": "A talkative Bothan reveals: Fioro arrived on a ship registered to Varga's company."
+              }
+            }
+          ]
         },
         {
           "id": "adv3-p2-s2",
@@ -1792,54 +1848,6 @@
             "intimidate"
           ],
           "gearFlags": [],
-          "skillChecks": [
-            {
-              "id": "sc-a3s7-brawl",
-              "discipline": "brawl",
-              "tier": 1,
-              "power": 0,
-              "context": "Subduing Szygar without lethal force.",
-              "success": "Szygar is disarmed and restrained. Quiet resolution.",
-              "failure": "Szygar fires wildly. Panic erupts. Security responds."
-            },
-            {
-              "id": "sc-a3s7-charm",
-              "discipline": "charm",
-              "tier": 1,
-              "power": 0,
-              "context": "Talking Szygar down before he shoots.",
-              "success": "Szygar lowers the blaster. Breaks down crying. Quiet resolution.",
-              "failure": "Szygar is beyond reason. Physical intervention needed."
-            },
-            {
-              "id": "sc-a3s7-deception",
-              "discipline": "deception",
-              "tier": 1,
-              "power": 0,
-              "context": "Winning a critical Sabacc hand on Day 3.",
-              "success": "Win. Advance to the final table.",
-              "failure": "Lose. Must find another way into the final round."
-            },
-            {
-              "id": "sc-a3s7-insight",
-              "discipline": "insight",
-              "tier": 1,
-              "power": 0,
-              "context": "Reading Szygar — is he genuinely dangerous or just desperate?",
-              "success": "Desperate. Not a killer. The blaster is shaking.",
-              "failure": "He looks unhinged. Could go either way."
-            },
-            {
-              "id": "sc-a3s7-intimidate",
-              "discipline": "intimidate",
-              "tier": 0,
-              "power": 0,
-              "context": "Commanding Szygar to drop the weapon.",
-              "success": "He freezes. Drops the blaster.",
-              "failure": "He screams louder. Situation escalates.",
-              "isOptional": true
-            }
-          ],
           "encounters": [
             {
               "id": "enc-a3s7-szygar",
@@ -1876,7 +1884,65 @@
             "climax": "The 2-round window. Subdue him before the Stormtroopers fire.",
             "resolution": "Crisis resolved. Mandelbrot is grateful. Final table set.",
             "estimatedMinutes": 25
-          }
+          },
+          "disciplineChallenges": [
+            {
+              "id": "sc-a3s7-brawl",
+              "discipline": "brawl",
+              "context": "Subduing Szygar without lethal force.",
+              "arena": "physique",
+              "actionType": "interact",
+              "control": {
+                "failure": "Szygar fires wildly. Panic erupts. Security responds.",
+                "success": "Szygar is disarmed and restrained. Quiet resolution."
+              }
+            },
+            {
+              "id": "sc-a3s7-charm",
+              "discipline": "charm",
+              "context": "Talking Szygar down before he shoots.",
+              "arena": "presence",
+              "actionType": "interact",
+              "control": {
+                "failure": "Szygar is beyond reason. Physical intervention needed.",
+                "success": "Szygar lowers the blaster. Breaks down crying. Quiet resolution."
+              }
+            },
+            {
+              "id": "sc-a3s7-deception",
+              "discipline": "deception",
+              "context": "Winning a critical Sabacc hand on Day 3.",
+              "arena": "presence",
+              "actionType": "interact",
+              "control": {
+                "failure": "Lose. Must find another way into the final round.",
+                "success": "Win. Advance to the final table."
+              }
+            },
+            {
+              "id": "sc-a3s7-insight",
+              "discipline": "insight",
+              "context": "Reading Szygar — is he genuinely dangerous or just desperate?",
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "He looks unhinged. Could go either way.",
+                "success": "Desperate. Not a killer. The blaster is shaking."
+              }
+            },
+            {
+              "id": "sc-a3s7-intimidate",
+              "discipline": "intimidate",
+              "context": "Commanding Szygar to drop the weapon.",
+              "isOptional": true,
+              "arena": "presence",
+              "actionType": "interact",
+              "control": {
+                "failure": "He screams louder. Situation escalates.",
+                "success": "He freezes. Drops the blaster."
+              }
+            }
+          ]
         },
         {
           "id": "adv3-p2-s3",
@@ -2083,44 +2149,6 @@
             "skulduggery"
           ],
           "gearFlags": [],
-          "skillChecks": [
-            {
-              "id": "sc-a3s8-deception",
-              "discipline": "deception",
-              "tier": 2,
-              "power": 0,
-              "context": "The final Sabacc hand — beating Arandis and Fioro at the table.",
-              "success": "Win the pot. The credits are yours. Arandis's code is visible.",
-              "failure": "Lose the hand. Fioro wins the pot as planned. Must intercept her physically."
-            },
-            {
-              "id": "sc-a3s8-investigation",
-              "discipline": "investigation",
-              "tier": 1,
-              "power": 0,
-              "context": "Decoding Arandis's card arrangement — the hidden message.",
-              "success": "Varth decodes instantly: 1-3-7 = frequency 137.12, the slave circuit code for the Shackles of Nizon.",
-              "failure": "The arrangement looks deliberate but meaning is unclear. Need Varth's analysis."
-            },
-            {
-              "id": "sc-a3s8-insight",
-              "discipline": "insight",
-              "tier": 1,
-              "power": 0,
-              "context": "Reading Fioro's intentions — will she run immediately?",
-              "success": "She's planning to leave via the service exit. Has a speeder waiting.",
-              "failure": "She's calm. Hard to tell if she's leaving immediately or staying the night."
-            },
-            {
-              "id": "sc-a3s8-skulduggery",
-              "discipline": "skulduggery",
-              "tier": 1,
-              "power": 2,
-              "context": "Pickpocketing or switching Fioro's datapad as she collects the winnings.",
-              "success": "Clean lift. She doesn't notice for minutes.",
-              "failure": "She catches your hand. Cover blown. She screams for security."
-            }
-          ],
           "encounters": [],
           "environmentMechanics": [
             {
@@ -2153,7 +2181,53 @@
             "climax": "Varth decodes: slave circuit frequency + credits. Must grab Fioro.",
             "resolution": "The heist transitions from intelligence to action.",
             "estimatedMinutes": 30
-          }
+          },
+          "disciplineChallenges": [
+            {
+              "id": "sc-a3s8-deception",
+              "discipline": "deception",
+              "context": "The final Sabacc hand — beating Arandis and Fioro at the table.",
+              "arena": "presence",
+              "actionType": "interact",
+              "control": {
+                "failure": "Lose the hand. Fioro wins the pot as planned. Must intercept her physically.",
+                "success": "Win the pot. The credits are yours. Arandis's code is visible."
+              }
+            },
+            {
+              "id": "sc-a3s8-investigation",
+              "discipline": "investigation",
+              "context": "Decoding Arandis's card arrangement — the hidden message.",
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "The arrangement looks deliberate but meaning is unclear. Need Varth's analysis.",
+                "success": "Varth decodes instantly: 1-3-7 = frequency 137.12, the slave circuit code for the Shackles of Nizon."
+              }
+            },
+            {
+              "id": "sc-a3s8-insight",
+              "discipline": "insight",
+              "context": "Reading Fioro's intentions — will she run immediately?",
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "She's calm. Hard to tell if she's leaving immediately or staying the night.",
+                "success": "She's planning to leave via the service exit. Has a speeder waiting."
+              }
+            },
+            {
+              "id": "sc-a3s8-skulduggery",
+              "discipline": "skulduggery",
+              "context": "Pickpocketing or switching Fioro's datapad as she collects the winnings.",
+              "arena": "reflex",
+              "actionType": "interact",
+              "control": {
+                "failure": "She catches your hand. Cover blown. She screams for security.",
+                "success": "Clean lift. She doesn't notice for minutes."
+              }
+            }
+          ]
         },
         {
           "id": "adv3-p2-s4",
@@ -2440,53 +2514,6 @@
           "gearFlags": [
             "Military"
           ],
-          "skillChecks": [
-            {
-              "id": "sc-a3s9-ranged",
-              "discipline": "ranged",
-              "tier": 1,
-              "power": 0,
-              "context": "Firefight in the casino during Draver's heist.",
-              "success": "Accurate fire. Draver's men go down.",
-              "failure": "Casino chaos. Shots hit tables, chandeliers, civilians scatter."
-            },
-            {
-              "id": "sc-a3s9-evasion",
-              "discipline": "evasion",
-              "tier": 1,
-              "power": 0,
-              "context": "Dodging crossfire between three factions.",
-              "success": "Weave through the chaos unscathed.",
-              "failure": "Caught in crossfire. Take incidental damage."
-            },
-            {
-              "id": "sc-a3s9-tech",
-              "discipline": "tech",
-              "tier": 1,
-              "power": 0,
-              "context": "Disabling the weaponized dealer droids.",
-              "success": "Ion burst or firmware hack shuts them down.",
-              "failure": "Droids continue firing. Must be destroyed conventionally."
-            },
-            {
-              "id": "sc-a3s9-tactics",
-              "discipline": "tactics",
-              "tier": 1,
-              "power": 0,
-              "context": "Managing the three-way crossfire.",
-              "success": "Identify: let Draver and Arandis fight each other. Focus on securing Fioro.",
-              "failure": "Pulled into the general melee. No tactical advantage."
-            },
-            {
-              "id": "sc-a3s9-brawl",
-              "discipline": "brawl",
-              "tier": 1,
-              "power": 0,
-              "context": "Disarming Draver to free Fioro.",
-              "success": "Draver loses the blaster. Fioro is freed.",
-              "failure": "Draver tightens his grip. Hostage situation escalates."
-            }
-          ],
           "encounters": [
             {
               "id": "enc-a3s9-heist",
@@ -2534,7 +2561,64 @@
             "climax": "Free Fioro from Draver. Secure the datapad.",
             "resolution": "Arandis dies in the crossfire. Fioro spills Varga's location.",
             "estimatedMinutes": 35
-          }
+          },
+          "disciplineChallenges": [
+            {
+              "id": "sc-a3s9-ranged",
+              "discipline": "ranged",
+              "context": "Firefight in the casino during Draver's heist.",
+              "arena": "reflex",
+              "actionType": "interact",
+              "control": {
+                "failure": "Casino chaos. Shots hit tables, chandeliers, civilians scatter.",
+                "success": "Accurate fire. Draver's men go down."
+              }
+            },
+            {
+              "id": "sc-a3s9-evasion",
+              "discipline": "evasion",
+              "context": "Dodging crossfire between three factions.",
+              "arena": "reflex",
+              "actionType": "interact",
+              "control": {
+                "failure": "Caught in crossfire. Take incidental damage.",
+                "success": "Weave through the chaos unscathed."
+              }
+            },
+            {
+              "id": "sc-a3s9-tech",
+              "discipline": "tech",
+              "context": "Disabling the weaponized dealer droids.",
+              "arena": "wits",
+              "actionType": "interact",
+              "control": {
+                "failure": "Droids continue firing. Must be destroyed conventionally.",
+                "success": "Ion burst or firmware hack shuts them down."
+              }
+            },
+            {
+              "id": "sc-a3s9-tactics",
+              "discipline": "tactics",
+              "context": "Managing the three-way crossfire.",
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "Pulled into the general melee. No tactical advantage.",
+                "success": "Identify: let Draver and Arandis fight each other. Focus on securing Fioro."
+              }
+            },
+            {
+              "id": "sc-a3s9-brawl",
+              "discipline": "brawl",
+              "context": "Disarming Draver to free Fioro.",
+              "arena": "physique",
+              "actionType": "interact",
+              "control": {
+                "failure": "Draver tightens his grip. Hostage situation escalates.",
+                "success": "Draver loses the blaster. Fioro is freed."
+              }
+            }
+          ]
         },
         {
           "id": "adv3-p2-s5",
@@ -2661,36 +2745,6 @@
             "tech"
           ],
           "gearFlags": [],
-          "skillChecks": [
-            {
-              "id": "sc-a3s10-insight",
-              "discipline": "insight",
-              "tier": 0,
-              "power": 0,
-              "context": "Reading Fioro — is she telling the truth about Varga's location?",
-              "success": "Genuine terror. She's not lying. Docking Bay 4414.",
-              "failure": "Hard to read through the shock. Could be lying."
-            },
-            {
-              "id": "sc-a3s10-athletics",
-              "discipline": "athletics",
-              "tier": 1,
-              "power": 0,
-              "context": "Sprint through Cloud City to the industrial docks.",
-              "success": "Fast transit. Arrive before Varga launches.",
-              "failure": "Delayed by traffic, crowds, or Wing Guard. Lose time."
-            },
-            {
-              "id": "sc-a3s10-investigation",
-              "discipline": "investigation",
-              "tier": 0,
-              "power": 0,
-              "context": "Verifying Fioro's intel against what Varth can see from the ship.",
-              "success": "Confirmed: Shackles of Nizon is activating engines. Varga is loading cargo at Bay 4414.",
-              "failure": "Can't verify independently. Trust her or don't.",
-              "isOptional": true
-            }
-          ],
           "encounters": [],
           "environmentMechanics": [
             {
@@ -2712,7 +2766,43 @@
             "climax": "The sprint to the docks.",
             "resolution": "Arrival at Docking Bay 4414.",
             "estimatedMinutes": 15
-          }
+          },
+          "disciplineChallenges": [
+            {
+              "id": "sc-a3s10-insight",
+              "discipline": "insight",
+              "context": "Reading Fioro — is she telling the truth about Varga's location?",
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "Hard to read through the shock. Could be lying.",
+                "success": "Genuine terror. She's not lying. Docking Bay 4414."
+              }
+            },
+            {
+              "id": "sc-a3s10-athletics",
+              "discipline": "athletics",
+              "context": "Sprint through Cloud City to the industrial docks.",
+              "arena": "physique",
+              "actionType": "interact",
+              "control": {
+                "failure": "Delayed by traffic, crowds, or Wing Guard. Lose time.",
+                "success": "Fast transit. Arrive before Varga launches."
+              }
+            },
+            {
+              "id": "sc-a3s10-investigation",
+              "discipline": "investigation",
+              "context": "Verifying Fioro's intel against what Varth can see from the ship.",
+              "isOptional": true,
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "Can't verify independently. Trust her or don't.",
+                "success": "Confirmed: Shackles of Nizon is activating engines. Varga is loading cargo at Bay 4414."
+              }
+            }
+          ]
         }
       ]
     },
@@ -2928,54 +3018,6 @@
           "gearFlags": [
             "Military"
           ],
-          "skillChecks": [
-            {
-              "id": "sc-a3s11-evasion",
-              "discipline": "evasion",
-              "tier": 1,
-              "power": 0,
-              "context": "Dodging blaster fire while sprinting through corridors.",
-              "success": "Clean dodge. Keep running.",
-              "failure": "Hit by glancing fire. Minor damage. Keep running."
-            },
-            {
-              "id": "sc-a3s11-athletics",
-              "discipline": "athletics",
-              "tier": 1,
-              "power": 0,
-              "context": "Parkour through the Industrial District — leaping gaps, climbing pipes.",
-              "success": "Fluid movement. Gain a round on pursuers.",
-              "failure": "Stumble. Pursuers close the gap."
-            },
-            {
-              "id": "sc-a3s11-tech",
-              "discipline": "tech",
-              "tier": 1,
-              "power": 0,
-              "context": "Assisting Varth's remote door hacking.",
-              "success": "Doors open and close on command. Pursuers blocked.",
-              "failure": "Doors jam. Must find another route."
-            },
-            {
-              "id": "sc-a3s11-stealth",
-              "discipline": "stealth",
-              "tier": 1,
-              "power": 0,
-              "context": "Slipping through a checkpoint undetected.",
-              "success": "Guards don't see you. Clean passage.",
-              "failure": "Spotted. Reinforcements called.",
-              "isOptional": true
-            },
-            {
-              "id": "sc-a3s11-ranged",
-              "discipline": "ranged",
-              "tier": 1,
-              "power": 0,
-              "context": "Suppressive fire to cover the group's movement.",
-              "success": "Pursuers duck. Buy 1 round of free movement.",
-              "failure": "Return fire pins you. Lost time."
-            }
-          ],
           "encounters": [
             {
               "id": "enc-a3s11-chase",
@@ -3018,7 +3060,65 @@
             "climax": "The final stretch — must lose the pursuit before reaching the hangar.",
             "resolution": "Docking Bay 4414 in sight.",
             "estimatedMinutes": 30
-          }
+          },
+          "disciplineChallenges": [
+            {
+              "id": "sc-a3s11-evasion",
+              "discipline": "evasion",
+              "context": "Dodging blaster fire while sprinting through corridors.",
+              "arena": "reflex",
+              "actionType": "interact",
+              "control": {
+                "failure": "Hit by glancing fire. Minor damage. Keep running.",
+                "success": "Clean dodge. Keep running."
+              }
+            },
+            {
+              "id": "sc-a3s11-athletics",
+              "discipline": "athletics",
+              "context": "Parkour through the Industrial District — leaping gaps, climbing pipes.",
+              "arena": "physique",
+              "actionType": "interact",
+              "control": {
+                "failure": "Stumble. Pursuers close the gap.",
+                "success": "Fluid movement. Gain a round on pursuers."
+              }
+            },
+            {
+              "id": "sc-a3s11-tech",
+              "discipline": "tech",
+              "context": "Assisting Varth's remote door hacking.",
+              "arena": "wits",
+              "actionType": "interact",
+              "control": {
+                "failure": "Doors jam. Must find another route.",
+                "success": "Doors open and close on command. Pursuers blocked."
+              }
+            },
+            {
+              "id": "sc-a3s11-stealth",
+              "discipline": "stealth",
+              "context": "Slipping through a checkpoint undetected.",
+              "isOptional": true,
+              "arena": "reflex",
+              "actionType": "interact",
+              "control": {
+                "failure": "Spotted. Reinforcements called.",
+                "success": "Guards don't see you. Clean passage."
+              }
+            },
+            {
+              "id": "sc-a3s11-ranged",
+              "discipline": "ranged",
+              "context": "Suppressive fire to cover the group's movement.",
+              "arena": "reflex",
+              "actionType": "interact",
+              "control": {
+                "failure": "Return fire pins you. Lost time.",
+                "success": "Pursuers duck. Buy 1 round of free movement."
+              }
+            }
+          ]
         },
         {
           "id": "adv3-p3-s2",
@@ -3361,45 +3461,6 @@
           "gearFlags": [
             "Military"
           ],
-          "skillChecks": [
-            {
-              "id": "sc-a3s12-ranged",
-              "discipline": "ranged",
-              "tier": 1,
-              "power": 0,
-              "context": "Stopping Z-95 pilots from reaching their cockpits.",
-              "success": "Pilots pinned down. Fighters don't launch this round.",
-              "failure": "Pilots reach cockpits. Z-95s launching in 2 rounds."
-            },
-            {
-              "id": "sc-a3s12-tech",
-              "discipline": "tech",
-              "tier": 1,
-              "power": 2,
-              "context": "Hijacking a Z-95 Headhunter.",
-              "success": "Engine start. You're flying. Firepower for the escape.",
-              "failure": "Unfamiliar controls. Delayed 1 round.",
-              "isOptional": true
-            },
-            {
-              "id": "sc-a3s12-tactics",
-              "discipline": "tactics",
-              "tier": 1,
-              "power": 0,
-              "context": "Identifying the priority targets in the hangar.",
-              "success": "Priority: stop the yacht engines, neutralize the security droid, prevent fighter launches.",
-              "failure": "Chaotic scene. React to threats as they emerge."
-            },
-            {
-              "id": "sc-a3s12-athletics",
-              "discipline": "athletics",
-              "tier": 1,
-              "power": 0,
-              "context": "Sprinting across the hangar to reach the Glorious Chariot.",
-              "success": "Full speed. Reach the ramp before Varga seals it.",
-              "failure": "Intercepted by thugs. Delayed."
-            }
-          ],
           "encounters": [
             {
               "id": "enc-a3s12-hangar",
@@ -3442,7 +3503,54 @@
             "climax": "Reach the yacht before Varga seals the ramp.",
             "resolution": "Hangar control established (or not). The firefight continues on the ship.",
             "estimatedMinutes": 35
-          }
+          },
+          "disciplineChallenges": [
+            {
+              "id": "sc-a3s12-ranged",
+              "discipline": "ranged",
+              "context": "Stopping Z-95 pilots from reaching their cockpits.",
+              "arena": "reflex",
+              "actionType": "interact",
+              "control": {
+                "failure": "Pilots reach cockpits. Z-95s launching in 2 rounds.",
+                "success": "Pilots pinned down. Fighters don't launch this round."
+              }
+            },
+            {
+              "id": "sc-a3s12-tech",
+              "discipline": "tech",
+              "context": "Hijacking a Z-95 Headhunter.",
+              "isOptional": true,
+              "arena": "wits",
+              "actionType": "interact",
+              "control": {
+                "failure": "Unfamiliar controls. Delayed 1 round.",
+                "success": "Engine start. You're flying. Firepower for the escape."
+              }
+            },
+            {
+              "id": "sc-a3s12-tactics",
+              "discipline": "tactics",
+              "context": "Identifying the priority targets in the hangar.",
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "Chaotic scene. React to threats as they emerge.",
+                "success": "Priority: stop the yacht engines, neutralize the security droid, prevent fighter launches."
+              }
+            },
+            {
+              "id": "sc-a3s12-athletics",
+              "discipline": "athletics",
+              "context": "Sprinting across the hangar to reach the Glorious Chariot.",
+              "arena": "physique",
+              "actionType": "interact",
+              "control": {
+                "failure": "Intercepted by thugs. Delayed.",
+                "success": "Full speed. Reach the ramp before Varga seals it."
+              }
+            }
+          ]
         },
         {
           "id": "adv3-p3-s3",
@@ -3635,44 +3743,6 @@
           "gearFlags": [
             "Military"
           ],
-          "skillChecks": [
-            {
-              "id": "sc-a3s13-melee",
-              "discipline": "melee",
-              "tier": 2,
-              "power": 0,
-              "context": "Close-quarters combat with Varga in the yacht's corridors.",
-              "success": "Decisive blow. Varga takes heavy damage.",
-              "failure": "Varga's bulk fills the corridor. He crushes you against the wall."
-            },
-            {
-              "id": "sc-a3s13-endure",
-              "discipline": "endure",
-              "tier": 1,
-              "power": 0,
-              "context": "Surviving Varga's tail whip in tight quarters.",
-              "success": "Absorb the blow. Stay standing.",
-              "failure": "Knocked into bulkhead. [Stunned] for 1 round."
-            },
-            {
-              "id": "sc-a3s13-tech",
-              "discipline": "tech",
-              "tier": 1,
-              "power": 0,
-              "context": "Disabling the Glorious Chariot's engines from inside.",
-              "success": "Engines shut down. The yacht isn't going anywhere.",
-              "failure": "Engines spool up. Must be disabled from the cockpit."
-            },
-            {
-              "id": "sc-a3s13-ranged",
-              "discipline": "ranged",
-              "tier": 1,
-              "power": 0,
-              "context": "Clearing mercenaries from the hangar floor.",
-              "success": "Mercs go down. Clear path to the yacht.",
-              "failure": "Mercs hold their ground. Must be flanked."
-            }
-          ],
           "encounters": [
             {
               "id": "enc-a3s13-darga",
@@ -3720,7 +3790,53 @@
             "climax": "Boarding the yacht. Close-quarters fight with a Hutt.",
             "resolution": "Varga falls. The yacht is secured.",
             "estimatedMinutes": 35
-          }
+          },
+          "disciplineChallenges": [
+            {
+              "id": "sc-a3s13-melee",
+              "discipline": "melee",
+              "context": "Close-quarters combat with Varga in the yacht's corridors.",
+              "arena": "physique",
+              "actionType": "interact",
+              "control": {
+                "failure": "Varga's bulk fills the corridor. He crushes you against the wall.",
+                "success": "Decisive blow. Varga takes heavy damage."
+              }
+            },
+            {
+              "id": "sc-a3s13-endure",
+              "discipline": "endure",
+              "context": "Surviving Varga's tail whip in tight quarters.",
+              "arena": "physique",
+              "actionType": "interact",
+              "control": {
+                "failure": "Knocked into bulkhead. [Stunned] for 1 round.",
+                "success": "Absorb the blow. Stay standing."
+              }
+            },
+            {
+              "id": "sc-a3s13-tech",
+              "discipline": "tech",
+              "context": "Disabling the Glorious Chariot's engines from inside.",
+              "arena": "wits",
+              "actionType": "interact",
+              "control": {
+                "failure": "Engines spool up. Must be disabled from the cockpit.",
+                "success": "Engines shut down. The yacht isn't going anywhere."
+              }
+            },
+            {
+              "id": "sc-a3s13-ranged",
+              "discipline": "ranged",
+              "context": "Clearing mercenaries from the hangar floor.",
+              "arena": "reflex",
+              "actionType": "interact",
+              "control": {
+                "failure": "Mercs hold their ground. Must be flanked.",
+                "success": "Mercs go down. Clear path to the yacht."
+              }
+            }
+          ]
         },
         {
           "id": "adv3-p3-s4",
@@ -3840,35 +3956,6 @@
           "gearFlags": [
             "Military"
           ],
-          "skillChecks": [
-            {
-              "id": "sc-a3s14-piloting",
-              "discipline": "piloting",
-              "tier": 1,
-              "power": 0,
-              "context": "Hot-starting the Glorious Chariot under fire.",
-              "success": "Engines roar. The yacht lifts off immediately.",
-              "failure": "Engine sputter. Delayed 1 round. Stormtroopers breach the hangar."
-            },
-            {
-              "id": "sc-a3s14-tech",
-              "discipline": "tech",
-              "tier": 1,
-              "power": 0,
-              "context": "Activating unfamiliar Z-95 fighter systems.",
-              "success": "Weapons hot. Systems green. Ready to fly.",
-              "failure": "Unknown control layout. -1 Power on first piloting check."
-            },
-            {
-              "id": "sc-a3s14-tactics",
-              "discipline": "tactics",
-              "tier": 0,
-              "power": 0,
-              "context": "Deciding which ships to take — yacht, fighters, or both.",
-              "success": "Optimal loadout identified. Maximum firepower for the escape.",
-              "failure": "Rushed decision. May leave useful assets behind."
-            }
-          ],
           "encounters": [
             {
               "id": "enc-a3s14-escape",
@@ -3908,7 +3995,42 @@
             "climax": "Blast doors opening. White armor pouring in.",
             "resolution": "Engines fire. The yacht punches through the magnetic field into orange clouds.",
             "estimatedMinutes": 15
-          }
+          },
+          "disciplineChallenges": [
+            {
+              "id": "sc-a3s14-piloting",
+              "discipline": "piloting",
+              "context": "Hot-starting the Glorious Chariot under fire.",
+              "arena": "reflex",
+              "actionType": "interact",
+              "control": {
+                "failure": "Engine sputter. Delayed 1 round. Stormtroopers breach the hangar.",
+                "success": "Engines roar. The yacht lifts off immediately."
+              }
+            },
+            {
+              "id": "sc-a3s14-tech",
+              "discipline": "tech",
+              "context": "Activating unfamiliar Z-95 fighter systems.",
+              "arena": "wits",
+              "actionType": "interact",
+              "control": {
+                "failure": "Unknown control layout. -1 Power on first piloting check.",
+                "success": "Weapons hot. Systems green. Ready to fly."
+              }
+            },
+            {
+              "id": "sc-a3s14-tactics",
+              "discipline": "tactics",
+              "context": "Deciding which ships to take — yacht, fighters, or both.",
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "Rushed decision. May leave useful assets behind.",
+                "success": "Optimal loadout identified. Maximum firepower for the escape."
+              }
+            }
+          ]
         },
         {
           "id": "adv3-p3-s5",
@@ -4114,45 +4236,6 @@
           "gearFlags": [
             "Military"
           ],
-          "skillChecks": [
-            {
-              "id": "sc-a3s15-piloting",
-              "discipline": "piloting",
-              "tier": 2,
-              "power": 0,
-              "context": "Dogfighting TIE Fighters while racing to destroy the Gas Hauler.",
-              "success": "Outmaneuver TIEs. Clear firing line on the Hauler.",
-              "failure": "TIEs on your tail. Taking fire. Must shake them first."
-            },
-            {
-              "id": "sc-a3s15-ranged",
-              "discipline": "ranged",
-              "tier": 2,
-              "power": 0,
-              "context": "Destroying the automated Gas Hauler before it rams the slave ship.",
-              "success": "Direct hit. The Hauler breaks apart. Okeefe is safe.",
-              "failure": "Glancing hit. Hauler is damaged but still on collision course. Need another shot."
-            },
-            {
-              "id": "sc-a3s15-tech",
-              "discipline": "tech",
-              "tier": 1,
-              "power": 0,
-              "context": "Transmitting the slave circuit code to free the Shackles of Nizon.",
-              "success": "Circuits unlocked. Okeefe regains helm control.",
-              "failure": "Transmission interference from the Star Destroyer. Must get closer."
-            },
-            {
-              "id": "sc-a3s15-resolve",
-              "discipline": "resolve",
-              "tier": 1,
-              "power": 0,
-              "context": "Resisting Varth's pressure to jump and leave Okeefe.",
-              "success": "You defy Varth. Your ship, your choice.",
-              "failure": "Varth's logic is compelling. Hesitation costs a round.",
-              "isOptional": true
-            }
-          ],
           "encounters": [
             {
               "id": "enc-a3s15-orbital",
@@ -4195,7 +4278,54 @@
             "climax": "The shot — destroy the Hauler before it rams the slave ship.",
             "resolution": "Explosion. Okeefe's voice: \"Slave circuits fried. We're jumping.\"",
             "estimatedMinutes": 35
-          }
+          },
+          "disciplineChallenges": [
+            {
+              "id": "sc-a3s15-piloting",
+              "discipline": "piloting",
+              "context": "Dogfighting TIE Fighters while racing to destroy the Gas Hauler.",
+              "arena": "reflex",
+              "actionType": "interact",
+              "control": {
+                "failure": "TIEs on your tail. Taking fire. Must shake them first.",
+                "success": "Outmaneuver TIEs. Clear firing line on the Hauler."
+              }
+            },
+            {
+              "id": "sc-a3s15-ranged",
+              "discipline": "ranged",
+              "context": "Destroying the automated Gas Hauler before it rams the slave ship.",
+              "arena": "reflex",
+              "actionType": "interact",
+              "control": {
+                "failure": "Glancing hit. Hauler is damaged but still on collision course. Need another shot.",
+                "success": "Direct hit. The Hauler breaks apart. Okeefe is safe."
+              }
+            },
+            {
+              "id": "sc-a3s15-tech",
+              "discipline": "tech",
+              "context": "Transmitting the slave circuit code to free the Shackles of Nizon.",
+              "arena": "wits",
+              "actionType": "interact",
+              "control": {
+                "failure": "Transmission interference from the Star Destroyer. Must get closer.",
+                "success": "Circuits unlocked. Okeefe regains helm control."
+              }
+            },
+            {
+              "id": "sc-a3s15-resolve",
+              "discipline": "resolve",
+              "context": "Resisting Varth's pressure to jump and leave Okeefe.",
+              "isOptional": true,
+              "arena": "grit",
+              "actionType": "interact",
+              "control": {
+                "failure": "Varth's logic is compelling. Hesitation costs a round.",
+                "success": "You defy Varth. Your ship, your choice."
+              }
+            }
+          ]
         },
         {
           "id": "adv3-p3-s6",
@@ -4397,45 +4527,6 @@
             "resolve"
           ],
           "gearFlags": [],
-          "skillChecks": [
-            {
-              "id": "sc-a3s16-piloting",
-              "discipline": "piloting",
-              "tier": 1,
-              "power": 2,
-              "context": "Jumping to hyperspace under turbolaser fire.",
-              "success": "Clean jump. Stars stretch into lines.",
-              "failure": "Glancing turbolaser hit during jump. Ship takes damage but enters hyperspace."
-            },
-            {
-              "id": "sc-a3s16-insight",
-              "discipline": "insight",
-              "tier": 1,
-              "power": 0,
-              "context": "Reading Varth after the Okeefe betrayal. What is he really?",
-              "success": "Cold. Calculating. He didn't hesitate to sacrifice her. He will do it again if the math works.",
-              "failure": "His explanation seems reasonable — \"tactical calculation.\" But something doesn't sit right."
-            },
-            {
-              "id": "sc-a3s16-persuasion",
-              "discipline": "persuasion",
-              "tier": 2,
-              "power": 0,
-              "context": "Confronting Varth about sending Okeefe to die.",
-              "success": "Varth drops the mask for a moment. \"I did what I thought was necessary. I was wrong.\" Genuine or calculated? Hard to tell.",
-              "failure": "Varth deflects cleanly. \"Tactical calculation that changed. You made a different call. I respect that.\" Smooth as durasteel."
-            },
-            {
-              "id": "sc-a3s16-resolve",
-              "discipline": "resolve",
-              "tier": 1,
-              "power": 0,
-              "context": "Processing the emotional weight of Act I's events.",
-              "success": "Steel yourself. Ready for whatever comes next.",
-              "failure": "[Rattled] carries into the next adventure. The weight lingers.",
-              "isOptional": true
-            }
-          ],
           "encounters": [],
           "environmentMechanics": [
             {
@@ -4474,7 +4565,54 @@
             "climax": "At the rendezvous: Okeefe punches Varth.",
             "resolution": "Act I ends. Varth teases Act II: \"If you want to know what the Empire is really building, we have to go off the map.\"",
             "estimatedMinutes": 20
-          }
+          },
+          "disciplineChallenges": [
+            {
+              "id": "sc-a3s16-piloting",
+              "discipline": "piloting",
+              "context": "Jumping to hyperspace under turbolaser fire.",
+              "arena": "reflex",
+              "actionType": "interact",
+              "control": {
+                "failure": "Glancing turbolaser hit during jump. Ship takes damage but enters hyperspace.",
+                "success": "Clean jump. Stars stretch into lines."
+              }
+            },
+            {
+              "id": "sc-a3s16-insight",
+              "discipline": "insight",
+              "context": "Reading Varth after the Okeefe betrayal. What is he really?",
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "His explanation seems reasonable — \"tactical calculation.\" But something doesn't sit right.",
+                "success": "Cold. Calculating. He didn't hesitate to sacrifice her. He will do it again if the math works."
+              }
+            },
+            {
+              "id": "sc-a3s16-persuasion",
+              "discipline": "persuasion",
+              "context": "Confronting Varth about sending Okeefe to die.",
+              "arena": "presence",
+              "actionType": "interact",
+              "control": {
+                "failure": "Varth deflects cleanly. \"Tactical calculation that changed. You made a different call. I respect that.\" Smooth as durasteel.",
+                "success": "Varth drops the mask for a moment. \"I did what I thought was necessary. I was wrong.\" Genuine or calculated? Hard to tell."
+              }
+            },
+            {
+              "id": "sc-a3s16-resolve",
+              "discipline": "resolve",
+              "context": "Processing the emotional weight of Act I's events.",
+              "isOptional": true,
+              "arena": "grit",
+              "actionType": "interact",
+              "control": {
+                "failure": "[Rattled] carries into the next adventure. The weight lingers.",
+                "success": "Steel yourself. Ready for whatever comes next."
+              }
+            }
+          ]
         }
       ]
     }
