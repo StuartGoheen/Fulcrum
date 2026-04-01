@@ -14,6 +14,7 @@
     classification: 'standard',
     traits: [],
     tags: [],
+    extraGambits: [],
     loot: [],
     attacks: [],
     numPlayers: 4,
@@ -331,7 +332,11 @@
       role.actions.forEach(function (a) {
         var arenaTag = a.arena ? ' <span class="npc-action-arena-tag">' + esc(a.arena) + '</span>' : '';
         var pwrTag = a.powerMod ? ' <span class="npc-action-pwr-tag">+' + a.powerMod + ' Pwr</span>' : '';
-        var defTag = a.defense && a.defense !== 'none' ? ' <span class="npc-action-def-tag">vs ' + esc(a.defense.charAt(0).toUpperCase() + a.defense.slice(1)) + '</span>' : '';
+        var defLabel = '';
+        if (a.defense && a.defense !== 'none') {
+          defLabel = a.defense === 'dodge/endure' ? 'PC Defense' : a.defense.charAt(0).toUpperCase() + a.defense.slice(1);
+        }
+        var defTag = defLabel ? ' <span class="npc-action-def-tag">vs ' + esc(defLabel) + '</span>' : '';
         html += '<div class="npc-ability action"><strong>' + esc(a.name) + '</strong>' + arenaTag + defTag + pwrTag + ' — ' + esc(a.description);
         if (a.npcEffects && a.npcEffects.length) {
           html += '<div class="npc-effect-track">';
@@ -348,7 +353,8 @@
       html += '<div class="npc-action-group-label">MANEUVER</div>';
       html += '<div class="npc-ability maneuver"><strong>' + esc(role.maneuver.name) + ':</strong>';
       if (role.maneuver.defense && role.maneuver.defense !== 'none') {
-        html += ' <span class="npc-action-def-tag">vs ' + esc(role.maneuver.defense.charAt(0).toUpperCase() + role.maneuver.defense.slice(1)) + '</span>';
+        var manDefLabel = role.maneuver.defense === 'dodge/endure' ? 'PC Defense' : role.maneuver.defense.charAt(0).toUpperCase() + role.maneuver.defense.slice(1);
+        html += ' <span class="npc-action-def-tag">vs ' + esc(manDefLabel) + '</span>';
       }
       html += ' ' + esc(role.maneuver.description);
       if (role.maneuver.npcEffects && role.maneuver.npcEffects.length) {
@@ -364,7 +370,12 @@
       html += '<div class="npc-action-economy-group">';
       html += '<div class="npc-action-group-label">EXPLOIT <span class="npc-exploit-pip-note">(Reaction)</span></div>';
       var exploitTrigger = role.exploit.trigger ? '<div class="npc-exploit-trigger"><span class="npc-trigger-label">TRIGGER:</span> ' + esc(role.exploit.trigger) + '</div>' : '';
-      html += '<div class="npc-ability exploit"><strong>' + esc(role.exploit.name) + '</strong>' + exploitTrigger + '<div class="npc-exploit-effect">' + esc(role.exploit.description) + '</div>';
+      var exploitDefTag = '';
+      if (role.exploit.defense && role.exploit.defense !== 'none') {
+        var expDefLabel = role.exploit.defense === 'dodge/endure' ? 'PC Defense' : role.exploit.defense.charAt(0).toUpperCase() + role.exploit.defense.slice(1);
+        exploitDefTag = ' <span class="npc-action-def-tag">vs ' + esc(expDefLabel) + '</span>';
+      }
+      html += '<div class="npc-ability exploit"><strong>' + esc(role.exploit.name) + '</strong>' + exploitDefTag + exploitTrigger + '<div class="npc-exploit-effect">' + esc(role.exploit.description) + '</div>';
       if (role.exploit.npcEffects && role.exploit.npcEffects.length) {
         html += '<div class="npc-effect-track">';
         role.exploit.npcEffects.forEach(function (ef) {
@@ -378,15 +389,15 @@
       html += '<div class="npc-action-economy-group">';
       html += '<div class="npc-action-group-label">GAMBIT <span class="npc-gambit-mod-note">(Declared in Advance)</span></div>';
       var gambitMod = role.gambit.modifies ? '<span class="npc-gambit-modifies">on ' + esc(role.gambit.modifies) + '</span> ' : '';
-      html += '<div class="npc-ability gambit"><strong>' + esc(role.gambit.name) + '</strong> ' + gambitMod + '<span class="npc-gambit-cost">' + esc(role.gambit.cost) + '</span><div class="npc-gambit-effect">' + esc(role.gambit.description) + '</div>';
-      if (role.gambit.npcEffects && role.gambit.npcEffects.length) {
-        html += '<div class="npc-effect-track">';
-        role.gambit.npcEffects.forEach(function (ef) {
-          html += '<div class="npc-effect-tier"><span class="npc-effect-tier-label">' + esc(ef.tier) + '</span><span class="npc-effect-tier-range">' + esc(ef.range) + '</span> ' + esc(ef.description) + '</div>';
+      html += '<div class="npc-ability gambit"><strong>' + esc(role.gambit.name) + '</strong> ' + gambitMod + '<span class="npc-gambit-cost">' + esc(role.gambit.cost) + '</span><div class="npc-gambit-effect">' + esc(role.gambit.description) + '</div></div>';
+      if (currentNpc.extraGambits && currentNpc.extraGambits.length && threatData.npcGambitPool) {
+        currentNpc.extraGambits.forEach(function (gid) {
+          var poolG = threatData.npcGambitPool.find(function (g) { return g.id === gid; });
+          if (poolG) {
+            html += '<div class="npc-ability gambit"><strong>' + esc(poolG.name) + '</strong> <span class="npc-gambit-cost">' + esc(poolG.cost) + '</span><div class="npc-gambit-effect">' + esc(poolG.description) + '</div></div>';
+          }
         });
-        html += '</div>';
       }
-      html += '</div>';
       html += '</div>';
 
       html += '</div>';
@@ -828,6 +839,48 @@
       html += '</div>';
     }
 
+    if (activeCat === 'character' && threatData.npcGambitPool && threatData.npcGambitPool.length) {
+      var poolGambits = threatData.npcGambitPool;
+      var roleFilteredGambits = [];
+      var otherPoolGambits = [];
+      poolGambits.forEach(function (g) {
+        if (currentRole && g.suggestedRoles && g.suggestedRoles.indexOf(currentRole) !== -1) {
+          roleFilteredGambits.push(g);
+        } else {
+          otherPoolGambits.push(g);
+        }
+      });
+
+      html += '<div class="npc-input-group">';
+      if (currentRole && roleFilteredGambits.length > 0) {
+        var roleNameG = '';
+        var roleObjG = threatData.roles.find(function (r) { return r.id === currentRole; });
+        if (roleObjG) roleNameG = roleObjG.name;
+        html += '<label class="npc-label npc-label-recommended">Extra Gambits for ' + esc(roleNameG) + '</label>';
+        roleFilteredGambits.forEach(function (g) {
+          var checked = (currentNpc.extraGambits || []).indexOf(g.id) !== -1;
+          html += '<label class="npc-checkbox-label">';
+          html += '<input type="checkbox" class="npc-gambit-pool-cb" data-gambit="' + g.id + '"' + (checked ? ' checked' : '') + ' /> ';
+          html += '<span><strong>' + esc(g.name) + '</strong> <em>(' + esc(g.cost) + ')</em></span>';
+          html += '<span class="npc-trait-desc">' + esc(g.description) + '</span>';
+          html += '</label>';
+        });
+      }
+
+      if (otherPoolGambits.length > 0) {
+        html += '<label class="npc-label">' + (currentRole && roleFilteredGambits.length > 0 ? 'Other Gambits' : 'Extra Gambits') + '</label>';
+        otherPoolGambits.forEach(function (g) {
+          var checked = (currentNpc.extraGambits || []).indexOf(g.id) !== -1;
+          html += '<label class="npc-checkbox-label">';
+          html += '<input type="checkbox" class="npc-gambit-pool-cb" data-gambit="' + g.id + '"' + (checked ? ' checked' : '') + ' /> ';
+          html += '<span><strong>' + esc(g.name) + '</strong> <em>(' + esc(g.cost) + ')</em></span>';
+          html += '<span class="npc-trait-desc">' + esc(g.description) + '</span>';
+          html += '</label>';
+        });
+      }
+      html += '</div>';
+    }
+
     html += '<div class="npc-input-group">';
     html += '<label class="npc-label">Tags</label>';
     html += '<div class="npc-tags-grid">';
@@ -966,6 +1019,19 @@
       });
     });
 
+    el.querySelectorAll('.npc-gambit-pool-cb').forEach(function (cb) {
+      cb.addEventListener('change', function () {
+        var gid = cb.dataset.gambit;
+        if (!currentNpc.extraGambits) currentNpc.extraGambits = [];
+        if (cb.checked) {
+          if (currentNpc.extraGambits.indexOf(gid) === -1) currentNpc.extraGambits.push(gid);
+        } else {
+          currentNpc.extraGambits = currentNpc.extraGambits.filter(function (g) { return g !== gid; });
+        }
+        renderNpcCard();
+      });
+    });
+
     el.querySelectorAll('.npc-tag-btn').forEach(function (btn) {
       btn.addEventListener('click', function () {
         var tag = btn.dataset.tag;
@@ -1016,7 +1082,7 @@
         name: '', tier: 1, threatCategory: 'character',
         arenas: { physique: 2, reflex: 2, grit: 2, wits: 2, presence: 2 },
         role: '', classification: 'standard',
-        traits: [], tags: [], loot: [], attacks: [], numPlayers: 4,
+        traits: [], tags: [], extraGambits: [], loot: [], attacks: [], numPlayers: 4,
         socialNotes: '',
         shipDetails: { hullType: '', crew: '', hyperdrive: '', sensors: '', shields: '', cargo: '', speed: '' }
       };
@@ -1032,6 +1098,7 @@
         if (!npc) return;
         currentNpc = JSON.parse(JSON.stringify(npc));
         if (!currentNpc.threatCategory) currentNpc.threatCategory = 'character';
+        if (!currentNpc.extraGambits) currentNpc.extraGambits = [];
         if (!currentNpc.shipDetails) currentNpc.shipDetails = { hullType: '', crew: '', hyperdrive: '', sensors: '', shields: '', cargo: '', speed: '' };
         if (currentNpc.socialNotes === undefined) currentNpc.socialNotes = '';
         autoApplyScaleTraits(currentNpc.threatCategory);
@@ -1213,6 +1280,7 @@
     if (!currentNpc.shipDetails) currentNpc.shipDetails = { hullType: '', crew: '', hyperdrive: '', sensors: '', shields: '', cargo: '', speed: '' };
     if (!currentNpc.traits) currentNpc.traits = [];
     if (!currentNpc.tags) currentNpc.tags = [];
+    if (!currentNpc.extraGambits) currentNpc.extraGambits = [];
     if (!currentNpc.loot) currentNpc.loot = [];
     if (!currentNpc.attacks) currentNpc.attacks = [];
     if (currentNpc.socialNotes === undefined) currentNpc.socialNotes = '';

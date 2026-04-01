@@ -264,7 +264,7 @@
           "name": "Blaster Volley",
           "type": "action",
           "arena": "reflex",
-          "defense": "dodge",
+          "defense": "dodge/endure",
           "description": "Ranged attack against one target.",
           "npcEffects": [
             {
@@ -288,7 +288,7 @@
           "name": "Bayonet Strike",
           "type": "action",
           "arena": "physique",
-          "defense": "endure",
+          "defense": "dodge/endure",
           "description": "Melee attack against adjacent target.",
           "npcEffects": [
             {
@@ -312,69 +312,19 @@
       "maneuver": {
         "name": "Take Cover",
         "defense": "none",
-        "description": "Move to cover. Gain [Cover] until leaving position.",
-        "npcEffects": [
-          {
-            "tier": "F",
-            "range": "-1 to -3",
-            "description": "Gain [Cover 1] until leaving position."
-          },
-          {
-            "tier": "M",
-            "range": "-4 to -7",
-            "description": "Gain [Cover 2] until leaving position."
-          },
-          {
-            "tier": "L",
-            "range": "-8+",
-            "description": "Gain [Cover 2] and [Guarded 1] until leaving position."
-          }
-        ]
+        "description": "Move to cover. Gain [Cover] until leaving position."
       },
       "gambit": {
         "name": "Suppressive Fire",
         "cost": "-1 Power",
         "modifies": "Blaster Volley",
-        "description": "Target gains [Pinned] on hit instead of taking damage.",
-        "npcEffects": [
-          {
-            "tier": "F",
-            "range": "-1 to -3",
-            "description": "Target gains [Suppressed] Tactical."
-          },
-          {
-            "tier": "M",
-            "range": "-4 to -7",
-            "description": "Target gains [Pinned] Tactical."
-          },
-          {
-            "tier": "L",
-            "range": "-8+",
-            "description": "Target gains [Pinned] and [Suppressed] until actively cleared."
-          }
-        ]
+        "description": "In addition to normal effects, target gains [Suppressed] Tactical.",
+        "rider": "[Suppressed] Tactical"
       },
       "exploit": {
         "name": "Coordinated Fire",
         "trigger": "An allied Trooper attacks the same target this round.",
-        "description": "React: All allied Troopers targeting the same enemy gain +1 Power this round.",
-        "npcEffects": [
-          {
-            "tier": "F",
-            "range": "-1 to -3",
-            "description": "All allied Troopers gain +1 Power this round."
-          },
-          {
-            "tier": "M",
-            "range": "-4 to -7",
-            "description": "All allied Troopers gain +1 Power and [Optimized] this round."
-          },
-          {
-            "tier": "L",
-            "range": "-8+",
-            "description": "All allied Troopers gain +2 Power and [Optimized] this round."
-          }
-        ]
+        "description": "All allied Troopers targeting the same enemy gain +1 Power this round."
       }
     },
     {
@@ -396,7 +346,7 @@
           "type": "action",
           "arena": "physique",
           "powerMod": 1,
-          "defense": "endure",
+          "defense": "dodge/endure",
           "description": "Melee attack with +1 Power.",
           "npcEffects": [
             {
@@ -420,7 +370,7 @@
           "name": "Hurl",
           "type": "action",
           "arena": "physique",
-          "defense": "dodge",
+          "defense": "dodge/endure",
           "description": "Throw object or enemy at short range.",
           "npcEffects": [
             {
@@ -467,46 +417,13 @@
         "name": "Knockdown",
         "cost": "-1 Power",
         "modifies": "Crushing Blow",
-        "description": "Target gains [Prone] on hit instead of taking damage.",
-        "npcEffects": [
-          {
-            "tier": "F",
-            "range": "-1 to -3",
-            "description": "Target gains [Prone]."
-          },
-          {
-            "tier": "M",
-            "range": "-4 to -7",
-            "description": "Target gains [Prone] and [Disoriented]."
-          },
-          {
-            "tier": "L",
-            "range": "-8+",
-            "description": "Target gains [Prone], [Disoriented], and is pushed 1 zone."
-          }
-        ]
+        "description": "In addition to normal effects, target gains [Prone].",
+        "rider": "[Prone]"
       },
       "exploit": {
         "name": "Rampage",
         "trigger": "This NPC drops a target to 0 Vitality.",
-        "description": "React: Immediately make another melee attack against a different adjacent target.",
-        "npcEffects": [
-          {
-            "tier": "F",
-            "range": "-1 to -3",
-            "description": "Free melee attack against adjacent target."
-          },
-          {
-            "tier": "M",
-            "range": "-4 to -7",
-            "description": "Free melee attack with +1 Power against adjacent target."
-          },
-          {
-            "tier": "L",
-            "range": "-8+",
-            "description": "Free melee attack with +2 Power against any target in zone."
-          }
-        ]
+        "description": "Immediately make a free melee attack against a different adjacent target using Crushing Blow."
       }
     },
     {
@@ -532,7 +449,7 @@
           "type": "action",
           "arena": "reflex",
           "powerMod": 1,
-          "defense": "dodge",
+          "defense": "dodge/endure",
           "description": "Ranged attack with +1 Power if no movement this turn.",
           "npcEffects": [
             {
@@ -556,7 +473,7 @@
           "name": "Snap Shot",
           "type": "action",
           "arena": "reflex",
-          "defense": "dodge",
+          "defense": "dodge/endure",
           "description": "Quick ranged attack as reaction when target moves.",
           "npcEffects": [
             {
@@ -580,69 +497,19 @@
       "maneuver": {
         "name": "Find Vantage",
         "defense": "none",
-        "description": "Move to elevated or concealed position. +1 Power on next ranged attack.",
-        "npcEffects": [
-          {
-            "tier": "F",
-            "range": "-1 to -3",
-            "description": "+1 Power on next ranged attack."
-          },
-          {
-            "tier": "M",
-            "range": "-4 to -7",
-            "description": "+1 Power on next ranged attack. Gain [Cover 1]."
-          },
-          {
-            "tier": "L",
-            "range": "-8+",
-            "description": "+1 Power and [Optimized] on next ranged attack. Gain [Cover 1]."
-          }
-        ]
+        "description": "Move to elevated or concealed position. +1 Power on next ranged attack."
       },
       "gambit": {
         "name": "Called Shot",
         "cost": "-1 Power",
         "modifies": "Precision Shot",
-        "description": "Target gains [Bleeding] on hit instead of taking damage.",
-        "npcEffects": [
-          {
-            "tier": "F",
-            "range": "-1 to -3",
-            "description": "Target gains [Bleeding]."
-          },
-          {
-            "tier": "M",
-            "range": "-4 to -7",
-            "description": "Target gains [Bleeding]. One piece of equipment is damaged."
-          },
-          {
-            "tier": "L",
-            "range": "-8+",
-            "description": "Target gains [Bleeding]. One limb disabled — [Weakened] until treated."
-          }
-        ]
+        "description": "In addition to normal effects, target gains [Bleeding].",
+        "rider": "[Bleeding]"
       },
       "exploit": {
         "name": "Overwatch",
         "trigger": "An enemy moves in this NPC's line of sight.",
-        "description": "React: Shoot the moving target before they complete movement.",
-        "npcEffects": [
-          {
-            "tier": "F",
-            "range": "-1 to -3",
-            "description": "Ranged attack before movement completes."
-          },
-          {
-            "tier": "M",
-            "range": "-4 to -7",
-            "description": "Ranged attack with [Optimized] before movement completes."
-          },
-          {
-            "tier": "L",
-            "range": "-8+",
-            "description": "Ranged attack with [Optimized] and +1 Power. Movement interrupted."
-          }
-        ]
+        "description": "Make a ranged attack against the moving target before they complete movement."
       }
     },
     {
@@ -663,7 +530,7 @@
           "name": "Hit and Run",
           "type": "action",
           "arena": "reflex",
-          "defense": "dodge",
+          "defense": "dodge/endure",
           "description": "Melee attack + free disengage.",
           "npcEffects": [
             {
@@ -687,7 +554,7 @@
           "name": "Harrying Shot",
           "type": "action",
           "arena": "reflex",
-          "defense": "dodge",
+          "defense": "dodge/endure",
           "description": "Ranged attack at close range. Target cannot take reactions until next turn.",
           "npcEffects": [
             {
@@ -711,69 +578,19 @@
       "maneuver": {
         "name": "Reposition",
         "defense": "none",
-        "description": "Move without provoking reactions.",
-        "npcEffects": [
-          {
-            "tier": "F",
-            "range": "-1 to -3",
-            "description": "Move 1 zone without provoking reactions."
-          },
-          {
-            "tier": "M",
-            "range": "-4 to -7",
-            "description": "Move 2 zones without provoking reactions."
-          },
-          {
-            "tier": "L",
-            "range": "-8+",
-            "description": "Move 2 zones without provoking reactions. Gain Concealment until next action."
-          }
-        ]
+        "description": "Move without provoking reactions."
       },
       "gambit": {
         "name": "Hamstring",
         "cost": "-1 Power",
         "modifies": "Hit and Run",
-        "description": "Target gains [Slowed] on hit instead of taking damage.",
-        "npcEffects": [
-          {
-            "tier": "F",
-            "range": "-1 to -3",
-            "description": "Target gains [Slowed] Tactical."
-          },
-          {
-            "tier": "M",
-            "range": "-4 to -7",
-            "description": "Target gains [Slowed] until actively cleared."
-          },
-          {
-            "tier": "L",
-            "range": "-8+",
-            "description": "Target gains [Slowed] and [Prone]."
-          }
-        ]
+        "description": "In addition to normal effects, target gains [Slowed] Tactical.",
+        "rider": "[Slowed] Tactical"
       },
       "exploit": {
         "name": "Ambush",
-        "trigger": "A PC moves adjacent to this NPC or this NPC attacks from stealth/flanking.",
-        "description": "React: Attack with +2 Power.",
-        "npcEffects": [
-          {
-            "tier": "F",
-            "range": "-1 to -3",
-            "description": "Attack with +2 Power."
-          },
-          {
-            "tier": "M",
-            "range": "-4 to -7",
-            "description": "Attack with +2 Power and [Optimized]."
-          },
-          {
-            "tier": "L",
-            "range": "-8+",
-            "description": "Attack with +3 Power, [Optimized], and target gains [Exposed]."
-          }
-        ]
+        "trigger": "A PC moves adjacent to this NPC or this NPC attacks from concealment.",
+        "description": "Attack gains +2 Power."
       }
     },
     {
@@ -794,7 +611,7 @@
           "name": "Silent Kill",
           "type": "action",
           "arena": "reflex",
-          "defense": "dodge",
+          "defense": "dodge/endure",
           "description": "Melee attack from concealment. +2 Power if target is unaware.",
           "npcEffects": [
             {
@@ -842,69 +659,19 @@
       "maneuver": {
         "name": "Vanish",
         "defense": "none",
-        "description": "If in cover or obscured, become hidden.",
-        "npcEffects": [
-          {
-            "tier": "F",
-            "range": "-1 to -3",
-            "description": "Become hidden if in cover or obscured."
-          },
-          {
-            "tier": "M",
-            "range": "-4 to -7",
-            "description": "Become hidden. First attack from hiding gains +1 Power."
-          },
-          {
-            "tier": "L",
-            "range": "-8+",
-            "description": "Become hidden. Undetectable by Force senses. First attack from hiding gains +2 Power."
-          }
-        ]
+        "description": "If in cover or obscured, become hidden."
       },
       "gambit": {
         "name": "Disarm",
         "cost": "-1 Power",
         "modifies": "Silent Kill",
-        "description": "Target drops held weapon on hit instead of taking damage.",
-        "npcEffects": [
-          {
-            "tier": "F",
-            "range": "-1 to -3",
-            "description": "Target drops held weapon."
-          },
-          {
-            "tier": "M",
-            "range": "-4 to -7",
-            "description": "Target drops weapon. Weapon lands 1 zone away."
-          },
-          {
-            "tier": "L",
-            "range": "-8+",
-            "description": "Target drops weapon. Weapon is damaged — cannot be used until repaired."
-          }
-        ]
+        "description": "In addition to normal effects, target drops held weapon.",
+        "rider": "Target drops held weapon"
       },
       "exploit": {
         "name": "Assassination",
         "trigger": "This NPC attacks an unaware target.",
-        "description": "React: Double Power for this attack.",
-        "npcEffects": [
-          {
-            "tier": "F",
-            "range": "-1 to -3",
-            "description": "Double Power for this attack."
-          },
-          {
-            "tier": "M",
-            "range": "-4 to -7",
-            "description": "Double Power. Concealment maintained regardless of result."
-          },
-          {
-            "tier": "L",
-            "range": "-8+",
-            "description": "Double Power. Concealment maintained. Target gains [Exposed]."
-          }
-        ]
+        "description": "Double Power for this attack. Concealment maintained on a miss."
       }
     },
     {
@@ -973,69 +740,19 @@
       "maneuver": {
         "name": "Issue Orders",
         "defense": "none",
-        "description": "One ally gains a bonus maneuver on their next turn.",
-        "npcEffects": [
-          {
-            "tier": "F",
-            "range": "-1 to -3",
-            "description": "One ally gains a bonus maneuver on their next turn."
-          },
-          {
-            "tier": "M",
-            "range": "-4 to -7",
-            "description": "One ally gains a bonus maneuver and [Optimized] on their next action."
-          },
-          {
-            "tier": "L",
-            "range": "-8+",
-            "description": "Two allies each gain a bonus maneuver on their next turns."
-          }
-        ]
+        "description": "One ally gains a bonus maneuver on their next turn."
       },
       "gambit": {
         "name": "Tactical Withdrawal",
         "cost": "-1 Power",
         "modifies": "Direct Fire",
-        "description": "Instead of ordering an attack, one ally may immediately move to cover.",
-        "npcEffects": [
-          {
-            "tier": "F",
-            "range": "-1 to -3",
-            "description": "One ally moves 1 zone without presenting an Opening."
-          },
-          {
-            "tier": "M",
-            "range": "-4 to -7",
-            "description": "One ally moves 1 zone to cover. Gains [Cover 1]."
-          },
-          {
-            "tier": "L",
-            "range": "-8+",
-            "description": "Two allies move 1 zone to cover. Each gains [Cover 1]."
-          }
-        ]
+        "description": "Instead of ordering an attack, one ally moves 1 zone without presenting an Opening.",
+        "rider": "Ally moves 1 zone safely"
       },
       "exploit": {
         "name": "Coordinated Assault",
         "trigger": "An ally is attacked by a PC.",
-        "description": "React: All allies gain +1 Power until end of round.",
-        "npcEffects": [
-          {
-            "tier": "F",
-            "range": "-1 to -3",
-            "description": "All allies gain +1 Power until end of round."
-          },
-          {
-            "tier": "M",
-            "range": "-4 to -7",
-            "description": "All allies gain +1 Power. One ally gains [Optimized] until end of round."
-          },
-          {
-            "tier": "L",
-            "range": "-8+",
-            "description": "All allies gain +1 Power, +1 Defense, and [Optimized] until end of round."
-          }
-        ]
+        "description": "All allies gain +1 Power until end of round."
       }
     },
     {
@@ -1056,7 +773,7 @@
           "name": "Overload",
           "type": "action",
           "arena": "wits",
-          "defense": "dodge",
+          "defense": "dodge/endure",
           "description": "Tech attack at short range. Targets Evasion.",
           "npcEffects": [
             {
@@ -1104,69 +821,19 @@
       "maneuver": {
         "name": "Scan",
         "defense": "none",
-        "description": "Reveal one hidden enemy or identify one target's weakness (+1 Power vs them next attack).",
-        "npcEffects": [
-          {
-            "tier": "F",
-            "range": "-1 to -3",
-            "description": "Reveal one hidden enemy or identify one weakness (+1 Power vs target)."
-          },
-          {
-            "tier": "M",
-            "range": "-4 to -7",
-            "description": "Reveal all hidden enemies in zone or identify target's lowest Defense (+1 Power vs them)."
-          },
-          {
-            "tier": "L",
-            "range": "-8+",
-            "description": "Reveal all hidden enemies in 2 zones. Identify lowest Defense and grant [Optimized] to all allies vs target."
-          }
-        ]
+        "description": "Reveal one hidden enemy or identify one target's weakness (+1 Power vs them next attack)."
       },
       "gambit": {
         "name": "System Glitch",
         "cost": "-1 Power",
         "modifies": "Overload",
-        "description": "Target's equipment malfunctions. [Jammed] on hit instead of taking damage.",
-        "npcEffects": [
-          {
-            "tier": "F",
-            "range": "-1 to -3",
-            "description": "Target's equipment malfunctions for 1 round."
-          },
-          {
-            "tier": "M",
-            "range": "-4 to -7",
-            "description": "Target's equipment gains [Jammed] for the scene."
-          },
-          {
-            "tier": "L",
-            "range": "-8+",
-            "description": "Target's equipment permanently disabled. [Ionized] if droid."
-          }
-        ]
+        "description": "In addition to normal effects, target's equipment gains [Jammed].",
+        "rider": "[Jammed]"
       },
       "exploit": {
         "name": "Slice",
         "trigger": "A PC uses a droid or automated system within range.",
-        "description": "React: Take control of that droid or system for 1 round.",
-        "npcEffects": [
-          {
-            "tier": "F",
-            "range": "-1 to -3",
-            "description": "Control droid or system for 1 round."
-          },
-          {
-            "tier": "M",
-            "range": "-4 to -7",
-            "description": "Control for 1 round. System requires Tech check to reclaim."
-          },
-          {
-            "tier": "L",
-            "range": "-8+",
-            "description": "Full control until end of scene. System gains [Jammed] when control ends."
-          }
-        ]
+        "description": "Take control of that droid or system for 1 round."
       }
     },
     {
@@ -1258,46 +925,13 @@
         "name": "Force Stagger",
         "cost": "-1 Power",
         "modifies": "Force Push",
-        "description": "Target gains [Disoriented] on hit instead of taking damage.",
-        "npcEffects": [
-          {
-            "tier": "F",
-            "range": "-1 to -3",
-            "description": "Target gains [Disoriented] Tactical."
-          },
-          {
-            "tier": "M",
-            "range": "-4 to -7",
-            "description": "Target gains [Disoriented] and [Shaken] Tactical."
-          },
-          {
-            "tier": "L",
-            "range": "-8+",
-            "description": "Target gains [Disoriented], [Shaken], and [Stunned] Tactical."
-          }
-        ]
+        "description": "In addition to normal effects, target gains [Disoriented] Tactical.",
+        "rider": "[Disoriented] Tactical"
       },
       "exploit": {
         "name": "Force Choke",
         "trigger": "A PC drops below half Vitality.",
-        "description": "React: Automatically apply [Restrained] to that target. Targets Endure to break free.",
-        "npcEffects": [
-          {
-            "tier": "F",
-            "range": "-1 to -3",
-            "description": "[Restrained]. Target must Endure to break free."
-          },
-          {
-            "tier": "M",
-            "range": "-4 to -7",
-            "description": "[Restrained] and [Weakened]. Target must Endure to break free."
-          },
-          {
-            "tier": "L",
-            "range": "-8+",
-            "description": "[Restrained], [Weakened], and 1 Vitality per round. Must Endure to break free."
-          }
-        ]
+        "description": "Target gains [Restrained]. Must Endure to break free."
       }
     },
     {
@@ -1366,67 +1000,35 @@
       "maneuver": {
         "name": "Read the Room",
         "defense": "none",
-        "description": "Learn one target's motivation, fear, or current condition.",
-        "npcEffects": [
-          {
-            "tier": "F",
-            "range": "-1 to -3",
-            "description": "Learn one target's current emotional state or motivation."
-          },
-          {
-            "tier": "M",
-            "range": "-4 to -7",
-            "description": "Learn motivation plus one leverage point. +1 Power on next social action vs target."
-          },
-          {
-            "tier": "L",
-            "range": "-8+",
-            "description": "Learn full psychological profile. [Optimized] and +1 Power on next social action vs target."
-          }
-        ]
+        "description": "Learn one target's motivation, fear, or current condition."
       },
       "gambit": {
         "name": "Taunt",
         "cost": "-1 Power",
         "modifies": "Cutting Words",
-        "description": "Target must attack Face on next turn. Target gains [Marked] instead of normal effect.",
-        "npcEffects": [
-          {
-            "tier": "F",
-            "range": "-1 to -3",
-            "description": "Target gains [Marked]. Must include Face in next attack if able."
-          },
-          {
-            "tier": "M",
-            "range": "-4 to -7",
-            "description": "Target gains [Marked]. Must attack Face on next turn."
-          },
-          {
-            "tier": "L",
-            "range": "-8+",
-            "description": "Target gains [Marked] and [Exposed]. Must attack Face on next turn."
-          }
-        ]
+        "description": "In addition to normal effects, target gains [Marked] Tactical. Must include Face in next attack if able.",
+        "rider": "[Marked] Tactical"
       },
       "exploit": {
-        "name": "Turn Coat",
-        "trigger": "A PC drops below half Vitality or gains 2+ social conditions.",
-        "description": "React: Offer surrender terms. Target must resist or comply.",
+        "name": "Distraction",
+        "trigger": "An ally is targeted by an attack.",
+        "description": "Presence-based attack vs Resist. Impose conditions before the target's action resolves.",
+        "defense": "resist",
         "npcEffects": [
           {
             "tier": "F",
             "range": "-1 to -3",
-            "description": "Target must Resist or hesitate (loses next Action)."
+            "description": "Target gains [Rattled] before their action resolves."
           },
           {
             "tier": "M",
             "range": "-4 to -7",
-            "description": "Target must Resist or comply with one demand. [Shaken] regardless."
+            "description": "Target gains [Stunned] before their action resolves."
           },
           {
             "tier": "L",
             "range": "-8+",
-            "description": "Target must Resist at -2 or comply fully. [Shaken] and [Rattled] regardless."
+            "description": "Target gains [Stunned] and [Shaken] before their action resolves."
           }
         ]
       }
@@ -1451,7 +1053,7 @@
           "type": "action",
           "arena": "physique",
           "powerMod": 1,
-          "defense": "endure",
+          "defense": "dodge/endure",
           "description": "Melee attack with +1 Power.",
           "npcEffects": [
             {
@@ -1475,7 +1077,7 @@
           "name": "Pounce",
           "type": "action",
           "arena": "physique",
-          "defense": "dodge",
+          "defense": "dodge/endure",
           "description": "Charge from short range + melee attack.",
           "npcEffects": [
             {
@@ -1499,69 +1101,19 @@
       "maneuver": {
         "name": "Stalk",
         "defense": "none",
-        "description": "Move silently. Gain concealment if cover is available.",
-        "npcEffects": [
-          {
-            "tier": "F",
-            "range": "-1 to -3",
-            "description": "Move silently. Gain concealment if cover is available."
-          },
-          {
-            "tier": "M",
-            "range": "-4 to -7",
-            "description": "Move silently 1 zone. Gain concealment. Next attack from concealment gains +1 Power."
-          },
-          {
-            "tier": "L",
-            "range": "-8+",
-            "description": "Move silently 2 zones. Gain concealment. Next attack from concealment gains +2 Power."
-          }
-        ]
+        "description": "Move silently. Gain concealment if cover is available."
       },
       "gambit": {
         "name": "Rend",
         "cost": "-1 Power",
         "modifies": "Savage Bite",
-        "description": "Target gains [Bleeding] on hit instead of taking damage.",
-        "npcEffects": [
-          {
-            "tier": "F",
-            "range": "-1 to -3",
-            "description": "Target gains [Bleeding]."
-          },
-          {
-            "tier": "M",
-            "range": "-4 to -7",
-            "description": "Target gains [Bleeding]. Worn armor damaged (-1 Defense until repaired)."
-          },
-          {
-            "tier": "L",
-            "range": "-8+",
-            "description": "Target gains [Bleeding]. Worn armor destroyed (armor Defense bonus removed)."
-          }
-        ]
+        "description": "In addition to normal effects, target gains [Bleeding].",
+        "rider": "[Bleeding]"
       },
       "exploit": {
         "name": "Pack Tactics",
         "trigger": "An allied Beast attacks the same target.",
-        "description": "React: This NPC attacks the same target with +2 Power.",
-        "npcEffects": [
-          {
-            "tier": "F",
-            "range": "-1 to -3",
-            "description": "Attack same target with +2 Power."
-          },
-          {
-            "tier": "M",
-            "range": "-4 to -7",
-            "description": "Attack same target with +2 Power. Target gains [Prone]."
-          },
-          {
-            "tier": "L",
-            "range": "-8+",
-            "description": "Attack same target with +3 Power. Target gains [Prone] and [Bleeding]."
-          }
-        ]
+        "description": "Attack the same target with +2 Power."
       }
     },
     {
@@ -1583,7 +1135,7 @@
           "type": "action",
           "arena": "reflex",
           "powerMod": 1,
-          "defense": "dodge",
+          "defense": "dodge/endure",
           "description": "Melee attack with +1 Power. Ignores light armor.",
           "npcEffects": [
             {
@@ -1607,7 +1159,7 @@
           "name": "Parry & Thrust",
           "type": "action",
           "arena": "reflex",
-          "defense": "dodge",
+          "defense": "dodge/endure",
           "description": "Melee attack. +1 Defense until start of next turn.",
           "npcEffects": [
             {
@@ -1631,69 +1183,19 @@
       "maneuver": {
         "name": "Defensive Stance",
         "defense": "none",
-        "description": "Enter a guarded position. +1 Defense and +1 Evasion until next action.",
-        "npcEffects": [
-          {
-            "tier": "F",
-            "range": "-1 to -3",
-            "description": "+1 Defense and +1 Evasion until next action."
-          },
-          {
-            "tier": "M",
-            "range": "-4 to -7",
-            "description": "+1 Defense, +1 Evasion, and +1 Resist until next action."
-          },
-          {
-            "tier": "L",
-            "range": "-8+",
-            "description": "+2 Defense, +2 Evasion until next action. Riposte triggers on ranged misses too."
-          }
-        ]
+        "description": "Enter a guarded position. +1 Defense and +1 Evasion until next action."
       },
       "gambit": {
         "name": "Disabling Cut",
         "cost": "-1 Power",
         "modifies": "Precision Strike",
-        "description": "Target gains [Weakened] on hit instead of taking damage. Limb or weapon hand targeted.",
-        "npcEffects": [
-          {
-            "tier": "F",
-            "range": "-1 to -3",
-            "description": "Target gains [Weakened] Tactical."
-          },
-          {
-            "tier": "M",
-            "range": "-4 to -7",
-            "description": "Target gains [Weakened] until cleared. Weapon hand targeted."
-          },
-          {
-            "tier": "L",
-            "range": "-8+",
-            "description": "Target gains [Weakened] and drops weapon. Limb disabled until treated."
-          }
-        ]
+        "description": "In addition to normal effects, target gains [Weakened] Tactical.",
+        "rider": "[Weakened] Tactical"
       },
       "exploit": {
         "name": "Killing Blow",
         "trigger": "A PC drops below half Vitality.",
-        "description": "React: Attack that target with +2 Power, ignoring Defense bonuses from cover or shields.",
-        "npcEffects": [
-          {
-            "tier": "F",
-            "range": "-1 to -3",
-            "description": "Attack with +2 Power, ignoring cover and shields."
-          },
-          {
-            "tier": "M",
-            "range": "-4 to -7",
-            "description": "Attack with +2 Power, ignoring cover, shields, and light armor."
-          },
-          {
-            "tier": "L",
-            "range": "-8+",
-            "description": "Attack with +3 Power, ignoring all Defense bonuses."
-          }
-        ]
+        "description": "Attack that target with +2 Power, ignoring Defense bonuses from cover and shields."
       }
     }
   ],
@@ -3193,6 +2695,349 @@
       "loot": [],
       "notes": "Hutt boss encounter. Face role for social combat. Tough + high Grit for survivability. Boss classification for N-1 exploits.",
       "socialNotes": "Vain — flattery gives PCs +1 Power. Transactional — offer something valuable for -2 Resist, but threats raise it +2. Paranoid — failed deception permanently raises Resist."
+    }
+  ],
+  "npcGambitPool": [
+    {
+      "id": "clinch",
+      "name": "Clinch",
+      "source": "Brawl",
+      "tags": [
+        "melee",
+        "unarmed"
+      ],
+      "cost": "-1 Power",
+      "description": "In addition to normal effects, target gains [Slowed] Tactical.",
+      "rider": "[Slowed] Tactical",
+      "suggestedRoles": [
+        "brute",
+        "beast"
+      ]
+    },
+    {
+      "id": "takedown",
+      "name": "Takedown",
+      "source": "Brawl",
+      "tags": [
+        "melee",
+        "unarmed"
+      ],
+      "cost": "-1 Power",
+      "description": "In addition to normal effects, target gains [Prone].",
+      "rider": "[Prone]",
+      "suggestedRoles": [
+        "brute",
+        "beast",
+        "skirmisher"
+      ]
+    },
+    {
+      "id": "vice_grip",
+      "name": "Vice Grip",
+      "source": "Brawl",
+      "tags": [
+        "melee",
+        "unarmed"
+      ],
+      "cost": "-1 Power",
+      "description": "In addition to normal effects, target gains [Restrained] Tactical.",
+      "rider": "[Restrained] Tactical",
+      "suggestedRoles": [
+        "brute",
+        "beast"
+      ]
+    },
+    {
+      "id": "suppressive_fire",
+      "name": "Suppressive Fire",
+      "source": "Ranged",
+      "tags": [
+        "ranged"
+      ],
+      "cost": "-1 Power",
+      "description": "In addition to normal effects, target gains [Rattled] Tactical.",
+      "rider": "[Rattled] Tactical",
+      "suggestedRoles": [
+        "trooper",
+        "marksman",
+        "commander"
+      ]
+    },
+    {
+      "id": "pinning_shot",
+      "name": "Pinning Shot",
+      "source": "Ranged",
+      "tags": [
+        "ranged"
+      ],
+      "cost": "-1 Power",
+      "description": "In addition to normal effects, target gains [Suppressed] Tactical.",
+      "rider": "[Suppressed] Tactical",
+      "suggestedRoles": [
+        "trooper",
+        "marksman"
+      ]
+    },
+    {
+      "id": "covering_fire",
+      "name": "Covering Fire",
+      "source": "Tactics",
+      "tags": [
+        "ranged"
+      ],
+      "cost": "-1 Power",
+      "description": "In addition to normal effects, the target cannot Exploit Openings against one chosen ally. Tactical.",
+      "rider": "Block Openings vs ally, Tactical",
+      "suggestedRoles": [
+        "trooper",
+        "commander"
+      ]
+    },
+    {
+      "id": "trick_shot",
+      "name": "Trick Shot",
+      "source": "Ranged",
+      "tags": [
+        "ranged"
+      ],
+      "cost": "-1 Power",
+      "description": "In addition to normal effects, shoot an environmental element — door release, light fixture, cable, fuel line — triggering a narrative effect in the zone. GM adjudicates.",
+      "rider": "Narrative environmental effect",
+      "suggestedRoles": [
+        "marksman",
+        "operative"
+      ]
+    },
+    {
+      "id": "feint",
+      "name": "Feint",
+      "source": "Deception",
+      "tags": [
+        "melee"
+      ],
+      "cost": "-1 Power",
+      "description": "In addition to normal effects, target gains [Exposed] to the next attack against them. Tactical.",
+      "rider": "[Exposed] Tactical",
+      "suggestedRoles": [
+        "skirmisher",
+        "operative",
+        "duelist"
+      ]
+    },
+    {
+      "id": "menacing_strike",
+      "name": "Menacing Strike",
+      "source": "Intimidate",
+      "tags": [
+        "melee",
+        "unarmed"
+      ],
+      "cost": "-1 Power",
+      "description": "In addition to normal effects, target gains [Rattled] Tactical.",
+      "rider": "[Rattled] Tactical",
+      "suggestedRoles": [
+        "brute",
+        "beast"
+      ]
+    },
+    {
+      "id": "demoralizing_strike",
+      "name": "Demoralizing Strike",
+      "source": "Intimidate",
+      "tags": [
+        "any"
+      ],
+      "cost": "-1 Power",
+      "description": "In addition to normal effects, target's Resist defense reduced by 2. Ongoing.",
+      "rider": "Resist -2, Ongoing",
+      "suggestedRoles": [
+        "brute",
+        "mystic"
+      ]
+    },
+    {
+      "id": "exposing_strike",
+      "name": "Exposing Strike",
+      "source": "Melee",
+      "tags": [
+        "melee",
+        "unarmed"
+      ],
+      "cost": "-1 Power",
+      "description": "In addition to normal effects, the target immediately presents an Opening. Any ally in the zone may spend an Exploit to react.",
+      "rider": "Target presents Opening",
+      "suggestedRoles": [
+        "duelist",
+        "skirmisher"
+      ]
+    },
+    {
+      "id": "bantha_rush",
+      "name": "Bantha Rush",
+      "source": "Athletics",
+      "tags": [
+        "melee"
+      ],
+      "cost": "-1 Power",
+      "description": "In addition to normal effects, push the target 1 zone. NPC may follow into that zone.",
+      "rider": "Push 1 zone",
+      "suggestedRoles": [
+        "brute",
+        "beast"
+      ]
+    },
+    {
+      "id": "the_slam",
+      "name": "The Slam",
+      "source": "Athletics",
+      "tags": [
+        "melee"
+      ],
+      "cost": "-1 Power",
+      "description": "In addition to normal effects, push the target 1 zone and follow. Target gains [Prone].",
+      "rider": "Push 1 zone + [Prone]",
+      "suggestedRoles": [
+        "brute"
+      ]
+    },
+    {
+      "id": "cleaving_arc",
+      "name": "Cleaving Arc",
+      "source": "Melee",
+      "tags": [
+        "melee",
+        "unarmed"
+      ],
+      "cost": "-1 Power",
+      "description": "In addition to normal effects, apply the attack to a second target in the same zone at one tier lower.",
+      "rider": "Hit second target (reduced tier)",
+      "suggestedRoles": [
+        "brute",
+        "duelist",
+        "beast"
+      ]
+    },
+    {
+      "id": "walking_fire",
+      "name": "Walking Fire",
+      "source": "Heavy Weapons",
+      "tags": [
+        "ranged",
+        "heavy",
+        "autofire"
+      ],
+      "cost": "-1 Power",
+      "description": "In addition to normal effects, target gains [Suppressed] Tactical.",
+      "rider": "[Suppressed] Tactical",
+      "suggestedRoles": [
+        "trooper"
+      ]
+    },
+    {
+      "id": "danger_close",
+      "name": "Danger Close",
+      "source": "Heavy Weapons",
+      "tags": [
+        "ranged",
+        "heavy",
+        "grenade"
+      ],
+      "cost": "-1 Power",
+      "description": "In addition to normal effects, apply the attack to all targets in the zone at one tier lower.",
+      "rider": "Hit all targets in zone (reduced tier)",
+      "suggestedRoles": [
+        "trooper"
+      ]
+    },
+    {
+      "id": "scorched_earth",
+      "name": "Scorched Earth",
+      "source": "Heavy Weapons",
+      "tags": [
+        "ranged",
+        "heavy",
+        "grenade"
+      ],
+      "cost": "-1 Power",
+      "description": "In addition to normal effects, the target zone gains [Hazard 2] Ongoing. Anyone entering or starting their turn in the zone takes Hazard damage.",
+      "rider": "[Hazard 2] Ongoing in zone",
+      "suggestedRoles": [
+        "trooper",
+        "technician"
+      ]
+    },
+    {
+      "id": "holdout",
+      "name": "Holdout",
+      "source": "Skulduggery",
+      "tags": [
+        "ranged"
+      ],
+      "cost": "-1 Power",
+      "description": "In addition to normal effects, draw and fire a concealed weapon. Target is caught off guard — treat as unaware for this attack.",
+      "rider": "Concealed weapon, target unaware",
+      "suggestedRoles": [
+        "operative",
+        "face"
+      ]
+    },
+    {
+      "id": "misdirect",
+      "name": "Misdirect",
+      "source": "Deception",
+      "tags": [
+        "social"
+      ],
+      "cost": "-1 Power",
+      "description": "In addition to normal effects, the target wastes their next significant action pursuing false information or a phantom threat.",
+      "rider": "Target wastes next action",
+      "suggestedRoles": [
+        "face",
+        "operative"
+      ]
+    },
+    {
+      "id": "break_composure",
+      "name": "Break Composure",
+      "source": "Intimidate",
+      "tags": [
+        "social"
+      ],
+      "cost": "-1 Power",
+      "description": "In addition to normal effects, the target reveals their primary motivation in this scene — what they want, protect, or fear.",
+      "rider": "Reveal motivation",
+      "suggestedRoles": [
+        "face",
+        "brute"
+      ]
+    },
+    {
+      "id": "force_shove",
+      "name": "Force Shove",
+      "source": "Alter",
+      "tags": [
+        "force"
+      ],
+      "cost": "-1 Power",
+      "description": "In addition to normal effects, push the target 1 zone. Telekinetic — no physical contact required.",
+      "rider": "Push 1 zone (telekinetic)",
+      "suggestedRoles": [
+        "mystic"
+      ]
+    },
+    {
+      "id": "parry",
+      "name": "Parry",
+      "source": "Melee",
+      "tags": [
+        "melee"
+      ],
+      "cost": "-1 Power",
+      "description": "In addition to normal effects, NPC gains [Optimized] on all defense values until start of next turn.",
+      "rider": "[Optimized] defense, Tactical",
+      "suggestedRoles": [
+        "duelist"
+      ]
     }
   ]
 }
