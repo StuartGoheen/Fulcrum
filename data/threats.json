@@ -27,7 +27,7 @@
         {
           "range": [
             -8,
-            -11
+            null
           ],
           "tier": "Legendary"
         }
@@ -50,7 +50,7 @@
         {
           "range": [
             8,
-            11
+            null
           ],
           "tier": "Legendary"
         }
