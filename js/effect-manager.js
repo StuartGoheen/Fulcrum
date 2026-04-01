@@ -13,7 +13,7 @@
       targetMode: 'fixed_arenas',
       fixedArenas: ['physique', 'reflex'],
       defaultDuration: 'tactical',
-      description: 'Physical coordination compromised. PC: Step Down the Control Die on physical rolls (Physique, Reflex). NPC: Presence -1 (physical actions). Superseded by [Blinded]. Combined with [Rattled] to form [Stunned].',
+      description: 'Physical coordination compromised. PC: Step Down the Control Die on physical rolls (Physique, Reflex). NPC: Tier -1 (physical actions). Superseded by [Blinded]. Combined with [Rattled] to form [Stunned].',
     },
     {
       id: 'rattled',
@@ -24,7 +24,7 @@
       targetMode: 'fixed_arenas',
       fixedArenas: ['grit', 'wits', 'presence'],
       defaultDuration: 'tactical',
-      description: 'Mental focus compromised. PC: Step Down the Control Die on mental/social rolls (Grit, Wits, Presence). NPC: Presence -1 (mental/social). Combined with [Disoriented] to form [Stunned].',
+      description: 'Mental focus compromised. PC: Step Down the Control Die on mental/social rolls (Grit, Wits, Presence). NPC: Tier -1 (mental/social). Combined with [Disoriented] to form [Stunned].',
     },
     {
       id: 'optimized',
@@ -34,7 +34,7 @@
       modifier: { type: 'control_up' },
       targetMode: 'control',
       defaultDuration: 'tactical',
-      description: 'Tactical advantage. PC: Step Up the Control Die (source specifies scope). NPC: Presence +1 (scoped). Does not stack with itself.',
+      description: 'Tactical advantage. PC: Step Up the Control Die (source specifies scope). NPC: Tier +1 (scoped). Does not stack with itself.',
     },
     {
       id: 'weakened',
@@ -212,7 +212,7 @@
       targetMode: 'fixed_arenas',
       fixedArenas: ['physique', 'reflex', 'grit', 'wits', 'presence'],
       defaultDuration: 'tactical',
-      description: 'Combined: [Disoriented] + [Rattled]. Both effects stack. Physical -1, mental/social -2. Shared source/duration/recovery.',
+      description: 'Combined: [Disoriented] + [Rattled]. Both effects stack. NPC: Tier -1 (physical) and Tier -1 (mental/social). Shared source/duration/recovery.',
     },
     {
       id: 'surprised',
