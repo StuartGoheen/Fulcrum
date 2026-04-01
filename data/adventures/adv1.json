@@ -1765,16 +1765,16 @@
               ],
               "intel": "Knows exactly what was stolen — the Code Cylinder. Does NOT know what's on it.",
               "threatBuild": {
-                "role": "brute",
+                "role": "commander",
                 "tier": 1,
                 "classification": "elite",
                 "threatCategory": "character",
                 "arenas": {
-                  "physique": 4,
+                  "physique": 3,
                   "reflex": 2,
                   "grit": 3,
                   "wits": 1,
-                  "presence": 2
+                  "presence": 3
                 },
                 "weaponChassis": "medium",
                 "traits": [
@@ -1784,137 +1784,958 @@
                   "Chevin"
                 ],
                 "roleKit": {
-                  "passive": {
-                    "name": "Unrelenting",
-                    "description": "Ignore the first [Weakened] condition applied per scene."
-                  },
+                  "passive": null,
                   "actions": [
                     {
-                      "name": "Crushing Blow",
+                      "name": "Direct Fire",
                       "type": "action",
-                      "arena": "physique",
-                      "powerMod": 1,
-                      "description": "Melee attack with +1 Power. The trunk slams down like a battering ram.",
-                      "attackPower": 5
+                      "arena": "presence",
+                      "description": "Order one ally to immediately make an attack as a reaction."
                     },
                     {
-                      "name": "Hurl",
+                      "name": "Rally",
                       "type": "action",
-                      "arena": "physique",
-                      "description": "Throw a PC or heavy object at short range. Targets Evasion.",
-                      "attackPower": 4
+                      "arena": "presence",
+                      "description": "Remove [Shaken] or [Rattled] from one ally in range."
                     }
                   ],
-                  "maneuver": {
-                    "name": "Intimidating Advance",
-                    "description": "Move toward target. Target must resist or gain [Shaken]."
-                  },
-                  "gambit": {
-                    "name": "Knockdown",
-                    "cost": "-1 Power",
-                    "description": "Target gains [Prone] on hit."
-                  },
-                  "exploit": {
-                    "name": "Rampage",
-                    "description": "When dropping a target to 0 Vitality, immediately make another melee attack against a different adjacent target."
-                  }
+                  "maneuver": null,
+                  "gambit": null,
+                  "exploit": null
                 },
                 "notes": "Elite Brute. Defense 5 = max(5,2)-1+1. Evasion 1 = Ref 2-1+1-1(slow). Resist 3 = Grit 3-1+1. 5. Tough: ignore Fleeting damage. A serious fight for the party.",
                 "computed": {
-                  "power": 4,
-                  "defense": 4,
+                  "arenas": {
+                    "physique": 3,
+                    "reflex": 2,
+                    "grit": 3,
+                    "wits": 1,
+                    "presence": 3
+                  },
+                  "defense": 3,
                   "evasion": 2,
                   "resist": 3,
-                  "vitality": 12,
+                  "vitality": 11,
+                  "rawVitality": 7,
+                  "powers": {
+                    "physique": 3,
+                    "reflex": 2,
+                    "grit": 3,
+                    "wits": 1,
+                    "presence": 3
+                  },
+                  "exploits": 1,
                   "initiative": 3,
-                  "controlDie": "d6",
-                  "actions": 1,
-                  "damageTiers": {
-                    "chassis": "medium",
-                    "label": "Medium",
-                    "fleeting": 2,
-                    "masterful": 4,
-                    "legendary": 6
+                  "role": {
+                    "id": "commander",
+                    "name": "Commander",
+                    "category": "combat",
+                    "description": "Tactical leader. Amplifies allies, directs the battlefield, controls tempo.",
+                    "arenaMods": {
+                      "presence": 1,
+                      "physique": -1
+                    },
+                    "passive": {
+                      "name": "Rallying Presence",
+                      "description": "Allies within close range gain +1 to resist [Shaken] and [Rattled]."
+                    },
+                    "actions": [
+                      {
+                        "name": "Direct Fire",
+                        "type": "action",
+                        "arena": "presence",
+                        "description": "Order one ally to immediately make an attack as a reaction."
+                      },
+                      {
+                        "name": "Rally",
+                        "type": "action",
+                        "arena": "presence",
+                        "description": "Remove [Shaken] or [Rattled] from one ally in range."
+                      }
+                    ],
+                    "maneuver": {
+                      "name": "Issue Orders",
+                      "description": "One ally gains a bonus maneuver on their next turn."
+                    },
+                    "gambit": {
+                      "name": "Tactical Withdrawal",
+                      "cost": "-1 Power",
+                      "description": "One ally may immediately move to cover."
+                    },
+                    "exploit": {
+                      "name": "Coordinated Assault",
+                      "description": "All allies gain +1 Power until end of round."
+                    }
+                  },
+                  "classification": {
+                    "id": "elite",
+                    "name": "Elite",
+                    "description": "Bolt-on. Tougher and more versatile. The featured enemy that demands respect.",
+                    "vitalityMod": 1.5,
+                    "exploitMod": 1,
+                    "notes": "An Elite can replace 2-3 Standards and provide a more interesting fight."
+                  },
+                  "rolePowerBonus": null,
+                  "immunities": [],
+                  "vulnerabilities": [],
+                  "scale": null,
+                  "scaleLevel": 1,
+                  "ironClad": false,
+                  "isStationary": false
+                },
+                "name": "Ganga Lor",
+                "shipDetails": {
+                  "hullType": "",
+                  "crew": "",
+                  "hyperdrive": "",
+                  "sensors": "",
+                  "shields": "",
+                  "cargo": "",
+                  "speed": ""
+                },
+                "loot": [
+                  {
+                    "id": "wpn_quick_six_01",
+                    "name": "Merr-Sonn Quick-Six",
+                    "type": "weapon",
+                    "qty": 1
                   }
+                ],
+                "attacks": [
+                  {
+                    "name": "Direct Fire",
+                    "arena": "presence",
+                    "powerMod": 0,
+                    "chassis": "medium",
+                    "canStun": false,
+                    "sourceAction": "Direct Fire"
+                  },
+                  {
+                    "name": "Rally",
+                    "arena": "presence",
+                    "powerMod": 0,
+                    "chassis": "medium",
+                    "canStun": false,
+                    "sourceAction": "Rally"
+                  },
+                  {
+                    "name": "Blaster",
+                    "arena": "reflex",
+                    "powerMod": 0,
+                    "chassis": "light",
+                    "canStun": false
+                  },
+                  {
+                    "name": "Pummel (Stun Only)",
+                    "arena": "physique",
+                    "powerMod": 0,
+                    "chassis": "light",
+                    "canStun": true
+                  }
+                ],
+                "socialNotes": ""
+              },
+              "loot": [
+                {
+                  "id": "wpn_quick_six_01",
+                  "name": "Merr-Sonn Quick-Six",
+                  "type": "weapon",
+                  "qty": 1
                 }
-              }
+              ]
             },
             {
-              "name": "Enforcers",
-              "type": "Standard Thugs",
-              "count": 4,
-              "notes": "Mixed species — two humans, a Trandoshan, a Nikto.",
-              "behavior": "Stack behind Ganga Lor. Enter in pairs. Spread to cover angles. Experienced street fighters.",
-              "dialogue": [],
-              "intel": null,
+              "name": "Switch's Thugs",
+              "type": "Character",
+              "count": 1,
+              "loot": [
+                {
+                  "id": "wpn_vibroblade_01",
+                  "name": "Vibroblade",
+                  "type": "weapon",
+                  "qty": 1
+                },
+                {
+                  "id": "wpn_dl18_01",
+                  "name": "BlasTech DL-18",
+                  "type": "weapon",
+                  "qty": 1
+                },
+                {
+                  "id": "arm_heavy_jacket_01",
+                  "name": "Heavy Jacket",
+                  "type": "armor",
+                  "qty": 1
+                }
+              ],
               "threatBuild": {
                 "role": "trooper",
                 "tier": 0,
                 "classification": "minion",
                 "threatCategory": "character",
                 "arenas": {
-                  "physique": 2,
-                  "reflex": 2,
+                  "physique": 3,
+                  "reflex": 3,
                   "grit": 1,
-                  "wits": 1,
+                  "wits": 2,
                   "presence": 1
                 },
-                "weaponChassis": "light",
-                "traits": [],
+                "computed": {
+                  "defense": 3,
+                  "evasion": 2,
+                  "resist": 0,
+                  "vitality": 4,
+                  "initiative": 4,
+                  "power": 2,
+                  "powers": {
+                    "physique": 2,
+                    "reflex": 2,
+                    "grit": 0,
+                    "wits": 1,
+                    "presence": 0
+                  },
+                  "actions": 1,
+                  "exploits": 0,
+                  "damageTiers": {
+                    "label": "light",
+                    "fleeting": 2,
+                    "masterful": 4,
+                    "legendary": 6
+                  }
+                },
+                "traits": [
+                  "armored_light"
+                ],
                 "tags": [],
                 "roleKit": {
-                  "passive": {
-                    "name": "Disciplined Fire",
-                    "description": "+1 Power on weapon attacks."
-                  },
+                  "passive": null,
                   "actions": [
                     {
                       "name": "Blaster Volley",
                       "type": "action",
                       "arena": "reflex",
-                      "description": "Ranged attack against one target.",
-                      "attackPower": 1
+                      "description": "Ranged attack against one target."
                     },
                     {
-                      "name": "Brawl",
+                      "name": "Bayonet Strike",
                       "type": "action",
                       "arena": "physique",
-                      "description": "Melee attack against adjacent target.",
-                      "attackPower": 1
+                      "description": "Melee attack against adjacent target."
                     }
                   ],
-                  "maneuver": {
-                    "name": "Take Cover",
-                    "description": "Move to cover. Gain [Cover 1] until leaving position."
+                  "maneuver": null,
+                  "gambit": null,
+                  "exploit": null
+                },
+                "weaponChassis": "light",
+                "loot": [
+                  {
+                    "id": "wpn_vibroblade_01",
+                    "name": "Vibroblade",
+                    "type": "weapon",
+                    "qty": 1
                   },
-                  "gambit": {
-                    "name": "Suppressive Fire",
-                    "cost": "-1 Power",
-                    "description": "Target gains [Pinned] on hit."
+                  {
+                    "id": "wpn_dl18_01",
+                    "name": "BlasTech DL-18",
+                    "type": "weapon",
+                    "qty": 1
                   },
-                  "exploit": {
-                    "name": "Mob Up",
-                    "description": "If adjacent to another Enforcer, +1 Power on next attack."
+                  {
+                    "id": "arm_heavy_jacket_01",
+                    "name": "Heavy Jacket",
+                    "type": "armor",
+                    "qty": 1
+                  }
+                ]
+              }
+            },
+            {
+              "name": "Switch's Thugs",
+              "type": "Character",
+              "count": 1,
+              "loot": [
+                {
+                  "id": "wpn_vibroblade_01",
+                  "name": "Vibroblade",
+                  "type": "weapon",
+                  "qty": 1
+                },
+                {
+                  "id": "wpn_dl18_01",
+                  "name": "BlasTech DL-18",
+                  "type": "weapon",
+                  "qty": 1
+                },
+                {
+                  "id": "arm_heavy_jacket_01",
+                  "name": "Heavy Jacket",
+                  "type": "armor",
+                  "qty": 1
+                }
+              ],
+              "threatBuild": {
+                "role": "trooper",
+                "tier": 0,
+                "classification": "minion",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 3,
+                  "reflex": 3,
+                  "grit": 1,
+                  "wits": 2,
+                  "presence": 1
+                },
+                "computed": {
+                  "defense": 3,
+                  "evasion": 2,
+                  "resist": 0,
+                  "vitality": 4,
+                  "initiative": 4,
+                  "power": 2,
+                  "powers": {
+                    "physique": 2,
+                    "reflex": 2,
+                    "grit": 0,
+                    "wits": 1,
+                    "presence": 0
+                  },
+                  "actions": 1,
+                  "exploits": 0,
+                  "damageTiers": {
+                    "label": "light",
+                    "fleeting": 2,
+                    "masterful": 4,
+                    "legendary": 6
                   }
                 },
-                "notes": "Minion thugs. Defense 1 = max(2,2)-1+0. Masterful+ = instant takedown. Exist to make the room feel crowded, not dangerous.",
+                "traits": [
+                  "armored_light"
+                ],
+                "tags": [],
+                "roleKit": {
+                  "passive": null,
+                  "actions": [
+                    {
+                      "name": "Blaster Volley",
+                      "type": "action",
+                      "arena": "reflex",
+                      "description": "Ranged attack against one target."
+                    },
+                    {
+                      "name": "Bayonet Strike",
+                      "type": "action",
+                      "arena": "physique",
+                      "description": "Melee attack against adjacent target."
+                    }
+                  ],
+                  "maneuver": null,
+                  "gambit": null,
+                  "exploit": null
+                },
+                "weaponChassis": "light",
+                "loot": [
+                  {
+                    "id": "wpn_vibroblade_01",
+                    "name": "Vibroblade",
+                    "type": "weapon",
+                    "qty": 1
+                  },
+                  {
+                    "id": "wpn_dl18_01",
+                    "name": "BlasTech DL-18",
+                    "type": "weapon",
+                    "qty": 1
+                  },
+                  {
+                    "id": "arm_heavy_jacket_01",
+                    "name": "Heavy Jacket",
+                    "type": "armor",
+                    "qty": 1
+                  }
+                ]
+              }
+            },
+            {
+              "name": "Switch's Thugs",
+              "type": "Character",
+              "count": 1,
+              "loot": [
+                {
+                  "id": "wpn_vibroblade_01",
+                  "name": "Vibroblade",
+                  "type": "weapon",
+                  "qty": 1
+                },
+                {
+                  "id": "wpn_dl18_01",
+                  "name": "BlasTech DL-18",
+                  "type": "weapon",
+                  "qty": 1
+                },
+                {
+                  "id": "arm_heavy_jacket_01",
+                  "name": "Heavy Jacket",
+                  "type": "armor",
+                  "qty": 1
+                }
+              ],
+              "threatBuild": {
+                "role": "trooper",
+                "tier": 0,
+                "classification": "minion",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 3,
+                  "reflex": 3,
+                  "grit": 1,
+                  "wits": 2,
+                  "presence": 1
+                },
                 "computed": {
-                  "power": 1,
+                  "defense": 3,
+                  "evasion": 2,
+                  "resist": 0,
+                  "vitality": 4,
+                  "initiative": 4,
+                  "power": 2,
+                  "powers": {
+                    "physique": 2,
+                    "reflex": 2,
+                    "grit": 0,
+                    "wits": 1,
+                    "presence": 0
+                  },
+                  "actions": 1,
+                  "exploits": 0,
+                  "damageTiers": {
+                    "label": "light",
+                    "fleeting": 2,
+                    "masterful": 4,
+                    "legendary": 6
+                  }
+                },
+                "traits": [
+                  "armored_light"
+                ],
+                "tags": [],
+                "roleKit": {
+                  "passive": null,
+                  "actions": [
+                    {
+                      "name": "Blaster Volley",
+                      "type": "action",
+                      "arena": "reflex",
+                      "description": "Ranged attack against one target."
+                    },
+                    {
+                      "name": "Bayonet Strike",
+                      "type": "action",
+                      "arena": "physique",
+                      "description": "Melee attack against adjacent target."
+                    }
+                  ],
+                  "maneuver": null,
+                  "gambit": null,
+                  "exploit": null
+                },
+                "weaponChassis": "light",
+                "loot": [
+                  {
+                    "id": "wpn_vibroblade_01",
+                    "name": "Vibroblade",
+                    "type": "weapon",
+                    "qty": 1
+                  },
+                  {
+                    "id": "wpn_dl18_01",
+                    "name": "BlasTech DL-18",
+                    "type": "weapon",
+                    "qty": 1
+                  },
+                  {
+                    "id": "arm_heavy_jacket_01",
+                    "name": "Heavy Jacket",
+                    "type": "armor",
+                    "qty": 1
+                  }
+                ]
+              }
+            },
+            {
+              "name": "Ganga Thug",
+              "type": "Character",
+              "count": 1,
+              "loot": [
+                {
+                  "id": "wpn_vibroblade_01",
+                  "name": "Vibroblade",
+                  "type": "weapon",
+                  "qty": 1
+                },
+                {
+                  "id": "wpn_dl18_01",
+                  "name": "BlasTech DL-18",
+                  "type": "weapon",
+                  "qty": 1
+                },
+                {
+                  "id": "arm_heavy_jacket_01",
+                  "name": "Heavy Jacket",
+                  "type": "armor",
+                  "qty": 1
+                }
+              ],
+              "threatBuild": {
+                "role": "trooper",
+                "tier": 0,
+                "classification": "minion",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 3,
+                  "reflex": 3,
+                  "grit": 2,
+                  "wits": 1,
+                  "presence": 1
+                },
+                "computed": {
+                  "defense": 3,
+                  "evasion": 2,
+                  "resist": 1,
+                  "vitality": 5,
+                  "initiative": 2,
+                  "power": 2,
+                  "powers": {
+                    "physique": 2,
+                    "reflex": 2,
+                    "grit": 1,
+                    "wits": 0,
+                    "presence": 0
+                  },
+                  "actions": 1,
+                  "exploits": 0,
+                  "damageTiers": {
+                    "label": "light",
+                    "fleeting": 2,
+                    "masterful": 4,
+                    "legendary": 6
+                  }
+                },
+                "traits": [
+                  "armored_light"
+                ],
+                "tags": [],
+                "roleKit": {
+                  "passive": null,
+                  "actions": [
+                    {
+                      "name": "Blaster Volley",
+                      "type": "action",
+                      "arena": "reflex",
+                      "description": "Ranged attack against one target."
+                    },
+                    {
+                      "name": "Bayonet Strike",
+                      "type": "action",
+                      "arena": "physique",
+                      "description": "Melee attack against adjacent target."
+                    }
+                  ],
+                  "maneuver": null,
+                  "gambit": null,
+                  "exploit": null
+                },
+                "weaponChassis": "light",
+                "loot": [
+                  {
+                    "id": "wpn_vibroblade_01",
+                    "name": "Vibroblade",
+                    "type": "weapon",
+                    "qty": 1
+                  },
+                  {
+                    "id": "wpn_dl18_01",
+                    "name": "BlasTech DL-18",
+                    "type": "weapon",
+                    "qty": 1
+                  },
+                  {
+                    "id": "arm_heavy_jacket_01",
+                    "name": "Heavy Jacket",
+                    "type": "armor",
+                    "qty": 1
+                  }
+                ]
+              }
+            },
+            {
+              "name": "Ganga Thug",
+              "type": "Character",
+              "count": 1,
+              "loot": [
+                {
+                  "id": "wpn_vibroblade_01",
+                  "name": "Vibroblade",
+                  "type": "weapon",
+                  "qty": 1
+                },
+                {
+                  "id": "wpn_dl18_01",
+                  "name": "BlasTech DL-18",
+                  "type": "weapon",
+                  "qty": 1
+                },
+                {
+                  "id": "arm_heavy_jacket_01",
+                  "name": "Heavy Jacket",
+                  "type": "armor",
+                  "qty": 1
+                }
+              ],
+              "threatBuild": {
+                "role": "trooper",
+                "tier": 0,
+                "classification": "minion",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 3,
+                  "reflex": 3,
+                  "grit": 2,
+                  "wits": 1,
+                  "presence": 1
+                },
+                "computed": {
+                  "defense": 3,
+                  "evasion": 2,
+                  "resist": 1,
+                  "vitality": 5,
+                  "initiative": 2,
+                  "power": 2,
+                  "powers": {
+                    "physique": 2,
+                    "reflex": 2,
+                    "grit": 1,
+                    "wits": 0,
+                    "presence": 0
+                  },
+                  "actions": 1,
+                  "exploits": 0,
+                  "damageTiers": {
+                    "label": "light",
+                    "fleeting": 2,
+                    "masterful": 4,
+                    "legendary": 6
+                  }
+                },
+                "traits": [
+                  "armored_light"
+                ],
+                "tags": [],
+                "roleKit": {
+                  "passive": null,
+                  "actions": [
+                    {
+                      "name": "Blaster Volley",
+                      "type": "action",
+                      "arena": "reflex",
+                      "description": "Ranged attack against one target."
+                    },
+                    {
+                      "name": "Bayonet Strike",
+                      "type": "action",
+                      "arena": "physique",
+                      "description": "Melee attack against adjacent target."
+                    }
+                  ],
+                  "maneuver": null,
+                  "gambit": null,
+                  "exploit": null
+                },
+                "weaponChassis": "light",
+                "loot": [
+                  {
+                    "id": "wpn_vibroblade_01",
+                    "name": "Vibroblade",
+                    "type": "weapon",
+                    "qty": 1
+                  },
+                  {
+                    "id": "wpn_dl18_01",
+                    "name": "BlasTech DL-18",
+                    "type": "weapon",
+                    "qty": 1
+                  },
+                  {
+                    "id": "arm_heavy_jacket_01",
+                    "name": "Heavy Jacket",
+                    "type": "armor",
+                    "qty": 1
+                  }
+                ]
+              }
+            },
+            {
+              "name": "Ganga Thug",
+              "type": "Character",
+              "count": 1,
+              "loot": [
+                {
+                  "id": "wpn_vibroblade_01",
+                  "name": "Vibroblade",
+                  "type": "weapon",
+                  "qty": 1
+                },
+                {
+                  "id": "wpn_dl18_01",
+                  "name": "BlasTech DL-18",
+                  "type": "weapon",
+                  "qty": 1
+                },
+                {
+                  "id": "arm_heavy_jacket_01",
+                  "name": "Heavy Jacket",
+                  "type": "armor",
+                  "qty": 1
+                }
+              ],
+              "threatBuild": {
+                "role": "trooper",
+                "tier": 0,
+                "classification": "minion",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 3,
+                  "reflex": 3,
+                  "grit": 2,
+                  "wits": 1,
+                  "presence": 1
+                },
+                "computed": {
+                  "defense": 3,
+                  "evasion": 2,
+                  "resist": 1,
+                  "vitality": 5,
+                  "initiative": 2,
+                  "power": 2,
+                  "powers": {
+                    "physique": 2,
+                    "reflex": 2,
+                    "grit": 1,
+                    "wits": 0,
+                    "presence": 0
+                  },
+                  "actions": 1,
+                  "exploits": 0,
+                  "damageTiers": {
+                    "label": "light",
+                    "fleeting": 2,
+                    "masterful": 4,
+                    "legendary": 6
+                  }
+                },
+                "traits": [
+                  "armored_light"
+                ],
+                "tags": [],
+                "roleKit": {
+                  "passive": null,
+                  "actions": [
+                    {
+                      "name": "Blaster Volley",
+                      "type": "action",
+                      "arena": "reflex",
+                      "description": "Ranged attack against one target."
+                    },
+                    {
+                      "name": "Bayonet Strike",
+                      "type": "action",
+                      "arena": "physique",
+                      "description": "Melee attack against adjacent target."
+                    }
+                  ],
+                  "maneuver": null,
+                  "gambit": null,
+                  "exploit": null
+                },
+                "weaponChassis": "light",
+                "loot": [
+                  {
+                    "id": "wpn_vibroblade_01",
+                    "name": "Vibroblade",
+                    "type": "weapon",
+                    "qty": 1
+                  },
+                  {
+                    "id": "wpn_dl18_01",
+                    "name": "BlasTech DL-18",
+                    "type": "weapon",
+                    "qty": 1
+                  },
+                  {
+                    "id": "arm_heavy_jacket_01",
+                    "name": "Heavy Jacket",
+                    "type": "armor",
+                    "qty": 1
+                  }
+                ]
+              }
+            },
+            {
+              "name": "Ganga Thug",
+              "type": "Character",
+              "count": 1,
+              "loot": [
+                {
+                  "id": "wpn_vibroblade_01",
+                  "name": "Vibroblade",
+                  "type": "weapon",
+                  "qty": 1
+                },
+                {
+                  "id": "wpn_dl18_01",
+                  "name": "BlasTech DL-18",
+                  "type": "weapon",
+                  "qty": 1
+                },
+                {
+                  "id": "arm_heavy_jacket_01",
+                  "name": "Heavy Jacket",
+                  "type": "armor",
+                  "qty": 1
+                }
+              ],
+              "threatBuild": {
+                "role": "trooper",
+                "tier": 0,
+                "classification": "minion",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 3,
+                  "reflex": 3,
+                  "grit": 2,
+                  "wits": 1,
+                  "presence": 1
+                },
+                "computed": {
+                  "defense": 3,
+                  "evasion": 2,
+                  "resist": 1,
+                  "vitality": 5,
+                  "initiative": 2,
+                  "power": 2,
+                  "powers": {
+                    "physique": 2,
+                    "reflex": 2,
+                    "grit": 1,
+                    "wits": 0,
+                    "presence": 0
+                  },
+                  "actions": 1,
+                  "exploits": 0,
+                  "damageTiers": {
+                    "label": "light",
+                    "fleeting": 2,
+                    "masterful": 4,
+                    "legendary": 6
+                  }
+                },
+                "traits": [
+                  "armored_light"
+                ],
+                "tags": [],
+                "roleKit": {
+                  "passive": null,
+                  "actions": [
+                    {
+                      "name": "Blaster Volley",
+                      "type": "action",
+                      "arena": "reflex",
+                      "description": "Ranged attack against one target."
+                    },
+                    {
+                      "name": "Bayonet Strike",
+                      "type": "action",
+                      "arena": "physique",
+                      "description": "Melee attack against adjacent target."
+                    }
+                  ],
+                  "maneuver": null,
+                  "gambit": null,
+                  "exploit": null
+                },
+                "weaponChassis": "light",
+                "loot": [
+                  {
+                    "id": "wpn_vibroblade_01",
+                    "name": "Vibroblade",
+                    "type": "weapon",
+                    "qty": 1
+                  },
+                  {
+                    "id": "wpn_dl18_01",
+                    "name": "BlasTech DL-18",
+                    "type": "weapon",
+                    "qty": 1
+                  },
+                  {
+                    "id": "arm_heavy_jacket_01",
+                    "name": "Heavy Jacket",
+                    "type": "armor",
+                    "qty": 1
+                  }
+                ]
+              }
+            },
+            {
+              "name": "Switch",
+              "type": "Character",
+              "count": 1,
+              "loot": [],
+              "threatBuild": {
+                "role": "informant",
+                "tier": 1,
+                "classification": "standard",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 1,
+                  "reflex": 1,
+                  "grit": 3,
+                  "wits": 4,
+                  "presence": 3
+                },
+                "computed": {
                   "defense": 1,
                   "evasion": 1,
-                  "resist": 0,
-                  "vitality": 3,
-                  "initiative": 2,
-                  "controlDie": "d6",
+                  "resist": 4,
+                  "vitality": 5,
+                  "initiative": 9,
+                  "power": 4,
+                  "powers": {
+                    "physique": 1,
+                    "reflex": 1,
+                    "grit": 3,
+                    "wits": 4,
+                    "presence": 3
+                  },
                   "actions": 1,
+                  "exploits": 0,
                   "damageTiers": {
-                    "chassis": "light",
-                    "label": "Light",
-                    "fleeting": 2,
-                    "masterful": 3,
-                    "legendary": 4
+                    "label": "medium",
+                    "fleeting": 3,
+                    "masterful": 5,
+                    "legendary": 8
                   }
-                }
+                },
+                "traits": [
+                  "disciplined"
+                ],
+                "tags": [
+                  "Droid",
+                  "droid"
+                ],
+                "roleKit": null,
+                "weaponChassis": "medium",
+                "loot": []
               }
             }
           ],

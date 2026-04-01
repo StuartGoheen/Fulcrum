@@ -131,16 +131,21 @@
     var npcEntries = [];
     var npcIdCounter = 0;
 
+    var matchedNpcIndices = {};
+
     if (encounter.composition && encounter.composition.enemies) {
       encounter.composition.enemies.forEach(function (enemy) {
         var npcData = null;
+        var npcMatchIdx = -1;
         var enemyBase = enemy.type.replace(/ \(.*\)/, '');
-        npcs.forEach(function (n) {
+        npcs.forEach(function (n, ni) {
           if (!n.threatBuild) return;
           if (n.type === enemy.type || n.type === enemyBase || n.name === enemy.type || n.name === enemyBase) {
             npcData = n;
+            npcMatchIdx = ni;
           }
         });
+        if (npcMatchIdx >= 0) matchedNpcIndices[npcMatchIdx] = true;
         var tier = enemy.tier || 0;
         if (tier > highestTier) highestTier = tier;
         for (var i = 0; i < enemy.count; i++) {
@@ -175,6 +180,40 @@
         }
       });
     }
+
+    npcs.forEach(function (n, ni) {
+      if (!n.threatBuild) return;
+      if (matchedNpcIndices[ni]) return;
+      var tb = n.threatBuild;
+      var comp = tb.computed || {};
+      var tier = tb.tier || 0;
+      if (tier > highestTier) highestTier = tier;
+      npcIdCounter++;
+      npcEntries.push({
+        id: 'npc_' + npcIdCounter,
+        name: n.name || n.type || ('NPC ' + npcIdCounter),
+        type: 'npc',
+        threat: tb.classification || 'standard',
+        tier: tier,
+        role: tb.role || '',
+        initiative: comp.initiative || (1 + tier),
+        power: comp.power || 0,
+        defense: comp.defense || 0,
+        evasion: comp.evasion || 0,
+        resist: comp.resist || 0,
+        vitalityMax: comp.vitality || 5,
+        vitalityCurrent: comp.vitality || 5,
+        actions: comp.actions || 1,
+        conditions: [],
+        conditionArenas: {},
+        roleKit: tb.roleKit || null,
+        computedAttacks: tb.computedAttacks || [],
+        arenas: tb.arenas || {},
+        damageTiers: comp.damageTiers || null,
+        zone: null,
+        npcData: n
+      });
+    });
 
     var startPositions = {};
     if (scene.tacticalMap && scene.tacticalMap.startingPositions) {
