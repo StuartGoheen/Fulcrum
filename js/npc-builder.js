@@ -1364,6 +1364,9 @@
         var ps = currentNpc.powerSource || suggestPowerSource(currentNpc.arenas);
         result.powerSource = ps;
         result.roleKit = resolveRoleKit(currentNpc.role, ps);
+      } else {
+        result.roleKit = null;
+        result.powerSource = '';
       }
       if (currentNpc.extraGambits && currentNpc.extraGambits.length && threatData.npcGambitPool) {
         result.extraGambits = currentNpc.extraGambits.map(function (gid) {
