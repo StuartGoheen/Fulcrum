@@ -131,9 +131,33 @@
                   "informant"
                 ],
                 "roleKit": {
-                  "passive": null,
-                  "gambit": null,
-                  "exploit": null
+                  "roleName": "Harrier / Ranged",
+                  "action": {
+                    "name": "Strafing Shot",
+                    "defense": "dodge/endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + [Suppressed]",
+                      "legendary": "Chassis damage + [Suppressed] + [Exposed]"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Reposition",
+                    "modifies": "Move",
+                    "description": "Modifies Move. Move up to 2 zones. If the Harrier ends farther from all enemies than it started, +1 Power on next attack."
+                  },
+                  "gambit": {
+                    "name": "Pinning Fire",
+                    "cost": "-1 Power",
+                    "description": "In addition to normal effects, target gains [Slowed] Tactical.",
+                    "rider": "[Slowed]"
+                  },
+                  "exploit": {
+                    "name": "Snap Shot",
+                    "trigger": "A PC uses Move to enter or cross a zone within weapon range.",
+                    "description": "Immediately attack that PC at -2 Power."
+                  },
+                  "powerSource": "ranged"
                 },
                 "notes": "Maya is not a combat threat. She is a social operator who chose this table on purpose. Her Face kit represents con artistry, not diplomacy.",
                 "computed": {
@@ -222,7 +246,8 @@
                     "sourceAction": "Sabotage"
                   }
                 ],
-                "socialNotes": ""
+                "socialNotes": "",
+                "powerSource": "ranged"
               },
               "loot": [
                 {
@@ -317,9 +342,33 @@
                   "hutt_cartel"
                 ],
                 "roleKit": {
-                  "passive": null,
-                  "gambit": null,
-                  "exploit": null
+                  "roleName": "Threat / Martial",
+                  "action": {
+                    "name": "Devastating Blow",
+                    "defense": "endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + [Staggered]",
+                      "legendary": "Chassis damage + [Staggered] + [Prone]"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Intimidating Advance",
+                    "modifies": "Move",
+                    "description": "Modifies Move. Move 1 zone toward a target. That target must succeed on a Grit check vs Threat's Power or gain [Rattled]."
+                  },
+                  "gambit": {
+                    "name": "Brutal Strike",
+                    "cost": "-1 Power",
+                    "description": "In addition to normal effects, target gains [Staggered] Tactical.",
+                    "rider": "[Staggered]"
+                  },
+                  "exploit": {
+                    "name": "Predator's Opening",
+                    "trigger": "A PC in the same zone takes damage from another source this round.",
+                    "description": "Immediately make an attack against that PC at -2 Power."
+                  },
+                  "powerSource": "martial"
                 },
                 "weaponChassis": "light",
                 "loot": [
@@ -388,7 +437,8 @@
                     "chassis": "light",
                     "canStun": false
                   }
-                ]
+                ],
+                "powerSource": "martial"
               },
               "loot": [
                 {
@@ -518,9 +568,33 @@
                   "hutt_cartel"
                 ],
                 "roleKit": {
-                  "passive": null,
-                  "gambit": null,
-                  "exploit": null
+                  "roleName": "Threat / Martial",
+                  "action": {
+                    "name": "Devastating Blow",
+                    "defense": "endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + [Staggered]",
+                      "legendary": "Chassis damage + [Staggered] + [Prone]"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Intimidating Advance",
+                    "modifies": "Move",
+                    "description": "Modifies Move. Move 1 zone toward a target. That target must succeed on a Grit check vs Threat's Power or gain [Rattled]."
+                  },
+                  "gambit": {
+                    "name": "Brutal Strike",
+                    "cost": "-1 Power",
+                    "description": "In addition to normal effects, target gains [Staggered] Tactical.",
+                    "rider": "[Staggered]"
+                  },
+                  "exploit": {
+                    "name": "Predator's Opening",
+                    "trigger": "A PC in the same zone takes damage from another source this round.",
+                    "description": "Immediately make an attack against that PC at -2 Power."
+                  },
+                  "powerSource": "martial"
                 },
                 "weaponChassis": "light",
                 "loot": [
@@ -589,7 +663,8 @@
                     "chassis": "light",
                     "canStun": false
                   }
-                ]
+                ],
+                "powerSource": "martial"
               }
             },
             {
@@ -681,9 +756,33 @@
                   "hutt_cartel"
                 ],
                 "roleKit": {
-                  "passive": null,
-                  "gambit": null,
-                  "exploit": null
+                  "roleName": "Threat / Martial",
+                  "action": {
+                    "name": "Devastating Blow",
+                    "defense": "endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + [Staggered]",
+                      "legendary": "Chassis damage + [Staggered] + [Prone]"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Intimidating Advance",
+                    "modifies": "Move",
+                    "description": "Modifies Move. Move 1 zone toward a target. That target must succeed on a Grit check vs Threat's Power or gain [Rattled]."
+                  },
+                  "gambit": {
+                    "name": "Brutal Strike",
+                    "cost": "-1 Power",
+                    "description": "In addition to normal effects, target gains [Staggered] Tactical.",
+                    "rider": "[Staggered]"
+                  },
+                  "exploit": {
+                    "name": "Predator's Opening",
+                    "trigger": "A PC in the same zone takes damage from another source this round.",
+                    "description": "Immediately make an attack against that PC at -2 Power."
+                  },
+                  "powerSource": "martial"
                 },
                 "weaponChassis": "light",
                 "loot": [
@@ -746,7 +845,8 @@
                     "chassis": "light",
                     "canStun": false
                   }
-                ]
+                ],
+                "powerSource": "martial"
               }
             }
           ],
@@ -1571,9 +1671,33 @@
                 ],
                 "tags": [],
                 "roleKit": {
-                  "passive": null,
-                  "gambit": null,
-                  "exploit": null
+                  "roleName": "Anchor / Martial",
+                  "action": {
+                    "name": "Shield Slam",
+                    "defense": "endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + push target 1 zone",
+                      "legendary": "Chassis damage + push 1 zone + [Prone]"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Lockdown",
+                    "modifies": "Move",
+                    "description": "Modifies Move. The Anchor does not move. Instead, enemies in the Anchor's zone cannot move to another zone without succeeding on a Physique check vs Anchor's Defense."
+                  },
+                  "gambit": {
+                    "name": "Shove Back",
+                    "cost": "-1 Power",
+                    "description": "In addition to normal effects, push target 1 zone. The Anchor holds position.",
+                    "rider": "Push 1 zone"
+                  },
+                  "exploit": {
+                    "name": "Intercept",
+                    "trigger": "An enemy in the Anchor's zone attacks an ally.",
+                    "description": "The Anchor becomes the target of the attack instead."
+                  },
+                  "powerSource": "martial"
                 },
                 "weaponChassis": "light",
                 "loot": [
@@ -1595,7 +1719,8 @@
                     "type": "armor",
                     "qty": 1
                   }
-                ]
+                ],
+                "powerSource": "martial"
               }
             },
             {
@@ -1662,9 +1787,33 @@
                 ],
                 "tags": [],
                 "roleKit": {
-                  "passive": null,
-                  "gambit": null,
-                  "exploit": null
+                  "roleName": "Anchor / Martial",
+                  "action": {
+                    "name": "Shield Slam",
+                    "defense": "endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + push target 1 zone",
+                      "legendary": "Chassis damage + push 1 zone + [Prone]"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Lockdown",
+                    "modifies": "Move",
+                    "description": "Modifies Move. The Anchor does not move. Instead, enemies in the Anchor's zone cannot move to another zone without succeeding on a Physique check vs Anchor's Defense."
+                  },
+                  "gambit": {
+                    "name": "Shove Back",
+                    "cost": "-1 Power",
+                    "description": "In addition to normal effects, push target 1 zone. The Anchor holds position.",
+                    "rider": "Push 1 zone"
+                  },
+                  "exploit": {
+                    "name": "Intercept",
+                    "trigger": "An enemy in the Anchor's zone attacks an ally.",
+                    "description": "The Anchor becomes the target of the attack instead."
+                  },
+                  "powerSource": "martial"
                 },
                 "weaponChassis": "light",
                 "loot": [
@@ -1686,7 +1835,8 @@
                     "type": "armor",
                     "qty": 1
                   }
-                ]
+                ],
+                "powerSource": "martial"
               }
             },
             {
@@ -1753,9 +1903,33 @@
                 ],
                 "tags": [],
                 "roleKit": {
-                  "passive": null,
-                  "gambit": null,
-                  "exploit": null
+                  "roleName": "Anchor / Martial",
+                  "action": {
+                    "name": "Shield Slam",
+                    "defense": "endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + push target 1 zone",
+                      "legendary": "Chassis damage + push 1 zone + [Prone]"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Lockdown",
+                    "modifies": "Move",
+                    "description": "Modifies Move. The Anchor does not move. Instead, enemies in the Anchor's zone cannot move to another zone without succeeding on a Physique check vs Anchor's Defense."
+                  },
+                  "gambit": {
+                    "name": "Shove Back",
+                    "cost": "-1 Power",
+                    "description": "In addition to normal effects, push target 1 zone. The Anchor holds position.",
+                    "rider": "Push 1 zone"
+                  },
+                  "exploit": {
+                    "name": "Intercept",
+                    "trigger": "An enemy in the Anchor's zone attacks an ally.",
+                    "description": "The Anchor becomes the target of the attack instead."
+                  },
+                  "powerSource": "martial"
                 },
                 "weaponChassis": "light",
                 "loot": [
@@ -1777,7 +1951,8 @@
                     "type": "armor",
                     "qty": 1
                   }
-                ]
+                ],
+                "powerSource": "martial"
               }
             },
             {
@@ -1844,9 +2019,33 @@
                 ],
                 "tags": [],
                 "roleKit": {
-                  "passive": null,
-                  "gambit": null,
-                  "exploit": null
+                  "roleName": "Anchor / Martial",
+                  "action": {
+                    "name": "Shield Slam",
+                    "defense": "endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + push target 1 zone",
+                      "legendary": "Chassis damage + push 1 zone + [Prone]"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Lockdown",
+                    "modifies": "Move",
+                    "description": "Modifies Move. The Anchor does not move. Instead, enemies in the Anchor's zone cannot move to another zone without succeeding on a Physique check vs Anchor's Defense."
+                  },
+                  "gambit": {
+                    "name": "Shove Back",
+                    "cost": "-1 Power",
+                    "description": "In addition to normal effects, push target 1 zone. The Anchor holds position.",
+                    "rider": "Push 1 zone"
+                  },
+                  "exploit": {
+                    "name": "Intercept",
+                    "trigger": "An enemy in the Anchor's zone attacks an ally.",
+                    "description": "The Anchor becomes the target of the attack instead."
+                  },
+                  "powerSource": "martial"
                 },
                 "weaponChassis": "light",
                 "loot": [
@@ -1868,7 +2067,8 @@
                     "type": "armor",
                     "qty": 1
                   }
-                ]
+                ],
+                "powerSource": "martial"
               }
             },
             {
@@ -1935,9 +2135,33 @@
                 ],
                 "tags": [],
                 "roleKit": {
-                  "passive": null,
-                  "gambit": null,
-                  "exploit": null
+                  "roleName": "Anchor / Martial",
+                  "action": {
+                    "name": "Shield Slam",
+                    "defense": "endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + push target 1 zone",
+                      "legendary": "Chassis damage + push 1 zone + [Prone]"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Lockdown",
+                    "modifies": "Move",
+                    "description": "Modifies Move. The Anchor does not move. Instead, enemies in the Anchor's zone cannot move to another zone without succeeding on a Physique check vs Anchor's Defense."
+                  },
+                  "gambit": {
+                    "name": "Shove Back",
+                    "cost": "-1 Power",
+                    "description": "In addition to normal effects, push target 1 zone. The Anchor holds position.",
+                    "rider": "Push 1 zone"
+                  },
+                  "exploit": {
+                    "name": "Intercept",
+                    "trigger": "An enemy in the Anchor's zone attacks an ally.",
+                    "description": "The Anchor becomes the target of the attack instead."
+                  },
+                  "powerSource": "martial"
                 },
                 "weaponChassis": "light",
                 "loot": [
@@ -1959,7 +2183,8 @@
                     "type": "armor",
                     "qty": 1
                   }
-                ]
+                ],
+                "powerSource": "martial"
               }
             },
             {
@@ -2026,9 +2251,33 @@
                 ],
                 "tags": [],
                 "roleKit": {
-                  "passive": null,
-                  "gambit": null,
-                  "exploit": null
+                  "roleName": "Anchor / Martial",
+                  "action": {
+                    "name": "Shield Slam",
+                    "defense": "endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + push target 1 zone",
+                      "legendary": "Chassis damage + push 1 zone + [Prone]"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Lockdown",
+                    "modifies": "Move",
+                    "description": "Modifies Move. The Anchor does not move. Instead, enemies in the Anchor's zone cannot move to another zone without succeeding on a Physique check vs Anchor's Defense."
+                  },
+                  "gambit": {
+                    "name": "Shove Back",
+                    "cost": "-1 Power",
+                    "description": "In addition to normal effects, push target 1 zone. The Anchor holds position.",
+                    "rider": "Push 1 zone"
+                  },
+                  "exploit": {
+                    "name": "Intercept",
+                    "trigger": "An enemy in the Anchor's zone attacks an ally.",
+                    "description": "The Anchor becomes the target of the attack instead."
+                  },
+                  "powerSource": "martial"
                 },
                 "weaponChassis": "light",
                 "loot": [
@@ -2050,7 +2299,8 @@
                     "type": "armor",
                     "qty": 1
                   }
-                ]
+                ],
+                "powerSource": "martial"
               }
             },
             {
@@ -2117,9 +2367,33 @@
                 ],
                 "tags": [],
                 "roleKit": {
-                  "passive": null,
-                  "gambit": null,
-                  "exploit": null
+                  "roleName": "Anchor / Martial",
+                  "action": {
+                    "name": "Shield Slam",
+                    "defense": "endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + push target 1 zone",
+                      "legendary": "Chassis damage + push 1 zone + [Prone]"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Lockdown",
+                    "modifies": "Move",
+                    "description": "Modifies Move. The Anchor does not move. Instead, enemies in the Anchor's zone cannot move to another zone without succeeding on a Physique check vs Anchor's Defense."
+                  },
+                  "gambit": {
+                    "name": "Shove Back",
+                    "cost": "-1 Power",
+                    "description": "In addition to normal effects, push target 1 zone. The Anchor holds position.",
+                    "rider": "Push 1 zone"
+                  },
+                  "exploit": {
+                    "name": "Intercept",
+                    "trigger": "An enemy in the Anchor's zone attacks an ally.",
+                    "description": "The Anchor becomes the target of the attack instead."
+                  },
+                  "powerSource": "martial"
                 },
                 "weaponChassis": "light",
                 "loot": [
@@ -2141,7 +2415,8 @@
                     "type": "armor",
                     "qty": 1
                   }
-                ]
+                ],
+                "powerSource": "martial"
               }
             },
             {
@@ -2253,9 +2528,33 @@
                   "Chevin"
                 ],
                 "roleKit": {
-                  "passive": null,
-                  "gambit": null,
-                  "exploit": null
+                  "roleName": "Support / Martial",
+                  "action": {
+                    "name": "Bolstering Strike",
+                    "defense": "endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + one ally in the same zone heals 1 Vitality",
+                      "legendary": "Chassis damage + ally heals 2 Vitality + remove one condition from that ally"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Shield Wall",
+                    "modifies": "Move",
+                    "description": "Modifies Move. Move 1 zone. One ally in the destination zone gains [Cover 1] until end of next round."
+                  },
+                  "gambit": {
+                    "name": "Rally",
+                    "cost": "-1 Power",
+                    "description": "Instead of attacking, remove one condition from an ally in the same zone.",
+                    "rider": "Cleanse 1 condition"
+                  },
+                  "exploit": {
+                    "name": "Emergency Aid",
+                    "trigger": "An ally in the same zone is reduced to 0 Vitality.",
+                    "description": "That ally is instead reduced to 1 Vitality. Usable once per scene."
+                  },
+                  "powerSource": "martial"
                 },
                 "weaponChassis": "medium",
                 "loot": [
@@ -2265,7 +2564,8 @@
                     "type": "weapon",
                     "qty": 1
                   }
-                ]
+                ],
+                "powerSource": "martial"
               }
             }
           ],
@@ -2528,9 +2828,33 @@
                   "imperial"
                 ],
                 "roleKit": {
-                  "passive": null,
-                  "gambit": null,
-                  "exploit": null
+                  "roleName": "Anchor / Martial",
+                  "action": {
+                    "name": "Shield Slam",
+                    "defense": "endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + push target 1 zone",
+                      "legendary": "Chassis damage + push 1 zone + [Prone]"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Lockdown",
+                    "modifies": "Move",
+                    "description": "Modifies Move. The Anchor does not move. Instead, enemies in the Anchor's zone cannot move to another zone without succeeding on a Physique check vs Anchor's Defense."
+                  },
+                  "gambit": {
+                    "name": "Shove Back",
+                    "cost": "-1 Power",
+                    "description": "In addition to normal effects, push target 1 zone. The Anchor holds position.",
+                    "rider": "Push 1 zone"
+                  },
+                  "exploit": {
+                    "name": "Intercept",
+                    "trigger": "An enemy in the Anchor's zone attacks an ally.",
+                    "description": "The Anchor becomes the target of the attack instead."
+                  },
+                  "powerSource": "martial"
                 },
                 "weaponChassis": "medium",
                 "loot": [],
@@ -2546,7 +2870,8 @@
                 },
                 "extraGambits": [],
                 "attacks": [],
-                "socialNotes": ""
+                "socialNotes": "",
+                "powerSource": "martial"
               }
             },
             {
@@ -2599,12 +2924,37 @@
                   "imperial"
                 ],
                 "roleKit": {
-                  "passive": null,
-                  "gambit": null,
-                  "exploit": null
+                  "roleName": "Anchor / Martial",
+                  "action": {
+                    "name": "Shield Slam",
+                    "defense": "endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + push target 1 zone",
+                      "legendary": "Chassis damage + push 1 zone + [Prone]"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Lockdown",
+                    "modifies": "Move",
+                    "description": "Modifies Move. The Anchor does not move. Instead, enemies in the Anchor's zone cannot move to another zone without succeeding on a Physique check vs Anchor's Defense."
+                  },
+                  "gambit": {
+                    "name": "Shove Back",
+                    "cost": "-1 Power",
+                    "description": "In addition to normal effects, push target 1 zone. The Anchor holds position.",
+                    "rider": "Push 1 zone"
+                  },
+                  "exploit": {
+                    "name": "Intercept",
+                    "trigger": "An enemy in the Anchor's zone attacks an ally.",
+                    "description": "The Anchor becomes the target of the attack instead."
+                  },
+                  "powerSource": "martial"
                 },
                 "weaponChassis": "medium",
-                "loot": []
+                "loot": [],
+                "powerSource": "martial"
               }
             },
             {
@@ -2657,12 +3007,37 @@
                   "imperial"
                 ],
                 "roleKit": {
-                  "passive": null,
-                  "gambit": null,
-                  "exploit": null
+                  "roleName": "Anchor / Martial",
+                  "action": {
+                    "name": "Shield Slam",
+                    "defense": "endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + push target 1 zone",
+                      "legendary": "Chassis damage + push 1 zone + [Prone]"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Lockdown",
+                    "modifies": "Move",
+                    "description": "Modifies Move. The Anchor does not move. Instead, enemies in the Anchor's zone cannot move to another zone without succeeding on a Physique check vs Anchor's Defense."
+                  },
+                  "gambit": {
+                    "name": "Shove Back",
+                    "cost": "-1 Power",
+                    "description": "In addition to normal effects, push target 1 zone. The Anchor holds position.",
+                    "rider": "Push 1 zone"
+                  },
+                  "exploit": {
+                    "name": "Intercept",
+                    "trigger": "An enemy in the Anchor's zone attacks an ally.",
+                    "description": "The Anchor becomes the target of the attack instead."
+                  },
+                  "powerSource": "martial"
                 },
                 "weaponChassis": "medium",
-                "loot": []
+                "loot": [],
+                "powerSource": "martial"
               }
             },
             {
@@ -2715,12 +3090,37 @@
                   "imperial"
                 ],
                 "roleKit": {
-                  "passive": null,
-                  "gambit": null,
-                  "exploit": null
+                  "roleName": "Anchor / Martial",
+                  "action": {
+                    "name": "Shield Slam",
+                    "defense": "endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + push target 1 zone",
+                      "legendary": "Chassis damage + push 1 zone + [Prone]"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Lockdown",
+                    "modifies": "Move",
+                    "description": "Modifies Move. The Anchor does not move. Instead, enemies in the Anchor's zone cannot move to another zone without succeeding on a Physique check vs Anchor's Defense."
+                  },
+                  "gambit": {
+                    "name": "Shove Back",
+                    "cost": "-1 Power",
+                    "description": "In addition to normal effects, push target 1 zone. The Anchor holds position.",
+                    "rider": "Push 1 zone"
+                  },
+                  "exploit": {
+                    "name": "Intercept",
+                    "trigger": "An enemy in the Anchor's zone attacks an ally.",
+                    "description": "The Anchor becomes the target of the attack instead."
+                  },
+                  "powerSource": "martial"
                 },
                 "weaponChassis": "medium",
-                "loot": []
+                "loot": [],
+                "powerSource": "martial"
               }
             },
             {
@@ -2769,12 +3169,37 @@
                 ],
                 "tags": [],
                 "roleKit": {
-                  "passive": null,
-                  "gambit": null,
-                  "exploit": null
+                  "roleName": "Anchor / Martial",
+                  "action": {
+                    "name": "Shield Slam",
+                    "defense": "endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + push target 1 zone",
+                      "legendary": "Chassis damage + push 1 zone + [Prone]"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Lockdown",
+                    "modifies": "Move",
+                    "description": "Modifies Move. The Anchor does not move. Instead, enemies in the Anchor's zone cannot move to another zone without succeeding on a Physique check vs Anchor's Defense."
+                  },
+                  "gambit": {
+                    "name": "Shove Back",
+                    "cost": "-1 Power",
+                    "description": "In addition to normal effects, push target 1 zone. The Anchor holds position.",
+                    "rider": "Push 1 zone"
+                  },
+                  "exploit": {
+                    "name": "Intercept",
+                    "trigger": "An enemy in the Anchor's zone attacks an ally.",
+                    "description": "The Anchor becomes the target of the attack instead."
+                  },
+                  "powerSource": "martial"
                 },
                 "weaponChassis": "light",
-                "loot": []
+                "loot": [],
+                "powerSource": "martial"
               }
             },
             {
@@ -2823,12 +3248,37 @@
                 ],
                 "tags": [],
                 "roleKit": {
-                  "passive": null,
-                  "gambit": null,
-                  "exploit": null
+                  "roleName": "Anchor / Martial",
+                  "action": {
+                    "name": "Shield Slam",
+                    "defense": "endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + push target 1 zone",
+                      "legendary": "Chassis damage + push 1 zone + [Prone]"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Lockdown",
+                    "modifies": "Move",
+                    "description": "Modifies Move. The Anchor does not move. Instead, enemies in the Anchor's zone cannot move to another zone without succeeding on a Physique check vs Anchor's Defense."
+                  },
+                  "gambit": {
+                    "name": "Shove Back",
+                    "cost": "-1 Power",
+                    "description": "In addition to normal effects, push target 1 zone. The Anchor holds position.",
+                    "rider": "Push 1 zone"
+                  },
+                  "exploit": {
+                    "name": "Intercept",
+                    "trigger": "An enemy in the Anchor's zone attacks an ally.",
+                    "description": "The Anchor becomes the target of the attack instead."
+                  },
+                  "powerSource": "martial"
                 },
                 "weaponChassis": "light",
-                "loot": []
+                "loot": [],
+                "powerSource": "martial"
               }
             },
             {
@@ -2877,12 +3327,37 @@
                 ],
                 "tags": [],
                 "roleKit": {
-                  "passive": null,
-                  "gambit": null,
-                  "exploit": null
+                  "roleName": "Anchor / Martial",
+                  "action": {
+                    "name": "Shield Slam",
+                    "defense": "endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + push target 1 zone",
+                      "legendary": "Chassis damage + push 1 zone + [Prone]"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Lockdown",
+                    "modifies": "Move",
+                    "description": "Modifies Move. The Anchor does not move. Instead, enemies in the Anchor's zone cannot move to another zone without succeeding on a Physique check vs Anchor's Defense."
+                  },
+                  "gambit": {
+                    "name": "Shove Back",
+                    "cost": "-1 Power",
+                    "description": "In addition to normal effects, push target 1 zone. The Anchor holds position.",
+                    "rider": "Push 1 zone"
+                  },
+                  "exploit": {
+                    "name": "Intercept",
+                    "trigger": "An enemy in the Anchor's zone attacks an ally.",
+                    "description": "The Anchor becomes the target of the attack instead."
+                  },
+                  "powerSource": "martial"
                 },
                 "weaponChassis": "light",
-                "loot": []
+                "loot": [],
+                "powerSource": "martial"
               }
             },
             {
@@ -2931,12 +3406,37 @@
                 ],
                 "tags": [],
                 "roleKit": {
-                  "passive": null,
-                  "gambit": null,
-                  "exploit": null
+                  "roleName": "Anchor / Martial",
+                  "action": {
+                    "name": "Shield Slam",
+                    "defense": "endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + push target 1 zone",
+                      "legendary": "Chassis damage + push 1 zone + [Prone]"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Lockdown",
+                    "modifies": "Move",
+                    "description": "Modifies Move. The Anchor does not move. Instead, enemies in the Anchor's zone cannot move to another zone without succeeding on a Physique check vs Anchor's Defense."
+                  },
+                  "gambit": {
+                    "name": "Shove Back",
+                    "cost": "-1 Power",
+                    "description": "In addition to normal effects, push target 1 zone. The Anchor holds position.",
+                    "rider": "Push 1 zone"
+                  },
+                  "exploit": {
+                    "name": "Intercept",
+                    "trigger": "An enemy in the Anchor's zone attacks an ally.",
+                    "description": "The Anchor becomes the target of the attack instead."
+                  },
+                  "powerSource": "martial"
                 },
                 "weaponChassis": "light",
-                "loot": []
+                "loot": [],
+                "powerSource": "martial"
               }
             }
           ],
@@ -3206,9 +3706,33 @@
                 "traits": [],
                 "tags": [],
                 "roleKit": {
-                  "passive": null,
-                  "gambit": null,
-                  "exploit": null
+                  "roleName": "Harrier / Ranged",
+                  "action": {
+                    "name": "Strafing Shot",
+                    "defense": "dodge/endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + [Suppressed]",
+                      "legendary": "Chassis damage + [Suppressed] + [Exposed]"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Reposition",
+                    "modifies": "Move",
+                    "description": "Modifies Move. Move up to 2 zones. If the Harrier ends farther from all enemies than it started, +1 Power on next attack."
+                  },
+                  "gambit": {
+                    "name": "Pinning Fire",
+                    "cost": "-1 Power",
+                    "description": "In addition to normal effects, target gains [Slowed] Tactical.",
+                    "rider": "[Slowed]"
+                  },
+                  "exploit": {
+                    "name": "Snap Shot",
+                    "trigger": "A PC uses Move to enter or cross a zone within weapon range.",
+                    "description": "Immediately attack that PC at -2 Power."
+                  },
+                  "powerSource": "ranged"
                 },
                 "notes": "Maya is not a combat threat. She is a social operator who chose this table on purpose. Her Face kit represents con artistry, not diplomacy.",
                 "computed": {
@@ -3296,7 +3820,8 @@
                     "canStun": false,
                     "sourceAction": "Sabotage"
                   }
-                ]
+                ],
+                "powerSource": "ranged"
               },
               "loot": [
                 {
@@ -3515,9 +4040,33 @@
                 "traits": [],
                 "tags": [],
                 "roleKit": {
-                  "passive": null,
-                  "gambit": null,
-                  "exploit": null
+                  "roleName": "Harrier / Ranged",
+                  "action": {
+                    "name": "Strafing Shot",
+                    "defense": "dodge/endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + [Suppressed]",
+                      "legendary": "Chassis damage + [Suppressed] + [Exposed]"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Reposition",
+                    "modifies": "Move",
+                    "description": "Modifies Move. Move up to 2 zones. If the Harrier ends farther from all enemies than it started, +1 Power on next attack."
+                  },
+                  "gambit": {
+                    "name": "Pinning Fire",
+                    "cost": "-1 Power",
+                    "description": "In addition to normal effects, target gains [Slowed] Tactical.",
+                    "rider": "[Slowed]"
+                  },
+                  "exploit": {
+                    "name": "Snap Shot",
+                    "trigger": "A PC uses Move to enter or cross a zone within weapon range.",
+                    "description": "Immediately attack that PC at -2 Power."
+                  },
+                  "powerSource": "ranged"
                 },
                 "notes": "Maya is not a combat threat. She is a social operator who chose this table on purpose. Her Face kit represents con artistry, not diplomacy.",
                 "computed": {
@@ -3605,7 +4154,8 @@
                     "canStun": false,
                     "sourceAction": "Sabotage"
                   }
-                ]
+                ],
+                "powerSource": "ranged"
               },
               "loot": [
                 {
@@ -3869,19 +4419,33 @@
                   "Commando"
                 ],
                 "roleKit": {
-                  "passive": {
-                    "name": "Guerrilla Warfare",
-                    "description": "Mandrake gains +1 Power on attacks from concealment. He has been waging a one-man insurgency for three years."
+                  "roleName": "Harrier / Force",
+                  "action": {
+                    "name": "Force Lash",
+                    "defense": "resist",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + push target 1 zone",
+                      "legendary": "Chassis damage + push 1 zone + [Dazed]"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Phase Step",
+                    "modifies": "Move",
+                    "description": "Modifies Move. Move up to 2 zones, ignoring Engaged status entirely (no Opening, no disengage check). Cannot be intercepted."
                   },
                   "gambit": {
-                    "name": "Booby Trap",
+                    "name": "Sever",
                     "cost": "-1 Power",
-                    "description": "Leave a trap on current position. Next enemy entering triggers explosion."
+                    "description": "In addition to normal effects, target gains [Disoriented] Tactical.",
+                    "rider": "[Disoriented]"
                   },
                   "exploit": {
-                    "name": "Dead Man's Switch",
-                    "description": "If Mandrake is reduced to 0 Vitality, a pre-set charge detonates. Area damage in his zone."
-                  }
+                    "name": "Vanish",
+                    "trigger": "The Harrier takes damage.",
+                    "description": "Immediately move 1 zone (no Opening)."
+                  },
+                  "powerSource": "force"
                 },
                 "notes": "Mandrake is a potential ally, not necessarily an enemy. Defense 4 = max(3,4)-1+2. Resist 5 = Grit 4-1+2. Veteran grants +1 Exploit. He is dangerous, desperate, and potentially trustworthy.",
                 "computed": {
@@ -3900,7 +4464,8 @@
                     "masterful": 4,
                     "legendary": 6
                   }
-                }
+                },
+                "powerSource": "force"
               }
             }
           ],
@@ -4191,19 +4756,33 @@
                   "Scientist"
                 ],
                 "roleKit": {
-                  "passive": {
-                    "name": "Field Researcher",
-                    "description": "Vischera can identify biological threats, toxins, and experimental compounds. Her lab is her weapon."
+                  "roleName": "Controller / Leader",
+                  "action": {
+                    "name": "Dictate Terms",
+                    "defense": "resist",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + [Rattled]",
+                      "legendary": "Chassis damage + [Rattled] + target must move 1 zone (Controller's choice)"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Tactical Redeployment",
+                    "modifies": "Coordinate",
+                    "description": "Modifies Coordinate. Move up to 2 allies within 2 zones each 1 zone (Controller's choice). Those allies gain [Optimized] on their next action."
                   },
                   "gambit": {
-                    "name": "Chemical Agent",
+                    "name": "Exploit Weakness",
                     "cost": "-1 Power",
-                    "description": "Release airborne agent. All characters in the zone must Endure or gain [Disoriented]."
+                    "description": "In addition to normal effects, target gains [Exposed] Tactical. Controller identifies and broadcasts the target's vulnerability.",
+                    "rider": "[Exposed]"
                   },
                   "exploit": {
-                    "name": "Emergency Purge",
-                    "description": "Vent containment. The lab fills with sterilizing gas. All characters take [Hazard 2] for 2 rounds."
-                  }
+                    "name": "Contingency Order",
+                    "trigger": "An ally within 2 zones is targeted by an attack.",
+                    "description": "That ally may immediately move 1 zone before the attack resolves (potentially leaving range/zone)."
+                  },
+                  "powerSource": "leader"
                 },
                 "notes": "Vischera is a scientist, not a soldier. Defense 1 = max(1,1)-1+1. She relies on her lab environment and security systems, not personal combat ability.",
                 "computed": {
@@ -4222,7 +4801,8 @@
                     "masterful": 3,
                     "legendary": 4
                   }
-                }
+                },
+                "powerSource": "leader"
               }
             },
             {
@@ -4252,19 +4832,33 @@
                 "traits": [],
                 "tags": [],
                 "roleKit": {
-                  "passive": {
-                    "name": "Disciplined Fire",
-                    "description": "+1 Power on weapon attacks."
+                  "roleName": "Anchor / Martial",
+                  "action": {
+                    "name": "Shield Slam",
+                    "defense": "endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + push target 1 zone",
+                      "legendary": "Chassis damage + push 1 zone + [Prone]"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Lockdown",
+                    "modifies": "Move",
+                    "description": "Modifies Move. The Anchor does not move. Instead, enemies in the Anchor's zone cannot move to another zone without succeeding on a Physique check vs Anchor's Defense."
                   },
                   "gambit": {
-                    "name": "Suppressive Fire",
+                    "name": "Shove Back",
                     "cost": "-1 Power",
-                    "description": "Target gains [Pinned] on hit."
+                    "description": "In addition to normal effects, push target 1 zone. The Anchor holds position.",
+                    "rider": "Push 1 zone"
                   },
                   "exploit": {
-                    "name": "Call Backup",
-                    "description": "Alert nearby mercenaries. 2 additional minions arrive in 2 rounds."
-                  }
+                    "name": "Intercept",
+                    "trigger": "An enemy in the Anchor's zone attacks an ally.",
+                    "description": "The Anchor becomes the target of the attack instead."
+                  },
+                  "powerSource": "martial"
                 },
                 "notes": "Minion guards. Defense 1 = max(2,2)-1+0. Grimy and undisciplined — easier to intimidate than Stormtroopers. Masterful+ = takedown.",
                 "computed": {
@@ -4283,7 +4877,8 @@
                     "masterful": 3,
                     "legendary": 4
                   }
-                }
+                },
+                "powerSource": "martial"
               }
             },
             {
@@ -4318,19 +4913,33 @@
                   "Military"
                 ],
                 "roleKit": {
-                  "passive": {
+                  "roleName": "Anchor / Ranged",
+                  "action": {
                     "name": "Disciplined Fire",
-                    "description": "+1 Power on weapon attacks."
+                    "defense": "dodge",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + [Suppressed]",
+                      "legendary": "Chassis damage + [Suppressed] to all enemies in the target's zone"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Dig In",
+                    "modifies": "Take Cover",
+                    "description": "Modifies Take Cover. Anchor gains [Cover 2] and [Optimized] on its next ranged attack. Cannot move this turn."
                   },
                   "gambit": {
-                    "name": "Suppressive Fire",
+                    "name": "Pinning Barrage",
                     "cost": "-1 Power",
-                    "description": "Target gains [Pinned] on hit."
+                    "description": "In addition to normal effects, target gains [Suppressed] Tactical. Target cannot use Move next turn.",
+                    "rider": "[Suppressed]"
                   },
                   "exploit": {
-                    "name": "Coordinated Fire",
-                    "description": "All allied Troopers targeting the same enemy gain +1 Power this round."
-                  }
+                    "name": "Covering Fire",
+                    "trigger": "An ally in the Anchor's zone or an adjacent zone takes damage.",
+                    "description": "Immediately make an attack at -2 Power against the attacker if in weapon range."
+                  },
+                  "powerSource": "ranged"
                 },
                 "notes": "Minion Troopers. Defense 3 = max(2,3)-1+1+1(armor). Pristine armor — at the landing pad. Separate command from Skarn's mercs.",
                 "computed": {
@@ -4349,7 +4958,8 @@
                     "masterful": 4,
                     "legendary": 6
                   }
-                }
+                },
+                "powerSource": "ranged"
               }
             }
           ],
@@ -4639,19 +5249,33 @@
                   "Defector"
                 ],
                 "roleKit": {
-                  "passive": {
-                    "name": "The Charming Admiral",
-                    "description": "Varth reads people instinctively. He gains +1 Power on social attacks against targets he has conversed with for more than one exchange. Every conversation is an intelligence operation."
+                  "roleName": "Controller / Leader",
+                  "action": {
+                    "name": "Dictate Terms",
+                    "defense": "resist",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + [Rattled]",
+                      "legendary": "Chassis damage + [Rattled] + target must move 1 zone (Controller's choice)"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Tactical Redeployment",
+                    "modifies": "Coordinate",
+                    "description": "Modifies Coordinate. Move up to 2 allies within 2 zones each 1 zone (Controller's choice). Those allies gain [Optimized] on their next action."
                   },
                   "gambit": {
-                    "name": "Uncomfortable Truth",
+                    "name": "Exploit Weakness",
                     "cost": "-1 Power",
-                    "description": "State something the target knows is true but doesn't want to hear. Target gains [Shaken]."
+                    "description": "In addition to normal effects, target gains [Exposed] Tactical. Controller identifies and broadcasts the target's vulnerability.",
+                    "rider": "[Exposed]"
                   },
                   "exploit": {
-                    "name": "Pivot",
-                    "description": "If a social exchange turns against Varth, he immediately redirects the conversation to a new topic. Resets social conditions on himself."
-                  }
+                    "name": "Contingency Order",
+                    "trigger": "An ally within 2 zones is targeted by an attack.",
+                    "description": "That ally may immediately move 1 zone before the attack resolves (potentially leaving range/zone)."
+                  },
+                  "powerSource": "leader"
                 },
                 "notes": "Varth is the campaign's central NPC — charming, cynical, self-serving. Defense 2 = max(1,2)-1+2. Resist 4 = Grit 3-1+2+1(disciplined). He is VERY hard to read (Resist 4) and VERY good at reading others. In combat, he hides behind the party.",
                 "computed": {
@@ -4670,7 +5294,8 @@
                     "masterful": 3,
                     "legendary": 4
                   }
-                }
+                },
+                "powerSource": "leader"
               }
             }
           ],
@@ -4880,19 +5505,33 @@
                   "Force User"
                 ],
                 "roleKit": {
-                  "passive": {
-                    "name": "Dark Side Presence",
-                    "description": "All enemies within close range must resist or gain [Rattled] when Draco enters the scene. Force-sensitive characters feel nausea and dread."
+                  "roleName": "Controller / Force",
+                  "action": {
+                    "name": "Mind Spike",
+                    "defense": "resist",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + [Disoriented]",
+                      "legendary": "Chassis damage + [Disoriented] + [Rattled]"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Force Dominion",
+                    "modifies": "Move",
+                    "description": "Modifies Move. Instead of moving, the Controller designates its zone as [Difficult Terrain] for enemies until end of next round. Enemies inside gain [Slowed]."
                   },
                   "gambit": {
                     "name": "Force Choke",
                     "cost": "-1 Power",
-                    "description": "Target gains [Restrained] and [Hazard 2] on hit. Maintained until Draco acts again."
+                    "description": "In addition to normal effects, target gains [Restrained] Tactical. Cannot use Move next turn.",
+                    "rider": "[Restrained]"
                   },
                   "exploit": {
-                    "name": "Inevitable",
-                    "description": "When Draco would be reduced to 0 Vitality, he instead drops to 1 Vitality and gains [Buffered 3]. Once per encounter."
-                  }
+                    "name": "Psychic Backlash",
+                    "trigger": "A PC in the Controller's zone successfully uses a social or Force action.",
+                    "description": "That PC gains [Disoriented]. The Controller's Force presence disrupts concentration."
+                  },
+                  "powerSource": "force"
                 },
                 "notes": "NEMESIS. Draco does NOT fight the party in Adv1 — he arrives, demonstrates power, and leaves. This stat block is for the campaign. Defense 7 = max(3,3)-1+4+1. Evasion 5 = 3-1+4-1(mystic). Resist 8 = 5-1+4. 2 actions/round. Boss: N-1 Exploits. He is designed to be unbeatable at this point in the campaign.",
                 "computed": {
@@ -4911,7 +5550,8 @@
                     "masterful": 5,
                     "legendary": 8
                   }
-                }
+                },
+                "powerSource": "force"
               }
             },
             {
@@ -4944,19 +5584,33 @@
                   "Stealth"
                 ],
                 "roleKit": {
-                  "passive": {
-                    "name": "Stealth Field",
-                    "description": "Shadow Troopers are invisible to normal sight while stationary. Attacking breaks concealment for 1 round. Sensor-based detection (Tech check) is required to spot them."
+                  "roleName": "Harrier / Ranged",
+                  "action": {
+                    "name": "Strafing Shot",
+                    "defense": "dodge/endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + [Suppressed]",
+                      "legendary": "Chassis damage + [Suppressed] + [Exposed]"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Reposition",
+                    "modifies": "Move",
+                    "description": "Modifies Move. Move up to 2 zones. If the Harrier ends farther from all enemies than it started, +1 Power on next attack."
                   },
                   "gambit": {
-                    "name": "Flash-Bang",
+                    "name": "Pinning Fire",
                     "cost": "-1 Power",
-                    "description": "Area effect. All targets in zone gain [Blinded] for 1 round."
+                    "description": "In addition to normal effects, target gains [Slowed] Tactical.",
+                    "rider": "[Slowed]"
                   },
                   "exploit": {
-                    "name": "Coordinated Ambush",
-                    "description": "If all Shadow Troopers attack the same target in the same round, +2 Power on each attack."
-                  }
+                    "name": "Snap Shot",
+                    "trigger": "A PC uses Move to enter or cross a zone within weapon range.",
+                    "description": "Immediately attack that PC at -2 Power."
+                  },
+                  "powerSource": "ranged"
                 },
                 "notes": "Elite Imperial commandos. Defense 5 = max(2,4)-1+2+2(medium armor). Evasion 4 = 4-1+2-1(medium armor). Resist 4 = Grit 3-1+2. These are the real threat in the finale — the party should feel outmatched.",
                 "computed": {
@@ -4975,7 +5629,8 @@
                     "masterful": 4,
                     "legendary": 6
                   }
-                }
+                },
+                "powerSource": "ranged"
               }
             },
             {
@@ -5007,9 +5662,33 @@
                 "traits": [],
                 "tags": [],
                 "roleKit": {
-                  "passive": null,
-                  "gambit": null,
-                  "exploit": null
+                  "roleName": "Harrier / Ranged",
+                  "action": {
+                    "name": "Strafing Shot",
+                    "defense": "dodge/endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + [Suppressed]",
+                      "legendary": "Chassis damage + [Suppressed] + [Exposed]"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Reposition",
+                    "modifies": "Move",
+                    "description": "Modifies Move. Move up to 2 zones. If the Harrier ends farther from all enemies than it started, +1 Power on next attack."
+                  },
+                  "gambit": {
+                    "name": "Pinning Fire",
+                    "cost": "-1 Power",
+                    "description": "In addition to normal effects, target gains [Slowed] Tactical.",
+                    "rider": "[Slowed]"
+                  },
+                  "exploit": {
+                    "name": "Snap Shot",
+                    "trigger": "A PC uses Move to enter or cross a zone within weapon range.",
+                    "description": "Immediately attack that PC at -2 Power."
+                  },
+                  "powerSource": "ranged"
                 },
                 "notes": "Maya is not a combat threat. She is a social operator who chose this table on purpose. Her Face kit represents con artistry, not diplomacy.",
                 "computed": {
@@ -5097,7 +5776,8 @@
                     "canStun": false,
                     "sourceAction": "Sabotage"
                   }
-                ]
+                ],
+                "powerSource": "ranged"
               },
               "loot": [
                 {

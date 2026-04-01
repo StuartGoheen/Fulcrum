@@ -899,8 +899,26 @@
     var html = '<div class="ct-rolekit">';
     html += '<div class="ct-section-label">' + (rk.roleName ? esc(rk.roleName) : 'Role Kit') + '</div>';
 
+    if (rk.action) {
+      html += '<div class="ct-rk-entry"><span class="ct-rk-tag ct-rk-action">Action</span> <strong>' + esc(rk.action.name) + '</strong>';
+      if (rk.action.defense) html += ' <span class="ct-rk-cost">(' + esc(rk.action.defense) + ')</span>';
+      if (rk.action.npcEffects) {
+        html += '<div class="ct-rk-effects">';
+        html += '<div><strong>F:</strong> ' + esc(rk.action.npcEffects.fleeting) + '</div>';
+        html += '<div><strong>M:</strong> ' + esc(rk.action.npcEffects.masterful) + '</div>';
+        html += '<div><strong>L:</strong> ' + esc(rk.action.npcEffects.legendary) + '</div>';
+        html += '</div>';
+      }
+      html += '</div>';
+    }
     if (rk.passive) {
       html += '<div class="ct-rk-entry"><span class="ct-rk-tag ct-rk-passive">Passive</span> <strong>' + esc(rk.passive.name) + '</strong> &mdash; ' + esc(rk.passive.description) + '</div>';
+    }
+    if (rk.maneuver) {
+      html += '<div class="ct-rk-entry"><span class="ct-rk-tag ct-rk-maneuver">Maneuver</span> <strong>' + esc(rk.maneuver.name) + '</strong>';
+      if (rk.maneuver.modifies) html += ' <span class="ct-rk-cost">(mod ' + esc(rk.maneuver.modifies) + ')</span>';
+      html += ' &mdash; ' + esc(rk.maneuver.description);
+      html += '</div>';
     }
     if (rk.gambit) {
       html += '<div class="ct-rk-entry"><span class="ct-rk-tag ct-rk-gambit">Gambit</span> <strong>' + esc(rk.gambit.name) + '</strong> <span class="ct-rk-cost">(-1 Pwr)</span> &mdash; ' + esc(rk.gambit.description) + '</div>';

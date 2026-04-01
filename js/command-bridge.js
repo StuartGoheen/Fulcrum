@@ -406,8 +406,25 @@
       if (rk.roleName) {
         h += '<div class="cb-npc-role-header" style="font-family:\'Audiowide\',sans-serif;font-size:0.6rem;color:var(--color-accent-primary);text-transform:uppercase;letter-spacing:0.1em;margin:0.3rem 0 0.15rem;">' + esc(rk.roleName) + '</div>';
       }
+      if (rk.action) {
+        h += '<div class="cb-npc-ability"><span class="cb-npc-ability-tag" style="background:rgba(59,130,246,0.15);color:#3b82f6;">Action</span> <strong>' + esc(rk.action.name) + '</strong>';
+        if (rk.action.defense) h += ' <span style="color:var(--color-text-secondary);font-size:0.55rem;">(' + esc(rk.action.defense) + ')</span>';
+        if (rk.action.npcEffects) {
+          h += '<div style="font-size:0.55rem;margin:0.1rem 0 0 0.5rem;">';
+          h += '<div><strong>F:</strong> ' + linkify(rk.action.npcEffects.fleeting) + '</div>';
+          h += '<div><strong>M:</strong> ' + linkify(rk.action.npcEffects.masterful) + '</div>';
+          h += '<div><strong>L:</strong> ' + linkify(rk.action.npcEffects.legendary) + '</div>';
+          h += '</div>';
+        }
+        h += '</div>';
+      }
       if (rk.passive) {
         h += '<div class="cb-npc-ability"><span class="cb-npc-ability-tag" style="background:rgba(192,132,252,0.15);color:#c084fc;">Passive</span> <strong>' + esc(rk.passive.name) + '</strong> — ' + linkify(rk.passive.description) + '</div>';
+      }
+      if (rk.maneuver) {
+        h += '<div class="cb-npc-ability"><span class="cb-npc-ability-tag" style="background:rgba(168,85,247,0.15);color:#a855f7;">Maneuver</span> <strong>' + esc(rk.maneuver.name) + '</strong>';
+        if (rk.maneuver.modifies) h += ' <span style="color:var(--color-text-secondary);font-size:0.55rem;">(mod ' + esc(rk.maneuver.modifies) + ')</span>';
+        h += ' — ' + linkify(rk.maneuver.description) + '</div>';
       }
       if (rk.gambit) {
         h += '<div class="cb-npc-ability"><span class="cb-npc-ability-tag" style="background:rgba(245,158,11,0.15);color:#f59e0b;">Gambit</span> <strong>' + esc(rk.gambit.name) + '</strong> <span style="color:var(--color-text-secondary);font-size:0.6rem;">(-1 Pwr)</span> — ' + linkify(rk.gambit.description) + '</div>';
@@ -848,12 +865,10 @@
             npc.threatBuild = updated;
             npc.threatBuild.computed = updated.computed;
             if (updated.roleKit) {
-              npc.threatBuild.roleKit = {
-                roleName: updated.roleKit.roleName || '',
-                passive: updated.roleKit.passive || null,
-                gambit: updated.roleKit.gambit || null,
-                exploit: updated.roleKit.exploit || null
-              };
+              npc.threatBuild.roleKit = updated.roleKit;
+            }
+            if (updated.powerSource) {
+              npc.threatBuild.powerSource = updated.powerSource;
             }
             npc.threatBuild.computedAttacks = updated.computedAttacks || [];
             if (updated.loot) npc.loot = updated.loot;
@@ -919,6 +934,7 @@
                   tier: savedNpc.tier,
                   classification: savedNpc.classification,
                   threatCategory: savedNpc.threatCategory,
+                  powerSource: savedNpc.powerSource || built.powerSource || '',
                   arenas: JSON.parse(JSON.stringify(savedNpc.arenas)),
                   computed: built.computed,
                   traits: savedNpc.traits ? JSON.parse(JSON.stringify(savedNpc.traits)) : [],

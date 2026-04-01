@@ -599,21 +599,36 @@
                   }
                 },
                 "roleKit": {
-                  "passive": {
-                    "name": "Unrelenting",
-                    "description": "Ignore first [Weakened] per scene."
+                  "roleName": "Threat / Martial",
+                  "action": {
+                    "name": "Devastating Blow",
+                    "defense": "endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + [Staggered]",
+                      "legendary": "Chassis damage + [Staggered] + [Prone]"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Intimidating Advance",
+                    "modifies": "Move",
+                    "description": "Modifies Move. Move 1 zone toward a target. That target must succeed on a Grit check vs Threat's Power or gain [Rattled]."
                   },
                   "gambit": {
-                    "name": "Knockdown",
+                    "name": "Brutal Strike",
                     "cost": "-1 Power",
-                    "description": "Target gains [Prone]. Lethal near platform edges."
+                    "description": "In addition to normal effects, target gains [Staggered] Tactical.",
+                    "rider": "[Staggered]"
                   },
                   "exploit": {
-                    "name": "Regeneration",
-                    "description": "Heal 1 Vitality at end of turn."
-                  }
+                    "name": "Predator's Opening",
+                    "trigger": "A PC in the same zone takes damage from another source this round.",
+                    "description": "Immediately make an attack against that PC at -2 Power."
+                  },
+                  "powerSource": "martial"
                 },
-                "notes": "Same Trandoshan build as Adv2. On catwalks, their Knockdown gambit is potentially lethal — [Prone] near an edge."
+                "notes": "Same Trandoshan build as Adv2. On catwalks, their Knockdown gambit is potentially lethal — [Prone] near an edge.",
+                "powerSource": "martial"
               }
             },
             {
@@ -906,21 +921,36 @@
                   }
                 },
                 "roleKit": {
-                  "passive": {
-                    "name": "Mathematical Precision",
-                    "description": "Arandis calculates everything. +2 Power on Wits-based challenges. His Sabacc play is a transfer algorithm, not gambling."
+                  "roleName": "Harrier / Leader",
+                  "action": {
+                    "name": "Directed Assault",
+                    "defense": "dodge/endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + one ally in adjacent zone may move 1 zone toward target",
+                      "legendary": "Chassis damage + ally moves 1 zone + that ally gains [Optimized]"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Regroup",
+                    "modifies": "Coordinate",
+                    "description": "Modifies Coordinate. Choose one ally within 2 zones — that ally immediately moves 1 zone (Leader's choice). Diceless."
                   },
                   "gambit": {
-                    "name": "Probability Lock",
+                    "name": "Outflank",
                     "cost": "-1 Power",
-                    "description": "In Sabacc: force a specific card outcome. In combat: predict enemy movement for guaranteed hit."
+                    "description": "In addition to normal effects, target gains [Exposed] Tactical. Coordinated positioning strips cover.",
+                    "rider": "[Exposed]"
                   },
                   "exploit": {
-                    "name": "Dead Man's Switch",
-                    "description": "If killed, a pre-recorded message alerts the Assiduous."
-                  }
+                    "name": "Tactical Withdrawal",
+                    "trigger": "An ally in the Leader-Harrier's zone drops below half Vitality.",
+                    "description": "That ally immediately moves 1 zone (no Opening)."
+                  },
+                  "powerSource": "leader"
                 },
-                "notes": "Operative. Disciplined: +1 Resist. Arandis is a genius pretending to be a gambler. His death triggers an alert to Draco."
+                "notes": "Operative. Disciplined: +1 Resist. Arandis is a genius pretending to be a gambler. His death triggers an alert to Draco.",
+                "powerSource": "leader"
               }
             },
             {
@@ -966,21 +996,36 @@
                   }
                 },
                 "roleKit": {
-                  "passive": {
+                  "roleName": "Anchor / Ranged",
+                  "action": {
                     "name": "Disciplined Fire",
-                    "description": "+1 Power on weapon attacks."
+                    "defense": "dodge",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + [Suppressed]",
+                      "legendary": "Chassis damage + [Suppressed] to all enemies in the target's zone"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Dig In",
+                    "modifies": "Take Cover",
+                    "description": "Modifies Take Cover. Anchor gains [Cover 2] and [Optimized] on its next ranged attack. Cannot move this turn."
                   },
                   "gambit": {
-                    "name": "Coordinated Fire",
+                    "name": "Pinning Barrage",
                     "cost": "-1 Power",
-                    "description": "All Troopers on same target gain +1 Power."
+                    "description": "In addition to normal effects, target gains [Suppressed] Tactical. Target cannot use Move next turn.",
+                    "rider": "[Suppressed]"
                   },
                   "exploit": {
-                    "name": "Call Extraction",
-                    "description": "Summon Imperial shuttle. 10-minute ETA."
-                  }
+                    "name": "Covering Fire",
+                    "trigger": "An ally in the Anchor's zone or an adjacent zone takes damage.",
+                    "description": "Immediately make an attack at -2 Power against the attacker if in weapon range."
+                  },
+                  "powerSource": "ranged"
                 },
-                "notes": "Standard Stormtroopers in civilian disguise. No armor = reduced Defense. Same training, less protection."
+                "notes": "Standard Stormtroopers in civilian disguise. No armor = reduced Defense. Same training, less protection.",
+                "powerSource": "ranged"
               }
             }
           ],
@@ -1211,21 +1256,36 @@
                   }
                 },
                 "roleKit": {
-                  "passive": {
-                    "name": "Dark Presence",
-                    "description": "All enemies in the scene suffer -1 Power from fear unless they pass a Resolve check (T2/P0) at scene start."
+                  "roleName": "Controller / Ranged",
+                  "action": {
+                    "name": "Suppressive Volley",
+                    "defense": "dodge",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + [Suppressed]",
+                      "legendary": "Chassis damage + [Suppressed] + Controller's zone becomes [Hazard 1] until end of next round"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Overwatch Position",
+                    "modifies": "Overwatch",
+                    "description": "Modifies Overwatch. Declare a zone. Any PC that enters, leaves, or takes an action in that zone presents an Opening AND gains [Suppressed]."
                   },
                   "gambit": {
-                    "name": "Force Lightning",
-                    "cost": "-2 Power",
-                    "description": "Area attack. All enemies in zone take damage and gain [Disoriented]."
+                    "name": "Disrupt",
+                    "cost": "-1 Power",
+                    "description": "In addition to normal effects, target gains [Dazed] Tactical. Target loses their Maneuver next turn.",
+                    "rider": "[Dazed]"
                   },
                   "exploit": {
-                    "name": "I Find Your Lack of Faith Disturbing",
-                    "description": "Once per scene, automatically succeed on a social attack against any non-Force user. They comply or suffer."
-                  }
+                    "name": "Denial Fire",
+                    "trigger": "A PC enters a zone the Controller has declared as Overwatch.",
+                    "description": "Immediately attack that PC at -2 Power."
+                  },
+                  "powerSource": "ranged"
                 },
-                "notes": "Campaign nemesis. NOT meant to be fought at this tier — he is an orbital threat. Power 8 = (Ref 5-1)+4. If the heroes face him directly, they will die. He is the reason to run."
+                "notes": "Campaign nemesis. NOT meant to be fought at this tier — he is an orbital threat. Power 8 = (Ref 5-1)+4. If the heroes face him directly, they will die. He is the reason to run.",
+                "powerSource": "ranged"
               }
             }
           ],
@@ -1428,21 +1488,36 @@
                   }
                 },
                 "roleKit": {
-                  "passive": {
-                    "name": "Always Working",
-                    "description": "Draver is always casing, always planning. He knows every exit, every camera, every guard rotation."
+                  "roleName": "Harrier / Ranged",
+                  "action": {
+                    "name": "Strafing Shot",
+                    "defense": "dodge/endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + [Suppressed]",
+                      "legendary": "Chassis damage + [Suppressed] + [Exposed]"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Reposition",
+                    "modifies": "Move",
+                    "description": "Modifies Move. Move up to 2 zones. If the Harrier ends farther from all enemies than it started, +1 Power on next attack."
                   },
                   "gambit": {
-                    "name": "Signal",
+                    "name": "Pinning Fire",
                     "cost": "-1 Power",
-                    "description": "Activate planted operatives. Disguised thugs reveal themselves."
+                    "description": "In addition to normal effects, target gains [Slowed] Tactical.",
+                    "rider": "[Slowed]"
                   },
                   "exploit": {
-                    "name": "Dead Man's Bluff",
-                    "description": "When cornered, threaten to destroy the prize (Fioro/datapad). Forces negotiation."
-                  }
+                    "name": "Snap Shot",
+                    "trigger": "A PC uses Move to enter or cross a zone within weapon range.",
+                    "description": "Immediately attack that PC at -2 Power."
+                  },
+                  "powerSource": "ranged"
                 },
-                "notes": "The third-party wildcard. Agile: +1 Evasion. He's been planning this heist for months. The heroes don't see him coming."
+                "notes": "The third-party wildcard. Agile: +1 Evasion. He's been planning this heist for months. The heroes don't see him coming.",
+                "powerSource": "ranged"
               }
             },
             {
@@ -1763,17 +1838,36 @@
                   }
                 },
                 "roleKit": {
-                  "passive": {
-                    "name": "Desperate",
-                    "description": "Szygar is not thinking clearly. All his attacks are wild and inaccurate."
+                  "roleName": "Harrier / Martial",
+                  "action": {
+                    "name": "Blindside",
+                    "defense": "dodge/endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + [Exposed]",
+                      "legendary": "Chassis damage + [Exposed] + free Move 1 zone (no Opening)"
+                    }
                   },
-                  "gambit": null,
+                  "maneuver": {
+                    "name": "Slip Away",
+                    "modifies": "Move",
+                    "description": "Modifies Move. When disengaging, does not present an Opening to the target of its last attack. Move up to 2 zones."
+                  },
+                  "gambit": {
+                    "name": "Hamstring",
+                    "cost": "-1 Power",
+                    "description": "In addition to normal effects, target gains [Slowed] Tactical.",
+                    "rider": "[Slowed]"
+                  },
                   "exploit": {
-                    "name": "Breakdown",
-                    "description": "If talked down, collapses in tears. Surrenders completely."
-                  }
+                    "name": "Pursuit",
+                    "trigger": "A PC in the Harrier's zone uses Move to leave.",
+                    "description": "Harrier immediately moves to the same zone (no Opening)."
+                  },
+                  "powerSource": "martial"
                 },
-                "notes": "Not a real threat. A desperate gambler. The danger is the Stormtrooper response, not Szygar himself."
+                "notes": "Not a real threat. A desperate gambler. The danger is the Stormtrooper response, not Szygar himself.",
+                "powerSource": "martial"
               }
             },
             {
@@ -2044,21 +2138,36 @@
                   }
                 },
                 "roleKit": {
-                  "passive": {
-                    "name": "Mathematical Precision",
-                    "description": "Arandis calculates everything. +2 Power on Wits-based challenges. His Sabacc play is a transfer algorithm, not gambling."
+                  "roleName": "Harrier / Leader",
+                  "action": {
+                    "name": "Directed Assault",
+                    "defense": "dodge/endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + one ally in adjacent zone may move 1 zone toward target",
+                      "legendary": "Chassis damage + ally moves 1 zone + that ally gains [Optimized]"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Regroup",
+                    "modifies": "Coordinate",
+                    "description": "Modifies Coordinate. Choose one ally within 2 zones — that ally immediately moves 1 zone (Leader's choice). Diceless."
                   },
                   "gambit": {
-                    "name": "Probability Lock",
+                    "name": "Outflank",
                     "cost": "-1 Power",
-                    "description": "In Sabacc: force a specific card outcome. In combat: predict enemy movement for guaranteed hit."
+                    "description": "In addition to normal effects, target gains [Exposed] Tactical. Coordinated positioning strips cover.",
+                    "rider": "[Exposed]"
                   },
                   "exploit": {
-                    "name": "Dead Man's Switch",
-                    "description": "If killed, a pre-recorded message alerts the Assiduous."
-                  }
+                    "name": "Tactical Withdrawal",
+                    "trigger": "An ally in the Leader-Harrier's zone drops below half Vitality.",
+                    "description": "That ally immediately moves 1 zone (no Opening)."
+                  },
+                  "powerSource": "leader"
                 },
-                "notes": "Operative. Disciplined: +1 Resist. Arandis is a genius pretending to be a gambler. His death triggers an alert to Draco. (Recurring — now making the final transfer.)"
+                "notes": "Operative. Disciplined: +1 Resist. Arandis is a genius pretending to be a gambler. His death triggers an alert to Draco. (Recurring — now making the final transfer.)",
+                "powerSource": "leader"
               }
             },
             {
@@ -2324,21 +2433,36 @@
                   }
                 },
                 "roleKit": {
-                  "passive": {
-                    "name": "Always Working",
-                    "description": "Draver is always casing, always planning. He knows every exit, every camera, every guard rotation."
+                  "roleName": "Harrier / Ranged",
+                  "action": {
+                    "name": "Strafing Shot",
+                    "defense": "dodge/endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + [Suppressed]",
+                      "legendary": "Chassis damage + [Suppressed] + [Exposed]"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Reposition",
+                    "modifies": "Move",
+                    "description": "Modifies Move. Move up to 2 zones. If the Harrier ends farther from all enemies than it started, +1 Power on next attack."
                   },
                   "gambit": {
-                    "name": "Signal",
+                    "name": "Pinning Fire",
                     "cost": "-1 Power",
-                    "description": "Activate planted operatives. Disguised thugs reveal themselves."
+                    "description": "In addition to normal effects, target gains [Slowed] Tactical.",
+                    "rider": "[Slowed]"
                   },
                   "exploit": {
-                    "name": "Dead Man's Bluff",
-                    "description": "When cornered, threaten to destroy the prize (Fioro/datapad). Forces negotiation."
-                  }
+                    "name": "Snap Shot",
+                    "trigger": "A PC uses Move to enter or cross a zone within weapon range.",
+                    "description": "Immediately attack that PC at -2 Power."
+                  },
+                  "powerSource": "ranged"
                 },
-                "notes": "The third-party wildcard. Agile: +1 Evasion. He's been planning this heist for months. The heroes don't see him coming. (Recurring — same stat block. Now he reveals his true nature.)"
+                "notes": "The third-party wildcard. Agile: +1 Evasion. He's been planning this heist for months. The heroes don't see him coming. (Recurring — same stat block. Now he reveals his true nature.)",
+                "powerSource": "ranged"
               }
             },
             {
@@ -2381,21 +2505,36 @@
                   }
                 },
                 "roleKit": {
-                  "passive": {
-                    "name": "Disciplined Fire",
-                    "description": "+1 Power on weapon attacks."
+                  "roleName": "Anchor / Martial",
+                  "action": {
+                    "name": "Shield Slam",
+                    "defense": "endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + push target 1 zone",
+                      "legendary": "Chassis damage + push 1 zone + [Prone]"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Lockdown",
+                    "modifies": "Move",
+                    "description": "Modifies Move. The Anchor does not move. Instead, enemies in the Anchor's zone cannot move to another zone without succeeding on a Physique check vs Anchor's Defense."
                   },
                   "gambit": {
-                    "name": "Crowd Hostage",
+                    "name": "Shove Back",
                     "cost": "-1 Power",
-                    "description": "Grab a civilian. Gain [Cover 2] as living shield."
+                    "description": "In addition to normal effects, push target 1 zone. The Anchor holds position.",
+                    "rider": "Push 1 zone"
                   },
                   "exploit": {
-                    "name": "Scatter",
-                    "description": "If Draver falls, thugs attempt to flee."
-                  }
+                    "name": "Intercept",
+                    "trigger": "An enemy in the Anchor's zone attacks an ally.",
+                    "description": "The Anchor becomes the target of the attack instead."
+                  },
+                  "powerSource": "martial"
                 },
-                "notes": "Minion thugs. Disguised as waiters and guests. Masterful+ = takedown."
+                "notes": "Minion thugs. Disguised as waiters and guests. Masterful+ = takedown.",
+                "powerSource": "martial"
               }
             },
             {
@@ -2441,21 +2580,36 @@
                   }
                 },
                 "roleKit": {
-                  "passive": {
+                  "roleName": "Anchor / Ranged",
+                  "action": {
                     "name": "Disciplined Fire",
-                    "description": "+1 Power on weapon attacks."
+                    "defense": "dodge",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + [Suppressed]",
+                      "legendary": "Chassis damage + [Suppressed] to all enemies in the target's zone"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Dig In",
+                    "modifies": "Take Cover",
+                    "description": "Modifies Take Cover. Anchor gains [Cover 2] and [Optimized] on its next ranged attack. Cannot move this turn."
                   },
                   "gambit": {
-                    "name": "Strafe",
+                    "name": "Pinning Barrage",
                     "cost": "-1 Power",
-                    "description": "Attack all targets in a line. Low damage but wide coverage."
+                    "description": "In addition to normal effects, target gains [Suppressed] Tactical. Target cannot use Move next turn.",
+                    "rider": "[Suppressed]"
                   },
                   "exploit": {
-                    "name": "Self-Destruct",
-                    "description": "When destroyed, [Hazard 1] in zone."
-                  }
+                    "name": "Covering Fire",
+                    "trigger": "An ally in the Anchor's zone or an adjacent zone takes damage.",
+                    "description": "Immediately make an attack at -2 Power against the attacker if in weapon range."
+                  },
+                  "powerSource": "ranged"
                 },
-                "notes": "Modified dealer droids. Flying platforms with concealed weapons. Vulnerable to Ion damage — Ion Grenade is instant kill."
+                "notes": "Modified dealer droids. Flying platforms with concealed weapons. Vulnerable to Ion damage — Ion Grenade is instant kill.",
+                "powerSource": "ranged"
               }
             }
           ],
@@ -2898,21 +3052,36 @@
                   }
                 },
                 "roleKit": {
-                  "passive": {
+                  "roleName": "Anchor / Ranged",
+                  "action": {
                     "name": "Disciplined Fire",
-                    "description": "+1 Power on weapon attacks."
+                    "defense": "dodge",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + [Suppressed]",
+                      "legendary": "Chassis damage + [Suppressed] to all enemies in the target's zone"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Dig In",
+                    "modifies": "Take Cover",
+                    "description": "Modifies Take Cover. Anchor gains [Cover 2] and [Optimized] on its next ranged attack. Cannot move this turn."
                   },
                   "gambit": {
-                    "name": "Coordinated Fire",
+                    "name": "Pinning Barrage",
                     "cost": "-1 Power",
-                    "description": "All guards on same target gain +1 Power."
+                    "description": "In addition to normal effects, target gains [Suppressed] Tactical. Target cannot use Move next turn.",
+                    "rider": "[Suppressed]"
                   },
                   "exploit": {
-                    "name": "Radio Ahead",
-                    "description": "Alert checkpoint ahead. Guards set up ambush."
-                  }
+                    "name": "Covering Fire",
+                    "trigger": "An ally in the Anchor's zone or an adjacent zone takes damage.",
+                    "description": "Immediately make an attack at -2 Power against the attacker if in weapon range."
+                  },
+                  "powerSource": "ranged"
                 },
-                "notes": "Corrupt Wing Guard. Better trained than street thugs. Bribed by Varga to hunt the heroes."
+                "notes": "Corrupt Wing Guard. Better trained than street thugs. Bribed by Varga to hunt the heroes.",
+                "powerSource": "ranged"
               }
             },
             {
@@ -2959,21 +3128,36 @@
                   }
                 },
                 "roleKit": {
-                  "passive": {
+                  "roleName": "Anchor / Ranged",
+                  "action": {
                     "name": "Disciplined Fire",
-                    "description": "+1 Power on weapon attacks."
+                    "defense": "dodge",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + [Suppressed]",
+                      "legendary": "Chassis damage + [Suppressed] to all enemies in the target's zone"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Dig In",
+                    "modifies": "Take Cover",
+                    "description": "Modifies Take Cover. Anchor gains [Cover 2] and [Optimized] on its next ranged attack. Cannot move this turn."
                   },
                   "gambit": {
-                    "name": "Suppressive Fire",
+                    "name": "Pinning Barrage",
                     "cost": "-1 Power",
-                    "description": "Target gains [Pinned]."
+                    "description": "In addition to normal effects, target gains [Suppressed] Tactical. Target cannot use Move next turn.",
+                    "rider": "[Suppressed]"
                   },
                   "exploit": {
-                    "name": "Coordinated Fire",
-                    "description": "All troopers on same target gain +1 Power."
-                  }
+                    "name": "Covering Fire",
+                    "trigger": "An ally in the Anchor's zone or an adjacent zone takes damage.",
+                    "description": "Immediately make an attack at -2 Power against the attacker if in weapon range."
+                  },
+                  "powerSource": "ranged"
                 },
-                "notes": "Standard Stormtrooper minions. Same stat block across adventures."
+                "notes": "Standard Stormtrooper minions. Same stat block across adventures.",
+                "powerSource": "ranged"
               }
             }
           ],
@@ -3207,21 +3391,36 @@
                   "actions": 2
                 },
                 "roleKit": {
-                  "passive": {
-                    "name": "Absolute Authority",
-                    "description": "All allies in Varga's court gain +1 to Resist social attacks. His presence is law."
+                  "roleName": "Support / Martial",
+                  "action": {
+                    "name": "Bolstering Strike",
+                    "defense": "endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + one ally in the same zone heals 1 Vitality",
+                      "legendary": "Chassis damage + ally heals 2 Vitality + remove one condition from that ally"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Shield Wall",
+                    "modifies": "Move",
+                    "description": "Modifies Move. Move 1 zone. One ally in the destination zone gains [Cover 1] until end of next round."
                   },
                   "gambit": {
-                    "name": "Example",
+                    "name": "Rally",
                     "cost": "-1 Power",
-                    "description": "Order guards to execute a prisoner or destroy property. All witnesses gain [Shaken]."
+                    "description": "Instead of attacking, remove one condition from an ally in the same zone.",
+                    "rider": "Cleanse 1 condition"
                   },
                   "exploit": {
-                    "name": "Bounty",
-                    "description": "Declare a bounty on one target. All mercenaries in the fortress gain +1 Power vs that target for the scene."
-                  }
+                    "name": "Emergency Aid",
+                    "trigger": "An ally in the same zone is reduced to 0 Vitality.",
+                    "description": "That ally is instead reduced to 1 Vitality. Usable once per scene."
+                  },
+                  "powerSource": "martial"
                 },
-                "notes": "Varga is a crime lord, not a fighter. Boss x2 Vitality = 24 = (5+4+3)*2. Power 7 via Commander (Presence 5-1)+3. He fights through his army. Direct combat is a mistake — he's a Hutt on a hover-sled surrounded by guards. (Recurring — same stat block from Adv2. Now desperate and enraged.)"
+                "notes": "Varga is a crime lord, not a fighter. Boss x2 Vitality = 24 = (5+4+3)*2. Power 7 via Commander (Presence 5-1)+3. He fights through his army. Direct combat is a mistake — he's a Hutt on a hover-sled surrounded by guards. (Recurring — same stat block from Adv2. Now desperate and enraged.)",
+                "powerSource": "martial"
               }
             },
             {
@@ -3257,17 +3456,36 @@
                   "actions": 1
                 },
                 "roleKit": {
-                  "passive": {
-                    "name": "Pilot Training",
-                    "description": "In a Z-95, these pilots are dangerous. On foot, they're nothing."
+                  "roleName": "Anchor / Ranged",
+                  "action": {
+                    "name": "Disciplined Fire",
+                    "defense": "dodge",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + [Suppressed]",
+                      "legendary": "Chassis damage + [Suppressed] to all enemies in the target's zone"
+                    }
                   },
-                  "gambit": null,
+                  "maneuver": {
+                    "name": "Dig In",
+                    "modifies": "Take Cover",
+                    "description": "Modifies Take Cover. Anchor gains [Cover 2] and [Optimized] on its next ranged attack. Cannot move this turn."
+                  },
+                  "gambit": {
+                    "name": "Pinning Barrage",
+                    "cost": "-1 Power",
+                    "description": "In addition to normal effects, target gains [Suppressed] Tactical. Target cannot use Move next turn.",
+                    "rider": "[Suppressed]"
+                  },
                   "exploit": {
-                    "name": "Emergency Launch",
-                    "description": "If cockpit reached, fighter launches immediately. Strafing runs begin."
-                  }
+                    "name": "Covering Fire",
+                    "trigger": "An ally in the Anchor's zone or an adjacent zone takes damage.",
+                    "description": "Immediately make an attack at -2 Power against the attacker if in weapon range."
+                  },
+                  "powerSource": "ranged"
                 },
-                "notes": "Minion pilots. Not fighters on foot. The threat is what happens if they reach their ships."
+                "notes": "Minion pilots. Not fighters on foot. The threat is what happens if they reach their ships.",
+                "powerSource": "ranged"
               }
             },
             {
@@ -3314,21 +3532,36 @@
                   }
                 },
                 "roleKit": {
-                  "passive": {
-                    "name": "Unrelenting",
-                    "description": "Ignore first [Weakened] per scene."
+                  "roleName": "Threat / Martial",
+                  "action": {
+                    "name": "Devastating Blow",
+                    "defense": "endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + [Staggered]",
+                      "legendary": "Chassis damage + [Staggered] + [Prone]"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Intimidating Advance",
+                    "modifies": "Move",
+                    "description": "Modifies Move. Move 1 zone toward a target. That target must succeed on a Grit check vs Threat's Power or gain [Rattled]."
                   },
                   "gambit": {
-                    "name": "Suppressive Barrage",
+                    "name": "Brutal Strike",
                     "cost": "-1 Power",
-                    "description": "All targets in zone gain [Suppressed]."
+                    "description": "In addition to normal effects, target gains [Staggered] Tactical.",
+                    "rider": "[Staggered]"
                   },
                   "exploit": {
-                    "name": "Overload",
-                    "description": "When destroyed, explodes. [Hazard 3] in zone."
-                  }
+                    "name": "Predator's Opening",
+                    "trigger": "A PC in the same zone takes damage from another source this round.",
+                    "description": "Immediately make an attack against that PC at -2 Power."
+                  },
+                  "powerSource": "martial"
                 },
-                "notes": "Same heavy droid build as Adv2. Ion weapons are the answer."
+                "notes": "Same heavy droid build as Adv2. Ion weapons are the answer.",
+                "powerSource": "martial"
               }
             },
             {
@@ -3369,17 +3602,36 @@
                   }
                 },
                 "roleKit": {
-                  "passive": {
-                    "name": "Disciplined Fire",
-                    "description": "+1 Power on weapon attacks."
+                  "roleName": "Anchor / Martial",
+                  "action": {
+                    "name": "Shield Slam",
+                    "defense": "endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + push target 1 zone",
+                      "legendary": "Chassis damage + push 1 zone + [Prone]"
+                    }
                   },
-                  "gambit": null,
+                  "maneuver": {
+                    "name": "Lockdown",
+                    "modifies": "Move",
+                    "description": "Modifies Move. The Anchor does not move. Instead, enemies in the Anchor's zone cannot move to another zone without succeeding on a Physique check vs Anchor's Defense."
+                  },
+                  "gambit": {
+                    "name": "Shove Back",
+                    "cost": "-1 Power",
+                    "description": "In addition to normal effects, push target 1 zone. The Anchor holds position.",
+                    "rider": "Push 1 zone"
+                  },
                   "exploit": {
-                    "name": "Scatter",
-                    "description": "If Varga falls, thugs flee."
-                  }
+                    "name": "Intercept",
+                    "trigger": "An enemy in the Anchor's zone attacks an ally.",
+                    "description": "The Anchor becomes the target of the attack instead."
+                  },
+                  "powerSource": "martial"
                 },
-                "notes": "Generic minion thugs. Masterful+ = takedown. Last line of defense for Varga."
+                "notes": "Generic minion thugs. Masterful+ = takedown. Last line of defense for Varga.",
+                "powerSource": "martial"
               }
             }
           ],
@@ -3592,21 +3844,36 @@
                   "actions": 2
                 },
                 "roleKit": {
-                  "passive": {
-                    "name": "Absolute Authority",
-                    "description": "All allies in Varga's court gain +1 to Resist social attacks. His presence is law."
+                  "roleName": "Support / Martial",
+                  "action": {
+                    "name": "Bolstering Strike",
+                    "defense": "endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + one ally in the same zone heals 1 Vitality",
+                      "legendary": "Chassis damage + ally heals 2 Vitality + remove one condition from that ally"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Shield Wall",
+                    "modifies": "Move",
+                    "description": "Modifies Move. Move 1 zone. One ally in the destination zone gains [Cover 1] until end of next round."
                   },
                   "gambit": {
-                    "name": "Example",
+                    "name": "Rally",
                     "cost": "-1 Power",
-                    "description": "Order guards to execute a prisoner or destroy property. All witnesses gain [Shaken]."
+                    "description": "Instead of attacking, remove one condition from an ally in the same zone.",
+                    "rider": "Cleanse 1 condition"
                   },
                   "exploit": {
-                    "name": "Bounty",
-                    "description": "Declare a bounty on one target. All mercenaries in the fortress gain +1 Power vs that target for the scene."
-                  }
+                    "name": "Emergency Aid",
+                    "trigger": "An ally in the same zone is reduced to 0 Vitality.",
+                    "description": "That ally is instead reduced to 1 Vitality. Usable once per scene."
+                  },
+                  "powerSource": "martial"
                 },
-                "notes": "Varga is a crime lord, not a fighter. Boss x2 Vitality = 24 = (5+4+3)*2. Power 7 via Commander (Presence 5-1)+3. He fights through his army. Direct combat is a mistake — he's a Hutt on a hover-sled surrounded by guards. (Recurring — same stat block from Adv2. Now desperate and enraged.) (Final fight. Desperate and dangerous.)"
+                "notes": "Varga is a crime lord, not a fighter. Boss x2 Vitality = 24 = (5+4+3)*2. Power 7 via Commander (Presence 5-1)+3. He fights through his army. Direct combat is a mistake — he's a Hutt on a hover-sled surrounded by guards. (Recurring — same stat block from Adv2. Now desperate and enraged.) (Final fight. Desperate and dangerous.)",
+                "powerSource": "martial"
               }
             },
             {
@@ -3647,17 +3914,36 @@
                   }
                 },
                 "roleKit": {
-                  "passive": {
-                    "name": "Disciplined Fire",
-                    "description": "+1 Power on weapon attacks."
+                  "roleName": "Anchor / Martial",
+                  "action": {
+                    "name": "Shield Slam",
+                    "defense": "endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + push target 1 zone",
+                      "legendary": "Chassis damage + push 1 zone + [Prone]"
+                    }
                   },
-                  "gambit": null,
+                  "maneuver": {
+                    "name": "Lockdown",
+                    "modifies": "Move",
+                    "description": "Modifies Move. The Anchor does not move. Instead, enemies in the Anchor's zone cannot move to another zone without succeeding on a Physique check vs Anchor's Defense."
+                  },
+                  "gambit": {
+                    "name": "Shove Back",
+                    "cost": "-1 Power",
+                    "description": "In addition to normal effects, push target 1 zone. The Anchor holds position.",
+                    "rider": "Push 1 zone"
+                  },
                   "exploit": {
-                    "name": "Last Stand",
-                    "description": "When Varga falls, mercs either surrender or fight to the death (50/50)."
-                  }
+                    "name": "Intercept",
+                    "trigger": "An enemy in the Anchor's zone attacks an ally.",
+                    "description": "The Anchor becomes the target of the attack instead."
+                  },
+                  "powerSource": "martial"
                 },
-                "notes": "Generic minion mercenaries. Varga's last loyal muscle."
+                "notes": "Generic minion mercenaries. Varga's last loyal muscle.",
+                "powerSource": "martial"
               }
             }
           ],
@@ -3880,21 +4166,36 @@
                   }
                 },
                 "roleKit": {
-                  "passive": {
+                  "roleName": "Anchor / Ranged",
+                  "action": {
                     "name": "Disciplined Fire",
-                    "description": "+1 Power on weapon attacks."
+                    "defense": "dodge",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + [Suppressed]",
+                      "legendary": "Chassis damage + [Suppressed] to all enemies in the target's zone"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Dig In",
+                    "modifies": "Take Cover",
+                    "description": "Modifies Take Cover. Anchor gains [Cover 2] and [Optimized] on its next ranged attack. Cannot move this turn."
                   },
                   "gambit": {
-                    "name": "Suppressive Fire",
+                    "name": "Pinning Barrage",
                     "cost": "-1 Power",
-                    "description": "Target gains [Pinned]."
+                    "description": "In addition to normal effects, target gains [Suppressed] Tactical. Target cannot use Move next turn.",
+                    "rider": "[Suppressed]"
                   },
                   "exploit": {
-                    "name": "Overwhelming Numbers",
-                    "description": "When 20 troopers are present, all gain +2 Power."
-                  }
+                    "name": "Covering Fire",
+                    "trigger": "An ally in the Anchor's zone or an adjacent zone takes damage.",
+                    "description": "Immediately make an attack at -2 Power against the attacker if in weapon range."
+                  },
+                  "powerSource": "ranged"
                 },
-                "notes": "A full platoon. NOT meant to be fought. This is the \"why you must launch NOW\" threat. 20 minions with Overwhelming Numbers = TPK."
+                "notes": "A full platoon. NOT meant to be fought. This is the \"why you must launch NOW\" threat. 20 minions with Overwhelming Numbers = TPK.",
+                "powerSource": "ranged"
               }
             }
           ],
@@ -4087,17 +4388,36 @@
                   }
                 },
                 "roleKit": {
-                  "passive": {
-                    "name": "Veteran Smuggler",
-                    "description": "Piloting checks in her ship gain +1 Power. Immune to [Rattled] from Imperial threats."
+                  "roleName": "Harrier / Ranged",
+                  "action": {
+                    "name": "Strafing Shot",
+                    "defense": "dodge/endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + [Suppressed]",
+                      "legendary": "Chassis damage + [Suppressed] + [Exposed]"
+                    }
                   },
-                  "gambit": null,
+                  "maneuver": {
+                    "name": "Reposition",
+                    "modifies": "Move",
+                    "description": "Modifies Move. Move up to 2 zones. If the Harrier ends farther from all enemies than it started, +1 Power on next attack."
+                  },
+                  "gambit": {
+                    "name": "Pinning Fire",
+                    "cost": "-1 Power",
+                    "description": "In addition to normal effects, target gains [Slowed] Tactical.",
+                    "rider": "[Slowed]"
+                  },
                   "exploit": {
-                    "name": "Last-Second Save",
-                    "description": "When the code is transmitted, Okeefe can steer the Shackles clear of the Hauler."
-                  }
+                    "name": "Snap Shot",
+                    "trigger": "A PC uses Move to enter or cross a zone within weapon range.",
+                    "description": "Immediately attack that PC at -2 Power."
+                  },
+                  "powerSource": "ranged"
                 },
-                "notes": "Recurring ally. Same base stats as Adv1. Trapped on the Shackles of Nizon — can't fight, can only fly if the slave circuits are freed."
+                "notes": "Recurring ally. Same base stats as Adv1. Trapped on the Shackles of Nizon — can't fight, can only fly if the slave circuits are freed.",
+                "powerSource": "ranged"
               }
             },
             {
@@ -4143,21 +4463,36 @@
                   }
                 },
                 "roleKit": {
-                  "passive": {
-                    "name": "Swarm Tactics",
-                    "description": "For every 2 TIEs engaging the same target, all gain +1 Power."
+                  "roleName": "Anchor / Ranged",
+                  "action": {
+                    "name": "Disciplined Fire",
+                    "defense": "dodge",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + [Suppressed]",
+                      "legendary": "Chassis damage + [Suppressed] to all enemies in the target's zone"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Dig In",
+                    "modifies": "Take Cover",
+                    "description": "Modifies Take Cover. Anchor gains [Cover 2] and [Optimized] on its next ranged attack. Cannot move this turn."
                   },
                   "gambit": {
-                    "name": "Attack Run",
+                    "name": "Pinning Barrage",
                     "cost": "-1 Power",
-                    "description": "Dive attack. +2 Power but [Vulnerable] until next turn."
+                    "description": "In addition to normal effects, target gains [Suppressed] Tactical. Target cannot use Move next turn.",
+                    "rider": "[Suppressed]"
                   },
                   "exploit": {
-                    "name": "Collision Course",
-                    "description": "When destroyed, debris may damage nearby ships."
-                  }
+                    "name": "Covering Fire",
+                    "trigger": "An ally in the Anchor's zone or an adjacent zone takes damage.",
+                    "description": "Immediately make an attack at -2 Power against the attacker if in weapon range."
+                  },
+                  "powerSource": "ranged"
                 },
-                "notes": "Ship-scale minions. Glass cannons — high evasion, low vitality. Masterful+ = destroyed. Dangerous in numbers via Swarm Tactics."
+                "notes": "Ship-scale minions. Glass cannons — high evasion, low vitality. Masterful+ = destroyed. Dangerous in numbers via Swarm Tactics.",
+                "powerSource": "ranged"
               }
             }
           ],
@@ -4386,21 +4721,36 @@
                   }
                 },
                 "roleKit": {
-                  "passive": {
-                    "name": "The Man in the Chair",
-                    "description": "Varth provides remote tactical support. +1 tier on one skill check per scene when he can communicate."
+                  "roleName": "Support / Leader",
+                  "action": {
+                    "name": "Inspire",
+                    "defense": "dodge/endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + one ally within 2 zones gains [Optimized] on next action",
+                      "legendary": "Chassis damage + all allies within 2 zones gain [Optimized] on next action"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Tactical Brief",
+                    "modifies": "Coordinate",
+                    "description": "Modifies Coordinate. Choose one ally within 2 zones. That ally gains +1 Power and +1 Defense until end of round."
                   },
                   "gambit": {
-                    "name": "Calculated Sacrifice",
+                    "name": "Direct Fire",
                     "cost": "-1 Power",
-                    "description": "Designate one ally as \"expendable\" for the scene. That ally gains +2 Power but Varth won't help them if they go down."
+                    "description": "Instead of attacking, one ally within 2 zones immediately makes an attack at +1 Power.",
+                    "rider": "Ally attacks at +1 Power"
                   },
                   "exploit": {
-                    "name": "Imperial Codes",
-                    "description": "Once per adventure, use Imperial command codes to cause a brief disruption — communications blackout, door overrides, etc."
-                  }
+                    "name": "Last Stand",
+                    "trigger": "The Support drops below half Vitality.",
+                    "description": "All allies within 2 zones gain +1 Power until end of next round. Once per scene."
+                  },
+                  "powerSource": "leader"
                 },
-                "notes": "Varth is the party's handler, not a fighter. His \"Calculated Sacrifice\" gambit is mechanically reflective of his character — he will sacrifice allies for the mission. The heroes should notice this pattern."
+                "notes": "Varth is the party's handler, not a fighter. His \"Calculated Sacrifice\" gambit is mechanically reflective of his character — he will sacrifice allies for the mission. The heroes should notice this pattern.",
+                "powerSource": "leader"
               }
             },
             {
@@ -4446,17 +4796,36 @@
                   }
                 },
                 "roleKit": {
-                  "passive": {
-                    "name": "Veteran Smuggler",
-                    "description": "Piloting checks in her ship gain +1 Power. Immune to [Rattled] from Imperial threats."
+                  "roleName": "Harrier / Ranged",
+                  "action": {
+                    "name": "Strafing Shot",
+                    "defense": "dodge/endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + [Suppressed]",
+                      "legendary": "Chassis damage + [Suppressed] + [Exposed]"
+                    }
                   },
-                  "gambit": null,
+                  "maneuver": {
+                    "name": "Reposition",
+                    "modifies": "Move",
+                    "description": "Modifies Move. Move up to 2 zones. If the Harrier ends farther from all enemies than it started, +1 Power on next attack."
+                  },
+                  "gambit": {
+                    "name": "Pinning Fire",
+                    "cost": "-1 Power",
+                    "description": "In addition to normal effects, target gains [Slowed] Tactical.",
+                    "rider": "[Slowed]"
+                  },
                   "exploit": {
-                    "name": "Last-Second Save",
-                    "description": "When the code is transmitted, Okeefe can steer the Shackles clear of the Hauler."
-                  }
+                    "name": "Snap Shot",
+                    "trigger": "A PC uses Move to enter or cross a zone within weapon range.",
+                    "description": "Immediately attack that PC at -2 Power."
+                  },
+                  "powerSource": "ranged"
                 },
-                "notes": "Recurring ally. Same base stats as Adv1. Trapped on the Shackles of Nizon — can't fight, can only fly if the slave circuits are freed. (Recurring. Furious at Varth. Trust deeply damaged.)"
+                "notes": "Recurring ally. Same base stats as Adv1. Trapped on the Shackles of Nizon — can't fight, can only fly if the slave circuits are freed. (Recurring. Furious at Varth. Trust deeply damaged.)",
+                "powerSource": "ranged"
               }
             }
           ],

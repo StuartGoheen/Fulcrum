@@ -219,19 +219,233 @@ What stays the same: the tactical identity. A Threat/Martial and a Threat/Ranged
 
 ### THREAT
 
-*Remaining roles to be designed — see Task #85*
+**Core identity:** The damage priority. The NPC the PCs must focus or the party bleeds. Every Threat variant says "deal with me NOW."
+
+#### THREAT / MARTIAL
+*Vibro-axe brute, Wookiee berserker, rancor, gladiator champion*
+
+| Slot | Name | Details |
+|---|---|---|
+| **Action** | **Devastating Blow** | Weapon attack. Defense: endure |
+| | F (1-3) | Chassis damage |
+| | M (4-7) | Chassis damage + [Staggered] |
+| | L (8+) | Chassis damage + [Staggered] + [Prone] |
+| **Maneuver** | **Intimidating Advance** | Modifies Move. Move 1 zone toward a target. That target must succeed on a Grit check vs Threat's Power or gain [Rattled]. |
+| **Gambit** | **Brutal Strike** | -1 Power. Rider: [Staggered] |
+| **Exploit** | **Predator's Opening** | Trigger: A PC in the same zone takes damage from another source this round. Effect: Immediately attack that PC at -2 Power. |
+
+#### THREAT / RANGED
+*Heavy repeater gunner, sniper, turret operator, AT-ST gunner*
+
+| Slot | Name | Details |
+|---|---|---|
+| **Action** | **Dead Shot** | Weapon attack. Defense: dodge |
+| | F (1-3) | Chassis damage |
+| | M (4-7) | Chassis damage + [Suppressed] |
+| | L (8+) | Chassis damage + [Suppressed] + [Exposed] |
+| **Maneuver** | **Marked Target** | Modifies Aim. Designate one visible target. +1 Power against that target until end of round. If target moves, may shift aim as free action. |
+| **Gambit** | **Crippling Shot** | -1 Power. Rider: [Slowed] |
+| **Exploit** | **Kill Shot** | Trigger: A PC in weapon range drops below half Vitality. Effect: Immediately attack that PC at -2 Power. |
+
+#### THREAT / FORCE
+*Sith Lord, dark side beast, Nightsister matriarch, ancient Force construct*
+
+| Slot | Name | Details |
+|---|---|---|
+| **Action** | **Force Crush** | Force attack. Defense: resist |
+| | F (1-3) | Chassis damage |
+| | M (4-7) | Chassis damage + [Weakened] |
+| | L (8+) | Chassis damage + [Weakened] + [Restrained] |
+| **Maneuver** | **Dark Presence** | Modifies Move. Move 1 zone. All enemies in the destination zone must succeed on a Grit check vs Threat's Power or gain [Rattled]. |
+| **Gambit** | **Force Rend** | -1 Power. Rider: [Disoriented] |
+| **Exploit** | **Dark Retribution** | Trigger: A PC in the same zone successfully damages the Threat. Effect: That PC gains [Rattled]. |
+
+#### THREAT / LEADER
+*Warlord, pirate captain, gladiatorial ringmaster*
+
+| Slot | Name | Details |
+|---|---|---|
+| **Action** | **Execute Order** | Weapon or command. Defense: dodge/endure |
+| | F (1-3) | Chassis damage |
+| | M (4-7) | Chassis damage + one ally in same zone gains +1 Power until end of round |
+| | L (8+) | Chassis damage + ally gains +1 Power + that ally may immediately attack at -2 Power |
+| **Maneuver** | **Press the Attack** | Modifies Coordinate. Choose one ally within 2 zones. That ally gains [Optimized] on next attack AND +1 Power until end of round. |
+| **Gambit** | **Overwhelming Command** | -1 Power. Rider: [Exposed] — coordinated assault strips defenses. |
+| **Exploit** | **Demand Obedience** | Trigger: An ally in the same zone is reduced to 0 Vitality. Effect: Another ally within 2 zones immediately moves 1 zone toward the attacker and gains +1 Power. |
+
+---
 
 ### ANCHOR
 
-*To be designed*
+**Core identity:** Holds ground, blocks access, protects a position or VIP. Hard to move, hard to ignore.
+
+#### ANCHOR / MARTIAL
+*Shield trooper, riot squad, armored beast blocking a corridor*
+
+| Slot | Name | Details |
+|---|---|---|
+| **Action** | **Shield Slam** | Weapon attack. Defense: endure |
+| | F (1-3) | Chassis damage |
+| | M (4-7) | Chassis damage + push target 1 zone |
+| | L (8+) | Chassis damage + push 1 zone + [Prone] |
+| **Maneuver** | **Lockdown** | Modifies Move. The Anchor does not move. Instead, enemies in the Anchor's zone cannot move to another zone without succeeding on a Physique check vs Anchor's Defense. |
+| **Gambit** | **Shove Back** | -1 Power. Rider: Push 1 zone. Anchor holds position. |
+| **Exploit** | **Intercept** | Trigger: An enemy in the Anchor's zone attacks an ally. Effect: The Anchor becomes the target instead. |
+
+#### ANCHOR / RANGED
+*E-Web gunner, entrenched trooper, fire-team in cover*
+
+| Slot | Name | Details |
+|---|---|---|
+| **Action** | **Disciplined Fire** | Weapon attack. Defense: dodge |
+| | F (1-3) | Chassis damage |
+| | M (4-7) | Chassis damage + [Suppressed] |
+| | L (8+) | Chassis damage + [Suppressed] to all enemies in target's zone |
+| **Maneuver** | **Dig In** | Modifies Take Cover. Anchor gains [Cover 2] and [Optimized] on next ranged attack. Cannot move this turn. |
+| **Gambit** | **Pinning Barrage** | -1 Power. Rider: [Suppressed]. Target cannot use Move next turn. |
+| **Exploit** | **Covering Fire** | Trigger: An ally in same/adjacent zone takes damage. Effect: Immediately attack the attacker at -2 Power (if in range). |
+
+#### ANCHOR / FORCE
+*Temple guardian, Force-barrier monk, Sith sentinel*
+
+| Slot | Name | Details |
+|---|---|---|
+| **Action** | **Force Barrier Strike** | Force attack. Defense: resist |
+| | F (1-3) | Chassis damage |
+| | M (4-7) | Chassis damage + Anchor gains [Buffered 1] |
+| | L (8+) | Chassis damage + [Buffered 2] + push target 1 zone |
+| **Maneuver** | **Force Anchor** | Modifies Take Cover. Anchor projects a Force barrier: gains [Cover 2]. One ally in the same zone also gains [Cover 1]. |
+| **Gambit** | **Repulse** | -1 Power. Rider: Push ALL enemies in the Anchor's zone 1 zone away. |
+| **Exploit** | **Force Wall** | Trigger: An enemy attempts to enter the Anchor's zone. Effect: Must succeed on Grit check vs Anchor's Power or stop in adjacent zone. |
+
+#### ANCHOR / LEADER
+*Squad sergeant, defensive commander, bodyguard captain*
+
+| Slot | Name | Details |
+|---|---|---|
+| **Action** | **Hold the Line** | Weapon or command. Defense: dodge/endure |
+| | F (1-3) | Chassis damage |
+| | M (4-7) | Chassis damage + one ally in same zone gains [Cover 1] |
+| | L (8+) | Chassis damage + ally gains [Cover 2] + that ally gains +1 Power until end of round |
+| **Maneuver** | **Rally Point** | Modifies Coordinate. All allies in the Anchor's zone gain +1 Defense until end of round. Anchor cannot move this turn. |
+| **Gambit** | **Stand Fast** | -1 Power. Instead of attacking, remove one condition from the Anchor AND one ally in the same zone. |
+| **Exploit** | **Bodyguard** | Trigger: An ally within 1 zone would take damage. Effect: The Anchor takes the damage instead. If the Anchor has [Cover], apply Cover first. |
+
+---
 
 ### CONTROLLER
 
-*To be designed*
+**Core identity:** Battlefield manipulation. Conditions, forced movement, zone hazards, social pressure. Makes the fight unfair.
+
+#### CONTROLLER / MARTIAL
+*Slaver with a net, brawler who cripples limbs, beast that pins prey*
+
+| Slot | Name | Details |
+|---|---|---|
+| **Action** | **Crippling Strike** | Weapon attack. Defense: endure |
+| | F (1-3) | Chassis damage |
+| | M (4-7) | Chassis damage + [Slowed] |
+| | L (8+) | Chassis damage + [Slowed] + [Weakened] |
+| **Maneuver** | **Menacing Presence** | Modifies Move. Move 1 zone. All enemies in the destination zone gain [Disadvantage] on their next attack. |
+| **Gambit** | **Disabling Blow** | -1 Power. Rider: [Dazed]. Target loses Maneuver next turn. |
+| **Exploit** | **Punishing Counter** | Trigger: A PC in the Controller's zone misses an attack. Effect: That PC gains [Exposed] until end of their next turn. |
+
+#### CONTROLLER / RANGED
+*Sniper who pins zones, E-Web suppression specialist, area denial trooper*
+
+| Slot | Name | Details |
+|---|---|---|
+| **Action** | **Suppressive Volley** | Weapon attack. Defense: dodge |
+| | F (1-3) | Chassis damage |
+| | M (4-7) | Chassis damage + [Suppressed] |
+| | L (8+) | Chassis damage + [Suppressed] + zone becomes [Hazard 1] until end of next round |
+| **Maneuver** | **Overwatch Position** | Modifies Overwatch. Declare a zone. Any PC that enters, leaves, or acts in that zone presents an Opening AND gains [Suppressed]. |
+| **Gambit** | **Disrupt** | -1 Power. Rider: [Dazed]. Target loses Maneuver next turn. |
+| **Exploit** | **Denial Fire** | Trigger: A PC enters a zone the Controller has declared Overwatch. Effect: Immediately attack at -2 Power. |
+
+#### CONTROLLER / FORCE
+*Inquisitor, Nightsister witch, Sith sorcerer, dark side nexus*
+
+| Slot | Name | Details |
+|---|---|---|
+| **Action** | **Mind Spike** | Force attack. Defense: resist |
+| | F (1-3) | Chassis damage |
+| | M (4-7) | Chassis damage + [Disoriented] |
+| | L (8+) | Chassis damage + [Disoriented] + [Rattled] |
+| **Maneuver** | **Force Dominion** | Modifies Move. Instead of moving, designate the Controller's zone as [Difficult Terrain] for enemies until end of next round. Enemies inside gain [Slowed]. |
+| **Gambit** | **Force Choke** | -1 Power. Rider: [Restrained]. Target cannot use Move next turn. |
+| **Exploit** | **Psychic Backlash** | Trigger: A PC in the Controller's zone uses a social or Force action. Effect: That PC gains [Disoriented]. |
+
+#### CONTROLLER / LEADER
+*Crime lord, ISB interrogator, Hutt pulling strings, tactical commander*
+
+| Slot | Name | Details |
+|---|---|---|
+| **Action** | **Dictate Terms** | Social/command. Defense: resist |
+| | F (1-3) | Chassis damage |
+| | M (4-7) | Chassis damage + [Rattled] |
+| | L (8+) | Chassis damage + [Rattled] + target must move 1 zone (Controller's choice) |
+| **Maneuver** | **Tactical Redeployment** | Modifies Coordinate. Move up to 2 allies within 2 zones each 1 zone (Controller's choice). Those allies gain [Optimized] on next action. |
+| **Gambit** | **Exploit Weakness** | -1 Power. Rider: [Exposed]. Controller identifies and broadcasts target's vulnerability. |
+| **Exploit** | **Contingency Order** | Trigger: An ally within 2 zones is targeted by an attack. Effect: That ally may immediately move 1 zone before the attack resolves. |
+
+---
 
 ### SUPPORT
 
-*To be designed*
+**Core identity:** Force multiplier. Buffs allies, removes conditions, makes other NPCs scarier. Kill the Support first or the fight never ends.
+
+#### SUPPORT / MARTIAL
+*Field medic, shield-bearer who protects the squad, combat engineer*
+
+| Slot | Name | Details |
+|---|---|---|
+| **Action** | **Bolstering Strike** | Weapon attack. Defense: endure |
+| | F (1-3) | Chassis damage |
+| | M (4-7) | Chassis damage + one ally in same zone heals 1 Vitality |
+| | L (8+) | Chassis damage + ally heals 2 Vitality + remove one condition from that ally |
+| **Maneuver** | **Shield Wall** | Modifies Move. Move 1 zone. One ally in the destination zone gains [Cover 1] until end of next round. |
+| **Gambit** | **Rally** | -1 Power. Instead of attacking, remove one condition from an ally in the same zone. |
+| **Exploit** | **Emergency Aid** | Trigger: An ally in the same zone is reduced to 0 Vitality. Effect: That ally is instead reduced to 1 Vitality. Once per scene. |
+
+#### SUPPORT / RANGED
+*Covering fire specialist, spotter, sniper team coordinator*
+
+| Slot | Name | Details |
+|---|---|---|
+| **Action** | **Covering Strike** | Weapon attack. Defense: dodge |
+| | F (1-3) | Chassis damage |
+| | M (4-7) | Chassis damage + one ally gains [Cover 1] |
+| | L (8+) | Chassis damage + ally gains [Cover 2] + ally gains +1 Power until end of round |
+| **Maneuver** | **Suppressive Assist** | Modifies Overwatch. Declare a zone. Allies in that zone gain +1 Defense until end of round. Enemies entering present Openings. |
+| **Gambit** | **Smoke Screen** | -1 Power. Instead of attacking, create [Concealment] in a zone within weapon range until end of next round. Allies gain +1 Evasion. |
+| **Exploit** | **Covering Volley** | Trigger: An ally within weapon range takes damage. Effect: That ally gains [Cover 1] against the next attack targeting them. |
+
+#### SUPPORT / FORCE
+*Jedi healer, Force-sensitive shaman, Nightsister life-weaver*
+
+| Slot | Name | Details |
+|---|---|---|
+| **Action** | **Force Mend** | Force attack/heal. Defense: resist |
+| | F (1-3) | Chassis damage OR heal 1 ally Vitality in same zone |
+| | M (4-7) | Chassis damage + heal 2 Vitality to one ally in same zone |
+| | L (8+) | Chassis damage + heal 3 Vitality + remove one condition from that ally |
+| **Maneuver** | **Battle Meditation** | Modifies Coordinate. All allies within 2 zones gain +1 Power until end of round. Support cannot move this turn. |
+| **Gambit** | **Force Heal** | -1 Power. Instead of attacking, heal one ally in the same zone for 2 Vitality and remove one condition. |
+| **Exploit** | **Force Shield** | Trigger: An ally within 2 zones would take damage. Effect: Reduce that damage by 2. |
+
+#### SUPPORT / LEADER
+*Imperial officer, squad leader, clan chief, ship captain*
+
+| Slot | Name | Details |
+|---|---|---|
+| **Action** | **Inspire** | Weapon or command. Defense: dodge/endure |
+| | F (1-3) | Chassis damage |
+| | M (4-7) | Chassis damage + one ally within 2 zones gains [Optimized] on next action |
+| | L (8+) | Chassis damage + all allies within 2 zones gain [Optimized] on next action |
+| **Maneuver** | **Tactical Brief** | Modifies Coordinate. Choose one ally within 2 zones. That ally gains +1 Power and +1 Defense until end of round. |
+| **Gambit** | **Direct Fire** | -1 Power. Instead of attacking, one ally within 2 zones immediately makes an attack at +1 Power. |
+| **Exploit** | **Last Stand** | Trigger: The Support drops below half Vitality. Effect: All allies within 2 zones gain +1 Power until end of next round. Once per scene. |
 
 ---
 

@@ -142,21 +142,36 @@
                   }
                 },
                 "roleKit": {
-                  "passive": {
-                    "name": "Fleet Footed",
-                    "description": "May take 2 maneuvers per turn instead of 1."
+                  "roleName": "Harrier / Ranged",
+                  "action": {
+                    "name": "Strafing Shot",
+                    "defense": "dodge/endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + [Suppressed]",
+                      "legendary": "Chassis damage + [Suppressed] + [Exposed]"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Reposition",
+                    "modifies": "Move",
+                    "description": "Modifies Move. Move up to 2 zones. If the Harrier ends farther from all enemies than it started, +1 Power on next attack."
                   },
                   "gambit": {
-                    "name": "Hamstring",
+                    "name": "Pinning Fire",
                     "cost": "-1 Power",
-                    "description": "Target gains [Slowed] on hit."
+                    "description": "In addition to normal effects, target gains [Slowed] Tactical.",
+                    "rider": "[Slowed]"
                   },
                   "exploit": {
-                    "name": "Hit and Fade",
-                    "description": "After attacking, immediately mount swoop and move 2 zones."
-                  }
+                    "name": "Snap Shot",
+                    "trigger": "A PC uses Move to enter or cross a zone within weapon range.",
+                    "description": "Immediately attack that PC at -2 Power."
+                  },
+                  "powerSource": "ranged"
                 },
-                "notes": "Kessra is a recurring NPC. Consequence gate: humiliation here triggers aviary ambush in Scene 3."
+                "notes": "Kessra is a recurring NPC. Consequence gate: humiliation here triggers aviary ambush in Scene 3.",
+                "powerSource": "ranged"
               }
             },
             {
@@ -199,21 +214,36 @@
                   }
                 },
                 "roleKit": {
-                  "passive": {
-                    "name": "Fleet Footed",
-                    "description": "May take 2 maneuvers per turn."
+                  "roleName": "Harrier / Martial",
+                  "action": {
+                    "name": "Blindside",
+                    "defense": "dodge/endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + [Exposed]",
+                      "legendary": "Chassis damage + [Exposed] + free Move 1 zone (no Opening)"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Slip Away",
+                    "modifies": "Move",
+                    "description": "Modifies Move. When disengaging, does not present an Opening to the target of its last attack. Move up to 2 zones."
                   },
                   "gambit": {
                     "name": "Hamstring",
                     "cost": "-1 Power",
-                    "description": "Target gains [Slowed]."
+                    "description": "In addition to normal effects, target gains [Slowed] Tactical.",
+                    "rider": "[Slowed]"
                   },
                   "exploit": {
-                    "name": "Scatter",
-                    "description": "If leader is downed, all Vipers disengage and flee."
-                  }
+                    "name": "Pursuit",
+                    "trigger": "A PC in the Harrier's zone uses Move to leave.",
+                    "description": "Harrier immediately moves to the same zone (no Opening)."
+                  },
+                  "powerSource": "martial"
                 },
-                "notes": "Minion gang. Masterful+ = takedown. Paper tigers — flee if Kessra falls."
+                "notes": "Minion gang. Masterful+ = takedown. Paper tigers — flee if Kessra falls.",
+                "powerSource": "martial"
               }
             },
             {
@@ -315,21 +345,36 @@
                   }
                 },
                 "roleKit": {
-                  "passive": {
-                    "name": "Unrelenting",
-                    "description": "Ignore the first [Weakened] condition per scene."
+                  "roleName": "Threat / Martial",
+                  "action": {
+                    "name": "Devastating Blow",
+                    "defense": "endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + [Staggered]",
+                      "legendary": "Chassis damage + [Staggered] + [Prone]"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Intimidating Advance",
+                    "modifies": "Move",
+                    "description": "Modifies Move. Move 1 zone toward a target. That target must succeed on a Grit check vs Threat's Power or gain [Rattled]."
                   },
                   "gambit": {
-                    "name": "Knockdown",
+                    "name": "Brutal Strike",
                     "cost": "-1 Power",
-                    "description": "Target gains [Prone]."
+                    "description": "In addition to normal effects, target gains [Staggered] Tactical.",
+                    "rider": "[Staggered]"
                   },
                   "exploit": {
-                    "name": "Regeneration",
-                    "description": "At end of turn, heal 1 Vitality. Trandoshan biology."
-                  }
+                    "name": "Predator's Opening",
+                    "trigger": "A PC in the same zone takes damage from another source this round.",
+                    "description": "Immediately make an attack against that PC at -2 Power."
+                  },
+                  "powerSource": "martial"
                 },
-                "notes": "Standard Brutes. Tough = ignore Fleeting damage. Scent Track bypasses steam concealment. A real fight."
+                "notes": "Standard Brutes. Tough = ignore Fleeting damage. Scent Track bypasses steam concealment. A real fight.",
+                "powerSource": "martial"
               }
             },
             {
@@ -376,21 +421,36 @@
                   }
                 },
                 "roleKit": {
-                  "passive": {
-                    "name": "Unrelenting",
-                    "description": "Ignore the first [Weakened] condition per scene."
+                  "roleName": "Threat / Martial",
+                  "action": {
+                    "name": "Devastating Blow",
+                    "defense": "endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + [Staggered]",
+                      "legendary": "Chassis damage + [Staggered] + [Prone]"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Intimidating Advance",
+                    "modifies": "Move",
+                    "description": "Modifies Move. Move 1 zone toward a target. That target must succeed on a Grit check vs Threat's Power or gain [Rattled]."
                   },
                   "gambit": {
-                    "name": "Suppressive Barrage",
+                    "name": "Brutal Strike",
                     "cost": "-1 Power",
-                    "description": "Area fire. All targets in zone gain [Suppressed]."
+                    "description": "In addition to normal effects, target gains [Staggered] Tactical.",
+                    "rider": "[Staggered]"
                   },
                   "exploit": {
-                    "name": "Overload",
-                    "description": "When reduced to 0 Vitality, explodes. [Hazard 3] in zone."
-                  }
+                    "name": "Predator's Opening",
+                    "trigger": "A PC in the same zone takes damage from another source this round.",
+                    "description": "Immediately make an attack against that PC at -2 Power."
+                  },
+                  "powerSource": "martial"
                 },
-                "notes": "Elite Brute Droid. Defense 8. Iron Clad: uses Defense vs Evasion attacks. Vulnerable to Ion damage."
+                "notes": "Elite Brute Droid. Defense 8. Iron Clad: uses Defense vs Evasion attacks. Vulnerable to Ion damage.",
+                "powerSource": "martial"
               }
             }
           ],
@@ -683,21 +743,36 @@
                   "actions": 2
                 },
                 "roleKit": {
-                  "passive": {
-                    "name": "Absolute Authority",
-                    "description": "All allies in Varga's court gain +1 to Resist social attacks. His presence is law."
+                  "roleName": "Support / Martial",
+                  "action": {
+                    "name": "Bolstering Strike",
+                    "defense": "endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + one ally in the same zone heals 1 Vitality",
+                      "legendary": "Chassis damage + ally heals 2 Vitality + remove one condition from that ally"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Shield Wall",
+                    "modifies": "Move",
+                    "description": "Modifies Move. Move 1 zone. One ally in the destination zone gains [Cover 1] until end of next round."
                   },
                   "gambit": {
-                    "name": "Example",
+                    "name": "Rally",
                     "cost": "-1 Power",
-                    "description": "Order guards to execute a prisoner or destroy property. All witnesses gain [Shaken]."
+                    "description": "Instead of attacking, remove one condition from an ally in the same zone.",
+                    "rider": "Cleanse 1 condition"
                   },
                   "exploit": {
-                    "name": "Bounty",
-                    "description": "Declare a bounty on one target. All mercenaries in the fortress gain +1 Power vs that target for the scene."
-                  }
+                    "name": "Emergency Aid",
+                    "trigger": "An ally in the same zone is reduced to 0 Vitality.",
+                    "description": "That ally is instead reduced to 1 Vitality. Usable once per scene."
+                  },
+                  "powerSource": "martial"
                 },
-                "notes": "Varga is a crime lord, not a fighter. Boss x2 Vitality = 24. He fights through his army. Direct combat is a mistake."
+                "notes": "Varga is a crime lord, not a fighter. Boss x2 Vitality = 24. He fights through his army. Direct combat is a mistake.",
+                "powerSource": "martial"
               }
             },
             {
@@ -794,21 +869,36 @@
                   }
                 },
                 "roleKit": {
-                  "passive": {
-                    "name": "Untrained Sensitivity",
-                    "description": "Demos can sense Force disturbances but cannot control it. He senses Denia's awakening and any Force use in the palace."
+                  "roleName": "Controller / Force",
+                  "action": {
+                    "name": "Mind Spike",
+                    "defense": "resist",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + [Disoriented]",
+                      "legendary": "Chassis damage + [Disoriented] + [Rattled]"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Force Dominion",
+                    "modifies": "Move",
+                    "description": "Modifies Move. Instead of moving, the Controller designates its zone as [Difficult Terrain] for enemies until end of next round. Enemies inside gain [Slowed]."
                   },
                   "gambit": {
-                    "name": "Force Stagger",
+                    "name": "Force Choke",
                     "cost": "-1 Power",
-                    "description": "Target gains [Disoriented]."
+                    "description": "In addition to normal effects, target gains [Restrained] Tactical. Cannot use Move next turn.",
+                    "rider": "[Restrained]"
                   },
                   "exploit": {
-                    "name": "Desperate Surge",
-                    "description": "Once per encounter, double Power on a Force attack. Costs 2 Vitality."
-                  }
+                    "name": "Psychic Backlash",
+                    "trigger": "A PC in the Controller's zone successfully uses a social or Force action.",
+                    "description": "That PC gains [Disoriented]. The Controller's Force presence disrupts concentration."
+                  },
+                  "powerSource": "force"
                 },
-                "notes": "Elite mini-boss. Untrained Force user — dangerous but sloppy. Plotting to usurp Varga. Full combat in Scene 5."
+                "notes": "Elite mini-boss. Untrained Force user — dangerous but sloppy. Plotting to usurp Varga. Full combat in Scene 5.",
+                "powerSource": "force"
               }
             },
             {
@@ -853,21 +943,36 @@
                   }
                 },
                 "roleKit": {
-                  "passive": {
-                    "name": "Unrelenting",
-                    "description": "Ignore first [Weakened] per scene."
+                  "roleName": "Threat / Martial",
+                  "action": {
+                    "name": "Devastating Blow",
+                    "defense": "endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + [Staggered]",
+                      "legendary": "Chassis damage + [Staggered] + [Prone]"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Intimidating Advance",
+                    "modifies": "Move",
+                    "description": "Modifies Move. Move 1 zone toward a target. That target must succeed on a Grit check vs Threat's Power or gain [Rattled]."
                   },
                   "gambit": {
-                    "name": "Knockdown",
+                    "name": "Brutal Strike",
                     "cost": "-1 Power",
-                    "description": "Target gains [Prone]."
+                    "description": "In addition to normal effects, target gains [Staggered] Tactical.",
+                    "rider": "[Staggered]"
                   },
                   "exploit": {
-                    "name": "Berserk",
-                    "description": "When below half Vitality, +1 Power on all attacks."
-                  }
+                    "name": "Predator's Opening",
+                    "trigger": "A PC in the same zone takes damage from another source this round.",
+                    "description": "Immediately make an attack against that PC at -2 Power."
+                  },
+                  "powerSource": "martial"
                 },
-                "notes": "Minion Brutes. Tough. Masterful+ = takedown. Palace guards — vibro-axes and bad attitudes."
+                "notes": "Minion Brutes. Tough. Masterful+ = takedown. Palace guards — vibro-axes and bad attitudes.",
+                "powerSource": "martial"
               }
             }
           ],
@@ -1109,21 +1214,36 @@
                   }
                 },
                 "roleKit": {
-                  "passive": {
-                    "name": "Arena Veteran",
-                    "description": "Gorrak has fought hundreds of bouts. He reads feints and recovers from mistakes. Immune to [Disoriented]."
+                  "roleName": "Threat / Martial",
+                  "action": {
+                    "name": "Devastating Blow",
+                    "defense": "endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + [Staggered]",
+                      "legendary": "Chassis damage + [Staggered] + [Prone]"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Intimidating Advance",
+                    "modifies": "Move",
+                    "description": "Modifies Move. Move 1 zone toward a target. That target must succeed on a Grit check vs Threat's Power or gain [Rattled]."
                   },
                   "gambit": {
-                    "name": "Knockdown",
+                    "name": "Brutal Strike",
                     "cost": "-1 Power",
-                    "description": "Target gains [Prone]."
+                    "description": "In addition to normal effects, target gains [Staggered] Tactical.",
+                    "rider": "[Staggered]"
                   },
                   "exploit": {
-                    "name": "Regeneration",
-                    "description": "Heal 1 Vitality at end of turn. Trandoshan biology."
-                  }
+                    "name": "Predator's Opening",
+                    "trigger": "A PC in the same zone takes damage from another source this round.",
+                    "description": "Immediately make an attack against that PC at -2 Power."
+                  },
+                  "powerSource": "martial"
                 },
-                "notes": "Elite Brute gladiator. Tougher than standard Trandoshans (elite = 1.5x Vitality). Crowd favorite — Varga bets heavily on him."
+                "notes": "Elite Brute gladiator. Tougher than standard Trandoshans (elite = 1.5x Vitality). Crowd favorite — Varga bets heavily on him.",
+                "powerSource": "martial"
               }
             },
             {
@@ -1229,14 +1349,36 @@
                   }
                 },
                 "roleKit": {
-                  "passive": {
-                    "name": "Invisible Servant",
-                    "description": "Narek moves through the court unseen. Slaves are furniture to the powerful."
+                  "roleName": "Harrier / Ranged",
+                  "action": {
+                    "name": "Strafing Shot",
+                    "defense": "dodge/endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + [Suppressed]",
+                      "legendary": "Chassis damage + [Suppressed] + [Exposed]"
+                    }
                   },
-                  "gambit": null,
-                  "exploit": null
+                  "maneuver": {
+                    "name": "Reposition",
+                    "modifies": "Move",
+                    "description": "Modifies Move. Move up to 2 zones. If the Harrier ends farther from all enemies than it started, +1 Power on next attack."
+                  },
+                  "gambit": {
+                    "name": "Pinning Fire",
+                    "cost": "-1 Power",
+                    "description": "In addition to normal effects, target gains [Slowed] Tactical.",
+                    "rider": "[Slowed]"
+                  },
+                  "exploit": {
+                    "name": "Snap Shot",
+                    "trigger": "A PC uses Move to enter or cross a zone within weapon range.",
+                    "description": "Immediately attack that PC at -2 Power."
+                  },
+                  "powerSource": "ranged"
                 },
-                "notes": "Narek is desperate, not evil. He wants to poison Varga because the Hutt sold his family. If saved, he is grateful but emotionally broken — Skreev exploits this."
+                "notes": "Narek is desperate, not evil. He wants to poison Varga because the Hutt sold his family. If saved, he is grateful but emotionally broken — Skreev exploits this.",
+                "powerSource": "ranged"
               }
             },
             {
@@ -1282,21 +1424,36 @@
                   }
                 },
                 "roleKit": {
-                  "passive": {
-                    "name": "Wookiee Rage",
-                    "description": "When below half Vitality, +2 Power on melee attacks."
+                  "roleName": "Threat / Martial",
+                  "action": {
+                    "name": "Devastating Blow",
+                    "defense": "endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + [Staggered]",
+                      "legendary": "Chassis damage + [Staggered] + [Prone]"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Intimidating Advance",
+                    "modifies": "Move",
+                    "description": "Modifies Move. Move 1 zone toward a target. That target must succeed on a Grit check vs Threat's Power or gain [Rattled]."
                   },
                   "gambit": {
-                    "name": "Hurl",
+                    "name": "Brutal Strike",
                     "cost": "-1 Power",
-                    "description": "Throw a [Restrained] target 1 zone. They gain [Prone]."
+                    "description": "In addition to normal effects, target gains [Staggered] Tactical.",
+                    "rider": "[Staggered]"
                   },
                   "exploit": {
-                    "name": "Last Stand",
-                    "description": "When reduced to 0 Vitality, make one final attack at +3 Power before going down."
-                  }
+                    "name": "Predator's Opening",
+                    "trigger": "A PC in the same zone takes damage from another source this round.",
+                    "description": "Immediately make an attack against that PC at -2 Power."
+                  },
+                  "powerSource": "martial"
                 },
-                "notes": "Dangerous melee combatant. Heavy chassis = significant damage. The real muscle in the Knife in the Dark encounter."
+                "notes": "Dangerous melee combatant. Heavy chassis = significant damage. The real muscle in the Knife in the Dark encounter.",
+                "powerSource": "martial"
               }
             },
             {
@@ -1342,21 +1499,36 @@
                   }
                 },
                 "roleKit": {
-                  "passive": {
-                    "name": "Ambush Predator",
-                    "description": "+2 Power on the first attack if target is unaware or surprised."
+                  "roleName": "Harrier / Ranged",
+                  "action": {
+                    "name": "Strafing Shot",
+                    "defense": "dodge/endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + [Suppressed]",
+                      "legendary": "Chassis damage + [Suppressed] + [Exposed]"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Reposition",
+                    "modifies": "Move",
+                    "description": "Modifies Move. Move up to 2 zones. If the Harrier ends farther from all enemies than it started, +1 Power on next attack."
                   },
                   "gambit": {
-                    "name": "Garrote",
+                    "name": "Pinning Fire",
                     "cost": "-1 Power",
-                    "description": "Target gains [Restrained] and [Silenced]."
+                    "description": "In addition to normal effects, target gains [Slowed] Tactical.",
+                    "rider": "[Slowed]"
                   },
                   "exploit": {
-                    "name": "Escape Artist",
-                    "description": "If reduced below half Vitality, Skreev attempts to flee. Athletics or Evasion to catch."
-                  }
+                    "name": "Snap Shot",
+                    "trigger": "A PC uses Move to enter or cross a zone within weapon range.",
+                    "description": "Immediately attack that PC at -2 Power."
+                  },
+                  "powerSource": "ranged"
                 },
-                "notes": "Assassin. Ambush Predator makes his opening strike dangerous. Flee instinct if outmatched."
+                "notes": "Assassin. Ambush Predator makes his opening strike dangerous. Flee instinct if outmatched.",
+                "powerSource": "ranged"
               }
             },
             {
@@ -1402,14 +1574,36 @@
                   }
                 },
                 "roleKit": {
-                  "passive": {
-                    "name": "Swooping Attack",
-                    "description": "Raptors attack from above. Targets cannot use cover against their attacks."
+                  "roleName": "Harrier / Ranged",
+                  "action": {
+                    "name": "Strafing Shot",
+                    "defense": "dodge/endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + [Suppressed]",
+                      "legendary": "Chassis damage + [Suppressed] + [Exposed]"
+                    }
                   },
-                  "gambit": null,
-                  "exploit": null
+                  "maneuver": {
+                    "name": "Reposition",
+                    "modifies": "Move",
+                    "description": "Modifies Move. Move up to 2 zones. If the Harrier ends farther from all enemies than it started, +1 Power on next attack."
+                  },
+                  "gambit": {
+                    "name": "Pinning Fire",
+                    "cost": "-1 Power",
+                    "description": "In addition to normal effects, target gains [Slowed] Tactical.",
+                    "rider": "[Slowed]"
+                  },
+                  "exploit": {
+                    "name": "Snap Shot",
+                    "trigger": "A PC uses Move to enter or cross a zone within weapon range.",
+                    "description": "Immediately attack that PC at -2 Power."
+                  },
+                  "powerSource": "ranged"
                 },
-                "notes": "Minion beasts. Masterful+ = takedown. Dangerous in enclosed spaces because cover is negated. 4 raptors in a locked aviary = chaotic."
+                "notes": "Minion beasts. Masterful+ = takedown. Dangerous in enclosed spaces because cover is negated. 4 raptors in a locked aviary = chaotic.",
+                "powerSource": "ranged"
               }
             },
             {
@@ -1456,21 +1650,36 @@
                   }
                 },
                 "roleKit": {
-                  "passive": {
-                    "name": "Imperial Authority",
-                    "description": "Lady Sinde commands Stormtroopers. Her orders are obeyed without question."
+                  "roleName": "Support / Leader",
+                  "action": {
+                    "name": "Inspire",
+                    "defense": "dodge/endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + one ally within 2 zones gains [Optimized] on next action",
+                      "legendary": "Chassis damage + all allies within 2 zones gain [Optimized] on next action"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Tactical Brief",
+                    "modifies": "Coordinate",
+                    "description": "Modifies Coordinate. Choose one ally within 2 zones. That ally gains +1 Power and +1 Defense until end of round."
                   },
                   "gambit": {
-                    "name": "Ultimatum",
+                    "name": "Direct Fire",
                     "cost": "-1 Power",
-                    "description": "Target must comply or be marked for elimination."
+                    "description": "Instead of attacking, one ally within 2 zones immediately makes an attack at +1 Power.",
+                    "rider": "Ally attacks at +1 Power"
                   },
                   "exploit": {
-                    "name": "Call Reinforcements",
-                    "description": "Summon 4 Stormtrooper minions to her location."
-                  }
+                    "name": "Last Stand",
+                    "trigger": "The Support drops below half Vitality.",
+                    "description": "All allies within 2 zones gain +1 Power until end of next round. Once per scene."
+                  },
+                  "powerSource": "leader"
                 },
-                "notes": "Commander. Resist 5. She is a logistics officer, not a frontline fighter. Her danger is the army behind her. ISB identity is a discoverable secondary challenge."
+                "notes": "Commander. Resist 5. She is a logistics officer, not a frontline fighter. Her danger is the army behind her. ISB identity is a discoverable secondary challenge.",
+                "powerSource": "leader"
               }
             },
             {
@@ -1875,21 +2084,36 @@
                   "actions": 1
                 },
                 "roleKit": {
-                  "passive": {
-                    "name": "Weakened Master",
-                    "description": "Denia's stats represent her full potential. Currently: all physical actions [Weakened], Vitality halved (4), single action per round. Recovers over Adventures 4-9."
+                  "roleName": "Controller / Force",
+                  "action": {
+                    "name": "Mind Spike",
+                    "defense": "resist",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + [Disoriented]",
+                      "legendary": "Chassis damage + [Disoriented] + [Rattled]"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Force Dominion",
+                    "modifies": "Move",
+                    "description": "Modifies Move. Instead of moving, the Controller designates its zone as [Difficult Terrain] for enemies until end of next round. Enemies inside gain [Slowed]."
                   },
                   "gambit": {
-                    "name": "Force Calm",
+                    "name": "Force Choke",
                     "cost": "-1 Power",
-                    "description": "Remove [Shaken] or [Rattled] from one ally."
+                    "description": "In addition to normal effects, target gains [Restrained] Tactical. Cannot use Move next turn.",
+                    "rider": "[Restrained]"
                   },
                   "exploit": {
-                    "name": "Desperate Burst",
-                    "description": "Once per adventure, unleash full Force power. All enemies in zone gain [Stunned]. Denia collapses afterward."
-                  }
+                    "name": "Psychic Backlash",
+                    "trigger": "A PC in the Controller's zone successfully uses a social or Force action.",
+                    "description": "That PC gains [Disoriented]. The Controller's Force presence disrupts concentration."
+                  },
+                  "powerSource": "force"
                 },
-                "notes": "Jedi Master at full power — but weakened by 2 years in stasis. Current effective stats are halved. She is an NPC ally, not under player control."
+                "notes": "Jedi Master at full power — but weakened by 2 years in stasis. Current effective stats are halved. She is an NPC ally, not under player control.",
+                "powerSource": "force"
               }
             },
             {
@@ -1936,21 +2160,36 @@
                   }
                 },
                 "roleKit": {
-                  "passive": {
-                    "name": "Disciplined Fire",
-                    "description": "+1 Power on weapon attacks."
+                  "roleName": "Anchor / Martial",
+                  "action": {
+                    "name": "Shield Slam",
+                    "defense": "endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + push target 1 zone",
+                      "legendary": "Chassis damage + push 1 zone + [Prone]"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Lockdown",
+                    "modifies": "Move",
+                    "description": "Modifies Move. The Anchor does not move. Instead, enemies in the Anchor's zone cannot move to another zone without succeeding on a Physique check vs Anchor's Defense."
                   },
                   "gambit": {
-                    "name": "Overwatch Protocol",
+                    "name": "Shove Back",
                     "cost": "-1 Power",
-                    "description": "Hold action. Fire on first movement in line of sight."
+                    "description": "In addition to normal effects, push target 1 zone. The Anchor holds position.",
+                    "rider": "Push 1 zone"
                   },
                   "exploit": {
-                    "name": "Alert Network",
-                    "description": "Trigger palace-wide alarm. All security responds."
-                  }
+                    "name": "Intercept",
+                    "trigger": "An enemy in the Anchor's zone attacks an ally.",
+                    "description": "The Anchor becomes the target of the attack instead."
+                  },
+                  "powerSource": "martial"
                 },
-                "notes": "Iron Clad security droids. Defense 6. Vulnerable to Ion damage — Ion Grenade drops them instantly."
+                "notes": "Iron Clad security droids. Defense 6. Vulnerable to Ion damage — Ion Grenade drops them instantly.",
+                "powerSource": "martial"
               }
             },
             {
@@ -2222,21 +2461,36 @@
                   }
                 },
                 "roleKit": {
-                  "passive": {
-                    "name": "Untrained Sensitivity",
-                    "description": "Demos can sense Force disturbances but cannot control it. He senses Denia's awakening and any Force use in the palace."
+                  "roleName": "Controller / Force",
+                  "action": {
+                    "name": "Mind Spike",
+                    "defense": "resist",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + [Disoriented]",
+                      "legendary": "Chassis damage + [Disoriented] + [Rattled]"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Force Dominion",
+                    "modifies": "Move",
+                    "description": "Modifies Move. Instead of moving, the Controller designates its zone as [Difficult Terrain] for enemies until end of next round. Enemies inside gain [Slowed]."
                   },
                   "gambit": {
-                    "name": "Force Stagger",
+                    "name": "Force Choke",
                     "cost": "-1 Power",
-                    "description": "Target gains [Disoriented]."
+                    "description": "In addition to normal effects, target gains [Restrained] Tactical. Cannot use Move next turn.",
+                    "rider": "[Restrained]"
                   },
                   "exploit": {
-                    "name": "Desperate Surge",
-                    "description": "Once per encounter, double Power on a Force attack. Costs 2 Vitality."
-                  }
+                    "name": "Psychic Backlash",
+                    "trigger": "A PC in the Controller's zone successfully uses a social or Force action.",
+                    "description": "That PC gains [Disoriented]. The Controller's Force presence disrupts concentration."
+                  },
+                  "powerSource": "force"
                 },
-                "notes": "Elite mini-boss. Untrained Force user — dangerous but sloppy. Dies in this scene or stands down via Persuasion."
+                "notes": "Elite mini-boss. Untrained Force user — dangerous but sloppy. Dies in this scene or stands down via Persuasion.",
+                "powerSource": "force"
               }
             },
             {
@@ -2281,21 +2535,36 @@
                   }
                 },
                 "roleKit": {
-                  "passive": {
-                    "name": "Unrelenting",
-                    "description": "Ignore first [Weakened] per scene."
+                  "roleName": "Threat / Martial",
+                  "action": {
+                    "name": "Devastating Blow",
+                    "defense": "endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + [Staggered]",
+                      "legendary": "Chassis damage + [Staggered] + [Prone]"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Intimidating Advance",
+                    "modifies": "Move",
+                    "description": "Modifies Move. Move 1 zone toward a target. That target must succeed on a Grit check vs Threat's Power or gain [Rattled]."
                   },
                   "gambit": {
-                    "name": "Knockdown",
+                    "name": "Brutal Strike",
                     "cost": "-1 Power",
-                    "description": "Target gains [Prone]."
+                    "description": "In addition to normal effects, target gains [Staggered] Tactical.",
+                    "rider": "[Staggered]"
                   },
                   "exploit": {
-                    "name": "Regeneration",
-                    "description": "Heal 1 Vitality at end of turn."
-                  }
+                    "name": "Predator's Opening",
+                    "trigger": "A PC in the same zone takes damage from another source this round.",
+                    "description": "Immediately make an attack against that PC at -2 Power."
+                  },
+                  "powerSource": "martial"
                 },
-                "notes": "Standard Brutes. Bodyguard behavior — they protect Demos."
+                "notes": "Standard Brutes. Bodyguard behavior — they protect Demos.",
+                "powerSource": "martial"
               }
             }
           ],
@@ -2546,21 +2815,36 @@
                   }
                 },
                 "roleKit": {
-                  "passive": {
-                    "name": "Imperial Authority",
-                    "description": "Lady Sinde commands Stormtroopers. Her orders are obeyed without question."
+                  "roleName": "Support / Leader",
+                  "action": {
+                    "name": "Inspire",
+                    "defense": "dodge/endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + one ally within 2 zones gains [Optimized] on next action",
+                      "legendary": "Chassis damage + all allies within 2 zones gain [Optimized] on next action"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Tactical Brief",
+                    "modifies": "Coordinate",
+                    "description": "Modifies Coordinate. Choose one ally within 2 zones. That ally gains +1 Power and +1 Defense until end of round."
                   },
                   "gambit": {
-                    "name": "Ultimatum",
+                    "name": "Direct Fire",
                     "cost": "-1 Power",
-                    "description": "Target must comply or be marked for elimination."
+                    "description": "Instead of attacking, one ally within 2 zones immediately makes an attack at +1 Power.",
+                    "rider": "Ally attacks at +1 Power"
                   },
                   "exploit": {
-                    "name": "Call Reinforcements",
-                    "description": "Summon 4 Stormtrooper minions to her location."
-                  }
+                    "name": "Last Stand",
+                    "trigger": "The Support drops below half Vitality.",
+                    "description": "All allies within 2 zones gain +1 Power until end of next round. Once per scene."
+                  },
+                  "powerSource": "leader"
                 },
-                "notes": "Commander. Resist 5. (Recurring — same stat block as Scene 3.)"
+                "notes": "Commander. Resist 5. (Recurring — same stat block as Scene 3.)",
+                "powerSource": "leader"
               }
             },
             {
@@ -2607,21 +2891,36 @@
                   }
                 },
                 "roleKit": {
-                  "passive": {
+                  "roleName": "Anchor / Ranged",
+                  "action": {
                     "name": "Disciplined Fire",
-                    "description": "+1 Power on weapon attacks."
+                    "defense": "dodge",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + [Suppressed]",
+                      "legendary": "Chassis damage + [Suppressed] to all enemies in the target's zone"
+                    }
+                  },
+                  "maneuver": {
+                    "name": "Dig In",
+                    "modifies": "Take Cover",
+                    "description": "Modifies Take Cover. Anchor gains [Cover 2] and [Optimized] on its next ranged attack. Cannot move this turn."
                   },
                   "gambit": {
-                    "name": "Suppressive Fire",
+                    "name": "Pinning Barrage",
                     "cost": "-1 Power",
-                    "description": "Target gains [Pinned]."
+                    "description": "In addition to normal effects, target gains [Suppressed] Tactical. Target cannot use Move next turn.",
+                    "rider": "[Suppressed]"
                   },
                   "exploit": {
-                    "name": "Coordinated Fire",
-                    "description": "All Troopers on same target gain +1 Power."
-                  }
+                    "name": "Covering Fire",
+                    "trigger": "An ally in the Anchor's zone or an adjacent zone takes damage.",
+                    "description": "Immediately make an attack at -2 Power against the attacker if in weapon range."
+                  },
+                  "powerSource": "ranged"
                 },
-                "notes": "Standard Stormtrooper minions. Same as Adv1. Power 3. Defense 4. Masterful+ = takedown."
+                "notes": "Standard Stormtrooper minions. Same as Adv1. Power 3. Defense 4. Masterful+ = takedown.",
+                "powerSource": "ranged"
               }
             }
           ],
