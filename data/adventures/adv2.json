@@ -618,8 +618,17 @@
               "arena": "presence",
               "actionType": "interact",
               "control": {
-                "failure": "Kessra doesn't flinch. The Vipers close in.",
-                "success": "Kessra reads you as dangerous. Backs off with a sneer. Locals take notice."
+                "failure": "Kessra doesn't flinch. The Vipers close in. Pay the tax or fight.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Kessra backs off AND warns the Vipers to stay clear. Word spreads — the new arrivals are dangerous. +1 tier on the next social check in the encampment."
+              },
+              "target": "Kessra",
+              "resist": 3,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Kessra hesitates, then sneers and waves you past. The tax is dropped but the Vipers watch you closely.",
+                "masterful": "Kessra reads you as genuinely dangerous. Backs off with visible unease. Locals who saw it start treating you with wary respect.",
+                "legendary": "Kessra physically recoils. She orders the Vipers to give you a wide berth. For the rest of the encampment stay, no one hassles you. Free passage everywhere."
               }
             },
             {
@@ -629,8 +638,17 @@
               "arena": "wits",
               "actionType": "assess",
               "control": {
-                "failure": "Conflicting information. Two locations — one is a trap.",
-                "success": "Multiple sources confirm: Water Filtration Plant, edge of the swamp. He's been hiding there 3 days."
+                "failure": "Conflicting information. Two locations — one is a trap. If the heroes pick wrong, they lose time and face an ambush.",
+                "success": "Refer to effect tiers.",
+                "mastery": "In addition to Raden's location, a local mentions seeing Trandoshan mercenaries asking the same questions two hours ago. Hit squad is already en route."
+              },
+              "target": "Encampment locals",
+              "resist": 2,
+              "risk": 3,
+              "effect": {
+                "fleeting": "A nervous junk trader confirms Raden was seen heading toward the water filtration plant at the swamp's edge. Three days ago.",
+                "masterful": "Multiple sources confirm: Water Filtration Plant, edge of the swamp. He's been hiding there 3 days. You also learn which approach path he's using.",
+                "legendary": "Full picture — Raden's location, his daily pattern, and the fact that he's set up crude trip-wires on the main approach. You can avoid them."
               }
             },
             {
@@ -640,8 +658,17 @@
               "arena": "presence",
               "actionType": "interact",
               "control": {
-                "failure": "Raden stays panicky. Blaster stays up. Additional checks needed.",
-                "success": "Raden lowers the blaster. Starts talking. Relieved that Varth is alive."
+                "failure": "Raden stays panicky. Blaster stays up. Additional checks needed or risk a firefight with the man you came to save.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Raden lowers the blaster and immediately offers actionable intel — he knows a back way into Varga's fortress through the sewer outflow. Saves a planning step."
+              },
+              "target": "Warrick Raden",
+              "resist": 3,
+              "risk": 4,
+              "effect": {
+                "fleeting": "Raden lowers the blaster a few inches. Still breathing hard, still scared, but he's listening. He needs more convincing before he trusts you.",
+                "masterful": "Raden lowers the blaster. Starts talking. Relieved that Varth is alive. He'll cooperate — tells you about the fortress layout and his falling out with Varga.",
+                "legendary": "Raden breaks down with relief. Blaster clatters to the floor. He tells you everything — Varga's security, the court dynamics, the encrypted datapad location, and what Demos is really up to."
               }
             },
             {
@@ -651,8 +678,17 @@
               "arena": "wits",
               "actionType": "assess",
               "control": {
-                "failure": "No clear picture. React to contact.",
-                "success": "They're coming from three directions — rear maintenance hatch is unguarded."
+                "failure": "No clear picture. React to contact. The hit squad has the element of surprise.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Full tactical read: three-pronged approach, unguarded rear hatch, AND you identify the squad leader's position. First-round ambush opportunity."
+              },
+              "target": "Trandoshan hit squad",
+              "resist": 3,
+              "risk": 4,
+              "effect": {
+                "fleeting": "You clock movement from two directions — they're flanking. Enough warning to not be caught flat-footed, but positioning is still reactive.",
+                "masterful": "They're coming from three directions — rear maintenance hatch is unguarded. You can set up a crossfire or use the hatch to escape.",
+                "legendary": "Complete tactical picture. You identify their approach vectors, communication signals, and a structural weakness in the plant wall you can collapse to cut off their flank."
               }
             },
             {
@@ -662,8 +698,17 @@
               "arena": "wits",
               "actionType": "interact",
               "control": {
-                "failure": "Machinery sputters. Partial obstruction only.",
-                "success": "Steam erupts in a wall of scalding vapor. Trandoshans are forced back 2 rounds."
+                "failure": "Machinery sputters. Partial obstruction only. The Trandoshans are slowed but not stopped.",
+                "success": "Refer to effect tiers.",
+                "mastery": "The overload is perfectly controlled. You also rig a secondary burst on a timer — 3 rounds later, another steam wall erupts, buying additional escape time."
+              },
+              "target": "Filtration machinery",
+              "resist": 2,
+              "risk": 3,
+              "effect": {
+                "fleeting": "A jet of steam erupts from one pipe. Partial cover — blocks one approach vector for 1 round.",
+                "masterful": "Steam erupts in a wall of scalding vapor. Trandoshans are forced back — the entire zone is hazardous for 2 rounds.",
+                "legendary": "Catastrophic controlled overload. The entire filtration array vents superheated steam simultaneously. The Trandoshans are driven back to the perimeter. Full area denial for 3 rounds."
               }
             },
             {
@@ -673,8 +718,17 @@
               "arena": "presence",
               "actionType": "interact",
               "control": {
-                "failure": "Cover has gaps. Varga's people may ask uncomfortable questions.",
-                "success": "Air-tight cover. Raden vouches convincingly."
+                "failure": "Cover has gaps. Varga's people may ask uncomfortable questions. Demos is suspicious from arrival.",
+                "success": "Refer to effect tiers.",
+                "mastery": "The cover identity is so convincing that Raden's vouching sounds natural. Varga's gate guards wave you through without secondary verification."
+              },
+              "target": "Varga's court",
+              "resist": 3,
+              "risk": 4,
+              "effect": {
+                "fleeting": "Thin but functional cover. It'll survive casual scrutiny but won't hold under interrogation. You'll need to stay low-profile.",
+                "masterful": "Air-tight cover. Raden vouches convincingly. Backgrounds, references, and specialties all check out. Standard entry.",
+                "legendary": "The cover identity has depth — a fabricated history that even TC-663's records corroborate. You arrive with a reputation that precedes you. Varga is interested before you walk in."
               }
             }
           ]
@@ -1085,8 +1139,17 @@
               "arena": "physique",
               "actionType": "interact",
               "control": {
-                "failure": "A sloppy showing. Varga is unimpressed. Cover is thinner.",
-                "success": "Decisive victory. Varga is impressed. [Guest] status earned."
+                "failure": "A sloppy showing. Varga is unimpressed. Cover is thinner — you were supposed to be the muscle.",
+                "success": "Refer to effect tiers.",
+                "mastery": "The Gamorrean goes down in spectacular fashion. Varga bellows with laughter. You are immediately granted access to the armory and fighting pits — run of the combat wing."
+              },
+              "target": "Gamorrean pit fighter",
+              "resist": 3,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Ugly victory — you win but take hits. The crowd is lukewarm. Varga nods but doesn't clap. Adequate.",
+                "masterful": "Decisive victory. The crowd roars. Varga is impressed. [Guest] status earned and the court muscle gives you a respectful nod.",
+                "legendary": "Flawless dominance. The Gamorrean never lands a clean hit. Varga slams his tail on the platform in approval. You're the talk of the court — reputation opens doors for the rest of the infiltration."
               }
             },
             {
@@ -1096,8 +1159,17 @@
               "arena": "presence",
               "actionType": "interact",
               "control": {
-                "failure": "Flat performance. Varga yawns. Cover survives but barely.",
-                "success": "Varga laughs. He likes you. The court takes notice."
+                "failure": "Flat performance. Varga yawns. Cover survives but barely — you're furniture, not a guest.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Varga wants you at his side. You get a seat near the throne — prime position for gathering intel and influencing court decisions."
+              },
+              "target": "Varga's courtiers",
+              "resist": 4,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Polite laughter. One courtier seems genuinely amused. Varga glances over but returns to his plate. You pass, unremarkably.",
+                "masterful": "Varga laughs. He likes you. The court takes notice. Social doors open — courtiers approach you for conversation during the following days.",
+                "legendary": "You own the room. Varga's wheezing laughter fills the hall. Courtiers compete for your attention. For the rest of the court phase, you can request private audiences with anyone."
               }
             },
             {
@@ -1107,8 +1179,17 @@
               "arena": "wits",
               "actionType": "interact",
               "control": {
-                "failure": "Sled sputters. Not broken worse, but Varga is skeptical.",
-                "success": "Sled purrs like new. Varga is delighted. Gives you run of the workshop."
+                "failure": "Sled sputters. Not broken worse, but Varga is skeptical. The blaster stays close.",
+                "success": "Refer to effect tiers.",
+                "mastery": "The sled runs better than it has in years. Varga is so pleased he gives you unsupervised access to the workshop AND his personal tech stores. Key equipment available."
+              },
+              "target": "Varga's hover-sled",
+              "resist": 2,
+              "risk": 4,
+              "effect": {
+                "fleeting": "Basic fix — the sled stabilizes. It works, but it's not impressive. Varga grunts acknowledgment. The blaster is lowered.",
+                "masterful": "Sled purrs like new. Varga is delighted. Gives you run of the workshop — tools, spare parts, and a workbench that becomes your base of operations.",
+                "legendary": "You improve the sled beyond factory spec — smoother repulsors, quieter operation, and a tuned power cell. Varga is ecstatic. He gifts you a piece of tech from his personal collection as payment."
               }
             },
             {
@@ -1118,8 +1199,17 @@
               "arena": "presence",
               "actionType": "interact",
               "control": {
-                "failure": "Varga is suspicious. Igren Demos is ordered to watch you closely.",
-                "success": "Varga buys it completely. No further questions."
+                "failure": "Varga is suspicious. Igren Demos is ordered to watch you closely. All subsequent checks in the court phase have +1 resist.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Varga is completely disarmed. He shares a personal anecdote about his rivalry with 'the Accountant' (Varth) — unprompted intel about their history."
+              },
+              "target": "Varga the Hutt",
+              "resist": 4,
+              "risk": 4,
+              "effect": {
+                "fleeting": "Varga accepts the surface story but his eyes linger. He's not convinced, but he's not alarmed. You're on probation.",
+                "masterful": "Varga buys it completely. No further questions. Standard court access granted.",
+                "legendary": "Varga not only believes you — he confides. He mentions worrying about an Imperial audit of his Tibanna shipments. Actionable intelligence about the Leviathan supply chain."
               }
             },
             {
@@ -1130,8 +1220,17 @@
               "arena": "wits",
               "actionType": "assess",
               "control": {
-                "failure": "Overwhelming sensory chaos. Too many players to read.",
-                "success": "TC-663 keeps glancing at you meaningfully. Igren Demos watches Varga like a predator."
+                "failure": "Overwhelming sensory chaos. Too many players to read. The court is a blur of agendas.",
+                "success": "Refer to effect tiers.",
+                "mastery": "All of the above plus: you notice Demos sending a furtive transmission when Varga isn't looking. He's communicating with someone outside the palace."
+              },
+              "target": "Court dynamics",
+              "resist": 3,
+              "risk": 2,
+              "effect": {
+                "fleeting": "TC-663 keeps glancing at you — could be suspicion or interest. Hard to tell. The court has layers you can't parse yet.",
+                "masterful": "TC-663 keeps glancing at you meaningfully — that's interest, not suspicion. Igren Demos watches Varga like a predator. There's a coup brewing.",
+                "legendary": "Full court map: TC-663 is a potential ally, Demos is plotting against Varga, the Gamorrean captain answers only to Varga directly, and three courtiers are skimming from the treasury."
               }
             }
           ]
@@ -1921,8 +2020,17 @@
               "arena": "physique",
               "actionType": "interact",
               "control": {
-                "failure": "Gorrak wins. The hero survives (arena fights are to submission) but reputation suffers.",
-                "success": "Decisive victory. The crowd roars. Varga is delighted. Significant court reputation earned."
+                "failure": "Gorrak wins. The hero survives (arena fights are to submission) but reputation suffers. The court sees weakness.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Gorrak is defeated so decisively that Varga declares a holiday. The reigning champion dethroned — every fighter in the court now respects or fears the hero."
+              },
+              "target": "Gorrak",
+              "resist": 4,
+              "risk": 3,
+              "effect": {
+                "fleeting": "A close, grinding fight. You win by submission in the late rounds. The crowd is satisfied but not electrified. Gorrak nods grudging respect.",
+                "masterful": "Decisive victory. The crowd roars. Varga is delighted. Significant court reputation earned. Gorrak offers a terse warrior's salute.",
+                "legendary": "You dismantle Gorrak. The Trandoshan champion — unbeaten for two years — goes down clean. The arena erupts. Varga awards you a champion's token — a gold medallion that grants passage anywhere in the fortress."
               }
             },
             {
@@ -1932,8 +2040,18 @@
               "arena": "wits",
               "actionType": "assess",
               "control": {
-                "failure": "Nothing seems unusual. The drink reaches Varga.",
-                "success": "You spot Narek's hand trembling as he serves the goblet. Something is in the drink."
+                "failure": "Nothing seems unusual. The drink reaches Varga. If poisoned, Varga collapses — chaos erupts and the heroes are prime suspects.",
+                "success": "Refer to effect tiers.",
+                "mastery": "You spot the poison AND read Narek's face — this isn't malice, it's desperation. Someone put him up to this. He's terrified."
+              },
+              "target": "Narek",
+              "resist": 3,
+              "risk": 5,
+              "narrativePacing": "Roll only if a PC is actively watching the servants. Do not prompt.",
+              "effect": {
+                "fleeting": "You notice Narek's hand trembling as he serves the goblet. Something is wrong — but you can't tell what. Enough to justify intervening.",
+                "masterful": "You spot Narek's hand trembling as he serves the goblet. A thin film on the liquid's surface — poison. You can act before Varga drinks.",
+                "legendary": "You see the entire sequence: Narek palms something from his sleeve, the slight discoloration in the drink, and the way he positions himself near the exit. You can stop the poison AND cover for Narek simultaneously."
               }
             },
             {
@@ -1943,8 +2061,17 @@
               "arena": "presence",
               "actionType": "interact",
               "control": {
-                "failure": "A suspicious courtier begins asking pointed questions. Demos takes notice.",
-                "success": "Cover holds perfectly throughout the stay."
+                "failure": "A suspicious courtier begins asking pointed questions. Demos takes notice. Cover is thinning — one more slip and you're exposed.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Cover holds so well that courtiers begin sharing palace gossip with you. You learn about secret passages, guard rotation gaps, and Varga's sleeping schedule."
+              },
+              "target": "Varga's court",
+              "resist": 3,
+              "risk": 4,
+              "effect": {
+                "fleeting": "Cover holds through casual interactions. You avoid the hard questions but you're not building trust either. Neutral standing.",
+                "masterful": "Cover holds perfectly throughout the stay. No suspicion raised. You blend into the court like you belong.",
+                "legendary": "You become a fixture. Courtiers compete to be seen with you. The cover identity takes on a life of its own — useful contacts that may outlast the mission."
               }
             },
             {
@@ -1954,8 +2081,17 @@
               "arena": "wits",
               "actionType": "assess",
               "control": {
-                "failure": "She appears to be exactly what she claims — a logistics officer.",
-                "success": "Her comm frequencies don't match standard logistics channels. ISB encryption protocols. She's a double agent."
+                "failure": "She appears to be exactly what she claims — a logistics officer. Clean cover.",
+                "success": "Refer to effect tiers.",
+                "mastery": "You identify Sinde as ISB AND notice she's running a separate investigation — she's monitoring Varga's Leviathan connection independently. Potential ally or threat depending on approach."
+              },
+              "target": "Lady Sinde",
+              "resist": 4,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Something doesn't add up — her boots are military issue, not logistics corps. She's more than she claims, but you can't prove it.",
+                "masterful": "Her comm frequencies don't match standard logistics channels. ISB encryption protocols. She's a double agent embedded in the Leviathan supply chain.",
+                "legendary": "Full intelligence profile assembled: ISB operative Victra Sinde, monitoring Imperial-Hutt collusion. Her mission parallels yours in ways that could be leveraged."
               }
             },
             {
@@ -1966,7 +2102,16 @@
               "actionType": "interact",
               "control": {
                 "failure": "Spotted by a guard. Must talk your way out — Deception check or cover blown.",
-                "success": "Full conversation: next Tibanna shipment coordinates, payment terms, mention of 'the Accountant's records.'"
+                "success": "Refer to effect tiers.",
+                "mastery": "Full conversation overheard AND you observe Sinde passing a data chip to Varga under the table. Physical evidence of the deal."
+              },
+              "target": "Lady Sinde's guards",
+              "resist": 3,
+              "risk": 4,
+              "effect": {
+                "fleeting": "Partial audio through the door. You catch the words 'next shipment' and 'the Accountant' but miss the details.",
+                "masterful": "Full conversation: next Tibanna shipment coordinates, payment terms, mention of 'the Accountant's records.' Solid intel.",
+                "legendary": "Crystal clear. You hear everything — shipment coordinates, payment routing through Bespin, Sinde's veiled threat about Imperial audits, and Varga's nervous response. You also catch a data frequency you can track later."
               }
             },
             {
@@ -1976,8 +2121,17 @@
               "arena": "presence",
               "actionType": "interact",
               "control": {
-                "failure": "Gome talks about exchange rates for 20 minutes. No actionable intel.",
-                "success": "Gome rambles about contingency accounts, departure plans, Cloud City banking. Critical Bespin intel acquired."
+                "failure": "Gome talks about exchange rates for 20 minutes. No actionable intel. He's boring, not guarded.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Gome accidentally reveals the specific banking institution on Bespin: Figg & Associates. He also mentions 'the Cloud City account' has a biometric lock — Varga's voiceprint."
+              },
+              "target": "Gome",
+              "resist": 2,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Gome mentions 'contingency accounts' in passing before changing the subject. Enough to confirm Varga has money elsewhere.",
+                "masterful": "Gome rambles about contingency accounts, departure plans, Cloud City banking. Critical Bespin intel acquired — Varga's escape route is financial.",
+                "legendary": "Gome gives you the full financial picture: Cloud City accounts, Bespin routing codes, the specific cantina where Varga's backup identity documents are cached, and the name of his Bespin contact."
               }
             },
             {
@@ -1988,8 +2142,17 @@
               "arena": "presence",
               "actionType": "interact",
               "control": {
-                "failure": "TC-663 is cautious. Provides partial information only.",
-                "success": "TC-663's photoreceptors flash recognition. He provides Demos's encrypted comms referencing 'the prisoner.'"
+                "failure": "TC-663 is cautious. Provides partial information only. He doesn't trust you enough for full commitment.",
+                "success": "Refer to effect tiers.",
+                "mastery": "TC-663 goes all in. He provides everything he has: palace maps, guard rotations, Demos's encrypted comms, AND the location of Varga's encrypted datapad — it's in the throne room, locked in the arm of the hover-sled."
+              },
+              "target": "TC-663",
+              "resist": 2,
+              "risk": 2,
+              "effect": {
+                "fleeting": "TC-663's photoreceptors flash recognition. He nods subtly and provides the location of the restricted dungeon entrance. Minimal risk to himself.",
+                "masterful": "TC-663's photoreceptors flash recognition. He provides Demos's encrypted comms referencing 'the prisoner' and basic guard rotation data.",
+                "legendary": "Full asset activation. TC-663 provides palace maps, guard rotations, Demos's comms, datapad location, AND offers to create a diversion when the heroes need to move on the dungeon."
               }
             },
             {
@@ -1999,8 +2162,17 @@
               "arena": "wits",
               "actionType": "interact",
               "control": {
-                "failure": "Partial extraction. Silent alarm triggers. Lockdown in 5 rounds.",
-                "success": "Encryption keys extracted cleanly. No trace left."
+                "failure": "Partial extraction. Silent alarm triggers. Lockdown in 5 rounds — the heroes must move NOW.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Clean extraction AND you discover a secondary encrypted partition — Varga's private ledger showing payments from an Imperial source codenamed 'The Accountant.' Direct evidence linking Varth."
+              },
+              "target": "Varga's datapad",
+              "resist": 4,
+              "risk": 5,
+              "effect": {
+                "fleeting": "Partial encryption key extracted before the window closes. Enough to decode some of Varth's financial records, but not all.",
+                "masterful": "Encryption keys extracted cleanly. No trace left. Full access to Varth's financial pipeline through Varga's network.",
+                "legendary": "Complete extraction — encryption keys, routing tables, and a backup of Varga's entire financial database. Evidence that could bring down the Besadii cartel's banking infrastructure."
               }
             }
           ]
@@ -2269,8 +2441,17 @@
               "arena": "reflex",
               "actionType": "interact",
               "control": {
-                "failure": "A guard sees movement. Must be dealt with quietly.",
-                "success": "Clean entry. No guards notice."
+                "failure": "A guard sees movement. Must be dealt with quietly — alert the block and the whole plan goes sideways.",
+                "success": "Refer to effect tiers.",
+                "mastery": "You identify and avoid every guard patrol pattern AND discover an unmonitored ventilation shaft that provides a secondary exit route."
+              },
+              "target": "Dungeon guards",
+              "resist": 3,
+              "risk": 4,
+              "effect": {
+                "fleeting": "You slip past the first checkpoint but nearly alert a droid patrol. Tight margins. One more mistake and you're made.",
+                "masterful": "Clean entry. No guards notice. You reach the detention block undetected.",
+                "legendary": "Ghost movement. You map the entire guard patrol pattern as you move through it. When you need to leave, you'll know exactly when every corridor is clear."
               }
             },
             {
@@ -2280,8 +2461,17 @@
               "arena": "wits",
               "actionType": "interact",
               "control": {
-                "failure": "Alarm triggers. Igren Demos senses the Force disturbance. Lockdown imminent.",
-                "success": "Clean disconnect. Denia wakes slowly, disoriented but alive."
+                "failure": "Alarm triggers. Denia's vitals spike dangerously. Igren Demos senses the Force disturbance. Lockdown imminent — move NOW.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Perfect disconnect. You also extract the pod's medical logs — 2 years of data showing Demos was conducting crude Force experiments on her. Evidence of his agenda."
+              },
+              "target": "Stasis pod systems",
+              "resist": 3,
+              "risk": 5,
+              "effect": {
+                "fleeting": "Life support disconnects safely but the pod's alarm chirps once before you silence it. Denia stirs. The clock just got shorter.",
+                "masterful": "Clean disconnect. Denia wakes slowly, disoriented but alive. No alarms triggered. The pod powers down silently.",
+                "legendary": "Textbook medical extraction. Denia wakes coherent — still weak, but she can walk unassisted and her first words are useful: 'The Neimoidian... he's been in my dreams. He's coming.'"
               }
             },
             {
@@ -2291,8 +2481,17 @@
               "arena": "reflex",
               "actionType": "interact",
               "control": {
-                "failure": "Lock triggers backup alarm. Guards dispatched.",
-                "success": "Locks open silently. No alarm."
+                "failure": "Lock triggers backup alarm. Guards dispatched. 3 rounds before they arrive.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Locks open silently AND you disable the cell block's internal alarm system entirely. No alerts from this section regardless of what happens next."
+              },
+              "target": "High-security cell locks",
+              "resist": 3,
+              "risk": 4,
+              "effect": {
+                "fleeting": "One lock opens but the second jams halfway. You can force it — noisy — or try again. The clock is ticking.",
+                "masterful": "Locks open silently. No alarm. Both cells accessible.",
+                "legendary": "You bypass the locks so cleanly that you can re-lock them behind you — making it look like no one was ever here. Buys extra time before the escape is discovered."
               }
             },
             {
@@ -2302,8 +2501,17 @@
               "arena": "wits",
               "actionType": "interact",
               "control": {
-                "failure": "Denia is barely conscious. Must be carried. All movement checks are stepped up.",
-                "success": "Denia is weak but mobile. Can walk with support."
+                "failure": "Denia is barely conscious. Must be carried. All movement checks during the escape are stepped up in difficulty.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Denia is stabilized AND you administer a stim that clears her confusion. She provides telepathic tactical awareness during the escape — the party can't be ambushed."
+              },
+              "target": "Denia's condition",
+              "resist": 3,
+              "risk": 4,
+              "effect": {
+                "fleeting": "Denia is conscious but disoriented. She can stand with support but can't move fast. She's dead weight in a sprint.",
+                "masterful": "Denia is weak but mobile. Can walk with support. Her eyes are focused — she knows where she is and what's happening.",
+                "legendary": "Denia recovers faster than expected. She walks under her own power and immediately begins using passive Force senses — she can feel the guards' positions in the corridors ahead."
               }
             },
             {
@@ -2313,9 +2521,18 @@
               "arena": "grit",
               "actionType": "interact",
               "control": {
-                "failure": "The emotional weight is staggering. [Rattled] until you act on it or leave.",
-                "success": "You feel her pain but maintain composure. Clear decision-making."
-              }
+                "failure": "The emotional weight is staggering. [Rattled] until you act on it or leave the area.",
+                "success": "Refer to effect tiers.",
+                "mastery": "You not only resist but form a brief telepathic bond with Denia. She shares a flash-image: a crescent-shaped shadow against stars. You don't know what it means yet."
+              },
+              "target": "Denia's telepathic plea",
+              "risk": 3,
+              "effect": {
+                "fleeting": "The wave of grief and terror hits hard. You stagger but keep your feet. Decision-making is clouded for a moment but you push through.",
+                "masterful": "You feel her pain but maintain composure. Clear decision-making. The empathic contact is intense but manageable.",
+                "legendary": "You absorb the pain and ground it. Denia senses your stability and reaches toward it — her telepathic plea shifts from desperation to trust. She stops broadcasting to the entire block."
+              },
+              "resist": 3
             },
             {
               "id": "sc-a2s4-stealth-eavesdrop",
@@ -2325,8 +2542,17 @@
               "arena": "reflex",
               "actionType": "interact",
               "control": {
-                "failure": "Partial audio. Know someone Imperial is coming but not the timeline.",
-                "success": "Full conversation overheard. Draco: 'I am on my way, with the Assiduous.' Death clock confirmed."
+                "failure": "Partial audio. Know someone Imperial is coming but not the timeline. The urgency is vague.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Full conversation overheard AND you capture the transmission frequency. Can be tracked later to locate Draco's fleet movements."
+              },
+              "target": "Demos's holo-call",
+              "resist": 3,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Muffled audio through the wall. You catch 'Inquisitorius' and 'en route.' Enough to know something bad is coming.",
+                "masterful": "Full conversation overheard. Draco: 'I am on my way, with the Assiduous.' Death clock confirmed — hours, not days.",
+                "legendary": "Crystal clear audio. Full conversation including Draco's estimated arrival window, the Assiduous's current position, and Demos's offer to 'deliver the Jedi personally.' You know exactly how long you have."
               }
             }
           ]
@@ -2599,8 +2825,17 @@
               "arena": "grit",
               "actionType": "interact",
               "control": {
-                "failure": "Knocked back 1 zone. [Disoriented] for 1 round.",
-                "success": "Stand your ground. The Force push washes over you."
+                "failure": "Knocked back 1 zone. [Disoriented] for 1 round. Demos presses the advantage.",
+                "success": "Refer to effect tiers.",
+                "mastery": "You don't just resist — you advance through it. The Force push breaks around you. Demos's eyes go wide. He realizes he's outmatched."
+              },
+              "target": "Demos's Force Slam",
+              "resist": 4,
+              "risk": 4,
+              "effect": {
+                "fleeting": "You skid backward but stay on your feet. The Force push stings but doesn't break your stance. Still in the fight.",
+                "masterful": "Stand your ground. The Force push washes over you like a strong wind. Nothing more.",
+                "legendary": "You walk straight through it. The Force slam hits you and you don't even slow down. Every witness — Demos, his bodyguards, your allies — sees it. The balance of the fight shifts."
               }
             },
             {
@@ -2611,8 +2846,17 @@
               "arena": "wits",
               "actionType": "assess",
               "control": {
-                "failure": "Terrifying display. His abilities seem formidable.",
-                "success": "Untrained. Powerful raw talent but no discipline. His attacks are predictable."
+                "failure": "Terrifying display. His abilities seem formidable. No way to tell if he's trained or not.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Untrained AND desperate. You read his deeper motivation: he doesn't believe the Inquisitorius will accept him. He's deluding himself. This knowledge fuels a devastating Persuasion attempt."
+              },
+              "target": "Demos",
+              "resist": 3,
+              "risk": 2,
+              "effect": {
+                "fleeting": "His technique is sloppy — there's no Form behind it. He's dangerous but not precise. That's something.",
+                "masterful": "Untrained. Powerful raw talent but no discipline. His attacks are predictable — he telegraphs every Force push with his whole body.",
+                "legendary": "Completely untrained, completely delusional. He thinks the Inquisitorius will welcome him. You see a scared man playing at being powerful. Every vulnerability is visible."
               }
             },
             {
@@ -2622,8 +2866,17 @@
               "arena": "presence",
               "actionType": "interact",
               "control": {
-                "failure": "Demos is too far gone. Fights to the death.",
-                "success": "Demos hesitates. Realizes Varga is fleeing without him. Steps aside in bitter rage."
+                "failure": "Demos is too far gone. 'You don't understand what I'm owed!' Fights to the death.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Demos not only stands down but provides intel: the passage to the hangar is clear on the left corridor. He warns you about Sinde's Stormtroopers. He's done."
+              },
+              "target": "Igren Demos",
+              "resist": 4,
+              "risk": 4,
+              "effect": {
+                "fleeting": "Demos hesitates. The vibro-staff lowers an inch. He's listening — but he needs more. Follow-up argument needed.",
+                "masterful": "Demos hesitates. Realizes Varga is fleeing without him. Steps aside in bitter rage. 'Go. Take the Jedi. It doesn't matter anymore.'",
+                "legendary": "Demos crumbles. The truth hits him: Varga never valued him, the Empire never will, and the Inquisitorius would discard him. He steps aside and tells you everything he knows about the hangar defenses."
               }
             },
             {
@@ -2633,8 +2886,17 @@
               "arena": "physique",
               "actionType": "interact",
               "control": {
-                "failure": "Door holds. Must find alternate route — costs time.",
-                "success": "Door forced open. Path cleared."
+                "failure": "Door holds. Must find alternate route — costs a round. Every round is a round Varga gains.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Door forced open so hard it jams in the open position. Can't be re-sealed behind you — but it also can't be sealed against your retreat."
+              },
+              "target": "Sealed blast doors",
+              "resist": 3,
+              "risk": 3,
+              "effect": {
+                "fleeting": "You wedge the door open enough to squeeze through one at a time. Slow but functional.",
+                "masterful": "Door forced open. Path cleared. The group moves through at full speed.",
+                "legendary": "You rip the door mechanism off its track. It crashes open and stays open. The corridor ahead is completely clear."
               }
             },
             {
@@ -2644,8 +2906,17 @@
               "arena": "wits",
               "actionType": "interact",
               "control": {
-                "failure": "Partial override. Some doors open, others stay sealed.",
-                "success": "Blast doors retract. Clear path to the hangar wing."
+                "failure": "Partial override. Some doors open, others stay sealed. Zigzag route to the hangar.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Full override AND you lock the doors behind you — sealing pursuers out. The corridor becomes a one-way passage to the hangar."
+              },
+              "target": "Lockdown controls",
+              "resist": 3,
+              "risk": 3,
+              "effect": {
+                "fleeting": "One door opens. The next corridor's blast door is still sealed. Incremental progress.",
+                "masterful": "Blast doors retract. Clear path to the hangar wing. Standard lockdown protocols disabled for this corridor.",
+                "legendary": "Full fortress lockdown override from this terminal. Every blast door on the hangar level opens simultaneously. You also trigger a fire suppression system in the barracks level — chaos covers your escape."
               }
             }
           ]
@@ -2919,8 +3190,17 @@
               "arena": "reflex",
               "actionType": "interact",
               "control": {
-                "failure": "Pinned by return fire. [Suppressed] for 1 round.",
-                "success": "Accurate fire. Stormtroopers suppressed or eliminated."
+                "failure": "Pinned by return fire. [Suppressed] for 1 round. The troopers are disciplined and well-positioned.",
+                "success": "Refer to effect tiers.",
+                "mastery": "You hit the Tibanna crate next to the Stormtrooper position. Controlled detonation. Two troopers go down and the rest are forced to relocate — the firefight is effectively over."
+              },
+              "target": "Stormtroopers",
+              "resist": 3,
+              "risk": 4,
+              "effect": {
+                "fleeting": "Suppressive fire forces the Stormtroopers behind cover. They're not down but they're not shooting at you either. Brief window to move.",
+                "masterful": "Accurate fire. One Stormtrooper drops. The rest adjust positions — the suppression advantage shifts to you.",
+                "legendary": "Precision shooting. Two Stormtroopers eliminated in rapid succession. The remaining two break formation. Sinde orders a retreat to secondary positions — the hangar approach is open."
               }
             },
             {
@@ -2930,8 +3210,17 @@
               "arena": "wits",
               "actionType": "interact",
               "control": {
-                "failure": "Delayed launch. 2 additional rounds under fire.",
-                "success": "Ship systems online. Ready for launch."
+                "failure": "Delayed launch. 2 additional rounds under fire. Every round is hull damage.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Ship online instantly AND you boost the shields before launch. First volley of Stormtrooper fire splashes harmlessly against the deflectors."
+              },
+              "target": "Ship systems",
+              "resist": 2,
+              "risk": 4,
+              "effect": {
+                "fleeting": "Systems come online one by one — slow but steady. Engines are last. 1 extra round before you can lift.",
+                "masterful": "Ship systems online. Ready for launch. Standard power-up sequence completed under fire.",
+                "legendary": "Emergency hot-start. Ship goes from cold to flight-ready in seconds. You're lifting before the Stormtroopers even realize the engines are live."
               }
             },
             {
@@ -2941,8 +3230,17 @@
               "arena": "reflex",
               "actionType": "interact",
               "control": {
-                "failure": "Ship takes hits during liftoff. Hull damage. Emergency repairs needed.",
-                "success": "Clean launch. Break atmosphere."
+                "failure": "Ship takes hits during liftoff. Hull damage. Emergency repairs needed in hyperspace.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Perfect launch AND you buzz Sinde's position on the way out — close enough to scatter her squad. She dives behind a crate. Satisfying."
+              },
+              "target": "Stormtrooper fire",
+              "resist": 3,
+              "risk": 4,
+              "effect": {
+                "fleeting": "Rough liftoff. A couple of glancing hits but nothing critical. You clear the hangar with singed hull plating.",
+                "masterful": "Clean launch. Break atmosphere. The blaster fire tracks behind you but nothing connects.",
+                "legendary": "Textbook combat liftoff. You use the hangar structure as cover during the ascent, then punch to orbit in a spiral that makes targeting impossible. Zero hits."
               }
             },
             {
@@ -2952,8 +3250,17 @@
               "arena": "wits",
               "actionType": "assess",
               "control": {
-                "failure": "Lost him. Must rely on Gome's intel to find Varga.",
-                "success": "Partial trajectory lock. The vector aligns with the Anoat Sector. Bespin. Cloud City."
+                "failure": "Lost him. Must rely entirely on Gome's intel to find Varga. Less certainty about the destination.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Full trajectory lock AND you identify the specific hyperspace lane. Cross-referencing with Gome's intel: Cloud City, Bespin, Figg & Associates. Dead certain."
+              },
+              "target": "Varga's escape vector",
+              "resist": 3,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Partial sensor data — the escape vector points toward the Anoat Sector. Consistent with Gome's Bespin intel but not conclusive.",
+                "masterful": "Partial trajectory lock. The vector aligns with the Anoat Sector. Bespin. Cloud City. Confirmed by Gome's banking intel.",
+                "legendary": "Full trajectory lock with exit vector and hyperspace lane identified. You know exactly where Varga is going, which route he's taking, and approximately when he'll arrive. The pursuit can be surgical."
               }
             },
             {
@@ -2964,9 +3271,18 @@
               "arena": "physique",
               "actionType": "interact",
               "control": {
-                "failure": "Stumble or take fire. Slowed.",
-                "success": "Full speed. Reach the ship."
-              }
+                "failure": "Stumble or take fire. Slowed. Arrive at the ship winded and exposed.",
+                "success": "Refer to effect tiers.",
+                "mastery": "You cross the open ground so fast that you arrive at the ship ahead of everyone and can provide covering fire for the rest of the team."
+              },
+              "target": "Open hangar",
+              "risk": 3,
+              "effect": {
+                "fleeting": "Head-down sprint. You make it across but a blaster bolt clips your shoulder — minor wound but you're at the ship.",
+                "masterful": "Full speed. Reach the ship cleanly. No hits taken.",
+                "legendary": "Olympic sprint across the kill zone. You dodge, weave, and vault a cargo crate without breaking stride. You're up the ramp and at the controls before the Stormtroopers can adjust their aim."
+              },
+              "resist": 2
             }
           ]
         }

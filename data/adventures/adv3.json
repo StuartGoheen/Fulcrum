@@ -233,8 +233,17 @@
               "arena": "wits",
               "actionType": "assess",
               "control": {
-                "failure": "Message was routed through multiple proxies. Dead end on the digital trail.",
-                "success": "Digital forensics trace the origin to the Ugnaught Parliament of Guilds — an industrial administrator terminal."
+                "failure": "Message was routed through multiple proxies. Dead end on the digital trail. Whoever sent it knows their opsec.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Origin traced AND you recover fragments of the sender's other transmissions — they've been monitoring Varga's operations for months. This is an ongoing operation, not a one-off."
+              },
+              "target": "Threatening message",
+              "resist": 3,
+              "risk": 3,
+              "effect": {
+                "fleeting": "The encryption is commercial-grade, not military. Narrows it to Cloud City locals with access to public infrastructure.",
+                "masterful": "Digital forensics trace the origin to the Ugnaught Parliament of Guilds — an industrial administrator terminal. Someone with legitimate access.",
+                "legendary": "Full trace: the specific terminal, the time of transmission, and residual login credentials that point to a maintenance foreman named Fyren."
               }
             },
             {
@@ -245,7 +254,16 @@
               "actionType": "interact",
               "control": {
                 "failure": "Stone wall. Nobody talks. Varga's money is louder than your charm.",
-                "success": "A bartender whispers: \"Try the Ugnaughts in the Works. They hate him more than they fear him.\""
+                "success": "Refer to effect tiers.",
+                "mastery": "The bartender not only directs you but slips you a hand-drawn map of the industrial levels where the Ugnaughts work. Marked with safe routes that avoid Varga's patrols."
+              },
+              "target": "Cloud City locals",
+              "resist": 3,
+              "risk": 3,
+              "effect": {
+                "fleeting": "A nervous glance toward the industrial district. Somebody almost talked before thinking better of it. You know the general direction.",
+                "masterful": "A bartender whispers: 'Try the Ugnaughts in the Works. They hate him more than they fear him.' First solid lead.",
+                "legendary": "The bartender gives you the Ugnaughts' names — Fyren and Krygg — their work shift, and the specific maintenance bay where they take breaks. Clean approach guaranteed."
               }
             },
             {
@@ -255,8 +273,17 @@
               "arena": "reflex",
               "actionType": "interact",
               "control": {
-                "failure": "A street rat clocks you and runs toward the cantina district. Varga may know you're here.",
-                "success": "Clean movement. No one flags your presence."
+                "failure": "A street rat clocks you and runs toward the cantina district. Varga may know you're here within the hour.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Clean movement AND you identify two of Varga's informant positions. Can be avoided for the rest of the stay."
+              },
+              "target": "Varga's informants",
+              "resist": 3,
+              "risk": 4,
+              "effect": {
+                "fleeting": "You stick to secondary corridors. Slower, but no obvious tails. Can't be sure you're clean though.",
+                "masterful": "Clean movement. No one flags your presence. Standard counter-surveillance protocols hold.",
+                "legendary": "Ghost-level movement. You map Varga's entire informant network on the tourist level as you move through it. Know exactly where the blind spots are for future operations."
               }
             },
             {
@@ -266,8 +293,17 @@
               "arena": "presence",
               "actionType": "interact",
               "control": {
-                "failure": "Cover is thin. First serious scrutiny will blow it.",
-                "success": "Convincing cover as prospectors or traders."
+                "failure": "Cover is thin. First serious scrutiny will blow it. Don't get stopped by Wing Guard.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Cover is so good that Wing Guard actively assists you — offers directions and local guidance, treating you as welcome visitors."
+              },
+              "target": "Cloud City security",
+              "resist": 2,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Basic tourist cover. Won't survive a records check but it handles casual encounters.",
+                "masterful": "Convincing cover as prospectors or traders. Wing Guard wouldn't look twice.",
+                "legendary": "Airtight cover with planted digital records. If anyone checks, they find a legitimate business history, docking permits, and a Tibanna purchasing license."
               }
             },
             {
@@ -278,8 +314,17 @@
               "arena": "wits",
               "actionType": "assess",
               "control": {
-                "failure": "Reads as a genuine threat. Approach with caution.",
-                "success": "The tone is scared, not hostile. Whoever sent this is trying to protect themselves, not threaten you."
+                "failure": "Reads as a genuine threat. Approach with caution — may be a trap.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Not just scared — the sender is watching the recipients right now. They're testing whether you're Varga's agents or potential allies."
+              },
+              "target": "Threatening message",
+              "resist": 2,
+              "risk": 2,
+              "effect": {
+                "fleeting": "The tone is off for a real threat. More nervous than menacing. Probably not an ambush.",
+                "masterful": "The tone is scared, not hostile. Whoever sent this is trying to protect themselves, not threaten you. A cry for help disguised as a warning.",
+                "legendary": "Specific linguistic patterns: industrial jargon, formal grammar, and a Ugnaught idiom translated into Basic. The sender is an educated Ugnaught trying to make contact safely."
               }
             }
           ]
@@ -489,8 +534,17 @@
               "arena": "presence",
               "actionType": "interact",
               "control": {
-                "failure": "They're not convinced. Demand proof of your intentions.",
-                "success": "Fyren and Krygg open up. They describe the gas siphoning operation."
+                "failure": "They're not convinced. Demand proof of your intentions. May need to complete a task for them first.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Full trust earned immediately. They introduce you to the wider Ugnaught resistance network — six more workers who've been documenting Varga's operation."
+              },
+              "target": "Fyren and Krygg",
+              "resist": 3,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Grudging willingness to talk. They'll share what they know but won't commit to anything further. Transactional.",
+                "masterful": "Fyren and Krygg open up. They describe the gas siphoning operation — scale, timing, and the Trandoshan enforcers who guard the refinery.",
+                "legendary": "Complete trust. They share everything: the siphoning operation, refinery layout, guard schedules, AND access codes for the industrial maintenance tunnels that bypass Varga's security."
               }
             },
             {
@@ -500,8 +554,17 @@
               "arena": "wits",
               "actionType": "assess",
               "control": {
-                "failure": "Hard to read. Ugnaught body language is unfamiliar.",
-                "success": "Genuine terror and anger. They've been exploited. This is real."
+                "failure": "Hard to read. Ugnaught body language is unfamiliar. Could be genuine or a setup.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Genuine — AND you notice Krygg keeps glancing at a datapad. He's been recording Varga's shipments. Physical evidence exists."
+              },
+              "target": "Fyren and Krygg",
+              "resist": 2,
+              "risk": 2,
+              "effect": {
+                "fleeting": "Their fear seems real. No signs of deception, but you can't be certain with alien body language.",
+                "masterful": "Genuine terror and anger. They've been exploited. This is real — and it's been going on for months.",
+                "legendary": "These two have been planning their own resistance for a year. You're not recruiting them — they've been waiting for someone exactly like you."
               }
             },
             {
@@ -511,8 +574,17 @@
               "arena": "wits",
               "actionType": "assess",
               "control": {
-                "failure": "Evidence is circumstantial. Need more proof.",
-                "success": "Shipping manifests confirm military-grade Tibanna going to Imperial warships. The scale is staggering."
+                "failure": "Evidence is circumstantial. Need more proof before acting.",
+                "success": "Refer to effect tiers.",
+                "mastery": "The manifests show a destination code that matches Project Leviathan logistics. Direct connection between Varga's Tibanna and the Imperial superweapon project."
+              },
+              "target": "Ugnaught evidence",
+              "resist": 2,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Numbers don't add up — more Tibanna is leaving Cloud City than the legitimate contracts account for. Something is being siphoned.",
+                "masterful": "Shipping manifests confirm military-grade Tibanna going to Imperial warships. The scale is staggering — this is industrial-level theft.",
+                "legendary": "Complete paper trail: production numbers, skimmed quantities, routing through shell companies, delivery coordinates, and Imperial authorization codes. Prosecution-quality evidence."
               }
             },
             {
@@ -523,8 +595,17 @@
               "arena": "presence",
               "actionType": "interact",
               "control": {
-                "failure": "They'll trade info for the refinery job but nothing more.",
-                "success": "They commit fully. Will provide ongoing support — safe houses, equipment, information."
+                "failure": "They'll trade info for the refinery job but nothing more. Purely transactional.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Deep alliance formed. The Ugnaughts offer their maintenance access tunnels as a permanent safe network throughout Cloud City. Game-changing mobility advantage."
+              },
+              "target": "Ugnaught workers",
+              "resist": 2,
+              "risk": 2,
+              "effect": {
+                "fleeting": "Friendly but cautious. They'll help with the refinery but need to see results before committing further.",
+                "masterful": "They commit fully. Will provide ongoing support — safe houses, equipment, information. A real alliance.",
+                "legendary": "Blood oath (Ugnaught tradition). They pledge their guild's resources: safe houses, fabrication equipment, encrypted comm network, and a dedicated guide for the industrial levels."
               }
             }
           ]
@@ -773,8 +854,17 @@
               "arena": "reflex",
               "actionType": "interact",
               "control": {
-                "failure": "Spotted at the platform edge. Trandoshans scramble to defensive positions.",
-                "success": "Perfect approach. Element of surprise secured."
+                "failure": "Spotted at the platform edge. Trandoshans scramble to defensive positions. No surprise round.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Perfect approach AND you identify the sentry rotation gap — 90 seconds when the entire east platform is unmonitored. Sabotage window."
+              },
+              "target": "Trandoshan sentries",
+              "resist": 3,
+              "risk": 4,
+              "effect": {
+                "fleeting": "Close approach but a sentry turns. You freeze in time — they didn't see you, but the window is narrow. One chance.",
+                "masterful": "Perfect approach. Element of surprise secured. Full ambush positioning available.",
+                "legendary": "You're inside the refinery perimeter before anyone knows. Close enough to sabotage equipment, plant charges, or pick off sentries one at a time."
               }
             },
             {
@@ -784,8 +874,17 @@
               "arena": "reflex",
               "actionType": "interact",
               "control": {
-                "failure": "Shots go wide in the wind. Trandoshans return fire immediately.",
-                "success": "First volley drops one Trandoshan. Others scatter for cover."
+                "failure": "Shots go wide in the wind. Trandoshans return fire immediately. No surprise advantage.",
+                "success": "Refer to effect tiers.",
+                "mastery": "First volley drops the crew leader. The remaining Trandoshans panic — leaderless, they fight defensively instead of aggressively."
+              },
+              "target": "Trandoshan loading crew",
+              "resist": 3,
+              "risk": 3,
+              "effect": {
+                "fleeting": "One shot connects but it's a grazing hit. The Trandoshans know you're there — surprise is spent but they're not organized yet.",
+                "masterful": "First volley drops one Trandoshan. Others scatter for cover. The ambush lands clean.",
+                "legendary": "Devastating opening volley. Two Trandoshans drop before anyone fires back. The survivors are pinned behind Tibanna crates — which they can't return fire through without risking detonation."
               }
             },
             {
@@ -795,8 +894,17 @@
               "arena": "physique",
               "actionType": "interact",
               "control": {
-                "failure": "Wind catches you. [Slowed] for 1 round or risk falling.",
-                "success": "Sure-footed. Move freely across the platform."
+                "failure": "Narrow catwalk. Slippery footing. Must slow down or risk falling.",
+                "success": "Refer to effect tiers.",
+                "mastery": "You vault the machinery so fast you end up behind the Trandoshan line. They're flanked."
+              },
+              "target": "Refinery catwalks",
+              "resist": 2,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Careful movement across the grated platform. Slow but steady. No falls.",
+                "masterful": "Confident movement. Use the machinery and catwalks to close distance and gain positional advantage.",
+                "legendary": "Acrobatic traversal — you use pipes, railings, and machinery housings to cross the refinery like a gymnast. Reach any position in the facility in a single round."
               }
             },
             {
@@ -806,8 +914,17 @@
               "arena": "wits",
               "actionType": "interact",
               "control": {
-                "failure": "Shuttle is still operational. Must be stopped physically.",
-                "success": "Shuttle engines shut down. No escape."
+                "failure": "Partial shutdown. Production slows but doesn't stop. Varga will notice within hours, not days.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Clean shutdown AND you plant a data siphon on the control systems. Future operations will provide real-time production data."
+              },
+              "target": "Refinery controls",
+              "resist": 3,
+              "risk": 4,
+              "effect": {
+                "fleeting": "Emergency shutdown triggered. The refinery stops but the restart sequence is automated — it'll be back online within a day.",
+                "masterful": "Clean shutdown with safety lockouts engaged. Requires a qualified engineer to restart — Varga loses days of production.",
+                "legendary": "Precision sabotage. You don't just shut it down — you introduce subtle calibration errors that will cause the next batch of Tibanna to be worthless. Varga won't know until the shipment is tested."
               }
             },
             {
@@ -818,8 +935,17 @@
               "arena": "wits",
               "actionType": "assess",
               "control": {
-                "failure": "Datapad is damaged. Partial data only.",
-                "success": "Gas is destined for the Imperial Navy. Mentions \"Shackles of Nizon\" — a slave transport ship."
+                "failure": "Datapad is damaged. Partial data only — fragments of shipping schedules.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Full data AND you discover a shipping code that matches Project Leviathan logistics manifests from Adv1. The Tibanna fuels the superweapon."
+              },
+              "target": "Trandoshan datapad",
+              "resist": 2,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Fragments of delivery schedules. Gas is going to Imperial ships, but destination details are corrupted.",
+                "masterful": "Gas is destined for the Imperial Navy. Mentions 'Shackles of Nizon' — a slave transport ship making regular runs.",
+                "legendary": "Complete shipping network: routes, schedules, quantities, and the Shackles of Nizon as the primary bulk carrier. Enough intel to track or intercept future shipments."
               }
             }
           ]
@@ -1070,8 +1196,17 @@
               "arena": "wits",
               "actionType": "assess",
               "control": {
-                "failure": "They look like professional bodyguards. Nothing unusual.",
-                "success": "Military bearing, identical boots, comm earpieces. Stormtroopers in civilian clothes."
+                "failure": "They look like professional bodyguards. Nothing unusual stands out.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Stormtroopers AND you identify the specific unit insignia hidden under their civilian clothes — 501st Legion detachment. Elite soldiers, not standard garrison."
+              },
+              "target": "Arandis's bodyguards",
+              "resist": 3,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Something off about their posture — too rigid, too disciplined for hired muscle. Military bearing, but you can't confirm more.",
+                "masterful": "Military bearing, identical boots, comm earpieces. Stormtroopers in civilian clothes. This is an Imperial operation.",
+                "legendary": "Full identification: Stormtrooper unit, comm frequencies they're using, and the fact that they're reporting to someone not in the room. Arandis has a handler."
               }
             },
             {
@@ -1081,8 +1216,17 @@
               "arena": "presence",
               "actionType": "interact",
               "control": {
-                "failure": "Identity is thin. Casino staff may flag it.",
-                "success": "Convincing high-roller identity with a fabricated fortune history."
+                "failure": "Minor discrepancy noted. Tournament staff may verify during play. A ticking clock.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Cover is flawless AND the tournament organizers seat you at a premium table — prime position to observe Arandis during play."
+              },
+              "target": "Tournament organizers",
+              "resist": 3,
+              "risk": 4,
+              "effect": {
+                "fleeting": "Entry accepted with a raised eyebrow. The cover holds for now but don't draw attention.",
+                "masterful": "Tournament entry secured cleanly. No flags raised. Standard participant access.",
+                "legendary": "The Player persona is so convincing that other participants approach with deference. You're treated as a known quantity — a high-roller from the Outer Rim. Doors open."
               }
             },
             {
@@ -1092,8 +1236,17 @@
               "arena": "reflex",
               "actionType": "interact",
               "control": {
-                "failure": "Hotel security notices your loitering. You're remembered.",
-                "success": "Full layout mapped. Security camera blind spots identified."
+                "failure": "Hotel security notices your loitering. You're remembered. Future visits will be flagged.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Full layout mapped AND you identify a service entrance that bypasses all security checkpoints. Direct access to the tournament floor."
+              },
+              "target": "Hotel security",
+              "resist": 3,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Basic layout observed from public areas. You know the lobby, elevators, and main entrance. Cameras are visible but blind spots aren't mapped.",
+                "masterful": "Full layout mapped. Security camera blind spots identified. Guard rotation patterns timed. Standard casino reconnaissance.",
+                "legendary": "Complete security profile: camera blind spots, guard rotations, service tunnels, emergency exits, and the master security office location. You could rob this place."
               }
             },
             {
@@ -1103,8 +1256,17 @@
               "arena": "wits",
               "actionType": "interact",
               "control": {
-                "failure": "Firewalled. Need physical access to a maintenance terminal.",
-                "success": "Access to dealer droid firmware. Can monitor or modify card dealing."
+                "failure": "Firewalled. Need physical access to a maintenance terminal in the restricted wing.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Full access AND you discover the casino's surveillance feed. Can monitor any table from a remote terminal — watch Arandis, Fioro, and Varga's proxy in real time."
+              },
+              "target": "Casino droid network",
+              "resist": 4,
+              "risk": 4,
+              "effect": {
+                "fleeting": "Partial access. You can see the droid maintenance schedule but can't modify anything. Still useful for timing.",
+                "masterful": "Access to dealer droid firmware. Can monitor or modify card dealing. The tournament can be influenced from the shadows.",
+                "legendary": "Root access. You own the casino's droid network — dealing, serving, cleaning droids all respond to your commands. Unprecedented control over the tournament environment."
               }
             },
             {
@@ -1114,8 +1276,17 @@
               "arena": "wits",
               "actionType": "assess",
               "control": {
-                "failure": "His play seems erratic. Hard to find a pattern.",
-                "success": "He's not gambling — he's executing a mathematical transfer. Every loss is calculated."
+                "failure": "She seems like what she claims — a wealthy patron enjoying the tournament.",
+                "success": "Refer to effect tiers.",
+                "mastery": "She's conflicted. Whatever her mission is, she doesn't fully believe in it. There's a moral crack that could be exploited."
+              },
+              "target": "Arandis",
+              "resist": 3,
+              "risk": 2,
+              "effect": {
+                "fleeting": "Something rehearsed about her mannerisms. She's playing a role, but you can't tell which part is the mask.",
+                "masterful": "She's watching Varga's representative as much as she's watching the game. This isn't leisure — it's surveillance.",
+                "legendary": "Full read: Imperial operative on an intelligence-gathering mission, uncomfortable with the criminal elements she's embedded with, and personally conflicted about her assignment."
               }
             }
           ]
@@ -1279,8 +1450,17 @@
               "arena": "presence",
               "actionType": "interact",
               "control": {
-                "failure": "Minor discrepancy noted. Casino staff will verify — check may come back during the tournament.",
-                "success": "Entry secured. No flags raised."
+                "failure": "Minor discrepancy noted. Casino staff will verify — check may come back during the tournament. Clock ticking.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Not only clean entry but tournament staff assign you a VIP handler who grants access to restricted areas including the private high-roller lounge."
+              },
+              "target": "Tournament security",
+              "resist": 3,
+              "risk": 4,
+              "effect": {
+                "fleeting": "Credentials pass initial scan. You're in, but keep a low profile.",
+                "masterful": "Entry secured. No flags raised. Standard tournament access with no restrictions.",
+                "legendary": "The fabricated Player persona has history — wins on Nar Shaddaa, losses on Canto Bight. Other players recognize the name. You're welcomed as a legitimate competitor."
               }
             },
             {
@@ -1290,8 +1470,17 @@
               "arena": "wits",
               "actionType": "assess",
               "control": {
-                "failure": "Plan has gaps. Improvisation will be needed.",
-                "success": "Clear plan with contingencies. Each team member knows their role."
+                "failure": "Plan has gaps. Improvisation will be needed. High risk of unexpected variables.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Perfect plan AND contingencies for every failure point. Each team member has a fallback role if their primary assignment goes sideways."
+              },
+              "target": "Heist plan",
+              "resist": 2,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Basic outline: who goes where, when. No contingencies. Relies on everything going right.",
+                "masterful": "Clear plan with contingencies. Each team member knows their role, their fallback, and the extraction signal.",
+                "legendary": "Military-precision operation plan. Timing windows, communication protocols, abort signals, and three separate extraction routes depending on what goes wrong. The team moves like a machine."
               }
             },
             {
@@ -1301,8 +1490,17 @@
               "arena": "wits",
               "actionType": "interact",
               "control": {
-                "failure": "Confirm it's an ISD. Details unclear.",
-                "success": "Star Destroyer identified. Full sensor profile. Draco is aboard."
+                "failure": "Confirm it's an ISD. Details unclear. You know it's dangerous — how dangerous is the question.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Full profile AND you identify the Star Destroyer's scanning patterns — blind spots in its sensor sweep you can exploit during the escape."
+              },
+              "target": "Star Destroyer sensors",
+              "resist": 3,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Imperial Star Destroyer confirmed. Standard armament, standard complement. Bad news but not unexpected.",
+                "masterful": "Star Destroyer identified. Full sensor profile. Draco is aboard — confirmed by command frequencies. TIE complement estimated.",
+                "legendary": "Complete tactical analysis: shield frequency, turbolaser arcs, TIE launch timing, and — critically — the Assiduous has a damaged port sensor array. Blind spot on the port quarter."
               }
             },
             {
@@ -1313,9 +1511,18 @@
               "arena": "grit",
               "actionType": "interact",
               "control": {
-                "failure": "[Rattled] from the weight of the stakes. -1 Power on first tournament check.",
-                "success": "Steel nerves. The plan holds."
-              }
+                "failure": "[Rattled] from the weight of the stakes. -1 Power on first tournament check. The fear is real.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Absolute ice. The Star Destroyer in orbit focuses you instead of scaring you. Every action from here on out is precise and deliberate."
+              },
+              "target": "Escalation pressure",
+              "risk": 4,
+              "effect": {
+                "fleeting": "Deep breath. Hands steady. You can operate, but the shadow of that Star Destroyer is always in the back of your mind.",
+                "masterful": "Steel nerves. The plan holds. You acknowledge the danger and move forward with professional detachment.",
+                "legendary": "The danger sharpens everything. Colors are brighter, sounds are clearer, reactions are faster. You're operating at your absolute peak because failure isn't an option."
+              },
+              "resist": 3
             }
           ]
         }
@@ -1620,8 +1827,17 @@
               "arena": "presence",
               "actionType": "interact",
               "control": {
-                "failure": "Lose the hand. Credits lost. Risk of elimination.",
-                "success": "Win the hand. Advance in the tournament."
+                "failure": "Your poker face slips. An observant opponent reads your tell. You're at a disadvantage for the rest of the round.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Your performance is so convincing that opponents misread your strategy entirely. They play into your hands without knowing it."
+              },
+              "target": "Tournament opponents",
+              "resist": 3,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Basic composure maintained. Nobody reads your hand, but you don't learn much from them either.",
+                "masterful": "Poker face holds perfectly. You project false confidence on weak hands and false uncertainty on strong ones. Opponents are off-balance.",
+                "legendary": "You control the entire table's perception. Every bluff lands, every trap springs. Opponents fold when you want them to and bet when you want them to. The elimination rounds become a performance."
               }
             },
             {
@@ -1631,8 +1847,17 @@
               "arena": "wits",
               "actionType": "assess",
               "control": {
-                "failure": "Too many players to read. Can't identify the connection.",
-                "success": "Lady Fioro keeps glancing at Arandis. She's the proxy."
+                "failure": "Too many players to read. Can't identify the connection. Everyone's wearing a poker face.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Fioro identified AND you notice she's passing information via the dealer droid. She's using the casino's own system as a dead drop."
+              },
+              "target": "Tournament players",
+              "resist": 3,
+              "risk": 3,
+              "effect": {
+                "fleeting": "One player seems unusually interested in the tournament results beyond gambling. Could be Varga's proxy or just a serious competitor.",
+                "masterful": "Lady Fioro keeps glancing at Arandis. She's the proxy — managing Varga's interests at the table.",
+                "legendary": "Complete social map: Fioro is Varga's proxy, she's watching Arandis, and there's a third player who's an independent operator — Draver — with his own agenda for the tournament."
               }
             },
             {
@@ -1642,8 +1867,17 @@
               "arena": "wits",
               "actionType": "assess",
               "control": {
-                "failure": "His play seems random. No clear pattern.",
-                "success": "He folds strong hands against everyone except Fioro. The pattern is mathematical."
+                "failure": "Too many shell companies. The financial trail loops back on itself.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Full network mapped AND you discover Skreev's identity: Varga's chief intelligence operative, embedded in Cloud City's Wing Guard as a lieutenant."
+              },
+              "target": "Varga's network",
+              "resist": 3,
+              "risk": 4,
+              "effect": {
+                "fleeting": "A pattern emerges — three shell companies all registered to the same address. Getting warmer.",
+                "masterful": "Shell company network traced to a single operator: codename Skreev. Varga's intelligence chief on Cloud City. Real identity unknown.",
+                "legendary": "Complete dossier on Skreev: real name, Wing Guard rank, personal residence on Cloud City, known associates, and communication frequencies. The hunter becomes the hunted."
               }
             },
             {
@@ -1653,8 +1887,17 @@
               "arena": "reflex",
               "actionType": "interact",
               "control": {
-                "failure": "Draver notices your interest. Plays drunker to throw you off.",
-                "success": "Draver is checking camera sightlines and testing dealer droid response times. He's planning a heist."
+                "failure": "You're being followed. Skreev knows you're investigating. The Knife in the Dark accelerates.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Not only undetected but you identify and photograph Skreev's surveillance team. Can be used as leverage or to set a counter-trap."
+              },
+              "target": "Skreev's surveillance",
+              "resist": 3,
+              "risk": 4,
+              "effect": {
+                "fleeting": "Careful movement. You think you're clean but can't be certain. No obvious tails.",
+                "masterful": "Clean counter-surveillance. Skreev's watchers don't know you're investigating him.",
+                "legendary": "You turn the surveillance back on them. Every watcher is identified, photographed, and their patrol patterns logged. Skreev's network is compromised without him knowing."
               }
             },
             {
@@ -1665,8 +1908,17 @@
               "arena": "presence",
               "actionType": "interact",
               "control": {
-                "failure": "Other players are guarded. Tournament atmosphere is tense.",
-                "success": "A talkative Bothan reveals: Fioro arrived on a ship registered to Varga's company."
+                "failure": "Other players are guarded. Tournament atmosphere is tense. Small talk bounces off.",
+                "success": "Refer to effect tiers.",
+                "mastery": "A talkative Bothan reveals Fioro's ship registration AND mentions that a 'scary Zabrak' visited Fioro's hotel room last night. Skreev is in contact with the proxy."
+              },
+              "target": "Tournament players",
+              "resist": 3,
+              "risk": 2,
+              "effect": {
+                "fleeting": "Polite conversation but nothing of substance. Everyone's playing it close.",
+                "masterful": "A talkative Bothan reveals: Fioro arrived on a ship registered to Varga's company. Confirmed proxy.",
+                "legendary": "Multiple players open up. You learn Fioro's background (ex-Imperial bureaucrat turned fixer), her hotel room number, and the fact that she takes a specific service corridor to avoid cameras."
               }
             }
           ]
@@ -1893,8 +2145,17 @@
               "arena": "physique",
               "actionType": "interact",
               "control": {
-                "failure": "Szygar fires wildly. Panic erupts. Security responds.",
-                "success": "Szygar is disarmed and restrained. Quiet resolution."
+                "failure": "Szygar fires wildly. Panic erupts. Security responds. The tournament may be suspended.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Szygar subdued so quickly and quietly that no one outside the immediate area even notices. No security response. Tournament continues."
+              },
+              "target": "Szygar",
+              "resist": 3,
+              "risk": 4,
+              "effect": {
+                "fleeting": "You grab his arm but he twists free. Second attempt needed — the blaster is still in play.",
+                "masterful": "Szygar is disarmed and restrained. Quiet resolution. No shots fired.",
+                "legendary": "One-move disarm. The blaster is out of his hand before he registers what happened. You pin him against the wall and the crisis is over in two seconds."
               }
             },
             {
@@ -1904,8 +2165,17 @@
               "arena": "presence",
               "actionType": "interact",
               "control": {
-                "failure": "Szygar is beyond reason. Physical intervention needed.",
-                "success": "Szygar lowers the blaster. Breaks down crying. Quiet resolution."
+                "failure": "Szygar is beyond reason. 'You don't understand — they'll kill my family!' Physical intervention needed.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Szygar not only stands down but provides intel: he was forced to cheat by 'a Zabrak who knows things.' Skreev's involvement confirmed."
+              },
+              "target": "Szygar",
+              "resist": 3,
+              "risk": 4,
+              "effect": {
+                "fleeting": "Szygar pauses. The blaster lowers half an inch. He's listening but he's still terrified. More talking needed.",
+                "masterful": "Szygar lowers the blaster. Breaks down crying. Quiet resolution. He's a victim, not a villain.",
+                "legendary": "Complete de-escalation. Szygar surrenders the blaster, sits down, and tells you everything — who blackmailed him, what they wanted, and where the handler is staying."
               }
             },
             {
@@ -1915,8 +2185,17 @@
               "arena": "presence",
               "actionType": "interact",
               "control": {
-                "failure": "Lose. Must find another way into the final round.",
-                "success": "Win. Advance to the final table."
+                "failure": "Lose the hand. Must find another way into the final round — or another path to the objective.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Win the hand AND your performance is so convincing that Fioro approaches afterward — she wants to make a deal."
+              },
+              "target": "Tournament opponents",
+              "resist": 3,
+              "risk": 4,
+              "effect": {
+                "fleeting": "Narrow win. The other players suspect something but can't prove it. You advance, barely.",
+                "masterful": "Win. Clean performance. Advance to the final table with reputation intact.",
+                "legendary": "Dominating victory that looks effortless. You're the story of the round. Fioro, Arandis, and every observer are watching your next move."
               }
             },
             {
@@ -1926,8 +2205,17 @@
               "arena": "wits",
               "actionType": "assess",
               "control": {
-                "failure": "He looks unhinged. Could go either way.",
-                "success": "Desperate. Not a killer. The blaster is shaking."
+                "failure": "He looks unhinged. Could go either way. Dangerous to approach.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Desperate AND you read the specific fear: his family is being held. The leverage isn't money — it's hostages. Skreev's operation is darker than expected."
+              },
+              "target": "Szygar",
+              "resist": 2,
+              "risk": 2,
+              "effect": {
+                "fleeting": "More scared than angry. He's holding that blaster like it's the only thing keeping him alive.",
+                "masterful": "Desperate. Not a killer. The blaster is shaking. He's been pushed into this by someone else.",
+                "legendary": "Full read: terrified father, coerced into cheating, handler watching from somewhere in the casino. He'll stand down if you can guarantee his family's safety."
               }
             },
             {
@@ -1938,8 +2226,17 @@
               "arena": "presence",
               "actionType": "interact",
               "control": {
-                "failure": "He screams louder. Situation escalates.",
-                "success": "He freezes. Drops the blaster."
+                "failure": "Szygar panics harder. The blaster swings wildly. Situation worsens.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Szygar drops the blaster immediately AND tells you who gave it to him. Direct lead to Skreev's operation."
+              },
+              "target": "Szygar",
+              "resist": 2,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Szygar flinches but doesn't drop the weapon. He's caught between two fears.",
+                "masterful": "Szygar's resolve crumbles. Blaster hits the floor. He puts his hands up. Over.",
+                "legendary": "Total submission. Szygar collapses. He's so terrified of you that he forgets to be afraid of Skreev. Full cooperation from pure fear."
               }
             }
           ]
@@ -2190,8 +2487,17 @@
               "arena": "presence",
               "actionType": "interact",
               "control": {
-                "failure": "Lose the hand. Fioro wins the pot as planned. Must intercept her physically.",
-                "success": "Win the pot. The credits are yours. Arandis's code is visible."
+                "failure": "Varga's agent spots the deception. Reports back. Varga accelerates his departure plans.",
+                "success": "Refer to effect tiers.",
+                "mastery": "The agent is completely fooled AND feeds false information back to Varga — misdirecting his escape preparations."
+              },
+              "target": "Varga's agents",
+              "resist": 3,
+              "risk": 4,
+              "effect": {
+                "fleeting": "The agent is uncertain. Doesn't report anything definitive but doesn't fully buy your cover either.",
+                "masterful": "Agent completely deceived. Reports back to Varga that the situation is normal. The heroes maintain operational surprise.",
+                "legendary": "The agent actively assists you, believing you're working for Varga. Provides current intel on Varga's location and security arrangements."
               }
             },
             {
@@ -2201,8 +2507,17 @@
               "arena": "wits",
               "actionType": "assess",
               "control": {
-                "failure": "The arrangement looks deliberate but meaning is unclear. Need Varth's analysis.",
-                "success": "Varth decodes instantly: 1-3-7 = frequency 137.12, the slave circuit code for the Shackles of Nizon."
+                "failure": "Accounts locked with biometric encryption. Need Varga's voiceprint or physical access.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Full account access AND you discover a hidden sub-account routing credits to an Imperial officer — Varth. Direct evidence of the embezzlement pipeline."
+              },
+              "target": "Varga's accounts",
+              "resist": 4,
+              "risk": 4,
+              "effect": {
+                "fleeting": "Partial access. Account balances visible but transaction history is locked. Millions in credits — enough to confirm the scale.",
+                "masterful": "Full account access. Transaction history shows Tibanna payments routing to Imperial logistics. Complete evidence chain.",
+                "legendary": "Everything: accounts, transactions, shell companies, recipient identities, and a frozen emergency fund Varga set aside in case he needed to disappear. You can freeze his entire financial network."
               }
             },
             {
@@ -2212,8 +2527,17 @@
               "arena": "wits",
               "actionType": "assess",
               "control": {
-                "failure": "She's calm. Hard to tell if she's leaving immediately or staying the night.",
-                "success": "She's planning to leave via the service exit. Has a speeder waiting."
+                "failure": "Hard to read in the chaos. She could run or cooperate — fifty-fifty.",
+                "success": "Refer to effect tiers.",
+                "mastery": "She'll cooperate AND she's relieved. She's been looking for a way out of Varga's organization. You're her exit strategy."
+              },
+              "target": "Lady Fioro",
+              "resist": 3,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Self-preservation is driving her. She'll side with whoever looks like the winning team right now.",
+                "masterful": "She's calculating, not panicking. She'll trade information for protection. Transactional but reliable.",
+                "legendary": "Full psychological read: Fioro is a pragmatist trapped in a crime syndicate. She has more intelligence than she's revealed and will share it all if she believes you can protect her."
               }
             },
             {
@@ -2223,8 +2547,17 @@
               "arena": "reflex",
               "actionType": "interact",
               "control": {
-                "failure": "She catches your hand. Cover blown. She screams for security.",
-                "success": "Clean lift. She doesn't notice for minutes."
+                "failure": "Fioro notices the attempt. Trust broken. She clams up or runs.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Clean swap AND you clone the datapad's memory remotely — you get the original AND a copy that Fioro doesn't know about."
+              },
+              "target": "Fioro's datapad",
+              "resist": 4,
+              "risk": 4,
+              "effect": {
+                "fleeting": "You brush the datapad but can't complete the switch. Need another opportunity or a distraction.",
+                "masterful": "Clean pickpocket. Fioro's datapad is in your hands and a decoy is in hers. She won't notice for hours.",
+                "legendary": "Perfect swap executed during a handshake. The decoy datapad feeds Fioro false data while you analyze the real one. She's unknowingly working with compromised intel."
               }
             }
           ]
@@ -2570,8 +2903,17 @@
               "arena": "reflex",
               "actionType": "interact",
               "control": {
-                "failure": "Casino chaos. Shots hit tables, chandeliers, civilians scatter.",
-                "success": "Accurate fire. Draver's men go down."
+                "failure": "Crossfire pins you down. Three factions shooting in a casino full of civilians. Chaos.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Precision shots drop two of Draver's crew. His heist collapses. He's exposed and desperate — which makes him predictable."
+              },
+              "target": "Draver's crew",
+              "resist": 3,
+              "risk": 4,
+              "effect": {
+                "fleeting": "Suppressive fire keeps Draver's crew from advancing. Civilians scatter. Some cover established.",
+                "masterful": "Accurate fire. One of Draver's crew drops. The three-way firefight tilts in your favor.",
+                "legendary": "Controlled violence in a chaotic environment. You drop targets without hitting civilians, use the casino furniture for cover, and create a corridor of safety for bystanders to escape."
               }
             },
             {
@@ -2581,8 +2923,17 @@
               "arena": "reflex",
               "actionType": "interact",
               "control": {
-                "failure": "Caught in crossfire. Take incidental damage.",
-                "success": "Weave through the chaos unscathed."
+                "failure": "Hit by glancing fire from an unknown direction. Minor wound. The crossfire is disorienting.",
+                "success": "Refer to effect tiers.",
+                "mastery": "You use the crossfire to your advantage — dive through the gap between two firing lines and emerge behind Draver's position."
+              },
+              "target": "Three-way crossfire",
+              "resist": 3,
+              "risk": 4,
+              "effect": {
+                "fleeting": "Dive behind a sabacc table. Chips scatter. The bolts hit the wall behind where you were standing.",
+                "masterful": "Clean dodge through the crossfire. You reach solid cover and a clear firing position.",
+                "legendary": "Acrobatic evasion through the three-way kill zone. You roll, slide, and vault your way through the casino without taking a single hit. End up exactly where you need to be."
               }
             },
             {
@@ -2592,8 +2943,17 @@
               "arena": "wits",
               "actionType": "interact",
               "control": {
-                "failure": "Droids continue firing. Must be destroyed conventionally.",
-                "success": "Ion burst or firmware hack shuts them down."
+                "failure": "Circuit triggers a pain response. The slaves scream. Must work faster before permanent damage.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Clean override AND you capture the master frequency. Can disable any slave circuit on this frequency band — every Iron Ring slave in range."
+              },
+              "target": "Slave circuits",
+              "resist": 4,
+              "risk": 5,
+              "effect": {
+                "fleeting": "One circuit disabled. Painstaking, delicate work. Each one takes time you may not have.",
+                "masterful": "Batch override. Multiple circuits disabled simultaneously. The slaves stir, disoriented but free.",
+                "legendary": "Master override. Every slave circuit on the ship deactivates at once. Clean, painless, complete. The freed slaves look at you like you're a miracle."
               }
             },
             {
@@ -2603,8 +2963,17 @@
               "arena": "wits",
               "actionType": "assess",
               "control": {
-                "failure": "Pulled into the general melee. No tactical advantage.",
-                "success": "Identify: let Draver and Arandis fight each other. Focus on securing Fioro."
+                "failure": "Chaotic scene. React to threats as they emerge. No clear picture.",
+                "success": "Refer to effect tiers.",
+                "mastery": "You identify a way to collapse the three-way into a two-on-one: maneuver Draver's crew into the security team's line of fire. Let them fight each other."
+              },
+              "target": "Three-way crossfire",
+              "resist": 3,
+              "risk": 4,
+              "effect": {
+                "fleeting": "Identify the three factions and their positions. Enough to know where NOT to stand.",
+                "masterful": "Full tactical picture: Draver at 2 o'clock, casino security at 10, your team in between. Clear firing lanes identified.",
+                "legendary": "Complete battle management. You see how to end this in two rounds: pin Draver between security and your team, isolate Fioro, and grab the datapad in the confusion."
               }
             },
             {
@@ -2614,8 +2983,17 @@
               "arena": "physique",
               "actionType": "interact",
               "control": {
-                "failure": "Draver tightens his grip. Hostage situation escalates.",
-                "success": "Draver loses the blaster. Fioro is freed."
+                "failure": "Draver tightens his grip. Hostage situation escalates. He drags Fioro toward the exit.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Draver disarmed AND unconscious. Fioro is freed AND grateful — she'll cooperate fully from this point."
+              },
+              "target": "Draver",
+              "resist": 3,
+              "risk": 4,
+              "effect": {
+                "fleeting": "You loosen Draver's grip but Fioro is still in the struggle. Partial progress.",
+                "masterful": "Draver loses the blaster. Fioro is freed. Clean disarm.",
+                "legendary": "One precise strike to Draver's wrist — nerve cluster hit. His hand opens involuntarily. Fioro stumbles free. Draver is done before he realizes what happened."
               }
             }
           ]
@@ -2775,8 +3153,17 @@
               "arena": "wits",
               "actionType": "assess",
               "control": {
-                "failure": "Hard to read through the shock. Could be lying.",
-                "success": "Genuine terror. She's not lying. Docking Bay 4414."
+                "failure": "Varth's logic seems sound. 'It's the only way.' No reason to doubt the tactical assessment.",
+                "success": "Refer to effect tiers.",
+                "mastery": "You see through Varth's entire calculation: he's willing to sacrifice Okeefe AND the freed slaves to secure his own escape. This isn't tactics — it's cowardice dressed as pragmatism."
+              },
+              "target": "Varth's plan",
+              "resist": 3,
+              "risk": 4,
+              "effect": {
+                "fleeting": "Something about Varth's plan doesn't sit right. He dismissed the alternative too quickly.",
+                "masterful": "Varth is using Okeefe as a distraction. He planned this — her ship draws fire while he escapes. He's sacrificing her knowingly.",
+                "legendary": "Complete insight: Varth calculated this before the escape even started. Okeefe was always the expendable decoy in his plan. He never intended to protect her."
               }
             },
             {
@@ -2786,8 +3173,17 @@
               "arena": "physique",
               "actionType": "interact",
               "control": {
-                "failure": "Delayed by traffic, crowds, or Wing Guard. Lose time.",
-                "success": "Fast transit. Arrive before Varga launches."
+                "failure": "Delayed by traffic, crowds, or Wing Guard. Lose a critical round. Varga gains escape time.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Sprint so fast you arrive at the industrial docks with time to set up an ambush position before Varga's loading crew expects trouble."
+              },
+              "target": "Cloud City corridors",
+              "resist": 2,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Pushing through crowds. Slow going. Arrive winded but on time.",
+                "masterful": "Fast transit through service corridors. Arrive before Varga launches. Full team in position.",
+                "legendary": "You know Cloud City's shortcuts now. Underground tram to the industrial sector, maintenance elevator to the docks. Arrive fresh, fast, and undetected."
               }
             },
             {
@@ -2798,8 +3194,17 @@
               "arena": "wits",
               "actionType": "assess",
               "control": {
-                "failure": "Can't verify independently. Trust her or don't.",
-                "success": "Confirmed: Shackles of Nizon is activating engines. Varga is loading cargo at Bay 4414."
+                "failure": "Can't verify independently. Trust her or don't. The clock is ticking.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Confirmed AND you discover additional detail Fioro didn't know: Varga has a decoy shuttle launching from a different bay. You know which one is real."
+              },
+              "target": "Fioro's intel",
+              "resist": 2,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Varth's sensors detect engine activity at the dock Fioro described. Consistent but not conclusive.",
+                "masterful": "Confirmed: Shackles of Nizon is activating engines. Varga is loading cargo at Bay 4414. Fioro's intel checks out.",
+                "legendary": "Full verification: Fioro is right about everything. Additionally, Varth identifies Varga's security deployment — you know exactly how many guards and where they're positioned."
               }
             }
           ]
@@ -3069,8 +3474,17 @@
               "arena": "reflex",
               "actionType": "interact",
               "control": {
-                "failure": "Hit by glancing fire. Minor damage. Keep running.",
-                "success": "Clean dodge. Keep running."
+                "failure": "Hit by glancing fire. Minor damage. Keep running — stopping means dying.",
+                "success": "Refer to effect tiers.",
+                "mastery": "You dodge so cleanly that the pursuing shooters hit each other's cover positions. Friendly fire chaos buys you an extra round."
+              },
+              "target": "Blaster fire",
+              "resist": 3,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Bolt singes your jacket. Close call. Keep moving.",
+                "masterful": "Clean dodge. Keep running. Not a scratch.",
+                "legendary": "Inhuman reflexes. You anticipate the shots before they fire — ducking and weaving through a corridor of blaster bolts without breaking stride."
               }
             },
             {
@@ -3080,8 +3494,17 @@
               "arena": "physique",
               "actionType": "interact",
               "control": {
-                "failure": "Stumble. Pursuers close the gap.",
-                "success": "Fluid movement. Gain a round on pursuers."
+                "failure": "Stumble on a pipe. Pursuers close the gap. Must fight or find another route.",
+                "success": "Refer to effect tiers.",
+                "mastery": "You gain so much distance that the pursuers lose visual contact. They're searching blind while you reach the hangar unimpeded."
+              },
+              "target": "Industrial District terrain",
+              "resist": 3,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Awkward climb over a steam pipe. Slow but you don't fall. Pursuers are still behind you.",
+                "masterful": "Fluid movement. Leap gaps, climb pipes, vault railings. Gain a round on pursuers.",
+                "legendary": "Parkour through the industrial district like you've done it your whole life. Pursuers can't keep up — you're using routes they can't follow."
               }
             },
             {
@@ -3091,8 +3514,17 @@
               "arena": "wits",
               "actionType": "interact",
               "control": {
-                "failure": "Doors jam. Must find another route.",
-                "success": "Doors open and close on command. Pursuers blocked."
+                "failure": "Unfamiliar Hutt technology. The yacht's systems respond sluggishly.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Full system mastery AND you discover Varga's personal encrypted files in the yacht's computer. Intelligence goldmine accessible after the battle."
+              },
+              "target": "Glorious Chariot systems",
+              "resist": 3,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Basic systems operational. Weapons and shields respond, but the yacht handles like a barge.",
+                "masterful": "Full system integration. The yacht responds crisply. Shields, weapons, and engines all performing at spec.",
+                "legendary": "You coax performance out of the Chariot that Varga never knew it had. Overclocked engines, boosted shields, and a weapons system that hits harder than its spec sheet says."
               }
             },
             {
@@ -3103,8 +3535,17 @@
               "arena": "reflex",
               "actionType": "interact",
               "control": {
-                "failure": "Spotted. Reinforcements called.",
-                "success": "Guards don't see you. Clean passage."
+                "failure": "Spotted. Reinforcements called. The checkpoint becomes a bottleneck.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Clean passage AND you lock the checkpoint behind you — pursuers hit a sealed door. Major delay for them."
+              },
+              "target": "Wing Guard checkpoint",
+              "resist": 3,
+              "risk": 4,
+              "effect": {
+                "fleeting": "Timing is tight. You slip past during a guard change but it was close. One more second and you'd have been seen.",
+                "masterful": "Guards don't see you. Clean passage through the checkpoint.",
+                "legendary": "You pass through the checkpoint like a ghost. The guards never even look in your direction. You're through and invisible."
               }
             },
             {
@@ -3114,8 +3555,17 @@
               "arena": "reflex",
               "actionType": "interact",
               "control": {
-                "failure": "Return fire pins you. Lost time.",
-                "success": "Pursuers duck. Buy 1 round of free movement."
+                "failure": "Shots miss. TIEs are too fast. Must get closer or find a better angle.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Shot hits the TIE's solar panel junction — instant kill. Debris forces the wingman to break formation."
+              },
+              "target": "TIE Fighters",
+              "resist": 3,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Glancing hit on a TIE's wing. It wobbles but stays in the fight. Damaged but operational.",
+                "masterful": "Clean hit. TIE spirals away trailing smoke. One less fighter in the pursuit.",
+                "legendary": "Devastating shot. The TIE detonates — and the explosion catches the wingman's solar panel. Two for one. The pursuit thins dramatically."
               }
             }
           ]
@@ -3512,8 +3962,17 @@
               "arena": "reflex",
               "actionType": "interact",
               "control": {
-                "failure": "Pilots reach cockpits. Z-95s launching in 2 rounds.",
-                "success": "Pilots pinned down. Fighters don't launch this round."
+                "failure": "Pilots reach cockpits. Z-95s launching in 2 rounds. Air superiority lost.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Pilots pinned down AND you disable a Z-95's engines with precision shots to the intake. One fewer fighter to deal with in the air."
+              },
+              "target": "Z-95 pilots",
+              "resist": 3,
+              "risk": 4,
+              "effect": {
+                "fleeting": "Suppressive fire slows the pilots. They're behind cover but still moving toward the fighters. Bought 1 round.",
+                "masterful": "Pilots pinned down. Fighters don't launch this round. Window secured for the ship grab.",
+                "legendary": "All pilots pinned or wounded. Not a single Z-95 is going airborne without someone crawling through a firefight to reach a cockpit."
               }
             },
             {
@@ -3524,8 +3983,17 @@
               "arena": "wits",
               "actionType": "interact",
               "control": {
-                "failure": "Unfamiliar controls. Delayed 1 round.",
-                "success": "Engine start. You're flying. Firepower for the escape."
+                "failure": "Unfamiliar controls. Delayed 1 round while you figure out the interface.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Instant startup AND you discover the Z-95 has been modified with concussion missiles. Bonus armament for the escape."
+              },
+              "target": "Z-95 Headhunter",
+              "resist": 2,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Basic systems online. The fighter will fly but you're learning the controls in real time.",
+                "masterful": "Engine start. You're flying. Weapons hot. Firepower for the escape.",
+                "legendary": "Complete system mastery in seconds. You have the fighter singing — weapons, shields, comms, and a targeting computer that locks fast."
               }
             },
             {
@@ -3535,8 +4003,17 @@
               "arena": "wits",
               "actionType": "assess",
               "control": {
-                "failure": "Chaotic scene. React to threats as they emerge.",
-                "success": "Priority: stop the yacht engines, neutralize the security droid, prevent fighter launches."
+                "failure": "Chaotic scene. React to threats as they emerge. No priority targeting.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Perfect threat assessment AND you identify the hangar's emergency seal controls. If things go wrong, you can seal the hangar and trap everyone inside — including yourselves."
+              },
+              "target": "Hangar threats",
+              "resist": 2,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Identify immediate threats: armed guards, the security droid, and pilots running for fighters.",
+                "masterful": "Priority list: stop the yacht engines, neutralize the security droid, prevent fighter launches. Clear tactical picture.",
+                "legendary": "Complete battle plan: assignments for each team member, firing arcs that avoid damaging the ships you need, and a 30-second timeline that ends with you airborne."
               }
             },
             {
@@ -3546,8 +4023,17 @@
               "arena": "physique",
               "actionType": "interact",
               "control": {
-                "failure": "Intercepted by thugs. Delayed.",
-                "success": "Full speed. Reach the ramp before Varga seals it."
+                "failure": "Intercepted by thugs. Delayed. Must fight through before reaching the yacht.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Sprint so fast you reach the ramp and get inside before Varga's crew can seal it. You're aboard and they're locked out."
+              },
+              "target": "Hangar floor",
+              "resist": 2,
+              "risk": 4,
+              "effect": {
+                "fleeting": "Dodging between cargo and fuel lines. Slow going under fire.",
+                "masterful": "Full speed. Reach the ramp before Varga seals it. Clean entry.",
+                "legendary": "Sprint-vault-slide across the hangar floor. You cover 50 meters of open ground under fire without being hit, hit the ramp at full speed, and are inside the yacht in seconds."
               }
             }
           ]
@@ -3799,8 +4285,17 @@
               "arena": "physique",
               "actionType": "interact",
               "control": {
-                "failure": "Varga's bulk fills the corridor. He crushes you against the wall.",
-                "success": "Decisive blow. Varga takes heavy damage."
+                "failure": "Varga's bulk fills the corridor. He crushes you against the wall. [Stunned] for 1 round.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Devastating blow AND you sever the controls for the hover-sled. Varga's immobilized — a beached Hutt. Fight's over."
+              },
+              "target": "Varga's bodyguards",
+              "resist": 4,
+              "risk": 4,
+              "effect": {
+                "fleeting": "Blade connects but Varga's fat absorbs the worst of it. He bellows in pain and rage. Hurt but not stopped.",
+                "masterful": "Decisive blow. Varga takes heavy damage. The Hutt's bravado cracks — he's not used to being hurt.",
+                "legendary": "Critical strike to the hover-sled's motivator. Sparks shower. The sled crashes to the deck with Varga still on it. He's grounded and exposed."
               }
             },
             {
@@ -3810,8 +4305,17 @@
               "arena": "physique",
               "actionType": "interact",
               "control": {
-                "failure": "Knocked into bulkhead. [Stunned] for 1 round.",
-                "success": "Absorb the blow. Stay standing."
+                "failure": "Knocked into bulkhead. [Stunned] for 1 round. Stars in your eyes.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Not only absorb the blow but grab the tail. Varga's immobilized for 1 round — massive opening for allies."
+              },
+              "target": "Varga's tail whip",
+              "resist": 4,
+              "risk": 3,
+              "effect": {
+                "fleeting": "The impact drives the air from your lungs. You stagger but stay on your feet. Everything hurts.",
+                "masterful": "Absorb the blow. Stay standing. Your body protests but your legs hold. Ready to counter.",
+                "legendary": "You catch the tail whip on your forearms and brace. Varga's surprised — no one has ever taken that hit standing. Your counter-attack has +1 Power."
               }
             },
             {
@@ -3821,8 +4325,17 @@
               "arena": "wits",
               "actionType": "interact",
               "control": {
-                "failure": "Engines spool up. Must be disabled from the cockpit.",
-                "success": "Engines shut down. The yacht isn't going anywhere."
+                "failure": "Engines spool up. Must be disabled from the cockpit — which Varga's crew controls.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Engines disabled AND you lock the cockpit remotely. Varga's pilot can't override. The yacht is permanently grounded without a full repair."
+              },
+              "target": "Glorious Chariot engines",
+              "resist": 3,
+              "risk": 4,
+              "effect": {
+                "fleeting": "One engine shuts down. The yacht can still fly on the other three, but maneuvering is compromised.",
+                "masterful": "Engines shut down. The yacht isn't going anywhere. Primary objective secured.",
+                "legendary": "Complete power shutdown. Engines, shields, weapons, and life support all go dark. The Chariot is a very expensive metal box. Varga has nowhere to run."
               }
             },
             {
@@ -3832,8 +4345,17 @@
               "arena": "reflex",
               "actionType": "interact",
               "control": {
-                "failure": "Mercs hold their ground. Must be flanked.",
-                "success": "Mercs go down. Clear path to the yacht."
+                "failure": "Bodyguards maintain position. Varga stays shielded. Must reposition.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Two bodyguards drop in rapid succession. Varga's escort collapses. The Hutt is exposed and terrified."
+              },
+              "target": "Varga's bodyguards",
+              "resist": 3,
+              "risk": 4,
+              "effect": {
+                "fleeting": "One bodyguard takes cover but the formation holds. Varga's protection is thinning but not broken.",
+                "masterful": "Clean shots. One bodyguard down, another wounded. The protective ring around Varga is breaking.",
+                "legendary": "Devastating volley. The bodyguard formation shatters. Varga's hover-sled has no cover. The Hutt begins bellowing in Huttese — pure panic."
               }
             }
           ]
@@ -4004,8 +4526,17 @@
               "arena": "reflex",
               "actionType": "interact",
               "control": {
-                "failure": "Engine sputter. Delayed 1 round. Stormtroopers breach the hangar.",
-                "success": "Engines roar. The yacht lifts off immediately."
+                "failure": "Engine sputter. Delayed 1 round. Stormtroopers breach the hangar. Under fire during startup.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Instant hot-start AND you use the yacht's bulk to block the hangar entrance. The Stormtroopers can't get a clean shot."
+              },
+              "target": "Glorious Chariot controls",
+              "resist": 2,
+              "risk": 4,
+              "effect": {
+                "fleeting": "Engines cough once, then catch. Slow lift. The yacht clears the pad with Stormtroopers firing at the hull.",
+                "masterful": "Engines roar. The yacht lifts off immediately. Clean departure under pressure.",
+                "legendary": "The Chariot launches like it was built for combat ops. You use the repulsor wash to scatter the Stormtrooper formation and blast through the hangar doors before they can seal."
               }
             },
             {
@@ -4015,8 +4546,17 @@
               "arena": "wits",
               "actionType": "interact",
               "control": {
-                "failure": "Unknown control layout. -1 Power on first piloting check.",
-                "success": "Weapons hot. Systems green. Ready to fly."
+                "failure": "Unknown control layout. -1 Power on first piloting check. Systems fight you.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Full system mastery on first contact. AND you discover the Z-95s have been upgraded with military-grade targeting computers. +1 Power on ranged attacks."
+              },
+              "target": "Z-95 fighter systems",
+              "resist": 2,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Basic systems online. Weapons cycle. The fighter is flyable but you're learning the cockpit on the fly.",
+                "masterful": "Weapons hot. Systems green. Ready to fly. The Z-95 responds to your inputs cleanly.",
+                "legendary": "You crack the Z-95's systems in seconds. Full weapons, shields, and — bonus — an encrypted IFF transponder that reads as Imperial. Useful for bluffing past patrols later."
               }
             },
             {
@@ -4026,8 +4566,17 @@
               "arena": "wits",
               "actionType": "assess",
               "control": {
-                "failure": "Rushed decision. May leave useful assets behind.",
-                "success": "Optimal loadout identified. Maximum firepower for the escape."
+                "failure": "Rushed decision. May leave useful assets behind. Regret later.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Optimal loadout AND you identify a way to remote-slave the unmanned fighters. Three ships controlled by two pilots."
+              },
+              "target": "Escape assets",
+              "resist": 2,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Grab what's closest. One ship for the party, leave the rest. Speed over strategy.",
+                "masterful": "Optimal loadout identified. Maximum firepower for the escape — yacht plus fighters for escort.",
+                "legendary": "Complete tactical assessment: which ships to take, which to sabotage so they can't pursue, and the ideal formation for the escape run."
               }
             }
           ]
@@ -4287,8 +4836,17 @@
               "arena": "reflex",
               "actionType": "interact",
               "control": {
-                "failure": "TIEs on your tail. Taking fire. Must shake them first.",
-                "success": "Outmaneuver TIEs. Clear firing line on the Hauler."
+                "failure": "TIEs on your tail. Taking fire. Hull integrity dropping. Must shake them before attempting the Hauler run.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Ace maneuver — you use a TIE's own wingman as a shield, forcing one to break off to avoid friendly fire. Clear run on the Hauler."
+              },
+              "target": "TIE Fighters",
+              "resist": 3,
+              "risk": 5,
+              "effect": {
+                "fleeting": "Evasive flying keeps you alive but you can't get a clean approach on the Hauler. Need to deal with the TIEs first.",
+                "masterful": "Outmaneuver the TIEs. Clear firing line on the Hauler. One clean pass available.",
+                "legendary": "Thread the needle between two TIEs at full speed, leaving them in each other's wake turbulence. Perfect attack run lined up on the Gas Hauler."
               }
             },
             {
@@ -4298,8 +4856,17 @@
               "arena": "reflex",
               "actionType": "interact",
               "control": {
-                "failure": "Glancing hit. Hauler is damaged but still on collision course. Need another shot.",
-                "success": "Direct hit. The Hauler breaks apart. Okeefe is safe."
+                "failure": "Glancing hit. Hauler is damaged but still on collision course. Need another shot — and another round you might not have.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Hit the fuel line junction. The Hauler doesn't just break apart — it detonates spectacularly, creating a debris field that forces the pursuing TIEs to scatter."
+              },
+              "target": "Automated Gas Hauler",
+              "resist": 3,
+              "risk": 5,
+              "effect": {
+                "fleeting": "Solid hit to the hull. The Hauler's course wobbles. It's slowing but still moving toward the Shackles. Not enough.",
+                "masterful": "Direct hit. The Hauler breaks apart. Okeefe is safe. Debris scatters harmlessly.",
+                "legendary": "Precision shot to the engine block. The Hauler disintegrates cleanly — no debris threat to the Shackles. Okeefe whoops over the comm. Perfect kill."
               }
             },
             {
@@ -4309,8 +4876,17 @@
               "arena": "wits",
               "actionType": "interact",
               "control": {
-                "failure": "Transmission interference from the Star Destroyer. Must get closer.",
-                "success": "Circuits unlocked. Okeefe regains helm control."
+                "failure": "Transmission interference from the Star Destroyer. Must get closer — within turbolaser range.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Circuits unlocked AND you piggyback a virus onto the signal that corrupts the Star Destroyer's slave circuit database. They can never re-enslave this frequency band."
+              },
+              "target": "Slave circuit controller",
+              "resist": 4,
+              "risk": 5,
+              "effect": {
+                "fleeting": "Partial transmission. Some circuits unlock. Okeefe has partial helm control — enough to maneuver but not full power.",
+                "masterful": "Circuits unlocked. Okeefe regains full helm control. The Shackles breaks free of its programmed course.",
+                "legendary": "Clean unlock with a bonus: the transmission overloads the Iron Ring's tracking beacon on the ship. The Shackles is not only free but untraceable."
               }
             },
             {
@@ -4321,8 +4897,17 @@
               "arena": "grit",
               "actionType": "interact",
               "control": {
-                "failure": "Varth's logic is compelling. Hesitation costs a round.",
-                "success": "You defy Varth. Your ship, your choice."
+                "failure": "Varth's logic is compelling. Hesitation costs a round while you argue internally.",
+                "success": "Refer to effect tiers.",
+                "mastery": "You defy Varth AND rally the crew. Everyone commits to the rescue. Varth is overruled by unanimous decision — and he sees the writing on the wall."
+              },
+              "target": "Varth's pressure",
+              "resist": 4,
+              "risk": 4,
+              "effect": {
+                "fleeting": "You push back but the doubt lingers. 'What if he's right?' A moment of uncertainty before committing.",
+                "masterful": "You defy Varth. Your ship, your choice. No hesitation. Okeefe lives.",
+                "legendary": "You don't just defy Varth — you redefine the mission. 'We're not the kind of people who leave someone to die.' The crew follows your lead. Varth is silent."
               }
             }
           ]
@@ -4574,8 +5159,17 @@
               "arena": "reflex",
               "actionType": "interact",
               "control": {
-                "failure": "Glancing turbolaser hit during jump. Ship takes damage but enters hyperspace.",
-                "success": "Clean jump. Stars stretch into lines."
+                "failure": "Glancing turbolaser hit during jump. Ship takes damage but enters hyperspace. Repairs needed.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Clean jump AND you enter hyperspace on a vector that makes pursuit impossible — the Star Destroyer can't follow without recalculating. Total escape."
+              },
+              "target": "Turbolaser fire",
+              "resist": 4,
+              "risk": 4,
+              "effect": {
+                "fleeting": "Hull shudders from a near-miss. The navicomputer locks and you punch it. Stars stretch — but the ship groans.",
+                "masterful": "Clean jump. Stars stretch into lines. The turbolaser fire flashes harmlessly behind you.",
+                "legendary": "Perfect microjump timing. You enter hyperspace in the exact gap between turbolaser salvos. Not a scratch on the hull. Textbook."
               }
             },
             {
@@ -4585,8 +5179,17 @@
               "arena": "wits",
               "actionType": "assess",
               "control": {
-                "failure": "His explanation seems reasonable — \"tactical calculation.\" But something doesn't sit right.",
-                "success": "Cold. Calculating. He didn't hesitate to sacrifice her. He will do it again if the math works."
+                "failure": "His explanation seems reasonable — 'tactical calculation.' But something doesn't sit right. You can't articulate why.",
+                "success": "Refer to effect tiers.",
+                "mastery": "You see through everything. Varth isn't just calculating — he's rehearsed. He expected this confrontation and prepared responses. He's been managing you from the beginning."
+              },
+              "target": "Varth",
+              "resist": 4,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Cold. He's processing, not feeling. The mathematical precision of his response is unsettling.",
+                "masterful": "Cold. Calculating. He didn't hesitate to sacrifice her. He will do it again if the math works. This is who he is.",
+                "legendary": "Complete psychological profile: Varth views people as assets to be deployed and expended. His charm is a tool. His loyalty is conditional. Every relationship is a transaction — including this one."
               }
             },
             {
@@ -4596,8 +5199,17 @@
               "arena": "presence",
               "actionType": "interact",
               "control": {
-                "failure": "Varth deflects cleanly. \"Tactical calculation that changed. You made a different call. I respect that.\" Smooth as durasteel.",
-                "success": "Varth drops the mask for a moment. \"I did what I thought was necessary. I was wrong.\" Genuine or calculated? Hard to tell."
+                "failure": "Varth deflects cleanly. 'Tactical calculation that changed. You made a different call. I respect that.' Smooth as durasteel.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Varth drops the mask entirely. A flash of genuine emotion — not remorse, but frustration. 'You don't understand what's at stake.' He almost says too much. Almost reveals the bigger picture."
+              },
+              "target": "Admiral Varth",
+              "resist": 4,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Varth pauses. Considers your words. Then: 'Noted.' That's all you get. The wall is up.",
+                "masterful": "Varth drops the mask for a moment. 'I did what I thought was necessary. I was wrong.' Genuine or calculated? Hard to tell — but the crack is real.",
+                "legendary": "Varth is genuinely shaken. For one unguarded moment, you see the real man behind the Admiral's bearing — someone who knows he's becoming something he despises. The moment passes. But you saw it."
               }
             },
             {
@@ -4608,9 +5220,18 @@
               "arena": "grit",
               "actionType": "interact",
               "control": {
-                "failure": "[Rattled] carries into the next adventure. The weight lingers.",
-                "success": "Steel yourself. Ready for whatever comes next."
-              }
+                "failure": "[Rattled] carries into the next adventure. The weight lingers. Sleepless nights.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Not just processing — transforming. The events of Bespin forge a harder, clearer version of yourself. Begin the next adventure with renewed purpose."
+              },
+              "target": "Emotional weight",
+              "risk": 3,
+              "effect": {
+                "fleeting": "You compartmentalize. File it away. Not healthy, but functional. You can operate.",
+                "masterful": "Steel yourself. Ready for whatever comes next. The experiences of Act I have made you stronger.",
+                "legendary": "Clarity. Everything that happened — Raden's death, Okeefe's rescue, Varth's mask slipping — it all resolves into purpose. You know what you're fighting for now. Nothing can shake that."
+              },
+              "resist": 3
             }
           ]
         }

@@ -229,8 +229,17 @@
               "arena": "reflex",
               "actionType": "interact",
               "control": {
-                "failure": "Rough transit. Ship takes minor hull damage. One system offline.",
-                "success": "Clean arrival. Ship undamaged."
+                "failure": "Rough transit. Ship takes minor hull damage. One system offline until repaired.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Clean arrival AND you map the anomaly pattern — future trips through this corridor will be safer. Permanent navigation data gained."
+              },
+              "target": "Hyperspace anomalies",
+              "resist": 3,
+              "risk": 4,
+              "effect": {
+                "fleeting": "Turbulent transit. The ship shakes and groans but holds together. Minor stress damage to the hull plating.",
+                "masterful": "Clean arrival. Ship undamaged. The anomalies were rough but your piloting kept the ship stable.",
+                "legendary": "Textbook navigation. You thread the anomaly field so cleanly that you arrive with fuel to spare and a mapped safe corridor for the return trip."
               }
             },
             {
@@ -240,8 +249,17 @@
               "arena": "grit",
               "actionType": "assess",
               "control": {
-                "failure": "Best option is a narrow clearing. Tight approach.",
-                "success": "Clear landing spot 5 klicks from target. Good approach route visible."
+                "failure": "Best option is a narrow clearing. Tight approach — piloting check on landing.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Ideal landing zone AND you identify natural camouflage. The ship is invisible from the air once landed. No risk of Imperial detection."
+              },
+              "target": "Forest moon terrain",
+              "resist": 2,
+              "risk": 3,
+              "effect": {
+                "fleeting": "A clearing that might work. Some tree removal needed. Not ideal but serviceable.",
+                "masterful": "Clear landing spot 5 klicks from target. Good approach route visible through the canopy.",
+                "legendary": "Perfect natural landing pad — flat rock, sheltered by canopy, near a freshwater stream. The ship is secure and concealed. Easy approach to the dead zone."
               }
             },
             {
@@ -251,8 +269,17 @@
               "arena": "wits",
               "actionType": "interact",
               "control": {
-                "failure": "Scanners can't penetrate the petrified canopy. Must investigate on foot.",
-                "success": "Nothing alive. But a faint energy reading deep underground — the Spire."
+                "failure": "Scanners can't penetrate the petrified canopy. The dead zone blocks everything. Must investigate on foot.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Energy reading identified AND sensor pattern analysis reveals the source is artificial — not geological. Someone built something down there thousands of years ago."
+              },
+              "target": "Dead forest zone",
+              "resist": 3,
+              "risk": 2,
+              "effect": {
+                "fleeting": "Static. The dead zone creates interference that muddles sensor returns. Something is down there but you can't define it.",
+                "masterful": "Nothing alive. But a faint energy reading deep underground — the Spire. Ancient technology, still powered.",
+                "legendary": "Detailed scan: underground structure, ~200 meters deep, massive energy signature consistent with a Force nexus. The Ebon Spire. You have depth, bearing, and a preliminary structural outline."
               }
             },
             {
@@ -263,9 +290,18 @@
               "arena": "grit",
               "actionType": "interact",
               "control": {
-                "failure": "[Rattled] until you leave the dead zone or pass a subsequent Resolve check.",
-                "success": "Uncomfortable but manageable. You push through the dread."
-              }
+                "failure": "[Rattled] until you leave the dead zone or pass a subsequent Resolve check. The dread is constant.",
+                "success": "Refer to effect tiers.",
+                "mastery": "You resist AND gain insight: the dark side energy isn't malevolent — it's a scar. Something terrible happened here long ago. The land remembers."
+              },
+              "target": "Dark side emanation",
+              "risk": 3,
+              "effect": {
+                "fleeting": "Uncomfortable pressure. Like walking through cobwebs made of bad memories. Manageable but distracting.",
+                "masterful": "Uncomfortable but manageable. You push through the dread. Mental clarity maintained.",
+                "legendary": "The dark side washes over you and finds nothing to grip. Your resolve is absolute. The oppressive atmosphere doesn't touch you — and Denia notices."
+              },
+              "resist": 3
             }
           ]
         },
@@ -527,8 +563,17 @@
               "arena": "presence",
               "actionType": "interact",
               "control": {
-                "failure": "The Ewoks remain hostile. Warning shots from the canopy.",
-                "success": "The Ewoks lower their weapons. Chirpa approaches cautiously."
+                "failure": "The Ewoks remain hostile. Warning shots from the canopy. Must retreat or fight — neither is ideal.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Full welcome. The Ewoks lead you to their village and Chirpa personally greets you. A feast is offered. Complete trust from first contact."
+              },
+              "target": "Ewok hunting party",
+              "resist": 3,
+              "risk": 4,
+              "effect": {
+                "fleeting": "The spears lower slightly. Curious chirping. They're not attacking, but they're not welcoming either. Neutral ground.",
+                "masterful": "The Ewoks lower their weapons. Chirpa approaches cautiously. First contact achieved peacefully.",
+                "legendary": "The Ewoks are delighted. Your tone, your gestures — something about you resonates. They escort you to the village with what can only be described as enthusiasm."
               }
             },
             {
@@ -538,8 +583,17 @@
               "arena": "presence",
               "actionType": "interact",
               "control": {
-                "failure": "Chirpa refuses. The dead forest is taboo. The heroes are on their own.",
-                "success": "Chirpa assigns a scout named Paploo. He knows the safest route."
+                "failure": "Chirpa refuses. The dead forest is taboo. The heroes are on their own — dangerous trek without a guide.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Chirpa assigns Paploo AND shares the Ewok oral history of the dead zone — something evil came from the stars long ago, and the forest died where it touched the ground. Lore clue."
+              },
+              "target": "Chief Chirpa",
+              "resist": 3,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Chirpa considers. He won't send a guide but he provides directions — gestured pointing and a crude map scratched in dirt.",
+                "masterful": "Chirpa assigns a scout named Paploo. He knows the safest route to the dead zone boundary. Reliable guide.",
+                "legendary": "Chirpa assigns Paploo AND provides a gift: a carved wooden talisman that the Ewoks believe wards against the darkness. It may or may not work — but it shows deep trust."
               }
             },
             {
@@ -549,8 +603,17 @@
               "arena": "grit",
               "actionType": "assess",
               "control": {
-                "failure": "Lost for hours. Encounter hostile fauna.",
-                "success": "Find a game trail that leads toward the dead zone."
+                "failure": "Lost for hours. Encounter hostile fauna. Time wasted and resources spent.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Find the game trail AND identify edible plants and clean water sources along the route. No supply concerns for the trek."
+              },
+              "target": "Forest moon jungle",
+              "resist": 3,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Slow going through dense undergrowth. You're heading in the right direction but it's taking twice as long as it should.",
+                "masterful": "Find a game trail that leads toward the dead zone. Good pace, minimal exposure to predators.",
+                "legendary": "Natural wayfinding instinct. You read the forest like a map — water flow, game trails, canopy gaps all point toward the dead zone. Arrive ahead of schedule."
               }
             },
             {
@@ -561,8 +624,17 @@
               "arena": "wits",
               "actionType": "assess",
               "control": {
-                "failure": "Alien social cues. Hard to read.",
-                "success": "Gift-giving earns trust. They respect strength and generosity."
+                "failure": "Alien social cues. Hard to read. You may commit unintentional offense.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Full understanding AND you recognize a status hierarchy: Chirpa defers to the medicine elder on matters of the dead zone. The elder may know more than Chirpa shares."
+              },
+              "target": "Ewok customs",
+              "resist": 2,
+              "risk": 2,
+              "effect": {
+                "fleeting": "Basic pattern: food sharing equals trust. Aggressive posture equals challenge. Simple but useful.",
+                "masterful": "Gift-giving earns trust. They respect strength and generosity. Tone matters more than words.",
+                "legendary": "Deep cultural read: their entire social structure, gift protocols, challenge rituals, and — critically — the religious significance of the dead zone. It's not just dangerous. It's sacred."
               }
             },
             {
@@ -572,8 +644,17 @@
               "arena": "physique",
               "actionType": "interact",
               "control": {
-                "failure": "Exhausting trek. [Fatigued] by arrival at the dead zone edge.",
-                "success": "Match their pace. Efficient travel."
+                "failure": "Exhausting trek. [Fatigued] by arrival at the dead zone edge. Physical checks penalized.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Match their pace AND impress the Ewoks with your fitness. They upgrade their assessment of you — warriors, not tourists. Respect earned."
+              },
+              "target": "Canopy traversal",
+              "resist": 3,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Sweating, panting, barely keeping up. The Ewoks wait patiently at each platform. Embarrassing but you make it.",
+                "masterful": "Match their pace. Efficient travel through the canopy. Arrive fresh and ready.",
+                "legendary": "You keep up with Ewoks in their own trees. They're genuinely impressed — chirping excitedly. By the time you reach the dead zone, they're treating you as honorary members."
               }
             }
           ]
@@ -665,8 +746,17 @@
               "arena": "grit",
               "actionType": "interact",
               "control": {
-                "failure": "[Rattled]. The dark side whispers — memories of failure, loss, fear.",
-                "success": "You push through the dread. Your will holds."
+                "failure": "[Rattled]. The dark side whispers — memories of failure, loss, fear. Personal demons surface.",
+                "success": "Refer to effect tiers.",
+                "mastery": "You push through AND the dark side reveals something in its probing: a vision of the Spire's builders, ancient and alien. Lore fragment gained."
+              },
+              "target": "Dark side boundary",
+              "resist": 4,
+              "risk": 4,
+              "effect": {
+                "fleeting": "The wall of dread hits hard. You stagger. Bile rises. But you force one foot in front of the other.",
+                "masterful": "You push through the dread. Your will holds. The dark whispers but you don't listen.",
+                "legendary": "You walk through the boundary like stepping through a waterfall. The dark side tests you and finds bedrock. The whispers fall silent — even the dead forest seems to acknowledge your passage."
               }
             },
             {
@@ -676,8 +766,17 @@
               "arena": "grit",
               "actionType": "assess",
               "control": {
-                "failure": "Disoriented. Wander for hours. Sinkholes become a risk.",
-                "success": "Use Revan's coordinates to maintain bearing. Direct route to the Spire."
+                "failure": "Disoriented. Wander for hours. Sinkholes become a risk. Time and energy wasted in dead terrain.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Direct route AND you identify the safest terrain — avoiding sinkholes, weak ground, and areas where the dark side energy is concentrated."
+              },
+              "target": "Petrified forest",
+              "resist": 3,
+              "risk": 4,
+              "effect": {
+                "fleeting": "Slow, careful navigation. Every petrified tree looks the same. Compass readings are unreliable. But you keep moving forward.",
+                "masterful": "Use Revan's coordinates to maintain bearing. Direct route to the Spire. No detours.",
+                "legendary": "You navigate the featureless wasteland by reading subtle geological clues — mineral deposits, erosion patterns, and the way the dead trees lean toward the Spire. Arrival is efficient and safe."
               }
             },
             {
@@ -687,8 +786,17 @@
               "arena": "physique",
               "actionType": "interact",
               "control": {
-                "failure": "Ground collapses. Fall into an ancient tunnel. Take damage. Must climb out.",
-                "success": "Identify weak spots. Navigate safely."
+                "failure": "Fall into a sinkhole. Must be pulled out. Minor damage, major time loss.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Navigate the sinkholes AND discover a partially collapsed tunnel entrance — a shortcut to the Spire's lower levels."
+              },
+              "target": "Sinkhole terrain",
+              "resist": 3,
+              "risk": 4,
+              "effect": {
+                "fleeting": "Careful footwork. The ground crumbles under one step but you catch yourself. Close call.",
+                "masterful": "Confident traversal. Read the ground and step where it's solid. No incidents.",
+                "legendary": "Moving across the sinkhole field like you were born for it. You actually use the unstable terrain to your advantage, traversing faster by reading the compression patterns."
               }
             },
             {
@@ -698,8 +806,17 @@
               "arena": "physique",
               "actionType": "interact",
               "control": {
-                "failure": "[Fatigued]. -1 Power on physical checks in the next scene.",
-                "success": "Push through. Arrive at the Spire entrance functional."
+                "failure": "The cold and oppression take their toll. [Fatigued]. Physical checks penalized until rest.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Shrug off the environmental effects AND maintain enough energy to sprint if needed. Full combat readiness despite the dead zone."
+              },
+              "target": "Dead zone environment",
+              "resist": 3,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Shivering. The cold seeps through your gear. Everything aches. But you keep moving.",
+                "masterful": "Uncomfortable but functional. Your body handles the dead zone's environment without breaking down.",
+                "legendary": "Iron constitution. The dead zone's environmental hostility doesn't register. You're warm, steady, and ready for whatever comes next."
               }
             }
           ]
@@ -887,8 +1004,17 @@
               "arena": "wits",
               "actionType": "assess",
               "control": {
-                "failure": "Beautiful but incomprehensible. Alien design philosophy.",
-                "success": "Ancient language fragments. This is pre-Republic technology. Revan was a visitor, not a builder."
+                "failure": "Beautiful but incomprehensible. Alien design philosophy beyond current understanding.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Pre-Republic technology AND you identify navigation-related symbols. This structure was specifically designed to hold star charts. Revan came here looking for exactly what the heroes need."
+              },
+              "target": "Spire exterior patterns",
+              "resist": 3,
+              "risk": 2,
+              "effect": {
+                "fleeting": "The patterns are geometric but non-random. Someone carved these with purpose. Very old — thousands of years at minimum.",
+                "masterful": "Ancient language fragments. This is pre-Republic technology. Revan was a visitor, not a builder. The Spire is far older than the Jedi.",
+                "legendary": "Partial translation: the symbols describe a stellar cartography system — star positions, hyperspace routes, and gravitational constants. The Spire is a library. A navigation library."
               }
             },
             {
@@ -898,8 +1024,17 @@
               "arena": "grit",
               "actionType": "interact",
               "control": {
-                "failure": "Your fear or ambition triggers the Guardian. It attacks.",
-                "success": "You seek knowledge, not power. The Guardian stands down. The entrance opens."
+                "failure": "The Guardian blocks entry. Must try another approach or answer the challenge differently.",
+                "success": "Refer to effect tiers.",
+                "mastery": "The Guardian is satisfied AND impressed. It grants an additional boon: a mental image of the Spire's internal layout. You know where to go."
+              },
+              "target": "The Guardian's probe",
+              "resist": 4,
+              "risk": 4,
+              "effect": {
+                "fleeting": "The probing is intense — like having your soul x-rayed. You resist the worst of it but the Guardian isn't fully satisfied. Partial entry — limited access.",
+                "masterful": "Your intentions register as genuine. The entrance opens. The Guardian withdraws its probe. You are worthy — for now.",
+                "legendary": "The Guardian doesn't just accept you — it welcomes you. The Spire opens fully. Every corridor illuminates. The structure has been waiting for someone worthy, and you passed."
               }
             },
             {
@@ -910,8 +1045,17 @@
               "arena": "wits",
               "actionType": "interact",
               "control": {
-                "failure": "Security responds aggressively. Guardian emerges in attack mode.",
-                "success": "Security disabled. Entrance opens without combat."
+                "failure": "Ancient technology resists modern tools. Can observe but not interface.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Interface established AND you discover the Spire's power source is a miniature kyber crystal array. Still operational after millennia. Worth studying."
+              },
+              "target": "Spire power systems",
+              "resist": 3,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Scan returns: massive energy conduits running through the walls. The power source is deep below. Still active after thousands of years.",
+                "masterful": "Successful interface with the Spire's external systems. Power readings, structural integrity data, and confirmation that the internal systems are fully operational.",
+                "legendary": "Full technical analysis: the Spire is a masterpiece of ancient engineering. Self-repairing, self-powering, and designed to operate for geological timescales. The builders were beyond anything in the modern galaxy."
               }
             },
             {
@@ -921,8 +1065,17 @@
               "arena": "wits",
               "actionType": "assess",
               "control": {
-                "failure": "Reads as purely hostile. Defensive stance recommended.",
-                "success": "It's a test, not a kill order. The Guardian wants you to pass. Approach with respect."
+                "failure": "Reads as purely hostile. Defensive stance recommended. Approaching with aggression will make entry harder.",
+                "success": "Refer to effect tiers.",
+                "mastery": "It's testing AND you sense the Guardian's age — it has been here for thousands of years, testing every visitor. You sense the loneliness of eternal duty."
+              },
+              "target": "The Guardian",
+              "resist": 3,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Something deliberate about its behavior. Not attacking — but not welcoming either. Withhold judgment.",
+                "masterful": "It's a test, not a kill order. The Guardian wants you to pass. Approach with respect, not violence.",
+                "legendary": "The Guardian is a custodian, not a warrior. It has tested thousands over millennia. Most failed. It WANTS you to succeed — the Spire needs visitors who are worthy."
               }
             }
           ]
@@ -1025,8 +1178,17 @@
               "arena": "wits",
               "actionType": "assess",
               "control": {
-                "failure": "Beautiful but incomplete. Need the Holocron for the full picture.",
-                "success": "Partial navigation data for the Unknown Regions. Supplementary to the Holocron."
+                "failure": "Beautiful but incomplete. Need the Holocron data overlay to make them navigable.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Partial navigation data AND you identify a specific route marked by Revan himself — annotated in his own hand. Personal notes from the Revanchist."
+              },
+              "target": "Revan's star charts",
+              "resist": 3,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Star positions you recognize — and hundreds you don't. The Unknown Regions are mapped here, but the charts need modern calibration.",
+                "masterful": "Partial navigation data for the Unknown Regions. Supplementary to the Holocron. Several viable routes visible.",
+                "legendary": "Extensive star chart data — dozens of routes, dozens of systems, and Revan's personal annotations marking which ones he explored and which ones he avoided."
               }
             },
             {
@@ -1036,8 +1198,17 @@
               "arena": "physique",
               "actionType": "interact",
               "control": {
-                "failure": "Loose stone. Someone slips. Minor fall damage.",
-                "success": "Controlled descent. No incidents."
+                "failure": "Loose stone. Someone slips. Minor fall damage and a scare. Syntherope catches them.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Controlled descent AND you identify anchor points for the return climb. The exit will be faster than the entry."
+              },
+              "target": "Spiral passage",
+              "resist": 2,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Careful descent. The syntherope holds but the walls are slick with moisture. Every step is deliberate.",
+                "masterful": "Controlled descent. No incidents. Professional rappelling technique. The team reaches the bottom safely.",
+                "legendary": "Textbook descent. You set pitons, manage rope tensions, and guide the team down like a climbing instructor. Everyone arrives at the bottom fresh and positioned."
               }
             },
             {
@@ -1047,8 +1218,17 @@
               "arena": "grit",
               "actionType": "assess",
               "control": {
-                "failure": "Don't notice the thinning air until someone gets dizzy.",
-                "success": "Air is breathable but thin. Temperature is survivable with gear."
+                "failure": "Wrong turn. Dead-end corridor. Must backtrack — time lost.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Navigate perfectly AND identify the Spire's internal logic. The structure is a test — each corridor forces a choice. You've decoded the pattern."
+              },
+              "target": "Spire interior hazards",
+              "resist": 2,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Careful progress. Some wrong turns but you correct course. The Spire's layout is disorienting but navigable.",
+                "masterful": "Efficient navigation. Read the ancient markers and follow the correct path. No time wasted.",
+                "legendary": "You move through the Spire like you've been here before. Every turn is correct, every chamber is anticipated. The structure feels less like a maze and more like a conversation."
               }
             },
             {
@@ -1058,8 +1238,17 @@
               "arena": "wits",
               "actionType": "interact",
               "control": {
-                "failure": "Glow rod flicker corrupts the scan. Partial data.",
-                "success": "Clean recording. Navigation data saved for later analysis."
+                "failure": "Incompatible technology. Need to build a bridge adapter — time-consuming.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Interface established AND the Holocron activates additional Spire systems. A full three-dimensional star map blooms into existence — the Unknown Regions in detail."
+              },
+              "target": "Holocron interface",
+              "resist": 3,
+              "risk": 4,
+              "effect": {
+                "fleeting": "The Holocron reacts to the Spire. Blue light flickers. Partial data transfer begins but the connection is unstable.",
+                "masterful": "Holocron interfaces with the Spire's systems. Data flows. Navigation charts downloading.",
+                "legendary": "Perfect synchronization. The Holocron was designed for this interface. The Spire recognizes it as a key. Every chart, every route, every annotation unlocks simultaneously."
               }
             }
           ]
@@ -1225,8 +1414,17 @@
               "arena": "grit",
               "actionType": "interact",
               "control": {
-                "failure": "[Corrupted] — the shadow lingers. -1 Power on Resolve checks until you confront it again.",
-                "success": "You acknowledge the shadow but refuse it. [Clarity] — +1 Power for the rest of the adventure."
+                "failure": "[Corrupted] — the shadow lingers. -1 Power on Resolve checks until you confront it again. Personal demons strengthened.",
+                "success": "Refer to effect tiers.",
+                "mastery": "You don't just refuse the shadow — you integrate it. Accept the darkness without surrendering to it. [Clarity] is permanent — +1 Power on Resolve for the rest of the campaign."
+              },
+              "target": "Dark Reflection",
+              "resist": 5,
+              "risk": 5,
+              "effect": {
+                "fleeting": "The shadow shows you your worst self. You flinch — but you don't break. The vision fades. You survive, diminished but intact.",
+                "masterful": "You acknowledge the shadow but refuse it. [Clarity] — +1 Power for the rest of the adventure. The darkness has no hold on you.",
+                "legendary": "You face your Dark Reflection and name it. 'I know you. You're the part of me I'm afraid of. But you don't control me.' The shadow dissolves. [Clarity] is earned through genuine self-knowledge."
               }
             },
             {
@@ -1236,8 +1434,17 @@
               "arena": "wits",
               "actionType": "assess",
               "control": {
-                "failure": "They feel absolutely real. The emotional weight is crushing.",
-                "success": "These are possibilities, not prophecies. The dark side shows what COULD be, not what MUST be."
+                "failure": "They feel absolutely real. The emotional weight is crushing. Hard to distinguish vision from reality.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Possibilities, not prophecies AND you extract tactical information from the visions — the dark side showed you things it didn't intend to. Future dangers previewed."
+              },
+              "target": "Dark side visions",
+              "resist": 3,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Something artificial about the visions. They push too hard. Real memories don't feel like propaganda.",
+                "masterful": "These are possibilities, not prophecies. The dark side shows what COULD be, not what MUST be. The fear loses its teeth.",
+                "legendary": "Complete understanding: the visions are a test mechanism. They show your fears to see if you'll surrender. Knowing this robs them of all power."
               }
             },
             {
@@ -1247,8 +1454,17 @@
               "arena": "presence",
               "actionType": "interact",
               "control": {
-                "failure": "Your help feels hollow. The shadow uses your words against them.",
-                "success": "Your words break through. The other hero gains +1 tier on their Resolve check."
+                "failure": "Your help feels hollow. The shadow uses your words against them. Must try a different approach.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Your words break through so effectively that the ally's Dark Reflection dissolves completely. They gain [Clarity] without having to face the full test alone."
+              },
+              "target": "Ally in vision",
+              "resist": 3,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Your voice reaches them. They pause. The shadow flickers. Not enough to break it, but enough to slow it down.",
+                "masterful": "Your words break through. The other hero gains +1 tier on their Resolve check. A lifeline in the darkness.",
+                "legendary": "You say exactly the right thing — not generic encouragement, but something personal, specific, and true. The shadow can't compete with genuine connection. Your ally stands tall."
               }
             }
           ]
@@ -1502,8 +1718,17 @@
               "arena": "reflex",
               "actionType": "interact",
               "control": {
-                "failure": "A web strand vibrates. Spiders investigate.",
-                "success": "Silent movement in darkness. Spiders don't notice."
+                "failure": "A web strand vibrates. Spiders investigate. Must freeze and wait or face combat.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Silent passage AND you identify the spiders' blind spots. Can lead the entire team through without any risk."
+              },
+              "target": "Hunting spiders",
+              "resist": 3,
+              "risk": 4,
+              "effect": {
+                "fleeting": "Slow, careful movement. One spider turns toward you... then continues past. Heart-stopping moment.",
+                "masterful": "Silent movement in darkness. Spiders don't notice. Clean passage through the nest.",
+                "legendary": "You move through the spider nest like smoke. Not a single web strand disturbed. Not a single spider alerted. The team follows in your footsteps exactly."
               }
             },
             {
@@ -1513,8 +1738,17 @@
               "arena": "grit",
               "actionType": "assess",
               "control": {
-                "failure": "They all look aggressive. Can't tell defensive from predatory.",
-                "success": "They're territorial but not hunting. Avoid their web-centers and you're safe."
+                "failure": "They all look aggressive. Can't tell defensive from predatory. Treat every spider as a threat.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Behavioral patterns identified AND you notice the spiders avoid one specific corridor — something worse than them lives deeper. Navigate around it."
+              },
+              "target": "Spider behavior",
+              "resist": 2,
+              "risk": 2,
+              "effect": {
+                "fleeting": "Some spiders are bigger, some smaller. The bigger ones seem less agitated. Territorial hierarchy maybe.",
+                "masterful": "They're territorial but not hunting. Avoid their web-centers and you're safe. Stick to the edges.",
+                "legendary": "Complete behavioral map: hunting patterns, feeding schedule, territorial boundaries, and the fact that they're nocturnal — which means you're in their sleep cycle. Perfect timing."
               }
             },
             {
@@ -1524,8 +1758,17 @@
               "arena": "physique",
               "actionType": "interact",
               "control": {
-                "failure": "Webbed tighter. Need help from an ally.",
-                "success": "Tear free. Full movement restored."
+                "failure": "Webbed tighter. Need help from an ally. The more you struggle, the worse it gets.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Break free AND rip a section of webbing that can be repurposed as crude rope. The spiders' own silk becomes useful gear."
+              },
+              "target": "Web restraints",
+              "resist": 3,
+              "risk": 4,
+              "effect": {
+                "fleeting": "Strain against the webbing. One arm comes free. Still partially restrained but you can act.",
+                "masterful": "Tear free. Full movement restored. The webbing snaps like cord.",
+                "legendary": "Explosive breakout. The web restraints shred. You're free, standing, and ready to fight or run before the spiders can react."
               }
             },
             {
@@ -1536,8 +1779,17 @@
               "arena": "wits",
               "actionType": "assess",
               "control": {
-                "failure": "No alternate route visible. Must go through.",
-                "success": "A narrow side passage. Spider-free but tight — single file."
+                "failure": "No alternate route visible. Must go through the main nest. Stealth is the only option.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Alternate route AND it leads past what appears to be an ancient storage chamber — pre-Republic supplies, still sealed. Potential treasure."
+              },
+              "target": "Nest layout",
+              "resist": 3,
+              "risk": 2,
+              "effect": {
+                "fleeting": "The nest is dense but not uniform. Some areas are less webbed than others. Possible gaps.",
+                "masterful": "A narrow side passage. Spider-free but tight — single file. Bypasses the main nest entirely.",
+                "legendary": "Complete nest map: main passages, spider density, and two bypass routes. The shorter one is tight but safe. The longer one leads past something interesting."
               }
             }
           ]
@@ -1625,8 +1877,17 @@
               "arena": "grit",
               "actionType": "interact",
               "control": {
-                "failure": "The door rejects your expression. Try a different approach or force it.",
-                "success": "The patterns align. The door opens. Your truth is accepted."
+                "failure": "The door rejects your expression. The patterns scramble. Try a different approach — force, intellect, or a deeper truth.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Your truth resonates so deeply that the door opens fully AND additional chambers unlock. The Spire responds to genuine conviction."
+              },
+              "target": "Ancient doorway",
+              "resist": 4,
+              "risk": 4,
+              "effect": {
+                "fleeting": "The patterns shift in response to your words. Partial alignment. The door cracks open — barely. Squeeze through.",
+                "masterful": "The patterns align. The door opens. Your truth is accepted. Full passage granted.",
+                "legendary": "The patterns blaze with light. Your truth was exactly what the builders intended. The door doesn't just open — the entire corridor illuminates, guiding you forward."
               }
             },
             {
@@ -1636,8 +1897,17 @@
               "arena": "wits",
               "actionType": "assess",
               "control": {
-                "failure": "The logic is alien. Trial and error only.",
-                "success": "The patterns represent philosophical concepts. Identify the \"truth\" the door expects."
+                "failure": "The logic is alien. Trial and error only. Each wrong attempt takes time.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Pattern decoded AND you understand the Spire's philosophical framework. All future puzzles in the structure are easier — the design language is consistent."
+              },
+              "target": "Pattern logic",
+              "resist": 3,
+              "risk": 2,
+              "effect": {
+                "fleeting": "Not random. There's a mathematical component — base-12 geometry. But the organizing principle is still unclear.",
+                "masterful": "The patterns represent philosophical concepts. Identify the 'truth' the door expects. A puzzle, not a lock.",
+                "legendary": "Complete decryption: the patterns encode a question about the nature of knowledge — who deserves access to dangerous information? Answer the philosophy and the engineering follows."
               }
             },
             {
@@ -1647,8 +1917,17 @@
               "arena": "wits",
               "actionType": "interact",
               "control": {
-                "failure": "Mechanism resists. Fusion Cutter can force it but triggers defensive protocols in the next chamber.",
-                "success": "Door opens mechanically. Bypasses the philosophical test."
+                "failure": "Mechanism resists. Fusion Cutter can force it but triggers defensive protocols in the next chamber. Trade-off.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Clean mechanical bypass AND you preserve the mechanism intact. Can be re-sealed behind you — useful if something is following."
+              },
+              "target": "Ancient mechanism",
+              "resist": 4,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Modern tools create sparks on ancient alloy. The mechanism shifts reluctantly. Partial opening — enough to squeeze through.",
+                "masterful": "Door opens mechanically. Bypasses the philosophical test. The Spire doesn't object — apparently, ingenuity is also an acceptable answer.",
+                "legendary": "You interface modern tech with ancient engineering so elegantly that the mechanism responds as if designed for it. The door opens cleanly and the internal systems welcome you."
               }
             }
           ]
@@ -1820,8 +2099,17 @@
               "arena": "grit",
               "actionType": "interact",
               "control": {
-                "failure": "A glib or dishonest answer. Revan is disappointed. \"Try again.\"",
-                "success": "An honest answer. Revan nods. First lock opens."
+                "failure": "A glib or dishonest answer. Revan is disappointed. 'Try again.' Must answer genuinely or leave empty-handed.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Revan is moved. 'That answer... was my answer once.' A moment of connection across millennia. First lock opens AND Revan shares a personal memory."
+              },
+              "target": "Revan's first question",
+              "resist": 4,
+              "risk": 4,
+              "effect": {
+                "fleeting": "An honest but simple answer. Revan considers it. The lock clicks, barely. 'Adequate.'",
+                "masterful": "An honest answer rooted in personal experience. Revan nods. First lock opens. 'You have thought about this.'",
+                "legendary": "An answer that surprises Revan. Silence. Then: 'No one has answered it that way before.' First lock opens wide. A deeper chamber is revealed."
               }
             },
             {
@@ -1831,8 +2119,17 @@
               "arena": "wits",
               "actionType": "assess",
               "control": {
-                "failure": "Revan challenges the answer. Must try another approach.",
-                "success": "A thoughtful answer. Second lock opens."
+                "failure": "Revan challenges the answer. Must try another approach. 'You confuse one for the other. Think again.'",
+                "success": "Refer to effect tiers.",
+                "mastery": "Revan reveals a personal regret: he made a sacrifice that was actually waste — and it cost him everything. The Fall began with a 'sacrifice' that wasn't. Lore revelation."
+              },
+              "target": "Revan's second question",
+              "resist": 4,
+              "risk": 3,
+              "effect": {
+                "fleeting": "A philosophical answer. Revan tilts his head. Second lock clicks. 'Perhaps. We will see.'",
+                "masterful": "A thoughtful answer that demonstrates understanding. Second lock opens. 'You know the difference. That is rare.'",
+                "legendary": "An answer that stops Revan mid-response. He reconsiders. 'You understand it better than I did. That is... unexpected.' Second lock opens fully."
               }
             },
             {
@@ -1842,8 +2139,17 @@
               "arena": "presence",
               "actionType": "interact",
               "control": {
-                "failure": "Partial access. Some routes are withheld. Must be supplemented with Adv5 drift algorithms.",
-                "success": "Full access granted. Navigational data downloaded."
+                "failure": "Partial access. Some routes are withheld. Must be supplemented with Adv5 drift algorithms. Revan doesn't fully trust you.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Full access AND Revan grants a final gift: the coordinates of his personal cache — equipment and writings hidden elsewhere in the Unknown Regions."
+              },
+              "target": "Revan's third question",
+              "resist": 5,
+              "risk": 5,
+              "effect": {
+                "fleeting": "A sincere answer. Revan weighs it. Partial access granted. 'You are not ready for all of it. But you may have... some.'",
+                "masterful": "Full access granted. Navigational data downloaded. Revan: 'Use them wisely. The paths between the stars do not forgive mistakes.'",
+                "legendary": "Revan is satisfied. 'I have waited thousands of years for that answer.' Full access — every chart, every route, every annotation. The Spire's library opens completely."
               }
             },
             {
@@ -1854,8 +2160,17 @@
               "arena": "wits",
               "actionType": "assess",
               "control": {
-                "failure": "The map is vast. Need more time to analyze.",
-                "success": "One route leads to the Xala system — deep in the Unknown Regions. The Empire has been using this route."
+                "failure": "The map is vast. Need more time to analyze. Preliminary findings only.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Route identified AND you notice the route has been recently accessed — energy patterns show someone queried this specific path within the last few years. The Empire has been here."
+              },
+              "target": "Three-dimensional star map",
+              "resist": 3,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Hundreds of routes visible. Overwhelming. One cluster seems to point toward a heavily shielded region deeper in the Unknown Regions.",
+                "masterful": "One route leads to the Xala system — deep in the Unknown Regions. The Empire has been using this route. Project Leviathan connection confirmed.",
+                "legendary": "Full Unknown Regions navigation picture: the Xala system route, three alternative paths, and the specific stellar drift data needed to keep the routes current. The puzzle pieces are falling into place."
               }
             }
           ]
@@ -1946,8 +2261,17 @@
               "arena": "physique",
               "actionType": "interact",
               "control": {
-                "failure": "Stumble. Falling stone forces a detour.",
-                "success": "Full speed. Gain a round on the collapse."
+                "failure": "Stumble. Falling stone forces a detour. Additional time in the collapse zone. Dangerous.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Sprint so fast you reach the exit first AND can hold a structural beam for others to pass under. Heroic moment."
+              },
+              "target": "Collapsing passage",
+              "resist": 3,
+              "risk": 5,
+              "effect": {
+                "fleeting": "Legs burning. Stone crashing behind you. You stay ahead of the worst of it but it's close.",
+                "masterful": "Full speed. Gain a round on the collapse. Clear of the danger zone before the ceiling comes down.",
+                "legendary": "Superhuman sprint through the disintegrating Spire. You vault fallen columns, slide under collapsing arches, and hit the exit at full speed."
               }
             },
             {
@@ -1957,8 +2281,17 @@
               "arena": "reflex",
               "actionType": "interact",
               "control": {
-                "failure": "Glancing hit from debris. Minor damage.",
-                "success": "Clean dodge. No damage."
+                "failure": "Glancing hit from debris. Minor damage. Keep running — stopping is death.",
+                "success": "Refer to effect tiers.",
+                "mastery": "You dodge debris AND identify the collapse pattern. Call out warnings to the team — no one else takes hits."
+              },
+              "target": "Falling debris",
+              "resist": 3,
+              "risk": 4,
+              "effect": {
+                "fleeting": "Stone clips your shoulder. Hurts but nothing's broken. Keep moving.",
+                "masterful": "Clean dodge. Stone crashes where you were standing a second ago. Not a scratch.",
+                "legendary": "You read the collapse like a language — predicting where each piece falls before it drops. Threading through a rain of stone without touching a single fragment."
               }
             },
             {
@@ -1968,8 +2301,17 @@
               "arena": "physique",
               "actionType": "interact",
               "control": {
-                "failure": "Flagging. Another hero must help or you fall behind.",
-                "success": "Push through. Keep running."
+                "failure": "Flagging. Another hero must help or you fall behind. The collapse doesn't wait.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Not only maintain pace but carry someone else's gear. The team moves as fast as the fastest member, not the slowest."
+              },
+              "target": "Physical exhaustion",
+              "resist": 3,
+              "risk": 4,
+              "effect": {
+                "fleeting": "Every muscle screams. You're running on willpower alone. But you're still running.",
+                "masterful": "Push through. Keep running. The body wants to quit but the mind says no.",
+                "legendary": "Second wind. Something unlocks — adrenaline, Force, or pure stubbornness — and you're running faster than when you started."
               }
             },
             {
@@ -1979,8 +2321,17 @@
               "arena": "grit",
               "actionType": "assess",
               "control": {
-                "failure": "Take the obvious route. More exposure to falling stone.",
-                "success": "Spot a stable passage. Avoid the worst collapses."
+                "failure": "Take the obvious route. More exposure to falling stone. Higher risk for everyone.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Spot the stable passage AND recognize that the collapse is following a pattern — the Spire is shutting down systematically, not randomly. The exit sequence is predictable."
+              },
+              "target": "Collapsing structure",
+              "resist": 3,
+              "risk": 4,
+              "effect": {
+                "fleeting": "One route looks slightly more stable than the others. Trust your gut. It holds — barely.",
+                "masterful": "Spot a stable passage. Avoid the worst collapses. The team takes the safest path out.",
+                "legendary": "You read the Spire's structural failure like a demolition expert. Lead the team through the one corridor that won't collapse for another 60 seconds. Perfect exit."
               }
             }
           ]
@@ -2147,8 +2498,17 @@
               "arena": "wits",
               "actionType": "assess",
               "control": {
-                "failure": "Data is dense. Varth needs time. Analysis continues in transit.",
-                "success": "Clear picture: the Unknown Regions route is viable but needs drift algorithms from Malpaz to be safe."
+                "failure": "Data is dense. Varth needs time. Analysis continues in transit. Preliminary picture only.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Clear picture AND you identify encrypted Imperial navigation buoys along the route. The Empire has been using these lanes — and you now know their beacon frequencies."
+              },
+              "target": "Navigational data",
+              "resist": 2,
+              "risk": 2,
+              "effect": {
+                "fleeting": "The data is enormous. Initial analysis confirms: viable routes exist but they need stellar drift calibration to be safe.",
+                "masterful": "Clear picture: the Unknown Regions route is viable but needs drift algorithms from Malpaz to be safe. The final piece of the puzzle.",
+                "legendary": "Complete analysis: multiple viable routes, fallback paths, supply depot locations along the way, and — critically — the route the Empire is already using. You know where they're going."
               }
             },
             {
@@ -2158,8 +2518,17 @@
               "arena": "wits",
               "actionType": "assess",
               "control": {
-                "failure": "Varth seems appropriately professional. Nothing unusual.",
-                "success": "He's excited. Too excited. He sees this data as his key to Leviathan — and to power."
+                "failure": "Varth seems appropriately professional. Nothing unusual. The mask holds.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Varth is excited about power AND you catch a microexpression when he looks at Denia — calculation. He's assessing her value as an asset. Again."
+              },
+              "target": "Admiral Varth",
+              "resist": 4,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Varth is more energized than usual. Could be mission success high. Could be something else.",
+                "masterful": "He's excited. Too excited. He sees this data as his key to Leviathan — and to power. The professional mask slips.",
+                "legendary": "Complete read: Varth isn't celebrating the mission's success. He's celebrating his own. This data brings him closer to something personal — power, revenge, or redemption. He hasn't decided which."
               }
             },
             {
@@ -2170,8 +2539,17 @@
               "arena": "presence",
               "actionType": "interact",
               "control": {
-                "failure": "Polite farewell. No special gifts.",
-                "success": "Full celebration. Gifts: Ewok-crafted equipment, medicinal herbs, and a carved token of alliance."
+                "failure": "Polite farewell. No special gifts. The Ewoks are glad you survived but it's a brief parting.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Full celebration AND Chirpa offers a formal alliance. The Ewoks of Endor are allies of the heroes — a thread that echoes through the remaining campaign."
+              },
+              "target": "Ewok celebration",
+              "resist": 1,
+              "risk": 1,
+              "effect": {
+                "fleeting": "Warm goodbye. The Ewoks wave from the canopy as you return to your ship. Friendly but brief.",
+                "masterful": "Full celebration. Gifts: Ewok-crafted equipment, medicinal herbs, and a carved token of alliance. Real friends made.",
+                "legendary": "A night of celebration under the canopy. Songs, feasts, gifts, and a ceremony where Chirpa formally names the heroes 'friends of the tribe.' You depart with allies, equipment, and a warm memory."
               }
             }
           ]
