@@ -1363,7 +1363,7 @@
                   "physique": 1,
                   "reflex": 1,
                   "grit": 3,
-                  "wits": 4,
+                  "wits": 5,
                   "presence": 3
                 },
                 "weaponChassis": null,
@@ -1371,55 +1371,123 @@
                   "disciplined"
                 ],
                 "tags": [
-                  "Droid"
+                  "Droid",
+                  "droid"
                 ],
                 "roleKit": {
-                  "passive": {
-                    "name": "Information Broker",
-                    "description": "Switch always knows one piece of leverage about each visitor. He trades information, never gives it away."
-                  },
+                  "passive": null,
                   "actions": [
                     {
-                      "name": "Expose Leverage",
+                      "name": "Expose Secret",
                       "type": "action",
                       "arena": "wits",
-                      "description": "Reveal embarrassing or dangerous information. Social attack targeting Resist.",
-                      "attackPower": 4
+                      "description": "Social attack. Reveal damaging information. Targets Resist."
                     },
                     {
-                      "name": "Offer Terms",
+                      "name": "Offer Intel",
                       "type": "action",
                       "arena": "presence",
-                      "description": "Propose a deal. Both sides gain a binding obligation if accepted.",
-                      "attackPower": 3
+                      "description": "Trade information for a concession."
                     }
                   ],
-                  "maneuver": {
-                    "name": "Compile Dossier",
-                    "description": "Study target. Learn one discipline rating, obligation, or active condition."
-                  },
-                  "gambit": {
-                    "name": "Recall Favor",
-                    "cost": "-1 Power",
-                    "description": "Invoke a previous obligation. Target must comply or break trust publicly."
-                  },
-                  "exploit": {
-                    "name": "Security Protocol",
-                    "description": "Activate hidden ceiling turrets and lock the single exit. All hostiles gain [Suppressed]."
-                  }
+                  "maneuver": null,
+                  "gambit": null,
+                  "exploit": null
                 },
                 "notes": "Switch is a social threat, not a physical one. His security systems are his teeth. Wits 4 with Informant +1 = effective 5, clamped to max. Resist 3 = Grit 3-1+1. Extremely hard to bluff or intimidate.",
                 "computed": {
-                  "power": 4,
+                  "arenas": {
+                    "physique": 1,
+                    "reflex": 1,
+                    "grit": 3,
+                    "wits": 5,
+                    "presence": 3
+                  },
                   "defense": 1,
                   "evasion": 1,
                   "resist": 4,
                   "vitality": 5,
-                  "initiative": 9,
-                  "controlDie": "d6",
-                  "actions": 1
-                }
-              }
+                  "rawVitality": 5,
+                  "powers": {
+                    "physique": 1,
+                    "reflex": 1,
+                    "grit": 3,
+                    "wits": 5,
+                    "presence": 3
+                  },
+                  "exploits": 0,
+                  "initiative": 11,
+                  "role": {
+                    "id": "informant",
+                    "name": "Informant",
+                    "category": "social",
+                    "description": "Intelligence operative. Trades secrets, exposes weaknesses, leverages information.",
+                    "arenaMods": {
+                      "wits": 1,
+                      "physique": -1
+                    },
+                    "passive": {
+                      "name": "Connected",
+                      "description": "Always knows one piece of intel about each PC (GM chooses what)."
+                    },
+                    "actions": [
+                      {
+                        "name": "Expose Secret",
+                        "type": "action",
+                        "arena": "wits",
+                        "description": "Social attack. Reveal damaging information. Targets Resist."
+                      },
+                      {
+                        "name": "Offer Intel",
+                        "type": "action",
+                        "arena": "presence",
+                        "description": "Trade information for a concession."
+                      }
+                    ],
+                    "maneuver": {
+                      "name": "Observe",
+                      "description": "Study target. Learn one discipline rating or active condition."
+                    },
+                    "gambit": {
+                      "name": "Blackmail",
+                      "cost": "-1 Power",
+                      "description": "If target doesn't comply, consequence is revealed to a third party."
+                    },
+                    "exploit": {
+                      "name": "Network",
+                      "description": "Summon reinforcements, deliver intel to a faction, or trigger a pre-arranged contingency."
+                    }
+                  },
+                  "classification": {
+                    "id": "standard",
+                    "name": "Standard",
+                    "description": "Base template. Full stats, fixed action cadence. The workhorse NPC.",
+                    "vitalityMod": 1,
+                    "exploitMod": 0,
+                    "notes": "2-4 Standards represent a meaningful encounter for a party."
+                  },
+                  "rolePowerBonus": null,
+                  "immunities": [],
+                  "vulnerabilities": [],
+                  "scale": null,
+                  "scaleLevel": 1,
+                  "ironClad": false,
+                  "isStationary": false
+                },
+                "name": "Switch",
+                "shipDetails": {
+                  "hullType": "",
+                  "crew": "",
+                  "hyperdrive": "",
+                  "sensors": "",
+                  "shields": "",
+                  "cargo": "",
+                  "speed": ""
+                },
+                "loot": [],
+                "attacks": []
+              },
+              "loot": []
             }
           ],
           "hazards": "Cramped underground bunker. Motion sensors active.",
