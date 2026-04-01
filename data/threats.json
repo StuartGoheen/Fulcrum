@@ -1,10 +1,10 @@
 {
   "system": {
     "formulas": {
-      "power": "(Arena - 1) + Tier",
-      "defense": "max(Physique, Reflex) - 1 + Tier",
-      "evasion": "Reflex - 1 + Tier",
-      "resist": "Grit - 1 + Tier",
+      "power": "Arena + Tier",
+      "defense": "max(Physique, Reflex) + Tier",
+      "evasion": "Reflex + Tier",
+      "resist": "Grit + Tier",
       "vitality": "Physique + Grit + Tier",
       "stun": "Lethal scale values + 1 per Tier"
     },

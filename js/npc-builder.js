@@ -140,9 +140,9 @@
       if (t.isStationary) isStationary = true;
     });
 
-    var defense = Math.max(a.physique, a.reflex) - 1 + tier + defenseTrait;
-    var evasion = isStationary ? 0 : (a.reflex - 1 + tier + evasionTrait);
-    var resist = a.grit - 1 + tier + resistTrait;
+    var defense = Math.max(a.physique, a.reflex) + tier + defenseTrait;
+    var evasion = isStationary ? 0 : (a.reflex + tier + evasionTrait);
+    var resist = a.grit + tier + resistTrait;
     var rawVitality = a.physique + a.grit + tier;
 
     var cls = threatData.classifications.find(function (c) { return c.id === npc.classification; });
@@ -157,7 +157,7 @@
 
     var powers = {};
     ['physique', 'reflex', 'grit', 'wits', 'presence'].forEach(function (arena) {
-      powers[arena] = a[arena] - 1 + tier + powerTrait;
+      powers[arena] = a[arena] + tier + powerTrait;
     });
 
     var rolePowerBonus = role && role.powerBonus ? role.powerBonus : null;
@@ -337,11 +337,19 @@
           defLabel = a.defense === 'dodge/endure' ? 'PC Defense' : a.defense.charAt(0).toUpperCase() + a.defense.slice(1);
         }
         var defTag = defLabel ? ' <span class="npc-action-def-tag">vs ' + esc(defLabel) + '</span>' : '';
-        html += '<div class="npc-ability action"><strong>' + esc(a.name) + '</strong>' + arenaTag + defTag + pwrTag + ' — ' + esc(a.description);
+        var isUnopposed = (!a.defense || a.defense === 'none');
+        var autoTier = '';
+        if (isUnopposed && a.npcEffects && a.npcEffects.length && a.arena && stats.powers[a.arena] !== undefined) {
+          var pwr = stats.powers[a.arena] + (a.powerMod || 0);
+          autoTier = pwr >= 8 ? 'L' : (pwr >= 4 ? 'M' : 'F');
+        }
+        var unopposedTag = (isUnopposed && a.npcEffects && a.npcEffects.length) ? ' <span class="npc-action-auto-tag">Unopposed (Pwr ' + (stats.powers[a.arena] + (a.powerMod || 0)) + ')</span>' : '';
+        html += '<div class="npc-ability action"><strong>' + esc(a.name) + '</strong>' + arenaTag + defTag + unopposedTag + pwrTag + ' — ' + esc(a.description);
         if (a.npcEffects && a.npcEffects.length) {
           html += '<div class="npc-effect-track">';
           a.npcEffects.forEach(function (ef) {
-            html += '<div class="npc-effect-tier"><span class="npc-effect-tier-label">' + esc(ef.tier) + '</span><span class="npc-effect-tier-range">' + esc(ef.range) + '</span> ' + esc(ef.description) + '</div>';
+            var activeClass = (autoTier && ef.tier === autoTier) ? ' npc-effect-tier-active' : '';
+            html += '<div class="npc-effect-tier' + activeClass + '"><span class="npc-effect-tier-label">' + esc(ef.tier) + '</span><span class="npc-effect-tier-range">' + esc(ef.range) + '</span> ' + esc(ef.description) + '</div>';
           });
           html += '</div>';
         }
@@ -426,7 +434,7 @@
         if (atk.arena && stats.arenas && stats.arenas[atk.arena] !== undefined) {
           arenaScore = stats.arenas[atk.arena];
         }
-        var attackPower = (stats.powers && stats.powers[atk.arena] !== undefined) ? stats.powers[atk.arena] : ((arenaScore - 1) + (currentNpc.tier || 0));
+        var attackPower = (stats.powers && stats.powers[atk.arena] !== undefined) ? stats.powers[atk.arena] : (arenaScore + (currentNpc.tier || 0));
         attackPower += (atk.powerMod || 0);
         var chassisLabel = ch.label || chassisKey.charAt(0).toUpperCase() + chassisKey.slice(1);
         var atkCatLabels = getArenaLabels(currentNpc.threatCategory || 'character');
@@ -1306,7 +1314,7 @@
     return attacks.map(function (atk) {
       var chassisKey = atk.chassis || 'medium';
       var ch = chassisData[chassisKey] || chassisData.medium || defaultChassis;
-      var attackPower = (stats.powers && stats.powers[atk.arena] !== undefined) ? stats.powers[atk.arena] : (((stats.arenas && stats.arenas[atk.arena]) || 1) - 1 + (npc.tier || 0));
+      var attackPower = (stats.powers && stats.powers[atk.arena] !== undefined) ? stats.powers[atk.arena] : (((stats.arenas && stats.arenas[atk.arena]) || 1) + (npc.tier || 0));
       attackPower += (atk.powerMod || 0);
       var chassisLabel = (ch.label || chassisKey.charAt(0).toUpperCase() + chassisKey.slice(1));
       var dmg = ch.pcDamage || defaultChassis.pcDamage;
