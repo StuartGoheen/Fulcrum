@@ -254,12 +254,14 @@
         "martial": {
           "action": {
             "name": "Devastating Blow",
-            "defense": "endure",
+            "defense": "dodge/endure",
             "npcEffects": {
               "fleeting": "Chassis damage",
               "masterful": "Chassis damage + [Staggered]",
               "legendary": "Chassis damage + [Staggered] + [Prone]"
-            }
+            },
+            "isAttack": true,
+            "arena": "physique"
           },
           "maneuver": {
             "name": "Intimidating Advance",
@@ -281,12 +283,14 @@
         "ranged": {
           "action": {
             "name": "Dead Shot",
-            "defense": "dodge",
+            "defense": "dodge/endure",
             "npcEffects": {
               "fleeting": "Chassis damage",
               "masterful": "Chassis damage + [Suppressed]",
               "legendary": "Chassis damage + [Suppressed] + [Exposed]"
-            }
+            },
+            "isAttack": true,
+            "arena": "reflex"
           },
           "maneuver": {
             "name": "Marked Target",
@@ -313,7 +317,9 @@
               "fleeting": "Chassis damage",
               "masterful": "Chassis damage + [Weakened]",
               "legendary": "Chassis damage + [Weakened] + [Restrained]"
-            }
+            },
+            "isAttack": true,
+            "arena": "grit"
           },
           "maneuver": {
             "name": "Dark Presence",
@@ -340,7 +346,9 @@
               "fleeting": "Chassis damage",
               "masterful": "Chassis damage + one ally in the same zone gains +1 Power until end of round",
               "legendary": "Chassis damage + ally gains +1 Power + that ally may immediately make an attack at -2 Power"
-            }
+            },
+            "isAttack": true,
+            "arena": "presence"
           },
           "maneuver": {
             "name": "Press the Attack",
@@ -370,12 +378,14 @@
         "martial": {
           "action": {
             "name": "Shield Slam",
-            "defense": "endure",
+            "defense": "dodge/endure",
             "npcEffects": {
               "fleeting": "Chassis damage",
               "masterful": "Chassis damage + push target 1 zone",
               "legendary": "Chassis damage + push 1 zone + [Prone]"
-            }
+            },
+            "isAttack": true,
+            "arena": "physique"
           },
           "maneuver": {
             "name": "Lockdown",
@@ -397,12 +407,14 @@
         "ranged": {
           "action": {
             "name": "Disciplined Fire",
-            "defense": "dodge",
+            "defense": "dodge/endure",
             "npcEffects": {
               "fleeting": "Chassis damage",
               "masterful": "Chassis damage + [Suppressed]",
               "legendary": "Chassis damage + [Suppressed] to all enemies in the target's zone"
-            }
+            },
+            "isAttack": true,
+            "arena": "reflex"
           },
           "maneuver": {
             "name": "Dig In",
@@ -429,7 +441,9 @@
               "fleeting": "Chassis damage",
               "masterful": "Chassis damage + Anchor gains [Buffered 1]",
               "legendary": "Chassis damage + [Buffered 2] + push target 1 zone"
-            }
+            },
+            "isAttack": true,
+            "arena": "grit"
           },
           "maneuver": {
             "name": "Force Anchor",
@@ -456,7 +470,9 @@
               "fleeting": "Chassis damage",
               "masterful": "Chassis damage + one ally in the same zone gains [Cover 1]",
               "legendary": "Chassis damage + ally gains [Cover 2] + that ally gains +1 Power until end of round"
-            }
+            },
+            "isAttack": true,
+            "arena": "presence"
           },
           "maneuver": {
             "name": "Rally Point",
@@ -491,7 +507,9 @@
               "fleeting": "Chassis damage",
               "masterful": "Chassis damage + [Exposed]",
               "legendary": "Chassis damage + [Exposed] + free Move 1 zone (no Opening)"
-            }
+            },
+            "isAttack": true,
+            "arena": "physique"
           },
           "maneuver": {
             "name": "Slip Away",
@@ -518,7 +536,9 @@
               "fleeting": "Chassis damage",
               "masterful": "Chassis damage + [Suppressed]",
               "legendary": "Chassis damage + [Suppressed] + [Exposed]"
-            }
+            },
+            "isAttack": true,
+            "arena": "reflex"
           },
           "maneuver": {
             "name": "Reposition",
@@ -545,7 +565,9 @@
               "fleeting": "Chassis damage",
               "masterful": "Chassis damage + push target 1 zone",
               "legendary": "Chassis damage + push 1 zone + [Dazed]"
-            }
+            },
+            "isAttack": true,
+            "arena": "grit"
           },
           "maneuver": {
             "name": "Phase Step",
@@ -572,7 +594,9 @@
               "fleeting": "Chassis damage",
               "masterful": "Chassis damage + one ally in adjacent zone may move 1 zone toward target",
               "legendary": "Chassis damage + ally moves 1 zone + that ally gains [Optimized]"
-            }
+            },
+            "isAttack": true,
+            "arena": "presence"
           },
           "maneuver": {
             "name": "Regroup",
@@ -602,12 +626,14 @@
         "martial": {
           "action": {
             "name": "Crippling Strike",
-            "defense": "endure",
+            "defense": "dodge/endure",
             "npcEffects": {
               "fleeting": "Chassis damage",
               "masterful": "Chassis damage + [Slowed]",
               "legendary": "Chassis damage + [Slowed] + [Weakened]"
-            }
+            },
+            "isAttack": true,
+            "arena": "physique"
           },
           "maneuver": {
             "name": "Menacing Presence",
@@ -629,12 +655,14 @@
         "ranged": {
           "action": {
             "name": "Suppressive Volley",
-            "defense": "dodge",
+            "defense": "dodge/endure",
             "npcEffects": {
               "fleeting": "Chassis damage",
               "masterful": "Chassis damage + [Suppressed]",
               "legendary": "Chassis damage + [Suppressed] + Controller's zone becomes [Hazard 1] until end of next round"
-            }
+            },
+            "isAttack": true,
+            "arena": "reflex"
           },
           "maneuver": {
             "name": "Overwatch Position",
@@ -661,7 +689,9 @@
               "fleeting": "Chassis damage",
               "masterful": "Chassis damage + [Disoriented]",
               "legendary": "Chassis damage + [Disoriented] + [Rattled]"
-            }
+            },
+            "isAttack": true,
+            "arena": "grit"
           },
           "maneuver": {
             "name": "Force Dominion",
@@ -688,7 +718,9 @@
               "fleeting": "Chassis damage",
               "masterful": "Chassis damage + [Rattled]",
               "legendary": "Chassis damage + [Rattled] + target must move 1 zone (Controller's choice)"
-            }
+            },
+            "isAttack": true,
+            "arena": "presence"
           },
           "maneuver": {
             "name": "Tactical Redeployment",
@@ -718,12 +750,14 @@
         "martial": {
           "action": {
             "name": "Bolstering Strike",
-            "defense": "endure",
+            "defense": "dodge/endure",
             "npcEffects": {
               "fleeting": "Chassis damage",
               "masterful": "Chassis damage + one ally in the same zone heals 1 Vitality",
               "legendary": "Chassis damage + ally heals 2 Vitality + remove one condition from that ally"
-            }
+            },
+            "isAttack": true,
+            "arena": "physique"
           },
           "maneuver": {
             "name": "Shield Wall",
@@ -745,12 +779,14 @@
         "ranged": {
           "action": {
             "name": "Covering Strike",
-            "defense": "dodge",
+            "defense": "dodge/endure",
             "npcEffects": {
               "fleeting": "Chassis damage",
               "masterful": "Chassis damage + one ally gains [Cover 1]",
               "legendary": "Chassis damage + ally gains [Cover 2] + ally gains +1 Power until end of round"
-            }
+            },
+            "isAttack": true,
+            "arena": "reflex"
           },
           "maneuver": {
             "name": "Suppressive Assist",
@@ -777,7 +813,9 @@
               "fleeting": "Chassis damage OR heal 1 ally Vitality in same zone",
               "masterful": "Chassis damage + heal 2 Vitality to one ally in same zone",
               "legendary": "Chassis damage + heal 3 Vitality + remove one condition from that ally"
-            }
+            },
+            "isAttack": true,
+            "arena": "grit"
           },
           "maneuver": {
             "name": "Battle Meditation",
@@ -804,7 +842,9 @@
               "fleeting": "Chassis damage",
               "masterful": "Chassis damage + one ally within 2 zones gains [Optimized] on next action",
               "legendary": "Chassis damage + all allies within 2 zones gain [Optimized] on next action"
-            }
+            },
+            "isAttack": true,
+            "arena": "presence"
           },
           "maneuver": {
             "name": "Tactical Brief",

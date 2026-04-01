@@ -150,7 +150,9 @@
                       "fleeting": "Chassis damage",
                       "masterful": "Chassis damage + [Suppressed]",
                       "legendary": "Chassis damage + [Suppressed] + [Exposed]"
-                    }
+                    },
+                    "isAttack": true,
+                    "arena": "reflex"
                   },
                   "maneuver": {
                     "name": "Reposition",
@@ -222,7 +224,9 @@
                       "fleeting": "Chassis damage",
                       "masterful": "Chassis damage + [Exposed]",
                       "legendary": "Chassis damage + [Exposed] + free Move 1 zone (no Opening)"
-                    }
+                    },
+                    "isAttack": true,
+                    "arena": "physique"
                   },
                   "maneuver": {
                     "name": "Slip Away",
@@ -348,12 +352,14 @@
                   "roleName": "Threat / Martial",
                   "action": {
                     "name": "Devastating Blow",
-                    "defense": "endure",
+                    "defense": "dodge/endure",
                     "npcEffects": {
                       "fleeting": "Chassis damage",
                       "masterful": "Chassis damage + [Staggered]",
                       "legendary": "Chassis damage + [Staggered] + [Prone]"
-                    }
+                    },
+                    "isAttack": true,
+                    "arena": "physique"
                   },
                   "maneuver": {
                     "name": "Intimidating Advance",
@@ -424,12 +430,14 @@
                   "roleName": "Threat / Martial",
                   "action": {
                     "name": "Devastating Blow",
-                    "defense": "endure",
+                    "defense": "dodge/endure",
                     "npcEffects": {
                       "fleeting": "Chassis damage",
                       "masterful": "Chassis damage + [Staggered]",
                       "legendary": "Chassis damage + [Staggered] + [Prone]"
-                    }
+                    },
+                    "isAttack": true,
+                    "arena": "physique"
                   },
                   "maneuver": {
                     "name": "Intimidating Advance",
@@ -746,12 +754,14 @@
                   "roleName": "Support / Martial",
                   "action": {
                     "name": "Bolstering Strike",
-                    "defense": "endure",
+                    "defense": "dodge/endure",
                     "npcEffects": {
                       "fleeting": "Chassis damage",
                       "masterful": "Chassis damage + one ally in the same zone heals 1 Vitality",
                       "legendary": "Chassis damage + ally heals 2 Vitality + remove one condition from that ally"
-                    }
+                    },
+                    "isAttack": true,
+                    "arena": "physique"
                   },
                   "maneuver": {
                     "name": "Shield Wall",
@@ -877,7 +887,9 @@
                       "fleeting": "Chassis damage",
                       "masterful": "Chassis damage + [Disoriented]",
                       "legendary": "Chassis damage + [Disoriented] + [Rattled]"
-                    }
+                    },
+                    "isAttack": true,
+                    "arena": "grit"
                   },
                   "maneuver": {
                     "name": "Force Dominion",
@@ -946,12 +958,14 @@
                   "roleName": "Threat / Martial",
                   "action": {
                     "name": "Devastating Blow",
-                    "defense": "endure",
+                    "defense": "dodge/endure",
                     "npcEffects": {
                       "fleeting": "Chassis damage",
                       "masterful": "Chassis damage + [Staggered]",
                       "legendary": "Chassis damage + [Staggered] + [Prone]"
-                    }
+                    },
+                    "isAttack": true,
+                    "arena": "physique"
                   },
                   "maneuver": {
                     "name": "Intimidating Advance",
@@ -1217,12 +1231,14 @@
                   "roleName": "Threat / Martial",
                   "action": {
                     "name": "Devastating Blow",
-                    "defense": "endure",
+                    "defense": "dodge/endure",
                     "npcEffects": {
                       "fleeting": "Chassis damage",
                       "masterful": "Chassis damage + [Staggered]",
                       "legendary": "Chassis damage + [Staggered] + [Prone]"
-                    }
+                    },
+                    "isAttack": true,
+                    "arena": "physique"
                   },
                   "maneuver": {
                     "name": "Intimidating Advance",
@@ -1357,7 +1373,9 @@
                       "fleeting": "Chassis damage",
                       "masterful": "Chassis damage + [Suppressed]",
                       "legendary": "Chassis damage + [Suppressed] + [Exposed]"
-                    }
+                    },
+                    "isAttack": true,
+                    "arena": "reflex"
                   },
                   "maneuver": {
                     "name": "Reposition",
@@ -1427,12 +1445,14 @@
                   "roleName": "Threat / Martial",
                   "action": {
                     "name": "Devastating Blow",
-                    "defense": "endure",
+                    "defense": "dodge/endure",
                     "npcEffects": {
                       "fleeting": "Chassis damage",
                       "masterful": "Chassis damage + [Staggered]",
                       "legendary": "Chassis damage + [Staggered] + [Prone]"
-                    }
+                    },
+                    "isAttack": true,
+                    "arena": "physique"
                   },
                   "maneuver": {
                     "name": "Intimidating Advance",
@@ -1507,7 +1527,9 @@
                       "fleeting": "Chassis damage",
                       "masterful": "Chassis damage + [Suppressed]",
                       "legendary": "Chassis damage + [Suppressed] + [Exposed]"
-                    }
+                    },
+                    "isAttack": true,
+                    "arena": "reflex"
                   },
                   "maneuver": {
                     "name": "Reposition",
@@ -1582,7 +1604,9 @@
                       "fleeting": "Chassis damage",
                       "masterful": "Chassis damage + [Suppressed]",
                       "legendary": "Chassis damage + [Suppressed] + [Exposed]"
-                    }
+                    },
+                    "isAttack": true,
+                    "arena": "reflex"
                   },
                   "maneuver": {
                     "name": "Reposition",
@@ -1658,7 +1682,9 @@
                       "fleeting": "Chassis damage",
                       "masterful": "Chassis damage + one ally within 2 zones gains [Optimized] on next action",
                       "legendary": "Chassis damage + all allies within 2 zones gain [Optimized] on next action"
-                    }
+                    },
+                    "isAttack": true,
+                    "arena": "presence"
                   },
                   "maneuver": {
                     "name": "Tactical Brief",
@@ -2092,7 +2118,9 @@
                       "fleeting": "Chassis damage",
                       "masterful": "Chassis damage + [Disoriented]",
                       "legendary": "Chassis damage + [Disoriented] + [Rattled]"
-                    }
+                    },
+                    "isAttack": true,
+                    "arena": "grit"
                   },
                   "maneuver": {
                     "name": "Force Dominion",
@@ -2163,12 +2191,14 @@
                   "roleName": "Anchor / Martial",
                   "action": {
                     "name": "Shield Slam",
-                    "defense": "endure",
+                    "defense": "dodge/endure",
                     "npcEffects": {
                       "fleeting": "Chassis damage",
                       "masterful": "Chassis damage + push target 1 zone",
                       "legendary": "Chassis damage + push 1 zone + [Prone]"
-                    }
+                    },
+                    "isAttack": true,
+                    "arena": "physique"
                   },
                   "maneuver": {
                     "name": "Lockdown",
@@ -2469,7 +2499,9 @@
                       "fleeting": "Chassis damage",
                       "masterful": "Chassis damage + [Disoriented]",
                       "legendary": "Chassis damage + [Disoriented] + [Rattled]"
-                    }
+                    },
+                    "isAttack": true,
+                    "arena": "grit"
                   },
                   "maneuver": {
                     "name": "Force Dominion",
@@ -2538,12 +2570,14 @@
                   "roleName": "Threat / Martial",
                   "action": {
                     "name": "Devastating Blow",
-                    "defense": "endure",
+                    "defense": "dodge/endure",
                     "npcEffects": {
                       "fleeting": "Chassis damage",
                       "masterful": "Chassis damage + [Staggered]",
                       "legendary": "Chassis damage + [Staggered] + [Prone]"
-                    }
+                    },
+                    "isAttack": true,
+                    "arena": "physique"
                   },
                   "maneuver": {
                     "name": "Intimidating Advance",
@@ -2823,7 +2857,9 @@
                       "fleeting": "Chassis damage",
                       "masterful": "Chassis damage + one ally within 2 zones gains [Optimized] on next action",
                       "legendary": "Chassis damage + all allies within 2 zones gain [Optimized] on next action"
-                    }
+                    },
+                    "isAttack": true,
+                    "arena": "presence"
                   },
                   "maneuver": {
                     "name": "Tactical Brief",
@@ -2894,12 +2930,14 @@
                   "roleName": "Anchor / Ranged",
                   "action": {
                     "name": "Disciplined Fire",
-                    "defense": "dodge",
+                    "defense": "dodge/endure",
                     "npcEffects": {
                       "fleeting": "Chassis damage",
                       "masterful": "Chassis damage + [Suppressed]",
                       "legendary": "Chassis damage + [Suppressed] to all enemies in the target's zone"
-                    }
+                    },
+                    "isAttack": true,
+                    "arena": "reflex"
                   },
                   "maneuver": {
                     "name": "Dig In",

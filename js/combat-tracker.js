@@ -900,8 +900,9 @@
     html += '<div class="ct-section-label">' + (rk.roleName ? esc(rk.roleName) : 'Role Kit') + '</div>';
 
     if (rk.action) {
-      html += '<div class="ct-rk-entry"><span class="ct-rk-tag ct-rk-action">Action</span> <strong>' + esc(rk.action.name) + '</strong>';
-      if (rk.action.defense) html += ' <span class="ct-rk-cost">(' + esc(rk.action.defense) + ')</span>';
+      var actionLabel = rk.action.isAttack ? 'Action — Attack' : 'Action';
+      html += '<div class="ct-rk-entry"><span class="ct-rk-tag ct-rk-action">' + actionLabel + '</span> <strong>' + esc(rk.action.name) + '</strong>';
+      if (rk.action.defense) html += ' <span class="ct-rk-cost">(Defense: ' + esc(rk.action.defense) + ')</span>';
       if (rk.action.npcEffects) {
         html += '<div class="ct-rk-effects">';
         html += '<div><strong>F:</strong> ' + esc(rk.action.npcEffects.fleeting) + '</div>';

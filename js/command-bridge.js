@@ -407,8 +407,9 @@
         h += '<div class="cb-npc-role-header" style="font-family:\'Audiowide\',sans-serif;font-size:0.6rem;color:var(--color-accent-primary);text-transform:uppercase;letter-spacing:0.1em;margin:0.3rem 0 0.15rem;">' + esc(rk.roleName) + '</div>';
       }
       if (rk.action) {
-        h += '<div class="cb-npc-ability"><span class="cb-npc-ability-tag" style="background:rgba(59,130,246,0.15);color:#3b82f6;">Action</span> <strong>' + esc(rk.action.name) + '</strong>';
-        if (rk.action.defense) h += ' <span style="color:var(--color-text-secondary);font-size:0.55rem;">(' + esc(rk.action.defense) + ')</span>';
+        var actionLabel = rk.action.isAttack ? 'Action — Attack' : 'Action';
+        h += '<div class="cb-npc-ability"><span class="cb-npc-ability-tag" style="background:rgba(59,130,246,0.15);color:#3b82f6;">' + actionLabel + '</span> <strong>' + esc(rk.action.name) + '</strong>';
+        if (rk.action.defense) h += ' <span style="color:var(--color-text-secondary);font-size:0.55rem;">(Defense: ' + esc(rk.action.defense) + ')</span>';
         if (rk.action.npcEffects) {
           h += '<div style="font-size:0.55rem;margin:0.1rem 0 0 0.5rem;">';
           h += '<div><strong>F:</strong> ' + linkify(rk.action.npcEffects.fleeting) + '</div>';

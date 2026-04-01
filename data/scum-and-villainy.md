@@ -226,7 +226,7 @@ What stays the same: the tactical identity. A Threat/Martial and a Threat/Ranged
 
 | Slot | Name | Details |
 |---|---|---|
-| **Action** | **Devastating Blow** | Weapon attack. Defense: endure |
+| **Action** | **Devastating Blow** | Weapon attack. Defense: dodge/endure |
 | | F (1-3) | Chassis damage |
 | | M (4-7) | Chassis damage + [Staggered] |
 | | L (8+) | Chassis damage + [Staggered] + [Prone] |
@@ -239,7 +239,7 @@ What stays the same: the tactical identity. A Threat/Martial and a Threat/Ranged
 
 | Slot | Name | Details |
 |---|---|---|
-| **Action** | **Dead Shot** | Weapon attack. Defense: dodge |
+| **Action** | **Dead Shot** | Weapon attack. Defense: dodge/endure |
 | | F (1-3) | Chassis damage |
 | | M (4-7) | Chassis damage + [Suppressed] |
 | | L (8+) | Chassis damage + [Suppressed] + [Exposed] |
@@ -284,7 +284,7 @@ What stays the same: the tactical identity. A Threat/Martial and a Threat/Ranged
 
 | Slot | Name | Details |
 |---|---|---|
-| **Action** | **Shield Slam** | Weapon attack. Defense: endure |
+| **Action** | **Shield Slam** | Weapon attack. Defense: dodge/endure |
 | | F (1-3) | Chassis damage |
 | | M (4-7) | Chassis damage + push target 1 zone |
 | | L (8+) | Chassis damage + push 1 zone + [Prone] |
@@ -297,7 +297,7 @@ What stays the same: the tactical identity. A Threat/Martial and a Threat/Ranged
 
 | Slot | Name | Details |
 |---|---|---|
-| **Action** | **Disciplined Fire** | Weapon attack. Defense: dodge |
+| **Action** | **Disciplined Fire** | Weapon attack. Defense: dodge/endure |
 | | F (1-3) | Chassis damage |
 | | M (4-7) | Chassis damage + [Suppressed] |
 | | L (8+) | Chassis damage + [Suppressed] to all enemies in target's zone |
@@ -342,7 +342,7 @@ What stays the same: the tactical identity. A Threat/Martial and a Threat/Ranged
 
 | Slot | Name | Details |
 |---|---|---|
-| **Action** | **Crippling Strike** | Weapon attack. Defense: endure |
+| **Action** | **Crippling Strike** | Weapon attack. Defense: dodge/endure |
 | | F (1-3) | Chassis damage |
 | | M (4-7) | Chassis damage + [Slowed] |
 | | L (8+) | Chassis damage + [Slowed] + [Weakened] |
@@ -355,7 +355,7 @@ What stays the same: the tactical identity. A Threat/Martial and a Threat/Ranged
 
 | Slot | Name | Details |
 |---|---|---|
-| **Action** | **Suppressive Volley** | Weapon attack. Defense: dodge |
+| **Action** | **Suppressive Volley** | Weapon attack. Defense: dodge/endure |
 | | F (1-3) | Chassis damage |
 | | M (4-7) | Chassis damage + [Suppressed] |
 | | L (8+) | Chassis damage + [Suppressed] + zone becomes [Hazard 1] until end of next round |
@@ -400,7 +400,7 @@ What stays the same: the tactical identity. A Threat/Martial and a Threat/Ranged
 
 | Slot | Name | Details |
 |---|---|---|
-| **Action** | **Bolstering Strike** | Weapon attack. Defense: endure |
+| **Action** | **Bolstering Strike** | Weapon attack. Defense: dodge/endure |
 | | F (1-3) | Chassis damage |
 | | M (4-7) | Chassis damage + one ally in same zone heals 1 Vitality |
 | | L (8+) | Chassis damage + ally heals 2 Vitality + remove one condition from that ally |
@@ -413,7 +413,7 @@ What stays the same: the tactical identity. A Threat/Martial and a Threat/Ranged
 
 | Slot | Name | Details |
 |---|---|---|
-| **Action** | **Covering Strike** | Weapon attack. Defense: dodge |
+| **Action** | **Covering Strike** | Weapon attack. Defense: dodge/endure |
 | | F (1-3) | Chassis damage |
 | | M (4-7) | Chassis damage + one ally gains [Cover 1] |
 | | L (8+) | Chassis damage + ally gains [Cover 2] + ally gains +1 Power until end of round |

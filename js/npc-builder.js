@@ -128,9 +128,40 @@
     };
   }
 
+  var POWER_SOURCE_ARENA = { martial: 'physique', ranged: 'reflex', force: 'grit', leader: 'presence' };
+
   function seedAttacksFromRole() {
-    if (!currentNpc.attacks || !currentNpc.attacks.length) {
-      currentNpc.attacks = [];
+    if (!currentNpc.attacks) currentNpc.attacks = [];
+    var existingRoleIdx = -1;
+    currentNpc.attacks.forEach(function (atk, i) { if (atk.isRoleAction) existingRoleIdx = i; });
+
+    if (!currentNpc.role || !currentNpc.powerSource) {
+      if (existingRoleIdx !== -1) currentNpc.attacks.splice(existingRoleIdx, 1);
+      return;
+    }
+
+    var rk = resolveRoleKit(currentNpc.role, currentNpc.powerSource);
+    if (!rk || !rk.action || !rk.action.isAttack) {
+      if (existingRoleIdx !== -1) currentNpc.attacks.splice(existingRoleIdx, 1);
+      return;
+    }
+
+    var defaultArena = rk.action.arena || POWER_SOURCE_ARENA[currentNpc.powerSource] || 'physique';
+    if (existingRoleIdx !== -1) {
+      currentNpc.attacks[existingRoleIdx].name = rk.action.name;
+      if (!currentNpc.attacks[existingRoleIdx]._arenaOverride) {
+        currentNpc.attacks[existingRoleIdx].arena = defaultArena;
+      }
+      currentNpc.attacks[existingRoleIdx].isRoleAction = true;
+    } else {
+      currentNpc.attacks.unshift({
+        name: rk.action.name,
+        arena: defaultArena,
+        chassis: 'medium',
+        powerMod: 0,
+        canStun: false,
+        isRoleAction: true
+      });
     }
   }
 
@@ -349,10 +380,26 @@
       html += '<div class="npc-role-title">' + esc(rk ? rk.roleName : role.name) + '</div>';
 
       if (rk && rk.action) {
+        var roleAtk = null;
+        if (currentNpc.attacks) {
+          roleAtk = currentNpc.attacks.filter(function (a) { return a.isRoleAction; })[0] || null;
+        }
         html += '<div class="npc-action-economy-group">';
-        html += '<div class="npc-action-group-label">ACTION</div>';
-        html += '<div class="npc-ability action"><strong>' + esc(rk.action.name) + '</strong>';
-        if (rk.action.defense) html += ' <span class="npc-action-defense">(' + esc(rk.action.defense) + ')</span>';
+        html += '<div class="npc-action-group-label">ACTION — Attack</div>';
+        html += '<div class="npc-ability action">';
+        html += '<strong>' + esc(roleAtk ? roleAtk.name : rk.action.name) + '</strong>';
+        if (rk.action.defense) html += ' <span class="npc-action-defense">(Defense: ' + esc(rk.action.defense) + ')</span>';
+        if (roleAtk) {
+          var atkArena = roleAtk.arena || 'physique';
+          var atkPower = (stats.powers && stats.powers[atkArena] !== undefined) ? stats.powers[atkArena] : 0;
+          atkPower += (roleAtk.powerMod || 0);
+          var atkChassis = roleAtk.chassis || 'medium';
+          var atkChData = (threatData.system && threatData.system.weaponChassis ? threatData.system.weaponChassis : {})[atkChassis] || { pcDamage: { fleeting: 1, masterful: 3, legendary: 5 } };
+          var atkLabels = getArenaLabels(currentNpc.threatCategory || 'character');
+          html += ' <span class="npc-attack-power-badge">Power ' + atkPower + '</span>';
+          html += ' <span class="npc-attack-chassis-badge">' + (atkChData.label || atkChassis.charAt(0).toUpperCase() + atkChassis.slice(1)) + '</span>';
+          html += ' <span class="npc-attack-arena-badge">' + (atkLabels[atkArena] || atkArena) + '</span>';
+        }
         if (rk.action.npcEffects) {
           html += '<div class="npc-effect-track">';
           html += '<div class="npc-effect-tier"><span class="npc-tier-label">F:</span> ' + esc(rk.action.npcEffects.fleeting) + '</div>';
@@ -409,11 +456,12 @@
       html += '</div>';
     }
 
-    if (currentNpc.attacks && currentNpc.attacks.length) {
+    var extraAttacks = (currentNpc.attacks || []).filter(function (a) { return !a.isRoleAction; });
+    if (extraAttacks.length) {
       html += '<div class="npc-card-attacks">';
       html += '<div class="npc-attacks-label">ATTACKS</div>';
       var chassisData = threatData.system && threatData.system.weaponChassis ? threatData.system.weaponChassis : {};
-      currentNpc.attacks.forEach(function (atk) {
+      extraAttacks.forEach(function (atk) {
         var chassisKey = atk.chassis || 'medium';
         var ch = chassisData[chassisKey] || chassisData.medium || { pcDamage: { fleeting: 1, masterful: 3, legendary: 5 }, pcStun: { fleeting: 2, masterful: 4, legendary: 6 } };
         var npcDmgF = (ch.pcDamage.fleeting || 1) + 1;
@@ -747,6 +795,8 @@
     if (psSelect) {
       psSelect.addEventListener('change', function (e) {
         currentNpc.powerSource = e.target.value;
+        seedAttacksFromRole();
+        renderBuilderRight();
         renderNpcCard();
       });
     }
@@ -921,10 +971,12 @@
     html += '<div class="npc-input-group">';
     html += '<label class="npc-label">Attacks</label>';
     if (!currentNpc.attacks || !currentNpc.attacks.length) {
-      html += '<div class="npc-attacks-empty">No custom attacks. Add one below.</div>';
+      html += '<div class="npc-attacks-empty">No attacks. Add one below.</div>';
     } else {
       currentNpc.attacks.forEach(function (atk, idx) {
-        html += '<div class="npc-attack-entry" data-atk-idx="' + idx + '">';
+        var isRole = atk.isRoleAction;
+        html += '<div class="npc-attack-entry' + (isRole ? ' npc-attack-role' : '') + '" data-atk-idx="' + idx + '">';
+        if (isRole) html += '<div class="npc-attack-role-label">Role Attack</div>';
         html += '<input type="text" class="npc-text-input npc-attack-name" data-atk-idx="' + idx + '" value="' + esc(atk.name) + '" placeholder="Attack name" />';
         html += '<div class="npc-attack-controls">';
         var atkArenaLabels = getArenaLabels(currentNpc.threatCategory || 'character');
@@ -941,7 +993,7 @@
         });
         html += '</select>';
         html += '<label class="npc-attack-stun-label"><input type="checkbox" class="npc-attack-stun-cb" data-atk-idx="' + idx + '"' + (atk.canStun ? ' checked' : '') + ' /> Stun</label>';
-        html += '<button class="npc-attack-remove" data-atk-idx="' + idx + '">&times;</button>';
+        if (!isRole) html += '<button class="npc-attack-remove" data-atk-idx="' + idx + '">&times;</button>';
         html += '</div>';
         html += '</div>';
       });
@@ -1002,7 +1054,11 @@
     el.querySelectorAll('.npc-attack-arena').forEach(function (sel) {
       sel.addEventListener('change', function () {
         var idx = parseInt(sel.dataset.atkIdx, 10);
-        if (currentNpc.attacks[idx]) { currentNpc.attacks[idx].arena = sel.value; renderNpcCard(); }
+        if (currentNpc.attacks[idx]) {
+          currentNpc.attacks[idx].arena = sel.value;
+          if (currentNpc.attacks[idx].isRoleAction) currentNpc.attacks[idx]._arenaOverride = true;
+          renderNpcCard();
+        }
       });
     });
     el.querySelectorAll('.npc-attack-chassis').forEach(function (sel) {
