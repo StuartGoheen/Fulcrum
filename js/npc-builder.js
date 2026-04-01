@@ -374,41 +374,79 @@
       html += '</div>';
     }
 
+    var allChassisData = threatData.system && threatData.system.weaponChassis ? threatData.system.weaponChassis : {};
+    var defaultChassis = { pcDamage: { fleeting: 1, masterful: 3, legendary: 5 }, pcStun: { fleeting: 2, masterful: 4, legendary: 6 } };
+    var cardArenaLabels = getArenaLabels(currentNpc.threatCategory || 'character');
+
+    function computeAtkDmg(atk) {
+      var ck = atk.chassis || 'medium';
+      var ch = allChassisData[ck] || allChassisData.medium || defaultChassis;
+      var f = (ch.pcDamage.fleeting || 1) + 1;
+      var m = (ch.pcDamage.masterful || 3) + 1;
+      var l = (ch.pcDamage.legendary || 5) + 1;
+      var pwr = (stats.powers && stats.powers[atk.arena] !== undefined) ? stats.powers[atk.arena] : 0;
+      pwr += (atk.powerMod || 0);
+      var chLabel = ch.label || ck.charAt(0).toUpperCase() + ck.slice(1);
+      return { f: f, m: m, l: l, power: pwr, chassisLabel: chLabel, ch: ch };
+    }
+
+    function renderAttackBlock(atk, npcEffects, defense) {
+      var d = computeAtkDmg(atk);
+      var h = '<div class="npc-attack-card-item">';
+      h += '<div class="npc-attack-header">';
+      h += '<strong>' + esc(atk.name) + '</strong>';
+      if (defense) h += ' <span class="npc-action-defense">(Defense: ' + esc(defense) + ')</span>';
+      h += ' <span class="npc-attack-power-badge">Power ' + d.power + '</span>';
+      h += ' <span class="npc-attack-chassis-badge">' + d.chassisLabel + '</span>';
+      if (atk.arena) h += ' <span class="npc-attack-arena-badge">' + (cardArenaLabels[atk.arena] || atk.arena) + '</span>';
+      h += '</div>';
+      if (npcEffects) {
+        function resolveTier(text, dmg) { return text.replace(/Chassis damage/g, dmg + ' damage'); }
+        h += '<div class="npc-effect-track">';
+        h += '<div class="npc-effect-tier"><span class="npc-tier-label">F:</span> ' + esc(resolveTier(npcEffects.fleeting, d.f)) + '</div>';
+        h += '<div class="npc-effect-tier"><span class="npc-tier-label">M:</span> ' + esc(resolveTier(npcEffects.masterful, d.m)) + '</div>';
+        h += '<div class="npc-effect-tier"><span class="npc-tier-label">L:</span> ' + esc(resolveTier(npcEffects.legendary, d.l)) + '</div>';
+        h += '</div>';
+      } else {
+        h += '<div class="npc-attack-damage-row">';
+        h += '<span class="npc-dmg-tier"><span class="npc-dmg-label">F</span> ' + d.f + '</span>';
+        h += '<span class="npc-dmg-tier"><span class="npc-dmg-label">M</span> ' + d.m + '</span>';
+        h += '<span class="npc-dmg-tier"><span class="npc-dmg-label">L</span> ' + d.l + '</span>';
+        h += '</div>';
+      }
+      if (atk.canStun && d.ch.pcStun) {
+        var sf = (d.ch.pcStun.fleeting || 2) + 1;
+        var sm = (d.ch.pcStun.masterful || 4) + 1;
+        var sl = (d.ch.pcStun.legendary || 6) + 1;
+        h += '<div class="npc-attack-stun-row">';
+        h += '<span class="npc-stun-tier"><span class="npc-stun-label-sm">Stun F</span> ' + sf + '</span>';
+        h += '<span class="npc-stun-tier"><span class="npc-stun-label-sm">M</span> ' + sm + '</span>';
+        h += '<span class="npc-stun-tier"><span class="npc-stun-label-sm">L</span> ' + sl + '</span>';
+        h += '</div>';
+      }
+      h += '</div>';
+      return h;
+    }
+
     if (role) {
       var rk = resolveRoleKit(currentNpc.role, currentNpc.powerSource);
       html += '<div class="npc-card-role-section">';
       html += '<div class="npc-role-title">' + esc(rk ? rk.roleName : role.name) + '</div>';
 
-      if (rk && rk.action) {
-        var roleAtk = null;
-        if (currentNpc.attacks) {
-          roleAtk = currentNpc.attacks.filter(function (a) { return a.isRoleAction; })[0] || null;
-        }
-        html += '<div class="npc-action-economy-group">';
-        html += '<div class="npc-action-group-label">ACTION — Attack</div>';
-        html += '<div class="npc-ability action">';
-        html += '<strong>' + esc(roleAtk ? roleAtk.name : rk.action.name) + '</strong>';
-        if (rk.action.defense) html += ' <span class="npc-action-defense">(Defense: ' + esc(rk.action.defense) + ')</span>';
-        if (roleAtk) {
-          var atkArena = roleAtk.arena || 'physique';
-          var atkPower = (stats.powers && stats.powers[atkArena] !== undefined) ? stats.powers[atkArena] : 0;
-          atkPower += (roleAtk.powerMod || 0);
-          var atkChassis = roleAtk.chassis || 'medium';
-          var atkChData = (threatData.system && threatData.system.weaponChassis ? threatData.system.weaponChassis : {})[atkChassis] || { pcDamage: { fleeting: 1, masterful: 3, legendary: 5 } };
-          var atkLabels = getArenaLabels(currentNpc.threatCategory || 'character');
-          html += ' <span class="npc-attack-power-badge">Power ' + atkPower + '</span>';
-          html += ' <span class="npc-attack-chassis-badge">' + (atkChData.label || atkChassis.charAt(0).toUpperCase() + atkChassis.slice(1)) + '</span>';
-          html += ' <span class="npc-attack-arena-badge">' + (atkLabels[atkArena] || atkArena) + '</span>';
-        }
-        if (rk.action.npcEffects) {
-          html += '<div class="npc-effect-track">';
-          html += '<div class="npc-effect-tier"><span class="npc-tier-label">F:</span> ' + esc(rk.action.npcEffects.fleeting) + '</div>';
-          html += '<div class="npc-effect-tier"><span class="npc-tier-label">M:</span> ' + esc(rk.action.npcEffects.masterful) + '</div>';
-          html += '<div class="npc-effect-tier"><span class="npc-tier-label">L:</span> ' + esc(rk.action.npcEffects.legendary) + '</div>';
-          html += '</div>';
-        }
-        html += '</div></div>';
+      html += '<div class="npc-action-economy-group">';
+      html += '<div class="npc-action-group-label">ACTIONS</div>';
+      var allAttacks = currentNpc.attacks || [];
+      var roleAtk = allAttacks.filter(function (a) { return a.isRoleAction; })[0] || null;
+      if (roleAtk && rk && rk.action) {
+        html += renderAttackBlock(roleAtk, rk.action.npcEffects, rk.action.defense);
       }
+      allAttacks.filter(function (a) { return !a.isRoleAction; }).forEach(function (atk) {
+        html += renderAttackBlock(atk, null, 'dodge/endure');
+      });
+      if (!allAttacks.length) {
+        html += '<div class="npc-attacks-empty">No attacks configured.</div>';
+      }
+      html += '</div>';
 
       if (rk && rk.maneuver) {
         html += '<div class="npc-action-economy-group">';
@@ -417,24 +455,23 @@
         html += '</div>';
       }
 
+      html += '<div class="npc-action-economy-group">';
+      html += '<div class="npc-action-group-label">GAMBITS <span class="npc-gambit-mod-note">(-1 Power)</span></div>';
       if (rk && rk.gambit) {
-        html += '<div class="npc-action-economy-group">';
-        html += '<div class="npc-action-group-label">GAMBIT <span class="npc-gambit-mod-note">(-1 Power)</span></div>';
         html += '<div class="npc-ability gambit"><strong>' + esc(rk.gambit.name) + '</strong> <span class="npc-gambit-cost">' + esc(rk.gambit.cost) + '</span><div class="npc-gambit-effect">' + esc(rk.gambit.description) + '</div></div>';
-        html += '</div>';
       }
-
       if (currentNpc.extraGambits && currentNpc.extraGambits.length && threatData.npcGambitPool) {
-        html += '<div class="npc-action-economy-group">';
-        html += '<div class="npc-action-group-label">EXTRA GAMBITS</div>';
         currentNpc.extraGambits.forEach(function (gid) {
           var poolG = threatData.npcGambitPool.find(function (g) { return g.id === gid; });
           if (poolG) {
             html += '<div class="npc-ability gambit"><strong>' + esc(poolG.name) + '</strong> <span class="npc-gambit-cost">' + esc(poolG.cost) + '</span><div class="npc-gambit-effect">' + esc(poolG.description) + '</div></div>';
           }
         });
-        html += '</div>';
       }
+      if ((!rk || !rk.gambit) && (!currentNpc.extraGambits || !currentNpc.extraGambits.length)) {
+        html += '<div class="npc-attacks-empty">No gambits.</div>';
+      }
+      html += '</div>';
 
       if (rk && rk.exploit) {
         html += '<div class="npc-action-economy-group">';
@@ -445,6 +482,13 @@
       }
 
       html += '</div>';
+    } else if (currentNpc.attacks && currentNpc.attacks.length) {
+      html += '<div class="npc-card-attacks">';
+      html += '<div class="npc-attacks-label">ATTACKS</div>';
+      currentNpc.attacks.forEach(function (atk) {
+        html += renderAttackBlock(atk, null, 'dodge/endure');
+      });
+      html += '</div>';
     }
 
     if (activeCombatTraits.length) {
@@ -452,52 +496,6 @@
       html += '<div class="npc-traits-label">TRAITS</div>';
       activeCombatTraits.forEach(function (t) {
         html += '<div class="npc-trait-item"><strong>' + esc(t.name) + ':</strong> ' + esc(t.description) + '</div>';
-      });
-      html += '</div>';
-    }
-
-    var extraAttacks = (currentNpc.attacks || []).filter(function (a) { return !a.isRoleAction; });
-    if (extraAttacks.length) {
-      html += '<div class="npc-card-attacks">';
-      html += '<div class="npc-attacks-label">ATTACKS</div>';
-      var chassisData = threatData.system && threatData.system.weaponChassis ? threatData.system.weaponChassis : {};
-      extraAttacks.forEach(function (atk) {
-        var chassisKey = atk.chassis || 'medium';
-        var ch = chassisData[chassisKey] || chassisData.medium || { pcDamage: { fleeting: 1, masterful: 3, legendary: 5 }, pcStun: { fleeting: 2, masterful: 4, legendary: 6 } };
-        var npcDmgF = (ch.pcDamage.fleeting || 1) + 1;
-        var npcDmgM = (ch.pcDamage.masterful || 3) + 1;
-        var npcDmgL = (ch.pcDamage.legendary || 5) + 1;
-        var arenaScore = 0;
-        if (atk.arena && stats.arenas && stats.arenas[atk.arena] !== undefined) {
-          arenaScore = stats.arenas[atk.arena];
-        }
-        var attackPower = (stats.powers && stats.powers[atk.arena] !== undefined) ? stats.powers[atk.arena] : (arenaScore + (currentNpc.tier || 0));
-        attackPower += (atk.powerMod || 0);
-        var chassisLabel = ch.label || chassisKey.charAt(0).toUpperCase() + chassisKey.slice(1);
-        var atkCatLabels = getArenaLabels(currentNpc.threatCategory || 'character');
-        html += '<div class="npc-attack-card-item">';
-        html += '<div class="npc-attack-header">';
-        html += '<strong>' + esc(atk.name) + '</strong>';
-        html += ' <span class="npc-attack-power-badge">Power ' + attackPower + '</span>';
-        html += ' <span class="npc-attack-chassis-badge">' + chassisLabel + '</span>';
-        if (atk.arena) html += ' <span class="npc-attack-arena-badge">' + (atkCatLabels[atk.arena] || atk.arena) + '</span>';
-        html += '</div>';
-        html += '<div class="npc-attack-damage-row">';
-        html += '<span class="npc-dmg-tier"><span class="npc-dmg-label">F</span> ' + npcDmgF + '</span>';
-        html += '<span class="npc-dmg-tier"><span class="npc-dmg-label">M</span> ' + npcDmgM + '</span>';
-        html += '<span class="npc-dmg-tier"><span class="npc-dmg-label">L</span> ' + npcDmgL + '</span>';
-        html += '</div>';
-        if (atk.canStun) {
-          var npcStunF = (ch.pcStun.fleeting || 2) + 1;
-          var npcStunM = (ch.pcStun.masterful || 4) + 1;
-          var npcStunL = (ch.pcStun.legendary || 6) + 1;
-          html += '<div class="npc-attack-stun-row">';
-          html += '<span class="npc-stun-tier"><span class="npc-stun-label-sm">Stun F</span> ' + npcStunF + '</span>';
-          html += '<span class="npc-stun-tier"><span class="npc-stun-label-sm">M</span> ' + npcStunM + '</span>';
-          html += '<span class="npc-stun-tier"><span class="npc-stun-label-sm">L</span> ' + npcStunL + '</span>';
-          html += '</div>';
-        }
-        html += '</div>';
       });
       html += '</div>';
     }

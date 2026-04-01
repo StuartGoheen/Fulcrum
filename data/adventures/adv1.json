@@ -1682,12 +1682,14 @@
                       "martial": {
                         "action": {
                           "name": "Devastating Blow",
-                          "defense": "endure",
+                          "defense": "dodge/endure",
                           "npcEffects": {
                             "fleeting": "Chassis damage",
                             "masterful": "Chassis damage + [Staggered]",
                             "legendary": "Chassis damage + [Staggered] + [Prone]"
-                          }
+                          },
+                          "isAttack": true,
+                          "arena": "physique"
                         },
                         "maneuver": {
                           "name": "Intimidating Advance",
@@ -1709,12 +1711,14 @@
                       "ranged": {
                         "action": {
                           "name": "Dead Shot",
-                          "defense": "dodge",
+                          "defense": "dodge/endure",
                           "npcEffects": {
                             "fleeting": "Chassis damage",
                             "masterful": "Chassis damage + [Suppressed]",
                             "legendary": "Chassis damage + [Suppressed] + [Exposed]"
-                          }
+                          },
+                          "isAttack": true,
+                          "arena": "reflex"
                         },
                         "maneuver": {
                           "name": "Marked Target",
@@ -1741,7 +1745,9 @@
                             "fleeting": "Chassis damage",
                             "masterful": "Chassis damage + [Weakened]",
                             "legendary": "Chassis damage + [Weakened] + [Restrained]"
-                          }
+                          },
+                          "isAttack": true,
+                          "arena": "grit"
                         },
                         "maneuver": {
                           "name": "Dark Presence",
@@ -1768,7 +1774,9 @@
                             "fleeting": "Chassis damage",
                             "masterful": "Chassis damage + one ally in the same zone gains +1 Power until end of round",
                             "legendary": "Chassis damage + ally gains +1 Power + that ally may immediately make an attack at -2 Power"
-                          }
+                          },
+                          "isAttack": true,
+                          "arena": "presence"
                         },
                         "maneuver": {
                           "name": "Press the Attack",
@@ -1810,35 +1818,35 @@
                 ],
                 "tags": [],
                 "roleKit": {
-                  "roleName": "Threat / Ranged",
+                  "roleName": "Threat / Martial",
                   "action": {
-                    "name": "Dead Shot",
+                    "name": "Devastating Blow",
                     "defense": "dodge/endure",
                     "npcEffects": {
                       "fleeting": "Chassis damage",
-                      "masterful": "Chassis damage + [Suppressed]",
-                      "legendary": "Chassis damage + [Suppressed] + [Exposed]"
+                      "masterful": "Chassis damage + [Staggered]",
+                      "legendary": "Chassis damage + [Staggered] + [Prone]"
                     },
                     "isAttack": true,
-                    "arena": "reflex"
+                    "arena": "physique"
                   },
                   "maneuver": {
-                    "name": "Marked Target",
-                    "modifies": "Aim",
-                    "description": "Modifies Aim. Designate one visible target. Threat gains +1 Power against that target until end of round. If target moves, Threat may shift aim as a free action."
+                    "name": "Intimidating Advance",
+                    "modifies": "Move",
+                    "description": "Modifies Move. Move 1 zone toward a target. That target must succeed on a Grit check vs Threat's Power or gain [Rattled]."
                   },
                   "gambit": {
-                    "name": "Crippling Shot",
+                    "name": "Brutal Strike",
                     "cost": "-1 Power",
-                    "description": "In addition to normal effects, target gains [Slowed] Tactical.",
-                    "rider": "[Slowed]"
+                    "description": "In addition to normal effects, target gains [Staggered] Tactical.",
+                    "rider": "[Staggered]"
                   },
                   "exploit": {
-                    "name": "Kill Shot",
-                    "trigger": "A PC in weapon range drops below half Vitality.",
+                    "name": "Predator's Opening",
+                    "trigger": "A PC in the same zone takes damage from another source this round.",
                     "description": "Immediately make an attack against that PC at -2 Power."
                   },
-                  "powerSource": "ranged"
+                  "powerSource": "martial"
                 },
                 "weaponChassis": "light",
                 "loot": [
@@ -1861,7 +1869,7 @@
                     "qty": 1
                   }
                 ],
-                "powerSource": "ranged",
+                "powerSource": "martial",
                 "name": "Switch's Thugs",
                 "shipDetails": {
                   "hullType": "",
@@ -1873,7 +1881,16 @@
                   "speed": ""
                 },
                 "extraGambits": [],
-                "attacks": [],
+                "attacks": [
+                  {
+                    "name": "Devastating Blow",
+                    "arena": "physique",
+                    "chassis": "medium",
+                    "powerMod": 0,
+                    "canStun": false,
+                    "isRoleAction": true
+                  }
+                ],
                 "socialNotes": ""
               }
             },
