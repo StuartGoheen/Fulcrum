@@ -289,11 +289,21 @@
     var combatants = state.combatants || [];
     var pcSlots = state.pcSlots || [];
 
+    var sess = getSession();
+    var myName = sess ? (sess.characterName || '') : '';
+
+    var currentEntry = turnOrder[currentIdx];
+    var isMyTurn = currentEntry && currentEntry.type === 'pc' && currentEntry.name === myName;
+
     var html = '<div class="pit-header" id="pit-drag-handle">';
     html += '<span class="pit-title">INITIATIVE</span>';
     html += '<span class="pit-round">R' + round + '</span>';
     html += '<button class="pit-collapse-btn" id="pit-collapse-btn">&minus;</button>';
     html += '</div>';
+
+    if (isMyTurn) {
+      html += '<div class="pit-my-turn-banner">YOUR TURN</div>';
+    }
 
     html += '<div class="pit-body" id="pit-body">';
     html += '<div class="pit-turn-list">';
@@ -301,6 +311,7 @@
     turnOrder.forEach(function (entry, idx) {
       var isCurrent = idx === currentIdx;
       var isNpc = entry.type === 'npc';
+      var isMe = !isNpc && entry.name === myName;
       var npc = null;
       var pc = null;
       if (isNpc) {
@@ -318,6 +329,7 @@
       if (isCurrent) cls += ' pit-current';
       if (isNpc) cls += ' pit-npc';
       else cls += ' pit-pc';
+      if (isMe) cls += ' pit-me';
       if (isDown) cls += ' pit-down';
 
       html += '<div class="' + cls + '">';

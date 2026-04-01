@@ -472,6 +472,22 @@ function registerHandlers(io) {
       console.log(`[socket] GM started combat: ${encounterName} (highest tier ${highestTier})`);
     });
 
+    socket.on('combat:end-turn', () => {
+      if (!_combatState || !_combatState.active) return;
+      const order = _combatState.turnOrder || [];
+      if (order.length === 0) return;
+      const idx = (_combatState.currentTurnIndex || 0);
+      _combatState.currentTurnIndex = (idx + 1) % order.length;
+      if (_combatState.currentTurnIndex === 0) {
+        _combatState.round = (_combatState.round || 1) + 1;
+      }
+      io.to('players').emit('combat:state-update', _getPlayerCombatState());
+      io.to('gm').emit('combat:turn-advanced', {
+        currentTurnIndex: _combatState.currentTurnIndex,
+        round: _combatState.round
+      });
+    });
+
     socket.on('combat:sync-state', (data) => {
       if (socket.data.role !== 'gm') return;
       if (!_combatState || !_combatState.active) return;

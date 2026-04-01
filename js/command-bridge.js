@@ -1539,6 +1539,11 @@
         if (ctPanel) ctPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     });
+    socket.on('combat:turn-advanced', function (data) {
+      if (window.CombatTracker && window.CombatTracker.applyTurnAdvance) {
+        window.CombatTracker.applyTurnAdvance(data);
+      }
+    });
     socket.on('session:joined', function () {
       socket.emit('combat:request-state');
     });

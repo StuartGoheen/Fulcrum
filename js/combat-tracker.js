@@ -1886,10 +1886,19 @@
     renderConditionPanel();
   }
 
+  function applyTurnAdvance(data) {
+    if (!combatState) return;
+    if (data.currentTurnIndex !== undefined) combatState.currentTurnIndex = data.currentTurnIndex;
+    if (data.round !== undefined) combatState.round = data.round;
+    combatState.selectedId = null;
+    renderCombatTracker();
+  }
+
   window.CombatTracker = {
     start: startEncounter,
     end: endEncounter,
     restore: restoreFromState,
+    applyTurnAdvance: applyTurnAdvance,
     getState: function () { return combatState; },
     isActive: function () { return combatState !== null; }
   };

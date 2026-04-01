@@ -676,6 +676,9 @@
       if (window.CharacterPanel && window.CharacterPanel.resetActions) {
         window.CharacterPanel.resetActions();
       }
+      if (window._socket) {
+        window._socket.emit('combat:end-turn');
+      }
       return;
     }
 

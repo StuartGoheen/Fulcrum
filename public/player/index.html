@@ -212,9 +212,30 @@
       border-bottom: 1px solid color-mix(in srgb, var(--color-border) 30%, transparent);
       transition: background 0.15s;
     }
+    .pit-my-turn-banner {
+      text-align: center;
+      padding: 0.25rem 0.4rem;
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: var(--color-btn-text, #000);
+      background: var(--color-success, #22c55e);
+      animation: pit-pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes pit-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
     .pit-entry.pit-current {
       background: color-mix(in srgb, var(--color-accent-secondary) 12%, transparent);
       border-left: 3px solid var(--color-accent-secondary);
+    }
+    .pit-entry.pit-me {
+      background: color-mix(in srgb, var(--color-success) 8%, transparent);
+    }
+    .pit-entry.pit-me.pit-current {
+      background: color-mix(in srgb, var(--color-success) 20%, transparent);
+      border-left: 3px solid var(--color-success);
     }
     .pit-entry.pit-pc { color: var(--color-success, #22c55e); }
     .pit-entry.pit-npc { color: var(--color-text-secondary); }
