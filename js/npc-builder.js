@@ -1335,7 +1335,13 @@
       });
     }
     Object.keys(panels).forEach(function (k) {
-      if (panels[k]) panels[k].style.display = k === panelKey ? '' : 'none';
+      if (panels[k]) {
+        if (k === panelKey) {
+          panels[k].style.display = 'block';
+        } else {
+          panels[k].style.display = 'none';
+        }
+      }
     });
   }
   function initMobileBuilderTabs() {
