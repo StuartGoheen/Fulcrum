@@ -119,14 +119,17 @@
                 "threatCategory": "character",
                 "arenas": {
                   "physique": 2,
-                  "reflex": 4,
+                  "reflex": 5,
                   "grit": 3,
                   "wits": 3,
                   "presence": 1
                 },
                 "weaponChassis": "light",
                 "traits": [],
-                "tags": [],
+                "tags": [
+                  "criminal",
+                  "informant"
+                ],
                 "roleKit": {
                   "passive": null,
                   "actions": [
@@ -151,19 +154,19 @@
                 "computed": {
                   "arenas": {
                     "physique": 2,
-                    "reflex": 4,
+                    "reflex": 5,
                     "grit": 3,
                     "wits": 3,
                     "presence": 1
                   },
-                  "defense": 4,
-                  "evasion": 4,
+                  "defense": 5,
+                  "evasion": 5,
                   "resist": 3,
                   "vitality": 6,
                   "rawVitality": 6,
                   "powers": {
                     "physique": 2,
-                    "reflex": 4,
+                    "reflex": 5,
                     "grit": 3,
                     "wits": 3,
                     "presence": 1
@@ -274,7 +277,8 @@
                     "canStun": false,
                     "sourceAction": "Sabotage"
                   }
-                ]
+                ],
+                "socialNotes": ""
               },
               "loot": [
                 {

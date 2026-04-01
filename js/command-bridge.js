@@ -666,7 +666,7 @@
 
         html += '<div style="display:flex;align-items:center;gap:0.4rem;margin-bottom:0.2rem;flex-wrap:wrap;">';
         if (dc.actionType) {
-          var atColor = dc.actionType === 'assess' ? '#818cf8' : '#00e5ff';
+          var atColor = dc.actionType === 'assess' ? 'var(--color-accent-deep,#818cf8)' : 'var(--color-accent-primary,#00e5ff)';
           html += '<span style="font-size:0.6rem;padding:0.1rem 0.3rem;border-radius:3px;background:' + atColor + ';color:#000;font-family:Audiowide,sans-serif;font-weight:bold;letter-spacing:0.05em;">' + esc(dc.actionType.toUpperCase()) + '</span>';
         }
         var discLabel = (dc.discipline || '').replace(/_/g, ' ');
@@ -674,35 +674,35 @@
         html += '<span style="font-size:0.75rem;color:var(--color-accent-primary);font-family:Audiowide,sans-serif;">' + esc(discLabel) + esc(arenaLabel) + '</span>';
 
         if (dc.isOptional) html += '<span style="font-size:0.55rem;padding:0.05rem 0.2rem;border-radius:3px;background:rgba(255,255,255,0.15);color:var(--color-text-secondary);">OPTIONAL</span>';
-        if (dc.isGated) html += '<span style="font-size:0.55rem;padding:0.05rem 0.2rem;border-radius:3px;background:rgba(239,68,68,0.2);color:#f97316;">GATED</span>';
+        if (dc.isGated) html += '<span style="font-size:0.55rem;padding:0.05rem 0.2rem;border-radius:3px;background:rgba(239,68,68,0.2);color:var(--color-warn,#f97316);">GATED</span>';
         html += '</div>';
 
         if (dc.target || dc.resist != null || dc.risk != null) {
           html += '<div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.15rem;font-size:0.65rem;">';
           if (dc.target) html += '<span style="color:var(--color-text-secondary);">vs <strong style="color:var(--color-text-primary);">' + esc(dc.target) + '</strong></span>';
-          if (dc.resist != null) html += '<span style="color:#f97316;">Resist ' + dc.resist + '</span>';
-          if (dc.risk != null) html += '<span style="color:#eab308;">Risk ' + dc.risk + '</span>';
+          if (dc.resist != null) html += '<span style="color:var(--color-warn,#f97316);">Resist ' + dc.resist + '</span>';
+          if (dc.risk != null) html += '<span style="color:var(--color-warn,#eab308);">Risk ' + dc.risk + '</span>';
           html += '</div>';
         }
 
-        if (dc.isGated) html += '<div style="font-size:0.6rem;color:#f97316;font-style:italic;margin-bottom:0.1rem;">&#128274; ' + esc(dc.isGated) + '</div>';
+        if (dc.isGated) html += '<div style="font-size:0.6rem;color:var(--color-warn,#f97316);font-style:italic;margin-bottom:0.1rem;">&#128274; ' + esc(dc.isGated) + '</div>';
 
         html += '<div style="font-size:0.7rem;color:var(--color-text-secondary);margin-bottom:0.15rem;">' + linkify(dc.context) + '</div>';
 
         if (dc.narrativePacing) {
-          html += '<div style="font-size:0.6rem;color:#a78bfa;font-style:italic;margin-bottom:0.15rem;">&#9654; ' + esc(dc.narrativePacing) + '</div>';
+          html += '<div style="font-size:0.6rem;color:var(--color-force,#a78bfa);font-style:italic;margin-bottom:0.15rem;">&#9654; ' + esc(dc.narrativePacing) + '</div>';
         }
 
         if (hasNewFormat && dc.control) {
           html += '<div style="margin-top:0.15rem;padding:0.2rem 0.3rem;border-radius:3px;background:rgba(0,0,0,0.15);">';
           html += '<div style="font-size:0.55rem;color:var(--color-text-secondary);font-family:Audiowide,sans-serif;margin-bottom:0.1rem;letter-spacing:0.05em;">CONTROL</div>';
-          if (dc.control.failure) html += '<div style="font-size:0.65rem;color:#ef4444;margin-bottom:0.05rem;">&#10007; <strong>Fail:</strong> ' + linkify(dc.control.failure) + '</div>';
-          if (dc.control.success) html += '<div style="font-size:0.65rem;color:#22c55e;margin-bottom:0.05rem;">&#10003; <strong>Success:</strong> ' + linkify(dc.control.success) + '</div>';
-          if (dc.control.mastery) html += '<div style="font-size:0.65rem;color:#fbbf24;margin-bottom:0.05rem;">&#9733; <strong>Mastery:</strong> ' + linkify(dc.control.mastery) + '</div>';
+          if (dc.control.failure) html += '<div style="font-size:0.65rem;color:var(--color-fail,#ef4444);margin-bottom:0.05rem;">&#10007; <strong>Fail:</strong> ' + linkify(dc.control.failure) + '</div>';
+          if (dc.control.success) html += '<div style="font-size:0.65rem;color:var(--color-success,#22c55e);margin-bottom:0.05rem;">&#10003; <strong>Success:</strong> ' + linkify(dc.control.success) + '</div>';
+          if (dc.control.mastery) html += '<div style="font-size:0.65rem;color:var(--color-warn,#fbbf24);margin-bottom:0.05rem;">&#9733; <strong>Mastery:</strong> ' + linkify(dc.control.mastery) + '</div>';
           html += '</div>';
         } else if (!hasNewFormat) {
-          if (dc.success) html += '<div style="font-size:0.65rem;color:#22c55e;">&#10003; ' + linkify(dc.success) + '</div>';
-          if (dc.failure) html += '<div style="font-size:0.65rem;color:#ef4444;">&#10007; ' + linkify(dc.failure) + '</div>';
+          if (dc.success) html += '<div style="font-size:0.65rem;color:var(--color-success,#22c55e);">&#10003; ' + linkify(dc.success) + '</div>';
+          if (dc.failure) html += '<div style="font-size:0.65rem;color:var(--color-fail,#ef4444);">&#10007; ' + linkify(dc.failure) + '</div>';
         }
 
         if (hasNewFormat && dc.effect) {

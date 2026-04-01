@@ -58,12 +58,12 @@
       padding: 0.75rem;
     }
     .jb-step-down {
-      background: rgba(249,115,22,0.1);
-      border: 1px solid rgba(249,115,22,0.3);
+      background: color-mix(in srgb, var(--color-warn) 10%, transparent);
+      border: 1px solid color-mix(in srgb, var(--color-warn) 30%, transparent);
       padding: 0.4rem 0.6rem;
       margin-bottom: 0.6rem;
       font-size: 0.7rem;
-      color: #f97316;
+      color: var(--color-warn);
       font-weight: 600;
     }
     .jb-rules {
@@ -72,14 +72,14 @@
       line-height: 1.6;
     }
     .jb-rule {
-      color: var(--color-text-secondary, #9ca3af);
+      color: var(--color-text-secondary);
       margin-bottom: 0.15rem;
     }
     .jb-rule-fail {
-      color: #f97316;
+      color: var(--color-warn);
     }
     .jb-rule-master {
-      color: #22c55e;
+      color: var(--color-success);
     }
     .jb-inputs {
       display: flex;
@@ -130,7 +130,7 @@
     }
     .jb-submit-btn:hover {
       background: var(--color-danger, #ef4444);
-      color: #000;
+      color: var(--color-btn-text, #000);
     }
     .jb-result {
       text-align: center;
@@ -152,8 +152,10 @@
       right: 26vw;
       z-index: 8000;
       width: 220px;
-      background: var(--color-bg-panel, #1a1a2e);
-      border: 1px solid var(--color-border, #2a2a3e);
+      min-width: 180px;
+      min-height: 80px;
+      background: var(--color-bg-panel);
+      border: 1px solid var(--color-border);
       box-shadow: 0 4px 20px rgba(0,0,0,0.5);
       font-family: 'Exo 2', sans-serif;
       font-size: 0.7rem;
@@ -161,14 +163,15 @@
       overflow: hidden;
       display: flex;
       flex-direction: column;
+      resize: none;
     }
     .pit-header {
       display: flex;
       align-items: center;
       gap: 0.4rem;
       padding: 0.35rem 0.5rem;
-      background: rgba(239,68,68,0.1);
-      border-bottom: 1px solid var(--color-border, #2a2a3e);
+      background: color-mix(in srgb, var(--color-accent-secondary) 12%, transparent);
+      border-bottom: 1px solid var(--color-border);
       cursor: grab;
       user-select: none;
     }
@@ -176,19 +179,19 @@
     .pit-title {
       font-family: 'Audiowide', sans-serif;
       font-size: 0.6rem;
-      color: var(--color-danger, #ef4444);
+      color: var(--color-accent-secondary);
       letter-spacing: 0.08em;
       flex: 1;
     }
     .pit-round {
       font-family: 'Audiowide', sans-serif;
       font-size: 0.6rem;
-      color: var(--color-accent-primary, #c79234);
+      color: var(--color-accent-primary);
     }
     .pit-collapse-btn {
       background: none;
       border: none;
-      color: var(--color-text-secondary, #9ca3af);
+      color: var(--color-text-secondary);
       font-size: 0.8rem;
       cursor: pointer;
       padding: 0 0.2rem;
@@ -196,9 +199,9 @@
     }
     .pit-body {
       overflow-y: auto;
-      max-height: 40vh;
+      flex: 1;
       scrollbar-width: thin;
-      scrollbar-color: var(--color-accent-primary, #c79234) transparent;
+      scrollbar-color: var(--color-accent-primary) transparent;
     }
     .pit-turn-list { display: flex; flex-direction: column; }
     .pit-entry {
@@ -206,22 +209,22 @@
       align-items: center;
       gap: 0.3rem;
       padding: 0.25rem 0.5rem;
-      border-bottom: 1px solid rgba(255,255,255,0.04);
+      border-bottom: 1px solid color-mix(in srgb, var(--color-border) 30%, transparent);
       transition: background 0.15s;
     }
     .pit-entry.pit-current {
-      background: rgba(239,68,68,0.12);
-      border-left: 3px solid var(--color-danger, #ef4444);
+      background: color-mix(in srgb, var(--color-accent-secondary) 12%, transparent);
+      border-left: 3px solid var(--color-accent-secondary);
     }
-    .pit-entry.pit-pc { color: #22c55e; }
-    .pit-entry.pit-npc { color: var(--color-text-secondary, #9ca3af); }
+    .pit-entry.pit-pc { color: var(--color-success, #22c55e); }
+    .pit-entry.pit-npc { color: var(--color-text-secondary); }
     .pit-entry.pit-down { opacity: 0.35; text-decoration: line-through; }
     .pit-init {
       font-family: 'Audiowide', sans-serif;
       font-size: 0.6rem;
       width: 1.4rem;
       text-align: center;
-      color: var(--color-accent-primary, #c79234);
+      color: var(--color-accent-primary);
     }
     .pit-name {
       flex: 1;
@@ -243,10 +246,30 @@
       font-size: 0.5rem;
       padding: 0 0.2rem;
       border-radius: 2px;
-      background: rgba(239,68,68,0.15);
-      color: #ef4444;
-      border: 1px solid rgba(239,68,68,0.3);
+      background: color-mix(in srgb, var(--color-accent-secondary) 15%, transparent);
+      color: var(--color-accent-secondary);
+      border: 1px solid color-mix(in srgb, var(--color-accent-secondary) 30%, transparent);
       text-transform: capitalize;
+    }
+    .pit-resize-handle {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 14px;
+      height: 14px;
+      cursor: nwse-resize;
+      z-index: 10;
+    }
+    .pit-resize-handle::after {
+      content: '';
+      position: absolute;
+      bottom: 3px;
+      right: 3px;
+      width: 8px;
+      height: 8px;
+      border-right: 2px solid var(--color-text-secondary);
+      border-bottom: 2px solid var(--color-text-secondary);
+      opacity: 0.5;
     }
   </style>
 </head>

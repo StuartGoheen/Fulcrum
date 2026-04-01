@@ -272,6 +272,7 @@
   }
 
   var _initTrackerDrag = { active: false, x: 0, y: 0, startX: 0, startY: 0 };
+  var _initTrackerResize = { active: false, startX: 0, startY: 0, startW: 0, startH: 0 };
 
   function _showInitiativeTracker(state) {
     var tracker = document.getElementById('player-init-tracker');
@@ -325,7 +326,8 @@
 
       if (isNpc && npc) {
         var pct = npc.vitalityMax > 0 ? Math.round((npc.vitalityCurrent / npc.vitalityMax) * 100) : 0;
-        var hpColor = pct > 60 ? '#22c55e' : pct > 30 ? '#eab308' : '#ef4444';
+        var cs = getComputedStyle(document.documentElement);
+        var hpColor = pct > 60 ? (cs.getPropertyValue('--color-success').trim() || '#22c55e') : pct > 30 ? (cs.getPropertyValue('--color-warn').trim() || '#eab308') : (cs.getPropertyValue('--color-fail').trim() || '#ef4444');
         html += '<span class="pit-hp" style="color:' + hpColor + ';">' + npc.vitalityCurrent + '/' + npc.vitalityMax + '</span>';
       }
 
@@ -346,8 +348,32 @@
 
     html += '</div>';
     html += '</div>';
+    html += '<div class="pit-resize-handle" id="pit-resize-handle"></div>';
+
+    var wasCollapsed = false;
+    var prevBody = document.getElementById('pit-body');
+    if (prevBody) wasCollapsed = prevBody.style.display === 'none';
+
+    var prevW = tracker.style.width;
+    var prevH = tracker.style.height;
+    var prevL = tracker.style.left;
+    var prevT = tracker.style.top;
+    var prevR = tracker.style.right;
+    var prevB = tracker.style.bottom;
 
     tracker.innerHTML = html;
+
+    if (prevW) tracker.style.width = prevW;
+    if (prevH) tracker.style.height = prevH;
+    if (prevL) { tracker.style.left = prevL; tracker.style.right = 'auto'; }
+    if (prevT) { tracker.style.top = prevT; tracker.style.bottom = 'auto'; }
+
+    if (wasCollapsed) {
+      var newBody = document.getElementById('pit-body');
+      if (newBody) newBody.style.display = 'none';
+      var btn = document.getElementById('pit-collapse-btn');
+      if (btn) btn.textContent = '+';
+    }
 
     var handle = document.getElementById('pit-drag-handle');
     if (handle) {
@@ -357,6 +383,19 @@
         _initTrackerDrag.startX = e.clientX - (tracker.offsetLeft || 0);
         _initTrackerDrag.startY = e.clientY - (tracker.offsetTop || 0);
         e.preventDefault();
+      });
+    }
+
+    var resizeHandle = document.getElementById('pit-resize-handle');
+    if (resizeHandle) {
+      resizeHandle.addEventListener('mousedown', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        _initTrackerResize.active = true;
+        _initTrackerResize.startX = e.clientX;
+        _initTrackerResize.startY = e.clientY;
+        _initTrackerResize.startW = tracker.offsetWidth;
+        _initTrackerResize.startH = tracker.offsetHeight;
       });
     }
 
@@ -387,6 +426,18 @@
   });
   document.addEventListener('mouseup', function () {
     _initTrackerDrag.active = false;
+    _initTrackerResize.active = false;
+  });
+
+  document.addEventListener('mousemove', function (e) {
+    if (!_initTrackerResize.active) return;
+    var tracker = document.getElementById('player-init-tracker');
+    if (!tracker) { _initTrackerResize.active = false; return; }
+    var newW = Math.max(180, _initTrackerResize.startW + (e.clientX - _initTrackerResize.startX));
+    var newH = Math.max(80, _initTrackerResize.startH + (e.clientY - _initTrackerResize.startY));
+    tracker.style.width = newW + 'px';
+    tracker.style.height = newH + 'px';
+    tracker.style.maxHeight = 'none';
   });
 
   function _showJoinBattleModal(encounterName, highestTier) {
