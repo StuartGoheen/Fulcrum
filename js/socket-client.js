@@ -338,7 +338,7 @@
       if (condList) {
         html += '<span class="pit-conds">';
         condList.forEach(function (c) {
-          var label = typeof c === 'string' ? c : (c.name || c.condition || '?');
+          var label = typeof c === 'string' ? c : (c.id || c.name || '?');
           html += '<span class="pit-cond">' + _escHtml(label) + '</span>';
         });
         html += '</span>';
