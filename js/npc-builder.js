@@ -17,6 +17,7 @@
     loot: [],
     attacks: [],
     numPlayers: 4,
+    socialNotes: '',
     shipDetails: {
       hullType: '',
       crew: '',
@@ -282,6 +283,41 @@
       html += '<div class="npc-card-special">ELITE: +1 Exploit, x1.5 Vitality</div>';
     }
 
+    var activeTraits = (currentNpc.traits || []).map(function (tid) {
+      return threatData.traits.find(function (t) { return t.id === tid; });
+    }).filter(Boolean);
+    var activeSocialTraits = activeTraits.filter(function (t) { return t.traitType === 'social' || t.traitType === 'both'; });
+    var activeCombatTraits = activeTraits.filter(function (t) { return t.traitType === 'combat' || t.traitType === 'both' || !t.traitType; });
+
+    var hasSocialProfile = activeSocialTraits.length > 0 || (currentNpc.socialNotes && currentNpc.socialNotes.trim());
+    if (hasSocialProfile) {
+      html += '<div class="npc-card-social-profile">';
+      html += '<div class="npc-social-profile-header">SOCIAL PROFILE</div>';
+      html += '<div class="npc-social-resist-row">';
+      html += '<span class="npc-social-resist-label">SOCIAL RESIST</span>';
+      html += '<span class="npc-social-resist-val">' + stats.resist + '</span>';
+      html += '</div>';
+      if (activeSocialTraits.length) {
+        html += '<div class="npc-social-traits-list">';
+        activeSocialTraits.forEach(function (t) {
+          html += '<div class="npc-social-trait-item">';
+          html += '<strong>' + esc(t.name) + ':</strong> ' + esc(t.description);
+          if (t.trigger) {
+            html += '<div class="npc-social-trait-trigger">' + esc(t.trigger) + '</div>';
+          }
+          if (t.reactiveEffect) {
+            html += '<div class="npc-social-trait-effect">' + esc(t.reactiveEffect) + '</div>';
+          }
+          html += '</div>';
+        });
+        html += '</div>';
+      }
+      if (currentNpc.socialNotes && currentNpc.socialNotes.trim()) {
+        html += '<div class="npc-social-notes-display"><span class="npc-social-notes-label">GM NOTE:</span> ' + esc(currentNpc.socialNotes) + '</div>';
+      }
+      html += '</div>';
+    }
+
     if (role) {
       html += '<div class="npc-card-role-section">';
       html += '<div class="npc-role-title">' + esc(role.name) + ' Abilities</div>';
@@ -298,14 +334,10 @@
       html += '</div>';
     }
 
-    var activeTraits = (currentNpc.traits || []).map(function (tid) {
-      return threatData.traits.find(function (t) { return t.id === tid; });
-    }).filter(Boolean);
-
-    if (activeTraits.length) {
+    if (activeCombatTraits.length) {
       html += '<div class="npc-card-traits">';
       html += '<div class="npc-traits-label">TRAITS</div>';
-      activeTraits.forEach(function (t) {
+      activeCombatTraits.forEach(function (t) {
         html += '<div class="npc-trait-item"><strong>' + esc(t.name) + ':</strong> ' + esc(t.description) + '</div>';
       });
       html += '</div>';
@@ -519,17 +551,9 @@
     html += '<select id="npc-role-select" class="npc-select">';
     html += '<option value="">(No Role)</option>';
     var combatRoles = threatData.roles.filter(function (r) { return r.category === 'combat'; });
-    var socialRoles = threatData.roles.filter(function (r) { return r.category === 'social'; });
-    html += '<optgroup label="Combat Roles">';
     combatRoles.forEach(function (r) {
       html += '<option value="' + r.id + '"' + (currentNpc.role === r.id ? ' selected' : '') + '>' + esc(r.name) + '</option>';
     });
-    html += '</optgroup>';
-    html += '<optgroup label="Social Roles">';
-    socialRoles.forEach(function (r) {
-      html += '<option value="' + r.id + '"' + (currentNpc.role === r.id ? ' selected' : '') + '>' + esc(r.name) + '</option>';
-    });
-    html += '</optgroup>';
     html += '</select>';
     html += '</div>';
 
@@ -571,6 +595,13 @@
       html += '<input type="text" class="npc-text-input npc-ship-field" data-field="hyperdrive" value="' + esc(sd.hyperdrive || '') + '" placeholder="Hyperdrive Class (e.g. Class 2)" />';
       html += '<input type="text" class="npc-text-input npc-ship-field" data-field="sensors" value="' + esc(sd.sensors || '') + '" placeholder="Sensor Range (e.g. Medium)" />';
       html += '<input type="text" class="npc-text-input npc-ship-field" data-field="cargo" value="' + esc(sd.cargo || '') + '" placeholder="Cargo (e.g. 100 enc)" />';
+      html += '</div>';
+    }
+
+    if (activeCat === 'character') {
+      html += '<div class="npc-input-group">';
+      html += '<label class="npc-label">Social Notes</label>';
+      html += '<input type="text" id="npc-social-notes-input" class="npc-text-input" value="' + esc(currentNpc.socialNotes || '') + '" placeholder="GM guidance for social encounters" />';
       html += '</div>';
     }
 
@@ -658,6 +689,7 @@
       currentNpc.traits = pb.traits ? pb.traits.slice() : [];
       currentNpc.tags = pb.tags ? pb.tags.slice() : [];
       currentNpc.loot = pb.loot ? JSON.parse(JSON.stringify(pb.loot)) : [];
+      currentNpc.socialNotes = pb.socialNotes || '';
       currentNpc.shipDetails = pb.shipDetails ? JSON.parse(JSON.stringify(pb.shipDetails)) : { hullType: '', crew: '', hyperdrive: '', sensors: '', shields: '', cargo: '', speed: '' };
       autoApplyScaleTraits(currentNpc.threatCategory);
       seedAttacksFromRole();
@@ -673,6 +705,14 @@
         renderNpcCard();
       });
     });
+
+    var socialNotesInput = document.getElementById('npc-social-notes-input');
+    if (socialNotesInput) {
+      socialNotesInput.addEventListener('input', function (e) {
+        currentNpc.socialNotes = e.target.value;
+        renderNpcCard();
+      });
+    }
   }
 
   function renderBuilderRight() {
@@ -685,13 +725,15 @@
     var filteredTraits = threatData.traits.filter(function (t) {
       return !t.categories || t.categories.indexOf(activeCat) !== -1;
     });
+    var combatTraits = filteredTraits.filter(function (t) { return t.traitType === 'combat' || t.traitType === 'both' || !t.traitType; });
+    var socialTraits = filteredTraits.filter(function (t) { return t.traitType === 'social' || t.traitType === 'both'; });
     var filteredTags = threatData.tags.filter(function (tag) {
       return !tag.categories || tag.categories.indexOf(activeCat) !== -1;
     });
 
     html += '<div class="npc-input-group">';
-    html += '<label class="npc-label">Traits</label>';
-    filteredTraits.forEach(function (t) {
+    html += '<label class="npc-label">Combat Traits</label>';
+    combatTraits.forEach(function (t) {
       var checked = (currentNpc.traits || []).indexOf(t.id) !== -1;
       var isAuto = t.autoApply;
       html += '<label class="npc-checkbox-label' + (isAuto ? ' npc-trait-auto' : '') + '">';
@@ -701,6 +743,23 @@
       html += '</label>';
     });
     html += '</div>';
+
+    if (socialTraits.length > 0) {
+      html += '<div class="npc-input-group">';
+      html += '<label class="npc-label npc-label-social">Social Traits</label>';
+      socialTraits.forEach(function (t) {
+        var checked = (currentNpc.traits || []).indexOf(t.id) !== -1;
+        html += '<label class="npc-checkbox-label">';
+        html += '<input type="checkbox" class="npc-trait-cb" data-trait="' + t.id + '"' + (checked ? ' checked' : '') + ' /> ';
+        html += '<span>' + esc(t.name) + '</span>';
+        html += '<span class="npc-trait-desc">' + esc(t.description) + '</span>';
+        if (t.trigger) {
+          html += '<span class="npc-trait-trigger">' + esc(t.trigger) + '</span>';
+        }
+        html += '</label>';
+      });
+      html += '</div>';
+    }
 
     html += '<div class="npc-input-group">';
     html += '<label class="npc-label">Tags</label>';
@@ -891,6 +950,7 @@
         arenas: { physique: 2, reflex: 2, grit: 2, wits: 2, presence: 2 },
         role: '', classification: 'standard',
         traits: [], tags: [], loot: [], attacks: [], numPlayers: 4,
+        socialNotes: '',
         shipDetails: { hullType: '', crew: '', hyperdrive: '', sensors: '', shields: '', cargo: '', speed: '' }
       };
       renderBuilderLeft();
@@ -906,6 +966,7 @@
         currentNpc = JSON.parse(JSON.stringify(npc));
         if (!currentNpc.threatCategory) currentNpc.threatCategory = 'character';
         if (!currentNpc.shipDetails) currentNpc.shipDetails = { hullType: '', crew: '', hyperdrive: '', sensors: '', shields: '', cargo: '', speed: '' };
+        if (currentNpc.socialNotes === undefined) currentNpc.socialNotes = '';
         autoApplyScaleTraits(currentNpc.threatCategory);
         if (currentNpc.attacks) {
           currentNpc.attacks.forEach(function (atk) {
@@ -1087,6 +1148,7 @@
     if (!currentNpc.tags) currentNpc.tags = [];
     if (!currentNpc.loot) currentNpc.loot = [];
     if (!currentNpc.attacks) currentNpc.attacks = [];
+    if (currentNpc.socialNotes === undefined) currentNpc.socialNotes = '';
     if (currentNpc.attacks) {
       currentNpc.attacks.forEach(function (atk) {
         if (!atk.arena) atk.arena = 'physique';
