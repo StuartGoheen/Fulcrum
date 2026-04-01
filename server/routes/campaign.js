@@ -36,8 +36,14 @@ function loadAdventures() {
     const newMtimes = {};
     for (const f of files) {
       const fp = path.join(ADVENTURES_DIR, f);
-      adventures.push(JSON.parse(fs.readFileSync(fp, 'utf8')));
-      newMtimes[f] = fs.statSync(fp).mtimeMs;
+      try {
+        const content = fs.readFileSync(fp, 'utf8').trim();
+        if (!content) { console.warn('[loadAdventures] Skipping empty file:', f); continue; }
+        adventures.push(JSON.parse(content));
+        newMtimes[f] = fs.statSync(fp).mtimeMs;
+      } catch (parseErr) {
+        console.error('[loadAdventures] Failed to parse', f, parseErr.message);
+      }
     }
     adventuresCache = { adventures };
     adventuresCacheMtimes = newMtimes;

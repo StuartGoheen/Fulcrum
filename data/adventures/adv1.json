@@ -1770,15 +1770,18 @@
                 "classification": "elite",
                 "threatCategory": "character",
                 "arenas": {
-                  "physique": 3,
+                  "physique": 2,
                   "reflex": 2,
                   "grit": 3,
                   "wits": 1,
-                  "presence": 3
+                  "presence": 4
                 },
                 "weaponChassis": "medium",
                 "traits": [
-                  "tough"
+                  "tough",
+                  "disciplined",
+                  "veteran",
+                  "loyal"
                 ],
                 "tags": [
                   "Chevin"
@@ -1790,13 +1793,49 @@
                       "name": "Direct Fire",
                       "type": "action",
                       "arena": "presence",
-                      "description": "Order one ally to immediately make an attack as a reaction."
+                      "defense": "none",
+                      "description": "Order one ally to immediately make an attack as a reaction.",
+                      "npcEffects": [
+                        {
+                          "tier": "F",
+                          "range": "-1 to -3",
+                          "description": "One ally makes a basic attack as a reaction."
+                        },
+                        {
+                          "tier": "M",
+                          "range": "-4 to -7",
+                          "description": "One ally attacks with [Optimized]."
+                        },
+                        {
+                          "tier": "L",
+                          "range": "-8+",
+                          "description": "Two allies each make an attack. One gains [Optimized]."
+                        }
+                      ]
                     },
                     {
                       "name": "Rally",
                       "type": "action",
                       "arena": "presence",
-                      "description": "Remove [Shaken] or [Rattled] from one ally in range."
+                      "defense": "none",
+                      "description": "Remove [Shaken] or [Rattled] from one ally in range.",
+                      "npcEffects": [
+                        {
+                          "tier": "F",
+                          "range": "-1 to -3",
+                          "description": "Remove [Rattled] or [Shaken] from one ally."
+                        },
+                        {
+                          "tier": "M",
+                          "range": "-4 to -7",
+                          "description": "Remove one condition from one ally. Ally gains [Buffered 1]."
+                        },
+                        {
+                          "tier": "L",
+                          "range": "-8+",
+                          "description": "Remove all [Rattled]/[Shaken] from one ally. Ally gains [Buffered 2]."
+                        }
+                      ]
                     }
                   ],
                   "maneuver": null,
@@ -1806,25 +1845,25 @@
                 "notes": "Elite Brute. Defense 5 = max(5,2)-1+1. Evasion 1 = Ref 2-1+1-1(slow). Resist 3 = Grit 3-1+1. 5. Tough: ignore Fleeting damage. A serious fight for the party.",
                 "computed": {
                   "arenas": {
-                    "physique": 3,
+                    "physique": 2,
                     "reflex": 2,
                     "grit": 3,
                     "wits": 1,
-                    "presence": 3
+                    "presence": 4
                   },
                   "defense": 3,
-                  "evasion": 2,
-                  "resist": 3,
-                  "vitality": 11,
-                  "rawVitality": 7,
+                  "evasion": 3,
+                  "resist": 5,
+                  "vitality": 9,
+                  "rawVitality": 6,
                   "powers": {
                     "physique": 3,
-                    "reflex": 2,
-                    "grit": 3,
-                    "wits": 1,
-                    "presence": 3
+                    "reflex": 3,
+                    "grit": 4,
+                    "wits": 2,
+                    "presence": 5
                   },
-                  "exploits": 1,
+                  "exploits": 2,
                   "initiative": 3,
                   "role": {
                     "id": "commander",
@@ -1844,26 +1883,66 @@
                         "name": "Direct Fire",
                         "type": "action",
                         "arena": "presence",
-                        "description": "Order one ally to immediately make an attack as a reaction."
+                        "defense": "none",
+                        "description": "Order one ally to immediately make an attack as a reaction.",
+                        "npcEffects": [
+                          {
+                            "tier": "F",
+                            "range": "-1 to -3",
+                            "description": "One ally makes a basic attack as a reaction."
+                          },
+                          {
+                            "tier": "M",
+                            "range": "-4 to -7",
+                            "description": "One ally attacks with [Optimized]."
+                          },
+                          {
+                            "tier": "L",
+                            "range": "-8+",
+                            "description": "Two allies each make an attack. One gains [Optimized]."
+                          }
+                        ]
                       },
                       {
                         "name": "Rally",
                         "type": "action",
                         "arena": "presence",
-                        "description": "Remove [Shaken] or [Rattled] from one ally in range."
+                        "defense": "none",
+                        "description": "Remove [Shaken] or [Rattled] from one ally in range.",
+                        "npcEffects": [
+                          {
+                            "tier": "F",
+                            "range": "-1 to -3",
+                            "description": "Remove [Rattled] or [Shaken] from one ally."
+                          },
+                          {
+                            "tier": "M",
+                            "range": "-4 to -7",
+                            "description": "Remove one condition from one ally. Ally gains [Buffered 1]."
+                          },
+                          {
+                            "tier": "L",
+                            "range": "-8+",
+                            "description": "Remove all [Rattled]/[Shaken] from one ally. Ally gains [Buffered 2]."
+                          }
+                        ]
                       }
                     ],
                     "maneuver": {
                       "name": "Issue Orders",
+                      "defense": "none",
                       "description": "One ally gains a bonus maneuver on their next turn."
                     },
                     "gambit": {
                       "name": "Tactical Withdrawal",
                       "cost": "-1 Power",
-                      "description": "One ally may immediately move to cover."
+                      "modifies": "Direct Fire",
+                      "description": "Instead of ordering an attack, one ally moves 1 zone without presenting an Opening.",
+                      "rider": "Ally moves 1 zone safely"
                     },
                     "exploit": {
                       "name": "Coordinated Assault",
+                      "trigger": "An ally is attacked by a PC.",
                       "description": "All allies gain +1 Power until end of round."
                     }
                   },
@@ -1903,37 +1982,24 @@
                 ],
                 "attacks": [
                   {
-                    "name": "Direct Fire",
-                    "arena": "presence",
-                    "powerMod": 0,
-                    "chassis": "medium",
-                    "canStun": false,
-                    "sourceAction": "Direct Fire"
-                  },
-                  {
-                    "name": "Rally",
-                    "arena": "presence",
-                    "powerMod": 0,
-                    "chassis": "medium",
-                    "canStun": false,
-                    "sourceAction": "Rally"
-                  },
-                  {
-                    "name": "Blaster",
+                    "name": "Blast-em",
                     "arena": "reflex",
                     "powerMod": 0,
                     "chassis": "light",
-                    "canStun": false
+                    "canStun": true,
+                    "sourceAction": "Direct Fire"
                   },
                   {
-                    "name": "Pummel (Stun Only)",
+                    "name": "Pummel-em",
                     "arena": "physique",
                     "powerMod": 0,
                     "chassis": "light",
-                    "canStun": true
+                    "canStun": true,
+                    "sourceAction": "Rally"
                   }
                 ],
-                "socialNotes": ""
+                "socialNotes": "",
+                "extraGambits": []
               },
               "loot": [
                 {
@@ -2930,135 +2996,705 @@
           "gmNotes": "This is the heroes' first brush with the Young Empire. The target is the Lambda shuttle's nav computer. The heroes must physically reach the shuttle, use the code cylinder to authenticate into the flight computer, and download the destination coordinates — which reveal the Vanishing Place on Ajan Kloss, where Admiral Varth is being held.\n\nOPTIONS:\n• BLUFF: Impersonate Imperial crew or authorized maintenance personnel. Disguise Kit helps. Deception check (Moderate) to approach without suspicion.\n• STEALTH: Sneak through maintenance areas or use terrain cover to reach the shuttle unseen. Stealth/Skulduggery (Moderate).\n• DISTRACTION: Create a diversion to draw the guards away. Tech, Deception, or creative approaches (Moderate).\n• DIRECT ASSAULT: Possible but loud. Brings reinforcements quickly. Not recommended but not forbidden.\n\nTHE DOWNLOAD: Once at the shuttle's flight computer, a Tech check (Easy with the cylinder, Moderate without) accesses the nav logs. The coordinates point to the jungle moon of Ajan Kloss — a location labeled 'The Vanishing Place' in Imperial records. A successful Investigation check on the data reveals references to 'Project Leviathan' in the shipping metadata.\n\nEXTRACTION: Once the download is complete (or the alarm is raised), the heroes must escape the landing field. Maya has the Banshee prepped at a secondary pad. The escape from Jakku transitions directly into Part 2.\n\nIMPORTANT: The code cylinder is effectively dead after use. The authentication codes will be flagged and disabled by Imperial security within hours.",
           "npcs": [
             {
-              "name": "Warlord's Guards",
-              "type": "Standard Thugs",
-              "count": 4,
-              "notes": "Perimeter security. Lazy and bribeable.",
-              "behavior": "Complacent. More interested in next meal than dying for a cargo transfer. Can be bribed (200 credits).",
-              "dialogue": [
-                "\"I don't care what's in the box. I just get paid to stand here.\"",
-                "\"You got a work order? No? Then walk away.\""
-              ],
-              "intel": "Know the block arrived three days ago. Know it's 'some Imperial prisoner' but nothing more.",
+              "name": "Stormtrooper",
+              "type": "Character",
+              "count": 1,
+              "loot": [],
               "threatBuild": {
                 "role": "trooper",
-                "tier": 0,
+                "tier": 1,
                 "classification": "minion",
                 "threatCategory": "character",
                 "arenas": {
                   "physique": 2,
                   "reflex": 2,
-                  "grit": 1,
-                  "wits": 1,
-                  "presence": 1
+                  "grit": 2,
+                  "wits": 2,
+                  "presence": 2
                 },
-                "weaponChassis": "light",
-                "traits": [],
+                "computed": {
+                  "arenas": {
+                    "physique": 2,
+                    "reflex": 2,
+                    "grit": 2,
+                    "wits": 2,
+                    "presence": 2
+                  },
+                  "defense": 4,
+                  "evasion": 3,
+                  "resist": 4,
+                  "vitality": 5,
+                  "rawVitality": 5,
+                  "powers": {
+                    "physique": 3,
+                    "reflex": 3,
+                    "grit": 3,
+                    "wits": 3,
+                    "presence": 3
+                  },
+                  "exploits": 0,
+                  "initiative": 5,
+                  "role": {
+                    "id": "trooper",
+                    "name": "Trooper",
+                    "category": "combat",
+                    "description": "Disciplined ranged combatant. Reliable, consistent, operates best in squads.",
+                    "arenaMods": {},
+                    "powerBonus": {
+                      "value": 1,
+                      "condition": "weapon attacks"
+                    },
+                    "passive": {
+                      "name": "Disciplined Fire",
+                      "description": "+1 Power on weapon attacks."
+                    },
+                    "actions": [
+                      {
+                        "name": "Blaster Volley",
+                        "type": "action",
+                        "arena": "reflex",
+                        "defense": "dodge/endure",
+                        "description": "Ranged attack against one target.",
+                        "npcEffects": [
+                          {
+                            "tier": "F",
+                            "range": "-1 to -3",
+                            "description": "Chassis damage."
+                          },
+                          {
+                            "tier": "M",
+                            "range": "-4 to -7",
+                            "description": "Chassis damage. Target gains [Suppressed] Tactical."
+                          },
+                          {
+                            "tier": "L",
+                            "range": "-8+",
+                            "description": "Chassis damage. Target gains [Suppressed] and [Prone]."
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Bayonet Strike",
+                        "type": "action",
+                        "arena": "physique",
+                        "defense": "dodge/endure",
+                        "description": "Melee attack against adjacent target.",
+                        "npcEffects": [
+                          {
+                            "tier": "F",
+                            "range": "-1 to -3",
+                            "description": "Chassis damage."
+                          },
+                          {
+                            "tier": "M",
+                            "range": "-4 to -7",
+                            "description": "Chassis damage. Push target 1 zone."
+                          },
+                          {
+                            "tier": "L",
+                            "range": "-8+",
+                            "description": "Chassis damage. Push 1 zone. Target gains [Prone]."
+                          }
+                        ]
+                      }
+                    ],
+                    "maneuver": {
+                      "name": "Take Cover",
+                      "defense": "none",
+                      "description": "Move to cover. Gain [Cover] until leaving position."
+                    },
+                    "gambit": {
+                      "name": "Suppressive Fire",
+                      "cost": "-1 Power",
+                      "modifies": "Blaster Volley",
+                      "description": "In addition to normal effects, target gains [Suppressed] Tactical.",
+                      "rider": "[Suppressed] Tactical"
+                    },
+                    "exploit": {
+                      "name": "Coordinated Fire",
+                      "trigger": "An allied Trooper attacks the same target this round.",
+                      "description": "All allied Troopers targeting the same enemy gain +1 Power this round."
+                    }
+                  },
+                  "classification": {
+                    "id": "minion",
+                    "name": "Minion",
+                    "description": "Bolt-on. Full Vitality stat but any Masterful+ net result is an instant takedown. Keeps all other stats intact.",
+                    "vitalityMod": 1,
+                    "exploitMod": 0,
+                    "special": "Masterful+ net result = instant takedown. Full stats otherwise.",
+                    "notes": "Minion status is a longevity downgrade, not a power downgrade."
+                  },
+                  "rolePowerBonus": {
+                    "value": 1,
+                    "condition": "weapon attacks"
+                  },
+                  "immunities": [],
+                  "vulnerabilities": [],
+                  "scale": null,
+                  "scaleLevel": 1,
+                  "ironClad": false,
+                  "isStationary": false
+                },
+                "traits": [
+                  "disciplined",
+                  "armored_light"
+                ],
+                "tags": [
+                  "Imperial",
+                  "Military",
+                  "imperial"
+                ],
+                "roleKit": {
+                  "passive": null,
+                  "actions": [
+                    {
+                      "name": "Blaster Volley",
+                      "type": "action",
+                      "arena": "reflex",
+                      "defense": "dodge/endure",
+                      "description": "Ranged attack against one target.",
+                      "npcEffects": [
+                        {
+                          "tier": "F",
+                          "range": "-1 to -3",
+                          "description": "Chassis damage."
+                        },
+                        {
+                          "tier": "M",
+                          "range": "-4 to -7",
+                          "description": "Chassis damage. Target gains [Suppressed] Tactical."
+                        },
+                        {
+                          "tier": "L",
+                          "range": "-8+",
+                          "description": "Chassis damage. Target gains [Suppressed] and [Prone]."
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Bayonet Strike",
+                      "type": "action",
+                      "arena": "physique",
+                      "defense": "dodge/endure",
+                      "description": "Melee attack against adjacent target.",
+                      "npcEffects": [
+                        {
+                          "tier": "F",
+                          "range": "-1 to -3",
+                          "description": "Chassis damage."
+                        },
+                        {
+                          "tier": "M",
+                          "range": "-4 to -7",
+                          "description": "Chassis damage. Push target 1 zone."
+                        },
+                        {
+                          "tier": "L",
+                          "range": "-8+",
+                          "description": "Chassis damage. Push 1 zone. Target gains [Prone]."
+                        }
+                      ]
+                    }
+                  ],
+                  "maneuver": null,
+                  "gambit": null,
+                  "exploit": null
+                },
+                "weaponChassis": "medium",
+                "loot": [],
+                "name": "Stormtrooper",
+                "shipDetails": {
+                  "hullType": "",
+                  "crew": "",
+                  "hyperdrive": "",
+                  "sensors": "",
+                  "shields": "",
+                  "cargo": "",
+                  "speed": ""
+                },
+                "extraGambits": [],
+                "attacks": [],
+                "socialNotes": ""
+              }
+            },
+            {
+              "name": "Stormtrooper",
+              "type": "Character",
+              "count": 1,
+              "loot": [],
+              "threatBuild": {
+                "role": "trooper",
+                "tier": 1,
+                "classification": "minion",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 2,
+                  "reflex": 2,
+                  "grit": 2,
+                  "wits": 2,
+                  "presence": 2
+                },
+                "computed": {
+                  "defense": 4,
+                  "evasion": 3,
+                  "resist": 4,
+                  "vitality": 5,
+                  "initiative": 5,
+                  "power": 3,
+                  "powers": {
+                    "physique": 3,
+                    "reflex": 3,
+                    "grit": 3,
+                    "wits": 3,
+                    "presence": 3
+                  },
+                  "actions": 1,
+                  "exploits": 0,
+                  "damageTiers": {
+                    "label": "medium",
+                    "fleeting": 3,
+                    "masterful": 5,
+                    "legendary": 8
+                  }
+                },
+                "traits": [
+                  "disciplined",
+                  "armored_light"
+                ],
+                "tags": [
+                  "Imperial",
+                  "Military",
+                  "imperial"
+                ],
+                "roleKit": {
+                  "passive": null,
+                  "actions": [
+                    {
+                      "name": "Blaster Volley",
+                      "type": "action",
+                      "arena": "reflex",
+                      "defense": "dodge/endure",
+                      "description": "Ranged attack against one target.",
+                      "npcEffects": [
+                        {
+                          "tier": "F",
+                          "range": "-1 to -3",
+                          "description": "Chassis damage."
+                        },
+                        {
+                          "tier": "M",
+                          "range": "-4 to -7",
+                          "description": "Chassis damage. Target gains [Suppressed] Tactical."
+                        },
+                        {
+                          "tier": "L",
+                          "range": "-8+",
+                          "description": "Chassis damage. Target gains [Suppressed] and [Prone]."
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Bayonet Strike",
+                      "type": "action",
+                      "arena": "physique",
+                      "defense": "dodge/endure",
+                      "description": "Melee attack against adjacent target.",
+                      "npcEffects": [
+                        {
+                          "tier": "F",
+                          "range": "-1 to -3",
+                          "description": "Chassis damage."
+                        },
+                        {
+                          "tier": "M",
+                          "range": "-4 to -7",
+                          "description": "Chassis damage. Push target 1 zone."
+                        },
+                        {
+                          "tier": "L",
+                          "range": "-8+",
+                          "description": "Chassis damage. Push 1 zone. Target gains [Prone]."
+                        }
+                      ]
+                    }
+                  ],
+                  "maneuver": null,
+                  "gambit": null,
+                  "exploit": null
+                },
+                "weaponChassis": "medium",
+                "loot": []
+              }
+            },
+            {
+              "name": "Stormtrooper",
+              "type": "Character",
+              "count": 1,
+              "loot": [],
+              "threatBuild": {
+                "role": "trooper",
+                "tier": 1,
+                "classification": "minion",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 2,
+                  "reflex": 2,
+                  "grit": 2,
+                  "wits": 2,
+                  "presence": 2
+                },
+                "computed": {
+                  "defense": 4,
+                  "evasion": 3,
+                  "resist": 4,
+                  "vitality": 5,
+                  "initiative": 5,
+                  "power": 3,
+                  "powers": {
+                    "physique": 3,
+                    "reflex": 3,
+                    "grit": 3,
+                    "wits": 3,
+                    "presence": 3
+                  },
+                  "actions": 1,
+                  "exploits": 0,
+                  "damageTiers": {
+                    "label": "medium",
+                    "fleeting": 3,
+                    "masterful": 5,
+                    "legendary": 8
+                  }
+                },
+                "traits": [
+                  "disciplined",
+                  "armored_light"
+                ],
+                "tags": [
+                  "Imperial",
+                  "Military",
+                  "imperial"
+                ],
+                "roleKit": {
+                  "passive": null,
+                  "actions": [
+                    {
+                      "name": "Blaster Volley",
+                      "type": "action",
+                      "arena": "reflex",
+                      "defense": "dodge/endure",
+                      "description": "Ranged attack against one target.",
+                      "npcEffects": [
+                        {
+                          "tier": "F",
+                          "range": "-1 to -3",
+                          "description": "Chassis damage."
+                        },
+                        {
+                          "tier": "M",
+                          "range": "-4 to -7",
+                          "description": "Chassis damage. Target gains [Suppressed] Tactical."
+                        },
+                        {
+                          "tier": "L",
+                          "range": "-8+",
+                          "description": "Chassis damage. Target gains [Suppressed] and [Prone]."
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Bayonet Strike",
+                      "type": "action",
+                      "arena": "physique",
+                      "defense": "dodge/endure",
+                      "description": "Melee attack against adjacent target.",
+                      "npcEffects": [
+                        {
+                          "tier": "F",
+                          "range": "-1 to -3",
+                          "description": "Chassis damage."
+                        },
+                        {
+                          "tier": "M",
+                          "range": "-4 to -7",
+                          "description": "Chassis damage. Push target 1 zone."
+                        },
+                        {
+                          "tier": "L",
+                          "range": "-8+",
+                          "description": "Chassis damage. Push 1 zone. Target gains [Prone]."
+                        }
+                      ]
+                    }
+                  ],
+                  "maneuver": null,
+                  "gambit": null,
+                  "exploit": null
+                },
+                "weaponChassis": "medium",
+                "loot": []
+              }
+            },
+            {
+              "name": "Stormtrooper",
+              "type": "Character",
+              "count": 1,
+              "loot": [],
+              "threatBuild": {
+                "role": "trooper",
+                "tier": 1,
+                "classification": "minion",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 2,
+                  "reflex": 2,
+                  "grit": 2,
+                  "wits": 2,
+                  "presence": 2
+                },
+                "computed": {
+                  "defense": 4,
+                  "evasion": 3,
+                  "resist": 4,
+                  "vitality": 5,
+                  "initiative": 5,
+                  "power": 3,
+                  "powers": {
+                    "physique": 3,
+                    "reflex": 3,
+                    "grit": 3,
+                    "wits": 3,
+                    "presence": 3
+                  },
+                  "actions": 1,
+                  "exploits": 0,
+                  "damageTiers": {
+                    "label": "medium",
+                    "fleeting": 3,
+                    "masterful": 5,
+                    "legendary": 8
+                  }
+                },
+                "traits": [
+                  "disciplined",
+                  "armored_light"
+                ],
+                "tags": [
+                  "Imperial",
+                  "Military",
+                  "imperial"
+                ],
+                "roleKit": {
+                  "passive": null,
+                  "actions": [
+                    {
+                      "name": "Blaster Volley",
+                      "type": "action",
+                      "arena": "reflex",
+                      "defense": "dodge/endure",
+                      "description": "Ranged attack against one target.",
+                      "npcEffects": [
+                        {
+                          "tier": "F",
+                          "range": "-1 to -3",
+                          "description": "Chassis damage."
+                        },
+                        {
+                          "tier": "M",
+                          "range": "-4 to -7",
+                          "description": "Chassis damage. Target gains [Suppressed] Tactical."
+                        },
+                        {
+                          "tier": "L",
+                          "range": "-8+",
+                          "description": "Chassis damage. Target gains [Suppressed] and [Prone]."
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Bayonet Strike",
+                      "type": "action",
+                      "arena": "physique",
+                      "defense": "dodge/endure",
+                      "description": "Melee attack against adjacent target.",
+                      "npcEffects": [
+                        {
+                          "tier": "F",
+                          "range": "-1 to -3",
+                          "description": "Chassis damage."
+                        },
+                        {
+                          "tier": "M",
+                          "range": "-4 to -7",
+                          "description": "Chassis damage. Push target 1 zone."
+                        },
+                        {
+                          "tier": "L",
+                          "range": "-8+",
+                          "description": "Chassis damage. Push 1 zone. Target gains [Prone]."
+                        }
+                      ]
+                    }
+                  ],
+                  "maneuver": null,
+                  "gambit": null,
+                  "exploit": null
+                },
+                "weaponChassis": "medium",
+                "loot": []
+              }
+            },
+            {
+              "name": "Warlord's Guard",
+              "type": "Character",
+              "count": 1,
+              "loot": [],
+              "threatBuild": {
+                "role": "trooper",
+                "tier": 1,
+                "classification": "minion",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 3,
+                  "reflex": 3,
+                  "grit": 2,
+                  "wits": 2,
+                  "presence": 2
+                },
+                "computed": {
+                  "defense": 5,
+                  "evasion": 4,
+                  "resist": 3,
+                  "vitality": 6,
+                  "initiative": 5,
+                  "power": 4,
+                  "powers": {
+                    "physique": 4,
+                    "reflex": 4,
+                    "grit": 3,
+                    "wits": 3,
+                    "presence": 3
+                  },
+                  "actions": 1,
+                  "exploits": 0,
+                  "damageTiers": {
+                    "label": "light",
+                    "fleeting": 2,
+                    "masterful": 4,
+                    "legendary": 6
+                  }
+                },
+                "traits": [
+                  "armored_light",
+                  "follows_the_boss"
+                ],
                 "tags": [],
                 "roleKit": {
-                  "passive": {
-                    "name": "Disciplined Fire",
-                    "description": "+1 Power on weapon attacks."
-                  },
+                  "passive": null,
                   "actions": [
                     {
                       "name": "Blaster Volley",
                       "type": "action",
                       "arena": "reflex",
+                      "defense": "dodge/endure",
                       "description": "Ranged attack against one target.",
-                      "attackPower": 1
+                      "npcEffects": [
+                        {
+                          "tier": "F",
+                          "range": "-1 to -3",
+                          "description": "Chassis damage."
+                        },
+                        {
+                          "tier": "M",
+                          "range": "-4 to -7",
+                          "description": "Chassis damage. Target gains [Suppressed] Tactical."
+                        },
+                        {
+                          "tier": "L",
+                          "range": "-8+",
+                          "description": "Chassis damage. Target gains [Suppressed] and [Prone]."
+                        }
+                      ]
                     },
                     {
-                      "name": "Brawl",
+                      "name": "Bayonet Strike",
                       "type": "action",
                       "arena": "physique",
+                      "defense": "dodge/endure",
                       "description": "Melee attack against adjacent target.",
-                      "attackPower": 1
+                      "npcEffects": [
+                        {
+                          "tier": "F",
+                          "range": "-1 to -3",
+                          "description": "Chassis damage."
+                        },
+                        {
+                          "tier": "M",
+                          "range": "-4 to -7",
+                          "description": "Chassis damage. Push target 1 zone."
+                        },
+                        {
+                          "tier": "L",
+                          "range": "-8+",
+                          "description": "Chassis damage. Push 1 zone. Target gains [Prone]."
+                        }
+                      ]
                     }
                   ],
-                  "maneuver": {
-                    "name": "Take Cover",
-                    "description": "Move to cover."
-                  },
-                  "gambit": {
-                    "name": "Warning Shot",
-                    "cost": "-1 Power",
-                    "description": "Target gains [Rattled] instead of taking damage."
-                  },
-                  "exploit": {
-                    "name": "Sound the Alarm",
-                    "description": "Call for backup. Reinforcements arrive in 2 rounds."
-                  }
+                  "maneuver": null,
+                  "gambit": null,
+                  "exploit": null
                 },
-                "notes": "Minion guards. Defense 1 = max(2,2)-1+0. Lazy and bribeable — Charm T0/P0 to bribe. Masterful+ = takedown.",
+                "weaponChassis": "light",
+                "loot": []
+              }
+            },
+            {
+              "name": "Warlord's Guard",
+              "type": "Character",
+              "count": 1,
+              "loot": [],
+              "threatBuild": {
+                "role": "trooper",
+                "tier": 1,
+                "classification": "minion",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 3,
+                  "reflex": 3,
+                  "grit": 2,
+                  "wits": 2,
+                  "presence": 2
+                },
                 "computed": {
-                  "power": 1,
-                  "defense": 1,
-                  "evasion": 1,
-                  "resist": 0,
-                  "vitality": 3,
-                  "initiative": 2,
-                  "controlDie": "d6",
+                  "defense": 5,
+                  "evasion": 4,
+                  "resist": 3,
+                  "vitality": 6,
+                  "initiative": 5,
+                  "power": 4,
+                  "powers": {
+                    "physique": 4,
+                    "reflex": 4,
+                    "grit": 3,
+                    "wits": 3,
+                    "presence": 3
+                  },
                   "actions": 1,
+                  "exploits": 0,
                   "damageTiers": {
-                    "chassis": "light",
-                    "label": "Light",
+                    "label": "light",
                     "fleeting": 2,
-                    "masterful": 3,
-                    "legendary": 4
-                  }
-                }
-              }
-            },
-            {
-              "name": "Stormtrooper",
-              "type": "Character",
-              "count": 1,
-              "loot": [],
-              "threatBuild": {
-                "role": "trooper",
-                "tier": 1,
-                "classification": "minion",
-                "threatCategory": "character",
-                "arenas": {
-                  "physique": 2,
-                  "reflex": 3,
-                  "grit": 2,
-                  "wits": 1,
-                  "presence": 1
-                },
-                "computed": {
-                  "defense": 4,
-                  "evasion": 3,
-                  "resist": 3,
-                  "vitality": 5,
-                  "initiative": 3,
-                  "power": 3,
-                  "powers": {
-                    "physique": 2,
-                    "reflex": 3,
-                    "grit": 2,
-                    "wits": 1,
-                    "presence": 1
-                  },
-                  "actions": 1,
-                  "exploits": 0,
-                  "damageTiers": {
-                    "label": "medium",
-                    "fleeting": 3,
-                    "masterful": 5,
-                    "legendary": 8
+                    "masterful": 4,
+                    "legendary": 6
                   }
                 },
                 "traits": [
                   "armored_light",
-                  "disciplined"
+                  "follows_the_boss"
                 ],
-                "tags": [
-                  "Imperial",
-                  "Military",
-                  "imperial"
-                ],
+                "tags": [],
                 "roleKit": {
                   "passive": null,
                   "actions": [
@@ -3066,25 +3702,61 @@
                       "name": "Blaster Volley",
                       "type": "action",
                       "arena": "reflex",
-                      "description": "Ranged attack against one target."
+                      "defense": "dodge/endure",
+                      "description": "Ranged attack against one target.",
+                      "npcEffects": [
+                        {
+                          "tier": "F",
+                          "range": "-1 to -3",
+                          "description": "Chassis damage."
+                        },
+                        {
+                          "tier": "M",
+                          "range": "-4 to -7",
+                          "description": "Chassis damage. Target gains [Suppressed] Tactical."
+                        },
+                        {
+                          "tier": "L",
+                          "range": "-8+",
+                          "description": "Chassis damage. Target gains [Suppressed] and [Prone]."
+                        }
+                      ]
                     },
                     {
                       "name": "Bayonet Strike",
                       "type": "action",
                       "arena": "physique",
-                      "description": "Melee attack against adjacent target."
+                      "defense": "dodge/endure",
+                      "description": "Melee attack against adjacent target.",
+                      "npcEffects": [
+                        {
+                          "tier": "F",
+                          "range": "-1 to -3",
+                          "description": "Chassis damage."
+                        },
+                        {
+                          "tier": "M",
+                          "range": "-4 to -7",
+                          "description": "Chassis damage. Push target 1 zone."
+                        },
+                        {
+                          "tier": "L",
+                          "range": "-8+",
+                          "description": "Chassis damage. Push 1 zone. Target gains [Prone]."
+                        }
+                      ]
                     }
                   ],
                   "maneuver": null,
                   "gambit": null,
                   "exploit": null
                 },
-                "weaponChassis": "medium",
+                "weaponChassis": "light",
                 "loot": []
               }
             },
             {
-              "name": "Stormtrooper",
+              "name": "Warlord's Guard",
               "type": "Character",
               "count": 1,
               "loot": [],
@@ -3094,44 +3766,40 @@
                 "classification": "minion",
                 "threatCategory": "character",
                 "arenas": {
-                  "physique": 2,
+                  "physique": 3,
                   "reflex": 3,
                   "grit": 2,
-                  "wits": 1,
-                  "presence": 1
+                  "wits": 2,
+                  "presence": 2
                 },
                 "computed": {
-                  "defense": 4,
-                  "evasion": 3,
+                  "defense": 5,
+                  "evasion": 4,
                   "resist": 3,
-                  "vitality": 5,
-                  "initiative": 3,
-                  "power": 3,
+                  "vitality": 6,
+                  "initiative": 5,
+                  "power": 4,
                   "powers": {
-                    "physique": 2,
-                    "reflex": 3,
-                    "grit": 2,
-                    "wits": 1,
-                    "presence": 1
+                    "physique": 4,
+                    "reflex": 4,
+                    "grit": 3,
+                    "wits": 3,
+                    "presence": 3
                   },
                   "actions": 1,
                   "exploits": 0,
                   "damageTiers": {
-                    "label": "medium",
-                    "fleeting": 3,
-                    "masterful": 5,
-                    "legendary": 8
+                    "label": "light",
+                    "fleeting": 2,
+                    "masterful": 4,
+                    "legendary": 6
                   }
                 },
                 "traits": [
                   "armored_light",
-                  "disciplined"
+                  "follows_the_boss"
                 ],
-                "tags": [
-                  "Imperial",
-                  "Military",
-                  "imperial"
-                ],
+                "tags": [],
                 "roleKit": {
                   "passive": null,
                   "actions": [
@@ -3139,25 +3807,61 @@
                       "name": "Blaster Volley",
                       "type": "action",
                       "arena": "reflex",
-                      "description": "Ranged attack against one target."
+                      "defense": "dodge/endure",
+                      "description": "Ranged attack against one target.",
+                      "npcEffects": [
+                        {
+                          "tier": "F",
+                          "range": "-1 to -3",
+                          "description": "Chassis damage."
+                        },
+                        {
+                          "tier": "M",
+                          "range": "-4 to -7",
+                          "description": "Chassis damage. Target gains [Suppressed] Tactical."
+                        },
+                        {
+                          "tier": "L",
+                          "range": "-8+",
+                          "description": "Chassis damage. Target gains [Suppressed] and [Prone]."
+                        }
+                      ]
                     },
                     {
                       "name": "Bayonet Strike",
                       "type": "action",
                       "arena": "physique",
-                      "description": "Melee attack against adjacent target."
+                      "defense": "dodge/endure",
+                      "description": "Melee attack against adjacent target.",
+                      "npcEffects": [
+                        {
+                          "tier": "F",
+                          "range": "-1 to -3",
+                          "description": "Chassis damage."
+                        },
+                        {
+                          "tier": "M",
+                          "range": "-4 to -7",
+                          "description": "Chassis damage. Push target 1 zone."
+                        },
+                        {
+                          "tier": "L",
+                          "range": "-8+",
+                          "description": "Chassis damage. Push 1 zone. Target gains [Prone]."
+                        }
+                      ]
                     }
                   ],
                   "maneuver": null,
                   "gambit": null,
                   "exploit": null
                 },
-                "weaponChassis": "medium",
+                "weaponChassis": "light",
                 "loot": []
               }
             },
             {
-              "name": "Stormtrooper",
+              "name": "Warlord's Guard",
               "type": "Character",
               "count": 1,
               "loot": [],
@@ -3167,44 +3871,40 @@
                 "classification": "minion",
                 "threatCategory": "character",
                 "arenas": {
-                  "physique": 2,
+                  "physique": 3,
                   "reflex": 3,
                   "grit": 2,
-                  "wits": 1,
-                  "presence": 1
+                  "wits": 2,
+                  "presence": 2
                 },
                 "computed": {
-                  "defense": 4,
-                  "evasion": 3,
+                  "defense": 5,
+                  "evasion": 4,
                   "resist": 3,
-                  "vitality": 5,
-                  "initiative": 3,
-                  "power": 3,
+                  "vitality": 6,
+                  "initiative": 5,
+                  "power": 4,
                   "powers": {
-                    "physique": 2,
-                    "reflex": 3,
-                    "grit": 2,
-                    "wits": 1,
-                    "presence": 1
+                    "physique": 4,
+                    "reflex": 4,
+                    "grit": 3,
+                    "wits": 3,
+                    "presence": 3
                   },
                   "actions": 1,
                   "exploits": 0,
                   "damageTiers": {
-                    "label": "medium",
-                    "fleeting": 3,
-                    "masterful": 5,
-                    "legendary": 8
+                    "label": "light",
+                    "fleeting": 2,
+                    "masterful": 4,
+                    "legendary": 6
                   }
                 },
                 "traits": [
                   "armored_light",
-                  "disciplined"
+                  "follows_the_boss"
                 ],
-                "tags": [
-                  "Imperial",
-                  "Military",
-                  "imperial"
-                ],
+                "tags": [],
                 "roleKit": {
                   "passive": null,
                   "actions": [
@@ -3212,239 +3912,56 @@
                       "name": "Blaster Volley",
                       "type": "action",
                       "arena": "reflex",
-                      "description": "Ranged attack against one target."
+                      "defense": "dodge/endure",
+                      "description": "Ranged attack against one target.",
+                      "npcEffects": [
+                        {
+                          "tier": "F",
+                          "range": "-1 to -3",
+                          "description": "Chassis damage."
+                        },
+                        {
+                          "tier": "M",
+                          "range": "-4 to -7",
+                          "description": "Chassis damage. Target gains [Suppressed] Tactical."
+                        },
+                        {
+                          "tier": "L",
+                          "range": "-8+",
+                          "description": "Chassis damage. Target gains [Suppressed] and [Prone]."
+                        }
+                      ]
                     },
                     {
                       "name": "Bayonet Strike",
                       "type": "action",
                       "arena": "physique",
-                      "description": "Melee attack against adjacent target."
+                      "defense": "dodge/endure",
+                      "description": "Melee attack against adjacent target.",
+                      "npcEffects": [
+                        {
+                          "tier": "F",
+                          "range": "-1 to -3",
+                          "description": "Chassis damage."
+                        },
+                        {
+                          "tier": "M",
+                          "range": "-4 to -7",
+                          "description": "Chassis damage. Push target 1 zone."
+                        },
+                        {
+                          "tier": "L",
+                          "range": "-8+",
+                          "description": "Chassis damage. Push 1 zone. Target gains [Prone]."
+                        }
+                      ]
                     }
                   ],
                   "maneuver": null,
                   "gambit": null,
                   "exploit": null
                 },
-                "weaponChassis": "medium",
-                "loot": []
-              }
-            },
-            {
-              "name": "Stormtrooper",
-              "type": "Character",
-              "count": 1,
-              "loot": [],
-              "threatBuild": {
-                "role": "trooper",
-                "tier": 1,
-                "classification": "minion",
-                "threatCategory": "character",
-                "arenas": {
-                  "physique": 2,
-                  "reflex": 3,
-                  "grit": 2,
-                  "wits": 1,
-                  "presence": 1
-                },
-                "computed": {
-                  "defense": 4,
-                  "evasion": 3,
-                  "resist": 3,
-                  "vitality": 5,
-                  "initiative": 3,
-                  "power": 3,
-                  "powers": {
-                    "physique": 2,
-                    "reflex": 3,
-                    "grit": 2,
-                    "wits": 1,
-                    "presence": 1
-                  },
-                  "actions": 1,
-                  "exploits": 0,
-                  "damageTiers": {
-                    "label": "medium",
-                    "fleeting": 3,
-                    "masterful": 5,
-                    "legendary": 8
-                  }
-                },
-                "traits": [
-                  "armored_light",
-                  "disciplined"
-                ],
-                "tags": [
-                  "Imperial",
-                  "Military",
-                  "imperial"
-                ],
-                "roleKit": {
-                  "passive": null,
-                  "actions": [
-                    {
-                      "name": "Blaster Volley",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Ranged attack against one target."
-                    },
-                    {
-                      "name": "Bayonet Strike",
-                      "type": "action",
-                      "arena": "physique",
-                      "description": "Melee attack against adjacent target."
-                    }
-                  ],
-                  "maneuver": null,
-                  "gambit": null,
-                  "exploit": null
-                },
-                "weaponChassis": "medium",
-                "loot": []
-              }
-            },
-            {
-              "name": "Stormtrooper",
-              "type": "Character",
-              "count": 1,
-              "loot": [],
-              "threatBuild": {
-                "role": "trooper",
-                "tier": 1,
-                "classification": "minion",
-                "threatCategory": "character",
-                "arenas": {
-                  "physique": 2,
-                  "reflex": 3,
-                  "grit": 2,
-                  "wits": 1,
-                  "presence": 1
-                },
-                "computed": {
-                  "defense": 4,
-                  "evasion": 3,
-                  "resist": 3,
-                  "vitality": 5,
-                  "initiative": 3,
-                  "power": 3,
-                  "powers": {
-                    "physique": 2,
-                    "reflex": 3,
-                    "grit": 2,
-                    "wits": 1,
-                    "presence": 1
-                  },
-                  "actions": 1,
-                  "exploits": 0,
-                  "damageTiers": {
-                    "label": "medium",
-                    "fleeting": 3,
-                    "masterful": 5,
-                    "legendary": 8
-                  }
-                },
-                "traits": [
-                  "armored_light",
-                  "disciplined"
-                ],
-                "tags": [
-                  "Imperial",
-                  "Military",
-                  "imperial"
-                ],
-                "roleKit": {
-                  "passive": null,
-                  "actions": [
-                    {
-                      "name": "Blaster Volley",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Ranged attack against one target."
-                    },
-                    {
-                      "name": "Bayonet Strike",
-                      "type": "action",
-                      "arena": "physique",
-                      "description": "Melee attack against adjacent target."
-                    }
-                  ],
-                  "maneuver": null,
-                  "gambit": null,
-                  "exploit": null
-                },
-                "weaponChassis": "medium",
-                "loot": []
-              }
-            },
-            {
-              "name": "Stormtrooper",
-              "type": "Character",
-              "count": 1,
-              "loot": [],
-              "threatBuild": {
-                "role": "trooper",
-                "tier": 1,
-                "classification": "minion",
-                "threatCategory": "character",
-                "arenas": {
-                  "physique": 2,
-                  "reflex": 3,
-                  "grit": 2,
-                  "wits": 1,
-                  "presence": 1
-                },
-                "computed": {
-                  "defense": 4,
-                  "evasion": 3,
-                  "resist": 3,
-                  "vitality": 5,
-                  "initiative": 3,
-                  "power": 3,
-                  "powers": {
-                    "physique": 2,
-                    "reflex": 3,
-                    "grit": 2,
-                    "wits": 1,
-                    "presence": 1
-                  },
-                  "actions": 1,
-                  "exploits": 0,
-                  "damageTiers": {
-                    "label": "medium",
-                    "fleeting": 3,
-                    "masterful": 5,
-                    "legendary": 8
-                  }
-                },
-                "traits": [
-                  "armored_light",
-                  "disciplined"
-                ],
-                "tags": [
-                  "Imperial",
-                  "Military",
-                  "imperial"
-                ],
-                "roleKit": {
-                  "passive": null,
-                  "actions": [
-                    {
-                      "name": "Blaster Volley",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Ranged attack against one target."
-                    },
-                    {
-                      "name": "Bayonet Strike",
-                      "type": "action",
-                      "arena": "physique",
-                      "description": "Melee attack against adjacent target."
-                    }
-                  ],
-                  "maneuver": null,
-                  "gambit": null,
-                  "exploit": null
-                },
-                "weaponChassis": "medium",
+                "weaponChassis": "light",
                 "loot": []
               }
             }
