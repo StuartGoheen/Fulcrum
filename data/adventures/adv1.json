@@ -113,7 +113,7 @@
               ],
               "intel": "Maya stole an encrypted Imperial Code Cylinder from Varga's operation. She doesn't know exactly what's on it — she thought it was vault coordinates.",
               "threatBuild": {
-                "role": "operative",
+                "role": "harrier",
                 "tier": 1,
                 "classification": "standard",
                 "threatCategory": "character",
@@ -132,21 +132,6 @@
                 ],
                 "roleKit": {
                   "passive": null,
-                  "actions": [
-                    {
-                      "name": "Silent Kill",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Melee attack from concealment. +2 Power if target is unaware."
-                    },
-                    {
-                      "name": "Sabotage",
-                      "type": "action",
-                      "arena": "wits",
-                      "description": "Disable equipment, lock, or system."
-                    }
-                  ],
-                  "maneuver": null,
                   "gambit": null,
                   "exploit": null
                 },
@@ -173,47 +158,6 @@
                   },
                   "exploits": 0,
                   "initiative": 7,
-                  "role": {
-                    "id": "operative",
-                    "name": "Operative",
-                    "category": "combat",
-                    "description": "Stealth specialist. Infiltrator, saboteur, assassin. Strikes from shadow.",
-                    "arenaMods": {
-                      "reflex": 1,
-                      "presence": -1
-                    },
-                    "passive": {
-                      "name": "Shadow Strike",
-                      "description": "Attacks from stealth gain +1 Power and do not break concealment on a miss."
-                    },
-                    "actions": [
-                      {
-                        "name": "Silent Kill",
-                        "type": "action",
-                        "arena": "reflex",
-                        "description": "Melee attack from concealment. +2 Power if target is unaware."
-                      },
-                      {
-                        "name": "Sabotage",
-                        "type": "action",
-                        "arena": "wits",
-                        "description": "Disable equipment, lock, or system."
-                      }
-                    ],
-                    "maneuver": {
-                      "name": "Vanish",
-                      "description": "If in cover or obscured, become hidden."
-                    },
-                    "gambit": {
-                      "name": "Disarm",
-                      "cost": "-1 Power",
-                      "description": "Target drops held weapon on hit."
-                    },
-                    "exploit": {
-                      "name": "Assassination",
-                      "description": "If attacking an unaware target, double Power for this attack."
-                    }
-                  },
                   "classification": {
                     "id": "standard",
                     "name": "Standard",
@@ -315,7 +259,7 @@
               ],
               "intel": "Knows Maya stole something from Varga's warehouse. Doesn't know what.",
               "threatBuild": {
-                "role": "brute",
+                "role": "threat",
                 "tier": 0,
                 "classification": "minion",
                 "threatCategory": "character",
@@ -348,48 +292,6 @@
                   },
                   "exploits": 0,
                   "initiative": 4,
-                  "role": {
-                    "id": "brute",
-                    "name": "Brute",
-                    "category": "combat",
-                    "description": "Heavy melee combatant. Hits hard, absorbs punishment, terrifies the opposition.",
-                    "arenaMods": {
-                      "physique": 1,
-                      "reflex": -1
-                    },
-                    "passive": {
-                      "name": "Unrelenting",
-                      "description": "Ignore the first [Weakened] condition applied per scene."
-                    },
-                    "actions": [
-                      {
-                        "name": "Crushing Blow",
-                        "type": "action",
-                        "arena": "physique",
-                        "powerMod": 1,
-                        "description": "Melee attack with +1 Power."
-                      },
-                      {
-                        "name": "Hurl",
-                        "type": "action",
-                        "arena": "physique",
-                        "description": "Throw object or enemy at short range."
-                      }
-                    ],
-                    "maneuver": {
-                      "name": "Intimidating Advance",
-                      "description": "Move toward target. Target must resist or gain [Shaken]."
-                    },
-                    "gambit": {
-                      "name": "Knockdown",
-                      "cost": "-1 Power",
-                      "description": "Target gains [Prone] on hit."
-                    },
-                    "exploit": {
-                      "name": "Rampage",
-                      "description": "When dropping a target to 0 Vitality, immediately make another melee attack against a different adjacent target."
-                    }
-                  },
                   "classification": {
                     "id": "minion",
                     "name": "Minion",
@@ -416,22 +318,6 @@
                 ],
                 "roleKit": {
                   "passive": null,
-                  "actions": [
-                    {
-                      "name": "Crushing Blow",
-                      "type": "action",
-                      "arena": "physique",
-                      "powerMod": 1,
-                      "description": "Melee attack with +1 Power."
-                    },
-                    {
-                      "name": "Hurl",
-                      "type": "action",
-                      "arena": "physique",
-                      "description": "Throw object or enemy at short range."
-                    }
-                  ],
-                  "maneuver": null,
                   "gambit": null,
                   "exploit": null
                 },
@@ -574,7 +460,7 @@
                 }
               ],
               "threatBuild": {
-                "role": "brute",
+                "role": "threat",
                 "tier": 0,
                 "classification": "minion",
                 "threatCategory": "character",
@@ -607,48 +493,6 @@
                   },
                   "exploits": 0,
                   "initiative": 4,
-                  "role": {
-                    "id": "brute",
-                    "name": "Brute",
-                    "category": "combat",
-                    "description": "Heavy melee combatant. Hits hard, absorbs punishment, terrifies the opposition.",
-                    "arenaMods": {
-                      "physique": 1,
-                      "reflex": -1
-                    },
-                    "passive": {
-                      "name": "Unrelenting",
-                      "description": "Ignore the first [Weakened] condition applied per scene."
-                    },
-                    "actions": [
-                      {
-                        "name": "Crushing Blow",
-                        "type": "action",
-                        "arena": "physique",
-                        "powerMod": 1,
-                        "description": "Melee attack with +1 Power."
-                      },
-                      {
-                        "name": "Hurl",
-                        "type": "action",
-                        "arena": "physique",
-                        "description": "Throw object or enemy at short range."
-                      }
-                    ],
-                    "maneuver": {
-                      "name": "Intimidating Advance",
-                      "description": "Move toward target. Target must resist or gain [Shaken]."
-                    },
-                    "gambit": {
-                      "name": "Knockdown",
-                      "cost": "-1 Power",
-                      "description": "Target gains [Prone] on hit."
-                    },
-                    "exploit": {
-                      "name": "Rampage",
-                      "description": "When dropping a target to 0 Vitality, immediately make another melee attack against a different adjacent target."
-                    }
-                  },
                   "classification": {
                     "id": "minion",
                     "name": "Minion",
@@ -675,22 +519,6 @@
                 ],
                 "roleKit": {
                   "passive": null,
-                  "actions": [
-                    {
-                      "name": "Crushing Blow",
-                      "type": "action",
-                      "arena": "physique",
-                      "powerMod": 1,
-                      "description": "Melee attack with +1 Power."
-                    },
-                    {
-                      "name": "Hurl",
-                      "type": "action",
-                      "arena": "physique",
-                      "description": "Throw object or enemy at short range."
-                    }
-                  ],
-                  "maneuver": null,
                   "gambit": null,
                   "exploit": null
                 },
@@ -795,7 +623,7 @@
                 }
               ],
               "threatBuild": {
-                "role": "brute",
+                "role": "threat",
                 "tier": 1,
                 "classification": "standard",
                 "threatCategory": "character",
@@ -828,48 +656,6 @@
                   },
                   "exploits": 0,
                   "initiative": 5,
-                  "role": {
-                    "id": "brute",
-                    "name": "Brute",
-                    "category": "combat",
-                    "description": "Heavy melee combatant. Hits hard, absorbs punishment, terrifies the opposition.",
-                    "arenaMods": {
-                      "physique": 1,
-                      "reflex": -1
-                    },
-                    "passive": {
-                      "name": "Unrelenting",
-                      "description": "Ignore the first [Weakened] condition applied per scene."
-                    },
-                    "actions": [
-                      {
-                        "name": "Crushing Blow",
-                        "type": "action",
-                        "arena": "physique",
-                        "powerMod": 1,
-                        "description": "Melee attack with +1 Power."
-                      },
-                      {
-                        "name": "Hurl",
-                        "type": "action",
-                        "arena": "physique",
-                        "description": "Throw object or enemy at short range."
-                      }
-                    ],
-                    "maneuver": {
-                      "name": "Intimidating Advance",
-                      "description": "Move toward target. Target must resist or gain [Shaken]."
-                    },
-                    "gambit": {
-                      "name": "Knockdown",
-                      "cost": "-1 Power",
-                      "description": "Target gains [Prone] on hit."
-                    },
-                    "exploit": {
-                      "name": "Rampage",
-                      "description": "When dropping a target to 0 Vitality, immediately make another melee attack against a different adjacent target."
-                    }
-                  },
                   "classification": {
                     "id": "standard",
                     "name": "Standard",
@@ -896,22 +682,6 @@
                 ],
                 "roleKit": {
                   "passive": null,
-                  "actions": [
-                    {
-                      "name": "Crushing Blow",
-                      "type": "action",
-                      "arena": "physique",
-                      "powerMod": 1,
-                      "description": "Melee attack with +1 Power."
-                    },
-                    {
-                      "name": "Hurl",
-                      "type": "action",
-                      "arena": "physique",
-                      "description": "Throw object or enemy at short range."
-                    }
-                  ],
-                  "maneuver": null,
                   "gambit": null,
                   "exploit": null
                 },
@@ -1054,7 +824,7 @@
                     "count": 2,
                     "threat": "minion",
                     "classification": "minion",
-                    "role": "skirmisher",
+                    "role": "harrier",
                     "tier": 0
                   }
                 ],
@@ -1430,21 +1200,6 @@
                 ],
                 "roleKit": {
                   "passive": null,
-                  "actions": [
-                    {
-                      "name": "Expose Secret",
-                      "type": "action",
-                      "arena": "wits",
-                      "description": "Social attack. Reveal damaging information. Targets Resist."
-                    },
-                    {
-                      "name": "Offer Intel",
-                      "type": "action",
-                      "arena": "presence",
-                      "description": "Trade information for a concession."
-                    }
-                  ],
-                  "maneuver": null,
                   "gambit": null,
                   "exploit": null
                 },
@@ -1777,7 +1532,7 @@
                 }
               ],
               "threatBuild": {
-                "role": "trooper",
+                "role": "anchor",
                 "tier": 0,
                 "classification": "minion",
                 "threatCategory": "character",
@@ -1817,21 +1572,6 @@
                 "tags": [],
                 "roleKit": {
                   "passive": null,
-                  "actions": [
-                    {
-                      "name": "Blaster Volley",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Ranged attack against one target."
-                    },
-                    {
-                      "name": "Bayonet Strike",
-                      "type": "action",
-                      "arena": "physique",
-                      "description": "Melee attack against adjacent target."
-                    }
-                  ],
-                  "maneuver": null,
                   "gambit": null,
                   "exploit": null
                 },
@@ -1883,7 +1623,7 @@
                 }
               ],
               "threatBuild": {
-                "role": "trooper",
+                "role": "anchor",
                 "tier": 0,
                 "classification": "minion",
                 "threatCategory": "character",
@@ -1923,21 +1663,6 @@
                 "tags": [],
                 "roleKit": {
                   "passive": null,
-                  "actions": [
-                    {
-                      "name": "Blaster Volley",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Ranged attack against one target."
-                    },
-                    {
-                      "name": "Bayonet Strike",
-                      "type": "action",
-                      "arena": "physique",
-                      "description": "Melee attack against adjacent target."
-                    }
-                  ],
-                  "maneuver": null,
                   "gambit": null,
                   "exploit": null
                 },
@@ -1989,7 +1714,7 @@
                 }
               ],
               "threatBuild": {
-                "role": "trooper",
+                "role": "anchor",
                 "tier": 0,
                 "classification": "minion",
                 "threatCategory": "character",
@@ -2029,21 +1754,6 @@
                 "tags": [],
                 "roleKit": {
                   "passive": null,
-                  "actions": [
-                    {
-                      "name": "Blaster Volley",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Ranged attack against one target."
-                    },
-                    {
-                      "name": "Bayonet Strike",
-                      "type": "action",
-                      "arena": "physique",
-                      "description": "Melee attack against adjacent target."
-                    }
-                  ],
-                  "maneuver": null,
                   "gambit": null,
                   "exploit": null
                 },
@@ -2095,7 +1805,7 @@
                 }
               ],
               "threatBuild": {
-                "role": "trooper",
+                "role": "anchor",
                 "tier": 0,
                 "classification": "minion",
                 "threatCategory": "character",
@@ -2135,21 +1845,6 @@
                 "tags": [],
                 "roleKit": {
                   "passive": null,
-                  "actions": [
-                    {
-                      "name": "Blaster Volley",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Ranged attack against one target."
-                    },
-                    {
-                      "name": "Bayonet Strike",
-                      "type": "action",
-                      "arena": "physique",
-                      "description": "Melee attack against adjacent target."
-                    }
-                  ],
-                  "maneuver": null,
                   "gambit": null,
                   "exploit": null
                 },
@@ -2201,7 +1896,7 @@
                 }
               ],
               "threatBuild": {
-                "role": "trooper",
+                "role": "anchor",
                 "tier": 0,
                 "classification": "minion",
                 "threatCategory": "character",
@@ -2241,21 +1936,6 @@
                 "tags": [],
                 "roleKit": {
                   "passive": null,
-                  "actions": [
-                    {
-                      "name": "Blaster Volley",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Ranged attack against one target."
-                    },
-                    {
-                      "name": "Bayonet Strike",
-                      "type": "action",
-                      "arena": "physique",
-                      "description": "Melee attack against adjacent target."
-                    }
-                  ],
-                  "maneuver": null,
                   "gambit": null,
                   "exploit": null
                 },
@@ -2307,7 +1987,7 @@
                 }
               ],
               "threatBuild": {
-                "role": "trooper",
+                "role": "anchor",
                 "tier": 0,
                 "classification": "minion",
                 "threatCategory": "character",
@@ -2347,21 +2027,6 @@
                 "tags": [],
                 "roleKit": {
                   "passive": null,
-                  "actions": [
-                    {
-                      "name": "Blaster Volley",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Ranged attack against one target."
-                    },
-                    {
-                      "name": "Bayonet Strike",
-                      "type": "action",
-                      "arena": "physique",
-                      "description": "Melee attack against adjacent target."
-                    }
-                  ],
-                  "maneuver": null,
                   "gambit": null,
                   "exploit": null
                 },
@@ -2413,7 +2078,7 @@
                 }
               ],
               "threatBuild": {
-                "role": "trooper",
+                "role": "anchor",
                 "tier": 0,
                 "classification": "minion",
                 "threatCategory": "character",
@@ -2453,21 +2118,6 @@
                 "tags": [],
                 "roleKit": {
                   "passive": null,
-                  "actions": [
-                    {
-                      "name": "Blaster Volley",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Ranged attack against one target."
-                    },
-                    {
-                      "name": "Bayonet Strike",
-                      "type": "action",
-                      "arena": "physique",
-                      "description": "Melee attack against adjacent target."
-                    }
-                  ],
-                  "maneuver": null,
                   "gambit": null,
                   "exploit": null
                 },
@@ -2559,7 +2209,7 @@
                 }
               ],
               "threatBuild": {
-                "role": "commander",
+                "role": "support",
                 "tier": 1,
                 "classification": "elite",
                 "threatCategory": "character",
@@ -2604,57 +2254,6 @@
                 ],
                 "roleKit": {
                   "passive": null,
-                  "actions": [
-                    {
-                      "name": "Direct Fire",
-                      "type": "action",
-                      "arena": "presence",
-                      "defense": "none",
-                      "description": "Order one ally to immediately make an attack as a reaction.",
-                      "npcEffects": [
-                        {
-                          "tier": "F",
-                          "range": "-1 to -3",
-                          "description": "One ally makes a basic attack as a reaction."
-                        },
-                        {
-                          "tier": "M",
-                          "range": "-4 to -7",
-                          "description": "One ally attacks with [Optimized]."
-                        },
-                        {
-                          "tier": "L",
-                          "range": "-8+",
-                          "description": "Two allies each make an attack. One gains [Optimized]."
-                        }
-                      ]
-                    },
-                    {
-                      "name": "Rally",
-                      "type": "action",
-                      "arena": "presence",
-                      "defense": "none",
-                      "description": "Remove [Shaken] or [Rattled] from one ally in range.",
-                      "npcEffects": [
-                        {
-                          "tier": "F",
-                          "range": "-1 to -3",
-                          "description": "Remove [Rattled] or [Shaken] from one ally."
-                        },
-                        {
-                          "tier": "M",
-                          "range": "-4 to -7",
-                          "description": "Remove one condition from one ally. Ally gains [Buffered 1]."
-                        },
-                        {
-                          "tier": "L",
-                          "range": "-8+",
-                          "description": "Remove all [Rattled]/[Shaken] from one ally. Ally gains [Buffered 2]."
-                        }
-                      ]
-                    }
-                  ],
-                  "maneuver": null,
                   "gambit": null,
                   "exploit": null
                 },
@@ -2866,7 +2465,7 @@
               "count": 1,
               "loot": [],
               "threatBuild": {
-                "role": "trooper",
+                "role": "anchor",
                 "tier": 1,
                 "classification": "minion",
                 "threatCategory": "character",
@@ -2899,88 +2498,6 @@
                   },
                   "exploits": 0,
                   "initiative": 5,
-                  "role": {
-                    "id": "trooper",
-                    "name": "Trooper",
-                    "category": "combat",
-                    "description": "Disciplined ranged combatant. Reliable, consistent, operates best in squads.",
-                    "arenaMods": {},
-                    "powerBonus": {
-                      "value": 1,
-                      "condition": "weapon attacks"
-                    },
-                    "passive": {
-                      "name": "Disciplined Fire",
-                      "description": "+1 Power on weapon attacks."
-                    },
-                    "actions": [
-                      {
-                        "name": "Blaster Volley",
-                        "type": "action",
-                        "arena": "reflex",
-                        "defense": "dodge/endure",
-                        "description": "Ranged attack against one target.",
-                        "npcEffects": [
-                          {
-                            "tier": "F",
-                            "range": "-1 to -3",
-                            "description": "Chassis damage."
-                          },
-                          {
-                            "tier": "M",
-                            "range": "-4 to -7",
-                            "description": "Chassis damage. Target gains [Suppressed] Tactical."
-                          },
-                          {
-                            "tier": "L",
-                            "range": "-8+",
-                            "description": "Chassis damage. Target gains [Suppressed] and [Prone]."
-                          }
-                        ]
-                      },
-                      {
-                        "name": "Bayonet Strike",
-                        "type": "action",
-                        "arena": "physique",
-                        "defense": "dodge/endure",
-                        "description": "Melee attack against adjacent target.",
-                        "npcEffects": [
-                          {
-                            "tier": "F",
-                            "range": "-1 to -3",
-                            "description": "Chassis damage."
-                          },
-                          {
-                            "tier": "M",
-                            "range": "-4 to -7",
-                            "description": "Chassis damage. Push target 1 zone."
-                          },
-                          {
-                            "tier": "L",
-                            "range": "-8+",
-                            "description": "Chassis damage. Push 1 zone. Target gains [Prone]."
-                          }
-                        ]
-                      }
-                    ],
-                    "maneuver": {
-                      "name": "Take Cover",
-                      "defense": "none",
-                      "description": "Move to cover. Gain [Cover] until leaving position."
-                    },
-                    "gambit": {
-                      "name": "Suppressive Fire",
-                      "cost": "-1 Power",
-                      "modifies": "Blaster Volley",
-                      "description": "In addition to normal effects, target gains [Suppressed] Tactical.",
-                      "rider": "[Suppressed] Tactical"
-                    },
-                    "exploit": {
-                      "name": "Coordinated Fire",
-                      "trigger": "An allied Trooper attacks the same target this round.",
-                      "description": "All allied Troopers targeting the same enemy gain +1 Power this round."
-                    }
-                  },
                   "classification": {
                     "id": "minion",
                     "name": "Minion",
@@ -3012,57 +2529,6 @@
                 ],
                 "roleKit": {
                   "passive": null,
-                  "actions": [
-                    {
-                      "name": "Blaster Volley",
-                      "type": "action",
-                      "arena": "reflex",
-                      "defense": "dodge/endure",
-                      "description": "Ranged attack against one target.",
-                      "npcEffects": [
-                        {
-                          "tier": "F",
-                          "range": "-1 to -3",
-                          "description": "Chassis damage."
-                        },
-                        {
-                          "tier": "M",
-                          "range": "-4 to -7",
-                          "description": "Chassis damage. Target gains [Suppressed] Tactical."
-                        },
-                        {
-                          "tier": "L",
-                          "range": "-8+",
-                          "description": "Chassis damage. Target gains [Suppressed] and [Prone]."
-                        }
-                      ]
-                    },
-                    {
-                      "name": "Bayonet Strike",
-                      "type": "action",
-                      "arena": "physique",
-                      "defense": "dodge/endure",
-                      "description": "Melee attack against adjacent target.",
-                      "npcEffects": [
-                        {
-                          "tier": "F",
-                          "range": "-1 to -3",
-                          "description": "Chassis damage."
-                        },
-                        {
-                          "tier": "M",
-                          "range": "-4 to -7",
-                          "description": "Chassis damage. Push target 1 zone."
-                        },
-                        {
-                          "tier": "L",
-                          "range": "-8+",
-                          "description": "Chassis damage. Push 1 zone. Target gains [Prone]."
-                        }
-                      ]
-                    }
-                  ],
-                  "maneuver": null,
                   "gambit": null,
                   "exploit": null
                 },
@@ -3089,7 +2555,7 @@
               "count": 1,
               "loot": [],
               "threatBuild": {
-                "role": "trooper",
+                "role": "anchor",
                 "tier": 1,
                 "classification": "minion",
                 "threatCategory": "character",
@@ -3134,57 +2600,6 @@
                 ],
                 "roleKit": {
                   "passive": null,
-                  "actions": [
-                    {
-                      "name": "Blaster Volley",
-                      "type": "action",
-                      "arena": "reflex",
-                      "defense": "dodge/endure",
-                      "description": "Ranged attack against one target.",
-                      "npcEffects": [
-                        {
-                          "tier": "F",
-                          "range": "-1 to -3",
-                          "description": "Chassis damage."
-                        },
-                        {
-                          "tier": "M",
-                          "range": "-4 to -7",
-                          "description": "Chassis damage. Target gains [Suppressed] Tactical."
-                        },
-                        {
-                          "tier": "L",
-                          "range": "-8+",
-                          "description": "Chassis damage. Target gains [Suppressed] and [Prone]."
-                        }
-                      ]
-                    },
-                    {
-                      "name": "Bayonet Strike",
-                      "type": "action",
-                      "arena": "physique",
-                      "defense": "dodge/endure",
-                      "description": "Melee attack against adjacent target.",
-                      "npcEffects": [
-                        {
-                          "tier": "F",
-                          "range": "-1 to -3",
-                          "description": "Chassis damage."
-                        },
-                        {
-                          "tier": "M",
-                          "range": "-4 to -7",
-                          "description": "Chassis damage. Push target 1 zone."
-                        },
-                        {
-                          "tier": "L",
-                          "range": "-8+",
-                          "description": "Chassis damage. Push 1 zone. Target gains [Prone]."
-                        }
-                      ]
-                    }
-                  ],
-                  "maneuver": null,
                   "gambit": null,
                   "exploit": null
                 },
@@ -3198,7 +2613,7 @@
               "count": 1,
               "loot": [],
               "threatBuild": {
-                "role": "trooper",
+                "role": "anchor",
                 "tier": 1,
                 "classification": "minion",
                 "threatCategory": "character",
@@ -3243,57 +2658,6 @@
                 ],
                 "roleKit": {
                   "passive": null,
-                  "actions": [
-                    {
-                      "name": "Blaster Volley",
-                      "type": "action",
-                      "arena": "reflex",
-                      "defense": "dodge/endure",
-                      "description": "Ranged attack against one target.",
-                      "npcEffects": [
-                        {
-                          "tier": "F",
-                          "range": "-1 to -3",
-                          "description": "Chassis damage."
-                        },
-                        {
-                          "tier": "M",
-                          "range": "-4 to -7",
-                          "description": "Chassis damage. Target gains [Suppressed] Tactical."
-                        },
-                        {
-                          "tier": "L",
-                          "range": "-8+",
-                          "description": "Chassis damage. Target gains [Suppressed] and [Prone]."
-                        }
-                      ]
-                    },
-                    {
-                      "name": "Bayonet Strike",
-                      "type": "action",
-                      "arena": "physique",
-                      "defense": "dodge/endure",
-                      "description": "Melee attack against adjacent target.",
-                      "npcEffects": [
-                        {
-                          "tier": "F",
-                          "range": "-1 to -3",
-                          "description": "Chassis damage."
-                        },
-                        {
-                          "tier": "M",
-                          "range": "-4 to -7",
-                          "description": "Chassis damage. Push target 1 zone."
-                        },
-                        {
-                          "tier": "L",
-                          "range": "-8+",
-                          "description": "Chassis damage. Push 1 zone. Target gains [Prone]."
-                        }
-                      ]
-                    }
-                  ],
-                  "maneuver": null,
                   "gambit": null,
                   "exploit": null
                 },
@@ -3307,7 +2671,7 @@
               "count": 1,
               "loot": [],
               "threatBuild": {
-                "role": "trooper",
+                "role": "anchor",
                 "tier": 1,
                 "classification": "minion",
                 "threatCategory": "character",
@@ -3352,57 +2716,6 @@
                 ],
                 "roleKit": {
                   "passive": null,
-                  "actions": [
-                    {
-                      "name": "Blaster Volley",
-                      "type": "action",
-                      "arena": "reflex",
-                      "defense": "dodge/endure",
-                      "description": "Ranged attack against one target.",
-                      "npcEffects": [
-                        {
-                          "tier": "F",
-                          "range": "-1 to -3",
-                          "description": "Chassis damage."
-                        },
-                        {
-                          "tier": "M",
-                          "range": "-4 to -7",
-                          "description": "Chassis damage. Target gains [Suppressed] Tactical."
-                        },
-                        {
-                          "tier": "L",
-                          "range": "-8+",
-                          "description": "Chassis damage. Target gains [Suppressed] and [Prone]."
-                        }
-                      ]
-                    },
-                    {
-                      "name": "Bayonet Strike",
-                      "type": "action",
-                      "arena": "physique",
-                      "defense": "dodge/endure",
-                      "description": "Melee attack against adjacent target.",
-                      "npcEffects": [
-                        {
-                          "tier": "F",
-                          "range": "-1 to -3",
-                          "description": "Chassis damage."
-                        },
-                        {
-                          "tier": "M",
-                          "range": "-4 to -7",
-                          "description": "Chassis damage. Push target 1 zone."
-                        },
-                        {
-                          "tier": "L",
-                          "range": "-8+",
-                          "description": "Chassis damage. Push 1 zone. Target gains [Prone]."
-                        }
-                      ]
-                    }
-                  ],
-                  "maneuver": null,
                   "gambit": null,
                   "exploit": null
                 },
@@ -3416,7 +2729,7 @@
               "count": 1,
               "loot": [],
               "threatBuild": {
-                "role": "trooper",
+                "role": "anchor",
                 "tier": 1,
                 "classification": "minion",
                 "threatCategory": "character",
@@ -3457,57 +2770,6 @@
                 "tags": [],
                 "roleKit": {
                   "passive": null,
-                  "actions": [
-                    {
-                      "name": "Blaster Volley",
-                      "type": "action",
-                      "arena": "reflex",
-                      "defense": "dodge/endure",
-                      "description": "Ranged attack against one target.",
-                      "npcEffects": [
-                        {
-                          "tier": "F",
-                          "range": "-1 to -3",
-                          "description": "Chassis damage."
-                        },
-                        {
-                          "tier": "M",
-                          "range": "-4 to -7",
-                          "description": "Chassis damage. Target gains [Suppressed] Tactical."
-                        },
-                        {
-                          "tier": "L",
-                          "range": "-8+",
-                          "description": "Chassis damage. Target gains [Suppressed] and [Prone]."
-                        }
-                      ]
-                    },
-                    {
-                      "name": "Bayonet Strike",
-                      "type": "action",
-                      "arena": "physique",
-                      "defense": "dodge/endure",
-                      "description": "Melee attack against adjacent target.",
-                      "npcEffects": [
-                        {
-                          "tier": "F",
-                          "range": "-1 to -3",
-                          "description": "Chassis damage."
-                        },
-                        {
-                          "tier": "M",
-                          "range": "-4 to -7",
-                          "description": "Chassis damage. Push target 1 zone."
-                        },
-                        {
-                          "tier": "L",
-                          "range": "-8+",
-                          "description": "Chassis damage. Push 1 zone. Target gains [Prone]."
-                        }
-                      ]
-                    }
-                  ],
-                  "maneuver": null,
                   "gambit": null,
                   "exploit": null
                 },
@@ -3521,7 +2783,7 @@
               "count": 1,
               "loot": [],
               "threatBuild": {
-                "role": "trooper",
+                "role": "anchor",
                 "tier": 1,
                 "classification": "minion",
                 "threatCategory": "character",
@@ -3562,57 +2824,6 @@
                 "tags": [],
                 "roleKit": {
                   "passive": null,
-                  "actions": [
-                    {
-                      "name": "Blaster Volley",
-                      "type": "action",
-                      "arena": "reflex",
-                      "defense": "dodge/endure",
-                      "description": "Ranged attack against one target.",
-                      "npcEffects": [
-                        {
-                          "tier": "F",
-                          "range": "-1 to -3",
-                          "description": "Chassis damage."
-                        },
-                        {
-                          "tier": "M",
-                          "range": "-4 to -7",
-                          "description": "Chassis damage. Target gains [Suppressed] Tactical."
-                        },
-                        {
-                          "tier": "L",
-                          "range": "-8+",
-                          "description": "Chassis damage. Target gains [Suppressed] and [Prone]."
-                        }
-                      ]
-                    },
-                    {
-                      "name": "Bayonet Strike",
-                      "type": "action",
-                      "arena": "physique",
-                      "defense": "dodge/endure",
-                      "description": "Melee attack against adjacent target.",
-                      "npcEffects": [
-                        {
-                          "tier": "F",
-                          "range": "-1 to -3",
-                          "description": "Chassis damage."
-                        },
-                        {
-                          "tier": "M",
-                          "range": "-4 to -7",
-                          "description": "Chassis damage. Push target 1 zone."
-                        },
-                        {
-                          "tier": "L",
-                          "range": "-8+",
-                          "description": "Chassis damage. Push 1 zone. Target gains [Prone]."
-                        }
-                      ]
-                    }
-                  ],
-                  "maneuver": null,
                   "gambit": null,
                   "exploit": null
                 },
@@ -3626,7 +2837,7 @@
               "count": 1,
               "loot": [],
               "threatBuild": {
-                "role": "trooper",
+                "role": "anchor",
                 "tier": 1,
                 "classification": "minion",
                 "threatCategory": "character",
@@ -3667,57 +2878,6 @@
                 "tags": [],
                 "roleKit": {
                   "passive": null,
-                  "actions": [
-                    {
-                      "name": "Blaster Volley",
-                      "type": "action",
-                      "arena": "reflex",
-                      "defense": "dodge/endure",
-                      "description": "Ranged attack against one target.",
-                      "npcEffects": [
-                        {
-                          "tier": "F",
-                          "range": "-1 to -3",
-                          "description": "Chassis damage."
-                        },
-                        {
-                          "tier": "M",
-                          "range": "-4 to -7",
-                          "description": "Chassis damage. Target gains [Suppressed] Tactical."
-                        },
-                        {
-                          "tier": "L",
-                          "range": "-8+",
-                          "description": "Chassis damage. Target gains [Suppressed] and [Prone]."
-                        }
-                      ]
-                    },
-                    {
-                      "name": "Bayonet Strike",
-                      "type": "action",
-                      "arena": "physique",
-                      "defense": "dodge/endure",
-                      "description": "Melee attack against adjacent target.",
-                      "npcEffects": [
-                        {
-                          "tier": "F",
-                          "range": "-1 to -3",
-                          "description": "Chassis damage."
-                        },
-                        {
-                          "tier": "M",
-                          "range": "-4 to -7",
-                          "description": "Chassis damage. Push target 1 zone."
-                        },
-                        {
-                          "tier": "L",
-                          "range": "-8+",
-                          "description": "Chassis damage. Push 1 zone. Target gains [Prone]."
-                        }
-                      ]
-                    }
-                  ],
-                  "maneuver": null,
                   "gambit": null,
                   "exploit": null
                 },
@@ -3731,7 +2891,7 @@
               "count": 1,
               "loot": [],
               "threatBuild": {
-                "role": "trooper",
+                "role": "anchor",
                 "tier": 1,
                 "classification": "minion",
                 "threatCategory": "character",
@@ -3772,57 +2932,6 @@
                 "tags": [],
                 "roleKit": {
                   "passive": null,
-                  "actions": [
-                    {
-                      "name": "Blaster Volley",
-                      "type": "action",
-                      "arena": "reflex",
-                      "defense": "dodge/endure",
-                      "description": "Ranged attack against one target.",
-                      "npcEffects": [
-                        {
-                          "tier": "F",
-                          "range": "-1 to -3",
-                          "description": "Chassis damage."
-                        },
-                        {
-                          "tier": "M",
-                          "range": "-4 to -7",
-                          "description": "Chassis damage. Target gains [Suppressed] Tactical."
-                        },
-                        {
-                          "tier": "L",
-                          "range": "-8+",
-                          "description": "Chassis damage. Target gains [Suppressed] and [Prone]."
-                        }
-                      ]
-                    },
-                    {
-                      "name": "Bayonet Strike",
-                      "type": "action",
-                      "arena": "physique",
-                      "defense": "dodge/endure",
-                      "description": "Melee attack against adjacent target.",
-                      "npcEffects": [
-                        {
-                          "tier": "F",
-                          "range": "-1 to -3",
-                          "description": "Chassis damage."
-                        },
-                        {
-                          "tier": "M",
-                          "range": "-4 to -7",
-                          "description": "Chassis damage. Push target 1 zone."
-                        },
-                        {
-                          "tier": "L",
-                          "range": "-8+",
-                          "description": "Chassis damage. Push 1 zone. Target gains [Prone]."
-                        }
-                      ]
-                    }
-                  ],
-                  "maneuver": null,
                   "gambit": null,
                   "exploit": null
                 },
@@ -4082,7 +3191,7 @@
               ],
               "intel": "Maya has run the Rishi Maze before — smuggling routes. She knows the Banshee's limits and pushes them. She has no idea what the Vanishing Place is, but the Imperial presence tells her it matters. The co-pilot invitation is genuine — she needs the help and she's starting to trust the crew.",
               "threatBuild": {
-                "role": "operative",
+                "role": "harrier",
                 "tier": 1,
                 "classification": "standard",
                 "threatCategory": "character",
@@ -4098,21 +3207,6 @@
                 "tags": [],
                 "roleKit": {
                   "passive": null,
-                  "actions": [
-                    {
-                      "name": "Silent Kill",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Melee attack from concealment. +2 Power if target is unaware."
-                    },
-                    {
-                      "name": "Sabotage",
-                      "type": "action",
-                      "arena": "wits",
-                      "description": "Disable equipment, lock, or system."
-                    }
-                  ],
-                  "maneuver": null,
                   "gambit": null,
                   "exploit": null
                 },
@@ -4139,47 +3233,6 @@
                   },
                   "exploits": 0,
                   "initiative": 7,
-                  "role": {
-                    "id": "operative",
-                    "name": "Operative",
-                    "category": "combat",
-                    "description": "Stealth specialist. Infiltrator, saboteur, assassin. Strikes from shadow.",
-                    "arenaMods": {
-                      "reflex": 1,
-                      "presence": -1
-                    },
-                    "passive": {
-                      "name": "Shadow Strike",
-                      "description": "Attacks from stealth gain +1 Power and do not break concealment on a miss."
-                    },
-                    "actions": [
-                      {
-                        "name": "Silent Kill",
-                        "type": "action",
-                        "arena": "reflex",
-                        "description": "Melee attack from concealment. +2 Power if target is unaware."
-                      },
-                      {
-                        "name": "Sabotage",
-                        "type": "action",
-                        "arena": "wits",
-                        "description": "Disable equipment, lock, or system."
-                      }
-                    ],
-                    "maneuver": {
-                      "name": "Vanish",
-                      "description": "If in cover or obscured, become hidden."
-                    },
-                    "gambit": {
-                      "name": "Disarm",
-                      "cost": "-1 Power",
-                      "description": "Target drops held weapon on hit."
-                    },
-                    "exploit": {
-                      "name": "Assassination",
-                      "description": "If attacking an unaware target, double Power for this attack."
-                    }
-                  },
                   "classification": {
                     "id": "standard",
                     "name": "Standard",
@@ -4447,7 +3500,7 @@
               ],
               "intel": "Maya estimates 12-18 hours for repairs with proper tools. Without a Starship Tool Kit, all repair rolls are stepped down. Her wound is stabilized but she's operating one-handed. The turret defense grid she detected is powered by the fortress generator — but she doesn't know that yet.",
               "threatBuild": {
-                "role": "operative",
+                "role": "harrier",
                 "tier": 1,
                 "classification": "standard",
                 "threatCategory": "character",
@@ -4463,21 +3516,6 @@
                 "tags": [],
                 "roleKit": {
                   "passive": null,
-                  "actions": [
-                    {
-                      "name": "Silent Kill",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Melee attack from concealment. +2 Power if target is unaware."
-                    },
-                    {
-                      "name": "Sabotage",
-                      "type": "action",
-                      "arena": "wits",
-                      "description": "Disable equipment, lock, or system."
-                    }
-                  ],
-                  "maneuver": null,
                   "gambit": null,
                   "exploit": null
                 },
@@ -4504,47 +3542,6 @@
                   },
                   "exploits": 0,
                   "initiative": 7,
-                  "role": {
-                    "id": "operative",
-                    "name": "Operative",
-                    "category": "combat",
-                    "description": "Stealth specialist. Infiltrator, saboteur, assassin. Strikes from shadow.",
-                    "arenaMods": {
-                      "reflex": 1,
-                      "presence": -1
-                    },
-                    "passive": {
-                      "name": "Shadow Strike",
-                      "description": "Attacks from stealth gain +1 Power and do not break concealment on a miss."
-                    },
-                    "actions": [
-                      {
-                        "name": "Silent Kill",
-                        "type": "action",
-                        "arena": "reflex",
-                        "description": "Melee attack from concealment. +2 Power if target is unaware."
-                      },
-                      {
-                        "name": "Sabotage",
-                        "type": "action",
-                        "arena": "wits",
-                        "description": "Disable equipment, lock, or system."
-                      }
-                    ],
-                    "maneuver": {
-                      "name": "Vanish",
-                      "description": "If in cover or obscured, become hidden."
-                    },
-                    "gambit": {
-                      "name": "Disarm",
-                      "cost": "-1 Power",
-                      "description": "Target drops held weapon on hit."
-                    },
-                    "exploit": {
-                      "name": "Assassination",
-                      "description": "If attacking an unaware target, double Power for this attack."
-                    }
-                  },
                   "classification": {
                     "id": "standard",
                     "name": "Standard",
@@ -4852,7 +3849,7 @@
               ],
               "intel": "Mandrake knows the fortress layout intimately. He's been running recon for years. He knows guard rotations, blind spots, the drainage sluice entrance, and critically, the generator's role in powering turrets, laser fences, security doors, and the sensor grid. He also knows Vischera is conducting experiments in the Medical Bay. His indigenous people — the locals who adopted him — are held in detention pens near the fortress's east wing.",
               "threatBuild": {
-                "role": "operative",
+                "role": "harrier",
                 "tier": 2,
                 "classification": "standard",
                 "threatCategory": "character",
@@ -4875,27 +3872,6 @@
                   "passive": {
                     "name": "Guerrilla Warfare",
                     "description": "Mandrake gains +1 Power on attacks from concealment. He has been waging a one-man insurgency for three years."
-                  },
-                  "actions": [
-                    {
-                      "name": "Ambush Shot",
-                      "type": "action",
-                      "arena": "reflex",
-                      "powerMod": 1,
-                      "description": "Ranged attack from concealment. +1 Power if target is unaware.",
-                      "attackPower": 5
-                    },
-                    {
-                      "name": "Thermal Charge",
-                      "type": "action",
-                      "arena": "wits",
-                      "description": "Place or throw an explosive. Area damage in one zone.",
-                      "attackPower": 3
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Vanish",
-                    "description": "If in cover or jungle terrain, become hidden."
                   },
                   "gambit": {
                     "name": "Booby Trap",
@@ -5195,7 +4171,7 @@
               ],
               "intel": "Vischera knows Draco is coming specifically for Varth. She knows Skarn is stalling the Imperial handoff to extract more payment. She knows Varth has a memorized authentication key that he considers essential — something tied to financial records — but she doesn't know the details.",
               "threatBuild": {
-                "role": "technician",
+                "role": "controller",
                 "tier": 1,
                 "classification": "standard",
                 "threatCategory": "character",
@@ -5218,26 +4194,6 @@
                   "passive": {
                     "name": "Field Researcher",
                     "description": "Vischera can identify biological threats, toxins, and experimental compounds. Her lab is her weapon."
-                  },
-                  "actions": [
-                    {
-                      "name": "Injector",
-                      "type": "action",
-                      "arena": "wits",
-                      "description": "Melee attack with a sedative injector. Target must Endure or gain [Stunned].",
-                      "attackPower": 4
-                    },
-                    {
-                      "name": "Activate Security",
-                      "type": "action",
-                      "arena": "wits",
-                      "description": "Lock down the Medical Bay. Blast doors seal, containment protocols activate.",
-                      "attackPower": 4
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Analyze Specimen",
-                    "description": "Study a target. Learn one biological weakness or condition vulnerability."
                   },
                   "gambit": {
                     "name": "Chemical Agent",
@@ -5281,7 +4237,7 @@
               ],
               "intel": "The mercs know Skarn is playing a dangerous game with the Empire. Morale is low — they're afraid of Draco.",
               "threatBuild": {
-                "role": "trooper",
+                "role": "anchor",
                 "tier": 0,
                 "classification": "minion",
                 "threatCategory": "character",
@@ -5299,26 +4255,6 @@
                   "passive": {
                     "name": "Disciplined Fire",
                     "description": "+1 Power on weapon attacks."
-                  },
-                  "actions": [
-                    {
-                      "name": "Blaster Shot",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Ranged attack against one target.",
-                      "attackPower": 1
-                    },
-                    {
-                      "name": "Club Strike",
-                      "type": "action",
-                      "arena": "physique",
-                      "description": "Melee attack with weapon butt.",
-                      "attackPower": 1
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Take Cover",
-                    "description": "Move to cover."
                   },
                   "gambit": {
                     "name": "Suppressive Fire",
@@ -5361,7 +4297,7 @@
               ],
               "intel": "The troopers know Draco is en route. They're the advance team. Their orders are to secure the landing pad and wait.",
               "threatBuild": {
-                "role": "trooper",
+                "role": "anchor",
                 "tier": 1,
                 "classification": "minion",
                 "threatCategory": "character",
@@ -5385,26 +4321,6 @@
                   "passive": {
                     "name": "Disciplined Fire",
                     "description": "+1 Power on weapon attacks."
-                  },
-                  "actions": [
-                    {
-                      "name": "Blaster Volley",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "E-11 ranged attack against one target.",
-                      "attackPower": 3
-                    },
-                    {
-                      "name": "Bayonet Strike",
-                      "type": "action",
-                      "arena": "physique",
-                      "description": "Melee attack against adjacent target.",
-                      "attackPower": 2
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Take Cover",
-                    "description": "Move to cover. Gain [Cover 1] until leaving position."
                   },
                   "gambit": {
                     "name": "Suppressive Fire",
@@ -5703,7 +4619,7 @@
               ],
               "intel": "Varth embezzled a fortune from Project Leviathan through Varga the Hutt's supply chain. His authentication key for the encrypted account is memorized — not stored on any physical device. This keeps him in control of his leverage and prevents anyone from stumbling onto it. He didn't defect for moral reasons. He's a grifter in an admiral's uniform.",
               "threatBuild": {
-                "role": "face",
+                "role": "controller",
                 "tier": 2,
                 "classification": "standard",
                 "threatCategory": "character",
@@ -5726,26 +4642,6 @@
                   "passive": {
                     "name": "The Charming Admiral",
                     "description": "Varth reads people instinctively. He gains +1 Power on social attacks against targets he has conversed with for more than one exchange. Every conversation is an intelligence operation."
-                  },
-                  "actions": [
-                    {
-                      "name": "Cutting Observation",
-                      "type": "action",
-                      "arena": "presence",
-                      "description": "Social attack that exposes insecurity. Targets Resist.",
-                      "attackPower": 5
-                    },
-                    {
-                      "name": "Strategic Flattery",
-                      "type": "action",
-                      "arena": "presence",
-                      "description": "Charm-based social attack. Target gains [Rattled] if they realize the flattery was calculated.",
-                      "attackPower": 5
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Read the Room",
-                    "description": "Learn one target's motivation, fear, or current emotional state."
                   },
                   "gambit": {
                     "name": "Uncomfortable Truth",
@@ -5961,7 +4857,7 @@
               "dialogue": [],
               "intel": "Draco is an Inquisitor — a Force-sensitive Imperial operative. He is here specifically for Varth. The heroes will face him directly in later adventures.",
               "threatBuild": {
-                "role": "mystic",
+                "role": "controller",
                 "tier": 4,
                 "classification": "boss",
                 "threatCategory": "character",
@@ -5987,34 +4883,6 @@
                   "passive": {
                     "name": "Dark Side Presence",
                     "description": "All enemies within close range must resist or gain [Rattled] when Draco enters the scene. Force-sensitive characters feel nausea and dread."
-                  },
-                  "actions": [
-                    {
-                      "name": "Lightsaber Strike",
-                      "type": "action",
-                      "arena": "physique",
-                      "powerMod": 1,
-                      "description": "Melee attack with lightsaber. +1 Power. Exploding Power die.",
-                      "attackPower": 7
-                    },
-                    {
-                      "name": "Force Crush",
-                      "type": "action",
-                      "arena": "grit",
-                      "description": "Ranged Force attack. Targets Endure only. Ignores cover.",
-                      "attackPower": 7
-                    },
-                    {
-                      "name": "Mind Probe",
-                      "type": "action",
-                      "arena": "presence",
-                      "description": "Force-assisted interrogation. Social attack bypassing [Guarded]. Targets Resist.",
-                      "attackPower": 7
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Force Pull",
-                    "description": "Move one target or object one range band closer. No resistance."
                   },
                   "gambit": {
                     "name": "Force Choke",
@@ -6055,7 +4923,7 @@
               "dialogue": [],
               "intel": "Shadow Troopers are Inquisitorius assets — black ops. Stealth-equipped, enhanced training, independent targeting.",
               "threatBuild": {
-                "role": "operative",
+                "role": "harrier",
                 "tier": 2,
                 "classification": "standard",
                 "threatCategory": "character",
@@ -6079,27 +4947,6 @@
                   "passive": {
                     "name": "Stealth Field",
                     "description": "Shadow Troopers are invisible to normal sight while stationary. Attacking breaks concealment for 1 round. Sensor-based detection (Tech check) is required to spot them."
-                  },
-                  "actions": [
-                    {
-                      "name": "Precision Strike",
-                      "type": "action",
-                      "arena": "reflex",
-                      "powerMod": 1,
-                      "description": "Ranged attack from concealment. +1 Power if target is unaware.",
-                      "attackPower": 5
-                    },
-                    {
-                      "name": "Vibroblade",
-                      "type": "action",
-                      "arena": "physique",
-                      "description": "Silent melee attack. Does not break team concealment.",
-                      "attackPower": 3
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Reactivate Cloak",
-                    "description": "If in cover, re-enter stealth. Requires 1 round without attacking."
                   },
                   "gambit": {
                     "name": "Flash-Bang",
@@ -6145,7 +4992,7 @@
               ],
               "intel": "Maya had the Banshee repaired and flight-ready despite her wound. She monitored the Imperial comms and moved when the shooting started. If the turrets are down, her extraction is clean. If the turrets are up, she takes heavy fire but still comes — she's not leaving them.",
               "threatBuild": {
-                "role": "operative",
+                "role": "harrier",
                 "tier": 1,
                 "classification": "standard",
                 "threatCategory": "character",
@@ -6161,21 +5008,6 @@
                 "tags": [],
                 "roleKit": {
                   "passive": null,
-                  "actions": [
-                    {
-                      "name": "Silent Kill",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Melee attack from concealment. +2 Power if target is unaware."
-                    },
-                    {
-                      "name": "Sabotage",
-                      "type": "action",
-                      "arena": "wits",
-                      "description": "Disable equipment, lock, or system."
-                    }
-                  ],
-                  "maneuver": null,
                   "gambit": null,
                   "exploit": null
                 },
@@ -6202,47 +5034,6 @@
                   },
                   "exploits": 0,
                   "initiative": 7,
-                  "role": {
-                    "id": "operative",
-                    "name": "Operative",
-                    "category": "combat",
-                    "description": "Stealth specialist. Infiltrator, saboteur, assassin. Strikes from shadow.",
-                    "arenaMods": {
-                      "reflex": 1,
-                      "presence": -1
-                    },
-                    "passive": {
-                      "name": "Shadow Strike",
-                      "description": "Attacks from stealth gain +1 Power and do not break concealment on a miss."
-                    },
-                    "actions": [
-                      {
-                        "name": "Silent Kill",
-                        "type": "action",
-                        "arena": "reflex",
-                        "description": "Melee attack from concealment. +2 Power if target is unaware."
-                      },
-                      {
-                        "name": "Sabotage",
-                        "type": "action",
-                        "arena": "wits",
-                        "description": "Disable equipment, lock, or system."
-                      }
-                    ],
-                    "maneuver": {
-                      "name": "Vanish",
-                      "description": "If in cover or obscured, become hidden."
-                    },
-                    "gambit": {
-                      "name": "Disarm",
-                      "cost": "-1 Power",
-                      "description": "Target drops held weapon on hit."
-                    },
-                    "exploit": {
-                      "name": "Assassination",
-                      "description": "If attacking an unaware target, double Power for this attack."
-                    }
-                  },
                   "classification": {
                     "id": "standard",
                     "name": "Standard",

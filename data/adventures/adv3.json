@@ -134,26 +134,6 @@
                     "name": "Tight-Lipped",
                     "description": "Bribed or scared. Social checks to extract info are stepped up by 1 Power."
                   },
-                  "actions": [
-                    {
-                      "name": "Deflect",
-                      "type": "action",
-                      "arena": "presence",
-                      "description": "Redirect conversation away from Varga.",
-                      "attackPower": 1
-                    },
-                    {
-                      "name": "Nervous Tip",
-                      "type": "action",
-                      "arena": "wits",
-                      "description": "If trust is earned, provide one piece of intel.",
-                      "attackPower": 1
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Disappear",
-                    "description": "Walk away. Must be physically blocked or Charmed to continue conversation."
-                  },
                   "gambit": null,
                   "exploit": null
                 },
@@ -373,26 +353,6 @@
                     "name": "Guild Administrator",
                     "description": "Knows Cloud City's industrial infrastructure intimately. Can provide maps, schedules, and security gaps."
                   },
-                  "actions": [
-                    {
-                      "name": "Briefing",
-                      "type": "action",
-                      "arena": "wits",
-                      "description": "Provide detailed tactical intel about refinery operations.",
-                      "attackPower": 2
-                    },
-                    {
-                      "name": "Appeal",
-                      "type": "action",
-                      "arena": "presence",
-                      "description": "Emotional plea for help. Makes moral cost of refusal clear.",
-                      "attackPower": 1
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Pull Records",
-                    "description": "Access Guild databases for shipping manifests and schedules."
-                  },
                   "gambit": null,
                   "exploit": null
                 },
@@ -435,26 +395,6 @@
                   "passive": {
                     "name": "Cautious Pragmatist",
                     "description": "Krygg won't commit until he sees action. Once convinced, he's reliable."
-                  },
-                  "actions": [
-                    {
-                      "name": "Technical Assessment",
-                      "type": "action",
-                      "arena": "wits",
-                      "description": "Evaluate equipment or infrastructure.",
-                      "attackPower": 1
-                    },
-                    {
-                      "name": "Refuse",
-                      "type": "action",
-                      "arena": "presence",
-                      "description": "Push back against requests until trust is earned.",
-                      "attackPower": 0
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Consult",
-                    "description": "Confer with other Ugnaughts about a request."
                   },
                   "gambit": null,
                   "exploit": null
@@ -623,7 +563,7 @@
               "count": 5,
               "notes": "Varga's muscle. Loading stolen gas.",
               "threatBuild": {
-                "role": "brute",
+                "role": "threat",
                 "tier": 1,
                 "classification": "standard",
                 "threatCategory": "character",
@@ -662,27 +602,6 @@
                   "passive": {
                     "name": "Unrelenting",
                     "description": "Ignore first [Weakened] per scene."
-                  },
-                  "actions": [
-                    {
-                      "name": "Blaster Carbine",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Ranged attack at medium range.",
-                      "attackPower": 2
-                    },
-                    {
-                      "name": "Claw Slash",
-                      "type": "action",
-                      "arena": "physique",
-                      "powerMod": 1,
-                      "description": "Melee attack. +1 Power.",
-                      "attackPower": 4
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Scent Track",
-                    "description": "Locate hidden enemies. Ignore concealment from steam."
                   },
                   "gambit": {
                     "name": "Knockdown",
@@ -733,19 +652,6 @@
                   "passive": {
                     "name": "Coerced Workers",
                     "description": "These Ugnaughts are forced labor, not fighters. They flee immediately when combat starts."
-                  },
-                  "actions": [
-                    {
-                      "name": "Flee",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Run toward the nearest exit.",
-                      "attackPower": 0
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Surrender",
-                    "description": "Drop tools and put hands up."
                   },
                   "gambit": null,
                   "exploit": null
@@ -963,7 +869,7 @@
               "count": 1,
               "notes": "Mathematical genius. Cold, emotionless. Here to lose intentionally.",
               "threatBuild": {
-                "role": "operative",
+                "role": "harrier",
                 "tier": 2,
                 "classification": "standard",
                 "threatCategory": "character",
@@ -1004,26 +910,6 @@
                     "name": "Mathematical Precision",
                     "description": "Arandis calculates everything. +2 Power on Wits-based challenges. His Sabacc play is a transfer algorithm, not gambling."
                   },
-                  "actions": [
-                    {
-                      "name": "Concealed Blaster",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Military-grade holdout blaster. Devastating accuracy.",
-                      "attackPower": 4
-                    },
-                    {
-                      "name": "Cold Read",
-                      "type": "action",
-                      "arena": "wits",
-                      "description": "Study a target. Learn one piece of intel about their cover or intentions.",
-                      "attackPower": 5
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Analyze",
-                    "description": "Study the situation. Next action gains +1 Power."
-                  },
                   "gambit": {
                     "name": "Probability Lock",
                     "cost": "-1 Power",
@@ -1043,7 +929,7 @@
               "count": 4,
               "notes": "Arandis's bodyguards. Professional but trying to blend in.",
               "threatBuild": {
-                "role": "trooper",
+                "role": "anchor",
                 "tier": 1,
                 "classification": "standard",
                 "threatCategory": "character",
@@ -1083,26 +969,6 @@
                   "passive": {
                     "name": "Disciplined Fire",
                     "description": "+1 Power on weapon attacks."
-                  },
-                  "actions": [
-                    {
-                      "name": "Concealed Blaster",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Draw and fire holdout blaster.",
-                      "attackPower": 3
-                    },
-                    {
-                      "name": "Close Protection",
-                      "type": "action",
-                      "arena": "physique",
-                      "description": "Grapple or restrain a threat to Arandis.",
-                      "attackPower": 2
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Shield Arandis",
-                    "description": "Interpose between Arandis and attacker."
                   },
                   "gambit": {
                     "name": "Coordinated Fire",
@@ -1305,7 +1171,7 @@
               "count": 1,
               "notes": "Aboard the Assiduous in orbit. Prepared to 'glass the city' if needed.",
               "threatBuild": {
-                "role": "mystic",
+                "role": "controller",
                 "tier": 4,
                 "classification": "boss",
                 "threatCategory": "character",
@@ -1348,27 +1214,6 @@
                   "passive": {
                     "name": "Dark Presence",
                     "description": "All enemies in the scene suffer -1 Power from fear unless they pass a Resolve check (T2/P0) at scene start."
-                  },
-                  "actions": [
-                    {
-                      "name": "Lightsaber Assault",
-                      "type": "action",
-                      "arena": "reflex",
-                      "powerMod": 2,
-                      "description": "Crimson lightsaber attack. +2 Power. Ignores non-cortosis armor.",
-                      "attackPower": 9
-                    },
-                    {
-                      "name": "Force Choke",
-                      "type": "action",
-                      "arena": "grit",
-                      "description": "Ranged Force attack. Target must Endure or gain [Stunned] and take damage.",
-                      "attackPower": 7
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Force Leap",
-                    "description": "Move 2 zones instantly. Ignore terrain and obstacles."
                   },
                   "gambit": {
                     "name": "Force Lightning",
@@ -1547,7 +1392,7 @@
               "count": 1,
               "notes": "Posing as a drunk gambler. Actually casing the room for a robbery.",
               "threatBuild": {
-                "role": "operative",
+                "role": "harrier",
                 "tier": 2,
                 "classification": "standard",
                 "threatCategory": "character",
@@ -1586,26 +1431,6 @@
                   "passive": {
                     "name": "Always Working",
                     "description": "Draver is always casing, always planning. He knows every exit, every camera, every guard rotation."
-                  },
-                  "actions": [
-                    {
-                      "name": "Quick Draw",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Pull and fire a concealed heavy blaster. Surprises on first round.",
-                      "attackPower": 4
-                    },
-                    {
-                      "name": "Smug Deflection",
-                      "type": "action",
-                      "arena": "presence",
-                      "description": "Social attack disguised as charm. Disarms suspicion.",
-                      "attackPower": 4
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Case the Room",
-                    "description": "Identify one tactical advantage in the current environment."
                   },
                   "gambit": {
                     "name": "Signal",
@@ -1666,26 +1491,6 @@
                     "name": "Ice Queen",
                     "description": "Immune to [Rattled] and [Shaken]. Fioro doesn't crack under pressure."
                   },
-                  "actions": [
-                    {
-                      "name": "Holdout Blaster",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Concealed blaster. Elegant and deadly.",
-                      "attackPower": 2
-                    },
-                    {
-                      "name": "Cutting Remark",
-                      "type": "action",
-                      "arena": "presence",
-                      "description": "Social attack that targets ego.",
-                      "attackPower": 3
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Compose",
-                    "description": "Remove one social condition from self."
-                  },
                   "gambit": {
                     "name": "Reveal Identity",
                     "cost": "-1 Power",
@@ -1733,19 +1538,6 @@
                   "passive": {
                     "name": "Background Noise",
                     "description": "Fifty competitors provide social cover. Heroes blend in."
-                  },
-                  "actions": [
-                    {
-                      "name": "Gamble",
-                      "type": "action",
-                      "arena": "wits",
-                      "description": "Play Sabacc. Some are good, most aren't.",
-                      "attackPower": 1
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Gossip",
-                    "description": "Share or spread rumors about other players."
                   },
                   "gambit": null,
                   "exploit": null
@@ -1937,7 +1729,7 @@
               "count": 1,
               "notes": "Went bust. Snapped. Armed with a hold-out blaster.",
               "threatBuild": {
-                "role": "skirmisher",
+                "role": "harrier",
                 "tier": 0,
                 "classification": "standard",
                 "threatCategory": "character",
@@ -1974,26 +1766,6 @@
                   "passive": {
                     "name": "Desperate",
                     "description": "Szygar is not thinking clearly. All his attacks are wild and inaccurate."
-                  },
-                  "actions": [
-                    {
-                      "name": "Wild Shot",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Fires holdout blaster wildly. -1 Power from panic.",
-                      "attackPower": 1
-                    },
-                    {
-                      "name": "Flail",
-                      "type": "action",
-                      "arena": "physique",
-                      "description": "Unarmed resistance if grappled.",
-                      "attackPower": 1
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Rant",
-                    "description": "Shout accusations. Draws attention but provides no tactical value."
                   },
                   "gambit": null,
                   "exploit": {
@@ -2038,26 +1810,6 @@
                   "passive": {
                     "name": "House Always Wins",
                     "description": "Mandelbrot controls the casino. Can grant access, provide cover, or look the other way."
-                  },
-                  "actions": [
-                    {
-                      "name": "Grant Access",
-                      "type": "action",
-                      "arena": "wits",
-                      "description": "Open restricted areas for the heroes.",
-                      "attackPower": 3
-                    },
-                    {
-                      "name": "Look Away",
-                      "type": "action",
-                      "arena": "presence",
-                      "description": "Deliberately ignore suspicious activity.",
-                      "attackPower": 3
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Business Calculation",
-                    "description": "Assess the profit/risk of any proposal."
                   },
                   "gambit": null,
                   "exploit": null
@@ -2255,7 +2007,7 @@
               "count": 1,
               "notes": "Deliberately loses the pot to Fioro. Transmits the ship code via card arrangement.",
               "threatBuild": {
-                "role": "operative",
+                "role": "harrier",
                 "tier": 2,
                 "classification": "standard",
                 "threatCategory": "character",
@@ -2295,26 +2047,6 @@
                   "passive": {
                     "name": "Mathematical Precision",
                     "description": "Arandis calculates everything. +2 Power on Wits-based challenges. His Sabacc play is a transfer algorithm, not gambling."
-                  },
-                  "actions": [
-                    {
-                      "name": "Concealed Blaster",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Military-grade holdout blaster. Devastating accuracy.",
-                      "attackPower": 4
-                    },
-                    {
-                      "name": "Cold Read",
-                      "type": "action",
-                      "arena": "wits",
-                      "description": "Study a target. Learn one piece of intel about their cover or intentions.",
-                      "attackPower": 5
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Analyze",
-                    "description": "Study the situation. Next action gains +1 Power."
                   },
                   "gambit": {
                     "name": "Probability Lock",
@@ -2374,26 +2106,6 @@
                   "passive": {
                     "name": "Ice Queen",
                     "description": "Immune to [Rattled] and [Shaken]. Fioro doesn't crack under pressure."
-                  },
-                  "actions": [
-                    {
-                      "name": "Holdout Blaster",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Concealed blaster. Elegant and deadly.",
-                      "attackPower": 2
-                    },
-                    {
-                      "name": "Cutting Remark",
-                      "type": "action",
-                      "arena": "presence",
-                      "description": "Social attack that targets ego.",
-                      "attackPower": 3
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Compose",
-                    "description": "Remove one social condition from self."
                   },
                   "gambit": {
                     "name": "Reveal Identity",
@@ -2576,7 +2288,7 @@
               "count": 1,
               "notes": "Planned this heist from the start. Using Fioro as a hostage.",
               "threatBuild": {
-                "role": "operative",
+                "role": "harrier",
                 "tier": 2,
                 "classification": "standard",
                 "threatCategory": "character",
@@ -2616,26 +2328,6 @@
                     "name": "Always Working",
                     "description": "Draver is always casing, always planning. He knows every exit, every camera, every guard rotation."
                   },
-                  "actions": [
-                    {
-                      "name": "Quick Draw",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Pull and fire a concealed heavy blaster. Surprises on first round.",
-                      "attackPower": 4
-                    },
-                    {
-                      "name": "Smug Deflection",
-                      "type": "action",
-                      "arena": "presence",
-                      "description": "Social attack disguised as charm. Disarms suspicion.",
-                      "attackPower": 4
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Case the Room",
-                    "description": "Identify one tactical advantage in the current environment."
-                  },
                   "gambit": {
                     "name": "Signal",
                     "cost": "-1 Power",
@@ -2655,7 +2347,7 @@
               "count": 4,
               "notes": "Posing as waiters and guests.",
               "threatBuild": {
-                "role": "trooper",
+                "role": "anchor",
                 "tier": 1,
                 "classification": "minion",
                 "threatCategory": "character",
@@ -2693,26 +2385,6 @@
                     "name": "Disciplined Fire",
                     "description": "+1 Power on weapon attacks."
                   },
-                  "actions": [
-                    {
-                      "name": "Blaster Shot",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Ranged attack.",
-                      "attackPower": 2
-                    },
-                    {
-                      "name": "Pistol Whip",
-                      "type": "action",
-                      "arena": "physique",
-                      "description": "Melee attack.",
-                      "attackPower": 2
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Take Cover",
-                    "description": "Overturn a table. Gain [Cover 1]."
-                  },
                   "gambit": {
                     "name": "Crowd Hostage",
                     "cost": "-1 Power",
@@ -2732,7 +2404,7 @@
               "count": 3,
               "notes": "Flying droids with hidden blaster cannons. 360-degree fire arcs.",
               "threatBuild": {
-                "role": "trooper",
+                "role": "anchor",
                 "tier": 1,
                 "classification": "standard",
                 "threatCategory": "character",
@@ -2772,26 +2444,6 @@
                   "passive": {
                     "name": "Disciplined Fire",
                     "description": "+1 Power on weapon attacks."
-                  },
-                  "actions": [
-                    {
-                      "name": "Hidden Blaster Cannon",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Fires in 360 degrees. No cover bonus against this attack.",
-                      "attackPower": 3
-                    },
-                    {
-                      "name": "Ram",
-                      "type": "action",
-                      "arena": "physique",
-                      "description": "Fly into a target. Weak but disruptive.",
-                      "attackPower": 1
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Hover Reposition",
-                    "description": "Fly to any point in the zone. Ignores terrain."
                   },
                   "gambit": {
                     "name": "Strafe",
@@ -3051,26 +2703,6 @@
                     "name": "Ice Queen",
                     "description": "Immune to [Rattled] and [Shaken]. Fioro doesn't crack under pressure."
                   },
-                  "actions": [
-                    {
-                      "name": "Holdout Blaster",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Concealed blaster. Elegant and deadly.",
-                      "attackPower": 2
-                    },
-                    {
-                      "name": "Cutting Remark",
-                      "type": "action",
-                      "arena": "presence",
-                      "description": "Social attack that targets ego.",
-                      "attackPower": 3
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Compose",
-                    "description": "Remove one social condition from self."
-                  },
                   "gambit": {
                     "name": "Reveal Identity",
                     "cost": "-1 Power",
@@ -3230,7 +2862,7 @@
               "count": 6,
               "notes": "Bribed by Varga. Hunting the heroes.",
               "threatBuild": {
-                "role": "trooper",
+                "role": "anchor",
                 "tier": 1,
                 "classification": "standard",
                 "threatCategory": "character",
@@ -3270,26 +2902,6 @@
                     "name": "Disciplined Fire",
                     "description": "+1 Power on weapon attacks."
                   },
-                  "actions": [
-                    {
-                      "name": "Blaster Carbine",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Standard ranged attack.",
-                      "attackPower": 3
-                    },
-                    {
-                      "name": "Stun Baton",
-                      "type": "action",
-                      "arena": "physique",
-                      "description": "Melee. Target must Endure or gain [Stunned].",
-                      "attackPower": 2
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Pursue",
-                    "description": "Move toward the target. Ignore difficult terrain from crowd."
-                  },
                   "gambit": {
                     "name": "Coordinated Fire",
                     "cost": "-1 Power",
@@ -3309,7 +2921,7 @@
               "count": 6,
               "notes": "Deployed from a shuttle to cut off retreat.",
               "threatBuild": {
-                "role": "trooper",
+                "role": "anchor",
                 "tier": 1,
                 "classification": "minion",
                 "threatCategory": "character",
@@ -3350,26 +2962,6 @@
                   "passive": {
                     "name": "Disciplined Fire",
                     "description": "+1 Power on weapon attacks."
-                  },
-                  "actions": [
-                    {
-                      "name": "E-11 Volley",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Ranged attack.",
-                      "attackPower": 3
-                    },
-                    {
-                      "name": "Bayonet Strike",
-                      "type": "action",
-                      "arena": "physique",
-                      "description": "Melee attack.",
-                      "attackPower": 2
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Take Cover",
-                    "description": "Move to cover. Gain [Cover 1]."
                   },
                   "gambit": {
                     "name": "Suppressive Fire",
@@ -3584,7 +3176,7 @@
               "count": 1,
               "notes": "Desperate and enraged. Will fight with his bulk in the yacht's corridors.",
               "threatBuild": {
-                "role": "commander",
+                "role": "support",
                 "tier": 3,
                 "classification": "boss",
                 "threatCategory": "character",
@@ -3619,27 +3211,6 @@
                     "name": "Absolute Authority",
                     "description": "All allies in Varga's court gain +1 to Resist social attacks. His presence is law."
                   },
-                  "actions": [
-                    {
-                      "name": "Command",
-                      "type": "action",
-                      "arena": "presence",
-                      "description": "Order one ally to immediately attack or take an action.",
-                      "attackPower": 6
-                    },
-                    {
-                      "name": "Crushing Tail",
-                      "type": "action",
-                      "arena": "physique",
-                      "powerMod": 2,
-                      "description": "Melee attack at engaged range. +2 Power. Hutt mass.",
-                      "attackPower": 9
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Hover-Sled",
-                    "description": "Move on repulsor sled. Not impeded by terrain."
-                  },
                   "gambit": {
                     "name": "Example",
                     "cost": "-1 Power",
@@ -3659,7 +3230,7 @@
               "count": 6,
               "notes": "Scrambling to cockpits. Must be stopped before takeoff.",
               "threatBuild": {
-                "role": "trooper",
+                "role": "anchor",
                 "tier": 0,
                 "classification": "minion",
                 "threatCategory": "character",
@@ -3690,26 +3261,6 @@
                     "name": "Pilot Training",
                     "description": "In a Z-95, these pilots are dangerous. On foot, they're nothing."
                   },
-                  "actions": [
-                    {
-                      "name": "Scramble",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Sprint to cockpit. If uninterrupted for 2 rounds, the fighter launches.",
-                      "attackPower": 2
-                    },
-                    {
-                      "name": "Sidearm Shot",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Holdout blaster. Last resort.",
-                      "attackPower": 2
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Climb Ladder",
-                    "description": "Move toward cockpit. Part of the scramble action."
-                  },
                   "gambit": null,
                   "exploit": {
                     "name": "Emergency Launch",
@@ -3725,7 +3276,7 @@
               "count": 1,
               "notes": "Flanking Varga at the ramp.",
               "threatBuild": {
-                "role": "brute",
+                "role": "threat",
                 "tier": 2,
                 "classification": "elite",
                 "threatCategory": "character",
@@ -3767,27 +3318,6 @@
                     "name": "Unrelenting",
                     "description": "Ignore first [Weakened] per scene."
                   },
-                  "actions": [
-                    {
-                      "name": "Heavy Repeating Blaster",
-                      "type": "action",
-                      "arena": "physique",
-                      "powerMod": 1,
-                      "description": "Devastating ranged fire. +1 Power.",
-                      "attackPower": 6
-                    },
-                    {
-                      "name": "Battering Ram",
-                      "type": "action",
-                      "arena": "physique",
-                      "description": "Charge attack. Destroys cover.",
-                      "attackPower": 5
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Advance",
-                    "description": "Move 1 zone. Ignore terrain."
-                  },
                   "gambit": {
                     "name": "Suppressive Barrage",
                     "cost": "-1 Power",
@@ -3807,7 +3337,7 @@
               "count": 6,
               "notes": "Varga's remaining muscle.",
               "threatBuild": {
-                "role": "trooper",
+                "role": "anchor",
                 "tier": 0,
                 "classification": "minion",
                 "threatCategory": "character",
@@ -3842,26 +3372,6 @@
                   "passive": {
                     "name": "Disciplined Fire",
                     "description": "+1 Power on weapon attacks."
-                  },
-                  "actions": [
-                    {
-                      "name": "Blaster Shot",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Ranged attack.",
-                      "attackPower": 1
-                    },
-                    {
-                      "name": "Brawl",
-                      "type": "action",
-                      "arena": "physique",
-                      "description": "Melee punch/kick.",
-                      "attackPower": 1
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Take Cover",
-                    "description": "Move to cover."
                   },
                   "gambit": null,
                   "exploit": {
@@ -4051,7 +3561,7 @@
               "count": 1,
               "notes": "Retreating up the ramp. Will fight in the ship's corridors.",
               "threatBuild": {
-                "role": "commander",
+                "role": "support",
                 "tier": 3,
                 "classification": "boss",
                 "threatCategory": "character",
@@ -4086,27 +3596,6 @@
                     "name": "Absolute Authority",
                     "description": "All allies in Varga's court gain +1 to Resist social attacks. His presence is law."
                   },
-                  "actions": [
-                    {
-                      "name": "Command",
-                      "type": "action",
-                      "arena": "presence",
-                      "description": "Order one ally to immediately attack or take an action.",
-                      "attackPower": 6
-                    },
-                    {
-                      "name": "Crushing Tail",
-                      "type": "action",
-                      "arena": "physique",
-                      "powerMod": 2,
-                      "description": "Melee attack at engaged range. +2 Power. Hutt mass.",
-                      "attackPower": 9
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Hover-Sled",
-                    "description": "Move on repulsor sled. Not impeded by terrain."
-                  },
                   "gambit": {
                     "name": "Example",
                     "cost": "-1 Power",
@@ -4126,7 +3615,7 @@
               "count": 4,
               "notes": "Fighting to cover Varga's retreat.",
               "threatBuild": {
-                "role": "trooper",
+                "role": "anchor",
                 "tier": 0,
                 "classification": "minion",
                 "threatCategory": "character",
@@ -4161,26 +3650,6 @@
                   "passive": {
                     "name": "Disciplined Fire",
                     "description": "+1 Power on weapon attacks."
-                  },
-                  "actions": [
-                    {
-                      "name": "Blaster Shot",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Ranged attack.",
-                      "attackPower": 1
-                    },
-                    {
-                      "name": "Club Strike",
-                      "type": "action",
-                      "arena": "physique",
-                      "description": "Melee.",
-                      "attackPower": 1
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Take Cover",
-                    "description": "Move to cover."
                   },
                   "gambit": null,
                   "exploit": {
@@ -4373,7 +3842,7 @@
               "count": 20,
               "notes": "Breaching the elevator shaft. 30 seconds until arrival.",
               "threatBuild": {
-                "role": "trooper",
+                "role": "anchor",
                 "tier": 1,
                 "classification": "minion",
                 "threatCategory": "character",
@@ -4414,19 +3883,6 @@
                   "passive": {
                     "name": "Disciplined Fire",
                     "description": "+1 Power on weapon attacks."
-                  },
-                  "actions": [
-                    {
-                      "name": "E-11 Volley",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Ranged attack.",
-                      "attackPower": 3
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Advance",
-                    "description": "Breach and clear."
                   },
                   "gambit": {
                     "name": "Suppressive Fire",
@@ -4594,7 +4050,7 @@
               "count": 1,
               "notes": "Trapped on the Shackles of Nizon. Varth intended for her to die.",
               "threatBuild": {
-                "role": "operative",
+                "role": "harrier",
                 "tier": 2,
                 "classification": "standard",
                 "threatCategory": "character",
@@ -4635,26 +4091,6 @@
                     "name": "Veteran Smuggler",
                     "description": "Piloting checks in her ship gain +1 Power. Immune to [Rattled] from Imperial threats."
                   },
-                  "actions": [
-                    {
-                      "name": "Emergency Piloting",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Ship-scale piloting under extreme duress.",
-                      "attackPower": 5
-                    },
-                    {
-                      "name": "Comms Call",
-                      "type": "action",
-                      "arena": "presence",
-                      "description": "Communicate with heroes. Coordinate actions.",
-                      "attackPower": 3
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Evasive",
-                    "description": "Dodge incoming fire. Ship gains [Cover 1] for 1 round."
-                  },
                   "gambit": null,
                   "exploit": {
                     "name": "Last-Second Save",
@@ -4670,7 +4106,7 @@
               "count": 8,
               "notes": "Screening the Gas Hauler. Must be engaged to reach it.",
               "threatBuild": {
-                "role": "trooper",
+                "role": "anchor",
                 "tier": 1,
                 "classification": "minion",
                 "threatCategory": "vehicle",
@@ -4710,19 +4146,6 @@
                   "passive": {
                     "name": "Swarm Tactics",
                     "description": "For every 2 TIEs engaging the same target, all gain +1 Power."
-                  },
-                  "actions": [
-                    {
-                      "name": "Laser Cannon Burst",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Twin laser cannon fire.",
-                      "attackPower": 3
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Intercept",
-                    "description": "Move to engage a specific target."
                   },
                   "gambit": {
                     "name": "Attack Run",
@@ -4926,7 +4349,7 @@
               "count": 1,
               "notes": "Takes a punch from Okeefe. Plays it off. Already planning the next move.",
               "threatBuild": {
-                "role": "commander",
+                "role": "support",
                 "tier": 2,
                 "classification": "standard",
                 "threatCategory": "character",
@@ -4967,26 +4390,6 @@
                     "name": "The Man in the Chair",
                     "description": "Varth provides remote tactical support. +1 tier on one skill check per scene when he can communicate."
                   },
-                  "actions": [
-                    {
-                      "name": "Tactical Analysis",
-                      "type": "action",
-                      "arena": "wits",
-                      "description": "Provide intel on an enemy or situation.",
-                      "attackPower": 5
-                    },
-                    {
-                      "name": "Holdout Blaster",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Small concealed weapon. Last resort.",
-                      "attackPower": 3
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Issue Orders",
-                    "description": "One ally gains a bonus maneuver."
-                  },
                   "gambit": {
                     "name": "Calculated Sacrifice",
                     "cost": "-1 Power",
@@ -5006,7 +4409,7 @@
               "count": 1,
               "notes": "Furious. Punches Varth. Trust is deeply damaged.",
               "threatBuild": {
-                "role": "operative",
+                "role": "harrier",
                 "tier": 2,
                 "classification": "standard",
                 "threatCategory": "character",
@@ -5046,26 +4449,6 @@
                   "passive": {
                     "name": "Veteran Smuggler",
                     "description": "Piloting checks in her ship gain +1 Power. Immune to [Rattled] from Imperial threats."
-                  },
-                  "actions": [
-                    {
-                      "name": "Emergency Piloting",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Ship-scale piloting under extreme duress.",
-                      "attackPower": 5
-                    },
-                    {
-                      "name": "Comms Call",
-                      "type": "action",
-                      "arena": "presence",
-                      "description": "Communicate with heroes. Coordinate actions.",
-                      "attackPower": 3
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Evasive",
-                    "description": "Dodge incoming fire. Ship gains [Cover 1] for 1 round."
                   },
                   "gambit": null,
                   "exploit": {

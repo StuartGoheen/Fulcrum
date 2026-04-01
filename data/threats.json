@@ -246,956 +246,108 @@
   ],
   "roles": [
     {
-      "id": "trooper",
-      "name": "Trooper",
+      "id": "threat",
+      "name": "Threat",
       "category": "combat",
-      "description": "Disciplined ranged combatant. Reliable, consistent, operates best in squads.",
-      "arenaMods": {},
-      "powerBonus": {
-        "value": 1,
-        "condition": "weapon attacks"
-      },
+      "description": "High-damage priority target. The NPC the PCs must focus or suffer the consequences.",
       "passive": {
-        "name": "Disciplined Fire",
-        "description": "+1 Power on weapon attacks."
-      },
-      "actions": [
-        {
-          "name": "Blaster Volley",
-          "type": "action",
-          "arena": "reflex",
-          "defense": "dodge/endure",
-          "description": "Ranged attack against one target.",
-          "npcEffects": [
-            {
-              "tier": "F",
-              "range": "-1 to -3",
-              "description": "Chassis damage."
-            },
-            {
-              "tier": "M",
-              "range": "-4 to -7",
-              "description": "Chassis damage. Target gains [Suppressed] Tactical."
-            },
-            {
-              "tier": "L",
-              "range": "-8+",
-              "description": "Chassis damage. Target gains [Suppressed] and [Prone]."
-            }
-          ]
-        },
-        {
-          "name": "Bayonet Strike",
-          "type": "action",
-          "arena": "physique",
-          "defense": "dodge/endure",
-          "description": "Melee attack against adjacent target.",
-          "npcEffects": [
-            {
-              "tier": "F",
-              "range": "-1 to -3",
-              "description": "Chassis damage."
-            },
-            {
-              "tier": "M",
-              "range": "-4 to -7",
-              "description": "Chassis damage. Push target 1 zone."
-            },
-            {
-              "tier": "L",
-              "range": "-8+",
-              "description": "Chassis damage. Push 1 zone. Target gains [Prone]."
-            }
-          ]
-        }
-      ],
-      "maneuver": {
-        "name": "Take Cover",
-        "defense": "none",
-        "description": "Move to cover. Gain [Cover] until leaving position."
+        "name": "Killer Instinct",
+        "description": "+1 Power on all attacks against [Wounded] targets (below half Vitality)."
       },
       "gambit": {
-        "name": "Suppressive Fire",
+        "name": "Brutal Strike",
         "cost": "-1 Power",
-        "modifies": "Blaster Volley",
-        "description": "In addition to normal effects, target gains [Suppressed] Tactical.",
-        "rider": "[Suppressed] Tactical"
+        "description": "In addition to normal effects, target gains [Staggered] Tactical.",
+        "rider": "[Staggered] Tactical"
       },
       "exploit": {
-        "name": "Coordinated Fire",
-        "trigger": "An allied Trooper attacks the same target this round.",
-        "description": "All allied Troopers targeting the same enemy gain +1 Power this round."
+        "name": "Predator's Opening",
+        "trigger": "A PC in the same zone takes damage from another source this round.",
+        "description": "Immediately make an attack against that PC at -2 Power."
       }
     },
     {
-      "id": "brute",
-      "name": "Brute",
+      "id": "anchor",
+      "name": "Anchor",
       "category": "combat",
-      "description": "Heavy melee combatant. Hits hard, absorbs punishment, terrifies the opposition.",
-      "arenaMods": {
-        "physique": 1,
-        "reflex": -1
-      },
+      "description": "Holds ground, blocks access, protects a position or VIP. Hard to move, hard to ignore.",
       "passive": {
-        "name": "Unrelenting",
-        "description": "Ignore the first [Weakened] condition applied per scene."
-      },
-      "actions": [
-        {
-          "name": "Crushing Blow",
-          "type": "action",
-          "arena": "physique",
-          "powerMod": 1,
-          "defense": "dodge/endure",
-          "description": "Melee attack with +1 Power.",
-          "npcEffects": [
-            {
-              "tier": "F",
-              "range": "-1 to -3",
-              "description": "Chassis damage."
-            },
-            {
-              "tier": "M",
-              "range": "-4 to -7",
-              "description": "Chassis damage. Push target 1 zone."
-            },
-            {
-              "tier": "L",
-              "range": "-8+",
-              "description": "Chassis damage. Push 1 zone. Target gains [Prone] and [Shaken]."
-            }
-          ]
-        },
-        {
-          "name": "Hurl",
-          "type": "action",
-          "arena": "physique",
-          "defense": "dodge/endure",
-          "description": "Throw object or enemy at short range.",
-          "npcEffects": [
-            {
-              "tier": "F",
-              "range": "-1 to -3",
-              "description": "Light chassis damage. Push target 1 zone."
-            },
-            {
-              "tier": "M",
-              "range": "-4 to -7",
-              "description": "Chassis damage. Push target 2 zones. [Prone] on landing."
-            },
-            {
-              "tier": "L",
-              "range": "-8+",
-              "description": "Chassis damage. Push 2 zones. [Prone] and [Stunned] on landing."
-            }
-          ]
-        }
-      ],
-      "maneuver": {
-        "name": "Intimidating Advance",
-        "defense": "resist",
-        "description": "Move toward target. Target must resist or suffer effects.",
-        "npcEffects": [
-          {
-            "tier": "F",
-            "range": "-1 to -3",
-            "description": "Target gains [Rattled]."
-          },
-          {
-            "tier": "M",
-            "range": "-4 to -7",
-            "description": "Target gains [Rattled] and [Shaken]."
-          },
-          {
-            "tier": "L",
-            "range": "-8+",
-            "description": "Target gains [Rattled], [Shaken], and presents an Opening."
-          }
-        ]
+        "name": "Lockdown",
+        "description": "Enemies in the Anchor's zone cannot move to another zone without first succeeding on a Physique or Reflex check vs the Anchor's Defense."
       },
       "gambit": {
-        "name": "Knockdown",
+        "name": "Shove Back",
         "cost": "-1 Power",
-        "modifies": "Crushing Blow",
-        "description": "In addition to normal effects, target gains [Prone].",
-        "rider": "[Prone]"
+        "description": "In addition to normal effects, push the target 1 zone. The Anchor holds position.",
+        "rider": "Push 1 zone"
       },
       "exploit": {
-        "name": "Rampage",
-        "trigger": "This NPC drops a target to 0 Vitality.",
-        "description": "Immediately make a free melee attack against a different adjacent target using Crushing Blow."
+        "name": "Intercept",
+        "trigger": "An enemy in the Anchor's zone attacks an ally.",
+        "description": "The Anchor becomes the target of the attack instead. The Anchor takes any damage or conditions from the redirected attack."
       }
     },
     {
-      "id": "marksman",
-      "name": "Marksman",
+      "id": "harrier",
+      "name": "Harrier",
       "category": "combat",
-      "description": "Precision ranged specialist. Deadly at distance, patient, methodical.",
-      "arenaMods": {
-        "reflex": 1,
-        "physique": -1
-      },
-      "powerBonus": {
-        "value": 1,
-        "condition": "long range attacks"
-      },
+      "description": "Mobile pressure. Chases, flanks, forces PCs to reposition or get picked apart.",
       "passive": {
-        "name": "Long Shot",
-        "description": "+1 Power when attacking at long range."
-      },
-      "actions": [
-        {
-          "name": "Precision Shot",
-          "type": "action",
-          "arena": "reflex",
-          "powerMod": 1,
-          "defense": "dodge/endure",
-          "description": "Ranged attack with +1 Power if no movement this turn.",
-          "npcEffects": [
-            {
-              "tier": "F",
-              "range": "-1 to -3",
-              "description": "Chassis damage."
-            },
-            {
-              "tier": "M",
-              "range": "-4 to -7",
-              "description": "Chassis damage. Target gains [Bleeding]."
-            },
-            {
-              "tier": "L",
-              "range": "-8+",
-              "description": "Chassis damage. Target gains [Bleeding] and [Exposed]."
-            }
-          ]
-        },
-        {
-          "name": "Snap Shot",
-          "type": "action",
-          "arena": "reflex",
-          "defense": "dodge/endure",
-          "description": "Quick ranged attack as reaction when target moves.",
-          "npcEffects": [
-            {
-              "tier": "F",
-              "range": "-1 to -3",
-              "description": "Chassis damage."
-            },
-            {
-              "tier": "M",
-              "range": "-4 to -7",
-              "description": "Chassis damage. Target's movement is interrupted."
-            },
-            {
-              "tier": "L",
-              "range": "-8+",
-              "description": "Chassis damage. Movement interrupted. Target gains [Prone]."
-            }
-          ]
-        }
-      ],
-      "maneuver": {
-        "name": "Find Vantage",
-        "defense": "none",
-        "description": "Move to elevated or concealed position. +1 Power on next ranged attack."
+        "name": "Hit and Run",
+        "description": "After making an attack, the Harrier may move 1 zone as a free action."
       },
       "gambit": {
-        "name": "Called Shot",
+        "name": "Blindside",
         "cost": "-1 Power",
-        "modifies": "Precision Shot",
-        "description": "In addition to normal effects, target gains [Bleeding].",
-        "rider": "[Bleeding]"
+        "description": "In addition to normal effects, target gains [Exposed] to the next attack against them. Tactical.",
+        "rider": "[Exposed] Tactical"
+      },
+      "exploit": {
+        "name": "Pursuit",
+        "trigger": "A PC moves out of the Harrier's zone.",
+        "description": "The Harrier immediately follows into the same zone."
+      }
+    },
+    {
+      "id": "controller",
+      "name": "Controller",
+      "category": "combat",
+      "description": "Battlefield manipulation. Conditions, forced movement, zone hazards, social pressure.",
+      "passive": {
+        "name": "Dominate the Field",
+        "description": "The Controller's zone counts as [Difficult Terrain] for enemies. Moving into or through the zone costs double movement."
+      },
+      "gambit": {
+        "name": "Disrupt",
+        "cost": "-1 Power",
+        "description": "In addition to normal effects, target gains [Dazed] Tactical. Target loses their Maneuver next turn.",
+        "rider": "[Dazed] Tactical"
       },
       "exploit": {
         "name": "Overwatch",
-        "trigger": "An enemy moves in this NPC's line of sight.",
-        "description": "Make a ranged attack against the moving target before they complete movement."
+        "trigger": "A PC enters the Controller's zone or uses a Maneuver within it.",
+        "description": "The Controller makes an immediate attack against that PC at -2 Power."
       }
     },
     {
-      "id": "skirmisher",
-      "name": "Skirmisher",
+      "id": "support",
+      "name": "Support",
       "category": "combat",
-      "description": "Mobile fighter. Strikes fast, repositions constantly, never stays pinned.",
-      "arenaMods": {
-        "reflex": 1,
-        "grit": -1
-      },
+      "description": "Force multiplier. Buffs allies, removes conditions, makes other NPCs scarier.",
       "passive": {
-        "name": "Fleet Footed",
-        "description": "May take 2 maneuvers per turn instead of 1."
-      },
-      "actions": [
-        {
-          "name": "Hit and Run",
-          "type": "action",
-          "arena": "reflex",
-          "defense": "dodge/endure",
-          "description": "Melee attack + free disengage.",
-          "npcEffects": [
-            {
-              "tier": "F",
-              "range": "-1 to -3",
-              "description": "Chassis damage. NPC disengages without presenting an Opening."
-            },
-            {
-              "tier": "M",
-              "range": "-4 to -7",
-              "description": "Chassis damage. NPC disengages. Target gains [Slowed] Tactical."
-            },
-            {
-              "tier": "L",
-              "range": "-8+",
-              "description": "Chassis damage. NPC disengages and repositions 1 zone. Target gains [Slowed] and [Exposed]."
-            }
-          ]
-        },
-        {
-          "name": "Harrying Shot",
-          "type": "action",
-          "arena": "reflex",
-          "defense": "dodge/endure",
-          "description": "Ranged attack at close range. Target cannot take reactions until next turn.",
-          "npcEffects": [
-            {
-              "tier": "F",
-              "range": "-1 to -3",
-              "description": "Chassis damage. Target cannot take reactions until next turn."
-            },
-            {
-              "tier": "M",
-              "range": "-4 to -7",
-              "description": "Chassis damage. No reactions. Target gains [Disoriented]."
-            },
-            {
-              "tier": "L",
-              "range": "-8+",
-              "description": "Chassis damage. No reactions. Target gains [Disoriented] and [Suppressed]."
-            }
-          ]
-        }
-      ],
-      "maneuver": {
-        "name": "Reposition",
-        "defense": "none",
-        "description": "Move without provoking reactions."
+        "name": "Coordination",
+        "description": "At the start of each round, choose one ally in the same or adjacent zone. That ally gains +1 Power until end of round."
       },
       "gambit": {
-        "name": "Hamstring",
+        "name": "Rally",
         "cost": "-1 Power",
-        "modifies": "Hit and Run",
-        "description": "In addition to normal effects, target gains [Slowed] Tactical.",
-        "rider": "[Slowed] Tactical"
+        "description": "Instead of normal effects, remove one condition from an ally in the same zone.",
+        "rider": "Remove 1 condition from ally"
       },
       "exploit": {
-        "name": "Ambush",
-        "trigger": "A PC moves adjacent to this NPC or this NPC attacks from concealment.",
-        "description": "Attack gains +2 Power."
-      }
-    },
-    {
-      "id": "operative",
-      "name": "Operative",
-      "category": "combat",
-      "description": "Stealth specialist. Infiltrator, saboteur, assassin. Strikes from shadow.",
-      "arenaMods": {
-        "reflex": 1,
-        "presence": -1
-      },
-      "passive": {
-        "name": "Shadow Strike",
-        "description": "Attacks from stealth gain +1 Power and do not break concealment on a miss."
-      },
-      "actions": [
-        {
-          "name": "Silent Kill",
-          "type": "action",
-          "arena": "reflex",
-          "defense": "dodge/endure",
-          "description": "Melee attack from concealment. +2 Power if target is unaware.",
-          "npcEffects": [
-            {
-              "tier": "F",
-              "range": "-1 to -3",
-              "description": "Chassis damage. +2 Power if target is unaware."
-            },
-            {
-              "tier": "M",
-              "range": "-4 to -7",
-              "description": "Chassis damage. +2 if unaware. Target gains [Bleeding]. Concealment maintained."
-            },
-            {
-              "tier": "L",
-              "range": "-8+",
-              "description": "Chassis damage. +2 if unaware. Target gains [Bleeding] and [Exposed]. Concealment maintained."
-            }
-          ]
-        },
-        {
-          "name": "Sabotage",
-          "type": "action",
-          "arena": "wits",
-          "defense": "none",
-          "description": "Disable equipment, lock, or system.",
-          "npcEffects": [
-            {
-              "tier": "F",
-              "range": "-1 to -3",
-              "description": "One piece of equipment disabled for 1 round."
-            },
-            {
-              "tier": "M",
-              "range": "-4 to -7",
-              "description": "Equipment disabled for scene. System locked out."
-            },
-            {
-              "tier": "L",
-              "range": "-8+",
-              "description": "Equipment destroyed or permanently disabled."
-            }
-          ]
-        }
-      ],
-      "maneuver": {
-        "name": "Vanish",
-        "defense": "none",
-        "description": "If in cover or obscured, become hidden."
-      },
-      "gambit": {
-        "name": "Disarm",
-        "cost": "-1 Power",
-        "modifies": "Silent Kill",
-        "description": "In addition to normal effects, target drops held weapon.",
-        "rider": "Target drops held weapon"
-      },
-      "exploit": {
-        "name": "Assassination",
-        "trigger": "This NPC attacks an unaware target.",
-        "description": "Double Power for this attack. Concealment maintained on a miss."
-      }
-    },
-    {
-      "id": "commander",
-      "name": "Commander",
-      "category": "combat",
-      "description": "Tactical leader. Amplifies allies, directs the battlefield, controls tempo.",
-      "arenaMods": {
-        "presence": 1,
-        "physique": -1
-      },
-      "passive": {
-        "name": "Rallying Presence",
-        "description": "Allies within close range gain +1 to resist [Shaken] and [Rattled]."
-      },
-      "actions": [
-        {
-          "name": "Direct Fire",
-          "type": "action",
-          "arena": "presence",
-          "defense": "none",
-          "description": "Order one ally to immediately make an attack as a reaction.",
-          "npcEffects": [
-            {
-              "tier": "F",
-              "range": "-1 to -3",
-              "description": "One ally makes a basic attack as a reaction."
-            },
-            {
-              "tier": "M",
-              "range": "-4 to -7",
-              "description": "One ally attacks with [Optimized]."
-            },
-            {
-              "tier": "L",
-              "range": "-8+",
-              "description": "Two allies each make an attack. One gains [Optimized]."
-            }
-          ]
-        },
-        {
-          "name": "Rally",
-          "type": "action",
-          "arena": "presence",
-          "defense": "none",
-          "description": "Remove [Shaken] or [Rattled] from one ally in range.",
-          "npcEffects": [
-            {
-              "tier": "F",
-              "range": "-1 to -3",
-              "description": "Remove [Rattled] or [Shaken] from one ally."
-            },
-            {
-              "tier": "M",
-              "range": "-4 to -7",
-              "description": "Remove one condition from one ally. Ally gains [Buffered 1]."
-            },
-            {
-              "tier": "L",
-              "range": "-8+",
-              "description": "Remove all [Rattled]/[Shaken] from one ally. Ally gains [Buffered 2]."
-            }
-          ]
-        }
-      ],
-      "maneuver": {
-        "name": "Issue Orders",
-        "defense": "none",
-        "description": "One ally gains a bonus maneuver on their next turn."
-      },
-      "gambit": {
-        "name": "Tactical Withdrawal",
-        "cost": "-1 Power",
-        "modifies": "Direct Fire",
-        "description": "Instead of ordering an attack, one ally moves 1 zone without presenting an Opening.",
-        "rider": "Ally moves 1 zone safely"
-      },
-      "exploit": {
-        "name": "Coordinated Assault",
-        "trigger": "An ally is attacked by a PC.",
-        "description": "All allies gain +1 Power until end of round."
-      }
-    },
-    {
-      "id": "technician",
-      "name": "Technician",
-      "category": "combat",
-      "description": "Tech specialist. Deploys gadgets, hacks systems, disrupts enemy equipment.",
-      "arenaMods": {
-        "wits": 1,
-        "physique": -1
-      },
-      "passive": {
-        "name": "Field Engineer",
-        "description": "Can repair equipment and droids as an action. Can interact with tech at range."
-      },
-      "actions": [
-        {
-          "name": "Overload",
-          "type": "action",
-          "arena": "wits",
-          "defense": "dodge/endure",
-          "description": "Tech attack at short range. Targets Evasion.",
-          "npcEffects": [
-            {
-              "tier": "F",
-              "range": "-1 to -3",
-              "description": "Chassis damage (ion/tech)."
-            },
-            {
-              "tier": "M",
-              "range": "-4 to -7",
-              "description": "Chassis damage. One piece of target's equipment gains [Jammed]."
-            },
-            {
-              "tier": "L",
-              "range": "-8+",
-              "description": "Chassis damage. [Jammed] on equipment. Droids and vehicles also gain [Ionized]."
-            }
-          ]
-        },
-        {
-          "name": "Deploy Drone",
-          "type": "action",
-          "arena": "wits",
-          "defense": "none",
-          "description": "Place a drone turret. Acts on this NPC's turn with ranged attack.",
-          "npcEffects": [
-            {
-              "tier": "F",
-              "range": "-1 to -3",
-              "description": "Drone deployed. Power 2 ranged attack. Lasts 1 round."
-            },
-            {
-              "tier": "M",
-              "range": "-4 to -7",
-              "description": "Drone deployed. Power 3 ranged attack. Lasts until destroyed."
-            },
-            {
-              "tier": "L",
-              "range": "-8+",
-              "description": "Drone deployed. Power 3 with [Optimized] on first attack. Lasts until destroyed."
-            }
-          ]
-        }
-      ],
-      "maneuver": {
-        "name": "Scan",
-        "defense": "none",
-        "description": "Reveal one hidden enemy or identify one target's weakness (+1 Power vs them next attack)."
-      },
-      "gambit": {
-        "name": "System Glitch",
-        "cost": "-1 Power",
-        "modifies": "Overload",
-        "description": "In addition to normal effects, target's equipment gains [Jammed].",
-        "rider": "[Jammed]"
-      },
-      "exploit": {
-        "name": "Slice",
-        "trigger": "A PC uses a droid or automated system within range.",
-        "description": "Take control of that droid or system for 1 round."
-      }
-    },
-    {
-      "id": "mystic",
-      "name": "Mystic",
-      "category": "combat",
-      "description": "Force user. Telekinesis, mind tricks, precognition. Fights with the invisible.",
-      "arenaMods": {
-        "grit": 1,
-        "reflex": -1
-      },
-      "passive": {
-        "name": "Force Awareness",
-        "description": "Can sense Force-sensitive beings. Immune to [Blinded]."
-      },
-      "actions": [
-        {
-          "name": "Force Push",
-          "type": "action",
-          "arena": "grit",
-          "defense": "endure",
-          "description": "Ranged Force attack. Targets Endure only (invisible, can't dodge).",
-          "npcEffects": [
-            {
-              "tier": "F",
-              "range": "-1 to -3",
-              "description": "Push target 1 zone. Light chassis damage."
-            },
-            {
-              "tier": "M",
-              "range": "-4 to -7",
-              "description": "Push 2 zones. Chassis damage. Target gains [Disoriented]."
-            },
-            {
-              "tier": "L",
-              "range": "-8+",
-              "description": "Push 3 zones. Chassis damage. Target gains [Prone] and [Stunned]."
-            }
-          ]
-        },
-        {
-          "name": "Mind Trick",
-          "type": "action",
-          "arena": "presence",
-          "defense": "resist",
-          "description": "Social Force attack. Targets Resist only.",
-          "npcEffects": [
-            {
-              "tier": "F",
-              "range": "-1 to -3",
-              "description": "Target gains [Disoriented] Tactical."
-            },
-            {
-              "tier": "M",
-              "range": "-4 to -7",
-              "description": "Target performs one simple action as directed (drop weapon, open door, freeze)."
-            },
-            {
-              "tier": "L",
-              "range": "-8+",
-              "description": "Target obeys one complex command for the round. [Rattled] and [Shaken] if they realize later."
-            }
-          ]
-        }
-      ],
-      "maneuver": {
-        "name": "Force Pull",
-        "defense": "endure",
-        "description": "Move one object or enemy one range band closer. Targets Endure when opposed.",
-        "npcEffects": [
-          {
-            "tier": "F",
-            "range": "-1 to -3",
-            "description": "Pull target or object 1 zone closer."
-          },
-          {
-            "tier": "M",
-            "range": "-4 to -7",
-            "description": "Pull target 1 zone closer. Target gains [Disoriented]."
-          },
-          {
-            "tier": "L",
-            "range": "-8+",
-            "description": "Pull target 1 zone closer. Target gains [Disoriented] and [Prone]."
-          }
-        ]
-      },
-      "gambit": {
-        "name": "Force Stagger",
-        "cost": "-1 Power",
-        "modifies": "Force Push",
-        "description": "In addition to normal effects, target gains [Disoriented] Tactical.",
-        "rider": "[Disoriented] Tactical"
-      },
-      "exploit": {
-        "name": "Force Choke",
-        "trigger": "A PC drops below half Vitality.",
-        "description": "Target gains [Restrained]. Must Endure to break free."
-      }
-    },
-    {
-      "id": "face",
-      "name": "Face",
-      "category": "combat",
-      "description": "Social operator. Negotiates, manipulates, deceives. Fights with words.",
-      "arenaMods": {
-        "presence": 1,
-        "physique": -1
-      },
-      "passive": {
-        "name": "Silver Tongue",
-        "description": "Can attempt social actions in combat without provoking reactions."
-      },
-      "actions": [
-        {
-          "name": "Cutting Words",
-          "type": "action",
-          "arena": "presence",
-          "defense": "resist",
-          "description": "Social attack. Targets Resist.",
-          "npcEffects": [
-            {
-              "tier": "F",
-              "range": "-1 to -3",
-              "description": "Target gains [Rattled]."
-            },
-            {
-              "tier": "M",
-              "range": "-4 to -7",
-              "description": "Target gains [Rattled] and [Shaken]."
-            },
-            {
-              "tier": "L",
-              "range": "-8+",
-              "description": "Target gains [Rattled], [Shaken], and [Exposed]."
-            }
-          ]
-        },
-        {
-          "name": "Negotiate",
-          "type": "action",
-          "arena": "presence",
-          "defense": "resist",
-          "description": "Attempt to change target disposition or broker deal.",
-          "npcEffects": [
-            {
-              "tier": "F",
-              "range": "-1 to -3",
-              "description": "Shift target disposition one step favorable for the scene."
-            },
-            {
-              "tier": "M",
-              "range": "-4 to -7",
-              "description": "Target makes one concession or reveals useful information."
-            },
-            {
-              "tier": "L",
-              "range": "-8+",
-              "description": "Target agrees to terms or switches stance entirely for the scene."
-            }
-          ]
-        }
-      ],
-      "maneuver": {
-        "name": "Read the Room",
-        "defense": "none",
-        "description": "Learn one target's motivation, fear, or current condition."
-      },
-      "gambit": {
-        "name": "Taunt",
-        "cost": "-1 Power",
-        "modifies": "Cutting Words",
-        "description": "In addition to normal effects, target gains [Marked] Tactical. Must include Face in next attack if able.",
-        "rider": "[Marked] Tactical"
-      },
-      "exploit": {
-        "name": "Distraction",
-        "trigger": "An ally is targeted by an attack.",
-        "description": "Presence-based attack vs Resist. Impose conditions before the target's action resolves.",
-        "defense": "resist",
-        "npcEffects": [
-          {
-            "tier": "F",
-            "range": "-1 to -3",
-            "description": "Target gains [Rattled] before their action resolves."
-          },
-          {
-            "tier": "M",
-            "range": "-4 to -7",
-            "description": "Target gains [Stunned] before their action resolves."
-          },
-          {
-            "tier": "L",
-            "range": "-8+",
-            "description": "Target gains [Stunned] and [Shaken] before their action resolves."
-          }
-        ]
-      }
-    },
-    {
-      "id": "beast",
-      "name": "Beast",
-      "category": "combat",
-      "description": "Feral combatant. Natural weapons, pack instincts, raw predatory aggression.",
-      "arenaMods": {
-        "physique": 1,
-        "wits": -1,
-        "presence": -1
-      },
-      "passive": {
-        "name": "Natural Weapons",
-        "description": "Cannot be disarmed. Immune to [Disoriented]."
-      },
-      "actions": [
-        {
-          "name": "Savage Bite",
-          "type": "action",
-          "arena": "physique",
-          "powerMod": 1,
-          "defense": "dodge/endure",
-          "description": "Melee attack with +1 Power.",
-          "npcEffects": [
-            {
-              "tier": "F",
-              "range": "-1 to -3",
-              "description": "Chassis damage."
-            },
-            {
-              "tier": "M",
-              "range": "-4 to -7",
-              "description": "Chassis damage. Target gains [Bleeding]."
-            },
-            {
-              "tier": "L",
-              "range": "-8+",
-              "description": "Chassis damage. Target gains [Bleeding] and [Restrained] (jaws locked)."
-            }
-          ]
-        },
-        {
-          "name": "Pounce",
-          "type": "action",
-          "arena": "physique",
-          "defense": "dodge/endure",
-          "description": "Charge from short range + melee attack.",
-          "npcEffects": [
-            {
-              "tier": "F",
-              "range": "-1 to -3",
-              "description": "Chassis damage. Close distance from short range."
-            },
-            {
-              "tier": "M",
-              "range": "-4 to -7",
-              "description": "Chassis damage. Target gains [Prone]."
-            },
-            {
-              "tier": "L",
-              "range": "-8+",
-              "description": "Chassis damage. Target gains [Prone] and [Pinned]."
-            }
-          ]
-        }
-      ],
-      "maneuver": {
-        "name": "Stalk",
-        "defense": "none",
-        "description": "Move silently. Gain concealment if cover is available."
-      },
-      "gambit": {
-        "name": "Rend",
-        "cost": "-1 Power",
-        "modifies": "Savage Bite",
-        "description": "In addition to normal effects, target gains [Bleeding].",
-        "rider": "[Bleeding]"
-      },
-      "exploit": {
-        "name": "Pack Tactics",
-        "trigger": "An allied Beast attacks the same target.",
-        "description": "Attack the same target with +2 Power."
-      }
-    },
-    {
-      "id": "duelist",
-      "name": "Duelist",
-      "category": "combat",
-      "description": "Precision melee specialist. Parry, riposte, counterattack. Inquisitors, Mandalorian melee fighters, vibroblade experts.",
-      "arenaMods": {
-        "grit": 1,
-        "physique": -1
-      },
-      "passive": {
-        "name": "Riposte",
-        "description": "When an adjacent attacker misses this NPC with a melee attack, immediately make a free melee counterattack against them."
-      },
-      "actions": [
-        {
-          "name": "Precision Strike",
-          "type": "action",
-          "arena": "reflex",
-          "powerMod": 1,
-          "defense": "dodge/endure",
-          "description": "Melee attack with +1 Power. Ignores light armor.",
-          "npcEffects": [
-            {
-              "tier": "F",
-              "range": "-1 to -3",
-              "description": "Chassis damage. Ignores light armor."
-            },
-            {
-              "tier": "M",
-              "range": "-4 to -7",
-              "description": "Chassis damage. Target gains [Bleeding]. Ignores light armor."
-            },
-            {
-              "tier": "L",
-              "range": "-8+",
-              "description": "Chassis damage. Target gains [Weakened] and [Bleeding]. Ignores all armor."
-            }
-          ]
-        },
-        {
-          "name": "Parry & Thrust",
-          "type": "action",
-          "arena": "reflex",
-          "defense": "dodge/endure",
-          "description": "Melee attack. +1 Defense until start of next turn.",
-          "npcEffects": [
-            {
-              "tier": "F",
-              "range": "-1 to -3",
-              "description": "Chassis damage. NPC gains +1 Defense until next turn."
-            },
-            {
-              "tier": "M",
-              "range": "-4 to -7",
-              "description": "Chassis damage. NPC gains +1 Defense. Target gains [Disoriented]."
-            },
-            {
-              "tier": "L",
-              "range": "-8+",
-              "description": "Chassis damage. NPC gains +2 Defense. Target gains [Exposed]."
-            }
-          ]
-        }
-      ],
-      "maneuver": {
-        "name": "Defensive Stance",
-        "defense": "none",
-        "description": "Enter a guarded position. +1 Defense and +1 Evasion until next action."
-      },
-      "gambit": {
-        "name": "Disabling Cut",
-        "cost": "-1 Power",
-        "modifies": "Precision Strike",
-        "description": "In addition to normal effects, target gains [Weakened] Tactical.",
-        "rider": "[Weakened] Tactical"
-      },
-      "exploit": {
-        "name": "Killing Blow",
-        "trigger": "A PC drops below half Vitality.",
-        "description": "Attack that target with +2 Power, ignoring Defense bonuses from cover and shields."
+        "name": "Emergency Aid",
+        "trigger": "An ally in the same zone is reduced to 0 Vitality.",
+        "description": "That ally is instead reduced to 1 Vitality. Usable once per scene."
       }
     }
   ],
@@ -1242,9 +394,8 @@
         "character"
       ],
       "roleAffinity": [
-        "trooper",
-        "operative",
-        "skirmisher"
+        "anchor",
+        "harrier"
       ]
     },
     {
@@ -1258,8 +409,8 @@
         "character"
       ],
       "roleAffinity": [
-        "trooper",
-        "commander"
+        "anchor",
+        "support"
       ]
     },
     {
@@ -1273,8 +424,7 @@
         "character"
       ],
       "roleAffinity": [
-        "brute",
-        "duelist"
+        "threat"
       ]
     },
     {
@@ -1288,8 +438,8 @@
         "vehicle"
       ],
       "roleAffinity": [
-        "brute",
-        "trooper"
+        "threat",
+        "anchor"
       ]
     },
     {
@@ -1306,8 +456,7 @@
         "station"
       ],
       "roleAffinity": [
-        "brute",
-        "beast"
+        "threat"
       ]
     },
     {
@@ -1320,9 +469,9 @@
         "character"
       ],
       "roleAffinity": [
-        "trooper",
-        "commander",
-        "duelist"
+        "anchor",
+        "support",
+        "threat"
       ]
     },
     {
@@ -1335,9 +484,8 @@
         "character"
       ],
       "roleAffinity": [
-        "skirmisher",
-        "operative",
-        "duelist"
+        "harrier",
+        "threat"
       ]
     },
     {
@@ -1350,7 +498,7 @@
         "character"
       ],
       "roleAffinity": [
-        "mystic"
+        "controller"
       ]
     },
     {
@@ -1369,8 +517,8 @@
         "character"
       ],
       "roleAffinity": [
-        "technician",
-        "operative"
+        "controller",
+        "harrier"
       ]
     },
     {
@@ -1386,9 +534,7 @@
         "character"
       ],
       "roleAffinity": [
-        "brute",
-        "beast",
-        "duelist"
+        "threat"
       ]
     },
     {
@@ -1405,9 +551,8 @@
         "station"
       ],
       "roleAffinity": [
-        "commander",
-        "marksman",
-        "duelist"
+        "support",
+        "threat"
       ]
     },
     {
@@ -1424,8 +569,8 @@
         "capital_ship"
       ],
       "roleAffinity": [
-        "trooper",
-        "commander"
+        "anchor",
+        "support"
       ]
     },
     {
@@ -1439,8 +584,7 @@
         "character"
       ],
       "roleAffinity": [
-        "skirmisher",
-        "operative"
+        "harrier"
       ]
     },
     {
@@ -1934,8 +1078,7 @@
         "character"
       ],
       "roleAffinity": [
-        "brute",
-        "beast"
+        "threat"
       ]
     },
     {
@@ -1949,7 +1092,7 @@
         "character"
       ],
       "roleAffinity": [
-        "face"
+        "controller"
       ]
     },
     {
@@ -1963,8 +1106,8 @@
         "character"
       ],
       "roleAffinity": [
-        "brute",
-        "commander"
+        "threat",
+        "support"
       ]
     },
     {
@@ -1978,7 +1121,7 @@
         "character"
       ],
       "roleAffinity": [
-        "trooper"
+        "anchor"
       ]
     },
     {
@@ -1992,8 +1135,8 @@
         "character"
       ],
       "roleAffinity": [
-        "face",
-        "commander"
+        "controller",
+        "support"
       ]
     },
     {
@@ -2007,8 +1150,8 @@
         "character"
       ],
       "roleAffinity": [
-        "operative",
-        "commander"
+        "harrier",
+        "support"
       ]
     },
     {
@@ -2022,7 +1165,7 @@
         "character"
       ],
       "roleAffinity": [
-        "face"
+        "controller"
       ]
     },
     {
@@ -2036,8 +1179,8 @@
         "character"
       ],
       "roleAffinity": [
-        "trooper",
-        "commander"
+        "anchor",
+        "support"
       ]
     },
     {
@@ -2051,8 +1194,8 @@
         "character"
       ],
       "roleAffinity": [
-        "operative",
-        "face"
+        "harrier",
+        "controller"
       ]
     },
     {
@@ -2066,8 +1209,8 @@
         "character"
       ],
       "roleAffinity": [
-        "commander",
-        "face"
+        "support",
+        "controller"
       ]
     },
     {
@@ -2081,9 +1224,8 @@
         "character"
       ],
       "roleAffinity": [
-        "operative",
-        "skirmisher",
-        "face"
+        "harrier",
+        "controller"
       ]
     },
     {
@@ -2097,8 +1239,7 @@
         "character"
       ],
       "roleAffinity": [
-        "brute",
-        "beast"
+        "threat"
       ]
     }
   ],
@@ -2344,7 +1485,7 @@
       "name": "Stormtrooper",
       "tier": 1,
       "classification": "minion",
-      "role": "trooper",
+      "role": "anchor",
       "arenas": {
         "physique": 3,
         "reflex": 2,
@@ -2367,7 +1508,7 @@
       "name": "Stormtrooper Sergeant",
       "tier": 1,
       "classification": "standard",
-      "role": "trooper",
+      "role": "anchor",
       "arenas": {
         "physique": 3,
         "reflex": 2,
@@ -2390,7 +1531,7 @@
       "name": "Bounty Hunter",
       "tier": 2,
       "classification": "elite",
-      "role": "operative",
+      "role": "harrier",
       "arenas": {
         "physique": 2,
         "reflex": 4,
@@ -2417,7 +1558,7 @@
       "name": "Crime Lord",
       "tier": 3,
       "classification": "boss",
-      "role": "face",
+      "role": "controller",
       "arenas": {
         "physique": 2,
         "reflex": 2,
@@ -2444,7 +1585,7 @@
       "name": "Dark Side Adept",
       "tier": 3,
       "classification": "elite",
-      "role": "mystic",
+      "role": "controller",
       "arenas": {
         "physique": 2,
         "reflex": 3,
@@ -2471,7 +1612,7 @@
       "name": "Trandoshan Enforcer",
       "tier": 2,
       "classification": "standard",
-      "role": "brute",
+      "role": "threat",
       "arenas": {
         "physique": 4,
         "reflex": 2,
@@ -2497,7 +1638,7 @@
       "name": "Pit Beast",
       "tier": 2,
       "classification": "standard",
-      "role": "beast",
+      "role": "threat",
       "arenas": {
         "physique": 4,
         "reflex": 3,
@@ -2518,7 +1659,7 @@
       "name": "Imperial Officer",
       "tier": 2,
       "classification": "standard",
-      "role": "commander",
+      "role": "support",
       "arenas": {
         "physique": 2,
         "reflex": 2,
@@ -2543,7 +1684,7 @@
       "name": "Krev Tosk",
       "tier": 2,
       "classification": "standard",
-      "role": "brute",
+      "role": "threat",
       "arenas": {
         "physique": 4,
         "reflex": 2,
@@ -2570,7 +1711,7 @@
       "name": "Kyuzo Skirmisher",
       "tier": 1,
       "classification": "minion",
-      "role": "skirmisher",
+      "role": "harrier",
       "arenas": {
         "physique": 2,
         "reflex": 3,
@@ -2594,7 +1735,7 @@
       "name": "ISB Agent",
       "tier": 2,
       "classification": "elite",
-      "role": "operative",
+      "role": "harrier",
       "arenas": {
         "physique": 2,
         "reflex": 3,
@@ -2645,7 +1786,7 @@
       "name": "Inquisitor Duelist",
       "tier": 3,
       "classification": "elite",
-      "role": "duelist",
+      "role": "threat",
       "arenas": {
         "physique": 3,
         "reflex": 4,
@@ -2672,7 +1813,7 @@
       "name": "Hutt Crime Lord",
       "tier": 3,
       "classification": "boss",
-      "role": "face",
+      "role": "controller",
       "arenas": {
         "physique": 3,
         "reflex": 1,
@@ -2710,8 +1851,7 @@
       "description": "In addition to normal effects, target gains [Slowed] Tactical.",
       "rider": "[Slowed] Tactical",
       "suggestedRoles": [
-        "brute",
-        "beast"
+        "threat"
       ]
     },
     {
@@ -2726,9 +1866,8 @@
       "description": "In addition to normal effects, target gains [Prone].",
       "rider": "[Prone]",
       "suggestedRoles": [
-        "brute",
-        "beast",
-        "skirmisher"
+        "threat",
+        "harrier"
       ]
     },
     {
@@ -2743,8 +1882,7 @@
       "description": "In addition to normal effects, target gains [Restrained] Tactical.",
       "rider": "[Restrained] Tactical",
       "suggestedRoles": [
-        "brute",
-        "beast"
+        "threat"
       ]
     },
     {
@@ -2758,9 +1896,9 @@
       "description": "In addition to normal effects, target gains [Rattled] Tactical.",
       "rider": "[Rattled] Tactical",
       "suggestedRoles": [
-        "trooper",
-        "marksman",
-        "commander"
+        "anchor",
+        "threat",
+        "support"
       ]
     },
     {
@@ -2774,8 +1912,8 @@
       "description": "In addition to normal effects, target gains [Suppressed] Tactical.",
       "rider": "[Suppressed] Tactical",
       "suggestedRoles": [
-        "trooper",
-        "marksman"
+        "anchor",
+        "threat"
       ]
     },
     {
@@ -2789,8 +1927,8 @@
       "description": "In addition to normal effects, the target cannot Exploit Openings against one chosen ally. Tactical.",
       "rider": "Block Openings vs ally, Tactical",
       "suggestedRoles": [
-        "trooper",
-        "commander"
+        "anchor",
+        "support"
       ]
     },
     {
@@ -2804,8 +1942,8 @@
       "description": "In addition to normal effects, shoot an environmental element — door release, light fixture, cable, fuel line — triggering a narrative effect in the zone. GM adjudicates.",
       "rider": "Narrative environmental effect",
       "suggestedRoles": [
-        "marksman",
-        "operative"
+        "threat",
+        "harrier"
       ]
     },
     {
@@ -2819,9 +1957,8 @@
       "description": "In addition to normal effects, target gains [Exposed] to the next attack against them. Tactical.",
       "rider": "[Exposed] Tactical",
       "suggestedRoles": [
-        "skirmisher",
-        "operative",
-        "duelist"
+        "harrier",
+        "threat"
       ]
     },
     {
@@ -2836,8 +1973,7 @@
       "description": "In addition to normal effects, target gains [Rattled] Tactical.",
       "rider": "[Rattled] Tactical",
       "suggestedRoles": [
-        "brute",
-        "beast"
+        "threat"
       ]
     },
     {
@@ -2851,8 +1987,8 @@
       "description": "In addition to normal effects, target's Resist defense reduced by 2. Ongoing.",
       "rider": "Resist -2, Ongoing",
       "suggestedRoles": [
-        "brute",
-        "mystic"
+        "threat",
+        "controller"
       ]
     },
     {
@@ -2867,8 +2003,8 @@
       "description": "In addition to normal effects, the target immediately presents an Opening. Any ally in the zone may spend an Exploit to react.",
       "rider": "Target presents Opening",
       "suggestedRoles": [
-        "duelist",
-        "skirmisher"
+        "threat",
+        "harrier"
       ]
     },
     {
@@ -2882,8 +2018,7 @@
       "description": "In addition to normal effects, push the target 1 zone. NPC may follow into that zone.",
       "rider": "Push 1 zone",
       "suggestedRoles": [
-        "brute",
-        "beast"
+        "threat"
       ]
     },
     {
@@ -2897,7 +2032,7 @@
       "description": "In addition to normal effects, push the target 1 zone and follow. Target gains [Prone].",
       "rider": "Push 1 zone + [Prone]",
       "suggestedRoles": [
-        "brute"
+        "threat"
       ]
     },
     {
@@ -2912,9 +2047,7 @@
       "description": "In addition to normal effects, apply the attack to a second target in the same zone at one tier lower.",
       "rider": "Hit second target (reduced tier)",
       "suggestedRoles": [
-        "brute",
-        "duelist",
-        "beast"
+        "threat"
       ]
     },
     {
@@ -2930,7 +2063,7 @@
       "description": "In addition to normal effects, target gains [Suppressed] Tactical.",
       "rider": "[Suppressed] Tactical",
       "suggestedRoles": [
-        "trooper"
+        "anchor"
       ]
     },
     {
@@ -2946,7 +2079,7 @@
       "description": "In addition to normal effects, apply the attack to all targets in the zone at one tier lower.",
       "rider": "Hit all targets in zone (reduced tier)",
       "suggestedRoles": [
-        "trooper"
+        "anchor"
       ]
     },
     {
@@ -2962,8 +2095,8 @@
       "description": "In addition to normal effects, the target zone gains [Hazard 2] Ongoing. Anyone entering or starting their turn in the zone takes Hazard damage.",
       "rider": "[Hazard 2] Ongoing in zone",
       "suggestedRoles": [
-        "trooper",
-        "technician"
+        "anchor",
+        "controller"
       ]
     },
     {
@@ -2977,8 +2110,8 @@
       "description": "In addition to normal effects, draw and fire a concealed weapon. Target is caught off guard — treat as unaware for this attack.",
       "rider": "Concealed weapon, target unaware",
       "suggestedRoles": [
-        "operative",
-        "face"
+        "harrier",
+        "controller"
       ]
     },
     {
@@ -2992,8 +2125,8 @@
       "description": "In addition to normal effects, the target wastes their next significant action pursuing false information or a phantom threat.",
       "rider": "Target wastes next action",
       "suggestedRoles": [
-        "face",
-        "operative"
+        "controller",
+        "harrier"
       ]
     },
     {
@@ -3007,8 +2140,8 @@
       "description": "In addition to normal effects, the target reveals their primary motivation in this scene — what they want, protect, or fear.",
       "rider": "Reveal motivation",
       "suggestedRoles": [
-        "face",
-        "brute"
+        "controller",
+        "threat"
       ]
     },
     {
@@ -3022,7 +2155,7 @@
       "description": "In addition to normal effects, push the target 1 zone. Telekinetic — no physical contact required.",
       "rider": "Push 1 zone (telekinetic)",
       "suggestedRoles": [
-        "mystic"
+        "controller"
       ]
     },
     {
@@ -3036,7 +2169,7 @@
       "description": "In addition to normal effects, NPC gains [Optimized] on all defense values until start of next turn.",
       "rider": "[Optimized] defense, Tactical",
       "suggestedRoles": [
-        "duelist"
+        "threat"
       ]
     }
   ]

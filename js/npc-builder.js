@@ -87,30 +87,32 @@
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(savedNpcs)); } catch (e) {}
   }
 
+  var OLD_ROLE_MAP = {
+    trooper: 'anchor', brute: 'threat', marksman: 'threat',
+    skirmisher: 'harrier', operative: 'harrier', commander: 'support',
+    technician: 'controller', mystic: 'controller', face: 'controller',
+    beast: 'threat', duelist: 'threat'
+  };
+
+  function migrateOldRole(roleId) {
+    if (!roleId) return roleId;
+    return OLD_ROLE_MAP[roleId] || roleId;
+  }
+
   function seedAttacksFromRole() {
-    if (!threatData || !currentNpc.role) {
+    if (!currentNpc.attacks || !currentNpc.attacks.length) {
       currentNpc.attacks = [];
-      return;
     }
-    var role = threatData.roles.find(function (r) { return r.id === currentNpc.role; });
-    if (!role || !role.actions) {
-      currentNpc.attacks = [];
-      return;
-    }
-    currentNpc.attacks = role.actions.map(function (a) {
-      return { name: a.name, arena: a.arena || '', powerMod: a.powerMod || 0, chassis: 'medium', canStun: false, sourceAction: a.name };
-    });
   }
 
   function calcStats(npc) {
     var role = npc.role ? threatData.roles.find(function (r) { return r.id === npc.role; }) : null;
-    var mods = role ? role.arenaMods || {} : {};
     var a = {
-      physique: Math.max(1, Math.min(5, npc.arenas.physique + (mods.physique || 0))),
-      reflex: Math.max(1, Math.min(5, npc.arenas.reflex + (mods.reflex || 0))),
-      grit: Math.max(1, Math.min(5, npc.arenas.grit + (mods.grit || 0))),
-      wits: Math.max(1, Math.min(5, npc.arenas.wits + (mods.wits || 0))),
-      presence: Math.max(1, Math.min(5, npc.arenas.presence + (mods.presence || 0)))
+      physique: Math.max(1, Math.min(5, npc.arenas.physique)),
+      reflex: Math.max(1, Math.min(5, npc.arenas.reflex)),
+      grit: Math.max(1, Math.min(5, npc.arenas.grit)),
+      wits: Math.max(1, Math.min(5, npc.arenas.wits)),
+      presence: Math.max(1, Math.min(5, npc.arenas.presence))
     };
     var tier = npc.tier;
 
@@ -160,8 +162,6 @@
       powers[arena] = a[arena] + tier + powerTrait;
     });
 
-    var rolePowerBonus = role && role.powerBonus ? role.powerBonus : null;
-
     var initiative = tier + (a.wits * 2) + initiativeTrait;
 
     return {
@@ -176,7 +176,6 @@
       initiative: initiative,
       role: role,
       classification: cls,
-      rolePowerBonus: rolePowerBonus,
       immunities: traitImmunities,
       vulnerabilities: traitVulnerabilities,
       scale: scale,
@@ -231,10 +230,6 @@
       html += '</div>';
     });
     html += '</div>';
-
-    if (stats.rolePowerBonus) {
-      html += '<div class="npc-card-power-bonus">ROLE BONUS: +' + stats.rolePowerBonus.value + ' Power (' + esc(stats.rolePowerBonus.condition) + ')</div>';
-    }
 
     if (stats.immunities && stats.immunities.length) {
       html += '<div class="npc-card-immunities">IMMUNE: ' + stats.immunities.map(esc).join(', ') + '</div>';
@@ -327,86 +322,32 @@
         html += '<div class="npc-ability passive"><span class="npc-ability-type">PASSIVE</span> <strong>' + esc(role.passive.name) + ':</strong> ' + esc(role.passive.description) + '</div>';
       }
 
-      html += '<div class="npc-action-economy-group">';
-      html += '<div class="npc-action-group-label">ACTIONS</div>';
-      role.actions.forEach(function (a) {
-        var arenaTag = a.arena ? ' <span class="npc-action-arena-tag">' + esc(a.arena) + '</span>' : '';
-        var pwrTag = a.powerMod ? ' <span class="npc-action-pwr-tag">+' + a.powerMod + ' Pwr</span>' : '';
-        var defLabel = '';
-        if (a.defense && a.defense !== 'none') {
-          defLabel = a.defense === 'dodge/endure' ? 'PC Defense' : a.defense.charAt(0).toUpperCase() + a.defense.slice(1);
-        }
-        var defTag = defLabel ? ' <span class="npc-action-def-tag">vs ' + esc(defLabel) + '</span>' : '';
-        var isUnopposed = (!a.defense || a.defense === 'none');
-        var autoTier = '';
-        if (isUnopposed && a.npcEffects && a.npcEffects.length && a.arena && stats.powers[a.arena] !== undefined) {
-          var pwr = stats.powers[a.arena] + (a.powerMod || 0);
-          autoTier = pwr >= 8 ? 'L' : (pwr >= 4 ? 'M' : 'F');
-        }
-        var unopposedTag = (isUnopposed && a.npcEffects && a.npcEffects.length) ? ' <span class="npc-action-auto-tag">Unopposed (Pwr ' + (stats.powers[a.arena] + (a.powerMod || 0)) + ')</span>' : '';
-        html += '<div class="npc-ability action"><strong>' + esc(a.name) + '</strong>' + arenaTag + defTag + unopposedTag + pwrTag + ' — ' + esc(a.description);
-        if (a.npcEffects && a.npcEffects.length) {
-          html += '<div class="npc-effect-track">';
-          a.npcEffects.forEach(function (ef) {
-            var activeClass = (autoTier && ef.tier === autoTier) ? ' npc-effect-tier-active' : '';
-            html += '<div class="npc-effect-tier' + activeClass + '"><span class="npc-effect-tier-label">' + esc(ef.tier) + '</span><span class="npc-effect-tier-range">' + esc(ef.range) + '</span> ' + esc(ef.description) + '</div>';
-          });
-          html += '</div>';
-        }
-        html += '</div>';
-      });
-      html += '</div>';
-
-      html += '<div class="npc-action-economy-group">';
-      html += '<div class="npc-action-group-label">MANEUVER</div>';
-      html += '<div class="npc-ability maneuver"><strong>' + esc(role.maneuver.name) + ':</strong>';
-      if (role.maneuver.defense && role.maneuver.defense !== 'none') {
-        var manDefLabel = role.maneuver.defense === 'dodge/endure' ? 'PC Defense' : role.maneuver.defense.charAt(0).toUpperCase() + role.maneuver.defense.slice(1);
-        html += ' <span class="npc-action-def-tag">vs ' + esc(manDefLabel) + '</span>';
-      }
-      html += ' ' + esc(role.maneuver.description);
-      if (role.maneuver.npcEffects && role.maneuver.npcEffects.length) {
-        html += '<div class="npc-effect-track">';
-        role.maneuver.npcEffects.forEach(function (ef) {
-          html += '<div class="npc-effect-tier"><span class="npc-effect-tier-label">' + esc(ef.tier) + '</span><span class="npc-effect-tier-range">' + esc(ef.range) + '</span> ' + esc(ef.description) + '</div>';
-        });
+      if (role.gambit) {
+        html += '<div class="npc-action-economy-group">';
+        html += '<div class="npc-action-group-label">GAMBIT <span class="npc-gambit-mod-note">(-1 Power)</span></div>';
+        html += '<div class="npc-ability gambit"><strong>' + esc(role.gambit.name) + '</strong> <span class="npc-gambit-cost">' + esc(role.gambit.cost) + '</span><div class="npc-gambit-effect">' + esc(role.gambit.description) + '</div></div>';
         html += '</div>';
       }
-      html += '</div>';
-      html += '</div>';
 
-      html += '<div class="npc-action-economy-group">';
-      html += '<div class="npc-action-group-label">EXPLOIT <span class="npc-exploit-pip-note">(Reaction)</span></div>';
-      var exploitTrigger = role.exploit.trigger ? '<div class="npc-exploit-trigger"><span class="npc-trigger-label">TRIGGER:</span> ' + esc(role.exploit.trigger) + '</div>' : '';
-      var exploitDefTag = '';
-      if (role.exploit.defense && role.exploit.defense !== 'none') {
-        var expDefLabel = role.exploit.defense === 'dodge/endure' ? 'PC Defense' : role.exploit.defense.charAt(0).toUpperCase() + role.exploit.defense.slice(1);
-        exploitDefTag = ' <span class="npc-action-def-tag">vs ' + esc(expDefLabel) + '</span>';
-      }
-      html += '<div class="npc-ability exploit"><strong>' + esc(role.exploit.name) + '</strong>' + exploitDefTag + exploitTrigger + '<div class="npc-exploit-effect">' + esc(role.exploit.description) + '</div>';
-      if (role.exploit.npcEffects && role.exploit.npcEffects.length) {
-        html += '<div class="npc-effect-track">';
-        role.exploit.npcEffects.forEach(function (ef) {
-          html += '<div class="npc-effect-tier"><span class="npc-effect-tier-label">' + esc(ef.tier) + '</span><span class="npc-effect-tier-range">' + esc(ef.range) + '</span> ' + esc(ef.description) + '</div>';
-        });
-        html += '</div>';
-      }
-      html += '</div>';
-      html += '</div>';
-
-      html += '<div class="npc-action-economy-group">';
-      html += '<div class="npc-action-group-label">GAMBIT <span class="npc-gambit-mod-note">(Declared in Advance)</span></div>';
-      var gambitMod = role.gambit.modifies ? '<span class="npc-gambit-modifies">on ' + esc(role.gambit.modifies) + '</span> ' : '';
-      html += '<div class="npc-ability gambit"><strong>' + esc(role.gambit.name) + '</strong> ' + gambitMod + '<span class="npc-gambit-cost">' + esc(role.gambit.cost) + '</span><div class="npc-gambit-effect">' + esc(role.gambit.description) + '</div></div>';
       if (currentNpc.extraGambits && currentNpc.extraGambits.length && threatData.npcGambitPool) {
+        html += '<div class="npc-action-economy-group">';
+        html += '<div class="npc-action-group-label">EXTRA GAMBITS</div>';
         currentNpc.extraGambits.forEach(function (gid) {
           var poolG = threatData.npcGambitPool.find(function (g) { return g.id === gid; });
           if (poolG) {
             html += '<div class="npc-ability gambit"><strong>' + esc(poolG.name) + '</strong> <span class="npc-gambit-cost">' + esc(poolG.cost) + '</span><div class="npc-gambit-effect">' + esc(poolG.description) + '</div></div>';
           }
         });
+        html += '</div>';
       }
-      html += '</div>';
+
+      if (role.exploit) {
+        html += '<div class="npc-action-economy-group">';
+        html += '<div class="npc-action-group-label">EXPLOIT <span class="npc-exploit-pip-note">(Reaction)</span></div>';
+        var exploitTrigger = role.exploit.trigger ? '<div class="npc-exploit-trigger"><span class="npc-trigger-label">TRIGGER:</span> ' + esc(role.exploit.trigger) + '</div>' : '';
+        html += '<div class="npc-ability exploit"><strong>' + esc(role.exploit.name) + '</strong>' + exploitTrigger + '<div class="npc-exploit-effect">' + esc(role.exploit.description) + '</div></div>';
+        html += '</div>';
+      }
 
       html += '</div>';
     }
@@ -1106,6 +1047,7 @@
         var npc = savedNpcs[idx];
         if (!npc) return;
         currentNpc = JSON.parse(JSON.stringify(npc));
+        if (currentNpc.role) currentNpc.role = migrateOldRole(currentNpc.role);
         if (!currentNpc.threatCategory) currentNpc.threatCategory = 'character';
         if (!currentNpc.extraGambits) currentNpc.extraGambits = [];
         if (!currentNpc.shipDetails) currentNpc.shipDetails = { hullType: '', crew: '', hyperdrive: '', sensors: '', shields: '', cargo: '', speed: '' };
@@ -1285,6 +1227,7 @@
   function openWithNpc(npcData, callback) {
     _editCallback = callback || null;
     currentNpc = JSON.parse(JSON.stringify(npcData));
+    if (currentNpc.role) currentNpc.role = migrateOldRole(currentNpc.role);
     if (!currentNpc.threatCategory) currentNpc.threatCategory = 'character';
     if (!currentNpc.shipDetails) currentNpc.shipDetails = { hullType: '', crew: '', hyperdrive: '', sensors: '', shields: '', cargo: '', speed: '' };
     if (!currentNpc.traits) currentNpc.traits = [];
@@ -1344,14 +1287,6 @@
         result.roleKit = {
           roleName: role.name || '',
           passive: role.passive || null,
-          actions: (role.actions || []).map(function (a) {
-            var aClone = JSON.parse(JSON.stringify(a));
-            if (a.arena && stats.powers[a.arena] !== undefined) {
-              aClone.attackPower = stats.powers[a.arena] + (a.powerMod || 0);
-            }
-            return aClone;
-          }),
-          maneuver: role.maneuver || null,
           gambit: role.gambit || null,
           exploit: role.exploit || null
         };
@@ -1396,6 +1331,7 @@
 
   function buildNpcFromSaved(savedNpc) {
     return ensureThreatData().then(function () {
+      if (savedNpc.role) savedNpc.role = migrateOldRole(savedNpc.role);
       var stats = calcStats(savedNpc);
       var role = savedNpc.role && threatData ? threatData.roles.find(function (r) { return r.id === savedNpc.role; }) : null;
       var roleKit = null;
@@ -1403,14 +1339,6 @@
         roleKit = {
           roleName: role.name || '',
           passive: role.passive || null,
-          actions: (role.actions || []).map(function (a) {
-            var aClone = JSON.parse(JSON.stringify(a));
-            if (a.arena && stats.powers[a.arena] !== undefined) {
-              aClone.attackPower = stats.powers[a.arena] + (a.powerMod || 0);
-            }
-            return aClone;
-          }),
-          maneuver: role.maneuver || null,
           gambit: role.gambit || null,
           exploit: role.exploit || null
         };

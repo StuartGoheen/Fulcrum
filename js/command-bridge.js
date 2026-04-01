@@ -409,78 +409,20 @@
       if (rk.passive) {
         h += '<div class="cb-npc-ability"><span class="cb-npc-ability-tag" style="background:rgba(192,132,252,0.15);color:#c084fc;">Passive</span> <strong>' + esc(rk.passive.name) + '</strong> — ' + linkify(rk.passive.description) + '</div>';
       }
-      if (rk.actions && rk.actions.length) {
-        rk.actions.forEach(function (a) {
-          var defLabel = '';
-          if (a.defense && a.defense !== 'none') {
-            defLabel = a.defense === 'dodge/endure' ? 'PC Defense' : a.defense.charAt(0).toUpperCase() + a.defense.slice(1);
-          }
-          var isUnopposed = (!a.defense || a.defense === 'none');
-          h += '<div class="cb-npc-ability"><span class="cb-npc-ability-tag" style="background:rgba(var(--color-accent-primary-rgb,199,146,52),0.15);color:var(--color-accent-primary);">Action</span> <strong>' + esc(a.name) + '</strong>';
-          if (a.attackPower != null) h += ' <span class="cb-power-badge">P' + a.attackPower + '</span>';
-          if (a.arena) h += ' <span style="color:var(--color-text-secondary);font-size:0.6rem;">(' + esc(a.arena) + ')</span>';
-          if (defLabel) h += ' <span style="font-size:0.55rem;color:#60a5fa;">vs ' + esc(defLabel) + '</span>';
-          if (isUnopposed && a.npcEffects && a.npcEffects.length && a.attackPower != null) {
-            var autoTier = a.attackPower >= 8 ? 'L' : (a.attackPower >= 4 ? 'M' : 'F');
-            h += ' <span style="font-size:0.5rem;color:#60a5fa;background:rgba(96,165,250,0.12);padding:0 0.2rem;border-radius:2px;">Unopposed (Pwr ' + a.attackPower + ')</span>';
-          }
-          h += ' — ' + linkify(a.description);
-          if (a.npcEffects && a.npcEffects.length) {
-            var autoT = (isUnopposed && a.attackPower != null) ? (a.attackPower >= 8 ? 'L' : (a.attackPower >= 4 ? 'M' : 'F')) : '';
-            h += '<div style="margin:0.1rem 0 0.15rem 0.5rem;">';
-            a.npcEffects.forEach(function (ef) {
-              var active = (autoT && ef.tier === autoT);
-              var style = active ? 'color:var(--color-text-primary);opacity:1;' : 'color:var(--color-text-secondary);opacity:0.5;';
-              if (active) style += 'background:rgba(96,165,250,0.12);border-left:2px solid #60a5fa;padding-left:0.2rem;';
-              h += '<div style="font-size:0.55rem;line-height:1.4;' + style + '"><strong style="color:#60a5fa;width:0.8rem;display:inline-block;">' + esc(ef.tier) + '</strong><span style="color:rgba(255,255,255,0.4);margin-right:0.2rem;">' + esc(ef.range) + '</span>' + esc(ef.description) + '</div>';
-            });
-            h += '</div>';
-          }
-          h += '</div>';
-        });
-      }
-      if (rk.maneuver) {
-        var manDef = '';
-        if (rk.maneuver.defense && rk.maneuver.defense !== 'none') {
-          manDef = rk.maneuver.defense === 'dodge/endure' ? 'PC Defense' : rk.maneuver.defense.charAt(0).toUpperCase() + rk.maneuver.defense.slice(1);
-        }
-        h += '<div class="cb-npc-ability"><span class="cb-npc-ability-tag" style="background:rgba(96,165,250,0.15);color:#60a5fa;">Maneuver</span> <strong>' + esc(rk.maneuver.name) + '</strong>';
-        if (manDef) h += ' <span style="font-size:0.55rem;color:#60a5fa;">vs ' + esc(manDef) + '</span>';
-        h += ' — ' + linkify(rk.maneuver.description);
-        if (rk.maneuver.npcEffects && rk.maneuver.npcEffects.length) {
-          h += '<div style="margin:0.1rem 0 0.15rem 0.5rem;">';
-          rk.maneuver.npcEffects.forEach(function (ef) {
-            h += '<div style="font-size:0.55rem;line-height:1.4;color:var(--color-text-secondary);"><strong style="color:#60a5fa;width:0.8rem;display:inline-block;">' + esc(ef.tier) + '</strong><span style="color:rgba(255,255,255,0.4);margin-right:0.2rem;">' + esc(ef.range) + '</span>' + esc(ef.description) + '</div>';
-          });
-          h += '</div>';
-        }
-        h += '</div>';
-      }
       if (rk.gambit) {
-        h += '<div class="cb-npc-ability"><span class="cb-npc-ability-tag" style="background:rgba(245,158,11,0.15);color:#f59e0b;">Gambit</span> <strong>' + esc(rk.gambit.name) + '</strong> <span style="color:var(--color-text-secondary);font-size:0.6rem;">(costs 1 Pwr)</span> — ' + linkify(rk.gambit.description) + '</div>';
+        h += '<div class="cb-npc-ability"><span class="cb-npc-ability-tag" style="background:rgba(245,158,11,0.15);color:#f59e0b;">Gambit</span> <strong>' + esc(rk.gambit.name) + '</strong> <span style="color:var(--color-text-secondary);font-size:0.6rem;">(-1 Pwr)</span> — ' + linkify(rk.gambit.description) + '</div>';
       }
       if (tb.extraGambits && tb.extraGambits.length) {
         tb.extraGambits.forEach(function (eg) {
-          h += '<div class="cb-npc-ability"><span class="cb-npc-ability-tag" style="background:rgba(245,158,11,0.15);color:#f59e0b;">Gambit</span> <strong>' + esc(eg.name) + '</strong> <span style="color:var(--color-text-secondary);font-size:0.6rem;">(costs 1 Pwr)</span> — ' + linkify(eg.description) + '</div>';
+          h += '<div class="cb-npc-ability"><span class="cb-npc-ability-tag" style="background:rgba(245,158,11,0.15);color:#f59e0b;">Gambit</span> <strong>' + esc(eg.name) + '</strong> <span style="color:var(--color-text-secondary);font-size:0.6rem;">(-1 Pwr)</span> — ' + linkify(eg.description) + '</div>';
         });
       }
       if (rk.exploit) {
         h += '<div class="cb-npc-ability"><span class="cb-npc-ability-tag" style="background:rgba(52,211,153,0.15);color:#34d399;">Exploit</span> <strong>' + esc(rk.exploit.name) + '</strong>';
-        if (rk.exploit.defense && rk.exploit.defense !== 'none') {
-          var expDef = rk.exploit.defense === 'dodge/endure' ? 'PC Defense' : rk.exploit.defense.charAt(0).toUpperCase() + rk.exploit.defense.slice(1);
-          h += ' <span style="font-size:0.55rem;color:#60a5fa;">vs ' + esc(expDef) + '</span>';
-        }
         if (rk.exploit.trigger) {
           h += '<div style="font-size:0.55rem;color:var(--color-warn,#f59e0b);margin:0.05rem 0;"><strong>TRIGGER:</strong> ' + linkify(rk.exploit.trigger) + '</div>';
         }
         h += '<div>' + linkify(rk.exploit.description) + '</div>';
-        if (rk.exploit.npcEffects && rk.exploit.npcEffects.length) {
-          h += '<div style="margin:0.1rem 0 0.15rem 0.5rem;">';
-          rk.exploit.npcEffects.forEach(function (ef) {
-            h += '<div style="font-size:0.55rem;line-height:1.4;color:var(--color-text-secondary);"><strong style="color:#60a5fa;width:0.8rem;display:inline-block;">' + esc(ef.tier) + '</strong><span style="color:rgba(255,255,255,0.4);margin-right:0.2rem;">' + esc(ef.range) + '</span>' + esc(ef.description) + '</div>';
-          });
-          h += '</div>';
-        }
         h += '</div>';
       }
     }
@@ -906,13 +848,11 @@
             npc.threatBuild = updated;
             npc.threatBuild.computed = updated.computed;
             if (updated.roleKit) {
-              var rk = updated.roleKit;
               npc.threatBuild.roleKit = {
-                passive: rk.passive || (rk.passives && rk.passives[0]) || null,
-                actions: rk.actions || [],
-                maneuver: rk.maneuver || (rk.maneuvers && rk.maneuvers[0]) || null,
-                gambit: rk.gambit || (rk.gambits && rk.gambits[0]) || null,
-                exploit: rk.exploit || (rk.exploits && rk.exploits[0]) || null
+                roleName: updated.roleKit.roleName || '',
+                passive: updated.roleKit.passive || null,
+                gambit: updated.roleKit.gambit || null,
+                exploit: updated.roleKit.exploit || null
               };
             }
             npc.threatBuild.computedAttacks = updated.computedAttacks || [];

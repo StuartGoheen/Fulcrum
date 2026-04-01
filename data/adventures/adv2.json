@@ -106,7 +106,7 @@
                 "\"I remember faces. Especially the ones that embarrass me.\""
               ],
               "threatBuild": {
-                "role": "skirmisher",
+                "role": "harrier",
                 "tier": 1,
                 "classification": "standard",
                 "threatCategory": "character",
@@ -146,26 +146,6 @@
                     "name": "Fleet Footed",
                     "description": "May take 2 maneuvers per turn instead of 1."
                   },
-                  "actions": [
-                    {
-                      "name": "Vibroblade Slash",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Melee attack with vibroblade. Fast and vicious.",
-                      "attackPower": 3
-                    },
-                    {
-                      "name": "Drive-By Shot",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Ranged attack from a moving swoop. +1 zone movement after.",
-                      "attackPower": 3
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Reposition",
-                    "description": "Move without provoking reactions."
-                  },
                   "gambit": {
                     "name": "Hamstring",
                     "cost": "-1 Power",
@@ -185,7 +165,7 @@
               "count": 6,
               "notes": "Armed with blasters and vibro-blades. Intimidation over combat skill.",
               "threatBuild": {
-                "role": "skirmisher",
+                "role": "harrier",
                 "tier": 0,
                 "classification": "minion",
                 "threatCategory": "character",
@@ -222,26 +202,6 @@
                   "passive": {
                     "name": "Fleet Footed",
                     "description": "May take 2 maneuvers per turn."
-                  },
-                  "actions": [
-                    {
-                      "name": "Blaster Snap",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Ranged attack.",
-                      "attackPower": 1
-                    },
-                    {
-                      "name": "Vibroblade Lunge",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Melee attack.",
-                      "attackPower": 1
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Reposition",
-                    "description": "Move without provoking reactions."
                   },
                   "gambit": {
                     "name": "Hamstring",
@@ -307,26 +267,6 @@
                     "name": "Fixer's Contacts",
                     "description": "Raden knows everyone in Varga's operation. Can identify guards, routines, and weak points."
                   },
-                  "actions": [
-                    {
-                      "name": "Spill Info",
-                      "type": "action",
-                      "arena": "wits",
-                      "description": "Provide palace intel when motivated.",
-                      "attackPower": 2
-                    },
-                    {
-                      "name": "Panic Shot",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Wild blaster shot when cornered. Low accuracy.",
-                      "attackPower": 1
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Bolt",
-                    "description": "Attempt to flee. Must be intercepted with Athletics or Evasion."
-                  },
                   "gambit": null,
                   "exploit": null
                 },
@@ -339,7 +279,7 @@
               "count": 4,
               "notes": "Varga's hit squad sent to silence Raden. Using the industrial environment to hunt.",
               "threatBuild": {
-                "role": "brute",
+                "role": "threat",
                 "tier": 1,
                 "classification": "standard",
                 "threatCategory": "character",
@@ -379,27 +319,6 @@
                     "name": "Unrelenting",
                     "description": "Ignore the first [Weakened] condition per scene."
                   },
-                  "actions": [
-                    {
-                      "name": "Claw Slash",
-                      "type": "action",
-                      "arena": "physique",
-                      "powerMod": 1,
-                      "description": "Melee attack with natural claws. +1 Power.",
-                      "attackPower": 4
-                    },
-                    {
-                      "name": "Hunting Rifle",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Ranged attack at medium range.",
-                      "attackPower": 2
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Scent Track",
-                    "description": "In obscured conditions, locate one hidden enemy. Ignores concealment from steam."
-                  },
                   "gambit": {
                     "name": "Knockdown",
                     "cost": "-1 Power",
@@ -419,7 +338,7 @@
               "count": 1,
               "notes": "Blocking the main entrance of the filtration plant. Heavy armor and weapons.",
               "threatBuild": {
-                "role": "brute",
+                "role": "threat",
                 "tier": 2,
                 "classification": "elite",
                 "threatCategory": "character",
@@ -460,27 +379,6 @@
                   "passive": {
                     "name": "Unrelenting",
                     "description": "Ignore the first [Weakened] condition per scene."
-                  },
-                  "actions": [
-                    {
-                      "name": "Heavy Blaster Cannon",
-                      "type": "action",
-                      "arena": "physique",
-                      "powerMod": 1,
-                      "description": "Ranged attack with integrated heavy blaster. +1 Power.",
-                      "attackPower": 6
-                    },
-                    {
-                      "name": "Battering Ram",
-                      "type": "action",
-                      "arena": "physique",
-                      "description": "Charge + melee. Destroys cover.",
-                      "attackPower": 5
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Advance",
-                    "description": "Move forward 1 zone. Ignores difficult terrain."
                   },
                   "gambit": {
                     "name": "Suppressive Barrage",
@@ -753,7 +651,7 @@
                 "\"Take the thief to the dungeons. Let him remember what it costs to steal from Besadii.\" (via TC-663)"
               ],
               "threatBuild": {
-                "role": "commander",
+                "role": "support",
                 "tier": 3,
                 "classification": "boss",
                 "threatCategory": "character",
@@ -788,27 +686,6 @@
                   "passive": {
                     "name": "Absolute Authority",
                     "description": "All allies in Varga's court gain +1 to Resist social attacks. His presence is law."
-                  },
-                  "actions": [
-                    {
-                      "name": "Command",
-                      "type": "action",
-                      "arena": "presence",
-                      "description": "Order one ally to immediately attack or take an action.",
-                      "attackPower": 6
-                    },
-                    {
-                      "name": "Crushing Tail",
-                      "type": "action",
-                      "arena": "physique",
-                      "powerMod": 2,
-                      "description": "Melee attack at engaged range. +2 Power. Hutt mass.",
-                      "attackPower": 9
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Hover-Sled",
-                    "description": "Move on repulsor sled. Not impeded by terrain."
                   },
                   "gambit": {
                     "name": "Example",
@@ -867,26 +744,6 @@
                     "name": "Double Agent",
                     "description": "TC-663 serves Switch. If heroes use Switch's code phrase, he provides palace maps, datapad location, and guard rotations."
                   },
-                  "actions": [
-                    {
-                      "name": "Translate",
-                      "type": "action",
-                      "arena": "wits",
-                      "description": "Translate Huttese. Can subtly alter translations to help or hinder.",
-                      "attackPower": 2
-                    },
-                    {
-                      "name": "Whispered Intel",
-                      "type": "action",
-                      "arena": "wits",
-                      "description": "Pass information discreetly during court proceedings.",
-                      "attackPower": 2
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Blend In",
-                    "description": "As a protocol droid, TC-663 is invisible to court security. Can move freely."
-                  },
                   "gambit": null,
                   "exploit": null
                 },
@@ -900,7 +757,7 @@
               "notes": "Varga's right hand. Secretly Force-sensitive and plotting a coup. Watches the heroes with suspicion.",
               "behaviour": "Officious and ambitious. Watches the heroes during the audition and takes mental notes. If the deception check fails, he is ordered to watch them closely.",
               "threatBuild": {
-                "role": "mystic",
+                "role": "controller",
                 "tier": 2,
                 "classification": "elite",
                 "threatCategory": "character",
@@ -941,26 +798,6 @@
                     "name": "Untrained Sensitivity",
                     "description": "Demos can sense Force disturbances but cannot control it. He senses Denia's awakening and any Force use in the palace."
                   },
-                  "actions": [
-                    {
-                      "name": "Force Slam",
-                      "type": "action",
-                      "arena": "grit",
-                      "description": "Crude Force push. Targets Endure. Knocks target back 1 zone.",
-                      "attackPower": 4
-                    },
-                    {
-                      "name": "Vibro-Staff Strike",
-                      "type": "action",
-                      "arena": "physique",
-                      "description": "Melee attack with vibro-staff.",
-                      "attackPower": 3
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Force Pull",
-                    "description": "Yank one object or person 1 zone closer."
-                  },
                   "gambit": {
                     "name": "Force Stagger",
                     "cost": "-1 Power",
@@ -980,7 +817,7 @@
               "count": 6,
               "notes": "Vibro-axe wielding palace guards.",
               "threatBuild": {
-                "role": "brute",
+                "role": "threat",
                 "tier": 1,
                 "classification": "minion",
                 "threatCategory": "character",
@@ -1019,27 +856,6 @@
                   "passive": {
                     "name": "Unrelenting",
                     "description": "Ignore first [Weakened] per scene."
-                  },
-                  "actions": [
-                    {
-                      "name": "Vibro-Axe Chop",
-                      "type": "action",
-                      "arena": "physique",
-                      "powerMod": 1,
-                      "description": "Melee attack. +1 Power.",
-                      "attackPower": 4
-                    },
-                    {
-                      "name": "Headbutt",
-                      "type": "action",
-                      "arena": "physique",
-                      "description": "Close range. Target must Endure or gain [Stunned].",
-                      "attackPower": 3
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Intimidating Advance",
-                    "description": "Move + target resists or gains [Shaken]."
                   },
                   "gambit": {
                     "name": "Knockdown",
@@ -1256,7 +1072,7 @@
               "count": 1,
               "notes": "Scarred Trandoshan arena veteran. Reigning champion of Varga's pit. Fights with a vibro-axe and shield.",
               "threatBuild": {
-                "role": "brute",
+                "role": "threat",
                 "tier": 1,
                 "classification": "elite",
                 "threatCategory": "character",
@@ -1296,27 +1112,6 @@
                   "passive": {
                     "name": "Arena Veteran",
                     "description": "Gorrak has fought hundreds of bouts. He reads feints and recovers from mistakes. Immune to [Disoriented]."
-                  },
-                  "actions": [
-                    {
-                      "name": "Vibro-Axe Slam",
-                      "type": "action",
-                      "arena": "physique",
-                      "powerMod": 1,
-                      "description": "Heavy overhead melee attack. +1 Power.",
-                      "attackPower": 4
-                    },
-                    {
-                      "name": "Shield Bash",
-                      "type": "action",
-                      "arena": "physique",
-                      "description": "Melee bash that knocks back 1 zone.",
-                      "attackPower": 3
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Raise Shield",
-                    "description": "Gain [Cover 1] until next turn."
                   },
                   "gambit": {
                     "name": "Knockdown",
@@ -1378,26 +1173,6 @@
                     "name": "Implied Violence",
                     "description": "Social attacks inflict [Shaken] instead of normal social conditions."
                   },
-                  "actions": [
-                    {
-                      "name": "Slaver's Lash",
-                      "type": "action",
-                      "arena": "physique",
-                      "description": "Melee attack with shock-whip. Targets Endure.",
-                      "attackPower": 3
-                    },
-                    {
-                      "name": "Threaten",
-                      "type": "action",
-                      "arena": "physique",
-                      "description": "Social attack using implied force. Targets Resist.",
-                      "attackPower": 3
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Loom",
-                    "description": "Move to close range. Target resists or gains [Rattled]."
-                  },
                   "gambit": {
                     "name": "Crack the Whip",
                     "cost": "-1 Power",
@@ -1417,7 +1192,7 @@
               "count": 1,
               "notes": "Serving slave who attempts to poison Varga's drink during the Iron Ring event. If saved by the heroes, becomes a potential informant — but also participates in the Knife in the Dark (manipulated by Skreev).",
               "threatBuild": {
-                "role": "operative",
+                "role": "harrier",
                 "tier": 0,
                 "classification": "standard",
                 "threatCategory": "character",
@@ -1458,26 +1233,6 @@
                     "name": "Invisible Servant",
                     "description": "Narek moves through the court unseen. Slaves are furniture to the powerful."
                   },
-                  "actions": [
-                    {
-                      "name": "Concealed Blade",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Small hidden knife. Surprise attack.",
-                      "attackPower": 2
-                    },
-                    {
-                      "name": "Poison Application",
-                      "type": "action",
-                      "arena": "wits",
-                      "description": "Apply toxin to food or drink. Targets Endure if consumed.",
-                      "attackPower": 2
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Blend Into Crowd",
-                    "description": "Disappear into the servant population. Cannot be targeted until located."
-                  },
                   "gambit": null,
                   "exploit": null
                 },
@@ -1490,7 +1245,7 @@
               "count": 1,
               "notes": "Sold by the Iron Ring as arena muscle. Fights willingly because the slavers hold his family. Stays in the fortress as a sleeper threat. Participates in the Knife in the Dark assassination attempt.",
               "threatBuild": {
-                "role": "brute",
+                "role": "threat",
                 "tier": 1,
                 "classification": "standard",
                 "threatCategory": "character",
@@ -1531,27 +1286,6 @@
                     "name": "Wookiee Rage",
                     "description": "When below half Vitality, +2 Power on melee attacks."
                   },
-                  "actions": [
-                    {
-                      "name": "Crushing Grip",
-                      "type": "action",
-                      "arena": "physique",
-                      "powerMod": 1,
-                      "description": "Grapple attack. +1 Power. Target gains [Restrained] on hit.",
-                      "attackPower": 5
-                    },
-                    {
-                      "name": "Rending Claws",
-                      "type": "action",
-                      "arena": "physique",
-                      "description": "Vicious unarmed melee attack.",
-                      "attackPower": 4
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Charge",
-                    "description": "Move 1 zone and engage. Target resists or gains [Rattled]."
-                  },
                   "gambit": {
                     "name": "Hurl",
                     "cost": "-1 Power",
@@ -1571,7 +1305,7 @@
               "count": 1,
               "notes": "Agent sent by one of Varga's rivals. Organizes the Knife in the Dark assassination attempt. Manipulates Narek and coordinates with Grakkus.",
               "threatBuild": {
-                "role": "skirmisher",
+                "role": "harrier",
                 "tier": 1,
                 "classification": "standard",
                 "threatCategory": "character",
@@ -1612,26 +1346,6 @@
                     "name": "Ambush Predator",
                     "description": "+2 Power on the first attack if target is unaware or surprised."
                   },
-                  "actions": [
-                    {
-                      "name": "Vibrodagger Strike",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Fast melee attack with a concealed vibrodagger.",
-                      "attackPower": 2
-                    },
-                    {
-                      "name": "Thrown Blade",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Ranged thrown weapon at short range.",
-                      "attackPower": 2
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Fade",
-                    "description": "Disengage and gain [Concealed] if in dim light or shadow."
-                  },
                   "gambit": {
                     "name": "Garrote",
                     "cost": "-1 Power",
@@ -1651,7 +1365,7 @@
               "count": 4,
               "notes": "Released by Kessra during the aviary ambush. Fast, vicious, territorial.",
               "threatBuild": {
-                "role": "skirmisher",
+                "role": "harrier",
                 "tier": 0,
                 "classification": "minion",
                 "threatCategory": "creature",
@@ -1692,26 +1406,6 @@
                     "name": "Swooping Attack",
                     "description": "Raptors attack from above. Targets cannot use cover against their attacks."
                   },
-                  "actions": [
-                    {
-                      "name": "Talon Rake",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Diving melee attack with talons.",
-                      "attackPower": 2
-                    },
-                    {
-                      "name": "Beak Strike",
-                      "type": "action",
-                      "arena": "physique",
-                      "description": "Pecking attack at eyes/face. Causes [Disoriented] on hit.",
-                      "attackPower": 1
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Circle",
-                    "description": "Fly out of melee range. Only ranged attacks can reach."
-                  },
                   "gambit": null,
                   "exploit": null
                 },
@@ -1724,7 +1418,7 @@
               "count": 1,
               "notes": "Real name: Victra Sinde. ISB agent posing as Leviathan logistics officer. Arrives with 4 Stormtroopers. Monitors Imperial-Hutt collusion for the ISB while negotiating Tibanna gas shipments.",
               "threatBuild": {
-                "role": "commander",
+                "role": "support",
                 "tier": 2,
                 "classification": "standard",
                 "threatCategory": "character",
@@ -1765,26 +1459,6 @@
                   "passive": {
                     "name": "Imperial Authority",
                     "description": "Lady Sinde commands Stormtroopers. Her orders are obeyed without question."
-                  },
-                  "actions": [
-                    {
-                      "name": "Direct Fire",
-                      "type": "action",
-                      "arena": "presence",
-                      "description": "Order a Stormtrooper to attack immediately.",
-                      "attackPower": 4
-                    },
-                    {
-                      "name": "Cutting Assessment",
-                      "type": "action",
-                      "arena": "presence",
-                      "description": "Social attack that dismantles cover stories. Targets Resist.",
-                      "attackPower": 4
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Issue Orders",
-                    "description": "One ally gains a bonus maneuver."
                   },
                   "gambit": {
                     "name": "Ultimatum",
@@ -1841,26 +1515,6 @@
                   "passive": {
                     "name": "Loves Numbers",
                     "description": "Gome will talk endlessly about financial details if asked. He doesn't care about crime — only about elegant accounting."
-                  },
-                  "actions": [
-                    {
-                      "name": "Financial Breakdown",
-                      "type": "action",
-                      "arena": "wits",
-                      "description": "Explain Varga's shipping operations in excruciating detail.",
-                      "attackPower": 3
-                    },
-                    {
-                      "name": "Shrug",
-                      "type": "action",
-                      "arena": "presence",
-                      "description": "Deflect moral questions with bureaucratic indifference.",
-                      "attackPower": 0
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Pull Records",
-                    "description": "Access accounting data from memory."
                   },
                   "gambit": null,
                   "exploit": null
@@ -2191,7 +1845,7 @@
               "count": 1,
               "notes": "In stasis for ~2 years since Order 66. Powerful but frail. Doesn't know the Empire exists yet.",
               "threatBuild": {
-                "role": "mystic",
+                "role": "controller",
                 "tier": 3,
                 "classification": "standard",
                 "threatCategory": "character",
@@ -2225,26 +1879,6 @@
                     "name": "Weakened Master",
                     "description": "Denia's stats represent her full potential. Currently: all physical actions [Weakened], Vitality halved (4), single action per round. Recovers over Adventures 4-9."
                   },
-                  "actions": [
-                    {
-                      "name": "Force Barrier",
-                      "type": "action",
-                      "arena": "grit",
-                      "description": "Create a telekinetic shield. Allies in zone gain [Cover 2] for 1 round.",
-                      "attackPower": 6
-                    },
-                    {
-                      "name": "Telepathic Bond",
-                      "type": "action",
-                      "arena": "presence",
-                      "description": "Communicate silently with one target. Share images, emotions, warnings.",
-                      "attackPower": 5
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Sense Danger",
-                    "description": "Detect hostile intent within the scene. Provides tactical warning."
-                  },
                   "gambit": {
                     "name": "Force Calm",
                     "cost": "-1 Power",
@@ -2264,7 +1898,7 @@
               "count": 2,
               "notes": "Guarding the high-security detention block.",
               "threatBuild": {
-                "role": "trooper",
+                "role": "anchor",
                 "tier": 2,
                 "classification": "standard",
                 "threatCategory": "character",
@@ -2305,26 +1939,6 @@
                   "passive": {
                     "name": "Disciplined Fire",
                     "description": "+1 Power on weapon attacks."
-                  },
-                  "actions": [
-                    {
-                      "name": "Integrated Blaster",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Built-in medium blaster. Cannot be disarmed.",
-                      "attackPower": 4
-                    },
-                    {
-                      "name": "Stun Shock",
-                      "type": "action",
-                      "arena": "physique",
-                      "description": "Melee. Target must Endure or gain [Stunned].",
-                      "attackPower": 4
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Lock Down",
-                    "description": "Seal one door or access point in the zone."
                   },
                   "gambit": {
                     "name": "Overwatch Protocol",
@@ -2571,7 +2185,7 @@
               "count": 1,
               "notes": "Untrained Force-sensitive. Uses vibro-staff and minor Force powers. Wants to claim Denia for the Inquisitorius. (Recurring — same stat block as Scene 2.)",
               "threatBuild": {
-                "role": "mystic",
+                "role": "controller",
                 "tier": 2,
                 "classification": "elite",
                 "threatCategory": "character",
@@ -2612,26 +2226,6 @@
                     "name": "Untrained Sensitivity",
                     "description": "Demos can sense Force disturbances but cannot control it. He senses Denia's awakening and any Force use in the palace."
                   },
-                  "actions": [
-                    {
-                      "name": "Force Slam",
-                      "type": "action",
-                      "arena": "grit",
-                      "description": "Crude Force push. Targets Endure. Knocks target back 1 zone.",
-                      "attackPower": 4
-                    },
-                    {
-                      "name": "Vibro-Staff Strike",
-                      "type": "action",
-                      "arena": "physique",
-                      "description": "Melee attack with vibro-staff.",
-                      "attackPower": 3
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Force Pull",
-                    "description": "Yank one object or person 1 zone closer."
-                  },
                   "gambit": {
                     "name": "Force Stagger",
                     "cost": "-1 Power",
@@ -2651,7 +2245,7 @@
               "count": 2,
               "notes": "Demos's personal muscle. Same stats as Scene 1 Trandoshan Mercenaries.",
               "threatBuild": {
-                "role": "brute",
+                "role": "threat",
                 "tier": 1,
                 "classification": "standard",
                 "threatCategory": "character",
@@ -2690,27 +2284,6 @@
                   "passive": {
                     "name": "Unrelenting",
                     "description": "Ignore first [Weakened] per scene."
-                  },
-                  "actions": [
-                    {
-                      "name": "Vibroblade Chop",
-                      "type": "action",
-                      "arena": "physique",
-                      "powerMod": 1,
-                      "description": "Heavy melee attack. +1 Power.",
-                      "attackPower": 4
-                    },
-                    {
-                      "name": "Claw Rake",
-                      "type": "action",
-                      "arena": "physique",
-                      "description": "Unarmed attack. Natural weapons.",
-                      "attackPower": 3
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Shield Demos",
-                    "description": "Interpose between Demos and attacker. Take the hit instead."
                   },
                   "gambit": {
                     "name": "Knockdown",
@@ -2935,7 +2508,7 @@
               "count": 1,
               "notes": "Ordering the elimination of all witnesses. (Recurring — same stat block as Scene 3.)",
               "threatBuild": {
-                "role": "commander",
+                "role": "support",
                 "tier": 2,
                 "classification": "standard",
                 "threatCategory": "character",
@@ -2977,26 +2550,6 @@
                     "name": "Imperial Authority",
                     "description": "Lady Sinde commands Stormtroopers. Her orders are obeyed without question."
                   },
-                  "actions": [
-                    {
-                      "name": "Direct Fire",
-                      "type": "action",
-                      "arena": "presence",
-                      "description": "Order a Stormtrooper to attack immediately.",
-                      "attackPower": 4
-                    },
-                    {
-                      "name": "Cutting Assessment",
-                      "type": "action",
-                      "arena": "presence",
-                      "description": "Social attack that dismantles cover stories. Targets Resist.",
-                      "attackPower": 4
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Issue Orders",
-                    "description": "One ally gains a bonus maneuver."
-                  },
                   "gambit": {
                     "name": "Ultimatum",
                     "cost": "-1 Power",
@@ -3016,7 +2569,7 @@
               "count": 8,
               "notes": "Securing the hangar. Professional and lethal.",
               "threatBuild": {
-                "role": "trooper",
+                "role": "anchor",
                 "tier": 1,
                 "classification": "minion",
                 "threatCategory": "character",
@@ -3057,26 +2610,6 @@
                   "passive": {
                     "name": "Disciplined Fire",
                     "description": "+1 Power on weapon attacks."
-                  },
-                  "actions": [
-                    {
-                      "name": "E-11 Volley",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "Ranged attack.",
-                      "attackPower": 3
-                    },
-                    {
-                      "name": "Bayonet Strike",
-                      "type": "action",
-                      "arena": "physique",
-                      "description": "Melee attack.",
-                      "attackPower": 2
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Take Cover",
-                    "description": "Move to cover. Gain [Cover 1]."
                   },
                   "gambit": {
                     "name": "Suppressive Fire",
