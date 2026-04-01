@@ -1485,8 +1485,7 @@
       display: none;
     }
     .npc-builder-body {
-      display: grid;
-      grid-template-columns: 300px 1fr 340px;
+      display: flex;
       flex: 1;
       overflow: hidden;
     }
@@ -1498,15 +1497,38 @@
     }
     .npc-builder-panel-left {
       background: var(--color-bg-panel);
-      border-right: 1px solid var(--color-border);
+      border-right: none;
+      width: 300px;
+      min-width: 200px;
+      max-width: 50%;
+      flex-shrink: 0;
     }
     .npc-builder-panel-center {
       background: var(--color-bg-primary);
       padding: 1rem;
+      flex: 1;
+      min-width: 200px;
     }
     .npc-builder-panel-right {
       background: var(--color-bg-panel);
-      border-left: 1px solid var(--color-border);
+      border-left: none;
+      width: 340px;
+      min-width: 200px;
+      max-width: 50%;
+      flex-shrink: 0;
+    }
+    .npc-resize-handle {
+      width: 5px;
+      cursor: col-resize;
+      background: var(--color-border);
+      flex-shrink: 0;
+      position: relative;
+      z-index: 2;
+      transition: background 0.15s;
+    }
+    .npc-resize-handle:hover,
+    .npc-resize-handle.dragging {
+      background: var(--color-accent-primary);
     }
 
     .npc-input-group {
@@ -2669,9 +2691,18 @@
       }
       .npc-builder-panel-left {
         border-right: none;
+        width: auto !important;
+        min-width: 0;
+        max-width: none;
       }
       .npc-builder-panel-right {
         border-left: none;
+        width: auto !important;
+        min-width: 0;
+        max-width: none;
+      }
+      .npc-resize-handle {
+        display: none;
       }
       .npc-builder-panel-center,
       .npc-builder-panel-right {
@@ -4066,7 +4097,9 @@
       </nav>
       <div class="npc-builder-body">
         <div class="npc-builder-panel npc-builder-panel-left" id="npc-builder-left"></div>
+        <div class="npc-resize-handle" id="npc-resize-left" data-target="left"></div>
         <div class="npc-builder-panel npc-builder-panel-center" id="npc-card-preview"></div>
+        <div class="npc-resize-handle" id="npc-resize-right" data-target="right"></div>
         <div class="npc-builder-panel npc-builder-panel-right" id="npc-builder-right"></div>
       </div>
     </div>

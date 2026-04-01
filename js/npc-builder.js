@@ -1397,6 +1397,45 @@
         if (e.target === e.currentTarget) closeNpcBuilderWithCallback();
       });
     }
+
+    (function initResizeHandles() {
+      var handles = document.querySelectorAll('.npc-resize-handle');
+      handles.forEach(function (handle) {
+        handle.addEventListener('mousedown', function (e) {
+          e.preventDefault();
+          var target = handle.dataset.target;
+          var leftPanel = document.querySelector('.npc-builder-panel-left');
+          var rightPanel = document.querySelector('.npc-builder-panel-right');
+          var body = document.querySelector('.npc-builder-body');
+          if (!leftPanel || !rightPanel || !body) return;
+
+          handle.classList.add('dragging');
+          var startX = e.clientX;
+          var startLeftW = leftPanel.offsetWidth;
+          var startRightW = rightPanel.offsetWidth;
+
+          function onMove(ev) {
+            var dx = ev.clientX - startX;
+            if (target === 'left') {
+              var newW = Math.max(200, Math.min(startLeftW + dx, body.offsetWidth * 0.5));
+              leftPanel.style.width = newW + 'px';
+            } else {
+              var newW = Math.max(200, Math.min(startRightW - dx, body.offsetWidth * 0.5));
+              rightPanel.style.width = newW + 'px';
+            }
+          }
+
+          function onUp() {
+            handle.classList.remove('dragging');
+            document.removeEventListener('mousemove', onMove);
+            document.removeEventListener('mouseup', onUp);
+          }
+
+          document.addEventListener('mousemove', onMove);
+          document.addEventListener('mouseup', onUp);
+        });
+      });
+    })();
   });
 
   function ensureThreatData() {
