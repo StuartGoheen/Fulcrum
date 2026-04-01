@@ -671,7 +671,7 @@
       var label = def ? def.label : cid;
       var color = condColor(cid);
       var desc = def ? def.description : '';
-      var durMap = { immediate: '1T', tactical: 'S', lingering: 'L', ongoing: '\u221E' };
+      var durMap = { immediate: '!', tactical: 'T', lingering: 'L', ongoing: '\u221E' };
       var meta = '';
       var parts = [];
       if (arena) parts.push(esc(arena));
@@ -831,7 +831,7 @@
             scopeStr = allowedArenas.indexOf(arenaVal) !== -1 ? arenaVal : '';
           }
         }
-        var durMap = { immediate: '1T', tactical: 'S', lingering: 'L', ongoing: '\u221E' };
+        var durMap = { immediate: '!', tactical: 'T', lingering: 'L', ongoing: '\u221E' };
         var durStr = durMap[eff.duration] || '';
         var meta = '';
         if (scopeStr || durStr) {
@@ -1169,10 +1169,10 @@
       html += '<label class="ct-cpanel-label">Duration</label>';
       html += '<div class="ct-cpanel-dur-row">';
       var durs = [
-        { val: 'immediate', label: 'Immediate (1 turn)', badge: '1T' },
-        { val: 'tactical', label: 'Tactical (scene)', badge: 'S' },
-        { val: 'lingering', label: 'Lingering (multi-scene)', badge: 'L' },
-        { val: 'ongoing', label: 'Ongoing (permanent)', badge: '\u221E' }
+        { val: 'immediate', label: 'Immediate \u2014 one-use, resolve now', badge: '!' },
+        { val: 'tactical', label: 'Tactical \u2014 until applier\u2019s next turn start', badge: 'T' },
+        { val: 'lingering', label: 'Lingering \u2014 until target\u2019s next turn end', badge: 'L' },
+        { val: 'ongoing', label: 'Ongoing \u2014 until recovered or scene ends', badge: '\u221E' }
       ];
       durs.forEach(function (d) {
         var isDefault = d.val === defaultDur;
@@ -1244,7 +1244,7 @@
           var def = getEffectDef(cid);
           var label = def ? def.label : cid;
           var color = condColor(cid);
-          var durMap = { immediate: '1T', tactical: 'S', lingering: 'L', ongoing: '\u221E' };
+          var durMap = { immediate: '!', tactical: 'T', lingering: 'L', ongoing: '\u221E' };
           var meta = '';
           if (c.duration && durMap[c.duration]) meta = ' (' + durMap[c.duration] + ')';
           var uidAttr = c.uid ? ' data-remove-uid="' + esc(c.uid) + '"' : '';
