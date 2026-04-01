@@ -735,17 +735,16 @@
       html += '<div class="ct-surprised-banner">SURPRISED &mdash; [Disoriented] + [Exposed] until end of first turn</div>';
     }
     if (pc.mastery) {
-      html += '<div class="ct-mastery-banner">MASTERY &mdash; Designate one enemy as surprised';
       if (!pc.masteryUsed) {
-        combatState.combatants.forEach(function (npc) {
-          if (!npc.surprised) {
-            html += ' <button class="ct-ctrl-btn" style="display:inline;padding:0.1rem 0.4rem;margin-left:0.3rem;font-size:0.55rem;" data-mastery-target="' + esc(npc.id) + '">' + esc(npc.name) + '</button>';
-          }
+        var availTargets = combatState.combatants.filter(function (npc) { return !npc.surprised; });
+        html += '<div class="ct-mastery-banner">MASTERY &mdash; Designate one enemy as surprised';
+        availTargets.forEach(function (npc) {
+          html += ' <button class="ct-ctrl-btn" style="display:inline;padding:0.1rem 0.4rem;margin-left:0.3rem;font-size:0.55rem;" data-mastery-target="' + esc(npc.id) + '" data-mastery-pc="' + esc(pc.id) + '">' + esc(npc.name) + '</button>';
         });
+        html += '</div>';
       } else {
-        html += ' <span style="opacity:0.6;">(used)</span>';
+        html += '<div class="ct-mastery-banner" style="opacity:0.5;">MASTERY &mdash; Surprised target designated &#10003;</div>';
       }
-      html += '</div>';
     }
 
     if (pc.vitality != null) {
@@ -1680,8 +1679,8 @@
       btn.addEventListener('click', function (e) {
         e.stopPropagation();
         var npcId = btn.dataset.masteryTarget;
+        var pcId = btn.dataset.masteryPc;
         designateNpcSurprised(npcId);
-        var pcId = btn.closest('.ct-detail-panel') ? combatState.selectedId : null;
         if (pcId) {
           var pc = combatState.pcSlots.find(function (p) { return p.id === pcId; });
           if (pc) pc.masteryUsed = true;
