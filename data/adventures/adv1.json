@@ -2930,94 +2930,6 @@
           "gmNotes": "This is the heroes' first brush with the Young Empire. The target is the Lambda shuttle's nav computer. The heroes must physically reach the shuttle, use the code cylinder to authenticate into the flight computer, and download the destination coordinates — which reveal the Vanishing Place on Ajan Kloss, where Admiral Varth is being held.\n\nOPTIONS:\n• BLUFF: Impersonate Imperial crew or authorized maintenance personnel. Disguise Kit helps. Deception check (Moderate) to approach without suspicion.\n• STEALTH: Sneak through maintenance areas or use terrain cover to reach the shuttle unseen. Stealth/Skulduggery (Moderate).\n• DISTRACTION: Create a diversion to draw the guards away. Tech, Deception, or creative approaches (Moderate).\n• DIRECT ASSAULT: Possible but loud. Brings reinforcements quickly. Not recommended but not forbidden.\n\nTHE DOWNLOAD: Once at the shuttle's flight computer, a Tech check (Easy with the cylinder, Moderate without) accesses the nav logs. The coordinates point to the jungle moon of Ajan Kloss — a location labeled 'The Vanishing Place' in Imperial records. A successful Investigation check on the data reveals references to 'Project Leviathan' in the shipping metadata.\n\nEXTRACTION: Once the download is complete (or the alarm is raised), the heroes must escape the landing field. Maya has the Banshee prepped at a secondary pad. The escape from Jakku transitions directly into Part 2.\n\nIMPORTANT: The code cylinder is effectively dead after use. The authentication codes will be flagged and disabled by Imperial security within hours.",
           "npcs": [
             {
-              "name": "Stormtrooper Squad",
-              "type": "Standard Stormtroopers",
-              "count": 6,
-              "notes": "Transition-era armor, dirty from desert. Overseeing transfer.",
-              "behavior": "Professional but bored. Two at the shuttle, two on perimeter, two at shuttle pad. Follow procedure.",
-              "dialogue": [
-                "\"Shuttle cargo manifest confirmed. Standard security protocol.\"",
-                "\"Halt! Present your authorization codes.\"",
-                "\"All units, unauthorized personnel in the hangar. Lock it down.\""
-              ],
-              "intel": "Real Imperial soldiers. Operate with discipline. Call for backup. Killing troopers has consequences.",
-              "threatBuild": {
-                "role": "trooper",
-                "tier": 1,
-                "classification": "minion",
-                "threatCategory": "character",
-                "arenas": {
-                  "physique": 2,
-                  "reflex": 3,
-                  "grit": 2,
-                  "wits": 1,
-                  "presence": 1
-                },
-                "weaponChassis": "medium",
-                "traits": [
-                  "armored_light",
-                  "disciplined"
-                ],
-                "tags": [
-                  "Imperial",
-                  "Military"
-                ],
-                "roleKit": {
-                  "passive": {
-                    "name": "Disciplined Fire",
-                    "description": "+1 Power on weapon attacks."
-                  },
-                  "actions": [
-                    {
-                      "name": "Blaster Volley",
-                      "type": "action",
-                      "arena": "reflex",
-                      "description": "E-11 ranged attack against one target.",
-                      "attackPower": 3
-                    },
-                    {
-                      "name": "Bayonet Strike",
-                      "type": "action",
-                      "arena": "physique",
-                      "description": "Melee attack against adjacent target.",
-                      "attackPower": 2
-                    }
-                  ],
-                  "maneuver": {
-                    "name": "Take Cover",
-                    "description": "Move to cover. Gain [Cover 1] until leaving position."
-                  },
-                  "gambit": {
-                    "name": "Suppressive Fire",
-                    "cost": "-1 Power",
-                    "description": "Target gains [Pinned] on hit."
-                  },
-                  "exploit": {
-                    "name": "Coordinated Fire",
-                    "description": "All allied Troopers targeting the same enemy gain +1 Power this round."
-                  }
-                },
-                "notes": "Minion Troopers. Defense 3 = max(2,3)-1+1+1(armor). Evasion 3 = Ref 3-1+1. Resist 2 = Grit 2-1+1+1(disciplined)-1... Resist 2 = 2-1+1. Masterful+ = takedown.",
-                "computed": {
-                  "power": 3,
-                  "defense": 4,
-                  "evasion": 3,
-                  "resist": 3,
-                  "vitality": 5,
-                  "initiative": 3,
-                  "controlDie": "d6",
-                  "actions": 1,
-                  "damageTiers": {
-                    "chassis": "medium",
-                    "label": "Medium",
-                    "fleeting": 2,
-                    "masterful": 4,
-                    "legendary": 6
-                  }
-                }
-              }
-            },
-            {
               "name": "Warlord's Guards",
               "type": "Standard Thugs",
               "count": 4,
@@ -3096,6 +3008,444 @@
                     "legendary": 4
                   }
                 }
+              }
+            },
+            {
+              "name": "Stormtrooper",
+              "type": "Character",
+              "count": 1,
+              "loot": [],
+              "threatBuild": {
+                "role": "trooper",
+                "tier": 1,
+                "classification": "minion",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 2,
+                  "reflex": 3,
+                  "grit": 2,
+                  "wits": 1,
+                  "presence": 1
+                },
+                "computed": {
+                  "defense": 4,
+                  "evasion": 3,
+                  "resist": 3,
+                  "vitality": 5,
+                  "initiative": 3,
+                  "power": 3,
+                  "powers": {
+                    "physique": 2,
+                    "reflex": 3,
+                    "grit": 2,
+                    "wits": 1,
+                    "presence": 1
+                  },
+                  "actions": 1,
+                  "exploits": 0,
+                  "damageTiers": {
+                    "label": "medium",
+                    "fleeting": 3,
+                    "masterful": 5,
+                    "legendary": 8
+                  }
+                },
+                "traits": [
+                  "armored_light",
+                  "disciplined"
+                ],
+                "tags": [
+                  "Imperial",
+                  "Military",
+                  "imperial"
+                ],
+                "roleKit": {
+                  "passive": null,
+                  "actions": [
+                    {
+                      "name": "Blaster Volley",
+                      "type": "action",
+                      "arena": "reflex",
+                      "description": "Ranged attack against one target."
+                    },
+                    {
+                      "name": "Bayonet Strike",
+                      "type": "action",
+                      "arena": "physique",
+                      "description": "Melee attack against adjacent target."
+                    }
+                  ],
+                  "maneuver": null,
+                  "gambit": null,
+                  "exploit": null
+                },
+                "weaponChassis": "medium",
+                "loot": []
+              }
+            },
+            {
+              "name": "Stormtrooper",
+              "type": "Character",
+              "count": 1,
+              "loot": [],
+              "threatBuild": {
+                "role": "trooper",
+                "tier": 1,
+                "classification": "minion",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 2,
+                  "reflex": 3,
+                  "grit": 2,
+                  "wits": 1,
+                  "presence": 1
+                },
+                "computed": {
+                  "defense": 4,
+                  "evasion": 3,
+                  "resist": 3,
+                  "vitality": 5,
+                  "initiative": 3,
+                  "power": 3,
+                  "powers": {
+                    "physique": 2,
+                    "reflex": 3,
+                    "grit": 2,
+                    "wits": 1,
+                    "presence": 1
+                  },
+                  "actions": 1,
+                  "exploits": 0,
+                  "damageTiers": {
+                    "label": "medium",
+                    "fleeting": 3,
+                    "masterful": 5,
+                    "legendary": 8
+                  }
+                },
+                "traits": [
+                  "armored_light",
+                  "disciplined"
+                ],
+                "tags": [
+                  "Imperial",
+                  "Military",
+                  "imperial"
+                ],
+                "roleKit": {
+                  "passive": null,
+                  "actions": [
+                    {
+                      "name": "Blaster Volley",
+                      "type": "action",
+                      "arena": "reflex",
+                      "description": "Ranged attack against one target."
+                    },
+                    {
+                      "name": "Bayonet Strike",
+                      "type": "action",
+                      "arena": "physique",
+                      "description": "Melee attack against adjacent target."
+                    }
+                  ],
+                  "maneuver": null,
+                  "gambit": null,
+                  "exploit": null
+                },
+                "weaponChassis": "medium",
+                "loot": []
+              }
+            },
+            {
+              "name": "Stormtrooper",
+              "type": "Character",
+              "count": 1,
+              "loot": [],
+              "threatBuild": {
+                "role": "trooper",
+                "tier": 1,
+                "classification": "minion",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 2,
+                  "reflex": 3,
+                  "grit": 2,
+                  "wits": 1,
+                  "presence": 1
+                },
+                "computed": {
+                  "defense": 4,
+                  "evasion": 3,
+                  "resist": 3,
+                  "vitality": 5,
+                  "initiative": 3,
+                  "power": 3,
+                  "powers": {
+                    "physique": 2,
+                    "reflex": 3,
+                    "grit": 2,
+                    "wits": 1,
+                    "presence": 1
+                  },
+                  "actions": 1,
+                  "exploits": 0,
+                  "damageTiers": {
+                    "label": "medium",
+                    "fleeting": 3,
+                    "masterful": 5,
+                    "legendary": 8
+                  }
+                },
+                "traits": [
+                  "armored_light",
+                  "disciplined"
+                ],
+                "tags": [
+                  "Imperial",
+                  "Military",
+                  "imperial"
+                ],
+                "roleKit": {
+                  "passive": null,
+                  "actions": [
+                    {
+                      "name": "Blaster Volley",
+                      "type": "action",
+                      "arena": "reflex",
+                      "description": "Ranged attack against one target."
+                    },
+                    {
+                      "name": "Bayonet Strike",
+                      "type": "action",
+                      "arena": "physique",
+                      "description": "Melee attack against adjacent target."
+                    }
+                  ],
+                  "maneuver": null,
+                  "gambit": null,
+                  "exploit": null
+                },
+                "weaponChassis": "medium",
+                "loot": []
+              }
+            },
+            {
+              "name": "Stormtrooper",
+              "type": "Character",
+              "count": 1,
+              "loot": [],
+              "threatBuild": {
+                "role": "trooper",
+                "tier": 1,
+                "classification": "minion",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 2,
+                  "reflex": 3,
+                  "grit": 2,
+                  "wits": 1,
+                  "presence": 1
+                },
+                "computed": {
+                  "defense": 4,
+                  "evasion": 3,
+                  "resist": 3,
+                  "vitality": 5,
+                  "initiative": 3,
+                  "power": 3,
+                  "powers": {
+                    "physique": 2,
+                    "reflex": 3,
+                    "grit": 2,
+                    "wits": 1,
+                    "presence": 1
+                  },
+                  "actions": 1,
+                  "exploits": 0,
+                  "damageTiers": {
+                    "label": "medium",
+                    "fleeting": 3,
+                    "masterful": 5,
+                    "legendary": 8
+                  }
+                },
+                "traits": [
+                  "armored_light",
+                  "disciplined"
+                ],
+                "tags": [
+                  "Imperial",
+                  "Military",
+                  "imperial"
+                ],
+                "roleKit": {
+                  "passive": null,
+                  "actions": [
+                    {
+                      "name": "Blaster Volley",
+                      "type": "action",
+                      "arena": "reflex",
+                      "description": "Ranged attack against one target."
+                    },
+                    {
+                      "name": "Bayonet Strike",
+                      "type": "action",
+                      "arena": "physique",
+                      "description": "Melee attack against adjacent target."
+                    }
+                  ],
+                  "maneuver": null,
+                  "gambit": null,
+                  "exploit": null
+                },
+                "weaponChassis": "medium",
+                "loot": []
+              }
+            },
+            {
+              "name": "Stormtrooper",
+              "type": "Character",
+              "count": 1,
+              "loot": [],
+              "threatBuild": {
+                "role": "trooper",
+                "tier": 1,
+                "classification": "minion",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 2,
+                  "reflex": 3,
+                  "grit": 2,
+                  "wits": 1,
+                  "presence": 1
+                },
+                "computed": {
+                  "defense": 4,
+                  "evasion": 3,
+                  "resist": 3,
+                  "vitality": 5,
+                  "initiative": 3,
+                  "power": 3,
+                  "powers": {
+                    "physique": 2,
+                    "reflex": 3,
+                    "grit": 2,
+                    "wits": 1,
+                    "presence": 1
+                  },
+                  "actions": 1,
+                  "exploits": 0,
+                  "damageTiers": {
+                    "label": "medium",
+                    "fleeting": 3,
+                    "masterful": 5,
+                    "legendary": 8
+                  }
+                },
+                "traits": [
+                  "armored_light",
+                  "disciplined"
+                ],
+                "tags": [
+                  "Imperial",
+                  "Military",
+                  "imperial"
+                ],
+                "roleKit": {
+                  "passive": null,
+                  "actions": [
+                    {
+                      "name": "Blaster Volley",
+                      "type": "action",
+                      "arena": "reflex",
+                      "description": "Ranged attack against one target."
+                    },
+                    {
+                      "name": "Bayonet Strike",
+                      "type": "action",
+                      "arena": "physique",
+                      "description": "Melee attack against adjacent target."
+                    }
+                  ],
+                  "maneuver": null,
+                  "gambit": null,
+                  "exploit": null
+                },
+                "weaponChassis": "medium",
+                "loot": []
+              }
+            },
+            {
+              "name": "Stormtrooper",
+              "type": "Character",
+              "count": 1,
+              "loot": [],
+              "threatBuild": {
+                "role": "trooper",
+                "tier": 1,
+                "classification": "minion",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 2,
+                  "reflex": 3,
+                  "grit": 2,
+                  "wits": 1,
+                  "presence": 1
+                },
+                "computed": {
+                  "defense": 4,
+                  "evasion": 3,
+                  "resist": 3,
+                  "vitality": 5,
+                  "initiative": 3,
+                  "power": 3,
+                  "powers": {
+                    "physique": 2,
+                    "reflex": 3,
+                    "grit": 2,
+                    "wits": 1,
+                    "presence": 1
+                  },
+                  "actions": 1,
+                  "exploits": 0,
+                  "damageTiers": {
+                    "label": "medium",
+                    "fleeting": 3,
+                    "masterful": 5,
+                    "legendary": 8
+                  }
+                },
+                "traits": [
+                  "armored_light",
+                  "disciplined"
+                ],
+                "tags": [
+                  "Imperial",
+                  "Military",
+                  "imperial"
+                ],
+                "roleKit": {
+                  "passive": null,
+                  "actions": [
+                    {
+                      "name": "Blaster Volley",
+                      "type": "action",
+                      "arena": "reflex",
+                      "description": "Ranged attack against one target."
+                    },
+                    {
+                      "name": "Bayonet Strike",
+                      "type": "action",
+                      "arena": "physique",
+                      "description": "Melee attack against adjacent target."
+                    }
+                  ],
+                  "maneuver": null,
+                  "gambit": null,
+                  "exploit": null
+                },
+                "weaponChassis": "medium",
+                "loot": []
               }
             }
           ],

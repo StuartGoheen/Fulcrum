@@ -118,8 +118,8 @@
         { "name": "Bayonet Strike", "type": "action", "arena": "physique", "description": "Melee attack against adjacent target." }
       ],
       "maneuver": { "name": "Take Cover", "description": "Move to cover. Gain [Cover] until leaving position." },
-      "gambit": { "name": "Suppressive Fire", "cost": "-1 Power", "description": "Target gains [Pinned] on hit." },
-      "exploit": { "name": "Coordinated Fire", "description": "All allied Troopers targeting the same enemy gain +1 Power this round." }
+      "gambit": { "name": "Suppressive Fire", "cost": "-1 Power", "modifies": "Blaster Volley", "description": "Target gains [Pinned] on hit instead of taking damage." },
+      "exploit": { "name": "Coordinated Fire", "trigger": "An allied Trooper attacks the same target this round.", "description": "React: All allied Troopers targeting the same enemy gain +1 Power this round." }
     },
     {
       "id": "brute",
@@ -136,8 +136,8 @@
         { "name": "Hurl", "type": "action", "arena": "physique", "description": "Throw object or enemy at short range." }
       ],
       "maneuver": { "name": "Intimidating Advance", "description": "Move toward target. Target must resist or gain [Shaken]." },
-      "gambit": { "name": "Knockdown", "cost": "-1 Power", "description": "Target gains [Prone] on hit." },
-      "exploit": { "name": "Rampage", "description": "When dropping a target to 0 Vitality, immediately make another melee attack against a different adjacent target." }
+      "gambit": { "name": "Knockdown", "cost": "-1 Power", "modifies": "Crushing Blow", "description": "Target gains [Prone] on hit instead of taking damage." },
+      "exploit": { "name": "Rampage", "trigger": "This NPC drops a target to 0 Vitality.", "description": "React: Immediately make another melee attack against a different adjacent target." }
     },
     {
       "id": "marksman",
@@ -155,8 +155,8 @@
         { "name": "Snap Shot", "type": "action", "arena": "reflex", "description": "Quick ranged attack as reaction when target moves." }
       ],
       "maneuver": { "name": "Find Vantage", "description": "Move to elevated or concealed position. +1 Power on next ranged attack." },
-      "gambit": { "name": "Called Shot", "cost": "-1 Power", "description": "Target gains [Bleeding] on hit." },
-      "exploit": { "name": "Overwatch", "description": "Hold action. Shoot the first enemy that moves in line of sight before they complete movement." }
+      "gambit": { "name": "Called Shot", "cost": "-1 Power", "modifies": "Precision Shot", "description": "Target gains [Bleeding] on hit instead of taking damage." },
+      "exploit": { "name": "Overwatch", "trigger": "An enemy moves in this NPC's line of sight.", "description": "React: Shoot the moving target before they complete movement." }
     },
     {
       "id": "skirmisher",
@@ -173,8 +173,8 @@
         { "name": "Harrying Shot", "type": "action", "arena": "reflex", "description": "Ranged attack at close range. Target cannot take reactions until next turn." }
       ],
       "maneuver": { "name": "Reposition", "description": "Move without provoking reactions." },
-      "gambit": { "name": "Hamstring", "cost": "-1 Power", "description": "Target gains [Slowed] on hit." },
-      "exploit": { "name": "Ambush", "description": "If attacking from stealth or flanking, +2 Power on the attack." }
+      "gambit": { "name": "Hamstring", "cost": "-1 Power", "modifies": "Hit and Run", "description": "Target gains [Slowed] on hit instead of taking damage." },
+      "exploit": { "name": "Ambush", "trigger": "A PC moves adjacent to this NPC or this NPC attacks from stealth/flanking.", "description": "React: Attack with +2 Power." }
     },
     {
       "id": "operative",
@@ -191,8 +191,8 @@
         { "name": "Sabotage", "type": "action", "arena": "wits", "description": "Disable equipment, lock, or system." }
       ],
       "maneuver": { "name": "Vanish", "description": "If in cover or obscured, become hidden." },
-      "gambit": { "name": "Disarm", "cost": "-1 Power", "description": "Target drops held weapon on hit." },
-      "exploit": { "name": "Assassination", "description": "If attacking an unaware target, double Power for this attack." }
+      "gambit": { "name": "Disarm", "cost": "-1 Power", "modifies": "Silent Kill", "description": "Target drops held weapon on hit instead of taking damage." },
+      "exploit": { "name": "Assassination", "trigger": "This NPC attacks an unaware target.", "description": "React: Double Power for this attack." }
     },
     {
       "id": "commander",
@@ -209,8 +209,8 @@
         { "name": "Rally", "type": "action", "arena": "presence", "description": "Remove [Shaken] or [Rattled] from one ally in range." }
       ],
       "maneuver": { "name": "Issue Orders", "description": "One ally gains a bonus maneuver on their next turn." },
-      "gambit": { "name": "Tactical Withdrawal", "cost": "-1 Power", "description": "One ally may immediately move to cover." },
-      "exploit": { "name": "Coordinated Assault", "description": "All allies gain +1 Power until end of round." }
+      "gambit": { "name": "Tactical Withdrawal", "cost": "-1 Power", "modifies": "Direct Fire", "description": "Instead of ordering an attack, one ally may immediately move to cover." },
+      "exploit": { "name": "Coordinated Assault", "trigger": "An ally is attacked by a PC.", "description": "React: All allies gain +1 Power until end of round." }
     },
     {
       "id": "technician",
@@ -227,8 +227,8 @@
         { "name": "Deploy Drone", "type": "action", "arena": "wits", "description": "Place a drone turret. Acts on this NPC's turn with 2 Power ranged attack." }
       ],
       "maneuver": { "name": "Scan", "description": "Reveal one hidden enemy or identify one target's weakness (+1 Power vs them next attack)." },
-      "gambit": { "name": "System Glitch", "cost": "-1 Power", "description": "Target's equipment malfunctions. [Jammed] on hit." },
-      "exploit": { "name": "Slice", "description": "Take control of one enemy droid or automated system for 1 round." }
+      "gambit": { "name": "System Glitch", "cost": "-1 Power", "modifies": "Overload", "description": "Target's equipment malfunctions. [Jammed] on hit instead of taking damage." },
+      "exploit": { "name": "Slice", "trigger": "A PC uses a droid or automated system within range.", "description": "React: Take control of that droid or system for 1 round." }
     },
     {
       "id": "mystic",
@@ -245,8 +245,8 @@
         { "name": "Mind Trick", "type": "action", "arena": "presence", "description": "Social Force attack. Targets Resist only." }
       ],
       "maneuver": { "name": "Force Pull", "description": "Move one object or enemy one range band closer." },
-      "gambit": { "name": "Force Stagger", "cost": "-1 Power", "description": "Target gains [Disoriented] on hit." },
-      "exploit": { "name": "Force Choke", "description": "If target is below half Vitality, automatically apply [Restrained]. Targets Endure." }
+      "gambit": { "name": "Force Stagger", "cost": "-1 Power", "modifies": "Force Push", "description": "Target gains [Disoriented] on hit instead of taking damage." },
+      "exploit": { "name": "Force Choke", "trigger": "A PC drops below half Vitality.", "description": "React: Automatically apply [Restrained] to that target. Targets Endure to break free." }
     },
     {
       "id": "face",
@@ -263,8 +263,8 @@
         { "name": "Negotiate", "type": "action", "arena": "presence", "description": "Attempt to change NPC disposition or broker deal." }
       ],
       "maneuver": { "name": "Read the Room", "description": "Learn one target's motivation, fear, or current condition." },
-      "gambit": { "name": "Taunt", "cost": "-1 Power", "description": "Target must attack Face on next turn. Target gains [Marked]." },
-      "exploit": { "name": "Turn Coat", "description": "If target is below half Vitality or has 2+ social conditions, offer surrender terms." }
+      "gambit": { "name": "Taunt", "cost": "-1 Power", "modifies": "Cutting Words", "description": "Target must attack Face on next turn. Target gains [Marked] instead of normal effect." },
+      "exploit": { "name": "Turn Coat", "trigger": "A PC drops below half Vitality or gains 2+ social conditions.", "description": "React: Offer surrender terms. Target must resist or comply." }
     },
     {
       "id": "beast",
@@ -281,8 +281,8 @@
         { "name": "Pounce", "type": "action", "arena": "physique", "description": "Charge from short range + melee attack." }
       ],
       "maneuver": { "name": "Stalk", "description": "Move silently. Gain concealment if cover is available." },
-      "gambit": { "name": "Rend", "cost": "-1 Power", "description": "Target gains [Bleeding] on hit." },
-      "exploit": { "name": "Pack Tactics", "description": "If another allied Beast is adjacent to target, +2 Power on this attack." }
+      "gambit": { "name": "Rend", "cost": "-1 Power", "modifies": "Savage Bite", "description": "Target gains [Bleeding] on hit instead of taking damage." },
+      "exploit": { "name": "Pack Tactics", "trigger": "An allied Beast attacks the same target.", "description": "React: This NPC attacks the same target with +2 Power." }
     },
     {
       "id": "duelist",
@@ -299,8 +299,8 @@
         { "name": "Parry & Thrust", "type": "action", "arena": "reflex", "description": "Melee attack. +1 Defense until start of next turn." }
       ],
       "maneuver": { "name": "Defensive Stance", "description": "Enter a guarded position. +1 Defense and +1 Evasion until next action." },
-      "gambit": { "name": "Disabling Cut", "cost": "-1 Power", "description": "Target gains [Weakened] on hit. Limb or weapon hand targeted." },
-      "exploit": { "name": "Killing Blow", "description": "If target is below half Vitality, attack with +2 Power and ignore Defense bonuses from cover or shields." }
+      "gambit": { "name": "Disabling Cut", "cost": "-1 Power", "modifies": "Precision Strike", "description": "Target gains [Weakened] on hit instead of taking damage. Limb or weapon hand targeted." },
+      "exploit": { "name": "Killing Blow", "trigger": "A PC drops below half Vitality.", "description": "React: Attack that target with +2 Power, ignoring Defense bonuses from cover or shields." }
     }
   ],
 

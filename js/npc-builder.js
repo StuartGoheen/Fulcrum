@@ -320,17 +320,38 @@
 
     if (role) {
       html += '<div class="npc-card-role-section">';
-      html += '<div class="npc-role-title">' + esc(role.name) + ' Abilities</div>';
+      html += '<div class="npc-role-title">' + esc(role.name) + '</div>';
 
       if (role.passive) {
         html += '<div class="npc-ability passive"><span class="npc-ability-type">PASSIVE</span> <strong>' + esc(role.passive.name) + ':</strong> ' + esc(role.passive.description) + '</div>';
       }
+
+      html += '<div class="npc-action-economy-group">';
+      html += '<div class="npc-action-group-label">ACTIONS</div>';
       role.actions.forEach(function (a) {
-        html += '<div class="npc-ability action"><span class="npc-ability-type">ACTION</span> <strong>' + esc(a.name) + ':</strong> ' + esc(a.description) + '</div>';
+        var arenaTag = a.arena ? ' <span class="npc-action-arena-tag">' + esc(a.arena) + '</span>' : '';
+        var pwrTag = a.powerMod ? ' <span class="npc-action-pwr-tag">+' + a.powerMod + ' Pwr</span>' : '';
+        html += '<div class="npc-ability action"><strong>' + esc(a.name) + '</strong>' + arenaTag + pwrTag + ' — ' + esc(a.description) + '</div>';
       });
-      html += '<div class="npc-ability maneuver"><span class="npc-ability-type">MANEUVER</span> <strong>' + esc(role.maneuver.name) + ':</strong> ' + esc(role.maneuver.description) + '</div>';
-      html += '<div class="npc-ability gambit"><span class="npc-ability-type">GAMBIT</span> <strong>' + esc(role.gambit.name) + '</strong> (' + esc(role.gambit.cost) + '): ' + esc(role.gambit.description) + '</div>';
-      html += '<div class="npc-ability exploit"><span class="npc-ability-type">EXPLOIT</span> <strong>' + esc(role.exploit.name) + ':</strong> ' + esc(role.exploit.description) + '</div>';
+      html += '</div>';
+
+      html += '<div class="npc-action-economy-group">';
+      html += '<div class="npc-action-group-label">MANEUVER</div>';
+      html += '<div class="npc-ability maneuver"><strong>' + esc(role.maneuver.name) + ':</strong> ' + esc(role.maneuver.description) + '</div>';
+      html += '</div>';
+
+      html += '<div class="npc-action-economy-group">';
+      html += '<div class="npc-action-group-label">EXPLOIT <span class="npc-exploit-pip-note">(Reaction)</span></div>';
+      var exploitTrigger = role.exploit.trigger ? '<div class="npc-exploit-trigger"><span class="npc-trigger-label">TRIGGER:</span> ' + esc(role.exploit.trigger) + '</div>' : '';
+      html += '<div class="npc-ability exploit"><strong>' + esc(role.exploit.name) + '</strong>' + exploitTrigger + '<div class="npc-exploit-effect">' + esc(role.exploit.description) + '</div></div>';
+      html += '</div>';
+
+      html += '<div class="npc-action-economy-group">';
+      html += '<div class="npc-action-group-label">GAMBIT <span class="npc-gambit-mod-note">(Declared in Advance)</span></div>';
+      var gambitMod = role.gambit.modifies ? '<span class="npc-gambit-modifies">on ' + esc(role.gambit.modifies) + '</span> ' : '';
+      html += '<div class="npc-ability gambit"><strong>' + esc(role.gambit.name) + '</strong> ' + gambitMod + '<span class="npc-gambit-cost">' + esc(role.gambit.cost) + '</span><div class="npc-gambit-effect">' + esc(role.gambit.description) + '</div></div>';
+      html += '</div>';
+
       html += '</div>';
     }
 
