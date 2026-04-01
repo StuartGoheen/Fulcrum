@@ -331,13 +331,34 @@
       role.actions.forEach(function (a) {
         var arenaTag = a.arena ? ' <span class="npc-action-arena-tag">' + esc(a.arena) + '</span>' : '';
         var pwrTag = a.powerMod ? ' <span class="npc-action-pwr-tag">+' + a.powerMod + ' Pwr</span>' : '';
-        html += '<div class="npc-ability action"><strong>' + esc(a.name) + '</strong>' + arenaTag + pwrTag + ' — ' + esc(a.description) + '</div>';
+        var defTag = a.defense && a.defense !== 'none' ? ' <span class="npc-action-def-tag">vs ' + esc(a.defense.charAt(0).toUpperCase() + a.defense.slice(1)) + '</span>' : '';
+        html += '<div class="npc-ability action"><strong>' + esc(a.name) + '</strong>' + arenaTag + defTag + pwrTag + ' — ' + esc(a.description);
+        if (a.npcEffects && a.npcEffects.length) {
+          html += '<div class="npc-effect-track">';
+          a.npcEffects.forEach(function (ef) {
+            html += '<div class="npc-effect-tier"><span class="npc-effect-tier-label">' + esc(ef.tier) + '</span><span class="npc-effect-tier-range">' + esc(ef.range) + '</span> ' + esc(ef.description) + '</div>';
+          });
+          html += '</div>';
+        }
+        html += '</div>';
       });
       html += '</div>';
 
       html += '<div class="npc-action-economy-group">';
       html += '<div class="npc-action-group-label">MANEUVER</div>';
-      html += '<div class="npc-ability maneuver"><strong>' + esc(role.maneuver.name) + ':</strong> ' + esc(role.maneuver.description) + '</div>';
+      html += '<div class="npc-ability maneuver"><strong>' + esc(role.maneuver.name) + ':</strong>';
+      if (role.maneuver.defense) {
+        html += ' <span class="npc-action-def-tag">vs ' + esc(role.maneuver.defense.charAt(0).toUpperCase() + role.maneuver.defense.slice(1)) + '</span>';
+      }
+      html += ' ' + esc(role.maneuver.description);
+      if (role.maneuver.npcEffects && role.maneuver.npcEffects.length) {
+        html += '<div class="npc-effect-track">';
+        role.maneuver.npcEffects.forEach(function (ef) {
+          html += '<div class="npc-effect-tier"><span class="npc-effect-tier-label">' + esc(ef.tier) + '</span><span class="npc-effect-tier-range">' + esc(ef.range) + '</span> ' + esc(ef.description) + '</div>';
+        });
+        html += '</div>';
+      }
+      html += '</div>';
       html += '</div>';
 
       html += '<div class="npc-action-economy-group">';
@@ -746,39 +767,48 @@
     var filteredTraits = threatData.traits.filter(function (t) {
       return !t.categories || t.categories.indexOf(activeCat) !== -1;
     });
-    var combatTraits = filteredTraits.filter(function (t) { return t.traitType === 'combat' || t.traitType === 'both' || !t.traitType; });
-    var socialTraits = filteredTraits.filter(function (t) { return t.traitType === 'social' || t.traitType === 'both'; });
     var filteredTags = threatData.tags.filter(function (tag) {
       return !tag.categories || tag.categories.indexOf(activeCat) !== -1;
     });
 
-    html += '<div class="npc-input-group">';
-    html += '<label class="npc-label">Combat Traits</label>';
-    combatTraits.forEach(function (t) {
+    var currentRole = currentNpc.role || '';
+    var recommendedTraits = [];
+    var otherTraits = [];
+    filteredTraits.forEach(function (t) {
+      if (currentRole && t.roleAffinity && t.roleAffinity.indexOf(currentRole) !== -1) {
+        recommendedTraits.push(t);
+      } else {
+        otherTraits.push(t);
+      }
+    });
+
+    function renderTraitCheckbox(t) {
       var checked = (currentNpc.traits || []).indexOf(t.id) !== -1;
       var isAuto = t.autoApply;
-      html += '<label class="npc-checkbox-label' + (isAuto ? ' npc-trait-auto' : '') + '">';
-      html += '<input type="checkbox" class="npc-trait-cb" data-trait="' + t.id + '"' + (checked ? ' checked' : '') + (isAuto ? ' disabled' : '') + ' /> ';
-      html += '<span>' + esc(t.name) + (isAuto ? ' (auto)' : '') + '</span>';
-      html += '<span class="npc-trait-desc">' + esc(t.description) + '</span>';
-      html += '</label>';
-    });
-    html += '</div>';
+      var traitHtml = '<label class="npc-checkbox-label' + (isAuto ? ' npc-trait-auto' : '') + '">';
+      traitHtml += '<input type="checkbox" class="npc-trait-cb" data-trait="' + t.id + '"' + (checked ? ' checked' : '') + (isAuto ? ' disabled' : '') + ' /> ';
+      traitHtml += '<span>' + esc(t.name) + (isAuto ? ' (auto)' : '') + '</span>';
+      traitHtml += '<span class="npc-trait-desc">' + esc(t.description) + '</span>';
+      if (t.trigger) {
+        traitHtml += '<span class="npc-trait-trigger">' + esc(t.trigger) + '</span>';
+      }
+      return traitHtml + '</label>';
+    }
 
-    if (socialTraits.length > 0) {
+    if (currentRole && recommendedTraits.length > 0) {
+      var roleName = '';
+      var roleObj = threatData.roles.find(function (r) { return r.id === currentRole; });
+      if (roleObj) roleName = roleObj.name;
       html += '<div class="npc-input-group">';
-      html += '<label class="npc-label npc-label-social">Social Traits</label>';
-      socialTraits.forEach(function (t) {
-        var checked = (currentNpc.traits || []).indexOf(t.id) !== -1;
-        html += '<label class="npc-checkbox-label">';
-        html += '<input type="checkbox" class="npc-trait-cb" data-trait="' + t.id + '"' + (checked ? ' checked' : '') + ' /> ';
-        html += '<span>' + esc(t.name) + '</span>';
-        html += '<span class="npc-trait-desc">' + esc(t.description) + '</span>';
-        if (t.trigger) {
-          html += '<span class="npc-trait-trigger">' + esc(t.trigger) + '</span>';
-        }
-        html += '</label>';
-      });
+      html += '<label class="npc-label npc-label-recommended">Recommended for ' + esc(roleName) + '</label>';
+      recommendedTraits.forEach(function (t) { html += renderTraitCheckbox(t); });
+      html += '</div>';
+    }
+
+    if (otherTraits.length > 0) {
+      html += '<div class="npc-input-group">';
+      html += '<label class="npc-label">' + (currentRole && recommendedTraits.length > 0 ? 'Other Traits' : 'Traits') + '</label>';
+      otherTraits.forEach(function (t) { html += renderTraitCheckbox(t); });
       html += '</div>';
     }
 

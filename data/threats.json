@@ -10,66 +10,210 @@
     },
     "resolutionTable": {
       "failure": [
-        { "range": [-1, -3], "tier": "Fleeting" },
-        { "range": [-4, -7], "tier": "Masterful" },
-        { "range": [-8, -11], "tier": "Legendary" }
+        {
+          "range": [
+            -1,
+            -3
+          ],
+          "tier": "Fleeting"
+        },
+        {
+          "range": [
+            -4,
+            -7
+          ],
+          "tier": "Masterful"
+        },
+        {
+          "range": [
+            -8,
+            -11
+          ],
+          "tier": "Legendary"
+        }
       ],
       "success": [
-        { "range": [0, 3], "tier": "Fleeting" },
-        { "range": [4, 7], "tier": "Masterful" },
-        { "range": [8, 11], "tier": "Legendary" }
+        {
+          "range": [
+            0,
+            3
+          ],
+          "tier": "Fleeting"
+        },
+        {
+          "range": [
+            4,
+            7
+          ],
+          "tier": "Masterful"
+        },
+        {
+          "range": [
+            8,
+            11
+          ],
+          "tier": "Legendary"
+        }
       ]
     },
-    "tierRange": [0, 1, 2, 3, 4, 5],
-    "arenaRange": [1, 2, 3, 4, 5],
-    "arenas": ["Physique", "Reflex", "Grit", "Wits", "Presence"],
+    "tierRange": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "arenaRange": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "arenas": [
+      "Physique",
+      "Reflex",
+      "Grit",
+      "Wits",
+      "Presence"
+    ],
     "controlDie": {
       "description": "NPCs do not roll dice. The Control Die tier sets the NPC's fixed action budget per round and determines the die size referenced by NPC abilities and gambits. PCs roll against the NPC's static Power, Defense, and Evasion values.",
       "tiers": {
-        "0": { "die": "d6", "actions": 1, "notes": "Civilian-grade. Single action only." },
-        "1": { "die": "d6", "actions": 1, "notes": "Basic trained combatant." },
-        "2": { "die": "d8", "actions": 1, "notes": "Professional soldier. Access to gambits." },
-        "3": { "die": "d10", "actions": 2, "notes": "Veteran. Two actions per round." },
-        "4": { "die": "d12", "actions": 2, "notes": "Elite specialist. Full gambit access." },
-        "5": { "die": "d12", "actions": 3, "notes": "Legendary threat. Three actions per round." }
+        "0": {
+          "die": "d6",
+          "actions": 1,
+          "notes": "Civilian-grade. Single action only."
+        },
+        "1": {
+          "die": "d6",
+          "actions": 1,
+          "notes": "Basic trained combatant."
+        },
+        "2": {
+          "die": "d8",
+          "actions": 1,
+          "notes": "Professional soldier. Access to gambits."
+        },
+        "3": {
+          "die": "d10",
+          "actions": 2,
+          "notes": "Veteran. Two actions per round."
+        },
+        "4": {
+          "die": "d12",
+          "actions": 2,
+          "notes": "Elite specialist. Full gambit access."
+        },
+        "5": {
+          "die": "d12",
+          "actions": 3,
+          "notes": "Legendary threat. Three actions per round."
+        }
       }
     },
     "weaponChassis": {
       "description": "Weapon chassis determines base damage at each result tier. NPC values = PC values + 1. Stun = damage + 1 at each tier.",
       "light": {
         "label": "Light",
-        "pcDamage": { "fleeting": 1, "masterful": 2, "legendary": 3 },
-        "pcStun": { "fleeting": 2, "masterful": 3, "legendary": 4 }
+        "pcDamage": {
+          "fleeting": 1,
+          "masterful": 2,
+          "legendary": 3
+        },
+        "pcStun": {
+          "fleeting": 2,
+          "masterful": 3,
+          "legendary": 4
+        }
       },
       "medium": {
         "label": "Medium",
-        "pcDamage": { "fleeting": 1, "masterful": 3, "legendary": 5 },
-        "pcStun": { "fleeting": 2, "masterful": 4, "legendary": 6 }
+        "pcDamage": {
+          "fleeting": 1,
+          "masterful": 3,
+          "legendary": 5
+        },
+        "pcStun": {
+          "fleeting": 2,
+          "masterful": 4,
+          "legendary": 6
+        }
       },
       "heavy": {
         "label": "Heavy",
-        "pcDamage": { "fleeting": 2, "masterful": 4, "legendary": 7 },
-        "pcStun": { "fleeting": 3, "masterful": 5, "legendary": 8 }
+        "pcDamage": {
+          "fleeting": 2,
+          "masterful": 4,
+          "legendary": 7
+        },
+        "pcStun": {
+          "fleeting": 3,
+          "masterful": 5,
+          "legendary": 8
+        }
       }
     },
     "scaleReference": {
       "description": "Scale difference modifies both Control and Effect. Attacking a LARGER target: step down Control per difference, step up Effect per difference. Attacking a SMALLER target: step up Control per difference, step down Effect per difference. Scale difference is absolute between attacker and target.",
       "levels": [
-        { "level": 1, "name": "Character", "examples": "People, droids, beasts" },
-        { "level": 2, "name": "Vehicle", "examples": "AT-ST, speeders, walkers" },
-        { "level": 3, "name": "Starship", "examples": "Fighters, freighters, gunships" },
-        { "level": 4, "name": "Capital Ship", "examples": "Star Destroyers, cruisers" },
-        { "level": 5, "name": "Station", "examples": "Space stations, superweapons" }
+        {
+          "level": 1,
+          "name": "Character",
+          "examples": "People, droids, beasts"
+        },
+        {
+          "level": 2,
+          "name": "Vehicle",
+          "examples": "AT-ST, speeders, walkers"
+        },
+        {
+          "level": 3,
+          "name": "Starship",
+          "examples": "Fighters, freighters, gunships"
+        },
+        {
+          "level": 4,
+          "name": "Capital Ship",
+          "examples": "Star Destroyers, cruisers"
+        },
+        {
+          "level": 5,
+          "name": "Station",
+          "examples": "Space stations, superweapons"
+        }
+      ]
+    },
+    "immutableRules": {
+      "npcNeverRoll": "NPCs never roll dice. They ARE the static values PCs roll against.",
+      "controlThreshold": "Control die success is ALWAYS 4+ (mastery 8+). Nothing changes this threshold.",
+      "deltaScale": "PC Power die result minus NPC Power value equals Delta. Negative delta means the NPC wins and their effect track fires. Failed Control (roll 1-3) means PC Power is treated as 0, so Delta equals 0 minus NPC Power, which is always negative.",
+      "npcEffectTiers": [
+        {
+          "tier": "Fleeting",
+          "label": "F",
+          "range": "-1 to -3"
+        },
+        {
+          "tier": "Masterful",
+          "label": "M",
+          "range": "-4 to -7"
+        },
+        {
+          "tier": "Legendary",
+          "label": "L",
+          "range": "-8 or worse"
+        }
       ]
     }
   },
-
   "classifications": [
     {
       "id": "standard",
       "name": "Standard",
       "description": "Base template. Full stats, fixed action cadence. The workhorse NPC.",
-      "vitalityMod": 1.0,
+      "vitalityMod": 1,
       "exploitMod": 0,
       "notes": "2-4 Standards represent a meaningful encounter for a party."
     },
@@ -77,7 +221,7 @@
       "id": "minion",
       "name": "Minion",
       "description": "Bolt-on. Full Vitality stat but any Masterful+ net result is an instant takedown. Keeps all other stats intact.",
-      "vitalityMod": 1.0,
+      "vitalityMod": 1,
       "exploitMod": 0,
       "special": "Masterful+ net result = instant takedown. Full stats otherwise.",
       "notes": "Minion status is a longevity downgrade, not a power downgrade."
@@ -94,13 +238,12 @@
       "id": "boss",
       "name": "Boss",
       "description": "Bolt-on. Encounter-defining threat. Controls the action economy with multiple Exploits.",
-      "vitalityMod": 2.0,
+      "vitalityMod": 2,
       "exploitMod": "N-1",
       "special": "N = Number of Players (min 1 Exploit). Dominates the encounter.",
       "notes": "A Boss should feel like fighting a PC. Build them like a character."
     }
   ],
-
   "roles": [
     {
       "id": "trooper",
@@ -108,309 +251,2016 @@
       "category": "combat",
       "description": "Disciplined ranged combatant. Reliable, consistent, operates best in squads.",
       "arenaMods": {},
-      "powerBonus": { "value": 1, "condition": "weapon attacks" },
+      "powerBonus": {
+        "value": 1,
+        "condition": "weapon attacks"
+      },
       "passive": {
         "name": "Disciplined Fire",
         "description": "+1 Power on weapon attacks."
       },
       "actions": [
-        { "name": "Blaster Volley", "type": "action", "arena": "reflex", "description": "Ranged attack against one target." },
-        { "name": "Bayonet Strike", "type": "action", "arena": "physique", "description": "Melee attack against adjacent target." }
+        {
+          "name": "Blaster Volley",
+          "type": "action",
+          "arena": "reflex",
+          "defense": "dodge",
+          "description": "Ranged attack against one target.",
+          "npcEffects": [
+            {
+              "tier": "F",
+              "range": "-1 to -3",
+              "description": "Chassis damage."
+            },
+            {
+              "tier": "M",
+              "range": "-4 to -7",
+              "description": "Chassis damage. Target gains [Suppressed] Tactical."
+            },
+            {
+              "tier": "L",
+              "range": "-8+",
+              "description": "Chassis damage. Target gains [Suppressed] and [Prone]."
+            }
+          ]
+        },
+        {
+          "name": "Bayonet Strike",
+          "type": "action",
+          "arena": "physique",
+          "defense": "endure",
+          "description": "Melee attack against adjacent target.",
+          "npcEffects": [
+            {
+              "tier": "F",
+              "range": "-1 to -3",
+              "description": "Chassis damage."
+            },
+            {
+              "tier": "M",
+              "range": "-4 to -7",
+              "description": "Chassis damage. Push target 1 zone."
+            },
+            {
+              "tier": "L",
+              "range": "-8+",
+              "description": "Chassis damage. Push 1 zone. Target gains [Prone]."
+            }
+          ]
+        }
       ],
-      "maneuver": { "name": "Take Cover", "description": "Move to cover. Gain [Cover] until leaving position." },
-      "gambit": { "name": "Suppressive Fire", "cost": "-1 Power", "modifies": "Blaster Volley", "description": "Target gains [Pinned] on hit instead of taking damage." },
-      "exploit": { "name": "Coordinated Fire", "trigger": "An allied Trooper attacks the same target this round.", "description": "React: All allied Troopers targeting the same enemy gain +1 Power this round." }
+      "maneuver": {
+        "name": "Take Cover",
+        "description": "Move to cover. Gain [Cover 1] until leaving position."
+      },
+      "gambit": {
+        "name": "Suppressive Fire",
+        "cost": "-1 Power",
+        "modifies": "Blaster Volley",
+        "description": "Target gains [Pinned] on hit instead of taking damage."
+      },
+      "exploit": {
+        "name": "Coordinated Fire",
+        "trigger": "An allied Trooper attacks the same target this round.",
+        "description": "React: All allied Troopers targeting the same enemy gain +1 Power this round."
+      }
     },
     {
       "id": "brute",
       "name": "Brute",
       "category": "combat",
       "description": "Heavy melee combatant. Hits hard, absorbs punishment, terrifies the opposition.",
-      "arenaMods": { "physique": 1, "reflex": -1 },
+      "arenaMods": {
+        "physique": 1,
+        "reflex": -1
+      },
       "passive": {
         "name": "Unrelenting",
         "description": "Ignore the first [Weakened] condition applied per scene."
       },
       "actions": [
-        { "name": "Crushing Blow", "type": "action", "arena": "physique", "powerMod": 1, "description": "Melee attack with +1 Power." },
-        { "name": "Hurl", "type": "action", "arena": "physique", "description": "Throw object or enemy at short range." }
+        {
+          "name": "Crushing Blow",
+          "type": "action",
+          "arena": "physique",
+          "powerMod": 1,
+          "defense": "endure",
+          "description": "Melee attack with +1 Power.",
+          "npcEffects": [
+            {
+              "tier": "F",
+              "range": "-1 to -3",
+              "description": "Chassis damage."
+            },
+            {
+              "tier": "M",
+              "range": "-4 to -7",
+              "description": "Chassis damage. Push target 1 zone."
+            },
+            {
+              "tier": "L",
+              "range": "-8+",
+              "description": "Chassis damage. Push 1 zone. Target gains [Prone] and [Shaken]."
+            }
+          ]
+        },
+        {
+          "name": "Hurl",
+          "type": "action",
+          "arena": "physique",
+          "defense": "dodge",
+          "description": "Throw object or enemy at short range.",
+          "npcEffects": [
+            {
+              "tier": "F",
+              "range": "-1 to -3",
+              "description": "Light chassis damage. Push target 1 zone."
+            },
+            {
+              "tier": "M",
+              "range": "-4 to -7",
+              "description": "Chassis damage. Push target 2 zones. [Prone] on landing."
+            },
+            {
+              "tier": "L",
+              "range": "-8+",
+              "description": "Chassis damage. Push 2 zones. [Prone] and [Stunned] on landing."
+            }
+          ]
+        }
       ],
-      "maneuver": { "name": "Intimidating Advance", "description": "Move toward target. Target must resist or gain [Shaken]." },
-      "gambit": { "name": "Knockdown", "cost": "-1 Power", "modifies": "Crushing Blow", "description": "Target gains [Prone] on hit instead of taking damage." },
-      "exploit": { "name": "Rampage", "trigger": "This NPC drops a target to 0 Vitality.", "description": "React: Immediately make another melee attack against a different adjacent target." }
+      "maneuver": {
+        "name": "Intimidating Advance",
+        "defense": "resist",
+        "description": "Move toward target. Target must resist or suffer effects.",
+        "npcEffects": [
+          {
+            "tier": "F",
+            "range": "-1 to -3",
+            "description": "Target gains [Rattled]."
+          },
+          {
+            "tier": "M",
+            "range": "-4 to -7",
+            "description": "Target gains [Rattled] and [Shaken]."
+          },
+          {
+            "tier": "L",
+            "range": "-8+",
+            "description": "Target gains [Rattled], [Shaken], and presents an Opening."
+          }
+        ]
+      },
+      "gambit": {
+        "name": "Knockdown",
+        "cost": "-1 Power",
+        "modifies": "Crushing Blow",
+        "description": "Target gains [Prone] on hit instead of taking damage."
+      },
+      "exploit": {
+        "name": "Rampage",
+        "trigger": "This NPC drops a target to 0 Vitality.",
+        "description": "React: Immediately make another melee attack against a different adjacent target."
+      }
     },
     {
       "id": "marksman",
       "name": "Marksman",
       "category": "combat",
       "description": "Precision ranged specialist. Deadly at distance, patient, methodical.",
-      "arenaMods": { "reflex": 1, "physique": -1 },
-      "powerBonus": { "value": 1, "condition": "long range attacks" },
+      "arenaMods": {
+        "reflex": 1,
+        "physique": -1
+      },
+      "powerBonus": {
+        "value": 1,
+        "condition": "long range attacks"
+      },
       "passive": {
         "name": "Long Shot",
         "description": "+1 Power when attacking at long range."
       },
       "actions": [
-        { "name": "Precision Shot", "type": "action", "arena": "reflex", "powerMod": 1, "description": "Ranged attack with +1 Power if no movement this turn." },
-        { "name": "Snap Shot", "type": "action", "arena": "reflex", "description": "Quick ranged attack as reaction when target moves." }
+        {
+          "name": "Precision Shot",
+          "type": "action",
+          "arena": "reflex",
+          "powerMod": 1,
+          "defense": "dodge",
+          "description": "Ranged attack with +1 Power if no movement this turn.",
+          "npcEffects": [
+            {
+              "tier": "F",
+              "range": "-1 to -3",
+              "description": "Chassis damage."
+            },
+            {
+              "tier": "M",
+              "range": "-4 to -7",
+              "description": "Chassis damage. Target gains [Bleeding]."
+            },
+            {
+              "tier": "L",
+              "range": "-8+",
+              "description": "Chassis damage. Target gains [Bleeding] and [Exposed]."
+            }
+          ]
+        },
+        {
+          "name": "Snap Shot",
+          "type": "action",
+          "arena": "reflex",
+          "defense": "dodge",
+          "description": "Quick ranged attack as reaction when target moves.",
+          "npcEffects": [
+            {
+              "tier": "F",
+              "range": "-1 to -3",
+              "description": "Chassis damage."
+            },
+            {
+              "tier": "M",
+              "range": "-4 to -7",
+              "description": "Chassis damage. Target's movement is interrupted."
+            },
+            {
+              "tier": "L",
+              "range": "-8+",
+              "description": "Chassis damage. Movement interrupted. Target gains [Prone]."
+            }
+          ]
+        }
       ],
-      "maneuver": { "name": "Find Vantage", "description": "Move to elevated or concealed position. +1 Power on next ranged attack." },
-      "gambit": { "name": "Called Shot", "cost": "-1 Power", "modifies": "Precision Shot", "description": "Target gains [Bleeding] on hit instead of taking damage." },
-      "exploit": { "name": "Overwatch", "trigger": "An enemy moves in this NPC's line of sight.", "description": "React: Shoot the moving target before they complete movement." }
+      "maneuver": {
+        "name": "Find Vantage",
+        "description": "Move to elevated or concealed position. +1 Power on next ranged attack."
+      },
+      "gambit": {
+        "name": "Called Shot",
+        "cost": "-1 Power",
+        "modifies": "Precision Shot",
+        "description": "Target gains [Bleeding] on hit instead of taking damage."
+      },
+      "exploit": {
+        "name": "Overwatch",
+        "trigger": "An enemy moves in this NPC's line of sight.",
+        "description": "React: Shoot the moving target before they complete movement."
+      }
     },
     {
       "id": "skirmisher",
       "name": "Skirmisher",
       "category": "combat",
       "description": "Mobile fighter. Strikes fast, repositions constantly, never stays pinned.",
-      "arenaMods": { "reflex": 1, "grit": -1 },
+      "arenaMods": {
+        "reflex": 1,
+        "grit": -1
+      },
       "passive": {
         "name": "Fleet Footed",
         "description": "May take 2 maneuvers per turn instead of 1."
       },
       "actions": [
-        { "name": "Hit and Run", "type": "action", "arena": "reflex", "description": "Melee attack + free disengage." },
-        { "name": "Harrying Shot", "type": "action", "arena": "reflex", "description": "Ranged attack at close range. Target cannot take reactions until next turn." }
+        {
+          "name": "Hit and Run",
+          "type": "action",
+          "arena": "reflex",
+          "defense": "dodge",
+          "description": "Melee attack + free disengage.",
+          "npcEffects": [
+            {
+              "tier": "F",
+              "range": "-1 to -3",
+              "description": "Chassis damage. NPC disengages without presenting an Opening."
+            },
+            {
+              "tier": "M",
+              "range": "-4 to -7",
+              "description": "Chassis damage. NPC disengages. Target gains [Slowed] Tactical."
+            },
+            {
+              "tier": "L",
+              "range": "-8+",
+              "description": "Chassis damage. NPC disengages and repositions 1 zone. Target gains [Slowed] and [Exposed]."
+            }
+          ]
+        },
+        {
+          "name": "Harrying Shot",
+          "type": "action",
+          "arena": "reflex",
+          "defense": "dodge",
+          "description": "Ranged attack at close range. Target cannot take reactions until next turn.",
+          "npcEffects": [
+            {
+              "tier": "F",
+              "range": "-1 to -3",
+              "description": "Chassis damage. Target cannot take reactions until next turn."
+            },
+            {
+              "tier": "M",
+              "range": "-4 to -7",
+              "description": "Chassis damage. No reactions. Target gains [Disoriented]."
+            },
+            {
+              "tier": "L",
+              "range": "-8+",
+              "description": "Chassis damage. No reactions. Target gains [Disoriented] and [Suppressed]."
+            }
+          ]
+        }
       ],
-      "maneuver": { "name": "Reposition", "description": "Move without provoking reactions." },
-      "gambit": { "name": "Hamstring", "cost": "-1 Power", "modifies": "Hit and Run", "description": "Target gains [Slowed] on hit instead of taking damage." },
-      "exploit": { "name": "Ambush", "trigger": "A PC moves adjacent to this NPC or this NPC attacks from stealth/flanking.", "description": "React: Attack with +2 Power." }
+      "maneuver": {
+        "name": "Reposition",
+        "description": "Move without provoking reactions."
+      },
+      "gambit": {
+        "name": "Hamstring",
+        "cost": "-1 Power",
+        "modifies": "Hit and Run",
+        "description": "Target gains [Slowed] on hit instead of taking damage."
+      },
+      "exploit": {
+        "name": "Ambush",
+        "trigger": "A PC moves adjacent to this NPC or this NPC attacks from stealth/flanking.",
+        "description": "React: Attack with +2 Power."
+      }
     },
     {
       "id": "operative",
       "name": "Operative",
       "category": "combat",
       "description": "Stealth specialist. Infiltrator, saboteur, assassin. Strikes from shadow.",
-      "arenaMods": { "reflex": 1, "presence": -1 },
+      "arenaMods": {
+        "reflex": 1,
+        "presence": -1
+      },
       "passive": {
         "name": "Shadow Strike",
         "description": "Attacks from stealth gain +1 Power and do not break concealment on a miss."
       },
       "actions": [
-        { "name": "Silent Kill", "type": "action", "arena": "reflex", "description": "Melee attack from concealment. +2 Power if target is unaware." },
-        { "name": "Sabotage", "type": "action", "arena": "wits", "description": "Disable equipment, lock, or system." }
+        {
+          "name": "Silent Kill",
+          "type": "action",
+          "arena": "reflex",
+          "defense": "dodge",
+          "description": "Melee attack from concealment. +2 Power if target is unaware.",
+          "npcEffects": [
+            {
+              "tier": "F",
+              "range": "-1 to -3",
+              "description": "Chassis damage. +2 Power if target is unaware."
+            },
+            {
+              "tier": "M",
+              "range": "-4 to -7",
+              "description": "Chassis damage. +2 if unaware. Target gains [Bleeding]. Concealment maintained."
+            },
+            {
+              "tier": "L",
+              "range": "-8+",
+              "description": "Chassis damage. +2 if unaware. Target gains [Bleeding] and [Exposed]. Concealment maintained."
+            }
+          ]
+        },
+        {
+          "name": "Sabotage",
+          "type": "action",
+          "arena": "wits",
+          "defense": "none",
+          "description": "Disable equipment, lock, or system.",
+          "npcEffects": [
+            {
+              "tier": "F",
+              "range": "-1 to -3",
+              "description": "One piece of equipment disabled for 1 round."
+            },
+            {
+              "tier": "M",
+              "range": "-4 to -7",
+              "description": "Equipment disabled for scene. System locked out."
+            },
+            {
+              "tier": "L",
+              "range": "-8+",
+              "description": "Equipment destroyed or permanently disabled."
+            }
+          ]
+        }
       ],
-      "maneuver": { "name": "Vanish", "description": "If in cover or obscured, become hidden." },
-      "gambit": { "name": "Disarm", "cost": "-1 Power", "modifies": "Silent Kill", "description": "Target drops held weapon on hit instead of taking damage." },
-      "exploit": { "name": "Assassination", "trigger": "This NPC attacks an unaware target.", "description": "React: Double Power for this attack." }
+      "maneuver": {
+        "name": "Vanish",
+        "description": "If in cover or obscured, become hidden."
+      },
+      "gambit": {
+        "name": "Disarm",
+        "cost": "-1 Power",
+        "modifies": "Silent Kill",
+        "description": "Target drops held weapon on hit instead of taking damage."
+      },
+      "exploit": {
+        "name": "Assassination",
+        "trigger": "This NPC attacks an unaware target.",
+        "description": "React: Double Power for this attack."
+      }
     },
     {
       "id": "commander",
       "name": "Commander",
       "category": "combat",
       "description": "Tactical leader. Amplifies allies, directs the battlefield, controls tempo.",
-      "arenaMods": { "presence": 1, "physique": -1 },
+      "arenaMods": {
+        "presence": 1,
+        "physique": -1
+      },
       "passive": {
         "name": "Rallying Presence",
         "description": "Allies within close range gain +1 to resist [Shaken] and [Rattled]."
       },
       "actions": [
-        { "name": "Direct Fire", "type": "action", "arena": "presence", "description": "Order one ally to immediately make an attack as a reaction." },
-        { "name": "Rally", "type": "action", "arena": "presence", "description": "Remove [Shaken] or [Rattled] from one ally in range." }
+        {
+          "name": "Direct Fire",
+          "type": "action",
+          "arena": "presence",
+          "defense": "none",
+          "description": "Order one ally to immediately make an attack as a reaction.",
+          "npcEffects": [
+            {
+              "tier": "F",
+              "range": "-1 to -3",
+              "description": "One ally makes a basic attack as a reaction."
+            },
+            {
+              "tier": "M",
+              "range": "-4 to -7",
+              "description": "One ally attacks with [Optimized]."
+            },
+            {
+              "tier": "L",
+              "range": "-8+",
+              "description": "Two allies each make an attack. One gains [Optimized]."
+            }
+          ]
+        },
+        {
+          "name": "Rally",
+          "type": "action",
+          "arena": "presence",
+          "defense": "none",
+          "description": "Remove [Shaken] or [Rattled] from one ally in range.",
+          "npcEffects": [
+            {
+              "tier": "F",
+              "range": "-1 to -3",
+              "description": "Remove [Rattled] or [Shaken] from one ally."
+            },
+            {
+              "tier": "M",
+              "range": "-4 to -7",
+              "description": "Remove one condition from one ally. Ally gains [Buffered 1]."
+            },
+            {
+              "tier": "L",
+              "range": "-8+",
+              "description": "Remove all [Rattled]/[Shaken] from one ally. Ally gains [Buffered 2]."
+            }
+          ]
+        }
       ],
-      "maneuver": { "name": "Issue Orders", "description": "One ally gains a bonus maneuver on their next turn." },
-      "gambit": { "name": "Tactical Withdrawal", "cost": "-1 Power", "modifies": "Direct Fire", "description": "Instead of ordering an attack, one ally may immediately move to cover." },
-      "exploit": { "name": "Coordinated Assault", "trigger": "An ally is attacked by a PC.", "description": "React: All allies gain +1 Power until end of round." }
+      "maneuver": {
+        "name": "Issue Orders",
+        "description": "One ally gains a bonus maneuver on their next turn."
+      },
+      "gambit": {
+        "name": "Tactical Withdrawal",
+        "cost": "-1 Power",
+        "modifies": "Direct Fire",
+        "description": "Instead of ordering an attack, one ally may immediately move to cover."
+      },
+      "exploit": {
+        "name": "Coordinated Assault",
+        "trigger": "An ally is attacked by a PC.",
+        "description": "React: All allies gain +1 Power until end of round."
+      }
     },
     {
       "id": "technician",
       "name": "Technician",
       "category": "combat",
       "description": "Tech specialist. Deploys gadgets, hacks systems, disrupts enemy equipment.",
-      "arenaMods": { "wits": 1, "physique": -1 },
+      "arenaMods": {
+        "wits": 1,
+        "physique": -1
+      },
       "passive": {
         "name": "Field Engineer",
         "description": "Can repair equipment and droids as an action. Can interact with tech at range."
       },
       "actions": [
-        { "name": "Overload", "type": "action", "arena": "wits", "description": "Tech attack at short range. Targets Evasion." },
-        { "name": "Deploy Drone", "type": "action", "arena": "wits", "description": "Place a drone turret. Acts on this NPC's turn with 2 Power ranged attack." }
+        {
+          "name": "Overload",
+          "type": "action",
+          "arena": "wits",
+          "defense": "dodge",
+          "description": "Tech attack at short range. Targets Evasion.",
+          "npcEffects": [
+            {
+              "tier": "F",
+              "range": "-1 to -3",
+              "description": "Chassis damage (ion/tech)."
+            },
+            {
+              "tier": "M",
+              "range": "-4 to -7",
+              "description": "Chassis damage. One piece of target's equipment gains [Jammed]."
+            },
+            {
+              "tier": "L",
+              "range": "-8+",
+              "description": "Chassis damage. [Jammed] on equipment. Droids and vehicles also gain [Ionized]."
+            }
+          ]
+        },
+        {
+          "name": "Deploy Drone",
+          "type": "action",
+          "arena": "wits",
+          "defense": "none",
+          "description": "Place a drone turret. Acts on this NPC's turn with ranged attack.",
+          "npcEffects": [
+            {
+              "tier": "F",
+              "range": "-1 to -3",
+              "description": "Drone deployed. Power 2 ranged attack. Lasts 1 round."
+            },
+            {
+              "tier": "M",
+              "range": "-4 to -7",
+              "description": "Drone deployed. Power 3 ranged attack. Lasts until destroyed."
+            },
+            {
+              "tier": "L",
+              "range": "-8+",
+              "description": "Drone deployed. Power 3 with [Optimized] on first attack. Lasts until destroyed."
+            }
+          ]
+        }
       ],
-      "maneuver": { "name": "Scan", "description": "Reveal one hidden enemy or identify one target's weakness (+1 Power vs them next attack)." },
-      "gambit": { "name": "System Glitch", "cost": "-1 Power", "modifies": "Overload", "description": "Target's equipment malfunctions. [Jammed] on hit instead of taking damage." },
-      "exploit": { "name": "Slice", "trigger": "A PC uses a droid or automated system within range.", "description": "React: Take control of that droid or system for 1 round." }
+      "maneuver": {
+        "name": "Scan",
+        "description": "Reveal one hidden enemy or identify one target's weakness (+1 Power vs them next attack)."
+      },
+      "gambit": {
+        "name": "System Glitch",
+        "cost": "-1 Power",
+        "modifies": "Overload",
+        "description": "Target's equipment malfunctions. [Jammed] on hit instead of taking damage."
+      },
+      "exploit": {
+        "name": "Slice",
+        "trigger": "A PC uses a droid or automated system within range.",
+        "description": "React: Take control of that droid or system for 1 round."
+      }
     },
     {
       "id": "mystic",
       "name": "Mystic",
       "category": "combat",
       "description": "Force user. Telekinesis, mind tricks, precognition. Fights with the invisible.",
-      "arenaMods": { "grit": 1, "reflex": -1 },
+      "arenaMods": {
+        "grit": 1,
+        "reflex": -1
+      },
       "passive": {
         "name": "Force Awareness",
         "description": "Can sense Force-sensitive beings. Immune to [Blinded]."
       },
       "actions": [
-        { "name": "Force Push", "type": "action", "arena": "grit", "description": "Ranged Force attack. Targets Endure only (invisible, can't dodge)." },
-        { "name": "Mind Trick", "type": "action", "arena": "presence", "description": "Social Force attack. Targets Resist only." }
+        {
+          "name": "Force Push",
+          "type": "action",
+          "arena": "grit",
+          "defense": "endure",
+          "description": "Ranged Force attack. Targets Endure only (invisible, can't dodge).",
+          "npcEffects": [
+            {
+              "tier": "F",
+              "range": "-1 to -3",
+              "description": "Push target 1 zone. Light chassis damage."
+            },
+            {
+              "tier": "M",
+              "range": "-4 to -7",
+              "description": "Push 2 zones. Chassis damage. Target gains [Disoriented]."
+            },
+            {
+              "tier": "L",
+              "range": "-8+",
+              "description": "Push 3 zones. Chassis damage. Target gains [Prone] and [Stunned]."
+            }
+          ]
+        },
+        {
+          "name": "Mind Trick",
+          "type": "action",
+          "arena": "presence",
+          "defense": "resist",
+          "description": "Social Force attack. Targets Resist only.",
+          "npcEffects": [
+            {
+              "tier": "F",
+              "range": "-1 to -3",
+              "description": "Target gains [Disoriented] Tactical."
+            },
+            {
+              "tier": "M",
+              "range": "-4 to -7",
+              "description": "Target performs one simple action as directed (drop weapon, open door, freeze)."
+            },
+            {
+              "tier": "L",
+              "range": "-8+",
+              "description": "Target obeys one complex command for the round. [Rattled] and [Shaken] if they realize later."
+            }
+          ]
+        }
       ],
-      "maneuver": { "name": "Force Pull", "description": "Move one object or enemy one range band closer." },
-      "gambit": { "name": "Force Stagger", "cost": "-1 Power", "modifies": "Force Push", "description": "Target gains [Disoriented] on hit instead of taking damage." },
-      "exploit": { "name": "Force Choke", "trigger": "A PC drops below half Vitality.", "description": "React: Automatically apply [Restrained] to that target. Targets Endure to break free." }
+      "maneuver": {
+        "name": "Force Pull",
+        "defense": "endure",
+        "description": "Move one object or enemy one range band closer. Targets Endure when opposed.",
+        "npcEffects": [
+          {
+            "tier": "F",
+            "range": "-1 to -3",
+            "description": "Pull target or object 1 zone closer."
+          },
+          {
+            "tier": "M",
+            "range": "-4 to -7",
+            "description": "Pull target 1 zone closer. Target gains [Disoriented]."
+          },
+          {
+            "tier": "L",
+            "range": "-8+",
+            "description": "Pull target 1 zone closer. Target gains [Disoriented] and [Prone]."
+          }
+        ]
+      },
+      "gambit": {
+        "name": "Force Stagger",
+        "cost": "-1 Power",
+        "modifies": "Force Push",
+        "description": "Target gains [Disoriented] on hit instead of taking damage."
+      },
+      "exploit": {
+        "name": "Force Choke",
+        "trigger": "A PC drops below half Vitality.",
+        "description": "React: Automatically apply [Restrained] to that target. Targets Endure to break free."
+      }
     },
     {
       "id": "face",
       "name": "Face",
       "category": "combat",
       "description": "Social operator. Negotiates, manipulates, deceives. Fights with words.",
-      "arenaMods": { "presence": 1, "physique": -1 },
+      "arenaMods": {
+        "presence": 1,
+        "physique": -1
+      },
       "passive": {
         "name": "Silver Tongue",
         "description": "Can attempt social actions in combat without provoking reactions."
       },
       "actions": [
-        { "name": "Cutting Words", "type": "action", "arena": "presence", "description": "Social attack. Targets Resist." },
-        { "name": "Negotiate", "type": "action", "arena": "presence", "description": "Attempt to change NPC disposition or broker deal." }
+        {
+          "name": "Cutting Words",
+          "type": "action",
+          "arena": "presence",
+          "defense": "resist",
+          "description": "Social attack. Targets Resist.",
+          "npcEffects": [
+            {
+              "tier": "F",
+              "range": "-1 to -3",
+              "description": "Target gains [Rattled]."
+            },
+            {
+              "tier": "M",
+              "range": "-4 to -7",
+              "description": "Target gains [Rattled] and [Shaken]."
+            },
+            {
+              "tier": "L",
+              "range": "-8+",
+              "description": "Target gains [Rattled], [Shaken], and [Exposed]."
+            }
+          ]
+        },
+        {
+          "name": "Negotiate",
+          "type": "action",
+          "arena": "presence",
+          "defense": "resist",
+          "description": "Attempt to change target disposition or broker deal.",
+          "npcEffects": [
+            {
+              "tier": "F",
+              "range": "-1 to -3",
+              "description": "Shift target disposition one step favorable for the scene."
+            },
+            {
+              "tier": "M",
+              "range": "-4 to -7",
+              "description": "Target makes one concession or reveals useful information."
+            },
+            {
+              "tier": "L",
+              "range": "-8+",
+              "description": "Target agrees to terms or switches stance entirely for the scene."
+            }
+          ]
+        }
       ],
-      "maneuver": { "name": "Read the Room", "description": "Learn one target's motivation, fear, or current condition." },
-      "gambit": { "name": "Taunt", "cost": "-1 Power", "modifies": "Cutting Words", "description": "Target must attack Face on next turn. Target gains [Marked] instead of normal effect." },
-      "exploit": { "name": "Turn Coat", "trigger": "A PC drops below half Vitality or gains 2+ social conditions.", "description": "React: Offer surrender terms. Target must resist or comply." }
+      "maneuver": {
+        "name": "Read the Room",
+        "description": "Learn one target's motivation, fear, or current condition."
+      },
+      "gambit": {
+        "name": "Taunt",
+        "cost": "-1 Power",
+        "modifies": "Cutting Words",
+        "description": "Target must attack Face on next turn. Target gains [Marked] instead of normal effect."
+      },
+      "exploit": {
+        "name": "Turn Coat",
+        "trigger": "A PC drops below half Vitality or gains 2+ social conditions.",
+        "description": "React: Offer surrender terms. Target must resist or comply."
+      }
     },
     {
       "id": "beast",
       "name": "Beast",
       "category": "combat",
       "description": "Feral combatant. Natural weapons, pack instincts, raw predatory aggression.",
-      "arenaMods": { "physique": 1, "wits": -1, "presence": -1 },
+      "arenaMods": {
+        "physique": 1,
+        "wits": -1,
+        "presence": -1
+      },
       "passive": {
         "name": "Natural Weapons",
         "description": "Cannot be disarmed. Immune to [Disoriented]."
       },
       "actions": [
-        { "name": "Savage Bite", "type": "action", "arena": "physique", "powerMod": 1, "description": "Melee attack with +1 Power." },
-        { "name": "Pounce", "type": "action", "arena": "physique", "description": "Charge from short range + melee attack." }
+        {
+          "name": "Savage Bite",
+          "type": "action",
+          "arena": "physique",
+          "powerMod": 1,
+          "defense": "endure",
+          "description": "Melee attack with +1 Power.",
+          "npcEffects": [
+            {
+              "tier": "F",
+              "range": "-1 to -3",
+              "description": "Chassis damage."
+            },
+            {
+              "tier": "M",
+              "range": "-4 to -7",
+              "description": "Chassis damage. Target gains [Bleeding]."
+            },
+            {
+              "tier": "L",
+              "range": "-8+",
+              "description": "Chassis damage. Target gains [Bleeding] and [Restrained] (jaws locked)."
+            }
+          ]
+        },
+        {
+          "name": "Pounce",
+          "type": "action",
+          "arena": "physique",
+          "defense": "dodge",
+          "description": "Charge from short range + melee attack.",
+          "npcEffects": [
+            {
+              "tier": "F",
+              "range": "-1 to -3",
+              "description": "Chassis damage. Close distance from short range."
+            },
+            {
+              "tier": "M",
+              "range": "-4 to -7",
+              "description": "Chassis damage. Target gains [Prone]."
+            },
+            {
+              "tier": "L",
+              "range": "-8+",
+              "description": "Chassis damage. Target gains [Prone] and [Pinned]."
+            }
+          ]
+        }
       ],
-      "maneuver": { "name": "Stalk", "description": "Move silently. Gain concealment if cover is available." },
-      "gambit": { "name": "Rend", "cost": "-1 Power", "modifies": "Savage Bite", "description": "Target gains [Bleeding] on hit instead of taking damage." },
-      "exploit": { "name": "Pack Tactics", "trigger": "An allied Beast attacks the same target.", "description": "React: This NPC attacks the same target with +2 Power." }
+      "maneuver": {
+        "name": "Stalk",
+        "description": "Move silently. Gain concealment if cover is available."
+      },
+      "gambit": {
+        "name": "Rend",
+        "cost": "-1 Power",
+        "modifies": "Savage Bite",
+        "description": "Target gains [Bleeding] on hit instead of taking damage."
+      },
+      "exploit": {
+        "name": "Pack Tactics",
+        "trigger": "An allied Beast attacks the same target.",
+        "description": "React: This NPC attacks the same target with +2 Power."
+      }
     },
     {
       "id": "duelist",
       "name": "Duelist",
       "category": "combat",
       "description": "Precision melee specialist. Parry, riposte, counterattack. Inquisitors, Mandalorian melee fighters, vibroblade experts.",
-      "arenaMods": { "grit": 1, "physique": -1 },
+      "arenaMods": {
+        "grit": 1,
+        "physique": -1
+      },
       "passive": {
         "name": "Riposte",
         "description": "When an adjacent attacker misses this NPC with a melee attack, immediately make a free melee counterattack against them."
       },
       "actions": [
-        { "name": "Precision Strike", "type": "action", "arena": "reflex", "powerMod": 1, "description": "Melee attack with +1 Power. Ignores light armor." },
-        { "name": "Parry & Thrust", "type": "action", "arena": "reflex", "description": "Melee attack. +1 Defense until start of next turn." }
+        {
+          "name": "Precision Strike",
+          "type": "action",
+          "arena": "reflex",
+          "powerMod": 1,
+          "defense": "dodge",
+          "description": "Melee attack with +1 Power. Ignores light armor.",
+          "npcEffects": [
+            {
+              "tier": "F",
+              "range": "-1 to -3",
+              "description": "Chassis damage. Ignores light armor."
+            },
+            {
+              "tier": "M",
+              "range": "-4 to -7",
+              "description": "Chassis damage. Target gains [Bleeding]. Ignores light armor."
+            },
+            {
+              "tier": "L",
+              "range": "-8+",
+              "description": "Chassis damage. Target gains [Weakened] and [Bleeding]. Ignores all armor."
+            }
+          ]
+        },
+        {
+          "name": "Parry & Thrust",
+          "type": "action",
+          "arena": "reflex",
+          "defense": "dodge",
+          "description": "Melee attack. +1 Defense until start of next turn.",
+          "npcEffects": [
+            {
+              "tier": "F",
+              "range": "-1 to -3",
+              "description": "Chassis damage. NPC gains +1 Defense until next turn."
+            },
+            {
+              "tier": "M",
+              "range": "-4 to -7",
+              "description": "Chassis damage. NPC gains +1 Defense. Target gains [Disoriented]."
+            },
+            {
+              "tier": "L",
+              "range": "-8+",
+              "description": "Chassis damage. NPC gains +2 Defense. Target gains [Exposed]."
+            }
+          ]
+        }
       ],
-      "maneuver": { "name": "Defensive Stance", "description": "Enter a guarded position. +1 Defense and +1 Evasion until next action." },
-      "gambit": { "name": "Disabling Cut", "cost": "-1 Power", "modifies": "Precision Strike", "description": "Target gains [Weakened] on hit instead of taking damage. Limb or weapon hand targeted." },
-      "exploit": { "name": "Killing Blow", "trigger": "A PC drops below half Vitality.", "description": "React: Attack that target with +2 Power, ignoring Defense bonuses from cover or shields." }
+      "maneuver": {
+        "name": "Defensive Stance",
+        "description": "Enter a guarded position. +1 Defense and +1 Evasion until next action."
+      },
+      "gambit": {
+        "name": "Disabling Cut",
+        "cost": "-1 Power",
+        "modifies": "Precision Strike",
+        "description": "Target gains [Weakened] on hit instead of taking damage. Limb or weapon hand targeted."
+      },
+      "exploit": {
+        "name": "Killing Blow",
+        "trigger": "A PC drops below half Vitality.",
+        "description": "React: Attack that target with +2 Power, ignoring Defense bonuses from cover or shields."
+      }
     }
   ],
-
   "threatCategories": [
-    { "id": "character", "name": "Character", "description": "People, droids, beasts — personal scale.", "scaleLevel": 1 },
-    { "id": "vehicle", "name": "Vehicle", "description": "Walkers, speeders, turrets — vehicle scale.", "scaleLevel": 2 },
-    { "id": "starship", "name": "Starship", "description": "Starfighters, freighters, gunships — starship scale.", "scaleLevel": 3 },
-    { "id": "capital_ship", "name": "Capital Ship", "description": "Star Destroyers, cruisers, frigates — capital scale.", "scaleLevel": 4 },
-    { "id": "station", "name": "Station", "description": "Space stations, orbital platforms, superweapons — station scale.", "scaleLevel": 5 }
+    {
+      "id": "character",
+      "name": "Character",
+      "description": "People, droids, beasts — personal scale.",
+      "scaleLevel": 1
+    },
+    {
+      "id": "vehicle",
+      "name": "Vehicle",
+      "description": "Walkers, speeders, turrets — vehicle scale.",
+      "scaleLevel": 2
+    },
+    {
+      "id": "starship",
+      "name": "Starship",
+      "description": "Starfighters, freighters, gunships — starship scale.",
+      "scaleLevel": 3
+    },
+    {
+      "id": "capital_ship",
+      "name": "Capital Ship",
+      "description": "Star Destroyers, cruisers, frigates — capital scale.",
+      "scaleLevel": 4
+    },
+    {
+      "id": "station",
+      "name": "Station",
+      "description": "Space stations, orbital platforms, superweapons — station scale.",
+      "scaleLevel": 5
+    }
   ],
-
   "traits": [
-    { "id": "armored_light", "name": "Armored (Light)", "traitType": "combat", "description": "+1 to Defense.", "defenseMod": 1, "categories": ["character"] },
-    { "id": "armored_medium", "name": "Armored (Medium)", "traitType": "combat", "description": "+2 to Defense. -1 Evasion.", "defenseMod": 2, "evasionMod": -1, "categories": ["character"] },
-    { "id": "armored_heavy", "name": "Armored (Heavy)", "traitType": "combat", "description": "+3 to Defense. -2 Evasion.", "defenseMod": 3, "evasionMod": -2, "categories": ["character"] },
-    { "id": "iron_clad", "name": "Iron Clad", "traitType": "combat", "description": "Use Defense in place of Evasion. Can Endure grenades and AoE that target Evasion. Overridden by lightsabers and armor-piercing weapons.", "useDefenseForEvasion": true, "categories": ["character", "vehicle"] },
-    { "id": "tough", "name": "Tough", "traitType": "combat", "description": "Ignore Fleeting damage results. Require Masterful (3+) to damage.", "minDamageScale": "masterful", "categories": ["character", "vehicle", "starship", "capital_ship", "station"] },
-    { "id": "disciplined", "name": "Disciplined", "traitType": "both", "description": "+1 to Resist.", "resistMod": 1, "categories": ["character"] },
-    { "id": "agile", "name": "Agile", "traitType": "combat", "description": "+1 to Evasion.", "evasionMod": 1, "categories": ["character"] },
-    { "id": "force_sensitive", "name": "Force Sensitive", "traitType": "both", "description": "Can use Force-related abilities. Required for Mystic role.", "allowsForce": true, "categories": ["character"] },
-    { "id": "cybernetic", "name": "Cybernetic", "traitType": "combat", "description": "+1 to one Arena (chosen at build). Immune to [Stunned]. Vulnerable to Ion damage.", "arenaBonusChoice": 1, "immunities": ["Stunned"], "vulnerabilities": ["Ion"], "categories": ["character"] },
-    { "id": "fearless", "name": "Fearless", "traitType": "both", "description": "Immune to [Shaken] and [Rattled].", "immunities": ["Shaken", "Rattled"], "categories": ["character"] },
-    { "id": "veteran", "name": "Veteran", "traitType": "combat", "description": "+1 additional Exploit slot.", "exploitMod": 1, "categories": ["character", "vehicle", "starship", "capital_ship", "station"] },
-    { "id": "shield_generator", "name": "Shield Generator", "traitType": "combat", "description": "+2 Defense. Shield breaks after absorbing Masterful+ hit. Recharges after 1 round without damage.", "defenseMod": 2, "shieldBreak": "masterful", "categories": ["character", "vehicle", "starship", "capital_ship"] },
-    { "id": "jetpack", "name": "Jetpack", "traitType": "combat", "description": "Can fly. Ignore terrain. +1 Evasion while airborne.", "evasionMod": 1, "grantsFlight": true, "categories": ["character"] },
-    { "id": "scale_vehicle", "name": "Scale: Vehicle", "traitType": "combat", "description": "Vehicle scale (AT-ST, speeder, walker).", "scale": "vehicle", "scaleLevel": 2, "categories": ["vehicle"], "autoApply": true },
-    { "id": "scale_starship", "name": "Scale: Starship", "traitType": "combat", "description": "Starship scale (starfighters, freighters, gunships).", "scale": "starship", "scaleLevel": 3, "categories": ["starship"], "autoApply": true },
-    { "id": "scale_capital", "name": "Scale: Capital Ship", "traitType": "combat", "description": "Capital ship scale (Star Destroyers, cruisers, frigates).", "scale": "capital_ship", "scaleLevel": 4, "categories": ["capital_ship"], "autoApply": true },
-    { "id": "scale_station", "name": "Scale: Station", "traitType": "combat", "description": "Station scale (space stations, orbital platforms, superweapons).", "scale": "station", "scaleLevel": 5, "categories": ["station"], "autoApply": true },
-    { "id": "armored_hull", "name": "Armored Hull", "traitType": "combat", "description": "+2 Defense. Plated hull absorbs kinetic and energy weapon impacts.", "defenseMod": 2, "categories": ["vehicle", "starship", "capital_ship", "station"] },
-    { "id": "reinforced_hull", "name": "Reinforced Hull", "traitType": "combat", "description": "+3 Defense. -1 Evasion. Heavy durasteel plating or military-grade armor.", "defenseMod": 3, "evasionMod": -1, "categories": ["vehicle", "starship", "capital_ship", "station"] },
-    { "id": "stationary", "name": "Stationary", "traitType": "combat", "description": "Cannot move. +1 Defense. Evasion set to 0. Turrets, emplacements, fixed defenses.", "defenseMod": 1, "isStationary": true, "categories": ["vehicle", "station"] },
-    { "id": "automated", "name": "Automated", "traitType": "combat", "description": "No crew. Immune to social conditions and [Shaken]. Vulnerable to slicing. Cannot adapt tactics.", "immunities": ["Shaken", "Rattled", "Social"], "vulnerabilities": ["Slicing"], "categories": ["vehicle", "starship", "capital_ship", "station"] },
-    { "id": "fast", "name": "Fast", "traitType": "combat", "description": "+1 Evasion. High speed — hard to track and target.", "evasionMod": 1, "categories": ["vehicle", "starship"] },
-    { "id": "lumbering", "name": "Lumbering", "traitType": "combat", "description": "-2 Evasion. Slow, heavy, hard to maneuver. Compensates with firepower or armor.", "evasionMod": -2, "categories": ["vehicle", "starship", "capital_ship", "station"] },
-    { "id": "anti_personnel", "name": "Anti-Personnel", "traitType": "combat", "description": "Weapons effective against character-scale targets. No scale penalty when attacking down to character scale.", "categories": ["vehicle", "starship", "capital_ship"] },
-    { "id": "anti_vehicle", "name": "Anti-Vehicle", "traitType": "combat", "description": "Weapons designed for vehicle-scale or larger. No scale penalty when attacking targets at vehicle scale or above.", "categories": ["vehicle", "starship", "capital_ship"] },
-
-    { "id": "deflector_shields", "name": "Deflector Shields", "traitType": "combat", "description": "+2 Defense, +1 Resist. Particle and ray shielding absorbs incoming fire. Shields can be angled to double bonus on one facing at the cost of dropping another.", "defenseMod": 2, "resistMod": 1, "categories": ["starship", "capital_ship", "station"] },
-    { "id": "turbolaser_battery", "name": "Turbolaser Battery", "traitType": "combat", "description": "+1 Power on all weapon attacks. Heavy turbolaser emplacements designed for ship-to-ship engagements. Devastating against capital targets.", "powerMod": 1, "categories": ["capital_ship", "station"] },
-    { "id": "ion_cannons", "name": "Ion Cannons", "traitType": "combat", "description": "Attacks can inflict [Ionized] instead of damage. Disables systems without destroying the hull. Ideal for capture operations.", "canIonize": true, "categories": ["starship", "capital_ship", "station"] },
-    { "id": "tractor_beam", "name": "Tractor Beam", "traitType": "combat", "description": "Can lock onto a target one scale level smaller or equal. Locked target cannot flee or maneuver until the beam is broken or jammed.", "categories": ["starship", "capital_ship", "station"] },
-    { "id": "point_defense", "name": "Point Defense", "traitType": "combat", "description": "+2 Defense vs starfighter-scale attacks. Automated laser cannons track and intercept incoming fighters, torpedoes, and missiles.", "defenseMod": 2, "pointDefense": true, "categories": ["capital_ship", "station"] },
-    { "id": "hangar_bay", "name": "Hangar Bay", "traitType": "combat", "description": "Carries and deploys starfighter squadrons. Can launch 1 squadron per round as a maneuver. Squadrons act independently.", "categories": ["capital_ship", "station"] },
-    { "id": "hyperdrive_fast", "name": "Hyperdrive (Fast)", "traitType": "combat", "description": "Class 1 or better hyperdrive. Can outrun most pursuit through hyperspace. Enables rapid redeployment and hit-and-fade tactics.", "categories": ["starship", "capital_ship"] },
-    { "id": "hyperdrive_slow", "name": "Hyperdrive (Slow)", "traitType": "combat", "description": "Class 3+ hyperdrive or backup only. Sluggish hyperspace transitions. Vulnerable during the lengthy calculation and spool-up window.", "categories": ["starship", "capital_ship"] },
-    { "id": "advanced_sensors", "name": "Advanced Sensors", "traitType": "combat", "description": "+1 Initiative. Long-range sensor suite detects threats early. Can identify ship signatures, scan cargo, and pierce basic sensor jamming.", "initiativeMod": 1, "categories": ["starship", "capital_ship", "station"] },
-    { "id": "electronic_countermeasures", "name": "Electronic Countermeasures", "traitType": "combat", "description": "+1 Evasion. Active jamming suite disrupts targeting locks, missile guidance, and sensor sweeps. Countered by [Advanced Sensors].", "evasionMod": 1, "categories": ["starship", "capital_ship"] },
-    { "id": "redundant_systems", "name": "Redundant Systems", "traitType": "combat", "description": "+1 Resist. Backup power relays, secondary life support, and failover circuits. First [System Impairment] each encounter is reduced by one severity.", "resistMod": 1, "categories": ["starship", "capital_ship", "station"] },
-    { "id": "capital_armor", "name": "Capital Armor", "traitType": "combat", "description": "+4 Defense. -3 Evasion. Meters-thick durasteel and quadranium hull plating. Virtually immune to starfighter-grade weapons.", "defenseMod": 4, "evasionMod": -3, "categories": ["capital_ship", "station"] },
-    { "id": "broadside", "name": "Broadside", "traitType": "combat", "description": "Can attack two different targets in the same action when firing port and starboard batteries. Each attack is resolved independently.", "categories": ["capital_ship"] },
-    { "id": "fighter_screen", "name": "Fighter Screen", "traitType": "combat", "description": "+1 Defense. Deployed fighter escort intercepts incoming attacks. Screen degrades as fighters are destroyed — lose bonus when squadron is eliminated.", "defenseMod": 1, "categories": ["capital_ship"] },
-    { "id": "command_ship", "name": "Command Ship", "traitType": "combat", "description": "All allied ships in the engagement gain +1 Initiative. Advanced command-and-control systems coordinate fleet-wide operations.", "initiativeMod": 1, "categories": ["capital_ship", "station"] },
-    { "id": "interdiction_field", "name": "Interdiction Field", "traitType": "combat", "description": "Gravity well projectors prevent hyperspace jumps within the engagement zone. No ship can flee to hyperspace while the field is active.", "categories": ["capital_ship", "station"] },
-    { "id": "modular_cargo", "name": "Modular Cargo", "traitType": "combat", "description": "Configurable cargo bays. Can be refitted for troop transport, fuel storage, or modular weapon platforms between engagements.", "categories": ["starship", "capital_ship"] },
-    { "id": "smuggler_compartments", "name": "Smuggler Compartments", "traitType": "combat", "description": "+1 Resist vs boarding and inspection. Hidden cargo holds defeat standard Imperial scans. Requires thorough physical search to detect.", "resistMod": 1, "categories": ["starship"] },
-    { "id": "nimble", "name": "Nimble", "traitType": "combat", "description": "+2 Evasion. Exceptional sublight maneuverability — tight turns, rapid acceleration, and aggressive jinking that larger ships cannot match.", "evasionMod": 2, "categories": ["starship"] },
-    { "id": "overgunned", "name": "Overgunned", "traitType": "combat", "description": "+1 Power on all attacks. Weapons loadout exceeds hull class — a freighter packing corvette-grade guns, or a fighter with capital-ship ordnance.", "powerMod": 1, "categories": ["starship"] },
-
-    { "id": "repulsorlift", "name": "Repulsorlift", "traitType": "combat", "description": "+1 Evasion. Anti-gravity drive allows smooth, terrain-ignoring movement at low altitude. Cannot operate in vacuum.", "evasionMod": 1, "categories": ["vehicle"] },
-    { "id": "walker_legs", "name": "Walker", "traitType": "combat", "description": "+1 Defense. All-terrain bipedal or quadrupedal walker chassis. Imposing silhouette. Slow but unstoppable across rough ground.", "defenseMod": 1, "categories": ["vehicle"] },
-    { "id": "speeder_bike", "name": "Speeder", "traitType": "combat", "description": "+2 Evasion. -1 Defense. Lightweight repulsorlift craft built for speed and reconnaissance. Fragile but extremely hard to hit.", "evasionMod": 2, "defenseMod": -1, "categories": ["vehicle"] },
-    { "id": "mounted_weapon", "name": "Mounted Weapon", "traitType": "combat", "description": "+1 Power. Crew-served weapon system — repeating blaster, missile launcher, or turret cannon. Requires a dedicated gunner.", "powerMod": 1, "categories": ["vehicle"] },
-    { "id": "open_cockpit", "name": "Open Cockpit", "traitType": "combat", "description": "-1 Defense. Crew is exposed to external fire and environmental hazards. Can be targeted individually by precise attacks.", "defenseMod": -1, "categories": ["vehicle"] },
-    { "id": "enclosed_cabin", "name": "Enclosed Cabin", "traitType": "combat", "description": "+1 Defense. Sealed crew compartment with transparisteel viewports. Crew protected from small arms and environment.", "defenseMod": 1, "categories": ["vehicle"] },
-    { "id": "tracked", "name": "Tracked / Wheeled", "traitType": "combat", "description": "+1 Defense. -1 Evasion. Ground-contact drive system. Reliable on roads, limited off-road. Cannot cross water or chasms.", "defenseMod": 1, "evasionMod": -1, "categories": ["vehicle"] },
-
-    { "id": "loom", "name": "Loom", "traitType": "social", "description": "Fleeting intimidation results backlash [Rattled] onto the PC.", "trigger": "When PC social Interact lands at Fleeting using intimidation", "reactiveEffect": "The PC gains [Rattled] instead of the NPC being affected.", "categories": ["character"] },
-    { "id": "corruptible", "name": "Corruptible", "traitType": "social", "description": "Resist drops by 1 when credits offered.", "trigger": "When PC offers credits or bribes during social Interact", "reactiveEffect": "NPC's Social Resist is reduced by 1 for the duration of the interaction.", "categories": ["character"] },
-    { "id": "thick_skinned", "name": "Thick-Skinned", "traitType": "social", "description": "Immune to Charm approaches.", "trigger": "When PC attempts a Charm-based social Interact", "reactiveEffect": "The social Interact automatically fails. NPC is unaffected by flattery or seduction.", "categories": ["character"] },
-    { "id": "follows_the_boss", "name": "Follows the Boss", "traitType": "social", "description": "Can't be individually persuaded; leaves when leader leaves.", "trigger": "When PC attempts any individual social Interact on this NPC", "reactiveEffect": "Social Interact has no effect. NPC defers entirely to their leader's decisions.", "categories": ["character"] },
-    { "id": "transactional", "name": "Transactional", "traitType": "social", "description": "Resist -2 when offering something wanted; Resist +2 when threatened.", "trigger": "When PC frames social Interact as a deal vs. a threat", "reactiveEffect": "Social Resist drops by 2 if PC offers a trade or favor; increases by 2 if PC uses intimidation or coercion.", "categories": ["character"] },
-    { "id": "paranoid", "name": "Paranoid", "traitType": "social", "description": "Fleeting deception raises Resist +1 for rest of scene.", "trigger": "When PC social Interact using deception lands at Fleeting", "reactiveEffect": "NPC's Social Resist permanently increases by 1 for the rest of the scene. Stacks.", "categories": ["character"] },
-    { "id": "vain", "name": "Vain", "traitType": "social", "description": "Flattery approaches get +1 PC Power.", "trigger": "When PC uses flattery or ego-stroking in social Interact", "reactiveEffect": "PC gains +1 Power on the social Interact roll.", "categories": ["character"] },
-    { "id": "loyal", "name": "Loyal", "traitType": "social", "description": "Immune to Turncoat gambit, can't be flipped.", "trigger": "When PC attempts to flip, turn, or recruit this NPC against their faction", "reactiveEffect": "The attempt automatically fails. NPC's loyalty is absolute and cannot be shaken.", "categories": ["character"] },
-    { "id": "interrogator", "name": "Interrogator", "traitType": "social", "description": "Failed social Interact reveals PC intel to the NPC.", "trigger": "When PC fails a social Interact against this NPC", "reactiveEffect": "The NPC learns one piece of intel about the PC — a secret, plan, or weakness (GM chooses).", "categories": ["character"] },
-    { "id": "connected_social", "name": "Connected", "traitType": "social", "description": "Knows one piece of intel about each PC.", "trigger": "At the start of any social scene involving this NPC", "reactiveEffect": "GM reveals one piece of information the NPC knows about each PC present. Can be leveraged in negotiation.", "categories": ["character"] },
-    { "id": "slippery", "name": "Slippery", "traitType": "social", "description": "First successful social Interact per scene is downgraded one tier.", "trigger": "When the first PC social Interact in a scene succeeds", "reactiveEffect": "The result tier is reduced by one step (Masterful becomes Fleeting, Legendary becomes Masterful). Fleeting results have no effect.", "categories": ["character"] },
-    { "id": "grudge_holder", "name": "Grudge Holder", "traitType": "social", "description": "Failed intimidation makes all future social Interacts harder.", "trigger": "When PC fails an intimidation-based social Interact", "reactiveEffect": "NPC's Social Resist permanently increases by 2 for the rest of the scene. NPC becomes hostile.", "categories": ["character"] }
+    {
+      "id": "armored_light",
+      "name": "Armored (Light)",
+      "traitType": "combat",
+      "description": "+1 to Defense.",
+      "defenseMod": 1,
+      "categories": [
+        "character"
+      ],
+      "roleAffinity": [
+        "trooper",
+        "operative",
+        "skirmisher"
+      ]
+    },
+    {
+      "id": "armored_medium",
+      "name": "Armored (Medium)",
+      "traitType": "combat",
+      "description": "+2 to Defense. -1 Evasion.",
+      "defenseMod": 2,
+      "evasionMod": -1,
+      "categories": [
+        "character"
+      ],
+      "roleAffinity": [
+        "trooper",
+        "commander"
+      ]
+    },
+    {
+      "id": "armored_heavy",
+      "name": "Armored (Heavy)",
+      "traitType": "combat",
+      "description": "+3 to Defense. -2 Evasion.",
+      "defenseMod": 3,
+      "evasionMod": -2,
+      "categories": [
+        "character"
+      ],
+      "roleAffinity": [
+        "brute",
+        "duelist"
+      ]
+    },
+    {
+      "id": "iron_clad",
+      "name": "Iron Clad",
+      "traitType": "combat",
+      "description": "Use Defense in place of Evasion. Can Endure grenades and AoE that target Evasion. Overridden by lightsabers and armor-piercing weapons.",
+      "useDefenseForEvasion": true,
+      "categories": [
+        "character",
+        "vehicle"
+      ],
+      "roleAffinity": [
+        "brute",
+        "trooper"
+      ]
+    },
+    {
+      "id": "tough",
+      "name": "Tough",
+      "traitType": "combat",
+      "description": "Ignore Fleeting damage results. Require Masterful (3+) to damage.",
+      "minDamageScale": "masterful",
+      "categories": [
+        "character",
+        "vehicle",
+        "starship",
+        "capital_ship",
+        "station"
+      ],
+      "roleAffinity": [
+        "brute",
+        "beast"
+      ]
+    },
+    {
+      "id": "disciplined",
+      "name": "Disciplined",
+      "traitType": "both",
+      "description": "+1 to Resist.",
+      "resistMod": 1,
+      "categories": [
+        "character"
+      ],
+      "roleAffinity": [
+        "trooper",
+        "commander",
+        "duelist"
+      ]
+    },
+    {
+      "id": "agile",
+      "name": "Agile",
+      "traitType": "combat",
+      "description": "+1 to Evasion.",
+      "evasionMod": 1,
+      "categories": [
+        "character"
+      ],
+      "roleAffinity": [
+        "skirmisher",
+        "operative",
+        "duelist"
+      ]
+    },
+    {
+      "id": "force_sensitive",
+      "name": "Force Sensitive",
+      "traitType": "both",
+      "description": "Can use Force-related abilities. Required for Mystic role.",
+      "allowsForce": true,
+      "categories": [
+        "character"
+      ],
+      "roleAffinity": [
+        "mystic"
+      ]
+    },
+    {
+      "id": "cybernetic",
+      "name": "Cybernetic",
+      "traitType": "combat",
+      "description": "+1 to one Arena (chosen at build). Immune to [Stunned]. Vulnerable to Ion damage.",
+      "arenaBonusChoice": 1,
+      "immunities": [
+        "Stunned"
+      ],
+      "vulnerabilities": [
+        "Ion"
+      ],
+      "categories": [
+        "character"
+      ],
+      "roleAffinity": [
+        "technician",
+        "operative"
+      ]
+    },
+    {
+      "id": "fearless",
+      "name": "Fearless",
+      "traitType": "both",
+      "description": "Immune to [Shaken] and [Rattled].",
+      "immunities": [
+        "Shaken",
+        "Rattled"
+      ],
+      "categories": [
+        "character"
+      ],
+      "roleAffinity": [
+        "brute",
+        "beast",
+        "duelist"
+      ]
+    },
+    {
+      "id": "veteran",
+      "name": "Veteran",
+      "traitType": "combat",
+      "description": "+1 additional Exploit slot.",
+      "exploitMod": 1,
+      "categories": [
+        "character",
+        "vehicle",
+        "starship",
+        "capital_ship",
+        "station"
+      ],
+      "roleAffinity": [
+        "commander",
+        "marksman",
+        "duelist"
+      ]
+    },
+    {
+      "id": "shield_generator",
+      "name": "Shield Generator",
+      "traitType": "combat",
+      "description": "+2 Defense. Shield breaks after absorbing Masterful+ hit. Recharges after 1 round without damage.",
+      "defenseMod": 2,
+      "shieldBreak": "masterful",
+      "categories": [
+        "character",
+        "vehicle",
+        "starship",
+        "capital_ship"
+      ],
+      "roleAffinity": [
+        "trooper",
+        "commander"
+      ]
+    },
+    {
+      "id": "jetpack",
+      "name": "Jetpack",
+      "traitType": "combat",
+      "description": "Can fly. Ignore terrain. +1 Evasion while airborne.",
+      "evasionMod": 1,
+      "grantsFlight": true,
+      "categories": [
+        "character"
+      ],
+      "roleAffinity": [
+        "skirmisher",
+        "operative"
+      ]
+    },
+    {
+      "id": "scale_vehicle",
+      "name": "Scale: Vehicle",
+      "traitType": "combat",
+      "description": "Vehicle scale (AT-ST, speeder, walker).",
+      "scale": "vehicle",
+      "scaleLevel": 2,
+      "categories": [
+        "vehicle"
+      ],
+      "autoApply": true
+    },
+    {
+      "id": "scale_starship",
+      "name": "Scale: Starship",
+      "traitType": "combat",
+      "description": "Starship scale (starfighters, freighters, gunships).",
+      "scale": "starship",
+      "scaleLevel": 3,
+      "categories": [
+        "starship"
+      ],
+      "autoApply": true
+    },
+    {
+      "id": "scale_capital",
+      "name": "Scale: Capital Ship",
+      "traitType": "combat",
+      "description": "Capital ship scale (Star Destroyers, cruisers, frigates).",
+      "scale": "capital_ship",
+      "scaleLevel": 4,
+      "categories": [
+        "capital_ship"
+      ],
+      "autoApply": true
+    },
+    {
+      "id": "scale_station",
+      "name": "Scale: Station",
+      "traitType": "combat",
+      "description": "Station scale (space stations, orbital platforms, superweapons).",
+      "scale": "station",
+      "scaleLevel": 5,
+      "categories": [
+        "station"
+      ],
+      "autoApply": true
+    },
+    {
+      "id": "armored_hull",
+      "name": "Armored Hull",
+      "traitType": "combat",
+      "description": "+2 Defense. Plated hull absorbs kinetic and energy weapon impacts.",
+      "defenseMod": 2,
+      "categories": [
+        "vehicle",
+        "starship",
+        "capital_ship",
+        "station"
+      ]
+    },
+    {
+      "id": "reinforced_hull",
+      "name": "Reinforced Hull",
+      "traitType": "combat",
+      "description": "+3 Defense. -1 Evasion. Heavy durasteel plating or military-grade armor.",
+      "defenseMod": 3,
+      "evasionMod": -1,
+      "categories": [
+        "vehicle",
+        "starship",
+        "capital_ship",
+        "station"
+      ]
+    },
+    {
+      "id": "stationary",
+      "name": "Stationary",
+      "traitType": "combat",
+      "description": "Cannot move. +1 Defense. Evasion set to 0. Turrets, emplacements, fixed defenses.",
+      "defenseMod": 1,
+      "isStationary": true,
+      "categories": [
+        "vehicle",
+        "station"
+      ]
+    },
+    {
+      "id": "automated",
+      "name": "Automated",
+      "traitType": "combat",
+      "description": "No crew. Immune to social conditions and [Shaken]. Vulnerable to slicing. Cannot adapt tactics.",
+      "immunities": [
+        "Shaken",
+        "Rattled",
+        "Social"
+      ],
+      "vulnerabilities": [
+        "Slicing"
+      ],
+      "categories": [
+        "vehicle",
+        "starship",
+        "capital_ship",
+        "station"
+      ]
+    },
+    {
+      "id": "fast",
+      "name": "Fast",
+      "traitType": "combat",
+      "description": "+1 Evasion. High speed — hard to track and target.",
+      "evasionMod": 1,
+      "categories": [
+        "vehicle",
+        "starship"
+      ]
+    },
+    {
+      "id": "lumbering",
+      "name": "Lumbering",
+      "traitType": "combat",
+      "description": "-2 Evasion. Slow, heavy, hard to maneuver. Compensates with firepower or armor.",
+      "evasionMod": -2,
+      "categories": [
+        "vehicle",
+        "starship",
+        "capital_ship",
+        "station"
+      ]
+    },
+    {
+      "id": "anti_personnel",
+      "name": "Anti-Personnel",
+      "traitType": "combat",
+      "description": "Weapons effective against character-scale targets. No scale penalty when attacking down to character scale.",
+      "categories": [
+        "vehicle",
+        "starship",
+        "capital_ship"
+      ]
+    },
+    {
+      "id": "anti_vehicle",
+      "name": "Anti-Vehicle",
+      "traitType": "combat",
+      "description": "Weapons designed for vehicle-scale or larger. No scale penalty when attacking targets at vehicle scale or above.",
+      "categories": [
+        "vehicle",
+        "starship",
+        "capital_ship"
+      ]
+    },
+    {
+      "id": "deflector_shields",
+      "name": "Deflector Shields",
+      "traitType": "combat",
+      "description": "+2 Defense, +1 Resist. Particle and ray shielding absorbs incoming fire. Shields can be angled to double bonus on one facing at the cost of dropping another.",
+      "defenseMod": 2,
+      "resistMod": 1,
+      "categories": [
+        "starship",
+        "capital_ship",
+        "station"
+      ]
+    },
+    {
+      "id": "turbolaser_battery",
+      "name": "Turbolaser Battery",
+      "traitType": "combat",
+      "description": "+1 Power on all weapon attacks. Heavy turbolaser emplacements designed for ship-to-ship engagements. Devastating against capital targets.",
+      "powerMod": 1,
+      "categories": [
+        "capital_ship",
+        "station"
+      ]
+    },
+    {
+      "id": "ion_cannons",
+      "name": "Ion Cannons",
+      "traitType": "combat",
+      "description": "Attacks can inflict [Ionized] instead of damage. Disables systems without destroying the hull. Ideal for capture operations.",
+      "canIonize": true,
+      "categories": [
+        "starship",
+        "capital_ship",
+        "station"
+      ]
+    },
+    {
+      "id": "tractor_beam",
+      "name": "Tractor Beam",
+      "traitType": "combat",
+      "description": "Can lock onto a target one scale level smaller or equal. Locked target cannot flee or maneuver until the beam is broken or jammed.",
+      "categories": [
+        "starship",
+        "capital_ship",
+        "station"
+      ]
+    },
+    {
+      "id": "point_defense",
+      "name": "Point Defense",
+      "traitType": "combat",
+      "description": "+2 Defense vs starfighter-scale attacks. Automated laser cannons track and intercept incoming fighters, torpedoes, and missiles.",
+      "defenseMod": 2,
+      "pointDefense": true,
+      "categories": [
+        "capital_ship",
+        "station"
+      ]
+    },
+    {
+      "id": "hangar_bay",
+      "name": "Hangar Bay",
+      "traitType": "combat",
+      "description": "Carries and deploys starfighter squadrons. Can launch 1 squadron per round as a maneuver. Squadrons act independently.",
+      "categories": [
+        "capital_ship",
+        "station"
+      ]
+    },
+    {
+      "id": "hyperdrive_fast",
+      "name": "Hyperdrive (Fast)",
+      "traitType": "combat",
+      "description": "Class 1 or better hyperdrive. Can outrun most pursuit through hyperspace. Enables rapid redeployment and hit-and-fade tactics.",
+      "categories": [
+        "starship",
+        "capital_ship"
+      ]
+    },
+    {
+      "id": "hyperdrive_slow",
+      "name": "Hyperdrive (Slow)",
+      "traitType": "combat",
+      "description": "Class 3+ hyperdrive or backup only. Sluggish hyperspace transitions. Vulnerable during the lengthy calculation and spool-up window.",
+      "categories": [
+        "starship",
+        "capital_ship"
+      ]
+    },
+    {
+      "id": "advanced_sensors",
+      "name": "Advanced Sensors",
+      "traitType": "combat",
+      "description": "+1 Initiative. Long-range sensor suite detects threats early. Can identify ship signatures, scan cargo, and pierce basic sensor jamming.",
+      "initiativeMod": 1,
+      "categories": [
+        "starship",
+        "capital_ship",
+        "station"
+      ]
+    },
+    {
+      "id": "electronic_countermeasures",
+      "name": "Electronic Countermeasures",
+      "traitType": "combat",
+      "description": "+1 Evasion. Active jamming suite disrupts targeting locks, missile guidance, and sensor sweeps. Countered by [Advanced Sensors].",
+      "evasionMod": 1,
+      "categories": [
+        "starship",
+        "capital_ship"
+      ]
+    },
+    {
+      "id": "redundant_systems",
+      "name": "Redundant Systems",
+      "traitType": "combat",
+      "description": "+1 Resist. Backup power relays, secondary life support, and failover circuits. First [System Impairment] each encounter is reduced by one severity.",
+      "resistMod": 1,
+      "categories": [
+        "starship",
+        "capital_ship",
+        "station"
+      ]
+    },
+    {
+      "id": "capital_armor",
+      "name": "Capital Armor",
+      "traitType": "combat",
+      "description": "+4 Defense. -3 Evasion. Meters-thick durasteel and quadranium hull plating. Virtually immune to starfighter-grade weapons.",
+      "defenseMod": 4,
+      "evasionMod": -3,
+      "categories": [
+        "capital_ship",
+        "station"
+      ]
+    },
+    {
+      "id": "broadside",
+      "name": "Broadside",
+      "traitType": "combat",
+      "description": "Can attack two different targets in the same action when firing port and starboard batteries. Each attack is resolved independently.",
+      "categories": [
+        "capital_ship"
+      ]
+    },
+    {
+      "id": "fighter_screen",
+      "name": "Fighter Screen",
+      "traitType": "combat",
+      "description": "+1 Defense. Deployed fighter escort intercepts incoming attacks. Screen degrades as fighters are destroyed — lose bonus when squadron is eliminated.",
+      "defenseMod": 1,
+      "categories": [
+        "capital_ship"
+      ]
+    },
+    {
+      "id": "command_ship",
+      "name": "Command Ship",
+      "traitType": "combat",
+      "description": "All allied ships in the engagement gain +1 Initiative. Advanced command-and-control systems coordinate fleet-wide operations.",
+      "initiativeMod": 1,
+      "categories": [
+        "capital_ship",
+        "station"
+      ]
+    },
+    {
+      "id": "interdiction_field",
+      "name": "Interdiction Field",
+      "traitType": "combat",
+      "description": "Gravity well projectors prevent hyperspace jumps within the engagement zone. No ship can flee to hyperspace while the field is active.",
+      "categories": [
+        "capital_ship",
+        "station"
+      ]
+    },
+    {
+      "id": "modular_cargo",
+      "name": "Modular Cargo",
+      "traitType": "combat",
+      "description": "Configurable cargo bays. Can be refitted for troop transport, fuel storage, or modular weapon platforms between engagements.",
+      "categories": [
+        "starship",
+        "capital_ship"
+      ]
+    },
+    {
+      "id": "smuggler_compartments",
+      "name": "Smuggler Compartments",
+      "traitType": "combat",
+      "description": "+1 Resist vs boarding and inspection. Hidden cargo holds defeat standard Imperial scans. Requires thorough physical search to detect.",
+      "resistMod": 1,
+      "categories": [
+        "starship"
+      ]
+    },
+    {
+      "id": "nimble",
+      "name": "Nimble",
+      "traitType": "combat",
+      "description": "+2 Evasion. Exceptional sublight maneuverability — tight turns, rapid acceleration, and aggressive jinking that larger ships cannot match.",
+      "evasionMod": 2,
+      "categories": [
+        "starship"
+      ]
+    },
+    {
+      "id": "overgunned",
+      "name": "Overgunned",
+      "traitType": "combat",
+      "description": "+1 Power on all attacks. Weapons loadout exceeds hull class — a freighter packing corvette-grade guns, or a fighter with capital-ship ordnance.",
+      "powerMod": 1,
+      "categories": [
+        "starship"
+      ]
+    },
+    {
+      "id": "repulsorlift",
+      "name": "Repulsorlift",
+      "traitType": "combat",
+      "description": "+1 Evasion. Anti-gravity drive allows smooth, terrain-ignoring movement at low altitude. Cannot operate in vacuum.",
+      "evasionMod": 1,
+      "categories": [
+        "vehicle"
+      ]
+    },
+    {
+      "id": "walker_legs",
+      "name": "Walker",
+      "traitType": "combat",
+      "description": "+1 Defense. All-terrain bipedal or quadrupedal walker chassis. Imposing silhouette. Slow but unstoppable across rough ground.",
+      "defenseMod": 1,
+      "categories": [
+        "vehicle"
+      ]
+    },
+    {
+      "id": "speeder_bike",
+      "name": "Speeder",
+      "traitType": "combat",
+      "description": "+2 Evasion. -1 Defense. Lightweight repulsorlift craft built for speed and reconnaissance. Fragile but extremely hard to hit.",
+      "evasionMod": 2,
+      "defenseMod": -1,
+      "categories": [
+        "vehicle"
+      ]
+    },
+    {
+      "id": "mounted_weapon",
+      "name": "Mounted Weapon",
+      "traitType": "combat",
+      "description": "+1 Power. Crew-served weapon system — repeating blaster, missile launcher, or turret cannon. Requires a dedicated gunner.",
+      "powerMod": 1,
+      "categories": [
+        "vehicle"
+      ]
+    },
+    {
+      "id": "open_cockpit",
+      "name": "Open Cockpit",
+      "traitType": "combat",
+      "description": "-1 Defense. Crew is exposed to external fire and environmental hazards. Can be targeted individually by precise attacks.",
+      "defenseMod": -1,
+      "categories": [
+        "vehicle"
+      ]
+    },
+    {
+      "id": "enclosed_cabin",
+      "name": "Enclosed Cabin",
+      "traitType": "combat",
+      "description": "+1 Defense. Sealed crew compartment with transparisteel viewports. Crew protected from small arms and environment.",
+      "defenseMod": 1,
+      "categories": [
+        "vehicle"
+      ]
+    },
+    {
+      "id": "tracked",
+      "name": "Tracked / Wheeled",
+      "traitType": "combat",
+      "description": "+1 Defense. -1 Evasion. Ground-contact drive system. Reliable on roads, limited off-road. Cannot cross water or chasms.",
+      "defenseMod": 1,
+      "evasionMod": -1,
+      "categories": [
+        "vehicle"
+      ]
+    },
+    {
+      "id": "loom",
+      "name": "Loom",
+      "traitType": "social",
+      "description": "Fleeting intimidation results backlash [Rattled] onto the PC.",
+      "trigger": "When PC social Interact lands at Fleeting using intimidation",
+      "reactiveEffect": "The PC gains [Rattled] instead of the NPC being affected.",
+      "categories": [
+        "character"
+      ],
+      "roleAffinity": [
+        "brute",
+        "beast"
+      ]
+    },
+    {
+      "id": "corruptible",
+      "name": "Corruptible",
+      "traitType": "social",
+      "description": "Resist drops by 1 when credits offered.",
+      "trigger": "When PC offers credits or bribes during social Interact",
+      "reactiveEffect": "NPC's Social Resist is reduced by 1 for the duration of the interaction.",
+      "categories": [
+        "character"
+      ],
+      "roleAffinity": [
+        "face"
+      ]
+    },
+    {
+      "id": "thick_skinned",
+      "name": "Thick-Skinned",
+      "traitType": "social",
+      "description": "Immune to Charm approaches.",
+      "trigger": "When PC attempts a Charm-based social Interact",
+      "reactiveEffect": "The social Interact automatically fails. NPC is unaffected by flattery or seduction.",
+      "categories": [
+        "character"
+      ],
+      "roleAffinity": [
+        "brute",
+        "commander"
+      ]
+    },
+    {
+      "id": "follows_the_boss",
+      "name": "Follows the Boss",
+      "traitType": "social",
+      "description": "Can't be individually persuaded; leaves when leader leaves.",
+      "trigger": "When PC attempts any individual social Interact on this NPC",
+      "reactiveEffect": "Social Interact has no effect. NPC defers entirely to their leader's decisions.",
+      "categories": [
+        "character"
+      ],
+      "roleAffinity": [
+        "trooper"
+      ]
+    },
+    {
+      "id": "transactional",
+      "name": "Transactional",
+      "traitType": "social",
+      "description": "Resist -2 when offering something wanted; Resist +2 when threatened.",
+      "trigger": "When PC frames social Interact as a deal vs. a threat",
+      "reactiveEffect": "Social Resist drops by 2 if PC offers a trade or favor; increases by 2 if PC uses intimidation or coercion.",
+      "categories": [
+        "character"
+      ],
+      "roleAffinity": [
+        "face",
+        "commander"
+      ]
+    },
+    {
+      "id": "paranoid",
+      "name": "Paranoid",
+      "traitType": "social",
+      "description": "Fleeting deception raises Resist +1 for rest of scene.",
+      "trigger": "When PC social Interact using deception lands at Fleeting",
+      "reactiveEffect": "NPC's Social Resist permanently increases by 1 for the rest of the scene. Stacks.",
+      "categories": [
+        "character"
+      ],
+      "roleAffinity": [
+        "operative",
+        "commander"
+      ]
+    },
+    {
+      "id": "vain",
+      "name": "Vain",
+      "traitType": "social",
+      "description": "Flattery approaches get +1 PC Power.",
+      "trigger": "When PC uses flattery or ego-stroking in social Interact",
+      "reactiveEffect": "PC gains +1 Power on the social Interact roll.",
+      "categories": [
+        "character"
+      ],
+      "roleAffinity": [
+        "face"
+      ]
+    },
+    {
+      "id": "loyal",
+      "name": "Loyal",
+      "traitType": "social",
+      "description": "Immune to Turncoat gambit, can't be flipped.",
+      "trigger": "When PC attempts to flip, turn, or recruit this NPC against their faction",
+      "reactiveEffect": "The attempt automatically fails. NPC's loyalty is absolute and cannot be shaken.",
+      "categories": [
+        "character"
+      ],
+      "roleAffinity": [
+        "trooper",
+        "commander"
+      ]
+    },
+    {
+      "id": "interrogator",
+      "name": "Interrogator",
+      "traitType": "social",
+      "description": "Failed social Interact reveals PC intel to the NPC.",
+      "trigger": "When PC fails a social Interact against this NPC",
+      "reactiveEffect": "The NPC learns one piece of intel about the PC — a secret, plan, or weakness (GM chooses).",
+      "categories": [
+        "character"
+      ],
+      "roleAffinity": [
+        "operative",
+        "face"
+      ]
+    },
+    {
+      "id": "connected_social",
+      "name": "Connected",
+      "traitType": "social",
+      "description": "Knows one piece of intel about each PC.",
+      "trigger": "At the start of any social scene involving this NPC",
+      "reactiveEffect": "GM reveals one piece of information the NPC knows about each PC present. Can be leveraged in negotiation.",
+      "categories": [
+        "character"
+      ],
+      "roleAffinity": [
+        "commander",
+        "face"
+      ]
+    },
+    {
+      "id": "slippery",
+      "name": "Slippery",
+      "traitType": "social",
+      "description": "First successful social Interact per scene is downgraded one tier.",
+      "trigger": "When the first PC social Interact in a scene succeeds",
+      "reactiveEffect": "The result tier is reduced by one step (Masterful becomes Fleeting, Legendary becomes Masterful). Fleeting results have no effect.",
+      "categories": [
+        "character"
+      ],
+      "roleAffinity": [
+        "operative",
+        "skirmisher",
+        "face"
+      ]
+    },
+    {
+      "id": "grudge_holder",
+      "name": "Grudge Holder",
+      "traitType": "social",
+      "description": "Failed intimidation makes all future social Interacts harder.",
+      "trigger": "When PC fails an intimidation-based social Interact",
+      "reactiveEffect": "NPC's Social Resist permanently increases by 2 for the rest of the scene. NPC becomes hostile.",
+      "categories": [
+        "character"
+      ],
+      "roleAffinity": [
+        "brute",
+        "beast"
+      ]
+    }
   ],
-
   "tags": [
-    { "id": "imperial", "name": "Imperial", "effect": "Access to Imperial comms and reinforcements. Can call for backup within 1d6 rounds in Imperial-controlled areas.", "categories": ["character", "vehicle", "starship", "capital_ship", "station"] },
-    { "id": "criminal", "name": "Criminal", "effect": "Access to black market contacts. Can fence stolen goods. Knows local underworld safe routes.", "categories": ["character"] },
-    { "id": "hutt_cartel", "name": "Hutt Cartel", "effect": "Access to Hutt resources and enforcers. Can place bounties on PCs. Connected to Varga's network.", "categories": ["character", "starship"] },
-    { "id": "droid", "name": "Droid", "effect": "Immune to social conditions, [Poisoned], and fear effects. Vulnerable to [Ionized]. Cannot be bribed or intimidated.", "categories": ["character", "vehicle"] },
-    { "id": "force_user", "name": "Force User", "effect": "Can sense Force-sensitive PCs. May use Force maneuvers. Detectable by other Force users.", "categories": ["character"] },
-    { "id": "inquisitor", "name": "Inquisitor", "effect": "Imperial authority + Force sensitivity. Can sense Force users. Carries Inquisitor lightsaber. Imperial assets obey without question.", "categories": ["character"] },
-    { "id": "jedi", "name": "Jedi", "effect": "Lightsaber proficient. +1 Defense vs ranged. Can deflect blaster bolts. A relic of a fallen Order.", "categories": ["character"] },
-    { "id": "mercenary", "name": "Mercenary", "effect": "Loyalty is purchasable. Can be bribed to switch sides or stand down. No faction loyalty.", "categories": ["character"] },
-    { "id": "civilian", "name": "Civilian", "effect": "Non-combatant. Attacking civilians causes Obligation gain. Flees at first sign of violence.", "categories": ["character"] },
-    { "id": "separatist", "name": "Separatist", "effect": "Clone Wars holdout. Access to hidden droid caches and Separatist-era weapons. Distrusts both Empire and Republic.", "categories": ["character", "vehicle", "starship"] },
-    { "id": "slaver", "name": "Slaver", "effect": "Deals in sentient trafficking. Carries restraint equipment. Connected to Iron Ring network. Attacking slavers does not cause Obligation.", "categories": ["character"] },
-    { "id": "swoop_gang", "name": "Swoop Gang", "effect": "Controls local territory. Fights dirty — ambushes, numbers, and speed. Loyalty to the gang above all.", "categories": ["character", "vehicle"] },
-    { "id": "informant", "name": "Informant", "effect": "Trades in secrets. Knows one piece of intel about each PC (GM chooses). Can be pumped for information with the right leverage.", "categories": ["character"] },
-    { "id": "leader", "name": "Leader", "effect": "Allied Minion and Standard NPCs gain +1 Tier while this leader is active in the same scene. Removing the leader drops their bonus — incentivizes targeting them.", "categories": ["character", "vehicle", "starship", "capital_ship"] },
-    { "id": "emplacement", "name": "Emplacement", "effect": "Fixed defensive position. Cannot be repositioned during combat. Destroyed or disabled, not defeated. Often automated or remotely operated.", "categories": ["vehicle", "station"] },
-    { "id": "imperial_navy", "name": "Imperial Navy", "effect": "Part of the Imperial Starfleet. Can call for fighter escort or capital ship support. Operates under military chain of command.", "categories": ["starship", "capital_ship", "station"] },
-    { "id": "pirate", "name": "Pirate", "effect": "Operates outside law. Targets cargo vessels. Can be negotiated with — credits talk. Will flee if outgunned.", "categories": ["starship", "vehicle", "capital_ship"] },
-    { "id": "clone_wars_relic", "name": "Clone Wars Relic", "effect": "Aging but functional pre-Empire hardware. May malfunction under stress (GM complication on Fleeting results). Parts are scarce.", "categories": ["vehicle", "starship", "capital_ship"] },
-    { "id": "rebel_alliance", "name": "Rebel Alliance", "effect": "Part of the Rebellion. Access to hidden bases and Alliance intelligence. Can request extraction or reinforcement through Alliance channels.", "categories": ["character", "starship", "capital_ship"] },
-    { "id": "smuggler_vessel", "name": "Smuggler Vessel", "effect": "Illicit cargo runs. Captain knows secret hyperspace routes and hidden refueling depots. Can be hired or bribed. Unreliable loyalty.", "categories": ["starship"] },
-    { "id": "corporate", "name": "Corporate", "effect": "Backed by a galactic corporation (Czerka, Sienar, KDY). Access to corporate resources, legal cover, and private security forces.", "categories": ["starship", "capital_ship", "station", "vehicle"] },
-    { "id": "bounty_hunter_guild", "name": "Bounty Hunter Guild", "effect": "Licensed hunter. Access to Guild bounty postings, tracking databases, and safe houses. Will pursue targets relentlessly.", "categories": ["character", "starship"] },
-    { "id": "mandalorian", "name": "Mandalorian", "effect": "Warrior culture. Superior combat training and beskar armor. Clan loyalty overrides all other affiliations. Never removes the helmet.", "categories": ["character", "starship"] },
-    { "id": "patrol_craft", "name": "Patrol Craft", "effect": "System authority vessel. Can demand inspections, issue citations, and call for sector reinforcements. Operates under local jurisdiction.", "categories": ["starship"] },
-    { "id": "flagship", "name": "Flagship", "effect": "Fleet command vessel. All allied ships gain +1 to Initiative while flagship is operational. Destroying the flagship triggers fleet morale checks.", "categories": ["capital_ship"] },
-    { "id": "orbital_defense", "name": "Orbital Defense", "effect": "Planetary defense installation. Cannot retreat. Protects a specific location. Destroying it opens the planet to invasion.", "categories": ["station"] }
+    {
+      "id": "imperial",
+      "name": "Imperial",
+      "effect": "Access to Imperial comms and reinforcements. Can call for backup within 1d6 rounds in Imperial-controlled areas.",
+      "categories": [
+        "character",
+        "vehicle",
+        "starship",
+        "capital_ship",
+        "station"
+      ]
+    },
+    {
+      "id": "criminal",
+      "name": "Criminal",
+      "effect": "Access to black market contacts. Can fence stolen goods. Knows local underworld safe routes.",
+      "categories": [
+        "character"
+      ]
+    },
+    {
+      "id": "hutt_cartel",
+      "name": "Hutt Cartel",
+      "effect": "Access to Hutt resources and enforcers. Can place bounties on PCs. Connected to Varga's network.",
+      "categories": [
+        "character",
+        "starship"
+      ]
+    },
+    {
+      "id": "droid",
+      "name": "Droid",
+      "effect": "Immune to social conditions, [Poisoned], and fear effects. Vulnerable to [Ionized]. Cannot be bribed or intimidated.",
+      "categories": [
+        "character",
+        "vehicle"
+      ]
+    },
+    {
+      "id": "force_user",
+      "name": "Force User",
+      "effect": "Can sense Force-sensitive PCs. May use Force maneuvers. Detectable by other Force users.",
+      "categories": [
+        "character"
+      ]
+    },
+    {
+      "id": "inquisitor",
+      "name": "Inquisitor",
+      "effect": "Imperial authority + Force sensitivity. Can sense Force users. Carries Inquisitor lightsaber. Imperial assets obey without question.",
+      "categories": [
+        "character"
+      ]
+    },
+    {
+      "id": "jedi",
+      "name": "Jedi",
+      "effect": "Lightsaber proficient. +1 Defense vs ranged. Can deflect blaster bolts. A relic of a fallen Order.",
+      "categories": [
+        "character"
+      ]
+    },
+    {
+      "id": "mercenary",
+      "name": "Mercenary",
+      "effect": "Loyalty is purchasable. Can be bribed to switch sides or stand down. No faction loyalty.",
+      "categories": [
+        "character"
+      ]
+    },
+    {
+      "id": "civilian",
+      "name": "Civilian",
+      "effect": "Non-combatant. Attacking civilians causes Obligation gain. Flees at first sign of violence.",
+      "categories": [
+        "character"
+      ]
+    },
+    {
+      "id": "separatist",
+      "name": "Separatist",
+      "effect": "Clone Wars holdout. Access to hidden droid caches and Separatist-era weapons. Distrusts both Empire and Republic.",
+      "categories": [
+        "character",
+        "vehicle",
+        "starship"
+      ]
+    },
+    {
+      "id": "slaver",
+      "name": "Slaver",
+      "effect": "Deals in sentient trafficking. Carries restraint equipment. Connected to Iron Ring network. Attacking slavers does not cause Obligation.",
+      "categories": [
+        "character"
+      ]
+    },
+    {
+      "id": "swoop_gang",
+      "name": "Swoop Gang",
+      "effect": "Controls local territory. Fights dirty — ambushes, numbers, and speed. Loyalty to the gang above all.",
+      "categories": [
+        "character",
+        "vehicle"
+      ]
+    },
+    {
+      "id": "informant",
+      "name": "Informant",
+      "effect": "Trades in secrets. Knows one piece of intel about each PC (GM chooses). Can be pumped for information with the right leverage.",
+      "categories": [
+        "character"
+      ]
+    },
+    {
+      "id": "leader",
+      "name": "Leader",
+      "effect": "Allied Minion and Standard NPCs gain +1 Tier while this leader is active in the same scene. Removing the leader drops their bonus — incentivizes targeting them.",
+      "categories": [
+        "character",
+        "vehicle",
+        "starship",
+        "capital_ship"
+      ]
+    },
+    {
+      "id": "emplacement",
+      "name": "Emplacement",
+      "effect": "Fixed defensive position. Cannot be repositioned during combat. Destroyed or disabled, not defeated. Often automated or remotely operated.",
+      "categories": [
+        "vehicle",
+        "station"
+      ]
+    },
+    {
+      "id": "imperial_navy",
+      "name": "Imperial Navy",
+      "effect": "Part of the Imperial Starfleet. Can call for fighter escort or capital ship support. Operates under military chain of command.",
+      "categories": [
+        "starship",
+        "capital_ship",
+        "station"
+      ]
+    },
+    {
+      "id": "pirate",
+      "name": "Pirate",
+      "effect": "Operates outside law. Targets cargo vessels. Can be negotiated with — credits talk. Will flee if outgunned.",
+      "categories": [
+        "starship",
+        "vehicle",
+        "capital_ship"
+      ]
+    },
+    {
+      "id": "clone_wars_relic",
+      "name": "Clone Wars Relic",
+      "effect": "Aging but functional pre-Empire hardware. May malfunction under stress (GM complication on Fleeting results). Parts are scarce.",
+      "categories": [
+        "vehicle",
+        "starship",
+        "capital_ship"
+      ]
+    },
+    {
+      "id": "rebel_alliance",
+      "name": "Rebel Alliance",
+      "effect": "Part of the Rebellion. Access to hidden bases and Alliance intelligence. Can request extraction or reinforcement through Alliance channels.",
+      "categories": [
+        "character",
+        "starship",
+        "capital_ship"
+      ]
+    },
+    {
+      "id": "smuggler_vessel",
+      "name": "Smuggler Vessel",
+      "effect": "Illicit cargo runs. Captain knows secret hyperspace routes and hidden refueling depots. Can be hired or bribed. Unreliable loyalty.",
+      "categories": [
+        "starship"
+      ]
+    },
+    {
+      "id": "corporate",
+      "name": "Corporate",
+      "effect": "Backed by a galactic corporation (Czerka, Sienar, KDY). Access to corporate resources, legal cover, and private security forces.",
+      "categories": [
+        "starship",
+        "capital_ship",
+        "station",
+        "vehicle"
+      ]
+    },
+    {
+      "id": "bounty_hunter_guild",
+      "name": "Bounty Hunter Guild",
+      "effect": "Licensed hunter. Access to Guild bounty postings, tracking databases, and safe houses. Will pursue targets relentlessly.",
+      "categories": [
+        "character",
+        "starship"
+      ]
+    },
+    {
+      "id": "mandalorian",
+      "name": "Mandalorian",
+      "effect": "Warrior culture. Superior combat training and beskar armor. Clan loyalty overrides all other affiliations. Never removes the helmet.",
+      "categories": [
+        "character",
+        "starship"
+      ]
+    },
+    {
+      "id": "patrol_craft",
+      "name": "Patrol Craft",
+      "effect": "System authority vessel. Can demand inspections, issue citations, and call for sector reinforcements. Operates under local jurisdiction.",
+      "categories": [
+        "starship"
+      ]
+    },
+    {
+      "id": "flagship",
+      "name": "Flagship",
+      "effect": "Fleet command vessel. All allied ships gain +1 to Initiative while flagship is operational. Destroying the flagship triggers fleet morale checks.",
+      "categories": [
+        "capital_ship"
+      ]
+    },
+    {
+      "id": "orbital_defense",
+      "name": "Orbital Defense",
+      "effect": "Planetary defense installation. Cannot retreat. Protects a specific location. Destroying it opens the planet to invasion.",
+      "categories": [
+        "station"
+      ]
+    }
   ],
-
   "prebuilts": [
     {
       "id": "stormtrooper",
@@ -418,9 +2268,19 @@
       "tier": 1,
       "classification": "minion",
       "role": "trooper",
-      "arenas": { "physique": 3, "reflex": 2, "grit": 2, "wits": 1, "presence": 1 },
-      "traits": ["armored_medium"],
-      "tags": ["imperial"],
+      "arenas": {
+        "physique": 3,
+        "reflex": 2,
+        "grit": 2,
+        "wits": 1,
+        "presence": 1
+      },
+      "traits": [
+        "armored_medium"
+      ],
+      "tags": [
+        "imperial"
+      ],
       "loot": [],
       "notes": "Standard Imperial infantry. Disciplined Fire gives +1 Power. Minion bolt-on means Masterful+ = takedown.",
       "socialNotes": ""
@@ -431,9 +2291,19 @@
       "tier": 1,
       "classification": "standard",
       "role": "trooper",
-      "arenas": { "physique": 3, "reflex": 2, "grit": 2, "wits": 2, "presence": 2 },
-      "traits": ["armored_medium"],
-      "tags": ["imperial"],
+      "arenas": {
+        "physique": 3,
+        "reflex": 2,
+        "grit": 2,
+        "wits": 2,
+        "presence": 2
+      },
+      "traits": [
+        "armored_medium"
+      ],
+      "tags": [
+        "imperial"
+      ],
       "loot": [],
       "notes": "Squad leader. Same base stats, but full Vitality makes them notably harder to drop.",
       "socialNotes": ""
@@ -444,9 +2314,23 @@
       "tier": 2,
       "classification": "elite",
       "role": "operative",
-      "arenas": { "physique": 2, "reflex": 4, "grit": 3, "wits": 3, "presence": 2 },
-      "traits": ["armored_light", "veteran", "interrogator", "transactional"],
-      "tags": ["criminal", "mercenary"],
+      "arenas": {
+        "physique": 2,
+        "reflex": 4,
+        "grit": 3,
+        "wits": 3,
+        "presence": 2
+      },
+      "traits": [
+        "armored_light",
+        "veteran",
+        "interrogator",
+        "transactional"
+      ],
+      "tags": [
+        "criminal",
+        "mercenary"
+      ],
       "loot": [],
       "notes": "Dangerous solo threat. Elite gives +1 Exploit and x1.5 Vitality.",
       "socialNotes": "Bounty hunters negotiate from strength. Offer credits or intel to lower their guard; threats only harden resolve."
@@ -457,9 +2341,23 @@
       "tier": 3,
       "classification": "boss",
       "role": "face",
-      "arenas": { "physique": 2, "reflex": 2, "grit": 3, "wits": 4, "presence": 5 },
-      "traits": ["fearless", "veteran", "transactional", "paranoid"],
-      "tags": ["criminal", "hutt_cartel"],
+      "arenas": {
+        "physique": 2,
+        "reflex": 2,
+        "grit": 3,
+        "wits": 4,
+        "presence": 5
+      },
+      "traits": [
+        "fearless",
+        "veteran",
+        "transactional",
+        "paranoid"
+      ],
+      "tags": [
+        "criminal",
+        "hutt_cartel"
+      ],
       "loot": [],
       "notes": "Social encounter boss. N-1 Exploits where N = number of players.",
       "socialNotes": "Everything is a deal. Offer something of value to lower Resist, but never try to deceive — paranoia stacks fast."
@@ -470,9 +2368,23 @@
       "tier": 3,
       "classification": "elite",
       "role": "mystic",
-      "arenas": { "physique": 2, "reflex": 3, "grit": 4, "wits": 3, "presence": 3 },
-      "traits": ["force_sensitive", "fearless", "loyal"],
-      "tags": ["force_user", "imperial", "inquisitor"],
+      "arenas": {
+        "physique": 2,
+        "reflex": 3,
+        "grit": 4,
+        "wits": 3,
+        "presence": 3
+      },
+      "traits": [
+        "force_sensitive",
+        "fearless",
+        "loyal"
+      ],
+      "tags": [
+        "force_user",
+        "imperial",
+        "inquisitor"
+      ],
       "loot": [],
       "notes": "Force Push targets Endure only. Mind Trick targets Resist only.",
       "socialNotes": "Cannot be turned from the dark side through social means. Fearless and loyal — only raw power or revelation shakes them."
@@ -483,9 +2395,22 @@
       "tier": 2,
       "classification": "standard",
       "role": "brute",
-      "arenas": { "physique": 4, "reflex": 2, "grit": 3, "wits": 1, "presence": 2 },
-      "traits": ["tough", "loom", "thick_skinned"],
-      "tags": ["criminal", "mercenary"],
+      "arenas": {
+        "physique": 4,
+        "reflex": 2,
+        "grit": 3,
+        "wits": 1,
+        "presence": 2
+      },
+      "traits": [
+        "tough",
+        "loom",
+        "thick_skinned"
+      ],
+      "tags": [
+        "criminal",
+        "mercenary"
+      ],
       "loot": [],
       "notes": "Tough + Brute. Ignores Fleeting damage AND first Weakened condition.",
       "socialNotes": "Intimidation backfires — they loom right back. Charm doesn't work. Try bribery or appealing to their hunting instincts."
@@ -496,8 +2421,16 @@
       "tier": 2,
       "classification": "standard",
       "role": "beast",
-      "arenas": { "physique": 4, "reflex": 3, "grit": 3, "wits": 1, "presence": 1 },
-      "traits": ["tough"],
+      "arenas": {
+        "physique": 4,
+        "reflex": 3,
+        "grit": 3,
+        "wits": 1,
+        "presence": 1
+      },
+      "traits": [
+        "tough"
+      ],
       "tags": [],
       "loot": [],
       "notes": "Feral creature. Natural weapons, cannot be disarmed. Pack Tactics with allies.",
@@ -509,9 +2442,21 @@
       "tier": 2,
       "classification": "standard",
       "role": "commander",
-      "arenas": { "physique": 2, "reflex": 2, "grit": 3, "wits": 3, "presence": 4 },
-      "traits": ["disciplined", "loyal", "interrogator"],
-      "tags": ["imperial"],
+      "arenas": {
+        "physique": 2,
+        "reflex": 2,
+        "grit": 3,
+        "wits": 3,
+        "presence": 4
+      },
+      "traits": [
+        "disciplined",
+        "loyal",
+        "interrogator"
+      ],
+      "tags": [
+        "imperial"
+      ],
       "loot": [],
       "notes": "Tactical leader. Direct Fire lets an ally attack. Coordinated Assault gives +1 Power to all allies.",
       "socialNotes": "Loyal to the Empire. Cannot be flipped. Failed social attempts reveal PC intel. Negotiate through official channels only."
@@ -522,9 +2467,23 @@
       "tier": 2,
       "classification": "standard",
       "role": "brute",
-      "arenas": { "physique": 4, "reflex": 2, "grit": 3, "wits": 2, "presence": 3 },
-      "traits": ["tough", "loom", "corruptible", "thick_skinned"],
-      "tags": ["criminal", "hutt_cartel"],
+      "arenas": {
+        "physique": 4,
+        "reflex": 2,
+        "grit": 3,
+        "wits": 2,
+        "presence": 3
+      },
+      "traits": [
+        "tough",
+        "loom",
+        "corruptible",
+        "thick_skinned"
+      ],
+      "tags": [
+        "criminal",
+        "hutt_cartel"
+      ],
       "loot": [],
       "notes": "Weequay enforcer for the Hutt Cartel. Brute role with Tough makes him hard to put down. Intimidating Advance + Loom trait for social pressure.",
       "socialNotes": "Charm bounces off, but credits talk. Intimidation triggers Loom backlash. Bribe him or find leverage through his Hutt masters."
@@ -535,9 +2494,20 @@
       "tier": 1,
       "classification": "minion",
       "role": "skirmisher",
-      "arenas": { "physique": 2, "reflex": 3, "grit": 2, "wits": 2, "presence": 1 },
-      "traits": ["agile", "follows_the_boss"],
-      "tags": ["mercenary"],
+      "arenas": {
+        "physique": 2,
+        "reflex": 3,
+        "grit": 2,
+        "wits": 2,
+        "presence": 1
+      },
+      "traits": [
+        "agile",
+        "follows_the_boss"
+      ],
+      "tags": [
+        "mercenary"
+      ],
       "loot": [],
       "notes": "Fast minion skirmisher. Fleet Footed for double maneuvers. Agile for +1 Evasion. Minion bolt-on = Masterful+ takedown.",
       "socialNotes": "Won't negotiate individually — follows the boss. Remove the leader and these scatter."
@@ -548,9 +2518,21 @@
       "tier": 2,
       "classification": "elite",
       "role": "operative",
-      "arenas": { "physique": 2, "reflex": 3, "grit": 3, "wits": 4, "presence": 3 },
-      "traits": ["armored_light", "disciplined", "interrogator"],
-      "tags": ["imperial"],
+      "arenas": {
+        "physique": 2,
+        "reflex": 3,
+        "grit": 3,
+        "wits": 4,
+        "presence": 3
+      },
+      "traits": [
+        "armored_light",
+        "disciplined",
+        "interrogator"
+      ],
+      "tags": [
+        "imperial"
+      ],
       "loot": [],
       "notes": "Imperial Security Bureau field agent. Operative role for stealth and sabotage. Elite classification for staying power.",
       "socialNotes": "Dangerous in conversation — failed social rolls reveal PC intel. Disciplined makes Resist harder to crack. Use deception carefully."
@@ -561,9 +2543,22 @@
       "tier": 1,
       "classification": "standard",
       "role": "",
-      "arenas": { "physique": 1, "reflex": 2, "grit": 2, "wits": 3, "presence": 3 },
-      "traits": ["connected_social", "corruptible", "slippery"],
-      "tags": ["criminal", "informant"],
+      "arenas": {
+        "physique": 1,
+        "reflex": 2,
+        "grit": 2,
+        "wits": 3,
+        "presence": 3
+      },
+      "traits": [
+        "connected_social",
+        "corruptible",
+        "slippery"
+      ],
+      "tags": [
+        "criminal",
+        "informant"
+      ],
       "loot": [],
       "notes": "No combat role — pure social NPC. Low physical stats, high Wits and Presence. Use as an information broker in cantina scenes.",
       "socialNotes": "Knows something about everyone. Greasing palms lowers Resist. First successful social roll is downgraded — persistence pays off."
@@ -574,9 +2569,23 @@
       "tier": 3,
       "classification": "elite",
       "role": "duelist",
-      "arenas": { "physique": 3, "reflex": 4, "grit": 3, "wits": 3, "presence": 3 },
-      "traits": ["force_sensitive", "fearless", "loyal"],
-      "tags": ["imperial", "inquisitor", "force_user"],
+      "arenas": {
+        "physique": 3,
+        "reflex": 4,
+        "grit": 3,
+        "wits": 3,
+        "presence": 3
+      },
+      "traits": [
+        "force_sensitive",
+        "fearless",
+        "loyal"
+      ],
+      "tags": [
+        "imperial",
+        "inquisitor",
+        "force_user"
+      ],
       "loot": [],
       "notes": "Lightsaber-wielding Inquisitor. Duelist role: Riposte counters missed melee attacks. Killing Blow finishes weakened targets. Grit +1, Physique -1 from role.",
       "socialNotes": "Utterly loyal to the Empire and the dark side. Cannot be turned, bribed, or intimidated. Only raw power impresses them."
@@ -587,9 +2596,25 @@
       "tier": 3,
       "classification": "boss",
       "role": "face",
-      "arenas": { "physique": 3, "reflex": 1, "grit": 4, "wits": 4, "presence": 5 },
-      "traits": ["tough", "fearless", "veteran", "transactional", "paranoid", "vain"],
-      "tags": ["criminal", "hutt_cartel"],
+      "arenas": {
+        "physique": 3,
+        "reflex": 1,
+        "grit": 4,
+        "wits": 4,
+        "presence": 5
+      },
+      "traits": [
+        "tough",
+        "fearless",
+        "veteran",
+        "transactional",
+        "paranoid",
+        "vain"
+      ],
+      "tags": [
+        "criminal",
+        "hutt_cartel"
+      ],
       "loot": [],
       "notes": "Hutt boss encounter. Face role for social combat. Tough + high Grit for survivability. Boss classification for N-1 exploits.",
       "socialNotes": "Vain — flattery gives PCs +1 Power. Transactional — offer something valuable for -2 Resist, but threats raise it +2. Paranoid — failed deception permanently raises Resist."
