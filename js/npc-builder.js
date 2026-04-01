@@ -347,7 +347,7 @@
       html += '<div class="npc-action-economy-group">';
       html += '<div class="npc-action-group-label">MANEUVER</div>';
       html += '<div class="npc-ability maneuver"><strong>' + esc(role.maneuver.name) + ':</strong>';
-      if (role.maneuver.defense) {
+      if (role.maneuver.defense && role.maneuver.defense !== 'none') {
         html += ' <span class="npc-action-def-tag">vs ' + esc(role.maneuver.defense.charAt(0).toUpperCase() + role.maneuver.defense.slice(1)) + '</span>';
       }
       html += ' ' + esc(role.maneuver.description);
@@ -364,13 +364,29 @@
       html += '<div class="npc-action-economy-group">';
       html += '<div class="npc-action-group-label">EXPLOIT <span class="npc-exploit-pip-note">(Reaction)</span></div>';
       var exploitTrigger = role.exploit.trigger ? '<div class="npc-exploit-trigger"><span class="npc-trigger-label">TRIGGER:</span> ' + esc(role.exploit.trigger) + '</div>' : '';
-      html += '<div class="npc-ability exploit"><strong>' + esc(role.exploit.name) + '</strong>' + exploitTrigger + '<div class="npc-exploit-effect">' + esc(role.exploit.description) + '</div></div>';
+      html += '<div class="npc-ability exploit"><strong>' + esc(role.exploit.name) + '</strong>' + exploitTrigger + '<div class="npc-exploit-effect">' + esc(role.exploit.description) + '</div>';
+      if (role.exploit.npcEffects && role.exploit.npcEffects.length) {
+        html += '<div class="npc-effect-track">';
+        role.exploit.npcEffects.forEach(function (ef) {
+          html += '<div class="npc-effect-tier"><span class="npc-effect-tier-label">' + esc(ef.tier) + '</span><span class="npc-effect-tier-range">' + esc(ef.range) + '</span> ' + esc(ef.description) + '</div>';
+        });
+        html += '</div>';
+      }
+      html += '</div>';
       html += '</div>';
 
       html += '<div class="npc-action-economy-group">';
       html += '<div class="npc-action-group-label">GAMBIT <span class="npc-gambit-mod-note">(Declared in Advance)</span></div>';
       var gambitMod = role.gambit.modifies ? '<span class="npc-gambit-modifies">on ' + esc(role.gambit.modifies) + '</span> ' : '';
-      html += '<div class="npc-ability gambit"><strong>' + esc(role.gambit.name) + '</strong> ' + gambitMod + '<span class="npc-gambit-cost">' + esc(role.gambit.cost) + '</span><div class="npc-gambit-effect">' + esc(role.gambit.description) + '</div></div>';
+      html += '<div class="npc-ability gambit"><strong>' + esc(role.gambit.name) + '</strong> ' + gambitMod + '<span class="npc-gambit-cost">' + esc(role.gambit.cost) + '</span><div class="npc-gambit-effect">' + esc(role.gambit.description) + '</div>';
+      if (role.gambit.npcEffects && role.gambit.npcEffects.length) {
+        html += '<div class="npc-effect-track">';
+        role.gambit.npcEffects.forEach(function (ef) {
+          html += '<div class="npc-effect-tier"><span class="npc-effect-tier-label">' + esc(ef.tier) + '</span><span class="npc-effect-tier-range">' + esc(ef.range) + '</span> ' + esc(ef.description) + '</div>';
+        });
+        html += '</div>';
+      }
+      html += '</div>';
       html += '</div>';
 
       html += '</div>';

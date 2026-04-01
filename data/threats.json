@@ -311,18 +311,70 @@
       ],
       "maneuver": {
         "name": "Take Cover",
-        "description": "Move to cover. Gain [Cover 1] until leaving position."
+        "defense": "none",
+        "description": "Move to cover. Gain [Cover] until leaving position.",
+        "npcEffects": [
+          {
+            "tier": "F",
+            "range": "-1 to -3",
+            "description": "Gain [Cover 1] until leaving position."
+          },
+          {
+            "tier": "M",
+            "range": "-4 to -7",
+            "description": "Gain [Cover 2] until leaving position."
+          },
+          {
+            "tier": "L",
+            "range": "-8+",
+            "description": "Gain [Cover 2] and [Guarded 1] until leaving position."
+          }
+        ]
       },
       "gambit": {
         "name": "Suppressive Fire",
         "cost": "-1 Power",
         "modifies": "Blaster Volley",
-        "description": "Target gains [Pinned] on hit instead of taking damage."
+        "description": "Target gains [Pinned] on hit instead of taking damage.",
+        "npcEffects": [
+          {
+            "tier": "F",
+            "range": "-1 to -3",
+            "description": "Target gains [Suppressed] Tactical."
+          },
+          {
+            "tier": "M",
+            "range": "-4 to -7",
+            "description": "Target gains [Pinned] Tactical."
+          },
+          {
+            "tier": "L",
+            "range": "-8+",
+            "description": "Target gains [Pinned] and [Suppressed] until actively cleared."
+          }
+        ]
       },
       "exploit": {
         "name": "Coordinated Fire",
         "trigger": "An allied Trooper attacks the same target this round.",
-        "description": "React: All allied Troopers targeting the same enemy gain +1 Power this round."
+        "description": "React: All allied Troopers targeting the same enemy gain +1 Power this round.",
+        "npcEffects": [
+          {
+            "tier": "F",
+            "range": "-1 to -3",
+            "description": "All allied Troopers gain +1 Power this round."
+          },
+          {
+            "tier": "M",
+            "range": "-4 to -7",
+            "description": "All allied Troopers gain +1 Power and [Optimized] this round."
+          },
+          {
+            "tier": "L",
+            "range": "-8+",
+            "description": "All allied Troopers gain +2 Power and [Optimized] this round."
+          }
+        ]
       }
     },
     {
@@ -415,12 +467,46 @@
         "name": "Knockdown",
         "cost": "-1 Power",
         "modifies": "Crushing Blow",
-        "description": "Target gains [Prone] on hit instead of taking damage."
+        "description": "Target gains [Prone] on hit instead of taking damage.",
+        "npcEffects": [
+          {
+            "tier": "F",
+            "range": "-1 to -3",
+            "description": "Target gains [Prone]."
+          },
+          {
+            "tier": "M",
+            "range": "-4 to -7",
+            "description": "Target gains [Prone] and [Disoriented]."
+          },
+          {
+            "tier": "L",
+            "range": "-8+",
+            "description": "Target gains [Prone], [Disoriented], and is pushed 1 zone."
+          }
+        ]
       },
       "exploit": {
         "name": "Rampage",
         "trigger": "This NPC drops a target to 0 Vitality.",
-        "description": "React: Immediately make another melee attack against a different adjacent target."
+        "description": "React: Immediately make another melee attack against a different adjacent target.",
+        "npcEffects": [
+          {
+            "tier": "F",
+            "range": "-1 to -3",
+            "description": "Free melee attack against adjacent target."
+          },
+          {
+            "tier": "M",
+            "range": "-4 to -7",
+            "description": "Free melee attack with +1 Power against adjacent target."
+          },
+          {
+            "tier": "L",
+            "range": "-8+",
+            "description": "Free melee attack with +2 Power against any target in zone."
+          }
+        ]
       }
     },
     {
@@ -493,18 +579,70 @@
       ],
       "maneuver": {
         "name": "Find Vantage",
-        "description": "Move to elevated or concealed position. +1 Power on next ranged attack."
+        "defense": "none",
+        "description": "Move to elevated or concealed position. +1 Power on next ranged attack.",
+        "npcEffects": [
+          {
+            "tier": "F",
+            "range": "-1 to -3",
+            "description": "+1 Power on next ranged attack."
+          },
+          {
+            "tier": "M",
+            "range": "-4 to -7",
+            "description": "+1 Power on next ranged attack. Gain [Cover 1]."
+          },
+          {
+            "tier": "L",
+            "range": "-8+",
+            "description": "+1 Power and [Optimized] on next ranged attack. Gain [Cover 1]."
+          }
+        ]
       },
       "gambit": {
         "name": "Called Shot",
         "cost": "-1 Power",
         "modifies": "Precision Shot",
-        "description": "Target gains [Bleeding] on hit instead of taking damage."
+        "description": "Target gains [Bleeding] on hit instead of taking damage.",
+        "npcEffects": [
+          {
+            "tier": "F",
+            "range": "-1 to -3",
+            "description": "Target gains [Bleeding]."
+          },
+          {
+            "tier": "M",
+            "range": "-4 to -7",
+            "description": "Target gains [Bleeding]. One piece of equipment is damaged."
+          },
+          {
+            "tier": "L",
+            "range": "-8+",
+            "description": "Target gains [Bleeding]. One limb disabled — [Weakened] until treated."
+          }
+        ]
       },
       "exploit": {
         "name": "Overwatch",
         "trigger": "An enemy moves in this NPC's line of sight.",
-        "description": "React: Shoot the moving target before they complete movement."
+        "description": "React: Shoot the moving target before they complete movement.",
+        "npcEffects": [
+          {
+            "tier": "F",
+            "range": "-1 to -3",
+            "description": "Ranged attack before movement completes."
+          },
+          {
+            "tier": "M",
+            "range": "-4 to -7",
+            "description": "Ranged attack with [Optimized] before movement completes."
+          },
+          {
+            "tier": "L",
+            "range": "-8+",
+            "description": "Ranged attack with [Optimized] and +1 Power. Movement interrupted."
+          }
+        ]
       }
     },
     {
@@ -572,18 +710,70 @@
       ],
       "maneuver": {
         "name": "Reposition",
-        "description": "Move without provoking reactions."
+        "defense": "none",
+        "description": "Move without provoking reactions.",
+        "npcEffects": [
+          {
+            "tier": "F",
+            "range": "-1 to -3",
+            "description": "Move 1 zone without provoking reactions."
+          },
+          {
+            "tier": "M",
+            "range": "-4 to -7",
+            "description": "Move 2 zones without provoking reactions."
+          },
+          {
+            "tier": "L",
+            "range": "-8+",
+            "description": "Move 2 zones without provoking reactions. Gain Concealment until next action."
+          }
+        ]
       },
       "gambit": {
         "name": "Hamstring",
         "cost": "-1 Power",
         "modifies": "Hit and Run",
-        "description": "Target gains [Slowed] on hit instead of taking damage."
+        "description": "Target gains [Slowed] on hit instead of taking damage.",
+        "npcEffects": [
+          {
+            "tier": "F",
+            "range": "-1 to -3",
+            "description": "Target gains [Slowed] Tactical."
+          },
+          {
+            "tier": "M",
+            "range": "-4 to -7",
+            "description": "Target gains [Slowed] until actively cleared."
+          },
+          {
+            "tier": "L",
+            "range": "-8+",
+            "description": "Target gains [Slowed] and [Prone]."
+          }
+        ]
       },
       "exploit": {
         "name": "Ambush",
         "trigger": "A PC moves adjacent to this NPC or this NPC attacks from stealth/flanking.",
-        "description": "React: Attack with +2 Power."
+        "description": "React: Attack with +2 Power.",
+        "npcEffects": [
+          {
+            "tier": "F",
+            "range": "-1 to -3",
+            "description": "Attack with +2 Power."
+          },
+          {
+            "tier": "M",
+            "range": "-4 to -7",
+            "description": "Attack with +2 Power and [Optimized]."
+          },
+          {
+            "tier": "L",
+            "range": "-8+",
+            "description": "Attack with +3 Power, [Optimized], and target gains [Exposed]."
+          }
+        ]
       }
     },
     {
@@ -651,18 +841,70 @@
       ],
       "maneuver": {
         "name": "Vanish",
-        "description": "If in cover or obscured, become hidden."
+        "defense": "none",
+        "description": "If in cover or obscured, become hidden.",
+        "npcEffects": [
+          {
+            "tier": "F",
+            "range": "-1 to -3",
+            "description": "Become hidden if in cover or obscured."
+          },
+          {
+            "tier": "M",
+            "range": "-4 to -7",
+            "description": "Become hidden. First attack from hiding gains +1 Power."
+          },
+          {
+            "tier": "L",
+            "range": "-8+",
+            "description": "Become hidden. Undetectable by Force senses. First attack from hiding gains +2 Power."
+          }
+        ]
       },
       "gambit": {
         "name": "Disarm",
         "cost": "-1 Power",
         "modifies": "Silent Kill",
-        "description": "Target drops held weapon on hit instead of taking damage."
+        "description": "Target drops held weapon on hit instead of taking damage.",
+        "npcEffects": [
+          {
+            "tier": "F",
+            "range": "-1 to -3",
+            "description": "Target drops held weapon."
+          },
+          {
+            "tier": "M",
+            "range": "-4 to -7",
+            "description": "Target drops weapon. Weapon lands 1 zone away."
+          },
+          {
+            "tier": "L",
+            "range": "-8+",
+            "description": "Target drops weapon. Weapon is damaged — cannot be used until repaired."
+          }
+        ]
       },
       "exploit": {
         "name": "Assassination",
         "trigger": "This NPC attacks an unaware target.",
-        "description": "React: Double Power for this attack."
+        "description": "React: Double Power for this attack.",
+        "npcEffects": [
+          {
+            "tier": "F",
+            "range": "-1 to -3",
+            "description": "Double Power for this attack."
+          },
+          {
+            "tier": "M",
+            "range": "-4 to -7",
+            "description": "Double Power. Concealment maintained regardless of result."
+          },
+          {
+            "tier": "L",
+            "range": "-8+",
+            "description": "Double Power. Concealment maintained. Target gains [Exposed]."
+          }
+        ]
       }
     },
     {
@@ -730,18 +972,70 @@
       ],
       "maneuver": {
         "name": "Issue Orders",
-        "description": "One ally gains a bonus maneuver on their next turn."
+        "defense": "none",
+        "description": "One ally gains a bonus maneuver on their next turn.",
+        "npcEffects": [
+          {
+            "tier": "F",
+            "range": "-1 to -3",
+            "description": "One ally gains a bonus maneuver on their next turn."
+          },
+          {
+            "tier": "M",
+            "range": "-4 to -7",
+            "description": "One ally gains a bonus maneuver and [Optimized] on their next action."
+          },
+          {
+            "tier": "L",
+            "range": "-8+",
+            "description": "Two allies each gain a bonus maneuver on their next turns."
+          }
+        ]
       },
       "gambit": {
         "name": "Tactical Withdrawal",
         "cost": "-1 Power",
         "modifies": "Direct Fire",
-        "description": "Instead of ordering an attack, one ally may immediately move to cover."
+        "description": "Instead of ordering an attack, one ally may immediately move to cover.",
+        "npcEffects": [
+          {
+            "tier": "F",
+            "range": "-1 to -3",
+            "description": "One ally moves 1 zone without presenting an Opening."
+          },
+          {
+            "tier": "M",
+            "range": "-4 to -7",
+            "description": "One ally moves 1 zone to cover. Gains [Cover 1]."
+          },
+          {
+            "tier": "L",
+            "range": "-8+",
+            "description": "Two allies move 1 zone to cover. Each gains [Cover 1]."
+          }
+        ]
       },
       "exploit": {
         "name": "Coordinated Assault",
         "trigger": "An ally is attacked by a PC.",
-        "description": "React: All allies gain +1 Power until end of round."
+        "description": "React: All allies gain +1 Power until end of round.",
+        "npcEffects": [
+          {
+            "tier": "F",
+            "range": "-1 to -3",
+            "description": "All allies gain +1 Power until end of round."
+          },
+          {
+            "tier": "M",
+            "range": "-4 to -7",
+            "description": "All allies gain +1 Power. One ally gains [Optimized] until end of round."
+          },
+          {
+            "tier": "L",
+            "range": "-8+",
+            "description": "All allies gain +1 Power, +1 Defense, and [Optimized] until end of round."
+          }
+        ]
       }
     },
     {
@@ -809,18 +1103,70 @@
       ],
       "maneuver": {
         "name": "Scan",
-        "description": "Reveal one hidden enemy or identify one target's weakness (+1 Power vs them next attack)."
+        "defense": "none",
+        "description": "Reveal one hidden enemy or identify one target's weakness (+1 Power vs them next attack).",
+        "npcEffects": [
+          {
+            "tier": "F",
+            "range": "-1 to -3",
+            "description": "Reveal one hidden enemy or identify one weakness (+1 Power vs target)."
+          },
+          {
+            "tier": "M",
+            "range": "-4 to -7",
+            "description": "Reveal all hidden enemies in zone or identify target's lowest Defense (+1 Power vs them)."
+          },
+          {
+            "tier": "L",
+            "range": "-8+",
+            "description": "Reveal all hidden enemies in 2 zones. Identify lowest Defense and grant [Optimized] to all allies vs target."
+          }
+        ]
       },
       "gambit": {
         "name": "System Glitch",
         "cost": "-1 Power",
         "modifies": "Overload",
-        "description": "Target's equipment malfunctions. [Jammed] on hit instead of taking damage."
+        "description": "Target's equipment malfunctions. [Jammed] on hit instead of taking damage.",
+        "npcEffects": [
+          {
+            "tier": "F",
+            "range": "-1 to -3",
+            "description": "Target's equipment malfunctions for 1 round."
+          },
+          {
+            "tier": "M",
+            "range": "-4 to -7",
+            "description": "Target's equipment gains [Jammed] for the scene."
+          },
+          {
+            "tier": "L",
+            "range": "-8+",
+            "description": "Target's equipment permanently disabled. [Ionized] if droid."
+          }
+        ]
       },
       "exploit": {
         "name": "Slice",
         "trigger": "A PC uses a droid or automated system within range.",
-        "description": "React: Take control of that droid or system for 1 round."
+        "description": "React: Take control of that droid or system for 1 round.",
+        "npcEffects": [
+          {
+            "tier": "F",
+            "range": "-1 to -3",
+            "description": "Control droid or system for 1 round."
+          },
+          {
+            "tier": "M",
+            "range": "-4 to -7",
+            "description": "Control for 1 round. System requires Tech check to reclaim."
+          },
+          {
+            "tier": "L",
+            "range": "-8+",
+            "description": "Full control until end of scene. System gains [Jammed] when control ends."
+          }
+        ]
       }
     },
     {
@@ -912,12 +1258,46 @@
         "name": "Force Stagger",
         "cost": "-1 Power",
         "modifies": "Force Push",
-        "description": "Target gains [Disoriented] on hit instead of taking damage."
+        "description": "Target gains [Disoriented] on hit instead of taking damage.",
+        "npcEffects": [
+          {
+            "tier": "F",
+            "range": "-1 to -3",
+            "description": "Target gains [Disoriented] Tactical."
+          },
+          {
+            "tier": "M",
+            "range": "-4 to -7",
+            "description": "Target gains [Disoriented] and [Shaken] Tactical."
+          },
+          {
+            "tier": "L",
+            "range": "-8+",
+            "description": "Target gains [Disoriented], [Shaken], and [Stunned] Tactical."
+          }
+        ]
       },
       "exploit": {
         "name": "Force Choke",
         "trigger": "A PC drops below half Vitality.",
-        "description": "React: Automatically apply [Restrained] to that target. Targets Endure to break free."
+        "description": "React: Automatically apply [Restrained] to that target. Targets Endure to break free.",
+        "npcEffects": [
+          {
+            "tier": "F",
+            "range": "-1 to -3",
+            "description": "[Restrained]. Target must Endure to break free."
+          },
+          {
+            "tier": "M",
+            "range": "-4 to -7",
+            "description": "[Restrained] and [Weakened]. Target must Endure to break free."
+          },
+          {
+            "tier": "L",
+            "range": "-8+",
+            "description": "[Restrained], [Weakened], and 1 Vitality per round. Must Endure to break free."
+          }
+        ]
       }
     },
     {
@@ -985,18 +1365,70 @@
       ],
       "maneuver": {
         "name": "Read the Room",
-        "description": "Learn one target's motivation, fear, or current condition."
+        "defense": "none",
+        "description": "Learn one target's motivation, fear, or current condition.",
+        "npcEffects": [
+          {
+            "tier": "F",
+            "range": "-1 to -3",
+            "description": "Learn one target's current emotional state or motivation."
+          },
+          {
+            "tier": "M",
+            "range": "-4 to -7",
+            "description": "Learn motivation plus one leverage point. +1 Power on next social action vs target."
+          },
+          {
+            "tier": "L",
+            "range": "-8+",
+            "description": "Learn full psychological profile. [Optimized] and +1 Power on next social action vs target."
+          }
+        ]
       },
       "gambit": {
         "name": "Taunt",
         "cost": "-1 Power",
         "modifies": "Cutting Words",
-        "description": "Target must attack Face on next turn. Target gains [Marked] instead of normal effect."
+        "description": "Target must attack Face on next turn. Target gains [Marked] instead of normal effect.",
+        "npcEffects": [
+          {
+            "tier": "F",
+            "range": "-1 to -3",
+            "description": "Target gains [Marked]. Must include Face in next attack if able."
+          },
+          {
+            "tier": "M",
+            "range": "-4 to -7",
+            "description": "Target gains [Marked]. Must attack Face on next turn."
+          },
+          {
+            "tier": "L",
+            "range": "-8+",
+            "description": "Target gains [Marked] and [Exposed]. Must attack Face on next turn."
+          }
+        ]
       },
       "exploit": {
         "name": "Turn Coat",
         "trigger": "A PC drops below half Vitality or gains 2+ social conditions.",
-        "description": "React: Offer surrender terms. Target must resist or comply."
+        "description": "React: Offer surrender terms. Target must resist or comply.",
+        "npcEffects": [
+          {
+            "tier": "F",
+            "range": "-1 to -3",
+            "description": "Target must Resist or hesitate (loses next Action)."
+          },
+          {
+            "tier": "M",
+            "range": "-4 to -7",
+            "description": "Target must Resist or comply with one demand. [Shaken] regardless."
+          },
+          {
+            "tier": "L",
+            "range": "-8+",
+            "description": "Target must Resist at -2 or comply fully. [Shaken] and [Rattled] regardless."
+          }
+        ]
       }
     },
     {
@@ -1066,18 +1498,70 @@
       ],
       "maneuver": {
         "name": "Stalk",
-        "description": "Move silently. Gain concealment if cover is available."
+        "defense": "none",
+        "description": "Move silently. Gain concealment if cover is available.",
+        "npcEffects": [
+          {
+            "tier": "F",
+            "range": "-1 to -3",
+            "description": "Move silently. Gain concealment if cover is available."
+          },
+          {
+            "tier": "M",
+            "range": "-4 to -7",
+            "description": "Move silently 1 zone. Gain concealment. Next attack from concealment gains +1 Power."
+          },
+          {
+            "tier": "L",
+            "range": "-8+",
+            "description": "Move silently 2 zones. Gain concealment. Next attack from concealment gains +2 Power."
+          }
+        ]
       },
       "gambit": {
         "name": "Rend",
         "cost": "-1 Power",
         "modifies": "Savage Bite",
-        "description": "Target gains [Bleeding] on hit instead of taking damage."
+        "description": "Target gains [Bleeding] on hit instead of taking damage.",
+        "npcEffects": [
+          {
+            "tier": "F",
+            "range": "-1 to -3",
+            "description": "Target gains [Bleeding]."
+          },
+          {
+            "tier": "M",
+            "range": "-4 to -7",
+            "description": "Target gains [Bleeding]. Worn armor damaged (-1 Defense until repaired)."
+          },
+          {
+            "tier": "L",
+            "range": "-8+",
+            "description": "Target gains [Bleeding]. Worn armor destroyed (armor Defense bonus removed)."
+          }
+        ]
       },
       "exploit": {
         "name": "Pack Tactics",
         "trigger": "An allied Beast attacks the same target.",
-        "description": "React: This NPC attacks the same target with +2 Power."
+        "description": "React: This NPC attacks the same target with +2 Power.",
+        "npcEffects": [
+          {
+            "tier": "F",
+            "range": "-1 to -3",
+            "description": "Attack same target with +2 Power."
+          },
+          {
+            "tier": "M",
+            "range": "-4 to -7",
+            "description": "Attack same target with +2 Power. Target gains [Prone]."
+          },
+          {
+            "tier": "L",
+            "range": "-8+",
+            "description": "Attack same target with +3 Power. Target gains [Prone] and [Bleeding]."
+          }
+        ]
       }
     },
     {
@@ -1146,18 +1630,70 @@
       ],
       "maneuver": {
         "name": "Defensive Stance",
-        "description": "Enter a guarded position. +1 Defense and +1 Evasion until next action."
+        "defense": "none",
+        "description": "Enter a guarded position. +1 Defense and +1 Evasion until next action.",
+        "npcEffects": [
+          {
+            "tier": "F",
+            "range": "-1 to -3",
+            "description": "+1 Defense and +1 Evasion until next action."
+          },
+          {
+            "tier": "M",
+            "range": "-4 to -7",
+            "description": "+1 Defense, +1 Evasion, and +1 Resist until next action."
+          },
+          {
+            "tier": "L",
+            "range": "-8+",
+            "description": "+2 Defense, +2 Evasion until next action. Riposte triggers on ranged misses too."
+          }
+        ]
       },
       "gambit": {
         "name": "Disabling Cut",
         "cost": "-1 Power",
         "modifies": "Precision Strike",
-        "description": "Target gains [Weakened] on hit instead of taking damage. Limb or weapon hand targeted."
+        "description": "Target gains [Weakened] on hit instead of taking damage. Limb or weapon hand targeted.",
+        "npcEffects": [
+          {
+            "tier": "F",
+            "range": "-1 to -3",
+            "description": "Target gains [Weakened] Tactical."
+          },
+          {
+            "tier": "M",
+            "range": "-4 to -7",
+            "description": "Target gains [Weakened] until cleared. Weapon hand targeted."
+          },
+          {
+            "tier": "L",
+            "range": "-8+",
+            "description": "Target gains [Weakened] and drops weapon. Limb disabled until treated."
+          }
+        ]
       },
       "exploit": {
         "name": "Killing Blow",
         "trigger": "A PC drops below half Vitality.",
-        "description": "React: Attack that target with +2 Power, ignoring Defense bonuses from cover or shields."
+        "description": "React: Attack that target with +2 Power, ignoring Defense bonuses from cover or shields.",
+        "npcEffects": [
+          {
+            "tier": "F",
+            "range": "-1 to -3",
+            "description": "Attack with +2 Power, ignoring cover and shields."
+          },
+          {
+            "tier": "M",
+            "range": "-4 to -7",
+            "description": "Attack with +2 Power, ignoring cover, shields, and light armor."
+          },
+          {
+            "tier": "L",
+            "range": "-8+",
+            "description": "Attack with +3 Power, ignoring all Defense bonuses."
+          }
+        ]
       }
     }
   ],
@@ -1415,7 +1951,8 @@
       "categories": [
         "vehicle"
       ],
-      "autoApply": true
+      "autoApply": true,
+      "roleAffinity": []
     },
     {
       "id": "scale_starship",
@@ -1427,7 +1964,8 @@
       "categories": [
         "starship"
       ],
-      "autoApply": true
+      "autoApply": true,
+      "roleAffinity": []
     },
     {
       "id": "scale_capital",
@@ -1439,7 +1977,8 @@
       "categories": [
         "capital_ship"
       ],
-      "autoApply": true
+      "autoApply": true,
+      "roleAffinity": []
     },
     {
       "id": "scale_station",
@@ -1451,7 +1990,8 @@
       "categories": [
         "station"
       ],
-      "autoApply": true
+      "autoApply": true,
+      "roleAffinity": []
     },
     {
       "id": "armored_hull",
@@ -1464,7 +2004,8 @@
         "starship",
         "capital_ship",
         "station"
-      ]
+      ],
+      "roleAffinity": []
     },
     {
       "id": "reinforced_hull",
@@ -1478,7 +2019,8 @@
         "starship",
         "capital_ship",
         "station"
-      ]
+      ],
+      "roleAffinity": []
     },
     {
       "id": "stationary",
@@ -1490,7 +2032,8 @@
       "categories": [
         "vehicle",
         "station"
-      ]
+      ],
+      "roleAffinity": []
     },
     {
       "id": "automated",
@@ -1510,7 +2053,8 @@
         "starship",
         "capital_ship",
         "station"
-      ]
+      ],
+      "roleAffinity": []
     },
     {
       "id": "fast",
@@ -1521,7 +2065,8 @@
       "categories": [
         "vehicle",
         "starship"
-      ]
+      ],
+      "roleAffinity": []
     },
     {
       "id": "lumbering",
@@ -1534,7 +2079,8 @@
         "starship",
         "capital_ship",
         "station"
-      ]
+      ],
+      "roleAffinity": []
     },
     {
       "id": "anti_personnel",
@@ -1545,7 +2091,8 @@
         "vehicle",
         "starship",
         "capital_ship"
-      ]
+      ],
+      "roleAffinity": []
     },
     {
       "id": "anti_vehicle",
@@ -1556,7 +2103,8 @@
         "vehicle",
         "starship",
         "capital_ship"
-      ]
+      ],
+      "roleAffinity": []
     },
     {
       "id": "deflector_shields",
@@ -1569,7 +2117,8 @@
         "starship",
         "capital_ship",
         "station"
-      ]
+      ],
+      "roleAffinity": []
     },
     {
       "id": "turbolaser_battery",
@@ -1580,7 +2129,8 @@
       "categories": [
         "capital_ship",
         "station"
-      ]
+      ],
+      "roleAffinity": []
     },
     {
       "id": "ion_cannons",
@@ -1592,7 +2142,8 @@
         "starship",
         "capital_ship",
         "station"
-      ]
+      ],
+      "roleAffinity": []
     },
     {
       "id": "tractor_beam",
@@ -1603,7 +2154,8 @@
         "starship",
         "capital_ship",
         "station"
-      ]
+      ],
+      "roleAffinity": []
     },
     {
       "id": "point_defense",
@@ -1615,7 +2167,8 @@
       "categories": [
         "capital_ship",
         "station"
-      ]
+      ],
+      "roleAffinity": []
     },
     {
       "id": "hangar_bay",
@@ -1625,7 +2178,8 @@
       "categories": [
         "capital_ship",
         "station"
-      ]
+      ],
+      "roleAffinity": []
     },
     {
       "id": "hyperdrive_fast",
@@ -1635,7 +2189,8 @@
       "categories": [
         "starship",
         "capital_ship"
-      ]
+      ],
+      "roleAffinity": []
     },
     {
       "id": "hyperdrive_slow",
@@ -1645,7 +2200,8 @@
       "categories": [
         "starship",
         "capital_ship"
-      ]
+      ],
+      "roleAffinity": []
     },
     {
       "id": "advanced_sensors",
@@ -1657,7 +2213,8 @@
         "starship",
         "capital_ship",
         "station"
-      ]
+      ],
+      "roleAffinity": []
     },
     {
       "id": "electronic_countermeasures",
@@ -1668,7 +2225,8 @@
       "categories": [
         "starship",
         "capital_ship"
-      ]
+      ],
+      "roleAffinity": []
     },
     {
       "id": "redundant_systems",
@@ -1680,7 +2238,8 @@
         "starship",
         "capital_ship",
         "station"
-      ]
+      ],
+      "roleAffinity": []
     },
     {
       "id": "capital_armor",
@@ -1692,7 +2251,8 @@
       "categories": [
         "capital_ship",
         "station"
-      ]
+      ],
+      "roleAffinity": []
     },
     {
       "id": "broadside",
@@ -1701,7 +2261,8 @@
       "description": "Can attack two different targets in the same action when firing port and starboard batteries. Each attack is resolved independently.",
       "categories": [
         "capital_ship"
-      ]
+      ],
+      "roleAffinity": []
     },
     {
       "id": "fighter_screen",
@@ -1711,7 +2272,8 @@
       "defenseMod": 1,
       "categories": [
         "capital_ship"
-      ]
+      ],
+      "roleAffinity": []
     },
     {
       "id": "command_ship",
@@ -1722,7 +2284,8 @@
       "categories": [
         "capital_ship",
         "station"
-      ]
+      ],
+      "roleAffinity": []
     },
     {
       "id": "interdiction_field",
@@ -1732,7 +2295,8 @@
       "categories": [
         "capital_ship",
         "station"
-      ]
+      ],
+      "roleAffinity": []
     },
     {
       "id": "modular_cargo",
@@ -1742,7 +2306,8 @@
       "categories": [
         "starship",
         "capital_ship"
-      ]
+      ],
+      "roleAffinity": []
     },
     {
       "id": "smuggler_compartments",
@@ -1752,7 +2317,8 @@
       "resistMod": 1,
       "categories": [
         "starship"
-      ]
+      ],
+      "roleAffinity": []
     },
     {
       "id": "nimble",
@@ -1762,7 +2328,8 @@
       "evasionMod": 2,
       "categories": [
         "starship"
-      ]
+      ],
+      "roleAffinity": []
     },
     {
       "id": "overgunned",
@@ -1772,7 +2339,8 @@
       "powerMod": 1,
       "categories": [
         "starship"
-      ]
+      ],
+      "roleAffinity": []
     },
     {
       "id": "repulsorlift",
@@ -1782,7 +2350,8 @@
       "evasionMod": 1,
       "categories": [
         "vehicle"
-      ]
+      ],
+      "roleAffinity": []
     },
     {
       "id": "walker_legs",
@@ -1792,7 +2361,8 @@
       "defenseMod": 1,
       "categories": [
         "vehicle"
-      ]
+      ],
+      "roleAffinity": []
     },
     {
       "id": "speeder_bike",
@@ -1803,7 +2373,8 @@
       "defenseMod": -1,
       "categories": [
         "vehicle"
-      ]
+      ],
+      "roleAffinity": []
     },
     {
       "id": "mounted_weapon",
@@ -1813,7 +2384,8 @@
       "powerMod": 1,
       "categories": [
         "vehicle"
-      ]
+      ],
+      "roleAffinity": []
     },
     {
       "id": "open_cockpit",
@@ -1823,7 +2395,8 @@
       "defenseMod": -1,
       "categories": [
         "vehicle"
-      ]
+      ],
+      "roleAffinity": []
     },
     {
       "id": "enclosed_cabin",
@@ -1833,7 +2406,8 @@
       "defenseMod": 1,
       "categories": [
         "vehicle"
-      ]
+      ],
+      "roleAffinity": []
     },
     {
       "id": "tracked",
@@ -1844,7 +2418,8 @@
       "evasionMod": -1,
       "categories": [
         "vehicle"
-      ]
+      ],
+      "roleAffinity": []
     },
     {
       "id": "loom",
