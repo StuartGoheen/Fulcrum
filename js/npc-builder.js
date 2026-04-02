@@ -118,11 +118,14 @@
     var ps = powerSource || 'martial';
     var variant = role.powerSources ? role.powerSources[ps] : null;
     if (!variant) return null;
+    var gambitsArr = variant.gambits || (variant.gambit ? [variant.gambit] : []);
     return {
       roleName: role.name + ' / ' + ps.charAt(0).toUpperCase() + ps.slice(1),
       action: variant.action || null,
+      passive: role.passive || null,
       maneuver: variant.maneuver || null,
-      gambit: variant.gambit || null,
+      gambit: gambitsArr[0] || null,
+      gambits: gambitsArr,
       exploit: variant.exploit || null,
       powerSource: ps
     };
@@ -433,17 +436,38 @@
       html += '<div class="npc-card-role-section">';
       html += '<div class="npc-role-title">' + esc(rk ? rk.roleName : role.name) + '</div>';
 
+      if (rk && rk.passive) {
+        html += '<div class="npc-action-economy-group">';
+        html += '<div class="npc-action-group-label">PASSIVE</div>';
+        html += '<div class="npc-ability passive"><strong>' + esc(rk.passive.name) + ':</strong> ' + esc(rk.passive.description) + '</div>';
+        html += '</div>';
+      }
+
       html += '<div class="npc-action-economy-group">';
       html += '<div class="npc-action-group-label">ACTIONS</div>';
       var allAttacks = currentNpc.attacks || [];
       var roleAtk = allAttacks.filter(function (a) { return a.isRoleAction; })[0] || null;
-      if (roleAtk && rk && rk.action) {
+      if (roleAtk && rk && rk.action && rk.action.isAttack) {
         html += renderAttackBlock(roleAtk, rk.action.npcEffects, rk.action.defense);
+      } else if (rk && rk.action && !rk.action.isAttack && rk.action.npcEffects) {
+        html += '<div class="npc-attack-card-item">';
+        html += '<div class="npc-attack-header">';
+        html += '<strong>' + esc(rk.action.name) + '</strong>';
+        if (rk.action.defense && rk.action.defense !== 'none') html += ' <span class="npc-action-defense">(Defense: ' + esc(rk.action.defense) + ')</span>';
+        if (rk.action.arena) html += ' <span class="npc-attack-arena-badge">' + (cardArenaLabels[rk.action.arena] || rk.action.arena) + '</span>';
+        if (rk.action.pipCost) html += ' <span class="npc-attack-chassis-badge">' + rk.action.pipCost.charAt(0).toUpperCase() + rk.action.pipCost.slice(1) + ' pip</span>';
+        html += '</div>';
+        html += '<div class="npc-effect-track">';
+        html += '<div class="npc-effect-tier"><span class="npc-tier-label">F:</span> ' + esc(rk.action.npcEffects.fleeting) + '</div>';
+        html += '<div class="npc-effect-tier"><span class="npc-tier-label">M:</span> ' + esc(rk.action.npcEffects.masterful) + '</div>';
+        html += '<div class="npc-effect-tier"><span class="npc-tier-label">L:</span> ' + esc(rk.action.npcEffects.legendary) + '</div>';
+        html += '</div>';
+        html += '</div>';
       }
       allAttacks.filter(function (a) { return !a.isRoleAction; }).forEach(function (atk) {
         html += renderAttackBlock(atk, null, 'dodge/endure');
       });
-      if (!allAttacks.length) {
+      if (!allAttacks.length && !(rk && rk.action)) {
         html += '<div class="npc-attacks-empty">No attacks configured.</div>';
       }
       html += '</div>';
@@ -457,7 +481,11 @@
 
       html += '<div class="npc-action-economy-group">';
       html += '<div class="npc-action-group-label">GAMBITS <span class="npc-gambit-mod-note">(-1 Power)</span></div>';
-      if (rk && rk.gambit) {
+      if (rk && rk.gambits && rk.gambits.length) {
+        rk.gambits.forEach(function (g) {
+          html += '<div class="npc-ability gambit"><strong>' + esc(g.name) + '</strong> <span class="npc-gambit-cost">' + esc(g.cost) + '</span><div class="npc-gambit-effect">' + esc(g.description) + '</div></div>';
+        });
+      } else if (rk && rk.gambit) {
         html += '<div class="npc-ability gambit"><strong>' + esc(rk.gambit.name) + '</strong> <span class="npc-gambit-cost">' + esc(rk.gambit.cost) + '</span><div class="npc-gambit-effect">' + esc(rk.gambit.description) + '</div></div>';
       }
       if (currentNpc.extraGambits && currentNpc.extraGambits.length && threatData.npcGambitPool) {
@@ -468,7 +496,7 @@
           }
         });
       }
-      if ((!rk || !rk.gambit) && (!currentNpc.extraGambits || !currentNpc.extraGambits.length)) {
+      if ((!rk || (!rk.gambit && (!rk.gambits || !rk.gambits.length))) && (!currentNpc.extraGambits || !currentNpc.extraGambits.length)) {
         html += '<div class="npc-attacks-empty">No gambits.</div>';
       }
       html += '</div>';

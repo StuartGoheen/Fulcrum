@@ -900,9 +900,9 @@
     html += '<div class="ct-section-label">' + (rk.roleName ? esc(rk.roleName) : 'Role Kit') + '</div>';
 
     if (rk.action) {
-      var actionLabel = rk.action.isAttack ? 'Action — Attack' : 'Action';
+      var actionLabel = rk.action.isAttack ? 'Action — Attack' : 'Signature';
       html += '<div class="ct-rk-entry"><span class="ct-rk-tag ct-rk-action">' + actionLabel + '</span> <strong>' + esc(rk.action.name) + '</strong>';
-      if (rk.action.defense) html += ' <span class="ct-rk-cost">(Defense: ' + esc(rk.action.defense) + ')</span>';
+      if (rk.action.defense && rk.action.defense !== 'none') html += ' <span class="ct-rk-cost">(Defense: ' + esc(rk.action.defense) + ')</span>';
       if (rk.action.npcEffects) {
         html += '<div class="ct-rk-effects">';
         html += '<div><strong>F:</strong> ' + esc(rk.action.npcEffects.fleeting) + '</div>';
@@ -915,13 +915,17 @@
     if (rk.passive) {
       html += '<div class="ct-rk-entry"><span class="ct-rk-tag ct-rk-passive">Passive</span> <strong>' + esc(rk.passive.name) + '</strong> &mdash; ' + esc(rk.passive.description) + '</div>';
     }
-    if (rk.maneuver) {
+    if (rk.maneuver && rk.maneuver.name) {
       html += '<div class="ct-rk-entry"><span class="ct-rk-tag ct-rk-maneuver">Maneuver</span> <strong>' + esc(rk.maneuver.name) + '</strong>';
       if (rk.maneuver.modifies) html += ' <span class="ct-rk-cost">(mod ' + esc(rk.maneuver.modifies) + ')</span>';
       html += ' &mdash; ' + esc(rk.maneuver.description);
       html += '</div>';
     }
-    if (rk.gambit) {
+    if (rk.gambits && rk.gambits.length) {
+      rk.gambits.forEach(function (g) {
+        html += '<div class="ct-rk-entry"><span class="ct-rk-tag ct-rk-gambit">Gambit</span> <strong>' + esc(g.name) + '</strong> <span class="ct-rk-cost">(' + esc(g.cost) + ')</span> &mdash; ' + esc(g.description) + '</div>';
+      });
+    } else if (rk.gambit) {
       html += '<div class="ct-rk-entry"><span class="ct-rk-tag ct-rk-gambit">Gambit</span> <strong>' + esc(rk.gambit.name) + '</strong> <span class="ct-rk-cost">(-1 Pwr)</span> &mdash; ' + esc(rk.gambit.description) + '</div>';
     }
     if (tb && tb.extraGambits && tb.extraGambits.length) {

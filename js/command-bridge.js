@@ -407,9 +407,9 @@
         h += '<div class="cb-npc-role-header" style="font-family:\'Audiowide\',sans-serif;font-size:0.6rem;color:var(--color-accent-primary);text-transform:uppercase;letter-spacing:0.1em;margin:0.3rem 0 0.15rem;">' + esc(rk.roleName) + '</div>';
       }
       if (rk.action) {
-        var actionLabel = rk.action.isAttack ? 'Action — Attack' : 'Action';
+        var actionLabel = rk.action.isAttack ? 'Action — Attack' : 'Signature';
         h += '<div class="cb-npc-ability"><span class="cb-npc-ability-tag" style="background:rgba(59,130,246,0.15);color:#3b82f6;">' + actionLabel + '</span> <strong>' + esc(rk.action.name) + '</strong>';
-        if (rk.action.defense) h += ' <span style="color:var(--color-text-secondary);font-size:0.55rem;">(Defense: ' + esc(rk.action.defense) + ')</span>';
+        if (rk.action.defense && rk.action.defense !== 'none') h += ' <span style="color:var(--color-text-secondary);font-size:0.55rem;">(Defense: ' + esc(rk.action.defense) + ')</span>';
         if (rk.action.npcEffects) {
           h += '<div style="font-size:0.55rem;margin:0.1rem 0 0 0.5rem;">';
           h += '<div><strong>F:</strong> ' + linkify(rk.action.npcEffects.fleeting) + '</div>';
@@ -422,12 +422,16 @@
       if (rk.passive) {
         h += '<div class="cb-npc-ability"><span class="cb-npc-ability-tag" style="background:rgba(192,132,252,0.15);color:#c084fc;">Passive</span> <strong>' + esc(rk.passive.name) + '</strong> — ' + linkify(rk.passive.description) + '</div>';
       }
-      if (rk.maneuver) {
+      if (rk.maneuver && rk.maneuver.name) {
         h += '<div class="cb-npc-ability"><span class="cb-npc-ability-tag" style="background:rgba(168,85,247,0.15);color:#a855f7;">Maneuver</span> <strong>' + esc(rk.maneuver.name) + '</strong>';
         if (rk.maneuver.modifies) h += ' <span style="color:var(--color-text-secondary);font-size:0.55rem;">(mod ' + esc(rk.maneuver.modifies) + ')</span>';
         h += ' — ' + linkify(rk.maneuver.description) + '</div>';
       }
-      if (rk.gambit) {
+      if (rk.gambits && rk.gambits.length) {
+        rk.gambits.forEach(function (g) {
+          h += '<div class="cb-npc-ability"><span class="cb-npc-ability-tag" style="background:rgba(245,158,11,0.15);color:#f59e0b;">Gambit</span> <strong>' + esc(g.name) + '</strong> <span style="color:var(--color-text-secondary);font-size:0.6rem;">(' + esc(g.cost) + ')</span> — ' + linkify(g.description) + '</div>';
+        });
+      } else if (rk.gambit) {
         h += '<div class="cb-npc-ability"><span class="cb-npc-ability-tag" style="background:rgba(245,158,11,0.15);color:#f59e0b;">Gambit</span> <strong>' + esc(rk.gambit.name) + '</strong> <span style="color:var(--color-text-secondary);font-size:0.6rem;">(-1 Pwr)</span> — ' + linkify(rk.gambit.description) + '</div>';
       }
       if (tb.extraGambits && tb.extraGambits.length) {

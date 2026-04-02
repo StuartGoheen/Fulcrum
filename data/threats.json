@@ -250,6 +250,10 @@
       "name": "Threat",
       "category": "combat",
       "description": "High-damage priority target. The NPC the PCs must focus or suffer the consequences.",
+      "passive": {
+        "name": "Lethal Focus",
+        "description": "+1 Power to attacks in chosen arena."
+      },
       "powerSources": {
         "martial": {
           "action": {
@@ -257,27 +261,31 @@
             "defense": "dodge/endure",
             "npcEffects": {
               "fleeting": "Chassis damage",
-              "masterful": "Chassis damage + [Staggered]",
-              "legendary": "Chassis damage + [Staggered] + [Prone]"
+              "masterful": "Chassis damage",
+              "legendary": "Chassis damage"
             },
             "isAttack": true,
             "arena": "physique"
           },
-          "maneuver": {
-            "name": "Intimidating Advance",
-            "modifies": "Move",
-            "description": "Modifies Move. Move 1 zone toward a target. That target must succeed on a Grit check vs Threat's Power or gain [Rattled]."
-          },
-          "gambit": {
-            "name": "Brutal Strike",
-            "cost": "-1 Power",
-            "description": "In addition to normal effects, target gains [Staggered] Tactical.",
-            "rider": "[Staggered]"
-          },
+          "maneuver": null,
+          "gambits": [
+            {
+              "name": "Brutal Blow",
+              "cost": "-1 Power",
+              "description": "Attack also inflicts [Shaken] Lingering.",
+              "rider": "[Shaken]"
+            },
+            {
+              "name": "Reckless Swing",
+              "cost": "-1 Power",
+              "description": "Attack targets one additional enemy in the same zone. Separate defense roll.",
+              "rider": "Additional target"
+            }
+          ],
           "exploit": {
-            "name": "Predator's Opening",
-            "trigger": "A PC in the same zone takes damage from another source this round.",
-            "description": "Immediately make an attack against that PC at -2 Power."
+            "name": "Intimidating Advance",
+            "trigger": "Threat enters a zone occupied by an enemy.",
+            "description": "Presence vs Resist. Target gains [Rattled] Tactical."
           }
         },
         "ranged": {
@@ -286,27 +294,31 @@
             "defense": "dodge/endure",
             "npcEffects": {
               "fleeting": "Chassis damage",
-              "masterful": "Chassis damage + [Suppressed]",
-              "legendary": "Chassis damage + [Suppressed] + [Exposed]"
+              "masterful": "Chassis damage",
+              "legendary": "Chassis damage"
             },
             "isAttack": true,
             "arena": "reflex"
           },
-          "maneuver": {
-            "name": "Marked Target",
-            "modifies": "Aim",
-            "description": "Modifies Aim. Designate one visible target. Threat gains +1 Power against that target until end of round. If target moves, Threat may shift aim as a free action."
-          },
-          "gambit": {
-            "name": "Crippling Shot",
-            "cost": "-1 Power",
-            "description": "In addition to normal effects, target gains [Slowed] Tactical.",
-            "rider": "[Slowed]"
-          },
+          "maneuver": null,
+          "gambits": [
+            {
+              "name": "Crippling Shot",
+              "cost": "-1 Power",
+              "description": "Attack also inflicts [Slowed] Tactical.",
+              "rider": "[Slowed]"
+            },
+            {
+              "name": "Burst Fire",
+              "cost": "-1 Power",
+              "description": "Attack targets one additional enemy in the zone. Separate defense roll.",
+              "rider": "Additional target"
+            }
+          ],
           "exploit": {
-            "name": "Kill Shot",
-            "trigger": "A PC in weapon range drops below half Vitality.",
-            "description": "Immediately make an attack against that PC at -2 Power."
+            "name": "Snap Shot",
+            "trigger": "A PC uses Move to enter or cross a zone within weapon range.",
+            "description": "Threat immediately attacks that PC."
           }
         },
         "force": {
@@ -315,56 +327,58 @@
             "defense": "resist",
             "npcEffects": {
               "fleeting": "Chassis damage",
-              "masterful": "Chassis damage + [Weakened]",
-              "legendary": "Chassis damage + [Weakened] + [Restrained]"
+              "masterful": "Chassis damage",
+              "legendary": "Chassis damage"
             },
             "isAttack": true,
             "arena": "grit"
           },
-          "maneuver": {
-            "name": "Dark Presence",
-            "modifies": "Move",
-            "description": "Modifies Move. Move 1 zone. All enemies in the destination zone must succeed on a Grit check vs Threat's Power or gain [Rattled]."
-          },
-          "gambit": {
-            "name": "Force Rend",
-            "cost": "-1 Power",
-            "description": "In addition to normal effects, target gains [Disoriented] Tactical.",
-            "rider": "[Disoriented]"
-          },
+          "maneuver": null,
+          "gambits": [
+            {
+              "name": "Force Rend",
+              "cost": "-1 Power",
+              "description": "Attack also inflicts [Bleeding] Lingering.",
+              "rider": "[Bleeding]"
+            },
+            {
+              "name": "Cascading Force",
+              "cost": "-1 Power",
+              "description": "Attack targets one additional enemy in the zone. Separate defense roll.",
+              "rider": "Additional target"
+            }
+          ],
           "exploit": {
-            "name": "Dark Retribution",
-            "trigger": "A PC in the same zone successfully damages the Threat.",
-            "description": "That PC gains [Rattled]. The dark side punishes aggression."
+            "name": "Dark Presence",
+            "trigger": "Threat enters a zone occupied by an enemy.",
+            "description": "Grit vs Resist. All enemies in zone gain [Rattled] Tactical."
           }
         },
         "leader": {
           "action": {
             "name": "Execute Order",
-            "defense": "dodge/endure",
+            "defense": "resist",
             "npcEffects": {
-              "fleeting": "Chassis damage",
-              "masterful": "Chassis damage + one ally in the same zone gains +1 Power until end of round",
-              "legendary": "Chassis damage + ally gains +1 Power + that ally may immediately make an attack at -2 Power"
+              "fleeting": "Target gains [Marked] Tactical",
+              "masterful": "Target gains [Marked] Tactical. One ally in range may spend Exploit pip to attack the marked target.",
+              "legendary": "Target gains [Marked] Tactical. Two allies in range may each spend Exploit pip to attack the marked target."
             },
-            "isAttack": true,
+            "isAttack": false,
             "arena": "presence"
           },
-          "maneuver": {
-            "name": "Press the Attack",
-            "modifies": "Coordinate",
-            "description": "Modifies Coordinate. Choose one ally within 2 zones. That ally gains [Optimized] on their next attack AND +1 Power until end of round."
-          },
-          "gambit": {
-            "name": "Overwhelming Command",
-            "cost": "-1 Power",
-            "description": "In addition to normal effects, target gains [Exposed] Tactical. Coordinated assault strips defenses.",
-            "rider": "[Exposed]"
-          },
+          "maneuver": null,
+          "gambits": [
+            {
+              "name": "Covering Fire",
+              "cost": "-1 Power",
+              "description": "On personal blaster attack: if target takes Vitality damage, creates an Opening for one ally in range to exploit.",
+              "rider": "Opening"
+            }
+          ],
           "exploit": {
-            "name": "Demand Obedience",
-            "trigger": "An ally in the same zone is reduced to 0 Vitality.",
-            "description": "Another ally within 2 zones immediately moves 1 zone toward the attacker and gains +1 Power on their next attack."
+            "name": "Retaliatory Order",
+            "trigger": "An ally within 2 zones takes damage.",
+            "description": "One other ally within 2 zones may immediately attack the source. Costs that ally's Exploit pip."
           }
         }
       }
@@ -374,6 +388,10 @@
       "name": "Anchor",
       "category": "combat",
       "description": "Holds ground, blocks access, protects a position or VIP. Hard to move, hard to ignore.",
+      "passive": {
+        "name": "Hardened",
+        "description": "+1 Defense in chosen arena."
+      },
       "powerSources": {
         "martial": {
           "action": {
@@ -381,114 +399,125 @@
             "defense": "dodge/endure",
             "npcEffects": {
               "fleeting": "Chassis damage",
-              "masterful": "Chassis damage + push target 1 zone",
-              "legendary": "Chassis damage + push 1 zone + [Prone]"
+              "masterful": "Chassis damage",
+              "legendary": "Chassis damage"
             },
             "isAttack": true,
             "arena": "physique"
           },
-          "maneuver": {
-            "name": "Lockdown",
-            "modifies": "Move",
-            "description": "Modifies Move. The Anchor does not move. Instead, enemies in the Anchor's zone cannot move to another zone without succeeding on a Physique check vs Anchor's Defense."
-          },
-          "gambit": {
-            "name": "Shove Back",
-            "cost": "-1 Power",
-            "description": "In addition to normal effects, push target 1 zone. The Anchor holds position.",
-            "rider": "Push 1 zone"
-          },
+          "maneuver": null,
+          "gambits": [
+            {
+              "name": "Shove Back",
+              "cost": "-1 Power",
+              "description": "Attack also pushes target 1 zone.",
+              "rider": "Push 1 zone"
+            },
+            {
+              "name": "Defensive Posture",
+              "cost": "-1 Power",
+              "description": "Attack also grants Anchor [Guarded 1] Tactical.",
+              "rider": "[Guarded 1]"
+            }
+          ],
           "exploit": {
             "name": "Intercept",
             "trigger": "An enemy in the Anchor's zone attacks an ally.",
-            "description": "The Anchor becomes the target of the attack instead."
+            "description": "Anchor becomes the target of the attack instead."
           }
         },
         "ranged": {
           "action": {
-            "name": "Disciplined Fire",
+            "name": "Suppressive Fire",
             "defense": "dodge/endure",
             "npcEffects": {
-              "fleeting": "Chassis damage",
-              "masterful": "Chassis damage + [Suppressed]",
-              "legendary": "Chassis damage + [Suppressed] to all enemies in the target's zone"
+              "fleeting": "Target gains [Suppressed] Tactical",
+              "masterful": "Target and one additional enemy in zone gain [Suppressed] Tactical",
+              "legendary": "All enemies in zone gain [Suppressed] Tactical"
             },
-            "isAttack": true,
+            "isAttack": false,
             "arena": "reflex"
           },
-          "maneuver": {
-            "name": "Dig In",
-            "modifies": "Take Cover",
-            "description": "Modifies Take Cover. Anchor gains [Cover 2] and [Optimized] on its next ranged attack. Cannot move this turn."
-          },
-          "gambit": {
-            "name": "Pinning Barrage",
-            "cost": "-1 Power",
-            "description": "In addition to normal effects, target gains [Suppressed] Tactical. Target cannot use Move next turn.",
-            "rider": "[Suppressed]"
-          },
+          "maneuver": null,
+          "gambits": [
+            {
+              "name": "Pinning Shot",
+              "cost": "-1 Power",
+              "description": "Target also gains [Slowed] Tactical.",
+              "rider": "[Slowed]"
+            },
+            {
+              "name": "Dig In",
+              "cost": "-1 Power",
+              "description": "Anchor gains [Cover 1] Tactical.",
+              "rider": "[Cover 1]"
+            }
+          ],
           "exploit": {
             "name": "Covering Fire",
-            "trigger": "An ally in the Anchor's zone or an adjacent zone takes damage.",
-            "description": "Immediately make an attack at -2 Power against the attacker if in weapon range."
+            "trigger": "An ally in same or adjacent zone takes damage.",
+            "description": "Immediately attack the attacker if in weapon range."
           }
         },
         "force": {
           "action": {
-            "name": "Force Barrier Strike",
+            "name": "Force Slam",
             "defense": "resist",
             "npcEffects": {
               "fleeting": "Chassis damage",
-              "masterful": "Chassis damage + Anchor gains [Buffered 1]",
-              "legendary": "Chassis damage + [Buffered 2] + push target 1 zone"
+              "masterful": "Chassis damage",
+              "legendary": "Chassis damage"
             },
             "isAttack": true,
             "arena": "grit"
           },
-          "maneuver": {
-            "name": "Force Anchor",
-            "modifies": "Take Cover",
-            "description": "Modifies Take Cover. Anchor projects a Force barrier: gains [Cover 2]. One ally in the same zone also gains [Cover 1]."
-          },
-          "gambit": {
-            "name": "Repulse",
-            "cost": "-1 Power",
-            "description": "In addition to normal effects, push ALL enemies in the Anchor's zone 1 zone away.",
-            "rider": "Push all enemies 1 zone"
-          },
+          "maneuver": null,
+          "gambits": [
+            {
+              "name": "Repulse",
+              "cost": "-1 Power",
+              "description": "Attack also pushes target 1 zone.",
+              "rider": "Push 1 zone"
+            },
+            {
+              "name": "Force Shield",
+              "cost": "-1 Power",
+              "description": "Anchor gains [Buffered 1].",
+              "rider": "[Buffered 1]"
+            }
+          ],
           "exploit": {
             "name": "Force Wall",
             "trigger": "An enemy attempts to enter the Anchor's zone.",
-            "description": "That enemy must succeed on a Grit check vs Anchor's Power or stop in the adjacent zone."
+            "description": "Grit vs Resist. Enemy stops in adjacent zone on failure."
           }
         },
         "leader": {
           "action": {
-            "name": "Hold the Line",
-            "defense": "dodge/endure",
+            "name": "Rally Defense",
+            "defense": "none",
             "npcEffects": {
-              "fleeting": "Chassis damage",
-              "masterful": "Chassis damage + one ally in the same zone gains [Cover 1]",
-              "legendary": "Chassis damage + ally gains [Cover 2] + that ally gains +1 Power until end of round"
+              "fleeting": "One ally in zone gains [Guarded 1] Tactical",
+              "masterful": "One ally in zone gains [Guarded 1] and [Optimized] Tactical",
+              "legendary": "Two allies in zone each gain [Guarded 1] and [Optimized] Tactical"
             },
-            "isAttack": true,
-            "arena": "presence"
+            "isAttack": false,
+            "arena": "presence",
+            "pipCost": "maneuver"
           },
-          "maneuver": {
-            "name": "Rally Point",
-            "modifies": "Coordinate",
-            "description": "Modifies Coordinate. All allies in the Anchor's zone gain +1 Defense until end of round. Anchor cannot move this turn."
-          },
-          "gambit": {
-            "name": "Stand Fast",
-            "cost": "-1 Power",
-            "description": "Instead of attacking, remove one condition from the Anchor AND one ally in the same zone.",
-            "rider": "Cleanse 1 condition (self + ally)"
-          },
+          "maneuver": null,
+          "gambits": [
+            {
+              "name": "Stand Fast",
+              "cost": "-1 Power",
+              "description": "On personal attack: remove one condition from an ally in the same zone.",
+              "rider": "Cleanse"
+            }
+          ],
           "exploit": {
             "name": "Bodyguard",
-            "trigger": "An ally within 1 zone would take damage.",
-            "description": "The Anchor takes the damage instead. If the Anchor has [Cover], apply the Cover first."
+            "trigger": "An ally within 1 zone takes damage.",
+            "description": "Anchor takes the damage instead. Apply any Cover the Anchor has first."
           }
         }
       }
@@ -498,30 +527,38 @@
       "name": "Harrier",
       "category": "combat",
       "description": "Mobile pressure. Chases, flanks, forces PCs to reposition or get picked apart.",
+      "passive": {
+        "name": "Swift",
+        "description": "+1 zone of movement when using Move."
+      },
       "powerSources": {
         "martial": {
           "action": {
             "name": "Blindside",
             "defense": "dodge/endure",
             "npcEffects": {
-              "fleeting": "Chassis damage",
-              "masterful": "Chassis damage + [Exposed]",
-              "legendary": "Chassis damage + [Exposed] + free Move 1 zone (no Opening)"
+              "fleeting": "Chassis damage. Harrier may move 1 zone (no Opening).",
+              "masterful": "Chassis damage. Harrier may move 1 zone (no Opening).",
+              "legendary": "Chassis damage. Harrier may move 1 zone (no Opening)."
             },
             "isAttack": true,
             "arena": "physique"
           },
-          "maneuver": {
-            "name": "Slip Away",
-            "modifies": "Move",
-            "description": "Modifies Move. When disengaging, does not present an Opening to the target of its last attack. Move up to 2 zones."
-          },
-          "gambit": {
-            "name": "Hamstring",
-            "cost": "-1 Power",
-            "description": "In addition to normal effects, target gains [Slowed] Tactical.",
-            "rider": "[Slowed]"
-          },
+          "maneuver": null,
+          "gambits": [
+            {
+              "name": "Hamstring",
+              "cost": "-1 Power",
+              "description": "Attack also inflicts [Slowed] Tactical.",
+              "rider": "[Slowed]"
+            },
+            {
+              "name": "Expose Flank",
+              "cost": "-1 Power",
+              "description": "Attack also inflicts [Exposed] Tactical.",
+              "rider": "[Exposed]"
+            }
+          ],
           "exploit": {
             "name": "Pursuit",
             "trigger": "A PC in the Harrier's zone uses Move to leave.",
@@ -533,24 +570,28 @@
             "name": "Strafing Shot",
             "defense": "dodge/endure",
             "npcEffects": {
-              "fleeting": "Chassis damage",
-              "masterful": "Chassis damage + [Suppressed]",
-              "legendary": "Chassis damage + [Suppressed] + [Exposed]"
+              "fleeting": "Chassis damage. Harrier may move 1 zone.",
+              "masterful": "Chassis damage. Harrier may move 1 zone.",
+              "legendary": "Chassis damage. Harrier may move 1 zone."
             },
             "isAttack": true,
             "arena": "reflex"
           },
-          "maneuver": {
-            "name": "Reposition",
-            "modifies": "Move",
-            "description": "Modifies Move. Move up to 2 zones. If the Harrier ends farther from all enemies than it started, +1 Power on next attack."
-          },
-          "gambit": {
-            "name": "Pinning Fire",
-            "cost": "-1 Power",
-            "description": "In addition to normal effects, target gains [Slowed] Tactical.",
-            "rider": "[Slowed]"
-          },
+          "maneuver": null,
+          "gambits": [
+            {
+              "name": "Pinning Fire",
+              "cost": "-1 Power",
+              "description": "Attack also inflicts [Suppressed] Tactical.",
+              "rider": "[Suppressed]"
+            },
+            {
+              "name": "Tracer Round",
+              "cost": "-1 Power",
+              "description": "Attack also inflicts [Marked] Tactical.",
+              "rider": "[Marked]"
+            }
+          ],
           "exploit": {
             "name": "Snap Shot",
             "trigger": "A PC uses Move to enter or cross a zone within weapon range.",
@@ -562,24 +603,28 @@
             "name": "Force Lash",
             "defense": "resist",
             "npcEffects": {
-              "fleeting": "Chassis damage",
-              "masterful": "Chassis damage + push target 1 zone",
-              "legendary": "Chassis damage + push 1 zone + [Dazed]"
+              "fleeting": "Chassis damage. Harrier may move 1 zone (no Opening, ignores engagement).",
+              "masterful": "Chassis damage. Harrier may move 1 zone (no Opening, ignores engagement).",
+              "legendary": "Chassis damage. Harrier may move 1 zone (no Opening, ignores engagement)."
             },
             "isAttack": true,
             "arena": "grit"
           },
-          "maneuver": {
-            "name": "Phase Step",
-            "modifies": "Move",
-            "description": "Modifies Move. Move up to 2 zones, ignoring Engaged status entirely (no Opening, no disengage check). Cannot be intercepted."
-          },
-          "gambit": {
-            "name": "Sever",
-            "cost": "-1 Power",
-            "description": "In addition to normal effects, target gains [Disoriented] Tactical.",
-            "rider": "[Disoriented]"
-          },
+          "maneuver": null,
+          "gambits": [
+            {
+              "name": "Sever",
+              "cost": "-1 Power",
+              "description": "Attack also inflicts [Disoriented] Tactical.",
+              "rider": "[Disoriented]"
+            },
+            {
+              "name": "Force Push",
+              "cost": "-1 Power",
+              "description": "Attack also pushes target 1 zone.",
+              "rider": "Push 1 zone"
+            }
+          ],
           "exploit": {
             "name": "Vanish",
             "trigger": "The Harrier takes damage.",
@@ -589,29 +634,28 @@
         "leader": {
           "action": {
             "name": "Directed Assault",
-            "defense": "dodge/endure",
+            "defense": "none",
             "npcEffects": {
-              "fleeting": "Chassis damage",
-              "masterful": "Chassis damage + one ally in adjacent zone may move 1 zone toward target",
-              "legendary": "Chassis damage + ally moves 1 zone + that ally gains [Optimized]"
+              "fleeting": "One ally within 2 zones moves 1 zone (Leader's choice)",
+              "masterful": "One ally within 2 zones moves 1 zone and gains [Optimized] Tactical",
+              "legendary": "Two allies within 2 zones each move 1 zone and gain [Optimized] Tactical"
             },
-            "isAttack": true,
-            "arena": "presence"
+            "isAttack": false,
+            "arena": "presence",
+            "pipCost": "maneuver"
           },
-          "maneuver": {
-            "name": "Regroup",
-            "modifies": "Coordinate",
-            "description": "Modifies Coordinate. Choose one ally within 2 zones — that ally immediately moves 1 zone (Leader's choice). Diceless."
-          },
-          "gambit": {
-            "name": "Outflank",
-            "cost": "-1 Power",
-            "description": "In addition to normal effects, target gains [Exposed] Tactical. Coordinated positioning strips cover.",
-            "rider": "[Exposed]"
-          },
+          "maneuver": null,
+          "gambits": [
+            {
+              "name": "Outflank",
+              "cost": "-1 Power",
+              "description": "On personal attack: target also gains [Exposed] Tactical.",
+              "rider": "[Exposed]"
+            }
+          ],
           "exploit": {
             "name": "Tactical Withdrawal",
-            "trigger": "An ally in the Leader-Harrier's zone drops below half Vitality.",
+            "trigger": "An ally in the Harrier-Leader's zone drops below half Vitality.",
             "description": "That ally immediately moves 1 zone (no Opening)."
           }
         }
@@ -622,34 +666,42 @@
       "name": "Controller",
       "category": "combat",
       "description": "Battlefield manipulation. Conditions, forced movement, zone hazards, social pressure.",
+      "passive": {
+        "name": "Dominating Presence",
+        "description": "Conditions inflicted by Controller in chosen arena step up one duration tier (Immediate becomes Tactical, Tactical becomes Lingering)."
+      },
       "powerSources": {
         "martial": {
           "action": {
             "name": "Crippling Strike",
             "defense": "dodge/endure",
             "npcEffects": {
-              "fleeting": "Chassis damage",
-              "masterful": "Chassis damage + [Slowed]",
-              "legendary": "Chassis damage + [Slowed] + [Weakened]"
+              "fleeting": "Target gains [Weakened] Tactical",
+              "masterful": "Target gains [Weakened] Tactical and [Slowed] Tactical",
+              "legendary": "Target gains [Weakened] Lingering and [Restrained] Tactical"
             },
-            "isAttack": true,
+            "isAttack": false,
             "arena": "physique"
           },
-          "maneuver": {
-            "name": "Menacing Presence",
-            "modifies": "Move",
-            "description": "Modifies Move. Move 1 zone. All enemies in the destination zone gain [Disadvantage] on their next attack (fear/intimidation)."
-          },
-          "gambit": {
-            "name": "Disabling Blow",
-            "cost": "-1 Power",
-            "description": "In addition to normal effects, target gains [Dazed] Tactical. Target loses their Maneuver next turn.",
-            "rider": "[Dazed]"
-          },
+          "maneuver": null,
+          "gambits": [
+            {
+              "name": "Disabling Blow",
+              "cost": "-1 Power",
+              "description": "Target also gains [Disoriented] Tactical.",
+              "rider": "[Disoriented]"
+            },
+            {
+              "name": "Takedown",
+              "cost": "-1 Power",
+              "description": "Target also gains [Prone] Immediate.",
+              "rider": "[Prone]"
+            }
+          ],
           "exploit": {
             "name": "Punishing Counter",
-            "trigger": "A PC in the Controller's zone misses an attack against any target.",
-            "description": "That PC gains [Exposed] until end of their next turn."
+            "trigger": "A PC in the Controller's zone misses an attack.",
+            "description": "That PC gains [Exposed] Tactical."
           }
         },
         "ranged": {
@@ -657,27 +709,31 @@
             "name": "Suppressive Volley",
             "defense": "dodge/endure",
             "npcEffects": {
-              "fleeting": "Chassis damage",
-              "masterful": "Chassis damage + [Suppressed]",
-              "legendary": "Chassis damage + [Suppressed] + Controller's zone becomes [Hazard 1] until end of next round"
+              "fleeting": "Target gains [Suppressed] Tactical",
+              "masterful": "Target gains [Suppressed] Tactical and [Slowed] Tactical",
+              "legendary": "Target gains [Suppressed] Tactical and [Slowed] Tactical. Zone becomes [Hazard 1] Tactical."
             },
-            "isAttack": true,
+            "isAttack": false,
             "arena": "reflex"
           },
-          "maneuver": {
-            "name": "Overwatch Position",
-            "modifies": "Overwatch",
-            "description": "Modifies Overwatch. Declare a zone. Any PC that enters, leaves, or takes an action in that zone presents an Opening AND gains [Suppressed]."
-          },
-          "gambit": {
-            "name": "Disrupt",
-            "cost": "-1 Power",
-            "description": "In addition to normal effects, target gains [Dazed] Tactical. Target loses their Maneuver next turn.",
-            "rider": "[Dazed]"
-          },
+          "maneuver": null,
+          "gambits": [
+            {
+              "name": "Disrupt",
+              "cost": "-1 Power",
+              "description": "Target also gains [Disoriented] Tactical.",
+              "rider": "[Disoriented]"
+            },
+            {
+              "name": "Smoke Out",
+              "cost": "-1 Power",
+              "description": "Force target to move 1 zone (Controller's choice).",
+              "rider": "Forced movement"
+            }
+          ],
           "exploit": {
             "name": "Denial Fire",
-            "trigger": "A PC enters a zone the Controller has declared as Overwatch.",
+            "trigger": "A PC enters a zone the Controller has declared Overwatch on.",
             "description": "Immediately attack that PC at -2 Power."
           }
         },
@@ -686,28 +742,32 @@
             "name": "Mind Spike",
             "defense": "resist",
             "npcEffects": {
-              "fleeting": "Chassis damage",
-              "masterful": "Chassis damage + [Disoriented]",
-              "legendary": "Chassis damage + [Disoriented] + [Rattled]"
+              "fleeting": "Target gains [Disoriented] Tactical",
+              "masterful": "Target gains [Disoriented] Tactical and [Rattled] Tactical",
+              "legendary": "Target gains [Stunned] Lingering"
             },
-            "isAttack": true,
+            "isAttack": false,
             "arena": "grit"
           },
-          "maneuver": {
-            "name": "Force Dominion",
-            "modifies": "Move",
-            "description": "Modifies Move. Instead of moving, the Controller designates its zone as [Difficult Terrain] for enemies until end of next round. Enemies inside gain [Slowed]."
-          },
-          "gambit": {
-            "name": "Force Choke",
-            "cost": "-1 Power",
-            "description": "In addition to normal effects, target gains [Restrained] Tactical. Cannot use Move next turn.",
-            "rider": "[Restrained]"
-          },
+          "maneuver": null,
+          "gambits": [
+            {
+              "name": "Force Choke",
+              "cost": "-1 Power",
+              "description": "Target also gains [Restrained] Tactical.",
+              "rider": "[Restrained]"
+            },
+            {
+              "name": "Mind Fog",
+              "cost": "-1 Power",
+              "description": "Target also gains [Blinded] Tactical.",
+              "rider": "[Blinded]"
+            }
+          ],
           "exploit": {
             "name": "Psychic Backlash",
-            "trigger": "A PC in the Controller's zone successfully uses a social or Force action.",
-            "description": "That PC gains [Disoriented]. The Controller's Force presence disrupts concentration."
+            "trigger": "A PC in the Controller's zone uses a Force action.",
+            "description": "That PC gains [Disoriented] Immediate."
           }
         },
         "leader": {
@@ -715,28 +775,32 @@
             "name": "Dictate Terms",
             "defense": "resist",
             "npcEffects": {
-              "fleeting": "Chassis damage",
-              "masterful": "Chassis damage + [Rattled]",
-              "legendary": "Chassis damage + [Rattled] + target must move 1 zone (Controller's choice)"
+              "fleeting": "Target gains [Rattled] Tactical",
+              "masterful": "Target gains [Rattled] Tactical and [Exposed] Tactical",
+              "legendary": "Target gains [Rattled] Lingering and [Exposed] Tactical. Target must move 1 zone (Controller's choice)."
             },
-            "isAttack": true,
+            "isAttack": false,
             "arena": "presence"
           },
-          "maneuver": {
-            "name": "Tactical Redeployment",
-            "modifies": "Coordinate",
-            "description": "Modifies Coordinate. Move up to 2 allies within 2 zones each 1 zone (Controller's choice). Those allies gain [Optimized] on their next action."
-          },
-          "gambit": {
-            "name": "Exploit Weakness",
-            "cost": "-1 Power",
-            "description": "In addition to normal effects, target gains [Exposed] Tactical. Controller identifies and broadcasts the target's vulnerability.",
-            "rider": "[Exposed]"
-          },
+          "maneuver": null,
+          "gambits": [
+            {
+              "name": "Exploit Weakness",
+              "cost": "-1 Power",
+              "description": "On personal attack: target also gains [Exposed] Tactical.",
+              "rider": "[Exposed]"
+            },
+            {
+              "name": "Contingency",
+              "cost": "-1 Power",
+              "description": "On personal attack: one ally within 2 zones may reposition 1 zone.",
+              "rider": "Ally reposition"
+            }
+          ],
           "exploit": {
             "name": "Contingency Order",
             "trigger": "An ally within 2 zones is targeted by an attack.",
-            "description": "That ally may immediately move 1 zone before the attack resolves (potentially leaving range/zone)."
+            "description": "That ally may immediately move 1 zone before the attack resolves."
           }
         }
       }
@@ -746,121 +810,135 @@
       "name": "Support",
       "category": "combat",
       "description": "Force multiplier. Buffs allies, removes conditions, makes other NPCs scarier.",
+      "passive": {
+        "name": "Aura of Resolve",
+        "description": "Allies within 2 zones gain +1 Defense in Support's chosen arena."
+      },
       "powerSources": {
         "martial": {
           "action": {
-            "name": "Bolstering Strike",
-            "defense": "dodge/endure",
+            "name": "Field Mend",
+            "defense": "none",
             "npcEffects": {
-              "fleeting": "Chassis damage",
-              "masterful": "Chassis damage + one ally in the same zone heals 1 Vitality",
-              "legendary": "Chassis damage + ally heals 2 Vitality + remove one condition from that ally"
+              "fleeting": "Heal 1 Vitality on one ally in zone",
+              "masterful": "Heal 2 Vitality on one ally in zone",
+              "legendary": "Heal 3 Vitality on one ally in zone and remove one condition"
             },
-            "isAttack": true,
+            "isAttack": false,
             "arena": "physique"
           },
-          "maneuver": {
-            "name": "Shield Wall",
-            "modifies": "Move",
-            "description": "Modifies Move. Move 1 zone. One ally in the destination zone gains [Cover 1] until end of next round."
-          },
-          "gambit": {
-            "name": "Rally",
-            "cost": "-1 Power",
-            "description": "Instead of attacking, remove one condition from an ally in the same zone.",
-            "rider": "Cleanse 1 condition"
-          },
+          "maneuver": null,
+          "gambits": [
+            {
+              "name": "Combat Patch",
+              "cost": "-1 Power",
+              "description": "On personal attack: one ally in zone gains [Buffered 1].",
+              "rider": "[Buffered 1]"
+            },
+            {
+              "name": "Adrenaline Shot",
+              "cost": "-1 Power",
+              "description": "On personal attack: one ally in zone gains [Empowered] Tactical.",
+              "rider": "[Empowered]"
+            }
+          ],
           "exploit": {
             "name": "Emergency Aid",
             "trigger": "An ally in the same zone is reduced to 0 Vitality.",
-            "description": "That ally is instead reduced to 1 Vitality. Usable once per scene."
+            "description": "That ally is instead reduced to 1 Vitality. Once per scene."
           }
         },
         "ranged": {
           "action": {
-            "name": "Covering Strike",
-            "defense": "dodge/endure",
+            "name": "Spot Target",
+            "defense": "none",
             "npcEffects": {
-              "fleeting": "Chassis damage",
-              "masterful": "Chassis damage + one ally gains [Cover 1]",
-              "legendary": "Chassis damage + ally gains [Cover 2] + ally gains +1 Power until end of round"
+              "fleeting": "Designate one visible target. Next ally attack vs target gains [Optimized].",
+              "masterful": "Designate one visible target. Next two ally attacks vs target gain [Optimized].",
+              "legendary": "Designate one visible target. All ally attacks vs target gain [Optimized] Tactical."
             },
-            "isAttack": true,
+            "isAttack": false,
             "arena": "reflex"
           },
-          "maneuver": {
-            "name": "Suppressive Assist",
-            "modifies": "Overwatch",
-            "description": "Modifies Overwatch. Declare a zone. Allies in that zone gain +1 Defense until end of round. Enemies entering the zone present Openings."
-          },
-          "gambit": {
-            "name": "Smoke Screen",
-            "cost": "-1 Power",
-            "description": "Instead of attacking, create [Concealment] in a zone within weapon range until end of next round. Allies in the zone gain +1 Evasion.",
-            "rider": "[Concealment]"
-          },
+          "maneuver": null,
+          "gambits": [
+            {
+              "name": "Smoke Cover",
+              "cost": "-1 Power",
+              "description": "On personal attack: one ally in zone gains [Cover 1] Tactical.",
+              "rider": "[Cover 1]"
+            },
+            {
+              "name": "Marking Round",
+              "cost": "-1 Power",
+              "description": "On personal attack: target gains [Marked] Tactical.",
+              "rider": "[Marked]"
+            }
+          ],
           "exploit": {
-            "name": "Covering Volley",
-            "trigger": "An ally within weapon range takes damage.",
-            "description": "That ally gains [Cover 1] against the next attack targeting them."
+            "name": "Overwatch Support",
+            "trigger": "An ally in an adjacent zone is attacked.",
+            "description": "Immediately attack the attacker at -2 Power if in weapon range."
           }
         },
         "force": {
           "action": {
             "name": "Force Mend",
-            "defense": "resist",
+            "defense": "none",
             "npcEffects": {
-              "fleeting": "Chassis damage OR heal 1 ally Vitality in same zone",
-              "masterful": "Chassis damage + heal 2 Vitality to one ally in same zone",
-              "legendary": "Chassis damage + heal 3 Vitality + remove one condition from that ally"
+              "fleeting": "One ally in zone gains [Buffered 1]",
+              "masterful": "One ally in zone gains [Buffered 2]",
+              "legendary": "One ally in zone gains [Buffered 2] and removes one condition"
             },
-            "isAttack": true,
+            "isAttack": false,
             "arena": "grit"
           },
-          "maneuver": {
-            "name": "Battle Meditation",
-            "modifies": "Coordinate",
-            "description": "Modifies Coordinate. All allies within 2 zones gain +1 Power until end of round. Support cannot move this turn."
-          },
-          "gambit": {
-            "name": "Force Heal",
-            "cost": "-1 Power",
-            "description": "Instead of attacking, heal one ally in the same zone for 2 Vitality and remove one condition.",
-            "rider": "Heal 2 + cleanse 1"
-          },
+          "maneuver": null,
+          "gambits": [
+            {
+              "name": "Force Link",
+              "cost": "-1 Power",
+              "description": "On personal attack: one ally in zone gains [Empowered] Tactical.",
+              "rider": "[Empowered]"
+            },
+            {
+              "name": "Force Surge",
+              "cost": "-1 Power",
+              "description": "On personal attack: one ally in zone gains [Optimized] Tactical.",
+              "rider": "[Optimized]"
+            }
+          ],
           "exploit": {
             "name": "Force Shield",
-            "trigger": "An ally within 2 zones would take damage.",
-            "description": "Reduce that damage by 2 (Force barrier absorbs the blow)."
+            "trigger": "An ally in the same zone is attacked.",
+            "description": "That ally gains [Cover 1] against that attack."
           }
         },
         "leader": {
           "action": {
             "name": "Inspire",
-            "defense": "dodge/endure",
+            "defense": "none",
             "npcEffects": {
-              "fleeting": "Chassis damage",
-              "masterful": "Chassis damage + one ally within 2 zones gains [Optimized] on next action",
-              "legendary": "Chassis damage + all allies within 2 zones gain [Optimized] on next action"
+              "fleeting": "One ally within 2 zones gains [Optimized] Tactical",
+              "masterful": "One ally within 2 zones gains [Optimized] and [Empowered] Tactical",
+              "legendary": "Two allies within 2 zones each gain [Optimized] and [Empowered] Tactical"
             },
-            "isAttack": true,
+            "isAttack": false,
             "arena": "presence"
           },
-          "maneuver": {
-            "name": "Tactical Brief",
-            "modifies": "Coordinate",
-            "description": "Modifies Coordinate. Choose one ally within 2 zones. That ally gains +1 Power and +1 Defense until end of round."
-          },
-          "gambit": {
-            "name": "Direct Fire",
-            "cost": "-1 Power",
-            "description": "Instead of attacking, one ally within 2 zones immediately makes an attack at +1 Power.",
-            "rider": "Ally attacks at +1 Power"
-          },
+          "maneuver": null,
+          "gambits": [
+            {
+              "name": "Tactical Brief",
+              "cost": "-1 Power",
+              "description": "On personal attack: one ally in zone removes one condition.",
+              "rider": "Cleanse"
+            }
+          ],
           "exploit": {
-            "name": "Last Stand",
-            "trigger": "The Support drops below half Vitality.",
-            "description": "All allies within 2 zones gain +1 Power until end of next round. Once per scene."
+            "name": "Inspiring Rally",
+            "trigger": "An ally within 2 zones drops below half Vitality.",
+            "description": "That ally gains [Optimized] and [Empowered] Tactical."
           }
         }
       }

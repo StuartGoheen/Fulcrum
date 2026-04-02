@@ -267,6 +267,10 @@
           {
             "condition": "[Shaken]",
             "effect": "Outgoing results drop 1 tier (a Lever 2 effect delivered via condition). Lingering."
+          },
+          {
+            "condition": "[Rattled]",
+            "effect": "Step Down the Control Die on mental and social actions. Typically Tactical or Lingering. The mental/social counterpart to [Disoriented]."
           }
         ]
       },
@@ -735,11 +739,31 @@
     "presenceScalingGuide": {
       "note": "GM reference for setting Presence (Control resistance) in Challenge and Narrative modes. Presence determines the 50/50 breakpoint for the character's die.",
       "scale": [
-        { "presence": 0, "challenge": "Trivial under pressure", "fiftyFiftyFor": "D6 (untrained)" },
-        { "presence": 1, "challenge": "Routine professional task", "fiftyFiftyFor": "D8 (trained)" },
-        { "presence": 2, "challenge": "Demands real expertise", "fiftyFiftyFor": "D10 (skilled)" },
-        { "presence": 3, "challenge": "Peak mastery territory", "fiftyFiftyFor": "D12 (master)" },
-        { "presence": "4-5", "challenge": "Beyond raw skill", "fiftyFiftyFor": "D12 + gear, buffs, allies" }
+        {
+          "presence": 0,
+          "challenge": "Trivial under pressure",
+          "fiftyFiftyFor": "D6 (untrained)"
+        },
+        {
+          "presence": 1,
+          "challenge": "Routine professional task",
+          "fiftyFiftyFor": "D8 (trained)"
+        },
+        {
+          "presence": 2,
+          "challenge": "Demands real expertise",
+          "fiftyFiftyFor": "D10 (skilled)"
+        },
+        {
+          "presence": 3,
+          "challenge": "Peak mastery territory",
+          "fiftyFiftyFor": "D12 (master)"
+        },
+        {
+          "presence": "4-5",
+          "challenge": "Beyond raw skill",
+          "fiftyFiftyFor": "D12 + gear, buffs, allies"
+        }
       ]
     },
     "narrativeResolutionExamples": [
@@ -807,7 +831,11 @@
     },
     "actionEconomy": {
       "perRound": "Each character has 3 pip types per round: Action (A), Maneuver (M), Exploit (E). Defenses are free and unlimited.",
-      "defaults": { "action": 1, "maneuver": 1, "exploit": 1 },
+      "defaults": {
+        "action": 1,
+        "maneuver": 1,
+        "exploit": 1
+      },
       "note": "Hero Tier progression increases Exploit pip maximums: HT2 (Veteran, 55 marks) grants 2E per round, HT5 (The Name, 150 marks) grants 3E per round. The Exploit pip is consumed only by offensive reactions — Defenses never cost a pip."
     },
     "designNotes": [
@@ -940,11 +968,31 @@
     "scale": {
       "rule": "When ships of different sizes engage, Scale modifies the dice. Larger target = step up attacker's Control die, step down attacker's Power die (easier to hit, harder to damage meaningfully). Smaller target = step down attacker's Control die, step up attacker's Power die (harder to hit, but devastating if it connects).",
       "categories": [
-        { "scale": 1, "label": "Starfighter", "examples": "X-wing, TIE Fighter, Headhunter" },
-        { "scale": 2, "label": "Patrol Craft", "examples": "YT-1300, Firespray, Gauntlet" },
-        { "scale": 3, "label": "Corvette", "examples": "CR90, Raider, Hammerhead" },
-        { "scale": 4, "label": "Frigate", "examples": "Nebulon-B, Arquitens, Munificent" },
-        { "scale": 5, "label": "Capital Ship", "examples": "Imperial Star Destroyer, MC80, Venator" }
+        {
+          "scale": 1,
+          "label": "Starfighter",
+          "examples": "X-wing, TIE Fighter, Headhunter"
+        },
+        {
+          "scale": 2,
+          "label": "Patrol Craft",
+          "examples": "YT-1300, Firespray, Gauntlet"
+        },
+        {
+          "scale": 3,
+          "label": "Corvette",
+          "examples": "CR90, Raider, Hammerhead"
+        },
+        {
+          "scale": 4,
+          "label": "Frigate",
+          "examples": "Nebulon-B, Arquitens, Munificent"
+        },
+        {
+          "scale": 5,
+          "label": "Capital Ship",
+          "examples": "Imperial Star Destroyer, MC80, Venator"
+        }
       ],
       "modifierPerStep": "Per step of Scale difference: +1 step to Control die toward the larger target, -1 step to Power die. Reverse when targeting smaller. Example: a Starfighter (Scale 1) attacking a Corvette (Scale 3) = 2 Scale steps difference → Control stepped up twice (easy to hit), Power stepped down twice (hard to hurt).",
       "designNote": "Scale ensures that a lone starfighter cannot casually destroy a capital ship through raw dice. The Control bonus means you will hit — the Power penalty means your hits barely scratch the hull. Conversely, a capital ship's turbolaser can obliterate a starfighter with a single hit, but tracking the small target is the challenge."
@@ -952,16 +1000,47 @@
     "stations": {
       "note": "Each crew member occupies one station. A station defines which discipline provides the Control die and which hardware system provides the Power die. Stations are detailed in starship-stations.json.",
       "list": [
-        { "station": "Pilot", "control": "Piloting (Reflex)", "power": "Handling / Engines", "role": "Positioning, evasion, Dogfight engagement" },
-        { "station": "Gunner", "control": "Heavy Weapons (Physique)", "power": "Fire Control", "role": "Offensive firepower" },
-        { "station": "Operator", "control": "Tech / Investigation / Tactics (Wits)", "power": "Sensors", "role": "Electronic warfare, scanning, targeting" },
-        { "station": "Engineer", "control": "Tech (Wits)", "power": "Shields / Engines / damaged system", "role": "Repair, shields, power management" },
-        { "station": "Co-Pilot", "control": "Tactics / Piloting (Wits / Reflex)", "power": "Sensors / Handling", "role": "Coordination, navigation, crew support" }
+        {
+          "station": "Pilot",
+          "control": "Piloting (Reflex)",
+          "power": "Handling / Engines",
+          "role": "Positioning, evasion, Dogfight engagement"
+        },
+        {
+          "station": "Gunner",
+          "control": "Heavy Weapons (Physique)",
+          "power": "Fire Control",
+          "role": "Offensive firepower"
+        },
+        {
+          "station": "Operator",
+          "control": "Tech / Investigation / Tactics (Wits)",
+          "power": "Sensors",
+          "role": "Electronic warfare, scanning, targeting"
+        },
+        {
+          "station": "Engineer",
+          "control": "Tech (Wits)",
+          "power": "Shields / Engines / damaged system",
+          "role": "Repair, shields, power management"
+        },
+        {
+          "station": "Co-Pilot",
+          "control": "Tactics / Piloting (Wits / Reflex)",
+          "power": "Sensors / Handling",
+          "role": "Coordination, navigation, crew support"
+        }
       ]
     },
     "hardwareDice": {
       "rule": "In starship combat, the Power die for each roll is determined by the ship's hardware systems, not the character's personal arena die. A character's discipline die still serves as the Control die — their personal skill matters. The hardware die replaces the arena die as the Power die.",
-      "systems": ["Handling", "Engines", "Shields", "Sensors", "Fire Control"],
+      "systems": [
+        "Handling",
+        "Engines",
+        "Shields",
+        "Sensors",
+        "Fire Control"
+      ],
       "reference": "Full hardware definitions in starship-hardware.json."
     },
     "integrity": {
@@ -971,9 +1050,18 @@
     "systemImpairment": {
       "rule": "System impairment is the starship mirror of character trauma. When a ship takes damage that exceeds its Hull Rating, the crew may choose to impair a system to soak the excess damage. This is a player choice — exactly like choosing to take a Trauma in character combat.",
       "levels": [
-        { "level": "Impaired", "effect": "System Power die steps down 1 size." },
-        { "level": "Debilitated", "effect": "System Power die steps down 2 sizes." },
-        { "level": "Disabled", "effect": "System is unavailable. Actions requiring this system automatically fail." }
+        {
+          "level": "Impaired",
+          "effect": "System Power die steps down 1 size."
+        },
+        {
+          "level": "Debilitated",
+          "effect": "System Power die steps down 2 sizes."
+        },
+        {
+          "level": "Disabled",
+          "effect": "System is unavailable. Actions requiring this system automatically fail."
+        }
       ],
       "calledShot": "When an attacker uses Called Shot, they designate which system must take the impairment if the defending crew chooses to impair. Without a Called Shot, the defending crew chooses which system to impair.",
       "repair": "The Engineer's Jury Rig action repairs impaired systems. Power die = the damaged system's current die (worse damage = weaker Power die). All repairs are permanent. Fleeting = tactical bypass (ignore impairment for 1 round). Masterful = recover 1 step. Legendary = recover 2 steps on one system OR 1 step on two systems. Failure = wasted action, no additional penalty."
@@ -1041,14 +1129,27 @@
     "rangeBands": {
       "note": "Starship range bands define zones of engagement in space. They function identically to personal combat zones but at ship scale.",
       "bands": [
-        { "band": "Engaged", "description": "Ships are in extremely close proximity — docking range, collision risk, boarding possible. Rare in open space combat." },
-        { "band": "Close", "description": "Standard combat range. Most weapons are effective. Maneuvering matters — Attack Runs and Evasive Maneuvers happen here." },
-        { "band": "Far", "description": "Long range engagement. Only long-range weapons (turbolasers, torpedoes) are effective. Ships must Fly to close the gap before entering a Dogfight." }
+        {
+          "band": "Engaged",
+          "description": "Ships are in extremely close proximity — docking range, collision risk, boarding possible. Rare in open space combat."
+        },
+        {
+          "band": "Close",
+          "description": "Standard combat range. Most weapons are effective. Maneuvering matters — Attack Runs and Evasive Maneuvers happen here."
+        },
+        {
+          "band": "Far",
+          "description": "Long range engagement. Only long-range weapons (turbolasers, torpedoes) are effective. Ships must Fly to close the gap before entering a Dogfight."
+        }
       ]
     },
     "modifications": {
       "rule": "Starship modifications are upgrades installed on hardware systems. Each system (Handling, Engines, Shields) has 6 available mods gated by die size: 2 at D8, 2 at D10, 2 at D12. A ship can only install mods at or below its system die level. At D12, two exclusive passives are offered — pick one. This choice defines the ship's identity.",
-      "gates": ["D8 (entry-level)", "D10 (military-grade)", "D12 (ship identity — pick one of two exclusive passives)"],
+      "gates": [
+        "D8 (entry-level)",
+        "D10 (military-grade)",
+        "D12 (ship identity — pick one of two exclusive passives)"
+      ],
       "designRules": [
         "No [Weakened] as self-cost on gambits.",
         "Gambits must enable something the base maneuver cannot do alone — not just a numerical bonus.",
