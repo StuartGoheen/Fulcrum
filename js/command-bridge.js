@@ -627,6 +627,9 @@
     html += '<div class="cb-scene-header">';
     html += '<h2>Scene ' + scene.number + ': ' + esc(scene.title) + '</h2>';
     if (scene.subtitle) html += '<div class="cb-scene-subtitle">' + esc(scene.subtitle) + '</div>';
+    if (scene.id === 'adv1-p1-s1') {
+      html += '<button class="assess-guide-btn" id="assess-guide-btn">&#9733; Assess Guide</button>';
+    }
     html += '</div>';
 
     if (scene.readAloud) {
@@ -1032,6 +1035,10 @@
         }
       });
     });
+    var assessBtn = document.getElementById('assess-guide-btn');
+    if (assessBtn) {
+      assessBtn.addEventListener('click', function () { openAssessGuide(); });
+    }
     var completeBtn = container.querySelector('.cb-complete-btn');
     if (completeBtn) {
       completeBtn.addEventListener('click', function () { toggleSceneComplete(completeBtn.dataset.scene); });
@@ -1732,6 +1739,131 @@
     window.addEventListener('resize', checkMobile);
     checkMobile();
   }
+
+  var assessData = null;
+  var assessActivePhase = 0;
+  var assessActiveDisc = 0;
+
+  function openAssessGuide() {
+    var overlay = document.getElementById('assess-overlay');
+    if (!overlay) return;
+    if (assessData) {
+      renderAssessOverlay();
+      overlay.classList.add('active');
+      return;
+    }
+    fetch('/data/tutorials/scene1-assess.json')
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        assessData = data;
+        assessActivePhase = 0;
+        assessActiveDisc = 0;
+        renderAssessOverlay();
+        overlay.classList.add('active');
+      })
+      .catch(function (err) {
+        console.error('Failed to load assess guide:', err);
+      });
+  }
+
+  function closeAssessGuide() {
+    var overlay = document.getElementById('assess-overlay');
+    if (overlay) overlay.classList.remove('active');
+  }
+
+  function renderAssessOverlay() {
+    if (!assessData) return;
+    var titleEl = document.getElementById('assess-title');
+    if (titleEl) titleEl.textContent = assessData.title || 'ASSESS GUIDE';
+
+    var tabsEl = document.getElementById('assess-phase-tabs');
+    if (tabsEl) {
+      tabsEl.innerHTML = assessData.phases.map(function (phase, pi) {
+        return '<button class="assess-phase-tab' + (pi === assessActivePhase ? ' active' : '') + '" data-phase="' + pi + '">' +
+          esc(phase.label) + '</button>';
+      }).join('');
+      tabsEl.querySelectorAll('.assess-phase-tab').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          assessActivePhase = parseInt(btn.dataset.phase, 10);
+          assessActiveDisc = 0;
+          renderAssessOverlay();
+        });
+      });
+    }
+
+    var phase = assessData.phases[assessActivePhase];
+    if (!phase) return;
+
+    var navEl = document.getElementById('assess-disc-nav');
+    if (navEl) {
+      navEl.innerHTML = phase.disciplines.map(function (disc, di) {
+        return '<button class="assess-disc-btn' + (di === assessActiveDisc ? ' active' : '') + '" data-disc="' + di + '">' +
+          esc(disc.label) + '<span class="assess-disc-arena">(' + esc(disc.arena) + ')</span></button>';
+      }).join('');
+      navEl.querySelectorAll('.assess-disc-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          assessActiveDisc = parseInt(btn.dataset.disc, 10);
+          renderAssessContent();
+          navEl.querySelectorAll('.assess-disc-btn').forEach(function (b) {
+            b.classList.toggle('active', parseInt(b.dataset.disc, 10) === assessActiveDisc);
+          });
+        });
+      });
+    }
+
+    renderAssessContent();
+  }
+
+  function renderAssessContent() {
+    var contentEl = document.getElementById('assess-content');
+    if (!contentEl || !assessData) return;
+    var phase = assessData.phases[assessActivePhase];
+    if (!phase) return;
+    var disc = phase.disciplines[assessActiveDisc];
+    if (!disc) return;
+
+    var html = '';
+    if (disc.focus) {
+      html += '<div class="assess-disc-focus">' + esc(disc.focus) + '</div>';
+    }
+
+    disc.entries.forEach(function (entry) {
+      var cls = 'assess-entry';
+      if (entry.type === 'gambit') cls += ' type-gambit';
+      if (entry.type === 'trained') cls += ' type-trained';
+      html += '<div class="' + cls + '">';
+      if (entry.type === 'gambit') {
+        html += '<div class="assess-entry-badge assess-badge-gambit">D8 Gambit</div>';
+        if (entry.label) html += '<div class="assess-entry-label">' + esc(entry.label) + '</div>';
+      } else if (entry.type === 'trained') {
+        html += '<div class="assess-entry-badge assess-badge-trained">Trained</div>';
+        if (entry.label) html += '<div class="assess-entry-label">' + esc(entry.label) + '</div>';
+      } else {
+        if (entry.question) html += '<div class="assess-question">"' + esc(entry.question) + '"</div>';
+      }
+      if (entry.response) html += '<div class="assess-response">' + esc(entry.response) + '</div>';
+      html += '</div>';
+    });
+
+    contentEl.innerHTML = html;
+    contentEl.scrollTop = 0;
+  }
+
+  (function initAssessOverlay() {
+    var closeBtn = document.getElementById('assess-close');
+    if (closeBtn) closeBtn.addEventListener('click', closeAssessGuide);
+    var overlay = document.getElementById('assess-overlay');
+    if (overlay) {
+      overlay.addEventListener('click', function (e) {
+        if (e.target === overlay) closeAssessGuide();
+      });
+    }
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && overlay && overlay.classList.contains('active')) {
+        closeAssessGuide();
+      }
+    });
+  }());
 
   initTheme();
   initDragHandles();

@@ -1,0 +1,531 @@
+{
+  "sceneId": "adv1-p1-s1",
+  "title": "Assess the Scene — Sienar's Regret",
+  "subtitle": "Scene 1: Bad Business at Sienar's Regret",
+  "phases": [
+    {
+      "id": "phase1",
+      "label": "Phase 1: The Cantina Interior",
+      "description": "Before Anything Happens",
+      "disciplines": [
+        {
+          "id": "investigation",
+          "label": "Investigation",
+          "arena": "Wits",
+          "focus": "evidence, patterns, anomalies",
+          "entries": [
+            {
+              "type": "normal",
+              "question": "How many exits are there, and which ones are obstructed or locked?",
+              "response": "Two. The blast doors at the front where you came in — wide enough for three abreast, sunlight pouring through. And a narrow hallway in the back corner behind the bar, leading to an alley. The back hallway is dim — one failing glow-rod. No lock on it that you can see."
+            },
+            {
+              "type": "normal",
+              "question": "Who in here is armed, and what are they carrying?",
+              "response": "Most of the regulars have sidearms — this is Jakku, everyone carries. But nobody's wearing them like they expect to use them. The two figures in the booth row along the far wall have blasters that look better maintained than their clothes. A Rodian near the alcove has something heavy under his coat — oversized for a pistol."
+            },
+            {
+              "type": "normal",
+              "question": "Are there signs of recent violence — blaster scoring, replaced furniture, patched walls?",
+              "response": "The wall behind the bar has a long carbon score mark someone tried to scrub off — didn't work. Two of the barstools don't match the rest, newer material. The corner booth has a crack in the seat backing that looks like it took an impact. This place sees trouble, just not every night."
+            },
+            {
+              "type": "normal",
+              "question": "Is anyone watching us specifically — not just glancing, but tracking?",
+              "response": "The bartender. He clocked you when you walked in and he hasn't stopped. Not nervous about you — nervous about what you represent. Armed strangers he doesn't recognize. Everyone else glanced once and went back to their drinks."
+            },
+            {
+              "type": "normal",
+              "question": "What's the most defensible position in this room?",
+              "response": "The bar itself. Solid durasteel frame under the wood facing — hard cover. Sightlines to the entrance and both sides of the room. The back hallway exit is right behind it. If this place goes loud, that's where you want to be."
+            },
+            {
+              "type": "normal",
+              "question": "Are there any marks of ownership — gang tags, faction symbols, claimed tables?",
+              "response": "A Hutt cartel glyph is scratched into the doorframe — old, deep, deliberate. Varga's mark. This is Hutt territory, which means the bartender pays protection, and anyone causing trouble here answers to someone heavier than the local law."
+            },
+            {
+              "type": "gambit",
+              "label": "D8 Gambit — Tactical Scan",
+              "response": "You spend a tier. You've catalogued the room — sightlines, cover, choke points. Gain [Optimized] on defense rolls against one target in your zone until the situation shifts."
+            },
+            {
+              "type": "trained",
+              "label": "T1 — Investigator (Trained Eye) on a failed roll",
+              "response": "You don't read the room as cleanly as you'd like — too many faces, too much noise. But you catch one thing: the bartender keeps glancing at the blast doors, then at a chrono behind the bar. He's expecting someone. Or something."
+            }
+          ]
+        },
+        {
+          "id": "insight",
+          "label": "Insight",
+          "arena": "Wits",
+          "focus": "emotion, intent, social dynamics",
+          "entries": [
+            {
+              "type": "normal",
+              "question": "Who in here is afraid — and of what?",
+              "response": "Almost everyone, but they're wearing it quietly. The fear isn't of anything in this room — it's the Lambda shuttle on the landing field. Nobody knows why the Empire is here, and on Jakku, not knowing is the same as being in danger."
+            },
+            {
+              "type": "normal",
+              "question": "Who's the most powerful person in this room, socially? Who do others defer to?",
+              "response": "The bartender. Not because he's tough — because he's Varga's eyes in this establishment. People order from him carefully. They pay without haggling. Nobody raises their voice near the bar. He reports upward."
+            },
+            {
+              "type": "normal",
+              "question": "Is anyone here waiting for someone — watching the door, checking a chrono?",
+              "response": "The bartender, again. He's been checking the door every few minutes since you sat down. Whoever he's waiting for, it's making him sweat."
+            },
+            {
+              "type": "normal",
+              "question": "What's the general mood — relaxed, tense, predatory?",
+              "response": "Wary. Not hostile, not panicked — just... careful. The regular crowd is drinking quieter than usual. Conversations are shorter. People are keeping their heads down and their tabs paid. Something changed the routine today, and everyone knows it but nobody's saying it out loud."
+            },
+            {
+              "type": "normal",
+              "question": "Is the bartender honest, or is this establishment a front for something?",
+              "response": "Honest enough about the drinks. But this place runs on Hutt money — the cartel glyph on the doorframe isn't decorative. The bartender sees everything, hears everything, and reports to Varga's people. The cantina is a listening post that sells Jogan Ale."
+            },
+            {
+              "type": "normal",
+              "question": "Are there any groups here who clearly know each other but are pretending not to?",
+              "response": "The two in the booth row and the one in the alcove. They haven't looked at each other once, which is exactly the problem — in a room this small, strangers make eye contact. These three are deliberately not doing that. Whether they're together or just separately careful, they're aware of each other."
+            },
+            {
+              "type": "gambit",
+              "label": "D8 Gambit — Read Between the Lines (on the bartender)",
+              "response": "He's been told someone is coming. He doesn't know who or why — just that Varga's people sent word to keep the doors open and not ask questions. He's afraid of what's about to walk through that door."
+            }
+          ]
+        },
+        {
+          "id": "survival",
+          "label": "Survival",
+          "arena": "Grit",
+          "focus": "terrain, hazards, instincts",
+          "entries": [
+            {
+              "type": "normal",
+              "question": "Is there a back way out — kitchen, cellar, service tunnel?",
+              "response": "A hallway behind the bar leads to an alley out back. Narrow, dim, one glow-rod barely holding on. No kitchen — Sienar's Regret doesn't serve food. No cellar. There's a store room off to one side, but it's a dead end — closed door, no exit. Don't get cornered in there."
+            },
+            {
+              "type": "normal",
+              "question": "How structurally sound is this building? Could it collapse or be breached easily?",
+              "response": "The walls are duracrete — desert construction, built to keep the sand out. Solid enough to stop blaster bolts. But the fixtures are old and unmaintained. The ceiling has stress fractures near the entrance. A thermal detonator would bring this place down. A blaster fight wouldn't."
+            },
+            {
+              "type": "normal",
+              "question": "Is the ventilation working? Could someone gas this place?",
+              "response": "Barely working. You can feel the recycler straining — the air is warm and stale, heavy with dust and Jogan ale fumes. A single intake vent above the entrance, another over the bar. Someone who knew what they were doing could push gas through the intake and fill this room in about thirty seconds."
+            },
+            {
+              "type": "normal",
+              "question": "What's the water and food situation — is what's being served actually safe?",
+              "response": "The drinks are sealed bottles or drawn from kegs — safe enough if you trust the supply chain. The water tastes recycled, which it is. No food. If you're hungry, you're in the wrong building."
+            },
+            {
+              "type": "normal",
+              "question": "Are there environmental hazards — exposed wiring, leaking fuel lines, sand drifts weakening the walls?",
+              "response": "Exposed wiring above the booth row where the glow-rods are failing — probably won't kill you, but cutting it would drop that side of the room into darkness. Sand has crept under the blast doors and pooled in the corners. The floor is gritty. Nobody's swept today. Or this week."
+            }
+          ]
+        },
+        {
+          "id": "tech",
+          "label": "Tech",
+          "arena": "Wits",
+          "focus": "devices, systems, signals",
+          "entries": [
+            {
+              "type": "normal",
+              "question": "Is there a comm relay or signal booster in this building?",
+              "response": "Short-range relay behind the bar — local comms only, Niima Outpost range. No hyperspace transceiver. If the bartender needs to reach someone offworld, he walks to the landing field like everyone else."
+            },
+            {
+              "type": "normal",
+              "question": "Are there any active surveillance devices — cameras, listening bugs, recording rods?",
+              "response": "Nothing sophisticated. No cameras — Varga doesn't need tech when he has the bartender. But there's a recording device built into the bar console — looks like it's always running. The bartender is probably recording every conversation that happens at the counter."
+            },
+            {
+              "type": "normal",
+              "question": "Is anyone transmitting a signal right now — a tracker, a comm check-in, a distress beacon?",
+              "response": "There's a low-power signal coming from behind the bar — the recorder pinging a local receiver. Standard Hutt surveillance, nothing urgent. No one else in the room is broadcasting. The Lambda shuttle's transponder is active on the landing field — you can pick it up from here, standard Imperial IFF."
+            },
+            {
+              "type": "normal",
+              "question": "What's the power grid like? Is there a way to kill the lights?",
+              "response": "Municipal power from Niima's grid — unreliable. The lights flicker every few minutes on their own. A junction box is mounted on the wall near the back hallway, behind a panel. You could kill the lights from there in about three seconds if you knew what you were doing."
+            },
+            {
+              "type": "normal",
+              "question": "Does the cantina have a security system — blast shutters, automated locks, an alarm?",
+              "response": "The blast doors at the entrance have a manual override — a lever on the wall inside. No automated locks, no alarm system. This place relies on Varga's reputation for security, not technology. The store room door has a basic magnetic lock — cheap, bypassable."
+            }
+          ]
+        },
+        {
+          "id": "charm",
+          "label": "Charm",
+          "arena": "Presence",
+          "focus": "warmth, approachability, social leverage",
+          "entries": [
+            {
+              "type": "normal",
+              "question": "Who in here looks approachable — someone who'd welcome a conversation?",
+              "response": "A Sullustan near the end of the bar, nursing something amber. He's been watching the room with the easy curiosity of someone who doesn't live here — a traveler, not a regular. He looked at your group without suspicion, which makes him the only one in here who did."
+            },
+            {
+              "type": "normal",
+              "question": "Is the bartender the type who trades in information, or strictly drinks?",
+              "response": "Both, but he'd never admit the first one. He's the kind who listens more than he talks, and what he hears goes uphill to Varga's people. You could get him talking if you gave him a reason to trust you, but right now you're unknowns, and unknowns are risk."
+            },
+            {
+              "type": "normal",
+              "question": "Does anyone here recognize us, or react to us like we're familiar?",
+              "response": "No recognition. You're strangers — and on Jakku, that's neither good nor bad. People here don't care who you are until you give them a reason to. Right now, you're just armed people who drink slowly."
+            },
+            {
+              "type": "gambit",
+              "label": "D8 Gambit — Disarming Smile (on the Sullustan)",
+              "response": "You spend a tier. The Sullustan relaxes — laughs at something you didn't say, shifts his drink closer to your end of the bar. For the rest of this scene, you gain [Optimized] on all social actions against him. He's open. Free if Hope is dominant."
+            }
+          ]
+        },
+        {
+          "id": "persuasion",
+          "label": "Persuasion",
+          "arena": "Presence",
+          "focus": "values, needs, leverage",
+          "entries": [
+            {
+              "type": "normal",
+              "question": "Who in here looks like they need something — credits, a ride offworld, protection?",
+              "response": "The bartender needs this day to end without a mess he has to explain to Varga. The Sullustan traveler looks like he's between ships — jacket's patched, boots are worn. And there are two scavengers in the booth row who keep counting the same small pile of credits. They need more than they have."
+            },
+            {
+              "type": "normal",
+              "question": "Is there anyone here who looks like they'd talk for the right price?",
+              "response": "The Sullustan. Travelers on Jakku hear things from every port they pass through. He doesn't have loyalty to this place — his information is available if the price is right or the conversation is interesting enough."
+            },
+            {
+              "type": "normal",
+              "question": "What does the bartender care about more — credits, or not getting their place shot up?",
+              "response": "Not getting his place shot up. Credits are nice, but a destroyed cantina means explaining to Varga why revenue stopped. And explaining things to Varga is something people on Jakku do exactly once."
+            },
+            {
+              "type": "gambit",
+              "label": "D8 Gambit — Common Ground (on the bartender)",
+              "response": "You spend a tier. The GM reveals: the bartender wants the Lambda shuttle gone. The Imperial presence is bad for business — regulars are staying home, smugglers are rerouting, and Varga is going to blame him for the drop in traffic. Anyone who could make that problem go away would have his attention. Free if Hope is dominant."
+            }
+          ]
+        },
+        {
+          "id": "sense",
+          "label": "Sense / Force",
+          "arena": "Wits",
+          "focus": "presence, danger, the unseen",
+          "entries": [
+            {
+              "type": "normal",
+              "question": "Is there any disturbance in the Force here — residual violence, dark side presence, strong emotions?",
+              "response": "Fear. A low, ambient hum of it — like heat coming off the sand. It's not pointed at anything in this room. It's the whole outpost. The Lambda shuttle changed something in the air, and everyone here is breathing it in. No dark side presence, no violence echoes stronger than what any old cantina carries."
+            },
+            {
+              "type": "normal",
+              "question": "Does anyone in this room have Force sensitivity, even latent?",
+              "response": "No. Not a flicker. These are ordinary people living ordinary, desperate lives on the edge of nowhere."
+            },
+            {
+              "type": "normal",
+              "question": "Is there danger here — something the Force is warning me about?",
+              "response": "Not here. Not yet. But the current is moving — like water finding a crack. Something is coming toward this place. Soon. The Force isn't alarming you — it's alerting you. The difference matters."
+            },
+            {
+              "type": "normal",
+              "question": "Are there living beings I can't see — hidden in a back room, underground, above us?",
+              "response": "The store room behind the far wall. Someone is in there — one presence, small, frightened, hiding. Probably a patron who ducked in when the mood shifted. No threat. Nothing underground. Nothing above."
+            },
+            {
+              "type": "gambit",
+              "label": "D8 Gambit — Danger Sense",
+              "response": "You spend a tier. The Force hums through you — a standing wave of awareness that won't fade. You cannot be surprised for the rest of this scene. Ambushes against you automatically fail. If combat breaks out and your Join Battle roll fails Control, you ignore the surprised state — no [Disoriented], no [Exposed]. Your spider-sense is on."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase2",
+      "label": "Phase 2: Maya Crashes In",
+      "description": "Maya Crashes Into the Table",
+      "disciplines": [
+        {
+          "id": "investigation",
+          "label": "Investigation",
+          "arena": "Wits",
+          "focus": "evidence, patterns, anomalies",
+          "entries": [
+            {
+              "type": "normal",
+              "question": "What is she carrying? Anything concealed?",
+              "response": "A datapad she's clutching like it's worth more than her life — she slid it onto your table first thing. A hold-out blaster on her left hip, cheap but functional. No body armor. No comm unit visible. She traveled light and fast."
+            },
+            {
+              "type": "normal",
+              "question": "Is she injured, malnourished, or showing signs of being on the run?",
+              "response": "Blaster graze to her right side — a burn through her jacket, bleeding but not deep. It's recent, maybe minutes old. A warning shot that she didn't take as a warning. She's thin but not starving — she eats, just not well. Her boots are Jakku-worn but her jacket isn't local. She's not from here."
+            },
+            {
+              "type": "normal",
+              "question": "Has she been in this cantina before — does she know the layout?",
+              "response": "She came straight to your table without scanning the room for a seat. She knew where the occupied tables were. She's been here before — at least once. She chose you deliberately."
+            }
+          ]
+        },
+        {
+          "id": "insight",
+          "label": "Insight",
+          "arena": "Wits",
+          "focus": "emotion, intent, social dynamics",
+          "entries": [
+            {
+              "type": "normal",
+              "question": "Is she afraid? Of us, or of something else?",
+              "response": "She's terrified — but not of you. The fear is behind her, not in front of her. Whatever's coming through that door is what she's running from. You're the solution she improvised in the last ten seconds."
+            },
+            {
+              "type": "normal",
+              "question": "Is she telling the truth right now?",
+              "response": "'Just look like you're with me' — yes, that's genuine. She needs cover, not a fight. But there's something underneath the desperation. She's thinking too clearly for someone who's purely panicking. She's calculating."
+            },
+            {
+              "type": "normal",
+              "question": "What's driving her — desperation, loyalty, anger?",
+              "response": "Desperation sitting on top of something harder. She's in survival mode right now, but this isn't someone who stumbled into trouble. She walked into it on purpose and the exit plan fell apart. There's pride under the fear — she's not begging, she's recruiting."
+            }
+          ]
+        },
+        {
+          "id": "charm",
+          "label": "Charm",
+          "arena": "Presence",
+          "focus": "warmth, approachability, social leverage",
+          "entries": [
+            {
+              "type": "normal",
+              "question": "What would put her at ease right now?",
+              "response": "Competence. She doesn't need sympathy — she needs to believe you can handle what's about to come through that door. If you look like people who've been in a tight spot before, she'll relax. If you look worried, she'll start looking for the back exit."
+            }
+          ]
+        },
+        {
+          "id": "persuasion",
+          "label": "Persuasion",
+          "arena": "Presence",
+          "focus": "values, needs, leverage",
+          "entries": [
+            {
+              "type": "normal",
+              "question": "What does she want that we could offer?",
+              "response": "Right now? Warm bodies between her and whoever is following her. In about sixty seconds, she's going to want something more — but she hasn't shown that card yet. She's holding something back. Something she thinks is worth more than the trouble she's in."
+            }
+          ]
+        },
+        {
+          "id": "survival",
+          "label": "Survival",
+          "arena": "Grit",
+          "focus": "terrain, hazards, instincts",
+          "entries": [
+            {
+              "type": "normal",
+              "question": "How long has she been out in the Jakku wastes? What kind of shape is she in?",
+              "response": "Not long. Her skin isn't sun-cracked like a scavenger's. No sand-wear on her gear beyond the jacket. She came in from the landing field, not the desert. She arrived recently — maybe today."
+            }
+          ]
+        },
+        {
+          "id": "tech",
+          "label": "Tech",
+          "arena": "Wits",
+          "focus": "devices, systems, signals",
+          "entries": [
+            {
+              "type": "normal",
+              "question": "Is she carrying any active tech — a tracker, a comm, a data chip?",
+              "response": "The datapad she pressed onto the table is active — screen locked, encrypted. No comm unit. No tracker that you can detect. But that doesn't mean she isn't being tracked — it means if there's a tracker, it's on something she doesn't know about. Or in the datapad itself."
+            }
+          ]
+        },
+        {
+          "id": "sense",
+          "label": "Sense / Force",
+          "arena": "Wits",
+          "focus": "presence, danger, the unseen",
+          "entries": [
+            {
+              "type": "normal",
+              "question": "What is the Force telling me about her intentions?",
+              "response": "She means you no harm — the Force is clear on that. Her intent is honest in this moment: she needs help and she's asking for it the only way she knows how. But underneath... there's a thread of calculation. She's already thinking about what comes after this. She's three moves ahead of the moment she's standing in."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase3",
+      "label": "Phase 3: The Enforcers",
+      "description": "Krev and the Enforcers Fill the Doorway",
+      "disciplines": [
+        {
+          "id": "investigation",
+          "label": "Investigation",
+          "arena": "Wits",
+          "focus": "evidence, patterns, anomalies",
+          "entries": [
+            {
+              "type": "normal",
+              "question": "How many are there, and are there more outside?",
+              "response": "Three. A heavy-set Weequay in front — he's the talker. Two Kyuzo flanking him, wearing wide-brimmed war helms. Their blasters are holstered. You can't see past the glare from the blast doors, but three is a collection crew, not a kill squad. If there were more, they'd have brought them inside."
+            },
+            {
+              "type": "normal",
+              "question": "What are they armed with — standard blasters, heavy weapons, anything unusual?",
+              "response": "Sidearms — standard. The Weequay has a blaster pistol and combat gloves, the kind with weighted knuckles. The Kyuzo have blaster pistols too, but those war helms aren't decoration — Kyuzo use them as weapons. Headbutt range. No heavy ordinance. They came to collect a debt, not fight a war."
+            },
+            {
+              "type": "normal",
+              "question": "Who's the leader? Who do the others look to before moving?",
+              "response": "The Weequay. He walked in first, he's doing the talking, and the Kyuzo haven't moved without checking his position. He's confident — this is routine for him. The Kyuzo are muscle. They follow."
+            },
+            {
+              "type": "normal",
+              "question": "Are they here for us, for Maya, or just sweeping the room?",
+              "response": "Maya. The Weequay's eyes went straight to her the moment the doors opened. He didn't scan the room — he tracked her. You're furniture until you make yourselves relevant."
+            }
+          ]
+        },
+        {
+          "id": "insight",
+          "label": "Insight",
+          "arena": "Wits",
+          "focus": "emotion, intent, social dynamics",
+          "entries": [
+            {
+              "type": "normal",
+              "question": "Are they confident, or nervous? Is this routine or are they on edge?",
+              "response": "The Weequay is confident. This is Tuesday for him. He's done this before and he expects the same result — the target folds, he collects, he leaves. The Kyuzo are harder to read behind those helms, but their body language is relaxed. Professional, not agitated. Nobody here is expecting a fight."
+            },
+            {
+              "type": "normal",
+              "question": "Is the leader the dangerous one, or is there someone behind them calling the shots?",
+              "response": "He's the mouthpiece, but he's not the one you should worry about. He's a collector. The Kyuzo are the muscle — they're the ones who make sure the collection happens if words don't work. And behind all three of them is Varga the Hutt, who isn't here but whose name keeps this whole room quiet."
+            },
+            {
+              "type": "normal",
+              "question": "Are any of them hesitant — someone who might break ranks or be talked down?",
+              "response": "The Weequay, ironically. He's the one with the most to lose. The Kyuzo are hired hands — they'll do what they're paid to do. But the Weequay has to decide if this is worth escalating. He walked in expecting an easy pickup. If the math changes — if the cost gets too high — he's the one who'll fold first."
+            }
+          ]
+        },
+        {
+          "id": "survival",
+          "label": "Survival",
+          "arena": "Grit",
+          "focus": "terrain, hazards, instincts",
+          "entries": [
+            {
+              "type": "normal",
+              "question": "What's our best escape route right now — can we get to the back exit before they lock it down?",
+              "response": "The back hallway behind the bar. The enforcers haven't covered it yet — they're all at the front entrance. You could reach it in about four seconds if you moved now. But you'd have to leave Maya, and the Weequay would see you run. Once the Kyuzo reposition — and they will — that back exit gets a lot harder."
+            },
+            {
+              "type": "normal",
+              "question": "Are they positioned to cut off retreat, or did they come in sloppy?",
+              "response": "Sloppy. All three entered through the front and they're still bunched at the entrance. No one on the back exit, no one in the flanks. But the Kyuzo are already drifting — one toward the booths, one toward the alcove. Give them thirty seconds and they'll have the room covered. Right now, there's a window."
+            }
+          ]
+        },
+        {
+          "id": "tech",
+          "label": "Tech",
+          "arena": "Wits",
+          "focus": "devices, systems, signals",
+          "entries": [
+            {
+              "type": "normal",
+              "question": "Are they on comms with someone outside — backup, a boss, a ship?",
+              "response": "No active comm traffic from any of them. They're operating standalone. Either they're confident enough not to need backup, or backup isn't close enough to matter. No one's listening in on this conversation — it's just the three of them."
+            },
+            {
+              "type": "normal",
+              "question": "Can I identify their gear — is this local militia equipment or something better funded?",
+              "response": "Mid-grade Hutt cartel issue. Not fancy, but maintained. The blasters are reliable models — Merr-Sonn, common in Outer Rim enforcement. The Kyuzo war helms are personal — cultural, not standard issue. These aren't freelancers. They're on someone's payroll."
+            },
+            {
+              "type": "normal",
+              "question": "Is there a way to disable the lights or trigger a distraction from here?",
+              "response": "Junction box by the back hallway — you could kill the lights in three seconds. Or pull the exposed wiring above the booth row to drop that section into shadow. The blast door has a manual override lever by the entrance — if you sealed it, you'd trap everyone inside, including them. Depends on whether you want an advantage or a cage."
+            }
+          ]
+        },
+        {
+          "id": "charm",
+          "label": "Charm",
+          "arena": "Presence",
+          "focus": "warmth, approachability, social leverage",
+          "entries": [
+            {
+              "type": "normal",
+              "question": "Is there anyone among them who might be open to a bribe or a conversation?",
+              "response": "The Weequay. He's a Hutt enforcer, not an ideologue. His loyalty runs exactly as deep as his pay. He won't betray Varga — that's suicide — but if you gave him a face-saving reason to walk away from this particular job, he might take it. 'She wasn't here, we missed her' is a story he could sell upward. The Kyuzo won't engage — they're waiting for orders."
+            }
+          ]
+        },
+        {
+          "id": "persuasion",
+          "label": "Persuasion",
+          "arena": "Presence",
+          "focus": "values, needs, leverage",
+          "entries": [
+            {
+              "type": "normal",
+              "question": "What do they want? Are they here for a person, an object, or just to assert control?",
+              "response": "They want Maya. Specifically, they want whatever she took from Varga — this is debt collection, not a grudge. If Maya paid up or handed over what she stole, they'd leave. The Weequay isn't invested in hurting her. He's invested in closing the file."
+            },
+            {
+              "type": "normal",
+              "question": "What would it cost to make this go away — credits, information, cooperation?",
+              "response": "Credits would work if you had enough. But what the Weequay really needs is something to bring back to Varga — proof the debt is settled or proof Maya is out of reach. If you could convince him Maya is under someone's protection that outranks Varga on the food chain, he'd walk. He doesn't want to be in a situation where the collection costs more than the debt."
+            }
+          ]
+        },
+        {
+          "id": "sense",
+          "label": "Sense / Force",
+          "arena": "Wits",
+          "focus": "presence, danger, the unseen",
+          "entries": [
+            {
+              "type": "normal",
+              "question": "Which one is the most dangerous — not by rank, but by intent?",
+              "response": "The Kyuzo on the left — the one drifting toward the booths. The Weequay is loud but not violent yet. The other Kyuzo is waiting. But the one on the left has already decided what he'll do if this goes sideways. His mind is settled. He's not hoping for peace."
+            },
+            {
+              "type": "normal",
+              "question": "Is violence inevitable, or is there a path through this without a fight?",
+              "response": "There's a path. The Weequay doesn't want violence — he wants a clean collection. The Force shows you the fork: this can end with words. But the window is narrow, and it depends on what happens in the next thirty seconds. If no one gives him a reason to stand down, he'll default to what he knows."
+            },
+            {
+              "type": "normal",
+              "question": "Are any of them afraid? Of us, of their boss, of something else?",
+              "response": "The Weequay is afraid of Varga — not of you. Going back empty-handed is worse than a bar fight. The Kyuzo aren't afraid of anything in this room. But underneath the whole scene, there's the same ambient dread everyone on Jakku is carrying today: the Lambda shuttle. Even the enforcers noticed it on the way in."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
