@@ -137,32 +137,37 @@
       var comp = tb.computed || {};
       var tier = tb.tier || 0;
       if (tier > highestTier) highestTier = tier;
-      npcIdCounter++;
-      npcEntries.push({
-        id: 'npc_' + npcIdCounter,
-        name: n.name || n.type || ('NPC ' + npcIdCounter),
-        type: 'npc',
-        disposition: 'enemy',
-        threat: tb.classification || 'standard',
-        tier: tier,
-        role: tb.role || '',
-        initiative: comp.initiative || (1 + tier),
-        power: comp.power || 0,
-        defense: comp.defense || 0,
-        evasion: comp.evasion || 0,
-        resist: comp.resist || 0,
-        vitalityMax: comp.vitality || 5,
-        vitalityCurrent: comp.vitality || 5,
-        actions: comp.actions || 1,
-        conditions: [],
-        conditionArenas: {},
-        roleKit: tb.roleKit || null,
-        computedAttacks: tb.computedAttacks || [],
-        arenas: tb.arenas || {},
-        damageTiers: comp.damageTiers || null,
-        zone: null,
-        npcData: n
-      });
+      var count = n.count || 1;
+      var baseName = n.name || n.type || ('NPC');
+      for (var ci = 0; ci < count; ci++) {
+        npcIdCounter++;
+        var displayName = count > 1 ? baseName + ' #' + (ci + 1) : baseName;
+        npcEntries.push({
+          id: 'npc_' + npcIdCounter,
+          name: displayName,
+          type: 'npc',
+          disposition: 'enemy',
+          threat: tb.classification || 'standard',
+          tier: tier,
+          role: tb.role || '',
+          initiative: comp.initiative || (1 + tier),
+          power: comp.power || 0,
+          defense: comp.defense || 0,
+          evasion: comp.evasion || 0,
+          resist: comp.resist || 0,
+          vitalityMax: comp.vitality || 5,
+          vitalityCurrent: comp.vitality || 5,
+          actions: comp.actions || 1,
+          conditions: [],
+          conditionArenas: {},
+          roleKit: tb.roleKit || null,
+          computedAttacks: tb.computedAttacks || [],
+          arenas: tb.arenas || {},
+          damageTiers: comp.damageTiers || null,
+          zone: null,
+          npcData: n
+        });
+      }
     });
 
     var startPositions = {};
@@ -175,13 +180,16 @@
     var spKeys = Object.keys(startPositions);
     var usedSPKeys = {};
     npcEntries.forEach(function (npc) {
+      var baseName = npc.name.replace(/ #\d+$/, '');
+      var isClone = baseName !== npc.name;
       var bestKey = null;
       for (var k = 0; k < spKeys.length; k++) {
         var key = spKeys[k];
-        if (key === 'PCs' || key === 'Patrons' || usedSPKeys[key]) continue;
+        if (key === 'PCs' || key === 'Patrons') continue;
+        if (!isClone && usedSPKeys[key]) continue;
         var keyLower = key.toLowerCase();
-        var npcNameLower = npc.name.toLowerCase();
-        if (keyLower === npcNameLower || npcNameLower.indexOf(keyLower) !== -1 || keyLower.indexOf(npcNameLower.replace(/ #\d+$/, '')) !== -1) {
+        var baseNameLower = baseName.toLowerCase();
+        if (keyLower === baseNameLower || baseNameLower.indexOf(keyLower) !== -1 || keyLower.indexOf(baseNameLower) !== -1) {
           bestKey = key;
           break;
         }
@@ -189,16 +197,17 @@
       if (!bestKey) {
         for (var k2 = 0; k2 < spKeys.length; k2++) {
           var key2 = spKeys[k2];
-          if (key2 === 'PCs' || key2 === 'Patrons' || usedSPKeys[key2]) continue;
+          if (key2 === 'PCs' || key2 === 'Patrons') continue;
+          if (!isClone && usedSPKeys[key2]) continue;
           var keyWords = key2.toLowerCase().split(/\s+/);
-          var nameWords = npc.name.toLowerCase().replace(/ #\d+$/, '').split(/\s+/);
+          var nameWords = baseName.toLowerCase().split(/\s+/);
           var overlap = nameWords.some(function (w) { return w.length > 2 && keyWords.some(function (kw) { return kw.indexOf(w) !== -1 || w.indexOf(kw) !== -1; }); });
           if (overlap) { bestKey = key2; break; }
         }
       }
       if (bestKey) {
         npc.zone = startPositions[bestKey];
-        usedSPKeys[bestKey] = true;
+        if (!isClone) usedSPKeys[bestKey] = true;
       }
     });
 
@@ -1010,8 +1019,8 @@
           html += '<div class="ct-zone-tokens">';
           tokens.forEach(function (t) {
             var isSelected = combatState.selectedToken === t.id;
-            var tokenClass = t.type === 'pc' ? 'ct-token-pc' : 'ct-token-npc';
-            html += '<span class="ct-token ' + tokenClass + (isSelected ? ' ct-token-selected' : '') + '" data-token-id="' + esc(t.id) + '" title="' + esc(t.name) + '">' + esc(t.shortName) + '</span>';
+            var dispClass = t.type === 'pc' ? 'ct-token-pc' : 'ct-token-disp-' + (t.disposition || 'enemy');
+            html += '<span class="ct-token ' + dispClass + (isSelected ? ' ct-token-selected' : '') + '" data-token-id="' + esc(t.id) + '" title="' + esc(t.name) + '">' + esc(t.shortName) + '</span>';
           });
           html += '</div>';
         }
@@ -1049,18 +1058,24 @@
         var shortName = tokId;
         var fullName = tokId;
         var type = 'pc';
+        var disposition = null;
         if (tokId === 'PCs') {
           shortName = 'PCs';
           fullName = 'Player Characters';
         } else {
           var npc = combatState.combatants.find(function (n) { return n.id === tokId; });
           if (npc) {
-            shortName = npc.name.length > 8 ? npc.name.substring(0, 7) + '.' : npc.name;
+            var numMatch = npc.name.match(/ #(\d+)$/);
+            var numSuffix = numMatch ? ' #' + numMatch[1] : '';
+            var nameBase = numMatch ? npc.name.replace(/ #\d+$/, '') : npc.name;
+            var maxBase = 8 - numSuffix.length;
+            shortName = nameBase.length > maxBase ? nameBase.substring(0, maxBase - 1) + '.' + numSuffix : npc.name;
             fullName = npc.name;
             type = 'npc';
+            disposition = npc.disposition || 'enemy';
           }
         }
-        tokens.push({ id: tokId, shortName: shortName, name: fullName, type: type });
+        tokens.push({ id: tokId, shortName: shortName, name: fullName, type: type, disposition: disposition });
       }
     });
     return tokens;
