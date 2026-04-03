@@ -499,12 +499,12 @@
             {
               "type": "normal",
               "question": "What do they want? Are they here for a person, an object, or just to assert control?",
-              "response": "They want Maya. Specifically, they want whatever she took from Varga — this is debt collection, not a grudge. If Maya paid up or handed over what she stole, they'd leave. The Weequay isn't invested in hurting her. He's invested in closing the file."
+              "response": "They want something Maya has — something she intercepted before Varga's people could grab it. This is a retrieval job, not a grudge. If Maya handed over what she took, they'd leave. The Weequay isn't invested in hurting her. He's invested in bringing it back to Varga."
             },
             {
               "type": "normal",
               "question": "What would it cost to make this go away — credits, information, cooperation?",
-              "response": "Credits would work if you had enough. But what the Weequay really needs is something to bring back to Varga — proof the debt is settled or proof Maya is out of reach. If you could convince him Maya is under someone's protection that outranks Varga on the food chain, he'd walk. He doesn't want to be in a situation where the collection costs more than the debt."
+              "response": "Credits won't cut it — Varga wants the item, not compensation. But what the Weequay really needs is something to bring back to his boss — the cylinder itself, or a convincing reason why he couldn't get it. If you could convince him Maya is under someone's protection that outranks Varga on the food chain, he'd walk. He doesn't want to be in a situation where the retrieval costs more than the prize."
             }
           ]
         },

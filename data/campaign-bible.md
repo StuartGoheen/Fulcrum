@@ -49,14 +49,14 @@ Leviathan is the Empire's ambition made physical — a weapon so large it requir
 ### Maya
 **Species:** Human | **Role:** Pilot, Partner, Moral Compass
 
-**What the Players See:** A solo operator and smuggler who owns and flies the *Banshee*. She's desperate when they meet her — wounded, in debt to a Hutt, carrying stolen Imperial data. She pitches the heroes a job and becomes their pilot and partner. She's sharp, brave, and genuinely cares about people — sometimes inconveniently so.
+**What the Players See:** A solo operator and smuggler who owns and flies the *Banshee*. She's desperate when they meet her — wounded, on the run from a Hutt's enforcers after intercepting an encrypted Imperial Code Cylinder from Varga's supply chain. She pitches the heroes a job and becomes their pilot and partner. She's sharp, brave, and genuinely cares about people — sometimes inconveniently so.
 
 **What the GM Knows:** Maya is the campaign's emotional throughline. She starts as a self-interested grifter chasing a score, but her conscience evolves faster than anyone else's. She's the first to push back against Varth's cold calculus, and in Adventure 3, she puts herself on a slave ship because she can't walk away from three hundred people in chains. Her relationship with the heroes is the most honest one in the campaign — and Varth knows this, which is why he's willing to sacrifice her.
 
 **Arc:** Stranger → Partner → Conscience of the crew → Varth's intended sacrifice → (if saved) the person who punches Varth and speaks the truth about what he is.
 
 **Key Moments:**
-- Adv1 S1: Crashes the heroes' table on Jakku, pitches the job
+- Adv1 S1: Crashes the heroes' table at The Burning Deck on Jakku — wounded, fleeing Varga's retrieval crew after intercepting the Code Cylinder. Pitches the job.
 - Adv1 P2 S1: Invites the Ace Pilot to the co-pilot seat for the Rishi Maze. Bonding moment — teaches them to read the Maze.
 - Adv1 P2 S2: Takes shrapnel during V-wing strafing on approach. The Ace takes the stick and crash-lands the Banshee. Maya stays behind to repair and gives the heroes a secondary objective: disable the turret defenses so she can fly extraction.
 - Adv1 P2 S6: Extraction is conditional on turrets being down. If they're destroyed, she swoops in clean. If not, she takes heavy fire. Either way, she proves she's not just a grifter — she's the crew's pilot under fire.
@@ -232,7 +232,7 @@ Varth did his research before sending the heroes to Takodana. He knew Raden was 
 ### Varga's Organization
 **Goal:** Make money. Recover the encrypted account Varth locked inside their network.
 **Problem:** Varth has the authentication key in his head. Without him, the credits are untouchable.
-**Interaction:** Antagonistic in Act 1 (debt collectors, fortress infiltration, Bespin pursuit). Resolved by end of Adventure 3 when the heroes board the Glorious Chariot and kill Varga during the final confrontation.
+**Interaction:** Antagonistic in Act 1 (retrieval enforcers, fortress infiltration, Bespin pursuit). Resolved by end of Adventure 3 when the heroes board the Glorious Chariot and kill Varga during the final confrontation.
 
 ### The Inquisitorius
 **Goal:** Protect Leviathan operational security. Hunt Force-sensitives.
@@ -351,7 +351,7 @@ A leviathan is a creature of the deep that drags you down. This weapon literally
 **What the GM Knows:** This is Varth's breadcrumb trail activating. The code cylinder was placed to eventually lead someone to him. Maya found it. Everything that follows is the first domino.
 
 **Key Plot Beats:**
-- Maya crashes the heroes' table, fleeing Varga's debt collectors
+- Maya crashes the heroes' table at The Burning Deck, fleeing Varga's retrieval crew after intercepting the Code Cylinder from his supply chain
 - Switch examines the cylinder — quotes a diagnostic fee the heroes can't afford. Offers a deal: reduced fee if they agree to become information assets for his network (pass along validated intel as they travel, get compensated). This establishes Switch as a recurring contact.
 - Switch identifies the cylinder as ghost transfer authorization — no location data, but it can authenticate into Imperial shuttle systems
 - Maya reveals she's been tracking an Imperial shuttle on the Niima Landing Field
