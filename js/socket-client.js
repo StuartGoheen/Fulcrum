@@ -549,49 +549,99 @@
   var _tutData = null;
   var _tutCollapsed = false;
   var _tutKitsCache = null;
+  var _tutManeuversCache = null;
+
+  var _DIE_RANK = { D4: 1, D6: 2, D8: 3, D10: 4, D12: 5 };
 
   function _tutEsc(s) {
     return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
 
-  function _getPlayerAssessGambits() {
+  function _getPlayerAssessAbilities() {
     var char = window.CharacterPanel && window.CharacterPanel.currentChar;
-    if (!char || !char.kits || !_tutKitsCache) return [];
-    var gambits = [];
-    var playerKits = Array.isArray(char.kits) ? char.kits : [];
-    var playerKitMap = {};
-    playerKits.forEach(function (k) { playerKitMap[k.id] = k.tier || 0; });
-    _tutKitsCache.forEach(function (kit) {
-      if (!(kit.id in playerKitMap)) return;
-      var playerTier = playerKitMap[kit.id];
-      (kit.abilities || []).forEach(function (ab) {
-        if (ab.modifiesAction === 'action_assess' && (!ab.tier || ab.tier <= playerTier)) {
-          gambits.push({
+    if (!char) return [];
+    var results = [];
+
+    if (_tutManeuversCache) {
+      var allDiscs = (char.arenas || []).flatMap(function (a) {
+        return (a.disciplines || []).map(function (d) { return { id: d.id, die: (d.die || 'D4').toUpperCase() }; });
+      });
+      var discMap = {};
+      allDiscs.forEach(function (d) { discMap[d.id] = d.die; });
+
+      var discData = _tutManeuversCache.disciplineGambits || {};
+      Object.keys(discData).forEach(function (discId) {
+        var playerDie = discMap[discId];
+        if (!playerDie) return;
+        var playerRank = _DIE_RANK[playerDie] || 0;
+        var disc = discData[discId];
+        (disc.gambits || []).forEach(function (g) {
+          if (g.modifiesAction !== 'action_assess') return;
+          var reqRank = _DIE_RANK[(g.requiredDie || 'D4').toUpperCase()] || 0;
+          if (playerRank >= reqRank) {
+            results.push({
+              type: 'gambit',
+              name: g.name || 'Unnamed',
+              rule: g.rule || '',
+              source: (disc.name || discId) + ' ' + (g.requiredDie || ''),
+              reqDie: g.requiredDie || ''
+            });
+          }
+        });
+      });
+    }
+
+    if (_tutKitsCache && char.kits) {
+      var playerKits = Array.isArray(char.kits) ? char.kits : [];
+      var playerKitMap = {};
+      playerKits.forEach(function (k) { playerKitMap[k.id] = k.tier || 0; });
+      _tutKitsCache.forEach(function (kit) {
+        if (!(kit.id in playerKitMap)) return;
+        var playerTier = playerKitMap[kit.id];
+        (kit.abilities || []).forEach(function (ab) {
+          if (ab.modifiesAction !== 'action_assess') return;
+          if (ab.tier && ab.tier > playerTier) return;
+          results.push({
+            type: ab.type || 'passive',
             name: ab.name || ab.shorthand || 'Unnamed',
             rule: ab.rule || ab.shorthand || '',
-            kitName: kit.name || kit.id,
-            tier: ab.tier || ''
+            source: (kit.name || kit.id) + (ab.tier ? ' T' + ab.tier : '')
           });
-        }
+        });
       });
-    });
-    return gambits;
+    }
+
+    return results;
   }
 
-  function _loadKitsForTutorial(cb) {
-    if (_tutKitsCache) { cb(); return; }
-    fetch('/data/kits.json')
-      .then(function (r) { return r.json(); })
-      .then(function (data) {
-        _tutKitsCache = Array.isArray(data) ? data : (data.kits || []);
-        cb();
-      })
-      .catch(function () { cb(); });
+  function _loadTutorialData(cb) {
+    var pending = 2;
+    var done = function () { pending--; if (pending <= 0) cb(); };
+
+    if (_tutKitsCache) { done(); } else {
+      fetch('/data/kits.json')
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          _tutKitsCache = Array.isArray(data) ? data : (data.kits || []);
+          done();
+        })
+        .catch(function () { done(); });
+    }
+
+    if (_tutManeuversCache) { done(); } else {
+      fetch('/data/maneuvers.json')
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          _tutManeuversCache = data;
+          done();
+        })
+        .catch(function () { done(); });
+    }
   }
 
   function _showTutorialPanel(data) {
     _tutData = data;
-    _loadKitsForTutorial(function () {
+    _loadTutorialData(function () {
       _renderTutorialPanel();
     });
   }
@@ -654,16 +704,16 @@
         html += '</div>';
       });
 
-      var gambits = _getPlayerAssessGambits();
-      html += '<div class="tut-section-title">Your Assess Gambits</div>';
-      if (gambits.length === 0) {
-        html += '<div class="tut-no-gambits">No assess-specific gambits in your current vocations.</div>';
+      var abilities = _getPlayerAssessAbilities();
+      html += '<div class="tut-section-title">Your Assess Abilities</div>';
+      if (abilities.length === 0) {
+        html += '<div class="tut-no-gambits">No assess-specific abilities unlocked yet.</div>';
       } else {
-        gambits.forEach(function (g) {
+        abilities.forEach(function (ab) {
           html += '<div class="tut-gambit-card">';
-          html += '<div class="tut-gambit-name">' + _tutEsc(g.name) + '</div>';
-          html += '<div class="tut-gambit-kit">' + _tutEsc(g.kitName) + (g.tier ? ' \u2014 T' + g.tier : '') + '</div>';
-          html += '<div class="tut-gambit-rule">' + _tutEsc(g.rule) + '</div>';
+          html += '<div class="tut-gambit-name">' + _tutEsc(ab.name) + '</div>';
+          html += '<div class="tut-gambit-kit">' + _tutEsc(ab.source) + ' \u2014 ' + _tutEsc(ab.type) + '</div>';
+          html += '<div class="tut-gambit-rule">' + _tutEsc(ab.rule) + '</div>';
           html += '</div>';
         });
       }
