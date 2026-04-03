@@ -1538,9 +1538,28 @@
       var pKeys = Object.keys(comp.powers);
       pKeys.forEach(function (k) { if (comp.powers[k] > maxPower) maxPower = comp.powers[k]; });
     }
+    var rawName = npcBuild.name || 'Unknown NPC';
+    var rawBase = rawName.replace(/ #\d+$/, '');
+    var sameCount = 0;
+    combatState.combatants.forEach(function (n) {
+      if (n.name.replace(/ #\d+$/, '') === rawBase) sameCount++;
+    });
+    if (sameCount > 0) {
+      var needsRenumber = [];
+      combatState.combatants.forEach(function (n) {
+        if (n.name.replace(/ #\d+$/, '') === rawBase) needsRenumber.push(n);
+      });
+      if (needsRenumber.length === 1 && needsRenumber[0].name === rawBase) {
+        needsRenumber[0].name = rawBase + ' #1';
+        var to = combatState.turnOrder.find(function (t) { return t.id === needsRenumber[0].id; });
+        if (to) to.name = needsRenumber[0].name;
+      }
+      rawName = rawBase + ' #' + (sameCount + 1);
+    }
+
     var entry = {
       id: id,
-      name: npcBuild.name || 'Unknown NPC',
+      name: rawName,
       type: 'npc',
       disposition: 'enemy',
       threat: npcBuild.classification || 'standard',
