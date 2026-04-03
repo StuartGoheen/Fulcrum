@@ -125,6 +125,29 @@
     return _socket;
   }
 
+  function _getPcDefaultZone() {
+    if (!combatState) return null;
+    var tp = combatState.tokenPositions;
+    for (var key in tp) {
+      if (key === 'PCs') return tp[key];
+    }
+    var slots = combatState.pcSlots || [];
+    for (var i = 0; i < slots.length; i++) {
+      if (tp[slots[i].id]) return tp[slots[i].id];
+    }
+    var tm = combatState.tacticalMap;
+    if (tm && tm.gmStartingPositions && tm.gmStartingPositions['PCs']) {
+      return tm.gmStartingPositions['PCs'];
+    }
+    if (tm && tm.startingPositions) {
+      var sp = tm.startingPositions;
+      for (var j = 0; j < sp.length; j++) {
+        if (sp[j].name === 'PCs') return sp[j].zone;
+      }
+    }
+    return null;
+  }
+
   function startEncounter(encounter, scene, npcs, partyData, socket) {
     if (socket) _socket = socket;
     var highestTier = 0;
@@ -315,14 +338,31 @@
         if (!combatState) return;
         combatState.pcResponses[String(data.characterId)] = data;
         var pc = combatState.pcSlots.find(function (p) { return p.id === String(data.characterId); });
-        if (pc) {
-          pc.initiative = data.initiative;
-          pc.surprised = data.surprised;
-          pc.mastery = data.mastery;
-          pc.controlResult = data.controlResult;
+        if (!pc) {
+          pc = {
+            id: String(data.characterId),
+            name: data.name || 'Unknown',
+            type: 'pc',
+            initiative: 0,
+            conditions: [],
+            vocations: [],
+            species: '',
+            archetype: '',
+            connected: true
+          };
+          combatState.pcSlots.push(pc);
+          var defaultZone = _getPcDefaultZone();
+          if (defaultZone) {
+            combatState.tokenPositions[pc.id] = defaultZone;
+          }
         }
+        pc.initiative = data.initiative;
+        pc.surprised = data.surprised;
+        pc.mastery = data.mastery;
+        pc.controlResult = data.controlResult;
         rebuildTurnOrder();
         renderCombatTracker();
+        syncStateToServer();
       }
 
       function onAllJoined() {
@@ -2017,12 +2057,28 @@
         if (!combatState) return;
         combatState.pcResponses[String(data.characterId)] = data;
         var pc = combatState.pcSlots.find(function (p) { return p.id === String(data.characterId); });
-        if (pc) {
-          pc.initiative = data.initiative;
-          pc.surprised = data.surprised;
-          pc.mastery = data.mastery;
-          pc.controlResult = data.controlResult;
+        if (!pc) {
+          pc = {
+            id: String(data.characterId),
+            name: data.name || 'Unknown',
+            type: 'pc',
+            initiative: 0,
+            conditions: [],
+            vocations: [],
+            species: '',
+            archetype: '',
+            connected: true
+          };
+          combatState.pcSlots.push(pc);
+          var defaultZone = _getPcDefaultZone();
+          if (defaultZone) {
+            combatState.tokenPositions[pc.id] = defaultZone;
+          }
         }
+        pc.initiative = data.initiative;
+        pc.surprised = data.surprised;
+        pc.mastery = data.mastery;
+        pc.controlResult = data.controlResult;
         rebuildTurnOrder();
         _origRenderCombatTracker();
         syncStateToServer();
