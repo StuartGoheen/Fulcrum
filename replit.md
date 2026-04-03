@@ -261,6 +261,20 @@ The right column (`#frame-right`, 25vw fixed sidebar) serves as the **combat coc
 
 **Action Economy pips** are rendered inline inside the Operational Status section (below Start/End Turn buttons). End Turn automatically resets all pips. Bonuses from kit abilities auto-calculated.
 
+## Character Data Format (Canonical — Character Creator Output)
+
+All character data uses the **character creator format**. There is one standard:
+- `discValues` — flat object keyed by discipline ID → die string (only non-D6 values stored, e.g. `{"stealth":"D10","ranged":"D8"}`)
+- `arenaAdj` — flat object keyed by arena ID → step adjustment from species base (e.g. `{"reflex":1,"grit":1}`)
+- `startingGear` — array of gear objects with `{id, name, cost, source, acquisition, legalStatus, origin}`
+- `kits` — flat object keyed by kit ID → tier number (e.g. `{"voc_ghost":3,"voc_gunslinger":2}`)
+- `species` — string (e.g. `"Duros"`, `"Human"`)
+- `destiny` — string ID (e.g. `"rescue"`, `"two-light"`)
+- `phase1/phase2/phase3` — string IDs of background phases (e.g. `"The Shipboard Born"`)
+- `backgroundFavored` — optional array of favored discipline IDs; derived from phases via `BACKGROUND_FAVORED` map when absent
+
+The old format (`arenas` array with nested disciplines, `weaponIds`/`armorIds`/`gearIds` separate arrays) is **deprecated**. The `expandCharacterData` function in `characters.js` and `extractCharacterProfile` in `campaign.js` both use the creator format. Purchased items from the Black Market are added to `weaponIds`/`gearIds`/`armorIds`; both are merged during rendering.
+
 ## Armor Storage (armorIds Migration)
 
 Armor is stored as an **array** (`armorIds: [...]`) in character_data, supporting multiple owned armor pieces. Legacy characters with `armorId` (single string) are auto-migrated to `armorIds` on expansion. All client panels (`armor-panel.js`, `armory-panel.js`, `loadout-panel.js`) fall back to `char.armorId` if `char.armorIds` is missing. The `inventoryRemovals.armor` field is now an array of removed armor IDs (was previously a boolean `true`). `applyInventoryRemovals` handles both array and legacy boolean formats. Equipment status determines which armor is equipped/carried/stowed; armor without a status entry defaults to `carried` in the loadout panel. The maneuvers panel (`js/maneuvers-panel.js`) applies equipped armor category modifiers to Dodge and Endure defense dice: Endure steps the Physique power die (none=-1, light=0, medium=+1, heavy=+2), Dodge steps the Reflex power die (none=0, light=0, medium=-1, heavy=-2) with `evasionException` and `evasionReduction` support. The panel fetches `data/armor.json` and resolves the equipped armor from equipment status on each render.

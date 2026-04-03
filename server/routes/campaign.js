@@ -509,32 +509,98 @@ function extractCharacterProfile(data) {
     });
   } catch (e) {}
 
-  const backgroundFavored = data.backgroundFavored || [];
-
-  const disciplines = {};
-  const arenas = {};
-  if (data.arenas && Array.isArray(data.arenas)) {
-    data.arenas.forEach(arena => {
-      arenas[arena.id] = arena.die || null;
-      if (arena.disciplines && Array.isArray(arena.disciplines)) {
-        arena.disciplines.forEach(disc => {
-          const isFavored = backgroundFavored.includes(disc.id) || kitFavoredDiscs.includes(disc.id);
-          const discDie = disc.die || null;
-          const isTrained = dieRank(discDie) > dieRank('D4');
-          disciplines[disc.id] = {
-            training: isTrained ? 'trained' : 'untrained',
-            favored: isFavored,
-            die: discDie,
-          };
-        });
+  let backgroundFavored = data.backgroundFavored || [];
+  if (!backgroundFavored.length) {
+    backgroundPhases.forEach(bp => {
+      if (bp.id) {
+        const fav = BACKGROUND_FAVORED[bp.id];
+        if (fav && !backgroundFavored.includes(fav)) backgroundFavored.push(fav);
       }
     });
   }
 
+  const SPECIES_ARENAS = {
+    'Human':   { physique: 'D6', reflex: 'D6', grit: 'D6', wits: 'D6', presence: 'D6' },
+    "Twi'lek": { physique: 'D6', reflex: 'D6', grit: 'D6', wits: 'D6', presence: 'D6' },
+    'Wookiee': { physique: 'D8', reflex: 'D4', grit: 'D6', wits: 'D6', presence: 'D6' },
+    'Duros':   { physique: 'D6', reflex: 'D6', grit: 'D6', wits: 'D6', presence: 'D6' },
+    'Zabrak':  { physique: 'D6', reflex: 'D6', grit: 'D6', wits: 'D6', presence: 'D6' },
+    'Kel Dor': { physique: 'D6', reflex: 'D6', grit: 'D6', wits: 'D8', presence: 'D6' },
+    'Togruta': { physique: 'D4', reflex: 'D8', grit: 'D6', wits: 'D6', presence: 'D6' },
+    'Rodian':  { physique: 'D6', reflex: 'D8', grit: 'D6', wits: 'D6', presence: 'D4' },
+    'Sullustan': { physique: 'D4', reflex: 'D6', grit: 'D6', wits: 'D8', presence: 'D6' },
+    'Cathar':  { physique: 'D6', reflex: 'D6', grit: 'D8', wits: 'D4', presence: 'D6' },
+  };
+  const ARENA_DISC_MAP = [
+    { id: 'physique', discs: ['athletics','brawl','endure','melee','heavy_weapons'] },
+    { id: 'reflex', discs: ['evasion','piloting','ranged','skulduggery','stealth'] },
+    { id: 'grit', discs: ['beast_handling','intimidate','resolve','survival','control_spark'] },
+    { id: 'wits', discs: ['investigation','medicine','tactics','tech','sense_spark'] },
+    { id: 'presence', discs: ['charm','deception','insight','persuasion','alter_spark'] },
+  ];
+  const DIE_STEPS = ['D4', 'D6', 'D8', 'D10', 'D12'];
+
+  const rawSpeciesStr = typeof data.species === 'string' ? data.species : (data.species && data.species.id ? data.species.id : 'Human');
+  const speciesBase = SPECIES_ARENAS[rawSpeciesStr] || SPECIES_ARENAS['Human'];
+  const arenaAdj = data.arenaAdj || {};
+  const discValuesMap = data.discValues || {};
+
+  const disciplines = {};
+  const arenas = {};
+  ARENA_DISC_MAP.forEach(arena => {
+    const baseIdx = DIE_STEPS.indexOf(speciesBase[arena.id] || 'D6');
+    const adj = arenaAdj[arena.id] || 0;
+    const finalIdx = Math.max(0, Math.min(DIE_STEPS.length - 1, baseIdx + adj));
+    arenas[arena.id] = DIE_STEPS[finalIdx];
+
+    arena.discs.forEach(discId => {
+      const discDie = discValuesMap[discId] || 'D6';
+      const isFavored = backgroundFavored.includes(discId) || kitFavoredDiscs.includes(discId);
+      const isTrained = dieRank(discDie) > dieRank('D4');
+      disciplines[discId] = {
+        training: isTrained ? 'trained' : 'untrained',
+        favored: isFavored,
+        die: discDie,
+      };
+    });
+  });
+
   const equipDb = loadEquipment();
   const gear = [];
-  const allIds = [].concat(data.weaponIds || [], data.armorIds || [], data.gearIds || []);
-  allIds.forEach(itemId => {
+  const gearSeen = {};
+  const startingGear = Array.isArray(data.startingGear) ? data.startingGear : [];
+  const removals = data.inventoryRemovals || {};
+  const removedIds = [].concat(removals.gear || [], removals.weapons || [], removals.armor === true ? [] : (removals.armor || []));
+
+  startingGear.forEach(sg => {
+    if (!sg || !sg.id) return;
+    if (removedIds.includes(sg.id)) return;
+    gearSeen[sg.id] = true;
+    const item = equipDb[sg.id];
+    if (item) {
+      gear.push({
+        id: item.id,
+        name: item.name || sg.name || 'Unknown',
+        type: item.type || sg.source || 'gear',
+        tags: item.tags || [],
+        traits: (item.traits || []).map(t => (typeof t === 'string' ? t : t.name || '')),
+        availability: item.availability || sg.legalStatus || null,
+      });
+    } else {
+      gear.push({
+        id: sg.id,
+        name: sg.name || 'Unknown',
+        type: sg.source || 'gear',
+        tags: [],
+        traits: [],
+        availability: sg.legalStatus || null,
+      });
+    }
+  });
+  const purchasedIds = [].concat(data.weaponIds || [], data.armorIds || [], data.gearIds || []);
+  purchasedIds.forEach(itemId => {
+    if (gearSeen[itemId] || removedIds.includes(itemId)) return;
+    gearSeen[itemId] = true;
     const item = equipDb[itemId];
     if (item) {
       gear.push({
