@@ -492,6 +492,14 @@ function registerHandlers(io) {
       const order = _combatState.turnOrder || [];
       if (order.length === 0) return;
       const idx = (_combatState.currentTurnIndex || 0);
+      const currentEntry = order[idx];
+      if (socket.data.role === 'gm') {
+        // GM can advance any turn
+      } else {
+        if (!currentEntry || currentEntry.type !== 'pc') return;
+        const charId = socket.data.characterId;
+        if (!charId || String(currentEntry.id) !== String(charId)) return;
+      }
       _combatState.currentTurnIndex = (idx + 1) % order.length;
       if (_combatState.currentTurnIndex === 0) {
         _combatState.round = (_combatState.round || 1) + 1;
