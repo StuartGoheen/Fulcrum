@@ -420,7 +420,9 @@
         h += '</div>';
       }
       if (rk.passive) {
-        h += '<div class="cb-npc-ability"><span class="cb-npc-ability-tag" style="background:rgba(192,132,252,0.15);color:#c084fc;">Passive</span> <strong>' + esc(rk.passive.name) + '</strong> — ' + linkify(rk.passive.description) + '</div>';
+        var passiveDesc = rk.passive.description;
+        if (rk.passive.statMod) passiveDesc += ' (included in stats)';
+        h += '<div class="cb-npc-ability"><span class="cb-npc-ability-tag" style="background:rgba(192,132,252,0.15);color:#c084fc;">Passive</span> <strong>' + esc(rk.passive.name) + '</strong> — ' + linkify(passiveDesc) + '</div>';
       }
       if (rk.maneuver && rk.maneuver.name) {
         h += '<div class="cb-npc-ability"><span class="cb-npc-ability-tag" style="background:rgba(168,85,247,0.15);color:#a855f7;">Maneuver</span> <strong>' + esc(rk.maneuver.name) + '</strong>';

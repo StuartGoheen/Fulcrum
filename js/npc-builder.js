@@ -225,6 +225,19 @@
       powers[arena] = a[arena] + tier + powerTrait;
     });
 
+    if (role && role.passive && role.passive.statMod) {
+      var sm = role.passive.statMod;
+      if (sm.powerArena && npc.powerSource) {
+        var psArena = POWER_SOURCE_ARENA[npc.powerSource];
+        if (psArena && powers[psArena] != null) {
+          powers[psArena] += sm.powerArena;
+        }
+      }
+      if (sm.defense) {
+        defense += sm.defense;
+      }
+    }
+
     var initiative = tier + (a.wits * 2) + initiativeTrait;
 
     return {
@@ -439,7 +452,9 @@
       if (rk && rk.passive) {
         html += '<div class="npc-action-economy-group">';
         html += '<div class="npc-action-group-label">PASSIVE</div>';
-        html += '<div class="npc-ability passive"><strong>' + esc(rk.passive.name) + ':</strong> ' + esc(rk.passive.description) + '</div>';
+        var passiveDesc = rk.passive.description;
+        if (rk.passive.statMod) passiveDesc += ' (included in stats)';
+        html += '<div class="npc-ability passive"><strong>' + esc(rk.passive.name) + ':</strong> ' + esc(passiveDesc) + '</div>';
         html += '</div>';
       }
 

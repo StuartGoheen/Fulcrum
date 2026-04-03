@@ -252,7 +252,8 @@
       "description": "High-damage priority target. The NPC the PCs must focus or suffer the consequences.",
       "passive": {
         "name": "Lethal Focus",
-        "description": "+1 Power to attacks in chosen arena."
+        "description": "+1 Power to attacks in chosen arena.",
+        "statMod": { "powerArena": 1 }
       },
       "powerSources": {
         "martial": {
@@ -390,7 +391,8 @@
       "description": "Holds ground, blocks access, protects a position or VIP. Hard to move, hard to ignore.",
       "passive": {
         "name": "Hardened",
-        "description": "+1 Defense in chosen arena."
+        "description": "+1 Defense in chosen arena.",
+        "statMod": { "defense": 1 }
       },
       "powerSources": {
         "martial": {

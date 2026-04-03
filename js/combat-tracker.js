@@ -913,7 +913,9 @@
       html += '</div>';
     }
     if (rk.passive) {
-      html += '<div class="ct-rk-entry"><span class="ct-rk-tag ct-rk-passive">Passive</span> <strong>' + esc(rk.passive.name) + '</strong> &mdash; ' + esc(rk.passive.description) + '</div>';
+      var passiveDesc = rk.passive.description;
+      if (rk.passive.statMod) passiveDesc += ' (included in stats)';
+      html += '<div class="ct-rk-entry"><span class="ct-rk-tag ct-rk-passive">Passive</span> <strong>' + esc(rk.passive.name) + '</strong> &mdash; ' + esc(passiveDesc) + '</div>';
     }
     if (rk.maneuver && rk.maneuver.name) {
       html += '<div class="ct-rk-entry"><span class="ct-rk-tag ct-rk-maneuver">Maneuver</span> <strong>' + esc(rk.maneuver.name) + '</strong>';
