@@ -638,7 +638,19 @@
     }
     html += '</div>';
 
-    if (scene.readAloud) {
+    if (scene.readAloudPart1 && scene.readAloudPart2) {
+      html += '<div class="cb-read-aloud cb-collapsible collapsed">';
+      html += '<div class="cb-section-label cb-collapse-toggle"><span class="cb-collapse-chevron">&#9654;</span> Read-Aloud — Part 1</div>';
+      html += '<div class="cb-collapse-body"><div class="cb-read-aloud-text">' + linkify(scene.readAloudPart1) + '</div>';
+      if (scene.readAloudPart1PauseNote) {
+        html += '<div class="cb-pause-note" style="margin-top:12px;padding:10px 14px;background:rgba(245,158,11,0.12);border-left:3px solid #f59e0b;border-radius:4px;color:#f59e0b;font-size:0.85rem;font-style:italic;">' + scene.readAloudPart1PauseNote + '</div>';
+      }
+      html += '</div></div>';
+      html += '<div class="cb-read-aloud cb-collapsible collapsed" style="margin-top:6px;">';
+      html += '<div class="cb-section-label cb-collapse-toggle"><span class="cb-collapse-chevron">&#9654;</span> Read-Aloud — Part 2</div>';
+      html += '<div class="cb-collapse-body"><div class="cb-read-aloud-text">' + linkify(scene.readAloudPart2) + '</div></div>';
+      html += '</div>';
+    } else if (scene.readAloud) {
       html += '<div class="cb-read-aloud cb-collapsible collapsed">';
       html += '<div class="cb-section-label cb-collapse-toggle"><span class="cb-collapse-chevron">&#9654;</span> Player Read-Aloud</div>';
       html += '<div class="cb-collapse-body"><div class="cb-read-aloud-text">' + linkify(scene.readAloud) + '</div></div>';

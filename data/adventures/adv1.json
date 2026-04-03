@@ -95,10 +95,13 @@
         {
           "id": "adv1-p1-s1",
           "number": 1,
-          "title": "Bad Business at Sienar's Regret",
+          "title": "Bad Business at The Burning Deck",
           "subtitle": "In Media Res",
-          "readAloud": "Jakku. A world the galaxy forgot — if it ever noticed. Out here on the Western Reaches, the holonet feeds are weeks old, the Republic is a memory, and the Empire is a rumor that sometimes wears a uniform. You've heard the stories filtering through the spacer lanes: whole systems pacified, Separatist holdouts burned out of their bunkers, the clone army quietly replaced by men who volunteer. The Core worlds call it order. Out here, people just call it the new way things are.\n\nNiima Outpost squats on the desert flats like something the sand is trying to swallow. Scavengers, smugglers, moisture farmers with nothing left to farm. Varga the Hutt runs what passes for an economy — debt, protection, and the quiet understanding that Imperial patrols from Arkanis Sector come through maybe twice a standard year, and they never stay.\n\nExcept today. You noticed it when you docked: a Lambda-class shuttle sitting on the landing field, flanked by two stormtroopers standing in the heat like they were carved from plastoid. Nobody docks a Lambda on Jakku without a reason. The streets were quieter on the walk in. Fewer faces in the stalls. The regulars at Sienar's Regret are nursing their drinks a little harder, talking a little softer. Something has changed the arithmetic, and nobody knows the new numbers yet.\n\nYou've been here an hour. Long enough for the ice in your drinks to surrender to the heat. Long enough to notice the bartender checking the door every few minutes.\n\nThen the blast doors hiss open.\n\nA young human woman stumbles through — clutching her side where a blaster burn has scorched through her jacket. Blood seeps between her fingers, but she's moving fast. She scans the room with desperate eyes, spots your table, and crashes into it, sending drinks and credits scattering across the floor.\n\n\"They're coming,\" she gasps, pressing a datapad against the table. \"Please — just look like you're with me.\"\n\nBefore you can respond, her pursuers fill the doorway: a heavy-set Weequay and two Kyuzo enforcers wearing wide-brimmed war helms. Their blasters are holstered. They're not here to kill — they're here to collect. The Weequay rolls his shoulders, looks at your table, and makes a decision. \"The girl owes Varga the Hutt. You want to be part of her debt?\"",
-          "gmNotes": "This is the campaign's inciting incident — but it is NOT an assassination. The thugs are debt collectors for Varga the Hutt's local operation. They have NOT drawn weapons. Maya deliberately crashed into the heroes' table to create the impression they're her crew — she used them as a shield.\n\nNARRATIVE PACING: This scene runs on narrative pacing. Do NOT call for dice unless failure forks the story. Maya crashing in — narrative. Krev's ultimatum — narrative. The bartender's nervousness — narrative. Only roll when a PC takes an action where failure has real consequences (escalation, loss of initiative, or missed intelligence).\n\nTHE IMPERIAL SHUTTLE: Foreshadowing only. The Lambda on the landing field is not part of this scene — it seeds future tension. If players investigate, the stormtroopers say nothing. Locals don't know why it's here. This pays off later.\n\nMAYA'S WOUND: Real. A blaster graze to her side from a warning shot outside the cantina. Non-lethal but painful and bleeding. She is desperate, not performing — but she IS calculating. She chose this table because she saw armed people sitting at it.\n\nRESOLUTION PATHS:\n• QUICK-DRAW INTIMIDATION: A Gunslinger draws fast — blaster out before the thugs can react. This IS the Intimidate check (Moderate), not a separate action. The draw is the statement. The blaster is leverage, not escalation. Success: Krev folds ('Not worth it today'). Failure: Krev calls the bluff ('You won't shoot over some girl you don't know') — now the PC must decide: pull the trigger (firefight) or holster (Krev smells weakness, uses Lean In).\n• SOCIAL: Charm, Deception, or Persuasion (Moderate) can convince the thugs Maya isn't worth the trouble, redirect them, or negotiate a delay.\n• BRAWL: If anyone throws a punch, the Kyuzo respond in kind. Bar brawl — fists, headbutts, bottles. Stun damage. Blasters stay holstered.\n• FIREFIGHT: Only triggers if (a) a brawl is already happening AND someone draws a blaster, OR (b) the social check fails AND a PC with blaster already drawn refuses to hand Maya over. A drawn blaster alone is not an escalation — it's a negotiating tool. This is Star Wars.\n\nIF COMBAT TRIGGERS — [Join Battle] Reference:\n• Control Step-Down: Highest enemy Tier = 1 → step down Control Die 1 time\n• Failed Control (1-3): PC is surprised — [Disoriented] + [Exposed] until end of first turn\n• Mastery (8+): PC designates one enemy as surprised — [Disoriented] + [Exposed] on that NPC\n• Power Die result = initiative slot (higher acts first). NPCs act at static Initiative (Wits + Tier)\n• NPC static initiative: Krev = 2, Kyuzo = 1\n\nNPC Tactics:\n• Krev uses Loom (maneuver) to advance and Threaten (action) for social pressure. If brawl, he switches to Physique attacks.\n• Kyuzo use Reposition (maneuver, no reactions provoked) to flank — one to A2, one to D2. Then Hit and Run (action) for war-helm headbutts.\n\nAFTER RESOLUTION: Maya offers a business proposition, not a noble speech. She has stolen an encrypted Imperial Code Cylinder from Varga the Hutt's operation and claims it leads to a stash of embezzled credits. She needs the heroes to help decrypt it in exchange for a cut.\n\nKEY LORE: 16 BBY. Imperial presence on Jakku is thin — Arkanis Sector patrols, no garrison. The Lambda shuttle today is unusual and unsettling. Varga the Hutt runs the real economy here: smuggling, debt, protection. A cantina fight draws local attention (Varga's people, scavenger gangs) but NOT Imperial attention — the troopers at the landing field don't care about Hutt business.",
+          "readAloudPart1": "Jakku. A world the galaxy forgot — if it ever noticed. Out here on the Western Reaches, the holonet feeds are weeks old, the Republic is a memory, and the Empire is a rumor that sometimes wears a uniform. You've heard the stories filtering through the spacer lanes: whole systems pacified, Separatist holdouts burned out of their bunkers, the clone army quietly replaced by men who volunteer. The Core worlds call it order. Out here, people just call it the new way things are.\n\nNiima Outpost squats on the desert flats like something the sand is trying to swallow. Scavengers, smugglers, moisture farmers with nothing left to farm. Varga the Hutt runs what passes for an economy — debt, protection, and the quiet understanding that Imperial patrols from Arkanis Sector come through maybe twice a standard year, and they never stay.\n\nYou stepped off a rust-bucket passenger transport twelve hours ago — all of you. However you found each other, you're a crew now, or close enough to one. You eat together. You watch each other's backs. You argue about whose turn it is to pay for fuel. And right now you're waiting together, which might be the hardest part. A fixer named Cade Ryll put the word out through the spacer lanes: crew needed for a short-haul job, good pay, no questions. He named this cantina. He named a time. That was an hour ago.\n\nThe Burning Deck. That's what passes for a watering hole at the edge of civilization. The name's painted over whatever it was called before, which was painted over the name before that. Low ceiling, failing glow-rods, the air thick with the smell of engine coolant and cheap Corellian whiskey. A Devaronian sits alone at the sabacc table in the far alcove, turning a credit chip across his knuckles — watching everything, playing nothing. A pair of Abyssin scavengers argue in the corner booth over a rusted motivator, their guttural voices carrying even through the cantina noise. A weathered Togruta woman nurses a drink at the bar, her montrals scarred in a way that says ex-military — she hasn't looked up once, but her hand never strays far from her hip. Behind the bar, a nervous Bith wipes the same glass he's been wiping for twenty minutes, his oversized eyes flicking to the door every time the wind rattles the blast shutters.\n\nThe Burning Deck is quieter than it should be tonight. You noticed it when you docked: a Lambda-class shuttle sitting on the landing field, flanked by two stormtroopers standing in the heat like they were carved from plastoid. Nobody docks a Lambda on Jakku without a reason. Fewer faces in the stalls on the walk in. The regulars are nursing their drinks a little harder, talking a little softer. Something has changed the arithmetic, and nobody knows the new numbers yet.\n\nYour drinks are warm. Your fixer is an hour late. And nothing on Jakku is going the way it was supposed to.",
+          "readAloudPart1PauseNote": "PAUSE HERE. Let the players absorb the cantina. Ask: 'What do you do while you wait?' Give them time to look around, talk to each other, interact with the patrons, ask the bartender about the Imperial shuttle, or just stew. When they've had their moment — or when the energy needs a push — move to Part 2.",
+          "readAloudPart2": "The blast doors hiss open and the heat pours in.\n\nA young human woman — dark hair, flight jacket, maybe twenty-five — half-runs, half-stumbles through the entrance. One hand is pressed against her ribs where her jacket is scorched through. She's bleeding. The Bith bartender freezes mid-wipe. The Devaronian at the sabacc table looks up for the first time all night.\n\nShe makes it four steps before her boot catches a chair leg and she pitches forward — straight into your table. Drinks scatter. Her hands hit the surface and she catches herself, breathing hard, leaving a smear of blood on the table edge. For a second she just stares at you, wild-eyed, like she's trying to decide if you're a wall or a door.\n\n\"Sorry,\" she manages between breaths. Then, quieter: \"Don't move.\"\n\nBefore anyone can ask what that means, three figures fill the entrance. A heavy-set Weequay with a collector's ledger clipped to his belt and two Kyuzo in wide-brimmed war helms. Their blasters are holstered — they're not here to kill anyone. They're here to collect. The Weequay rolls his shoulders, looks at the woman braced against your table, looks at all of you sitting around it, and makes a calculation.\n\n\"The girl owes Varga the Hutt,\" he says. \"This doesn't have to involve anyone else.\"",
+          "readAloud": "Jakku. A world the galaxy forgot — if it ever noticed. Out here on the Western Reaches, the holonet feeds are weeks old, the Republic is a memory, and the Empire is a rumor that sometimes wears a uniform. You've heard the stories filtering through the spacer lanes: whole systems pacified, Separatist holdouts burned out of their bunkers, the clone army quietly replaced by men who volunteer. The Core worlds call it order. Out here, people just call it the new way things are.\n\nNiima Outpost squats on the desert flats like something the sand is trying to swallow. Scavengers, smugglers, moisture farmers with nothing left to farm. Varga the Hutt runs what passes for an economy — debt, protection, and the quiet understanding that Imperial patrols from Arkanis Sector come through maybe twice a standard year, and they never stay.\n\nYou stepped off a rust-bucket passenger transport twelve hours ago — all of you. However you found each other, you're a crew now, or close enough to one. You eat together. You watch each other's backs. You argue about whose turn it is to pay for fuel. And right now you're waiting together, which might be the hardest part. A fixer named Cade Ryll put the word out through the spacer lanes: crew needed for a short-haul job, good pay, no questions. He named this cantina. He named a time. That was an hour ago.\n\nThe Burning Deck. That's what passes for a watering hole at the edge of civilization. The name's painted over whatever it was called before, which was painted over the name before that. Low ceiling, failing glow-rods, the air thick with the smell of engine coolant and cheap Corellian whiskey. A Devaronian sits alone at the sabacc table in the far alcove, turning a credit chip across his knuckles — watching everything, playing nothing. A pair of Abyssin scavengers argue in the corner booth over a rusted motivator, their guttural voices carrying even through the cantina noise. A weathered Togruta woman nurses a drink at the bar, her montrals scarred in a way that says ex-military — she hasn't looked up once, but her hand never strays far from her hip. Behind the bar, a nervous Bith wipes the same glass he's been wiping for twenty minutes, his oversized eyes flicking to the door every time the wind rattles the blast shutters.\n\nThe Burning Deck is quieter than it should be tonight. You noticed it when you docked: a Lambda-class shuttle sitting on the landing field, flanked by two stormtroopers standing in the heat like they were carved from plastoid. Nobody docks a Lambda on Jakku without a reason. Fewer faces in the stalls on the walk in. The regulars are nursing their drinks a little harder, talking a little softer. Something has changed the arithmetic, and nobody knows the new numbers yet.\n\nYour drinks are warm. Your fixer is an hour late. And nothing on Jakku is going the way it was supposed to.\n\n[GM: Pause here. Let the players assess the cantina and interact before continuing.]\n\nThe blast doors hiss open and the heat pours in.\n\nA young human woman — dark hair, flight jacket, maybe twenty-five — half-runs, half-stumbles through the entrance. One hand is pressed against her ribs where her jacket is scorched through. She's bleeding. The Bith bartender freezes mid-wipe. The Devaronian at the sabacc table looks up for the first time all night.\n\nShe makes it four steps before her boot catches a chair leg and she pitches forward — straight into your table. Drinks scatter. Her hands hit the surface and she catches herself, breathing hard, leaving a smear of blood on the table edge. For a second she just stares at you, wild-eyed, like she's trying to decide if you're a wall or a door.\n\n\"Sorry,\" she manages between breaths. Then, quieter: \"Don't move.\"\n\nBefore anyone can ask what that means, three figures fill the entrance. A heavy-set Weequay with a collector's ledger clipped to his belt and two Kyuzo in wide-brimmed war helms. Their blasters are holstered — they're not here to kill anyone. They're here to collect. The Weequay rolls his shoulders, looks at the woman braced against your table, looks at all of you sitting around it, and makes a calculation.\n\n\"The girl owes Varga the Hutt,\" he says. \"This doesn't have to involve anyone else.\"",
+          "gmNotes": "TWO-BEAT STRUCTURE: This scene is split into two read-aloud blocks. Read Part 1 (the cantina, the crew waiting, the patrons, the atmosphere) and then PAUSE. Ask 'What do you do while you wait?' Let the players explore the room, talk to each other, interact with patrons, investigate the Imperial shuttle — whatever they want. This is their first moment in the world. Don't rush it. When the energy is right — or when they need a push — read Part 2 (Maya's entrance).\n\n  CADE RYLL: The fixer who brought them here never shows. He's a narrative device — he gave the crew a reason to be on Jakku, at this cantina, together. Whether he got cold feet, got arrested, or got killed is up to you. If the players ask around, nobody at The Burning Deck knows the name. This is intentional — it makes them feel stranded and primes them to listen when Maya offers an alternative.\n\n  THE PATRONS: The cantina regulars are set dressing with depth if the players engage. The Devaronian (sabacc alcove) is a small-time gambler named Siv Keel — he knows the cantina well and can tell the PCs that the Burning Deck has been tense since the Lambda landed two days ago. The Abyssin scavengers are arguing over salvage rights in the Graveyard — they're loud but harmless and can point the PCs toward the Starship Graveyard if asked. The Togruta at the bar is Nela Bren — an ex-Republic military scout who deserted after Order 66. She won't volunteer much but responds to respect; she can confirm Imperial patrols have increased in the sector. The Bith bartender, Dodd Mull, is terrified — he owes Varga money and is afraid any trouble in his establishment will bring the Hutt's people down on him. All patrons flee toward B1/C1 (entrance) or A3 (back exit) if weapons come out.\n\n  MAYA'S ENTRANCE: This is NOT an assassination scene. The thugs are debt collectors for Varga's local operation. They have NOT drawn weapons. Maya's collision with the heroes' table looks like an accident — she tripped on a chair leg while running wounded. But the GM should know: she was already calculating. She clocked the armed crew at the table on her way in and angled toward them. The trip was real — she's hurt and off-balance — but the direction she ran was deliberate. The players should NOT know this yet. The Insight check (sc-s1-read-maya) is the gate for that information. To the players, she's just a wounded stranger who crashed into their table at the worst possible time.\n\n  MAYA'S DIALOGUE: 'Sorry' and 'Don't move' are deliberately ambiguous. She's not explicitly asking them to play along or be her shield. She's just a hurt person trying to survive the next thirty seconds. The thugs see her at the crew's table and make the assumption themselves — 'This doesn't have to involve anyone else' implies THEY think there might be a connection. The heroes can choose to confirm or deny that assumption.\n\n  NARRATIVE PACING: This scene runs on narrative pacing. Do NOT call for dice unless failure forks the story. Maya crashing in — narrative. Krev's ultimatum — narrative. The bartender's nervousness — narrative. Only roll when a PC takes an action where failure has real consequences (escalation, loss of initiative, or missed intelligence).\n\n  THE IMPERIAL SHUTTLE: Foreshadowing only. The Lambda on the landing field is not part of this scene — it seeds future tension. If players investigate during the pause, the stormtroopers say nothing. Locals don't know why it's here. Dodd the bartender nervously changes the subject. This pays off later.\n\n  MAYA'S WOUND: Real. A blaster graze to her side from a warning shot outside the cantina. Non-lethal but painful and bleeding. She is desperate — genuinely — but she's also smarter than she looks.\n\n  RESOLUTION PATHS:\n  • QUICK-DRAW INTIMIDATION: A Gunslinger draws fast — blaster out before the thugs can react. This IS the Intimidate check (Moderate), not a separate action. The draw is the statement. The blaster is leverage, not escalation. Success: Krev folds ('Not worth it today'). Failure: Krev calls the bluff ('You won't shoot over some girl you don't know') — now the PC must decide: pull the trigger (firefight) or holster (Krev smells weakness, uses Lean In).\n  • SOCIAL: Charm, Deception, or Persuasion (Moderate) can convince the thugs Maya isn't worth the trouble, redirect them, or negotiate a delay.\n  • BRAWL: If anyone throws a punch, the Kyuzo respond in kind. Bar brawl — fists, headbutts, bottles. Stun damage. Blasters stay holstered.\n  • FIREFIGHT: Only triggers if (a) a brawl is already happening AND someone draws a blaster, OR (b) the social check fails AND a PC with blaster already drawn refuses to hand Maya over. A drawn blaster alone is not an escalation — it's a negotiating tool. This is Star Wars.\n\n  IF COMBAT TRIGGERS — [Join Battle] Reference:\n  • Control Step-Down: Highest enemy Tier = 1 → step down Control Die 1 time\n  • Failed Control (1-3): PC is surprised — [Disoriented] + [Exposed] until end of first turn\n  • Mastery (8+): PC designates one enemy as surprised — [Disoriented] + [Exposed] on that NPC\n  • Power Die result = initiative slot (higher acts first). NPCs act at static Initiative (Wits + Tier)\n  • NPC static initiative: Krev = 2, Kyuzo = 1\n\n  NPC Tactics:\n  • Krev uses Loom (maneuver) to advance and Threaten (action) for social pressure. If brawl, he switches to Physique attacks.\n  • Kyuzo use Reposition (maneuver, no reactions provoked) to flank — one to A2, one to D2. Then Hit and Run (action) for war-helm headbutts.\n\n  AFTER RESOLUTION: Maya offers a business proposition, not a noble speech. The desperation drains away faster than it should — replaced by a calculating focus that was always underneath. She has stolen an encrypted Imperial Code Cylinder from Varga the Hutt's operation and claims it leads to a stash of embezzled credits. She needs the heroes to help decrypt it in exchange for a cut. She doesn't pitch this as charity — she pitches it as a payday. And with their fixer a no-show, it's the only game in town.\n\n  KEY LORE: 16 BBY. Imperial presence on Jakku is thin — Arkanis Sector patrols, no garrison. The Lambda shuttle today is unusual and unsettling. Varga the Hutt runs the real economy here: smuggling, debt, protection. A cantina fight draws local attention (Varga's people, scavenger gangs) but NOT Imperial attention — the troopers at the landing field don't care about Hutt business.",
           "npcs": [
             {
               "name": "Kyuzo Enforcer",
@@ -138,12 +141,18 @@
                   "presence": 3
                 },
                 "computed": {
+                  "arenas": {
+                    "physique": 4,
+                    "reflex": 2,
+                    "grit": 4,
+                    "wits": 2,
+                    "presence": 3
+                  },
                   "defense": 6,
                   "evasion": 3,
                   "resist": 6,
                   "vitality": 9,
-                  "initiative": 5,
-                  "power": 5,
+                  "rawVitality": 9,
                   "powers": {
                     "physique": 5,
                     "reflex": 3,
@@ -151,14 +160,167 @@
                     "wits": 3,
                     "presence": 4
                   },
-                  "actions": 1,
                   "exploits": 0,
-                  "damageTiers": {
-                    "label": "medium",
-                    "fleeting": 3,
-                    "masterful": 5,
-                    "legendary": 8
-                  }
+                  "initiative": 5,
+                  "role": {
+                    "id": "anchor",
+                    "name": "Anchor",
+                    "category": "combat",
+                    "description": "Holds ground, blocks access, protects a position or VIP. Hard to move, hard to ignore.",
+                    "passive": {
+                      "name": "Hardened",
+                      "description": "+1 Defense in chosen arena.",
+                      "statMod": {
+                        "defense": 1
+                      }
+                    },
+                    "powerSources": {
+                      "martial": {
+                        "action": {
+                          "name": "Shield Slam",
+                          "defense": "dodge/endure",
+                          "npcEffects": {
+                            "fleeting": "Chassis damage",
+                            "masterful": "Chassis damage",
+                            "legendary": "Chassis damage"
+                          },
+                          "isAttack": true,
+                          "arena": "physique"
+                        },
+                        "maneuver": null,
+                        "gambits": [
+                          {
+                            "name": "Shove Back",
+                            "cost": "-1 Power",
+                            "description": "Attack also pushes target 1 zone.",
+                            "rider": "Push 1 zone"
+                          },
+                          {
+                            "name": "Defensive Posture",
+                            "cost": "-1 Power",
+                            "description": "Attack also grants Anchor [Guarded 1] Tactical.",
+                            "rider": "[Guarded 1]"
+                          }
+                        ],
+                        "exploit": {
+                          "name": "Intercept",
+                          "trigger": "An enemy in the Anchor's zone attacks an ally.",
+                          "description": "Anchor becomes the target of the attack instead."
+                        }
+                      },
+                      "ranged": {
+                        "action": {
+                          "name": "Suppressive Fire",
+                          "defense": "dodge/endure",
+                          "npcEffects": {
+                            "fleeting": "Target gains [Suppressed] Tactical",
+                            "masterful": "Target and one additional enemy in zone gain [Suppressed] Tactical",
+                            "legendary": "All enemies in zone gain [Suppressed] Tactical"
+                          },
+                          "isAttack": false,
+                          "arena": "reflex"
+                        },
+                        "maneuver": null,
+                        "gambits": [
+                          {
+                            "name": "Pinning Shot",
+                            "cost": "-1 Power",
+                            "description": "Target also gains [Slowed] Tactical.",
+                            "rider": "[Slowed]"
+                          },
+                          {
+                            "name": "Dig In",
+                            "cost": "-1 Power",
+                            "description": "Anchor gains [Cover 1] Tactical.",
+                            "rider": "[Cover 1]"
+                          }
+                        ],
+                        "exploit": {
+                          "name": "Covering Fire",
+                          "trigger": "An ally in same or adjacent zone takes damage.",
+                          "description": "Immediately attack the attacker if in weapon range."
+                        }
+                      },
+                      "force": {
+                        "action": {
+                          "name": "Force Slam",
+                          "defense": "resist",
+                          "npcEffects": {
+                            "fleeting": "Chassis damage",
+                            "masterful": "Chassis damage",
+                            "legendary": "Chassis damage"
+                          },
+                          "isAttack": true,
+                          "arena": "grit"
+                        },
+                        "maneuver": null,
+                        "gambits": [
+                          {
+                            "name": "Repulse",
+                            "cost": "-1 Power",
+                            "description": "Attack also pushes target 1 zone.",
+                            "rider": "Push 1 zone"
+                          },
+                          {
+                            "name": "Force Shield",
+                            "cost": "-1 Power",
+                            "description": "Anchor gains [Buffered 1].",
+                            "rider": "[Buffered 1]"
+                          }
+                        ],
+                        "exploit": {
+                          "name": "Force Wall",
+                          "trigger": "An enemy attempts to enter the Anchor's zone.",
+                          "description": "Grit vs Resist. Enemy stops in adjacent zone on failure."
+                        }
+                      },
+                      "leader": {
+                        "action": {
+                          "name": "Rally Defense",
+                          "defense": "none",
+                          "npcEffects": {
+                            "fleeting": "One ally in zone gains [Guarded 1] Tactical",
+                            "masterful": "One ally in zone gains [Guarded 1] and [Optimized] Tactical",
+                            "legendary": "Two allies in zone each gain [Guarded 1] and [Optimized] Tactical"
+                          },
+                          "isAttack": false,
+                          "arena": "presence",
+                          "pipCost": "maneuver"
+                        },
+                        "maneuver": null,
+                        "gambits": [
+                          {
+                            "name": "Stand Fast",
+                            "cost": "-1 Power",
+                            "description": "On personal attack: remove one condition from an ally in the same zone.",
+                            "rider": "Cleanse"
+                          }
+                        ],
+                        "exploit": {
+                          "name": "Bodyguard",
+                          "trigger": "An ally within 1 zone takes damage.",
+                          "description": "Anchor takes the damage instead. Apply any Cover the Anchor has first."
+                        }
+                      }
+                    }
+                  },
+                  "classification": {
+                    "id": "standard",
+                    "name": "Standard",
+                    "description": "Base template. Full stats, fixed action cadence. The workhorse NPC.",
+                    "vitalityMod": 1,
+                    "exploitMod": 0,
+                    "notes": "2-4 Standards represent a meaningful encounter for a party."
+                  },
+                  "immunities": [
+                    "Shaken",
+                    "Rattled"
+                  ],
+                  "vulnerabilities": [],
+                  "scale": null,
+                  "scaleLevel": 1,
+                  "ironClad": false,
+                  "isStationary": false
                 },
                 "traits": [
                   "disciplined",
@@ -236,279 +398,36 @@
                     "type": "gear",
                     "qty": 1
                   }
-                ]
-              }
-            },
-            {
-              "name": "Kyuzo Skirmisher",
-              "type": "Character",
-              "count": 1,
-              "loot": [
-                {
-                  "id": "wpn_vibroblade_01",
-                  "name": "Vibroblade",
-                  "type": "weapon",
-                  "qty": 1
-                },
-                {
-                  "id": "wpn_quick_six_01",
-                  "name": "Merr-Sonn Quick-Six",
-                  "type": "weapon",
-                  "qty": 1
-                },
-                {
-                  "id": "arm_blast_vest_01",
-                  "name": "Blast Vest",
-                  "type": "armor",
-                  "qty": 1
-                }
-              ],
-              "threatBuild": {
-                "role": "harrier",
-                "tier": 1,
-                "classification": "minion",
-                "threatCategory": "character",
-                "powerSource": "martial",
-                "arenas": {
-                  "physique": 2,
-                  "reflex": 2,
-                  "grit": 2,
-                  "wits": 2,
-                  "presence": 2
-                },
-                "computed": {
-                  "defense": 4,
-                  "evasion": 4,
-                  "resist": 3,
-                  "vitality": 5,
-                  "initiative": 5,
-                  "power": 3,
-                  "powers": {
-                    "physique": 3,
-                    "reflex": 3,
-                    "grit": 3,
-                    "wits": 3,
-                    "presence": 3
-                  },
-                  "actions": 1,
-                  "exploits": 0,
-                  "damageTiers": {
-                    "label": "medium",
-                    "fleeting": 3,
-                    "masterful": 5,
-                    "legendary": 8
-                  }
-                },
-                "traits": [
-                  "agile",
-                  "follows_the_boss",
-                  "armored_light"
                 ],
-                "tags": [
-                  "mercenary"
-                ],
-                "roleKit": {
-                  "roleName": "Harrier / Martial",
-                  "action": {
-                    "name": "Blindside",
-                    "defense": "dodge/endure",
-                    "npcEffects": {
-                      "fleeting": "Chassis damage. Harrier may move 1 zone (no Opening).",
-                      "masterful": "Chassis damage. Harrier may move 1 zone (no Opening).",
-                      "legendary": "Chassis damage. Harrier may move 1 zone (no Opening)."
-                    },
-                    "isAttack": true,
-                    "arena": "physique"
-                  },
-                  "passive": {
-                    "name": "Swift",
-                    "description": "+1 zone of movement when using Move."
-                  },
-                  "maneuver": null,
-                  "gambit": {
-                    "name": "Hamstring",
-                    "cost": "-1 Power",
-                    "description": "Attack also inflicts [Slowed] Tactical.",
-                    "rider": "[Slowed]"
-                  },
-                  "gambits": [
-                    {
-                      "name": "Hamstring",
-                      "cost": "-1 Power",
-                      "description": "Attack also inflicts [Slowed] Tactical.",
-                      "rider": "[Slowed]"
-                    },
-                    {
-                      "name": "Expose Flank",
-                      "cost": "-1 Power",
-                      "description": "Attack also inflicts [Exposed] Tactical.",
-                      "rider": "[Exposed]"
-                    }
-                  ],
-                  "exploit": {
-                    "name": "Pursuit",
-                    "trigger": "A PC in the Harrier's zone uses Move to leave.",
-                    "description": "Harrier immediately moves to the same zone (no Opening)."
-                  },
-                  "powerSource": "martial"
+                "name": "Kyuzo Enforcer",
+                "shipDetails": {
+                  "hullType": "",
+                  "crew": "",
+                  "hyperdrive": "",
+                  "sensors": "",
+                  "shields": "",
+                  "cargo": "",
+                  "speed": ""
                 },
-                "weaponChassis": "medium",
-                "loot": [
+                "extraGambits": [],
+                "attacks": [
                   {
-                    "id": "wpn_vibroblade_01",
-                    "name": "Vibroblade",
-                    "type": "weapon",
-                    "qty": 1
+                    "name": "Haymaker",
+                    "arena": "physique",
+                    "chassis": "light",
+                    "powerMod": 0,
+                    "canStun": true,
+                    "isRoleAction": true
                   },
                   {
-                    "id": "wpn_quick_six_01",
-                    "name": "Merr-Sonn Quick-Six",
-                    "type": "weapon",
-                    "qty": 1
-                  },
-                  {
-                    "id": "arm_blast_vest_01",
-                    "name": "Blast Vest",
-                    "type": "armor",
-                    "qty": 1
+                    "name": "Blastem",
+                    "arena": "reflex",
+                    "powerMod": 0,
+                    "chassis": "light",
+                    "canStun": false
                   }
-                ]
-              }
-            },
-            {
-              "name": "Kyuzo Skirmisher",
-              "type": "Character",
-              "count": 1,
-              "loot": [
-                {
-                  "id": "wpn_vibroblade_01",
-                  "name": "Vibroblade",
-                  "type": "weapon",
-                  "qty": 1
-                },
-                {
-                  "id": "wpn_quick_six_01",
-                  "name": "Merr-Sonn Quick-Six",
-                  "type": "weapon",
-                  "qty": 1
-                },
-                {
-                  "id": "arm_blast_vest_01",
-                  "name": "Blast Vest",
-                  "type": "armor",
-                  "qty": 1
-                }
-              ],
-              "threatBuild": {
-                "role": "harrier",
-                "tier": 1,
-                "classification": "minion",
-                "threatCategory": "character",
-                "powerSource": "martial",
-                "arenas": {
-                  "physique": 2,
-                  "reflex": 2,
-                  "grit": 2,
-                  "wits": 2,
-                  "presence": 2
-                },
-                "computed": {
-                  "defense": 4,
-                  "evasion": 4,
-                  "resist": 3,
-                  "vitality": 5,
-                  "initiative": 5,
-                  "power": 3,
-                  "powers": {
-                    "physique": 3,
-                    "reflex": 3,
-                    "grit": 3,
-                    "wits": 3,
-                    "presence": 3
-                  },
-                  "actions": 1,
-                  "exploits": 0,
-                  "damageTiers": {
-                    "label": "medium",
-                    "fleeting": 3,
-                    "masterful": 5,
-                    "legendary": 8
-                  }
-                },
-                "traits": [
-                  "agile",
-                  "follows_the_boss",
-                  "armored_light"
                 ],
-                "tags": [
-                  "mercenary"
-                ],
-                "roleKit": {
-                  "roleName": "Harrier / Martial",
-                  "action": {
-                    "name": "Blindside",
-                    "defense": "dodge/endure",
-                    "npcEffects": {
-                      "fleeting": "Chassis damage. Harrier may move 1 zone (no Opening).",
-                      "masterful": "Chassis damage. Harrier may move 1 zone (no Opening).",
-                      "legendary": "Chassis damage. Harrier may move 1 zone (no Opening)."
-                    },
-                    "isAttack": true,
-                    "arena": "physique"
-                  },
-                  "passive": {
-                    "name": "Swift",
-                    "description": "+1 zone of movement when using Move."
-                  },
-                  "maneuver": null,
-                  "gambit": {
-                    "name": "Hamstring",
-                    "cost": "-1 Power",
-                    "description": "Attack also inflicts [Slowed] Tactical.",
-                    "rider": "[Slowed]"
-                  },
-                  "gambits": [
-                    {
-                      "name": "Hamstring",
-                      "cost": "-1 Power",
-                      "description": "Attack also inflicts [Slowed] Tactical.",
-                      "rider": "[Slowed]"
-                    },
-                    {
-                      "name": "Expose Flank",
-                      "cost": "-1 Power",
-                      "description": "Attack also inflicts [Exposed] Tactical.",
-                      "rider": "[Exposed]"
-                    }
-                  ],
-                  "exploit": {
-                    "name": "Pursuit",
-                    "trigger": "A PC in the Harrier's zone uses Move to leave.",
-                    "description": "Harrier immediately moves to the same zone (no Opening)."
-                  },
-                  "powerSource": "martial"
-                },
-                "weaponChassis": "medium",
-                "loot": [
-                  {
-                    "id": "wpn_vibroblade_01",
-                    "name": "Vibroblade",
-                    "type": "weapon",
-                    "qty": 1
-                  },
-                  {
-                    "id": "wpn_quick_six_01",
-                    "name": "Merr-Sonn Quick-Six",
-                    "type": "weapon",
-                    "qty": 1
-                  },
-                  {
-                    "id": "arm_blast_vest_01",
-                    "name": "Blast Vest",
-                    "type": "armor",
-                    "qty": 1
-                  }
-                ]
+                "socialNotes": ""
               }
             },
             {
@@ -610,6 +529,478 @@
                 "weaponChassis": "medium",
                 "loot": []
               }
+            },
+            {
+              "name": "Kyuzo Skirmisher",
+              "type": "Character",
+              "count": 1,
+              "loot": [
+                {
+                  "id": "wpn_vibroblade_01",
+                  "name": "Vibroblade",
+                  "type": "weapon",
+                  "qty": 1
+                },
+                {
+                  "id": "wpn_quick_six_01",
+                  "name": "Merr-Sonn Quick-Six",
+                  "type": "weapon",
+                  "qty": 1
+                },
+                {
+                  "id": "arm_blast_vest_01",
+                  "name": "Blast Vest",
+                  "type": "armor",
+                  "qty": 1
+                },
+                {
+                  "id": "wpn_combat_gloves_01",
+                  "name": "Combat Gloves",
+                  "type": "weapon",
+                  "qty": 1
+                }
+              ],
+              "threatBuild": {
+                "role": "harrier",
+                "tier": 1,
+                "classification": "minion",
+                "threatCategory": "character",
+                "powerSource": "martial",
+                "arenas": {
+                  "physique": 2,
+                  "reflex": 2,
+                  "grit": 2,
+                  "wits": 2,
+                  "presence": 2
+                },
+                "computed": {
+                  "arenas": {
+                    "physique": 2,
+                    "reflex": 2,
+                    "grit": 2,
+                    "wits": 2,
+                    "presence": 2
+                  },
+                  "defense": 4,
+                  "evasion": 4,
+                  "resist": 3,
+                  "vitality": 5,
+                  "rawVitality": 5,
+                  "powers": {
+                    "physique": 3,
+                    "reflex": 3,
+                    "grit": 3,
+                    "wits": 3,
+                    "presence": 3
+                  },
+                  "exploits": 0,
+                  "initiative": 5,
+                  "role": {
+                    "id": "harrier",
+                    "name": "Harrier",
+                    "category": "combat",
+                    "description": "Mobile pressure. Chases, flanks, forces PCs to reposition or get picked apart.",
+                    "passive": {
+                      "name": "Swift",
+                      "description": "+1 zone of movement when using Move."
+                    },
+                    "powerSources": {
+                      "martial": {
+                        "action": {
+                          "name": "Blindside",
+                          "defense": "dodge/endure",
+                          "npcEffects": {
+                            "fleeting": "Chassis damage. Harrier may move 1 zone (no Opening).",
+                            "masterful": "Chassis damage. Harrier may move 1 zone (no Opening).",
+                            "legendary": "Chassis damage. Harrier may move 1 zone (no Opening)."
+                          },
+                          "isAttack": true,
+                          "arena": "physique"
+                        },
+                        "maneuver": null,
+                        "gambits": [
+                          {
+                            "name": "Hamstring",
+                            "cost": "-1 Power",
+                            "description": "Attack also inflicts [Slowed] Tactical.",
+                            "rider": "[Slowed]"
+                          },
+                          {
+                            "name": "Expose Flank",
+                            "cost": "-1 Power",
+                            "description": "Attack also inflicts [Exposed] Tactical.",
+                            "rider": "[Exposed]"
+                          }
+                        ],
+                        "exploit": {
+                          "name": "Pursuit",
+                          "trigger": "A PC in the Harrier's zone uses Move to leave.",
+                          "description": "Harrier immediately moves to the same zone (no Opening)."
+                        }
+                      },
+                      "ranged": {
+                        "action": {
+                          "name": "Strafing Shot",
+                          "defense": "dodge/endure",
+                          "npcEffects": {
+                            "fleeting": "Chassis damage. Harrier may move 1 zone.",
+                            "masterful": "Chassis damage. Harrier may move 1 zone.",
+                            "legendary": "Chassis damage. Harrier may move 1 zone."
+                          },
+                          "isAttack": true,
+                          "arena": "reflex"
+                        },
+                        "maneuver": null,
+                        "gambits": [
+                          {
+                            "name": "Pinning Fire",
+                            "cost": "-1 Power",
+                            "description": "Attack also inflicts [Suppressed] Tactical.",
+                            "rider": "[Suppressed]"
+                          },
+                          {
+                            "name": "Tracer Round",
+                            "cost": "-1 Power",
+                            "description": "Attack also inflicts [Marked] Tactical.",
+                            "rider": "[Marked]"
+                          }
+                        ],
+                        "exploit": {
+                          "name": "Snap Shot",
+                          "trigger": "A PC uses Move to enter or cross a zone within weapon range.",
+                          "description": "Immediately attack that PC at -2 Power."
+                        }
+                      },
+                      "force": {
+                        "action": {
+                          "name": "Force Lash",
+                          "defense": "resist",
+                          "npcEffects": {
+                            "fleeting": "Chassis damage. Harrier may move 1 zone (no Opening, ignores engagement).",
+                            "masterful": "Chassis damage. Harrier may move 1 zone (no Opening, ignores engagement).",
+                            "legendary": "Chassis damage. Harrier may move 1 zone (no Opening, ignores engagement)."
+                          },
+                          "isAttack": true,
+                          "arena": "grit"
+                        },
+                        "maneuver": null,
+                        "gambits": [
+                          {
+                            "name": "Sever",
+                            "cost": "-1 Power",
+                            "description": "Attack also inflicts [Disoriented] Tactical.",
+                            "rider": "[Disoriented]"
+                          },
+                          {
+                            "name": "Force Push",
+                            "cost": "-1 Power",
+                            "description": "Attack also pushes target 1 zone.",
+                            "rider": "Push 1 zone"
+                          }
+                        ],
+                        "exploit": {
+                          "name": "Vanish",
+                          "trigger": "The Harrier takes damage.",
+                          "description": "Immediately move 1 zone (no Opening)."
+                        }
+                      },
+                      "leader": {
+                        "action": {
+                          "name": "Directed Assault",
+                          "defense": "none",
+                          "npcEffects": {
+                            "fleeting": "One ally within 2 zones moves 1 zone (Leader's choice)",
+                            "masterful": "One ally within 2 zones moves 1 zone and gains [Optimized] Tactical",
+                            "legendary": "Two allies within 2 zones each move 1 zone and gain [Optimized] Tactical"
+                          },
+                          "isAttack": false,
+                          "arena": "presence",
+                          "pipCost": "maneuver"
+                        },
+                        "maneuver": null,
+                        "gambits": [
+                          {
+                            "name": "Outflank",
+                            "cost": "-1 Power",
+                            "description": "On personal attack: target also gains [Exposed] Tactical.",
+                            "rider": "[Exposed]"
+                          }
+                        ],
+                        "exploit": {
+                          "name": "Tactical Withdrawal",
+                          "trigger": "An ally in the Harrier-Leader's zone drops below half Vitality.",
+                          "description": "That ally immediately moves 1 zone (no Opening)."
+                        }
+                      }
+                    }
+                  },
+                  "classification": {
+                    "id": "minion",
+                    "name": "Minion",
+                    "description": "Bolt-on. Full Vitality stat but any Masterful+ net result is an instant takedown. Keeps all other stats intact.",
+                    "vitalityMod": 1,
+                    "exploitMod": 0,
+                    "special": "Masterful+ net result = instant takedown. Full stats otherwise.",
+                    "notes": "Minion status is a longevity downgrade, not a power downgrade."
+                  },
+                  "immunities": [],
+                  "vulnerabilities": [],
+                  "scale": null,
+                  "scaleLevel": 1,
+                  "ironClad": false,
+                  "isStationary": false
+                },
+                "traits": [
+                  "agile",
+                  "follows_the_boss",
+                  "armored_light"
+                ],
+                "tags": [
+                  "mercenary"
+                ],
+                "roleKit": {
+                  "roleName": "Harrier / Martial",
+                  "action": {
+                    "name": "Blindside",
+                    "defense": "dodge/endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage. Harrier may move 1 zone (no Opening).",
+                      "masterful": "Chassis damage. Harrier may move 1 zone (no Opening).",
+                      "legendary": "Chassis damage. Harrier may move 1 zone (no Opening)."
+                    },
+                    "isAttack": true,
+                    "arena": "physique"
+                  },
+                  "passive": {
+                    "name": "Swift",
+                    "description": "+1 zone of movement when using Move."
+                  },
+                  "maneuver": null,
+                  "gambit": {
+                    "name": "Hamstring",
+                    "cost": "-1 Power",
+                    "description": "Attack also inflicts [Slowed] Tactical.",
+                    "rider": "[Slowed]"
+                  },
+                  "gambits": [
+                    {
+                      "name": "Hamstring",
+                      "cost": "-1 Power",
+                      "description": "Attack also inflicts [Slowed] Tactical.",
+                      "rider": "[Slowed]"
+                    },
+                    {
+                      "name": "Expose Flank",
+                      "cost": "-1 Power",
+                      "description": "Attack also inflicts [Exposed] Tactical.",
+                      "rider": "[Exposed]"
+                    }
+                  ],
+                  "exploit": {
+                    "name": "Pursuit",
+                    "trigger": "A PC in the Harrier's zone uses Move to leave.",
+                    "description": "Harrier immediately moves to the same zone (no Opening)."
+                  },
+                  "powerSource": "martial"
+                },
+                "weaponChassis": "medium",
+                "loot": [
+                  {
+                    "id": "wpn_vibroblade_01",
+                    "name": "Vibroblade",
+                    "type": "weapon",
+                    "qty": 1
+                  },
+                  {
+                    "id": "wpn_quick_six_01",
+                    "name": "Merr-Sonn Quick-Six",
+                    "type": "weapon",
+                    "qty": 1
+                  },
+                  {
+                    "id": "arm_blast_vest_01",
+                    "name": "Blast Vest",
+                    "type": "armor",
+                    "qty": 1
+                  },
+                  {
+                    "id": "wpn_combat_gloves_01",
+                    "name": "Combat Gloves",
+                    "type": "weapon",
+                    "qty": 1
+                  }
+                ],
+                "name": "Kyuzo Skirmisher",
+                "shipDetails": {
+                  "hullType": "",
+                  "crew": "",
+                  "hyperdrive": "",
+                  "sensors": "",
+                  "shields": "",
+                  "cargo": "",
+                  "speed": ""
+                },
+                "extraGambits": [],
+                "attacks": [
+                  {
+                    "name": "SuckerPunch",
+                    "arena": "physique",
+                    "chassis": "light",
+                    "powerMod": 0,
+                    "canStun": true,
+                    "isRoleAction": true
+                  }
+                ],
+                "socialNotes": ""
+              }
+            },
+            {
+              "name": "Kyuzo Skirmisher",
+              "type": "Character",
+              "count": 1,
+              "loot": [
+                {
+                  "id": "wpn_vibroblade_01",
+                  "name": "Vibroblade",
+                  "type": "weapon",
+                  "qty": 1
+                },
+                {
+                  "id": "wpn_quick_six_01",
+                  "name": "Merr-Sonn Quick-Six",
+                  "type": "weapon",
+                  "qty": 1
+                },
+                {
+                  "id": "arm_blast_vest_01",
+                  "name": "Blast Vest",
+                  "type": "armor",
+                  "qty": 1
+                },
+                {
+                  "id": "wpn_combat_gloves_01",
+                  "name": "Combat Gloves",
+                  "type": "weapon",
+                  "qty": 1
+                }
+              ],
+              "threatBuild": {
+                "role": "harrier",
+                "tier": 1,
+                "classification": "minion",
+                "threatCategory": "character",
+                "powerSource": "martial",
+                "arenas": {
+                  "physique": 2,
+                  "reflex": 2,
+                  "grit": 2,
+                  "wits": 2,
+                  "presence": 2
+                },
+                "computed": {
+                  "defense": 4,
+                  "evasion": 4,
+                  "resist": 3,
+                  "vitality": 5,
+                  "initiative": 5,
+                  "power": 3,
+                  "powers": {
+                    "physique": 3,
+                    "reflex": 3,
+                    "grit": 3,
+                    "wits": 3,
+                    "presence": 3
+                  },
+                  "actions": 1,
+                  "exploits": 0,
+                  "damageTiers": {
+                    "label": "medium",
+                    "fleeting": 3,
+                    "masterful": 5,
+                    "legendary": 8
+                  }
+                },
+                "traits": [
+                  "agile",
+                  "follows_the_boss",
+                  "armored_light"
+                ],
+                "tags": [
+                  "mercenary"
+                ],
+                "roleKit": {
+                  "roleName": "Harrier / Martial",
+                  "action": {
+                    "name": "Blindside",
+                    "defense": "dodge/endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage. Harrier may move 1 zone (no Opening).",
+                      "masterful": "Chassis damage. Harrier may move 1 zone (no Opening).",
+                      "legendary": "Chassis damage. Harrier may move 1 zone (no Opening)."
+                    },
+                    "isAttack": true,
+                    "arena": "physique"
+                  },
+                  "passive": {
+                    "name": "Swift",
+                    "description": "+1 zone of movement when using Move."
+                  },
+                  "maneuver": null,
+                  "gambit": {
+                    "name": "Hamstring",
+                    "cost": "-1 Power",
+                    "description": "Attack also inflicts [Slowed] Tactical.",
+                    "rider": "[Slowed]"
+                  },
+                  "gambits": [
+                    {
+                      "name": "Hamstring",
+                      "cost": "-1 Power",
+                      "description": "Attack also inflicts [Slowed] Tactical.",
+                      "rider": "[Slowed]"
+                    },
+                    {
+                      "name": "Expose Flank",
+                      "cost": "-1 Power",
+                      "description": "Attack also inflicts [Exposed] Tactical.",
+                      "rider": "[Exposed]"
+                    }
+                  ],
+                  "exploit": {
+                    "name": "Pursuit",
+                    "trigger": "A PC in the Harrier's zone uses Move to leave.",
+                    "description": "Harrier immediately moves to the same zone (no Opening)."
+                  },
+                  "powerSource": "martial"
+                },
+                "weaponChassis": "medium",
+                "loot": [
+                  {
+                    "id": "wpn_vibroblade_01",
+                    "name": "Vibroblade",
+                    "type": "weapon",
+                    "qty": 1
+                  },
+                  {
+                    "id": "wpn_quick_six_01",
+                    "name": "Merr-Sonn Quick-Six",
+                    "type": "weapon",
+                    "qty": 1
+                  },
+                  {
+                    "id": "arm_blast_vest_01",
+                    "name": "Blast Vest",
+                    "type": "armor",
+                    "qty": 1
+                  },
+                  {
+                    "id": "wpn_combat_gloves_01",
+                    "name": "Combat Gloves",
+                    "type": "weapon",
+                    "qty": 1
+                  }
+                ]
+              }
             }
           ],
           "hazards": "Cantina environment — dim lighting, overturned tables, broken glass, panicking patrons. A fight on Jakku draws local attention (Varga's people, scavenger gangs) but NOT Imperial attention.",
@@ -699,8 +1090,8 @@
               "name": "Maya's Proposition",
               "type": "social",
               "trigger": "After the thugs are dealt with (any resolution path)",
-              "description": "Maya shifts to a calculated pitch. The desperation is gone — replaced by a confidence that was always there underneath. She offers the heroes a cut of whatever the Code Cylinder leads to.",
-              "tactics": "Maya reads the room — appeals to greed for mercenaries, justice for idealists, curiosity for investigators. This is narrative — no roll needed unless PCs actively resist the hook (and even then, the Code Cylinder is too interesting to walk away from)."
+              "description": "With the thugs handled, Maya straightens up. The desperation fades faster than it should — replaced by a cool, appraising focus that was always underneath. She doesn't thank them. She doesn't explain herself. She makes a proposition: she has something valuable, she needs people who can handle themselves, and they just proved they can. This is narrative — no roll needed unless PCs actively resist the hook.",
+              "tactics": "Maya reads the room — appeals to greed for mercenaries, justice for idealists, curiosity for investigators. She mentions their fixer isn't coming (she doesn't know who Cade Ryll is, but she recognizes people waiting for someone who didn't show). She frames the Code Cylinder job as the score their missing fixer couldn't deliver."
             }
           ],
           "environmentMechanics": [
@@ -884,11 +1275,11 @@
             ]
           },
           "pacing": {
-            "openingBeat": "Narrative intro establishes Jakku, the galaxy at 16 BBY, the Imperial shuttle foreshadow, and the subdued cantina mood. Players settle into the setting before the action hits.",
-            "risingAction": "Maya crashes in wounded. Thugs fill the doorway. Krev delivers his ultimatum. Kyuzo silently flank. Social pressure mounts.",
+            "openingBeat": "Part 1 establishes Jakku, the crew's identity, the missing fixer, and the subdued cantina. Players get time to explore the room and its patrons. The pause gives them ownership of the space before the plot arrives.",
+            "risingAction": "Part 2 — Maya crashes in wounded. Thugs fill the doorway. Krev delivers his ultimatum. Kyuzo silently flank. The crew must decide whether this stranger's problem is their problem.",
             "climax": "The decision — fast-draw intimidation, social play, or let it go to fists. One roll that matters.",
-            "resolution": "Maya's pitch. Code Cylinder revealed. Hook set.",
-            "estimatedMinutes": 30
+            "resolution": "Maya's pitch. Code Cylinder revealed. The fixer never came — but something better fell into their laps. Hook set.",
+            "estimatedMinutes": 35
           },
           "knackTags": [
             "hutt-marked",
@@ -925,17 +1316,17 @@
               "target": "Maya",
               "resist": 3,
               "risk": 4,
-              "context": "Reading Maya — genuine desperation or performance? Only roll if a PC specifically asks. Failure matters: it hides that she chose this table on purpose, which colors trust going forward.",
+              "context": "Reading Maya — is that collision really an accident? Only roll if a PC specifically says they're trying to read her. Failure matters: it hides that she angled toward their table on purpose, which colors trust going forward.",
               "narrativePacing": "Roll only if asked. Do not prompt for this check.",
               "control": {
-                "failure": "Maya's terror reads as genuine. No indication of ulterior motives. The PCs trust her as a victim — which she partly is, but she also chose their table deliberately.",
+                "failure": "Maya reads as a desperate woman who tripped at the worst possible moment. Pure bad luck. No indication she chose their table — which she did.",
                 "success": "Refer to effect tiers.",
-                "mastery": "The PC also notices Maya scanning the room before she crashed in — she clocked every armed person at every table. She's sharper than she's letting on."
+                "mastery": "The PC also catches something in the half-second before Maya 'tripped' — her eyes were already on their table. She tracked them before the fall. She's sharper than she's letting on, and this whole collision was a lot less accidental than it looked."
               },
               "effect": {
-                "fleeting": "The wound is real. The fear is real. But something about the way she hit this specific table feels deliberate.",
-                "masterful": "She chose this table on purpose — she saw armed people and made a calculation. The desperation is real, but the target selection was tactical.",
-                "legendary": "All of the above, plus: her injuries are from a warning shot, not a real attempt to kill. Whoever shot her wanted her scared, not dead. This is debt collection, not a hit."
+                "fleeting": "The wound is real. The fear is real. But there's something about the angle of her fall — she didn't stumble randomly. She was heading toward this table.",
+                "masterful": "She chose this table. She saw armed people and made a calculation mid-sprint. The trip was real — she's genuinely hurt — but the direction was tactical.",
+                "legendary": "All of the above, plus: her injuries are from a warning shot, not a real attempt to kill. Whoever shot her wanted her scared, not dead. This is debt collection, not a hit. And that 'Don't move' wasn't panic — it was a instruction."
               }
             },
             {

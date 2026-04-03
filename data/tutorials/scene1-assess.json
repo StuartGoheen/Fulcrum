@@ -1,7 +1,7 @@
 {
   "sceneId": "adv1-p1-s1",
-  "title": "Assess the Scene — Sienar's Regret",
-  "subtitle": "Scene 1: Bad Business at Sienar's Regret",
+  "title": "Assess the Scene — The Burning Deck",
+  "subtitle": "Scene 1: Bad Business at The Burning Deck",
   "assessDescription": "Assess is a Maneuver — it costs your Maneuver, not your Action. You use it to read the environment, people, or situation through the lens of a Discipline. Choose a Discipline that fits your approach and tell the GM what you're looking for.\n\nRoll your Discipline die. Your Effect Tier determines how many questions you earn:\n\u2022 Fleeting (0\u20133): 1 question\n\u2022 Masterful (4\u20137): 2 questions\n\u2022 Legendary (8+): 3 questions\n\nFor environmental reads, Power = your roll. Against a person, Power = your roll vs their Resolve.\n\nGambits: Before you roll, you may declare a Gambit attached to that discipline. Gambits cost \u22121 Tier — your result resolves one tier lower, but you gain the gambit's special effect in addition to the normal result. You must score at least Masterful to gambit (you cannot gambit from Fleeting — there is no tier below the floor). Gambits are unlocked when your discipline die reaches the required size — the unlock die is an access threshold, not a roll target.\n\nThe questions below are examples — you can ask anything that fits the discipline's lens.",
   "phaseLabels": {
     "phase1": "Before Maya",
@@ -114,7 +114,7 @@
             {
               "type": "normal",
               "question": "Is there a back way out — kitchen, cellar, service tunnel?",
-              "response": "A hallway behind the bar leads to an alley out back. Narrow, dim, one glow-rod barely holding on. No kitchen — Sienar's Regret doesn't serve food. No cellar. There's a store room off to one side, but it's a dead end — closed door, no exit. Don't get cornered in there."
+              "response": "A hallway behind the bar leads to an alley out back. Narrow, dim, one glow-rod barely holding on. No kitchen — The Burning Deck doesn't serve food. No cellar. There's a store room off to one side, but it's a dead end — closed door, no exit. Don't get cornered in there."
             },
             {
               "type": "normal",

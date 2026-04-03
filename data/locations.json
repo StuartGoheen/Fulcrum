@@ -36,7 +36,7 @@
       },
       "pointsOfInterest": [
         "Niima Outpost",
-        "Sienar's Regret (cantina)",
+        "The Burning Deck (cantina)",
         "Starship Graveyard",
         "Niima Landing Field"
       ],
@@ -47,7 +47,7 @@
         "era": "17 BBY — pre-Battle of Jakku. A forgotten nowhere rock. Varga the Hutt runs what passes for an economy through debt and protection. Imperial patrols from Arkanis Sector come through maybe twice a standard year. The galaxy forgot Jakku — if it ever noticed.",
         "keyLocations": {
           "niima_outpost": "A junkyard settlement squatting on the desert flats like something the sand is trying to swallow. Scavengers, smugglers, moisture farmers with nothing left to farm.",
-          "sienars_regret": "The local cantina. Where the campaign begins — a bar brawl and a desperate woman clutching a stolen code cylinder.",
+          "the_burning_deck": "The local cantina. Where the campaign begins — a crew waiting on a no-show fixer, a wounded stranger who crashes into the wrong table, and Varga the Hutt's enforcers filling the doorway.",
           "starship_graveyard": "The ribs of fallen capital ships and dunes of rust. Switch's hidden bunker is built from buried shipping containers beneath this field.",
           "niima_landing_field": "A militarized zone on the outskirts. Where the carbonite-frozen Accountant is held, waiting for Imperial pickup."
         }
