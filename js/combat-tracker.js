@@ -141,10 +141,9 @@
       var baseName = n.name || n.type || ('NPC');
       for (var ci = 0; ci < count; ci++) {
         npcIdCounter++;
-        var displayName = count > 1 ? baseName + ' #' + (ci + 1) : baseName;
         npcEntries.push({
           id: 'npc_' + npcIdCounter,
-          name: displayName,
+          name: baseName,
           type: 'npc',
           disposition: 'enemy',
           threat: tb.classification || 'standard',
@@ -167,6 +166,20 @@
           zone: null,
           npcData: n
         });
+      }
+    });
+
+    var nameCounts = {};
+    npcEntries.forEach(function (e) {
+      var base = e.name.replace(/ #\d+$/, '');
+      nameCounts[base] = (nameCounts[base] || 0) + 1;
+    });
+    var nameIndices = {};
+    npcEntries.forEach(function (e) {
+      var base = e.name.replace(/ #\d+$/, '');
+      if (nameCounts[base] > 1) {
+        nameIndices[base] = (nameIndices[base] || 0) + 1;
+        e.name = base + ' #' + nameIndices[base];
       }
     });
 
