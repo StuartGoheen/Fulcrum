@@ -296,7 +296,11 @@
 
     rebuildTurnOrder();
 
-    if (pcTokenZone) {
+    if (pcSlots.length > 0 && pcTokenZone) {
+      pcSlots.forEach(function (pc) {
+        combatState.tokenPositions[pc.id] = pcTokenZone;
+      });
+    } else if (pcTokenZone) {
       combatState.tokenPositions['PCs'] = pcTokenZone;
     }
     npcEntries.forEach(function (npc) {
@@ -1082,7 +1086,13 @@
           unplaced.push(npc);
         }
       });
-      if (!combatState.tokenPositions['PCs']) {
+      if (combatState.pcSlots && combatState.pcSlots.length > 0) {
+        combatState.pcSlots.forEach(function (pc) {
+          if (!combatState.tokenPositions[pc.id]) {
+            unplaced.unshift({ id: pc.id, name: pc.name, _isPc: true });
+          }
+        });
+      } else if (!combatState.tokenPositions['PCs']) {
         unplaced.unshift({ id: 'PCs', name: 'Player Characters', _isPc: true });
       }
     }
@@ -1128,16 +1138,23 @@
           shortName = 'PCs';
           fullName = 'Player Characters';
         } else {
-          var npc = combatState.combatants.find(function (n) { return n.id === tokId; });
-          if (npc) {
-            var numMatch = npc.name.match(/ #(\d+)$/);
-            var numSuffix = numMatch ? ' #' + numMatch[1] : '';
-            var nameBase = numMatch ? npc.name.replace(/ #\d+$/, '') : npc.name;
-            var maxBase = 8 - numSuffix.length;
-            shortName = nameBase.length > maxBase ? nameBase.substring(0, maxBase - 1) + '.' + numSuffix : npc.name;
-            fullName = npc.name;
-            type = 'npc';
-            disposition = npc.disposition || 'enemy';
+          var pc = (combatState.pcSlots || []).find(function (p) { return p.id === tokId; });
+          if (pc) {
+            shortName = pc.name.length > 8 ? pc.name.substring(0, 7) + '.' : pc.name;
+            fullName = pc.name;
+            type = 'pc';
+          } else {
+            var npc = combatState.combatants.find(function (n) { return n.id === tokId; });
+            if (npc) {
+              var numMatch = npc.name.match(/ #(\d+)$/);
+              var numSuffix = numMatch ? ' #' + numMatch[1] : '';
+              var nameBase = numMatch ? npc.name.replace(/ #\d+$/, '') : npc.name;
+              var maxBase = 8 - numSuffix.length;
+              shortName = nameBase.length > maxBase ? nameBase.substring(0, maxBase - 1) + '.' + numSuffix : npc.name;
+              fullName = npc.name;
+              type = 'npc';
+              disposition = npc.disposition || 'enemy';
+            }
           }
         }
         tokens.push({ id: tokId, shortName: shortName, name: fullName, type: type, disposition: disposition });

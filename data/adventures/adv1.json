@@ -1275,7 +1275,9 @@
             ],
             "gmTacticalNotes": "Krev starts exposed at B1 — intentional. He's a collector, not a tactician. He expects compliance. The Kyuzo use Fleet Footed (2 maneuvers/turn) + Reposition (no reactions) to silently flank to A2 and D2 during the social phase — cutting off the booth row and alcove. This is positioning, not aggression. If combat triggers: Krev advances to B2 or C2 for melee range. Kyuzo attack with Hit and Run from flanking positions — headbutt then disengage. The bar (B3/C3) is the strongest defensive position. The open floor (C2) is the worst — no cover, clear sightlines. The back hallway (A3) is the escape route. The store room (D3) is a trap — full cover but no exit.",
             "gmStartingPositions": {
-              "PCs": "A2"
+              "PCs": "B2",
+              "npc_1": "B2",
+              "npc_2": "C3"
             }
           },
           "rewards": {
