@@ -700,26 +700,29 @@
     html += '<button class="ct-push-to-pc-btn" data-npc-id="' + esc(npc.id) + '" data-npc-name="' + esc(npc.name) + '">Push to PC</button>';
     html += '</div>';
 
+    var attacks = npc.computedAttacks || (npc.threatBuild && npc.threatBuild.computedAttacks) || [];
+    var roleActionName = (npc.roleKit && npc.roleKit.action && npc.roleKit.action.isAttack) ? npc.roleKit.action.name : null;
+
     if (npc.roleKit) {
-      html += renderRoleKit(npc.roleKit, npc.threatBuild || npc);
+      html += renderRoleKit(npc.roleKit, npc.threatBuild || npc, attacks);
     }
 
-    var attacks = npc.computedAttacks || (npc.threatBuild && npc.threatBuild.computedAttacks) || [];
-    if (attacks.length) {
+    var nonRoleAttacks = attacks.filter(function (atk) { return atk.name !== roleActionName; });
+    if (nonRoleAttacks.length) {
       html += '<div class="ct-attacks-section">';
       html += '<div class="ct-attacks-label">ATTACKS</div>';
-      attacks.forEach(function (atk) {
+      nonRoleAttacks.forEach(function (atk) {
         html += '<div class="ct-attack-card">';
         html += '<div class="ct-attack-header">';
         html += '<strong>' + esc(atk.name) + '</strong>';
-        html += ' <span class="ct-rk-power">Power ' + atk.attackPower + '</span>';
+        html += ' <span class="ct-rk-power">POWER ' + atk.attackPower + '</span>';
         html += ' <span class="ct-chassis-badge">' + esc(atk.chassisLabel) + '</span>';
-        if (atk.arena) html += ' <span class="ct-rk-arena">(' + esc(atk.arena) + ')</span>';
+        if (atk.arena) html += ' <span class="ct-rk-arena">' + esc(atk.arena) + '</span>';
         html += '</div>';
         html += '<div class="ct-attack-dmg-row">';
-        html += '<span class="ct-dmg-tier"><span class="ct-dmg-lbl">F</span> ' + atk.damage.fleeting + '</span>';
-        html += '<span class="ct-dmg-tier"><span class="ct-dmg-lbl">M</span> ' + atk.damage.masterful + '</span>';
-        html += '<span class="ct-dmg-tier"><span class="ct-dmg-lbl">L</span> ' + atk.damage.legendary + '</span>';
+        html += '<span class="ct-dmg-tier"><span class="ct-dmg-lbl">F</span> ' + atk.damage.fleeting + ' damage</span>';
+        html += '<span class="ct-dmg-tier"><span class="ct-dmg-lbl">M</span> ' + atk.damage.masterful + ' damage</span>';
+        html += '<span class="ct-dmg-tier"><span class="ct-dmg-lbl">L</span> ' + atk.damage.legendary + ' damage</span>';
         html += '</div>';
         if (atk.canStun && atk.stun) {
           html += '<div class="ct-attack-stun-row">';
@@ -872,22 +875,57 @@
     return html;
   }
 
-  function renderRoleKit(rk, tb) {
+  function renderRoleKit(rk, tb, computedAttacks) {
     var html = '<div class="ct-rolekit">';
     html += '<div class="ct-section-label">' + (rk.roleName ? esc(rk.roleName) : 'Role Kit') + '</div>';
 
     if (rk.action) {
-      var actionLabel = rk.action.isAttack ? 'Action — Attack' : 'Signature';
-      html += '<div class="ct-rk-entry"><span class="ct-rk-tag ct-rk-action">' + actionLabel + '</span> <strong>' + esc(rk.action.name) + '</strong>';
-      if (rk.action.defense && rk.action.defense !== 'none') html += ' <span class="ct-rk-cost">(Defense: ' + esc(rk.action.defense) + ')</span>';
-      if (rk.action.npcEffects) {
-        html += '<div class="ct-rk-effects">';
-        html += '<div><strong>F:</strong> ' + esc(rk.action.npcEffects.fleeting) + '</div>';
-        html += '<div><strong>M:</strong> ' + esc(rk.action.npcEffects.masterful) + '</div>';
-        html += '<div><strong>L:</strong> ' + esc(rk.action.npcEffects.legendary) + '</div>';
+      if (rk.action.isAttack) {
+        var matchedAtk = null;
+        var atkList = computedAttacks || [];
+        for (var ai = 0; ai < atkList.length; ai++) {
+          if (atkList[ai].name === rk.action.name) { matchedAtk = atkList[ai]; break; }
+        }
+        if (matchedAtk) {
+          html += '<div class="ct-attack-card ct-rk-attack-card">';
+          html += '<div class="ct-attack-header">';
+          html += '<span class="ct-rk-tag ct-rk-action">Action</span> ';
+          html += '<strong>' + esc(matchedAtk.name) + '</strong>';
+          if (rk.action.defense && rk.action.defense !== 'none') html += ' <span class="ct-rk-cost">(Defense: ' + esc(rk.action.defense) + ')</span>';
+          html += ' <span class="ct-rk-power">POWER ' + matchedAtk.attackPower + '</span>';
+          html += ' <span class="ct-chassis-badge">' + esc(matchedAtk.chassisLabel) + '</span>';
+          if (matchedAtk.arena) html += ' <span class="ct-rk-arena">' + esc(matchedAtk.arena) + '</span>';
+          html += '</div>';
+          html += '<div class="ct-attack-dmg-row">';
+          html += '<span class="ct-dmg-tier"><span class="ct-dmg-lbl">F</span> ' + matchedAtk.damage.fleeting + ' damage</span>';
+          html += '<span class="ct-dmg-tier"><span class="ct-dmg-lbl">M</span> ' + matchedAtk.damage.masterful + ' damage</span>';
+          html += '<span class="ct-dmg-tier"><span class="ct-dmg-lbl">L</span> ' + matchedAtk.damage.legendary + ' damage</span>';
+          html += '</div>';
+          if (matchedAtk.canStun && matchedAtk.stun) {
+            html += '<div class="ct-attack-stun-row">';
+            html += '<span class="ct-stun-tier"><span class="ct-stun-lbl">Stun F</span> ' + matchedAtk.stun.fleeting + '</span>';
+            html += '<span class="ct-stun-tier"><span class="ct-stun-lbl">M</span> ' + matchedAtk.stun.masterful + '</span>';
+            html += '<span class="ct-stun-tier"><span class="ct-stun-lbl">L</span> ' + matchedAtk.stun.legendary + '</span>';
+            html += '</div>';
+          }
+          html += '</div>';
+        } else {
+          html += '<div class="ct-rk-entry"><span class="ct-rk-tag ct-rk-action">Action — Attack</span> <strong>' + esc(rk.action.name) + '</strong>';
+          if (rk.action.defense && rk.action.defense !== 'none') html += ' <span class="ct-rk-cost">(Defense: ' + esc(rk.action.defense) + ')</span>';
+          html += '</div>';
+        }
+      } else {
+        html += '<div class="ct-rk-entry"><span class="ct-rk-tag ct-rk-action">Signature</span> <strong>' + esc(rk.action.name) + '</strong>';
+        if (rk.action.defense && rk.action.defense !== 'none') html += ' <span class="ct-rk-cost">(Defense: ' + esc(rk.action.defense) + ')</span>';
+        if (rk.action.npcEffects) {
+          html += '<div class="ct-rk-effects">';
+          html += '<div><strong>F:</strong> ' + esc(rk.action.npcEffects.fleeting) + '</div>';
+          html += '<div><strong>M:</strong> ' + esc(rk.action.npcEffects.masterful) + '</div>';
+          html += '<div><strong>L:</strong> ' + esc(rk.action.npcEffects.legendary) + '</div>';
+          html += '</div>';
+        }
         html += '</div>';
       }
-      html += '</div>';
     }
     if (rk.passive) {
       var passiveDesc = rk.passive.description;
