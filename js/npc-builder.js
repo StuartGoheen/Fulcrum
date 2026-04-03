@@ -1448,7 +1448,8 @@
         attackPower: attackPower,
         chassisLabel: chassisLabel,
         damage: { fleeting: (dmg.fleeting || 1) + 1, masterful: (dmg.masterful || 3) + 1, legendary: (dmg.legendary || 5) + 1 },
-        canStun: !!atk.canStun
+        canStun: !!atk.canStun,
+        isRoleAction: !!atk.isRoleAction
       };
       if (atk.canStun) {
         var st = ch.pcStun || defaultChassis.pcStun;

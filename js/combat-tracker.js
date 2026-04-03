@@ -701,39 +701,31 @@
     html += '</div>';
 
     var attacks = npc.computedAttacks || (npc.threatBuild && npc.threatBuild.computedAttacks) || [];
-    var roleActionName = (npc.roleKit && npc.roleKit.action && npc.roleKit.action.isAttack) ? npc.roleKit.action.name : null;
 
     if (npc.roleKit) {
       html += renderRoleKit(npc.roleKit, npc.threatBuild || npc, attacks);
-    }
-
-    var nonRoleAttacks = attacks.filter(function (atk) { return atk.name !== roleActionName; });
-    if (nonRoleAttacks.length) {
-      html += '<div class="ct-attacks-section">';
-      html += '<div class="ct-attacks-label">ATTACKS</div>';
-      nonRoleAttacks.forEach(function (atk) {
-        html += '<div class="ct-attack-card">';
-        html += '<div class="ct-attack-header">';
-        html += '<strong>' + esc(atk.name) + '</strong>';
-        html += ' <span class="ct-rk-power">POWER ' + atk.attackPower + '</span>';
-        html += ' <span class="ct-chassis-badge">' + esc(atk.chassisLabel) + '</span>';
-        if (atk.arena) html += ' <span class="ct-rk-arena">' + esc(atk.arena) + '</span>';
-        html += '</div>';
-        html += '<div class="ct-attack-dmg-row">';
-        html += '<span class="ct-dmg-tier"><span class="ct-dmg-lbl">F</span> ' + atk.damage.fleeting + ' damage</span>';
-        html += '<span class="ct-dmg-tier"><span class="ct-dmg-lbl">M</span> ' + atk.damage.masterful + ' damage</span>';
-        html += '<span class="ct-dmg-tier"><span class="ct-dmg-lbl">L</span> ' + atk.damage.legendary + ' damage</span>';
-        html += '</div>';
+    } else if (attacks.length) {
+      var atkHtml = '<div class="ct-attacks-section">';
+      atkHtml += '<div class="ct-attacks-label">ATTACKS</div>';
+      attacks.forEach(function (atk) {
+        atkHtml += '<div class="ct-attack-card">';
+        atkHtml += '<div class="ct-attack-header"><strong>' + esc(atk.name) + '</strong>';
+        atkHtml += ' <span class="ct-rk-power">POWER ' + atk.attackPower + '</span>';
+        atkHtml += ' <span class="ct-chassis-badge">' + esc(atk.chassisLabel) + '</span>';
+        if (atk.arena) atkHtml += ' <span class="ct-rk-arena">' + esc(atk.arena) + '</span>';
+        atkHtml += '</div>';
+        atkHtml += '<div class="ct-attack-dmg-row">';
+        atkHtml += '<span class="ct-dmg-tier"><span class="ct-dmg-lbl">F</span> ' + atk.damage.fleeting + '</span>';
+        atkHtml += '<span class="ct-dmg-tier"><span class="ct-dmg-lbl">M</span> ' + atk.damage.masterful + '</span>';
+        atkHtml += '<span class="ct-dmg-tier"><span class="ct-dmg-lbl">L</span> ' + atk.damage.legendary + '</span>';
         if (atk.canStun && atk.stun) {
-          html += '<div class="ct-attack-stun-row">';
-          html += '<span class="ct-stun-tier"><span class="ct-stun-lbl">Stun F</span> ' + atk.stun.fleeting + '</span>';
-          html += '<span class="ct-stun-tier"><span class="ct-stun-lbl">M</span> ' + atk.stun.masterful + '</span>';
-          html += '<span class="ct-stun-tier"><span class="ct-stun-lbl">L</span> ' + atk.stun.legendary + '</span>';
-          html += '</div>';
+          atkHtml += '<span class="ct-stun-inline"><span class="ct-stun-lbl">STUN</span> ' + atk.stun.fleeting + ' / ' + atk.stun.masterful + ' / ' + atk.stun.legendary + '</span>';
         }
-        html += '</div>';
+        atkHtml += '</div>';
+        atkHtml += '</div>';
       });
-      html += '</div>';
+      atkHtml += '</div>';
+      html += atkHtml;
     }
 
     return html;
@@ -879,83 +871,88 @@
     var html = '<div class="ct-rolekit">';
     html += '<div class="ct-section-label">' + (rk.roleName ? esc(rk.roleName) : 'Role Kit') + '</div>';
 
-    if (rk.action) {
-      if (rk.action.isAttack) {
-        var matchedAtk = null;
-        var atkList = computedAttacks || [];
-        for (var ai = 0; ai < atkList.length; ai++) {
-          if (atkList[ai].name === rk.action.name) { matchedAtk = atkList[ai]; break; }
-        }
-        if (matchedAtk) {
-          html += '<div class="ct-attack-card ct-rk-attack-card">';
-          html += '<div class="ct-attack-header">';
-          html += '<span class="ct-rk-tag ct-rk-action">Action</span> ';
-          html += '<strong>' + esc(matchedAtk.name) + '</strong>';
-          if (rk.action.defense && rk.action.defense !== 'none') html += ' <span class="ct-rk-cost">(Defense: ' + esc(rk.action.defense) + ')</span>';
-          html += ' <span class="ct-rk-power">POWER ' + matchedAtk.attackPower + '</span>';
-          html += ' <span class="ct-chassis-badge">' + esc(matchedAtk.chassisLabel) + '</span>';
-          if (matchedAtk.arena) html += ' <span class="ct-rk-arena">' + esc(matchedAtk.arena) + '</span>';
-          html += '</div>';
-          html += '<div class="ct-attack-dmg-row">';
-          html += '<span class="ct-dmg-tier"><span class="ct-dmg-lbl">F</span> ' + matchedAtk.damage.fleeting + ' damage</span>';
-          html += '<span class="ct-dmg-tier"><span class="ct-dmg-lbl">M</span> ' + matchedAtk.damage.masterful + ' damage</span>';
-          html += '<span class="ct-dmg-tier"><span class="ct-dmg-lbl">L</span> ' + matchedAtk.damage.legendary + ' damage</span>';
-          html += '</div>';
-          if (matchedAtk.canStun && matchedAtk.stun) {
-            html += '<div class="ct-attack-stun-row">';
-            html += '<span class="ct-stun-tier"><span class="ct-stun-lbl">Stun F</span> ' + matchedAtk.stun.fleeting + '</span>';
-            html += '<span class="ct-stun-tier"><span class="ct-stun-lbl">M</span> ' + matchedAtk.stun.masterful + '</span>';
-            html += '<span class="ct-stun-tier"><span class="ct-stun-lbl">L</span> ' + matchedAtk.stun.legendary + '</span>';
-            html += '</div>';
-          }
-          html += '</div>';
-        } else {
-          html += '<div class="ct-rk-entry"><span class="ct-rk-tag ct-rk-action">Action — Attack</span> <strong>' + esc(rk.action.name) + '</strong>';
-          if (rk.action.defense && rk.action.defense !== 'none') html += ' <span class="ct-rk-cost">(Defense: ' + esc(rk.action.defense) + ')</span>';
-          html += '</div>';
-        }
-      } else {
-        html += '<div class="ct-rk-entry"><span class="ct-rk-tag ct-rk-action">Signature</span> <strong>' + esc(rk.action.name) + '</strong>';
-        if (rk.action.defense && rk.action.defense !== 'none') html += ' <span class="ct-rk-cost">(Defense: ' + esc(rk.action.defense) + ')</span>';
-        if (rk.action.npcEffects) {
-          html += '<div class="ct-rk-effects">';
-          html += '<div><strong>F:</strong> ' + esc(rk.action.npcEffects.fleeting) + '</div>';
-          html += '<div><strong>M:</strong> ' + esc(rk.action.npcEffects.masterful) + '</div>';
-          html += '<div><strong>L:</strong> ' + esc(rk.action.npcEffects.legendary) + '</div>';
-          html += '</div>';
-        }
-        html += '</div>';
-      }
-    }
     if (rk.passive) {
       var passiveDesc = rk.passive.description;
       if (rk.passive.statMod) passiveDesc += ' (included in stats)';
-      html += '<div class="ct-rk-entry"><span class="ct-rk-tag ct-rk-passive">Passive</span> <strong>' + esc(rk.passive.name) + '</strong> &mdash; ' + esc(passiveDesc) + '</div>';
+      html += '<div class="ct-rk-passive"><strong>' + esc(rk.passive.name) + '</strong>: ' + esc(passiveDesc) + '</div>';
     }
+
+    if (rk.action && !rk.action.isAttack) {
+      html += '<div class="ct-rk-entry"><span class="ct-rk-tag ct-rk-action">Signature</span> <strong>' + esc(rk.action.name) + '</strong>';
+      if (rk.action.defense && rk.action.defense !== 'none') html += ' <span class="ct-rk-cost">(Defense: ' + esc(rk.action.defense) + ')</span>';
+      if (rk.action.npcEffects) {
+        html += '<div class="ct-rk-effects-inline">';
+        html += '<span><strong>F:</strong> ' + esc(rk.action.npcEffects.fleeting) + '</span>';
+        html += '<span><strong>M:</strong> ' + esc(rk.action.npcEffects.masterful) + '</span>';
+        html += '<span><strong>L:</strong> ' + esc(rk.action.npcEffects.legendary) + '</span>';
+        html += '</div>';
+      }
+      html += '</div>';
+    }
+
     if (rk.maneuver && rk.maneuver.name) {
       html += '<div class="ct-rk-entry"><span class="ct-rk-tag ct-rk-maneuver">Maneuver</span> <strong>' + esc(rk.maneuver.name) + '</strong>';
       if (rk.maneuver.modifies) html += ' <span class="ct-rk-cost">(mod ' + esc(rk.maneuver.modifies) + ')</span>';
       html += ' &mdash; ' + esc(rk.maneuver.description);
       html += '</div>';
     }
+
+    var allAtks = computedAttacks || [];
+    var roleDefense = rk.action ? rk.action.defense : '';
+    var roleActionName = (rk.action && rk.action.isAttack) ? rk.action.name : null;
+
+    var gambits = [];
     if (rk.gambits && rk.gambits.length) {
-      rk.gambits.forEach(function (g) {
-        html += '<div class="ct-rk-entry"><span class="ct-rk-tag ct-rk-gambit">Gambit</span> <strong>' + esc(g.name) + '</strong> <span class="ct-rk-cost">(' + esc(g.cost) + ')</span> &mdash; ' + esc(g.description) + '</div>';
-      });
+      gambits = gambits.concat(rk.gambits);
     } else if (rk.gambit) {
-      html += '<div class="ct-rk-entry"><span class="ct-rk-tag ct-rk-gambit">Gambit</span> <strong>' + esc(rk.gambit.name) + '</strong> <span class="ct-rk-cost">(-1 Pwr)</span> &mdash; ' + esc(rk.gambit.description) + '</div>';
+      gambits.push(rk.gambit);
     }
     if (tb && tb.extraGambits && tb.extraGambits.length) {
-      tb.extraGambits.forEach(function (eg) {
-        html += '<div class="ct-rk-entry"><span class="ct-rk-tag ct-rk-gambit">Gambit</span> <strong>' + esc(eg.name) + '</strong> <span class="ct-rk-cost">(-1 Pwr)</span> &mdash; ' + esc(eg.description) + '</div>';
-      });
+      gambits = gambits.concat(tb.extraGambits);
     }
-    if (rk.exploit) {
-      html += '<div class="ct-rk-entry"><span class="ct-rk-tag ct-rk-exploit">Exploit</span> <strong>' + esc(rk.exploit.name) + '</strong>';
-      if (rk.exploit.trigger) {
-        html += '<div style="font-size:0.5rem;color:var(--color-warn,#f59e0b);"><strong>TRIGGER:</strong> ' + esc(rk.exploit.trigger) + '</div>';
+
+    if (allAtks.length || gambits.length) {
+      html += '<div class="ct-attacks-section">';
+      if (allAtks.length) {
+        html += '<div class="ct-attacks-label">ATTACKS</div>';
+        allAtks.forEach(function (atk) {
+          var isRole = !!atk.isRoleAction || (roleActionName && atk.name === roleActionName);
+          html += '<div class="ct-attack-card' + (isRole ? ' ct-rk-attack-card' : '') + '">';
+          html += '<div class="ct-attack-header">';
+          if (isRole) html += '<span class="ct-rk-tag ct-rk-action">Action</span> ';
+          html += '<strong>' + esc(atk.name) + '</strong>';
+          if (isRole && roleDefense && roleDefense !== 'none') html += ' <span class="ct-rk-cost">(Def: ' + esc(roleDefense) + ')</span>';
+          html += ' <span class="ct-rk-power">POWER ' + atk.attackPower + '</span>';
+          html += ' <span class="ct-chassis-badge">' + esc(atk.chassisLabel) + '</span>';
+          if (atk.arena) html += ' <span class="ct-rk-arena">' + esc(atk.arena) + '</span>';
+          html += '</div>';
+          html += '<div class="ct-attack-dmg-row">';
+          html += '<span class="ct-dmg-tier"><span class="ct-dmg-lbl">F</span> ' + atk.damage.fleeting + '</span>';
+          html += '<span class="ct-dmg-tier"><span class="ct-dmg-lbl">M</span> ' + atk.damage.masterful + '</span>';
+          html += '<span class="ct-dmg-tier"><span class="ct-dmg-lbl">L</span> ' + atk.damage.legendary + '</span>';
+          if (atk.canStun && atk.stun) {
+            html += '<span class="ct-stun-inline"><span class="ct-stun-lbl">STUN</span> ' + atk.stun.fleeting + ' / ' + atk.stun.masterful + ' / ' + atk.stun.legendary + '</span>';
+          }
+          html += '</div>';
+          html += '</div>';
+        });
       }
-      html += ' &mdash; ' + esc(rk.exploit.description);
+      if (gambits.length) {
+        html += '<div class="ct-gambits-row">';
+        gambits.forEach(function (g) {
+          html += '<div class="ct-gambit-item"><span class="ct-rk-tag ct-rk-gambit">Gambit</span> <strong>' + esc(g.name) + '</strong> <span class="ct-rk-cost">(' + esc(g.cost) + ')</span> &mdash; ' + esc(g.description) + '</div>';
+        });
+        html += '</div>';
+      }
+      html += '</div>';
+    }
+
+    if (rk.exploit) {
+      html += '<div class="ct-rk-exploit-block"><span class="ct-rk-tag ct-rk-exploit">Exploit</span> <strong>' + esc(rk.exploit.name) + '</strong>';
+      if (rk.exploit.trigger) {
+        html += '<div class="ct-exploit-trigger"><strong>TRIGGER:</strong> ' + esc(rk.exploit.trigger) + '</div>';
+      }
+      html += '<div>' + esc(rk.exploit.description) + '</div>';
       html += '</div>';
     }
 

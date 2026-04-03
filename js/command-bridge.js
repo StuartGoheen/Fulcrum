@@ -404,116 +404,95 @@
     if (tb.roleKit) {
       var rk = tb.roleKit;
       if (rk.roleName) {
-        h += '<div class="cb-npc-role-header" style="font-family:\'Audiowide\',sans-serif;font-size:0.6rem;color:var(--color-accent-primary);text-transform:uppercase;letter-spacing:0.1em;margin:0.3rem 0 0.15rem;">' + esc(rk.roleName) + '</div>';
+        h += '<div class="cb-npc-role-header">' + esc(rk.roleName) + '</div>';
       }
-      if (rk.action) {
-        if (rk.action.isAttack) {
-          var atkList = tb.computedAttacks || [];
-          var matchedAtk = null;
-          for (var ai = 0; ai < atkList.length; ai++) {
-            if (atkList[ai].name === rk.action.name) { matchedAtk = atkList[ai]; break; }
-          }
-          if (matchedAtk) {
-            h += '<div class="cb-npc-attack-card" style="border-left:2px solid var(--color-accent-primary,#c9a227);">';
-            h += '<div class="cb-npc-attack-header">';
-            h += '<span class="cb-npc-ability-tag" style="background:rgba(59,130,246,0.15);color:#3b82f6;">Action</span> ';
-            h += '<strong>' + esc(matchedAtk.name) + '</strong>';
-            if (rk.action.defense && rk.action.defense !== 'none') h += ' <span style="color:var(--color-text-secondary);font-size:0.55rem;">(Defense: ' + esc(rk.action.defense) + ')</span>';
-            h += ' <span class="cb-power-badge">POWER ' + matchedAtk.attackPower + '</span>';
-            h += ' <span class="cb-chassis-badge">' + esc(matchedAtk.chassisLabel) + '</span>';
-            if (matchedAtk.arena) h += ' <span style="color:var(--color-text-secondary);font-size:0.6rem;">' + esc(matchedAtk.arena) + '</span>';
-            h += '</div>';
-            h += '<div class="cb-npc-attack-dmg-row">';
-            h += '<span class="cb-dmg-tier"><span class="cb-dmg-lbl">F</span> ' + matchedAtk.damage.fleeting + ' damage</span>';
-            h += '<span class="cb-dmg-tier"><span class="cb-dmg-lbl">M</span> ' + matchedAtk.damage.masterful + ' damage</span>';
-            h += '<span class="cb-dmg-tier"><span class="cb-dmg-lbl">L</span> ' + matchedAtk.damage.legendary + ' damage</span>';
-            h += '</div>';
-            if (matchedAtk.canStun && matchedAtk.stun) {
-              h += '<div class="cb-npc-attack-stun-row">';
-              h += '<span class="cb-stun-tier"><span class="cb-stun-lbl">Stun F</span> ' + matchedAtk.stun.fleeting + '</span>';
-              h += '<span class="cb-stun-tier"><span class="cb-stun-lbl">M</span> ' + matchedAtk.stun.masterful + '</span>';
-              h += '<span class="cb-stun-tier"><span class="cb-stun-lbl">L</span> ' + matchedAtk.stun.legendary + '</span>';
-              h += '</div>';
-            }
-            h += '</div>';
-          } else {
-            h += '<div class="cb-npc-ability"><span class="cb-npc-ability-tag" style="background:rgba(59,130,246,0.15);color:#3b82f6;">Action — Attack</span> <strong>' + esc(rk.action.name) + '</strong>';
-            if (rk.action.defense && rk.action.defense !== 'none') h += ' <span style="color:var(--color-text-secondary);font-size:0.55rem;">(Defense: ' + esc(rk.action.defense) + ')</span>';
-            h += '</div>';
-          }
-        } else {
-          h += '<div class="cb-npc-ability"><span class="cb-npc-ability-tag" style="background:rgba(59,130,246,0.15);color:#3b82f6;">Signature</span> <strong>' + esc(rk.action.name) + '</strong>';
-          if (rk.action.defense && rk.action.defense !== 'none') h += ' <span style="color:var(--color-text-secondary);font-size:0.55rem;">(Defense: ' + esc(rk.action.defense) + ')</span>';
-          if (rk.action.npcEffects) {
-            h += '<div style="font-size:0.55rem;margin:0.1rem 0 0 0.5rem;">';
-            h += '<div><strong>F:</strong> ' + linkify(rk.action.npcEffects.fleeting) + '</div>';
-            h += '<div><strong>M:</strong> ' + linkify(rk.action.npcEffects.masterful) + '</div>';
-            h += '<div><strong>L:</strong> ' + linkify(rk.action.npcEffects.legendary) + '</div>';
-            h += '</div>';
-          }
-          h += '</div>';
-        }
-      }
+
       if (rk.passive) {
         var passiveDesc = rk.passive.description;
         if (rk.passive.statMod) passiveDesc += ' (included in stats)';
-        h += '<div class="cb-npc-ability"><span class="cb-npc-ability-tag" style="background:rgba(192,132,252,0.15);color:#c084fc;">Passive</span> <strong>' + esc(rk.passive.name) + '</strong> — ' + linkify(passiveDesc) + '</div>';
+        h += '<div class="cb-npc-passive"><strong>' + esc(rk.passive.name) + '</strong>: ' + linkify(passiveDesc) + '</div>';
       }
-      if (rk.maneuver && rk.maneuver.name) {
-        h += '<div class="cb-npc-ability"><span class="cb-npc-ability-tag" style="background:rgba(168,85,247,0.15);color:#a855f7;">Maneuver</span> <strong>' + esc(rk.maneuver.name) + '</strong>';
-        if (rk.maneuver.modifies) h += ' <span style="color:var(--color-text-secondary);font-size:0.55rem;">(mod ' + esc(rk.maneuver.modifies) + ')</span>';
-        h += ' — ' + linkify(rk.maneuver.description) + '</div>';
-      }
-      if (rk.gambits && rk.gambits.length) {
-        rk.gambits.forEach(function (g) {
-          h += '<div class="cb-npc-ability"><span class="cb-npc-ability-tag" style="background:rgba(245,158,11,0.15);color:#f59e0b;">Gambit</span> <strong>' + esc(g.name) + '</strong> <span style="color:var(--color-text-secondary);font-size:0.6rem;">(' + esc(g.cost) + ')</span> — ' + linkify(g.description) + '</div>';
-        });
-      } else if (rk.gambit) {
-        h += '<div class="cb-npc-ability"><span class="cb-npc-ability-tag" style="background:rgba(245,158,11,0.15);color:#f59e0b;">Gambit</span> <strong>' + esc(rk.gambit.name) + '</strong> <span style="color:var(--color-text-secondary);font-size:0.6rem;">(-1 Pwr)</span> — ' + linkify(rk.gambit.description) + '</div>';
-      }
-      if (tb.extraGambits && tb.extraGambits.length) {
-        tb.extraGambits.forEach(function (eg) {
-          h += '<div class="cb-npc-ability"><span class="cb-npc-ability-tag" style="background:rgba(245,158,11,0.15);color:#f59e0b;">Gambit</span> <strong>' + esc(eg.name) + '</strong> <span style="color:var(--color-text-secondary);font-size:0.6rem;">(-1 Pwr)</span> — ' + linkify(eg.description) + '</div>';
-        });
-      }
-      if (rk.exploit) {
-        h += '<div class="cb-npc-ability"><span class="cb-npc-ability-tag" style="background:rgba(52,211,153,0.15);color:#34d399;">Exploit</span> <strong>' + esc(rk.exploit.name) + '</strong>';
-        if (rk.exploit.trigger) {
-          h += '<div style="font-size:0.55rem;color:var(--color-warn,#f59e0b);margin:0.05rem 0;"><strong>TRIGGER:</strong> ' + linkify(rk.exploit.trigger) + '</div>';
-        }
-        h += '<div>' + linkify(rk.exploit.description) + '</div>';
-        h += '</div>';
-      }
-    }
 
-    var attacks = tb.computedAttacks || [];
-    var cbRoleActionName = (tb.roleKit && tb.roleKit.action && tb.roleKit.action.isAttack) ? tb.roleKit.action.name : null;
-    var cbNonRoleAttacks = attacks.filter(function (atk) { return atk.name !== cbRoleActionName; });
-    if (cbNonRoleAttacks.length) {
-      h += '<div class="cb-npc-attacks-section">';
-      h += '<div class="cb-npc-attacks-label">ATTACKS</div>';
-      cbNonRoleAttacks.forEach(function (atk) {
-        h += '<div class="cb-npc-attack-card">';
-        h += '<div class="cb-npc-attack-header">';
-        h += '<strong>' + esc(atk.name) + '</strong>';
-        h += ' <span class="cb-power-badge">Power ' + atk.attackPower + '</span>';
-        h += ' <span class="cb-chassis-badge">' + esc(atk.chassisLabel) + '</span>';
-        if (atk.arena) h += ' <span style="color:var(--color-text-secondary);font-size:0.6rem;">(' + esc(atk.arena) + ')</span>';
-        h += '</div>';
-        h += '<div class="cb-npc-attack-dmg-row">';
-        h += '<span class="cb-dmg-tier"><span class="cb-dmg-lbl">F</span> ' + atk.damage.fleeting + '</span>';
-        h += '<span class="cb-dmg-tier"><span class="cb-dmg-lbl">M</span> ' + atk.damage.masterful + '</span>';
-        h += '<span class="cb-dmg-tier"><span class="cb-dmg-lbl">L</span> ' + atk.damage.legendary + '</span>';
-        h += '</div>';
-        if (atk.canStun && atk.stun) {
-          h += '<div class="cb-npc-attack-stun-row">';
-          h += '<span class="cb-stun-tier"><span class="cb-stun-lbl">Stun F</span> ' + atk.stun.fleeting + '</span>';
-          h += '<span class="cb-stun-tier"><span class="cb-stun-lbl">M</span> ' + atk.stun.masterful + '</span>';
-          h += '<span class="cb-stun-tier"><span class="cb-stun-lbl">L</span> ' + atk.stun.legendary + '</span>';
+      if (rk.action && !rk.action.isAttack) {
+        h += '<div class="cb-npc-ability"><span class="cb-npc-ability-tag cb-tag-sig">Signature</span> <strong>' + esc(rk.action.name) + '</strong>';
+        if (rk.action.defense && rk.action.defense !== 'none') h += ' <span class="cb-npc-meta">(Defense: ' + esc(rk.action.defense) + ')</span>';
+        if (rk.action.npcEffects) {
+          h += '<div class="cb-npc-effects">';
+          h += '<span><strong>F:</strong> ' + linkify(rk.action.npcEffects.fleeting) + '</span>';
+          h += '<span><strong>M:</strong> ' + linkify(rk.action.npcEffects.masterful) + '</span>';
+          h += '<span><strong>L:</strong> ' + linkify(rk.action.npcEffects.legendary) + '</span>';
           h += '</div>';
         }
         h += '</div>';
-      });
+      }
+
+      if (rk.maneuver && rk.maneuver.name) {
+        h += '<div class="cb-npc-ability"><span class="cb-npc-ability-tag cb-tag-maneuver">Maneuver</span> <strong>' + esc(rk.maneuver.name) + '</strong>';
+        if (rk.maneuver.modifies) h += ' <span class="cb-npc-meta">(mod ' + esc(rk.maneuver.modifies) + ')</span>';
+        h += ' — ' + linkify(rk.maneuver.description) + '</div>';
+      }
+    }
+
+    var allAttacks = tb.computedAttacks || [];
+    var roleDefense = (tb.roleKit && tb.roleKit.action) ? tb.roleKit.action.defense : '';
+    var roleActionName = (tb.roleKit && tb.roleKit.action && tb.roleKit.action.isAttack) ? tb.roleKit.action.name : null;
+
+    var gambits = [];
+    if (tb.roleKit) {
+      if (tb.roleKit.gambits && tb.roleKit.gambits.length) {
+        gambits = gambits.concat(tb.roleKit.gambits);
+      } else if (tb.roleKit.gambit) {
+        gambits.push(tb.roleKit.gambit);
+      }
+    }
+    if (tb.extraGambits && tb.extraGambits.length) {
+      gambits = gambits.concat(tb.extraGambits);
+    }
+
+    if (allAttacks.length || gambits.length) {
+      h += '<div class="cb-npc-attacks-section">';
+      if (allAttacks.length) {
+        h += '<div class="cb-npc-attacks-label">ATTACKS</div>';
+        allAttacks.forEach(function (atk) {
+          var isRole = !!atk.isRoleAction || (roleActionName && atk.name === roleActionName);
+          h += '<div class="cb-npc-attack-card' + (isRole ? ' cb-npc-role-attack' : '') + '">';
+          h += '<div class="cb-npc-attack-header">';
+          if (isRole) h += '<span class="cb-npc-ability-tag cb-tag-action">Action</span> ';
+          h += '<strong>' + esc(atk.name) + '</strong>';
+          if (isRole && roleDefense && roleDefense !== 'none') h += ' <span class="cb-npc-meta">(Defense: ' + esc(roleDefense) + ')</span>';
+          h += ' <span class="cb-power-badge">POWER ' + atk.attackPower + '</span>';
+          h += ' <span class="cb-chassis-badge">' + esc(atk.chassisLabel) + '</span>';
+          if (atk.arena) h += ' <span class="cb-npc-meta">' + esc(atk.arena) + '</span>';
+          h += '</div>';
+          h += '<div class="cb-npc-attack-dmg-row">';
+          h += '<span class="cb-dmg-tier"><span class="cb-dmg-lbl">F</span> ' + atk.damage.fleeting + '</span>';
+          h += '<span class="cb-dmg-tier"><span class="cb-dmg-lbl">M</span> ' + atk.damage.masterful + '</span>';
+          h += '<span class="cb-dmg-tier"><span class="cb-dmg-lbl">L</span> ' + atk.damage.legendary + '</span>';
+          if (atk.canStun && atk.stun) {
+            h += '<span class="cb-stun-inline"><span class="cb-stun-lbl">STUN</span> ' + atk.stun.fleeting + ' / ' + atk.stun.masterful + ' / ' + atk.stun.legendary + '</span>';
+          }
+          h += '</div>';
+          h += '</div>';
+        });
+      }
+      if (gambits.length) {
+        h += '<div class="cb-npc-gambits-row">';
+        gambits.forEach(function (g) {
+          h += '<div class="cb-npc-gambit-item"><span class="cb-npc-ability-tag cb-tag-gambit">Gambit</span> <strong>' + esc(g.name) + '</strong> <span class="cb-npc-meta">(' + esc(g.cost) + ')</span> — ' + linkify(g.description) + '</div>';
+        });
+        h += '</div>';
+      }
+      h += '</div>';
+    }
+
+    if (tb.roleKit && tb.roleKit.exploit) {
+      var expl = tb.roleKit.exploit;
+      h += '<div class="cb-npc-exploit">';
+      h += '<span class="cb-npc-ability-tag cb-tag-exploit">Exploit</span> <strong>' + esc(expl.name) + '</strong>';
+      if (expl.trigger) {
+        h += '<div class="cb-exploit-trigger"><strong>TRIGGER:</strong> ' + linkify(expl.trigger) + '</div>';
+      }
+      h += '<div>' + linkify(expl.description) + '</div>';
       h += '</div>';
     }
 
