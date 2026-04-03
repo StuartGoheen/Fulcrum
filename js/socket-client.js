@@ -334,6 +334,12 @@
 
       html += '<div class="' + cls + '">';
       html += '<span class="pit-init">' + (entry.initiative || '—') + '</span>';
+      if (isNpc && npc) {
+        var disp = npc.disposition || 'enemy';
+        var dispLabel = disp === 'ally' ? 'A' : disp === 'neutral' ? 'N' : 'E';
+        var dispColor = disp === 'ally' ? '#22c55e' : disp === 'neutral' ? '#eab308' : '#ef4444';
+        html += '<span class="pit-disp" style="background:' + dispColor + ';">' + dispLabel + '</span>';
+      }
       html += '<span class="pit-name">' + _escHtml(entry.name) + '</span>';
 
       if (isNpc && npc) {

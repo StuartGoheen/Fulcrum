@@ -131,59 +131,8 @@
     var npcEntries = [];
     var npcIdCounter = 0;
 
-    var matchedNpcIndices = {};
-
-    if (encounter.composition && encounter.composition.enemies) {
-      encounter.composition.enemies.forEach(function (enemy) {
-        var npcData = null;
-        var npcMatchIdx = -1;
-        var enemyBase = enemy.type.replace(/ \(.*\)/, '');
-        npcs.forEach(function (n, ni) {
-          if (!n.threatBuild) return;
-          if (n.type === enemy.type || n.type === enemyBase || n.name === enemy.type || n.name === enemyBase) {
-            npcData = n;
-            npcMatchIdx = ni;
-          }
-        });
-        if (npcMatchIdx >= 0) matchedNpcIndices[npcMatchIdx] = true;
-        var tier = enemy.tier || 0;
-        if (tier > highestTier) highestTier = tier;
-        for (var i = 0; i < enemy.count; i++) {
-          npcIdCounter++;
-          var label = enemy.count > 1 ? enemy.type + ' #' + (i + 1) : enemy.type;
-          var tb = npcData && npcData.threatBuild ? npcData.threatBuild : null;
-          var comp = tb ? (tb.computed || {}) : {};
-          npcEntries.push({
-            id: 'npc_' + npcIdCounter,
-            name: label,
-            type: 'npc',
-            threat: enemy.threat || enemy.classification || 'standard',
-            tier: tier,
-            role: enemy.role || '',
-            initiative: comp.initiative || (1 + tier),
-            power: comp.power || 0,
-            defense: comp.defense || 0,
-            evasion: comp.evasion || 0,
-            resist: comp.resist || 0,
-            vitalityMax: comp.vitality || 5,
-            vitalityCurrent: comp.vitality || 5,
-            actions: comp.actions || 1,
-            conditions: [],
-            conditionArenas: {},
-            roleKit: tb ? tb.roleKit : null,
-            computedAttacks: tb ? (tb.computedAttacks || []) : [],
-            arenas: tb ? (tb.arenas || {}) : {},
-            damageTiers: comp.damageTiers || null,
-            zone: null,
-            npcData: npcData
-          });
-        }
-      });
-    }
-
-    npcs.forEach(function (n, ni) {
+    npcs.forEach(function (n) {
       if (!n.threatBuild) return;
-      if (matchedNpcIndices[ni]) return;
       var tb = n.threatBuild;
       var comp = tb.computed || {};
       var tier = tb.tier || 0;
@@ -193,6 +142,7 @@
         id: 'npc_' + npcIdCounter,
         name: n.name || n.type || ('NPC ' + npcIdCounter),
         type: 'npc',
+        disposition: 'enemy',
         threat: tb.classification || 'standard',
         tier: tier,
         role: tb.role || '',
@@ -567,6 +517,12 @@
 
       html += '<div class="' + cls + '" data-select-id="' + esc(c.id) + '">';
       html += '<span class="ct-rail-init">' + (c.initiative || '—') + '</span>';
+      if (isNpc && npc) {
+        var disp = npc.disposition || 'enemy';
+        var dispLabel = disp === 'ally' ? 'A' : disp === 'neutral' ? 'N' : 'E';
+        var dispColor = disp === 'ally' ? '#22c55e' : disp === 'neutral' ? '#eab308' : '#ef4444';
+        html += '<span class="ct-rail-disp" data-npc-id="' + esc(npc.id) + '" title="Click to cycle: Enemy / Neutral / Ally" style="background:' + dispColor + ';">' + dispLabel + '</span>';
+      }
       html += '<span class="ct-rail-name">' + esc(c.name) + '</span>';
       if (isNpc && npc) {
         var pct = npc.vitalityMax > 0 ? Math.round((npc.vitalityCurrent / npc.vitalityMax) * 100) : 0;
@@ -1485,6 +1441,7 @@
       id: id,
       name: npcBuild.name || 'Unknown NPC',
       type: 'npc',
+      disposition: 'enemy',
       threat: npcBuild.classification || 'standard',
       tier: npcBuild.tier || 0,
       role: npcBuild.role || '',
@@ -1650,6 +1607,18 @@
       btn.addEventListener('click', function (e) {
         e.stopPropagation();
         editNpcInBuilder(btn.dataset.npcId);
+      });
+    });
+
+    container.querySelectorAll('.ct-rail-disp').forEach(function (badge) {
+      badge.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var npcId = badge.dataset.npcId;
+        var npc = combatState.combatants.find(function (n) { return n.id === npcId; });
+        if (!npc) return;
+        var cycle = { enemy: 'neutral', neutral: 'ally', ally: 'enemy' };
+        npc.disposition = cycle[npc.disposition || 'enemy'] || 'enemy';
+        renderCombatTracker();
       });
     });
 

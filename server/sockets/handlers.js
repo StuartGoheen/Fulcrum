@@ -92,7 +92,8 @@ function _getPlayerCombatState() {
       return {
         id: n.id, name: n.name, type: 'npc', threat: n.threat, tier: n.tier,
         vitalityCurrent: n.vitalityCurrent, vitalityMax: n.vitalityMax,
-        conditions: n.conditions, initiative: n.initiative
+        conditions: n.conditions, initiative: n.initiative,
+        disposition: n.disposition || 'enemy'
       };
     }),
     pcSlots: (_combatState.pcSlots || []).map(function (p) {
