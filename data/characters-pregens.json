@@ -15,202 +15,132 @@
       "stealth"
     ],
     "vitalityModifier": 0,
-    "weaponIds": [
-      "wpn_dl18_01"
-    ],
-    "armorId": "arm_combat_jumpsuit_01",
-    "gearIds": [
-      "gear_breath_mask_01",
-      "gear_syntherope_01",
-      "gear_comlink_encrypted_01",
-      "gear_smoke_grenade_01",
-      "gear_glow_rod_01",
-      "gear_macrobinoculars_01"
-    ],
-    "engine": {
-      "id": "edge",
-      "name": "The Edge",
-      "poolName": "Edge Points",
-      "coreUtility": {
-        "name": "Tier Boost",
-        "cost": "1 Edge Point",
-        "rule": "Spend 1 Edge after a roll to boost Power by +1 Effect Tier. Favored Disciplines only."
-      },
-      "governingArenas": [
-        "reflex",
-        "reflex"
-      ]
-    },
     "kits": {
       "voc_ghost": 3,
       "voc_gunslinger": 2
     },
     "talents": [],
-    "arenas": [
+    "arenaAdj": {
+      "reflex": 1,
+      "grit": 1,
+      "wits": 1
+    },
+    "discValues": {
+      "athletics": "D4",
+      "heavy_weapons": "D4",
+      "evasion": "D8",
+      "piloting": "D8",
+      "ranged": "D8",
+      "skulduggery": "D8",
+      "stealth": "D10",
+      "beast_handling": "D4",
+      "control_spark": "D4",
+      "survival": "D8",
+      "investigation": "D8",
+      "sense_spark": "D4",
+      "alter_spark": "D4",
+      "charm": "D4",
+      "persuasion": "D4"
+    },
+    "startingGear": [
       {
-        "id": "physique",
-        "label": "PHYSIQUE",
-        "subtitle": "Strength, Structure, Endurance",
-        "die": "D6",
-        "disciplines": [
-          {
-            "id": "athletics",
-            "label": "Athletics",
-            "die": "D4"
-          },
-          {
-            "id": "brawl",
-            "label": "Brawl",
-            "die": "D6"
-          },
-          {
-            "id": "endure",
-            "label": "Endure",
-            "die": "D6"
-          },
-          {
-            "id": "melee",
-            "label": "Melee",
-            "die": "D6"
-          },
-          {
-            "id": "heavy_weapons",
-            "label": "Heavy Weapons",
-            "die": "D4"
-          }
-        ]
+        "id": "wpn_dl18_01",
+        "name": "BlasTech DL-18",
+        "cost": 500,
+        "source": "weapon",
+        "acquisition": "background",
+        "legalStatus": "1/f",
+        "origin": "Character Creation"
       },
       {
-        "id": "reflex",
-        "label": "REFLEX",
-        "subtitle": "Speed, Agility, Hand-Eye Coordination",
-        "die": "D8",
-        "disciplines": [
-          {
-            "id": "evasion",
-            "label": "Evasion",
-            "die": "D8"
-          },
-          {
-            "id": "piloting",
-            "label": "Piloting",
-            "die": "D8"
-          },
-          {
-            "id": "ranged",
-            "label": "Ranged",
-            "die": "D8"
-          },
-          {
-            "id": "skulduggery",
-            "label": "Skulduggery",
-            "die": "D8"
-          },
-          {
-            "id": "stealth",
-            "label": "Stealth",
-            "die": "D10"
-          }
-        ]
+        "id": "wpn_quickfire4_01",
+        "name": "Merr-Sonn Quickfire-4",
+        "cost": 300,
+        "source": "weapon",
+        "acquisition": "background",
+        "legalStatus": "2/r",
+        "origin": "Character Creation"
       },
       {
-        "id": "grit",
-        "label": "GRIT",
-        "subtitle": "Instinct, Stamina, Spiritual Willpower",
-        "die": "D8",
-        "disciplines": [
-          {
-            "id": "beast_handling",
-            "label": "Beast Handling",
-            "die": "D4"
-          },
-          {
-            "id": "control_spark",
-            "label": "Control (The Spark)",
-            "die": "D4"
-          },
-          {
-            "id": "intimidate",
-            "label": "Intimidate",
-            "die": "D6"
-          },
-          {
-            "id": "resolve",
-            "label": "Resolve",
-            "die": "D6"
-          },
-          {
-            "id": "survival",
-            "label": "Survival",
-            "die": "D8"
-          }
-        ]
+        "id": "wpn_vibroblade_01",
+        "name": "Vibroblade",
+        "cost": 250,
+        "source": "weapon",
+        "acquisition": "background",
+        "legalStatus": "2/f",
+        "origin": "Character Creation"
       },
       {
-        "id": "wits",
-        "label": "WITS",
-        "subtitle": "Logic, Awareness, Technical Knowledge",
-        "die": "D8",
-        "disciplines": [
-          {
-            "id": "investigation",
-            "label": "Investigation",
-            "die": "D8"
-          },
-          {
-            "id": "medicine",
-            "label": "Medicine",
-            "die": "D6"
-          },
-          {
-            "id": "sense_spark",
-            "label": "Sense (The Spark)",
-            "die": "D4"
-          },
-          {
-            "id": "tactics",
-            "label": "Tactics",
-            "die": "D6"
-          },
-          {
-            "id": "tech",
-            "label": "Tech",
-            "die": "D6"
-          }
-        ]
+        "id": "arm_combat_jumpsuit_01",
+        "name": "Combat Jumpsuit",
+        "cost": 300,
+        "source": "armor",
+        "acquisition": "background",
+        "legalStatus": "2",
+        "origin": "Character Creation"
       },
       {
-        "id": "presence",
-        "label": "PRESENCE",
-        "subtitle": "Charisma, Authority, Projection of Will",
-        "die": "D6",
-        "disciplines": [
-          {
-            "id": "alter_spark",
-            "label": "Alter (The Spark)",
-            "die": "D4"
-          },
-          {
-            "id": "charm",
-            "label": "Charm",
-            "die": "D4"
-          },
-          {
-            "id": "deception",
-            "label": "Deception",
-            "die": "D6"
-          },
-          {
-            "id": "insight",
-            "label": "Insight",
-            "die": "D6"
-          },
-          {
-            "id": "persuasion",
-            "label": "Persuasion",
-            "die": "D4"
-          }
-        ]
+        "id": "gear_breath_mask_01",
+        "name": "Breath Mask",
+        "cost": 50,
+        "source": "gear",
+        "acquisition": "background",
+        "legalStatus": "1",
+        "origin": "Character Creation"
+      },
+      {
+        "id": "gear_syntherope_01",
+        "name": "Syntherope",
+        "cost": 10,
+        "source": "gear",
+        "acquisition": "background",
+        "legalStatus": "2",
+        "origin": "Character Creation"
+      },
+      {
+        "id": "gear_comlink_encrypted_01",
+        "name": "Encrypted Comlink",
+        "cost": 500,
+        "source": "gear",
+        "acquisition": "background",
+        "legalStatus": "1",
+        "origin": "Character Creation"
+      },
+      {
+        "id": "gear_smoke_grenade_01",
+        "name": "Smoke Grenade",
+        "cost": 25,
+        "source": "gear",
+        "acquisition": "background",
+        "legalStatus": "2/r",
+        "origin": "Character Creation"
+      },
+      {
+        "id": "gear_glow_rod_01",
+        "name": "Glow Rod",
+        "cost": 10,
+        "source": "gear",
+        "acquisition": "background",
+        "legalStatus": "1",
+        "origin": "Character Creation"
+      },
+      {
+        "id": "gear_macrobinoculars_01",
+        "name": "Macro-binoculars",
+        "cost": 100,
+        "source": "gear",
+        "acquisition": "background",
+        "legalStatus": "1",
+        "origin": "Character Creation"
+      },
+      {
+        "id": "gear_medpac_01",
+        "name": "Medpac",
+        "cost": 100,
+        "source": "gear",
+        "acquisition": "background",
+        "legalStatus": "1",
+        "origin": "Character Creation"
       }
     ],
     "personalDestiny": {

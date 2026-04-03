@@ -847,7 +847,7 @@
     });
 
     var activeArmors = [];
-    var charArmorIds = char.armorIds || (char.armorId ? [char.armorId] : []);
+    var charArmorIds = char.armorIds || [];
     for (var ali = 0; ali < charArmorIds.length; ali++) {
       var armorEntry = statusMap[charArmorIds[ali]];
       var armorStatus = armorEntry ? armorEntry.status : 'carried';

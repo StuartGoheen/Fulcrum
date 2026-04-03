@@ -160,50 +160,10 @@ function applyInventoryRemovals(result, removals) {
       const idx = result.armorIds.indexOf(armId);
       if (idx !== -1) result.armorIds.splice(idx, 1);
     });
-  } else if (removals.armor === true) {
-    result.armorIds = [];
   }
 }
 
 function expandCharacterData(flat) {
-  const alreadyExpanded = flat.arenas && Array.isArray(flat.arenas);
-
-  if (alreadyExpanded) {
-    const kits = resolveKits(flat.kits);
-    const engineArenas = kits.map(k => k.governingArena).filter(Boolean);
-    flat.kits = kits;
-    flat.engine = kits.length > 0 ? Object.assign({}, ENGINE_DATA, { governingArenas: engineArenas }) : null;
-    if (!flat.backgroundFavored) {
-      flat.backgroundFavored = resolveBackgroundFavored(flat);
-    }
-    if (!flat.weaponIds) flat.weaponIds = [];
-    const UNARMED = ['wpn_fists_01', 'wpn_cathar_claws_01'];
-    const spLower = (flat.species || '').toLowerCase();
-    const correctId = spLower === 'cathar' ? 'wpn_cathar_claws_01' : 'wpn_fists_01';
-    flat.weaponIds = flat.weaponIds.filter(id => !UNARMED.includes(id));
-    flat.weaponIds.push(correctId);
-    if (!Array.isArray(flat.armorIds)) {
-      flat.armorIds = flat.armorId ? [flat.armorId] : [];
-      delete flat.armorId;
-    }
-    if (!flat.advancement) flat.advancement = {};
-    if (!flat.advancement.marks) flat.advancement.marks = { earnedChecks: {}, totalBanked: 0 };
-    if (!flat.advancement.disciplineTrack) flat.advancement.disciplineTrack = { level: 2, filled: 0, eliteTokens: 0, focusBurns: 0, unspentAdvances: 0 };
-    else if (flat.advancement.disciplineTrack.unspentAdvances === undefined) flat.advancement.disciplineTrack.unspentAdvances = 0;
-    if (!flat.advancement.arenaTrack) flat.advancement.arenaTrack = { level: 2, filled: 0, unspentAdvances: 0 };
-    else if (flat.advancement.arenaTrack.unspentAdvances === undefined) flat.advancement.arenaTrack.unspentAdvances = 0;
-    if (!flat.advancement.vocationTrack) flat.advancement.vocationTrack = { level: 2, filled: 0, unspentAdvances: 0 };
-    else if (flat.advancement.vocationTrack.unspentAdvances === undefined) flat.advancement.vocationTrack.unspentAdvances = 0;
-    if (!flat.advancement.vocationUnlocks) flat.advancement.vocationUnlocks = {};
-    if (flat.advancement.careerMarksEarned === undefined) flat.advancement.careerMarksEarned = 0;
-    if (!flat.advancement.heroTier) flat.advancement.heroTier = { signatureMove: '', favoredArena: '', moniker: '', respecUsed: false };
-    applyVocationUnlocks(flat.kits, flat.advancement.vocationUnlocks);
-    if (flat.credits === undefined) flat.credits = 0;
-    flat.debt = _migrateDebt(flat.debt);
-    applyInventoryRemovals(flat, flat.inventoryRemovals);
-    return flat;
-  }
-
   const speciesBase = SPECIES_ARENAS[flat.species] || SPECIES_ARENAS['Human'];
   const arenaAdj = flat.arenaAdj || {};
   const discValues = flat.discValues || {};
@@ -234,8 +194,7 @@ function expandCharacterData(flat) {
 
   const weaponIds = Array.isArray(flat.weaponIds) ? flat.weaponIds.slice() : [];
   const gearIds = Array.isArray(flat.gearIds) ? flat.gearIds.slice() : [];
-  const armorIds = Array.isArray(flat.armorIds) ? flat.armorIds.slice()
-                 : (flat.armorId ? [flat.armorId] : []);
+  const armorIds = Array.isArray(flat.armorIds) ? flat.armorIds.slice() : [];
   const startingGear = Array.isArray(flat.startingGear) ? flat.startingGear : [];
   const acquisitionMap = flat.acquisitionMap || {};
   const legalSeverity = { legal: 0, registered: 1, salvaged: 2, contraband: 3 };
@@ -570,52 +529,22 @@ router.patch('/characters/:id/dice', async (req, res) => {
       if (targetIdx < 1) return res.status(400).json({ error: 'Cannot set to D4 via upgrade.' });
 
       if (type === 'discipline') {
-        const alreadyExpanded = data.arenas && Array.isArray(data.arenas);
-        if (alreadyExpanded) {
-          let found = false;
-          let currentDie = null;
-          data.arenas.forEach(a => {
-            if (!a.disciplines) return;
-            a.disciplines.forEach(d => {
-              if (d.id === id) { currentDie = d.die || 'D6'; found = true; }
-            });
-          });
-          if (!found) return res.status(400).json({ error: 'Discipline not found.' });
-          const curIdx = DIE_STEPS.indexOf(currentDie);
-          if (targetIdx !== curIdx + 1) return res.status(400).json({ error: 'Die must step up by exactly 1.' });
-          data.arenas.forEach(a => {
-            if (!a.disciplines) return;
-            a.disciplines.forEach(d => { if (d.id === id) d.die = newDie; });
-          });
-        } else {
-          if (!data.discValues) data.discValues = {};
-          const currentDie = data.discValues[id] || 'D6';
-          const curIdx = DIE_STEPS.indexOf(currentDie);
-          if (targetIdx !== curIdx + 1) return res.status(400).json({ error: 'Die must step up by exactly 1.' });
-          data.discValues[id] = newDie;
-        }
+        if (!data.discValues) data.discValues = {};
+        const currentDie = data.discValues[id] || 'D6';
+        const curIdx = DIE_STEPS.indexOf(currentDie);
+        if (targetIdx !== curIdx + 1) return res.status(400).json({ error: 'Die must step up by exactly 1.' });
+        data.discValues[id] = newDie;
       } else {
-        const alreadyExpanded = data.arenas && Array.isArray(data.arenas);
-        if (alreadyExpanded) {
-          const arena = data.arenas.find(a => a.id === id);
-          if (!arena) return res.status(400).json({ error: 'Arena not found.' });
-          const curIdx = DIE_STEPS.indexOf(arena.die || 'D6');
-          if (targetIdx !== curIdx + 1 && !(newDie === 'D10' && (arena.die || 'D6') === 'D12')) {
-            return res.status(400).json({ error: 'Die must step up by exactly 1 (or degrade D12→D10 for Apex).' });
-          }
-          arena.die = newDie;
-        } else {
-          const species = data.species || 'Human';
-          const speciesBase = SPECIES_ARENAS[species] || SPECIES_ARENAS['Human'];
-          const baseIdx = DIE_STEPS.indexOf(speciesBase[id] || 'D6');
-          const currentAdj = (data.arenaAdj && data.arenaAdj[id]) || 0;
-          const curIdx = baseIdx + currentAdj;
-          if (targetIdx !== curIdx + 1 && !(DIE_STEPS[curIdx] === 'D12' && newDie === 'D10')) {
-            return res.status(400).json({ error: 'Die must step up by exactly 1 (or degrade D12→D10 for Apex).' });
-          }
-          if (!data.arenaAdj) data.arenaAdj = {};
-          data.arenaAdj[id] = targetIdx - baseIdx;
+        const species = data.species || 'Human';
+        const speciesBase = SPECIES_ARENAS[species] || SPECIES_ARENAS['Human'];
+        const baseIdx = DIE_STEPS.indexOf(speciesBase[id] || 'D6');
+        const currentAdj = (data.arenaAdj && data.arenaAdj[id]) || 0;
+        const curIdx = baseIdx + currentAdj;
+        if (targetIdx !== curIdx + 1 && !(DIE_STEPS[curIdx] === 'D12' && newDie === 'D10')) {
+          return res.status(400).json({ error: 'Die must step up by exactly 1 (or degrade D12→D10 for Apex).' });
         }
+        if (!data.arenaAdj) data.arenaAdj = {};
+        data.arenaAdj[id] = targetIdx - baseIdx;
       }
     } else {
       return res.status(400).json({ error: 'Unknown type. Use discipline or arena.' });
@@ -820,15 +749,9 @@ router.post('/characters/:id/purchase', async (req, res) => {
     data.credits = available - cost;
 
     if (!data.acquisitionMap) data.acquisitionMap = {};
-    if (!Array.isArray(data.armorIds)) {
-      data.armorIds = data.armorId ? [data.armorId] : [];
-      delete data.armorId;
-    }
+    if (!Array.isArray(data.armorIds)) data.armorIds = [];
     if (!data.inventoryRemovals) data.inventoryRemovals = { gear: [], weapons: [], armor: [] };
-    if (!Array.isArray(data.inventoryRemovals.armor)) {
-      data.inventoryRemovals.armor = data.inventoryRemovals.armor === true
-        ? (data.armorIds || []).slice() : [];
-    }
+    if (!Array.isArray(data.inventoryRemovals.armor)) data.inventoryRemovals.armor = [];
 
     const charId = String(character.id);
     for (const item of items) {

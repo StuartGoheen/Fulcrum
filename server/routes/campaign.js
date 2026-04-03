@@ -570,7 +570,7 @@ function extractCharacterProfile(data) {
   const gearSeen = {};
   const startingGear = Array.isArray(data.startingGear) ? data.startingGear : [];
   const removals = data.inventoryRemovals || {};
-  const removedIds = [].concat(removals.gear || [], removals.weapons || [], removals.armor === true ? [] : (removals.armor || []));
+  const removedIds = [].concat(removals.gear || [], removals.weapons || [], Array.isArray(removals.armor) ? removals.armor : []);
 
   startingGear.forEach(sg => {
     if (!sg || !sg.id) return;

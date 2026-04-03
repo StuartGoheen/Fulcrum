@@ -217,7 +217,7 @@
   }
 
   function _getEquippedArmorId(char, statusMap) {
-    var ids = char.armorIds || (char.armorId ? [char.armorId] : []);
+    var ids = char.armorIds || [];
     for (var i = 0; i < ids.length; i++) {
       var entry = statusMap && statusMap[ids[i]];
       if (entry && entry.status === 'equipped') return ids[i];

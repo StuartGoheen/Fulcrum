@@ -829,7 +829,7 @@
 
         function doRender(statusMap) {
           var sm = statusMap || {};
-          var charArmorIds = char.armorIds || (char.armorId ? [char.armorId] : []);
+          var charArmorIds = char.armorIds || [];
           var eqArmor = null;
           for (var ai = 0; ai < charArmorIds.length; ai++) {
             var ae = sm[charArmorIds[ai]];

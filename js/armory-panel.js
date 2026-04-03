@@ -830,7 +830,7 @@
       }
     }
 
-    var charArmorIds = char.armorIds || (char.armorId ? [char.armorId] : []);
+    var charArmorIds = char.armorIds || [];
     var ownedArmors = [];
     if (armors && charArmorIds.length > 0) {
       for (var ai = 0; ai < charArmorIds.length; ai++) {

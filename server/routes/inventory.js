@@ -51,11 +51,7 @@ router.post('/inventory/:charId/drop', async (req, res) => {
 
     const data = JSON.parse(result.rows[0].character_data);
     if (!data.inventoryRemovals) data.inventoryRemovals = { gear: [], weapons: [], armor: [] };
-    if (data.inventoryRemovals.armor === true) {
-      data.inventoryRemovals.armor = (data.armorIds || (data.armorId ? [data.armorId] : [])).slice();
-    } else if (!Array.isArray(data.inventoryRemovals.armor)) {
-      data.inventoryRemovals.armor = [];
-    }
+    if (!Array.isArray(data.inventoryRemovals.armor)) data.inventoryRemovals.armor = [];
 
     if (itemType === 'gear') {
       data.inventoryRemovals.gear.push(itemId);
@@ -99,15 +95,11 @@ router.post('/inventory/:charId/sell', async (req, res) => {
 
     let ownedIds;
     if (itemType === 'weapon') ownedIds = data.weaponIds || [];
-    else if (itemType === 'armor') ownedIds = data.armorIds || (data.armorId ? [data.armorId] : []);
+    else if (itemType === 'armor') ownedIds = data.armorIds || [];
     else ownedIds = data.gearIds || [];
 
     if (!data.inventoryRemovals) data.inventoryRemovals = { gear: [], weapons: [], armor: [] };
-    if (data.inventoryRemovals.armor === true) {
-      data.inventoryRemovals.armor = (data.armorIds || (data.armorId ? [data.armorId] : [])).slice();
-    } else if (!Array.isArray(data.inventoryRemovals.armor)) {
-      data.inventoryRemovals.armor = [];
-    }
+    if (!Array.isArray(data.inventoryRemovals.armor)) data.inventoryRemovals.armor = [];
     if (!Array.isArray(data.inventoryRemovals.weapons)) data.inventoryRemovals.weapons = [];
     if (!Array.isArray(data.inventoryRemovals.gear)) data.inventoryRemovals.gear = [];
 
@@ -200,10 +192,6 @@ router.post('/inventory/:charId/add', async (req, res) => {
       }
     } else if (itemType === 'armor') {
       if (!data.armorIds) data.armorIds = [];
-      if (data.armorId && !data.armorIds.length) {
-        data.armorIds = [data.armorId];
-        delete data.armorId;
-      }
       if (!Array.isArray(data.inventoryRemovals.armor)) data.inventoryRemovals.armor = [];
       const remIdx = data.inventoryRemovals.armor.indexOf(itemId);
       if (remIdx !== -1) {
