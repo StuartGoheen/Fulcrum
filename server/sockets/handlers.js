@@ -4,6 +4,7 @@ const path = require('path');
 
 let _shipCombatState = null;
 let _combatState = null;
+let _tutorialState = null;
 
 function getShipCombatState() {
   return _shipCombatState;
@@ -154,6 +155,19 @@ function registerHandlers(io) {
 
         const destinyPool = await getDestinyPool();
         socket.emit('destiny:sync', { pool: destinyPool });
+
+        if (role === 'player' && _tutorialState && _tutorialState.active) {
+          const phase = _tutorialState.playerPhases[_tutorialState.currentPhase];
+          socket.emit('tutorial:start', {
+            title: _tutorialState.title,
+            subtitle: _tutorialState.subtitle,
+            assessDescription: _tutorialState.assessDescription,
+            phaseLabels: _tutorialState.phaseLabels,
+            phase: phase,
+            phaseIndex: _tutorialState.currentPhase,
+            totalPhases: _tutorialState.playerPhases.length
+          });
+        }
       } catch (err) {
         console.error('[socket] session:join error:', err);
       }
@@ -784,6 +798,113 @@ function registerHandlers(io) {
       } catch (err) {
         console.error('[socket] condition:sync DB persist error:', err);
       }
+    });
+
+    socket.on('tutorial:start', (payload) => {
+      if (socket.data.role !== 'gm') {
+        socket.emit('error', { message: 'Only the GM can start tutorials.' });
+        return;
+      }
+      try {
+        const allowedFiles = ['scene1-assess.json'];
+        const requestedFile = payload.file || 'scene1-assess.json';
+        if (!allowedFiles.includes(requestedFile)) {
+          socket.emit('error', { message: 'Invalid tutorial file.' });
+          return;
+        }
+        const tutorialFile = path.join(__dirname, '../../data/tutorials', requestedFile);
+        const raw = fs.readFileSync(tutorialFile, 'utf8');
+        const data = JSON.parse(raw);
+
+        const playerPhases = data.phases.map(phase => ({
+          id: phase.id,
+          label: phase.label,
+          description: phase.description,
+          disciplines: phase.disciplines.map(d => ({
+            name: d.label || d.name || d.id,
+            questions: (d.entries || d.questions || [])
+              .filter(e => e.type === 'normal' || !e.type)
+              .map(e => e.question || e.text || e)
+              .filter(Boolean)
+          }))
+        }));
+
+        _tutorialState = {
+          active: true,
+          currentPhase: 0,
+          title: data.title,
+          subtitle: data.subtitle,
+          assessDescription: data.assessDescription || '',
+          phaseLabels: data.phaseLabels || {},
+          playerPhases: playerPhases
+        };
+
+        io.to('players').emit('tutorial:start', {
+          title: _tutorialState.title,
+          subtitle: _tutorialState.subtitle,
+          assessDescription: _tutorialState.assessDescription,
+          phaseLabels: _tutorialState.phaseLabels,
+          phase: playerPhases[0],
+          phaseIndex: 0,
+          totalPhases: playerPhases.length
+        });
+
+        socket.emit('tutorial:gm-ack', {
+          currentPhase: 0,
+          totalPhases: playerPhases.length,
+          phaseLabel: playerPhases[0].label
+        });
+
+        console.log(`[socket] GM started tutorial: ${data.title}`);
+      } catch (err) {
+        console.error('[socket] tutorial:start error:', err);
+        socket.emit('error', { message: 'Failed to load tutorial data.' });
+      }
+    });
+
+    socket.on('tutorial:advance', () => {
+      if (socket.data.role !== 'gm') {
+        socket.emit('error', { message: 'Only the GM can advance tutorials.' });
+        return;
+      }
+      if (!_tutorialState || !_tutorialState.active) {
+        socket.emit('error', { message: 'No active tutorial.' });
+        return;
+      }
+
+      const nextIdx = _tutorialState.currentPhase + 1;
+      if (nextIdx >= _tutorialState.playerPhases.length) {
+        socket.emit('error', { message: 'Already on the last phase.' });
+        return;
+      }
+
+      _tutorialState.currentPhase = nextIdx;
+      const phase = _tutorialState.playerPhases[nextIdx];
+
+      io.to('players').emit('tutorial:phase', {
+        phase: phase,
+        phaseIndex: nextIdx,
+        totalPhases: _tutorialState.playerPhases.length
+      });
+
+      socket.emit('tutorial:gm-ack', {
+        currentPhase: nextIdx,
+        totalPhases: _tutorialState.playerPhases.length,
+        phaseLabel: phase.label
+      });
+
+      console.log(`[socket] GM advanced tutorial to phase ${nextIdx + 1}: ${phase.label}`);
+    });
+
+    socket.on('tutorial:end', () => {
+      if (socket.data.role !== 'gm') {
+        socket.emit('error', { message: 'Only the GM can end tutorials.' });
+        return;
+      }
+      _tutorialState = null;
+      io.to('players').emit('tutorial:end');
+      socket.emit('tutorial:gm-ack', { ended: true });
+      console.log('[socket] GM ended tutorial');
     });
 
     socket.on('disconnect', async () => {

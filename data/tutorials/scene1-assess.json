@@ -2,6 +2,12 @@
   "sceneId": "adv1-p1-s1",
   "title": "Assess the Scene — Sienar's Regret",
   "subtitle": "Scene 1: Bad Business at Sienar's Regret",
+  "assessDescription": "Assess is a Maneuver — it does not cost your Action. You use it to read the environment, people, or situation through the lens of a Discipline. Choose a Discipline (Investigation, Insight, Survival, Tech, Charm, Persuasion, or Sense) and ask the GM a question about the scene. The GM responds with what your character perceives through that skill's perspective.\n\nRoll your Discipline die. On a success, you earn questions — Fleeting gives you 1, Masterful gives you 2, Legendary gives you 3. On a failure, you still made the attempt — the GM may offer partial or misleading information.\n\nD8 Gambits: If you roll an 8 on your discipline die, you may spend a tier to activate a special Gambit effect tied to that discipline. These are powerful one-time benefits that represent exceptional reads.\n\nAssess is the most important non-combat action in the game. It is how you gather intelligence, read people, spot danger, and prepare for what comes next. The questions below are examples — you can ask anything that fits the discipline's lens.",
+  "phaseLabels": {
+    "phase1": "Before Maya",
+    "phase2": "After Maya",
+    "phase3": "The Enforcers"
+  },
   "phases": [
     {
       "id": "phase1",

@@ -262,6 +262,18 @@
         });
     });
 
+    socket.on('tutorial:start', function (data) {
+      _showTutorialPanel(data);
+    });
+
+    socket.on('tutorial:phase', function (data) {
+      _updateTutorialPhase(data);
+    });
+
+    socket.on('tutorial:end', function () {
+      _closeTutorialPanel();
+    });
+
     socket.on('session:joined', function () {
       socket.emit('combat:request');
     });
@@ -532,6 +544,173 @@
       setTimeout(function () { overlay.remove(); }, 8000);
     });
   }
+
+  var _tutDrag = { active: false, x: 0, y: 0, startX: 0, startY: 0 };
+  var _tutData = null;
+  var _tutCollapsed = false;
+  var _tutKitsCache = null;
+
+  function _tutEsc(s) {
+    return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function _getPlayerAssessGambits() {
+    var char = window.CharacterPanel && window.CharacterPanel.currentChar;
+    if (!char || !char.kits || !_tutKitsCache) return [];
+    var gambits = [];
+    var playerKits = Array.isArray(char.kits) ? char.kits : [];
+    var playerKitMap = {};
+    playerKits.forEach(function (k) { playerKitMap[k.id] = k.tier || 0; });
+    _tutKitsCache.forEach(function (kit) {
+      if (!(kit.id in playerKitMap)) return;
+      var playerTier = playerKitMap[kit.id];
+      (kit.abilities || []).forEach(function (ab) {
+        if (ab.modifiesAction === 'action_assess' && (!ab.tier || ab.tier <= playerTier)) {
+          gambits.push({
+            name: ab.name || ab.shorthand || 'Unnamed',
+            rule: ab.rule || ab.shorthand || '',
+            kitName: kit.name || kit.id,
+            tier: ab.tier || ''
+          });
+        }
+      });
+    });
+    return gambits;
+  }
+
+  function _loadKitsForTutorial(cb) {
+    if (_tutKitsCache) { cb(); return; }
+    fetch('/data/kits.json')
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        _tutKitsCache = Array.isArray(data) ? data : (data.kits || []);
+        cb();
+      })
+      .catch(function () { cb(); });
+  }
+
+  function _showTutorialPanel(data) {
+    _tutData = data;
+    _loadKitsForTutorial(function () {
+      _renderTutorialPanel();
+    });
+  }
+
+  function _updateTutorialPhase(data) {
+    if (!_tutData) return;
+    _tutData.phase = data.phase;
+    _tutData.phaseIndex = data.phaseIndex;
+    _tutData.totalPhases = data.totalPhases;
+    _renderTutorialPanel();
+  }
+
+  function _closeTutorialPanel() {
+    _tutData = null;
+    var el = document.getElementById('player-tutorial-panel');
+    if (el) el.remove();
+  }
+
+  function _renderTutorialPanel() {
+    if (!_tutData) return;
+
+    var panel = document.getElementById('player-tutorial-panel');
+    if (!panel) {
+      panel = document.createElement('div');
+      panel.id = 'player-tutorial-panel';
+      panel.className = 'tut-container';
+      document.body.appendChild(panel);
+    }
+
+    var phase = _tutData.phase;
+    var phaseIdx = _tutData.phaseIndex || 0;
+    var totalPhases = _tutData.totalPhases || 1;
+
+    var html = '<div class="tut-header" id="tut-drag-handle">';
+    html += '<span class="tut-title">ASSESS GUIDE</span>';
+    html += '<span class="tut-phase-badge">' + (phaseIdx + 1) + '/' + totalPhases + '</span>';
+    html += '<button class="tut-collapse-btn" id="tut-collapse-btn">' + (_tutCollapsed ? '\u25B2' : '\u25BC') + '</button>';
+    html += '</div>';
+
+    if (!_tutCollapsed) {
+      html += '<div class="tut-body">';
+
+      html += '<div class="tut-phase-label">' + _tutEsc(phase.label) + '</div>';
+
+      if (_tutData.assessDescription && phaseIdx === 0) {
+        html += '<div class="tut-section-title">What is Assess?</div>';
+        html += '<div class="tut-assess-desc">' + _tutEsc(_tutData.assessDescription) + '</div>';
+      }
+
+      html += '<div class="tut-section-title">Example Questions</div>';
+      (phase.disciplines || []).forEach(function (disc) {
+        var qs = disc.questions || [];
+        if (qs.length === 0) return;
+        html += '<div class="tut-disc-group">';
+        html += '<div class="tut-disc-name">' + _tutEsc(disc.name) + '</div>';
+        qs.forEach(function (q) {
+          var qText = typeof q === 'string' ? q : (q.question || q.text || '');
+          if (qText) html += '<div class="tut-question">\u201C' + _tutEsc(qText) + '\u201D</div>';
+        });
+        html += '</div>';
+      });
+
+      var gambits = _getPlayerAssessGambits();
+      html += '<div class="tut-section-title">Your Assess Gambits</div>';
+      if (gambits.length === 0) {
+        html += '<div class="tut-no-gambits">No assess-specific gambits in your current vocations.</div>';
+      } else {
+        gambits.forEach(function (g) {
+          html += '<div class="tut-gambit-card">';
+          html += '<div class="tut-gambit-name">' + _tutEsc(g.name) + '</div>';
+          html += '<div class="tut-gambit-kit">' + _tutEsc(g.kitName) + (g.tier ? ' \u2014 T' + g.tier : '') + '</div>';
+          html += '<div class="tut-gambit-rule">' + _tutEsc(g.rule) + '</div>';
+          html += '</div>';
+        });
+      }
+
+      html += '</div>';
+    }
+
+    panel.innerHTML = html;
+
+    var collapseBtn = document.getElementById('tut-collapse-btn');
+    if (collapseBtn) {
+      collapseBtn.addEventListener('click', function () {
+        _tutCollapsed = !_tutCollapsed;
+        _renderTutorialPanel();
+      });
+    }
+
+    var dragHandle = document.getElementById('tut-drag-handle');
+    if (dragHandle) {
+      dragHandle.addEventListener('mousedown', function (e) {
+        if (e.target.tagName === 'BUTTON') return;
+        _tutDrag.active = true;
+        _tutDrag.startX = e.clientX;
+        _tutDrag.startY = e.clientY;
+        var rect = panel.getBoundingClientRect();
+        _tutDrag.x = rect.left;
+        _tutDrag.y = rect.top;
+        e.preventDefault();
+      });
+    }
+  }
+
+  document.addEventListener('mousemove', function (e) {
+    if (!_tutDrag.active) return;
+    var panel = document.getElementById('player-tutorial-panel');
+    if (!panel) { _tutDrag.active = false; return; }
+    var dx = e.clientX - _tutDrag.startX;
+    var dy = e.clientY - _tutDrag.startY;
+    panel.style.left = (_tutDrag.x + dx) + 'px';
+    panel.style.top = (_tutDrag.y + dy) + 'px';
+    panel.style.bottom = 'auto';
+    panel.style.right = 'auto';
+  });
+
+  document.addEventListener('mouseup', function () {
+    _tutDrag.active = false;
+  });
 
   function initAdminTools() {
     const btn = document.getElementById('admin-release-all');

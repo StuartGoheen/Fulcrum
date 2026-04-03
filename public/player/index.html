@@ -146,6 +146,144 @@
       font-style: italic;
     }
 
+    .tut-container {
+      position: fixed;
+      bottom: 8vh;
+      left: 2vw;
+      z-index: 8000;
+      width: 340px;
+      min-width: 260px;
+      min-height: 80px;
+      max-height: 70vh;
+      background: var(--color-bg-panel);
+      border: 1px solid var(--color-accent-primary, #c79234);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.6), 0 0 12px rgba(199,146,52,0.15);
+      font-family: 'Exo 2', sans-serif;
+      font-size: 0.7rem;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      resize: none;
+    }
+    .tut-header {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.5rem;
+      background: color-mix(in srgb, var(--color-accent-primary) 12%, transparent);
+      border-bottom: 1px solid var(--color-accent-primary, #c79234);
+      cursor: grab;
+      user-select: none;
+    }
+    .tut-header:active { cursor: grabbing; }
+    .tut-title {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.6rem;
+      color: var(--color-accent-primary, #c79234);
+      letter-spacing: 0.08em;
+      flex: 1;
+    }
+    .tut-phase-badge {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.5rem;
+      color: var(--color-text-secondary);
+      background: color-mix(in srgb, var(--color-accent-primary) 15%, transparent);
+      padding: 0.1rem 0.35rem;
+      border-radius: 2px;
+    }
+    .tut-collapse-btn {
+      background: none;
+      border: none;
+      color: var(--color-text-secondary);
+      font-size: 0.8rem;
+      cursor: pointer;
+      padding: 0 0.2rem;
+      line-height: 1;
+    }
+    .tut-body {
+      overflow-y: auto;
+      flex: 1;
+      padding: 0.5rem;
+      scrollbar-width: thin;
+      scrollbar-color: var(--color-accent-primary) transparent;
+    }
+    .tut-section-title {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.55rem;
+      color: var(--color-accent-primary, #c79234);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin: 0.6rem 0 0.25rem 0;
+      padding-bottom: 0.15rem;
+      border-bottom: 1px solid color-mix(in srgb, var(--color-border) 40%, transparent);
+    }
+    .tut-section-title:first-child { margin-top: 0; }
+    .tut-assess-desc {
+      font-size: 0.65rem;
+      line-height: 1.5;
+      color: var(--color-text-secondary);
+      margin-bottom: 0.4rem;
+      white-space: pre-line;
+    }
+    .tut-disc-group {
+      margin-bottom: 0.4rem;
+    }
+    .tut-disc-name {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.55rem;
+      color: var(--color-text-primary);
+      letter-spacing: 0.04em;
+      margin-bottom: 0.15rem;
+      padding: 0.15rem 0.3rem;
+      background: color-mix(in srgb, var(--color-border) 20%, transparent);
+      border-left: 2px solid var(--color-accent-primary, #c79234);
+    }
+    .tut-question {
+      font-size: 0.65rem;
+      color: var(--color-text-secondary);
+      padding: 0.15rem 0 0.15rem 0.6rem;
+      line-height: 1.4;
+      border-bottom: 1px solid color-mix(in srgb, var(--color-border) 15%, transparent);
+    }
+    .tut-question:last-child { border-bottom: none; }
+    .tut-gambit-card {
+      margin-top: 0.3rem;
+      padding: 0.35rem 0.5rem;
+      background: color-mix(in srgb, var(--color-success, #22c55e) 8%, transparent);
+      border: 1px solid color-mix(in srgb, var(--color-success, #22c55e) 25%, transparent);
+      border-left: 3px solid var(--color-success, #22c55e);
+    }
+    .tut-gambit-name {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.55rem;
+      color: var(--color-success, #22c55e);
+      letter-spacing: 0.04em;
+      margin-bottom: 0.1rem;
+    }
+    .tut-gambit-kit {
+      font-size: 0.5rem;
+      color: var(--color-text-secondary);
+      font-style: italic;
+      margin-bottom: 0.15rem;
+    }
+    .tut-gambit-rule {
+      font-size: 0.6rem;
+      color: var(--color-text-secondary);
+      line-height: 1.4;
+    }
+    .tut-no-gambits {
+      font-size: 0.6rem;
+      color: var(--color-text-secondary);
+      font-style: italic;
+      padding: 0.2rem 0;
+    }
+    .tut-phase-label {
+      font-size: 0.65rem;
+      color: var(--color-accent-primary, #c79234);
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
     .pit-container {
       position: fixed;
       bottom: 8vh;

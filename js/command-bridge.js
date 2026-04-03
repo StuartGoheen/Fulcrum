@@ -628,7 +628,13 @@
     html += '<h2>Scene ' + scene.number + ': ' + esc(scene.title) + '</h2>';
     if (scene.subtitle) html += '<div class="cb-scene-subtitle">' + esc(scene.subtitle) + '</div>';
     if (scene.id === 'adv1-p1-s1') {
-      html += '<button class="assess-guide-btn" id="assess-guide-btn">&#9733; Assess Guide</button>';
+      html += '<div class="assess-controls-row" id="assess-controls-row">';
+      html += '<button class="assess-guide-btn" id="assess-guide-btn">&#9733; GM Reference</button>';
+      html += '<button class="assess-guide-btn assess-tutorial-start" id="tutorial-start-btn">&#9656; Start Player Tutorial</button>';
+      html += '<button class="assess-guide-btn assess-tutorial-advance hidden" id="tutorial-advance-btn">&#9656;&#9656; Next Phase</button>';
+      html += '<button class="assess-guide-btn assess-tutorial-end hidden" id="tutorial-end-btn">&#9632; End Tutorial</button>';
+      html += '<span class="assess-tutorial-status hidden" id="tutorial-status"></span>';
+      html += '</div>';
     }
     html += '</div>';
 
@@ -1038,6 +1044,18 @@
     var assessBtn = document.getElementById('assess-guide-btn');
     if (assessBtn) {
       assessBtn.addEventListener('click', function () { openAssessGuide(); });
+    }
+    var tutStartBtn = document.getElementById('tutorial-start-btn');
+    if (tutStartBtn) {
+      tutStartBtn.addEventListener('click', function () { _startPlayerTutorial(); });
+    }
+    var tutAdvBtn = document.getElementById('tutorial-advance-btn');
+    if (tutAdvBtn) {
+      tutAdvBtn.addEventListener('click', function () { _advancePlayerTutorial(); });
+    }
+    var tutEndBtn = document.getElementById('tutorial-end-btn');
+    if (tutEndBtn) {
+      tutEndBtn.addEventListener('click', function () { _endPlayerTutorial(); });
     }
     var completeBtn = container.querySelector('.cb-complete-btn');
     if (completeBtn) {
@@ -1595,6 +1613,10 @@
     socket.on('session:joined', function () {
       socket.emit('combat:request-state');
     });
+
+    socket.on('tutorial:gm-ack', function (data) {
+      _updateTutorialControls(data);
+    });
   }
 
   var destinyUntapBtn = document.getElementById('gm-destiny-untap');
@@ -1847,6 +1869,54 @@
 
     contentEl.innerHTML = html;
     contentEl.scrollTop = 0;
+  }
+
+  var _tutorialActive = false;
+
+  function _startPlayerTutorial() {
+    if (!socket) return;
+    socket.emit('tutorial:start', { file: 'scene1-assess.json' });
+  }
+
+  function _advancePlayerTutorial() {
+    if (!socket) return;
+    socket.emit('tutorial:advance');
+  }
+
+  function _endPlayerTutorial() {
+    if (!socket) return;
+    socket.emit('tutorial:end');
+  }
+
+  function _updateTutorialControls(data) {
+    var startBtn = document.getElementById('tutorial-start-btn');
+    var advBtn = document.getElementById('tutorial-advance-btn');
+    var endBtn = document.getElementById('tutorial-end-btn');
+    var status = document.getElementById('tutorial-status');
+
+    if (data.ended) {
+      _tutorialActive = false;
+      if (startBtn) startBtn.classList.remove('hidden');
+      if (advBtn) advBtn.classList.add('hidden');
+      if (endBtn) endBtn.classList.add('hidden');
+      if (status) { status.classList.add('hidden'); status.textContent = ''; }
+      return;
+    }
+
+    _tutorialActive = true;
+    if (startBtn) startBtn.classList.add('hidden');
+    if (endBtn) endBtn.classList.remove('hidden');
+
+    var isLastPhase = data.currentPhase >= data.totalPhases - 1;
+    if (advBtn) {
+      if (isLastPhase) advBtn.classList.add('hidden');
+      else advBtn.classList.remove('hidden');
+    }
+
+    if (status) {
+      status.classList.remove('hidden');
+      status.textContent = 'Phase ' + (data.currentPhase + 1) + '/' + data.totalPhases + ': ' + (data.phaseLabel || '');
+    }
   }
 
   (function initAssessOverlay() {
