@@ -968,8 +968,9 @@
     var colLabels = tm.columnLabels || ['A', 'B', 'C', 'D'];
     var rowLabels = tm.rowLabels || ['1', '2', '3'];
 
-    var COVER_LABELS = { 'none': 'No Cover', 'light': 'Light', 'hard': 'Hard', 'full': 'Full' };
-    var LIGHTING_ICONS = { 'normal': '&#9728;', 'dim': '&#9789;', 'shadow': '&#9790;' };
+    var COVER_LABELS = { 'none': 'No Cover', 'light': 'Light Cover', 'hard': 'Hard Cover', 'full': 'Full Cover' };
+    var COVER_ICONS = { 'none': '', 'light': '&#9676;', 'hard': '&#9641;', 'full': '&#9632;' };
+    var LIGHTING_ICONS = { 'normal': '', 'dim': '&#9789;', 'shadow': '&#9790;' };
 
     var zoneMap = {};
     tm.zones.forEach(function (z) { zoneMap[z.id] = z; });
@@ -983,26 +984,26 @@
       for (var c = 0; c < cols; c++) {
         var zid = colLabels[c] + rowLabels[r];
         var zone = zoneMap[zid];
-        if (!zone) {
-          html += '<div class="ct-zone ct-zone-empty"></div>';
+        if (!zone || zone.passable === false) {
+          html += '<div class="ct-zone-void"></div>';
           continue;
         }
-        var passable = zone.passable !== false;
         var lightIcon = LIGHTING_ICONS[zone.lighting] || '';
-        var coverLabel = COVER_LABELS[zone.cover] || 'None';
+        var coverLabel = COVER_LABELS[zone.cover] || 'No Cover';
+        var coverIcon = COVER_ICONS[zone.cover] || '';
         var selected = combatState.selectedToken ? ' ct-zone-targetable' : '';
         var coverClass = ' ct-zone-cover-' + (zone.cover || 'none');
         var lightClass = '';
         if (zone.lighting === 'dim') lightClass = ' ct-zone-dim';
         else if (zone.lighting === 'shadow') lightClass = ' ct-zone-shadow';
 
-        html += '<div class="ct-zone' + (passable ? '' : ' ct-zone-impassable') + coverClass + lightClass + selected + '" data-zone-id="' + zid + '">';
+        html += '<div class="ct-zone' + coverClass + lightClass + selected + '" data-zone-id="' + zid + '">';
         html += '<div class="ct-zone-header">';
         html += '<span class="ct-zone-id">' + zid + '</span>';
-        html += '<span class="ct-zone-light" title="' + esc(zone.lighting || 'Normal') + '">' + lightIcon + '</span>';
+        if (lightIcon) html += '<span class="ct-zone-light" title="' + esc(zone.lighting || 'Normal') + '">' + lightIcon + '</span>';
         html += '</div>';
         html += '<div class="ct-zone-label">' + esc(zone.label) + '</div>';
-        html += '<div class="ct-zone-cover">' + esc(coverLabel) + '</div>';
+        html += '<div class="ct-zone-cover">' + (coverIcon ? coverIcon + ' ' : '') + esc(coverLabel) + '</div>';
 
         var tokens = getTokensInZone(zid);
         if (tokens.length) {
@@ -1023,16 +1024,16 @@
     html += '</div>';
 
     html += '<div class="ct-map-legend">';
-    html += '<span class="ct-legend-item"><span class="ct-legend-swatch" style="border-color:rgba(234,179,8,0.6);background:rgba(234,179,8,0.15);"></span>Light Cover</span>';
-    html += '<span class="ct-legend-item"><span class="ct-legend-swatch" style="border-color:rgba(59,130,246,0.7);background:rgba(59,130,246,0.2);"></span>Hard Cover</span>';
-    html += '<span class="ct-legend-item"><span class="ct-legend-swatch" style="border-color:rgba(34,197,94,0.6);background:rgba(34,197,94,0.2);"></span>Full Cover</span>';
-    html += '<span class="ct-legend-item"><span class="ct-legend-swatch" style="border-color:rgba(100,100,100,0.4);background:repeating-linear-gradient(45deg,rgba(100,100,100,0.2),rgba(100,100,100,0.2) 2px,transparent 2px,transparent 4px);"></span>Impassable</span>';
+    html += '<span class="ct-legend-item"><span class="ct-legend-swatch ct-legend-cover-light"></span>Light Cover</span>';
+    html += '<span class="ct-legend-item"><span class="ct-legend-swatch ct-legend-cover-hard"></span>Hard Cover</span>';
+    html += '<span class="ct-legend-item"><span class="ct-legend-swatch ct-legend-cover-full"></span>Full Cover</span>';
+    html += '<span class="ct-legend-item"><span class="ct-legend-swatch ct-legend-shadow"></span>Shadow</span>';
     html += '</div>';
 
     if (tm.gmTacticalNotes) {
       html += '<div class="ct-map-notes">';
       html += '<details><summary class="ct-rolekit-summary">GM Tactical Notes</summary>';
-      html += '<div class="ct-rk-body" style="font-size:0.7rem;color:var(--color-text-secondary);white-space:pre-line;">' + esc(tm.gmTacticalNotes) + '</div>';
+      html += '<div class="ct-rk-body" style="font-size:0.7rem;color:#8a8a9a;white-space:pre-line;">' + esc(tm.gmTacticalNotes) + '</div>';
       html += '</details></div>';
     }
 

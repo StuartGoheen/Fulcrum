@@ -4249,101 +4249,97 @@
     }
 
     .ct-tactical-map {
-      background: var(--color-bg-frame);
-      border: 1px solid var(--color-border);
+      background: #000;
+      border: 1px solid #333;
       padding: 0.6rem 0.75rem;
       margin-bottom: 0.75rem;
       position: relative;
+      border-radius: 4px;
     }
     .ct-map-frame {
       position: relative;
-      border: 3px solid var(--color-accent-primary);
-      background: var(--color-accent-deep, #1A2744);
-      box-shadow: 0 0 20px color-mix(in srgb, var(--color-accent-primary) 25%, transparent),
-                  inset 0 0 30px rgba(0,0,0,0.5);
+      background: #000;
       padding: 4px;
       border-radius: 2px;
     }
     .ct-map-grid {
       display: grid;
-      gap: 2px;
+      gap: 3px;
       margin: 0;
     }
+    .ct-zone-void {
+      aspect-ratio: 1;
+      background: transparent;
+    }
     .ct-zone {
-      border: 1px solid color-mix(in srgb, var(--color-border) 40%, transparent);
-      padding: 0.3rem;
-      min-height: 80px;
+      border: 1px solid #444;
+      padding: 0.35rem;
+      aspect-ratio: 1;
       cursor: pointer;
       transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
       position: relative;
-      background: color-mix(in srgb, var(--color-accent-deep, #1A2744) 60%, #000);
+      background: #1a1a1f;
+      display: flex;
+      flex-direction: column;
+      border-radius: 2px;
     }
     .ct-zone:hover {
-      border-color: var(--color-accent-primary);
-      box-shadow: inset 0 0 12px color-mix(in srgb, var(--color-accent-primary) 15%, transparent);
+      border-color: #8a8a9a;
+      box-shadow: inset 0 0 12px rgba(140,140,160,0.1);
     }
-    .ct-zone-impassable {
-      background: repeating-linear-gradient(
-        45deg,
-        color-mix(in srgb, var(--color-accent-deep) 80%, #000),
-        color-mix(in srgb, var(--color-accent-deep) 80%, #000) 5px,
-        color-mix(in srgb, var(--color-accent-deep) 50%, #000) 5px,
-        color-mix(in srgb, var(--color-accent-deep) 50%, #000) 10px
-      ) !important;
-      cursor: default;
-      opacity: 0.6;
-    }
-    .ct-zone-targetable { border-style: dashed; }
+    .ct-zone-targetable { border-style: dashed; border-color: #666; }
     .ct-zone-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 0.2rem;
+      margin-bottom: 0.15rem;
     }
     .ct-zone-id {
       font-family: 'Audiowide', sans-serif;
       font-size: 0.55rem;
-      color: var(--color-accent-primary);
-      opacity: 0.7;
+      color: #7a7a8a;
+      opacity: 0.9;
     }
     .ct-zone-light {
-      font-size: 0.65rem;
-      opacity: 0.5;
+      font-size: 0.6rem;
+      color: #6a6a7a;
     }
     .ct-zone-label {
       font-family: 'Exo 2', sans-serif;
       font-size: 0.6rem;
-      color: var(--color-accent-primary);
+      color: #c8c8d4;
       font-weight: 600;
-      margin-bottom: 0.15rem;
+      margin-bottom: 0.1rem;
       line-height: 1.2;
       text-transform: uppercase;
       letter-spacing: 0.03em;
     }
     .ct-zone-cover {
       font-size: 0.45rem;
-      color: color-mix(in srgb, var(--color-accent-primary) 60%, var(--color-text-secondary));
+      color: #6a6a7a;
       text-transform: uppercase;
       letter-spacing: 0.05em;
       font-family: 'Exo 2', sans-serif;
+      margin-top: auto;
     }
     .ct-zone-cover-none { }
     .ct-zone-cover-light {
-      border-left: 3px solid rgba(234,179,8,0.6);
+      border-left: 3px solid rgba(234,179,8,0.7);
+      background: rgba(234,179,8,0.06) !important;
     }
     .ct-zone-cover-hard {
-      border-left: 3px solid rgba(59,130,246,0.7);
-      background: color-mix(in srgb, var(--color-accent-deep, #1A2744) 55%, rgba(59,130,246,0.08)) !important;
+      border-left: 3px solid rgba(59,130,246,0.8);
+      background: rgba(59,130,246,0.08) !important;
     }
     .ct-zone-cover-full {
-      border-left: 3px solid rgba(34,197,94,0.6);
-      background: color-mix(in srgb, var(--color-accent-deep, #1A2744) 55%, rgba(34,197,94,0.08)) !important;
+      border-left: 3px solid rgba(34,197,94,0.7);
+      background: rgba(34,197,94,0.08) !important;
     }
     .ct-zone-tokens {
       display: flex;
       flex-wrap: wrap;
       gap: 3px;
-      margin-top: 0.25rem;
+      margin-top: 0.2rem;
     }
     .ct-token {
       font-size: 0.5rem;
@@ -4370,16 +4366,16 @@
       box-shadow: 0 0 6px rgba(239,68,68,0.3);
     }
     .ct-token-selected {
-      outline: 2px solid var(--color-accent-primary);
+      outline: 2px solid #f59e0b;
       outline-offset: 1px;
       transform: scale(1.15);
-      box-shadow: 0 0 12px color-mix(in srgb, var(--color-accent-primary) 50%, transparent);
+      box-shadow: 0 0 12px rgba(245,158,11,0.4);
     }
     .ct-zone-dim {
-      background: color-mix(in srgb, var(--color-accent-deep, #1A2744) 70%, #000) !important;
+      background: #141418 !important;
     }
     .ct-zone-shadow {
-      background: color-mix(in srgb, var(--color-accent-deep, #1A2744) 85%, #000) !important;
+      background: #0e0e12 !important;
     }
     .ct-map-notes { margin-top: 0.5rem; }
     .ct-map-legend {
@@ -4388,14 +4384,14 @@
       flex-wrap: wrap;
       margin-top: 0.4rem;
       padding: 0.3rem 0;
-      border-top: 1px solid var(--color-border);
+      border-top: 1px solid #333;
     }
     .ct-legend-item {
       display: flex;
       align-items: center;
       gap: 0.25rem;
       font-size: 0.45rem;
-      color: var(--color-text-secondary);
+      color: #7a7a8a;
       text-transform: uppercase;
       letter-spacing: 0.04em;
       font-family: 'Exo 2', sans-serif;
@@ -4406,10 +4402,26 @@
       border-radius: 2px;
       border: 1px solid;
     }
+    .ct-legend-cover-light {
+      border-color: rgba(234,179,8,0.7);
+      background: rgba(234,179,8,0.25);
+    }
+    .ct-legend-cover-hard {
+      border-color: rgba(59,130,246,0.8);
+      background: rgba(59,130,246,0.3);
+    }
+    .ct-legend-cover-full {
+      border-color: rgba(34,197,94,0.7);
+      background: rgba(34,197,94,0.3);
+    }
+    .ct-legend-shadow {
+      border-color: #444;
+      background: #0e0e12;
+    }
     .ct-rolekit-summary {
       font-family: 'Audiowide', sans-serif;
       font-size: 0.6rem;
-      color: var(--color-accent-primary);
+      color: #8a8a9a;
       cursor: pointer;
       text-transform: uppercase;
       letter-spacing: 0.06em;
@@ -4665,9 +4677,10 @@
     @media screen and (max-width: 768px) {
       .ct-two-panel { flex-direction: column; }
       .ct-init-rail { width: 100%; min-width: 0; max-height: 200px; }
-      .ct-zone { min-height: 60px; padding: 0.2rem; }
+      .ct-zone { padding: 0.2rem; }
+      .ct-zone-void { }
       .ct-zone-label { font-size: 0.5rem; }
-      .ct-map-frame { padding: 3px; border-width: 2px; }
+      .ct-map-frame { padding: 3px; }
       .ct-map-legend { gap: 0.3rem; }
       .ct-legend-item { font-size: 0.4rem; }
       .ct-condition-palette { min-width: 200px; }
