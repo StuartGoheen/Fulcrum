@@ -125,6 +125,32 @@
     return _socket;
   }
 
+  function _fetchAndFillPcProfile(pc) {
+    fetch('/api/campaign/party')
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        var party = data.party || [];
+        var match = party.find(function (p) { return String(p.id) === String(pc.id); });
+        if (match) {
+          pc.name = match.name || pc.name;
+          pc.species = match.species || '';
+          pc.archetype = match.archetype || '';
+          pc.vitality = match.vitality != null ? match.vitality : pc.vitality;
+          pc.arenas = match.arenas || {};
+          pc.disciplines = match.disciplines || {};
+          pc.vocations = match.vocations || [];
+          pc.vocationAbilities = match.vocationAbilities || [];
+          pc.gear = match.gear || [];
+          pc.destiny = match.destiny || null;
+          pc.marks = match.marks != null ? match.marks : 0;
+          pc.connected = match.connected;
+          if (typeof renderCombatTracker === 'function') renderCombatTracker();
+          syncStateToServer();
+        }
+      })
+      .catch(function () {});
+  }
+
   function _getPcDefaultZone() {
     if (!combatState) return null;
     var tp = combatState.tokenPositions;
@@ -355,6 +381,7 @@
           if (defaultZone) {
             combatState.tokenPositions[pc.id] = defaultZone;
           }
+          _fetchAndFillPcProfile(pc);
         }
         pc.initiative = data.initiative;
         pc.surprised = data.surprised;
@@ -2074,6 +2101,7 @@
           if (defaultZone) {
             combatState.tokenPositions[pc.id] = defaultZone;
           }
+          _fetchAndFillPcProfile(pc);
         }
         pc.initiative = data.initiative;
         pc.surprised = data.surprised;
