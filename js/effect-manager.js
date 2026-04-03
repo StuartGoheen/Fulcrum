@@ -223,7 +223,7 @@
       components: ['disoriented', 'exposed'],
       targetMode: 'fixed_arenas',
       fixedArenas: ['physique', 'reflex'],
-      defaultDuration: 'immediate',
+      defaultDuration: 'lingering',
       description: 'Combined: [Disoriented] + [Exposed]. Caught off guard at combat start. Physical coordination compromised and defenses open. Clears at end of first turn.',
     },
     {
@@ -550,20 +550,25 @@
     var label       = def ? def.label : effect.effectId;
     var desc        = def ? def.description : '';
     var isImmediate = effect.duration === 'immediate';
+    var isCombo     = def && def.components && def.components.length > 0;
     var accentCls   = isImmediate ? ' immediate' : '';
+    var comboCls    = isCombo ? ' combo' : '';
     var targetLabel = _targetLabel(effect.target, effect.effectId);
     var durObj      = _durationById(effect.duration);
     var durLabel    = durObj ? durObj.label : effect.duration;
     var hazardSuffix = (effect.hazardValue && effect.hazardValue > 0) ? ' ' + effect.hazardValue : '';
     var isOpen      = _expandedUid === effect.uid;
     var openCls     = isOpen ? ' is-open' : '';
+    var comboTag    = isCombo ? '<span class="char-effect-combo-badge">\u2736</span> ' : '';
+    var comboSub    = isCombo ? '<span class="char-effect-pill-sub">' + def.components.map(function (c) { var cd = _defById(c); return cd ? cd.label : c; }).join(' + ') + '</span>' : '';
 
     return (
-      '<div class="char-effect-pill' + openCls + '" data-uid="' + _esc(effect.uid) + '">' +
+      '<div class="char-effect-pill' + openCls + comboCls + '" data-uid="' + _esc(effect.uid) + '">' +
         '<div class="char-effect-pill-header" data-action="toggle-pill">' +
           '<div class="char-effect-pill-accent' + accentCls + '"></div>' +
           '<div class="char-effect-pill-body">' +
-            '<span class="char-effect-pill-name' + accentCls + '">' + _esc(label + hazardSuffix) + '</span>' +
+            '<span class="char-effect-pill-name' + accentCls + '">' + comboTag + _esc(label + hazardSuffix) + '</span>' +
+            comboSub +
             '<span class="char-effect-pill-target">' + _esc(targetLabel) + '</span>' +
             '<span class="char-effect-pill-duration' + accentCls + '">' + _esc(durLabel) + '</span>' +
           '</div>' +

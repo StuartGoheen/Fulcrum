@@ -3728,6 +3728,23 @@ h1, h2, h3, h4, h5, h6 {
   color: #d4952a;
 }
 
+.char-effect-pill.combo {
+  border-left: 3px double var(--color-accent-primary);
+}
+
+.char-effect-combo-badge {
+  font-size: 0.5rem;
+  opacity: 0.6;
+  margin-right: 0.15rem;
+}
+
+.char-effect-pill-sub {
+  font-size: 0.5rem;
+  color: var(--color-text-secondary);
+  opacity: 0.7;
+  white-space: nowrap;
+}
+
 .char-effect-pill-target {
   font-size: 0.60rem;
   color: var(--color-text-primary);

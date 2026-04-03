@@ -572,29 +572,22 @@ function registerHandlers(io) {
       io.to('players').emit('combat:state-update', _getPlayerCombatState());
 
       if (surprised) {
-        const surpriseEffects = [
-          { effectId: 'surprised', target: 'fixed', source: 'gm_surprise' },
-          { effectId: 'disoriented', target: 'fixed', source: 'gm_surprise' },
-          { effectId: 'exposed', target: 'universal', source: 'gm_surprise' }
-        ];
         try {
           const result = await pool.query('SELECT character_data FROM characters WHERE id = $1', [socket.data.characterId]);
           if (result.rows.length > 0) {
             let charData = {};
             try { charData = JSON.parse(result.rows[0].character_data) || {}; } catch (_) {}
             if (!charData.activeEffects) charData.activeEffects = [];
-            for (const eff of surpriseEffects) {
-              const entry = {
-                uid: 'gm_surprise_' + eff.effectId + '_' + Date.now(),
-                effectId: eff.effectId,
-                target: eff.target,
-                duration: 'immediate',
-                hazardValue: 0,
-                source: eff.source
-              };
-              charData.activeEffects.push(entry);
-              socket.emit('condition:applied', entry);
-            }
+            const entry = {
+              uid: 'gm_surprise_surprised_' + Date.now(),
+              effectId: 'surprised',
+              target: 'fixed',
+              duration: 'lingering',
+              hazardValue: 0,
+              source: 'gm_surprise'
+            };
+            charData.activeEffects.push(entry);
+            socket.emit('condition:applied', entry);
             await pool.query('UPDATE characters SET character_data = $1 WHERE id = $2', [JSON.stringify(charData), socket.data.characterId]);
           }
         } catch (err) {

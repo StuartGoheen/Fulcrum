@@ -362,8 +362,7 @@
   function designateNpcSurprised(npcId) {
     var npc = combatState ? combatState.combatants.find(function (n) { return n.id === npcId; }) : null;
     if (!npc) return;
-    if (!npcHasCond(npc, 'disoriented')) npcAddCond(npc, 'disoriented', 'immediate');
-    if (!npcHasCond(npc, 'exposed')) npcAddCond(npc, 'exposed', 'immediate');
+    if (!npcHasCond(npc, 'surprised')) npcAddCond(npc, 'surprised', 'lingering');
     npc.surprised = true;
     renderCombatTracker();
   }
@@ -386,13 +385,33 @@
     return combatState.turnOrder;
   }
 
-  function getTierEffect(conditions) {
-    var mod = 0;
+  var COMBO_COMPONENTS = {
+    surprised: ['disoriented', 'exposed'],
+    stunned: ['disoriented', 'rattled'],
+    pinned: ['prone', 'restrained']
+  };
+
+  function expandCondIds(conditions) {
+    var seen = {};
+    var result = [];
     conditions.forEach(function (c) {
       var cid = typeof c === 'object' ? c.id : c;
+      if (COMBO_COMPONENTS[cid]) {
+        COMBO_COMPONENTS[cid].forEach(function (sub) {
+          if (!seen[sub]) { seen[sub] = true; result.push(sub); }
+        });
+      }
+      if (!seen[cid]) { seen[cid] = true; result.push(cid); }
+    });
+    return result;
+  }
+
+  function getTierEffect(conditions) {
+    var ids = expandCondIds(conditions);
+    var mod = 0;
+    ids.forEach(function (cid) {
       if (cid === 'disoriented') mod -= 1;
       if (cid === 'rattled') mod -= 1;
-      if (cid === 'stunned') mod -= 2;
       if (cid === 'blinded') mod -= 1;
       if (cid === 'optimized') mod += 1;
     });
@@ -438,10 +457,10 @@
   }
 
   function getPcEffectiveDie(dieStr, conditions) {
+    var ids = expandCondIds((conditions || []).map(function (c) { return typeof c === 'object' ? c.id : c; }));
     var steps = 0;
-    (conditions || []).forEach(function (cid) {
+    ids.forEach(function (cid) {
       if (cid === 'disoriented') steps -= 1;
-      if (cid === 'stunned') steps -= 2;
       if (cid === 'optimized') steps += 1;
       if (cid === 'empowered') steps += 1;
       if (cid === 'weakened') steps -= 1;
@@ -666,13 +685,15 @@
       var label = def ? def.label : cid;
       var color = condColor(cid);
       var desc = def ? def.description : '';
+      var isCombo = def && def.components && def.components.length > 0;
       var durMap = { immediate: '!', tactical: 'T', lingering: 'L', ongoing: '\u221E' };
       var meta = '';
       var parts = [];
       if (arena) parts.push(esc(arena));
       if (dur && durMap[dur]) parts.push(esc(durMap[dur]));
       if (parts.length) meta = ' <small class="ct-dur-tag">(' + parts.join('/') + ')</small>';
-      html += '<span class="ct-condition-chip" style="background:' + color + '22;color:' + color + ';border-color:' + color + '44;" title="' + esc(desc) + '" data-npc-id="' + esc(npc.id) + '" data-cond="' + esc(cid) + '">' + esc(label) + meta + ' &times;</span>';
+      var comboTag = isCombo ? '<small class="ct-combo-tag">\u2736</small> ' : '';
+      html += '<span class="ct-condition-chip' + (isCombo ? ' ct-combo-chip' : '') + '" style="background:' + color + '22;color:' + color + ';border-color:' + color + '44;" title="' + esc(desc) + '" data-npc-id="' + esc(npc.id) + '" data-cond="' + esc(cid) + '">' + comboTag + esc(label) + meta + ' &times;</span>';
     });
     html += '</div>';
     html += '<button class="ct-add-condition-btn" data-npc-id="' + esc(npc.id) + '">+ Condition</button>';
@@ -1371,6 +1392,7 @@
           var npc = combatState.combatants.find(function (n) { return n.id === id; });
           if (npc) {
             npcRemoveCond(npc, condId);
+            if (condId === 'surprised') npc.surprised = false;
             renderCombatTracker();
           }
         } else if (type === 'pc') {
@@ -1684,6 +1706,7 @@
         var npc = combatState.combatants.find(function (n) { return n.id === npcId; });
         if (npc) {
           npcRemoveCond(npc, condId);
+          if (condId === 'surprised') npc.surprised = false;
           renderCombatTracker();
         }
       });
