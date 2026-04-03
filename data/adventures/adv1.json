@@ -238,6 +238,378 @@
                   }
                 ]
               }
+            },
+            {
+              "name": "Kyuzo Skirmisher",
+              "type": "Character",
+              "count": 1,
+              "loot": [
+                {
+                  "id": "wpn_vibroblade_01",
+                  "name": "Vibroblade",
+                  "type": "weapon",
+                  "qty": 1
+                },
+                {
+                  "id": "wpn_quick_six_01",
+                  "name": "Merr-Sonn Quick-Six",
+                  "type": "weapon",
+                  "qty": 1
+                },
+                {
+                  "id": "arm_blast_vest_01",
+                  "name": "Blast Vest",
+                  "type": "armor",
+                  "qty": 1
+                }
+              ],
+              "threatBuild": {
+                "role": "harrier",
+                "tier": 1,
+                "classification": "minion",
+                "threatCategory": "character",
+                "powerSource": "martial",
+                "arenas": {
+                  "physique": 2,
+                  "reflex": 2,
+                  "grit": 2,
+                  "wits": 2,
+                  "presence": 2
+                },
+                "computed": {
+                  "defense": 4,
+                  "evasion": 4,
+                  "resist": 3,
+                  "vitality": 5,
+                  "initiative": 5,
+                  "power": 3,
+                  "powers": {
+                    "physique": 3,
+                    "reflex": 3,
+                    "grit": 3,
+                    "wits": 3,
+                    "presence": 3
+                  },
+                  "actions": 1,
+                  "exploits": 0,
+                  "damageTiers": {
+                    "label": "medium",
+                    "fleeting": 3,
+                    "masterful": 5,
+                    "legendary": 8
+                  }
+                },
+                "traits": [
+                  "agile",
+                  "follows_the_boss",
+                  "armored_light"
+                ],
+                "tags": [
+                  "mercenary"
+                ],
+                "roleKit": {
+                  "roleName": "Harrier / Martial",
+                  "action": {
+                    "name": "Blindside",
+                    "defense": "dodge/endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage. Harrier may move 1 zone (no Opening).",
+                      "masterful": "Chassis damage. Harrier may move 1 zone (no Opening).",
+                      "legendary": "Chassis damage. Harrier may move 1 zone (no Opening)."
+                    },
+                    "isAttack": true,
+                    "arena": "physique"
+                  },
+                  "passive": {
+                    "name": "Swift",
+                    "description": "+1 zone of movement when using Move."
+                  },
+                  "maneuver": null,
+                  "gambit": {
+                    "name": "Hamstring",
+                    "cost": "-1 Power",
+                    "description": "Attack also inflicts [Slowed] Tactical.",
+                    "rider": "[Slowed]"
+                  },
+                  "gambits": [
+                    {
+                      "name": "Hamstring",
+                      "cost": "-1 Power",
+                      "description": "Attack also inflicts [Slowed] Tactical.",
+                      "rider": "[Slowed]"
+                    },
+                    {
+                      "name": "Expose Flank",
+                      "cost": "-1 Power",
+                      "description": "Attack also inflicts [Exposed] Tactical.",
+                      "rider": "[Exposed]"
+                    }
+                  ],
+                  "exploit": {
+                    "name": "Pursuit",
+                    "trigger": "A PC in the Harrier's zone uses Move to leave.",
+                    "description": "Harrier immediately moves to the same zone (no Opening)."
+                  },
+                  "powerSource": "martial"
+                },
+                "weaponChassis": "medium",
+                "loot": [
+                  {
+                    "id": "wpn_vibroblade_01",
+                    "name": "Vibroblade",
+                    "type": "weapon",
+                    "qty": 1
+                  },
+                  {
+                    "id": "wpn_quick_six_01",
+                    "name": "Merr-Sonn Quick-Six",
+                    "type": "weapon",
+                    "qty": 1
+                  },
+                  {
+                    "id": "arm_blast_vest_01",
+                    "name": "Blast Vest",
+                    "type": "armor",
+                    "qty": 1
+                  }
+                ]
+              }
+            },
+            {
+              "name": "Kyuzo Skirmisher",
+              "type": "Character",
+              "count": 1,
+              "loot": [
+                {
+                  "id": "wpn_vibroblade_01",
+                  "name": "Vibroblade",
+                  "type": "weapon",
+                  "qty": 1
+                },
+                {
+                  "id": "wpn_quick_six_01",
+                  "name": "Merr-Sonn Quick-Six",
+                  "type": "weapon",
+                  "qty": 1
+                },
+                {
+                  "id": "arm_blast_vest_01",
+                  "name": "Blast Vest",
+                  "type": "armor",
+                  "qty": 1
+                }
+              ],
+              "threatBuild": {
+                "role": "harrier",
+                "tier": 1,
+                "classification": "minion",
+                "threatCategory": "character",
+                "powerSource": "martial",
+                "arenas": {
+                  "physique": 2,
+                  "reflex": 2,
+                  "grit": 2,
+                  "wits": 2,
+                  "presence": 2
+                },
+                "computed": {
+                  "defense": 4,
+                  "evasion": 4,
+                  "resist": 3,
+                  "vitality": 5,
+                  "initiative": 5,
+                  "power": 3,
+                  "powers": {
+                    "physique": 3,
+                    "reflex": 3,
+                    "grit": 3,
+                    "wits": 3,
+                    "presence": 3
+                  },
+                  "actions": 1,
+                  "exploits": 0,
+                  "damageTiers": {
+                    "label": "medium",
+                    "fleeting": 3,
+                    "masterful": 5,
+                    "legendary": 8
+                  }
+                },
+                "traits": [
+                  "agile",
+                  "follows_the_boss",
+                  "armored_light"
+                ],
+                "tags": [
+                  "mercenary"
+                ],
+                "roleKit": {
+                  "roleName": "Harrier / Martial",
+                  "action": {
+                    "name": "Blindside",
+                    "defense": "dodge/endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage. Harrier may move 1 zone (no Opening).",
+                      "masterful": "Chassis damage. Harrier may move 1 zone (no Opening).",
+                      "legendary": "Chassis damage. Harrier may move 1 zone (no Opening)."
+                    },
+                    "isAttack": true,
+                    "arena": "physique"
+                  },
+                  "passive": {
+                    "name": "Swift",
+                    "description": "+1 zone of movement when using Move."
+                  },
+                  "maneuver": null,
+                  "gambit": {
+                    "name": "Hamstring",
+                    "cost": "-1 Power",
+                    "description": "Attack also inflicts [Slowed] Tactical.",
+                    "rider": "[Slowed]"
+                  },
+                  "gambits": [
+                    {
+                      "name": "Hamstring",
+                      "cost": "-1 Power",
+                      "description": "Attack also inflicts [Slowed] Tactical.",
+                      "rider": "[Slowed]"
+                    },
+                    {
+                      "name": "Expose Flank",
+                      "cost": "-1 Power",
+                      "description": "Attack also inflicts [Exposed] Tactical.",
+                      "rider": "[Exposed]"
+                    }
+                  ],
+                  "exploit": {
+                    "name": "Pursuit",
+                    "trigger": "A PC in the Harrier's zone uses Move to leave.",
+                    "description": "Harrier immediately moves to the same zone (no Opening)."
+                  },
+                  "powerSource": "martial"
+                },
+                "weaponChassis": "medium",
+                "loot": [
+                  {
+                    "id": "wpn_vibroblade_01",
+                    "name": "Vibroblade",
+                    "type": "weapon",
+                    "qty": 1
+                  },
+                  {
+                    "id": "wpn_quick_six_01",
+                    "name": "Merr-Sonn Quick-Six",
+                    "type": "weapon",
+                    "qty": 1
+                  },
+                  {
+                    "id": "arm_blast_vest_01",
+                    "name": "Blast Vest",
+                    "type": "armor",
+                    "qty": 1
+                  }
+                ]
+              }
+            },
+            {
+              "name": "Maya",
+              "type": "Character",
+              "count": 1,
+              "loot": [],
+              "threatBuild": {
+                "role": "support",
+                "tier": 1,
+                "classification": "standard",
+                "threatCategory": "character",
+                "powerSource": "ranged",
+                "arenas": {
+                  "physique": 2,
+                  "reflex": 3,
+                  "grit": 3,
+                  "wits": 4,
+                  "presence": 2
+                },
+                "computed": {
+                  "defense": 5,
+                  "evasion": 5,
+                  "resist": 5,
+                  "vitality": 6,
+                  "initiative": 9,
+                  "power": 5,
+                  "powers": {
+                    "physique": 3,
+                    "reflex": 4,
+                    "grit": 4,
+                    "wits": 5,
+                    "presence": 3
+                  },
+                  "actions": 1,
+                  "exploits": 0,
+                  "damageTiers": {
+                    "label": "medium",
+                    "fleeting": 3,
+                    "masterful": 5,
+                    "legendary": 8
+                  }
+                },
+                "traits": [
+                  "armored_light",
+                  "disciplined",
+                  "interrogator",
+                  "agile",
+                  "slippery"
+                ],
+                "tags": [
+                  "imperial"
+                ],
+                "roleKit": {
+                  "roleName": "Support / Ranged",
+                  "action": {
+                    "name": "Spot Target",
+                    "defense": "none",
+                    "npcEffects": {
+                      "fleeting": "Designate one visible target. Next ally attack vs target gains [Optimized].",
+                      "masterful": "Designate one visible target. Next two ally attacks vs target gain [Optimized].",
+                      "legendary": "Designate one visible target. All ally attacks vs target gain [Optimized] Tactical."
+                    },
+                    "isAttack": false,
+                    "arena": "reflex"
+                  },
+                  "passive": {
+                    "name": "Aura of Resolve",
+                    "description": "Allies within 2 zones gain +1 Defense in Support's chosen arena."
+                  },
+                  "maneuver": null,
+                  "gambit": {
+                    "name": "Smoke Cover",
+                    "cost": "-1 Power",
+                    "description": "On personal attack: one ally in zone gains [Cover 1] Tactical.",
+                    "rider": "[Cover 1]"
+                  },
+                  "gambits": [
+                    {
+                      "name": "Smoke Cover",
+                      "cost": "-1 Power",
+                      "description": "On personal attack: one ally in zone gains [Cover 1] Tactical.",
+                      "rider": "[Cover 1]"
+                    },
+                    {
+                      "name": "Marking Round",
+                      "cost": "-1 Power",
+                      "description": "On personal attack: target gains [Marked] Tactical.",
+                      "rider": "[Marked]"
+                    }
+                  ],
+                  "exploit": {
+                    "name": "Overwatch Support",
+                    "trigger": "An ally in an adjacent zone is attacked.",
+                    "description": "Immediately attack the attacker at -2 Power if in weapon range."
+                  },
+                  "powerSource": "ranged"
+                },
+                "weaponChassis": "medium",
+                "loot": []
+              }
             }
           ],
           "hazards": "Cantina environment — dim lighting, overturned tables, broken glass, panicking patrons. A fight on Jakku draws local attention (Varga's people, scavenger gangs) but NOT Imperial attention.",
