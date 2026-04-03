@@ -192,35 +192,50 @@
 
     var spKeys = Object.keys(startPositions);
     var usedSPKeys = {};
+
+    function npcMatchesKey(npcName, key) {
+      var npcBase = npcName.replace(/ #\d+$/, '').toLowerCase();
+      var npcNum = (npcName.match(/ #(\d+)$/) || [])[1] || null;
+      var keyBase = key.replace(/ #\d+$/, '').toLowerCase();
+      var keyNum = (key.match(/ #(\d+)$/) || [])[1] || null;
+      if (npcNum && keyNum) {
+        if (npcNum !== keyNum) return false;
+        if (keyBase === npcBase || npcBase.indexOf(keyBase) !== -1 || keyBase.indexOf(npcBase) !== -1) return true;
+        var kw = keyBase.split(/\s+/);
+        var nw = npcBase.split(/\s+/);
+        return nw.some(function (w) { return w.length > 2 && kw.some(function (k2) { return k2.indexOf(w) !== -1 || w.indexOf(k2) !== -1; }); });
+      }
+      if (keyBase === npcBase || npcBase.indexOf(keyBase) !== -1 || keyBase.indexOf(npcBase) !== -1) return true;
+      var kwf = keyBase.split(/\s+/);
+      var nwf = npcBase.split(/\s+/);
+      return nwf.some(function (w) { return w.length > 2 && kwf.some(function (k2) { return k2.indexOf(w) !== -1 || w.indexOf(k2) !== -1; }); });
+    }
+
     npcEntries.forEach(function (npc) {
-      var baseName = npc.name.replace(/ #\d+$/, '');
-      var isClone = baseName !== npc.name;
+      var npcNum = (npc.name.match(/ #(\d+)$/) || [])[1] || null;
+      if (!npcNum) return;
       var bestKey = null;
       for (var k = 0; k < spKeys.length; k++) {
         var key = spKeys[k];
-        if (key === 'PCs' || key === 'Patrons') continue;
-        if (!isClone && usedSPKeys[key]) continue;
-        var keyLower = key.toLowerCase();
-        var baseNameLower = baseName.toLowerCase();
-        if (keyLower === baseNameLower || baseNameLower.indexOf(keyLower) !== -1 || keyLower.indexOf(baseNameLower) !== -1) {
-          bestKey = key;
-          break;
-        }
-      }
-      if (!bestKey) {
-        for (var k2 = 0; k2 < spKeys.length; k2++) {
-          var key2 = spKeys[k2];
-          if (key2 === 'PCs' || key2 === 'Patrons') continue;
-          if (!isClone && usedSPKeys[key2]) continue;
-          var keyWords = key2.toLowerCase().split(/\s+/);
-          var nameWords = baseName.toLowerCase().split(/\s+/);
-          var overlap = nameWords.some(function (w) { return w.length > 2 && keyWords.some(function (kw) { return kw.indexOf(w) !== -1 || w.indexOf(kw) !== -1; }); });
-          if (overlap) { bestKey = key2; break; }
-        }
+        if (key === 'PCs' || key === 'Patrons' || usedSPKeys[key]) continue;
+        if (npcMatchesKey(npc.name, key)) { bestKey = key; break; }
       }
       if (bestKey) {
         npc.zone = startPositions[bestKey];
-        if (!isClone) usedSPKeys[bestKey] = true;
+        usedSPKeys[bestKey] = true;
+      }
+    });
+    npcEntries.forEach(function (npc) {
+      if (npc.zone) return;
+      var bestKey = null;
+      for (var k = 0; k < spKeys.length; k++) {
+        var key = spKeys[k];
+        if (key === 'PCs' || key === 'Patrons' || usedSPKeys[key]) continue;
+        if (npcMatchesKey(npc.name, key)) { bestKey = key; break; }
+      }
+      if (bestKey) {
+        npc.zone = startPositions[bestKey];
+        usedSPKeys[bestKey] = true;
       }
     });
 
