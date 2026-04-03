@@ -183,15 +183,29 @@
       }
     });
 
-    var startPositions = {};
+    var gmPositions = (scene.tacticalMap && scene.tacticalMap.gmStartingPositions) || {};
+    var authoredPositions = {};
     if (scene.tacticalMap && scene.tacticalMap.startingPositions) {
       scene.tacticalMap.startingPositions.forEach(function (sp) {
-        startPositions[sp.who] = sp.zone;
+        authoredPositions[sp.who] = sp.zone;
       });
     }
 
-    var spKeys = Object.keys(startPositions);
+    npcEntries.forEach(function (npc, idx) {
+      if (gmPositions['npc_' + idx] != null) {
+        npc.zone = gmPositions['npc_' + idx];
+      }
+    });
+
+    var spKeys = Object.keys(authoredPositions);
     var usedSPKeys = {};
+    npcEntries.forEach(function (npc) {
+      if (npc.zone) {
+        for (var k = 0; k < spKeys.length; k++) {
+          if (authoredPositions[spKeys[k]] === npc.zone) { usedSPKeys[spKeys[k]] = true; break; }
+        }
+      }
+    });
 
     function npcMatchesKey(npcName, key) {
       var npcBase = npcName.replace(/ #\d+$/, '').toLowerCase();
@@ -212,6 +226,7 @@
     }
 
     npcEntries.forEach(function (npc) {
+      if (npc.zone) return;
       var npcNum = (npc.name.match(/ #(\d+)$/) || [])[1] || null;
       if (!npcNum) return;
       var bestKey = null;
@@ -221,7 +236,7 @@
         if (npcMatchesKey(npc.name, key)) { bestKey = key; break; }
       }
       if (bestKey) {
-        npc.zone = startPositions[bestKey];
+        npc.zone = authoredPositions[bestKey];
         usedSPKeys[bestKey] = true;
       }
     });
@@ -234,12 +249,12 @@
         if (npcMatchesKey(npc.name, key)) { bestKey = key; break; }
       }
       if (bestKey) {
-        npc.zone = startPositions[bestKey];
+        npc.zone = authoredPositions[bestKey];
         usedSPKeys[bestKey] = true;
       }
     });
 
-    var pcTokenZone = startPositions['PCs'] || null;
+    var pcTokenZone = gmPositions['PCs'] || authoredPositions['PCs'] || null;
 
     var pcSlots = [];
     if (partyData && partyData.length) {
@@ -1060,6 +1075,28 @@
     html += '</div>';
     html += '</div>';
 
+    var unplaced = [];
+    if (combatState) {
+      combatState.combatants.forEach(function (npc) {
+        if (!combatState.tokenPositions[npc.id]) {
+          unplaced.push(npc);
+        }
+      });
+      if (!combatState.tokenPositions['PCs']) {
+        unplaced.unshift({ id: 'PCs', name: 'Player Characters', _isPc: true });
+      }
+    }
+    if (unplaced.length) {
+      html += '<div class="ct-unplaced-bar">';
+      html += '<span class="ct-unplaced-label">Unplaced — click then click a zone:</span>';
+      unplaced.forEach(function (u) {
+        var isSelected = combatState.selectedToken === u.id;
+        var cls = u._isPc ? 'ct-token-pc' : 'ct-token-disp-' + (u.disposition || 'enemy');
+        html += '<span class="ct-token ' + cls + (isSelected ? ' ct-token-selected' : '') + '" data-token-id="' + esc(u.id) + '" title="' + esc(u.name) + '">' + esc(u.name) + '</span>';
+      });
+      html += '</div>';
+    }
+
     html += '<div class="ct-map-legend">';
     html += '<span class="ct-legend-item"><span class="ct-legend-swatch ct-legend-cover-light"></span>Light Cover</span>';
     html += '<span class="ct-legend-item"><span class="ct-legend-swatch ct-legend-cover-hard"></span>Hard Cover</span>';
@@ -1854,11 +1891,45 @@
       zone.addEventListener('click', function () {
         if (combatState.selectedToken && zone.dataset.zoneId && !zone.classList.contains('ct-zone-impassable')) {
           combatState.tokenPositions[combatState.selectedToken] = zone.dataset.zoneId;
+          persistTokenPosition(combatState.selectedToken, zone.dataset.zoneId);
           combatState.selectedToken = null;
           renderCombatTracker();
         }
       });
     });
+  }
+
+  var _positionPersistTimer = null;
+  function persistTokenPosition(tokenId, zoneId) {
+    if (!combatState || !combatState.scene || !combatState.scene.id) return;
+    var sceneId = combatState.scene.id;
+    var tm = combatState.scene.tacticalMap || {};
+    if (!tm.gmStartingPositions) tm.gmStartingPositions = {};
+
+    if (tokenId === 'PCs') {
+      tm.gmStartingPositions['PCs'] = zoneId;
+    } else {
+      var npcIdx = -1;
+      combatState.combatants.forEach(function (n, i) {
+        if (n.id === tokenId) npcIdx = i;
+      });
+      if (npcIdx >= 0) {
+        tm.gmStartingPositions['npc_' + npcIdx] = zoneId;
+      }
+    }
+
+    if (_positionPersistTimer) clearTimeout(_positionPersistTimer);
+    _positionPersistTimer = setTimeout(function () {
+      _positionPersistTimer = null;
+      var payload = tm.gmStartingPositions;
+      fetch('/api/campaign/scene/' + encodeURIComponent(sceneId) + '/positions', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).then(function (r) {
+        if (!r.ok) console.error('Failed to persist token positions', r.status);
+      }).catch(function (err) { console.error('Position persist error', err); });
+    }, 500);
   }
 
   var _syncTimer = null;

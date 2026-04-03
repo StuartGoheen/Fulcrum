@@ -279,6 +279,26 @@ router.delete('/campaign/scene/:sceneId/npc/:npcIndex', (req, res) => {
   }
 });
 
+router.put('/campaign/scene/:sceneId/positions', (req, res) => {
+  const { sceneId } = req.params;
+  const positions = req.body;
+  if (!positions || typeof positions !== 'object') {
+    return res.status(400).json({ error: 'Positions data required' });
+  }
+  try {
+    const data = loadAdventures();
+    const scene = findSceneById(data, sceneId);
+    if (!scene) return res.status(404).json({ error: 'Scene not found' });
+    if (!scene.tacticalMap) scene.tacticalMap = {};
+    scene.tacticalMap.gmStartingPositions = positions;
+    writeAdventures(data);
+    res.json({ success: true });
+  } catch (err) {
+    console.error('[PUT /campaign/scene/positions]', err);
+    res.status(500).json({ error: 'Failed to update positions', detail: err.message });
+  }
+});
+
 router.get('/campaign/lore-tags', (req, res) => {
   try {
     const data = loadAdventures();
