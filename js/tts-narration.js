@@ -104,16 +104,23 @@
     return null;
   }
 
-  function _stripHtml(html) {
+  function _stripMarkup(html) {
     var tmp = document.createElement('div');
     tmp.innerHTML = html;
-    return (tmp.textContent || tmp.innerText || '').replace(/\s+/g, ' ').trim();
+    var text = tmp.textContent || tmp.innerText || '';
+    text = text.replace(/\[GM:?[^\]]*\]/gi, '');
+    text = text.replace(/\[PAUSE[^\]]*\]/gi, '');
+    text = text.replace(/\[NOTE:?[^\]]*\]/gi, '');
+    text = text.replace(/\[LORE:?[^\]]*\]/gi, '');
+    text = text.replace(/\{[^}]*\}/g, '');
+    text = text.replace(/\s+/g, ' ').trim();
+    return text;
   }
 
   function speak(text, partId, onEnd) {
     if (!_supported) return;
     stop();
-    var clean = _stripHtml(text);
+    var clean = _stripMarkup(text);
     if (!clean) return;
 
     var prefs = getPrefs();
