@@ -1431,13 +1431,18 @@
 
   function _renderBreadcrumbs() {
     var parts = [];
-    parts.push('<span class="jnav-crumb"' + (_journalNav.level === 'scene-detail' ? ' data-jnav-to="list"' : '') + '>Campaign Journal</span>');
+    var isSubView = _journalNav.level === 'scene-detail' || _journalNav.level === 'tag-search';
+    parts.push('<span class="jnav-crumb"' + (isSubView ? ' data-jnav-to="list"' : '') + '>Campaign Journal</span>');
     if (_journalNav.level === 'scene-detail' && _journalNav.sceneId) {
       var scene = _findSceneInAdvs(_journalNav.sceneId);
       if (scene) {
         parts.push('<span class="jnav-sep">\u203A</span>');
         parts.push('<span class="jnav-crumb is-current">' + _esc(scene.title) + '</span>');
       }
+    }
+    if (_journalNav.level === 'tag-search' && _journalNav.searchTag) {
+      parts.push('<span class="jnav-sep">\u203A</span>');
+      parts.push('<span class="jnav-crumb is-current">Tag: ' + _esc(_journalNav.searchTag) + '</span>');
     }
     return '<div class="jnav-breadcrumbs">' + parts.join('') + '</div>';
   }
@@ -1461,6 +1466,72 @@
       }
       html += '</div>';
       html += '</div>';
+    });
+    return html;
+  }
+
+  function _renderTagSearchView() {
+    var html = '';
+    var tagName = _journalNav.searchTag;
+    var matches = _journalEntries.filter(function (e) {
+      return (e.tags || []).some(function (t) { return t.name === tagName; });
+    });
+    if (!matches.length) {
+      html += '<div class="journal-empty"><div class="journal-empty-text">No entries tagged "' + _esc(tagName) + '"</div></div>';
+      return html;
+    }
+    matches.forEach(function (entry) {
+      var isCampaignLog = entry.author_character_name === 'Campaign Log';
+      var isExpanded = _journalExpandedEntry === entry.id;
+      var sceneName = '';
+      var scene = entry.source_scene_id ? _findSceneInAdvs(entry.source_scene_id) : null;
+      if (scene) sceneName = scene.title;
+      if (isCampaignLog) {
+        html += '<div class="journal-scene-log" data-scene-log-id="' + entry.id + '">';
+        html += '<div class="journal-scene-log-header">';
+        html += '<span class="journal-scene-log-chevron">\u25B6</span>';
+        html += '<span class="journal-scene-log-title">' + _esc(entry.title) + '</span>';
+        html += '<span class="journal-scene-log-date">' + _formatDate(entry.created_at) + '</span>';
+        html += '</div>';
+        html += '<div class="journal-scene-log-body">';
+        html += '<pre class="journal-scene-log-content">' + _esc(entry.body || '') + '</pre>';
+        html += '</div>';
+        html += '</div>';
+      } else {
+        html += '<div class="journal-entry-card' + (isExpanded ? ' is-expanded' : '') + '">';
+        html += '<div class="journal-entry-card-header" data-journal-toggle="' + entry.id + '">';
+        html += '<span class="journal-entry-chevron">' + (isExpanded ? '\u25BC' : '\u25B6') + '</span>';
+        html += '<span class="journal-entry-title">' + _esc(entry.title) + '</span>';
+        html += '<span class="journal-entry-date">' + _formatDate(entry.created_at) + '</span>';
+        html += '</div>';
+        if (isExpanded) {
+          html += '<div class="journal-entry-expanded">';
+          html += '<div class="journal-entry-meta">';
+          html += '<span class="journal-entry-author">' + _esc(entry.author_character_name) + '</span>';
+          if (sceneName) {
+            html += '<span class="journal-entry-scene-ref">' + _esc(sceneName) + '</span>';
+          }
+          var tags = entry.tags || [];
+          if (tags.length) {
+            html += '<span class="journal-entry-tags">';
+            tags.forEach(function (t) {
+              html += '<span class="journal-tag-chip ' + _tagCategoryClass(t.category) + '" data-journal-tag-search="' + _esc(t.name) + '">' + _esc(t.name) + '</span>';
+            });
+            html += '</span>';
+          }
+          html += '</div>';
+          html += '<div class="journal-entry-body">' + _esc(entry.body || '').replace(/\n/g, '<br>') + '</div>';
+          html += '</div>';
+        } else {
+          html += '<div class="journal-entry-meta-inline">';
+          html += '<span class="journal-entry-author">' + _esc(entry.author_character_name) + '</span>';
+          if (sceneName) {
+            html += '<span class="journal-entry-scene-ref">' + _esc(sceneName) + '</span>';
+          }
+          html += '</div>';
+        }
+        html += '</div>';
+      }
     });
     return html;
   }
@@ -1518,7 +1589,7 @@
           if (tags.length) {
             html += '<span class="journal-entry-tags">';
             tags.forEach(function (t) {
-              html += '<span class="journal-tag-chip ' + _tagCategoryClass(t.category) + '">' + _esc(t.name) + '</span>';
+              html += '<span class="journal-tag-chip ' + _tagCategoryClass(t.category) + '" data-journal-tag-search="' + _esc(t.name) + '">' + _esc(t.name) + '</span>';
             });
             html += '</span>';
           }
@@ -1547,7 +1618,9 @@
     var html = '';
     html += _renderBreadcrumbs();
     html += '<div class="jnav-content">';
-    if (_journalNav.level === 'scene-detail') {
+    if (_journalNav.level === 'tag-search') {
+      html += _renderTagSearchView();
+    } else if (_journalNav.level === 'scene-detail') {
       html += _renderSceneDetailView();
     } else {
       html += _renderCompletedScenesView();
@@ -1558,10 +1631,16 @@
 
     wrap.querySelectorAll('[data-jnav-to]').forEach(function (el) {
       el.addEventListener('click', function () {
-        _journalNav = { level: 'list', actNum: null, advId: null, sceneId: null };
+        var wasTagSearch = _journalNav.level === 'tag-search';
+        _journalNav = { level: 'list', actNum: null, advId: null, sceneId: null, searchTag: null };
         _journalFormMode = null;
         _journalExpandedEntry = null;
-        _renderJournal();
+        if (wasTagSearch) {
+          _journalEntries = [];
+          _renderJournal();
+        } else {
+          _renderJournal();
+        }
       });
     });
 
@@ -1569,9 +1648,26 @@
       el.addEventListener('click', function () {
         _journalNav.level = 'scene-detail';
         _journalNav.sceneId = el.getAttribute('data-jnav-scene');
+        _journalNav.searchTag = null;
         _journalExpandedEntry = null;
         _journalFormMode = null;
         _loadSceneEntries();
+      });
+    });
+
+    wrap.querySelectorAll('[data-journal-tag-search]').forEach(function (chip) {
+      chip.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var tagName = chip.getAttribute('data-journal-tag-search');
+        _journalNav = { level: 'tag-search', actNum: null, advId: null, sceneId: null, searchTag: tagName };
+        _journalExpandedEntry = null;
+        _journalFormMode = null;
+        fetch('/api/journal/entries?tag=' + encodeURIComponent(tagName))
+          .then(function (r) { return r.json(); })
+          .then(function (data) {
+            _journalEntries = data.entries || [];
+            _renderJournal();
+          }).catch(function () { _renderJournal(); });
       });
     });
 

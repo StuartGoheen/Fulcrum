@@ -7843,6 +7843,13 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0 0.65rem 0.1rem;
 }
 
+.journal-entry-scene-ref {
+  font-size: 0.42rem;
+  color: var(--color-text-secondary);
+  font-style: italic;
+  opacity: 0.7;
+}
+
 /* ══════════════════════════════════════════════════════════════════════════
    Kits Step (Step 6)
    ══════════════════════════════════════════════════════════════════════════ */

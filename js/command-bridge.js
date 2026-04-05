@@ -2534,22 +2534,27 @@
   function _renderCrewBreadcrumbs() {
     var parts = [];
     parts.push('<span class="jnav-crumb" data-cj-nav-to="acts">Crew Journal</span>');
-    if (_crewNav.level !== 'acts' && _crewNav.actNum) {
+    if (_crewNav.level === 'tag-search' && _crewNav.searchTag) {
       parts.push('<span class="jnav-sep">\u203A</span>');
-      parts.push('<span class="jnav-crumb" data-cj-nav-to="episodes">Act ' + _crewNav.actNum + '</span>');
-    }
-    if ((_crewNav.level === 'scenes' || _crewNav.level === 'scene-detail') && _crewNav.advId) {
-      var adv = _crewAdventures.find(function (a) { return a.id === _crewNav.advId; });
-      if (adv) {
+      parts.push('<span class="jnav-crumb is-current">Tag: ' + _escHtml(_crewNav.searchTag) + '</span>');
+    } else {
+      if (_crewNav.level !== 'acts' && _crewNav.actNum) {
         parts.push('<span class="jnav-sep">\u203A</span>');
-        parts.push('<span class="jnav-crumb" data-cj-nav-to="scenes">' + _escHtml(adv.title) + '</span>');
+        parts.push('<span class="jnav-crumb" data-cj-nav-to="episodes">Act ' + _crewNav.actNum + '</span>');
       }
-    }
-    if (_crewNav.level === 'scene-detail' && _crewNav.sceneId) {
-      var scene = _findCrewScene(_crewNav.sceneId);
-      if (scene) {
-        parts.push('<span class="jnav-sep">\u203A</span>');
-        parts.push('<span class="jnav-crumb is-current">' + _escHtml(scene.title) + '</span>');
+      if ((_crewNav.level === 'scenes' || _crewNav.level === 'scene-detail') && _crewNav.advId) {
+        var adv = _crewAdventures.find(function (a) { return a.id === _crewNav.advId; });
+        if (adv) {
+          parts.push('<span class="jnav-sep">\u203A</span>');
+          parts.push('<span class="jnav-crumb" data-cj-nav-to="scenes">' + _escHtml(adv.title) + '</span>');
+        }
+      }
+      if (_crewNav.level === 'scene-detail' && _crewNav.sceneId) {
+        var scene = _findCrewScene(_crewNav.sceneId);
+        if (scene) {
+          parts.push('<span class="jnav-sep">\u203A</span>');
+          parts.push('<span class="jnav-crumb is-current">' + _escHtml(scene.title) + '</span>');
+        }
       }
     }
     return '<div class="jnav-breadcrumbs">' + parts.join('') + '</div>';
@@ -2708,7 +2713,7 @@
             if (tags.length) {
               html += '<span class="journal-entry-tags">';
               tags.forEach(function (t) {
-                html += '<span class="journal-tag-chip ' + _tagCatClass(t.category) + '">' + _escHtml(t.name) + '</span>';
+                html += '<span class="journal-tag-chip ' + _tagCatClass(t.category) + '" data-cj-tag-search="' + _escHtml(t.name) + '">' + _escHtml(t.name) + '</span>';
               });
               html += '</span>';
             }
@@ -2723,6 +2728,67 @@
           html += '</div>';
         });
       }
+    } else if (_crewNav.level === 'tag-search') {
+      var tagName = _crewNav.searchTag;
+      var tagMatches = _crewJournalEntries.filter(function (e) {
+        return (e.tags || []).some(function (t) { return t.name === tagName; });
+      });
+      if (!tagMatches.length) {
+        html += '<div style="padding:1rem;text-align:center;opacity:0.4;font-size:0.6rem;">No entries tagged "' + _escHtml(tagName) + '"</div>';
+      } else {
+        tagMatches.forEach(function (entry) {
+          var isCampaignLog = entry.author_character_name === 'Campaign Log';
+          var isExpanded = _crewExpandedEntry === entry.id;
+          var sceneName = '';
+          var scene = entry.source_scene_id ? _findCrewScene(entry.source_scene_id) : null;
+          if (scene) sceneName = scene.title;
+          if (isCampaignLog) {
+            html += '<div class="journal-scene-log" data-cj-scene-log>';
+            html += '<div class="journal-scene-log-header">';
+            html += '<span class="journal-scene-log-chevron">\u25B6</span>';
+            html += '<span class="journal-scene-log-title">' + _escHtml(entry.title) + '</span>';
+            html += '<span class="journal-scene-log-date">' + _fmtDate(entry.created_at) + '</span>';
+            html += '</div>';
+            html += '<div class="journal-scene-log-body">';
+            html += '<pre class="journal-scene-log-content">' + _escHtml(entry.body || '') + '</pre>';
+            html += '</div></div>';
+          } else {
+            html += '<div class="journal-entry-card' + (isExpanded ? ' is-expanded' : '') + '" style="cursor:pointer;">';
+            html += '<div class="journal-entry-card-header" data-cj-toggle="' + entry.id + '">';
+            html += '<span class="journal-entry-chevron">' + (isExpanded ? '\u25BC' : '\u25B6') + '</span>';
+            html += '<span class="journal-entry-title">' + _escHtml(entry.title) + '</span>';
+            html += '<span class="journal-entry-date">' + _fmtDate(entry.created_at) + '</span>';
+            html += '</div>';
+            if (isExpanded) {
+              html += '<div class="journal-entry-expanded">';
+              html += '<div class="journal-entry-meta">';
+              html += '<span class="journal-entry-author">' + _escHtml(entry.author_character_name) + '</span>';
+              if (sceneName) {
+                html += '<span class="journal-entry-scene-ref">' + _escHtml(sceneName) + '</span>';
+              }
+              var eTags = entry.tags || [];
+              if (eTags.length) {
+                html += '<span class="journal-entry-tags">';
+                eTags.forEach(function (t) {
+                  html += '<span class="journal-tag-chip ' + _tagCatClass(t.category) + '" data-cj-tag-search="' + _escHtml(t.name) + '">' + _escHtml(t.name) + '</span>';
+                });
+                html += '</span>';
+              }
+              html += '</div>';
+              html += '<div class="journal-entry-body">' + _escHtml(entry.body || '').replace(/\n/g, '<br>') + '</div>';
+              html += '</div>';
+            } else {
+              html += '<div class="journal-entry-meta-inline">';
+              html += '<span class="journal-entry-author">' + _escHtml(entry.author_character_name) + '</span>';
+              if (sceneName) {
+                html += '<span class="journal-entry-scene-ref">' + _escHtml(sceneName) + '</span>';
+              }
+              html += '</div>';
+            }
+            html += '</div>';
+          }
+        });
+      }
     }
 
     html += '</div>';
@@ -2732,17 +2798,34 @@
       el.addEventListener('click', function () {
         var target = el.getAttribute('data-cj-nav-to');
         if (target === 'acts') {
-          _crewNav = { level: 'acts', actNum: null, advId: null, sceneId: null };
+          _crewNav = { level: 'acts', actNum: null, advId: null, sceneId: null, searchTag: null };
         } else if (target === 'episodes') {
           _crewNav.level = 'episodes';
           _crewNav.advId = null;
           _crewNav.sceneId = null;
+          _crewNav.searchTag = null;
         } else if (target === 'scenes') {
           _crewNav.level = 'scenes';
           _crewNav.sceneId = null;
+          _crewNav.searchTag = null;
         }
         _crewExpandedEntry = null;
         renderCrewJournal();
+      });
+    });
+
+    wrap.querySelectorAll('[data-cj-tag-search]').forEach(function (chip) {
+      chip.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var tn = chip.getAttribute('data-cj-tag-search');
+        _crewNav = { level: 'tag-search', actNum: null, advId: null, sceneId: null, searchTag: tn };
+        _crewExpandedEntry = null;
+        fetch('/api/journal/entries?tag=' + encodeURIComponent(tn))
+          .then(function (r) { return r.json(); })
+          .then(function (data) {
+            _crewJournalEntries = data.entries || [];
+            renderCrewJournal();
+          }).catch(function () { renderCrewJournal(); });
       });
     });
 
