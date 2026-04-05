@@ -618,8 +618,8 @@
     "name": "The Teräs Käsi",
     "governingArena": "grit",
     "favoredDiscipline": "brawl",
-    "description": "Teräs Käsi — the steel hand. A martial discipline born on Bunduki among the Followers of Palawa, forged not for sport but for survival against opponents who could move objects with their minds and see the future. The art is taught through the Beast Forms — each technique named for a creature whose movement it channels. Sleeping Krayt. Rancor Rising. Aryx Slash. Screaming Squill. Gundark Slap. The names sound primitive. The techniques are anything but. Where other fighters train the body, the Teräs Käsi practitioner trains the space between intention and action — the still point where the Force flows through muscle and bone without ever reaching outward. Every strike is a single sentence. Every defense is a question already answered.",
-    "fluff": "The Followers of Palawa were exiled to Bunduki for refusing to abandon their fighting art when the Jedi Council declared unarmed combat insufficient against the lightsaber. They proved the Council wrong. The curriculum is vast — Leaping Veermok teaches aerial assault over a saber guard, Riding Bantha grounds the body into an unbreakable pin against acrobatic opponents, Gorax Smash delivers a crushing downward blow that shatters blocking stances, and Screaming Squill uses a sudden vocalization to shatter a Force user's concentration. But the foundation is Steel Hands: immense physical conditioning that hardens the body until bare hands can deflect glancing weapon strikes and punch through durasteel plating. A trained practitioner does not block a lightsaber. She reads the micro-tremors in the wielder's stance — the way the shoulders commit a half-second before the blade moves, the way the eyes track a target the Force has already chosen. She steps inside the arc and makes the weapon irrelevant. The blade is not the danger. The mind holding it is. And Teräs Käsi was built to fight minds.",
+    "description": "Teräs Käsi — the steel hand. A martial discipline born on Bunduki among the Followers of Palawa, forged to fight opponents who could move objects with their minds and see the future. The art is taught through the Beast Forms — each technique named for a creature whose movement it channels. Where other fighters train the body, the Teräs Käsi practitioner trains the space between intention and action — the still point where the Force flows through muscle and bone without ever reaching outward.",
+    "fluff": "The Followers of Palawa were exiled to Bunduki for refusing to abandon their fighting art when the Jedi Council declared unarmed combat insufficient against the lightsaber. They proved the Council wrong. The foundation is Steel Hands: immense physical conditioning that hardens the body until bare hands can deflect weapon strikes and punch through durasteel plating. A trained practitioner does not block a lightsaber — she reads the micro-tremors in the wielder's stance, steps inside the arc, and makes the weapon irrelevant. The blade is not the danger. The mind holding it is.",
     "abilities": [
       {
         "id": "voc_teras_kasi_t1",
@@ -630,7 +630,7 @@
           "[Force]",
           "[Combat]"
         ],
-        "rule": "The foundation of Teräs Käsi — immense physical conditioning that hardens the body until bare hands strike as if forged of durasteel. You may use Brawl (Grit) in place of Brawl (Physique) for all unarmed attack rolls. Your unarmed strikes deal damage using the Light Melee weapon chassis instead of the standard unarmed chassis. You may declare any unarmed attack as Stun damage.\n\nAdditionally, you may use Brawl (Grit) in place of Endure (Physique) when defending against melee attacks while Engaged and not wielding a weapon. You deflect and redirect with Force-hardened hands — reading the arc of the strike before it lands.\n\nThis ability is DISABLED while you are affected by [Rattled] or [Disoriented]. The Force conditioning requires internal stillness — a Screaming Squill can shatter your focus as surely as a lightsaber. While disabled, revert to Brawl (Physique) at standard unarmed damage.",
+        "rule": "You may use Brawl (Grit) in place of Brawl (Physique) for all unarmed attack rolls. Your unarmed strikes use the Light Melee weapon chassis. You may declare any unarmed attack as Stun damage.\n\nYou may also use Brawl (Grit) in place of Endure (Physique) when defending against melee attacks while Engaged and unarmed.\n\nThis ability is DISABLED while affected by [Rattled] or [Disoriented]. While disabled, revert to Brawl (Physique) at standard unarmed damage.",
         "modifiesAction": "action_endure",
         "targetWeaponTags": [
           "Unarmed"
@@ -646,7 +646,7 @@
           "[Force]",
           "[Combat]"
         ],
-        "rule": "Named for the krayt dragons of Tatooine — massive predators that lie motionless beneath the sand, appearing dead or dormant, only to explode into lethal motion the instant prey steps within reach. When you successfully defend using Brawl (Grit) via Steel Hands, your next unarmed Brawl attack against that attacker before the end of your next turn is [Empowered]. You absorbed their energy and redirected it — the deceptive calm of the sleeping krayt conceals the killing strike coiling beneath.\n\nEach successful defense fuels exactly one [Empowered] counter. The effect does not stack with itself — a second successful defense against a different attacker replaces the stored energy, it does not add a second step-up. You carry one borrowed strike at a time.",
+        "rule": "When you successfully defend using Brawl (Grit) via Steel Hands, your next unarmed Brawl attack against that attacker before the end of your next turn is [Empowered].\n\nThe effect does not stack — a second successful defense replaces the stored energy. You carry one borrowed strike at a time.",
         "shorthand": "Successful Brawl (Grit) defense → next unarmed attack vs that attacker is [Empowered]. Single target, does not stack."
       },
       {
@@ -661,7 +661,7 @@
         "discipline": "control_spark",
         "arena": "grit",
         "rolled": true,
-        "rule": "Named for the rancor's signature hunting posture — still as stone, arms low, weight gathered — before it explodes upward with devastating force. Channel the Force inward through meditative combat focus. Roll Control (Grit). Power = Roll. Breath slows, awareness sharpens, and the Force hardens the body from within. The practitioner roots herself like a Riding Bantha, immovable and grounded, then rises with the rancor's killing power.",
+        "rule": "Channel the Force inward through meditative combat focus. Roll Control (Grit). Power = Roll.",
         "risk": "Failure wastes the maneuver — the meditative state does not hold under the pressure of combat.",
         "effect": [
           {
@@ -695,7 +695,7 @@
         ],
         "modifiesAction": "action_attack",
         "actionType": "Brawl Attack (Unarmed)",
-        "rule": "Named for the giant flightless birds of Cerea — their three-pronged talons rake through hide and chitin with surgical precision. After resolving an unarmed Brawl attack that deals damage, spend 1 tier. Your hand-strike mimics the aryx's raking talons, threading through the target's guard with enough focused kinetic force to find the seam in any protection. The target's next Endure defense roll (against any attack, from any source) is [Weakened]. If the target is unarmored, they gain [Exposed] instead.\n\nThe Aryx Slash does not overpower defenses. It makes the next strike — yours or an ally's — land where the armor isn't."
+        "rule": "After resolving an unarmed Brawl attack that deals damage, spend 1 tier. The target's next Endure defense roll (against any attack, from any source) is [Weakened]. If the target is unarmored, they gain [Exposed] instead."
       },
       {
         "id": "voc_teras_kasi_t5",
@@ -706,7 +706,7 @@
           "[Force]",
           "[Combat]"
         ],
-        "rule": "Gundarks are famously strong and aggressive — a single open-handed blow from a gundark can shatter bone and crush durasteel. At this level of mastery, Steel Hands reaches its apex. You may defend against Lightsaber attacks using Brawl (Grit). When you do, your defense roll is [Optimized]. You do not catch the blade — you read the intention behind it, step inside the arc with a Leaping Veermok's agility, and make the weapon irrelevant. If your Control die scores 8+ on this defense, the attacker gains [Exposed].\n\nAdditionally, once per scene, when your unarmed attack reduces an opponent to 0 Vitality, you may deliver the Gundark Slap — a brutal, concussive open-handed strike that ends the fight without killing. Leave the target at 1 Vitality and impose [Incapacitated] instead. A true master can shatter a fully armored soldier's jaw or simply choose not to. The open hand offers mercy. The closed fist does not.",
+        "rule": "You may defend against Lightsaber attacks using Brawl (Grit). When you do, your defense roll is [Optimized]. If your Control die scores 8+ on this defense, the attacker gains [Exposed].\n\nOnce per scene, when your unarmed attack reduces an opponent to 0 Vitality, you may deliver the Gundark Slap — leave the target at 1 Vitality and impose [Incapacitated] instead.",
         "shorthand": "Endure lightsaber attacks with Brawl (Grit), [Optimized]. Control 8+ → attacker [Exposed]. 1/scene: reduce to 0 Vitality → Gundark Slap: 1 Vitality + [Incapacitated] instead."
       }
     ],
