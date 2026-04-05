@@ -11,7 +11,7 @@ The following outcomes are **mandatory** for the campaign to function:
 
 | Outcome | Adventure | Why |
 |---|---|---|
-| **Denia is rescued** | Adv2 | She is required to identify the Ebon Spire, open Force-locked holocrons (Adv4), and serve as Draco's captive (Adv7). If the heroes hesitate, Varth insists — "Grab her." The GM should ensure she leaves the fortress with the party. |
+| **Denia is found** | Adv2 | She is found in Varga's dungeon. Varth advises: "Leave her — she's a liability." **The heroes choose.** If rescued, she serves as mentor, holocron key (Adv4), and is eventually captured by Draco (Adv7). If abandoned, Varth secretly tips off Draco, who recovers her off-camera — the heroes discover her in Draco's custody during the Adv10 showdown. Either way, Denia exists in the campaign; the question is whether the heroes have her or Draco does. If abandoned, the Church of the Force fills the lore-interpreter role (see Alternate Path notes). |
 | **Maya's survival is optional** | Adv3 | If the heroes abandon Maya on the Shackles of Nizon, the campaign continues — but they lose their pilot, their moral compass, and one of the strongest emotional threads. The Banshee survives either way (Maya auto-piloted it to the rendezvous before boarding the Shackles). |
 | **Varga is killed** | Adv3 | Varga dies during the boarding of the Glorious Chariot. He is the Act 1 antagonist and his arc concludes here. He does not escape or recur. |
 | **The heroes are paid** | Adv3 | Varth unlocks the encrypted account and pays the heroes their cut. This must happen to maintain narrative trust for the Act 2 pivot. |
@@ -70,7 +70,7 @@ Leviathan is the Empire's ambition made physical — a weapon so large it requir
 ### Admiral Gilder Varth
 **Species:** Human | **Role:** Employer, Manipulator, Campaign Antagonist
 
-**What the Players See:** A charming, cynical Imperial admiral who embezzled millions from the Empire through Varga the Hutt's supply chain. He was caught, imprisoned at a secret facility on Ajan Kloss, and needs rescuing. Once free, he directs operations from the shadows — finding the money, tracking Varga, orchestrating heists. He's cold ("Grab her — she could be useful"), mission-focused, and transactional — but he pays up and his intel is always good.
+**What the Players See:** A charming, cynical Imperial admiral who embezzled millions from the Empire through Varga the Hutt's supply chain. He was caught, imprisoned at a secret facility on Ajan Kloss, and needs rescuing. Once free, he directs operations from the shadows — finding the money, tracking Varga, orchestrating heists. He's cold ("Leave her — she's a liability"), mission-focused, and transactional — but he pays up and his intel is always good.
 
 **What the GM Knows:** Varth's embezzlement was real. His imprisonment was real. But his post-rescue plan was never "split the fortune and retire." From the moment the heroes pulled him out of the Vanishing Place, Varth has been executing a scheme to parlay the heroes' capabilities into something the Empire couldn't accomplish on its own.
 
@@ -84,7 +84,7 @@ Varth's solution: use the heroes (expendable, deniable contractors) to retrieve 
 
 **Key Moments:**
 - Adv1 P2 S5: "You're late. I had credits on the second moonrise." The heroes meet Varth — charming, unbothered, gambling with his guards.
-- Adv2 S3: "Grab her. She could be useful." — Varth immediately recognizes Denia's value as a Jedi historian and Force-sensitive key. First red flag.
+- Adv2 S4: "Leave her. She's a liability." — Varth recognizes Denia immediately but advises abandonment. If the heroes rescue her anyway, he adapts his plan around her. If they listen, he secretly tips off Draco, who recovers Denia off-camera. Either way, Varth gets what he needs — the question is whether Denia is his instrument or Draco's prisoner. First red flag: his willingness to abandon a helpless person is chilling regardless of the outcome.
 - Adv2 S6: **Executes Warrick Raden** at the hangar. The heroes just rescued Raden from the dungeons. Varth greets him almost warmly, then draws and shoots him between the eyes. "I told you the next time I saw you, I would kill you." Second red flag — and far worse than the first. (See Raden entry below for backstory.)
 - Adv3 P3 S5: Orders the heroes to jump to hyperspace while Maya is on the slave ship. "It's too hot. Jump. Now." Third red flag.
 - Adv3 P3 S6: Unlocks the Varga account, pays the heroes. Then pivots to the "bigger score" at Vel Shara, casually steering Denia into suggesting the Ebon Spire.
@@ -99,16 +99,23 @@ Varth's solution: use the heroes (expendable, deniable contractors) to retrieve 
 
 **What the GM Knows:** Denia is genuine in everything she does. She is not manipulating anyone. But she IS being manipulated — by Varth. Her value is her knowledge of the old Jedi network: where holocrons are hidden, where archives are buried, where the Jedi and Sith mapped hyperspace routes centuries ago. She's also Force-sensitive enough to actually *open* Force-locked holocrons.
 
-Varth recognized her immediately in the dungeon and pivoted from "leave her" to "grab her" because he saw a tool. When he later steers the conversation toward "How did the Jedi navigate the Unknown Regions?" he already knows the answer — the Ebon Spire on Endor. But he feeds the question through Denia so it appears organic. She genuinely believes she's helping.
+Varth recognized her immediately in the dungeon. He advised "Leave her — she's a liability" because he calculated that even if the heroes abandoned her, he could tip off Draco and recover her through Imperial channels. If the heroes rescue her anyway, Varth adapts — she becomes his unwitting instrument, steered into suggesting the Ebon Spire. If they leave her, Varth contacts Draco privately. Draco recovers Denia from Varga's dungeon off-camera. The heroes never know she survived. Either way, Varth gets access to Denia's knowledge — directly through the heroes, or indirectly through Draco's interrogation of her.
 
-**Arc:** Captive relic → Rescued asset → Trusted mentor → Varth's unwitting instrument → (Adv7) Captured by Draco → (Adv9) Potential rescue or permanent loss
+**Arc (Primary — Rescued):** Captive relic → Rescued asset → Trusted mentor → Varth's unwitting instrument → (Adv7) Captured by Draco → (Adv9) Potential rescue or permanent loss
 
-**Key Moments:**
-- Adv2 S3: Found in stasis. Varth says "Grab her."
+**Arc (Alternate — Abandoned):** Captive relic → Left behind → Secretly recovered by Draco off-camera → Draco's prisoner throughout the campaign → Discovered in Draco's custody during Adv10 showdown (gut-punch: the heroes' choice to listen to Varth put her in the Inquisitor's hands)
+
+**Key Moments (Primary Path):**
+- Adv2 S4: Found in stasis. Varth says "Leave her." Heroes rescue her anyway.
 - Adv3 S6: Casually prompted by Varth about Jedi navigation of the Unknown Regions. Suggests the Ebon Spire on Endor.
 - Adv4: Sends the heroes to Endor (from her perspective, to preserve Jedi knowledge; from Varth's, to retrieve his real prize)
 - Adv7: Captured by Inquisitor Draco when the Resurgence is destroyed
 - Adv9: Rescue mission — structurally optional but narratively devastating if skipped
+
+**Key Moments (Alternate Path):**
+- Adv2 S4: Found in stasis. Varth says "Leave her." Heroes comply. Varth secretly contacts Draco.
+- Adv2–9: Denia is absent. The Church of the Force fills the lore-interpreter role. Draco holds Denia off-camera — she is never mentioned again until the finale.
+- Adv10: Heroes confront Draco and discover Denia alive in his custody — broken, interrogated, but surviving. The reveal: the man they trusted told them to abandon her so he could hand her to the Empire.
 
 ---
 
@@ -135,9 +142,10 @@ Varth used Varga's network to embezzle millions from the Empire. The stolen cred
 
 **What the Players See:** A terrifying presence — an Inquisitor who appears at the worst possible moments. He shows up at the Vanishing Place (Adv1), orbits Bespin aboard the *Assiduous* (Adv3), and becomes an escalating threat throughout Act 2-3. He is NOT meant to be fought in early adventures — he's a force of nature that the heroes must flee from.
 
-**What the GM Knows:** Draco is the Empire's clean-up crew for Project Leviathan. His job is to ensure operational security — which means eliminating anyone who learns too much. He would "glass a city" to bury evidence of Imperial-Hutt collusion. He captures Denia in Adventure 7 and serves as the primary Imperial antagonist throughout Act 3.
+**What the GM Knows:** Draco is the Empire's clean-up crew for Project Leviathan. His job is to ensure operational security — which means eliminating anyone who learns too much. He would "glass a city" to bury evidence of Imperial-Hutt collusion. He captures Denia in Adventure 7 (primary path) or recovers her from Varga's dungeon off-camera after the heroes abandon her in Adv2 (alternate path). Either way, he serves as the primary Imperial antagonist throughout Act 3. If Denia was abandoned in Adv2, Draco has had her for the entire campaign — she is found in his custody during the Adv10 showdown, broken but alive.
 
-**Arc:** Distant threat (Adv1) → Orbital menace (Adv3) → Active hunter (Act 2) → Denia's captor (Adv7) → Final antagonist alongside Varth (Act 3)
+**Arc (Primary):** Distant threat (Adv1) → Orbital menace (Adv3) → Active hunter (Act 2) → Denia's captor (Adv7) → Final antagonist alongside Varth (Act 3)
+**Arc (Alternate — Denia abandoned):** Distant threat (Adv1) → Orbital menace (Adv3) → Secret Denia recovery (Adv2, off-camera) → Active hunter with Denia already in custody (Act 2) → Final antagonist alongside Varth (Act 3), Denia reveal in Adv10
 
 ---
 
@@ -404,18 +412,18 @@ A leviathan is a creature of the deep that drags you down. This weapon literally
 - **S1 — Blackwind Point:** Kessra and the Vipers shake down the heroes at Blackwind Point (consequence gate — how they handle Kessra determines whether she returns for revenge inside the fortress). Investigation leads to Warrick Raden hiding at the Water Filtration Plant. A Trandoshan hit squad attacks the plant — Varga is cleaning house. Raden agrees to get them inside as "entertainment."
 - **S2 — The Court of Varga:** Raden leads the heroes through the fortress to Varga's throne room. Varga demands an audition — each hero must demonstrate value (gladiator bout, tech repair, charm, etc.). Raden is recognized and dragged to the dungeons. TC-663 (Switch's droid agent inside the fortress) is introduced and begins covertly assisting the heroes.
 - **S3 — Currying Favor (Multi-Day Sandbox):** The court phase plays out over several days with structured events and freeform exploration between them. **Court Events:** (1) Gladiator arena — heroes fight or sponsor fighters to build reputation. (2) Iron Ring slavers arrive — slave auction with a Twi'lek slave who attempts to poison Varga's drink; heroes can save him for instant favor. A Wookiee warrior is sold but stays as arena muscle (sleeper threat). (3) Lady Sinde's ISB Imperial delegation — Sinde (real name: Victra Sinde, ISB double agent posing as Leviathan logistics officer) negotiates Tibanna gas shipments with Varga; heroes may recognize her from Organa's circle or discover her ISB identity. **Between Events:** Gome the Duros moneychanger (elderly, rambling, morally indifferent) reveals Varga's departure plans and Bespin/Cloud City as his fallback headquarters. TC-663 visits the heroes at night with Demos's encrypted comms (mentioning "the prisoner" = Denia). Kessra's aviary ambush (conditional on S1 outcome) — personal vendetta, targets 1-2 heroes by name, locks doors, releases predatory birds. **Knife in the Dark:** The Wookiee sleeper from the Iron Ring event teams with the Twi'lek (if saved) and a Quarren assassin for a nighttime assassination attempt on the heroes.
-- **S4 — Discovering Denia:** Telepathic whispers lead the heroes to the dungeon. They find Jedi Master Denia in a stasis pod and Raden beaten in a cell. Varth's voice over comms: "Grab her. She could be useful." — First red flag. Heroes eavesdrop on a holo-call between Demos and Inquisitor Draco: "I am on my way, with the *Assiduous*." Death clock starts.
+- **S4 — Discovering Denia:** Telepathic whispers lead the heroes to the dungeon. They find Jedi Master Denia in a stasis pod and Raden beaten in a cell. Varth's voice over comms: "Leave her. She's a liability. We don't have time for dead weight." — First red flag. The heroes must decide whether to rescue Denia against Varth's advice. Heroes eavesdrop on a holo-call between Demos and Inquisitor Draco: "I am on my way, with the *Assiduous*." Death clock starts. **If abandoned:** Varth secretly contacts Draco after the escape. Draco recovers Denia off-camera. The heroes never learn she survived until the Adv10 showdown.
 - **S5 — The Escape:** Demos blocks the escape route with his Trandoshan bodyguard and guards. Mini-boss fight — Demos uses untrained Force Slam and his vibro-staff. **He is killed.** When Demos falls, Denia senses his Force sensitivity: "He was touched by the Force... untrained, but there."
 - **S6 — The Hangar:** Lady Sinde's Stormtroopers execute witnesses to protect Leviathan's secrecy. Varga has already fled in the *Glorious Chariot*. **Varth executes Warrick Raden** at the ship's ramp — shoots him between the eyes. "I told you the next time I saw you, I would kill you." Second red flag. Heroes escape and track Varga's trajectory to Bespin.
 
 **What Changes by the End:**
-- Heroes have Denia — a new ally and Varth's secret instrument (rescue is mandatory; Varth insists)
+- Heroes have Denia — a new ally and Varth's secret instrument (if rescued against Varth's advice); OR heroes left Denia behind on Varth's recommendation (Varth secretly tips off Draco, who recovers her off-camera)
 - Partial routing data from Varga's network (not enough to unlock the account alone)
 - Varga's escape vector points to Bespin / Cloud City
 - First exposure to Leviathan supply chain through Lady Sinde's negotiations and Demos/Draco holo-call
 - **Warrick Raden is dead** — executed by Varth at the hangar after the heroes rescued him
 - **Igren Demos is dead** — killed during the escape; Denia senses his Force sensitivity
-- Two Varth red flags: (1) treating Denia as an "asset" to grab, not a person to rescue; (2) executing Raden in cold blood in front of the crew
+- Two Varth red flags: (1) advising the heroes to abandon a helpless Jedi in a dungeon — "She's a liability"; (2) executing Raden in cold blood in front of the crew
 
 **Open Threads Carried Forward:**
 - Varga's escape to Bespin (→ Adv3)
@@ -663,11 +671,13 @@ A leviathan is a creature of the deep that drags you down. This weapon literally
 **Key Plot Beats:**
 - The Approach: Leading Oga Garra's pirate fleet against the Leviathan
 - The Betrayal: Final confrontation with Varth
+- The Draco Showdown: Final confrontation with Inquisitor Draco. **If Denia was abandoned in Adv2:** The heroes discover her alive in Draco's custody — broken, interrogated for years, but surviving. This is the campaign's deepest gut-punch: the man they trusted told them to leave her, and they listened. Varth handed her to the Inquisition the moment they looked away. **If Denia was rescued in Adv2:** She was captured by Draco in Adv7 and potentially rescued in Adv9 — the Draco showdown plays out as a nemesis encounter without the betrayal-reveal.
 - The Final Hand: Destroying the Leviathan and/or Varth
 
 **What Changes by the End:**
 - Leviathan destroyed (or not)
 - Varth dealt with (killed, captured, or escaped)
+- Draco dealt with — and Denia's fate resolved (if she wasn't rescued earlier)
 - Malpaz saved (or not)
 - Campaign concludes
 
@@ -675,6 +685,7 @@ A leviathan is a creature of the deep that drags you down. This weapon literally
 - Project Leviathan
 - Varth's arc
 - Inquisitor Draco
+- Denia's fate (all paths converge — she is either with the heroes, rescued from Draco, or discovered in Draco's custody)
 - The heroes' redemption (undoing the damage they unknowingly caused)
 - Malpaz (the consequences of Adventure 5 come full circle)
 
@@ -692,10 +703,11 @@ This section lays out Varth's complete scheme from start to finish. Every step t
 
 ### Phase 2: The Fortune (Adventures 2–3)
 **Varth's goal:** Acquire Denia and resolve the Varga situation.
-**How:** Varth sends the heroes into Varga's fortress for the "account routing data" — which he does genuinely need. But his secondary objective is Denia, whom he immediately recognizes as a Jedi historian. He frames her as "useful" or "worth bounty" to ensure the heroes extract her. On Bespin, he lets the heroes chase Varga while privately preparing his pivot to Phase 3.
+**How:** Varth sends the heroes into Varga's fortress for the "account routing data" — which he does genuinely need. But his secondary objective is Denia, whom he immediately recognizes as a Jedi historian. He advises the heroes to leave her — "She's a liability" — calculating that either outcome serves him. If the heroes rescue her anyway, she travels with them and Varth steers her knowledge. If they listen and leave her, Varth secretly contacts Draco, who recovers Denia from the dungeon off-camera. Either way, Varth gets access to her expertise. On Bespin, he lets the heroes chase Varga while privately preparing his pivot to Phase 3.
 **The payday:** Varth actually pays the heroes after they take the Glorious Chariot. This is real — and strategic. Paying them builds trust and makes the next pitch credible.
 **What the heroes think:** "We got paid. Varth is a straight dealer. The next score is even bigger."
-**What's really happening:** Varth has acquired his two key assets — Denia (Force-sensitive key) and the heroes' continued loyalty (bought with credits and the promise of more).
+**What's really happening (Primary):** Varth has acquired his two key assets — Denia (Force-sensitive key) and the heroes' continued loyalty (bought with credits and the promise of more).
+**What's really happening (Alternate):** Varth has the heroes' loyalty (bought with credits). Denia is in Draco's hands — Varth gets her knowledge through Imperial channels instead. The heroes don't know she survived.
 
 ### Phase 3: The Retrieval (Adventures 4–5)
 **Varth's goal:** Retrieve the holocrons and drift algorithms.
@@ -762,4 +774,4 @@ All previously flagged characters and threads have been resolved with final disp
 | **Switch / TC-663 network** | Adv1 S2, Adv2 S1 | **RECURRING — KEPT.** Switch is now a recurring information broker and black market fixer. His deal with the heroes (reduced fees in exchange for passing along validated intel) establishes an ongoing transactional relationship. TC-663 inside Varga's fortress is proof of his network's reach. Switch serves as the heroes' contact for intel, identification, black market gear, and underworld connections throughout the campaign. |
 | **Kessra / The Vipers** | Adv2 S1 | **FLAVOR ONLY.** Tone-setting swoop gang encounter. Disposable. |
 | **Varga** | Adv3 P3 | **DEAD (Continuity Rule).** Killed during the boarding of the Glorious Chariot. See Continuity Rules. |
-| **Denia** | Adv2 S3 | **RESCUED (Continuity Rule).** Mandatory rescue — Varth insists. Required for Adv4 holocrons and Adv7 capture by Draco. See Continuity Rules. |
+| **Denia** | Adv2 S4 | **FOUND (Branch Point).** Varth advises abandonment. If rescued: mentor, holocron key (Adv4), captured by Draco (Adv7). If abandoned: Varth tips off Draco, who recovers her off-camera; heroes discover her in Draco's custody during Adv10 showdown. See Continuity Rules. |

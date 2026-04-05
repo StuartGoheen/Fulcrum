@@ -3,7 +3,7 @@
   "number": 10,
   "title": "Jaws of the Leviathan",
   "act": 3,
-  "summary": "The Maw drops out of hyperspace over Malpaz — the world the heroes liberated, now targeted for Tarkin's demonstration of the gravity well superweapon they helped Varth unlock. Its crescent arms open and the sky begins to distort as asteroids shift orbit. With Oga Garra's pirate fleet and whatever allies remain, the heroes race to board the Leviathan and disable the gravity well array before it buries the planet under a rain of kinetic impactors. The campaign ends where the betrayal began.",
+  "summary": "The Maw drops out of hyperspace over Malpaz — the world the heroes liberated, now targeted for Tarkin's demonstration of the gravity well superweapon they helped Varth unlock. Its crescent arms open and the sky begins to distort as asteroids shift orbit. With Oga Garra's pirate fleet and whatever allies remain, the heroes race to board the Leviathan and disable the gravity well array before it buries the planet under a rain of kinetic impactors. The campaign ends where the betrayal began. If Denia was abandoned in Adventure 2, the Draco showdown reveals her alive in his custody — broken but surviving. The heroes discover that Varth told them to leave her so he could hand her to the Inquisition.",
   "gearNotes": [
     {
       "item": "Security Kit",
@@ -87,7 +87,8 @@
       "id": "adv10-p2",
       "number": 2,
       "title": "The Betrayal",
-      "scenes": []
+      "scenes": [],
+      "description": "Final confrontation with Varth aboard the Leviathan. The Draco showdown resolves the Inquisitor's arc. If Denia was abandoned in Adv2: the heroes discover her alive in Draco's custody — interrogated for years, broken but surviving. This is the campaign's deepest gut-punch: Varth told them to leave her, and they listened. He handed her to the Empire the moment they looked away. If Denia was rescued in Adv2: she was captured by Draco in Adv7 and potentially rescued in Adv9 — the Draco showdown plays as a nemesis encounter without the betrayal-reveal layer."
     },
     {
       "id": "adv10-p3",
