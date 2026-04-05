@@ -93,10 +93,21 @@ router.post('/inventory/:charId/sell', async (req, res) => {
 
     const data = JSON.parse(result.rows[0].character_data);
 
+    const weaponIds = Array.isArray(data.weaponIds) ? data.weaponIds.slice() : [];
+    const armorIds  = Array.isArray(data.armorIds) ? data.armorIds.slice() : [];
+    const gearIds   = Array.isArray(data.gearIds) ? data.gearIds.slice() : [];
+    if (Array.isArray(data.startingGear)) {
+      data.startingGear.forEach(item => {
+        if (item.source === 'weapon') { if (!weaponIds.includes(item.id)) weaponIds.push(item.id); }
+        else if (item.source === 'armor') { if (!armorIds.includes(item.id)) armorIds.push(item.id); }
+        else if (item.source === 'gear') { gearIds.push(item.id); }
+      });
+    }
+
     let ownedIds;
-    if (itemType === 'weapon') ownedIds = data.weaponIds || [];
-    else if (itemType === 'armor') ownedIds = data.armorIds || [];
-    else ownedIds = data.gearIds || [];
+    if (itemType === 'weapon') ownedIds = weaponIds;
+    else if (itemType === 'armor') ownedIds = armorIds;
+    else ownedIds = gearIds;
 
     if (!data.inventoryRemovals) data.inventoryRemovals = { gear: [], weapons: [], armor: [] };
     if (!Array.isArray(data.inventoryRemovals.armor)) data.inventoryRemovals.armor = [];
