@@ -619,12 +619,9 @@
   }
 
   function _captureAndSaveGeo(panel, panelId) {
-    _savePanelGeometry(panelId, {
-      x: panel.offsetLeft,
-      y: panel.offsetTop,
-      w: panel.offsetWidth,
-      h: panel.offsetHeight
-    });
+    var rect = { x: panel.offsetLeft, y: panel.offsetTop, w: panel.offsetWidth, h: panel.offsetHeight };
+    if (rect.w < 50 || rect.h < 50) return;
+    _savePanelGeometry(panelId, rect);
   }
 
   function _buildReadAloudHtml(scene) {
@@ -881,7 +878,10 @@
 
   function closeFloatingPanel(panelId) {
     var panel = document.getElementById('fp-' + panelId);
-    if (panel) panel.remove();
+    if (panel) {
+      _captureAndSaveGeo(panel, panelId);
+      panel.remove();
+    }
     delete _openPanels[panelId];
     var tile = document.querySelector('[data-panel-id="' + panelId + '"]');
     if (tile) tile.classList.remove('cb-tile--active');
@@ -945,8 +945,18 @@
   function _initPanelResizeObserver(panel) {
     var panelId = panel.dataset.panelKey;
     if (!panelId) return;
+    var initW = panel.offsetWidth;
+    var initH = panel.offsetHeight;
+    var settled = false;
     var debounceTimer = null;
     var ro = new ResizeObserver(function () {
+      if (!settled) {
+        var curW = panel.offsetWidth;
+        var curH = panel.offsetHeight;
+        if (curW === initW && curH === initH) return;
+        if (Math.abs(curW - initW) < 3 && Math.abs(curH - initH) < 3) return;
+        settled = true;
+      }
       clearTimeout(debounceTimer);
       debounceTimer = setTimeout(function () {
         _captureAndSaveGeo(panel, panelId);
