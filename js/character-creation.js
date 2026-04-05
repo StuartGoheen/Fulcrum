@@ -828,11 +828,10 @@
     cell.appendChild(name);
 
     if (isPrime) {
-      var badge = document.createElement('span');
-      badge.className = 'sg-cell__tag sg-cell__tag--voc-prime';
-      badge.textContent = '\u2726';
-      badge.title = 'Prime arena for: ' + vocPrime.primeArenas[ag.id].join(', ');
-      cell.appendChild(badge);
+      var star = document.createElement('span');
+      star.className = 'sg-cell__voc-star';
+      star.textContent = '\u2605';
+      cell.appendChild(star);
     }
 
     if (_statsPhase === 'arenas') {
@@ -909,17 +908,10 @@
       cell.appendChild(ftag);
     }
     if (vocInfo) {
-      var vtag = document.createElement('span');
-      vtag.className = 'sg-cell__tag sg-cell__tag--voc-disc';
-      var maxReq = vocInfo.reduce(function(a, v) { return DIE_ORDER.indexOf(v.requiredDie) > DIE_ORDER.indexOf(a) ? v.requiredDie : a; }, 'D4');
-      var curIdx = DIE_ORDER.indexOf(cur);
-      var reqIdx = DIE_ORDER.indexOf(maxReq);
-      var met = curIdx >= reqIdx;
-      vtag.textContent = maxReq;
-      vtag.title = vocInfo.map(function(v) { return v.kitName + ' T' + v.tier; }).join(', ');
-      if (met) vtag.classList.add('sg-cell__tag--voc-met');
-      else vtag.classList.add('sg-cell__tag--voc-unmet');
-      cell.appendChild(vtag);
+      var star = document.createElement('span');
+      star.className = 'sg-cell__voc-star';
+      star.textContent = '\u2605';
+      cell.appendChild(star);
     }
 
     if (clickable) {
@@ -1033,6 +1025,25 @@
     var body = document.createElement("div");
     body.className = "sdc-body";
 
+    var vocPrime = getVocationPrimeMaps();
+    if (vocPrime.primeArenas && vocPrime.primeArenas[arenaId]) {
+      var vocBanner = document.createElement("div");
+      vocBanner.className = "sdc-voc-banner";
+      var vocStar = document.createElement("span");
+      vocStar.className = "sdc-voc-star";
+      vocStar.textContent = "\u2605";
+      vocBanner.appendChild(vocStar);
+      var vocLines = document.createElement("div");
+      vocPrime.primeArenas[arenaId].forEach(function(kitName) {
+        var line = document.createElement("div");
+        line.className = "sdc-voc-line";
+        line.textContent = "Prime arena for " + kitName;
+        vocLines.appendChild(line);
+      });
+      vocBanner.appendChild(vocLines);
+      body.appendChild(vocBanner);
+    }
+
     var meta = document.createElement("p");
     meta.className = "sdc-rule";
     meta.textContent = "Species base: " + base + " • Current: " + val;
@@ -1102,9 +1113,32 @@
     var isFavored = !!favoredIds[disc.id];
     var cur       = statsGetDiscValue(disc.id, d);
 
-    // Left column: die + arena + tags
+    var vocPrime = getVocationPrimeMaps();
+    var vocInfo = vocPrime.primeDiscs && vocPrime.primeDiscs[disc.id];
+
+    // Left column: voc banner + die + arena + tags
     var imgCol = document.createElement("div");
     imgCol.className = "sdc-img-col";
+
+    if (vocInfo) {
+      var vocBanner = document.createElement("div");
+      vocBanner.className = "sdc-voc-banner sdc-voc-banner--col";
+      var vocStar = document.createElement("span");
+      vocStar.className = "sdc-voc-star";
+      vocStar.textContent = "\u2605";
+      vocBanner.appendChild(vocStar);
+      vocInfo.forEach(function(v) {
+        var line = document.createElement("div");
+        line.className = "sdc-voc-line";
+        var met = DIE_ORDER.indexOf(cur) >= DIE_ORDER.indexOf(v.requiredDie);
+        line.textContent = v.kitName + " T" + v.tier + " \u2014 needs " + v.requiredDie;
+        if (met) line.classList.add("sdc-voc-line--met");
+        else line.classList.add("sdc-voc-line--unmet");
+        vocBanner.appendChild(line);
+      });
+      imgCol.appendChild(vocBanner);
+    }
+
     var dieImg = document.createElement("img");
     dieImg.src = "/assets/" + cur.toLowerCase() + ".png";
     dieImg.alt = cur;
