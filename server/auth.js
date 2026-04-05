@@ -54,6 +54,8 @@ function gate(req, res, next) {
       req.path.startsWith('/assets/')  ||
       req.path.startsWith('/js/')      ||
       req.path.startsWith('/data/')    ||
+      req.path.startsWith('/images/')  ||
+      req.path.startsWith('/audio/')   ||
       req.path === '/icon.svg'         ||
       req.path === '/favicon.ico') {
     return next();
