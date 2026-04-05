@@ -11417,7 +11417,7 @@ body.is-col-resizing .resize-handle {
 }
 
 .crawl-perspective--active .crawl-content {
-  animation: crawl-scroll 85s linear forwards;
+  animation: crawl-scroll 83s linear forwards;
 }
 
 @keyframes crawl-scroll {
