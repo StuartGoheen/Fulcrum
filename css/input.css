@@ -9949,7 +9949,7 @@
 
   .crawl-content {
     position: absolute;
-    top: 100%;
+    top: 150%;
     left: 50%;
     width: 70%;
     max-width: 750px;
@@ -9966,7 +9966,7 @@
 
   @keyframes crawl-scroll {
     0% {
-      top: 100%;
+      top: 150%;
     }
     100% {
       top: -180%;

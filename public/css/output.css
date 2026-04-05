@@ -11405,7 +11405,7 @@ body.is-col-resizing .resize-handle {
 
 .crawl-content {
   position: absolute;
-  top: 100%;
+  top: 150%;
   left: 50%;
   width: 70%;
   max-width: 750px;
@@ -11422,7 +11422,7 @@ body.is-col-resizing .resize-handle {
 
 @keyframes crawl-scroll {
   0% {
-    top: 100%;
+    top: 150%;
   }
 
   100% {
