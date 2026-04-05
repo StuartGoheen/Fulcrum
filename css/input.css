@@ -6389,6 +6389,62 @@
     scrollbar-color: var(--color-accent-primary) transparent;
   }
 
+  .journal-scene-log {
+    background: var(--color-bg-frame);
+    border: 1px solid var(--color-border);
+    margin-bottom: 0.4rem;
+    transition: border-color 0.15s;
+  }
+  .journal-scene-log-header {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.65rem;
+    cursor: pointer;
+    user-select: none;
+  }
+  .journal-scene-log-header:hover {
+    background: rgba(255, 255, 255, 0.03);
+  }
+  .journal-scene-log-chevron {
+    font-size: 0.4rem;
+    color: var(--color-text-secondary);
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+  .journal-scene-log.is-expanded .journal-scene-log-chevron {
+    transform: rotate(90deg);
+  }
+  .journal-scene-log-title {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.55rem;
+    color: var(--color-text-secondary);
+    flex: 1;
+    letter-spacing: 0.04em;
+  }
+  .journal-scene-log-date {
+    font-size: 0.45rem;
+    color: var(--color-text-secondary);
+    flex-shrink: 0;
+  }
+  .journal-scene-log-body {
+    display: none;
+    padding: 0 0.65rem 0.5rem;
+    border-top: 1px solid var(--color-border);
+  }
+  .journal-scene-log.is-expanded .journal-scene-log-body {
+    display: block;
+  }
+  .journal-scene-log-content {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.5rem;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    margin: 0.4rem 0 0;
+  }
+
   .journal-entry-card {
     background: var(--color-bg-frame);
     border: 1px solid var(--color-border);

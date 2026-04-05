@@ -2524,26 +2524,49 @@
       html += '<div style="padding:1rem;text-align:center;opacity:0.4;font-size:0.6rem;">No journal entries yet.</div>';
     } else {
       _crewJournalEntries.forEach(function (entry) {
-        html += '<div class="journal-entry-card" style="cursor:default;">';
-        html += '<div class="journal-entry-card-header">';
-        html += '<span class="journal-entry-title">' + _escHtml(entry.title) + '</span>';
-        html += '<span class="journal-entry-date">' + _fmtDate(entry.created_at) + '</span>';
-        html += '</div>';
-        html += '<div class="journal-entry-meta">';
-        html += '<span class="journal-entry-author">' + _escHtml(entry.author_character_name) + '</span>';
-        html += '<span class="journal-entry-tags">';
-        (entry.tags || []).forEach(function (t) {
-          html += '<span class="journal-tag-chip ' + _tagCatClass(t.category) + '">' + _escHtml(t.name) + '</span>';
-        });
-        html += '</span></div>';
-        if (entry.body) {
-          html += '<div style="font-size:0.55rem;color:var(--color-text-secondary);margin-top:0.2rem;line-height:1.4;white-space:pre-wrap;">' + _escHtml(entry.body) + '</div>';
+        var isCampaignLog = entry.author_character_name === 'Campaign Log';
+        if (isCampaignLog) {
+          html += '<div class="journal-scene-log" data-cj-scene-log>';
+          html += '<div class="journal-scene-log-header">';
+          html += '<span class="journal-scene-log-chevron">\u25B6</span>';
+          html += '<span class="journal-scene-log-title">' + _escHtml(entry.title) + '</span>';
+          html += '<span class="journal-scene-log-date">' + _fmtDate(entry.created_at) + '</span>';
+          html += '</div>';
+          html += '<div class="journal-scene-log-body">';
+          html += '<pre class="journal-scene-log-content">' + _escHtml(entry.body || '') + '</pre>';
+          html += '</div>';
+          html += '</div>';
+        } else {
+          html += '<div class="journal-entry-card" style="cursor:default;">';
+          html += '<div class="journal-entry-card-header">';
+          html += '<span class="journal-entry-title">' + _escHtml(entry.title) + '</span>';
+          html += '<span class="journal-entry-date">' + _fmtDate(entry.created_at) + '</span>';
+          html += '</div>';
+          html += '<div class="journal-entry-meta">';
+          html += '<span class="journal-entry-author">' + _escHtml(entry.author_character_name) + '</span>';
+          html += '<span class="journal-entry-tags">';
+          (entry.tags || []).forEach(function (t) {
+            html += '<span class="journal-tag-chip ' + _tagCatClass(t.category) + '">' + _escHtml(t.name) + '</span>';
+          });
+          html += '</span></div>';
+          if (entry.body) {
+            html += '<div style="font-size:0.55rem;color:var(--color-text-secondary);margin-top:0.2rem;line-height:1.4;white-space:pre-wrap;">' + _escHtml(entry.body) + '</div>';
+          }
+          html += '</div>';
         }
-        html += '</div>';
       });
     }
 
     wrap.innerHTML = html;
+
+    wrap.querySelectorAll('[data-cj-scene-log]').forEach(function (log) {
+      var header = log.querySelector('.journal-scene-log-header');
+      if (header) {
+        header.addEventListener('click', function () {
+          log.classList.toggle('is-expanded');
+        });
+      }
+    });
 
     wrap.querySelectorAll('[data-cj-filter]').forEach(function (chip) {
       chip.addEventListener('click', function () {
