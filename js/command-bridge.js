@@ -145,13 +145,10 @@
   }
 
   function renderAdvSelect() {
-    var sel = document.getElementById('adv-select');
-    if (!sel || !adventuresData) return;
-    sel.innerHTML = adventuresData.adventures.map(function (adv) {
-      return '<option value="' + adv.id + '"' + (adv.id === currentAdventure ? ' selected' : '') + '>' +
-        adv.number + '. ' + esc(adv.title) + '</option>';
-    }).join('');
-    sel.onchange = function () { selectAdventure(sel.value); };
+    var el = document.getElementById('cb-header-adv');
+    if (!el || !adventuresData) return;
+    var adv = getAdventure(currentAdventure);
+    el.textContent = adv ? adv.title : '';
   }
 
   function renderAdvNav() {
@@ -187,14 +184,11 @@
   }
 
   function renderPartSelect() {
-    var sel = document.getElementById('part-select');
+    var el = document.getElementById('cb-header-part');
     var adv = getAdventure(currentAdventure);
-    if (!sel || !adv) return;
-    sel.innerHTML = (adv.parts || []).map(function (part) {
-      return '<option value="' + part.id + '"' + (part.id === currentPart ? ' selected' : '') + '>' +
-        'Part ' + part.number + ': ' + esc(part.title) + '</option>';
-    }).join('');
-    sel.onchange = function () { selectPart(sel.value); };
+    if (!el || !adv) return;
+    var part = getPart(adv, currentPart);
+    el.textContent = part ? 'Part ' + part.number + ': ' + part.title : '';
   }
 
   function renderPartNav() {
@@ -1780,30 +1774,60 @@
     setupDrag(rightHandle, 'right');
   }
 
-  function renderStarshipStatus(active, seats) {
-    var statusEl = document.getElementById('sc-status');
-    var seatsEl = document.getElementById('sc-seats');
-    var endBtn = document.getElementById('cb-end-starship');
-    var seatsSection = document.getElementById('sc-seats-section');
-    if (statusEl) {
-      statusEl.textContent = active ? 'ACTIVE' : 'Inactive';
-      statusEl.style.color = active ? '#22c55e' : 'var(--color-text-secondary)';
-    }
-    if (endBtn) endBtn.style.display = active ? '' : 'none';
-    if (seatsSection) seatsSection.style.display = active ? '' : 'none';
-    if (seatsEl && seats) {
-      var keys = Object.keys(seats);
-      if (!keys.length) {
-        seatsEl.innerHTML = '<div class="cb-muted">No stations claimed.</div>';
-      } else {
-        seatsEl.innerHTML = keys.map(function (sid) {
-          var s = seats[sid];
-          var label = sid.replace('station_', '').replace(/^\w/, function (c) { return c.toUpperCase(); });
-          return '<div style="padding:0.15rem 0;">' + esc(label) + ': <strong>' + esc(s.characterName || 'Unknown') + '</strong></div>';
+  function openPicker(type) {
+    var overlay = document.getElementById('cb-picker-overlay');
+    var title = document.getElementById('cb-picker-title');
+    var list = document.getElementById('cb-picker-list');
+    if (!overlay || !title || !list) return;
+    var html = '';
+    if (type === 'adventure') {
+      title.textContent = 'SELECT ADVENTURE';
+      html = adventuresData.adventures.map(function (adv) {
+        var active = adv.id === currentAdventure;
+        return '<div class="cb-picker-item' + (active ? ' active' : '') + '" data-value="' + adv.id + '">' +
+          '<span class="cb-picker-item-num">' + adv.number + '</span>' +
+          '<span>' + esc(adv.title) + '</span></div>';
+      }).join('');
+    } else {
+      title.textContent = 'SELECT PART';
+      var adv = getAdventure(currentAdventure);
+      if (adv) {
+        html = (adv.parts || []).map(function (part) {
+          var active = part.id === currentPart;
+          return '<div class="cb-picker-item' + (active ? ' active' : '') + '" data-value="' + part.id + '">' +
+            '<span class="cb-picker-item-num">' + part.number + '</span>' +
+            '<span>' + esc(part.title) + '</span></div>';
         }).join('');
       }
     }
+    list.innerHTML = html;
+    list.querySelectorAll('.cb-picker-item').forEach(function (item) {
+      item.addEventListener('click', function () {
+        var val = item.dataset.value;
+        closePicker();
+        if (type === 'adventure') selectAdventure(val);
+        else selectPart(val);
+      });
+    });
+    overlay.classList.add('active');
   }
+
+  function closePicker() {
+    var overlay = document.getElementById('cb-picker-overlay');
+    if (overlay) overlay.classList.remove('active');
+  }
+
+  var _cbHeaderAdv = document.getElementById('cb-header-adv');
+  var _cbHeaderPart = document.getElementById('cb-header-part');
+  if (_cbHeaderAdv) _cbHeaderAdv.addEventListener('click', function () { openPicker('adventure'); });
+  if (_cbHeaderPart) _cbHeaderPart.addEventListener('click', function () { openPicker('part'); });
+
+  var _cbPickerClose = document.getElementById('cb-picker-close');
+  if (_cbPickerClose) _cbPickerClose.addEventListener('click', closePicker);
+  var _cbPickerOverlay = document.getElementById('cb-picker-overlay');
+  if (_cbPickerOverlay) _cbPickerOverlay.addEventListener('click', function (e) {
+    if (e.target === e.currentTarget) closePicker();
+  });
 
   function initSockets() {
     if (!socket) return;
@@ -1818,15 +1842,6 @@
     socket.on('player:disconnected', function () { loadPartyMonitor(); });
     socket.on('state:sync', function () { loadPartyMonitor(); });
     socket.on('advancement:sync', function () { loadPartyMonitor(); });
-
-    socket.emit('shipcombat:request');
-    socket.on('shipcombat:sync', function (data) {
-      window._scActive = !!data.active;
-      renderStarshipStatus(data.active, data.seats);
-    });
-    socket.on('shipcombat:seats_update', function (data) {
-      if (data.seats) renderStarshipStatus(window._scActive, data.seats);
-    });
 
     socket.on('combat:state', function (data) {
       if (data && data.active && window.CombatTracker && !window.CombatTracker.isActive()) {
@@ -1864,20 +1879,6 @@
       .then(function () { window.location.href = '/login'; })
       .catch(function () { window.location.href = '/login'; });
   });
-
-  var scLaunchBtn = document.getElementById('cb-launch-starship');
-  if (scLaunchBtn) {
-    scLaunchBtn.addEventListener('click', function () {
-      if (socket) socket.emit('shipcombat:enter');
-    });
-  }
-
-  var scEndBtn = document.getElementById('cb-end-starship');
-  if (scEndBtn) {
-    scEndBtn.addEventListener('click', function () {
-      if (socket) socket.emit('shipcombat:exit');
-    });
-  }
 
   document.getElementById('lore-modal-close').addEventListener('click', function () {
     document.getElementById('lore-modal-overlay').classList.remove('active');

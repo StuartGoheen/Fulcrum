@@ -16,27 +16,33 @@
   <header class="cb-header">
     <div class="cb-header-left">
       <a href="/" class="cb-home-link">&larr; HOME</a>
-      <span class="cb-header-title">COMMAND BRIDGE</span>
+    </div>
+    <div class="cb-header-nav" id="cb-header-nav">
+      <span class="cb-header-adv-title" id="cb-header-adv" title="Click to change adventure"></span>
+      <span class="cb-header-sep">&mdash;</span>
+      <span class="cb-header-part-title" id="cb-header-part" title="Click to change part"></span>
     </div>
     <div class="cb-header-right">
-      <span style="font-size:0.7rem;color:var(--color-text-secondary);margin-right:0.25rem;">Ship Combat: <span id="sc-status" style="color:var(--color-text-secondary);">Inactive</span></span>
-      <button class="cb-header-btn accent" id="cb-launch-starship">Launch Starship Combat</button>
-      <button class="cb-header-btn accent" id="cb-end-starship" style="display:none;">End Ship Combat</button>
       <button class="cb-header-btn" id="cb-theme-toggle">Theme</button>
       <button class="cb-header-btn" id="cb-logout">Logout</button>
     </div>
   </header>
+
+  <div class="cb-picker-overlay" id="cb-picker-overlay">
+    <div class="cb-picker-modal" id="cb-picker-modal">
+      <div class="cb-picker-header">
+        <span class="cb-picker-title" id="cb-picker-title"></span>
+        <button class="cb-picker-close" id="cb-picker-close">&times;</button>
+      </div>
+      <div class="cb-picker-list" id="cb-picker-list"></div>
+    </div>
+  </div>
 
   <div id="bridge-grid">
     <div class="cb-col-left">
       <div class="cb-col-title">Crew Monitor</div>
       <div id="party-list">
         <p class="cb-muted" style="font-style:italic;">Loading crew data&hellip;</p>
-      </div>
-
-      <div class="cb-destiny-section" id="sc-seats-section" style="display:none;">
-        <div class="cb-col-title">Crew Stations</div>
-        <div id="sc-seats"><div class="cb-muted">No stations claimed.</div></div>
       </div>
 
       <div class="cb-destiny-section">
@@ -62,8 +68,6 @@
     <div class="cb-drag-handle" id="drag-left" title="Drag to resize"></div>
 
     <div class="cb-col-center">
-      <select class="cb-adv-select" id="adv-select"></select>
-      <select class="cb-adv-select" id="part-select"></select>
       <div class="cb-nav-bar" id="part-nav"></div>
       <div class="cb-scene-counter" id="scene-counter"></div>
       <div id="combat-tracker-panel"></div>
