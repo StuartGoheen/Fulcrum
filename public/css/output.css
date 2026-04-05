@@ -2260,6 +2260,10 @@ h1, h2, h3, h4, h5, h6 {
   display: block;
 }
 
+.armory-weapon-body.\!open {
+  display: block !important;
+}
+
 /* ── Ammo Power Bar ─────────────────────────────────── */
 
 .wpn-ammo-bar {
@@ -3144,6 +3148,10 @@ h1, h2, h3, h4, h5, h6 {
   display: block;
 }
 
+.armor-card-body.\!open {
+  display: block !important;
+}
+
 .armor-card.is-open .armor-card-body {
   display: block;
 }
@@ -3312,6 +3320,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .manv-body.open {
   display: block;
+}
+
+.manv-body.\!open {
+  display: block !important;
 }
 
 .manv-meta {

@@ -624,23 +624,38 @@
     _savePanelGeometry(panelId, rect);
   }
 
+  function _buildTtsSettingsHtml() {
+    var prefs = window.TtsNarration ? window.TtsNarration.getPrefs() : { rate: 0.92, pitch: 0.85, autoContinue: true };
+    var h = '';
+    h += '<div class="cb-tts-settings">';
+    h += '<button class="cb-tts-settings-toggle" data-tts-toggle="settings">&#9881; Voice Settings</button>';
+    h += '<div class="cb-tts-settings-body" style="display:none;">';
+    h += '<div class="cb-tts-row"><label>Voice</label><select class="cb-tts-voice-select" data-tts-control="voice"></select></div>';
+    h += '<div class="cb-tts-row"><label>Speed <span data-tts-val="rate">' + prefs.rate.toFixed(2) + '</span></label><input type="range" min="0.5" max="1.5" step="0.05" value="' + prefs.rate + '" data-tts-control="rate"></div>';
+    h += '<div class="cb-tts-row"><label>Pitch <span data-tts-val="pitch">' + prefs.pitch.toFixed(2) + '</span></label><input type="range" min="0.5" max="1.5" step="0.05" value="' + prefs.pitch + '" data-tts-control="pitch"></div>';
+    h += '<div class="cb-tts-row"><label><input type="checkbox" data-tts-control="autoContinue"' + (prefs.autoContinue ? ' checked' : '') + '> Auto-continue Part 1 → Part 2</label></div>';
+    h += '</div></div>';
+    return h;
+  }
+
   function _buildReadAloudHtml(scene) {
     var h = '';
+    h += _buildTtsSettingsHtml();
     if (scene.readAloudPart1 && scene.readAloudPart2) {
-      h += '<div class="cb-read-aloud" style="margin-bottom:0.75rem;">';
-      h += '<div class="cb-section-label">Read-Aloud — Part 1</div>';
+      h += '<div class="cb-read-aloud" style="margin-bottom:0.75rem;" data-tts-section="part1">';
+      h += '<div class="cb-section-label">Read-Aloud — Part 1 <button class="cb-tts-narrate-btn" data-tts-action="narrate-all" title="Narrate All">&#9654; Narrate</button></div>';
       h += '<div class="cb-read-aloud-text">' + linkify(scene.readAloudPart1) + '</div>';
       if (scene.readAloudPart1PauseNote) {
         h += '<div class="cb-pause-note" style="margin-top:12px;padding:10px 14px;background:rgba(245,158,11,0.12);border-left:3px solid #f59e0b;border-radius:4px;color:#f59e0b;font-size:0.85rem;font-style:italic;">' + scene.readAloudPart1PauseNote + '</div>';
       }
       h += '</div>';
-      h += '<div class="cb-read-aloud" style="margin-top:6px;">';
-      h += '<div class="cb-section-label">Read-Aloud — Part 2</div>';
+      h += '<div class="cb-read-aloud" style="margin-top:6px;" data-tts-section="part2">';
+      h += '<div class="cb-section-label">Read-Aloud — Part 2 <button class="cb-tts-narrate-btn" data-tts-action="narrate-part2" title="Narrate Part 2">&#9654;</button></div>';
       h += '<div class="cb-read-aloud-text">' + linkify(scene.readAloudPart2) + '</div>';
       h += '</div>';
     } else if (scene.readAloud) {
-      h += '<div class="cb-read-aloud">';
-      h += '<div class="cb-section-label">Player Read-Aloud</div>';
+      h += '<div class="cb-read-aloud" data-tts-section="single">';
+      h += '<div class="cb-section-label">Player Read-Aloud <button class="cb-tts-narrate-btn" data-tts-action="narrate-single" title="Narrate">&#9654; Narrate</button></div>';
       h += '<div class="cb-read-aloud-text">' + linkify(scene.readAloud) + '</div>';
       h += '</div>';
     }
@@ -885,6 +900,9 @@
     delete _openPanels[panelId];
     var tile = document.querySelector('[data-panel-id="' + panelId + '"]');
     if (tile) tile.classList.remove('cb-tile--active');
+    if (panelId === 'readaloud' && window.TtsNarration) {
+      window.TtsNarration.stop();
+    }
   }
 
   function closeAllFloatingPanels() {
@@ -976,12 +994,143 @@
       el.addEventListener('click', function () { navigateToScene(el.dataset.navScene); });
     });
 
+    if (panelId === 'readaloud') {
+      _bindTtsEvents(panel);
+    }
     if (panelId === 'npcs') {
       _bindNpcPanelEvents(panel);
     }
     if (panelId === 'encounters') {
       _bindEncounterPanelEvents(panel);
     }
+  }
+
+  function _bindTtsEvents(panel) {
+    if (!window.TtsNarration) return;
+    var TTS = window.TtsNarration;
+
+    if (!TTS.isSupported()) {
+      panel.querySelectorAll('.cb-tts-narrate-btn').forEach(function (btn) {
+        btn.disabled = true;
+        btn.title = 'Text-to-speech not supported in this browser';
+        btn.style.opacity = '0.4';
+      });
+      var settingsEl = panel.querySelector('.cb-tts-settings');
+      if (settingsEl) settingsEl.style.display = 'none';
+      return;
+    }
+
+    function _populateVoiceSelect(voices) {
+      var sel = panel.querySelector('[data-tts-control="voice"]');
+      if (!sel) return;
+      var prefs = TTS.getPrefs();
+      sel.innerHTML = '';
+      voices.forEach(function (v) {
+        var opt = document.createElement('option');
+        opt.value = v.voiceURI;
+        opt.textContent = v.name + ' (' + v.lang + ')';
+        if (prefs.voiceURI && v.voiceURI === prefs.voiceURI) opt.selected = true;
+        sel.appendChild(opt);
+      });
+      if (!prefs.voiceURI && sel.options.length) {
+        var en = voices.filter(function (v) { return v.lang && v.lang.indexOf('en') === 0; });
+        var deep = en.filter(function (v) {
+          var n = v.name.toLowerCase();
+          return n.indexOf('male') > -1 || n.indexOf('daniel') > -1 || n.indexOf('david') > -1;
+        });
+        var best = deep[0] || en[0] || voices[0];
+        if (best) { sel.value = best.voiceURI; TTS.setPref('voiceURI', best.voiceURI); }
+      }
+    }
+
+    TTS.loadVoices().then(_populateVoiceSelect);
+    TTS.onVoicesLoaded(_populateVoiceSelect);
+
+    var toggleBtn = panel.querySelector('[data-tts-toggle="settings"]');
+    var settingsBody = panel.querySelector('.cb-tts-settings-body');
+    if (toggleBtn && settingsBody) {
+      toggleBtn.addEventListener('click', function () {
+        var open = settingsBody.style.display !== 'none';
+        settingsBody.style.display = open ? 'none' : 'block';
+        toggleBtn.classList.toggle('active', !open);
+      });
+    }
+
+    panel.querySelector('[data-tts-control="voice"]')?.addEventListener('change', function () {
+      TTS.setPref('voiceURI', this.value);
+    });
+    panel.querySelector('[data-tts-control="rate"]')?.addEventListener('input', function () {
+      var v = parseFloat(this.value);
+      TTS.setPref('rate', v);
+      var lbl = panel.querySelector('[data-tts-val="rate"]');
+      if (lbl) lbl.textContent = v.toFixed(2);
+    });
+    panel.querySelector('[data-tts-control="pitch"]')?.addEventListener('input', function () {
+      var v = parseFloat(this.value);
+      TTS.setPref('pitch', v);
+      var lbl = panel.querySelector('[data-tts-val="pitch"]');
+      if (lbl) lbl.textContent = v.toFixed(2);
+    });
+    panel.querySelector('[data-tts-control="autoContinue"]')?.addEventListener('change', function () {
+      TTS.setPref('autoContinue', this.checked);
+    });
+
+    function _getPart1Text() {
+      var el = panel.querySelector('[data-tts-section="part1"] .cb-read-aloud-text');
+      return el ? el.innerHTML : '';
+    }
+    function _getPart2Text() {
+      var el = panel.querySelector('[data-tts-section="part2"] .cb-read-aloud-text');
+      return el ? el.innerHTML : '';
+    }
+    function _getSingleText() {
+      var el = panel.querySelector('[data-tts-section="single"] .cb-read-aloud-text');
+      return el ? el.innerHTML : '';
+    }
+
+    function _updateButtons(state, partId) {
+      var isSpeaking = state === 'speaking' || state === 'waiting';
+      panel.querySelectorAll('.cb-tts-narrate-btn').forEach(function (btn) {
+        var action = btn.dataset.ttsAction;
+        if (isSpeaking) {
+          btn.innerHTML = '&#9632; Stop';
+          btn.classList.add('speaking');
+        } else {
+          btn.classList.remove('speaking');
+          if (action === 'narrate-all') btn.innerHTML = '&#9654; Narrate';
+          else btn.innerHTML = '&#9654;';
+        }
+      });
+
+      panel.querySelectorAll('[data-tts-section]').forEach(function (sec) {
+        sec.classList.remove('cb-tts-active');
+      });
+      if (isSpeaking && partId) {
+        var sectionKey = partId.replace(/^.*?(part1|part2|single)$/, '$1');
+        var activeSec = panel.querySelector('[data-tts-section="' + sectionKey + '"]');
+        if (activeSec) activeSec.classList.add('cb-tts-active');
+      }
+    }
+
+    TTS.onStateChange(_updateButtons);
+
+    panel.querySelectorAll('.cb-tts-narrate-btn').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var action = btn.dataset.ttsAction;
+        if (TTS.getState() === 'speaking' || TTS.getState() === 'waiting') {
+          TTS.stop();
+          return;
+        }
+        if (action === 'narrate-all') {
+          TTS.speakParts(_getPart1Text(), _getPart2Text(), 'ra_');
+        } else if (action === 'narrate-part2') {
+          TTS.speak(_getPart2Text(), 'ra_part2');
+        } else if (action === 'narrate-single') {
+          TTS.speak(_getSingleText(), 'ra_single');
+        }
+      });
+    });
   }
 
   function _bindNpcPanelEvents(panel) {
