@@ -117,6 +117,11 @@
     text = text.replace(/\[NOTE:?[^\]]*\]/gi, '');
     text = text.replace(/\[LORE:?[^\]]*\]/gi, '');
     text = text.replace(/\{[^}]*\}/g, '');
+    text = text.replace(/\u2014/g, ', ');
+    text = text.replace(/\u2013/g, ', ');
+    text = text.replace(/\.{3}/g, '...');
+    text = text.replace(/\n\s*\n/g, '. ');
+    text = text.replace(/\n/g, ' ');
     text = text.replace(/\s+/g, ' ').trim();
     return text;
   }
