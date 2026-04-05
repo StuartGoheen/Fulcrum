@@ -9961,7 +9961,7 @@
   }
 
   .crawl-perspective--active .crawl-content {
-    animation: crawl-scroll 83s linear forwards;
+    animation: crawl-scroll 81s linear forwards;
   }
 
   @keyframes crawl-scroll {
