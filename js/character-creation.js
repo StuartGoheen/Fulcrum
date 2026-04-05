@@ -573,6 +573,23 @@
     return reqs;
   }
 
+  function getVocationPrimeMaps() {
+    var reqs = getVocationRequirements();
+    var primeArenas = {};
+    var primeDiscs = {};
+    reqs.forEach(function(r) {
+      if (r.arena) {
+        if (!primeArenas[r.arena]) primeArenas[r.arena] = [];
+        primeArenas[r.arena].push(r.kitName);
+      }
+      if (r.discId) {
+        if (!primeDiscs[r.discId]) primeDiscs[r.discId] = [];
+        primeDiscs[r.discId].push({ kitName: r.kitName, tier: r.tier, requiredDie: r.requiredDie });
+      }
+    });
+    return { primeArenas: primeArenas, primeDiscs: primeDiscs };
+  }
+
   function checkVocationDisciplineWarnings() {
     var reqs = getVocationRequirements();
     var d = statsGetDerived();
@@ -593,10 +610,11 @@
     var d          = statsGetDerived();
     var favoredIds = getFavoredIds();
 
+    var vocPrime = getVocationPrimeMaps();
     renderStatsPhaseIndicator();
     renderStatsStatusBar(d);
     renderVocationGuidance(d);
-    renderStatsGrid(d, favoredIds);
+    renderStatsGrid(d, favoredIds, vocPrime);
     renderStatsDetailCard(d, favoredIds);
     updateStatsNav(d);
   }
@@ -762,36 +780,35 @@
 
   /* ── 5×5 Grid ────────────────────────────────────────────────────── */
 
-  function renderStatsGrid(d, favoredIds) {
+  function renderStatsGrid(d, favoredIds, vocPrime) {
     var grid = document.getElementById('stats-grid');
     if (!grid) return;
     grid.innerHTML = '';
 
-    // Top row: 5 arena header cells
     DISCIPLINES_BY_ARENA.forEach(function(ag) {
-      var cell = buildArenaCell(ag, d);
+      var cell = buildArenaCell(ag, d, vocPrime);
       grid.appendChild(cell);
     });
 
-    // 5 rows of disciplines (row-major: row 0 = first disc of each arena, etc.)
     for (var row = 0; row < 5; row++) {
       DISCIPLINES_BY_ARENA.forEach(function(ag) {
         var disc = ag.disciplines[row];
-        var cell = buildDiscCell(disc, ag.id, d, favoredIds);
+        var cell = buildDiscCell(disc, ag.id, d, favoredIds, vocPrime);
         grid.appendChild(cell);
       });
     }
   }
 
-  function buildArenaCell(ag, d) {
+  function buildArenaCell(ag, d, vocPrime) {
     var val = d.arenaValues[ag.id] || 'D6';
     var cell = document.createElement('div');
     var cls = 'sg-cell sg-cell--arena';
+    var isPrime = vocPrime && vocPrime.primeArenas && vocPrime.primeArenas[ag.id];
+    if (isPrime) cls += ' sg-cell--voc-prime';
 
     var isActive = _selectedCell && _selectedCell.type === 'arena' && _selectedCell.id === ag.id;
     if (isActive) cls += ' sg-cell--active';
 
-    // Phase gating
     if (_statsPhase !== 'arenas') cls += ' sg-cell--disabled';
 
     var curIdx = DIE_STEPS.indexOf(val);
@@ -810,6 +827,14 @@
     name.textContent = capitalize(ag.id);
     cell.appendChild(name);
 
+    if (isPrime) {
+      var badge = document.createElement('span');
+      badge.className = 'sg-cell__tag sg-cell__tag--voc-prime';
+      badge.textContent = '\u2726';
+      badge.title = 'Prime arena for: ' + vocPrime.primeArenas[ag.id].join(', ');
+      cell.appendChild(badge);
+    }
+
     if (_statsPhase === 'arenas') {
       cell.addEventListener('click', function() {
         _selectedCell = { type: 'arena', id: ag.id };
@@ -820,22 +845,23 @@
     return cell;
   }
 
-  function buildDiscCell(disc, arenaId, d, favoredIds) {
+  function buildDiscCell(disc, arenaId, d, favoredIds, vocPrime) {
     var isIncomp  = !!d.discIncomp[disc.id];
     var isForce   = !!disc.force;
     var isFavored = !!favoredIds[disc.id];
     var cur       = statsGetDiscValue(disc.id, d);
+    var vocInfo   = vocPrime && vocPrime.primeDiscs && vocPrime.primeDiscs[disc.id];
 
     var cell = document.createElement('div');
     var cls = 'sg-cell';
 
     if (isForce) cls += ' sg-cell--force';
     if (isFavored) cls += ' sg-cell--favored';
+    if (vocInfo) cls += ' sg-cell--voc-prime';
 
     var isActive = _selectedCell && _selectedCell.type === 'disc' && _selectedCell.id === disc.id;
     if (isActive) cls += ' sg-cell--active';
 
-    // State styling
     if (isIncomp && isForce) {
       cls += ' sg-cell--force-locked';
     } else if (isIncomp) {
@@ -844,14 +870,12 @@
       cls += ' sg-cell--advanced';
     }
 
-    // Phase gating
     var clickable = false;
     if (_statsPhase === 'incomp') {
       clickable = true;
     } else if (_statsPhase === 'arenas') {
       cls += ' sg-cell--disabled';
     } else if (_statsPhase === 'disciplines') {
-      // All cells clickable in specialize phase (incomp ones can view detail)
       clickable = true;
     }
 
@@ -872,7 +896,6 @@
     name.textContent = disc.name;
     cell.appendChild(name);
 
-    // Tags
     if (isForce) {
       var tag = document.createElement('span');
       tag.className = 'sg-cell__tag sg-cell__tag--force';
@@ -884,6 +907,19 @@
       ftag.className = 'sg-cell__tag sg-cell__tag--favored';
       ftag.textContent = '\u2605';
       cell.appendChild(ftag);
+    }
+    if (vocInfo) {
+      var vtag = document.createElement('span');
+      vtag.className = 'sg-cell__tag sg-cell__tag--voc-disc';
+      var maxReq = vocInfo.reduce(function(a, v) { return DIE_ORDER.indexOf(v.requiredDie) > DIE_ORDER.indexOf(a) ? v.requiredDie : a; }, 'D4');
+      var curIdx = DIE_ORDER.indexOf(cur);
+      var reqIdx = DIE_ORDER.indexOf(maxReq);
+      var met = curIdx >= reqIdx;
+      vtag.textContent = maxReq;
+      vtag.title = vocInfo.map(function(v) { return v.kitName + ' T' + v.tier; }).join(', ');
+      if (met) vtag.classList.add('sg-cell__tag--voc-met');
+      else vtag.classList.add('sg-cell__tag--voc-unmet');
+      cell.appendChild(vtag);
     }
 
     if (clickable) {
