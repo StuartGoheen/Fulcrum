@@ -372,11 +372,13 @@ Server-authoritative destiny token pool synced in real-time via Socket.io. Pool 
 - `destiny:flip` — GM-only, toggles token at `{ index }` between hope/toll
 - `destiny:reset` — GM-only, resets all tokens to hope
 
-**Persistence:** Pool stored in `campaign_state` table (key: `destiny_pool`). Survives server restarts. On reconnect, current pool state sent immediately via `destiny:sync`.
+**Persistence:** Pool stored in `campaign_state` table (key: `destiny_pool`). Lock state stored as `destiny_locked` in same table. Both survive server restarts. On reconnect, current pool state + lock flag sent immediately via `destiny:sync`.
+
+**Pool Locking:** GM can lock the destiny pool via "Lock Pool" button. When locked: player connect/disconnect events do NOT rebuild the pool — flips and taps persist permanently until the GM changes them. Unlocking rebuilds the pool from currently connected characters. Reset also unlocks the pool. Lock state is persisted in DB and survives server restarts. All `destiny:sync` emissions include `{ pool, locked }` for consistent client state.
 
 **Player view:** Footer renders tokens dynamically from `destiny:sync` events. Display-only (no click-to-flip). Uses existing force-token CSS (blue = hope, red pulsing = toll).
 
-**GM view:** Destiny bar below header in Command Bridge. Clickable tokens emit `destiny:flip`. Shows Hope/Toll count. Reset button emits `destiny:reset`.
+**GM view:** Destiny bar below header in Command Bridge. Clickable tokens emit `destiny:flip`. Shows Hope/Toll count. Three buttons: Lock Pool (toggles to Unlock Pool when locked, filled accent style), Untap All, Reset Pool. LOCKED badge appears in count area when pool is locked.
 
 **Files:** `server/sockets/handlers.js` (pool logic), `js/socket-client.js` (player rendering), `public/gm/index.html` (GM controls + styles).
 

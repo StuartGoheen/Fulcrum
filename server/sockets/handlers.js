@@ -47,6 +47,22 @@ async function saveDestinyPool(destinyPool) {
   `, [serialized]);
 }
 
+async function isDestinyLocked() {
+  const result = await pool.query("SELECT value FROM campaign_state WHERE key = 'destiny_locked'");
+  if (result.rows.length > 0) {
+    try { return JSON.parse(result.rows[0].value) === true; } catch (_) {}
+  }
+  return false;
+}
+
+async function setDestinyLocked(locked) {
+  await pool.query(`
+    INSERT INTO campaign_state (key, value, updated_at)
+    VALUES ('destiny_locked', $1, NOW())
+    ON CONFLICT(key) DO UPDATE SET value = EXCLUDED.value, updated_at = NOW()
+  `, [JSON.stringify(locked)]);
+}
+
 async function getCharDestinyTokens(charId) {
   const result = await pool.query('SELECT character_data FROM characters WHERE id = $1', [charId]);
   let destiny = 'Light & Dark';
@@ -133,8 +149,11 @@ function registerHandlers(io) {
           console.log(`[socket] Player joined: ${name} (${socket.id})`);
           io.emit('player:connected', { characterId, name });
 
-          const destinyPool = await rebuildPool(io);
-          io.emit('destiny:sync', { pool: destinyPool });
+          const locked = await isDestinyLocked();
+          if (!locked) {
+            const destinyPool = await rebuildPool(io);
+            io.emit('destiny:sync', { pool: destinyPool, locked: false });
+          }
         }
 
         if (role === 'gm') {
@@ -154,7 +173,8 @@ function registerHandlers(io) {
         socket.emit('state:sync', { state });
 
         const destinyPool = await getDestinyPool();
-        socket.emit('destiny:sync', { pool: destinyPool });
+        const destinyLocked = await isDestinyLocked();
+        socket.emit('destiny:sync', { pool: destinyPool, locked: destinyLocked });
 
         if (role === 'player' && _tutorialState && _tutorialState.active) {
           const phase = _tutorialState.playerPhases[_tutorialState.currentPhase];
@@ -229,7 +249,8 @@ function registerHandlers(io) {
 
         destinyPool[index].side = destinyPool[index].side === 'hope' ? 'toll' : 'hope';
         await saveDestinyPool(destinyPool);
-        io.emit('destiny:sync', { pool: destinyPool });
+        const flipLocked = await isDestinyLocked();
+        io.emit('destiny:sync', { pool: destinyPool, locked: flipLocked });
         console.log(`[socket] GM flipped token ${index} to ${destinyPool[index].side}`);
       } catch (err) {
         console.error('[socket] destiny:flip error:', err);
@@ -249,7 +270,8 @@ function registerHandlers(io) {
         if (destinyPool[index].tapped) return;
         destinyPool[index].tapped = true;
         await saveDestinyPool(destinyPool);
-        io.emit('destiny:sync', { pool: destinyPool });
+        const tapLocked = await isDestinyLocked();
+        io.emit('destiny:sync', { pool: destinyPool, locked: tapLocked });
         console.log(`[socket] Token ${index} tapped by ${role} (${socket.data.characterName || socket.id})`);
       } catch (err) {
         console.error('[socket] destiny:tap error:', err);
@@ -268,7 +290,8 @@ function registerHandlers(io) {
         if (!destinyPool[index].tapped) return;
         destinyPool[index].tapped = false;
         await saveDestinyPool(destinyPool);
-        io.emit('destiny:sync', { pool: destinyPool });
+        const untapOneLocked = await isDestinyLocked();
+        io.emit('destiny:sync', { pool: destinyPool, locked: untapOneLocked });
         console.log(`[socket] GM untapped token ${index}`);
       } catch (err) {
         console.error('[socket] destiny:untap-one error:', err);
@@ -285,7 +308,8 @@ function registerHandlers(io) {
         const destinyPool = await getDestinyPool();
         destinyPool.forEach(t => { t.tapped = false; });
         await saveDestinyPool(destinyPool);
-        io.emit('destiny:sync', { pool: destinyPool });
+        const untapLocked = await isDestinyLocked();
+        io.emit('destiny:sync', { pool: destinyPool, locked: untapLocked });
         console.log(`[socket] GM untapped all destiny tokens`);
       } catch (err) {
         console.error('[socket] destiny:untap error:', err);
@@ -299,11 +323,42 @@ function registerHandlers(io) {
       }
 
       try {
+        await setDestinyLocked(false);
         const destinyPool = await rebuildPool(io);
-        io.emit('destiny:sync', { pool: destinyPool });
-        console.log(`[socket] GM reset destiny pool (${destinyPool.length} tokens)`);
+        io.emit('destiny:sync', { pool: destinyPool, locked: false });
+        console.log(`[socket] GM reset destiny pool (${destinyPool.length} tokens), pool unlocked`);
       } catch (err) {
         console.error('[socket] destiny:reset error:', err);
+      }
+    });
+
+    socket.on('destiny:lock', async () => {
+      if (socket.data.role !== 'gm') {
+        socket.emit('error', { message: 'Only the GM can lock the destiny pool.' });
+        return;
+      }
+      try {
+        await setDestinyLocked(true);
+        const destinyPool = await getDestinyPool();
+        io.emit('destiny:sync', { pool: destinyPool, locked: true });
+        console.log(`[socket] GM locked destiny pool (${destinyPool.length} tokens)`);
+      } catch (err) {
+        console.error('[socket] destiny:lock error:', err);
+      }
+    });
+
+    socket.on('destiny:unlock', async () => {
+      if (socket.data.role !== 'gm') {
+        socket.emit('error', { message: 'Only the GM can unlock the destiny pool.' });
+        return;
+      }
+      try {
+        await setDestinyLocked(false);
+        const destinyPool = await rebuildPool(io);
+        io.emit('destiny:sync', { pool: destinyPool, locked: false });
+        console.log(`[socket] GM unlocked destiny pool, rebuilt (${destinyPool.length} tokens)`);
+      } catch (err) {
+        console.error('[socket] destiny:unlock error:', err);
       }
     });
 
@@ -930,8 +985,11 @@ function registerHandlers(io) {
         io.emit('player:disconnected', { characterId, name: characterName || 'Unknown' });
 
         try {
-          const destinyPool = await rebuildPool(io);
-          io.emit('destiny:sync', { pool: destinyPool });
+          const locked = await isDestinyLocked();
+          if (!locked) {
+            const destinyPool = await rebuildPool(io);
+            io.emit('destiny:sync', { pool: destinyPool, locked: false });
+          }
         } catch (err) {
           console.error('[socket] destiny rebuild error:', err);
         }

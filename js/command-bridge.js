@@ -1583,13 +1583,21 @@
     });
   }
 
+  var _destinyLocked = false;
+
   function renderGmDestinyPool(pool) {
     var container = document.getElementById('gm-destiny-tokens');
     var countEl = document.getElementById('gm-destiny-count');
+    var lockBtn = document.getElementById('gm-destiny-lock');
     if (!container) return;
     if (!pool || pool.length === 0) {
-      container.innerHTML = '<span class="cb-muted" style="font-style:italic;">No crew connected</span>';
-      if (countEl) countEl.textContent = '';
+      var emptyMsg = _destinyLocked ? 'Pool locked (empty)' : 'No crew connected';
+      container.innerHTML = '<span class="cb-muted" style="font-style:italic;">' + emptyMsg + '</span>';
+      if (countEl) countEl.innerHTML = _destinyLocked ? '<span class="destiny-locked-badge">LOCKED</span>' : '';
+      if (lockBtn) {
+        lockBtn.textContent = _destinyLocked ? 'Unlock Pool' : 'Lock Pool';
+        if (_destinyLocked) { lockBtn.classList.add('locked'); } else { lockBtn.classList.remove('locked'); }
+      }
       return;
     }
     container.innerHTML = pool.map(function (t, idx) {
@@ -1616,7 +1624,12 @@
       var tappedCount = pool.filter(function (t) { return t.tapped; }).length;
       var summary = '<span class="hope-count">' + hopeCount + 'H</span> / <span class="toll-count">' + tollCount + 'T</span>';
       if (tappedCount > 0) summary += ' <span style="color:var(--color-text-secondary);">(' + tappedCount + ' tapped)</span>';
+      if (_destinyLocked) summary += ' <span class="destiny-locked-badge">LOCKED</span>';
       countEl.innerHTML = summary;
+    }
+    if (lockBtn) {
+      lockBtn.textContent = _destinyLocked ? 'Unlock Pool' : 'Lock Pool';
+      if (_destinyLocked) { lockBtn.classList.add('locked'); } else { lockBtn.classList.remove('locked'); }
     }
   }
 
@@ -1835,6 +1848,7 @@
     socket.emit('destiny:request');
 
     socket.on('destiny:sync', function (data) {
+      if (typeof data.locked === 'boolean') _destinyLocked = data.locked;
       renderGmDestinyPool(data.pool || data);
     });
 
@@ -1867,8 +1881,17 @@
 
   var destinyUntapBtn = document.getElementById('gm-destiny-untap');
   var destinyResetBtn = document.getElementById('gm-destiny-reset');
+  var destinyLockBtn = document.getElementById('gm-destiny-lock');
   if (destinyUntapBtn) destinyUntapBtn.addEventListener('click', function () { if (socket) socket.emit('destiny:untap'); });
   if (destinyResetBtn) destinyResetBtn.addEventListener('click', function () { if (socket) socket.emit('destiny:reset'); });
+  if (destinyLockBtn) destinyLockBtn.addEventListener('click', function () {
+    if (!socket) return;
+    if (_destinyLocked) {
+      socket.emit('destiny:unlock');
+    } else {
+      socket.emit('destiny:lock');
+    }
+  });
 
   var themeBtn = document.getElementById('cb-theme-toggle');
   if (themeBtn) themeBtn.addEventListener('click', cycleTheme);

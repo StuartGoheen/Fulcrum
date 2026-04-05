@@ -348,6 +348,27 @@
       border-color: var(--color-accent-primary);
       color: var(--color-accent-primary);
     }
+    .cb-destiny-lock-btn.locked {
+      background: var(--color-accent-primary);
+      color: var(--color-bg-primary);
+      border-color: var(--color-accent-primary);
+      font-weight: 600;
+    }
+    .cb-destiny-lock-btn.locked:hover {
+      opacity: 0.85;
+    }
+    .destiny-locked-badge {
+      display: inline-block;
+      background: var(--color-accent-primary);
+      color: var(--color-bg-primary);
+      font-size: 0.55rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 0.1rem 0.35rem;
+      border-radius: 3px;
+      vertical-align: middle;
+      margin-left: 0.3rem;
+    }
 
     .cb-nav-bar {
       display: flex;
