@@ -1,124 +1,483 @@
 <!DOCTYPE html>
-<html lang="en" class="theme-rebellion">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Edge of the Empire</title>
+  <title>Fulcrum — Edge of the Empire</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="icon" href="/icon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="/css/output.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Exo 2', sans-serif;
+      background: #1a1a1e;
+      background-image:
+        radial-gradient(ellipse at 30% 20%, rgba(60,55,50,0.4) 0%, transparent 60%),
+        radial-gradient(ellipse at 70% 80%, rgba(50,45,40,0.3) 0%, transparent 60%),
+        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.008) 2px, rgba(255,255,255,0.008) 4px);
+      color: #a09888;
+      overflow-x: hidden;
+    }
+
+    .forge-scan-line {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.03) 3px, rgba(0,0,0,0.03) 6px);
+      z-index: 100;
+    }
+
+    .forge-sparks {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none; z-index: 0;
+    }
+    .forge-spark {
+      position: absolute; width: 2px; height: 2px; border-radius: 50%;
+      background: rgba(199,146,52,0.6);
+      animation: spark-drift 8s linear infinite;
+    }
+    .forge-spark:nth-child(1) { left: 12%; top: 25%; animation-delay: 0s; animation-duration: 12s; }
+    .forge-spark:nth-child(2) { left: 82%; top: 35%; animation-delay: 2s; animation-duration: 10s; }
+    .forge-spark:nth-child(3) { left: 40%; top: 75%; animation-delay: 4s; animation-duration: 14s; }
+    .forge-spark:nth-child(4) { left: 22%; top: 88%; animation-delay: 1s; animation-duration: 11s; }
+    .forge-spark:nth-child(5) { left: 68%; top: 12%; animation-delay: 3s; animation-duration: 9s; }
+    .forge-spark:nth-child(6) { left: 55%; top: 60%; animation-delay: 5s; animation-duration: 13s; }
+
+    @keyframes spark-drift {
+      0% { opacity: 0; transform: translateY(0) scale(1); }
+      10% { opacity: 0.8; }
+      50% { opacity: 0.3; transform: translateY(-40px) scale(0.5); }
+      100% { opacity: 0; transform: translateY(-80px) scale(0); }
+    }
+
+    .forge-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.75rem 1.5rem;
+      border-bottom: 1px solid #2a2622;
+      position: relative; z-index: 10;
+    }
+    .forge-header::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(199,146,52,0.2), transparent);
+    }
+
+    .forge-header-brand {
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    .forge-header-logo {
+      width: 28px; height: 28px;
+      filter: drop-shadow(0 0 6px rgba(199,146,52,0.3));
+    }
+    .forge-header-title {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #c8a44e;
+    }
+
+    .forge-header-actions {
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+
+    .forge-header-btn {
+      padding: 0.35rem 0.75rem;
+      font-family: 'Exo 2', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: #2a2a2e;
+      border: 1px solid #3a3632;
+      color: #7a7068;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .forge-header-btn:hover {
+      border-color: #c8a44e;
+      color: #c8a44e;
+    }
+
+    .forge-main {
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 2rem 1.5rem;
+      position: relative; z-index: 10;
+    }
+
+    .forge-hero {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    .forge-hero-logo {
+      width: 100px; height: 100px;
+      margin: 0 auto 1rem;
+      animation: logo-breathe 4s ease-in-out infinite;
+      filter: drop-shadow(0 0 16px rgba(199,146,52,0.25));
+    }
+    @keyframes logo-breathe {
+      0%, 100% { filter: drop-shadow(0 0 16px rgba(199,146,52,0.25)); }
+      50% { filter: drop-shadow(0 0 28px rgba(199,146,52,0.4)) drop-shadow(0 0 50px rgba(180,80,40,0.12)); }
+    }
+    .forge-hero-tagline {
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #c8a44e;
+      margin-bottom: 0.4rem;
+    }
+    .forge-hero-title {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #d4c5a0;
+      text-shadow: 0 0 30px rgba(199,146,52,0.15);
+      margin-bottom: 0.5rem;
+    }
+    .forge-hero-sub {
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      color: #6a6258;
+      max-width: 400px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .forge-cards {
+      display: flex;
+      gap: 1.25rem;
+      width: 100%;
+      max-width: 960px;
+    }
+
+    .forge-card {
+      flex: 1;
+      background: linear-gradient(165deg, #2a2a2e 0%, #1e1e22 40%, #252528 100%);
+      border: 1px solid #3a3632;
+      padding: 1.5rem 1.25rem;
+      position: relative;
+      cursor: pointer;
+      transition: border-color 0.3s, box-shadow 0.3s, transform 0.2s;
+      text-align: left;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Exo 2', sans-serif;
+      color: inherit;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    }
+    .forge-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      transition: background 0.3s;
+    }
+    .forge-card--gold::before { background: linear-gradient(90deg, transparent, rgba(199,146,52,0.4), transparent); }
+    .forge-card--purple::before { background: linear-gradient(90deg, transparent, rgba(160,100,220,0.4), transparent); }
+    .forge-card--red::before { background: linear-gradient(90deg, transparent, rgba(200,40,40,0.4), transparent); }
+
+    .forge-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+    .forge-card--gold:hover { border-color: #c8a44e; box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 0 20px rgba(199,146,52,0.1); }
+    .forge-card--purple:hover { border-color: #a064dc; box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 0 20px rgba(160,100,220,0.1); }
+    .forge-card--red:hover { border-color: #cc2222; box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 0 20px rgba(200,40,40,0.1); }
+
+    .forge-card-rivets {
+      position: absolute; top: 6px; left: 6px; right: 6px; bottom: 6px;
+      pointer-events: none;
+    }
+    .forge-card-rivets::before, .forge-card-rivets::after {
+      content: ''; position: absolute; width: 3px; height: 3px; border-radius: 50%;
+      background: radial-gradient(circle, #4a4238, #2a2622);
+      box-shadow: 0 0.5px 1px rgba(255,255,255,0.05);
+    }
+    .forge-card-rivets::before { top: 0; right: 0; }
+    .forge-card-rivets::after { bottom: 0; left: 0; }
+
+    .forge-card-label {
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+    .forge-card-label--gold { color: #c8a44e; }
+    .forge-card-label--purple { color: #a064dc; }
+    .forge-card-label--red { color: #cc2222; }
+
+    .forge-card-title {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 1.05rem;
+      letter-spacing: 0.06em;
+      color: #d4c5a0;
+      margin-bottom: 0.6rem;
+    }
+
+    .forge-card-desc {
+      font-size: 0.72rem;
+      line-height: 1.7;
+      color: #7a7068;
+      flex: 1;
+    }
+
+    .forge-card-action {
+      display: flex; align-items: center; gap: 0.4rem;
+      margin-top: 1rem;
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      transition: letter-spacing 0.2s;
+    }
+    .forge-card:hover .forge-card-action { letter-spacing: 0.22em; }
+    .forge-card-action--gold { color: #c8a44e; }
+    .forge-card-action--purple { color: #a064dc; }
+    .forge-card-action--red { color: #cc2222; }
+
+    .forge-footer {
+      text-align: center;
+      padding: 0.75rem;
+      font-size: 0.5rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #3a3632;
+      border-top: 1px solid #2a2622;
+      position: relative; z-index: 10;
+    }
+
+    .forge-modal-overlay {
+      position: fixed; inset: 0; z-index: 200;
+      display: none; align-items: center; justify-content: center;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(4px);
+    }
+    .forge-modal-overlay.is-visible { display: flex; }
+
+    .forge-modal {
+      background: linear-gradient(165deg, #2a2a2e 0%, #1e1e22 40%, #252528 100%);
+      border: 1px solid #3a3632;
+      width: 100%; max-width: 480px;
+      margin: 1rem;
+      padding: 1.25rem 1.5rem 1rem;
+      position: relative;
+      box-shadow: 0 16px 64px rgba(0,0,0,0.6), 0 0 0 1px rgba(199,146,52,0.08);
+    }
+    .forge-modal::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(199,146,52,0.4), transparent);
+    }
+
+    .forge-modal-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 0.75rem;
+    }
+    .forge-modal-title {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      color: #d4c5a0;
+    }
+    .forge-modal-close {
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: #7a7068;
+      background: none; border: none;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .forge-modal-close:hover { color: #c8a44e; }
+
+    .crew-grid {
+      margin-bottom: 0.75rem;
+    }
+
+    .forge-modal-divider {
+      border: none;
+      border-top: 1px solid #2a2622;
+      margin: 0;
+    }
+
+    .forge-modal-create-btn {
+      width: 100%;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.5rem 0.75rem;
+      margin-top: 0.6rem;
+      font-family: 'Exo 2', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      background: transparent;
+      border: 1px solid #c8a44e;
+      color: #c8a44e;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: left;
+    }
+    .forge-modal-create-btn:hover {
+      background: rgba(199,146,52,0.08);
+    }
+    .forge-modal-create-plus { font-size: 0.9rem; }
+
+    .forge-modal-error {
+      font-size: 0.65rem;
+      letter-spacing: 0.06em;
+      color: #cc4444;
+      margin-top: 0.4rem;
+      display: none;
+    }
+
+    .forge-modal-dev {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding-top: 0.5rem;
+      margin-top: 0.5rem;
+      border-top: 1px solid #2a2622;
+    }
+    .forge-modal-dev-label {
+      font-size: 0.55rem;
+      color: #4a4238;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .forge-modal-dev-btn {
+      font-size: 0.55rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      padding: 0.2rem 0.5rem;
+      background: transparent;
+      border: 1px solid #3a3632;
+      color: #7a7068;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .forge-modal-dev-btn:hover { border-color: #c8a44e; color: #c8a44e; }
+    .forge-modal-dev-msg {
+      font-size: 0.55rem;
+      color: #c8a44e;
+      display: none;
+    }
+
+    .crawl-launch-btn {
+      position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 40;
+      width: 2.5rem; height: 2.5rem;
+      display: flex; align-items: center; justify-content: center;
+      background: #2a2a2e; border: 1px solid #3a3632; color: #c8a44e;
+      cursor: pointer; transition: background 0.15s, color 0.15s, border-color 0.15s;
+      border-radius: 4px; padding: 0;
+    }
+    .crawl-launch-btn:hover { background: #c8a44e; color: #1a1a1e; border-color: #c8a44e; }
+    .crawl-launch-btn svg { width: 1.2rem; height: 1.2rem; }
+
+    @media (max-width: 768px) {
+      .forge-cards { flex-direction: column; }
+      .forge-hero-title { font-size: 1.2rem; }
+      .forge-header { padding: 0.5rem 1rem; }
+    }
+  </style>
 </head>
-<body class="font-body min-h-screen relative overflow-x-hidden" style="background-color:var(--color-bg-primary);color:var(--color-text-primary);">
-
-  <div class="starfield" aria-hidden="true"></div>
-
-  <div class="relative z-10 min-h-screen flex flex-col">
-
-    <header class="flex items-center justify-between px-8 py-4" style="border-bottom:1px solid var(--color-border);">
-      <div class="flex items-center gap-3">
-        <span class="font-display text-xs tracking-widest uppercase" style="color:var(--color-text-secondary);">Galactic Campaign System</span>
-      </div>
-      <div class="flex items-center gap-3">
-        <button id="theme-toggle" class="flex items-center gap-2 px-4 py-2 text-xs tracking-widest uppercase font-semibold transition-all duration-200" style="background:var(--color-bg-frame);color:var(--color-text-secondary);border:1px solid var(--color-border);" aria-label="Toggle theme">
-          <span id="theme-label">The Fringe</span>
-        </button>
-        <button id="btn-logout" class="flex items-center gap-2 px-4 py-2 text-xs tracking-widest uppercase font-semibold transition-all duration-200" style="background:var(--color-bg-frame);color:var(--color-text-secondary);border:1px solid var(--color-border);">
-          Logout
-        </button>
-      </div>
-    </header>
-
-    <main class="flex-1 flex flex-col items-center justify-center px-6 py-8">
-
-      <div class="text-center mb-6">
-        <p class="text-xs tracking-widest uppercase mb-4" style="color:var(--color-accent-primary);">A long time ago, in a galaxy far, far away&hellip;</p>
-        <h1 class="font-display text-2xl md:text-xl tracking-wide mb-3" style="color:var(--color-accent-deep);">The Edge of the Empire</h1>
-        <p class="text-sm tracking-wide max-w-md mx-auto" style="color:var(--color-text-secondary);">
-          Out here, beyond the reach of the Core Worlds, survival is currency.<br/>
-          Choose your station, spacer.
-        </p>
-      </div>
-
-      <div class="flex flex-col md:flex-row gap-6 w-full max-w-4xl">
-
-        <button id="btn-player" class="flex-1 panel-card p-6 text-left transition-all duration-200 group cursor-pointer" style="border-color:var(--color-border);">
-          <div class="mb-3">
-            <p class="text-xs tracking-widest uppercase font-semibold mb-2" style="color:var(--color-accent-primary);">Crew Member</p>
-            <h2 class="font-display text-xl" style="color:var(--color-accent-deep);">Join the Crew</h2>
-          </div>
-          <p class="text-sm leading-relaxed" style="color:var(--color-text-secondary);">
-            Access your character sheet, track your status, and stay connected with the crew throughout the mission.
-          </p>
-          <div class="mt-4 flex items-center gap-2 text-xs font-semibold tracking-widest uppercase" style="color:var(--color-accent-primary);">
-            <span>Select Character</span>
-            <span>&rarr;</span>
-          </div>
-        </button>
-
-        <button id="btn-gm" class="flex-1 panel-card p-6 text-left transition-all duration-200 group cursor-pointer" style="border-color:var(--color-border);">
-          <div class="mb-3">
-            <p class="text-xs tracking-widest uppercase font-semibold mb-2" style="color:var(--color-accent-secondary);">Game Master</p>
-            <h2 class="font-display text-xl" style="color:var(--color-accent-deep);">Command Bridge</h2>
-          </div>
-          <p class="text-sm leading-relaxed" style="color:var(--color-text-secondary);">
-            Manage the campaign, control the encounter, and guide the crew through the edge of known space.
-          </p>
-          <div class="mt-4 flex items-center gap-2 text-xs font-semibold tracking-widest uppercase" style="color:var(--color-accent-secondary);">
-            <span>Enter Bridge</span>
-            <span>&rarr;</span>
-          </div>
-        </button>
-
-        <a href="/market/" class="flex-1 panel-card p-6 text-left transition-all duration-200 group" style="border-color:#440000;text-decoration:none;display:block;">
-          <div class="mb-3">
-            <p class="text-xs tracking-widest uppercase font-semibold mb-2" style="color:#CC2222;">No Questions Asked</p>
-            <h2 class="font-display text-xl" style="color:var(--color-accent-deep);">The Black Market</h2>
-          </div>
-          <p class="text-sm leading-relaxed" style="color:var(--color-text-secondary);">
-            Browse restricted and illegal gear. Run the deal, calculate the price, and submit item requests for GM conversion.
-          </p>
-          <div class="mt-4 flex items-center gap-2 text-xs font-semibold tracking-widest uppercase" style="color:#CC2222;">
-            <span>Enter at Your Own Risk</span>
-            <span>&rarr;</span>
-          </div>
-        </a>
-
-      </div>
-
-    </main>
-
-    <footer class="text-center py-4 text-xs" style="color:var(--color-text-secondary);border-top:1px solid var(--color-border);">
-      <span class="tracking-widest uppercase">Edge of the Empire &mdash; Campaign System &mdash; Local Network</span>
-    </footer>
-
+<body>
+  <div class="forge-scan-line"></div>
+  <div class="forge-sparks">
+    <div class="forge-spark"></div><div class="forge-spark"></div><div class="forge-spark"></div>
+    <div class="forge-spark"></div><div class="forge-spark"></div><div class="forge-spark"></div>
   </div>
 
-  <div id="modal-overlay" class="fixed inset-0 z-50 hidden items-center justify-center" style="background:rgba(0,0,0,0.5);">
-    <div class="panel-card w-full max-w-lg mx-4" style="border-color:var(--color-border);padding:1.25rem 1.5rem 1rem;">
-      <div class="flex items-center justify-between" style="margin-bottom:0.75rem;">
-        <h2 class="font-display text-lg" style="color:var(--color-accent-deep);">Join the Crew</h2>
-        <button id="modal-close" class="text-xs tracking-widest uppercase font-semibold" style="color:var(--color-text-secondary);">Close</button>
-      </div>
-      <div id="character-list" class="crew-grid" style="margin-bottom:0.75rem;">
-        <p class="text-xs" style="color:var(--color-text-secondary);">Loading crew manifest&hellip;</p>
-      </div>
-      <div style="border-top:1px solid var(--color-border);padding-top:0.6rem;">
-        <button id="btn-create-character" class="w-full text-left px-3 py-2 text-xs font-medium tracking-wide transition-all duration-150 flex items-center justify-between" style="background:transparent;border:1px solid var(--color-accent-primary);color:var(--color-accent-primary);cursor:pointer;">
-          <span>Create a Character</span>
-          <span style="font-size:0.9rem;">&plus;</span>
-        </button>
-      </div>
-      <p id="modal-error" class="text-xs mt-2 hidden" style="color:var(--color-accent-secondary);"></p>
-      <div style="border-top:1px solid var(--color-border);padding-top:0.5rem;margin-top:0.5rem;">
-        <div class="flex items-center gap-2">
-          <span class="text-xs" style="color:var(--color-text-secondary);opacity:0.4;letter-spacing:0.08em;text-transform:uppercase;">Dev</span>
-          <button id="admin-release-all" class="text-xs tracking-wider font-medium px-2 py-1 transition-all duration-150" style="background:transparent;border:1px solid var(--color-border);color:var(--color-text-secondary);">
-            Release All
-          </button>
-          <span id="admin-release-msg" class="text-xs" style="color:var(--color-accent-primary);display:none;"></span>
+  <header class="forge-header">
+    <div class="forge-header-brand">
+      <img src="/images/fulcrum-logo.png" alt="Fulcrum" class="forge-header-logo" />
+      <span class="forge-header-title">Fulcrum</span>
+    </div>
+    <div class="forge-header-actions">
+      <button id="theme-toggle" class="forge-header-btn" aria-label="Toggle theme">
+        <span id="theme-label">The Fringe</span>
+      </button>
+      <button id="btn-logout" class="forge-header-btn">Logout</button>
+    </div>
+  </header>
+
+  <main class="forge-main">
+    <div class="forge-hero">
+      <img src="/images/fulcrum-logo.png" alt="Fulcrum" class="forge-hero-logo" />
+      <p class="forge-hero-tagline">A long time ago, in a galaxy far, far away&hellip;</p>
+      <h1 class="forge-hero-title">The Edge of the Empire</h1>
+      <p class="forge-hero-sub">
+        Out here, beyond the reach of the Core Worlds, survival is currency.
+        Choose your station, spacer.
+      </p>
+    </div>
+
+    <div class="forge-cards">
+      <button id="btn-player" class="forge-card forge-card--gold">
+        <div class="forge-card-rivets"></div>
+        <p class="forge-card-label forge-card-label--gold">Crew Member</p>
+        <h2 class="forge-card-title">Join the Crew</h2>
+        <p class="forge-card-desc">
+          Access your character sheet, track your status, and stay connected with the crew throughout the mission.
+        </p>
+        <div class="forge-card-action forge-card-action--gold">
+          <span>Select Character</span>
+          <span>&rarr;</span>
         </div>
+      </button>
+
+      <button id="btn-gm" class="forge-card forge-card--purple">
+        <div class="forge-card-rivets"></div>
+        <p class="forge-card-label forge-card-label--purple">Game Master</p>
+        <h2 class="forge-card-title">Command Bridge</h2>
+        <p class="forge-card-desc">
+          Manage the campaign, control the encounter, and guide the crew through the edge of known space.
+        </p>
+        <div class="forge-card-action forge-card-action--purple">
+          <span>Enter Bridge</span>
+          <span>&rarr;</span>
+        </div>
+      </button>
+
+      <a href="/market/" class="forge-card forge-card--red">
+        <div class="forge-card-rivets"></div>
+        <p class="forge-card-label forge-card-label--red">No Questions Asked</p>
+        <h2 class="forge-card-title">The Black Market</h2>
+        <p class="forge-card-desc">
+          Browse restricted and illegal gear. Run the deal, calculate the price, and submit item requests for GM conversion.
+        </p>
+        <div class="forge-card-action forge-card-action--red">
+          <span>Enter at Your Own Risk</span>
+          <span>&rarr;</span>
+        </div>
+      </a>
+    </div>
+  </main>
+
+  <footer class="forge-footer">
+    Edge of the Empire &mdash; Campaign System
+  </footer>
+
+  <div id="modal-overlay" class="forge-modal-overlay">
+    <div class="forge-modal">
+      <div class="forge-modal-header">
+        <h2 class="forge-modal-title">Join the Crew</h2>
+        <button id="modal-close" class="forge-modal-close">Close</button>
+      </div>
+      <div id="character-list" class="crew-grid">
+        <p style="font-size:0.7rem;color:#7a7068;">Loading crew manifest&hellip;</p>
+      </div>
+      <hr class="forge-modal-divider" />
+      <button id="btn-create-character" class="forge-modal-create-btn">
+        <span>Create a Character</span>
+        <span class="forge-modal-create-plus">&plus;</span>
+      </button>
+      <p id="modal-error" class="forge-modal-error"></p>
+      <div class="forge-modal-dev">
+        <span class="forge-modal-dev-label">Dev</span>
+        <button id="admin-release-all" class="forge-modal-dev-btn">Release All</button>
+        <span id="admin-release-msg" class="forge-modal-dev-msg"></span>
       </div>
     </div>
   </div>

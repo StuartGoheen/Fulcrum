@@ -14,10 +14,12 @@ A Star Wars TTRPG electronic character sheet and campaign management system buil
 The app uses a passcode-based gate (cookie auth) to restrict access:
 - **PLAYER_PASSCODE** (env secret) — grants `player` role; can access everything except Command Bridge (`/gm/`)
 - **GM_PASSCODE** (env secret) — grants `gm` role; full access to all routes including Command Bridge
-- Login page at `/login` (themed Access Terminal)
+- Login page at `/login` ("Beskar Forge" theme — self-contained dark gunmetal styling, Fulcrum logo, floating sparks, scan lines)
+- Landing page at `/` ("Beskar Forge" theme — matching dark forge aesthetic, Fulcrum logo in header + hero, durasteel card panels with per-role accent colors: gold/crew, purple/GM, red/market). Self-contained CSS, divorced from campaign themes.
 - Auth cookie is signed, httpOnly, 30-day TTL
 - Logout button in the landing page header
 - Server files: `server/auth.js` (middleware + routes), login UI at `public/login.html`
+- Static path whitelist in auth gate: `/css/`, `/assets/`, `/js/`, `/data/`, `/images/`, `/audio/`, `/icon.svg`, `/favicon.ico`
 
 ## Project Structure
 

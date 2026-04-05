@@ -26,32 +26,30 @@
   }
 
   function showModal() {
-    const overlay = document.getElementById('modal-overlay');
-    overlay.classList.remove('hidden');
-    overlay.classList.add('flex');
+    var overlay = document.getElementById('modal-overlay');
+    overlay.classList.add('is-visible');
     loadCharacters();
   }
 
   function hideModal() {
-    const overlay = document.getElementById('modal-overlay');
-    overlay.classList.add('hidden');
-    overlay.classList.remove('flex');
+    var overlay = document.getElementById('modal-overlay');
+    overlay.classList.remove('is-visible');
   }
 
   function showError(message) {
-    const el = document.getElementById('modal-error');
+    var el = document.getElementById('modal-error');
     el.textContent = message;
-    el.classList.remove('hidden');
+    el.style.display = 'block';
   }
 
   function hideError() {
-    const el = document.getElementById('modal-error');
-    el.classList.add('hidden');
+    var el = document.getElementById('modal-error');
+    el.style.display = 'none';
   }
 
   function loadCharacters() {
-    const list = document.getElementById('character-list');
-    list.innerHTML = '<p class="text-xs" style="color:var(--color-text-secondary);">Loading crew manifest&hellip;</p>';
+    var list = document.getElementById('character-list');
+    list.innerHTML = '<p style="font-size:0.7rem;color:#7a7068;">Loading crew manifest&hellip;</p>';
     hideError();
 
     fetch('/api/characters')
@@ -68,49 +66,46 @@
     list.innerHTML = '';
 
     if (!characters || characters.length === 0) {
-      list.innerHTML = '<p class="text-xs" style="color:var(--color-text-secondary);">No characters found — create one below.</p>';
+      list.innerHTML = '<p style="font-size:0.7rem;color:#7a7068;">No characters found — create one below.</p>';
       return;
     }
 
-    characters.filter(c => c.name).forEach((char) => {
-      const card = document.createElement('div');
+    characters.filter(function(c) { return c.name; }).forEach(function(char) {
+      var card = document.createElement('div');
       card.className = 'crew-card';
-      card.style.cssText = 'background:var(--color-bg-frame);border:1px solid var(--color-border);padding:0.5rem 0.6rem;display:flex;flex-direction:column;gap:0.2rem;' + (char.is_connected ? 'opacity:0.45;' : '');
+      card.style.cssText = 'background:#252528;border:1px solid #3a3632;padding:0.5rem 0.6rem;display:flex;flex-direction:column;gap:0.2rem;' + (char.is_connected ? 'opacity:0.45;' : '');
 
-      const nameLine = document.createElement('div');
-      nameLine.className = 'text-xs font-medium tracking-wide';
-      nameLine.style.cssText = 'color:var(--color-text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;';
+      var nameLine = document.createElement('div');
+      nameLine.style.cssText = 'font-size:0.72rem;font-weight:500;letter-spacing:0.04em;color:#d4c5a0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;';
       nameLine.textContent = char.name;
       card.appendChild(nameLine);
 
       if (char.species || char.archetype) {
-        const metaLine = document.createElement('div');
-        metaLine.style.cssText = 'font-size:0.6rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-text-secondary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;';
-        const parts = [char.species, char.archetype].filter(Boolean);
+        var metaLine = document.createElement('div');
+        metaLine.style.cssText = 'font-size:0.6rem;letter-spacing:0.06em;text-transform:uppercase;color:#7a7068;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;';
+        var parts = [char.species, char.archetype].filter(Boolean);
         metaLine.textContent = parts.join(' — ');
         card.appendChild(metaLine);
       }
 
       if (char.is_connected) {
-        const tag = document.createElement('div');
-        tag.style.cssText = 'font-size:0.6rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-accent-secondary);margin-top:0.15rem;';
+        var tag = document.createElement('div');
+        tag.style.cssText = 'font-size:0.6rem;letter-spacing:0.06em;text-transform:uppercase;color:#a064dc;margin-top:0.15rem;';
         tag.textContent = 'In Session';
         card.appendChild(tag);
       } else {
-        const btnRow = document.createElement('div');
+        var btnRow = document.createElement('div');
         btnRow.style.cssText = 'display:flex;gap:0.35rem;margin-top:0.25rem;';
 
-        const loadBtn = document.createElement('button');
-        loadBtn.className = 'text-xs tracking-wider font-medium';
-        loadBtn.style.cssText = 'flex:1;padding:0.2rem 0;background:transparent;border:1px solid var(--color-accent-primary);color:var(--color-accent-primary);cursor:pointer;';
+        var loadBtn = document.createElement('button');
+        loadBtn.style.cssText = 'flex:1;padding:0.2rem 0;font-family:Exo 2,sans-serif;font-size:0.6rem;font-weight:600;letter-spacing:0.08em;background:transparent;border:1px solid #c8a44e;color:#c8a44e;cursor:pointer;transition:background 0.2s;';
         loadBtn.textContent = 'Load';
-        loadBtn.addEventListener('click', () => joinAsPlayer(char.id, char.name));
+        loadBtn.addEventListener('click', function() { joinAsPlayer(char.id, char.name); });
 
-        const editBtn = document.createElement('button');
-        editBtn.className = 'text-xs tracking-wider font-medium';
-        editBtn.style.cssText = 'flex:1;padding:0.2rem 0;background:transparent;border:1px solid var(--color-border);color:var(--color-text-secondary);cursor:pointer;';
+        var editBtn = document.createElement('button');
+        editBtn.style.cssText = 'flex:1;padding:0.2rem 0;font-family:Exo 2,sans-serif;font-size:0.6rem;font-weight:600;letter-spacing:0.08em;background:transparent;border:1px solid #3a3632;color:#7a7068;cursor:pointer;transition:border-color 0.2s,color 0.2s;';
         editBtn.textContent = 'Edit';
-        editBtn.addEventListener('click', () => {
+        editBtn.addEventListener('click', function() {
           window.location.href = '/create/?edit=' + encodeURIComponent(char.id);
         });
 
