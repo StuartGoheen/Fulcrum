@@ -597,6 +597,36 @@
   var _openPanels = {};
   var _panelZCounter = 121;
 
+  function _panelTypeKey(panelId) {
+    if (panelId.indexOf('lore-') === 0) return 'lore';
+    if (panelId === 'assess-guide') return 'assess-guide';
+    return panelId;
+  }
+
+  function _loadPanelGeometry(panelId) {
+    try {
+      var store = JSON.parse(localStorage.getItem('cb_panel_geo') || '{}');
+      return store[_panelTypeKey(panelId)] || null;
+    } catch (e) { return null; }
+  }
+
+  function _savePanelGeometry(panelId, geo) {
+    try {
+      var store = JSON.parse(localStorage.getItem('cb_panel_geo') || '{}');
+      store[_panelTypeKey(panelId)] = geo;
+      localStorage.setItem('cb_panel_geo', JSON.stringify(store));
+    } catch (e) { /* ignore */ }
+  }
+
+  function _captureAndSaveGeo(panel, panelId) {
+    _savePanelGeometry(panelId, {
+      x: panel.offsetLeft,
+      y: panel.offsetTop,
+      w: panel.offsetWidth,
+      h: panel.offsetHeight
+    });
+  }
+
   function _buildReadAloudHtml(scene) {
     var h = '';
     if (scene.readAloudPart1 && scene.readAloudPart2) {
@@ -808,14 +838,22 @@
     var panel = document.createElement('div');
     panel.className = 'cb-floating-panel';
     panel.id = 'fp-' + panelId;
+    panel.dataset.panelKey = panelId;
     panel.style.zIndex = ++_panelZCounter;
 
-    var w = opts.width || 480;
-    var h = opts.height || 400;
-    var centerX = Math.max(40, Math.round((window.innerWidth - w) / 2) + (Object.keys(_openPanels).length - 1) * 24);
-    var centerY = Math.max(60, Math.round((window.innerHeight - h) / 2) + (Object.keys(_openPanels).length - 1) * 24);
-    panel.style.left = centerX + 'px';
-    panel.style.top = centerY + 'px';
+    var saved = _loadPanelGeometry(panelId);
+    var w = saved ? saved.w : (opts.width || 480);
+    var h = saved ? saved.h : (opts.height || 400);
+    var posX, posY;
+    if (saved) {
+      posX = Math.max(0, Math.min(saved.x, window.innerWidth - 100));
+      posY = Math.max(0, Math.min(saved.y, window.innerHeight - 60));
+    } else {
+      posX = Math.max(40, Math.round((window.innerWidth - w) / 2) + (Object.keys(_openPanels).length - 1) * 24);
+      posY = Math.max(60, Math.round((window.innerHeight - h) / 2) + (Object.keys(_openPanels).length - 1) * 24);
+    }
+    panel.style.left = posX + 'px';
+    panel.style.top = posY + 'px';
     panel.style.width = w + 'px';
     panel.style.height = h + 'px';
 
@@ -837,6 +875,7 @@
     });
 
     _initPanelDrag(panel);
+    _initPanelResizeObserver(panel);
     _bindPanelContent(panel, panelId);
   }
 
@@ -856,6 +895,7 @@
 
   function _initPanelDrag(panel) {
     var titlebar = panel.querySelector('.cb-fpanel-titlebar');
+    var panelId = panel.dataset.panelKey;
     var startX, startY, origLeft, origTop;
     function onStart(x, y) {
       startX = x;
@@ -866,6 +906,9 @@
     function onMove(x, y) {
       panel.style.left = Math.max(0, origLeft + x - startX) + 'px';
       panel.style.top = Math.max(0, origTop + y - startY) + 'px';
+    }
+    function onEnd() {
+      if (panelId) _captureAndSaveGeo(panel, panelId);
     }
     titlebar.addEventListener('mousedown', function (e) {
       if (e.target.closest('.cb-fpanel-close')) return;
@@ -878,6 +921,7 @@
     function mup() {
       document.removeEventListener('mousemove', mmove);
       document.removeEventListener('mouseup', mup);
+      onEnd();
     }
     titlebar.addEventListener('touchstart', function (e) {
       if (e.target.closest('.cb-fpanel-close')) return;
@@ -894,7 +938,21 @@
     function tend() {
       document.removeEventListener('touchmove', tmove);
       document.removeEventListener('touchend', tend);
+      onEnd();
     }
+  }
+
+  function _initPanelResizeObserver(panel) {
+    var panelId = panel.dataset.panelKey;
+    if (!panelId) return;
+    var debounceTimer = null;
+    var ro = new ResizeObserver(function () {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(function () {
+        _captureAndSaveGeo(panel, panelId);
+      }, 300);
+    });
+    ro.observe(panel);
   }
 
   function _bindPanelContent(panel, panelId) {
