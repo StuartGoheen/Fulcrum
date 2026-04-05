@@ -118,10 +118,13 @@ router.post('/inventory/:charId/sell', async (req, res) => {
                      : itemType === 'armor'  ? data.inventoryRemovals.armor
                      : data.inventoryRemovals.gear;
 
-    if (!ownedIds.includes(itemId)) {
+    const ownedCount = ownedIds.filter(id => id === itemId).length;
+    const removedCount = removedIds.filter(id => id === itemId).length;
+
+    if (ownedCount === 0) {
       return res.status(400).json({ error: 'Character does not own this item.' });
     }
-    if (removedIds.includes(itemId)) {
+    if (removedCount >= ownedCount) {
       return res.status(400).json({ error: 'Item has already been removed.' });
     }
 
