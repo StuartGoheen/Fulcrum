@@ -130,6 +130,7 @@
   function selectAdventure(advId) {
     var adv = getAdventure(advId);
     if (!adv || !(adv.parts || []).length) return;
+    closeAllFloatingPanels();
     currentAdventure = advId;
     currentPart = adv.parts[0].id;
     var firstScene = (adv.parts[0].scenes || [])[0];
@@ -174,6 +175,7 @@
     var adv = getAdventure(currentAdventure);
     var part = getPart(adv, partId);
     if (!part) return;
+    closeAllFloatingPanels();
     currentPart = partId;
     var firstScene = (part.scenes || [])[0];
     currentScene = firstScene ? firstScene.id : null;
@@ -230,6 +232,7 @@
     var next = idx + dir;
     if (next < 0 || next >= scenes.length) return;
     currentScene = scenes[next].id;
+    closeAllFloatingPanels();
     renderScene();
     renderSceneCounter();
     saveProgress();
@@ -597,293 +600,330 @@
     });
   }
 
-  function renderScene() {
-    if (window.CombatTracker && window.CombatTracker.isActive() && currentScene !== _lastRenderedScene) {
-      window.CombatTracker.end();
-    }
-    _lastRenderedScene = currentScene;
-    var container = document.getElementById('scene-carousel');
-    if (!container) return;
-    var adv = getAdventure(currentAdventure);
-    var part = adv ? getPart(adv, currentPart) : null;
-    var scene = part ? getScene(part, currentScene) : null;
+  var _openPanels = {};
+  var _panelZCounter = 121;
 
-    if (!scene) {
-      if (adv && part && !(part.scenes || []).length) {
-        container.innerHTML = '<div class="cb-empty-scene"><h3>' + esc(adv.title) + ' — Part ' + part.number + ': ' + esc(part.title) + '</h3><p>Scene content for this part is coming soon.</p></div>';
-      } else {
-        container.innerHTML = '<div class="cb-empty-scene"><p>Select a scene to begin.</p></div>';
-      }
-      return;
-    }
-
-    var comp = completionsData[scene.id];
-    var isDone = comp && comp.completed;
-    var scenes = getAllScenes();
-    var idx = currentSceneIndex();
-
-    var html = '';
-
-    html += '<div class="cb-scene-header">';
-    html += '<h2>Scene ' + scene.number + ': ' + esc(scene.title) + '</h2>';
-    if (scene.subtitle) html += '<div class="cb-scene-subtitle">' + esc(scene.subtitle) + '</div>';
-    if (scene.id === 'adv1-p1-s1') {
-      html += '<div class="assess-controls-row" id="assess-controls-row">';
-      html += '<button class="assess-guide-btn" id="assess-guide-btn">&#9733; GM Reference</button>';
-      html += '<button class="assess-guide-btn assess-tutorial-start" id="tutorial-start-btn">&#9656; Start Player Tutorial</button>';
-      html += '<button class="assess-guide-btn assess-tutorial-advance hidden" id="tutorial-advance-btn">&#9656;&#9656; Next Phase</button>';
-      html += '<button class="assess-guide-btn assess-tutorial-end hidden" id="tutorial-end-btn">&#9632; End Tutorial</button>';
-      html += '<span class="assess-tutorial-status hidden" id="tutorial-status"></span>';
-      html += '</div>';
-    }
-    html += '</div>';
-
+  function _buildReadAloudHtml(scene) {
+    var h = '';
     if (scene.readAloudPart1 && scene.readAloudPart2) {
-      html += '<div class="cb-read-aloud cb-collapsible collapsed">';
-      html += '<div class="cb-section-label cb-collapse-toggle"><span class="cb-collapse-chevron">&#9654;</span> Read-Aloud — Part 1</div>';
-      html += '<div class="cb-collapse-body"><div class="cb-read-aloud-text">' + linkify(scene.readAloudPart1) + '</div>';
+      h += '<div class="cb-read-aloud" style="margin-bottom:0.75rem;">';
+      h += '<div class="cb-section-label">Read-Aloud — Part 1</div>';
+      h += '<div class="cb-read-aloud-text">' + linkify(scene.readAloudPart1) + '</div>';
       if (scene.readAloudPart1PauseNote) {
-        html += '<div class="cb-pause-note" style="margin-top:12px;padding:10px 14px;background:rgba(245,158,11,0.12);border-left:3px solid #f59e0b;border-radius:4px;color:#f59e0b;font-size:0.85rem;font-style:italic;">' + scene.readAloudPart1PauseNote + '</div>';
+        h += '<div class="cb-pause-note" style="margin-top:12px;padding:10px 14px;background:rgba(245,158,11,0.12);border-left:3px solid #f59e0b;border-radius:4px;color:#f59e0b;font-size:0.85rem;font-style:italic;">' + scene.readAloudPart1PauseNote + '</div>';
       }
-      html += '</div></div>';
-      html += '<div class="cb-read-aloud cb-collapsible collapsed" style="margin-top:6px;">';
-      html += '<div class="cb-section-label cb-collapse-toggle"><span class="cb-collapse-chevron">&#9654;</span> Read-Aloud — Part 2</div>';
-      html += '<div class="cb-collapse-body"><div class="cb-read-aloud-text">' + linkify(scene.readAloudPart2) + '</div></div>';
-      html += '</div>';
+      h += '</div>';
+      h += '<div class="cb-read-aloud" style="margin-top:6px;">';
+      h += '<div class="cb-section-label">Read-Aloud — Part 2</div>';
+      h += '<div class="cb-read-aloud-text">' + linkify(scene.readAloudPart2) + '</div>';
+      h += '</div>';
     } else if (scene.readAloud) {
-      html += '<div class="cb-read-aloud cb-collapsible collapsed">';
-      html += '<div class="cb-section-label cb-collapse-toggle"><span class="cb-collapse-chevron">&#9654;</span> Player Read-Aloud</div>';
-      html += '<div class="cb-collapse-body"><div class="cb-read-aloud-text">' + linkify(scene.readAloud) + '</div></div>';
-      html += '</div>';
+      h += '<div class="cb-read-aloud">';
+      h += '<div class="cb-section-label">Player Read-Aloud</div>';
+      h += '<div class="cb-read-aloud-text">' + linkify(scene.readAloud) + '</div>';
+      h += '</div>';
     }
+    return h;
+  }
 
-    if (scene.gmNotes) {
-      html += '<div class="cb-gm-notes cb-collapsible collapsed">';
-      html += '<div class="cb-section-label cb-collapse-toggle"><span class="cb-collapse-chevron">&#9654;</span> GM Notes</div>';
-      html += '<div class="cb-collapse-body"><div>' + linkify(scene.gmNotes) + '</div></div>';
-      html += '</div>';
-    }
+  function _buildGmNotesHtml(scene) {
+    if (!scene.gmNotes) return '';
+    return '<div class="cb-gm-notes"><div class="cb-section-label">GM Notes</div><div>' + linkify(scene.gmNotes) + '</div></div>';
+  }
 
+  function _buildNpcRosterHtml(scene) {
     var sceneNpcs = getSceneNpcs();
-    html += '<div class="cb-card" id="cb-npc-roster-card">';
-    html += '<div class="cb-section-label" style="display:flex;align-items:center;justify-content:space-between;">';
-    html += '<span>NPC Roster</span>';
-    html += '<button class="cb-add-npc-btn" id="cb-add-npc-btn">+ NPC</button>';
-    html += '</div>';
-    html += '<div id="cb-add-npc-panel" class="cb-add-npc-panel" style="display:none;"></div>';
+    var h = '<div class="cb-card" id="cb-npc-roster-card">';
+    h += '<div class="cb-section-label" style="display:flex;align-items:center;justify-content:space-between;">';
+    h += '<span>NPC Roster</span>';
+    h += '<button class="cb-add-npc-btn" id="cb-add-npc-btn">+ NPC</button>';
+    h += '</div>';
+    h += '<div id="cb-add-npc-panel" class="cb-add-npc-panel" style="display:none;"></div>';
     if (sceneNpcs.length) {
       var labels = buildNpcLabels(sceneNpcs);
-      html += '<div class="cb-npc-grid">';
+      h += '<div class="cb-npc-grid">';
       sceneNpcs.forEach(function (npc, idx) {
-        html += renderNpcCard(npc, idx, labels[idx]);
+        h += renderNpcCard(npc, idx, labels[idx]);
       });
-      html += '</div>';
+      h += '</div>';
     } else {
-      html += '<p class="cb-muted" style="font-style:italic;font-size:0.75rem;">No NPCs in this scene. Click "+ NPC" to add one.</p>';
+      h += '<p class="cb-muted" style="font-style:italic;font-size:0.75rem;">No NPCs in this scene. Click "+ NPC" to add one.</p>';
     }
-    html += '</div>';
+    h += '</div>';
+    return h;
+  }
 
-    if (scene.hazards) {
-      html += '<div class="cb-card">';
-      html += '<div class="cb-section-label">Hazards / Environment</div>';
-      html += '<div>' + linkify(scene.hazards) + '</div>';
-      html += '</div>';
-    }
-
-    if (scene.encounters && scene.encounters.length) {
-      html += '<div class="cb-card">';
-      html += '<div class="cb-section-label">Encounters</div>';
-      scene.encounters.forEach(function (enc) {
-        var typeColor = enc.type === 'combat' ? 'var(--color-danger,#ef4444)' : enc.type === 'social' ? 'var(--color-accent-secondary,#c084fc)' : enc.type === 'infiltration' ? '#818cf8' : 'var(--color-accent-primary)';
-        html += '<div style="margin-bottom:0.5rem;padding:0.4rem;border-left:3px solid ' + typeColor + ';background:rgba(0,0,0,0.15);border-radius:0 4px 4px 0;">';
-        html += '<div style="display:flex;align-items:center;gap:0.4rem;margin-bottom:0.2rem;"><strong style="color:var(--color-text-primary);font-size:0.8rem;">' + esc(enc.name) + '</strong><span style="font-size:0.6rem;padding:0.1rem 0.3rem;border-radius:3px;background:' + typeColor + ';color:#000;font-family:Audiowide,sans-serif;text-transform:uppercase;">' + esc(enc.type) + '</span></div>';
-        html += '<div style="font-size:0.7rem;color:var(--color-text-secondary);margin-bottom:0.15rem;"><strong>Trigger:</strong> ' + linkify(enc.trigger) + '</div>';
-        html += '<div style="font-size:0.7rem;color:var(--color-text-secondary);margin-bottom:0.15rem;">' + linkify(enc.description) + '</div>';
-        if (enc.tactics) html += '<div style="font-size:0.7rem;color:var(--color-accent-primary);"><strong>Tactics:</strong> ' + linkify(enc.tactics) + '</div>';
-        if (enc.composition) {
-          html += '<div style="font-size:0.65rem;margin-top:0.2rem;padding:0.25rem;background:rgba(0,0,0,0.1);border-radius:3px;">';
-          if (enc.composition.enemies) {
-            enc.composition.enemies.forEach(function(e) {
-              var threatColor = e.threat === 'rival' ? '#f59e0b' : e.threat === 'nemesis' ? '#ef4444' : 'var(--color-text-secondary)';
-              html += '<div><span style="color:' + threatColor + ';text-transform:uppercase;font-size:0.55rem;font-family:Audiowide,sans-serif;">' + esc(e.threat) + '</span> ' + esc(e.type) + ' x' + e.count + '</div>';
-            });
-          }
-          if (enc.composition.terrain) html += '<div style="color:var(--color-text-secondary);margin-top:0.1rem;"><strong>Terrain:</strong> ' + esc(enc.composition.terrain) + '</div>';
-          if (enc.composition.positioning) html += '<div style="color:var(--color-text-secondary);"><strong>Positioning:</strong> ' + esc(enc.composition.positioning) + '</div>';
-          html += '</div>';
-        }
-        if (enc.type === 'combat' && window.CombatTracker) {
-          html += '<button class="ct-start-encounter-btn" data-enc-idx="' + scene.encounters.indexOf(enc) + '">&#9876; Start Encounter</button>';
-        }
-        html += '</div>';
-      });
-      html += '</div>';
-    }
-
-    var dcList = (scene.disciplineChallenges && scene.disciplineChallenges.length) ? scene.disciplineChallenges : (scene.skillChecks || []);
-    if (dcList.length) {
-      html += '<div class="cb-card">';
-      html += '<div class="cb-section-label">Discipline Challenges</div>';
-      dcList.forEach(function (dc) {
-        var hasNewFormat = dc.actionType || dc.arena || dc.control || dc.effect;
-
-        html += '<div style="margin-bottom:0.6rem;padding:0.4rem 0.5rem;border-radius:4px;background:rgba(0,0,0,0.15);border-left:3px solid ' + (dc.actionType === 'assess' ? 'var(--color-accent-deep,#818cf8)' : 'var(--color-accent-primary,#00e5ff)') + ';">';
-
-        html += '<div style="display:flex;align-items:center;gap:0.4rem;margin-bottom:0.2rem;flex-wrap:wrap;">';
-        if (dc.actionType) {
-          var atColor = dc.actionType === 'assess' ? 'var(--color-accent-deep,#818cf8)' : 'var(--color-accent-primary,#00e5ff)';
-          html += '<span style="font-size:0.6rem;padding:0.1rem 0.3rem;border-radius:3px;background:' + atColor + ';color:#000;font-family:Audiowide,sans-serif;font-weight:bold;letter-spacing:0.05em;">' + esc(dc.actionType.toUpperCase()) + '</span>';
-        }
-        var discLabel = (dc.discipline || '').replace(/_/g, ' ');
-        var arenaLabel = dc.arena ? ' (' + dc.arena.charAt(0).toUpperCase() + dc.arena.slice(1) + ')' : '';
-        html += '<span style="font-size:0.75rem;color:var(--color-accent-primary);font-family:Audiowide,sans-serif;">' + esc(discLabel) + esc(arenaLabel) + '</span>';
-
-        if (dc.isOptional) html += '<span style="font-size:0.55rem;padding:0.05rem 0.2rem;border-radius:3px;background:rgba(255,255,255,0.15);color:var(--color-text-secondary);">OPTIONAL</span>';
-        if (dc.isGated) html += '<span style="font-size:0.55rem;padding:0.05rem 0.2rem;border-radius:3px;background:rgba(239,68,68,0.2);color:var(--color-warn,#f97316);">GATED</span>';
-        html += '</div>';
-
-        if (dc.target || dc.resist != null || dc.risk != null) {
-          html += '<div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.15rem;font-size:0.65rem;">';
-          if (dc.target) html += '<span style="color:var(--color-text-secondary);">vs <strong style="color:var(--color-text-primary);">' + esc(dc.target) + '</strong></span>';
-          if (dc.resist != null) html += '<span style="color:var(--color-warn,#f97316);">Resist ' + dc.resist + '</span>';
-          if (dc.risk != null) html += '<span style="color:var(--color-warn,#eab308);">Risk ' + dc.risk + '</span>';
-          html += '</div>';
-        }
-
-        if (dc.isGated) html += '<div style="font-size:0.6rem;color:var(--color-warn,#f97316);font-style:italic;margin-bottom:0.1rem;">&#128274; ' + esc(dc.isGated) + '</div>';
-
-        html += '<div style="font-size:0.7rem;color:var(--color-text-secondary);margin-bottom:0.15rem;">' + linkify(dc.context) + '</div>';
-
-        if (dc.narrativePacing) {
-          html += '<div style="font-size:0.6rem;color:var(--color-force,#a78bfa);font-style:italic;margin-bottom:0.15rem;">&#9654; ' + esc(dc.narrativePacing) + '</div>';
-        }
-
-        if (hasNewFormat && dc.control) {
-          html += '<div style="margin-top:0.15rem;padding:0.2rem 0.3rem;border-radius:3px;background:rgba(0,0,0,0.15);">';
-          html += '<div style="font-size:0.55rem;color:var(--color-text-secondary);font-family:Audiowide,sans-serif;margin-bottom:0.1rem;letter-spacing:0.05em;">CONTROL</div>';
-          if (dc.control.failure) html += '<div style="font-size:0.65rem;color:var(--color-fail,#ef4444);margin-bottom:0.05rem;">&#10007; <strong>Fail:</strong> ' + linkify(dc.control.failure) + '</div>';
-          if (dc.control.success) html += '<div style="font-size:0.65rem;color:var(--color-success,#22c55e);margin-bottom:0.05rem;">&#10003; <strong>Success:</strong> ' + linkify(dc.control.success) + '</div>';
-          if (dc.control.mastery) html += '<div style="font-size:0.65rem;color:var(--color-warn,#fbbf24);margin-bottom:0.05rem;">&#9733; <strong>Mastery:</strong> ' + linkify(dc.control.mastery) + '</div>';
-          html += '</div>';
-        } else if (!hasNewFormat) {
-          if (dc.success) html += '<div style="font-size:0.65rem;color:var(--color-success,#22c55e);">&#10003; ' + linkify(dc.success) + '</div>';
-          if (dc.failure) html += '<div style="font-size:0.65rem;color:var(--color-fail,#ef4444);">&#10007; ' + linkify(dc.failure) + '</div>';
-        }
-
-        if (hasNewFormat && dc.effect) {
-          html += '<div style="margin-top:0.15rem;padding:0.2rem 0.3rem;border-radius:3px;background:rgba(0,0,0,0.1);">';
-          html += '<div style="font-size:0.55rem;color:var(--color-text-secondary);font-family:Audiowide,sans-serif;margin-bottom:0.1rem;letter-spacing:0.05em;">EFFECT TIERS</div>';
-          var tierColors = { fleeting: '#6b7280', masterful: '#3b82f6', legendary: '#a855f7', unleashed: '#f59e0b' };
-          ['fleeting', 'masterful', 'legendary', 'unleashed'].forEach(function (tier) {
-            if (dc.effect[tier]) {
-              var tColor = tierColors[tier] || '#6b7280';
-              html += '<div style="font-size:0.65rem;margin-bottom:0.05rem;"><span style="color:' + tColor + ';font-weight:bold;">' + tier.charAt(0).toUpperCase() + tier.slice(1) + ':</span> <span style="color:var(--color-text-secondary);">' + linkify(dc.effect[tier]) + '</span></div>';
-            }
+  function _buildEncountersHtml(scene) {
+    if (!scene.encounters || !scene.encounters.length) return '';
+    var h = '<div class="cb-card">';
+    h += '<div class="cb-section-label">Encounters</div>';
+    scene.encounters.forEach(function (enc) {
+      var typeColor = enc.type === 'combat' ? 'var(--color-danger,#ef4444)' : enc.type === 'social' ? 'var(--color-accent-secondary,#c084fc)' : enc.type === 'infiltration' ? '#818cf8' : 'var(--color-accent-primary)';
+      h += '<div style="margin-bottom:0.5rem;padding:0.4rem;border-left:3px solid ' + typeColor + ';background:rgba(0,0,0,0.15);border-radius:0 4px 4px 0;">';
+      h += '<div style="display:flex;align-items:center;gap:0.4rem;margin-bottom:0.2rem;"><strong style="color:var(--color-text-primary);font-size:0.8rem;">' + esc(enc.name) + '</strong><span style="font-size:0.6rem;padding:0.1rem 0.3rem;border-radius:3px;background:' + typeColor + ';color:#000;font-family:Audiowide,sans-serif;text-transform:uppercase;">' + esc(enc.type) + '</span></div>';
+      h += '<div style="font-size:0.7rem;color:var(--color-text-secondary);margin-bottom:0.15rem;"><strong>Trigger:</strong> ' + linkify(enc.trigger) + '</div>';
+      h += '<div style="font-size:0.7rem;color:var(--color-text-secondary);margin-bottom:0.15rem;">' + linkify(enc.description) + '</div>';
+      if (enc.tactics) h += '<div style="font-size:0.7rem;color:var(--color-accent-primary);"><strong>Tactics:</strong> ' + linkify(enc.tactics) + '</div>';
+      if (enc.composition) {
+        h += '<div style="font-size:0.65rem;margin-top:0.2rem;padding:0.25rem;background:rgba(0,0,0,0.1);border-radius:3px;">';
+        if (enc.composition.enemies) {
+          enc.composition.enemies.forEach(function(e) {
+            var threatColor = e.threat === 'rival' ? '#f59e0b' : e.threat === 'nemesis' ? '#ef4444' : 'var(--color-text-secondary)';
+            h += '<div><span style="color:' + threatColor + ';text-transform:uppercase;font-size:0.55rem;font-family:Audiowide,sans-serif;">' + esc(e.threat) + '</span> ' + esc(e.type) + ' x' + e.count + '</div>';
           });
-          html += '</div>';
         }
-
-        html += '</div>';
-      });
-      html += '</div>';
-    }
-
-    if (scene.environmentMechanics && scene.environmentMechanics.length) {
-      html += '<div class="cb-card">';
-      html += '<div class="cb-section-label">Environment Mechanics</div>';
-      scene.environmentMechanics.forEach(function (em) {
-        html += '<div style="margin-bottom:0.4rem;padding:0.3rem 0.4rem;border-left:2px solid var(--color-accent-deep,#818cf8);border-radius:0 4px 4px 0;background:rgba(0,0,0,0.1);">';
-        html += '<div style="font-size:0.8rem;color:var(--color-text-primary);font-weight:bold;margin-bottom:0.1rem;">' + esc(em.name) + '</div>';
-        html += '<div style="font-size:0.7rem;color:var(--color-text-secondary);margin-bottom:0.1rem;"><strong>Trigger:</strong> ' + linkify(em.trigger) + '</div>';
-        html += '<div style="font-size:0.7rem;color:var(--color-text-secondary);margin-bottom:0.1rem;"><strong>Effect:</strong> ' + linkify(em.effect) + '</div>';
-        html += '<div style="font-size:0.7rem;color:var(--color-accent-primary);"><strong>Mitigation:</strong> ' + linkify(em.mitigation) + '</div>';
-        html += '</div>';
-      });
-      html += '</div>';
-    }
-
-    if (scene.rewards) {
-      var r = scene.rewards;
-      var hasRewardContent = r.credits || (r.items && r.items.length) || (r.intel && r.intel.length) || (r.connections && r.connections.length);
-      if (hasRewardContent) {
-        html += '<div class="cb-card">';
-        html += '<div class="cb-section-label">Rewards</div>';
-        if (r.credits) html += '<div style="font-size:0.7rem;color:var(--color-accent-primary);margin-bottom:0.15rem;">&#9670; Credits: ' + r.credits + '</div>';
-        if (r.items && r.items.length) html += '<div style="font-size:0.7rem;color:var(--color-text-secondary);margin-bottom:0.15rem;">&#9670; Items: ' + r.items.map(function(i){return esc(i);}).join(', ') + '</div>';
-        if (r.intel && r.intel.length) {
-          html += '<div style="font-size:0.7rem;color:#f59e0b;margin-bottom:0.15rem;">&#9670; Intel:</div>';
-          r.intel.forEach(function(i){ html += '<div style="font-size:0.65rem;color:var(--color-text-secondary);padding-left:0.8rem;">• ' + linkify(i) + '</div>'; });
-        }
-        if (r.connections && r.connections.length) html += '<div style="font-size:0.7rem;color:var(--color-accent-secondary,#c084fc);margin-bottom:0.15rem;">&#9670; Connections: ' + r.connections.map(function(c){return esc(c);}).join(', ') + '</div>';
-        html += '</div>';
+        if (enc.composition.terrain) h += '<div style="color:var(--color-text-secondary);margin-top:0.1rem;"><strong>Terrain:</strong> ' + esc(enc.composition.terrain) + '</div>';
+        if (enc.composition.positioning) h += '<div style="color:var(--color-text-secondary);"><strong>Positioning:</strong> ' + esc(enc.composition.positioning) + '</div>';
+        h += '</div>';
       }
-    }
-
-    if (scene.pacing) {
-      var p = scene.pacing;
-      html += '<div class="cb-card">';
-      html += '<div class="cb-section-label">Pacing Guide' + (p.estimatedMinutes ? ' (~' + p.estimatedMinutes + ' min)' : '') + '</div>';
-      if (p.openingBeat) html += '<div style="font-size:0.7rem;margin-bottom:0.15rem;"><span style="color:var(--color-accent-primary);font-family:Audiowide,sans-serif;font-size:0.6rem;">OPENING</span> ' + linkify(p.openingBeat) + '</div>';
-      if (p.risingAction) html += '<div style="font-size:0.7rem;margin-bottom:0.15rem;"><span style="color:#eab308;font-family:Audiowide,sans-serif;font-size:0.6rem;">RISING</span> ' + linkify(p.risingAction) + '</div>';
-      if (p.climax) html += '<div style="font-size:0.7rem;margin-bottom:0.15rem;"><span style="color:var(--color-danger,#ef4444);font-family:Audiowide,sans-serif;font-size:0.6rem;">CLIMAX</span> ' + linkify(p.climax) + '</div>';
-      if (p.resolution) html += '<div style="font-size:0.7rem;margin-bottom:0.15rem;"><span style="color:#22c55e;font-family:Audiowide,sans-serif;font-size:0.6rem;">RESOLUTION</span> ' + linkify(p.resolution) + '</div>';
-      html += '</div>';
-    }
-
-    if (scene.decisions && scene.decisions.length) {
-      html += '<div class="cb-card">';
-      html += '<div class="cb-section-label">Decision Points</div>';
-      scene.decisions.forEach(function (d) {
-        html += '<div class="cb-decision"><div class="cb-decision-choice">' + esc(d.choice) + '</div><div class="cb-decision-consequence">' + esc(d.consequence) + '</div></div>';
-      });
-      html += '</div>';
-    }
-
-    if (scene.loreTags && scene.loreTags.length) {
-      html += '<div class="cb-card">';
-      html += '<div class="cb-section-label">Lore Tags</div>';
-      html += '<div class="cb-lore-tags">';
-      scene.loreTags.forEach(function (tag) {
-        html += '<span class="cb-lore-tag" data-lore-tag="' + esc(tag) + '">' + esc(tag) + '</span>';
-      });
-      html += '</div></div>';
-    }
-
-    if (scene.narrativeLinks && scene.narrativeLinks.length) {
-      html += '<div class="cb-card">';
-      html += '<div class="cb-section-label">Narrative Links</div>';
-      scene.narrativeLinks.forEach(function (link) {
-        html += '<a class="cb-narrative-link" data-nav-scene="' + esc(link.targetScene) + '">&rarr; ' + esc(link.note) + '</a>';
-      });
-      html += '</div>';
-    }
-
-    html += '<div class="cb-scene-footer">';
-    html += '<button class="cb-complete-btn' + (isDone ? ' completed' : '') + '" data-scene="' + scene.id + '">' + (isDone ? '&#10003; Scene Complete' : '&#9675; Mark Scene Complete') + '</button>';
-    html += '<div class="cb-scene-nav-arrows">';
-    html += '<button class="cb-arrow-btn" id="scene-prev"' + (idx <= 0 ? ' disabled' : '') + '>&larr; Prev</button>';
-    html += '<button class="cb-arrow-btn" id="scene-next"' + (idx >= scenes.length - 1 ? ' disabled' : '') + '>Next &rarr;</button>';
-    html += '</div>';
-    html += '</div>';
-
-    container.innerHTML = html;
-
-    container.querySelectorAll('.cb-lore-tag').forEach(function (el) {
-      el.addEventListener('click', function () { openLoreModal(el.dataset.loreTag); });
+      if (enc.type === 'combat' && window.CombatTracker) {
+        h += '<button class="ct-start-encounter-btn" data-enc-idx="' + scene.encounters.indexOf(enc) + '">&#9876; Start Encounter</button>';
+      }
+      h += '</div>';
     });
-    container.querySelectorAll('.cb-narrative-link').forEach(function (el) {
-      el.addEventListener('click', function () { navigateToScene(el.dataset.navScene); });
+    h += '</div>';
+    return h;
+  }
+
+  function _buildChallengesHtml(scene) {
+    var dcList = (scene.disciplineChallenges && scene.disciplineChallenges.length) ? scene.disciplineChallenges : (scene.skillChecks || []);
+    if (!dcList.length) return '';
+    var h = '<div class="cb-card">';
+    h += '<div class="cb-section-label">Discipline Challenges</div>';
+    dcList.forEach(function (dc) {
+      var hasNewFormat = dc.actionType || dc.arena || dc.control || dc.effect;
+      h += '<div style="margin-bottom:0.6rem;padding:0.4rem 0.5rem;border-radius:4px;background:rgba(0,0,0,0.15);border-left:3px solid ' + (dc.actionType === 'assess' ? 'var(--color-accent-deep,#818cf8)' : 'var(--color-accent-primary,#00e5ff)') + ';">';
+      h += '<div style="display:flex;align-items:center;gap:0.4rem;margin-bottom:0.2rem;flex-wrap:wrap;">';
+      if (dc.actionType) {
+        var atColor = dc.actionType === 'assess' ? 'var(--color-accent-deep,#818cf8)' : 'var(--color-accent-primary,#00e5ff)';
+        h += '<span style="font-size:0.6rem;padding:0.1rem 0.3rem;border-radius:3px;background:' + atColor + ';color:#000;font-family:Audiowide,sans-serif;font-weight:bold;letter-spacing:0.05em;">' + esc(dc.actionType.toUpperCase()) + '</span>';
+      }
+      var discLabel = (dc.discipline || '').replace(/_/g, ' ');
+      var arenaLabel = dc.arena ? ' (' + dc.arena.charAt(0).toUpperCase() + dc.arena.slice(1) + ')' : '';
+      h += '<span style="font-size:0.75rem;color:var(--color-accent-primary);font-family:Audiowide,sans-serif;">' + esc(discLabel) + esc(arenaLabel) + '</span>';
+      if (dc.isOptional) h += '<span style="font-size:0.55rem;padding:0.05rem 0.2rem;border-radius:3px;background:rgba(255,255,255,0.15);color:var(--color-text-secondary);">OPTIONAL</span>';
+      if (dc.isGated) h += '<span style="font-size:0.55rem;padding:0.05rem 0.2rem;border-radius:3px;background:rgba(239,68,68,0.2);color:var(--color-warn,#f97316);">GATED</span>';
+      h += '</div>';
+      if (dc.target || dc.resist != null || dc.risk != null) {
+        h += '<div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.15rem;font-size:0.65rem;">';
+        if (dc.target) h += '<span style="color:var(--color-text-secondary);">vs <strong style="color:var(--color-text-primary);">' + esc(dc.target) + '</strong></span>';
+        if (dc.resist != null) h += '<span style="color:var(--color-warn,#f97316);">Resist ' + dc.resist + '</span>';
+        if (dc.risk != null) h += '<span style="color:var(--color-warn,#eab308);">Risk ' + dc.risk + '</span>';
+        h += '</div>';
+      }
+      if (dc.isGated) h += '<div style="font-size:0.6rem;color:var(--color-warn,#f97316);font-style:italic;margin-bottom:0.1rem;">&#128274; ' + esc(dc.isGated) + '</div>';
+      h += '<div style="font-size:0.7rem;color:var(--color-text-secondary);margin-bottom:0.15rem;">' + linkify(dc.context) + '</div>';
+      if (dc.narrativePacing) {
+        h += '<div style="font-size:0.6rem;color:var(--color-force,#a78bfa);font-style:italic;margin-bottom:0.15rem;">&#9654; ' + esc(dc.narrativePacing) + '</div>';
+      }
+      if (hasNewFormat && dc.control) {
+        h += '<div style="margin-top:0.15rem;padding:0.2rem 0.3rem;border-radius:3px;background:rgba(0,0,0,0.15);">';
+        h += '<div style="font-size:0.55rem;color:var(--color-text-secondary);font-family:Audiowide,sans-serif;margin-bottom:0.1rem;letter-spacing:0.05em;">CONTROL</div>';
+        if (dc.control.failure) h += '<div style="font-size:0.65rem;color:var(--color-fail,#ef4444);margin-bottom:0.05rem;">&#10007; <strong>Fail:</strong> ' + linkify(dc.control.failure) + '</div>';
+        if (dc.control.success) h += '<div style="font-size:0.65rem;color:var(--color-success,#22c55e);margin-bottom:0.05rem;">&#10003; <strong>Success:</strong> ' + linkify(dc.control.success) + '</div>';
+        if (dc.control.mastery) h += '<div style="font-size:0.65rem;color:var(--color-warn,#fbbf24);margin-bottom:0.05rem;">&#9733; <strong>Mastery:</strong> ' + linkify(dc.control.mastery) + '</div>';
+        h += '</div>';
+      } else if (!hasNewFormat) {
+        if (dc.success) h += '<div style="font-size:0.65rem;color:var(--color-success,#22c55e);">&#10003; ' + linkify(dc.success) + '</div>';
+        if (dc.failure) h += '<div style="font-size:0.65rem;color:var(--color-fail,#ef4444);">&#10007; ' + linkify(dc.failure) + '</div>';
+      }
+      if (hasNewFormat && dc.effect) {
+        h += '<div style="margin-top:0.15rem;padding:0.2rem 0.3rem;border-radius:3px;background:rgba(0,0,0,0.1);">';
+        h += '<div style="font-size:0.55rem;color:var(--color-text-secondary);font-family:Audiowide,sans-serif;margin-bottom:0.1rem;letter-spacing:0.05em;">EFFECT TIERS</div>';
+        var tierColors = { fleeting: '#6b7280', masterful: '#3b82f6', legendary: '#a855f7', unleashed: '#f59e0b' };
+        ['fleeting', 'masterful', 'legendary', 'unleashed'].forEach(function (tier) {
+          if (dc.effect[tier]) {
+            var tColor = tierColors[tier] || '#6b7280';
+            h += '<div style="font-size:0.65rem;margin-bottom:0.05rem;"><span style="color:' + tColor + ';font-weight:bold;">' + tier.charAt(0).toUpperCase() + tier.slice(1) + ':</span> <span style="color:var(--color-text-secondary);">' + linkify(dc.effect[tier]) + '</span></div>';
+          }
+        });
+        h += '</div>';
+      }
+      h += '</div>';
     });
-    container.querySelectorAll('.cb-condition-link').forEach(function (el) {
+    h += '</div>';
+    return h;
+  }
+
+  function _buildEnvironmentHtml(scene) {
+    var h = '';
+    if (scene.hazards) {
+      h += '<div class="cb-card">';
+      h += '<div class="cb-section-label">Hazards / Environment</div>';
+      h += '<div>' + linkify(scene.hazards) + '</div>';
+      h += '</div>';
+    }
+    if (scene.environmentMechanics && scene.environmentMechanics.length) {
+      h += '<div class="cb-card">';
+      h += '<div class="cb-section-label">Environment Mechanics</div>';
+      scene.environmentMechanics.forEach(function (em) {
+        h += '<div style="margin-bottom:0.4rem;padding:0.3rem 0.4rem;border-left:2px solid var(--color-accent-deep,#818cf8);border-radius:0 4px 4px 0;background:rgba(0,0,0,0.1);">';
+        h += '<div style="font-size:0.8rem;color:var(--color-text-primary);font-weight:bold;margin-bottom:0.1rem;">' + esc(em.name) + '</div>';
+        h += '<div style="font-size:0.7rem;color:var(--color-text-secondary);margin-bottom:0.1rem;"><strong>Trigger:</strong> ' + linkify(em.trigger) + '</div>';
+        h += '<div style="font-size:0.7rem;color:var(--color-text-secondary);margin-bottom:0.1rem;"><strong>Effect:</strong> ' + linkify(em.effect) + '</div>';
+        h += '<div style="font-size:0.7rem;color:var(--color-accent-primary);"><strong>Mitigation:</strong> ' + linkify(em.mitigation) + '</div>';
+        h += '</div>';
+      });
+      h += '</div>';
+    }
+    return h;
+  }
+
+  function _buildRewardsHtml(scene) {
+    if (!scene.rewards) return '';
+    var r = scene.rewards;
+    var hasRewardContent = r.credits || (r.items && r.items.length) || (r.intel && r.intel.length) || (r.connections && r.connections.length);
+    if (!hasRewardContent) return '';
+    var h = '<div class="cb-card">';
+    h += '<div class="cb-section-label">Rewards</div>';
+    if (r.credits) h += '<div style="font-size:0.7rem;color:var(--color-accent-primary);margin-bottom:0.15rem;">&#9670; Credits: ' + r.credits + '</div>';
+    if (r.items && r.items.length) h += '<div style="font-size:0.7rem;color:var(--color-text-secondary);margin-bottom:0.15rem;">&#9670; Items: ' + r.items.map(function(i){return esc(i);}).join(', ') + '</div>';
+    if (r.intel && r.intel.length) {
+      h += '<div style="font-size:0.7rem;color:#f59e0b;margin-bottom:0.15rem;">&#9670; Intel:</div>';
+      r.intel.forEach(function(i){ h += '<div style="font-size:0.65rem;color:var(--color-text-secondary);padding-left:0.8rem;">• ' + linkify(i) + '</div>'; });
+    }
+    if (r.connections && r.connections.length) h += '<div style="font-size:0.7rem;color:var(--color-accent-secondary,#c084fc);margin-bottom:0.15rem;">&#9670; Connections: ' + r.connections.map(function(c){return esc(c);}).join(', ') + '</div>';
+    h += '</div>';
+    return h;
+  }
+
+  function _buildPacingHtml(scene) {
+    if (!scene.pacing) return '';
+    var p = scene.pacing;
+    var h = '<div class="cb-card">';
+    h += '<div class="cb-section-label">Pacing Guide' + (p.estimatedMinutes ? ' (~' + p.estimatedMinutes + ' min)' : '') + '</div>';
+    if (p.openingBeat) h += '<div style="font-size:0.7rem;margin-bottom:0.15rem;"><span style="color:var(--color-accent-primary);font-family:Audiowide,sans-serif;font-size:0.6rem;">OPENING</span> ' + linkify(p.openingBeat) + '</div>';
+    if (p.risingAction) h += '<div style="font-size:0.7rem;margin-bottom:0.15rem;"><span style="color:#eab308;font-family:Audiowide,sans-serif;font-size:0.6rem;">RISING</span> ' + linkify(p.risingAction) + '</div>';
+    if (p.climax) h += '<div style="font-size:0.7rem;margin-bottom:0.15rem;"><span style="color:var(--color-danger,#ef4444);font-family:Audiowide,sans-serif;font-size:0.6rem;">CLIMAX</span> ' + linkify(p.climax) + '</div>';
+    if (p.resolution) h += '<div style="font-size:0.7rem;margin-bottom:0.15rem;"><span style="color:#22c55e;font-family:Audiowide,sans-serif;font-size:0.6rem;">RESOLUTION</span> ' + linkify(p.resolution) + '</div>';
+    h += '</div>';
+    return h;
+  }
+
+  function openFloatingPanel(panelId, title, contentHtml, opts) {
+    opts = opts || {};
+    var existing = document.getElementById('fp-' + panelId);
+    if (existing) {
+      existing.style.zIndex = ++_panelZCounter;
+      return;
+    }
+    _openPanels[panelId] = true;
+    var tile = document.querySelector('[data-panel-id="' + panelId + '"]');
+    if (tile) tile.classList.add('cb-tile--active');
+
+    var panel = document.createElement('div');
+    panel.className = 'cb-floating-panel';
+    panel.id = 'fp-' + panelId;
+    panel.style.zIndex = ++_panelZCounter;
+
+    var w = opts.width || 480;
+    var h = opts.height || 400;
+    var centerX = Math.max(40, Math.round((window.innerWidth - w) / 2) + (Object.keys(_openPanels).length - 1) * 24);
+    var centerY = Math.max(60, Math.round((window.innerHeight - h) / 2) + (Object.keys(_openPanels).length - 1) * 24);
+    panel.style.left = centerX + 'px';
+    panel.style.top = centerY + 'px';
+    panel.style.width = w + 'px';
+    panel.style.height = h + 'px';
+
+    panel.innerHTML =
+      '<div class="cb-fpanel-titlebar">' +
+        '<span class="cb-fpanel-title">' + esc(title) + '</span>' +
+        '<button class="cb-fpanel-close">&times;</button>' +
+      '</div>' +
+      '<div class="cb-fpanel-body">' + contentHtml + '</div>';
+
+    document.body.appendChild(panel);
+
+    panel.addEventListener('mousedown', function () {
+      panel.style.zIndex = ++_panelZCounter;
+    });
+
+    panel.querySelector('.cb-fpanel-close').addEventListener('click', function () {
+      closeFloatingPanel(panelId);
+    });
+
+    _initPanelDrag(panel);
+    _bindPanelContent(panel, panelId);
+  }
+
+  function closeFloatingPanel(panelId) {
+    var panel = document.getElementById('fp-' + panelId);
+    if (panel) panel.remove();
+    delete _openPanels[panelId];
+    var tile = document.querySelector('[data-panel-id="' + panelId + '"]');
+    if (tile) tile.classList.remove('cb-tile--active');
+  }
+
+  function closeAllFloatingPanels() {
+    Object.keys(_openPanels).forEach(function (id) {
+      closeFloatingPanel(id);
+    });
+  }
+
+  function _initPanelDrag(panel) {
+    var titlebar = panel.querySelector('.cb-fpanel-titlebar');
+    var startX, startY, origLeft, origTop;
+    function onStart(x, y) {
+      startX = x;
+      startY = y;
+      origLeft = panel.offsetLeft;
+      origTop = panel.offsetTop;
+    }
+    function onMove(x, y) {
+      panel.style.left = Math.max(0, origLeft + x - startX) + 'px';
+      panel.style.top = Math.max(0, origTop + y - startY) + 'px';
+    }
+    titlebar.addEventListener('mousedown', function (e) {
+      if (e.target.closest('.cb-fpanel-close')) return;
+      e.preventDefault();
+      onStart(e.clientX, e.clientY);
+      document.addEventListener('mousemove', mmove);
+      document.addEventListener('mouseup', mup);
+    });
+    function mmove(e) { onMove(e.clientX, e.clientY); }
+    function mup() {
+      document.removeEventListener('mousemove', mmove);
+      document.removeEventListener('mouseup', mup);
+    }
+    titlebar.addEventListener('touchstart', function (e) {
+      if (e.target.closest('.cb-fpanel-close')) return;
+      var t = e.touches[0];
+      onStart(t.clientX, t.clientY);
+      document.addEventListener('touchmove', tmove, { passive: false });
+      document.addEventListener('touchend', tend);
+    });
+    function tmove(e) {
+      e.preventDefault();
+      var t = e.touches[0];
+      onMove(t.clientX, t.clientY);
+    }
+    function tend() {
+      document.removeEventListener('touchmove', tmove);
+      document.removeEventListener('touchend', tend);
+    }
+  }
+
+  function _bindPanelContent(panel, panelId) {
+    panel.querySelectorAll('.cb-condition-link').forEach(function (el) {
       el.addEventListener('click', function () { showGlossaryEntry(el.dataset.conditionId); });
     });
-    container.querySelectorAll('.cb-collapse-toggle').forEach(function (el) {
-      el.addEventListener('click', function () {
-        var section = el.closest('.cb-collapsible');
-        if (section) section.classList.toggle('collapsed');
-      });
+    panel.querySelectorAll('.cb-lore-tag').forEach(function (el) {
+      el.addEventListener('click', function () { openLoreModal(el.dataset.loreTag); });
     });
-    container.querySelectorAll('.cb-npc-card-header').forEach(function (el) {
+    panel.querySelectorAll('.cb-narrative-link').forEach(function (el) {
+      el.addEventListener('click', function () { navigateToScene(el.dataset.navScene); });
+    });
+
+    if (panelId === 'npcs') {
+      _bindNpcPanelEvents(panel);
+    }
+    if (panelId === 'encounters') {
+      _bindEncounterPanelEvents(panel);
+    }
+  }
+
+  function _bindNpcPanelEvents(panel) {
+    panel.querySelectorAll('.cb-npc-card-header').forEach(function (el) {
       el.addEventListener('click', function (e) {
         if (e.target.closest('.cb-npc-edit-btn') || e.target.closest('.cb-npc-remove-btn')) return;
         var card = el.closest('.cb-npc-card');
@@ -893,7 +933,7 @@
         _npcExpandState[expandKey] = card.classList.contains('expanded');
       });
     });
-    container.querySelectorAll('.cb-npc-edit-btn').forEach(function (btn) {
+    panel.querySelectorAll('.cb-npc-edit-btn').forEach(function (btn) {
       btn.addEventListener('click', function (e) {
         e.stopPropagation();
         var idx = parseInt(btn.dataset.npcIdx, 10);
@@ -908,22 +948,18 @@
             npc.name = updated.name || npc.name;
             npc.threatBuild = updated;
             npc.threatBuild.computed = updated.computed;
-            if (updated.roleKit) {
-              npc.threatBuild.roleKit = updated.roleKit;
-            }
-            if (updated.powerSource) {
-              npc.threatBuild.powerSource = updated.powerSource;
-            }
+            if (updated.roleKit) npc.threatBuild.roleKit = updated.roleKit;
+            if (updated.powerSource) npc.threatBuild.powerSource = updated.powerSource;
             npc.threatBuild.computedAttacks = updated.computedAttacks || [];
             if (updated.loot) npc.loot = updated.loot;
             setSceneNpcs(npcs);
             persistSceneNpc(idx, npc);
-            renderScene();
+            _refreshNpcPanel();
           });
         }
       });
     });
-    container.querySelectorAll('.cb-npc-remove-btn').forEach(function (btn) {
+    panel.querySelectorAll('.cb-npc-remove-btn').forEach(function (btn) {
       btn.addEventListener('click', function (e) {
         e.stopPropagation();
         var idx = parseInt(btn.dataset.npcIdx, 10);
@@ -932,75 +968,11 @@
         npcs.splice(idx, 1);
         setSceneNpcs(npcs);
         deleteSceneNpc(idx);
+        _refreshNpcPanel();
         renderScene();
       });
     });
-    var addNpcBtn = document.getElementById('cb-add-npc-btn');
-    if (addNpcBtn) {
-      addNpcBtn.addEventListener('click', function () {
-        var panel = document.getElementById('cb-add-npc-panel');
-        if (!panel) return;
-        if (panel.style.display !== 'none') {
-          panel.style.display = 'none';
-          return;
-        }
-        var saved = window.NpcBuilder ? window.NpcBuilder.getSavedNpcs() : [];
-        if (!saved.length) {
-          panel.style.display = 'block';
-          panel.innerHTML = '<p class="cb-muted" style="font-size:0.7rem;">No saved NPCs in Threat Builder. Open the Threat Builder and save some first.</p>';
-          return;
-        }
-        var ph = '<div class="cb-add-npc-list">';
-        saved.forEach(function (npc, si) {
-          var catBadge = (npc.threatCategory && npc.threatCategory !== 'character') ? esc(npc.threatCategory.charAt(0).toUpperCase() + npc.threatCategory.slice(1)) + ' ' : '';
-          ph += '<button class="cb-add-npc-item" data-saved-idx="' + si + '">';
-          ph += '<span class="cb-add-npc-item-name">' + esc(npc.name || 'Unnamed') + '</span>';
-          ph += '<span class="cb-add-npc-item-meta">' + catBadge + 'T' + (npc.tier || 0) + ' ' + esc(npc.classification || '') + ' ' + esc(npc.role || '') + '</span>';
-          ph += '</button>';
-        });
-        ph += '</div>';
-        panel.innerHTML = ph;
-        panel.style.display = 'block';
-        panel.querySelectorAll('.cb-add-npc-item').forEach(function (item) {
-          item.addEventListener('click', function () {
-            var si = parseInt(item.dataset.savedIdx, 10);
-            var savedNpc = saved[si];
-            if (!savedNpc) return;
-            window.NpcBuilder.buildNpcFromSaved(savedNpc).then(function (built) {
-              var newNpc = {
-                name: savedNpc.name || 'Unnamed',
-                _templateName: (savedNpc.name || 'unnamed').toLowerCase().trim(),
-                type: (savedNpc.threatCategory || 'character').charAt(0).toUpperCase() + (savedNpc.threatCategory || 'character').slice(1),
-                count: 1,
-                loot: savedNpc.loot ? JSON.parse(JSON.stringify(savedNpc.loot)) : [],
-                threatBuild: {
-                  role: savedNpc.role,
-                  tier: savedNpc.tier,
-                  classification: savedNpc.classification,
-                  threatCategory: savedNpc.threatCategory,
-                  powerSource: savedNpc.powerSource || built.powerSource || '',
-                  arenas: JSON.parse(JSON.stringify(savedNpc.arenas)),
-                  computed: built.computed,
-                  traits: savedNpc.traits ? JSON.parse(JSON.stringify(savedNpc.traits)) : [],
-                  tags: savedNpc.tags ? JSON.parse(JSON.stringify(savedNpc.tags)) : [],
-                  roleKit: built.roleKit,
-                  computedAttacks: built.computedAttacks || [],
-                  weaponChassis: savedNpc.weaponChassis || 'medium',
-                  loot: savedNpc.loot ? JSON.parse(JSON.stringify(savedNpc.loot)) : []
-                }
-              };
-              var npcs = getSceneNpcs();
-              npcs.push(newNpc);
-              setSceneNpcs(npcs);
-              addSceneNpc(newNpc);
-              panel.style.display = 'none';
-              renderScene();
-            });
-          });
-        });
-      });
-    }
-    container.querySelectorAll('.cb-npc-loot-assign-btn').forEach(function (btn) {
+    panel.querySelectorAll('.cb-npc-loot-assign-btn').forEach(function (btn) {
       btn.addEventListener('click', function (e) {
         e.stopPropagation();
         if (btn.dataset.menuOpen === 'true') return;
@@ -1040,18 +1012,265 @@
         }, 0);
       });
     });
-    container.querySelectorAll('.ct-start-encounter-btn').forEach(function (btn) {
+    var addNpcBtn = panel.querySelector('#cb-add-npc-btn');
+    if (addNpcBtn) {
+      addNpcBtn.addEventListener('click', function () {
+        var addPanel = panel.querySelector('#cb-add-npc-panel');
+        if (!addPanel) return;
+        if (addPanel.style.display !== 'none') {
+          addPanel.style.display = 'none';
+          return;
+        }
+        var saved = window.NpcBuilder ? window.NpcBuilder.getSavedNpcs() : [];
+        if (!saved.length) {
+          addPanel.style.display = 'block';
+          addPanel.innerHTML = '<p class="cb-muted" style="font-size:0.7rem;">No saved NPCs in Threat Builder. Open the Threat Builder and save some first.</p>';
+          return;
+        }
+        var ph = '<div class="cb-add-npc-list">';
+        saved.forEach(function (npc, si) {
+          var catBadge = (npc.threatCategory && npc.threatCategory !== 'character') ? esc(npc.threatCategory.charAt(0).toUpperCase() + npc.threatCategory.slice(1)) + ' ' : '';
+          ph += '<button class="cb-add-npc-item" data-saved-idx="' + si + '">';
+          ph += '<span class="cb-add-npc-item-name">' + esc(npc.name || 'Unnamed') + '</span>';
+          ph += '<span class="cb-add-npc-item-meta">' + catBadge + 'T' + (npc.tier || 0) + ' ' + esc(npc.classification || '') + ' ' + esc(npc.role || '') + '</span>';
+          ph += '</button>';
+        });
+        ph += '</div>';
+        addPanel.innerHTML = ph;
+        addPanel.style.display = 'block';
+        addPanel.querySelectorAll('.cb-add-npc-item').forEach(function (item) {
+          item.addEventListener('click', function () {
+            var si = parseInt(item.dataset.savedIdx, 10);
+            var savedNpc = saved[si];
+            if (!savedNpc) return;
+            window.NpcBuilder.buildNpcFromSaved(savedNpc).then(function (built) {
+              var newNpc = {
+                name: savedNpc.name || 'Unnamed',
+                _templateName: (savedNpc.name || 'unnamed').toLowerCase().trim(),
+                type: (savedNpc.threatCategory || 'character').charAt(0).toUpperCase() + (savedNpc.threatCategory || 'character').slice(1),
+                count: 1,
+                loot: savedNpc.loot ? JSON.parse(JSON.stringify(savedNpc.loot)) : [],
+                threatBuild: {
+                  role: savedNpc.role,
+                  tier: savedNpc.tier,
+                  classification: savedNpc.classification,
+                  threatCategory: savedNpc.threatCategory,
+                  powerSource: savedNpc.powerSource || built.powerSource || '',
+                  arenas: JSON.parse(JSON.stringify(savedNpc.arenas)),
+                  computed: built.computed,
+                  traits: savedNpc.traits ? JSON.parse(JSON.stringify(savedNpc.traits)) : [],
+                  tags: savedNpc.tags ? JSON.parse(JSON.stringify(savedNpc.tags)) : [],
+                  roleKit: built.roleKit,
+                  computedAttacks: built.computedAttacks || [],
+                  weaponChassis: savedNpc.weaponChassis || 'medium',
+                  loot: savedNpc.loot ? JSON.parse(JSON.stringify(savedNpc.loot)) : []
+                }
+              };
+              var npcs = getSceneNpcs();
+              npcs.push(newNpc);
+              setSceneNpcs(npcs);
+              addSceneNpc(newNpc);
+              addPanel.style.display = 'none';
+              _refreshNpcPanel();
+              renderScene();
+            });
+          });
+        });
+      });
+    }
+  }
+
+  function _refreshNpcPanel() {
+    var adv = getAdventure(currentAdventure);
+    var part = adv ? getPart(adv, currentPart) : null;
+    var scene = part ? getScene(part, currentScene) : null;
+    if (!scene) return;
+    var panel = document.getElementById('fp-npcs');
+    if (!panel) return;
+    var body = panel.querySelector('.cb-fpanel-body');
+    if (body) {
+      body.innerHTML = _buildNpcRosterHtml(scene);
+      _bindNpcPanelEvents(panel);
+    }
+  }
+
+  function _bindEncounterPanelEvents(panel) {
+    var adv = getAdventure(currentAdventure);
+    var part = adv ? getPart(adv, currentPart) : null;
+    var scene = part ? getScene(part, currentScene) : null;
+    panel.querySelectorAll('.ct-start-encounter-btn').forEach(function (btn) {
       btn.addEventListener('click', function () {
         var encIdx = parseInt(btn.dataset.encIdx, 10);
-        if (isNaN(encIdx) || !scene.encounters || !scene.encounters[encIdx]) return;
+        if (isNaN(encIdx) || !scene || !scene.encounters || !scene.encounters[encIdx]) return;
         var enc = scene.encounters[encIdx];
         if (window.CombatTracker) {
           window._cbSocket = socket;
           window.CombatTracker.start(enc, scene, getSceneNpcs(), partyCache, socket);
+          closeFloatingPanel('encounters');
           var ctPanel = document.getElementById('combat-tracker-panel');
           if (ctPanel) ctPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       });
+    });
+  }
+
+  function renderScene() {
+    if (window.CombatTracker && window.CombatTracker.isActive() && currentScene !== _lastRenderedScene) {
+      window.CombatTracker.end();
+    }
+    _lastRenderedScene = currentScene;
+    var container = document.getElementById('scene-carousel');
+    if (!container) return;
+    var adv = getAdventure(currentAdventure);
+    var part = adv ? getPart(adv, currentPart) : null;
+    var scene = part ? getScene(part, currentScene) : null;
+
+    if (!scene) {
+      if (adv && part && !(part.scenes || []).length) {
+        container.innerHTML = '<div class="cb-empty-scene"><h3>' + esc(adv.title) + ' — Part ' + part.number + ': ' + esc(part.title) + '</h3><p>Scene content for this part is coming soon.</p></div>';
+      } else {
+        container.innerHTML = '<div class="cb-empty-scene"><p>Select a scene to begin.</p></div>';
+      }
+      return;
+    }
+
+    var comp = completionsData[scene.id];
+    var isDone = comp && comp.completed;
+    var scenes = getAllScenes();
+    var idx = currentSceneIndex();
+
+    var hasReadAloud = !!(scene.readAloudPart1 || scene.readAloud);
+    var hasGmNotes = !!scene.gmNotes;
+    var sceneNpcs = getSceneNpcs();
+    var hasNpcs = true;
+    var hasEncounters = !!(scene.encounters && scene.encounters.length);
+    var dcList = (scene.disciplineChallenges && scene.disciplineChallenges.length) ? scene.disciplineChallenges : (scene.skillChecks || []);
+    var hasChallenges = dcList.length > 0;
+    var hasEnvironment = !!(scene.hazards || (scene.environmentMechanics && scene.environmentMechanics.length));
+    var hasRewards = !!(scene.rewards && (scene.rewards.credits || (scene.rewards.items && scene.rewards.items.length) || (scene.rewards.intel && scene.rewards.intel.length) || (scene.rewards.connections && scene.rewards.connections.length)));
+    var hasPacing = !!scene.pacing;
+    var hasDecisions = !!(scene.decisions && scene.decisions.length);
+    var hasLoreTags = !!(scene.loreTags && scene.loreTags.length);
+    var hasNarrativeLinks = !!(scene.narrativeLinks && scene.narrativeLinks.length);
+
+    var html = '<div class="cb-dashboard">';
+
+    html += '<div class="cb-dash-header">';
+    html += '<h2>Scene ' + scene.number + ': ' + esc(scene.title) + '</h2>';
+    if (scene.subtitle) html += '<div class="cb-scene-subtitle">' + esc(scene.subtitle) + '</div>';
+    if (scene.id === 'adv1-p1-s1') {
+      html += '<div class="assess-controls-row" id="assess-controls-row">';
+      html += '<button class="assess-guide-btn" id="assess-guide-btn">&#9733; GM Reference</button>';
+      html += '<button class="assess-guide-btn assess-tutorial-start" id="tutorial-start-btn">&#9656; Start Player Tutorial</button>';
+      html += '<button class="assess-guide-btn assess-tutorial-advance hidden" id="tutorial-advance-btn">&#9656;&#9656; Next Phase</button>';
+      html += '<button class="assess-guide-btn assess-tutorial-end hidden" id="tutorial-end-btn">&#9632; End Tutorial</button>';
+      html += '<span class="assess-tutorial-status hidden" id="tutorial-status"></span>';
+      html += '</div>';
+    }
+    html += '</div>';
+
+    html += '<div class="cb-tile-grid">';
+    if (hasReadAloud) {
+      var raMeta = (scene.readAloudPart1 && scene.readAloudPart2) ? '2 parts' : 'Ready';
+      html += '<div class="cb-tile' + (_openPanels['readaloud'] ? ' cb-tile--active' : '') + '" data-panel-id="readaloud"><span class="cb-tile-icon">&#128220;</span><span class="cb-tile-label">Read Aloud</span><span class="cb-tile-meta">' + raMeta + '</span></div>';
+    }
+    if (hasGmNotes) {
+      var notePreview = scene.gmNotes.substring(0, 40).replace(/\n/g, ' ');
+      html += '<div class="cb-tile' + (_openPanels['gmnotes'] ? ' cb-tile--active' : '') + '" data-panel-id="gmnotes"><span class="cb-tile-icon">&#128221;</span><span class="cb-tile-label">GM Notes</span><span class="cb-tile-meta">' + esc(notePreview) + '…</span></div>';
+    }
+    if (hasNpcs) {
+      html += '<div class="cb-tile' + (_openPanels['npcs'] ? ' cb-tile--active' : '') + '" data-panel-id="npcs"><span class="cb-tile-icon">&#9876;</span><span class="cb-tile-label">NPCs</span><span class="cb-tile-meta">' + sceneNpcs.length + ' in roster</span></div>';
+    }
+    if (hasEncounters) {
+      var encTypes = scene.encounters.map(function(e){ return e.type; }).filter(function(v,i,a){ return a.indexOf(v) === i; }).join(', ');
+      html += '<div class="cb-tile' + (_openPanels['encounters'] ? ' cb-tile--active' : '') + '" data-panel-id="encounters"><span class="cb-tile-icon">&#9876;</span><span class="cb-tile-label">Encounters</span><span class="cb-tile-meta">' + scene.encounters.length + ' — ' + encTypes + '</span></div>';
+    }
+    if (hasChallenges) {
+      html += '<div class="cb-tile' + (_openPanels['challenges'] ? ' cb-tile--active' : '') + '" data-panel-id="challenges"><span class="cb-tile-icon">&#127922;</span><span class="cb-tile-label">Challenges</span><span class="cb-tile-meta">' + dcList.length + ' checks</span></div>';
+    }
+    if (hasEnvironment) {
+      var envCount = (scene.environmentMechanics ? scene.environmentMechanics.length : 0) + (scene.hazards ? 1 : 0);
+      html += '<div class="cb-tile' + (_openPanels['environment'] ? ' cb-tile--active' : '') + '" data-panel-id="environment"><span class="cb-tile-icon">&#127758;</span><span class="cb-tile-label">Environment</span><span class="cb-tile-meta">' + envCount + ' effects</span></div>';
+    }
+    if (hasRewards) {
+      html += '<div class="cb-tile' + (_openPanels['rewards'] ? ' cb-tile--active' : '') + '" data-panel-id="rewards"><span class="cb-tile-icon">&#127942;</span><span class="cb-tile-label">Rewards</span><span class="cb-tile-meta">' + (scene.rewards.credits ? scene.rewards.credits + ' cr' : 'Loot') + '</span></div>';
+    }
+    if (hasPacing) {
+      html += '<div class="cb-tile' + (_openPanels['pacing'] ? ' cb-tile--active' : '') + '" data-panel-id="pacing"><span class="cb-tile-icon">&#9200;</span><span class="cb-tile-label">Pacing</span><span class="cb-tile-meta">' + (scene.pacing.estimatedMinutes ? '~' + scene.pacing.estimatedMinutes + ' min' : 'Guide') + '</span></div>';
+    }
+    html += '</div>';
+
+    if (hasDecisions) {
+      html += '<div class="cb-dash-decisions">';
+      html += '<div class="cb-section-label">Decision Points</div>';
+      scene.decisions.forEach(function (d) {
+        html += '<span class="cb-dash-decision-chip"><strong>' + esc(d.choice) + '</strong> → ' + esc(d.consequence) + '</span>';
+      });
+      html += '</div>';
+    }
+
+    if (hasLoreTags) {
+      html += '<div class="cb-dash-lore-row">';
+      scene.loreTags.forEach(function (tag) {
+        html += '<span class="cb-lore-tag" data-lore-tag="' + esc(tag) + '">' + esc(tag) + '</span>';
+      });
+      html += '</div>';
+    }
+
+    if (hasNarrativeLinks) {
+      html += '<div style="margin-top:0.4rem;">';
+      scene.narrativeLinks.forEach(function (link) {
+        html += '<a class="cb-narrative-link" data-nav-scene="' + esc(link.targetScene) + '">&rarr; ' + esc(link.note) + '</a> ';
+      });
+      html += '</div>';
+    }
+
+    html += '<div class="cb-dash-footer">';
+    html += '<button class="cb-complete-btn' + (isDone ? ' completed' : '') + '" data-scene="' + scene.id + '">' + (isDone ? '&#10003; Scene Complete' : '&#9675; Mark Scene Complete') + '</button>';
+    html += '<div class="cb-scene-nav-arrows">';
+    html += '<button class="cb-arrow-btn" id="scene-prev"' + (idx <= 0 ? ' disabled' : '') + '>&larr; Prev</button>';
+    html += '<button class="cb-arrow-btn" id="scene-next"' + (idx >= scenes.length - 1 ? ' disabled' : '') + '>Next &rarr;</button>';
+    html += '</div>';
+    html += '</div>';
+
+    html += '</div>';
+
+    container.innerHTML = html;
+
+    container.querySelectorAll('.cb-tile').forEach(function (tile) {
+      tile.addEventListener('click', function () {
+        var panelId = tile.dataset.panelId;
+        if (_openPanels[panelId]) {
+          closeFloatingPanel(panelId);
+          return;
+        }
+        var titleMap = { readaloud: 'Read Aloud', gmnotes: 'GM Notes', npcs: 'NPC Roster', encounters: 'Encounters', challenges: 'Discipline Challenges', environment: 'Environment', rewards: 'Rewards', pacing: 'Pacing Guide' };
+        var contentMap = {
+          readaloud: function () { return _buildReadAloudHtml(scene); },
+          gmnotes: function () { return _buildGmNotesHtml(scene); },
+          npcs: function () { return _buildNpcRosterHtml(scene); },
+          encounters: function () { return _buildEncountersHtml(scene); },
+          challenges: function () { return _buildChallengesHtml(scene); },
+          environment: function () { return _buildEnvironmentHtml(scene); },
+          rewards: function () { return _buildRewardsHtml(scene); },
+          pacing: function () { return _buildPacingHtml(scene); }
+        };
+        var sizeMap = { readaloud: { width: 560, height: 450 }, gmnotes: { width: 520, height: 400 }, npcs: { width: 520, height: 500 }, encounters: { width: 560, height: 480 }, challenges: { width: 540, height: 460 }, environment: { width: 480, height: 380 }, rewards: { width: 420, height: 300 }, pacing: { width: 440, height: 320 } };
+        var builder = contentMap[panelId];
+        if (builder) {
+          openFloatingPanel(panelId, titleMap[panelId] || panelId, builder(), sizeMap[panelId]);
+        }
+      });
+    });
+
+    container.querySelectorAll('.cb-lore-tag').forEach(function (el) {
+      el.addEventListener('click', function () { openLoreModal(el.dataset.loreTag); });
+    });
+    container.querySelectorAll('.cb-narrative-link').forEach(function (el) {
+      el.addEventListener('click', function () { navigateToScene(el.dataset.navScene); });
+    });
+    container.querySelectorAll('.cb-condition-link').forEach(function (el) {
+      el.addEventListener('click', function () { showGlossaryEntry(el.dataset.conditionId); });
     });
     var assessBtn = document.getElementById('assess-guide-btn');
     if (assessBtn) {
@@ -1106,6 +1325,7 @@
 
   function navigateToScene(sceneId) {
     if (!adventuresData) return;
+    closeAllFloatingPanels();
     adventuresData.adventures.forEach(function (adv) {
       (adv.parts || []).forEach(function (part) {
         (part.scenes || []).forEach(function (scene) {
@@ -1379,16 +1599,15 @@
       return;
     }
     container.innerHTML = pool.map(function (t, idx) {
-      var isDark = t.side === 'toll';
-      var tappedCls = t.tapped ? ' is-tapped' : '';
-      return '<div class="gm-destiny-token' + (isDark ? ' is-dark' : '') + tappedCls + '" data-index="' + idx + '" title="Click to flip">' +
-        '<div class="force-token-inner">' +
-          '<div class="force-token-face force-token-front"></div>' +
-          '<div class="force-token-face force-token-back"></div>' +
-        '</div>' +
-      '</div>';
+      var side = t.side === 'toll' ? 'toll' : 'hope';
+      var cls = 'gm-destiny-pip gm-destiny-pip--' + side;
+      if (t.tapped) cls += ' gm-destiny-pip--tapped';
+      var symbol = side === 'hope' ? '⬤' : '⬤';
+      var tip = side === 'hope' ? 'Hope — click to flip' : 'Toll — click to flip';
+      if (t.tapped) tip += ' (tapped, right-click to untap)';
+      return '<span class="' + cls + '" data-index="' + idx + '" title="' + tip + '">' + symbol + '</span>';
     }).join('');
-    container.querySelectorAll('.gm-destiny-token').forEach(function (el) {
+    container.querySelectorAll('.gm-destiny-pip').forEach(function (el) {
       el.addEventListener('click', function () {
         if (socket) socket.emit('destiny:flip', { index: parseInt(el.dataset.index, 10) });
       });
