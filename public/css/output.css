@@ -11383,8 +11383,7 @@ body.is-col-resizing .resize-handle {
 .crawl-perspective {
   position: absolute;
   inset: 0;
-  perspective: 300px;
-  perspective-origin: 50% 38%;
+  perspective: 400px;
   overflow: hidden;
   opacity: 0;
 }
@@ -11393,13 +11392,24 @@ body.is-col-resizing .resize-handle {
   opacity: 1;
 }
 
+.crawl-fade-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 28%;
+  background: linear-gradient(to bottom, #000 40%, transparent 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+
 .crawl-content {
   position: absolute;
   top: 0;
   left: 50%;
   width: 70%;
   max-width: 750px;
-  transform: translateX(-50%) rotateX(28deg);
+  transform: translateX(-50%) rotateX(25deg);
   transform-origin: 50% 100%;
   text-align: center;
   will-change: top;
@@ -11407,16 +11417,16 @@ body.is-col-resizing .resize-handle {
 }
 
 .crawl-perspective--active .crawl-content {
-  animation: crawl-scroll 90s linear forwards;
+  animation: crawl-scroll 85s linear forwards;
 }
 
 @keyframes crawl-scroll {
   0% {
-    top: 140%;
+    top: 100%;
   }
 
   100% {
-    top: -280%;
+    top: -180%;
   }
 }
 
@@ -11426,6 +11436,7 @@ body.is-col-resizing .resize-handle {
   font-size: 1.4rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
+  text-align: center;
   margin-bottom: 0.6rem;
 }
 
@@ -11435,6 +11446,7 @@ body.is-col-resizing .resize-handle {
   font-size: 3rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  text-align: center;
   margin-bottom: 3rem;
 }
 

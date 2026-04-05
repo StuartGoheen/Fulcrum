@@ -73,6 +73,10 @@
     var perspective = document.createElement('div');
     perspective.className = 'crawl-perspective';
 
+    var fadeTop = document.createElement('div');
+    fadeTop.className = 'crawl-fade-top';
+    perspective.appendChild(fadeTop);
+
     var content = document.createElement('div');
     content.className = 'crawl-content';
 
@@ -137,7 +141,7 @@
       perspective.classList.add('crawl-perspective--active');
     }, 6000));
 
-    var crawlDuration = 90000;
+    var crawlDuration = 85000;
     crawlTimers.push(setTimeout(function () {
       if (dismissed) return;
       dismissCrawl();
