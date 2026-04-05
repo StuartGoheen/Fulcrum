@@ -631,8 +631,8 @@
     h += '<button class="cb-tts-settings-toggle" data-tts-toggle="settings">&#9881; Voice Settings</button>';
     h += '<div class="cb-tts-settings-body" style="display:none;">';
     h += '<div class="cb-tts-row"><label>Voice</label><select class="cb-tts-voice-select" data-tts-control="voice"></select></div>';
-    h += '<div class="cb-tts-row"><label>Speed <span data-tts-val="rate">' + prefs.rate.toFixed(2) + '</span></label><input type="range" min="0.5" max="1.5" step="0.05" value="' + prefs.rate + '" data-tts-control="rate"></div>';
-    h += '<div class="cb-tts-row"><label>Pitch <span data-tts-val="pitch">' + prefs.pitch.toFixed(2) + '</span></label><input type="range" min="0.5" max="1.5" step="0.05" value="' + prefs.pitch + '" data-tts-control="pitch"></div>';
+    h += '<div class="cb-tts-row"><label>Speed <span data-tts-val="rate">' + prefs.rate.toFixed(2) + '</span></label><input type="range" min="0.6" max="1.4" step="0.05" value="' + prefs.rate + '" data-tts-control="rate"></div>';
+    h += '<div class="cb-tts-row"><label>Pitch <span data-tts-val="pitch">' + prefs.pitch.toFixed(2) + '</span></label><input type="range" min="0.7" max="1.3" step="0.05" value="' + prefs.pitch + '" data-tts-control="pitch"></div>';
     h += '<div class="cb-tts-row"><label><input type="checkbox" data-tts-control="autoContinue"' + (prefs.autoContinue ? ' checked' : '') + '> Auto-continue Part 1 → Part 2</label></div>';
     h += '</div></div>';
     return h;
@@ -1056,22 +1056,26 @@
       });
     }
 
-    panel.querySelector('[data-tts-control="voice"]')?.addEventListener('change', function () {
+    var voiceSel = panel.querySelector('[data-tts-control="voice"]');
+    if (voiceSel) voiceSel.addEventListener('change', function () {
       TTS.setPref('voiceURI', this.value);
     });
-    panel.querySelector('[data-tts-control="rate"]')?.addEventListener('input', function () {
+    var rateSlider = panel.querySelector('[data-tts-control="rate"]');
+    if (rateSlider) rateSlider.addEventListener('input', function () {
       var v = parseFloat(this.value);
       TTS.setPref('rate', v);
       var lbl = panel.querySelector('[data-tts-val="rate"]');
       if (lbl) lbl.textContent = v.toFixed(2);
     });
-    panel.querySelector('[data-tts-control="pitch"]')?.addEventListener('input', function () {
+    var pitchSlider = panel.querySelector('[data-tts-control="pitch"]');
+    if (pitchSlider) pitchSlider.addEventListener('input', function () {
       var v = parseFloat(this.value);
       TTS.setPref('pitch', v);
       var lbl = panel.querySelector('[data-tts-val="pitch"]');
       if (lbl) lbl.textContent = v.toFixed(2);
     });
-    panel.querySelector('[data-tts-control="autoContinue"]')?.addEventListener('change', function () {
+    var autoCont = panel.querySelector('[data-tts-control="autoContinue"]');
+    if (autoCont) autoCont.addEventListener('change', function () {
       TTS.setPref('autoContinue', this.checked);
     });
 
