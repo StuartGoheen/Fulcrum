@@ -229,7 +229,7 @@ Two screens added after Kit selection:
 
 **Destiny pool:** `recalcPool()` in `server/sockets/handlers.js` preserves GM-flipped token state across player reconnects. Only resizes the pool when connected roster changes. `rebuildPool()` does a full reset from character destiny choices (used by `destiny:reset`). Token mapping: "Two Light" → 2 hope, "Two Dark" → 2 toll, default → 1 hope + 1 toll.
 
-**Character creation flow (9 steps):** Species → Phase 1 (Origin) → Phase 2 (Catalyst) → Phase 3 (Debt) → Arenas/Disciplines → Vocations → **Outfitting** (500 cr starting budget) → **Destiny** → **Your Story** → Summary (Confirm & Save)
+**Character creation flow (9 steps):** Species → Phase 1 (Origin) → Phase 2 (Catalyst) → Phase 3 (Debt) → **Vocations** → **Arenas/Disciplines** (with vocation-aware guidance panel showing required discipline dice) → **Outfitting** (500 cr starting budget) → **Destiny** → **Your Story** → Summary (Confirm & Save). Vocation tiers are uncapped during selection; discipline requirements are validated before proceeding to Outfitting.
 
 **Step track:** 9 pips in the header track the full flow. Step labels show "Step X of 9" for numbered steps and named headers for phases/destiny/backstory. Header nav buttons flank the step dots: `← Prev` on the left, `Continue →` on the right. These replace per-screen bottom nav rows. Stats screen has internal sub-phase navigation (incomp → arenas → specialize) that dynamically updates the header buttons.
 

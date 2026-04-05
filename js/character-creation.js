@@ -522,7 +522,9 @@
 
     renderStatsContent();
     showScreen('stats');
-    updateStepTrack(4);
+    updateStepTrack(5);
+    var d = statsGetDerived();
+    updateStatsNav(d);
   }
 
   function normalizeAdvances() {
@@ -556,6 +558,36 @@
     if (changed) saveState();
   }
 
+  function getVocationRequirements() {
+    var reqs = [];
+    var choices = state.kitChoices || {};
+    Object.keys(choices).forEach(function(kitId) {
+      var tier = choices[kitId];
+      if (tier <= 0) return;
+      var kit = KITS_DATA.find(function(k) { return k.id === kitId; });
+      if (!kit) return;
+      var discId = kit.favoredDiscipline || kit.alignedDiscipline;
+      if (!discId) return;
+      reqs.push({ kitName: kit.name, discId: discId, tier: tier, requiredDie: kitRequiredDie(tier), arena: kit.governingArena });
+    });
+    return reqs;
+  }
+
+  function checkVocationDisciplineWarnings() {
+    var reqs = getVocationRequirements();
+    var d = statsGetDerived();
+    var warnings = [];
+    reqs.forEach(function(r) {
+      var currentDie = statsGetDiscValue(r.discId, d);
+      var dieIdx = DIE_ORDER.indexOf(currentDie);
+      var reqIdx = DIE_ORDER.indexOf(r.requiredDie);
+      if (dieIdx < reqIdx) {
+        warnings.push(r.kitName + ' (T' + r.tier + ') needs ' + r.requiredDie + ' in ' + formatDiscName(r.discId) + ' — currently ' + currentDie);
+      }
+    });
+    return warnings;
+  }
+
     function renderStatsContent() {
     normalizeAdvances();
     var d          = statsGetDerived();
@@ -563,6 +595,7 @@
 
     renderStatsPhaseIndicator();
     renderStatsStatusBar(d);
+    renderVocationGuidance(d);
     renderStatsGrid(d, favoredIds);
     renderStatsDetailCard(d, favoredIds);
     updateStatsNav(d);
@@ -629,9 +662,9 @@
     var sub = document.getElementById('stats-phase-sub');
     if (sub) {
       var subs = {
-        incomp: 'Mark your weaknesses. Force disciplines start sealed — most characters leave them that way.',
+        incomp: 'Mark your weaknesses to earn advances. Force disciplines start sealed — most characters leave them that way.',
         arenas: 'Spend 3 free advances to boost your Arenas. Step up to strengthen, step down to refund.',
-        disciplines: 'Spend earned advances to specialize. Restore Force disciplines here if you want the Force.',
+        disciplines: 'Spend earned advances to specialize. Match discipline dice to your vocation requirements above.',
       };
       sub.textContent = subs[_statsPhase] || '';
     }
@@ -695,6 +728,36 @@
         bar.appendChild(dotsWrap);
       }
     }
+  }
+
+  function renderVocationGuidance(d) {
+    var existing = document.getElementById('stats-vocation-guidance');
+    if (existing) existing.remove();
+    var reqs = getVocationRequirements();
+    if (reqs.length === 0) return;
+    var container = document.getElementById('stats-status-bar');
+    if (!container || !container.parentNode) return;
+    var wrap = document.createElement('div');
+    wrap.id = 'stats-vocation-guidance';
+    wrap.className = 'cc-voc-guidance';
+    var title = document.createElement('div');
+    title.className = 'cc-voc-guidance-title';
+    title.textContent = 'Your Vocations Need';
+    wrap.appendChild(title);
+    reqs.forEach(function(r) {
+      var currentDie = statsGetDiscValue(r.discId, d);
+      var dieIdx = DIE_ORDER.indexOf(currentDie);
+      var reqIdx = DIE_ORDER.indexOf(r.requiredDie);
+      var met = dieIdx >= reqIdx;
+      var row = document.createElement('div');
+      row.className = 'cc-voc-guidance-row' + (met ? ' cc-voc-guidance-row--met' : ' cc-voc-guidance-row--unmet');
+      row.innerHTML = '<span class="cc-voc-guidance-icon">' + (met ? '\u2713' : '!') + '</span>' +
+        '<span class="cc-voc-guidance-text">' + esc(r.kitName) + ' T' + r.tier + ' \u2192 ' +
+        esc(formatDiscName(r.discId)) + ' ' + r.requiredDie +
+        ' <span class="cc-voc-guidance-current">(now ' + currentDie + ')</span></span>';
+      wrap.appendChild(row);
+    });
+    container.parentNode.insertBefore(wrap, container.nextSibling);
   }
 
   /* ── 5×5 Grid ────────────────────────────────────────────────────── */
@@ -1200,9 +1263,9 @@
     if (!headerNavPrev || !headerNavNext) return;
 
     if (_statsPhase === "incomp") {
-      headerNavPrev.textContent = "← Debt";
+      headerNavPrev.textContent = "← Vocations";
       headerNavPrev.classList.remove("hidden");
-      headerNavPrev.onclick = function() { showScreen("phase3"); updateStepTrack(3); };
+      headerNavPrev.onclick = function() { initKitsScreen(); };
 
       var effectiveReq = Math.max(0, MAX_INCOMP_REQUIRED - (d.freeAdv || 0));
       var canProceed = (d.playerIncompCount + d.forceIncompCount) >= effectiveReq;
@@ -1238,11 +1301,16 @@
         _selectedCell = null;
         renderStatsContent();
       };
-      headerNavNext.textContent = "Vocations →";
+      headerNavNext.textContent = "Outfitting →";
       headerNavNext.classList.remove("hidden");
       headerNavNext.disabled = false;
       headerNavNext.onclick = function() {
-        initKitsScreen();
+        var warnings = checkVocationDisciplineWarnings();
+        if (warnings.length > 0) {
+          var msg = 'Your disciplines don\u2019t meet vocation requirements:\n\n' + warnings.join('\n') + '\n\nProceed anyway?';
+          if (!confirm(msg)) return;
+        }
+        initOutfittingScreen();
       };
     }
   }
@@ -1388,7 +1456,7 @@
       renderKitsBudgetBar();
       buildPhaseCarousel(KITS_DATA, "ph-grid-vocations", null, buildVocationCardFlat);
             showScreen("kits");
-      updateStepTrack(5);
+      updateStepTrack(4);
     };
     if (KITS_DATA.length === 0) {
       loadKits().then(doShow);
@@ -1422,12 +1490,12 @@
 
 
   function kitMaxTier(kit) {
-    var d = statsGetDerived();
-    var discId = kit.favoredDiscipline || kit.alignedDiscipline;
-    if (!discId) return 2;
-    var dieVal = statsGetDiscValue(discId, d);
-    var tierMap = { D4: 1, D6: 2, D8: 3, D10: 4, D12: 5 };
-    return tierMap[dieVal] || 2;
+    return 5;
+  }
+
+  function kitRequiredDie(tier) {
+    var dieMap = { 1: 'D4', 2: 'D6', 3: 'D8', 4: 'D10', 5: 'D12' };
+    return dieMap[tier] || 'D6';
   }
 
   function formatDiscName(rawDisc) {
@@ -1503,10 +1571,12 @@
 
     var capInfo = document.createElement("div");
     capInfo.className = "cc-kit-flat-cap";
-    var d = statsGetDerived();
-    var discId = kit.favoredDiscipline || kit.alignedDiscipline;
-    var dieVal = discId ? statsGetDiscValue(discId, d) : "D6";
-    capInfo.textContent = discName + " at " + dieVal + " → max Tier " + maxTier;
+    if (currentTier > 0) {
+      var reqDie = kitRequiredDie(currentTier);
+      capInfo.textContent = "Tier " + currentTier + " requires " + reqDie + " in " + discName;
+    } else {
+      capInfo.textContent = "Prime: " + arenaName + " / " + discName;
+    }
     vocHeader.appendChild(capInfo);
 
     var tierActions = document.createElement("div");
@@ -1651,11 +1721,17 @@
     cardEl.classList.toggle("voc-card--active", currentTier > 0);
     cardEl.classList.toggle("voc-card--force", isForce);
 
-    var d = statsGetDerived();
-    var discId = kit.favoredDiscipline || kit.alignedDiscipline;
-    var dieVal = discId ? statsGetDiscValue(discId, d) : "D6";
     var capInfo = cardEl.querySelector(".cc-kit-flat-cap");
-    if (capInfo) capInfo.textContent = discName + " at " + dieVal + " → max Tier " + maxTier;
+    if (capInfo) {
+      if (currentTier > 0) {
+        var reqDie = kitRequiredDie(currentTier);
+        var arenaName = kit.governingArena ? (kit.governingArena.charAt(0).toUpperCase() + kit.governingArena.slice(1)) : "";
+        capInfo.textContent = "Tier " + currentTier + " requires " + reqDie + " in " + discName;
+      } else {
+        var arenaName = kit.governingArena ? (kit.governingArena.charAt(0).toUpperCase() + kit.governingArena.slice(1)) : "";
+        capInfo.textContent = "Prime: " + arenaName + " / " + discName;
+      }
+    }
 
     var tierActions = cardEl.querySelector(".cc-kit-flat-actions");
     if (tierActions) {
@@ -2895,7 +2971,7 @@
   function selectPhase3(card) {
     state.phase3 = card.id;
     saveState();
-    initStatsScreen();
+    initKitsScreen();
   }
 
   /* ── Summary overlay ────────────────────────────────────────────────────── */
@@ -3911,9 +3987,9 @@
       phase1:     { prev: { label: "← Species",    fn: function() { showScreen("species"); updateStepTrack(0); } }, next: null },
       phase2:     { prev: { label: "← Origin",     fn: function() { showScreen("phase1"); updateStepTrack(1); } },  next: null },
       phase3:     { prev: { label: "← Catalyst",   fn: function() { showScreen("phase2"); updateStepTrack(2); } },  next: null },
-      stats:      { prev: { label: "← Debt",       fn: function() { showScreen("phase3"); updateStepTrack(3); } },  next: { label: "Vocations →", fn: function() { initKitsScreen(); } } },
-      kits:       { prev: { label: "← Arenas",     fn: function() { showScreen("stats"); updateStepTrack(4); } },   next: { label: "Outfitting →", fn: function() { initOutfittingScreen(); } } },
-      outfitting: { prev: { label: "← Vocations",  fn: function() { initKitsScreen(); } },                            next: { label: "Destiny →",    fn: function() { showScreen("destiny"); updateStepTrack(7); initDestinyScreen(); } } },
+      kits:       { prev: { label: "← Debt",       fn: function() { showScreen("phase3"); updateStepTrack(3); } },   next: { label: "Arenas →", fn: function() { initStatsScreen(); } } },
+      stats:      { prev: { label: "← Vocations",  fn: function() { initKitsScreen(); } },  next: { label: "Outfitting →", fn: function() { initOutfittingScreen(); } } },
+      outfitting: { prev: { label: "← Arenas",     fn: function() { initStatsScreen(); } },                            next: { label: "Destiny →",    fn: function() { showScreen("destiny"); updateStepTrack(7); initDestinyScreen(); } } },
       destiny:    { prev: { label: "← Outfitting", fn: function() { initOutfittingScreen(); } },                       next: { label: "Your Story →", fn: function() { showScreen("backstory"); updateStepTrack(8); initBackstoryScreen(); }, disabled: true } },
       backstory:  { prev: { label: "← Destiny",    fn: function() { showScreen("destiny"); updateStepTrack(7); initDestinyScreen(); } }, next: { label: "Finalize →", fn: function() { showSummary(); } } },
     };
@@ -3952,7 +4028,7 @@
       pip.classList.toggle('cc-pip-active', i === activeIdx);
       pip.classList.toggle('cc-pip-done',   i < activeIdx);
     });
-    var screenMap = ["species", "phase1", "phase2", "phase3", "stats", "kits", "outfitting", "destiny", "backstory"];
+    var screenMap = ["species", "phase1", "phase2", "phase3", "kits", "stats", "outfitting", "destiny", "backstory"];
     if (screenMap[activeIdx]) updateHeaderNav(screenMap[activeIdx]);
   }
 
@@ -4075,7 +4151,7 @@
         state.phase1 = "soldier";
         state.phase2 = "enforcer";
         state.phase3 = "exile";
-        initStatsScreen();
+        initKitsScreen();
       }
     });
   }

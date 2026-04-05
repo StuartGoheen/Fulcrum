@@ -6051,6 +6051,60 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--color-warn);
 }
 
+.cc-voc-guidance {
+  margin: 0.4rem 0.5rem 0;
+  padding: 0.35rem 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--color-accent-primary) 5%, var(--color-bg-primary));
+}
+
+.cc-voc-guidance-title {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 0.42rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  margin-bottom: 0.2rem;
+}
+
+.cc-voc-guidance-row {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.15rem 0;
+  font-size: 0.42rem;
+  font-family: 'Audiowide', sans-serif;
+  letter-spacing: 0.04em;
+}
+
+.cc-voc-guidance-icon {
+  width: 1rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+.cc-voc-guidance-row--met .cc-voc-guidance-icon {
+  color: var(--color-accent-primary);
+}
+
+.cc-voc-guidance-row--unmet .cc-voc-guidance-icon {
+  color: var(--color-warn, #e5a100);
+}
+
+.cc-voc-guidance-row--unmet .cc-voc-guidance-text {
+  color: var(--color-warn, #e5a100);
+}
+
+.cc-voc-guidance-row--met .cc-voc-guidance-text {
+  color: var(--color-text-secondary);
+}
+
+.cc-voc-guidance-current {
+  opacity: 0.7;
+  font-size: 0.38rem;
+}
+
 /* ── 5×5 Grid ────────────────────────────────────────────────────────── */
 
 .stats-grid-wrap {
