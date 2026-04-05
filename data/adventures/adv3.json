@@ -1805,8 +1805,8 @@
           "number": 2,
           "title": "The Pressure Cooker",
           "subtitle": "Day 3",
-          "readAloud": "Day three. Only two tables remain. The buy-ins have escalated, and the audience has shifted from celebration to funeral silence.\n\nMidway through the session, a Devaronian gambler named Szygar goes bust against Arandis. He snaps, leaping up and screaming accusations of cheating. A hold-out blaster appears in his hand.\n\nPanic ripples through the crowd. Arandis doesn't flinch.",
-          "gmNotes": "The Szygar incident is a test for the heroes. If working security, they must subdue him without causing a casino shutdown. If playing, they must decide whether to intervene. If heroes don't act, Arandis's undercover Stormtroopers will vaporize Szygar, potentially causing a police investigation that cancels the tournament. Varth: 'Don't let them shoot! If the cops shut us down, we lose the money!' Success earns trust from casino owner Jacc Mandelbrot.",
+          "readAloud": "Before the tables open on Day 3, you catch Maya and Varth in a hushed argument near the docking bay. Maya's voice is low but furious:\n\n\"There are people on that ship, Varth. Living people in slave circuits. We have the datapad. We know where the Shackles of Nizon docks. We could —\"\n\nVarth cuts her off, cold and final: \"That is not why we are here. We are here for the money. A rescue operation against an Imperial slave transport is suicide, and I will not risk this crew on your conscience.\"\n\nMaya stares at him. Then she walks away without another word.\n\nDay three. Only two tables remain. The buy-ins have escalated, and the audience has shifted from celebration to funeral silence.\n\nMidway through the session, a Devaronian gambler named Szygar goes bust against Arandis. He snaps, leaping up and screaming accusations of cheating. A hold-out blaster appears in his hand.\n\nPanic ripples through the crowd. Arandis doesn't flinch.",
+          "gmNotes": "OPENING BEAT: The heroes overhear Maya and Varth arguing about the Shackles of Nizon slave transport (from the Trandoshan datapad in Part 1). Maya wants to intervene and free the slaves. Varth shuts her down — too risky, not the mission. This is critical foreshadowing: Maya cares about the slaves, Varth sees them as irrelevant. When Varth later sends Maya to that same ship and tries to leave her there, the players will remember this moment and understand what he did.\n\nThe Szygar incident is a test for the heroes. If working security, they must subdue him without causing a casino shutdown. If playing, they must decide whether to intervene. If heroes don't act, Arandis's undercover Stormtroopers will vaporize Szygar, potentially causing a police investigation that cancels the tournament. Varth: 'Don't let them shoot! If the cops shut us down, we lose the money!' Success earns trust from casino owner Jacc Mandelbrot.",
           "npcs": [
             {
               "name": "Szygar",
@@ -1936,10 +1936,22 @@
             }
           ],
           "loreTags": [
+            "Maya",
+            "Admiral Varth",
+            "Shackles of Nizon",
             "Sabacc Tournament",
             "Cloud City"
           ],
-          "narrativeLinks": [],
+          "narrativeLinks": [
+            {
+              "targetScene": "adv3-p1-s3",
+              "note": "The Trandoshan datapad from the Refinery Rumble is what Maya is referencing — she read about the Shackles of Nizon and wants to act."
+            },
+            {
+              "targetScene": "adv3-p3-s5",
+              "note": "This argument foreshadows Varth sending Maya to the Shackles of Nizon and attempting to abandon her there. He told her no — then used the ship as bait."
+            }
+          ],
           "challengeType": "social",
           "destinyTags": [
             "rescue",
@@ -1989,13 +2001,34 @@
             "narrative": "Crisis resolved. Casino owner's trust earned. Final table approaching."
           },
           "pacing": {
-            "openingBeat": "Day 3. Tension rises. The field narrows.",
+            "openingBeat": "Maya and Varth argue about the slave ship. She wants to help. He refuses. Then Day 3 begins.",
             "risingAction": "Szygar goes bust and snaps. Blaster appears.",
             "climax": "The 2-round window. Subdue him before the Stormtroopers fire.",
             "resolution": "Crisis resolved. Mandelbrot is grateful. Final table set.",
             "estimatedMinutes": 25
           },
           "disciplineChallenges": [
+            {
+              "id": "sc-a3s7-insight-argument",
+              "discipline": "insight",
+              "context": "Reading the argument between Maya and Varth about the slave ship.",
+              "isOptional": true,
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "Varth made a fair point. It IS too dangerous. Maya's being emotional.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Varth isn't worried about risk — he's worried about interference. The slaves are not an obstacle to him. They are irrelevant. And Maya just became a liability in his eyes."
+              },
+              "target": "Varth's reasoning",
+              "resist": 3,
+              "risk": 2,
+              "effect": {
+                "fleeting": "Something about Varth's tone was off. He didn't say 'we can't.' He said 'we won't.' There's a difference.",
+                "masterful": "Varth wasn't weighing the risk. He'd already decided before Maya spoke. The conversation was a formality. He does not care about those people at all.",
+                "legendary": "Complete read: Varth has already factored the Shackles of Nizon into his plan. The slave ship is a piece on his board. Maya wanting to save people is an inconvenience he will need to manage — one way or another."
+              }
+            },
             {
               "id": "sc-a3s7-brawl",
               "discipline": "brawl",
