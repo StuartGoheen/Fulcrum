@@ -11383,7 +11383,8 @@ body.is-col-resizing .resize-handle {
 .crawl-perspective {
   position: absolute;
   inset: 0;
-  perspective: 400px;
+  perspective: 300px;
+  perspective-origin: 50% 38%;
   overflow: hidden;
   opacity: 0;
 }
@@ -11397,8 +11398,8 @@ body.is-col-resizing .resize-handle {
   top: 0;
   left: 50%;
   width: 70%;
-  max-width: 650px;
-  transform: translateX(-50%) rotateX(20deg);
+  max-width: 750px;
+  transform: translateX(-50%) rotateX(28deg);
   transform-origin: 50% 100%;
   text-align: center;
   will-change: top;
@@ -11422,16 +11423,16 @@ body.is-col-resizing .resize-handle {
 .crawl-episode {
   color: #FFE81F;
   font-family: 'Audiowide', sans-serif;
-  font-size: 1.1rem;
+  font-size: 1.4rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.6rem;
 }
 
 .crawl-title {
   color: #FFE81F;
   font-family: 'Audiowide', sans-serif;
-  font-size: 2.4rem;
+  font-size: 3rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   margin-bottom: 3rem;
@@ -11440,8 +11441,8 @@ body.is-col-resizing .resize-handle {
 .crawl-body-text {
   color: #FFE81F;
   font-family: 'Exo 2', sans-serif;
-  font-size: 1.25rem;
-  line-height: 2;
+  font-size: 1.55rem;
+  line-height: 1.9;
   text-align: justify;
   margin-bottom: 2.5rem;
   font-weight: 600;
