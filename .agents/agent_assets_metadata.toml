@@ -48,3 +48,27 @@ id = "D6bupI2rOQzDgsgxslh-H"
 uri = "file://attached_assets/fulcrum-logo-aurebesh-f.png"
 type = "image"
 title = "Fulcrum Aurebesh F logo"
+
+[[generated]]
+id = "k5EXa04mCZYsk0c9NAxJY"
+uri = "file://attached_assets/fulcrum-b-refined-flat.png"
+type = "image"
+title = "Fulcrum diamond flat clean"
+
+[[generated]]
+id = "N_a4BV1e13DqPukJxKR2n"
+uri = "file://attached_assets/fulcrum-b-refined-glow.png"
+type = "image"
+title = "Fulcrum diamond crystal glow"
+
+[[generated]]
+id = "u0SPE3yYZe3sUiq5kxz_g"
+uri = "file://attached_assets/fulcrum-b-refined-silver.png"
+type = "image"
+title = "Fulcrum diamond silver steel"
+
+[[generated]]
+id = "9x18PRN82FJYP35AxbeH7"
+uri = "file://attached_assets/fulcrum-b-refined-dark.png"
+type = "image"
+title = "Fulcrum diamond dark matte"
