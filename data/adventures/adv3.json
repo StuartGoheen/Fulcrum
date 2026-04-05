@@ -4729,8 +4729,8 @@
           "number": 6,
           "title": "The Choice",
           "subtitle": "End of Act I",
-          "readAloud": "The Tibanna Gas Hauler explodes in a massive fireball just meters from the slave ship. Maya's voice, shaking with relief: \"Slave circuits fried. Nav-computer is green. We are jumping to the rendezvous...\"\n\nA pause.\n\n\"...and Varth? You and I are going to have a very long talk.\"\n\nThe Assiduous opens fire with turbolasers. Green bolts flash past your cockpit. Varth screams from the Banshee:\n\n\"We overstayed our welcome! PUNCH IT!\"\n\nThe stars stretch into lines and you're gone.",
-          "gmNotes": "The aftermath of Act I. At the rendezvous: Maya punches Varth in the jaw. He takes it, claiming it was a 'tactical calculation that changed.' Rewards: The Glorious Chariot, Z-95 fighters, tournament winnings, Varga's assets, Project Leviathan files. Varth's tease: 'This data points to a massive construction project in the Unknown Regions. If you want to know what the Empire is really building, we have to go off the map.' This concludes Act I and sets up the campaign's second act.",
+          "readAloud": "The Tibanna Gas Hauler explodes in a massive fireball just meters from the slave ship. Maya's voice cuts through the static, shaking with relief: \"Slave circuits fried. I have helm control. Jumping to Takodana.\"\n\nThe Assiduous opens fire with turbolasers. Green bolts flash past your cockpit. Varth screams from the Banshee:\n\n\"We overstayed our welcome! PUNCH IT!\"\n\nThe stars stretch into lines and you're gone.\n\nYou drop out of hyperspace over Takodana. Green forests and silver lakes fill the viewport below — and hanging in low orbit, engines dark, is the Shackles of Nizon. A massive Imperial bulk transport, its hull scarred and ugly, cargo bays built for three hundred bodies in chains. The slave circuits are dark. The running lights are on.\n\nMaya got here first.",
+          "gmNotes": "The aftermath of Act I. The crew arrives at Takodana to find the Shackles of Nizon already in orbit — Maya jumped here ahead of them. The bulk transport is too large to land; it sits in low orbit while Maya shuttles freed slaves down to Maz Kanata's castle. Denia is already planetside — she's been recovering at Maz's since the end of Adventure 2. The Banshee is docked at the castle.\n\nWhen the crew lands at Maz's castle, Maya is waiting. She walks straight to Varth and punches him in the jaw. He takes it. 'She made her choice. And you made yours.' Varth doesn't apologize — he never does.\n\nRewards: The Glorious Chariot, Z-95 fighters, tournament winnings, Varga's assets, Project Leviathan files. Varth unlocks the encrypted account and pays the crew their cut.\n\nVarth's pivot: 'This data points to a massive construction project in the Unknown Regions. If you want to know what the Empire is really building, we have to go off the map.' He looks at Denia: 'How did the Jedi navigate this part of space?' Denia suggests the Ebon Spire on the forest moon of Endor. Varth nods like he's hearing it for the first time.\n\nThis concludes Act I and sets up the campaign's second act. Takodana — Maz's castle — is the crew's home base.",
           "npcs": [
             {
               "name": "Admiral Varth",
@@ -4898,11 +4898,24 @@
             "Admiral Varth",
             "Varth's True Nature",
             "Maya",
+            "Master Denia",
+            "Maz Kanata",
+            "Takodana",
+            "Shackles of Nizon",
             "Project Leviathan",
             "The Glorious Chariot",
             "End of Act I"
           ],
-          "narrativeLinks": [],
+          "narrativeLinks": [
+            {
+              "targetScene": "adv3-p2-s2",
+              "note": "The argument the players overheard. Maya said she wanted to help the slaves. Varth said no. She went anyway. And now here she is — with three hundred freed people and a punch for Varth."
+            },
+            {
+              "targetScene": "adv4-p1-s1",
+              "note": "Denia's suggestion of the Ebon Spire launches Adventure 4. The crew departs Takodana for the Forest Moon of Endor."
+            }
+          ],
           "challengeType": "social",
           "destinyTags": [
             "atonement",
@@ -4955,9 +4968,9 @@
             "narrative": "Act I concludes. The heroes have Varga's fortune, his ship, and critical intelligence. But they also know what Varth is capable of. The campaign shifts from \"survive and profit\" to \"what is the Empire building in the Unknown Regions?\""
           },
           "pacing": {
-            "openingBeat": "The Gas Hauler explodes. Maya is safe. The Assiduous opens fire.",
-            "risingAction": "Hyperspace jump under turbolaser fire.",
-            "climax": "At the rendezvous: Maya punches Varth.",
+            "openingBeat": "The Gas Hauler explodes. Maya jumps to Takodana. The Assiduous opens fire.",
+            "risingAction": "Hyperspace jump under turbolaser fire. Drop out over Takodana — the Shackles of Nizon is already in orbit. Maya got here first.",
+            "climax": "At Maz's castle: Maya punches Varth.",
             "resolution": "Act I ends. Varth teases Act II: \"If you want to know what the Empire is really building, we have to go off the map.\"",
             "estimatedMinutes": 20
           },
