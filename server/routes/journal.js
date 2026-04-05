@@ -315,8 +315,8 @@ async function createSceneJournalEntry(sceneId) {
   const entryTitle = scene.title || sceneId;
 
   const existing = await pool.query(
-    'SELECT id FROM journal_entries WHERE title = $1 AND author_character_name = $2',
-    [entryTitle, 'Campaign Log']
+    'SELECT id FROM journal_entries WHERE source_scene_id = $1 AND author_character_name = $2',
+    [sceneId, 'Campaign Log']
   );
   if (existing.rows.length > 0) return null;
 
@@ -371,10 +371,10 @@ async function createSceneJournalEntry(sceneId) {
     await client.query('BEGIN');
 
     const entryResult = await client.query(
-      `INSERT INTO journal_entries (title, body, author_character_name)
-       VALUES ($1, $2, $3)
+      `INSERT INTO journal_entries (title, body, author_character_name, source_scene_id)
+       VALUES ($1, $2, $3, $4)
        RETURNING id`,
-      [entryTitle, body, 'Campaign Log']
+      [entryTitle, body, 'Campaign Log', sceneId]
     );
     const entryId = entryResult.rows[0].id;
 

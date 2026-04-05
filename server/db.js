@@ -99,6 +99,7 @@ async function initSchema() {
         title                 TEXT    NOT NULL,
         body                  TEXT    NOT NULL DEFAULT '',
         author_character_name TEXT    NOT NULL,
+        source_scene_id       TEXT,
         created_at            TIMESTAMP DEFAULT NOW(),
         updated_at            TIMESTAMP DEFAULT NOW()
       );
@@ -109,6 +110,10 @@ async function initSchema() {
         PRIMARY KEY (entry_id, tag_id)
       );
     `);
+
+    try {
+      await client.query(`ALTER TABLE journal_entries ADD COLUMN IF NOT EXISTS source_scene_id TEXT`);
+    } catch (e) {}
 
     await client.query(`
       INSERT INTO campaign_progress (id, adventure_id, part_id, scene_id)
