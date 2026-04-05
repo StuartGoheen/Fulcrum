@@ -363,7 +363,7 @@
     btn.className = 'handbook-trigger';
     btn.setAttribute('aria-label', "Open Player's Handbook");
     btn.title = "Player's Handbook";
-    btn.innerHTML = '<img src="/images/fulcrum-logo.png" alt="Fulcrum" width="32" height="32" style="pointer-events:none;">';
+    btn.innerHTML = '<img src="/images/fulcrum-logo.png" alt="Fulcrum" width="50" height="50" style="pointer-events:none;">';
     return btn;
   }
 
