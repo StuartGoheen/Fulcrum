@@ -120,18 +120,25 @@ Server listens on `0.0.0.0:5000`.
 - `DELETE /api/journal/entries/:id` — delete entry
 - `POST /api/journal/extract-tags/:sceneId` — extract tags from adventure scene
 
-## Campaign Journal — Hierarchical Navigation
+## Campaign Journal
 
-The Journal tab (player handbook) and Crew Journal (GM command bridge) use a hierarchical Act → Episode → Scene drill-down:
-- **Acts view**: Lists Act 1/2/3 with completion counts (scenes done / total)
-- **Episodes view**: Lists adventures within an act with scene completion counts
-- **Scenes view**: Lists scenes within an adventure, grouped by part. Completed scenes are clickable; incomplete scenes shown greyed/locked
-- **Scene Detail view**: Shows Campaign Log (collapsible summary) + player entries + "New Entry" button
-- **Breadcrumb navigation**: Clickable breadcrumb trail at top for back-navigation at any level
-- **Read-first interaction**: Player entries expand on click to show full body + tags, with Edit button inside expanded view (no instant edit-on-click)
-- **Scene association**: Entries created from scene detail view automatically get `source_scene_id` set
+Two different journal views for players vs GM:
+
+**Player Journal** (handbook tab) — spoiler-safe flat list:
+- Shows ONLY completed scenes — no act names, episode titles, or future scenes revealed
+- Blank/empty until the first scene is completed ("Your journal will fill as you progress")
+- Click a completed scene → scene detail view with Campaign Log + player entries
+- Breadcrumb: "Campaign Journal › Scene Title" (no hierarchy spoilers)
+- Read-first interaction: click entry to expand/read, Edit button inside expanded view
+- New entries created from scene detail auto-link to that scene via `source_scene_id`
+
+**GM Crew Journal** (command bridge) — full hierarchy:
+- Act → Episode → Scene drill-down with completion counts
+- Shows all scenes: completed ones clickable, incomplete greyed/locked
+- Scene detail shows Campaign Log + player entries (read-only, no edit controls)
+- Breadcrumb navigation at all levels
+
 - **DB constraint**: Unique index `idx_journal_entries_scene_author` scoped only to `Campaign Log` author (allows multiple player entries per scene per author)
-- **GM view**: Same hierarchy but read-only (no edit/create controls)
 
 ## Ammo Power Bar System
 

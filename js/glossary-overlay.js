@@ -320,7 +320,7 @@
   var _characterName = '';
   var _journalAdventures = [];
   var _journalCompletions = {};
-  var _journalNav = { level: 'acts', actNum: null, advId: null, sceneId: null };
+  var _journalNav = { level: 'list', actNum: null, advId: null, sceneId: null };
   var _journalExpandedEntry = null;
 
   function _detectCharacterName() {
@@ -1392,54 +1392,6 @@
     return html;
   }
 
-  var _ACT_NAMES = {
-    1: 'The Dawn of Defiance',
-    2: 'The Shadow War',
-    3: 'The Final Reckoning'
-  };
-
-  function _getActAdvs(actNum) {
-    return _journalAdventures.filter(function (a) { return a.act === actNum || a.act === 'Act ' + actNum; });
-  }
-
-  function _countActScenes(actNum) {
-    var advs = _getActAdvs(actNum);
-    var total = 0, done = 0;
-    advs.forEach(function (adv) {
-      (adv.parts || []).forEach(function (p) {
-        (p.scenes || []).forEach(function (s) {
-          total++;
-          if (_journalCompletions[s.id] && _journalCompletions[s.id].completed) done++;
-        });
-      });
-    });
-    return { total: total, done: done };
-  }
-
-  function _renderBreadcrumbs() {
-    var parts = [];
-    parts.push('<span class="jnav-crumb" data-jnav-to="acts">Campaign Journal</span>');
-    if (_journalNav.level !== 'acts' && _journalNav.actNum) {
-      parts.push('<span class="jnav-sep">\u203A</span>');
-      parts.push('<span class="jnav-crumb" data-jnav-to="episodes">Act ' + _journalNav.actNum + '</span>');
-    }
-    if ((_journalNav.level === 'scenes' || _journalNav.level === 'scene-detail') && _journalNav.advId) {
-      var adv = _journalAdventures.find(function (a) { return a.id === _journalNav.advId; });
-      if (adv) {
-        parts.push('<span class="jnav-sep">\u203A</span>');
-        parts.push('<span class="jnav-crumb" data-jnav-to="scenes">' + _esc(adv.title) + '</span>');
-      }
-    }
-    if (_journalNav.level === 'scene-detail' && _journalNav.sceneId) {
-      var scene = _findSceneInAdvs(_journalNav.sceneId);
-      if (scene) {
-        parts.push('<span class="jnav-sep">\u203A</span>');
-        parts.push('<span class="jnav-crumb is-current">' + _esc(scene.title) + '</span>');
-      }
-    }
-    return '<div class="jnav-breadcrumbs">' + parts.join('') + '</div>';
-  }
-
   function _findSceneInAdvs(sceneId) {
     for (var i = 0; i < _journalAdventures.length; i++) {
       var adv = _journalAdventures[i];
@@ -1453,81 +1405,62 @@
     return null;
   }
 
-  function _renderActsView() {
-    var html = '';
-    var actNums = [];
-    _journalAdventures.forEach(function (a) {
-      var n = typeof a.act === 'number' ? a.act : parseInt(String(a.act).replace(/\D/g, ''), 10) || 0;
-      if (n && actNums.indexOf(n) === -1) actNums.push(n);
-    });
-    actNums.sort();
-    if (!actNums.length) {
-      html += '<div class="journal-empty"><div class="journal-empty-text">No adventures loaded.</div></div>';
-      return html;
-    }
-    actNums.forEach(function (actNum) {
-      var counts = _countActScenes(actNum);
-      var name = _ACT_NAMES[actNum] || '';
-      html += '<div class="jnav-row" data-jnav-act="' + actNum + '">';
-      html += '<span class="jnav-row-icon">\u25B6</span>';
-      html += '<div class="jnav-row-text">';
-      html += '<span class="jnav-row-title">Act ' + actNum + (name ? ' \u2014 ' + _esc(name) : '') + '</span>';
-      html += '<span class="jnav-row-sub">' + counts.done + ' / ' + counts.total + ' scenes completed</span>';
-      html += '</div>';
-      html += '</div>';
-    });
-    return html;
-  }
-
-  function _renderEpisodesView() {
-    var advs = _getActAdvs(_journalNav.actNum);
-    var html = '';
-    if (!advs.length) {
-      html += '<div class="journal-empty"><div class="journal-empty-text">No episodes in this act yet.</div></div>';
-      return html;
-    }
-    advs.forEach(function (adv) {
-      var total = 0, done = 0;
-      (adv.parts || []).forEach(function (p) {
-        (p.scenes || []).forEach(function (s) {
-          total++;
-          if (_journalCompletions[s.id] && _journalCompletions[s.id].completed) done++;
+  function _getCompletedScenes() {
+    var scenes = [];
+    _journalAdventures.forEach(function (adv) {
+      (adv.parts || []).forEach(function (part) {
+        (part.scenes || []).forEach(function (scene) {
+          var comp = _journalCompletions[scene.id];
+          if (comp && comp.completed) {
+            scenes.push({
+              id: scene.id,
+              title: scene.title,
+              number: scene.number,
+              completedAt: comp.completed_at || null
+            });
+          }
         });
       });
-      html += '<div class="jnav-row" data-jnav-adv="' + _esc(adv.id) + '">';
-      html += '<span class="jnav-row-icon">\u25B6</span>';
-      html += '<div class="jnav-row-text">';
-      html += '<span class="jnav-row-title">Episode ' + adv.number + ': ' + _esc(adv.title) + '</span>';
-      html += '<span class="jnav-row-sub">' + done + ' / ' + total + ' scenes completed</span>';
-      html += '</div>';
-      html += '</div>';
     });
-    return html;
+    scenes.sort(function (a, b) {
+      if (a.completedAt && b.completedAt) return new Date(a.completedAt) - new Date(b.completedAt);
+      return a.id < b.id ? -1 : 1;
+    });
+    return scenes;
   }
 
-  function _renderScenesView() {
-    var adv = _journalAdventures.find(function (a) { return a.id === _journalNav.advId; });
-    if (!adv) return '<div class="journal-empty"><div class="journal-empty-text">Adventure not found.</div></div>';
+  function _renderBreadcrumbs() {
+    var parts = [];
+    parts.push('<span class="jnav-crumb"' + (_journalNav.level === 'scene-detail' ? ' data-jnav-to="list"' : '') + '>Campaign Journal</span>');
+    if (_journalNav.level === 'scene-detail' && _journalNav.sceneId) {
+      var scene = _findSceneInAdvs(_journalNav.sceneId);
+      if (scene) {
+        parts.push('<span class="jnav-sep">\u203A</span>');
+        parts.push('<span class="jnav-crumb is-current">' + _esc(scene.title) + '</span>');
+      }
+    }
+    return '<div class="jnav-breadcrumbs">' + parts.join('') + '</div>';
+  }
+
+  function _renderCompletedScenesView() {
+    var scenes = _getCompletedScenes();
     var html = '';
-    (adv.parts || []).forEach(function (part) {
-      html += '<div class="jnav-part-label">Part ' + part.number + ': ' + _esc(part.title) + '</div>';
-      (part.scenes || []).forEach(function (scene) {
-        var comp = _journalCompletions[scene.id];
-        var isDone = comp && comp.completed;
-        var entryCount = 0;
-        _journalEntries.forEach(function (e) { if (e.source_scene_id === scene.id) entryCount++; });
-        html += '<div class="jnav-row' + (isDone ? '' : ' is-locked') + '"' + (isDone ? ' data-jnav-scene="' + _esc(scene.id) + '"' : '') + '>';
-        html += '<span class="jnav-row-icon">' + (isDone ? '\u25B6' : '\u25CB') + '</span>';
-        html += '<div class="jnav-row-text">';
-        html += '<span class="jnav-row-title' + (isDone ? '' : ' is-dim') + '">Scene ' + scene.number + ': ' + _esc(scene.title) + '</span>';
-        if (isDone && entryCount > 0) {
-          html += '<span class="jnav-row-sub">' + entryCount + ' journal ' + (entryCount === 1 ? 'entry' : 'entries') + '</span>';
-        } else if (!isDone) {
-          html += '<span class="jnav-row-sub is-dim">Not yet completed</span>';
-        }
-        html += '</div>';
-        html += '</div>';
-      });
+    if (!scenes.length) {
+      html += '<div class="journal-empty"><div class="journal-empty-text">No completed scenes yet.<br>Your journal will fill as you progress through the campaign.</div></div>';
+      return html;
+    }
+    scenes.forEach(function (scene, idx) {
+      var entryCount = 0;
+      _journalEntries.forEach(function (e) { if (e.source_scene_id === scene.id) entryCount++; });
+      html += '<div class="jnav-row" data-jnav-scene="' + _esc(scene.id) + '">';
+      html += '<span class="jnav-row-icon">\u25B6</span>';
+      html += '<div class="jnav-row-text">';
+      html += '<span class="jnav-row-title">' + _esc(scene.title) + '</span>';
+      if (entryCount > 0) {
+        html += '<span class="jnav-row-sub">' + entryCount + ' journal ' + (entryCount === 1 ? 'entry' : 'entries') + '</span>';
+      }
+      html += '</div>';
+      html += '</div>';
     });
     return html;
   }
@@ -1614,14 +1547,10 @@
     var html = '';
     html += _renderBreadcrumbs();
     html += '<div class="jnav-content">';
-    if (_journalNav.level === 'acts') {
-      html += _renderActsView();
-    } else if (_journalNav.level === 'episodes') {
-      html += _renderEpisodesView();
-    } else if (_journalNav.level === 'scenes') {
-      html += _renderScenesView();
-    } else if (_journalNav.level === 'scene-detail') {
+    if (_journalNav.level === 'scene-detail') {
       html += _renderSceneDetailView();
+    } else {
+      html += _renderCompletedScenesView();
     }
     html += '</div>';
 
@@ -1629,38 +1558,10 @@
 
     wrap.querySelectorAll('[data-jnav-to]').forEach(function (el) {
       el.addEventListener('click', function () {
-        var target = el.getAttribute('data-jnav-to');
-        if (target === 'acts') {
-          _journalNav = { level: 'acts', actNum: null, advId: null, sceneId: null };
-        } else if (target === 'episodes') {
-          _journalNav.level = 'episodes';
-          _journalNav.advId = null;
-          _journalNav.sceneId = null;
-        } else if (target === 'scenes') {
-          _journalNav.level = 'scenes';
-          _journalNav.sceneId = null;
-        }
+        _journalNav = { level: 'list', actNum: null, advId: null, sceneId: null };
         _journalFormMode = null;
         _journalExpandedEntry = null;
         _renderJournal();
-      });
-    });
-
-    wrap.querySelectorAll('[data-jnav-act]').forEach(function (el) {
-      el.addEventListener('click', function () {
-        _journalNav = { level: 'episodes', actNum: parseInt(el.getAttribute('data-jnav-act'), 10), advId: null, sceneId: null };
-        _journalExpandedEntry = null;
-        _renderJournal();
-      });
-    });
-
-    wrap.querySelectorAll('[data-jnav-adv]').forEach(function (el) {
-      el.addEventListener('click', function () {
-        _journalNav.level = 'scenes';
-        _journalNav.advId = el.getAttribute('data-jnav-adv');
-        _journalNav.sceneId = null;
-        _journalExpandedEntry = null;
-        _loadSceneEntries();
       });
     });
 
