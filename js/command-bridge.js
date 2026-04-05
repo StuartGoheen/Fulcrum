@@ -643,7 +643,7 @@
     h += _buildTtsSettingsHtml();
     if (scene.readAloudPart1 && scene.readAloudPart2) {
       h += '<div class="cb-read-aloud" style="margin-bottom:0.75rem;" data-tts-section="part1">';
-      h += '<div class="cb-section-label">Read-Aloud — Part 1 <button class="cb-tts-narrate-btn" data-tts-action="narrate-all" title="Narrate All">&#9654; Narrate</button></div>';
+      h += '<div class="cb-section-label">Read-Aloud — Part 1 <button class="cb-tts-narrate-btn" data-tts-action="narrate-all" title="Narrate Part 1 then auto-continue to Part 2">&#9654; Narrate</button></div>';
       h += '<div class="cb-read-aloud-text">' + linkify(scene.readAloudPart1) + '</div>';
       if (scene.readAloudPart1PauseNote) {
         h += '<div class="cb-pause-note" style="margin-top:12px;padding:10px 14px;background:rgba(245,158,11,0.12);border-left:3px solid #f59e0b;border-radius:4px;color:#f59e0b;font-size:0.85rem;font-style:italic;">' + scene.readAloudPart1PauseNote + '</div>';
