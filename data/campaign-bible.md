@@ -99,6 +99,8 @@ Varth's solution: use the heroes (expendable, deniable contractors) to retrieve 
 
 **What the GM Knows:** Denia is genuine in everything she does. She is not manipulating anyone. But she IS being manipulated — by Varth. Her value is her knowledge of the old Jedi network: where holocrons are hidden, where archives are buried, where the Jedi and Sith mapped hyperspace routes centuries ago. She's also Force-sensitive enough to actually *open* Force-locked holocrons.
 
+**The Holocron Problem (Alternate Path):** If Denia is not with the party, the holocrons at the Ebon Spire are still Force-locked. The Nightsister PC is Force-sensitive and could theoretically attempt to open them — but Dathomiri magick and Jedi Force-locks are fundamentally different traditions. Nightsister power draws from Dathomir's spirit ichor and ancestral communion; Jedi holocrons respond to meditative clarity and the light side. The Nightsister attempting it should be a steep, uncertain check — possible but unlikely. On a legendary result, she brute-forces the lock through sheer will, but the data may be fragmented or corrupted by the incompatible resonance. On a failure, the holocron resists completely or delivers only garbled fragments. The Church of the Force is the more reliable fallback — they have scholars who studied Jedi meditation techniques without being Force-sensitive themselves, and could coach the Nightsister through a hybrid approach that improves her odds. This creates a natural reason for the party to seek the Church: not because they need a replacement Denia, but because their own Force-user needs guidance from a different tradition to interface with Jedi artifacts.
+
 Varth recognized her immediately in the dungeon. He advised "Leave her — she's a liability" because he calculated that even if the heroes abandoned her, he could tip off Draco and recover her through Imperial channels. If the heroes rescue her anyway, Varth adapts — she becomes his unwitting instrument, steered into suggesting the Ebon Spire. If they leave her, Varth contacts Draco privately. Draco recovers Denia from Varga's dungeon off-camera. The heroes never know she survived. Either way, Varth gets access to Denia's knowledge — directly through the heroes, or indirectly through Draco's interrogation of her.
 
 **Arc (Primary — Rescued):** Captive relic → Rescued asset → Trusted mentor → Varth's unwitting instrument → (Adv7) Captured by Draco → (Adv9) Potential rescue or permanent loss
@@ -499,7 +501,7 @@ A leviathan is a creature of the deep that drags you down. This weapon literally
 
 **What the Players Know Going In:** Varth has promised a bigger payday at Vel Shara in the Unknown Regions. To get there, they need ancient hyperspace charts. Denia has pointed them to the Ebon Spire — Revan's forward base on Endor — where Jedi holocrons with navigational data should be stored.
 
-**What the GM Knows:** Varth already knew about the Ebon Spire. He manipulated Denia into "suggesting" it. The holocrons are his real target — not for navigation to a payday, but to trade back to the Empire for command of the Leviathan. He needs Denia because the holocrons are Force-locked and only a Force-sensitive can open them.
+**What the GM Knows:** Varth already knew about the Ebon Spire. He manipulated Denia into "suggesting" it (primary path) or learned about it through Draco's interrogation of Denia and steered the heroes there through the Church of the Force's guidance (alternate path). The holocrons are his real target — not for navigation to a payday, but to trade back to the Empire for command of the Leviathan. He needs a Force-sensitive to open them. On the primary path, that's Denia. On the alternate path, the Nightsister PC is the only Force-user available — but Dathomiri magick interfaces poorly with Jedi Force-locks. The Church of the Force can coach the Nightsister through a hybrid meditation approach, improving her odds but not guaranteeing clean data. A partial or corrupted extraction still serves Varth — he can supplement gaps through Draco's parallel interrogation of Denia.
 
 **Key Plot Beats:**
 - Navigating hyperspace anomalies in the Moddell Sector
@@ -523,7 +525,7 @@ A leviathan is a creature of the deep that drags you down. This weapon literally
 
 **Threads Resolved:**
 - The Ebon Spire / holocron retrieval
-- Denia's role as Force-sensitive key (she opens the holocrons)
+- Force-sensitive key role: Denia opens the holocrons cleanly (primary path); OR the Nightsister attempts it with Church of the Force coaching — steep check, possible partial/corrupted data (alternate path). Either outcome gives Varth enough to proceed.
 
 ---
 
@@ -711,9 +713,11 @@ This section lays out Varth's complete scheme from start to finish. Every step t
 
 ### Phase 3: The Retrieval (Adventures 4–5)
 **Varth's goal:** Retrieve the holocrons and drift algorithms.
-**How:** Varth already knew about the Ebon Spire. He feeds the question to Denia so it appears organic: "How did the Jedi navigate the Unknown Regions?" She suggests Endor. The heroes go, retrieve the Force-locked holocrons (which only Denia can open), and return. Then Varth identifies the drift algorithms on Malpaz as the missing piece. The heroes steal them.
+**How (Primary):** Varth feeds the question to Denia so it appears organic: "How did the Jedi navigate the Unknown Regions?" She suggests Endor. The heroes go, retrieve the Force-locked holocrons (which Denia opens cleanly), and return.
+**How (Alternate):** Varth learns about the Ebon Spire through Draco's interrogation of Denia and steers the heroes there via Church of the Force guidance. At the Spire, the Nightsister PC attempts to open the Jedi Force-locked holocrons using Dathomiri magick — a fundamentally incompatible tradition. Steep check. On legendary success, she brute-forces it but the data may be fragmented. On failure, only garbled fragments. Either way, Varth supplements any gaps through Draco's parallel access to Denia. The heroes don't know this — they think they're working with incomplete data and need the drift algorithms to compensate.
+**Then:** Varth identifies the drift algorithms on Malpaz as the missing piece. The heroes steal them.
 **What the heroes think:** "One more job and we reach Vel Shara. The biggest payday yet."
-**What's really happening:** The heroes are retrieving the navigation package that Varth will trade to the Empire for command of the Leviathan.
+**What's really happening:** The heroes are retrieving the navigation package that Varth will trade to the Empire for command of the Leviathan. On the alternate path, Varth has a redundant data source (Draco's interrogation of Denia) that the heroes don't know about — their partial extraction is good enough because Varth can fill the gaps.
 
 ### Phase 4: The Trade (Adventure 6)
 **Varth's goal:** Trade the complete navigation data for command of the Leviathan.
