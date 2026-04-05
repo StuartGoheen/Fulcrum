@@ -79,6 +79,10 @@
   }
 
   function onVoicesLoaded(cb) {
+    if (_voices.length > 0) {
+      cb(_voices);
+      return;
+    }
     _voicesLoadedCallbacks.push(cb);
   }
 

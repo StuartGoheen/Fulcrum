@@ -650,7 +650,7 @@
       }
       h += '</div>';
       h += '<div class="cb-read-aloud" style="margin-top:6px;" data-tts-section="part2">';
-      h += '<div class="cb-section-label">Read-Aloud — Part 2 <button class="cb-tts-narrate-btn" data-tts-action="narrate-part2" title="Narrate Part 2">&#9654;</button></div>';
+      h += '<div class="cb-section-label">Read-Aloud — Part 2 <button class="cb-tts-narrate-btn" data-tts-action="narrate-part2" title="Narrate Part 2">&#9654; Narrate</button></div>';
       h += '<div class="cb-read-aloud-text">' + linkify(scene.readAloudPart2) + '</div>';
       h += '</div>';
     } else if (scene.readAloud) {
@@ -1101,8 +1101,7 @@
           btn.classList.add('speaking');
         } else {
           btn.classList.remove('speaking');
-          if (action === 'narrate-all') btn.innerHTML = '&#9654; Narrate';
-          else btn.innerHTML = '&#9654;';
+          btn.innerHTML = '&#9654; Narrate';
         }
       });
 
