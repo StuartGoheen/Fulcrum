@@ -1806,7 +1806,7 @@
           "title": "The Pressure Cooker",
           "subtitle": "Day 3",
           "readAloud": "Before the tables open on Day 3, you catch Maya and Varth in a hushed argument near the docking bay. Maya's voice is low but furious:\n\n\"There are people on that ship, Varth. Living people in slave circuits. We have the datapad. We know where the Shackles of Nizon docks. We could —\"\n\nVarth cuts her off, cold and final: \"That is not why we are here. We are here for the money. A rescue operation against an Imperial slave transport is suicide, and I will not risk this crew on your conscience.\"\n\nMaya stares at him. Then she walks away without another word.\n\nDay three. Only two tables remain. The buy-ins have escalated, and the audience has shifted from celebration to funeral silence.\n\nMidway through the session, a Devaronian gambler named Szygar goes bust against Arandis. He snaps, leaping up and screaming accusations of cheating. A hold-out blaster appears in his hand.\n\nPanic ripples through the crowd. Arandis doesn't flinch.",
-          "gmNotes": "OPENING BEAT: The heroes overhear Maya and Varth arguing about the Shackles of Nizon slave transport (from the Trandoshan datapad in Part 1). Maya wants to intervene and free the slaves. Varth shuts her down — too risky, not the mission. This is critical foreshadowing: Maya cares about the slaves, Varth sees them as irrelevant. When Varth later sends Maya to that same ship and tries to leave her there, the players will remember this moment and understand what he did.\n\nThe Szygar incident is a test for the heroes. If working security, they must subdue him without causing a casino shutdown. If playing, they must decide whether to intervene. If heroes don't act, Arandis's undercover Stormtroopers will vaporize Szygar, potentially causing a police investigation that cancels the tournament. Varth: 'Don't let them shoot! If the cops shut us down, we lose the money!' Success earns trust from casino owner Jacc Mandelbrot.",
+          "gmNotes": "OPENING BEAT: The heroes overhear Maya and Varth arguing about the Shackles of Nizon slave transport (from the Trandoshan datapad in Part 1). Maya wants to intervene and free the slaves. Varth shuts her down — too risky, not the mission. This is critical foreshadowing: Maya cares enough to act. When she later goes to the slave ship on her own and Varth conveniently never tells the crew, the players will remember this moment and understand what he allowed to happen.\n\nThe Szygar incident is a test for the heroes. If working security, they must subdue him without causing a casino shutdown. If playing, they must decide whether to intervene. If heroes don't act, Arandis's undercover Stormtroopers will vaporize Szygar, potentially causing a police investigation that cancels the tournament. Varth: 'Don't let them shoot! If the cops shut us down, we lose the money!' Success earns trust from casino owner Jacc Mandelbrot.",
           "npcs": [
             {
               "name": "Szygar",
@@ -1949,7 +1949,7 @@
             },
             {
               "targetScene": "adv3-p3-s5",
-              "note": "This argument foreshadows Varth sending Maya to the Shackles of Nizon and attempting to abandon her there. He told her no — then used the ship as bait."
+              "note": "Maya goes to the Shackles of Nizon on her own — because Varth told her no and she couldn't let it go. Varth knew she went and never told the crew. He let it happen."
             }
           ],
           "challengeType": "social",
@@ -2008,27 +2008,6 @@
             "estimatedMinutes": 25
           },
           "disciplineChallenges": [
-            {
-              "id": "sc-a3s7-insight-argument",
-              "discipline": "insight",
-              "context": "Reading the argument between Maya and Varth about the slave ship.",
-              "isOptional": true,
-              "arena": "wits",
-              "actionType": "assess",
-              "control": {
-                "failure": "Varth made a fair point. It IS too dangerous. Maya's being emotional.",
-                "success": "Refer to effect tiers.",
-                "mastery": "Varth isn't worried about risk — he's worried about interference. The slaves are not an obstacle to him. They are irrelevant. And Maya just became a liability in his eyes."
-              },
-              "target": "Varth's reasoning",
-              "resist": 3,
-              "risk": 2,
-              "effect": {
-                "fleeting": "Something about Varth's tone was off. He didn't say 'we can't.' He said 'we won't.' There's a difference.",
-                "masterful": "Varth wasn't weighing the risk. He'd already decided before Maya spoke. The conversation was a formality. He does not care about those people at all.",
-                "legendary": "Complete read: Varth has already factored the Shackles of Nizon into his plan. The slave ship is a piece on his board. Maya wanting to save people is an inconvenience he will need to manage — one way or another."
-              }
-            },
             {
               "id": "sc-a3s7-brawl",
               "discipline": "brawl",
@@ -2994,15 +2973,15 @@
               "control": {
                 "failure": "Varth's logic seems sound. 'It's the only way.' No reason to doubt the tactical assessment.",
                 "success": "Refer to effect tiers.",
-                "mastery": "You see through Varth's entire calculation: he's willing to sacrifice Maya AND the freed slaves to secure his own escape. This isn't tactics — it's cowardice dressed as pragmatism."
+                "mastery": "You see through Varth completely: he knew Maya was on that ship. He knew before the escape started. He said nothing to the crew and was going to let her die. This isn't tactics — it's calculated silence."
               },
               "target": "Varth's plan",
               "resist": 3,
               "risk": 4,
               "effect": {
                 "fleeting": "Something about Varth's plan doesn't sit right. He dismissed the alternative too quickly.",
-                "masterful": "Varth is using Maya as a distraction. He planned this — her ship draws fire while he escapes. He's sacrificing her knowingly.",
-                "legendary": "Complete insight: Varth calculated this before the escape even started. Maya was always the expendable decoy in his plan. He never intended to protect her."
+                "masterful": "Varth knew Maya was on that ship before the escape started. He never mentioned it. Her death would have been convenient — one less person who knows what he's really after.",
+                "legendary": "Complete insight: Varth knew Maya went to the slave ship on her own. He could have told the crew. He could have warned her. He chose silence. If she dies, it's not his fault — she made her choice. That's how he sleeps at night."
               }
             },
             {
@@ -4414,13 +4393,13 @@
           "number": 5,
           "title": "Skirmish Over Bespin",
           "readAloud": "You break atmosphere and the sensor board lights up. The Imperial Star Destroyer Assiduous hangs in high orbit, launching TIE Fighters. The Shackles of Nizon — a transport filled with slaves — drifts dead in space. A massive automated Tibanna Gas Hauler is burning hard on a collision course with the slave ship.\n\nVarth's voice crackles from the Banshee, cold and professional:\n\n\"Good work getting airborne. That Gas Hauler is going to impact the transport in less than two minutes. It's a tragedy, but it's not our tragedy. We have the credits, we have the data. Spool up the hyperdrives. Let's get out of here while we're rich.\"\n\nThen a frantic transmission cuts through:\n\n\"Varth! I'm on the transport! The slave circuits are locked! I can't steer and sensors show collision imminent! Where is that backup code?!\"\n\nIt's Maya.",
-          "gmNotes": "The moral climax of Act I. Varth sent Maya to the slave ship intending for her to be destroyed with the evidence — she's a loose end. He's aboard the Banshee, safely out of the blast zone. The Empire is using the Gas Hauler as a ram to destroy the Shackles of Nizon. Varth's position: 'She knew the risks. We jump. Now.' The heroes must choose: follow Varth and leave Maya to die, or turn and fight. If they fight, they engage TIE Fighters to destroy the Gas Hauler. Varth eventually helps — not from altruism, but because he needs the heroes alive for the fortune.",
+          "gmNotes": "The moral climax of Act I. Maya went to the Shackles of Nizon on her own — she couldn't let the slaves die after Varth refused to help. Varth knew she went and deliberately did not tell the crew. He's aboard the Banshee, safely out of the blast zone. The Empire is using the Gas Hauler as a ram to destroy the Shackles of Nizon. Varth's position: 'She made her choice. We jump. Now.' The heroes must choose: follow Varth and leave Maya to die, or turn and fight. If they fight, they engage TIE Fighters to destroy the Gas Hauler. Varth eventually helps — not from altruism, but because he needs the heroes alive for the fortune.",
           "npcs": [
             {
               "name": "Maya",
               "type": "Pilot & Ally (In Peril)",
               "count": 1,
-              "notes": "Trapped on the Shackles of Nizon. Varth sent her there intending for her to die with the evidence.",
+              "notes": "Trapped on the Shackles of Nizon. She went on her own to free the slaves after Varth refused. Varth knew and never told the crew.",
               "threatBuild": {
                 "role": "harrier",
                 "tier": 2,
@@ -4594,7 +4573,7 @@
           "narrativeLinks": [
             {
               "targetScene": "adv1-p2-s1",
-              "note": "Maya has been the crew's pilot and closest ally since the beginning. Varth's willingness to sacrifice her reveals his true nature."
+              "note": "Maya has been the crew's pilot and closest ally since the beginning. She went to the slave ship because she couldn't stand by. Varth knew and said nothing — his silence reveals his true nature."
             }
           ],
           "challengeType": "combat",
@@ -4903,7 +4882,7 @@
                   },
                   "powerSource": "ranged"
                 },
-                "notes": "The crew's pilot since the beginning. Trapped on the Shackles of Nizon — can't fight, can only fly if the slave circuits are freed. Furious at Varth. Trust deeply damaged.",
+                "notes": "The crew's pilot since the beginning. Went to the Shackles of Nizon on her own to free the slaves. Trapped when slave circuits locked. Varth knew she went and said nothing to the crew.",
                 "powerSource": "ranged"
               }
             }
@@ -5006,7 +4985,7 @@
             {
               "id": "sc-a3s16-insight",
               "discipline": "insight",
-              "context": "Reading Varth after the Maya betrayal. What is he really?",
+              "context": "Reading Varth after his silence nearly killed Maya. What is he really?",
               "arena": "wits",
               "actionType": "assess",
               "control": {
@@ -5026,7 +5005,7 @@
             {
               "id": "sc-a3s16-persuasion",
               "discipline": "persuasion",
-              "context": "Confronting Varth about sending Maya to die.",
+              "context": "Confronting Varth about knowing Maya was on the slave ship and saying nothing.",
               "arena": "presence",
               "actionType": "interact",
               "control": {
