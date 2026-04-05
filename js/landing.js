@@ -173,29 +173,43 @@
   loadTheme();
   applyRoleVisibility();
 
-  document.getElementById('theme-toggle').addEventListener('click', () => {
-    const current = THEMES.find((t) => document.documentElement.classList.contains(t)) || DEFAULT_THEME;
-    const next    = THEMES[(THEMES.indexOf(current) + 1) % THEMES.length];
-    applyTheme(next);
-  });
+  var themeBtn = document.getElementById('theme-toggle');
+  if (themeBtn) {
+    themeBtn.addEventListener('click', function () {
+      var current = THEMES.find(function (t) { return document.documentElement.classList.contains(t); }) || DEFAULT_THEME;
+      var next = THEMES[(THEMES.indexOf(current) + 1) % THEMES.length];
+      applyTheme(next);
+    });
+  }
 
-  document.getElementById('btn-logout').addEventListener('click', function () {
-    fetch('/api/auth/logout', { method: 'POST' })
-      .then(function () { window.location.href = '/login'; })
-      .catch(function () { window.location.href = '/login'; });
-  });
+  var logoutBtn = document.getElementById('btn-logout');
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', function () {
+      fetch('/api/auth/logout', { method: 'POST' })
+        .then(function () { window.location.href = '/login'; })
+        .catch(function () { window.location.href = '/login'; });
+    });
+  }
 
-  document.getElementById('btn-player').addEventListener('click', showModal);
+  var playerBtn = document.getElementById('btn-player');
+  if (playerBtn) playerBtn.addEventListener('click', showModal);
   var gmBtn = document.getElementById('btn-gm');
   if (gmBtn) gmBtn.addEventListener('click', joinAsGM);
-  document.getElementById('modal-close').addEventListener('click', hideModal);
-  document.getElementById('btn-create-character').addEventListener('click', () => {
-    window.location.href = '/create/?new';
-  });
+  var modalCloseBtn = document.getElementById('modal-close');
+  if (modalCloseBtn) modalCloseBtn.addEventListener('click', hideModal);
+  var createBtn = document.getElementById('btn-create-character');
+  if (createBtn) {
+    createBtn.addEventListener('click', function () {
+      window.location.href = '/create/?new';
+    });
+  }
 
-  document.getElementById('modal-overlay').addEventListener('click', (e) => {
-    if (e.target === e.currentTarget) hideModal();
-  });
+  var modalOverlay = document.getElementById('modal-overlay');
+  if (modalOverlay) {
+    modalOverlay.addEventListener('click', function (e) {
+      if (e.target === e.currentTarget) hideModal();
+    });
+  }
 
   const releaseBtn = document.getElementById('admin-release-all');
   const releaseMsg = document.getElementById('admin-release-msg');
