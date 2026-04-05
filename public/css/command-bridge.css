@@ -1,6 +1,10 @@
     body {
-      background-color: var(--color-bg-primary);
-      color: var(--color-text-primary);
+        background-color: #1a1a1e;
+        background-image:
+          radial-gradient(ellipse 120% 60% at 50% 0%, rgba(200,164,78,0.04) 0%, transparent 70%),
+          radial-gradient(ellipse 80% 50% at 80% 100%, rgba(200,164,78,0.03) 0%, transparent 60%),
+          repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.008) 2px, rgba(255,255,255,0.008) 4px);
+      color: #d4c5a0;
       font-family: 'Exo 2', sans-serif;
       font-size: 0.85rem;
       margin: 0;
@@ -10,8 +14,9 @@
     .font-display { font-family: 'Audiowide', sans-serif; }
 
     .cb-header {
-      background: var(--color-bg-panel);
-      border-bottom: 1px solid var(--color-border);
+      background: linear-gradient(180deg, #2a2a2e 0%, #242428 100%);
+      border-bottom: none;
+        box-shadow: 0 1px 0 0 #c8a44e, 0 2px 8px rgba(0,0,0,0.4);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -36,7 +41,7 @@
     .cb-header-part-title {
       font-family: 'Audiowide', sans-serif;
       font-size: 0.8rem;
-      color: var(--color-text-primary);
+      color: #d4c5a0;
       letter-spacing: 0.04em;
       cursor: pointer;
       white-space: nowrap;
@@ -48,11 +53,11 @@
     }
     .cb-header-adv-title:hover,
     .cb-header-part-title:hover {
-      background: var(--color-bg-frame);
-      color: var(--color-accent-primary);
+      background: #232328;
+      color: #c8a44e;
     }
     .cb-header-sep {
-      color: var(--color-text-secondary);
+      color: #7a7068;
       font-size: 0.8rem;
       opacity: 0.5;
       flex-shrink: 0;
@@ -63,9 +68,9 @@
       gap: 0.5rem;
     }
     .cb-header-btn {
-      background: var(--color-bg-frame);
-      border: 1px solid var(--color-border);
-      color: var(--color-text-secondary);
+      background: #232328;
+      border: 1px solid #3a3632;
+      color: #7a7068;
       font-family: 'Exo 2', sans-serif;
       font-size: 0.65rem;
       letter-spacing: 0.08em;
@@ -79,21 +84,21 @@
       align-items: center;
     }
     .cb-header-btn:hover {
-      border-color: var(--color-accent-primary);
-      color: var(--color-text-primary);
+      border-color: #c8a44e;
+      color: #d4c5a0;
     }
     .cb-header-btn.accent {
-      border-color: var(--color-accent-primary);
-      color: var(--color-accent-primary);
+      border-color: #c8a44e;
+      color: #c8a44e;
     }
     .cb-header-btn.accent:hover {
-      background: var(--color-accent-primary);
-      color: var(--color-btn-text, var(--color-bg-primary));
+      background: #c8a44e;
+      color: #1a1a1e;
     }
     .cb-home-link {
       font-family: 'Audiowide', sans-serif;
       font-size: 0.65rem;
-      color: var(--color-accent-primary);
+      color: #c8a44e;
       text-decoration: none;
       letter-spacing: 0.08em;
     }
@@ -112,21 +117,21 @@
       overflow-y: auto;
       padding: 1rem;
       scrollbar-width: thin;
-      scrollbar-color: var(--color-accent-primary) var(--color-bg-frame);
+      scrollbar-color: #c8a44e #232328;
     }
     .cb-col-center {
       display: flex;
       flex-direction: column;
     }
     .cb-col-left {
-      background: var(--color-bg-panel);
-      border-right: 1px solid var(--color-border);
+      background: linear-gradient(180deg, #2a2a2e 0%, #262630 100%);
+      
       transition: width 0.3s ease, min-width 0.3s ease, padding 0.3s ease, opacity 0.25s ease;
       min-width: 0;
     }
     .cb-col-right {
-      background: var(--color-bg-panel);
-      border-left: 1px solid var(--color-border);
+      background: linear-gradient(180deg, #2a2a2e 0%, #262630 100%);
+      
       transition: width 0.3s ease, min-width 0.3s ease, padding 0.3s ease, opacity 0.25s ease;
       min-width: 0;
     }
@@ -156,9 +161,9 @@
       top: 50%;
       transform: translateY(-50%);
       z-index: 100;
-      background: var(--color-bg-panel);
-      border: 1px solid var(--color-border);
-      color: var(--color-accent-primary);
+      background: #2a2a2e;
+      border: 1px solid #3a3632;
+      color: #c8a44e;
       cursor: pointer;
       padding: 12px 4px;
       font-size: 0.65rem;
@@ -170,8 +175,8 @@
       display: none;
     }
     .cb-panel-tab:hover {
-      background: var(--color-bg-frame);
-      border-color: var(--color-accent-primary);
+      background: #232328;
+      border-color: #c8a44e;
     }
     .cb-panel-tab--left {
       left: 0;
@@ -187,14 +192,10 @@
     .cb-panel-tab.cb-tab-visible {
       display: block;
     }
-    @media (max-width: 768px) {
-      .cb-panel-tab, .cb-collapse-btn { display: none !important; }
-    }
-
-    .cb-collapse-btn {
+        .cb-collapse-btn {
       background: none;
       border: none;
-      color: var(--color-text-muted, #888);
+      color: #555;
       cursor: pointer;
       font-size: 0.7rem;
       padding: 2px 6px;
@@ -203,13 +204,13 @@
       flex-shrink: 0;
     }
     .cb-collapse-btn:hover {
-      color: var(--color-accent-primary);
+      color: #c8a44e;
       background: rgba(245, 158, 11, 0.08);
     }
 
     .cb-drag-handle {
       width: 6px;
-      background: var(--color-border);
+      background: rgba(58,54,50,0.3);
       cursor: col-resize;
       transition: background 0.15s, width 0.3s;
       display: flex;
@@ -222,31 +223,32 @@
       pointer-events: none;
     }
     .cb-drag-handle:hover, .cb-drag-handle:active {
-      background: var(--color-accent-primary);
-    }
+        background: rgba(200,164,78,0.4);
+        box-shadow: 0 0 6px rgba(200,164,78,0.2);
+      }
 
     .cb-col-title {
       font-family: 'Audiowide', sans-serif;
       font-size: 0.7rem;
-      color: var(--color-accent-deep);
+      color: #818cf8;
       text-transform: uppercase;
       letter-spacing: 0.1em;
       padding-bottom: 0.5rem;
       margin-bottom: 0.75rem;
-      border-bottom: 1px solid var(--color-border);
+      border-bottom: 1px solid #3a3632;
     }
 
     .cb-player-card {
-      background: var(--color-bg-frame);
-      border: 1px solid var(--color-border);
+        background: linear-gradient(135deg, #2a2a2e 0%, #252529 50%, #2a2a2e 100%);
+      border: 1px solid #3a3632;
       padding: 0.6rem;
       margin-bottom: 0.5rem;
       cursor: pointer;
       transition: border-color 0.2s;
     }
-    .cb-player-card:hover { border-color: var(--color-accent-primary); }
+    .cb-player-card:hover { border-color: #c8a44e; }
     .cb-player-card.connected { border-left: 3px solid #44AA66; }
-    .cb-player-card.disconnected { border-left: 3px solid var(--color-text-secondary); opacity: 0.6; }
+    .cb-player-card.disconnected { border-left: 3px solid #7a7068; opacity: 0.6; }
     .cb-player-top {
       display: flex;
       justify-content: space-between;
@@ -255,25 +257,25 @@
     .cb-player-name {
       font-family: 'Audiowide', sans-serif;
       font-size: 0.8rem;
-      color: var(--color-text-primary);
+      color: #d4c5a0;
     }
     .cb-player-detail {
       font-size: 0.7rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
     }
     .cb-player-vitality {
       font-family: 'Audiowide', sans-serif;
       font-size: 1rem;
-      color: var(--color-accent-primary);
+      color: #c8a44e;
     }
     .cb-player-status {
       font-size: 0.7rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       margin-top: 0.3rem;
     }
     .cb-player-expand-icon {
       font-size: 0.6rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       transition: transform 0.2s;
       margin-left: 0.3rem;
     }
@@ -289,7 +291,7 @@
     .cb-intel-section {
       margin-top: 0.4rem;
       padding-top: 0.4rem;
-      border-top: 1px dashed var(--color-border);
+      border-top: 1px dashed #3a3632;
     }
     .cb-intel-row {
       display: flex;
@@ -297,7 +299,7 @@
       gap: 0.3rem;
       padding: 0.15rem 0;
       font-size: 0.7rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       line-height: 1.3;
     }
     .cb-intel-icon {
@@ -306,18 +308,18 @@
       text-align: center;
       font-size: 0.75rem;
     }
-    .cb-intel-row.type-destiny { color: var(--color-accent-secondary, #c084fc); }
-    .cb-intel-row.type-vocation { color: var(--color-accent-primary); }
-    .cb-intel-row.type-discipline { color: var(--color-text-primary); }
+    .cb-intel-row.type-destiny { color: #c084fc; }
+    .cb-intel-row.type-vocation { color: #c8a44e; }
+    .cb-intel-row.type-discipline { color: #d4c5a0; }
     .cb-intel-row.type-gear { color: #f59e0b; }
-    .cb-intel-row.type-challenge { color: var(--color-text-secondary); }
-    .cb-intel-row.type-background { color: var(--color-accent-deep, #818cf8); }
+    .cb-intel-row.type-challenge { color: #7a7068; }
+    .cb-intel-row.type-background { color: #818cf8; }
     .cb-intel-row.type-knack { color: #f472b6; }
     .cb-intel-row.type-species { color: #34d399; }
     .cb-intel-row.cb-intel-expandable { cursor: pointer; }
     .cb-intel-row.cb-intel-expandable:hover { opacity: 0.85; }
     .cb-intel-expand-arrow { font-size: 0.5rem; opacity: 0.6; margin-left: 0.2rem; }
-    .cb-intel-detail { border-left: 2px solid var(--color-border); margin-left: 0.6rem; }
+    .cb-intel-detail { border-left: 2px solid #3a3632; margin-left: 0.6rem; }
     .cb-intel-row .rating-strong { color: #22c55e; }
     .cb-intel-row .rating-capable { color: #eab308; }
     .cb-intel-row .rating-limited { color: #ef4444; }
@@ -326,10 +328,10 @@
       text-transform: uppercase;
       letter-spacing: 0.05em;
       font-family: 'Audiowide', sans-serif;
-      color: var(--color-accent-primary);
+      color: #c8a44e;
       padding: 0.3rem 0;
       margin-bottom: 0.3rem;
-      border-bottom: 1px solid var(--color-border);
+      border-bottom: 1px solid #3a3632;
       display: flex;
       align-items: center;
       gap: 0.4rem;
@@ -339,7 +341,7 @@
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background: var(--color-accent-primary);
+      background: #c8a44e;
       animation: intelPulse 2s infinite;
     }
     @keyframes intelPulse {
@@ -348,7 +350,7 @@
     }
     .cb-player-vocations {
       font-size: 0.65rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       margin-top: 0.2rem;
     }
     .cb-player-conditions {
@@ -369,7 +371,7 @@
     .cb-destiny-section {
       margin-top: 1rem;
       padding-top: 0.75rem;
-      border-top: 1px solid var(--color-border);
+      border-top: 1px solid #3a3632;
     }
     .gm-destiny-tokens {
       display: flex;
@@ -406,7 +408,7 @@
     .gm-destiny-count {
       font-family: 'Audiowide', sans-serif;
       font-size: 0.75rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       text-align: center;
     }
     .hope-count { color: #2a78c0; }
@@ -419,8 +421,8 @@
     .cb-destiny-btn {
       flex: 1;
       background: transparent;
-      border: 1px solid var(--color-border);
-      color: var(--color-text-secondary);
+      border: 1px solid #3a3632;
+      color: #7a7068;
       font-family: 'Exo 2', sans-serif;
       font-size: 0.65rem;
       letter-spacing: 0.06em;
@@ -431,13 +433,13 @@
       min-height: 44px;
     }
     .cb-destiny-btn:hover {
-      border-color: var(--color-accent-primary);
-      color: var(--color-accent-primary);
+      border-color: #c8a44e;
+      color: #c8a44e;
     }
     .cb-destiny-lock-btn.locked {
-      background: var(--color-accent-primary);
-      color: var(--color-bg-primary);
-      border-color: var(--color-accent-primary);
+      background: #c8a44e;
+      color: #1a1a1e;
+      border-color: #c8a44e;
       font-weight: 600;
     }
     .cb-destiny-lock-btn.locked:hover {
@@ -445,8 +447,8 @@
     }
     .destiny-locked-badge {
       display: inline-block;
-      background: var(--color-accent-primary);
-      color: var(--color-bg-primary);
+      background: #c8a44e;
+      color: #1a1a1e;
       font-size: 0.55rem;
       font-weight: 700;
       letter-spacing: 0.08em;
@@ -463,9 +465,9 @@
       margin-bottom: 0.75rem;
     }
     .cb-nav-btn {
-      background: var(--color-bg-frame);
-      border: 1px solid var(--color-border);
-      color: var(--color-text-secondary);
+      background: #232328;
+      border: 1px solid #3a3632;
+      color: #7a7068;
       padding: 0.4rem 0.8rem;
       font-size: 0.75rem;
       font-family: 'Exo 2', sans-serif;
@@ -477,18 +479,18 @@
       gap: 0.3rem;
     }
     .cb-nav-btn:hover {
-      border-color: var(--color-accent-secondary);
-      color: var(--color-text-primary);
+      border-color: #c084fc;
+      color: #d4c5a0;
     }
     .cb-nav-btn.active {
-      border-color: var(--color-accent-primary);
-      color: var(--color-accent-primary);
+      border-color: #c8a44e;
+      color: #c8a44e;
       background: rgba(204,0,0,0.06);
     }
     .cb-nav-num {
       font-family: 'Audiowide', sans-serif;
       font-size: 0.7rem;
-      color: var(--color-accent-primary);
+      color: #c8a44e;
     }
     .cb-part-btn {
       background: transparent;
@@ -498,15 +500,15 @@
       padding: 0.4rem 0.6rem;
     }
     .cb-part-btn.active {
-      color: var(--color-accent-secondary);
-      border-bottom-color: var(--color-accent-secondary);
+      color: #c084fc;
+      border-bottom-color: #c084fc;
       background: transparent;
     }
 
     .cb-scene-counter {
       font-family: 'Audiowide', sans-serif;
       font-size: 0.7rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       text-align: center;
       margin-bottom: 0.75rem;
     }
@@ -514,25 +516,25 @@
     .cb-scene-header h2 {
       font-family: 'Audiowide', sans-serif;
       font-size: 1.1rem;
-      color: var(--color-accent-primary);
+      color: #c8a44e;
       margin: 0 0 0.25rem;
     }
     .cb-scene-subtitle {
       font-size: 0.8rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       margin-bottom: 0.75rem;
     }
 
     .cb-read-aloud {
       background: linear-gradient(135deg, rgba(200,180,100,0.08) 0%, rgba(180,140,60,0.05) 100%);
-      border-left: 3px solid var(--color-accent-secondary);
+      border-left: 3px solid #c084fc;
       padding: 0.75rem 1rem;
       margin-bottom: 1rem;
     }
     .cb-read-aloud-text {
       font-size: 0.9rem;
       line-height: 1.7;
-      color: var(--color-accent-secondary);
+      color: #c084fc;
       font-style: italic;
       white-space: pre-line;
     }
@@ -564,8 +566,8 @@
     }
 
     .cb-gm-notes {
-      background: var(--color-bg-frame);
-      border-left: 3px solid var(--color-accent-deep);
+      background: #232328;
+      border-left: 3px solid #818cf8;
       padding: 0.65rem 0.85rem;
       margin-bottom: 1rem;
       font-size: 0.85rem;
@@ -579,12 +581,12 @@
       text-transform: uppercase;
       letter-spacing: 0.1em;
       margin-bottom: 0.4rem;
-      color: var(--color-accent-deep);
+      color: #818cf8;
     }
 
     .cb-card {
-      background: var(--color-bg-frame);
-      border: 1px solid var(--color-border);
+      background: #232328;
+      border: 1px solid #3a3632;
       padding: 0.75rem;
       margin-bottom: 0.75rem;
     }
@@ -598,7 +600,7 @@
     .cb-npc-card {
       background: rgba(0,0,0,0.15);
       border-radius: 6px;
-      border: 1px solid var(--color-border);
+      border: 1px solid #3a3632;
       overflow: hidden;
     }
     .cb-npc-card-header {
@@ -622,8 +624,8 @@
       font-size: 0.6rem;
       padding: 0.1rem 0.35rem;
       border-radius: 3px;
-      background: var(--color-accent-deep, #6b4c9a);
-      color: var(--color-accent-primary);
+      background: #6b4c9a;
+      color: #c8a44e;
       flex-shrink: 0;
       letter-spacing: 0.04em;
     }
@@ -644,21 +646,21 @@
       font-family: 'Audiowide', sans-serif;
       font-size: 0.6rem;
       flex-shrink: 0;
-      color: var(--color-text-secondary);
+      color: #7a7068;
     }
     .cb-npc-init-badge span {
-      color: var(--color-accent-primary);
+      color: #c8a44e;
       font-size: 0.7rem;
     }
     .cb-npc-count-badge {
       font-family: 'Audiowide', sans-serif;
       font-size: 0.65rem;
-      color: var(--color-accent-primary);
+      color: #c8a44e;
       flex-shrink: 0;
     }
     .cb-npc-chevron {
       font-size: 0.55rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       transition: transform 0.2s;
       flex-shrink: 0;
     }
@@ -679,7 +681,7 @@
       gap: 0.3rem 0.6rem;
       padding: 0.2rem 0;
       font-size: 0.7rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
     }
     .cb-npc-stat-bar {
       display: flex;
@@ -695,12 +697,12 @@
       background: rgba(0,0,0,0.25);
     }
     .cb-npc-stat .val {
-      color: var(--color-accent-primary);
+      color: #c8a44e;
       font-size: 0.7rem;
     }
     .cb-npc-stat.combat-key {
-      background: rgba(var(--color-accent-primary-rgb, 199,146,52), 0.15);
-      border: 1px solid rgba(var(--color-accent-primary-rgb, 199,146,52), 0.3);
+      background: rgba(200,164,78,0.15);
+      border: 1px solid rgba(200,164,78,0.3);
     }
     .cb-npc-dmg-bar {
       display: flex;
@@ -714,19 +716,19 @@
     }
     .cb-npc-dmg-bar .dmg-label {
       font-family: 'Audiowide', sans-serif;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       text-transform: uppercase;
       font-size: 0.5rem;
     }
     .cb-npc-dmg-bar .dmg-val {
       font-family: 'Audiowide', sans-serif;
-      color: var(--color-accent-primary);
+      color: #c8a44e;
       font-size: 0.7rem;
     }
     .cb-npc-role-header {
       font-family: 'Audiowide', sans-serif;
       font-size: 0.6rem;
-      color: var(--color-accent-primary);
+      color: #c8a44e;
       text-transform: uppercase;
       letter-spacing: 0.1em;
       margin: 0.25rem 0 0.1rem;
@@ -757,7 +759,7 @@
     .cb-tag-maneuver { background: rgba(168,85,247,0.15); color: #a855f7; }
     .cb-tag-gambit { background: rgba(245,158,11,0.15); color: #f59e0b; }
     .cb-tag-exploit { background: rgba(52,211,153,0.15); color: #34d399; }
-    .cb-npc-meta { color: var(--color-text-secondary); font-size: 0.55rem; }
+    .cb-npc-meta { color: #7a7068; font-size: 0.55rem; }
     .cb-npc-effects { font-size: 0.55rem; margin: 0.05rem 0 0 0.4rem; display: flex; gap: 0.6rem; flex-wrap: wrap; }
     .cb-power-badge {
       display: inline-block;
@@ -765,9 +767,9 @@
       font-size: 0.55rem;
       padding: 0.02rem 0.25rem;
       border-radius: 3px;
-      background: rgba(var(--color-accent-primary-rgb, 199,146,52), 0.2);
-      color: var(--color-accent-primary);
-      border: 1px solid rgba(var(--color-accent-primary-rgb, 199,146,52), 0.35);
+      background: rgba(200,164,78,0.2);
+      color: #c8a44e;
+      border: 1px solid rgba(200,164,78,0.35);
       margin: 0 0.1rem;
     }
     .cb-npc-attacks-section {
@@ -777,7 +779,7 @@
       font-family: 'Audiowide', sans-serif;
       font-size: 0.5rem;
       letter-spacing: 0.1em;
-      color: var(--color-accent-primary);
+      color: #c8a44e;
       margin-bottom: 0.1rem;
     }
     .cb-npc-attack-card {
@@ -787,7 +789,7 @@
       padding: 0.15rem 0.3rem;
       margin-bottom: 0.15rem;
     }
-    .cb-npc-role-attack { border-left: 2px solid var(--color-accent-primary, #c9a227); }
+    .cb-npc-role-attack { border-left: 2px solid #c8a44e; }
     .cb-npc-attack-header {
       display: flex;
       align-items: center;
@@ -801,7 +803,7 @@
       padding: 0.01rem 0.15rem;
       border-radius: 2px;
       background: rgba(255,255,255,0.08);
-      color: var(--color-text-secondary);
+      color: #7a7068;
       text-transform: capitalize;
     }
     .cb-npc-attack-dmg-row {
@@ -814,7 +816,7 @@
     .cb-dmg-tier {
       font-family: 'Audiowide', sans-serif;
     }
-    .cb-dmg-lbl { color: var(--color-accent-primary); margin-right: 0.1rem; }
+    .cb-dmg-lbl { color: #c8a44e; margin-right: 0.1rem; }
     .cb-stun-inline { color: #60a5fa; font-size: 0.5rem; margin-left: 0.3rem; font-family: 'Audiowide', sans-serif; }
     .cb-stun-lbl { margin-right: 0.15rem; }
     .cb-npc-gambits-row {
@@ -835,7 +837,7 @@
     }
     .cb-exploit-trigger {
       font-size: 0.55rem;
-      color: var(--color-warn, #f59e0b);
+      color: #f59e0b;
       margin: 0.05rem 0;
     }
     .cb-npc-detail-section {
@@ -853,7 +855,7 @@
     .cb-npc-edit-btn, .cb-npc-remove-btn {
       background: rgba(255,255,255,0.06);
       border: 1px solid rgba(255,255,255,0.1);
-      color: var(--color-text-secondary);
+      color: #7a7068;
       border-radius: 3px;
       cursor: pointer;
       font-size: 0.75rem;
@@ -862,9 +864,9 @@
       transition: all 0.15s;
     }
     .cb-npc-edit-btn:hover {
-      background: rgba(var(--color-accent-primary-rgb,199,146,52),0.2);
-      color: var(--color-accent-primary);
-      border-color: var(--color-accent-primary);
+      background: rgba(200,164,78,0.2);
+      color: #c8a44e;
+      border-color: #c8a44e;
     }
     .cb-npc-remove-btn:hover {
       background: rgba(239,68,68,0.2);
@@ -876,14 +878,14 @@
       font-size: 0.6rem;
       padding: 0.2rem 0.5rem;
       border-radius: 3px;
-      background: rgba(var(--color-accent-primary-rgb,199,146,52),0.15);
-      color: var(--color-accent-primary);
-      border: 1px solid rgba(var(--color-accent-primary-rgb,199,146,52),0.3);
+      background: rgba(200,164,78,0.15);
+      color: #c8a44e;
+      border: 1px solid rgba(200,164,78,0.3);
       cursor: pointer;
       transition: all 0.15s;
     }
     .cb-add-npc-btn:hover {
-      background: rgba(var(--color-accent-primary-rgb,199,146,52),0.3);
+      background: rgba(200,164,78,0.3);
     }
     .cb-add-npc-panel {
       padding: 0.3rem;
@@ -902,16 +904,16 @@
       gap: 0.5rem;
       padding: 0.35rem 0.5rem;
       background: rgba(0,0,0,0.2);
-      border: 1px solid var(--color-border);
+      border: 1px solid #3a3632;
       border-radius: 4px;
       cursor: pointer;
       transition: all 0.15s;
       text-align: left;
-      color: var(--color-text-primary);
+      color: #d4c5a0;
     }
     .cb-add-npc-item:hover {
-      background: rgba(var(--color-accent-primary-rgb,199,146,52),0.1);
-      border-color: var(--color-accent-primary);
+      background: rgba(200,164,78,0.1);
+      border-color: #c8a44e;
     }
     .cb-add-npc-item-name {
       font-weight: 600;
@@ -920,7 +922,7 @@
     .cb-add-npc-item-meta {
       font-size: 0.6rem;
       font-family: 'Audiowide', sans-serif;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       text-transform: capitalize;
     }
     .cb-npc-loot-section {
@@ -948,13 +950,13 @@
     }
     .cb-npc-loot-name {
       font-size: 0.7rem;
-      color: var(--color-text-primary);
+      color: #d4c5a0;
       flex: 1;
     }
     .cb-npc-loot-type {
       font-size: 0.55rem;
       font-family: 'Audiowide', sans-serif;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       text-transform: uppercase;
     }
     .cb-npc-loot-assign-btn {
@@ -977,8 +979,8 @@
       right: 0;
       top: 100%;
       z-index: 20;
-      background: var(--color-bg-secondary, #1e1e2e);
-      border: 1px solid var(--color-border);
+      background: #222226;
+      border: 1px solid #3a3632;
       border-radius: 4px;
       min-width: 120px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.4);
@@ -988,7 +990,7 @@
     .cb-loot-assign-option {
       padding: 0.3rem 0.5rem;
       font-size: 0.7rem;
-      color: var(--color-text-primary);
+      color: #d4c5a0;
       background: none;
       border: none;
       border-bottom: 1px solid rgba(255,255,255,0.06);
@@ -1005,9 +1007,9 @@
       bottom: 1.5rem;
       left: 50%;
       transform: translateX(-50%) translateY(1rem);
-      background: var(--color-bg-secondary, #1e1e2e);
-      color: var(--color-text-primary);
-      border: 1px solid var(--color-accent-primary);
+      background: #222226;
+      color: #d4c5a0;
+      border: 1px solid #c8a44e;
       padding: 0.4rem 1rem;
       border-radius: 6px;
       font-size: 0.75rem;
@@ -1039,14 +1041,14 @@
     .cb-arena-label {
       font-family: 'Audiowide', sans-serif;
       font-size: 0.5rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       width: 1.8rem;
       text-align: right;
     }
     .cb-arena-val {
       font-family: 'Audiowide', sans-serif;
       font-size: 0.75rem;
-      color: var(--color-accent-primary);
+      color: #c8a44e;
       min-width: 1rem;
       text-align: center;
     }
@@ -1059,7 +1061,7 @@
     .cb-arena-mod-btn {
       background: rgba(255,255,255,0.08);
       border: 1px solid rgba(255,255,255,0.12);
-      color: var(--color-text-secondary);
+      color: #7a7068;
       font-size: 0.6rem;
       width: 1.1rem;
       height: 1.1rem;
@@ -1073,7 +1075,7 @@
     }
     .cb-arena-mod-btn:hover {
       background: rgba(255,255,255,0.15);
-      color: var(--color-accent-primary);
+      color: #c8a44e;
     }
     .cb-arena-mod-indicator {
       font-family: 'Audiowide', sans-serif;
@@ -1081,7 +1083,7 @@
       position: absolute;
       top: -0.3rem;
       right: -0.15rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
     }
     .cb-arena-reset-btn {
       background: rgba(239,68,68,0.15);
@@ -1101,20 +1103,20 @@
     }
 
     .cb-decision {
-      background: var(--color-bg-panel);
-      border: 1px solid var(--color-border);
+      background: #2a2a2e;
+      border: 1px solid #3a3632;
       padding: 0.5rem 0.75rem;
       margin-bottom: 0.5rem;
     }
     .cb-decision-choice {
       font-weight: 600;
-      color: var(--color-accent-secondary);
+      color: #c084fc;
       font-size: 0.85rem;
       margin-bottom: 0.2rem;
     }
     .cb-decision-consequence {
       font-size: 0.8rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
     }
 
     .cb-lore-tags {
@@ -1141,25 +1143,25 @@
     .cb-narrative-link {
       display: block;
       font-size: 0.8rem;
-      color: var(--color-accent-secondary);
+      color: #c084fc;
       margin-bottom: 0.3rem;
       cursor: pointer;
       text-decoration: none;
     }
-    .cb-narrative-link:hover { color: var(--color-text-primary); }
+    .cb-narrative-link:hover { color: #d4c5a0; }
 
     .cb-scene-footer {
       margin-top: 1.5rem;
       padding-top: 1rem;
-      border-top: 1px solid var(--color-border);
+      border-top: 1px solid #3a3632;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
     .cb-complete-btn {
-      background: var(--color-bg-frame);
-      border: 1px solid var(--color-border);
-      color: var(--color-text-secondary);
+      background: #232328;
+      border: 1px solid #3a3632;
+      color: #7a7068;
       padding: 0.5rem 1rem;
       font-size: 0.8rem;
       font-family: 'Exo 2', sans-serif;
@@ -1177,9 +1179,9 @@
       gap: 0.5rem;
     }
     .cb-arrow-btn {
-      background: var(--color-bg-frame);
-      border: 1px solid var(--color-border);
-      color: var(--color-text-secondary);
+      background: #232328;
+      border: 1px solid #3a3632;
+      color: #7a7068;
       padding: 0.5rem 1rem;
       font-size: 0.8rem;
       font-family: 'Exo 2', sans-serif;
@@ -1187,46 +1189,46 @@
       transition: all 0.15s;
       min-height: 44px;
     }
-    .cb-arrow-btn:hover:not([disabled]) { border-color: var(--color-accent-primary); color: var(--color-accent-primary); }
+    .cb-arrow-btn:hover:not([disabled]) { border-color: #c8a44e; color: #c8a44e; }
     .cb-arrow-btn[disabled] { opacity: 0.3; cursor: default; }
 
     .cb-empty-scene {
       text-align: center;
       padding: 3rem 1rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
     }
     .cb-empty-scene h3 {
       font-family: 'Audiowide', sans-serif;
       font-size: 0.9rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       margin: 0 0 0.5rem;
     }
 
     .cb-condition-link {
-      color: var(--color-accent-primary);
+      color: #c8a44e;
       cursor: pointer;
-      border-bottom: 1px dotted var(--color-accent-primary);
+      border-bottom: 1px dotted #c8a44e;
     }
     .cb-condition-link:hover {
-      color: var(--color-text-primary);
+      color: #d4c5a0;
     }
 
     .cb-glossary-placeholder {
       text-align: center;
       padding: 2rem 1rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       font-style: italic;
       font-size: 0.85rem;
     }
     .cb-glossary-header {
       font-family: 'Audiowide', sans-serif;
       font-size: 1rem;
-      color: var(--color-accent-primary);
+      color: #c8a44e;
       margin-bottom: 0.3rem;
     }
     .cb-glossary-type {
       font-size: 0.75rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       text-transform: uppercase;
       letter-spacing: 0.08em;
       margin-bottom: 0.75rem;
@@ -1239,7 +1241,7 @@
     }
     .cb-glossary-guide {
       font-size: 0.8rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       font-style: italic;
       line-height: 1.5;
       margin-top: 0.5rem;
@@ -1251,7 +1253,7 @@
       margin-bottom: 0.75rem;
     }
     .cb-glossary-dual-side {
-      background: var(--color-bg-frame);
+      background: #232328;
       padding: 0.5rem 0.6rem;
       font-size: 0.8rem;
     }
@@ -1266,40 +1268,40 @@
 
     .cb-muted {
       font-size: 0.8rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
     }
 
     .cb-req-badge {
       font-family: 'Audiowide', sans-serif;
       font-size: 0.6rem;
-      background: var(--color-accent-primary);
-      color: var(--color-btn-text, var(--color-bg-primary));
+      background: #c8a44e;
+      color: #1a1a1e;
       padding: 0.1rem 0.4rem;
       margin-left: 0.3rem;
       vertical-align: middle;
     }
     .cb-req-card {
-      background: var(--color-bg-frame);
-      border: 1px solid var(--color-border);
+      background: #232328;
+      border: 1px solid #3a3632;
       padding: 0.5rem;
       margin-bottom: 0.5rem;
     }
     .cb-req-card.status-approved { border-left: 3px solid #44AA66; }
-    .cb-req-card.status-denied { border-left: 3px solid var(--color-accent-primary); opacity: 0.6; }
+    .cb-req-card.status-denied { border-left: 3px solid #c8a44e; opacity: 0.6; }
     .cb-req-card.status-converted { border-left: 3px solid #5588CC; opacity: 0.6; }
-    .cb-req-card.status-pending { border-left: 3px solid var(--color-accent-secondary); }
+    .cb-req-card.status-pending { border-left: 3px solid #c084fc; }
     .cb-req-item-name {
       font-family: 'Audiowide', sans-serif;
       font-size: 0.75rem;
-      color: var(--color-text-primary);
+      color: #d4c5a0;
     }
     .cb-req-char {
       font-size: 0.7rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
     }
     .cb-req-desc {
       font-size: 0.7rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       margin: 0.3rem 0;
       font-style: italic;
       line-height: 1.5;
@@ -1317,8 +1319,8 @@
     .cb-req-action {
       flex: 1;
       background: transparent;
-      border: 1px solid var(--color-border);
-      color: var(--color-text-secondary);
+      border: 1px solid #3a3632;
+      color: #7a7068;
       font-family: 'Exo 2', sans-serif;
       font-size: 0.6rem;
       letter-spacing: 0.06em;
@@ -1328,9 +1330,9 @@
       transition: all 0.15s;
       min-height: 36px;
     }
-    .cb-req-action:hover { border-color: var(--color-accent-primary); color: var(--color-accent-primary); }
+    .cb-req-action:hover { border-color: #c8a44e; color: #c8a44e; }
     .cb-req-action.approve:hover { border-color: #44AA66; color: #44AA66; }
-    .cb-req-action.deny:hover { border-color: var(--color-accent-primary); color: var(--color-accent-primary); }
+    .cb-req-action.deny:hover { border-color: #c8a44e; color: #c8a44e; }
     .cb-req-status-tag {
       font-size: 0.6rem;
       letter-spacing: 0.06em;
@@ -1339,21 +1341,21 @@
       border: 1px solid;
       float: right;
     }
-    .cb-req-status-tag.pending { border-color: var(--color-accent-secondary); color: var(--color-accent-secondary); }
+    .cb-req-status-tag.pending { border-color: #c084fc; color: #c084fc; }
     .cb-req-status-tag.approved { border-color: #44AA66; color: #44AA66; }
-    .cb-req-status-tag.denied { border-color: var(--color-accent-primary); color: var(--color-accent-primary); }
+    .cb-req-status-tag.denied { border-color: #c8a44e; color: #c8a44e; }
     .cb-req-status-tag.converted { border-color: #5588CC; color: #5588CC; }
 
     .cb-lore-scene-link {
-      background: var(--color-bg-frame);
-      border: 1px solid var(--color-border);
+      background: #232328;
+      border: 1px solid #3a3632;
       padding: 0.6rem 0.85rem;
       margin-bottom: 0.5rem;
       cursor: pointer;
       transition: all 0.15s;
       font-size: 0.85rem;
     }
-    .cb-lore-scene-link:hover { border-color: var(--color-accent-secondary); }
+    .cb-lore-scene-link:hover { border-color: #c084fc; }
 
     #fp-assess-guide .cb-fpanel-body {
       display: flex;
@@ -1363,7 +1365,7 @@
     .assess-phase-tabs {
       display: flex;
       gap: 0;
-      border-bottom: 1px solid var(--color-border);
+      border-bottom: 1px solid #3a3632;
       flex-shrink: 0;
       overflow-x: auto;
     }
@@ -1372,7 +1374,7 @@
       background: transparent;
       border: none;
       border-bottom: 2px solid transparent;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       font-family: 'Exo 2', sans-serif;
       font-size: 0.7rem;
       font-weight: 600;
@@ -1384,12 +1386,12 @@
       min-height: 44px;
     }
     .assess-phase-tab:hover {
-      color: var(--color-text-primary);
+      color: #d4c5a0;
       background: rgba(255,255,255,0.03);
     }
     .assess-phase-tab.active {
-      color: var(--color-accent-deep, #818cf8);
-      border-bottom-color: var(--color-accent-deep, #818cf8);
+      color: #818cf8;
+      border-bottom-color: #818cf8;
     }
     .assess-body {
       display: flex;
@@ -1400,7 +1402,7 @@
     .assess-disc-nav {
       width: 160px;
       flex-shrink: 0;
-      border-right: 1px solid var(--color-border);
+      border-right: 1px solid #3a3632;
       overflow-y: auto;
       padding: 0.4rem 0;
     }
@@ -1410,7 +1412,7 @@
       background: transparent;
       border: none;
       border-left: 2px solid transparent;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       font-family: 'Exo 2', sans-serif;
       font-size: 0.7rem;
       text-align: left;
@@ -1423,16 +1425,16 @@
     }
     .assess-disc-btn:hover {
       background: rgba(255,255,255,0.03);
-      color: var(--color-text-primary);
+      color: #d4c5a0;
     }
     .assess-disc-btn.active {
-      border-left-color: var(--color-accent-primary);
-      color: var(--color-accent-primary);
+      border-left-color: #c8a44e;
+      color: #c8a44e;
       background: rgba(204,0,0,0.04);
     }
     .assess-disc-arena {
       font-size: 0.55rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       opacity: 0.7;
       margin-left: 0.3rem;
     }
@@ -1441,11 +1443,11 @@
       overflow-y: auto;
       padding: 0.75rem 1rem;
       scrollbar-width: thin;
-      scrollbar-color: var(--color-accent-primary) var(--color-bg-frame);
+      scrollbar-color: #c8a44e #232328;
     }
     .assess-disc-focus {
       font-size: 0.65rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       font-style: italic;
       margin-bottom: 0.6rem;
     }
@@ -1454,7 +1456,7 @@
       padding: 0.5rem 0.65rem;
       background: rgba(0,0,0,0.2);
       border-radius: 4px;
-      border-left: 2px solid var(--color-border);
+      border-left: 2px solid #3a3632;
     }
     .assess-entry.type-gambit {
       border-left-color: #f59e0b;
@@ -1484,26 +1486,26 @@
     }
     .assess-question {
       font-size: 0.8rem;
-      color: var(--color-accent-secondary, #c084fc);
+      color: #c084fc;
       font-style: italic;
       margin-bottom: 0.3rem;
       line-height: 1.5;
     }
     .assess-response {
       font-size: 0.78rem;
-      color: var(--color-text-primary);
+      color: #d4c5a0;
       line-height: 1.65;
     }
     .assess-entry-label {
       font-size: 0.75rem;
       font-weight: 600;
-      color: var(--color-text-primary);
+      color: #d4c5a0;
       margin-bottom: 0.2rem;
     }
     .assess-guide-btn {
       background: rgba(129,140,248,0.1);
-      border: 1px solid var(--color-accent-deep, #818cf8);
-      color: var(--color-accent-deep, #818cf8);
+      border: 1px solid #818cf8;
+      color: #818cf8;
       font-family: 'Exo 2', sans-serif;
       font-size: 0.7rem;
       font-weight: 600;
@@ -1517,8 +1519,8 @@
       gap: 0.3rem;
     }
     .assess-guide-btn:hover {
-      background: var(--color-accent-deep, #818cf8);
-      color: var(--color-btn-text, var(--color-bg-primary));
+      background: #818cf8;
+      color: #1a1a1e;
     }
     .assess-controls-row {
       display: flex;
@@ -1529,72 +1531,42 @@
     }
     .assess-tutorial-start {
       background: rgba(34,197,94,0.1);
-      border-color: var(--color-success, #22c55e);
-      color: var(--color-success, #22c55e);
+      border-color: #22c55e;
+      color: #22c55e;
     }
     .assess-tutorial-start:hover {
-      background: var(--color-success, #22c55e);
-      color: var(--color-btn-text, #000);
+      background: #22c55e;
+      color: #000;
     }
     .assess-tutorial-advance {
       background: rgba(199,146,52,0.1);
-      border-color: var(--color-accent-primary, #c79234);
-      color: var(--color-accent-primary, #c79234);
+      border-color: #c8a44e;
+      color: #c8a44e;
     }
     .assess-tutorial-advance:hover {
-      background: var(--color-accent-primary, #c79234);
-      color: var(--color-btn-text, #000);
+      background: #c8a44e;
+      color: #000;
     }
     .assess-tutorial-end {
       background: rgba(239,68,68,0.1);
-      border-color: var(--color-danger, #ef4444);
-      color: var(--color-danger, #ef4444);
+      border-color: #ef4444;
+      color: #ef4444;
     }
     .assess-tutorial-end:hover {
-      background: var(--color-danger, #ef4444);
-      color: var(--color-btn-text, #000);
+      background: #ef4444;
+      color: #000;
     }
     .assess-tutorial-status {
       font-family: 'Audiowide', sans-serif;
       font-size: 0.6rem;
-      color: var(--color-accent-primary, #c79234);
+      color: #c8a44e;
       letter-spacing: 0.06em;
       padding: 0.2rem 0.4rem;
       background: rgba(199,146,52,0.08);
-      border-left: 2px solid var(--color-accent-primary, #c79234);
+      border-left: 2px solid #c8a44e;
     }
     .hidden { display: none !important; }
-    @media (max-width: 768px) {
-      .assess-body { flex-direction: column; }
-      .assess-disc-nav {
-        width: 100%;
-        border-right: none;
-        border-bottom: 1px solid var(--color-border);
-        display: flex;
-        overflow-x: auto;
-        overflow-y: hidden;
-        padding: 0;
-        flex-shrink: 0;
-      }
-      .assess-disc-btn {
-        border-left: none;
-        border-bottom: 2px solid transparent;
-        white-space: nowrap;
-        min-width: auto;
-        padding: 0.35rem 0.5rem;
-        font-size: 0.65rem;
-      }
-      .assess-disc-btn.active {
-        border-left-color: transparent;
-        border-bottom-color: var(--color-accent-primary);
-      }
-    }
-
-    .cb-mobile-tabs {
-      display: none;
-    }
-
-    .cb-picker-overlay {
+.cb-picker-overlay {
       display: none;
       position: fixed;
       inset: 0;
@@ -1608,8 +1580,8 @@
       display: flex;
     }
     .cb-picker-modal {
-      background: var(--color-bg-panel);
-      border: 1px solid var(--color-border);
+      background: linear-gradient(180deg, #2e2e32 0%, #2a2a2e 100%);
+      border: 1px solid rgba(200,164,78,0.25);
       border-radius: 6px;
       min-width: 320px;
       max-width: 480px;
@@ -1624,25 +1596,25 @@
       align-items: center;
       justify-content: space-between;
       padding: 0.75rem 1rem;
-      border-bottom: 1px solid var(--color-border);
+      border-bottom: 1px solid #3a3632;
     }
     .cb-picker-title {
       font-family: 'Audiowide', sans-serif;
       font-size: 0.75rem;
-      color: var(--color-accent-primary);
+      color: #c8a44e;
       letter-spacing: 0.06em;
     }
     .cb-picker-close {
       background: none;
       border: none;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       font-size: 1.2rem;
       cursor: pointer;
       padding: 0.2rem 0.4rem;
       line-height: 1;
     }
     .cb-picker-close:hover {
-      color: var(--color-text-primary);
+      color: #d4c5a0;
     }
     .cb-picker-list {
       overflow-y: auto;
@@ -1658,202 +1630,28 @@
       transition: background 0.12s;
       font-family: 'Exo 2', sans-serif;
       font-size: 0.8rem;
-      color: var(--color-text-primary);
+      color: #d4c5a0;
     }
     .cb-picker-item:hover {
-      background: var(--color-bg-frame);
+      background: #232328;
     }
     .cb-picker-item.active {
-      background: var(--color-bg-frame);
-      border-left: 3px solid var(--color-accent-primary);
-      color: var(--color-accent-primary);
+      background: #232328;
+      border-left: 3px solid #c8a44e;
+      color: #c8a44e;
     }
     .cb-picker-item-num {
       font-family: 'Audiowide', sans-serif;
       font-size: 0.7rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       min-width: 1.5rem;
       text-align: center;
     }
     .cb-picker-item.active .cb-picker-item-num {
-      color: var(--color-accent-primary);
+      color: #c8a44e;
     }
 
-    @media screen and (max-width: 768px) {
-      body { overflow: hidden; }
-
-      .cb-header {
-        padding: 0 0.5rem;
-        height: auto;
-        min-height: 2.2rem;
-        flex-wrap: wrap;
-        gap: 0.2rem;
-      }
-      .cb-home-link { font-size: 0.5rem; }
-      .cb-header-left { gap: 0.4rem; }
-      .cb-header-nav { gap: 0.3rem; }
-      .cb-header-adv-title,
-      .cb-header-part-title { font-size: 0.55rem; }
-      .cb-header-sep { font-size: 0.55rem; }
-      .cb-header-right {
-        gap: 0.2rem;
-        flex-wrap: wrap;
-        justify-content: flex-end;
-      }
-      .cb-header-btn {
-        font-size: 0.5rem;
-        padding: 0.2rem 0.35rem;
-        min-height: 28px;
-      }
-
-      #bridge-grid {
-        display: flex;
-        flex-direction: column;
-        grid-template-columns: unset;
-        height: calc(100vh - 2.2rem - 3.2rem);
-        height: calc(100dvh - 2.2rem - 3.2rem);
-        width: 100%;
-      }
-
-      .cb-drag-handle { display: none !important; }
-
-      .cb-col-left,
-      .cb-col-center,
-      .cb-col-right {
-        display: none;
-        width: 100%;
-        height: 100%;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-        padding: 0.5rem;
-        border: none;
-        box-sizing: border-box;
-      }
-      .cb-col-left { border-right: none; }
-      .cb-col-right { border-left: none; }
-
-      .cb-col-left.cb-mobile-active,
-      .cb-col-center.cb-mobile-active,
-      .cb-col-right.cb-mobile-active {
-        display: block;
-      }
-
-      .cb-mobile-tabs {
-        display: flex;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 3.2rem;
-        background: var(--color-bg-panel);
-        border-top: 1px solid var(--color-border);
-        z-index: 50;
-      }
-      .cb-mobile-tab {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 0.15rem;
-        background: none;
-        border: none;
-        color: var(--color-text-secondary);
-        font-family: 'Exo 2', sans-serif;
-        font-size: 0.55rem;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-        cursor: pointer;
-        transition: color 0.15s;
-        padding: 0;
-      }
-      .cb-mobile-tab-icon {
-        font-size: 1.1rem;
-        line-height: 1;
-      }
-      .cb-mobile-tab.active {
-        color: var(--color-accent-primary);
-      }
-      .cb-mobile-tab:hover {
-        color: var(--color-accent-primary);
-      }
-
-      .cb-col-title {
-        font-size: 0.65rem;
-        padding-bottom: 0.35rem;
-        margin-bottom: 0.5rem;
-      }
-      .cb-player-card { padding: 0.5rem; margin-bottom: 0.4rem; }
-      .cb-player-name { font-size: 0.7rem; }
-      .cb-player-vitality { font-size: 0.85rem; }
-      .cb-player-detail { font-size: 0.65rem; }
-      .cb-player-status { font-size: 0.6rem; }
-      .cb-intel-row { font-size: 0.6rem; gap: 0.2rem; }
-      .cb-intel-icon { font-size: 0.65rem; width: 0.8rem; }
-
-      .cb-scene-counter { font-size: 0.6rem; margin-bottom: 0.4rem; }
-
-      .cb-scene-header h2 { font-size: 0.9rem; }
-      .cb-scene-subtitle { font-size: 0.7rem; }
-      .cb-read-aloud { padding: 0.5rem 0.6rem; }
-      .cb-read-aloud-text { font-size: 0.75rem; line-height: 1.5; }
-      .cb-gm-notes { padding: 0.5rem 0.6rem; font-size: 0.75rem; line-height: 1.5; }
-      .cb-section-label { font-size: 0.6rem; }
-      .cb-card { padding: 0.5rem; margin-bottom: 0.5rem; }
-
-      .cb-npc-card-header {
-        flex-wrap: wrap;
-        gap: 0.3rem;
-        padding: 0.35rem 0.45rem;
-      }
-      .cb-npc-name { font-size: 0.78rem; }
-      .cb-npc-init-badge { margin-left: 0; }
-      .cb-npc-stat-bar { gap: 0.1rem; }
-      .cb-npc-stat { font-size: 0.55rem; padding: 0.15rem 0.3rem; }
-      .cb-power-badge { font-size: 0.6rem; }
-      .cb-npc-arena-bar { gap: 0.1rem; padding: 0.2rem 0.25rem; }
-      .cb-arena-label { font-size: 0.45rem; width: 1.5rem; }
-      .cb-arena-val { font-size: 0.65rem; }
-      .cb-arena-mod-btn { width: 0.9rem; height: 0.9rem; font-size: 0.5rem; }
-
-      .cb-scene-footer { flex-direction: column; gap: 0.5rem; }
-      .cb-complete-btn { width: 100%; text-align: center; }
-      .cb-scene-nav-arrows { width: 100%; }
-      .cb-arrow-btn { flex: 1; text-align: center; }
-
-      .cb-destiny-section { margin-top: 0.6rem; padding-top: 0.5rem; }
-      .gm-destiny-tokens { gap: 2px; margin: 0.4rem 0; }
-      .gm-destiny-pip { font-size: 1.1rem; }
-      .cb-destiny-btn { font-size: 0.55rem; min-height: 36px; padding: 0.3rem; }
-
-      .cb-req-card { padding: 0.4rem; margin-bottom: 0.4rem; }
-      .cb-req-item-name { font-size: 0.65rem; }
-      .cb-req-action { font-size: 0.55rem; min-height: 32px; }
-
-      .cb-glossary-dual { grid-template-columns: 1fr; }
-      .cb-glossary-header { font-size: 0.85rem; }
-      .cb-glossary-rule { font-size: 0.75rem; }
-
-      .cb-lore-tag { font-size: 0.6rem; padding: 0.2rem 0.4rem; min-height: 36px; }
-
-
-      .cb-col-left,
-      .cb-col-center,
-      .cb-col-right {
-        overflow-x: hidden;
-        word-break: break-word;
-      }
-      .cb-read-aloud,
-      .cb-gm-notes,
-      .cb-card,
-      .cb-player-card {
-        max-width: 100%;
-        overflow-x: hidden;
-        box-sizing: border-box;
-      }
-    }
-
-    .npc-builder-overlay {
+        .npc-builder-overlay {
       position: fixed; inset: 0;
       background: rgba(0,0,0,0.92);
       z-index: 200;
@@ -1863,8 +1661,8 @@
     }
     .npc-builder-overlay.active { display: flex; }
     .npc-builder-modal {
-      background: var(--color-bg-panel);
-      border: 1px solid var(--color-border);
+      background: linear-gradient(180deg, #2a2a2e 0%, #252529 100%);
+      border: 1px solid rgba(200,164,78,0.2);
       width: 100vw;
       max-width: 100vw;
       height: 100vh;
@@ -1877,20 +1675,21 @@
       align-items: center;
       justify-content: space-between;
       padding: 0.6rem 1rem;
-      border-bottom: 1px solid var(--color-border);
-      background: var(--color-bg-frame);
+      border-bottom: 1px solid rgba(200,164,78,0.2);
+      background: linear-gradient(180deg, #2e2e32 0%, #282830 100%);
+        box-shadow: inset 0 -1px 0 rgba(200,164,78,0.1);
       flex-shrink: 0;
     }
     .npc-builder-title {
       font-family: 'Audiowide', sans-serif;
       font-size: 0.8rem;
-      color: var(--color-accent-primary);
+      color: #c8a44e;
       letter-spacing: 0.1em;
     }
     .npc-builder-close-btn {
       background: transparent;
-      border: 1px solid var(--color-border);
-      color: var(--color-text-secondary);
+      border: 1px solid #3a3632;
+      color: #7a7068;
       font-size: 1.2rem;
       cursor: pointer;
       padding: 0.2rem 0.6rem;
@@ -1898,11 +1697,8 @@
       transition: all 0.15s;
     }
     .npc-builder-close-btn:hover {
-      border-color: var(--color-accent-primary);
-      color: var(--color-accent-primary);
-    }
-    .npc-builder-mobile-tabs {
-      display: none;
+      border-color: #c8a44e;
+      color: #c8a44e;
     }
     .npc-builder-body {
       display: flex;
@@ -1913,10 +1709,10 @@
       overflow-y: auto;
       padding: 0.75rem;
       scrollbar-width: thin;
-      scrollbar-color: var(--color-accent-primary) var(--color-bg-frame);
+      scrollbar-color: #c8a44e #232328;
     }
     .npc-builder-panel-left {
-      background: var(--color-bg-panel);
+      background: #2a2a2e;
       border-right: none;
       width: 300px;
       min-width: 200px;
@@ -1924,13 +1720,13 @@
       flex-shrink: 0;
     }
     .npc-builder-panel-center {
-      background: var(--color-bg-primary);
+      background: #1a1a1e;
       padding: 1rem;
       flex: 1;
       min-width: 200px;
     }
     .npc-builder-panel-right {
-      background: var(--color-bg-panel);
+      background: #2a2a2e;
       border-left: none;
       width: 340px;
       min-width: 200px;
@@ -1940,7 +1736,7 @@
     .npc-resize-handle {
       width: 5px;
       cursor: col-resize;
-      background: var(--color-border);
+      background: #3a3632;
       flex-shrink: 0;
       position: relative;
       z-index: 2;
@@ -1948,7 +1744,7 @@
     }
     .npc-resize-handle:hover,
     .npc-resize-handle.dragging {
-      background: var(--color-accent-primary);
+      background: #c8a44e;
     }
 
     .npc-input-group {
@@ -1963,9 +1759,9 @@
       flex: 1 1 auto;
       min-width: 0;
       padding: 0.35rem 0.2rem;
-      background: var(--color-bg-frame);
-      border: 1px solid var(--color-border);
-      color: var(--color-text-secondary);
+      background: #232328;
+      border: 1px solid #3a3632;
+      color: #7a7068;
       font-family: 'Audiowide', sans-serif;
       font-size: 0.5rem;
       text-transform: uppercase;
@@ -1976,31 +1772,31 @@
       white-space: nowrap;
     }
     .npc-category-btn:hover {
-      border-color: var(--color-accent-primary);
-      color: var(--color-text-primary);
+      border-color: #c8a44e;
+      color: #d4c5a0;
     }
     .npc-category-btn.active {
-      background: var(--color-accent-primary);
-      border-color: var(--color-accent-primary);
+      background: #c8a44e;
+      border-color: #c8a44e;
       color: #000;
     }
 
     .npc-ship-details {
       margin-top: 0.75rem;
       padding: 0.5rem 0.6rem;
-      background: var(--color-bg-frame);
-      border: 1px solid var(--color-border);
+      background: #232328;
+      border: 1px solid #3a3632;
       border-radius: 4px;
     }
     .npc-ship-details-title {
       font-family: 'Audiowide', sans-serif;
       font-size: 0.6rem;
-      color: var(--color-accent-primary);
+      color: #c8a44e;
       text-transform: uppercase;
       letter-spacing: 0.1em;
       margin-bottom: 0.4rem;
       padding-bottom: 0.25rem;
-      border-bottom: 1px solid var(--color-border);
+      border-bottom: 1px solid #3a3632;
     }
     .npc-ship-detail-row {
       display: flex;
@@ -2012,13 +1808,13 @@
     }
     .npc-ship-detail-row:last-child { border-bottom: none; }
     .npc-ship-detail-label {
-      color: var(--color-text-secondary);
+      color: #7a7068;
       font-size: 0.65rem;
       text-transform: uppercase;
       letter-spacing: 0.04em;
     }
     .npc-ship-detail-val {
-      color: var(--color-accent-primary);
+      color: #c8a44e;
       font-family: 'Audiowide', sans-serif;
       font-size: 0.7rem;
     }
@@ -2034,20 +1830,20 @@
       display: block;
       font-family: 'Audiowide', sans-serif;
       font-size: 0.6rem;
-      color: var(--color-accent-primary);
+      color: #c8a44e;
       text-transform: uppercase;
       letter-spacing: 0.1em;
       margin-bottom: 0.3rem;
     }
     .npc-tier-val {
-      color: var(--color-text-primary);
+      color: #d4c5a0;
       font-family: 'Audiowide', sans-serif;
     }
     .npc-text-input {
       width: 100%;
-      background: var(--color-bg-frame);
-      border: 1px solid var(--color-border);
-      color: var(--color-text-primary);
+      background: #232328;
+      border: 1px solid #3a3632;
+      color: #d4c5a0;
       font-family: 'Exo 2', sans-serif;
       font-size: 0.75rem;
       padding: 0.4rem 0.5rem;
@@ -2055,18 +1851,18 @@
       transition: border-color 0.15s;
     }
     .npc-text-input:focus {
-      border-color: var(--color-accent-primary);
+      border-color: #c8a44e;
     }
     .npc-slider {
       width: 100%;
-      accent-color: var(--color-accent-primary);
+      accent-color: #c8a44e;
       cursor: pointer;
     }
     .npc-select {
       width: 100%;
-      background: var(--color-bg-frame);
-      border: 1px solid var(--color-border);
-      color: var(--color-text-primary);
+      background: #232328;
+      border: 1px solid #3a3632;
+      color: #d4c5a0;
       font-family: 'Exo 2', sans-serif;
       font-size: 0.75rem;
       padding: 0.4rem 0.5rem;
@@ -2081,7 +1877,7 @@
     .npc-arena-input-label {
       width: 60px;
       font-size: 0.7rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       flex-shrink: 0;
     }
     .npc-arena-input-val {
@@ -2089,31 +1885,31 @@
       text-align: center;
       font-family: 'Audiowide', sans-serif;
       font-size: 0.75rem;
-      color: var(--color-accent-primary);
+      color: #c8a44e;
       flex-shrink: 0;
     }
 
     .npc-card {
-      background: var(--color-bg-panel);
-      border: 1px solid var(--color-border);
+      background: #2a2a2e;
+      border: 1px solid #3a3632;
       padding: 0.75rem;
       max-width: 500px;
       margin: 0 auto;
     }
     .npc-card-header {
-      border-bottom: 1px solid var(--color-border);
+      border-bottom: 1px solid #3a3632;
       padding-bottom: 0.4rem;
       margin-bottom: 0.5rem;
     }
     .npc-card-name {
       font-family: 'Audiowide', sans-serif;
       font-size: 1rem;
-      color: var(--color-accent-primary);
+      color: #c8a44e;
       letter-spacing: 0.06em;
     }
     .npc-card-meta {
       font-size: 0.7rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       text-transform: uppercase;
       letter-spacing: 0.06em;
     }
@@ -2126,8 +1922,8 @@
       justify-content: center;
     }
     .npc-stat {
-      background: var(--color-bg-frame);
-      border: 1px solid var(--color-border);
+      background: #232328;
+      border: 1px solid #3a3632;
       padding: 0.3rem 0.6rem;
       text-align: center;
       flex: 1;
@@ -2135,13 +1931,13 @@
     .npc-stat-label {
       font-family: 'Audiowide', sans-serif;
       font-size: 0.5rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       letter-spacing: 0.1em;
     }
     .npc-stat-val {
       font-family: 'Audiowide', sans-serif;
       font-size: 1.1rem;
-      color: var(--color-accent-primary);
+      color: #c8a44e;
     }
     .npc-stat-vit {
       color: #ef4444;
@@ -2156,8 +1952,8 @@
       margin-bottom: 0.5rem;
     }
     .npc-arena-pip {
-      background: var(--color-bg-frame);
-      border: 1px solid var(--color-border);
+      background: #232328;
+      border: 1px solid #3a3632;
       padding: 0.2rem 0.4rem;
       text-align: center;
       flex: 1;
@@ -2166,19 +1962,19 @@
     .npc-arena-label {
       font-family: 'Audiowide', sans-serif;
       font-size: 0.45rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       letter-spacing: 0.08em;
       display: block;
     }
     .npc-arena-val {
       font-family: 'Audiowide', sans-serif;
       font-size: 0.9rem;
-      color: var(--color-text-primary);
+      color: #d4c5a0;
       display: block;
     }
     .npc-arena-power {
       font-size: 0.5rem;
-      color: var(--color-accent-primary);
+      color: #c8a44e;
       display: block;
     }
 
@@ -2196,7 +1992,7 @@
 
     .npc-card-stun {
       font-size: 0.65rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       padding: 0.2rem 0;
       margin-bottom: 0.4rem;
       text-align: center;
@@ -2213,21 +2009,21 @@
     }
 
     .npc-card-role-section {
-      border-top: 1px solid var(--color-border);
+      border-top: 1px solid #3a3632;
       padding-top: 0.4rem;
       margin-bottom: 0.4rem;
     }
     .npc-role-title {
       font-family: 'Audiowide', sans-serif;
       font-size: 0.6rem;
-      color: var(--color-accent-deep);
+      color: #818cf8;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       margin-bottom: 0.3rem;
     }
     .npc-ability {
       font-size: 0.7rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       padding: 0.15rem 0;
       line-height: 1.4;
     }
@@ -2256,7 +2052,7 @@
       font-family: 'Audiowide', sans-serif;
       font-size: 0.5rem;
       letter-spacing: 0.1em;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       opacity: 0.6;
       margin-bottom: 0.15rem;
     }
@@ -2291,35 +2087,35 @@
       margin: 0.25rem 0 0.15rem 0;
       padding: 0.2rem 0.35rem;
       background: rgba(0,0,0,0.2);
-      border-left: 2px solid var(--color-accent-primary, #60a5fa);
+      border-left: 2px solid #c8a44e;
       border-radius: 2px;
     }
     .npc-effect-tier {
       font-size: 0.58rem;
       line-height: 1.45;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       padding: 0.05rem 0;
       opacity: 0.5;
     }
     .npc-effect-tier-active {
       opacity: 1;
-      color: var(--color-text-primary, #e2e8f0);
+      color: #d4c5a0;
       background: rgba(96,165,250,0.12);
-      border-left: 2px solid var(--color-accent-primary, #60a5fa);
+      border-left: 2px solid #c8a44e;
       padding-left: 0.25rem;
       border-radius: 2px;
     }
     .npc-action-defense {
       font-family: 'Exo 2', sans-serif;
       font-size: 0.55rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       opacity: 0.7;
       margin-left: 0.15rem;
     }
     .npc-maneuver-mod-note {
       font-family: 'Exo 2', sans-serif;
       font-size: 0.45rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       opacity: 0.6;
     }
     .npc-tier-label {
@@ -2328,13 +2124,13 @@
       font-family: 'Exo 2', sans-serif;
       font-weight: 700;
       font-size: 0.55rem;
-      color: var(--color-accent-primary, #60a5fa);
+      color: #c8a44e;
       text-align: center;
     }
     .npc-action-auto-tag {
       font-size: 0.5rem;
       font-family: 'Exo 2', sans-serif;
-      color: var(--color-accent-primary, #60a5fa);
+      color: #c8a44e;
       background: rgba(96,165,250,0.12);
       padding: 0.05rem 0.25rem;
       border-radius: 3px;
@@ -2346,18 +2142,18 @@
       font-family: 'Exo 2', sans-serif;
       font-weight: 700;
       font-size: 0.55rem;
-      color: var(--color-accent-primary, #60a5fa);
+      color: #c8a44e;
       text-align: center;
     }
     .npc-effect-tier-range {
       font-family: 'Exo 2', sans-serif;
       font-size: 0.5rem;
-      color: var(--color-text-tertiary, rgba(255,255,255,0.45));
+      color: rgba(255,255,255,0.45);
       margin-right: 0.25rem;
     }
     .npc-exploit-trigger {
       font-size: 0.6rem;
-      color: var(--color-warn);
+      color: #f59e0b;
       padding: 0.1rem 0 0.05rem 0;
       line-height: 1.3;
     }
@@ -2370,7 +2166,7 @@
     }
     .npc-exploit-effect {
       font-size: 0.65rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       padding-top: 0.05rem;
     }
     .npc-exploit-pip-note, .npc-gambit-mod-note {
@@ -2400,13 +2196,13 @@
     }
     .npc-gambit-effect {
       font-size: 0.65rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       padding-top: 0.05rem;
     }
 
     .npc-card-social-profile {
-      border-top: 1px solid var(--color-accent-primary);
-      border-bottom: 1px solid var(--color-accent-primary);
+      border-top: 1px solid #c8a44e;
+      border-bottom: 1px solid #c8a44e;
       padding: 0.4rem 0;
       margin: 0.3rem 0;
       background: rgba(139, 92, 246, 0.05);
@@ -2414,7 +2210,7 @@
     .npc-social-profile-header {
       font-family: 'Audiowide', sans-serif;
       font-size: 0.55rem;
-      color: var(--color-accent-primary);
+      color: #c8a44e;
       letter-spacing: 0.1em;
       margin-bottom: 0.3rem;
     }
@@ -2427,14 +2223,14 @@
     .npc-social-resist-label {
       font-family: 'Exo 2', sans-serif;
       font-size: 0.55rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       letter-spacing: 0.06em;
       text-transform: uppercase;
     }
     .npc-social-resist-val {
       font-family: 'Audiowide', sans-serif;
       font-size: 1rem;
-      color: var(--color-accent-primary);
+      color: #c8a44e;
       font-weight: bold;
     }
     .npc-social-traits-list {
@@ -2442,41 +2238,41 @@
     }
     .npc-social-trait-item {
       font-size: 0.65rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       padding: 0.15rem 0;
-      border-left: 2px solid var(--color-accent-primary);
+      border-left: 2px solid #c8a44e;
       padding-left: 0.4rem;
       margin-bottom: 0.15rem;
     }
     .npc-social-trait-trigger {
       font-size: 0.58rem;
-      color: var(--color-accent-primary);
+      color: #c8a44e;
       font-style: italic;
       margin-top: 0.1rem;
       opacity: 0.8;
     }
     .npc-social-trait-effect {
       font-size: 0.6rem;
-      color: var(--color-text-tertiary, rgba(255,255,255,0.5));
+      color: rgba(255,255,255,0.5);
       font-style: italic;
       margin-top: 0.1rem;
     }
     .npc-social-notes-display {
       font-size: 0.6rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       margin-top: 0.3rem;
       padding: 0.2rem 0.4rem;
       background: rgba(255,255,255,0.03);
-      border-left: 2px solid var(--color-accent-deep);
+      border-left: 2px solid #818cf8;
     }
     .npc-social-notes-label {
       font-family: 'Audiowide', sans-serif;
       font-size: 0.5rem;
-      color: var(--color-accent-deep);
+      color: #818cf8;
       letter-spacing: 0.06em;
     }
     .npc-label-social {
-      color: var(--color-accent-primary);
+      color: #c8a44e;
     }
     .npc-label-recommended {
       color: #22c55e;
@@ -2485,26 +2281,26 @@
     .npc-trait-trigger {
       display: block;
       font-size: 0.55rem;
-      color: var(--color-text-tertiary, rgba(255,255,255,0.45));
+      color: rgba(255,255,255,0.45);
       font-style: italic;
       margin-top: 0.1rem;
     }
 
     .npc-card-traits {
-      border-top: 1px solid var(--color-border);
+      border-top: 1px solid #3a3632;
       padding-top: 0.3rem;
       margin-bottom: 0.3rem;
     }
     .npc-traits-label {
       font-family: 'Audiowide', sans-serif;
       font-size: 0.5rem;
-      color: var(--color-accent-deep);
+      color: #818cf8;
       letter-spacing: 0.08em;
       margin-bottom: 0.2rem;
     }
     .npc-trait-item {
       font-size: 0.65rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       padding: 0.1rem 0;
     }
 
@@ -2517,14 +2313,14 @@
     .npc-tag {
       font-size: 0.55rem;
       padding: 0.1rem 0.35rem;
-      border: 1px solid var(--color-border);
-      color: var(--color-text-secondary);
+      border: 1px solid #3a3632;
+      color: #7a7068;
       letter-spacing: 0.04em;
       text-transform: uppercase;
     }
 
     .npc-card-loot {
-      border-top: 1px solid var(--color-border);
+      border-top: 1px solid #3a3632;
       padding-top: 0.3rem;
       margin-top: 0.3rem;
     }
@@ -2540,21 +2336,21 @@
       align-items: center;
       justify-content: space-between;
       font-size: 0.65rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       padding: 0.15rem 0;
     }
     .npc-loot-assign {
       background: transparent;
-      border: 1px solid var(--color-border);
-      color: var(--color-accent-primary);
+      border: 1px solid #3a3632;
+      color: #c8a44e;
       font-size: 0.65rem;
       cursor: pointer;
       padding: 0.15rem 0.35rem;
       transition: all 0.15s;
     }
     .npc-loot-assign:hover {
-      background: var(--color-accent-primary);
-      color: var(--color-btn-text);
+      background: #c8a44e;
+      color: #1a1a1e;
     }
 
     .npc-checkbox-label {
@@ -2562,19 +2358,19 @@
       align-items: flex-start;
       gap: 0.3rem;
       font-size: 0.7rem;
-      color: var(--color-text-primary);
+      color: #d4c5a0;
       padding: 0.2rem 0;
       cursor: pointer;
     }
     .npc-checkbox-label input[type="checkbox"] {
-      accent-color: var(--color-accent-primary);
+      accent-color: #c8a44e;
       margin-top: 0.15rem;
       flex-shrink: 0;
     }
     .npc-trait-desc {
       display: block;
       font-size: 0.6rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       margin-top: 0.05rem;
     }
     .npc-tags-grid {
@@ -2586,21 +2382,21 @@
       font-size: 0.6rem;
       padding: 0.2rem 0.5rem;
       background: transparent;
-      border: 1px solid var(--color-border);
-      color: var(--color-text-secondary);
+      border: 1px solid #3a3632;
+      color: #7a7068;
       cursor: pointer;
       text-transform: uppercase;
       letter-spacing: 0.04em;
       transition: all 0.15s;
     }
     .npc-tag-btn:hover {
-      border-color: var(--color-accent-primary);
-      color: var(--color-accent-primary);
+      border-color: #c8a44e;
+      color: #c8a44e;
     }
     .npc-tag-btn.active {
       background: rgba(212, 96, 10, 0.15);
-      border-color: var(--color-accent-primary);
-      color: var(--color-accent-primary);
+      border-color: #c8a44e;
+      color: #c8a44e;
     }
     .npc-loot-search-wrap {
       position: relative;
@@ -2610,8 +2406,8 @@
       top: 100%;
       left: 0;
       right: 0;
-      background: var(--color-bg-frame);
-      border: 1px solid var(--color-border);
+      background: #232328;
+      border: 1px solid #3a3632;
       max-height: 200px;
       overflow-y: auto;
       z-index: 10;
@@ -2625,7 +2421,7 @@
       justify-content: space-between;
       padding: 0.3rem 0.5rem;
       font-size: 0.7rem;
-      color: var(--color-text-primary);
+      color: #d4c5a0;
       cursor: pointer;
       transition: background 0.1s;
     }
@@ -2635,13 +2431,13 @@
     .npc-loot-type-badge {
       font-size: 0.5rem;
       text-transform: uppercase;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       letter-spacing: 0.06em;
     }
     .npc-loot-no-result {
       padding: 0.4rem 0.5rem;
       font-size: 0.65rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       font-style: italic;
     }
     .npc-loot-list {
@@ -2652,9 +2448,9 @@
       align-items: center;
       justify-content: space-between;
       font-size: 0.7rem;
-      color: var(--color-text-primary);
+      color: #d4c5a0;
       padding: 0.2rem 0;
-      border-bottom: 1px solid var(--color-border);
+      border-bottom: 1px solid #3a3632;
     }
     .npc-loot-remove {
       background: transparent;
@@ -2679,7 +2475,7 @@
       letter-spacing: 0.06em;
       cursor: pointer;
       transition: all 0.15s;
-      border: 1px solid var(--color-border);
+      border: 1px solid #3a3632;
       min-height: 40px;
     }
     .npc-save-btn {
@@ -2693,7 +2489,7 @@
     }
     .npc-clear-btn {
       background: transparent;
-      color: var(--color-text-secondary);
+      color: #7a7068;
     }
     .npc-clear-btn:hover {
       border-color: #ef4444;
@@ -2706,7 +2502,7 @@
     }
     .npc-saved-empty {
       font-size: 0.65rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       font-style: italic;
       padding: 0.3rem 0;
     }
@@ -2715,11 +2511,11 @@
       align-items: center;
       justify-content: space-between;
       padding: 0.25rem 0;
-      border-bottom: 1px solid var(--color-border);
+      border-bottom: 1px solid #3a3632;
     }
     .npc-saved-name {
       font-size: 0.7rem;
-      color: var(--color-accent-primary);
+      color: #c8a44e;
       cursor: pointer;
     }
     .npc-saved-name:hover {
@@ -2727,7 +2523,7 @@
     }
     .npc-saved-meta {
       font-size: 0.55rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       margin-left: 0.3rem;
     }
     .npc-saved-delete {
@@ -2741,24 +2537,24 @@
     .npc-saved-dup {
       background: transparent;
       border: none;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       font-size: 0.8rem;
       cursor: pointer;
       padding: 0 0.2rem;
       margin-left: auto;
       margin-right: 0.2rem;
     }
-    .npc-saved-dup:hover { color: var(--color-accent-primary); }
+    .npc-saved-dup:hover { color: #c8a44e; }
 
     .npc-attack-entry {
       margin-bottom: 0.4rem;
       padding: 0.3rem;
-      border: 1px solid var(--color-border);
+      border: 1px solid #3a3632;
       border-radius: 4px;
       background: rgba(0,0,0,0.05);
     }
     .npc-attack-role {
-      border-color: var(--color-accent-primary);
+      border-color: #c8a44e;
       background: rgba(96,165,250,0.06);
     }
     .npc-attack-role-label {
@@ -2766,7 +2562,7 @@
       font-size: 0.45rem;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      color: var(--color-accent-primary);
+      color: #c8a44e;
       margin-bottom: 0.15rem;
     }
     .npc-attack-controls {
@@ -2779,7 +2575,7 @@
     .npc-attack-scale-label,
     .npc-attack-stun-label {
       font-size: 0.6rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       text-transform: uppercase;
       letter-spacing: 0.04em;
     }
@@ -2803,7 +2599,7 @@
     }
     .npc-attacks-empty {
       font-size: 0.65rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       font-style: italic;
       padding: 0.2rem 0;
     }
@@ -2826,7 +2622,7 @@
       padding: 0.2rem 0.5rem;
       text-transform: uppercase;
       letter-spacing: 0.06em;
-      border-top: 1px solid var(--color-border);
+      border-top: 1px solid #3a3632;
     }
     .npc-card-immunities {
       font-size: 0.6rem;
@@ -2865,13 +2661,13 @@
     }
     .npc-card-attacks {
       padding: 0.4rem 0.5rem;
-      border-top: 1px solid var(--color-border);
+      border-top: 1px solid #3a3632;
     }
     .npc-attacks-label {
       font-size: 0.55rem;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       margin-bottom: 0.2rem;
     }
     .npc-attack-power-badge {
@@ -2889,11 +2685,11 @@
     .npc-attack-chassis-badge {
       font-size: 0.5rem;
       padding: 0.1rem 0.3rem;
-      border: 1px solid var(--color-border);
+      border: 1px solid #3a3632;
       border-radius: 3px;
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       margin-left: 0.3rem;
     }
     .npc-attack-header {
@@ -2912,13 +2708,13 @@
     .npc-dmg-tier {
       font-size: 0.65rem;
       font-weight: 600;
-      color: var(--color-text-primary);
+      color: #d4c5a0;
     }
     .npc-dmg-label {
       font-size: 0.5rem;
       font-weight: 400;
       text-transform: uppercase;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       margin-right: 0.1rem;
     }
     .npc-stun-tier {
@@ -2965,7 +2761,7 @@
       font-size: 0.55rem;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       margin-bottom: 0.2rem;
     }
     .npc-tag-card-item {
@@ -2976,7 +2772,7 @@
     }
     .npc-tag-effect {
       font-size: 0.55rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       font-style: italic;
     }
 
@@ -2990,8 +2786,8 @@
     }
     .npc-loot-assign-overlay.active { display: flex; }
     .npc-loot-assign-modal {
-      background: var(--color-bg-panel);
-      border: 1px solid var(--color-border);
+      background: #2a2a2e;
+      border: 1px solid #3a3632;
       padding: 1rem;
       min-width: 250px;
       max-width: 400px;
@@ -2999,21 +2795,21 @@
     .npc-assign-title {
       font-family: 'Audiowide', sans-serif;
       font-size: 0.75rem;
-      color: var(--color-accent-primary);
+      color: #c8a44e;
       margin-bottom: 0.5rem;
     }
     .npc-assign-empty {
       font-size: 0.7rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       font-style: italic;
       padding: 0.5rem 0;
     }
     .npc-assign-pc-btn {
       display: block;
       width: 100%;
-      background: var(--color-bg-frame);
-      border: 1px solid var(--color-border);
-      color: var(--color-text-primary);
+      background: #232328;
+      border: 1px solid #3a3632;
+      color: #d4c5a0;
       font-family: 'Exo 2', sans-serif;
       font-size: 0.75rem;
       padding: 0.5rem;
@@ -3024,15 +2820,15 @@
       min-height: 40px;
     }
     .npc-assign-pc-btn:hover {
-      border-color: var(--color-accent-primary);
-      color: var(--color-accent-primary);
+      border-color: #c8a44e;
+      color: #c8a44e;
     }
     .npc-assign-cancel {
       display: block;
       width: 100%;
       background: transparent;
-      border: 1px solid var(--color-border);
-      color: var(--color-text-secondary);
+      border: 1px solid #3a3632;
+      color: #7a7068;
       font-family: 'Exo 2', sans-serif;
       font-size: 0.65rem;
       padding: 0.4rem;
@@ -3043,8 +2839,8 @@
       min-height: 36px;
     }
     .npc-assign-cancel:hover {
-      border-color: var(--color-accent-primary);
-      color: var(--color-accent-primary);
+      border-color: #c8a44e;
+      color: #c8a44e;
     }
 
     .npc-toast {
@@ -3052,9 +2848,9 @@
       bottom: 5rem;
       left: 50%;
       transform: translateX(-50%) translateY(20px);
-      background: var(--color-bg-frame);
-      border: 1px solid var(--color-accent-primary);
-      color: var(--color-accent-primary);
+      background: #232328;
+      border: 1px solid #c8a44e;
+      color: #c8a44e;
       font-family: 'Exo 2', sans-serif;
       font-size: 0.75rem;
       padding: 0.5rem 1.5rem;
@@ -3068,404 +2864,7 @@
       transform: translateX(-50%) translateY(0);
     }
 
-    @media screen and (max-width: 768px) {
-      .npc-builder-overlay {
-        align-items: stretch;
-        justify-content: stretch;
-      }
-      .npc-builder-modal {
-        width: 100vw;
-        height: 100vh;
-        height: 100dvh;
-        max-width: none;
-        border: none;
-      }
-      .npc-builder-header {
-        padding: 0.4rem 0.75rem;
-      }
-      .npc-builder-mobile-tabs {
-        display: flex;
-        border-bottom: 1px solid var(--color-border);
-        flex-shrink: 0;
-        background: var(--color-bg-frame);
-      }
-      .npc-mobile-tab {
-        flex: 1;
-        background: none;
-        border: none;
-        border-bottom: 2px solid transparent;
-        color: var(--color-text-secondary);
-        font-family: 'Exo 2', sans-serif;
-        font-size: 0.75rem;
-        text-transform: uppercase;
-        letter-spacing: 0.06em;
-        padding: 0.6rem 0.5rem;
-        cursor: pointer;
-        transition: all 0.15s;
-        min-height: 44px;
-      }
-      .npc-mobile-tab.active {
-        color: var(--color-accent-primary);
-        border-bottom-color: var(--color-accent-primary);
-      }
-      .npc-builder-body {
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-        flex: 1;
-        min-height: 0;
-      }
-      .npc-builder-panel {
-        border: none;
-        flex: 1;
-        min-height: 0;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-        padding: 0.75rem 0.65rem;
-        padding-bottom: 5rem;
-      }
-      .npc-builder-panel-left {
-        border-right: none;
-        width: auto !important;
-        min-width: 0;
-        max-width: none;
-      }
-      .npc-builder-panel-right {
-        border-left: none;
-        width: auto !important;
-        min-width: 0;
-        max-width: none;
-      }
-      .npc-resize-handle {
-        display: none;
-      }
-      .npc-builder-panel-center,
-      .npc-builder-panel-right {
-        display: none;
-      }
-
-      .npc-text-input,
-      .npc-select {
-        font-size: 16px;
-        padding: 0.5rem 0.6rem;
-        min-height: 44px;
-      }
-      .npc-slider {
-        height: 32px;
-      }
-      .npc-label {
-        font-size: 0.7rem;
-        margin-bottom: 0.4rem;
-        margin-top: 0.5rem;
-      }
-      .npc-category-btns {
-        gap: 0.35rem;
-      }
-      .npc-category-btn {
-        padding: 0.6rem 0.4rem;
-        font-size: 0.7rem;
-        min-height: 44px;
-      }
-      .npc-arena-input {
-        padding: 0.3rem 0;
-        gap: 0.5rem;
-      }
-      .npc-arena-input-label {
-        font-size: 0.8rem;
-        width: 70px;
-      }
-      .npc-arena-input-val {
-        font-size: 0.9rem;
-        width: 24px;
-      }
-      .npc-tier-val {
-        font-size: 1rem;
-      }
-      .npc-checkbox-label {
-        font-size: 0.8rem;
-        padding: 0.4rem 0;
-        min-height: 44px;
-        align-items: center;
-      }
-      .npc-checkbox-label input[type="checkbox"] {
-        width: 20px;
-        height: 20px;
-        margin-top: 0;
-      }
-      .npc-trait-desc {
-        font-size: 0.7rem;
-      }
-      .npc-builder-actions {
-        position: sticky;
-        bottom: 0;
-        background: var(--color-bg-panel);
-        padding: 0.5rem 0.65rem;
-        margin: 0 -0.65rem;
-        border-top: 1px solid var(--color-border);
-        z-index: 10;
-        gap: 0.5rem;
-      }
-      .npc-action-btn {
-        font-size: 0.75rem;
-        padding: 0.6rem;
-        min-height: 48px;
-      }
-
-      .npc-tags-grid {
-        gap: 0.35rem;
-      }
-      .npc-tag-btn {
-        font-size: 0.7rem;
-        padding: 0.4rem 0.6rem;
-        min-height: 40px;
-      }
-      .npc-loot-result {
-        padding: 0.5rem;
-        font-size: 0.8rem;
-        min-height: 44px;
-      }
-      .npc-loot-entry {
-        font-size: 0.8rem;
-        padding: 0.35rem 0;
-      }
-      .npc-loot-remove {
-        font-size: 1.1rem;
-        padding: 0.2rem 0.4rem;
-        min-width: 40px;
-        min-height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .npc-attack-entry {
-        padding: 0.5rem;
-        margin-bottom: 0.5rem;
-      }
-      .npc-attack-controls {
-        gap: 0.4rem;
-      }
-      .npc-attack-scale-label,
-      .npc-attack-stun-label {
-        font-size: 0.7rem;
-      }
-      .npc-attack-scale {
-        max-width: none;
-        font-size: 0.75rem;
-        min-height: 38px;
-      }
-      .npc-attack-remove {
-        font-size: 1.1rem;
-        min-width: 40px;
-        min-height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .npc-add-attack-btn {
-        font-size: 0.7rem;
-        padding: 0.5rem 0.6rem;
-        min-height: 44px;
-      }
-
-      .npc-card {
-        max-width: none;
-        padding: 0.65rem;
-      }
-      .npc-card-name {
-        font-size: 1.1rem;
-      }
-      .npc-card-meta {
-        font-size: 0.75rem;
-      }
-      .npc-stat-row {
-        gap: 0.35rem;
-      }
-      .npc-stat {
-        padding: 0.35rem 0.4rem;
-      }
-      .npc-stat-label {
-        font-size: 0.55rem;
-      }
-      .npc-stat-val {
-        font-size: 1.15rem;
-      }
-      .npc-card-arenas {
-        gap: 0.25rem;
-      }
-      .npc-arena-pip {
-        padding: 0.3rem 0.2rem;
-        flex: 1 1 auto;
-      }
-      .npc-arena-label {
-        font-size: 0.5rem;
-      }
-      .npc-arena-val {
-        font-size: 0.8rem;
-      }
-      .npc-arena-power {
-        font-size: 0.5rem;
-      }
-      .npc-role-title {
-        font-size: 0.7rem;
-      }
-      .npc-action-group-label {
-        font-size: 0.55rem;
-      }
-      .npc-ability {
-        font-size: 0.75rem;
-        padding: 0.2rem 0;
-      }
-      .npc-effect-track {
-        padding: 0.3rem 0.5rem;
-      }
-      .npc-effect-tier {
-        font-size: 0.65rem;
-        padding: 0.1rem 0;
-      }
-      .npc-tier-label {
-        font-size: 0.6rem;
-        width: 1rem;
-      }
-      .npc-attack-header {
-        gap: 0.2rem;
-      }
-      .npc-attack-header strong {
-        font-size: 0.8rem;
-      }
-      .npc-attack-power-badge,
-      .npc-attack-chassis-badge,
-      .npc-attack-arena-badge,
-      .npc-attack-stun-badge {
-        font-size: 0.55rem;
-        padding: 0.12rem 0.4rem;
-      }
-      .npc-action-defense {
-        font-size: 0.6rem;
-      }
-      .npc-attack-damage-row,
-      .npc-attack-stun-row {
-        gap: 0.8rem;
-        padding-left: 0.2rem;
-      }
-      .npc-dmg-tier {
-        font-size: 0.75rem;
-      }
-      .npc-dmg-label {
-        font-size: 0.55rem;
-      }
-      .npc-stun-tier {
-        font-size: 0.7rem;
-      }
-      .npc-exploit-trigger {
-        font-size: 0.7rem;
-      }
-      .npc-exploit-effect,
-      .npc-gambit-effect {
-        font-size: 0.7rem;
-      }
-      .npc-gambit-cost {
-        font-size: 0.6rem;
-      }
-      .npc-trait-item {
-        font-size: 0.75rem;
-        padding: 0.15rem 0;
-      }
-      .npc-card-tags {
-        gap: 0.25rem;
-      }
-      .npc-tag {
-        font-size: 0.6rem;
-        padding: 0.15rem 0.4rem;
-      }
-
-      .npc-loot-assign-modal {
-        width: 90vw;
-        max-width: none;
-      }
-      .npc-assign-pc-btn {
-        font-size: 0.85rem;
-        padding: 0.6rem;
-        min-height: 48px;
-      }
-      .npc-assign-cancel {
-        font-size: 0.75rem;
-        padding: 0.5rem;
-        min-height: 44px;
-      }
-      .npc-toast {
-        font-size: 0.85rem;
-        padding: 0.6rem 1.5rem;
-        bottom: 6rem;
-      }
-
-      .npc-saved-entry {
-        padding: 0.4rem 0;
-      }
-      .npc-saved-name {
-        font-size: 0.8rem;
-      }
-      .npc-saved-delete,
-      .npc-saved-dup {
-        font-size: 1.1rem;
-        min-width: 40px;
-        min-height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .npc-ship-detail-row {
-        font-size: 0.8rem;
-        padding: 0.3rem 0;
-      }
-      .npc-ship-detail-label {
-        font-size: 0.7rem;
-      }
-      .npc-ship-details-inputs .npc-text-input {
-        font-size: 16px;
-        min-height: 44px;
-      }
-
-      .npc-social-resist-row {
-        gap: 0.4rem;
-      }
-      .npc-social-resist-val {
-        font-size: 1.1rem;
-      }
-      .npc-social-trait-item {
-        font-size: 0.75rem;
-      }
-
-      .npc-card-power-bonus,
-      .npc-card-immunities,
-      .npc-card-vulnerabilities {
-        font-size: 0.7rem;
-      }
-      .npc-card-ironclad,
-      .npc-card-stationary,
-      .npc-card-scale {
-        font-size: 0.65rem;
-      }
-    }
-    @media screen and (max-width: 768px) and (orientation: landscape) {
-      .npc-builder-header {
-        padding: 0.25rem 0.75rem;
-      }
-      .npc-builder-title {
-        font-size: 0.65rem;
-      }
-      .npc-mobile-tab {
-        padding: 0.35rem;
-        font-size: 0.6rem;
-        min-height: 36px;
-      }
-      .npc-builder-panel {
-        padding-bottom: 4rem;
-      }
-    }
-
-    #combat-tracker-panel {
+            #combat-tracker-panel {
       display: none;
       margin-bottom: 1rem;
     }
@@ -3474,20 +2873,20 @@
       align-items: center;
       justify-content: space-between;
       padding: 0.5rem 0.75rem;
-      background: var(--color-bg-panel);
-      border: 1px solid var(--color-danger, #ef4444);
+      background: #2a2a2e;
+      border: 1px solid #ef4444;
       margin-bottom: 0.5rem;
     }
     .ct-title {
       font-family: 'Audiowide', sans-serif;
       font-size: 0.85rem;
-      color: var(--color-danger, #ef4444);
+      color: #ef4444;
       letter-spacing: 0.08em;
     }
     .ct-round {
       font-family: 'Audiowide', sans-serif;
       font-size: 0.8rem;
-      color: var(--color-accent-primary);
+      color: #c8a44e;
     }
     .ct-header-actions {
       display: flex;
@@ -3521,8 +2920,8 @@
     }
     .ct-end-btn {
       background: transparent;
-      border: 1px solid var(--color-danger, #ef4444);
-      color: var(--color-danger, #ef4444);
+      border: 1px solid #ef4444;
+      color: #ef4444;
       font-family: 'Exo 2', sans-serif;
       font-size: 0.6rem;
       text-transform: uppercase;
@@ -3533,13 +2932,13 @@
       min-height: 32px;
     }
     .ct-end-btn:hover {
-      background: var(--color-danger, #ef4444);
+      background: #ef4444;
       color: #000;
     }
     .ct-add-npc-btn {
       background: transparent;
-      border: 1px solid var(--color-accent-primary);
-      color: var(--color-accent-primary);
+      border: 1px solid #c8a44e;
+      color: #c8a44e;
       font-family: 'Exo 2', sans-serif;
       font-size: 0.6rem;
       text-transform: uppercase;
@@ -3550,7 +2949,7 @@
       min-height: 32px;
     }
     .ct-add-npc-btn:hover {
-      background: var(--color-accent-primary);
+      background: #c8a44e;
       color: #000;
     }
     .ct-add-npc-panel {
@@ -3558,8 +2957,8 @@
       top: 100%;
       right: 0;
       z-index: 200;
-      background: var(--color-bg-primary, #1a1a2e);
-      border: 1px solid var(--color-accent-primary);
+      background: #1a1a1e;
+      border: 1px solid #c8a44e;
       border-radius: 6px;
       padding: 0.5rem;
       min-width: 220px;
@@ -3572,7 +2971,7 @@
       font-size: 0.6rem;
       text-transform: uppercase;
       letter-spacing: 0.06em;
-      color: var(--color-accent-primary);
+      color: #c8a44e;
       margin-bottom: 0.4rem;
       padding-bottom: 0.3rem;
       border-bottom: 1px solid rgba(255,255,255,0.1);
@@ -3601,7 +3000,7 @@
     }
     .ct-add-npc-name {
       font-size: 0.65rem;
-      color: var(--color-text-primary);
+      color: #d4c5a0;
     }
     .ct-add-npc-meta {
       font-family: 'Audiowide', sans-serif;
@@ -3631,13 +3030,13 @@
       line-height: 1;
     }
     .ct-npc-edit-btn:hover {
-      border-color: var(--color-accent-primary);
-      color: var(--color-accent-primary);
-      background: rgba(var(--color-accent-primary-rgb, 96,165,250), 0.1);
+      border-color: #c8a44e;
+      color: #c8a44e;
+      background: rgba(200,164,78,0.1);
     }
     .ct-npc-remove-btn:hover {
-      border-color: var(--color-danger, #ef4444);
-      color: var(--color-danger, #ef4444);
+      border-color: #ef4444;
+      color: #ef4444;
       background: rgba(239,68,68,0.1);
     }
     .ct-section-label {
@@ -3645,10 +3044,10 @@
       font-size: 0.6rem;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      color: var(--color-accent-deep);
+      color: #818cf8;
       margin-bottom: 0.3rem;
       padding-bottom: 0.2rem;
-      border-bottom: 1px solid var(--color-border);
+      border-bottom: 1px solid #3a3632;
     }
 
     .ct-two-panel {
@@ -3662,8 +3061,8 @@
       width: 200px;
       min-width: 180px;
       flex-shrink: 0;
-      background: var(--color-bg-frame);
-      border: 1px solid var(--color-border);
+      background: #232328;
+      border: 1px solid #3a3632;
       display: flex;
       flex-direction: column;
     }
@@ -3672,16 +3071,16 @@
       justify-content: space-between;
       align-items: center;
       padding: 0.4rem 0.5rem;
-      border-bottom: 1px solid var(--color-border);
+      border-bottom: 1px solid #3a3632;
       font-family: 'Audiowide', sans-serif;
       font-size: 0.6rem;
-      color: var(--color-accent-primary);
+      color: #c8a44e;
       text-transform: uppercase;
       letter-spacing: 0.08em;
     }
     .ct-rail-round {
       font-size: 0.55rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
     }
     .ct-rail-list {
       flex: 1;
@@ -3703,20 +3102,20 @@
     }
     .ct-rail-current {
       background: rgba(204,0,0,0.1);
-      border-left-color: var(--color-accent-primary);
+      border-left-color: #c8a44e;
     }
     .ct-rail-selected {
       background: rgba(199,146,52,0.12);
-      border-left-color: var(--color-accent-primary);
+      border-left-color: #c8a44e;
     }
-    .ct-rail-npc .ct-rail-name { color: var(--color-danger, #ef4444); }
+    .ct-rail-npc .ct-rail-name { color: #ef4444; }
     .ct-rail-pc .ct-rail-name { color: #22c55e; }
     .ct-rail-down { opacity: 0.35; }
     .ct-rail-surprised .ct-rail-name { font-style: italic; }
     .ct-rail-init {
       font-family: 'Audiowide', sans-serif;
       font-size: 0.65rem;
-      color: var(--color-accent-primary);
+      color: #c8a44e;
       min-width: 1.4rem;
       text-align: center;
     }
@@ -3769,13 +3168,13 @@
       display: flex;
       gap: 2px;
       padding: 0.3rem;
-      border-top: 1px solid var(--color-border);
+      border-top: 1px solid #3a3632;
     }
     .ct-ctrl-btn {
       flex: 1;
       background: transparent;
-      border: 1px solid var(--color-border);
-      color: var(--color-text-secondary);
+      border: 1px solid #3a3632;
+      color: #7a7068;
       font-family: 'Exo 2', sans-serif;
       font-size: 0.6rem;
       text-transform: uppercase;
@@ -3785,22 +3184,22 @@
       min-height: 28px;
     }
     .ct-ctrl-btn:hover {
-      border-color: var(--color-accent-primary);
-      color: var(--color-accent-primary);
+      border-color: #c8a44e;
+      color: #c8a44e;
     }
     .ct-ctrl-primary {
-      border-color: var(--color-accent-primary);
-      color: var(--color-accent-primary);
+      border-color: #c8a44e;
+      color: #c8a44e;
     }
     .ct-ctrl-primary:hover {
-      background: var(--color-accent-primary);
+      background: #c8a44e;
       color: #000;
     }
 
     .ct-detail-panel {
       flex: 1;
-      background: var(--color-bg-frame);
-      border: 1px solid var(--color-border);
+      background: #232328;
+      border: 1px solid #3a3632;
       padding: 0.6rem 0.75rem;
       overflow-y: auto;
     }
@@ -3809,7 +3208,7 @@
       align-items: center;
       justify-content: center;
       height: 100%;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       font-style: italic;
       font-size: 0.75rem;
     }
@@ -3827,7 +3226,7 @@
     .ct-detail-name {
       font-family: 'Audiowide', sans-serif;
       font-size: 0.9rem;
-      color: var(--color-text-primary);
+      color: #d4c5a0;
     }
     .ct-detail-threat {
       font-family: 'Audiowide', sans-serif;
@@ -3837,13 +3236,13 @@
     .ct-detail-tier {
       font-family: 'Audiowide', sans-serif;
       font-size: 0.6rem;
-      color: var(--color-accent-primary);
+      color: #c8a44e;
       padding: 0.1rem 0.3rem;
-      border: 1px solid var(--color-accent-primary);
+      border: 1px solid #c8a44e;
     }
     .ct-detail-role {
       font-size: 0.6rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       text-transform: capitalize;
     }
     .ct-detail-type-badge {
@@ -3857,7 +3256,7 @@
     .ct-detail-species,
     .ct-detail-archetype {
       font-size: 0.6rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
     }
 
     .ct-detail-stats {
@@ -3871,19 +3270,19 @@
       flex-direction: column;
       align-items: center;
       padding: 0.2rem 0.4rem;
-      border: 1px solid var(--color-border);
+      border: 1px solid #3a3632;
       min-width: 42px;
     }
     .ct-stat-label {
       font-size: 0.48rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       text-transform: uppercase;
       font-family: 'Audiowide', sans-serif;
       letter-spacing: 0.04em;
     }
     .ct-stat-val {
       font-size: 0.75rem;
-      color: var(--color-accent-primary);
+      color: #c8a44e;
       font-family: 'Audiowide', sans-serif;
     }
 
@@ -3899,23 +3298,23 @@
     .ct-presence-label {
       font-family: 'Audiowide', sans-serif;
       font-size: 0.6rem;
-      color: var(--color-accent-primary);
+      color: #c8a44e;
       text-transform: uppercase;
     }
     .ct-presence-val {
       font-family: 'Audiowide', sans-serif;
       font-size: 0.9rem;
-      color: var(--color-text-primary);
+      color: #d4c5a0;
     }
     .ct-pres-debuff { color: #ef4444; }
     .ct-pres-buff { color: #22c55e; }
     .ct-presence-mod {
       font-size: 0.6rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
     }
     .ct-presence-hint {
       font-size: 0.5rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       font-style: italic;
       margin-left: auto;
     }
@@ -3928,8 +3327,8 @@
     }
     .ct-vit-btn {
       background: transparent;
-      border: 1px solid var(--color-border);
-      color: var(--color-text-secondary);
+      border: 1px solid #3a3632;
+      color: #7a7068;
       font-size: 0.85rem;
       cursor: pointer;
       padding: 0.15rem 0.4rem;
@@ -3941,13 +3340,13 @@
       align-items: center;
       justify-content: center;
     }
-    .ct-vit-minus:hover { border-color: var(--color-danger, #ef4444); color: var(--color-danger, #ef4444); }
+    .ct-vit-minus:hover { border-color: #ef4444; color: #ef4444; }
     .ct-vit-plus:hover { border-color: #22c55e; color: #22c55e; }
     .ct-vitality-bar-wrap {
       flex: 1;
       height: 20px;
       background: rgba(0,0,0,0.3);
-      border: 1px solid var(--color-border);
+      border: 1px solid #3a3632;
       position: relative;
       overflow: hidden;
     }
@@ -3963,7 +3362,7 @@
       justify-content: center;
       font-family: 'Audiowide', sans-serif;
       font-size: 0.62rem;
-      color: var(--color-text-primary);
+      color: #d4c5a0;
       text-shadow: 0 0 3px rgba(0,0,0,0.8);
     }
 
@@ -3974,21 +3373,21 @@
       margin-bottom: 0.5rem;
       padding: 0.2rem 0.4rem;
       background: rgba(0,0,0,0.15);
-      border: 1px solid var(--color-border);
+      border: 1px solid #3a3632;
       font-size: 0.6rem;
     }
     .ct-dmg-label {
       font-family: 'Audiowide', sans-serif;
       font-size: 0.55rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       text-transform: uppercase;
     }
     .ct-dmg-tier {
-      color: var(--color-text-secondary);
+      color: #7a7068;
       font-size: 0.6rem;
     }
     .ct-dmg-tier strong {
-      color: var(--color-accent-primary);
+      color: #c8a44e;
       font-family: 'Audiowide', sans-serif;
     }
 
@@ -4029,8 +3428,8 @@
     .ct-add-condition-btn,
     .ct-push-condition-btn {
       background: transparent;
-      border: 1px dashed var(--color-border);
-      color: var(--color-text-secondary);
+      border: 1px dashed #3a3632;
+      color: #7a7068;
       font-size: 0.58rem;
       padding: 0.12rem 0.4rem;
       cursor: pointer;
@@ -4038,16 +3437,16 @@
     }
     .ct-add-condition-btn:hover,
     .ct-push-condition-btn:hover {
-      border-color: var(--color-accent-primary);
-      color: var(--color-accent-primary);
+      border-color: #c8a44e;
+      color: #c8a44e;
     }
     .ct-condition-palette {
       position: absolute;
       top: 100%;
       left: 0;
       z-index: 20;
-      background: var(--color-bg-panel);
-      border: 1px solid var(--color-border);
+      background: #2a2a2e;
+      border: 1px solid #3a3632;
       padding: 0.4rem;
       min-width: 280px;
       max-height: 350px;
@@ -4057,12 +3456,12 @@
     .ct-palette-title {
       font-family: 'Audiowide', sans-serif;
       font-size: 0.6rem;
-      color: var(--color-accent-deep);
+      color: #818cf8;
       text-transform: uppercase;
       letter-spacing: 0.08em;
       margin-bottom: 0.3rem;
       padding-bottom: 0.2rem;
-      border-bottom: 1px solid var(--color-border);
+      border-bottom: 1px solid #3a3632;
     }
     .ct-palette-item {
       display: flex;
@@ -4086,12 +3485,12 @@
     .ct-palette-name {
       font-size: 0.68rem;
       font-weight: 600;
-      color: var(--color-text-primary);
+      color: #d4c5a0;
       min-width: 70px;
     }
     .ct-palette-effect {
       font-size: 0.58rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       line-height: 1.3;
     }
 
@@ -4101,35 +3500,35 @@
       gap: 0.4rem;
       padding: 0.3rem;
       margin-bottom: 0.3rem;
-      border-bottom: 1px solid var(--color-border);
+      border-bottom: 1px solid #3a3632;
     }
     .ct-duration-label {
       font-family: 'Audiowide', sans-serif;
       font-size: 0.55rem;
-      color: var(--color-accent-primary);
+      color: #c8a44e;
       text-transform: uppercase;
       letter-spacing: 0.05em;
       flex-shrink: 0;
     }
     .ct-duration-select {
-      background: var(--color-bg-primary);
-      border: 1px solid var(--color-border);
-      color: var(--color-text-primary);
+      background: #1a1a1e;
+      border: 1px solid #3a3632;
+      color: #d4c5a0;
       font-family: 'Exo 2', sans-serif;
       font-size: 0.65rem;
       padding: 0.2rem 0.3rem;
       flex: 1;
       outline: none;
     }
-    .ct-duration-select:focus { border-color: var(--color-accent-primary); }
+    .ct-duration-select:focus { border-color: #c8a44e; }
 
     .ct-arena-picker {
       position: absolute;
       top: 0;
       left: 100%;
       z-index: 25;
-      background: var(--color-bg-panel);
-      border: 1px solid var(--color-accent-primary);
+      background: #2a2a2e;
+      border: 1px solid #c8a44e;
       padding: 0.3rem;
       min-width: 120px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.5);
@@ -4137,7 +3536,7 @@
     .ct-picker-title {
       font-family: 'Audiowide', sans-serif;
       font-size: 0.55rem;
-      color: var(--color-accent-primary);
+      color: #c8a44e;
       margin-bottom: 0.2rem;
       text-transform: uppercase;
     }
@@ -4145,7 +3544,7 @@
       padding: 0.2rem 0.3rem;
       font-size: 0.65rem;
       cursor: pointer;
-      color: var(--color-text-primary);
+      color: #d4c5a0;
       transition: background 0.1s;
     }
     .ct-picker-option:hover {
@@ -4173,10 +3572,10 @@
 
     .ct-pc-vitality {
       font-size: 0.7rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       margin-bottom: 0.4rem;
     }
-    .ct-pc-vitality strong { color: var(--color-accent-primary); }
+    .ct-pc-vitality strong { color: #c8a44e; }
 
     .ct-pc-arenas {
       display: flex;
@@ -4193,24 +3592,24 @@
     }
     .ct-arena-lbl {
       font-family: 'Audiowide', sans-serif;
-      color: var(--color-accent-primary);
+      color: #c8a44e;
       font-size: 0.55rem;
     }
     .ct-arena-die {
-      color: var(--color-text-secondary);
+      color: #7a7068;
       font-size: 0.55rem;
     }
     .ct-pc-disc {
       font-size: 0.55rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       padding: 0.02rem 0 0.02rem 0.4rem;
     }
     .ct-disc-die {
-      color: var(--color-accent-primary);
+      color: #c8a44e;
       font-family: 'Audiowide', sans-serif;
       font-size: 0.5rem;
     }
-    .ct-disc-fav { color: var(--color-accent-secondary, #c084fc); }
+    .ct-disc-fav { color: #c084fc; }
 
     .ct-pc-vocations {
       display: flex;
@@ -4221,8 +3620,8 @@
     .ct-voc-badge {
       font-size: 0.58rem;
       padding: 0.1rem 0.35rem;
-      border: 1px solid var(--color-accent-secondary, #c084fc);
-      color: var(--color-accent-secondary, #c084fc);
+      border: 1px solid #c084fc;
+      color: #c084fc;
     }
 
     .ct-rolekit {
@@ -4230,7 +3629,7 @@
     }
     .ct-rk-entry {
       font-size: 0.68rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       margin-bottom: 0.3rem;
       line-height: 1.45;
       padding: 0.15rem 0;
@@ -4259,16 +3658,16 @@
       font-family: 'Audiowide', sans-serif;
       font-size: 0.55rem;
       padding: 0.05rem 0.25rem;
-      border: 1px solid var(--color-accent-primary);
-      color: var(--color-accent-primary);
+      border: 1px solid #c8a44e;
+      color: #c8a44e;
     }
     .ct-rk-arena {
       font-size: 0.55rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
     }
     .ct-rk-cost {
       font-size: 0.55rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
     }
     .ct-rk-effects-inline {
       font-size: 0.55rem;
@@ -4284,7 +3683,7 @@
       font-family: 'Audiowide', sans-serif;
       font-size: 0.5rem;
       letter-spacing: 0.1em;
-      color: var(--color-accent-primary);
+      color: #c8a44e;
       margin-bottom: 0.1rem;
     }
     .ct-attack-card {
@@ -4295,7 +3694,7 @@
       margin-bottom: 0.15rem;
     }
     .ct-rk-attack-card {
-      border-left: 2px solid var(--color-accent-primary, #c9a227);
+      border-left: 2px solid #c8a44e;
     }
     .ct-attack-header {
       display: flex;
@@ -4310,7 +3709,7 @@
       padding: 0.01rem 0.15rem;
       border-radius: 2px;
       background: rgba(255,255,255,0.08);
-      color: var(--color-text-secondary);
+      color: #7a7068;
       text-transform: capitalize;
     }
     .ct-attack-dmg-row {
@@ -4323,7 +3722,7 @@
     .ct-dmg-tier {
       font-family: 'Audiowide', sans-serif;
     }
-    .ct-dmg-lbl { color: var(--color-accent-primary); margin-right: 0.1rem; }
+    .ct-dmg-lbl { color: #c8a44e; margin-right: 0.1rem; }
     .ct-stun-inline { color: #60a5fa; font-size: 0.5rem; margin-left: 0.3rem; font-family: 'Audiowide', sans-serif; }
     .ct-stun-lbl { margin-right: 0.15rem; }
     .ct-gambits-row {
@@ -4344,7 +3743,7 @@
     }
     .ct-exploit-trigger {
       font-size: 0.55rem;
-      color: var(--color-warn, #f59e0b);
+      color: #f59e0b;
       margin: 0.05rem 0;
     }
 
@@ -4567,8 +3966,8 @@
     }
     .ct-start-encounter-btn {
       background: transparent;
-      border: 1px solid var(--color-danger, #ef4444);
-      color: var(--color-danger, #ef4444);
+      border: 1px solid #ef4444;
+      color: #ef4444;
       font-family: 'Audiowide', sans-serif;
       font-size: 0.6rem;
       text-transform: uppercase;
@@ -4580,21 +3979,21 @@
       min-height: 32px;
     }
     .ct-start-encounter-btn:hover {
-      background: var(--color-danger, #ef4444);
+      background: #ef4444;
       color: #000;
     }
     .ct-right-tab-bar {
       display: flex;
       gap: 0;
       margin-bottom: 0.5rem;
-      border-bottom: 1px solid var(--color-border);
+      border-bottom: 1px solid #3a3632;
     }
     .ct-right-tab-btn {
       flex: 1;
       background: transparent;
       border: none;
       border-bottom: 2px solid transparent;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       font-family: 'Audiowide', sans-serif;
       font-size: 0.6rem;
       text-transform: uppercase;
@@ -4603,10 +4002,10 @@
       cursor: pointer;
       transition: all 0.15s;
     }
-    .ct-right-tab-btn:hover { color: var(--color-text-primary); }
+    .ct-right-tab-btn:hover { color: #d4c5a0; }
     .ct-right-tab-btn.active {
-      color: var(--color-accent-primary);
-      border-bottom-color: var(--color-accent-primary);
+      color: #c8a44e;
+      border-bottom-color: #c8a44e;
     }
 
     .ct-condition-panel {
@@ -4620,20 +4019,20 @@
     .ct-cpanel-title {
       font-family: 'Audiowide', sans-serif;
       font-size: 0.6rem;
-      color: var(--color-accent-deep);
+      color: #818cf8;
       text-transform: uppercase;
       letter-spacing: 0.08em;
       margin-bottom: 0.4rem;
       padding-bottom: 0.2rem;
-      border-bottom: 1px solid var(--color-border);
+      border-bottom: 1px solid #3a3632;
     }
     .ct-cpanel-source {
       font-size: 0.62rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       margin-bottom: 0.4rem;
       padding: 0.2rem 0.3rem;
       background: rgba(199,146,52,0.08);
-      border-left: 2px solid var(--color-accent-primary);
+      border-left: 2px solid #c8a44e;
     }
     .ct-cpanel-field {
       margin-bottom: 0.4rem;
@@ -4642,27 +4041,27 @@
       display: block;
       font-family: 'Audiowide', sans-serif;
       font-size: 0.5rem;
-      color: var(--color-accent-primary);
+      color: #c8a44e;
       text-transform: uppercase;
       letter-spacing: 0.05em;
       margin-bottom: 0.2rem;
     }
     .ct-cpanel-select {
       width: 100%;
-      background: var(--color-bg-primary);
-      border: 1px solid var(--color-border);
-      color: var(--color-text-primary);
+      background: #1a1a1e;
+      border: 1px solid #3a3632;
+      color: #d4c5a0;
       font-family: 'Exo 2', sans-serif;
       font-size: 0.65rem;
       padding: 0.25rem 0.3rem;
       outline: none;
     }
-    .ct-cpanel-select:focus { border-color: var(--color-accent-primary); }
+    .ct-cpanel-select:focus { border-color: #c8a44e; }
 
     .ct-cpanel-condlist {
       max-height: 200px;
       overflow-y: auto;
-      border: 1px solid var(--color-border);
+      border: 1px solid #3a3632;
       margin-bottom: 0.4rem;
     }
     .ct-cpanel-cond-item {
@@ -4677,18 +4076,18 @@
     .ct-cpanel-cond-item:hover { background: rgba(255,255,255,0.05); }
     .ct-cpanel-cond-selected {
       background: rgba(199,146,52,0.12) !important;
-      border-left: 2px solid var(--color-accent-primary);
+      border-left: 2px solid #c8a44e;
     }
     .ct-cpanel-cond-name {
       font-size: 0.62rem;
       font-weight: 600;
-      color: var(--color-text-primary);
+      color: #d4c5a0;
       min-width: 65px;
       flex-shrink: 0;
     }
     .ct-cpanel-cond-desc {
       font-size: 0.52rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       line-height: 1.3;
     }
 
@@ -4698,9 +4097,9 @@
     }
     .ct-cpanel-dur-btn {
       flex: 1;
-      background: var(--color-bg-primary);
-      border: 1px solid var(--color-border);
-      color: var(--color-text-secondary);
+      background: #1a1a1e;
+      border: 1px solid #3a3632;
+      color: #7a7068;
       font-family: 'Audiowide', sans-serif;
       font-size: 0.6rem;
       padding: 0.25rem 0.2rem;
@@ -4708,11 +4107,11 @@
       transition: all 0.15s;
       text-align: center;
     }
-    .ct-cpanel-dur-btn:hover { border-color: var(--color-accent-primary); color: var(--color-text-primary); }
+    .ct-cpanel-dur-btn:hover { border-color: #c8a44e; color: #d4c5a0; }
     .ct-cpanel-dur-btn.ct-cpanel-dur-active {
       background: rgba(199,146,52,0.15);
-      border-color: var(--color-accent-primary);
-      color: var(--color-accent-primary);
+      border-color: #c8a44e;
+      color: #c8a44e;
     }
 
     .ct-cpanel-arena-row {
@@ -4721,9 +4120,9 @@
     }
     .ct-cpanel-arena-btn {
       flex: 1;
-      background: var(--color-bg-primary);
-      border: 1px solid var(--color-border);
-      color: var(--color-text-secondary);
+      background: #1a1a1e;
+      border: 1px solid #3a3632;
+      color: #7a7068;
       font-family: 'Audiowide', sans-serif;
       font-size: 0.55rem;
       padding: 0.2rem;
@@ -4731,16 +4130,16 @@
       transition: all 0.15s;
       text-align: center;
     }
-    .ct-cpanel-arena-btn:hover { border-color: var(--color-accent-primary); color: var(--color-text-primary); }
+    .ct-cpanel-arena-btn:hover { border-color: #c8a44e; color: #d4c5a0; }
     .ct-cpanel-arena-btn.ct-cpanel-arena-active {
       background: rgba(199,146,52,0.15);
-      border-color: var(--color-accent-primary);
-      color: var(--color-accent-primary);
+      border-color: #c8a44e;
+      color: #c8a44e;
     }
 
     .ct-cpanel-apply-btn {
       width: 100%;
-      background: var(--color-accent-primary);
+      background: #c8a44e;
       border: none;
       color: #000;
       font-family: 'Audiowide', sans-serif;
@@ -4759,7 +4158,7 @@
     }
 
     .ct-cpanel-summary {
-      border-top: 1px solid var(--color-border);
+      border-top: 1px solid #3a3632;
       padding-top: 0.5rem;
     }
     .ct-cpanel-combatant {
@@ -4768,7 +4167,7 @@
     .ct-cpanel-cname {
       font-size: 0.6rem;
       font-weight: 600;
-      color: var(--color-text-primary);
+      color: #d4c5a0;
       margin-bottom: 0.15rem;
     }
     .ct-cpanel-cname small {
@@ -4792,15 +4191,15 @@
     .ct-cpanel-chip:hover { opacity: 0.6; }
     .ct-cpanel-empty {
       font-size: 0.6rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       font-style: italic;
       padding: 0.3rem 0;
     }
 
     .ct-push-to-pc-btn {
       background: transparent;
-      border: 1px dashed var(--color-border);
-      color: var(--color-text-secondary);
+      border: 1px dashed #3a3632;
+      color: #7a7068;
       font-size: 0.58rem;
       padding: 0.12rem 0.4rem;
       cursor: pointer;
@@ -4808,23 +4207,11 @@
       margin-left: 0.3rem;
     }
     .ct-push-to-pc-btn:hover {
-      border-color: var(--color-accent-primary);
-      color: var(--color-accent-primary);
+      border-color: #c8a44e;
+      color: #c8a44e;
     }
 
-    @media screen and (max-width: 768px) {
-      .ct-two-panel { flex-direction: column; }
-      .ct-init-rail { width: 100%; min-width: 0; max-height: 200px; }
-      .ct-zone { padding: 0.2rem; }
-      .ct-zone-void { }
-      .ct-zone-label { font-size: 0.5rem; }
-      .ct-map-frame { padding: 3px; }
-      .ct-map-legend { gap: 0.3rem; }
-      .ct-legend-item { font-size: 0.4rem; }
-      .ct-condition-palette { min-width: 200px; }
-    }
-
-    .cb-dashboard {
+        .cb-dashboard {
       display: flex;
       flex-direction: column;
       height: 100%;
@@ -4833,13 +4220,13 @@
     .cb-dash-header {
       flex-shrink: 0;
       padding-bottom: 0.35rem;
-      border-bottom: 1px solid var(--color-border);
+      border-bottom: 1px solid #3a3632;
       margin-bottom: 0.4rem;
     }
     .cb-dash-header h2 {
       font-family: 'Audiowide', sans-serif;
       font-size: 1rem;
-      color: var(--color-accent-primary);
+      color: #c8a44e;
       margin: 0 0 0.1rem;
     }
 
@@ -4851,8 +4238,8 @@
       margin-bottom: 0.4rem;
     }
     .cb-tile {
-      background: var(--color-bg-frame);
-      border: 1px solid var(--color-border);
+      background: #232328;
+      border: 1px solid #3a3632;
       padding: 0.3rem 0.55rem;
       cursor: pointer;
       transition: border-color 0.15s, background 0.15s;
@@ -4863,11 +4250,11 @@
       white-space: nowrap;
     }
     .cb-tile:hover {
-      border-color: var(--color-accent-primary);
+      border-color: #c8a44e;
       background: rgba(199,146,52,0.06);
     }
     .cb-tile.cb-tile--active {
-      border-color: var(--color-accent-primary);
+      border-color: #c8a44e;
       background: rgba(199,146,52,0.1);
       box-shadow: 0 0 6px rgba(199,146,52,0.12);
     }
@@ -4881,11 +4268,11 @@
       font-size: 0.55rem;
       text-transform: uppercase;
       letter-spacing: 0.06em;
-      color: var(--color-accent-deep);
+      color: #818cf8;
     }
     .cb-tile-meta {
       font-size: 0.58rem;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       opacity: 0.7;
     }
 
@@ -4897,15 +4284,15 @@
       min-height: 0;
       overflow-y: auto;
       scrollbar-width: thin;
-      scrollbar-color: var(--color-accent-primary) var(--color-bg-frame);
+      scrollbar-color: #c8a44e #232328;
     }
 
     .cb-floating-panel {
       position: fixed;
       z-index: 120;
-      background: var(--color-bg-panel);
-      border: 1px solid var(--color-border);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(199,146,52,0.1);
+      background: linear-gradient(180deg, #2e2e32 0%, #2a2a2e 100%);
+      border: 1px solid rgba(200,164,78,0.25);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.6), 0 0 0 1px rgba(200,164,78,0.08), inset 0 1px 0 rgba(200,164,78,0.15);
       display: flex;
       flex-direction: column;
       min-width: 320px;
@@ -4920,8 +4307,9 @@
       align-items: center;
       justify-content: space-between;
       padding: 0.4rem 0.65rem;
-      background: var(--color-bg-frame);
-      border-bottom: 1px solid var(--color-border);
+      background: linear-gradient(180deg, #2e2e32 0%, #282830 100%);
+      border-bottom: 1px solid rgba(200,164,78,0.2);
+        box-shadow: inset 0 -1px 0 rgba(200,164,78,0.1);
       cursor: grab;
       flex-shrink: 0;
       user-select: none;
@@ -4932,12 +4320,12 @@
       font-size: 0.65rem;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      color: var(--color-accent-primary);
+      color: #c8a44e;
     }
     .cb-fpanel-close {
       background: transparent;
-      border: 1px solid var(--color-border);
-      color: var(--color-text-secondary);
+      border: 1px solid #3a3632;
+      color: #7a7068;
       font-size: 0.9rem;
       cursor: pointer;
       padding: 0.1rem 0.4rem;
@@ -4945,15 +4333,15 @@
       transition: all 0.15s;
     }
     .cb-fpanel-close:hover {
-      border-color: var(--color-accent-primary);
-      color: var(--color-accent-primary);
+      border-color: #c8a44e;
+      color: #c8a44e;
     }
     .cb-fpanel-body {
       flex: 1;
       overflow-y: auto;
       padding: 0.75rem;
       scrollbar-width: thin;
-      scrollbar-color: var(--color-accent-primary) var(--color-bg-frame);
+      scrollbar-color: #c8a44e #232328;
       font-size: 0.8rem;
       line-height: 1.6;
     }
@@ -4967,7 +4355,7 @@
       align-items: center;
       justify-content: space-between;
       padding-top: 0.35rem;
-      border-top: 1px solid var(--color-border);
+      border-top: 1px solid #3a3632;
       margin-top: auto;
       gap: 0.4rem;
     }
@@ -4977,7 +4365,7 @@
       font-size: 0.55rem;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       margin-bottom: 0.2rem;
     }
 
@@ -4985,8 +4373,8 @@
       flex-shrink: 0;
       margin-top: 0.3rem;
       padding: 0.35rem 0.5rem;
-      background: var(--color-bg-frame);
-      border: 1px solid var(--color-border);
+      background: #232328;
+      border: 1px solid #3a3632;
     }
     .cb-dash-decision-chip {
       display: flex;
@@ -4994,7 +4382,7 @@
       gap: 0.25rem;
       font-size: 0.65rem;
       padding: 0.15rem 0;
-      color: var(--color-text-secondary);
+      color: #7a7068;
       cursor: default;
       border-bottom: 1px solid rgba(199,146,52,0.06);
     }
@@ -5002,7 +4390,7 @@
       border-bottom: none;
     }
     .cb-dash-decision-chip strong {
-      color: var(--color-accent-secondary, #c084fc);
+      color: #c084fc;
       white-space: nowrap;
       flex-shrink: 0;
     }
@@ -5019,23 +4407,7 @@
       margin-top: 0.2rem;
     }
 
-    @media screen and (max-width: 768px) {
-      .cb-tile-grid {
-        gap: 0.25rem;
-      }
-      .cb-tile {
-        padding: 0.25rem 0.4rem;
-      }
-      .cb-tile-label { font-size: 0.5rem; }
-      .cb-tile-meta { font-size: 0.5rem; }
-      .cb-floating-panel {
-        min-width: 280px;
-        max-width: 95vw;
-        max-height: 75vh;
-      }
-    }
-
-.cb-tts-settings {
+    .cb-tts-settings {
   margin-bottom: 0.75rem;
   border-bottom: 1px solid rgba(245, 158, 11, 0.15);
   padding-bottom: 0.5rem;
@@ -5158,5 +4530,71 @@
   max-height: 400px;
   overflow-y: auto;
   scrollbar-width: thin;
-  scrollbar-color: var(--color-accent-primary, #c79234) transparent;
+  scrollbar-color: #c8a44e transparent;
 }
+
+
+      /* ─── FORGE SPARK PARTICLES ─── */
+      .forge-sparks {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+        overflow: hidden;
+      }
+      .forge-spark {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        border-radius: 50%;
+        background: #c8a44e;
+        opacity: 0;
+        animation: sparkDrift 8s infinite;
+      }
+      .forge-spark:nth-child(1) { left: 12%; animation-delay: 0s; animation-duration: 9s; }
+      .forge-spark:nth-child(2) { left: 28%; animation-delay: 1.5s; animation-duration: 7s; }
+      .forge-spark:nth-child(3) { left: 45%; animation-delay: 3s; animation-duration: 11s; }
+      .forge-spark:nth-child(4) { left: 62%; animation-delay: 0.8s; animation-duration: 8s; }
+      .forge-spark:nth-child(5) { left: 78%; animation-delay: 2.2s; animation-duration: 10s; }
+      .forge-spark:nth-child(6) { left: 90%; animation-delay: 4s; animation-duration: 7.5s; }
+      .forge-spark:nth-child(7) { left: 35%; animation-delay: 5s; animation-duration: 9.5s; }
+      .forge-spark:nth-child(8) { left: 55%; animation-delay: 6.5s; animation-duration: 8.5s; }
+      @keyframes sparkDrift {
+        0% { bottom: -4px; opacity: 0; transform: translateX(0); }
+        10% { opacity: 0.7; }
+        50% { opacity: 0.3; }
+        100% { bottom: 100vh; opacity: 0; transform: translateX(30px); }
+      }
+
+      /* ─── FORGE CARD SECTIONS ─── */
+      .cb-destiny-section,
+      .cb-col-title {
+        position: relative;
+      }
+
+      /* ─── FORGE HEADER LOGO ─── */
+      .cb-header-logo {
+        width: 1.4rem;
+        height: 1.4rem;
+        opacity: 0.85;
+        flex-shrink: 0;
+      }
+      .cb-header-brand {
+        font-family: 'Audiowide', sans-serif;
+        font-size: 0.7rem;
+        color: #c8a44e;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+
+      /* ─── FORGE CONTENT OVERLAY ─── */
+      #bridge-grid {
+        position: relative;
+        z-index: 1;
+      }
+      .cb-header {
+        position: relative;
+        z-index: 2;
+      }
+  

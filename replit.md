@@ -12,8 +12,8 @@ A Star Wars TTRPG electronic character sheet and campaign management system buil
 ## Authentication / Password Gate
 
 The app uses a passcode-based gate (cookie auth) to restrict access:
-- **PLAYER_PASSCODE** (env secret) — grants `player` role; can access everything except Command Bridge (`/gm/`)
-- **GM_PASSCODE** (env secret) — grants `gm` role; full access to all routes including Command Bridge
+- **PLAYER_PASSCODE** (env secret) — grants `player` role; can access everything except The Black Ledger (`/gm/`)
+- **GM_PASSCODE** (env secret) — grants `gm` role; full access to all routes including The Black Ledger
 - Login page at `/login` ("Beskar Forge" theme — self-contained dark gunmetal styling, Fulcrum logo, floating sparks, scan lines)
 - Landing page at `/` ("Beskar Forge" theme — matching dark forge aesthetic, Fulcrum logo in header + hero, durasteel card panels with per-role accent colors: gold/crew, purple/GM, red/market). Self-contained CSS, divorced from campaign themes.
 - Auth cookie is signed, httpOnly, 30-day TTL
@@ -28,19 +28,19 @@ The app uses a passcode-based gate (cookie auth) to restrict access:
 │   ├── index.html        # Landing page (Player / GM / Market selection)
 │   ├── login.html        # Passcode login page (Access Terminal)
 │   ├── icon.svg
-│   ├── gm/index.html     # GM Command Bridge
+│   ├── gm/index.html     # GM — The Black Ledger
 │   ├── player/index.html # Player character sheet
 │   ├── create/index.html # Character creation wizard
 │   ├── market/index.html # Black Market (char gate → accordion browse → purchase flow)
 │   ├── css/output.css    # Generated — do not edit directly
-│   ├── css/command-bridge.css # GM Command Bridge styles (extracted from inline, dashboard tiles, floating panels, destiny pips)
+│   ├── css/command-bridge.css # GM Black Ledger styles (forge palette, dashboard tiles, floating panels, destiny pips)
 │   ├── css/market.css    # Black Market styles (char gate, accordions, ledger, modals, responsive)
 │   └── audio/            # Audio assets (opening-crawl.mp3)
 ├── css/
 │   ├── input.css         # Tailwind source (custom components + layers)
 │   └── themes.css        # CSS variable theme definitions (6 themes: rebellion, r2d2, vader, fett, holo, fringe)
 ├── js/                   # Client-side JavaScript modules
-│   ├── command-bridge.js  # GM Command Bridge three-column layout JS (mobile responsive via tab navigation at ≤520px), dashboard tile grid in center column (Read Aloud/GM Notes/NPCs/Encounters/Challenges/Environment/Rewards/Pacing tiles), each tile opens a floating draggable/resizable/dismissible panel with full content, floating panel z-index management + drag system, panels auto-close on scene navigation, scene NPC roster with Add/Edit/Remove, duplicate NPC numeric labeling (#1/#2), loot rendering + PC assignment via inventory:added socket, override-aware NPC data flow to Combat Tracker, destiny pips use player-style flat colored dots (⬤ hope=blue/toll=red with glow, tapped=strikethrough+faded) matching Player UI pattern
+│   ├── command-bridge.js  # GM Black Ledger three-column layout JS (desktop only), dashboard tile grid in center column (Read Aloud/GM Notes/NPCs/Encounters/Challenges/Environment/Rewards/Pacing tiles), each tile opens a floating draggable/resizable/dismissible panel with full content, floating panel z-index management + drag system, panels auto-close on scene navigation, scene NPC roster with Add/Edit/Remove, duplicate NPC numeric labeling (#1/#2), loot rendering + PC assignment via inventory:added socket, override-aware NPC data flow to Combat Tracker, destiny pips use player-style flat colored dots (⬤ hope=blue/toll=red with glow, tapped=strikethrough+faded) matching Player UI pattern
 │   ├── combat-tracker.js   # GM Combat Tracker — two-panel layout (initiative rail + detail panel), NPC disposition badges (Enemy/Neutral/Ally) with click-to-cycle in initiative rail synced to player UI, disposition-colored map tokens (red enemy/yellow neutral/green ally), auto-numbered duplicate NPCs (both count>1 expansion and separately-saved duplicates detected post-load), Condition Command Panel in right column (replaces floating palettes), combo condition system (Surprised/Stunned/Pinned stored as single atomic entries with expandCondIds() unpacking components for mechanical calculations), NPC conditions stored as objects {id,duration,arena?} with duration badges, condition panel with target selector/condition list/duration picker/arena picker/apply button, active conditions summary across all combatants, "Push to PC" button on NPC cards, right column tab switching (Conditions/Glossary) during combat, mobile tab integration, WebSocket Join Battle flow (surprised = single lingering combo condition), bidirectional condition sync, tactical map with token movement and persistent GM position overrides (gmStartingPositions saved to scene JSON via PUT /api/campaign/scene/:id/positions), unplaced NPC bar below map with click-to-place flow, two-pass position matching (numbered NPCs match numbered keys first, then fuzzy fallback), PC hot-join support (late player connects mid-combat → new pcSlot created on join-battle-result, token placed at PC default zone, inserted into initiative order at rolled value, synced to server), combat NPC loading uses scene NPCs as source of truth (ignores encounter composition), full server-side state persistence (combat:sync-state), GM refresh reconnect (restoreFromState), mid-combat NPC add/remove/edit via Threat Builder integration with auto-numbering on add
 │   ├── npc-builder.js     # NPC Threat Builder full-screen overlay (5-category system: character/vehicle/starship/capital_ship/station, auto-applied scale traits, ship-flavored arena/stat labels, ship details panel, powerMod/initiativeMod trait support, loot attachment, save/recall, buildNpcFromSaved async API for external consumers, social trait system with reactive traits/triggers, Social Profile card section with SOCIAL RESIST display, socialNotes GM guidance field, Duelist combat role, full action economy: 5 roles × 4 power sources = 20 ability sets with Action/Maneuver/Gambit/Exploit, GM-selectable Power Source dropdown with auto-suggestion from highest arena, resolveRoleKit/suggestPowerSource helpers, computeAttackDisplayData outputs isRoleAction flag per attack)
 │   ├── market.js          # Black Market (char gate, accordion, salvaged, purchase, ledger)
@@ -253,7 +253,7 @@ New step added between Kits and Destiny. Players spend 500 starting credits on g
 
 ## Campaign Engine
 
-The GM Command Bridge (`public/gm/index.html`) features a full Campaign Engine as its primary tab.
+The GM Black Ledger (`public/gm/index.html`) features a full Campaign Engine as its primary tab.
 
 **Data:** `data/adventures/adv1.json` through `data/adventures/adv10.json` — 10 per-adventure JSON files assembled by the server into `{ adventures: [...] }`. Adventures 1-3 have full scene content (37 scenes total) with readAloud text, GM notes, NPC rosters, hazards, decision points, lore tags, and narrative links. Adventure 1 is a clean rewrite aligned to the campaign bible. Adventures 4-10 have title/part structure only (placeholder).
 
@@ -271,7 +271,7 @@ The GM Command Bridge (`public/gm/index.html`) features a full Campaign Engine a
 
 **UI Features:** Adventure navigator (10 adventures), part navigator, scene list with completion indicators, scene renderer (read-aloud block, GM notes, NPC roster, hazards, decision points), clickable lore tags with cross-reference modal, narrative link navigation, collapsible Party Monitor sidebar.
 
-**GM Command Bridge Tabs:** Campaign (default), Combat Tracker, Starship Combat, GM Handbook. The GM Handbook tab consolidates all 8 rules reference categories (Game System, Arenas & Disciplines, Conditions, Maneuvers, Threats, Weapons, Armor, Gear) into a single panel with collapsible `.hb-section` containers, a dedicated search input (`#handbook-search`), and unified real-time search that auto-expands matching sections and collapses empty ones. Each render function targets `#hb-section-<key> .hb-section-body`. The `refreshHandbookFilter()` function is called after every async data render to re-apply any active search query.
+**GM Black Ledger Tabs:** Campaign (default), Combat Tracker, Starship Combat, GM Handbook. The GM Handbook tab consolidates all 8 rules reference categories (Game System, Arenas & Disciplines, Conditions, Maneuvers, Threats, Weapons, Armor, Gear) into a single panel with collapsible `.hb-section` containers, a dedicated search input (`#handbook-search`), and unified real-time search that auto-expands matching sections and collapses empty ones. Each render function targets `#hb-section-<key> .hb-section-body`. The `refreshHandbookFilter()` function is called after every async data render to re-apply any active search query.
 
 **Starship Combat Cockpit HUD (`js/starship-combat.js`):** Full-screen overlay on the player UI (`#shipcombat-overlay-mount`). Uses a cockpit aesthetic with dark radial gradient background, scan-line texture, and station-colored glow borders. Two layout modes:
 - **Unseated (HUD Grid):** 5 equal `.sc-hud-panel` cards in a row via `.sc-hud-grid` (5-column CSS grid). Each panel has corner bracket decorations, a large station icon with color glow, station name, discipline, and power systems. Claimed panels dim (`opacity: 0.45`) and show occupant name. Unclaimed panels show "ENGAGE" button.
@@ -407,7 +407,7 @@ Server-authoritative destiny token pool synced in real-time via Socket.io. Pool 
 
 **Player view:** Footer renders tokens dynamically from `destiny:sync` events. Display-only (no click-to-flip). Uses existing force-token CSS (blue = hope, red pulsing = toll).
 
-**GM view:** Destiny bar below header in Command Bridge. Clickable tokens emit `destiny:flip`. Shows Hope/Toll count. Three buttons: Lock Pool (toggles to Unlock Pool when locked, filled accent style), Untap All, Reset Pool. LOCKED badge appears in count area when pool is locked.
+**GM view:** Destiny bar below header in Black Ledger. Clickable tokens emit `destiny:flip`. Shows Hope/Toll count. Three buttons: Lock Pool (toggles to Unlock Pool when locked, filled accent style), Untap All, Reset Pool. LOCKED badge appears in count area when pool is locked.
 
 **Files:** `server/sockets/handlers.js` (pool logic), `js/socket-client.js` (player rendering), `public/gm/index.html` (GM controls + styles).
 

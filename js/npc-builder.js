@@ -1352,7 +1352,6 @@
       renderBuilderLeft();
       renderBuilderRight();
       renderNpcCard();
-      initMobileBuilderTabs();
     }).catch(function (err) {
       console.error('Failed to load NPC builder data:', err);
       showNpcToast('Failed to load builder data.');
@@ -1362,44 +1361,6 @@
   function closeNpcBuilder() {
     var overlay = document.getElementById('npc-builder-overlay');
     if (overlay) overlay.classList.remove('active');
-  }
-
-  var mobileTabsInitialized = false;
-  function switchMobilePanel(panelKey) {
-    var panels = {
-      config: document.getElementById('npc-builder-left'),
-      preview: document.getElementById('npc-card-preview'),
-      extras: document.getElementById('npc-builder-right')
-    };
-    var tabs = document.getElementById('npc-builder-mobile-tabs');
-    if (tabs) {
-      tabs.querySelectorAll('.npc-mobile-tab').forEach(function (t) {
-        t.classList.toggle('active', t.dataset.panel === panelKey);
-      });
-    }
-    Object.keys(panels).forEach(function (k) {
-      if (panels[k]) {
-        if (k === panelKey) {
-          panels[k].style.display = 'block';
-        } else {
-          panels[k].style.display = 'none';
-        }
-      }
-    });
-  }
-  function initMobileBuilderTabs() {
-    if (mobileTabsInitialized) return;
-    var tabs = document.getElementById('npc-builder-mobile-tabs');
-    if (!tabs) return;
-    mobileTabsInitialized = true;
-    tabs.querySelectorAll('.npc-mobile-tab').forEach(function (tab) {
-      tab.addEventListener('click', function () {
-        switchMobilePanel(tab.dataset.panel);
-      });
-    });
-    if (window.innerWidth <= 768) {
-      switchMobilePanel('config');
-    }
   }
 
   var _editCallback = null;

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" class="theme-rebellion">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Command Bridge — Edge of the Empire</title>
+  <title>The Black Ledger — Edge of the Empire</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -13,9 +13,22 @@
   <script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
+  <div class="forge-sparks">
+    <div class="forge-spark"></div>
+    <div class="forge-spark"></div>
+    <div class="forge-spark"></div>
+    <div class="forge-spark"></div>
+    <div class="forge-spark"></div>
+    <div class="forge-spark"></div>
+    <div class="forge-spark"></div>
+    <div class="forge-spark"></div>
+  </div>
+
   <header class="cb-header">
     <div class="cb-header-left">
       <a href="/" class="cb-home-link">&larr; HOME</a>
+      <img src="/icon.svg" alt="" class="cb-header-logo" />
+      <span class="cb-header-brand">The Black Ledger</span>
     </div>
     <div class="cb-header-nav" id="cb-header-nav">
       <span class="cb-header-adv-title" id="cb-header-adv" title="Click to change adventure"></span>
@@ -23,7 +36,6 @@
       <span class="cb-header-part-title" id="cb-header-part" title="Click to change part"></span>
     </div>
     <div class="cb-header-right">
-      <button class="cb-header-btn" id="cb-theme-toggle">Theme</button>
       <button class="cb-header-btn" id="cb-logout">Logout</button>
     </div>
   </header>
@@ -87,28 +99,13 @@
       <div class="cb-col-title" style="display:flex;align-items:center;justify-content:space-between;">Glossary <button class="cb-collapse-btn" id="cb-collapse-right" title="Collapse panel">&raquo;</button></div>
       <div id="glossary-content">
         <div class="cb-glossary-placeholder">
-          Click a <span style="color:var(--color-accent-primary);">[Condition]</span> in any scene text to view its details here.
+          Click a <span style="color:#c8a44e;">[Condition]</span> in any scene text to view its details here.
         </div>
       </div>
       <div class="cb-col-title" style="margin-top:1rem;">Crew Journal</div>
       <div id="cb-crew-journal" class="cb-crew-journal"></div>
     </div>
   </div>
-
-  <nav class="cb-mobile-tabs" id="cb-mobile-tabs">
-    <button class="cb-mobile-tab" data-panel="left">
-      <span class="cb-mobile-tab-icon">&#9783;</span>
-      Crew
-    </button>
-    <button class="cb-mobile-tab active" data-panel="center">
-      <span class="cb-mobile-tab-icon">&#9881;</span>
-      Scene
-    </button>
-    <button class="cb-mobile-tab" data-panel="right">
-      <span class="cb-mobile-tab-icon">&#9782;</span>
-      Glossary
-    </button>
-  </nav>
 
 
   <div class="npc-builder-overlay" id="npc-builder-overlay">
@@ -117,11 +114,6 @@
         <span class="npc-builder-title">NPC THREAT BUILDER</span>
         <button class="npc-builder-close-btn" id="npc-builder-close">&times;</button>
       </div>
-      <nav class="npc-builder-mobile-tabs" id="npc-builder-mobile-tabs">
-        <button class="npc-mobile-tab active" data-panel="config">Config</button>
-        <button class="npc-mobile-tab" data-panel="preview">Preview</button>
-        <button class="npc-mobile-tab" data-panel="extras">Traits &amp; Loot</button>
-      </nav>
       <div class="npc-builder-body">
         <div class="npc-builder-panel npc-builder-panel-left" id="npc-builder-left"></div>
         <div class="npc-resize-handle" id="npc-resize-left" data-target="left"></div>

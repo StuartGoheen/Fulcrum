@@ -1,24 +1,4 @@
 (function () {
-  var THEMES = ['theme-rebellion', 'theme-fringe', 'theme-r2d2', 'theme-vader', 'theme-fett', 'theme-holo'];
-  var THEME_KEY = 'eote-theme';
-
-  function applyTheme(theme) {
-    THEMES.forEach(function (t) { document.documentElement.classList.remove(t); });
-    document.documentElement.classList.add(theme);
-    localStorage.setItem(THEME_KEY, theme);
-  }
-
-  function cycleTheme() {
-    var current = THEMES.find(function (t) { return document.documentElement.classList.contains(t); }) || THEMES[0];
-    var next = THEMES[(THEMES.indexOf(current) + 1) % THEMES.length];
-    applyTheme(next);
-  }
-
-  function initTheme() {
-    var stored = localStorage.getItem(THEME_KEY);
-    applyTheme(stored && THEMES.indexOf(stored) !== -1 ? stored : THEMES[0]);
-  }
-
   function esc(s) {
     return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
@@ -123,7 +103,7 @@
       loadSceneIntel(currentScene);
     }).catch(function (err) {
       var el = document.getElementById('scene-carousel');
-      if (el) el.innerHTML = '<p style="color:var(--color-accent-primary);font-size:0.85rem;">Failed to load campaign data: ' + esc(err.message) + '</p>';
+      if (el) el.innerHTML = '<p style="color:#c8a44e;font-size:0.85rem;">Failed to load campaign data: ' + esc(err.message) + '</p>';
     });
   }
 
@@ -336,10 +316,10 @@
       h += '<div class="cb-npc-meta-row">' + linkify(npc.notes) + '</div>';
     }
     if (npc.behavior) {
-      h += '<div class="cb-npc-detail-section" style="border-color:var(--color-accent-primary);"><strong>Behavior:</strong> ' + linkify(npc.behavior) + '</div>';
+      h += '<div class="cb-npc-detail-section" style="border-color:#c8a44e;"><strong>Behavior:</strong> ' + linkify(npc.behavior) + '</div>';
     }
     if (npc.dialogue && npc.dialogue.length) {
-      h += '<div class="cb-npc-detail-section" style="border-color:var(--color-accent-secondary,#c084fc);color:var(--color-accent-secondary,#c084fc);"><strong>Dialogue:</strong> ' + npc.dialogue.map(function(d){ return linkify(d); }).join(' ') + '</div>';
+      h += '<div class="cb-npc-detail-section" style="border-color:#c084fc;color:#c084fc;"><strong>Dialogue:</strong> ' + npc.dialogue.map(function(d){ return linkify(d); }).join(' ') + '</div>';
     }
     if (npc.intel) {
       h += '<div class="cb-npc-detail-section" style="border-color:#f59e0b;color:#f59e0b;"><strong>Intel:</strong> ' + linkify(npc.intel) + '</div>';
@@ -360,7 +340,7 @@
       h += '<div class="cb-arena-cell">';
       h += '<span class="cb-arena-label">' + arenaLabels[an] + '</span>';
       h += '<span class="cb-arena-val">' + (baseA[an] || 1) + '</span>';
-      if (cbPowers[an] != null) h += '<span style="font-size:0.45rem;color:var(--color-accent-primary);opacity:0.7;">Pwr ' + cbPowers[an] + '</span>';
+      if (cbPowers[an] != null) h += '<span style="font-size:0.45rem;color:#c8a44e;opacity:0.7;">Pwr ' + cbPowers[an] + '</span>';
       h += '</div>';
     });
     h += '</div>';
@@ -534,7 +514,7 @@
     h += '<span class="cb-npc-name">' + esc(displayName) + '</span>';
     if (tier != null) h += '<span class="cb-npc-tier-badge">T' + tier + '</span>';
     if (cls) h += '<span class="cb-npc-class-badge ' + esc(cls) + '">' + esc(cls) + '</span>';
-    if (role) h += '<span style="font-size:0.6rem;color:var(--color-text-secondary);text-transform:capitalize;">' + esc(role) + '</span>';
+    if (role) h += '<span style="font-size:0.6rem;color:#7a7068;text-transform:capitalize;">' + esc(role) + '</span>';
     h += '<span class="cb-npc-count-badge">x' + (npc.count || 1) + '</span>';
     if (init != null) h += '<span class="cb-npc-init-badge">Init <span>' + init + '</span></span>';
     h += '<span class="cb-npc-card-actions">';
@@ -694,22 +674,22 @@
     var h = '<div class="cb-card">';
     h += '<div class="cb-section-label">Encounters</div>';
     scene.encounters.forEach(function (enc) {
-      var typeColor = enc.type === 'combat' ? 'var(--color-danger,#ef4444)' : enc.type === 'social' ? 'var(--color-accent-secondary,#c084fc)' : enc.type === 'infiltration' ? '#818cf8' : 'var(--color-accent-primary)';
+      var typeColor = enc.type === 'combat' ? '#ef4444' : enc.type === 'social' ? '#c084fc' : enc.type === 'infiltration' ? '#818cf8' : '#c8a44e';
       h += '<div style="margin-bottom:0.5rem;padding:0.4rem;border-left:3px solid ' + typeColor + ';background:rgba(0,0,0,0.15);border-radius:0 4px 4px 0;">';
-      h += '<div style="display:flex;align-items:center;gap:0.4rem;margin-bottom:0.2rem;"><strong style="color:var(--color-text-primary);font-size:0.8rem;">' + esc(enc.name) + '</strong><span style="font-size:0.6rem;padding:0.1rem 0.3rem;border-radius:3px;background:' + typeColor + ';color:#000;font-family:Audiowide,sans-serif;text-transform:uppercase;">' + esc(enc.type) + '</span></div>';
-      h += '<div style="font-size:0.7rem;color:var(--color-text-secondary);margin-bottom:0.15rem;"><strong>Trigger:</strong> ' + linkify(enc.trigger) + '</div>';
-      h += '<div style="font-size:0.7rem;color:var(--color-text-secondary);margin-bottom:0.15rem;">' + linkify(enc.description) + '</div>';
-      if (enc.tactics) h += '<div style="font-size:0.7rem;color:var(--color-accent-primary);"><strong>Tactics:</strong> ' + linkify(enc.tactics) + '</div>';
+      h += '<div style="display:flex;align-items:center;gap:0.4rem;margin-bottom:0.2rem;"><strong style="color:#d4c5a0;font-size:0.8rem;">' + esc(enc.name) + '</strong><span style="font-size:0.6rem;padding:0.1rem 0.3rem;border-radius:3px;background:' + typeColor + ';color:#000;font-family:Audiowide,sans-serif;text-transform:uppercase;">' + esc(enc.type) + '</span></div>';
+      h += '<div style="font-size:0.7rem;color:#7a7068;margin-bottom:0.15rem;"><strong>Trigger:</strong> ' + linkify(enc.trigger) + '</div>';
+      h += '<div style="font-size:0.7rem;color:#7a7068;margin-bottom:0.15rem;">' + linkify(enc.description) + '</div>';
+      if (enc.tactics) h += '<div style="font-size:0.7rem;color:#c8a44e;"><strong>Tactics:</strong> ' + linkify(enc.tactics) + '</div>';
       if (enc.composition) {
         h += '<div style="font-size:0.65rem;margin-top:0.2rem;padding:0.25rem;background:rgba(0,0,0,0.1);border-radius:3px;">';
         if (enc.composition.enemies) {
           enc.composition.enemies.forEach(function(e) {
-            var threatColor = e.threat === 'rival' ? '#f59e0b' : e.threat === 'nemesis' ? '#ef4444' : 'var(--color-text-secondary)';
+            var threatColor = e.threat === 'rival' ? '#f59e0b' : e.threat === 'nemesis' ? '#ef4444' : '#7a7068';
             h += '<div><span style="color:' + threatColor + ';text-transform:uppercase;font-size:0.55rem;font-family:Audiowide,sans-serif;">' + esc(e.threat) + '</span> ' + esc(e.type) + ' x' + e.count + '</div>';
           });
         }
-        if (enc.composition.terrain) h += '<div style="color:var(--color-text-secondary);margin-top:0.1rem;"><strong>Terrain:</strong> ' + esc(enc.composition.terrain) + '</div>';
-        if (enc.composition.positioning) h += '<div style="color:var(--color-text-secondary);"><strong>Positioning:</strong> ' + esc(enc.composition.positioning) + '</div>';
+        if (enc.composition.terrain) h += '<div style="color:#7a7068;margin-top:0.1rem;"><strong>Terrain:</strong> ' + esc(enc.composition.terrain) + '</div>';
+        if (enc.composition.positioning) h += '<div style="color:#7a7068;"><strong>Positioning:</strong> ' + esc(enc.composition.positioning) + '</div>';
         h += '</div>';
       }
       if (enc.type === 'combat' && window.CombatTracker) {
@@ -728,49 +708,49 @@
     h += '<div class="cb-section-label">Discipline Challenges</div>';
     dcList.forEach(function (dc) {
       var hasNewFormat = dc.actionType || dc.arena || dc.control || dc.effect;
-      h += '<div style="margin-bottom:0.6rem;padding:0.4rem 0.5rem;border-radius:4px;background:rgba(0,0,0,0.15);border-left:3px solid ' + (dc.actionType === 'assess' ? 'var(--color-accent-deep,#818cf8)' : 'var(--color-accent-primary,#00e5ff)') + ';">';
+      h += '<div style="margin-bottom:0.6rem;padding:0.4rem 0.5rem;border-radius:4px;background:rgba(0,0,0,0.15);border-left:3px solid ' + (dc.actionType === 'assess' ? '#818cf8' : '#c8a44e') + ';">';
       h += '<div style="display:flex;align-items:center;gap:0.4rem;margin-bottom:0.2rem;flex-wrap:wrap;">';
       if (dc.actionType) {
-        var atColor = dc.actionType === 'assess' ? 'var(--color-accent-deep,#818cf8)' : 'var(--color-accent-primary,#00e5ff)';
+        var atColor = dc.actionType === 'assess' ? '#818cf8' : '#c8a44e';
         h += '<span style="font-size:0.6rem;padding:0.1rem 0.3rem;border-radius:3px;background:' + atColor + ';color:#000;font-family:Audiowide,sans-serif;font-weight:bold;letter-spacing:0.05em;">' + esc(dc.actionType.toUpperCase()) + '</span>';
       }
       var discLabel = (dc.discipline || '').replace(/_/g, ' ');
       var arenaLabel = dc.arena ? ' (' + dc.arena.charAt(0).toUpperCase() + dc.arena.slice(1) + ')' : '';
-      h += '<span style="font-size:0.75rem;color:var(--color-accent-primary);font-family:Audiowide,sans-serif;">' + esc(discLabel) + esc(arenaLabel) + '</span>';
-      if (dc.isOptional) h += '<span style="font-size:0.55rem;padding:0.05rem 0.2rem;border-radius:3px;background:rgba(255,255,255,0.15);color:var(--color-text-secondary);">OPTIONAL</span>';
-      if (dc.isGated) h += '<span style="font-size:0.55rem;padding:0.05rem 0.2rem;border-radius:3px;background:rgba(239,68,68,0.2);color:var(--color-warn,#f97316);">GATED</span>';
+      h += '<span style="font-size:0.75rem;color:#c8a44e;font-family:Audiowide,sans-serif;">' + esc(discLabel) + esc(arenaLabel) + '</span>';
+      if (dc.isOptional) h += '<span style="font-size:0.55rem;padding:0.05rem 0.2rem;border-radius:3px;background:rgba(255,255,255,0.15);color:#7a7068;">OPTIONAL</span>';
+      if (dc.isGated) h += '<span style="font-size:0.55rem;padding:0.05rem 0.2rem;border-radius:3px;background:rgba(239,68,68,0.2);color:#f97316;">GATED</span>';
       h += '</div>';
       if (dc.target || dc.resist != null || dc.risk != null) {
         h += '<div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.15rem;font-size:0.65rem;">';
-        if (dc.target) h += '<span style="color:var(--color-text-secondary);">vs <strong style="color:var(--color-text-primary);">' + esc(dc.target) + '</strong></span>';
-        if (dc.resist != null) h += '<span style="color:var(--color-warn,#f97316);">Resist ' + dc.resist + '</span>';
-        if (dc.risk != null) h += '<span style="color:var(--color-warn,#eab308);">Risk ' + dc.risk + '</span>';
+        if (dc.target) h += '<span style="color:#7a7068;">vs <strong style="color:#d4c5a0;">' + esc(dc.target) + '</strong></span>';
+        if (dc.resist != null) h += '<span style="color:#f97316;">Resist ' + dc.resist + '</span>';
+        if (dc.risk != null) h += '<span style="color:#eab308;">Risk ' + dc.risk + '</span>';
         h += '</div>';
       }
-      if (dc.isGated) h += '<div style="font-size:0.6rem;color:var(--color-warn,#f97316);font-style:italic;margin-bottom:0.1rem;">&#128274; ' + esc(dc.isGated) + '</div>';
-      h += '<div style="font-size:0.7rem;color:var(--color-text-secondary);margin-bottom:0.15rem;">' + linkify(dc.context) + '</div>';
+      if (dc.isGated) h += '<div style="font-size:0.6rem;color:#f97316;font-style:italic;margin-bottom:0.1rem;">&#128274; ' + esc(dc.isGated) + '</div>';
+      h += '<div style="font-size:0.7rem;color:#7a7068;margin-bottom:0.15rem;">' + linkify(dc.context) + '</div>';
       if (dc.narrativePacing) {
-        h += '<div style="font-size:0.6rem;color:var(--color-force,#a78bfa);font-style:italic;margin-bottom:0.15rem;">&#9654; ' + esc(dc.narrativePacing) + '</div>';
+        h += '<div style="font-size:0.6rem;color:#a78bfa;font-style:italic;margin-bottom:0.15rem;">&#9654; ' + esc(dc.narrativePacing) + '</div>';
       }
       if (hasNewFormat && dc.control) {
         h += '<div style="margin-top:0.15rem;padding:0.2rem 0.3rem;border-radius:3px;background:rgba(0,0,0,0.15);">';
-        h += '<div style="font-size:0.55rem;color:var(--color-text-secondary);font-family:Audiowide,sans-serif;margin-bottom:0.1rem;letter-spacing:0.05em;">CONTROL</div>';
-        if (dc.control.failure) h += '<div style="font-size:0.65rem;color:var(--color-fail,#ef4444);margin-bottom:0.05rem;">&#10007; <strong>Fail:</strong> ' + linkify(dc.control.failure) + '</div>';
-        if (dc.control.success) h += '<div style="font-size:0.65rem;color:var(--color-success,#22c55e);margin-bottom:0.05rem;">&#10003; <strong>Success:</strong> ' + linkify(dc.control.success) + '</div>';
-        if (dc.control.mastery) h += '<div style="font-size:0.65rem;color:var(--color-warn,#fbbf24);margin-bottom:0.05rem;">&#9733; <strong>Mastery:</strong> ' + linkify(dc.control.mastery) + '</div>';
+        h += '<div style="font-size:0.55rem;color:#7a7068;font-family:Audiowide,sans-serif;margin-bottom:0.1rem;letter-spacing:0.05em;">CONTROL</div>';
+        if (dc.control.failure) h += '<div style="font-size:0.65rem;color:#ef4444;margin-bottom:0.05rem;">&#10007; <strong>Fail:</strong> ' + linkify(dc.control.failure) + '</div>';
+        if (dc.control.success) h += '<div style="font-size:0.65rem;color:#22c55e;margin-bottom:0.05rem;">&#10003; <strong>Success:</strong> ' + linkify(dc.control.success) + '</div>';
+        if (dc.control.mastery) h += '<div style="font-size:0.65rem;color:#fbbf24;margin-bottom:0.05rem;">&#9733; <strong>Mastery:</strong> ' + linkify(dc.control.mastery) + '</div>';
         h += '</div>';
       } else if (!hasNewFormat) {
-        if (dc.success) h += '<div style="font-size:0.65rem;color:var(--color-success,#22c55e);">&#10003; ' + linkify(dc.success) + '</div>';
-        if (dc.failure) h += '<div style="font-size:0.65rem;color:var(--color-fail,#ef4444);">&#10007; ' + linkify(dc.failure) + '</div>';
+        if (dc.success) h += '<div style="font-size:0.65rem;color:#22c55e;">&#10003; ' + linkify(dc.success) + '</div>';
+        if (dc.failure) h += '<div style="font-size:0.65rem;color:#ef4444;">&#10007; ' + linkify(dc.failure) + '</div>';
       }
       if (hasNewFormat && dc.effect) {
         h += '<div style="margin-top:0.15rem;padding:0.2rem 0.3rem;border-radius:3px;background:rgba(0,0,0,0.1);">';
-        h += '<div style="font-size:0.55rem;color:var(--color-text-secondary);font-family:Audiowide,sans-serif;margin-bottom:0.1rem;letter-spacing:0.05em;">EFFECT TIERS</div>';
+        h += '<div style="font-size:0.55rem;color:#7a7068;font-family:Audiowide,sans-serif;margin-bottom:0.1rem;letter-spacing:0.05em;">EFFECT TIERS</div>';
         var tierColors = { fleeting: '#6b7280', masterful: '#3b82f6', legendary: '#a855f7', unleashed: '#f59e0b' };
         ['fleeting', 'masterful', 'legendary', 'unleashed'].forEach(function (tier) {
           if (dc.effect[tier]) {
             var tColor = tierColors[tier] || '#6b7280';
-            h += '<div style="font-size:0.65rem;margin-bottom:0.05rem;"><span style="color:' + tColor + ';font-weight:bold;">' + tier.charAt(0).toUpperCase() + tier.slice(1) + ':</span> <span style="color:var(--color-text-secondary);">' + linkify(dc.effect[tier]) + '</span></div>';
+            h += '<div style="font-size:0.65rem;margin-bottom:0.05rem;"><span style="color:' + tColor + ';font-weight:bold;">' + tier.charAt(0).toUpperCase() + tier.slice(1) + ':</span> <span style="color:#7a7068;">' + linkify(dc.effect[tier]) + '</span></div>';
           }
         });
         h += '</div>';
@@ -793,11 +773,11 @@
       h += '<div class="cb-card">';
       h += '<div class="cb-section-label">Environment Mechanics</div>';
       scene.environmentMechanics.forEach(function (em) {
-        h += '<div style="margin-bottom:0.4rem;padding:0.3rem 0.4rem;border-left:2px solid var(--color-accent-deep,#818cf8);border-radius:0 4px 4px 0;background:rgba(0,0,0,0.1);">';
-        h += '<div style="font-size:0.8rem;color:var(--color-text-primary);font-weight:bold;margin-bottom:0.1rem;">' + esc(em.name) + '</div>';
-        h += '<div style="font-size:0.7rem;color:var(--color-text-secondary);margin-bottom:0.1rem;"><strong>Trigger:</strong> ' + linkify(em.trigger) + '</div>';
-        h += '<div style="font-size:0.7rem;color:var(--color-text-secondary);margin-bottom:0.1rem;"><strong>Effect:</strong> ' + linkify(em.effect) + '</div>';
-        h += '<div style="font-size:0.7rem;color:var(--color-accent-primary);"><strong>Mitigation:</strong> ' + linkify(em.mitigation) + '</div>';
+        h += '<div style="margin-bottom:0.4rem;padding:0.3rem 0.4rem;border-left:2px solid #818cf8;border-radius:0 4px 4px 0;background:rgba(0,0,0,0.1);">';
+        h += '<div style="font-size:0.8rem;color:#d4c5a0;font-weight:bold;margin-bottom:0.1rem;">' + esc(em.name) + '</div>';
+        h += '<div style="font-size:0.7rem;color:#7a7068;margin-bottom:0.1rem;"><strong>Trigger:</strong> ' + linkify(em.trigger) + '</div>';
+        h += '<div style="font-size:0.7rem;color:#7a7068;margin-bottom:0.1rem;"><strong>Effect:</strong> ' + linkify(em.effect) + '</div>';
+        h += '<div style="font-size:0.7rem;color:#c8a44e;"><strong>Mitigation:</strong> ' + linkify(em.mitigation) + '</div>';
         h += '</div>';
       });
       h += '</div>';
@@ -812,13 +792,13 @@
     if (!hasRewardContent) return '';
     var h = '<div class="cb-card">';
     h += '<div class="cb-section-label">Rewards</div>';
-    if (r.credits) h += '<div style="font-size:0.7rem;color:var(--color-accent-primary);margin-bottom:0.15rem;">&#9670; Credits: ' + r.credits + '</div>';
-    if (r.items && r.items.length) h += '<div style="font-size:0.7rem;color:var(--color-text-secondary);margin-bottom:0.15rem;">&#9670; Items: ' + r.items.map(function(i){return esc(i);}).join(', ') + '</div>';
+    if (r.credits) h += '<div style="font-size:0.7rem;color:#c8a44e;margin-bottom:0.15rem;">&#9670; Credits: ' + r.credits + '</div>';
+    if (r.items && r.items.length) h += '<div style="font-size:0.7rem;color:#7a7068;margin-bottom:0.15rem;">&#9670; Items: ' + r.items.map(function(i){return esc(i);}).join(', ') + '</div>';
     if (r.intel && r.intel.length) {
       h += '<div style="font-size:0.7rem;color:#f59e0b;margin-bottom:0.15rem;">&#9670; Intel:</div>';
-      r.intel.forEach(function(i){ h += '<div style="font-size:0.65rem;color:var(--color-text-secondary);padding-left:0.8rem;">• ' + linkify(i) + '</div>'; });
+      r.intel.forEach(function(i){ h += '<div style="font-size:0.65rem;color:#7a7068;padding-left:0.8rem;">• ' + linkify(i) + '</div>'; });
     }
-    if (r.connections && r.connections.length) h += '<div style="font-size:0.7rem;color:var(--color-accent-secondary,#c084fc);margin-bottom:0.15rem;">&#9670; Connections: ' + r.connections.map(function(c){return esc(c);}).join(', ') + '</div>';
+    if (r.connections && r.connections.length) h += '<div style="font-size:0.7rem;color:#c084fc;margin-bottom:0.15rem;">&#9670; Connections: ' + r.connections.map(function(c){return esc(c);}).join(', ') + '</div>';
     h += '</div>';
     return h;
   }
@@ -828,9 +808,9 @@
     var p = scene.pacing;
     var h = '<div class="cb-card">';
     h += '<div class="cb-section-label">Pacing Guide' + (p.estimatedMinutes ? ' (~' + p.estimatedMinutes + ' min)' : '') + '</div>';
-    if (p.openingBeat) h += '<div style="font-size:0.7rem;margin-bottom:0.15rem;"><span style="color:var(--color-accent-primary);font-family:Audiowide,sans-serif;font-size:0.6rem;">OPENING</span> ' + linkify(p.openingBeat) + '</div>';
+    if (p.openingBeat) h += '<div style="font-size:0.7rem;margin-bottom:0.15rem;"><span style="color:#c8a44e;font-family:Audiowide,sans-serif;font-size:0.6rem;">OPENING</span> ' + linkify(p.openingBeat) + '</div>';
     if (p.risingAction) h += '<div style="font-size:0.7rem;margin-bottom:0.15rem;"><span style="color:#eab308;font-family:Audiowide,sans-serif;font-size:0.6rem;">RISING</span> ' + linkify(p.risingAction) + '</div>';
-    if (p.climax) h += '<div style="font-size:0.7rem;margin-bottom:0.15rem;"><span style="color:var(--color-danger,#ef4444);font-family:Audiowide,sans-serif;font-size:0.6rem;">CLIMAX</span> ' + linkify(p.climax) + '</div>';
+    if (p.climax) h += '<div style="font-size:0.7rem;margin-bottom:0.15rem;"><span style="color:#ef4444;font-family:Audiowide,sans-serif;font-size:0.6rem;">CLIMAX</span> ' + linkify(p.climax) + '</div>';
     if (p.resolution) h += '<div style="font-size:0.7rem;margin-bottom:0.15rem;"><span style="color:#22c55e;font-family:Audiowide,sans-serif;font-size:0.6rem;">RESOLUTION</span> ' + linkify(p.resolution) + '</div>';
     h += '</div>';
     return h;
@@ -1561,7 +1541,7 @@
 
   function openLoreModal(tag) {
     var panelId = 'lore-' + tag.replace(/[^a-zA-Z0-9]/g, '_');
-    var loadingHtml = '<p style="color:var(--color-text-secondary);">Loading...</p>';
+    var loadingHtml = '<p style="color:#7a7068;">Loading...</p>';
     openFloatingPanel(panelId, 'Lore: ' + tag, loadingHtml, { width: 420, height: 320 });
     fetch('/api/campaign/lore-tags/' + encodeURIComponent(tag))
       .then(function (r) { return r.json(); })
@@ -1571,13 +1551,13 @@
         var body = panel.querySelector('.cb-fpanel-body');
         if (!body) return;
         if (!data.scenes || !data.scenes.length) {
-          body.innerHTML = '<p style="color:var(--color-text-secondary);">No scenes found with this tag.</p>';
+          body.innerHTML = '<p style="color:#7a7068;">No scenes found with this tag.</p>';
           return;
         }
         body.innerHTML = data.scenes.map(function (s) {
           return '<div class="cb-lore-scene-link" data-nav-scene="' + esc(s.sceneId) + '">' +
             '<div style="font-weight:600;">Adventure ' + s.adventureNumber + ': ' + esc(s.adventureTitle) + '</div>' +
-            '<div style="color:var(--color-text-secondary);font-size:0.8rem;">Part ' + s.partNumber + ': ' + esc(s.partTitle) + ' — Scene ' + s.sceneNumber + ': ' + esc(s.sceneTitle) + '</div>' +
+            '<div style="color:#7a7068;font-size:0.8rem;">Part ' + s.partNumber + ': ' + esc(s.partTitle) + ' — Scene ' + s.sceneNumber + ': ' + esc(s.sceneTitle) + '</div>' +
           '</div>';
         }).join('');
         body.querySelectorAll('.cb-lore-scene-link').forEach(function (el) {
@@ -1591,7 +1571,7 @@
         var panel = document.getElementById('fp-' + panelId);
         if (panel) {
           var body = panel.querySelector('.cb-fpanel-body');
-          if (body) body.innerHTML = '<p style="color:var(--color-accent-primary);">Failed to load lore data.</p>';
+          if (body) body.innerHTML = '<p style="color:#c8a44e;">Failed to load lore data.</p>';
         }
       });
   }
@@ -1664,7 +1644,7 @@
 
       cardHtml += '<div class="cb-player-status">';
       cardHtml += (pc.connected ? '<span style="color:#44AA66;">&#9679; Connected</span>' : '<span>&#9899; Offline</span>');
-      cardHtml += (pc.marks != null ? ' <span style="color:var(--color-accent-primary);margin-left:0.5rem;">' + pc.marks + ' Marks</span>' : '');
+      cardHtml += (pc.marks != null ? ' <span style="color:#c8a44e;margin-left:0.5rem;">' + pc.marks + ' Marks</span>' : '');
       cardHtml += '</div>';
 
       if (insights.length) {
@@ -1684,10 +1664,10 @@
             cardHtml += '<div class="cb-intel-detail" style="display:none;padding:0.2rem 0.4rem 0.3rem 1.2rem;font-size:0.6rem;line-height:1.4;">';
             if (ins.details && ins.details.length) {
               ins.details.forEach(function(d) {
-                cardHtml += '<div style="margin-bottom:0.2rem;"><strong style="color:var(--color-accent-primary);">' + esc(d.title) + ':</strong> <span style="color:var(--color-text-secondary);">' + esc(d.text) + '</span></div>';
+                cardHtml += '<div style="margin-bottom:0.2rem;"><strong style="color:#c8a44e;">' + esc(d.title) + ':</strong> <span style="color:#7a7068;">' + esc(d.text) + '</span></div>';
               });
             } else if (ins.description) {
-              cardHtml += '<div style="color:var(--color-text-secondary);">' + esc(ins.description) + '</div>';
+              cardHtml += '<div style="color:#7a7068;">' + esc(ins.description) + '</div>';
             }
             cardHtml += '</div>';
           }
@@ -1702,10 +1682,10 @@
 
       if (pc.vocationAbilities && pc.vocationAbilities.length) {
         cardHtml += '<div class="cb-intel-section">';
-        cardHtml += '<div style="font-size:0.6rem;color:var(--color-text-secondary);margin-bottom:0.15rem;">Abilities</div>';
+        cardHtml += '<div style="font-size:0.6rem;color:#7a7068;margin-bottom:0.15rem;">Abilities</div>';
         pc.vocationAbilities.forEach(function (a) {
-          cardHtml += '<div style="font-size:0.6rem;color:var(--color-text-secondary);padding:0.02rem 0;">';
-          cardHtml += '<span style="color:var(--color-accent-primary);">T' + a.tier + '</span> ';
+          cardHtml += '<div style="font-size:0.6rem;color:#7a7068;padding:0.02rem 0;">';
+          cardHtml += '<span style="color:#c8a44e;">T' + a.tier + '</span> ';
           cardHtml += esc(a.name);
           if (a.type) cardHtml += ' <span style="opacity:0.5;">(' + esc(a.type) + ')</span>';
           cardHtml += '</div>';
@@ -1724,15 +1704,15 @@
       if (pc.destiny) {
         var destName = pc.destiny.name || pc.destiny.id || '';
         if (destName) {
-          cardHtml += '<div style="font-size:0.65rem;color:var(--color-accent-secondary,#c084fc);margin-top:0.2rem;">Destiny: ' + esc(destName) + '</div>';
+          cardHtml += '<div style="font-size:0.65rem;color:#c084fc;margin-top:0.2rem;">Destiny: ' + esc(destName) + '</div>';
           if (pc.destiny.coreQuestion) {
-            cardHtml += '<div style="font-size:0.55rem;color:var(--color-text-secondary);opacity:0.7;padding-left:0.3rem;">' + esc(pc.destiny.coreQuestion) + '</div>';
+            cardHtml += '<div style="font-size:0.55rem;color:#7a7068;opacity:0.7;padding-left:0.3rem;">' + esc(pc.destiny.coreQuestion) + '</div>';
           }
         }
       }
 
       if (pc.backgroundFavored && pc.backgroundFavored.length) {
-        cardHtml += '<div style="font-size:0.6rem;color:var(--color-accent-deep,#818cf8);margin-top:0.15rem;">Favored: ' + pc.backgroundFavored.map(function (f) { return esc(f.replace(/_/g, ' ')); }).join(', ') + '</div>';
+        cardHtml += '<div style="font-size:0.6rem;color:#818cf8;margin-top:0.15rem;">Favored: ' + pc.backgroundFavored.map(function (f) { return esc(f.replace(/_/g, ' ')); }).join(', ') + '</div>';
       }
 
       var ARENA_GROUPS = [
@@ -1745,18 +1725,18 @@
 
       if (pc.disciplines && Object.keys(pc.disciplines).length) {
         cardHtml += '<div class="cb-intel-section">';
-        cardHtml += '<div style="font-size:0.6rem;color:var(--color-text-secondary);margin-bottom:0.15rem;">Disciplines</div>';
+        cardHtml += '<div style="font-size:0.6rem;color:#7a7068;margin-bottom:0.15rem;">Disciplines</div>';
         ARENA_GROUPS.forEach(function (arena) {
           var arenaDie = pc.arenas && pc.arenas[arena.id] ? pc.arenas[arena.id] : '';
           cardHtml += '<div style="font-size:0.58rem;margin-top:0.15rem;">';
-          cardHtml += '<span style="color:var(--color-accent-primary);font-family:Audiowide,sans-serif;">' + arena.label + '</span>';
-          if (arenaDie) cardHtml += ' <span style="color:var(--color-text-secondary);opacity:0.7;">' + esc(arenaDie) + '</span>';
+          cardHtml += '<span style="color:#c8a44e;font-family:Audiowide,sans-serif;">' + arena.label + '</span>';
+          if (arenaDie) cardHtml += ' <span style="color:#7a7068;opacity:0.7;">' + esc(arenaDie) + '</span>';
           cardHtml += '</div>';
           arena.discs.forEach(function (discId) {
             var disc = pc.disciplines[discId];
             if (!disc) return;
             var trained = disc.training === 'trained' || disc.training === 'formative';
-            var color = disc.favored ? 'var(--color-accent-secondary,#c084fc)' : trained ? 'var(--color-text-primary)' : 'var(--color-text-secondary)';
+            var color = disc.favored ? '#c084fc' : trained ? '#d4c5a0' : '#7a7068';
             var opacity = trained || disc.favored ? '1' : '0.4';
             cardHtml += '<div style="font-size:0.55rem;color:' + color + ';opacity:' + opacity + ';padding:0.01rem 0 0.01rem 0.5rem;">';
             cardHtml += esc(discId.replace(/_/g, ' '));
@@ -1770,11 +1750,11 @@
 
       if (pc.gear && pc.gear.length) {
         cardHtml += '<div class="cb-intel-section">';
-        cardHtml += '<div style="font-size:0.6rem;color:var(--color-text-secondary);margin-bottom:0.15rem;">Gear (' + pc.gear.length + ')</div>';
+        cardHtml += '<div style="font-size:0.6rem;color:#7a7068;margin-bottom:0.15rem;">Gear (' + pc.gear.length + ')</div>';
         pc.gear.forEach(function (g) {
           var tagStr = (g.tags || []).concat(g.traits || []).filter(Boolean).join(', ');
           var isRestricted = (g.tags || []).some(function(t){ return /restricted|illegal/i.test(t); }) || (g.availability && /restricted|illegal/i.test(g.availability));
-          var color = isRestricted ? 'var(--color-danger,#ef4444)' : 'var(--color-text-secondary)';
+          var color = isRestricted ? '#ef4444' : '#7a7068';
           cardHtml += '<div style="font-size:0.6rem;color:' + color + ';padding:0.05rem 0;">' + esc(g.name);
           if (g.availability) cardHtml += ' <span style="opacity:0.6;">[' + esc(g.availability) + ']</span>';
           if (tagStr) cardHtml += ' <span style="opacity:0.5;">(' + esc(tagStr) + ')</span>';
@@ -1849,7 +1829,7 @@
       var tollCount = pool.filter(function (t) { return t.side === 'toll'; }).length;
       var tappedCount = pool.filter(function (t) { return t.tapped; }).length;
       var summary = '<span class="hope-count">' + hopeCount + 'H</span> / <span class="toll-count">' + tollCount + 'T</span>';
-      if (tappedCount > 0) summary += ' <span style="color:var(--color-text-secondary);">(' + tappedCount + ' tapped)</span>';
+      if (tappedCount > 0) summary += ' <span style="color:#7a7068;">(' + tappedCount + ' tapped)</span>';
       if (_destinyLocked) summary += ' <span class="destiny-locked-badge">LOCKED</span>';
       countEl.innerHTML = summary;
     }
@@ -1896,7 +1876,7 @@
         if (pcNpc.pc || pcNpc.npc) {
           html += '<div class="cb-glossary-dual">';
           html += '<div class="cb-glossary-dual-side"><div class="cb-glossary-dual-label" style="color:#5588CC;">PC Effect</div><div>' + linkify(pcNpc.pc || entry.rule) + '</div></div>';
-          html += '<div class="cb-glossary-dual-side"><div class="cb-glossary-dual-label" style="color:var(--color-accent-secondary);">NPC Effect</div><div>' + linkify(pcNpc.npc || '—') + '</div></div>';
+          html += '<div class="cb-glossary-dual-side"><div class="cb-glossary-dual-label" style="color:#c084fc;">NPC Effect</div><div>' + linkify(pcNpc.npc || '—') + '</div></div>';
           html += '</div>';
         } else {
           html += '<div class="cb-glossary-rule">' + linkify(entry.rule) + '</div>';
@@ -1925,12 +1905,12 @@
       if (action.tags) html += ' ' + esc(action.tags.join(' '));
       html += '</div>';
       if (action.description) html += '<div class="cb-glossary-rule">' + linkify(action.description) + '</div>';
-      if (action.risk) html += '<div class="cb-glossary-guide" style="border-left:2px solid var(--color-accent-secondary);padding-left:8px;margin-top:6px;"><strong>Risk:</strong> ' + linkify(action.risk) + '</div>';
+      if (action.risk) html += '<div class="cb-glossary-guide" style="border-left:2px solid #c084fc;padding-left:8px;margin-top:6px;"><strong>Risk:</strong> ' + linkify(action.risk) + '</div>';
       if (action.mastery) html += '<div class="cb-glossary-guide" style="border-left:2px solid #5588CC;padding-left:8px;margin-top:6px;"><strong>Mastery:</strong> ' + linkify(action.mastery) + '</div>';
       if (action.effect && Array.isArray(action.effect)) {
         html += '<div style="margin-top:8px;">';
         action.effect.forEach(function (e) {
-          html += '<div style="margin-top:4px;"><span style="color:var(--color-accent);">' + esc(e.label || ('Tier ' + e.tier)) + '</span>';
+          html += '<div style="margin-top:4px;"><span style="color:#c8a44e;">' + esc(e.label || ('Tier ' + e.tier)) + '</span>';
           if (e.range) html += ' <span class="cb-muted">(' + esc(e.range) + ')</span>';
           html += ' — ' + linkify(e.description) + '</div>';
         });
@@ -2122,9 +2102,6 @@
     }
   });
 
-  var themeBtn = document.getElementById('cb-theme-toggle');
-  if (themeBtn) themeBtn.addEventListener('click', cycleTheme);
-
   var logoutBtn = document.getElementById('cb-logout');
   if (logoutBtn) logoutBtn.addEventListener('click', function () {
     fetch('/api/auth/logout', { method: 'POST' })
@@ -2171,7 +2148,7 @@
       html += '<div class="cb-req-char">' + esc(req.character_name) + ' &middot; ' + date + '</div>';
       if (req.description) html += '<div class="cb-req-desc">' + esc(req.description) + '</div>';
       if (req.reference_url) html += '<div><a class="cb-req-link" href="' + esc(req.reference_url) + '" target="_blank">' + esc(req.reference_url) + '</a></div>';
-      if (req.gm_notes) html += '<div style="font-size:0.7rem;color:var(--color-accent-secondary);margin-top:0.2rem;">GM: ' + esc(req.gm_notes) + '</div>';
+      if (req.gm_notes) html += '<div style="font-size:0.7rem;color:#c084fc;margin-top:0.2rem;">GM: ' + esc(req.gm_notes) + '</div>';
       if (req.status === 'pending') {
         html += '<div class="cb-req-actions">';
         html += '<button class="cb-req-action approve" data-req-id="' + req.id + '" data-req-action="approved">Approve</button>';
@@ -2197,47 +2174,6 @@
         }).catch(function (err) { console.error('Failed to update request:', err); });
       });
     });
-  }
-
-  function initMobileTabs() {
-    var tabs = document.getElementById('cb-mobile-tabs');
-    if (!tabs) return;
-    var colLeft = document.querySelector('.cb-col-left');
-    var colCenter = document.querySelector('.cb-col-center');
-    var colRight = document.querySelector('.cb-col-right');
-    var panelMap = { left: colLeft, center: colCenter, right: colRight };
-
-    function isMobile() { return window.innerWidth <= 768; }
-
-    function activatePanel(panel) {
-      Object.keys(panelMap).forEach(function (k) {
-        panelMap[k].classList.remove('cb-mobile-active');
-      });
-      if (panelMap[panel]) panelMap[panel].classList.add('cb-mobile-active');
-      tabs.querySelectorAll('.cb-mobile-tab').forEach(function (t) {
-        t.classList.toggle('active', t.dataset.panel === panel);
-      });
-    }
-
-    tabs.querySelectorAll('.cb-mobile-tab').forEach(function (tab) {
-      tab.addEventListener('click', function () {
-        activatePanel(tab.dataset.panel);
-      });
-    });
-
-    function checkMobile() {
-      if (isMobile()) {
-        var activeTab = tabs.querySelector('.cb-mobile-tab.active');
-        activatePanel(activeTab ? activeTab.dataset.panel : 'center');
-      } else {
-        Object.keys(panelMap).forEach(function (k) {
-          panelMap[k].classList.remove('cb-mobile-active');
-        });
-      }
-    }
-
-    window.addEventListener('resize', checkMobile);
-    checkMobile();
   }
 
   var assessData = null;
@@ -2881,10 +2817,8 @@
     return 'custom';
   }
 
-  initTheme();
   initDragHandles();
   initCollapsiblePanels();
-  initMobileTabs();
   initSockets();
   initCampaign();
   loadGlossary();
