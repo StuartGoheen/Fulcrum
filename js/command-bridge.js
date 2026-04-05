@@ -2023,11 +2023,8 @@
   var assessActiveDisc = 0;
 
   function openAssessGuide() {
-    var overlay = document.getElementById('assess-overlay');
-    if (!overlay) return;
     if (assessData) {
-      renderAssessOverlay();
-      overlay.classList.add('active');
+      _renderAssessPanel();
       return;
     }
     fetch('/data/tutorials/scene1-assess.json')
@@ -2036,75 +2033,63 @@
         assessData = data;
         assessActivePhase = 0;
         assessActiveDisc = 0;
-        renderAssessOverlay();
-        overlay.classList.add('active');
+        _renderAssessPanel();
       })
       .catch(function (err) {
         console.error('Failed to load assess guide:', err);
       });
   }
 
-  function closeAssessGuide() {
-    var overlay = document.getElementById('assess-overlay');
-    if (overlay) overlay.classList.remove('active');
-  }
-
-  function renderAssessOverlay() {
+  function _renderAssessPanel() {
     if (!assessData) return;
-    var titleEl = document.getElementById('assess-title');
-    if (titleEl) titleEl.textContent = assessData.title || 'ASSESS GUIDE';
-
-    var tabsEl = document.getElementById('assess-phase-tabs');
-    if (tabsEl) {
-      tabsEl.innerHTML = assessData.phases.map(function (phase, pi) {
-        return '<button class="assess-phase-tab' + (pi === assessActivePhase ? ' active' : '') + '" data-phase="' + pi + '">' +
-          esc(phase.label) + '</button>';
-      }).join('');
-      tabsEl.querySelectorAll('.assess-phase-tab').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          assessActivePhase = parseInt(btn.dataset.phase, 10);
-          assessActiveDisc = 0;
-          renderAssessOverlay();
-        });
-      });
+    var panelId = 'assess-guide';
+    var contentHtml = _buildAssessHtml();
+    var existing = document.getElementById('fp-' + panelId);
+    if (existing) {
+      var body = existing.querySelector('.cb-fpanel-body');
+      if (body) body.innerHTML = contentHtml;
+      _bindAssessEvents(existing);
+      existing.style.zIndex = ++_panelZCounter;
+      return;
     }
-
-    var phase = assessData.phases[assessActivePhase];
-    if (!phase) return;
-
-    var navEl = document.getElementById('assess-disc-nav');
-    if (navEl) {
-      navEl.innerHTML = phase.disciplines.map(function (disc, di) {
-        return '<button class="assess-disc-btn' + (di === assessActiveDisc ? ' active' : '') + '" data-disc="' + di + '">' +
-          esc(disc.label) + '<span class="assess-disc-arena">(' + esc(disc.arena) + ')</span></button>';
-      }).join('');
-      navEl.querySelectorAll('.assess-disc-btn').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          assessActiveDisc = parseInt(btn.dataset.disc, 10);
-          renderAssessContent();
-          navEl.querySelectorAll('.assess-disc-btn').forEach(function (b) {
-            b.classList.toggle('active', parseInt(b.dataset.disc, 10) === assessActiveDisc);
-          });
-        });
-      });
-    }
-
-    renderAssessContent();
+    openFloatingPanel(panelId, assessData.title || 'ASSESS GUIDE', contentHtml, { width: 720, height: 520 });
+    var panel = document.getElementById('fp-' + panelId);
+    if (panel) _bindAssessEvents(panel);
   }
 
-  function renderAssessContent() {
-    var contentEl = document.getElementById('assess-content');
-    if (!contentEl || !assessData) return;
+  function _buildAssessHtml() {
+    if (!assessData) return '';
+    var html = '';
+    html += '<div class="assess-phase-tabs">';
+    html += assessData.phases.map(function (phase, pi) {
+      return '<button class="assess-phase-tab' + (pi === assessActivePhase ? ' active' : '') + '" data-phase="' + pi + '">' +
+        esc(phase.label) + '</button>';
+    }).join('');
+    html += '</div>';
     var phase = assessData.phases[assessActivePhase];
-    if (!phase) return;
-    var disc = phase.disciplines[assessActiveDisc];
-    if (!disc) return;
+    if (!phase) return html;
+    html += '<div class="assess-body">';
+    html += '<nav class="assess-disc-nav">';
+    html += phase.disciplines.map(function (disc, di) {
+      return '<button class="assess-disc-btn' + (di === assessActiveDisc ? ' active' : '') + '" data-disc="' + di + '">' +
+        esc(disc.label) + '<span class="assess-disc-arena">(' + esc(disc.arena) + ')</span></button>';
+    }).join('');
+    html += '</nav>';
+    html += '<div class="assess-content">' + _buildAssessContentHtml() + '</div>';
+    html += '</div>';
+    return html;
+  }
 
+  function _buildAssessContentHtml() {
+    if (!assessData) return '';
+    var phase = assessData.phases[assessActivePhase];
+    if (!phase) return '';
+    var disc = phase.disciplines[assessActiveDisc];
+    if (!disc) return '';
     var html = '';
     if (disc.focus) {
       html += '<div class="assess-disc-focus">' + esc(disc.focus) + '</div>';
     }
-
     disc.entries.forEach(function (entry) {
       var cls = 'assess-entry';
       if (entry.type === 'gambit') cls += ' type-gambit';
@@ -2122,9 +2107,30 @@
       if (entry.response) html += '<div class="assess-response">' + esc(entry.response) + '</div>';
       html += '</div>';
     });
+    return html;
+  }
 
-    contentEl.innerHTML = html;
-    contentEl.scrollTop = 0;
+  function _bindAssessEvents(panel) {
+    panel.querySelectorAll('.assess-phase-tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        assessActivePhase = parseInt(btn.dataset.phase, 10);
+        assessActiveDisc = 0;
+        _renderAssessPanel();
+      });
+    });
+    panel.querySelectorAll('.assess-disc-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        assessActiveDisc = parseInt(btn.dataset.disc, 10);
+        var contentEl = panel.querySelector('.assess-content');
+        if (contentEl) {
+          contentEl.innerHTML = _buildAssessContentHtml();
+          contentEl.scrollTop = 0;
+        }
+        panel.querySelectorAll('.assess-disc-btn').forEach(function (b) {
+          b.classList.toggle('active', parseInt(b.dataset.disc, 10) === assessActiveDisc);
+        });
+      });
+    });
   }
 
   var _tutorialActive = false;
@@ -2175,21 +2181,6 @@
     }
   }
 
-  (function initAssessOverlay() {
-    var closeBtn = document.getElementById('assess-close');
-    if (closeBtn) closeBtn.addEventListener('click', closeAssessGuide);
-    var overlay = document.getElementById('assess-overlay');
-    if (overlay) {
-      overlay.addEventListener('click', function (e) {
-        if (e.target === overlay) closeAssessGuide();
-      });
-    }
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && overlay && overlay.classList.contains('active')) {
-        closeAssessGuide();
-      }
-    });
-  }());
 
   initTheme();
   initDragHandles();
