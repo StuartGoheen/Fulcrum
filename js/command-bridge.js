@@ -1389,15 +1389,14 @@
       html += '<div class="cb-tile' + (_openPanels['readaloud'] ? ' cb-tile--active' : '') + '" data-panel-id="readaloud"><span class="cb-tile-icon">&#128220;</span><span class="cb-tile-label">Read Aloud</span><span class="cb-tile-meta">' + raMeta + '</span></div>';
     }
     if (hasGmNotes) {
-      var notePreview = scene.gmNotes.substring(0, 40).replace(/\n/g, ' ');
-      html += '<div class="cb-tile' + (_openPanels['gmnotes'] ? ' cb-tile--active' : '') + '" data-panel-id="gmnotes"><span class="cb-tile-icon">&#128221;</span><span class="cb-tile-label">GM Notes</span><span class="cb-tile-meta">' + esc(notePreview) + '…</span></div>';
+      var noteLineCount = scene.gmNotes.split(/\n\s*\n/).filter(function(s){ return s.trim(); }).length;
+      html += '<div class="cb-tile' + (_openPanels['gmnotes'] ? ' cb-tile--active' : '') + '" data-panel-id="gmnotes"><span class="cb-tile-icon">&#128221;</span><span class="cb-tile-label">GM Notes</span><span class="cb-tile-meta">' + noteLineCount + ' sections</span></div>';
     }
     if (hasNpcs) {
       html += '<div class="cb-tile' + (_openPanels['npcs'] ? ' cb-tile--active' : '') + '" data-panel-id="npcs"><span class="cb-tile-icon">&#9876;</span><span class="cb-tile-label">NPCs</span><span class="cb-tile-meta">' + sceneNpcs.length + ' in roster</span></div>';
     }
     if (hasEncounters) {
-      var encTypes = scene.encounters.map(function(e){ return e.type; }).filter(function(v,i,a){ return a.indexOf(v) === i; }).join(', ');
-      html += '<div class="cb-tile' + (_openPanels['encounters'] ? ' cb-tile--active' : '') + '" data-panel-id="encounters"><span class="cb-tile-icon">&#9876;</span><span class="cb-tile-label">Encounters</span><span class="cb-tile-meta">' + scene.encounters.length + ' — ' + encTypes + '</span></div>';
+      html += '<div class="cb-tile' + (_openPanels['encounters'] ? ' cb-tile--active' : '') + '" data-panel-id="encounters"><span class="cb-tile-icon">&#9876;</span><span class="cb-tile-label">Encounters</span><span class="cb-tile-meta">' + scene.encounters.length + ' total</span></div>';
     }
     if (hasChallenges) {
       html += '<div class="cb-tile' + (_openPanels['challenges'] ? ' cb-tile--active' : '') + '" data-panel-id="challenges"><span class="cb-tile-icon">&#127922;</span><span class="cb-tile-label">Challenges</span><span class="cb-tile-meta">' + dcList.length + ' checks</span></div>';
@@ -1416,9 +1415,9 @@
 
     if (hasDecisions) {
       html += '<div class="cb-dash-decisions">';
-      html += '<div class="cb-section-label">Decision Points</div>';
+      html += '<div class="cb-dash-section-label">Decision Points</div>';
       scene.decisions.forEach(function (d) {
-        html += '<span class="cb-dash-decision-chip"><strong>' + esc(d.choice) + '</strong> → ' + esc(d.consequence) + '</span>';
+        html += '<div class="cb-dash-decision-chip"><strong>' + esc(d.choice) + '</strong> <span>&rarr; ' + esc(d.consequence) + '</span></div>';
       });
       html += '</div>';
     }
@@ -1432,7 +1431,7 @@
     }
 
     if (hasNarrativeLinks) {
-      html += '<div style="margin-top:0.4rem;">';
+      html += '<div class="cb-dash-narrative-row">';
       scene.narrativeLinks.forEach(function (link) {
         html += '<a class="cb-narrative-link" data-nav-scene="' + esc(link.targetScene) + '">&rarr; ' + esc(link.note) + '</a> ';
       });
