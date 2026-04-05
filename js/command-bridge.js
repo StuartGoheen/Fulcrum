@@ -1341,15 +1341,16 @@
   }
 
   function openLoreModal(tag) {
-    var overlay = document.getElementById('lore-modal-overlay');
-    var title = document.getElementById('lore-modal-title');
-    var body = document.getElementById('lore-modal-body');
-    title.textContent = 'Lore: ' + tag;
-    body.innerHTML = '<p style="color:var(--color-text-secondary);">Loading...</p>';
-    overlay.classList.add('active');
+    var panelId = 'lore-' + tag.replace(/[^a-zA-Z0-9]/g, '_');
+    var loadingHtml = '<p style="color:var(--color-text-secondary);">Loading...</p>';
+    openFloatingPanel(panelId, 'Lore: ' + tag, loadingHtml, { width: 420, height: 320 });
     fetch('/api/campaign/lore-tags/' + encodeURIComponent(tag))
       .then(function (r) { return r.json(); })
       .then(function (data) {
+        var panel = document.getElementById('fp-' + panelId);
+        if (!panel) return;
+        var body = panel.querySelector('.cb-fpanel-body');
+        if (!body) return;
         if (!data.scenes || !data.scenes.length) {
           body.innerHTML = '<p style="color:var(--color-text-secondary);">No scenes found with this tag.</p>';
           return;
@@ -1362,12 +1363,18 @@
         }).join('');
         body.querySelectorAll('.cb-lore-scene-link').forEach(function (el) {
           el.addEventListener('click', function () {
-            overlay.classList.remove('active');
+            closeFloatingPanel(panelId);
             navigateToScene(el.dataset.navScene);
           });
         });
       })
-      .catch(function () { body.innerHTML = '<p style="color:var(--color-accent-primary);">Failed to load lore data.</p>'; });
+      .catch(function () {
+        var panel = document.getElementById('fp-' + panelId);
+        if (panel) {
+          var body = panel.querySelector('.cb-fpanel-body');
+          if (body) body.innerHTML = '<p style="color:var(--color-accent-primary);">Failed to load lore data.</p>';
+        }
+      });
   }
 
   function loadPartyMonitor() {
@@ -1903,12 +1910,6 @@
       .catch(function () { window.location.href = '/login'; });
   });
 
-  document.getElementById('lore-modal-close').addEventListener('click', function () {
-    document.getElementById('lore-modal-overlay').classList.remove('active');
-  });
-  document.getElementById('lore-modal-overlay').addEventListener('click', function (e) {
-    if (e.target === e.currentTarget) e.currentTarget.classList.remove('active');
-  });
 
   function loadItemRequests() {
     fetch('/api/item-requests')
