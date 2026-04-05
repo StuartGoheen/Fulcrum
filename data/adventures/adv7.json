@@ -36,13 +36,50 @@
       "id": "adv7-p1",
       "number": 1,
       "title": "The Trial",
-      "scenes": []
+      "scenes": [
+        {
+          "id": "adv7-p1-s1",
+          "number": 1,
+          "title": "The Lower Sumps",
+          "subtitle": "Trapped on Eriadu",
+          "completed": false
+        },
+        {
+          "id": "adv7-p1-s2",
+          "number": 2,
+          "title": "Fighting to the Rendezvous",
+          "subtitle": "No Allies Left",
+          "completed": false
+        }
+      ]
     },
     {
       "id": "adv7-p2",
       "number": 2,
       "title": "The Reckoning",
-      "scenes": []
+      "scenes": [
+        {
+          "id": "adv7-p2-s1",
+          "number": 1,
+          "title": "The Death of the Resurgence",
+          "subtitle": "Everything Lost",
+          "completed": false
+        },
+        {
+          "id": "adv7-p2-s2",
+          "number": 2,
+          "title": "Denia Taken",
+          "subtitle": "Draco's Prize",
+          "completed": false
+        },
+        {
+          "id": "adv7-p2-s3",
+          "number": 3,
+          "title": "Jump to Nowhere",
+          "subtitle": "Into the Void",
+          "completed": false
+        }
+      ]
     }
   ],
   "locations": [

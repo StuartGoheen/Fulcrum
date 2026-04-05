@@ -76,19 +76,71 @@
       "id": "adv6-p1",
       "number": 1,
       "title": "The Briefing",
-      "scenes": []
+      "scenes": [
+        {
+          "id": "adv6-p1-s1",
+          "number": 1,
+          "title": "Tracking Varth to Eriadu",
+          "subtitle": "Following the Trail",
+          "completed": false
+        },
+        {
+          "id": "adv6-p1-s2",
+          "number": 2,
+          "title": "Reconnaissance of the Citadel",
+          "subtitle": "Tarkin's Seat of Power",
+          "completed": false
+        }
+      ]
     },
     {
       "id": "adv6-p2",
       "number": 2,
       "title": "The Raid",
-      "scenes": []
+      "scenes": [
+        {
+          "id": "adv6-p2-s1",
+          "number": 1,
+          "title": "The Glass Bridge",
+          "subtitle": "The Betrayal Revealed",
+          "completed": false
+        },
+        {
+          "id": "adv6-p2-s2",
+          "number": 2,
+          "title": "The Primary Data Center",
+          "subtitle": "Death Troopers",
+          "completed": false
+        },
+        {
+          "id": "adv6-p2-s3",
+          "number": 3,
+          "title": "Draco's Apprentice",
+          "subtitle": "The Inquisition Strikes",
+          "completed": false
+        }
+      ]
     },
     {
       "id": "adv6-p3",
       "number": 3,
       "title": "The Fallout",
-      "scenes": []
+      "scenes": [
+        {
+          "id": "adv6-p3-s1",
+          "number": 1,
+          "title": "Escape Through the Acid Rain",
+          "subtitle": "Eriadu's Industrial Hellscape",
+          "completed": false
+        },
+        {
+          "id": "adv6-p3-s2",
+          "number": 2,
+          "title": "Off-World",
+          "subtitle": "The Score That Never Was",
+          "completed": false
+        }
+      ]
     }
   ],
   "locations": [

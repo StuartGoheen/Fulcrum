@@ -81,20 +81,72 @@
       "id": "adv10-p1",
       "number": 1,
       "title": "The Approach",
-      "scenes": []
+      "scenes": [
+        {
+          "id": "adv10-p1-s1",
+          "number": 1,
+          "title": "The Pirate Fleet Assembles",
+          "subtitle": "Oga Garra's Armada",
+          "completed": false
+        },
+        {
+          "id": "adv10-p1-s2",
+          "number": 2,
+          "title": "The Malpaz Corridor",
+          "subtitle": "Into the Jaws",
+          "completed": false
+        }
+      ]
     },
     {
       "id": "adv10-p2",
       "number": 2,
       "title": "The Betrayal",
-      "scenes": [],
+      "scenes": [
+        {
+          "id": "adv10-p2-s1",
+          "number": 1,
+          "title": "Boarding the Leviathan",
+          "subtitle": "Inside the Beast",
+          "completed": false
+        },
+        {
+          "id": "adv10-p2-s2",
+          "number": 2,
+          "title": "The Draco Showdown",
+          "subtitle": "Inquisitor's End",
+          "completed": false
+        },
+        {
+          "id": "adv10-p2-s3",
+          "number": 3,
+          "title": "Confronting Varth",
+          "subtitle": "The Architect of Ruin",
+          "completed": false
+        }
+      ],
       "description": "Final confrontation with Varth aboard the Leviathan. The Draco showdown resolves the Inquisitor's arc. If Denia was abandoned in Adv2: the heroes discover her alive in Draco's custody — interrogated for years, broken but surviving. This is the campaign's deepest gut-punch: Varth told them to leave her, and they listened. He handed her to the Empire the moment they looked away. If Denia was rescued in Adv2: she was captured by Draco in Adv7 and potentially rescued in Adv9 — the Draco showdown plays as a nemesis encounter without the betrayal-reveal layer."
     },
     {
       "id": "adv10-p3",
       "number": 3,
       "title": "The Final Hand",
-      "scenes": []
+      "scenes": [
+        {
+          "id": "adv10-p3-s1",
+          "number": 1,
+          "title": "The Gravity Well Array",
+          "subtitle": "Disabling the Weapon",
+          "completed": false
+        },
+        {
+          "id": "adv10-p3-s2",
+          "number": 2,
+          "title": "Escape from the Leviathan",
+          "subtitle": "The Last Run",
+          "completed": false
+        }
+      ]
     }
   ],
   "locations": [

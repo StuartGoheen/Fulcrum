@@ -1,5 +1,5 @@
 # Campaign Narrative Bible
-# THE LEVIATHAN PROJECT
+# THE LEVIATHAN AFFAIR
 
 > **GM-ONLY DOCUMENT** — This file contains the complete narrative architecture of the campaign, including hidden motivations, secret agendas, and future reveals. Players should never see this document.
 

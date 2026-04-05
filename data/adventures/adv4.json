@@ -1,10 +1,110 @@
 {
   "id": "adv4",
   "number": 4,
-  "title": "Adventure 4",
-  "act": "Act II",
-  "summary": "",
-  "gearNotes": "",
-  "parts": [],
-  "locations": []
+  "title": "The Ebon Spire",
+  "act": 2,
+  "summary": "Varth has promised a bigger payday at Vel Shara in the Unknown Regions. To get there, the crew needs ancient hyperspace charts. Denia points them to the Ebon Spire — Revan's forward base on the Forest Moon of Endor — where Jedi holocrons with navigational data should be stored. But the Dead Forest is strong with the Dark Side, and the Spire's defenses don't care that the war ended millennia ago.",
+  "gearNotes": [
+    {
+      "item": "Breath Mask",
+      "category": "needed",
+      "reason": "The Dead Forest has toxic spore clouds from the petrified vegetation. Without respiratory protection, characters take environmental penalties during the trek."
+    },
+    {
+      "item": "Glow Rod",
+      "category": "needed",
+      "reason": "The Ebon Spire's interior is pitch black. Ancient lighting systems failed centuries ago. Without light sources, all checks inside the Spire are upgraded in difficulty."
+    },
+    {
+      "item": "Syntherope",
+      "category": "needed",
+      "reason": "The Descent into the Spire involves vertical shafts and collapsed stairways. Without rope, certain routes are impassable."
+    },
+    {
+      "item": "Medpac",
+      "category": "needed",
+      "reason": "The Brood Mother fight and Dark Echoes gauntlet both deal wounds. No medical facilities on the Forest Moon."
+    },
+    {
+      "item": "Macrobinoculars",
+      "category": "good",
+      "reason": "Scouting the Dead Forest perimeter and locating the Spire entrance from distance. The Ewoks can point you in the right direction, but the canopy is dense."
+    },
+    {
+      "item": "Scanner Jammer",
+      "category": "good",
+      "reason": "Imperial probe droids patrol the Endor system. Avoiding detection on approach keeps the crew off Draco's radar."
+    },
+    {
+      "item": "Stim Pack",
+      "category": "good",
+      "reason": "The Dark Echoes psychological gauntlet can inflict strain. Stim packs help recover between encounters in the Spire."
+    },
+    {
+      "item": "Survival Kit",
+      "category": "good",
+      "reason": "Extended wilderness trek through the Forest Moon. Navigation, shelter, and foraging between the Ewok village and the Dead Forest."
+    }
+  ],
+  "parts": [
+    {
+      "id": "adv4-p1",
+      "number": 1,
+      "title": "The Forest Moon",
+      "scenes": [
+        {
+          "id": "adv4-p1-s1",
+          "number": 1,
+          "title": "Arrival in the Moddell Sector",
+          "subtitle": "Hyperspace Anomalies",
+          "completed": false
+        },
+        {
+          "id": "adv4-p1-s2",
+          "number": 2,
+          "title": "The Ewok Village",
+          "subtitle": "Diplomacy with Chief Chirpa",
+          "completed": false
+        },
+        {
+          "id": "adv4-p1-s3",
+          "number": 3,
+          "title": "The Dead Forest",
+          "subtitle": "Into the Dark Side",
+          "completed": false
+        }
+      ]
+    },
+    {
+      "id": "adv4-p2",
+      "number": 2,
+      "title": "The Descent",
+      "scenes": [
+        {
+          "id": "adv4-p2-s1",
+          "number": 1,
+          "title": "The Dark Echoes",
+          "subtitle": "Psychological Gauntlet",
+          "completed": false
+        },
+        {
+          "id": "adv4-p2-s2",
+          "number": 2,
+          "title": "The Nest",
+          "subtitle": "Corrupted Brood Mother",
+          "completed": false
+        },
+        {
+          "id": "adv4-p2-s3",
+          "number": 3,
+          "title": "The Threshold",
+          "subtitle": "Revan's Star Charts",
+          "completed": false
+        }
+      ]
+    }
+  ],
+  "locations": [
+    "endor"
+  ]
 }

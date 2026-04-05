@@ -1,4 +1,4 @@
-# Edge of the Empire — Campaign System
+# The Leviathan Affair — Campaign System
 
 A Star Wars TTRPG electronic character sheet and campaign management system built for local network play.
 

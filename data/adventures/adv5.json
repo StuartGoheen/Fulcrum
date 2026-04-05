@@ -1,0 +1,108 @@
+{
+  "id": "adv5",
+  "number": 5,
+  "title": "The Malpaz Insurrection",
+  "act": 2,
+  "summary": "The holocron charts need drift algorithms to be usable. Those algorithms are locked inside an Imperial research station on Malpaz — an occupied industrial world ground down under the boot. One more job, one more step to the payday at Vel Shara. But the crew's actions on Malpaz spark something they didn't plan: a full-scale uprising among the oppressed population. The people fight back because they saw someone else fight first. The crew extracts under fire as the insurrection spreads — never knowing that the world they just liberated is already marked as Leviathan's demonstration target.",
+  "gearNotes": [
+    {
+      "item": "Disguise Kit",
+      "category": "needed",
+      "reason": "Infiltrating an occupied Imperial world. Checkpoints, identity scans, and patrols. Without cover identities, the crew is flagged on arrival."
+    },
+    {
+      "item": "Security Kit",
+      "category": "needed",
+      "reason": "The Imperial research station has electronic locks, secure labs, and data vaults. Accessing the drift algorithms requires bypassing multiple security layers."
+    },
+    {
+      "item": "Slicer Spike",
+      "category": "needed",
+      "reason": "Quick-bypassing research station terminals to download the drift algorithms before the security lockdown triggers."
+    },
+    {
+      "item": "Encrypted Comlink",
+      "category": "needed",
+      "reason": "Coordinating the heist while Imperial signals intelligence monitors all communications on an occupied world."
+    },
+    {
+      "item": "Medpac",
+      "category": "needed",
+      "reason": "The extraction under fire guarantees combat. The insurrection makes the streets a warzone."
+    },
+    {
+      "item": "Smoke Grenade",
+      "category": "good",
+      "reason": "Covering movement through the streets during the insurrection. Crowd chaos plus smoke equals escape routes."
+    },
+    {
+      "item": "Scanner Jammer",
+      "category": "good",
+      "reason": "Avoiding Imperial sensor sweeps and checkpoint scanners during infiltration."
+    },
+    {
+      "item": "Frag Grenade",
+      "category": "good",
+      "reason": "The extraction fight through Imperial-held streets. Area denial against stormtrooper squads."
+    },
+    {
+      "item": "Stim Pack",
+      "category": "good",
+      "reason": "Multi-fight extraction sequence with no downtime between encounters."
+    }
+  ],
+  "parts": [
+    {
+      "id": "adv5-p1",
+      "number": 1,
+      "title": "The Occupation",
+      "scenes": [
+        {
+          "id": "adv5-p1-s1",
+          "number": 1,
+          "title": "Planetfall on Malpaz",
+          "subtitle": "Under the Boot",
+          "completed": false
+        },
+        {
+          "id": "adv5-p1-s2",
+          "number": 2,
+          "title": "The Research Station",
+          "subtitle": "Infiltration",
+          "completed": false
+        },
+        {
+          "id": "adv5-p1-s3",
+          "number": 3,
+          "title": "The Drift Algorithms",
+          "subtitle": "The Last Piece",
+          "completed": false
+        }
+      ]
+    },
+    {
+      "id": "adv5-p2",
+      "number": 2,
+      "title": "The Spark",
+      "scenes": [
+        {
+          "id": "adv5-p2-s1",
+          "number": 1,
+          "title": "The Uprising",
+          "subtitle": "Unintended Consequences",
+          "completed": false
+        },
+        {
+          "id": "adv5-p2-s2",
+          "number": 2,
+          "title": "Extraction Under Fire",
+          "subtitle": "Streets of Malpaz",
+          "completed": false
+        }
+      ]
+    }
+  ],
+  "locations": [
+    "malpaz"
+  ]
+}

@@ -51,13 +51,43 @@
       "id": "adv9-p1",
       "number": 1,
       "title": "The Alliance",
-      "scenes": []
+      "scenes": [
+        {
+          "id": "adv9-p1-s1",
+          "number": 1,
+          "title": "The Xala-Cermau Hyperlane",
+          "subtitle": "Edge of Known Space",
+          "completed": false
+        },
+        {
+          "id": "adv9-p1-s2",
+          "number": 2,
+          "title": "Draco's Stronghold",
+          "subtitle": "The Rescue",
+          "completed": false
+        }
+      ]
     },
     {
       "id": "adv9-p2",
       "number": 2,
       "title": "The Launch",
-      "scenes": []
+      "scenes": [
+        {
+          "id": "adv9-p2-s1",
+          "number": 1,
+          "title": "The Sacrifice",
+          "subtitle": "The Cost of Rescue",
+          "completed": false
+        },
+        {
+          "id": "adv9-p2-s2",
+          "number": 2,
+          "title": "Last Preparations",
+          "subtitle": "Point of No Return",
+          "completed": false
+        }
+      ]
     }
   ],
   "locations": [

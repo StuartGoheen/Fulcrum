@@ -1,0 +1,98 @@
+{
+  "id": "adv8",
+  "number": 8,
+  "title": "The Iron Blockade",
+  "act": 3,
+  "summary": "The crew needs a fleet. The Leviathan is heading to Malpaz for a demonstration strike, and the people who rose up because of the crew's actions in Adventure 5 are the target. Hunted and battered, the crew arrives at Black Spire Outpost on Batuu — the one place in the galaxy where the Empire's reach is short and the local boss has the firepower to help. Oga Garra is transactional, not ideological. She'll assemble a pirate fleet because Leviathan is bad for business, but she'll collect on the debt.",
+  "gearNotes": [
+    {
+      "item": "Encrypted Comlink",
+      "category": "needed",
+      "reason": "Negotiating fleet terms while Imperial hunters are in-system. Intercepted communications here could compromise the entire alliance."
+    },
+    {
+      "item": "Medpac",
+      "category": "needed",
+      "reason": "The crew arrives battered from the Crucible. Patch up before the blockade run."
+    },
+    {
+      "item": "Starship Tool Kit",
+      "category": "needed",
+      "reason": "The blockade run requires ship repairs under fire. Oga's fleet is held together with spit and prayer."
+    },
+    {
+      "item": "Slicer Spike",
+      "category": "good",
+      "reason": "Bypassing Imperial blockade sensors and communications during the breakout."
+    },
+    {
+      "item": "Ion Grenade",
+      "category": "good",
+      "reason": "Imperial interdiction forces during the blockade run. Disabling systems buys time."
+    },
+    {
+      "item": "Stim Pack",
+      "category": "good",
+      "reason": "Extended ship combat and boarding actions during the blockade run. No downtime."
+    },
+    {
+      "item": "Disguise Kit",
+      "category": "good",
+      "reason": "Black Spire Outpost is a smuggler's haven, but Imperial spies operate there. Keeping a low profile while negotiating with Oga."
+    }
+  ],
+  "parts": [
+    {
+      "id": "adv8-p1",
+      "number": 1,
+      "title": "Black Spire Outpost",
+      "scenes": [
+        {
+          "id": "adv8-p1-s1",
+          "number": 1,
+          "title": "Arrival on Batuu",
+          "subtitle": "Hunted and Battered",
+          "completed": false
+        },
+        {
+          "id": "adv8-p1-s2",
+          "number": 2,
+          "title": "Oga's Cantina",
+          "subtitle": "The Price of a Fleet",
+          "completed": false
+        },
+        {
+          "id": "adv8-p1-s3",
+          "number": 3,
+          "title": "Assembling the Fleet",
+          "subtitle": "Deals and Debts",
+          "completed": false
+        }
+      ]
+    },
+    {
+      "id": "adv8-p2",
+      "number": 2,
+      "title": "The Blockade Run",
+      "scenes": [
+        {
+          "id": "adv8-p2-s1",
+          "number": 1,
+          "title": "Breaking the Cordon",
+          "subtitle": "Into the Gauntlet",
+          "completed": false
+        },
+        {
+          "id": "adv8-p2-s2",
+          "number": 2,
+          "title": "The Jump to Lightspeed",
+          "subtitle": "No Turning Back",
+          "completed": false
+        }
+      ]
+    }
+  ],
+  "locations": [
+    "batuu"
+  ]
+}
