@@ -1685,16 +1685,14 @@
       abHead.appendChild(typeBadge);
       abBody.appendChild(abHead);
 
-      if (!locked) {
-        var abRule = document.createElement("p");
-        abRule.className = "cc-kit-flat-ab-rule";
-        abRule.textContent = ab.rule;
-        abBody.appendChild(abRule);
-      } else {
+      var abRule = document.createElement("p");
+      abRule.className = "cc-kit-flat-ab-rule";
+      abRule.textContent = ab.rule;
+      abBody.appendChild(abRule);
+      if (locked) {
         var lockMsg = document.createElement("p");
         lockMsg.className = "cc-kit-flat-ab-lock-msg";
-        var dieName = ["D4","D6","D8","D10","D12"][t-1] || "D12";
-        lockMsg.textContent = "Requires " + discName + " at " + dieName;
+        lockMsg.textContent = "Advancement only";
         abBody.appendChild(lockMsg);
       }
       row.appendChild(abBody);
@@ -1823,19 +1821,19 @@
       var ab = abilities.find(function(a) { return a.tier === t; });
       if (!ab) return;
 
-      if (!locked && !existingRule) {
-        if (existingLock) existingLock.remove();
+      if (!existingRule) {
         var abRule = document.createElement("p");
         abRule.className = "cc-kit-flat-ab-rule";
         abRule.textContent = ab.rule;
         abBody.appendChild(abRule);
-      } else if (locked && !existingLock) {
-        if (existingRule) existingRule.remove();
+      }
+      if (locked && !existingLock) {
         var lockMsg = document.createElement("p");
         lockMsg.className = "cc-kit-flat-ab-lock-msg";
-        var dieName = ["D4","D6","D8","D10","D12"][t-1] || "D12";
-        lockMsg.textContent = "Requires " + discName + " at " + dieName;
+        lockMsg.textContent = "Advancement only";
         abBody.appendChild(lockMsg);
+      } else if (!locked && existingLock) {
+        existingLock.remove();
       }
     });
   }
