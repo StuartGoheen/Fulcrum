@@ -90,3 +90,21 @@ id = "XCRLZeJ8b-PDMSPlmE7Tl"
 uri = "file://attached_assets/fulcrum-final-v3.png"
 type = "image"
 title = "Fulcrum composite helmet shield"
+
+[[generated]]
+id = "m-XeVyKLL5PHMQsBuuuul"
+uri = "file://attached_assets/fulcrum-final-v4.png"
+type = "image"
+title = "Fulcrum split crystal center"
+
+[[generated]]
+id = "nGxecbTGvHYFvPJ7uemvo"
+uri = "file://attached_assets/fulcrum-final-v5.png"
+type = "image"
+title = "Fulcrum vertical energy line"
+
+[[generated]]
+id = "tHjV406fuXAVy1XRptlNo"
+uri = "file://attached_assets/fulcrum-final-v6.png"
+type = "image"
+title = "Fulcrum asymmetric crystal pips"
