@@ -192,10 +192,11 @@ router.put('/campaign/scene/:sceneId/complete', async (req, res) => {
 
     if (isComplete) {
       try {
-        const { extractTagsFromScene } = require('./journal');
+        const { extractTagsFromScene, createSceneJournalEntry } = require('./journal');
         await extractTagsFromScene(sceneId);
+        await createSceneJournalEntry(sceneId);
       } catch (tagErr) {
-        console.error('[scene/complete] Tag extraction failed (non-fatal):', tagErr.message);
+        console.error('[scene/complete] Tag extraction / journal entry failed (non-fatal):', tagErr.message);
       }
     }
 

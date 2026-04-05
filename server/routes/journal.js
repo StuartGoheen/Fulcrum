@@ -18,26 +18,27 @@ function loadAdventuresData() {
   return { adventures };
 }
 
-async function extractTagsFromScene(sceneId) {
-  const data = loadAdventuresData();
-  let scene = null;
-  let sceneTitle = '';
-
+function findSceneWithContext(data, sceneId) {
   for (const adv of data.adventures) {
     for (const part of (adv.parts || [])) {
       for (const s of (part.scenes || [])) {
         if (s.id === sceneId) {
-          scene = s;
-          sceneTitle = s.title || '';
-          break;
+          return { scene: s, adventure: adv, part };
         }
       }
-      if (scene) break;
     }
-    if (scene) break;
   }
+  return null;
+}
 
-  if (!scene) return [];
+async function extractTagsFromScene(sceneId) {
+  const data = loadAdventuresData();
+  const found = findSceneWithContext(data, sceneId);
+
+  if (!found) return [];
+
+  const { scene } = found;
+  const sceneTitle = scene.title || '';
 
   const tags = [];
 
@@ -305,5 +306,94 @@ router.post('/journal/extract-tags/:sceneId', async (req, res) => {
   }
 });
 
+async function createSceneJournalEntry(sceneId) {
+  const data = loadAdventuresData();
+  const found = findSceneWithContext(data, sceneId);
+  if (!found) return null;
+
+  const { scene, adventure, part } = found;
+  const entryTitle = scene.title || sceneId;
+
+  const existing = await pool.query(
+    'SELECT id FROM journal_entries WHERE title = $1 AND author_character_name = $2',
+    [entryTitle, 'Campaign Log']
+  );
+  if (existing.rows.length > 0) return null;
+
+  const bodyLines = [];
+  bodyLines.push(`${adventure.title} — Part ${part.number}: ${part.title}`);
+  if (scene.subtitle) {
+    bodyLines.push(scene.subtitle);
+  }
+  if (scene.challengeType) {
+    bodyLines.push(`Scene Type: ${scene.challengeType}`);
+  }
+  bodyLines.push('');
+
+  if (scene.npcs && scene.npcs.length) {
+    bodyLines.push('NPCs Present:');
+    const npcGroups = {};
+    for (const npc of scene.npcs) {
+      if (!npc.name) continue;
+      const key = npc.name + '|' + (npc.type || '');
+      if (!npcGroups[key]) {
+        npcGroups[key] = { name: npc.name, type: npc.type || '', count: 0 };
+      }
+      npcGroups[key].count += (npc.count || 1);
+    }
+    for (const g of Object.values(npcGroups)) {
+      const label = g.count > 1 ? `${g.count}x ${g.name}` : g.name;
+      bodyLines.push(g.type ? `  • ${label} — ${g.type}` : `  • ${label}`);
+    }
+    bodyLines.push('');
+  }
+
+  if (scene.loreTags && scene.loreTags.length) {
+    bodyLines.push('Lore References:');
+    for (const tag of scene.loreTags) {
+      bodyLines.push(`  • ${tag}`);
+    }
+    bodyLines.push('');
+  }
+
+  bodyLines.push('———');
+  bodyLines.push('Crew notes — add your observations below.');
+
+  const body = bodyLines.join('\n');
+
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+
+    const entryResult = await client.query(
+      `INSERT INTO journal_entries (title, body, author_character_name)
+       VALUES ($1, $2, $3)
+       RETURNING id`,
+      [entryTitle, body, 'Campaign Log']
+    );
+    const entryId = entryResult.rows[0].id;
+
+    const tagResult = await client.query(
+      'SELECT id FROM journal_tags WHERE source_scene_id = $1',
+      [sceneId]
+    );
+    for (const row of tagResult.rows) {
+      await client.query(
+        'INSERT INTO journal_entry_tags (entry_id, tag_id) VALUES ($1, $2) ON CONFLICT DO NOTHING',
+        [entryId, row.id]
+      );
+    }
+
+    await client.query('COMMIT');
+    return entryId;
+  } catch (err) {
+    await client.query('ROLLBACK');
+    throw err;
+  } finally {
+    client.release();
+  }
+}
+
 module.exports = router;
 module.exports.extractTagsFromScene = extractTagsFromScene;
+module.exports.createSceneJournalEntry = createSceneJournalEntry;
