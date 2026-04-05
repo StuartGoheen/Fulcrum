@@ -2317,6 +2317,21 @@
 
     Promise.all([glossaryReady, maneuversReady, speciesReady, kitsReady, chassisReady, gamesystemReady, weaponsReady, armorReady, gearReady]).then(function () {
       _loadEquipment(weaponsData || [], armorData || [], gearData || []);
+      Object.keys(_maneuversByDisc).forEach(function (discId) {
+        var entry = _entries[discId];
+        if (!entry) return;
+        var gambitParts = [];
+        _maneuversByDisc[discId].forEach(function (m) {
+          gambitParts.push(m.name);
+          if (m.gambits) m.gambits.forEach(function (g) {
+            gambitParts.push(g.name, g.rule, g.effect);
+          });
+        });
+        if (gambitParts.length) {
+          var extra = gambitParts.filter(Boolean).join(' ').toLowerCase();
+          entry._searchText = (entry._searchText || '') + ' ' + extra;
+        }
+      });
       _dataReady = true;
       _registerProviders();
       _expandedCategories = {};
