@@ -5500,6 +5500,36 @@
     color: var(--color-warn, #e5a100);
   }
 
+  /* ── Blocker bar ─────────────────────────────────────────────────────── */
+  .stats-blocker-bar {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    background: rgba(229, 60, 60, 0.1);
+    border: 1px solid rgba(229, 60, 60, 0.4);
+    border-radius: 6px;
+    padding: 8px 12px;
+    margin: 8px 0 0 0;
+  }
+  .stats-blocker-icon {
+    font-size: 1rem;
+    color: #e53c3c;
+    flex-shrink: 0;
+    line-height: 1.2;
+  }
+  .stats-blocker-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .stats-blocker-line {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.45rem;
+    letter-spacing: 0.03em;
+    color: #e5a100;
+    line-height: 1.4;
+  }
+
   /* ── Detail card overlay ─────────────────────────────────────────────── */
   .stats-detail-card {
     position: absolute;

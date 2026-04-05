@@ -1325,12 +1325,66 @@
     if (actions.children.length) contentCol.appendChild(actions);
     panel.appendChild(contentCol);
   }
+  /* ── Outfitting validation ────────────────────────────────────────── */
+
+  function getOutfittingBlockers(d) {
+    var blockers = [];
+
+    var effectiveReq = Math.max(0, MAX_INCOMP_REQUIRED - (d.freeAdv || 0));
+    var totalIncomp = d.playerIncompCount + d.forceIncompCount;
+    if (totalIncomp < effectiveReq) {
+      blockers.push('Mark ' + (effectiveReq - totalIncomp) + ' more weakness' + ((effectiveReq - totalIncomp) > 1 ? 'es' : ''));
+    }
+
+    if (d.arenaAdvAvail > 0) {
+      blockers.push('Spend ' + d.arenaAdvAvail + ' remaining arena advance' + (d.arenaAdvAvail > 1 ? 's' : ''));
+    }
+
+    var vocWarnings = checkVocationDisciplineWarnings();
+    vocWarnings.forEach(function(w) { blockers.push(w); });
+
+    return blockers;
+  }
+
+  function renderBlockerBar(blockers) {
+    var existing = document.getElementById('stats-blocker-bar');
+    if (existing) existing.remove();
+    if (blockers.length === 0) return;
+
+    var bar = document.createElement('div');
+    bar.id = 'stats-blocker-bar';
+    bar.className = 'stats-blocker-bar';
+
+    var icon = document.createElement('span');
+    icon.className = 'stats-blocker-icon';
+    icon.textContent = '\u26A0';
+    bar.appendChild(icon);
+
+    var list = document.createElement('div');
+    list.className = 'stats-blocker-list';
+    blockers.forEach(function(b) {
+      var line = document.createElement('div');
+      line.className = 'stats-blocker-line';
+      line.textContent = b;
+      list.appendChild(line);
+    });
+    bar.appendChild(list);
+
+    var container = document.getElementById('stats-status-bar');
+    if (container && container.parentNode) {
+      container.parentNode.insertBefore(bar, container.nextSibling);
+    }
+  }
+
   /* ── Nav button logic ────────────────────────────────────────────── */
 
   function updateStatsNav(d) {
     if (!headerNavPrev) headerNavPrev = document.getElementById("cc-nav-prev");
     if (!headerNavNext) headerNavNext = document.getElementById("cc-nav-next");
     if (!headerNavPrev || !headerNavNext) return;
+
+    var existingBlocker = document.getElementById('stats-blocker-bar');
+    if (existingBlocker) existingBlocker.remove();
 
     if (_statsPhase === "incomp") {
       headerNavPrev.textContent = "← Vocations";
@@ -1373,15 +1427,19 @@
       };
       headerNavNext.textContent = "Outfitting →";
       headerNavNext.classList.remove("hidden");
-      headerNavNext.disabled = false;
+
+      var blockers = getOutfittingBlockers(d);
+      headerNavNext.disabled = blockers.length > 0;
+      if (blockers.length > 0) {
+        headerNavNext.title = blockers.join(' • ');
+      } else {
+        headerNavNext.title = '';
+      }
       headerNavNext.onclick = function() {
-        var warnings = checkVocationDisciplineWarnings();
-        if (warnings.length > 0) {
-          var msg = 'Your disciplines don\u2019t meet vocation requirements:\n\n' + warnings.join('\n') + '\n\nProceed anyway?';
-          if (!confirm(msg)) return;
-        }
         initOutfittingScreen();
       };
+
+      renderBlockerBar(blockers);
     }
   }
 
