@@ -584,5 +584,61 @@
       ],
       "directives": "Highlight their physical resilience and stubborn pride. Emphasize a background of enduring extreme physical hardship. The Unyielding trait costs a Maneuver — it is not free immunity, it is the Zabrak gritting their teeth and shaking it off through effort and will."
     }
+  },
+  {
+    "id": "dathomirian",
+    "name": "Dathomirian",
+    "tagline": "Survivor. Hybrid. Forged in darkness.",
+    "lore": "The Dathomirians are a hybrid species born from generations of interbreeding between human women and male Zabraks on the Dark Side-steeped world of Dathomir. The females — the Nightsisters — present as human but carry Zabrak resilience beneath the surface: hardened constitutions, heightened pain tolerance, and a biological attunement to the dark energies that saturate their homeworld. After General Grievous massacred the Nightsister clans during the Clone Wars, the survivors scattered across the galaxy — hiding what they are, carrying their traditions in whispered rituals and muscle memory.",
+    "imageUrl": "/assets/species/dathomirian.png",
+    "arenaShift": {
+      "name": "The Baseline",
+      "desc": "All Arenas at D6. No biological peaks or penalties."
+    },
+    "favoredDiscipline": {
+      "desc": "Choose one favored discipline (exploding die + Edge reroll).",
+      "choices": [
+        {
+          "label": "Survival",
+          "id": "survival"
+        },
+        {
+          "label": "Stealth",
+          "id": "stealth"
+        },
+        {
+          "label": "Intimidate",
+          "id": "intimidate"
+        },
+        {
+          "label": "Medicine",
+          "id": "medicine"
+        }
+      ]
+    },
+    "biologicalTruth": {
+      "name": "Hybrid Resilience",
+      "desc": "Beneath a human exterior, your body carries the redundant nervous pathways and enhanced pain threshold of your Zabrak ancestry. When you take Physique Trauma, you soak 3 instead of the normal 2."
+    },
+    "speciesTrait": {
+      "name": "Witch-Blood",
+      "desc": "Generations of brewing and ingesting Nightsister potions have chemically hardened your bloodline. You are naturally resistant to poisons, toxins, and chemical agents. When you would take damage or suffer a condition from a poison, toxin, or chemical source, the effect is [Weakened] — reduce damage by one step or downgrade the condition severity by one tier. This resistance is biological, not magical — it functions whether or not you practice Magick."
+    },
+    "arenas": {
+      "physique": "D6",
+      "reflex": "D6",
+      "grit": "D6",
+      "wits": "D6",
+      "presence": "D6"
+    },
+    "_aiMeta": {
+      "loreAnchors": [
+        "Hybrid Resilience — Physique Trauma soaks 3 instead of 2; Zabrak toughness beneath human appearance.",
+        "Witch-Blood — Innate resistance to poisons, toxins, and chemical agents; effects are [Weakened].",
+        "Nightsister Survivor — One of the few remaining after General Grievous's massacre; hiding in plain sight across the galaxy.",
+        "Dark Side Attunement — Biological connection to Dathomir's dark energies; does not require Force training to manifest as instinct and resilience."
+      ],
+      "directives": "Emphasize the tension between human appearance and alien heritage. She looks human but she is not — her blood carries something older and darker. Nightsister survivors in 16 BBY are hunted relics of a dead culture. Lean into isolation, secrecy, and the weight of carrying traditions that have no home. The Witch-Blood trait is passive and biological — it is not Magick, it is what Magick did to her ancestors over centuries."
+    }
   }
 ]
