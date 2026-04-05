@@ -326,7 +326,12 @@ async function createSceneJournalEntry(sceneId) {
     bodyLines.push(scene.subtitle);
   }
   if (scene.challengeType) {
-    bodyLines.push(`Scene Type: ${scene.challengeType}`);
+    const typeLabels = {
+      social: 'Social', combat: 'Combat', exploration: 'Exploration',
+      infiltration: 'Infiltration', survival: 'Survival',
+      technical: 'Technical', force: 'Force'
+    };
+    bodyLines.push(`Scene Type: ${typeLabels[scene.challengeType] || scene.challengeType}`);
   }
   bodyLines.push('');
 
@@ -373,15 +378,31 @@ async function createSceneJournalEntry(sceneId) {
     );
     const entryId = entryResult.rows[0].id;
 
-    const tagResult = await client.query(
-      'SELECT id FROM journal_tags WHERE source_scene_id = $1',
-      [sceneId]
-    );
-    for (const row of tagResult.rows) {
-      await client.query(
-        'INSERT INTO journal_entry_tags (entry_id, tag_id) VALUES ($1, $2) ON CONFLICT DO NOTHING',
-        [entryId, row.id]
+    const tagPairs = [];
+    if (scene.npcs && scene.npcs.length) {
+      for (const npc of scene.npcs) {
+        if (npc.name) tagPairs.push({ name: npc.name, category: 'npc' });
+      }
+    }
+    if (scene.loreTags && scene.loreTags.length) {
+      for (const tag of scene.loreTags) {
+        tagPairs.push({ name: tag, category: 'lore' });
+      }
+    }
+    if (scene.title) {
+      tagPairs.push({ name: scene.title, category: 'location' });
+    }
+    for (const tp of tagPairs) {
+      const tagResult = await client.query(
+        'SELECT id FROM journal_tags WHERE name = $1 AND category = $2',
+        [tp.name, tp.category]
       );
+      if (tagResult.rows.length > 0) {
+        await client.query(
+          'INSERT INTO journal_entry_tags (entry_id, tag_id) VALUES ($1, $2) ON CONFLICT DO NOTHING',
+          [entryId, tagResult.rows[0].id]
+        );
+      }
     }
 
     await client.query('COMMIT');
