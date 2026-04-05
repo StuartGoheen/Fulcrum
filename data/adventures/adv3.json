@@ -2961,15 +2961,15 @@
               "control": {
                 "failure": "Varth's logic seems sound. 'It's the only way.' No reason to doubt the tactical assessment.",
                 "success": "Refer to effect tiers.",
-                "mastery": "You see through Varth's entire calculation: he's willing to sacrifice Okeefe AND the freed slaves to secure his own escape. This isn't tactics — it's cowardice dressed as pragmatism."
+                "mastery": "You see through Varth's entire calculation: he's willing to sacrifice Maya AND the freed slaves to secure his own escape. This isn't tactics — it's cowardice dressed as pragmatism."
               },
               "target": "Varth's plan",
               "resist": 3,
               "risk": 4,
               "effect": {
                 "fleeting": "Something about Varth's plan doesn't sit right. He dismissed the alternative too quickly.",
-                "masterful": "Varth is using Okeefe as a distraction. He planned this — her ship draws fire while he escapes. He's sacrificing her knowingly.",
-                "legendary": "Complete insight: Varth calculated this before the escape even started. Okeefe was always the expendable decoy in his plan. He never intended to protect her."
+                "masterful": "Varth is using Maya as a distraction. He planned this — her ship draws fire while he escapes. He's sacrificing her knowingly.",
+                "legendary": "Complete insight: Varth calculated this before the escape even started. Maya was always the expendable decoy in his plan. He never intended to protect her."
               }
             },
             {
@@ -4380,14 +4380,14 @@
           "id": "adv3-p3-s5",
           "number": 5,
           "title": "Skirmish Over Bespin",
-          "readAloud": "You break atmosphere and the sensor board lights up. The Imperial Star Destroyer Assiduous hangs in high orbit, launching TIE Fighters. The Shackles of Nizon — a transport filled with slaves — drifts dead in space. A massive automated Tibanna Gas Hauler is burning hard on a collision course with the slave ship.\n\nVarth's voice is cold and professional:\n\n\"Good work getting airborne. That Gas Hauler is going to impact the transport in less than two minutes. It's a tragedy, but it's not our tragedy. We have the credits, we have the data. Spool up the hyperdrives. Let's get out of here while we're rich.\"\n\nThen a frantic transmission cuts through:\n\n\"Varth! I'm on the transport! The slave circuits are locked! I can't steer and sensors show collision imminent! Where is that backup code?!\"\n\nIt's Captain Okeefe.",
-          "gmNotes": "The moral climax of Act I. Varth sent Okeefe to the slave ship intending for her to be destroyed with the evidence — she's a loose end. The Empire is using the Gas Hauler as a ram to destroy the Shackles of Nizon. Varth's position: 'She knew the risks. We jump. Now.' The heroes must choose: follow Varth and leave Okeefe to die, or turn and fight. If they fight, they engage TIE Fighters to destroy the Gas Hauler. Varth eventually helps — not from altruism, but because he needs the heroes alive for the fortune.",
+          "readAloud": "You break atmosphere and the sensor board lights up. The Imperial Star Destroyer Assiduous hangs in high orbit, launching TIE Fighters. The Shackles of Nizon — a transport filled with slaves — drifts dead in space. A massive automated Tibanna Gas Hauler is burning hard on a collision course with the slave ship.\n\nVarth's voice crackles from the Banshee, cold and professional:\n\n\"Good work getting airborne. That Gas Hauler is going to impact the transport in less than two minutes. It's a tragedy, but it's not our tragedy. We have the credits, we have the data. Spool up the hyperdrives. Let's get out of here while we're rich.\"\n\nThen a frantic transmission cuts through:\n\n\"Varth! I'm on the transport! The slave circuits are locked! I can't steer and sensors show collision imminent! Where is that backup code?!\"\n\nIt's Maya.",
+          "gmNotes": "The moral climax of Act I. Varth sent Maya to the slave ship intending for her to be destroyed with the evidence — she's a loose end. He's aboard the Banshee, safely out of the blast zone. The Empire is using the Gas Hauler as a ram to destroy the Shackles of Nizon. Varth's position: 'She knew the risks. We jump. Now.' The heroes must choose: follow Varth and leave Maya to die, or turn and fight. If they fight, they engage TIE Fighters to destroy the Gas Hauler. Varth eventually helps — not from altruism, but because he needs the heroes alive for the fortune.",
           "npcs": [
             {
-              "name": "Captain Okeefe",
-              "type": "Veteran Smuggler (In Peril)",
+              "name": "Maya",
+              "type": "Pilot & Ally (In Peril)",
               "count": 1,
-              "notes": "Trapped on the Shackles of Nizon. Varth intended for her to die.",
+              "notes": "Trapped on the Shackles of Nizon. Varth sent her there intending for her to die with the evidence.",
               "threatBuild": {
                 "role": "harrier",
                 "tier": 2,
@@ -4541,16 +4541,16 @@
           "hazards": "Star Destroyer in orbit. TIE Fighter screen. Automated Gas Hauler on collision course. Two-minute countdown.",
           "decisions": [
             {
-              "choice": "Turn and fight to save Okeefe",
+              "choice": "Turn and fight to save Maya",
               "consequence": "Engage TIEs and destroy the Gas Hauler. Varth reluctantly helps. Heroic but dangerous."
             },
             {
               "choice": "Follow Varth's order and jump to hyperspace",
-              "consequence": "Okeefe dies. The slaves die. The heroes are rich but compromised."
+              "consequence": "Maya dies. The slaves die. The heroes are rich but compromised."
             }
           ],
           "loreTags": [
-            "Captain Okeefe",
+            "Maya",
             "Admiral Varth",
             "Varth's True Nature",
             "Inquisitor Draco",
@@ -4561,7 +4561,7 @@
           "narrativeLinks": [
             {
               "targetScene": "adv1-p2-s1",
-              "note": "Okeefe was introduced as a reliable ally. Varth's willingness to sacrifice her reveals his true nature."
+              "note": "Maya has been the crew's pilot and closest ally since the beginning. Varth's willingness to sacrifice her reveals his true nature."
             }
           ],
           "challengeType": "combat",
@@ -4600,7 +4600,7 @@
               "name": "Collision Timer",
               "trigger": "Active from scene start",
               "effect": "2-minute countdown (20 rounds). When it hits 0, the Hauler rams the Shackles of Nizon. Everyone aboard dies.",
-              "mitigation": "Destroy the Hauler. Or transmit the slave circuit code so Okeefe can steer clear."
+              "mitigation": "Destroy the Hauler. Or transmit the slave circuit code so Maya can steer clear."
             },
             {
               "name": "Star Destroyer Presence",
@@ -4619,13 +4619,13 @@
             "credits": 0,
             "xp": "Major combat encounter",
             "items": [],
-            "narrative": "Gas Hauler destroyed. Okeefe saved (or abandoned). The moral choice that defines Act I."
+            "narrative": "Gas Hauler destroyed. Maya saved (or abandoned). The moral choice that defines Act I."
           },
           "pacing": {
             "openingBeat": "Break atmosphere. Sensors light up. TIEs, Star Destroyer, and a collision countdown.",
             "risingAction": "TIE Fighter dogfight. Racing to reach the Gas Hauler.",
             "climax": "The shot — destroy the Hauler before it rams the slave ship.",
-            "resolution": "Explosion. Okeefe's voice: \"Slave circuits fried. We're jumping.\"",
+            "resolution": "Explosion. Maya's voice: \"Slave circuits fried. We're jumping.\"",
             "estimatedMinutes": 35
           },
           "disciplineChallenges": [
@@ -4665,8 +4665,8 @@
               "risk": 5,
               "effect": {
                 "fleeting": "Solid hit to the hull. The Hauler's course wobbles. It's slowing but still moving toward the Shackles. Not enough.",
-                "masterful": "Direct hit. The Hauler breaks apart. Okeefe is safe. Debris scatters harmlessly.",
-                "legendary": "Precision shot to the engine block. The Hauler disintegrates cleanly — no debris threat to the Shackles. Okeefe whoops over the comm. Perfect kill."
+                "masterful": "Direct hit. The Hauler breaks apart. Maya is safe. Debris scatters harmlessly.",
+                "legendary": "Precision shot to the engine block. The Hauler disintegrates cleanly — no debris threat to the Shackles. Maya whoops over the comm. Perfect kill."
               }
             },
             {
@@ -4684,15 +4684,15 @@
               "resist": 4,
               "risk": 5,
               "effect": {
-                "fleeting": "Partial transmission. Some circuits unlock. Okeefe has partial helm control — enough to maneuver but not full power.",
-                "masterful": "Circuits unlocked. Okeefe regains full helm control. The Shackles breaks free of its programmed course.",
+                "fleeting": "Partial transmission. Some circuits unlock. Maya has partial helm control — enough to maneuver but not full power.",
+                "masterful": "Circuits unlocked. Maya regains full helm control. The Shackles breaks free of its programmed course.",
                 "legendary": "Clean unlock with a bonus: the transmission overloads the Iron Ring's tracking beacon on the ship. The Shackles is not only free but untraceable."
               }
             },
             {
               "id": "sc-a3s15-resolve",
               "discipline": "resolve",
-              "context": "Resisting Varth's pressure to jump and leave Okeefe.",
+              "context": "Resisting Varth's pressure to jump and leave Maya.",
               "isOptional": true,
               "arena": "grit",
               "actionType": "interact",
@@ -4706,7 +4706,7 @@
               "risk": 4,
               "effect": {
                 "fleeting": "You push back but the doubt lingers. 'What if he's right?' A moment of uncertainty before committing.",
-                "masterful": "You defy Varth. Your ship, your choice. No hesitation. Okeefe lives.",
+                "masterful": "You defy Varth. Your ship, your choice. No hesitation. Maya lives.",
                 "legendary": "You don't just defy Varth — you redefine the mission. 'We're not the kind of people who leave someone to die.' The crew follows your lead. Varth is silent."
               }
             }
@@ -4717,14 +4717,14 @@
           "number": 6,
           "title": "The Choice",
           "subtitle": "End of Act I",
-          "readAloud": "The Tibanna Gas Hauler explodes in a massive fireball just meters from the slave ship. Okeefe's voice, shaking with relief: \"Slave circuits fried. Nav-computer is green. We are jumping to the rendezvous...\"\n\nA pause.\n\n\"...and Varth? You and I are going to have a very long talk.\"\n\nThe Assiduous opens fire with turbolasers. Green bolts flash past your cockpit. Varth screams:\n\n\"We overstayed our welcome! PUNCH IT!\"\n\nThe stars stretch into lines and you're gone.",
-          "gmNotes": "The aftermath of Act I. At the rendezvous: Okeefe punches Varth in the jaw. He takes it, claiming it was a 'tactical calculation that changed.' Rewards: The Glorious Chariot, Z-95 fighters, tournament winnings, Varga's assets, Project Leviathan files. Varth's tease: 'This data points to a massive construction project in the Unknown Regions. If you want to know what the Empire is really building, we have to go off the map.' This concludes Act I and sets up the campaign's second act.",
+          "readAloud": "The Tibanna Gas Hauler explodes in a massive fireball just meters from the slave ship. Maya's voice, shaking with relief: \"Slave circuits fried. Nav-computer is green. We are jumping to the rendezvous...\"\n\nA pause.\n\n\"...and Varth? You and I are going to have a very long talk.\"\n\nThe Assiduous opens fire with turbolasers. Green bolts flash past your cockpit. Varth screams from the Banshee:\n\n\"We overstayed our welcome! PUNCH IT!\"\n\nThe stars stretch into lines and you're gone.",
+          "gmNotes": "The aftermath of Act I. At the rendezvous: Maya punches Varth in the jaw. He takes it, claiming it was a 'tactical calculation that changed.' Rewards: The Glorious Chariot, Z-95 fighters, tournament winnings, Varga's assets, Project Leviathan files. Varth's tease: 'This data points to a massive construction project in the Unknown Regions. If you want to know what the Empire is really building, we have to go off the map.' This concludes Act I and sets up the campaign's second act.",
           "npcs": [
             {
               "name": "Admiral Varth",
               "type": "The Grifter",
               "count": 1,
-              "notes": "Takes a punch from Okeefe. Plays it off. Already planning the next move.",
+              "notes": "Takes a punch from Maya. Plays it off. Already planning the next move.",
               "threatBuild": {
                 "role": "support",
                 "tier": 2,
@@ -4798,8 +4798,8 @@
               }
             },
             {
-              "name": "Captain Okeefe",
-              "type": "Veteran Smuggler",
+              "name": "Maya",
+              "type": "Pilot & Ally",
               "count": 1,
               "notes": "Furious. Punches Varth. Trust is deeply damaged.",
               "threatBuild": {
@@ -4870,7 +4870,7 @@
                   },
                   "powerSource": "ranged"
                 },
-                "notes": "Recurring ally. Same base stats as Adv1. Trapped on the Shackles of Nizon — can't fight, can only fly if the slave circuits are freed. (Recurring. Furious at Varth. Trust deeply damaged.)",
+                "notes": "The crew's pilot since the beginning. Trapped on the Shackles of Nizon — can't fight, can only fly if the slave circuits are freed. Furious at Varth. Trust deeply damaged.",
                 "powerSource": "ranged"
               }
             }
@@ -4885,7 +4885,7 @@
           "loreTags": [
             "Admiral Varth",
             "Varth's True Nature",
-            "Captain Okeefe",
+            "Maya",
             "Project Leviathan",
             "The Glorious Chariot",
             "End of Act I"
@@ -4943,9 +4943,9 @@
             "narrative": "Act I concludes. The heroes have Varga's fortune, his ship, and critical intelligence. But they also know what Varth is capable of. The campaign shifts from \"survive and profit\" to \"what is the Empire building in the Unknown Regions?\""
           },
           "pacing": {
-            "openingBeat": "The Gas Hauler explodes. Okeefe is safe. The Assiduous opens fire.",
+            "openingBeat": "The Gas Hauler explodes. Maya is safe. The Assiduous opens fire.",
             "risingAction": "Hyperspace jump under turbolaser fire.",
-            "climax": "At the rendezvous: Okeefe punches Varth.",
+            "climax": "At the rendezvous: Maya punches Varth.",
             "resolution": "Act I ends. Varth teases Act II: \"If you want to know what the Empire is really building, we have to go off the map.\"",
             "estimatedMinutes": 20
           },
@@ -4973,7 +4973,7 @@
             {
               "id": "sc-a3s16-insight",
               "discipline": "insight",
-              "context": "Reading Varth after the Okeefe betrayal. What is he really?",
+              "context": "Reading Varth after the Maya betrayal. What is he really?",
               "arena": "wits",
               "actionType": "assess",
               "control": {
@@ -4993,7 +4993,7 @@
             {
               "id": "sc-a3s16-persuasion",
               "discipline": "persuasion",
-              "context": "Confronting Varth about sending Okeefe to die.",
+              "context": "Confronting Varth about sending Maya to die.",
               "arena": "presence",
               "actionType": "interact",
               "control": {
@@ -5027,7 +5027,7 @@
               "effect": {
                 "fleeting": "You compartmentalize. File it away. Not healthy, but functional. You can operate.",
                 "masterful": "Steel yourself. Ready for whatever comes next. The experiences of Act I have made you stronger.",
-                "legendary": "Clarity. Everything that happened — Raden's death, Okeefe's rescue, Varth's mask slipping — it all resolves into purpose. You know what you're fighting for now. Nothing can shake that."
+                "legendary": "Clarity. Everything that happened — Raden's death, Maya's rescue, Varth's mask slipping — it all resolves into purpose. You know what you're fighting for now. Nothing can shake that."
               },
               "resist": 3
             }
