@@ -54,7 +54,7 @@ The app uses a passcode-based gate (cookie auth) to restrict access:
 ├── server/
 │   ├── index.js          # Express + Socket.io entrypoint (port 5000)
 │   ├── db.js             # Database init, schema, seeding
-│   ├── routes/           # REST API routes (characters, campaign, equipment, inventory); campaign routes include PUT/POST/DELETE for scene NPC persistence
+│   ├── routes/           # REST API routes (characters, campaign, equipment, inventory, journal); campaign routes include PUT/POST/DELETE for scene NPC persistence; journal routes handle entries CRUD + tag extraction from scenes
 │   └── sockets/          # Socket.io event handlers
 └── tailwind.config.js    # Tailwind config (scans public/**/*.html + js/**/*.js)
 ```
@@ -112,6 +112,13 @@ Server listens on `0.0.0.0:5000`.
 - `GET  /api/campaign/party` — expanded party monitor data (includes destiny, vocations, disciplines, arenas, gear, conditions, background phases)
 - `GET  /api/campaign/scene-intel/:sceneId` — scene intelligence engine: cross-references scene tags against party character profiles to produce per-character insights (destiny resonance, vocation matches, key discipline rankings, gear gap warnings, challenge readiness ratings, background ties, knack activations via knackTags, species biological truths + species traits via speciesTags, background environment familiarity via backgroundTags, theme resonance via themeTags). Insights are structured objects with title/description/details[] and are expandable in the frontend UI
 - `PATCH /api/characters/:id/advancement` — update advancement state (sanitized/clamped)
+- `GET  /api/journal/tags` — list all journal tags (scene-extracted + custom)
+- `POST /api/journal/tags` — create custom tag
+- `GET  /api/journal/entries` — list entries (optional `?tag=` filter)
+- `POST /api/journal/entries` — create journal entry with tag associations
+- `PUT  /api/journal/entries/:id` — update entry title/body/tags
+- `DELETE /api/journal/entries/:id` — delete entry
+- `POST /api/journal/extract-tags/:sceneId` — extract tags from adventure scene
 
 ## Ammo Power Bar System
 

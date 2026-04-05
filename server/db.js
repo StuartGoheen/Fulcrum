@@ -84,6 +84,30 @@ async function initSchema() {
         created_at     TIMESTAMP DEFAULT NOW(),
         updated_at     TIMESTAMP DEFAULT NOW()
       );
+
+      CREATE TABLE IF NOT EXISTS journal_tags (
+        id              SERIAL PRIMARY KEY,
+        name            TEXT    NOT NULL,
+        category        TEXT    NOT NULL DEFAULT 'custom',
+        source_scene_id TEXT,
+        is_custom       BOOLEAN NOT NULL DEFAULT false,
+        UNIQUE(name, category)
+      );
+
+      CREATE TABLE IF NOT EXISTS journal_entries (
+        id                    SERIAL PRIMARY KEY,
+        title                 TEXT    NOT NULL,
+        body                  TEXT    NOT NULL DEFAULT '',
+        author_character_name TEXT    NOT NULL,
+        created_at            TIMESTAMP DEFAULT NOW(),
+        updated_at            TIMESTAMP DEFAULT NOW()
+      );
+
+      CREATE TABLE IF NOT EXISTS journal_entry_tags (
+        entry_id INTEGER NOT NULL REFERENCES journal_entries(id) ON DELETE CASCADE,
+        tag_id   INTEGER NOT NULL REFERENCES journal_tags(id) ON DELETE CASCADE,
+        PRIMARY KEY (entry_id, tag_id)
+      );
     `);
 
     await client.query(`

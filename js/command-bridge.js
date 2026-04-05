@@ -2470,6 +2470,102 @@
     if (_panelCollapseState.right) collapsePanel('right');
   }
 
+  function _escHtml(str) {
+    if (!str) return '';
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function _tagCatClass(cat) {
+    var safe = /^(npc|location|lore|item|custom)$/.test(cat) ? cat : 'custom';
+    return 'journal-tag-chip--' + safe;
+  }
+
+  function _fmtDate(ds) {
+    if (!ds) return '';
+    var d = new Date(ds);
+    var m = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    return m[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+  }
+
+  var _crewJournalEntries = [];
+  var _crewJournalTags = [];
+  var _crewJournalFilter = null;
+
+  function loadCrewJournal() {
+    var tagParam = _crewJournalFilter ? '?tag=' + encodeURIComponent(_crewJournalFilter) : '';
+    Promise.all([
+      fetch('/api/journal/entries' + tagParam).then(function (r) { return r.json(); }),
+      fetch('/api/journal/tags').then(function (r) { return r.json(); })
+    ]).then(function (results) {
+      _crewJournalEntries = results[0].entries || [];
+      _crewJournalTags = results[1].tags || [];
+      renderCrewJournal();
+    }).catch(function (err) {
+      console.error('[CrewJournal] Load failed:', err);
+    });
+  }
+
+  function renderCrewJournal() {
+    var wrap = document.getElementById('cb-crew-journal');
+    if (!wrap) return;
+
+    var html = '<div class="journal-filter-bar" style="margin-bottom:0.3rem;">';
+    html += '<span class="journal-filter-bar-label">Tags:</span>';
+    if (_crewJournalFilter) {
+      html += '<span class="journal-tag-chip is-active ' + _tagCatClass(_getCrewTagCat(_crewJournalFilter)) + '" data-cj-clear>' + _escHtml(_crewJournalFilter) + ' <span class="journal-tag-chip-remove">&times;</span></span>';
+    }
+    _crewJournalTags.forEach(function (t) {
+      if (_crewJournalFilter === t.name) return;
+      html += '<span class="journal-tag-chip ' + _tagCatClass(t.category) + '" data-cj-filter="' + _escHtml(t.name) + '">' + _escHtml(t.name) + '</span>';
+    });
+    html += '</div>';
+
+    if (_crewJournalEntries.length === 0) {
+      html += '<div style="padding:1rem;text-align:center;opacity:0.4;font-size:0.6rem;">No journal entries yet.</div>';
+    } else {
+      _crewJournalEntries.forEach(function (entry) {
+        html += '<div class="journal-entry-card" style="cursor:default;">';
+        html += '<div class="journal-entry-card-header">';
+        html += '<span class="journal-entry-title">' + _escHtml(entry.title) + '</span>';
+        html += '<span class="journal-entry-date">' + _fmtDate(entry.created_at) + '</span>';
+        html += '</div>';
+        html += '<div class="journal-entry-meta">';
+        html += '<span class="journal-entry-author">' + _escHtml(entry.author_character_name) + '</span>';
+        html += '<span class="journal-entry-tags">';
+        (entry.tags || []).forEach(function (t) {
+          html += '<span class="journal-tag-chip ' + _tagCatClass(t.category) + '">' + _escHtml(t.name) + '</span>';
+        });
+        html += '</span></div>';
+        if (entry.body) {
+          html += '<div style="font-size:0.55rem;color:var(--color-text-secondary);margin-top:0.2rem;line-height:1.4;white-space:pre-wrap;">' + _escHtml(entry.body) + '</div>';
+        }
+        html += '</div>';
+      });
+    }
+
+    wrap.innerHTML = html;
+
+    wrap.querySelectorAll('[data-cj-filter]').forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        _crewJournalFilter = chip.getAttribute('data-cj-filter');
+        loadCrewJournal();
+      });
+    });
+    wrap.querySelectorAll('[data-cj-clear]').forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        _crewJournalFilter = null;
+        loadCrewJournal();
+      });
+    });
+  }
+
+  function _getCrewTagCat(name) {
+    for (var i = 0; i < _crewJournalTags.length; i++) {
+      if (_crewJournalTags[i].name === name) return _crewJournalTags[i].category;
+    }
+    return 'custom';
+  }
+
   initTheme();
   initDragHandles();
   initCollapsiblePanels();
@@ -2478,4 +2574,5 @@
   initCampaign();
   loadGlossary();
   loadItemRequests();
+  loadCrewJournal();
 }());

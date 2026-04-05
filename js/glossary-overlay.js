@@ -309,21 +309,107 @@
     });
   }
 
+  var _activeTab = 'handbook';
+  var _journalEntries = [];
+  var _journalTags = [];
+  var _journalFilterTag = null;
+  var _journalFormMode = null;
+  var _journalEditId = null;
+  var _journalFormTagIds = [];
+  var _journalTagSearch = '';
+  var _characterName = '';
+
+  function _detectCharacterName() {
+    var el = document.querySelector('.char-name');
+    if (el && el.textContent) _characterName = el.textContent.trim();
+    if (!_characterName) {
+      try {
+        var stored = sessionStorage.getItem('eote-character-name');
+        if (stored) _characterName = stored;
+      } catch (e) {}
+    }
+  }
+
+  var PANEL_GEO_KEY = 'handbook-panel-geo';
+
+  function _savePanelGeo() {
+    if (!_panel) return;
+    try {
+      localStorage.setItem(PANEL_GEO_KEY, JSON.stringify({
+        left: _panel.style.left,
+        top: _panel.style.top,
+        width: _panel.style.width,
+        height: _panel.style.height
+      }));
+    } catch (e) {}
+  }
+
+  function _loadPanelGeo() {
+    try {
+      var raw = localStorage.getItem(PANEL_GEO_KEY);
+      if (raw) {
+        var geo = JSON.parse(raw);
+        if (geo.left) _panel.style.left = geo.left;
+        if (geo.top) _panel.style.top = geo.top;
+        if (geo.width) _panel.style.width = geo.width;
+        if (geo.height) _panel.style.height = geo.height;
+        if (geo.left) _panel.style.transform = 'none';
+      }
+    } catch (e) {}
+  }
+
+  function _initPanelDrag() {
+    var titlebar = _panel.querySelector('.handbook-titlebar');
+    if (!titlebar) return;
+    var dragging = false;
+    var startX, startY, origLeft, origTop;
+
+    titlebar.addEventListener('mousedown', function (e) {
+      if (e.target.closest('button')) return;
+      dragging = true;
+      var rect = _panel.getBoundingClientRect();
+      startX = e.clientX;
+      startY = e.clientY;
+      origLeft = rect.left;
+      origTop = rect.top;
+      _panel.style.transform = 'none';
+      e.preventDefault();
+    });
+    document.addEventListener('mousemove', function (e) {
+      if (!dragging) return;
+      var dx = e.clientX - startX;
+      var dy = e.clientY - startY;
+      _panel.style.left = Math.max(0, origLeft + dx) + 'px';
+      _panel.style.top = Math.max(0, origTop + dy) + 'px';
+    });
+    document.addEventListener('mouseup', function () {
+      if (dragging) { dragging = false; _savePanelGeo(); }
+    });
+
+    var ro = new ResizeObserver(function () { _savePanelGeo(); });
+    ro.observe(_panel);
+  }
+
   function _buildPanel() {
     var el = document.createElement('div');
     el.id = 'handbook-panel';
     el.className = 'handbook-panel';
     el.setAttribute('aria-hidden', 'true');
     el.setAttribute('role', 'dialog');
-    el.setAttribute('aria-modal', 'true');
     el.setAttribute('aria-label', "Player's Handbook");
     el.innerHTML =
-      '<div class="handbook-backdrop"></div>' +
-      '<div class="handbook-container">' +
+      '<div class="handbook-titlebar">' +
+        '<span class="handbook-titlebar-label">Player\'s Handbook</span>' +
+        '<button class="handbook-close-btn" id="handbook-close-btn" aria-label="Close">&times;</button>' +
+      '</div>' +
+      '<div class="handbook-tab-bar">' +
+        '<button class="handbook-tab-btn is-active" data-hb-tab="handbook">Handbook</button>' +
+        '<button class="handbook-tab-btn" data-hb-tab="journal">Journal</button>' +
+      '</div>' +
+      '<div class="handbook-tab-content is-active" data-hb-tab-content="handbook">' +
         '<div class="handbook-sidebar">' +
           '<div class="handbook-sidebar-header">' +
-            '<span class="handbook-title">Handbook</span>' +
-            '<button class="handbook-close-btn" id="handbook-close-btn" aria-label="Close">&times;</button>' +
+            '<span class="handbook-title">Index</span>' +
           '</div>' +
           '<div class="handbook-search-wrap">' +
             '<input type="text" class="handbook-search" id="handbook-search" placeholder="Search rules\u2026" autocomplete="off" />' +
@@ -353,6 +439,9 @@
             '</div>' +
           '</div>' +
         '</div>' +
+      '</div>' +
+      '<div class="handbook-tab-content" data-hb-tab-content="journal">' +
+        '<div class="journal-tab-wrap" id="journal-tab-wrap"></div>' +
       '</div>';
     return el;
   }
@@ -1110,16 +1199,330 @@
     if (contentArea) contentArea.scrollTop = 0;
   }
 
+  function _tagCategoryClass(cat) {
+    var safe = /^(npc|location|lore|item|custom)$/.test(cat) ? cat : 'custom';
+    return 'journal-tag-chip--' + safe;
+  }
+
+  function _formatDate(dateStr) {
+    if (!dateStr) return '';
+    var d = new Date(dateStr);
+    var mon = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    return mon[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+  }
+
+  function _getTagCategory(tagName) {
+    for (var i = 0; i < _journalTags.length; i++) {
+      if (_journalTags[i].name === tagName) return _journalTags[i].category;
+    }
+    return 'custom';
+  }
+
+  function _bindJournalFormEvents() {
+    var form = document.getElementById('journal-form');
+    if (!form) return;
+
+    var saveBtn = document.getElementById('journal-form-save');
+    if (saveBtn) {
+      saveBtn.addEventListener('click', function () {
+        var title = document.getElementById('journal-form-title').value.trim();
+        var body = document.getElementById('journal-form-body').value;
+        if (!title) return;
+
+        _detectCharacterName();
+        var authorName = _characterName || 'Unknown';
+
+        var url, method;
+        if (_journalFormMode === 'edit') {
+          url = '/api/journal/entries/' + _journalEditId;
+          method = 'PUT';
+        } else {
+          url = '/api/journal/entries';
+          method = 'POST';
+        }
+
+        fetch(url, {
+          method: method,
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ title: title, body: body, author_character_name: authorName, tag_ids: _journalFormTagIds })
+        }).then(function (r) { if (!r.ok) throw new Error('Server error ' + r.status); return r.json(); }).then(function () {
+          _journalFormMode = null;
+          _journalEditId = null;
+          _journalFormTagIds = [];
+          _loadJournalData();
+        }).catch(function (err) { console.error('[Journal] Save failed:', err); });
+      });
+    }
+
+    var cancelBtn = document.getElementById('journal-form-cancel');
+    if (cancelBtn) {
+      cancelBtn.addEventListener('click', function () {
+        _journalFormMode = null;
+        _journalEditId = null;
+        _journalFormTagIds = [];
+        _renderJournal();
+      });
+    }
+
+    var deleteBtn = document.getElementById('journal-form-delete');
+    if (deleteBtn) {
+      deleteBtn.addEventListener('click', function () {
+        if (!confirm('Delete this journal entry?')) return;
+        fetch('/api/journal/entries/' + _journalEditId, { method: 'DELETE' })
+          .then(function (r) { if (!r.ok) throw new Error('Server error ' + r.status); return r.json(); })
+          .then(function () {
+            _journalFormMode = null;
+            _journalEditId = null;
+            _journalFormTagIds = [];
+            _loadJournalData();
+          }).catch(function (err) { console.error('[Journal] Delete failed:', err); });
+      });
+    }
+
+    var tagSearch = document.getElementById('journal-tag-search');
+    if (tagSearch) {
+      tagSearch.addEventListener('input', function () {
+        _journalTagSearch = tagSearch.value;
+        _renderJournal();
+        var newSearch = document.getElementById('journal-tag-search');
+        if (newSearch) { newSearch.focus(); newSearch.selectionStart = newSearch.selectionEnd = newSearch.value.length; }
+      });
+    }
+
+    form.querySelectorAll('[data-journal-form-add-tag]').forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        var tagId = parseInt(chip.getAttribute('data-journal-form-add-tag'), 10);
+        if (_journalFormTagIds.indexOf(tagId) === -1) _journalFormTagIds.push(tagId);
+        _renderJournal();
+      });
+    });
+
+    form.querySelectorAll('[data-journal-form-remove-tag]').forEach(function (chip) {
+      chip.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var tagId = parseInt(chip.getAttribute('data-journal-form-remove-tag'), 10);
+        _journalFormTagIds = _journalFormTagIds.filter(function (id) { return id !== tagId; });
+        _renderJournal();
+      });
+    });
+
+    form.querySelectorAll('[data-journal-form-create-tag]').forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        var tagName = chip.getAttribute('data-journal-form-create-tag');
+        fetch('/api/journal/tags', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name: tagName, category: 'custom' })
+        }).then(function (r) { if (!r.ok) throw new Error('Server error ' + r.status); return r.json(); }).then(function (data) {
+          if (data.tag) {
+            _journalTags.push(data.tag);
+            _journalFormTagIds.push(data.tag.id);
+            _journalTagSearch = '';
+            _renderJournal();
+          }
+        }).catch(function (err) { console.error('[Journal] Create tag failed:', err); });
+      });
+    });
+  }
+
+  function _renderJournalForm() {
+    var entry = null;
+    if (_journalFormMode === 'edit') {
+      entry = _journalEntries.find(function (e) { return e.id === _journalEditId; });
+    }
+
+    var html = '<div class="journal-form" id="journal-form">';
+    html += '<div class="journal-form-title">' + (_journalFormMode === 'edit' ? 'Edit Entry' : 'New Entry') + '</div>';
+
+    html += '<div class="journal-form-row">';
+    html += '<label class="journal-form-label">Title</label>';
+    html += '<input class="journal-form-input" id="journal-form-title" type="text" value="' + _esc(entry ? entry.title : '') + '" placeholder="Entry title..." />';
+    html += '</div>';
+
+    html += '<div class="journal-form-row">';
+    html += '<label class="journal-form-label">Body</label>';
+    html += '<textarea class="journal-form-textarea" id="journal-form-body" placeholder="Write your notes...">' + _esc(entry ? entry.body : '') + '</textarea>';
+    html += '</div>';
+
+    html += '<div class="journal-form-row">';
+    html += '<label class="journal-form-label">Tags</label>';
+    html += '<div id="journal-form-selected-tags" style="display:flex;flex-wrap:wrap;gap:0.2rem;margin-bottom:0.2rem;">';
+    _journalFormTagIds.forEach(function (tid) {
+      var t = _journalTags.find(function (tag) { return tag.id === tid; });
+      if (t) {
+        html += '<span class="journal-tag-chip ' + _tagCategoryClass(t.category) + '" data-journal-form-remove-tag="' + tid + '">' + _esc(t.name) + ' <span class="journal-tag-chip-remove">&times;</span></span>';
+      }
+    });
+    html += '</div>';
+    html += '<input class="journal-tag-picker-search" id="journal-tag-search" type="text" placeholder="Search tags..." value="' + _esc(_journalTagSearch) + '" />';
+    html += '<div class="journal-tag-picker" id="journal-tag-picker">';
+    var searchLower = _journalTagSearch.toLowerCase();
+    _journalTags.forEach(function (t) {
+      if (_journalFormTagIds.indexOf(t.id) !== -1) return;
+      if (searchLower && t.name.toLowerCase().indexOf(searchLower) === -1) return;
+      html += '<span class="journal-tag-chip ' + _tagCategoryClass(t.category) + '" data-journal-form-add-tag="' + t.id + '">' + _esc(t.name) + '</span>';
+    });
+    if (searchLower && !_journalTags.some(function (t) { return t.name.toLowerCase() === searchLower; })) {
+      html += '<span class="journal-tag-chip journal-tag-chip--custom" data-journal-form-create-tag="' + _esc(_journalTagSearch) + '">+ Create "' + _esc(_journalTagSearch) + '"</span>';
+    }
+    html += '</div>';
+    html += '</div>';
+
+    html += '<div class="journal-form-actions">';
+    html += '<button class="journal-form-save" id="journal-form-save">Save</button>';
+    html += '<button class="journal-form-cancel" id="journal-form-cancel">Cancel</button>';
+    if (_journalFormMode === 'edit') {
+      html += '<button class="journal-form-delete" id="journal-form-delete">Delete</button>';
+    }
+    html += '</div>';
+    html += '</div>';
+
+    return html;
+  }
+
+  function _renderJournal() {
+    var wrap = document.getElementById('journal-tab-wrap');
+    if (!wrap) return;
+
+    var html = '';
+
+    html += '<div class="journal-filter-bar">';
+    html += '<span class="journal-filter-bar-label">Tags:</span>';
+    if (_journalFilterTag) {
+      html += '<span class="journal-tag-chip is-active ' + _tagCategoryClass(_getTagCategory(_journalFilterTag)) + '" data-journal-filter-clear>';
+      html += _esc(_journalFilterTag) + ' <span class="journal-tag-chip-remove">&times;</span></span>';
+    }
+    _journalTags.forEach(function (t) {
+      if (_journalFilterTag === t.name) return;
+      html += '<span class="journal-tag-chip ' + _tagCategoryClass(t.category) + '" data-journal-filter="' + _esc(t.name) + '">' + _esc(t.name) + '</span>';
+    });
+    if (!_journalTags.length) {
+      html += '<span style="font-size:0.5rem;color:var(--color-text-secondary);font-style:italic;">No tags yet \u2014 complete scenes to generate tags</span>';
+    }
+    html += '</div>';
+
+    if (_journalFormMode) {
+      html += _renderJournalForm();
+    }
+
+    html += '<div class="journal-toolbar">';
+    html += '<button class="journal-new-btn" id="journal-new-btn">+ New Entry</button>';
+    html += '</div>';
+
+    html += '<div class="journal-list" id="journal-list">';
+    if (_journalEntries.length === 0) {
+      html += '<div class="journal-empty"><div class="journal-empty-icon">\uD83D\uDCDD</div>';
+      html += '<div class="journal-empty-text">' + (_journalFilterTag ? 'No entries with tag "' + _esc(_journalFilterTag) + '"' : 'No journal entries yet.<br>Start documenting your adventures!') + '</div></div>';
+    } else {
+      _journalEntries.forEach(function (entry) {
+        html += '<div class="journal-entry-card" data-journal-entry-id="' + entry.id + '">';
+        html += '<div class="journal-entry-card-header">';
+        html += '<span class="journal-entry-title">' + _esc(entry.title) + '</span>';
+        html += '<span class="journal-entry-date">' + _formatDate(entry.created_at) + '</span>';
+        html += '</div>';
+        html += '<div class="journal-entry-meta">';
+        html += '<span class="journal-entry-author">' + _esc(entry.author_character_name) + '</span>';
+        html += '<span class="journal-entry-tags">';
+        var tags = entry.tags || [];
+        tags.forEach(function (t) {
+          html += '<span class="journal-tag-chip ' + _tagCategoryClass(t.category) + '">' + _esc(t.name) + '</span>';
+        });
+        html += '</span>';
+        html += '</div>';
+        if (entry.body) {
+          html += '<div class="journal-entry-body-preview">' + _esc(entry.body.substring(0, 120)) + (entry.body.length > 120 ? '\u2026' : '') + '</div>';
+        }
+        html += '</div>';
+      });
+    }
+    html += '</div>';
+
+    wrap.innerHTML = html;
+
+    var newBtn = document.getElementById('journal-new-btn');
+    if (newBtn) {
+      newBtn.addEventListener('click', function () {
+        _journalFormMode = 'create';
+        _journalEditId = null;
+        _journalFormTagIds = [];
+        _journalTagSearch = '';
+        _renderJournal();
+      });
+    }
+
+    wrap.querySelectorAll('[data-journal-filter]').forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        _journalFilterTag = chip.getAttribute('data-journal-filter');
+        _loadJournalData();
+      });
+    });
+
+    wrap.querySelectorAll('[data-journal-filter-clear]').forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        _journalFilterTag = null;
+        _loadJournalData();
+      });
+    });
+
+    wrap.querySelectorAll('[data-journal-entry-id]').forEach(function (card) {
+      card.addEventListener('click', function () {
+        var entryId = parseInt(card.getAttribute('data-journal-entry-id'), 10);
+        var entry = _journalEntries.find(function (e) { return e.id === entryId; });
+        if (entry) {
+          _journalFormMode = 'edit';
+          _journalEditId = entryId;
+          _journalFormTagIds = (entry.tags || []).map(function (t) { return t.id; });
+          _journalTagSearch = '';
+          _renderJournal();
+          var titleInput = document.getElementById('journal-form-title');
+          if (titleInput) titleInput.value = entry.title || '';
+          var bodyInput = document.getElementById('journal-form-body');
+          if (bodyInput) bodyInput.value = entry.body || '';
+        }
+      });
+    });
+
+    _bindJournalFormEvents();
+  }
+
+  function _loadJournalData() {
+    _detectCharacterName();
+    var tagParam = _journalFilterTag ? '?tag=' + encodeURIComponent(_journalFilterTag) : '';
+    Promise.all([
+      fetch('/api/journal/entries' + tagParam).then(function (r) { return r.json(); }),
+      fetch('/api/journal/tags').then(function (r) { return r.json(); })
+    ]).then(function (results) {
+      _journalEntries = results[0].entries || [];
+      _journalTags = results[1].tags || [];
+      _renderJournal();
+    }).catch(function (err) {
+      console.error('[Journal] Failed to load:', err);
+    });
+  }
+
+  function _switchTab(tabName) {
+    _activeTab = tabName;
+    _panel.querySelectorAll('.handbook-tab-btn').forEach(function (btn) {
+      btn.classList.toggle('is-active', btn.getAttribute('data-hb-tab') === tabName);
+    });
+    _panel.querySelectorAll('.handbook-tab-content').forEach(function (tc) {
+      tc.classList.toggle('is-active', tc.getAttribute('data-hb-tab-content') === tabName);
+    });
+    if (tabName === 'journal') {
+      _loadJournalData();
+    }
+  }
+
   function _open(id) {
     if (!_dataReady) return;
     if (id && !_entries[id]) { console.warn('[Handbook] No entry for id:', id); return; }
 
     _panel.setAttribute('aria-hidden', 'false');
     _panel.classList.add('is-open');
-    document.body.style.overflow = 'hidden';
     _isOpen = true;
 
     if (id) {
+      _switchTab('handbook');
       for (var i = 0; i < _providers.length; i++) {
         if (_providers[i].hasEntry(id)) {
           _expandedCategories[_providers[i].id] = true;
@@ -1135,13 +1538,19 @@
     if (!_isOpen) return;
     _panel.classList.remove('is-open');
     _panel.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
     _isOpen = false;
   }
 
   function _onDocClick(e) {
     if (e.target.closest('#handbook-trigger')) {
       if (_isOpen) { _close(); } else { _open(); }
+      return;
+    }
+
+    var tabBtn = e.target.closest('.handbook-tab-btn');
+    if (tabBtn && tabBtn.closest('#handbook-panel')) {
+      var tab = tabBtn.getAttribute('data-hb-tab');
+      if (tab) _switchTab(tab);
       return;
     }
 
@@ -1159,10 +1568,6 @@
     }
 
     if (e.target.closest('#handbook-close-btn')) { _close(); return; }
-
-    if (_isOpen && e.target.closest('.handbook-backdrop')) {
-      _close();
-    }
   }
 
   function _onKeyDown(e) {
@@ -1576,6 +1981,8 @@
   function init() {
     _panel = _buildPanel();
     document.body.appendChild(_panel);
+    _loadPanelGeo();
+    _initPanelDrag();
 
     var triggerBtn = _buildTriggerBtn();
     document.body.appendChild(triggerBtn);
@@ -1671,8 +2078,8 @@
     if (!_dataReady) return;
     _panel.setAttribute('aria-hidden', 'false');
     _panel.classList.add('is-open');
-    document.body.style.overflow = 'hidden';
     _isOpen = true;
+    _switchTab('handbook');
 
     for (var i = 0; i < _providers.length; i++) {
       _expandedCategories[_providers[i].id] = (_providers[i].id === providerId);

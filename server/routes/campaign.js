@@ -189,6 +189,16 @@ router.put('/campaign/scene/:sceneId/complete', async (req, res) => {
         completed_at = CASE WHEN EXCLUDED.completed = 1 THEN NOW() ELSE NULL END,
         gm_notes = COALESCE(EXCLUDED.gm_notes, scene_completion.gm_notes)
     `, [sceneId, isComplete, gm_notes || null]);
+
+    if (isComplete) {
+      try {
+        const { extractTagsFromScene } = require('./journal');
+        await extractTagsFromScene(sceneId);
+      } catch (tagErr) {
+        console.error('[scene/complete] Tag extraction failed (non-fatal):', tagErr.message);
+      }
+    }
+
     res.json({ success: true });
   } catch (err) {
     console.error('[PUT /campaign/scene/complete]', err);
