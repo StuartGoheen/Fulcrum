@@ -281,6 +281,27 @@ router.post('/backstory/generate', async (req, res) => {
         try { parsed = JSON.parse(jsonMatch[0]); } catch (__) { /* fall through */ }
       }
       if (!parsed) {
+        var repaired = text.replace(/\{[\s\S]*/, function (m) {
+          var fixed = m;
+          var openQuotes = (fixed.match(/"/g) || []).length;
+          if (openQuotes % 2 !== 0) fixed += '"';
+          var openBraces = (fixed.match(/\{/g) || []).length;
+          var closeBraces = (fixed.match(/\}/g) || []).length;
+          for (var i = 0; i < openBraces - closeBraces; i++) fixed += '}';
+          return fixed;
+        });
+        try { parsed = JSON.parse(repaired); } catch (__) { /* fall through */ }
+      }
+      if (!parsed) {
+        var backstoryMatch = text.match(/"backstory"\s*:\s*"([\s\S]+?)(?:"|$)/);
+        if (backstoryMatch) {
+          parsed = { backstory: backstoryMatch[1].replace(/\\n/g, '\n').replace(/\\"/g, '"') };
+        }
+      }
+      if (!parsed) {
+        if (retries < 1) {
+          return { ok: false, retry: true };
+        }
         return { ok: false, status: 500, body: { error: 'The storyteller returned something unreadable. Try regenerating.' } };
       }
     }
@@ -298,6 +319,18 @@ router.post('/backstory/generate', async (req, res) => {
   try {
     let result = await attemptGenerate(0);
     if (result.ok) return res.json(result.body);
+    if (result.retry) {
+      console.warn('[backstory] Truncated response — retrying once...');
+      await new Promise(r => setTimeout(r, 1000));
+      try {
+        const retry = await attemptGenerate(1);
+        if (retry.ok) return res.json(retry.body);
+        return res.status(retry.status).json(retry.body);
+      } catch (retryErr) {
+        console.error('[backstory] Retry also failed:', retryErr.message);
+        return res.status(500).json({ error: 'Generation failed. Try again.' });
+      }
+    }
     return res.status(result.status).json(result.body);
 
   } catch (err) {
