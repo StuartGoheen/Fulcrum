@@ -3407,6 +3407,16 @@
     color: var(--color-accent-primary);
     border-color: var(--color-accent-primary);
     box-shadow: 0 2px 12px rgba(210,96,10,0.25);
+    animation: none;
+  }
+
+  @keyframes handbook-pulse {
+    0%, 100% { box-shadow: 0 2px 8px rgba(0,0,0,0.3), 0 0 0 0 rgba(199,146,52,0.4); }
+    50% { box-shadow: 0 2px 8px rgba(0,0,0,0.3), 0 0 12px 3px rgba(199,146,52,0.25); }
+  }
+
+  .handbook-trigger {
+    animation: handbook-pulse 3s ease-in-out infinite;
   }
 
   .handbook-panel {
