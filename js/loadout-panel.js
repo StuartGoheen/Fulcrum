@@ -70,7 +70,8 @@
     'heavy_weapons': { arenaId: 'physique', discId: 'heavy_weapons' },
     'heavyweapons':  { arenaId: 'physique', discId: 'heavy_weapons' },
     'melee':         { arenaId: 'physique', discId: 'melee'         },
-    'brawl':         { arenaId: 'physique', discId: 'brawl'         }
+    'brawl':         { arenaId: 'physique', discId: 'brawl'         },
+    'athletics':     { arenaId: 'physique', discId: 'athletics'     }
   };
 
   var _CATEGORY_TAGS = { 'Any': true, 'Combat': true, 'Force': true };
