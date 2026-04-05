@@ -72,3 +72,21 @@ id = "9x18PRN82FJYP35AxbeH7"
 uri = "file://attached_assets/fulcrum-b-refined-dark.png"
 type = "image"
 title = "Fulcrum diamond dark matte"
+
+[[generated]]
+id = "3jI6lJbyXpl4KHD-iEoAx"
+uri = "file://attached_assets/fulcrum-final-v1.png"
+type = "image"
+title = "Fulcrum composite worn armor"
+
+[[generated]]
+id = "CnS9NLVzse3HvnqvsnrvB"
+uri = "file://attached_assets/fulcrum-final-v2.png"
+type = "image"
+title = "Fulcrum composite military insignia"
+
+[[generated]]
+id = "XCRLZeJ8b-PDMSPlmE7Tl"
+uri = "file://attached_assets/fulcrum-final-v3.png"
+type = "image"
+title = "Fulcrum composite helmet shield"
