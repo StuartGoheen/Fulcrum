@@ -4,9 +4,12 @@ const fs       = require('fs');
 
 const PREGENS_PATH = path.join(__dirname, '..', 'data', 'characters-pregens.json');
 
+const isProduction = process.env.NODE_ENV === 'production' ||
+  (process.env.DATABASE_URL && process.env.DATABASE_URL.includes('neon.tech'));
+
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: false,
+  ssl: isProduction ? { rejectUnauthorized: false } : false,
 });
 
 async function initSchema() {
