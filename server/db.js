@@ -114,6 +114,9 @@ async function initSchema() {
     try {
       await client.query(`ALTER TABLE journal_entries ADD COLUMN IF NOT EXISTS source_scene_id TEXT`);
     } catch (e) {}
+    try {
+      await client.query(`CREATE UNIQUE INDEX IF NOT EXISTS idx_journal_entries_scene_author ON journal_entries (source_scene_id, author_character_name) WHERE source_scene_id IS NOT NULL`);
+    } catch (e) {}
 
     await client.query(`
       INSERT INTO campaign_progress (id, adventure_id, part_id, scene_id)
