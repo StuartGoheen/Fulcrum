@@ -38,9 +38,12 @@
     </div>
   </div>
 
+  <button class="cb-panel-tab cb-panel-tab--left" id="cb-tab-left" title="Show Crew Panel">Crew</button>
+  <button class="cb-panel-tab cb-panel-tab--right" id="cb-tab-right" title="Show Glossary Panel">Glossary</button>
+
   <div id="bridge-grid">
-    <div class="cb-col-left">
-      <div class="cb-col-title">Crew Monitor</div>
+    <div class="cb-col-left" id="cb-col-left">
+      <div class="cb-col-title" style="display:flex;align-items:center;justify-content:space-between;">Crew Monitor <button class="cb-collapse-btn" id="cb-collapse-left" title="Collapse panel">&laquo;</button></div>
       <div id="party-list">
         <p class="cb-muted" style="font-style:italic;">Loading crew data&hellip;</p>
       </div>
@@ -79,9 +82,9 @@
 
     <div class="cb-drag-handle" id="drag-right" title="Drag to resize"></div>
 
-    <div class="cb-col-right">
+    <div class="cb-col-right" id="cb-col-right">
       <button class="cb-header-btn accent" id="cb-build-threat" style="width:100%;margin-bottom:0.75rem;justify-content:center;">Build Threat</button>
-      <div class="cb-col-title">Glossary</div>
+      <div class="cb-col-title" style="display:flex;align-items:center;justify-content:space-between;">Glossary <button class="cb-collapse-btn" id="cb-collapse-right" title="Collapse panel">&raquo;</button></div>
       <div id="glossary-content">
         <div class="cb-glossary-placeholder">
           Click a <span style="color:var(--color-accent-primary);">[Condition]</span> in any scene text to view its details here.

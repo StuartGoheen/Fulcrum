@@ -1879,6 +1879,9 @@
   }
 
   function showGlossaryEntry(id) {
+    if (_panelCollapseState.right) {
+      expandPanel('right');
+    }
     var panel = document.getElementById('glossary-content');
     if (!panel) return;
 
@@ -2402,8 +2405,75 @@
   }
 
 
+  var _panelCollapseState = { left: false, right: false };
+  var COLLAPSE_STORAGE_KEY = 'cb_panel_collapse';
+
+  function _loadCollapseState() {
+    try {
+      var saved = JSON.parse(localStorage.getItem(COLLAPSE_STORAGE_KEY) || '{}');
+      _panelCollapseState.left = !!saved.left;
+      _panelCollapseState.right = !!saved.right;
+    } catch (e) { /* ignore */ }
+  }
+
+  function _saveCollapseState() {
+    try { localStorage.setItem(COLLAPSE_STORAGE_KEY, JSON.stringify(_panelCollapseState)); } catch (e) { /* ignore */ }
+  }
+
+  function collapsePanel(side) {
+    var grid = document.getElementById('bridge-grid');
+    var col = document.getElementById('cb-col-' + side);
+    var handle = document.getElementById(side === 'left' ? 'drag-left' : 'drag-right');
+    var tab = document.getElementById('cb-tab-' + side);
+    if (!grid || !col) return;
+
+    grid.style.gridTemplateColumns = '';
+    col.classList.add('cb-collapsed');
+    grid.classList.add('cb-' + side + '-collapsed');
+    if (handle) handle.classList.add('cb-handle-hidden');
+    if (tab) tab.classList.add('cb-tab-visible');
+
+    _panelCollapseState[side] = true;
+    _saveCollapseState();
+  }
+
+  function expandPanel(side) {
+    var grid = document.getElementById('bridge-grid');
+    var col = document.getElementById('cb-col-' + side);
+    var handle = document.getElementById(side === 'left' ? 'drag-left' : 'drag-right');
+    var tab = document.getElementById('cb-tab-' + side);
+    if (!grid || !col) return;
+
+    grid.style.gridTemplateColumns = '';
+    col.classList.remove('cb-collapsed');
+    grid.classList.remove('cb-' + side + '-collapsed');
+    if (handle) handle.classList.remove('cb-handle-hidden');
+    if (tab) tab.classList.remove('cb-tab-visible');
+
+    _panelCollapseState[side] = false;
+    _saveCollapseState();
+  }
+
+  function initCollapsiblePanels() {
+    _loadCollapseState();
+
+    var collapseLeft = document.getElementById('cb-collapse-left');
+    var collapseRight = document.getElementById('cb-collapse-right');
+    var tabLeft = document.getElementById('cb-tab-left');
+    var tabRight = document.getElementById('cb-tab-right');
+
+    if (collapseLeft) collapseLeft.addEventListener('click', function () { collapsePanel('left'); });
+    if (collapseRight) collapseRight.addEventListener('click', function () { collapsePanel('right'); });
+    if (tabLeft) tabLeft.addEventListener('click', function () { expandPanel('left'); });
+    if (tabRight) tabRight.addEventListener('click', function () { expandPanel('right'); });
+
+    if (_panelCollapseState.left) collapsePanel('left');
+    if (_panelCollapseState.right) collapsePanel('right');
+  }
+
   initTheme();
   initDragHandles();
+  initCollapsiblePanels();
   initMobileTabs();
   initSockets();
   initCampaign();
