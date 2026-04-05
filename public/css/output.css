@@ -7655,6 +7655,194 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.5;
 }
 
+.jnav-breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.45rem 0.75rem;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg-frame);
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+.jnav-crumb {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 0.45rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-accent-primary);
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.jnav-crumb:hover {
+  opacity: 0.7;
+}
+
+.jnav-crumb.is-current {
+  color: var(--color-text-primary);
+  cursor: default;
+}
+
+.jnav-crumb.is-current:hover {
+  opacity: 1;
+}
+
+.jnav-sep {
+  font-size: 0.5rem;
+  color: var(--color-text-secondary);
+  opacity: 0.5;
+}
+
+.jnav-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.5rem 0.75rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-accent-primary) transparent;
+}
+
+.jnav-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 0.65rem;
+  background: var(--color-bg-frame);
+  border: 1px solid var(--color-border);
+  margin-bottom: 0.35rem;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.jnav-row:hover {
+  border-color: var(--color-accent-primary);
+  background: rgba(255,255,255,0.02);
+}
+
+.jnav-row.is-locked {
+  cursor: default;
+  opacity: 0.45;
+}
+
+.jnav-row.is-locked:hover {
+  border-color: var(--color-border);
+  background: var(--color-bg-frame);
+}
+
+.jnav-row-icon {
+  font-size: 0.4rem;
+  color: var(--color-accent-primary);
+  flex-shrink: 0;
+  width: 0.7rem;
+  text-align: center;
+}
+
+.jnav-row.is-locked .jnav-row-icon {
+  color: var(--color-text-secondary);
+}
+
+.jnav-row-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.jnav-row-title {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 0.55rem;
+  color: var(--color-text-primary);
+  letter-spacing: 0.04em;
+  display: block;
+}
+
+.jnav-row-title.is-dim {
+  color: var(--color-text-secondary);
+}
+
+.jnav-row-sub {
+  font-size: 0.42rem;
+  color: var(--color-text-secondary);
+  margin-top: 0.1rem;
+  display: block;
+}
+
+.jnav-row-sub.is-dim {
+  font-style: italic;
+}
+
+.jnav-part-label {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 0.42rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-accent-primary);
+  padding: 0.5rem 0 0.25rem;
+  opacity: 0.7;
+}
+
+.jnav-part-label:first-child {
+  padding-top: 0;
+}
+
+.journal-entry-chevron {
+  font-size: 0.38rem;
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+
+.journal-entry-card.is-expanded {
+  border-color: var(--color-accent-primary);
+}
+
+.journal-entry-expanded {
+  padding: 0.5rem 0.65rem 0.4rem;
+  border-top: 1px solid var(--color-border);
+  margin-top: 0.3rem;
+}
+
+.journal-entry-body {
+  font-size: 0.55rem;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin-top: 0.3rem;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.journal-entry-actions {
+  display: flex;
+  gap: 0.4rem;
+  margin-top: 0.4rem;
+  padding-top: 0.3rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.journal-edit-btn {
+  background: transparent;
+  border: 1px solid var(--color-accent-primary);
+  color: var(--color-accent-primary);
+  font-family: 'Audiowide', sans-serif;
+  font-size: 0.42rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.55rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.journal-edit-btn:hover {
+  background: var(--color-accent-primary);
+  color: var(--color-btn-text, #000);
+}
+
+.journal-entry-meta-inline {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0 0.65rem 0.1rem;
+}
+
 /* ══════════════════════════════════════════════════════════════════════════
    Kits Step (Step 6)
    ══════════════════════════════════════════════════════════════════════════ */

@@ -115,7 +115,16 @@ async function initSchema() {
       await client.query(`ALTER TABLE journal_entries ADD COLUMN IF NOT EXISTS source_scene_id TEXT`);
     } catch (e) {}
     try {
-      await client.query(`CREATE UNIQUE INDEX IF NOT EXISTS idx_journal_entries_scene_author ON journal_entries (source_scene_id, author_character_name) WHERE source_scene_id IS NOT NULL`);
+      const existingIdx = await client.query(`SELECT indexdef FROM pg_indexes WHERE indexname = 'idx_journal_entries_scene_author'`);
+      if (existingIdx.rows.length > 0) {
+        const def = existingIdx.rows[0].indexdef || '';
+        if (def.indexOf("Campaign Log") === -1) {
+          await client.query('DROP INDEX idx_journal_entries_scene_author');
+          await client.query(`CREATE UNIQUE INDEX idx_journal_entries_scene_author ON journal_entries (source_scene_id, author_character_name) WHERE source_scene_id IS NOT NULL AND author_character_name = 'Campaign Log'`);
+        }
+      } else {
+        await client.query(`CREATE UNIQUE INDEX idx_journal_entries_scene_author ON journal_entries (source_scene_id, author_character_name) WHERE source_scene_id IS NOT NULL AND author_character_name = 'Campaign Log'`);
+      }
     } catch (e) {}
 
     await client.query(`

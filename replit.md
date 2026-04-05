@@ -114,11 +114,24 @@ Server listens on `0.0.0.0:5000`.
 - `PATCH /api/characters/:id/advancement` — update advancement state (sanitized/clamped)
 - `GET  /api/journal/tags` — list all journal tags (scene-extracted + custom)
 - `POST /api/journal/tags` — create custom tag
-- `GET  /api/journal/entries` — list entries (optional `?tag=` filter)
-- `POST /api/journal/entries` — create journal entry with tag associations
+- `GET  /api/journal/entries` — list entries (optional `?tag=` filter, optional `?scene_id=` filter for hierarchical view)
+- `POST /api/journal/entries` — create journal entry with tag associations + optional `source_scene_id`
 - `PUT  /api/journal/entries/:id` — update entry title/body/tags
 - `DELETE /api/journal/entries/:id` — delete entry
 - `POST /api/journal/extract-tags/:sceneId` — extract tags from adventure scene
+
+## Campaign Journal — Hierarchical Navigation
+
+The Journal tab (player handbook) and Crew Journal (GM command bridge) use a hierarchical Act → Episode → Scene drill-down:
+- **Acts view**: Lists Act 1/2/3 with completion counts (scenes done / total)
+- **Episodes view**: Lists adventures within an act with scene completion counts
+- **Scenes view**: Lists scenes within an adventure, grouped by part. Completed scenes are clickable; incomplete scenes shown greyed/locked
+- **Scene Detail view**: Shows Campaign Log (collapsible summary) + player entries + "New Entry" button
+- **Breadcrumb navigation**: Clickable breadcrumb trail at top for back-navigation at any level
+- **Read-first interaction**: Player entries expand on click to show full body + tags, with Edit button inside expanded view (no instant edit-on-click)
+- **Scene association**: Entries created from scene detail view automatically get `source_scene_id` set
+- **DB constraint**: Unique index `idx_journal_entries_scene_author` scoped only to `Campaign Log` author (allows multiple player entries per scene per author)
+- **GM view**: Same hierarchy but read-only (no edit/create controls)
 
 ## Ammo Power Bar System
 

@@ -318,6 +318,10 @@
   var _journalFormTagIds = [];
   var _journalTagSearch = '';
   var _characterName = '';
+  var _journalAdventures = [];
+  var _journalCompletions = {};
+  var _journalNav = { level: 'acts', actNum: null, advId: null, sceneId: null };
+  var _journalExpandedEntry = null;
 
   function _detectCharacterName() {
     var el = document.querySelector('.char-name');
@@ -1241,15 +1245,23 @@
           method = 'POST';
         }
 
+        var payload = { title: title, body: body, author_character_name: authorName, tag_ids: _journalFormTagIds };
+        if (_journalFormMode === 'create' && _journalNav.sceneId) {
+          payload.source_scene_id = _journalNav.sceneId;
+        }
         fetch(url, {
           method: method,
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ title: title, body: body, author_character_name: authorName, tag_ids: _journalFormTagIds })
+          body: JSON.stringify(payload)
         }).then(function (r) { if (!r.ok) throw new Error('Server error ' + r.status); return r.json(); }).then(function () {
           _journalFormMode = null;
           _journalEditId = null;
           _journalFormTagIds = [];
-          _loadJournalData();
+          if (_journalNav.level === 'scene-detail') {
+            _loadSceneEntries();
+          } else {
+            _loadJournalData();
+          }
         }).catch(function (err) { console.error('[Journal] Save failed:', err); });
       });
     }
@@ -1380,101 +1392,285 @@
     return html;
   }
 
+  var _ACT_NAMES = {
+    1: 'The Dawn of Defiance',
+    2: 'The Shadow War',
+    3: 'The Final Reckoning'
+  };
+
+  function _getActAdvs(actNum) {
+    return _journalAdventures.filter(function (a) { return a.act === actNum || a.act === 'Act ' + actNum; });
+  }
+
+  function _countActScenes(actNum) {
+    var advs = _getActAdvs(actNum);
+    var total = 0, done = 0;
+    advs.forEach(function (adv) {
+      (adv.parts || []).forEach(function (p) {
+        (p.scenes || []).forEach(function (s) {
+          total++;
+          if (_journalCompletions[s.id] && _journalCompletions[s.id].completed) done++;
+        });
+      });
+    });
+    return { total: total, done: done };
+  }
+
+  function _renderBreadcrumbs() {
+    var parts = [];
+    parts.push('<span class="jnav-crumb" data-jnav-to="acts">Campaign Journal</span>');
+    if (_journalNav.level !== 'acts' && _journalNav.actNum) {
+      parts.push('<span class="jnav-sep">\u203A</span>');
+      parts.push('<span class="jnav-crumb" data-jnav-to="episodes">Act ' + _journalNav.actNum + '</span>');
+    }
+    if ((_journalNav.level === 'scenes' || _journalNav.level === 'scene-detail') && _journalNav.advId) {
+      var adv = _journalAdventures.find(function (a) { return a.id === _journalNav.advId; });
+      if (adv) {
+        parts.push('<span class="jnav-sep">\u203A</span>');
+        parts.push('<span class="jnav-crumb" data-jnav-to="scenes">' + _esc(adv.title) + '</span>');
+      }
+    }
+    if (_journalNav.level === 'scene-detail' && _journalNav.sceneId) {
+      var scene = _findSceneInAdvs(_journalNav.sceneId);
+      if (scene) {
+        parts.push('<span class="jnav-sep">\u203A</span>');
+        parts.push('<span class="jnav-crumb is-current">' + _esc(scene.title) + '</span>');
+      }
+    }
+    return '<div class="jnav-breadcrumbs">' + parts.join('') + '</div>';
+  }
+
+  function _findSceneInAdvs(sceneId) {
+    for (var i = 0; i < _journalAdventures.length; i++) {
+      var adv = _journalAdventures[i];
+      for (var j = 0; j < (adv.parts || []).length; j++) {
+        var part = adv.parts[j];
+        for (var k = 0; k < (part.scenes || []).length; k++) {
+          if (part.scenes[k].id === sceneId) return part.scenes[k];
+        }
+      }
+    }
+    return null;
+  }
+
+  function _renderActsView() {
+    var html = '';
+    var actNums = [];
+    _journalAdventures.forEach(function (a) {
+      var n = typeof a.act === 'number' ? a.act : parseInt(String(a.act).replace(/\D/g, ''), 10) || 0;
+      if (n && actNums.indexOf(n) === -1) actNums.push(n);
+    });
+    actNums.sort();
+    if (!actNums.length) {
+      html += '<div class="journal-empty"><div class="journal-empty-text">No adventures loaded.</div></div>';
+      return html;
+    }
+    actNums.forEach(function (actNum) {
+      var counts = _countActScenes(actNum);
+      var name = _ACT_NAMES[actNum] || '';
+      html += '<div class="jnav-row" data-jnav-act="' + actNum + '">';
+      html += '<span class="jnav-row-icon">\u25B6</span>';
+      html += '<div class="jnav-row-text">';
+      html += '<span class="jnav-row-title">Act ' + actNum + (name ? ' \u2014 ' + _esc(name) : '') + '</span>';
+      html += '<span class="jnav-row-sub">' + counts.done + ' / ' + counts.total + ' scenes completed</span>';
+      html += '</div>';
+      html += '</div>';
+    });
+    return html;
+  }
+
+  function _renderEpisodesView() {
+    var advs = _getActAdvs(_journalNav.actNum);
+    var html = '';
+    if (!advs.length) {
+      html += '<div class="journal-empty"><div class="journal-empty-text">No episodes in this act yet.</div></div>';
+      return html;
+    }
+    advs.forEach(function (adv) {
+      var total = 0, done = 0;
+      (adv.parts || []).forEach(function (p) {
+        (p.scenes || []).forEach(function (s) {
+          total++;
+          if (_journalCompletions[s.id] && _journalCompletions[s.id].completed) done++;
+        });
+      });
+      html += '<div class="jnav-row" data-jnav-adv="' + _esc(adv.id) + '">';
+      html += '<span class="jnav-row-icon">\u25B6</span>';
+      html += '<div class="jnav-row-text">';
+      html += '<span class="jnav-row-title">Episode ' + adv.number + ': ' + _esc(adv.title) + '</span>';
+      html += '<span class="jnav-row-sub">' + done + ' / ' + total + ' scenes completed</span>';
+      html += '</div>';
+      html += '</div>';
+    });
+    return html;
+  }
+
+  function _renderScenesView() {
+    var adv = _journalAdventures.find(function (a) { return a.id === _journalNav.advId; });
+    if (!adv) return '<div class="journal-empty"><div class="journal-empty-text">Adventure not found.</div></div>';
+    var html = '';
+    (adv.parts || []).forEach(function (part) {
+      html += '<div class="jnav-part-label">Part ' + part.number + ': ' + _esc(part.title) + '</div>';
+      (part.scenes || []).forEach(function (scene) {
+        var comp = _journalCompletions[scene.id];
+        var isDone = comp && comp.completed;
+        var entryCount = 0;
+        _journalEntries.forEach(function (e) { if (e.source_scene_id === scene.id) entryCount++; });
+        html += '<div class="jnav-row' + (isDone ? '' : ' is-locked') + '"' + (isDone ? ' data-jnav-scene="' + _esc(scene.id) + '"' : '') + '>';
+        html += '<span class="jnav-row-icon">' + (isDone ? '\u25B6' : '\u25CB') + '</span>';
+        html += '<div class="jnav-row-text">';
+        html += '<span class="jnav-row-title' + (isDone ? '' : ' is-dim') + '">Scene ' + scene.number + ': ' + _esc(scene.title) + '</span>';
+        if (isDone && entryCount > 0) {
+          html += '<span class="jnav-row-sub">' + entryCount + ' journal ' + (entryCount === 1 ? 'entry' : 'entries') + '</span>';
+        } else if (!isDone) {
+          html += '<span class="jnav-row-sub is-dim">Not yet completed</span>';
+        }
+        html += '</div>';
+        html += '</div>';
+      });
+    });
+    return html;
+  }
+
+  function _renderSceneDetailView() {
+    var html = '';
+    var campaignLog = null;
+    var playerEntries = [];
+    _journalEntries.forEach(function (e) {
+      if (e.source_scene_id !== _journalNav.sceneId) return;
+      if (e.author_character_name === 'Campaign Log') {
+        campaignLog = e;
+      } else {
+        playerEntries.push(e);
+      }
+    });
+
+    if (campaignLog) {
+      html += '<div class="journal-scene-log" data-scene-log-id="' + campaignLog.id + '">';
+      html += '<div class="journal-scene-log-header">';
+      html += '<span class="journal-scene-log-chevron">\u25B6</span>';
+      html += '<span class="journal-scene-log-title">Scene Summary</span>';
+      html += '<span class="journal-scene-log-date">' + _formatDate(campaignLog.created_at) + '</span>';
+      html += '</div>';
+      html += '<div class="journal-scene-log-body">';
+      html += '<pre class="journal-scene-log-content">' + _esc(campaignLog.body || '') + '</pre>';
+      html += '</div>';
+      html += '</div>';
+    }
+
+    if (_journalFormMode) {
+      html += _renderJournalForm();
+    } else {
+      html += '<div class="journal-toolbar">';
+      html += '<button class="journal-new-btn" id="journal-new-btn">+ New Entry</button>';
+      html += '</div>';
+    }
+
+    if (playerEntries.length === 0 && !_journalFormMode) {
+      html += '<div class="journal-empty"><div class="journal-empty-text">No crew notes for this scene yet.<br>Be the first to record what happened.</div></div>';
+    } else {
+      playerEntries.forEach(function (entry) {
+        var isExpanded = _journalExpandedEntry === entry.id;
+        html += '<div class="journal-entry-card' + (isExpanded ? ' is-expanded' : '') + '" data-journal-entry-id="' + entry.id + '">';
+        html += '<div class="journal-entry-card-header" data-journal-toggle="' + entry.id + '">';
+        html += '<span class="journal-entry-chevron">' + (isExpanded ? '\u25BC' : '\u25B6') + '</span>';
+        html += '<span class="journal-entry-title">' + _esc(entry.title) + '</span>';
+        html += '<span class="journal-entry-date">' + _formatDate(entry.created_at) + '</span>';
+        html += '</div>';
+        if (isExpanded) {
+          html += '<div class="journal-entry-expanded">';
+          html += '<div class="journal-entry-meta">';
+          html += '<span class="journal-entry-author">' + _esc(entry.author_character_name) + '</span>';
+          var tags = entry.tags || [];
+          if (tags.length) {
+            html += '<span class="journal-entry-tags">';
+            tags.forEach(function (t) {
+              html += '<span class="journal-tag-chip ' + _tagCategoryClass(t.category) + '">' + _esc(t.name) + '</span>';
+            });
+            html += '</span>';
+          }
+          html += '</div>';
+          html += '<div class="journal-entry-body">' + _esc(entry.body || '').replace(/\n/g, '<br>') + '</div>';
+          html += '<div class="journal-entry-actions">';
+          html += '<button class="journal-edit-btn" data-journal-edit="' + entry.id + '">Edit</button>';
+          html += '</div>';
+          html += '</div>';
+        } else {
+          html += '<div class="journal-entry-meta-inline">';
+          html += '<span class="journal-entry-author">' + _esc(entry.author_character_name) + '</span>';
+          html += '</div>';
+        }
+        html += '</div>';
+      });
+    }
+
+    return html;
+  }
+
   function _renderJournal() {
     var wrap = document.getElementById('journal-tab-wrap');
     if (!wrap) return;
 
     var html = '';
-
-    html += '<div class="journal-filter-bar">';
-    html += '<span class="journal-filter-bar-label">Tags:</span>';
-    if (_journalFilterTag) {
-      html += '<span class="journal-tag-chip is-active ' + _tagCategoryClass(_getTagCategory(_journalFilterTag)) + '" data-journal-filter-clear>';
-      html += _esc(_journalFilterTag) + ' <span class="journal-tag-chip-remove">&times;</span></span>';
-    }
-    _journalTags.forEach(function (t) {
-      if (_journalFilterTag === t.name) return;
-      html += '<span class="journal-tag-chip ' + _tagCategoryClass(t.category) + '" data-journal-filter="' + _esc(t.name) + '">' + _esc(t.name) + '</span>';
-    });
-    if (!_journalTags.length) {
-      html += '<span style="font-size:0.5rem;color:var(--color-text-secondary);font-style:italic;">No tags yet \u2014 complete scenes to generate tags</span>';
-    }
-    html += '</div>';
-
-    if (_journalFormMode) {
-      html += _renderJournalForm();
-    }
-
-    html += '<div class="journal-toolbar">';
-    html += '<button class="journal-new-btn" id="journal-new-btn">+ New Entry</button>';
-    html += '</div>';
-
-    html += '<div class="journal-list" id="journal-list">';
-    if (_journalEntries.length === 0) {
-      html += '<div class="journal-empty"><div class="journal-empty-icon">\uD83D\uDCDD</div>';
-      html += '<div class="journal-empty-text">' + (_journalFilterTag ? 'No entries with tag "' + _esc(_journalFilterTag) + '"' : 'No journal entries yet.<br>Start documenting your adventures!') + '</div></div>';
-    } else {
-      _journalEntries.forEach(function (entry) {
-        var isCampaignLog = entry.author_character_name === 'Campaign Log';
-        if (isCampaignLog) {
-          html += '<div class="journal-scene-log" data-scene-log-id="' + entry.id + '">';
-          html += '<div class="journal-scene-log-header">';
-          html += '<span class="journal-scene-log-chevron">\u25B6</span>';
-          html += '<span class="journal-scene-log-title">' + _esc(entry.title) + '</span>';
-          html += '<span class="journal-scene-log-date">' + _formatDate(entry.created_at) + '</span>';
-          html += '</div>';
-          html += '<div class="journal-scene-log-body">';
-          html += '<pre class="journal-scene-log-content">' + _esc(entry.body || '') + '</pre>';
-          html += '</div>';
-          html += '</div>';
-        } else {
-          html += '<div class="journal-entry-card" data-journal-entry-id="' + entry.id + '">';
-          html += '<div class="journal-entry-card-header">';
-          html += '<span class="journal-entry-title">' + _esc(entry.title) + '</span>';
-          html += '<span class="journal-entry-date">' + _formatDate(entry.created_at) + '</span>';
-          html += '</div>';
-          html += '<div class="journal-entry-meta">';
-          html += '<span class="journal-entry-author">' + _esc(entry.author_character_name) + '</span>';
-          html += '<span class="journal-entry-tags">';
-          var tags = entry.tags || [];
-          tags.forEach(function (t) {
-            html += '<span class="journal-tag-chip ' + _tagCategoryClass(t.category) + '">' + _esc(t.name) + '</span>';
-          });
-          html += '</span>';
-          html += '</div>';
-          if (entry.body) {
-            html += '<div class="journal-entry-body-preview">' + _esc(entry.body.substring(0, 120)) + (entry.body.length > 120 ? '\u2026' : '') + '</div>';
-          }
-          html += '</div>';
-        }
-      });
+    html += _renderBreadcrumbs();
+    html += '<div class="jnav-content">';
+    if (_journalNav.level === 'acts') {
+      html += _renderActsView();
+    } else if (_journalNav.level === 'episodes') {
+      html += _renderEpisodesView();
+    } else if (_journalNav.level === 'scenes') {
+      html += _renderScenesView();
+    } else if (_journalNav.level === 'scene-detail') {
+      html += _renderSceneDetailView();
     }
     html += '</div>';
 
     wrap.innerHTML = html;
 
-    var newBtn = document.getElementById('journal-new-btn');
-    if (newBtn) {
-      newBtn.addEventListener('click', function () {
-        _journalFormMode = 'create';
-        _journalEditId = null;
-        _journalFormTagIds = [];
-        _journalTagSearch = '';
+    wrap.querySelectorAll('[data-jnav-to]').forEach(function (el) {
+      el.addEventListener('click', function () {
+        var target = el.getAttribute('data-jnav-to');
+        if (target === 'acts') {
+          _journalNav = { level: 'acts', actNum: null, advId: null, sceneId: null };
+        } else if (target === 'episodes') {
+          _journalNav.level = 'episodes';
+          _journalNav.advId = null;
+          _journalNav.sceneId = null;
+        } else if (target === 'scenes') {
+          _journalNav.level = 'scenes';
+          _journalNav.sceneId = null;
+        }
+        _journalFormMode = null;
+        _journalExpandedEntry = null;
         _renderJournal();
-      });
-    }
-
-    wrap.querySelectorAll('[data-journal-filter]').forEach(function (chip) {
-      chip.addEventListener('click', function () {
-        _journalFilterTag = chip.getAttribute('data-journal-filter');
-        _loadJournalData();
       });
     });
 
-    wrap.querySelectorAll('[data-journal-filter-clear]').forEach(function (chip) {
-      chip.addEventListener('click', function () {
-        _journalFilterTag = null;
-        _loadJournalData();
+    wrap.querySelectorAll('[data-jnav-act]').forEach(function (el) {
+      el.addEventListener('click', function () {
+        _journalNav = { level: 'episodes', actNum: parseInt(el.getAttribute('data-jnav-act'), 10), advId: null, sceneId: null };
+        _journalExpandedEntry = null;
+        _renderJournal();
+      });
+    });
+
+    wrap.querySelectorAll('[data-jnav-adv]').forEach(function (el) {
+      el.addEventListener('click', function () {
+        _journalNav.level = 'scenes';
+        _journalNav.advId = el.getAttribute('data-jnav-adv');
+        _journalNav.sceneId = null;
+        _journalExpandedEntry = null;
+        _loadSceneEntries();
+      });
+    });
+
+    wrap.querySelectorAll('[data-jnav-scene]').forEach(function (el) {
+      el.addEventListener('click', function () {
+        _journalNav.level = 'scene-detail';
+        _journalNav.sceneId = el.getAttribute('data-jnav-scene');
+        _journalExpandedEntry = null;
+        _journalFormMode = null;
+        _loadSceneEntries();
       });
     });
 
@@ -1487,15 +1683,25 @@
       }
     });
 
-    wrap.querySelectorAll('[data-journal-entry-id]').forEach(function (card) {
-      card.addEventListener('click', function () {
-        var entryId = parseInt(card.getAttribute('data-journal-entry-id'), 10);
-        var entry = _journalEntries.find(function (e) { return e.id === entryId; });
+    wrap.querySelectorAll('[data-journal-toggle]').forEach(function (header) {
+      header.addEventListener('click', function () {
+        var id = parseInt(header.getAttribute('data-journal-toggle'), 10);
+        _journalExpandedEntry = (_journalExpandedEntry === id) ? null : id;
+        _renderJournal();
+      });
+    });
+
+    wrap.querySelectorAll('[data-journal-edit]').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var entryId = parseInt(btn.getAttribute('data-journal-edit'), 10);
+        var entry = _journalEntries.find(function (en) { return en.id === entryId; });
         if (entry) {
           _journalFormMode = 'edit';
           _journalEditId = entryId;
           _journalFormTagIds = (entry.tags || []).map(function (t) { return t.id; });
           _journalTagSearch = '';
+          _journalExpandedEntry = null;
           _renderJournal();
           var titleInput = document.getElementById('journal-form-title');
           if (titleInput) titleInput.value = entry.title || '';
@@ -1505,18 +1711,54 @@
       });
     });
 
+    var newBtn = document.getElementById('journal-new-btn');
+    if (newBtn) {
+      newBtn.addEventListener('click', function () {
+        _journalFormMode = 'create';
+        _journalEditId = null;
+        _journalFormTagIds = [];
+        _journalTagSearch = '';
+        _journalExpandedEntry = null;
+        _renderJournal();
+      });
+    }
+
     _bindJournalFormEvents();
+  }
+
+  function _loadSceneEntries() {
+    var sceneId = _journalNav.sceneId || _journalNav.advId;
+    if (_journalNav.level === 'scene-detail' && _journalNav.sceneId) {
+      fetch('/api/journal/entries?scene_id=' + encodeURIComponent(_journalNav.sceneId))
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          _journalEntries = data.entries || [];
+          _renderJournal();
+        }).catch(function () { _renderJournal(); });
+    } else if (_journalNav.level === 'scenes' && _journalNav.advId) {
+      fetch('/api/journal/entries')
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          _journalEntries = data.entries || [];
+          _renderJournal();
+        }).catch(function () { _renderJournal(); });
+    } else {
+      _renderJournal();
+    }
   }
 
   function _loadJournalData() {
     _detectCharacterName();
-    var tagParam = _journalFilterTag ? '?tag=' + encodeURIComponent(_journalFilterTag) : '';
     Promise.all([
-      fetch('/api/journal/entries' + tagParam).then(function (r) { return r.json(); }),
+      fetch('/api/campaign/adventures').then(function (r) { return r.json(); }),
+      fetch('/api/campaign/progress').then(function (r) { return r.json(); }),
+      fetch('/api/journal/entries').then(function (r) { return r.json(); }),
       fetch('/api/journal/tags').then(function (r) { return r.json(); })
     ]).then(function (results) {
-      _journalEntries = results[0].entries || [];
-      _journalTags = results[1].tags || [];
+      _journalAdventures = results[0].adventures || [];
+      _journalCompletions = results[1].completions || {};
+      _journalEntries = results[2].entries || [];
+      _journalTags = results[3].tags || [];
       _renderJournal();
     }).catch(function (err) {
       console.error('[Journal] Failed to load:', err);

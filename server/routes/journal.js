@@ -126,12 +126,24 @@ router.post('/journal/tags', async (req, res) => {
 });
 
 router.get('/journal/entries', async (req, res) => {
-  const { tag } = req.query;
+  const { tag, scene_id } = req.query;
   try {
     let query, params;
-    if (tag) {
+    if (scene_id) {
       query = `
-        SELECT e.id, e.title, e.body, e.author_character_name, e.created_at, e.updated_at,
+        SELECT e.id, e.title, e.body, e.author_character_name, e.source_scene_id, e.created_at, e.updated_at,
+          COALESCE(json_agg(json_build_object('id', t.id, 'name', t.name, 'category', t.category))
+            FILTER (WHERE t.id IS NOT NULL), '[]') AS tags
+        FROM journal_entries e
+        LEFT JOIN journal_entry_tags et ON et.entry_id = e.id
+        LEFT JOIN journal_tags t ON t.id = et.tag_id
+        WHERE e.source_scene_id = $1
+        GROUP BY e.id
+        ORDER BY e.created_at ASC`;
+      params = [scene_id];
+    } else if (tag) {
+      query = `
+        SELECT e.id, e.title, e.body, e.author_character_name, e.source_scene_id, e.created_at, e.updated_at,
           COALESCE(json_agg(json_build_object('id', t.id, 'name', t.name, 'category', t.category))
             FILTER (WHERE t.id IS NOT NULL), '[]') AS tags
         FROM journal_entries e
@@ -147,7 +159,7 @@ router.get('/journal/entries', async (req, res) => {
       params = [tag];
     } else {
       query = `
-        SELECT e.id, e.title, e.body, e.author_character_name, e.created_at, e.updated_at,
+        SELECT e.id, e.title, e.body, e.author_character_name, e.source_scene_id, e.created_at, e.updated_at,
           COALESCE(json_agg(json_build_object('id', t.id, 'name', t.name, 'category', t.category))
             FILTER (WHERE t.id IS NOT NULL), '[]') AS tags
         FROM journal_entries e
@@ -166,7 +178,7 @@ router.get('/journal/entries', async (req, res) => {
 });
 
 router.post('/journal/entries', async (req, res) => {
-  const { title, body, author_character_name, tag_ids } = req.body;
+  const { title, body, author_character_name, tag_ids, source_scene_id } = req.body;
   if (!title || !title.trim()) {
     return res.status(400).json({ error: 'Title is required' });
   }
@@ -178,10 +190,10 @@ router.post('/journal/entries', async (req, res) => {
   try {
     await client.query('BEGIN');
     const entryResult = await client.query(
-      `INSERT INTO journal_entries (title, body, author_character_name)
-       VALUES ($1, $2, $3)
-       RETURNING id, title, body, author_character_name, created_at, updated_at`,
-      [title.trim(), body || '', author_character_name.trim()]
+      `INSERT INTO journal_entries (title, body, author_character_name, source_scene_id)
+       VALUES ($1, $2, $3, $4)
+       RETURNING id, title, body, author_character_name, source_scene_id, created_at, updated_at`,
+      [title.trim(), body || '', author_character_name.trim(), source_scene_id || null]
     );
     const entry = entryResult.rows[0];
 
@@ -197,7 +209,7 @@ router.post('/journal/entries', async (req, res) => {
     await client.query('COMMIT');
 
     const fullResult = await pool.query(`
-      SELECT e.id, e.title, e.body, e.author_character_name, e.created_at, e.updated_at,
+      SELECT e.id, e.title, e.body, e.author_character_name, e.source_scene_id, e.created_at, e.updated_at,
         COALESCE(json_agg(json_build_object('id', t.id, 'name', t.name, 'category', t.category))
           FILTER (WHERE t.id IS NOT NULL), '[]') AS tags
       FROM journal_entries e
@@ -263,7 +275,7 @@ router.put('/journal/entries/:id', async (req, res) => {
     await client.query('COMMIT');
 
     const fullResult = await pool.query(`
-      SELECT e.id, e.title, e.body, e.author_character_name, e.created_at, e.updated_at,
+      SELECT e.id, e.title, e.body, e.author_character_name, e.source_scene_id, e.created_at, e.updated_at,
         COALESCE(json_agg(json_build_object('id', t.id, 'name', t.name, 'category', t.category))
           FILTER (WHERE t.id IS NOT NULL), '[]') AS tags
       FROM journal_entries e
