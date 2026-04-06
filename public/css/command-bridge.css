@@ -4531,6 +4531,30 @@
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: #c8a44e transparent;
+
+  --color-bg-primary:       #1a1a1e;
+  --color-bg-panel:         #22222a;
+  --color-bg-frame:         #2a2a2e;
+  --color-accent-primary:   #c8a44e;
+  --color-accent-secondary: #a07830;
+  --color-text-primary:     #e0dcd4;
+  --color-text-secondary:   #7a7068;
+  --color-border:           #3a3632;
+  --color-force:            #818cf8;
+  --color-warn:             #D97706;
+  --color-danger:           #ef4444;
+  --color-fail:             #ef4444;
+  --color-success:          #44AA66;
+  --color-btn-text:         #1a1a1e;
+}
+.cb-crew-journal .jnav-row:hover {
+  background: rgba(200,164,78,0.06);
+}
+.cb-crew-journal .journal-scene-log-header {
+  border-color: #3a3632;
+}
+.cb-crew-journal .journal-scene-log-content {
+  color: #e0dcd4;
 }
 
 
