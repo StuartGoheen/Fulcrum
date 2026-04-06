@@ -66,7 +66,7 @@ app.use('/api', inventoryRoutes);
 app.use('/api', backstoryRoutes);
 app.use('/api', itemRequestRoutes);
 app.use('/api', journalRoutes);
-app.use('/api', decisionRoutes);
+app.use('/api/campaign', decisionRoutes);
 
 app.get('/gm',    (req, res) => res.redirect('/gm/'));
 app.get('/gm/',   (req, res) => res.sendFile(path.join(ROOT, 'public', 'gm', 'index.html')));

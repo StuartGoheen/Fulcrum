@@ -71,8 +71,7 @@ function gate(req, res, next) {
     if (req.path === '/gm' || req.path === '/gm/' || req.path.startsWith('/gm/')) {
       return res.redirect('/');
     }
-    if (req.path.startsWith('/api/campaign') || req.path === '/api/admin/release-all' ||
-        req.path.startsWith('/api/decisions')) {
+    if (req.path.startsWith('/api/campaign') || req.path === '/api/admin/release-all') {
       return res.status(403).json({ error: 'Forbidden' });
     }
   }

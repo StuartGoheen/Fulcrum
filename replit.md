@@ -472,7 +472,7 @@ Tracks key crew decisions throughout the campaign for narrative continuity.
 
 **Database:** `campaign_decisions` table (id, scene_id, adventure_id, decision_key, choice, outcome, campaign_impact, voted, created_at).
 
-**API:** `server/routes/decisions.js` — GET/POST/PUT/DELETE `/api/decisions`. All decision endpoints restricted to GM only (blocked for players in `server/auth.js` gate).
+**API:** `server/routes/decisions.js` — GET/POST/PUT/DELETE `/api/campaign/decisions`. All decision endpoints restricted to GM only (blocked for players by existing `/api/campaign` gate in `server/auth.js`).
 
 **Socket.io Events:** `decision:poll` (GM→players, sends choices), `decision:vote` (player→GM, sends choiceIndex), `decision:resolve` (GM saves + broadcasts), `decision:cancel-poll`, `decision:vote-received` (GM tallies), `decision:resolved` (all clients refresh). Server state: `_activePoll` in `server/sockets/handlers.js`.
 

@@ -2843,7 +2843,7 @@
   }
 
   function loadDecisions() {
-    fetch('/api/decisions')
+    fetch('/api/campaign/decisions')
       .then(function (r) { return r.json(); })
       .then(function (data) {
         _decisionCache = data.decisions || [];
@@ -2893,7 +2893,7 @@
         e.stopPropagation();
         var id = btn.dataset.delId;
         if (!confirm('Delete this decision?')) return;
-        fetch('/api/decisions/' + id, { method: 'DELETE' })
+        fetch('/api/campaign/decisions/' + id, { method: 'DELETE' })
           .then(function () { loadDecisions(); })
           .catch(function (err) { console.error('Failed to delete decision:', err); });
       });
@@ -3025,7 +3025,7 @@
           decision_key: (scene ? scene.title : 'custom')
         });
       } else {
-        fetch('/api/decisions', {
+        fetch('/api/campaign/decisions', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({

@@ -434,7 +434,14 @@
               "name": "Maya",
               "type": "Character",
               "count": 1,
-              "loot": [],
+              "loot": [
+                {
+                  "id": "wpn_dl18_01",
+                  "name": "BlasTech DL-18",
+                  "type": "weapon",
+                  "qty": 1
+                }
+              ],
               "threatBuild": {
                 "role": "support",
                 "tier": 1,
@@ -445,31 +452,183 @@
                   "physique": 2,
                   "reflex": 3,
                   "grit": 3,
-                  "wits": 4,
+                  "wits": 3,
                   "presence": 2
                 },
                 "computed": {
+                  "arenas": {
+                    "physique": 2,
+                    "reflex": 3,
+                    "grit": 3,
+                    "wits": 3,
+                    "presence": 2
+                  },
                   "defense": 5,
                   "evasion": 5,
                   "resist": 5,
                   "vitality": 6,
-                  "initiative": 9,
-                  "power": 5,
+                  "rawVitality": 6,
                   "powers": {
                     "physique": 3,
                     "reflex": 4,
                     "grit": 4,
-                    "wits": 5,
+                    "wits": 4,
                     "presence": 3
                   },
-                  "actions": 1,
                   "exploits": 0,
-                  "damageTiers": {
-                    "label": "medium",
-                    "fleeting": 3,
-                    "masterful": 5,
-                    "legendary": 8
-                  }
+                  "initiative": 7,
+                  "role": {
+                    "id": "support",
+                    "name": "Support",
+                    "category": "combat",
+                    "description": "Force multiplier. Buffs allies, removes conditions, makes other NPCs scarier.",
+                    "passive": {
+                      "name": "Aura of Resolve",
+                      "description": "Allies within 2 zones gain +1 Defense in Support's chosen arena."
+                    },
+                    "powerSources": {
+                      "martial": {
+                        "action": {
+                          "name": "Field Mend",
+                          "defense": "none",
+                          "npcEffects": {
+                            "fleeting": "Heal 1 Vitality on one ally in zone",
+                            "masterful": "Heal 2 Vitality on one ally in zone",
+                            "legendary": "Heal 3 Vitality on one ally in zone and remove one condition"
+                          },
+                          "isAttack": false,
+                          "arena": "physique"
+                        },
+                        "maneuver": null,
+                        "gambits": [
+                          {
+                            "name": "Combat Patch",
+                            "cost": "-1 Power",
+                            "description": "On personal attack: one ally in zone gains [Buffered 1].",
+                            "rider": "[Buffered 1]"
+                          },
+                          {
+                            "name": "Adrenaline Shot",
+                            "cost": "-1 Power",
+                            "description": "On personal attack: one ally in zone gains [Empowered] Tactical.",
+                            "rider": "[Empowered]"
+                          }
+                        ],
+                        "exploit": {
+                          "name": "Emergency Aid",
+                          "trigger": "An ally in the same zone is reduced to 0 Vitality.",
+                          "description": "That ally is instead reduced to 1 Vitality. Once per scene."
+                        }
+                      },
+                      "ranged": {
+                        "action": {
+                          "name": "Spot Target",
+                          "defense": "none",
+                          "npcEffects": {
+                            "fleeting": "Designate one visible target. Next ally attack vs target gains [Optimized].",
+                            "masterful": "Designate one visible target. Next two ally attacks vs target gain [Optimized].",
+                            "legendary": "Designate one visible target. All ally attacks vs target gain [Optimized] Tactical."
+                          },
+                          "isAttack": false,
+                          "arena": "reflex"
+                        },
+                        "maneuver": null,
+                        "gambits": [
+                          {
+                            "name": "Smoke Cover",
+                            "cost": "-1 Power",
+                            "description": "On personal attack: one ally in zone gains [Cover 1] Tactical.",
+                            "rider": "[Cover 1]"
+                          },
+                          {
+                            "name": "Marking Round",
+                            "cost": "-1 Power",
+                            "description": "On personal attack: target gains [Marked] Tactical.",
+                            "rider": "[Marked]"
+                          }
+                        ],
+                        "exploit": {
+                          "name": "Overwatch Support",
+                          "trigger": "An ally in an adjacent zone is attacked.",
+                          "description": "Immediately attack the attacker at -2 Power if in weapon range."
+                        }
+                      },
+                      "force": {
+                        "action": {
+                          "name": "Force Mend",
+                          "defense": "none",
+                          "npcEffects": {
+                            "fleeting": "One ally in zone gains [Buffered 1]",
+                            "masterful": "One ally in zone gains [Buffered 2]",
+                            "legendary": "One ally in zone gains [Buffered 2] and removes one condition"
+                          },
+                          "isAttack": false,
+                          "arena": "grit"
+                        },
+                        "maneuver": null,
+                        "gambits": [
+                          {
+                            "name": "Force Link",
+                            "cost": "-1 Power",
+                            "description": "On personal attack: one ally in zone gains [Empowered] Tactical.",
+                            "rider": "[Empowered]"
+                          },
+                          {
+                            "name": "Force Surge",
+                            "cost": "-1 Power",
+                            "description": "On personal attack: one ally in zone gains [Optimized] Tactical.",
+                            "rider": "[Optimized]"
+                          }
+                        ],
+                        "exploit": {
+                          "name": "Force Shield",
+                          "trigger": "An ally in the same zone is attacked.",
+                          "description": "That ally gains [Cover 1] against that attack."
+                        }
+                      },
+                      "leader": {
+                        "action": {
+                          "name": "Inspire",
+                          "defense": "none",
+                          "npcEffects": {
+                            "fleeting": "One ally within 2 zones gains [Optimized] Tactical",
+                            "masterful": "One ally within 2 zones gains [Optimized] and [Empowered] Tactical",
+                            "legendary": "Two allies within 2 zones each gain [Optimized] and [Empowered] Tactical"
+                          },
+                          "isAttack": false,
+                          "arena": "presence"
+                        },
+                        "maneuver": null,
+                        "gambits": [
+                          {
+                            "name": "Tactical Brief",
+                            "cost": "-1 Power",
+                            "description": "On personal attack: one ally in zone removes one condition.",
+                            "rider": "Cleanse"
+                          }
+                        ],
+                        "exploit": {
+                          "name": "Inspiring Rally",
+                          "trigger": "An ally within 2 zones drops below half Vitality.",
+                          "description": "That ally gains [Optimized] and [Empowered] Tactical."
+                        }
+                      }
+                    }
+                  },
+                  "classification": {
+                    "id": "standard",
+                    "name": "Standard",
+                    "description": "Base template. Full stats, fixed action cadence. The workhorse NPC.",
+                    "vitalityMod": 1,
+                    "exploitMod": 0,
+                    "notes": "2-4 Standards represent a meaningful encounter for a party."
+                  },
+                  "immunities": [],
+                  "vulnerabilities": [],
+                  "scale": null,
+                  "scaleLevel": 1,
+                  "ironClad": false,
+                  "isStationary": false
                 },
                 "traits": [
                   "armored_light",
@@ -479,7 +638,7 @@
                   "slippery"
                 ],
                 "tags": [
-                  "imperial"
+                  "mercenary"
                 ],
                 "roleKit": {
                   "roleName": "Support / Ranged",
@@ -527,7 +686,42 @@
                   "powerSource": "ranged"
                 },
                 "weaponChassis": "medium",
-                "loot": []
+                "loot": [
+                  {
+                    "id": "wpn_dl18_01",
+                    "name": "BlasTech DL-18",
+                    "type": "weapon",
+                    "qty": 1
+                  }
+                ],
+                "name": "Maya",
+                "shipDetails": {
+                  "hullType": "",
+                  "crew": "",
+                  "hyperdrive": "",
+                  "sensors": "",
+                  "shields": "",
+                  "cargo": "",
+                  "speed": ""
+                },
+                "extraGambits": [],
+                "attacks": [
+                  {
+                    "name": "Blaster",
+                    "arena": "reflex",
+                    "powerMod": 0,
+                    "chassis": "light",
+                    "canStun": false
+                  },
+                  {
+                    "name": "Unarmed",
+                    "arena": "physique",
+                    "powerMod": 0,
+                    "chassis": "light",
+                    "canStun": true
+                  }
+                ],
+                "socialNotes": ""
               }
             },
             {
