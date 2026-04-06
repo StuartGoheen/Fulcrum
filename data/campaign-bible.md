@@ -930,6 +930,10 @@ Any scene, part, or NPC in adventure JSON can include a `conditionals` array:
 - `append`: Appends text to the specified field(s), separated by a double newline.
 - `hide`: Removes the scene or NPC from the loaded data entirely.
 
+**Scope:** Conditionals are evaluated on scene, part, NPC, and adventure objects. They modify top-level string fields on those objects (e.g., `gmNotes`, `description`, `readAloud`). Nested sub-objects (like `rewards.narrative`) are not traversed — use top-level fields for conditional content.
+
+**Impact tag values:** For `maya-fate` and `denia-fate`, the resolver normalizes free-text choices to canonical states (`alive`/`dead`, `rescued`/`abandoned`). For other impact tags (`varth-relationship`, `soren-alliance`, etc.), the raw `choice` text is stored as-is. When writing conditionals for these tags, the `is` value must exactly match the recorded choice string. Future conditionals for these tags should use canonical tokens (e.g., record the choice as "allied" or "hostile" rather than free-form text).
+
 ### Active Conditionals
 
 | Adventure | Target | Impact Tag | Condition | Action |
