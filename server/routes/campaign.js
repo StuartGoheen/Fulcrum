@@ -1014,13 +1014,16 @@ async function assembleMissionContext(adventureId) {
     for (const scene of (part.scenes || [])) {
       const comp = completionMap[scene.id];
       const isComplete = comp && comp.completed;
+      const completionNotes = comp ? (comp.gm_notes || '') : '';
+      const authoredNotes = scene.gmNotes || '';
+      const combinedNotes = [authoredNotes, completionNotes].filter(Boolean).join(' | ');
       sceneSummaries.push({
         id: scene.id,
         title: scene.title,
         subtitle: scene.subtitle || '',
         challengeType: scene.challengeType || '',
         completed: !!isComplete,
-        gmNotes: comp ? (comp.gm_notes || '') : '',
+        gmNotes: combinedNotes,
         npcs: (scene.npcs || []).map(n => n.name).filter(Boolean),
         decisions: (scene.decisions || []).map(d => d.choice + ' -> ' + d.consequence)
       });
