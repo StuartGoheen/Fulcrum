@@ -72,7 +72,7 @@ function gate(req, res, next) {
       return res.redirect('/');
     }
     if (req.path.startsWith('/api/campaign') || req.path === '/api/admin/release-all' ||
-        (req.path.startsWith('/api/decisions') && req.method !== 'GET')) {
+        req.path.startsWith('/api/decisions')) {
       return res.status(403).json({ error: 'Forbidden' });
     }
   }

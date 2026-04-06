@@ -472,11 +472,11 @@ Tracks key crew decisions throughout the campaign for narrative continuity.
 
 **Database:** `campaign_decisions` table (id, scene_id, adventure_id, decision_key, choice, outcome, campaign_impact, voted, created_at).
 
-**API:** `server/routes/decisions.js` — GET/POST/PUT/DELETE `/api/decisions`. Player access restricted to GET only (mutations blocked in `server/auth.js` gate).
+**API:** `server/routes/decisions.js` — GET/POST/PUT/DELETE `/api/decisions`. All decision endpoints restricted to GM only (blocked for players in `server/auth.js` gate).
 
 **Socket.io Events:** `decision:poll` (GM→players, sends choices), `decision:vote` (player→GM, sends choiceIndex), `decision:resolve` (GM saves + broadcasts), `decision:cancel-poll`, `decision:vote-received` (GM tallies), `decision:resolved` (all clients refresh). Server state: `_activePoll` in `server/sockets/handlers.js`.
 
-**GM UI (command-bridge.js):** Decision timeline in right sidebar (`#cb-decision-timeline`), "Log Decision" button (`#cb-log-decision-btn`), modal with scene decision chip pre-population, crew vote poll launcher, real-time vote tally display. Scene decision chips in dashboard are clickable to open the modal pre-filled.
+**GM UI (command-bridge.js):** Decision timeline in right sidebar (`#cb-decision-timeline`) grouped by adventure with color-coded impact tags, "Log Decision" button (`#cb-log-decision-btn`), modal with scene decision chip pre-population, campaign impact dropdown (6 known tags), crew vote poll launcher, real-time vote tally display. Scene decision chips in dashboard are clickable to open the modal pre-filled. Scene completion triggers a prompt to log decisions when the scene has decision points.
 
 **Player UI (socket-client.js):** Vote overlay (`decision-vote-overlay`) with choice buttons, auto-dismiss on resolution or cancellation. All rendered text escaped via `_escHtml`.
 

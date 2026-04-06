@@ -1509,6 +1509,7 @@
       if (!completionsData[sceneId]) completionsData[sceneId] = {};
       completionsData[sceneId].completed = newState ? 1 : 0;
       renderScene();
+      if (newState) promptDecisionOnComplete(sceneId);
     }).catch(function (err) { console.error('Failed to update scene completion:', err); });
   }
 
@@ -2825,6 +2826,21 @@
 
   var _decisionCache = [];
   var _pollVotes = {};
+  var _impactTags = [
+    { value: 'maya-fate', label: 'Maya\u2019s Fate', color: '#c084fc' },
+    { value: 'denia-fate', label: 'Denia\u2019s Fate', color: '#60a5fa' },
+    { value: 'varth-relationship', label: 'Varth Relationship', color: '#f97316' },
+    { value: 'malpaz-uprising', label: 'Malpaz Uprising', color: '#ef4444' },
+    { value: 'soren-alliance', label: 'Soren Alliance', color: '#34d399' },
+    { value: 'kessra-grudge', label: 'Kessra Grudge', color: '#fbbf24' }
+  ];
+
+  function _impactColor(tag) {
+    for (var i = 0; i < _impactTags.length; i++) {
+      if (_impactTags[i].value === tag) return _impactTags[i].color;
+    }
+    return '#9ca3af';
+  }
 
   function loadDecisions() {
     fetch('/api/decisions')
@@ -2843,17 +2859,32 @@
       container.innerHTML = '<div class="cb-decision-empty">No decisions logged yet.</div>';
       return;
     }
-    var html = '';
+    var groups = {};
     _decisionCache.forEach(function (d) {
-      html += '<div class="cb-decision-entry" data-decision-id="' + d.id + '">';
-      html += '<div class="cb-decision-choice">' + esc(d.choice) + '</div>';
-      if (d.outcome) html += '<div class="cb-decision-outcome">' + esc(d.outcome) + '</div>';
-      html += '<div class="cb-decision-meta">';
-      if (d.campaign_impact) html += '<span class="cb-decision-impact">' + esc(d.campaign_impact) + '</span>';
-      if (d.voted) html += '<span class="cb-decision-voted">&#9745; voted</span>';
-      html += '<span>' + esc(d.adventure_id) + (d.scene_id ? ' / ' + esc(d.scene_id) : '') + '</span>';
-      html += '<button class="cb-decision-delete" data-del-id="' + d.id + '" title="Delete">&times;</button>';
-      html += '</div>';
+      var key = d.adventure_id || 'unknown';
+      if (!groups[key]) groups[key] = [];
+      groups[key].push(d);
+    });
+    var html = '';
+    Object.keys(groups).forEach(function (advId) {
+      var adv = getAdventure(advId);
+      var advTitle = adv ? adv.title : advId;
+      html += '<div class="cb-decision-group">';
+      html += '<div class="cb-decision-group-header">' + esc(advTitle) + '</div>';
+      groups[advId].forEach(function (d) {
+        html += '<div class="cb-decision-entry" data-decision-id="' + d.id + '">';
+        html += '<div class="cb-decision-choice">' + esc(d.choice) + '</div>';
+        if (d.outcome) html += '<div class="cb-decision-outcome">' + esc(d.outcome) + '</div>';
+        html += '<div class="cb-decision-meta">';
+        if (d.campaign_impact) {
+          html += '<span class="cb-decision-impact" style="border-color:' + _impactColor(d.campaign_impact) + ';color:' + _impactColor(d.campaign_impact) + '">' + esc(d.campaign_impact) + '</span>';
+        }
+        if (d.voted) html += '<span class="cb-decision-voted">&#9745; voted</span>';
+        if (d.scene_id) html += '<span class="cb-decision-scene-ref">' + esc(d.scene_id) + '</span>';
+        html += '<button class="cb-decision-delete" data-del-id="' + d.id + '" title="Delete">&times;</button>';
+        html += '</div>';
+        html += '</div>';
+      });
       html += '</div>';
     });
     container.innerHTML = html;
@@ -2867,6 +2898,20 @@
           .catch(function (err) { console.error('Failed to delete decision:', err); });
       });
     });
+  }
+
+  function promptDecisionOnComplete(sceneId) {
+    var adv = getAdventure(currentAdventure);
+    var part = adv ? getPart(adv, currentPart) : null;
+    var scene = part ? getScene(part, sceneId) : null;
+    if (!scene || !scene.decisions || scene.decisions.length === 0) return;
+    var alreadyLogged = _decisionCache.some(function (d) {
+      return d.scene_id === sceneId && d.adventure_id === currentAdventure;
+    });
+    if (alreadyLogged) return;
+    if (confirm('Scene "' + (scene.title || sceneId) + '" has ' + scene.decisions.length + ' decision point(s). Log decisions now?')) {
+      openDecisionModal();
+    }
   }
 
   function openDecisionModal(presetChoices) {
@@ -2899,8 +2944,13 @@
     html += '<input type="text" id="dec-choice" placeholder="What did the crew decide?" />';
     html += '<label>Outcome</label>';
     html += '<textarea id="dec-outcome" rows="2" placeholder="What happened as a result?"></textarea>';
-    html += '<label>Campaign Impact Tag</label>';
-    html += '<input type="text" id="dec-impact" placeholder="e.g. maya-fate, kessra-grudge" />';
+    html += '<label>Campaign Impact</label>';
+    html += '<select id="dec-impact">';
+    html += '<option value="">None</option>';
+    _impactTags.forEach(function (t) {
+      html += '<option value="' + t.value + '">' + esc(t.label) + '</option>';
+    });
+    html += '</select>';
 
     html += '<button class="cb-decision-poll-btn" id="dec-poll-btn">&#9745; Send to Crew for Vote</button>';
     html += '<div id="dec-vote-tally"></div>';
@@ -2917,7 +2967,7 @@
 
     var choiceInput = document.getElementById('dec-choice');
     var outcomeInput = document.getElementById('dec-outcome');
-    var impactInput = document.getElementById('dec-impact');
+    var impactSelect = document.getElementById('dec-impact');
 
     overlay.querySelectorAll('.cb-decision-scene-chip').forEach(function (chip) {
       chip.addEventListener('click', function () {
@@ -2964,11 +3014,12 @@
     document.getElementById('dec-save').addEventListener('click', function () {
       var choice = choiceInput.value.trim();
       if (!choice) return;
+      var impactVal = impactSelect.value || null;
       if (socket) {
         socket.emit('decision:resolve', {
           choice: choice,
           outcome: outcomeInput.value.trim() || null,
-          campaign_impact: impactInput.value.trim() || null,
+          campaign_impact: impactVal,
           adventure_id: currentAdventure,
           scene_id: currentScene,
           decision_key: (scene ? scene.title : 'custom')
@@ -2983,7 +3034,7 @@
             decision_key: (scene ? scene.title : 'custom'),
             choice: choice,
             outcome: outcomeInput.value.trim() || null,
-            campaign_impact: impactInput.value.trim() || null
+            campaign_impact: impactVal
           })
         }).then(function () { loadDecisions(); });
       }

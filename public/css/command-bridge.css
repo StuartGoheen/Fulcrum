@@ -4689,6 +4689,23 @@
         font-style: italic;
         padding: 0.3rem 0;
       }
+      .cb-decision-group {
+        margin-bottom: 0.5rem;
+      }
+      .cb-decision-group-header {
+        font-family: 'Audiowide', sans-serif;
+        font-size: 0.55rem;
+        color: #c8a44e;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        padding: 0.25rem 0;
+        border-bottom: 1px solid rgba(200,164,78,0.15);
+        margin-bottom: 0.25rem;
+      }
+      .cb-decision-scene-ref {
+        font-size: 0.55rem;
+        color: #5a5248;
+      }
 
       /* ─── DECISION MODAL ─── */
       .cb-decision-modal-overlay {
