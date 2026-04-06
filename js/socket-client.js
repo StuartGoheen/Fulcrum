@@ -284,7 +284,10 @@
       _showChallengeResolutionToast(data);
     });
 
-    socket.on('session:joined', function () {
+    socket.on('session:joined', function (joinData) {
+      if (joinData && joinData.playerToken) {
+        window._playerToken = joinData.playerToken;
+      }
       socket.emit('combat:request');
       _checkForActiveChallenge();
     });
@@ -786,7 +789,8 @@
   function _checkForActiveChallenge() {
     var charId = _getSessionCharId();
     if (!charId) return;
-    fetch('/api/narrative-challenges/player/active?character_id=' + encodeURIComponent(charId))
+    var tokenParam = window._playerToken ? '&player_token=' + encodeURIComponent(window._playerToken) : '';
+    fetch('/api/narrative-challenges/player/active?character_id=' + encodeURIComponent(charId) + tokenParam)
       .then(function (r) { return r.json(); })
       .then(function (data) {
         if (data.instance && data.challenge) {
@@ -909,7 +913,8 @@
         character_id: charId,
         instance_id: inst.id,
         round_id: roundId,
-        choice_id: choiceId
+        choice_id: choiceId,
+        player_token: window._playerToken || ''
       })
     }).catch(function () {});
   }

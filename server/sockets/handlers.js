@@ -1,4 +1,5 @@
 const { pool } = require('../db');
+const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
 
@@ -144,6 +145,15 @@ function registerHandlers(io) {
           const result = await pool.query('SELECT name FROM characters WHERE id = $1', [characterId]);
           const name = result.rows.length > 0 ? result.rows[0].name : 'Unknown';
 
+          const playerToken = crypto.randomBytes(24).toString('hex');
+          socket.data.playerToken = playerToken;
+
+          await pool.query(
+            `INSERT INTO sessions (id, character_id, role, player_token) VALUES ($1, $2, $3, $4)
+             ON CONFLICT (id) DO UPDATE SET character_id = $2, role = $3, player_token = $4, connected_at = NOW()`,
+            [socket.id, characterId, role, playerToken]
+          );
+
           socket.data.characterName = name;
           socket.join('players');
 
@@ -162,7 +172,11 @@ function registerHandlers(io) {
           console.log(`[socket] GM joined: ${socket.id}`);
         }
 
-        socket.emit('session:joined', { role, characterId: characterId || null });
+        socket.emit('session:joined', {
+          role,
+          characterId: characterId || null,
+          playerToken: (role === 'player' && characterId) ? socket.data.playerToken : undefined
+        });
 
         const stateResult = await pool.query('SELECT key, value FROM campaign_state');
         const state = stateResult.rows.reduce((acc, row) => {

@@ -45,6 +45,7 @@ async function initSchema() {
         id            TEXT    PRIMARY KEY,
         character_id  INTEGER REFERENCES characters(id),
         role          TEXT    NOT NULL,
+        player_token  TEXT,
         connected_at  TIMESTAMP DEFAULT NOW()
       );
 
@@ -143,6 +144,9 @@ async function initSchema() {
     } catch (e) {}
     try {
       await client.query(`ALTER TABLE narrative_challenge_instances ADD COLUMN IF NOT EXISTS shuffle_seed INTEGER`);
+    } catch (e) {}
+    try {
+      await client.query(`ALTER TABLE sessions ADD COLUMN IF NOT EXISTS player_token TEXT`);
     } catch (e) {}
     try {
       const existingIdx = await client.query(`SELECT indexdef FROM pg_indexes WHERE indexname = 'idx_journal_entries_scene_author'`);
