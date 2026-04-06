@@ -316,6 +316,7 @@ router.get('/characters', async (req, res) => {
         credits:      data ? (data.credits || 0) : 0,
         debt:         debt ? { creditorId: debt.creditorId, balance: debt.balance, rate: debt.rate, principal: debt.principal, cyclesElapsed: debt.cyclesElapsed || 0 } : null,
         is_connected: parseInt(c.is_connected),
+        personalDestiny: data && data.personalDestiny ? { id: data.personalDestiny.id, name: data.personalDestiny.name } : null,
       };
     });
 

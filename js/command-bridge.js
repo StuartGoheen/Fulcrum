@@ -3381,14 +3381,7 @@
       _challengeCache = results[0].challenges || [];
       var rawChars = results[1].characters || results[1] || [];
       var characters = rawChars.map(function (ch) {
-        var pd = null;
-        if (ch.character_data) {
-          try {
-            var cd = typeof ch.character_data === 'string' ? JSON.parse(ch.character_data) : ch.character_data;
-            pd = cd.personalDestiny || null;
-          } catch (_) {}
-        }
-        return { id: ch.id, name: ch.name, personalDestiny: pd };
+        return { id: ch.id, name: ch.name, personalDestiny: ch.personalDestiny || null };
       });
       renderLauncherContent(overlay, characters);
     }).catch(function () {

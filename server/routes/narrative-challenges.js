@@ -205,9 +205,12 @@ router.post('/narrative-challenges/resolve', gmOnly, async (req, res) => {
     return res.status(400).json({ error: 'instance_ids array is required' });
   }
 
+  const client = await pool.connect();
   try {
+    await client.query('BEGIN');
+
     const placeholders = instance_ids.map((_, i) => '$' + (i + 1)).join(',');
-    const instResult = await pool.query(
+    const instResult = await client.query(
       `SELECT nci.*, c.name as character_name, c.character_data
        FROM narrative_challenge_instances nci
        JOIN characters c ON c.id = nci.character_id
@@ -216,12 +219,12 @@ router.post('/narrative-challenges/resolve', gmOnly, async (req, res) => {
     );
 
     if (instResult.rows.length === 0) {
+      await client.query('ROLLBACK');
       return res.status(400).json({ error: 'No scored instances found' });
     }
 
     const results = [];
     let partySum = 0;
-    const updatedCharIds = new Set();
 
     for (const inst of instResult.rows) {
       const shiftValue = inst.shift_value || 0;
@@ -235,14 +238,13 @@ router.post('/narrative-challenges/resolve', gmOnly, async (req, res) => {
 
       if (newSpectrum !== oldSpectrum) {
         charData.destiny = newSpectrum;
-        await pool.query(
+        await client.query(
           'UPDATE characters SET character_data = $1 WHERE id = $2',
           [JSON.stringify(charData), inst.character_id]
         );
-        updatedCharIds.add(inst.character_id);
       }
 
-      await pool.query(
+      await client.query(
         `UPDATE narrative_challenge_instances
          SET status = 'resolved', updated_at = NOW()
          WHERE id = $1`,
@@ -270,7 +272,7 @@ router.post('/narrative-challenges/resolve', gmOnly, async (req, res) => {
       tokenOutcome = 'toll';
     }
 
-    const allCharResult = await pool.query(
+    const allCharResult = await client.query(
       'SELECT id, character_data FROM characters'
     );
     const newPool = [];
@@ -290,14 +292,14 @@ router.post('/narrative-challenges/resolve', gmOnly, async (req, res) => {
     for (const token of newPool) {
       if (tokenOutcome === 'equilibrium') {
         token.tapped = false;
-      } else if (tokenOutcome === 'hope' && token.side === 'toll') {
-        token.tapped = true;
-      } else if (tokenOutcome === 'toll' && token.side === 'hope') {
-        token.tapped = true;
+      } else if (tokenOutcome === 'hope' && token.side === 'hope') {
+        token.tapped = false;
+      } else if (tokenOutcome === 'toll' && token.side === 'toll') {
+        token.tapped = false;
       }
     }
 
-    await pool.query(
+    await client.query(
       `INSERT INTO campaign_state (key, value, updated_at)
        VALUES ('destiny_pool', $1, NOW())
        ON CONFLICT(key) DO UPDATE SET value = EXCLUDED.value, updated_at = NOW()`,
@@ -352,7 +354,7 @@ router.post('/narrative-challenges/resolve', gmOnly, async (req, res) => {
       const body = bodyLines.join('\n');
       const sceneTag = inst.scene_id || (inst.adventure_id ? 'challenge:' + inst.adventure_id : 'challenge:' + inst.challenge_id);
 
-      const entryResult = await pool.query(
+      const entryResult = await client.query(
         `INSERT INTO journal_entries (title, body, author_character_name, source_scene_id)
          VALUES ($1, $2, $3, $4)
          RETURNING id`,
@@ -360,6 +362,8 @@ router.post('/narrative-challenges/resolve', gmOnly, async (req, res) => {
       );
       journalEntries.push({ id: entryResult.rows[0].id, title, characterName: inst.character_name });
     }
+
+    await client.query('COMMIT');
 
     res.json({
       results,
@@ -375,8 +379,11 @@ router.post('/narrative-challenges/resolve', gmOnly, async (req, res) => {
       journalEntries
     });
   } catch (err) {
+    await client.query('ROLLBACK').catch(() => {});
     console.error('[POST /narrative-challenges/resolve]', err);
     res.status(500).json({ error: 'Failed to resolve challenge' });
+  } finally {
+    client.release();
   }
 });
 
