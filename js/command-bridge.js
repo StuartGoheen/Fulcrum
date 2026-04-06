@@ -2645,6 +2645,23 @@
       if (!adv) {
         html += '<div style="padding:1rem;text-align:center;opacity:0.4;font-size:0.6rem;">Adventure not found.</div>';
       } else {
+        var advDebriefTag = 'adventure:' + _crewNav.advId;
+        var advDebriefs = _crewJournalEntries.filter(function (e) {
+          return e.source_scene_id === advDebriefTag && e.author_character_name === 'Mission Debrief';
+        });
+        if (advDebriefs.length > 0) {
+          advDebriefs.forEach(function (debrief) {
+            html += '<div class="journal-scene-log journal-mission-debrief" data-cj-scene-log>';
+            html += '<div class="journal-scene-log-header journal-mission-debrief-header">';
+            html += '<span class="journal-scene-log-chevron">\u25B6</span>';
+            html += '<span class="journal-mission-debrief-label">After Action Report</span>';
+            html += '<span class="journal-scene-log-date">' + _fmtDate(debrief.created_at) + '</span>';
+            html += '</div>';
+            html += '<div class="journal-scene-log-body">';
+            html += '<pre class="journal-mission-debrief-content">' + _escHtml(debrief.body || '') + '</pre>';
+            html += '</div></div>';
+          });
+        }
         (adv.parts || []).forEach(function (part) {
           html += '<div class="jnav-part-label">Part ' + part.number + ': ' + _escHtml(part.title) + '</div>';
           (part.scenes || []).forEach(function (scene) {
@@ -3242,14 +3259,6 @@
     var advTitle = adv ? adv.title : currentAdventure;
     var title = 'Mission Debrief: ' + advTitle;
 
-    var firstSceneId = null;
-    if (adv && adv.parts && adv.parts.length) {
-      var firstPart = adv.parts[0];
-      if (firstPart.scenes && firstPart.scenes.length) {
-        firstSceneId = firstPart.scenes[0].id;
-      }
-    }
-
     fetch('/api/journal/entries', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -3257,7 +3266,7 @@
         title: title,
         body: textarea.value.trim(),
         author_character_name: 'Mission Debrief',
-        source_scene_id: firstSceneId
+        source_scene_id: 'adventure:' + currentAdventure
       })
     })
     .then(function (r) {

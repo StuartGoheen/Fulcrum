@@ -930,10 +930,45 @@ router.get('/campaign/scene-intel/:sceneId', async (req, res) => {
 
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 
+const BIBLE_PATH = path.join(__dirname, '..', '..', 'data', 'campaign-bible.md');
+
+function extractBibleContext(adventureId) {
+  let bibleText = '';
+  try {
+    bibleText = fs.readFileSync(BIBLE_PATH, 'utf8');
+  } catch (e) {
+    return { themes: '', synopsis: '', characters: '' };
+  }
+
+  const themesMatch = bibleText.match(/## Core Themes\n([\s\S]*?)(?=\n---|\n## )/);
+  const themes = themesMatch ? themesMatch[1].trim().substring(0, 800) : '';
+
+  const advNum = adventureId.replace(/\D/g, '');
+  const synopsisRegex = new RegExp('### Adventure ' + advNum + ':[^\n]*\n([\\s\\S]*?)(?=\\n---\\n|\\n### Adventure \\d)');
+  const synopsisMatch = bibleText.match(synopsisRegex);
+  const synopsis = synopsisMatch ? synopsisMatch[1].trim().substring(0, 2000) : '';
+
+  const characterNames = ['Maya', 'Admiral Gilder Varth', 'Jedi Master Denia', 'Varga the Hutt', 'Inquisitor Valin Draco', 'Soren Vex'];
+  const charSnippets = [];
+  for (const name of characterNames) {
+    const charRegex = new RegExp('### ' + name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\n([\\s\\S]*?)(?=\n### |\\n---\\n|\\n## )');
+    const match = bibleText.match(charRegex);
+    if (match) {
+      const lines = match[1].split('\n').slice(0, 4).join('\n');
+      charSnippets.push(name + ': ' + lines.trim());
+    }
+  }
+  const characters = charSnippets.join('\n\n').substring(0, 1500);
+
+  return { themes, synopsis, characters };
+}
+
 async function assembleMissionContext(adventureId) {
   const data = loadAdventures();
-  const adv = data.adventures.find(a => a.id === adventureId);
-  if (!adv) return null;
+  const decisionState = await resolveDecisionState();
+  const rawAdv = data.adventures.find(a => a.id === adventureId);
+  if (!rawAdv) return null;
+  const adv = applyAdventureConditionals(rawAdv, decisionState);
 
   const allSceneIds = [];
   for (const part of (adv.parts || [])) {
@@ -992,6 +1027,8 @@ async function assembleMissionContext(adventureId) {
     }
   }
 
+  const bible = extractBibleContext(adventureId);
+
   return {
     adventure: {
       id: adv.id,
@@ -1002,7 +1039,8 @@ async function assembleMissionContext(adventureId) {
     scenes: sceneSummaries,
     decisions: decisionsResult.rows,
     journalEntries: journalResult.rows,
-    crewRoster
+    crewRoster,
+    bible
   };
 }
 
@@ -1041,12 +1079,24 @@ function buildMissionSummaryPrompt(ctx) {
       }).join('\n')
     : 'No journal entries recorded.';
 
+  const bible = ctx.bible || {};
+  let bibleSection = '';
+  if (bible.synopsis) {
+    bibleSection += `\nADVENTURE NARRATIVE CONTEXT (from campaign bible — use this to inform tone, stakes, and character motivations):\n${bible.synopsis}\n`;
+  }
+  if (bible.themes) {
+    bibleSection += `\nCAMPAIGN THEMES:\n${bible.themes}\n`;
+  }
+  if (bible.characters) {
+    bibleSection += `\nMAJOR NPC PROFILES:\n${bible.characters}\n`;
+  }
+
   return `You are a military intelligence analyst in the Star Wars galaxy, 16 BBY. You are writing an After Action Report — a classified field debrief — for a crew of mercenaries operating in the Outer Rim.
 
 SETTING: The Galactic Empire is two years old. The Clone Wars are recent memory. This crew operates on the fringe, doing grey-market work that gradually pulls them into something bigger and more dangerous.
 
-TONE: Write in a clipped, professional, third-person past tense voice — like a Rebel Alliance intelligence officer reconstructing events from field reports. No flowery prose. No omniscient narrator. The analyst knows what the crew did and what choices they made, but interprets events through the lens of someone piecing together the story after the fact. Use specific names and details from the data provided. Reference crew members by name.
-
+TONE: Write in a clipped, professional, third-person past tense voice — like a Rebel Alliance intelligence officer reconstructing events from field reports. No flowery prose. No omniscient narrator. The analyst knows what the crew did and what choices they made, but interprets events through the lens of someone piecing together the story after the fact. Use specific names and details from the data provided. Reference crew members by name. Reference key NPCs and their fates where relevant.
+${bibleSection}
 ADVENTURE: Episode ${ctx.adventure.number} — "${ctx.adventure.title}" (Act ${ctx.adventure.act})
 
 CREW ROSTER:
@@ -1064,9 +1114,9 @@ ${journalText}
 INSTRUCTIONS:
 Write 2-4 paragraphs summarizing this adventure as a post-mission After Action Report. Include:
 1. What the crew set out to do and what they encountered
-2. Significant choices they made and their consequences
-3. Notable NPCs they interacted with
-4. The outcome and any unresolved threads
+2. Significant choices they made and their consequences — if decisions involve character fates (deaths, rescues, betrayals), state those outcomes explicitly
+3. Notable NPCs they interacted with and what happened to them
+4. The outcome and any unresolved threads that carry forward
 
 If scenes are marked "not completed", treat the adventure as still in progress and note that the report is preliminary.
 
