@@ -881,3 +881,71 @@ All previously flagged characters and threads have been resolved with final disp
 | **Kessra / The Vipers** | Adv2 S1 | **FLAVOR ONLY.** Tone-setting swoop gang encounter. Disposable. |
 | **Varga** | Adv3 P3 | **DEAD (Continuity Rule).** Killed during the boarding of the Glorious Chariot. See Continuity Rules. |
 | **Denia** | Adv2 S4 | **FOUND (Branch Point).** Varth advises abandonment. If rescued: mentor, holocron key (Adv4), captured by Draco (Adv7). If abandoned: Varth tips off Draco, who recovers her off-camera; heroes discover her in Draco's custody during Adv10 showdown. See Continuity Rules. |
+
+---
+
+## Adaptive Adventure Content — Conditionals System
+
+The campaign uses a **conditionals** system that automatically adapts adventure content based on decisions the GM has recorded in the Campaign Decision Tracker. When the GM records a decision with a `campaign_impact` tag (e.g., `maya-fate`, `denia-fate`), later adventures automatically show the correct variant text.
+
+### How It Works
+
+1. The GM records decisions during play with `campaign_impact` tags (e.g., `maya-fate` set to "Maya died on the Shackles").
+2. The server's **decision resolver** (`server/utils/decision-resolver.js`) reads all recorded decisions and builds a **decision state map** — e.g., `{ "maya-fate": "dead", "denia-fate": "rescued" }`.
+3. When adventure JSON is loaded, scenes/parts/NPCs with `conditionals` arrays are processed. Matching conditions apply text replacements, appends, or hiding.
+4. The GM portal shows **amber adaptation badges** on scenes whose content has been modified by the conditionals system.
+
+### Conditionals Schema
+
+Any scene, part, or NPC in adventure JSON can include a `conditionals` array:
+
+```json
+{
+  "conditionals": [
+    {
+      "impact": "maya-fate",
+      "is": "dead",
+      "replace": {
+        "gmNotes": "Alternate GM notes text for when Maya is dead..."
+      }
+    },
+    {
+      "impact": "denia-fate",
+      "is": "abandoned",
+      "append": {
+        "description": "Additional text appended when Denia was abandoned..."
+      }
+    },
+    {
+      "impact": "some-tag",
+      "is": "some-value",
+      "hide": true
+    }
+  ]
+}
+```
+
+**Actions:**
+- `replace`: Overwrites the specified field(s) with new values.
+- `append`: Appends text to the specified field(s), separated by a double newline.
+- `hide`: Removes the scene or NPC from the loaded data entirely.
+
+### Active Conditionals
+
+| Adventure | Target | Impact Tag | Condition | Action |
+|---|---|---|---|---|
+| Adv8 | `adv8-p1-s3` (Assembling the Fleet) | `maya-fate` | `dead` | Replace gmNotes — Soren Vex reveal shifts to retrospective grief |
+| Adv10 | `adv10-p1-s2` (The Malpaz Corridor) | `maya-fate` | `dead` | Replace gmNotes — Soren's dying words change |
+| Adv10 | `adv10-p2` (The Betrayal) | `denia-fate` | `abandoned` | Append description — Denia discovered in Draco's custody |
+| Adv10 | `adv10-p2` (The Betrayal) | `denia-fate` | `rescued` | Append description — Denia captured by Draco in Adv7, nemesis encounter |
+
+### Campaign Impact Tags
+
+| Tag | Default | Possible States |
+|---|---|---|
+| `maya-fate` | `alive` | `alive`, `dead` |
+| `denia-fate` | `rescued` | `rescued`, `abandoned` |
+| `varth-relationship` | `trusted` | GM-defined |
+| `malpaz-uprising` | `unknown` | GM-defined |
+| `soren-alliance` | `unknown` | GM-defined |
+| `kessra-grudge` | `unknown` | GM-defined |

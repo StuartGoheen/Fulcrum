@@ -95,7 +95,16 @@
           "title": "The Malpaz Corridor",
           "subtitle": "Into the Jaws",
           "completed": false,
-          "gmNotes": "SOREN VEX DEATH: During the fleet battle approaching Malpaz, an Imperial missile locks onto the Banshee. Soren Vex throws the Requital into the missile's path, intercepting it. The explosion disables his ship — hull breached, engines dead, life support failing. He opens a comms channel to the Banshee. His last transmission: 'Maya. ... I know. ... Tell them I was — ' Static. A turbolaser from the Star Destroyer finishes the Requital before he can complete the sentence. Maya watches it happen. Do NOT let this moment be heroic in the conventional sense. Soren is not a hero. He's a coward who finally stopped running. The ambiguity of his unfinished sentence IS the emotional payload — Maya will never know what he was going to say. Play it quiet. Play it fast. The battle doesn't stop for grief. IF MAYA DIED IN ADV3: Soren still intercepts the missile — he's protecting the Banshee and the crew Maya died for. His dying comms become: 'I know she's gone. ... Tell them I was — ' The crew carries a story with no living protagonist. The debt is paid to a ghost.",
+          "gmNotes": "SOREN VEX DEATH: During the fleet battle approaching Malpaz, an Imperial missile locks onto the Banshee. Soren Vex throws the Requital into the missile's path, intercepting it. The explosion disables his ship — hull breached, engines dead, life support failing. He opens a comms channel to the Banshee. His last transmission: 'Maya. ... I know. ... Tell them I was — ' Static. A turbolaser from the Star Destroyer finishes the Requital before he can complete the sentence. Maya watches it happen. Do NOT let this moment be heroic in the conventional sense. Soren is not a hero. He's a coward who finally stopped running. The ambiguity of his unfinished sentence IS the emotional payload — Maya will never know what he was going to say. Play it quiet. Play it fast. The battle doesn't stop for grief.",
+          "conditionals": [
+            {
+              "impact": "maya-fate",
+              "is": "dead",
+              "replace": {
+                "gmNotes": "SOREN VEX DEATH (MAYA DEAD): During the fleet battle approaching Malpaz, an Imperial missile locks onto the Banshee. Soren Vex throws the Requital into the missile's path, intercepting it — he's protecting the Banshee and the crew Maya died for. The explosion disables his ship — hull breached, engines dead, life support failing. He opens a comms channel to the Banshee. His last transmission: 'I know she's gone. ... Tell them I was — ' Static. A turbolaser from the Star Destroyer finishes the Requital before he can complete the sentence. The crew carries a story with no living protagonist. The debt is paid to a ghost. Do NOT let this moment be heroic in the conventional sense. Soren is not a hero. He's a coward who finally stopped running. Play it quiet. Play it fast. The battle doesn't stop for grief."
+              }
+            }
+          ],
           "npcs": [
             {
               "name": "Soren Vex",
@@ -224,7 +233,23 @@
           ]
         }
       ],
-      "description": "Final confrontation with Varth aboard the Leviathan. The Draco showdown resolves the Inquisitor's arc. If Denia was abandoned in Adv2: the heroes discover her alive in Draco's custody — interrogated for years, broken but surviving. This is the campaign's deepest gut-punch: Varth told them to leave her, and they listened. He handed her to the Empire the moment they looked away. If Denia was rescued in Adv2: she was captured by Draco in Adv7 and potentially rescued in Adv9 — the Draco showdown plays as a nemesis encounter without the betrayal-reveal layer."
+      "description": "Final confrontation with Varth aboard the Leviathan. The Draco showdown resolves the Inquisitor's arc.",
+      "conditionals": [
+        {
+          "impact": "denia-fate",
+          "is": "abandoned",
+          "append": {
+            "description": "DENIA ABANDONED PATH: The heroes discover Denia alive in Draco's custody — interrogated for years, broken but surviving. This is the campaign's deepest gut-punch: Varth told them to leave her, and they listened. He handed her to the Empire the moment they looked away."
+          }
+        },
+        {
+          "impact": "denia-fate",
+          "is": "rescued",
+          "append": {
+            "description": "DENIA RESCUED PATH: Denia was captured by Draco in Adv7 and potentially rescued in Adv9 — the Draco showdown plays as a nemesis encounter without the betrayal-reveal layer."
+          }
+        }
+      ]
     },
     {
       "id": "adv10-p3",

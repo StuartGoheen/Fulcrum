@@ -68,6 +68,42 @@
   function getPart(adv, pid) { return (adv.parts || []).find(function (p) { return p.id === pid; }); }
   function getScene(part, sid) { return (part.scenes || []).find(function (s) { return s.id === sid; }); }
 
+  function _getSceneAdaptations(sceneId) {
+    if (!adventuresData) return [];
+    var results = [];
+    var adventures = adventuresData.adventures || [];
+    for (var i = 0; i < adventures.length; i++) {
+      var adap = adventures[i]._adaptations;
+      if (!adap) continue;
+      for (var j = 0; j < adap.length; j++) {
+        if (adap[j].target === sceneId) {
+          for (var k = 0; k < adap[j].adaptations.length; k++) {
+            results.push(adap[j].adaptations[k]);
+          }
+        }
+      }
+    }
+    return results;
+  }
+
+  function _getPartAdaptations(partId) {
+    if (!adventuresData) return [];
+    var results = [];
+    var adventures = adventuresData.adventures || [];
+    for (var i = 0; i < adventures.length; i++) {
+      var adap = adventures[i]._adaptations;
+      if (!adap) continue;
+      for (var j = 0; j < adap.length; j++) {
+        if (adap[j].target === partId) {
+          for (var k = 0; k < adap[j].adaptations.length; k++) {
+            results.push(adap[j].adaptations[k]);
+          }
+        }
+      }
+    }
+    return results;
+  }
+
   function getAllScenes() {
     var adv = getAdventure(currentAdventure);
     var part = adv ? getPart(adv, currentPart) : null;
@@ -1352,6 +1388,17 @@
     html += '<div class="cb-dash-header">';
     html += '<h2>Scene ' + scene.number + ': ' + esc(scene.title) + '</h2>';
     if (scene.subtitle) html += '<div class="cb-scene-subtitle">' + esc(scene.subtitle) + '</div>';
+    var sceneAdaptations = _getSceneAdaptations(scene.id);
+    var partAdaptations = part ? _getPartAdaptations(part.id) : [];
+    var allBadgeAdaptations = sceneAdaptations.concat(partAdaptations);
+    if (allBadgeAdaptations.length) {
+      html += '<div class="cb-adaptation-badges">';
+      for (var ai = 0; ai < allBadgeAdaptations.length; ai++) {
+        var ad = allBadgeAdaptations[ai];
+        html += '<span class="cb-adaptation-badge" title="' + esc(ad.impact + ' = ' + ad.is + ' (' + ad.action + (ad.field ? ': ' + ad.field : '') + ')') + '">&#9881; Adapted: ' + esc(ad.impact) + '</span>';
+      }
+      html += '</div>';
+    }
     if (scene.id === 'adv1-p1-s1') {
       html += '<div class="assess-controls-row" id="assess-controls-row">';
       html += '<button class="assess-guide-btn" id="assess-guide-btn">&#9733; GM Reference</button>';

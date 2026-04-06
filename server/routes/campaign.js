@@ -3,6 +3,7 @@ const router  = express.Router();
 const path    = require('path');
 const fs      = require('fs');
 const { pool } = require('../db');
+const { resolveDecisionState, applyAdventureConditionals } = require('../utils/decision-resolver');
 
 const ADVENTURES_DIR = path.join(__dirname, '..', '..', 'data', 'adventures');
 const LOCATIONS_PATH = path.join(__dirname, '..', '..', 'data', 'locations.json');
@@ -88,21 +89,29 @@ router.get('/campaign/state', async (req, res) => {
   }
 });
 
-router.get('/campaign/adventures', (req, res) => {
+router.get('/campaign/adventures', async (req, res) => {
   try {
     const data = loadAdventures();
-    res.json(data);
+    const decisionState = await resolveDecisionState();
+    const adapted = {
+      adventures: data.adventures.map(adv => applyAdventureConditionals(adv, decisionState))
+    };
+    adapted._decisionState = decisionState;
+    res.json(adapted);
   } catch (err) {
     res.status(500).json({ error: 'Failed to load adventures', detail: err.message });
   }
 });
 
-router.get('/campaign/adventures/:adventureId', (req, res) => {
+router.get('/campaign/adventures/:adventureId', async (req, res) => {
   try {
     const data = loadAdventures();
     const adv = data.adventures.find(a => a.id === req.params.adventureId);
     if (!adv) return res.status(404).json({ error: 'Adventure not found' });
-    res.json(adv);
+    const decisionState = await resolveDecisionState();
+    const adapted = applyAdventureConditionals(adv, decisionState);
+    adapted._decisionState = decisionState;
+    res.json(adapted);
   } catch (err) {
     res.status(500).json({ error: 'Failed to load adventure', detail: err.message });
   }

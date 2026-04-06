@@ -4873,4 +4873,29 @@
         color: #818cf8;
         padding: 0.2rem 0;
       }
+
+      .cb-adaptation-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.35rem;
+        margin-top: 0.35rem;
+      }
+      .cb-adaptation-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
+        font-size: 0.6rem;
+        font-family: 'Exo 2', sans-serif;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        padding: 0.2rem 0.55rem;
+        border-radius: 3px;
+        background: rgba(251,191,36,0.10);
+        border: 1px solid rgba(251,191,36,0.35);
+        color: #fbbf24;
+      }
+      .cb-adaptation-badge:hover {
+        background: rgba(251,191,36,0.18);
+        border-color: rgba(251,191,36,0.55);
+      }
   

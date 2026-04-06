@@ -482,6 +482,20 @@ Tracks key crew decisions throughout the campaign for narrative continuity.
 
 **Campaign Impact Tags:** maya-fate, denia-fate, varth-relationship, malpaz-uprising, soren-alliance, kessra-grudge.
 
+## Adaptive Adventure Content
+
+Conditionals system that adapts adventure JSON content based on recorded campaign decisions.
+
+**Decision Resolver:** `server/utils/decision-resolver.js` — `resolveDecisionState()` loads all decisions with `campaign_impact` tags and builds a state map (e.g., `{ "maya-fate": "dead", "denia-fate": "rescued" }`). Defaults defined in `IMPACT_DEFAULTS`. `applyAdventureConditionals(adventure, state)` deep-clones and processes all conditionals on scenes/parts/NPCs.
+
+**Conditionals Schema:** Any scene, part, or NPC in adventure JSON can have a `conditionals` array. Each entry: `{ impact, is, replace?: { field: value }, append?: { field: value }, hide?: true }`. Actions: `replace` overwrites fields, `append` adds text, `hide` removes the element.
+
+**Adventure Endpoints:** `GET /api/campaign/adventures` and `GET /api/campaign/adventures/:id` now return adapted content with `_decisionState` and `_adaptations` metadata. Original JSON files are never modified — filtering is applied at read time.
+
+**GM Portal Badges:** Amber `cb-adaptation-badge` indicators appear in scene headers when content has been adapted. Tooltip shows impact tag, condition, and action.
+
+**Active Conditionals:** adv8-p1-s3 (Soren reveal, maya-fate:dead), adv10-p1-s2 (Soren death, maya-fate:dead), adv10-p2 (Denia paths, denia-fate:abandoned/rescued).
+
 ## Deployment
 
 Configured as a **VM** deployment (always-on required for Socket.io persistent connections).  
