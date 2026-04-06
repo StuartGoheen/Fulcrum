@@ -3452,6 +3452,30 @@
       var checked = body.querySelectorAll('.nc-char-check input:checked');
       var btn = document.getElementById('nc-launch-go');
       if (btn) btn.disabled = !(selectedChallenge && checked.length > 0);
+
+      body.querySelectorAll('.nc-challenge-card').forEach(function (c) { c.classList.remove('nc-destiny-match'); });
+      if (!selectedChallenge && checked.length > 0) {
+        var destinyIds = [];
+        checked.forEach(function (cb) {
+          if (cb.dataset.charDestiny) destinyIds.push(cb.dataset.charDestiny);
+        });
+        var uniqueDestinies = destinyIds.filter(function (d, i, a) { return a.indexOf(d) === i; });
+        uniqueDestinies.forEach(function (did) {
+          _challengeCache.forEach(function (c) {
+            if (c.destiny === did) {
+              var card = body.querySelector('.nc-challenge-card[data-challenge-id="' + c.id + '"]');
+              if (card) card.classList.add('nc-destiny-match');
+            }
+          });
+        });
+        if (uniqueDestinies.length === 1) {
+          var matching = _challengeCache.filter(function (c) { return c.destiny === uniqueDestinies[0]; });
+          if (matching.length === 1) {
+            var card = body.querySelector('.nc-challenge-card[data-challenge-id="' + matching[0].id + '"]');
+            if (card) card.click();
+          }
+        }
+      }
     }
     body.querySelectorAll('.nc-char-check input').forEach(function (cb) {
       cb.addEventListener('change', checkReady);
@@ -3477,7 +3501,12 @@
           adventure_id: currentAdventure || null,
           scene_id: currentScene || null
         })
-      }).then(function (r) { return r.json(); });
+      }).then(function (r) {
+        return r.json().then(function (data) {
+          if (!r.ok) throw new Error(data.error || 'Server error ' + r.status);
+          return data;
+        });
+      });
     });
 
     Promise.all(promises).then(function () {
@@ -3486,7 +3515,7 @@
       showToast('Challenge launched for ' + charIds.length + ' character(s)');
     }).catch(function (err) {
       console.error('Failed to launch challenges:', err);
-      showToast('Failed to launch challenge');
+      showToast('Failed to launch: ' + (err.message || 'Unknown error'));
     });
   }
 
