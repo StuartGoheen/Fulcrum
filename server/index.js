@@ -22,6 +22,7 @@ const { loginRoute, logoutRoute, gate, roleFromCookie, COOKIE_SECRET } = require
 const app    = express();
 const server = http.createServer(app);
 const io     = new Server(server);
+app.set('io', io);
 
 const PORT = process.env.PORT || 5000;
 const ROOT = path.join(__dirname, '..');

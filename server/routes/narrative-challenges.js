@@ -272,22 +272,32 @@ router.post('/narrative-challenges/resolve', gmOnly, async (req, res) => {
       tokenOutcome = 'toll';
     }
 
-    const poolResult = await client.query(
-      "SELECT value FROM campaign_state WHERE key = 'destiny_pool'"
+    const allCharResult = await client.query(
+      'SELECT id, character_data FROM characters'
     );
-    let destinyPool = [];
-    if (poolResult.rows.length > 0) {
-      try { destinyPool = JSON.parse(poolResult.rows[0].value); } catch (_) {}
+    const destinyPool = [];
+    for (const row of allCharResult.rows) {
+      let cd = {};
+      try { cd = JSON.parse(row.character_data || '{}'); } catch (_) {}
+      const spectrum = cd.destiny || 'Light & Dark';
+      if (spectrum === 'Two Light') {
+        destinyPool.push({ side: 'hope', tapped: true }, { side: 'hope', tapped: true });
+      } else if (spectrum === 'Two Dark') {
+        destinyPool.push({ side: 'toll', tapped: true }, { side: 'toll', tapped: true });
+      } else {
+        destinyPool.push({ side: 'hope', tapped: true }, { side: 'toll', tapped: true });
+      }
     }
 
     let untappedCount = 0;
     for (const token of destinyPool) {
       if (tokenOutcome === 'equilibrium') {
-        if (token.tapped) { token.tapped = false; untappedCount++; }
-      } else if (tokenOutcome === 'hope' && token.side === 'hope' && token.tapped) {
         token.tapped = false;
         untappedCount++;
-      } else if (tokenOutcome === 'toll' && token.side === 'toll' && token.tapped) {
+      } else if (tokenOutcome === 'hope' && token.side === 'hope') {
+        token.tapped = false;
+        untappedCount++;
+      } else if (tokenOutcome === 'toll' && token.side === 'toll') {
         token.tapped = false;
         untappedCount++;
       }
@@ -358,6 +368,11 @@ router.post('/narrative-challenges/resolve', gmOnly, async (req, res) => {
     }
 
     await client.query('COMMIT');
+
+    const io = req.app.get('io');
+    if (io) {
+      io.emit('destiny:sync', { pool: destinyPool, locked: false });
+    }
 
     res.json({
       results,
