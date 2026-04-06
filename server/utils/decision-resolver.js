@@ -113,8 +113,10 @@ function applyAdventureConditionals(adventure, decisionState) {
           }
           return !npc._hidden;
         });
-        if (npcAdaptations.length) {
-          allAdaptations.push({ target: scene.id, type: 'scene-npcs', adaptations: npcAdaptations });
+        for (const na of npcAdaptations) {
+          for (const a of na.adaptations) {
+            allAdaptations.push({ target: scene.id, type: 'scene', adaptations: [Object.assign({}, a, { npc: na.npc })] });
+          }
         }
       }
 

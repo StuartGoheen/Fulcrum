@@ -934,6 +934,8 @@ Any scene, part, or NPC in adventure JSON can include a `conditionals` array:
 
 | Adventure | Target | Impact Tag | Condition | Action |
 |---|---|---|---|---|
+| Adv2 | `adv2-p2-s6` (The Hangar Bay) | `denia-fate` | `rescued` | Append gmNotes — Denia is weak and confused, doesn't know the Empire exists |
+| Adv2 | `adv2-p2-s6` (The Hangar Bay) | `denia-fate` | `abandoned` | Append gmNotes — Ship is quiet, Varth sends coded message to Draco |
 | Adv8 | `adv8-p1-s3` (Assembling the Fleet) | `maya-fate` | `dead` | Replace gmNotes — Soren Vex reveal shifts to retrospective grief |
 | Adv10 | `adv10-p1-s2` (The Malpaz Corridor) | `maya-fate` | `dead` | Replace gmNotes — Soren's dying words change |
 | Adv10 | `adv10-p2` (The Betrayal) | `denia-fate` | `abandoned` | Append description — Denia discovered in Draco's custody |

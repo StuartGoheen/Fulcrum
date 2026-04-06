@@ -494,7 +494,7 @@ Conditionals system that adapts adventure JSON content based on recorded campaig
 
 **GM Portal Badges:** Amber `cb-adaptation-badge` indicators appear in scene headers when content has been adapted. Tooltip shows impact tag, condition, and action.
 
-**Active Conditionals:** adv8-p1-s3 (Soren reveal, maya-fate:dead), adv10-p1-s2 (Soren death, maya-fate:dead), adv10-p2 (Denia paths, denia-fate:abandoned/rescued).
+**Active Conditionals:** adv2-p2-s6 (Denia ending, denia-fate:rescued/abandoned), adv8-p1-s3 (Soren reveal, maya-fate:dead), adv10-p1-s2 (Soren death, maya-fate:dead), adv10-p2 (Denia paths, denia-fate:abandoned/rescued).
 
 ## Deployment
 

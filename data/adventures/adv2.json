@@ -2807,7 +2807,7 @@
           "title": "The Hangar Bay",
           "subtitle": "Climax",
           "readAloud": "You burst through the blast doors into the humid, open-air hangar. You're too late — Varga's massive luxury yacht, the Glorious Chariot, is already hovering on repulsors, engines flaring blue-white. The boarding ramp retracts as the gold-and-purple hull begins to rise.\n\nBut it's not just Varga. Lady Sinde has ordered her Stormtrooper escort to secure the hangar and eliminate all witnesses.\n\nBlaster fire erupts from behind crates of Tibanna gas as white-armored figures take firing positions.\n\nWarrick Raden stumbles onto the ship's ramp behind you, blinking in the harsh light. For the first time since the dungeon, he looks hopeful.\n\nThen Admiral Varth steps forward. He looks at Raden. Almost warmly.\n\n\"Hello, Warrick.\" A pause. \"I told you the next time I saw you, I would kill you.\"\n\nThe blaster shot echoes across the hangar. Raden drops. Varth doesn't break stride.",
-          "gmNotes": "This is the climax of Adventure 2 — three things happen simultaneously:\n\n1. VARGA ESCAPES: The Glorious Chariot lifts off. Varga is fleeing to his fallback on Bespin (Cloud City). The heroes cannot stop him here — his escape is narratively required. He collapses part of the ceiling with the yacht's exhaust to discourage pursuit.\n\n2. SINDE'S STORMTROOPERS: Lady Sinde has ordered her 4-Stormtrooper escort to eliminate all witnesses. She is protecting Project Leviathan's secrecy. The heroes must fight across the hangar using crates and equipment for cover. Tibanna gas crates are explosive if hit by blaster fire — area denial that works both ways.\n\n3. VARTH EXECUTES RADEN: This is the second red flag — and far worse than the first. The heroes just rescued Raden from the dungeons. They've been protecting him since Scene 1. He's walking toward freedom on the ship's ramp. Varth greets him, then draws and shoots him between the eyes. 'I told you the next time I saw you, I would kill you.' The line references their last dealing — when Varth discovered Raden was running his own skim. It sounds personal. It's not. It's operational. Varth is eliminating a liability who knew too much about the embezzlement pipeline. Varth does not explain or apologize. He checks the body once and moves to the ship.\n\nTRAJECTORY LOCK: If the heroes get to their ship fast enough, a Tactics check gets a partial trajectory lock on Varga's escape vector. The vector aligns with the Anoat Sector. Bespin. Cloud City. This connects to Gome's intel from Scene 3.\n\nENDING: The adventure ends on the ship, in hyperspace. Raden is dead. Varth is analyzing the trajectory data. The heroes have partial encryption keys (or not), a trajectory to Bespin, and two disturbing memories of the man they're working for. IF DENIA WAS RESCUED: She is weak and confused — doesn't know where she is or what year it is. She doesn't know the Empire exists yet. IF DENIA WAS ABANDONED: The ship is quiet. Varth says nothing about the woman they left in the dungeon. He has already sent a coded message to Draco.",
+          "gmNotes": "This is the climax of Adventure 2 — three things happen simultaneously:\n\n1. VARGA ESCAPES: The Glorious Chariot lifts off. Varga is fleeing to his fallback on Bespin (Cloud City). The heroes cannot stop him here — his escape is narratively required. He collapses part of the ceiling with the yacht's exhaust to discourage pursuit.\n\n2. SINDE'S STORMTROOPERS: Lady Sinde has ordered her 4-Stormtrooper escort to eliminate all witnesses. She is protecting Project Leviathan's secrecy. The heroes must fight across the hangar using crates and equipment for cover. Tibanna gas crates are explosive if hit by blaster fire — area denial that works both ways.\n\n3. VARTH EXECUTES RADEN: This is the second red flag — and far worse than the first. The heroes just rescued Raden from the dungeons. They've been protecting him since Scene 1. He's walking toward freedom on the ship's ramp. Varth greets him, then draws and shoots him between the eyes. 'I told you the next time I saw you, I would kill you.' The line references their last dealing — when Varth discovered Raden was running his own skim. It sounds personal. It's not. It's operational. Varth is eliminating a liability who knew too much about the embezzlement pipeline. Varth does not explain or apologize. He checks the body once and moves to the ship.\n\nTRAJECTORY LOCK: If the heroes get to their ship fast enough, a Tactics check gets a partial trajectory lock on Varga's escape vector. The vector aligns with the Anoat Sector. Bespin. Cloud City. This connects to Gome's intel from Scene 3.\n\nENDING: The adventure ends on the ship, in hyperspace. Raden is dead. Varth is analyzing the trajectory data. The heroes have partial encryption keys (or not), a trajectory to Bespin, and two disturbing memories of the man they're working for.",
           "npcs": [
             {
               "name": "Lady Sinde",
@@ -3047,7 +3047,7 @@
             "credits": 0,
             "xp": "Adventure completion",
             "items": [],
-            "narrative": "Escape from Varga's fortress. Trajectory to Bespin/Cloud City. Raden executed by Varth. If Denia was rescued: she is weak and confused aboard the ship. If Denia was abandoned: the ship is lighter by one passenger, and Varth says nothing about it. The adventure ends in hyperspace with two red flags and a dead man's memory."
+            "narrative": "Escape from Varga's fortress. Trajectory to Bespin/Cloud City. Raden executed by Varth. The adventure ends in hyperspace with two red flags and a dead man's memory."
           },
           "pacing": {
             "openingBeat": "Burst through blast doors into the hangar. Varga's yacht is already lifting off.",
@@ -3157,6 +3157,22 @@
                 "legendary": "Olympic sprint across the kill zone. You dodge, weave, and vault a cargo crate without breaking stride. You're up the ramp and at the controls before the Stormtroopers can adjust their aim."
               },
               "resist": 2
+            }
+          ],
+          "conditionals": [
+            {
+              "impact": "denia-fate",
+              "is": "rescued",
+              "append": {
+                "gmNotes": "DENIA RESCUED ENDING: She is weak and confused — doesn't know where she is or what year it is. She doesn't know the Empire exists yet."
+              }
+            },
+            {
+              "impact": "denia-fate",
+              "is": "abandoned",
+              "append": {
+                "gmNotes": "DENIA ABANDONED ENDING: The ship is quiet. Varth says nothing about the woman they left in the dungeon. He has already sent a coded message to Draco."
+              }
             }
           ]
         }
