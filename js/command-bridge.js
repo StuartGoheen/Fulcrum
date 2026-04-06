@@ -3570,20 +3570,24 @@
     });
 
     var visibleRounds;
-    if (hasBranching && choices.length > 0) {
-      var lastChoice = choices[choices.length - 1];
-      var lastRound = allRounds.find(function (r) { return r.id === lastChoice.round_id; });
-      var lastChosen = lastRound ? (lastRound.choices || []).find(function (c) { return c.id === lastChoice.choice_id; }) : null;
-      var nextRoundId = lastChosen && lastChosen.nextRound ? lastChosen.nextRound : null;
+    if (hasBranching) {
+      if (choices.length > 0) {
+        var lastChoice = choices[choices.length - 1];
+        var lastRound = allRounds.find(function (r) { return r.id === lastChoice.round_id; });
+        var lastChosen = lastRound ? (lastRound.choices || []).find(function (c) { return c.id === lastChoice.choice_id; }) : null;
+        var nextRoundId = lastChosen && lastChosen.nextRound ? lastChosen.nextRound : null;
 
-      visibleRounds = allRounds.filter(function (r) {
-        return traversedRoundIds.indexOf(r.id) !== -1;
-      });
-      if (nextRoundId) {
-        var nextRound = allRounds.find(function (r) { return r.id === nextRoundId; });
-        if (nextRound && traversedRoundIds.indexOf(nextRound.id) === -1) {
-          visibleRounds.push(nextRound);
+        visibleRounds = allRounds.filter(function (r) {
+          return traversedRoundIds.indexOf(r.id) !== -1;
+        });
+        if (nextRoundId) {
+          var nextRound = allRounds.find(function (r) { return r.id === nextRoundId; });
+          if (nextRound && traversedRoundIds.indexOf(nextRound.id) === -1) {
+            visibleRounds.push(nextRound);
+          }
         }
+      } else {
+        visibleRounds = allRounds.length > 0 ? [allRounds[0]] : [];
       }
     } else {
       visibleRounds = allRounds;

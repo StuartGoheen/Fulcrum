@@ -45,6 +45,25 @@ function computeShiftValue(gmScore) {
   return 0;
 }
 
+function _getExpectedNextRoundId(rounds, existingChoices) {
+  if (!rounds || !rounds.length) return null;
+  if (!existingChoices || !existingChoices.length) return rounds[0].id;
+
+  const lastChoice = existingChoices[existingChoices.length - 1];
+  const lastRound = rounds.find(r => r.id === lastChoice.round_id);
+  if (!lastRound) return null;
+  const chosen = (lastRound.choices || []).find(c => c.id === lastChoice.choice_id);
+  if (!chosen) return null;
+
+  if (chosen.nextRound) return chosen.nextRound;
+
+  const hasBranching = rounds.some(r => (r.choices || []).some(c => !!c.nextRound));
+  if (hasBranching) return null;
+
+  const lastIdx = rounds.indexOf(lastRound);
+  return (lastIdx + 1 < rounds.length) ? rounds[lastIdx + 1].id : null;
+}
+
 function isChallengeComplete(challengeData, choices) {
   if (!challengeData || !challengeData.rounds || !choices || !choices.length) return false;
 
@@ -803,6 +822,13 @@ router.put('/narrative-challenges/player/choice', async (req, res) => {
       const validChoice = (round.choices || []).find(c => c.id === choice_id);
       if (!validChoice) {
         return res.status(400).json({ error: 'Invalid choice_id' });
+      }
+
+      let prevChoices = [];
+      try { prevChoices = JSON.parse(existing.rows[0].choices || '[]'); } catch (_) {}
+      const expectedRoundId = _getExpectedNextRoundId(rounds, prevChoices);
+      if (expectedRoundId && round_id !== expectedRoundId) {
+        return res.status(400).json({ error: 'Invalid round sequence' });
       }
     }
 
