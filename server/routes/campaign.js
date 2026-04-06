@@ -1037,7 +1037,8 @@ async function assembleMissionContext(adventureId) {
       id: adv.id,
       title: adv.title,
       number: adv.number,
-      act: adv.act
+      act: adv.act,
+      summary: adv.summary || ''
     },
     scenes: sceneSummaries,
     decisions: decisionsResult.rows,
@@ -1100,7 +1101,7 @@ SETTING: The Galactic Empire is two years old. The Clone Wars are recent memory.
 
 TONE: Write in a clipped, professional, third-person past tense voice — like a Rebel Alliance intelligence officer reconstructing events from field reports. No flowery prose. No omniscient narrator. The analyst knows what the crew did and what choices they made, but interprets events through the lens of someone piecing together the story after the fact. Use specific names and details from the data provided. Reference crew members by name. Reference key NPCs and their fates where relevant.
 ${bibleSection}
-ADVENTURE: Episode ${ctx.adventure.number} — "${ctx.adventure.title}" (Act ${ctx.adventure.act})
+ADVENTURE: Episode ${ctx.adventure.number} — "${ctx.adventure.title}" (Act ${ctx.adventure.act})${ctx.adventure.summary ? '\nADVENTURE BRIEF: ' + ctx.adventure.summary : ''}
 
 CREW ROSTER:
   ${crewList || 'Unknown crew complement'}
