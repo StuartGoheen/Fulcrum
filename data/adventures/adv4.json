@@ -74,16 +74,6 @@
               "loot": []
             },
             {
-              "name": "Maya",
-              "type": "Pilot / Ship Support",
-              "count": 1,
-              "notes": "Running deep-system diagnostics on the Banshee. Stays aboard but available on comms.",
-              "behavior": "Focused, competent. She trusts the crew to handle the ground game.",
-              "dialogue": [],
-              "intel": "Maya will be critical for the extraction in Part 3. Establish her presence here.",
-              "loot": []
-            },
-            {
               "name": "Master Denia",
               "type": "Jedi Master / Advisor",
               "count": 1,
@@ -92,10 +82,131 @@
               "dialogue": [],
               "intel": "Denia pointed the crew to the Ebon Spire. Varth manipulated her into 'suggesting' it — he already knew about it.",
               "loot": []
+            },
+            {
+              "name": "Maya",
+              "type": "Character",
+              "count": 1,
+              "loot": [
+                {
+                  "id": "wpn_dl18_01",
+                  "name": "BlasTech DL-18",
+                  "type": "weapon",
+                  "qty": 1
+                }
+              ],
+              "threatBuild": {
+                "role": "support",
+                "tier": 1,
+                "classification": "standard",
+                "threatCategory": "character",
+                "powerSource": "ranged",
+                "arenas": {
+                  "physique": 2,
+                  "reflex": 3,
+                  "grit": 3,
+                  "wits": 3,
+                  "presence": 2
+                },
+                "computed": {
+                  "defense": 5,
+                  "evasion": 5,
+                  "resist": 5,
+                  "vitality": 6,
+                  "initiative": 7,
+                  "power": 4,
+                  "powers": {
+                    "physique": 3,
+                    "reflex": 4,
+                    "grit": 4,
+                    "wits": 4,
+                    "presence": 3
+                  },
+                  "actions": 1,
+                  "exploits": 0,
+                  "damageTiers": {
+                    "label": "medium",
+                    "fleeting": 3,
+                    "masterful": 5,
+                    "legendary": 8
+                  }
+                },
+                "traits": [
+                  "armored_light",
+                  "disciplined",
+                  "interrogator",
+                  "agile",
+                  "slippery"
+                ],
+                "tags": [
+                  "mercenary"
+                ],
+                "roleKit": {
+                  "roleName": "Support / Ranged",
+                  "action": {
+                    "name": "Spot Target",
+                    "defense": "none",
+                    "npcEffects": {
+                      "fleeting": "Designate one visible target. Next ally attack vs target gains [Optimized].",
+                      "masterful": "Designate one visible target. Next two ally attacks vs target gain [Optimized].",
+                      "legendary": "Designate one visible target. All ally attacks vs target gain [Optimized] Tactical."
+                    },
+                    "isAttack": false,
+                    "arena": "reflex"
+                  },
+                  "passive": {
+                    "name": "Aura of Resolve",
+                    "description": "Allies within 2 zones gain +1 Defense in Support's chosen arena."
+                  },
+                  "maneuver": null,
+                  "gambit": {
+                    "name": "Smoke Cover",
+                    "cost": "-1 Power",
+                    "description": "On personal attack: one ally in zone gains [Cover 1] Tactical.",
+                    "rider": "[Cover 1]"
+                  },
+                  "gambits": [
+                    {
+                      "name": "Smoke Cover",
+                      "cost": "-1 Power",
+                      "description": "On personal attack: one ally in zone gains [Cover 1] Tactical.",
+                      "rider": "[Cover 1]"
+                    },
+                    {
+                      "name": "Marking Round",
+                      "cost": "-1 Power",
+                      "description": "On personal attack: target gains [Marked] Tactical.",
+                      "rider": "[Marked]"
+                    }
+                  ],
+                  "exploit": {
+                    "name": "Overwatch Support",
+                    "trigger": "An ally in an adjacent zone is attacked.",
+                    "description": "Immediately attack the attacker at -2 Power if in weapon range."
+                  },
+                  "powerSource": "ranged"
+                },
+                "weaponChassis": "medium",
+                "loot": [
+                  {
+                    "id": "wpn_dl18_01",
+                    "name": "BlasTech DL-18",
+                    "type": "weapon",
+                    "qty": 1
+                  }
+                ]
+              }
             }
           ],
           "decisions": [],
-          "loreTags": ["Endor", "The Banshee", "Varth", "Maya", "Denia", "The Ebon Spire"],
+          "loreTags": [
+            "Endor",
+            "The Banshee",
+            "Varth",
+            "Maya",
+            "Denia",
+            "The Ebon Spire"
+          ],
           "narrativeLinks": [
             {
               "targetScene": "adv4-p1-s2",
@@ -134,7 +245,10 @@
             }
           ],
           "decisions": [],
-          "loreTags": ["Endor Wildlife", "Boar-wolf"],
+          "loreTags": [
+            "Endor Wildlife",
+            "Boar-wolf"
+          ],
           "narrativeLinks": [
             {
               "targetScene": "adv4-p1-s3",
@@ -173,7 +287,11 @@
             }
           ],
           "decisions": [],
-          "loreTags": ["Ewoks", "Endor", "Ambush"],
+          "loreTags": [
+            "Ewoks",
+            "Endor",
+            "Ambush"
+          ],
           "narrativeLinks": [
             {
               "targetScene": "adv4-p1-s4",
@@ -210,7 +328,11 @@
               "consequence": "The Ewoks scatter but the forest turns hostile. No village scene, no guides, no Storyteller intelligence. The trek to the Dead Forest is longer and harder. The crew arrives at the Spire depleted and without the Ewok blessing."
             }
           ],
-          "loreTags": ["Ewoks", "Moral Choice", "Conscience"],
+          "loreTags": [
+            "Ewoks",
+            "Moral Choice",
+            "Conscience"
+          ],
           "narrativeLinks": [
             {
               "targetScene": "adv4-p1-s5",
@@ -273,7 +395,14 @@
             }
           ],
           "decisions": [],
-          "loreTags": ["Ewoks", "Chief Chirpa", "Paploo", "The Storyteller", "The Dead Forest", "Dark Side Nexus"],
+          "loreTags": [
+            "Ewoks",
+            "Chief Chirpa",
+            "Paploo",
+            "The Storyteller",
+            "The Dead Forest",
+            "Dark Side Nexus"
+          ],
           "narrativeLinks": [
             {
               "targetScene": "adv4-p2-s1",
@@ -319,7 +448,11 @@
             }
           ],
           "decisions": [],
-          "loreTags": ["Dead Forest", "Dark Side", "Endor"],
+          "loreTags": [
+            "Dead Forest",
+            "Dark Side",
+            "Endor"
+          ],
           "narrativeLinks": [
             {
               "targetScene": "adv4-p2-s2",
@@ -367,7 +500,12 @@
               "consequence": "The Ewok guides are slaughtered. The crew steps over the bodies of those who trusted them. No totem, no blessing. Only the sound of carrion birds gathering in the canopy."
             }
           ],
-          "loreTags": ["Boar-wolf Pack", "Varth Red Flag", "Moral Choice", "Ewoks"],
+          "loreTags": [
+            "Boar-wolf Pack",
+            "Varth Red Flag",
+            "Moral Choice",
+            "Ewoks"
+          ],
           "narrativeLinks": [
             {
               "targetScene": "adv4-p2-s3",
@@ -395,7 +533,12 @@
           "gmNotes": "The boundary is the point of no return. Once the crew crosses, they are entirely alone — no guides, no Varth on comms (the Nexus will sever the link in Part 3), no support.\n\nTOTEM MOMENT: If the crew saved the Ewoks, the lead scout presses a small, carved wooden totem into a hero's hand with a solemn bow before melting back into the living forest. This is a quiet, earned moment of grace. The totem may have mechanical significance later (resistance to Dark Side effects in the Spire) or it may simply be a narrative touchstone — a reminder that someone out there is grateful.\n\nNO TOTEM: If the crew let the Ewoks die, there is only silence and carrion birds. The bridge is burned. They step over the bodies and cross alone.\n\nEither way, the heroes are now entirely on their own.",
           "npcs": [],
           "decisions": [],
-          "loreTags": ["Dead Forest", "Dark Side Nexus", "Ewok Totem", "Point of No Return"],
+          "loreTags": [
+            "Dead Forest",
+            "Dark Side Nexus",
+            "Ewok Totem",
+            "Point of No Return"
+          ],
           "narrativeLinks": [
             {
               "targetScene": "adv4-p2-s4",
@@ -423,7 +566,13 @@
           "gmNotes": "The Ebon Spire reveal should be awe-inspiring and deeply wrong. A tree the size of a capital ship, turned to black glass by millennia of Dark Side corruption. It should feel ancient, powerful, and malevolent.\n\nTHE SCRAPE MARKS: This is the first sign that Inquisitor Draco has been here. Fresh damage on a door that hasn't been touched in centuries. Don't explain it — let the players draw their own conclusions. The payoff comes in Part 3, Scene 1.\n\nTHE DOOR PUZZLE: This is a skill challenge, not a combat encounter. Force-sensitive characters can sense the mechanism. Non-Force characters need slicing/mechanics skills and accept higher risk (dead-fall traps). Either approach works.\n\nVARTH'S WHIPLASH: His warm, charming return after the cold 'don't waste ammo on the locals' line is deliberate. He is a skilled manipulator who knows when to apply warmth and when to apply pressure. Players should feel the tonal whiplash — charm after cruelty. This is how abusers operate.\n\nThe last line of comms before the Nexus severs contact in Part 3.",
           "npcs": [],
           "decisions": [],
-          "loreTags": ["Ebon Spire", "Dark Side Nexus", "Inquisitor Draco", "Revan", "Varth Red Flag"],
+          "loreTags": [
+            "Ebon Spire",
+            "Dark Side Nexus",
+            "Inquisitor Draco",
+            "Revan",
+            "Varth Red Flag"
+          ],
           "narrativeLinks": [
             {
               "targetScene": "adv4-p3-s1",
@@ -484,7 +633,13 @@
               "consequence": "Faster progress but the crew repeats the cold calculus Varth demands of them. No intelligence about Draco's disposition. Thorla is abandoned in the dark — another life discarded for the payday."
             }
           ],
-          "loreTags": ["Master Thorla", "Order 66", "Inquisitor Draco", "Dark Side Nexus", "Universal Energy Cage"],
+          "loreTags": [
+            "Master Thorla",
+            "Order 66",
+            "Inquisitor Draco",
+            "Dark Side Nexus",
+            "Universal Energy Cage"
+          ],
           "narrativeLinks": [
             {
               "targetScene": "adv4-p3-s2",
@@ -512,7 +667,12 @@
           "gmNotes": "This scene is atmospheric and provides two things: intelligence (the fragmentary log warning about the Hall of Mirrors ahead) and thematic resonance (the dead cultists as a mirror for the crew's own greed).\n\nTHE DEAD CULTISTS: These are people who came here centuries ago seeking Revan's power. They found it, fought over it, and killed each other in the dark. Their mummified corpses are a silent warning — a mirror held up to the terminal end of obsession. The crew is looking at what greed leaves behind when the galaxy stops watching.\n\nTHE DATA-CHIP: A fragmentary warning about the Hall of Mirrors (Scene 3). If the crew reads it, they have forewarning about what's ahead. If they skip it, the Hall hits them cold.\n\nDRACO'S TRAIL: Deliberate, methodical destruction. He took what he wanted and scorched the rest. This is the Imperial way — extract value, destroy the remainder.",
           "npcs": [],
           "decisions": [],
-          "loreTags": ["Revan", "Ebon Spire Archives", "Dark Side Cultists", "Inquisitor Draco"],
+          "loreTags": [
+            "Revan",
+            "Ebon Spire Archives",
+            "Dark Side Cultists",
+            "Inquisitor Draco"
+          ],
           "narrativeLinks": [
             {
               "targetScene": "adv4-p3-s3",
@@ -564,7 +724,12 @@
               "consequence": "The heroes fire blindly at their own friends in the dark. Allies are wounded. The psychological damage carries forward — the dark got inside their heads."
             }
           ],
-          "loreTags": ["Dark Side Nexus", "Hall of Mirrors", "Psychological Gauntlet", "Revan"],
+          "loreTags": [
+            "Dark Side Nexus",
+            "Hall of Mirrors",
+            "Psychological Gauntlet",
+            "Revan"
+          ],
           "narrativeLinks": [
             {
               "targetScene": "adv4-p3-s4",
@@ -616,7 +781,13 @@
               "consequence": "A brutal, close-quarters battle. The crew takes injuries but grants the tortured souls the release they've been denied for centuries. Merciful, costly, and right."
             }
           ],
-          "loreTags": ["The Hollowed", "Dark Side Spirits", "Dathomiri Magick", "Nightsister", "Revan"],
+          "loreTags": [
+            "The Hollowed",
+            "Dark Side Spirits",
+            "Dathomiri Magick",
+            "Nightsister",
+            "Revan"
+          ],
           "narrativeLinks": [
             {
               "targetScene": "adv4-p3-s5",
@@ -688,7 +859,15 @@
               "consequence": "The crew risks annihilation but may secure both holocrons — the complete set of Revan's navigation data. Maximum risk, maximum reward. The Sith Holocron rejects Draco during the assault, creating a window of chaos."
             }
           ],
-          "loreTags": ["Inquisitor Draco", "Jedi Holocron", "Sith Holocron", "Dark Troopers", "Dark Side Dragon", "Revan", "Abyssal Vault"],
+          "loreTags": [
+            "Inquisitor Draco",
+            "Jedi Holocron",
+            "Sith Holocron",
+            "Dark Troopers",
+            "Dark Side Dragon",
+            "Revan",
+            "Abyssal Vault"
+          ],
           "narrativeLinks": [
             {
               "targetScene": "adv4-p3-s6",
@@ -757,7 +936,14 @@
             }
           ],
           "decisions": [],
-          "loreTags": ["Maya", "The Banshee", "Varth", "Ebon Spire Collapse", "Imperial Response", "Extraction"],
+          "loreTags": [
+            "Maya",
+            "The Banshee",
+            "Varth",
+            "Ebon Spire Collapse",
+            "Imperial Response",
+            "Extraction"
+          ],
           "narrativeLinks": [],
           "pacing": {
             "openingBeat": "Comms crack to life. Varth is panicking. Imperial signatures everywhere.",
