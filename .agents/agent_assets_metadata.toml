@@ -1,5 +1,4 @@
 uploads = []
-outputs = []
 
 [[generated]]
 id = "ONFXj54KxqE3-SokB-XBG"
@@ -108,3 +107,9 @@ id = "tHjV406fuXAVy1XRptlNo"
 uri = "file://attached_assets/fulcrum-final-v6.png"
 type = "image"
 title = "Fulcrum asymmetric crystal pips"
+
+[[outputs]]
+id = "2LcyfBitBojI2aNp3Z-pi"
+uri = "file://assets/fulcrum-resolution-infographic.png"
+type = "image"
+title = "The Fulcrum — Action Resolution Infographic (PNG)"

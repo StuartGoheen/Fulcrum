@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Fulcrum — Action Resolution</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Exo+2:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      width: 100%;
+      max-width: 960px;
+      margin: 0 auto;
+      font-family: 'Exo 2', sans-serif;
+      background: #1a1a1e;
+      background-image:
+        radial-gradient(ellipse at 30% 20%, rgba(60,55,50,0.4) 0%, transparent 60%),
+        radial-gradient(ellipse at 70% 80%, rgba(50,45,40,0.3) 0%, transparent 60%),
+        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.008) 2px, rgba(255,255,255,0.008) 4px);
+      color: #a09888;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    .scan-line {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.03) 3px, rgba(0,0,0,0.03) 6px);
+      z-index: 100;
+    }
+
+    .page {
+      position: relative;
+      z-index: 10;
+      padding: 10px 28px 10px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 6px;
+    }
+
+    .header-logo {
+      width: 52px;
+      height: 52px;
+      margin: 0 auto 2px;
+      display: block;
+      filter: drop-shadow(0 0 16px rgba(199,146,52,0.35)) drop-shadow(0 0 32px rgba(180,80,40,0.15));
+    }
+
+    .header-title {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 1.35rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #c8a44e;
+      text-shadow: 0 0 40px rgba(199,146,52,0.2);
+      margin-bottom: 1px;
+    }
+
+    .header-subtitle {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #7a7068;
+      margin-bottom: 6px;
+    }
+
+    .formula-bar {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(165deg, #2a2a2e 0%, #1e1e22 40%, #252528 100%);
+      border: 1px solid #3a3632;
+      padding: 5px 20px;
+      position: relative;
+    }
+
+    .formula-bar::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(199,146,52,0.4), transparent);
+    }
+
+    .formula-text {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      color: #d4c5a0;
+    }
+
+    .formula-highlight { color: #c8a44e; font-weight: 700; }
+
+    .gold-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(199,146,52,0.25), transparent);
+      margin: 8px 0;
+    }
+
+    .section-label {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #6a6258;
+      text-align: center;
+      margin-bottom: 6px;
+    }
+
+    .two-axis {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .axis-panel {
+      flex: 1;
+      background: linear-gradient(165deg, #2a2a2e 0%, #1e1e22 40%, #252528 100%);
+      border: 1px solid #3a3632;
+      padding: 8px 10px 6px;
+      position: relative;
+    }
+
+    .axis-panel::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    }
+
+    .axis-panel--control::before {
+      background: linear-gradient(90deg, transparent, rgba(80,160,255,0.5), transparent);
+    }
+
+    .axis-panel--power::before {
+      background: linear-gradient(90deg, transparent, rgba(255,80,60,0.5), transparent);
+    }
+
+    .rivets {
+      position: absolute; top: 6px; left: 6px; right: 6px; bottom: 6px;
+      pointer-events: none;
+    }
+    .rivets::before, .rivets::after {
+      content: ''; position: absolute; width: 4px; height: 4px; border-radius: 50%;
+      background: radial-gradient(circle, #4a4238, #2a2622);
+      box-shadow: 0 0.5px 1px rgba(255,255,255,0.05);
+    }
+    .rivets::before { top: 0; right: 0; }
+    .rivets::after { bottom: 0; left: 0; }
+
+    .axis-icon { font-size: 1rem; margin-bottom: 2px; }
+
+    .axis-title {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1px;
+    }
+
+    .axis-title--control { color: #5aa0ff; }
+    .axis-title--power { color: #ff6b55; }
+
+    .axis-die {
+      font-size: 0.58rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #7a7068;
+      margin-bottom: 4px;
+    }
+
+    .axis-question {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #d4c5a0;
+      margin-bottom: 2px;
+      font-style: italic;
+    }
+
+    .axis-desc {
+      font-size: 0.58rem;
+      line-height: 1.3;
+      color: #7a7068;
+    }
+
+    .axis-outcomes {
+      margin-top: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .outcome-row {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.62rem;
+    }
+
+    .outcome-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .outcome-dot--success { background: #22c55e; box-shadow: 0 0 5px rgba(34,197,94,0.4); }
+    .outcome-dot--fail { background: #ef4444; box-shadow: 0 0 5px rgba(239,68,68,0.4); }
+    .outcome-dot--mastery { background: #c8a44e; box-shadow: 0 0 5px rgba(200,164,78,0.4); }
+
+    .outcome-label { font-weight: 600; color: #d4c5a0; }
+    .outcome-detail { color: #7a7068; }
+
+    .track-grid {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .track-col { flex: 1; }
+
+    .track-col-title {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 4px;
+      padding-bottom: 3px;
+      border-bottom: 1px solid #2a2622;
+    }
+
+    .track-col-title--success { color: #22c55e; }
+    .track-col-title--failure { color: #ef4444; }
+
+    .tier-row {
+      display: flex;
+      align-items: stretch;
+      margin-bottom: 2px;
+      background: linear-gradient(165deg, #2a2a2e 0%, #222226 100%);
+      border: 1px solid #2e2c28;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tier-row::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; bottom: 0;
+      width: 3px;
+    }
+
+    .tier-row--fleeting::before { background: #4a6a3a; }
+    .tier-row--masterful::before { background: #22c55e; }
+    .tier-row--legendary::before { background: #c8a44e; }
+    .tier-row--unleashed1::before { background: #e08040; }
+    .tier-row--unleashed2::before { background: #e05535; }
+    .tier-row--unleashed3::before { background: #ff3333; box-shadow: 0 0 8px rgba(255,50,50,0.3); }
+
+    .tier-row--fail-fleeting::before { background: #6a4a3a; }
+    .tier-row--fail-masterful::before { background: #b04040; }
+    .tier-row--fail-legendary::before { background: #ff3333; box-shadow: 0 0 8px rgba(255,50,50,0.3); }
+
+    .tier-range {
+      width: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.65rem;
+      color: #d4c5a0;
+      background: rgba(0,0,0,0.15);
+      padding: 3px 4px;
+      flex-shrink: 0;
+      border-right: 1px solid #2e2c28;
+    }
+
+    .tier-info {
+      flex: 1;
+      padding: 3px 8px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .tier-name {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0px;
+    }
+
+    .tier-name--fleeting { color: #6aaa55; }
+    .tier-name--masterful { color: #22c55e; }
+    .tier-name--legendary { color: #c8a44e; }
+    .tier-name--unleashed1 { color: #e08040; }
+    .tier-name--unleashed2 { color: #e05535; }
+    .tier-name--unleashed3 { color: #ff4444; text-shadow: 0 0 8px rgba(255,50,50,0.3); }
+
+    .tier-name--fail-fleeting { color: #aa7755; }
+    .tier-name--fail-masterful { color: #cc5555; }
+    .tier-name--fail-legendary { color: #ff4444; text-shadow: 0 0 8px rgba(255,50,50,0.3); }
+
+    .tier-desc {
+      font-size: 0.58rem;
+      color: #6a6258;
+      line-height: 1.3;
+    }
+
+    .mastery-callout {
+      background: linear-gradient(165deg, #2a2a2e 0%, #1e1e22 40%, #252528 100%);
+      border: 1px solid #c8a44e;
+      padding: 7px 12px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+      box-shadow: 0 0 16px rgba(199,146,52,0.08);
+    }
+
+    .mastery-callout::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(199,146,52,0.5), transparent);
+    }
+
+    .mastery-icon { font-size: 1.1rem; flex-shrink: 0; }
+
+    .mastery-title {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #c8a44e;
+      margin-bottom: 2px;
+    }
+
+    .mastery-desc {
+      font-size: 0.6rem;
+      color: #d4c5a0;
+      line-height: 1.35;
+    }
+
+    .mastery-desc strong { color: #c8a44e; }
+
+    .modifiers {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .mod-card {
+      flex: 1;
+      background: linear-gradient(165deg, #2a2a2e 0%, #1e1e22 40%, #252528 100%);
+      border: 1px solid #3a3632;
+      padding: 6px 7px 5px;
+      position: relative;
+    }
+
+    .mod-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(199,146,52,0.25), transparent);
+    }
+
+    .mod-icon { font-size: 0.75rem; margin-bottom: 1px; }
+
+    .mod-timing {
+      font-size: 0.5rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #c8a44e;
+      margin-bottom: 2px;
+    }
+
+    .mod-title {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.56rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #d4c5a0;
+      margin-bottom: 2px;
+    }
+
+    .mod-desc {
+      font-size: 0.5rem;
+      line-height: 1.3;
+      color: #7a7068;
+    }
+
+    .mod-example {
+      font-size: 0.48rem;
+      color: #6a6258;
+      margin-top: 1px;
+      font-style: italic;
+    }
+
+    .favored-callout {
+      background: linear-gradient(165deg, #2a2a2e 0%, #1e1e22 40%, #252528 100%);
+      border: 1px solid #3a3632;
+      padding: 6px 10px;
+      display: flex;
+      align-items: flex-start;
+      gap: 7px;
+      position: relative;
+      margin-bottom: 6px;
+    }
+
+    .favored-callout::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(255,80,60,0.4), transparent);
+    }
+
+    .favored-icon { font-size: 0.85rem; flex-shrink: 0; line-height: 1; }
+
+    .favored-title {
+      font-family: 'Audiowide', sans-serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #ff6b55;
+      margin-bottom: 2px;
+    }
+
+    .favored-desc {
+      font-size: 0.52rem;
+      line-height: 1.3;
+      color: #7a7068;
+    }
+
+    .favored-desc strong { color: #d4c5a0; font-weight: 600; }
+
+    .favored-badges {
+      display: flex;
+      gap: 5px;
+      margin-top: 3px;
+    }
+
+    .favored-badge {
+      font-size: 0.52rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border: 1px solid #3a3632;
+      color: #d4c5a0;
+      background: rgba(0,0,0,0.2);
+    }
+
+    .favored-badge--explode { border-color: #e05535; color: #e05535; }
+    .favored-badge--edge { border-color: #5aa0ff; color: #5aa0ff; }
+
+    .footer {
+      text-align: center;
+      font-size: 0.5rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #4a4238;
+      padding-top: 6px;
+      border-top: 1px solid #2a2622;
+    }
+
+    .footer::before {
+      content: '';
+      display: block;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(199,146,52,0.15), transparent);
+      margin-bottom: 6px;
+    }
+
+    .fulcrum-zero {
+      text-align: center;
+      padding: 10px 0 2px;
+    }
+
+    .fulcrum-zero-text {
+      font-size: 0.55rem;
+      color: #4a4238;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      line-height: 1.5;
+    }
+
+    .fulcrum-zero-text strong { color: #c8a44e; }
+  </style>
+</head>
+<body>
+  <div class="scan-line"></div>
+
+  <div class="page">
+
+    <div class="header">
+      <img src="/images/fulcrum-logo.png" alt="Fulcrum" class="header-logo" />
+      <div class="header-title">The Fulcrum</div>
+      <div class="header-subtitle">Action Resolution</div>
+      <div class="formula-bar">
+        <div class="rivets"></div>
+        <span class="formula-text">
+          <span class="formula-highlight">Roll</span> &minus; <span class="formula-highlight">Risk</span> = <span class="formula-highlight">Net Result</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="section-label">The Two Axes</div>
+
+    <div class="two-axis">
+      <div class="axis-panel axis-panel--control">
+        <div class="rivets"></div>
+        <div class="axis-icon">&#x1F3AF;</div>
+        <div class="axis-title axis-title--control">Control</div>
+        <div class="axis-die">Your Discipline Die</div>
+        <div class="axis-question">&ldquo;Did you succeed?&rdquo;</div>
+        <div class="axis-desc">
+          Roll your Discipline die against the Risk (usually 4). Positive net = success. Negative net = failure.
+        </div>
+        <div class="axis-outcomes">
+          <div class="outcome-row">
+            <div class="outcome-dot outcome-dot--success"></div>
+            <span class="outcome-label">Success</span>
+            <span class="outcome-detail">&mdash; Net 0 or higher</span>
+          </div>
+          <div class="outcome-row">
+            <div class="outcome-dot outcome-dot--fail"></div>
+            <span class="outcome-label">Failure</span>
+            <span class="outcome-detail">&mdash; Net &minus;1 or lower</span>
+          </div>
+          <div class="outcome-row">
+            <div class="outcome-dot outcome-dot--mastery"></div>
+            <span class="outcome-label">Mastery</span>
+            <span class="outcome-detail">&mdash; Natural 8+ on die</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="axis-panel axis-panel--power">
+        <div class="rivets"></div>
+        <div class="axis-icon">&#x1F4A5;</div>
+        <div class="axis-title axis-title--power">Power</div>
+        <div class="axis-die">Your Arena Die</div>
+        <div class="axis-question">&ldquo;How hard did it hit?&rdquo;</div>
+        <div class="axis-desc">
+          Your Arena die sets the impact. Higher roll = higher tier on the Effect Track. Favored disciplines explode on max roll.
+        </div>
+        <div class="axis-outcomes">
+          <div class="outcome-row">
+            <div class="outcome-dot" style="background:#4a6a3a;"></div>
+            <span class="outcome-label">Fleeting</span>
+            <span class="outcome-detail">&mdash; Glancing / minimal</span>
+          </div>
+          <div class="outcome-row">
+            <div class="outcome-dot outcome-dot--success"></div>
+            <span class="outcome-label">Masterful</span>
+            <span class="outcome-detail">&mdash; Full intended effect</span>
+          </div>
+          <div class="outcome-row">
+            <div class="outcome-dot outcome-dot--mastery"></div>
+            <span class="outcome-label">Legendary+</span>
+            <span class="outcome-detail">&mdash; Exceptional &amp; beyond</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="gold-divider"></div>
+    <div class="section-label">The Effect Track</div>
+
+    <div class="track-grid">
+      <div class="track-col">
+        <div class="track-col-title track-col-title--success">&#x2714; Success Tiers</div>
+
+        <div class="tier-row tier-row--unleashed3">
+          <div class="tier-range">20+</div>
+          <div class="tier-info">
+            <div class="tier-name tier-name--unleashed3">Unleashed III</div>
+            <div class="tier-desc">Transcendent. Reality reshapes. Starkiller-level.</div>
+          </div>
+        </div>
+
+        <div class="tier-row tier-row--unleashed2">
+          <div class="tier-range">16&ndash;19</div>
+          <div class="tier-info">
+            <div class="tier-name tier-name--unleashed2">Unleashed II</div>
+            <div class="tier-desc">Defies expectation. Borders on the impossible.</div>
+          </div>
+        </div>
+
+        <div class="tier-row tier-row--unleashed1">
+          <div class="tier-range">12&ndash;15</div>
+          <div class="tier-info">
+            <div class="tier-name tier-name--unleashed1">Unleashed I</div>
+            <div class="tier-desc">Beyond mastery. Stories get told.</div>
+          </div>
+        </div>
+
+        <div class="tier-row tier-row--legendary">
+          <div class="tier-range">8&ndash;11</div>
+          <div class="tier-info">
+            <div class="tier-name tier-name--legendary">Legendary</div>
+            <div class="tier-desc">Exceptional execution. Peak normal ceiling.</div>
+          </div>
+        </div>
+
+        <div class="tier-row tier-row--masterful">
+          <div class="tier-range">4&ndash;7</div>
+          <div class="tier-info">
+            <div class="tier-name tier-name--masterful">Masterful</div>
+            <div class="tier-desc">Standard success. Full intended effect.</div>
+          </div>
+        </div>
+
+        <div class="tier-row tier-row--fleeting">
+          <div class="tier-range">0&ndash;3</div>
+          <div class="tier-info">
+            <div class="tier-name tier-name--fleeting">Fleeting</div>
+            <div class="tier-desc">Marginal. A glancing blow, minimal magnitude.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="track-col">
+        <div class="track-col-title track-col-title--failure">&#x2718; Failure Tiers</div>
+
+        <div class="tier-row tier-row--fail-legendary">
+          <div class="tier-range">&minus;8&thinsp;&darr;</div>
+          <div class="tier-info">
+            <div class="tier-name tier-name--fail-legendary">Legendary Failure</div>
+            <div class="tier-desc">Catastrophic. Worst possible outcome.</div>
+          </div>
+        </div>
+
+        <div class="tier-row tier-row--fail-masterful">
+          <div class="tier-range">&minus;4 to &minus;7</div>
+          <div class="tier-info">
+            <div class="tier-name tier-name--fail-masterful">Masterful Failure</div>
+            <div class="tier-desc">Serious. Consequence lands with weight.</div>
+          </div>
+        </div>
+
+        <div class="tier-row tier-row--fail-fleeting">
+          <div class="tier-range">&minus;1 to &minus;3</div>
+          <div class="tier-info">
+            <div class="tier-name tier-name--fail-fleeting">Fleeting Failure</div>
+            <div class="tier-desc">Minor. A stumble, a missed opportunity.</div>
+          </div>
+        </div>
+
+        <div class="fulcrum-zero">
+          <div class="fulcrum-zero-text">
+            The fulcrum point is <strong>zero</strong><br/>
+            Same math governs player success &amp; enemy effect
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mastery-callout">
+      <div class="mastery-icon">&#x2B50;</div>
+      <div class="mastery-content">
+        <div class="mastery-title">Mastery Bonus</div>
+        <div class="mastery-desc">
+          When the <strong>Control Die</strong> rolls a natural <strong>8 or higher</strong>, the action resolves at <strong>+1 Effect Tier</strong> automatically. Applies to attacks, maneuvers, defenses, and narrative actions.
+        </div>
+      </div>
+    </div>
+
+    <div class="gold-divider"></div>
+    <div class="section-label">Tactical Levers</div>
+
+    <div class="modifiers">
+      <div class="mod-card">
+        <div class="rivets"></div>
+        <div class="mod-icon">&#x2B06;</div>
+        <div class="mod-timing">Pre-Roll</div>
+        <div class="mod-title">Dice Stepping</div>
+        <div class="mod-desc">Step a die Up (D8&rarr;D10) or Down (D10&rarr;D8). Changes ceiling &amp; floor before rolling.</div>
+        <div class="mod-example">[Optimized] steps up, [Disoriented] steps down</div>
+      </div>
+
+      <div class="mod-card">
+        <div class="rivets"></div>
+        <div class="mod-icon">&#x21C5;</div>
+        <div class="mod-timing">Post-Roll</div>
+        <div class="mod-title">Tier Shifting</div>
+        <div class="mod-desc">Shift the final result +1 or &minus;1 Tier on the Effect Track after seeing the roll.</div>
+        <div class="mod-example">Destiny = +1 Tier. Gambits cost &minus;1 Tier for a bonus.</div>
+      </div>
+
+      <div class="mod-card">
+        <div class="rivets"></div>
+        <div class="mod-icon">&#x1F3B2;</div>
+        <div class="mod-timing">Post-Roll</div>
+        <div class="mod-title">Edge Reroll</div>
+        <div class="mod-desc">Spend 1 Edge to reroll Control or Power die. Favored Disciplines only.</div>
+        <div class="mod-example">New result replaces the old &mdash; may be higher or lower.</div>
+      </div>
+    </div>
+
+    <div class="favored-callout">
+      <div class="favored-icon">&#x1F525;</div>
+      <div class="favored-content">
+        <div class="favored-title">Favored Disciplines &mdash; Gateway to Unleashed</div>
+        <div class="favored-desc">
+          Only <strong>Favored Disciplines</strong> can reach the Unleashed tiers. Your <strong>Power Die explodes</strong> on its max value &mdash; roll again and add. A D12 rolling 12 explodes to 12+, potentially reaching Unleashed I, II, or III. Favored also unlocks <strong>Edge rerolls</strong>.
+        </div>
+        <div class="favored-badges">
+          <div class="favored-badge favored-badge--explode">&#x1F4A5; Exploding Power Die</div>
+          <div class="favored-badge favored-badge--edge">&#x1F3B2; Edge Rerolls</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      Fulcrum &mdash; Edge of the Empire &mdash; Quick Reference
+    </div>
+
+  </div>
+</body>
+</html>
