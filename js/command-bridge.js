@@ -3562,8 +3562,34 @@
     html += '<span class="nc-pole nc-pole--toll">' + esc(challenge.tollPole || '') + '</span>';
     html += '</div></div>';
 
-    var rounds = challenge.rounds || [];
-    rounds.forEach(function (round, ri) {
+    var allRounds = challenge.rounds || [];
+    var traversedRoundIds = choices.map(function (c) { return c.round_id; });
+
+    var hasBranching = allRounds.some(function (r) {
+      return (r.choices || []).some(function (c) { return !!c.nextRound; });
+    });
+
+    var visibleRounds;
+    if (hasBranching && choices.length > 0) {
+      var lastChoice = choices[choices.length - 1];
+      var lastRound = allRounds.find(function (r) { return r.id === lastChoice.round_id; });
+      var lastChosen = lastRound ? (lastRound.choices || []).find(function (c) { return c.id === lastChoice.choice_id; }) : null;
+      var nextRoundId = lastChosen && lastChosen.nextRound ? lastChosen.nextRound : null;
+
+      visibleRounds = allRounds.filter(function (r) {
+        return traversedRoundIds.indexOf(r.id) !== -1;
+      });
+      if (nextRoundId) {
+        var nextRound = allRounds.find(function (r) { return r.id === nextRoundId; });
+        if (nextRound && traversedRoundIds.indexOf(nextRound.id) === -1) {
+          visibleRounds.push(nextRound);
+        }
+      }
+    } else {
+      visibleRounds = allRounds;
+    }
+
+    visibleRounds.forEach(function (round, ri) {
       var existingChoice = choices.find(function (c) { return c.round_id === round.id; });
       html += '<div class="nc-round" data-round-id="' + esc(round.id) + '">';
       html += '<div class="nc-round-header">Round ' + (ri + 1) + '</div>';
@@ -3578,6 +3604,9 @@
         html += '<div class="nc-choice ' + alignClass + (selected ? ' nc-choice--selected' : '') + '" data-round-id="' + esc(round.id) + '" data-choice-id="' + esc(ch.id) + '">';
         html += '<div class="nc-choice-label">' + esc(ch.label) + '</div>';
         html += '<span class="nc-choice-align">' + esc(ch.alignment || '') + '</span>';
+        if (selected && ch.outcome) {
+          html += '<div class="nc-choice-outcome" style="font-size:0.55rem;color:#94a3b8;margin-top:0.3rem;font-style:italic;">' + esc(ch.outcome.substring(0, 120)) + '...</div>';
+        }
         html += '</div>';
       });
       html += '</div></div>';

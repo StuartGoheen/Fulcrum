@@ -831,28 +831,58 @@
     try { existingChoices = JSON.parse(inst.choices || '[]'); } catch (_) {}
     _challengeCurrentRound = existingChoices.length;
 
+    var nextRoundId = _getNextRoundId(challenge, existingChoices);
+
     var overlay = document.createElement('div');
     overlay.id = 'nc-player-overlay';
     overlay.className = 'nc-player-overlay';
 
-    _renderChallengeRound(overlay, challenge, inst, existingChoices);
+    _renderChallengeRound(overlay, challenge, inst, existingChoices, nextRoundId);
     document.body.appendChild(overlay);
   }
 
-  function _renderChallengeRound(overlay, challenge, inst, existingChoices) {
+  function _getNextRoundId(challenge, existingChoices) {
     var rounds = challenge.rounds || [];
-    var ri = _challengeCurrentRound;
+    if (!rounds.length) return null;
+    if (!existingChoices || !existingChoices.length) return rounds[0].id;
 
-    if (ri >= rounds.length) {
+    var lastChoice = existingChoices[existingChoices.length - 1];
+    var lastRound = rounds.find(function (r) { return r.id === lastChoice.round_id; });
+    if (!lastRound) return null;
+    var chosen = (lastRound.choices || []).find(function (c) { return c.id === lastChoice.choice_id; });
+    if (!chosen) return null;
+
+    if (chosen.nextRound) return chosen.nextRound;
+
+    var hasBranching = rounds.some(function (r) {
+      return (r.choices || []).some(function (c) { return !!c.nextRound; });
+    });
+    if (hasBranching) return null;
+
+    var lastIdx = rounds.indexOf(lastRound);
+    return (lastIdx + 1 < rounds.length) ? rounds[lastIdx + 1].id : null;
+  }
+
+  function _renderChallengeRound(overlay, challenge, inst, existingChoices, roundId) {
+    var rounds = challenge.rounds || [];
+
+    if (!roundId) {
       _renderChallengeComplete(overlay, challenge, inst);
       return;
     }
 
-    var round = rounds[ri];
+    var round = rounds.find(function (r) { return r.id === roundId; });
+    if (!round) {
+      _renderChallengeComplete(overlay, challenge, inst);
+      return;
+    }
+
+    var ri = _challengeCurrentRound;
+    var totalPathRounds = _getTotalPathRounds(challenge);
     var html = '<div class="nc-player-modal">';
     html += '<div class="nc-player-header">';
     html += '<span class="nc-player-title">' + _escHtml(challenge.name) + '</span>';
-    html += '<span class="nc-player-round">Round ' + (ri + 1) + ' / ' + rounds.length + '</span>';
+    html += '<span class="nc-player-round">Round ' + (ri + 1) + ' / ' + totalPathRounds + '</span>';
     html += '</div>';
 
     if (ri === 0) {
@@ -885,6 +915,27 @@
         _submitPlayerChoice(overlay, challenge, inst, roundId, choiceId, round);
       });
     });
+  }
+
+  function _getTotalPathRounds(challenge) {
+    var rounds = challenge.rounds || [];
+    if (!rounds.length) return 0;
+    var hasBranching = rounds.some(function (r) {
+      return (r.choices || []).some(function (c) { return !!c.nextRound; });
+    });
+    if (!hasBranching) return rounds.length;
+
+    var depth = 1;
+    var current = rounds[0];
+    while (current) {
+      var firstChoice = (current.choices || [])[0];
+      if (!firstChoice || !firstChoice.nextRound) break;
+      var next = rounds.find(function (r) { return r.id === firstChoice.nextRound; });
+      if (!next) break;
+      depth++;
+      current = next;
+    }
+    return depth;
   }
 
   function _submitPlayerChoice(overlay, challenge, inst, roundId, choiceId, round) {
@@ -932,27 +983,48 @@
   function _showChoiceNarration(overlay, challenge, inst, round, choiceId, resolution) {
     var chosenData = (round.choices || []).find(function (c) { return c.id === choiceId; });
     var narration = chosenData ? chosenData.narration : '';
+    var outcome = chosenData ? (chosenData.outcome || '') : '';
 
-    if (narration) {
+    var isFinal = !chosenData || !chosenData.nextRound;
+    var hasBranching = (challenge.rounds || []).some(function (r) {
+      return (r.choices || []).some(function (c) { return !!c.nextRound; });
+    });
+    if (!hasBranching) {
+      isFinal = _challengeCurrentRound + 1 >= (challenge.rounds || []).length;
+    }
+
+    var displayText = narration;
+    if (isFinal && outcome) {
+      displayText = outcome;
+    }
+
+    if (displayText) {
       var modal = overlay.querySelector('.nc-player-modal');
       if (modal) {
         var narDiv = document.createElement('div');
         narDiv.className = 'nc-player-narration';
-        narDiv.textContent = narration;
+        narDiv.textContent = displayText;
         modal.appendChild(narDiv);
 
-        var isFinal = _challengeCurrentRound + 1 >= (challenge.rounds || []).length;
         var contBtn = document.createElement('button');
         contBtn.className = 'nc-player-continue-btn';
         contBtn.textContent = isFinal ? 'View Your Destiny' : 'Continue';
         modal.appendChild(contBtn);
+
+        var nextRoundId = chosenData && chosenData.nextRound ? chosenData.nextRound : null;
+        if (!hasBranching && !isFinal) {
+          var ri = (challenge.rounds || []).indexOf(round);
+          if (ri + 1 < (challenge.rounds || []).length) {
+            nextRoundId = (challenge.rounds || [])[ri + 1].id;
+          }
+        }
 
         contBtn.addEventListener('click', function () {
           _challengeCurrentRound++;
           if (isFinal && resolution) {
             _renderChallengeResolved(overlay, challenge, resolution);
           } else {
-            _renderChallengeRound(overlay, challenge, inst, []);
+            _renderChallengeRound(overlay, challenge, inst, [], nextRoundId);
           }
         });
       }

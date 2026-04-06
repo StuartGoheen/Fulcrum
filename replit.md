@@ -514,7 +514,7 @@ Gemini-powered After Action Report generator that creates in-universe mission de
 
 Reusable branching narrative choice system tied to destiny mechanics. Designed for the Ebon Spire encounter (Adventure 4) but usable for any future narrative scene (Force visions, moral dilemmas, interrogation gauntlets).
 
-**Data Files:** `data/narrative-challenges/hall-{destruction,discovery,rescue,creation,corruption,atonement,liberation,ascendancy}.json` — 8 authored scenario files, one per destiny type. `hall-rescue-kos.json` — custom Kos Vansen scenario ("Ghost Frequencies") using Duros/Ghost/Gunslinger/Rescue destiny background; dark choices are pragmatic and seductive with costs revealed only in narration aftermath. Each has rounds with 3 choices (Light/Dark/Neutral alignment + discipline tag flavor).
+**Data Files:** `data/narrative-challenges/hall-{destruction,discovery,rescue,creation,corruption,atonement,liberation,ascendancy}.json` — 8 authored linear scenario files, one per destiny type. `hall-rescue-kos.json` — custom Kos Vansen branching scenario ("Chains of the Trandoshan") with Trandoshan slavers, Duros/Wookiee captives (Nila, Khyyra, Grashk, Vel Drenn, Fash), 13 rounds forming a branching tree (1 root + 3 tier-2 + 9 tier-3), 27 unique terminal outcomes. Each choice has `nextRound` pointing to the next round ID; terminal choices omit `nextRound` and include `outcome` text. Linear challenges (no `nextRound` fields) fall back to sequential round ordering.
 
 **Database:** `narrative_challenge_instances` table (id, challenge_id, character_id, adventure_id, scene_id, choices JSON, gm_score, shift_value, shuffle_seed, status, created_at, updated_at). Status lifecycle: active → resolved (auto-resolve on final choice) or active → scored → resolved (legacy GM manual flow). Stale instances (active > 24h) auto-marked 'abandoned' on dashboard load. `shuffle_seed` stores per-instance randomization seed for choice ordering.
 
@@ -544,7 +544,9 @@ Reusable branching narrative choice system tied to destiny mechanics. Designed f
 - `challenge:resolved` — auto-resolve or GM manual → emitted to affected player sockets with token outcome
 - `challenge:auto-resolved` — emitted to GM room on auto-resolve with score/shift/journal details
 
-**Choice Shuffling:** LCG seeded shuffle (`seededShuffle(arr, seed + roundIndex)`) ensures choices appear in randomized order per player per round. Alignment labels (`light`/`dark`/`neutral`) stripped before sending to player via `shuffleChoicesForPlayer()`. Seed stored in DB `shuffle_seed` column.
+**Branching Navigation:** Choices can have optional `nextRound` string pointing to the next round's ID, forming a tree via flat array. Terminal choices (no `nextRound`) include `outcome` text shown to the player as the final narration. Player client tracks round-by-ID navigation via `_getNextRoundId()` which follows the choice chain from `existingChoices`. GM runner shows only traversed rounds (filtered by recorded choice round_ids + next pending round). Auto-score and `isChallengeComplete()` both handle branching: completion is detected when the last choice has no `nextRound`. Linear challenges (no `nextRound` on any choice) fall back to sequential index-based navigation.
+
+**Choice Shuffling:** LCG seeded shuffle (`seededShuffle(arr, seed + roundIndex)`) ensures choices appear in randomized order per player per round. Alignment labels (`light`/`dark`/`neutral`) stripped before sending to player via `shuffleChoicesForPlayer()`. `nextRound` and `outcome` fields preserved through shuffle. Seed stored in DB `shuffle_seed` column.
 
 ## Deployment
 

@@ -45,6 +45,24 @@ function computeShiftValue(gmScore) {
   return 0;
 }
 
+function isChallengeComplete(challengeData, choices) {
+  if (!challengeData || !challengeData.rounds || !choices || !choices.length) return false;
+
+  const rounds = challengeData.rounds;
+  const hasBranching = rounds.some(r => (r.choices || []).some(c => !!c.nextRound));
+
+  if (hasBranching) {
+    const lastChoice = choices[choices.length - 1];
+    const lastRound = rounds.find(r => r.id === lastChoice.round_id);
+    if (!lastRound) return false;
+    const chosen = (lastRound.choices || []).find(c => c.id === lastChoice.choice_id);
+    if (!chosen) return false;
+    return !chosen.nextRound;
+  }
+
+  return choices.length >= rounds.length;
+}
+
 function autoCalcScore(challengeData, choicesJson) {
   if (!challengeData || !challengeData.rounds) return 3;
   let choices = [];
@@ -719,8 +737,7 @@ router.get('/narrative-challenges/player/active', async (req, res) => {
 
     let existingChoices = [];
     try { existingChoices = JSON.parse(inst.choices || '[]'); } catch (_) {}
-    const totalRounds = (challenge.rounds || []).length;
-    if (totalRounds > 0 && existingChoices.length >= totalRounds) {
+    if (isChallengeComplete(challenge, existingChoices)) {
       const io = req.app.get('io');
       const resolution = await autoResolveInstance(inst.id, challenge, existingChoices, io);
       if (resolution) {
@@ -799,8 +816,7 @@ router.put('/narrative-challenges/player/choice', async (req, res) => {
       [JSON.stringify(choices), instance_id]
     );
 
-    const totalRounds = challenge ? (challenge.rounds || []).length : 0;
-    const isComplete = totalRounds > 0 && choices.length >= totalRounds;
+    const isComplete = isChallengeComplete(challenge, choices);
 
     const io = req.app.get('io');
     if (io) {
@@ -811,7 +827,8 @@ router.put('/narrative-challenges/player/choice', async (req, res) => {
         roundId: round_id,
         choiceId: choice_id,
         totalChoices: choices.length,
-        totalRounds: totalRounds
+        totalRounds: (challenge ? (challenge.rounds || []).length : 0),
+        isComplete: isComplete
       });
     }
 
