@@ -1,0 +1,98 @@
+{
+  "id": "hall-discovery",
+  "name": "The Unveiled",
+  "destiny": "discovery",
+  "category": "hall-of-mirrors",
+  "description": "The character finds a truth that would shatter someone they care about. The knowledge is undeniable.",
+  "hopePole": "The Revelation — truth shared to protect and liberate.",
+  "tollPole": "The Theft — truth hoarded to control and dominate.",
+  "setup": "[PLACEHOLDER] A mirror appears before you, but it doesn't show your reflection. It shows a door — sealed, ancient, radiating with hidden knowledge. Beyond it lies something the galaxy forgot. Something someone buried on purpose.",
+  "rounds": [
+    {
+      "id": "r1",
+      "prompt": "[PLACEHOLDER] Beyond the door, you find a record — undeniable proof of a betrayal by someone you trusted. The truth would destroy their reputation, but it would also free those they've deceived.",
+      "choices": [
+        {
+          "id": "r1-c1",
+          "label": "Reveal the truth to those who were deceived",
+          "discipline": "presence",
+          "alignment": "light",
+          "narration": "[PLACEHOLDER] The truth hurts. But the deceived finally understand what was done to them. They can begin to heal."
+        },
+        {
+          "id": "r1-c2",
+          "label": "Keep the truth as leverage",
+          "discipline": "wits",
+          "alignment": "dark",
+          "narration": "[PLACEHOLDER] You fold the record away. This knowledge is power — and power is best held close."
+        },
+        {
+          "id": "r1-c3",
+          "label": "Confront the betrayer privately first",
+          "discipline": "grit",
+          "alignment": "neutral",
+          "narration": "[PLACEHOLDER] You face them alone. Their eyes tell you they expected this day would come."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "prompt": "[PLACEHOLDER] The vision deepens. You discover a second truth — something about yourself. A memory you buried. A thing you did, or failed to do, that set this chain of events in motion.",
+      "choices": [
+        {
+          "id": "r2-c1",
+          "label": "Accept the truth and share it — no more secrets",
+          "discipline": "grit",
+          "alignment": "light",
+          "narration": "[PLACEHOLDER] The weight lifts. The truth about yourself is harder than the truth about others, but it's honest."
+        },
+        {
+          "id": "r2-c2",
+          "label": "Bury it deeper — this one stays hidden",
+          "discipline": "reflex",
+          "alignment": "dark",
+          "narration": "[PLACEHOLDER] You lock the memory away again. Some truths are too dangerous — especially the ones about yourself."
+        },
+        {
+          "id": "r2-c3",
+          "label": "File it away — you'll deal with it when you're ready",
+          "discipline": "wits",
+          "alignment": "neutral",
+          "narration": "[PLACEHOLDER] You acknowledge it without acting on it. Not all truths demand immediate reckoning."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "prompt": "[PLACEHOLDER] The final door opens. Behind it: the complete truth — a web of cause and effect spanning years. You can share it all, hoard it all, or destroy it so no one ever knows.",
+      "choices": [
+        {
+          "id": "r3-c1",
+          "label": "Share everything — the galaxy deserves to know",
+          "discipline": "presence",
+          "alignment": "light",
+          "narration": "[PLACEHOLDER] The truth flows out like water from a broken dam. It will reshape everything. But at least it's real."
+        },
+        {
+          "id": "r3-c2",
+          "label": "Archive it for yourself — knowledge is the ultimate weapon",
+          "discipline": "wits",
+          "alignment": "dark",
+          "narration": "[PLACEHOLDER] You seal the archive. You are now the only one who knows. That makes you the most dangerous person in the room."
+        },
+        {
+          "id": "r3-c3",
+          "label": "Share what's needed, keep what's dangerous",
+          "discipline": "reflex",
+          "alignment": "neutral",
+          "narration": "[PLACEHOLDER] You curate the truth. Some things the galaxy needs. Some things it's not ready for."
+        }
+      ]
+    }
+  ],
+  "resolutions": {
+    "light": "[PLACEHOLDER] The mirror clears. You emerge from the Hall carrying the truth in the open — a burden shared is a burden halved. The light of revelation burns away the shadows.",
+    "dark": "[PLACEHOLDER] The mirror darkens. You emerge from the Hall with secrets folded into your soul. You know everything. No one else knows you know. The Dark Side Nexus whispers: knowledge is the only real power.",
+    "neutral": "[PLACEHOLDER] The mirror cracks. You emerge from the Hall with partial truths and careful calculations. You know enough to be dangerous and wise enough to be cautious."
+  }
+}

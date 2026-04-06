@@ -1,0 +1,98 @@
+{
+  "id": "hall-liberation",
+  "name": "The Unbound",
+  "destiny": "liberation",
+  "category": "hall-of-mirrors",
+  "description": "The character sees chains — on others, on themselves. Breaking them will cause chaos.",
+  "hopePole": "The Emancipation — break every chain, accept the target it paints on you.",
+  "tollPole": "The Purifier — burn the cage with everyone inside.",
+  "setup": "[PLACEHOLDER] You stand in a vast prison. The cells stretch in every direction — thousands of them. The guards are few. The locks are old. You could break them all. But the prisoners inside aren't all innocent.",
+  "rounds": [
+    {
+      "id": "r1",
+      "prompt": "[PLACEHOLDER] The first cell holds a family — workers, not criminals. They've been here for a debt they can never repay. The lock is simple. But breaking it will trigger an alarm that alerts the guards.",
+      "choices": [
+        {
+          "id": "r1-c1",
+          "label": "Break the lock — let the alarm come",
+          "discipline": "physique",
+          "alignment": "light",
+          "narration": "[PLACEHOLDER] The lock shatters. The alarm screams. The family runs. You stand between them and what's coming."
+        },
+        {
+          "id": "r1-c2",
+          "label": "Disable the alarm first, then break the locks — all of them",
+          "discipline": "reflex",
+          "alignment": "neutral",
+          "narration": "[PLACEHOLDER] You work the system. The alarm dies. The locks start falling, one by one. Quiet liberation."
+        },
+        {
+          "id": "r1-c3",
+          "label": "Break every lock on this corridor at once — overwhelm the guards",
+          "discipline": "physique",
+          "alignment": "dark",
+          "narration": "[PLACEHOLDER] The corridor erupts. Prisoners pour out — the innocent, the dangerous, all of them. The guards are overwhelmed. So is everything else."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "prompt": "[PLACEHOLDER] Deeper in the prison, you find a different kind of captive — someone who chose to stay. They built a life in their cell. They have authority here. Freeing them means destroying the stability they created for others.",
+      "choices": [
+        {
+          "id": "r2-c1",
+          "label": "Free them anyway — a comfortable cage is still a cage",
+          "discipline": "grit",
+          "alignment": "light",
+          "narration": "[PLACEHOLDER] They resist. You insist. The stability shatters. But they walk out standing up."
+        },
+        {
+          "id": "r2-c2",
+          "label": "Leave them — not everyone wants freedom",
+          "discipline": "wits",
+          "alignment": "neutral",
+          "narration": "[PLACEHOLDER] You move on. Their cage remains. By choice or by habit, they stay."
+        },
+        {
+          "id": "r2-c3",
+          "label": "Tear down the whole wing — the system can't stand at all",
+          "discipline": "physique",
+          "alignment": "dark",
+          "narration": "[PLACEHOLDER] The wing collapses. The willing and the unwilling alike are thrown into the open. Freedom by demolition."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "prompt": "[PLACEHOLDER] The final cell. Inside is you — another version, chained by something that isn't physical. Fear, obligation, loyalty to something that no longer deserves it. The chains are yours to break.",
+      "choices": [
+        {
+          "id": "r3-c1",
+          "label": "Break them — I answer to no one",
+          "discipline": "grit",
+          "alignment": "light",
+          "narration": "[PLACEHOLDER] The chains fall. You stand free — truly free, maybe for the first time. The weight you didn't know you carried is gone."
+        },
+        {
+          "id": "r3-c2",
+          "label": "Burn them — and everything they're attached to",
+          "discipline": "physique",
+          "alignment": "dark",
+          "narration": "[PLACEHOLDER] Fire takes the chains, the cell, the memory. You walk out of the ashes. Nothing holds you. Nothing can."
+        },
+        {
+          "id": "r3-c3",
+          "label": "Loosen them — I'm not ready to cut everything",
+          "discipline": "presence",
+          "alignment": "neutral",
+          "narration": "[PLACEHOLDER] You work the chains until they're slack. Not free, but not bound. Room to breathe. Room to choose."
+        }
+      ]
+    }
+  ],
+  "resolutions": {
+    "light": "[PLACEHOLDER] You emerge from the Hall with open hands and no chains. Behind you, the prison crumbles — not in fire, but in the light of a thousand freed souls. Liberation is your gift and your burden.",
+    "dark": "[PLACEHOLDER] You emerge from the Hall wreathed in smoke. The prison is ash. Everyone is free — the innocent and the dangerous alike. The Dark Side Nexus recognizes a fellow breaker of worlds.",
+    "neutral": "[PLACEHOLDER] You emerge from the Hall with selective justice. Some chains broken, some left intact. You freed who you could and left the rest to their choices. Whether that's wisdom or cowardice depends on where you stand."
+  }
+}

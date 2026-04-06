@@ -1,0 +1,98 @@
+{
+  "id": "hall-atonement",
+  "name": "The Reckoning",
+  "destiny": "atonement",
+  "category": "hall-of-mirrors",
+  "description": "The character relives the moment they failed — the debt they carry. They can change the outcome, but only by accepting a new wound.",
+  "hopePole": "The Reckoning — face the debt honestly, pay the price, close the chapter.",
+  "tollPole": "The Erasure — destroy the evidence, silence the witnesses, bury the debt.",
+  "setup": "[PLACEHOLDER] You're back there. The place where it happened. The moment that broke something inside you. Everything is exactly as you remember — except this time, you can see the choice you didn't make.",
+  "rounds": [
+    {
+      "id": "r1",
+      "prompt": "[PLACEHOLDER] The person you wronged stands before you. They remember. They've been carrying your debt as long as you have. They ask one question: why?",
+      "choices": [
+        {
+          "id": "r1-c1",
+          "label": "Tell them the truth — all of it",
+          "discipline": "presence",
+          "alignment": "light",
+          "narration": "[PLACEHOLDER] The words are harder than any fight. But you say them. The truth hangs in the air between you like a blade."
+        },
+        {
+          "id": "r1-c2",
+          "label": "Tell them what they want to hear",
+          "discipline": "wits",
+          "alignment": "dark",
+          "narration": "[PLACEHOLDER] You craft an answer that sounds like honesty. Their face softens. The lie tastes like ash."
+        },
+        {
+          "id": "r1-c3",
+          "label": "Say nothing — let the silence speak",
+          "discipline": "grit",
+          "alignment": "neutral",
+          "narration": "[PLACEHOLDER] You hold their gaze. The silence stretches. Sometimes there are no words that fit the wound."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "prompt": "[PLACEHOLDER] The vision shifts. You see the consequences of what you did — the chain of events, the people it touched, the damage that rippled outward. You can trace every thread back to your hands.",
+      "choices": [
+        {
+          "id": "r2-c1",
+          "label": "Follow each thread — own every consequence",
+          "discipline": "grit",
+          "alignment": "light",
+          "narration": "[PLACEHOLDER] You walk the damage path. Every face. Every cost. You don't look away."
+        },
+        {
+          "id": "r2-c2",
+          "label": "Cut the threads — some of this wasn't my fault",
+          "discipline": "reflex",
+          "alignment": "dark",
+          "narration": "[PLACEHOLDER] You sever the connections you can. Some of these consequences were inevitable. You just accelerated them."
+        },
+        {
+          "id": "r2-c3",
+          "label": "Acknowledge the chain but focus on what I can fix now",
+          "discipline": "wits",
+          "alignment": "neutral",
+          "narration": "[PLACEHOLDER] You can't undo the past. But you can choose where the chain ends."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "prompt": "[PLACEHOLDER] The final moment. The debt stands before you, given form. Paying it will cost you something real — something you can't get back. But the chapter will close. Or you can walk away and carry it forever.",
+      "choices": [
+        {
+          "id": "r3-c1",
+          "label": "I pay. Close the chapter.",
+          "discipline": "grit",
+          "alignment": "light",
+          "narration": "[PLACEHOLDER] The price is steep. Something inside you breaks — but something else heals. The chapter closes."
+        },
+        {
+          "id": "r3-c2",
+          "label": "Destroy the debt — erase it from existence",
+          "discipline": "physique",
+          "alignment": "dark",
+          "narration": "[PLACEHOLDER] You tear the debt apart. The evidence scatters. The witnesses forget. The chapter doesn't close — it simply ceases to exist."
+        },
+        {
+          "id": "r3-c3",
+          "label": "Make a partial payment — enough to live with",
+          "discipline": "presence",
+          "alignment": "neutral",
+          "narration": "[PLACEHOLDER] You give what you can. It's not enough to close the chapter, but it's enough to turn the page."
+        }
+      ]
+    }
+  ],
+  "resolutions": {
+    "light": "[PLACEHOLDER] You emerge from the Hall lighter. The debt is settled. The wound remains, but it's clean now — healing instead of festering. You faced what you did and chose to pay.",
+    "dark": "[PLACEHOLDER] You emerge from the Hall unburdened. The debt is gone — not paid, but destroyed. No one remembers. No one can prove it. The Dark Side Nexus approves of your efficiency.",
+    "neutral": "[PLACEHOLDER] You emerge from the Hall carrying less weight but not weightless. You paid what you could. The rest follows you like a shadow — present but not paralyzing."
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "id": "hall-corruption",
+  "name": "The Throne",
+  "destiny": "corruption",
+  "category": "hall-of-mirrors",
+  "description": "The character is offered absolute power with a clear cost to someone else.",
+  "hopePole": "The Overthrow — topple corrupt power to protect the powerless.",
+  "tollPole": "The Coup — seize control for yourself, become the new corruption.",
+  "setup": "[PLACEHOLDER] You stand in a throne room. The seat is empty. The last ruler's body has been dragged away. The people outside are waiting for someone to take charge. The crown is on the floor between you and the door.",
+  "rounds": [
+    {
+      "id": "r1",
+      "prompt": "[PLACEHOLDER] The first petitioner arrives — a general, loyal to the old regime. He offers his army in exchange for keeping his rank and privileges. Without him, the transition will be bloody.",
+      "choices": [
+        {
+          "id": "r1-c1",
+          "label": "Refuse — his privileges were built on oppression",
+          "discipline": "grit",
+          "alignment": "light",
+          "narration": "[PLACEHOLDER] The general's face hardens. He leaves. The transition just got harder. But it's honest."
+        },
+        {
+          "id": "r1-c2",
+          "label": "Accept — I need his army more than I need clean hands",
+          "discipline": "wits",
+          "alignment": "dark",
+          "narration": "[PLACEHOLDER] The general smiles. His army is yours. So are his methods."
+        },
+        {
+          "id": "r1-c3",
+          "label": "Conditional acceptance — he keeps his rank but answers to a council",
+          "discipline": "presence",
+          "alignment": "neutral",
+          "narration": "[PLACEHOLDER] The general considers. It's less than he wanted, more than he expected. He nods."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "prompt": "[PLACEHOLDER] A faction rises against you — not the old regime, but reformers who think you're moving too slowly. They're right about the pace. They're wrong about the method. They want blood.",
+      "choices": [
+        {
+          "id": "r2-c1",
+          "label": "Meet them — listen to their grievances, accelerate reform",
+          "discipline": "presence",
+          "alignment": "light",
+          "narration": "[PLACEHOLDER] You sit with the reformers. Their anger is justified. You make promises you intend to keep."
+        },
+        {
+          "id": "r2-c2",
+          "label": "Crush them — dissent is a luxury I can't afford",
+          "discipline": "physique",
+          "alignment": "dark",
+          "narration": "[PLACEHOLDER] The reformers scatter. Some are imprisoned. The message is clear: there is only one voice now."
+        },
+        {
+          "id": "r2-c3",
+          "label": "Co-opt their leaders — bring them inside the tent",
+          "discipline": "wits",
+          "alignment": "neutral",
+          "narration": "[PLACEHOLDER] You offer the loudest voices seats at the table. Some accept. Some don't. The faction splinters."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "prompt": "[PLACEHOLDER] The final test. You've held power long enough to change things. Now the question: do you keep holding it? The people are stable. The systems work. You could step down. Or you could stay.",
+      "choices": [
+        {
+          "id": "r3-c1",
+          "label": "Step down — power was never the point",
+          "discipline": "grit",
+          "alignment": "light",
+          "narration": "[PLACEHOLDER] You place the crown on the table and walk out. The people will choose their own path now."
+        },
+        {
+          "id": "r3-c2",
+          "label": "Stay — no one else can do what I do",
+          "discipline": "wits",
+          "alignment": "dark",
+          "narration": "[PLACEHOLDER] You settle into the throne. It fits. It always did. The Dark Side Nexus whispers: this is where you belong."
+        },
+        {
+          "id": "r3-c3",
+          "label": "Stay temporarily — train a successor, then leave",
+          "discipline": "presence",
+          "alignment": "neutral",
+          "narration": "[PLACEHOLDER] You announce a transition plan. Whether you follow through is a question for another day."
+        }
+      ]
+    }
+  ],
+  "resolutions": {
+    "light": "[PLACEHOLDER] You emerge from the Hall with empty hands and a full conscience. Power flowed through you, not into you. The people are free because you chose not to own them.",
+    "dark": "[PLACEHOLDER] You emerge from the Hall crowned and certain. The old corruption is dead. The new corruption wears your face. The Dark Side Nexus bows.",
+    "neutral": "[PLACEHOLDER] You emerge from the Hall as a pragmatist. You held power carefully, spent it wisely, and kept just enough for yourself. Whether that makes you a leader or a tyrant depends on who's telling the story."
+  }
+}

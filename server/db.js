@@ -121,6 +121,20 @@ async function initSchema() {
         voted           BOOLEAN NOT NULL DEFAULT false,
         created_at      TIMESTAMP DEFAULT NOW()
       );
+
+      CREATE TABLE IF NOT EXISTS narrative_challenge_instances (
+        id              SERIAL PRIMARY KEY,
+        challenge_id    TEXT NOT NULL,
+        character_id    INTEGER NOT NULL REFERENCES characters(id),
+        adventure_id    TEXT,
+        scene_id        TEXT,
+        choices         TEXT NOT NULL DEFAULT '[]',
+        gm_score        INTEGER,
+        shift_value     INTEGER,
+        status          TEXT NOT NULL DEFAULT 'active',
+        created_at      TIMESTAMP DEFAULT NOW(),
+        updated_at      TIMESTAMP DEFAULT NOW()
+      );
     `);
 
     try {

@@ -510,6 +510,30 @@ Gemini-powered After Action Report generator that creates in-universe mission de
 
 **Error Handling:** 30s timeout, retry-once on truncated JSON, rate-limit retry after 3s (matching backstory.js pattern).
 
+## Narrative Challenge Engine (Hall of Mirrors)
+
+Reusable branching narrative choice system tied to destiny mechanics. Designed for the Ebon Spire encounter (Adventure 4) but usable for any future narrative scene (Force visions, moral dilemmas, interrogation gauntlets).
+
+**Data Files:** `data/narrative-challenges/hall-{destruction,discovery,rescue,creation,corruption,atonement,liberation,ascendancy}.json` — 8 authored scenario files, one per destiny type. Each has rounds with 3 choices (Light/Dark/Neutral alignment + discipline tag flavor).
+
+**Database:** `narrative_challenge_instances` table (id, challenge_id, character_id, adventure_id, scene_id, choices JSON, gm_score, shift_value, status, created_at, updated_at). Status lifecycle: active → scored → resolved.
+
+**API:** `server/routes/narrative-challenges.js` mounted at `/api`:
+- `GET /api/narrative-challenges` — list all challenge summaries
+- `GET /api/narrative-challenges/:id` — full challenge data with rounds/choices
+- `GET /api/narrative-challenges/by-destiny/:destinyId` — filter by destiny type
+- `POST /api/narrative-challenges/instances` — create instance for character
+- `GET /api/narrative-challenges/instances/active` — list active/scored instances
+- `PUT /api/narrative-challenges/instances/:id/choice` — record round choice
+- `PUT /api/narrative-challenges/instances/:id/score` — GM score 1-5
+- `POST /api/narrative-challenges/resolve` — resolve scored instances, apply spectrum shifts
+- `POST /api/narrative-challenges/apply-tokens` — untap Hope/Toll/All tokens in destiny pool
+- `POST /api/narrative-challenges/journal` — create journal entries per character
+
+**Scoring Mechanics:** GM scores 1-5 per character → shift value: 1→-1 (toward Dark/Survivor), 2-4→0 (hold), 5→+1 (toward Light/Idealist). Spectrum order: Two Dark ↔ Light & Dark ↔ Two Light. Party sum of all shift values determines token refresh: >0 untaps Hope, <0 untaps Toll, =0 (Equilibrium/Revan's Balance) untaps ALL tokens.
+
+**GM UI (command-bridge.js):** "Narrative Challenges" section in right sidebar with "+ New" launcher button. Challenge launcher modal (select from 8 destiny scenarios + assign characters). Challenge runner modal (read prompts, select choices per round, GM score 1-5). Resolution modal shows party sum, spectrum shifts per character, token outcome with Apply/Journal/Done buttons.
+
 ## Deployment
 
 Configured as a **VM** deployment (always-on required for Socket.io persistent connections).  

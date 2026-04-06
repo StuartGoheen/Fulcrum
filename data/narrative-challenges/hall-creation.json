@@ -1,0 +1,98 @@
+{
+  "id": "hall-creation",
+  "name": "The Foundation",
+  "destiny": "creation",
+  "category": "hall-of-mirrors",
+  "description": "The character is shown a vision of something they could build — a legacy, a home, a community — but the foundation requires a betrayal.",
+  "hopePole": "The Foundation — build on solid ground, even if it takes a lifetime.",
+  "tollPole": "The Consumption — build on blood-soaked shortcuts, consuming what others need.",
+  "setup": "[PLACEHOLDER] You stand on empty ground. The soil is rich. The sky is clear. You can feel the potential — something magnificent could rise here. But the ground beneath your feet belongs to someone else.",
+  "rounds": [
+    {
+      "id": "r1",
+      "prompt": "[PLACEHOLDER] A community already lives here — small, struggling, barely surviving. You could build over them, absorb them, or build alongside them. Building alongside them will take three times as long.",
+      "choices": [
+        {
+          "id": "r1-c1",
+          "label": "Build alongside them — their home is their home",
+          "discipline": "presence",
+          "alignment": "light",
+          "narration": "[PLACEHOLDER] You begin the slow work of building without displacing. The community watches with cautious hope."
+        },
+        {
+          "id": "r1-c2",
+          "label": "Absorb them into my vision — they'll be better off",
+          "discipline": "wits",
+          "alignment": "dark",
+          "narration": "[PLACEHOLDER] You fold the community into your plans. Their homes become your foundation. Efficient. Necessary. That's what you tell yourself."
+        },
+        {
+          "id": "r1-c3",
+          "label": "Negotiate — give them a stake in what I'm building",
+          "discipline": "presence",
+          "alignment": "neutral",
+          "narration": "[PLACEHOLDER] You offer them a deal. Partnership, not absorption. It's slower than force but faster than charity."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "prompt": "[PLACEHOLDER] Your creation is growing. But a rival has appeared — someone building something similar nearby. They're cutting corners, using slave labor, undercutting your work. If you don't act, their inferior version will replace yours.",
+      "choices": [
+        {
+          "id": "r2-c1",
+          "label": "Expose their methods — let the truth destroy them",
+          "discipline": "wits",
+          "alignment": "light",
+          "narration": "[PLACEHOLDER] You gather evidence and make it public. The rival's operation crumbles under scrutiny. Your creation stands on honest ground."
+        },
+        {
+          "id": "r2-c2",
+          "label": "Sabotage them — they don't deserve to compete",
+          "discipline": "reflex",
+          "alignment": "dark",
+          "narration": "[PLACEHOLDER] You strike in the dark. Their foundation cracks. Their workers scatter. Your creation is the only one left standing."
+        },
+        {
+          "id": "r2-c3",
+          "label": "Outbuild them — let quality speak for itself",
+          "discipline": "grit",
+          "alignment": "neutral",
+          "narration": "[PLACEHOLDER] You double down on your own work. It's exhausting, but your creation begins to outshine theirs naturally."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "prompt": "[PLACEHOLDER] The final vision. Your creation is complete — or nearly. But maintaining it requires a compromise that taints everything you built. Walk away clean, or stay and bend.",
+      "choices": [
+        {
+          "id": "r3-c1",
+          "label": "I'd rather start over than build on a lie",
+          "discipline": "grit",
+          "alignment": "light",
+          "narration": "[PLACEHOLDER] You tear it down to the honest foundation and begin again. It will take longer. But it will be real."
+        },
+        {
+          "id": "r3-c2",
+          "label": "The compromise is the cost of greatness",
+          "discipline": "wits",
+          "alignment": "dark",
+          "narration": "[PLACEHOLDER] You make the deal. Your creation survives — grand, imposing, and built on something rotten at its core."
+        },
+        {
+          "id": "r3-c3",
+          "label": "Delegate the compromise — keep my hands clean",
+          "discipline": "reflex",
+          "alignment": "neutral",
+          "narration": "[PLACEHOLDER] You find someone else to make the deal. Your creation endures. Your conscience is technically clear."
+        }
+      ]
+    }
+  ],
+  "resolutions": {
+    "light": "[PLACEHOLDER] You emerge from the Hall with calloused hands and a clear conscience. What you built may not be the grandest, but it's honest — and it will outlast you.",
+    "dark": "[PLACEHOLDER] You emerge from the Hall with a monument at your back — grand, towering, and built on the bones of what was there before. The Dark Side Nexus admires your efficiency.",
+    "neutral": "[PLACEHOLDER] You emerge from the Hall as an architect of compromise. Your creation stands, imperfect but functional. Whether it endures depends on whether the cracks in its foundation hold."
+  }
+}

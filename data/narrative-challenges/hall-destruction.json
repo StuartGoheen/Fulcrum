@@ -1,0 +1,98 @@
+{
+  "id": "hall-destruction",
+  "name": "The Pyre",
+  "destiny": "destruction",
+  "category": "hall-of-mirrors",
+  "description": "The character stands before something they love and something that threatens the galaxy. They can only end one.",
+  "hopePole": "The Purge — destruction as justice, sacrifice, and surgical necessity.",
+  "tollPole": "The Ruin — destruction as malice, rage, and annihilation without restraint.",
+  "setup": "[PLACEHOLDER] You stand in a burning hall. Before you, two pillars of flame — one holds something precious, one holds something terrible. The fire is closing in. You can only reach one.",
+  "rounds": [
+    {
+      "id": "r1",
+      "prompt": "[PLACEHOLDER] The flames part and you see clearly: on one side, a weapon of terrible power that has already killed thousands. On the other, the last archive of your people's history. Both will burn. You can only destroy one to save the other.",
+      "choices": [
+        {
+          "id": "r1-c1",
+          "label": "Destroy the weapon",
+          "discipline": "physique",
+          "alignment": "light",
+          "narration": "[PLACEHOLDER] You hurl yourself at the weapon, tearing it apart with your bare hands. The archive survives. The weapon is gone."
+        },
+        {
+          "id": "r1-c2",
+          "label": "Destroy the archive to fuel the fire against the weapon",
+          "discipline": "wits",
+          "alignment": "dark",
+          "narration": "[PLACEHOLDER] You feed the archive into the flames, directing them toward the weapon. Both are gone now. Nothing remains."
+        },
+        {
+          "id": "r1-c3",
+          "label": "Try to contain the fire and save both",
+          "discipline": "grit",
+          "alignment": "neutral",
+          "narration": "[PLACEHOLDER] You fight the flames, trying to hold them back. You buy time, but the fire is patient."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "prompt": "[PLACEHOLDER] The vision shifts. You see a city — one you recognize. A faction you have fought against holds it. You have the power to end them. Completely. But the city's people are still inside.",
+      "choices": [
+        {
+          "id": "r2-c1",
+          "label": "Evacuate the civilians first, then destroy the faction's hold",
+          "discipline": "presence",
+          "alignment": "light",
+          "narration": "[PLACEHOLDER] It takes longer. Some of the enemy escapes. But the people are safe, and the faction's grip is broken."
+        },
+        {
+          "id": "r2-c2",
+          "label": "Bring it all down. The faction dies today.",
+          "discipline": "physique",
+          "alignment": "dark",
+          "narration": "[PLACEHOLDER] The city falls. The faction is obliterated. The cost is written in the smoke that rises for days."
+        },
+        {
+          "id": "r2-c3",
+          "label": "Target only the faction leadership — a precision strike",
+          "discipline": "reflex",
+          "alignment": "neutral",
+          "narration": "[PLACEHOLDER] You strike surgically. The leadership falls. The city survives, but the faction's roots remain."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "prompt": "[PLACEHOLDER] The final vision. You see yourself at the end — standing in the ruins of everything you've destroyed. A voice asks: was it worth it? What remains?",
+      "choices": [
+        {
+          "id": "r3-c1",
+          "label": "What remains is a galaxy free from what I destroyed.",
+          "discipline": "grit",
+          "alignment": "light",
+          "narration": "[PLACEHOLDER] The ruins dissolve into green. Something new grows where the old corruption stood."
+        },
+        {
+          "id": "r3-c2",
+          "label": "What remains is me. That's enough.",
+          "discipline": "wits",
+          "alignment": "dark",
+          "narration": "[PLACEHOLDER] The ruins stand silent. Nothing grows. But nothing threatens you either."
+        },
+        {
+          "id": "r3-c3",
+          "label": "I don't know yet. But I'm still here to find out.",
+          "discipline": "presence",
+          "alignment": "neutral",
+          "narration": "[PLACEHOLDER] The ruins remain. So do you. The answer is still being written."
+        }
+      ]
+    }
+  ],
+  "resolutions": {
+    "light": "[PLACEHOLDER] The flames recede. You emerge from the Hall bearing the weight of what you ended — but also the knowledge that what you destroyed needed to end. The galaxy is lighter for your sacrifice.",
+    "dark": "[PLACEHOLDER] The flames bow to you. You emerge from the Hall wreathed in smoke and ash. Everything you touched is gone. The power of ending is intoxicating — and the Dark Side Nexus knows it.",
+    "neutral": "[PLACEHOLDER] The flames flicker and die. You emerge from the Hall with soot on your hands and questions in your heart. You destroyed what you had to. Whether it was enough — or too much — remains to be seen."
+  }
+}

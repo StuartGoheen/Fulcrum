@@ -1,0 +1,98 @@
+{
+  "id": "hall-ascendancy",
+  "name": "The Apex",
+  "destiny": "ascendancy",
+  "category": "hall-of-mirrors",
+  "description": "The character sees the version of themselves that made it — powerful, respected, untouchable. But that version is alone.",
+  "hopePole": "The Elevation — rise by lifting others, share the summit.",
+  "tollPole": "The Usurper — climb by pulling down the person above you.",
+  "setup": "[PLACEHOLDER] You stand at the base of a mountain. At the summit, a throne — your throne, in a future that hasn't happened yet. The path upward is lined with people you know. Some are stepping stones. Some are rivals. Some are friends who can't climb as fast as you.",
+  "rounds": [
+    {
+      "id": "r1",
+      "prompt": "[PLACEHOLDER] The first obstacle: a mentor who taught you everything. They're slower now. Tired. They're blocking the path — not maliciously, but because they can't keep up. Moving past them means leaving them behind.",
+      "choices": [
+        {
+          "id": "r1-c1",
+          "label": "Carry them — they carried me once",
+          "discipline": "physique",
+          "alignment": "light",
+          "narration": "[PLACEHOLDER] You shoulder their weight. The climb is harder. But you don't leave behind the people who made you."
+        },
+        {
+          "id": "r1-c2",
+          "label": "Pass them — they had their time",
+          "discipline": "reflex",
+          "alignment": "dark",
+          "narration": "[PLACEHOLDER] You step around them. Their eyes follow you up. You don't look back."
+        },
+        {
+          "id": "r1-c3",
+          "label": "Find them a resting place — honor them, then climb",
+          "discipline": "presence",
+          "alignment": "neutral",
+          "narration": "[PLACEHOLDER] You settle them somewhere safe and continue. It's not abandonment — it's acknowledgment. Or so you tell yourself."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "prompt": "[PLACEHOLDER] Higher up, a rival blocks the path. They're talented, ambitious, and they want the summit as badly as you do. There's only room for one. They offer a deal: work together until the top, then settle it there.",
+      "choices": [
+        {
+          "id": "r2-c1",
+          "label": "Accept — and honor the deal when we get there",
+          "discipline": "grit",
+          "alignment": "light",
+          "narration": "[PLACEHOLDER] You climb together. The rivalry becomes respect. At the top, you'll settle it fairly."
+        },
+        {
+          "id": "r2-c2",
+          "label": "Accept — and betray them before the top",
+          "discipline": "wits",
+          "alignment": "dark",
+          "narration": "[PLACEHOLDER] You climb together. Halfway up, you cut the rope. Their scream fades below you."
+        },
+        {
+          "id": "r2-c3",
+          "label": "Refuse — I climb alone",
+          "discipline": "reflex",
+          "alignment": "neutral",
+          "narration": "[PLACEHOLDER] You take a different path. Slower, harder, but yours alone. No deals. No debts."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "prompt": "[PLACEHOLDER] The summit. The throne is there, as promised. But sitting in it is the version of you that gave up everything to reach it — alone, powerful, empty. It looks at you and asks: is this what you wanted?",
+      "choices": [
+        {
+          "id": "r3-c1",
+          "label": "No. I want the summit, but not alone. I'm going back down.",
+          "discipline": "presence",
+          "alignment": "light",
+          "narration": "[PLACEHOLDER] You turn around. The throne fades. The path behind you is full of the people you climbed with. You start building something that has room for all of them."
+        },
+        {
+          "id": "r3-c2",
+          "label": "Yes. This is exactly what I wanted.",
+          "discipline": "grit",
+          "alignment": "dark",
+          "narration": "[PLACEHOLDER] You push the other you aside and sit. The throne fits. The silence is vast and complete. The Dark Side Nexus crowns you."
+        },
+        {
+          "id": "r3-c3",
+          "label": "Not yet. But I'm not done climbing.",
+          "discipline": "wits",
+          "alignment": "neutral",
+          "narration": "[PLACEHOLDER] You stand beside the throne but don't sit. The summit is a waypoint, not a destination. You look for what's above."
+        }
+      ]
+    }
+  ],
+  "resolutions": {
+    "light": "[PLACEHOLDER] You emerge from the Hall having reached the summit and chosen to share it. Your ascent lifted others with you. The crown is lighter when you don't carry it alone.",
+    "dark": "[PLACEHOLDER] You emerge from the Hall at the peak. Below you, everyone you passed. Above you, nothing — because there's nothing higher than where you stand. The Dark Side Nexus knows the loneliness of the apex.",
+    "neutral": "[PLACEHOLDER] You emerge from the Hall still climbing. You're higher than you were, but the summit shifts every time you reach it. Whether that's ambition or restlessness is a question without an answer."
+  }
+}

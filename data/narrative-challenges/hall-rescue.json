@@ -1,0 +1,98 @@
+{
+  "id": "hall-rescue",
+  "name": "The Crucible",
+  "destiny": "rescue",
+  "category": "hall-of-mirrors",
+  "description": "The character sees two groups in peril — people they love and strangers who need them more.",
+  "hopePole": "The Sacrifice — save everyone at devastating personal cost.",
+  "tollPole": "The Exchange — save the ones who matter to you and let the rest fall.",
+  "setup": "[PLACEHOLDER] You hear screaming from two directions. To your left, voices you recognize — your crew, your family, the people who depend on you. To your right, strangers — dozens of them, trapped, terrified, calling for anyone.",
+  "rounds": [
+    {
+      "id": "r1",
+      "prompt": "[PLACEHOLDER] You can see both groups. Your crew is in danger but capable — they might survive without you. The strangers are helpless. But reaching the strangers means turning your back on your own people.",
+      "choices": [
+        {
+          "id": "r1-c1",
+          "label": "Go to the strangers — they need me more",
+          "discipline": "grit",
+          "alignment": "light",
+          "narration": "[PLACEHOLDER] You turn toward the screaming strangers. Your crew watches you go. They understand — or they will, eventually."
+        },
+        {
+          "id": "r1-c2",
+          "label": "Save my crew first — they're mine",
+          "discipline": "reflex",
+          "alignment": "dark",
+          "narration": "[PLACEHOLDER] You sprint toward your people. The strangers' screams fade behind you. You made your choice."
+        },
+        {
+          "id": "r1-c3",
+          "label": "Split the difference — send a signal to the strangers, then help my crew",
+          "discipline": "wits",
+          "alignment": "neutral",
+          "narration": "[PLACEHOLDER] You improvise. It's not enough for either group, but it might buy time for both."
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "prompt": "[PLACEHOLDER] The situation escalates. One person — someone you've saved before — is trapped between both groups. Saving them will cost you time you can't afford. But you've already pulled them from the edge once.",
+      "choices": [
+        {
+          "id": "r2-c1",
+          "label": "I can't leave them again — I go back",
+          "discipline": "physique",
+          "alignment": "light",
+          "narration": "[PLACEHOLDER] You double back. The cost is real — time bleeds away. But you reach them. Again."
+        },
+        {
+          "id": "r2-c2",
+          "label": "They had their chance — I keep moving",
+          "discipline": "reflex",
+          "alignment": "dark",
+          "narration": "[PLACEHOLDER] You push forward. You can't save everyone every time. The math is brutal but clear."
+        },
+        {
+          "id": "r2-c3",
+          "label": "Shout directions to them — they'll have to save themselves this time",
+          "discipline": "presence",
+          "alignment": "neutral",
+          "narration": "[PLACEHOLDER] You call out instructions. Whether they follow them is up to them now."
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "prompt": "[PLACEHOLDER] The final moment. You've done what you can. But there's one more — trapped under rubble, fading fast. Reaching them will put you in danger. Real danger. The kind you might not walk away from.",
+      "choices": [
+        {
+          "id": "r3-c1",
+          "label": "I go in. That's who I am.",
+          "discipline": "grit",
+          "alignment": "light",
+          "narration": "[PLACEHOLDER] You crawl under the rubble. The weight presses down. You reach a hand in the dark and pull."
+        },
+        {
+          "id": "r3-c2",
+          "label": "I've saved enough. I'm not dying here.",
+          "discipline": "wits",
+          "alignment": "dark",
+          "narration": "[PLACEHOLDER] You step back. The rubble settles. One more voice goes quiet. You're alive to save the next one."
+        },
+        {
+          "id": "r3-c3",
+          "label": "I look for another way — there has to be a safer path",
+          "discipline": "reflex",
+          "alignment": "neutral",
+          "narration": "[PLACEHOLDER] You circle the rubble, looking for leverage, an angle, anything. Time is running out."
+        }
+      ]
+    }
+  ],
+  "resolutions": {
+    "light": "[PLACEHOLDER] You emerge from the Hall carrying the weight of every life you reached for. Your hands ache. Your body is broken. But no one was left behind — not if you could help it. The Sacrifice is your path.",
+    "dark": "[PLACEHOLDER] You emerge from the Hall with your crew at your back and silence behind you. You saved your own. The strangers' faces will fade in time. The Exchange is the price of survival.",
+    "neutral": "[PLACEHOLDER] You emerge from the Hall with split loyalties and split results. Some lived. Some didn't. You did what you could with what you had. The question of whether it was enough will follow you."
+  }
+}

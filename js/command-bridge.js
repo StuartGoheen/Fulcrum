@@ -3308,6 +3308,394 @@
     }
   }
 
+  var _challengeCache = [];
+  var _activeInstances = [];
+
+  function loadChallengeStatus() {
+    fetch('/api/narrative-challenges/instances/active')
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        _activeInstances = data.instances || [];
+        renderChallengeStatus();
+      })
+      .catch(function () { renderChallengeStatus(); });
+  }
+
+  function renderChallengeStatus() {
+    var el = document.getElementById('cb-challenge-status');
+    if (!el) return;
+    if (_activeInstances.length === 0) {
+      el.innerHTML = '<div class="cb-decision-empty">No active challenges.</div>';
+      return;
+    }
+    var html = '';
+    _activeInstances.forEach(function (inst) {
+      var statusClass = inst.status === 'scored' ? 'nc-status--scored' : 'nc-status--active';
+      html += '<div class="nc-instance-row ' + statusClass + '" data-inst-id="' + inst.id + '">';
+      html += '<span class="nc-instance-char">' + esc(inst.character_name || 'Unknown') + '</span>';
+      html += '<span class="nc-instance-challenge">' + esc(inst.challenge_id) + '</span>';
+      html += '<span class="nc-instance-badge">' + esc(inst.status) + '</span>';
+      html += '</div>';
+    });
+    var allScored = _activeInstances.length > 0 && _activeInstances.every(function (i) { return i.status === 'scored'; });
+    if (allScored) {
+      html += '<button class="cb-header-btn accent nc-resolve-btn" id="nc-resolve-all">Resolve &amp; Apply Tokens</button>';
+    }
+    el.innerHTML = html;
+    el.querySelectorAll('.nc-instance-row').forEach(function (row) {
+      row.addEventListener('click', function () {
+        var instId = parseInt(row.dataset.instId, 10);
+        var inst = _activeInstances.find(function (i) { return i.id === instId; });
+        if (inst) openChallengeRunner(inst);
+      });
+    });
+    var resolveBtn = document.getElementById('nc-resolve-all');
+    if (resolveBtn) {
+      resolveBtn.addEventListener('click', function () { resolveAllChallenges(); });
+    }
+  }
+
+  function openChallengeLauncher() {
+    var existing = document.getElementById('nc-launcher-overlay');
+    if (existing) existing.remove();
+
+    var overlay = document.createElement('div');
+    overlay.id = 'nc-launcher-overlay';
+    overlay.className = 'cb-decision-modal-overlay';
+
+    var html = '<div class="nc-launcher-modal">';
+    html += '<div class="nc-launcher-header"><span>Launch Narrative Challenge</span><button class="nc-launcher-close" id="nc-launcher-close">&times;</button></div>';
+    html += '<div class="nc-launcher-body">';
+    html += '<div class="nc-launcher-loading">Loading challenges&hellip;</div>';
+    html += '</div></div>';
+    overlay.innerHTML = html;
+    document.body.appendChild(overlay);
+
+    document.getElementById('nc-launcher-close').addEventListener('click', function () { overlay.remove(); });
+    overlay.addEventListener('click', function (e) { if (e.target === overlay) overlay.remove(); });
+
+    Promise.all([
+      fetch('/api/narrative-challenges').then(function (r) { return r.json(); }),
+      fetch('/api/characters').then(function (r) { return r.json(); })
+    ]).then(function (results) {
+      _challengeCache = results[0].challenges || [];
+      var characters = results[1].characters || results[1] || [];
+      renderLauncherContent(overlay, characters);
+    }).catch(function () {
+      overlay.querySelector('.nc-launcher-loading').textContent = 'Failed to load data.';
+    });
+  }
+
+  function renderLauncherContent(overlay, characters) {
+    var body = overlay.querySelector('.nc-launcher-body');
+    var html = '';
+
+    html += '<label class="nc-label">Select Challenge</label>';
+    html += '<div class="nc-challenge-grid">';
+    _challengeCache.forEach(function (c) {
+      html += '<div class="nc-challenge-card" data-challenge-id="' + esc(c.id) + '">';
+      html += '<div class="nc-challenge-card-name">' + esc(c.name) + '</div>';
+      html += '<div class="nc-challenge-card-destiny">' + esc(c.destiny) + '</div>';
+      html += '<div class="nc-challenge-card-desc">' + esc((c.description || '').substring(0, 80)) + '</div>';
+      html += '<div class="nc-challenge-card-meta">' + (c.roundCount || 0) + ' rounds</div>';
+      html += '</div>';
+    });
+    html += '</div>';
+
+    html += '<label class="nc-label" style="margin-top:0.75rem;">Assign Characters</label>';
+    html += '<div class="nc-char-list">';
+    characters.forEach(function (ch) {
+      html += '<label class="nc-char-check"><input type="checkbox" value="' + ch.id + '" data-char-name="' + esc(ch.name) + '"> ' + esc(ch.name) + '</label>';
+    });
+    html += '</div>';
+
+    html += '<div style="margin-top:1rem;display:flex;gap:0.5rem;">';
+    html += '<button class="cb-header-btn accent" id="nc-launch-go" disabled>Launch Challenge</button>';
+    html += '<button class="cb-header-btn" id="nc-launch-cancel">Cancel</button>';
+    html += '</div>';
+
+    body.innerHTML = html;
+
+    var selectedChallenge = null;
+    body.querySelectorAll('.nc-challenge-card').forEach(function (card) {
+      card.addEventListener('click', function () {
+        body.querySelectorAll('.nc-challenge-card').forEach(function (c) { c.classList.remove('nc-selected'); });
+        card.classList.add('nc-selected');
+        selectedChallenge = card.dataset.challengeId;
+        checkReady();
+      });
+    });
+
+    function checkReady() {
+      var checked = body.querySelectorAll('.nc-char-check input:checked');
+      var btn = document.getElementById('nc-launch-go');
+      if (btn) btn.disabled = !(selectedChallenge && checked.length > 0);
+    }
+    body.querySelectorAll('.nc-char-check input').forEach(function (cb) {
+      cb.addEventListener('change', checkReady);
+    });
+
+    document.getElementById('nc-launch-cancel').addEventListener('click', function () { overlay.remove(); });
+    document.getElementById('nc-launch-go').addEventListener('click', function () {
+      var checked = body.querySelectorAll('.nc-char-check input:checked');
+      var charIds = [];
+      checked.forEach(function (cb) { charIds.push(parseInt(cb.value, 10)); });
+      launchChallengeInstances(selectedChallenge, charIds, overlay);
+    });
+  }
+
+  function launchChallengeInstances(challengeId, charIds, overlay) {
+    var promises = charIds.map(function (cid) {
+      return fetch('/api/narrative-challenges/instances', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          challenge_id: challengeId,
+          character_id: cid,
+          adventure_id: currentAdventure || null,
+          scene_id: currentScene || null
+        })
+      }).then(function (r) { return r.json(); });
+    });
+
+    Promise.all(promises).then(function () {
+      overlay.remove();
+      loadChallengeStatus();
+      showToast('Challenge launched for ' + charIds.length + ' character(s)');
+    }).catch(function (err) {
+      console.error('Failed to launch challenges:', err);
+      showToast('Failed to launch challenge');
+    });
+  }
+
+  function openChallengeRunner(inst) {
+    var existing = document.getElementById('nc-runner-overlay');
+    if (existing) existing.remove();
+
+    fetch('/api/narrative-challenges/' + encodeURIComponent(inst.challenge_id))
+      .then(function (r) { return r.json(); })
+      .then(function (challenge) {
+        renderChallengeRunner(inst, challenge);
+      })
+      .catch(function () { showToast('Failed to load challenge data'); });
+  }
+
+  function renderChallengeRunner(inst, challenge) {
+    var choices = [];
+    try { choices = JSON.parse(inst.choices || '[]'); } catch (_) {}
+
+    var overlay = document.createElement('div');
+    overlay.id = 'nc-runner-overlay';
+    overlay.className = 'cb-decision-modal-overlay';
+
+    var html = '<div class="nc-runner-modal">';
+    html += '<div class="nc-runner-header">';
+    html += '<span>' + esc(challenge.name) + ' — ' + esc(inst.character_name || 'Unknown') + '</span>';
+    html += '<button class="nc-runner-close" id="nc-runner-close">&times;</button>';
+    html += '</div>';
+    html += '<div class="nc-runner-body">';
+
+    html += '<div class="nc-runner-intro">';
+    html += '<div class="nc-runner-desc">' + esc(challenge.description || '') + '</div>';
+    html += '<div class="nc-runner-poles">';
+    html += '<span class="nc-pole nc-pole--hope">' + esc(challenge.hopePole || '') + '</span>';
+    html += '<span class="nc-pole-sep">&harr;</span>';
+    html += '<span class="nc-pole nc-pole--toll">' + esc(challenge.tollPole || '') + '</span>';
+    html += '</div></div>';
+
+    var rounds = challenge.rounds || [];
+    rounds.forEach(function (round, ri) {
+      var existingChoice = choices.find(function (c) { return c.round_id === round.id; });
+      html += '<div class="nc-round" data-round-id="' + esc(round.id) + '">';
+      html += '<div class="nc-round-header">Round ' + (ri + 1) + '</div>';
+      html += '<div class="nc-round-prompt">' + esc(round.prompt) + '</div>';
+      if (round.narrativeContext) {
+        html += '<div class="nc-round-context">' + esc(round.narrativeContext) + '</div>';
+      }
+      html += '<div class="nc-round-choices">';
+      (round.choices || []).forEach(function (ch) {
+        var selected = existingChoice && existingChoice.choice_id === ch.id;
+        var alignClass = 'nc-choice--' + (ch.alignment || 'neutral').toLowerCase();
+        html += '<div class="nc-choice ' + alignClass + (selected ? ' nc-choice--selected' : '') + '" data-round-id="' + esc(round.id) + '" data-choice-id="' + esc(ch.id) + '">';
+        html += '<div class="nc-choice-label">' + esc(ch.label) + '</div>';
+        if (ch.discipline) html += '<span class="nc-choice-tag">' + esc(ch.discipline) + '</span>';
+        html += '<span class="nc-choice-align">' + esc(ch.alignment || '') + '</span>';
+        html += '</div>';
+      });
+      html += '</div></div>';
+    });
+
+    if (inst.status === 'active') {
+      html += '<div class="nc-scoring-section">';
+      html += '<label class="nc-label">GM Score (1–5)</label>';
+      html += '<div class="nc-score-row">';
+      for (var s = 1; s <= 5; s++) {
+        var scoreLabel = s === 1 ? 'Dark' : s === 5 ? 'Light' : '';
+        html += '<button class="nc-score-btn" data-score="' + s + '">' + s + (scoreLabel ? '<br><small>' + scoreLabel + '</small>' : '') + '</button>';
+      }
+      html += '</div>';
+      html += '<button class="cb-header-btn accent nc-submit-score" id="nc-submit-score" disabled>Submit Score</button>';
+      html += '</div>';
+    } else if (inst.status === 'scored') {
+      html += '<div class="nc-scored-banner">Scored: ' + inst.gm_score + '/5 (shift ' + (inst.shift_value > 0 ? '+' : '') + inst.shift_value + ')</div>';
+    }
+
+    html += '</div></div>';
+    overlay.innerHTML = html;
+    document.body.appendChild(overlay);
+
+    document.getElementById('nc-runner-close').addEventListener('click', function () { overlay.remove(); });
+    overlay.addEventListener('click', function (e) { if (e.target === overlay) overlay.remove(); });
+
+    overlay.querySelectorAll('.nc-choice').forEach(function (choiceEl) {
+      choiceEl.addEventListener('click', function () {
+        var roundId = choiceEl.dataset.roundId;
+        var choiceId = choiceEl.dataset.choiceId;
+        if (inst.status !== 'active') return;
+
+        var roundContainer = choiceEl.closest('.nc-round');
+        roundContainer.querySelectorAll('.nc-choice').forEach(function (c) { c.classList.remove('nc-choice--selected'); });
+        choiceEl.classList.add('nc-choice--selected');
+
+        fetch('/api/narrative-challenges/instances/' + inst.id + '/choice', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ round_id: roundId, choice_id: choiceId })
+        }).then(function (r) { if (!r.ok) throw new Error('Failed'); return r.json(); }).then(function (data) {
+          choices = data.choices || choices;
+        }).catch(function () { showToast('Failed to record choice'); });
+      });
+    });
+
+    var selectedScore = null;
+    overlay.querySelectorAll('.nc-score-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        overlay.querySelectorAll('.nc-score-btn').forEach(function (b) { b.classList.remove('nc-score--selected'); });
+        btn.classList.add('nc-score--selected');
+        selectedScore = parseInt(btn.dataset.score, 10);
+        var submitBtn = document.getElementById('nc-submit-score');
+        if (submitBtn) submitBtn.disabled = false;
+      });
+    });
+
+    var submitBtn = document.getElementById('nc-submit-score');
+    if (submitBtn) {
+      submitBtn.addEventListener('click', function () {
+        if (!selectedScore) return;
+        fetch('/api/narrative-challenges/instances/' + inst.id + '/score', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ gm_score: selectedScore })
+        }).then(function (r) { if (!r.ok) throw new Error('Failed'); return r.json(); }).then(function () {
+          overlay.remove();
+          loadChallengeStatus();
+          showToast('Challenge scored: ' + selectedScore + '/5');
+        }).catch(function () { showToast('Failed to submit score'); });
+      });
+    }
+  }
+
+  function resolveAllChallenges() {
+    var scoredIds = _activeInstances.filter(function (i) { return i.status === 'scored'; }).map(function (i) { return i.id; });
+    if (scoredIds.length === 0) return;
+
+    fetch('/api/narrative-challenges/resolve', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ instance_ids: scoredIds })
+    }).then(function (r) { if (!r.ok) throw new Error('Failed'); return r.json(); }).then(function (data) {
+      showResolveResultModal(data);
+    }).catch(function () { showToast('Failed to resolve challenges'); });
+  }
+
+  function showResolveResultModal(data) {
+    var existing = document.getElementById('nc-resolve-overlay');
+    if (existing) existing.remove();
+
+    var overlay = document.createElement('div');
+    overlay.id = 'nc-resolve-overlay';
+    overlay.className = 'cb-decision-modal-overlay';
+
+    var html = '<div class="nc-resolve-modal">';
+    html += '<div class="nc-resolve-header"><span>Challenge Resolution</span><button class="nc-resolve-close" id="nc-resolve-close">&times;</button></div>';
+    html += '<div class="nc-resolve-body">';
+
+    html += '<div class="nc-resolve-outcome nc-outcome--' + esc(data.tokenOutcome) + '">';
+    html += '<div class="nc-outcome-label">' + esc(data.message) + '</div>';
+    html += '<div class="nc-outcome-sum">Party Sum: ' + (data.partySum > 0 ? '+' : '') + data.partySum + '</div>';
+    html += '</div>';
+
+    html += '<div class="nc-resolve-results">';
+    (data.results || []).forEach(function (r) {
+      html += '<div class="nc-resolve-char">';
+      html += '<span class="nc-resolve-name">' + esc(r.characterName) + '</span>';
+      html += '<span class="nc-resolve-shift">';
+      if (r.shifted) {
+        html += esc(r.oldSpectrum) + ' &rarr; ' + esc(r.newSpectrum);
+      } else {
+        html += esc(r.oldSpectrum) + ' (held)';
+      }
+      html += '</span>';
+      html += '<span class="nc-resolve-score">Score ' + r.gmScore + '/5</span>';
+      html += '</div>';
+    });
+    html += '</div>';
+
+    html += '<div class="nc-resolve-actions">';
+    html += '<button class="cb-header-btn accent" id="nc-apply-tokens">Apply Token Refresh</button>';
+    html += '<button class="cb-header-btn" id="nc-journal-log">Log to Journal</button>';
+    html += '<button class="cb-header-btn" id="nc-resolve-done">Done</button>';
+    html += '</div>';
+
+    html += '</div></div>';
+    overlay.innerHTML = html;
+    document.body.appendChild(overlay);
+
+    document.getElementById('nc-resolve-close').addEventListener('click', function () { overlay.remove(); loadChallengeStatus(); });
+    overlay.addEventListener('click', function (e) { if (e.target === overlay) { overlay.remove(); loadChallengeStatus(); } });
+
+    var instanceIds = (data.results || []).map(function (r) { return r.instanceId; });
+
+    document.getElementById('nc-apply-tokens').addEventListener('click', function () {
+      fetch('/api/narrative-challenges/apply-tokens', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token_outcome: data.tokenOutcome })
+      }).then(function (r) { if (!r.ok) throw new Error('Failed'); return r.json(); }).then(function (result) {
+        showToast(result.untapped + ' token(s) untapped');
+        if (socket) socket.emit('destiny:request-pool');
+      }).catch(function () { showToast('Failed to apply tokens'); });
+    });
+
+    document.getElementById('nc-journal-log').addEventListener('click', function () {
+      fetch('/api/narrative-challenges/journal', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          instance_ids: instanceIds,
+          token_outcome: data.tokenOutcome,
+          party_sum: data.partySum
+        })
+      }).then(function (r) { if (!r.ok) throw new Error('Failed'); return r.json(); }).then(function (result) {
+        showToast((result.entries || []).length + ' journal entries created');
+        loadCrewJournal();
+      }).catch(function () { showToast('Failed to create journal entries'); });
+    });
+
+    document.getElementById('nc-resolve-done').addEventListener('click', function () {
+      overlay.remove();
+      loadChallengeStatus();
+    });
+  }
+
+  function initNarrativeChallenges() {
+    var launchBtn = document.getElementById('cb-launch-challenge-btn');
+    if (launchBtn) {
+      launchBtn.addEventListener('click', function () { openChallengeLauncher(); });
+    }
+    loadChallengeStatus();
+  }
+
   initDragHandles();
   initCollapsiblePanels();
   initSockets();
@@ -3316,4 +3704,5 @@
   loadItemRequests();
   loadCrewJournal();
   initDecisionTracker();
+  initNarrativeChallenges();
 }());

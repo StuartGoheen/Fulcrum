@@ -15,6 +15,7 @@ const backstoryRoutes     = require('./routes/backstory');
 const itemRequestRoutes   = require('./routes/item-requests');
 const journalRoutes       = require('./routes/journal');
 const decisionRoutes      = require('./routes/decisions');
+const narrativeChallengeRoutes = require('./routes/narrative-challenges');
 const socketHandlers  = require('./sockets/handlers');
 const { loginRoute, logoutRoute, gate, roleFromCookie, COOKIE_SECRET } = require('./auth');
 
@@ -67,6 +68,7 @@ app.use('/api', backstoryRoutes);
 app.use('/api', itemRequestRoutes);
 app.use('/api', journalRoutes);
 app.use('/api/campaign', decisionRoutes);
+app.use('/api', narrativeChallengeRoutes);
 
 app.get('/gm',    (req, res) => res.redirect('/gm/'));
 app.get('/gm/',   (req, res) => res.sendFile(path.join(ROOT, 'public', 'gm', 'index.html')));
