@@ -1467,6 +1467,7 @@
 
     html += '<div class="cb-dash-footer">';
     html += '<button class="cb-complete-btn' + (isDone ? ' completed' : '') + '" data-scene="' + scene.id + '">' + (isDone ? '&#10003; Scene Complete' : '&#9675; Mark Scene Complete') + '</button>';
+    html += '<button class="cb-mission-debrief-btn" id="cb-gen-summary" title="Generate AI After Action Report for this adventure">&#9881; Mission Debrief</button>';
     html += '<div class="cb-scene-nav-arrows">';
     html += '<button class="cb-arrow-btn" id="scene-prev"' + (idx <= 0 ? ' disabled' : '') + '>&larr; Prev</button>';
     html += '<button class="cb-arrow-btn" id="scene-next"' + (idx >= scenes.length - 1 ? ' disabled' : '') + '>Next &rarr;</button>';
@@ -1537,6 +1538,10 @@
     var completeBtn = container.querySelector('.cb-complete-btn');
     if (completeBtn) {
       completeBtn.addEventListener('click', function () { toggleSceneComplete(completeBtn.dataset.scene); });
+    }
+    var genSummaryBtn = document.getElementById('cb-gen-summary');
+    if (genSummaryBtn) {
+      genSummaryBtn.addEventListener('click', function () { openMissionSummaryModal(); });
     }
     var prevBtn = document.getElementById('scene-prev');
     var nextBtn = document.getElementById('scene-next');
@@ -2662,11 +2667,14 @@
       }
     } else if (_crewNav.level === 'scene-detail') {
       var campaignLog = null;
+      var missionDebriefs = [];
       var playerEntries = [];
       _crewJournalEntries.forEach(function (e) {
         if (e.source_scene_id !== _crewNav.sceneId) return;
         if (e.author_character_name === 'Campaign Log') {
           campaignLog = e;
+        } else if (e.author_character_name === 'Mission Debrief') {
+          missionDebriefs.push(e);
         } else {
           playerEntries.push(e);
         }
@@ -2684,9 +2692,21 @@
         html += '</div></div>';
       }
 
-      if (playerEntries.length === 0) {
+      missionDebriefs.forEach(function (debrief) {
+        html += '<div class="journal-scene-log journal-mission-debrief" data-cj-scene-log>';
+        html += '<div class="journal-scene-log-header journal-mission-debrief-header">';
+        html += '<span class="journal-scene-log-chevron">\u25B6</span>';
+        html += '<span class="journal-mission-debrief-label">After Action Report</span>';
+        html += '<span class="journal-scene-log-date">' + _fmtDate(debrief.created_at) + '</span>';
+        html += '</div>';
+        html += '<div class="journal-scene-log-body">';
+        html += '<pre class="journal-mission-debrief-content">' + _escHtml(debrief.body || '') + '</pre>';
+        html += '</div></div>';
+      });
+
+      if (playerEntries.length === 0 && missionDebriefs.length === 0) {
         html += '<div style="padding:1rem;text-align:center;opacity:0.4;font-size:0.6rem;">No crew notes for this scene yet.</div>';
-      } else {
+      } else if (playerEntries.length > 0) {
         playerEntries.forEach(function (entry) {
           var isExpanded = _crewExpandedEntry === entry.id;
           html += '<div class="journal-entry-card' + (isExpanded ? ' is-expanded' : '') + '" style="cursor:pointer;">';
@@ -2728,11 +2748,22 @@
       } else {
         tagMatches.forEach(function (entry) {
           var isCampaignLog = entry.author_character_name === 'Campaign Log';
+          var isMissionDebrief = entry.author_character_name === 'Mission Debrief';
           var isExpanded = _crewExpandedEntry === entry.id;
           var sceneName = '';
           var scene = entry.source_scene_id ? _findCrewScene(entry.source_scene_id) : null;
           if (scene) sceneName = scene.title;
-          if (isCampaignLog) {
+          if (isMissionDebrief) {
+            html += '<div class="journal-scene-log journal-mission-debrief" data-cj-scene-log>';
+            html += '<div class="journal-scene-log-header journal-mission-debrief-header">';
+            html += '<span class="journal-scene-log-chevron">\u25B6</span>';
+            html += '<span class="journal-mission-debrief-label">' + _escHtml(entry.title) + '</span>';
+            html += '<span class="journal-scene-log-date">' + _fmtDate(entry.created_at) + '</span>';
+            html += '</div>';
+            html += '<div class="journal-scene-log-body">';
+            html += '<pre class="journal-mission-debrief-content">' + _escHtml(entry.body || '') + '</pre>';
+            html += '</div></div>';
+          } else if (isCampaignLog) {
             html += '<div class="journal-scene-log" data-cj-scene-log>';
             html += '<div class="journal-scene-log-header">';
             html += '<span class="journal-scene-log-chevron">\u25B6</span>';
@@ -3098,6 +3129,163 @@
   function closeDecisionModal() {
     var overlay = document.getElementById('cb-decision-modal-overlay');
     if (overlay) overlay.remove();
+  }
+
+  var _missionSummaryGenerating = false;
+
+  function openMissionSummaryModal() {
+    if (_missionSummaryGenerating) return;
+    if (!currentAdventure) return;
+
+    var existing = document.getElementById('cb-mission-summary-overlay');
+    if (existing) existing.remove();
+
+    var adv = getAdventure(currentAdventure);
+    var advTitle = adv ? adv.title : currentAdventure;
+
+    var overlay = document.createElement('div');
+    overlay.id = 'cb-mission-summary-overlay';
+    overlay.className = 'cb-mission-summary-overlay';
+    overlay.innerHTML =
+      '<div class="cb-mission-summary-modal">' +
+        '<div class="cb-mission-summary-header">' +
+          '<span class="cb-mission-summary-title">AFTER ACTION REPORT</span>' +
+          '<span class="cb-mission-summary-subtitle">' + esc(advTitle) + '</span>' +
+          '<button class="cb-mission-summary-close" id="ms-close">&times;</button>' +
+        '</div>' +
+        '<div class="cb-mission-summary-body" id="ms-body">' +
+          '<div class="cb-mission-summary-loading" id="ms-loading">' +
+            '<div class="cb-mission-summary-spinner"></div>' +
+            '<span>Generating mission debrief\u2026</span>' +
+          '</div>' +
+        '</div>' +
+        '<div class="cb-mission-summary-footer" id="ms-footer" style="display:none;">' +
+          '<button class="cb-header-btn" id="ms-regenerate">Regenerate</button>' +
+          '<button class="cb-header-btn accent" id="ms-save">Save to Journal</button>' +
+        '</div>' +
+      '</div>';
+
+    document.body.appendChild(overlay);
+
+    document.getElementById('ms-close').addEventListener('click', closeMissionSummaryModal);
+    overlay.addEventListener('click', function (e) {
+      if (e.target === overlay) closeMissionSummaryModal();
+    });
+    document.getElementById('ms-regenerate').addEventListener('click', function () {
+      generateMissionSummary();
+    });
+    document.getElementById('ms-save').addEventListener('click', function () {
+      saveMissionDebrief();
+    });
+
+    generateMissionSummary();
+  }
+
+  function generateMissionSummary() {
+    _missionSummaryGenerating = true;
+    var bodyEl = document.getElementById('ms-body');
+    var footerEl = document.getElementById('ms-footer');
+    var loadingEl = document.getElementById('ms-loading');
+
+    if (loadingEl) {
+      loadingEl.innerHTML = '<div class="cb-mission-summary-spinner"></div><span>Generating mission debrief\u2026</span>';
+      loadingEl.style.display = 'flex';
+    }
+    if (footerEl) footerEl.style.display = 'none';
+
+    var existingTextarea = bodyEl ? bodyEl.querySelector('textarea') : null;
+    if (existingTextarea) existingTextarea.remove();
+
+    fetch('/api/campaign/adventures/' + encodeURIComponent(currentAdventure) + '/summary', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' }
+    })
+    .then(function (r) {
+      if (!r.ok) return r.json().then(function (d) { throw new Error(d.error || 'Generation failed'); });
+      return r.json();
+    })
+    .then(function (data) {
+      _missionSummaryGenerating = false;
+      if (!document.getElementById('cb-mission-summary-overlay')) return;
+      if (loadingEl) loadingEl.style.display = 'none';
+
+      var textarea = document.createElement('textarea');
+      textarea.className = 'cb-mission-summary-textarea';
+      textarea.id = 'ms-textarea';
+      textarea.value = data.summary || '';
+      bodyEl.appendChild(textarea);
+
+      if (footerEl) footerEl.style.display = 'flex';
+      var saveBtn = document.getElementById('ms-save');
+      if (saveBtn) saveBtn.style.display = '';
+    })
+    .catch(function (err) {
+      _missionSummaryGenerating = false;
+      if (!document.getElementById('cb-mission-summary-overlay')) return;
+      if (loadingEl) {
+        loadingEl.innerHTML = '<span style="color:#ef4444;">' + esc(err.message || 'Generation failed') + '</span>';
+        loadingEl.style.display = 'flex';
+      }
+      if (footerEl) {
+        footerEl.style.display = 'flex';
+        var saveBtn = document.getElementById('ms-save');
+        if (saveBtn) saveBtn.style.display = 'none';
+      }
+    });
+  }
+
+  function saveMissionDebrief() {
+    var textarea = document.getElementById('ms-textarea');
+    if (!textarea || !textarea.value.trim()) return;
+
+    var adv = getAdventure(currentAdventure);
+    var advTitle = adv ? adv.title : currentAdventure;
+    var title = 'Mission Debrief: ' + advTitle;
+
+    var firstSceneId = null;
+    if (adv && adv.parts && adv.parts.length) {
+      var firstPart = adv.parts[0];
+      if (firstPart.scenes && firstPart.scenes.length) {
+        firstSceneId = firstPart.scenes[0].id;
+      }
+    }
+
+    fetch('/api/journal/entries', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        title: title,
+        body: textarea.value.trim(),
+        author_character_name: 'Mission Debrief',
+        source_scene_id: firstSceneId
+      })
+    })
+    .then(function (r) {
+      if (!r.ok) throw new Error('Failed to save');
+      return r.json();
+    })
+    .then(function () {
+      closeMissionSummaryModal();
+      loadCrewJournal();
+      showToast('Mission debrief saved to Crew Journal');
+    })
+    .catch(function (err) {
+      showToast('Failed to save debrief: ' + (err.message || 'Unknown error'));
+    });
+  }
+
+  function closeMissionSummaryModal() {
+    _missionSummaryGenerating = false;
+    var overlay = document.getElementById('cb-mission-summary-overlay');
+    if (overlay) overlay.remove();
+  }
+
+  function showToast(msg) {
+    var toast = document.getElementById('npc-toast');
+    if (!toast) return;
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(function () { toast.classList.remove('show'); }, 3000);
   }
 
   function initDecisionTracker() {

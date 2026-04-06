@@ -928,4 +928,250 @@ router.get('/campaign/scene-intel/:sceneId', async (req, res) => {
   }
 });
 
+const { GoogleGenerativeAI } = require('@google/generative-ai');
+
+async function assembleMissionContext(adventureId) {
+  const data = loadAdventures();
+  const adv = data.adventures.find(a => a.id === adventureId);
+  if (!adv) return null;
+
+  const allSceneIds = [];
+  for (const part of (adv.parts || [])) {
+    for (const scene of (part.scenes || [])) {
+      allSceneIds.push(scene.id);
+    }
+  }
+
+  const completionsResult = await pool.query(
+    'SELECT scene_id, completed, gm_notes FROM scene_completion WHERE scene_id = ANY($1)',
+    [allSceneIds]
+  );
+  const completionMap = {};
+  completionsResult.rows.forEach(c => { completionMap[c.scene_id] = c; });
+
+  const decisionsResult = await pool.query(
+    'SELECT decision_key, choice, outcome, campaign_impact FROM campaign_decisions WHERE adventure_id = $1 ORDER BY created_at ASC',
+    [adventureId]
+  );
+
+  const journalResult = await pool.query(
+    'SELECT title, body, author_character_name, source_scene_id FROM journal_entries WHERE source_scene_id = ANY($1) ORDER BY created_at ASC',
+    [allSceneIds]
+  );
+
+  const crewResult = await pool.query(
+    'SELECT name, character_data FROM characters ORDER BY slot_index ASC'
+  );
+  const crewRoster = crewResult.rows.map(c => {
+    let species = '', vocation = '';
+    if (c.character_data) {
+      try {
+        const d = JSON.parse(c.character_data);
+        species = d.species || '';
+        vocation = d.vocation || d.title || '';
+      } catch (e) {}
+    }
+    return { name: c.name, species, vocation };
+  });
+
+  const sceneSummaries = [];
+  for (const part of (adv.parts || [])) {
+    for (const scene of (part.scenes || [])) {
+      const comp = completionMap[scene.id];
+      const isComplete = comp && comp.completed;
+      sceneSummaries.push({
+        id: scene.id,
+        title: scene.title,
+        subtitle: scene.subtitle || '',
+        challengeType: scene.challengeType || '',
+        completed: !!isComplete,
+        gmNotes: comp ? (comp.gm_notes || '') : '',
+        npcs: (scene.npcs || []).map(n => n.name).filter(Boolean),
+        decisions: (scene.decisions || []).map(d => d.choice + ' -> ' + d.consequence)
+      });
+    }
+  }
+
+  return {
+    adventure: {
+      id: adv.id,
+      title: adv.title,
+      number: adv.number,
+      act: adv.act
+    },
+    scenes: sceneSummaries,
+    decisions: decisionsResult.rows,
+    journalEntries: journalResult.rows,
+    crewRoster
+  };
+}
+
+function buildMissionSummaryPrompt(ctx) {
+  const crewList = ctx.crewRoster.map(c => {
+    let label = c.name;
+    if (c.species) label += ` (${c.species})`;
+    if (c.vocation) label += ` — ${c.vocation}`;
+    return label;
+  }).join('\n  ');
+
+  const sceneNarrative = ctx.scenes.map(s => {
+    let line = `- "${s.title}"`;
+    if (s.subtitle) line += ` — ${s.subtitle}`;
+    if (s.challengeType) line += ` [${s.challengeType}]`;
+    if (!s.completed) line += ' (not completed)';
+    if (s.npcs.length) line += `\n    NPCs: ${s.npcs.join(', ')}`;
+    if (s.gmNotes) line += `\n    GM Notes: ${s.gmNotes}`;
+    return line;
+  }).join('\n');
+
+  const decisionsText = ctx.decisions.length
+    ? ctx.decisions.map(d => {
+        let line = `- ${d.decision_key}: chose "${d.choice}"`;
+        if (d.outcome) line += ` — outcome: ${d.outcome}`;
+        if (d.campaign_impact) line += ` [impact: ${d.campaign_impact}]`;
+        return line;
+      }).join('\n')
+    : 'No recorded decisions for this adventure.';
+
+  const journalText = ctx.journalEntries.length
+    ? ctx.journalEntries.slice(0, 20).map(e => {
+        let line = `- "${e.title}" by ${e.author_character_name}`;
+        if (e.body) line += `\n    ${e.body.substring(0, 300)}`;
+        return line;
+      }).join('\n')
+    : 'No journal entries recorded.';
+
+  return `You are a military intelligence analyst in the Star Wars galaxy, 16 BBY. You are writing an After Action Report — a classified field debrief — for a crew of mercenaries operating in the Outer Rim.
+
+SETTING: The Galactic Empire is two years old. The Clone Wars are recent memory. This crew operates on the fringe, doing grey-market work that gradually pulls them into something bigger and more dangerous.
+
+TONE: Write in a clipped, professional, third-person past tense voice — like a Rebel Alliance intelligence officer reconstructing events from field reports. No flowery prose. No omniscient narrator. The analyst knows what the crew did and what choices they made, but interprets events through the lens of someone piecing together the story after the fact. Use specific names and details from the data provided. Reference crew members by name.
+
+ADVENTURE: Episode ${ctx.adventure.number} — "${ctx.adventure.title}" (Act ${ctx.adventure.act})
+
+CREW ROSTER:
+  ${crewList || 'Unknown crew complement'}
+
+SCENE PROGRESSION:
+${sceneNarrative}
+
+KEY DECISIONS MADE:
+${decisionsText}
+
+FIELD JOURNAL EXCERPTS:
+${journalText}
+
+INSTRUCTIONS:
+Write 2-4 paragraphs summarizing this adventure as a post-mission After Action Report. Include:
+1. What the crew set out to do and what they encountered
+2. Significant choices they made and their consequences
+3. Notable NPCs they interacted with
+4. The outcome and any unresolved threads
+
+If scenes are marked "not completed", treat the adventure as still in progress and note that the report is preliminary.
+
+Return your response as JSON with a single field:
+{ "summary": "the full After Action Report text here" }`;
+}
+
+router.post('/campaign/adventures/:adventureId/summary', async (req, res) => {
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) {
+    return res.status(500).json({ error: 'Gemini API key not configured.' });
+  }
+
+  const { adventureId } = req.params;
+  let ctx;
+  try {
+    ctx = await assembleMissionContext(adventureId);
+  } catch (assemblyErr) {
+    console.error('[mission-summary] Context assembly failed:', assemblyErr.message);
+    return res.status(500).json({ error: 'Failed to assemble mission context.' });
+  }
+  if (!ctx) {
+    return res.status(404).json({ error: 'Adventure not found.' });
+  }
+
+  const genAI = new GoogleGenerativeAI(apiKey);
+  const model = genAI.getGenerativeModel({
+    model: 'gemini-2.5-flash',
+    generationConfig: {
+      responseMimeType: 'application/json',
+      maxOutputTokens: 4096,
+      temperature: 0.7,
+    },
+  });
+
+  const prompt = buildMissionSummaryPrompt(ctx);
+  const timeoutMs = 30000;
+  const timeoutPromise = new Promise((_, reject) =>
+    setTimeout(() => reject(new Error('TIMEOUT')), timeoutMs)
+  );
+
+  async function attemptGenerate(retries) {
+    const result = await Promise.race([
+      model.generateContent(prompt),
+      timeoutPromise,
+    ]);
+
+    const text = result.response.text();
+    let parsed;
+    try {
+      parsed = JSON.parse(text);
+    } catch (parseErr) {
+      const jsonMatch = text.match(/\{[\s\S]*\}/);
+      if (jsonMatch) {
+        try { parsed = JSON.parse(jsonMatch[0]); } catch (__) {}
+      }
+      if (!parsed) {
+        const summaryMatch = text.match(/"summary"\s*:\s*"([\s\S]+?)(?:"|$)/);
+        if (summaryMatch) {
+          parsed = { summary: summaryMatch[1].replace(/\\n/g, '\n').replace(/\\"/g, '"') };
+        }
+      }
+      if (!parsed) {
+        if (retries < 1) return { ok: false, retry: true };
+        return { ok: false, status: 500, body: { error: 'The report came back garbled. Try again.' } };
+      }
+    }
+
+    return { ok: true, body: { summary: parsed.summary || '' } };
+  }
+
+  try {
+    let result = await attemptGenerate(0);
+    if (result.ok) return res.json(result.body);
+    if (result.retry) {
+      console.warn('[mission-summary] Truncated — retrying...');
+      await new Promise(r => setTimeout(r, 1000));
+      try {
+        const retry = await attemptGenerate(1);
+        if (retry.ok) return res.json(retry.body);
+        return res.status(retry.status).json(retry.body);
+      } catch (retryErr) {
+        return res.status(500).json({ error: 'Generation failed. Try again.' });
+      }
+    }
+    return res.status(result.status).json(result.body);
+  } catch (err) {
+    const msg = err.message || '';
+    if (msg.includes('429') || msg.includes('quota') || msg.includes('RESOURCE_EXHAUSTED')) {
+      console.warn('[mission-summary] Rate-limited — retrying after 3s...');
+      await new Promise(r => setTimeout(r, 3000));
+      try {
+        const retry = await attemptGenerate(1);
+        if (retry.ok) return res.json(retry.body);
+        return res.status(retry.status).json(retry.body);
+      } catch (retryErr) {
+        return res.status(429).json({ error: 'rate_limit' });
+      }
+    }
+    if (msg === 'TIMEOUT') {
+      return res.status(504).json({ error: 'timeout' });
+    }
+    console.error('[mission-summary] Gemini error:', msg);
+    return res.status(500).json({ error: 'Generation failed. Try again.' });
+  }
+});
+
 module.exports = router;

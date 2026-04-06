@@ -496,6 +496,20 @@ Conditionals system that adapts adventure JSON content based on recorded campaig
 
 **Active Conditionals:** adv2-p2-s6 (Denia ending, denia-fate:rescued/abandoned), adv8-p1-s3 (Soren reveal, maya-fate:dead), adv10-p1-s2 (Soren death, maya-fate:dead), adv10-p2 (Denia paths, denia-fate:abandoned/rescued).
 
+## AI Mission Summary Generator
+
+Gemini-powered After Action Report generator that creates in-universe mission debriefs from adventure data, decisions, and journal entries.
+
+**Endpoint:** `POST /api/campaign/adventures/:adventureId/summary` — assembles context (adventure scenes, completions, decisions, journal entries, crew roster), sends to Gemini 2.5 Flash with military intelligence analyst prompt, returns `{ summary }`.
+
+**Context Assembly:** `assembleMissionContext()` in `server/routes/campaign.js` gathers all scene data with completion status, campaign decisions for the adventure, journal entries for those scenes, and the full crew roster with species/vocation data.
+
+**GM Review Modal:** "Mission Debrief" button in scene dashboard footer opens a full-screen modal with loading spinner → editable textarea → Regenerate/Save buttons. Save creates a journal entry with `author_character_name = 'Mission Debrief'`.
+
+**Journal Styling:** Mission Debrief entries render with distinct indigo/purple styling (`.journal-mission-debrief`) in the Crew Journal, separate from Campaign Log entries. Includes collapsible header with "After Action Report" label.
+
+**Error Handling:** 30s timeout, retry-once on truncated JSON, rate-limit retry after 3s (matching backstory.js pattern).
+
 ## Deployment
 
 Configured as a **VM** deployment (always-on required for Socket.io persistent connections).  

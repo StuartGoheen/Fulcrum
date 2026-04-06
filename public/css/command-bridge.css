@@ -4898,4 +4898,168 @@
         background: rgba(251,191,36,0.18);
         border-color: rgba(251,191,36,0.55);
       }
+
+      .cb-mission-debrief-btn {
+        background: rgba(129,140,248,0.06);
+        border: 1px solid rgba(129,140,248,0.25);
+        color: #818cf8;
+        font-family: 'Exo 2', sans-serif;
+        font-size: 0.62rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        padding: 0.4rem 0.7rem;
+        cursor: pointer;
+        transition: all 0.15s;
+        min-height: 36px;
+      }
+      .cb-mission-debrief-btn:hover {
+        border-color: #818cf8;
+        background: rgba(129,140,248,0.15);
+        color: #a5b4fc;
+      }
+
+      .cb-mission-summary-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 9000;
+        background: rgba(0,0,0,0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(3px);
+      }
+      .cb-mission-summary-modal {
+        background: linear-gradient(180deg, #2a2a2e 0%, #222226 100%);
+        border: 1px solid #3a3632;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.6), 0 0 0 1px rgba(200,164,78,0.1);
+        width: min(640px, 90vw);
+        max-height: 80vh;
+        display: flex;
+        flex-direction: column;
+        border-radius: 2px;
+      }
+      .cb-mission-summary-header {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid #3a3632;
+        background: linear-gradient(90deg, rgba(129,140,248,0.06) 0%, transparent 100%);
+      }
+      .cb-mission-summary-title {
+        font-family: 'Audiowide', sans-serif;
+        font-size: 0.75rem;
+        color: #818cf8;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .cb-mission-summary-subtitle {
+        font-family: 'Exo 2', sans-serif;
+        font-size: 0.7rem;
+        color: #7a7068;
+        flex: 1;
+      }
+      .cb-mission-summary-close {
+        background: none;
+        border: none;
+        color: #7a7068;
+        font-size: 1.2rem;
+        cursor: pointer;
+        padding: 4px 8px;
+        transition: color 0.15s;
+      }
+      .cb-mission-summary-close:hover {
+        color: #ef4444;
+      }
+      .cb-mission-summary-body {
+        flex: 1;
+        overflow-y: auto;
+        padding: 1rem;
+        min-height: 200px;
+      }
+      .cb-mission-summary-loading {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+        padding: 3rem;
+        color: #7a7068;
+        font-size: 0.75rem;
+        font-family: 'Exo 2', sans-serif;
+      }
+      .cb-mission-summary-spinner {
+        width: 28px;
+        height: 28px;
+        border: 2px solid #3a3632;
+        border-top-color: #818cf8;
+        border-radius: 50%;
+        animation: msSpin 0.8s linear infinite;
+      }
+      @keyframes msSpin {
+        to { transform: rotate(360deg); }
+      }
+      .cb-mission-summary-textarea {
+        width: 100%;
+        min-height: 280px;
+        background: #1a1a1e;
+        border: 1px solid #3a3632;
+        color: #d4c5a0;
+        font-family: 'Exo 2', sans-serif;
+        font-size: 0.78rem;
+        line-height: 1.6;
+        padding: 0.75rem;
+        resize: vertical;
+        border-radius: 2px;
+        box-sizing: border-box;
+      }
+      .cb-mission-summary-textarea:focus {
+        outline: none;
+        border-color: #818cf8;
+      }
+      .cb-mission-summary-footer {
+        display: flex;
+        justify-content: flex-end;
+        gap: 0.5rem;
+        padding: 0.75rem 1rem;
+        border-top: 1px solid #3a3632;
+      }
+
+      .journal-mission-debrief {
+        background: linear-gradient(135deg, rgba(129,140,248,0.06) 0%, rgba(129,140,248,0.02) 100%);
+        border: 1px solid rgba(129,140,248,0.2);
+        border-left: 3px solid #818cf8;
+        margin-bottom: 0.5rem;
+        border-radius: 2px;
+      }
+      .journal-mission-debrief-header {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.4rem 0.5rem;
+        cursor: pointer;
+        transition: background 0.15s;
+      }
+      .journal-mission-debrief-header:hover {
+        background: rgba(129,140,248,0.06);
+      }
+      .journal-mission-debrief-label {
+        font-family: 'Audiowide', sans-serif;
+        font-size: 0.6rem;
+        color: #818cf8;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        flex: 1;
+      }
+      .journal-mission-debrief-content {
+        font-family: 'Exo 2', sans-serif;
+        font-size: 0.7rem;
+        color: #a5b4fc;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        margin: 0;
+        padding: 0.5rem;
+        line-height: 1.5;
+        border-top: 1px solid rgba(129,140,248,0.1);
+      }
   
