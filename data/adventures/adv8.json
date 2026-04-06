@@ -66,7 +66,58 @@
           "number": 3,
           "title": "Assembling the Fleet",
           "subtitle": "Deals and Debts",
-          "completed": false
+          "completed": false,
+          "gmNotes": "SOREN VEX REVEAL: Among the captains Oga puts forward is Soren Vex — Maya's former partner who betrayed her during a refugee smuggling run and turned her in to the Empire for a bounty. He operates a battered Corellian gunship called the Requital out of Black Spire Outpost. Play the reveal cold: no buildup, no foreshadowing. Soren is just there when the captains assemble. Maya recognizes him instantly. The room goes quiet. Soren doesn't run and doesn't apologize. He cooperates professionally. If the heroes press him for the story, he gives it in flat, factual terms — no self-pity, no justification. He turned her in. The Imperials took the refugees. He took the bounty. He left. Maya can confirm or deny. Let the tension simmer through the rest of the fleet assembly. Soren is competent and his ship is needed — the question is whether Maya (and the crew) can work with the man who destroyed her life. This is not a scene that needs resolution here. The resolution comes at Malpaz. IF MAYA DIED IN ADV3: The reveal shifts — the crew learns about their dead pilot's past from the man she'll never confront. Let a crew member discover who Soren is through Switch intel, Oga's briefing, or Soren's own drunken confession. The emotional weight becomes retrospective grief rather than live confrontation.",
+          "npcs": [
+            {
+              "name": "Soren Vex",
+              "type": "Smuggler Captain",
+              "count": 1,
+              "notes": "Maya's former partner. Turned her in to the Empire during a refugee run. Now a burned-out smuggler captain in Oga's orbit. Flies the Requital. Competent, tired, quietly ashamed. Does not apologize unless cornered — and even then, he knows words aren't enough.",
+              "threatBuild": {
+                "role": "skirmisher",
+                "tier": 2,
+                "classification": "standard",
+                "threatCategory": "character",
+                "powerSource": "ranged",
+                "arenas": {
+                  "physique": 3,
+                  "reflex": 4,
+                  "grit": 3,
+                  "wits": 3,
+                  "presence": 2
+                },
+                "computed": {
+                  "arenas": {
+                    "physique": 3,
+                    "reflex": 4,
+                    "grit": 3,
+                    "wits": 3,
+                    "presence": 2
+                  },
+                  "defense": 5,
+                  "evasion": 5,
+                  "resist": 4,
+                  "vitality": 8,
+                  "rawVitality": 8,
+                  "initiative": 7
+                },
+                "traits": [
+                  "reckless",
+                  "guilt-ridden"
+                ],
+                "tags": [
+                  "smuggler",
+                  "pilot",
+                  "oga_garra_orbit"
+                ],
+                "weaponChassis": "medium",
+                "loot": [],
+                "name": "Soren Vex",
+                "notes": "Not a combat encounter in Adv8. Stats provided for Adv10 fleet battle and any contingency where the heroes confront him physically."
+              }
+            }
+          ]
         }
       ]
     },

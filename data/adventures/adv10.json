@@ -94,7 +94,16 @@
           "number": 2,
           "title": "The Malpaz Corridor",
           "subtitle": "Into the Jaws",
-          "completed": false
+          "completed": false,
+          "gmNotes": "SOREN VEX DEATH: During the fleet battle approaching Malpaz, an Imperial missile locks onto the Banshee. Soren Vex throws the Requital into the missile's path, intercepting it. The explosion disables his ship — hull breached, engines dead, life support failing. He opens a comms channel to the Banshee. His last transmission: 'Maya. ... I know. ... Tell them I was — ' Static. A turbolaser from the Star Destroyer finishes the Requital before he can complete the sentence. Maya watches it happen. Do NOT let this moment be heroic in the conventional sense. Soren is not a hero. He's a coward who finally stopped running. The ambiguity of his unfinished sentence IS the emotional payload — Maya will never know what he was going to say. Play it quiet. Play it fast. The battle doesn't stop for grief. IF MAYA DIED IN ADV3: Soren still intercepts the missile — he's protecting the Banshee and the crew Maya died for. His dying comms become: 'I know she's gone. ... Tell them I was — ' The crew carries a story with no living protagonist. The debt is paid to a ghost.",
+          "npcs": [
+            {
+              "name": "Soren Vex",
+              "type": "Smuggler Captain (Death Scene)",
+              "count": 1,
+              "notes": "Dies intercepting a missile meant for the Banshee. His ship the Requital is disabled by the explosion, then destroyed by a Star Destroyer turbolaser. Last words are unfinished. See campaign bible for full background."
+            }
+          ]
         }
       ]
     },

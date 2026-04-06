@@ -47,23 +47,39 @@ Leviathan is the Empire's ambition made physical — a weapon so large it requir
 ## Major Characters
 
 ### Maya
-**Species:** Human | **Role:** Pilot, Partner, Moral Compass
+**Species:** Human | **Role:** Pilot, Engineer, Partner, Moral Compass
 
 **What the Players See:** A solo operator and smuggler who owns and flies the *Banshee*. She's desperate when they meet her — wounded, on the run from a Hutt's enforcers after intercepting an encrypted Imperial Code Cylinder from Varga's supply chain. She pitches the heroes a job and becomes their pilot and partner. She's sharp, brave, and genuinely cares about people — sometimes inconveniently so.
 
 **What the GM Knows:** Maya is the campaign's emotional throughline. She starts as a self-interested grifter chasing a score, but her conscience evolves faster than anyone else's. She's the first to push back against Varth's cold calculus, and in Adventure 3, she puts herself on a slave ship because she can't walk away from three hundred people in chains. Her relationship with the heroes is the most honest one in the campaign — and Varth knows this, which is why he's willing to sacrifice her.
 
-**Arc:** Stranger → Partner → Conscience of the crew → Varth's intended sacrifice → (if saved) the person who punches Varth and speaks the truth about what he is.
+**Backstory (GM Only):** Maya grew up on the Outer Rim. Her father was a freelance cargo hauler who owned the *Banshee* — a modified YT-series light freighter that was their home, their livelihood, and the only thing of value he ever had. He taught her to fly it before she could see over the console, and to fix it before she could lift a hydrospanner. When her father died (illness, not violence — the Rim doesn't always kill you dramatically), Maya inherited the ship and the debts that came with it.
+
+She partnered with a human smuggler named **Soren Vex** — fast-talking, reckless, and charming in the way that makes you ignore the warning signs. They ran cargo together for two years, gradually shifting from grey-market freight to refugee smuggling as the Empire's pacification campaigns accelerated across the Outer Rim. It was dangerous work but it paid, and Maya told herself that was the reason she did it. It wasn't. She did it because the people in the cargo hold were terrified and she couldn't look away.
+
+During one of these runs — a hold full of refugees fleeing an Imperial crackdown — Soren sold her out. He contacted an Imperial patrol and turned her in for the bounty on unlicensed refugee transport. Maya doesn't know if he planned it from the start or if he panicked when the patrols got close. She never got to ask. The Imperials boarded, she fought her way to the cockpit, and ran. The *Banshee* took catastrophic damage during the escape — hull breaches, blown sublight drives, hyperdrive barely functional. She made one blind jump and crashed on Takodana.
+
+**Maz Kanata** found her in the wreckage. Took her in. Fed her. Didn't ask questions for three days, then asked exactly the right ones. Maya spent months at Maz's castle rebuilding the *Banshee* from the frame up — she's not just a pilot, she's the engineer who put the ship back together with salvaged parts and stubbornness. Maz offered her a place. Maya almost took it. But the *Banshee* was flying again, and sitting still felt like giving Soren the last word. She went solo. Took jobs that kept her moving — small cargo, courier runs, the occasional smuggling contract. Nothing with a partner. Never again with a partner.
+
+Then she intercepted the Code Cylinder from Varga's supply chain on Jakku. It was supposed to be a quick score. It became the job that put her at the heroes' table at The Burning Deck.
+
+**The Denia Bond:** Between Adventures 2 and 3, while Denia recovers at Maz's castle on Takodana, Maya forms a quiet bond with her. Two women who survived things that should have killed them, recuperating in the same safe harbor. Maya brings Denia food, checks on her, sits with her when the nightmares come. This bond is what makes Maya's silence about the slave ship in Adv3 so painful — and what makes her decision to go alone so inevitable. She's not saving strangers. She's doing what she wished someone had done for the people in her cargo hold when Soren sold them out.
+
+**Arc:** Stranger → Partner → Conscience of the crew → Varth's intended sacrifice → Survivor → Soren reunion (Adv8) → Redemption witness (Adv10) → (if saved from Adv3) the person who punches Varth and speaks the truth about what he is.
 
 **Key Moments:**
 - Adv1 S1: Crashes the heroes' table at The Burning Deck on Jakku — wounded, fleeing Varga's retrieval crew after intercepting the Code Cylinder. Pitches the job.
 - Adv1 P2 S1: Invites the Ace Pilot to the co-pilot seat for the Rishi Maze. Bonding moment — teaches them to read the Maze.
 - Adv1 P2 S2: Takes shrapnel during V-wing strafing on approach. The Ace takes the stick and crash-lands the Banshee. Maya stays behind to repair and gives the heroes a secondary objective: disable the turret defenses so she can fly extraction.
 - Adv1 P2 S6: Extraction is conditional on turrets being down. If they're destroyed, she swoops in clean. If not, she takes heavy fire. Either way, she proves she's not just a grifter — she's the crew's pilot under fire.
-- Adv2: Stays with the Banshee as extraction plan during the Varga infiltration
-- Adv3 P2: Argues with Varth about the slave ship; goes silent; infiltrates the *Shackles of Nizon* voluntarily
+- Adv2: Stays with the Banshee as extraction plan during the Varga infiltration. Denia recovers at Maz's castle on Takodana — Maya bonds with her between adventures.
+- Adv3 P2 S2: Players overhear Maya and Varth arguing about the slave ship — must-know narrative beat. Maya goes silent. Infiltrates the *Shackles of Nizon* on her own. Varth knew and said nothing.
 - Adv3 P3 S5: Breaks open comms during the orbital battle — "Hey — I could use a little more time here"
-- Adv3 P3 S6: (If saved) Punches Varth at the rendezvous
+- Adv3 P3 S6: (If saved) Punches Varth at the rendezvous on Takodana. The Banshee was docked there — she left it behind when she boarded the Shackles.
+- Adv4–7: Present with the crew. Her conscience continues to sharpen. She's the first to question Varth's motives openly.
+- Adv7: The crew's situation collapses. Maya finds her way back to the crew after the destruction.
+- Adv8: Arrives on Batuu with the crew. Encounters **Soren Vex** at Black Spire Outpost — the partner who betrayed her. Unresolved history. Soren is recruited for the pirate fleet.
+- Adv10: Battle of Malpaz. Soren Vex dies intercepting a missile meant for the *Banshee* — his ship is disabled, life support failing, dying comms goodbye. A turbolaser destroys his ship before Maya's eyes. She witnesses the redemption of the man who destroyed her life. Present at the finale.
 
 ---
 
@@ -157,6 +173,31 @@ Varth used Varga's network to embezzle millions from the Empire. The stolen cred
 **What the Players See:** A powerful crime boss on Batuu (Black Spire Outpost). The heroes need her help to build a fleet capable of stopping the Leviathan's demonstration strike.
 
 **What the GM Knows:** Oga is pragmatic. She helps because the Empire's superweapon is bad for business, not because of moral conviction. She provides the pirate fleet the heroes lead in the finale. Her alliance is transactional — and she'll collect on the debt.
+
+---
+
+### Soren Vex
+**Species:** Human | **Role:** Maya's Former Partner, Redemption Arc, Fleet Recruit
+
+**What the Players See:** A cocky, weathered smuggler captain operating out of Black Spire Outpost on Batuu in Oga Garra's orbit. He runs a battered Corellian gunship called the *Requital* and commands a small crew of misfits. When the heroes arrive to build a fleet (Adv8), Soren is one of the captains Oga puts forward. He's capable, experienced, and carries himself like a man who's been running from something for a long time. If Maya is present, the recognition is immediate and electric — the room temperature drops ten degrees.
+
+**What the GM Knows:** Soren Vex is the man who betrayed Maya. Years ago, they were partners running refugee smuggling during the Empire's Outer Rim pacification campaigns. When an Imperial patrol closed in, Soren contacted them and turned Maya in for the bounty. The refugees were taken. Maya barely escaped — the *Banshee* was nearly destroyed, and she crashed on Takodana. Soren took his bounty and disappeared into the underworld.
+
+He's spent the years since drifting from port to port, never staying long enough for the guilt to catch up. He renamed his ship the *Requital* — a word he looked up but never fully understood. He tells himself he had no choice. He tells himself the Imperials would have caught them anyway. He tells himself Maya was always going to be fine. None of it works. He drinks too much. He takes jobs that are too dangerous. He's not suicidal — he's just stopped caring whether he lives through them.
+
+When he sees Maya on Batuu, he doesn't run. He's too tired to run. He doesn't apologize either — not because he doesn't want to, but because he knows words aren't enough and he doesn't know what would be.
+
+**Arc:** Absent ghost in Maya's backstory → Surprise encounter on Batuu (Adv8) → Uneasy fleet ally → Redemption death at Malpaz (Adv10)
+
+**Key Moments:**
+- Adv8 P1 S3 (Assembling the Fleet): Soren is among the captains Oga puts forward. Maya recognizes him immediately. The GM should play this as a gut-punch — no warning, no buildup. He's just *there*. Maya's reaction depends on her relationship with the crew at this point, but she won't pretend it's fine. The heroes can press for details or let it simmer. Soren cooperates professionally. He doesn't explain himself unless cornered.
+- Adv10 P1 (The Approach): Soren flies the *Requital* as part of the pirate fleet. During the Battle of Malpaz, an Imperial missile locks onto the *Banshee*. Soren throws the *Requital* into the missile's path, intercepting it. The explosion disables his ship — hull breached, engines dead, life support failing. He opens a comms channel to the *Banshee*. His last transmission is not an apology. It's not dramatic. It's a man who finally did the thing he should have done years ago, and he knows it, and he's calm.
+  - **The dying comms goodbye:** "Maya. ... I know. ... Tell them I was — " Static. A turbolaser from the Star Destroyer finishes the *Requital* before he can finish the sentence. Maya watches it happen.
+  - **What he was going to say:** He doesn't get to say it. That's the point. Maya will never know if it was "Tell them I was sorry" or "Tell them I was trying" or "Tell them I was your friend." The ambiguity is the wound.
+
+**GM Guidance:** Soren is not a villain. He's a coward who did a terrible thing and spent years failing to outrun it. His death is not heroic in the traditional sense — it's a man who finally stopped running. Play him as tired, competent, and quietly ashamed. Don't let him monologue. Don't let him justify himself. The less he says, the more it hurts.
+
+**If Maya Died in Adv3:** Soren's arc still happens. On Batuu (Adv8), his reveal lands differently — the crew learns about Maya's past from a man she'll never confront. The GM should let a crew member discover who Soren is (Switch intel, Oga's briefing, or Soren's own drunken confession). His death at Malpaz (Adv10) becomes a debt paid to a ghost. The dying comms goodbye becomes: "I know she's gone. ... Tell them I was — " The emotional anchor shifts from Maya's witness to the crew carrying the weight of a story with no living protagonist. It's quieter. It's worse.
 
 ---
 
@@ -627,15 +668,18 @@ A leviathan is a creature of the deep that drags you down. This weapon literally
 **Key Plot Beats:**
 - Heroes arrive on Batuu, hunted and battered
 - Convince Oga Garra to help build a pirate fleet
+- **Soren Vex encounter:** Maya's former partner — the man who turned her in to the Empire — is among the captains Oga puts forward. Cold reveal, no buildup. Unresolved tension that pays off at Malpaz.
 - Blockade run — repairing and fighting their way out
 
 **What Changes by the End:**
 - Heroes have a pirate fleet (Oga Garra's forces)
 - Alliance is transactional, not ideological
 - The heroes have a fighting chance
+- Maya is forced to work alongside the man who destroyed her life
 
 **Open Threads Carried Forward:**
 - Fleet assembled (→ Adv10)
+- Soren Vex unresolved (→ Adv10 death)
 - Denia still captive (→ Adv9)
 - Leviathan approaching Malpaz (→ Adv10)
 
@@ -672,6 +716,7 @@ A leviathan is a creature of the deep that drags you down. This weapon literally
 
 **Key Plot Beats:**
 - The Approach: Leading Oga Garra's pirate fleet against the Leviathan
+- **Soren Vex's Death:** During the fleet battle, Soren intercepts a missile meant for the *Banshee*. His ship the *Requital* is disabled — hull breached, engines dead, life support failing. Dying comms goodbye cut short by a turbolaser. Maya watches. The battle doesn't stop for grief.
 - The Betrayal: Final confrontation with Varth
 - The Draco Showdown: Final confrontation with Inquisitor Draco. **If Denia was abandoned in Adv2:** The heroes discover her alive in Draco's custody — broken, interrogated for years, but surviving. This is the campaign's deepest gut-punch: the man they trusted told them to leave her, and they listened. Varth handed her to the Inquisition the moment they looked away. **If Denia was rescued in Adv2:** She was captured by Draco in Adv7 and potentially rescued in Adv9 — the Draco showdown plays out as a nemesis encounter without the betrayal-reveal.
 - The Final Hand: Destroying the Leviathan and/or Varth
@@ -776,6 +821,7 @@ All previously flagged characters and threads have been resolved with final disp
 | **Silas Draver** | Adv3 P2 S4 | **POTENTIAL RETURN IN ACT 3.** Independent heist specialist. His status after the casino firefight determines availability. Natural recruit for the pirate fleet assembly on Batuu (Adv8). |
 | **Lady Sinde** | Adv2 S2, S6 | **RECURRING — KEPT.** Imperial logistics officer tied to the Leviathan supply chain. She negotiated supplies with Varga and executed witnesses in the hangar. Available for Adv5 (Malpaz), Adv6 (Eriadu), or wherever an Imperial supply chain presence is needed. She knows the operational side of Leviathan. |
 | **Switch / TC-663 network** | Adv1 S2, Adv2 S1 | **RECURRING — KEPT.** Switch is now a recurring information broker and black market fixer. His deal with the heroes (reduced fees in exchange for passing along validated intel) establishes an ongoing transactional relationship. TC-663 inside Varga's fortress is proof of his network's reach. Switch serves as the heroes' contact for intel, identification, black market gear, and underworld connections throughout the campaign. |
+| **Soren Vex** | Adv8 P1 S3, Adv10 P1 S2 | **DEAD.** Maya's former smuggling partner. Turned her in to the Empire for a bounty during a refugee run. Drifted through the underworld for years, ended up in Oga Garra's orbit on Batuu flying a Corellian gunship called the *Requital*. Recruited for the pirate fleet (Adv8). Dies at the Battle of Malpaz intercepting a missile meant for the *Banshee* — ship disabled, life support failing, dying comms goodbye cut short by a turbolaser. Last words unfinished: "Tell them I was — " Redemption through action, not words. |
 | **Kessra / The Vipers** | Adv2 S1 | **FLAVOR ONLY.** Tone-setting swoop gang encounter. Disposable. |
 | **Varga** | Adv3 P3 | **DEAD (Continuity Rule).** Killed during the boarding of the Glorious Chariot. See Continuity Rules. |
 | **Denia** | Adv2 S4 | **FOUND (Branch Point).** Varth advises abandonment. If rescued: mentor, holocron key (Adv4), captured by Draco (Adv7). If abandoned: Varth tips off Draco, who recovers her off-camera; heroes discover her in Draco's custody during Adv10 showdown. See Continuity Rules. |
