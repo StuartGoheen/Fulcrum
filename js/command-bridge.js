@@ -2922,6 +2922,7 @@
     var part = adv ? getPart(adv, currentPart) : null;
     var scene = part ? getScene(part, currentScene) : null;
     var sceneDecisions = (scene && scene.decisions) ? scene.decisions : [];
+    var _selectedDecIdx = -1;
 
     var overlay = document.createElement('div');
     overlay.id = 'cb-decision-modal-overlay';
@@ -2974,6 +2975,7 @@
         overlay.querySelectorAll('.cb-decision-scene-chip').forEach(function (c) { c.classList.remove('selected'); });
         chip.classList.add('selected');
         var idx = parseInt(chip.dataset.sceneDecIdx, 10);
+        _selectedDecIdx = idx;
         var sd = sceneDecisions[idx];
         if (sd) {
           choiceInput.value = sd.choice;
@@ -3003,7 +3005,7 @@
         socket.emit('decision:poll', {
           sceneId: currentScene,
           adventureId: currentAdventure,
-          decisionKey: currentScene || 'custom',
+          decisionKey: currentScene ? (currentScene + ':' + (_selectedDecIdx >= 0 ? _selectedDecIdx : 'custom')) : 'custom',
           choices: choices
         });
       }
@@ -3022,7 +3024,7 @@
           campaign_impact: impactVal,
           adventure_id: currentAdventure,
           scene_id: currentScene,
-          decision_key: currentScene || 'custom'
+          decision_key: currentScene ? (currentScene + ':' + (_selectedDecIdx >= 0 ? _selectedDecIdx : 'custom')) : 'custom'
         });
       } else {
         fetch('/api/campaign/decisions', {
@@ -3031,7 +3033,7 @@
           body: JSON.stringify({
             scene_id: currentScene,
             adventure_id: currentAdventure,
-            decision_key: currentScene || 'custom',
+            decision_key: currentScene ? (currentScene + ':' + (_selectedDecIdx >= 0 ? _selectedDecIdx : 'custom')) : 'custom',
             choice: choice,
             outcome: outcomeInput.value.trim() || null,
             campaign_impact: impactVal
