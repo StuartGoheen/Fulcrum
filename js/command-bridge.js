@@ -3003,7 +3003,7 @@
         socket.emit('decision:poll', {
           sceneId: currentScene,
           adventureId: currentAdventure,
-          decisionKey: (scene ? scene.title : 'custom'),
+          decisionKey: currentScene || 'custom',
           choices: choices
         });
       }
@@ -3022,7 +3022,7 @@
           campaign_impact: impactVal,
           adventure_id: currentAdventure,
           scene_id: currentScene,
-          decision_key: (scene ? scene.title : 'custom')
+          decision_key: currentScene || 'custom'
         });
       } else {
         fetch('/api/campaign/decisions', {
@@ -3031,7 +3031,7 @@
           body: JSON.stringify({
             scene_id: currentScene,
             adventure_id: currentAdventure,
-            decision_key: (scene ? scene.title : 'custom'),
+            decision_key: currentScene || 'custom',
             choice: choice,
             outcome: outcomeInput.value.trim() || null,
             campaign_impact: impactVal
