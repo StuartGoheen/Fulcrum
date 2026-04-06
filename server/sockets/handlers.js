@@ -1092,7 +1092,7 @@ function registerHandlers(io) {
       if (role === 'player' && characterId) {
         try {
           await pool.query('UPDATE characters SET session_id = NULL, connected_at = NULL WHERE id = $1', [characterId]);
-          await pool.query('DELETE FROM sessions WHERE character_id = $1', [characterId]);
+          await pool.query('DELETE FROM sessions WHERE id = $1', [socket.id]);
         } catch (err) {
           console.error('[socket] disconnect cleanup error:', err);
         }

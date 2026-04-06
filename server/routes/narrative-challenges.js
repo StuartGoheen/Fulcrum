@@ -518,24 +518,26 @@ router.post('/narrative-challenges/apply-tokens', gmOnly, async (req, res) => {
 });
 
 router.get('/narrative-challenges/player/active', async (req, res) => {
-  if (req.userRole !== 'player') {
-    return res.status(403).json({ error: 'Player role required' });
+  if (req.userRole !== 'player' && req.userRole !== 'gm') {
+    return res.status(403).json({ error: 'Authentication required' });
   }
   const characterId = parseInt(req.query.character_id, 10);
   if (!characterId) {
     return res.status(400).json({ error: 'character_id query param required' });
   }
   const playerToken = req.query.player_token;
-  if (!playerToken) {
-    return res.status(403).json({ error: 'player_token required' });
-  }
   try {
-    const tokenCheck = await pool.query(
-      'SELECT character_id FROM sessions WHERE player_token = $1 AND character_id = $2',
-      [playerToken, characterId]
-    );
-    if (!tokenCheck.rows.length) {
-      return res.status(403).json({ error: 'Invalid player_token for this character' });
+    if (req.userRole === 'player') {
+      if (!playerToken) {
+        return res.status(403).json({ error: 'player_token required' });
+      }
+      const tokenCheck = await pool.query(
+        'SELECT character_id FROM sessions WHERE player_token = $1 AND character_id = $2',
+        [playerToken, characterId]
+      );
+      if (!tokenCheck.rows.length) {
+        return res.status(403).json({ error: 'Invalid player_token for this character' });
+      }
     }
     const result = await pool.query(
       `SELECT nci.*, c.name as character_name
@@ -564,8 +566,8 @@ router.get('/narrative-challenges/player/active', async (req, res) => {
 });
 
 router.put('/narrative-challenges/player/choice', async (req, res) => {
-  if (req.userRole !== 'player') {
-    return res.status(403).json({ error: 'Player role required' });
+  if (req.userRole !== 'player' && req.userRole !== 'gm') {
+    return res.status(403).json({ error: 'Authentication required' });
   }
   const characterId = parseInt(req.body.character_id, 10);
   if (!characterId) {
@@ -575,16 +577,18 @@ router.put('/narrative-challenges/player/choice', async (req, res) => {
   if (!instance_id || !round_id || !choice_id) {
     return res.status(400).json({ error: 'instance_id, round_id, and choice_id are required' });
   }
-  if (!player_token) {
-    return res.status(403).json({ error: 'player_token required' });
-  }
   try {
-    const tokenCheck = await pool.query(
-      'SELECT character_id FROM sessions WHERE player_token = $1 AND character_id = $2',
-      [player_token, characterId]
-    );
-    if (!tokenCheck.rows.length) {
-      return res.status(403).json({ error: 'Invalid player_token for this character' });
+    if (req.userRole === 'player') {
+      if (!player_token) {
+        return res.status(403).json({ error: 'player_token required' });
+      }
+      const tokenCheck = await pool.query(
+        'SELECT character_id FROM sessions WHERE player_token = $1 AND character_id = $2',
+        [player_token, characterId]
+      );
+      if (!tokenCheck.rows.length) {
+        return res.status(403).json({ error: 'Invalid player_token for this character' });
+      }
     }
     const existing = await pool.query(
       `SELECT nci.*, c.name as character_name
