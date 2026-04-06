@@ -11,14 +11,16 @@
     'weakened', 'empowered', 'optimized',
     'prone', 'restrained', 'slowed', 'pinned', 'suppressed',
     'blinded', 'bleeding', 'hazard', 'incapacitated',
-    'marked', 'guarded', 'cover', 'stimmed'
+    'marked', 'guarded', 'cover', 'stimmed',
+    'darkside_resonance', 'beacon'
   ];
 
   var ALL_CONDITIONS = [
     'surprised', 'disoriented', 'rattled', 'stunned', 'exposed', 'shaken',
     'weakened', 'empowered', 'optimized', 'prone', 'restrained', 'slowed',
     'blinded', 'bleeding', 'hazard', 'incapacitated', 'suppressed', 'marked',
-    'pinned', 'guarded', 'cover', 'stimmed'
+    'pinned', 'guarded', 'cover', 'stimmed',
+    'darkside_resonance', 'beacon'
   ];
 
   var _conditionPanelState = {
@@ -110,7 +112,8 @@
       restrained: '#78716c', slowed: '#6b7280', pinned: '#78716c',
       suppressed: '#0ea5e9', blinded: '#1f2937', bleeding: '#dc2626',
       hazard: '#dc2626', incapacitated: '#1f2937', marked: '#d946ef',
-      guarded: '#14b8a6', cover: '#3b82f6', stimmed: '#10b981'
+      guarded: '#14b8a6', cover: '#3b82f6', stimmed: '#10b981',
+      darkside_resonance: '#7c3aed', beacon: '#f59e0b'
     };
     return colors[id] || '#6b7280';
   }
@@ -1385,7 +1388,12 @@
     html += '</select>';
     html += '</div>';
 
-    var condList = st.targetType === 'npc' ? NPC_CONDITIONS : ALL_CONDITIONS;
+    var condList = (st.targetType === 'npc' ? NPC_CONDITIONS : ALL_CONDITIONS).slice();
+    condList.sort(function (a, b) {
+      var la = (getEffectDef(a) || {}).label || a;
+      var lb = (getEffectDef(b) || {}).label || b;
+      return la.localeCompare(lb);
+    });
 
     html += '<div class="ct-cpanel-condlist">';
     condList.forEach(function (condId) {

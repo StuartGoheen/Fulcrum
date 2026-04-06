@@ -258,6 +258,26 @@
       defaultDuration: 'ongoing',
       description: 'Stacking. Each Medpac/Stim use adds +1. Adds to Static Risk of Medicine rolls. Clears on Long Rest.',
     },
+    {
+      id: 'darkside_resonance',
+      label: 'Darkside Resonance',
+      category: 'narrative',
+      conditionType: 'narrative',
+      modifier: { type: 'tag' },
+      targetMode: 'narrative_tag',
+      defaultDuration: 'ongoing',
+      description: 'Hall of Mirrors — Dark Shift. While in the darkside nexus: when you spend a Toll to add +1 effect tier, you also gain Empowered on all Violence actions. The darkness fuels your rage.',
+    },
+    {
+      id: 'beacon',
+      label: 'Beacon',
+      category: 'narrative',
+      conditionType: 'narrative',
+      modifier: { type: 'tag' },
+      targetMode: 'narrative_tag',
+      defaultDuration: 'ongoing',
+      description: 'Hall of Mirrors — Light Shift. While in the darkside nexus: when you spend a Hope, you gain Optimized on your next non-violent action. Your light shines brightest in the dark.',
+    },
   ];
 
   var DURATIONS = [

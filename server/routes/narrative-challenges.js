@@ -103,6 +103,24 @@ function autoCalcScore(challengeData, choicesJson) {
   return Math.round(total / count);
 }
 
+function applyHallOfMirrorsCondition(charData, shiftValue) {
+  if (shiftValue === 0) return false;
+  if (!charData.activeEffects) charData.activeEffects = [];
+  const narrativeCondId = shiftValue < 0 ? 'darkside_resonance' : 'beacon';
+  charData.activeEffects = charData.activeEffects.filter(
+    e => e.effectId !== 'darkside_resonance' && e.effectId !== 'beacon'
+  );
+  charData.activeEffects.push({
+    uid: 'hom_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6),
+    effectId: narrativeCondId,
+    target: 'narrative',
+    duration: 'ongoing',
+    hazardValue: 0,
+    source: 'hall-of-mirrors'
+  });
+  return true;
+}
+
 function applySpectrumShift(currentSpectrum, shiftValue) {
   if (shiftValue === 0) return currentSpectrum;
   const idx = SPECTRUM_ORDER.indexOf(currentSpectrum);
@@ -147,8 +165,18 @@ async function autoResolveInstance(instanceId, challengeData, choices, io) {
     const oldSpectrum = charData.destiny || 'Light & Dark';
     const newSpectrum = applySpectrumShift(oldSpectrum, shiftValue);
 
+    let charDataChanged = false;
     if (newSpectrum !== oldSpectrum) {
       charData.destiny = newSpectrum;
+      charDataChanged = true;
+    }
+
+    if (challengeData.category === 'hall-of-mirrors' && shiftValue !== 0) {
+      const applied = applyHallOfMirrorsCondition(charData, shiftValue);
+      if (applied) charDataChanged = true;
+    }
+
+    if (charDataChanged) {
       await client.query(
         'UPDATE characters SET character_data = $1 WHERE id = $2',
         [JSON.stringify(charData), inst.character_id]
@@ -213,6 +241,13 @@ async function autoResolveInstance(instanceId, challengeData, choices, io) {
     } else {
       bodyLines.push('Destiny Shift: Held steady');
     }
+    if (challengeData.category === 'hall-of-mirrors' && shiftValue !== 0) {
+      const condLabel = shiftValue < 0 ? 'Darkside Resonance' : 'Beacon';
+      const condDesc = shiftValue < 0
+        ? 'While in the darkside nexus: spending Toll also grants Empowered on Violence.'
+        : 'While in the darkside nexus: spending Hope grants Optimized on next non-violent action.';
+      bodyLines.push(`Narrative Condition: ${condLabel} — ${condDesc}`);
+    }
     bodyLines.push('');
     if (tokenOutcome === 'equilibrium') bodyLines.push("Party Outcome: Revan's Balance — ALL tokens untapped");
     else if (tokenOutcome === 'hope') bodyLines.push('Party Outcome: Hope Dominant — Hope tokens untapped');
@@ -231,6 +266,10 @@ async function autoResolveInstance(instanceId, challengeData, choices, io) {
 
     await client.query('COMMIT');
 
+    const narrativeCondition = (challengeData.category === 'hall-of-mirrors' && shiftValue !== 0)
+      ? (shiftValue < 0 ? 'darkside_resonance' : 'beacon')
+      : null;
+
     const result = {
       instanceId: inst.id,
       characterId: inst.character_id,
@@ -243,6 +282,7 @@ async function autoResolveInstance(instanceId, challengeData, choices, io) {
       tokenOutcome,
       partySum: shiftValue,
       tokensUntapped: untappedCount,
+      narrativeCondition,
       journalEntry: { id: entryResult.rows[0].id, title, characterName: inst.character_name }
     };
 
@@ -483,6 +523,7 @@ router.post('/narrative-challenges/resolve', gmOnly, async (req, res) => {
       return res.status(400).json({ error: 'No scored instances found' });
     }
 
+    const challenges = loadChallenges();
     const results = [];
     let partySum = 0;
 
@@ -496,8 +537,19 @@ router.post('/narrative-challenges/resolve', gmOnly, async (req, res) => {
       const oldSpectrum = charData.destiny || 'Light & Dark';
       const newSpectrum = applySpectrumShift(oldSpectrum, shiftValue);
 
+      let charDataChanged = false;
       if (newSpectrum !== oldSpectrum) {
         charData.destiny = newSpectrum;
+        charDataChanged = true;
+      }
+
+      const challenge = challenges.find(c => c.id === inst.challenge_id);
+      if (challenge && challenge.category === 'hall-of-mirrors' && shiftValue !== 0) {
+        const applied = applyHallOfMirrorsCondition(charData, shiftValue);
+        if (applied) charDataChanged = true;
+      }
+
+      if (charDataChanged) {
         await client.query(
           'UPDATE characters SET character_data = $1 WHERE id = $2',
           [JSON.stringify(charData), inst.character_id]
@@ -511,6 +563,10 @@ router.post('/narrative-challenges/resolve', gmOnly, async (req, res) => {
         [inst.id]
       );
 
+      const narrativeCondition = (challenge && challenge.category === 'hall-of-mirrors' && shiftValue !== 0)
+        ? (shiftValue < 0 ? 'darkside_resonance' : 'beacon')
+        : null;
+
       results.push({
         instanceId: inst.id,
         characterId: inst.character_id,
@@ -519,7 +575,8 @@ router.post('/narrative-challenges/resolve', gmOnly, async (req, res) => {
         shiftValue,
         oldSpectrum,
         newSpectrum,
-        shifted: oldSpectrum !== newSpectrum
+        shifted: oldSpectrum !== newSpectrum,
+        narrativeCondition
       });
     }
 
@@ -570,7 +627,6 @@ router.post('/narrative-challenges/resolve', gmOnly, async (req, res) => {
       [JSON.stringify(destinyPool)]
     );
 
-    const challenges = loadChallenges();
     const journalEntries = [];
     for (const inst of instResult.rows) {
       const challenge = challenges.find(c => c.id === inst.challenge_id);
