@@ -131,7 +131,97 @@
           "number": 3,
           "title": "Confronting Varth",
           "subtitle": "The Architect of Ruin",
-          "completed": false
+          "completed": false,
+          "gmNotes": "THE FINAL CONFRONTATION: This is not a villain monologue. Varth does not cackle, gloat, or explain his master plan — the heroes already know the plan. When they reach the Leviathan's command deck, Varth is working. He looks up, sees them, and something flickers across his face — not surprise, not fear. Recognition. 'You're here. Good. I wondered if you would be.' Play this quiet. He's tired. He's been running a military operation for months. He's not performing anymore. If a hero asks 'Why?' — and they will — his answer is honest and insufficient: 'Because I could. And because nobody else was going to do it right.' Varth will fight if cornered (use Command Varth stats — Controller/Leader, Tier 3). He will try to escape if possible. He will not beg. If the heroes offer surrender, he genuinely considers it — make the players believe he might take it. Whether he does depends on their relationship with him across the campaign. THE NICKNAME PAYOFF: If the GM has been tracking Varth's nickname habit ('Kid,' 'Pilot,' 'Heavy'), this is the moment he uses a hero's real name for the first time. Deploy it once, deliberately, in a moment of genuine emotion — not cruelty, not manipulation. Just a man acknowledging who he's talking to for the first time. It should land like a slap.",
+          "npcs": [
+            {
+              "name": "Admiral Gilder Varth",
+              "type": "Campaign Final Boss",
+              "count": 1,
+              "notes": "Command Varth. No longer performing. Professional, efficient, tired. He doesn't hate the heroes — he's past them. The most dangerous Varth because he's not pretending to be anything.",
+              "threatBuild": {
+                "role": "controller",
+                "tier": 3,
+                "classification": "elite",
+                "threatCategory": "character",
+                "powerSource": "leader",
+                "arenas": {
+                  "physique": 2,
+                  "reflex": 2,
+                  "grit": 4,
+                  "wits": 5,
+                  "presence": 5
+                },
+                "computed": {
+                  "arenas": {
+                    "physique": 2,
+                    "reflex": 2,
+                    "grit": 4,
+                    "wits": 5,
+                    "presence": 5
+                  },
+                  "defense": 6,
+                  "evasion": 4,
+                  "resist": 7,
+                  "vitality": 14,
+                  "rawVitality": 14,
+                  "initiative": 12,
+                  "exploits": 2
+                },
+                "traits": [
+                  "disciplined",
+                  "calculating"
+                ],
+                "tags": [
+                  "Imperial",
+                  "Leviathan_Commander"
+                ],
+                "weaponChassis": "light",
+                "loot": [],
+                "name": "Admiral Gilder Varth",
+                "roleKit": {
+                  "roleName": "Controller / Leader",
+                  "action": {
+                    "name": "Dictate Terms",
+                    "defense": "resist",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage + [Rattled]",
+                      "masterful": "Chassis damage + [Rattled] + target must move 1 zone (Varth's choice)",
+                      "legendary": "Chassis damage + [Rattled] + [Exposed] + target must move 1 zone"
+                    },
+                    "isAttack": true,
+                    "arena": "presence"
+                  },
+                  "maneuver": {
+                    "name": "Tactical Redeployment",
+                    "modifies": "Coordinate",
+                    "description": "Move up to 3 allies within 2 zones each 1 zone (Varth's choice). Those allies gain [Optimized] on their next action."
+                  },
+                  "gambits": [
+                    {
+                      "name": "Exploit Weakness",
+                      "cost": "-1 Power",
+                      "description": "Target gains [Exposed] Tactical. Varth identifies and broadcasts the target's vulnerability to all Imperial forces in the zone.",
+                      "rider": "[Exposed]"
+                    },
+                    {
+                      "name": "Calculated Sacrifice",
+                      "cost": "-1 Power",
+                      "description": "When an ally in Varth's zone would take damage, Varth may redirect the damage to a different ally in the same zone. The sacrificed ally takes full damage. Varth takes none.",
+                      "rider": "Redirect damage to ally"
+                    }
+                  ],
+                  "exploit": {
+                    "name": "Contingency Order",
+                    "trigger": "An ally within 2 zones is targeted by an attack.",
+                    "description": "That ally may immediately move 1 zone before the attack resolves."
+                  },
+                  "powerSource": "leader"
+                },
+                "notes": "Varth commands from behind cover and uses Imperial troops as shields. His 'Calculated Sacrifice' gambit is mechanically reflective of his character — he will spend allies to survive. Resist 7 means he is nearly impossible to read or manipulate socially. The heroes must beat him tactically, not rhetorically. If reduced below half Vitality, Varth attempts to reach an escape pod. If cornered with no escape, he surrenders — but only if a hero uses his trick: calls him by his first name. 'Gilder. It's over.' That breaks through."
+              }
+            }
+          ]
         }
       ],
       "description": "Final confrontation with Varth aboard the Leviathan. The Draco showdown resolves the Inquisitor's arc. If Denia was abandoned in Adv2: the heroes discover her alive in Draco's custody — interrogated for years, broken but surviving. This is the campaign's deepest gut-punch: Varth told them to leave her, and they listened. He handed her to the Empire the moment they looked away. If Denia was rescued in Adv2: she was captured by Draco in Adv7 and potentially rescued in Adv9 — the Draco showdown plays as a nemesis encounter without the betrayal-reveal layer."
