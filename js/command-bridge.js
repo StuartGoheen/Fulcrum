@@ -1465,9 +1465,10 @@
       html += '</div>';
     }
 
+    var allScenesComplete = scenes.length > 0 && scenes.every(function (s) { var c = completionsData[s.id]; return c && c.completed; });
     html += '<div class="cb-dash-footer">';
     html += '<button class="cb-complete-btn' + (isDone ? ' completed' : '') + '" data-scene="' + scene.id + '">' + (isDone ? '&#10003; Scene Complete' : '&#9675; Mark Scene Complete') + '</button>';
-    html += '<button class="cb-mission-debrief-btn" id="cb-gen-summary" title="Generate AI After Action Report for this adventure">&#9881; Mission Debrief</button>';
+    html += '<button class="cb-mission-debrief-btn' + (allScenesComplete ? ' all-complete' : '') + '" id="cb-gen-summary" title="' + (allScenesComplete ? 'All scenes complete — generate After Action Report' : 'Generate AI After Action Report (adventure in progress)') + '">&#9881; Mission Debrief</button>';
     html += '<div class="cb-scene-nav-arrows">';
     html += '<button class="cb-arrow-btn" id="scene-prev"' + (idx <= 0 ? ' disabled' : '') + '>&larr; Prev</button>';
     html += '<button class="cb-arrow-btn" id="scene-next"' + (idx >= scenes.length - 1 ? ' disabled' : '') + '>Next &rarr;</button>';

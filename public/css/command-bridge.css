@@ -4912,6 +4912,11 @@
         transition: all 0.15s;
         min-height: 36px;
       }
+      .cb-mission-debrief-btn.all-complete {
+        background: rgba(129,140,248,0.15);
+        border-color: #818cf8;
+        box-shadow: 0 0 6px rgba(129,140,248,0.25);
+      }
       .cb-mission-debrief-btn:hover {
         border-color: #818cf8;
         background: rgba(129,140,248,0.15);
