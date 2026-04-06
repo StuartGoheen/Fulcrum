@@ -272,30 +272,24 @@ router.post('/narrative-challenges/resolve', gmOnly, async (req, res) => {
       tokenOutcome = 'toll';
     }
 
-    const allCharResult = await client.query(
-      'SELECT id, character_data FROM characters'
+    const poolResult = await client.query(
+      "SELECT value FROM campaign_state WHERE key = 'destiny_pool'"
     );
-    const newPool = [];
-    for (const row of allCharResult.rows) {
-      let cd = {};
-      try { cd = JSON.parse(row.character_data || '{}'); } catch (_) {}
-      const spectrum = cd.destiny || 'Light & Dark';
-      if (spectrum === 'Two Light') {
-        newPool.push({ side: 'hope', tapped: false }, { side: 'hope', tapped: false });
-      } else if (spectrum === 'Two Dark') {
-        newPool.push({ side: 'toll', tapped: false }, { side: 'toll', tapped: false });
-      } else {
-        newPool.push({ side: 'hope', tapped: false }, { side: 'toll', tapped: false });
-      }
+    let destinyPool = [];
+    if (poolResult.rows.length > 0) {
+      try { destinyPool = JSON.parse(poolResult.rows[0].value); } catch (_) {}
     }
 
-    for (const token of newPool) {
+    let untappedCount = 0;
+    for (const token of destinyPool) {
       if (tokenOutcome === 'equilibrium') {
+        if (token.tapped) { token.tapped = false; untappedCount++; }
+      } else if (tokenOutcome === 'hope' && token.side === 'hope' && token.tapped) {
         token.tapped = false;
-      } else if (tokenOutcome === 'hope' && token.side === 'hope') {
+        untappedCount++;
+      } else if (tokenOutcome === 'toll' && token.side === 'toll' && token.tapped) {
         token.tapped = false;
-      } else if (tokenOutcome === 'toll' && token.side === 'toll') {
-        token.tapped = false;
+        untappedCount++;
       }
     }
 
@@ -303,7 +297,7 @@ router.post('/narrative-challenges/resolve', gmOnly, async (req, res) => {
       `INSERT INTO campaign_state (key, value, updated_at)
        VALUES ('destiny_pool', $1, NOW())
        ON CONFLICT(key) DO UPDATE SET value = EXCLUDED.value, updated_at = NOW()`,
-      [JSON.stringify(newPool)]
+      [JSON.stringify(destinyPool)]
     );
 
     const challenges = loadChallenges();
@@ -374,7 +368,7 @@ router.post('/narrative-challenges/resolve', gmOnly, async (req, res) => {
         : tokenOutcome === 'hope'
           ? 'Hope dominant — all Hope tokens untapped'
           : 'Toll dominant — all Toll tokens untapped',
-      poolRebuilt: true,
+      tokensUntapped: untappedCount,
       tokensApplied: true,
       journalEntries
     });

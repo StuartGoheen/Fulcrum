@@ -3670,8 +3670,8 @@
     }
 
     html += '<div class="nc-resolve-applied">';
-    if (data.poolRebuilt) html += '<div class="nc-resolve-applied-item">&#10003; Destiny pool rebuilt from updated spectra</div>';
-    if (data.tokensApplied) html += '<div class="nc-resolve-applied-item">&#10003; Token refresh applied</div>';
+    if (data.tokensUntapped !== undefined) html += '<div class="nc-resolve-applied-item">&#10003; ' + data.tokensUntapped + ' destiny token(s) untapped</div>';
+    if (data.tokensApplied) html += '<div class="nc-resolve-applied-item">&#10003; Token refresh applied (' + data.tokenOutcome + ')</div>';
     if (data.journalEntries && data.journalEntries.length > 0) html += '<div class="nc-resolve-applied-item">&#10003; ' + data.journalEntries.length + ' journal entries logged</div>';
     html += '</div>';
 

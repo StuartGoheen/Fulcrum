@@ -237,6 +237,16 @@ function registerHandlers(io) {
       }
     });
 
+    socket.on('destiny:request-pool', async () => {
+      try {
+        const destinyPool = await getDestinyPool();
+        const destinyLocked = await isDestinyLocked();
+        socket.emit('destiny:sync', { pool: destinyPool, locked: destinyLocked });
+      } catch (err) {
+        console.error('[socket] destiny:request-pool error:', err);
+      }
+    });
+
     socket.on('destiny:flip', async ({ index }) => {
       if (socket.data.role !== 'gm') {
         socket.emit('error', { message: 'Only the GM can flip destiny tokens.' });
