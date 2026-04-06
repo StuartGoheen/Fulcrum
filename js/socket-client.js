@@ -794,6 +794,19 @@
       .then(function (r) { return r.json(); })
       .then(function (data) {
         if (data.resolved && data.resolution) {
+          var overlay = document.createElement('div');
+          overlay.id = 'nc-player-overlay';
+          overlay.className = 'nc-player-overlay';
+          document.body.appendChild(overlay);
+          var resolvedChallenge = {
+            name: data.resolution.challengeName || 'Narrative Challenge',
+            resolutions: {}
+          };
+          if (data.resolution.resolutionText) {
+            var sl = data.resolution.gmScore === 5 ? 'light' : data.resolution.gmScore === 1 ? 'dark' : 'neutral';
+            resolvedChallenge.resolutions[sl] = data.resolution.resolutionText;
+          }
+          _renderChallengeResolved(overlay, resolvedChallenge, data.resolution);
           return;
         }
         if (data.instance && data.challenge) {

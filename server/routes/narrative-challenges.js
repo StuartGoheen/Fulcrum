@@ -724,6 +724,9 @@ router.get('/narrative-challenges/player/active', async (req, res) => {
       const io = req.app.get('io');
       const resolution = await autoResolveInstance(inst.id, challenge, existingChoices, io);
       if (resolution) {
+        resolution.challengeName = challenge.name;
+        const scoreLabel = resolution.gmScore === 5 ? 'light' : resolution.gmScore === 1 ? 'dark' : 'neutral';
+        resolution.resolutionText = (challenge.resolutions || {})[scoreLabel] || '';
         return res.json({ instance: null, resolved: true, resolution });
       }
     }
