@@ -96,20 +96,63 @@ router.get('/narrative-challenges/:id', gmOnly, (req, res) => {
   }
 });
 
+function seededShuffle(arr, seed) {
+  var a = arr.slice();
+  var s = seed;
+  for (var i = a.length - 1; i > 0; i--) {
+    s = (s * 1103515245 + 12345) & 0x7fffffff;
+    var j = s % (i + 1);
+    var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+  }
+  return a;
+}
+
+function shuffleChoicesForPlayer(challenge, seed) {
+  if (!challenge || !challenge.rounds || !seed) return challenge;
+  var copy = JSON.parse(JSON.stringify(challenge));
+  copy.rounds.forEach(function (round, ri) {
+    round.choices = seededShuffle(round.choices, seed + ri);
+    round.choices.forEach(function (ch) { delete ch.alignment; });
+  });
+  return copy;
+}
+
 router.post('/narrative-challenges/instances', gmOnly, async (req, res) => {
   const { challenge_id, character_id, adventure_id, scene_id } = req.body;
   if (!challenge_id || !character_id) {
     return res.status(400).json({ error: 'challenge_id and character_id are required' });
   }
   try {
+    const shuffle_seed = Math.floor(Math.random() * 2147483647);
     const result = await pool.query(
       `INSERT INTO narrative_challenge_instances
-       (challenge_id, character_id, adventure_id, scene_id, choices, status)
-       VALUES ($1, $2, $3, $4, '[]', 'active')
+       (challenge_id, character_id, adventure_id, scene_id, choices, status, shuffle_seed)
+       VALUES ($1, $2, $3, $4, '[]', 'active', $5)
        RETURNING *`,
-      [challenge_id, character_id, adventure_id || null, scene_id || null]
+      [challenge_id, character_id, adventure_id || null, scene_id || null, shuffle_seed]
     );
-    res.json({ instance: result.rows[0] });
+    const inst = result.rows[0];
+
+    const io = req.app.get('io');
+    if (io) {
+      const challenges = loadChallenges();
+      const challenge = challenges.find(c => c.id === challenge_id);
+      const charResult = await pool.query('SELECT name FROM characters WHERE id = $1', [character_id]);
+      const charName = charResult.rows.length ? charResult.rows[0].name : 'Unknown';
+
+      const sockets = Array.from(io.sockets.sockets.values());
+      const playerSocket = sockets.find(s => s.data.role === 'player' && String(s.data.characterId) === String(character_id));
+      if (playerSocket && challenge) {
+        const playerChallenge = shuffleChoicesForPlayer(challenge, shuffle_seed);
+        playerSocket.emit('challenge:start', {
+          instance: inst,
+          challenge: playerChallenge,
+          characterName: charName
+        });
+      }
+    }
+
+    res.json({ instance: inst });
   } catch (err) {
     console.error('[POST /narrative-challenges/instances]', err);
     res.status(500).json({ error: 'Failed to create instance' });
@@ -372,6 +415,19 @@ router.post('/narrative-challenges/resolve', gmOnly, async (req, res) => {
     const io = req.app.get('io');
     if (io) {
       io.emit('destiny:sync', { pool: destinyPool, locked: false });
+
+      const affectedCharIds = results.map(r => String(r.characterId));
+      const sockets = Array.from(io.sockets.sockets.values());
+      sockets.forEach(s => {
+        if (s.data.role === 'player' && affectedCharIds.includes(String(s.data.characterId))) {
+          const myResult = results.find(r => String(r.characterId) === String(s.data.characterId));
+          s.emit('challenge:resolved', {
+            tokenOutcome,
+            partySum,
+            characterResult: myResult || null
+          });
+        }
+      });
     }
 
     res.json({
@@ -437,6 +493,111 @@ router.post('/narrative-challenges/apply-tokens', gmOnly, async (req, res) => {
   } catch (err) {
     console.error('[POST /narrative-challenges/apply-tokens]', err);
     res.status(500).json({ error: 'Failed to apply token changes' });
+  }
+});
+
+router.get('/narrative-challenges/player/active', async (req, res) => {
+  if (req.userRole !== 'player') {
+    return res.status(403).json({ error: 'Player role required' });
+  }
+  const characterId = parseInt(req.query.character_id, 10);
+  if (!characterId) {
+    return res.status(400).json({ error: 'character_id query param required' });
+  }
+  try {
+    const result = await pool.query(
+      `SELECT nci.*, c.name as character_name
+       FROM narrative_challenge_instances nci
+       JOIN characters c ON c.id = nci.character_id
+       WHERE nci.character_id = $1 AND nci.status = 'active'
+       ORDER BY nci.created_at DESC
+       LIMIT 1`,
+      [characterId]
+    );
+    if (result.rows.length === 0) {
+      return res.json({ instance: null });
+    }
+    const inst = result.rows[0];
+    const challenges = loadChallenges();
+    const challenge = challenges.find(c => c.id === inst.challenge_id);
+    if (!challenge) {
+      return res.json({ instance: inst, challenge: null });
+    }
+    const playerChallenge = shuffleChoicesForPlayer(challenge, inst.shuffle_seed);
+    res.json({ instance: inst, challenge: playerChallenge });
+  } catch (err) {
+    console.error('[GET /narrative-challenges/player/active]', err);
+    res.status(500).json({ error: 'Failed to load active challenge' });
+  }
+});
+
+router.put('/narrative-challenges/player/choice', async (req, res) => {
+  if (req.userRole !== 'player') {
+    return res.status(403).json({ error: 'Player role required' });
+  }
+  const characterId = parseInt(req.body.character_id, 10);
+  if (!characterId) {
+    return res.status(400).json({ error: 'character_id is required' });
+  }
+  const { instance_id, round_id, choice_id } = req.body;
+  if (!instance_id || !round_id || !choice_id) {
+    return res.status(400).json({ error: 'instance_id, round_id, and choice_id are required' });
+  }
+  try {
+    const existing = await pool.query(
+      `SELECT nci.*, c.name as character_name
+       FROM narrative_challenge_instances nci
+       JOIN characters c ON c.id = nci.character_id
+       WHERE nci.id = $1 AND nci.character_id = $2 AND nci.status = $3`,
+      [instance_id, characterId, 'active']
+    );
+    if (!existing.rows.length) {
+      return res.status(404).json({ error: 'Active instance not found for your character' });
+    }
+
+    const challenges = loadChallenges();
+    const challenge = challenges.find(c => c.id === existing.rows[0].challenge_id);
+    if (challenge) {
+      const rounds = challenge.rounds || [];
+      const round = rounds.find(r => r.id === round_id);
+      if (!round) {
+        return res.status(400).json({ error: 'Invalid round_id' });
+      }
+      const validChoice = (round.choices || []).find(c => c.id === choice_id);
+      if (!validChoice) {
+        return res.status(400).json({ error: 'Invalid choice_id' });
+      }
+    }
+
+    let choices = [];
+    try { choices = JSON.parse(existing.rows[0].choices || '[]'); } catch (_) {}
+    choices = choices.filter(c => c.round_id !== round_id);
+    choices.push({ round_id, choice_id, recorded_at: new Date().toISOString() });
+
+    await pool.query(
+      'UPDATE narrative_challenge_instances SET choices = $1, updated_at = NOW() WHERE id = $2',
+      [JSON.stringify(choices), instance_id]
+    );
+
+    const totalRounds = challenge ? (challenge.rounds || []).length : 0;
+
+    const io = req.app.get('io');
+    if (io) {
+      io.to('gm').emit('challenge:player-choice', {
+        instanceId: instance_id,
+        characterId: characterId,
+        characterName: existing.rows[0].character_name || 'Unknown',
+        roundId: round_id,
+        choiceId: choice_id,
+        totalChoices: choices.length,
+        totalRounds: totalRounds
+      });
+    }
+
+    res.json({ success: true, choices });
+  } catch (err) {
+    console.error('[PUT /narrative-challenges/player/choice]', err);
+    res.status(500).json({ error: 'Failed to record choice' });
   }
 });
 

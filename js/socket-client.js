@@ -276,8 +276,17 @@
       _closeTutorialPanel();
     });
 
+    socket.on('challenge:start', function (data) {
+      _showChallengeModal(data);
+    });
+
+    socket.on('challenge:resolved', function (data) {
+      _showChallengeResolutionToast(data);
+    });
+
     socket.on('session:joined', function () {
       socket.emit('combat:request');
+      _checkForActiveChallenge();
     });
   }
 
@@ -763,6 +772,182 @@
   document.addEventListener('mouseup', function () {
     _tutDrag.active = false;
   });
+
+  var _challengeData = null;
+  var _challengeCurrentRound = 0;
+
+  function _getSessionCharId() {
+    try {
+      var s = JSON.parse(sessionStorage.getItem('eote-session'));
+      return s ? s.characterId : null;
+    } catch (_) { return null; }
+  }
+
+  function _checkForActiveChallenge() {
+    var charId = _getSessionCharId();
+    if (!charId) return;
+    fetch('/api/narrative-challenges/player/active?character_id=' + encodeURIComponent(charId))
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (data.instance && data.challenge) {
+          _showChallengeModal({
+            instance: data.instance,
+            challenge: data.challenge,
+            characterName: data.instance.character_name || ''
+          });
+        }
+      })
+      .catch(function () {});
+  }
+
+  function _showChallengeModal(data) {
+    var existing = document.getElementById('nc-player-overlay');
+    if (existing) existing.remove();
+
+    _challengeData = data;
+    var inst = data.instance;
+    var challenge = data.challenge;
+    var existingChoices = [];
+    try { existingChoices = JSON.parse(inst.choices || '[]'); } catch (_) {}
+    _challengeCurrentRound = existingChoices.length;
+
+    var overlay = document.createElement('div');
+    overlay.id = 'nc-player-overlay';
+    overlay.className = 'nc-player-overlay';
+
+    _renderChallengeRound(overlay, challenge, inst, existingChoices);
+    document.body.appendChild(overlay);
+  }
+
+  function _renderChallengeRound(overlay, challenge, inst, existingChoices) {
+    var rounds = challenge.rounds || [];
+    var ri = _challengeCurrentRound;
+
+    if (ri >= rounds.length) {
+      _renderChallengeComplete(overlay, challenge, inst);
+      return;
+    }
+
+    var round = rounds[ri];
+    var html = '<div class="nc-player-modal">';
+    html += '<div class="nc-player-header">';
+    html += '<span class="nc-player-title">' + _escHtml(challenge.name) + '</span>';
+    html += '<span class="nc-player-round">Round ' + (ri + 1) + ' / ' + rounds.length + '</span>';
+    html += '</div>';
+
+    if (ri === 0) {
+      html += '<div class="nc-player-setup">';
+      html += '<div class="nc-player-desc">' + _escHtml(challenge.description || '') + '</div>';
+      html += '<div class="nc-player-setup-text">' + _escHtml(challenge.setup || '') + '</div>';
+      html += '</div>';
+    }
+
+    html += '<div class="nc-player-prompt">' + _escHtml(round.prompt) + '</div>';
+    if (round.narrativeContext) {
+      html += '<div class="nc-player-context">' + _escHtml(round.narrativeContext) + '</div>';
+    }
+
+    html += '<div class="nc-player-choices">';
+    (round.choices || []).forEach(function (ch) {
+      html += '<button class="nc-player-choice-btn" data-round-id="' + _escHtml(round.id) + '" data-choice-id="' + _escHtml(ch.id) + '">';
+      html += '<span class="nc-player-choice-label">' + _escHtml(ch.label) + '</span>';
+      if (ch.discipline) {
+        html += '<span class="nc-player-choice-disc">' + _escHtml(ch.discipline) + '</span>';
+      }
+      html += '</button>';
+    });
+    html += '</div>';
+
+    html += '</div>';
+    overlay.innerHTML = html;
+
+    overlay.querySelectorAll('.nc-player-choice-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var roundId = btn.dataset.roundId;
+        var choiceId = btn.dataset.choiceId;
+        _submitPlayerChoice(overlay, challenge, inst, roundId, choiceId, round);
+      });
+    });
+  }
+
+  function _submitPlayerChoice(overlay, challenge, inst, roundId, choiceId, round) {
+    var charId = _getSessionCharId();
+    if (!charId) return;
+
+    overlay.querySelectorAll('.nc-player-choice-btn').forEach(function (b) { b.disabled = true; });
+
+    var chosenBtn = overlay.querySelector('.nc-player-choice-btn[data-choice-id="' + choiceId + '"]');
+    if (chosenBtn) chosenBtn.classList.add('nc-player-choice--selected');
+
+    var chosenData = (round.choices || []).find(function (c) { return c.id === choiceId; });
+    var narration = chosenData ? chosenData.narration : '';
+
+    if (narration) {
+      var modal = overlay.querySelector('.nc-player-modal');
+      if (modal) {
+        var narDiv = document.createElement('div');
+        narDiv.className = 'nc-player-narration';
+        narDiv.textContent = narration;
+        modal.appendChild(narDiv);
+
+        var contBtn = document.createElement('button');
+        contBtn.className = 'nc-player-continue-btn';
+        contBtn.textContent = _challengeCurrentRound + 1 >= (challenge.rounds || []).length ? 'Await the GM\u2019s Judgment' : 'Continue';
+        modal.appendChild(contBtn);
+
+        contBtn.addEventListener('click', function () {
+          _challengeCurrentRound++;
+          _renderChallengeRound(overlay, challenge, inst, []);
+        });
+      }
+    }
+
+    fetch('/api/narrative-challenges/player/choice', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        character_id: charId,
+        instance_id: inst.id,
+        round_id: roundId,
+        choice_id: choiceId
+      })
+    }).catch(function () {});
+  }
+
+  function _renderChallengeComplete(overlay, challenge, inst) {
+    var html = '<div class="nc-player-modal">';
+    html += '<div class="nc-player-header">';
+    html += '<span class="nc-player-title">' + _escHtml(challenge.name) + '</span>';
+    html += '<span class="nc-player-round">Complete</span>';
+    html += '</div>';
+    html += '<div class="nc-player-waiting">';
+    html += '<div class="nc-player-waiting-icon">&#9876;</div>';
+    html += '<div class="nc-player-waiting-text">Your choices have been recorded.<br>The GM is reviewing your path through the Hall of Mirrors.</div>';
+    html += '</div>';
+    html += '</div>';
+    overlay.innerHTML = html;
+  }
+
+  function _showChallengeResolutionToast(data) {
+    var overlay = document.getElementById('nc-player-overlay');
+    if (overlay) overlay.remove();
+
+    var result = data.characterResult;
+    if (!result) return;
+
+    var toast = document.createElement('div');
+    toast.className = 'nc-player-resolution-toast';
+    var msg = '';
+    if (result.shifted) {
+      msg = 'Destiny shifted: ' + result.oldSpectrum + ' \u2192 ' + result.newSpectrum;
+    } else {
+      msg = 'Destiny held steady: ' + result.oldSpectrum;
+    }
+    msg += ' \u2014 ' + data.tokenOutcome;
+    toast.textContent = msg;
+    document.body.appendChild(toast);
+    setTimeout(function () { toast.remove(); }, 8000);
+  }
 
   var _decisionPollActive = false;
 

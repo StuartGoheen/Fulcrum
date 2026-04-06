@@ -3715,6 +3715,61 @@
       launchBtn.addEventListener('click', function () { openChallengeLauncher(); });
     }
     loadChallengeStatus();
+
+    if (socket) {
+      socket.on('challenge:player-choice', function (data) {
+        _handlePlayerChoiceUpdate(data);
+      });
+    }
+  }
+
+  function _handlePlayerChoiceUpdate(data) {
+    var statusEl = document.getElementById('cb-challenge-status');
+    if (!statusEl) return;
+
+    var inst = _activeInstances.find(function (i) { return i.id === data.instanceId; });
+    if (inst) {
+      try {
+        var choices = JSON.parse(inst.choices || '[]');
+        choices = choices.filter(function (c) { return c.round_id !== data.roundId; });
+        choices.push({ round_id: data.roundId, choice_id: data.choiceId });
+        inst.choices = JSON.stringify(choices);
+      } catch (_) {}
+    }
+
+    var existingBadge = statusEl.querySelector('.nc-instance-row[data-inst-id="' + data.instanceId + '"] .nc-live-badge');
+    var row = statusEl.querySelector('.nc-instance-row[data-inst-id="' + data.instanceId + '"]');
+    if (row) {
+      var oldBadge = row.querySelector('.nc-live-badge');
+      if (oldBadge) oldBadge.remove();
+      var badge = document.createElement('span');
+      badge.className = 'nc-live-badge';
+      badge.textContent = data.totalChoices + '/' + data.totalRounds + ' chosen';
+      badge.style.cssText = 'font-size:0.55rem;color:var(--color-success,#22c55e);margin-left:auto;padding:0.1rem 0.3rem;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);';
+      row.appendChild(badge);
+    }
+
+    var runnerOverlay = document.getElementById('nc-runner-overlay');
+    if (runnerOverlay) {
+      var roundEl = runnerOverlay.querySelector('.nc-round[data-round-id="' + data.roundId + '"]');
+      if (roundEl) {
+        var choiceEl = roundEl.querySelector('.nc-choice[data-choice-id="' + data.choiceId + '"]');
+        if (choiceEl) {
+          roundEl.querySelectorAll('.nc-choice').forEach(function (c) {
+            c.classList.remove('nc-choice--player-selected');
+          });
+          choiceEl.classList.add('nc-choice--player-selected');
+          var existingPlayerTag = choiceEl.querySelector('.nc-player-pick-tag');
+          if (!existingPlayerTag) {
+            var tag = document.createElement('span');
+            tag.className = 'nc-player-pick-tag';
+            tag.textContent = data.characterName + ' chose this';
+            tag.style.cssText = 'font-size:0.5rem;color:var(--color-success);display:block;margin-top:0.2rem;';
+            choiceEl.appendChild(tag);
+          }
+        }
+      }
+    }
   }
 
   initDragHandles();

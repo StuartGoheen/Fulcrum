@@ -5314,6 +5314,7 @@
 }
 .nc-choice:hover { border-color: #64748b; background: rgba(30,41,59,0.5); }
 .nc-choice--selected { border-color: #c8a44e !important; background: rgba(200,164,78,0.08) !important; }
+.nc-choice--player-selected { border-color: #22c55e !important; background: rgba(34,197,94,0.08) !important; box-shadow: 0 0 8px rgba(34,197,94,0.2); }
 .nc-choice--light { border-left: 3px solid #60a5fa; }
 .nc-choice--dark { border-left: 3px solid #f87171; }
 .nc-choice--neutral { border-left: 3px solid #94a3b8; }

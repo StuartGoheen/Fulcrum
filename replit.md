@@ -514,25 +514,36 @@ Gemini-powered After Action Report generator that creates in-universe mission de
 
 Reusable branching narrative choice system tied to destiny mechanics. Designed for the Ebon Spire encounter (Adventure 4) but usable for any future narrative scene (Force visions, moral dilemmas, interrogation gauntlets).
 
-**Data Files:** `data/narrative-challenges/hall-{destruction,discovery,rescue,creation,corruption,atonement,liberation,ascendancy}.json` — 8 authored scenario files, one per destiny type. Each has rounds with 3 choices (Light/Dark/Neutral alignment + discipline tag flavor).
+**Data Files:** `data/narrative-challenges/hall-{destruction,discovery,rescue,creation,corruption,atonement,liberation,ascendancy}.json` — 8 authored scenario files, one per destiny type. `hall-rescue-kos.json` — custom Kos Vansen scenario ("Ghost Frequencies") using Duros/Ghost/Gunslinger/Rescue destiny background; dark choices are pragmatic and seductive with costs revealed only in narration aftermath. Each has rounds with 3 choices (Light/Dark/Neutral alignment + discipline tag flavor).
 
-**Database:** `narrative_challenge_instances` table (id, challenge_id, character_id, adventure_id, scene_id, choices JSON, gm_score, shift_value, status, created_at, updated_at). Status lifecycle: active → scored → resolved.
+**Database:** `narrative_challenge_instances` table (id, challenge_id, character_id, adventure_id, scene_id, choices JSON, gm_score, shift_value, shuffle_seed, status, created_at, updated_at). Status lifecycle: active → scored → resolved. `shuffle_seed` stores per-instance randomization seed for choice ordering.
 
 **API:** `server/routes/narrative-challenges.js` mounted at `/api`:
-- `GET /api/narrative-challenges` — list all challenge summaries
-- `GET /api/narrative-challenges/:id` — full challenge data with rounds/choices
-- `GET /api/narrative-challenges/by-destiny/:destinyId` — filter by destiny type
-- `POST /api/narrative-challenges/instances` — create instance for character
-- `GET /api/narrative-challenges/instances/active` — list active/scored instances
-- `PUT /api/narrative-challenges/instances/:id/choice` — record round choice
-- `PUT /api/narrative-challenges/instances/:id/score` — GM score 1-5
-- `POST /api/narrative-challenges/resolve` — resolve scored instances, apply spectrum shifts
-- `POST /api/narrative-challenges/apply-tokens` — untap Hope/Toll/All tokens in destiny pool
-- `POST /api/narrative-challenges/journal` — create journal entries per character
+- `GET /api/narrative-challenges` — list all challenge summaries (gmOnly)
+- `GET /api/narrative-challenges/:id` — full challenge data with rounds/choices (gmOnly)
+- `GET /api/narrative-challenges/by-destiny/:destinyId` — filter by destiny type (gmOnly)
+- `POST /api/narrative-challenges/instances` — create instance for character (gmOnly, generates shuffle_seed, emits `challenge:start` to player socket)
+- `GET /api/narrative-challenges/instances/active` — list active/scored instances (gmOnly)
+- `PUT /api/narrative-challenges/instances/:id/choice` — record round choice (gmOnly)
+- `PUT /api/narrative-challenges/instances/:id/score` — GM score 1-5 (gmOnly)
+- `POST /api/narrative-challenges/resolve` — resolve scored instances, apply spectrum shifts (gmOnly, emits `challenge:resolved` to affected player sockets)
+- `POST /api/narrative-challenges/apply-tokens` — untap Hope/Toll/All tokens in destiny pool (gmOnly)
+- `GET /api/narrative-challenges/player/active` — player's active challenge with shuffled choices (player role, no alignment labels)
+- `PUT /api/narrative-challenges/player/choice` — player submits round choice (player role, validates round_id/choice_id, emits `challenge:player-choice` to GM room)
+- `POST /api/narrative-challenges/journal` — create journal entries per character (gmOnly)
 
 **Scoring Mechanics:** GM scores 1-5 per character → shift value: 1→-1 (toward Dark/Survivor), 2-4→0 (hold), 5→+1 (toward Light/Idealist). Spectrum order: Two Dark ↔ Light & Dark ↔ Two Light. Party sum of all shift values determines token refresh: >0 untaps Hope, <0 untaps Toll, =0 (Equilibrium/Revan's Balance) untaps ALL tokens.
 
-**GM UI (command-bridge.js):** "Narrative Challenges" section in right sidebar with "+ New" launcher button. Challenge launcher modal (select from 8 destiny scenarios + assign characters, "Auto-Assign by Destiny" button matches characters to challenges by personal destiny). Challenge runner modal (read prompts, select choices per round with discipline tags, GM score 1-5). Resolution is atomic: resolve endpoint rebuilds destiny pool from updated character spectra, applies token refresh (hope/toll/equilibrium), and auto-creates journal entries per character — all in one operation. Resolution modal shows confirmation of all applied changes.
+**GM UI (command-bridge.js):** "Narrative Challenges" section in right sidebar with "+ New" launcher button. Challenge launcher modal (select from 8 destiny scenarios + assign characters, "Auto-Assign by Destiny" button matches characters to challenges by personal destiny). Challenge runner modal (read prompts, select choices per round with discipline tags, GM score 1-5, live "X/Y chosen" badge showing player progress in real-time). Resolution is atomic: resolve endpoint rebuilds destiny pool from updated character spectra, applies token refresh (hope/toll/equilibrium), and auto-creates journal entries per character — all in one operation. Resolution modal shows confirmation of all applied changes.
+
+**Player UI (socket-client.js):** Challenge modal overlay on player character sheet. Triggered by `challenge:start` socket event or auto-detected on session join via `_checkForActiveChallenge()`. Shows setup narrative, then rounds one at a time with choices in shuffled order (no alignment labels visible). Player clicks choice → sees narration aftermath → advances to next round. On completion, shows waiting screen until GM resolves. `challenge:resolved` socket event shows final outcome.
+
+**Socket Events:**
+- `challenge:start` — GM launch → emitted to targeted player socket with shuffled challenge data
+- `challenge:player-choice` — player PUT choice → relayed to GM room with progress counts
+- `challenge:resolved` — GM resolve → emitted to affected player sockets with token outcome
+
+**Choice Shuffling:** LCG seeded shuffle (`seededShuffle(arr, seed + roundIndex)`) ensures choices appear in randomized order per player per round. Alignment labels (`light`/`dark`/`neutral`) stripped before sending to player via `shuffleChoicesForPlayer()`. Seed stored in DB `shuffle_seed` column.
 
 ## Deployment
 

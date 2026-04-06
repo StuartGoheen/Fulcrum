@@ -132,6 +132,7 @@ async function initSchema() {
         gm_score        INTEGER,
         shift_value     INTEGER,
         status          TEXT NOT NULL DEFAULT 'active',
+        shuffle_seed    INTEGER,
         created_at      TIMESTAMP DEFAULT NOW(),
         updated_at      TIMESTAMP DEFAULT NOW()
       );
@@ -139,6 +140,9 @@ async function initSchema() {
 
     try {
       await client.query(`ALTER TABLE journal_entries ADD COLUMN IF NOT EXISTS source_scene_id TEXT`);
+    } catch (e) {}
+    try {
+      await client.query(`ALTER TABLE narrative_challenge_instances ADD COLUMN IF NOT EXISTS shuffle_seed INTEGER`);
     } catch (e) {}
     try {
       const existingIdx = await client.query(`SELECT indexdef FROM pg_indexes WHERE indexname = 'idx_journal_entries_scene_author'`);
