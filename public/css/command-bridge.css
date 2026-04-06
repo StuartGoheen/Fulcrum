@@ -5445,4 +5445,27 @@
 .nc-submit-score {
   margin-top: 0.5rem;
 }
+
+.nc-resolve-journal {
+  margin-bottom: 0.75rem;
+  padding: 0.5rem;
+  background: rgba(30,41,59,0.5);
+  border-radius: 5px;
+}
+.nc-resolve-journal-entry {
+  font-size: 0.65rem;
+  color: #a5b4fc;
+  padding: 0.2rem 0;
+  border-bottom: 1px solid rgba(129,140,248,0.1);
+}
+.nc-resolve-journal-entry:last-child { border-bottom: none; }
+
+.nc-resolve-applied {
+  margin-bottom: 0.75rem;
+}
+.nc-resolve-applied-item {
+  font-size: 0.65rem;
+  color: #10b981;
+  padding: 0.15rem 0;
+}
   

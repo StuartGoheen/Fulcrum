@@ -53,7 +53,7 @@ function applySpectrumShift(currentSpectrum, shiftValue) {
   return SPECTRUM_ORDER[newIdx];
 }
 
-router.get('/narrative-challenges', (req, res) => {
+router.get('/narrative-challenges', gmOnly, (req, res) => {
   try {
     const challenges = loadChallenges();
     const list = challenges.map(c => ({
@@ -73,7 +73,18 @@ router.get('/narrative-challenges', (req, res) => {
   }
 });
 
-router.get('/narrative-challenges/:id', (req, res) => {
+router.get('/narrative-challenges/by-destiny/:destinyId', gmOnly, (req, res) => {
+  try {
+    const challenges = loadChallenges();
+    const matching = challenges.filter(c => c.destiny === req.params.destinyId);
+    res.json({ challenges: matching });
+  } catch (err) {
+    console.error('[GET /narrative-challenges/by-destiny/:destinyId]', err);
+    res.status(500).json({ error: 'Failed to load challenges' });
+  }
+});
+
+router.get('/narrative-challenges/:id', gmOnly, (req, res) => {
   try {
     const challenges = loadChallenges();
     const challenge = challenges.find(c => c.id === req.params.id);
@@ -82,17 +93,6 @@ router.get('/narrative-challenges/:id', (req, res) => {
   } catch (err) {
     console.error('[GET /narrative-challenges/:id]', err);
     res.status(500).json({ error: 'Failed to load challenge' });
-  }
-});
-
-router.get('/narrative-challenges/by-destiny/:destinyId', (req, res) => {
-  try {
-    const challenges = loadChallenges();
-    const matching = challenges.filter(c => c.destiny === req.params.destinyId);
-    res.json({ challenges: matching });
-  } catch (err) {
-    console.error('[GET /narrative-challenges/by-destiny/:destinyId]', err);
-    res.status(500).json({ error: 'Failed to load challenges' });
   }
 });
 
@@ -116,7 +116,7 @@ router.post('/narrative-challenges/instances', gmOnly, async (req, res) => {
   }
 });
 
-router.get('/narrative-challenges/instances/active', async (req, res) => {
+router.get('/narrative-challenges/instances/active', gmOnly, async (req, res) => {
   const { adventure_id, scene_id } = req.query;
   try {
     let query = `SELECT nci.*, c.name as character_name, c.character_data
@@ -221,6 +221,7 @@ router.post('/narrative-challenges/resolve', gmOnly, async (req, res) => {
 
     const results = [];
     let partySum = 0;
+    const updatedCharIds = new Set();
 
     for (const inst of instResult.rows) {
       const shiftValue = inst.shift_value || 0;
@@ -238,6 +239,7 @@ router.post('/narrative-challenges/resolve', gmOnly, async (req, res) => {
           'UPDATE characters SET character_data = $1 WHERE id = $2',
           [JSON.stringify(charData), inst.character_id]
         );
+        updatedCharIds.add(inst.character_id);
       }
 
       await pool.query(
@@ -268,6 +270,97 @@ router.post('/narrative-challenges/resolve', gmOnly, async (req, res) => {
       tokenOutcome = 'toll';
     }
 
+    const allCharResult = await pool.query(
+      'SELECT id, character_data FROM characters'
+    );
+    const newPool = [];
+    for (const row of allCharResult.rows) {
+      let cd = {};
+      try { cd = JSON.parse(row.character_data || '{}'); } catch (_) {}
+      const spectrum = cd.destiny || 'Light & Dark';
+      if (spectrum === 'Two Light') {
+        newPool.push({ side: 'hope', tapped: false }, { side: 'hope', tapped: false });
+      } else if (spectrum === 'Two Dark') {
+        newPool.push({ side: 'toll', tapped: false }, { side: 'toll', tapped: false });
+      } else {
+        newPool.push({ side: 'hope', tapped: false }, { side: 'toll', tapped: false });
+      }
+    }
+
+    for (const token of newPool) {
+      if (tokenOutcome === 'equilibrium') {
+        token.tapped = false;
+      } else if (tokenOutcome === 'hope' && token.side === 'toll') {
+        token.tapped = true;
+      } else if (tokenOutcome === 'toll' && token.side === 'hope') {
+        token.tapped = true;
+      }
+    }
+
+    await pool.query(
+      `INSERT INTO campaign_state (key, value, updated_at)
+       VALUES ('destiny_pool', $1, NOW())
+       ON CONFLICT(key) DO UPDATE SET value = EXCLUDED.value, updated_at = NOW()`,
+      [JSON.stringify(newPool)]
+    );
+
+    const challenges = loadChallenges();
+    const journalEntries = [];
+    for (const inst of instResult.rows) {
+      const challenge = challenges.find(c => c.id === inst.challenge_id);
+      if (!challenge) continue;
+
+      let choices = [];
+      try { choices = JSON.parse(inst.choices || '[]'); } catch (_) {}
+
+      const bodyLines = [];
+      bodyLines.push(`Challenge: ${challenge.name} (${challenge.destiny})`);
+      bodyLines.push(`Destiny Scenario: ${challenge.description}`);
+      bodyLines.push('');
+
+      for (const choice of choices) {
+        const round = (challenge.rounds || []).find(r => r.id === choice.round_id);
+        if (!round) continue;
+        const chosen = (round.choices || []).find(c => c.id === choice.choice_id);
+        if (!chosen) continue;
+        bodyLines.push(`Round: ${round.prompt.substring(0, 80)}...`);
+        bodyLines.push(`Choice: ${chosen.label} [${chosen.alignment}]`);
+        bodyLines.push('');
+      }
+
+      bodyLines.push('---');
+      const scoreLabel = inst.gm_score === 5 ? 'Light' : inst.gm_score === 1 ? 'Dark' : 'Neutral';
+      bodyLines.push(`GM Score: ${inst.gm_score}/5 (${scoreLabel})`);
+      const r = results.find(x => x.instanceId === inst.id);
+      if (r && r.shifted) {
+        bodyLines.push(`Destiny Shift: ${r.oldSpectrum} → ${r.newSpectrum}`);
+      } else {
+        bodyLines.push('Destiny Shift: Held steady');
+      }
+
+      bodyLines.push('');
+      if (tokenOutcome === 'equilibrium') {
+        bodyLines.push("Party Outcome: Revan's Balance — ALL tokens untapped");
+      } else if (tokenOutcome === 'hope') {
+        bodyLines.push('Party Outcome: Hope Dominant — Hope tokens untapped');
+      } else {
+        bodyLines.push('Party Outcome: Toll Dominant — Toll tokens untapped');
+      }
+      bodyLines.push(`Party Sum: ${partySum}`);
+
+      const title = `${challenge.name} — ${inst.character_name}`;
+      const body = bodyLines.join('\n');
+      const sceneTag = inst.scene_id || (inst.adventure_id ? 'challenge:' + inst.adventure_id : 'challenge:' + inst.challenge_id);
+
+      const entryResult = await pool.query(
+        `INSERT INTO journal_entries (title, body, author_character_name, source_scene_id)
+         VALUES ($1, $2, $3, $4)
+         RETURNING id`,
+        [title, body, inst.character_name, sceneTag]
+      );
+      journalEntries.push({ id: entryResult.rows[0].id, title, characterName: inst.character_name });
+    }
+
     res.json({
       results,
       partySum,
@@ -276,7 +369,10 @@ router.post('/narrative-challenges/resolve', gmOnly, async (req, res) => {
         ? "Revan's Balance — ALL tokens untapped"
         : tokenOutcome === 'hope'
           ? 'Hope dominant — all Hope tokens untapped'
-          : 'Toll dominant — all Toll tokens untapped'
+          : 'Toll dominant — all Toll tokens untapped',
+      poolRebuilt: true,
+      tokensApplied: true,
+      journalEntries
     });
   } catch (err) {
     console.error('[POST /narrative-challenges/resolve]', err);

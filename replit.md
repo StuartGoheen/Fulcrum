@@ -532,7 +532,7 @@ Reusable branching narrative choice system tied to destiny mechanics. Designed f
 
 **Scoring Mechanics:** GM scores 1-5 per character → shift value: 1→-1 (toward Dark/Survivor), 2-4→0 (hold), 5→+1 (toward Light/Idealist). Spectrum order: Two Dark ↔ Light & Dark ↔ Two Light. Party sum of all shift values determines token refresh: >0 untaps Hope, <0 untaps Toll, =0 (Equilibrium/Revan's Balance) untaps ALL tokens.
 
-**GM UI (command-bridge.js):** "Narrative Challenges" section in right sidebar with "+ New" launcher button. Challenge launcher modal (select from 8 destiny scenarios + assign characters). Challenge runner modal (read prompts, select choices per round, GM score 1-5). Resolution modal shows party sum, spectrum shifts per character, token outcome with Apply/Journal/Done buttons.
+**GM UI (command-bridge.js):** "Narrative Challenges" section in right sidebar with "+ New" launcher button. Challenge launcher modal (select from 8 destiny scenarios + assign characters, "Auto-Assign by Destiny" button matches characters to challenges by personal destiny). Challenge runner modal (read prompts, select choices per round with discipline tags, GM score 1-5). Resolution is atomic: resolve endpoint rebuilds destiny pool from updated character spectra, applies token refresh (hope/toll/equilibrium), and auto-creates journal entries per character — all in one operation. Resolution modal shows confirmation of all applied changes.
 
 ## Deployment
 

@@ -3379,7 +3379,17 @@
       fetch('/api/characters').then(function (r) { return r.json(); })
     ]).then(function (results) {
       _challengeCache = results[0].challenges || [];
-      var characters = results[1].characters || results[1] || [];
+      var rawChars = results[1].characters || results[1] || [];
+      var characters = rawChars.map(function (ch) {
+        var pd = null;
+        if (ch.character_data) {
+          try {
+            var cd = typeof ch.character_data === 'string' ? JSON.parse(ch.character_data) : ch.character_data;
+            pd = cd.personalDestiny || null;
+          } catch (_) {}
+        }
+        return { id: ch.id, name: ch.name, personalDestiny: pd };
+      });
       renderLauncherContent(overlay, characters);
     }).catch(function () {
       overlay.querySelector('.nc-launcher-loading').textContent = 'Failed to load data.';
@@ -3403,9 +3413,11 @@
     html += '</div>';
 
     html += '<label class="nc-label" style="margin-top:0.75rem;">Assign Characters</label>';
+    html += '<button class="cb-header-btn nc-auto-assign-btn" id="nc-auto-assign" style="font-size:0.55rem;padding:0.2rem 0.4rem;min-height:auto;margin-bottom:0.4rem;" disabled>Auto-Assign by Destiny</button>';
     html += '<div class="nc-char-list">';
     characters.forEach(function (ch) {
-      html += '<label class="nc-char-check"><input type="checkbox" value="' + ch.id + '" data-char-name="' + esc(ch.name) + '"> ' + esc(ch.name) + '</label>';
+      var destinyLabel = ch.personalDestiny && ch.personalDestiny.id ? ' (' + ch.personalDestiny.id + ')' : '';
+      html += '<label class="nc-char-check"><input type="checkbox" value="' + ch.id + '" data-char-name="' + esc(ch.name) + '" data-char-destiny="' + esc(ch.personalDestiny && ch.personalDestiny.id ? ch.personalDestiny.id : '') + '"> ' + esc(ch.name) + esc(destinyLabel) + '</label>';
     });
     html += '</div>';
 
@@ -3417,14 +3429,28 @@
     body.innerHTML = html;
 
     var selectedChallenge = null;
+    var autoAssignBtn = document.getElementById('nc-auto-assign');
     body.querySelectorAll('.nc-challenge-card').forEach(function (card) {
       card.addEventListener('click', function () {
         body.querySelectorAll('.nc-challenge-card').forEach(function (c) { c.classList.remove('nc-selected'); });
         card.classList.add('nc-selected');
         selectedChallenge = card.dataset.challengeId;
+        if (autoAssignBtn) autoAssignBtn.disabled = false;
         checkReady();
       });
     });
+    if (autoAssignBtn) {
+      autoAssignBtn.addEventListener('click', function () {
+        if (!selectedChallenge) return;
+        var challenge = _challengeCache.find(function (c) { return c.id === selectedChallenge; });
+        if (!challenge) return;
+        var destinyId = challenge.destiny;
+        body.querySelectorAll('.nc-char-check input').forEach(function (cb) {
+          cb.checked = (cb.dataset.charDestiny === destinyId);
+        });
+        checkReady();
+      });
+    }
 
     function checkReady() {
       var checked = body.querySelectorAll('.nc-char-check input:checked');
@@ -3641,50 +3667,49 @@
     });
     html += '</div>';
 
+    if (data.journalEntries && data.journalEntries.length > 0) {
+      html += '<div class="nc-resolve-journal">';
+      html += '<div class="nc-label" style="margin-bottom:0.3rem;">Journal Entries Created</div>';
+      data.journalEntries.forEach(function (je) {
+        html += '<div class="nc-resolve-journal-entry">' + esc(je.title) + '</div>';
+      });
+      html += '</div>';
+    }
+
+    html += '<div class="nc-resolve-applied">';
+    if (data.poolRebuilt) html += '<div class="nc-resolve-applied-item">&#10003; Destiny pool rebuilt from updated spectra</div>';
+    if (data.tokensApplied) html += '<div class="nc-resolve-applied-item">&#10003; Token refresh applied</div>';
+    if (data.journalEntries && data.journalEntries.length > 0) html += '<div class="nc-resolve-applied-item">&#10003; ' + data.journalEntries.length + ' journal entries logged</div>';
+    html += '</div>';
+
     html += '<div class="nc-resolve-actions">';
-    html += '<button class="cb-header-btn accent" id="nc-apply-tokens">Apply Token Refresh</button>';
-    html += '<button class="cb-header-btn" id="nc-journal-log">Log to Journal</button>';
-    html += '<button class="cb-header-btn" id="nc-resolve-done">Done</button>';
+    html += '<button class="cb-header-btn accent" id="nc-resolve-done">Done</button>';
     html += '</div>';
 
     html += '</div></div>';
     overlay.innerHTML = html;
     document.body.appendChild(overlay);
 
-    document.getElementById('nc-resolve-close').addEventListener('click', function () { overlay.remove(); loadChallengeStatus(); });
-    overlay.addEventListener('click', function (e) { if (e.target === overlay) { overlay.remove(); loadChallengeStatus(); } });
-
-    var instanceIds = (data.results || []).map(function (r) { return r.instanceId; });
-
-    document.getElementById('nc-apply-tokens').addEventListener('click', function () {
-      fetch('/api/narrative-challenges/apply-tokens', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token_outcome: data.tokenOutcome })
-      }).then(function (r) { if (!r.ok) throw new Error('Failed'); return r.json(); }).then(function (result) {
-        showToast(result.untapped + ' token(s) untapped');
-        if (socket) socket.emit('destiny:request-pool');
-      }).catch(function () { showToast('Failed to apply tokens'); });
+    document.getElementById('nc-resolve-close').addEventListener('click', function () {
+      overlay.remove();
+      loadChallengeStatus();
+      loadCrewJournal();
+      if (socket) socket.emit('destiny:request-pool');
     });
-
-    document.getElementById('nc-journal-log').addEventListener('click', function () {
-      fetch('/api/narrative-challenges/journal', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          instance_ids: instanceIds,
-          token_outcome: data.tokenOutcome,
-          party_sum: data.partySum
-        })
-      }).then(function (r) { if (!r.ok) throw new Error('Failed'); return r.json(); }).then(function (result) {
-        showToast((result.entries || []).length + ' journal entries created');
+    overlay.addEventListener('click', function (e) {
+      if (e.target === overlay) {
+        overlay.remove();
+        loadChallengeStatus();
         loadCrewJournal();
-      }).catch(function () { showToast('Failed to create journal entries'); });
+        if (socket) socket.emit('destiny:request-pool');
+      }
     });
 
     document.getElementById('nc-resolve-done').addEventListener('click', function () {
       overlay.remove();
       loadChallengeStatus();
+      loadCrewJournal();
+      if (socket) socket.emit('destiny:request-pool');
     });
   }
 
