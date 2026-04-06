@@ -2684,15 +2684,12 @@
       }
     } else if (_crewNav.level === 'scene-detail') {
       var campaignLog = null;
-      var missionDebriefs = [];
       var playerEntries = [];
       _crewJournalEntries.forEach(function (e) {
         if (e.source_scene_id !== _crewNav.sceneId) return;
         if (e.author_character_name === 'Campaign Log') {
           campaignLog = e;
-        } else if (e.author_character_name === 'Mission Debrief') {
-          missionDebriefs.push(e);
-        } else {
+        } else if (e.author_character_name !== 'Mission Debrief') {
           playerEntries.push(e);
         }
       });
@@ -2709,19 +2706,7 @@
         html += '</div></div>';
       }
 
-      missionDebriefs.forEach(function (debrief) {
-        html += '<div class="journal-scene-log journal-mission-debrief" data-cj-scene-log>';
-        html += '<div class="journal-scene-log-header journal-mission-debrief-header">';
-        html += '<span class="journal-scene-log-chevron">\u25B6</span>';
-        html += '<span class="journal-mission-debrief-label">After Action Report</span>';
-        html += '<span class="journal-scene-log-date">' + _fmtDate(debrief.created_at) + '</span>';
-        html += '</div>';
-        html += '<div class="journal-scene-log-body">';
-        html += '<pre class="journal-mission-debrief-content">' + _escHtml(debrief.body || '') + '</pre>';
-        html += '</div></div>';
-      });
-
-      if (playerEntries.length === 0 && missionDebriefs.length === 0) {
+      if (playerEntries.length === 0) {
         html += '<div style="padding:1rem;text-align:center;opacity:0.4;font-size:0.6rem;">No crew notes for this scene yet.</div>';
       } else if (playerEntries.length > 0) {
         playerEntries.forEach(function (entry) {
