@@ -840,9 +840,12 @@
     var form = document.getElementById('char-add-form');
     if (!form) return;
 
+    var sortedDefs = EFFECT_DEFS.slice().sort(function (a, b) {
+      return a.label.localeCompare(b.label);
+    });
     var effectOpts = '';
-    for (var i = 0; i < EFFECT_DEFS.length; i++) {
-      effectOpts += '<option value="' + _esc(EFFECT_DEFS[i].id) + '">' + _esc(EFFECT_DEFS[i].label) + '</option>';
+    for (var i = 0; i < sortedDefs.length; i++) {
+      effectOpts += '<option value="' + _esc(sortedDefs[i].id) + '">' + _esc(sortedDefs[i].label) + '</option>';
     }
 
     var durOpts = '';
