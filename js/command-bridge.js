@@ -3502,6 +3502,23 @@
       .catch(function () { showToast('Failed to load challenge data'); });
   }
 
+  function _calcAutoScore(challenge, choices) {
+    if (!challenge || !challenge.rounds || !choices || !choices.length) return null;
+    var alignScores = { light: 5, neutral: 3, dark: 1 };
+    var total = 0;
+    var count = 0;
+    choices.forEach(function (c) {
+      var round = challenge.rounds.find(function (r) { return r.id === c.round_id; });
+      if (!round) return;
+      var choice = (round.choices || []).find(function (ch) { return ch.id === c.choice_id; });
+      if (!choice) return;
+      total += alignScores[choice.alignment] || 3;
+      count++;
+    });
+    if (count === 0) return null;
+    return Math.round(total / count);
+  }
+
   function renderChallengeRunner(inst, challenge) {
     var choices = [];
     try { choices = JSON.parse(inst.choices || '[]'); } catch (_) {}
@@ -3541,7 +3558,6 @@
         var alignClass = 'nc-choice--' + (ch.alignment || 'neutral').toLowerCase();
         html += '<div class="nc-choice ' + alignClass + (selected ? ' nc-choice--selected' : '') + '" data-round-id="' + esc(round.id) + '" data-choice-id="' + esc(ch.id) + '">';
         html += '<div class="nc-choice-label">' + esc(ch.label) + '</div>';
-        if (ch.discipline) html += '<span class="nc-choice-tag">' + esc(ch.discipline) + '</span>';
         html += '<span class="nc-choice-align">' + esc(ch.alignment || '') + '</span>';
         html += '</div>';
       });
@@ -3549,15 +3565,20 @@
     });
 
     if (inst.status === 'active') {
+      var autoScore = _calcAutoScore(challenge, choices);
       html += '<div class="nc-scoring-section">';
-      html += '<label class="nc-label">GM Score (1–5)</label>';
+      html += '<label class="nc-label">Score (1–5)</label>';
+      if (autoScore !== null) {
+        html += '<div class="nc-auto-score-info" style="font-size:0.6rem;color:#94a3b8;margin-bottom:0.4rem;">Auto-calculated from choices: <strong style="color:#c8a44e;">' + autoScore + '/5</strong></div>';
+      }
       html += '<div class="nc-score-row">';
       for (var s = 1; s <= 5; s++) {
         var scoreLabel = s === 1 ? 'Dark' : s === 5 ? 'Light' : '';
-        html += '<button class="nc-score-btn" data-score="' + s + '">' + s + (scoreLabel ? '<br><small>' + scoreLabel + '</small>' : '') + '</button>';
+        var autoSelected = autoScore === s ? ' nc-score--selected' : '';
+        html += '<button class="nc-score-btn' + autoSelected + '" data-score="' + s + '">' + s + (scoreLabel ? '<br><small>' + scoreLabel + '</small>' : '') + '</button>';
       }
       html += '</div>';
-      html += '<button class="cb-header-btn accent nc-submit-score" id="nc-submit-score" disabled>Submit Score</button>';
+      html += '<button class="cb-header-btn accent nc-submit-score" id="nc-submit-score"' + (autoScore === null ? ' disabled' : '') + '>Submit Score</button>';
       html += '</div>';
     } else if (inst.status === 'scored') {
       html += '<div class="nc-scored-banner">Scored: ' + inst.gm_score + '/5 (shift ' + (inst.shift_value > 0 ? '+' : '') + inst.shift_value + ')</div>';
@@ -3590,7 +3611,7 @@
       });
     });
 
-    var selectedScore = null;
+    var selectedScore = _calcAutoScore(challenge, choices);
     overlay.querySelectorAll('.nc-score-btn').forEach(function (btn) {
       btn.addEventListener('click', function () {
         overlay.querySelectorAll('.nc-score-btn').forEach(function (b) { b.classList.remove('nc-score--selected'); });

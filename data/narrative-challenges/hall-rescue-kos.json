@@ -16,86 +16,77 @@
         {
           "id": "r1-c1",
           "label": "Dock immediately — forty minutes is enough if I don't hesitate",
-          "discipline": "piloting",
           "alignment": "light",
-          "narration": "You bring the ship in hard, locking clamps before the dust settles. The clock starts. Forty minutes. Your hands are steady but your heart isn't — you know what forty minutes feels like when everything goes wrong."
+          "narration": "You bring the ship in hard, locking clamps before the dust settles. The clock starts. Forty minutes. Your hands are steady but your heart isn't — you know what forty minutes feels like when everything goes wrong. The docking clamp registers on every passive sensor within range. Your clean profile just became a question mark."
         },
         {
           "id": "r1-c2",
           "label": "Broadcast a narrow-band response on the family frequency — if they can move, tell them to meet me at the upper airlock in ten",
-          "discipline": "skulduggery",
           "alignment": "neutral",
-          "narration": "You key the old frequency. Three long, one short. Coming. Move to upper decks. You're giving them a chance without fully committing. Smart. Efficient. Cold, if you think about it too long."
+          "narration": "You key the old frequency. Three long, one short. Coming. Move to upper decks. You're giving them a chance without fully committing. Smart. Efficient. But you can hear the signal still repeating on the lower band — whoever sent it can't move. They sent the code because they're trapped, not because they're waiting for instructions."
         },
         {
           "id": "r1-c3",
-          "label": "Shadow the cruiser's blind spot — I can come back after the patrol passes",
-          "discipline": "stealth",
+          "label": "Shadow the cruiser's blind spot — I'll come back after the patrol passes, it's safer for everyone",
           "alignment": "dark",
-          "narration": "You adjust course, sliding into the cruiser's sensor shadow like a second skin. Professional. Clean. The signal keeps pulsing against your hull. Three short, two long, one short. You can still hear it as you pull away."
+          "narration": "You adjust course, sliding into the cruiser's sensor shadow like a second skin. Professional. Clean. The signal keeps pulsing against your hull. Three short, two long, one short. You can still hear it as you pull away. The patrol will take six hours to clear the sector. Six hours is a long time when your air recyclers are failing and you're hiding in the dark with children who haven't eaten in two days. But you'll be back. You will."
         }
       ]
     },
     {
       "id": "r2",
-      "prompt": "Inside the platform, you find them: spacer families huddled in a cargo hold that smells like recycled air and fear. Mostly Duros, a few humans, some children too young to understand why they're hiding. An old navigator named Threel recognizes your face — says you look like your mother. Then he tells you the bad news: three of their people went to the reactor level to restore power for a distress beacon. They haven't come back. The reactor level is flooded with coolant gas.",
-      "narrativeContext": "Threel's hands are shaking. The children are quiet in the way that means they've learned silence as survival. Your breath mask is rated for coolant gas. Theirs aren't.",
+      "prompt": "Inside the platform, you find them: spacer families huddled in a cargo hold that smells like recycled air and fear. Mostly Duros, a few humans, some children too young to understand why they're hiding. An old navigator named Threel recognizes your face — says you look like your mother. Then he tells you the bad news: three of their people went to the reactor level to restore emergency power when the air started failing. They haven't come back. The reactor level is flooded with coolant gas. Your breath mask is rated for it. No one else's is.",
+      "narrativeContext": "Threel's hands are shaking. The children are quiet in the way that means they've learned silence as survival. One of the missing is a girl named Sera — fourteen, Duros, taught herself to splice power relays. She volunteered to go down because the adults were too afraid. Threel can't say her name without his voice breaking.",
       "choices": [
         {
           "id": "r2-c1",
-          "label": "I go down to the reactor level — I have the mask and the training, and those three people are counting on someone coming",
-          "discipline": "survival",
+          "label": "I go down to the reactor level for all three — Sera volunteered because the adults wouldn't, and I won't leave her down there alone",
           "alignment": "light",
-          "narration": "You strap on the mask, check the seal twice, and drop into the green haze. The coolant burns your exposed skin where the suit gaps. You can hear coughing below. Someone is still alive down there."
+          "narration": "You strap on the mask, check the seal twice, and drop into the green haze. The coolant burns every centimeter of exposed skin. Your eyes water behind the mask until you can barely see. You find the first two collapsed near a junction — unconscious, alive. You drag them back one at a time, your lungs screaming against the mask's filters. Then you go back for Sera. She's deeper. Much deeper. By the time you reach her, your skin is blistering and the mask seal is degrading. You carry her out anyway. Your hands will shake for weeks afterward. The medkit on your ship isn't rated for chemical burns this severe."
         },
         {
           "id": "r2-c2",
-          "label": "Start moving everyone who can walk to my ship now — I'll come back for the reactor team if there's time",
-          "discipline": "evasion",
+          "label": "Start moving everyone who can walk to my ship now — I'll make one quick pass through the reactor level if there's time",
           "alignment": "neutral",
-          "narration": "You start herding people toward the airlock. Small hands grip your jumpsuit as you walk. Behind you, the reactor level hums and leaks. You're doing the math: fifteen people times the distance to your cargo bay, divided by the minutes you have left."
+          "narration": "You start herding people toward the airlock. Small hands grip your jumpsuit as you walk. Behind you, the reactor level hums and leaks. You're doing the math: fifteen people times the distance to your cargo bay, divided by the minutes you have left. You tell Threel you'll check the reactor level. He hears the 'if there's time' that you didn't say out loud. When you finally reach the reactor access, the coolant has gotten thicker. You pull one person out — the closest one. The other two are deeper in, and the clock is bleeding. You seal the hatch. Threel doesn't ask about Sera."
         },
         {
           "id": "r2-c3",
-          "label": "Seal the reactor level — the coolant will contain itself if we lock the blast doors, and we need to move now",
-          "discipline": "investigation",
+          "label": "Seal the reactor level — the coolant will contain itself if we lock the blast doors, and every minute I spend down there is a minute closer to that patrol",
           "alignment": "dark",
-          "narration": "You find the blast door controls. Three keystrokes and the reactor level goes quiet. Sealed. Contained. Efficient. Threel watches you do it and says nothing, but his eyes say everything. You tell yourself they were probably already gone. You're probably right."
+          "narration": "You find the blast door controls. Three keystrokes and the reactor level seals with a sound like a coffin closing. Contained. Efficient. Threel watches you do it. He doesn't argue. He doesn't say Sera's name. He just looks at the sealed door and then at you, and you see something die behind his eyes — not anger, something worse. Acceptance. He's seen people make this choice before. The children don't understand why the old navigator has stopped talking. You tell yourself the coolant probably got them already. The math supports it. Math always supports it when you need it to."
         }
       ]
     },
     {
       "id": "r3",
-      "prompt": "You're loading the last of the refugees onto your ship when the sensor alarm screams — the Gozanti changed course. It's not running a sweep anymore. It's heading directly for the platform. Someone on that cruiser picked up the docking signature. You have maybe twelve minutes before they're in tractor range. But Threel grabs your arm: there's another platform, a day-camp, eight hours rimward. More families. He has the coordinates. If the Empire finds this platform, they'll sweep the whole sector. Those families will never see it coming.",
-      "narrativeContext": "Your ship is overloaded. The hyperdrive will strain under the extra mass. You can make one jump — maybe two if you push it. Threel's coordinates lead deeper into Imperial territory, not away from it.",
+      "prompt": "You're loading the last of the refugees onto your ship when the sensor alarm screams — the Gozanti changed course. It's not running a sweep anymore. It's heading directly for the platform. Someone on that cruiser picked up your docking signature. Twelve minutes before they're in tractor range. But Threel grabs your arm with shaking hands: there's another platform, a day-camp, eight hours rimward. More families. He has the coordinates. If the Empire finds this platform, they'll sweep the whole sector. Those families — maybe forty people, half of them children — will never see it coming.",
+      "narrativeContext": "Your ship is overloaded. The hyperdrive will strain under the extra mass. You can make one jump — maybe two if you push it. Threel's coordinates lead deeper into Imperial territory, not away from it. Your fuel cells are at thirty percent. If you go rimward, you won't have enough to get back to safe space without refueling at an Imperial depot — which means showing your face, your ship, your cargo full of refugees the Empire wants erased.",
       "choices": [
         {
           "id": "r3-c1",
-          "label": "Take the coordinates and jump rimward — if there are more families out there, I have to warn them before the Empire sweeps",
-          "discipline": "piloting",
+          "label": "Take the coordinates and jump rimward — those families have no one else, and I didn't come this far to save some and abandon the rest",
           "alignment": "light",
-          "narration": "You plug in Threel's coordinates and feel the hyperdrive groan under the weight of fifteen extra souls. The stars stretch. You're heading deeper into the dark, not away from it. But somewhere ahead, people are sleeping who don't know what's coming. You'll get there first. You have to."
+          "narration": "You plug in Threel's coordinates and feel the hyperdrive groan under the weight of fifteen extra souls. The stars stretch. You're heading deeper into the dark, not away from it. Your fuel gauge drops like a stone. When you arrive at the rimward camp eight hours later, you find them: forty-three people living in a stripped cargo container, rationing water by the capful. They didn't know anyone was coming. The look on their faces when your ramp drops — you'll carry that look forever. But now you're stranded deep in Imperial space with fifty-eight refugees, no fuel, a ship that's bleeding coolant from the overloaded drive, and an engine signature that every ISB analyst in the sector is learning to recognize. You gave away your anonymity, your safety, and your escape route. The ghost is gone. Whatever you are now, you can't hide."
         },
         {
           "id": "r3-c2",
-          "label": "Transmit a coded warning to the rimward camp on the old frequency, then jump to safety — they'll have to save themselves",
-          "discipline": "skulduggery",
+          "label": "Transmit a coded warning to the rimward camp on the old frequency, then jump to safety — I've done what I can, they'll have to run on their own",
           "alignment": "neutral",
-          "narration": "You key the burst transmission. Same old codes. Run. Hide. Trust no one who doesn't know the frequencies. Then you plot a course away — somewhere safe, somewhere anonymous. You've done what you can. The signal will reach them or it won't."
+          "narration": "You key the burst transmission. Same old codes. Run. Hide. Trust no one who doesn't know the frequencies. Then you plot a course away — somewhere safe, somewhere anonymous. Threel watches you do it. He nods. He understands. But understanding isn't the same as forgiving, and you can see both happening behind his eyes at the same time. The transmission might reach them. It might not. Even if it does, forty people in a cargo container with children and no ship — where exactly do you think they're going to run? You did what you could. You'll tell yourself that in the quiet hours of hyperspace, while the children in your cargo hold sleep and the old frequencies stay silent."
         },
         {
           "id": "r3-c3",
-          "label": "Jump to the nearest safe port — these people on my ship are my responsibility now, and I won't risk them for strangers I've never met",
-          "discipline": "ranged",
+          "label": "Jump to the nearest safe port — these people on my ship are my responsibility now, and I won't gamble their lives on a transmission that might not even arrive",
           "alignment": "dark",
-          "narration": "You slam the hyperdrive lever and the platform shrinks behind you. Threel stares at the navcomputer, watching his coordinates go unvisited. The children in your cargo hold are safe. That's enough. That has to be enough. You tell yourself you'll come back when the heat dies down. You probably won't."
+          "narration": "You slam the hyperdrive lever and the platform shrinks behind you. Threel stares at the navcomputer, watching his coordinates go unvisited. The children in your cargo hold are safe. Fifteen lives. That's not nothing. But Threel starts talking quietly to the other adults — about the rimward camp, about the people there, about the children. He names them. He names every single one. He's not doing it to hurt you. He's doing it because someone should say their names before the Empire erases them. You listen to all forty-three names and then you go to the cockpit and close the door. The stars are very bright and very quiet. You saved fifteen. The math works. You'll keep telling yourself the math works until you believe it, or until you stop hearing Sera's name in the reactor hum, or until the old frequencies finally go silent for good. Whichever comes first."
         }
       ]
     }
   ],
   "resolutions": {
-    "light": "You emerge from the shadows carrying more weight than any ghost should bear. Your ship groans. Your cover is blown. Every Imperial sensor net in the sector has your engine signature now. But behind you, families breathe who would have suffocated in the dark. The open hand costs the ghost everything — anonymity, safety, the cold comfort of being no one. You chose to be someone. The Shipboard Born remembered what the freighters taught him: you don't fly past people who are drowning.",
-    "dark": "You emerge from the run with your ship intact, your identity clean, and your cargo hold carrying exactly the people you chose to save. The reactor team, the rimward camp, the ones too slow or too far away — they fade into the static behind you. Ghost Protocol. It kept you alive through the Purge, and it kept you alive tonight. The math works. It always works. But somewhere in the quiet of hyperspace, you find yourself listening for a signal that stopped transmitting hours ago. Three short, two long, one short. You'll hear it in your sleep for a while.",
-    "neutral": "You emerge from the run carrying compromises in both hands. Some were saved. Some weren't. You sent warnings where you could and sealed doors when you had to. The spacer families will whisper about you in the dark — some with gratitude, some with something harder to name. You did what the situation allowed. Not everything. Not nothing. The Hunted learned long ago that perfection is a luxury the galaxy doesn't sell. You'll keep flying. You'll keep listening. And the next time that frequency crackles, you'll make the same impossible calculus all over again."
+    "light": "You emerge from the shadows carrying more weight than any ghost should bear. Your ship groans, your cover is destroyed, and your body is burned and breaking. Every Imperial sensor net in the sector has your engine signature now. You are known. You are hunted in a way you haven't been since the Purge. But behind you, families breathe who would have suffocated in the dark — all of them, every last one, including a fourteen-year-old girl who taught herself to splice power relays because the adults were too afraid. The open hand costs the ghost everything — anonymity, safety, the cold comfort of being no one. You chose to be someone. The Shipboard Born remembered what the freighters taught him: you don't fly past people who are drowning. Even when the water is rising around you too.",
+    "dark": "You emerge from the run with your ship intact, your identity clean, and your cargo hold carrying exactly the people you chose to save. The reactor team, the rimward camp, the ones too far away or too deep in the green haze — they fade into the static behind you. Ghost Protocol. It kept you alive through the Purge, and it kept you alive tonight. The math always works. Fifteen saved, forty-six left behind. You can file that under acceptable losses if you don't think about it too carefully. But somewhere in the quiet of hyperspace, you find yourself listening for a signal that stopped transmitting hours ago. Three short, two long, one short. Threel sits in your cargo hold naming the dead to anyone who will listen. You can hear him through the cockpit door. You'll hear him for a long time.",
+    "neutral": "You emerge from the run carrying compromises in both hands. Some were saved. Some weren't. You sent warnings where you could and sealed doors when you had to. Threel watches you with something complicated in his eyes — gratitude and grief braided together so tightly neither one can breathe. The children you saved will grow up telling stories about the ghost who came out of the dark. The ones you didn't reach won't tell stories at all. You did what the situation allowed. Not everything. Not nothing. The Hunted learned long ago that perfection is a luxury the galaxy revoked. You'll keep flying. You'll keep listening. And the next time that frequency crackles, you'll make the same impossible calculus all over again — knowing that the math never really works, no matter how many times you check it."
   }
 }

@@ -45,6 +45,27 @@ function computeShiftValue(gmScore) {
   return 0;
 }
 
+function autoCalcScore(challengeData, choicesJson) {
+  if (!challengeData || !challengeData.rounds) return 3;
+  let choices = [];
+  try { choices = typeof choicesJson === 'string' ? JSON.parse(choicesJson || '[]') : (choicesJson || []); } catch (_) {}
+  if (!choices.length) return 3;
+
+  const alignScores = { light: 5, neutral: 3, dark: 1 };
+  let total = 0;
+  let count = 0;
+  choices.forEach(c => {
+    const round = challengeData.rounds.find(r => r.id === c.round_id);
+    if (!round) return;
+    const choice = (round.choices || []).find(ch => ch.id === c.choice_id);
+    if (!choice) return;
+    total += alignScores[choice.alignment] || 3;
+    count++;
+  });
+  if (count === 0) return 3;
+  return Math.round(total / count);
+}
+
 function applySpectrumShift(currentSpectrum, shiftValue) {
   if (shiftValue === 0) return currentSpectrum;
   const idx = SPECTRUM_ORDER.indexOf(currentSpectrum);

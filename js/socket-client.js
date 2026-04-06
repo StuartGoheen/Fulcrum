@@ -855,9 +855,6 @@
     (round.choices || []).forEach(function (ch) {
       html += '<button class="nc-player-choice-btn" data-round-id="' + _escHtml(round.id) + '" data-choice-id="' + _escHtml(ch.id) + '">';
       html += '<span class="nc-player-choice-label">' + _escHtml(ch.label) + '</span>';
-      if (ch.discipline) {
-        html += '<span class="nc-player-choice-disc">' + _escHtml(ch.discipline) + '</span>';
-      }
       html += '</button>';
     });
     html += '</div>';
