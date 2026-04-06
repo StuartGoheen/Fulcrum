@@ -109,6 +109,18 @@ async function initSchema() {
         tag_id   INTEGER NOT NULL REFERENCES journal_tags(id) ON DELETE CASCADE,
         PRIMARY KEY (entry_id, tag_id)
       );
+
+      CREATE TABLE IF NOT EXISTS campaign_decisions (
+        id              SERIAL PRIMARY KEY,
+        scene_id        TEXT,
+        adventure_id    TEXT NOT NULL,
+        decision_key    TEXT NOT NULL,
+        choice          TEXT NOT NULL,
+        outcome         TEXT,
+        campaign_impact TEXT,
+        voted           BOOLEAN NOT NULL DEFAULT false,
+        created_at      TIMESTAMP DEFAULT NOW()
+      );
     `);
 
     try {

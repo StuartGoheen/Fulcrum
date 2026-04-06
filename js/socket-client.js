@@ -196,6 +196,8 @@
       console.error('[socket] Server error:', message);
     });
 
+    _setupDecisionSocketListeners(socket);
+
     socket.on('combat:join-battle-prompt', ({ encounterName, highestTier }) => {
       _showJoinBattleModal(encounterName, highestTier);
     });
@@ -761,6 +763,68 @@
   document.addEventListener('mouseup', function () {
     _tutDrag.active = false;
   });
+
+  var _decisionPollActive = false;
+
+  function _showDecisionPoll(data) {
+    _decisionPollActive = true;
+    var existing = document.getElementById('decision-vote-overlay');
+    if (existing) existing.remove();
+
+    var overlay = document.createElement('div');
+    overlay.id = 'decision-vote-overlay';
+    overlay.className = 'decision-vote-overlay';
+
+    var html = '<div class="decision-vote-modal">';
+    html += '<div class="decision-vote-header">CREW DECISION</div>';
+    if (data.decisionKey) {
+      html += '<div class="decision-vote-key">' + _escHtml(data.decisionKey) + '</div>';
+    }
+    html += '<div class="decision-vote-choices">';
+    data.choices.forEach(function (c, i) {
+      html += '<button class="decision-vote-btn" data-choice-idx="' + i + '">' + _escHtml(c) + '</button>';
+    });
+    html += '</div>';
+    html += '<div class="decision-vote-status" id="decision-vote-status">Cast your vote</div>';
+    html += '</div>';
+
+    overlay.innerHTML = html;
+    document.body.appendChild(overlay);
+
+    overlay.querySelectorAll('.decision-vote-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var idx = parseInt(btn.dataset.choiceIdx, 10);
+        if (_currentSocket) {
+          _currentSocket.emit('decision:vote', { choiceIndex: idx });
+        }
+        overlay.querySelectorAll('.decision-vote-btn').forEach(function (b) {
+          b.disabled = true;
+          b.classList.remove('selected');
+        });
+        btn.classList.add('selected');
+        var status = document.getElementById('decision-vote-status');
+        if (status) status.textContent = 'Vote submitted — waiting for GM\u2026';
+      });
+    });
+  }
+
+  function _closeDecisionPoll() {
+    _decisionPollActive = false;
+    var overlay = document.getElementById('decision-vote-overlay');
+    if (overlay) overlay.remove();
+  }
+
+  function _setupDecisionSocketListeners(sock) {
+    sock.on('decision:poll', function (data) {
+      _showDecisionPoll(data);
+    });
+    sock.on('decision:resolved', function () {
+      _closeDecisionPoll();
+    });
+    sock.on('decision:poll-cancelled', function () {
+      _closeDecisionPoll();
+    });
+  }
 
   function initAdminTools() {
     const btn = document.getElementById('admin-release-all');

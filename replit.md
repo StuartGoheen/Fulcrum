@@ -320,7 +320,7 @@ Items in the Armory panel have a "Sell" button (amber-styled) alongside existing
 ## Database
 
 SQLite database auto-created and seeded on first run at `db/campaign.db`.  
-Tables: `characters`, `campaign_state`, `equipment_status`, `sessions`, `campaign_progress`, `scene_completion`.
+Tables: `characters`, `campaign_state`, `equipment_status`, `sessions`, `campaign_progress`, `scene_completion`, `campaign_decisions`.
 
 ## Advancement Panel (Panel 5)
 
@@ -465,6 +465,22 @@ Background gear section in the creation cart now shows Contraband/Registered bad
 - `GET /api/characters` — now includes `credits` and `debt` summary per character
 - `POST /api/characters/:id/purchase` — body: `{ items: [{id, type, acquisition}], totalCost }`, deducts credits, adds items to inventory, stores acquisition in `acquisitionMap`
 - `POST /api/characters/:id/debt/take` — body: `{ creditorId, amount }`, creates new loan (requires no existing debt), adds credits
+
+## Campaign Decision Tracker
+
+Tracks key crew decisions throughout the campaign for narrative continuity.
+
+**Database:** `campaign_decisions` table (id, scene_id, adventure_id, decision_key, choice, outcome, campaign_impact, voted, created_at).
+
+**API:** `server/routes/decisions.js` — GET/POST/PUT/DELETE `/api/decisions`. Player access restricted to GET only (mutations blocked in `server/auth.js` gate).
+
+**Socket.io Events:** `decision:poll` (GM→players, sends choices), `decision:vote` (player→GM, sends choiceIndex), `decision:resolve` (GM saves + broadcasts), `decision:cancel-poll`, `decision:vote-received` (GM tallies), `decision:resolved` (all clients refresh). Server state: `_activePoll` in `server/sockets/handlers.js`.
+
+**GM UI (command-bridge.js):** Decision timeline in right sidebar (`#cb-decision-timeline`), "Log Decision" button (`#cb-log-decision-btn`), modal with scene decision chip pre-population, crew vote poll launcher, real-time vote tally display. Scene decision chips in dashboard are clickable to open the modal pre-filled.
+
+**Player UI (socket-client.js):** Vote overlay (`decision-vote-overlay`) with choice buttons, auto-dismiss on resolution or cancellation. All rendered text escaped via `_escHtml`.
+
+**Campaign Impact Tags:** maya-fate, denia-fate, varth-relationship, malpaz-uprising, soren-alliance, kessra-grudge.
 
 ## Deployment
 

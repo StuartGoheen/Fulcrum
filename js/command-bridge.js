@@ -1397,7 +1397,7 @@
       html += '<div class="cb-dash-decisions">';
       html += '<div class="cb-dash-section-label">Decision Points</div>';
       scene.decisions.forEach(function (d) {
-        html += '<div class="cb-dash-decision-chip"><strong>' + esc(d.choice) + '</strong> <span>&rarr; ' + esc(d.consequence) + '</span></div>';
+        html += '<div class="cb-dash-decision-chip" data-dec-choice="' + esc(d.choice) + '"><strong>' + esc(d.choice) + '</strong> <span>&rarr; ' + esc(d.consequence) + '</span></div>';
       });
       html += '</div>';
     }
@@ -1456,6 +1456,12 @@
       });
     });
 
+    container.querySelectorAll('.cb-dash-decision-chip').forEach(function (chip) {
+      chip.style.cursor = 'pointer';
+      chip.addEventListener('click', function () {
+        openDecisionModal([chip.dataset.decChoice]);
+      });
+    });
     container.querySelectorAll('.cb-lore-tag').forEach(function (el) {
       el.addEventListener('click', function () { openLoreModal(el.dataset.loreTag); });
     });
@@ -2817,6 +2823,208 @@
     return 'custom';
   }
 
+  var _decisionCache = [];
+  var _pollVotes = {};
+
+  function loadDecisions() {
+    fetch('/api/decisions')
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        _decisionCache = data.decisions || [];
+        renderDecisionTimeline();
+      })
+      .catch(function (err) { console.error('Failed to load decisions:', err); });
+  }
+
+  function renderDecisionTimeline() {
+    var container = document.getElementById('cb-decision-timeline');
+    if (!container) return;
+    if (_decisionCache.length === 0) {
+      container.innerHTML = '<div class="cb-decision-empty">No decisions logged yet.</div>';
+      return;
+    }
+    var html = '';
+    _decisionCache.forEach(function (d) {
+      html += '<div class="cb-decision-entry" data-decision-id="' + d.id + '">';
+      html += '<div class="cb-decision-choice">' + esc(d.choice) + '</div>';
+      if (d.outcome) html += '<div class="cb-decision-outcome">' + esc(d.outcome) + '</div>';
+      html += '<div class="cb-decision-meta">';
+      if (d.campaign_impact) html += '<span class="cb-decision-impact">' + esc(d.campaign_impact) + '</span>';
+      if (d.voted) html += '<span class="cb-decision-voted">&#9745; voted</span>';
+      html += '<span>' + esc(d.adventure_id) + (d.scene_id ? ' / ' + esc(d.scene_id) : '') + '</span>';
+      html += '<button class="cb-decision-delete" data-del-id="' + d.id + '" title="Delete">&times;</button>';
+      html += '</div>';
+      html += '</div>';
+    });
+    container.innerHTML = html;
+    container.querySelectorAll('.cb-decision-delete').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var id = btn.dataset.delId;
+        if (!confirm('Delete this decision?')) return;
+        fetch('/api/decisions/' + id, { method: 'DELETE' })
+          .then(function () { loadDecisions(); })
+          .catch(function (err) { console.error('Failed to delete decision:', err); });
+      });
+    });
+  }
+
+  function openDecisionModal(presetChoices) {
+    var existing = document.getElementById('cb-decision-modal-overlay');
+    if (existing) existing.remove();
+
+    var adv = getAdventure(currentAdventure);
+    var part = adv ? getPart(adv, currentPart) : null;
+    var scene = part ? getScene(part, currentScene) : null;
+    var sceneDecisions = (scene && scene.decisions) ? scene.decisions : [];
+
+    var overlay = document.createElement('div');
+    overlay.id = 'cb-decision-modal-overlay';
+    overlay.className = 'cb-decision-modal-overlay';
+
+    var html = '<div class="cb-decision-modal">';
+    html += '<div class="cb-decision-modal-header"><span>Log Decision</span><button class="cb-decision-modal-close" id="cb-decision-modal-close">&times;</button></div>';
+    html += '<div class="cb-decision-modal-body">';
+
+    if (sceneDecisions.length > 0) {
+      html += '<label>Scene Decision Points</label>';
+      html += '<div class="cb-decision-scene-chips">';
+      sceneDecisions.forEach(function (d, i) {
+        html += '<div class="cb-decision-scene-chip" data-scene-dec-idx="' + i + '">' + esc(d.choice) + '</div>';
+      });
+      html += '</div>';
+    }
+
+    html += '<label>Choice</label>';
+    html += '<input type="text" id="dec-choice" placeholder="What did the crew decide?" />';
+    html += '<label>Outcome</label>';
+    html += '<textarea id="dec-outcome" rows="2" placeholder="What happened as a result?"></textarea>';
+    html += '<label>Campaign Impact Tag</label>';
+    html += '<input type="text" id="dec-impact" placeholder="e.g. maya-fate, kessra-grudge" />';
+
+    html += '<button class="cb-decision-poll-btn" id="dec-poll-btn">&#9745; Send to Crew for Vote</button>';
+    html += '<div id="dec-vote-tally"></div>';
+
+    html += '<div class="cb-decision-modal-actions">';
+    html += '<button id="dec-cancel">Cancel</button>';
+    html += '<button id="dec-save" class="primary">Save Decision</button>';
+    html += '</div>';
+
+    html += '</div></div>';
+
+    overlay.innerHTML = html;
+    document.body.appendChild(overlay);
+
+    var choiceInput = document.getElementById('dec-choice');
+    var outcomeInput = document.getElementById('dec-outcome');
+    var impactInput = document.getElementById('dec-impact');
+
+    overlay.querySelectorAll('.cb-decision-scene-chip').forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        overlay.querySelectorAll('.cb-decision-scene-chip').forEach(function (c) { c.classList.remove('selected'); });
+        chip.classList.add('selected');
+        var idx = parseInt(chip.dataset.sceneDecIdx, 10);
+        var sd = sceneDecisions[idx];
+        if (sd) {
+          choiceInput.value = sd.choice;
+          outcomeInput.value = sd.consequence || '';
+        }
+      });
+    });
+
+    if (presetChoices && presetChoices.length > 0) {
+      choiceInput.value = presetChoices[0];
+    }
+
+    document.getElementById('cb-decision-modal-close').addEventListener('click', function () { closeDecisionModal(); });
+    document.getElementById('dec-cancel').addEventListener('click', function () { closeDecisionModal(); });
+
+    document.getElementById('dec-poll-btn').addEventListener('click', function () {
+      var choices = [];
+      if (sceneDecisions.length > 0) {
+        sceneDecisions.forEach(function (d) { choices.push(d.choice); });
+      }
+      if (choiceInput.value.trim() && choices.indexOf(choiceInput.value.trim()) === -1) {
+        choices.push(choiceInput.value.trim());
+      }
+      if (choices.length === 0) return;
+      _pollVotes = {};
+      if (socket) {
+        socket.emit('decision:poll', {
+          sceneId: currentScene,
+          adventureId: currentAdventure,
+          decisionKey: (scene ? scene.title : 'custom'),
+          choices: choices
+        });
+      }
+      var tallyEl = document.getElementById('dec-vote-tally');
+      if (tallyEl) tallyEl.innerHTML = '<div class="cb-decision-vote-tally">Poll sent to crew. Waiting for votes\u2026</div>';
+    });
+
+    document.getElementById('dec-save').addEventListener('click', function () {
+      var choice = choiceInput.value.trim();
+      if (!choice) return;
+      if (socket) {
+        socket.emit('decision:resolve', {
+          choice: choice,
+          outcome: outcomeInput.value.trim() || null,
+          campaign_impact: impactInput.value.trim() || null,
+          adventure_id: currentAdventure,
+          scene_id: currentScene,
+          decision_key: (scene ? scene.title : 'custom')
+        });
+      } else {
+        fetch('/api/decisions', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            scene_id: currentScene,
+            adventure_id: currentAdventure,
+            decision_key: (scene ? scene.title : 'custom'),
+            choice: choice,
+            outcome: outcomeInput.value.trim() || null,
+            campaign_impact: impactInput.value.trim() || null
+          })
+        }).then(function () { loadDecisions(); });
+      }
+      closeDecisionModal();
+    });
+
+    overlay.addEventListener('click', function (e) {
+      if (e.target === overlay) closeDecisionModal();
+    });
+  }
+
+  function closeDecisionModal() {
+    var overlay = document.getElementById('cb-decision-modal-overlay');
+    if (overlay) overlay.remove();
+  }
+
+  function initDecisionTracker() {
+    var logBtn = document.getElementById('cb-log-decision-btn');
+    if (logBtn) {
+      logBtn.addEventListener('click', function () { openDecisionModal(); });
+    }
+    loadDecisions();
+
+    if (socket) {
+      socket.on('decision:vote-received', function (data) {
+        _pollVotes[data.characterId] = data;
+        var tallyEl = document.getElementById('dec-vote-tally');
+        if (tallyEl) {
+          var lines = Object.values(_pollVotes).map(function (v) {
+            return '<div class="cb-decision-vote-tally">' + esc(v.name) + ' \u2192 ' + esc(v.choiceText) + '</div>';
+          });
+          tallyEl.innerHTML = lines.join('');
+        }
+      });
+
+      socket.on('decision:resolved', function () {
+        loadDecisions();
+      });
+    }
+  }
+
   initDragHandles();
   initCollapsiblePanels();
   initSockets();
@@ -2824,4 +3032,5 @@
   loadGlossary();
   loadItemRequests();
   loadCrewJournal();
+  initDecisionTracker();
 }());

@@ -5,6 +5,7 @@ const path = require('path');
 let _shipCombatState = null;
 let _combatState = null;
 let _tutorialState = null;
+let _activePoll = null;
 
 function getShipCombatState() {
   return _shipCombatState;
@@ -968,6 +969,96 @@ function registerHandlers(io) {
       io.to('players').emit('tutorial:end');
       socket.emit('tutorial:gm-ack', { ended: true });
       console.log('[socket] GM ended tutorial');
+    });
+
+    socket.on('decision:poll', (payload) => {
+      if (socket.data.role !== 'gm') {
+        socket.emit('error', { message: 'Only the GM can start a decision poll.' });
+        return;
+      }
+      const { sceneId, adventureId, decisionKey, choices } = payload || {};
+      if (!choices || !Array.isArray(choices) || choices.length === 0) {
+        socket.emit('error', { message: 'Choices array is required.' });
+        return;
+      }
+      _activePoll = {
+        sceneId: sceneId || null,
+        adventureId: adventureId || '',
+        decisionKey: decisionKey || '',
+        choices: choices,
+        votes: {},
+        startedAt: Date.now()
+      };
+      io.to('players').emit('decision:poll', {
+        sceneId: _activePoll.sceneId,
+        decisionKey: _activePoll.decisionKey,
+        choices: _activePoll.choices
+      });
+      socket.emit('decision:poll-ack', { active: true, choices: _activePoll.choices });
+      console.log('[socket] GM started decision poll: ' + (decisionKey || 'custom'));
+    });
+
+    socket.on('decision:vote', (payload) => {
+      if (socket.data.role !== 'player' || !socket.data.characterId) return;
+      if (!_activePoll) {
+        socket.emit('error', { message: 'No active decision poll.' });
+        return;
+      }
+      const { choiceIndex } = payload || {};
+      if (typeof choiceIndex !== 'number' || choiceIndex < 0 || choiceIndex >= _activePoll.choices.length) return;
+      _activePoll.votes[socket.data.characterId] = {
+        characterId: socket.data.characterId,
+        name: socket.data.characterName || 'Unknown',
+        choiceIndex: choiceIndex
+      };
+      io.to('gm').emit('decision:vote-received', {
+        characterId: socket.data.characterId,
+        name: socket.data.characterName || 'Unknown',
+        choiceIndex: choiceIndex,
+        choiceText: _activePoll.choices[choiceIndex],
+        totalVotes: Object.keys(_activePoll.votes).length
+      });
+      console.log('[socket] ' + (socket.data.characterName || socket.data.characterId) + ' voted: ' + _activePoll.choices[choiceIndex]);
+    });
+
+    socket.on('decision:resolve', async (payload) => {
+      if (socket.data.role !== 'gm') {
+        socket.emit('error', { message: 'Only the GM can resolve a decision.' });
+        return;
+      }
+      const { choice, outcome, campaign_impact } = payload || {};
+      if (!choice) {
+        socket.emit('error', { message: 'Choice is required to resolve.' });
+        return;
+      }
+      var adventureId = (_activePoll && _activePoll.adventureId) || (payload.adventure_id || '');
+      var sceneId = (_activePoll && _activePoll.sceneId) || (payload.scene_id || null);
+      var decisionKey = (_activePoll && _activePoll.decisionKey) || (payload.decision_key || 'custom');
+      var wasVoted = _activePoll ? Object.keys(_activePoll.votes).length > 0 : false;
+
+      try {
+        const result = await pool.query(
+          `INSERT INTO campaign_decisions (scene_id, adventure_id, decision_key, choice, outcome, campaign_impact, voted)
+           VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
+          [sceneId, adventureId, decisionKey, choice, outcome || null, campaign_impact || null, wasVoted]
+        );
+        io.emit('decision:resolved', {
+          decision: result.rows[0],
+          poll: _activePoll ? { votes: _activePoll.votes, choices: _activePoll.choices } : null
+        });
+        _activePoll = null;
+        console.log('[socket] Decision resolved: ' + choice);
+      } catch (err) {
+        console.error('[socket] decision:resolve error:', err);
+        socket.emit('error', { message: 'Failed to save decision.' });
+      }
+    });
+
+    socket.on('decision:cancel-poll', () => {
+      if (socket.data.role !== 'gm') return;
+      _activePoll = null;
+      io.to('players').emit('decision:poll-cancelled');
+      console.log('[socket] GM cancelled decision poll');
     });
 
     socket.on('disconnect', async () => {
