@@ -883,6 +883,39 @@
     var chosenBtn = overlay.querySelector('.nc-player-choice-btn[data-choice-id="' + choiceId + '"]');
     if (chosenBtn) chosenBtn.classList.add('nc-player-choice--selected');
 
+    fetch('/api/narrative-challenges/player/choice', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        character_id: charId,
+        instance_id: inst.id,
+        round_id: roundId,
+        choice_id: choiceId,
+        player_token: window._playerToken || ''
+      })
+    })
+    .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, data: d }; }); })
+    .then(function (result) {
+      if (!result.ok) throw new Error(result.data.error || 'Failed');
+      _showChoiceNarration(overlay, challenge, inst, round, choiceId);
+    })
+    .catch(function () {
+      overlay.querySelectorAll('.nc-player-choice-btn').forEach(function (b) { b.disabled = false; });
+      if (chosenBtn) chosenBtn.classList.remove('nc-player-choice--selected');
+      var modal = overlay.querySelector('.nc-player-modal');
+      if (modal) {
+        var errDiv = modal.querySelector('.nc-player-error');
+        if (errDiv) errDiv.remove();
+        errDiv = document.createElement('div');
+        errDiv.className = 'nc-player-error';
+        errDiv.textContent = 'Failed to save choice. Please try again.';
+        errDiv.style.cssText = 'color:#f87171;font-size:0.7rem;text-align:center;margin-top:0.5rem;';
+        modal.appendChild(errDiv);
+      }
+    });
+  }
+
+  function _showChoiceNarration(overlay, challenge, inst, round, choiceId) {
     var chosenData = (round.choices || []).find(function (c) { return c.id === choiceId; });
     var narration = chosenData ? chosenData.narration : '';
 
@@ -905,18 +938,6 @@
         });
       }
     }
-
-    fetch('/api/narrative-challenges/player/choice', {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        character_id: charId,
-        instance_id: inst.id,
-        round_id: roundId,
-        choice_id: choiceId,
-        player_token: window._playerToken || ''
-      })
-    }).catch(function () {});
   }
 
   function _renderChallengeComplete(overlay, challenge, inst) {

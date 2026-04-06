@@ -3508,6 +3508,7 @@
 
     var overlay = document.createElement('div');
     overlay.id = 'nc-runner-overlay';
+    overlay.dataset.instanceId = String(inst.id);
     overlay.className = 'cb-decision-modal-overlay';
 
     var html = '<div class="nc-runner-modal">';
@@ -3750,7 +3751,7 @@
     }
 
     var runnerOverlay = document.getElementById('nc-runner-overlay');
-    if (runnerOverlay) {
+    if (runnerOverlay && runnerOverlay.dataset.instanceId === String(data.instanceId)) {
       var roundEl = runnerOverlay.querySelector('.nc-round[data-round-id="' + data.roundId + '"]');
       if (roundEl) {
         var choiceEl = roundEl.querySelector('.nc-choice[data-choice-id="' + data.choiceId + '"]');
