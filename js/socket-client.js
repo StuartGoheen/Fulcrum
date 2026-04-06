@@ -894,7 +894,8 @@
     .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, data: d }; }); })
     .then(function (result) {
       if (!result.ok) throw new Error(result.data.error || 'Failed');
-      _showChoiceNarration(overlay, challenge, inst, round, choiceId);
+      var resolution = (result.data.resolved && result.data.resolution) ? result.data.resolution : null;
+      _showChoiceNarration(overlay, challenge, inst, round, choiceId, resolution);
     })
     .catch(function () {
       overlay.querySelectorAll('.nc-player-choice-btn').forEach(function (b) { b.disabled = false; });
@@ -912,7 +913,7 @@
     });
   }
 
-  function _showChoiceNarration(overlay, challenge, inst, round, choiceId) {
+  function _showChoiceNarration(overlay, challenge, inst, round, choiceId, resolution) {
     var chosenData = (round.choices || []).find(function (c) { return c.id === choiceId; });
     var narration = chosenData ? chosenData.narration : '';
 
@@ -924,16 +925,64 @@
         narDiv.textContent = narration;
         modal.appendChild(narDiv);
 
+        var isFinal = _challengeCurrentRound + 1 >= (challenge.rounds || []).length;
         var contBtn = document.createElement('button');
         contBtn.className = 'nc-player-continue-btn';
-        contBtn.textContent = _challengeCurrentRound + 1 >= (challenge.rounds || []).length ? 'Await the GM\u2019s Judgment' : 'Continue';
+        contBtn.textContent = isFinal ? 'View Your Destiny' : 'Continue';
         modal.appendChild(contBtn);
 
         contBtn.addEventListener('click', function () {
           _challengeCurrentRound++;
-          _renderChallengeRound(overlay, challenge, inst, []);
+          if (isFinal && resolution) {
+            _renderChallengeResolved(overlay, challenge, resolution);
+          } else {
+            _renderChallengeRound(overlay, challenge, inst, []);
+          }
         });
       }
+    }
+  }
+
+  function _renderChallengeResolved(overlay, challenge, resolution) {
+    var html = '<div class="nc-player-modal">';
+    html += '<div class="nc-player-header">';
+    html += '<span class="nc-player-title">' + _escHtml(challenge.name) + '</span>';
+    html += '<span class="nc-player-round">Resolved</span>';
+    html += '</div>';
+
+    var resolutions = challenge.resolutions || {};
+    var scoreLabel = resolution.gmScore === 5 ? 'light' : resolution.gmScore === 1 ? 'dark' : 'neutral';
+    var resolutionText = resolutions[scoreLabel] || '';
+
+    if (resolutionText) {
+      html += '<div class="nc-player-narration" style="margin-bottom:0.8rem;">' + _escHtml(resolutionText) + '</div>';
+    }
+
+    html += '<div class="nc-player-waiting">';
+    html += '<div class="nc-player-waiting-icon" style="font-size:1.5rem;">&#9733;</div>';
+
+    if (resolution.shifted) {
+      html += '<div class="nc-player-waiting-text" style="color:#c8a44e;">Destiny shifted: ' +
+        _escHtml(resolution.oldSpectrum) + ' \u2192 ' + _escHtml(resolution.newSpectrum) + '</div>';
+    } else {
+      html += '<div class="nc-player-waiting-text">Destiny held steady: ' + _escHtml(resolution.oldSpectrum) + '</div>';
+    }
+
+    html += '<div style="font-size:0.6rem;color:#94a3b8;margin-top:0.3rem;">Score: ' + resolution.gmScore + '/5</div>';
+    html += '</div>';
+
+    html += '<div style="text-align:center;margin-top:0.8rem;">';
+    html += '<button class="nc-player-continue-btn" id="nc-resolved-close">Close</button>';
+    html += '</div>';
+
+    html += '</div>';
+    overlay.innerHTML = html;
+
+    var closeBtn = document.getElementById('nc-resolved-close');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', function () {
+        overlay.remove();
+      });
     }
   }
 
@@ -945,7 +994,7 @@
     html += '</div>';
     html += '<div class="nc-player-waiting">';
     html += '<div class="nc-player-waiting-icon">&#9876;</div>';
-    html += '<div class="nc-player-waiting-text">Your choices have been recorded.<br>The GM is reviewing your path through the Hall of Mirrors.</div>';
+    html += '<div class="nc-player-waiting-text">Your choices have been recorded.<br>Processing your destiny...</div>';
     html += '</div>';
     html += '</div>';
     overlay.innerHTML = html;
@@ -953,10 +1002,18 @@
 
   function _showChallengeResolutionToast(data) {
     var overlay = document.getElementById('nc-player-overlay');
-    if (overlay) overlay.remove();
-
     var result = data.characterResult;
-    if (!result) return;
+    if (!result) {
+      if (overlay) overlay.remove();
+      return;
+    }
+
+    if (overlay && _challengeData && _challengeData.challenge) {
+      _renderChallengeResolved(overlay, _challengeData.challenge, result);
+      return;
+    }
+
+    if (overlay) overlay.remove();
 
     var toast = document.createElement('div');
     toast.className = 'nc-player-resolution-toast';

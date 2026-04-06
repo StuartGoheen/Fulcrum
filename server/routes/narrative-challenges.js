@@ -74,6 +74,168 @@ function applySpectrumShift(currentSpectrum, shiftValue) {
   return SPECTRUM_ORDER[newIdx];
 }
 
+async function autoResolveInstance(instanceId, challengeData, choices, io) {
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+
+    const score = autoCalcScore(challengeData, choices);
+    const shiftValue = computeShiftValue(score);
+
+    const lockResult = await client.query(
+      `UPDATE narrative_challenge_instances
+       SET gm_score = $1, shift_value = $2, status = 'resolved', updated_at = NOW()
+       WHERE id = $3 AND status = 'active'
+       RETURNING *`,
+      [score, shiftValue, instanceId]
+    );
+    if (!lockResult.rows.length) {
+      await client.query('ROLLBACK');
+      return null;
+    }
+
+    const instResult = await client.query(
+      `SELECT c.name as character_name, c.character_data, c.id as character_id
+       FROM characters c WHERE c.id = $1`,
+      [lockResult.rows[0].character_id]
+    );
+    if (!instResult.rows.length) {
+      await client.query('ROLLBACK');
+      return null;
+    }
+    const inst = { ...lockResult.rows[0], ...instResult.rows[0] };
+
+    let charData = {};
+    try { charData = JSON.parse(inst.character_data || '{}'); } catch (_) {}
+    const oldSpectrum = charData.destiny || 'Light & Dark';
+    const newSpectrum = applySpectrumShift(oldSpectrum, shiftValue);
+
+    if (newSpectrum !== oldSpectrum) {
+      charData.destiny = newSpectrum;
+      await client.query(
+        'UPDATE characters SET character_data = $1 WHERE id = $2',
+        [JSON.stringify(charData), inst.character_id]
+      );
+    }
+
+    let tokenOutcome;
+    if (shiftValue === 0) tokenOutcome = 'equilibrium';
+    else if (shiftValue > 0) tokenOutcome = 'hope';
+    else tokenOutcome = 'toll';
+
+    const allCharResult = await client.query('SELECT id, character_data FROM characters');
+    const destinyPool = [];
+    for (const row of allCharResult.rows) {
+      let cd = {};
+      try { cd = JSON.parse(row.character_data || '{}'); } catch (_) {}
+      const spectrum = cd.destiny || 'Light & Dark';
+      if (spectrum === 'Two Light') {
+        destinyPool.push({ side: 'hope', tapped: true }, { side: 'hope', tapped: true });
+      } else if (spectrum === 'Two Dark') {
+        destinyPool.push({ side: 'toll', tapped: true }, { side: 'toll', tapped: true });
+      } else {
+        destinyPool.push({ side: 'hope', tapped: true }, { side: 'toll', tapped: true });
+      }
+    }
+
+    let untappedCount = 0;
+    for (const token of destinyPool) {
+      if (tokenOutcome === 'equilibrium') { token.tapped = false; untappedCount++; }
+      else if (tokenOutcome === 'hope' && token.side === 'hope') { token.tapped = false; untappedCount++; }
+      else if (tokenOutcome === 'toll' && token.side === 'toll') { token.tapped = false; untappedCount++; }
+    }
+
+    await client.query(
+      `INSERT INTO campaign_state (key, value, updated_at)
+       VALUES ('destiny_pool', $1, NOW())
+       ON CONFLICT(key) DO UPDATE SET value = EXCLUDED.value, updated_at = NOW()`,
+      [JSON.stringify(destinyPool)]
+    );
+
+    const challenges = loadChallenges();
+    const challenge = challenges.find(c => c.id === inst.challenge_id) || challengeData;
+
+    const bodyLines = [];
+    bodyLines.push(`Challenge: ${challenge.name} (${challenge.destiny})`);
+    bodyLines.push(`Destiny Scenario: ${challenge.description}`);
+    bodyLines.push('');
+    for (const choice of choices) {
+      const round = (challenge.rounds || []).find(r => r.id === choice.round_id);
+      if (!round) continue;
+      const chosen = (round.choices || []).find(c => c.id === choice.choice_id);
+      if (!chosen) continue;
+      bodyLines.push(`Round: ${round.prompt.substring(0, 80)}...`);
+      bodyLines.push(`Choice: ${chosen.label} [${chosen.alignment}]`);
+      bodyLines.push('');
+    }
+    bodyLines.push('---');
+    const scoreLabel = score === 5 ? 'Light' : score === 1 ? 'Dark' : 'Neutral';
+    bodyLines.push(`Score: ${score}/5 (${scoreLabel})`);
+    if (oldSpectrum !== newSpectrum) {
+      bodyLines.push(`Destiny Shift: ${oldSpectrum} → ${newSpectrum}`);
+    } else {
+      bodyLines.push('Destiny Shift: Held steady');
+    }
+    bodyLines.push('');
+    if (tokenOutcome === 'equilibrium') bodyLines.push("Party Outcome: Revan's Balance — ALL tokens untapped");
+    else if (tokenOutcome === 'hope') bodyLines.push('Party Outcome: Hope Dominant — Hope tokens untapped');
+    else bodyLines.push('Party Outcome: Toll Dominant — Toll tokens untapped');
+
+    const title = `${challenge.name} — ${inst.character_name}`;
+    const body = bodyLines.join('\n');
+    const sceneTag = inst.scene_id || (inst.adventure_id ? 'challenge:' + inst.adventure_id : 'challenge:' + inst.challenge_id);
+
+    const entryResult = await client.query(
+      `INSERT INTO journal_entries (title, body, author_character_name, source_scene_id)
+       VALUES ($1, $2, $3, $4)
+       RETURNING id`,
+      [title, body, inst.character_name, sceneTag]
+    );
+
+    await client.query('COMMIT');
+
+    const result = {
+      instanceId: inst.id,
+      characterId: inst.character_id,
+      characterName: inst.character_name,
+      gmScore: score,
+      shiftValue,
+      oldSpectrum,
+      newSpectrum,
+      shifted: oldSpectrum !== newSpectrum,
+      tokenOutcome,
+      partySum: shiftValue,
+      tokensUntapped: untappedCount,
+      journalEntry: { id: entryResult.rows[0].id, title, characterName: inst.character_name }
+    };
+
+    if (io) {
+      io.emit('destiny:sync', { pool: destinyPool, locked: false });
+
+      const sockets = Array.from(io.sockets.sockets.values());
+      sockets.forEach(s => {
+        if (s.data.role === 'player' && String(s.data.characterId) === String(inst.character_id)) {
+          s.emit('challenge:resolved', {
+            tokenOutcome,
+            partySum: shiftValue,
+            characterResult: result
+          });
+        }
+      });
+
+      io.to('gm').emit('challenge:auto-resolved', result);
+    }
+
+    return result;
+  } catch (err) {
+    await client.query('ROLLBACK').catch(() => {});
+    console.error('[autoResolveInstance]', err);
+    return null;
+  } finally {
+    client.release();
+  }
+}
+
 router.get('/narrative-challenges', gmOnly, (req, res) => {
   try {
     const challenges = loadChallenges();
@@ -181,23 +343,20 @@ router.post('/narrative-challenges/instances', gmOnly, async (req, res) => {
 });
 
 router.get('/narrative-challenges/instances/active', gmOnly, async (req, res) => {
-  const { adventure_id, scene_id } = req.query;
   try {
-    let query = `SELECT nci.*, c.name as character_name, c.character_data
-                 FROM narrative_challenge_instances nci
-                 JOIN characters c ON c.id = nci.character_id
-                 WHERE nci.status IN ('active', 'scored')`;
-    const params = [];
-    if (adventure_id) {
-      params.push(adventure_id);
-      query += ` AND nci.adventure_id = $${params.length}`;
-    }
-    if (scene_id) {
-      params.push(scene_id);
-      query += ` AND nci.scene_id = $${params.length}`;
-    }
-    query += ' ORDER BY nci.created_at ASC';
-    const result = await pool.query(query, params);
+    await pool.query(
+      `UPDATE narrative_challenge_instances
+       SET status = 'abandoned', updated_at = NOW()
+       WHERE status = 'active' AND updated_at < NOW() - INTERVAL '24 hours'`
+    );
+
+    const result = await pool.query(
+      `SELECT nci.*, c.name as character_name, c.character_data
+       FROM narrative_challenge_instances nci
+       JOIN characters c ON c.id = nci.character_id
+       WHERE nci.status IN ('active', 'scored')
+       ORDER BY nci.created_at ASC`
+    );
     res.json({ instances: result.rows });
   } catch (err) {
     console.error('[GET /narrative-challenges/instances/active]', err);
@@ -626,6 +785,7 @@ router.put('/narrative-challenges/player/choice', async (req, res) => {
     );
 
     const totalRounds = challenge ? (challenge.rounds || []).length : 0;
+    const isComplete = totalRounds > 0 && choices.length >= totalRounds;
 
     const io = req.app.get('io');
     if (io) {
@@ -638,6 +798,13 @@ router.put('/narrative-challenges/player/choice', async (req, res) => {
         totalChoices: choices.length,
         totalRounds: totalRounds
       });
+    }
+
+    if (isComplete && challenge) {
+      const resolution = await autoResolveInstance(instance_id, challenge, choices, io);
+      if (resolution) {
+        return res.json({ success: true, choices, resolved: true, resolution });
+      }
     }
 
     res.json({ success: true, choices });

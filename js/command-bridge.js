@@ -3313,8 +3313,6 @@
 
   function loadChallengeStatus() {
     var url = '/api/narrative-challenges/instances/active';
-    var advId = currentAdventure || progressData.adventure_id;
-    if (advId) url += '?adventure_id=' + encodeURIComponent(advId);
     fetch(url)
       .then(function (r) { return r.json(); })
       .then(function (data) {
@@ -3770,6 +3768,13 @@
     if (socket) {
       socket.on('challenge:player-choice', function (data) {
         _handlePlayerChoiceUpdate(data);
+      });
+      socket.on('challenge:auto-resolved', function (data) {
+        showToast(
+          (data.characterName || 'Unknown') + ' challenge auto-resolved — Score ' +
+          data.gmScore + '/5' + (data.shifted ? ' (' + data.oldSpectrum + ' → ' + data.newSpectrum + ')' : ' (held)')
+        );
+        loadChallengeStatus();
       });
     }
   }

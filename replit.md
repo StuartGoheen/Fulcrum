@@ -516,7 +516,7 @@ Reusable branching narrative choice system tied to destiny mechanics. Designed f
 
 **Data Files:** `data/narrative-challenges/hall-{destruction,discovery,rescue,creation,corruption,atonement,liberation,ascendancy}.json` — 8 authored scenario files, one per destiny type. `hall-rescue-kos.json` — custom Kos Vansen scenario ("Ghost Frequencies") using Duros/Ghost/Gunslinger/Rescue destiny background; dark choices are pragmatic and seductive with costs revealed only in narration aftermath. Each has rounds with 3 choices (Light/Dark/Neutral alignment + discipline tag flavor).
 
-**Database:** `narrative_challenge_instances` table (id, challenge_id, character_id, adventure_id, scene_id, choices JSON, gm_score, shift_value, shuffle_seed, status, created_at, updated_at). Status lifecycle: active → scored → resolved. `shuffle_seed` stores per-instance randomization seed for choice ordering.
+**Database:** `narrative_challenge_instances` table (id, challenge_id, character_id, adventure_id, scene_id, choices JSON, gm_score, shift_value, shuffle_seed, status, created_at, updated_at). Status lifecycle: active → resolved (auto-resolve on final choice) or active → scored → resolved (legacy GM manual flow). Stale instances (active > 24h) auto-marked 'abandoned' on dashboard load. `shuffle_seed` stores per-instance randomization seed for choice ordering.
 
 **API:** `server/routes/narrative-challenges.js` mounted at `/api`:
 - `GET /api/narrative-challenges` — list all challenge summaries (gmOnly)
@@ -534,14 +534,15 @@ Reusable branching narrative choice system tied to destiny mechanics. Designed f
 
 **Scoring Mechanics:** GM scores 1-5 per character → shift value: 1→-1 (toward Dark/Survivor), 2-4→0 (hold), 5→+1 (toward Light/Idealist). Spectrum order: Two Dark ↔ Light & Dark ↔ Two Light. Party sum of all shift values determines token refresh: >0 untaps Hope, <0 untaps Toll, =0 (Equilibrium/Revan's Balance) untaps ALL tokens.
 
-**GM UI (command-bridge.js):** "Narrative Challenges" section in right sidebar with "+ New" launcher button. Challenge launcher modal (select from 8 destiny scenarios + assign characters, "Auto-Assign by Destiny" button matches characters to challenges by personal destiny). Challenge runner modal (read prompts, select choices per round with discipline tags, GM score 1-5, live "X/Y chosen" badge showing player progress in real-time). Resolution is atomic: resolve endpoint rebuilds destiny pool from updated character spectra, applies token refresh (hope/toll/equilibrium), and auto-creates journal entries per character — all in one operation. Resolution modal shows confirmation of all applied changes.
+**GM UI (command-bridge.js):** "Narrative Challenges" section in right sidebar with "+ New" launcher button. Challenge launcher modal (select from 8 destiny scenarios + assign characters, "Auto-Assign by Destiny" button matches characters to challenges by personal destiny). Challenge runner modal (read prompts, select choices per round, live "X/Y chosen" badge showing player progress in real-time). Auto-resolve: when a player finishes all rounds, the system auto-calculates score (light=5/neutral=3/dark=1 averaged), applies destiny shift, creates journal entry, updates token pool, and emits resolution — no GM approval needed. GM sees toast notification and refreshed status. Legacy manual score/resolve still available. Active instances load without adventure_id filtering so dashboard always shows all in-flight challenges.
 
-**Player UI (socket-client.js):** Challenge modal overlay on player character sheet. Triggered by `challenge:start` socket event or auto-detected on session join via `_checkForActiveChallenge()`. Shows setup narrative, then rounds one at a time with choices in shuffled order (no alignment labels visible). Player clicks choice → sees narration aftermath → advances to next round. On completion, shows waiting screen until GM resolves. `challenge:resolved` socket event shows final outcome.
+**Player UI (socket-client.js):** Challenge modal overlay on player character sheet. Triggered by `challenge:start` socket event or auto-detected on session join via `_checkForActiveChallenge()`. Shows setup narrative, then rounds one at a time with choices in shuffled order (no alignment labels visible). Player clicks choice → sees narration aftermath → advances to next round. On final round, button reads "View Your Destiny" → auto-resolve fires → player sees resolution screen with destiny outcome text, shift result, and score. Reconnecting players with in-flight challenges resume at correct round (based on recorded choices count). `challenge:resolved` socket event renders full resolved modal as fallback if HTTP response didn't already handle it.
 
 **Socket Events:**
 - `challenge:start` — GM launch → emitted to targeted player socket with shuffled challenge data
 - `challenge:player-choice` — player PUT choice → relayed to GM room with progress counts
-- `challenge:resolved` — GM resolve → emitted to affected player sockets with token outcome
+- `challenge:resolved` — auto-resolve or GM manual → emitted to affected player sockets with token outcome
+- `challenge:auto-resolved` — emitted to GM room on auto-resolve with score/shift/journal details
 
 **Choice Shuffling:** LCG seeded shuffle (`seededShuffle(arr, seed + roundIndex)`) ensures choices appear in randomized order per player per round. Alignment labels (`light`/`dark`/`neutral`) stripped before sending to player via `shuffleChoicesForPlayer()`. Seed stored in DB `shuffle_seed` column.
 
