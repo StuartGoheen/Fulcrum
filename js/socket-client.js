@@ -793,6 +793,9 @@
     fetch('/api/narrative-challenges/player/active?character_id=' + encodeURIComponent(charId) + tokenParam)
       .then(function (r) { return r.json(); })
       .then(function (data) {
+        if (data.resolved && data.resolution) {
+          return;
+        }
         if (data.instance && data.challenge) {
           _showChallengeModal({
             instance: data.instance,

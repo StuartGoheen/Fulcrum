@@ -3338,10 +3338,6 @@
       html += '<span class="nc-instance-badge">' + esc(inst.status) + '</span>';
       html += '</div>';
     });
-    var allScored = _activeInstances.length > 0 && _activeInstances.every(function (i) { return i.status === 'scored'; });
-    if (allScored) {
-      html += '<button class="cb-header-btn accent nc-resolve-btn" id="nc-resolve-all">Resolve &amp; Apply Tokens</button>';
-    }
     el.innerHTML = html;
     el.querySelectorAll('.nc-instance-row').forEach(function (row) {
       row.addEventListener('click', function () {
@@ -3350,10 +3346,6 @@
         if (inst) openChallengeRunner(inst);
       });
     });
-    var resolveBtn = document.getElementById('nc-resolve-all');
-    if (resolveBtn) {
-      resolveBtn.addEventListener('click', function () { resolveAllChallenges(); });
-    }
   }
 
   function openChallengeLauncher() {

@@ -716,6 +716,18 @@ router.get('/narrative-challenges/player/active', async (req, res) => {
     if (!challenge) {
       return res.json({ instance: inst, challenge: null });
     }
+
+    let existingChoices = [];
+    try { existingChoices = JSON.parse(inst.choices || '[]'); } catch (_) {}
+    const totalRounds = (challenge.rounds || []).length;
+    if (totalRounds > 0 && existingChoices.length >= totalRounds) {
+      const io = req.app.get('io');
+      const resolution = await autoResolveInstance(inst.id, challenge, existingChoices, io);
+      if (resolution) {
+        return res.json({ instance: null, resolved: true, resolution });
+      }
+    }
+
     const playerChallenge = shuffleChoicesForPlayer(challenge, inst.shuffle_seed);
     res.json({ instance: inst, challenge: playerChallenge });
   } catch (err) {
