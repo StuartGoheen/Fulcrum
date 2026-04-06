@@ -1002,8 +1002,8 @@ async function assembleMissionContext(adventureId) {
     if (c.character_data) {
       try {
         const d = JSON.parse(c.character_data);
-        species = d.species || '';
-        vocation = d.vocation || d.title || '';
+        species = typeof d.species === 'string' ? d.species : '';
+        vocation = typeof d.vocation === 'string' ? d.vocation : (typeof d.title === 'string' ? d.title : '');
       } catch (e) {}
     }
     return { name: c.name, species, vocation };
