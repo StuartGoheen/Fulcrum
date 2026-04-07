@@ -2198,7 +2198,7 @@
                   "vitality": 4,
                   "rawVitality": 4,
                   "powers": {
-                    "physique": 3,
+                    "physique": 4,
                     "reflex": 3,
                     "grit": 1,
                     "wits": 2,
@@ -2211,6 +2211,13 @@
                     "name": "Threat",
                     "category": "combat",
                     "description": "High-damage priority target. The NPC the PCs must focus or suffer the consequences.",
+                    "passive": {
+                      "name": "Lethal Focus",
+                      "description": "+1 Power to attacks in chosen arena.",
+                      "statMod": {
+                        "powerArena": 1
+                      }
+                    },
                     "powerSources": {
                       "martial": {
                         "action": {
@@ -2218,27 +2225,31 @@
                           "defense": "dodge/endure",
                           "npcEffects": {
                             "fleeting": "Chassis damage",
-                            "masterful": "Chassis damage + [Staggered]",
-                            "legendary": "Chassis damage + [Staggered] + [Prone]"
+                            "masterful": "Chassis damage",
+                            "legendary": "Chassis damage"
                           },
                           "isAttack": true,
                           "arena": "physique"
                         },
-                        "maneuver": {
-                          "name": "Intimidating Advance",
-                          "modifies": "Move",
-                          "description": "Modifies Move. Move 1 zone toward a target. That target must succeed on a Grit check vs Threat's Power or gain [Rattled]."
-                        },
-                        "gambit": {
-                          "name": "Brutal Strike",
-                          "cost": "-1 Power",
-                          "description": "In addition to normal effects, target gains [Staggered] Tactical.",
-                          "rider": "[Staggered]"
-                        },
+                        "maneuver": null,
+                        "gambits": [
+                          {
+                            "name": "Brutal Blow",
+                            "cost": "-1 Power",
+                            "description": "Attack also inflicts [Shaken] Lingering.",
+                            "rider": "[Shaken]"
+                          },
+                          {
+                            "name": "Reckless Swing",
+                            "cost": "-1 Power",
+                            "description": "Attack targets one additional enemy in the same zone. Separate defense roll.",
+                            "rider": "Additional target"
+                          }
+                        ],
                         "exploit": {
-                          "name": "Predator's Opening",
-                          "trigger": "A PC in the same zone takes damage from another source this round.",
-                          "description": "Immediately make an attack against that PC at -2 Power."
+                          "name": "Intimidating Advance",
+                          "trigger": "Threat enters a zone occupied by an enemy.",
+                          "description": "Presence vs Resist. Target gains [Rattled] Tactical."
                         }
                       },
                       "ranged": {
@@ -2247,27 +2258,31 @@
                           "defense": "dodge/endure",
                           "npcEffects": {
                             "fleeting": "Chassis damage",
-                            "masterful": "Chassis damage + [Suppressed]",
-                            "legendary": "Chassis damage + [Suppressed] + [Exposed]"
+                            "masterful": "Chassis damage",
+                            "legendary": "Chassis damage"
                           },
                           "isAttack": true,
                           "arena": "reflex"
                         },
-                        "maneuver": {
-                          "name": "Marked Target",
-                          "modifies": "Aim",
-                          "description": "Modifies Aim. Designate one visible target. Threat gains +1 Power against that target until end of round. If target moves, Threat may shift aim as a free action."
-                        },
-                        "gambit": {
-                          "name": "Crippling Shot",
-                          "cost": "-1 Power",
-                          "description": "In addition to normal effects, target gains [Slowed] Tactical.",
-                          "rider": "[Slowed]"
-                        },
+                        "maneuver": null,
+                        "gambits": [
+                          {
+                            "name": "Crippling Shot",
+                            "cost": "-1 Power",
+                            "description": "Attack also inflicts [Slowed] Tactical.",
+                            "rider": "[Slowed]"
+                          },
+                          {
+                            "name": "Burst Fire",
+                            "cost": "-1 Power",
+                            "description": "Attack targets one additional enemy in the zone. Separate defense roll.",
+                            "rider": "Additional target"
+                          }
+                        ],
                         "exploit": {
-                          "name": "Kill Shot",
-                          "trigger": "A PC in weapon range drops below half Vitality.",
-                          "description": "Immediately make an attack against that PC at -2 Power."
+                          "name": "Snap Shot",
+                          "trigger": "A PC uses Move to enter or cross a zone within weapon range.",
+                          "description": "Threat immediately attacks that PC."
                         }
                       },
                       "force": {
@@ -2276,56 +2291,58 @@
                           "defense": "resist",
                           "npcEffects": {
                             "fleeting": "Chassis damage",
-                            "masterful": "Chassis damage + [Weakened]",
-                            "legendary": "Chassis damage + [Weakened] + [Restrained]"
+                            "masterful": "Chassis damage",
+                            "legendary": "Chassis damage"
                           },
                           "isAttack": true,
                           "arena": "grit"
                         },
-                        "maneuver": {
-                          "name": "Dark Presence",
-                          "modifies": "Move",
-                          "description": "Modifies Move. Move 1 zone. All enemies in the destination zone must succeed on a Grit check vs Threat's Power or gain [Rattled]."
-                        },
-                        "gambit": {
-                          "name": "Force Rend",
-                          "cost": "-1 Power",
-                          "description": "In addition to normal effects, target gains [Disoriented] Tactical.",
-                          "rider": "[Disoriented]"
-                        },
+                        "maneuver": null,
+                        "gambits": [
+                          {
+                            "name": "Force Rend",
+                            "cost": "-1 Power",
+                            "description": "Attack also inflicts [Bleeding] Lingering.",
+                            "rider": "[Bleeding]"
+                          },
+                          {
+                            "name": "Cascading Force",
+                            "cost": "-1 Power",
+                            "description": "Attack targets one additional enemy in the zone. Separate defense roll.",
+                            "rider": "Additional target"
+                          }
+                        ],
                         "exploit": {
-                          "name": "Dark Retribution",
-                          "trigger": "A PC in the same zone successfully damages the Threat.",
-                          "description": "That PC gains [Rattled]. The dark side punishes aggression."
+                          "name": "Dark Presence",
+                          "trigger": "Threat enters a zone occupied by an enemy.",
+                          "description": "Grit vs Resist. All enemies in zone gain [Rattled] Tactical."
                         }
                       },
                       "leader": {
                         "action": {
                           "name": "Execute Order",
-                          "defense": "dodge/endure",
+                          "defense": "resist",
                           "npcEffects": {
-                            "fleeting": "Chassis damage",
-                            "masterful": "Chassis damage + one ally in the same zone gains +1 Power until end of round",
-                            "legendary": "Chassis damage + ally gains +1 Power + that ally may immediately make an attack at -2 Power"
+                            "fleeting": "Target gains [Marked] Tactical",
+                            "masterful": "Target gains [Marked] Tactical. One ally in range may spend Exploit pip to attack the marked target.",
+                            "legendary": "Target gains [Marked] Tactical. Two allies in range may each spend Exploit pip to attack the marked target."
                           },
-                          "isAttack": true,
+                          "isAttack": false,
                           "arena": "presence"
                         },
-                        "maneuver": {
-                          "name": "Press the Attack",
-                          "modifies": "Coordinate",
-                          "description": "Modifies Coordinate. Choose one ally within 2 zones. That ally gains [Optimized] on their next attack AND +1 Power until end of round."
-                        },
-                        "gambit": {
-                          "name": "Overwhelming Command",
-                          "cost": "-1 Power",
-                          "description": "In addition to normal effects, target gains [Exposed] Tactical. Coordinated assault strips defenses.",
-                          "rider": "[Exposed]"
-                        },
+                        "maneuver": null,
+                        "gambits": [
+                          {
+                            "name": "Covering Fire",
+                            "cost": "-1 Power",
+                            "description": "On personal blaster attack: if target takes Vitality damage, creates an Opening for one ally in range to exploit.",
+                            "rider": "Opening"
+                          }
+                        ],
                         "exploit": {
-                          "name": "Demand Obedience",
-                          "trigger": "An ally in the same zone is reduced to 0 Vitality.",
-                          "description": "Another ally within 2 zones immediately moves 1 zone toward the attacker and gains +1 Power on their next attack."
+                          "name": "Retaliatory Order",
+                          "trigger": "An ally within 2 zones takes damage.",
+                          "description": "One other ally within 2 zones may immediately attack the source. Costs that ally's Exploit pip."
                         }
                       }
                     }
@@ -2347,9 +2364,14 @@
                   "isStationary": false
                 },
                 "traits": [
-                  "armored_light"
+                  "armored_light",
+                  "corruptible",
+                  "transactional"
                 ],
-                "tags": [],
+                "tags": [
+                  "criminal",
+                  "mercenary"
+                ],
                 "roleKit": {
                   "roleName": "Threat / Martial",
                   "action": {
@@ -2357,27 +2379,44 @@
                     "defense": "dodge/endure",
                     "npcEffects": {
                       "fleeting": "Chassis damage",
-                      "masterful": "Chassis damage + [Staggered]",
-                      "legendary": "Chassis damage + [Staggered] + [Prone]"
+                      "masterful": "Chassis damage",
+                      "legendary": "Chassis damage"
                     },
                     "isAttack": true,
                     "arena": "physique"
                   },
-                  "maneuver": {
-                    "name": "Intimidating Advance",
-                    "modifies": "Move",
-                    "description": "Modifies Move. Move 1 zone toward a target. That target must succeed on a Grit check vs Threat's Power or gain [Rattled]."
+                  "passive": {
+                    "name": "Lethal Focus",
+                    "description": "+1 Power to attacks in chosen arena.",
+                    "statMod": {
+                      "powerArena": 1
+                    }
                   },
+                  "maneuver": null,
                   "gambit": {
-                    "name": "Brutal Strike",
+                    "name": "Brutal Blow",
                     "cost": "-1 Power",
-                    "description": "In addition to normal effects, target gains [Staggered] Tactical.",
-                    "rider": "[Staggered]"
+                    "description": "Attack also inflicts [Shaken] Lingering.",
+                    "rider": "[Shaken]"
                   },
+                  "gambits": [
+                    {
+                      "name": "Brutal Blow",
+                      "cost": "-1 Power",
+                      "description": "Attack also inflicts [Shaken] Lingering.",
+                      "rider": "[Shaken]"
+                    },
+                    {
+                      "name": "Reckless Swing",
+                      "cost": "-1 Power",
+                      "description": "Attack targets one additional enemy in the same zone. Separate defense roll.",
+                      "rider": "Additional target"
+                    }
+                  ],
                   "exploit": {
-                    "name": "Predator's Opening",
-                    "trigger": "A PC in the same zone takes damage from another source this round.",
-                    "description": "Immediately make an attack against that PC at -2 Power."
+                    "name": "Intimidating Advance",
+                    "trigger": "Threat enters a zone occupied by an enemy.",
+                    "description": "Presence vs Resist. Target gains [Rattled] Tactical."
                   },
                   "powerSource": "martial"
                 },
@@ -2413,7 +2452,22 @@
                   "cargo": "",
                   "speed": ""
                 },
-                "extraGambits": [],
+                "extraGambits": [
+                  {
+                    "id": "bantha_rush",
+                    "name": "Bantha Rush",
+                    "source": "Athletics",
+                    "tags": [
+                      "melee"
+                    ],
+                    "cost": "-1 Power",
+                    "description": "In addition to normal effects, push the target 1 zone. NPC may follow into that zone.",
+                    "rider": "Push 1 zone",
+                    "suggestedRoles": [
+                      "threat"
+                    ]
+                  }
+                ],
                 "attacks": [
                   {
                     "name": "Devastating Blow",
@@ -2422,6 +2476,13 @@
                     "powerMod": 0,
                     "canStun": false,
                     "isRoleAction": true
+                  },
+                  {
+                    "name": "Blast-em",
+                    "arena": "reflex",
+                    "powerMod": 0,
+                    "chassis": "light",
+                    "canStun": false
                   }
                 ],
                 "socialNotes": ""
@@ -2464,30 +2525,189 @@
                   "presence": 1
                 },
                 "computed": {
-                  "defense": 3,
-                  "evasion": 2,
-                  "resist": 1,
-                  "vitality": 5,
-                  "initiative": 2,
-                  "power": 2,
-                  "powers": {
-                    "physique": 2,
-                    "reflex": 2,
-                    "grit": 1,
-                    "wits": 0,
-                    "presence": 0
+                  "arenas": {
+                    "physique": 3,
+                    "reflex": 3,
+                    "grit": 2,
+                    "wits": 1,
+                    "presence": 1
                   },
-                  "actions": 1,
+                  "defense": 5,
+                  "evasion": 3,
+                  "resist": 3,
+                  "vitality": 5,
+                  "rawVitality": 5,
+                  "powers": {
+                    "physique": 3,
+                    "reflex": 3,
+                    "grit": 2,
+                    "wits": 1,
+                    "presence": 1
+                  },
                   "exploits": 0,
-                  "damageTiers": {
-                    "label": "light",
-                    "fleeting": 2,
-                    "masterful": 4,
-                    "legendary": 6
-                  }
+                  "initiative": 2,
+                  "role": {
+                    "id": "anchor",
+                    "name": "Anchor",
+                    "category": "combat",
+                    "description": "Holds ground, blocks access, protects a position or VIP. Hard to move, hard to ignore.",
+                    "passive": {
+                      "name": "Hardened",
+                      "description": "+1 Defense in chosen arena.",
+                      "statMod": {
+                        "defense": 1
+                      }
+                    },
+                    "powerSources": {
+                      "martial": {
+                        "action": {
+                          "name": "Shield Slam",
+                          "defense": "dodge/endure",
+                          "npcEffects": {
+                            "fleeting": "Chassis damage",
+                            "masterful": "Chassis damage",
+                            "legendary": "Chassis damage"
+                          },
+                          "isAttack": true,
+                          "arena": "physique"
+                        },
+                        "maneuver": null,
+                        "gambits": [
+                          {
+                            "name": "Shove Back",
+                            "cost": "-1 Power",
+                            "description": "Attack also pushes target 1 zone.",
+                            "rider": "Push 1 zone"
+                          },
+                          {
+                            "name": "Defensive Posture",
+                            "cost": "-1 Power",
+                            "description": "Attack also grants Anchor [Guarded 1] Tactical.",
+                            "rider": "[Guarded 1]"
+                          }
+                        ],
+                        "exploit": {
+                          "name": "Intercept",
+                          "trigger": "An enemy in the Anchor's zone attacks an ally.",
+                          "description": "Anchor becomes the target of the attack instead."
+                        }
+                      },
+                      "ranged": {
+                        "action": {
+                          "name": "Suppressive Fire",
+                          "defense": "dodge/endure",
+                          "npcEffects": {
+                            "fleeting": "Target gains [Suppressed] Tactical",
+                            "masterful": "Target and one additional enemy in zone gain [Suppressed] Tactical",
+                            "legendary": "All enemies in zone gain [Suppressed] Tactical"
+                          },
+                          "isAttack": false,
+                          "arena": "reflex"
+                        },
+                        "maneuver": null,
+                        "gambits": [
+                          {
+                            "name": "Pinning Shot",
+                            "cost": "-1 Power",
+                            "description": "Target also gains [Slowed] Tactical.",
+                            "rider": "[Slowed]"
+                          },
+                          {
+                            "name": "Dig In",
+                            "cost": "-1 Power",
+                            "description": "Anchor gains [Cover 1] Tactical.",
+                            "rider": "[Cover 1]"
+                          }
+                        ],
+                        "exploit": {
+                          "name": "Covering Fire",
+                          "trigger": "An ally in same or adjacent zone takes damage.",
+                          "description": "Immediately attack the attacker if in weapon range."
+                        }
+                      },
+                      "force": {
+                        "action": {
+                          "name": "Force Slam",
+                          "defense": "resist",
+                          "npcEffects": {
+                            "fleeting": "Chassis damage",
+                            "masterful": "Chassis damage",
+                            "legendary": "Chassis damage"
+                          },
+                          "isAttack": true,
+                          "arena": "grit"
+                        },
+                        "maneuver": null,
+                        "gambits": [
+                          {
+                            "name": "Repulse",
+                            "cost": "-1 Power",
+                            "description": "Attack also pushes target 1 zone.",
+                            "rider": "Push 1 zone"
+                          },
+                          {
+                            "name": "Force Shield",
+                            "cost": "-1 Power",
+                            "description": "Anchor gains [Buffered 1].",
+                            "rider": "[Buffered 1]"
+                          }
+                        ],
+                        "exploit": {
+                          "name": "Force Wall",
+                          "trigger": "An enemy attempts to enter the Anchor's zone.",
+                          "description": "Grit vs Resist. Enemy stops in adjacent zone on failure."
+                        }
+                      },
+                      "leader": {
+                        "action": {
+                          "name": "Rally Defense",
+                          "defense": "none",
+                          "npcEffects": {
+                            "fleeting": "One ally in zone gains [Guarded 1] Tactical",
+                            "masterful": "One ally in zone gains [Guarded 1] and [Optimized] Tactical",
+                            "legendary": "Two allies in zone each gain [Guarded 1] and [Optimized] Tactical"
+                          },
+                          "isAttack": false,
+                          "arena": "presence",
+                          "pipCost": "maneuver"
+                        },
+                        "maneuver": null,
+                        "gambits": [
+                          {
+                            "name": "Stand Fast",
+                            "cost": "-1 Power",
+                            "description": "On personal attack: remove one condition from an ally in the same zone.",
+                            "rider": "Cleanse"
+                          }
+                        ],
+                        "exploit": {
+                          "name": "Bodyguard",
+                          "trigger": "An ally within 1 zone takes damage.",
+                          "description": "Anchor takes the damage instead. Apply any Cover the Anchor has first."
+                        }
+                      }
+                    }
+                  },
+                  "classification": {
+                    "id": "minion",
+                    "name": "Minion",
+                    "description": "Bolt-on. Full Vitality stat but any Masterful+ net result is an instant takedown. Keeps all other stats intact.",
+                    "vitalityMod": 1,
+                    "exploitMod": 0,
+                    "special": "Masterful+ net result = instant takedown. Full stats otherwise.",
+                    "notes": "Minion status is a longevity downgrade, not a power downgrade."
+                  },
+                  "immunities": [],
+                  "vulnerabilities": [],
+                  "scale": null,
+                  "scaleLevel": 1,
+                  "ironClad": false,
+                  "isStationary": false
                 },
                 "traits": [
-                  "armored_light"
+                  "armored_light",
+                  "disciplined",
+                  "follows_the_boss"
                 ],
                 "tags": [],
                 "roleKit": {
@@ -2497,27 +2717,44 @@
                     "defense": "dodge/endure",
                     "npcEffects": {
                       "fleeting": "Chassis damage",
-                      "masterful": "Chassis damage + push target 1 zone",
-                      "legendary": "Chassis damage + push 1 zone + [Prone]"
+                      "masterful": "Chassis damage",
+                      "legendary": "Chassis damage"
                     },
                     "isAttack": true,
                     "arena": "physique"
                   },
-                  "maneuver": {
-                    "name": "Lockdown",
-                    "modifies": "Move",
-                    "description": "Modifies Move. The Anchor does not move. Instead, enemies in the Anchor's zone cannot move to another zone without succeeding on a Physique check vs Anchor's Defense."
+                  "passive": {
+                    "name": "Hardened",
+                    "description": "+1 Defense in chosen arena.",
+                    "statMod": {
+                      "defense": 1
+                    }
                   },
+                  "maneuver": null,
                   "gambit": {
                     "name": "Shove Back",
                     "cost": "-1 Power",
-                    "description": "In addition to normal effects, push target 1 zone. The Anchor holds position.",
+                    "description": "Attack also pushes target 1 zone.",
                     "rider": "Push 1 zone"
                   },
+                  "gambits": [
+                    {
+                      "name": "Shove Back",
+                      "cost": "-1 Power",
+                      "description": "Attack also pushes target 1 zone.",
+                      "rider": "Push 1 zone"
+                    },
+                    {
+                      "name": "Defensive Posture",
+                      "cost": "-1 Power",
+                      "description": "Attack also grants Anchor [Guarded 1] Tactical.",
+                      "rider": "[Guarded 1]"
+                    }
+                  ],
                   "exploit": {
                     "name": "Intercept",
                     "trigger": "An enemy in the Anchor's zone attacks an ally.",
-                    "description": "The Anchor becomes the target of the attack instead."
+                    "description": "Anchor becomes the target of the attack instead."
                   },
                   "powerSource": "martial"
                 },
@@ -2542,7 +2779,60 @@
                     "qty": 1
                   }
                 ],
-                "powerSource": "martial"
+                "powerSource": "martial",
+                "name": "Ganga Thug",
+                "shipDetails": {
+                  "hullType": "",
+                  "crew": "",
+                  "hyperdrive": "",
+                  "sensors": "",
+                  "shields": "",
+                  "cargo": "",
+                  "speed": ""
+                },
+                "extraGambits": [
+                  {
+                    "id": "menacing_strike",
+                    "name": "Menacing Strike",
+                    "source": "Intimidate",
+                    "tags": [
+                      "melee",
+                      "unarmed"
+                    ],
+                    "cost": "-1 Power",
+                    "description": "In addition to normal effects, target gains [Rattled] Tactical.",
+                    "rider": "[Rattled] Tactical",
+                    "suggestedRoles": [
+                      "threat"
+                    ]
+                  }
+                ],
+                "attacks": [
+                  {
+                    "name": "Haymaker",
+                    "arena": "physique",
+                    "chassis": "light",
+                    "powerMod": 0,
+                    "canStun": false,
+                    "isRoleAction": true,
+                    "_arenaOverride": true
+                  },
+                  {
+                    "name": "Blast-em",
+                    "arena": "reflex",
+                    "powerMod": 0,
+                    "chassis": "light",
+                    "canStun": false
+                  },
+                  {
+                    "name": "Cut-em",
+                    "arena": "physique",
+                    "powerMod": 0,
+                    "chassis": "light",
+                    "canStun": false
+                  }
+                ],
+                "socialNotes": ""
               }
             },
             {
@@ -3033,6 +3323,974 @@
                   }
                 ],
                 "socialNotes": ""
+              }
+            },
+            {
+              "name": "Switch's Thugs",
+              "type": "Character",
+              "count": 1,
+              "loot": [
+                {
+                  "id": "wpn_vibroblade_01",
+                  "name": "Vibroblade",
+                  "type": "weapon",
+                  "qty": 1
+                },
+                {
+                  "id": "wpn_dl18_01",
+                  "name": "BlasTech DL-18",
+                  "type": "weapon",
+                  "qty": 1
+                },
+                {
+                  "id": "arm_heavy_jacket_01",
+                  "name": "Heavy Jacket",
+                  "type": "armor",
+                  "qty": 1
+                }
+              ],
+              "threatBuild": {
+                "role": "threat",
+                "tier": 0,
+                "classification": "minion",
+                "threatCategory": "character",
+                "powerSource": "martial",
+                "arenas": {
+                  "physique": 3,
+                  "reflex": 3,
+                  "grit": 1,
+                  "wits": 2,
+                  "presence": 1
+                },
+                "computed": {
+                  "defense": 4,
+                  "evasion": 3,
+                  "resist": 1,
+                  "vitality": 4,
+                  "initiative": 4,
+                  "power": 4,
+                  "powers": {
+                    "physique": 4,
+                    "reflex": 3,
+                    "grit": 1,
+                    "wits": 2,
+                    "presence": 1
+                  },
+                  "actions": 1,
+                  "exploits": 0,
+                  "damageTiers": {
+                    "label": "light",
+                    "fleeting": 2,
+                    "masterful": 4,
+                    "legendary": 6
+                  }
+                },
+                "traits": [
+                  "armored_light",
+                  "corruptible",
+                  "transactional"
+                ],
+                "tags": [
+                  "criminal",
+                  "mercenary"
+                ],
+                "roleKit": {
+                  "roleName": "Threat / Martial",
+                  "action": {
+                    "name": "Devastating Blow",
+                    "defense": "dodge/endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage",
+                      "legendary": "Chassis damage"
+                    },
+                    "isAttack": true,
+                    "arena": "physique"
+                  },
+                  "passive": {
+                    "name": "Lethal Focus",
+                    "description": "+1 Power to attacks in chosen arena.",
+                    "statMod": {
+                      "powerArena": 1
+                    }
+                  },
+                  "maneuver": null,
+                  "gambit": {
+                    "name": "Brutal Blow",
+                    "cost": "-1 Power",
+                    "description": "Attack also inflicts [Shaken] Lingering.",
+                    "rider": "[Shaken]"
+                  },
+                  "gambits": [
+                    {
+                      "name": "Brutal Blow",
+                      "cost": "-1 Power",
+                      "description": "Attack also inflicts [Shaken] Lingering.",
+                      "rider": "[Shaken]"
+                    },
+                    {
+                      "name": "Reckless Swing",
+                      "cost": "-1 Power",
+                      "description": "Attack targets one additional enemy in the same zone. Separate defense roll.",
+                      "rider": "Additional target"
+                    }
+                  ],
+                  "exploit": {
+                    "name": "Intimidating Advance",
+                    "trigger": "Threat enters a zone occupied by an enemy.",
+                    "description": "Presence vs Resist. Target gains [Rattled] Tactical."
+                  },
+                  "powerSource": "martial"
+                },
+                "weaponChassis": "light",
+                "loot": [
+                  {
+                    "id": "wpn_vibroblade_01",
+                    "name": "Vibroblade",
+                    "type": "weapon",
+                    "qty": 1
+                  },
+                  {
+                    "id": "wpn_dl18_01",
+                    "name": "BlasTech DL-18",
+                    "type": "weapon",
+                    "qty": 1
+                  },
+                  {
+                    "id": "arm_heavy_jacket_01",
+                    "name": "Heavy Jacket",
+                    "type": "armor",
+                    "qty": 1
+                  }
+                ]
+              }
+            },
+            {
+              "name": "Switch's Thugs",
+              "type": "Character",
+              "count": 1,
+              "loot": [
+                {
+                  "id": "wpn_vibroblade_01",
+                  "name": "Vibroblade",
+                  "type": "weapon",
+                  "qty": 1
+                },
+                {
+                  "id": "wpn_dl18_01",
+                  "name": "BlasTech DL-18",
+                  "type": "weapon",
+                  "qty": 1
+                },
+                {
+                  "id": "arm_heavy_jacket_01",
+                  "name": "Heavy Jacket",
+                  "type": "armor",
+                  "qty": 1
+                }
+              ],
+              "threatBuild": {
+                "role": "threat",
+                "tier": 0,
+                "classification": "minion",
+                "threatCategory": "character",
+                "powerSource": "martial",
+                "arenas": {
+                  "physique": 3,
+                  "reflex": 3,
+                  "grit": 1,
+                  "wits": 2,
+                  "presence": 1
+                },
+                "computed": {
+                  "defense": 4,
+                  "evasion": 3,
+                  "resist": 1,
+                  "vitality": 4,
+                  "initiative": 4,
+                  "power": 4,
+                  "powers": {
+                    "physique": 4,
+                    "reflex": 3,
+                    "grit": 1,
+                    "wits": 2,
+                    "presence": 1
+                  },
+                  "actions": 1,
+                  "exploits": 0,
+                  "damageTiers": {
+                    "label": "light",
+                    "fleeting": 2,
+                    "masterful": 4,
+                    "legendary": 6
+                  }
+                },
+                "traits": [
+                  "armored_light",
+                  "corruptible",
+                  "transactional"
+                ],
+                "tags": [
+                  "criminal",
+                  "mercenary"
+                ],
+                "roleKit": {
+                  "roleName": "Threat / Martial",
+                  "action": {
+                    "name": "Devastating Blow",
+                    "defense": "dodge/endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage",
+                      "legendary": "Chassis damage"
+                    },
+                    "isAttack": true,
+                    "arena": "physique"
+                  },
+                  "passive": {
+                    "name": "Lethal Focus",
+                    "description": "+1 Power to attacks in chosen arena.",
+                    "statMod": {
+                      "powerArena": 1
+                    }
+                  },
+                  "maneuver": null,
+                  "gambit": {
+                    "name": "Brutal Blow",
+                    "cost": "-1 Power",
+                    "description": "Attack also inflicts [Shaken] Lingering.",
+                    "rider": "[Shaken]"
+                  },
+                  "gambits": [
+                    {
+                      "name": "Brutal Blow",
+                      "cost": "-1 Power",
+                      "description": "Attack also inflicts [Shaken] Lingering.",
+                      "rider": "[Shaken]"
+                    },
+                    {
+                      "name": "Reckless Swing",
+                      "cost": "-1 Power",
+                      "description": "Attack targets one additional enemy in the same zone. Separate defense roll.",
+                      "rider": "Additional target"
+                    }
+                  ],
+                  "exploit": {
+                    "name": "Intimidating Advance",
+                    "trigger": "Threat enters a zone occupied by an enemy.",
+                    "description": "Presence vs Resist. Target gains [Rattled] Tactical."
+                  },
+                  "powerSource": "martial"
+                },
+                "weaponChassis": "light",
+                "loot": [
+                  {
+                    "id": "wpn_vibroblade_01",
+                    "name": "Vibroblade",
+                    "type": "weapon",
+                    "qty": 1
+                  },
+                  {
+                    "id": "wpn_dl18_01",
+                    "name": "BlasTech DL-18",
+                    "type": "weapon",
+                    "qty": 1
+                  },
+                  {
+                    "id": "arm_heavy_jacket_01",
+                    "name": "Heavy Jacket",
+                    "type": "armor",
+                    "qty": 1
+                  }
+                ]
+              }
+            },
+            {
+              "name": "Switch's Thugs",
+              "type": "Character",
+              "count": 1,
+              "loot": [
+                {
+                  "id": "wpn_vibroblade_01",
+                  "name": "Vibroblade",
+                  "type": "weapon",
+                  "qty": 1
+                },
+                {
+                  "id": "wpn_dl18_01",
+                  "name": "BlasTech DL-18",
+                  "type": "weapon",
+                  "qty": 1
+                },
+                {
+                  "id": "arm_heavy_jacket_01",
+                  "name": "Heavy Jacket",
+                  "type": "armor",
+                  "qty": 1
+                }
+              ],
+              "threatBuild": {
+                "role": "threat",
+                "tier": 0,
+                "classification": "minion",
+                "threatCategory": "character",
+                "powerSource": "martial",
+                "arenas": {
+                  "physique": 3,
+                  "reflex": 3,
+                  "grit": 1,
+                  "wits": 2,
+                  "presence": 1
+                },
+                "computed": {
+                  "defense": 4,
+                  "evasion": 3,
+                  "resist": 1,
+                  "vitality": 4,
+                  "initiative": 4,
+                  "power": 4,
+                  "powers": {
+                    "physique": 4,
+                    "reflex": 3,
+                    "grit": 1,
+                    "wits": 2,
+                    "presence": 1
+                  },
+                  "actions": 1,
+                  "exploits": 0,
+                  "damageTiers": {
+                    "label": "light",
+                    "fleeting": 2,
+                    "masterful": 4,
+                    "legendary": 6
+                  }
+                },
+                "traits": [
+                  "armored_light",
+                  "corruptible",
+                  "transactional"
+                ],
+                "tags": [
+                  "criminal",
+                  "mercenary"
+                ],
+                "roleKit": {
+                  "roleName": "Threat / Martial",
+                  "action": {
+                    "name": "Devastating Blow",
+                    "defense": "dodge/endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage",
+                      "legendary": "Chassis damage"
+                    },
+                    "isAttack": true,
+                    "arena": "physique"
+                  },
+                  "passive": {
+                    "name": "Lethal Focus",
+                    "description": "+1 Power to attacks in chosen arena.",
+                    "statMod": {
+                      "powerArena": 1
+                    }
+                  },
+                  "maneuver": null,
+                  "gambit": {
+                    "name": "Brutal Blow",
+                    "cost": "-1 Power",
+                    "description": "Attack also inflicts [Shaken] Lingering.",
+                    "rider": "[Shaken]"
+                  },
+                  "gambits": [
+                    {
+                      "name": "Brutal Blow",
+                      "cost": "-1 Power",
+                      "description": "Attack also inflicts [Shaken] Lingering.",
+                      "rider": "[Shaken]"
+                    },
+                    {
+                      "name": "Reckless Swing",
+                      "cost": "-1 Power",
+                      "description": "Attack targets one additional enemy in the same zone. Separate defense roll.",
+                      "rider": "Additional target"
+                    }
+                  ],
+                  "exploit": {
+                    "name": "Intimidating Advance",
+                    "trigger": "Threat enters a zone occupied by an enemy.",
+                    "description": "Presence vs Resist. Target gains [Rattled] Tactical."
+                  },
+                  "powerSource": "martial"
+                },
+                "weaponChassis": "light",
+                "loot": [
+                  {
+                    "id": "wpn_vibroblade_01",
+                    "name": "Vibroblade",
+                    "type": "weapon",
+                    "qty": 1
+                  },
+                  {
+                    "id": "wpn_dl18_01",
+                    "name": "BlasTech DL-18",
+                    "type": "weapon",
+                    "qty": 1
+                  },
+                  {
+                    "id": "arm_heavy_jacket_01",
+                    "name": "Heavy Jacket",
+                    "type": "armor",
+                    "qty": 1
+                  }
+                ]
+              }
+            },
+            {
+              "name": "Ganga Thug",
+              "type": "Character",
+              "count": 1,
+              "loot": [
+                {
+                  "id": "wpn_vibroblade_01",
+                  "name": "Vibroblade",
+                  "type": "weapon",
+                  "qty": 1
+                },
+                {
+                  "id": "wpn_dl18_01",
+                  "name": "BlasTech DL-18",
+                  "type": "weapon",
+                  "qty": 1
+                },
+                {
+                  "id": "arm_heavy_jacket_01",
+                  "name": "Heavy Jacket",
+                  "type": "armor",
+                  "qty": 1
+                }
+              ],
+              "threatBuild": {
+                "role": "anchor",
+                "tier": 0,
+                "classification": "minion",
+                "threatCategory": "character",
+                "powerSource": "martial",
+                "arenas": {
+                  "physique": 3,
+                  "reflex": 3,
+                  "grit": 2,
+                  "wits": 1,
+                  "presence": 1
+                },
+                "computed": {
+                  "defense": 5,
+                  "evasion": 3,
+                  "resist": 3,
+                  "vitality": 5,
+                  "initiative": 2,
+                  "power": 3,
+                  "powers": {
+                    "physique": 3,
+                    "reflex": 3,
+                    "grit": 2,
+                    "wits": 1,
+                    "presence": 1
+                  },
+                  "actions": 1,
+                  "exploits": 0,
+                  "damageTiers": {
+                    "label": "light",
+                    "fleeting": 2,
+                    "masterful": 4,
+                    "legendary": 6
+                  }
+                },
+                "traits": [
+                  "armored_light",
+                  "disciplined",
+                  "follows_the_boss"
+                ],
+                "tags": [],
+                "roleKit": {
+                  "roleName": "Anchor / Martial",
+                  "action": {
+                    "name": "Shield Slam",
+                    "defense": "dodge/endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage",
+                      "legendary": "Chassis damage"
+                    },
+                    "isAttack": true,
+                    "arena": "physique"
+                  },
+                  "passive": {
+                    "name": "Hardened",
+                    "description": "+1 Defense in chosen arena.",
+                    "statMod": {
+                      "defense": 1
+                    }
+                  },
+                  "maneuver": null,
+                  "gambit": {
+                    "name": "Shove Back",
+                    "cost": "-1 Power",
+                    "description": "Attack also pushes target 1 zone.",
+                    "rider": "Push 1 zone"
+                  },
+                  "gambits": [
+                    {
+                      "name": "Shove Back",
+                      "cost": "-1 Power",
+                      "description": "Attack also pushes target 1 zone.",
+                      "rider": "Push 1 zone"
+                    },
+                    {
+                      "name": "Defensive Posture",
+                      "cost": "-1 Power",
+                      "description": "Attack also grants Anchor [Guarded 1] Tactical.",
+                      "rider": "[Guarded 1]"
+                    }
+                  ],
+                  "exploit": {
+                    "name": "Intercept",
+                    "trigger": "An enemy in the Anchor's zone attacks an ally.",
+                    "description": "Anchor becomes the target of the attack instead."
+                  },
+                  "powerSource": "martial"
+                },
+                "weaponChassis": "light",
+                "loot": [
+                  {
+                    "id": "wpn_vibroblade_01",
+                    "name": "Vibroblade",
+                    "type": "weapon",
+                    "qty": 1
+                  },
+                  {
+                    "id": "wpn_dl18_01",
+                    "name": "BlasTech DL-18",
+                    "type": "weapon",
+                    "qty": 1
+                  },
+                  {
+                    "id": "arm_heavy_jacket_01",
+                    "name": "Heavy Jacket",
+                    "type": "armor",
+                    "qty": 1
+                  }
+                ]
+              }
+            },
+            {
+              "name": "Ganga Thug",
+              "type": "Character",
+              "count": 1,
+              "loot": [
+                {
+                  "id": "wpn_vibroblade_01",
+                  "name": "Vibroblade",
+                  "type": "weapon",
+                  "qty": 1
+                },
+                {
+                  "id": "wpn_dl18_01",
+                  "name": "BlasTech DL-18",
+                  "type": "weapon",
+                  "qty": 1
+                },
+                {
+                  "id": "arm_heavy_jacket_01",
+                  "name": "Heavy Jacket",
+                  "type": "armor",
+                  "qty": 1
+                }
+              ],
+              "threatBuild": {
+                "role": "anchor",
+                "tier": 0,
+                "classification": "minion",
+                "threatCategory": "character",
+                "powerSource": "martial",
+                "arenas": {
+                  "physique": 3,
+                  "reflex": 3,
+                  "grit": 2,
+                  "wits": 1,
+                  "presence": 1
+                },
+                "computed": {
+                  "defense": 5,
+                  "evasion": 3,
+                  "resist": 3,
+                  "vitality": 5,
+                  "initiative": 2,
+                  "power": 3,
+                  "powers": {
+                    "physique": 3,
+                    "reflex": 3,
+                    "grit": 2,
+                    "wits": 1,
+                    "presence": 1
+                  },
+                  "actions": 1,
+                  "exploits": 0,
+                  "damageTiers": {
+                    "label": "light",
+                    "fleeting": 2,
+                    "masterful": 4,
+                    "legendary": 6
+                  }
+                },
+                "traits": [
+                  "armored_light",
+                  "disciplined",
+                  "follows_the_boss"
+                ],
+                "tags": [],
+                "roleKit": {
+                  "roleName": "Anchor / Martial",
+                  "action": {
+                    "name": "Shield Slam",
+                    "defense": "dodge/endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage",
+                      "legendary": "Chassis damage"
+                    },
+                    "isAttack": true,
+                    "arena": "physique"
+                  },
+                  "passive": {
+                    "name": "Hardened",
+                    "description": "+1 Defense in chosen arena.",
+                    "statMod": {
+                      "defense": 1
+                    }
+                  },
+                  "maneuver": null,
+                  "gambit": {
+                    "name": "Shove Back",
+                    "cost": "-1 Power",
+                    "description": "Attack also pushes target 1 zone.",
+                    "rider": "Push 1 zone"
+                  },
+                  "gambits": [
+                    {
+                      "name": "Shove Back",
+                      "cost": "-1 Power",
+                      "description": "Attack also pushes target 1 zone.",
+                      "rider": "Push 1 zone"
+                    },
+                    {
+                      "name": "Defensive Posture",
+                      "cost": "-1 Power",
+                      "description": "Attack also grants Anchor [Guarded 1] Tactical.",
+                      "rider": "[Guarded 1]"
+                    }
+                  ],
+                  "exploit": {
+                    "name": "Intercept",
+                    "trigger": "An enemy in the Anchor's zone attacks an ally.",
+                    "description": "Anchor becomes the target of the attack instead."
+                  },
+                  "powerSource": "martial"
+                },
+                "weaponChassis": "light",
+                "loot": [
+                  {
+                    "id": "wpn_vibroblade_01",
+                    "name": "Vibroblade",
+                    "type": "weapon",
+                    "qty": 1
+                  },
+                  {
+                    "id": "wpn_dl18_01",
+                    "name": "BlasTech DL-18",
+                    "type": "weapon",
+                    "qty": 1
+                  },
+                  {
+                    "id": "arm_heavy_jacket_01",
+                    "name": "Heavy Jacket",
+                    "type": "armor",
+                    "qty": 1
+                  }
+                ]
+              }
+            },
+            {
+              "name": "Ganga Thug",
+              "type": "Character",
+              "count": 1,
+              "loot": [
+                {
+                  "id": "wpn_vibroblade_01",
+                  "name": "Vibroblade",
+                  "type": "weapon",
+                  "qty": 1
+                },
+                {
+                  "id": "wpn_dl18_01",
+                  "name": "BlasTech DL-18",
+                  "type": "weapon",
+                  "qty": 1
+                },
+                {
+                  "id": "arm_heavy_jacket_01",
+                  "name": "Heavy Jacket",
+                  "type": "armor",
+                  "qty": 1
+                }
+              ],
+              "threatBuild": {
+                "role": "anchor",
+                "tier": 0,
+                "classification": "minion",
+                "threatCategory": "character",
+                "powerSource": "martial",
+                "arenas": {
+                  "physique": 3,
+                  "reflex": 3,
+                  "grit": 2,
+                  "wits": 1,
+                  "presence": 1
+                },
+                "computed": {
+                  "defense": 5,
+                  "evasion": 3,
+                  "resist": 3,
+                  "vitality": 5,
+                  "initiative": 2,
+                  "power": 3,
+                  "powers": {
+                    "physique": 3,
+                    "reflex": 3,
+                    "grit": 2,
+                    "wits": 1,
+                    "presence": 1
+                  },
+                  "actions": 1,
+                  "exploits": 0,
+                  "damageTiers": {
+                    "label": "light",
+                    "fleeting": 2,
+                    "masterful": 4,
+                    "legendary": 6
+                  }
+                },
+                "traits": [
+                  "armored_light",
+                  "disciplined",
+                  "follows_the_boss"
+                ],
+                "tags": [],
+                "roleKit": {
+                  "roleName": "Anchor / Martial",
+                  "action": {
+                    "name": "Shield Slam",
+                    "defense": "dodge/endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage",
+                      "legendary": "Chassis damage"
+                    },
+                    "isAttack": true,
+                    "arena": "physique"
+                  },
+                  "passive": {
+                    "name": "Hardened",
+                    "description": "+1 Defense in chosen arena.",
+                    "statMod": {
+                      "defense": 1
+                    }
+                  },
+                  "maneuver": null,
+                  "gambit": {
+                    "name": "Shove Back",
+                    "cost": "-1 Power",
+                    "description": "Attack also pushes target 1 zone.",
+                    "rider": "Push 1 zone"
+                  },
+                  "gambits": [
+                    {
+                      "name": "Shove Back",
+                      "cost": "-1 Power",
+                      "description": "Attack also pushes target 1 zone.",
+                      "rider": "Push 1 zone"
+                    },
+                    {
+                      "name": "Defensive Posture",
+                      "cost": "-1 Power",
+                      "description": "Attack also grants Anchor [Guarded 1] Tactical.",
+                      "rider": "[Guarded 1]"
+                    }
+                  ],
+                  "exploit": {
+                    "name": "Intercept",
+                    "trigger": "An enemy in the Anchor's zone attacks an ally.",
+                    "description": "Anchor becomes the target of the attack instead."
+                  },
+                  "powerSource": "martial"
+                },
+                "weaponChassis": "light",
+                "loot": [
+                  {
+                    "id": "wpn_vibroblade_01",
+                    "name": "Vibroblade",
+                    "type": "weapon",
+                    "qty": 1
+                  },
+                  {
+                    "id": "wpn_dl18_01",
+                    "name": "BlasTech DL-18",
+                    "type": "weapon",
+                    "qty": 1
+                  },
+                  {
+                    "id": "arm_heavy_jacket_01",
+                    "name": "Heavy Jacket",
+                    "type": "armor",
+                    "qty": 1
+                  }
+                ]
+              }
+            },
+            {
+              "name": "Ganga Thug",
+              "type": "Character",
+              "count": 1,
+              "loot": [
+                {
+                  "id": "wpn_vibroblade_01",
+                  "name": "Vibroblade",
+                  "type": "weapon",
+                  "qty": 1
+                },
+                {
+                  "id": "wpn_dl18_01",
+                  "name": "BlasTech DL-18",
+                  "type": "weapon",
+                  "qty": 1
+                },
+                {
+                  "id": "arm_heavy_jacket_01",
+                  "name": "Heavy Jacket",
+                  "type": "armor",
+                  "qty": 1
+                }
+              ],
+              "threatBuild": {
+                "role": "anchor",
+                "tier": 0,
+                "classification": "minion",
+                "threatCategory": "character",
+                "powerSource": "martial",
+                "arenas": {
+                  "physique": 3,
+                  "reflex": 3,
+                  "grit": 2,
+                  "wits": 1,
+                  "presence": 1
+                },
+                "computed": {
+                  "defense": 5,
+                  "evasion": 3,
+                  "resist": 3,
+                  "vitality": 5,
+                  "initiative": 2,
+                  "power": 3,
+                  "powers": {
+                    "physique": 3,
+                    "reflex": 3,
+                    "grit": 2,
+                    "wits": 1,
+                    "presence": 1
+                  },
+                  "actions": 1,
+                  "exploits": 0,
+                  "damageTiers": {
+                    "label": "light",
+                    "fleeting": 2,
+                    "masterful": 4,
+                    "legendary": 6
+                  }
+                },
+                "traits": [
+                  "armored_light",
+                  "disciplined",
+                  "follows_the_boss"
+                ],
+                "tags": [],
+                "roleKit": {
+                  "roleName": "Anchor / Martial",
+                  "action": {
+                    "name": "Shield Slam",
+                    "defense": "dodge/endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage",
+                      "legendary": "Chassis damage"
+                    },
+                    "isAttack": true,
+                    "arena": "physique"
+                  },
+                  "passive": {
+                    "name": "Hardened",
+                    "description": "+1 Defense in chosen arena.",
+                    "statMod": {
+                      "defense": 1
+                    }
+                  },
+                  "maneuver": null,
+                  "gambit": {
+                    "name": "Shove Back",
+                    "cost": "-1 Power",
+                    "description": "Attack also pushes target 1 zone.",
+                    "rider": "Push 1 zone"
+                  },
+                  "gambits": [
+                    {
+                      "name": "Shove Back",
+                      "cost": "-1 Power",
+                      "description": "Attack also pushes target 1 zone.",
+                      "rider": "Push 1 zone"
+                    },
+                    {
+                      "name": "Defensive Posture",
+                      "cost": "-1 Power",
+                      "description": "Attack also grants Anchor [Guarded 1] Tactical.",
+                      "rider": "[Guarded 1]"
+                    }
+                  ],
+                  "exploit": {
+                    "name": "Intercept",
+                    "trigger": "An enemy in the Anchor's zone attacks an ally.",
+                    "description": "Anchor becomes the target of the attack instead."
+                  },
+                  "powerSource": "martial"
+                },
+                "weaponChassis": "light",
+                "loot": [
+                  {
+                    "id": "wpn_vibroblade_01",
+                    "name": "Vibroblade",
+                    "type": "weapon",
+                    "qty": 1
+                  },
+                  {
+                    "id": "wpn_dl18_01",
+                    "name": "BlasTech DL-18",
+                    "type": "weapon",
+                    "qty": 1
+                  },
+                  {
+                    "id": "arm_heavy_jacket_01",
+                    "name": "Heavy Jacket",
+                    "type": "armor",
+                    "qty": 1
+                  }
+                ]
               }
             }
           ],
