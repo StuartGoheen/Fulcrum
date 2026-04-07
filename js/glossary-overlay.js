@@ -2721,13 +2721,6 @@
     document.body.appendChild(overlay);
   }
 
-  function _esc(s) {
-    if (!s) return '';
-    var d = document.createElement('div');
-    d.textContent = s;
-    return d.innerHTML;
-  }
-
   (function _listenDramatisSocket() {
     var sock = window._socket;
     if (!sock) { setTimeout(_listenDramatisSocket, 2000); return; }
