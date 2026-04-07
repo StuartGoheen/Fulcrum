@@ -91,15 +91,16 @@
           "id": "adv2-p1-s1",
           "number": 1,
           "title": "Blackwind Point",
+          "subtitle": "The Landing Tax",
           "readAloud": "You disembark at Blackwind Point — a muddy, desperate shantytown on the far shore of Nymeve Lake. The air is thick with the smell of rotting vegetation and desperation. Refugees huddle in makeshift shelters while criminals eye your gear with open hunger.\n\nThe growl of repulsor-bikes cuts through the noise. A swoop gang circles your landing pad, engines revving. Their leader — a scarred human woman with a vibro-blade strapped to her leg — pulls up and kills her engine.\n\n\"Welcome to the other side of the lake. Landing tax is five hundred credits. Non-negotiable.\"",
-          "gmNotes": "This scene covers the heroes' entire arrival arc on Takodana: the Kessra shakedown, the investigation to find Raden, the meeting at the filtration plant, and the Trandoshan hit squad attack.\n\nKESSRA CONSEQUENCE GATE: How the heroes handle Kessra determines a conditional event inside the fortress later. If they humiliate her (fight and win decisively, or intimidate her publicly), Kessra takes it personally. She reappears inside Varga's fortress during the court phase (Scene 3) as a hired security contractor and springs an aviary ambush targeting specific heroes by name. If they pay or handle it diplomatically, Kessra does NOT reappear — no grudge, no aviary scene.\n\nINVESTIGATION: Varth has briefed the heroes — they need to find Warrick Raden, a Devaronian fixer who can get them into Varga's court. Raden has gone to ground at the old Water Filtration Plant on the edge of the swamp. Social investigation through the encampment locates him.\n\nRADEN: A nervous wreck hiding in a maintenance shed. He thought Varth was dead. He confirms he can get the heroes inside as 'entertainment' — gladiators, gamblers, or mercenaries. He warns that Varga has become paranoid and obsessed with his new Imperial guests.\n\nHIT SQUAD: Varga sent Trandoshan mercenaries and a heavy combat droid to silence Raden. The fight takes place in cramped machinery — steam pipes burst, obscuring vision. The heroes MUST protect Raden — if he dies, their easy route into the palace dies with him.\n\nAFTER THE FIGHT: Raden proposes presenting the heroes as entertainment. The skiff ride across Nymeve Lake to Varga's fortress is atmospheric: a moss-covered stone ruin retrofitted with gaudy tech and heavy weapons looming through the mist.",
+          "gmNotes": "This scene is a standalone social encounter with a combat fallback. Kessra and the Vipers demand 500 credits. The crew either pays, talks their way out, or fights.\n\nKESSRA CONSEQUENCE GATE: This is the most important mechanical note in the scene. How the crew handles Kessra determines a conditional event inside Varga's fortress later. If they humiliate her (fight and win decisively, or intimidate her publicly), Kessra takes it personally. She reappears inside Varga's fortress during the court phase (Part 2, Scene 3) as a hired security contractor and springs an aviary ambush targeting specific heroes by name. If they pay or handle it diplomatically, Kessra does NOT reappear — no grudge, no aviary scene.\n\nPAYING: If the crew pays the 500cr, Kessra takes it and waves them through. The Vipers watch but don't hassle them further. The crew is now marked as easy targets — pickpockets and grifters will approach them in the encampment. Word spreads that the newcomers fold under pressure.\n\nFIGHTING: If it turns violent, Kessra fights from her swoop. The Vipers fan out and use hit-and-run tactics. The mud is difficult terrain for the crew but the swoops ignore it. If Kessra is beaten, the gang scatters. Local respect earned — but Kessra remembers.\n\nAFTER THE ENCOUNTER: Regardless of outcome, the crew is now standing in Blackwind Point with a job to do — find Warrick Raden. Varth has briefed them: a Devaronian fixer who can get them into Varga's court. All they have is a name. The encampment stretches out before them — refugees, junk traders, cantinas, spice dealers. Time to start asking questions.",
           "npcs": [
             {
               "name": "Kessra",
               "type": "Swoop Gang Leader",
               "count": 1,
               "notes": "Scarred human woman. Leader of The Vipers. Consequence gate — may reappear in fortress if humiliated here.",
-              "behaviour": "Demands 500 credits landing tax. Tests the heroes' nerve. If humiliated, holds a personal grudge that triggers the aviary ambush in Scene 3.",
+              "behaviour": "Demands 500 credits landing tax. Tests the heroes' nerve. If humiliated, holds a personal grudge that triggers the aviary ambush in Part 2.",
               "dialogue": [
                 "\"Landing tax is five hundred credits. Non-negotiable.\"",
                 "\"You think you're tough? Everyone who comes here thinks they're tough. Most of them are wrong.\"",
@@ -172,7 +173,7 @@
                   },
                   "powerSource": "ranged"
                 },
-                "notes": "Kessra is a recurring NPC. Consequence gate: humiliation here triggers aviary ambush in Scene 3.",
+                "notes": "Kessra is a recurring NPC. Consequence gate: humiliation here triggers aviary ambush in Part 2.",
                 "powerSource": "ranged"
               }
             },
@@ -249,7 +250,450 @@
                 "notes": "Minion gang. Masterful+ = takedown. Paper tigers — flee if Kessra falls.",
                 "powerSource": "martial"
               }
+            }
+          ],
+          "hazards": "Muddy terrain at the landing pad — difficult terrain, movement costs double. Swoops ignore this. Ferrocrete pad edges provide stable footing.",
+          "decisions": [
+            {
+              "choice": "Pay Kessra's landing tax",
+              "consequence": "Marked as easy targets. Pickpockets and grifters will target you in the encampment. No aviary ambush later."
             },
+            {
+              "choice": "Humiliate Kessra (fight or intimidate)",
+              "consequence": "Local respect earned. But Kessra holds a grudge — she reappears inside the fortress for the aviary ambush (Part 2, Scene 3)."
+            }
+          ],
+          "loreTags": [
+            "Takodana",
+            "Kessra",
+            "Blackwind Point",
+            "The Vipers"
+          ],
+          "narrativeLinks": [
+            {
+              "targetScene": "adv2-p2-s3",
+              "note": "Kessra's humiliation here triggers the aviary ambush in Part 2 Scene 3."
+            }
+          ],
+          "challengeType": "social",
+          "destinyTags": [
+            "corruption",
+            "destruction"
+          ],
+          "vocationTags": [
+            "voc_noble",
+            "voc_grifter",
+            "voc_gunslinger",
+            "voc_shockboxer"
+          ],
+          "disciplineTags": [
+            "charm",
+            "intimidation",
+            "deception",
+            "ranged",
+            "melee"
+          ],
+          "gearFlags": [],
+          "encounters": [
+            {
+              "id": "enc-a2s1-vipers",
+              "name": "Viper Shakedown",
+              "type": "social",
+              "trigger": "On arrival at Blackwind Point",
+              "description": "Kessra and 6 Vipers demand 500 credits. Social challenge with combat fallback. If fighting starts, Kessra fights from her swoop while Vipers fan out for hit-and-run.",
+              "tactics": "Kessra leads verbally — she wants money, not blood. Vipers fan out to cut off exits. If a hero draws a weapon, that's leverage for an Intimidation check, not a trigger for combat. If fighting starts, swoops use hit-and-run in the mud. If Kessra falls, the Vipers scatter."
+            }
+          ],
+          "environmentMechanics": [
+            {
+              "name": "Muddy Landing Pad",
+              "trigger": "Active during Kessra scene",
+              "effect": "Difficult terrain. Movement costs double. Swoops ignore this.",
+              "mitigation": "Stay on the ferrocrete pad edges for stable footing."
+            }
+          ],
+          "rewards": {
+            "credits": 0,
+            "xp": "Scene completion",
+            "items": [],
+            "narrative": "Kessra encounter resolved. The crew is free to move through Blackwind Point."
+          },
+          "pacing": {
+            "openingBeat": "The Vipers circle the landing pad. Engines cut. Kessra makes her demand.",
+            "risingAction": "Negotiation, intimidation, or blasters drawn. The crew makes their choice.",
+            "climax": "The moment the crew pays, talks down, or fights Kessra. One confrontation, one decision.",
+            "resolution": "The Vipers leave or scatter. Blackwind Point stretches out before the crew. Time to find Raden.",
+            "estimatedMinutes": 20
+          },
+          "disciplineChallenges": [
+            {
+              "id": "sc-a2s1-intimidate",
+              "discipline": "intimidation",
+              "context": "Staring down Kessra and the Vipers to avoid paying landing tax.",
+              "arena": "presence",
+              "actionType": "interact",
+              "control": {
+                "failure": "Kessra doesn't flinch. The Vipers close in. Pay the tax or fight.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Kessra backs off AND warns the Vipers to stay clear. Word spreads — the new arrivals are dangerous. +1 tier on the next social check in the encampment."
+              },
+              "target": "Kessra",
+              "resist": 3,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Kessra hesitates, then sneers and waves you past. The tax is dropped but the Vipers watch you closely.",
+                "masterful": "Kessra reads you as genuinely dangerous. Backs off with visible unease. Locals who saw it start treating you with wary respect.",
+                "legendary": "Kessra physically recoils. She orders the Vipers to give you a wide berth. For the rest of the encampment stay, no one hassles you. Free passage everywhere."
+              }
+            },
+            {
+              "id": "sc-a2s1-charm",
+              "discipline": "charm",
+              "context": "Talking Kessra down with diplomacy or flattery — acknowledging her authority while redirecting.",
+              "arena": "presence",
+              "actionType": "interact",
+              "control": {
+                "failure": "Kessra isn't charmed. She's heard every line. Pay or deal with the consequences.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Kessra is genuinely amused. She waves the tax AND offers a piece of local intel: 'You want to survive here? Avoid the east market after dark.'"
+              },
+              "target": "Kessra",
+              "resist": 4,
+              "risk": 2,
+              "effect": {
+                "fleeting": "Kessra pauses. She's not convinced but she's entertained. Tax reduced to 200 credits. She lets you pass with a smirk.",
+                "masterful": "Kessra laughs — genuinely. She likes you. Tax waived. 'First one's free. Next time you pay double.' No grudge, no consequence.",
+                "legendary": "Kessra is disarmed. She not only drops the tax but tells a Viper to walk you to the cantina. 'Buy these ones a drink. They've got guts.' Local contacts established."
+              }
+            }
+          ]
+        },
+        {
+          "id": "adv2-p1-s2",
+          "number": 2,
+          "title": "Working the Encampment",
+          "subtitle": "Finding Raden",
+          "readAloud": "Blackwind Point is a sprawl of desperation and opportunism. Muddy lanes wind between scrap-metal shelters and sagging tarpaulin stalls. A Rodian hawking stolen power cells argues with a Gran over a crate of expired ration packs. Somewhere a child is crying. A pair of Aqualish dockhands sit on overturned fuel drums, watching you with flat, hostile eyes.\n\nSomewhere in this place — or beyond it — a Devaronian fixer named Warrick Raden is hiding. Varth said he could get you inside Varga's court. All you have is a name and a description. Start asking questions.",
+          "gmNotes": "GROUP CHALLENGE: This scene uses a Victory Point (VP) accumulation mechanic. The crew fans out across Blackwind Point and works different angles to track down Raden's location. Each PC picks a discipline and describes their approach.\n\nMECHANICS:\n- Tier 1 / Power 3 across all disciplines\n- Each PC rolls Control (stepped down 1 die for T1). Control 4+ = success.\n- On success, roll Power vs P3 to determine effect tier:\n  • Fleeting (Power loses or ties) = 1 VP\n  • Masterful (Power wins) = 2 VP\n  • Legendary (Power wins decisively) = 3 VP\n  • Mastery (Control 8+) = +1 VP added to the tier result\n- 10 VP total = they've pinpointed Raden's location\n- Below 10, they can attempt more rolls or go looking with incomplete info\n\nFAILURE CONSEQUENCE: A failed Control roll (below 4) means someone noticed the crew asking around. Word travels through the encampment. Each failure increases the risk that Varga's people — or the Trandoshan hit squad already hunting Raden — learn that someone else is looking for the same man. The GM should narrate the growing tension: a merchant who suddenly clams up, a figure watching from a doorway, whispered conversations that stop when the crew approaches.\n\nVP THRESHOLDS — Read aloud or paraphrase at each threshold:\n\n3 VP: 'A Devaronian? Yeah, I saw one drinking at the Drowned Sarlacc three, four days ago. Kept to himself. Haven't seen him since.' — A sighting, but cold. He was here.\n\n5 VP: 'That Devaronian — he was talking to old Mekka the parts dealer. Bought a bunch of ration packs and a portable charge cell. Like someone planning to disappear.' — He's hiding somewhere, stocking up to stay gone.\n\n7 VP: 'Two days ago I saw a Devaronian running through the east market. Some of Varga's boys were on his tail. He cut toward the swamp and they pulled up at the tree line. Didn't follow him in.' — Direction established. He went into the swamp.\n\n9 VP: 'There's an old water filtration plant out past the swamp edge. Imperial-era, been abandoned for years. Saw smoke from that direction yesterday morning. Nobody goes out there.' — Specific location narrowed down.\n\n10 VP: 'That's where your Devaronian is. The filtration plant. I hauled water purifiers out there two years back — there's a maintenance shed on the west side with a working lock. If he's hiding anywhere, it's that shed.' — Confirmed. Go.\n\nENCOURAGING DIFFERENT APPROACHES: Each PC should describe their approach narratively. The discipline they choose should match what they're doing. The GM provides the VP threshold readout based on total accumulated VP, not individual rolls. Let the players feel the trail building — each piece of information makes the next question more specific.\n\nSCENE ENDS: When the crew hits 10 VP or when they decide they've heard enough and want to go looking with what they have. If they leave before 10 VP, they'll need to search the swamp edge — add a complication to Scene 3 (Raden is harder to find, they stumble into his trip-wires, etc.).\n\nENCOUNTER NPCs: The encampment should feel alive. Use these locals as color and information sources. Not every NPC has intel — some are just texture. The crew should feel like they're working a real place, not just rolling dice.",
+          "npcs": [
+            {
+              "name": "Mekka",
+              "type": "Toydarian Parts Dealer",
+              "count": 1,
+              "notes": "Runs a stall near the east market. Sold Raden ration packs and a portable charge cell three days ago. Knows Raden was stocking up to hide.",
+              "behaviour": "Shrewd and unhelpful unless given a reason to talk. Credits loosen his tongue. Responds well to Charm. Clams up under Intimidation — he's been shaken down too many times.",
+              "dialogue": [
+                "\"A Devaronian? I see a lot of Devaronians. What's in it for me?\"",
+                "\"He bought survival supplies. Ration packs, charge cell, water tabs. Paid in cash — Imperial credits, not Hutt scrip. That's unusual around here.\"",
+                "\"I don't know where he went. I sell parts, not directions.\""
+              ]
+            },
+            {
+              "name": "Drelk",
+              "type": "Aqualish Dockhand",
+              "count": 1,
+              "notes": "Works the landing pads. Saw Raden fleeing Varga's enforcers two days ago. Watched him cut toward the swamp. Doesn't want trouble.",
+              "behaviour": "Sullen and cautious. Will talk if approached without hostility. Responds to shared drinks or a show of solidarity. Won't talk to anyone who looks Imperial.",
+              "dialogue": [
+                "\"I mind my own business. You should try it.\"",
+                "\"Two days ago. East market. Your Devaronian was running hard. Varga's boys were on him. He went for the swamp — they stopped at the tree line. Smart of them. Stupid of him.\"",
+                "\"The swamp takes people. If he went in there, he's either dead or more desperate than I thought.\""
+              ]
+            },
+            {
+              "name": "Nola Shar",
+              "type": "Human Refugee",
+              "count": 1,
+              "notes": "A mother with two children. Arrived from Felucia three weeks ago. She saw smoke from the filtration plant yesterday morning.",
+              "behaviour": "Exhausted and wary. Won't volunteer information unless she feels safe. Responds to kindness — a ration pack, a kind word, asking about her children. She doesn't know who Raden is specifically, but she knows the filtration plant.",
+              "dialogue": [
+                "\"Please — we don't want trouble. We just need to get to the next transport.\"",
+                "\"The filtration plant? It's been abandoned since the Republic fell. But I saw smoke from that direction yesterday when I was washing clothes at the creek. Someone's out there.\"",
+                "\"Be careful near the swamp. There are things in that water.\""
+              ]
+            },
+            {
+              "name": "Gorr the Barkeep",
+              "type": "Besalisk Cantina Owner",
+              "count": 1,
+              "notes": "Runs The Drowned Sarlacc — the only cantina in Blackwind Point. Raden drank here four days ago. Gorr doesn't care about Raden but he cares about his bar.",
+              "behaviour": "Four arms, three of which are always busy. Hospitable to paying customers. Has no loyalty to anyone but himself. Will trade information for credits or a favor.",
+              "dialogue": [
+                "\"Devaronian? Red skin, horns, looked like he hadn't slept in a week? Sat in the back corner four days ago. Nursed one drink for three hours. Then left.\"",
+                "\"He was asking about the swamp — what's out there, who goes there. I told him the same thing I tell everyone: nothing good.\"",
+                "\"You want another round or are you going to keep asking questions I'm not getting paid for?\""
+              ]
+            },
+            {
+              "name": "Greez Thakka",
+              "type": "Ithorian Water Hauler",
+              "count": 1,
+              "notes": "Hauls water purification equipment to settlements around the lake. Knows the filtration plant intimately — he serviced it two years ago. Can describe the maintenance shed.",
+              "behaviour": "Gentle and cooperative. Speaks through a translator unit. Happy to help if asked politely. Doesn't understand why anyone would hide at the filtration plant.",
+              "dialogue": [
+                "\"The filtration plant? Yes, I know it well. I serviced the purification units there two years ago, before the last of the operators left.\"",
+                "\"There is a maintenance shed on the west side. It has a working lock — Imperial standard, five-digit code. Whoever went in would need to slice it or have the code.\"",
+                "\"It is not a comfortable place. But it is hidden. The swamp growth has nearly swallowed it.\""
+              ]
+            }
+          ],
+          "hazards": "The encampment itself is not physically dangerous, but drawing too much attention is. Failed investigation attempts alert Varga's network or the Trandoshan hit squad already hunting Raden.",
+          "decisions": [
+            {
+              "choice": "Pursue the investigation thoroughly (reach 10 VP)",
+              "consequence": "Complete picture — exact location of Raden's hiding spot. Clean approach to the filtration plant."
+            },
+            {
+              "choice": "Leave early with partial information",
+              "consequence": "Must search the swamp edge. Raden's trip-wires catch the crew off guard. Complications at the filtration plant."
+            }
+          ],
+          "loreTags": [
+            "Takodana",
+            "Blackwind Point",
+            "Warrick Raden",
+            "Varga the Hutt"
+          ],
+          "narrativeLinks": [
+            {
+              "targetScene": "adv2-p1-s3",
+              "note": "VP total determines how prepared the crew is when they arrive at the filtration plant."
+            }
+          ],
+          "challengeType": "investigation",
+          "destinyTags": [
+            "discovery"
+          ],
+          "vocationTags": [
+            "voc_investigator",
+            "voc_grifter",
+            "voc_noble",
+            "voc_operative"
+          ],
+          "disciplineTags": [
+            "investigation",
+            "charm",
+            "deception",
+            "insight",
+            "intimidation",
+            "streetwise"
+          ],
+          "gearFlags": [],
+          "encounters": [],
+          "groupChallenge": {
+            "name": "Tracking Raden",
+            "description": "The crew fans out across Blackwind Point to track down Warrick Raden's location.",
+            "tier": 1,
+            "power": 3,
+            "vpThreshold": 10,
+            "vpScoring": {
+              "fleeting": 1,
+              "masterful": 2,
+              "legendary": 3,
+              "masteryBonus": 1
+            },
+            "failureConsequence": "Someone noticed you asking about Raden. Word travels through the encampment — increased risk of alerting Varga's network or the Trandoshan hit squad.",
+            "thresholds": [
+              {
+                "vp": 3,
+                "intel": "A cold sighting — Raden was drinking at The Drowned Sarlacc four days ago. Kept to himself. Haven't seen him since."
+              },
+              {
+                "vp": 5,
+                "intel": "He bought survival supplies from Mekka the parts dealer — ration packs, charge cell, water tabs. Someone planning to disappear."
+              },
+              {
+                "vp": 7,
+                "intel": "Two days ago he was seen running through the east market. Varga's enforcers were chasing him. He cut toward the swamp — they stopped at the tree line."
+              },
+              {
+                "vp": 9,
+                "intel": "An old water filtration plant at the swamp's edge. Imperial-era, abandoned for years. Smoke was seen from that direction yesterday morning."
+              },
+              {
+                "vp": 10,
+                "intel": "Confirmed — the filtration plant. Maintenance shed on the west side with a working lock. That's where he's hiding."
+              }
+            ],
+            "eligibleDisciplines": [
+              {
+                "discipline": "investigation",
+                "approach": "Methodical questioning, cross-referencing stories, following physical trail signs through the market."
+              },
+              {
+                "discipline": "charm",
+                "approach": "Buying someone a drink, earning trust from a refugee or trader who saw something."
+              },
+              {
+                "discipline": "deception",
+                "approach": "Posing as someone with business for Raden, getting criminals to talk without realizing they're being pumped."
+              },
+              {
+                "discipline": "insight",
+                "approach": "Reading body language in the crowd, spotting who gets nervous when the Devaronian is mentioned."
+              },
+              {
+                "discipline": "intimidation",
+                "approach": "Leaning on a local who clearly knows something but won't talk."
+              },
+              {
+                "discipline": "streetwise",
+                "approach": "Working the underworld channels, trading favors for information, speaking the right language."
+              }
+            ]
+          },
+          "environmentMechanics": [
+            {
+              "name": "Encampment Noise",
+              "trigger": "Each failed Control roll",
+              "effect": "Word spreads that outsiders are asking about a Devaronian. Varga's informants may pick up the trail. The Trandoshan hit squad may accelerate their timeline.",
+              "mitigation": "Succeed on checks. Use disciplines that draw less attention (Insight, Investigation) over loud approaches (Intimidation)."
+            }
+          ],
+          "rewards": {
+            "credits": 0,
+            "xp": "Scene completion + group challenge participation",
+            "items": [],
+            "narrative": "The crew has pieced together Raden's trail. The filtration plant at the swamp's edge awaits."
+          },
+          "pacing": {
+            "openingBeat": "The crew stands in Blackwind Point with nothing but a name. The encampment stretches out — chaotic, hostile, alive.",
+            "risingAction": "Each PC works a different angle. Breadcrumbs accumulate — a sighting, supplies purchased, a chase toward the swamp. The trail builds.",
+            "climax": "The final piece falls into place. The filtration plant. The maintenance shed. They know where Raden is.",
+            "resolution": "The crew regroups and heads for the swamp's edge. The trail is fresh — but they're not the only ones following it.",
+            "estimatedMinutes": 30
+          },
+          "disciplineChallenges": [
+            {
+              "id": "sc-a2s2-investigation",
+              "discipline": "investigation",
+              "context": "Methodical questioning of encampment locals. Cross-referencing stories. Following physical trail signs.",
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "Conflicting stories. No clear lead — and the person you asked is now watching you from across the market.",
+                "success": "Refer to VP scoring.",
+                "mastery": "Strong lead + mastery bonus VP. The source volunteers additional context unprompted."
+              },
+              "target": "Encampment locals",
+              "resist": 3,
+              "risk": 3,
+              "effect": {
+                "fleeting": "A single data point — a sighting, a direction, a timeframe. One piece of the puzzle.",
+                "masterful": "A clear, corroborated lead. Two pieces click together — the picture sharpens.",
+                "legendary": "A breakthrough. The source connects dots the crew hadn't considered. Major progress on the trail."
+              }
+            },
+            {
+              "id": "sc-a2s2-charm",
+              "discipline": "charm",
+              "context": "Buying a drink, earning trust, making a refugee or trader feel safe enough to talk.",
+              "arena": "presence",
+              "actionType": "interact",
+              "control": {
+                "failure": "The local clams up. They've been burned before by strangers asking questions.",
+                "success": "Refer to VP scoring.",
+                "mastery": "The source opens up completely and offers to introduce you to someone who knows more."
+              },
+              "target": "Encampment locals",
+              "resist": 3,
+              "risk": 3,
+              "effect": {
+                "fleeting": "A hesitant answer. They saw something but they're not sure about the details.",
+                "masterful": "A willing informant. They tell you what they know and wish you luck.",
+                "legendary": "A genuine connection. They not only tell you everything but offer to help — a guide to the swamp edge, a warning about dangers."
+              }
+            },
+            {
+              "id": "sc-a2s2-deception",
+              "discipline": "deception",
+              "context": "Posing as someone with business for the Devaronian. Getting criminals to talk without realizing they're being pumped for information.",
+              "arena": "presence",
+              "actionType": "interact",
+              "control": {
+                "failure": "Your cover story doesn't hold. The local suspects you're not who you claim — and now they're curious about why you're really asking.",
+                "success": "Refer to VP scoring.",
+                "mastery": "The mark doesn't just buy it — they actively try to help you find Raden, thinking there's money in it for them."
+              },
+              "target": "Encampment criminals",
+              "resist": 3,
+              "risk": 3,
+              "effect": {
+                "fleeting": "A vague direction. 'Try the east side' — not much, but something.",
+                "masterful": "Detailed intel wrapped in a lie. They think they're helping a business partner and give you real information.",
+                "legendary": "They escort you partway, filling in details the whole time. By the time you split off, you've got a near-complete picture."
+              }
+            },
+            {
+              "id": "sc-a2s2-insight",
+              "discipline": "insight",
+              "context": "Reading body language in the crowd. Spotting who gets nervous when the Devaronian is mentioned.",
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "Too much noise. The encampment is a wall of anxiety and desperation — everyone looks nervous.",
+                "success": "Refer to VP scoring.",
+                "mastery": "You read a micro-expression that tells you exactly who to talk to next. The trail shortens."
+              },
+              "target": "Crowd dynamics",
+              "resist": 3,
+              "risk": 2,
+              "effect": {
+                "fleeting": "One person flinched when you mentioned the Devaronian. Worth following up.",
+                "masterful": "You identify the person who knows the most — their body language screams 'I know and I don't want to say.'",
+                "legendary": "You map the information flow. You know who knows what, who's lying, and who's afraid. The optimal path to Raden's location is clear."
+              }
+            },
+            {
+              "id": "sc-a2s2-intimidation",
+              "discipline": "intimidation",
+              "context": "Leaning on a local who clearly knows something but won't talk.",
+              "arena": "presence",
+              "actionType": "interact",
+              "control": {
+                "failure": "They shut down completely. Mouth closed, eyes down. And three people nearby saw you threaten someone — word will spread.",
+                "success": "Refer to VP scoring.",
+                "mastery": "They crack immediately and talk fast. The information is detailed and terrified-accurate."
+              },
+              "target": "Reluctant informant",
+              "resist": 3,
+              "risk": 4,
+              "effect": {
+                "fleeting": "A stammered half-answer. Enough to confirm a direction but the details are garbled by fear.",
+                "masterful": "They talk. Fast. Clear. They want you gone and they'll say whatever makes that happen. Solid intel.",
+                "legendary": "They break completely. Everything they know pours out — sightings, timing, the filtration plant, and a warning: 'There are others looking for him too. Trandoshans.'"
+              }
+            },
+            {
+              "id": "sc-a2s2-streetwise",
+              "discipline": "streetwise",
+              "context": "Working the underworld channels. Trading favors for information. Speaking the right language to the right people.",
+              "arena": "wits",
+              "actionType": "interact",
+              "control": {
+                "failure": "You're not plugged in here. Blackwind Point has its own networks and you're an outsider. No traction.",
+                "success": "Refer to VP scoring.",
+                "mastery": "You find someone who owes Varth a favor. They give you everything they have on Raden's movements."
+              },
+              "target": "Criminal networks",
+              "resist": 3,
+              "risk": 3,
+              "effect": {
+                "fleeting": "A rumor from the right circles. Raden's name is known but his location isn't common knowledge.",
+                "masterful": "Someone in the network tracked Raden's purchases and movements. Clear breadcrumb trail pointing toward the swamp.",
+                "legendary": "Full network picture. Raden's history in Blackwind Point, his falling out with Varga, where he's been hiding, and the fact that Varga already sent a kill team."
+              }
+            }
+          ]
+        },
+        {
+          "id": "adv2-p1-s3",
+          "number": 3,
+          "title": "The Filtration Plant",
+          "subtitle": "Finding Raden",
+          "readAloud": "The swamp thickens as you push past the encampment's edge. Gnarled trees hang with curtains of moss. The ground turns soft, then wet. Insects swarm in clouds around every step.\n\nAfter twenty minutes of trudging through knee-deep muck, the trees open onto a clearing dominated by a rusted industrial structure — the old water filtration plant. Pipes jut from the walls at odd angles, crusted with mineral deposits. Most of the windows are dark. But through a crack in one of the maintenance shed shutters on the west side, you catch the faint glow of a charge lamp.\n\nSomething moves behind the shutter. A shadow. Then silence.\n\nThen a voice — sharp, shaking, and speaking Basic with a Devaronian accent:\n\n\"Don't come any closer. I will shoot.\"",
+          "gmNotes": "ARRIVAL: If the crew reached 10 VP in the group challenge, they know exactly where Raden is hiding — the maintenance shed on the west side. They can approach directly and with confidence. If they left the encampment with fewer than 10 VP, they need to search the plant grounds. Add complications: they trip Raden's crude perimeter alarms (toppled cans on wire), hear him before they see him, or have to search multiple buildings before finding the right one.\n\nRADEN'S STATE: Warrick Raden is a Devaronian in his forties. He's been hiding here for three days. He's sleep-deprived, malnourished, and terrified. He has a blaster aimed at the door — his hands are shaking. He set crude trip-wires around the maintenance shed and has been surviving on the ration packs he bought from Mekka.\n\nRaden thought Varth was dead — captured by the Empire and executed. When the crew mentions Varth's name, Raden's reaction is visceral: shock, then relief, then fear again. Varth being alive means there's a plan. A plan means danger.\n\nRADEN'S BACKSTORY: Raden was a middleman in Varga's financial network. After Varth was captured, Raden skimmed credits — thought no one was watching. Varga found out. Raden has been running ever since. He has hand-drawn maps of Varga's fortress from when he worked the operation, guard shift patterns he memorized, and intimate knowledge of Varga's paranoid habits.\n\nTHE NEGOTIATION: How the crew handles Raden determines his cooperation level:\n\n- CALM / NEGOTIATE: Raden cooperates willingly. He provides detailed fortress intel — maps, guard rotations, Varga's daily patterns, the location of TC-663, and where guests are quartered. He's grateful and genuinely wants to help.\n\n- THREATEN: Raden cooperates but he's resentful. He gives the minimum information needed. He looks for opportunities to undermine the crew or hedge his bets. If things go sideways inside the fortress, threatened-Raden may try to cut a deal with Varga's people.\n\nRADEN'S OFFER: Once calmed, Raden proposes the plan: he can get the crew inside Varga's court as 'entertainment' — gladiators, gamblers, or mercenaries. Varga is hosting a delegation of high rollers and business partners. He wants spectacle. Raden can vouch for the crew's credentials.\n\nSCENE ENDS: When Raden's cooperation is established and the plan is agreed upon. Then the Trandoshans arrive — transition to Scene 4.",
+          "npcs": [
             {
               "name": "Warrick Raden",
               "type": "Devaronian Fixer",
@@ -257,9 +701,11 @@
               "notes": "Nervous wreck. Owes Varth a debt. The heroes' entry ticket to Varga's palace.",
               "behaviour": "Terrified, armed with a blaster, jumping at shadows. Relieved when he hears Varth is alive. Agrees to help if protected.",
               "dialogue": [
+                "\"Don't come any closer. I will shoot.\"",
                 "\"Varth? He's alive? Stars help me — he's alive.\"",
                 "\"I know how to get you in. Varga is hosting a delegation of high rollers and business partners. He wants entertainment — gladiators, gamblers, mercenaries.\"",
-                "\"Once we're inside... you're on your own.\""
+                "\"Once we're inside... you're on your own. I have debts to settle with Varga and I plan to settle them by being very far away when things go wrong.\"",
+                "\"I skimmed credits after Varth was taken. I thought he was dead — everyone did. Varga found the discrepancy six weeks ago. I've been running ever since.\""
               ],
               "intel": "Raden was a middleman in Varga's network — skimmed credits after Varth was captured. Got caught. Has hand-drawn maps of the fortress, guard shift times, and Varga's paranoid habits.",
               "threatBuild": {
@@ -306,7 +752,156 @@
                 },
                 "notes": "Raden is not a fighter. His value is information, not combat."
               }
+            }
+          ],
+          "hazards": "Swamp terrain approaching the plant. Raden's crude trip-wires and perimeter alarms if crew left the encampment with < 10 VP.",
+          "decisions": [
+            {
+              "choice": "Calm Raden and negotiate his help",
+              "consequence": "He cooperates willingly and provides detailed fortress intel — maps, guard rotations, Varga's habits, TC-663's location."
             },
+            {
+              "choice": "Threaten Raden into compliance",
+              "consequence": "He cooperates but provides minimum intel. Looks for ways to undermine or betray the crew at the first opportunity inside the fortress."
+            }
+          ],
+          "loreTags": [
+            "Warrick Raden",
+            "Varga the Hutt",
+            "Takodana"
+          ],
+          "narrativeLinks": [
+            {
+              "targetScene": "adv2-p1-s4",
+              "note": "Trandoshan hit squad arrives at the end of this scene. Transition to combat."
+            },
+            {
+              "targetScene": "adv2-p1-s5",
+              "note": "Raden's cooperation level affects his helpfulness in the Court scene."
+            }
+          ],
+          "challengeType": "social",
+          "destinyTags": [
+            "discovery",
+            "rescue"
+          ],
+          "vocationTags": [
+            "voc_noble",
+            "voc_grifter",
+            "voc_investigator"
+          ],
+          "disciplineTags": [
+            "charm",
+            "deception",
+            "insight",
+            "persuasion"
+          ],
+          "gearFlags": [],
+          "encounters": [],
+          "environmentMechanics": [
+            {
+              "name": "Swamp Approach",
+              "trigger": "Approaching the filtration plant",
+              "effect": "Difficult terrain. Knee-deep muck slows movement. Insects reduce visibility at range.",
+              "mitigation": "Follow established paths. Locals' directions help (high VP from Scene 2)."
+            },
+            {
+              "name": "Raden's Trip-Wires",
+              "trigger": "Approaching the maintenance shed (only if crew has < 10 VP)",
+              "effect": "Crude alarms — toppled cans on wire. Triggers noise that alerts Raden. He fires a warning shot through the door.",
+              "mitigation": "With 10 VP, the crew knows about the trip-wires from Greez Thakka's description. They can avoid them."
+            }
+          ],
+          "rewards": {
+            "credits": 0,
+            "xp": "Scene completion",
+            "items": [
+              {
+                "name": "Fortress Maps (sketch)",
+                "note": "Raden's hand-drawn maps of Varga's fortress. Rough but useful — guard positions, guest quarters, throne room layout."
+              }
+            ],
+            "narrative": "Raden cooperates. The plan takes shape — enter as entertainment, infiltrate from within. But they're not the only ones who found him."
+          },
+          "pacing": {
+            "openingBeat": "The swamp. The rusted plant. A light in the maintenance shed. A shaking voice: 'I will shoot.'",
+            "risingAction": "Talking Raden down. The blaster lowers inch by inch. Varth's name is the key.",
+            "climax": "Raden agrees to help. The plan forms. Then — the sound of heavy boots in the swamp outside.",
+            "resolution": "Transition to Scene 4. The Trandoshans have found them.",
+            "estimatedMinutes": 25
+          },
+          "disciplineChallenges": [
+            {
+              "id": "sc-a2s3-charm",
+              "discipline": "charm",
+              "context": "Calming Raden down. He's panicking with a blaster aimed at you.",
+              "arena": "presence",
+              "actionType": "interact",
+              "control": {
+                "failure": "Raden stays panicky. Blaster stays up. Additional checks needed or risk a firefight with the man you came to save.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Raden lowers the blaster and immediately offers actionable intel — he knows a back way into Varga's fortress through the sewer outflow. Saves a planning step."
+              },
+              "target": "Warrick Raden",
+              "resist": 3,
+              "risk": 4,
+              "effect": {
+                "fleeting": "Raden lowers the blaster a few inches. Still breathing hard, still scared, but he's listening. He needs more convincing before he trusts you.",
+                "masterful": "Raden lowers the blaster. Starts talking. Relieved that Varth is alive. He'll cooperate — tells you about the fortress layout and his falling out with Varga.",
+                "legendary": "Raden breaks down with relief. Blaster clatters to the floor. He tells you everything — Varga's security, the court dynamics, the encrypted datapad location, and what Demos is really up to."
+              }
+            },
+            {
+              "id": "sc-a2s3-insight",
+              "discipline": "insight",
+              "context": "Reading Raden's mental state to find the right approach. What is he most afraid of?",
+              "arena": "wits",
+              "actionType": "assess",
+              "isOptional": true,
+              "control": {
+                "failure": "He's terrified — that's all you can read. Everything else is obscured by raw fear.",
+                "success": "Refer to effect tiers.",
+                "mastery": "You see through the fear to the guilt underneath. Raden doesn't just want protection — he wants absolution. He betrayed Varth's network and he knows it."
+              },
+              "target": "Warrick Raden",
+              "resist": 2,
+              "risk": 2,
+              "effect": {
+                "fleeting": "He's more scared of Varga than of you. That's useful leverage.",
+                "masterful": "Three things: he's terrified of Varga, he's guilty about what he did to Varth's operation, and he's desperate for someone to tell him what to do. Appeal to his guilt and he'll follow.",
+                "legendary": "Full read. The guilt, the fear, the self-loathing. But underneath it all — a flicker of hope. He wants to make it right. Give him that chance and he's yours completely."
+              }
+            },
+            {
+              "id": "sc-a2s3-deception",
+              "discipline": "deception",
+              "context": "Building a convincing cover identity for the palace infiltration. Working with Raden to craft the story.",
+              "arena": "presence",
+              "actionType": "interact",
+              "control": {
+                "failure": "Cover has gaps. Varga's people may ask uncomfortable questions. Demos will be suspicious from arrival.",
+                "success": "Refer to effect tiers.",
+                "mastery": "The cover identity is so convincing that Raden's vouching sounds natural. Varga's gate guards wave you through without secondary verification."
+              },
+              "target": "Cover identity preparation",
+              "resist": 3,
+              "risk": 4,
+              "effect": {
+                "fleeting": "Thin but functional cover. It'll survive casual scrutiny but won't hold under interrogation. Stay low-profile.",
+                "masterful": "Air-tight cover. Backgrounds, references, and specialties all check out. Standard entry.",
+                "legendary": "The cover identity has depth — a fabricated history that even palace records corroborate. You arrive with a reputation. Varga is interested before you walk in."
+              }
+            }
+          ]
+        },
+        {
+          "id": "adv2-p1-s4",
+          "number": 4,
+          "title": "The Hit Squad",
+          "subtitle": "Protect Raden",
+          "readAloud": "Raden freezes mid-sentence. His eyes go wide.\n\n\"They found me.\"\n\nYou hear it now — the rhythmic squelch of heavy boots in the swamp. Multiple sets. Coming from at least two directions. Through the grimy windows of the filtration plant, you catch movement in the tree line: massive, scaled figures moving with predatory patience.\n\nTrandoshans.\n\nThen a deeper sound — the whine of servomotors and the grinding of armored treads. Something large pushes through the undergrowth toward the main entrance. A heavy combat droid, its photoreceptors cutting red beams through the mist.\n\nRaden grabs your arm. \"They're here to kill me. If I die, you don't get inside that fortress. Protect me.\"",
+          "gmNotes": "COMBAT ENCOUNTER: This is a straight fight with a protection objective. The crew must keep Raden alive while dealing with the Trandoshan hit squad and the heavy combat droid.\n\nTRANDOSHAN TACTICS: The hit squad breaches from multiple entry points — they've been hunting Raden and they know the building. They use scent-tracking, which means steam concealment doesn't fully work against them (reduces to partial concealment). They work in pairs, using the cramped machinery to set up crossfires.\n\nHEAVY COMBAT DROID: Blocks the main entrance. Advances slowly, absorbing fire. Defense 8. Iron Clad — uses Defense vs Evasion attacks. Vulnerable to Ion damage. The droid is the anvil; the Trandoshans are the hammer.\n\nENVIRONMENTAL HAZARDS: The filtration plant is full of exploitable machinery. Steam pipes can be burst deliberately (Tech check) for area denial. Catwalks can be collapsed to block approaches. Cramped corridors between machinery limit movement to single-file — good for chokepoints, bad for being flanked.\n\nRADEN: He's not a fighter. He cowers behind cover, fires his blaster wildly if directly threatened (more dangerous to friendlies than enemies), and panics if anyone goes down. If a PC spends an action to direct him (Tactics or Leadership), he'll follow orders and stay in cover properly.\n\nSCENE FAILURE: If Raden dies, the crew loses their easy route into Varga's court. They'd need to find another way in — significantly harder and likely requiring Adventure-level improvisation.\n\nAFTER THE FIGHT: The hit squad is eliminated. Raden is shaken but alive. He's now fully committed — after being hunted by Varga's killers, his only safety is with the crew. He proposes the entertainment cover: present the heroes as gladiators, gamblers, or mercenaries at Varga's court.\n\nThe scene ends with the transition: the skiff ride across Nymeve Lake. Varga's fortress materializes through curtains of mist — a moss-covered stone ruin retrofitted with gaudy tech, blaster turrets, and garish banners. The next phase begins.",
+          "npcs": [
             {
               "name": "Trandoshan Mercenaries",
               "type": "Standard Combatants",
@@ -462,96 +1057,79 @@
               }
             }
           ],
-          "hazards": "Muddy terrain at the landing pad. Cramped industrial machinery at the filtration plant. Bursting steam pipes. Collapsing catwalks.",
+          "hazards": "Cramped industrial machinery. Bursting steam pipes. Collapsing catwalks. The heavy combat droid blocks the main exit.",
           "decisions": [
             {
-              "choice": "Pay Kessra's landing tax",
-              "consequence": "Marked as easy targets. Pickpockets and grifters will target you. No aviary ambush later."
+              "choice": "Hold position and fight",
+              "consequence": "The crew uses the filtration plant's chokepoints. Defensible but no escape route if overwhelmed."
             },
             {
-              "choice": "Humiliate Kessra (fight or intimidate)",
-              "consequence": "Local respect earned. But Kessra holds a grudge — she reappears inside the fortress for the aviary ambush (Scene 3)."
-            },
-            {
-              "choice": "Calm Raden and negotiate his help",
-              "consequence": "He cooperates willingly and provides detailed fortress intel."
-            },
-            {
-              "choice": "Threaten Raden into compliance",
-              "consequence": "He cooperates but looks for ways to sell the heroes out at the first opportunity."
+              "choice": "Fight toward the rear exit",
+              "consequence": "Running battle through the machinery. More mobile but Raden is harder to protect in motion."
             }
           ],
           "loreTags": [
-            "Takodana",
             "Varga the Hutt",
-            "Kessra",
-            "Blackwind Point",
+            "Takodana",
             "Warrick Raden"
           ],
           "narrativeLinks": [
             {
-              "targetScene": "adv2-p1-s2",
-              "note": "Kessra's humiliation here triggers the aviary ambush in Scene 3."
+              "targetScene": "adv2-p1-s5",
+              "note": "After the fight, Raden commits fully. The skiff ride to Varga's fortress begins."
             }
           ],
-          "challengeType": "social",
+          "challengeType": "combat",
           "destinyTags": [
-            "discovery",
-            "corruption"
+            "destruction",
+            "rescue"
           ],
           "vocationTags": [
-            "voc_noble",
-            "voc_grifter",
-            "voc_investigator",
-            "voc_gunslinger"
+            "voc_gunslinger",
+            "voc_shockboxer",
+            "voc_duelist",
+            "voc_operative"
           ],
           "disciplineTags": [
-            "charm",
-            "deception",
-            "insight",
-            "persuasion",
-            "investigation",
             "ranged",
             "melee",
-            "tactics"
+            "brawl",
+            "tactics",
+            "evasion",
+            "endure",
+            "tech"
           ],
-          "gearFlags": [],
+          "gearFlags": [
+            "ion_grenade"
+          ],
           "encounters": [
             {
-              "id": "enc-a2s1-vipers",
-              "name": "Viper Shakedown",
-              "type": "social",
-              "trigger": "On arrival at Blackwind Point",
-              "description": "Kessra and 6 Vipers demand 500 credits. Social challenge with combat fallback.",
-              "tactics": "Kessra leads verbally. Vipers fan out to cut off exits. If fighting starts, they use swoops for hit-and-run."
-            },
-            {
-              "id": "enc-a2s1-trandoshans",
+              "id": "enc-a2s4-trandoshans",
               "name": "Trandoshan Hit Squad",
               "type": "combat",
               "trigger": "After meeting Raden at the filtration plant",
-              "description": "4 Trandoshan Mercenaries breach from multiple entry points. Heavy Combat Droid blocks the main exit. Protect Raden.",
-              "tactics": "Trandoshans use scent-tracking in the steam. The droid advances slowly, absorbing fire."
+              "description": "4 Trandoshan Mercenaries breach from multiple entry points. Heavy Combat Droid blocks the main exit. Protect Raden at all costs.",
+              "tactics": "Trandoshans use scent-tracking to navigate steam concealment. They work in pairs — one pins with suppressive fire, one flanks. The droid advances slowly, absorbing fire and blocking the exit. If the crew tries to flee, the droid is the wall they have to get through."
             }
           ],
           "environmentMechanics": [
             {
-              "name": "Muddy Landing Pad",
-              "trigger": "Active during Kessra scene",
-              "effect": "Difficult terrain. Movement costs double. Swoops ignore this.",
-              "mitigation": "Stay on the ferrocrete pad edges."
-            },
-            {
               "name": "Industrial Steam",
-              "trigger": "Burst pipes or deliberate overload at filtration plant",
-              "effect": "Scalding steam fills a zone. [Hazard 1] per round. Concealment.",
+              "trigger": "Burst pipes or deliberate overload (Tech check)",
+              "effect": "Scalding steam fills a zone. [Hazard 1] per round. Concealment (partial against Trandoshans due to scent-tracking).",
               "mitigation": "Breath mask reduces to no damage. Stay low."
             },
             {
               "name": "Cramped Machinery",
               "trigger": "Active throughout filtration plant",
               "effect": "Narrow corridors between machinery. No flanking. Limits movement to single-file.",
-              "mitigation": "Use chokepoints defensively."
+              "mitigation": "Use chokepoints defensively. Raden stays behind the front line."
+            },
+            {
+              "name": "Collapsible Catwalks",
+              "trigger": "Deliberate action (Athletics/Tech) or Heavy Droid passing under",
+              "effect": "Catwalk collapses onto a zone. [Hazard 2] to anyone below. Blocks the zone for 1 round.",
+              "mitigation": "Can be triggered deliberately as a trap. Timing is everything."
             }
           ],
           "rewards": {
@@ -559,86 +1137,22 @@
             "xp": "Scene completion + combat encounter",
             "items": [
               {
-                "name": "Palace Maps (sketch)",
-                "note": "Raden's hand-drawn maps of Varga's fortress. Rough but useful."
-              },
-              {
                 "name": "Trandoshan Weapons",
                 "note": "Scavenged medium blasters and a hunting rifle."
               }
             ],
-            "narrative": "Raden survives. Hit squad eliminated. Cover identities established. Entry to Varga's court secured."
+            "narrative": "Hit squad eliminated. Raden survives and commits fully to the plan. The skiff ride to Varga's fortress begins."
           },
           "pacing": {
-            "openingBeat": "The Vipers circle the landing pad.",
-            "risingAction": "Investigation through the encampment. Raden found at the filtration plant. Hit squad attacks.",
-            "climax": "The heavy combat droid advances. Must be dealt with to escape.",
-            "resolution": "The skiff ride across Nymeve Lake. Varga's fortress looms through the mist.",
-            "estimatedMinutes": 60
+            "openingBeat": "Heavy boots in the swamp. Red photoreceptors cutting through mist. 'They found me.'",
+            "risingAction": "Trandoshans breach from multiple points. The droid blocks the exit. Raden is panicking behind cover.",
+            "climax": "The heavy combat droid advances. Must be dealt with to escape or the Trandoshans will overwhelm the position.",
+            "resolution": "Silence. The hit squad is down. Raden, shaken but alive, commits to the plan. The skiff ride across Nymeve Lake. Varga's fortress looms through the mist.",
+            "estimatedMinutes": 40
           },
           "disciplineChallenges": [
             {
-              "id": "sc-a2s1-intimidate",
-              "discipline": "intimidate",
-              "context": "Staring down Kessra and the Vipers to avoid paying landing tax.",
-              "arena": "presence",
-              "actionType": "interact",
-              "control": {
-                "failure": "Kessra doesn't flinch. The Vipers close in. Pay the tax or fight.",
-                "success": "Refer to effect tiers.",
-                "mastery": "Kessra backs off AND warns the Vipers to stay clear. Word spreads — the new arrivals are dangerous. +1 tier on the next social check in the encampment."
-              },
-              "target": "Kessra",
-              "resist": 3,
-              "risk": 3,
-              "effect": {
-                "fleeting": "Kessra hesitates, then sneers and waves you past. The tax is dropped but the Vipers watch you closely.",
-                "masterful": "Kessra reads you as genuinely dangerous. Backs off with visible unease. Locals who saw it start treating you with wary respect.",
-                "legendary": "Kessra physically recoils. She orders the Vipers to give you a wide berth. For the rest of the encampment stay, no one hassles you. Free passage everywhere."
-              }
-            },
-            {
-              "id": "sc-a2s1-investigation",
-              "discipline": "investigation",
-              "context": "Gathering intel on Raden's location from the encampment.",
-              "arena": "wits",
-              "actionType": "assess",
-              "control": {
-                "failure": "Conflicting information. Two locations — one is a trap. If the heroes pick wrong, they lose time and face an ambush.",
-                "success": "Refer to effect tiers.",
-                "mastery": "In addition to Raden's location, a local mentions seeing Trandoshan mercenaries asking the same questions two hours ago. Hit squad is already en route."
-              },
-              "target": "Encampment locals",
-              "resist": 2,
-              "risk": 3,
-              "effect": {
-                "fleeting": "A nervous junk trader confirms Raden was seen heading toward the water filtration plant at the swamp's edge. Three days ago.",
-                "masterful": "Multiple sources confirm: Water Filtration Plant, edge of the swamp. He's been hiding there 3 days. You also learn which approach path he's using.",
-                "legendary": "Full picture — Raden's location, his daily pattern, and the fact that he's set up crude trip-wires on the main approach. You can avoid them."
-              }
-            },
-            {
-              "id": "sc-a2s1-charm",
-              "discipline": "charm",
-              "context": "Calming Raden down. He's panicking with a blaster aimed at you.",
-              "arena": "presence",
-              "actionType": "interact",
-              "control": {
-                "failure": "Raden stays panicky. Blaster stays up. Additional checks needed or risk a firefight with the man you came to save.",
-                "success": "Refer to effect tiers.",
-                "mastery": "Raden lowers the blaster and immediately offers actionable intel — he knows a back way into Varga's fortress through the sewer outflow. Saves a planning step."
-              },
-              "target": "Warrick Raden",
-              "resist": 3,
-              "risk": 4,
-              "effect": {
-                "fleeting": "Raden lowers the blaster a few inches. Still breathing hard, still scared, but he's listening. He needs more convincing before he trusts you.",
-                "masterful": "Raden lowers the blaster. Starts talking. Relieved that Varth is alive. He'll cooperate — tells you about the fortress layout and his falling out with Varga.",
-                "legendary": "Raden breaks down with relief. Blaster clatters to the floor. He tells you everything — Varga's security, the court dynamics, the encrypted datapad location, and what Demos is really up to."
-              }
-            },
-            {
-              "id": "sc-a2s1-tactics",
+              "id": "sc-a2s4-tactics",
               "discipline": "tactics",
               "context": "Reading the hit squad's approach pattern at the filtration plant.",
               "arena": "wits",
@@ -652,13 +1166,13 @@
               "resist": 3,
               "risk": 4,
               "effect": {
-                "fleeting": "You clock movement from two directions — they're flanking. Enough warning to not be caught flat-footed, but positioning is still reactive.",
+                "fleeting": "You clock movement from two directions — they're flanking. Enough warning to not be caught flat-footed, but positioning is reactive.",
                 "masterful": "They're coming from three directions — rear maintenance hatch is unguarded. You can set up a crossfire or use the hatch to escape.",
-                "legendary": "Complete tactical picture. You identify their approach vectors, communication signals, and a structural weakness in the plant wall you can collapse to cut off their flank."
+                "legendary": "Complete tactical picture. Approach vectors, communication signals, and a structural weakness you can collapse to cut off their flank."
               }
             },
             {
-              "id": "sc-a2s1-tech",
+              "id": "sc-a2s4-tech",
               "discipline": "tech",
               "context": "Overloading the filtration machinery for area denial against the hit squad.",
               "arena": "wits",
@@ -666,42 +1180,22 @@
               "control": {
                 "failure": "Machinery sputters. Partial obstruction only. The Trandoshans are slowed but not stopped.",
                 "success": "Refer to effect tiers.",
-                "mastery": "The overload is perfectly controlled. You also rig a secondary burst on a timer — 3 rounds later, another steam wall erupts, buying additional escape time."
+                "mastery": "Perfectly controlled overload. You also rig a secondary burst on a timer — 3 rounds later, another steam wall erupts."
               },
               "target": "Filtration machinery",
               "resist": 2,
               "risk": 3,
               "effect": {
-                "fleeting": "A jet of steam erupts from one pipe. Partial cover — blocks one approach vector for 1 round.",
-                "masterful": "Steam erupts in a wall of scalding vapor. Trandoshans are forced back — the entire zone is hazardous for 2 rounds.",
-                "legendary": "Catastrophic controlled overload. The entire filtration array vents superheated steam simultaneously. The Trandoshans are driven back to the perimeter. Full area denial for 3 rounds."
-              }
-            },
-            {
-              "id": "sc-a2s1-deception",
-              "discipline": "deception",
-              "context": "Building a convincing cover identity for the palace infiltration.",
-              "arena": "presence",
-              "actionType": "interact",
-              "control": {
-                "failure": "Cover has gaps. Varga's people may ask uncomfortable questions. Demos is suspicious from arrival.",
-                "success": "Refer to effect tiers.",
-                "mastery": "The cover identity is so convincing that Raden's vouching sounds natural. Varga's gate guards wave you through without secondary verification."
-              },
-              "target": "Varga's court",
-              "resist": 3,
-              "risk": 4,
-              "effect": {
-                "fleeting": "Thin but functional cover. It'll survive casual scrutiny but won't hold under interrogation. You'll need to stay low-profile.",
-                "masterful": "Air-tight cover. Raden vouches convincingly. Backgrounds, references, and specialties all check out. Standard entry.",
-                "legendary": "The cover identity has depth — a fabricated history that even TC-663's records corroborate. You arrive with a reputation that precedes you. Varga is interested before you walk in."
+                "fleeting": "A jet of steam erupts from one pipe. Partial cover — blocks one approach for 1 round.",
+                "masterful": "Steam erupts in a wall of scalding vapor. Trandoshans forced back — entire zone is hazardous for 2 rounds.",
+                "legendary": "Catastrophic controlled overload. The entire filtration array vents superheated steam. Trandoshans driven to the perimeter. Full area denial for 3 rounds."
               }
             }
           ]
         },
         {
-          "id": "adv2-p1-s2",
-          "number": 2,
+          "id": "adv2-p1-s5",
+          "number": 5,
           "title": "The Court of Varga",
           "subtitle": "The Throne Room",
           "readAloud": "The skiff glides across Nymeve Lake through hanging curtains of mist. The fortress materializes ahead — a moss-covered stone ruin retrofitted with gaudy tech, blaster turrets, and gaudy banners bearing Varga's sigil. You dock at a landing platform ringed by Gamorrean guards.\n\nRaden leads you through damp, torch-lit corridors that smell of mold and roasting meat. You emerge into Varga's Throne Room — a sensory assault of thick smoke, frantic jizz-wailer music, and a crowd of sycophants, thieves, and scavengers.\n\nAt the far end, resting on a massive reinforced hover-sled, sits Varga the Hutt. He is bloated, scarred, and flanked by a polished silver protocol droid. Varga barks in Huttese, his deep voice shaking the room. The droid translates:\n\n\"The Mighty Varga is bored with beggars. Prove you are worth his air.\"",

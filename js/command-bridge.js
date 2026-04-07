@@ -3136,6 +3136,8 @@
 
   var _missionSummaryGenerating = false;
 
+  var _msSelectedPartIds = [];
+
   function openMissionSummaryModal() {
     if (_missionSummaryGenerating) return;
     if (!currentAdventure) return;
@@ -3145,6 +3147,9 @@
 
     var adv = getAdventure(currentAdventure);
     var advTitle = adv ? adv.title : currentAdventure;
+    var parts = adv ? (adv.parts || []) : [];
+
+    _msSelectedPartIds = [];
 
     var overlay = document.createElement('div');
     overlay.id = 'cb-mission-summary-overlay';
@@ -3157,14 +3162,18 @@
           '<button class="cb-mission-summary-close" id="ms-close">&times;</button>' +
         '</div>' +
         '<div class="cb-mission-summary-body" id="ms-body">' +
-          '<div class="cb-mission-summary-loading" id="ms-loading">' +
+          '<div class="ms-scope-selector" id="ms-scope">' +
+            '<div class="ms-scope-heading">Select scope for debrief</div>' +
+            '<div class="ms-scope-hint">Parts with existing debriefs are excluded by default.</div>' +
+            '<div class="ms-scope-parts" id="ms-scope-parts"></div>' +
+          '</div>' +
+          '<div class="cb-mission-summary-loading" id="ms-loading" style="display:none;">' +
             '<div class="cb-mission-summary-spinner"></div>' +
             '<span>Generating mission debrief\u2026</span>' +
           '</div>' +
         '</div>' +
-        '<div class="cb-mission-summary-footer" id="ms-footer" style="display:none;">' +
-          '<button class="cb-header-btn" id="ms-regenerate">Regenerate</button>' +
-          '<button class="cb-header-btn accent" id="ms-save">Save to Journal</button>' +
+        '<div class="cb-mission-summary-footer" id="ms-footer">' +
+          '<button class="cb-header-btn accent" id="ms-generate-btn">Generate Debrief</button>' +
         '</div>' +
       '</div>';
 
@@ -3174,14 +3183,88 @@
     overlay.addEventListener('click', function (e) {
       if (e.target === overlay) closeMissionSummaryModal();
     });
-    document.getElementById('ms-regenerate').addEventListener('click', function () {
-      generateMissionSummary();
-    });
-    document.getElementById('ms-save').addEventListener('click', function () {
-      saveMissionDebrief();
+
+    fetch('/api/journal/entries')
+      .then(function (r) { return r.json(); })
+      .then(function (journal) {
+        var entries = journal.entries || journal || [];
+        var debriefedParts = {};
+        entries.forEach(function (e) {
+          if (e.author_character_name !== 'Mission Debrief') return;
+          var sid = e.source_scene_id || '';
+          if (sid.indexOf('parts:') === 0) {
+            sid.replace('parts:', '').split(',').forEach(function (pid) {
+              debriefedParts[pid.trim()] = true;
+            });
+          } else if (sid === 'adventure:' + currentAdventure) {
+            parts.forEach(function (p) { debriefedParts[p.id] = true; });
+          }
+        });
+        renderScopeSelector(parts, debriefedParts);
+      })
+      .catch(function () {
+        renderScopeSelector(parts, {});
+      });
+  }
+
+  function renderScopeSelector(parts, debriefedParts) {
+    var container = document.getElementById('ms-scope-parts');
+    if (!container) return;
+    container.innerHTML = '';
+
+    parts.forEach(function (part) {
+      var scenes = part.scenes || [];
+      var isDebriefed = !!debriefedParts[part.id];
+      var partEl = document.createElement('label');
+      partEl.className = 'ms-scope-part' + (isDebriefed ? ' ms-debriefed' : '');
+      var cb = document.createElement('input');
+      cb.type = 'checkbox';
+      cb.value = part.id;
+      cb.checked = !isDebriefed;
+      cb.className = 'ms-scope-cb';
+      partEl.appendChild(cb);
+
+      var info = document.createElement('div');
+      info.className = 'ms-scope-part-info';
+      var title = document.createElement('span');
+      title.className = 'ms-scope-part-title';
+      title.textContent = 'Part ' + part.number + ': ' + (part.title || part.id);
+      info.appendChild(title);
+
+      if (isDebriefed) {
+        var badge = document.createElement('span');
+        badge.className = 'ms-scope-badge';
+        badge.textContent = 'DEBRIEFED';
+        info.appendChild(badge);
+      }
+
+      var sceneList = document.createElement('div');
+      sceneList.className = 'ms-scope-scenes';
+      scenes.forEach(function (s) {
+        var sEl = document.createElement('span');
+        sEl.className = 'ms-scope-scene';
+        sEl.textContent = 'S' + s.number + ': ' + s.title;
+        sceneList.appendChild(sEl);
+      });
+      info.appendChild(sceneList);
+
+      partEl.appendChild(info);
+      container.appendChild(partEl);
     });
 
-    generateMissionSummary();
+    var genBtn = document.getElementById('ms-generate-btn');
+    if (genBtn) {
+      genBtn.onclick = function () {
+        var cbs = container.querySelectorAll('.ms-scope-cb:checked');
+        _msSelectedPartIds = [];
+        for (var i = 0; i < cbs.length; i++) _msSelectedPartIds.push(cbs[i].value);
+        if (_msSelectedPartIds.length === 0) {
+          showToast('Select at least one part to debrief');
+          return;
+        }
+        generateMissionSummary();
+      };
+    }
   }
 
   function generateMissionSummary() {
@@ -3189,7 +3272,9 @@
     var bodyEl = document.getElementById('ms-body');
     var footerEl = document.getElementById('ms-footer');
     var loadingEl = document.getElementById('ms-loading');
+    var scopeEl = document.getElementById('ms-scope');
 
+    if (scopeEl) scopeEl.style.display = 'none';
     if (loadingEl) {
       loadingEl.innerHTML = '<div class="cb-mission-summary-spinner"></div><span>Generating mission debrief\u2026</span>';
       loadingEl.style.display = 'flex';
@@ -3201,7 +3286,8 @@
 
     fetch('/api/campaign/adventures/' + encodeURIComponent(currentAdventure) + '/summary', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' }
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ partIds: _msSelectedPartIds })
     })
     .then(function (r) {
       if (!r.ok) return r.json().then(function (d) { throw new Error(d.error || 'Generation failed'); });
@@ -3218,9 +3304,18 @@
       textarea.value = data.summary || '';
       bodyEl.appendChild(textarea);
 
-      if (footerEl) footerEl.style.display = 'flex';
-      var saveBtn = document.getElementById('ms-save');
-      if (saveBtn) saveBtn.style.display = '';
+      if (footerEl) {
+        footerEl.innerHTML =
+          '<button class="cb-header-btn" id="ms-regenerate">Regenerate</button>' +
+          '<button class="cb-header-btn accent" id="ms-save">Save to Journal</button>';
+        footerEl.style.display = 'flex';
+        document.getElementById('ms-regenerate').addEventListener('click', function () {
+          generateMissionSummary();
+        });
+        document.getElementById('ms-save').addEventListener('click', function () {
+          saveMissionDebrief();
+        });
+      }
     })
     .catch(function (err) {
       _missionSummaryGenerating = false;
@@ -3230,9 +3325,12 @@
         loadingEl.style.display = 'flex';
       }
       if (footerEl) {
+        footerEl.innerHTML =
+          '<button class="cb-header-btn" id="ms-regenerate">Retry</button>';
         footerEl.style.display = 'flex';
-        var saveBtn = document.getElementById('ms-save');
-        if (saveBtn) saveBtn.style.display = 'none';
+        document.getElementById('ms-regenerate').addEventListener('click', function () {
+          generateMissionSummary();
+        });
       }
     });
   }
@@ -3243,7 +3341,15 @@
 
     var adv = getAdventure(currentAdventure);
     var advTitle = adv ? adv.title : currentAdventure;
-    var title = 'Mission Debrief: ' + advTitle;
+    var partLabels = [];
+    if (_msSelectedPartIds.length && adv) {
+      _msSelectedPartIds.forEach(function (pid) {
+        var p = getPart(adv, pid);
+        if (p) partLabels.push('Part ' + p.number);
+      });
+    }
+    var title = 'Mission Debrief: ' + advTitle + (partLabels.length ? ' \u2014 ' + partLabels.join(', ') : '');
+    var sourceId = _msSelectedPartIds.length ? 'parts:' + _msSelectedPartIds.join(',') : 'adventure:' + currentAdventure;
 
     fetch('/api/journal/entries', {
       method: 'POST',
@@ -3252,7 +3358,7 @@
         title: title,
         body: textarea.value.trim(),
         author_character_name: 'Mission Debrief',
-        source_scene_id: 'adventure:' + currentAdventure
+        source_scene_id: sourceId
       })
     })
     .then(function (r) {

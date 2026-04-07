@@ -966,15 +966,21 @@ function extractBibleContext(adventureId) {
   return { themes, synopsis, characters };
 }
 
-async function assembleMissionContext(adventureId) {
+async function assembleMissionContext(adventureId, partIds) {
   const data = loadAdventures();
   const decisionState = await resolveDecisionState();
   const rawAdv = data.adventures.find(a => a.id === adventureId);
   if (!rawAdv) return null;
   const adv = applyAdventureConditionals(rawAdv, decisionState);
 
+  const filteredParts = partIds && partIds.length
+    ? (adv.parts || []).filter(p => partIds.includes(p.id))
+    : (adv.parts || []);
+
+  if (!filteredParts.length) return null;
+
   const allSceneIds = [];
-  for (const part of (adv.parts || [])) {
+  for (const part of filteredParts) {
     for (const scene of (part.scenes || [])) {
       allSceneIds.push(scene.id);
     }
@@ -987,10 +993,12 @@ async function assembleMissionContext(adventureId) {
   const completionMap = {};
   completionsResult.rows.forEach(c => { completionMap[c.scene_id] = c; });
 
-  const decisionsResult = await pool.query(
-    'SELECT decision_key, choice, outcome, campaign_impact FROM campaign_decisions WHERE adventure_id = $1 ORDER BY created_at ASC',
-    [adventureId]
-  );
+  const decisionsResult = allSceneIds.length
+    ? await pool.query(
+        'SELECT decision_key, choice, outcome, campaign_impact FROM campaign_decisions WHERE adventure_id = $1 AND scene_id = ANY($2) ORDER BY created_at ASC',
+        [adventureId, allSceneIds]
+      )
+    : { rows: [] };
 
   const journalResult = await pool.query(
     'SELECT title, body, author_character_name, source_scene_id FROM journal_entries WHERE source_scene_id = ANY($1) ORDER BY created_at ASC',
@@ -1013,7 +1021,7 @@ async function assembleMissionContext(adventureId) {
   });
 
   const sceneSummaries = [];
-  for (const part of (adv.parts || [])) {
+  for (const part of filteredParts) {
     for (const scene of (part.scenes || [])) {
       const comp = completionMap[scene.id];
       const isComplete = comp && comp.completed;
@@ -1022,6 +1030,8 @@ async function assembleMissionContext(adventureId) {
       const combinedNotes = [authoredNotes, completionNotes].filter(Boolean).join(' | ');
       sceneSummaries.push({
         id: scene.id,
+        partId: part.id,
+        partTitle: part.title || '',
         title: scene.title,
         subtitle: scene.subtitle || '',
         challengeType: scene.challengeType || '',
@@ -1035,6 +1045,12 @@ async function assembleMissionContext(adventureId) {
 
   const bible = extractBibleContext(adventureId);
 
+  const scopeParts = filteredParts.map(p => ({
+    id: p.id,
+    number: p.number,
+    title: p.title || ''
+  }));
+
   return {
     adventure: {
       id: adv.id,
@@ -1043,6 +1059,7 @@ async function assembleMissionContext(adventureId) {
       act: adv.act,
       summary: adv.summary || ''
     },
+    scopeParts,
     scenes: sceneSummaries,
     decisions: decisionsResult.rows,
     journalEntries: journalResult.rows,
@@ -1104,7 +1121,7 @@ SETTING: The Galactic Empire is two years old. The Clone Wars are recent memory.
 
 TONE: Write in a clipped, professional, third-person past tense voice — like a Rebel Alliance intelligence officer reconstructing events from field reports. No flowery prose. No omniscient narrator. The analyst knows what the crew did and what choices they made, but interprets events through the lens of someone piecing together the story after the fact. Use specific names and details from the data provided. Reference crew members by name. Reference key NPCs and their fates where relevant.
 ${bibleSection}
-ADVENTURE: Episode ${ctx.adventure.number} — "${ctx.adventure.title}" (Act ${ctx.adventure.act})${ctx.adventure.summary ? '\nADVENTURE BRIEF: ' + ctx.adventure.summary : ''}
+ADVENTURE: Episode ${ctx.adventure.number} — "${ctx.adventure.title}" (Act ${ctx.adventure.act})${ctx.adventure.summary ? '\nADVENTURE BRIEF: ' + ctx.adventure.summary : ''}${ctx.scopeParts && ctx.scopeParts.length ? '\nDEBRIEF SCOPE: ' + ctx.scopeParts.map(p => `Part ${p.number}: "${p.title}"`).join(', ') + ' — Only cover events from these parts. Other parts have been debriefed separately.' : ''}
 
 CREW ROSTER:
   ${crewList || 'Unknown crew complement'}
@@ -1138,9 +1155,10 @@ router.post('/campaign/adventures/:adventureId/summary', async (req, res) => {
   }
 
   const { adventureId } = req.params;
+  const partIds = Array.isArray(req.body.partIds) ? req.body.partIds : [];
   let ctx;
   try {
-    ctx = await assembleMissionContext(adventureId);
+    ctx = await assembleMissionContext(adventureId, partIds.length ? partIds : null);
   } catch (assemblyErr) {
     console.error('[mission-summary] Context assembly failed:', assemblyErr.message);
     return res.status(500).json({ error: 'Failed to assemble mission context.' });

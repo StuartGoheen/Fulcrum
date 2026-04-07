@@ -5030,6 +5030,90 @@
         border-top: 1px solid #3a3632;
       }
 
+      .ms-scope-selector {
+        padding: 0;
+      }
+      .ms-scope-heading {
+        font-family: 'Audiowide', sans-serif;
+        font-size: 0.7rem;
+        color: #c8a44e;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-bottom: 0.25rem;
+      }
+      .ms-scope-hint {
+        font-family: 'Exo 2', sans-serif;
+        font-size: 0.65rem;
+        color: #5a5248;
+        margin-bottom: 0.75rem;
+      }
+      .ms-scope-parts {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .ms-scope-part {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.6rem;
+        padding: 0.6rem 0.75rem;
+        background: #1a1a1e;
+        border: 1px solid #3a3632;
+        border-radius: 2px;
+        cursor: pointer;
+        transition: border-color 0.15s;
+      }
+      .ms-scope-part:hover {
+        border-color: #818cf8;
+      }
+      .ms-scope-part.ms-debriefed {
+        opacity: 0.55;
+      }
+      .ms-scope-cb {
+        margin-top: 2px;
+        accent-color: #818cf8;
+        cursor: pointer;
+      }
+      .ms-scope-part-info {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+      }
+      .ms-scope-part-title {
+        font-family: 'Exo 2', sans-serif;
+        font-size: 0.75rem;
+        color: #d4c5a0;
+        font-weight: 600;
+      }
+      .ms-scope-badge {
+        display: inline-block;
+        font-family: 'Audiowide', sans-serif;
+        font-size: 0.55rem;
+        color: #4ade80;
+        background: rgba(74,222,128,0.1);
+        border: 1px solid rgba(74,222,128,0.25);
+        padding: 1px 6px;
+        border-radius: 2px;
+        letter-spacing: 0.08em;
+        width: fit-content;
+      }
+      .ms-scope-scenes {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.3rem;
+        margin-top: 0.15rem;
+      }
+      .ms-scope-scene {
+        font-family: 'Exo 2', sans-serif;
+        font-size: 0.6rem;
+        color: #7a7068;
+        background: rgba(255,255,255,0.03);
+        padding: 1px 6px;
+        border-radius: 2px;
+        border: 1px solid #2a2a2e;
+      }
+
       .journal-mission-debrief {
         background: linear-gradient(135deg, rgba(129,140,248,0.06) 0%, rgba(129,140,248,0.02) 100%);
         border: 1px solid rgba(129,140,248,0.2);
