@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Vanishing Place — Level 1</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #1a1a1a; display: flex; justify-content: center; align-items: center; min-height: 100vh; font-family: 'Segoe UI', sans-serif; }
+  svg { max-width: 95vw; max-height: 95vh; filter: drop-shadow(0 0 30px rgba(0,0,0,0.5)); }
+  .room { cursor: pointer; transition: opacity 0.2s; }
+  .room:hover { opacity: 0.85; }
+  .wall { fill: #2a2a2a; stroke: #444; stroke-width: 2; }
+  .floor-detention { fill: #3a2828; }
+  .floor-medical { fill: #283a2e; }
+  .floor-comms { fill: #28303a; }
+  .floor-generator { fill: #3a3528; }
+  .floor-corridor { fill: #333; }
+  .floor-storage { fill: #2e2e33; }
+  .floor-command { fill: #2e2833; }
+  .floor-pens { fill: #382828; }
+  .floor-sluice { fill: #1e2e2e; }
+  .floor-landing { fill: #2a2a2a; }
+  .room-label { fill: #e0d4b8; font-family: 'Segoe UI', sans-serif; font-size: 13px; font-weight: 600; text-anchor: middle; letter-spacing: 1px; text-transform: uppercase; pointer-events: none; }
+  .room-sublabel { fill: #998b70; font-family: 'Segoe UI', sans-serif; font-size: 9px; text-anchor: middle; pointer-events: none; }
+  .grid-line { stroke: #444; stroke-width: 0.3; opacity: 0.3; }
+  .outer-wall { fill: none; stroke: #666; stroke-width: 4; }
+  .inner-wall { fill: none; stroke: #555; stroke-width: 2; }
+  .door { fill: #8a7a55; stroke: #665a3a; stroke-width: 1; }
+  .door-security { fill: #aa4444; stroke: #882222; stroke-width: 1; }
+  .laser-fence { stroke: #ff4444; stroke-width: 2; stroke-dasharray: 6,4; opacity: 0.7; }
+  .turret { fill: #555; stroke: #888; stroke-width: 1.5; }
+  .turret-barrel { fill: #666; stroke: #888; stroke-width: 1; }
+  .icon { fill: #998b70; opacity: 0.6; }
+  .moss { fill: #2a4a2a; opacity: 0.15; }
+  .entry-arrow { fill: #4a9; stroke: none; }
+  .entry-label { fill: #4a9; font-size: 10px; font-family: 'Segoe UI', sans-serif; text-anchor: middle; }
+  .legend-bg { fill: #222; stroke: #444; stroke-width: 1; rx: 4; }
+  .legend-text { fill: #998b70; font-size: 9px; font-family: 'Segoe UI', sans-serif; }
+  .legend-title { fill: #e0d4b8; font-size: 10px; font-weight: 600; font-family: 'Segoe UI', sans-serif; }
+  .title-text { fill: #e0d4b8; font-family: 'Georgia', serif; font-size: 22px; font-weight: 700; text-anchor: middle; letter-spacing: 3px; }
+  .subtitle-text { fill: #998b70; font-family: 'Segoe UI', sans-serif; font-size: 11px; text-anchor: middle; letter-spacing: 2px; }
+  .tooltip { position: fixed; background: #222; border: 1px solid #665a3a; color: #e0d4b8; padding: 8px 12px; border-radius: 4px; font-size: 12px; max-width: 250px; pointer-events: none; z-index: 100; display: none; }
+</style>
+</head>
+<body>
+
+<div class="tooltip" id="tooltip"></div>
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700" width="900" height="700">
+  <defs>
+    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 20 0 L 0 0 0 20" fill="none" class="grid-line"/>
+    </pattern>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="moss-blur">
+      <feGaussianBlur stdDeviation="8"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="700" fill="#1a1a1a"/>
+
+  <!-- Title -->
+  <text x="450" y="35" class="title-text">THE VANISHING PLACE</text>
+  <text x="450" y="52" class="subtitle-text">REPURPOSED TEMPLE RUIN — AJAN KLOSS — LEVEL 1</text>
+
+  <!-- ============ OUTER WALLS (irregular temple shape) ============ -->
+  <g transform="translate(50, 70)">
+
+    <!-- Moss patches on walls (organic feel) -->
+    <ellipse cx="120" cy="200" rx="40" ry="25" class="moss" filter="url(#moss-blur)"/>
+    <ellipse cx="680" cy="150" rx="35" ry="20" class="moss" filter="url(#moss-blur)"/>
+    <ellipse cx="400" cy="500" rx="50" ry="30" class="moss" filter="url(#moss-blur)"/>
+    <ellipse cx="100" cy="420" rx="30" ry="35" class="moss" filter="url(#moss-blur)"/>
+
+    <!-- Main structure outline -->
+    <path class="wall" d="
+      M 60,80
+      L 60,20 Q 60,0 80,0
+      L 720,0 Q 740,0 740,20
+      L 740,100
+      L 800,100 Q 800,100 800,120
+      L 800,280 Q 800,300 780,300
+      L 740,300
+      L 740,420 Q 740,440 720,440
+      L 580,440
+      L 580,520 Q 580,540 560,540
+      L 340,540 Q 320,540 320,520
+      L 320,440
+      L 80,440 Q 60,440 60,420
+      L 60,350
+      L 0,350 Q 0,350 0,330
+      L 0,200 Q 0,180 20,180
+      L 60,180
+      Z
+    "/>
+
+    <!-- Grid overlay -->
+    <rect x="0" y="0" width="800" height="540" fill="url(#grid)" opacity="0.4"/>
+
+    <!-- ============ ROOMS ============ -->
+
+    <!-- DRAINAGE SLUICE (Entry) -->
+    <g class="room" data-room="sluice" data-desc="Secret entrance on the northeast face. Mandrake guides the crew through this flooded tunnel into the fortress interior. Tight, dark, knee-deep in brackish water.">
+      <rect x="680" y="10" width="50" height="80" rx="3" class="floor-sluice"/>
+      <text x="705" y="45" class="room-label" style="font-size:8px;">DRAINAGE</text>
+      <text x="705" y="57" class="room-label" style="font-size:8px;">SLUICE</text>
+      <text x="705" y="72" class="room-sublabel">Entry Point</text>
+    </g>
+
+    <!-- Entry arrow -->
+    <polygon points="755,50 775,40 775,60" class="entry-arrow"/>
+    <text x="790" y="55" class="entry-label" style="text-anchor:start; font-size:9px;">ENTRY</text>
+
+    <!-- COMMUNICATIONS CENTER -->
+    <g class="room" data-room="comms" data-desc="Where the crew intercepts transmissions revealing Draco is en route. Contains Clone Wars-era comm equipment bolted to ancient stone walls. Hard clock trigger point.">
+      <rect x="520" y="10" width="150" height="100" rx="3" class="floor-comms"/>
+      <rect x="540" y="20" width="20" height="15" rx="2" class="icon"/>
+      <rect x="570" y="20" width="20" height="15" rx="2" class="icon"/>
+      <rect x="600" y="20" width="20" height="15" rx="2" class="icon"/>
+      <rect x="635" y="30" width="25" height="50" rx="2" class="icon" opacity="0.3"/>
+      <text x="595" y="75" class="room-label">COMM CENTER</text>
+      <text x="595" y="90" class="room-sublabel">Intel Intercept Point</text>
+    </g>
+
+    <!-- STORAGE -->
+    <g class="room" data-room="storage" data-desc="Scavenged Clone Wars tech, weapon crates, supply containers. Lootable. Skarn's mercenaries have been stockpiling here.">
+      <rect x="380" y="10" width="130" height="100" rx="3" class="floor-storage"/>
+      <rect x="400" y="30" width="30" height="20" rx="2" class="icon"/>
+      <rect x="440" y="25" width="25" height="25" rx="2" class="icon"/>
+      <rect x="475" y="30" width="20" height="20" rx="2" class="icon"/>
+      <rect x="400" y="65" width="35" height="20" rx="2" class="icon"/>
+      <text x="445" y="75" class="room-label">STORAGE</text>
+      <text x="445" y="90" class="room-sublabel">Clone Wars Salvage</text>
+    </g>
+
+    <!-- MEDICAL BAY -->
+    <g class="room" data-room="medical" data-desc="Captain Vischera's domain. Biological experiments on jungle wildlife. Specimen tanks, surgical tables, datapads. She's not a fighter — will surrender if cornered and trade intel for safety.">
+      <rect x="70" y="10" width="300" height="160" rx="3" class="floor-medical"/>
+      <!-- Operating table -->
+      <rect x="150" y="40" width="60" height="25" rx="8" class="icon"/>
+      <!-- Specimen tanks -->
+      <circle cx="110" cy="50" r="18" class="icon"/>
+      <circle cx="110" cy="100" r="18" class="icon"/>
+      <circle cx="110" cy="145" r="18" class="icon"/>
+      <!-- Equipment -->
+      <rect x="240" y="30" width="15" height="40" rx="2" class="icon"/>
+      <rect x="265" y="30" width="15" height="40" rx="2" class="icon"/>
+      <rect x="290" y="50" width="60" height="30" rx="3" class="icon" opacity="0.3"/>
+      <text x="210" y="105" class="room-label">MEDICAL BAY</text>
+      <text x="210" y="120" class="room-sublabel">Capt. Vischera — Experiments</text>
+    </g>
+
+    <!-- MAIN CORRIDOR -->
+    <g class="room" data-room="corridor" data-desc="Central corridor connecting all areas. Ancient stone floor with military hardware bolted to the walls. Mercenaries patrol here.">
+      <rect x="70" y="180" width="300" height="60" rx="2" class="floor-corridor"/>
+      <rect x="380" y="120" width="130" height="120" rx="2" class="floor-corridor"/>
+      <rect x="520" y="120" width="150" height="80" rx="2" class="floor-corridor"/>
+      <text x="220" y="216" class="room-label">MAIN CORRIDOR</text>
+    </g>
+
+    <!-- GENERATOR ROOM (Center) -->
+    <g class="room" data-room="generator" data-desc="THE critical target. Powers: (1) perimeter turrets, (2) laser fences on prisoner pens, (3) security doors on detention block, (4) sensor grid. One sabotage action = four payoffs. Tech check to disable.">
+      <rect x="260" y="250" width="180" height="180" rx="3" class="floor-generator"/>
+      <!-- Generator unit -->
+      <rect x="310" y="290" width="80" height="80" rx="5" fill="#4a4020" stroke="#665a3a" stroke-width="2"/>
+      <rect x="330" y="310" width="40" height="40" rx="20" fill="#332a10" stroke="#554a2a" stroke-width="1.5"/>
+      <circle cx="350" cy="330" r="10" fill="#aa8833" opacity="0.6"/>
+      <!-- Power conduits -->
+      <line x1="310" y1="330" x2="270" y2="330" stroke="#665a3a" stroke-width="2"/>
+      <line x1="390" y1="330" x2="430" y2="330" stroke="#665a3a" stroke-width="2"/>
+      <line x1="350" y1="290" x2="350" y2="260" stroke="#665a3a" stroke-width="2"/>
+      <line x1="350" y1="370" x2="350" y2="420" stroke="#665a3a" stroke-width="2"/>
+      <text x="350" y="400" class="room-label">GENERATOR</text>
+      <text x="350" y="415" class="room-sublabel">4-Payoff Sabotage Target</text>
+    </g>
+
+    <!-- COMMAND AREA -->
+    <g class="room" data-room="command" data-desc="Skarn's officers coordinate from here. Imperial stormtroopers (Draco's advance team) maintain an uneasy presence alongside Skarn's mercenaries. Tension is palpable.">
+      <rect x="520" y="210" width="210" height="140" rx="3" class="floor-command"/>
+      <!-- Holo-table -->
+      <rect x="580" y="250" width="80" height="50" rx="5" fill="#3a2a4a" stroke="#554466" stroke-width="1.5"/>
+      <circle cx="620" cy="275" r="15" fill="#4a3a5a" opacity="0.5"/>
+      <!-- Chairs -->
+      <circle cx="570" cy="260" r="6" class="icon"/>
+      <circle cx="570" cy="290" r="6" class="icon"/>
+      <circle cx="670" cy="260" r="6" class="icon"/>
+      <circle cx="670" cy="290" r="6" class="icon"/>
+      <text x="625" y="320" class="room-label">COMMAND AREA</text>
+      <text x="625" y="335" class="room-sublabel">Skarn's Officers + Imperial Advance Team</text>
+    </g>
+
+    <!-- DETENTION BLOCK -->
+    <g class="room" data-room="detention" data-desc="High-security cells where Admiral Varth is held. Doors are powered by the generator — they unlock when it blows. Guards posted at the entrance. Security locks require a Kit or Tech check.">
+      <rect x="520" y="360" width="210" height="70" rx="3" class="floor-detention"/>
+      <!-- Cell bars -->
+      <rect x="540" y="370" width="40" height="50" rx="2" fill="#2a1a1a" stroke="#553333" stroke-width="1"/>
+      <rect x="590" y="370" width="40" height="50" rx="2" fill="#2a1a1a" stroke="#553333" stroke-width="1"/>
+      <rect x="640" y="370" width="40" height="50" rx="2" fill="#2a1a1a" stroke="#553333" stroke-width="1"/>
+      <rect x="690" y="370" width="30" height="50" rx="2" fill="#2a1a1a" stroke="#553333" stroke-width="1"/>
+      <text x="625" y="395" class="room-label" style="font-size:12px;">DETENTION BLOCK</text>
+      <text x="625" y="410" class="room-sublabel">Varth's Cell — Generator-Locked</text>
+    </g>
+
+    <!-- Security door indicator on detention -->
+    <rect x="515" y="375" width="5" height="40" class="door-security"/>
+
+    <!-- EAST WING PENS -->
+    <g class="room" data-room="pens" data-desc="Mandrake's people — indigenous locals who resisted Skarn — are held here behind laser fences. Mandrake positions himself nearby and waits for the generator to blow. Fences drop = rescue begins.">
+      <rect x="340" y="440" width="230" height="90" rx="3" class="floor-pens"/>
+      <!-- Laser fence lines -->
+      <line x1="370" y1="450" x2="370" y2="520" class="laser-fence"/>
+      <line x1="430" y1="450" x2="430" y2="520" class="laser-fence"/>
+      <line x1="490" y1="450" x2="490" y2="520" class="laser-fence"/>
+      <!-- Prisoner icons -->
+      <circle cx="400" cy="485" r="4" fill="#884444" opacity="0.5"/>
+      <circle cx="415" cy="475" r="4" fill="#884444" opacity="0.5"/>
+      <circle cx="460" cy="480" r="4" fill="#884444" opacity="0.5"/>
+      <circle cx="450" cy="495" r="4" fill="#884444" opacity="0.5"/>
+      <circle cx="520" cy="485" r="4" fill="#884444" opacity="0.5"/>
+      <text x="455" y="478" class="room-label" style="font-size:11px;">EAST WING PENS</text>
+      <text x="455" y="493" class="room-sublabel">Indigenous Prisoners — Laser Fences</text>
+      <text x="455" y="505" class="room-sublabel">Mandrake's Objective</text>
+    </g>
+
+    <!-- GUN TURRET (SW) -->
+    <g class="room" data-room="turret-sw" data-desc="Automated gun emplacement covering the southern approach and Maya's extraction flight path. Powered by the generator. Generator down = turrets offline = clean extraction.">
+      <rect x="0" y="190" width="50" height="150" rx="3" class="floor-corridor"/>
+      <circle cx="25" cy="265" r="18" class="turret"/>
+      <rect x="20" y="235" width="10" height="30" rx="2" class="turret-barrel"/>
+      <text x="25" y="305" class="room-label" style="font-size:8px;">GUN</text>
+      <text x="25" y="317" class="room-label" style="font-size:8px;">TURRET</text>
+    </g>
+
+    <!-- GUN TURRET (NW) -->
+    <g data-room="turret-nw" data-desc="Perimeter turret covering the northern approach.">
+      <circle cx="80" cy="440" r="14" class="turret"/>
+      <rect x="75" y="415" width="10" height="25" rx="2" class="turret-barrel"/>
+    </g>
+
+    <!-- GUN TURRET (SE) -->
+    <g data-room="turret-se" data-desc="Perimeter turret covering the landing pad approach.">
+      <circle cx="740" cy="350" r="14" class="turret"/>
+      <rect x="740" y="340" width="25" height="10" rx="2" class="turret-barrel"/>
+    </g>
+
+    <!-- DOORS -->
+    <rect x="367" y="115" width="8" height="15" class="door" rx="1"/>
+    <rect x="507" y="115" width="8" height="15" class="door" rx="1"/>
+    <rect x="260" y="245" width="30" height="6" class="door" rx="1"/>
+    <rect x="435" y="245" width="30" height="6" class="door" rx="1"/>
+    <rect x="367" y="172" width="8" height="15" class="door" rx="1"/>
+    <rect x="515" y="250" width="6" height="20" class="door" rx="1"/>
+
+    <!-- LANDING PAD (exterior) -->
+    <g class="room" data-room="landing" data-desc="Lambda-class Imperial shuttle on the pad. Draco's stormtroopers stand at attention. Visible from the ridge — the first thing the crew sees. Draco arrives here.">
+      <rect x="70" y="290" width="180" height="140" rx="5" class="floor-landing" stroke="#444" stroke-width="1" stroke-dasharray="8,4"/>
+      <!-- Landing pad markings -->
+      <line x1="100" y1="360" x2="220" y2="360" stroke="#444" stroke-width="1" opacity="0.5"/>
+      <line x1="160" y1="310" x2="160" y2="410" stroke="#444" stroke-width="1" opacity="0.5"/>
+      <!-- Shuttle silhouette -->
+      <polygon points="160,325 140,375 130,385 130,395 190,395 190,385 180,375" fill="#3a3a3a" stroke="#555" stroke-width="1"/>
+      <rect x="120" y="365" width="80" height="5" rx="2" fill="#3a3a3a" stroke="#555" stroke-width="0.5"/>
+      <!-- Stormtrooper dots -->
+      <circle cx="115" cy="400" r="4" fill="#666" opacity="0.6"/>
+      <circle cx="130" cy="405" r="4" fill="#666" opacity="0.6"/>
+      <circle cx="190" cy="400" r="4" fill="#666" opacity="0.6"/>
+      <circle cx="205" cy="405" r="4" fill="#666" opacity="0.6"/>
+      <text x="160" y="425" class="room-label" style="font-size:10px;">LANDING PAD</text>
+      <text x="160" y="438" class="room-sublabel">Lambda Shuttle — Draco's Arrival</text>
+    </g>
+
+    <!-- Perimeter laser fence (dashed) -->
+    <path d="M 60,440 L 320,440 L 320,540 L 580,540 L 580,440 L 740,440" class="laser-fence" fill="none" opacity="0.4"/>
+    <text x="450" y="560" class="room-sublabel" style="fill:#aa4444; font-size:8px;">PERIMETER LASER FENCE — GENERATOR POWERED</text>
+
+    <!-- Power conduit lines from generator to systems -->
+    <g opacity="0.3">
+      <line x1="270" y1="330" x2="25" y2="265" stroke="#aa8833" stroke-width="1" stroke-dasharray="4,6"/>
+      <line x1="350" y1="420" x2="350" y2="540" stroke="#aa8833" stroke-width="1" stroke-dasharray="4,6"/>
+      <line x1="430" y1="330" x2="515" y2="395" stroke="#aa8833" stroke-width="1" stroke-dasharray="4,6"/>
+      <line x1="350" y1="260" x2="350" y2="215" stroke="#aa8833" stroke-width="1" stroke-dasharray="4,6"/>
+    </g>
+
+    <!-- MANDRAKE POSITION MARKER -->
+    <g transform="translate(340, 520)">
+      <circle cx="0" cy="0" r="6" fill="none" stroke="#4a9" stroke-width="1.5"/>
+      <circle cx="0" cy="0" r="2" fill="#4a9"/>
+      <text x="12" y="4" class="entry-label" style="text-anchor:start; font-size:8px;">MANDRAKE</text>
+      <text x="12" y="13" class="entry-label" style="text-anchor:start; font-size:7px;">WAITS HERE</text>
+    </g>
+
+  </g>
+
+  <!-- ============ LEGEND ============ -->
+  <g transform="translate(20, 620)">
+    <rect x="0" y="0" width="860" height="65" class="legend-bg"/>
+    <text x="15" y="18" class="legend-title">LEGEND</text>
+
+    <rect x="15" y="28" width="12" height="12" fill="#665a3a" rx="1"/>
+    <text x="32" y="38" class="legend-text">Standard Door</text>
+
+    <rect x="120" y="28" width="12" height="12" fill="#aa4444" rx="1"/>
+    <text x="137" y="38" class="legend-text">Security Door (Gen-Locked)</text>
+
+    <line x1="280" y1="30" x2="310" y2="30" class="laser-fence"/>
+    <text x="315" y="38" class="legend-text">Laser Fence (Gen-Powered)</text>
+
+    <circle cx="446" cy="34" r="8" class="turret"/>
+    <text x="460" y="38" class="legend-text">Gun Turret (Gen-Powered)</text>
+
+    <line x1="555" y1="30" x2="585" y2="30" stroke="#aa8833" stroke-width="1" stroke-dasharray="4,6"/>
+    <text x="590" y="38" class="legend-text">Power Conduit</text>
+
+    <circle cx="696" cy="34" r="5" fill="none" stroke="#4a9" stroke-width="1.5"/>
+    <circle cx="696" cy="34" r="2" fill="#4a9"/>
+    <text x="706" y="38" class="legend-text">NPC Position</text>
+
+    <polygon points="776,28 786,23 786,33" class="entry-arrow"/>
+    <text x="792" y="38" class="legend-text">Entry Point</text>
+
+    <text x="15" y="56" class="legend-text" style="fill:#665a3a;">GENERATOR SABOTAGE → Turrets offline + Fences drop + Security doors unlock + Sensors blind</text>
+  </g>
+</svg>
+
+<script>
+  const tooltip = document.getElementById('tooltip');
+  document.querySelectorAll('[data-desc]').forEach(el => {
+    el.addEventListener('mouseenter', e => {
+      const room = el.dataset.room;
+      const desc = el.dataset.desc;
+      tooltip.innerHTML = '<strong style="color:#e0d4b8;text-transform:uppercase;letter-spacing:1px;">' + room.replace(/-/g,' ') + '</strong><br><span style="color:#998b70;">' + desc + '</span>';
+      tooltip.style.display = 'block';
+    });
+    el.addEventListener('mousemove', e => {
+      tooltip.style.left = (e.clientX + 15) + 'px';
+      tooltip.style.top = (e.clientY + 15) + 'px';
+    });
+    el.addEventListener('mouseleave', () => {
+      tooltip.style.display = 'none';
+    });
+  });
+</script>
+</body>
+</html>
