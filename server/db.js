@@ -247,8 +247,8 @@ async function seedPregenCharacters() {
 }
 
 async function seedNpcProfiles() {
-  const existing = await pool.query('SELECT COUNT(*) as c FROM npc_profiles');
-  if (parseInt(existing.rows[0].c) > 0) return;
+  const existingKeys = await pool.query('SELECT npc_key FROM npc_profiles');
+  const seeded = new Set(existingKeys.rows.map(r => r.npc_key));
 
   const profiles = [
     {
@@ -292,20 +292,42 @@ async function seedNpcProfiles() {
       connections: JSON.stringify(['Admiral Varth — Former business associate', 'Maya — Target (stole from his supply chain)', 'Kessra — Hired muscle']),
       revealed: true,
       sort_order: 3
+    },
+    {
+      npc_key: 'draco',
+      name: 'Inquisitor Valin Draco',
+      species: 'Human',
+      role: 'Imperial Inquisitor',
+      portrait_url: '/attached_assets/generated_images/draco_inquisitor.png',
+      status: 'hostile',
+      player_bio: 'A dark figure glimpsed from the landing ramp of a Lambda shuttle at the Vanishing Place on Ajan Kloss. Imperial Inquisitor — a title that carries the weight of extinction. He arrived too late to stop the crew from extracting Varth, but the shadow he cast across the fortress was enough to send hardened mercenaries running. He carries a red lightsaber and moves with the calm certainty of a predator who has never been outrun. Whatever he wanted with Varth, the crew took it from him — and he does not seem like a man who forgives.',
+      gm_notes: 'Campaign nemesis. Former Jedi who fell during Order 66 — chose survival over principle and was recruited by the Inquisitorius. Ruthlessly pragmatic. Tortured Master Thorla to crack the Force-lock on the Ebon Spire (Adv4). Commands the Star Destroyer Assiduous. Falls into the abyss beneath the Ebon Spire in Adv4 — survives with massive injuries, returns with cybernetics in Adv6. Captures Denia in Adv7. Final confrontation at Xala stronghold in Adv9. Designed to be unbeatable in Adv1 — players should fear him before they can fight him.',
+      traits: JSON.stringify(['Relentless', 'Disciplined', 'Cruel', 'Patient', 'Force-sensitive']),
+      connections: JSON.stringify(['Admiral Varth — Quarry (Draco was sent to collect him)', 'Master Denia — Captured her in Adv7', 'Master Thorla — Tortured and discarded on Endor', 'The Crew — Interference that became personal', 'The Assiduous — His Star Destroyer']),
+      revealed: false,
+      sort_order: 4
     }
   ];
 
   const timelineEntries = [
+    { npc_key: 'draco', adventure_ref: 'Adv 1', scene_ref: 'adv1-p2-s7', event_text: 'A Lambda shuttle descended onto the fortress landing pad. A dark figure emerged — Inquisitor Valin Draco, flanked by Shadow Troopers. He came for Varth. The crew got there first.', revealed: false },
+    { npc_key: 'draco', adventure_ref: 'Adv 3', scene_ref: 'adv3-p2-s1', event_text: 'The Star Destroyer Assiduous dropped out of hyperspace over Bespin. Varth identified it as Draco\'s flagship — the "clean-up crew" for Project Leviathan. If the deal goes wrong, he\'ll glass Cloud City to bury the evidence.', revealed: false },
+    { npc_key: 'draco', adventure_ref: 'Adv 4', scene_ref: 'adv4-p3-s1', event_text: 'Found Master Thorla — a Jedi survivor of Order 66 — caged and broken inside the Ebon Spire. Draco tortured him to crack the ancient Force-lock, then left him discarded like a spent power cell.', revealed: false },
+    { npc_key: 'draco', adventure_ref: 'Adv 4', scene_ref: 'adv4-p3-s5', event_text: 'Confrontation at the Abyssal Vault. Draco stood on the platform with both holocrons. The Sith Holocron rejected him — and he fell into the abyss beneath the Ebon Spire.', revealed: false },
     { npc_key: 'maya', adventure_ref: 'Adv 1', scene_ref: 'adv1-p1-s1', event_text: 'Crashed into the crew\'s table at The Burning Deck on Jakku — wounded, fleeing Varga\'s enforcers.', revealed: true },
     { npc_key: 'maya', adventure_ref: 'Adv 1', scene_ref: 'adv1-p2-s1', event_text: 'Piloted the Banshee through the Rishi Maze. Invited the crew\'s pilot to the co-pilot seat.', revealed: true },
     { npc_key: 'varth', adventure_ref: 'Adv 1', scene_ref: 'adv1-p2-s6', event_text: 'Rescued from the Vanishing Place detention facility on Ajan Kloss. "You\'re late. I had credits on the second moonrise."', revealed: true },
     { npc_key: 'varga', adventure_ref: 'Adv 1', scene_ref: 'adv1-p1-s1', event_text: 'His enforcers pursued Maya to The Burning Deck. The crew chose to fight.', revealed: true }
   ];
 
+  const newProfiles = profiles.filter(p => !seeded.has(p.npc_key));
+  const newTimeline = timelineEntries.filter(t => !seeded.has(t.npc_key));
+  if (newProfiles.length === 0) return;
+
   const client = await pool.connect();
   try {
     await client.query('BEGIN');
-    for (const p of profiles) {
+    for (const p of newProfiles) {
       await client.query(
         `INSERT INTO npc_profiles (npc_key, name, species, role, portrait_url, status, player_bio, gm_notes, traits, connections, revealed, sort_order)
          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
@@ -313,7 +335,7 @@ async function seedNpcProfiles() {
         [p.npc_key, p.name, p.species, p.role, p.portrait_url, p.status, p.player_bio, p.gm_notes, p.traits, p.connections, p.revealed, p.sort_order]
       );
     }
-    for (const t of timelineEntries) {
+    for (const t of newTimeline) {
       await client.query(
         `INSERT INTO npc_timeline (npc_key, adventure_ref, scene_ref, event_text, revealed)
          VALUES ($1, $2, $3, $4, $5)`,
@@ -321,7 +343,8 @@ async function seedNpcProfiles() {
       );
     }
     await client.query('COMMIT');
-    console.log('[db] Seeded NPC profiles: Maya, Varth, Varga');
+    const names = newProfiles.map(p => p.name).join(', ');
+    console.log(`[db] Seeded NPC profiles: ${names}`);
   } catch (err) {
     await client.query('ROLLBACK');
     console.error('[db] Failed to seed NPC profiles:', err);
