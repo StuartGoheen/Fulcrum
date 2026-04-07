@@ -108,6 +108,18 @@ uri = "file://attached_assets/fulcrum-final-v6.png"
 type = "image"
 title = "Fulcrum asymmetric crystal pips"
 
+[[generated]]
+id = "sC8HF_gJ1kxDCXgLbnzbQ"
+uri = "file://attached_assets/generated_images/varth_before_turn.png"
+type = "image"
+title = "Varth charming con man portrait"
+
+[[generated]]
+id = "a2SE__5QkifgXMHoursyH"
+uri = "file://attached_assets/generated_images/varth_after_turn.png"
+type = "image"
+title = "Varth cold imperial portrait"
+
 [[outputs]]
 id = "2LcyfBitBojI2aNp3Z-pi"
 uri = "file://assets/fulcrum-resolution-infographic.png"
