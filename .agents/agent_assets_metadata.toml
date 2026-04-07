@@ -120,6 +120,18 @@ uri = "file://attached_assets/generated_images/varth_after_turn.png"
 type = "image"
 title = "Varth cold Imperial clean face"
 
+[[generated]]
+id = "_GMunEXGq7TB3zO4-1Um9"
+uri = "file://attached_assets/generated_images/maya_pilot.png"
+type = "image"
+title = "Maya scrappy pilot portrait"
+
+[[generated]]
+id = "l6ZhaZtUy3fMxq5SLDPs9"
+uri = "file://attached_assets/generated_images/maya_conscience.png"
+type = "image"
+title = "Maya conscience leader portrait"
+
 [[outputs]]
 id = "2LcyfBitBojI2aNp3Z-pi"
 uri = "file://assets/fulcrum-resolution-infographic.png"
