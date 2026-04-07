@@ -52,6 +52,9 @@
     <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
       <path d="M 20 0 L 0 0 0 20" fill="none" class="grid-line"/>
     </pattern>
+    <pattern id="wall-hatch" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="10" stroke="#3a3a3a" stroke-width="1.2"/>
+    </pattern>
     <filter id="glow">
       <feGaussianBlur stdDeviation="3" result="blur"/>
       <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
@@ -79,6 +82,27 @@
 
     <!-- Main structure outline -->
     <path class="wall" d="
+      M 60,80
+      L 60,20 Q 60,0 80,0
+      L 720,0 Q 740,0 740,20
+      L 740,100
+      L 800,100 Q 800,100 800,120
+      L 800,280 Q 800,300 780,300
+      L 740,300
+      L 740,420 Q 740,440 720,440
+      L 580,440
+      L 580,520 Q 580,540 560,540
+      L 340,540 Q 320,540 320,520
+      L 320,440
+      L 80,440 Q 60,440 60,420
+      L 60,350
+      L 0,350 Q 0,350 0,330
+      L 0,200 Q 0,180 20,180
+      L 60,180
+      Z
+    "/>
+    <!-- Cross-hatch overlay on walls (impassable stone) -->
+    <path fill="url(#wall-hatch)" opacity="0.5" d="
       M 60,80
       L 60,20 Q 60,0 80,0
       L 720,0 Q 740,0 740,20
