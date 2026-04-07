@@ -409,6 +409,7 @@
       '<div class="handbook-tab-bar">' +
         '<button class="handbook-tab-btn is-active" data-hb-tab="handbook">Handbook</button>' +
         '<button class="handbook-tab-btn" data-hb-tab="journal">Journal</button>' +
+        '<button class="handbook-tab-btn" data-hb-tab="dramatis">Dramatis Personae</button>' +
       '</div>' +
       '<div class="handbook-tab-content is-active" data-hb-tab-content="handbook">' +
         '<div class="handbook-sidebar">' +
@@ -446,6 +447,11 @@
       '</div>' +
       '<div class="handbook-tab-content" data-hb-tab-content="journal">' +
         '<div class="journal-tab-wrap" id="journal-tab-wrap"></div>' +
+      '</div>' +
+      '<div class="handbook-tab-content" data-hb-tab-content="dramatis">' +
+        '<div class="dramatis-tab-wrap" id="dramatis-tab-wrap">' +
+          '<div class="dp-player-empty">Loading dossiers\u2026</div>' +
+        '</div>' +
       '</div>';
     return el;
   }
@@ -1983,6 +1989,9 @@
     if (tabName === 'journal') {
       _loadJournalData();
     }
+    if (tabName === 'dramatis') {
+      _loadDramatisData();
+    }
   }
 
   function _open(id) {
@@ -2583,6 +2592,165 @@
       }
     }
   }
+
+  var _dramatisProfiles = [];
+  var _dramatisExpanded = null;
+
+  function _loadDramatisData() {
+    var wrap = document.getElementById('dramatis-tab-wrap');
+    if (!wrap) return;
+    wrap.innerHTML = '<div class="dp-player-empty">Loading dossiers\u2026</div>';
+    fetch('/api/npc-profiles/revealed')
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        _dramatisProfiles = data.profiles || [];
+        _renderDramatisTab();
+      })
+      .catch(function () {
+        wrap.innerHTML = '<div class="dp-player-empty">Could not load dossiers.</div>';
+      });
+  }
+
+  function _renderDramatisTab() {
+    var wrap = document.getElementById('dramatis-tab-wrap');
+    if (!wrap) return;
+
+    if (_dramatisProfiles.length === 0) {
+      wrap.innerHTML = '<div class="dp-player-empty">No known contacts yet. NPCs will appear here as you encounter them during the campaign.</div>';
+      return;
+    }
+
+    var statusColors = { allied: '#22c55e', neutral: '#eab308', hostile: '#ef4444', unknown: '#6b7280', deceased: '#9333ea' };
+    var html = '';
+
+    _dramatisProfiles.forEach(function (p) {
+      var sColor = statusColors[p.status] || '#6b7280';
+      var isExp = _dramatisExpanded === p.npc_key;
+
+      html += '<div class="dp-player-card' + (isExp ? ' dp-player-card--expanded' : '') + '" data-dramatis-toggle="' + _esc(p.npc_key) + '">';
+      html += '<div class="dp-player-header">';
+      if (p.portrait_url) {
+        html += '<img class="dp-player-portrait" src="' + _esc(p.portrait_url) + '" alt="' + _esc(p.name) + '" />';
+      } else {
+        html += '<div class="dp-player-placeholder">' + _esc(p.name.charAt(0)) + '</div>';
+      }
+      html += '<div class="dp-player-info">';
+      html += '<div class="dp-player-name">' + _esc(p.name) + '</div>';
+      html += '<div class="dp-player-sub">' + _esc(p.species || '') + (p.role ? ' \u2014 ' + _esc(p.role) : '') + '</div>';
+      html += '</div>';
+      html += '<span class="dp-player-status" style="background:' + sColor + ';">' + _esc(p.status) + '</span>';
+      html += '</div>';
+
+      if (isExp) {
+        html += '<div class="dp-player-detail">';
+        if (p.player_bio) {
+          html += '<div class="dp-player-bio">' + _esc(p.player_bio) + '</div>';
+        }
+        if (p.traits && p.traits.length) {
+          html += '<div class="dp-player-section-title">Known Traits</div>';
+          html += '<div class="dp-player-traits">';
+          p.traits.forEach(function (t) {
+            html += '<span class="dp-player-trait">' + _esc(t) + '</span>';
+          });
+          html += '</div>';
+        }
+        if (p.connections && p.connections.length) {
+          html += '<div class="dp-player-section-title">Connections</div>';
+          p.connections.forEach(function (c) {
+            html += '<div class="dp-player-connection">' + _esc(c) + '</div>';
+          });
+        }
+        if (p.timeline && p.timeline.length) {
+          html += '<div class="dp-player-section-title">Timeline</div>';
+          p.timeline.forEach(function (tl) {
+            html += '<div class="dp-player-timeline-entry">';
+            html += '<span class="dp-player-timeline-ref">' + _esc(tl.scene_ref || '') + '</span>';
+            html += '<span class="dp-player-timeline-text">' + _esc(tl.event_text || tl.summary || '') + '</span>';
+            html += '</div>';
+          });
+        }
+        html += '</div>';
+      }
+      html += '</div>';
+    });
+
+    wrap.innerHTML = html;
+
+    wrap.querySelectorAll('[data-dramatis-toggle]').forEach(function (card) {
+      card.addEventListener('click', function () {
+        var key = card.dataset.dramatisToggle;
+        _dramatisExpanded = (_dramatisExpanded === key) ? null : key;
+        _renderDramatisTab();
+      });
+    });
+  }
+
+  function _esc(s) {
+    if (!s) return '';
+    var d = document.createElement('div');
+    d.textContent = s;
+    return d.innerHTML;
+  }
+
+  (function _listenDramatisSocket() {
+    var sock = window._socket;
+    if (!sock) { setTimeout(_listenDramatisSocket, 2000); return; }
+
+    sock.on('npc:sync', function (data) {
+      _dramatisProfiles = data.profiles || [];
+      if (_activeTab === 'dramatis') _renderDramatisTab();
+    });
+    sock.on('npc:revealed', function (data) {
+      var prof = data.profile || data;
+      if (!prof || !prof.npc_key) return;
+      var exists = _dramatisProfiles.find(function (p) { return p.npc_key === prof.npc_key; });
+      if (!exists) {
+        _dramatisProfiles.push(prof);
+        if (_activeTab === 'dramatis') _renderDramatisTab();
+      }
+    });
+    sock.on('npc:hidden', function (data) {
+      var key = data.npc_key || (data.profile && data.profile.npc_key);
+      if (!key) return;
+      _dramatisProfiles = _dramatisProfiles.filter(function (p) { return p.npc_key !== key; });
+      if (_dramatisExpanded === key) _dramatisExpanded = null;
+      if (_activeTab === 'dramatis') _renderDramatisTab();
+    });
+    sock.on('npc:status', function (data) {
+      var key = data.npc_key;
+      if (!key) return;
+      var p = _dramatisProfiles.find(function (pr) { return pr.npc_key === key; });
+      if (p) p.status = data.status;
+      if (_activeTab === 'dramatis') _renderDramatisTab();
+    });
+    sock.on('npc:updated', function (data) {
+      var prof = data.profile || data;
+      if (!prof || !prof.npc_key) return;
+      var idx = -1;
+      for (var i = 0; i < _dramatisProfiles.length; i++) {
+        if (_dramatisProfiles[i].npc_key === prof.npc_key) { idx = i; break; }
+      }
+      if (idx >= 0) {
+        _dramatisProfiles[idx] = prof;
+      } else if (prof.revealed) {
+        _dramatisProfiles.push(prof);
+      }
+      if (_activeTab === 'dramatis') _renderDramatisTab();
+    });
+    sock.on('npc:timeline', function (data) {
+      if (!data.npc_key) return;
+      var p = _dramatisProfiles.find(function (pr) { return pr.npc_key === data.npc_key; });
+      if (p) {
+        if (data.timeline) {
+          p.timeline = data.timeline;
+        } else if (data.entry) {
+          if (!p.timeline) p.timeline = [];
+          p.timeline.push(data.entry);
+        }
+        if (_activeTab === 'dramatis') _renderDramatisTab();
+      }
+    });
+  })();
 
   window.GlossaryOverlay = { open: _open, close: _close, openToProvider: _openToProvider };
 }());

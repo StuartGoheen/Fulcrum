@@ -1104,6 +1104,68 @@ function registerHandlers(io) {
       console.log('[socket] GM cancelled decision poll');
     });
 
+    socket.on('npc:request-sync', async () => {
+      try {
+        const profileResult = await pool.query(
+          'SELECT * FROM npc_profiles WHERE revealed = true ORDER BY sort_order, name'
+        );
+        const timelineResult = await pool.query(
+          'SELECT * FROM npc_timeline WHERE revealed = true ORDER BY created_at ASC'
+        );
+        const timelineByNpc = {};
+        for (const t of timelineResult.rows) {
+          if (!timelineByNpc[t.npc_key]) timelineByNpc[t.npc_key] = [];
+          timelineByNpc[t.npc_key].push({
+            id: t.id, adventure_ref: t.adventure_ref, scene_ref: t.scene_ref,
+            event_text: t.event_text, created_at: t.created_at
+          });
+        }
+        const profiles = profileResult.rows.map(r => {
+          let traits = [], connections = [];
+          try { traits = JSON.parse(r.traits); } catch (_) {}
+          try { connections = JSON.parse(r.connections); } catch (_) {}
+          return {
+            npc_key: r.npc_key, name: r.name, species: r.species, role: r.role,
+            portrait_url: r.portrait_url, status: r.status, player_bio: r.player_bio,
+            traits, connections, timeline: timelineByNpc[r.npc_key] || []
+          };
+        });
+        socket.emit('npc:sync', { profiles });
+      } catch (err) {
+        console.error('[socket] npc:request-sync error:', err);
+      }
+    });
+
+    socket.on('npc:push-update', async ({ npc_key }) => {
+      if (socket.data.role !== 'gm') return;
+      if (!npc_key) return;
+      try {
+        const result = await pool.query('SELECT * FROM npc_profiles WHERE npc_key = $1 AND revealed = true', [npc_key]);
+        if (!result.rows.length) return;
+        const r = result.rows[0];
+        let traits = [], connections = [];
+        try { traits = JSON.parse(r.traits); } catch (_) {}
+        try { connections = JSON.parse(r.connections); } catch (_) {}
+        const timelineResult = await pool.query(
+          'SELECT * FROM npc_timeline WHERE npc_key = $1 AND revealed = true ORDER BY created_at ASC', [npc_key]
+        );
+        const timeline = timelineResult.rows.map(t => ({
+          id: t.id, adventure_ref: t.adventure_ref, scene_ref: t.scene_ref,
+          event_text: t.event_text, created_at: t.created_at
+        }));
+        io.to('players').emit('npc:updated', {
+          profile: {
+            npc_key: r.npc_key, name: r.name, species: r.species, role: r.role,
+            portrait_url: r.portrait_url, status: r.status, player_bio: r.player_bio,
+            traits, connections, timeline
+          }
+        });
+        console.log('[socket] GM pushed NPC update: ' + npc_key);
+      } catch (err) {
+        console.error('[socket] npc:push-update error:', err);
+      }
+    });
+
     socket.on('disconnect', async () => {
       const { role, characterId, characterName } = socket.data;
       console.log(`[socket] Disconnected: ${socket.id} (${role || 'unknown'})`);

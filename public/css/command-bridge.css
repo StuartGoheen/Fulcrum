@@ -5569,4 +5569,170 @@
   color: #10b981;
   padding: 0.15rem 0;
 }
+
+.dp-toolbar {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border-bottom: 1px solid rgba(200,164,78,0.15);
+}
+.dp-btn {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 0.55rem;
+  padding: 0.35rem 0.6rem;
+  border: 1px solid rgba(200,164,78,0.3);
+  background: rgba(200,164,78,0.06);
+  color: #c8a44e;
+  cursor: pointer;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: all 0.15s;
+}
+.dp-btn:hover { background: rgba(200,164,78,0.15); border-color: #c8a44e; }
+.dp-btn--add { color: #22c55e; border-color: rgba(34,197,94,0.3); background: rgba(34,197,94,0.06); }
+.dp-btn--add:hover { background: rgba(34,197,94,0.15); border-color: #22c55e; }
+.dp-btn--push { margin-left: auto; }
+.dp-btn--small { font-size: 0.5rem; padding: 0.25rem 0.5rem; }
+.dp-btn--save { color: #22c55e; border-color: rgba(34,197,94,0.3); background: rgba(34,197,94,0.06); }
+.dp-btn--save:hover { background: rgba(34,197,94,0.15); }
+.dp-btn--push-one { color: #3b82f6; border-color: rgba(59,130,246,0.3); background: rgba(59,130,246,0.06); }
+.dp-btn--push-one:hover { background: rgba(59,130,246,0.15); }
+.dp-btn--delete { color: #ef4444; border-color: rgba(239,68,68,0.3); background: rgba(239,68,68,0.06); }
+.dp-btn--delete:hover { background: rgba(239,68,68,0.15); }
+
+.dp-roster {
+  overflow-y: auto;
+  flex: 1;
+  padding: 0.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(200,164,78,0.3) transparent;
+}
+.dp-empty {
+  padding: 2rem 1rem;
+  text-align: center;
+  color: rgba(200,164,78,0.5);
+  font-style: italic;
+  font-size: 0.7rem;
+}
+.dp-card {
+  border: 1px solid rgba(200,164,78,0.15);
+  margin-bottom: 0.4rem;
+  transition: border-color 0.15s;
+}
+.dp-card:hover { border-color: rgba(200,164,78,0.35); }
+.dp-card--expanded { border-color: rgba(200,164,78,0.5); }
+
+.dp-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.5rem;
+  cursor: pointer;
+  user-select: none;
+}
+.dp-card-header:hover { background: rgba(200,164,78,0.04); }
+
+.dp-portrait-thumb {
+  width: 36px;
+  height: 36px;
+  object-fit: cover;
+  border-radius: 3px;
+  border: 1px solid rgba(200,164,78,0.3);
+  flex-shrink: 0;
+}
+.dp-portrait-placeholder {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(200,164,78,0.08);
+  border: 1px solid rgba(200,164,78,0.2);
+  border-radius: 3px;
+  font-family: 'Audiowide', sans-serif;
+  font-size: 0.8rem;
+  color: rgba(200,164,78,0.6);
+  flex-shrink: 0;
+}
+.dp-card-info { flex: 1; min-width: 0; }
+.dp-card-name {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 0.7rem;
+  color: #e5e5e5;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.dp-card-sub {
+  font-size: 0.55rem;
+  color: #9ca3af;
+  margin-top: 0.1rem;
+}
+.dp-status-badge {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 0.45rem;
+  padding: 0.15rem 0.4rem;
+  border-radius: 2px;
+  color: #000;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  flex-shrink: 0;
+}
+.dp-reveal-indicator {
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.dp-card-detail {
+  padding: 0.5rem;
+  border-top: 1px solid rgba(200,164,78,0.1);
+  background: rgba(0,0,0,0.15);
+}
+.dp-detail-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin-bottom: 0.5rem;
+}
+.dp-detail-row label {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 0.5rem;
+  color: #c8a44e;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.dp-select, .dp-input {
+  background: rgba(13,13,26,0.8);
+  border: 1px solid rgba(200,164,78,0.2);
+  color: #e5e5e5;
+  font-family: 'Exo 2', sans-serif;
+  font-size: 0.65rem;
+  padding: 0.3rem;
+  outline: none;
+}
+.dp-select:focus, .dp-input:focus { border-color: #c8a44e; }
+.dp-textarea {
+  background: rgba(13,13,26,0.8);
+  border: 1px solid rgba(200,164,78,0.2);
+  color: #e5e5e5;
+  font-family: 'Exo 2', sans-serif;
+  font-size: 0.62rem;
+  padding: 0.3rem;
+  outline: none;
+  resize: vertical;
+  line-height: 1.5;
+  width: 100%;
+  box-sizing: border-box;
+}
+.dp-textarea:focus { border-color: #c8a44e; }
+.dp-textarea--gm { color: #f59e0b; border-color: rgba(245,158,11,0.2); }
+
+.dp-detail-actions {
+  display: flex;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+  flex-wrap: wrap;
+}
+
   

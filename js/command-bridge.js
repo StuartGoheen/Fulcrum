@@ -4121,6 +4121,234 @@
     }
   }
 
+  var _dpProfiles = [];
+  var _dpExpanded = null;
+
+  function initDramatisPersonae() {
+    var btn = document.getElementById('cb-dramatis-btn');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      openDramatisPanel();
+    });
+  }
+
+  function openDramatisPanel() {
+    var panelId = 'dramatis';
+    var existing = document.getElementById('fp-' + panelId);
+    if (existing) {
+      existing.style.zIndex = ++_panelZCounter;
+      return;
+    }
+    openFloatingPanel(panelId, 'Dramatis Personae', '<div class="dp-loading" style="padding:1rem;color:var(--color-text-secondary);font-style:italic;">Loading NPC profiles\u2026</div>', { width: 620, height: 560 });
+    _loadDpProfiles();
+  }
+
+  function _loadDpProfiles() {
+    fetch('/api/npc-profiles')
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        _dpProfiles = data.profiles || [];
+        _renderDpPanel();
+      })
+      .catch(function () {
+        var body = document.querySelector('#fp-dramatis .cb-fpanel-body');
+        if (body) body.innerHTML = '<div style="padding:1rem;color:var(--color-danger);">Failed to load profiles.</div>';
+      });
+  }
+
+  function _renderDpPanel() {
+    var body = document.querySelector('#fp-dramatis .cb-fpanel-body');
+    if (!body) return;
+
+    var html = '<div class="dp-toolbar">' +
+      '<button class="dp-btn dp-btn--add" id="dp-add-npc">+ New NPC</button>' +
+      '<button class="dp-btn dp-btn--push" id="dp-push-all">Push All to Players</button>' +
+      '</div>' +
+      '<div class="dp-roster" id="dp-roster">';
+
+    if (_dpProfiles.length === 0) {
+      html += '<div class="dp-empty">No NPC profiles yet. Click "+ New NPC" to create one.</div>';
+    } else {
+      _dpProfiles.forEach(function (p) {
+        var statusColors = { allied: '#22c55e', neutral: '#eab308', hostile: '#ef4444', unknown: '#6b7280', deceased: '#9333ea' };
+        var statusColor = statusColors[p.status] || '#6b7280';
+        var isExpanded = _dpExpanded === p.npc_key;
+
+        html += '<div class="dp-card' + (isExpanded ? ' dp-card--expanded' : '') + '" data-npc-key="' + esc(p.npc_key) + '">';
+        html += '<div class="dp-card-header" data-dp-toggle="' + esc(p.npc_key) + '">';
+        if (p.portrait_url) {
+          html += '<img class="dp-portrait-thumb" src="' + esc(p.portrait_url) + '" alt="' + esc(p.name) + '" />';
+        } else {
+          html += '<div class="dp-portrait-placeholder">' + esc(p.name.charAt(0)) + '</div>';
+        }
+        html += '<div class="dp-card-info">';
+        html += '<div class="dp-card-name">' + esc(p.name) + '</div>';
+        html += '<div class="dp-card-sub">' + esc(p.species) + (p.role ? ' \u2014 ' + esc(p.role) : '') + '</div>';
+        html += '</div>';
+        html += '<span class="dp-status-badge" style="background:' + statusColor + ';">' + esc(p.status) + '</span>';
+        html += '<span class="dp-reveal-indicator" style="color:' + (p.revealed ? '#22c55e' : '#6b7280') + ';">' + (p.revealed ? '\u25C9' : '\u25CB') + '</span>';
+        html += '</div>';
+
+        if (isExpanded) {
+          html += '<div class="dp-card-detail">';
+          html += '<div class="dp-detail-row"><label>Status</label>';
+          html += '<select class="dp-select" data-dp-status="' + esc(p.npc_key) + '">';
+          ['allied', 'neutral', 'hostile', 'unknown', 'deceased'].forEach(function (s) {
+            html += '<option value="' + s + '"' + (p.status === s ? ' selected' : '') + '>' + s.charAt(0).toUpperCase() + s.slice(1) + '</option>';
+          });
+          html += '</select></div>';
+
+          html += '<div class="dp-detail-row"><label>Revealed to Players</label>';
+          html += '<button class="dp-btn dp-btn--small" data-dp-reveal="' + esc(p.npc_key) + '">' + (p.revealed ? 'Hide from Players' : 'Reveal to Players') + '</button></div>';
+
+          html += '<div class="dp-detail-row"><label>Player Bio</label>';
+          html += '<textarea class="dp-textarea" data-dp-bio="' + esc(p.npc_key) + '" rows="4">' + esc(p.player_bio) + '</textarea></div>';
+
+          html += '<div class="dp-detail-row"><label>GM Notes</label>';
+          html += '<textarea class="dp-textarea dp-textarea--gm" data-dp-gmnotes="' + esc(p.npc_key) + '" rows="3">' + esc(p.gm_notes) + '</textarea></div>';
+
+          html += '<div class="dp-detail-row"><label>Traits</label>';
+          html += '<input class="dp-input" data-dp-traits="' + esc(p.npc_key) + '" value="' + esc((p.traits || []).join(', ')) + '" placeholder="Brave, Cunning, etc." /></div>';
+
+          html += '<div class="dp-detail-row"><label>Connections</label>';
+          html += '<textarea class="dp-textarea" data-dp-connections="' + esc(p.npc_key) + '" rows="2" placeholder="One per line">' + esc((p.connections || []).join('\n')) + '</textarea></div>';
+
+          html += '<div class="dp-detail-row"><label>Portrait URL</label>';
+          html += '<input class="dp-input" data-dp-portrait="' + esc(p.npc_key) + '" value="' + esc(p.portrait_url || '') + '" placeholder="/attached_assets/..." /></div>';
+
+          html += '<div class="dp-detail-actions">';
+          html += '<button class="dp-btn dp-btn--save" data-dp-save="' + esc(p.npc_key) + '">Save Changes</button>';
+          html += '<button class="dp-btn dp-btn--push-one" data-dp-push="' + esc(p.npc_key) + '">Push to Players</button>';
+          html += '<button class="dp-btn dp-btn--delete" data-dp-delete="' + esc(p.npc_key) + '">Delete</button>';
+          html += '</div>';
+
+          html += '</div>';
+        }
+        html += '</div>';
+      });
+    }
+
+    html += '</div>';
+    body.innerHTML = html;
+    _bindDpEvents(body);
+  }
+
+  function _bindDpEvents(body) {
+    body.querySelectorAll('[data-dp-toggle]').forEach(function (el) {
+      el.addEventListener('click', function () {
+        var key = el.dataset.dpToggle;
+        _dpExpanded = (_dpExpanded === key) ? null : key;
+        _renderDpPanel();
+      });
+    });
+
+    var addBtn = body.querySelector('#dp-add-npc');
+    if (addBtn) addBtn.addEventListener('click', function () {
+      var name = prompt('NPC Name:');
+      if (!name || !name.trim()) return;
+      var key = name.trim().toLowerCase().replace(/[^a-z0-9]+/g, '_');
+      fetch('/api/npc-profiles', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ npc_key: key, name: name.trim() })
+      })
+      .then(function (r) { return r.json(); })
+      .then(function () { _loadDpProfiles(); });
+    });
+
+    var pushAllBtn = body.querySelector('#dp-push-all');
+    if (pushAllBtn) pushAllBtn.addEventListener('click', function () {
+      fetch('/api/npc-profiles/push-all', { method: 'POST' })
+        .then(function (r) { return r.json(); })
+        .then(function (d) { _showNpcToast('Pushed ' + (d.pushed || 0) + ' profiles to players'); });
+    });
+
+    body.querySelectorAll('[data-dp-status]').forEach(function (sel) {
+      sel.addEventListener('change', function () {
+        var key = sel.dataset.dpStatus;
+        fetch('/api/npc-profiles/' + key + '/status', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status: sel.value })
+        }).then(function () { _loadDpProfiles(); });
+      });
+    });
+
+    body.querySelectorAll('[data-dp-reveal]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var key = btn.dataset.dpReveal;
+        var profile = _dpProfiles.find(function (p) { return p.npc_key === key; });
+        if (!profile) return;
+        fetch('/api/npc-profiles/' + key + '/reveal', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ revealed: !profile.revealed })
+        }).then(function () {
+          _showNpcToast(profile.revealed ? 'Hidden: ' + profile.name : 'Revealed: ' + profile.name);
+          _loadDpProfiles();
+        });
+      });
+    });
+
+    body.querySelectorAll('[data-dp-save]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var key = btn.dataset.dpSave;
+        var card = body.querySelector('.dp-card[data-npc-key="' + key + '"]');
+        if (!card) return;
+
+        var bioEl = card.querySelector('[data-dp-bio="' + key + '"]');
+        var gmNotesEl = card.querySelector('[data-dp-gmnotes="' + key + '"]');
+        var traitsEl = card.querySelector('[data-dp-traits="' + key + '"]');
+        var connectionsEl = card.querySelector('[data-dp-connections="' + key + '"]');
+        var portraitEl = card.querySelector('[data-dp-portrait="' + key + '"]');
+
+        var updateData = {};
+        if (bioEl) updateData.player_bio = bioEl.value;
+        if (gmNotesEl) updateData.gm_notes = gmNotesEl.value;
+        if (traitsEl) updateData.traits = traitsEl.value.split(',').map(function (t) { return t.trim(); }).filter(Boolean);
+        if (connectionsEl) updateData.connections = connectionsEl.value.split('\n').map(function (c) { return c.trim(); }).filter(Boolean);
+        if (portraitEl) updateData.portrait_url = portraitEl.value || null;
+
+        fetch('/api/npc-profiles/' + key, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(updateData)
+        }).then(function () {
+          _showNpcToast('Saved: ' + key);
+          _loadDpProfiles();
+        });
+      });
+    });
+
+    body.querySelectorAll('[data-dp-push]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var key = btn.dataset.dpPush;
+        if (socket) socket.emit('npc:push-update', { npc_key: key });
+        _showNpcToast('Pushed update: ' + key);
+      });
+    });
+
+    body.querySelectorAll('[data-dp-delete]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var key = btn.dataset.dpDelete;
+        if (!confirm('Delete NPC profile "' + key + '"? This cannot be undone.')) return;
+        fetch('/api/npc-profiles/' + key, { method: 'DELETE' })
+          .then(function () {
+            _dpExpanded = null;
+            _loadDpProfiles();
+          });
+      });
+    });
+  }
+
+  function _showNpcToast(msg) {
+    var toast = document.getElementById('npc-toast');
+    if (!toast) return;
+    toast.textContent = msg;
+    toast.classList.add('active');
+    setTimeout(function () { toast.classList.remove('active'); }, 2500);
+  }
+
   initDragHandles();
   initCollapsiblePanels();
   initSockets();
@@ -4130,4 +4358,5 @@
   loadCrewJournal();
   initDecisionTracker();
   initNarrativeChallenges();
+  initDramatisPersonae();
 }());

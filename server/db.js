@@ -152,6 +152,34 @@ async function initSchema() {
         created_at      TIMESTAMP DEFAULT NOW(),
         updated_at      TIMESTAMP DEFAULT NOW()
       );
+
+      CREATE TABLE IF NOT EXISTS npc_profiles (
+        id              SERIAL PRIMARY KEY,
+        npc_key         TEXT    NOT NULL UNIQUE,
+        name            TEXT    NOT NULL,
+        species         TEXT    NOT NULL DEFAULT 'Unknown',
+        role            TEXT    NOT NULL DEFAULT '',
+        portrait_url    TEXT,
+        status          TEXT    NOT NULL DEFAULT 'unknown',
+        player_bio      TEXT    NOT NULL DEFAULT '',
+        gm_notes        TEXT    NOT NULL DEFAULT '',
+        traits          TEXT    NOT NULL DEFAULT '[]',
+        connections     TEXT    NOT NULL DEFAULT '[]',
+        revealed        BOOLEAN NOT NULL DEFAULT false,
+        sort_order      INTEGER NOT NULL DEFAULT 0,
+        created_at      TIMESTAMP DEFAULT NOW(),
+        updated_at      TIMESTAMP DEFAULT NOW()
+      );
+
+      CREATE TABLE IF NOT EXISTS npc_timeline (
+        id              SERIAL PRIMARY KEY,
+        npc_key         TEXT    NOT NULL,
+        adventure_ref   TEXT    NOT NULL DEFAULT '',
+        scene_ref       TEXT    NOT NULL DEFAULT '',
+        event_text      TEXT    NOT NULL,
+        revealed        BOOLEAN NOT NULL DEFAULT false,
+        created_at      TIMESTAMP DEFAULT NOW()
+      );
     `);
 
     try {
@@ -218,9 +246,94 @@ async function seedPregenCharacters() {
   if (seeded > 0) console.log(`[db] Seeded ${seeded} pre-gen character(s).`);
 }
 
+async function seedNpcProfiles() {
+  const existing = await pool.query('SELECT COUNT(*) as c FROM npc_profiles');
+  if (parseInt(existing.rows[0].c) > 0) return;
+
+  const profiles = [
+    {
+      npc_key: 'maya',
+      name: 'Maya',
+      species: 'Human',
+      role: 'Pilot & Engineer',
+      portrait_url: '/attached_assets/generated_images/maya_pilot.png',
+      status: 'allied',
+      player_bio: 'A young human woman — dark hair, flight jacket, maybe twenty-five. She crashed into your table at The Burning Deck on Jakku, bleeding and desperate, with Varga the Hutt\'s enforcers on her heels. She owns and flies the Banshee, a battered Barloz-class medium freighter that\'s been rebuilt from the frame up. She\'s sharp, brave, and seems to genuinely care about people — sometimes inconveniently so.',
+      gm_notes: 'Campaign emotional throughline. Conscience of the crew. Will go to the slave ship alone in Adv3. Backstory: betrayed by partner Soren Vex, rebuilt Banshee at Maz\'s castle on Takodana.',
+      traits: JSON.stringify(['Brave', 'Compassionate', 'Stubborn', 'Skilled Mechanic']),
+      connections: JSON.stringify(['Admiral Varth — Employer (tense)', 'Varga the Hutt — Enemy', 'The Banshee — Her ship']),
+      revealed: true,
+      sort_order: 1
+    },
+    {
+      npc_key: 'varth',
+      name: 'Admiral Gilder Varth',
+      species: 'Human',
+      role: 'Employer & Strategist',
+      portrait_url: '/attached_assets/generated_images/varth_before_turn.png',
+      status: 'allied',
+      player_bio: 'A charming, cynical Imperial admiral who embezzled millions from the Empire through Varga the Hutt\'s supply chain. He was caught, imprisoned at a secret facility on Ajan Kloss, and needed rescuing. Now free, he directs operations from the shadows — finding the money, tracking Varga, orchestrating the next job. He\'s cold, mission-focused, and transactional — but he pays up and his intel is always good. Never uses anyone\'s real name. Calls everyone "Kid," "Pilot," "Heavy," "Boss."',
+      gm_notes: 'Campaign antagonist. The betrayal in Adv6 is the central twist. Red flags: Adv2 S4 (Denia), Adv2 S6 (Raden execution), Adv3 P2 S2 (the argument), Adv3 P3 S5 (the jump order). Authentication key for encrypted account is memorized.',
+      traits: JSON.stringify(['Charming', 'Calculating', 'Competent', 'Cold under pressure']),
+      connections: JSON.stringify(['Maya — Respects her, sees conscience as liability', 'Varga the Hutt — Former business partner', 'The Crew — Employers who don\'t know they\'re employees']),
+      revealed: true,
+      sort_order: 2
+    },
+    {
+      npc_key: 'varga',
+      name: 'Varga Besadii Drokko',
+      species: 'Hutt',
+      role: 'Crime Lord',
+      portrait_url: null,
+      status: 'hostile',
+      player_bio: 'A Hutt crime lord operating from a fortress on the far shore of Nymeve Lake on Takodana. Controls the economy of debt and protection across the region. His enforcers were the ones chasing Maya at The Burning Deck. The encrypted fortune Varth stole was laundered through Varga\'s supply chain — and Varga wants it back.',
+      gm_notes: 'Act 1 antagonist. Dies in Adv3 during the boarding of the Glorious Chariot. Does not escape or recur. Transparent in his villainy — paradoxically more honest than Varth.',
+      traits: JSON.stringify(['Ruthless', 'Territorial', 'Paranoid', 'Vindictive']),
+      connections: JSON.stringify(['Admiral Varth — Former business associate', 'Maya — Target (stole from his supply chain)', 'Kessra — Hired muscle']),
+      revealed: true,
+      sort_order: 3
+    }
+  ];
+
+  const timelineEntries = [
+    { npc_key: 'maya', adventure_ref: 'Adv 1', scene_ref: 'adv1-p1-s1', event_text: 'Crashed into the crew\'s table at The Burning Deck on Jakku — wounded, fleeing Varga\'s enforcers.', revealed: true },
+    { npc_key: 'maya', adventure_ref: 'Adv 1', scene_ref: 'adv1-p2-s1', event_text: 'Piloted the Banshee through the Rishi Maze. Invited the crew\'s pilot to the co-pilot seat.', revealed: true },
+    { npc_key: 'varth', adventure_ref: 'Adv 1', scene_ref: 'adv1-p2-s6', event_text: 'Rescued from the Vanishing Place detention facility on Ajan Kloss. "You\'re late. I had credits on the second moonrise."', revealed: true },
+    { npc_key: 'varga', adventure_ref: 'Adv 1', scene_ref: 'adv1-p1-s1', event_text: 'His enforcers pursued Maya to The Burning Deck. The crew chose to fight.', revealed: true }
+  ];
+
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+    for (const p of profiles) {
+      await client.query(
+        `INSERT INTO npc_profiles (npc_key, name, species, role, portrait_url, status, player_bio, gm_notes, traits, connections, revealed, sort_order)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
+         ON CONFLICT (npc_key) DO NOTHING`,
+        [p.npc_key, p.name, p.species, p.role, p.portrait_url, p.status, p.player_bio, p.gm_notes, p.traits, p.connections, p.revealed, p.sort_order]
+      );
+    }
+    for (const t of timelineEntries) {
+      await client.query(
+        `INSERT INTO npc_timeline (npc_key, adventure_ref, scene_ref, event_text, revealed)
+         VALUES ($1, $2, $3, $4, $5)`,
+        [t.npc_key, t.adventure_ref, t.scene_ref, t.event_text, t.revealed]
+      );
+    }
+    await client.query('COMMIT');
+    console.log('[db] Seeded NPC profiles: Maya, Varth, Varga');
+  } catch (err) {
+    await client.query('ROLLBACK');
+    console.error('[db] Failed to seed NPC profiles:', err);
+  } finally {
+    client.release();
+  }
+}
+
 async function initialize() {
   await initSchema();
   await seedPregenCharacters();
+  await seedNpcProfiles();
 }
 
 module.exports = { pool, initialize };

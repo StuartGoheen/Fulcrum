@@ -16,6 +16,7 @@ const itemRequestRoutes   = require('./routes/item-requests');
 const journalRoutes       = require('./routes/journal');
 const decisionRoutes      = require('./routes/decisions');
 const narrativeChallengeRoutes = require('./routes/narrative-challenges');
+const npcProfileRoutes        = require('./routes/npc-profiles');
 const socketHandlers  = require('./sockets/handlers');
 const { loginRoute, logoutRoute, gate, roleFromCookie, COOKIE_SECRET } = require('./auth');
 
@@ -56,6 +57,7 @@ app.use(express.static(path.join(ROOT, 'public')));
 app.use('/js',     express.static(path.join(ROOT, 'js')));
 app.use('/data',   express.static(path.join(ROOT, 'data')));
 app.use('/assets', express.static(path.join(ROOT, 'assets')));
+app.use('/attached_assets', express.static(path.join(ROOT, 'attached_assets')));
 
 app.get('/api/auth/role', (req, res) => {
   res.json({ role: req.userRole || null });
@@ -70,6 +72,7 @@ app.use('/api', itemRequestRoutes);
 app.use('/api', journalRoutes);
 app.use('/api/campaign', decisionRoutes);
 app.use('/api', narrativeChallengeRoutes);
+app.use('/api', npcProfileRoutes);
 
 app.get('/gm',    (req, res) => res.redirect('/gm/'));
 app.get('/gm/',   (req, res) => res.sendFile(path.join(ROOT, 'public', 'gm', 'index.html')));
