@@ -320,6 +320,20 @@ async function seedNpcProfiles() {
       connections: JSON.stringify(['Admiral Varth — Former associate (owes a debt)', 'Varga the Hutt — Former employer (running from)', 'The Crew — Rescued him, got him inside the fortress', 'Mekka — Sold him supplies in Blackwind Point', 'TC-663 — Knows Six-Six from working Varga\'s operation']),
       revealed: false,
       sort_order: 5
+    },
+    {
+      npc_key: 'switch',
+      name: 'Switch',
+      species: 'Droid (Protocol-class)',
+      role: 'Information Broker & Crime Lord',
+      portrait_url: '/attached_assets/generated_images/switch_droid.png',
+      status: 'neutral',
+      player_bio: 'A protocol droid who hasn\'t had a memory wipe in decades — and it shows. Switch runs an information brokerage out of a fortified cave in the Jakku badlands, surrounded by locked crates, holographic displays, and security turrets. He examined Maya\'s encrypted Imperial Code Cylinder and identified it as a ghost transfer authorization device — a master key for Imperial shuttle nav computers. His price for the decryption was steep: the crew becomes information assets for his network. As they travel, they pass along intel — names, locations, movements. If it checks out, Switch compensates them. He\'s transactional, dangerous, and honest — which makes him more reliable than most organics.',
+      gm_notes: 'Recurring contact. Switch is a long-term investment thinker — he wants the crew as an intelligence pipeline, not a one-time score. His deal is honest but binding. He has security turrets and backup — double-crossing him is extremely dangerous. He reappears when Ganga Lor\'s thugs attack his compound, and the crew must decide whether to defend him. He\'s a black market connection for gear, smuggling contacts, and fencing stolen goods throughout the campaign.',
+      traits: JSON.stringify(['Calculating', 'Transactional', 'Patient', 'Honest (within his terms)', 'Dangerous when crossed']),
+      connections: JSON.stringify(['Maya — Client (brought the code cylinder)', 'The Crew — Information assets (business arrangement)', 'Ganga Lor — Rival crime lord who attacks his compound', 'Admiral Varth — Knows of him through the underworld network']),
+      revealed: false,
+      sort_order: 6
     }
   ];
 
@@ -328,6 +342,8 @@ async function seedNpcProfiles() {
     { npc_key: 'draco', adventure_ref: 'Adv 3', scene_ref: 'adv3-p2-s1', event_text: 'The Star Destroyer Assiduous dropped out of hyperspace over Bespin. Varth identified it as Draco\'s flagship — the "clean-up crew" for Project Leviathan. If the deal goes wrong, he\'ll glass Cloud City to bury the evidence.', revealed: false },
     { npc_key: 'draco', adventure_ref: 'Adv 4', scene_ref: 'adv4-p3-s1', event_text: 'Found Master Thorla — a Jedi survivor of Order 66 — caged and broken inside the Ebon Spire. Draco tortured him to crack the ancient Force-lock, then left him discarded like a spent power cell.', revealed: false },
     { npc_key: 'draco', adventure_ref: 'Adv 4', scene_ref: 'adv4-p3-s5', event_text: 'Confrontation at the Abyssal Vault. Draco stood on the platform with both holocrons. The Sith Holocron rejected him — and he fell into the abyss beneath the Ebon Spire.', revealed: false },
+    { npc_key: 'switch', adventure_ref: 'Adv 1', scene_ref: 'adv1-p1-s3', event_text: 'The crew found Switch\'s compound in the Jakku badlands. He examined Maya\'s encrypted Imperial Code Cylinder and identified it as a ghost transfer authorization device — a master key for Imperial shuttle nav computers. His price: the crew becomes information assets for his network.', revealed: false },
+    { npc_key: 'switch', adventure_ref: 'Adv 1', scene_ref: 'adv1-p1-s5', event_text: 'Ganga Lor\'s thugs attacked Switch\'s compound. The crew had to decide — defend the droid or let him burn.', revealed: false },
     { npc_key: 'raden', adventure_ref: 'Adv 2', scene_ref: 'adv2-p1-s2', event_text: 'The crew tracked Raden through Blackwind Point — asking questions at cantinas, stalls, and docks. A chain of witnesses led them to an abandoned filtration plant on the swamp edge.', revealed: false },
     { npc_key: 'raden', adventure_ref: 'Adv 2', scene_ref: 'adv2-p1-s3', event_text: 'Found Raden hiding in a maintenance shed — sleep-deprived, starving, blaster shaking in his hands. He thought Varth was dead. When he learned otherwise, he agreed to help the crew infiltrate Varga\'s court.', revealed: false },
     { npc_key: 'maya', adventure_ref: 'Adv 1', scene_ref: 'adv1-p1-s1', event_text: 'Crashed into the crew\'s table at The Burning Deck on Jakku — wounded, fleeing Varga\'s enforcers.', revealed: true },
