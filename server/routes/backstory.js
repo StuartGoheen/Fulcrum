@@ -120,7 +120,7 @@ SETTING BIBLE — DO NOT DEVIATE:
 - Year: 16 BBY. The Empire is 3 years old. Order 66 happened 3 years ago. The Jedi Order is destroyed; surviving Jedi are hunted by Inquisitors.
 - Location: The Western Reaches — a vast frontier region stretching from the Mid Rim's ragged edge to Wild Space. This is not Coruscant or the Core. The Empire's grip here is thin, enforced by occasional Star Destroyer patrols and corrupt regional governors rather than a permanent military presence.
 - Key Western Reaches geography:
-  * Jakku — a dry, unremarkable desert refuelling stop and smuggler's haven. Niima Outpost is a scrapyard settlement run by Niima the Hutt's agents. It is NOT a battlefield (that happens 21 years from now — never reference it).
+  * Jakku — a dry, unremarkable desert refuelling stop on the Western Reaches. Reestkii is a sun-bleached frontier settlement controlled by Varga the Hutt through debt and protection rackets. It is NOT a battlefield and there is NO starship graveyard (the Battle of Jakku happens 22 years from now — never reference it). Niima the Hutt exists on Jakku but is a minor figure operating from a desert temple — she has not yet risen to prominence.
   * The Arkanis Sector — the nearest hub of Imperial authority. Governor Tarl governs from Arkanis City. The Imperial Academy on Arkanis produces officers. Patrols radiate outward from here but thin rapidly.
   * Takodana — a lush castle-world considered neutral ground by pirates, smugglers, and fugitives alike. Maz Kanata's castle is a crossroads where information trades faster than credits.
   * Florrum — a dusty pirate haven, once Hondo Ohnaka's stronghold. Now a rotating cast of petty warlords and scavenger gangs use its fortified canyons.

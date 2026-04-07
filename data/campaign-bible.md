@@ -461,7 +461,7 @@ A leviathan is a creature of the deep that drags you down. This weapon literally
 - Maya crashes the heroes' table at The Burning Deck, fleeing Varga's retrieval crew after intercepting the Code Cylinder from his supply chain
 - Switch examines the cylinder — quotes a diagnostic fee the heroes can't afford. Offers a deal: reduced fee if they agree to become information assets for his network (pass along validated intel as they travel, get compensated). This establishes Switch as a recurring contact.
 - Switch identifies the cylinder as ghost transfer authorization — no location data, but it can authenticate into Imperial shuttle systems
-- Maya reveals she's been tracking an Imperial shuttle on the Niima Landing Field
+- Maya reveals she's been tracking an Imperial shuttle on the Reestkii Landing Field
 - Ganga Lor attacks Switch's bunker — Varga wants the cylinder because it could lead someone to Varth before Varga gets to him (Varga needs Varth alive to unlock the encrypted account). **Ganga Lor is killed in the fight.**
 - The Heist: heroes infiltrate the landing field, use the cylinder to access the shuttle's nav computer, download coordinates for the Vanishing Place
 - **Co-Pilot Dynamic:** Maya invites the Ace Pilot to the co-pilot seat for the Rishi Maze run. Bonding moment between Maya and the crew as she teaches them to read the Maze. This is the Ace spotlight — they're not passengers, they're flying.

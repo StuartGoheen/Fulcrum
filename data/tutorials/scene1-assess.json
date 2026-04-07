@@ -147,7 +147,7 @@
             {
               "type": "normal",
               "question": "Is there a comm relay or signal booster in this building?",
-              "response": "Short-range relay behind the bar — local comms only, Niima Outpost range. No hyperspace transceiver. If the bartender needs to reach someone offworld, he walks to the landing field like everyone else."
+              "response": "Short-range relay behind the bar — local comms only, Reestkii range. No hyperspace transceiver. If the bartender needs to reach someone offworld, he walks to the landing field like everyone else."
             },
             {
               "type": "normal",
@@ -162,7 +162,7 @@
             {
               "type": "normal",
               "question": "What's the power grid like? Is there a way to kill the lights?",
-              "response": "Municipal power from Niima's grid — unreliable. The lights flicker every few minutes on their own. A junction box is mounted on the wall near the back hallway, behind a panel. You could kill the lights from there in about three seconds if you knew what you were doing."
+              "response": "Municipal power from Reestkii's grid — unreliable. The lights flicker every few minutes on their own. A junction box is mounted on the wall near the back hallway, behind a panel. You could kill the lights from there in about three seconds if you knew what you were doing."
             },
             {
               "type": "normal",
@@ -208,7 +208,7 @@
             {
               "type": "normal",
               "question": "Who in here looks like they need something — credits, a ride offworld, protection?",
-              "response": "The bartender needs this day to end without a mess he has to explain to Varga. The Sullustan traveler looks like he's between ships — jacket's patched, boots are worn. And there are two scavengers in the booth row who keep counting the same small pile of credits. They need more than they have."
+              "response": "The bartender needs this day to end without a mess he has to explain to Varga. The Sullustan traveler looks like he's between ships — jacket's patched, boots are worn. And there are two drifters in the booth row who keep counting the same small pile of credits. They need more than they have."
             },
             {
               "type": "normal",
@@ -348,7 +348,7 @@
             {
               "type": "normal",
               "question": "How long has she been out in the Jakku wastes? What kind of shape is she in?",
-              "response": "Not long. Her skin isn't sun-cracked like a scavenger's. No sand-wear on her gear beyond the jacket. She came in from the landing field, not the desert. She arrived recently — maybe today."
+              "response": "Not long. Her skin isn't sun-cracked like a local's. No sand-wear on her gear beyond the jacket. She came in from the landing field, not the desert. She arrived recently — maybe today."
             }
           ]
         },

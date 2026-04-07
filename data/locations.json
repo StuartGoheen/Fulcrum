@@ -29,16 +29,16 @@
         "nativeSpecies": ["Teedo", "Uthuthma"],
         "otherSpecies": ["Human", "Weequay", "Kyuzo"],
         "population": "Sparse",
-        "majorSettlements": ["Niima Outpost", "Tuanul", "Reestkii", "Cratertown"],
+        "majorSettlements": ["Reestkii", "Tuanul", "Cratertown"],
         "government": "None (de facto Hutt control via Varga)",
-        "majorExports": ["Scavenged starship components"],
+        "majorExports": ["Nothing worth taxing"],
         "affiliation": "Galactic Empire (nominal)"
       },
       "pointsOfInterest": [
-        "Niima Outpost",
+        "Reestkii",
         "The Burning Deck (cantina)",
-        "Starship Graveyard",
-        "Niima Landing Field"
+        "The Sinkhole (Switch's bunker)",
+        "Reestkii Landing Field"
       ],
       "fauna": ["Steelpecker", "Happabore", "Nightwatcher worm", "Ripper-raptor", "Luggabeast"],
       "flora": ["Tuanulberry", "Spine-barrel cactus"],
@@ -46,10 +46,10 @@
         "adventures": ["adv1"],
         "era": "17 BBY — pre-Battle of Jakku. A forgotten nowhere rock. Varga the Hutt runs what passes for an economy through debt and protection. Imperial patrols from Arkanis Sector come through maybe twice a standard year. The galaxy forgot Jakku — if it ever noticed.",
         "keyLocations": {
-          "niima_outpost": "A junkyard settlement squatting on the desert flats like something the sand is trying to swallow. Scavengers, smugglers, moisture farmers with nothing left to farm.",
+          "reestkii": "A sun-bleached settlement squatting on the desert flats like something the sand is trying to swallow. Drifters, smugglers, moisture farmers with nothing left to farm. Varga the Hutt's people collect debts and keep the peace — such as it is.",
           "the_burning_deck": "The local cantina. Where the campaign begins — a crew waiting on a no-show fixer, a wounded stranger who crashes into the wrong table, and Varga the Hutt's enforcers filling the doorway.",
-          "starship_graveyard": "The ribs of fallen capital ships and dunes of rust. Switch's hidden bunker is built from buried shipping containers beneath this field.",
-          "niima_landing_field": "A militarized zone on the outskirts. Where the carbonite-frozen Accountant is held, waiting for Imperial pickup."
+          "the_sinkhole": "A wind-carved crater in the badlands outside town. At the bottom, an abandoned moisture vaporator station — and beneath that, Switch's hidden bunker, packed with data feeds, droid parts, and a priceless Japor ivory desk.",
+          "reestkii_landing_field": "A militarized zone on the outskirts. Where the Lambda shuttle sits waiting for Imperial pickup."
         }
       },
       "lore": "Once a verdant world with forests and water, some past calamity turned Jakku into a barren globe of scorched badlands and marching dunes. Out here on the Western Reaches, the holonet feeds are weeks old, the Republic is a memory, and the Empire is a rumor that sometimes wears a uniform."
