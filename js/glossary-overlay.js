@@ -2643,6 +2643,11 @@
 
       if (isExp) {
         html += '<div class="dp-player-detail">';
+        if (p.portrait_url) {
+          html += '<div class="dp-player-portrait-large-wrap">';
+          html += '<img class="dp-player-portrait-large" src="' + _esc(p.portrait_url) + '" alt="' + _esc(p.name) + '" data-dp-lightbox="' + _esc(p.portrait_url) + '" />';
+          html += '</div>';
+        }
         if (p.player_bio) {
           html += '<div class="dp-player-bio">' + _esc(p.player_bio) + '</div>';
         }
@@ -2677,12 +2682,43 @@
     wrap.innerHTML = html;
 
     wrap.querySelectorAll('[data-dramatis-toggle]').forEach(function (card) {
-      card.addEventListener('click', function () {
+      card.addEventListener('click', function (e) {
+        if (e.target.closest('[data-dp-lightbox]')) return;
         var key = card.dataset.dramatisToggle;
         _dramatisExpanded = (_dramatisExpanded === key) ? null : key;
         _renderDramatisTab();
       });
     });
+
+    wrap.querySelectorAll('[data-dp-lightbox]').forEach(function (img) {
+      img.addEventListener('click', function (e) {
+        e.stopPropagation();
+        _openDpLightbox(img.dataset.dpLightbox, img.alt);
+      });
+    });
+  }
+
+  function _openDpLightbox(src, alt) {
+    var existing = document.getElementById('dp-lightbox-overlay');
+    if (existing) existing.remove();
+
+    var overlay = document.createElement('div');
+    overlay.id = 'dp-lightbox-overlay';
+    overlay.className = 'dp-lightbox-overlay';
+    overlay.innerHTML =
+      '<div class="dp-lightbox-content">' +
+        '<img class="dp-lightbox-img" src="' + _esc(src) + '" alt="' + _esc(alt || '') + '" />' +
+        '<div class="dp-lightbox-caption">' + _esc(alt || '') + '</div>' +
+        '<button class="dp-lightbox-close">&times;</button>' +
+      '</div>';
+
+    overlay.addEventListener('click', function (e) {
+      if (e.target === overlay || e.target.classList.contains('dp-lightbox-close')) {
+        overlay.remove();
+      }
+    });
+
+    document.body.appendChild(overlay);
   }
 
   function _esc(s) {

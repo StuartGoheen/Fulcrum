@@ -284,7 +284,7 @@ async function seedNpcProfiles() {
       name: 'Varga Besadii Drokko',
       species: 'Hutt',
       role: 'Crime Lord',
-      portrait_url: null,
+      portrait_url: '/attached_assets/generated_images/varga_portrait.png',
       status: 'hostile',
       player_bio: 'A Hutt crime lord operating from a fortress on the far shore of Nymeve Lake on Takodana. Controls the economy of debt and protection across the region. His enforcers were the ones chasing Maya at The Burning Deck. The encrypted fortune Varth stole was laundered through Varga\'s supply chain — and Varga wants it back.',
       gm_notes: 'Act 1 antagonist. Dies in Adv3 during the boarding of the Glorious Chariot. Does not escape or recur. Transparent in his villainy — paradoxically more honest than Varth.',
