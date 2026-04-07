@@ -5,14 +5,54 @@
   "act": 1,
   "summary": "The heroes are drawn into a cantina confrontation on Jakku, discover a stolen Imperial code cylinder, use it to download the coordinates of a secret prison, and break Admiral Varth out of a jungle fortress — all for the promise of a stolen fortune.",
   "marks": [
-    { "id": "adv1_strange_bedfellows", "label": "Strange Bedfellows", "desc": "A stranger crashes your table bleeding. You chose to fight for her instead of walking away.", "hidden": false },
-    { "id": "adv1_devils_deal", "label": "The Devil You Know", "desc": "Strike a deal with Switch — a droid who trades in secrets. What you owe him may cost more than credits.", "hidden": false },
-    { "id": "adv1_ghost_machine", "label": "Ghost in the Machine", "desc": "Use the Code Cylinder to access the Imperial shuttle's nav computer and learn where it points.", "hidden": true },
-    { "id": "adv1_green_hell", "label": "Into the Green Hell", "desc": "Survive the jungle of Ajan Kloss — the terrain, the wildlife, and the things that live between the trees.", "hidden": true },
-    { "id": "adv1_wardens_price", "label": "The Warden's Price", "desc": "Mandrake offers a deal: his guidance for your muscle. Honor it or betray it — either way, there's a cost.", "hidden": true },
-    { "id": "adv1_vanishing_place", "label": "The Vanishing Place", "desc": "Breach the fortress and reach the man the Empire buried.", "hidden": true },
-    { "id": "adv1_extraction", "label": "The Extraction", "desc": "Get Varth out alive. Whatever it takes.", "hidden": true },
-    { "id": "adv1_crucible", "label": "The Crucible", "desc": "The plan catastrophically fails. Improvise under fire to survive.", "hidden": false }
+    {
+      "id": "adv1_strange_bedfellows",
+      "label": "Strange Bedfellows",
+      "desc": "A stranger crashes your table bleeding. You chose to fight for her instead of walking away.",
+      "hidden": false
+    },
+    {
+      "id": "adv1_devils_deal",
+      "label": "The Devil You Know",
+      "desc": "Strike a deal with Switch — a droid who trades in secrets. What you owe him may cost more than credits.",
+      "hidden": false
+    },
+    {
+      "id": "adv1_ghost_machine",
+      "label": "Ghost in the Machine",
+      "desc": "Use the Code Cylinder to access the Imperial shuttle's nav computer and learn where it points.",
+      "hidden": true
+    },
+    {
+      "id": "adv1_green_hell",
+      "label": "Into the Green Hell",
+      "desc": "Survive the jungle of Ajan Kloss — the terrain, the wildlife, and the things that live between the trees.",
+      "hidden": true
+    },
+    {
+      "id": "adv1_wardens_price",
+      "label": "The Warden's Price",
+      "desc": "Mandrake offers a deal: his guidance for your muscle. Honor it or betray it — either way, there's a cost.",
+      "hidden": true
+    },
+    {
+      "id": "adv1_vanishing_place",
+      "label": "The Vanishing Place",
+      "desc": "Breach the fortress and reach the man the Empire buried.",
+      "hidden": true
+    },
+    {
+      "id": "adv1_extraction",
+      "label": "The Extraction",
+      "desc": "Get Varth out alive. Whatever it takes.",
+      "hidden": true
+    },
+    {
+      "id": "adv1_crucible",
+      "label": "The Crucible",
+      "desc": "The plan catastrophically fails. Improvise under fire to survive.",
+      "hidden": false
+    }
   ],
   "gearNotes": [
     {
@@ -5715,7 +5755,8 @@
                 "fleeting": "Clean transit but slow — no hull damage, but the approach window is tight. Less time on the ground.",
                 "masterful": "Clean transit ahead of schedule. Arrive with time to plan the approach.",
                 "legendary": "Maya is impressed. The Ace found a shortcut through the debris field. Extra time on the ground AND Maya shares tactical intel about the facility she was holding back."
-              }
+              },
+              "complexity": "set-piece"
             },
             {
               "id": "sc-s5-piloting-approach",
@@ -5734,7 +5775,8 @@
                 "fleeting": "Clean landing but close to a patrol route. Must move quickly.",
                 "masterful": "Clean landing in concealed position. Undetected.",
                 "legendary": "Perfect insertion. The landing site is ideal — natural camouflage, near a drainage sluice that leads toward the facility."
-              }
+              },
+              "complexity": "complex"
             },
             {
               "id": "sc-s5-tech-sensors",
@@ -5752,9 +5794,11 @@
                 "fleeting": "Basic sweep pattern identified — roughly every 20 minutes.",
                 "masterful": "Identify patrol patterns and gaps in coverage. Clear windows for movement.",
                 "legendary": "Complete sensor map of the area. One sector has a dead zone — maintenance failure the Imperials haven't fixed. Safe corridor directly to the facility perimeter."
-              }
+              },
+              "complexity": "simple"
             }
-          ]
+          ],
+          "subtitle": "Hyperspace Transit"
         },
         {
           "id": "adv1-p2-s2",
@@ -6074,7 +6118,8 @@
                 "fleeting": "Trees slow the descent. Everyone walks away but the Banshee is in rough shape. Extended repair time.",
                 "masterful": "Controlled landing. Minimal additional damage. The Ace saved everyone.",
                 "legendary": "Near-perfect emergency landing. The Banshee's hull took minimal extra damage — repair time is halved."
-              }
+              },
+              "complexity": "set-piece"
             },
             {
               "id": "sc-s6-tech",
@@ -6092,7 +6137,8 @@
                 "fleeting": "General damage assessment — hull breach, engine misalignment. Needs work.",
                 "masterful": "Precise assessment. Maya knows exactly what to fix first and estimates 6-8 hours.",
                 "legendary": "Complete diagnostic reveals a priority repair sequence that could get the Banshee flight-ready in 4 hours if they have tools."
-              }
+              },
+              "complexity": "simple"
             },
             {
               "id": "sc-s6-medicine",
@@ -6110,7 +6156,8 @@
                 "fleeting": "Basic first aid. Worst injuries stabilized.",
                 "masterful": "All injuries treated. No lasting penalties.",
                 "legendary": "Expert trauma care. Everyone is at full capacity and the medic identifies local plants that can supplement their medpac supply."
-              }
+              },
+              "complexity": "simple"
             },
             {
               "id": "sc-s6-survival",
@@ -6128,9 +6175,11 @@
                 "fleeting": "General direction is clear. Expect 8-10 hours of difficult jungle travel.",
                 "masterful": "Identify the best path — avoid worst hazards. 6-hour trek with manageable terrain.",
                 "legendary": "Discover animal trails that parallel the facility's drainage system. 4-hour route that arrives near an entry point."
-              }
+              },
+              "complexity": "simple"
             }
-          ]
+          ],
+          "subtitle": "Emergency Landing"
         },
         {
           "id": "adv1-p2-s3",
@@ -6389,7 +6438,8 @@
                 "fleeting": "Subtle discoloration spotted — \"Don't step there.\" One pool identified.",
                 "masterful": "Pattern recognized — dead vegetation around the edges gives them away. All pools in the area identified.",
                 "legendary": "The PC identifies the acid source — a mineral seep from the facility's waste system. The seep trail leads directly toward the fortress drainage outflow."
-              }
+              },
+              "complexity": "simple"
             },
             {
               "id": "sc-s7-athletics-terrain",
@@ -6408,7 +6458,8 @@
                 "fleeting": "Slow but safe progress. Extra time spent finding handholds.",
                 "masterful": "Good time through the obstacle. No injuries from the terrain.",
                 "legendary": "The PC finds the fastest route and helps the whole party through efficiently. Time saved."
-              }
+              },
+              "complexity": "simple"
             },
             {
               "id": "sc-s7-stealth-approach",
@@ -6428,7 +6479,8 @@
                 "fleeting": "Slip past but leave traces. The next stealth check will be harder — they're looking.",
                 "masterful": "Silent progress. No encounters with hostile fauna or Imperial patrols.",
                 "legendary": "Ghost through the jungle. Also observe a patrol pattern that reveals a gap in fortress security."
-              }
+              },
+              "complexity": "complex"
             },
             {
               "id": "sc-s7-insight-mandrake",
@@ -6449,7 +6501,8 @@
                 "fleeting": "He's not going to shoot immediately. His finger isn't on the trigger.",
                 "masterful": "He's testing you. He wants something — this is a negotiation, not an ambush.",
                 "legendary": "He's desperate. The tattered uniform is from months in the jungle. He needs the generator gone because it powers the perimeter that keeps him trapped in this sector."
-              }
+              },
+              "complexity": "complex"
             },
             {
               "id": "sc-s7-persuasion-deal",
@@ -6469,9 +6522,11 @@
                 "fleeting": "Mandrake reduces his demand — sabotage the generator OR provide him with supplies and a comm unit.",
                 "masterful": "Mandrake agrees to guide them to the entrance. The sabotage becomes optional — he'll accept a promise of extraction instead.",
                 "legendary": "Full alliance. Mandrake guides them in, provides detailed facility intel, and agrees to create a diversion when they're ready to extract."
-              }
+              },
+              "complexity": "complex"
             }
-          ]
+          ],
+          "subtitle": "Ajan Kloss"
         },
         {
           "id": "adv1-p2-s4",
@@ -6729,12 +6784,16 @@
           "hazards": "Fortified temple ruin — laser fences, gun emplacements, Clone Wars-era tech security. Hard clock: Inquisitor Draco is en route.",
           "decisions": [
             {
-              "choice": "Sabotage the generator per Mandrake's deal",
-              "consequence": "Four-purpose payoff: kills turrets (Maya can extract), drops laser fences (prisoners freed), unlocks security doors (detention block opens), blinds sensor grid (chaos cover). Alerts the garrison but cripples their infrastructure."
+              "choice": "Explore the Medical Bay before pushing deeper",
+              "consequence": "Vischera provides intel about Varth, Draco, and hints of Project Leviathan's biological component. Time spent but information gained."
             },
             {
-              "choice": "Skip the sabotage and head straight for Varth",
-              "consequence": "Faster but turrets remain active (Maya's extraction becomes extremely dangerous), prisoners remain penned, Mandrake is betrayed. Full security remains active."
+              "choice": "Access the Communications Center",
+              "consequence": "Starts the Draco clock — his ETA is confirmed. Critical time pressure added but knowledge gained."
+            },
+            {
+              "choice": "Move directly toward the generator / detention block",
+              "consequence": "Fastest path. Less intel but more time before Draco arrives."
             }
           ],
           "loreTags": [
@@ -6789,14 +6848,6 @@
               "trigger": "Optional — the heroes can access the comms center",
               "description": "Intercepting transmissions reveals that Inquisitor Valin Draco is en route. This creates the hard clock: get Varth before Draco lands.",
               "tactics": "Tech or Investigation check to decrypt the transmissions. The clock starts NOW."
-            },
-            {
-              "id": "enc-s8-generator",
-              "name": "Generator Sabotage",
-              "type": "technical",
-              "trigger": "If the heroes honor Mandrake's deal",
-              "description": "The fortress generator is a repurposed Clone Wars power unit powering four critical systems: perimeter turret defenses, laser fences penning indigenous prisoners, security doors blocking the detention area, and the sensor grid. Sabotaging it produces a four-purpose payoff: turrets die (Maya can extract), fences drop (prisoners freed), doors unlock (detention block opens), sensors blind (chaos cover). The explosion alerts the entire garrison.",
-              "tactics": "Tech check to sabotage cleanly with delayed detonation — heroes can get clear before it blows. On failure, immediate detonation catches them in the blast. Either way, when it goes: lights out, turrets dead, fences down, doors open. Mandrake moves to free his people the moment power drops."
             }
           ],
           "environmentMechanics": [
@@ -6839,10 +6890,10 @@
           },
           "pacing": {
             "openingBeat": "The fortress from the ridge. Moss-covered temple ruin. Laser fences. Gun emplacements. The Lambda shuttle on the pad.",
-            "risingAction": "The sluice. Mandrake splits off to the detention pens. Corridors. Optional encounters — medbay, comms, generator. Information and choices.",
-            "climax": "Generator sabotage: the four-purpose payoff. Turrets die, fences drop, doors unlock, sensors blind. Mandrake moves to free his people. The Draco clock starts.",
-            "resolution": "The heroes reach the detention block level. Varth is close.",
-            "estimatedMinutes": 45
+            "risingAction": "The sluice. Mandrake splits off. Corridors. Optional encounters — Medical Bay (Vischera), Communications Center (Draco's ETA). Intel gathering under time pressure.",
+            "climax": "The comms intercept: Inquisitor Draco is en route. The clock starts.",
+            "resolution": "The heroes now know the stakes. They must decide: hit the generator, or go straight for Varth.",
+            "estimatedMinutes": 30
           },
           "knackTags": [
             "defector",
@@ -6888,7 +6939,8 @@
                 "fleeting": "Trap disarmed but it took time. The party is behind schedule.",
                 "masterful": "Clean passage. No alarms triggered.",
                 "legendary": "Traps disarmed AND reconfigured — they'll now alert the PCs if anyone follows them in."
-              }
+              },
+              "complexity": "complex"
             },
             {
               "id": "sc-s8-stealth-interior",
@@ -6908,7 +6960,8 @@
                 "fleeting": "Progress but close calls. The party can hear patrols just around corners.",
                 "masterful": "Ghost-like progress. Patrols pass without noticing.",
                 "legendary": "Perfect infiltration — the party also identifies the command center location and an alternate extraction route."
-              }
+              },
+              "complexity": "complex"
             },
             {
               "id": "sc-s8-tech-comms",
@@ -6927,28 +6980,8 @@
                 "fleeting": "Draco is en route. No specific ETA but \"within hours.\"",
                 "masterful": "Draco's ETA confirmed. The heroes know exactly how much time they have.",
                 "legendary": "Full intercept: Draco's ETA, his orders (terminate Varth if extraction is compromised), and the fortress command codes that control the laser fence."
-              }
-            },
-            {
-              "id": "sc-s8-tech-generator",
-              "actionType": "interact",
-              "discipline": "tech",
-              "arena": "wits",
-              "target": "Fortress backup generator",
-              "risk": 4,
-              "context": "Sabotaging the fortress generator. Kills turrets, drops fences, disables comms, enables extraction. Four-purpose payoff.",
-              "isGated": "Requires Field Toolkit for clean sabotage",
-              "narrativePacing": "Always roll if attempted. Major tactical decision.",
-              "control": {
-                "failure": "Immediate detonation. Heroes caught in blast radius. Same fortress-wide effects but at personal cost.",
-                "success": "Refer to effect tiers.",
-                "mastery": "The sabotage is so clean it looks like equipment failure, not sabotage. No one suspects intruders — they think it's a mechanical fault."
               },
-              "effect": {
-                "fleeting": "Delayed detonation — heroes get 1 round to clear the area. Fortress systems go down.",
-                "masterful": "Clean sabotage with controlled shutdown — heroes get clear, fortress goes dark systematically.",
-                "legendary": "Precision sabotage: the generator fails in sequence, taking down systems one at a time. Heroes can choose WHICH systems fail first (turrets first? fences first? comms first?)."
-              }
+              "complexity": "simple"
             },
             {
               "id": "sc-s8-investigation-medbay",
@@ -6967,13 +7000,213 @@
                 "fleeting": "Vischera is conducting medical research on the prisoners. Purpose unclear.",
                 "masterful": "Detailed information about Skarn's operation, Varth's status, and references to a biological research program.",
                 "legendary": "Full research access: Vischera is studying Force sensitivity in prisoners. Project Leviathan isn't just a prison — it's a research program. And Varth was a willing test subject."
+              },
+              "complexity": "simple"
+            }
+          ],
+          "subtitle": "The Fortress"
+        },
+        {
+          "id": "adv1-p2-s5",
+          "number": 5,
+          "title": "The Generator",
+          "subtitle": "Mandrake's Deal",
+          "readAloud": "The generator room is deep in the fortress basement — a repurposed Clone Wars power unit, cables snaking out through the walls like arteries. Through the grated floor, you can feel the hum in your teeth. This one machine powers everything: the turrets on the walls, the laser fences penning Mandrake's people, the security doors sealing the detention block, the sensor grid watching every corridor.\n\nKill this, and the whole fortress goes blind.",
+          "gmNotes": "This is the tactical linchpin of the entire infiltration. The generator encounter has four-purpose significance — the GM should make the payoff chain EXPLICIT. When sabotaged, it simultaneously:\n\n(1) Kills the perimeter turret defenses — clearing Maya's extraction flight path\n(2) Drops the laser fences penning indigenous prisoners — enabling Mandrake's rescue\n(3) Unlocks the security doors blocking the detention area — opening the path to Varth\n(4) Blinds the sensor grid — creating chaos cover for everyone\n\nIf the heroes honor Mandrake's deal, this is where they pay it off. If they skip it, turrets stay active (Maya's extraction becomes near-suicidal), prisoners stay penned (Mandrake is betrayed), and security remains fully operational.\n\nThe generator room has 2 mercenary guards (bored, playing cards) and a Clone Wars-era security droid that activates if the generator is tampered with.\n\nAfter the generator blows, the fortress alarm sounds. This is the point of no return — from here, it's a clock. The heroes need to reach the detention block before the garrison reorganizes.",
+          "npcs": [
+            {
+              "name": "Generator Guards",
+              "type": "Skarn's Mercenaries",
+              "count": 2,
+              "notes": "Bored guards playing cards in the generator room. Not expecting trouble.",
+              "behavior": "Startled and slow to react. They assumed no one could get this deep without triggering an alarm.",
+              "dialogue": [
+                "\"What the— how did you get in here?\"",
+                "\"Nobody told us about any inspection—\""
+              ]
+            }
+          ],
+          "hazards": "Clone Wars-era generator — volatile if handled wrong. Security droid activates on tampering. Explosion risk on failure.",
+          "decisions": [
+            {
+              "choice": "Sabotage the generator per Mandrake's deal",
+              "consequence": "Four-purpose payoff: kills turrets (Maya can extract), drops laser fences (prisoners freed), unlocks security doors (detention block opens), blinds sensor grid (chaos cover). Alerts the garrison but cripples their infrastructure."
+            },
+            {
+              "choice": "Skip the sabotage and head straight for Varth",
+              "consequence": "Faster but turrets remain active (Maya's extraction becomes extremely dangerous), prisoners remain penned, Mandrake is betrayed. Full security remains active."
+            },
+            {
+              "choice": "Attempt a partial sabotage — selective systems only",
+              "consequence": "Requires Legendary tech result. If achieved, heroes can choose which systems fail in what order. If not, full sabotage or nothing."
+            }
+          ],
+          "loreTags": [
+            "General Skarn",
+            "Vazus Mandrake",
+            "Clone Wars"
+          ],
+          "narrativeLinks": [],
+          "challengeType": "technical",
+          "destinyTags": [
+            "destruction",
+            "rescue",
+            "alliance"
+          ],
+          "vocationTags": [
+            "voc_splice",
+            "voc_ghost",
+            "voc_engineer"
+          ],
+          "disciplineTags": [
+            "tech",
+            "skulduggery",
+            "stealth",
+            "combat"
+          ],
+          "gearFlags": [
+            "Restricted"
+          ],
+          "encounters": [
+            {
+              "id": "enc-s9-generator-approach",
+              "name": "Generator Room Approach",
+              "type": "infiltration",
+              "trigger": "Heroes reach the generator sublevel",
+              "description": "Two mercenary guards in the generator room, playing cards. A Clone Wars security droid sits dormant in a charging cradle near the generator housing. The room hums with power.",
+              "tactics": "Stealth takedown of guards avoids triggering the droid. Loud approach activates it. The droid is ancient but functional."
+            },
+            {
+              "id": "enc-s9-generator-sabotage",
+              "name": "Generator Sabotage",
+              "type": "technical",
+              "trigger": "Heroes attempt to sabotage the generator",
+              "description": "The fortress generator is a repurposed Clone Wars power unit. Sabotaging it produces a four-purpose payoff chain. The GM should narrate each system going down in sequence for maximum dramatic impact: lights flicker, turrets whine down, laser fences spark and die, security doors clunk open, sensor screens go dark.",
+              "tactics": "Tech check for clean sabotage. Failure = immediate detonation (still works but heroes caught in blast). Success = controlled shutdown with time to clear. The four-purpose chain should be narrated explicitly."
+            }
+          ],
+          "environmentMechanics": [
+            {
+              "name": "Clone Wars Security Droid",
+              "trigger": "Activated by tampering with the generator or by combat noise",
+              "effect": "An ancient but functional battle droid guards the generator. Slow but heavily armored for its era.",
+              "mitigation": "Stealth takedown of guards avoids activating it. Tech check can reprogram it. Destroying it is noisy."
+            },
+            {
+              "name": "Generator Volatility",
+              "trigger": "Failed sabotage attempt",
+              "effect": "Uncontrolled detonation. Same fortress-wide effects but heroes caught in blast radius.",
+              "mitigation": "Field Toolkit enables clean sabotage. Without one, the check is harder."
+            }
+          ],
+          "rewards": {
+            "credits": 0,
+            "items": [],
+            "intel": [
+              "Generator sabotage produces four-purpose payoff: turrets, fences, doors, sensors",
+              "The Clone Wars tech powering this fortress predates the Empire by years — Skarn repurposed an old Separatist outpost"
+            ],
+            "connections": [
+              "Vazus Mandrake (deal honored — or betrayed — here)"
+            ]
+          },
+          "pacing": {
+            "openingBeat": "The generator room. A repurposed Clone Wars power unit humming in the fortress basement.",
+            "risingAction": "Guards to deal with. The security droid. Getting to the generator housing.",
+            "climax": "The sabotage itself: the four-purpose payoff chain. Turrets die, fences drop, doors unlock, sensors blind. Mandrake moves to free his people.",
+            "resolution": "The alarm sounds. The fortress goes dark. The clock is running — reach Varth before they reorganize.",
+            "estimatedMinutes": 25
+          },
+          "knackTags": [
+            "defector",
+            "exile",
+            "witness",
+            "shadow-stalked"
+          ],
+          "backgroundTags": [
+            "conflict-zone",
+            "imperial-detention",
+            "hidden-community"
+          ],
+          "speciesTags": [
+            "sullustan",
+            "keldor",
+            "human"
+          ],
+          "themeTags": [
+            "keeping promises",
+            "tactical consequences",
+            "breaking chains"
+          ],
+          "disciplineChallenges": [
+            {
+              "id": "sc-s9-stealth-guards",
+              "actionType": "interact",
+              "discipline": "stealth",
+              "arena": "reflex",
+              "target": "Generator room guards",
+              "resist": 1,
+              "risk": 4,
+              "complexity": "simple",
+              "context": "Neutralizing the generator room guards without triggering the security droid.",
+              "narrativePacing": "Roll on approach. Failure activates the droid and alerts nearby patrols.",
+              "control": {
+                "failure": "Guards shout an alarm. The security droid activates. Nearby patrols start converging.",
+                "success": "Refer to effect tiers."
+              },
+              "effect": {
+                "fleeting": "Guards neutralized but one gets a partial shout. The droid's charging cradle flickers — it may activate soon.",
+                "masterful": "Clean takedown. Guards down silently. Droid remains dormant.",
+                "legendary": "Guards down without a sound. The PC also notices the droid's power cable — yanking it prevents activation entirely."
+              }
+            },
+            {
+              "id": "sc-s9-tech-generator",
+              "actionType": "interact",
+              "discipline": "tech",
+              "arena": "wits",
+              "target": "Fortress backup generator",
+              "risk": 4,
+              "complexity": "set-piece",
+              "context": "Sabotaging the fortress generator. Kills turrets, drops fences, unlocks doors, blinds sensors. Four-purpose payoff — the tactical linchpin of the entire infiltration.",
+              "isGated": "Requires Field Toolkit for clean sabotage",
+              "narrativePacing": "Always roll if attempted. Major tactical decision. Narrate each system going down.",
+              "control": {
+                "failure": "Immediate detonation. Heroes caught in blast radius. Same fortress-wide effects but at personal cost.",
+                "success": "Refer to effect tiers.",
+                "mastery": "The sabotage is so clean it looks like equipment failure, not sabotage. No one suspects intruders — they think it's a mechanical fault."
+              },
+              "effect": {
+                "fleeting": "Delayed detonation — heroes get 1 round to clear the area. Fortress systems go down.",
+                "masterful": "Clean sabotage with controlled shutdown — heroes get clear, fortress goes dark systematically.",
+                "legendary": "Precision sabotage: the generator fails in sequence, taking down systems one at a time. Heroes can choose WHICH systems fail first (turrets first? fences first? comms first?)."
+              }
+            },
+            {
+              "id": "sc-s9-survival-blast",
+              "actionType": "interact",
+              "discipline": "athletics",
+              "arena": "physique",
+              "target": "Generator room blast / debris",
+              "risk": 4,
+              "complexity": "simple",
+              "context": "Getting clear of the generator room when it blows. Debris, shrapnel, collapsing ceiling sections.",
+              "narrativePacing": "Roll immediately after sabotage. Only on fleeting tech result or failure.",
+              "control": {
+                "failure": "Caught in the blast. Significant damage. Knocked prone. Ears ringing.",
+                "success": "Refer to effect tiers."
+              },
+              "effect": {
+                "fleeting": "Dive behind cover just in time. Minor bruising, ears ringing, but functional.",
+                "masterful": "Clean exit from the blast radius. No injuries.",
+                "legendary": "The PC grabs a slower ally and shields them both behind a blast door. No one hurt."
               }
             }
           ]
         },
         {
-          "id": "adv1-p2-s5",
-          "number": 5,
+          "id": "adv1-p2-s6",
+          "number": 6,
           "title": "The Detention Block",
           "readAloud": "You blow the door to the holding cell expecting a broken man. Instead, you find Admiral Gilder Varth sitting comfortably, gambling with a confused guard and packing a bag.\n\nHe looks up with a charming, tired smile and flips a credit chip in greeting. \"You're late. I had credits on the second moonrise.\"",
           "gmNotes": "Varth is arrogant, charming, and unbothered. He treats the rescue like a hired service. He is ready to leave immediately — no physical items to retrieve. His authentication key for the encrypted account is memorized, keeping him in permanent control of his leverage.\n\nKey reveal: he didn't defect for moral reasons — he embezzled a fortune and needs the heroes to get him out. He uses nicknames: 'Kid,' 'Pilot,' 'Heavy.' This is the heroes' first real interaction with Varth — establish his 'Cool Uncle' persona.\n\nHIS PITCH: Once freed, Varth explains: the money is locked inside Varga's financial network. He has the authentication key memorized, but Varga moved the account after Varth was captured. They need to get inside Varga's operation to find the routing data. This sets up Adventure 2.\n\nIMPORTANT: Varth carries nothing physical. His authentication key is memorized — not on any device. His value is entirely in what he knows. This is a deliberate narrative choice — it makes him indispensable and impossible to cut out of the deal.",
@@ -7107,7 +7340,7 @@
           "gearFlags": [],
           "encounters": [
             {
-              "id": "enc-s9-meeting",
+              "id": "enc-s10-meeting",
               "name": "Meeting Varth",
               "type": "social",
               "trigger": "Heroes breach the detention block",
@@ -7118,7 +7351,7 @@
           "environmentMechanics": [
             {
               "name": "Draco Clock (Continued)",
-              "trigger": "Active from Scene 4",
+              "trigger": "Active from Scene 4-5",
               "effect": "The clock keeps ticking. Every minute spent with Varth is a minute closer to Draco's arrival.",
               "mitigation": "Move fast. Grab Varth and go."
             },
@@ -7184,7 +7417,7 @@
           ],
           "disciplineChallenges": [
             {
-              "id": "sc-s9-insight",
+              "id": "sc-s10-insight",
               "actionType": "assess",
               "discipline": "insight",
               "arena": "wits",
@@ -7202,10 +7435,11 @@
                 "fleeting": "Something is off but can't pinpoint it. Varth is a little TOO smooth for a man who's been in a cell.",
                 "masterful": "Varth is genuinely self-serving. His charm is practiced, not natural. He's reading the PCs as much as they're reading him.",
                 "legendary": "Varth's gratitude is real but conditional — he's already calculating how to use the PCs. His \"rescue\" pitch was rehearsed. He's been waiting for this."
-              }
+              },
+              "complexity": "complex"
             },
             {
-              "id": "sc-s9-persuasion",
+              "id": "sc-s10-persuasion",
               "actionType": "interact",
               "discipline": "persuasion",
               "arena": "presence",
@@ -7222,13 +7456,77 @@
                 "fleeting": "Minor concession — Varth promises priority access to intel once they reach his contacts.",
                 "masterful": "Varth agrees to a larger split. \"You've earned it. Besides, there's plenty where this leads.\"",
                 "legendary": "Varth offers full partnership. \"I need capable people. Not hired guns — partners. The thing I'm pointing you at is bigger than any one score.\" This is the hook into the campaign arc."
+              },
+              "complexity": "complex"
+            },
+            {
+              "id": "sc-s10-investigation-cell",
+              "actionType": "assess",
+              "discipline": "investigation",
+              "arena": "wits",
+              "target": "Varth's detention cell",
+              "complexity": "simple",
+              "context": "Examining Varth's cell environment. For a prisoner, things look suspiciously comfortable. What has Varth been doing in here?",
+              "isOptional": true,
+              "narrativePacing": "Roll if PCs look around the cell instead of rushing out. Seeds long-term suspicion.",
+              "control": {
+                "failure": "It's a cell. Nothing unusual jumps out.",
+                "success": "Refer to effect tiers."
+              },
+              "effect": {
+                "fleeting": "The cell is oddly well-maintained. Varth has clearly had privileges — extra blankets, better food rations.",
+                "masterful": "Tally marks on the wall don't match Varth's claimed time in custody. He's been here longer than he let on — or he inherited someone else's marks.",
+                "legendary": "Hidden under the bunk: a crude cipher written on cloth. Varth has been communicating with someone OUTSIDE the fortress. He didn't just wait to be rescued — he's been working."
+              }
+            },
+            {
+              "id": "sc-s10-charm-rapport",
+              "actionType": "interact",
+              "discipline": "charm",
+              "arena": "presence",
+              "target": "Admiral Varth",
+              "resist": 3,
+              "risk": 4,
+              "complexity": "complex",
+              "context": "Building rapport with Varth during the extraction. He's charming and transactional — can the heroes establish genuine connection or is this purely business?",
+              "narrativePacing": "Roll during the walk to extraction. Varth tests the heroes with banter and probing questions.",
+              "control": {
+                "failure": "Varth stays transactional. He's polite but clearly views the heroes as hired help. Uses professional distance.",
+                "success": "Refer to effect tiers."
+              },
+              "effect": {
+                "fleeting": "Varth warms slightly. He drops a nickname — 'Kid,' 'Pilot,' or 'Heavy' — showing he's been watching and categorizing them.",
+                "masterful": "Genuine warmth. Varth tells a personal anecdote about his time in the cell. The 'Cool Uncle' persona starts to solidify. He remembers their names.",
+                "legendary": "Varth drops his guard for a moment. A flash of genuine gratitude — not performed, real. Then it's gone, covered by a quip. But the PC saw it. There's a person under the performance."
+              }
+            },
+            {
+              "id": "sc-s10-deception-cover",
+              "actionType": "interact",
+              "discipline": "deception",
+              "arena": "presence",
+              "target": "Admiral Varth",
+              "resist": 4,
+              "risk": 4,
+              "complexity": "complex",
+              "context": "If the heroes try to conceal their own motives or background from Varth. He reads people for a living — lying to him is hard.",
+              "narrativePacing": "Roll if any PC tries to mislead Varth about who they are or why they're here.",
+              "control": {
+                "failure": "Varth sees through it immediately. He doesn't call it out — he just files it away. The PC won't know they've been made.",
+                "success": "Refer to effect tiers."
+              },
+              "effect": {
+                "fleeting": "Varth accepts the surface story. He doesn't seem to dig deeper — for now.",
+                "masterful": "Varth buys the cover completely. He adjusts his pitch accordingly, tailoring his offer to what he thinks the PC wants.",
+                "legendary": "Varth is fully convinced AND the PC picks up on HOW Varth adjusts — revealing what Varth values in people. A window into his manipulation technique."
               }
             }
-          ]
+          ],
+          "subtitle": "Meeting the Admiral"
         },
         {
-          "id": "adv1-p2-s6",
-          "number": 6,
+          "id": "adv1-p2-s7",
+          "number": 7,
           "title": "The Deal Gone Bad",
           "subtitle": "Climax",
           "readAloud": "The landing pad erupts. The Stormtroopers open fire on Skarn's mercenaries. The fortress becomes a three-way warzone — Imperials, the Warlord's forces, and you caught in the middle.\n\nThen a shadow falls across the compound. A shuttle descends through the canopy — sleek, black, unmarked. The ramp drops and a dark figure emerges. Even from a distance, you feel it — a cold pressure in your chest, a wrongness that makes your teeth ache.\n\nInquisitor Draco has arrived.\n\nThe comlink crackles. Maya's voice, tense but steady: \"I see the fireworks. Banshee's patched and in the air. Tell me those turrets are down.\"",
@@ -7625,7 +7923,7 @@
           ],
           "encounters": [
             {
-              "id": "enc-s10-threeway",
+              "id": "enc-s11-threeway",
               "name": "Three-Way Firefight",
               "type": "combat",
               "trigger": "The landing pad erupts as Imperials and Skarn's forces clash",
@@ -7649,7 +7947,7 @@
               }
             },
             {
-              "id": "enc-s10-shadow-troopers",
+              "id": "enc-s11-shadow-troopers",
               "name": "Shadow Trooper Ambush",
               "type": "combat",
               "trigger": "When the heroes reach the jungle perimeter",
@@ -7668,7 +7966,7 @@
               }
             },
             {
-              "id": "enc-s10-extraction",
+              "id": "enc-s11-extraction",
               "name": "Maya's Conditional Extraction",
               "type": "technical",
               "trigger": "After clearing or bypassing the Shadow Troopers",
@@ -7758,7 +8056,7 @@
           ],
           "disciplineChallenges": [
             {
-              "id": "sc-s10-tactics-chaos",
+              "id": "sc-s11-tactics-chaos",
               "actionType": "assess",
               "discipline": "tactics",
               "arena": "wits",
@@ -7775,10 +8073,11 @@
                 "fleeting": "One gap spotted — narrow and closing. They have 2 rounds to reach it.",
                 "masterful": "A clear gap in the fighting — the heroes can move through with minimal contact.",
                 "legendary": "Perfect read. The PC identifies a route AND a timing window where both factions are focused on each other. Free passage if they move NOW."
-              }
+              },
+              "complexity": "complex"
             },
             {
-              "id": "sc-s10-evasion-fire",
+              "id": "sc-s11-evasion-fire",
               "actionType": "interact",
               "discipline": "evasion",
               "arena": "reflex",
@@ -7794,10 +8093,11 @@
                 "fleeting": "Through but singed — minor damage from near misses.",
                 "masterful": "Clean movement through the kill zone. No hits taken.",
                 "legendary": "The PC's evasive movement is so effective that they draw fire away from the rest of the party — everyone gets through."
-              }
+              },
+              "complexity": "set-piece"
             },
             {
-              "id": "sc-s10-ranged-shadow",
+              "id": "sc-s11-ranged-shadow",
               "actionType": "interact",
               "discipline": "ranged",
               "arena": "reflex",
@@ -7814,10 +8114,11 @@
                 "fleeting": "Suppressive fire forces one Shadow Trooper to relocate. Buys a round of movement.",
                 "masterful": "Precise fire drops or suppresses them. Path to the clearing opens.",
                 "legendary": "Headshot. One Shadow Trooper eliminated, the other breaks position. The treeline is clear."
-              }
+              },
+              "complexity": "set-piece"
             },
             {
-              "id": "sc-s10-athletics-run",
+              "id": "sc-s11-athletics-run",
               "actionType": "interact",
               "discipline": "athletics",
               "arena": "physique",
@@ -7833,10 +8134,11 @@
                 "fleeting": "Staggering run. They make it but it costs — arrive exhausted, last ones aboard.",
                 "masterful": "Full speed. Board the ship. Go.",
                 "legendary": "Adrenaline surge. The PC carries a wounded ally AND makes the ramp. Heroic moment."
-              }
+              },
+              "complexity": "simple"
             },
             {
-              "id": "sc-s10-piloting-escape",
+              "id": "sc-s11-piloting-escape",
               "actionType": "interact",
               "discipline": "piloting",
               "arena": "reflex",
@@ -7853,7 +8155,8 @@
                 "fleeting": "Rough liftoff. TIE fighters score hits but the Banshee makes it to hyperspace. Hull integrity is concerning.",
                 "masterful": "Clean escape. Jump to hyperspace before fighters can intercept. The stars streak.",
                 "legendary": "Perfect escape — the Ace threads through the TIE formation, using the Star Destroyer's own mass shadow to mask the hyperspace vector. Imperials have no idea where they went."
-              }
+              },
+              "complexity": "complex"
             }
           ]
         }
