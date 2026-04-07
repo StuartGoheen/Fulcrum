@@ -2244,10 +2244,9 @@
         heading: 'Earning Marks',
         body: 'Marks are the single advancement currency. Each adventure offers 10–15 Marks spread across four trigger buckets. The GM checks off triggers as they occur; at adventure end, earned Marks are banked.',
         list: [
-          'The Mission (4–5 M): Act Milestones I/II/III, The Crucible, The Hard Call.',
-          'The Past (2–3 M): Ghost of the Past, The Debt Paid, The Old Scars.',
-          'The Future (2–3 M): The Reckless Pursuit (1 M), The Destiny Milestone (2 M, rare).',
-          'The Mechanics (2–4 M): D4 Burden ×2, Unleashed Miracle ×1, Edge Burn.'
+          'The Adventure (varies): Mission-specific goals loaded per adventure. Some are revealed by the GM mid-session. Includes The Crucible (universal).',
+          'Destiny (3 M): Personal destiny marks tied to your character\'s chosen destiny path.',
+          'The Edge (6 M): Systems and grit triggers — gear, environment, raw power, adaptability.'
         ]
       },
       {

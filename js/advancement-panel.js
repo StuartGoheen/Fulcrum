@@ -76,13 +76,11 @@
     document.body.appendChild(overlay);
   }
 
-  var ADVENTURE_TRIGGERS = [
-    { id: 'act_milestone_1', label: 'Act I Milestone',  value: 1, desc: 'Crew completes Act 1 or a major objective.', group: true },
-    { id: 'act_milestone_2', label: 'Act II Milestone', value: 1, desc: 'Crew completes Act 2 or a major objective.', group: true },
-    { id: 'act_milestone_3', label: 'Act III Milestone',value: 1, desc: 'Crew completes Act 3 or a major objective.', group: true },
-    { id: 'crucible',        label: 'The Crucible',     value: 1, desc: 'The plan catastrophically fails and the crew improvises under fire to survive.', group: true },
-    { id: 'hard_call',       label: 'The Hard Call',    value: 1, desc: 'Crew makes a definitive choice that shapes the story. Flips a Destiny Token.', group: true }
-  ];
+  function _getAdventureTriggersFallback() {
+    return [
+      { id: _currentAdventureId + '_crucible', label: 'The Crucible', value: 1, desc: 'The plan catastrophically fails and the crew improvises under fire to survive.', group: true }
+    ];
+  }
 
   var EDGE_TRIGGERS = [
     { id: 'gear_solved',     label: 'Gear Solved It',            value: 1, desc: 'Your gear helped you achieve a significant challenge that without it may not have been possible or would have been extremely dangerous.' },
@@ -95,7 +93,9 @@
 
   var _destinyData = null;
   var _allKitsData = null;
+  var _adventureMarksData = null;
   var _currentAdventureId = 'adv1';
+  var _isGmView = window.location.pathname.indexOf('/gm') === 0;
 
   var DISC_TRACK_SIZE = 5;
   var ARENA_TRACK_SIZE = 3;
@@ -139,6 +139,16 @@
     return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
 
+  function _getAdventureTriggers() {
+    if (!_adventureMarksData || !_adventureMarksData.length) return _getAdventureTriggersFallback();
+    var triggers = [];
+    _adventureMarksData.forEach(function (m) {
+      if (m.hidden && !_isGmView) return;
+      triggers.push({ id: m.id, label: m.label, value: 1, desc: m.desc, group: true, hidden: m.hidden });
+    });
+    return triggers;
+  }
+
   function _getMarkBuckets() {
     var destinyTriggers = [];
     var destinyName = 'Destiny';
@@ -152,14 +162,16 @@
         });
       }
     }
+    var advTriggers = _getAdventureTriggers();
+    var visibleCount = advTriggers.filter(function (t) { return !t.hidden; }).length;
     return [
       {
         bucket: 'The Adventure',
-        subtitle: 'Shared Milestones',
-        budget: '5 Marks',
+        subtitle: 'Mission Goals',
+        budget: visibleCount + ' Goals',
         icon: '\u2694',
         key: 'adventure',
-        triggers: ADVENTURE_TRIGGERS
+        triggers: advTriggers
       },
       {
         bucket: destinyName,
@@ -958,11 +970,22 @@
             var checked = checks[t.id] ? ' checked' : '';
             var groupTag = t.group ? '<span class="adv-tag adv-tag--group">GROUP</span>' : '';
             var tierTag = t.tier ? '<span class="adv-tag adv-tag--tier">TIER ' + t.tier + '</span>' : '';
-            html += '<label class="adv-trigger-row">';
+            var hiddenClass = t.hidden ? ' adv-trigger-row--hidden' : '';
+            var hiddenTag = (t.hidden && _isGmView) ? '<span class="adv-tag adv-tag--hidden">HIDDEN</span>' : '';
+            html += '<label class="adv-trigger-row' + hiddenClass + '">';
             html += '<input type="checkbox" class="adv-trigger-check" data-trigger-id="' + _esc(t.id) + '" data-bucket="' + _esc(bucket.key) + '"' + checked + ' />';
             html += '<div class="adv-trigger-info">';
-            html += '<span class="adv-trigger-label">' + _esc(t.label) + groupTag + tierTag + '</span>';
+            html += '<span class="adv-trigger-label">' + _esc(t.label) + groupTag + tierTag + hiddenTag + '</span>';
             html += '<span class="adv-trigger-desc">' + _esc(t.desc) + '</span>';
+            if (_isGmView && bucket.key === 'adventure' && t.hidden) {
+              html += '<button class="adv-btn adv-btn--reveal" data-reveal-mark="' + _esc(t.id) + '" data-reveal-adv="' + _esc(_currentAdventureId) + '">Reveal to Players</button>';
+            }
+            if (_isGmView && bucket.key === 'adventure' && !t.hidden && t.id !== 'crucible') {
+              var origMark = _adventureMarksData && _adventureMarksData.find(function (m) { return m.id === t.id; });
+              if (origMark) {
+                html += '<button class="adv-btn adv-btn--hide" data-hide-mark="' + _esc(t.id) + '" data-hide-adv="' + _esc(_currentAdventureId) + '">Hide from Players</button>';
+              }
+            }
             html += '</div>';
             html += '</label>';
           });
@@ -1502,6 +1525,56 @@
         var idx = parseInt(hdr.getAttribute('data-bucket-idx'), 10);
         _collapsedBuckets[idx] = !_collapsedBuckets[idx];
         _render();
+      });
+    });
+
+    var revealBtns = container.querySelectorAll('.adv-btn--reveal');
+    revealBtns.forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var markId = btn.getAttribute('data-reveal-mark');
+        var advId = btn.getAttribute('data-reveal-adv');
+        fetch('/api/campaign/adventures/' + encodeURIComponent(advId) + '/marks/' + encodeURIComponent(markId) + '/reveal', { method: 'POST' })
+          .then(function (r) {
+            if (!r.ok) throw new Error('Reveal failed: ' + r.status);
+            return r.json();
+          })
+          .then(function (data) {
+            if (!data.ok) throw new Error('Reveal rejected');
+            var sock = _getSocket();
+            if (sock) sock.emit('marks:reveal', { adventureId: advId, markId: markId });
+            if (_adventureMarksData) {
+              _adventureMarksData.forEach(function (m) { if (m.id === markId) m.hidden = false; });
+            }
+            _render();
+          })
+          .catch(function (err) { console.error('[AdvancementPanel] Reveal error:', err); });
+      });
+    });
+
+    var hideBtns = container.querySelectorAll('.adv-btn--hide');
+    hideBtns.forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var markId = btn.getAttribute('data-hide-mark');
+        var advId = btn.getAttribute('data-hide-adv');
+        fetch('/api/campaign/adventures/' + encodeURIComponent(advId) + '/marks/' + encodeURIComponent(markId) + '/hide', { method: 'POST' })
+          .then(function (r) {
+            if (!r.ok) throw new Error('Hide failed: ' + r.status);
+            return r.json();
+          })
+          .then(function (data) {
+            if (!data.ok) throw new Error('Hide rejected');
+            var sock = _getSocket();
+            if (sock) sock.emit('marks:hide', { adventureId: advId, markId: markId });
+            if (_adventureMarksData) {
+              _adventureMarksData.forEach(function (m) { if (m.id === markId) m.hidden = true; });
+            }
+            _render();
+          })
+          .catch(function (err) { console.error('[AdvancementPanel] Hide error:', err); });
       });
     });
 
@@ -2122,6 +2195,24 @@
       });
   }
 
+  function _loadAdventureMarksData(cb) {
+    fetch('/api/campaign/adventures/' + encodeURIComponent(_currentAdventureId) + '/marks')
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (data.ok && data.marks) {
+          _adventureMarksData = data.marks;
+        } else {
+          _adventureMarksData = [];
+        }
+        if (cb) cb();
+      })
+      .catch(function (err) {
+        console.error('[AdvancementPanel] Failed to load adventure marks data:', err);
+        _adventureMarksData = [];
+        if (cb) cb();
+      });
+  }
+
   function _loadAdventureMarks(cb) {
     if (!_charId) { if (cb) cb(); return; }
     fetch('/api/characters/' + encodeURIComponent(_charId) + '/adventure-marks/' + encodeURIComponent(_currentAdventureId))
@@ -2157,7 +2248,7 @@
       }
 
       var loaded = 0;
-      var totalLoads = 4;
+      var totalLoads = 5;
       function onLoaded() {
         loaded++;
         if (loaded >= totalLoads) {
@@ -2170,6 +2261,7 @@
       _loadDestinyData(onLoaded);
       _loadKitsData(onLoaded);
       _loadCampaignProgress(function () {
+        _loadAdventureMarksData(onLoaded);
         _loadAdventureMarks(onLoaded);
         onLoaded();
       });
@@ -2201,6 +2293,22 @@
           if (data.characterId === _charId && data.advancement) {
             _advancement = data.advancement;
             _ensureDefaults();
+            if (_panelVisible) _render();
+          }
+        });
+        sock.on('marks:revealed', function (data) {
+          if (data.adventureId === _currentAdventureId && _adventureMarksData) {
+            _adventureMarksData.forEach(function (m) {
+              if (m.id === data.markId) m.hidden = false;
+            });
+            if (_panelVisible) _render();
+          }
+        });
+        sock.on('marks:hidden', function (data) {
+          if (data.adventureId === _currentAdventureId && _adventureMarksData) {
+            _adventureMarksData.forEach(function (m) {
+              if (m.id === data.markId) m.hidden = true;
+            });
             if (_panelVisible) _render();
           }
         });

@@ -4,6 +4,16 @@
   "title": "Jaws of the Leviathan",
   "act": 3,
   "summary": "The Maw drops out of hyperspace over Malpaz — the world the heroes liberated, now targeted for Tarkin's demonstration of the gravity well superweapon they helped Varth unlock. Its crescent arms open and the sky begins to distort as asteroids shift orbit. With Oga Garra's pirate fleet and whatever allies remain, the heroes race to board the Leviathan and disable the gravity well array before it buries the planet under a rain of kinetic impactors. The campaign ends where the betrayal began. If Denia was abandoned in Adventure 2, the Draco showdown reveals her alive in his custody — broken but surviving. The heroes discover that Varth told them to leave her so he could hand her to the Inquisition.",
+  "marks": [
+    { "id": "adv10_malpaz", "label": "Return to Malpaz", "desc": "The world you liberated is now the target. The Leviathan arrives.", "hidden": false },
+    { "id": "adv10_fleet", "label": "The Fleet Assembles", "desc": "Rally Oga Garra's pirates and whatever allies you've earned across the campaign.", "hidden": false },
+    { "id": "adv10_boarding", "label": "Boarding Action", "desc": "Board the Leviathan while the fleet buys you time in the orbital battle.", "hidden": false },
+    { "id": "adv10_array", "label": "The Gravity Well Array", "desc": "Reach the projector core and disable it before the impactors bury Malpaz.", "hidden": true },
+    { "id": "adv10_varth", "label": "The Reckoning", "desc": "Face Varth. The man who started all of this. The betrayal ends here.", "hidden": true },
+    { "id": "adv10_draco", "label": "The Inquisitor's Price", "desc": "Draco stands between you and the finish. The Dark Side is strong here.", "hidden": true },
+    { "id": "adv10_final_hand", "label": "The Final Hand", "desc": "Make the last play. Everything you've built, everyone you've saved or lost — it comes down to this.", "hidden": true },
+    { "id": "adv10_crucible", "label": "The Crucible", "desc": "The plan catastrophically fails. Improvise under fire to survive.", "hidden": false }
+  ],
   "gearNotes": [
     {
       "item": "Security Kit",

@@ -117,6 +117,56 @@ router.get('/campaign/adventures/:adventureId', async (req, res) => {
   }
 });
 
+router.get('/campaign/adventures/:adventureId/marks', async (req, res) => {
+  try {
+    const data = loadAdventures();
+    const adv = data.adventures.find(a => a.id === req.params.adventureId);
+    if (!adv) return res.status(404).json({ error: 'Adventure not found' });
+    const marks = adv.marks || [];
+    const { rows: revealed } = await pool.query(
+      'SELECT mark_id FROM revealed_marks WHERE adventure_id = $1',
+      [req.params.adventureId]
+    );
+    const revealedSet = new Set(revealed.map(r => r.mark_id));
+    const result = marks.map(m => ({
+      id: m.id,
+      label: m.label,
+      desc: m.desc,
+      hidden: m.hidden && !revealedSet.has(m.id)
+    }));
+    res.json({ ok: true, adventureId: req.params.adventureId, marks: result });
+  } catch (err) {
+    console.error('[marks] Error loading adventure marks:', err);
+    res.status(500).json({ error: 'Failed to load adventure marks' });
+  }
+});
+
+router.post('/campaign/adventures/:adventureId/marks/:markId/reveal', async (req, res) => {
+  try {
+    await pool.query(
+      'INSERT INTO revealed_marks (adventure_id, mark_id) VALUES ($1, $2) ON CONFLICT DO NOTHING',
+      [req.params.adventureId, req.params.markId]
+    );
+    res.json({ ok: true, adventureId: req.params.adventureId, markId: req.params.markId });
+  } catch (err) {
+    console.error('[marks] Error revealing mark:', err);
+    res.status(500).json({ error: 'Failed to reveal mark' });
+  }
+});
+
+router.post('/campaign/adventures/:adventureId/marks/:markId/hide', async (req, res) => {
+  try {
+    await pool.query(
+      'DELETE FROM revealed_marks WHERE adventure_id = $1 AND mark_id = $2',
+      [req.params.adventureId, req.params.markId]
+    );
+    res.json({ ok: true, adventureId: req.params.adventureId, markId: req.params.markId });
+  } catch (err) {
+    console.error('[marks] Error hiding mark:', err);
+    res.status(500).json({ error: 'Failed to hide mark' });
+  }
+});
+
 router.get('/campaign/locations', (req, res) => {
   try {
     const data = loadLocations();

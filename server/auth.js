@@ -71,7 +71,11 @@ function gate(req, res, next) {
     if (req.path === '/gm' || req.path === '/gm/' || req.path.startsWith('/gm/')) {
       return res.redirect('/');
     }
+    var marksReadPattern = /^\/api\/campaign\/adventures\/[^/]+\/marks$/;
     if (req.path.startsWith('/api/campaign') || req.path === '/api/admin/release-all') {
+      if (req.method === 'GET' && marksReadPattern.test(req.path)) {
+        return next();
+      }
       return res.status(403).json({ error: 'Forbidden' });
     }
   }

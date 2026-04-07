@@ -4,6 +4,16 @@
   "title": "A Wretched Hive",
   "act": 1,
   "summary": "The heroes travel to Takodana to infiltrate Varga Besadii Drokko's fortress, posing as entertainment to steal the encryption keys to Varth's fortune. Over several days in the Hutt's court, they navigate gladiatorial spectacle, slave traders, an ISB double agent, and a nighttime assassination attempt — only to discover a captive Jedi Master in the dungeons. The escape costs lives: Demos dies fighting, Varga flees to Bespin, and Varth executes the man the heroes just rescued.",
+  "marks": [
+    { "id": "adv2_blackwind", "label": "The Approach", "desc": "Reach Varga's fortress through Blackwind Point. The jungle watches everything.", "hidden": false },
+    { "id": "adv2_cover", "label": "Wearing the Mask", "desc": "Establish your cover identity inside the encampment. Convince them you belong.", "hidden": false },
+    { "id": "adv2_court_favor", "label": "Currying Favor", "desc": "Navigate the court's politics — gladiators, slavers, and Imperial delegations. Build enough reputation to get close.", "hidden": true },
+    { "id": "adv2_sinde", "label": "The Imperial Shadow", "desc": "Discover Lady Sinde's true identity and what she's really negotiating with Varga.", "hidden": true },
+    { "id": "adv2_denia", "label": "The Prisoner Below", "desc": "Find Denia in the dungeons. Decide what she's worth to you.", "hidden": true },
+    { "id": "adv2_knife_dark", "label": "Knife in the Dark", "desc": "Survive the assassination attempt. Someone wants you dead before dawn.", "hidden": true },
+    { "id": "adv2_escape", "label": "The Burning Bridge", "desc": "Get out of the fortress alive. What you leave behind is the price.", "hidden": true },
+    { "id": "adv2_crucible", "label": "The Crucible", "desc": "The plan catastrophically fails. Improvise under fire to survive.", "hidden": false }
+  ],
   "gearNotes": [
     {
       "item": "Encrypted Comlink",

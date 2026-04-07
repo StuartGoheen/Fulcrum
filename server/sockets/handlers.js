@@ -393,6 +393,18 @@ function registerHandlers(io) {
       socket.broadcast.emit('advancement:sync', { characterId, advancement });
     });
 
+    socket.on('marks:reveal', ({ adventureId, markId }) => {
+      if (socket.data.role !== 'gm') return;
+      if (!adventureId || !markId) return;
+      io.emit('marks:revealed', { adventureId, markId });
+    });
+
+    socket.on('marks:hide', ({ adventureId, markId }) => {
+      if (socket.data.role !== 'gm') return;
+      if (!adventureId || !markId) return;
+      io.emit('marks:hidden', { adventureId, markId });
+    });
+
     socket.on('inventory:added', ({ charId, itemId, itemType }) => {
       if (socket.data.role !== 'gm') return;
       if (!charId || !itemId || !itemType) return;

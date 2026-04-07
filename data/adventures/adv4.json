@@ -4,6 +4,15 @@
   "title": "The Ebon Spire",
   "act": 2,
   "summary": "Varth has promised a bigger payday at Vel Shara in the Unknown Regions. To get there, the crew needs ancient hyperspace charts. Denia points them to the Ebon Spire — Revan's forward base on the Forest Moon of Endor — where Jedi holocrons with navigational data should be stored. But the Dead Forest is strong with the Dark Side, and the Spire's defenses don't care that the war ended millennia ago.",
+  "marks": [
+    { "id": "adv4_dead_forest", "label": "The Dead Forest", "desc": "Navigate the toxic, Dark Side-saturated forest to reach the Spire. The moon resists you.", "hidden": false },
+    { "id": "adv4_spire_entry", "label": "Breaching the Spire", "desc": "Find a way past the ancient defenses that still guard Revan's fortress.", "hidden": false },
+    { "id": "adv4_holocron", "label": "The Holocron Vault", "desc": "Locate the Jedi holocrons containing the hyperspace charts to Vel Shara.", "hidden": true },
+    { "id": "adv4_dark_side", "label": "Echoes of the Dark", "desc": "Confront what the Dark Side shows you inside the Spire. It knows your fears.", "hidden": true },
+    { "id": "adv4_guardian", "label": "The Guardian", "desc": "Face the ancient defender that still protects the Spire's secrets after millennia.", "hidden": true },
+    { "id": "adv4_charts", "label": "The Way Forward", "desc": "Secure the navigational data and escape the Spire before it seals you in.", "hidden": true },
+    { "id": "adv4_crucible", "label": "The Crucible", "desc": "The plan catastrophically fails. Improvise under fire to survive.", "hidden": false }
+  ],
   "gearNotes": [
     {
       "item": "Breath Mask",

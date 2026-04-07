@@ -4,6 +4,16 @@
   "title": "The Traitor's Gambit",
   "act": 1,
   "summary": "The heroes are drawn into a cantina confrontation on Jakku, discover a stolen Imperial code cylinder, use it to download the coordinates of a secret prison, and break Admiral Varth out of a jungle fortress — all for the promise of a stolen fortune.",
+  "marks": [
+    { "id": "adv1_strange_bedfellows", "label": "Strange Bedfellows", "desc": "A stranger crashes your table bleeding. You chose to fight for her instead of walking away.", "hidden": false },
+    { "id": "adv1_devils_deal", "label": "The Devil You Know", "desc": "Strike a deal with Switch — a droid who trades in secrets. What you owe him may cost more than credits.", "hidden": false },
+    { "id": "adv1_ghost_machine", "label": "Ghost in the Machine", "desc": "Use the Code Cylinder to access the Imperial shuttle's nav computer and learn where it points.", "hidden": true },
+    { "id": "adv1_green_hell", "label": "Into the Green Hell", "desc": "Survive the jungle of Ajan Kloss — the terrain, the wildlife, and the things that live between the trees.", "hidden": true },
+    { "id": "adv1_wardens_price", "label": "The Warden's Price", "desc": "Mandrake offers a deal: his guidance for your muscle. Honor it or betray it — either way, there's a cost.", "hidden": true },
+    { "id": "adv1_vanishing_place", "label": "The Vanishing Place", "desc": "Breach the fortress and reach the man the Empire buried.", "hidden": true },
+    { "id": "adv1_extraction", "label": "The Extraction", "desc": "Get Varth out alive. Whatever it takes.", "hidden": true },
+    { "id": "adv1_crucible", "label": "The Crucible", "desc": "The plan catastrophically fails. Improvise under fire to survive.", "hidden": false }
+  ],
   "gearNotes": [
     {
       "item": "Breath Mask",

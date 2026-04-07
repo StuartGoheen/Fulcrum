@@ -74,6 +74,13 @@ async function initSchema() {
         UNIQUE(character_id, adventure_id, mark_id)
       );
 
+      CREATE TABLE IF NOT EXISTS revealed_marks (
+        adventure_id   TEXT    NOT NULL,
+        mark_id        TEXT    NOT NULL,
+        revealed_at    TIMESTAMP DEFAULT NOW(),
+        PRIMARY KEY (adventure_id, mark_id)
+      );
+
       CREATE TABLE IF NOT EXISTS item_requests (
         id             SERIAL PRIMARY KEY,
         character_name TEXT    NOT NULL,
