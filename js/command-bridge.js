@@ -829,7 +829,7 @@
     var h = '<div class="cb-card">';
     h += '<div class="cb-section-label">Rewards</div>';
     if (r.credits) h += '<div style="font-size:0.7rem;color:#c8a44e;margin-bottom:0.15rem;">&#9670; Credits: ' + r.credits + '</div>';
-    if (r.items && r.items.length) h += '<div style="font-size:0.7rem;color:#7a7068;margin-bottom:0.15rem;">&#9670; Items: ' + r.items.map(function(i){return esc(i);}).join(', ') + '</div>';
+    if (r.items && r.items.length) h += '<div style="font-size:0.7rem;color:#7a7068;margin-bottom:0.15rem;">&#9670; Items: ' + r.items.map(function(i){ return esc(typeof i === 'object' ? (i.name || i.id || JSON.stringify(i)) + (i.qty && i.qty > 1 ? ' x' + i.qty : '') : i); }).join(', ') + '</div>';
     if (r.intel && r.intel.length) {
       h += '<div style="font-size:0.7rem;color:#f59e0b;margin-bottom:0.15rem;">&#9670; Intel:</div>';
       r.intel.forEach(function(i){ h += '<div style="font-size:0.65rem;color:#7a7068;padding-left:0.8rem;">• ' + linkify(i) + '</div>'; });
