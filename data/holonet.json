@@ -8,24 +8,24 @@
         {
           "id": "hn_empire_3yr",
           "headline": "EMPIRE DAY CELEBRATIONS MARK THREE YEARS OF GALACTIC PEACE",
-          "source": "Imperial HoloNews — Coruscant Bureau",
-          "body": "Citizens across the galaxy joined in celebration of the third anniversary of Emperor Palpatine's New Order. Grand Vizier Mas Amedda praised the Empire's 'unprecedented era of stability and prosperity' in a live address from the Imperial Palace. Military parades on Coruscant, Corellia, and Kuat drew record attendance. Fireworks lit the skies of a thousand worlds. The Emperor himself appeared briefly on the Senate balcony to thunderous applause.",
+          "source": "Alton Kastle, HoloNet News",
+          "body": "This is Alton Kastle for the only news you need. Citizens across the galaxy joined in celebration of the third anniversary of Emperor Palpatine's New Order. Grand Vizier Mas Amedda praised the Empire's 'unprecedented era of stability and prosperity' in a live address from the Imperial Palace. Military parades on Coruscant, Corellia, and Kuat drew record attendance. The Emperor himself appeared briefly on the Senate balcony to thunderous applause. Citizens are encouraged to display the Imperial crest in their homes and businesses as a show of unity. Your Empire thanks you for your loyalty.",
           "type": "propaganda",
           "tags": ["empire", "coruscant", "palpatine"]
         },
         {
           "id": "hn_kashyyyk_labor",
-          "headline": "IMPERIAL WORKFORCE INITIATIVE EXPANDS ON KASHYYYK",
-          "source": "Imperial HoloNews — Outer Rim Desk",
-          "body": "Governor Ozzik Sturn announced the expansion of the Kashyyyk Workforce Development Program, citing 'increased demand for skilled laborers in the construction sector.' Wookiee communities will benefit from structured work assignments across multiple Imperial infrastructure projects. The program has been praised by the Bureau of Labor for reducing unemployment in the Mytaranor sector to historic lows.",
+          "headline": "KASHYYYK WORKFORCE PROGRAM REDUCES MYTARANOR UNEMPLOYMENT TO HISTORIC LOWS",
+          "source": "Alton Kastle, HoloNet News",
+          "body": "Governor Ozzik Sturn announced the expansion of the Kashyyyk Workforce Development Program, citing 'increased demand for skilled laborers in the construction sector.' In exchange for structured work assignments, Wookiee communities receive housing, nutrition, and vocational training across multiple Imperial infrastructure projects. The Bureau of Labor reports unemployment in the Mytaranor sector has fallen to 0.3% — the lowest of any Outer Rim territory. A few isolated disruptions by ungrateful elements were quickly resolved by local peacekeepers. Citizens interested in the Workforce Initiative may contact their regional Imperial Labor Office.",
           "type": "propaganda",
           "tags": ["kashyyyk", "wookiees", "slavery", "empire"]
         },
         {
           "id": "hn_jedi_felucia",
           "headline": "JEDI FUGITIVE APPREHENDED ON FELUCIA — PUBLIC SAFETY RESTORED",
-          "source": "Imperial Security Bureau — Public Affairs",
-          "body": "Imperial forces acting on intelligence from concerned citizens apprehended a Jedi fugitive on the agrarian world of Felucia. The suspect, wanted for sedition and conspiracy against the state, was neutralized after resisting lawful detention. No civilian casualties were reported. Citizens are reminded that harboring Jedi fugitives carries a mandatory sentence under Imperial Edict 13. If you see something, say something.",
+          "source": "Alton Kastle, HoloNet News",
+          "body": "Imperial forces acting on intelligence from concerned citizens have apprehended a Jedi fugitive on the agrarian world of Felucia. The suspect, wanted for sedition and conspiracy against the state, was neutralized after resisting lawful detention. No civilian casualties were reported. Citizens are reminded that harboring Jedi fugitives carries a mandatory sentence under Imperial Edict 13. If you see something, say something — your Empire thanks you for your vigilance. Contact your local ISB field office or use the anonymous Imperial tip line to report suspicious Force-related activity.",
           "type": "lore",
           "tags": ["jedi", "inquisitorius", "felucia"]
         }
@@ -38,34 +38,34 @@
       "stories": [
         {
           "id": "hn_jakku_unrest",
-          "headline": "MINOR DISTURBANCE ON JAKKU RESOLVED BY LOCAL GARRISON",
-          "source": "Imperial HoloNews — Western Reaches",
-          "body": "A minor altercation at a refueling depot in Jakku's Kelvin Ravine was swiftly resolved by the local Imperial garrison. Sources indicate a group of off-world smugglers attempted to disrupt legitimate commerce operations. All suspects have been detained. Governor Moff Therrin commended the garrison's rapid response and assured residents that 'the security of even our most remote territories remains the Empire's highest priority.'",
+          "headline": "MINOR DISTURBANCE ON JAKKU RESOLVED — GARRISON COMMENDED",
+          "source": "Alton Kastle, HoloNet News",
+          "body": "A minor altercation at a refueling depot in Jakku's Kelvin Ravine was swiftly resolved by the local Imperial garrison. Sources indicate a group of off-world smugglers attempted to disrupt legitimate commerce operations. All suspects have been detained and their unregistered vessel impounded. Sector Moff Therrin commended the garrison's rapid response: 'The security of even our most remote territories remains the Empire's highest priority.' Residents who witnessed the disturbance are encouraged to file reports with their local garrison commander. No crime is victimless.",
           "type": "consequence",
           "tags": ["jakku", "empire"],
           "conditions": { "minAdventure": "adv1" }
         },
         {
           "id": "hn_tarkin_infrastructure",
-          "headline": "GRAND MOFF TARKIN ANNOUNCES OUTER RIM INFRASTRUCTURE INITIATIVE",
-          "source": "Imperial HoloNews — Eriadu Bureau",
-          "body": "Grand Moff Wilhuff Tarkin unveiled an ambitious infrastructure development program for the Outer Rim Territories during a policy address on Eriadu. The initiative, dubbed 'Project Consolidation,' will bring hyperspace lane improvements, orbital defense platforms, and industrial development to underserved systems. 'The Outer Rim will no longer be the Empire's forgotten frontier,' Tarkin declared. Senate appropriations for the project are expected to pass without opposition.",
+          "headline": "GRAND MOFF TARKIN UNVEILS AMBITIOUS OUTER RIM DEVELOPMENT PLAN",
+          "source": "Alton Kastle, HoloNet News",
+          "body": "Grand Moff Wilhuff Tarkin unveiled an ambitious infrastructure development program for the Outer Rim Territories during a policy address on Eriadu. The initiative, designated 'Project Consolidation,' will bring hyperspace lane improvements, orbital defense platforms, and industrial development to underserved systems. 'The Outer Rim will no longer be the Empire's forgotten frontier,' Tarkin declared to sustained applause. Senate appropriations for the project are expected to pass without opposition. Citizens in qualifying systems may apply for relocation grants through their local Imperial Development Office.",
           "type": "foreshadow",
           "tags": ["tarkin", "eriadu", "outer-rim", "death-star"]
         },
         {
           "id": "hn_lothal_industry",
-          "headline": "LOTHAL INDUSTRIAL OUTPUT EXCEEDS PROJECTIONS FOR THIRD CONSECUTIVE QUARTER",
-          "source": "Imperial Commerce Bureau",
-          "body": "The agricultural world of Lothal continues its transformation into a manufacturing hub under the Empire's Regional Development Act. Sienar Fleet Systems reports that its Lothal factory complex has exceeded TIE fighter production quotas by 12%. Governor Arihnda Pryce credited Imperial investment and 'the hardworking people of Lothal who understand that progress requires sacrifice.' Local farmers displaced by factory expansion will be relocated to productive assignments in the agricultural collective system.",
+          "headline": "LOTHAL INDUSTRIAL OUTPUT EXCEEDS PROJECTIONS — GOVERNOR PRYCE CREDITS IMPERIAL INVESTMENT",
+          "source": "Alton Kastle, HoloNet News",
+          "body": "The agricultural world of Lothal continues its transformation into a manufacturing hub under the Empire's Regional Development Act. Sienar Fleet Systems reports that its Lothal factory complex has exceeded TIE fighter production quotas by 12%. When interviewed, Governor Arihnda Pryce attributed the success to 'Imperial interests being allowed to flourish in underdeveloped worlds like Lothal.' Local farmers participating in the Galactic Farm Exchange program will be matched with productive assignments in the new industrial sector. Residents seeking employment should register at their nearest Imperial Labor Office.",
           "type": "lore",
           "tags": ["lothal", "sienar", "empire"]
         },
         {
           "id": "hn_pod_racing",
-          "headline": "MALASTARE POD RACING FEDERATION ANNOUNCES RECORD PRIZE POOL",
-          "source": "Galaxy Sports Network",
-          "body": "The Malastare Grand Arena will host the 47th Annual Vinta Harvest Classic with the largest prize pool in pod racing history — 2.3 million credits. Fan favorite Sebulba Jr. leads the odds board at 3-to-1, though Toydarian newcomer Watto's Revenge has turned heads in qualifying runs. The Empire's Sports and Entertainment Commission has approved a 15% increase in seating capacity, with a new VIP skybox tier reserved for Imperial dignitaries.",
+          "headline": "MALASTARE VINTA HARVEST CLASSIC DRAWS RECORD IMPERIAL ATTENDANCE",
+          "source": "Alton Kastle, HoloNet News",
+          "body": "The Malastare Grand Arena will host the 47th Annual Vinta Harvest Classic with the largest prize pool in pod racing history — 2.3 million credits. Fan favorite Sebulba Jr. leads the odds at 3-to-1. The Empire's Sports and Entertainment Commission has approved a 15% increase in seating capacity, with a new VIP skybox tier reserved for Imperial dignitaries and decorated military officers. Racing Commissioner Phutt Bansen called it 'a celebration of the competitive spirit that drives our great civilization.' Citizens should check local listings for broadcast times on their regional HoloNet channel.",
           "type": "flavor",
           "tags": ["malastare", "pod-racing", "entertainment"]
         }
@@ -77,18 +77,18 @@
       "window": "during-adv2",
       "stories": [
         {
-          "id": "hn_hutt_trade",
-          "headline": "IMPERIAL NAVY SECURES KEY OUTER RIM HYPERSPACE CORRIDORS",
-          "source": "Imperial Naval Command",
-          "body": "Imperial Navy patrols have successfully eliminated pirate activity along the Shag Pabol and Triellus Trade Routes, restoring safe commercial transit through the Outer Rim. Merchant vessels operating under Imperial registry may now travel these corridors without escort fees previously demanded by regional criminal elements. 'The Empire's reach extends to every corner of the galaxy,' stated Admiral Wullf Yularen. 'Where lawlessness once thrived, Imperial order now prevails.' Unregistered vessels operating in these corridors are reminded to submit to routine inspection or face interdiction.",
+          "id": "hn_navy_patrols",
+          "headline": "IMPERIAL NAVY SECURES OUTER RIM HYPERSPACE CORRIDORS — PIRACY ELIMINATED",
+          "source": "Alton Kastle, HoloNet News",
+          "body": "Imperial Navy patrols have successfully eliminated pirate activity along the Shag Pabol and Triellus Trade Routes, restoring safe commercial transit through the Outer Rim. Merchant vessels operating under Imperial registry may now travel these corridors without the escort fees previously demanded by regional criminal elements. 'Where lawlessness once thrived, Imperial order now prevails,' stated Colonel Wullf Yularen of the Imperial Security Bureau. Unregistered vessels operating in these corridors are reminded to submit to routine inspection or face interdiction. To register your vessel, contact your nearest Imperial Port Authority.",
           "type": "propaganda",
           "tags": ["outer-rim", "navy", "trade"]
         },
         {
           "id": "hn_takodana_tourism",
-          "headline": "TAKODANA NAMED TOP OUTER RIM DESTINATION FOR SECOND YEAR RUNNING",
-          "source": "Galactic Travel Bureau",
-          "body": "The lush world of Takodana has been recognized again as the premier leisure destination in the Outer Rim. Its ancient forests, luxury resorts, and legendary cantina culture draw visitors from across the galaxy. The Takodana Tourism Board credits 'our unique blend of natural beauty and cosmopolitan hospitality.' Imperial Travel Advisory: visitors are reminded to register with local authorities and carry valid Imperial identification at all times.",
+          "headline": "TAKODANA NAMED TOP OUTER RIM DESTINATION — IMPERIAL TRAVEL ADVISORY ISSUED",
+          "source": "Alton Kastle, HoloNet News",
+          "body": "The lush world of Takodana has been recognized for the second consecutive year as the premier leisure destination in the Outer Rim. Its ancient forests, luxury resorts, and legendary cantina culture draw visitors from across the galaxy. The Coalition for Progress commended the local tourism board for 'presenting the Outer Rim in its best light.' Imperial Travel Advisory: visitors are reminded to register with local authorities upon arrival and carry valid Imperial identification at all times. Failure to produce identification when requested by security personnel may result in temporary detention.",
           "type": "flavor",
           "tags": ["takodana", "tourism"]
         }
@@ -101,28 +101,28 @@
       "stories": [
         {
           "id": "hn_takodana_fire",
-          "headline": "FIRE AT REMOTE TAKODANA COMPOUND — NO IMPERIAL ASSETS AFFECTED",
-          "source": "Imperial HoloNews — Outer Rim Desk",
-          "body": "A structural fire at a private compound in Takodana's northern highlands has been attributed to 'faulty power coupling infrastructure.' The compound, owned by a Hutt business consortium, sustained significant damage. Local emergency services contained the blaze. No Imperial personnel or assets were involved. The Takodana Commerce Authority has issued updated building codes for non-Imperial structures in the region.",
+          "headline": "STRUCTURAL FIRE AT REMOTE TAKODANA COMPOUND — NO IMPERIAL ASSETS AFFECTED",
+          "source": "Alton Kastle, HoloNet News",
+          "body": "A structural fire at a private compound in Takodana's northern highlands has been attributed to 'faulty power coupling infrastructure' by local investigators. The compound, described as a commercial storage facility, sustained significant damage. Local emergency services contained the blaze. No Imperial personnel or assets were involved. The Coalition for Progress has issued updated building codes for non-Imperial structures in the region. Property owners who have not submitted to recent safety inspections should contact their regional compliance office immediately.",
           "type": "consequence",
-          "tags": ["takodana", "varga", "hutts"],
+          "tags": ["takodana", "varga"],
           "conditions": { "minAdventure": "adv2" }
         },
         {
           "id": "hn_inquisitor_activity",
-          "headline": "IMPERIAL INQUISITION REPORTS DECLINE IN JEDI-RELATED INCIDENTS",
-          "source": "Imperial Security Bureau — Public Affairs",
-          "body": "The Office of the Imperial Inquisition reports a 34% decline in Jedi-related security incidents across the galaxy over the past standard year. Grand Inquisitor spokespersons attribute the success to 'sustained vigilance and the cooperation of loyal citizens.' The Bureau reminded the public that the Jedi threat, while diminished, has not been eliminated. Enhanced scanning protocols remain in effect at all major spaceports.",
+          "headline": "JEDI-RELATED INCIDENTS DECLINE 34% — IMPERIAL INQUISITION CREDITS CITIZEN COOPERATION",
+          "source": "Alton Kastle, HoloNet News",
+          "body": "The Office of the Imperial Inquisition reports a 34% decline in Jedi-related security incidents across the galaxy over the past standard year. Grand Inquisitor spokespersons attribute the success to 'sustained vigilance and the cooperation of loyal citizens who understand the Jedi threat.' The Bureau reminds the public that while the threat is diminished, it has not been eliminated. Enhanced scanning protocols remain in effect at all major spaceports. Citizens who have observed suspicious individuals displaying unnatural abilities should report to their nearest ISB field office. Your vigilance protects your neighbors.",
           "type": "foreshadow",
           "tags": ["inquisitorius", "jedi", "draco"]
         },
         {
-          "id": "hn_bespin_gas",
-          "headline": "CLOUD CITY TIBANNA GAS PRODUCTION REACHES FIVE-YEAR HIGH",
-          "source": "Mining Guild Quarterly Report",
-          "body": "Baron Administrator Lando Calrissian reported record tibanna gas output from Cloud City's processing facilities on Bespin. The increased production comes amid rising demand for refined tibanna in the Imperial Navy's fleet expansion program. Cloud City maintains its status as an independent operation under the Mining Guild compact, though Imperial inspectors have increased routine oversight visits. 'We run a clean operation,' Calrissian stated. 'The Empire is welcome to verify that anytime.'",
+          "id": "hn_tibanna_production",
+          "headline": "BESPIN TIBANNA GAS OUTPUT REACHES FIVE-YEAR HIGH — MINING GUILD PRAISED",
+          "source": "Alton Kastle, HoloNet News",
+          "body": "Tibanna gas production from Bespin's atmospheric mining platforms has reached a five-year high, according to the Mining Guild's quarterly report. The increased output comes amid rising demand from the Imperial Navy's fleet expansion program. Imperial inspectors have increased routine oversight visits to ensure extraction meets 'the highest standards of quality and compliance.' Mining Guild Administrator Adelhard praised the arrangement: 'Bespin's resources serve the galaxy's need for security.' Independent operators are reminded that all tibanna shipments must carry Imperial certification. Uncertified cargo will be seized.",
           "type": "foreshadow",
-          "tags": ["bespin", "cloud-city", "calrissian", "tibanna"]
+          "tags": ["bespin", "tibanna", "mining-guild"]
         }
       ]
     },
@@ -133,34 +133,34 @@
       "stories": [
         {
           "id": "hn_bespin_incident",
-          "headline": "SECURITY INCIDENT AT CLOUD CITY GAMING TOURNAMENT — SUSPECTS AT LARGE",
-          "source": "Imperial HoloNews — Bespin Bureau",
-          "body": "Cloud City security forces are investigating a 'significant disruption' at the annual High Stakes Invitational Sabacc tournament. Multiple suspects fled the venue in a stolen vessel during what authorities describe as 'an orchestrated theft operation.' Baron Administrator Calrissian has pledged full cooperation with Imperial investigators. The suspects, described as 'armed and extremely dangerous,' are believed to have left the Bespin system. A reward of 25,000 credits has been posted for information.",
+          "headline": "SECURITY INCIDENT AT BESPIN GAMING TOURNAMENT — ARMED SUSPECTS AT LARGE",
+          "source": "Alton Kastle, HoloNet News",
+          "body": "Bespin Wing Guard security forces are investigating a 'significant disruption' at the annual High Stakes Invitational Sabacc tournament in Cloud City. Multiple suspects fled the venue in a stolen vessel during what authorities describe as 'an orchestrated criminal operation.' Mining Guild Administrator Adelhard has pledged full cooperation with Imperial investigators. The suspects, described as 'armed and extremely dangerous,' are believed to have left the Bespin system. A reward of 25,000 credits has been posted. Citizens with information should contact the ISB anonymous tip line. Do not attempt to apprehend these individuals yourself.",
           "type": "consequence",
           "tags": ["bespin", "cloud-city", "sabacc"],
           "conditions": { "minAdventure": "adv3" }
         },
         {
           "id": "hn_endor_survey",
-          "headline": "IMPERIAL SURVEY CORPS MAPS UNCHARTED REGIONS OF FOREST MOON",
-          "source": "Imperial Cartographic Service",
-          "body": "The Imperial Survey Corps has completed a preliminary survey of the forest moon of Endor's northern hemisphere, cataloging over 200 previously unrecorded species. 'The biodiversity is remarkable,' noted Dr. Shira Elan of the Imperial Science Academy. The survey also identified several sites of 'archaeological interest' that may predate Republic records. Further investigation has been classified under Imperial Research Directive 7. Military exclusion zones have been established around select areas.",
+          "headline": "IMPERIAL SURVEY CORPS CATALOGUES BIODIVERSITY ON FOREST MOON",
+          "source": "Alton Kastle, HoloNet News",
+          "body": "The Imperial Survey Corps has completed a preliminary survey of the forest moon of Endor, cataloging over 200 previously unrecorded species. 'The biodiversity is remarkable,' noted Dr. Shira Elan of the Imperial Science Academy. 'This world represents an extraordinary opportunity for scientific advancement under Imperial stewardship.' The survey also identified several sites of potential strategic value that have been classified under Imperial Research Directive 7. Military exclusion zones have been established around select areas. Civilian traffic in the Endor system is restricted to authorized survey personnel only.",
           "type": "foreshadow",
           "tags": ["endor", "forest-moon", "ebon-spire"]
         },
         {
           "id": "hn_gerrera_partisans",
-          "headline": "TERRORIST CELL DISRUPTED IN ONDERON SYSTEM — RINGLEADER REMAINS AT LARGE",
-          "source": "Imperial Security Bureau — Counter-Insurgency Division",
-          "body": "Imperial forces dismantled a terror cell operating in the Onderon system linked to the extremist Saw Gerrera. Twelve individuals were detained and a cache of military-grade weapons recovered. Gerrera himself evaded capture. The ISB characterized the cell as 'a dying remnant of Clone Wars-era separatism' and urged citizens not to be alarmed. 'These are desperate individuals clinging to a dead cause,' stated ISB Director Rae Sloane. 'The Empire will find them all.'",
+          "headline": "TERRORIST CELL DISRUPTED IN ONDERON SYSTEM — RINGLEADER EVADES CAPTURE",
+          "source": "Alton Kastle, HoloNet News",
+          "body": "Imperial forces dismantled a terror cell operating in the Onderon system linked to the extremist Saw Gerrera. Twelve individuals were detained and a cache of military-grade weapons recovered. Gerrera himself evaded capture. ISB counter-insurgency officials characterized the cell as 'a dying remnant of Clone Wars-era separatism clinging to a dead cause.' Citizens are urged not to be alarmed — these are desperate individuals, and their networks shrink with every arrest. Anyone who has had contact with known separatist elements should present themselves to their nearest Imperial Security office. Cooperation will be noted favorably.",
           "type": "lore",
           "tags": ["saw-gerrera", "onderon", "rebels"]
         },
         {
           "id": "hn_corellian_shipyards",
-          "headline": "CORELLIAN ENGINEERING CORPORATION AWARDED IMPERIAL DEFENSE CONTRACT",
-          "source": "Imperial Procurement Bureau",
-          "body": "CEC has secured a multi-year contract to produce a new class of corvette for the Imperial Navy's anti-piracy patrols. The CR-series vessels will supplement existing Raider-class corvettes in Outer Rim patrol duties. CEC spokesperson Javin Drell called it 'a proud moment for Corellian shipbuilding.' Production begins immediately at the Coronet City orbital yards. Analysts note this is the largest military contract awarded to a non-Kuat shipbuilder since the Empire's founding.",
+          "headline": "CORELLIAN ENGINEERING CORPORATION AWARDED MAJOR IMPERIAL DEFENSE CONTRACT",
+          "source": "Alton Kastle, HoloNet News",
+          "body": "The Corellian Engineering Corporation has secured a multi-year contract to produce a new class of corvette for the Imperial Navy's anti-piracy operations. The CR-series vessels will supplement existing patrol assets in the Outer Rim. CEC spokesperson Javin Drell called it 'a proud moment for Corellian shipbuilding and a testament to what private enterprise can achieve in partnership with the Empire.' Production begins immediately at the Coronet City orbital yards. Qualified engineers and fabricators seeking employment should register with CEC's recruitment division through their local Imperial Labor Exchange.",
           "type": "flavor",
           "tags": ["corellia", "cec", "imperial-navy"]
         }
@@ -172,34 +172,34 @@
       "window": "general",
       "stories": [
         {
-          "id": "hn_senate_debate",
-          "headline": "IMPERIAL SENATE DEBATES OUTER RIM TRADE ROUTE TARIFF REFORM",
-          "source": "Senate Press Gallery",
-          "body": "The Imperial Senate opened debate on the Outer Rim Trade Standardization Act, which would impose uniform tariffs on all non-Imperial commerce traversing major hyperspace lanes. Proponents argue the measure will combat smuggling and ensure 'fair competition.' Senator Bail Organa of Alderaan raised concerns about the act's impact on independent traders, calling it 'an overreach that will strangle legitimate commerce in the frontier systems.' The bill is expected to pass committee review within the month.",
+          "id": "hn_senate_trade",
+          "headline": "IMPERIAL SENATE ADVANCES OUTER RIM TRADE STANDARDIZATION ACT",
+          "source": "Alton Kastle, HoloNet News",
+          "body": "The Imperial Senate opened debate on the Outer Rim Trade Standardization Act, which would impose uniform tariffs on all non-Imperial commerce traversing major hyperspace lanes. Proponents argue the measure will combat smuggling and ensure fair competition for registered merchants. Senator Bail Organa of Alderaan raised objections in committee, but his motion to table the act was defeated 847 to 12. The bill is expected to pass full Senate review within the month. Merchants operating in affected corridors should begin the tariff registration process at their nearest Imperial Customs Authority.",
           "type": "lore",
           "tags": ["senate", "organa", "trade", "smuggling"]
         },
         {
           "id": "hn_holonet_upgrade",
-          "headline": "IMPERIAL COMMUNICATIONS MINISTRY ANNOUNCES HOLONET RELAY UPGRADES",
-          "source": "Imperial Communications Ministry",
-          "body": "A galaxy-wide upgrade to the HoloNet relay network will bring faster, more reliable communications to the Outer Rim. The upgrade includes new encryption protocols 'to protect citizens from criminal exploitation of public communications infrastructure.' Independent HoloNet operators will be required to integrate with the Imperial relay backbone by year's end or face license revocation. The Communications Ministry described the mandate as 'a necessary step toward a unified, secure galaxy.'",
+          "headline": "HOLONET RELAY UPGRADES TO BRING FASTER, SAFER COMMUNICATIONS TO OUTER RIM",
+          "source": "Alton Kastle, HoloNet News",
+          "body": "The Imperial Communications Ministry announced a galaxy-wide upgrade to the HoloNet relay network, bringing faster and more reliable service to the Outer Rim. The upgrade includes new encryption protocols 'to protect citizens from criminal exploitation of public communications infrastructure.' Independent HoloNet operators will be required to integrate with the Imperial relay backbone by year's end or face license revocation. Minister Pollux Hax described the mandate as 'a necessary step toward a unified, secure galaxy.' Citizens experiencing transmission disruptions during the upgrade period should file a service request through their local Imperial Communications office.",
           "type": "propaganda",
           "tags": ["holonet", "communications", "censorship"]
         },
         {
           "id": "hn_medical_breakthrough",
-          "headline": "IMPERIAL MEDICAL CORPS ANNOUNCES BACTA ALTERNATIVE FOR OUTER RIM CLINICS",
-          "source": "Imperial Health Bureau",
-          "body": "Researchers at the Imperial Medical Academy on Rhinnal have developed a synthetic healing compound intended to supplement bacta supplies in underserved Outer Rim medical facilities. Designated 'Synthsalve-7,' the compound provides approximately 60% of bacta's regenerative capacity at a fraction of the cost. Critics from the Thyferra Bacta Cartel dismissed the compound as 'inferior,' but Imperial Health Director Medi Varos called it 'a lifeline for billions who have never seen a bacta tank.'",
+          "headline": "IMPERIAL MEDICAL CORPS DEVELOPS BACTA ALTERNATIVE FOR OUTER RIM CLINICS",
+          "source": "Alton Kastle, HoloNet News",
+          "body": "Researchers at the Imperial Medical Academy on Rhinnal have developed a synthetic healing compound for underserved Outer Rim medical facilities. Designated 'Synthsalve-7,' the compound provides approximately 60% of bacta's regenerative capacity at a fraction of the cost. Imperial Health Director Medi Varos called it 'a lifeline for billions who have never seen a bacta tank — further proof that the Empire serves all its citizens, not just the Core.' A few detractors from the Thyferra Bacta Cartel dismissed the compound, but their objections were noted as 'commercially motivated.' Citizens in qualifying Outer Rim systems may apply for Synthsalve-7 distribution through their local Imperial medical facility.",
           "type": "flavor",
           "tags": ["medical", "bacta", "outer-rim"]
         },
         {
           "id": "hn_chandrila_arts",
-          "headline": "CHANDRILA ARTS FESTIVAL CELEBRATES 'THE NEW AESTHETIC'",
-          "source": "Galactic Cultural Review",
-          "body": "The annual Chandrila Arts Festival opened with a controversial exhibition titled 'The New Aesthetic: Order in Form.' Curated by Imperial Cultural Attaché Pollus Maksim, the exhibition exclusively features works celebrating Imperial architecture, military precision, and 'the geometry of governance.' Several prominent artists withdrew their submissions in protest, citing 'creative censorship.' Festival organizers denied the allegations, stating that 'art that serves the people is art that serves the Empire.'",
+          "headline": "CHANDRILA ARTS FESTIVAL CELEBRATES 'THE NEW AESTHETIC' — COALITION FOR PROGRESS COMMENDS EXHIBITION",
+          "source": "Alton Kastle, HoloNet News",
+          "body": "The annual Chandrila Arts Festival opened with a landmark exhibition titled 'The New Aesthetic: Order in Form,' curated by Imperial Cultural Attaché Pollus Maksim under the auspices of the Coalition for Progress. The exhibition exclusively features works celebrating Imperial architecture, military precision, and 'the geometry of governance.' A handful of artists withdrew their submissions, citing personal scheduling conflicts. Festival Director Shan Yevari stated: 'Art that serves the people is art that serves the Empire. We are proud to showcase the best of Imperial culture.' Citizens are encouraged to attend — admission is free for holders of valid Imperial identification.",
           "type": "flavor",
           "tags": ["chandrila", "culture", "propaganda"]
         }
