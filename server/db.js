@@ -306,6 +306,20 @@ async function seedNpcProfiles() {
       connections: JSON.stringify(['Admiral Varth — Quarry (Draco was sent to collect him)', 'Master Denia — Captured her in Adv7', 'Master Thorla — Tortured and discarded on Endor', 'The Crew — Interference that became personal', 'The Assiduous — His Star Destroyer']),
       revealed: false,
       sort_order: 4
+    },
+    {
+      npc_key: 'raden',
+      name: 'Warrick Raden',
+      species: 'Devaronian',
+      role: 'Fixer & Information Broker',
+      portrait_url: '/attached_assets/generated_images/raden_fixer.png',
+      status: 'allied',
+      player_bio: 'A Devaronian fixer hiding in an abandoned filtration plant on the swamp edge of Blackwind Point, Takodana. The crew tracked him down through a chain of locals — a Toydarian parts dealer, an Aqualish dockhand, a refugee, a cantina owner. When they found him, he was sleep-deprived, malnourished, and pointing a shaking blaster at the door. He thought Varth was dead. When he learned otherwise, the fear turned to desperate hope. Raden knows Varga\'s fortress — the layout, the guard rotations, the paranoid habits. He got the crew inside as \'entertainment\' for the court. Without him, there was no way in.',
+      gm_notes: 'Former middleman in Varga\'s financial network. After Varth was captured, Raden skimmed credits — thought no one was watching. Varga found out. He\'s been running ever since. Has hand-drawn maps of the fortress, memorized guard shifts, and intimate knowledge of Varga\'s operation. How the crew treated him (calm vs threatening) determines his loyalty inside the fortress. If threatened, he looks for opportunities to undermine them or cut a deal with Varga\'s people. Varth later has him executed as a loose end (red flag for Varth\'s true nature).',
+      traits: JSON.stringify(['Resourceful', 'Paranoid', 'Guilt-ridden', 'Knowledgeable', 'Cowardly']),
+      connections: JSON.stringify(['Admiral Varth — Former associate (owes a debt)', 'Varga the Hutt — Former employer (running from)', 'The Crew — Rescued him, got him inside the fortress', 'Mekka — Sold him supplies in Blackwind Point', 'TC-663 — Knows Six-Six from working Varga\'s operation']),
+      revealed: false,
+      sort_order: 5
     }
   ];
 
@@ -314,6 +328,8 @@ async function seedNpcProfiles() {
     { npc_key: 'draco', adventure_ref: 'Adv 3', scene_ref: 'adv3-p2-s1', event_text: 'The Star Destroyer Assiduous dropped out of hyperspace over Bespin. Varth identified it as Draco\'s flagship — the "clean-up crew" for Project Leviathan. If the deal goes wrong, he\'ll glass Cloud City to bury the evidence.', revealed: false },
     { npc_key: 'draco', adventure_ref: 'Adv 4', scene_ref: 'adv4-p3-s1', event_text: 'Found Master Thorla — a Jedi survivor of Order 66 — caged and broken inside the Ebon Spire. Draco tortured him to crack the ancient Force-lock, then left him discarded like a spent power cell.', revealed: false },
     { npc_key: 'draco', adventure_ref: 'Adv 4', scene_ref: 'adv4-p3-s5', event_text: 'Confrontation at the Abyssal Vault. Draco stood on the platform with both holocrons. The Sith Holocron rejected him — and he fell into the abyss beneath the Ebon Spire.', revealed: false },
+    { npc_key: 'raden', adventure_ref: 'Adv 2', scene_ref: 'adv2-p1-s2', event_text: 'The crew tracked Raden through Blackwind Point — asking questions at cantinas, stalls, and docks. A chain of witnesses led them to an abandoned filtration plant on the swamp edge.', revealed: false },
+    { npc_key: 'raden', adventure_ref: 'Adv 2', scene_ref: 'adv2-p1-s3', event_text: 'Found Raden hiding in a maintenance shed — sleep-deprived, starving, blaster shaking in his hands. He thought Varth was dead. When he learned otherwise, he agreed to help the crew infiltrate Varga\'s court.', revealed: false },
     { npc_key: 'maya', adventure_ref: 'Adv 1', scene_ref: 'adv1-p1-s1', event_text: 'Crashed into the crew\'s table at The Burning Deck on Jakku — wounded, fleeing Varga\'s enforcers.', revealed: true },
     { npc_key: 'maya', adventure_ref: 'Adv 1', scene_ref: 'adv1-p2-s1', event_text: 'Piloted the Banshee through the Rishi Maze. Invited the crew\'s pilot to the co-pilot seat.', revealed: true },
     { npc_key: 'varth', adventure_ref: 'Adv 1', scene_ref: 'adv1-p2-s6', event_text: 'Rescued from the Vanishing Place detention facility on Ajan Kloss. "You\'re late. I had credits on the second moonrise."', revealed: true },
