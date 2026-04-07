@@ -209,6 +209,9 @@ router.put('/campaign/scene/:sceneId/complete', async (req, res) => {
       }
     }
 
+    const io = req.app.get('io');
+    if (io) io.emit('journal:updated', { sceneId, completed: !!isComplete });
+
     res.json({ success: true });
   } catch (err) {
     console.error('[PUT /campaign/scene/complete]', err);

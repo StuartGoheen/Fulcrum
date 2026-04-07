@@ -6573,6 +6573,31 @@
     margin: 0.4rem 0 0;
   }
 
+  .journal-mission-debrief {
+    border-left: 2px solid var(--color-accent-primary);
+    margin-bottom: 0.65rem;
+  }
+  .journal-mission-debrief-header {
+    background: rgba(var(--color-accent-primary-rgb, 255,204,0), 0.06);
+  }
+  .journal-mission-debrief-label {
+    font-family: var(--font-display);
+    font-size: 0.6rem;
+    color: var(--color-accent-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    flex: 1;
+  }
+  .journal-mission-debrief-content {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.5rem;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    margin: 0.4rem 0 0;
+  }
+
   .journal-entry-card {
     background: var(--color-bg-frame);
     border: 1px solid var(--color-border);

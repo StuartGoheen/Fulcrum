@@ -1449,11 +1449,25 @@
 
   function _renderCompletedScenesView() {
     var scenes = _getCompletedScenes();
+    var debriefs = _journalEntries.filter(function (e) {
+      return e.author_character_name === 'Mission Debrief' && e.source_scene_id && e.source_scene_id.indexOf('adventure:') === 0;
+    });
     var html = '';
-    if (!scenes.length) {
+    if (!scenes.length && !debriefs.length) {
       html += '<div class="journal-empty"><div class="journal-empty-text">No completed scenes yet.<br>Your journal will fill as you progress through the campaign.</div></div>';
       return html;
     }
+    debriefs.forEach(function (debrief) {
+      html += '<div class="journal-scene-log journal-mission-debrief" data-scene-log-id="' + debrief.id + '">';
+      html += '<div class="journal-scene-log-header journal-mission-debrief-header">';
+      html += '<span class="journal-scene-log-chevron">\u25B6</span>';
+      html += '<span class="journal-mission-debrief-label">' + _esc(debrief.title || 'After Action Report') + '</span>';
+      html += '<span class="journal-scene-log-date">' + _formatDate(debrief.created_at) + '</span>';
+      html += '</div>';
+      html += '<div class="journal-scene-log-body">';
+      html += '<pre class="journal-mission-debrief-content">' + _esc(debrief.body || '') + '</pre>';
+      html += '</div></div>';
+    });
     scenes.forEach(function (scene, idx) {
       var entryCount = 0;
       _journalEntries.forEach(function (e) { if (e.source_scene_id === scene.id) entryCount++; });
@@ -1761,6 +1775,14 @@
       console.error('[Journal] Failed to load:', err);
     });
   }
+
+  (function _listenJournalSocket() {
+    var sock = window._socket;
+    if (!sock) { setTimeout(_listenJournalSocket, 2000); return; }
+    sock.on('journal:updated', function () {
+      if (_activeTab === 'journal' && !_journalFormMode) _loadJournalData();
+    });
+  })();
 
   function _switchTab(tabName) {
     _activeTab = tabName;

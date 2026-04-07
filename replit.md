@@ -131,6 +131,8 @@ Two different journal views for players vs GM:
 - Breadcrumb: "Campaign Journal › Scene Title" (no hierarchy spoilers)
 - Read-first interaction: click entry to expand/read, Edit button inside expanded view
 - New entries created from scene detail auto-link to that scene via `source_scene_id`
+- Mission Debrief entries (adventure-level `source_scene_id: 'adventure:advN'`) shown at top of completed scenes list as expandable cards
+- Real-time refresh via `journal:updated` socket event (auto-refreshes when journal tab is active and no form is open)
 
 **GM Crew Journal** (command bridge) — full hierarchy:
 - Act → Episode → Scene drill-down with completion counts

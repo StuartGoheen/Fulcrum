@@ -218,6 +218,9 @@ router.post('/journal/entries', async (req, res) => {
       WHERE e.id = $1
       GROUP BY e.id`, [entry.id]);
 
+    const io = req.app.get('io');
+    if (io) io.emit('journal:updated', { entryId: fullResult.rows[0].id });
+
     res.json({ entry: fullResult.rows[0] });
   } catch (err) {
     await client.query('ROLLBACK');
