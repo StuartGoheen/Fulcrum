@@ -132,6 +132,18 @@ uri = "file://attached_assets/generated_images/maya_conscience.png"
 type = "image"
 title = "Maya conscience leader portrait"
 
+[[generated]]
+id = "-jt2XaKD_djESi_Zm9lUm"
+uri = "file://attached_assets/generated_images/banshee_exterior.png"
+type = "image"
+title = "Banshee Barloz freighter exterior"
+
+[[generated]]
+id = "lNC1WjbRCRNcHbnIkziT2"
+uri = "file://attached_assets/generated_images/banshee_cockpit.png"
+type = "image"
+title = "Banshee cockpit interior lived-in"
+
 [[outputs]]
 id = "2LcyfBitBojI2aNp3Z-pi"
 uri = "file://assets/fulcrum-resolution-infographic.png"
