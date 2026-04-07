@@ -78,11 +78,11 @@
       "stories": [
         {
           "id": "hn_hutt_trade",
-          "headline": "HUTT SPACE TRADE COMPACT RENEWED — MUTUAL PROSPERITY AGREEMENT SIGNED",
-          "source": "Imperial Diplomatic Service",
-          "body": "The Empire and the Hutt Grand Council have renewed the Mutual Prosperity Compact for another standard decade. Under the agreement, Hutt commercial operations in the Outer Rim will continue to benefit from Imperial trade route protection in exchange for 'full cooperation with Imperial law enforcement.' Diplomatic sources describe the negotiations as 'cordial and productive.' Critics of the compact, primarily from the Core Worlds Humanitarian League, were unavailable for comment.",
-          "type": "lore",
-          "tags": ["hutts", "trade", "empire"]
+          "headline": "IMPERIAL NAVY SECURES KEY OUTER RIM HYPERSPACE CORRIDORS",
+          "source": "Imperial Naval Command",
+          "body": "Imperial Navy patrols have successfully eliminated pirate activity along the Shag Pabol and Triellus Trade Routes, restoring safe commercial transit through the Outer Rim. Merchant vessels operating under Imperial registry may now travel these corridors without escort fees previously demanded by regional criminal elements. 'The Empire's reach extends to every corner of the galaxy,' stated Admiral Wullf Yularen. 'Where lawlessness once thrived, Imperial order now prevails.' Unregistered vessels operating in these corridors are reminded to submit to routine inspection or face interdiction.",
+          "type": "propaganda",
+          "tags": ["outer-rim", "navy", "trade"]
         },
         {
           "id": "hn_takodana_tourism",
