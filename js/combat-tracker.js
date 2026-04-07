@@ -661,6 +661,7 @@
       if (isSurprised) cls += ' ct-rail-surprised';
 
       html += '<div class="' + cls + '" data-select-id="' + esc(c.id) + '">';
+      if (isCurrent) html += '<span class="ct-rail-turn-arrow">▶</span>';
       html += '<span class="ct-rail-init">' + (c.initiative || '—') + '</span>';
       if (isNpc && npc) {
         var disp = npc.disposition || 'enemy';
