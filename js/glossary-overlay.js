@@ -1447,40 +1447,154 @@
     return '<div class="jnav-breadcrumbs">' + parts.join('') + '</div>';
   }
 
-  function _renderCompletedScenesView() {
-    var scenes = _getCompletedScenes();
-    var debriefs = _journalEntries.filter(function (e) {
-      return e.author_character_name === 'Mission Debrief' && e.source_scene_id && e.source_scene_id.indexOf('adventure:') === 0;
+  var _journalExpandedAdv = {};
+  var _journalExpandedPart = {};
+
+  function _getDebriefsByAdventure() {
+    var map = {};
+    _journalEntries.forEach(function (e) {
+      if (e.author_character_name !== 'Mission Debrief') return;
+      var sid = e.source_scene_id || '';
+      var advId = null;
+      if (sid.indexOf('adventure:') === 0) {
+        advId = sid.replace('adventure:', '');
+      } else if (sid.indexOf('parts:') === 0) {
+        var firstPart = sid.replace('parts:', '').split(',')[0].trim();
+        for (var i = 0; i < _journalAdventures.length; i++) {
+          var adv = _journalAdventures[i];
+          for (var j = 0; j < (adv.parts || []).length; j++) {
+            if (adv.parts[j].id === firstPart) { advId = adv.id; break; }
+          }
+          if (advId) break;
+        }
+      }
+      if (advId) {
+        if (!map[advId]) map[advId] = [];
+        map[advId].push(e);
+      }
     });
+    return map;
+  }
+
+  function _renderCompletedScenesView() {
+    var completionMap = _journalCompletions;
+    var debriefMap = _getDebriefsByAdventure();
+    var hasAnyContent = false;
+
+    var adventuresWithContent = [];
+    _journalAdventures.forEach(function (adv) {
+      var advDebriefs = debriefMap[adv.id] || [];
+      var advHasCompletedScene = false;
+      var totalEntries = 0;
+      (adv.parts || []).forEach(function (part) {
+        (part.scenes || []).forEach(function (scene) {
+          var comp = completionMap[scene.id];
+          if (comp && comp.completed) advHasCompletedScene = true;
+          _journalEntries.forEach(function (e) {
+            if (e.source_scene_id === scene.id) totalEntries++;
+          });
+        });
+      });
+      if (advHasCompletedScene || advDebriefs.length > 0) {
+        hasAnyContent = true;
+        adventuresWithContent.push({ adv: adv, debriefs: advDebriefs, totalEntries: totalEntries });
+      }
+    });
+
     var html = '';
-    if (!scenes.length && !debriefs.length) {
+    if (!hasAnyContent) {
       html += '<div class="journal-empty"><div class="journal-empty-text">No completed scenes yet.<br>Your journal will fill as you progress through the campaign.</div></div>';
       return html;
     }
-    debriefs.forEach(function (debrief) {
-      html += '<div class="journal-scene-log journal-mission-debrief" data-scene-log-id="' + debrief.id + '">';
-      html += '<div class="journal-scene-log-header journal-mission-debrief-header">';
-      html += '<span class="journal-scene-log-chevron">\u25B6</span>';
-      html += '<span class="journal-mission-debrief-label">' + _esc(debrief.title || 'Mission Chronicle') + '</span>';
-      html += '<span class="journal-scene-log-date">' + _formatDate(debrief.created_at) + '</span>';
+
+    adventuresWithContent.forEach(function (item) {
+      var adv = item.adv;
+      var advDebriefs = item.debriefs;
+      var isAdvExpanded = _journalExpandedAdv[adv.id] !== false;
+      var completedCount = 0;
+      var totalScenes = 0;
+      (adv.parts || []).forEach(function (part) {
+        (part.scenes || []).forEach(function (scene) {
+          totalScenes++;
+          var comp = completionMap[scene.id];
+          if (comp && comp.completed) completedCount++;
+        });
+      });
+
+      html += '<div class="jnav-adv-group">';
+      html += '<div class="jnav-adv-header" data-jnav-adv-toggle="' + _esc(adv.id) + '">';
+      html += '<span class="jnav-adv-chevron">' + (isAdvExpanded ? '\u25BC' : '\u25B6') + '</span>';
+      html += '<div class="jnav-adv-info">';
+      html += '<span class="jnav-adv-title">Episode ' + adv.number + ': ' + _esc(adv.title) + '</span>';
+      html += '<span class="jnav-adv-meta">' + completedCount + '/' + totalScenes + ' scenes';
+      if (item.totalEntries > 0) html += ' \u00B7 ' + item.totalEntries + ' entries';
+      if (advDebriefs.length > 0) html += ' \u00B7 ' + advDebriefs.length + ' chronicle' + (advDebriefs.length > 1 ? 's' : '');
+      html += '</span>';
       html += '</div>';
-      html += '<div class="journal-scene-log-body">';
-      html += '<pre class="journal-mission-debrief-content">' + _esc(debrief.body || '') + '</pre>';
-      html += '</div></div>';
-    });
-    scenes.forEach(function (scene, idx) {
-      var entryCount = 0;
-      _journalEntries.forEach(function (e) { if (e.source_scene_id === scene.id) entryCount++; });
-      html += '<div class="jnav-row" data-jnav-scene="' + _esc(scene.id) + '">';
-      html += '<span class="jnav-row-icon">\u25B6</span>';
-      html += '<div class="jnav-row-text">';
-      html += '<span class="jnav-row-title">' + _esc(scene.title) + '</span>';
-      if (entryCount > 0) {
-        html += '<span class="jnav-row-sub">' + entryCount + ' journal ' + (entryCount === 1 ? 'entry' : 'entries') + '</span>';
+      html += '</div>';
+
+      if (isAdvExpanded) {
+        html += '<div class="jnav-adv-body">';
+
+        advDebriefs.forEach(function (debrief) {
+          html += '<div class="journal-scene-log journal-mission-debrief" data-scene-log-id="' + debrief.id + '">';
+          html += '<div class="journal-scene-log-header journal-mission-debrief-header">';
+          html += '<span class="journal-scene-log-chevron">\u25B6</span>';
+          html += '<span class="journal-mission-debrief-label">' + _esc(debrief.title || 'Mission Chronicle') + '</span>';
+          html += '<span class="journal-scene-log-date">' + _formatDate(debrief.created_at) + '</span>';
+          html += '</div>';
+          html += '<div class="journal-scene-log-body">';
+          html += '<pre class="journal-mission-debrief-content">' + _esc(debrief.body || '') + '</pre>';
+          html += '</div></div>';
+        });
+
+        (adv.parts || []).forEach(function (part) {
+          var partScenes = part.scenes || [];
+          var partCompletedScenes = [];
+          var partEntryCount = 0;
+          partScenes.forEach(function (scene) {
+            var comp = completionMap[scene.id];
+            if (comp && comp.completed) partCompletedScenes.push(scene);
+            _journalEntries.forEach(function (e) {
+              if (e.source_scene_id === scene.id) partEntryCount++;
+            });
+          });
+          if (partCompletedScenes.length === 0) return;
+
+          var isPartExpanded = _journalExpandedPart[part.id] !== false;
+
+          html += '<div class="jnav-part-group">';
+          html += '<div class="jnav-part-header" data-jnav-part-toggle="' + _esc(part.id) + '">';
+          html += '<span class="jnav-part-chevron">' + (isPartExpanded ? '\u25BC' : '\u25B6') + '</span>';
+          html += '<span class="jnav-part-title">Part ' + part.number + ': ' + _esc(part.title || part.id) + '</span>';
+          html += '<span class="jnav-part-meta">' + partCompletedScenes.length + '/' + partScenes.length + ' scenes</span>';
+          html += '</div>';
+
+          if (isPartExpanded) {
+            html += '<div class="jnav-part-body">';
+            partCompletedScenes.forEach(function (scene) {
+              var entryCount = 0;
+              _journalEntries.forEach(function (e) { if (e.source_scene_id === scene.id) entryCount++; });
+              html += '<div class="jnav-row" data-jnav-scene="' + _esc(scene.id) + '">';
+              html += '<span class="jnav-row-icon">\u25B6</span>';
+              html += '<div class="jnav-row-text">';
+              html += '<span class="jnav-row-title">' + _esc(scene.title) + '</span>';
+              if (entryCount > 0) {
+                html += '<span class="jnav-row-sub">' + entryCount + ' journal ' + (entryCount === 1 ? 'entry' : 'entries') + '</span>';
+              }
+              html += '</div>';
+              html += '</div>';
+            });
+            html += '</div>';
+          }
+          html += '</div>';
+        });
+
+        html += '</div>';
       }
       html += '</div>';
-      html += '</div>';
     });
+
     return html;
   }
 
@@ -1682,6 +1796,24 @@
             _journalEntries = data.entries || [];
             _renderJournal();
           }).catch(function () { _renderJournal(); });
+      });
+    });
+
+    wrap.querySelectorAll('[data-jnav-adv-toggle]').forEach(function (el) {
+      el.addEventListener('click', function () {
+        var advId = el.getAttribute('data-jnav-adv-toggle');
+        var cur = _journalExpandedAdv[advId];
+        _journalExpandedAdv[advId] = (cur === false) ? true : false;
+        _renderJournal();
+      });
+    });
+
+    wrap.querySelectorAll('[data-jnav-part-toggle]').forEach(function (el) {
+      el.addEventListener('click', function () {
+        var partId = el.getAttribute('data-jnav-part-toggle');
+        var cur = _journalExpandedPart[partId];
+        _journalExpandedPart[partId] = (cur === false) ? true : false;
+        _renderJournal();
       });
     });
 

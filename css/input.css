@@ -6885,6 +6885,90 @@
     font-style: italic;
   }
 
+  .jnav-adv-group {
+    margin-bottom: 0.5rem;
+    border: 1px solid var(--color-border);
+    background: var(--color-bg-frame);
+  }
+  .jnav-adv-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 0.65rem;
+    cursor: pointer;
+    transition: background 0.15s;
+    user-select: none;
+  }
+  .jnav-adv-header:hover {
+    background: rgba(255,255,255,0.025);
+  }
+  .jnav-adv-chevron {
+    font-size: 0.45rem;
+    color: var(--color-accent-primary);
+    flex-shrink: 0;
+    width: 0.7rem;
+    text-align: center;
+  }
+  .jnav-adv-info {
+    flex: 1;
+    min-width: 0;
+  }
+  .jnav-adv-title {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.6rem;
+    color: var(--color-accent-primary);
+    letter-spacing: 0.06em;
+    display: block;
+  }
+  .jnav-adv-meta {
+    font-size: 0.42rem;
+    color: var(--color-text-secondary);
+    margin-top: 0.15rem;
+    display: block;
+  }
+  .jnav-adv-body {
+    padding: 0.25rem 0.5rem 0.4rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .jnav-part-group {
+    margin-bottom: 0.3rem;
+  }
+  .jnav-part-header {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.4rem;
+    cursor: pointer;
+    transition: background 0.15s;
+    user-select: none;
+  }
+  .jnav-part-header:hover {
+    background: rgba(255,255,255,0.02);
+  }
+  .jnav-part-chevron {
+    font-size: 0.38rem;
+    color: var(--color-text-secondary);
+    flex-shrink: 0;
+    width: 0.55rem;
+    text-align: center;
+  }
+  .jnav-part-title {
+    font-family: 'Audiowide', sans-serif;
+    font-size: 0.48rem;
+    letter-spacing: 0.06em;
+    color: var(--color-text-primary);
+    opacity: 0.8;
+  }
+  .jnav-part-meta {
+    font-size: 0.38rem;
+    color: var(--color-text-secondary);
+    margin-left: auto;
+  }
+  .jnav-part-body {
+    padding-left: 0.6rem;
+  }
+
   .jnav-part-label {
     font-family: 'Audiowide', sans-serif;
     font-size: 0.42rem;
