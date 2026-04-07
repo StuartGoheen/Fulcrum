@@ -334,6 +334,20 @@ async function seedNpcProfiles() {
       connections: JSON.stringify(['Maya — Client (brought the code cylinder)', 'The Crew — Information assets (business arrangement)', 'Ganga Lor — Rival crime lord who attacks his compound', 'Admiral Varth — Knows of him through the underworld network']),
       revealed: false,
       sort_order: 6
+    },
+    {
+      npc_key: 'denia',
+      name: 'Jedi Master Denia',
+      species: 'Human',
+      role: 'Jedi Master',
+      portrait_url: '/attached_assets/generated_images/denia_jedi.png',
+      status: 'allied',
+      player_bio: 'Found in a stasis cell deep beneath Varga the Hutt\'s fortress on Takodana. A Jedi Master — one of the last. She had been in stasis since shortly after Order 66, kept by Varga as a trophy to auction to the Inquisitorius. She didn\'t know the Republic had fallen, didn\'t know the Jedi were gone, didn\'t know the Empire existed. When the crew pulled her out of the stasis field, she was barely alive — frail, disoriented, reaching out telepathically before she could speak. Varth wanted to leave her. The crew didn\'t. She\'s been recovering aboard the Banshee since, quiet and contemplative, sensing things the crew can\'t. She pointed them to the Ebon Spire on Endor — Revan\'s ancient forward base — where holocrons with navigational data might still survive.',
+      gm_notes: 'Denia is Varth\'s key asset — she can open Jedi holocrons. Varth manipulated her into "suggesting" the Ebon Spire; he already knew about it. If the crew left her in the dungeon, Varth secretly tipped off Draco, who recovered her off-camera. Either way, Varth gets what he needs. Draco captures her in Adv7 when the Resurgence falls. The crew can attempt rescue at Draco\'s Xala stronghold in Adv9 (structurally optional). What\'s left of her may not be what they remember.',
+      traits: JSON.stringify(['Wise', 'Patient', 'Fragile', 'Perceptive', 'Haunted']),
+      connections: JSON.stringify(['Admiral Varth — Uses her as an asset (she doesn\'t know)', 'Inquisitor Draco — Captured her in Adv7', 'The Crew — Rescued her from Varga\'s dungeon', 'Varga the Hutt — Kept her as a trophy to sell', 'Master Thorla — Fellow Order 66 survivor (Draco\'s other victim)']),
+      revealed: false,
+      sort_order: 7
     }
   ];
 
@@ -342,6 +356,9 @@ async function seedNpcProfiles() {
     { npc_key: 'draco', adventure_ref: 'Adv 3', scene_ref: 'adv3-p2-s1', event_text: 'The Star Destroyer Assiduous dropped out of hyperspace over Bespin. Varth identified it as Draco\'s flagship — the "clean-up crew" for Project Leviathan. If the deal goes wrong, he\'ll glass Cloud City to bury the evidence.', revealed: false },
     { npc_key: 'draco', adventure_ref: 'Adv 4', scene_ref: 'adv4-p3-s1', event_text: 'Found Master Thorla — a Jedi survivor of Order 66 — caged and broken inside the Ebon Spire. Draco tortured him to crack the ancient Force-lock, then left him discarded like a spent power cell.', revealed: false },
     { npc_key: 'draco', adventure_ref: 'Adv 4', scene_ref: 'adv4-p3-s5', event_text: 'Confrontation at the Abyssal Vault. Draco stood on the platform with both holocrons. The Sith Holocron rejected him — and he fell into the abyss beneath the Ebon Spire.', revealed: false },
+    { npc_key: 'denia', adventure_ref: 'Adv 2', scene_ref: 'adv2-p2-s7', event_text: 'Found in stasis beneath Varga\'s fortress. A Jedi Master — kept as a trophy since Order 66. She didn\'t know the Republic had fallen. Varth wanted to leave her. The crew didn\'t.', revealed: false },
+    { npc_key: 'denia', adventure_ref: 'Adv 4', scene_ref: 'adv4-p1-s1', event_text: 'Aboard the Banshee, recovering. Pointed the crew to the Ebon Spire on Endor — Revan\'s ancient forward base — where Jedi holocrons with navigational data might survive. Too weak to accompany them into the Dead Forest.', revealed: false },
+    { npc_key: 'denia', adventure_ref: 'Adv 7', scene_ref: 'adv7-p2-s2', event_text: 'Draco intercepted her escape pod when the Resurgence fell. The crew watched from the Banshee as his shuttle locked on. There was nothing they could do.', revealed: false },
     { npc_key: 'switch', adventure_ref: 'Adv 1', scene_ref: 'adv1-p1-s3', event_text: 'The crew found Switch\'s compound in the Jakku badlands. He examined Maya\'s encrypted Imperial Code Cylinder and identified it as a ghost transfer authorization device — a master key for Imperial shuttle nav computers. His price: the crew becomes information assets for his network.', revealed: false },
     { npc_key: 'switch', adventure_ref: 'Adv 1', scene_ref: 'adv1-p1-s5', event_text: 'Ganga Lor\'s thugs attacked Switch\'s compound. The crew had to decide — defend the droid or let him burn.', revealed: false },
     { npc_key: 'raden', adventure_ref: 'Adv 2', scene_ref: 'adv2-p1-s2', event_text: 'The crew tracked Raden through Blackwind Point — asking questions at cantinas, stalls, and docks. A chain of witnesses led them to an abandoned filtration plant on the swamp edge.', revealed: false },
