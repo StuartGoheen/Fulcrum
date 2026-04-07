@@ -80,68 +80,59 @@
     <ellipse cx="400" cy="500" rx="50" ry="30" class="moss" filter="url(#moss-blur)"/>
     <ellipse cx="100" cy="420" rx="30" ry="35" class="moss" filter="url(#moss-blur)"/>
 
-    <!-- Main structure outline -->
+    <!-- Main building fill (enclosed temple structure) -->
     <path class="wall" d="
-      M 60,80
+      M 60,250
       L 60,20 Q 60,0 80,0
       L 720,0 Q 740,0 740,20
       L 740,100
       L 800,100 Q 800,100 800,120
       L 800,280 Q 800,300 780,300
       L 740,300
-      L 740,420 Q 740,440 720,440
+      L 740,440 Q 740,440 720,440
       L 580,440
       L 580,520 Q 580,540 560,540
       L 340,540 Q 320,540 320,520
       L 320,440
-      L 80,440 Q 60,440 60,420
-      L 60,350
-      L 0,350 Q 0,350 0,330
-      L 0,200 Q 0,180 20,180
-      L 60,180
+      L 260,440
+      L 260,250
       Z
     "/>
     <!-- Cross-hatch overlay on walls (impassable stone) -->
     <path fill="url(#wall-hatch)" opacity="0.5" d="
-      M 60,80
+      M 60,250
       L 60,20 Q 60,0 80,0
       L 720,0 Q 740,0 740,20
       L 740,100
       L 800,100 Q 800,100 800,120
       L 800,280 Q 800,300 780,300
       L 740,300
-      L 740,420 Q 740,440 720,440
+      L 740,440 Q 740,440 720,440
       L 580,440
       L 580,520 Q 580,540 560,540
       L 340,540 Q 320,540 320,520
       L 320,440
-      L 80,440 Q 60,440 60,420
-      L 60,350
-      L 0,350 Q 0,350 0,330
-      L 0,200 Q 0,180 20,180
-      L 60,180
+      L 260,440
+      L 260,250
       Z
     "/>
 
     <!-- Exterior building walls (compound perimeter) -->
     <path class="outer-wall" d="
-      M 60,80
+      M 60,250
       L 60,20 Q 60,0 80,0
       L 720,0 Q 740,0 740,20
       L 740,100
       L 800,100 Q 800,100 800,120
       L 800,280 Q 800,300 780,300
       L 740,300
-      L 740,420 Q 740,440 720,440
+      L 740,440 Q 740,440 720,440
       L 580,440
       L 580,520 Q 580,540 560,540
       L 340,540 Q 320,540 320,520
       L 320,440
-      L 80,440 Q 60,440 60,420
-      L 60,350
-      L 0,350 Q 0,350 0,330
-      L 0,200 Q 0,180 20,180
-      L 60,180
+      L 260,440
+      L 260,250
       Z
     "/>
 
@@ -273,13 +264,13 @@
       <text x="455" y="505" class="room-sublabel">Mandrake's Objective</text>
     </g>
 
-    <!-- GUN TURRET (SW) -->
-    <g class="room" data-room="turret-sw" data-desc="Automated gun emplacement covering the southern approach and Maya's extraction flight path. Powered by the generator. Generator down = turrets offline = clean extraction.">
-      <rect x="0" y="190" width="50" height="150" rx="3" class="floor-corridor"/>
-      <circle cx="25" cy="265" r="18" class="turret"/>
-      <rect x="20" y="235" width="10" height="30" rx="2" class="turret-barrel"/>
-      <text x="25" y="305" class="room-label" style="font-size:8px;">GUN</text>
-      <text x="25" y="317" class="room-label" style="font-size:8px;">TURRET</text>
+    <!-- GUN TURRET (SW) — exterior perimeter emplacement -->
+    <g class="room" data-room="turret-sw" data-desc="Automated gun emplacement covering the southern approach and Maya's extraction flight path. Powered by the generator. Generator down = turrets offline = clean extraction. Exterior perimeter position.">
+      <rect x="5" y="270" width="45" height="80" rx="3" fill="none" stroke="#556" stroke-width="1" stroke-dasharray="6,3"/>
+      <circle cx="27" cy="310" r="18" class="turret"/>
+      <rect x="22" y="280" width="10" height="30" rx="2" class="turret-barrel"/>
+      <text x="27" y="345" class="room-label" style="font-size:8px;">GUN</text>
+      <text x="27" y="357" class="room-label" style="font-size:8px;">TURRET</text>
     </g>
 
     <!-- GUN TURRET (NW) -->
@@ -302,22 +293,28 @@
     <rect x="367" y="172" width="8" height="15" class="door" rx="1"/>
     <rect x="515" y="250" width="6" height="20" class="door" rx="1"/>
 
-    <!-- LANDING PAD (exterior) -->
-    <g class="room" data-room="landing" data-desc="Lambda-class Imperial shuttle on the pad. Draco's stormtroopers stand at attention. Visible from the ridge — the first thing the crew sees. Draco arrives here.">
-      <rect x="70" y="290" width="180" height="140" rx="5" class="floor-landing" stroke="#444" stroke-width="1" stroke-dasharray="8,4"/>
+    <!-- Door from building interior to landing pad -->
+    <rect x="255" y="310" width="6" height="25" class="door" rx="1"/>
+
+    <!-- LANDING PAD (exterior / open air) -->
+    <g class="room" data-room="landing" data-desc="Open-air landing pad outside the temple walls. Lambda-class Imperial shuttle sits here. Draco's stormtroopers stand at attention. Visible from the jungle ridge — the first thing the crew sees on approach.">
+      <rect x="70" y="270" width="180" height="170" rx="5" fill="none" stroke="#556" stroke-width="1.5" stroke-dasharray="8,4"/>
+      <!-- Concrete pad surface -->
+      <rect x="75" y="275" width="170" height="160" rx="4" fill="#222226" opacity="0.5"/>
       <!-- Landing pad markings -->
       <line x1="100" y1="360" x2="220" y2="360" stroke="#444" stroke-width="1" opacity="0.5"/>
-      <line x1="160" y1="310" x2="160" y2="410" stroke="#444" stroke-width="1" opacity="0.5"/>
+      <line x1="160" y1="300" x2="160" y2="420" stroke="#444" stroke-width="1" opacity="0.5"/>
       <!-- Shuttle silhouette -->
-      <polygon points="160,325 140,375 130,385 130,395 190,395 190,385 180,375" fill="#3a3a3a" stroke="#555" stroke-width="1"/>
-      <rect x="120" y="365" width="80" height="5" rx="2" fill="#3a3a3a" stroke="#555" stroke-width="0.5"/>
+      <polygon points="160,315 140,365 130,375 130,385 190,385 190,375 180,365" fill="#3a3a3a" stroke="#555" stroke-width="1"/>
+      <rect x="120" y="355" width="80" height="5" rx="2" fill="#3a3a3a" stroke="#555" stroke-width="0.5"/>
       <!-- Stormtrooper dots -->
-      <circle cx="115" cy="400" r="4" fill="#666" opacity="0.6"/>
-      <circle cx="130" cy="405" r="4" fill="#666" opacity="0.6"/>
-      <circle cx="190" cy="400" r="4" fill="#666" opacity="0.6"/>
-      <circle cx="205" cy="405" r="4" fill="#666" opacity="0.6"/>
-      <text x="160" y="425" class="room-label" style="font-size:10px;">LANDING PAD</text>
-      <text x="160" y="438" class="room-sublabel">Lambda Shuttle — Draco's Arrival</text>
+      <circle cx="115" cy="395" r="4" fill="#666" opacity="0.6"/>
+      <circle cx="130" cy="400" r="4" fill="#666" opacity="0.6"/>
+      <circle cx="190" cy="395" r="4" fill="#666" opacity="0.6"/>
+      <circle cx="205" cy="400" r="4" fill="#666" opacity="0.6"/>
+      <text x="160" y="288" class="room-label" style="font-size:10px;">LANDING PAD</text>
+      <text x="160" y="300" class="room-sublabel">Exterior — Lambda Shuttle</text>
+      <text x="160" y="430" class="room-sublabel">Draco's Arrival Point</text>
     </g>
 
     <!-- Perimeter laser fence (dashed) -->
@@ -326,7 +323,7 @@
 
     <!-- Power conduit lines from generator to systems -->
     <g opacity="0.3">
-      <line x1="270" y1="330" x2="25" y2="265" stroke="#aa8833" stroke-width="1" stroke-dasharray="4,6"/>
+      <line x1="270" y1="330" x2="27" y2="310" stroke="#aa8833" stroke-width="1" stroke-dasharray="4,6"/>
       <line x1="350" y1="420" x2="350" y2="540" stroke="#aa8833" stroke-width="1" stroke-dasharray="4,6"/>
       <line x1="430" y1="330" x2="515" y2="395" stroke="#aa8833" stroke-width="1" stroke-dasharray="4,6"/>
       <line x1="350" y1="260" x2="350" y2="215" stroke="#aa8833" stroke-width="1" stroke-dasharray="4,6"/>
@@ -340,10 +337,10 @@
       <text x="12" y="13" class="entry-label" style="text-anchor:start; font-size:7px;">WAITS HERE</text>
     </g>
 
-    <!-- Exterior labels (jungle outside the compound) -->
-    <text x="-30" y="100" style="fill:#2a5a2a; font-family:'Segoe UI',sans-serif; font-size:10px; font-weight:600; letter-spacing:2px; opacity:0.6;" transform="rotate(-90,-30,100)">J U N G L E</text>
-    <text x="820" y="200" style="fill:#2a5a2a; font-family:'Segoe UI',sans-serif; font-size:10px; font-weight:600; letter-spacing:2px; opacity:0.6;" transform="rotate(90,820,200)">J U N G L E</text>
+    <!-- Exterior labels (jungle / open air outside the building) -->
     <text x="400" y="-10" style="fill:#2a5a2a; font-family:'Segoe UI',sans-serif; font-size:10px; font-weight:600; letter-spacing:2px; opacity:0.6; text-anchor:middle;">J U N G L E</text>
+    <text x="820" y="200" style="fill:#2a5a2a; font-family:'Segoe UI',sans-serif; font-size:10px; font-weight:600; letter-spacing:2px; opacity:0.6;" transform="rotate(90,820,200)">J U N G L E</text>
+    <text x="130" y="260" style="fill:#2a5a2a; font-family:'Segoe UI',sans-serif; font-size:9px; font-weight:600; letter-spacing:1px; opacity:0.45; text-anchor:middle;">E X T E R I O R</text>
     <text x="450" y="575" style="fill:#2a5a2a; font-family:'Segoe UI',sans-serif; font-size:10px; font-weight:600; letter-spacing:2px; opacity:0.6; text-anchor:middle;">J U N G L E</text>
 
   </g>
