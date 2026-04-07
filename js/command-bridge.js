@@ -1468,7 +1468,7 @@
     var allScenesComplete = scenes.length > 0 && scenes.every(function (s) { var c = completionsData[s.id]; return c && c.completed; });
     html += '<div class="cb-dash-footer">';
     html += '<button class="cb-complete-btn' + (isDone ? ' completed' : '') + '" data-scene="' + scene.id + '">' + (isDone ? '&#10003; Scene Complete' : '&#9675; Mark Scene Complete') + '</button>';
-    html += '<button class="cb-mission-debrief-btn' + (allScenesComplete ? ' all-complete' : '') + '" id="cb-gen-summary" title="' + (allScenesComplete ? 'All scenes complete — generate After Action Report' : 'Generate AI After Action Report (adventure in progress)') + '">&#9881; Mission Debrief</button>';
+    html += '<button class="cb-mission-debrief-btn' + (allScenesComplete ? ' all-complete' : '') + '" id="cb-gen-summary" title="' + (allScenesComplete ? 'All scenes complete — generate Mission Chronicle' : 'Generate Mission Chronicle (adventure in progress)') + '">&#9881; Mission Debrief</button>';
     html += '<div class="cb-scene-nav-arrows">';
     html += '<button class="cb-arrow-btn" id="scene-prev"' + (idx <= 0 ? ' disabled' : '') + '>&larr; Prev</button>';
     html += '<button class="cb-arrow-btn" id="scene-next"' + (idx >= scenes.length - 1 ? ' disabled' : '') + '>Next &rarr;</button>';
@@ -2655,7 +2655,7 @@
             html += '<div class="journal-scene-log journal-mission-debrief" data-cj-scene-log>';
             html += '<div class="journal-scene-log-header journal-mission-debrief-header">';
             html += '<span class="journal-scene-log-chevron">\u25B6</span>';
-            html += '<span class="journal-mission-debrief-label">After Action Report</span>';
+            html += '<span class="journal-mission-debrief-label">Mission Chronicle</span>';
             html += '<span class="journal-scene-log-date">' + _fmtDate(debrief.created_at) + '</span>';
             html += '</div>';
             html += '<div class="journal-scene-log-body">';
@@ -3157,7 +3157,7 @@
     overlay.innerHTML =
       '<div class="cb-mission-summary-modal">' +
         '<div class="cb-mission-summary-header">' +
-          '<span class="cb-mission-summary-title">AFTER ACTION REPORT</span>' +
+          '<span class="cb-mission-summary-title">MISSION CHRONICLE</span>' +
           '<span class="cb-mission-summary-subtitle">' + esc(advTitle) + '</span>' +
           '<button class="cb-mission-summary-close" id="ms-close">&times;</button>' +
         '</div>' +

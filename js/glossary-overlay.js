@@ -1461,7 +1461,7 @@
       html += '<div class="journal-scene-log journal-mission-debrief" data-scene-log-id="' + debrief.id + '">';
       html += '<div class="journal-scene-log-header journal-mission-debrief-header">';
       html += '<span class="journal-scene-log-chevron">\u25B6</span>';
-      html += '<span class="journal-mission-debrief-label">' + _esc(debrief.title || 'After Action Report') + '</span>';
+      html += '<span class="journal-mission-debrief-label">' + _esc(debrief.title || 'Mission Chronicle') + '</span>';
       html += '<span class="journal-scene-log-date">' + _formatDate(debrief.created_at) + '</span>';
       html += '</div>';
       html += '<div class="journal-scene-log-body">';

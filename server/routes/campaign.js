@@ -1115,37 +1115,43 @@ function buildMissionSummaryPrompt(ctx) {
     bibleSection += `\nMAJOR NPC PROFILES:\n${bible.characters}\n`;
   }
 
-  return `You are a military intelligence analyst in the Star Wars galaxy, 16 BBY. You are writing an After Action Report — a classified field debrief — for a crew of mercenaries operating in the Outer Rim.
+  return `You are an unseen chronicler — a presence that watches from outside the story. You write in the tradition of the Journal of the Whills: an ancient, patient voice that records the deeds of mortals across the galaxy. You are not a character. You are not a narrator. You are a witness.
 
-SETTING: The Galactic Empire is two years old. The Clone Wars are recent memory. This crew operates on the fringe, doing grey-market work that gradually pulls them into something bigger and more dangerous.
+You observe a crew of drifters, mercenaries, and outcasts operating on the fringe of a galaxy that has just fallen to darkness. The Empire is two years old. The Clone Wars ended, but the wounds did not. These people are not heroes yet. They may never be. What matters is what they choose when no one is watching — and you are always watching.
 
-TONE: Write in a clipped, professional, third-person past tense voice — like a Rebel Alliance intelligence officer reconstructing events from field reports. No flowery prose. No omniscient narrator. The analyst knows what the crew did and what choices they made, but interprets events through the lens of someone piecing together the story after the fact. Use specific names and details from the data provided. Reference crew members by name. Reference key NPCs and their fates where relevant.
+VOICE RULES — follow these precisely:
+- Write in third person, past tense, with the gravity and cadence of someone recording events for posterity — not for a commanding officer. This is a chronicle, not a report.
+- You see actions as revelations of character. When someone acts with compassion, note it — not with praise, but with quiet recognition. When someone acts with cruelty or cowardice, note that too — not with judgment, but with the weight of what it means.
+- Frame choices as turning points. Every decision reveals something about the person who made it. "They chose to fight" is less interesting than what fighting cost them or what it said about who they are becoming.
+- Use the crew members' names. Use NPC names. Be specific about what happened. The chronicle is rooted in concrete events, not abstractions.
+- Do NOT use the words "light side" or "dark side." Do NOT reference the Force by name unless a character in the data is Force-sensitive. The moral dimension is felt, not labeled.
+- Do NOT use phrases like "After Action Report", "field report", "intelligence assessment", "operational summary", or any military/bureaucratic language. This is not a briefing. It is a record.
+- Vary sentence length. Mix short, declarative observations with longer, more reflective passages. Avoid lists. Avoid bullet-point thinking. Let the prose breathe.
+- End with an observation about what comes next — not a plot summary, but a sense of the road ahead. What are they walking toward? What have they set in motion that they cannot take back?
 ${bibleSection}
 ADVENTURE: Episode ${ctx.adventure.number} — "${ctx.adventure.title}" (Act ${ctx.adventure.act})${ctx.adventure.summary ? '\nADVENTURE BRIEF: ' + ctx.adventure.summary : ''}${ctx.scopeParts && ctx.scopeParts.length ? '\nDEBRIEF SCOPE: ' + ctx.scopeParts.map(p => `Part ${p.number}: "${p.title}"`).join(', ') + ' — Only cover events from these parts. Other parts have been debriefed separately.' : ''}
 
-CREW ROSTER:
-  ${crewList || 'Unknown crew complement'}
+THE CREW:
+  ${crewList || 'Unknown souls'}
 
-SCENE PROGRESSION:
+WHAT HAPPENED:
 ${sceneNarrative}
 
-KEY DECISIONS MADE:
+CHOICES THAT MATTERED:
 ${decisionsText}
 
-FIELD JOURNAL EXCERPTS:
+THEIR OWN WORDS:
 ${journalText}
 
 INSTRUCTIONS:
-Write 2-4 paragraphs summarizing this adventure as a post-mission After Action Report. Include:
-1. What the crew set out to do and what they encountered
-2. Significant choices they made and their consequences — if decisions involve character fates (deaths, rescues, betrayals), state those outcomes explicitly
-3. Notable NPCs they interacted with and what happened to them
-4. The outcome and any unresolved threads that carry forward
+Write 3-5 paragraphs chronicling these events. This is a passage from an ancient record — the kind of text that might be found in a temple archive a thousand years from now by someone trying to understand what these people did and why it mattered.
 
-If scenes are marked "not completed", treat the adventure as still in progress and note that the report is preliminary.
+Ground every observation in the specific events and names from the data. Do not generalize. Do not summarize blandly. Find the human moments — the choices that cost something, the alliances formed under pressure, the violence that changed someone, the mercy that surprised everyone including the person who showed it.
+
+If scenes are marked "not completed", write as though the chronicle is being recorded mid-event — the outcome is not yet known, and the weight of that uncertainty should be felt.
 
 Return your response as JSON with a single field:
-{ "summary": "the full After Action Report text here" }`;
+{ "summary": "the full chronicle text here" }`;
 }
 
 router.post('/campaign/adventures/:adventureId/summary', async (req, res) => {
