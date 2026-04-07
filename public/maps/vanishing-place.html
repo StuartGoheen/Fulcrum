@@ -24,7 +24,7 @@
   .room-label { fill: #e0d4b8; font-family: 'Segoe UI', sans-serif; font-size: 13px; font-weight: 600; text-anchor: middle; letter-spacing: 1px; text-transform: uppercase; pointer-events: none; }
   .room-sublabel { fill: #998b70; font-family: 'Segoe UI', sans-serif; font-size: 9px; text-anchor: middle; pointer-events: none; }
   .grid-line { stroke: #444; stroke-width: 0.3; opacity: 0.3; }
-  .outer-wall { fill: none; stroke: #666; stroke-width: 4; }
+  .outer-wall { fill: none; stroke: #887755; stroke-width: 5; stroke-linejoin: round; }
   .inner-wall { fill: none; stroke: #555; stroke-width: 2; }
   .door { fill: #8a7a55; stroke: #665a3a; stroke-width: 1; }
   .door-security { fill: #aa4444; stroke: #882222; stroke-width: 1; }
@@ -103,6 +103,28 @@
     "/>
     <!-- Cross-hatch overlay on walls (impassable stone) -->
     <path fill="url(#wall-hatch)" opacity="0.5" d="
+      M 60,80
+      L 60,20 Q 60,0 80,0
+      L 720,0 Q 740,0 740,20
+      L 740,100
+      L 800,100 Q 800,100 800,120
+      L 800,280 Q 800,300 780,300
+      L 740,300
+      L 740,420 Q 740,440 720,440
+      L 580,440
+      L 580,520 Q 580,540 560,540
+      L 340,540 Q 320,540 320,520
+      L 320,440
+      L 80,440 Q 60,440 60,420
+      L 60,350
+      L 0,350 Q 0,350 0,330
+      L 0,200 Q 0,180 20,180
+      L 60,180
+      Z
+    "/>
+
+    <!-- Exterior building walls (compound perimeter) -->
+    <path class="outer-wall" d="
       M 60,80
       L 60,20 Q 60,0 80,0
       L 720,0 Q 740,0 740,20
@@ -318,6 +340,12 @@
       <text x="12" y="13" class="entry-label" style="text-anchor:start; font-size:7px;">WAITS HERE</text>
     </g>
 
+    <!-- Exterior labels (jungle outside the compound) -->
+    <text x="-30" y="100" style="fill:#2a5a2a; font-family:'Segoe UI',sans-serif; font-size:10px; font-weight:600; letter-spacing:2px; opacity:0.6;" transform="rotate(-90,-30,100)">J U N G L E</text>
+    <text x="820" y="200" style="fill:#2a5a2a; font-family:'Segoe UI',sans-serif; font-size:10px; font-weight:600; letter-spacing:2px; opacity:0.6;" transform="rotate(90,820,200)">J U N G L E</text>
+    <text x="400" y="-10" style="fill:#2a5a2a; font-family:'Segoe UI',sans-serif; font-size:10px; font-weight:600; letter-spacing:2px; opacity:0.6; text-anchor:middle;">J U N G L E</text>
+    <text x="450" y="575" style="fill:#2a5a2a; font-family:'Segoe UI',sans-serif; font-size:10px; font-weight:600; letter-spacing:2px; opacity:0.6; text-anchor:middle;">J U N G L E</text>
+
   </g>
 
   <!-- ============ LEGEND ============ -->
@@ -325,27 +353,33 @@
     <rect x="0" y="0" width="860" height="65" class="legend-bg"/>
     <text x="15" y="18" class="legend-title">LEGEND</text>
 
-    <rect x="15" y="28" width="12" height="12" fill="#665a3a" rx="1"/>
-    <text x="32" y="38" class="legend-text">Standard Door</text>
+    <line x1="15" y1="28" x2="15" y2="40" stroke="#887755" stroke-width="5" stroke-linecap="round"/>
+    <text x="25" y="38" class="legend-text">Exterior Wall</text>
 
-    <rect x="120" y="28" width="12" height="12" fill="#aa4444" rx="1"/>
-    <text x="137" y="38" class="legend-text">Security Door (Gen-Locked)</text>
+    <rect x="100" y="28" width="12" height="12" fill="#665a3a" rx="1"/>
+    <text x="117" y="38" class="legend-text">Door</text>
 
-    <line x1="280" y1="30" x2="310" y2="30" class="laser-fence"/>
-    <text x="315" y="38" class="legend-text">Laser Fence (Gen-Powered)</text>
+    <rect x="145" y="28" width="12" height="12" fill="#aa4444" rx="1"/>
+    <text x="162" y="38" class="legend-text">Security Door (Gen)</text>
 
-    <circle cx="446" cy="34" r="8" class="turret"/>
-    <text x="460" y="38" class="legend-text">Gun Turret (Gen-Powered)</text>
+    <line x1="280" y1="34" x2="310" y2="34" class="laser-fence"/>
+    <text x="315" y="38" class="legend-text">Laser Fence (Gen)</text>
 
-    <line x1="555" y1="30" x2="585" y2="30" stroke="#aa8833" stroke-width="1" stroke-dasharray="4,6"/>
-    <text x="590" y="38" class="legend-text">Power Conduit</text>
+    <circle cx="420" cy="34" r="8" class="turret"/>
+    <text x="434" y="38" class="legend-text">Turret (Gen)</text>
 
-    <circle cx="696" cy="34" r="5" fill="none" stroke="#4a9" stroke-width="1.5"/>
-    <circle cx="696" cy="34" r="2" fill="#4a9"/>
-    <text x="706" y="38" class="legend-text">NPC Position</text>
+    <line x1="505" y1="34" x2="535" y2="34" stroke="#aa8833" stroke-width="1" stroke-dasharray="4,6"/>
+    <text x="540" y="38" class="legend-text">Power Conduit</text>
 
-    <polygon points="776,28 786,23 786,33" class="entry-arrow"/>
-    <text x="792" y="38" class="legend-text">Entry Point</text>
+    <circle cx="626" cy="34" r="5" fill="none" stroke="#4a9" stroke-width="1.5"/>
+    <circle cx="626" cy="34" r="2" fill="#4a9"/>
+    <text x="636" y="38" class="legend-text">NPC Position</text>
+
+    <polygon points="706,28 716,23 716,33" class="entry-arrow"/>
+    <text x="722" y="38" class="legend-text">Entry Point</text>
+
+    <rect x="762" y="28" width="12" height="12" fill="url(#wall-hatch)" stroke="#3a3a3a" stroke-width="1" rx="1"/>
+    <text x="779" y="38" class="legend-text">Stone (impassable)</text>
 
     <text x="15" y="56" class="legend-text" style="fill:#665a3a;">GENERATOR SABOTAGE → Turrets offline + Fences drop + Security doors unlock + Sensors blind</text>
   </g>
