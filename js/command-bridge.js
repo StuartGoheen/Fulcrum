@@ -4145,11 +4145,26 @@
 
   function _loadDpProfiles() {
     fetch('/api/npc-profiles')
-      .then(function (r) { return r.json(); })
+      .then(function (r) { if (!r.ok) throw new Error('Failed'); return r.json(); })
       .then(function (data) {
         _dpProfiles = data.profiles || [];
-        _renderDpPanel();
+        if (_dpExpanded) {
+          return fetch('/api/npc-profiles/' + _dpExpanded)
+            .then(function (r2) { if (!r2.ok) throw new Error('Failed'); return r2.json(); })
+            .then(function (d2) {
+              var prof = d2.profile;
+              if (prof) {
+                for (var i = 0; i < _dpProfiles.length; i++) {
+                  if (_dpProfiles[i].npc_key === prof.npc_key) {
+                    _dpProfiles[i] = prof;
+                    break;
+                  }
+                }
+              }
+            });
+        }
       })
+      .then(function () { _renderDpPanel(); })
       .catch(function () {
         var body = document.querySelector('#fp-dramatis .cb-fpanel-body');
         if (body) body.innerHTML = '<div style="padding:1rem;color:var(--color-danger);">Failed to load profiles.</div>';
@@ -4215,6 +4230,27 @@
 
           html += '<div class="dp-detail-row"><label>Portrait URL</label>';
           html += '<input class="dp-input" data-dp-portrait="' + esc(p.npc_key) + '" value="' + esc(p.portrait_url || '') + '" placeholder="/attached_assets/..." /></div>';
+
+          html += '<div class="dp-timeline-section">';
+          html += '<div class="dp-timeline-header"><label>Timeline</label>';
+          html += '<button class="dp-btn dp-btn--small dp-btn--add" data-dp-add-timeline="' + esc(p.npc_key) + '">+ Entry</button></div>';
+          var timeline = p.timeline || [];
+          if (timeline.length === 0) {
+            html += '<div class="dp-timeline-empty">No timeline entries yet.</div>';
+          } else {
+            timeline.forEach(function (tl) {
+              html += '<div class="dp-timeline-entry" data-tl-id="' + tl.id + '">';
+              html += '<div class="dp-timeline-entry-header">';
+              html += '<span class="dp-timeline-ref">' + esc(tl.scene_ref || tl.adventure_ref || '') + '</span>';
+              html += '<span class="dp-timeline-vis" style="color:' + (tl.revealed ? '#22c55e' : '#6b7280') + ';" title="' + (tl.revealed ? 'Visible to players' : 'Hidden from players') + '">' + (tl.revealed ? '\u25C9' : '\u25CB') + '</span>';
+              html += '<button class="dp-btn dp-btn--small" data-dp-toggle-tl="' + tl.id + '" data-tl-revealed="' + (tl.revealed ? '1' : '0') + '">' + (tl.revealed ? 'Hide' : 'Show') + '</button>';
+              html += '<button class="dp-btn dp-btn--small dp-btn--delete" data-dp-del-tl="' + tl.id + '">\u00D7</button>';
+              html += '</div>';
+              html += '<div class="dp-timeline-text">' + esc(tl.event_text) + '</div>';
+              html += '</div>';
+            });
+          }
+          html += '</div>';
 
           html += '<div class="dp-detail-actions">';
           html += '<button class="dp-btn dp-btn--save" data-dp-save="' + esc(p.npc_key) + '">Save Changes</button>';
@@ -4337,6 +4373,52 @@
             _dpExpanded = null;
             _loadDpProfiles();
           });
+      });
+    });
+
+    body.querySelectorAll('[data-dp-add-timeline]').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var key = btn.dataset.dpAddTimeline;
+        var eventText = prompt('Timeline event text:');
+        if (!eventText || !eventText.trim()) return;
+        var sceneRef = prompt('Scene reference (e.g. Adv1-P2-S3):', '') || '';
+        fetch('/api/npc-profiles/' + key + '/timeline', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ event_text: eventText.trim(), scene_ref: sceneRef.trim(), revealed: true })
+        })
+        .then(function (r) { if (!r.ok) throw new Error('Failed'); return r.json(); })
+        .then(function () { _loadDpProfiles(); })
+        .catch(function () { _showNpcToast('Failed to add timeline entry'); });
+      });
+    });
+
+    body.querySelectorAll('[data-dp-toggle-tl]').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var id = btn.dataset.dpToggleTl;
+        var currentlyRevealed = btn.dataset.tlRevealed === '1';
+        fetch('/api/npc-timeline/' + id + '/reveal', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ revealed: !currentlyRevealed })
+        })
+        .then(function (r) { if (!r.ok) throw new Error('Failed'); return r.json(); })
+        .then(function () { _loadDpProfiles(); })
+        .catch(function () { _showNpcToast('Failed to toggle timeline visibility'); });
+      });
+    });
+
+    body.querySelectorAll('[data-dp-del-tl]').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var id = btn.dataset.dpDelTl;
+        if (!confirm('Delete this timeline entry?')) return;
+        fetch('/api/npc-timeline/' + id, { method: 'DELETE' })
+          .then(function (r) { if (!r.ok) throw new Error('Failed'); return r.json(); })
+          .then(function () { _loadDpProfiles(); })
+          .catch(function () { _showNpcToast('Failed to delete timeline entry'); });
       });
     });
   }

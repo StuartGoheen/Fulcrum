@@ -90,7 +90,7 @@ router.get('/npc-profiles/revealed', async (req, res) => {
   }
 });
 
-router.get('/npc-profiles/:npcKey', async (req, res) => {
+router.get('/npc-profiles/:npcKey', requireGM, async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM npc_profiles WHERE npc_key = $1', [req.params.npcKey]);
     if (!result.rows.length) return res.status(404).json({ error: 'Profile not found' });
@@ -270,7 +270,7 @@ router.post('/npc-profiles/:npcKey/status', requireGM, async (req, res) => {
   }
 });
 
-router.get('/npc-profiles/:npcKey/timeline', async (req, res) => {
+router.get('/npc-profiles/:npcKey/timeline', requireGM, async (req, res) => {
   try {
     const result = await pool.query(
       'SELECT * FROM npc_timeline WHERE npc_key = $1 ORDER BY created_at ASC',
@@ -408,7 +408,7 @@ router.post('/npc-profiles/push-all', requireGM, async (req, res) => {
   }
 });
 
-router.get('/npc-profiles/scene-npcs/:sceneId', async (req, res) => {
+router.get('/npc-profiles/scene-npcs/:sceneId', requireGM, async (req, res) => {
   try {
     const files = fs.readdirSync(ADVENTURES_DIR).filter(f => /^adv\d+\.json$/.test(f)).sort();
     for (const f of files) {
