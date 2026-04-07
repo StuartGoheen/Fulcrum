@@ -5,14 +5,54 @@
   "act": 1,
   "summary": "The heroes travel to Takodana to infiltrate Varga Besadii Drokko's fortress, posing as entertainment to steal the encryption keys to Varth's fortune. Over several days in the Hutt's court, they navigate gladiatorial spectacle, slave traders, an ISB double agent, and a nighttime assassination attempt — only to discover a captive Jedi Master in the dungeons. The escape costs lives: Demos dies fighting, Varga flees to Bespin, and Varth executes the man the heroes just rescued.",
   "marks": [
-    { "id": "adv2_blackwind", "label": "The Approach", "desc": "Reach Varga's fortress through Blackwind Point. The jungle watches everything.", "hidden": false },
-    { "id": "adv2_cover", "label": "Wearing the Mask", "desc": "Establish your cover identity inside the encampment. Convince them you belong.", "hidden": false },
-    { "id": "adv2_court_favor", "label": "Currying Favor", "desc": "Navigate the court's politics — gladiators, slavers, and Imperial delegations. Build enough reputation to get close.", "hidden": true },
-    { "id": "adv2_sinde", "label": "The Imperial Shadow", "desc": "Discover Lady Sinde's true identity and what she's really negotiating with Varga.", "hidden": true },
-    { "id": "adv2_denia", "label": "The Prisoner Below", "desc": "Find Denia in the dungeons. Decide what she's worth to you.", "hidden": true },
-    { "id": "adv2_knife_dark", "label": "Knife in the Dark", "desc": "Survive the assassination attempt. Someone wants you dead before dawn.", "hidden": true },
-    { "id": "adv2_escape", "label": "The Burning Bridge", "desc": "Get out of the fortress alive. What you leave behind is the price.", "hidden": true },
-    { "id": "adv2_crucible", "label": "The Crucible", "desc": "The plan catastrophically fails. Improvise under fire to survive.", "hidden": false }
+    {
+      "id": "adv2_blackwind",
+      "label": "The Approach",
+      "desc": "Reach Varga's fortress through Blackwind Point. The jungle watches everything.",
+      "hidden": false
+    },
+    {
+      "id": "adv2_cover",
+      "label": "Wearing the Mask",
+      "desc": "Establish your cover identity inside the encampment. Convince them you belong.",
+      "hidden": false
+    },
+    {
+      "id": "adv2_court_favor",
+      "label": "Currying Favor",
+      "desc": "Navigate the court's politics — gladiators, slavers, and Imperial delegations. Build enough reputation to get close.",
+      "hidden": true
+    },
+    {
+      "id": "adv2_sinde",
+      "label": "The Imperial Shadow",
+      "desc": "Discover Lady Sinde's true identity and what she's really negotiating with Varga.",
+      "hidden": true
+    },
+    {
+      "id": "adv2_denia",
+      "label": "The Prisoner Below",
+      "desc": "Find Denia in the dungeons. Decide what she's worth to you.",
+      "hidden": true
+    },
+    {
+      "id": "adv2_knife_dark",
+      "label": "Knife in the Dark",
+      "desc": "Survive the assassination attempt. Someone wants you dead before dawn.",
+      "hidden": true
+    },
+    {
+      "id": "adv2_escape",
+      "label": "The Burning Bridge",
+      "desc": "Get out of the fortress alive. What you leave behind is the price.",
+      "hidden": true
+    },
+    {
+      "id": "adv2_crucible",
+      "label": "The Crucible",
+      "desc": "The plan catastrophically fails. Improvise under fire to survive.",
+      "hidden": false
+    }
   ],
   "gearNotes": [
     {
@@ -1682,12 +1722,12 @@
       "title": "The Long Game",
       "scenes": [
         {
-          "id": "adv2-p2-s3",
-          "number": 3,
-          "title": "Currying Favor",
-          "subtitle": "The Multi-Day Court Sandbox",
-          "readAloud": "Over the next several days, you navigate the dangerous politics of Varga's court. Admiral Varth coaches you over encrypted comms, pointing out targets and reminding you to keep your eyes on the prize.\n\nThe court operates on Varga's whims. Events arrive unannounced — delegations, spectacles, celebrations, punishments. Between them, the heroes have windows to explore, make contacts, and pursue the mission. Every day brings new opportunities and new dangers.",
-          "gmNotes": "This is a MULTI-DAY SANDBOX scene. The court phase plays out over 3-5 in-game days with structured events and freeform exploration between them. The GM runs events in order, with 'between' activities available during downtime.\n\nSTRUCTURED COURT EVENTS (run in order):\n\n1. THE GLADIATOR ARENA (Day 1): Varga announces a gladiator tournament to 'test' his new guests. The heroes can fight directly (Shockboxer/Duelist spotlight) or sponsor a fighter. The arena is a sunken pit in the fortress courtyard. Winning builds reputation and earns Varga's favor. The reigning champion is Gorrak — a scarred Trandoshan veteran. Defeating him earns significant court standing.\n\n2. THE IRON RING DELEGATION (Day 2): A Zabrak slaver named Vel Crekk leads the Iron Ring delegation into court with chained prisoners — Twi'leks, Rodians, and one massive Wookiee warrior (Grakkus). During the negotiations, a Twi'lek slave serving Varga's drinks attempts to poison the Hutt's goblet. If the heroes notice (Insight check) and intervene — either by stopping the poison or by covering for the slave — they can earn instant favor with Varga (saving his life) or with the slave (protecting him). The slave's name is Narek. The Wookiee warrior (Grakkus) is sold to Varga as arena muscle but remains unchained — he fights willingly because the Iron Ring holds his family. Grakkus stays in the fortress after the slavers leave. He is a SLEEPER THREAT who participates in the Knife in the Dark event.\n\n3. LADY SINDE'S IMPERIAL DELEGATION (Day 3-4, final event): Lady Sinde arrives with a 4-Stormtrooper escort. She is ostensibly an Imperial logistics officer negotiating Tibanna gas shipments for Project Leviathan. Her real identity: Victra Sinde, ISB (Imperial Security Bureau) double agent embedded in the Leviathan logistics chain. She monitors Imperial-Hutt collusion for the ISB while maintaining her logistics cover. Heroes may recognize her from Organa's intelligence network or discover her ISB identity via Investigation or Stealth (eavesdropping on her encrypted comms). Sinde despises Varga — he's a tool. The Empire is already planning to discard him once Leviathan is complete.\n\nBETWEEN-EVENT ACTIVITIES (available during downtime, any order):\n\n• GOME THE MONEYCHANGER: An elderly Duros moneychanger who handles Varga's financial transactions. Rambling, morally indifferent, obsessed with numbers. If engaged in conversation about finances (Charm or Investigation), he reveals that Varga has departure contingency plans — a fallback headquarters on Bespin, in Cloud City. This is the critical intel that connects Adventure 2 to Adventure 3. Gome doesn't understand the significance of what he's sharing; he just likes talking about money.\n\n• TC-663 NIGHTTIME VISIT: Between events, TC-663 visits the heroes' quarters at night. If they've activated him with Switch's code phrase, he delivers Demos's encrypted comm traffic — intercepted messages between Demos and an Imperial contact. The messages reference 'the prisoner' (Denia) and Demos's plan to sell her to the Inquisitorius. This is the first concrete evidence that someone important is hidden in the dungeons.\n\n• KESSRA'S AVIARY AMBUSH (CONDITIONAL — only if heroes humiliated Kessra in Scene 1): Kessra has been hired as a security contractor inside Varga's fortress. She sets a personal vendetta trap — targeting 1-2 heroes by name (the ones who humiliated her). She lures them to the fortress aviary (a domed enclosure housing Takodana predatory raptors) under a false pretense (a message from 'a contact'). Once inside, she locks the doors and releases the raptors. This is NOT Varga's doing — it's personal. Kessra wants revenge, not to blow the heroes' cover. If the heroes kill the raptors and confront Kessra, she can be intimidated into backing down permanently or killed quietly. If they escape, she tries again later.\n\n• KNIFE IN THE DARK (Night of Day 3 or 4): A nighttime assassination attempt. The Wookiee sleeper Grakkus teams with Narek the Twi'lek (if saved from the poison attempt — he switches sides out of gratitude to whoever saved him, but his gratitude makes him manipulable by the real organizer) and a Quarren assassin named Skreev. Skreev is the organizer — an agent sent by one of Varga's rivals to eliminate the heroes (who are seen as Varga's new favorites). They strike at night in the heroes' quarters. Grakkus provides muscle. The heroes must fight in close quarters, possibly in the dark, with limited weapons (their good gear may be locked away). This is a dangerous encounter — Grakkus alone is formidable.",
+          "id": "adv2-p2-s1",
+          "number": 1,
+          "title": "The Gladiator Arena",
+          "subtitle": "Day One — Blood Sport",
+          "readAloud": "The fortress shakes with the roar of a thousand voices. Varga's gladiator arena is carved into the rock beneath the main hall — a natural cavern expanded with durasteel walls and repulsor barriers. Torchlight and glow-rods throw shifting shadows across the sand floor.\n\nVarga the Hutt watches from a hovering observation platform, attended by servants and sycophants. His enormous eyes glitter with anticipation.\n\n\"Our new arrivals,\" he rumbles in Huttese, his booming voice filling the cavern. \"Let us see what they are worth.\"\n\nThe arena gate opposite you grinds open. Out steps a massive Trandoshan — scarred, muscled, and grinning with far too many teeth. His name, chanted by the crowd, is Gorrak.\n\nHe cracks his knuckles. The crowd screams louder.",
+          "gmNotes": "This is the heroes' first test in Varga's court — a gladiatorial exhibition match. Varga uses these fights to evaluate newcomers and entertain his guests. Winning earns respect and access; losing earns contempt (but not death — Varga doesn't waste useful assets).\n\nGORRAK is Varga's champion — a Trandoshan pit fighter who has survived 47 arena bouts. He fights with controlled brutality. He's dangerous but not trying to kill — this is sport, not war. If the heroes win, Gorrak nods respect and becomes a neutral contact in the fortress. If they lose, he offers a hand up. Either way, Varga is watching.\n\nCROWD DYNAMICS: The crowd's reaction matters. A spectacular fight (high-tier results on combat checks) earns Varga's personal attention. A boring fight earns indifference. The court is watching to decide if these newcomers are worth cultivating.\n\nSCENE PURPOSE: Establish the heroes' reputation in Varga's court. The gladiator fight is a set-piece combat encounter — the main event — surrounded by simple social checks for reading the crowd and impressing the right people. This scene sets up everything that follows: better performance here means easier access to NPCs, intel, and opportunities in later scenes.\n\nCHALLENGE COMPLEXITY:\n- Arena fight vs Gorrak: SET-PIECE (full combat encounter, environment mechanics, crowd factor)\n- Reading the crowd: SIMPLE (single Insight check, flavor + minor advantage)\n- Impressing Varga: SIMPLE (single Charm/Deception check, reputation modifier)",
           "npcs": [
             {
               "name": "Gorrak",
@@ -1765,7 +1805,197 @@
                 "notes": "Elite Brute gladiator. Tougher than standard Trandoshans (elite = 1.5x Vitality). Crowd favorite — Varga bets heavily on him.",
                 "powerSource": "martial"
               }
+            }
+          ],
+          "hazards": "Arena environment — sand floor, repulsor barriers, torch sconces. Crowd throws objects (bottles, food) that can be used as improvised weapons or distractions.",
+          "decisions": [
+            {
+              "choice": "Fight to win — full effort",
+              "consequence": "Maximum reputation gain. Varga is impressed. Opens doors in the court. Gorrak respects the victor."
             },
+            {
+              "choice": "Throw the fight deliberately",
+              "consequence": "Deception check to make it look convincing. If successful, appears non-threatening — useful for the cover but limits court access. If caught, Varga is insulted."
+            },
+            {
+              "choice": "Fight dirty — use hidden weapons or Force",
+              "consequence": "Wins the fight but risks exposing true capabilities. Demos may notice Force use. Varga respects ruthlessness but it draws the wrong kind of attention."
+            }
+          ],
+          "loreTags": [
+            "Varga the Hutt",
+            "Gorrak",
+            "Gladiatorial Combat",
+            "Court Politics"
+          ],
+          "narrativeLinks": [
+            {
+              "targetScene": "adv2-p2-s3",
+              "note": "Arena performance determines starting reputation for the Working the Court phase."
+            }
+          ],
+          "challengeType": "combat",
+          "destinyTags": [
+            "destruction",
+            "glory"
+          ],
+          "vocationTags": [
+            "voc_shockboxer",
+            "voc_duelist",
+            "voc_gunslinger"
+          ],
+          "disciplineTags": [
+            "melee",
+            "brawl",
+            "athletics",
+            "evasion",
+            "endure",
+            "insight",
+            "charm",
+            "deception"
+          ],
+          "gearFlags": [
+            "Restricted"
+          ],
+          "encounters": [
+            {
+              "id": "enc-a2s1-gladiator",
+              "name": "Gladiator Arena — Gorrak",
+              "type": "combat",
+              "trigger": "Varga signals the fight to begin",
+              "description": "Exhibition match against Gorrak, Varga's Trandoshan champion. Non-lethal rules but real danger. Sand floor, torch sconces, repulsor barriers.",
+              "tactics": "Gorrak opens aggressive — charges and grapples. Uses environment (sand throw, barrier slam). Backs off if bloodied — Trandoshan pride demands a measured retreat, not a reckless last stand."
+            }
+          ],
+          "environmentMechanics": [
+            {
+              "name": "Sand Floor",
+              "trigger": "Active throughout",
+              "effect": "Can be kicked into eyes — Physique vs Reflex, inflicts [Blinded] for 1 round.",
+              "mitigation": "Goggles or helmet negate."
+            },
+            {
+              "name": "Repulsor Barriers",
+              "trigger": "If pushed into the arena edge",
+              "effect": "Repulsor field bounces combatants back — takes 1 chassis damage and returns to center.",
+              "mitigation": "Can be used offensively — push opponent into barrier."
+            },
+            {
+              "name": "Torch Sconces",
+              "trigger": "Can be grabbed as improvised weapons",
+              "effect": "Improvised Light weapon. Fire damage. Single use.",
+              "mitigation": "N/A"
+            }
+          ],
+          "rewards": {
+            "credits": 0,
+            "xp": "Combat encounter",
+            "items": [],
+            "narrative": "Reputation established in Varga's court. Gorrak as neutral contact. Varga's assessment of the heroes determines access level for subsequent court scenes."
+          },
+          "pacing": {
+            "openingBeat": "The cavern arena. The crowd. Gorrak steps through the gate.",
+            "risingAction": "The fight itself — Gorrak is strong, fast, and experienced. The crowd reacts to every blow.",
+            "climax": "The decisive moment — knockdown, submission, or spectacular finish.",
+            "resolution": "Varga's assessment. The crowd's verdict. The heroes' reputation is set.",
+            "estimatedMinutes": 25
+          },
+          "disciplineChallenges": [
+            {
+              "id": "sc-a2s1-melee-gladiator",
+              "discipline": "melee",
+              "complexity": "set-piece",
+              "context": "Exhibition arena fight against Gorrak, Varga's Trandoshan champion.",
+              "narrativePacing": "This is the scene's main event. Full combat encounter with environment mechanics and crowd reactions.",
+              "arena": "physique",
+              "actionType": "interact",
+              "control": {
+                "failure": "Gorrak lands a devastating combo. You're on the sand, looking up at Trandoshan teeth. The crowd groans. Varga looks away.",
+                "success": "Refer to effect tiers.",
+                "mastery": "You don't just win — you put on a show. The crowd is on its feet. Gorrak himself nods. Varga leans forward on his hover-sled, genuinely impressed. You have the court's full attention."
+              },
+              "target": "Gorrak",
+              "resist": 3,
+              "risk": 4,
+              "effect": {
+                "fleeting": "You land hits but Gorrak absorbs them. The fight goes the distance. A draw or narrow decision. The crowd is lukewarm — not embarrassing, but not impressive.",
+                "masterful": "Clean victory. Technical superiority. Gorrak goes down to a well-placed combination and stays down for the count. The crowd roars approval.",
+                "legendary": "Spectacular finish — the kind the crowd will talk about for months. Gorrak is beaten decisively, the arena shakes with cheering, and Varga himself applauds. Court access is unrestricted."
+              }
+            },
+            {
+              "id": "sc-a2s1-insight-crowd",
+              "discipline": "insight",
+              "complexity": "simple",
+              "context": "Reading the crowd and court dynamics during the arena fight.",
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "Too focused on the fight to notice anything. The crowd is just noise.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Full court map in your head — who matters, who's watching whom, and who's already scheming."
+              },
+              "target": "Court attendees",
+              "resist": 2,
+              "risk": 1,
+              "effect": {
+                "fleeting": "You notice Varga watches with casual interest. His majordomo — the Neimoidian — watches with something sharper. Not casual at all.",
+                "masterful": "You identify the key power players in the crowd: Demos (the majordomo, watching with predatory focus), a Muun accountant taking notes, and a human woman in Imperial-cut clothing who doesn't belong here.",
+                "legendary": "Full court intelligence. You clock Demos, Gome the Muun, Lady Sinde (Imperial — wrong boots for a logistics officer), and the protocol droid TC-663 who keeps glancing at the exits. You also notice Varga's betting patterns — he's wagering against his own champion. He expects Gorrak to lose."
+              }
+            },
+            {
+              "id": "sc-a2s1-charm-varga",
+              "discipline": "charm",
+              "complexity": "simple",
+              "context": "Post-fight — presenting yourself to Varga and his court.",
+              "arena": "presence",
+              "actionType": "interact",
+              "control": {
+                "failure": "Varga is unimpressed. You're tolerated in the court but not welcomed. Access is limited to common areas.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Varga laughs — a deep, rumbling sound that shakes the observation platform. He invites you to the private feast. Full court access granted."
+              },
+              "target": "Varga the Hutt",
+              "resist": 3,
+              "risk": 2,
+              "effect": {
+                "fleeting": "Varga acknowledges you with a grunt. You're allowed to stay. Basic court access.",
+                "masterful": "Varga is entertained. You're interesting. He gestures for servants to attend you — quarters in the guest wing, not the barracks.",
+                "legendary": "Varga is delighted. A new favorite. Private quarters, invitation to the feast, and the freedom to roam the fortress. Demos watches with thinly veiled jealousy."
+              }
+            },
+            {
+              "id": "sc-a2s1-deception-cover",
+              "discipline": "deception",
+              "complexity": "simple",
+              "context": "Maintaining cover identity during post-fight introductions.",
+              "arena": "presence",
+              "actionType": "interact",
+              "control": {
+                "failure": "Someone asks a question you can't answer smoothly. Your cover holds but there's a crack. Demos files it away.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Cover is ironclad. You've been this person your whole life. Even Demos can't find a seam."
+              },
+              "target": "Court attendees",
+              "resist": 2,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Cover holds under casual scrutiny. No one is suspicious yet, but you haven't been tested hard.",
+                "masterful": "Cover is solid. Your backstory checks out. The court accepts you at face value.",
+                "legendary": "Cover is perfect. You've woven details so convincing that courtiers begin filling in your backstory for you — 'Oh, you must know Greelo from the Nar Shaddaa circuit!' Your legend writes itself."
+              }
+            }
+          ]
+        },
+        {
+          "id": "adv2-p2-s2",
+          "number": 2,
+          "title": "The Iron Ring",
+          "subtitle": "Day Two — Slavers and Poison",
+          "readAloud": "The fortress mood shifts on the second day. A delegation arrives from the Iron Ring — a slave-trading syndicate that operates across the Outer Rim. Their leader is a tattooed Zabrak named Vel Crekk, flanked by Trandoshan enforcers and a shuffling line of chained captives.\n\nVarga receives them in the great hall, the air thick with incense and tension. The Iron Ring wants exclusive slaving rights in Varga's territory. Varga wants a percentage he hasn't earned.\n\nAmong the delegation, you notice two figures of interest. A towering Wookiee named Grakkus — Iron Ring muscle, standing with arms folded and rage barely contained behind flat black eyes. And a thin, quiet human named Narek who moves with the servants, carrying a tray of drinks. He makes eye contact with you once. Just once.\n\nSomething is wrong with those drinks.",
+          "gmNotes": "The Iron Ring delegation is a political event with a hidden subplot: assassination by poison.\n\nTHE SURFACE: Vel Crekk and the Iron Ring are negotiating slaving rights with Varga. The heroes are expected to attend as part of Varga's court. The negotiation itself is background texture — the heroes aren't involved in the deal. But they're watching, and they can learn.\n\nTHE POISON: Narek is a former slave who has infiltrated the delegation. He has laced Varga's drinks with a slow-acting neurotoxin. His plan: kill the Hutt and free the captives in the chaos. It's desperate, it's doomed (Hutts are resistant to most poisons), and it puts the heroes in a moral bind.\n\nIF DETECTED: The heroes spot the poison via Insight. They must choose:\n- Warn Varga → earns enormous trust but condemns Narek to death\n- Warn Narek → saves him but the assassination attempt may still trigger, blowing the heroes' cover\n- Do nothing → the poison fails (Hutt biology), Varga gets sick but survives, and the investigation afterward threatens everyone's cover\n- Swap the drinks → requires Skulduggery, prevents the attempt entirely, Narek is confused but alive\n\nGRAKKUS: The Wookiee enforcer is watching everything. He's not Iron Ring leadership — he's muscle. But he's smart muscle. He notices things. He'll reappear in Scene 5 (Knife in the Dark) as one of the assassins sent after the heroes.\n\nMORAL WEIGHT: Narek is sympathetic — he's a freed slave trying to kill a slaver. But his plan endangers the heroes' mission. This is the first moral gray area the heroes face in Varga's court.\n\nCHALLENGE COMPLEXITY:\n- Poison detection: COMPLEX (Insight check with escalating consequences based on timing)\n- Reading Vel Crekk: SIMPLE (single Insight check, intel gathering)\n- Intervening with Narek: COMPLEX (multi-step social challenge depending on chosen approach)\n- Swapping drinks: SIMPLE (single Skulduggery check if chosen)\n- Reading Grakkus: SIMPLE (single Insight check, threat assessment)",
+          "npcs": [
             {
               "name": "Iron Ring Slavers",
               "type": "Zabrak-Led Slaver Delegation",
@@ -1979,83 +2209,285 @@
                 "notes": "Dangerous melee combatant. Heavy chassis = significant damage. The real muscle in the Knife in the Dark encounter.",
                 "powerSource": "martial"
               }
+            }
+          ],
+          "hazards": "Poison in the drinks. Iron Ring enforcers who react violently to interference. Varga's own guards. Court witnesses who could blow the heroes' cover.",
+          "decisions": [
+            {
+              "choice": "Warn Varga about the poison",
+              "consequence": "Enormous trust gained with Varga. Narek is executed publicly. The heroes saved a crime lord and condemned a slave. Moral cost is real."
             },
             {
-              "name": "Skreev",
-              "type": "Quarren Assassin",
+              "choice": "Warn Narek privately",
+              "consequence": "Narek may abort or may proceed anyway (Persuasion check). If he proceeds and fails, the investigation threatens everyone."
+            },
+            {
+              "choice": "Swap the poisoned drinks via Skulduggery",
+              "consequence": "Clean resolution. No one dies. Narek is confused. The poison never reaches Varga. But the heroes are now carrying poisoned cups."
+            },
+            {
+              "choice": "Do nothing — let the poison play out",
+              "consequence": "The toxin makes Varga sick but doesn't kill him (Hutt biology). Varga orders an investigation. Narek is eventually caught. Everyone's cover is at risk during the investigation."
+            }
+          ],
+          "loreTags": [
+            "Iron Ring",
+            "Slavery",
+            "Varga the Hutt",
+            "Moral Choice",
+            "Narek",
+            "Grakkus"
+          ],
+          "narrativeLinks": [
+            {
+              "targetScene": "adv2-p2-s5",
+              "note": "Grakkus reappears as one of the assassins in Knife in the Dark. How the heroes handled the poison subplot affects his hostility."
+            }
+          ],
+          "challengeType": "social",
+          "destinyTags": [
+            "justice",
+            "mercy",
+            "pragmatism"
+          ],
+          "vocationTags": [
+            "voc_investigator",
+            "voc_noble",
+            "voc_ghost",
+            "voc_medic"
+          ],
+          "disciplineTags": [
+            "insight",
+            "charm",
+            "deception",
+            "skulduggery",
+            "medicine",
+            "persuasion"
+          ],
+          "gearFlags": [],
+          "encounters": [],
+          "environmentMechanics": [
+            {
+              "name": "Crowded Great Hall",
+              "trigger": "Active throughout",
+              "effect": "Dozens of court attendees, servants, and Iron Ring delegation members. Actions are observed. Stealth and violence are extremely difficult without witnesses.",
+              "mitigation": "Use the crowd as cover for subtle actions — drink swaps, whispered conversations."
+            },
+            {
+              "name": "Hutt Biology",
+              "trigger": "If the poison reaches Varga",
+              "effect": "Hutts are resistant to most toxins. The neurotoxin causes illness (violent nausea, temporary paralysis of one arm) but not death. Varga survives but is furious.",
+              "mitigation": "N/A — this is a fact of Hutt physiology."
+            }
+          ],
+          "rewards": {
+            "credits": 0,
+            "xp": "Moral choice + social encounter",
+            "items": [],
+            "narrative": "Moral decision regarding Narek's assassination attempt. Intelligence gathered on the Iron Ring. Grakkus assessed as a threat. Court standing affected by the heroes' choice."
+          },
+          "pacing": {
+            "openingBeat": "The Iron Ring arrives. Chains and commerce. The great hall fills with tension.",
+            "risingAction": "Narek's eye contact. The drinks being served. The slow realization that something is wrong.",
+            "climax": "The poison is detected (or not). The heroes must act — or choose not to.",
+            "resolution": "The aftermath. Varga's reaction. Narek's fate. The court moves on, but the heroes carry the weight.",
+            "estimatedMinutes": 25
+          },
+          "disciplineChallenges": [
+            {
+              "id": "sc-a2s2-insight-poison",
+              "discipline": "insight",
+              "complexity": "complex",
+              "context": "Detecting Narek's poison in the drinks being served to Varga.",
+              "narrativePacing": "Key check that drives the scene's central decision. Early detection gives more options; late detection forces crisis action.",
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "Nothing seems off. The drinks are served. Events proceed toward the 'do nothing' outcome unless another hero intervenes.",
+                "success": "Refer to effect tiers.",
+                "mastery": "You identify the toxin (Malkite themfar — slow-acting neurotoxin), Narek as the poisoner, AND his motivation. You have complete information for your decision."
+              },
+              "target": "Narek's poison",
+              "resist": 3,
+              "risk": 4,
+              "effect": {
+                "fleeting": "Something about Narek's body language is wrong — he's sweating, his hands tremble slightly as he serves. You suspect something but can't prove it.",
+                "masterful": "The colour of the drink is slightly off. Malkite themfar — a slow-acting neurotoxin. You identify the specific cups that are laced and have time to act before they're served.",
+                "legendary": "Full picture: the toxin, the poisoner, the motivation. Narek is a former slave. The desperation in his eyes is recognizable. You understand everything and have maximum time to decide."
+              }
+            },
+            {
+              "id": "sc-a2s2-insight-velcrekk",
+              "discipline": "insight",
+              "complexity": "simple",
+              "context": "Reading Vel Crekk during the Iron Ring negotiations.",
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "Zabrak discipline makes him hard to read. He seems confident and in control. Standard negotiation.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Vel Crekk is desperate. The Iron Ring is losing territory to Imperial labor programs. This deal with Varga is a lifeline, not an expansion."
+              },
+              "target": "Vel Crekk",
+              "resist": 3,
+              "risk": 1,
+              "effect": {
+                "fleeting": "Vel Crekk is practiced — Zabrak discipline keeps his expression controlled. But his jaw clenches when Varga mentions percentages. Nervous about the terms.",
+                "masterful": "The Iron Ring is negotiating from weakness. Vel Crekk needs this deal more than Varga does. The Empire's labor programs are cutting into their market.",
+                "legendary": "Full read: the Iron Ring is dying. Imperial labor camps are cheaper than slavers. Vel Crekk is selling assets, not building territory. This deal is his last play."
+              }
+            },
+            {
+              "id": "sc-a2s2-insight-grakkus",
+              "discipline": "insight",
+              "complexity": "simple",
+              "context": "Assessing Grakkus — the Wookiee enforcer watching from the margins.",
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "Big, powerful, looks dangerous. That's all you get.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Grakkus isn't just muscle — he's a warrior forced into servitude. He's cataloguing everyone in the room. Including you. He's already decided who the threats are."
+              },
+              "target": "Grakkus",
+              "resist": 2,
+              "risk": 1,
+              "effect": {
+                "fleeting": "He's watching the room, not the negotiation. That's unusual for a bodyguard. His massive frame is tense — coiled fury behind a mask of obedience.",
+                "masterful": "Professional. Military bearing under the enforcer exterior. The way he holds himself suggests combat training, not brawling. A Wookiee warrior, not a berserker.",
+                "legendary": "Former Kashyyyk militia — the warrior's discipline is unmistakable. Turned enforcer after slavers took his family. He's already evaluated every person in the room and filed them by threat level. You notice him file YOU as a threat. He noticed you noticing him."
+              }
+            },
+            {
+              "id": "sc-a2s2-persuasion-narek",
+              "discipline": "persuasion",
+              "complexity": "complex",
+              "context": "Convincing Narek to abort the assassination attempt.",
+              "arena": "presence",
+              "actionType": "interact",
+              "isOptional": true,
+              "control": {
+                "failure": "Narek is too committed. 'You don't know what they did to my family.' He proceeds with the plan. The heroes must decide whether to physically stop him.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Narek breaks down. He gives you the poisoned cups and agrees to disappear into the servant quarters. He also tells you about the Iron Ring's slave pens in the lower fortress — captives who could be freed during the escape."
+              },
+              "target": "Narek",
+              "resist": 3,
+              "risk": 4,
+              "effect": {
+                "fleeting": "Narek hesitates. He's listening. But his hands are shaking and the drinks are already being carried toward the head table. You have seconds.",
+                "masterful": "Narek relents. The desperation drains from his eyes and is replaced by exhaustion. He gives you the poisoned cups. 'What's the point. He's a Hutt. It probably wouldn't even work.'",
+                "legendary": "Narek trusts you. He aborts, provides the cups, and shares everything: the slave pens below the fortress, the Iron Ring's transport schedule, and a service corridor the enforcers don't know about."
+              }
+            },
+            {
+              "id": "sc-a2s2-skulduggery-swap",
+              "discipline": "skulduggery",
+              "complexity": "simple",
+              "context": "Swapping Varga's poisoned drinks for clean ones without being noticed.",
+              "isOptional": true,
+              "arena": "reflex",
+              "actionType": "interact",
+              "control": {
+                "failure": "A servant notices the swap. Doesn't understand what happened but reports the oddity to Demos. Cover stress increases.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Perfect swap. The poisoned cups vanish. Narek watches from across the room, confused but alive. No one is the wiser."
+              },
+              "target": "Court servants and attendees",
+              "resist": 2,
+              "risk": 3,
+              "effect": {
+                "fleeting": "You manage the swap but it's clumsy — a cup clinks, a head turns. No one sees enough to act, but your heart rate spikes.",
+                "masterful": "Clean swap. The poisoned cups are in your possession. Varga drinks safely. The evening proceeds without incident.",
+                "legendary": "Sleight of hand worthy of a Corellian stage magician. The cups are swapped, the poison is pocketed for later use (or disposal), and Narek's plan dies without a sound."
+              }
+            },
+            {
+              "id": "sc-a2s2-deception-cover",
+              "discipline": "deception",
+              "complexity": "simple",
+              "context": "Maintaining cover identity during a high-profile court event with multiple factions watching.",
+              "arena": "presence",
+              "actionType": "interact",
+              "control": {
+                "failure": "A minor inconsistency in your cover story. Nothing damning, but Demos adds it to his mental file.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Cover is airtight. You navigate conversations with Iron Ring, court attendees, and Varga's inner circle without a single crack."
+              },
+              "target": "Multiple factions",
+              "resist": 2,
+              "risk": 3,
+              "effect": {
+                "fleeting": "You keep your head down and say little. Cover holds through obscurity rather than performance.",
+                "masterful": "Active engagement without exposure. You ask the right questions and give the right answers.",
+                "legendary": "You're so convincing that Iron Ring members try to recruit you. Vel Crekk offers you a job. Your cover identity is more popular than you are."
+              }
+            }
+          ]
+        },
+        {
+          "id": "adv2-p2-s3",
+          "number": 3,
+          "title": "Working the Court",
+          "subtitle": "Between Events — The Long Game",
+          "readAloud": "Between the spectacles and delegations, the fortress settles into its rhythms. Servants carry trays through torchlit corridors. Guards change shifts at predictable intervals. Courtiers gossip in alcoves, trade favors over sabacc tables, and jockey for Varga's attention.\n\nThis is the quiet work — the real work. While the court is distracted, you can move. Explore the fortress. Build relationships. Gather the intelligence you need.\n\nThe protocol droid TC-663 passes you in the corridor. His photoreceptors linger a moment longer than necessary. He knows why you're here.\n\nIn the accounting wing, the Muun named Gome pores over financial ledgers, muttering about exchange rates. He likes to talk. About everything.\n\nSomewhere in this fortress is Varga's encrypted datapad — and on it, the financial records that connect Admiral Varth to the Leviathan pipeline. Finding it is your mission. Getting to it will take patience, contacts, and timing.",
+          "gmNotes": "This is the investigation and relationship-building scene — the connective tissue between the set-piece court events. The heroes have downtime between Days 1-4 to explore, cultivate contacts, and prepare for the datapad heist.\n\nSTRUCTURE: This scene is a sandbox with structured simple checks. The GM runs it as freeform exploration punctuated by the specific challenges listed below. It can be interleaved with Scenes 1, 2, and 4 — exploration happens in the gaps between events.\n\nKEY OBJECTIVES:\n1. ACTIVATE TC-663: If the heroes have Switch's code phrase from Adventure 1, this is trivially easy (T0/P0). If not, it's a complex Charm challenge. TC-663 provides palace maps, guard rotations, and the location of Varga's datapad.\n2. CULTIVATE GOME: The Muun accountant loves to talk about money. Charming him reveals Varga's Bespin escape route, Cloud City banking connections, and the name 'Figg & Associates.' Critical intel for Adventure 3.\n3. FORTRESS RECONNAISSANCE: Stealth checks to map guard patrols, identify restricted areas, and find the datapad's location independently (if TC-663 hasn't been activated).\n4. COVER MAINTENANCE: Ongoing Deception checks to maintain cover identity under increasing scrutiny.\n\nCONDITIONAL: KESSRA'S AVIARY AMBUSH — If the heroes investigated the Vipers' camp too aggressively in Part 1 Scene 1, Kessra (the Vipers' Zygerrian leader) may have followed them to the fortress. She has released her trained Takodana Raptors in the aviary garden as an ambush. This is a conditional combat encounter that only triggers if the GM determines Kessra has cause for revenge.\n\nCHALLENGE COMPLEXITY:\n- TC-663 activation (with code phrase): SIMPLE (auto-success or trivial check)\n- TC-663 activation (without code phrase): COMPLEX (multi-step Charm with trust-building)\n- Gome cultivation: COMPLEX (extended social challenge with escalating intel)\n- Fortress recon: SIMPLE (single Stealth check per area)\n- Cover maintenance: SIMPLE (single Deception check per day)\n- Kessra ambush: SET-PIECE (full combat encounter, conditional)",
+          "npcs": [
+            {
+              "name": "Gome",
+              "type": "Duros Moneychanger",
               "count": 1,
-              "notes": "Agent sent by one of Varga's rivals. Organizes the Knife in the Dark assassination attempt. Manipulates Narek and coordinates with Grakkus.",
+              "notes": "Elderly palace moneychanger. Rambling, morally indifferent, obsessed with numbers. Reveals Bespin/Cloud City as Varga's fallback headquarters.",
+              "behaviour": "Talks endlessly about financial details if asked. Doesn't see the moral dimension of anything. Shares critical Bespin intel without realizing its importance.",
+              "dialogue": [
+                "\"The accounts for the secondary operations? Oh, those route through a Bespin address. Cloud City, actually. Very elegant banking infrastructure up there — did you know they use a triple-ledger system?\"",
+                "\"Varga keeps a contingency vault on Cloud City. Standard Hutt practice. If things go wrong here, he takes the Chariot and... well, you understand.\"",
+                "\"I don't make moral judgments about money. Money is just numbers. Beautiful, precise numbers.\""
+              ],
               "threatBuild": {
-                "role": "harrier",
-                "tier": 1,
+                "role": "informant",
+                "tier": 0,
                 "classification": "standard",
                 "threatCategory": "character",
                 "arenas": {
-                  "physique": 2,
-                  "reflex": 3,
+                  "physique": 1,
+                  "reflex": 1,
                   "grit": 2,
-                  "wits": 3,
+                  "wits": 4,
                   "presence": 1
                 },
-                "weaponChassis": "light",
-                "traits": [
-                  "agile"
-                ],
+                "weaponChassis": null,
+                "traits": [],
                 "tags": [
-                  "Quarren",
-                  "Assassin"
+                  "Duros"
                 ],
                 "computed": {
-                  "power": 2,
-                  "defense": 2,
-                  "evasion": 4,
+                  "power": 3,
+                  "defense": 0,
+                  "evasion": 0,
                   "resist": 1,
-                  "vitality": 5,
-                  "initiative": 6,
+                  "vitality": 3,
+                  "initiative": 8,
                   "controlDie": "d6",
-                  "actions": 1,
-                  "damageTiers": {
-                    "chassis": "light",
-                    "label": "Light",
-                    "fleeting": 2,
-                    "masterful": 3,
-                    "legendary": 4
-                  }
+                  "actions": 1
                 },
                 "roleKit": {
-                  "roleName": "Harrier / Ranged",
-                  "action": {
-                    "name": "Strafing Shot",
-                    "defense": "dodge/endure",
-                    "npcEffects": {
-                      "fleeting": "Chassis damage",
-                      "masterful": "Chassis damage + [Suppressed]",
-                      "legendary": "Chassis damage + [Suppressed] + [Exposed]"
-                    },
-                    "isAttack": true,
-                    "arena": "reflex"
+                  "passive": {
+                    "name": "Loves Numbers",
+                    "description": "Gome will talk endlessly about financial details if asked. He doesn't care about crime — only about elegant accounting."
                   },
-                  "maneuver": {
-                    "name": "Reposition",
-                    "modifies": "Move",
-                    "description": "Modifies Move. Move up to 2 zones. If the Harrier ends farther from all enemies than it started, +1 Power on next attack."
-                  },
-                  "gambit": {
-                    "name": "Pinning Fire",
-                    "cost": "-1 Power",
-                    "description": "In addition to normal effects, target gains [Slowed] Tactical.",
-                    "rider": "[Slowed]"
-                  },
-                  "exploit": {
-                    "name": "Snap Shot",
-                    "trigger": "A PC uses Move to enter or cross a zone within weapon range.",
-                    "description": "Immediately attack that PC at -2 Power."
-                  },
-                  "powerSource": "ranged"
+                  "gambit": null,
+                  "exploit": null
                 },
-                "notes": "Assassin. Ambush Predator makes his opening strike dangerous. Flee instinct if outmatched.",
-                "powerSource": "ranged"
+                "notes": "Non-combatant. The only NPC who will freely discuss Varga's operations — he just doesn't see the moral dimension. CRITICAL: provides Bespin/Cloud City intel for Adv3."
               }
+            },
+            {
+              "name": "TC-663",
+              "type": "Protocol Droid / Informant",
+              "count": 1,
+              "notes": "Switch's embedded asset in Varga's court. Provides critical intelligence if activated. Code phrase from Adventure 1 grants automatic trust.",
+              "threatBuild": null
             },
             {
               "name": "Takodana Raptors",
@@ -2133,7 +2565,238 @@
                 "notes": "Minion beasts. Masterful+ = takedown. Dangerous in enclosed spaces because cover is negated. 4 raptors in a locked aviary = chaotic.",
                 "powerSource": "ranged"
               }
+            }
+          ],
+          "hazards": "Demos's surveillance. Guard patrols. Increasing suspicion from extended stay. Kessra's raptors (conditional).",
+          "decisions": [
+            {
+              "choice": "Focus on TC-663 first",
+              "consequence": "Fastest path to the datapad location and palace intelligence. But requires either the code phrase or a risky Charm approach."
             },
+            {
+              "choice": "Cultivate Gome for financial intel",
+              "consequence": "Slower but safer. Gome volunteers information freely — the challenge is steering him to useful topics. Provides Bespin/Cloud City intel for Adventure 3."
+            },
+            {
+              "choice": "Solo reconnaissance of the fortress",
+              "consequence": "Direct but dangerous. Stealth checks with high risk if caught in restricted areas. Can locate the datapad independently."
+            }
+          ],
+          "loreTags": [
+            "TC-663",
+            "Switch",
+            "Gome",
+            "Varga's Datapad",
+            "Cloud City",
+            "Bespin",
+            "Figg & Associates"
+          ],
+          "narrativeLinks": [
+            {
+              "targetScene": "adv2-p2-s6",
+              "note": "Intelligence gathered here directly determines the difficulty and approach of the Heist scene."
+            },
+            {
+              "targetScene": "adv3-p1-s1",
+              "note": "Gome's Bespin intel (Cloud City banking, Figg & Associates) sets up the entire Adventure 3 pursuit."
+            }
+          ],
+          "challengeType": "investigation",
+          "destinyTags": [
+            "discovery",
+            "cunning"
+          ],
+          "vocationTags": [
+            "voc_investigator",
+            "voc_ghost",
+            "voc_noble",
+            "voc_slicer"
+          ],
+          "disciplineTags": [
+            "charm",
+            "deception",
+            "stealth",
+            "investigation",
+            "tech",
+            "insight"
+          ],
+          "gearFlags": [],
+          "encounters": [
+            {
+              "id": "enc-a2s3-kessra",
+              "name": "Kessra's Aviary Ambush",
+              "type": "combat",
+              "trigger": "CONDITIONAL — only if Kessra tracked the heroes from Part 1",
+              "description": "Kessra has released trained Takodana Raptors in the fortress aviary. Pack hunters with environment advantage in the dense vegetation.",
+              "tactics": "Raptors use pack tactics — flank and isolate. The aviary vegetation provides concealment for ambush. Kessra watches from a perch, directing the raptors with whistle commands."
+            }
+          ],
+          "environmentMechanics": [
+            {
+              "name": "Aviary Garden",
+              "trigger": "If Kessra ambush triggers",
+              "effect": "Dense tropical vegetation provides concealment. Elevated perches for Kessra. Narrow paths limit movement. Raptors know the terrain — heroes don't.",
+              "mitigation": "Fire clears vegetation. Stealth negates the ambush advantage. Shooting Kessra disrupts raptor coordination."
+            },
+            {
+              "name": "Guard Patrol Patterns",
+              "trigger": "During fortress reconnaissance",
+              "effect": "Guards patrol on 15-minute rotations. Restricted areas are checked twice per hour. The datapad location (Varga's throne room) has constant guard presence.",
+              "mitigation": "TC-663 or successful recon provides the exact timing windows."
+            }
+          ],
+          "rewards": {
+            "credits": 0,
+            "xp": "Investigation milestones",
+            "items": [],
+            "narrative": "TC-663 activated (or not). Gome's financial intel acquired (or not). Fortress mapped. Datapad location identified. Groundwork laid for the Heist."
+          },
+          "pacing": {
+            "openingBeat": "The quiet between events. The fortress relaxes. This is your window.",
+            "risingAction": "Contact by contact, piece by piece. TC-663's recognition. Gome's ramblings. The restricted corridors.",
+            "climax": "The intelligence picture comes together — or doesn't. The datapad location is confirmed. The heist window identified.",
+            "resolution": "Transition to the next court event or directly to the Heist, depending on timing.",
+            "estimatedMinutes": 30
+          },
+          "disciplineChallenges": [
+            {
+              "id": "sc-a2s3-charm-tc663",
+              "discipline": "charm",
+              "complexity": "complex",
+              "context": "Activating TC-663 using Switch's code phrase from Adventure 1.",
+              "narrativePacing": "Key check. The code phrase from Adv1 reduces this to T0/P0. Without it, this is a multi-step trust-building challenge.",
+              "arena": "presence",
+              "actionType": "interact",
+              "control": {
+                "failure": "TC-663 is cautious. Provides partial information only. He doesn't trust you enough for full commitment.",
+                "success": "Refer to effect tiers.",
+                "mastery": "TC-663 goes all in. He provides everything he has: palace maps, guard rotations, Demos's encrypted comms, AND the location of Varga's encrypted datapad — it's in the throne room, locked in the arm of the hover-sled."
+              },
+              "target": "TC-663",
+              "resist": 2,
+              "risk": 2,
+              "effect": {
+                "fleeting": "TC-663's photoreceptors flash recognition. He nods subtly and provides the location of the restricted dungeon entrance. Minimal risk to himself.",
+                "masterful": "TC-663's photoreceptors flash recognition. He provides Demos's encrypted comms referencing 'the prisoner' and basic guard rotation data.",
+                "legendary": "Full asset activation. TC-663 provides palace maps, guard rotations, Demos's comms, datapad location, AND offers to create a diversion when the heroes need to move on the dungeon."
+              }
+            },
+            {
+              "id": "sc-a2s3-charm-gome",
+              "discipline": "charm",
+              "complexity": "complex",
+              "context": "Engaging Gome in conversation about Varga's finances over multiple interactions.",
+              "arena": "presence",
+              "actionType": "interact",
+              "control": {
+                "failure": "Gome talks about exchange rates for 20 minutes. No actionable intel. He's boring, not guarded.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Gome accidentally reveals the specific banking institution on Bespin: Figg & Associates. He also mentions 'the Cloud City account' has a biometric lock — Varga's voiceprint."
+              },
+              "target": "Gome",
+              "resist": 2,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Gome mentions 'contingency accounts' in passing before changing the subject. Enough to confirm Varga has money elsewhere.",
+                "masterful": "Gome rambles about contingency accounts, departure plans, Cloud City banking. Critical Bespin intel acquired — Varga's escape route is financial.",
+                "legendary": "Gome gives you the full financial picture: Cloud City accounts, Bespin routing codes, the specific cantina where Varga's backup identity documents are cached, and the name of his Bespin contact."
+              }
+            },
+            {
+              "id": "sc-a2s3-deception-cover",
+              "discipline": "deception",
+              "complexity": "simple",
+              "context": "Maintaining cover identity under daily court scrutiny.",
+              "arena": "presence",
+              "actionType": "interact",
+              "control": {
+                "failure": "A small inconsistency. Demos notices. Cover stress increases — the next Deception check is stepped up.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Cover is so natural that courtiers begin defending your identity to others. Your legend has taken on a life of its own."
+              },
+              "target": "Court scrutiny",
+              "resist": 2,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Another day, another performance. Cover holds but the strain is showing. You need to finish this mission soon.",
+                "masterful": "Seamless. The court accepts you completely. Demos finds nothing to question.",
+                "legendary": "You're more popular than some of Varga's actual advisors. Invitations to private meetings, casual gossip shared freely, doors opened without asking."
+              }
+            },
+            {
+              "id": "sc-a2s3-stealth-recon",
+              "discipline": "stealth",
+              "complexity": "simple",
+              "context": "Reconnaissance of the fortress layout — restricted areas, guard posts, exit routes.",
+              "arena": "reflex",
+              "actionType": "interact",
+              "control": {
+                "failure": "A guard spots you near a restricted corridor. Must talk your way out — Deception check or cover is stressed.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Complete fortress map in your head — every corridor, every guard post, every exit. When the escape comes, you'll move like you built the place."
+              },
+              "target": "Fortress security",
+              "resist": 3,
+              "risk": 3,
+              "effect": {
+                "fleeting": "You identify the restricted dungeon entrance and one exit route. Basic layout only.",
+                "masterful": "Guard patrol patterns mapped. Two exit routes identified. The restricted dungeon entrance is accessible during the 15-minute patrol gap.",
+                "legendary": "Full fortress intelligence. Guard rotations, patrol gaps, restricted areas, maintenance corridors, and three viable exit routes including one through the aviary that bypasses all checkpoints."
+              }
+            },
+            {
+              "id": "sc-a2s3-investigation-fortress",
+              "discipline": "investigation",
+              "complexity": "simple",
+              "context": "Piecing together the fortress's security systems from observation and overheard conversations.",
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "The fortress seems well-guarded but you can't identify specific vulnerabilities. Standard Hutt security — brute force and paranoia.",
+                "success": "Refer to effect tiers.",
+                "mastery": "You identify a critical weakness: the security system has a legacy override code that TC-663 knows. One command disables the dungeon alarms for 10 minutes."
+              },
+              "target": "Fortress security systems",
+              "resist": 2,
+              "risk": 2,
+              "effect": {
+                "fleeting": "Basic security assessment. Cameras in public areas, guards in restricted zones, blast doors on dungeon level.",
+                "masterful": "Detailed security map. Camera blind spots identified. The blast doors use a centralized lockdown system — one terminal controls the entire dungeon level.",
+                "legendary": "Complete security analysis including the lockdown terminal location, camera blind spots, droid patrol schedules, and the fact that the security system was installed by a Czerka contractor who always leaves a maintenance backdoor."
+              }
+            },
+            {
+              "id": "sc-a2s3-medicine-poison",
+              "discipline": "medicine",
+              "complexity": "simple",
+              "context": "Analyzing the confiscated poison (if the heroes kept it from Scene 2).",
+              "isOptional": true,
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "It's a neurotoxin. That's all you can determine. Standard field analysis limitations.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Full chemical analysis: Malkite themfar, modified for Hutt biology (it would have worked on humans instantly). Can be weaponized — a single dose could incapacitate a human-sized target for hours."
+              },
+              "target": "Confiscated poison",
+              "resist": 2,
+              "risk": 1,
+              "effect": {
+                "fleeting": "Neurotoxin. Organic base. Slow-acting. Not immediately lethal but debilitating.",
+                "masterful": "Malkite themfar — rare, expensive, and modified for large-species biology. Narek had resources or a patron.",
+                "legendary": "Full pharmacological profile. The modification suggests a professional chemist, not a desperate slave. Someone supplied Narek. The Iron Ring's own people may have wanted Varga dead."
+              }
+            }
+          ]
+        },
+        {
+          "id": "adv2-p2-s4",
+          "number": 4,
+          "title": "The Imperial Shadow",
+          "subtitle": "Day Three — Lady Sinde",
+          "readAloud": "A shuttle descends through the canopy — Imperial design, unmarked. The ramp lowers and a woman steps out, flanked by four Stormtroopers in standard white armor. She wears a crisp Imperial uniform, rank insignia identifying her as a logistics officer.\n\nVarga receives her in the throne room with unusual formality. She introduces herself as Lady Sinde, representing the Imperial Logistics Corps, here to discuss 'supply chain efficiencies' with Varga's operation.\n\nEverything about her is wrong. Her boots are military issue — not logistics corps. Her eyes scan the room like a threat assessment, not a supply audit. The Stormtroopers with her don't behave like an honor guard. They behave like operators.\n\nShe glances at you once. Catalogues you. Moves on.\n\nLater that evening, you notice her slipping away from the feast toward Varga's private wing. Alone.",
+          "gmNotes": "Lady Sinde is ISB — Imperial Security Bureau, embedded in the logistics corps as cover. She is here investigating Project Leviathan's supply chain, specifically the Tibanna gas pipeline between Varga and an Imperial source. She is NOT here for the heroes.\n\nSINDE'S AGENDA: She suspects Imperial corruption — someone in the military hierarchy is siphoning resources through Varga's network. She doesn't know who (it's Varth). She is dangerous, competent, and not an enemy unless the heroes make her one. In fact, her investigation parallels theirs. She's a potential ally — or a catastrophic threat to their cover.\n\nTHE PRIVATE MEETING: Sinde meets with Varga privately to apply pressure. The heroes can eavesdrop (Stealth check) to learn critical intel: shipment coordinates, payment terms, mentions of 'the Accountant' (Varth's codename in Varga's records), and Sinde's veiled threats about Imperial audits.\n\nSCENE PURPOSE: This scene introduces the Imperial dimension of the conspiracy. Until now, the heroes have been operating in the criminal underworld. Sinde represents the Empire's own interest in the same pipeline — and her presence means the heroes' window is closing. If the ISB finds what the heroes are looking for first, the evidence disappears into Imperial classified files forever.\n\nCHALLENGE COMPLEXITY:\n- Investigating Sinde's identity: COMPLEX (multi-step investigation with escalating revelations)\n- Eavesdropping on the private meeting: COMPLEX (Stealth with significant consequences for failure)\n- Avoiding Stormtrooper detection: SIMPLE (single check when entering restricted areas)\n- Reading Sinde's body language at the feast: SIMPLE (single Insight check, threat assessment)",
+          "npcs": [
             {
               "name": "Lady Sinde",
               "type": "Imperial Logistics Officer / ISB Double Agent",
@@ -2213,264 +2876,170 @@
               }
             },
             {
-              "name": "Gome",
-              "type": "Duros Moneychanger",
-              "count": 1,
-              "notes": "Elderly palace moneychanger. Rambling, morally indifferent, obsessed with numbers. Reveals Bespin/Cloud City as Varga's fallback headquarters.",
-              "behaviour": "Talks endlessly about financial details if asked. Doesn't see the moral dimension of anything. Shares critical Bespin intel without realizing its importance.",
-              "dialogue": [
-                "\"The accounts for the secondary operations? Oh, those route through a Bespin address. Cloud City, actually. Very elegant banking infrastructure up there — did you know they use a triple-ledger system?\"",
-                "\"Varga keeps a contingency vault on Cloud City. Standard Hutt practice. If things go wrong here, he takes the Chariot and... well, you understand.\"",
-                "\"I don't make moral judgments about money. Money is just numbers. Beautiful, precise numbers.\""
-              ],
+              "name": "Stormtrooper Escort",
+              "type": "Imperial Stormtroopers",
+              "count": 4,
+              "notes": "Sinde's escort. Not standard honor guard — these are ISB-attached operators. Better trained than line Stormtroopers.",
               "threatBuild": {
-                "role": "informant",
-                "tier": 0,
+                "role": "anchor",
+                "tier": 1,
                 "classification": "standard",
                 "threatCategory": "character",
                 "arenas": {
-                  "physique": 1,
-                  "reflex": 1,
+                  "physique": 2,
+                  "reflex": 3,
                   "grit": 2,
-                  "wits": 4,
+                  "wits": 2,
                   "presence": 1
                 },
-                "weaponChassis": null,
-                "traits": [],
+                "weaponChassis": "medium",
+                "traits": [
+                  "armored_light",
+                  "disciplined"
+                ],
                 "tags": [
-                  "Duros"
+                  "Imperial",
+                  "ISB"
                 ],
                 "computed": {
                   "power": 3,
-                  "defense": 0,
-                  "evasion": 0,
-                  "resist": 1,
-                  "vitality": 3,
-                  "initiative": 8,
+                  "defense": 4,
+                  "evasion": 3,
+                  "resist": 3,
+                  "vitality": 5,
+                  "initiative": 4,
                   "controlDie": "d6",
-                  "actions": 1
+                  "actions": 1,
+                  "damageTiers": {
+                    "chassis": "medium",
+                    "label": "Medium",
+                    "fleeting": 2,
+                    "masterful": 4,
+                    "legendary": 6
+                  }
                 },
                 "roleKit": {
-                  "passive": {
-                    "name": "Loves Numbers",
-                    "description": "Gome will talk endlessly about financial details if asked. He doesn't care about crime — only about elegant accounting."
+                  "roleName": "Anchor / Ranged",
+                  "action": {
+                    "name": "Disciplined Fire",
+                    "defense": "dodge/endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + [Suppressed]",
+                      "legendary": "Chassis damage + [Suppressed] to all enemies in the target's zone"
+                    },
+                    "isAttack": true,
+                    "arena": "reflex"
                   },
-                  "gambit": null,
-                  "exploit": null
+                  "maneuver": {
+                    "name": "Dig In",
+                    "modifies": "Take Cover",
+                    "description": "Modifies Take Cover. Anchor gains [Cover 2] and [Optimized] on its next ranged attack. Cannot move this turn."
+                  },
+                  "gambit": {
+                    "name": "Pinning Barrage",
+                    "cost": "-1 Power",
+                    "description": "In addition to normal effects, target gains [Suppressed] Tactical. Target cannot use Move next turn.",
+                    "rider": "[Suppressed]"
+                  },
+                  "exploit": {
+                    "name": "Covering Fire",
+                    "trigger": "An ally in the Anchor's zone or an adjacent zone takes damage.",
+                    "description": "Immediately make an attack at -2 Power against the attacker if in weapon range."
+                  },
+                  "powerSource": "ranged"
                 },
-                "notes": "Non-combatant. The only NPC who will freely discuss Varga's operations — he just doesn't see the moral dimension. CRITICAL: provides Bespin/Cloud City intel for Adv3."
+                "notes": "ISB-attached Stormtroopers. Slightly better Wits (2 vs 1) than standard line troopers. Same combat stats otherwise.",
+                "powerSource": "ranged"
               }
             }
           ],
-          "hazards": "Court politics — any misstep can blow the heroes' cover. Multiple factions with competing agendas. Nighttime assassination attempt.",
+          "hazards": "ISB investigation. Stormtrooper patrols in Varga's private wing. Sinde's counter-surveillance training. Discovery means Imperial attention.",
           "decisions": [
             {
-              "choice": "Fight in the gladiator arena personally",
-              "consequence": "Builds reputation fast. Risk of injury. Gorrak is a tough opponent."
+              "choice": "Investigate Sinde's true identity",
+              "consequence": "Reveals ISB connection. Dangerous knowledge — if she discovers the heroes know, she will act to protect her cover."
             },
             {
-              "choice": "Save Narek from the poison consequences",
-              "consequence": "Earns instant favor if Varga is saved. Narek becomes an informant — but also later participates in Knife in the Dark."
+              "choice": "Eavesdrop on the Sinde/Varga meeting",
+              "consequence": "Critical intel: shipment coordinates, 'the Accountant,' payment routing. But failure means being caught in Varga's private wing."
             },
             {
-              "choice": "Investigate Lady Sinde's ISB identity",
-              "consequence": "Discovering her dual role provides leverage but risks drawing ISB attention to the heroes."
+              "choice": "Approach Sinde as a potential ally",
+              "consequence": "Extremely risky but potentially game-changing. Her investigation parallels the heroes'. But she's ISB — trusting her means trusting the Empire."
             },
             {
-              "choice": "Turn TC-663 into a full asset",
-              "consequence": "If activated with Switch's code phrase, he provides Demos's encrypted comms — critical dungeon intel."
+              "choice": "Avoid Sinde entirely",
+              "consequence": "Safest option. Lose the intel from her meeting but maintain cover. The ISB investigation continues without the heroes' involvement."
             }
           ],
           "loreTags": [
-            "Varga the Hutt",
-            "Project Leviathan",
             "Lady Sinde",
             "ISB",
-            "TC-663",
-            "Iron Ring Slavers",
-            "Slave Trade",
-            "Bespin",
-            "Cloud City"
+            "Project Leviathan",
+            "The Accountant",
+            "Imperial Logistics Corps",
+            "Tibanna Gas Pipeline"
           ],
           "narrativeLinks": [
             {
-              "targetScene": "adv3-p1-s1",
-              "note": "Gome's intel about Bespin/Cloud City as Varga's fallback directly sets up Adventure 3."
-            },
-            {
-              "targetScene": "adv2-p2-s4",
-              "note": "TC-663's delivery of Demos's encrypted comms leads the heroes to investigate the dungeons."
+              "targetScene": "adv2-p2-s9",
+              "note": "Sinde's Stormtroopers become hostile in the Hangar Bay — she orders witness elimination to protect Leviathan's secrecy."
             }
           ],
-          "challengeType": "social",
+          "challengeType": "investigation",
           "destinyTags": [
             "discovery",
-            "corruption",
-            "liberation"
+            "cunning",
+            "subterfuge"
           ],
           "vocationTags": [
-            "voc_grifter",
+            "voc_investigator",
+            "voc_ghost",
             "voc_noble",
-            "voc_shockboxer",
-            "voc_duelist",
-            "voc_seer",
-            "voc_investigator"
+            "voc_seer"
           ],
           "disciplineTags": [
-            "deception",
-            "charm",
-            "insight",
             "investigation",
-            "tech",
-            "melee",
-            "brawl",
-            "stealth"
+            "stealth",
+            "insight",
+            "deception"
           ],
           "gearFlags": [],
-          "encounters": [
-            {
-              "id": "enc-a2s3-gladiator",
-              "name": "Gladiator Arena",
-              "type": "combat",
-              "trigger": "Day 1 — Varga announces the tournament",
-              "description": "One-on-one arena fight against Gorrak. Crowd watches. Varga bets heavily.",
-              "tactics": "Gorrak uses his shield defensively and waits for openings. He's patient and experienced."
-            },
-            {
-              "id": "enc-a2s3-knife",
-              "name": "Knife in the Dark",
-              "type": "combat",
-              "trigger": "Night of Day 3-4 — assassination attempt in heroes' quarters",
-              "description": "Grakkus (Wookiee), Skreev (Quarren assassin), and potentially Narek (Twi'lek) attack at night. Close quarters, dim light, limited weapons.",
-              "tactics": "Skreev enters first through the window, going for the throat. Grakkus smashes through the door. Narek blocks the exit if present. Heroes may be in sleepwear with no armor."
-            },
-            {
-              "id": "enc-a2s3-aviary",
-              "name": "Kessra's Aviary Ambush",
-              "type": "combat",
-              "trigger": "CONDITIONAL — only if Kessra was humiliated in Scene 1",
-              "description": "Kessra lures 1-2 heroes to the aviary and releases 4 Takodana Raptors. Doors are locked.",
-              "tactics": "Raptors attack from above. Cover is useless. Must kill the raptors or break through the locked doors."
-            }
-          ],
+          "encounters": [],
           "environmentMechanics": [
             {
-              "name": "Court Surveillance",
-              "trigger": "Active throughout",
-              "effect": "Varga's court has eyes everywhere. Extended absence or unusual behavior is noticed.",
-              "mitigation": "Coordinate with TC-663. Use court events as distractions."
+              "name": "Varga's Private Wing",
+              "trigger": "When entering the restricted area",
+              "effect": "Stormtrooper patrols. Camera coverage. Sinde's own counter-surveillance measures. Being caught here has no innocent explanation.",
+              "mitigation": "Guard patrol timing from Scene 3 reconnaissance. TC-663's intel on camera blind spots."
             },
             {
-              "name": "Gladiator Pit",
-              "trigger": "During arena event",
-              "effect": "Sunken pit. No ranged weapons allowed. Crowd interference — thrown objects, taunts. Varga may change the rules mid-fight.",
-              "mitigation": "Pure melee combat. Arena Veteran opponents know the pit."
-            },
-            {
-              "name": "Dim Quarters (Knife in the Dark)",
-              "trigger": "During nighttime assassination",
-              "effect": "Darkness. Heroes may be unarmored. Weapons may be locked away. All checks at -1 Power unless light source activated.",
-              "mitigation": "Glow Rod eliminates darkness penalty. Keep a weapon under the pillow."
-            },
-            {
-              "name": "Locked Aviary",
-              "trigger": "During Kessra's ambush",
-              "effect": "Domed enclosure. Doors locked from outside. Raptors negate cover from above.",
-              "mitigation": "Kill the raptors. Or Athletics/Tech to break through the locked doors."
+              "name": "Feast Atmosphere",
+              "trigger": "During the evening feast",
+              "effect": "Noise and crowd provide cover for observation but limit detailed conversation. Alcohol makes NPCs more talkative but also more unpredictable.",
+              "mitigation": "Use the noise as audio cover for private conversations. Target tipsy courtiers for casual intel."
             }
           ],
           "rewards": {
             "credits": 0,
-            "xp": "Scene completion + encounters",
-            "items": [
-              {
-                "name": "Encryption Keys (partial)",
-                "note": "If datapad slice succeeds. Varth's fortune access codes."
-              },
-              {
-                "name": "Bespin Intel",
-                "note": "From Gome: Varga's contingency vault on Cloud City."
-              },
-              {
-                "name": "Demos's Encrypted Comms",
-                "note": "From TC-663: references to 'the prisoner' in the dungeons."
-              }
-            ],
-            "narrative": "Intelligence gathered. Reputation built. Assassination attempt survived. The dungeon beckons."
+            "xp": "Investigation milestone",
+            "items": [],
+            "narrative": "Sinde identified as ISB (or not). Private meeting intel acquired (or not). The Imperial dimension of the conspiracy revealed. Window for the heroes' operation is closing."
           },
           "pacing": {
-            "openingBeat": "Days in Varga's court. Three structured events unfold.",
-            "risingAction": "Iron Ring slavers. Lady Sinde's delegation. Gome's Bespin intel. TC-663's nighttime delivery.",
-            "climax": "Knife in the Dark — assassination attempt at night. Then the dungeon investigation begins.",
-            "resolution": "The heroes have intel, reputation, and a lead on the dungeons. Time to move.",
-            "estimatedMinutes": 90
+            "openingBeat": "The Imperial shuttle descends. Sinde steps out. Everything about her is wrong.",
+            "risingAction": "The feast. Observation. Sinde slips away toward the private wing.",
+            "climax": "The eavesdrop — crouching outside Varga's door, listening to the conversation that changes everything.",
+            "resolution": "The heroes retreat with critical intelligence. The picture is forming: Varga, Varth, and the Empire are connected through the Tibanna pipeline.",
+            "estimatedMinutes": 25
           },
           "disciplineChallenges": [
             {
-              "id": "sc-a2s3-melee-gladiator",
-              "discipline": "melee",
-              "context": "Fighting Gorrak in the gladiator arena.",
-              "arena": "physique",
-              "actionType": "interact",
-              "control": {
-                "failure": "Gorrak wins. The hero survives (arena fights are to submission) but reputation suffers. The court sees weakness.",
-                "success": "Refer to effect tiers.",
-                "mastery": "Gorrak is defeated so decisively that Varga declares a holiday. The reigning champion dethroned — every fighter in the court now respects or fears the hero."
-              },
-              "target": "Gorrak",
-              "resist": 4,
-              "risk": 3,
-              "effect": {
-                "fleeting": "A close, grinding fight. You win by submission in the late rounds. The crowd is satisfied but not electrified. Gorrak nods grudging respect.",
-                "masterful": "Decisive victory. The crowd roars. Varga is delighted. Significant court reputation earned. Gorrak offers a terse warrior's salute.",
-                "legendary": "You dismantle Gorrak. The Trandoshan champion — unbeaten for two years — goes down clean. The arena erupts. Varga awards you a champion's token — a gold medallion that grants passage anywhere in the fortress."
-              }
-            },
-            {
-              "id": "sc-a2s3-insight-poison",
-              "discipline": "insight",
-              "context": "Noticing Narek's poison attempt during the Iron Ring delegation.",
-              "arena": "wits",
-              "actionType": "assess",
-              "control": {
-                "failure": "Nothing seems unusual. The drink reaches Varga. If poisoned, Varga collapses — chaos erupts and the heroes are prime suspects.",
-                "success": "Refer to effect tiers.",
-                "mastery": "You spot the poison AND read Narek's face — this isn't malice, it's desperation. Someone put him up to this. He's terrified."
-              },
-              "target": "Narek",
-              "resist": 3,
-              "risk": 5,
-              "narrativePacing": "Roll only if a PC is actively watching the servants. Do not prompt.",
-              "effect": {
-                "fleeting": "You notice Narek's hand trembling as he serves the goblet. Something is wrong — but you can't tell what. Enough to justify intervening.",
-                "masterful": "You spot Narek's hand trembling as he serves the goblet. A thin film on the liquid's surface — poison. You can act before Varga drinks.",
-                "legendary": "You see the entire sequence: Narek palms something from his sleeve, the slight discoloration in the drink, and the way he positions himself near the exit. You can stop the poison AND cover for Narek simultaneously."
-              }
-            },
-            {
-              "id": "sc-a2s3-deception",
-              "discipline": "deception",
-              "context": "Maintaining cover throughout the multi-day court phase.",
-              "arena": "presence",
-              "actionType": "interact",
-              "control": {
-                "failure": "A suspicious courtier begins asking pointed questions. Demos takes notice. Cover is thinning — one more slip and you're exposed.",
-                "success": "Refer to effect tiers.",
-                "mastery": "Cover holds so well that courtiers begin sharing palace gossip with you. You learn about secret passages, guard rotation gaps, and Varga's sleeping schedule."
-              },
-              "target": "Varga's court",
-              "resist": 3,
-              "risk": 4,
-              "effect": {
-                "fleeting": "Cover holds through casual interactions. You avoid the hard questions but you're not building trust either. Neutral standing.",
-                "masterful": "Cover holds perfectly throughout the stay. No suspicion raised. You blend into the court like you belong.",
-                "legendary": "You become a fixture. Courtiers compete to be seen with you. The cover identity takes on a life of its own — useful contacts that may outlast the mission."
-              }
-            },
-            {
-              "id": "sc-a2s3-investigation-sinde",
+              "id": "sc-a2s4-investigation-sinde",
               "discipline": "investigation",
-              "context": "Discovering Lady Sinde's ISB identity through her encrypted comms or behaviour patterns.",
+              "complexity": "complex",
+              "context": "Discovering Lady Sinde's true ISB identity through observation, encrypted comms, or behaviour patterns.",
               "arena": "wits",
               "actionType": "assess",
               "control": {
@@ -2488,9 +3057,10 @@
               }
             },
             {
-              "id": "sc-a2s3-stealth-eavesdrop",
+              "id": "sc-a2s4-stealth-eavesdrop",
               "discipline": "stealth",
-              "context": "Eavesdropping on Lady Sinde's private meeting with Varga.",
+              "complexity": "complex",
+              "context": "Eavesdropping on Lady Sinde's private meeting with Varga in the throne room.",
               "arena": "reflex",
               "actionType": "interact",
               "control": {
@@ -2508,50 +3078,684 @@
               }
             },
             {
-              "id": "sc-a2s3-charm-gome",
-              "discipline": "charm",
-              "context": "Engaging Gome in conversation about Varga's finances.",
-              "arena": "presence",
+              "id": "sc-a2s4-insight-sinde-feast",
+              "discipline": "insight",
+              "complexity": "simple",
+              "context": "Reading Sinde's body language during the evening feast.",
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "She's controlled. Professional. Nothing readable. ISB training is effective.",
+                "success": "Refer to effect tiers.",
+                "mastery": "You read her micro-expressions: she's frustrated. Her investigation isn't going well. She needs something from Varga that he won't give freely. Leverage potential."
+              },
+              "target": "Lady Sinde",
+              "resist": 4,
+              "risk": 1,
+              "effect": {
+                "fleeting": "She drinks sparingly, eats nothing. Operational discipline. She's not here to enjoy herself.",
+                "masterful": "Her attention keeps drifting to the accounting wing — where Gome works. She wants the financial records too.",
+                "legendary": "Full behavioral profile. She's running the same investigation you are, from the opposite direction. She wants the pipeline, you want the evidence. Your goals overlap dangerously."
+              }
+            },
+            {
+              "id": "sc-a2s4-stealth-avoid",
+              "discipline": "stealth",
+              "complexity": "simple",
+              "context": "Avoiding Stormtrooper detection while moving through the private wing.",
+              "arena": "reflex",
               "actionType": "interact",
               "control": {
-                "failure": "Gome talks about exchange rates for 20 minutes. No actionable intel. He's boring, not guarded.",
+                "failure": "A Stormtrooper challenges you. 'This area is restricted. State your business.' Deception check to avoid escalation.",
                 "success": "Refer to effect tiers.",
-                "mastery": "Gome accidentally reveals the specific banking institution on Bespin: Figg & Associates. He also mentions 'the Cloud City account' has a biometric lock — Varga's voiceprint."
+                "mastery": "Ghost movement through the entire private wing. You could have stolen the furniture and no one would have noticed."
               },
-              "target": "Gome",
-              "resist": 2,
+              "target": "Stormtrooper patrols",
+              "resist": 3,
               "risk": 3,
               "effect": {
-                "fleeting": "Gome mentions 'contingency accounts' in passing before changing the subject. Enough to confirm Varga has money elsewhere.",
-                "masterful": "Gome rambles about contingency accounts, departure plans, Cloud City banking. Critical Bespin intel acquired — Varga's escape route is financial.",
-                "legendary": "Gome gives you the full financial picture: Cloud City accounts, Bespin routing codes, the specific cantina where Varga's backup identity documents are cached, and the name of his Bespin contact."
+                "fleeting": "You avoid one patrol but hear boots approaching from the adjacent corridor. Limited time before the next sweep.",
+                "masterful": "Clean navigation through the patrol patterns. You reach the eavesdrop position without incident.",
+                "legendary": "You map the Stormtrooper patrol pattern while avoiding it — a real-time threat assessment that gives you exact timing for future movement through this wing."
+              }
+            }
+          ]
+        },
+        {
+          "id": "adv2-p2-s5",
+          "number": 5,
+          "title": "Knife in the Dark",
+          "subtitle": "Night — Assassination Attempt",
+          "readAloud": "You wake to the sound of something wrong.\n\nNot a noise — the absence of noise. The fortress hum is still there, the distant rumble of generators and the drip of jungle condensation. But the corridor outside your quarters has gone silent. No guard footsteps. No droid patrol.\n\nThen: a shadow moves at the edge of your door. Too low for a guard. Too fast for a servant.\n\nThe lock clicks. Not forced — opened with a code.\n\nThree figures slide into the room. The first is massive — a Wookiee, moving with terrifying silence for something that size. Grakkus. Behind him, lean and quiet, is Skreev — the Rodian bounty hunter from the Vipers. And behind both of them, face hidden in shadow, is Narek.\n\nThey're here to kill you.",
+          "gmNotes": "This is a nighttime assassination attempt — a combat ambush in the heroes' quarters. The attackers are a coalition of threats the heroes have accumulated during their time in the court.\n\nATTACKER COMPOSITION:\n- GRAKKUS (Wookiee enforcer): He flagged the heroes as threats during the Iron Ring delegation. Overwhelming close combat specialist — Wookiee strength in confined quarters. The muscle.\n- SKREEV (Rodian bounty hunter): From the Vipers in Part 1. Has been tracking the heroes since they entered the fortress. The professional.\n- NAREK (conditional): Only present if the heroes exposed or humiliated him during the poison subplot. If the heroes helped him or he escaped cleanly, Narek is NOT among the assassins. Replace with an additional Iron Ring enforcer.\n\nAMBUSH CONDITIONS: The heroes are in their quarters. Weapons may not be immediately accessible (Skulduggery check to have stashed weapons within reach). Armor is not worn. Lighting is minimal. The attackers have surprise unless the heroes succeed on an Awareness check.\n\nSCENE PURPOSE: This is the consequence scene — the court's dangers catching up. It also serves as a dramatic combat set-piece that breaks the investigation rhythm and reminds the heroes that Varga's court is lethal.\n\nIF THE HEROES CAPTURE AN ASSASSIN: Interrogation reveals that the hit was contracted by someone inside the court — not Varga himself. The contract came through Demos. This is Demos testing the heroes (if he's suspicious) or removing potential rivals (if the heroes are too successful).\n\nCHALLENGE COMPLEXITY:\n- Waking up in time: SIMPLE (single Awareness check, determines surprise)\n- The fight itself: SET-PIECE (full combat encounter, environment mechanics, multiple enemies)\n- Stashed weapons: SIMPLE (single Skulduggery check, retroactive preparation)\n- Interrogation afterward: COMPLEX (if an assassin is captured alive)",
+          "npcs": [
+            {
+              "name": "Grakkus",
+              "type": "Wookiee Warrior (Sleeper)",
+              "count": 1,
+              "notes": "Sold by the Iron Ring as arena muscle. Fights willingly because the slavers hold his family. Stays in the fortress as a sleeper threat. Participates in the Knife in the Dark assassination attempt.",
+              "threatBuild": {
+                "role": "threat",
+                "tier": 1,
+                "classification": "standard",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 4,
+                  "reflex": 2,
+                  "grit": 3,
+                  "wits": 1,
+                  "presence": 1
+                },
+                "weaponChassis": "heavy",
+                "traits": [
+                  "tough"
+                ],
+                "tags": [
+                  "Wookiee",
+                  "Warrior"
+                ],
+                "computed": {
+                  "power": 4,
+                  "defense": 4,
+                  "evasion": 2,
+                  "resist": 3,
+                  "vitality": 8,
+                  "initiative": 3,
+                  "controlDie": "d6",
+                  "actions": 1,
+                  "damageTiers": {
+                    "chassis": "heavy",
+                    "label": "Heavy",
+                    "fleeting": 3,
+                    "masterful": 5,
+                    "legendary": 8
+                  }
+                },
+                "roleKit": {
+                  "roleName": "Threat / Martial",
+                  "action": {
+                    "name": "Devastating Blow",
+                    "defense": "dodge/endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + [Staggered]",
+                      "legendary": "Chassis damage + [Staggered] + [Prone]"
+                    },
+                    "isAttack": true,
+                    "arena": "physique"
+                  },
+                  "maneuver": {
+                    "name": "Intimidating Advance",
+                    "modifies": "Move",
+                    "description": "Modifies Move. Move 1 zone toward a target. That target must succeed on a Grit check vs Threat's Power or gain [Rattled]."
+                  },
+                  "gambit": {
+                    "name": "Brutal Strike",
+                    "cost": "-1 Power",
+                    "description": "In addition to normal effects, target gains [Staggered] Tactical.",
+                    "rider": "[Staggered]"
+                  },
+                  "exploit": {
+                    "name": "Predator's Opening",
+                    "trigger": "A PC in the same zone takes damage from another source this round.",
+                    "description": "Immediately make an attack against that PC at -2 Power."
+                  },
+                  "powerSource": "martial"
+                },
+                "notes": "Dangerous melee combatant. Heavy chassis = significant damage. The real muscle in the Knife in the Dark encounter.",
+                "powerSource": "martial"
               }
             },
             {
-              "id": "sc-a2s3-charm-tc663",
-              "discipline": "charm",
-              "context": "Activating TC-663 using Switch's code phrase.",
-              "narrativePacing": "Key check. The code phrase from Adv1 reduces this to T0/P0.",
+              "name": "Skreev",
+              "type": "Quarren Assassin",
+              "count": 1,
+              "notes": "Agent sent by one of Varga's rivals. Organizes the Knife in the Dark assassination attempt. Manipulates Narek and coordinates with Grakkus.",
+              "threatBuild": {
+                "role": "harrier",
+                "tier": 1,
+                "classification": "standard",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 2,
+                  "reflex": 3,
+                  "grit": 2,
+                  "wits": 3,
+                  "presence": 1
+                },
+                "weaponChassis": "light",
+                "traits": [
+                  "agile"
+                ],
+                "tags": [
+                  "Quarren",
+                  "Assassin"
+                ],
+                "computed": {
+                  "power": 2,
+                  "defense": 2,
+                  "evasion": 4,
+                  "resist": 1,
+                  "vitality": 5,
+                  "initiative": 6,
+                  "controlDie": "d6",
+                  "actions": 1,
+                  "damageTiers": {
+                    "chassis": "light",
+                    "label": "Light",
+                    "fleeting": 2,
+                    "masterful": 3,
+                    "legendary": 4
+                  }
+                },
+                "roleKit": {
+                  "roleName": "Harrier / Ranged",
+                  "action": {
+                    "name": "Strafing Shot",
+                    "defense": "dodge/endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + [Suppressed]",
+                      "legendary": "Chassis damage + [Suppressed] + [Exposed]"
+                    },
+                    "isAttack": true,
+                    "arena": "reflex"
+                  },
+                  "maneuver": {
+                    "name": "Reposition",
+                    "modifies": "Move",
+                    "description": "Modifies Move. Move up to 2 zones. If the Harrier ends farther from all enemies than it started, +1 Power on next attack."
+                  },
+                  "gambit": {
+                    "name": "Pinning Fire",
+                    "cost": "-1 Power",
+                    "description": "In addition to normal effects, target gains [Slowed] Tactical.",
+                    "rider": "[Slowed]"
+                  },
+                  "exploit": {
+                    "name": "Snap Shot",
+                    "trigger": "A PC uses Move to enter or cross a zone within weapon range.",
+                    "description": "Immediately attack that PC at -2 Power."
+                  },
+                  "powerSource": "ranged"
+                },
+                "notes": "Assassin. Ambush Predator makes his opening strike dangerous. Flee instinct if outmatched.",
+                "powerSource": "ranged"
+              }
+            },
+            {
+              "name": "Narek",
+              "type": "Twi'lek Slave (Poisoner)",
+              "count": 1,
+              "notes": "CONDITIONAL — only present if the heroes exposed or humiliated him during the poison subplot. If not, replace with an Iron Ring Enforcer.",
+              "threatBuild": {
+                "role": "harrier",
+                "tier": 0,
+                "classification": "standard",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 1,
+                  "reflex": 3,
+                  "grit": 1,
+                  "wits": 2,
+                  "presence": 2
+                },
+                "weaponChassis": "light",
+                "traits": [
+                  "agile"
+                ],
+                "tags": [
+                  "Twi'lek",
+                  "Slave"
+                ],
+                "computed": {
+                  "power": 2,
+                  "defense": 1,
+                  "evasion": 2,
+                  "resist": 0,
+                  "vitality": 2,
+                  "initiative": 4,
+                  "controlDie": "d6",
+                  "actions": 1,
+                  "damageTiers": {
+                    "chassis": "light",
+                    "label": "Light",
+                    "fleeting": 2,
+                    "masterful": 3,
+                    "legendary": 4
+                  }
+                },
+                "roleKit": {
+                  "roleName": "Harrier / Ranged",
+                  "action": {
+                    "name": "Strafing Shot",
+                    "defense": "dodge/endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + [Suppressed]",
+                      "legendary": "Chassis damage + [Suppressed] + [Exposed]"
+                    },
+                    "isAttack": true,
+                    "arena": "reflex"
+                  },
+                  "maneuver": {
+                    "name": "Reposition",
+                    "modifies": "Move",
+                    "description": "Modifies Move. Move up to 2 zones. If the Harrier ends farther from all enemies than it started, +1 Power on next attack."
+                  },
+                  "gambit": {
+                    "name": "Pinning Fire",
+                    "cost": "-1 Power",
+                    "description": "In addition to normal effects, target gains [Slowed] Tactical.",
+                    "rider": "[Slowed]"
+                  },
+                  "exploit": {
+                    "name": "Snap Shot",
+                    "trigger": "A PC uses Move to enter or cross a zone within weapon range.",
+                    "description": "Immediately attack that PC at -2 Power."
+                  },
+                  "powerSource": "ranged"
+                },
+                "notes": "Narek is desperate, not evil. He wants to poison Varga because the Hutt sold his family. If saved, he is grateful but emotionally broken — Skreev exploits this.",
+                "powerSource": "ranged"
+              }
+            }
+          ],
+          "hazards": "Darkness (limited visibility). Unarmored heroes. Weapons may not be accessible. Confined quarters limit movement. Assassins have surprise.",
+          "decisions": [
+            {
+              "choice": "Fight in the quarters",
+              "consequence": "Confined space — favors the Wookiee's reach and limits ranged combat. But the heroes know the room layout."
+            },
+            {
+              "choice": "Break for the corridor",
+              "consequence": "More room to maneuver but risks encountering more enemies or alerting the fortress."
+            },
+            {
+              "choice": "Capture an assassin alive",
+              "consequence": "Difficult during a lethal ambush but provides critical intelligence about who ordered the hit."
+            }
+          ],
+          "loreTags": [
+            "Grakkus",
+            "Skreev",
+            "Narek",
+            "Igren Demos",
+            "Assassination"
+          ],
+          "narrativeLinks": [
+            {
+              "targetScene": "adv2-p2-s6",
+              "note": "The assassination attempt accelerates the timeline — the heroes must move on the datapad NOW before the situation deteriorates further."
+            }
+          ],
+          "challengeType": "combat",
+          "destinyTags": [
+            "survival",
+            "destruction"
+          ],
+          "vocationTags": [
+            "voc_shockboxer",
+            "voc_duelist",
+            "voc_gunslinger",
+            "voc_ghost"
+          ],
+          "disciplineTags": [
+            "melee",
+            "brawl",
+            "ranged",
+            "evasion",
+            "endure",
+            "skulduggery",
+            "insight",
+            "intimidation"
+          ],
+          "gearFlags": [
+            "Restricted"
+          ],
+          "encounters": [
+            {
+              "id": "enc-a2s5-assassination",
+              "name": "Knife in the Dark",
+              "type": "combat",
+              "trigger": "Assassins breach the heroes' quarters",
+              "description": "Nighttime assassination attempt. Grakkus (Wookiee warrior), Skreev (Rodian bounty hunter), and possibly Narek. Heroes are unarmored and may lack weapons.",
+              "tactics": "Grakkus engages the strongest-looking hero in melee — overwhelming Wookiee strength in close quarters. Skreev hangs back and uses ranged attacks from the doorway, cutting off retreat. Narek (if present) targets the most vulnerable hero — a sleeping or disoriented target."
+            }
+          ],
+          "environmentMechanics": [
+            {
+              "name": "Darkness",
+              "trigger": "Active at start",
+              "effect": "Low-light conditions. All ranged attacks suffer -1 Power unless the attacker has low-light vision (Rodians, Trandoshans do). Melee is unaffected.",
+              "mitigation": "Activate room lighting (1 action). Glow-rod. Force-sensitive awareness negates the penalty."
+            },
+            {
+              "name": "Confined Quarters",
+              "trigger": "Active throughout",
+              "effect": "Small room. Only 2 characters can engage in melee simultaneously. No room to dodge — Evasion checks are stepped up in difficulty.",
+              "mitigation": "Break into the corridor for more space. Use furniture as improvised barriers."
+            },
+            {
+              "name": "Improvised Weapons",
+              "trigger": "If heroes lack stashed weapons",
+              "effect": "Furniture, drinking vessels, bedframe components. Improvised Light weapons. -1 Power compared to proper weapons.",
+              "mitigation": "Skulduggery check (retroactive) to have stashed a real weapon under the mattress."
+            }
+          ],
+          "rewards": {
+            "credits": 0,
+            "xp": "Combat encounter",
+            "items": [
+              {
+                "name": "Skreev's Blaster Pistol",
+                "note": "Light ranged weapon. Modded with a silencer barrel."
+              }
+            ],
+            "narrative": "Assassination attempt survived. Timeline accelerated — must move on the datapad now. If an assassin is captured, Demos is implicated as the contract source."
+          },
+          "pacing": {
+            "openingBeat": "Silence. The wrong kind of silence. The lock clicks open.",
+            "risingAction": "Three figures in the dark. The first strike. Scramble for weapons. The fight in close quarters.",
+            "climax": "Grakkus's overwhelming assault. Skreev's covering fire. The desperate defense.",
+            "resolution": "The assassins are dead or captured. The heroes are alive, shaken, and aware that their time in the court is running out.",
+            "estimatedMinutes": 30
+          },
+          "disciplineChallenges": [
+            {
+              "id": "sc-a2s5-insight-awareness",
+              "discipline": "insight",
+              "complexity": "simple",
+              "context": "Waking up before the assassins strike — sensing the wrongness in the corridor.",
+              "arena": "wits",
+              "actionType": "assess",
+              "control": {
+                "failure": "You wake to a blade at your throat. The assassins have full surprise. First round: the heroes cannot act.",
+                "success": "Refer to effect tiers.",
+                "mastery": "You were already awake. You heard the guard patrol stop. You felt the shift in the air. When the door opens, you're standing in the dark with a weapon in hand."
+              },
+              "target": "Ambient noise",
+              "resist": 2,
+              "risk": 4,
+              "effect": {
+                "fleeting": "Something wakes you — instinct, a noise, a feeling. You're groggy but conscious when the door opens. No surprise, but no preparation either.",
+                "masterful": "You wake cleanly. Alert. You have one action before the assassins realize you're awake — grab a weapon, wake an ally, or move to a better position.",
+                "legendary": "You've been sleeping light since you arrived. The silence in the corridor woke you minutes ago. You're armed, positioned by the door, and ready. When they enter, you strike first."
+              }
+            },
+            {
+              "id": "sc-a2s5-skulduggery-stash",
+              "discipline": "skulduggery",
+              "complexity": "simple",
+              "context": "Retroactive preparation — did you stash a weapon in your quarters?",
+              "narrativePacing": "Resolved before the fight begins. A flashback check.",
+              "arena": "wits",
+              "actionType": "interact",
+              "control": {
+                "failure": "Nothing stashed. Improvised weapons only. The confidence of arriving prepared is replaced by the scramble of fighting with a chair leg.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Not just a weapon — you stashed a weapon AND rigged a simple alarm on the door. The alarm gives you an additional round of warning before the assassins enter."
+              },
+              "target": "Past self's preparation",
+              "resist": 1,
+              "risk": 1,
+              "effect": {
+                "fleeting": "A vibro-knife under the pillow. Not much, but it's a real weapon.",
+                "masterful": "Blaster pistol taped under the bed frame. Armed and dangerous.",
+                "legendary": "Full preparation: blaster under the bed, vibro-knife in the boot by the door, AND a monofilament tripwire at ankle height. The first assassin through the door takes chassis damage."
+              }
+            },
+            {
+              "id": "sc-a2s5-melee-grakkus",
+              "discipline": "melee",
+              "complexity": "set-piece",
+              "context": "Close-quarters combat against Grakkus — Wookiee strength, confined space, raw fury.",
+              "arena": "physique",
+              "actionType": "interact",
+              "control": {
+                "failure": "Grakkus's Wookiee strength is overwhelming. You take chassis damage and are pushed back. He controls the space.",
+                "success": "Refer to effect tiers.",
+                "mastery": "You find the rhythm in his attacks — Wookiee power is overwhelming but predictable in tight quarters. You exploit the gap and land a decisive strike. Grakkus staggers."
+              },
+              "target": "Grakkus",
+              "resist": 3,
+              "risk": 4,
+              "effect": {
+                "fleeting": "You trade blows but Grakkus's Wookiee strength drives you back. Every hit he lands rattles your bones. Attrition favors the stronger fighter.",
+                "masterful": "You close inside his reach — too close for those long arms to swing effectively. Grappling range. Technique against raw power.",
+                "legendary": "You use the confined space against him — his massive frame needs room to swing. You force him into the doorframe where he can't use his reach advantage. Decisive strikes to vulnerable joints. Grakkus goes down hard."
+              }
+            },
+            {
+              "id": "sc-a2s5-ranged-skreev",
+              "discipline": "ranged",
+              "complexity": "set-piece",
+              "context": "Engaging Skreev — the Rodian bounty hunter providing covering fire from the doorway.",
+              "arena": "reflex",
+              "actionType": "interact",
+              "control": {
+                "failure": "Skreev's silenced blaster finds its mark. Chassis damage from the doorway. He's a professional — no wasted shots.",
+                "success": "Refer to effect tiers.",
+                "mastery": "You anticipate his firing position and pre-aim. When he leans out, you're already on target. Clean hit. Skreev drops his weapon."
+              },
+              "target": "Skreev",
+              "resist": 3,
+              "risk": 3,
+              "effect": {
+                "fleeting": "Suppressive fire forces Skreev back behind the door frame. He's not hit but he's not shooting either. Bought yourself a moment.",
+                "masterful": "You hit Skreev in the shoulder. He's wounded and his firing accuracy drops. The covering fire threat is neutralized.",
+                "legendary": "Headshot through the doorway gap. Skreev is down. The corridor is clear. Only Grakkus remains — and without ranged support, he's exposed."
+              }
+            },
+            {
+              "id": "sc-a2s5-intimidation-interrogation",
+              "discipline": "intimidation",
+              "complexity": "complex",
+              "context": "Interrogating a captured assassin about who ordered the hit.",
+              "isOptional": true,
               "arena": "presence",
               "actionType": "interact",
               "control": {
-                "failure": "TC-663 is cautious. Provides partial information only. He doesn't trust you enough for full commitment.",
+                "failure": "The assassin is more afraid of Demos than of you. 'Kill me. It's better than what he'll do.' No information.",
                 "success": "Refer to effect tiers.",
-                "mastery": "TC-663 goes all in. He provides everything he has: palace maps, guard rotations, Demos's encrypted comms, AND the location of Varga's encrypted datapad — it's in the throne room, locked in the arm of the hover-sled."
+                "mastery": "Full confession: Demos contracted the hit. The payment came through the court's discretionary fund. Demos has been watching the heroes since the arena. He suspects they're not what they claim."
               },
-              "target": "TC-663",
-              "resist": 2,
+              "target": "Captured assassin",
+              "resist": 3,
               "risk": 2,
               "effect": {
-                "fleeting": "TC-663's photoreceptors flash recognition. He nods subtly and provides the location of the restricted dungeon entrance. Minimal risk to himself.",
-                "masterful": "TC-663's photoreceptors flash recognition. He provides Demos's encrypted comms referencing 'the prisoner' and basic guard rotation data.",
-                "legendary": "Full asset activation. TC-663 provides palace maps, guard rotations, Demos's comms, datapad location, AND offers to create a diversion when the heroes need to move on the dungeon."
+                "fleeting": "The assassin confirms someone inside the court paid for the hit. Won't say who. 'I don't know names. Just credits.'",
+                "masterful": "Demos. The Neimoidian majordomo. He gave the order and provided the door code. He wants you dead because you're getting too close to Varga's inner circle.",
+                "legendary": "Full intelligence dump: Demos ordered the hit, provided door codes, and specified 'no witnesses, no noise.' He's been monitoring the heroes since the arena. He also mentions that Demos has a separate arrangement with 'the Imperial woman' — Sinde. They're competing for Varga's secrets."
               }
+            }
+          ]
+        },
+        {
+          "id": "adv2-p2-s6",
+          "number": 6,
+          "title": "The Heist",
+          "subtitle": "The Datapad — Mission Objective",
+          "readAloud": "The time has come. Everything you've built — the contacts, the reconnaissance, the cover — comes down to this.\n\nVarga's encrypted datapad sits in the arm of his hover-sled in the throne room. On it: financial records, communication logs, and the encryption keys that prove Admiral Varth's connection to the Leviathan pipeline. Without it, this mission was for nothing.\n\nThe window is narrow. Varga is hosting a late-night feast in the great hall. The throne room is temporarily empty — but not unguarded. Two sentries at the main entrance. Camera coverage on the approach corridors. And the datapad itself is biometrically locked to the hover-sled's systems.\n\nYou have the intelligence. You have the tools. You have one shot.\n\nGo.",
+          "gmNotes": "This is the mission's critical objective — everything in the court phase has been building to this moment. The heroes must extract the encryption keys from Varga's datapad.\n\nTHE APPROACH: The heroes need a window (Varga at the feast), a way past the guards (stealth, distraction, or violence), and the technical ability to slice the datapad (Tech check). The quality of intelligence gathered in previous scenes directly affects difficulty:\n\n- TC-663 activated: Provides exact guard schedules, camera blind spots, and an offer to create a diversion. Reduces Stealth resist by 1.\n- Fortress recon completed: Provides alternate approach routes. Reduces Stealth resist by 1.\n- Gome's intel: Confirms the datapad's biometric lock — Varga's voiceprint. Tech check is stepped up unless the heroes have a recorded sample or TC-663's override.\n\nTHE SLICE: The datapad extraction is the scene's central complex challenge. It's a multi-step Tech sequence:\n1. Bypass the hover-sled's biometric lock\n2. Access the encrypted filesystem\n3. Extract the encryption keys\n4. Cover your tracks (or not — failure here triggers the alarm)\n\nTHE DISTRACTION: Someone needs to keep Varga occupied at the feast. Charm or Performance check to hold his attention. Simple check — the distraction just needs to buy time.\n\nALARM CONDITIONS: If the silent alarm triggers (failed Tech or Stealth check), the fortress begins lockdown procedures. This accelerates the transition to Scene 7 (Discovering Denia) — the heroes must move to the dungeon NOW, before security finds them.\n\nTC-663'S DIVERSION: If activated in Scene 3, TC-663 creates a staged malfunction in the east wing — fire suppression activation, droid chaos. This gives the heroes an additional 5 minutes of unmonitored access to the throne room.\n\nCHALLENGE COMPLEXITY:\n- Datapad slice: COMPLEX (multi-step Tech sequence, the scene's central challenge)\n- Bypassing guards: SIMPLE (single Stealth check, modified by prior recon)\n- Creating a feast distraction: SIMPLE (single Charm/Performance check)\n- Covering tracks after extraction: SIMPLE (single Tech check, prevents alarm)\n- Emergency escape if alarm triggers: COMPLEX (multi-check sequence under time pressure)",
+          "npcs": [
+            {
+              "name": "Throne Room Sentries",
+              "type": "Palace Guards",
+              "count": 2,
+              "notes": "Standard Gamorrean guards posted at the throne room entrance. Not the most observant but lethal if alerted.",
+              "threatBuild": {
+                "role": "anchor",
+                "tier": 1,
+                "classification": "minion",
+                "threatCategory": "character",
+                "arenas": {
+                  "physique": 4,
+                  "reflex": 1,
+                  "grit": 3,
+                  "wits": 1,
+                  "presence": 1
+                },
+                "weaponChassis": "medium",
+                "traits": [
+                  "tough"
+                ],
+                "tags": [
+                  "Gamorrean",
+                  "Guard"
+                ],
+                "computed": {
+                  "power": 3,
+                  "defense": 3,
+                  "evasion": 1,
+                  "resist": 2,
+                  "vitality": 7,
+                  "initiative": 2,
+                  "controlDie": "d6",
+                  "actions": 1,
+                  "damageTiers": {
+                    "chassis": "medium",
+                    "label": "Medium",
+                    "fleeting": 2,
+                    "masterful": 4,
+                    "legendary": 6
+                  }
+                },
+                "roleKit": {
+                  "roleName": "Anchor / Martial",
+                  "action": {
+                    "name": "Vibro-Axe Swing",
+                    "defense": "dodge/endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage + [Staggered]",
+                      "legendary": "Chassis damage + [Staggered] + [Prone]"
+                    },
+                    "isAttack": true,
+                    "arena": "physique"
+                  },
+                  "maneuver": {
+                    "name": "Hold Position",
+                    "modifies": "Guard",
+                    "description": "Modifies Guard. The Anchor gains +2 Defense until end of next round. Cannot move."
+                  },
+                  "gambit": {
+                    "name": "Brutal Chop",
+                    "cost": "-1 Power",
+                    "description": "In addition to normal effects, target gains [Staggered] Tactical.",
+                    "rider": "[Staggered]"
+                  },
+                  "exploit": {
+                    "name": "Alarm Squeal",
+                    "trigger": "The Anchor takes damage for the first time.",
+                    "description": "Lets out a piercing alarm squeal. All guards within 3 zones are alerted. Reinforcements arrive in 2 rounds."
+                  },
+                  "powerSource": "martial"
+                },
+                "notes": "Gamorrean palace guards. Tough but slow. Evasion 1 — easy to sneak past. If alarmed, their squealing alerts the entire wing.",
+                "powerSource": "martial"
+              }
+            }
+          ],
+          "hazards": "Camera surveillance. Biometric lock on the datapad. Silent alarm system. Guard reinforcements if alarm triggers. Limited time window.",
+          "decisions": [
+            {
+              "choice": "Stealth approach — bypass guards silently",
+              "consequence": "Lowest risk, highest skill requirement. Perfect for Ghost/Slicer builds."
             },
             {
-              "id": "sc-a2s3-tech-slice",
+              "choice": "Distraction approach — draw guards away",
+              "consequence": "Requires coordination. One team at the feast, one at the throne room. Charm + Stealth combination."
+            },
+            {
+              "choice": "TC-663's diversion — staged malfunction",
+              "consequence": "Only available if TC-663 was activated. Creates a 5-minute window. Safest approach but burns the asset."
+            },
+            {
+              "choice": "Violence — neutralize the guards",
+              "consequence": "Fast but loud. Gamorrean alarm squeals alert the wing. Must extract the data before reinforcements arrive."
+            }
+          ],
+          "loreTags": [
+            "Varga's Datapad",
+            "Encryption Keys",
+            "Project Leviathan",
+            "The Accountant",
+            "Admiral Varth"
+          ],
+          "narrativeLinks": [
+            {
+              "targetScene": "adv2-p2-s7",
+              "note": "Whether the heist succeeds cleanly or triggers an alarm, the heroes must move to the dungeon next — TC-663's comms reference 'the prisoner.'"
+            }
+          ],
+          "challengeType": "infiltration",
+          "destinyTags": [
+            "cunning",
+            "discovery"
+          ],
+          "vocationTags": [
+            "voc_slicer",
+            "voc_ghost",
+            "voc_ace",
+            "voc_noble"
+          ],
+          "disciplineTags": [
+            "tech",
+            "stealth",
+            "skulduggery",
+            "charm",
+            "deception"
+          ],
+          "gearFlags": [
+            "Slicer"
+          ],
+          "encounters": [],
+          "environmentMechanics": [
+            {
+              "name": "Biometric Lock",
+              "trigger": "When accessing the datapad",
+              "effect": "Varga's voiceprint required. Tech check is stepped up in difficulty unless the heroes have a voiceprint recording or TC-663's override code.",
+              "mitigation": "Record Varga's voice during the feast (Stealth + Tech combination). TC-663's override bypasses the biometric entirely."
+            },
+            {
+              "name": "Camera Coverage",
+              "trigger": "Active on approach corridors",
+              "effect": "Camera feeds are monitored by a security droid. Being spotted triggers a 2-minute investigation before alarm.",
+              "mitigation": "Camera blind spots (from recon). Tech check to loop the feed. TC-663's diversion diverts the monitoring droid."
+            },
+            {
+              "name": "Silent Alarm",
+              "trigger": "If the datapad is tampered with incorrectly",
+              "effect": "No visible response but the security system logs the intrusion. Lockdown begins in 5 minutes. Demos is alerted.",
+              "mitigation": "Successful 'cover tracks' Tech check erases the log. Or move fast enough that the alarm doesn't matter."
+            }
+          ],
+          "rewards": {
+            "credits": 0,
+            "xp": "Mission objective",
+            "items": [
+              {
+                "name": "Encryption Keys (partial or full)",
+                "note": "Financial pipeline evidence linking Varth to Leviathan. Quality depends on the Tech check result."
+              }
+            ],
+            "narrative": "The mission's primary objective: encryption keys extracted from Varga's datapad. The evidence connecting Varth to the Leviathan pipeline. Everything that follows — the dungeon, the escape — is the extraction."
+          },
+          "pacing": {
+            "openingBeat": "The plan. The window. The objective. Everything converges.",
+            "risingAction": "Bypassing guards, navigating cameras, reaching the throne room. The tension of the approach.",
+            "climax": "The slice. Fingers on the datapad. The seconds stretching as the extraction bar fills. Every sound in the corridor is a potential alarm.",
+            "resolution": "Data extracted — or alarm triggered. Either way, TC-663's intercepted comms mention 'the prisoner.' The dungeon is next.",
+            "estimatedMinutes": 25
+          },
+          "disciplineChallenges": [
+            {
+              "id": "sc-a2s6-tech-slice",
               "discipline": "tech",
-              "context": "Slicing Varga's datapad to extract the encryption keys during a window of opportunity.",
+              "complexity": "complex",
+              "context": "Slicing Varga's datapad to extract the encryption keys — the mission's primary objective.",
+              "narrativePacing": "This is the scene's central challenge. Multi-step sequence: bypass biometric, access filesystem, extract keys, cover tracks.",
               "arena": "wits",
               "actionType": "interact",
               "control": {
@@ -2567,12 +3771,98 @@
                 "masterful": "Encryption keys extracted cleanly. No trace left. Full access to Varth's financial pipeline through Varga's network.",
                 "legendary": "Complete extraction — encryption keys, routing tables, and a backup of Varga's entire financial database. Evidence that could bring down the Besadii cartel's banking infrastructure."
               }
+            },
+            {
+              "id": "sc-a2s6-stealth-approach",
+              "discipline": "stealth",
+              "complexity": "simple",
+              "context": "Bypassing the throne room sentries to reach the datapad.",
+              "arena": "reflex",
+              "actionType": "interact",
+              "control": {
+                "failure": "A guard turns at the wrong moment. Must deal with it — silently or loudly.",
+                "success": "Refer to effect tiers.",
+                "mastery": "You pass within arm's reach of the Gamorrean and he doesn't twitch. Ghost movement. You could have stolen his axe."
+              },
+              "target": "Throne room sentries",
+              "resist": 2,
+              "risk": 3,
+              "effect": {
+                "fleeting": "You wait for the guard to scratch his ear and slip past during the distraction. Tight margins but clean.",
+                "masterful": "Smooth bypass. The guards are oblivious. You're inside the throne room with time to work.",
+                "legendary": "You bypass the guards, lock the throne room door behind you from the inside, and verify that the camera feed in this room is already on TC-663's loop. Perfect conditions."
+              }
+            },
+            {
+              "id": "sc-a2s6-charm-distraction",
+              "discipline": "charm",
+              "complexity": "simple",
+              "context": "Keeping Varga entertained at the feast while the heist team works.",
+              "isOptional": true,
+              "arena": "presence",
+              "actionType": "interact",
+              "control": {
+                "failure": "Varga grows bored and begins to leave. The window is closing faster than planned.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Varga is so entertained that he orders another round of drinks and declares the feast will continue until dawn. The heist team has all the time they need."
+              },
+              "target": "Varga the Hutt",
+              "resist": 3,
+              "risk": 2,
+              "effect": {
+                "fleeting": "You hold his attention for the minimum time needed. He's not riveted but he's not leaving.",
+                "masterful": "You've got him. A story about a podrace, a joke about Neimoidians — Varga is laughing and calling for more wine. The feast continues.",
+                "legendary": "Varga declares you the most entertaining guest he's had in years. He insists you sit beside him. The feast extends by hours — the heist team could redecorate the throne room and no one would notice."
+              }
+            },
+            {
+              "id": "sc-a2s6-tech-cover",
+              "discipline": "tech",
+              "complexity": "simple",
+              "context": "Covering your tracks after the extraction — erasing the access log.",
+              "arena": "wits",
+              "actionType": "interact",
+              "control": {
+                "failure": "The access log remains. The silent alarm triggers. 5 minutes before lockdown begins.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Log erased AND you plant a false access record — it shows maintenance droid TC-663 performed a routine diagnostic. Even a forensic review will blame the droid."
+              },
+              "target": "Datapad security log",
+              "resist": 3,
+              "risk": 4,
+              "effect": {
+                "fleeting": "Partial wipe. The log is corrupted — not clean but not readable either. It'll take hours to reconstruct.",
+                "masterful": "Clean wipe. No access record. The datapad looks untouched.",
+                "legendary": "Perfect forensic countermeasures. False log planted. Timestamps adjusted. Even an ISB slicer would need days to detect the intrusion."
+              }
+            },
+            {
+              "id": "sc-a2s6-skulduggery-voiceprint",
+              "discipline": "skulduggery",
+              "complexity": "simple",
+              "context": "Recording Varga's voiceprint during the feast to bypass the biometric lock.",
+              "isOptional": true,
+              "arena": "reflex",
+              "actionType": "interact",
+              "control": {
+                "failure": "Too much background noise. The recording is unusable. Must rely on TC-663's override or a harder Tech check.",
+                "success": "Refer to effect tiers.",
+                "mastery": "Crystal clear recording of Varga's full vocal range. The biometric lock doesn't just open — it thinks Varga is operating it personally."
+              },
+              "target": "Varga's voice",
+              "resist": 2,
+              "risk": 2,
+              "effect": {
+                "fleeting": "Partial recording — enough for a basic voiceprint match. Reduces the biometric difficulty by 1 tier.",
+                "masterful": "Clean voiceprint. The biometric lock will accept this as authentic. Full bypass.",
+                "legendary": "Perfect recording with multiple vocal samples. Not only bypasses the biometric but could be used to access any voiceprint-locked system Varga owns — including the Cloud City accounts."
+              }
             }
           ]
         },
         {
-          "id": "adv2-p2-s4",
-          "number": 4,
+          "id": "adv2-p2-s7",
+          "number": 7,
           "title": "Discovering Denia",
           "subtitle": "The Dungeon",
           "readAloud": "TC-663's intercepted comms mentioned 'the prisoner' — someone hidden in the dungeon that Demos wants to sell to the Inquisitorius. You descend into the restricted lower levels, past sealed blast doors and silent guard droids.\n\nThe detention block is cold and humming with machinery. In the deepest cell, a stasis pod is hooked to life-support systems. Through the frost-covered viewport, you see a human woman in tattered Jedi robes, suspended in a Force-induced coma.\n\nHer eyes are closed. But you feel something — a whisper at the edge of your consciousness. Not words. A feeling. Like drowning in slow motion.\n\nIn the adjacent cell, Warrick Raden huddles in the corner. Beaten, bruised, but alive. He looks up with hollow eyes.\n\nAdmiral Varth's voice comes over the encrypted comlink. The same voice as always. Calm. Efficient.\n\n\"Leave her. She's a liability. We don't have time for dead weight.\"\n\nA pause. You can hear him thinking.\n\n\"Your call. But she slows us down and we're on a clock.\"",
@@ -2759,8 +4049,8 @@
           ],
           "narrativeLinks": [
             {
-              "targetScene": "adv2-p2-s5",
-              "note": "Rescuing Denia triggers the fortress alarm and Demos's interception in Scene 5."
+              "targetScene": "adv2-p2-s8",
+              "note": "Rescuing Denia triggers the fortress alarm and Demos's interception in Scene 8."
             }
           ],
           "challengeType": "infiltration",
@@ -2789,7 +4079,7 @@
           "gearFlags": [],
           "encounters": [
             {
-              "id": "enc-a2s4-droids",
+              "id": "enc-a2s7-droids",
               "name": "Elite Guard Droids",
               "type": "combat",
               "trigger": "If alarm triggers or droids detect intruders",
@@ -2826,7 +4116,7 @@
           },
           "disciplineChallenges": [
             {
-              "id": "sc-a2s4-stealth",
+              "id": "sc-a2s7-stealth",
               "discipline": "stealth",
               "context": "Slipping into the restricted lower levels.",
               "arena": "reflex",
@@ -2843,10 +4133,11 @@
                 "fleeting": "You slip past the first checkpoint but nearly alert a droid patrol. Tight margins. One more mistake and you're made.",
                 "masterful": "Clean entry. No guards notice. You reach the detention block undetected.",
                 "legendary": "Ghost movement. You map the entire guard patrol pattern as you move through it. When you need to leave, you'll know exactly when every corridor is clear."
-              }
+              },
+              "complexity": "complex"
             },
             {
-              "id": "sc-a2s4-tech",
+              "id": "sc-a2s7-tech-stasis",
               "discipline": "tech",
               "context": "Disabling the stasis pod's life support to free Denia safely.",
               "arena": "wits",
@@ -2863,10 +4154,11 @@
                 "fleeting": "Life support disconnects safely but the pod's alarm chirps once before you silence it. Denia stirs. The clock just got shorter.",
                 "masterful": "Clean disconnect. Denia wakes slowly, disoriented but alive. No alarms triggered. The pod powers down silently.",
                 "legendary": "Textbook medical extraction. Denia wakes coherent — still weak, but she can walk unassisted and her first words are useful: 'The Neimoidian... he's been in my dreams. He's coming.'"
-              }
+              },
+              "complexity": "complex"
             },
             {
-              "id": "sc-a2s4-skulduggery",
+              "id": "sc-a2s7-skulduggery",
               "discipline": "skulduggery",
               "context": "Bypassing the high-security cell locks.",
               "arena": "reflex",
@@ -2883,10 +4175,11 @@
                 "fleeting": "One lock opens but the second jams halfway. You can force it — noisy — or try again. The clock is ticking.",
                 "masterful": "Locks open silently. No alarm. Both cells accessible.",
                 "legendary": "You bypass the locks so cleanly that you can re-lock them behind you — making it look like no one was ever here. Buys extra time before the escape is discovered."
-              }
+              },
+              "complexity": "simple"
             },
             {
-              "id": "sc-a2s4-medicine",
+              "id": "sc-a2s7-medicine",
               "discipline": "medicine",
               "context": "Stabilizing Denia after ~2 years in stasis.",
               "arena": "wits",
@@ -2903,10 +4196,11 @@
                 "fleeting": "Denia is conscious but disoriented. She can stand with support but can't move fast. She's dead weight in a sprint.",
                 "masterful": "Denia is weak but mobile. Can walk with support. Her eyes are focused — she knows where she is and what's happening.",
                 "legendary": "Denia recovers faster than expected. She walks under her own power and immediately begins using passive Force senses — she can feel the guards' positions in the corridors ahead."
-              }
+              },
+              "complexity": "complex"
             },
             {
-              "id": "sc-a2s4-resolve",
+              "id": "sc-a2s7-resolve",
               "discipline": "resolve",
               "context": "Resisting Denia's telepathic plea — it's emotionally overwhelming.",
               "arena": "grit",
@@ -2923,10 +4217,11 @@
                 "masterful": "You feel her pain but maintain composure. Clear decision-making. The empathic contact is intense but manageable.",
                 "legendary": "You absorb the pain and ground it. Denia senses your stability and reaches toward it — her telepathic plea shifts from desperation to trust. She stops broadcasting to the entire block."
               },
-              "resist": 3
+              "resist": 3,
+              "complexity": "simple"
             },
             {
-              "id": "sc-a2s4-stealth-eavesdrop",
+              "id": "sc-a2s7-stealth-eavesdrop",
               "discipline": "stealth",
               "context": "Eavesdropping on Demos's holo-call with Inquisitor Draco.",
               "isOptional": true,
@@ -2944,13 +4239,14 @@
                 "fleeting": "Muffled audio through the wall. You catch 'Inquisitorius' and 'en route.' Enough to know something bad is coming.",
                 "masterful": "Full conversation overheard. Draco: 'I am on my way, with the Assiduous.' Death clock confirmed — hours, not days.",
                 "legendary": "Crystal clear audio. Full conversation including Draco's estimated arrival window, the Assiduous's current position, and Demos's offer to 'deliver the Jedi personally.' You know exactly how long you have."
-              }
+              },
+              "complexity": "complex"
             }
           ]
         },
         {
-          "id": "adv2-p2-s5",
-          "number": 5,
+          "id": "adv2-p2-s8",
+          "number": 8,
           "title": "The Escape",
           "subtitle": "The Majordomo's Stand",
           "readAloud": "Klaxons scream through the stone corridors. The fortress goes into lockdown — blast doors grinding shut, red emergency lighting flooding every hall.\n\nBlocking your path stands Igren Demos, the Neimoidian Majordomo. He is no longer simpering. He holds a vibro-staff with lethal confidence, flanked by his elite Trandoshan bodyguards.\n\nHis red eyes widen as he senses the Jedi behind you. \"The Jedi... she's awake. Give her to me. I will take her to the Inquisitorius myself and claim what Varga never could.\"",
@@ -3155,7 +4451,7 @@
           ],
           "encounters": [
             {
-              "id": "enc-a2s5-demos",
+              "id": "enc-a2s8-demos",
               "name": "Igren Demos Showdown",
               "type": "combat",
               "trigger": "Heroes encounter Demos in the corridor",
@@ -3203,7 +4499,7 @@
           },
           "disciplineChallenges": [
             {
-              "id": "sc-a2s5-resolve",
+              "id": "sc-a2s8-resolve",
               "discipline": "resolve",
               "context": "Resisting Demos's Force Slam.",
               "arena": "grit",
@@ -3220,10 +4516,11 @@
                 "fleeting": "You skid backward but stay on your feet. The Force push stings but doesn't break your stance. Still in the fight.",
                 "masterful": "Stand your ground. The Force push washes over you like a strong wind. Nothing more.",
                 "legendary": "You walk straight through it. The Force slam hits you and you don't even slow down. Every witness — Demos, his bodyguards, your allies — sees it. The balance of the fight shifts."
-              }
+              },
+              "complexity": "set-piece"
             },
             {
-              "id": "sc-a2s5-insight",
+              "id": "sc-a2s8-insight",
               "discipline": "insight",
               "context": "Reading Demos's Force abilities — is he trained?",
               "isOptional": true,
@@ -3241,10 +4538,11 @@
                 "fleeting": "His technique is sloppy — there's no Form behind it. He's dangerous but not precise. That's something.",
                 "masterful": "Untrained. Powerful raw talent but no discipline. His attacks are predictable — he telegraphs every Force push with his whole body.",
                 "legendary": "Completely untrained, completely delusional. He thinks the Inquisitorius will welcome him. You see a scared man playing at being powerful. Every vulnerability is visible."
-              }
+              },
+              "complexity": "simple"
             },
             {
-              "id": "sc-a2s5-persuasion",
+              "id": "sc-a2s8-persuasion",
               "discipline": "persuasion",
               "context": "Convincing Demos to stand down — Varga has already abandoned him.",
               "arena": "presence",
@@ -3261,10 +4559,11 @@
                 "fleeting": "Demos hesitates. The vibro-staff lowers an inch. He's listening — but he needs more. Follow-up argument needed.",
                 "masterful": "Demos hesitates. Realizes Varga is fleeing without him. Steps aside in bitter rage. 'Go. Take the Jedi. It doesn't matter anymore.'",
                 "legendary": "Demos crumbles. The truth hits him: Varga never valued him, the Empire never will, and the Inquisitorius would discard him. He steps aside and tells you everything he knows about the hangar defenses."
-              }
+              },
+              "complexity": "complex"
             },
             {
-              "id": "sc-a2s5-athletics",
+              "id": "sc-a2s8-athletics",
               "discipline": "athletics",
               "context": "Forcing through blast doors during fortress lockdown.",
               "arena": "physique",
@@ -3281,10 +4580,11 @@
                 "fleeting": "You wedge the door open enough to squeeze through one at a time. Slow but functional.",
                 "masterful": "Door forced open. Path cleared. The group moves through at full speed.",
                 "legendary": "You rip the door mechanism off its track. It crashes open and stays open. The corridor ahead is completely clear."
-              }
+              },
+              "complexity": "simple"
             },
             {
-              "id": "sc-a2s5-tech",
+              "id": "sc-a2s8-tech",
               "discipline": "tech",
               "context": "Hacking lockdown controls to open sealed corridors.",
               "arena": "wits",
@@ -3301,13 +4601,14 @@
                 "fleeting": "One door opens. The next corridor's blast door is still sealed. Incremental progress.",
                 "masterful": "Blast doors retract. Clear path to the hangar wing. Standard lockdown protocols disabled for this corridor.",
                 "legendary": "Full fortress lockdown override from this terminal. Every blast door on the hangar level opens simultaneously. You also trigger a fire suppression system in the barracks level — chaos covers your escape."
-              }
+              },
+              "complexity": "simple"
             }
           ]
         },
         {
-          "id": "adv2-p2-s6",
-          "number": 6,
+          "id": "adv2-p2-s9",
+          "number": 9,
           "title": "The Hangar Bay",
           "subtitle": "Climax",
           "readAloud": "You burst through the blast doors into the humid, open-air hangar. You're too late — Varga's massive luxury yacht, the Glorious Chariot, is already hovering on repulsors, engines flaring blue-white. The boarding ramp retracts as the gold-and-purple hull begins to rise.\n\nBut it's not just Varga. Lady Sinde has ordered her Stormtrooper escort to secure the hangar and eliminate all witnesses.\n\nBlaster fire erupts from behind crates of Tibanna gas as white-armored figures take firing positions.\n\nWarrick Raden stumbles onto the ship's ramp behind you, blinking in the harsh light. For the first time since the dungeon, he looks hopeful.\n\nThen Admiral Varth steps forward. He looks at Raden. Almost warmly.\n\n\"Hello, Warrick.\" A pause. \"I told you the next time I saw you, I would kill you.\"\n\nThe blaster shot echoes across the hangar. Raden drops. Varth doesn't break stride.",
@@ -3519,7 +4820,7 @@
           ],
           "encounters": [
             {
-              "id": "enc-a2s6-stormtroopers",
+              "id": "enc-a2s9-stormtroopers",
               "name": "Hangar Bay Firefight",
               "type": "combat",
               "trigger": "Heroes enter the hangar",
@@ -3562,7 +4863,7 @@
           },
           "disciplineChallenges": [
             {
-              "id": "sc-a2s6-ranged",
+              "id": "sc-a2s9-ranged",
               "discipline": "ranged",
               "context": "Firefight across the hangar bay.",
               "arena": "reflex",
@@ -3579,10 +4880,11 @@
                 "fleeting": "Suppressive fire forces the Stormtroopers behind cover. They're not down but they're not shooting at you either. Brief window to move.",
                 "masterful": "Accurate fire. One Stormtrooper drops. The rest adjust positions — the suppression advantage shifts to you.",
                 "legendary": "Precision shooting. Two Stormtroopers eliminated in rapid succession. The remaining two break formation. Sinde orders a retreat to secondary positions — the hangar approach is open."
-              }
+              },
+              "complexity": "set-piece"
             },
             {
-              "id": "sc-a2s6-tech",
+              "id": "sc-a2s9-tech",
               "discipline": "tech",
               "context": "Hot-wiring the heroes' ship or bypassing hangar controls.",
               "arena": "wits",
@@ -3599,10 +4901,11 @@
                 "fleeting": "Systems come online one by one — slow but steady. Engines are last. 1 extra round before you can lift.",
                 "masterful": "Ship systems online. Ready for launch. Standard power-up sequence completed under fire.",
                 "legendary": "Emergency hot-start. Ship goes from cold to flight-ready in seconds. You're lifting before the Stormtroopers even realize the engines are live."
-              }
+              },
+              "complexity": "simple"
             },
             {
-              "id": "sc-a2s6-piloting",
+              "id": "sc-a2s9-piloting",
               "discipline": "piloting",
               "context": "Launching under heavy fire with Stormtroopers targeting the ship.",
               "arena": "reflex",
@@ -3619,10 +4922,11 @@
                 "fleeting": "Rough liftoff. A couple of glancing hits but nothing critical. You clear the hangar with singed hull plating.",
                 "masterful": "Clean launch. Break atmosphere. The blaster fire tracks behind you but nothing connects.",
                 "legendary": "Textbook combat liftoff. You use the hangar structure as cover during the ascent, then punch to orbit in a spiral that makes targeting impossible. Zero hits."
-              }
+              },
+              "complexity": "complex"
             },
             {
-              "id": "sc-a2s6-tactics",
+              "id": "sc-a2s9-tactics",
               "discipline": "tactics",
               "context": "Tracking Varga's escape trajectory.",
               "arena": "wits",
@@ -3639,10 +4943,11 @@
                 "fleeting": "Partial sensor data — the escape vector points toward the Anoat Sector. Consistent with Gome's Bespin intel but not conclusive.",
                 "masterful": "Partial trajectory lock. The vector aligns with the Anoat Sector. Bespin. Cloud City. Confirmed by Gome's banking intel.",
                 "legendary": "Full trajectory lock with exit vector and hyperspace lane identified. You know exactly where Varga is going, which route he's taking, and approximately when he'll arrive. The pursuit can be surgical."
-              }
+              },
+              "complexity": "complex"
             },
             {
-              "id": "sc-a2s6-athletics",
+              "id": "sc-a2s9-athletics",
               "discipline": "athletics",
               "context": "Sprinting across the open hangar to the ship.",
               "isOptional": true,
@@ -3660,7 +4965,8 @@
                 "masterful": "Full speed. Reach the ship cleanly. No hits taken.",
                 "legendary": "Olympic sprint across the kill zone. You dodge, weave, and vault a cargo crate without breaking stride. You're up the ramp and at the controls before the Stormtroopers can adjust their aim."
               },
-              "resist": 2
+              "resist": 2,
+              "complexity": "simple"
             }
           ],
           "conditionals": [
