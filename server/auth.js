@@ -72,8 +72,9 @@ function gate(req, res, next) {
       return res.redirect('/');
     }
     var marksReadPattern = /^\/api\/campaign\/adventures\/[^/]+\/marks$/;
+    var holonetFeedsPattern = /^\/api\/campaign\/holonet\/feeds$/;
     if (req.path.startsWith('/api/campaign') || req.path === '/api/admin/release-all') {
-      if (req.method === 'GET' && marksReadPattern.test(req.path)) {
+      if (req.method === 'GET' && (marksReadPattern.test(req.path) || holonetFeedsPattern.test(req.path))) {
         return next();
       }
       return res.status(403).json({ error: 'Forbidden' });

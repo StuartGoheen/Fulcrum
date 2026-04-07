@@ -7,6 +7,7 @@ const { resolveDecisionState, applyAdventureConditionals } = require('../utils/d
 
 const ADVENTURES_DIR = path.join(__dirname, '..', '..', 'data', 'adventures');
 const LOCATIONS_PATH = path.join(__dirname, '..', '..', 'data', 'locations.json');
+const HOLONET_PATH   = path.join(__dirname, '..', '..', 'data', 'holonet.json');
 
 let adventuresCache = null;
 let adventuresCacheMtimes = {};
@@ -1302,6 +1303,75 @@ router.post('/campaign/adventures/:adventureId/summary', async (req, res) => {
     }
     console.error('[mission-summary] Gemini error:', msg);
     return res.status(500).json({ error: 'Generation failed. Try again.' });
+  }
+});
+
+let holonetCache = null;
+let holonetMtime = null;
+function loadHolonet() {
+  try {
+    const stat = fs.statSync(HOLONET_PATH);
+    if (holonetCache && holonetMtime === stat.mtimeMs) return holonetCache;
+    holonetCache = JSON.parse(fs.readFileSync(HOLONET_PATH, 'utf8'));
+    holonetMtime = stat.mtimeMs;
+    return holonetCache;
+  } catch (err) {
+    console.error('[holonet] Failed to load holonet.json:', err.message);
+    return { feeds: [] };
+  }
+}
+
+router.get('/campaign/holonet/feeds', (req, res) => {
+  try {
+    const data = loadHolonet();
+    res.json({ ok: true, feeds: data.feeds || [] });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to load holonet feeds' });
+  }
+});
+
+router.get('/campaign/holonet/history', async (req, res) => {
+  try {
+    const { rows } = await pool.query(
+      'SELECT id, feed_id, story_ids, broadcast_at, broadcast_by FROM holonet_broadcasts ORDER BY broadcast_at DESC LIMIT 50'
+    );
+    res.json({ ok: true, broadcasts: rows });
+  } catch (err) {
+    console.error('[holonet] History error:', err);
+    res.status(500).json({ error: 'Failed to load broadcast history' });
+  }
+});
+
+router.post('/campaign/holonet/broadcast', async (req, res) => {
+  try {
+    const { storyIds } = req.body;
+    if (!storyIds || !Array.isArray(storyIds) || storyIds.length === 0) {
+      return res.status(400).json({ error: 'storyIds array required' });
+    }
+    const data = loadHolonet();
+    const allStories = [];
+    (data.feeds || []).forEach(f => {
+      (f.stories || []).forEach(s => allStories.push(s));
+    });
+    const stories = storyIds.map(id => allStories.find(s => s.id === id)).filter(Boolean);
+    if (stories.length === 0) {
+      return res.status(400).json({ error: 'No valid stories found' });
+    }
+    await pool.query(
+      'INSERT INTO holonet_broadcasts (feed_id, story_ids, broadcast_by) VALUES ($1, $2, $3)',
+      ['manual', JSON.stringify(storyIds), 'gm']
+    );
+    const io = req.app.get('io');
+    if (io) {
+      io.to('players').emit('holonet:incoming', {
+        stories,
+        broadcastAt: new Date().toISOString()
+      });
+    }
+    res.json({ ok: true, stories });
+  } catch (err) {
+    console.error('[holonet] Broadcast error:', err);
+    res.status(500).json({ error: 'Failed to broadcast' });
   }
 });
 

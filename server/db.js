@@ -81,6 +81,14 @@ async function initSchema() {
         PRIMARY KEY (adventure_id, mark_id)
       );
 
+      CREATE TABLE IF NOT EXISTS holonet_broadcasts (
+        id             SERIAL PRIMARY KEY,
+        feed_id        TEXT    NOT NULL,
+        story_ids      TEXT    NOT NULL,
+        broadcast_at   TIMESTAMP DEFAULT NOW(),
+        broadcast_by   TEXT    NOT NULL DEFAULT 'gm'
+      );
+
       CREATE TABLE IF NOT EXISTS item_requests (
         id             SERIAL PRIMARY KEY,
         character_name TEXT    NOT NULL,

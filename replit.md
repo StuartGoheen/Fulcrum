@@ -47,6 +47,7 @@ The app uses a passcode-based gate (cookie auth) to restrict access:
 │   ├── market-source-viewer.js # Source DB viewer overlay
 │   ├── crawl-data.js     # Mission crawl text data (extensible for future missions)
 │   ├── opening-crawl.js  # Star Wars opening crawl overlay engine
+│   ├── holonet-overlay.js # Player-side HoloNet broadcast overlay (Imperial terminal aesthetic, socket-triggered, journal clipping)
 │   ├── starship-combat.js # Starship combat cockpit HUD overlay
 ├── data/                 # JSON data files (weapons, armor, gear, etc.)
 ├── assets/               # Images and icons
@@ -359,6 +360,26 @@ Tables: `characters`, `campaign_state`, `equipment_status`, `sessions`, `campaig
 Defaults initialized in both branches of `expandCharacterData()`.
 
 **Handbook entry:** "Marks & Advancement" added as a Rule entry in the Player's Handbook Rules section via `_loadAdvancementEntry()` in `js/glossary-overlay.js`.
+
+## HoloNet News Feed
+
+GM-triggered in-universe Imperial propaganda broadcasts with player overlays and journal clipping.
+
+**Data:** `data/holonet.json` — ~20 stories across 6 feed groups (pre-campaign, post-adv1-3, general 16 BBY). Story types: `propaganda`, `consequence`, `foreshadow`, `lore`, `flavor`.
+
+**DB table:** `holonet_broadcasts` — tracks broadcast history (feed_id, story_ids, broadcast_by, broadcast_at).
+
+**Server:**
+- `GET /api/campaign/holonet/feeds` — returns all feeds + broadcast history (player-accessible)
+- `GET /api/campaign/holonet/history` — broadcast history
+- `POST /api/campaign/holonet/broadcast` — GM broadcasts selected stories, emits `holonet:incoming` socket event to players room server-side
+- Socket: `holonet:broadcast` event handler (GM→players room)
+
+**GM UI:** HoloNet tile in Command Bridge scene dashboard. Story browser with type badges, sent status, checkbox multi-select, broadcast button. Panel ID: `fp-holonet`, built via `_buildHoloNetHtml()` / `_bindHolonetHandlers()` in `js/command-bridge.js`.
+
+**Player Overlay:** `js/holonet-overlay.js` — Imperial terminal aesthetic overlay triggered by `holonet:incoming` socket event. Features scanline animation, gold-on-dark terminal chrome, per-story "Clip to Journal" button (creates journal entry via `POST /api/journal/entries` with `source_scene_id: 'holonet'`). Close via X button or backdrop click.
+
+**Auth:** Player GET access to `/api/campaign/holonet/feeds` whitelisted in `server/auth.js`.
 
 ## Player's Handbook
 

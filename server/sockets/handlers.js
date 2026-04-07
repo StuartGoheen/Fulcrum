@@ -405,6 +405,13 @@ function registerHandlers(io) {
       io.emit('marks:hidden', { adventureId, markId });
     });
 
+    socket.on('holonet:broadcast', ({ stories }) => {
+      if (socket.data.role !== 'gm') return;
+      if (!stories || !Array.isArray(stories) || stories.length === 0) return;
+      io.to('players').emit('holonet:incoming', { stories, broadcastAt: new Date().toISOString() });
+      socket.emit('holonet:sent', { count: stories.length });
+    });
+
     socket.on('inventory:added', ({ charId, itemId, itemType }) => {
       if (socket.data.role !== 'gm') return;
       if (!charId || !itemId || !itemType) return;

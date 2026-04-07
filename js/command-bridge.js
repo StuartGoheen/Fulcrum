@@ -852,6 +852,163 @@
     return h;
   }
 
+  var _holonetFeeds = null;
+  var _holonetHistory = null;
+  var _holonetSelected = {};
+
+  function _loadHolonetData(cb) {
+    var loaded = 0;
+    function check() { loaded++; if (loaded >= 2 && cb) cb(); }
+    fetch('/api/campaign/holonet/feeds')
+      .then(function (r) { return r.json(); })
+      .then(function (d) { if (d.ok) _holonetFeeds = d.feeds; check(); })
+      .catch(function () { check(); });
+    fetch('/api/campaign/holonet/history')
+      .then(function (r) { return r.json(); })
+      .then(function (d) { if (d.ok) _holonetHistory = d.broadcasts; check(); })
+      .catch(function () { check(); });
+  }
+
+  function _getAlreadySentIds() {
+    if (!_holonetHistory) return {};
+    var sent = {};
+    _holonetHistory.forEach(function (b) {
+      try {
+        var ids = JSON.parse(b.story_ids);
+        ids.forEach(function (id) { sent[id] = b.broadcast_at; });
+      } catch (e) {}
+    });
+    return sent;
+  }
+
+  function _buildHoloNetHtml() {
+    if (!_holonetFeeds) {
+      _loadHolonetData(function () {
+        var panel = document.getElementById('fp-holonet');
+        if (panel) {
+          var body = panel.querySelector('.cb-fpanel-body');
+          if (body) body.innerHTML = _buildHoloNetHtml();
+          _bindHolonetHandlers(panel);
+        }
+      });
+      return '<div class="hn-loading">Loading HoloNet feeds...</div>';
+    }
+
+    var sentIds = _getAlreadySentIds();
+    var selectedCount = Object.keys(_holonetSelected).filter(function (k) { return _holonetSelected[k]; }).length;
+
+    var h = '<div class="hn-panel">';
+    h += '<div class="hn-header">';
+    h += '<span class="hn-header-logo">&#128225; IMPERIAL HOLONET — BROADCAST TERMINAL</span>';
+    h += '<div class="hn-header-actions">';
+    h += '<button class="hn-broadcast-btn' + (selectedCount === 0 ? ' hn-btn--disabled' : '') + '" id="hn-send-broadcast"' + (selectedCount === 0 ? ' disabled' : '') + '>&#9889; BROADCAST (' + selectedCount + ')</button>';
+    h += '<button class="hn-select-none-btn" id="hn-clear-selection">CLEAR</button>';
+    h += '</div>';
+    h += '</div>';
+
+    _holonetFeeds.forEach(function (feed) {
+      h += '<div class="hn-feed-group">';
+      h += '<div class="hn-feed-label">' + esc(feed.label) + '</div>';
+
+      feed.stories.forEach(function (story) {
+        var isSent = !!sentIds[story.id];
+        var isSelected = !!_holonetSelected[story.id];
+        var typeClass = 'hn-type--' + (story.type || 'flavor');
+
+        h += '<div class="hn-story-card' + (isSelected ? ' hn-story--selected' : '') + (isSent ? ' hn-story--sent' : '') + '" data-story-id="' + esc(story.id) + '">';
+        h += '<div class="hn-story-select">';
+        h += '<input type="checkbox" class="hn-story-check" data-story-id="' + esc(story.id) + '"' + (isSelected ? ' checked' : '') + ' />';
+        h += '</div>';
+        h += '<div class="hn-story-content">';
+        h += '<div class="hn-story-headline">' + esc(story.headline) + '</div>';
+        h += '<div class="hn-story-meta">';
+        h += '<span class="hn-story-source">' + esc(story.source) + '</span>';
+        h += '<span class="hn-story-type ' + typeClass + '">' + esc(story.type || 'flavor').toUpperCase() + '</span>';
+        if (isSent) h += '<span class="hn-story-sent-badge">SENT</span>';
+        h += '</div>';
+        h += '<div class="hn-story-body">' + esc(story.body) + '</div>';
+        if (story.tags && story.tags.length > 0) {
+          h += '<div class="hn-story-tags">';
+          story.tags.forEach(function (tag) {
+            h += '<span class="hn-tag">' + esc(tag) + '</span>';
+          });
+          h += '</div>';
+        }
+        h += '</div>';
+        h += '</div>';
+      });
+
+      h += '</div>';
+    });
+
+    h += '</div>';
+    return h;
+  }
+
+  function _bindHolonetHandlers(container) {
+    if (!container) return;
+    container.querySelectorAll('.hn-story-check').forEach(function (chk) {
+      chk.addEventListener('change', function () {
+        _holonetSelected[chk.dataset.storyId] = chk.checked;
+        var panel = document.getElementById('fp-holonet');
+        if (panel) {
+          var body = panel.querySelector('.cb-fpanel-body');
+          if (body) { body.innerHTML = _buildHoloNetHtml(); _bindHolonetHandlers(panel); }
+        }
+      });
+    });
+    container.querySelectorAll('.hn-story-card').forEach(function (card) {
+      card.addEventListener('click', function (e) {
+        if (e.target.classList.contains('hn-story-check')) return;
+        var chk = card.querySelector('.hn-story-check');
+        if (chk) { chk.checked = !chk.checked; chk.dispatchEvent(new Event('change')); }
+      });
+    });
+    var sendBtn = container.querySelector('#hn-send-broadcast');
+    if (sendBtn) {
+      sendBtn.addEventListener('click', function () {
+        var ids = Object.keys(_holonetSelected).filter(function (k) { return _holonetSelected[k]; });
+        if (ids.length === 0) return;
+        sendBtn.disabled = true;
+        sendBtn.textContent = 'TRANSMITTING...';
+        fetch('/api/campaign/holonet/broadcast', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ storyIds: ids })
+        })
+          .then(function (r) { return r.json(); })
+          .then(function (data) {
+            if (data.ok && data.stories) {
+              _holonetSelected = {};
+              _loadHolonetData(function () {
+                var panel = document.getElementById('fp-holonet');
+                if (panel) {
+                  var body = panel.querySelector('.cb-fpanel-body');
+                  if (body) { body.innerHTML = _buildHoloNetHtml(); _bindHolonetHandlers(panel); }
+                }
+              });
+            }
+          })
+          .catch(function (err) {
+            console.error('[HoloNet] Broadcast failed:', err);
+            sendBtn.disabled = false;
+            sendBtn.textContent = '⚡ BROADCAST (retry)';
+          });
+      });
+    }
+    var clearBtn = container.querySelector('#hn-clear-selection');
+    if (clearBtn) {
+      clearBtn.addEventListener('click', function () {
+        _holonetSelected = {};
+        var panel = document.getElementById('fp-holonet');
+        if (panel) {
+          var body = panel.querySelector('.cb-fpanel-body');
+          if (body) { body.innerHTML = _buildHoloNetHtml(); _bindHolonetHandlers(panel); }
+        }
+      });
+    }
+  }
+
   function openFloatingPanel(panelId, title, contentHtml, opts) {
     opts = opts || {};
     var existing = document.getElementById('fp-' + panelId);
@@ -1018,6 +1175,9 @@
     }
     if (panelId === 'encounters') {
       _bindEncounterPanelEvents(panel);
+    }
+    if (panelId === 'holonet') {
+      _bindHolonetHandlers(panel);
     }
   }
 
@@ -1438,6 +1598,7 @@
     if (hasPacing) {
       html += '<div class="cb-tile' + (_openPanels['pacing'] ? ' cb-tile--active' : '') + '" data-panel-id="pacing"><span class="cb-tile-icon">&#9200;</span><span class="cb-tile-label">Pacing</span><span class="cb-tile-meta">' + (scene.pacing.estimatedMinutes ? '~' + scene.pacing.estimatedMinutes + ' min' : 'Guide') + '</span></div>';
     }
+    html += '<div class="cb-tile' + (_openPanels['holonet'] ? ' cb-tile--active' : '') + '" data-panel-id="holonet"><span class="cb-tile-icon">&#128225;</span><span class="cb-tile-label">HoloNet</span><span class="cb-tile-meta">Broadcast</span></div>';
     html += '</div>';
 
     if (hasDecisions) {
@@ -1486,7 +1647,7 @@
           closeFloatingPanel(panelId);
           return;
         }
-        var titleMap = { readaloud: 'Read Aloud', gmnotes: 'GM Notes', npcs: 'NPC Roster', encounters: 'Encounters', challenges: 'Discipline Challenges', environment: 'Environment', rewards: 'Rewards', pacing: 'Pacing Guide' };
+        var titleMap = { readaloud: 'Read Aloud', gmnotes: 'GM Notes', npcs: 'NPC Roster', encounters: 'Encounters', challenges: 'Discipline Challenges', environment: 'Environment', rewards: 'Rewards', pacing: 'Pacing Guide', holonet: 'HoloNet Broadcast Terminal' };
         var contentMap = {
           readaloud: function () { return _buildReadAloudHtml(scene); },
           gmnotes: function () { return _buildGmNotesHtml(scene); },
@@ -1495,9 +1656,10 @@
           challenges: function () { return _buildChallengesHtml(scene); },
           environment: function () { return _buildEnvironmentHtml(scene); },
           rewards: function () { return _buildRewardsHtml(scene); },
-          pacing: function () { return _buildPacingHtml(scene); }
+          pacing: function () { return _buildPacingHtml(scene); },
+          holonet: function () { return _buildHoloNetHtml(); }
         };
-        var sizeMap = { readaloud: { width: 560, height: 450 }, gmnotes: { width: 520, height: 400 }, npcs: { width: 520, height: 500 }, encounters: { width: 560, height: 480 }, challenges: { width: 540, height: 460 }, environment: { width: 480, height: 380 }, rewards: { width: 420, height: 300 }, pacing: { width: 440, height: 320 } };
+        var sizeMap = { readaloud: { width: 560, height: 450 }, gmnotes: { width: 520, height: 400 }, npcs: { width: 520, height: 500 }, encounters: { width: 560, height: 480 }, challenges: { width: 540, height: 460 }, environment: { width: 480, height: 380 }, rewards: { width: 420, height: 300 }, pacing: { width: 440, height: 320 }, holonet: { width: 620, height: 560 } };
         var builder = contentMap[panelId];
         if (builder) {
           openFloatingPanel(panelId, titleMap[panelId] || panelId, builder(), sizeMap[panelId]);
