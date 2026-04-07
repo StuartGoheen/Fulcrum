@@ -11716,6 +11716,13 @@
     border: 1px solid color-mix(in srgb, var(--color-text-secondary) 15%, transparent);
   }
 
+  .jnav-holonet-group {
+    border-left: 2px solid rgba(200, 164, 78, 0.3);
+  }
+  .jnav-holonet-title {
+    color: #c8a44e;
+  }
+
   .holonet-overlay {
     position: fixed;
     inset: 0;

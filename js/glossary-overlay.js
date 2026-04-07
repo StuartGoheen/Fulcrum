@@ -1481,6 +1481,10 @@
     var debriefMap = _getDebriefsByAdventure();
     var hasAnyContent = false;
 
+    var holonetEntries = _journalEntries.filter(function (e) {
+      return e.source_scene_id === 'holonet';
+    });
+
     var adventuresWithContent = [];
     _journalAdventures.forEach(function (adv) {
       var advDebriefs = debriefMap[adv.id] || [];
@@ -1501,10 +1505,62 @@
       }
     });
 
+    if (holonetEntries.length > 0) hasAnyContent = true;
+
     var html = '';
     if (!hasAnyContent) {
       html += '<div class="journal-empty"><div class="journal-empty-text">No completed scenes yet.<br>Your journal will fill as you progress through the campaign.</div></div>';
       return html;
+    }
+
+    if (holonetEntries.length > 0) {
+      var isHnExpanded = _journalExpandedAdv['holonet'] !== false;
+      html += '<div class="jnav-adv-group jnav-holonet-group">';
+      html += '<div class="jnav-adv-header" data-jnav-adv-toggle="holonet">';
+      html += '<span class="jnav-adv-chevron">' + (isHnExpanded ? '\u25BC' : '\u25B6') + '</span>';
+      html += '<div class="jnav-adv-info">';
+      html += '<span class="jnav-adv-title jnav-holonet-title">\u{1F4E1} HoloNet Broadcasts</span>';
+      html += '<span class="jnav-adv-meta">' + holonetEntries.length + ' clipping' + (holonetEntries.length !== 1 ? 's' : '') + '</span>';
+      html += '</div>';
+      html += '</div>';
+
+      if (isHnExpanded) {
+        html += '<div class="jnav-adv-body">';
+        holonetEntries.forEach(function (entry) {
+          var isExpanded = _journalExpandedEntry === entry.id;
+          html += '<div class="journal-entry-card' + (isExpanded ? ' is-expanded' : '') + '">';
+          html += '<div class="journal-entry-card-header" data-journal-toggle="' + entry.id + '">';
+          html += '<span class="journal-entry-chevron">' + (isExpanded ? '\u25BC' : '\u25B6') + '</span>';
+          html += '<span class="journal-entry-title">' + _esc(entry.title) + '</span>';
+          html += '<span class="journal-entry-date">' + _formatDate(entry.created_at) + '</span>';
+          html += '</div>';
+          if (isExpanded) {
+            html += '<div class="journal-entry-expanded">';
+            html += '<div class="journal-entry-meta">';
+            html += '<span class="journal-entry-author">' + _esc(entry.author_character_name) + '</span>';
+            html += '<span class="journal-entry-scene-ref">HoloNet Broadcast</span>';
+            var tags = entry.tags || [];
+            if (tags.length) {
+              html += '<span class="journal-entry-tags">';
+              tags.forEach(function (t) {
+                html += '<span class="journal-tag-chip ' + _tagCategoryClass(t.category) + '" data-journal-tag-search="' + _esc(t.name) + '">' + _esc(t.name) + '</span>';
+              });
+              html += '</span>';
+            }
+            html += '</div>';
+            html += '<div class="journal-entry-body">' + _esc(entry.body || '').replace(/\n/g, '<br>') + '</div>';
+            html += '</div>';
+          } else {
+            html += '<div class="journal-entry-meta-inline">';
+            html += '<span class="journal-entry-author">' + _esc(entry.author_character_name) + '</span>';
+            html += '<span class="journal-entry-scene-ref">HoloNet Broadcast</span>';
+            html += '</div>';
+          }
+          html += '</div>';
+        });
+        html += '</div>';
+      }
+      html += '</div>';
     }
 
     adventuresWithContent.forEach(function (item) {
