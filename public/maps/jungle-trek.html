@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ajan Kloss — Jungle Clearing</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #1a1a1a; display: flex; flex-direction: column; align-items: center; min-height: 100vh; font-family: 'Segoe UI', sans-serif; padding: 20px 20px 60px; gap: 40px; }
+
+  .map-container { position: relative; max-width: 1024px; width: 100%; }
+  .map-container img { width: 100%; height: auto; display: block; border-radius: 4px; filter: drop-shadow(0 0 30px rgba(0,0,0,0.5)); }
+  .map-container svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+  .hitbox { cursor: pointer; fill: transparent; stroke: transparent; transition: all 0.25s; }
+  .hitbox:hover { fill: rgba(224, 212, 184, 0.08); stroke: rgba(224, 212, 184, 0.3); stroke-width: 2; }
+
+  .tooltip { position: fixed; background: rgba(20,20,20,0.95); border: 1px solid #665a3a; color: #e0d4b8; padding: 10px 14px; border-radius: 4px; font-size: 13px; max-width: 300px; pointer-events: none; z-index: 100; display: none; line-height: 1.5; backdrop-filter: blur(8px); }
+
+  .location-brief { max-width: 1100px; width: 100%; color: #c0b89a; line-height: 1.7; }
+  .location-brief h2 { color: #e0d4b8; font-family: 'Georgia', serif; font-size: 20px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; border-bottom: 1px solid #444; padding-bottom: 6px; }
+  .location-brief h3 { color: #c8b88a; font-family: 'Georgia', serif; font-size: 15px; letter-spacing: 2px; text-transform: uppercase; margin: 24px 0 8px; }
+  .location-brief p { margin-bottom: 12px; font-size: 14px; }
+  .location-brief .read-aloud { background: #222; border-left: 3px solid #887755; padding: 12px 16px; margin: 16px 0; font-style: italic; color: #d0c8a8; border-radius: 0 4px 4px 0; }
+  .location-brief .gm-note { background: #1e1e2a; border-left: 3px solid #556; padding: 10px 14px; margin: 12px 0; font-size: 13px; color: #8888bb; border-radius: 0 4px 4px 0; }
+  .location-brief .gm-note strong { color: #aaaadd; }
+  .location-brief .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+  .location-brief .detail-card { background: #222; border: 1px solid #333; border-radius: 4px; padding: 12px; }
+  .location-brief .detail-card h4 { color: #c8b88a; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .location-brief .detail-card p { font-size: 13px; margin-bottom: 0; }
+  @media (max-width: 700px) { .location-brief .detail-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="tooltip" id="tooltip"></div>
+
+<div class="map-container">
+  <img src="jungle-trek.png" alt="Ajan Kloss — Jungle Clearing">
+
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" preserveAspectRatio="xMidYMid meet">
+
+    <rect x="200" y="20" width="400" height="200" rx="3" class="hitbox"
+      data-room="Ridge Overlook"
+      data-desc="Elevated rocky ground rising above the clearing — dark volcanic stone slick with moisture, cracked into natural shelves and ledges. Thick vines drape down from the canopy overhead, creating curtains of green that break up any silhouette. The rock is high enough to see the entire clearing below — the acid pool, the fungal bloom, the southern trail. Someone standing up here would have eyes on everything. Someone crouching behind the vine curtains would be invisible. The stone is scarred with old claw-marks, deep parallel grooves worn smooth by rain. Something large uses this ridge. The air smells cleaner up here — above the rot, above the spore haze. You can hear the drip of condensation off the canopy and the distant shriek of something avian."/>
+
+    <rect x="10" y="10" width="200" height="280" rx="3" class="hitbox"
+      data-room="Vine Canopy — Northwest"
+      data-desc="A wall of strangler vines and aerial roots descending from massive trees whose trunks disappear into the canopy above. The vines are thick as a human arm, some of them alive and pulsing faintly with moisture, others dry and brittle. Between them, scattered blue pools of standing water collect in the rock depressions — flat, still, reflecting the green light filtering through the leaves. Broad-leafed tropical plants crowd the base of the vines. The air is heavy and wet, and every surface is beaded with condensation. Insects hum in a constant low drone. Movement through here means pushing vines aside — each one you touch releases a shower of droplets and startled insects."/>
+
+    <rect x="620" y="20" width="390" height="240" rx="3" class="hitbox"
+      data-room="Flowering Grove"
+      data-desc="A dense cluster of alien flora pushing up from cracks in the volcanic rock — golden-amber spherical growths the size of fists, clustered like eggs in a nest. They have a waxy, organic sheen and feel warm to the touch. Surrounding them, broad blue and violet flowers with thick, fleshy petals spread in overlapping layers. The colors are vivid, almost aggressive — nothing on this moon is subtle. A sweet, heavy scent rises from the grove, cloying enough to taste. Small luminescent insects hover around the golden spheres in lazy orbits. The rock beneath is stained with a pale residue where moisture from the growths has seeped down. Something about the arrangement feels deliberate — too regular for wild growth, too old to be planted."/>
+
+    <rect x="20" y="340" width="280" height="260" rx="3" class="hitbox"
+      data-room="Moss Bank"
+      data-desc="A thick carpet of emerald moss covering a gradual slope, soft and spongy underfoot — each step sinks slightly and springs back. Low ferns and ground-cover plants sprout through the moss in irregular clusters. The green is vivid, almost electric, and in the dim light filtering through the canopy it seems to glow from within. The moss absorbs sound — footsteps here are nearly silent. Water seeps through it in thin, slow rivulets that catch the light. The air is dense with the smell of living green — chlorophyll and wet earth and something faintly sweet underneath, like overripe fruit."/>
+
+    <rect x="330" y="370" width="220" height="220" rx="3" class="hitbox"
+      data-room="Bioluminescent Bloom"
+      data-desc="A cluster of enormous fungal spheres — five or six of them, each the size of a helmet — growing from the base of a twisted, half-dead tree. They pulse with a deep violet-purple light, slow and rhythmic, like breathing. The glow illuminates the surrounding ground in shifting rings of lavender and indigo. The surface of each sphere is translucent and mottled with darker spots, like something is moving inside. A faint haze of spores hangs in the air around them — visible in the purple light as a shimmering curtain. The smell is sharp and chemical, like ozone mixed with something fungal and damp. The ground beneath the bloom is stained dark, the moss dead in a perfect circle around the base. The tree they grow on is bleached white where the fungus touches it. Every few seconds the pulse brightens, and you can feel a faint pressure change in your ears."/>
+
+    <rect x="300" y="600" width="300" height="200" rx="3" class="hitbox"
+      data-room="Acid Pool"
+      data-desc="A broad, shallow pool filling a natural depression in the rock. The water is a murky yellow-green, opaque, with an oily sheen on the surface that catches the light in sickly rainbows. The edges are fringed with pale moss that thins and dies as it approaches the waterline — nothing grows in direct contact with the liquid. A faint chemical smell rises from it, acrid and metallic, stronger when the breeze dies. The surface is perfectly still. No insects hover over it. No plants trail into it. Every living thing in the clearing keeps its distance. A scattering of small bones lies along the far bank — something came to drink and made a mistake. The rock at the pool's edge is discolored, eaten into rough pits where the water has splashed over time."/>
+
+    <rect x="10" y="640" width="270" height="240" rx="3" class="hitbox"
+      data-room="Shelf Fungi"
+      data-desc="Massive shelf mushrooms growing in overlapping tiers from a moss-covered rock face — the largest ones are a meter across, pale green-white, faintly luminescent. They glow with a soft, steady light unlike the pulsing of the central bloom — a cool, ghostly radiance that casts no shadows. The surface of each shelf is smooth and slightly damp, firm enough to bear weight. Smaller fungi grow in cascading clusters beneath the main shelves, some of them bright orange, others bone-white. The smell is earthy and rich — decomposing wood and wet mycelium. Spore-dust coats everything nearby in a fine pale powder. The glow is bright enough to read by if you stood close enough. In the dark, these would be visible from fifty meters."/>
+
+    <rect x="570" y="270" width="220" height="230" rx="3" class="hitbox"
+      data-room="Rocky Shelf — East"
+      data-desc="Open volcanic rock breaking through the moss and vegetation — a shelf of dark basalt, cracked and weathered, with shallow blue pools collecting in every depression. The pools are small, a handspan across, and clear — rainwater, not the murky acid of the larger pool to the south. Pale lichens crust the rock in irregular patches. The ground here is uneven, broken into natural steps and ledges. Footing is treacherous when wet, and it is always wet. The rock radiates a faint coolness even in the jungle heat — volcanic stone holds temperature differently than the organic ground around it. From here you can see across to the bioluminescent bloom and down to the acid pool. The eastern jungle wall rises close — dense vegetation, impenetrable without cutting."/>
+
+    <rect x="570" y="500" width="150" height="130" rx="3" class="hitbox"
+      data-room="Perforated Rock"
+      data-desc="A strange rock formation jutting from the ground at an angle — dark stone riddled with smooth, circular holes of varying sizes, like something bored through it from the inside. The holes are deep, some of them going clean through. Wind moving through them produces a faint, breathy whistle that rises and falls with the breeze — an eerie, almost musical sound. Pale green moss fills some of the lower holes. Small creatures — finger-length insects with iridescent shells — nest in the upper cavities, emerging in brief flurries when the wind shifts. The rock itself is different from the surrounding basalt — lighter, almost chalite, with a faintly crystalline grain. It doesn't belong here. Something moved it."/>
+
+    <rect x="700" y="700" width="230" height="230" rx="3" class="hitbox"
+      data-room="Spiral Ferns"
+      data-desc="A dense stand of coiled ferns — each frond wound in a tight spiral from base to tip, some of them two meters tall, unfurling in slow motion over days. The fronds are dark green edged with rust-red, and they grow in concentric rings around a central point as if radiating outward from something buried underneath. Pushing through them releases a sharp, resinous smell and a cascade of moisture trapped between the coils. The ground beneath is soft — decaying leaf-litter over spongy soil. Visibility through the ferns is poor; anything more than three meters away is just green shapes and shadows. Small blue pools dot the gaps between the fern clusters, clear and shallow."/>
+
+    <rect x="350" y="830" width="300" height="170" rx="3" class="hitbox"
+      data-room="Jungle Path — South Entry"
+      data-desc="The trail opens from the dense jungle into the clearing — a natural gap in the vegetation where the canopy thins enough to let diffused green light reach the ground. The path is barely a path — compressed moss, bent ferns, and the occasional muddy bootprint that fills with water within minutes. The transition from enclosed jungle to open clearing happens in a few steps. Ahead, the bioluminescent bloom is the first thing you see — impossible to miss, that purple glow drawing the eye. The acid pool glints dully to the left. The rocky ridge rises to the north. Standing at this threshold, you are exposed to anything watching from higher ground. The jungle behind you is dark, close, and full of sound. The clearing ahead is quieter — the insects thin out near the bloom."/>
+
+    <rect x="850" y="880" width="150" height="130" rx="3" class="hitbox"
+      data-room="Abandoned Equipment"
+      data-desc="Half-buried in fern growth and creeping moss — a military supply crate, Imperial-standard, its plastoid shell cracked and weathered. The lid is ajar. Inside, nothing useful remains — empty power cell housings, a corroded tool, packaging material. The crate has been here long enough for the jungle to start consuming it. Moss grows across the surface in a green skin. Root tendrils have cracked one corner open. The Imperial serial number is still partially legible, stenciled in faded white. Someone was here before you. They left in a hurry, or they didn't leave at all."/>
+
+    <rect x="10" y="850" width="200" height="160" rx="3" class="hitbox"
+      data-room="Dense Undergrowth — Southwest"
+      data-desc="Impenetrable jungle wall — layers of broad-leafed plants, climbing vines, and low trees tangled together so tightly that the interior is pure darkness. Blue flowers push out from the edges, their petals thick and fleshy, coated with a thin film of moisture. The undergrowth hums with insect life — clicks, buzzes, and a low thrumming vibration that seems to come from everywhere. Something large moves in the darkness beyond the leaf wall, rustling branches at shoulder height. The sound stops when you stop. Starts again when you move. The air at the jungle edge is noticeably cooler, pushed outward by the mass of vegetation exhaling moisture."/>
+
+    <rect x="0" y="550" width="130" height="100" rx="3" class="hitbox"
+      data-room="Fallen Log"
+      data-desc="A massive tree trunk brought down by age or storm, lying across the western edge of the clearing. The bark has long since rotted away, leaving pale, fibrous wood colonized by shelf fungi, beetle galleries, and nesting moss. The log is wide enough to shelter behind — waist-high where it rests on the ground, higher where it leans against the rock face where the shelf fungi grow. The wood is soft in places, crumbling under pressure, but the core is still solid. Moisture seeps from every crack. The fungi growing on it are different from the shelf mushrooms on the rock — smaller, darker, and they do not glow."/>
+
+  </svg>
+</div>
+
+<!-- ============ LOCATION BRIEF ============ -->
+<div class="location-brief">
+
+  <h2>Location Brief — Ajan Kloss Jungle Clearing</h2>
+  <p>Deep in the jungle of Ajan Kloss, a clearing opens in the dense canopy — a natural amphitheater of volcanic rock, alien vegetation, and environmental hazards. The air is thick with humidity, spore haze, and the constant drone of insects. Bioluminescent organisms provide the only light beneath the canopy. Nothing about this place is welcoming. Everything about it is alive.</p>
+
+  <h3>Arrival</h3>
+  <div class="read-aloud">
+    The jungle is alive — and hungry. Every step forward is a negotiation with the terrain. Acid pools disguised as standing water hiss when a thrown rock disturbs them. Fungal blooms the size of speeder bikes pulse with a sickly bioluminescence, and you quickly learn that disturbing them triggers a violent detonation of toxic spores.
+
+    Then the ambush comes — not from Imperials, but from a ghost. A lone figure drops from the canopy — lean, hard, wearing tattered Separatist commando gear patched with strips of woven plant fiber and beadwork you don't recognize. Indigenous craftsmanship. Whoever this man is, he's been here a long time.
+
+    His rifle is aimed at your heads. But his finger isn't on the trigger. He's studying you.
+  </div>
+
+  <h3>The Clearing</h3>
+  <div class="detail-grid">
+    <div class="detail-card">
+      <h4>Canopy</h4>
+      <p>The canopy thins over the clearing but never fully opens — diffused green-gold light filters through, enough to see by, not enough to feel exposed. Vine curtains hang from the edges, swaying in air currents that don't reach the ground. The trees surrounding the clearing are massive — trunks wider than a speeder, bark covered in climbing moss and parasitic ferns.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Ground</h4>
+      <p>Volcanic basalt, the same dark stone as the Vanishing Place fortress, broken through a thick layer of moss and humus. Where the rock is exposed, it's slick with moisture. Where it's covered, the moss is soft and spongy, absorbing footsteps. The ground is uneven — natural steps, ridges, and depressions filled with standing water of varying safety.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Sound</h4>
+      <p>Constant insect drone — layered buzzes, clicks, and a deep thrumming that seems to pulse in time with the bioluminescent bloom. Bird-analogue shrieks from the canopy, irregular and startling. Water dripping everywhere. The jungle never stops talking. When it goes quiet, something is wrong.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Smell</h4>
+      <p>Wet earth, decomposing vegetation, chlorophyll so dense it coats the back of your throat. Near the bloom: sharp chemical ozone. Near the acid pool: metallic, acrid. Near the shelf fungi: rich earth and mycelium. The smells layer and shift as you move — three steps in any direction changes what you're breathing.</p>
+    </div>
+  </div>
+
+  <h3>Environmental Hazards</h3>
+  <div class="detail-grid">
+    <div class="detail-card">
+      <h4>Acid Pools</h4>
+      <p>Disguised as standing water. The murky yellow-green color is the giveaway — clear blue pools are safe rainwater; anything opaque with an oily sheen is digestive acid, biologically produced by organisms in the rock substrate. Contact causes immediate chemical burns. Submersion is fatal. A thrown object produces a visible hiss and dissolves organic material on contact. A tox detector identifies them instantly. Without one, a careful observer notices the dead-zone around the edges — no moss, no insects, nothing alive touches the waterline.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Bioluminescent Fungal Blooms</h4>
+      <p>The large purple-glowing spheres are pressurized spore vessels. Physical impact, blaster fire, or significant vibration triggers a violent detonation — a burst of toxic spores in a 5-meter radius. The spores cause choking, disorientation, and respiratory damage without a breath mask. The bloom in the clearing center is the largest visible specimen, but smaller blooms grow in clusters throughout the jungle. They pulse brighter when disturbed — a warning, if you know to read it.</p>
+    </div>
+  </div>
+
+  <div class="gm-note">
+    <strong>GM Note — Mandrake's Ambush:</strong> Vazus Mandrake is positioned on the ridge overlook when the PCs enter from the south trail. He has complete visibility of the clearing and has been watching them since before they reached the clearing — he heard them coming through the jungle long before they saw the opening. His rifle is aimed but his finger is off the trigger. He is evaluating, not attacking. He drops from the vine canopy once the PCs are in the clearing, landing on the elevated rock where he has high-ground advantage. The encounter is designed to resolve socially — he wants allies, not enemies. Combat only happens if the PCs initiate it. If they do, Mandrake knows this terrain intimately: he'll use the bloom as area denial, the acid pool as a barrier, and the vine canopy for rapid repositioning. He won't fight to kill — he'll disengage into the jungle and the PCs lose their only guide to the fortress.
+  </div>
+
+  <div class="gm-note">
+    <strong>GM Note — Mandrake's Deal:</strong> Once convinced the heroes are against Skarn (or at least against the Empire), Mandrake reveals the full picture. His people — indigenous Klossians who took him in after the Clone Wars — are imprisoned inside the Vanishing Place behind laser fences powered by the fortress generator. He offers to guide the crew inside through a secret drainage sluice in exchange for sabotaging the generator. The generator powers four systems: perimeter turrets, prisoner laser fences, detention security doors, and the sensor grid. One sabotage action = four payoffs. This is the moment the crew's plan clicks together — destroying the generator also solves Maya's turret problem from the crash landing.
+  </div>
+
+  <div class="gm-note">
+    <strong>GM Note — If Combat Breaks Out:</strong> Mandrake is a Separatist Holdout Commando — Tier 2 Stalker, trained in jungle warfare. He has home-field advantage: he knows every acid pool, every bloom, every sight line. If the PCs shoot first, he retreats into the canopy using the vine network (movement between zones without touching the ground). He fires warning shots first — hitting the ground near their feet, detonating a bloom at range to create a spore barrier. He's trying to communicate "I could kill you but I'm choosing not to." If they persist, he vanishes into the jungle. The PCs then have to find the fortress without a guide and without knowing about the drainage sluice — a significantly harder path.
+  </div>
+
+  <h3>Terrain Features — Quick Reference</h3>
+  <div class="detail-grid">
+    <div class="detail-card">
+      <h4>High Ground</h4>
+      <p>The ridge overlook in the north provides elevated positioning with full visibility of the clearing. The rocky shelf on the east side offers partial elevation. The shelf fungi area on the southwest is low ground — poor visibility, good concealment.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Concealment</h4>
+      <p>The vine canopy provides overhead cover and vertical movement options for anyone who can climb. The spiral ferns in the southeast block line-of-sight at ground level. The moss bank absorbs sound. The dense undergrowth on the jungle edges is impenetrable without cutting.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Hazard Zones</h4>
+      <p>The bioluminescent bloom dominates the center — anything that triggers it creates a toxic cloud. The acid pool blocks direct movement across the southern clearing. Smaller blue pools scattered across the rocky areas are safe (rainwater) but indistinguishable from acid pools without testing.</p>
+    </div>
+    <div class="detail-card">
+      <h4>The Abandoned Crate</h4>
+      <p>Imperial supply crate, weathered and empty. Tells the PCs someone else has been here — and that the Empire's reach extends even to this uncharted moon. The serial number, if traced, dates to a Clone Wars-era supply drop. Mandrake may comment on it if asked.</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const tooltip = document.getElementById('tooltip');
+  document.querySelectorAll('.hitbox').forEach(el => {
+    el.addEventListener('mouseenter', e => {
+      const room = el.dataset.room;
+      const desc = el.dataset.desc;
+      if (!room) return;
+      tooltip.innerHTML = '<strong style="color:#e0d4b8;text-transform:uppercase;letter-spacing:1px;font-size:14px;">' + room + '</strong><br><br><span style="color:#c0b89a;">' + desc + '</span>';
+      tooltip.style.display = 'block';
+    });
+    el.addEventListener('mousemove', e => {
+      const x = e.clientX + 15;
+      const y = e.clientY + 15;
+      const maxX = window.innerWidth - 320;
+      const maxY = window.innerHeight - 200;
+      tooltip.style.left = Math.min(x, maxX) + 'px';
+      tooltip.style.top = Math.min(y, maxY) + 'px';
+    });
+    el.addEventListener('mouseleave', () => {
+      tooltip.style.display = 'none';
+    });
+  });
+</script>
+</body>
+</html>

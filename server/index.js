@@ -89,7 +89,7 @@ app.get('/create/', (req, res) => res.sendFile(path.join(ROOT, 'public', 'create
 app.get('/market',  (req, res) => res.redirect('/market/'));
 app.get('/market/', (req, res) => res.sendFile(path.join(ROOT, 'public', 'market', 'index.html')));
 
-const ALLOWED_MAPS = ['burning-deck', 'switch-lair', 'landing-field', 'vanishing-place', 'banshee'];
+const ALLOWED_MAPS = ['burning-deck', 'switch-lair', 'landing-field', 'vanishing-place', 'banshee', 'jungle-trek'];
 
 app.post('/api/maps/save', (req, res) => {
   if (req.userRole !== 'gm') return res.status(403).json({ error: 'GM access required.' });
