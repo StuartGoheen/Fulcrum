@@ -375,6 +375,17 @@
     .crawl-launch-btn:hover { background: #c8a44e; color: #1a1a1e; border-color: #c8a44e; }
     .crawl-launch-btn svg { width: 1.5rem; height: 1.5rem; }
 
+    .galaxy-map-btn {
+      position: fixed; bottom: 1.5rem; left: 1.5rem; z-index: 40;
+      width: 3.25rem; height: 3.25rem;
+      display: flex; align-items: center; justify-content: center;
+      background: #2a2a2e; border: 1px solid #3a3632; color: #c8a44e;
+      cursor: pointer; transition: background 0.15s, color 0.15s, border-color 0.15s, box-shadow 0.15s;
+      border-radius: 4px; padding: 0; text-decoration: none;
+    }
+    .galaxy-map-btn:hover { background: #c8a44e; color: #1a1a1e; border-color: #c8a44e; box-shadow: 0 0 12px rgba(200,164,78,0.4); }
+    .galaxy-map-btn svg { width: 1.5rem; height: 1.5rem; }
+
     @media (max-width: 768px) {
       .forge-cards { flex-direction: column; }
       .forge-hero-title { font-size: 1.6rem; }
@@ -480,6 +491,10 @@
       </div>
     </div>
   </div>
+
+  <a href="/galaxy-map.html" class="galaxy-map-btn" aria-label="Tour the Galaxy" title="Tour the Galaxy">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(-30 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(30 12 12)"/><circle cx="12" cy="12" r="2" fill="currentColor" stroke="none"/></svg>
+  </a>
 
   <button id="btn-crawl" class="crawl-launch-btn" aria-label="Play opening crawl" title="Play Mission Briefing">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
