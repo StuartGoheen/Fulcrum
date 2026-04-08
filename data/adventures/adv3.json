@@ -5,14 +5,54 @@
   "act": 1,
   "summary": "The heroes chase Varga the Hutt to Cloud City on Bespin, infiltrate a Sabacc tournament to intercept an Imperial payment, and face a desperate hangar bay showdown that ends with an orbital battle and a moral choice that defines the party.",
   "marks": [
-    { "id": "adv3_arrival", "label": "Cloud City Welcome", "desc": "Arrive on Bespin and establish your cover among the high-rollers and hustlers.", "hidden": false },
-    { "id": "adv3_sabacc", "label": "The Game Within the Game", "desc": "Enter the Sabacc tournament and use it to get close to the Imperial payment.", "hidden": false },
-    { "id": "adv3_arandis", "label": "The Contact", "desc": "Identify and make contact with Arandis. Not everyone at the table is who they seem.", "hidden": true },
-    { "id": "adv3_intercept", "label": "The Intercept", "desc": "Steal or redirect the Imperial payment before it reaches Varga's accounts.", "hidden": true },
-    { "id": "adv3_hangar", "label": "Hangar Bay Showdown", "desc": "Fight your way through the hangar as the escape plan falls apart.", "hidden": true },
-    { "id": "adv3_orbital", "label": "Into the Clouds", "desc": "Survive the orbital pursuit above Bespin. The tibanna gas clouds are your only cover.", "hidden": true },
-    { "id": "adv3_choice", "label": "The Moral Ledger", "desc": "Make the choice that defines who this crew really is. There's no taking it back.", "hidden": true },
-    { "id": "adv3_crucible", "label": "The Crucible", "desc": "The plan catastrophically fails. Improvise under fire to survive.", "hidden": false }
+    {
+      "id": "adv3_arrival",
+      "label": "Cloud City Welcome",
+      "desc": "Arrive on Bespin and establish your cover among the high-rollers and hustlers.",
+      "hidden": false
+    },
+    {
+      "id": "adv3_sabacc",
+      "label": "The Game Within the Game",
+      "desc": "Enter the Sabacc tournament and use it to get close to the Imperial payment.",
+      "hidden": false
+    },
+    {
+      "id": "adv3_arandis",
+      "label": "The Contact",
+      "desc": "Identify and make contact with Arandis. Not everyone at the table is who they seem.",
+      "hidden": true
+    },
+    {
+      "id": "adv3_intercept",
+      "label": "The Intercept",
+      "desc": "Steal or redirect the Imperial payment before it reaches Varga's accounts.",
+      "hidden": true
+    },
+    {
+      "id": "adv3_hangar",
+      "label": "Hangar Bay Showdown",
+      "desc": "Fight your way through the hangar as the escape plan falls apart.",
+      "hidden": true
+    },
+    {
+      "id": "adv3_orbital",
+      "label": "Into the Clouds",
+      "desc": "Survive the orbital pursuit above Bespin. The tibanna gas clouds are your only cover.",
+      "hidden": true
+    },
+    {
+      "id": "adv3_choice",
+      "label": "The Moral Ledger",
+      "desc": "Make the choice that defines who this crew really is. There's no taking it back.",
+      "hidden": true
+    },
+    {
+      "id": "adv3_crucible",
+      "label": "The Crucible",
+      "desc": "The plan catastrophically fails. Improvise under fire to survive.",
+      "hidden": false
+    }
   ],
   "gearNotes": [
     {

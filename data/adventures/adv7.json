@@ -5,13 +5,48 @@
   "act": 3,
   "summary": "Trapped on Eriadu with the Empire closing in, the heroes fight their way out of the lower sumps and off-world. As they reach the rendezvous coordinates, the Resurgence drops out of hyperspace — and a Star Destroyer follows. Draco intercepts Denia's escape pod. The heroes watch the Resurgence die, TIE fighters swarming the survivors, and are forced to jump to hyperspace with nothing.",
   "marks": [
-    { "id": "adv7_sumps", "label": "The Lower Sumps", "desc": "Fight your way through Eriadu's industrial underworld to reach the surface.", "hidden": false },
-    { "id": "adv7_escape", "label": "Breaking Atmosphere", "desc": "Get off-world with the Empire hunting you through the orbital cordon.", "hidden": false },
-    { "id": "adv7_resurgence", "label": "The Resurgence Falls", "desc": "Watch the Resurgence die. There's nothing you can do.", "hidden": true },
-    { "id": "adv7_denia_taken", "label": "Denia's Capture", "desc": "Draco takes Denia. The choice of whether to pursue defines what comes next.", "hidden": true },
-    { "id": "adv7_survivors", "label": "The Survivors", "desc": "Recover what you can from the wreckage. People, supplies, hope.", "hidden": true },
-    { "id": "adv7_nothing", "label": "Into the Void", "desc": "Jump to hyperspace with nothing. No ship, no base, no safety net.", "hidden": true },
-    { "id": "adv7_crucible", "label": "The Crucible", "desc": "The plan catastrophically fails. Improvise under fire to survive.", "hidden": false }
+    {
+      "id": "adv7_sumps",
+      "label": "The Lower Sumps",
+      "desc": "Fight your way through Eriadu's industrial underworld to reach the surface.",
+      "hidden": false
+    },
+    {
+      "id": "adv7_escape",
+      "label": "Breaking Atmosphere",
+      "desc": "Get off-world with the Empire hunting you through the orbital cordon.",
+      "hidden": false
+    },
+    {
+      "id": "adv7_resurgence",
+      "label": "The Resurgence Falls",
+      "desc": "Watch the Resurgence die. There's nothing you can do.",
+      "hidden": true
+    },
+    {
+      "id": "adv7_denia_taken",
+      "label": "Denia's Capture",
+      "desc": "Draco takes Denia. The choice of whether to pursue defines what comes next.",
+      "hidden": true
+    },
+    {
+      "id": "adv7_survivors",
+      "label": "The Survivors",
+      "desc": "Recover what you can from the wreckage. People, supplies, hope.",
+      "hidden": true
+    },
+    {
+      "id": "adv7_nothing",
+      "label": "Into the Void",
+      "desc": "Jump to hyperspace with nothing. No ship, no base, no safety net.",
+      "hidden": true
+    },
+    {
+      "id": "adv7_crucible",
+      "label": "The Crucible",
+      "desc": "The plan catastrophically fails. Improvise under fire to survive.",
+      "hidden": false
+    }
   ],
   "gearNotes": [
     {

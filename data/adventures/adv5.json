@@ -5,13 +5,48 @@
   "act": 2,
   "summary": "The holocron charts need drift algorithms to be usable. Those algorithms are locked inside an Imperial research station on Malpaz — an occupied industrial world ground down under the boot. One more job, one more step to the payday at Vel Shara. But the crew's actions on Malpaz spark something they didn't plan: a full-scale uprising among the oppressed population. The people fight back because they saw someone else fight first. The crew extracts under fire as the insurrection spreads — never knowing that the world they just liberated is already marked as Leviathan's demonstration target.",
   "marks": [
-    { "id": "adv5_infiltrate", "label": "Under the Boot", "desc": "Infiltrate the occupied world of Malpaz without drawing Imperial attention.", "hidden": false },
-    { "id": "adv5_station", "label": "The Research Station", "desc": "Break into the Imperial research station and locate the drift algorithms.", "hidden": false },
-    { "id": "adv5_algorithms", "label": "The Missing Variable", "desc": "Extract the drift algorithms from the station's secure data vault.", "hidden": true },
-    { "id": "adv5_spark", "label": "The Spark", "desc": "Your actions ignite something in the population. The insurrection begins.", "hidden": true },
-    { "id": "adv5_uprising", "label": "Liberation Day", "desc": "The people of Malpaz rise up. Help them or use the chaos as cover — either way, the Empire responds.", "hidden": true },
-    { "id": "adv5_extraction", "label": "Hot Extract", "desc": "Get off-world as Imperial reinforcements arrive in force.", "hidden": true },
-    { "id": "adv5_crucible", "label": "The Crucible", "desc": "The plan catastrophically fails. Improvise under fire to survive.", "hidden": false }
+    {
+      "id": "adv5_infiltrate",
+      "label": "Under the Boot",
+      "desc": "Infiltrate the occupied world of Malpaz without drawing Imperial attention.",
+      "hidden": false
+    },
+    {
+      "id": "adv5_station",
+      "label": "The Research Station",
+      "desc": "Break into the Imperial research station and locate the drift algorithms.",
+      "hidden": false
+    },
+    {
+      "id": "adv5_algorithms",
+      "label": "The Missing Variable",
+      "desc": "Extract the drift algorithms from the station's secure data vault.",
+      "hidden": true
+    },
+    {
+      "id": "adv5_spark",
+      "label": "The Spark",
+      "desc": "Your actions ignite something in the population. The insurrection begins.",
+      "hidden": true
+    },
+    {
+      "id": "adv5_uprising",
+      "label": "Liberation Day",
+      "desc": "The people of Malpaz rise up. Help them or use the chaos as cover — either way, the Empire responds.",
+      "hidden": true
+    },
+    {
+      "id": "adv5_extraction",
+      "label": "Hot Extract",
+      "desc": "Get off-world as Imperial reinforcements arrive in force.",
+      "hidden": true
+    },
+    {
+      "id": "adv5_crucible",
+      "label": "The Crucible",
+      "desc": "The plan catastrophically fails. Improvise under fire to survive.",
+      "hidden": false
+    }
   ],
   "gearNotes": [
     {

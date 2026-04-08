@@ -5,13 +5,48 @@
   "act": 2,
   "summary": "The heroes track Varth to Eriadu — Grand Moff Tarkin's seat of power — and infiltrate his Citadel to learn the truth. Through the Glass Bridge, they witness Varth receive command of Leviathan from Tarkin himself. They must slice the Primary Data Center for Varth's transit orders while fighting Death Troopers and Draco's Apprentice, then escape through the acid rain of Eriadu's industrial hellscape.",
   "marks": [
-    { "id": "adv6_eriadu", "label": "Tarkin's World", "desc": "Reach Eriadu and navigate the most heavily Imperial world in the Outer Rim.", "hidden": false },
-    { "id": "adv6_citadel", "label": "The Citadel", "desc": "Infiltrate Tarkin's Citadel — the seat of power for the entire Outer Rim.", "hidden": false },
-    { "id": "adv6_glass_bridge", "label": "The Glass Bridge", "desc": "Witness the truth through the Glass Bridge. What you see changes everything.", "hidden": true },
-    { "id": "adv6_data_center", "label": "The Primary Data Center", "desc": "Slice into the PDC and extract Varth's transit orders. The clock is ticking.", "hidden": true },
-    { "id": "adv6_apprentice", "label": "The Apprentice", "desc": "Face Draco's Apprentice in the corridors of the Citadel.", "hidden": true },
-    { "id": "adv6_acid_rain", "label": "The Hellscape", "desc": "Escape through Eriadu's industrial acid rain. The planet itself is hostile.", "hidden": true },
-    { "id": "adv6_crucible", "label": "The Crucible", "desc": "The plan catastrophically fails. Improvise under fire to survive.", "hidden": false }
+    {
+      "id": "adv6_eriadu",
+      "label": "Tarkin's World",
+      "desc": "Reach Eriadu and navigate the most heavily Imperial world in the Outer Rim.",
+      "hidden": false
+    },
+    {
+      "id": "adv6_citadel",
+      "label": "The Citadel",
+      "desc": "Infiltrate Tarkin's Citadel — the seat of power for the entire Outer Rim.",
+      "hidden": false
+    },
+    {
+      "id": "adv6_glass_bridge",
+      "label": "The Glass Bridge",
+      "desc": "Witness the truth through the Glass Bridge. What you see changes everything.",
+      "hidden": true
+    },
+    {
+      "id": "adv6_data_center",
+      "label": "The Primary Data Center",
+      "desc": "Slice into the PDC and extract Varth's transit orders. The clock is ticking.",
+      "hidden": true
+    },
+    {
+      "id": "adv6_apprentice",
+      "label": "The Apprentice",
+      "desc": "Face Draco's Apprentice in the corridors of the Citadel.",
+      "hidden": true
+    },
+    {
+      "id": "adv6_acid_rain",
+      "label": "The Hellscape",
+      "desc": "Escape through Eriadu's industrial acid rain. The planet itself is hostile.",
+      "hidden": true
+    },
+    {
+      "id": "adv6_crucible",
+      "label": "The Crucible",
+      "desc": "The plan catastrophically fails. Improvise under fire to survive.",
+      "hidden": false
+    }
   ],
   "gearNotes": [
     {

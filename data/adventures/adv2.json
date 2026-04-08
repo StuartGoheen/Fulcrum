@@ -1755,21 +1755,182 @@
                   "Gladiator"
                 ],
                 "computed": {
-                  "power": 3,
+                  "arenas": {
+                    "physique": 3,
+                    "reflex": 2,
+                    "grit": 3,
+                    "wits": 1,
+                    "presence": 2
+                  },
                   "defense": 4,
-                  "evasion": 2,
-                  "resist": 3,
-                  "vitality": 9,
+                  "evasion": 3,
+                  "resist": 4,
+                  "vitality": 11,
+                  "rawVitality": 7,
+                  "powers": {
+                    "physique": 5,
+                    "reflex": 3,
+                    "grit": 4,
+                    "wits": 2,
+                    "presence": 3
+                  },
+                  "exploits": 1,
                   "initiative": 3,
-                  "controlDie": "d6",
-                  "actions": 1,
-                  "damageTiers": {
-                    "chassis": "medium",
-                    "label": "Medium",
-                    "fleeting": 2,
-                    "masterful": 4,
-                    "legendary": 6
-                  }
+                  "role": {
+                    "id": "threat",
+                    "name": "Threat",
+                    "category": "combat",
+                    "description": "High-damage priority target. The NPC the PCs must focus or suffer the consequences.",
+                    "passive": {
+                      "name": "Lethal Focus",
+                      "description": "+1 Power to attacks in chosen arena.",
+                      "statMod": {
+                        "powerArena": 1
+                      }
+                    },
+                    "powerSources": {
+                      "martial": {
+                        "action": {
+                          "name": "Devastating Blow",
+                          "defense": "dodge/endure",
+                          "npcEffects": {
+                            "fleeting": "Chassis damage",
+                            "masterful": "Chassis damage",
+                            "legendary": "Chassis damage"
+                          },
+                          "isAttack": true,
+                          "arena": "physique"
+                        },
+                        "maneuver": null,
+                        "gambits": [
+                          {
+                            "name": "Brutal Blow",
+                            "cost": "-1 Power",
+                            "description": "Attack also inflicts [Shaken] Lingering.",
+                            "rider": "[Shaken]"
+                          },
+                          {
+                            "name": "Reckless Swing",
+                            "cost": "-1 Power",
+                            "description": "Attack targets one additional enemy in the same zone. Separate defense roll.",
+                            "rider": "Additional target"
+                          }
+                        ],
+                        "exploit": {
+                          "name": "Intimidating Advance",
+                          "trigger": "Threat enters a zone occupied by an enemy.",
+                          "description": "Presence vs Resist. Target gains [Rattled] Tactical."
+                        }
+                      },
+                      "ranged": {
+                        "action": {
+                          "name": "Dead Shot",
+                          "defense": "dodge/endure",
+                          "npcEffects": {
+                            "fleeting": "Chassis damage",
+                            "masterful": "Chassis damage",
+                            "legendary": "Chassis damage"
+                          },
+                          "isAttack": true,
+                          "arena": "reflex"
+                        },
+                        "maneuver": null,
+                        "gambits": [
+                          {
+                            "name": "Crippling Shot",
+                            "cost": "-1 Power",
+                            "description": "Attack also inflicts [Slowed] Tactical.",
+                            "rider": "[Slowed]"
+                          },
+                          {
+                            "name": "Burst Fire",
+                            "cost": "-1 Power",
+                            "description": "Attack targets one additional enemy in the zone. Separate defense roll.",
+                            "rider": "Additional target"
+                          }
+                        ],
+                        "exploit": {
+                          "name": "Snap Shot",
+                          "trigger": "A PC uses Move to enter or cross a zone within weapon range.",
+                          "description": "Threat immediately attacks that PC."
+                        }
+                      },
+                      "force": {
+                        "action": {
+                          "name": "Force Crush",
+                          "defense": "resist",
+                          "npcEffects": {
+                            "fleeting": "Chassis damage",
+                            "masterful": "Chassis damage",
+                            "legendary": "Chassis damage"
+                          },
+                          "isAttack": true,
+                          "arena": "grit"
+                        },
+                        "maneuver": null,
+                        "gambits": [
+                          {
+                            "name": "Force Rend",
+                            "cost": "-1 Power",
+                            "description": "Attack also inflicts [Bleeding] Lingering.",
+                            "rider": "[Bleeding]"
+                          },
+                          {
+                            "name": "Cascading Force",
+                            "cost": "-1 Power",
+                            "description": "Attack targets one additional enemy in the zone. Separate defense roll.",
+                            "rider": "Additional target"
+                          }
+                        ],
+                        "exploit": {
+                          "name": "Dark Presence",
+                          "trigger": "Threat enters a zone occupied by an enemy.",
+                          "description": "Grit vs Resist. All enemies in zone gain [Rattled] Tactical."
+                        }
+                      },
+                      "leader": {
+                        "action": {
+                          "name": "Execute Order",
+                          "defense": "resist",
+                          "npcEffects": {
+                            "fleeting": "Target gains [Marked] Tactical",
+                            "masterful": "Target gains [Marked] Tactical. One ally in range may spend Exploit pip to attack the marked target.",
+                            "legendary": "Target gains [Marked] Tactical. Two allies in range may each spend Exploit pip to attack the marked target."
+                          },
+                          "isAttack": false,
+                          "arena": "presence"
+                        },
+                        "maneuver": null,
+                        "gambits": [
+                          {
+                            "name": "Covering Fire",
+                            "cost": "-1 Power",
+                            "description": "On personal blaster attack: if target takes Vitality damage, creates an Opening for one ally in range to exploit.",
+                            "rider": "Opening"
+                          }
+                        ],
+                        "exploit": {
+                          "name": "Retaliatory Order",
+                          "trigger": "An ally within 2 zones takes damage.",
+                          "description": "One other ally within 2 zones may immediately attack the source. Costs that ally's Exploit pip."
+                        }
+                      }
+                    }
+                  },
+                  "classification": {
+                    "id": "elite",
+                    "name": "Elite",
+                    "description": "Bolt-on. Tougher and more versatile. The featured enemy that demands respect.",
+                    "vitalityMod": 1.5,
+                    "exploitMod": 1,
+                    "notes": "An Elite can replace 2-3 Standards and provide a more interesting fight."
+                  },
+                  "immunities": [],
+                  "vulnerabilities": [],
+                  "scale": null,
+                  "scaleLevel": 1,
+                  "ironClad": false,
+                  "isStationary": false
                 },
                 "roleKit": {
                   "roleName": "Threat / Martial",
@@ -1778,33 +1939,65 @@
                     "defense": "dodge/endure",
                     "npcEffects": {
                       "fleeting": "Chassis damage",
-                      "masterful": "Chassis damage + [Staggered]",
-                      "legendary": "Chassis damage + [Staggered] + [Prone]"
+                      "masterful": "Chassis damage",
+                      "legendary": "Chassis damage"
                     },
                     "isAttack": true,
                     "arena": "physique"
                   },
-                  "maneuver": {
-                    "name": "Intimidating Advance",
-                    "modifies": "Move",
-                    "description": "Modifies Move. Move 1 zone toward a target. That target must succeed on a Grit check vs Threat's Power or gain [Rattled]."
+                  "passive": {
+                    "name": "Lethal Focus",
+                    "description": "+1 Power to attacks in chosen arena.",
+                    "statMod": {
+                      "powerArena": 1
+                    }
                   },
+                  "maneuver": null,
                   "gambit": {
-                    "name": "Brutal Strike",
+                    "name": "Brutal Blow",
                     "cost": "-1 Power",
-                    "description": "In addition to normal effects, target gains [Staggered] Tactical.",
-                    "rider": "[Staggered]"
+                    "description": "Attack also inflicts [Shaken] Lingering.",
+                    "rider": "[Shaken]"
                   },
+                  "gambits": [
+                    {
+                      "name": "Brutal Blow",
+                      "cost": "-1 Power",
+                      "description": "Attack also inflicts [Shaken] Lingering.",
+                      "rider": "[Shaken]"
+                    },
+                    {
+                      "name": "Reckless Swing",
+                      "cost": "-1 Power",
+                      "description": "Attack targets one additional enemy in the same zone. Separate defense roll.",
+                      "rider": "Additional target"
+                    }
+                  ],
                   "exploit": {
-                    "name": "Predator's Opening",
-                    "trigger": "A PC in the same zone takes damage from another source this round.",
-                    "description": "Immediately make an attack against that PC at -2 Power."
+                    "name": "Intimidating Advance",
+                    "trigger": "Threat enters a zone occupied by an enemy.",
+                    "description": "Presence vs Resist. Target gains [Rattled] Tactical."
                   },
                   "powerSource": "martial"
                 },
                 "notes": "Elite Brute gladiator. Tougher than standard Trandoshans (elite = 1.5x Vitality). Crowd favorite — Varga bets heavily on him.",
-                "powerSource": "martial"
-              }
+                "powerSource": "martial",
+                "name": "Gorrak",
+                "shipDetails": {
+                  "hullType": "",
+                  "crew": "",
+                  "hyperdrive": "",
+                  "sensors": "",
+                  "shields": "",
+                  "cargo": "",
+                  "speed": ""
+                },
+                "extraGambits": [],
+                "loot": [],
+                "attacks": [],
+                "socialNotes": ""
+              },
+              "loot": []
             }
           ],
           "hazards": "Arena environment — sand floor, repulsor barriers, torch sconces. Crowd throws objects (bottles, food) that can be used as improvised weapons or distractions.",
