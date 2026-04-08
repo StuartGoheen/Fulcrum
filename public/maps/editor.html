@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Map Hitbox Editor</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #1a1a1a; color: #c0b89a; font-family: 'Segoe UI', sans-serif; display: flex; height: 100vh; overflow: hidden; }
+
+  .sidebar { width: 340px; min-width: 340px; background: #222; border-right: 1px solid #333; display: flex; flex-direction: column; overflow: hidden; }
+  .sidebar-header { padding: 16px; border-bottom: 1px solid #333; }
+  .sidebar-header h1 { font-family: 'Georgia', serif; font-size: 16px; letter-spacing: 2px; text-transform: uppercase; color: #e0d4b8; margin-bottom: 12px; }
+  .sidebar-header select { width: 100%; padding: 8px 10px; background: #1a1a1a; border: 1px solid #444; color: #c0b89a; border-radius: 4px; font-size: 13px; cursor: pointer; }
+
+  .hitbox-list { flex: 1; overflow-y: auto; padding: 8px; }
+  .hitbox-item { padding: 10px 12px; border: 1px solid #333; border-radius: 4px; margin-bottom: 6px; cursor: pointer; transition: all 0.15s; font-size: 12px; }
+  .hitbox-item:hover { border-color: #555; background: #2a2a2a; }
+  .hitbox-item.active { border-color: #c8b88a; background: #2a2518; }
+  .hitbox-item .name { font-weight: 600; color: #e0d4b8; font-size: 13px; margin-bottom: 4px; }
+  .hitbox-item .coords { color: #777; font-family: monospace; font-size: 11px; }
+  .hitbox-item .shape-tag { display: inline-block; font-size: 9px; padding: 1px 5px; border-radius: 3px; background: #333; color: #888; margin-left: 6px; vertical-align: middle; }
+  .hitbox-item .shape-tag.path { background: #2a2030; color: #a888cc; }
+
+  .props-panel { border-top: 1px solid #333; padding: 14px; background: #1e1e1e; }
+  .props-panel h3 { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #888; margin-bottom: 10px; }
+  .prop-row { display: flex; gap: 8px; margin-bottom: 8px; }
+  .prop-field { flex: 1; }
+  .prop-field label { display: block; font-size: 10px; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 3px; }
+  .prop-field input { width: 100%; padding: 5px 7px; background: #1a1a1a; border: 1px solid #444; color: #c0b89a; border-radius: 3px; font-family: monospace; font-size: 12px; }
+  .prop-field input:focus { outline: none; border-color: #c8b88a; }
+  .prop-field textarea { width: 100%; padding: 5px 7px; background: #1a1a1a; border: 1px solid #444; color: #c0b89a; border-radius: 3px; font-size: 12px; resize: vertical; min-height: 40px; }
+  .prop-field textarea:focus { outline: none; border-color: #c8b88a; }
+
+  .btn-row { display: flex; gap: 8px; margin-top: 10px; }
+  .btn { padding: 7px 14px; border: 1px solid #444; background: #2a2a2a; color: #c0b89a; border-radius: 4px; cursor: pointer; font-size: 12px; transition: all 0.15s; }
+  .btn:hover { border-color: #c8b88a; background: #332e20; }
+  .btn.primary { border-color: #887755; background: #3a3020; color: #e0d4b8; }
+  .btn.primary:hover { background: #4a3d28; }
+
+  .canvas-area { flex: 1; overflow: auto; position: relative; background: #111; }
+  .map-wrap { position: relative; display: inline-block; transform-origin: 0 0; }
+  .map-wrap img { display: block; user-select: none; -webkit-user-drag: none; }
+  .map-wrap svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+  .hb-rect { fill: transparent; stroke: rgba(0,200,255,0.4); stroke-width: 1.5; cursor: pointer; transition: fill 0.15s; }
+  .hb-rect:hover { fill: rgba(0,200,255,0.06); stroke: rgba(0,200,255,0.7); }
+  .hb-rect.selected { stroke: #ffd54f; stroke-width: 2; fill: rgba(255,213,79,0.08); }
+  .hb-rect.is-path { stroke-dasharray: 6 3; }
+  .hb-path-preview { fill: none; stroke: rgba(168,136,204,0.4); stroke-width: 1.5; pointer-events: none; }
+
+  .resize-handle { fill: #ffd54f; stroke: #aa8800; stroke-width: 1; cursor: nwse-resize; opacity: 0; pointer-events: none; }
+  .resize-handle.active { opacity: 1; pointer-events: auto; }
+  .resize-handle.tl, .resize-handle.br { cursor: nwse-resize; }
+  .resize-handle.tr, .resize-handle.bl { cursor: nesw-resize; }
+  .resize-handle.t, .resize-handle.b { cursor: ns-resize; }
+  .resize-handle.l, .resize-handle.r { cursor: ew-resize; }
+
+  .hb-label { font-size: 9px; fill: rgba(0,200,255,0.7); font-family: monospace; pointer-events: none; text-anchor: middle; dominant-baseline: central; }
+  .hb-label.selected { fill: #ffd54f; }
+
+  .zoom-controls { position: absolute; bottom: 16px; right: 16px; display: flex; gap: 6px; z-index: 10; }
+  .zoom-btn { width: 32px; height: 32px; border: 1px solid #444; background: #222; color: #c0b89a; border-radius: 4px; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; }
+  .zoom-btn:hover { border-color: #888; background: #333; }
+
+  .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #3a3020; border: 1px solid #887755; color: #e0d4b8; padding: 10px 20px; border-radius: 4px; font-size: 13px; z-index: 1000; display: none; }
+</style>
+</head>
+<body>
+
+<div class="toast" id="toast"></div>
+
+<div class="sidebar">
+  <div class="sidebar-header">
+    <h1>Hitbox Editor</h1>
+    <select id="mapSelect">
+      <option value="">— Select a Map —</option>
+      <option value="burning-deck">The Burning Deck</option>
+      <option value="switch-lair">Switch's Lair</option>
+      <option value="landing-field">Reestkii Landing Field</option>
+      <option value="vanishing-place">The Vanishing Place</option>
+    </select>
+  </div>
+
+  <div class="hitbox-list" id="hitboxList"></div>
+
+  <div class="props-panel" id="propsPanel" style="display:none;">
+    <h3>Selected Hitbox</h3>
+    <div class="prop-field" style="margin-bottom:8px;">
+      <label>Name</label>
+      <input type="text" id="propName">
+    </div>
+    <div class="prop-row">
+      <div class="prop-field"><label>X</label><input type="number" id="propX" step="1"></div>
+      <div class="prop-field"><label>Y</label><input type="number" id="propY" step="1"></div>
+    </div>
+    <div class="prop-row">
+      <div class="prop-field"><label>W</label><input type="number" id="propW" step="1"></div>
+      <div class="prop-field"><label>H</label><input type="number" id="propH" step="1"></div>
+    </div>
+    <div class="prop-field" style="margin-top:8px;">
+      <label>Description</label>
+      <textarea id="propDesc" rows="3"></textarea>
+    </div>
+    <div id="pathNote" style="display:none; margin-top:8px; padding:6px 10px; background:#2a2030; border:1px solid #443355; border-radius:3px; font-size:11px; color:#a888cc;">Path/polygon geometry — position is read-only. Name and description are editable. Original SVG shape preserved on copy.</div>
+    <div class="btn-row">
+      <button class="btn primary" id="btnCopyOne">Copy This Element</button>
+    </div>
+  </div>
+
+  <div style="padding:10px; border-top:1px solid #333;">
+    <button class="btn primary" id="btnCopyAll" style="width:100%;">Copy All SVG Hitboxes</button>
+  </div>
+</div>
+
+<div class="canvas-area" id="canvasArea">
+  <div class="map-wrap" id="mapWrap">
+    <div style="padding:40px; color:#555; font-style:italic;">Select a map to begin editing hitboxes.</div>
+  </div>
+  <div class="zoom-controls">
+    <button class="zoom-btn" id="zoomOut">−</button>
+    <button class="zoom-btn" id="zoomFit">⊡</button>
+    <button class="zoom-btn" id="zoomIn">+</button>
+  </div>
+</div>
+
+<script>
+const MAPS = {
+  'burning-deck':   { img: 'burning-deck.png',           vw: 1024, vh: 635 },
+  'switch-lair':    { img: 'switch-lair.png',             vw: 1024, vh: 716 },
+  'landing-field':  { img: 'landing-field.png',           vw: 1024, vh: 576 },
+  'vanishing-place':{ img: 'vanishing-place-rendered.png', vw: 1024, vh: 576 }
+};
+
+let hitboxes = [];
+let selectedIdx = -1;
+let currentMap = null;
+let zoom = 1;
+let dragState = null;
+
+const $ = id => document.getElementById(id);
+const mapSelect = $('mapSelect');
+const hitboxList = $('hitboxList');
+const propsPanel = $('propsPanel');
+const mapWrap = $('mapWrap');
+const canvasArea = $('canvasArea');
+
+mapSelect.addEventListener('change', () => loadMap(mapSelect.value));
+
+async function loadMap(key) {
+  if (!key || !MAPS[key]) { mapWrap.innerHTML = '<div style="padding:40px;color:#555;font-style:italic;">Select a map.</div>'; return; }
+  currentMap = MAPS[key];
+
+  const resp = await fetch(key + '.html');
+  const html = await resp.text();
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, 'text/html');
+
+  const svgSource = doc.querySelector('svg');
+  if (svgSource) {
+    const vb = svgSource.getAttribute('viewBox');
+    if (vb) {
+      const parts = vb.split(/[\s,]+/).map(Number);
+      currentMap.vw = parts[2];
+      currentMap.vh = parts[3];
+    }
+  }
+
+  hitboxes = [];
+  doc.querySelectorAll('.hitbox').forEach(el => {
+    const tag = el.tagName.toLowerCase();
+    const hb = {
+      tag,
+      room: el.getAttribute('data-room') || '',
+      desc: el.getAttribute('data-desc') || '',
+      x: 0, y: 0, w: 0, h: 0,
+      origMarkup: el.outerHTML
+    };
+    if (tag === 'rect') {
+      hb.x = parseFloat(el.getAttribute('x')) || 0;
+      hb.y = parseFloat(el.getAttribute('y')) || 0;
+      hb.w = parseFloat(el.getAttribute('width')) || 0;
+      hb.h = parseFloat(el.getAttribute('height')) || 0;
+      hb.rx = el.getAttribute('rx') || '0';
+    } else if (tag === 'path' || tag === 'polygon') {
+      const bbox = estimateBBox(el);
+      hb.x = bbox.x; hb.y = bbox.y; hb.w = bbox.w; hb.h = bbox.h;
+      hb.pathData = el.getAttribute('d') || '';
+      hb.points = el.getAttribute('points') || '';
+      hb.isPath = true;
+    } else if (tag === 'g') {
+      hb.isGroup = true;
+      const rects = el.querySelectorAll('rect, circle, ellipse, polygon');
+      let minX=9999, minY=9999, maxX=0, maxY=0;
+      rects.forEach(c => {
+        const cx = parseFloat(c.getAttribute('x') || c.getAttribute('cx') || 0);
+        const cy = parseFloat(c.getAttribute('y') || c.getAttribute('cy') || 0);
+        const cw = parseFloat(c.getAttribute('width') || c.getAttribute('r') || c.getAttribute('rx') || 0) * (c.getAttribute('r') ? 2 : 1);
+        const ch = parseFloat(c.getAttribute('height') || c.getAttribute('r') || c.getAttribute('ry') || 0) * (c.getAttribute('r') ? 2 : 1);
+        minX = Math.min(minX, cx - (c.getAttribute('r') ? parseFloat(c.getAttribute('r')) : 0));
+        minY = Math.min(minY, cy - (c.getAttribute('r') ? parseFloat(c.getAttribute('r')) : 0));
+        maxX = Math.max(maxX, cx + cw);
+        maxY = Math.max(maxY, cy + ch);
+      });
+      hb.x = minX; hb.y = minY; hb.w = maxX - minX; hb.h = maxY - minY;
+      hb.groupHTML = el.innerHTML;
+    }
+    hitboxes.push(hb);
+  });
+
+  selectedIdx = -1;
+  propsPanel.style.display = 'none';
+  render();
+  zoomFit();
+}
+
+function estimateBBox(el) {
+  const d = el.getAttribute('d') || '';
+  const pts = el.getAttribute('points') || '';
+  const nums = (d + ' ' + pts).match(/-?\d+\.?\d*/g);
+  if (!nums || nums.length < 4) return { x: 0, y: 0, w: 100, h: 100 };
+  const coords = nums.map(Number);
+  let xs = [], ys = [];
+  for (let i = 0; i < coords.length; i++) {
+    if (i % 2 === 0) xs.push(coords[i]); else ys.push(coords[i]);
+  }
+  const minX = Math.min(...xs), maxX = Math.max(...xs);
+  const minY = Math.min(...ys), maxY = Math.max(...ys);
+  return { x: minX, y: minY, w: maxX - minX, h: maxY - minY };
+}
+
+function render() {
+  if (!currentMap) return;
+  const { img, vw, vh } = currentMap;
+
+  let svgContent = '';
+  hitboxes.forEach((hb, i) => {
+    const sel = i === selectedIdx ? ' selected' : '';
+    const pathCls = hb.isPath || hb.isGroup ? ' is-path' : '';
+    if (hb.isPath && hb.pathData) {
+      svgContent += `<path d="${hb.pathData}" class="hb-path-preview"/>`;
+    }
+    svgContent += `<rect x="${hb.x}" y="${hb.y}" width="${hb.w}" height="${hb.h}" rx="${hb.rx || 3}" class="hb-rect${sel}${pathCls}" data-idx="${i}"/>`;
+    const labelX = hb.x + hb.w / 2;
+    const labelY = hb.y + hb.h / 2;
+    const short = hb.room.length > 20 ? hb.room.slice(0, 18) + '…' : hb.room;
+    svgContent += `<text x="${labelX}" y="${labelY}" class="hb-label${sel}">${short}</text>`;
+  });
+
+  if (selectedIdx >= 0 && !hitboxes[selectedIdx].isPath && !hitboxes[selectedIdx].isGroup) {
+    const hb = hitboxes[selectedIdx];
+    const hs = 7;
+    const handles = [
+      { cls: 'tl', cx: hb.x, cy: hb.y },
+      { cls: 'tr', cx: hb.x + hb.w, cy: hb.y },
+      { cls: 'bl', cx: hb.x, cy: hb.y + hb.h },
+      { cls: 'br', cx: hb.x + hb.w, cy: hb.y + hb.h },
+      { cls: 't',  cx: hb.x + hb.w/2, cy: hb.y },
+      { cls: 'b',  cx: hb.x + hb.w/2, cy: hb.y + hb.h },
+      { cls: 'l',  cx: hb.x, cy: hb.y + hb.h/2 },
+      { cls: 'r',  cx: hb.x + hb.w, cy: hb.y + hb.h/2 },
+    ];
+    handles.forEach(h => {
+      svgContent += `<rect x="${h.cx - hs/2}" y="${h.cy - hs/2}" width="${hs}" height="${hs}" class="resize-handle active ${h.cls}" data-handle="${h.cls}" data-idx="${selectedIdx}"/>`;
+    });
+  }
+
+  mapWrap.innerHTML = `<img src="${img}" style="width:${vw}px;height:${vh}px;" draggable="false"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${vw} ${vh}" style="position:absolute;top:0;left:0;width:${vw}px;height:${vh}px;">${svgContent}</svg>`;
+  mapWrap.style.width = vw + 'px';
+  mapWrap.style.height = vh + 'px';
+  applyZoom();
+  renderList();
+}
+
+function renderList() {
+  hitboxList.innerHTML = '';
+  hitboxes.forEach((hb, i) => {
+    const div = document.createElement('div');
+    div.className = 'hitbox-item' + (i === selectedIdx ? ' active' : '');
+    const tagBadge = hb.isPath ? '<span class="shape-tag path">path</span>' : hb.isGroup ? '<span class="shape-tag path">group</span>' : '';
+    div.innerHTML = `<div class="name">${hb.room || '(unnamed)'}${tagBadge}</div><div class="coords">x:${Math.round(hb.x)} y:${Math.round(hb.y)} w:${Math.round(hb.w)} h:${Math.round(hb.h)}</div>`;
+    div.addEventListener('click', () => selectHitbox(i));
+    hitboxList.appendChild(div);
+  });
+}
+
+function selectHitbox(idx) {
+  selectedIdx = idx;
+  const hb = hitboxes[idx];
+  propsPanel.style.display = 'block';
+  $('propName').value = hb.room;
+  $('propX').value = Math.round(hb.x);
+  $('propY').value = Math.round(hb.y);
+  $('propW').value = Math.round(hb.w);
+  $('propH').value = Math.round(hb.h);
+  $('propDesc').value = hb.desc;
+  const isLocked = hb.isPath || hb.isGroup;
+  ['propX','propY','propW','propH'].forEach(id => $(id).disabled = isLocked);
+  const note = document.getElementById('pathNote');
+  if (note) note.style.display = isLocked ? 'block' : 'none';
+  render();
+}
+
+['propX','propY','propW','propH'].forEach(id => {
+  $(id).addEventListener('input', () => {
+    if (selectedIdx < 0) return;
+    const hb = hitboxes[selectedIdx];
+    hb.x = parseFloat($('propX').value) || 0;
+    hb.y = parseFloat($('propY').value) || 0;
+    hb.w = parseFloat($('propW').value) || 0;
+    hb.h = parseFloat($('propH').value) || 0;
+    render();
+  });
+});
+$('propName').addEventListener('input', () => { if (selectedIdx >= 0) hitboxes[selectedIdx].room = $('propName').value; renderList(); });
+$('propDesc').addEventListener('input', () => { if (selectedIdx >= 0) hitboxes[selectedIdx].desc = $('propDesc').value; });
+
+function svgPoint(e) {
+  const svg = mapWrap.querySelector('svg');
+  if (!svg) return { x: 0, y: 0 };
+  const pt = svg.createSVGPoint();
+  pt.x = e.clientX;
+  pt.y = e.clientY;
+  const ctm = svg.getScreenCTM().inverse();
+  const svgP = pt.matrixTransform(ctm);
+  return { x: svgP.x, y: svgP.y };
+}
+
+mapWrap.addEventListener('mousedown', e => {
+  const handle = e.target.closest('.resize-handle');
+  if (handle) {
+    e.preventDefault();
+    const idx = parseInt(handle.dataset.idx);
+    const hb = hitboxes[idx];
+    dragState = { type: 'resize', idx, handle: handle.dataset.handle, startX: hb.x, startY: hb.y, startW: hb.w, startH: hb.h, origin: svgPoint(e) };
+    return;
+  }
+  const rect = e.target.closest('.hb-rect');
+  if (rect) {
+    e.preventDefault();
+    const idx = parseInt(rect.dataset.idx);
+    selectHitbox(idx);
+    const hb = hitboxes[idx];
+    if (!hb.isPath && !hb.isGroup) {
+      dragState = { type: 'move', idx, startX: hb.x, startY: hb.y, origin: svgPoint(e) };
+    }
+    return;
+  }
+  if (e.target.tagName === 'IMG' || e.target.tagName === 'svg') {
+    selectedIdx = -1;
+    propsPanel.style.display = 'none';
+    render();
+  }
+});
+
+window.addEventListener('mousemove', e => {
+  if (!dragState) return;
+  e.preventDefault();
+  const p = svgPoint(e);
+  const dx = p.x - dragState.origin.x;
+  const dy = p.y - dragState.origin.y;
+  const hb = hitboxes[dragState.idx];
+
+  if (dragState.type === 'move') {
+    hb.x = Math.round(dragState.startX + dx);
+    hb.y = Math.round(dragState.startY + dy);
+  } else if (dragState.type === 'resize') {
+    const h = dragState.handle;
+    const s = dragState;
+    let newX = s.startX, newY = s.startY, newW = s.startW, newH = s.startH;
+    if (h === 'r' || h === 'br' || h === 'tr') newW = s.startW + dx;
+    if (h === 'l' || h === 'bl' || h === 'tl') { newX = s.startX + dx; newW = s.startW - dx; }
+    if (h === 'b' || h === 'br' || h === 'bl') newH = s.startH + dy;
+    if (h === 't' || h === 'tr' || h === 'tl') { newY = s.startY + dy; newH = s.startH - dy; }
+    if (newW < 10) { newW = 10; if (h === 'l' || h === 'bl' || h === 'tl') newX = s.startX + s.startW - 10; }
+    if (newH < 10) { newH = 10; if (h === 't' || h === 'tr' || h === 'tl') newY = s.startY + s.startH - 10; }
+    hb.x = Math.round(newX); hb.y = Math.round(newY);
+    hb.w = Math.round(newW); hb.h = Math.round(newH);
+  }
+
+  $('propX').value = Math.round(hb.x);
+  $('propY').value = Math.round(hb.y);
+  $('propW').value = Math.round(hb.w);
+  $('propH').value = Math.round(hb.h);
+  render();
+});
+
+window.addEventListener('mouseup', () => { dragState = null; });
+
+function generateSVG(idx) {
+  const hb = hitboxes[idx];
+  const descEsc = hb.desc.replace(/&/g,'&amp;').replace(/"/g,'&quot;');
+  const nameEsc = hb.room.replace(/&/g,'&amp;').replace(/"/g,'&quot;');
+  if (hb.isPath || hb.isGroup) {
+    let markup = hb.origMarkup;
+    markup = markup.replace(/data-room="[^"]*"/, `data-room="${nameEsc}"`);
+    markup = markup.replace(/data-desc="[^"]*"/, `data-desc="${descEsc}"`);
+    return '    ' + markup;
+  }
+  return `    <rect x="${Math.round(hb.x)}" y="${Math.round(hb.y)}" width="${Math.round(hb.w)}" height="${Math.round(hb.h)}" rx="${hb.rx || 3}" class="hitbox"\n      data-room="${nameEsc}"\n      data-desc="${descEsc}"/>`;
+}
+
+function generateAllSVG() {
+  return hitboxes.map((_, i) => generateSVG(i)).join('\n\n');
+}
+
+$('btnCopyOne').addEventListener('click', () => {
+  if (selectedIdx < 0) return;
+  navigator.clipboard.writeText(generateSVG(selectedIdx));
+  showToast('Copied element SVG to clipboard');
+});
+
+$('btnCopyAll').addEventListener('click', () => {
+  navigator.clipboard.writeText(generateAllSVG());
+  showToast('Copied all ' + hitboxes.length + ' hitbox elements to clipboard');
+});
+
+function showToast(msg) {
+  const t = $('toast');
+  t.textContent = msg;
+  t.style.display = 'block';
+  setTimeout(() => t.style.display = 'none', 2500);
+}
+
+function applyZoom() {
+  mapWrap.style.transform = `scale(${zoom})`;
+}
+
+function zoomFit() {
+  if (!currentMap) return;
+  const areaW = canvasArea.clientWidth - 40;
+  const areaH = canvasArea.clientHeight - 40;
+  zoom = Math.min(areaW / currentMap.vw, areaH / currentMap.vh, 1);
+  applyZoom();
+}
+
+$('zoomIn').addEventListener('click', () => { zoom = Math.min(zoom * 1.25, 3); applyZoom(); });
+$('zoomOut').addEventListener('click', () => { zoom = Math.max(zoom / 1.25, 0.2); applyZoom(); });
+$('zoomFit').addEventListener('click', zoomFit);
+
+window.addEventListener('keydown', e => {
+  if (selectedIdx < 0) return;
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  const hb = hitboxes[selectedIdx];
+  if (hb.isPath || hb.isGroup) return;
+  const step = e.shiftKey ? 10 : 1;
+  if (e.key === 'ArrowLeft')  { hb.x -= step; e.preventDefault(); }
+  if (e.key === 'ArrowRight') { hb.x += step; e.preventDefault(); }
+  if (e.key === 'ArrowUp')    { hb.y -= step; e.preventDefault(); }
+  if (e.key === 'ArrowDown')  { hb.y += step; e.preventDefault(); }
+  $('propX').value = Math.round(hb.x);
+  $('propY').value = Math.round(hb.y);
+  render();
+});
+</script>
+</body>
+</html>

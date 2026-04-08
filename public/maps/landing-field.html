@@ -105,10 +105,19 @@
       data-room="North Field — Open Ground"
       data-desc="The open expanse between the maintenance bay and the landing pad. Flat, featureless hardpan baked by Jakku's suns. Scattered vehicles — a rusted speeder and a cargo skiff — provide the only cover. This is killing field if a firefight breaks out — anyone caught here is exposed to fire from the control tower, the landing pad, and the perimeter. During extraction, this might be ground the crew has to cross under fire. Running across open ground is the price of a loud exit."/>
 
-    <!-- ============ PERIMETER FENCE (entire border) ============ -->
-    <path d="M 40,30 L 980,30 L 980,540 L 40,540 Z" class="hitbox" fill="none"
-      data-room="Perimeter Fence"
-      data-desc="Chain-link fencing with durasteel posts enclosing the entire landing field. No razor wire, no sensors — Jakku doesn't warrant that level of security. Varga's guards walk the perimeter once every twenty minutes, south to north on the west side, north to south on the east side, and the timing is predictable. A Skulduggery check can cut through the fence quietly at any point. A Physique check can bend the bottom rail enough to crawl under. The west fence is in shadow during the evening transition — the maintenance bay blocks the setting sun. The east fence has better cover from rocky terrain outside but is exposed to the control tower's viewports. The fence is the entry point for any stealth approach."/>
+    <!-- ============ PERIMETER FENCE (4 edge strips — no interior overlap) ============ -->
+    <rect x="35" y="25" width="955" height="14" rx="2" class="hitbox"
+      data-room="North Perimeter Fence"
+      data-desc="The northern stretch of chain-link fencing with durasteel posts. No razor wire, no sensors — Jakku doesn't warrant that level of security. This section runs behind the maintenance bay and control tower. Varga's guards patrol east to west along this edge. A Skulduggery check can cut through quietly. A Physique check can bend the bottom rail enough to crawl under. The terrain outside the north fence is open desert — no cover for the approach, but also no eyes watching."/>
+    <rect x="35" y="530" width="955" height="14" rx="2" class="hitbox"
+      data-room="South Perimeter Fence"
+      data-desc="The southern fence line, flanking the main gate. Chain-link with durasteel posts. The fence is interrupted by the gate opening — the weakest point in the perimeter, controlled by Varga's bored guards. Outside the south fence, the approach road leads back toward Reestkii. The cobblestone track and tire ruts provide no cover. Anyone cutting the fence on this side is visible from the gate guard booth. The main gate is the only sanctioned entry point — everything else is a breach."/>
+    <rect x="35" y="25" width="14" height="520" rx="2" class="hitbox"
+      data-room="West Perimeter Fence"
+      data-desc="The western fence line — chain-link, durasteel posts, no sensors. Varga's guards patrol south to north along this edge once every twenty minutes, and the timing is predictable. The fence is in shadow during the evening transition — the maintenance bay blocks the setting sun. This is the cleanest stealth approach: cut through the fence, thread through the maintenance bay, use the fuel depot and cargo containers as stepping stones to the landing pad. A Skulduggery check cuts through quietly. A Physique check bends the bottom rail enough to crawl under."/>
+    <rect x="975" y="25" width="14" height="520" rx="2" class="hitbox"
+      data-room="East Perimeter Fence"
+      data-desc="The eastern fence line — same construction, better natural cover outside. Rocky terrain and boulders provide concealment for the approach. However, the control tower's viewports face this direction, making detection more likely unless the comms officer is distracted or the tower is neutralized. The east cargo cluster sits close to this fence, providing immediate hard cover once inside. A Stealth check from the east is harder but puts you closer to the shuttle's flank."/>
 
   </svg>
 </div>
