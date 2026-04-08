@@ -202,6 +202,38 @@ const propsPanel = $('propsPanel');
 const mapWrap = $('mapWrap');
 const canvasArea = $('canvasArea');
 
+function saveGridSettings() {
+  if (!currentMapKey) return;
+  const settings = { gridOn, gridSize, gridOffX, gridOffY, gridOpacity, gridColor, gridLineWidth };
+  try { localStorage.setItem('grid_' + currentMapKey, JSON.stringify(settings)); } catch(e) {}
+}
+
+function restoreGridSettings(key) {
+  try {
+    const raw = localStorage.getItem('grid_' + key);
+    if (!raw) return;
+    const s = JSON.parse(raw);
+    gridOn = !!s.gridOn;
+    gridSize = s.gridSize || 40;
+    gridOffX = s.gridOffX || 0;
+    gridOffY = s.gridOffY || 0;
+    gridOpacity = s.gridOpacity || 40;
+    gridColor = s.gridColor || 'white';
+    gridLineWidth = s.gridLineWidth || 1;
+    $('gridToggle').textContent = gridOn ? 'On' : 'Off';
+    $('gridToggle').className = 'grid-toggle' + (gridOn ? ' on' : '');
+    $('gridSize').value = gridSize;
+    $('gridOffX').value = gridOffX;
+    $('gridOffY').value = gridOffY;
+    $('gridOpacity').value = gridOpacity;
+    $('gridLineWidth').value = gridLineWidth;
+    $('gridColorWhite').className = 'grid-toggle' + (gridColor === 'white' ? ' on' : '');
+    $('gridColorBlack').className = 'grid-toggle' + (gridColor === 'black' ? ' on' : '');
+    gridFocused = false;
+    updateGridModeLabel();
+  } catch(e) {}
+}
+
 function markDirty() {
   isDirty = true;
   $('dirtyIndicator').className = 'dirty-indicator show';
@@ -269,6 +301,7 @@ async function loadMap(key) {
   selectedIdx = -1;
   propsPanel.style.display = 'none';
   markClean();
+  restoreGridSettings(key);
   render();
   zoomFit();
 }
@@ -524,6 +557,7 @@ function toggleGrid() {
   $('gridToggle').className = 'grid-toggle' + (gridOn ? ' on' : '');
   if (gridOn) gridFocused = true;
   updateGridModeLabel();
+  saveGridSettings();
   render();
 }
 
@@ -531,16 +565,19 @@ $('gridToggle').addEventListener('click', toggleGrid);
 
 $('gridSize').addEventListener('input', () => {
   gridSize = Math.max(10, parseInt($('gridSize').value) || 40);
+  saveGridSettings();
   render();
 });
 
 $('gridLineWidth').addEventListener('input', () => {
   gridLineWidth = Math.max(0.5, Math.min(5, parseFloat($('gridLineWidth').value) || 1));
+  saveGridSettings();
   render();
 });
 
 $('gridOpacity').addEventListener('input', () => {
   gridOpacity = parseInt($('gridOpacity').value) || 40;
+  saveGridSettings();
   render();
 });
 
@@ -548,6 +585,7 @@ function setGridColor(c) {
   gridColor = c;
   $('gridColorWhite').className = 'grid-toggle' + (c === 'white' ? ' on' : '');
   $('gridColorBlack').className = 'grid-toggle' + (c === 'black' ? ' on' : '');
+  saveGridSettings();
   render();
 }
 $('gridColorWhite').addEventListener('click', () => setGridColor('white'));
@@ -555,11 +593,13 @@ $('gridColorBlack').addEventListener('click', () => setGridColor('black'));
 
 $('gridOffX').addEventListener('input', () => {
   gridOffX = parseInt($('gridOffX').value) || 0;
+  saveGridSettings();
   render();
 });
 
 $('gridOffY').addEventListener('input', () => {
   gridOffY = parseInt($('gridOffY').value) || 0;
+  saveGridSettings();
   render();
 });
 
@@ -614,6 +654,7 @@ window.addEventListener('keydown', e => {
       e.preventDefault();
       $('gridOffX').value = gridOffX;
       $('gridOffY').value = gridOffY;
+      saveGridSettings();
       render();
       return;
     }
