@@ -6,7 +6,19 @@
 <title>The Vanishing Place — Levels 1 &amp; 2</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { background: #1a1a1a; display: flex; justify-content: center; align-items: center; min-height: 100vh; font-family: 'Segoe UI', sans-serif; }
+  body { background: #1a1a1a; display: flex; flex-direction: column; align-items: center; min-height: 100vh; font-family: 'Segoe UI', sans-serif; padding: 20px 20px 60px; gap: 40px; }
+  .location-brief { max-width: 1100px; width: 100%; color: #c0b89a; line-height: 1.7; }
+  .location-brief h2 { color: #e0d4b8; font-family: 'Georgia', serif; font-size: 20px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; border-bottom: 1px solid #444; padding-bottom: 6px; }
+  .location-brief h3 { color: #c8b88a; font-family: 'Georgia', serif; font-size: 15px; letter-spacing: 2px; text-transform: uppercase; margin: 24px 0 8px; }
+  .location-brief p { margin-bottom: 12px; font-size: 14px; }
+  .location-brief .read-aloud { background: #222; border-left: 3px solid #887755; padding: 12px 16px; margin: 16px 0; font-style: italic; color: #d0c8a8; border-radius: 0 4px 4px 0; }
+  .location-brief .gm-note { background: #1e1e2a; border-left: 3px solid #556; padding: 10px 14px; margin: 12px 0; font-size: 13px; color: #8888bb; border-radius: 0 4px 4px 0; }
+  .location-brief .gm-note strong { color: #aaaadd; }
+  .location-brief .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+  .location-brief .detail-card { background: #222; border: 1px solid #333; border-radius: 4px; padding: 12px; }
+  .location-brief .detail-card h4 { color: #c8b88a; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .location-brief .detail-card p { font-size: 13px; margin-bottom: 0; }
+  @media (max-width: 700px) { .location-brief .detail-grid { grid-template-columns: 1fr; } }
   svg { max-width: 95vw; max-height: 95vh; filter: drop-shadow(0 0 30px rgba(0,0,0,0.5)); }
   .room { cursor: pointer; transition: opacity 0.2s; }
   .room:hover { opacity: 0.85; }
@@ -505,6 +517,112 @@
     <text x="15" y="56" class="legend-text" style="fill:#665a3a;">GENERATOR SABOTAGE → Turrets offline + Fences drop + Security doors unlock + Sensors blind → Maya lands on rooftop for extraction</text>
   </g>
 </svg>
+
+<!-- ============ LOCATION BRIEF ============ -->
+<div class="location-brief">
+
+  <h2>Location Brief — The Vanishing Place</h2>
+  <p>Ajan Kloss, jungle moon in the Cademimu sector. Uncharted, no Imperial presence on record. Dense canopy, bioluminescent undergrowth, constant insect drone. Humidity sits at 90% year-round. The temple predates the Republic by millennia — local Klossians call it <em>the place that swallows</em>.</p>
+
+  <h3>Exterior — The Approach</h3>
+  <div class="read-aloud">
+    You push through the last curtain of giant ferns and the jungle opens onto a ridge. Below, half-consumed by root systems and flowering vines, a structure rises from the valley floor like a broken tooth. Dark stone — almost black — cut in massive trapezoidal blocks, each one taller than a Wookiee. The walls slope inward as they climb, narrowing to a flat rooftop where a Lambda-class shuttle sits with its wings folded. The architecture is wrong for this era. Too old. Too heavy. Whatever species built this place, they built it to last.
+  </div>
+  <div class="read-aloud">
+    The jungle is trying to take it back. Strangler vines thick as landing struts crawl up the south face. Bioluminescent moss paints the seams between blocks in faint blue-green. But someone has burned the growth away from the north wall — scorch marks and cut vines, recent. Military discipline. The main entrance has been sealed with durasteel plating bolted directly into the ancient stone. There is no front door anymore. There's a sentry turret on the west face and another on the east, both tracking on automated servos.
+  </div>
+
+  <div class="detail-grid">
+    <div class="detail-card">
+      <h4>Construction</h4>
+      <p>Volcanic basalt, quarried and hand-dressed. Blocks average 2m x 1m x 0.8m, fitted without mortar — precision-cut joints less than 2mm apart. The stone is almost black when dry, dark blue-grey when wet (which is always). Corners are chamfered rather than sharp, giving every edge a heavy, beveled look.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Scale</h4>
+      <p>Two stories, roughly 30m x 50m footprint. The walls are 1.5m thick solid stone. The rooftop is flat with a low parapet — clearly a platform even in the original design, now repurposed as a landing pad. The building sits in a natural depression, so from the ridge the crew looks slightly down at it.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Age &amp; Origin</h4>
+      <p>Unknown builders, pre-Republic. The architectural style matches no catalogued species. The interior proportions suggest beings roughly humanoid but broader — doorways are wide, ceilings are high (4m on Level 1, 3.5m on Level 2). Faded carvings on the exterior depict geometric patterns and what might be star maps, worn nearly smooth by millennia of rain.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Current State</h4>
+      <p>Skarn's mercenaries have occupied the ruin for approximately 8 months. Clone Wars-era military hardware has been bolted, welded, and cabled into the ancient stonework. The contrast is jarring — matte black basalt with brushed durasteel panels, exposed conduit runs, and harsh work-lights clamped to walls that haven't seen artificial light in ten thousand years.</p>
+    </div>
+  </div>
+
+  <div class="gm-note">
+    <strong>GM Note — Exterior Perception:</strong> Any crew member with a relevant knowledge skill can identify the architecture as pre-Republic. The stone isn't local to Ajan Kloss — it was either quarried deep underground or transported from offworld, both of which imply sophisticated builders. The Klossian locals won't go near it. They say the place "forgets people."
+  </div>
+
+  <h3>Interior — Level 1 (Ground Floor)</h3>
+  <div class="read-aloud">
+    The drainage sluice empties into the northeast corner — knee-deep brackish water, a low stone tunnel that opens into a vaulted space. The ceiling arches overhead in a single massive span, no pillars, no supports. The original builders carved it from one piece. The air smells like wet stone, machine oil, and bacta.
+  </div>
+  <div class="read-aloud">
+    Everything military is bolted on top of everything ancient. Power cables run along the baseboards in thick bundles, held in place by adhesive strips and the occasional bolt driven into stone that resisted the drill. Work-lights cast hard white pools interrupted by long shadows. The original corridors are wide enough for three abreast — built for processions, not patrols. Where the mercenaries have added partition walls, they've used prefab durasteel panels that look flimsy next to the basalt.
+  </div>
+
+  <div class="detail-grid">
+    <div class="detail-card">
+      <h4>Floors</h4>
+      <p>Polished basalt flagstones, each one unique. Some bear faint geometric inlays in a paler stone — a pattern that might once have been decorative or functional. The mercenaries have thrown down rubber anti-fatigue mats in the high-traffic areas and welded metal grating over the drainage channels.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Walls</h4>
+      <p>Bare stone in most areas, the original surface still smooth after millennia. In the medical bay and comm center, durasteel panels have been riveted over the stone to mount equipment. Where panels were removed or never installed, you can see the faded remains of carved reliefs — abstract shapes, interlocking circles, something that might be writing.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Lighting</h4>
+      <p>Harsh portable work-lights on tripods and clamp-mounts, powered by the central generator. When the generator runs, the lights buzz and flicker. The ancient temple had no lighting fixtures — the builders either saw in the dark or used something that left no trace. Deep corners and ceiling vaults remain in permanent shadow.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Sound</h4>
+      <p>The stone amplifies everything. Footsteps echo. Voices carry through corridors in strange ways — a conversation in the medical bay can sometimes be heard as a murmur in the detention block. The generator produces a constant low throb that vibrates through the floor. When it stops, the silence is absolute and unnerving.</p>
+    </div>
+  </div>
+
+  <h3>Interior — Level 2 (Upper Floor)</h3>
+  <div class="read-aloud">
+    The turbolift groans upward through a shaft cut into solid rock — the car is Clone Wars surplus, the shaft is ancient. It opens into a shorter, broader space with lower ceilings. This was the temple's upper sanctum. Whatever ritual purpose it served is buried under tactical displays, holo-projectors, and folding field desks. Skarn's officers work here, and the Imperial advance team has claimed the east corner.
+  </div>
+
+  <div class="detail-grid">
+    <div class="detail-card">
+      <h4>Command Area</h4>
+      <p>The largest room on Level 2. A central holo-table projects a terrain map of the surrounding jungle — sensor data overlaid on topographic scans. The original chamber had an oculus in the ceiling, now sealed with a durasteel plate. The walls retain the most intact carvings in the complex — concentric circles radiating from a central point, repeated dozens of times. The mercenaries hung tactical charts over most of them.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Rooftop Landing Pad</h4>
+      <p>A wide stone platform with a low parapet, perhaps 0.5m high. The original surface was perfectly level — the builders achieved tolerances modern engineers would envy. The mercenaries added landing guide-lights and a portable fuel cell. The Lambda shuttle fills most of the pad. Wind from the jungle canopy below creates unpredictable updrafts. On clear days you can see the jungle stretching to the horizon in every direction — no civilization, no structures, nothing but green.</p>
+    </div>
+  </div>
+
+  <div class="gm-note">
+    <strong>GM Note — Atmosphere:</strong> Play up the contrast. This place is ancient and heavy and patient. The military hardware strapped to it feels temporary — like barnacles on a whale. When the generator is running, it feels like a forward operating base. When the generator dies (and the crew will kill it), the temple reasserts itself. The darkness closes in. The silence has weight. The stone remembers what it was before humans arrived, and it will remember long after they leave.
+  </div>
+
+  <h3>Sensory Details — Quick Reference</h3>
+  <div class="detail-grid">
+    <div class="detail-card">
+      <h4>Smell</h4>
+      <p>Wet stone, machine oil, ozone from electrical equipment, faint bacta sweetness from the medical bay. After the generator blows: just rain and stone and jungle rot.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Temperature</h4>
+      <p>Cool inside the stone walls despite the jungle heat — the basalt absorbs and radiates slowly. Level 1 is noticeably cooler than Level 2. The sluice tunnel is cold. The generator room is warm from the machinery.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Touch</h4>
+      <p>The stone is smooth but not slippery — a faint texture like fine-grit sandpaper. Military fixtures rattle slightly from generator vibration. Everything metal is damp with condensation. The rubber mats on the floor are tacky.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Wildlife</h4>
+      <p>Insects get in through the sluice and any gap in the durasteel plating. Small luminescent beetles cluster in ceiling corners. Something large nests in the walls of the east wing — scratching sounds at night. The mercenaries ignore it. Mandrake says it's a <em>kiro</em>, a burrowing predator. Mostly harmless. Mostly.</p>
+    </div>
+  </div>
+
+</div>
 
 <script>
   const tooltip = document.getElementById('tooltip');
