@@ -251,12 +251,14 @@
       innerGlow.addTo(map);
       nebulaeLayers.push(innerGlow);
 
+      var starSvg = '<svg viewBox="0 0 24 24" width="14" height="14" style="filter:drop-shadow(0 0 3px ' + neb.color + ')"><polygon points="12,0 14.5,8.5 24,9.5 17,15 19,24 12,19 5,24 7,15 0,9.5 9.5,8.5" fill="' + neb.color + '" opacity="0.9"/></svg>';
+
       var label = L.marker(center, {
         icon: L.divIcon({
           className: 'gm-nebula-label',
-          html: '<span>' + neb.name + '</span>',
-          iconSize: [120, 20],
-          iconAnchor: [60, 10]
+          html: starSvg + '<span>' + neb.name + '</span>',
+          iconSize: [140, 20],
+          iconAnchor: [70, 10]
         }),
         interactive: true
       });

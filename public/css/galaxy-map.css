@@ -402,16 +402,20 @@
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
 }
 .gm-nebula-label span {
-  color: rgba(160, 130, 220, 0.55);
+  color: #b388ff;
   font-family: 'Exo 2', sans-serif;
-  font-size: 10px;
+  font-size: 13px;
   font-style: italic;
-  font-weight: 400;
+  font-weight: 600;
   letter-spacing: 2px;
   text-transform: uppercase;
-  text-shadow: 0 0 6px rgba(126, 87, 194, 0.4);
+  text-shadow: 0 0 8px rgba(179, 136, 255, 0.6), 0 0 16px rgba(126, 87, 194, 0.3);
   white-space: nowrap;
 }
 .gm-nebula-outer {
