@@ -258,6 +258,18 @@
 
     hyperlaneData.forEach(function (lane) {
       var pts = lane.points.map(function (p) { return toLatLng(p[0], p[1]); });
+
+      var glowLine = L.polyline(pts, {
+        color: lane.color,
+        weight: 6,
+        opacity: 0,
+        smoothFactor: 1.5,
+        interactive: false,
+        className: 'gm-lane-glow'
+      });
+      glowLine.addTo(map);
+      hyperlaneLines.push(glowLine);
+
       var bgLine = L.polyline(pts, {
         color: lane.color,
         weight: 4,
@@ -270,18 +282,41 @@
 
       var fgLine = L.polyline(pts, {
         color: lane.color,
-        weight: 1.5,
-        opacity: 0.6,
+        weight: 2,
+        opacity: 0.7,
         dashArray: '8 4',
-        smoothFactor: 1.5
-      });
-      fgLine.bindTooltip(lane.name, {
-        permanent: false,
-        direction: 'center',
-        className: 'gm-lane-tooltip'
+        smoothFactor: 1.5,
+        interactive: false
       });
       fgLine.addTo(map);
       hyperlaneLines.push(fgLine);
+
+      var hitLine = L.polyline(pts, {
+        color: '#000',
+        weight: 20,
+        opacity: 0,
+        smoothFactor: 1.5,
+        interactive: true
+      });
+      hitLine.bindTooltip(lane.name, {
+        permanent: false,
+        sticky: true,
+        direction: 'top',
+        offset: [0, -10],
+        className: 'gm-lane-tooltip'
+      });
+      hitLine.on('mouseover', function () {
+        fgLine.setStyle({ weight: 3, opacity: 1, dashArray: null });
+        bgLine.setStyle({ weight: 8, opacity: 0.3 });
+        glowLine.setStyle({ opacity: 0.25, weight: 12 });
+      });
+      hitLine.on('mouseout', function () {
+        fgLine.setStyle({ weight: 2, opacity: 0.7, dashArray: '8 4' });
+        bgLine.setStyle({ weight: 4, opacity: 0.15 });
+        glowLine.setStyle({ opacity: 0, weight: 6 });
+      });
+      hitLine.addTo(map);
+      hyperlaneLines.push(hitLine);
     });
   }
 

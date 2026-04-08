@@ -375,14 +375,20 @@
 }
 
 .gm-lane-tooltip {
-  background: rgba(15,15,22,0.9) !important;
-  border: 1px solid rgba(255,255,255,0.15) !important;
-  color: #d0c8a8 !important;
-  font-size: 10px !important;
+  background: rgba(10,10,18,0.92) !important;
+  border: 1px solid rgba(255,255,255,0.25) !important;
+  color: #e8dfc0 !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
   font-family: 'Exo 2', sans-serif !important;
-  padding: 2px 8px !important;
-  letter-spacing: 1px !important;
-  box-shadow: none !important;
+  padding: 4px 10px !important;
+  letter-spacing: 1.5px !important;
+  text-transform: uppercase !important;
+  box-shadow: 0 0 8px rgba(0,0,0,0.6) !important;
+  pointer-events: none !important;
+}
+.gm-lane-tooltip::before {
+  border-top-color: rgba(255,255,255,0.25) !important;
 }
 
 .gm-grid-label-wrapper {
