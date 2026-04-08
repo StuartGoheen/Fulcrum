@@ -21,9 +21,9 @@
   var IMG_H = 1000;
   var BOUNDS = [[0, 0], [IMG_H, IMG_W]];
 
-  var GAL_LEFT   = 0.225;
+  var GAL_LEFT   = 0.214;
   var GAL_TOP    = 0.020;
-  var GAL_RIGHT  = 0.700;
+  var GAL_RIGHT  = 0.689;
   var GAL_BOTTOM = 0.780;
   var GAL_W = GAL_RIGHT - GAL_LEFT;
   var GAL_H = GAL_BOTTOM - GAL_TOP;
