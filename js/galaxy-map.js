@@ -21,6 +21,13 @@
   var IMG_H = 1000;
   var BOUNDS = [[0, 0], [IMG_H, IMG_W]];
 
+  var GAL_LEFT   = 0.11;
+  var GAL_TOP    = 0.04;
+  var GAL_RIGHT  = 0.83;
+  var GAL_BOTTOM = 0.76;
+  var GAL_W = GAL_RIGHT - GAL_LEFT;
+  var GAL_H = GAL_BOTTOM - GAL_TOP;
+
   var REGION_COLORS = {
     'Core Worlds': '#4fc3f7',
     'Deep Core': '#7986cb',
@@ -34,11 +41,18 @@
   };
 
   function toLatLng(nx, ny) {
-    return [IMG_H * (1 - ny), IMG_W * nx];
+    var imgX = (GAL_LEFT + nx * GAL_W) * IMG_W;
+    var imgY = (GAL_TOP + ny * GAL_H) * IMG_H;
+    return [IMG_H - imgY, imgX];
   }
 
   function fromLatLng(latlng) {
-    return { x: latlng.lng / IMG_W, y: 1 - (latlng.lat / IMG_H) };
+    var imgX = latlng.lng / IMG_W;
+    var imgY = 1 - (latlng.lat / IMG_H);
+    return {
+      x: (imgX - GAL_LEFT) / GAL_W,
+      y: (imgY - GAL_TOP) / GAL_H
+    };
   }
 
   function createOverlay() {
@@ -421,21 +435,28 @@
       gridLayer = L.layerGroup();
       var cols = 21;
       var rows = 21;
-      var cellW = IMG_W / cols;
-      var cellH = IMG_H / rows;
+      var galPxL = GAL_LEFT * IMG_W;
+      var galPxT = GAL_TOP * IMG_H;
+      var galPxW = GAL_W * IMG_W;
+      var galPxH = GAL_H * IMG_H;
+      var cellW = galPxW / cols;
+      var cellH = galPxH / rows;
       var letters = 'ABCDEFGHIJKLMNOPQRSTU';
 
       for (var c = 0; c <= cols; c++) {
-        var x = c * cellW;
-        L.polyline([[0, x], [IMG_H, x]], {
+        var x = galPxL + c * cellW;
+        var latTop = IMG_H - galPxT;
+        var latBot = IMG_H - (galPxT + galPxH);
+        L.polyline([[latTop, x], [latBot, x]], {
           color: 'rgba(255,255,255,0.12)',
           weight: 1,
           interactive: false
         }).addTo(gridLayer);
       }
       for (var r = 0; r <= rows; r++) {
-        var y = r * cellH;
-        L.polyline([[y, 0], [y, IMG_W]], {
+        var y = galPxT + r * cellH;
+        var lat = IMG_H - y;
+        L.polyline([[lat, galPxL], [lat, galPxL + galPxW]], {
           color: 'rgba(255,255,255,0.12)',
           weight: 1,
           interactive: false
@@ -444,8 +465,8 @@
 
       for (var gr = 0; gr < rows; gr++) {
         for (var gc = 0; gc < cols; gc++) {
-          var cy = gr * cellH + cellH / 2;
-          var cx = gc * cellW + cellW / 2;
+          var cy = IMG_H - (galPxT + gr * cellH + cellH / 2);
+          var cx = galPxL + gc * cellW + cellW / 2;
           var label = letters[gc] + '-' + (gr + 1);
           L.marker([cy, cx], {
             icon: L.divIcon({
