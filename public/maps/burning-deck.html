@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Burning Deck — Cantina Map</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #1a1a1a; display: flex; flex-direction: column; align-items: center; min-height: 100vh; font-family: 'Segoe UI', sans-serif; padding: 20px 20px 60px; gap: 40px; }
+
+  .map-container { position: relative; max-width: 1150px; width: 100%; }
+  .map-container img { width: 100%; height: auto; display: block; border-radius: 4px; filter: drop-shadow(0 0 30px rgba(0,0,0,0.5)); }
+  .map-container svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+  .hitbox { cursor: pointer; fill: transparent; stroke: transparent; transition: all 0.25s; }
+  .hitbox:hover { fill: rgba(224, 212, 184, 0.08); stroke: rgba(224, 212, 184, 0.3); stroke-width: 2; }
+
+  .tooltip { position: fixed; background: rgba(20,20,20,0.95); border: 1px solid #665a3a; color: #e0d4b8; padding: 10px 14px; border-radius: 4px; font-size: 13px; max-width: 300px; pointer-events: none; z-index: 100; display: none; line-height: 1.5; backdrop-filter: blur(8px); }
+
+  .location-brief { max-width: 1100px; width: 100%; color: #c0b89a; line-height: 1.7; }
+  .location-brief h2 { color: #e0d4b8; font-family: 'Georgia', serif; font-size: 20px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; border-bottom: 1px solid #444; padding-bottom: 6px; }
+  .location-brief h3 { color: #c8b88a; font-family: 'Georgia', serif; font-size: 15px; letter-spacing: 2px; text-transform: uppercase; margin: 24px 0 8px; }
+  .location-brief p { margin-bottom: 12px; font-size: 14px; }
+  .location-brief .read-aloud { background: #222; border-left: 3px solid #887755; padding: 12px 16px; margin: 16px 0; font-style: italic; color: #d0c8a8; border-radius: 0 4px 4px 0; }
+  .location-brief .gm-note { background: #1e1e2a; border-left: 3px solid #556; padding: 10px 14px; margin: 12px 0; font-size: 13px; color: #8888bb; border-radius: 0 4px 4px 0; }
+  .location-brief .gm-note strong { color: #aaaadd; }
+  .location-brief .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+  .location-brief .detail-card { background: #222; border: 1px solid #333; border-radius: 4px; padding: 12px; }
+  .location-brief .detail-card h4 { color: #c8b88a; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .location-brief .detail-card p { font-size: 13px; margin-bottom: 0; }
+  @media (max-width: 700px) { .location-brief .detail-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="tooltip" id="tooltip"></div>
+
+<div class="map-container">
+  <img src="burning-deck.png" alt="The Burning Deck — Cantina Map">
+
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 635" preserveAspectRatio="xMidYMid meet">
+
+    <!-- ============ BACK-OF-HOUSE ============ -->
+
+    <!-- KITCHEN -->
+    <rect x="48" y="110" width="170" height="175" rx="3" class="hitbox"
+      data-room="The Kitchen"
+      data-desc="A grease-caked galley crammed between the bar and the back wall. Two industrial cook-surfaces — one runs on power cells, the other burns actual fuel and belches heat. A droid chassis is bolted to the counter, arms replaced with spatulas and tongs, its photoreceptor cracked but functional. The menu is short: fried tuber strips, nerf sausage of questionable origin, and a house stew that's been simmering since before the Republic fell. The exhaust fan rattles like a damaged speeder."/>
+
+    <!-- BACK STORAGE / UTILITY -->
+    <rect x="12" y="290" width="42" height="90" rx="3" class="hitbox"
+      data-room="Utility Closet"
+      data-desc="A narrow storage room off the kitchen. Crates of off-brand Corellian whiskey stacked floor to ceiling. Cleaning supplies that haven't been used recently. A locked floor panel conceals a shallow compartment — the bartender's personal stash: credits, a holdout blaster, and a datapad with names the Hutts would pay for."/>
+
+    <!-- ============ THE BAR ============ -->
+
+    <!-- BAR COUNTER -->
+    <rect x="130" y="195" width="190" height="95" rx="3" class="hitbox"
+      data-room="The Bar"
+      data-desc="The centerpiece of The Burning Deck. A long durasteel-topped counter salvaged from a decommissioned Star Destroyer's officers' mess — you can still see the Imperial serial numbers stamped into the underside. Six stools, mismatched, bolted to the floor. Behind the bar: shelves of bottles in every color, a carbonite-chilled tap system for local ale, and the nervous Bith bartender who sees everything and says nothing. The bar top is scarred with blaster burns, knife marks, and the rings of a thousand glasses."/>
+
+    <!-- ============ PRIVATE BOOTHS ============ -->
+
+    <!-- BOOTH 1 (far left) -->
+    <rect x="230" y="15" width="105" height="82" rx="3" class="hitbox"
+      data-room="Private Booth — West Alcove"
+      data-desc="The most secluded booth, tucked against the back wall near the kitchen. High-backed bench seats with cracked synth-leather. A curtain rod overhead, curtain long since stolen. This is where deals happen — low light, hard to see from the main floor, easy to watch the door. The Devaronian sabacc player favors this spot."/>
+
+    <!-- BOOTH 2 -->
+    <rect x="340" y="15" width="105" height="82" rx="3" class="hitbox"
+      data-room="Private Booth — Center-West"
+      data-desc="Standard booth. The padding has been patched with cargo tape. Someone carved a surprisingly detailed Krayt dragon into the table surface — folk art from a bored spacer. The glow-rod above this booth flickers on a three-second cycle. Regulars don't notice. Newcomers find it maddening."/>
+
+    <!-- BOOTH 3 -->
+    <rect x="450" y="15" width="105" height="82" rx="3" class="hitbox"
+      data-room="Private Booth — Center-East"
+      data-desc="This booth has a direct sightline to the main entrance — a tactical position. The bench seat on the left side has a loose panel that conceals a shallow compartment. Locals know about it. The pair of Abyssin drifters arguing over the rusted motivator are currently occupying this booth, their guttural voices carrying across the cantina."/>
+
+    <!-- BOOTH 4 (near stairs) -->
+    <rect x="560" y="15" width="105" height="82" rx="3" class="hitbox"
+      data-room="Private Booth — East Alcove"
+      data-desc="The booth closest to the upper-level stairs. Quieter than the others — the back wall absorbs sound. A small wall-mounted display shows a static-filled holonet feed that nobody watches. The weathered Togruta woman — ex-military, montrals scarred — sits here nursing her drink. Her hand never strays far from her hip."/>
+
+    <!-- ============ UPPER LEVEL STAIRS ============ -->
+
+    <!-- STAIRS -->
+    <rect x="690" y="10" width="72" height="100" rx="3" class="hitbox"
+      data-room="Stairs to Upper Level"
+      data-desc="A narrow metal staircase bolted to the eastern wall, leading up to a small mezzanine or loft space. The stairs are grated durasteel — you can see through them, and everyone below can see your boots. The upper level isn't open to regular patrons. Storage, maybe. Or a private room for meetings that need more privacy than the booths provide. The railing is loose on the third step."/>
+
+    <!-- ============ MAIN FLOOR ============ -->
+
+    <!-- DINING TABLES -->
+    <rect x="420" y="120" width="240" height="210" rx="3" class="hitbox"
+      data-room="Main Floor — Dining Area"
+      data-desc="The open center of the cantina. Four heavy wooden tables with mismatched chairs — seats for maybe twenty, rarely full. The stone floor is uneven, patched with metal plates where the original flagstones cracked. Glow-rods on the walls cast warm amber pools that don't quite reach the corners. This is where the crew is sitting when the adventure begins — drinks warm, fixer an hour late, watching the door. The spacing between tables is tight enough that a brawl would involve everyone whether they wanted it or not."/>
+
+    <!-- ============ THE PROW / FRONT DECK ============ -->
+
+    <!-- CURVED FRONT SECTION -->
+    <path d="M 690,120 L 750,105 Q 820,95 870,130 Q 920,170 930,230 Q 940,300 920,370 Q 890,440 830,470 L 690,500 Z" class="hitbox"
+      data-room="The Prow"
+      data-desc="The front section of The Burning Deck — the building's distinctive curved wall that gives it the silhouette of a beached ship's hull. Wide transparisteel viewports look out onto the Reestkii street. The wall-mounted lanterns cast warm light against the curved stone. Standing room and a few high tables along the windows. This is where you watch the street — and where the street watches you. The Lambda shuttle on the landing field is visible from here. Two stormtroopers standing in the heat like plastoid statues."/>
+
+    <!-- ============ EXTERIOR ============ -->
+
+    <!-- MAIN ENTRANCE -->
+    <rect x="370" y="440" width="180" height="60" rx="3" class="hitbox"
+      data-room="Main Entrance"
+      data-desc="Double blast doors — heavy, sand-pitted, with pneumatic hinges that wheeze when they open. The sign above reads THE BURNING DECK in paint that's been refreshed over older lettering: The Rusty Anchor, and before that, Void's End. Three names, same cantina. The doors let in a wedge of white Jakku sunlight and a blast of dry heat every time someone enters. Sand drifts accumulate at the threshold no matter how often they're swept."/>
+
+    <!-- OUTDOOR PATIO -->
+    <path d="M 560,460 Q 620,440 700,460 Q 790,490 830,540 Q 850,580 800,610 L 550,610 Q 520,580 530,540 Q 540,500 560,460 Z" class="hitbox"
+      data-room="Exterior Patio"
+      data-desc="A curved wooden deck wrapping around the front of the building. Weathered planks bleached white by Jakku's twin suns. A few battered chairs and a table — for patrons who prefer sunstroke to conversation. A beat-up landspeeder is parked against the railing, sand-scoured paint over military surplus lines. The patio lanterns attract sand-moths at dusk. From here you can see the entire landing field, including the Lambda shuttle that has no business being on Jakku."/>
+
+    <!-- SPEEDER -->
+    <rect x="595" y="510" width="85" height="55" rx="3" class="hitbox"
+      data-room="Parked Landspeeder"
+      data-desc="A battered SoroSuub X-34 landspeeder, civilian model, sand-scoured down to bare metal in patches. Belongs to one of the regulars — or belonged to someone who isn't coming back for it. The repulsorlift hums at idle, magnetic clamps holding it to the deck. Could seat four in a pinch. Keys are probably behind the bar, if the bartender likes you enough."/>
+
+  </svg>
+</div>
+
+<!-- ============ LOCATION BRIEF ============ -->
+<div class="location-brief">
+
+  <h2>Location Brief — The Burning Deck</h2>
+  <p>Reestkii, Jakku. A settlement the galaxy forgot — if it ever noticed. Drifters, smugglers, moisture farmers with nothing left to farm. The Burning Deck is what passes for a cantina at the edge of civilization. The name's painted over whatever it was called before (<em>The Rusty Anchor</em>), which was painted over the name before that (<em>Void's End</em>). Three names, same cantina, same sand in your drink.</p>
+
+  <h3>The Approach</h3>
+  <div class="read-aloud">
+    Jakku. A world the galaxy forgot... if it ever noticed. Out here on the Western Reaches, the holonet feeds are weeks old, the Republic is a memory, and the Empire is a rumor that sometimes wears a uniform. Reestkii squats on the desert flats like something the sand is trying to swallow. Drifters. Smugglers. Moisture farmers with nothing left to farm. Varga the Hutt runs what passes for an economy: debt, protection, and the quiet understanding that Imperial patrols from Arkanis Sector come through maybe twice a standard year... and they never stay.
+  </div>
+
+  <h3>Interior — The Cantina Floor</h3>
+  <div class="read-aloud">
+    The Burning Deck. That's what passes for a watering hole at the edge of civilization. Low ceiling. Failing glow-rods. The air thick with the smell of engine coolant and cheap Corellian whiskey. A Devaronian sits alone at the sabacc table in the far alcove, turning a credit chip across his knuckles. Watching everything. Playing nothing. A pair of Abyssin drifters argue in the corner booth over a rusted motivator, their guttural voices carrying even through the cantina noise. A weathered Togruta woman nurses a drink at the bar, her montrals scarred in a way that says ex-military. She hasn't looked up once, but her hand never strays far from her hip. Behind the bar, a nervous Bith wipes the same glass he's been wiping for twenty minutes, his oversized eyes flicking to the door every time the wind rattles the blast shutters.
+  </div>
+  <div class="read-aloud">
+    The Burning Deck is quieter than it should be tonight. You noticed it when you docked: a Lambda-class shuttle, sitting on the landing field, flanked by two stormtroopers standing in the heat like they were carved from plastoid. Nobody docks a Lambda on Jakku without a reason. Fewer faces in the stalls on the walk in. The regulars are nursing their drinks a little harder. Talking a little softer. Something has changed the arithmetic, and nobody knows the new numbers yet.
+  </div>
+
+  <div class="detail-grid">
+    <div class="detail-card">
+      <h4>Construction</h4>
+      <p>Sandstone and scavenged durasteel, built into the hull of something that crashed here long enough ago that nobody remembers what it was. The curved front wall — the "prow" — is original hull plating, sand-pitted but still holding. The rest is local stone, heat-sealed mud brick, and whatever metal sheeting the builders could bolt on. The roof is flat, patched with tarp in two places.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Scale</h4>
+      <p>Single story with a partial mezzanine. Roughly 25m long and 15m wide at the prow. Seats maybe thirty — four private booths along the back wall, four dining tables on the main floor, six stools at the bar. The kitchen takes up the entire rear-left. The building curves to a point at the front, following the shape of whatever ship hull it was built around.</p>
+    </div>
+    <div class="detail-card">
+      <h4>The Bar</h4>
+      <p>Salvaged from a decommissioned Star Destroyer's officers' mess — Imperial serial numbers still stamped into the underside of the durasteel counter. Six mismatched stools bolted to the floor. Behind it: bottles in every color, a carbonite-chilled tap system for local ale, and a nervous Bith bartender who sees everything and says nothing. The bar top is scarred with blaster burns, knife marks, and the rings of a thousand glasses.</p>
+    </div>
+    <div class="detail-card">
+      <h4>The Booths</h4>
+      <p>Four private alcoves along the back wall, separated by thick stone partitions. High-backed bench seats with cracked synth-leather. Curtain rods above each — most curtains stolen or used as rags. Low light, hard to see from the main floor, easy to watch the door. The kind of seats where deals happen and alibis are born.</p>
+    </div>
+  </div>
+
+  <div class="gm-note">
+    <strong>GM Note — The Lambda Shuttle:</strong> The Imperial presence is the inciting disruption. The shuttle belongs to an ISB agent conducting a routine shakedown — nothing to do with the crew directly, but it has spooked the regulars and driven the fixer (Cade Ryll) underground. The stormtroopers outside are bored, hot, and uninterested in cantina business unless given a reason to care. The crew's problem isn't the Empire — it's that their contact is an hour late and the only other person with a job offer is bleeding at a corner table.
+  </div>
+
+  <h3>The Cast</h3>
+  <div class="detail-grid">
+    <div class="detail-card">
+      <h4>The Bith Bartender</h4>
+      <p>Nervous, attentive, silent. Wipes the same glass on repeat. His oversized eyes track every movement. He knows who owes what to whom, who's armed, and who's about to start trouble — but he won't volunteer information unless he trusts you. Keeps a holdout blaster and a datapad full of names in the utility closet.</p>
+    </div>
+    <div class="detail-card">
+      <h4>The Devaronian</h4>
+      <p>Sits alone in the west alcove. Turning a credit chip across his knuckles. Watching everything. Playing nothing. He's not waiting for a game — he's waiting to see how the evening plays out. Professional observer. Might be a scout for one of Varga's competitors. Might be nobody.</p>
+    </div>
+    <div class="detail-card">
+      <h4>The Abyssin Drifters</h4>
+      <p>Two of them, arguing over a rusted motivator in the center-east booth. Their guttural voices carry across the whole cantina. The argument is real — the motivator is stolen, and they can't agree on a price. They'll fight each other before they fight anyone else, but they're big enough to be a problem if provoked.</p>
+    </div>
+    <div class="detail-card">
+      <h4>The Togruta Woman</h4>
+      <p>Ex-military. Scarred montrals. Nursing a drink at the bar. Hasn't looked up once, but her hand never strays far from her hip. She's not waiting for anyone — she's deciding whether to leave Jakku tonight. She knows things about the Western Reaches that most spacers don't, if anyone bothers to ask. Name's Nela Bren.</p>
+    </div>
+  </div>
+
+  <h3>Sensory Details — Quick Reference</h3>
+  <div class="detail-grid">
+    <div class="detail-card">
+      <h4>Smell</h4>
+      <p>Engine coolant. Cheap Corellian whiskey. Frying nerf sausage from the kitchen. Desert dust that gets into everything. Under it all, the faint ozone tang of a power cell running hot — the cooling system is overworked.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Sound</h4>
+      <p>The rattle of blast shutters when the wind picks up. Low conversation punctuated by the Abyssin argument. The clink of glasses. The wheeze of the entrance doors. A music unit in the corner plays the same six jizz tracks on loop — the volume knob broke months ago and nobody's fixed it.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Temperature</h4>
+      <p>Hot. Jakku hot. The stone walls hold the day's heat and release it slowly through the night. The kitchen makes it worse. A single ceiling fan turns with agonizing slowness, moving air that doesn't want to be moved. The bar area is marginally cooler — the carbonite tap system radiates cold.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Light</h4>
+      <p>Failing glow-rods on the walls — warm amber, inconsistent. The booth above the center-west alcove flickers on a three-second cycle. The prow viewports let in Jakku's harsh white sunlight during the day, cut to blue-white starlight at night. The kitchen has its own industrial light that leaks through the serving hatch. Corners stay dark.</p>
+    </div>
+  </div>
+
+  <div class="gm-note">
+    <strong>GM Note — Combat Spacing:</strong> The cantina is tight. Tables are close enough that a brawl involves everyone whether they want it or not. The bar provides half-cover. Booths provide three-quarter cover from the main floor. The curved prow wall has no cover — you're silhouetted against the viewports. The kitchen is a chokepoint with one exit. The main entrance blast doors take 3 seconds to cycle open — enough time to set an ambush, not enough to escape one. The exterior patio has the landspeeder, which is either an escape vehicle or an improvised weapon depending on the crew's creativity.
+  </div>
+
+</div>
+
+<script>
+  const tooltip = document.getElementById('tooltip');
+  document.querySelectorAll('.hitbox').forEach(el => {
+    el.addEventListener('mouseenter', e => {
+      const room = el.dataset.room;
+      const desc = el.dataset.desc;
+      tooltip.innerHTML = '<strong style="color:#e0d4b8;text-transform:uppercase;letter-spacing:1px;font-size:14px;">' + room + '</strong><br><br><span style="color:#c0b89a;">' + desc + '</span>';
+      tooltip.style.display = 'block';
+    });
+    el.addEventListener('mousemove', e => {
+      const x = e.clientX + 15;
+      const y = e.clientY + 15;
+      const maxX = window.innerWidth - 320;
+      const maxY = window.innerHeight - 200;
+      tooltip.style.left = Math.min(x, maxX) + 'px';
+      tooltip.style.top = Math.min(y, maxY) + 'px';
+    });
+    el.addEventListener('mouseleave', () => {
+      tooltip.style.display = 'none';
+    });
+  });
+</script>
+</body>
+</html>
