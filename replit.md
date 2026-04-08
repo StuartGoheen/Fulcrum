@@ -35,6 +35,13 @@ The app uses a passcode-based gate (cookie auth) to restrict access:
 │   ├── css/output.css    # Generated — do not edit directly
 │   ├── css/command-bridge.css # GM Black Ledger styles (forge palette, dashboard tiles, floating panels, destiny pips)
 │   ├── css/market.css    # Black Market styles (char gate, accordions, ledger, modals, responsive)
+│   ├── maps/             # Interactive tactical maps (standalone HTML pages with SVG hitbox overlays)
+│   │   ├── editor.html         # GM hitbox editor (select map → drag/resize/edit zones → save via API)
+│   │   ├── burning-deck.html   # The Burning Deck cantina (1024×635)
+│   │   ├── switch-lair.html    # Switch's Lair sinkhole (1024×716)
+│   │   ├── landing-field.html  # Reestkii Landing Field (1024×576)
+│   │   ├── vanishing-place.html # The Vanishing Place fortress (1024×576)
+│   │   └── banshee.html        # The Banshee — Barloz-class freighter (1024×946, 20 zones)
 │   └── audio/            # Audio assets (opening-crawl.mp3)
 ├── css/
 │   ├── input.css         # Tailwind source (custom components + layers)
