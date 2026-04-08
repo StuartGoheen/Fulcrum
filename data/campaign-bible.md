@@ -69,7 +69,7 @@ Then she intercepted the Code Cylinder from Varga's supply chain on Jakku. It wa
 
 **Key Moments:**
 - Adv1 S1: Crashes the heroes' table at The Burning Deck on Jakku — wounded, fleeing Varga's retrieval crew after intercepting the Code Cylinder. Pitches the job.
-- Adv1 P2 S1: Invites the Ace Pilot to the co-pilot seat for the Rishi Maze. Bonding moment — teaches them to read the Maze.
+- Adv1 P2 S1: Invites the Ace Pilot to the co-pilot seat for the Smuggler's Path (Jakku → Ajan Kloss via scavenger trails, Ord Mantell, Aldhani). Bonding moment — teaches them to read the gaps between hyperspace lanes.
 - Adv1 P2 S2: Takes shrapnel during V-wing strafing on approach. The Ace takes the stick and crash-lands the Banshee. Maya stays behind to repair and gives the heroes a secondary objective: disable the turret defenses so she can fly extraction.
 - Adv1 P2 S6: Extraction is conditional on turrets being down. If they're destroyed, she swoops in clean. If not, she takes heavy fire. Either way, she proves she's not just a grifter — she's the crew's pilot under fire.
 - Adv2: Stays with the Banshee as extraction plan during the Varga infiltration. Denia recovers at Maz's castle on Takodana — Maya bonds with her between adventures.
@@ -464,7 +464,7 @@ A leviathan is a creature of the deep that drags you down. This weapon literally
 - Maya reveals she's been tracking an Imperial shuttle on the Reestkii Landing Field
 - Ganga Lor attacks Switch's bunker — Varga wants the cylinder because it could lead someone to Varth before Varga gets to him (Varga needs Varth alive to unlock the encrypted account). **Ganga Lor is killed in the fight.**
 - The Heist: heroes infiltrate the landing field, use the cylinder to access the shuttle's nav computer, download coordinates for the Vanishing Place
-- **Co-Pilot Dynamic:** Maya invites the Ace Pilot to the co-pilot seat for the Rishi Maze run. Bonding moment between Maya and the crew as she teaches them to read the Maze. This is the Ace spotlight — they're not passengers, they're flying.
+- **Co-Pilot Dynamic:** Maya invites the Ace Pilot to the co-pilot seat for the Smuggler's Path — a stitched-together chain of scavenger trails and shadow-port routes from Jakku to Ajan Kloss (four jumps: Jakku → deep space dropout → Ord Mantell → Aldhani → Ajan Kloss). Bonding moment between Maya and the crew as she teaches them to read the gaps between hyperspace lanes. This is the Ace spotlight — they're not passengers, they're flying.
 - **Maya Wounded:** During the Ajan Kloss approach, V-wing strafing damages the Banshee. Maya takes shrapnel — a serious wound. The Ace takes the stick and brings the Banshee down in a controlled crash. Maya stays behind to repair the ship and gives the heroes a secondary objective: disable the perimeter turret defenses so she can fly the extraction safely.
 - **Mandrake's Deal (Revised):** Mandrake's motivation is personal — he's protecting indigenous locals who were rounded up and imprisoned by Skarn after they resisted the occupation. The generator powers four systems: turret defenses, laser fences penning prisoners, security doors blocking the detention area, and the sensor grid. Sabotage serves four purposes: honors Mandrake's deal (frees the prisoners), clears Maya's flight path (turrets down), opens the detention block (security doors down), and creates chaos cover.
 - **Mandrake Splits Off:** Inside the fortress, Mandrake separates to position himself near the detention pens, ready to free his people when the generator goes down. Heroes proceed to find Varth.

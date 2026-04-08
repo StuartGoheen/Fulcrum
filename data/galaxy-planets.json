@@ -205,5 +205,14 @@
     "sector": "Abrion",
     "gridSquare": "S-15",
     "desc": "Moon at the edge of the Rishi Maze. A listening outpost and small settlement cling to the rocky coast. In 16 BBY, Rishi is a waypoint for ships heading to or from the Corporate Sector. The cantina at Rishi Station serves terrible food but has reliable fuel pumps and mechanics who don't ask questions."
+  },
+  {
+    "name": "Aldhani",
+    "x": 0.595,
+    "y": 0.262,
+    "region": "Outer Rim",
+    "sector": "Cademimu",
+    "gridSquare": "M-6",
+    "desc": "Remote mountainous world in the Cademimu sector. The Empire maintains a garrison here guarding a payroll hub and a secret hyperspace navigation facility. In 16 BBY, Aldhani is lightly populated — herders and Imperial staff. The Eye of Aldhani — a spectacular celestial event — draws tourists once every three years. A risky but necessary waypoint for anyone heading to the Cademimu sector via back channels."
   }
 ]
