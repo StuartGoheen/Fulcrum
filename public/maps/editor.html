@@ -20,7 +20,7 @@
   .hitbox-item .name { font-weight: 600; color: #e0d4b8; font-size: 13px; margin-bottom: 4px; }
   .hitbox-item .coords { color: #777; font-family: monospace; font-size: 11px; }
 
-  .props-panel { border-top: 1px solid #333; padding: 14px; background: #1e1e1e; }
+  .props-panel { border-top: 1px solid #333; padding: 14px; background: #1e1e1e; max-height: 340px; overflow-y: auto; }
   .props-panel h3 { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #888; margin-bottom: 10px; }
   .prop-row { display: flex; gap: 8px; margin-bottom: 8px; }
   .prop-field { flex: 1; }
@@ -38,6 +38,8 @@
   .btn.save { border-color: #558833; background: #203a20; color: #b8e0b8; }
   .btn.save:hover { background: #284a28; }
   .btn.save.dirty { border-color: #cc8833; background: #3a2a10; color: #ffd080; animation: pulse 2s infinite; }
+  .btn.add { border-color: #335588; background: #202a3a; color: #b8d0e0; }
+  .btn.add:hover { background: #283a4a; }
   @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.7; } }
 
   .canvas-area { flex: 1; overflow: auto; position: relative; background: #111; }
@@ -59,6 +61,8 @@
   .hb-label { font-size: 9px; fill: rgba(0,200,255,0.7); font-family: monospace; pointer-events: none; text-anchor: middle; dominant-baseline: central; }
   .hb-label.selected { fill: #ffd54f; }
 
+  .grid-line { stroke: rgba(0,255,100,0.15); stroke-width: 0.5; pointer-events: none; }
+
   .zoom-controls { position: absolute; bottom: 16px; right: 16px; display: flex; gap: 6px; z-index: 10; }
   .zoom-btn { width: 32px; height: 32px; border: 1px solid #444; background: #222; color: #c0b89a; border-radius: 4px; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; }
   .zoom-btn:hover { border-color: #888; background: #333; }
@@ -69,6 +73,17 @@
 
   .dirty-indicator { display: none; font-size: 10px; color: #cc8833; margin-top: 8px; text-align: center; }
   .dirty-indicator.show { display: block; }
+
+  .grid-panel { border-top: 1px solid #333; padding: 12px 14px; background: #1e2e1e; }
+  .grid-panel h3 { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #6a8a6a; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; }
+  .grid-toggle { padding: 3px 10px; border: 1px solid #446644; background: #253525; color: #8ac88a; border-radius: 3px; cursor: pointer; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; }
+  .grid-toggle.on { background: #2a4a2a; border-color: #55aa55; color: #aaeaaa; }
+  .grid-panel .prop-row { margin-bottom: 6px; }
+  .grid-panel .prop-field label { color: #5a7a5a; }
+  .grid-panel .prop-field input { background: #1a2a1a; border-color: #3a5a3a; color: #8ac88a; }
+  .grid-panel .prop-field input:focus { border-color: #66aa66; }
+  .grid-hint { font-size: 10px; color: #4a6a4a; margin-top: 4px; line-height: 1.4; }
+  .grid-mode-label { font-size: 10px; color: #6a8a6a; text-align: center; margin-top: 2px; }
 </style>
 </head>
 <body>
@@ -114,7 +129,22 @@
     </div>
   </div>
 
+  <div class="grid-panel" id="gridPanel">
+    <h3>Grid Overlay <button class="grid-toggle" id="gridToggle">Off</button></h3>
+    <div class="prop-row">
+      <div class="prop-field"><label>Cell Size</label><input type="number" id="gridSize" value="40" min="10" max="200" step="5"></div>
+      <div class="prop-field"><label>Opacity</label><input type="range" id="gridOpacity" min="5" max="60" value="15" style="width:100%;margin-top:4px;accent-color:#66aa66;"></div>
+    </div>
+    <div class="prop-row">
+      <div class="prop-field"><label>Offset X</label><input type="number" id="gridOffX" value="0" min="-200" max="200" step="1"></div>
+      <div class="prop-field"><label>Offset Y</label><input type="number" id="gridOffY" value="0" min="-200" max="200" step="1"></div>
+    </div>
+    <div class="grid-mode-label" id="gridModeLabel"></div>
+    <div class="grid-hint">G to toggle grid. When grid is active, arrow keys move grid (10px steps). Hold Shift for 1px fine nudge.</div>
+  </div>
+
   <div style="padding:10px; border-top:1px solid #333; display:flex; flex-direction:column; gap:6px;">
+    <button class="btn add" id="btnAdd" style="width:100%;">+ Add New Hitbox</button>
     <button class="btn save" id="btnSave" style="width:100%;">Save to Map File</button>
     <button class="btn primary" id="btnCopyAll" style="width:100%;">Copy All SVG</button>
   </div>
@@ -147,6 +177,13 @@ let zoom = 1;
 let dragState = null;
 let isDirty = false;
 
+let gridOn = false;
+let gridSize = 40;
+let gridOffX = 0;
+let gridOffY = 0;
+let gridOpacity = 15;
+let gridFocused = false;
+
 const $ = id => document.getElementById(id);
 const mapSelect = $('mapSelect');
 const hitboxList = $('hitboxList');
@@ -164,6 +201,13 @@ function markClean() {
   isDirty = false;
   $('dirtyIndicator').className = 'dirty-indicator';
   $('btnSave').className = 'btn save';
+}
+
+function updateGridModeLabel() {
+  const label = $('gridModeLabel');
+  if (!gridOn) { label.textContent = ''; return; }
+  label.textContent = gridFocused ? 'Arrow keys: move grid' : 'Arrow keys: move hitbox (click grid panel to switch)';
+  label.style.color = gridFocused ? '#aaeaaa' : '#6a8a6a';
 }
 
 mapSelect.addEventListener('change', () => {
@@ -200,7 +244,7 @@ async function loadMap(key) {
 
   hitboxes = [];
   doc.querySelectorAll('.hitbox').forEach(el => {
-    const hb = {
+    hitboxes.push({
       room: el.getAttribute('data-room') || '',
       desc: el.getAttribute('data-desc') || '',
       x: parseFloat(el.getAttribute('x')) || 0,
@@ -208,8 +252,7 @@ async function loadMap(key) {
       w: parseFloat(el.getAttribute('width')) || 0,
       h: parseFloat(el.getAttribute('height')) || 0,
       rx: el.getAttribute('rx') || '3'
-    };
-    hitboxes.push(hb);
+    });
   });
 
   selectedIdx = -1;
@@ -219,11 +262,28 @@ async function loadMap(key) {
   zoomFit();
 }
 
+function buildGridSVG(vw, vh) {
+  if (!gridOn) return '';
+  let lines = '';
+  const op = gridOpacity / 100;
+  const style = `stroke:rgba(0,255,100,${op});stroke-width:0.5;`;
+  for (let x = gridOffX % gridSize; x <= vw; x += gridSize) {
+    if (x >= 0) lines += `<line x1="${x}" y1="0" x2="${x}" y2="${vh}" style="${style}" pointer-events="none"/>`;
+  }
+  for (let y = gridOffY % gridSize; y <= vh; y += gridSize) {
+    if (y >= 0) lines += `<line x1="0" y1="${y}" x2="${vw}" y2="${y}" style="${style}" pointer-events="none"/>`;
+  }
+  return lines;
+}
+
 function render() {
   if (!currentMap) return;
   const { img, vw, vh } = currentMap;
 
   let svgContent = '';
+
+  svgContent += buildGridSVG(vw, vh);
+
   hitboxes.forEach((hb, i) => {
     const sel = i === selectedIdx ? ' selected' : '';
     svgContent += `<rect x="${hb.x}" y="${hb.y}" width="${hb.w}" height="${hb.h}" rx="${hb.rx || 3}" class="hb-rect${sel}" data-idx="${i}"/>`;
@@ -271,6 +331,8 @@ function renderList() {
 
 function selectHitbox(idx) {
   selectedIdx = idx;
+  gridFocused = false;
+  updateGridModeLabel();
   const hb = hitboxes[idx];
   propsPanel.style.display = 'block';
   $('propName').value = hb.room;
@@ -369,6 +431,28 @@ window.addEventListener('mousemove', e => {
 
 window.addEventListener('mouseup', () => { dragState = null; });
 
+$('btnAdd').addEventListener('click', () => {
+  if (!currentMap) { showToast('Load a map first', 'error'); return; }
+  const vw = currentMap.vw;
+  const vh = currentMap.vh;
+  const newHb = {
+    room: 'New Zone',
+    desc: '',
+    x: Math.round(vw / 2 - 50),
+    y: Math.round(vh / 2 - 40),
+    w: 100,
+    h: 80,
+    rx: '3'
+  };
+  hitboxes.push(newHb);
+  markDirty();
+  selectedIdx = hitboxes.length - 1;
+  selectHitbox(selectedIdx);
+  showToast('Added new hitbox — drag it into position');
+  const items = hitboxList.querySelectorAll('.hitbox-item');
+  if (items.length) items[items.length - 1].scrollIntoView({ behavior: 'smooth' });
+});
+
 $('btnDelete').addEventListener('click', () => {
   if (selectedIdx < 0) return;
   const name = hitboxes[selectedIdx].room || '(unnamed)';
@@ -422,6 +506,44 @@ $('btnSave').addEventListener('click', async () => {
   }
 });
 
+function toggleGrid() {
+  gridOn = !gridOn;
+  $('gridToggle').textContent = gridOn ? 'On' : 'Off';
+  $('gridToggle').className = 'grid-toggle' + (gridOn ? ' on' : '');
+  if (gridOn) gridFocused = true;
+  updateGridModeLabel();
+  render();
+}
+
+$('gridToggle').addEventListener('click', toggleGrid);
+
+$('gridSize').addEventListener('input', () => {
+  gridSize = Math.max(10, parseInt($('gridSize').value) || 40);
+  render();
+});
+
+$('gridOpacity').addEventListener('input', () => {
+  gridOpacity = parseInt($('gridOpacity').value) || 15;
+  render();
+});
+
+$('gridOffX').addEventListener('input', () => {
+  gridOffX = parseInt($('gridOffX').value) || 0;
+  render();
+});
+
+$('gridOffY').addEventListener('input', () => {
+  gridOffY = parseInt($('gridOffY').value) || 0;
+  render();
+});
+
+$('gridPanel').addEventListener('mousedown', () => {
+  if (gridOn) {
+    gridFocused = true;
+    updateGridModeLabel();
+  }
+});
+
 function showToast(msg, type) {
   const t = $('toast');
   t.textContent = msg;
@@ -447,8 +569,31 @@ $('zoomOut').addEventListener('click', () => { zoom = Math.max(zoom / 1.25, 0.2)
 $('zoomFit').addEventListener('click', zoomFit);
 
 window.addEventListener('keydown', e => {
-  if (selectedIdx < 0) return;
   if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+  if (e.key === 'g' || e.key === 'G') {
+    toggleGrid();
+    e.preventDefault();
+    return;
+  }
+
+  if (gridOn && gridFocused) {
+    const step = e.shiftKey ? 1 : 10;
+    let moved = false;
+    if (e.key === 'ArrowLeft')  { gridOffX -= step; moved = true; }
+    if (e.key === 'ArrowRight') { gridOffX += step; moved = true; }
+    if (e.key === 'ArrowUp')    { gridOffY -= step; moved = true; }
+    if (e.key === 'ArrowDown')  { gridOffY += step; moved = true; }
+    if (moved) {
+      e.preventDefault();
+      $('gridOffX').value = gridOffX;
+      $('gridOffY').value = gridOffY;
+      render();
+      return;
+    }
+  }
+
+  if (selectedIdx < 0) return;
   const hb = hitboxes[selectedIdx];
   const step = e.shiftKey ? 10 : 1;
   if (e.key === 'ArrowLeft')  { hb.x -= step; e.preventDefault(); }
