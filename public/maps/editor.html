@@ -19,8 +19,6 @@
   .hitbox-item.active { border-color: #c8b88a; background: #2a2518; }
   .hitbox-item .name { font-weight: 600; color: #e0d4b8; font-size: 13px; margin-bottom: 4px; }
   .hitbox-item .coords { color: #777; font-family: monospace; font-size: 11px; }
-  .hitbox-item .shape-tag { display: inline-block; font-size: 9px; padding: 1px 5px; border-radius: 3px; background: #333; color: #888; margin-left: 6px; vertical-align: middle; }
-  .hitbox-item .shape-tag.path { background: #2a2030; color: #a888cc; }
 
   .props-panel { border-top: 1px solid #333; padding: 14px; background: #1e1e1e; }
   .props-panel h3 { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #888; margin-bottom: 10px; }
@@ -33,10 +31,14 @@
   .prop-field textarea:focus { outline: none; border-color: #c8b88a; }
 
   .btn-row { display: flex; gap: 8px; margin-top: 10px; }
-  .btn { padding: 7px 14px; border: 1px solid #444; background: #2a2a2a; color: #c0b89a; border-radius: 4px; cursor: pointer; font-size: 12px; transition: all 0.15s; }
+  .btn { padding: 7px 14px; border: 1px solid #444; background: #2a2a2a; color: #c0b89a; border-radius: 4px; cursor: pointer; font-size: 12px; transition: all 0.15s; flex: 1; text-align: center; }
   .btn:hover { border-color: #c8b88a; background: #332e20; }
   .btn.primary { border-color: #887755; background: #3a3020; color: #e0d4b8; }
   .btn.primary:hover { background: #4a3d28; }
+  .btn.save { border-color: #558833; background: #203a20; color: #b8e0b8; }
+  .btn.save:hover { background: #284a28; }
+  .btn.save.dirty { border-color: #cc8833; background: #3a2a10; color: #ffd080; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.7; } }
 
   .canvas-area { flex: 1; overflow: auto; position: relative; background: #111; }
   .map-wrap { position: relative; display: inline-block; transform-origin: 0 0; }
@@ -46,8 +48,6 @@
   .hb-rect { fill: transparent; stroke: rgba(0,200,255,0.4); stroke-width: 1.5; cursor: pointer; transition: fill 0.15s; }
   .hb-rect:hover { fill: rgba(0,200,255,0.06); stroke: rgba(0,200,255,0.7); }
   .hb-rect.selected { stroke: #ffd54f; stroke-width: 2; fill: rgba(255,213,79,0.08); }
-  .hb-rect.is-path { stroke-dasharray: 6 3; }
-  .hb-path-preview { fill: none; stroke: rgba(168,136,204,0.4); stroke-width: 1.5; pointer-events: none; }
 
   .resize-handle { fill: #ffd54f; stroke: #aa8800; stroke-width: 1; cursor: nwse-resize; opacity: 0; pointer-events: none; }
   .resize-handle.active { opacity: 1; pointer-events: auto; }
@@ -64,6 +64,11 @@
   .zoom-btn:hover { border-color: #888; background: #333; }
 
   .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #3a3020; border: 1px solid #887755; color: #e0d4b8; padding: 10px 20px; border-radius: 4px; font-size: 13px; z-index: 1000; display: none; }
+  .toast.error { background: #3a2020; border-color: #885555; color: #e0b8b8; }
+  .toast.success { background: #203a20; border-color: #558855; color: #b8e0b8; }
+
+  .dirty-indicator { display: none; font-size: 10px; color: #cc8833; margin-top: 8px; text-align: center; }
+  .dirty-indicator.show { display: block; }
 </style>
 </head>
 <body>
@@ -80,6 +85,7 @@
       <option value="landing-field">Reestkii Landing Field</option>
       <option value="vanishing-place">The Vanishing Place</option>
     </select>
+    <div class="dirty-indicator" id="dirtyIndicator">Unsaved changes</div>
   </div>
 
   <div class="hitbox-list" id="hitboxList"></div>
@@ -102,14 +108,15 @@
       <label>Description</label>
       <textarea id="propDesc" rows="3"></textarea>
     </div>
-    <div id="pathNote" style="display:none; margin-top:8px; padding:6px 10px; background:#2a2030; border:1px solid #443355; border-radius:3px; font-size:11px; color:#a888cc;">Path/polygon geometry — position is read-only. Name and description are editable. Original SVG shape preserved on copy.</div>
     <div class="btn-row">
-      <button class="btn primary" id="btnCopyOne">Copy This Element</button>
+      <button class="btn primary" id="btnCopyOne">Copy Element</button>
+      <button class="btn" id="btnDelete" style="border-color:#663333;color:#cc8888;">Delete</button>
     </div>
   </div>
 
-  <div style="padding:10px; border-top:1px solid #333;">
-    <button class="btn primary" id="btnCopyAll" style="width:100%;">Copy All SVG Hitboxes</button>
+  <div style="padding:10px; border-top:1px solid #333; display:flex; flex-direction:column; gap:6px;">
+    <button class="btn save" id="btnSave" style="width:100%;">Save to Map File</button>
+    <button class="btn primary" id="btnCopyAll" style="width:100%;">Copy All SVG</button>
   </div>
 </div>
 
@@ -118,8 +125,8 @@
     <div style="padding:40px; color:#555; font-style:italic;">Select a map to begin editing hitboxes.</div>
   </div>
   <div class="zoom-controls">
-    <button class="zoom-btn" id="zoomOut">−</button>
-    <button class="zoom-btn" id="zoomFit">⊡</button>
+    <button class="zoom-btn" id="zoomOut">-</button>
+    <button class="zoom-btn" id="zoomFit">[]</button>
     <button class="zoom-btn" id="zoomIn">+</button>
   </div>
 </div>
@@ -135,8 +142,10 @@ const MAPS = {
 let hitboxes = [];
 let selectedIdx = -1;
 let currentMap = null;
+let currentMapKey = '';
 let zoom = 1;
 let dragState = null;
+let isDirty = false;
 
 const $ = id => document.getElementById(id);
 const mapSelect = $('mapSelect');
@@ -145,11 +154,34 @@ const propsPanel = $('propsPanel');
 const mapWrap = $('mapWrap');
 const canvasArea = $('canvasArea');
 
-mapSelect.addEventListener('change', () => loadMap(mapSelect.value));
+function markDirty() {
+  isDirty = true;
+  $('dirtyIndicator').className = 'dirty-indicator show';
+  $('btnSave').className = 'btn save dirty';
+}
+
+function markClean() {
+  isDirty = false;
+  $('dirtyIndicator').className = 'dirty-indicator';
+  $('btnSave').className = 'btn save';
+}
+
+mapSelect.addEventListener('change', () => {
+  if (isDirty && !confirm('You have unsaved changes. Switch maps anyway?')) {
+    mapSelect.value = currentMapKey;
+    return;
+  }
+  loadMap(mapSelect.value);
+});
 
 async function loadMap(key) {
-  if (!key || !MAPS[key]) { mapWrap.innerHTML = '<div style="padding:40px;color:#555;font-style:italic;">Select a map.</div>'; return; }
+  if (!key || !MAPS[key]) {
+    mapWrap.innerHTML = '<div style="padding:40px;color:#555;font-style:italic;">Select a map.</div>';
+    currentMapKey = '';
+    return;
+  }
   currentMap = MAPS[key];
+  currentMapKey = key;
 
   const resp = await fetch(key + '.html');
   const html = await resp.text();
@@ -168,65 +200,23 @@ async function loadMap(key) {
 
   hitboxes = [];
   doc.querySelectorAll('.hitbox').forEach(el => {
-    const tag = el.tagName.toLowerCase();
     const hb = {
-      tag,
       room: el.getAttribute('data-room') || '',
       desc: el.getAttribute('data-desc') || '',
-      x: 0, y: 0, w: 0, h: 0,
-      origMarkup: el.outerHTML
+      x: parseFloat(el.getAttribute('x')) || 0,
+      y: parseFloat(el.getAttribute('y')) || 0,
+      w: parseFloat(el.getAttribute('width')) || 0,
+      h: parseFloat(el.getAttribute('height')) || 0,
+      rx: el.getAttribute('rx') || '3'
     };
-    if (tag === 'rect') {
-      hb.x = parseFloat(el.getAttribute('x')) || 0;
-      hb.y = parseFloat(el.getAttribute('y')) || 0;
-      hb.w = parseFloat(el.getAttribute('width')) || 0;
-      hb.h = parseFloat(el.getAttribute('height')) || 0;
-      hb.rx = el.getAttribute('rx') || '0';
-    } else if (tag === 'path' || tag === 'polygon') {
-      const bbox = estimateBBox(el);
-      hb.x = bbox.x; hb.y = bbox.y; hb.w = bbox.w; hb.h = bbox.h;
-      hb.pathData = el.getAttribute('d') || '';
-      hb.points = el.getAttribute('points') || '';
-      hb.isPath = true;
-    } else if (tag === 'g') {
-      hb.isGroup = true;
-      const rects = el.querySelectorAll('rect, circle, ellipse, polygon');
-      let minX=9999, minY=9999, maxX=0, maxY=0;
-      rects.forEach(c => {
-        const cx = parseFloat(c.getAttribute('x') || c.getAttribute('cx') || 0);
-        const cy = parseFloat(c.getAttribute('y') || c.getAttribute('cy') || 0);
-        const cw = parseFloat(c.getAttribute('width') || c.getAttribute('r') || c.getAttribute('rx') || 0) * (c.getAttribute('r') ? 2 : 1);
-        const ch = parseFloat(c.getAttribute('height') || c.getAttribute('r') || c.getAttribute('ry') || 0) * (c.getAttribute('r') ? 2 : 1);
-        minX = Math.min(minX, cx - (c.getAttribute('r') ? parseFloat(c.getAttribute('r')) : 0));
-        minY = Math.min(minY, cy - (c.getAttribute('r') ? parseFloat(c.getAttribute('r')) : 0));
-        maxX = Math.max(maxX, cx + cw);
-        maxY = Math.max(maxY, cy + ch);
-      });
-      hb.x = minX; hb.y = minY; hb.w = maxX - minX; hb.h = maxY - minY;
-      hb.groupHTML = el.innerHTML;
-    }
     hitboxes.push(hb);
   });
 
   selectedIdx = -1;
   propsPanel.style.display = 'none';
+  markClean();
   render();
   zoomFit();
-}
-
-function estimateBBox(el) {
-  const d = el.getAttribute('d') || '';
-  const pts = el.getAttribute('points') || '';
-  const nums = (d + ' ' + pts).match(/-?\d+\.?\d*/g);
-  if (!nums || nums.length < 4) return { x: 0, y: 0, w: 100, h: 100 };
-  const coords = nums.map(Number);
-  let xs = [], ys = [];
-  for (let i = 0; i < coords.length; i++) {
-    if (i % 2 === 0) xs.push(coords[i]); else ys.push(coords[i]);
-  }
-  const minX = Math.min(...xs), maxX = Math.max(...xs);
-  const minY = Math.min(...ys), maxY = Math.max(...ys);
-  return { x: minX, y: minY, w: maxX - minX, h: maxY - minY };
 }
 
 function render() {
@@ -236,18 +226,14 @@ function render() {
   let svgContent = '';
   hitboxes.forEach((hb, i) => {
     const sel = i === selectedIdx ? ' selected' : '';
-    const pathCls = hb.isPath || hb.isGroup ? ' is-path' : '';
-    if (hb.isPath && hb.pathData) {
-      svgContent += `<path d="${hb.pathData}" class="hb-path-preview"/>`;
-    }
-    svgContent += `<rect x="${hb.x}" y="${hb.y}" width="${hb.w}" height="${hb.h}" rx="${hb.rx || 3}" class="hb-rect${sel}${pathCls}" data-idx="${i}"/>`;
+    svgContent += `<rect x="${hb.x}" y="${hb.y}" width="${hb.w}" height="${hb.h}" rx="${hb.rx || 3}" class="hb-rect${sel}" data-idx="${i}"/>`;
     const labelX = hb.x + hb.w / 2;
     const labelY = hb.y + hb.h / 2;
-    const short = hb.room.length > 20 ? hb.room.slice(0, 18) + '…' : hb.room;
+    const short = hb.room.length > 20 ? hb.room.slice(0, 18) + '...' : hb.room;
     svgContent += `<text x="${labelX}" y="${labelY}" class="hb-label${sel}">${short}</text>`;
   });
 
-  if (selectedIdx >= 0 && !hitboxes[selectedIdx].isPath && !hitboxes[selectedIdx].isGroup) {
+  if (selectedIdx >= 0) {
     const hb = hitboxes[selectedIdx];
     const hs = 7;
     const handles = [
@@ -277,8 +263,7 @@ function renderList() {
   hitboxes.forEach((hb, i) => {
     const div = document.createElement('div');
     div.className = 'hitbox-item' + (i === selectedIdx ? ' active' : '');
-    const tagBadge = hb.isPath ? '<span class="shape-tag path">path</span>' : hb.isGroup ? '<span class="shape-tag path">group</span>' : '';
-    div.innerHTML = `<div class="name">${hb.room || '(unnamed)'}${tagBadge}</div><div class="coords">x:${Math.round(hb.x)} y:${Math.round(hb.y)} w:${Math.round(hb.w)} h:${Math.round(hb.h)}</div>`;
+    div.innerHTML = `<div class="name">${hb.room || '(unnamed)'}</div><div class="coords">x:${Math.round(hb.x)} y:${Math.round(hb.y)} w:${Math.round(hb.w)} h:${Math.round(hb.h)}</div>`;
     div.addEventListener('click', () => selectHitbox(i));
     hitboxList.appendChild(div);
   });
@@ -294,10 +279,6 @@ function selectHitbox(idx) {
   $('propW').value = Math.round(hb.w);
   $('propH').value = Math.round(hb.h);
   $('propDesc').value = hb.desc;
-  const isLocked = hb.isPath || hb.isGroup;
-  ['propX','propY','propW','propH'].forEach(id => $(id).disabled = isLocked);
-  const note = document.getElementById('pathNote');
-  if (note) note.style.display = isLocked ? 'block' : 'none';
   render();
 }
 
@@ -309,11 +290,12 @@ function selectHitbox(idx) {
     hb.y = parseFloat($('propY').value) || 0;
     hb.w = parseFloat($('propW').value) || 0;
     hb.h = parseFloat($('propH').value) || 0;
+    markDirty();
     render();
   });
 });
-$('propName').addEventListener('input', () => { if (selectedIdx >= 0) hitboxes[selectedIdx].room = $('propName').value; renderList(); });
-$('propDesc').addEventListener('input', () => { if (selectedIdx >= 0) hitboxes[selectedIdx].desc = $('propDesc').value; });
+$('propName').addEventListener('input', () => { if (selectedIdx >= 0) { hitboxes[selectedIdx].room = $('propName').value; markDirty(); renderList(); } });
+$('propDesc').addEventListener('input', () => { if (selectedIdx >= 0) { hitboxes[selectedIdx].desc = $('propDesc').value; markDirty(); } });
 
 function svgPoint(e) {
   const svg = mapWrap.querySelector('svg');
@@ -341,9 +323,7 @@ mapWrap.addEventListener('mousedown', e => {
     const idx = parseInt(rect.dataset.idx);
     selectHitbox(idx);
     const hb = hitboxes[idx];
-    if (!hb.isPath && !hb.isGroup) {
-      dragState = { type: 'move', idx, startX: hb.x, startY: hb.y, origin: svgPoint(e) };
-    }
+    dragState = { type: 'move', idx, startX: hb.x, startY: hb.y, origin: svgPoint(e) };
     return;
   }
   if (e.target.tagName === 'IMG' || e.target.tagName === 'svg') {
@@ -364,6 +344,7 @@ window.addEventListener('mousemove', e => {
   if (dragState.type === 'move') {
     hb.x = Math.round(dragState.startX + dx);
     hb.y = Math.round(dragState.startY + dy);
+    markDirty();
   } else if (dragState.type === 'resize') {
     const h = dragState.handle;
     const s = dragState;
@@ -376,6 +357,7 @@ window.addEventListener('mousemove', e => {
     if (newH < 10) { newH = 10; if (h === 't' || h === 'tr' || h === 'tl') newY = s.startY + s.startH - 10; }
     hb.x = Math.round(newX); hb.y = Math.round(newY);
     hb.w = Math.round(newW); hb.h = Math.round(newH);
+    markDirty();
   }
 
   $('propX').value = Math.round(hb.x);
@@ -387,39 +369,65 @@ window.addEventListener('mousemove', e => {
 
 window.addEventListener('mouseup', () => { dragState = null; });
 
+$('btnDelete').addEventListener('click', () => {
+  if (selectedIdx < 0) return;
+  const name = hitboxes[selectedIdx].room || '(unnamed)';
+  if (!confirm(`Delete hitbox "${name}"?`)) return;
+  hitboxes.splice(selectedIdx, 1);
+  selectedIdx = -1;
+  propsPanel.style.display = 'none';
+  markDirty();
+  render();
+});
+
 function generateSVG(idx) {
   const hb = hitboxes[idx];
   const descEsc = hb.desc.replace(/&/g,'&amp;').replace(/"/g,'&quot;');
   const nameEsc = hb.room.replace(/&/g,'&amp;').replace(/"/g,'&quot;');
-  if (hb.isPath || hb.isGroup) {
-    let markup = hb.origMarkup;
-    markup = markup.replace(/data-room="[^"]*"/, `data-room="${nameEsc}"`);
-    markup = markup.replace(/data-desc="[^"]*"/, `data-desc="${descEsc}"`);
-    return '    ' + markup;
-  }
   return `    <rect x="${Math.round(hb.x)}" y="${Math.round(hb.y)}" width="${Math.round(hb.w)}" height="${Math.round(hb.h)}" rx="${hb.rx || 3}" class="hitbox"\n      data-room="${nameEsc}"\n      data-desc="${descEsc}"/>`;
-}
-
-function generateAllSVG() {
-  return hitboxes.map((_, i) => generateSVG(i)).join('\n\n');
 }
 
 $('btnCopyOne').addEventListener('click', () => {
   if (selectedIdx < 0) return;
-  navigator.clipboard.writeText(generateSVG(selectedIdx));
-  showToast('Copied element SVG to clipboard');
+  navigator.clipboard.writeText(generateSVG(selectedIdx)).then(() => showToast('Copied element SVG'));
 });
 
 $('btnCopyAll').addEventListener('click', () => {
-  navigator.clipboard.writeText(generateAllSVG());
-  showToast('Copied all ' + hitboxes.length + ' hitbox elements to clipboard');
+  const all = hitboxes.map((_, i) => generateSVG(i)).join('\n\n');
+  navigator.clipboard.writeText(all).then(() => showToast('Copied all ' + hitboxes.length + ' hitboxes'));
 });
 
-function showToast(msg) {
+$('btnSave').addEventListener('click', async () => {
+  if (!currentMapKey) { showToast('No map loaded', 'error'); return; }
+  $('btnSave').textContent = 'Saving...';
+  $('btnSave').disabled = true;
+  try {
+    const resp = await fetch('/api/maps/save', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ mapKey: currentMapKey, hitboxes })
+    });
+    const data = await resp.json();
+    if (resp.ok && data.ok) {
+      markClean();
+      showToast('Saved ' + data.count + ' hitboxes to ' + currentMapKey + '.html', 'success');
+    } else {
+      showToast(data.error || 'Save failed', 'error');
+    }
+  } catch (err) {
+    showToast('Network error: ' + err.message, 'error');
+  } finally {
+    $('btnSave').textContent = 'Save to Map File';
+    $('btnSave').disabled = false;
+  }
+});
+
+function showToast(msg, type) {
   const t = $('toast');
   t.textContent = msg;
+  t.className = 'toast' + (type ? ' ' + type : '');
   t.style.display = 'block';
-  setTimeout(() => t.style.display = 'none', 2500);
+  setTimeout(() => t.style.display = 'none', 3000);
 }
 
 function applyZoom() {
@@ -442,15 +450,20 @@ window.addEventListener('keydown', e => {
   if (selectedIdx < 0) return;
   if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
   const hb = hitboxes[selectedIdx];
-  if (hb.isPath || hb.isGroup) return;
   const step = e.shiftKey ? 10 : 1;
   if (e.key === 'ArrowLeft')  { hb.x -= step; e.preventDefault(); }
-  if (e.key === 'ArrowRight') { hb.x += step; e.preventDefault(); }
-  if (e.key === 'ArrowUp')    { hb.y -= step; e.preventDefault(); }
-  if (e.key === 'ArrowDown')  { hb.y += step; e.preventDefault(); }
+  else if (e.key === 'ArrowRight') { hb.x += step; e.preventDefault(); }
+  else if (e.key === 'ArrowUp')    { hb.y -= step; e.preventDefault(); }
+  else if (e.key === 'ArrowDown')  { hb.y += step; e.preventDefault(); }
+  else return;
+  markDirty();
   $('propX').value = Math.round(hb.x);
   $('propY').value = Math.round(hb.y);
   render();
+});
+
+window.addEventListener('beforeunload', e => {
+  if (isDirty) { e.preventDefault(); e.returnValue = ''; }
 });
 </script>
 </body>

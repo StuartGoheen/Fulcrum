@@ -18,6 +18,7 @@ const decisionRoutes      = require('./routes/decisions');
 const narrativeChallengeRoutes = require('./routes/narrative-challenges');
 const npcProfileRoutes        = require('./routes/npc-profiles');
 const galaxyPinRoutes         = require('./routes/galaxy-pins');
+const fs = require('fs');
 const socketHandlers  = require('./sockets/handlers');
 const { loginRoute, logoutRoute, gate, roleFromCookie, COOKIE_SECRET } = require('./auth');
 
@@ -87,6 +88,48 @@ app.get('/create/', (req, res) => res.sendFile(path.join(ROOT, 'public', 'create
 
 app.get('/market',  (req, res) => res.redirect('/market/'));
 app.get('/market/', (req, res) => res.sendFile(path.join(ROOT, 'public', 'market', 'index.html')));
+
+const ALLOWED_MAPS = ['burning-deck', 'switch-lair', 'landing-field', 'vanishing-place'];
+
+app.post('/api/maps/save', (req, res) => {
+  if (req.userRole !== 'gm') return res.status(403).json({ error: 'GM access required.' });
+  const { mapKey, hitboxes } = req.body;
+  if (!mapKey || !ALLOWED_MAPS.includes(mapKey)) return res.status(400).json({ error: 'Invalid map key.' });
+  if (!Array.isArray(hitboxes) || hitboxes.length === 0) return res.status(400).json({ error: 'No hitbox data.' });
+
+  const filePath = path.join(ROOT, 'public', 'maps', mapKey + '.html');
+  if (!fs.existsSync(filePath)) return res.status(404).json({ error: 'Map file not found.' });
+
+  let html;
+  try { html = fs.readFileSync(filePath, 'utf8'); } catch (e) { return res.status(500).json({ error: 'Failed to read map file.' }); }
+
+  const svgOpen  = html.indexOf('<svg');
+  const svgClose = html.indexOf('</svg>');
+  if (svgOpen === -1 || svgClose === -1) return res.status(500).json({ error: 'Could not locate SVG block in map.' });
+
+  const svgTagEnd = html.indexOf('>', svgOpen);
+  const svgHeader = html.substring(svgOpen, svgTagEnd + 1);
+
+  let newSVGContent = '\n';
+  hitboxes.forEach(hb => {
+    const nameEsc = (hb.room || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;');
+    const descEsc = (hb.desc || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;');
+    const x = Math.round(hb.x || 0);
+    const y = Math.round(hb.y || 0);
+    const w = Math.round(hb.w || 50);
+    const h = Math.round(hb.h || 50);
+    const rx = hb.rx || '3';
+    newSVGContent += `    <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${rx}" class="hitbox"\n      data-room="${nameEsc}"\n      data-desc="${descEsc}"/>\n\n`;
+  });
+
+  const before = html.substring(0, svgTagEnd + 1);
+  const after  = html.substring(svgClose);
+  const newHTML = before + '\n' + newSVGContent + '  ' + after;
+
+  try { fs.writeFileSync(filePath, newHTML, 'utf8'); } catch (e) { return res.status(500).json({ error: 'Failed to write map file.' }); }
+
+  res.json({ ok: true, count: hitboxes.length });
+});
 
 socketHandlers(io);
 
