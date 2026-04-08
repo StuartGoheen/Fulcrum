@@ -67,7 +67,6 @@
           '<div id="gm-search-results" class="gm-search-results"></div>' +
           '<button class="gm-ctrl-btn" id="gm-toggle-lanes" title="Toggle Hyperlanes">Lanes</button>' +
           '<button class="gm-ctrl-btn" id="gm-toggle-grid" title="Toggle Grid">Grid</button>' +
-          '<button class="gm-ctrl-btn" id="gm-grid-adjust" title="Adjust Grid Position">Adjust</button>' +
           '<button class="gm-ctrl-btn gm-close-btn" id="gm-close-map" title="Close Map">&times;</button>' +
         '</div>' +
       '</div>' +
@@ -90,14 +89,6 @@
     document.getElementById('gm-close-map').addEventListener('click', closeMap);
     document.getElementById('gm-toggle-lanes').addEventListener('click', toggleHyperlanes);
     document.getElementById('gm-toggle-grid').addEventListener('click', toggleGrid);
-    document.getElementById('gm-grid-adjust').addEventListener('click', function () {
-      var panel = document.getElementById('gm-grid-controller');
-      if (panel) {
-        panel.style.display = panel.style.display === 'none' ? '' : 'none';
-      } else {
-        initGridController();
-      }
-    });
 
     searchInput = document.getElementById('gm-planet-search');
     searchResults = document.getElementById('gm-search-results');
@@ -488,84 +479,6 @@
       }
     }
     return layer;
-  }
-
-  function rebuildGrid() {
-    GAL_W = GAL_RIGHT - GAL_LEFT;
-    GAL_H = GAL_BOTTOM - GAL_TOP;
-    if (gridLayer) {
-      map.removeLayer(gridLayer);
-      gridLayer = null;
-    }
-    gridLayer = buildGridLayer();
-    if (showGrid) {
-      gridLayer.addTo(map);
-    }
-    updateControllerReadout();
-  }
-
-  function updateControllerReadout() {
-    var el = document.getElementById('gm-grid-readout');
-    if (el) {
-      var px = Math.round(GAL_W * IMG_W);
-      el.textContent = px + 'px | L:' + GAL_LEFT.toFixed(3) + ' T:' + GAL_TOP.toFixed(3);
-    }
-  }
-
-  function initGridController() {
-    var panel = document.createElement('div');
-    panel.id = 'gm-grid-controller';
-    panel.innerHTML =
-      '<div class="gm-gc-title">Grid Adjust</div>' +
-      '<div class="gm-gc-arrows">' +
-        '<button data-dir="up" title="Move Up">&#9650;</button>' +
-        '<div class="gm-gc-lr">' +
-          '<button data-dir="left" title="Move Left">&#9664;</button>' +
-          '<button data-dir="right" title="Move Right">&#9654;</button>' +
-        '</div>' +
-        '<button data-dir="down" title="Move Down">&#9660;</button>' +
-      '</div>' +
-      '<label class="gm-gc-size-label">Size <span id="gm-gc-size-val">' + Math.round(GAL_W * IMG_W) + '</span>px</label>' +
-      '<input type="range" id="gm-gc-size" min="500" max="1000" value="' + Math.round(GAL_W * IMG_W) + '" step="5">' +
-      '<div id="gm-grid-readout" class="gm-gc-readout"></div>' +
-      '<button id="gm-gc-close" class="gm-gc-close-btn">Close</button>';
-
-    overlayEl.appendChild(panel);
-
-    var STEP = 0.005;
-
-    panel.querySelectorAll('[data-dir]').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var dir = btn.getAttribute('data-dir');
-        if (dir === 'left')  { GAL_LEFT -= STEP; GAL_RIGHT -= STEP; }
-        if (dir === 'right') { GAL_LEFT += STEP; GAL_RIGHT += STEP; }
-        if (dir === 'up')    { GAL_TOP -= STEP; GAL_BOTTOM -= STEP; }
-        if (dir === 'down')  { GAL_TOP += STEP; GAL_BOTTOM += STEP; }
-        rebuildGrid();
-      });
-    });
-
-    var slider = document.getElementById('gm-gc-size');
-    var sizeVal = document.getElementById('gm-gc-size-val');
-    slider.addEventListener('input', function () {
-      var px = parseInt(slider.value, 10);
-      sizeVal.textContent = px;
-      var centerX = (GAL_LEFT + GAL_RIGHT) / 2;
-      var centerY = (GAL_TOP + GAL_BOTTOM) / 2;
-      var halfW = (px / IMG_W) / 2;
-      var halfH = (px / IMG_H) / 2;
-      GAL_LEFT = centerX - halfW;
-      GAL_RIGHT = centerX + halfW;
-      GAL_TOP = centerY - halfH;
-      GAL_BOTTOM = centerY + halfH;
-      rebuildGrid();
-    });
-
-    document.getElementById('gm-gc-close').addEventListener('click', function () {
-      panel.style.display = 'none';
-    });
-
-    updateControllerReadout();
   }
 
   function toggleGrid() {
