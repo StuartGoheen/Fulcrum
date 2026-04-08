@@ -150,6 +150,12 @@ uri = "file://attached_assets/galaxy-map-bg.png"
 type = "image"
 title = "galaxy_map_background"
 
+[[generated]]
+id = "p_taAX5XROjr2i13SVnT3"
+uri = "file://public/maps/switch-lair.png"
+type = "image"
+title = "Switch lair tactical map"
+
 [[outputs]]
 id = "2LcyfBitBojI2aNp3Z-pi"
 uri = "file://assets/fulcrum-resolution-infographic.png"
