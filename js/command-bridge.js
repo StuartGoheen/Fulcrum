@@ -4441,4 +4441,11 @@
   initDecisionTracker();
   initNarrativeChallenges();
   initDramatisPersonae();
+
+  var galaxyMapBtn = document.getElementById('cb-galaxy-map-btn');
+  if (galaxyMapBtn) {
+    galaxyMapBtn.addEventListener('click', function () {
+      if (window.GalaxyMap) window.GalaxyMap.open();
+    });
+  }
 }());

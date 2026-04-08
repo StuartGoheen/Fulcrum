@@ -17,6 +17,7 @@ const journalRoutes       = require('./routes/journal');
 const decisionRoutes      = require('./routes/decisions');
 const narrativeChallengeRoutes = require('./routes/narrative-challenges');
 const npcProfileRoutes        = require('./routes/npc-profiles');
+const galaxyPinRoutes         = require('./routes/galaxy-pins');
 const socketHandlers  = require('./sockets/handlers');
 const { loginRoute, logoutRoute, gate, roleFromCookie, COOKIE_SECRET } = require('./auth');
 
@@ -73,6 +74,7 @@ app.use('/api', journalRoutes);
 app.use('/api/campaign', decisionRoutes);
 app.use('/api', narrativeChallengeRoutes);
 app.use('/api', npcProfileRoutes);
+app.use('/api', galaxyPinRoutes);
 
 app.get('/gm',    (req, res) => res.redirect('/gm/'));
 app.get('/gm/',   (req, res) => res.sendFile(path.join(ROOT, 'public', 'gm', 'index.html')));

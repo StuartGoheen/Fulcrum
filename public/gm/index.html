@@ -8,8 +8,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
   <link rel="stylesheet" href="/css/output.css" />
   <link rel="stylesheet" href="/css/command-bridge.css" />
+  <link rel="stylesheet" href="/css/galaxy-map.css" />
   <script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
@@ -97,6 +101,7 @@
     <div class="cb-col-right" id="cb-col-right">
       <button class="cb-header-btn accent" id="cb-build-threat" style="width:100%;margin-bottom:0.75rem;justify-content:center;">Build Threat</button>
       <button class="cb-header-btn" id="cb-dramatis-btn" style="width:100%;margin-bottom:0.75rem;justify-content:center;">Dramatis Personae</button>
+      <button class="cb-header-btn" id="cb-galaxy-map-btn" style="width:100%;margin-bottom:0.75rem;justify-content:center;">Galaxy Map</button>
       <div class="cb-col-title" style="display:flex;align-items:center;justify-content:space-between;">Glossary <button class="cb-collapse-btn" id="cb-collapse-right" title="Collapse panel">&raquo;</button></div>
       <div id="glossary-content">
         <div class="cb-glossary-placeholder">
@@ -137,10 +142,13 @@
 
   <div class="npc-toast" id="npc-toast"></div>
 
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
   <script src="/js/tts-narration.js"></script>
   <script src="/js/effect-manager.js"></script>
   <script src="/js/combat-tracker.js"></script>
   <script src="/js/command-bridge.js"></script>
   <script src="/js/npc-builder.js"></script>
+  <script src="/js/galaxy-map.js"></script>
 </body>
 </html>

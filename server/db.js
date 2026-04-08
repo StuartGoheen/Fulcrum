@@ -180,6 +180,17 @@ async function initSchema() {
         revealed        BOOLEAN NOT NULL DEFAULT false,
         created_at      TIMESTAMP DEFAULT NOW()
       );
+
+      CREATE TABLE IF NOT EXISTS galaxy_pins (
+        id              SERIAL PRIMARY KEY,
+        title           TEXT    NOT NULL,
+        note            TEXT    NOT NULL DEFAULT '',
+        x               DOUBLE PRECISION NOT NULL,
+        y               DOUBLE PRECISION NOT NULL,
+        pin_type        TEXT    NOT NULL DEFAULT 'custom',
+        created_at      TIMESTAMP DEFAULT NOW(),
+        updated_at      TIMESTAMP DEFAULT NOW()
+      );
     `);
 
     try {

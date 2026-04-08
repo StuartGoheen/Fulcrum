@@ -144,6 +144,12 @@ uri = "file://attached_assets/generated_images/banshee_cockpit.png"
 type = "image"
 title = "Banshee cockpit interior lived-in"
 
+[[generated]]
+id = "R90yL1NBqWbXZFoI9QhxM"
+uri = "file://attached_assets/galaxy-map-bg.png"
+type = "image"
+title = "galaxy_map_background"
+
 [[outputs]]
 id = "2LcyfBitBojI2aNp3Z-pi"
 uri = "file://assets/fulcrum-resolution-infographic.png"
