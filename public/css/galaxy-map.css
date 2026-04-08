@@ -390,12 +390,13 @@
   border: none !important;
 }
 .gm-grid-label {
-  font-size: 7px;
+  font-size: 10px;
   font-family: 'Exo 2', sans-serif;
-  color: rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.3);
   letter-spacing: 0.5px;
   text-align: center;
   display: block;
+  font-weight: 600;
 }
 
 .leaflet-control-zoom a {

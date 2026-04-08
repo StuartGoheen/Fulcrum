@@ -453,7 +453,7 @@
         var latTop = IMG_H - galPxT;
         var latBot = IMG_H - (galPxT + galPxH);
         L.polyline([[latTop, x], [latBot, x]], {
-          color: 'rgba(255,255,255,0.12)',
+          color: 'rgba(255,255,255,0.25)',
           weight: 1,
           interactive: false
         }).addTo(gridLayer);
@@ -462,7 +462,7 @@
         var y = galPxT + r * cellH;
         var lat = IMG_H - y;
         L.polyline([[lat, galPxL], [lat, galPxL + galPxW]], {
-          color: 'rgba(255,255,255,0.12)',
+          color: 'rgba(255,255,255,0.25)',
           weight: 1,
           interactive: false
         }).addTo(gridLayer);
@@ -477,7 +477,7 @@
             icon: L.divIcon({
               html: '<span class="gm-grid-label">' + label + '</span>',
               className: 'gm-grid-label-wrapper',
-              iconSize: [40, 14]
+              iconSize: [44, 18]
             }),
             interactive: false
           }).addTo(gridLayer);
