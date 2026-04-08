@@ -8,8 +8,12 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { background: #1a1a1a; display: flex; flex-direction: column; align-items: center; min-height: 100vh; font-family: 'Segoe UI', sans-serif; padding: 20px 20px 60px; gap: 40px; }
 
-  .map-container { position: relative; max-width: 1100px; width: 100%; }
-  .map-container svg { width: 100%; height: auto; display: block; border-radius: 4px; filter: drop-shadow(0 0 20px rgba(0,0,0,0.4)); }
+  .map-container { position: relative; max-width: 1150px; width: 100%; }
+  .map-container img { width: 100%; height: auto; display: block; border-radius: 4px; filter: drop-shadow(0 0 30px rgba(0,0,0,0.5)); }
+  .map-container svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+  .hitbox { cursor: pointer; fill: transparent; stroke: transparent; transition: all 0.25s; }
+  .hitbox:hover { fill: rgba(224, 212, 184, 0.08); stroke: rgba(224, 212, 184, 0.3); stroke-width: 2; }
 
   .tooltip { position: fixed; background: rgba(20,20,20,0.95); border: 1px solid #665a3a; color: #e0d4b8; padding: 10px 14px; border-radius: 4px; font-size: 13px; max-width: 300px; pointer-events: none; z-index: 100; display: none; line-height: 1.5; backdrop-filter: blur(8px); }
 
@@ -32,210 +36,79 @@
 <div class="tooltip" id="tooltip"></div>
 
 <div class="map-container">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 750" style="background:#2a2218;">
+  <img src="landing-field.png" alt="Reestkii Landing Field — Tactical Map">
 
-    <!-- ============ DEFS ============ -->
-    <defs>
-      <pattern id="sand" width="6" height="6" patternUnits="userSpaceOnUse">
-        <rect width="6" height="6" fill="#3d3425"/>
-        <circle cx="1" cy="2" r="0.5" fill="#4a3f30" opacity="0.5"/>
-        <circle cx="4" cy="5" r="0.4" fill="#352e20" opacity="0.4"/>
-      </pattern>
-      <pattern id="grate" width="8" height="8" patternUnits="userSpaceOnUse">
-        <rect width="8" height="8" fill="#3a3a3a"/>
-        <line x1="0" y1="4" x2="8" y2="4" stroke="#444" stroke-width="0.5"/>
-        <line x1="4" y1="0" x2="4" y2="8" stroke="#444" stroke-width="0.5"/>
-      </pattern>
-      <filter id="glow-amber">
-        <feGaussianBlur stdDeviation="3" result="blur"/>
-        <feFlood flood-color="#ffaa33" flood-opacity="0.4"/>
-        <feComposite in2="blur" operator="in"/>
-        <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
-      </filter>
-      <filter id="glow-red">
-        <feGaussianBlur stdDeviation="2" result="blur"/>
-        <feFlood flood-color="#ff4444" flood-opacity="0.3"/>
-        <feComposite in2="blur" operator="in"/>
-        <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
-      </filter>
-      <filter id="shadow">
-        <feDropShadow dx="2" dy="2" stdDeviation="3" flood-color="#000" flood-opacity="0.5"/>
-      </filter>
-    </defs>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 576" preserveAspectRatio="xMidYMid meet">
 
-    <!-- ============ BACKGROUND — DESERT GROUND ============ -->
-    <rect width="1100" height="750" fill="url(#sand)"/>
+    <!-- ============ MAINTENANCE BAY (top-left) ============ -->
+    <rect x="52" y="52" width="175" height="125" rx="3" class="hitbox"
+      data-room="Maintenance Bay"
+      data-desc="A long, open-sided structure on the west edge of the field — corrugated durasteel roof over a ferrocrete slab with painted lane markings. Workbenches, tool racks, and hydraulic lifts. Parked speeders and a cargo hauler sit just outside. The bay is active during day shifts but quiet during the evening transition window when the heist takes place. The open sides provide easy access from the west fence but poor concealment — anyone inside is visible from the control tower across the field. Useful for a stealth approach if timed with patrol gaps. Tools here could be improvised weapons or distractions."/>
 
-    <!-- Heat haze lines -->
-    <line x1="0" y1="12" x2="1100" y2="12" stroke="#4a3f30" stroke-width="0.5" opacity="0.3"/>
-    <line x1="0" y1="738" x2="1100" y2="738" stroke="#4a3f30" stroke-width="0.5" opacity="0.3"/>
+    <!-- ============ FUEL DEPOT (left-center) ============ -->
+    <rect x="52" y="195" width="190" height="145" rx="3" class="hitbox"
+      data-room="Fuel Depot"
+      data-desc="Three large cylindrical storage tanks and a cluster of smaller fuel drums arranged on a ferrocrete pad with blast shielding. Standard starship-grade tibanna fuel. The tanks are pressurized and extremely volatile — a single well-placed blaster bolt would turn this area into a fireball visible from Reestkii. The blast shielding provides excellent hard cover from the east but is open on the approach side from the maintenance bay. A fuel line runs underground from here to the main landing pad. The environmental hazard is explicit: fuel drums are explosive. Creative use as a distraction — or a weapon — is encouraged but comes with significant collateral risk."/>
 
-    <!-- ============ PERIMETER FENCE ============ -->
-    <rect x="50" y="50" width="1000" height="650" rx="6" fill="none" stroke="#5a4a30" stroke-width="2" stroke-dasharray="12,6"/>
-    <rect x="55" y="55" width="990" height="640" rx="4" fill="none" stroke="#3d3425" stroke-width="1" stroke-dasharray="12,6"/>
+    <!-- ============ GUARD OFFICE (bottom-left) ============ -->
+    <rect x="70" y="360" width="105" height="100" rx="3" class="hitbox"
+      data-room="Guard Office"
+      data-desc="A squat, prefab building near the southwest corner. Varga's guards use it as a duty station — duty rosters, a comms unit, personal effects, and a half-eaten meal on the desk. A battered blaster rifle leans against the wall. The building provides full cover on all sides but only one door facing east toward the field. If fighting breaks out, whoever's inside can hold the doorway but has no escape route. The comms unit here can reach the stormtrooper patrol frequency if someone knows the Imperial codes. Parked civilian speeders outside suggest the guards came from town — and could leave the same way."/>
 
-    <!-- Fence posts -->
-    <circle cx="50" cy="50" r="4" fill="#5a4a30"/><circle cx="550" cy="50" r="4" fill="#5a4a30"/>
-    <circle cx="1050" cy="50" r="4" fill="#5a4a30"/><circle cx="50" cy="700" r="4" fill="#5a4a30"/>
-    <circle cx="1050" cy="700" r="4" fill="#5a4a30"/><circle cx="50" cy="375" r="4" fill="#5a4a30"/>
-    <circle cx="1050" cy="375" r="4" fill="#5a4a30"/>
+    <!-- ============ PARKED VEHICLES (bottom-left area) ============ -->
+    <rect x="60" y="420" width="160" height="80" rx="3" class="hitbox"
+      data-room="Vehicle Yard"
+      data-desc="A loose cluster of parked civilian vehicles — battered speeders, a cargo skiff, a military surplus hauler that's been repainted badly. These belong to the gate guards and maintenance crew. The vehicles provide hard cover at irregular intervals and could theoretically be hotwired for a fast extraction, though the Banshee is the planned exit. The surplus hauler is heavy enough to use as a battering ram if someone is desperate or creative. During the evening shift change, some of these vehicles will be moving — additional chaos to exploit or avoid."/>
 
-    <!-- ============ MAIN GATE (SOUTH) ============ -->
-    <rect x="470" y="690" width="160" height="20" rx="2" fill="#4a4035" stroke="#6a5a40" stroke-width="1.5"
-      class="hitbox" data-room="Main Gate"
-      data-desc="The primary entrance to the Reestkii Landing Field. A wide gap in the perimeter fence flanked by two durasteel posts and a retractable barrier arm — currently raised. Warlord's guards control access here, checking credentials with the enthusiasm of men who are hot, bored, and underpaid. A small guard shack sits to the right with a comms unit and a duty roster pinned to the wall. The jurisdictional line between Varga's people and Imperial security is somewhere past this gate — nobody's drawn it clearly, which is exactly the kind of friction a smart crew can exploit."/>
-    <rect x="468" y="695" width="6" height="15" rx="1" fill="#6a5a40"/>
-    <rect x="626" y="695" width="6" height="15" rx="1" fill="#6a5a40"/>
-    <line x1="474" y1="700" x2="626" y2="700" stroke="#8a7a55" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <!-- ============ MAIN LANDING PAD + LAMBDA SHUTTLE (center) ============ -->
+    <rect x="330" y="68" width="330" height="300" rx="4" class="hitbox"
+      data-room="Main Landing Pad — Lambda Shuttle"
+      data-desc="The central landing pad — a raised ferrocrete platform with heavy tire tracks and scorch marks radiating outward from countless engine burns. The Lambda-class T-4a shuttle sits dead center, wings folded down in landing configuration. Angular, predatory, factory white with Imperial insignia — completely wrong for Jakku. The boarding ramp is on the port side. The cockpit faces north toward the control tower. The nav computer inside holds the Ajan Kloss coordinates — plug in the code cylinder, authenticate, download the flight logs. The download takes several rounds, during which anyone inside is blind to the outside. The pad itself is open and exposed on all sides — no cover, no concealment. Anyone standing on the pad is visible from every angle."/>
 
-    <!-- ============ GUARD SHACK ============ -->
-    <rect x="640" y="660" width="60" height="45" rx="3" fill="#3a3530" stroke="#5a4a35" stroke-width="1.5" filter="url(#shadow)"
-      class="hitbox" data-room="Guard Shack"
-      data-desc="A prefab durasteel shack at the gate — barely big enough for two people and a desk. Varga's guards use it for shade more than security. Inside: a comms unit hardwired to the outer fence speakers, a duty roster, a half-eaten meal, and a battered blaster rifle leaning against the wall. The comms unit can reach the stormtrooper patrol frequency if someone knows the codes. The shack provides full cover from the landing field but has no rear exit — if the gate is compromised, whoever's inside is trapped."/>
-    <rect x="692" y="672" width="6" height="10" rx="1" fill="#ffaa33" opacity="0.6" filter="url(#glow-amber)"/>
+    <!-- ============ NORTH CARGO (top-center-right) ============ -->
+    <rect x="630" y="38" width="105" height="70" rx="3" class="hitbox"
+      data-room="North Cargo Containers"
+      data-desc="A small cluster of shipping containers and supply crates stacked near the northeast perimeter. Imperial supply markings stenciled on the sides. These are awaiting transport — routine logistics that have been sitting in the desert heat long enough to accumulate sand drifts against their bases. The containers provide hard cover and block the sightline between the control tower and the northwest maintenance area. A Deception check could use the supply manifests visible on the container doors to fabricate maintenance credentials on the spot."/>
 
-    <!-- ============ APPROACH ROAD ============ -->
-    <rect x="510" y="600" width="80" height="90" rx="2" fill="#342e22" opacity="0.5"
-      class="hitbox" data-room="Approach Road"
-      data-desc="A packed-sand road running from the settlement to the main gate. Vehicle tracks worn deep from years of cargo haulers and troop transports. No cover on the road itself — you're completely exposed for the last fifty meters. Tire ruts and bootprints in the hardpan. The road is the obvious approach, which makes it the worst one unless you're bluffing your way in. A distraction here — a staged breakdown, an argument, a speeder 'accident' — would draw the gate guards' attention away from the fence line."/>
+    <!-- ============ CONTROL TOWER (right) ============ -->
+    <rect x="780" y="42" width="155" height="165" rx="3" class="hitbox"
+      data-room="Control Tower"
+      data-desc="A squat, octagonal tower on the east side of the field with a satellite dish on the roof and a comm antenna rising above it. Pre-Imperial construction — local stone and ferrocrete — upgraded with Imperial-standard communications equipment. The ground floor is a duty office with monitors showing camera feeds from four angles across the field. The upper level has panoramic viewports overlooking the entire landing field — anyone up there can see everything. Currently staffed by a single Imperial comms officer on rotation. The tower has the only hardwired connection to the Imperial garrison at Arkanis Sector — if a priority alert goes out from here, reinforcements arrive faster than from a handheld comms call. Disabling the tower buys time but also announces that something is wrong."/>
 
-    <!-- ============ MAINTENANCE BAY (WEST) ============ -->
-    <rect x="80" y="120" width="180" height="130" rx="4" fill="#33302a" stroke="#4a4035" stroke-width="1.5" filter="url(#shadow)"
-      class="hitbox" data-room="Maintenance Bay"
-      data-desc="A long, open-sided structure on the west edge of the field — corrugated durasteel roof over a ferrocrete slab. Workbenches, tool racks, hydraulic lifts, and the skeletal remains of a Z-95 Headhunter that someone's been stripping for parts. The bay is active during day shifts but quiet during the evening transition window when the heist takes place. The open sides provide easy access from the west fence but poor concealment — anyone inside is visible from the control tower. Useful for a stealth approach if timed with patrol gaps. Tools here could be improvised weapons or distractions."/>
-    <!-- Bay details -->
-    <line x1="90" y1="145" x2="250" y2="145" stroke="#4a4035" stroke-width="0.5"/>
-    <line x1="90" y1="175" x2="250" y2="175" stroke="#4a4035" stroke-width="0.5"/>
-    <line x1="90" y1="205" x2="250" y2="205" stroke="#4a4035" stroke-width="0.5"/>
-    <rect x="95" y="150" width="30" height="20" rx="2" fill="#2a2720" stroke="#4a4035" stroke-width="0.5"/>
-    <rect x="140" y="150" width="30" height="20" rx="2" fill="#2a2720" stroke="#4a4035" stroke-width="0.5"/>
-    <rect x="95" y="180" width="50" height="20" rx="2" fill="#2a2720" stroke="#4a4035" stroke-width="0.5"/>
+    <!-- ============ EAST CARGO CLUSTER (right-center) ============ -->
+    <rect x="700" y="215" width="190" height="120" rx="3" class="hitbox"
+      data-room="East Cargo Cluster"
+      data-desc="A dense row of shipping containers stacked along the east side of the field — multicolored containers of varying sizes, some with doors ajar, others sealed with Imperial security locks. Gaps between them create narrow passages perfect for a stealth approach from the east fence. The easternmost containers sit close to the perimeter, making this the shortest path from the fence to hard cover. These containers are the closest cover to the Lambda shuttle's east flank. A vehicle and scattered debris between the stacks provide additional concealment. Imperial supply manifests are stenciled on the sides — useful for fabricating cover stories."/>
 
-    <!-- ============ FUEL DEPOT (WEST-CENTER) ============ -->
-    <g class="hitbox" data-room="Fuel Depot"
-       data-desc="Six cylindrical fuel drums arranged in two rows, sitting on a raised ferrocrete pad with blast shielding on three sides. Standard starship-grade tibanna fuel. The drums are pressurized and extremely volatile — a single well-placed blaster bolt would turn this area into a fireball visible from Reestkii. The blast shielding provides excellent hard cover from the east but is open on the approach side from the maintenance bay. A fuel line runs underground from here to the main landing pad. The environmental hazard is explicit: fuel drums are explosive. Creative use as a distraction — or a weapon — is encouraged but comes with significant collateral risk.">
-      <rect x="200" y="340" width="100" height="70" rx="3" fill="#2e2a22" stroke="#5a4a35" stroke-width="1"/>
-      <circle cx="225" cy="360" r="12" fill="#3a2a20" stroke="#6a4a30" stroke-width="1.5"/>
-      <circle cx="255" cy="360" r="12" fill="#3a2a20" stroke="#6a4a30" stroke-width="1.5"/>
-      <circle cx="225" cy="390" r="12" fill="#3a2a20" stroke="#6a4a30" stroke-width="1.5"/>
-      <circle cx="255" cy="390" r="12" fill="#3a2a20" stroke="#6a4a30" stroke-width="1.5"/>
-      <circle cx="285" cy="360" r="12" fill="#3a2a20" stroke="#6a4a30" stroke-width="1.5"/>
-      <circle cx="285" cy="390" r="12" fill="#3a2a20" stroke="#6a4a30" stroke-width="1.5"/>
-      <text x="250" y="425" text-anchor="middle" fill="#6a4a30" font-size="8" font-family="monospace">FUEL</text>
-    </g>
+    <!-- ============ EAST VEHICLES (right, below containers) ============ -->
+    <rect x="775" y="340" width="105" height="60" rx="3" class="hitbox"
+      data-room="East Vehicle Park"
+      data-desc="Two military-style vehicles parked near the east containers — a troop transport and a smaller utility speeder. Imperial motor pool, used for perimeter patrols and supply runs to Reestkii. The vehicles are unattended during the shift transition window. The troop transport has an enclosed cargo bed that could conceal a person. Hotwiring either vehicle would create an immediate distraction — a runaway speeder on the field forces everyone to react. Alternatively, the transport could be used as mobile cover during an extraction under fire."/>
 
-    <!-- ============ CARGO CONTAINERS (scattered) ============ -->
+    <!-- ============ MAIN GATE AREA (bottom-center) ============ -->
+    <rect x="310" y="440" width="370" height="105" rx="3" class="hitbox"
+      data-room="Main Gate"
+      data-desc="The primary entrance to the Reestkii Landing Field. Two long shipping containers flank a gap in the perimeter fence, creating a channeled entry point. The cobblestone approach road leads in from the south through a break in the fence. Tire tracks and bootprints worn deep into the hardpan. A guard booth sits on the east side of the gate — a small enclosed structure where the duty guard controls the barrier. Warlord's guards handle access here with the enthusiasm of men who are hot, bored, and underpaid. The jurisdictional line between Varga's people and Imperial security is somewhere past this gate — nobody's drawn it clearly, which is exactly the kind of friction a smart crew can exploit."/>
 
-    <!-- West cluster -->
-    <g class="hitbox" data-room="West Cargo Cluster"
-       data-desc="Three standard shipping containers stacked in an L-shape near the maintenance bay. Imperial markings on the largest — military supplies in transit. The containers provide excellent hard cover and create a sheltered corridor between the maintenance bay and the central field. The gap between containers is wide enough for one person at a time. Climbing on top gives an elevated firing position with sightlines to the landing pad, but you're silhouetted against the sky. Contents unknown — locked with Imperial security seals.">
-      <rect x="130" y="290" width="55" height="25" rx="2" fill="#3a3530" stroke="#555" stroke-width="1"/>
-      <rect x="120" y="320" width="55" height="25" rx="2" fill="#3d3830" stroke="#555" stroke-width="1"/>
-      <rect x="175" y="310" width="25" height="40" rx="2" fill="#3a3530" stroke="#555" stroke-width="1"/>
-    </g>
+    <!-- ============ GATE GUARD BOOTH (bottom-right of gate) ============ -->
+    <rect x="630" y="440" width="70" height="70" rx="3" class="hitbox"
+      data-room="Gate Guard Booth"
+      data-desc="A small enclosed booth at the east side of the main gate — the duty guard sits here during shifts, nominally checking credentials. One window facing the approach road, one facing the field interior. A comms handset, a log book, and a stool. The booth provides full cover but is a dead end — one way in, one way out. If the gate guard is neutralized quietly here, no one on the field would notice for the duration of a patrol cycle. The comms handset can reach both the guard office on the west side and the control tower — cutting this link isolates the gate from the rest of the field's security."/>
 
-    <!-- East cluster -->
-    <g class="hitbox" data-room="East Cargo Cluster"
-       data-desc="A row of four containers along the east fence line, partially unloaded. Gaps between them create narrow passages. The easternmost container has its doors open — inside, empty crate frames and packing material. These containers are the closest hard cover to the Lambda shuttle's east flank and the most likely cover for a stealth approach from the east fence. Imperial supply manifests are stenciled on the sides — a Deception check could use these to fabricate maintenance credentials on the spot.">
-      <rect x="800" y="280" width="55" height="25" rx="2" fill="#3a3530" stroke="#555" stroke-width="1"/>
-      <rect x="870" y="280" width="55" height="25" rx="2" fill="#3a3530" stroke="#555" stroke-width="1"/>
-      <rect x="830" y="310" width="55" height="25" rx="2" fill="#3a3530" stroke="#555" stroke-width="1"/>
-      <rect x="900" y="310" width="55" height="25" rx="2" fill="#3d3830" stroke="#555" stroke-width="1"/>
-    </g>
+    <!-- ============ OPEN FIELD — SOUTH ============ -->
+    <rect x="250" y="370" width="300" height="70" rx="3" class="hitbox"
+      data-room="South Field — Open Ground"
+      data-desc="The stretch between the landing pad and the main gate. Exposed hardpan with vehicle tracks criss-crossing the dust. The gate-side containers break some sightlines — the guards at the gate can't see past them, and the stormtroopers at the pad can't see the gate. There's a blind spot in the middle where neither group has direct eyes. It lasts about ten seconds at walking pace. A Stealth or Deception check in this zone determines whether the transition from 'gate-cleared visitor' to 'unauthorized person near an Imperial shuttle' goes noticed or not. Barrel drums and loose cargo near the road provide minimal cover."/>
 
-    <!-- South containers near gate -->
-    <g class="hitbox" data-room="Gate-Side Containers"
-       data-desc="Two shipping containers near the main gate, used as an informal checkpoint buffer. Gate guards lean against these during shift changes. The containers block the direct sightline from the gate to the landing pad — which means someone who gets past the gate has a moment of concealment before entering the open field. The south-facing container has graffiti scratched into the paint: a crude drawing of a Hutt and an anatomically improbable suggestion. Varga's people think it's funny. The Imperials don't.">
-      <rect x="380" y="590" width="50" height="25" rx="2" fill="#3a3530" stroke="#555" stroke-width="1"/>
-      <rect x="670" y="590" width="50" height="25" rx="2" fill="#3a3530" stroke="#555" stroke-width="1"/>
-    </g>
+    <!-- ============ OPEN FIELD — NORTH ============ -->
+    <rect x="250" y="30" width="200" height="55" rx="3" class="hitbox"
+      data-room="North Field — Open Ground"
+      data-desc="The open expanse between the maintenance bay and the landing pad. Flat, featureless hardpan baked by Jakku's suns. Scattered vehicles — a rusted speeder and a cargo skiff — provide the only cover. This is killing field if a firefight breaks out — anyone caught here is exposed to fire from the control tower, the landing pad, and the perimeter. During extraction, this might be ground the crew has to cross under fire. Running across open ground is the price of a loud exit."/>
 
-    <!-- ============ CONTROL TOWER (NORTHEAST) ============ -->
-    <g class="hitbox" data-room="Control Tower"
-       data-desc="A squat, two-story tower on the northeast corner of the field. Pre-Imperial construction — local stone and ferrocrete, with a comm array bolted to the roof that's been upgraded with Imperial-standard equipment. The ground floor is a duty office with monitors showing camera feeds from four angles across the field. The upper floor has panoramic viewports overlooking the entire landing field — anyone up there can see everything. Currently staffed by a single Imperial comms officer on rotation. The tower has the only hardwired connection to the Imperial garrison at Arkanis Sector — if a priority alert goes out from here, reinforcements arrive faster than from a handheld comms call. Disabling the tower buys time but also announces that something is wrong.">
-      <rect x="870" y="80" width="70" height="70" rx="3" fill="#3a3530" stroke="#6a5a40" stroke-width="2" filter="url(#shadow)"/>
-      <rect x="880" y="90" width="50" height="50" rx="2" fill="#2a2720" stroke="#4a4035" stroke-width="1"/>
-      <rect x="895" y="75" width="20" height="8" rx="1" fill="#555" stroke="#777" stroke-width="0.5"/>
-      <line x1="905" y1="75" x2="905" y2="65" stroke="#666" stroke-width="1.5"/>
-      <circle cx="905" cy="62" r="3" fill="#ff4444" opacity="0.6" filter="url(#glow-red)"/>
-    </g>
-
-    <!-- ============ MAIN LANDING PAD — LAMBDA SHUTTLE ============ -->
-    <g class="hitbox" data-room="Main Landing Pad"
-       data-desc="The central landing pad — a raised ferrocrete platform, roughly 30 meters square, elevated half a meter above the desert floor. Scorch marks from countless engine burns stain the surface in overlapping black circles. The pad is open and exposed on all sides — no cover, no concealment, nowhere to hide. Approach ramps on the north and south sides. Flood lights on retractable poles at each corner, currently off during daylight. At night they turn the pad into a bright island in the dark field. The pad surface is smooth enough for repulsorcraft but too exposed for infantry — anyone standing on the pad is visible from every angle including the control tower.">
-      <rect x="380" y="230" width="340" height="250" rx="6" fill="url(#grate)" stroke="#555" stroke-width="2"/>
-      <rect x="385" y="235" width="330" height="240" rx="4" fill="none" stroke="#444" stroke-width="0.5" stroke-dasharray="4,4"/>
-      <!-- Scorch marks -->
-      <circle cx="550" cy="355" r="60" fill="none" stroke="#2a2720" stroke-width="1" opacity="0.4"/>
-      <circle cx="550" cy="355" r="40" fill="none" stroke="#2a2720" stroke-width="0.5" opacity="0.3"/>
-    </g>
-
-    <!-- Lambda Shuttle (on the pad) -->
-    <g class="hitbox" data-room="Lambda-Class Shuttle"
-       data-desc="An Imperial Lambda-class T-4a shuttle — angular, predatory, completely wrong for Jakku. The hull is clean compared to everything else on this field — factory white with Imperial insignia, recently maintained. The boarding ramp is down on the port side. The cockpit viewports face north, giving the pilot sightlines toward the control tower. The nav computer is inside, accessible through the cockpit console. The code cylinder authenticates into the flight computer — plug in, download the nav logs, get out. The download takes several rounds, during which anyone inside the shuttle is blind to what's happening outside. The shuttle's own weapons systems are powered down but not disabled — a skilled slicer could theoretically activate them, but that would bring the entire Imperial garrison down on Reestkii.">
-      <!-- Shuttle body -->
-      <polygon points="550,280 520,310 520,410 550,430 580,410 580,310" fill="#4a4a4a" stroke="#888" stroke-width="1.5"/>
-      <!-- Wings (folded up, shown as lines) -->
-      <line x1="520" y1="350" x2="490" y2="330" stroke="#666" stroke-width="2"/>
-      <line x1="580" y1="350" x2="610" y2="330" stroke="#666" stroke-width="2"/>
-      <!-- Cockpit -->
-      <polygon points="550,280 535,300 565,300" fill="#334" stroke="#556" stroke-width="1"/>
-      <!-- Boarding ramp -->
-      <rect x="508" y="360" width="12" height="20" rx="1" fill="#555" stroke="#777" stroke-width="0.5"/>
-    </g>
-
-    <!-- Pad lights (4 corners) -->
-    <circle cx="385" cy="235" r="4" fill="#ffaa33" opacity="0.3" filter="url(#glow-amber)"/>
-    <circle cx="715" cy="235" r="4" fill="#ffaa33" opacity="0.3" filter="url(#glow-amber)"/>
-    <circle cx="385" cy="475" r="4" fill="#ffaa33" opacity="0.3" filter="url(#glow-amber)"/>
-    <circle cx="715" cy="475" r="4" fill="#ffaa33" opacity="0.3" filter="url(#glow-amber)"/>
-
-    <!-- ============ SECONDARY PAD — THE BANSHEE ============ -->
-    <g class="hitbox" data-room="Secondary Landing Pad — The Banshee"
-       data-desc="A smaller, neglected landing pad on the northwest edge of the field. Cracked ferrocrete, weeds pushing through the seams, no flood lights. This is where civilian ships park when the main pad is occupied — which is always, now that the Lambda is here. Maya has the Banshee prepped and waiting on this pad: a modified YT-series light freighter, battered but fast, engines warm and ready for a cold start. The Banshee is the extraction point. Once the download is complete — or the alarm is raised — the crew needs to reach this pad and get aboard. The distance from the main pad to here is roughly 80 meters of open ground. Under fire, that's a lifetime.">
-      <rect x="80" y="440" width="120" height="100" rx="4" fill="url(#grate)" stroke="#444" stroke-width="1.5"/>
-      <!-- Banshee silhouette -->
-      <ellipse cx="140" cy="490" rx="35" ry="25" fill="#3a3a3a" stroke="#555" stroke-width="1"/>
-      <rect x="125" y="480" width="30" height="20" rx="3" fill="#333" stroke="#555" stroke-width="0.5"/>
-      <circle cx="140" cy="485" r="4" fill="#334" stroke="#556" stroke-width="0.5"/>
-    </g>
-
-    <!-- ============ WEST FENCE APPROACH ============ -->
-    <rect x="55" y="260" width="30" height="200" rx="2" fill="transparent" stroke="transparent"
-      class="hitbox" data-room="West Fence Line"
-      data-desc="The western perimeter fence — chain-link with durasteel posts, no razor wire, no sensors. Varga's guards patrol this section once every twenty minutes, walking south to north, and the timing is predictable. A Skulduggery check can cut through the fence quietly. A Physique check can bend the bottom rail enough to crawl under. The fence line is in shadow during the evening transition — the maintenance bay blocks the setting sun. This is the cleanest stealth approach to the field interior, threading from the fence through the maintenance bay and using the cargo containers as stepping stones to the landing pad."/>
-
-    <!-- ============ EAST FENCE APPROACH ============ -->
-    <rect x="1015" y="260" width="30" height="200" rx="2" fill="transparent" stroke="transparent"
-      class="hitbox" data-room="East Fence Line"
-      data-desc="The eastern perimeter — same construction as the west fence but with better sightlines from the control tower. Approaching from this side means threading past the tower's viewports, which is risky unless the comms officer is distracted or the tower is neutralized. However, the east cargo cluster sits close to this fence, providing immediate hard cover once inside. The terrain outside the east fence is rocky — natural depressions and boulders that provide concealment for the approach. A Stealth check from the east is harder but puts you closer to the shuttle's flank."/>
-
-    <!-- ============ OPEN GROUND — NORTH ============ -->
-    <rect x="300" y="100" width="500" height="120" rx="3" fill="transparent" stroke="transparent"
-      class="hitbox" data-room="North Field — Open Ground"
-      data-desc="The open expanse between the control tower and the main landing pad. Flat, featureless hardpan baked by Jakku's suns. No cover, no concealment, nothing but heat shimmer and bootprints. This is the killing field if a firefight breaks out — anyone caught here during an alarm is completely exposed to fire from the control tower, the landing pad, and the perimeter fence. The only tactical use for this space is speed: a full sprint from the pad to the west fence takes about 12 seconds. During extraction, this is the ground the crew has to cross to reach the Banshee. Running across open ground under fire is the price of a loud exit."/>
-
-    <!-- ============ OPEN GROUND — SOUTH ============ -->
-    <rect x="300" y="490" width="500" height="100" rx="3" fill="transparent" stroke="transparent"
-      class="hitbox" data-room="South Field — Open Ground"
-      data-desc="The stretch between the landing pad and the main gate. More exposed hardpan, but with the gate-side containers breaking the sightlines. This is where a bluff approach walks — right up the middle, in plain sight, acting like you belong. The key advantage: the guards at the gate can't see past the containers, and the stormtroopers at the pad can't see the gate. There's a blind spot in the middle where neither group has direct eyes. It lasts about ten seconds at walking pace. A Stealth or Deception check in this zone determines whether the transition from 'gate-cleared visitor' to 'unauthorized person near an Imperial shuttle' goes noticed or not."/>
-
-    <!-- ============ LABELS (subtle, non-interactive) ============ -->
-    <text x="550" y="22" text-anchor="middle" fill="#5a4a30" font-family="Georgia, serif" font-size="14" letter-spacing="4" opacity="0.6">REESTKII LANDING FIELD</text>
-
-    <text x="170" y="115" text-anchor="middle" fill="#4a4035" font-family="monospace" font-size="7" letter-spacing="1" opacity="0.6">MAINTENANCE BAY</text>
-    <text x="905" y="168" text-anchor="middle" fill="#4a4035" font-family="monospace" font-size="7" letter-spacing="1" opacity="0.6">TOWER</text>
-    <text x="550" y="460" text-anchor="middle" fill="#4a4035" font-family="monospace" font-size="7" letter-spacing="1" opacity="0.6">MAIN PAD</text>
-    <text x="140" y="555" text-anchor="middle" fill="#4a4035" font-family="monospace" font-size="7" letter-spacing="1" opacity="0.6">SEC. PAD</text>
-    <text x="550" y="725" text-anchor="middle" fill="#4a4035" font-family="monospace" font-size="7" letter-spacing="1" opacity="0.6">MAIN GATE</text>
-
-    <!-- Compass -->
-    <g transform="translate(1050,700)">
-      <circle r="16" fill="#2a2720" stroke="#5a4a30" stroke-width="1"/>
-      <polygon points="0,-12 3,-4 -3,-4" fill="#c8b88a"/>
-      <polygon points="0,12 3,4 -3,4" fill="#5a4a30"/>
-      <text y="-5" text-anchor="middle" fill="#c8b88a" font-size="5" font-family="monospace">N</text>
-    </g>
+    <!-- ============ PERIMETER FENCE (entire border) ============ -->
+    <path d="M 40,30 L 980,30 L 980,540 L 40,540 Z" class="hitbox" fill="none"
+      data-room="Perimeter Fence"
+      data-desc="Chain-link fencing with durasteel posts enclosing the entire landing field. No razor wire, no sensors — Jakku doesn't warrant that level of security. Varga's guards walk the perimeter once every twenty minutes, south to north on the west side, north to south on the east side, and the timing is predictable. A Skulduggery check can cut through the fence quietly at any point. A Physique check can bend the bottom rail enough to crawl under. The west fence is in shadow during the evening transition — the maintenance bay blocks the setting sun. The east fence has better cover from rocky terrain outside but is exposed to the control tower's viewports. The fence is the entry point for any stealth approach."/>
 
   </svg>
 </div>
@@ -263,7 +136,7 @@
     </div>
     <div class="detail-card">
       <h4>Stealth — Sneak to the Shuttle</h4>
-      <p>Cut through the west or east fence during a patrol gap. Thread through the maintenance bay or east cargo cluster. Stealth/Skulduggery (Moderate). The west approach is easier (maintenance bay provides concealment, cargo containers create stepping stones) but longer. The east approach is shorter but exposed to the control tower's viewports.</p>
+      <p>Cut through the west or east fence during a patrol gap. Thread through the maintenance bay or east cargo cluster. Stealth/Skulduggery (Moderate). The west approach is easier (maintenance bay provides concealment, fuel depot creates a covered corridor) but longer. The east approach is shorter but exposed to the control tower's viewports.</p>
     </div>
     <div class="detail-card">
       <h4>Distraction — Draw the Guards Away</h4>
@@ -271,7 +144,7 @@
     </div>
     <div class="detail-card">
       <h4>Direct Assault — Go Loud</h4>
-      <p>Possible but not recommended. Guarantees combat. The Imperial Security Perimeter alarm activates on any unauthorized weapons fire — reinforcements arrive in 3 rounds. The control tower hardline to Arkanis Sector means a priority alert brings heavier assets than stormtroopers. The shuttle itself is the only exit strategy, and you'd need to steal it — which means no Banshee, no Maya, and a stolen Lambda broadcasting Imperial transponder codes.</p>
+      <p>Possible but not recommended. Guarantees combat. The Imperial Security Perimeter alarm activates on any unauthorized weapons fire — reinforcements arrive in 3 rounds. The control tower hardline to Arkanis Sector means a priority alert brings heavier assets than stormtroopers. The shuttle's own weapons are powered down but not disabled — a skilled slicer could activate them, but that would bring the entire garrison down on Reestkii.</p>
     </div>
   </div>
 
@@ -302,7 +175,7 @@
 
   <h3>Extraction</h3>
   <div class="gm-note">
-    <strong>GM Note — The Escape:</strong> Once the download is complete (or the alarm is raised), the crew must cross the field to the secondary pad where Maya has the Banshee prepped. That's 80 meters of open ground if the alarm is up — a running firefight across the south field, past the fuel depot, to the northwest pad. Maya has the engines warm and ready for a cold start. Once aboard, they break atmosphere and jump to the Smuggler's Path. The escape from Jakku transitions directly into Part 2.
+    <strong>GM Note — The Escape:</strong> Once the download is complete (or the alarm is raised), the crew must reach Maya at the Banshee, prepped at a secondary pad outside the field. The distance from the main pad to the extraction point crosses open ground — under fire, that's a lifetime. Maya has the engines warm and ready for a cold start. Once aboard, they break atmosphere and jump to the Smuggler's Path. The escape from Jakku transitions directly into Part 2.
   </div>
 
 </div>
