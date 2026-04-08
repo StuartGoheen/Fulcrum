@@ -640,5 +640,57 @@
       ],
       "directives": "Emphasize the tension between human appearance and alien heritage. She looks human but she is not — her blood carries something older and darker. Nightsister survivors in 16 BBY are hunted relics of a dead culture. Lean into isolation, secrecy, and the weight of carrying traditions that have no home. The Witch-Blood trait is passive and biological — it is not Magick, it is what Magick did to her ancestors over centuries."
     }
+  },
+  {
+    "id": "cerean",
+    "name": "Cerean",
+    "tagline": "Thoughtful. Deliberate. Two minds, one purpose.",
+    "lore": "Cereans hail from Cerea, an unspoiled paradise world whose people fiercely resist industrialization and offworld influence. Their towering craniums house a binary brain — two independent cerebral systems that process information simultaneously. This makes them extraordinary tacticians, analysts, and negotiators, capable of weighing multiple outcomes at once. The most famous Cerean, Jedi Master Ki-Adi-Mundi, exemplified this dual-processing mind in wartime. By 16 BBY, Cerea's isolationism has made it a target for Imperial 'development' projects, and the few Cereans who leave their homeworld tend to be exiles, scholars, or quiet dissidents who see the galaxy's trajectory more clearly than most — because they're literally thinking about it twice.",
+    "imageUrl": "/assets/species/cerean.png",
+    "arenaShift": {
+      "name": "Binary Brain",
+      "desc": "Wits starts at D8. Physique drops to D4. Dual-processing cognition grants extraordinary analytical ability, but the elongated cranium and low blood pressure make them physically fragile."
+    },
+    "favoredDiscipline": {
+      "desc": "Choose one favored discipline (exploding die + Edge reroll).",
+      "choices": [
+        {
+          "label": "Tactics",
+          "id": "tactics"
+        },
+        {
+          "label": "Medicine",
+          "id": "medicine"
+        },
+        {
+          "label": "Investigation",
+          "id": "investigation"
+        }
+      ]
+    },
+    "biologicalTruth": {
+      "name": "Dual-Processing Cognition",
+      "desc": "Your binary brain evaluates the obvious answer and the hidden angle simultaneously. When you Assess a situation, you may ask one additional free question beyond what you would normally be entitled to — your secondary cortex processes a parallel line of inquiry while your primary cortex handles the first."
+    },
+    "speciesTrait": {
+      "name": "Considered Action",
+      "desc": "Once per scene, after seeing the result of a Wits-based Control roll (Investigation, Medicine, Tactics, or Tech), you may choose to reroll the Control die — your secondary brain caught something your primary brain missed. You must accept the second result."
+    },
+    "arenas": {
+      "physique": "D4",
+      "reflex": "D6",
+      "grit": "D6",
+      "wits": "D8",
+      "presence": "D6"
+    },
+    "_aiMeta": {
+      "loreAnchors": [
+        "Binary Brain — Two independent cerebral systems process information in parallel; extraordinary analytical and tactical ability.",
+        "Dual-Processing Cognition — Extra Assess question per situation; secondary cortex evaluates a hidden angle while the primary handles the obvious.",
+        "Cranial Vulnerability — Elongated skull is a target for concussive trauma; low blood pressure makes sustained physical exertion taxing.",
+        "Cerean Isolationism — Cerea resists industrialization and Imperial encroachment; offworld Cereans are exiles, scholars, or dissidents."
+      ],
+      "directives": "The character's backstory should reflect their relationship with Cerea's isolationist culture — did they leave voluntarily, or were they exiled? Their binary brain should manifest as a constant internal dialogue, weighing options, seeing angles others miss, sometimes paralyzed by seeing too many possibilities at once. Frame their physical fragility as a known vulnerability they compensate for with preparation and foresight. The Considered Action reroll is a Control reroll — it represents the secondary brain catching a procedural error or overlooked variable, not raw power."
+    }
   }
 ]
