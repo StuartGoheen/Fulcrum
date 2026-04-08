@@ -23,6 +23,13 @@ router.post('/galaxy-pins', requireGM, async (req, res) => {
     if (!title || x == null || y == null) {
       return res.status(400).json({ error: 'title, x, y required' });
     }
+    if (typeof title !== 'string' || title.length > 200) {
+      return res.status(400).json({ error: 'title must be a string under 200 chars' });
+    }
+    const nx = Number(x), ny = Number(y);
+    if (isNaN(nx) || isNaN(ny) || nx < 0 || nx > 1 || ny < 0 || ny > 1) {
+      return res.status(400).json({ error: 'x and y must be numbers between 0 and 1' });
+    }
     const result = await pool.query(
       'INSERT INTO galaxy_pins (title, note, x, y, pin_type) VALUES ($1, $2, $3, $4, $5) RETURNING *',
       [title, note || '', x, y, pin_type || 'custom']
