@@ -398,6 +398,29 @@
   color: #b0c8d0 !important;
 }
 
+.gm-nebula-label {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+.gm-nebula-label span {
+  color: rgba(160, 130, 220, 0.55);
+  font-family: 'Exo 2', sans-serif;
+  font-size: 10px;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-shadow: 0 0 6px rgba(126, 87, 194, 0.4);
+  white-space: nowrap;
+}
+.gm-nebula-outer {
+  filter: blur(4px);
+}
+.gm-nebula-inner {
+  filter: blur(2px);
+}
+
 .gm-grid-label-wrapper {
   background: transparent !important;
   border: none !important;

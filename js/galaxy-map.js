@@ -4,9 +4,11 @@
   var map = null;
   var planetData = [];
   var hyperlaneData = [];
+  var nebulaeData = [];
   var campaignPins = [];
   var planetMarkers = [];
   var hyperlaneLines = [];
+  var nebulaeLayers = [];
   var pinMarkers = [];
   var gridLayer = null;
   var currentLocMarker = null;
@@ -175,17 +177,97 @@
     Promise.all([
       safeFetch('/data/galaxy-planets.json'),
       safeFetch('/data/galaxy-hyperlanes.json'),
+      safeFetch('/data/galaxy-nebulae.json').catch(function () { return []; }),
       safeFetch('/api/galaxy-pins').catch(function () { return []; })
     ]).then(function (results) {
       planetData = results[0];
       hyperlaneData = results[1];
-      campaignPins = results[2];
+      nebulaeData = results[2];
+      campaignPins = results[3];
+      renderNebulae();
       renderPlanets();
       renderHyperlanes();
       renderPins();
       setCurrentLocation();
     }).catch(function (err) {
       console.error('[galaxy-map] Failed to load data:', err);
+    });
+  }
+
+  function renderNebulae() {
+    nebulaeLayers.forEach(function (l) { map.removeLayer(l); });
+    nebulaeLayers = [];
+
+    nebulaeData.forEach(function (neb) {
+      var center = toLatLng(neb.x, neb.y);
+      var edgeX = toLatLng(neb.x + neb.radiusX, neb.y);
+      var edgeY = toLatLng(neb.x, neb.y + neb.radiusY);
+      var rLng = Math.abs(edgeX[1] - center[1]);
+      var rLat = Math.abs(edgeY[0] - center[0]);
+      var steps = 48;
+      var pts = [];
+      for (var i = 0; i < steps; i++) {
+        var angle = (i / steps) * Math.PI * 2;
+        var jitter = 1 + (Math.sin(i * 5.7) * 0.08 + Math.cos(i * 3.3) * 0.06);
+        pts.push([
+          center[0] + Math.sin(angle) * rLat * jitter,
+          center[1] + Math.cos(angle) * rLng * jitter
+        ]);
+      }
+      pts.push(pts[0]);
+
+      var outerGlow = L.polygon(pts, {
+        color: neb.color,
+        weight: 0,
+        fillColor: neb.color,
+        fillOpacity: 0.06,
+        smoothFactor: 2,
+        interactive: false,
+        className: 'gm-nebula-outer'
+      });
+      outerGlow.addTo(map);
+      nebulaeLayers.push(outerGlow);
+
+      var innerPts = [];
+      for (var j = 0; j < steps; j++) {
+        var a2 = (j / steps) * Math.PI * 2;
+        var j2 = 1 + (Math.sin(j * 4.1) * 0.1 + Math.cos(j * 6.7) * 0.07);
+        innerPts.push([
+          center[0] + Math.sin(a2) * rLat * 0.6 * j2,
+          center[1] + Math.cos(a2) * rLng * 0.6 * j2
+        ]);
+      }
+      innerPts.push(innerPts[0]);
+
+      var innerGlow = L.polygon(innerPts, {
+        color: neb.color,
+        weight: 0,
+        fillColor: neb.color,
+        fillOpacity: 0.12,
+        smoothFactor: 2,
+        interactive: false,
+        className: 'gm-nebula-inner'
+      });
+      innerGlow.addTo(map);
+      nebulaeLayers.push(innerGlow);
+
+      var label = L.marker(center, {
+        icon: L.divIcon({
+          className: 'gm-nebula-label',
+          html: '<span>' + neb.name + '</span>',
+          iconSize: [120, 20],
+          iconAnchor: [60, 10]
+        }),
+        interactive: true
+      });
+      label.bindTooltip(neb.desc, {
+        direction: 'top',
+        offset: [0, -10],
+        className: 'gm-planet-tooltip',
+        maxWidth: 260
+      });
+      label.addTo(map);
+      nebulaeLayers.push(label);
     });
   }
 

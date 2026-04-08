@@ -214,5 +214,50 @@
     "sector": "Cademimu",
     "gridSquare": "M-6",
     "desc": "Remote mountainous world in the Cademimu sector. The Empire maintains a garrison here guarding a payroll hub and a secret hyperspace navigation facility. In 16 BBY, Aldhani is lightly populated — herders and Imperial staff. The Eye of Aldhani — a spectacular celestial event — draws tourists once every three years. A risky but necessary waypoint for anyone heading to the Cademimu sector via back channels."
+  },
+  {
+    "name": "Sluis Van",
+    "x": 0.643,
+    "y": 0.833,
+    "region": "Outer Rim",
+    "sector": "Sluis",
+    "gridSquare": "N-18",
+    "desc": "Major shipyard world in the Sluis sector. The Sluis Van shipyards are one of the largest repair and construction facilities in the Outer Rim — a sprawling orbital complex servicing everything from bulk freighters to capital ships. In 16 BBY, the Empire contracts heavily with the yards. For independent spacers, Sluis Van means fast repairs, quality parts, and mechanics who know their trade. Expensive, but worth it."
+  },
+  {
+    "name": "Dagobah",
+    "x": 0.643,
+    "y": 0.905,
+    "region": "Outer Rim",
+    "sector": "Sluis",
+    "gridSquare": "N-19",
+    "desc": "Swamp world. Dense fog, massive gnarltrees, and aggressive fauna make Dagobah inhospitable to settlement. No cities, no spaceports, no Imperial presence. In 16 BBY, Dagobah is a dead end on the nav charts — a place ships pass over, not through. Sensors read poorly in the atmosphere. A perfect place to disappear, if you could survive."
+  },
+  {
+    "name": "Clak'dor VII",
+    "x": 0.548,
+    "y": 0.857,
+    "region": "Outer Rim",
+    "sector": "Mayagil",
+    "gridSquare": "L-18",
+    "desc": "Homeworld of the Bith. Once a center of art, music, and science, Clak'dor VII was devastated by a chemical war centuries ago. The surviving Bith live in sealed cities and are renowned across the galaxy as musicians and engineers. In 16 BBY, the planet's orbital stations offer competent technical services and cantinas with the best live music in the sector."
+  },
+  {
+    "name": "Yag'Dhul",
+    "x": 0.643,
+    "y": 0.738,
+    "region": "Inner Rim",
+    "sector": "Givin",
+    "gridSquare": "N-16",
+    "desc": "Homeworld of the Givin — vacuum-adapted mathematicians with sealed exoskeletons. Yag'Dhul's three moons create extreme tidal forces that periodically strip the atmosphere from low-lying areas. The Givin are master shipwrights and hyperspace theorists. In 16 BBY, Yag'Dhul Station is a refueling stop on the Rimma Trade Route, and Givin navigators can be hired for complex route calculations."
+  },
+  {
+    "name": "Fondor",
+    "x": 0.690,
+    "y": 0.690,
+    "region": "Colonies",
+    "sector": "Tapani",
+    "gridSquare": "O-15",
+    "desc": "Major shipyard world in the Core-ward colonies. Fondor's orbital shipyards rival Kuat in scale, producing Star Destroyers and heavy cruisers for the Imperial Navy. In 16 BBY, the yards are running triple shifts. The planet below is heavily industrialized — smog-choked cities serve a workforce devoted to military production. Not a place to linger unless you have business with the yards."
   }
 ]
