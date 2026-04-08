@@ -258,10 +258,22 @@
 
     hyperlaneData.forEach(function (lane) {
       var pts = lane.points.map(function (p) { return toLatLng(p[0], p[1]); });
+      var isMinor = !!lane.minor;
+
+      var baseWeight = isMinor ? 1.2 : 2;
+      var baseOpacity = isMinor ? 0.5 : 0.7;
+      var baseDash = isMinor ? '4 4' : '8 4';
+      var bgWeight = isMinor ? 2.5 : 4;
+      var bgOpacity = isMinor ? 0.08 : 0.15;
+      var glowWeight = isMinor ? 4 : 6;
+
+      var hoverWeight = isMinor ? 2 : 3;
+      var hoverBgWeight = isMinor ? 5 : 8;
+      var hoverGlowWeight = isMinor ? 8 : 12;
 
       var glowLine = L.polyline(pts, {
         color: lane.color,
-        weight: 6,
+        weight: glowWeight,
         opacity: 0,
         smoothFactor: 1.5,
         interactive: false,
@@ -272,8 +284,8 @@
 
       var bgLine = L.polyline(pts, {
         color: lane.color,
-        weight: 4,
-        opacity: 0.15,
+        weight: bgWeight,
+        opacity: bgOpacity,
         smoothFactor: 1.5,
         interactive: false
       });
@@ -282,9 +294,9 @@
 
       var fgLine = L.polyline(pts, {
         color: lane.color,
-        weight: 2,
-        opacity: 0.7,
-        dashArray: '8 4',
+        weight: baseWeight,
+        opacity: baseOpacity,
+        dashArray: baseDash,
         smoothFactor: 1.5,
         interactive: false
       });
@@ -303,17 +315,17 @@
         sticky: true,
         direction: 'top',
         offset: [0, -10],
-        className: 'gm-lane-tooltip'
+        className: isMinor ? 'gm-lane-tooltip gm-lane-tooltip-minor' : 'gm-lane-tooltip'
       });
       hitLine.on('mouseover', function () {
-        fgLine.setStyle({ weight: 3, opacity: 1, dashArray: null });
-        bgLine.setStyle({ weight: 8, opacity: 0.3 });
-        glowLine.setStyle({ opacity: 0.25, weight: 12 });
+        fgLine.setStyle({ weight: hoverWeight, opacity: 1, dashArray: null });
+        bgLine.setStyle({ weight: hoverBgWeight, opacity: 0.3 });
+        glowLine.setStyle({ opacity: 0.25, weight: hoverGlowWeight });
       });
       hitLine.on('mouseout', function () {
-        fgLine.setStyle({ weight: 2, opacity: 0.7, dashArray: '8 4' });
-        bgLine.setStyle({ weight: 4, opacity: 0.15 });
-        glowLine.setStyle({ opacity: 0, weight: 6 });
+        fgLine.setStyle({ weight: baseWeight, opacity: baseOpacity, dashArray: baseDash });
+        bgLine.setStyle({ weight: bgWeight, opacity: bgOpacity });
+        glowLine.setStyle({ opacity: 0, weight: glowWeight });
       });
       hitLine.addTo(map);
       hyperlaneLines.push(hitLine);
