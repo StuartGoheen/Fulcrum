@@ -212,11 +212,11 @@
     planetMarkers = [];
     planetData.forEach(function (p) {
       var ll = toLatLng(p.x, p.y);
-      var color = REGION_COLORS[p.region] || '#aaa';
       var isCampaign = !!p.campaign;
-      var size = isCampaign ? 10 : 6;
-      var glow = isCampaign ? 'box-shadow:0 0 8px 2px #ffd54f;' : '';
-      var border = isCampaign ? 'border:2px solid #ffd54f;' : 'border:1px solid rgba(255,255,255,0.3);';
+      var color = isCampaign ? '#ffd54f' : '#00e5ff';
+      var size = isCampaign ? 10 : 8;
+      var glow = isCampaign ? 'box-shadow:0 0 8px 2px #ffd54f;' : 'box-shadow:0 0 6px 1px rgba(0,229,255,0.5);';
+      var border = isCampaign ? 'border:2px solid #ffd54f;' : 'border:1px solid rgba(0,229,255,0.6);';
 
       var icon = L.divIcon({
         html: '<div class="gm-planet-dot" style="background:' + color + ';width:' + size + 'px;height:' + size + 'px;' + border + glow + '"></div>' +
