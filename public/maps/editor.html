@@ -132,12 +132,21 @@
   <div class="grid-panel" id="gridPanel">
     <h3>Grid Overlay <button class="grid-toggle" id="gridToggle">Off</button></h3>
     <div class="prop-row">
-      <div class="prop-field"><label>Cell Size</label><input type="number" id="gridSize" value="40" min="10" max="200" step="5"></div>
-      <div class="prop-field"><label>Opacity</label><input type="range" id="gridOpacity" min="5" max="60" value="15" style="width:100%;margin-top:4px;accent-color:#66aa66;"></div>
+      <div class="prop-field"><label>Cell Size</label><input type="number" id="gridSize" value="40" min="10" max="300" step="5"></div>
+      <div class="prop-field"><label>Line Width</label><input type="number" id="gridLineWidth" value="1" min="1" max="5" step="0.5"></div>
     </div>
     <div class="prop-row">
-      <div class="prop-field"><label>Offset X</label><input type="number" id="gridOffX" value="0" min="-200" max="200" step="1"></div>
-      <div class="prop-field"><label>Offset Y</label><input type="number" id="gridOffY" value="0" min="-200" max="200" step="1"></div>
+      <div class="prop-field"><label>Color</label>
+        <div style="display:flex;gap:4px;margin-top:2px;">
+          <button class="grid-toggle on" id="gridColorWhite" style="flex:1;font-size:10px;">White</button>
+          <button class="grid-toggle" id="gridColorBlack" style="flex:1;font-size:10px;">Black</button>
+        </div>
+      </div>
+      <div class="prop-field"><label>Opacity</label><input type="range" id="gridOpacity" min="10" max="100" value="40" style="width:100%;margin-top:4px;accent-color:#66aa66;"></div>
+    </div>
+    <div class="prop-row">
+      <div class="prop-field"><label>Offset X</label><input type="number" id="gridOffX" value="0" min="-300" max="300" step="1"></div>
+      <div class="prop-field"><label>Offset Y</label><input type="number" id="gridOffY" value="0" min="-300" max="300" step="1"></div>
     </div>
     <div class="grid-mode-label" id="gridModeLabel"></div>
     <div class="grid-hint">G to toggle grid. When grid is active, arrow keys move grid (10px steps). Hold Shift for 1px fine nudge.</div>
@@ -181,7 +190,9 @@ let gridOn = false;
 let gridSize = 40;
 let gridOffX = 0;
 let gridOffY = 0;
-let gridOpacity = 15;
+let gridOpacity = 40;
+let gridColor = 'white';
+let gridLineWidth = 1;
 let gridFocused = false;
 
 const $ = id => document.getElementById(id);
@@ -266,7 +277,8 @@ function buildGridSVG(vw, vh) {
   if (!gridOn) return '';
   let lines = '';
   const op = gridOpacity / 100;
-  const style = `stroke:rgba(0,255,100,${op});stroke-width:0.5;`;
+  const rgb = gridColor === 'black' ? '0,0,0' : '255,255,255';
+  const style = `stroke:rgba(${rgb},${op});stroke-width:${gridLineWidth};`;
   for (let x = gridOffX % gridSize; x <= vw; x += gridSize) {
     if (x >= 0) lines += `<line x1="${x}" y1="0" x2="${x}" y2="${vh}" style="${style}" pointer-events="none"/>`;
   }
@@ -522,10 +534,24 @@ $('gridSize').addEventListener('input', () => {
   render();
 });
 
-$('gridOpacity').addEventListener('input', () => {
-  gridOpacity = parseInt($('gridOpacity').value) || 15;
+$('gridLineWidth').addEventListener('input', () => {
+  gridLineWidth = Math.max(0.5, Math.min(5, parseFloat($('gridLineWidth').value) || 1));
   render();
 });
+
+$('gridOpacity').addEventListener('input', () => {
+  gridOpacity = parseInt($('gridOpacity').value) || 40;
+  render();
+});
+
+function setGridColor(c) {
+  gridColor = c;
+  $('gridColorWhite').className = 'grid-toggle' + (c === 'white' ? ' on' : '');
+  $('gridColorBlack').className = 'grid-toggle' + (c === 'black' ? ' on' : '');
+  render();
+}
+$('gridColorWhite').addEventListener('click', () => setGridColor('white'));
+$('gridColorBlack').addEventListener('click', () => setGridColor('black'));
 
 $('gridOffX').addEventListener('input', () => {
   gridOffX = parseInt($('gridOffX').value) || 0;
