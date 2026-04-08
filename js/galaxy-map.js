@@ -12,7 +12,7 @@
   var currentLocMarker = null;
   var markerClusterGroup = null;
   var showHyperlanes = false;
-  var showGrid = false;
+  var showGrid = true;
   var overlayEl = null;
   var searchInput = null;
   var searchResults = null;
@@ -146,6 +146,11 @@
     });
 
     loadData();
+
+    if (showGrid) {
+      showGrid = false;
+      toggleGrid();
+    }
   }
 
   function safeFetch(url) {
