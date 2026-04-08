@@ -11,7 +11,7 @@
   var gridLayer = null;
   var currentLocMarker = null;
   var markerClusterGroup = null;
-  var showHyperlanes = true;
+  var showHyperlanes = false;
   var showGrid = false;
   var overlayEl = null;
   var searchInput = null;
@@ -165,8 +165,9 @@
     }
 
     markerClusterGroup = L.markerClusterGroup({
-      maxClusterRadius: 35,
+      maxClusterRadius: 20,
       spiderfyOnMaxZoom: true,
+      disableClusteringAtZoom: 0,
       showCoverageOnHover: false,
       iconCreateFunction: function (cluster) {
         var count = cluster.getChildCount();
@@ -212,6 +213,7 @@
     h += '<div class="gm-popup-name">' + esc(p.name) + (isCampaign ? ' <span class="gm-popup-campaign">CAMPAIGN</span>' : '') + '</div>';
     h += '<div class="gm-popup-meta"><span style="color:' + regionColor + ';">' + esc(p.region) + '</span>';
     if (p.sector) h += ' &mdash; ' + esc(p.sector) + ' Sector';
+    if (p.gridSquare) h += ' &mdash; Grid ' + esc(p.gridSquare);
     h += '</div>';
     h += '<div class="gm-popup-desc">' + esc(p.desc) + '</div>';
     h += '</div>';
@@ -444,7 +446,7 @@
         for (var gc = 0; gc < cols; gc++) {
           var cy = gr * cellH + cellH / 2;
           var cx = gc * cellW + cellW / 2;
-          var label = letters[gr] + '-' + (gc + 1);
+          var label = letters[gc] + '-' + (gr + 1);
           L.marker([cy, cx], {
             icon: L.divIcon({
               html: '<span class="gm-grid-label">' + label + '</span>',
