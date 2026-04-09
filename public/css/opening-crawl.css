@@ -162,7 +162,7 @@
 }
 
 .crawl-content--active .crawl-inner {
-  animation: crawl-scroll 110s linear forwards;
+  animation: crawl-scroll 125s linear forwards;
 }
 
 @keyframes crawl-scroll {
