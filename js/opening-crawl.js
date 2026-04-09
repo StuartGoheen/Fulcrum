@@ -67,7 +67,7 @@
 
     var introEl = document.createElement('div');
     introEl.className = 'crawl-intro';
-    introEl.textContent = mission.intro;
+    introEl.innerHTML = mission.intro.replace(/\n/g, '<br>');
     overlay.appendChild(introEl);
 
     var logoEl = document.createElement('div');
@@ -99,7 +99,7 @@
     mission.body.forEach(function (para) {
       var p = document.createElement('p');
       p.className = 'crawl-body-text';
-      p.textContent = para;
+      p.innerHTML = para;
       inner.appendChild(p);
     });
 
@@ -155,11 +155,11 @@
       content.classList.add('crawl-content--active');
     }, 17500));
 
-    var crawlDuration = 110000;
+    var crawlDuration = 70000;
     crawlTimers.push(setTimeout(function () {
       if (dismissed) return;
       dismissCrawl();
-    }, 17500 + crawlDuration + 4000));
+    }, 17500 + crawlDuration + 2000));
 
     overlay.addEventListener('click', function (e) {
       e.stopPropagation();

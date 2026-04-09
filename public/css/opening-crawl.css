@@ -15,7 +15,7 @@
 
 .crawl-overlay--dismiss {
   opacity: 0;
-  transition: opacity 1s ease;
+  transition: opacity 1.5s ease;
   pointer-events: none;
 }
 
@@ -51,14 +51,16 @@
 
 .crawl-intro {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 45%;
+  left: 15%;
+  right: 15%;
+  transform: translateY(-50%);
   color: #4bd5ee;
-  font-family: 'Pathway Gothic One', 'Exo 2', sans-serif;
-  font-size: 2rem;
-  letter-spacing: 0.06em;
-  text-align: center;
+  font-family: 'News Cycle', 'Pathway Gothic One', sans-serif;
+  font-size: clamp(2rem, 4.5vw, 4rem);
+  letter-spacing: 0.08em;
+  text-align: left;
+  line-height: 1.5;
   opacity: 0;
   transition: opacity 1s ease;
 }
@@ -79,12 +81,12 @@
   transform: translate(-50%, -50%) scale(1);
   color: #feda4a;
   font-family: 'Audiowide', sans-serif;
-  font-size: clamp(60px, 10vw, 140px);
+  font-size: clamp(100px, 22vw, 300px);
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   text-align: center;
-  line-height: 1;
+  line-height: 0.85;
   white-space: nowrap;
   opacity: 0;
   pointer-events: none;
@@ -134,15 +136,15 @@
   height: 50em;
   overflow: hidden;
   color: #feda4a;
-  font-family: 'Pathway Gothic One', 'Exo 2', sans-serif;
-  font-size: 450%;
+  font-family: 'News Cycle', 'Pathway Gothic One', sans-serif;
+  font-size: 350%;
   font-weight: 700;
-  letter-spacing: 0.12em;
-  line-height: 1.4;
+  letter-spacing: 0.15em;
+  line-height: normal;
   text-align: justify;
   word-wrap: break-word;
   transform-origin: 50% 100%;
-  transform: perspective(350px) rotateX(22deg);
+  transform: perspective(300px) rotateX(25deg);
   opacity: 0;
   transition: opacity 0.5s ease;
 }
@@ -160,7 +162,7 @@
 }
 
 .crawl-content--active .crawl-inner {
-  animation: crawl-scroll 110s linear forwards;
+  animation: crawl-scroll 70s linear forwards;
 }
 
 @keyframes crawl-scroll {
@@ -168,36 +170,37 @@
     transform: translateY(0);
   }
   100% {
-    transform: translateY(-200em);
+    transform: translateY(-170em);
   }
 }
 
 .crawl-episode {
   color: #feda4a;
-  font-family: 'Pathway Gothic One', 'Audiowide', sans-serif;
-  font-size: 0.6em;
+  font-family: 'News Cycle', 'Pathway Gothic One', sans-serif;
+  font-size: 0.85em;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   text-align: center;
-  margin-bottom: 0.3em;
+  margin: 0 0 0.2em;
 }
 
 .crawl-title {
   color: #feda4a;
-  font-family: 'Pathway Gothic One', 'Audiowide', sans-serif;
-  font-size: 1.4em;
-  letter-spacing: 0.08em;
+  font-family: 'News Cycle', 'Pathway Gothic One', sans-serif;
+  font-size: 1.8em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   text-align: center;
-  margin: 0 0 1.5em;
+  margin: 0 0 2em;
+  font-weight: 700;
 }
 
 .crawl-body-text {
   color: #feda4a;
-  font-family: 'Pathway Gothic One', 'Exo 2', sans-serif;
+  font-family: 'News Cycle', 'Pathway Gothic One', sans-serif;
   font-size: 1em;
   line-height: normal;
   text-align: justify;
-  margin: 0 0 1em;
+  margin: 0 0 2em;
   font-weight: 700;
 }
