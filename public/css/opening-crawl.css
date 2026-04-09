@@ -120,7 +120,7 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 30%;
+  height: 50%;
   background: linear-gradient(to bottom, #000 0%, transparent 100%);
   z-index: 2;
   pointer-events: none;
@@ -162,7 +162,7 @@
 }
 
 .crawl-content--active .crawl-inner {
-  animation: crawl-scroll 100s linear forwards;
+  animation: crawl-scroll 110s linear forwards;
 }
 
 @keyframes crawl-scroll {
