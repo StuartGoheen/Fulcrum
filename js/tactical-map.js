@@ -323,7 +323,7 @@
           self.socket.emit('map:pin-add', {
             mapKey: self.mapKey, x: Math.round(mapX), y: Math.round(mapY),
             label: label, pin_type: type,
-            visibility: self.role === 'gm' ? 'public' : 'public',
+            visibility: self.role === 'gm' ? 'public' : 'private',
             color: pt.color
           });
         } else {

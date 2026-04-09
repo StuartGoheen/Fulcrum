@@ -1178,7 +1178,7 @@ function registerHandlers(io) {
       const { mapKey, x, y, label, pin_type, visibility, color } = payload || {};
       if (!mapKey || x == null || y == null) return;
       const isGm = socket.data.role === 'gm';
-      const pinVisibility = isGm ? (visibility || 'public') : 'public';
+      const pinVisibility = isGm ? (visibility || 'public') : 'private';
       const pinOwner = isGm ? 'gm' : 'player';
       const pName = isGm ? '' : (socket.data.characterName || '');
       try {
@@ -1188,8 +1188,8 @@ function registerHandlers(io) {
         );
         const pin = result.rows[0];
         socket.emit('map:pin-added', { pin });
-        if (pin.visibility === 'public') {
-          socket.broadcast.to('players').emit('map:pin-added', { pin });
+        if (isGm && pin.visibility === 'public') {
+          io.to('players').emit('map:pin-added', { pin });
         }
         if (!isGm) {
           io.to('gm').emit('map:pin-added', { pin });
@@ -1240,7 +1240,6 @@ function registerHandlers(io) {
               io.to('players').emit('map:pin-updated', { pin });
             }
           } else {
-            socket.broadcast.to('players').emit('map:pin-updated', { pin });
             io.to('gm').emit('map:pin-updated', { pin });
           }
         }
