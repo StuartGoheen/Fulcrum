@@ -70,12 +70,12 @@
     introEl.textContent = mission.intro;
     overlay.appendChild(introEl);
 
-    var perspective = document.createElement('div');
-    perspective.className = 'crawl-perspective';
-
     var fadeTop = document.createElement('div');
     fadeTop.className = 'crawl-fade-top';
-    perspective.appendChild(fadeTop);
+    overlay.appendChild(fadeTop);
+
+    var perspective = document.createElement('div');
+    perspective.className = 'crawl-perspective';
 
     var content = document.createElement('div');
     content.className = 'crawl-content';

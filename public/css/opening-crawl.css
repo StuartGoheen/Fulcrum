@@ -55,8 +55,8 @@
   left: 50%;
   transform: translate(-50%, -50%);
   color: #00bfff;
-  font-family: 'Exo 2', sans-serif;
-  font-size: 1.5rem;
+  font-family: 'Pathway Gothic One', 'Exo 2', sans-serif;
+  font-size: 2rem;
   letter-spacing: 0.06em;
   text-align: center;
   opacity: 0;
@@ -72,40 +72,47 @@
   transition: opacity 1.5s ease;
 }
 
+.crawl-fade-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60vh;
+  background: linear-gradient(to bottom, #000 40%, transparent 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+
 .crawl-perspective {
   position: absolute;
-  inset: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 800px;
+  display: flex;
+  justify-content: center;
   perspective: 400px;
   overflow: hidden;
   opacity: 0;
+  color: #feda4a;
+  font-family: 'Pathway Gothic One', 'Exo 2', sans-serif;
+  font-size: 500%;
+  font-weight: 600;
+  letter-spacing: 6px;
+  line-height: 150%;
 }
 
 .crawl-perspective--active {
   opacity: 1;
 }
 
-.crawl-fade-top {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 28%;
-  background: linear-gradient(to bottom, #000 40%, transparent 100%);
-  z-index: 2;
-  pointer-events: none;
-}
-
 .crawl-content {
-  position: absolute;
-  top: 125%;
-  left: 50%;
-  width: 70%;
-  max-width: 750px;
-  transform: translateX(-50%) rotateX(25deg);
+  position: relative;
+  top: 9999px;
   transform-origin: 50% 100%;
-  text-align: center;
-  will-change: top;
-  padding-top: 4rem;
+  width: 90%;
+  max-width: 800px;
+  text-align: justify;
 }
 
 .crawl-perspective--active .crawl-content {
@@ -114,17 +121,19 @@
 
 @keyframes crawl-scroll {
   0% {
-    top: 125%;
+    top: 0;
+    transform: rotateX(20deg) translateZ(0);
   }
   100% {
-    top: -180%;
+    top: -6000px;
+    transform: rotateX(25deg) translateZ(-2500px);
   }
 }
 
 .crawl-episode {
-  color: #FFE81F;
-  font-family: 'Audiowide', sans-serif;
-  font-size: 1.4rem;
+  color: #feda4a;
+  font-family: 'Pathway Gothic One', 'Audiowide', sans-serif;
+  font-size: 90%;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   text-align: center;
@@ -132,21 +141,21 @@
 }
 
 .crawl-title {
-  color: #FFE81F;
-  font-family: 'Audiowide', sans-serif;
-  font-size: 3rem;
+  color: #feda4a;
+  font-family: 'Pathway Gothic One', 'Audiowide', sans-serif;
+  font-size: 100%;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   text-align: center;
-  margin-bottom: 3rem;
+  margin: 0 0 100px;
 }
 
 .crawl-body-text {
-  color: #FFE81F;
-  font-family: 'Exo 2', sans-serif;
-  font-size: 1.55rem;
-  line-height: 1.9;
+  color: #feda4a;
+  font-family: 'Pathway Gothic One', 'Exo 2', sans-serif;
+  font-size: 80%;
+  line-height: 150%;
   text-align: justify;
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
   font-weight: 600;
 }
