@@ -79,12 +79,12 @@
   transform: translate(-50%, -50%) scale(1);
   color: #feda4a;
   font-family: 'Audiowide', sans-serif;
-  font-size: 18vw;
+  font-size: clamp(60px, 10vw, 140px);
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   text-align: center;
-  line-height: 0.9;
+  line-height: 1;
   white-space: nowrap;
   opacity: 0;
   pointer-events: none;
@@ -104,11 +104,11 @@
     transform: translate(-50%, -50%) scale(1);
     opacity: 1;
   }
-  80% {
-    opacity: 0.6;
+  75% {
+    opacity: 0.5;
   }
   100% {
-    transform: translate(-50%, -50%) scale(0.04);
+    transform: translate(-50%, -50%) scale(0.03);
     opacity: 0;
   }
 }
@@ -118,8 +118,8 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 30%;
-  background: linear-gradient(to bottom, #000 20%, transparent 100%);
+  height: 40%;
+  background: linear-gradient(to bottom, #000 10%, transparent 100%);
   z-index: 2;
   pointer-events: none;
 }
@@ -127,7 +127,7 @@
 .crawl-perspective {
   position: absolute;
   inset: 0;
-  perspective: 300px;
+  perspective: 800px;
   perspective-origin: 50% 0;
   overflow: hidden;
   opacity: 0;
@@ -140,20 +140,20 @@
 
 .crawl-content {
   position: absolute;
+  top: 0;
   left: 50%;
-  width: 75%;
-  max-width: 900px;
-  transform: translateX(-50%) rotateX(25deg);
+  width: 56%;
+  max-width: 700px;
   transform-origin: 50% 0;
-  text-align: justify;
-  top: 100%;
-  will-change: top;
+  transform: translateX(-50%) translateY(100vh) rotateX(25deg);
+  will-change: transform;
   color: #feda4a;
   font-family: 'Pathway Gothic One', 'Exo 2', sans-serif;
-  font-size: 44px;
+  font-size: clamp(28px, 3vw, 40px);
   font-weight: 600;
-  letter-spacing: 5px;
-  line-height: 1.5;
+  letter-spacing: 3px;
+  line-height: 1.6;
+  text-align: justify;
 }
 
 .crawl-perspective--active .crawl-content {
@@ -162,17 +162,17 @@
 
 @keyframes crawl-scroll {
   0% {
-    top: 100%;
+    transform: translateX(-50%) translateY(100vh) rotateX(25deg);
   }
   100% {
-    top: -300%;
+    transform: translateX(-50%) translateY(-250vh) rotateX(25deg);
   }
 }
 
 .crawl-episode {
   color: #feda4a;
   font-family: 'Pathway Gothic One', 'Audiowide', sans-serif;
-  font-size: 32px;
+  font-size: clamp(18px, 2vw, 28px);
   letter-spacing: 0.2em;
   text-transform: uppercase;
   text-align: center;
@@ -182,19 +182,19 @@
 .crawl-title {
   color: #feda4a;
   font-family: 'Pathway Gothic One', 'Audiowide', sans-serif;
-  font-size: 72px;
+  font-size: clamp(36px, 5vw, 64px);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   text-align: center;
-  margin: 0 0 80px;
+  margin: 0 0 60px;
 }
 
 .crawl-body-text {
   color: #feda4a;
   font-family: 'Pathway Gothic One', 'Exo 2', sans-serif;
-  font-size: 44px;
-  line-height: 1.5;
+  font-size: clamp(28px, 3vw, 40px);
+  line-height: 1.6;
   text-align: justify;
-  margin-bottom: 2rem;
+  margin-bottom: 1.8rem;
   font-weight: 600;
 }
