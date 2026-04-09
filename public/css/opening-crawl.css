@@ -144,7 +144,7 @@
   text-align: justify;
   word-wrap: break-word;
   transform-origin: 50% 100%;
-  transform: perspective(300px) rotateX(25deg);
+  transform: perspective(400px) rotateX(22deg);
   opacity: 0;
   transition: opacity 0.5s ease;
 }
