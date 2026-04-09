@@ -255,6 +255,8 @@
         var pinId = el.dataset.pinId;
         if (self.role === 'gm' && pinId) {
           self._showPinEditMenu(e, pinId);
+        } else if (self.role === 'player' && pinId && pinId.indexOf('p') === 0) {
+          self._showPersonalPinEditMenu(e, pinId);
         }
       });
     });
@@ -305,11 +307,10 @@
       btn.addEventListener('click', function () {
         self._removeContextMenu();
         var label = prompt('Pin label (optional):') || '';
-        if (self.socket) {
+        if (self.role === 'gm' && self.socket) {
           self.socket.emit('map:pin-add', {
             mapKey: self.mapKey, x: Math.round(mapX), y: Math.round(mapY),
-            label: label, pin_type: type, visibility: 'public', color: pt.color,
-            playerName: self.playerName
+            label: label, pin_type: type, visibility: 'public', color: pt.color
           });
         } else {
           var pin = { _pid: 'p' + Date.now(), x: Math.round(mapX), y: Math.round(mapY), label: label, pin_type: type, color: pt.color, _personal: true };
@@ -402,6 +403,72 @@
     delBtn.addEventListener('click', function () {
       self._removeContextMenu();
       self.socket.emit('map:pin-remove', { id: numId, mapKey: self.mapKey });
+    });
+    menu.appendChild(delBtn);
+
+    document.body.appendChild(menu);
+    setTimeout(function () {
+      document.addEventListener('click', self._ctxDismiss = function () {
+        self._removeContextMenu();
+      }, { once: true });
+    }, 0);
+  };
+
+  TacticalMapViewer.prototype._showPersonalPinEditMenu = function (e, pinId) {
+    this._removeContextMenu();
+    var self = this;
+    var pin = this.personalPins.find(function (p) { return p._pid === pinId; });
+    if (!pin) return;
+
+    var menu = document.createElement('div');
+    menu.className = 'tm-ctx-menu';
+    menu.style.left = e.clientX + 'px';
+    menu.style.top = e.clientY + 'px';
+
+    var editLabel = document.createElement('button');
+    editLabel.className = 'tm-ctx-item';
+    editLabel.textContent = '\u270E Edit Label';
+    editLabel.addEventListener('click', function () {
+      self._removeContextMenu();
+      var newLabel = prompt('Edit pin label:', pin.label || '');
+      if (newLabel !== null) {
+        pin.label = newLabel;
+        self._savePersonalPins();
+        self._renderPins();
+      }
+    });
+    menu.appendChild(editLabel);
+
+    var typeKeys = Object.keys(PIN_TYPES);
+    typeKeys.forEach(function (type) {
+      if (type === pin.pin_type) return;
+      var pt = PIN_TYPES[type];
+      var btn = document.createElement('button');
+      btn.className = 'tm-ctx-item';
+      btn.innerHTML = '<span style="color:' + pt.color + ';">' + pt.icon + '</span> Change to ' + pt.label;
+      btn.addEventListener('click', function () {
+        self._removeContextMenu();
+        pin.pin_type = type;
+        pin.color = pt.color;
+        self._savePersonalPins();
+        self._renderPins();
+      });
+      menu.appendChild(btn);
+    });
+
+    var sep = document.createElement('div');
+    sep.style.cssText = 'height:1px;background:rgba(255,255,255,0.1);margin:4px 0;';
+    menu.appendChild(sep);
+
+    var delBtn = document.createElement('button');
+    delBtn.className = 'tm-ctx-item';
+    delBtn.style.color = '#ef4444';
+    delBtn.textContent = '\u2716 Remove Pin';
+    delBtn.addEventListener('click', function () {
+      self._removeContextMenu();
+      self.personalPins = self.personalPins.filter(function (p) { return p._pid !== pinId; });
+      self._savePersonalPins();
+      self._renderPins();
     });
     menu.appendChild(delBtn);
 

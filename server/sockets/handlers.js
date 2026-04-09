@@ -1146,26 +1146,20 @@ function registerHandlers(io) {
     });
 
     socket.on('map:pin-add', async (payload) => {
-      const { mapKey, x, y, label, pin_type, visibility, color, playerName } = payload || {};
+      if (socket.data.role !== 'gm') return;
+      const { mapKey, x, y, label, pin_type, visibility, color } = payload || {};
       if (!mapKey || x == null || y == null) return;
-      const isGm = socket.data.role === 'gm';
-      const pinVisibility = isGm ? (visibility || 'public') : 'public';
-      const pinOwner = isGm ? 'gm' : 'player';
-      const pName = isGm ? '' : (playerName || socket.data.characterName || '');
       try {
         const result = await pool.query(
           'INSERT INTO map_pins (map_key, x, y, label, pin_type, visibility, owner, player_name, color) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING *',
-          [mapKey, x, y, label || '', pin_type || 'note', pinVisibility, pinOwner, pName, color || '#ef4444']
+          [mapKey, x, y, label || '', pin_type || 'note', visibility || 'public', 'gm', '', color || '#ef4444']
         );
         const pin = result.rows[0];
         socket.emit('map:pin-added', { pin });
         if (pin.visibility === 'public') {
-          socket.broadcast.to('players').emit('map:pin-added', { pin });
-          if (!isGm) {
-            io.to('gm').emit('map:pin-added', { pin });
-          }
+          io.to('players').emit('map:pin-added', { pin });
         }
-        console.log('[socket] ' + (isGm ? 'GM' : pName) + ' added pin: ' + (label || 'unnamed') + ' on ' + mapKey);
+        console.log('[socket] GM added pin: ' + (label || 'unnamed') + ' on ' + mapKey);
       } catch (err) {
         console.error('[socket] map:pin-add error:', err);
       }
@@ -1233,9 +1227,8 @@ function registerHandlers(io) {
           query = 'SELECT * FROM map_pins WHERE map_key = $1 ORDER BY created_at ASC';
           params = [mapKey];
         } else {
-          const playerName = socket.data.characterName || '';
-          query = "SELECT * FROM map_pins WHERE map_key = $1 AND (visibility = 'public' OR (owner = 'player' AND player_name = $2)) ORDER BY created_at ASC";
-          params = [mapKey, playerName];
+          query = "SELECT * FROM map_pins WHERE map_key = $1 AND visibility = 'public' ORDER BY created_at ASC";
+          params = [mapKey];
         }
         const result = await pool.query(query, params);
         socket.emit('map:pins-sync', { mapKey, pins: result.rows });
