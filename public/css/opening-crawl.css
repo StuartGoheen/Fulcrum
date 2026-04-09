@@ -118,83 +118,86 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 40%;
-  background: linear-gradient(to bottom, #000 10%, transparent 100%);
+  height: 30%;
+  background: linear-gradient(to bottom, #000 0%, transparent 100%);
   z-index: 2;
   pointer-events: none;
 }
 
-.crawl-perspective {
+.crawl-content {
   position: absolute;
-  inset: 0;
-  perspective: 800px;
-  perspective-origin: 50% 0;
+  top: auto;
+  bottom: 0;
+  left: 50%;
+  margin-left: -7.325em;
+  width: 14.65em;
+  height: 50em;
   overflow: hidden;
+  color: #feda4a;
+  font-family: 'Pathway Gothic One', 'Exo 2', sans-serif;
+  font-size: 350%;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  line-height: normal;
+  text-align: justify;
+  word-wrap: break-word;
+  transform-origin: 50% 100%;
+  transform: perspective(300px) rotateX(25deg);
   opacity: 0;
-  transition: opacity 0.8s ease;
+  transition: opacity 0.5s ease;
 }
 
-.crawl-perspective--active {
+.crawl-content--active {
   opacity: 1;
 }
 
-.crawl-content {
+.crawl-inner {
   position: absolute;
-  top: 0;
-  left: 50%;
-  width: 56%;
-  max-width: 700px;
-  transform-origin: 50% 0;
-  transform: translateX(-50%) translateY(100vh) rotateX(25deg);
+  left: 0;
+  right: 0;
+  top: 100%;
   will-change: transform;
-  color: #feda4a;
-  font-family: 'Pathway Gothic One', 'Exo 2', sans-serif;
-  font-size: clamp(28px, 3vw, 40px);
-  font-weight: 600;
-  letter-spacing: 3px;
-  line-height: 1.6;
-  text-align: justify;
 }
 
-.crawl-perspective--active .crawl-content {
+.crawl-content--active .crawl-inner {
   animation: crawl-scroll 81s linear forwards;
 }
 
 @keyframes crawl-scroll {
   0% {
-    transform: translateX(-50%) translateY(100vh) rotateX(25deg);
+    transform: translateY(0);
   }
   100% {
-    transform: translateX(-50%) translateY(-250vh) rotateX(25deg);
+    transform: translateY(-200em);
   }
 }
 
 .crawl-episode {
   color: #feda4a;
   font-family: 'Pathway Gothic One', 'Audiowide', sans-serif;
-  font-size: clamp(18px, 2vw, 28px);
+  font-size: 0.6em;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   text-align: center;
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.3em;
 }
 
 .crawl-title {
   color: #feda4a;
   font-family: 'Pathway Gothic One', 'Audiowide', sans-serif;
-  font-size: clamp(36px, 5vw, 64px);
+  font-size: 1.4em;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   text-align: center;
-  margin: 0 0 60px;
+  margin: 0 0 1.5em;
 }
 
 .crawl-body-text {
   color: #feda4a;
   font-family: 'Pathway Gothic One', 'Exo 2', sans-serif;
-  font-size: clamp(28px, 3vw, 40px);
-  line-height: 1.6;
+  font-size: 1em;
+  line-height: normal;
   text-align: justify;
-  margin-bottom: 1.8rem;
-  font-weight: 600;
+  margin: 0 0 1em;
+  font-weight: 700;
 }

@@ -80,31 +80,31 @@
     fadeTop.style.display = 'none';
     overlay.appendChild(fadeTop);
 
-    var perspective = document.createElement('div');
-    perspective.className = 'crawl-perspective';
-
     var content = document.createElement('div');
     content.className = 'crawl-content';
+
+    var inner = document.createElement('div');
+    inner.className = 'crawl-inner';
 
     var epEl = document.createElement('p');
     epEl.className = 'crawl-episode';
     epEl.textContent = mission.episode;
-    content.appendChild(epEl);
+    inner.appendChild(epEl);
 
     var titleEl = document.createElement('h2');
     titleEl.className = 'crawl-title';
     titleEl.textContent = mission.title;
-    content.appendChild(titleEl);
+    inner.appendChild(titleEl);
 
     mission.body.forEach(function (para) {
       var p = document.createElement('p');
       p.className = 'crawl-body-text';
       p.textContent = para;
-      content.appendChild(p);
+      inner.appendChild(p);
     });
 
-    perspective.appendChild(content);
-    overlay.appendChild(perspective);
+    content.appendChild(inner);
+    overlay.appendChild(content);
 
     document.body.appendChild(overlay);
 
@@ -152,7 +152,7 @@
       if (dismissed) return;
       logoEl.style.display = 'none';
       fadeTop.style.display = '';
-      perspective.classList.add('crawl-perspective--active');
+      content.classList.add('crawl-content--active');
     }, 17500));
 
     var crawlDuration = 81000;
