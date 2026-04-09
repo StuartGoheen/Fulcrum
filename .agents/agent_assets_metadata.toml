@@ -162,6 +162,12 @@ uri = "file://attached_assets/varga-fortress-ground-floor.png"
 type = "image"
 title = "Varga fortress ground floor"
 
+[[generated]]
+id = "FyrIUIBAS0EeDBmeYvp9T"
+uri = "file://attached_assets/varga-fortress-floorplan-simple.png"
+type = "image"
+title = "Varga fortress simple floorplan"
+
 [[outputs]]
 id = "2LcyfBitBojI2aNp3Z-pi"
 uri = "file://assets/fulcrum-resolution-infographic.png"
