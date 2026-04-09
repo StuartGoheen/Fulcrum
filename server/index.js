@@ -18,6 +18,7 @@ const decisionRoutes      = require('./routes/decisions');
 const narrativeChallengeRoutes = require('./routes/narrative-challenges');
 const npcProfileRoutes        = require('./routes/npc-profiles');
 const galaxyPinRoutes         = require('./routes/galaxy-pins');
+const crawlRoutes             = require('./routes/crawls');
 const fs = require('fs');
 const socketHandlers  = require('./sockets/handlers');
 const { loginRoute, logoutRoute, gate, roleFromCookie, COOKIE_SECRET } = require('./auth');
@@ -76,9 +77,12 @@ app.use('/api/campaign', decisionRoutes);
 app.use('/api', narrativeChallengeRoutes);
 app.use('/api', npcProfileRoutes);
 app.use('/api', galaxyPinRoutes);
+app.use('/api', crawlRoutes);
 
 app.get('/gm',    (req, res) => res.redirect('/gm/'));
 app.get('/gm/',   (req, res) => res.sendFile(path.join(ROOT, 'public', 'gm', 'index.html')));
+app.get('/gm/crawl-editor',  (req, res) => res.redirect('/gm/crawl-editor/'));
+app.get('/gm/crawl-editor/', (req, res) => res.sendFile(path.join(ROOT, 'public', 'gm', 'crawl-editor', 'index.html')));
 
 app.get('/player',  (req, res) => res.redirect('/player/'));
 app.get('/player/', (req, res) => res.sendFile(path.join(ROOT, 'public', 'player', 'index.html')));

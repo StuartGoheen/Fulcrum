@@ -29,6 +29,7 @@ The app uses a passcode-based gate (cookie auth) to restrict access:
 │   ├── login.html        # Passcode login page (Access Terminal)
 │   ├── icon.svg
 │   ├── gm/index.html     # GM — The Black Ledger
+│   ├── gm/crawl-editor/index.html  # GM Crawl Editor — write/edit/preview opening crawls per adventure, set active crawl
 │   ├── player/index.html # Player character sheet
 │   ├── create/index.html # Character creation wizard
 │   ├── market/index.html # Black Market (char gate → accordion browse → purchase flow)
@@ -54,19 +55,21 @@ The app uses a passcode-based gate (cookie auth) to restrict access:
 │   ├── npc-builder.js     # NPC Threat Builder full-screen overlay (5-category system: character/vehicle/starship/capital_ship/station, auto-applied scale traits, ship-flavored arena/stat labels, ship details panel, powerMod/initiativeMod trait support, loot attachment, save/recall, buildNpcFromSaved async API for external consumers, social trait system with reactive traits/triggers, Social Profile card section with SOCIAL RESIST display, socialNotes GM guidance field, Duelist combat role, full action economy: 5 roles × 4 power sources = 20 ability sets with Action/Maneuver/Gambit/Exploit, GM-selectable Power Source dropdown with auto-suggestion from highest arena, resolveRoleKit/suggestPowerSource helpers, computeAttackDisplayData outputs isRoleAction flag per attack)
 │   ├── market.js          # Black Market (char gate, accordion, salvaged, purchase, ledger)
 │   ├── market-source-viewer.js # Source DB viewer overlay
-│   ├── crawl-data.js     # Mission crawl text data (extensible for future missions)
+│   ├── crawl-data.js     # Mission crawl text data (hardcoded fallback for opening crawl)
+│   ├── crawl-editor.js  # GM Crawl Editor — adventure crawl CRUD, auto-capitalize terms, preview, active crawl toggle
 │   ├── opening-crawl.js  # Star Wars opening crawl overlay engine
 │   ├── tactical-map.js    # Shared TacticalMapViewer component (pan/zoom, grid overlay, zone desc panel, pin layer, personal pins via sessionStorage, GM right-click context menus, pin drag-to-reposition)
 │   ├── holonet-overlay.js # Player-side HoloNet broadcast overlay (Imperial terminal aesthetic, socket-triggered, journal clipping)
 │   ├── starship-combat.js # Starship combat cockpit HUD overlay
 │   ├── galaxy-map.js     # Interactive galaxy starmap (Leaflet.js, 65 planets, 6 hyperlanes, campaign pins, marker clustering, search, grid overlay)
 ├── data/                 # JSON data files (weapons, armor, gear, etc.)
+│   ├── crawls/           # Per-adventure opening crawl JSON files + active.json (active crawl pointer)
 ├── assets/               # Images and icons
 ├── db/                   # (legacy, unused — now using PostgreSQL)
 ├── server/
 │   ├── index.js          # Express + Socket.io entrypoint (port 5000)
 │   ├── db.js             # Database init, schema, seeding
-│   ├── routes/           # REST API routes (characters, campaign, equipment, inventory, journal); campaign routes include PUT/POST/DELETE for scene NPC persistence; journal routes handle entries CRUD + tag extraction from scenes
+│   ├── routes/           # REST API routes (characters, campaign, equipment, inventory, journal, crawls); campaign routes include PUT/POST/DELETE for scene NPC persistence; journal routes handle entries CRUD + tag extraction from scenes; crawl routes handle CRUD for per-adventure opening crawl text + active crawl management
 │   └── sockets/          # Socket.io event handlers
 └── tailwind.config.js    # Tailwind config (scans public/**/*.html + js/**/*.js)
 ```

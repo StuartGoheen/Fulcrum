@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crawl Editor — The Black Ledger</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Exo+2:wght@300;400;500;600;700&family=News+Cycle:wght@400;700&family=Pathway+Gothic+One&display=swap" rel="stylesheet" />
+  <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/css/opening-crawl.css" />
+  <link rel="stylesheet" href="/css/crawl-editor.css" />
+</head>
+<body>
+  <header class="ce-header">
+    <div class="ce-header-left">
+      <a href="/gm/" class="ce-back-link">&larr; Black Ledger</a>
+      <span class="ce-header-brand">CRAWL EDITOR</span>
+    </div>
+    <div class="ce-header-right">
+      <button class="ce-btn ce-btn--accent" id="btn-preview" title="Preview the crawl">Preview</button>
+      <button class="ce-btn ce-btn--save" id="btn-save" title="Save changes">Save</button>
+    </div>
+  </header>
+
+  <div class="ce-layout">
+    <aside class="ce-sidebar">
+      <div class="ce-sidebar-title">Adventures</div>
+      <div class="ce-adventure-list" id="adventure-list"></div>
+    </aside>
+
+    <main class="ce-editor">
+      <div class="ce-empty-state" id="empty-state">
+        <p>Select an adventure to edit its opening crawl, or create a new one.</p>
+      </div>
+
+      <div class="ce-form" id="editor-form" style="display:none;">
+        <div class="ce-form-header">
+          <span class="ce-form-adventure-title" id="form-adventure-title"></span>
+          <div class="ce-form-actions">
+            <label class="ce-active-toggle">
+              <input type="checkbox" id="chk-active" />
+              <span class="ce-toggle-label">Active Crawl</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="ce-field">
+          <label class="ce-label" for="field-intro">Intro Text</label>
+          <textarea class="ce-input ce-textarea" id="field-intro" rows="2" placeholder="A long time ago in a galaxy far, far away...."></textarea>
+          <span class="ce-hint">The blue text that appears first. Use a line break for "far away…." on a second line.</span>
+        </div>
+
+        <div class="ce-field">
+          <label class="ce-label" for="field-episode">Episode</label>
+          <input class="ce-input" id="field-episode" type="text" placeholder="Episode I" />
+        </div>
+
+        <div class="ce-field">
+          <label class="ce-label" for="field-title">Title</label>
+          <input class="ce-input" id="field-title" type="text" placeholder="THE TRAITOR'S GAMBIT" />
+          <span class="ce-hint">Auto-capitalized on save.</span>
+        </div>
+
+        <div class="ce-field">
+          <label class="ce-label">Body Paragraphs</label>
+          <span class="ce-hint">Each paragraph scrolls as a separate block. Key terms like faction names, ship types, and character names are auto-capitalized on save. Double-spaced between paragraphs.</span>
+          <div class="ce-paragraphs" id="paragraphs-container"></div>
+          <button class="ce-btn ce-btn--small" id="btn-add-para">+ Add Paragraph</button>
+        </div>
+
+        <div class="ce-field">
+          <label class="ce-label">Auto-Capitalize Terms</label>
+          <span class="ce-hint">These terms will be auto-uppercased in the crawl text on save. Add custom terms separated by commas.</span>
+          <input class="ce-input" id="field-terms" type="text" placeholder="Galactic Empire, Republic, Star Destroyers" />
+        </div>
+
+        <div class="ce-status" id="save-status"></div>
+      </div>
+    </main>
+  </div>
+
+  <div class="ce-toast" id="toast"></div>
+
+  <script src="/js/crawl-data.js"></script>
+  <script src="/js/opening-crawl.js"></script>
+  <script src="/js/crawl-editor.js"></script>
+</body>
+</html>

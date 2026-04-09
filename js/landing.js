@@ -236,9 +236,24 @@
   var crawlBtn = document.getElementById('btn-crawl');
   if (crawlBtn) {
     crawlBtn.addEventListener('click', function () {
-      if (typeof window.launchCrawl === 'function') {
-        window.launchCrawl('mission1');
-      }
+      if (typeof window.launchCrawl !== 'function') return;
+
+      fetch('/api/crawls/active')
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          if (data.crawl) {
+            window.CRAWL_MISSIONS = window.CRAWL_MISSIONS || {};
+            window.CRAWL_MISSIONS._active = data.crawl;
+            window.launchCrawl('_active');
+          } else if (window.CRAWL_MISSIONS && window.CRAWL_MISSIONS.mission1) {
+            window.launchCrawl('mission1');
+          }
+        })
+        .catch(function () {
+          if (window.CRAWL_MISSIONS && window.CRAWL_MISSIONS.mission1) {
+            window.launchCrawl('mission1');
+          }
+        });
     });
   }
 }());
