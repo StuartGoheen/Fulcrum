@@ -157,7 +157,7 @@ app.get('/api/maps/:key/meta', (req, res) => {
     'vanishing-place':{ img: 'vanishing-place-rendered.png', vw: 1024, vh: 576, title: 'The Vanishing Place' },
     'banshee':        { img: 'banshee.png',                  vw: 1024, vh: 946, title: 'The Banshee' },
     'jungle-trek':    { img: 'jungle-trek.png',              vw: 1024, vh: 1024, title: 'Jungle Trek' },
-    'blackwind-point':{ img: null,                             vw: 1400, vh: 950, title: 'Blackwind Point' }
+    'blackwind-point':{ img: 'blackwind-point-map.png',         vw: 1024, vh: 778, title: 'Blackwind Point' }
   };
 
   const meta = MAPS_META[mapKey];
