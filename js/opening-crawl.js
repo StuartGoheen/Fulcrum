@@ -70,8 +70,14 @@
     introEl.textContent = mission.intro;
     overlay.appendChild(introEl);
 
+    var logoEl = document.createElement('div');
+    logoEl.className = 'crawl-logo';
+    logoEl.innerHTML = 'STAR<br>WARS';
+    overlay.appendChild(logoEl);
+
     var fadeTop = document.createElement('div');
     fadeTop.className = 'crawl-fade-top';
+    fadeTop.style.display = 'none';
     overlay.appendChild(fadeTop);
 
     var perspective = document.createElement('div');
@@ -133,19 +139,27 @@
     crawlTimers.push(setTimeout(function () {
       if (dismissed) return;
       introEl.classList.add('crawl-intro--fade');
-    }, 4500));
+    }, 3500));
 
     crawlTimers.push(setTimeout(function () {
       if (dismissed) return;
       introEl.style.display = 'none';
+      logoEl.classList.add('crawl-logo--visible');
+      logoEl.classList.add('crawl-logo--recede');
+    }, 4500));
+
+    crawlTimers.push(setTimeout(function () {
+      if (dismissed) return;
+      logoEl.style.display = 'none';
+      fadeTop.style.display = '';
       perspective.classList.add('crawl-perspective--active');
-    }, 6000));
+    }, 17500));
 
     var crawlDuration = 81000;
     crawlTimers.push(setTimeout(function () {
       if (dismissed) return;
       dismissCrawl();
-    }, crawlDuration + 8000));
+    }, 17500 + crawlDuration + 4000));
 
     overlay.addEventListener('click', function (e) {
       e.stopPropagation();
