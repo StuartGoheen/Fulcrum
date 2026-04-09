@@ -153,6 +153,9 @@
       .then(function (meta) {
         if (self._loadId !== loadId) return;
         self.meta = meta;
+        self.gridVisible = !!(meta.gridConfig && meta.gridConfig.gridOn);
+        var gridBtn = self._toolbar.querySelector('.tm-grid-toggle');
+        if (gridBtn) gridBtn.classList.toggle('tm-active', self.gridVisible);
         self._render();
         self.fitView();
         if (self.socket) {
@@ -192,7 +195,7 @@
     if (!this.meta) return;
     var gridLayer = this._canvas.querySelector('.tm-grid-layer');
     if (!gridLayer) return;
-    if (!this.gridVisible || !this.meta.gridConfig || !this.meta.gridConfig.gridOn) {
+    if (!this.gridVisible || !this.meta.gridConfig) {
       gridLayer.innerHTML = '';
       return;
     }
