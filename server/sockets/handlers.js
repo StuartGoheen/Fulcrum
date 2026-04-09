@@ -1122,15 +1122,44 @@ function registerHandlers(io) {
 
         try {
           const mapTitle = mapKey.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
-          await pool.query(
-            `INSERT INTO journal_entries (title, body, author_character_name, source_scene_id) VALUES ($1, $2, $3, $4)`,
-            [
-              'Tactical Map: ' + mapTitle,
-              'The GM shared tactical map "' + mapTitle + '" with the party.\n\n[map:' + mapKey + ']',
-              'System',
-              'map-' + mapKey
-            ]
-          );
+          const client = await pool.connect();
+          try {
+            await client.query('BEGIN');
+            const entryResult = await client.query(
+              `INSERT INTO journal_entries (title, body, author_character_name, source_scene_id)
+               VALUES ($1, $2, $3, $4) RETURNING id`,
+              [
+                'Tactical Map: ' + mapTitle,
+                'The GM shared tactical map "' + mapTitle + '" with the party.\n\n[map:' + mapKey + ']',
+                'System',
+                'map-' + mapKey
+              ]
+            );
+            const entryId = entryResult.rows[0].id;
+            const tagResult = await client.query(
+              `INSERT INTO journal_tags (name, category) VALUES ($1, $2) ON CONFLICT (name) DO UPDATE SET name = EXCLUDED.name RETURNING id`,
+              ['tactical-map', 'location']
+            );
+            await client.query(
+              'INSERT INTO journal_entry_tags (entry_id, tag_id) VALUES ($1, $2) ON CONFLICT DO NOTHING',
+              [entryId, tagResult.rows[0].id]
+            );
+            const mapTagResult = await client.query(
+              `INSERT INTO journal_tags (name, category) VALUES ($1, $2) ON CONFLICT (name) DO UPDATE SET name = EXCLUDED.name RETURNING id`,
+              [mapKey, 'location']
+            );
+            await client.query(
+              'INSERT INTO journal_entry_tags (entry_id, tag_id) VALUES ($1, $2) ON CONFLICT DO NOTHING',
+              [entryId, mapTagResult.rows[0].id]
+            );
+            await client.query('COMMIT');
+            io.emit('journal:updated', { entryId });
+          } catch (txErr) {
+            await client.query('ROLLBACK');
+            throw txErr;
+          } finally {
+            client.release();
+          }
         } catch (journalErr) {
           console.error('[socket] map:broadcast journal entry error:', journalErr);
         }
@@ -1146,32 +1175,43 @@ function registerHandlers(io) {
     });
 
     socket.on('map:pin-add', async (payload) => {
-      if (socket.data.role !== 'gm') return;
       const { mapKey, x, y, label, pin_type, visibility, color } = payload || {};
       if (!mapKey || x == null || y == null) return;
+      const isGm = socket.data.role === 'gm';
+      const pinVisibility = isGm ? (visibility || 'public') : 'public';
+      const pinOwner = isGm ? 'gm' : 'player';
+      const pName = isGm ? '' : (socket.data.characterName || '');
       try {
         const result = await pool.query(
           'INSERT INTO map_pins (map_key, x, y, label, pin_type, visibility, owner, player_name, color) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING *',
-          [mapKey, x, y, label || '', pin_type || 'note', visibility || 'public', 'gm', '', color || '#ef4444']
+          [mapKey, x, y, label || '', pin_type || 'note', pinVisibility, pinOwner, pName, color || '#ef4444']
         );
         const pin = result.rows[0];
         socket.emit('map:pin-added', { pin });
         if (pin.visibility === 'public') {
-          io.to('players').emit('map:pin-added', { pin });
+          socket.broadcast.to('players').emit('map:pin-added', { pin });
         }
-        console.log('[socket] GM added pin: ' + (label || 'unnamed') + ' on ' + mapKey);
+        if (!isGm) {
+          io.to('gm').emit('map:pin-added', { pin });
+        }
+        console.log('[socket] ' + (isGm ? 'GM' : pName) + ' added pin: ' + (label || 'unnamed') + ' on ' + mapKey);
       } catch (err) {
         console.error('[socket] map:pin-add error:', err);
       }
     });
 
     socket.on('map:pin-update', async (payload) => {
-      if (socket.data.role !== 'gm') return;
       const { id, label, pin_type, visibility, color, x, y } = payload || {};
       if (!id) return;
       try {
-        const oldResult = await pool.query('SELECT visibility FROM map_pins WHERE id = $1', [id]);
-        const oldVisibility = oldResult.rows.length ? oldResult.rows[0].visibility : 'public';
+        const oldResult = await pool.query('SELECT visibility, owner, player_name FROM map_pins WHERE id = $1', [id]);
+        if (!oldResult.rows.length) return;
+        const oldPin = oldResult.rows[0];
+        const oldVisibility = oldPin.visibility;
+        const isGm = socket.data.role === 'gm';
+        const isOwner = oldPin.owner === 'player' && oldPin.player_name === (socket.data.characterName || '');
+        if (!isGm && !isOwner) return;
+        if (!isGm && visibility !== undefined) return;
 
         const updates = [];
         const vals = [];
@@ -1191,12 +1231,17 @@ function registerHandlers(io) {
         if (result.rows.length) {
           const pin = result.rows[0];
           socket.emit('map:pin-updated', { pin });
-          if (oldVisibility === 'public' && pin.visibility === 'private') {
-            io.to('players').emit('map:pin-removed', { id: pin.id, mapKey: pin.map_key });
-          } else if (oldVisibility === 'private' && pin.visibility === 'public') {
-            io.to('players').emit('map:pin-added', { pin });
-          } else if (pin.visibility === 'public') {
-            io.to('players').emit('map:pin-updated', { pin });
+          if (isGm) {
+            if (oldVisibility === 'public' && pin.visibility === 'private') {
+              io.to('players').emit('map:pin-removed', { id: pin.id, mapKey: pin.map_key });
+            } else if (oldVisibility === 'private' && pin.visibility === 'public') {
+              io.to('players').emit('map:pin-added', { pin });
+            } else if (pin.visibility === 'public') {
+              io.to('players').emit('map:pin-updated', { pin });
+            }
+          } else {
+            socket.broadcast.to('players').emit('map:pin-updated', { pin });
+            io.to('gm').emit('map:pin-updated', { pin });
           }
         }
       } catch (err) {
@@ -1205,14 +1250,23 @@ function registerHandlers(io) {
     });
 
     socket.on('map:pin-remove', async (payload) => {
-      if (socket.data.role !== 'gm') return;
       const { id, mapKey } = payload || {};
       if (!id) return;
       try {
+        const check = await pool.query('SELECT owner, player_name FROM map_pins WHERE id = $1', [id]);
+        if (!check.rows.length) return;
+        const pin = check.rows[0];
+        const isGm = socket.data.role === 'gm';
+        const isOwner = pin.owner === 'player' && pin.player_name === (socket.data.characterName || '');
+        if (!isGm && !isOwner) return;
+
         await pool.query('DELETE FROM map_pins WHERE id = $1', [id]);
         socket.emit('map:pin-removed', { id, mapKey });
         io.to('players').emit('map:pin-removed', { id, mapKey });
-        console.log('[socket] GM removed pin ' + id);
+        if (!isGm) {
+          io.to('gm').emit('map:pin-removed', { id, mapKey });
+        }
+        console.log('[socket] ' + (isGm ? 'GM' : (socket.data.characterName || 'Player')) + ' removed pin ' + id);
       } catch (err) {
         console.error('[socket] map:pin-remove error:', err);
       }
@@ -1227,8 +1281,9 @@ function registerHandlers(io) {
           query = 'SELECT * FROM map_pins WHERE map_key = $1 ORDER BY created_at ASC';
           params = [mapKey];
         } else {
-          query = "SELECT * FROM map_pins WHERE map_key = $1 AND visibility = 'public' ORDER BY created_at ASC";
-          params = [mapKey];
+          const playerName = socket.data.characterName || '';
+          query = "SELECT * FROM map_pins WHERE map_key = $1 AND (visibility = 'public' OR (owner = 'player' AND player_name = $2)) ORDER BY created_at ASC";
+          params = [mapKey, playerName];
         }
         const result = await pool.query(query, params);
         socket.emit('map:pins-sync', { mapKey, pins: result.rows });

@@ -225,13 +225,20 @@
       var pt = PIN_TYPES[pin.pin_type] || PIN_TYPES.note;
       var col = pin.color || pt.color;
       var isPersonal = pin._personal;
+      var isPlayerPin = pin.owner === 'player';
       var opacity = isPersonal ? '0.7' : '1';
-      var cls = 'tm-pin' + (self.role === 'gm' && !isPersonal ? ' tm-pin-draggable' : '');
-      html += '<g class="' + cls + '" data-pin-id="' + (pin.id || pin._pid || '') + '" transform="translate(' + pin.x + ',' + pin.y + ')" style="cursor:pointer;opacity:' + opacity + ';">';
-      html += '<circle r="10" fill="' + col + '" stroke="#000" stroke-width="1.5" opacity="0.85"/>';
+      var canDrag = self.role === 'gm' && !isPersonal;
+      var isOwnPin = isPlayerPin && pin.player_name === self.playerName;
+      var cls = 'tm-pin' + (canDrag ? ' tm-pin-draggable' : '') + (isOwnPin ? ' tm-pin-own' : '');
+      html += '<g class="' + cls + '" data-pin-id="' + (pin.id || pin._pid || '') + '" data-pin-owner="' + _esc(pin.owner || '') + '" transform="translate(' + pin.x + ',' + pin.y + ')" style="cursor:pointer;opacity:' + opacity + ';">';
+      html += '<circle r="10" fill="' + col + '" stroke="' + (isPlayerPin ? '#facc15' : '#000') + '" stroke-width="1.5" opacity="0.85"/>';
       html += '<text text-anchor="middle" dy="4" fill="#fff" font-size="12" font-weight="bold" pointer-events="none">' + pt.icon + '</text>';
-      if (pin.label) {
-        html += '<text text-anchor="middle" dy="-14" fill="' + col + '" font-size="9" font-family="\'Exo 2\',sans-serif" stroke="#000" stroke-width="2" paint-order="stroke">' + _esc(pin.label) + '</text>';
+      var labelText = pin.label || '';
+      if (self.role === 'gm' && isPlayerPin && pin.player_name) {
+        labelText = (labelText ? labelText + ' ' : '') + '(' + pin.player_name + ')';
+      }
+      if (labelText) {
+        html += '<text text-anchor="middle" dy="-14" fill="' + col + '" font-size="9" font-family="\'Exo 2\',sans-serif" stroke="#000" stroke-width="2" paint-order="stroke">' + _esc(labelText) + '</text>';
       }
       html += '</g>';
     });
@@ -253,10 +260,15 @@
       el.addEventListener('click', function (e) {
         e.stopPropagation();
         var pinId = el.dataset.pinId;
+        var pinOwner = el.dataset.pinOwner;
         if (self.role === 'gm' && pinId) {
           self._showPinEditMenu(e, pinId);
-        } else if (self.role === 'player' && pinId && pinId.indexOf('p') === 0) {
-          self._showPersonalPinEditMenu(e, pinId);
+        } else if (self.role === 'player' && pinId) {
+          if (pinId.indexOf('p') === 0) {
+            self._showPersonalPinEditMenu(e, pinId);
+          } else if (pinOwner === 'player') {
+            self._showPlayerServerPinEditMenu(e, pinId);
+          }
         }
       });
     });
@@ -307,10 +319,12 @@
       btn.addEventListener('click', function () {
         self._removeContextMenu();
         var label = prompt('Pin label (optional):') || '';
-        if (self.role === 'gm' && self.socket) {
+        if (self.socket) {
           self.socket.emit('map:pin-add', {
             mapKey: self.mapKey, x: Math.round(mapX), y: Math.round(mapY),
-            label: label, pin_type: type, visibility: 'public', color: pt.color
+            label: label, pin_type: type,
+            visibility: self.role === 'gm' ? 'public' : 'public',
+            color: pt.color
           });
         } else {
           var pin = { _pid: 'p' + Date.now(), x: Math.round(mapX), y: Math.round(mapY), label: label, pin_type: type, color: pt.color, _personal: true };
@@ -400,6 +414,66 @@
     delBtn.className = 'tm-ctx-item';
     delBtn.style.color = '#ef4444';
     delBtn.textContent = '\u2716 Delete Pin';
+    delBtn.addEventListener('click', function () {
+      self._removeContextMenu();
+      self.socket.emit('map:pin-remove', { id: numId, mapKey: self.mapKey });
+    });
+    menu.appendChild(delBtn);
+
+    document.body.appendChild(menu);
+    setTimeout(function () {
+      document.addEventListener('click', self._ctxDismiss = function () {
+        self._removeContextMenu();
+      }, { once: true });
+    }, 0);
+  };
+
+  TacticalMapViewer.prototype._showPlayerServerPinEditMenu = function (e, pinId) {
+    this._removeContextMenu();
+    var self = this;
+    var numId = parseInt(pinId);
+    var pin = this.pins.find(function (p) { return p.id === numId; });
+    if (!pin || pin.player_name !== self.playerName) return;
+
+    var menu = document.createElement('div');
+    menu.className = 'tm-ctx-menu';
+    menu.style.left = e.clientX + 'px';
+    menu.style.top = e.clientY + 'px';
+
+    var editLabel = document.createElement('button');
+    editLabel.className = 'tm-ctx-item';
+    editLabel.textContent = '\u270E Edit Label';
+    editLabel.addEventListener('click', function () {
+      self._removeContextMenu();
+      var newLabel = prompt('Edit pin label:', pin.label || '');
+      if (newLabel !== null) {
+        self.socket.emit('map:pin-update', { id: numId, label: newLabel });
+      }
+    });
+    menu.appendChild(editLabel);
+
+    var typeKeys = Object.keys(PIN_TYPES);
+    typeKeys.forEach(function (type) {
+      if (type === pin.pin_type) return;
+      var pt = PIN_TYPES[type];
+      var btn = document.createElement('button');
+      btn.className = 'tm-ctx-item';
+      btn.innerHTML = '<span style="color:' + pt.color + ';">' + pt.icon + '</span> Change to ' + pt.label;
+      btn.addEventListener('click', function () {
+        self._removeContextMenu();
+        self.socket.emit('map:pin-update', { id: numId, pin_type: type, color: pt.color });
+      });
+      menu.appendChild(btn);
+    });
+
+    var sep = document.createElement('div');
+    sep.style.cssText = 'height:1px;background:rgba(255,255,255,0.1);margin:4px 0;';
+    menu.appendChild(sep);
+
+    var delBtn = document.createElement('button');
+    delBtn.className = 'tm-ctx-item';
+    delBtn.style.color = '#ef4444';
+    delBtn.textContent = '\u2716 Remove Pin';
     delBtn.addEventListener('click', function () {
       self._removeContextMenu();
       self.socket.emit('map:pin-remove', { id: numId, mapKey: self.mapKey });
