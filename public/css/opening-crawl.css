@@ -129,20 +129,20 @@
   top: auto;
   bottom: 0;
   left: 50%;
-  margin-left: -7.325em;
-  width: 14.65em;
+  margin-left: -9em;
+  width: 18em;
   height: 50em;
   overflow: hidden;
   color: #feda4a;
   font-family: 'Pathway Gothic One', 'Exo 2', sans-serif;
-  font-size: 350%;
+  font-size: 450%;
   font-weight: 700;
-  letter-spacing: 0.15em;
-  line-height: normal;
+  letter-spacing: 0.12em;
+  line-height: 1.4;
   text-align: justify;
   word-wrap: break-word;
   transform-origin: 50% 100%;
-  transform: perspective(300px) rotateX(25deg);
+  transform: perspective(350px) rotateX(22deg);
   opacity: 0;
   transition: opacity 0.5s ease;
 }
@@ -160,7 +160,7 @@
 }
 
 .crawl-content--active .crawl-inner {
-  animation: crawl-scroll 81s linear forwards;
+  animation: crawl-scroll 110s linear forwards;
 }
 
 @keyframes crawl-scroll {
