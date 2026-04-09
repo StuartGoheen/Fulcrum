@@ -4448,4 +4448,152 @@
       if (window.GalaxyMap) window.GalaxyMap.open();
     });
   }
+
+  (function initTacticalMapPanel() {
+    var btn = document.getElementById('cb-tactical-map-btn');
+    if (!btn || !socket) return;
+
+    var panel = null;
+    var viewer = null;
+    var currentMapKey = '';
+    var mapList = [];
+    var _drag = { active: false, startX: 0, startY: 0, origLeft: 0, origTop: 0 };
+    var _resize = { active: false, startX: 0, startY: 0, startW: 0, startH: 0 };
+
+    function open() {
+      if (panel) { panel.style.display = 'flex'; return; }
+      panel = document.createElement('div');
+      panel.id = 'gm-tactical-panel';
+      panel.className = 'tm-floating-panel tm-floating-panel--gm';
+      panel.innerHTML =
+        '<div class="tm-panel-header" id="gm-tm-drag">' +
+          '<span class="tm-panel-title">Tactical Map</span>' +
+          '<span class="tm-panel-map-name" id="gm-tm-map-name"></span>' +
+          '<button class="tm-panel-close" id="gm-tm-close">&times;</button>' +
+        '</div>' +
+        '<div class="tm-gm-controls">' +
+          '<select class="tm-gm-select" id="gm-tm-select"><option value="">— Select Map —</option></select>' +
+          '<button class="tm-gm-btn tm-gm-btn--broadcast" id="gm-tm-broadcast">Broadcast</button>' +
+          '<button class="tm-gm-btn tm-gm-btn--dismiss" id="gm-tm-dismiss">Dismiss</button>' +
+        '</div>' +
+        '<div class="tm-panel-body" id="gm-tm-body"><div class="tm-empty-state">Select a map above</div></div>' +
+        '<div class="tm-resize-handle" id="gm-tm-resize"></div>';
+      document.body.appendChild(panel);
+
+      var selectEl = panel.querySelector('#gm-tm-select');
+      fetch('/api/maps/list')
+        .then(function (r) {
+          if (!r.ok) throw new Error('Failed to load map list');
+          return r.json();
+        })
+        .then(function (data) {
+          mapList = data.maps || [];
+          mapList.forEach(function (m) {
+            var opt = document.createElement('option');
+            opt.value = m.key;
+            opt.textContent = m.title;
+            selectEl.appendChild(opt);
+          });
+        })
+        .catch(function (err) {
+          console.error('[command-bridge] Map list load error:', err);
+          var opt = document.createElement('option');
+          opt.value = '';
+          opt.textContent = '— Error loading maps —';
+          selectEl.appendChild(opt);
+        });
+
+      selectEl.addEventListener('change', function () {
+        var key = selectEl.value;
+        if (!key) return;
+        currentMapKey = key;
+        loadMapInPanel(key);
+      });
+
+      panel.querySelector('#gm-tm-close').addEventListener('click', function () {
+        panel.style.display = 'none';
+      });
+
+      panel.querySelector('#gm-tm-broadcast').addEventListener('click', function () {
+        if (!currentMapKey) return;
+        socket.emit('map:broadcast', { mapKey: currentMapKey });
+      });
+
+      panel.querySelector('#gm-tm-dismiss').addEventListener('click', function () {
+        socket.emit('map:dismiss');
+      });
+
+      var dragHandle = panel.querySelector('#gm-tm-drag');
+      dragHandle.addEventListener('mousedown', function (e) {
+        if (e.target.id === 'gm-tm-close') return;
+        _drag.active = true;
+        _drag.startX = e.clientX;
+        _drag.startY = e.clientY;
+        _drag.origLeft = panel.offsetLeft;
+        _drag.origTop = panel.offsetTop;
+        e.preventDefault();
+      });
+
+      var resizeHandle = panel.querySelector('#gm-tm-resize');
+      resizeHandle.addEventListener('mousedown', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        _resize.active = true;
+        _resize.startX = e.clientX;
+        _resize.startY = e.clientY;
+        _resize.startW = panel.offsetWidth;
+        _resize.startH = panel.offsetHeight;
+      });
+
+      socket.on('map:broadcast-ack', function (data) {
+        _showNpcToast('Map broadcast: ' + (data.mapKey || ''));
+      });
+
+      socket.on('map:pin-added', function (data) {
+        if (viewer && data.pin) viewer.handlePinAdded(data.pin);
+      });
+      socket.on('map:pin-updated', function (data) {
+        if (viewer && data.pin) viewer.handlePinUpdated(data.pin);
+      });
+      socket.on('map:pin-removed', function (data) {
+        if (viewer) viewer.handlePinRemoved(data.id);
+      });
+      socket.on('map:pins-sync', function (data) {
+        if (viewer && data.mapKey === currentMapKey) viewer.handlePinsSync(data.pins);
+      });
+    }
+
+    function loadMapInPanel(key) {
+      var body = panel.querySelector('#gm-tm-body');
+      body.innerHTML = '';
+      var mapNameEl = panel.querySelector('#gm-tm-map-name');
+      var entry = mapList.find(function (m) { return m.key === key; });
+      if (mapNameEl) mapNameEl.textContent = entry ? entry.title : key;
+
+      viewer = new window.TacticalMapViewer({
+        container: body,
+        role: 'gm',
+        socket: socket
+      });
+      viewer.loadMap(key);
+    }
+
+    btn.addEventListener('click', open);
+
+    document.addEventListener('mousemove', function (e) {
+      if (_drag.active && panel) {
+        panel.style.left = (_drag.origLeft + e.clientX - _drag.startX) + 'px';
+        panel.style.top = (_drag.origTop + e.clientY - _drag.startY) + 'px';
+        panel.style.right = 'auto';
+      }
+      if (_resize.active && panel) {
+        panel.style.width = Math.max(400, _resize.startW + e.clientX - _resize.startX) + 'px';
+        panel.style.height = Math.max(300, _resize.startH + e.clientY - _resize.startY) + 'px';
+      }
+    });
+    document.addEventListener('mouseup', function () {
+      _drag.active = false;
+      _resize.active = false;
+    });
+  })();
 }());

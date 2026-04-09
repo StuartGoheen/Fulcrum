@@ -191,6 +191,19 @@ async function initSchema() {
         created_at      TIMESTAMP DEFAULT NOW(),
         updated_at      TIMESTAMP DEFAULT NOW()
       );
+
+      CREATE TABLE IF NOT EXISTS map_pins (
+        id              SERIAL PRIMARY KEY,
+        map_key         TEXT    NOT NULL,
+        x               DOUBLE PRECISION NOT NULL,
+        y               DOUBLE PRECISION NOT NULL,
+        label           TEXT    NOT NULL DEFAULT '',
+        pin_type        TEXT    NOT NULL DEFAULT 'note',
+        visibility      TEXT    NOT NULL DEFAULT 'public',
+        owner           TEXT    NOT NULL DEFAULT 'gm',
+        color           TEXT    NOT NULL DEFAULT '#ef4444',
+        created_at      TIMESTAMP DEFAULT NOW()
+      );
     `);
 
     try {

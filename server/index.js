@@ -93,7 +93,7 @@ const ALLOWED_MAPS = ['burning-deck', 'switch-lair', 'landing-field', 'vanishing
 
 app.post('/api/maps/save', (req, res) => {
   if (req.userRole !== 'gm') return res.status(403).json({ error: 'GM access required.' });
-  const { mapKey, hitboxes } = req.body;
+  const { mapKey, hitboxes, gridConfig } = req.body;
   if (!mapKey || !ALLOWED_MAPS.includes(mapKey)) return res.status(400).json({ error: 'Invalid map key.' });
   if (!Array.isArray(hitboxes) || hitboxes.length === 0) return res.status(400).json({ error: 'No hitbox data.' });
 
@@ -108,7 +108,22 @@ app.post('/api/maps/save', (req, res) => {
   if (svgOpen === -1 || svgClose === -1) return res.status(500).json({ error: 'Could not locate SVG block in map.' });
 
   const svgTagEnd = html.indexOf('>', svgOpen);
-  const svgHeader = html.substring(svgOpen, svgTagEnd + 1);
+  let svgTag = html.substring(svgOpen, svgTagEnd + 1);
+
+  if (gridConfig && typeof gridConfig === 'object') {
+    svgTag = svgTag.replace(/\s+data-grid-[a-z-]+="[^"]*"/g, '');
+    const closing = svgTag.endsWith('/>') ? '/>' : '>';
+    const base = svgTag.slice(0, svgTag.length - closing.length);
+    const attrs = [];
+    if (gridConfig.gridOn) attrs.push('data-grid-on="1"');
+    if (gridConfig.gridSize) attrs.push(`data-grid-size="${gridConfig.gridSize}"`);
+    if (gridConfig.gridOffX) attrs.push(`data-grid-offx="${gridConfig.gridOffX}"`);
+    if (gridConfig.gridOffY) attrs.push(`data-grid-offy="${gridConfig.gridOffY}"`);
+    if (gridConfig.gridOpacity) attrs.push(`data-grid-opacity="${gridConfig.gridOpacity}"`);
+    if (gridConfig.gridColor) attrs.push(`data-grid-color="${gridConfig.gridColor}"`);
+    if (gridConfig.gridLineWidth) attrs.push(`data-grid-linewidth="${gridConfig.gridLineWidth}"`);
+    svgTag = base + (attrs.length ? ' ' + attrs.join(' ') : '') + closing;
+  }
 
   let newSVGContent = '\n';
   hitboxes.forEach(hb => {
@@ -122,13 +137,84 @@ app.post('/api/maps/save', (req, res) => {
     newSVGContent += `    <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${rx}" class="hitbox"\n      data-room="${nameEsc}"\n      data-desc="${descEsc}"/>\n\n`;
   });
 
-  const before = html.substring(0, svgTagEnd + 1);
+  const before = html.substring(0, svgOpen);
   const after  = html.substring(svgClose);
-  const newHTML = before + '\n' + newSVGContent + '  ' + after;
+  const newHTML = before + svgTag + '\n' + newSVGContent + '  ' + after;
 
   try { fs.writeFileSync(filePath, newHTML, 'utf8'); } catch (e) { return res.status(500).json({ error: 'Failed to write map file.' }); }
 
   res.json({ ok: true, count: hitboxes.length });
+});
+
+app.get('/api/maps/:key/meta', (req, res) => {
+  const mapKey = req.params.key;
+  if (!ALLOWED_MAPS.includes(mapKey)) return res.status(400).json({ error: 'Invalid map key.' });
+
+  const MAPS_META = {
+    'burning-deck':   { img: 'burning-deck.png',           vw: 1024, vh: 635, title: 'The Burning Deck' },
+    'switch-lair':    { img: 'switch-lair.png',             vw: 1024, vh: 716, title: "Switch's Lair" },
+    'landing-field':  { img: 'landing-field.png',           vw: 1024, vh: 576, title: 'Landing Field' },
+    'vanishing-place':{ img: 'vanishing-place-rendered.png', vw: 1024, vh: 576, title: 'The Vanishing Place' },
+    'banshee':        { img: 'banshee.png',                  vw: 1024, vh: 946, title: 'The Banshee' },
+    'jungle-trek':    { img: 'jungle-trek.png',              vw: 1024, vh: 1024, title: 'Jungle Trek' }
+  };
+
+  const meta = MAPS_META[mapKey];
+  if (!meta) return res.status(404).json({ error: 'Unknown map.' });
+
+  const filePath = path.join(ROOT, 'public', 'maps', mapKey + '.html');
+  if (!fs.existsSync(filePath)) return res.status(404).json({ error: 'Map file not found.' });
+
+  let html;
+  try { html = fs.readFileSync(filePath, 'utf8'); } catch (e) { return res.status(500).json({ error: 'Failed to read map file.' }); }
+
+  const gridConfig = { gridOn: false, gridSize: 40, gridOffX: 0, gridOffY: 0, gridOpacity: 40, gridColor: 'white', gridLineWidth: 1 };
+  const svgMatch = html.match(/<svg[^>]*>/);
+  if (svgMatch) {
+    const tag = svgMatch[0];
+    const vbMatch = tag.match(/viewBox="([^"]*)"/);
+    if (vbMatch) {
+      const parts = vbMatch[1].split(/[\s,]+/).map(Number);
+      if (parts.length === 4) { meta.vw = parts[2]; meta.vh = parts[3]; }
+    }
+    const gOn = tag.match(/data-grid-on="([^"]*)"/);
+    if (gOn) gridConfig.gridOn = gOn[1] === '1';
+    const gSize = tag.match(/data-grid-size="([^"]*)"/);
+    if (gSize) gridConfig.gridSize = parseInt(gSize[1]) || 40;
+    const gOffX = tag.match(/data-grid-offx="([^"]*)"/);
+    if (gOffX) gridConfig.gridOffX = parseInt(gOffX[1]) || 0;
+    const gOffY = tag.match(/data-grid-offy="([^"]*)"/);
+    if (gOffY) gridConfig.gridOffY = parseInt(gOffY[1]) || 0;
+    const gOp = tag.match(/data-grid-opacity="([^"]*)"/);
+    if (gOp) gridConfig.gridOpacity = parseInt(gOp[1]) || 40;
+    const gCol = tag.match(/data-grid-color="([^"]*)"/);
+    if (gCol) gridConfig.gridColor = gCol[1] || 'white';
+    const gLW = tag.match(/data-grid-linewidth="([^"]*)"/);
+    if (gLW) gridConfig.gridLineWidth = parseFloat(gLW[1]) || 1;
+  }
+
+  const zones = [];
+  const hitboxRe = /<rect[^>]*class="hitbox"[^>]*>/g;
+  let m;
+  while ((m = hitboxRe.exec(html)) !== null) {
+    const tag = m[0];
+    const room = (tag.match(/data-room="([^"]*)"/)||[])[1] || '';
+    const desc = (tag.match(/data-desc="([^"]*)"/)||[])[1] || '';
+    const x = parseFloat((tag.match(/\bx="([^"]*)"/)||[])[1]) || 0;
+    const y = parseFloat((tag.match(/\by="([^"]*)"/)||[])[1]) || 0;
+    const w = parseFloat((tag.match(/width="([^"]*)"/)||[])[1]) || 0;
+    const h = parseFloat((tag.match(/height="([^"]*)"/)||[])[1]) || 0;
+    zones.push({ room: room.replace(/&amp;/g,'&').replace(/&quot;/g,'"'), desc: desc.replace(/&amp;/g,'&').replace(/&quot;/g,'"'), x, y, w, h });
+  }
+
+  res.json({ mapKey, title: meta.title, img: meta.img, vw: meta.vw, vh: meta.vh, gridConfig, zones });
+});
+
+app.get('/api/maps/list', (req, res) => {
+  res.json({ maps: ALLOWED_MAPS.map(k => {
+    const titles = { 'burning-deck': 'The Burning Deck', 'switch-lair': "Switch's Lair", 'landing-field': 'Landing Field', 'vanishing-place': 'The Vanishing Place', 'banshee': 'The Banshee', 'jungle-trek': 'Jungle Trek' };
+    return { key: k, title: titles[k] || k };
+  })});
 });
 
 socketHandlers(io);

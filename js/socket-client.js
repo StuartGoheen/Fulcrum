@@ -291,6 +291,171 @@
       socket.emit('combat:request');
       _checkForActiveChallenge();
     });
+
+    _initPlayerTacticalMap(socket);
+  }
+
+  function _initPlayerTacticalMap(socket) {
+    var panel = null;
+    var viewer = null;
+    var currentMapKey = '';
+    var _drag = { active: false, startX: 0, startY: 0, origLeft: 0, origTop: 0 };
+    var _resize = { active: false, startX: 0, startY: 0, startW: 0, startH: 0 };
+
+    function openPanel(mapKey, preloadedPins) {
+      if (panel) {
+        panel.style.display = 'flex';
+        if (mapKey !== currentMapKey) {
+          currentMapKey = mapKey;
+          loadMap(mapKey, preloadedPins);
+        }
+        return;
+      }
+
+      currentMapKey = mapKey;
+      panel = document.createElement('div');
+      panel.id = 'player-tactical-panel';
+      panel.className = 'tm-floating-panel tm-floating-panel--player';
+      panel.innerHTML =
+        '<div class="tm-panel-header" id="player-tm-drag">' +
+          '<span class="tm-panel-title">Tactical Map</span>' +
+          '<span class="tm-panel-map-name" id="player-tm-map-name"></span>' +
+          '<button class="tm-panel-close" id="player-tm-close">&times;</button>' +
+        '</div>' +
+        '<div class="tm-panel-body" id="player-tm-body"></div>' +
+        '<div class="tm-resize-handle" id="player-tm-resize"></div>';
+      document.body.appendChild(panel);
+
+      panel.querySelector('#player-tm-close').addEventListener('click', function () {
+        panel.style.display = 'none';
+      });
+
+      var dragHandle = panel.querySelector('#player-tm-drag');
+      dragHandle.addEventListener('mousedown', function (e) {
+        if (e.target.id === 'player-tm-close') return;
+        _drag.active = true;
+        _drag.startX = e.clientX;
+        _drag.startY = e.clientY;
+        _drag.origLeft = panel.offsetLeft;
+        _drag.origTop = panel.offsetTop;
+        e.preventDefault();
+      });
+
+      var resizeHandle = panel.querySelector('#player-tm-resize');
+      resizeHandle.addEventListener('mousedown', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        _resize.active = true;
+        _resize.startX = e.clientX;
+        _resize.startY = e.clientY;
+        _resize.startW = panel.offsetWidth;
+        _resize.startH = panel.offsetHeight;
+      });
+
+      loadMap(mapKey, preloadedPins);
+    }
+
+    function loadMap(mapKey, preloadedPins) {
+      var body = document.getElementById('player-tm-body');
+      if (!body) return;
+      body.innerHTML = '';
+      var nameEl = document.getElementById('player-tm-map-name');
+
+      var sess = getSession();
+      var charName = sess ? (sess.characterName || 'Unknown') : 'Unknown';
+
+      viewer = new window.TacticalMapViewer({
+        container: body,
+        role: 'player',
+        socket: socket,
+        onClipToJournal: function (zone, mk, mapTitle) {
+          var title = 'Map: ' + (mapTitle || mk) + ' \u2014 ' + zone.room;
+          var entryBody = zone.desc || '(No description)';
+          fetch('/api/journal/entries', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              title: title,
+              body: entryBody,
+              author_character_name: charName,
+              source_scene_id: 'map-' + mk
+            })
+          })
+          .then(function (r) {
+            if (!r.ok) throw new Error('Journal save failed');
+            return r.json();
+          })
+          .then(function () {
+            var toast = document.createElement('div');
+            toast.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(34,197,94,0.9);color:#000;padding:8px 16px;border-radius:4px;font-size:0.7rem;z-index:9999;font-family:Audiowide,sans-serif;';
+            toast.textContent = 'Clipped to Journal';
+            document.body.appendChild(toast);
+            setTimeout(function () { toast.remove(); }, 2500);
+          })
+          .catch(function (err) {
+            console.error('[player] Journal clip failed:', err);
+            var toast = document.createElement('div');
+            toast.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(239,68,68,0.9);color:#fff;padding:8px 16px;border-radius:4px;font-size:0.7rem;z-index:9999;font-family:Audiowide,sans-serif;';
+            toast.textContent = 'Failed to clip to journal';
+            document.body.appendChild(toast);
+            setTimeout(function () { toast.remove(); }, 3000);
+          });
+        }
+      });
+      viewer.loadMap(mapKey, preloadedPins);
+
+      fetch('/api/maps/' + encodeURIComponent(mapKey) + '/meta')
+        .then(function (r) {
+          if (!r.ok) throw new Error('Meta fetch failed');
+          return r.json();
+        })
+        .then(function (meta) {
+          if (nameEl) nameEl.textContent = meta.title || mapKey;
+        })
+        .catch(function (err) {
+          console.error('[player] Map meta fetch error:', err);
+          if (nameEl) nameEl.textContent = mapKey;
+        });
+    }
+
+    document.addEventListener('mousemove', function (e) {
+      if (_drag.active && panel) {
+        panel.style.left = (_drag.origLeft + e.clientX - _drag.startX) + 'px';
+        panel.style.top = (_drag.origTop + e.clientY - _drag.startY) + 'px';
+        panel.style.right = 'auto';
+        panel.style.transform = 'none';
+      }
+      if (_resize.active && panel) {
+        panel.style.width = Math.max(400, _resize.startW + e.clientX - _resize.startX) + 'px';
+        panel.style.height = Math.max(300, _resize.startH + e.clientY - _resize.startY) + 'px';
+      }
+    });
+    document.addEventListener('mouseup', function () {
+      _drag.active = false;
+      _resize.active = false;
+    });
+
+    socket.on('map:broadcast', function (data) {
+      if (!data || !data.mapKey) return;
+      openPanel(data.mapKey, data.pins || []);
+    });
+
+    socket.on('map:dismiss', function () {
+      if (panel) panel.style.display = 'none';
+    });
+
+    socket.on('map:pin-added', function (data) {
+      if (viewer && data.pin) viewer.handlePinAdded(data.pin);
+    });
+    socket.on('map:pin-updated', function (data) {
+      if (viewer && data.pin) viewer.handlePinUpdated(data.pin);
+    });
+    socket.on('map:pin-removed', function (data) {
+      if (viewer) viewer.handlePinRemoved(data.id);
+    });
+    socket.on('map:pins-sync', function (data) {
+      if (viewer && data.mapKey === currentMapKey) viewer.handlePinsSync(data.pins);
+    });
   }
 
   function _escHtml(s) {

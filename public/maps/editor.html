@@ -274,38 +274,66 @@ async function loadMap(key) {
   currentMap = MAPS[key];
   currentMapKey = key;
 
-  const resp = await fetch(key + '.html');
-  const html = await resp.text();
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(html, 'text/html');
-
-  const svgSource = doc.querySelector('svg');
-  if (svgSource) {
-    const vb = svgSource.getAttribute('viewBox');
-    if (vb) {
-      const parts = vb.split(/[\s,]+/).map(Number);
-      currentMap.vw = parts[2];
-      currentMap.vh = parts[3];
+  const metaResp = await fetch('/api/maps/' + key + '/meta');
+  if (metaResp.ok) {
+    const meta = await metaResp.json();
+    currentMap.vw = meta.vw;
+    currentMap.vh = meta.vh;
+    hitboxes = (meta.zones || []).map(z => ({ room: z.room, desc: z.desc, x: z.x, y: z.y, w: z.w, h: z.h, rx: '3' }));
+    if (meta.gridConfig) {
+      gridOn = !!meta.gridConfig.gridOn;
+      gridSize = meta.gridConfig.gridSize || 40;
+      gridOffX = meta.gridConfig.gridOffX || 0;
+      gridOffY = meta.gridConfig.gridOffY || 0;
+      gridOpacity = meta.gridConfig.gridOpacity || 40;
+      gridColor = meta.gridConfig.gridColor || 'white';
+      gridLineWidth = meta.gridConfig.gridLineWidth || 1;
+      $('gridToggle').textContent = gridOn ? 'On' : 'Off';
+      $('gridToggle').className = 'grid-toggle' + (gridOn ? ' on' : '');
+      $('gridSize').value = gridSize;
+      $('gridOffX').value = gridOffX;
+      $('gridOffY').value = gridOffY;
+      $('gridOpacity').value = gridOpacity;
+      $('gridLineWidth').value = gridLineWidth;
+      $('gridColorWhite').className = 'grid-toggle' + (gridColor === 'white' ? ' on' : '');
+      $('gridColorBlack').className = 'grid-toggle' + (gridColor === 'black' ? ' on' : '');
+      gridFocused = false;
+      updateGridModeLabel();
+    } else {
+      restoreGridSettings(key);
     }
-  }
-
-  hitboxes = [];
-  doc.querySelectorAll('.hitbox').forEach(el => {
-    hitboxes.push({
-      room: el.getAttribute('data-room') || '',
-      desc: el.getAttribute('data-desc') || '',
-      x: parseFloat(el.getAttribute('x')) || 0,
-      y: parseFloat(el.getAttribute('y')) || 0,
-      w: parseFloat(el.getAttribute('width')) || 0,
-      h: parseFloat(el.getAttribute('height')) || 0,
-      rx: el.getAttribute('rx') || '3'
+  } else {
+    const resp = await fetch(key + '.html');
+    const html = await resp.text();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    const svgSource = doc.querySelector('svg');
+    if (svgSource) {
+      const vb = svgSource.getAttribute('viewBox');
+      if (vb) {
+        const parts = vb.split(/[\s,]+/).map(Number);
+        currentMap.vw = parts[2];
+        currentMap.vh = parts[3];
+      }
+    }
+    hitboxes = [];
+    doc.querySelectorAll('.hitbox').forEach(el => {
+      hitboxes.push({
+        room: el.getAttribute('data-room') || '',
+        desc: el.getAttribute('data-desc') || '',
+        x: parseFloat(el.getAttribute('x')) || 0,
+        y: parseFloat(el.getAttribute('y')) || 0,
+        w: parseFloat(el.getAttribute('width')) || 0,
+        h: parseFloat(el.getAttribute('height')) || 0,
+        rx: el.getAttribute('rx') || '3'
+      });
     });
-  });
+    restoreGridSettings(key);
+  }
 
   selectedIdx = -1;
   propsPanel.style.display = 'none';
   markClean();
-  restoreGridSettings(key);
   render();
   zoomFit();
 }
@@ -535,10 +563,11 @@ $('btnSave').addEventListener('click', async () => {
   $('btnSave').textContent = 'Saving...';
   $('btnSave').disabled = true;
   try {
+    const gridConfigPayload = { gridOn, gridSize, gridOffX, gridOffY, gridOpacity, gridColor, gridLineWidth };
     const resp = await fetch('/api/maps/save', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ mapKey: currentMapKey, hitboxes })
+      body: JSON.stringify({ mapKey: currentMapKey, hitboxes, gridConfig: gridConfigPayload })
     });
     const data = await resp.json();
     if (resp.ok && data.ok) {

@@ -35,13 +35,15 @@ The app uses a passcode-based gate (cookie auth) to restrict access:
 │   ├── css/output.css    # Generated — do not edit directly
 │   ├── css/command-bridge.css # GM Black Ledger styles (forge palette, dashboard tiles, floating panels, destiny pips)
 │   ├── css/market.css    # Black Market styles (char gate, accordions, ledger, modals, responsive)
+│   ├── css/tactical-map.css # Tactical map viewer styles (pan/zoom, pins, zone panel, grid, floating viewer)
 │   ├── maps/             # Interactive tactical maps (standalone HTML pages with SVG hitbox overlays)
 │   │   ├── editor.html         # GM hitbox editor (select map → drag/resize/edit zones → save via API)
 │   │   ├── burning-deck.html   # The Burning Deck cantina (1024×635)
 │   │   ├── switch-lair.html    # Switch's Lair sinkhole (1024×716)
 │   │   ├── landing-field.html  # Reestkii Landing Field (1024×576)
 │   │   ├── vanishing-place.html # The Vanishing Place fortress (1024×576)
-│   │   └── banshee.html        # The Banshee — Barloz-class freighter (1024×946, 20 zones)
+│   │   ├── banshee.html        # The Banshee — Barloz-class freighter (1024×946, 20 zones)
+│   │   └── jungle-trek.html    # Jungle Trek (1024×1024, 16 zones)
 │   └── audio/            # Audio assets (opening-crawl.mp3)
 ├── css/
 │   ├── input.css         # Tailwind source (custom components + layers)
@@ -54,6 +56,7 @@ The app uses a passcode-based gate (cookie auth) to restrict access:
 │   ├── market-source-viewer.js # Source DB viewer overlay
 │   ├── crawl-data.js     # Mission crawl text data (extensible for future missions)
 │   ├── opening-crawl.js  # Star Wars opening crawl overlay engine
+│   ├── tactical-map.js    # Shared TacticalMapViewer component (pan/zoom, grid overlay, zone desc panel, pin layer, personal pins via sessionStorage, GM right-click context menus, pin drag-to-reposition)
 │   ├── holonet-overlay.js # Player-side HoloNet broadcast overlay (Imperial terminal aesthetic, socket-triggered, journal clipping)
 │   ├── starship-combat.js # Starship combat cockpit HUD overlay
 │   ├── galaxy-map.js     # Interactive galaxy starmap (Leaflet.js, 65 planets, 6 hyperlanes, campaign pins, marker clustering, search, grid overlay)
@@ -130,6 +133,22 @@ Server listens on `0.0.0.0:5000`.
 - `PUT  /api/journal/entries/:id` — update entry title/body/tags
 - `DELETE /api/journal/entries/:id` — delete entry
 - `POST /api/journal/extract-tags/:sceneId` — extract tags from adventure scene
+- `GET  /api/maps/list` — list available tactical maps (key + title)
+- `GET  /api/maps/:key/meta` — map metadata (title, image, dimensions, grid config, zones)
+- `POST /api/maps/save` — save map SVG with grid config and zone data (GM only)
+
+## Tactical Map Integration
+
+Real-time GM-to-player tactical map broadcasting system.
+
+- **Shared component:** `js/tactical-map.js` — `TacticalMapViewer` with pan/zoom, grid toggle, zone description panel, pin layer, stale-response protection on map switches
+- **GM side:** Tactical Map button in Command Bridge right column opens floating panel with map selector dropdown, Broadcast/Dismiss buttons, pin management (add/edit/drag/delete, public/private visibility)
+- **Player side:** Floating draggable/resizable viewer auto-opens on `map:broadcast` socket event; personal pins stored in sessionStorage keyed `tm_pins_<mapKey>`; "Clip to Journal" creates journal entry via `POST /api/journal/entries`
+- **Pin system:** `map_pins` DB table; socket events: `map:pin-add/update/remove`, `map:pins-request/sync`; GM sees all pins, players see own + public pins only; visibility transitions (public→private) emit `map:pin-removed` to players, (private→public) emit `map:pin-added`
+- **Grid persistence:** Grid config stored as `data-grid-*` attributes on SVG element in map HTML files; editor fetches from `/api/maps/:key/meta`
+- **ALLOWED_MAPS:** `['burning-deck', 'switch-lair', 'landing-field', 'vanishing-place', 'banshee', 'jungle-trek']` in `server/index.js`
+- **Map dimensions:** burning-deck 1024×635, switch-lair 1024×716, landing-field 1024×576, vanishing-place 1024×576, banshee 1024×946, jungle-trek 1024×1024
+- **CSS:** `public/css/tactical-map.css` (standalone, not Tailwind-processed)
 
 ## Campaign Journal
 
