@@ -156,6 +156,12 @@ uri = "file://public/maps/switch-lair.png"
 type = "image"
 title = "Switch lair tactical map"
 
+[[generated]]
+id = "RoyZhI6kXq-5SdyTK53vN"
+uri = "file://attached_assets/varga-fortress-ground-floor.png"
+type = "image"
+title = "Varga fortress ground floor"
+
 [[outputs]]
 id = "2LcyfBitBojI2aNp3Z-pi"
 uri = "file://assets/fulcrum-resolution-infographic.png"
