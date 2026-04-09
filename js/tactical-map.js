@@ -173,7 +173,12 @@
     if (!this.meta) return;
     var m = this.meta;
 
-    var html = '<img class="tm-map-img" src="/maps/' + _esc(m.img) + '" draggable="false" style="width:' + m.vw + 'px;height:' + m.vh + 'px;">';
+    var html = '';
+    if (m.img) {
+      html += '<img class="tm-map-img" src="/maps/' + _esc(m.img) + '" draggable="false" style="width:' + m.vw + 'px;height:' + m.vh + 'px;">';
+    } else {
+      html += '<iframe class="tm-map-img" src="/maps/' + _esc(m.mapKey) + '.html" style="width:' + m.vw + 'px;height:' + m.vh + 'px;border:none;pointer-events:none;" scrolling="no"></iframe>';
+    }
     html += '<svg class="tm-svg-overlay" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + m.vw + ' ' + m.vh + '" style="width:' + m.vw + 'px;height:' + m.vh + 'px;">';
     html += '<g class="tm-grid-layer"></g>';
     html += '<g class="tm-hitbox-layer">';

@@ -89,7 +89,7 @@ app.get('/create/', (req, res) => res.sendFile(path.join(ROOT, 'public', 'create
 app.get('/market',  (req, res) => res.redirect('/market/'));
 app.get('/market/', (req, res) => res.sendFile(path.join(ROOT, 'public', 'market', 'index.html')));
 
-const ALLOWED_MAPS = ['burning-deck', 'switch-lair', 'landing-field', 'vanishing-place', 'banshee', 'jungle-trek'];
+const ALLOWED_MAPS = ['burning-deck', 'switch-lair', 'landing-field', 'vanishing-place', 'banshee', 'jungle-trek', 'blackwind-point'];
 
 app.post('/api/maps/save', (req, res) => {
   if (req.userRole !== 'gm') return res.status(403).json({ error: 'GM access required.' });
@@ -156,7 +156,8 @@ app.get('/api/maps/:key/meta', (req, res) => {
     'landing-field':  { img: 'landing-field.png',           vw: 1024, vh: 576, title: 'Landing Field' },
     'vanishing-place':{ img: 'vanishing-place-rendered.png', vw: 1024, vh: 576, title: 'The Vanishing Place' },
     'banshee':        { img: 'banshee.png',                  vw: 1024, vh: 946, title: 'The Banshee' },
-    'jungle-trek':    { img: 'jungle-trek.png',              vw: 1024, vh: 1024, title: 'Jungle Trek' }
+    'jungle-trek':    { img: 'jungle-trek.png',              vw: 1024, vh: 1024, title: 'Jungle Trek' },
+    'blackwind-point':{ img: null,                             vw: 1400, vh: 950, title: 'Blackwind Point' }
   };
 
   const meta = MAPS_META[mapKey];
@@ -212,7 +213,7 @@ app.get('/api/maps/:key/meta', (req, res) => {
 
 app.get('/api/maps/list', (req, res) => {
   res.json({ maps: ALLOWED_MAPS.map(k => {
-    const titles = { 'burning-deck': 'The Burning Deck', 'switch-lair': "Switch's Lair", 'landing-field': 'Landing Field', 'vanishing-place': 'The Vanishing Place', 'banshee': 'The Banshee', 'jungle-trek': 'Jungle Trek' };
+    const titles = { 'burning-deck': 'The Burning Deck', 'switch-lair': "Switch's Lair", 'landing-field': 'Landing Field', 'vanishing-place': 'The Vanishing Place', 'banshee': 'The Banshee', 'jungle-trek': 'Jungle Trek', 'blackwind-point': 'Blackwind Point' };
     return { key: k, title: titles[k] || k };
   })});
 });
