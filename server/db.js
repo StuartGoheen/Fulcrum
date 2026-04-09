@@ -201,6 +201,7 @@ async function initSchema() {
         pin_type        TEXT    NOT NULL DEFAULT 'note',
         visibility      TEXT    NOT NULL DEFAULT 'public',
         owner           TEXT    NOT NULL DEFAULT 'gm',
+        player_name     TEXT    NOT NULL DEFAULT '',
         color           TEXT    NOT NULL DEFAULT '#ef4444',
         created_at      TIMESTAMP DEFAULT NOW()
       );
@@ -208,6 +209,9 @@ async function initSchema() {
 
     try {
       await client.query(`ALTER TABLE journal_entries ADD COLUMN IF NOT EXISTS source_scene_id TEXT`);
+    } catch (e) {}
+    try {
+      await client.query(`ALTER TABLE map_pins ADD COLUMN IF NOT EXISTS player_name TEXT NOT NULL DEFAULT ''`);
     } catch (e) {}
     try {
       await client.query(`ALTER TABLE narrative_challenge_instances ADD COLUMN IF NOT EXISTS shuffle_seed INTEGER`);

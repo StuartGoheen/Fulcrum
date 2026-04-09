@@ -15,8 +15,10 @@
     this.container = opts.container;
     this.role = opts.role || 'player';
     this.socket = opts.socket || null;
+    this.playerName = opts.playerName || '';
     this.onZoneClick = opts.onZoneClick || null;
     this.onClipToJournal = opts.onClipToJournal || null;
+    this.onMinimize = opts.onMinimize || null;
 
     this.mapKey = null;
     this.meta = null;
@@ -303,10 +305,11 @@
       btn.addEventListener('click', function () {
         self._removeContextMenu();
         var label = prompt('Pin label (optional):') || '';
-        if (self.role === 'gm' && self.socket) {
+        if (self.socket) {
           self.socket.emit('map:pin-add', {
             mapKey: self.mapKey, x: Math.round(mapX), y: Math.round(mapY),
-            label: label, pin_type: type, visibility: 'public', color: pt.color
+            label: label, pin_type: type, visibility: 'public', color: pt.color,
+            playerName: self.playerName
           });
         } else {
           var pin = { _pid: 'p' + Date.now(), x: Math.round(mapX), y: Math.round(mapY), label: label, pin_type: type, color: pt.color, _personal: true };
@@ -353,24 +356,54 @@
     menu.style.left = e.clientX + 'px';
     menu.style.top = e.clientY + 'px';
 
-    var delBtn = document.createElement('button');
-    delBtn.className = 'tm-ctx-item';
-    delBtn.style.color = '#ef4444';
-    delBtn.textContent = 'Delete Pin';
-    delBtn.addEventListener('click', function () {
+    var editLabel = document.createElement('button');
+    editLabel.className = 'tm-ctx-item';
+    editLabel.textContent = '\u270E Edit Label';
+    editLabel.addEventListener('click', function () {
       self._removeContextMenu();
-      self.socket.emit('map:pin-remove', { id: numId, mapKey: self.mapKey });
+      var newLabel = prompt('Edit pin label:', pin.label || '');
+      if (newLabel !== null) {
+        self.socket.emit('map:pin-update', { id: numId, label: newLabel });
+      }
     });
-    menu.appendChild(delBtn);
+    menu.appendChild(editLabel);
+
+    var typeKeys = Object.keys(PIN_TYPES);
+    typeKeys.forEach(function (type) {
+      if (type === pin.pin_type) return;
+      var pt = PIN_TYPES[type];
+      var btn = document.createElement('button');
+      btn.className = 'tm-ctx-item';
+      btn.innerHTML = '<span style="color:' + pt.color + ';">' + pt.icon + '</span> Change to ' + pt.label;
+      btn.addEventListener('click', function () {
+        self._removeContextMenu();
+        self.socket.emit('map:pin-update', { id: numId, pin_type: type, color: pt.color });
+      });
+      menu.appendChild(btn);
+    });
 
     var toggleVis = document.createElement('button');
     toggleVis.className = 'tm-ctx-item';
-    toggleVis.textContent = pin.visibility === 'public' ? 'Make Private' : 'Make Public';
+    toggleVis.textContent = pin.visibility === 'public' ? '\uD83D\uDD12 Make Private' : '\uD83D\uDD13 Make Public';
     toggleVis.addEventListener('click', function () {
       self._removeContextMenu();
       self.socket.emit('map:pin-update', { id: numId, visibility: pin.visibility === 'public' ? 'private' : 'public' });
     });
     menu.appendChild(toggleVis);
+
+    var sep = document.createElement('div');
+    sep.style.cssText = 'height:1px;background:rgba(255,255,255,0.1);margin:4px 0;';
+    menu.appendChild(sep);
+
+    var delBtn = document.createElement('button');
+    delBtn.className = 'tm-ctx-item';
+    delBtn.style.color = '#ef4444';
+    delBtn.textContent = '\u2716 Delete Pin';
+    delBtn.addEventListener('click', function () {
+      self._removeContextMenu();
+      self.socket.emit('map:pin-remove', { id: numId, mapKey: self.mapKey });
+    });
+    menu.appendChild(delBtn);
 
     document.body.appendChild(menu);
     setTimeout(function () {
@@ -436,9 +469,14 @@
     this._renderPins();
   };
 
+  TacticalMapViewer.prototype._personalPinKey = function () {
+    var suffix = this.playerName ? ('_' + this.playerName) : '';
+    return 'tm_pins_' + this.mapKey + suffix;
+  };
+
   TacticalMapViewer.prototype._loadPersonalPins = function () {
     try {
-      var raw = sessionStorage.getItem('tm_pins_' + this.mapKey);
+      var raw = sessionStorage.getItem(this._personalPinKey());
       this.personalPins = raw ? JSON.parse(raw) : [];
       this.personalPins.forEach(function (p) { p._personal = true; });
     } catch (e) { this.personalPins = []; }
@@ -446,7 +484,7 @@
 
   TacticalMapViewer.prototype._savePersonalPins = function () {
     try {
-      sessionStorage.setItem('tm_pins_' + this.mapKey, JSON.stringify(this.personalPins));
+      sessionStorage.setItem(this._personalPinKey(), JSON.stringify(this.personalPins));
     } catch (e) {}
   };
 

@@ -50,6 +50,16 @@
   color: #9ca3af;
   letter-spacing: 0.04em;
 }
+.tm-panel-btn {
+  background: none;
+  border: none;
+  color: #9ca3af;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0 0.3rem;
+  line-height: 1;
+}
+.tm-panel-btn:hover { color: #facc15; }
 .tm-panel-close {
   background: none;
   border: none;

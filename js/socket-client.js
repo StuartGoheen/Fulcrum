@@ -320,7 +320,8 @@
         '<div class="tm-panel-header" id="player-tm-drag">' +
           '<span class="tm-panel-title">Tactical Map</span>' +
           '<span class="tm-panel-map-name" id="player-tm-map-name"></span>' +
-          '<button class="tm-panel-close" id="player-tm-close">&times;</button>' +
+          '<button class="tm-panel-btn" id="player-tm-minimize" title="Minimize">&#x2015;</button>' +
+          '<button class="tm-panel-close" id="player-tm-close" title="Close">&times;</button>' +
         '</div>' +
         '<div class="tm-panel-body" id="player-tm-body"></div>' +
         '<div class="tm-resize-handle" id="player-tm-resize"></div>';
@@ -328,6 +329,26 @@
 
       panel.querySelector('#player-tm-close').addEventListener('click', function () {
         panel.style.display = 'none';
+      });
+
+      var minimized = false;
+      var savedHeight = '';
+      panel.querySelector('#player-tm-minimize').addEventListener('click', function () {
+        var body = document.getElementById('player-tm-body');
+        var resize = document.getElementById('player-tm-resize');
+        if (!minimized) {
+          savedHeight = panel.style.height || (panel.offsetHeight + 'px');
+          body.style.display = 'none';
+          resize.style.display = 'none';
+          panel.style.height = 'auto';
+          minimized = true;
+        } else {
+          body.style.display = '';
+          resize.style.display = '';
+          panel.style.height = savedHeight;
+          minimized = false;
+          if (viewer) viewer.fitView();
+        }
       });
 
       var dragHandle = panel.querySelector('#player-tm-drag');
@@ -368,6 +389,7 @@
         container: body,
         role: 'player',
         socket: socket,
+        playerName: charName,
         onClipToJournal: function (zone, mk, mapTitle) {
           var title = 'Map: ' + (mapTitle || mk) + ' \u2014 ' + zone.room;
           var entryBody = zone.desc || '(No description)';

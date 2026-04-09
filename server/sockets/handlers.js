@@ -1113,12 +1113,27 @@ function registerHandlers(io) {
       if (!mapKey) return;
       try {
         const pins = await pool.query(
-          "SELECT id, map_key, x, y, label, pin_type, visibility, owner, color FROM map_pins WHERE map_key = $1 AND visibility = 'public'",
+          "SELECT id, map_key, x, y, label, pin_type, visibility, owner, player_name, color FROM map_pins WHERE map_key = $1 AND visibility = 'public'",
           [mapKey]
         );
         io.to('players').emit('map:broadcast', { mapKey, pins: pins.rows });
         socket.emit('map:broadcast-ack', { mapKey });
         console.log('[socket] GM broadcast map: ' + mapKey);
+
+        try {
+          const mapTitle = mapKey.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+          await pool.query(
+            `INSERT INTO journal_entries (title, body, author_character_name, source_scene_id) VALUES ($1, $2, $3, $4)`,
+            [
+              'Tactical Map: ' + mapTitle,
+              'The GM shared tactical map "' + mapTitle + '" with the party.',
+              'System',
+              'map-' + mapKey
+            ]
+          );
+        } catch (journalErr) {
+          console.error('[socket] map:broadcast journal entry error:', journalErr);
+        }
       } catch (err) {
         console.error('[socket] map:broadcast error:', err);
       }
@@ -1131,23 +1146,26 @@ function registerHandlers(io) {
     });
 
     socket.on('map:pin-add', async (payload) => {
-      if (socket.data.role !== 'gm') {
-        socket.emit('error', { message: 'Only the GM can add map pins.' });
-        return;
-      }
-      const { mapKey, x, y, label, pin_type, visibility, color } = payload || {};
+      const { mapKey, x, y, label, pin_type, visibility, color, playerName } = payload || {};
       if (!mapKey || x == null || y == null) return;
+      const isGm = socket.data.role === 'gm';
+      const pinVisibility = isGm ? (visibility || 'public') : 'public';
+      const pinOwner = isGm ? 'gm' : 'player';
+      const pName = isGm ? '' : (playerName || socket.data.characterName || '');
       try {
         const result = await pool.query(
-          'INSERT INTO map_pins (map_key, x, y, label, pin_type, visibility, owner, color) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *',
-          [mapKey, x, y, label || '', pin_type || 'note', visibility || 'public', 'gm', color || '#ef4444']
+          'INSERT INTO map_pins (map_key, x, y, label, pin_type, visibility, owner, player_name, color) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING *',
+          [mapKey, x, y, label || '', pin_type || 'note', pinVisibility, pinOwner, pName, color || '#ef4444']
         );
         const pin = result.rows[0];
         socket.emit('map:pin-added', { pin });
         if (pin.visibility === 'public') {
-          io.to('players').emit('map:pin-added', { pin });
+          socket.broadcast.to('players').emit('map:pin-added', { pin });
+          if (!isGm) {
+            io.to('gm').emit('map:pin-added', { pin });
+          }
         }
-        console.log('[socket] GM added pin: ' + (label || 'unnamed') + ' on ' + mapKey);
+        console.log('[socket] ' + (isGm ? 'GM' : pName) + ' added pin: ' + (label || 'unnamed') + ' on ' + mapKey);
       } catch (err) {
         console.error('[socket] map:pin-add error:', err);
       }
@@ -1215,8 +1233,9 @@ function registerHandlers(io) {
           query = 'SELECT * FROM map_pins WHERE map_key = $1 ORDER BY created_at ASC';
           params = [mapKey];
         } else {
-          query = "SELECT * FROM map_pins WHERE map_key = $1 AND visibility = 'public' ORDER BY created_at ASC";
-          params = [mapKey];
+          const playerName = socket.data.characterName || '';
+          query = "SELECT * FROM map_pins WHERE map_key = $1 AND (visibility = 'public' OR (owner = 'player' AND player_name = $2)) ORDER BY created_at ASC";
+          params = [mapKey, playerName];
         }
         const result = await pool.query(query, params);
         socket.emit('map:pins-sync', { mapKey, pins: result.rows });
