@@ -115,14 +115,14 @@ app.post('/api/maps/save', (req, res) => {
     const closing = svgTag.endsWith('/>') ? '/>' : '>';
     const base = svgTag.slice(0, svgTag.length - closing.length);
     const attrs = [];
-    if (gridConfig.gridOn) attrs.push('data-grid-on="1"');
-    if (gridConfig.gridSize) attrs.push(`data-grid-size="${gridConfig.gridSize}"`);
-    if (gridConfig.gridOffX) attrs.push(`data-grid-offx="${gridConfig.gridOffX}"`);
-    if (gridConfig.gridOffY) attrs.push(`data-grid-offy="${gridConfig.gridOffY}"`);
-    if (gridConfig.gridOpacity) attrs.push(`data-grid-opacity="${gridConfig.gridOpacity}"`);
-    if (gridConfig.gridColor) attrs.push(`data-grid-color="${gridConfig.gridColor}"`);
-    if (gridConfig.gridLineWidth) attrs.push(`data-grid-linewidth="${gridConfig.gridLineWidth}"`);
-    svgTag = base + (attrs.length ? ' ' + attrs.join(' ') : '') + closing;
+    attrs.push(`data-grid-on="${gridConfig.gridOn ? '1' : '0'}"`);
+    attrs.push(`data-grid-size="${gridConfig.gridSize != null ? gridConfig.gridSize : 40}"`);
+    attrs.push(`data-grid-offx="${gridConfig.gridOffX != null ? gridConfig.gridOffX : 0}"`);
+    attrs.push(`data-grid-offy="${gridConfig.gridOffY != null ? gridConfig.gridOffY : 0}"`);
+    attrs.push(`data-grid-opacity="${gridConfig.gridOpacity != null ? gridConfig.gridOpacity : 40}"`);
+    attrs.push(`data-grid-color="${gridConfig.gridColor || 'white'}"`);
+    attrs.push(`data-grid-linewidth="${gridConfig.gridLineWidth != null ? gridConfig.gridLineWidth : 1}"`);
+    svgTag = base + ' ' + attrs.join(' ') + closing;
   }
 
   let newSVGContent = '\n';
