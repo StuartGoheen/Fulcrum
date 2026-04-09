@@ -392,7 +392,10 @@
         playerName: charName,
         onClipToJournal: function (zone, mk, mapTitle) {
           var title = 'Map: ' + (mapTitle || mk) + ' \u2014 ' + zone.room;
-          var entryBody = zone.desc || '(No description)';
+          var comment = prompt('Add a note (optional):') || '';
+          var entryBody = (zone.desc || '(No description)');
+          if (comment) entryBody += '\n\n--- Player Note ---\n' + comment;
+          entryBody += '\n\n[map:' + mk + ']';
           fetch('/api/journal/entries', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -461,6 +464,10 @@
       if (!data || !data.mapKey) return;
       openPanel(data.mapKey, data.pins || []);
     });
+
+    window._openTacticalMapFromJournal = function (mapKey) {
+      openPanel(mapKey, []);
+    };
 
     socket.on('map:dismiss', function () {
       if (panel) panel.style.display = 'none';

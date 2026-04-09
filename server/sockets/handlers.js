@@ -1126,7 +1126,7 @@ function registerHandlers(io) {
             `INSERT INTO journal_entries (title, body, author_character_name, source_scene_id) VALUES ($1, $2, $3, $4)`,
             [
               'Tactical Map: ' + mapTitle,
-              'The GM shared tactical map "' + mapTitle + '" with the party.',
+              'The GM shared tactical map "' + mapTitle + '" with the party.\n\n[map:' + mapKey + ']',
               'System',
               'map-' + mapKey
             ]

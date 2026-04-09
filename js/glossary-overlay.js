@@ -25,6 +25,13 @@
       .replace(/"/g, '&quot;');
   }
 
+  function _renderMapLinks(html) {
+    return html.replace(/\[map:([a-z0-9-]+)\]/g, function (_, key) {
+      var title = key.replace(/-/g, ' ').replace(/\b\w/g, function (c) { return c.toUpperCase(); });
+      return '<button class="journal-map-link" data-map-key="' + _esc(key) + '" title="Open tactical map">\u{1F5FA} ' + _esc(title) + '</button>';
+    });
+  }
+
   var _GLOSSARY_CONDITION_MAP = {
     'disoriented': 'condition_disoriented', 'rattled': 'condition_rattled',
     'optimized': 'condition_optimized', 'weakened': 'condition_weakened',
@@ -1554,7 +1561,7 @@
               html += '</span>';
             }
             html += '</div>';
-            html += '<div class="journal-entry-body">' + _esc(entry.body || '').replace(/\n/g, '<br>') + '</div>';
+            html += '<div class="journal-entry-body">' + _renderMapLinks(_esc(entry.body || '').replace(/\n/g, '<br>')) + '</div>';
             html += '</div>';
           } else {
             html += '<div class="journal-entry-meta-inline">';
@@ -1710,7 +1717,7 @@
             html += '</span>';
           }
           html += '</div>';
-          html += '<div class="journal-entry-body">' + _esc(entry.body || '').replace(/\n/g, '<br>') + '</div>';
+          html += '<div class="journal-entry-body">' + _renderMapLinks(_esc(entry.body || '').replace(/\n/g, '<br>')) + '</div>';
           html += '</div>';
         } else {
           html += '<div class="journal-entry-meta-inline">';
@@ -1784,7 +1791,7 @@
             html += '</span>';
           }
           html += '</div>';
-          html += '<div class="journal-entry-body">' + _esc(entry.body || '').replace(/\n/g, '<br>') + '</div>';
+          html += '<div class="journal-entry-body">' + _renderMapLinks(_esc(entry.body || '').replace(/\n/g, '<br>')) + '</div>';
           html += '<div class="journal-entry-actions">';
           html += '<button class="journal-edit-btn" data-journal-edit="' + entry.id + '">Edit</button>';
           html += '</div>';
@@ -1912,6 +1919,16 @@
           if (titleInput) titleInput.value = entry.title || '';
           var bodyInput = document.getElementById('journal-form-body');
           if (bodyInput) bodyInput.value = entry.body || '';
+        }
+      });
+    });
+
+    wrap.querySelectorAll('.journal-map-link[data-map-key]').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var mapKey = btn.getAttribute('data-map-key');
+        if (mapKey && window._openTacticalMapFromJournal) {
+          window._openTacticalMapFromJournal(mapKey);
         }
       });
     });

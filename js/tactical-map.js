@@ -4,7 +4,7 @@
     hazard:    { icon: '\u26A0', color: '#eab308', label: 'Hazard' },
     note:      { icon: '\u270E', color: '#60a5fa', label: 'Note' },
     objective: { icon: '\u2605', color: '#22c55e', label: 'Objective' },
-    ally:      { icon: '\u2694', color: '#a78bfa', label: 'Ally' }
+    custom:    { icon: '\u25C6', color: '#a78bfa', label: 'Custom' }
   };
 
   var _esc = function (s) {
