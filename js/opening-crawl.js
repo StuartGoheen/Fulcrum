@@ -156,10 +156,17 @@
     }, 17500));
 
     var crawlDuration = 125000;
+
+    crawlTimers.push(setTimeout(function () {
+      if (dismissed) return;
+      content.style.transition = 'opacity 2s ease';
+      content.style.opacity = '0';
+    }, 91000));
+
     crawlTimers.push(setTimeout(function () {
       if (dismissed) return;
       dismissCrawl();
-    }, 17500 + crawlDuration + 2000));
+    }, 93500));
 
     overlay.addEventListener('click', function (e) {
       e.stopPropagation();
