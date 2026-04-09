@@ -155,7 +155,7 @@
       content.classList.add('crawl-content--active');
     }, 17500));
 
-    var crawlDuration = 85000;
+    var crawlDuration = 100000;
     crawlTimers.push(setTimeout(function () {
       if (dismissed) return;
       dismissCrawl();
