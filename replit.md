@@ -44,7 +44,9 @@ The app uses a passcode-based gate (cookie auth) to restrict access:
 │   │   ├── landing-field.html  # Reestkii Landing Field (1024×576)
 │   │   ├── vanishing-place.html # The Vanishing Place fortress (1024×576)
 │   │   ├── banshee.html        # The Banshee — Barloz-class freighter (1024×946, 20 zones)
-│   │   └── jungle-trek.html    # Jungle Trek (1024×1024, 16 zones)
+│   │   ├── jungle-trek.html    # Jungle Trek (1024×1024, 16 zones)
+│   │   ├── blackwind-point.html # Blackwind Point (1024×778)
+│   │   └── filtration-plant.html # Water Filtration Plant (1024×791, 13 zones)
 │   └── audio/            # Audio assets (opening-crawl.mp3)
 ├── css/
 │   ├── input.css         # Tailwind source (custom components + layers)
@@ -149,7 +151,7 @@ Real-time GM-to-player tactical map broadcasting system.
 - **Player side:** Floating draggable/resizable viewer auto-opens on `map:broadcast` socket event; personal pins stored in sessionStorage keyed `tm_pins_<mapKey>`; "Clip to Journal" creates journal entry via `POST /api/journal/entries`
 - **Pin system:** `map_pins` DB table; socket events: `map:pin-add/update/remove`, `map:pins-request/sync`; GM sees all pins, players see own + public pins only; visibility transitions (public→private) emit `map:pin-removed` to players, (private→public) emit `map:pin-added`
 - **Grid persistence:** Grid config stored as `data-grid-*` attributes on SVG element in map HTML files; editor fetches from `/api/maps/:key/meta`
-- **ALLOWED_MAPS:** `['burning-deck', 'switch-lair', 'landing-field', 'vanishing-place', 'banshee', 'jungle-trek']` in `server/index.js`
+- **ALLOWED_MAPS:** `['burning-deck', 'switch-lair', 'landing-field', 'vanishing-place', 'banshee', 'jungle-trek', 'blackwind-point', 'filtration-plant']` in `server/index.js`. Map titles in `/api/maps/list` are derived from `MAPS_META` (no separate title map). Add new maps to both `ALLOWED_MAPS` and `MAPS_META`, and add an `<option>` to `public/maps/editor.html` dropdown.
 - **Map dimensions:** burning-deck 1024×635, switch-lair 1024×716, landing-field 1024×576, vanishing-place 1024×576, banshee 1024×946, jungle-trek 1024×1024
 - **CSS:** `public/css/tactical-map.css` (standalone, not Tailwind-processed)
 
@@ -304,7 +306,9 @@ The GM Black Ledger (`public/gm/index.html`) features a full Campaign Engine as 
 - `GET  /api/campaign/lore-tags/:tag` — scenes referencing a specific tag
 - `GET  /api/campaign/party` — party monitor data from characters table
 
-**UI Features:** Adventure navigator (10 adventures), part navigator, scene list with completion indicators, scene renderer (read-aloud block, GM notes, NPC roster, hazards, decision points), clickable lore tags with cross-reference modal, narrative link navigation, collapsible Party Monitor sidebar.
+**UI Features:** Adventure navigator (10 adventures), part navigator, scene list with completion indicators, scene renderer (read-aloud block, GM notes, NPC roster, hazards, decision points), clickable lore tags with cross-reference modal, narrative link navigation, collapsible Party Monitor sidebar. Scene text `[map:key]` tags render as clickable green map links that auto-open the Tactical Map panel pre-loaded to that specific map.
+
+**GM Toolbox (right column):** Grouped into three sections — Tactical (Tactical Map, Galaxy Map, Map Hitbox Editor), Builders (Build Threat, Dramatis Personae), Narrative (Opening Crawl Editor). Map Hitbox Editor opens in a new tab (`/maps/editor.html`). Glossary, Crew Journal, Decision Log, and Narrative Challenges follow below the toolbox.
 
 **GM Black Ledger Tabs:** Campaign (default), Combat Tracker, Starship Combat, GM Handbook. The GM Handbook tab consolidates all 8 rules reference categories (Game System, Arenas & Disciplines, Conditions, Maneuvers, Threats, Weapons, Armor, Gear) into a single panel with collapsible `.hb-section` containers, a dedicated search input (`#handbook-search`), and unified real-time search that auto-expands matching sections and collapses empty ones. Each render function targets `#hb-section-<key> .hb-section-body`. The `refreshHandbookFilter()` function is called after every async data render to re-apply any active search query.
 

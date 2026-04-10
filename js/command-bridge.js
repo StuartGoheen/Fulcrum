@@ -38,6 +38,16 @@
     while ((match = re.exec(s)) !== null) {
       out += esc(s.slice(last, match.index));
       var inner = match[1];
+
+      var mapMatch = inner.match(/^map:(.+)$/);
+      if (mapMatch) {
+        var mapKey = mapMatch[1].trim();
+        var mapTitle = mapKey.replace(/-/g, ' ').replace(/\b\w/g, function(c){ return c.toUpperCase(); });
+        out += '<span class="cb-map-link" data-map-key="' + esc(mapKey) + '">' + esc(mapTitle) + '</span>';
+        last = match.index + match[0].length;
+        continue;
+      }
+
       var normalized = inner.replace(/\s*\d+$/, '').replace(/\s*\(.*\)$/, '').trim().toLowerCase();
       var glossaryId = CONDITION_MAP[normalized];
       if (glossaryId) {
@@ -1160,6 +1170,12 @@
     panel.querySelectorAll('.cb-condition-link').forEach(function (el) {
       el.addEventListener('click', function () { showGlossaryEntry(el.dataset.conditionId); });
     });
+    panel.querySelectorAll('.cb-map-link').forEach(function (el) {
+      el.addEventListener('click', function () {
+        var key = el.dataset.mapKey;
+        if (key) openTacticalMapToKey(key);
+      });
+    });
     panel.querySelectorAll('.cb-lore-tag').forEach(function (el) {
       el.addEventListener('click', function () { openLoreModal(el.dataset.loreTag); });
     });
@@ -1681,6 +1697,12 @@
     });
     container.querySelectorAll('.cb-condition-link').forEach(function (el) {
       el.addEventListener('click', function () { showGlossaryEntry(el.dataset.conditionId); });
+    });
+    container.querySelectorAll('.cb-map-link').forEach(function (el) {
+      el.addEventListener('click', function () {
+        var key = el.dataset.mapKey;
+        if (key) openTacticalMapToKey(key);
+      });
     });
     var assessBtn = document.getElementById('assess-guide-btn');
     if (assessBtn) {
@@ -4449,6 +4471,26 @@
     });
   }
 
+  var _tmPendingKey = null;
+  var _tmMapListReady = false;
+
+  function openTacticalMapToKey(key) {
+    _tmPendingKey = key;
+    var btn = document.getElementById('cb-tactical-map-btn');
+    if (btn) btn.click();
+    if (_tmMapListReady) _tmApplyPendingKey();
+  }
+
+  function _tmApplyPendingKey() {
+    if (!_tmPendingKey) return;
+    var selectEl = document.getElementById('gm-tm-select');
+    if (selectEl) {
+      selectEl.value = _tmPendingKey;
+      selectEl.dispatchEvent(new Event('change'));
+    }
+    _tmPendingKey = null;
+  }
+
   (function initTacticalMapPanel() {
     var btn = document.getElementById('cb-tactical-map-btn');
     if (!btn || !socket) return;
@@ -4494,6 +4536,8 @@
             opt.textContent = m.title;
             selectEl.appendChild(opt);
           });
+          _tmMapListReady = true;
+          _tmApplyPendingKey();
         })
         .catch(function (err) {
           console.error('[command-bridge] Map list load error:', err);

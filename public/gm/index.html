@@ -100,12 +100,27 @@
     <div class="cb-drag-handle" id="drag-right" title="Drag to resize"></div>
 
     <div class="cb-col-right" id="cb-col-right">
-      <button class="cb-header-btn accent" id="cb-build-threat" style="width:100%;margin-bottom:0.75rem;justify-content:center;">Build Threat</button>
-      <button class="cb-header-btn" id="cb-dramatis-btn" style="width:100%;margin-bottom:0.75rem;justify-content:center;">Dramatis Personae</button>
-      <button class="cb-header-btn" id="cb-galaxy-map-btn" style="width:100%;margin-bottom:0.75rem;justify-content:center;">Galaxy Map</button>
-      <button class="cb-header-btn" id="cb-tactical-map-btn" style="width:100%;margin-bottom:0.75rem;justify-content:center;">Tactical Map</button>
-      <a href="/gm/crawl-editor/" class="cb-header-btn" style="width:100%;margin-bottom:0.75rem;justify-content:center;text-decoration:none;display:flex;">Opening Crawl Editor</a>
-      <div class="cb-col-title" style="display:flex;align-items:center;justify-content:space-between;">Glossary <button class="cb-collapse-btn" id="cb-collapse-right" title="Collapse panel">&raquo;</button></div>
+      <div class="cb-col-title" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem;">GM Toolbox <button class="cb-collapse-btn" id="cb-collapse-right" title="Collapse panel">&raquo;</button></div>
+
+      <div class="gm-toolbox-group">
+        <div class="gm-toolbox-label">Tactical</div>
+        <button class="cb-header-btn" id="cb-tactical-map-btn" style="width:100%;justify-content:center;">Tactical Map</button>
+        <button class="cb-header-btn" id="cb-galaxy-map-btn" style="width:100%;justify-content:center;">Galaxy Map</button>
+        <a href="/maps/editor.html" target="_blank" class="cb-header-btn" style="width:100%;justify-content:center;text-decoration:none;display:flex;">Map Hitbox Editor</a>
+      </div>
+
+      <div class="gm-toolbox-group">
+        <div class="gm-toolbox-label">Builders</div>
+        <button class="cb-header-btn accent" id="cb-build-threat" style="width:100%;justify-content:center;">Build Threat</button>
+        <button class="cb-header-btn" id="cb-dramatis-btn" style="width:100%;justify-content:center;">Dramatis Personae</button>
+      </div>
+
+      <div class="gm-toolbox-group">
+        <div class="gm-toolbox-label">Narrative</div>
+        <a href="/gm/crawl-editor/" class="cb-header-btn" style="width:100%;justify-content:center;text-decoration:none;display:flex;">Opening Crawl Editor</a>
+      </div>
+
+      <div class="cb-col-title" style="display:flex;align-items:center;justify-content:space-between;margin-top:1rem;">Glossary</div>
       <div id="glossary-content">
         <div class="cb-glossary-placeholder">
           Click a <span style="color:#c8a44e;">[Condition]</span> in any scene text to view its details here.

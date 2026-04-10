@@ -150,20 +150,20 @@ app.post('/api/maps/save', (req, res) => {
   res.json({ ok: true, count: hitboxes.length });
 });
 
+const MAPS_META = {
+  'burning-deck':   { img: 'burning-deck.png',           vw: 1024, vh: 635, title: 'The Burning Deck' },
+  'switch-lair':    { img: 'switch-lair.png',             vw: 1024, vh: 716, title: "Switch's Lair" },
+  'landing-field':  { img: 'landing-field.png',           vw: 1024, vh: 576, title: 'Landing Field' },
+  'vanishing-place':{ img: 'vanishing-place-rendered.png', vw: 1024, vh: 576, title: 'The Vanishing Place' },
+  'banshee':        { img: 'banshee.png',                  vw: 1024, vh: 946, title: 'The Banshee' },
+  'jungle-trek':    { img: 'jungle-trek.png',              vw: 1024, vh: 1024, title: 'Jungle Trek' },
+  'blackwind-point':{ img: 'blackwind-point-map.png',         vw: 1024, vh: 778, title: 'Blackwind Point' },
+  'filtration-plant':{ img: 'filtration-plant.png',           vw: 1024, vh: 791, title: 'Water Filtration Plant' }
+};
+
 app.get('/api/maps/:key/meta', (req, res) => {
   const mapKey = req.params.key;
   if (!ALLOWED_MAPS.includes(mapKey)) return res.status(400).json({ error: 'Invalid map key.' });
-
-  const MAPS_META = {
-    'burning-deck':   { img: 'burning-deck.png',           vw: 1024, vh: 635, title: 'The Burning Deck' },
-    'switch-lair':    { img: 'switch-lair.png',             vw: 1024, vh: 716, title: "Switch's Lair" },
-    'landing-field':  { img: 'landing-field.png',           vw: 1024, vh: 576, title: 'Landing Field' },
-    'vanishing-place':{ img: 'vanishing-place-rendered.png', vw: 1024, vh: 576, title: 'The Vanishing Place' },
-    'banshee':        { img: 'banshee.png',                  vw: 1024, vh: 946, title: 'The Banshee' },
-    'jungle-trek':    { img: 'jungle-trek.png',              vw: 1024, vh: 1024, title: 'Jungle Trek' },
-    'blackwind-point':{ img: 'blackwind-point-map.png',         vw: 1024, vh: 778, title: 'Blackwind Point' },
-    'filtration-plant':{ img: 'filtration-plant.png',           vw: 1024, vh: 791, title: 'Water Filtration Plant' }
-  };
 
   const meta = MAPS_META[mapKey];
   if (!meta) return res.status(404).json({ error: 'Unknown map.' });
@@ -218,8 +218,8 @@ app.get('/api/maps/:key/meta', (req, res) => {
 
 app.get('/api/maps/list', (req, res) => {
   res.json({ maps: ALLOWED_MAPS.map(k => {
-    const titles = { 'burning-deck': 'The Burning Deck', 'switch-lair': "Switch's Lair", 'landing-field': 'Landing Field', 'vanishing-place': 'The Vanishing Place', 'banshee': 'The Banshee', 'jungle-trek': 'Jungle Trek', 'blackwind-point': 'Blackwind Point' };
-    return { key: k, title: titles[k] || k };
+    const meta = MAPS_META[k];
+    return { key: k, title: meta ? meta.title : k };
   })});
 });
 
