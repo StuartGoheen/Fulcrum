@@ -168,6 +168,36 @@ uri = "file://attached_assets/varga-fortress-floorplan-simple.png"
 type = "image"
 title = "Varga fortress simple floorplan"
 
+[[generated]]
+id = "12je0jmF0t1kMVs_82FC1"
+uri = "file://attached_assets/varga-fortress-floorplan-v2.png"
+type = "image"
+title = "Varga fortress simple floorplan v2"
+
+[[generated]]
+id = "OjJF9EqdMRgEcfzzhOCWs"
+uri = "file://attached_assets/varga-fortress-floorplan-v3.png"
+type = "image"
+title = "Varga fortress revised floorplan v3"
+
+[[generated]]
+id = "UlCibzU92Lb1YjFr3gQfz"
+uri = "file://attached_assets/varga-fortress-ground-floor-v4.png"
+type = "image"
+title = "Varga fortress ground floor v4"
+
+[[generated]]
+id = "_EzWpVgTTqYTHO89oJs5g"
+uri = "file://attached_assets/varga-fortress-second-floor-v4.png"
+type = "image"
+title = "Varga fortress second floor v4"
+
+[[generated]]
+id = "plu27Xt3lVKcNuhLQQHp_"
+uri = "file://attached_assets/varga-fortress-ground-v5.png"
+type = "image"
+title = "Varga fortress revised ground floor"
+
 [[outputs]]
 id = "2LcyfBitBojI2aNp3Z-pi"
 uri = "file://assets/fulcrum-resolution-infographic.png"
