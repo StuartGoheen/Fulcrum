@@ -198,6 +198,12 @@ uri = "file://attached_assets/varga-fortress-ground-v5.png"
 type = "image"
 title = "Varga fortress revised ground floor"
 
+[[generated]]
+id = "Vm-ln9kkfEiUQjv3NXmST"
+uri = "file://attached_assets/varga-fortress-ground-v6.png"
+type = "image"
+title = "Varga fortress ground v6 parchment"
+
 [[outputs]]
 id = "2LcyfBitBojI2aNp3Z-pi"
 uri = "file://assets/fulcrum-resolution-infographic.png"
