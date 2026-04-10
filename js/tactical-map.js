@@ -589,9 +589,16 @@
     var vp = this._viewport;
     var padW = vp.clientWidth - 20;
     var padH = vp.clientHeight - 20;
+    console.log('[TM] fitView: vp.clientWidth=', vp.clientWidth, 'vp.clientHeight=', vp.clientHeight, 'padW=', padW, 'padH=', padH);
+    if (padW <= 0 || padH <= 0) {
+      var self = this;
+      requestAnimationFrame(function () { self.fitView(); });
+      return;
+    }
     this.zoom = Math.min(padW / this.meta.vw, padH / this.meta.vh, 1.5);
     this.panX = (vp.clientWidth - this.meta.vw * this.zoom) / 2;
     this.panY = (vp.clientHeight - this.meta.vh * this.zoom) / 2;
+    console.log('[TM] fitView: zoom=', this.zoom, 'panX=', this.panX, 'panY=', this.panY);
     this._applyTransform();
   };
 
