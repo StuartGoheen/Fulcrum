@@ -2774,16 +2774,28 @@
               "name": "Kessra's Aviary Ambush",
               "type": "combat",
               "trigger": "CONDITIONAL — only if Kessra tracked the heroes from Part 1",
-              "description": "Kessra has released trained Takodana Raptors in the fortress aviary. Pack hunters with environment advantage in the dense vegetation.",
-              "tactics": "Raptors use pack tactics — flank and isolate. The aviary vegetation provides concealment for ambush. Kessra watches from a perch, directing the raptors with whistle commands."
+              "description": "Kessra has released trained Takodana Raptors in the fortress aviary. Pack hunters with environment advantage in the dense vegetation. [map:aviary]",
+              "tactics": "Raptors launch from perch platforms in the Canopy Walk and Southeast Roost — diving attacks from elevation. They use the Western Undergrowth and Eastern Thicket for concealment between strikes. Kessra commands from the Northeast Tech Bay or Canopy Walk, using whistle signals. If heroes reach the Environmental Control Station, trigger mist or darkness to disrupt raptor coordination. If Kessra is downed, raptors retreat to the Southeast Roost and defend territorially. The Stone Path is the kill zone — fast but exposed. The aviary doors are locked; unlock from the Control Station or pick the lock at the southeast entrance."
             }
           ],
           "environmentMechanics": [
             {
-              "name": "Aviary Garden",
-              "trigger": "If Kessra ambush triggers",
-              "effect": "Dense tropical vegetation provides concealment. Elevated perches for Kessra. Narrow paths limit movement. Raptors know the terrain — heroes don't.",
-              "mitigation": "Fire clears vegetation. Stealth negates the ambush advantage. Shooting Kessra disrupts raptor coordination."
+              "name": "Aviary Undergrowth",
+              "trigger": "Movement through Western Undergrowth or Eastern Thicket",
+              "effect": "Dense vegetation — difficult terrain with concealment. Bioluminescent fungi in the Western Undergrowth glow when disturbed, betraying movement. The Stone Path is clear ground but offers no cover. Raptors know every branch and perch — heroes do not.",
+              "mitigation": "Stay on the Stone Path for speed (but accept exposure). Move at half speed through undergrowth to avoid triggering fungi. Fire clears vegetation."
+            },
+            {
+              "name": "Environmental Control Station",
+              "trigger": "Tech check to operate the southwest control consoles",
+              "effect": "Kill all grow lights (darkness, 1 round before backup). Trigger fire-suppression mist (full concealment, 2 rounds). Activate irrigation flood (ankle-deep mud everywhere). Lock/unlock aviary doors. Disrupts raptor coordination — they cannot hunt effectively in darkness or mist.",
+              "mitigation": "Station is in the far southwest — reaching it under attack is the challenge. Holographic displays make the operator visible. Partial hard cover from the overhang."
+            },
+            {
+              "name": "Raptor Diving Attacks",
+              "trigger": "Raptors launch from Canopy Walk or perch platforms",
+              "effect": "Elevation advantage on diving attacks. Pack flanking — raptors coordinate via Kessra's whistle commands. If Kessra is downed or driven off, raptors lose coordination and retreat to Southeast Roost.",
+              "mitigation": "Shooting Kessra disrupts coordination. Smashing grow light panels creates local darkness that grounds the raptors. The Feeding Station has improvised weapons (vibro-trimmer, pruning shears)."
             },
             {
               "name": "Guard Patrol Patterns",

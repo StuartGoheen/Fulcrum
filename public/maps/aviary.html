@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Aviary — Tactical Map</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #1a1a1a; display: flex; flex-direction: column; align-items: center; min-height: 100vh; font-family: 'Segoe UI', sans-serif; padding: 20px 20px 60px; gap: 40px; }
+
+  .map-container { position: relative; max-width: 1024px; width: 100%; }
+  .map-container img { width: 100%; height: auto; display: block; border-radius: 4px; filter: drop-shadow(0 0 30px rgba(0,0,0,0.5)); }
+  .map-container svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+  .hitbox { cursor: pointer; fill: transparent; stroke: transparent; transition: all 0.25s; }
+  .hitbox:hover { fill: rgba(224, 212, 184, 0.08); stroke: rgba(224, 212, 184, 0.3); stroke-width: 2; }
+
+  .tooltip { position: fixed; background: rgba(20,20,20,0.95); border: 1px solid #665a3a; color: #e0d4b8; padding: 10px 14px; border-radius: 4px; font-size: 13px; max-width: 300px; pointer-events: none; z-index: 100; display: none; line-height: 1.5; backdrop-filter: blur(8px); }
+
+  .location-brief { max-width: 980px; width: 100%; color: #c0b89a; line-height: 1.7; }
+  .location-brief h2 { color: #e0d4b8; font-family: 'Georgia', serif; font-size: 20px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; border-bottom: 1px solid #444; padding-bottom: 6px; }
+  .location-brief h3 { color: #c8b88a; font-family: 'Georgia', serif; font-size: 15px; letter-spacing: 2px; text-transform: uppercase; margin: 24px 0 8px; }
+  .location-brief p { margin-bottom: 12px; font-size: 14px; }
+  .location-brief .read-aloud { background: #222; border-left: 3px solid #887755; padding: 12px 16px; margin: 16px 0; font-style: italic; color: #d0c8a8; border-radius: 0 4px 4px 0; }
+  .location-brief .gm-note { background: #1e1e2a; border-left: 3px solid #556; padding: 10px 14px; margin: 12px 0; font-size: 13px; color: #8888bb; border-radius: 0 4px 4px 0; }
+  .location-brief .gm-note strong { color: #aaaadd; }
+  .location-brief .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+  .location-brief .detail-card { background: #222; border: 1px solid #333; border-radius: 4px; padding: 12px; }
+  .location-brief .detail-card h4 { color: #c8b88a; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .location-brief .detail-card p { font-size: 13px; margin-bottom: 0; }
+  @media (max-width: 700px) { .location-brief .detail-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="tooltip" id="tooltip"></div>
+
+<div class="map-container">
+  <img src="aviary.png" alt="The Aviary — Tactical Map">
+
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 828" preserveAspectRatio="xMidYMid meet" data-grid-on="1" data-grid-size="64" data-grid-offx="0" data-grid-offy="0" data-grid-opacity="30" data-grid-color="white" data-grid-linewidth="1">
+
+    <rect x="30" y="30" width="310" height="280" rx="3" class="hitbox"
+      data-room="Northwest Grove"
+      data-desc="The densest vegetation in the aviary — a tangle of engineered ferns, broad-leafed creepers, and moss-covered durasteel supports shaped to look like ancient trees. Visibility drops to arm's length inside the grove. Three perch platforms rise from thick root clusters, their carved surfaces stained with droppings and claw marks. Small colorful birds — Takodana jewel-finches, imported sunwings — dart between the branches, their calls echoing off the chamber walls. The undergrowth is knee-high and treacherous: hidden roots, slick moss, and the occasional irrigation pipe disguised as a vine. A fighter who enters the grove has concealment from ranged attacks but limited sightlines of their own. The raptors know every branch and hollow. Intruders do not."/>
+
+    <rect x="370" y="30" width="280" height="250" rx="3" class="hitbox"
+      data-room="Canopy Walk"
+      data-desc="An elevated section of the aviary where the tree stumps are tallest — nearly two meters high — connected by rough bark bridges and knotted vine handholds. The canopy walk runs along the northern center of the chamber, offering a commanding view of the stone path below and the undergrowth on either side. A hanging lantern sways from a crossbeam, casting shifting amber light through the leaves. The perch platforms up here are the raptors' preferred roosting spots — territorial markers scratched into the wood in parallel claw grooves. Anyone on the canopy walk has elevation advantage for ranged attacks but is exposed and visible from the entire aviary. The bark bridges creak under weight. They were designed for birds, not people."/>
+
+    <rect x="680" y="30" width="310" height="280" rx="3" class="hitbox"
+      data-room="Northeast Tech Bay"
+      data-desc="The northeast corner where the aviary's life-support infrastructure is most visible — twin banks of blue-white grow lights mounted on the angled wall, their humming transformers exposed behind cracked access panels. Coolant lines snake down the wall in transparent tubes, the fluid inside faintly luminescent. A wooden birdhouse is mounted high on the wall — decorative, but a raptor has nested inside it, and the approach is defended territory. The tree stumps here are wired with environmental sensors — temperature, humidity, light cycle — feeding data to the main control station. The grow lights are bright enough to dazzle anyone looking directly at them. Smashing one would create a zone of relative darkness and shower the area with sparking debris."/>
+
+    <rect x="0" y="320" width="140" height="230" rx="3" class="hitbox"
+      data-room="West Grow Light Bank"
+      data-desc="A vertical array of blue-spectrum grow lights bolted to the western wall, sealed behind reinforced transparisteel panels. The lights cycle on a programmed rhythm — bright for six hours, dim for two — simulating a shortened Takodana day. The panels vibrate with a low electrical hum that masks quiet sounds nearby. Behind the panels, maintenance crawlspaces run along the wall — too narrow for most species but accessible to a slim humanoid or a determined droid. The grow lights generate noticeable heat, creating a warm updraft along the western wall that the birds ride in lazy spirals. A hard impact could crack a panel and expose the wiring — electrocution hazard for anyone in contact with the wall, but also a potential distraction if triggered deliberately."/>
+
+    <rect x="160" y="310" width="300" height="230" rx="3" class="hitbox"
+      data-room="Western Undergrowth"
+      data-desc="A broad stretch of dense ground cover between the northwest grove and the southern control station — engineered ferns, flowering moss, and low fungal clusters that glow faintly blue in dim light. The undergrowth is thickest here, waist-high in places, providing excellent concealment for anyone willing to crawl. The footing is uneven — irrigation channels run beneath the surface, and the soil is soft and damp. Movement through the undergrowth is slow and noisy unless deliberately careful. Two perch platforms stand in this section, their bases wrapped in climbing vines. The raptors use these as launching points for diving attacks — they perch silently, then drop on prey moving through the vegetation below. The bioluminescent fungi react to vibration, brightening when disturbed — a natural alarm system that betrays movement to anyone watching."/>
+
+    <rect x="380" y="280" width="160" height="300" rx="3" class="hitbox"
+      data-room="Stone Path"
+      data-desc="A winding trail of flat river stones laid into the aviary floor, running roughly north-south through the center of the chamber. The path is the only clear ground in the aviary — maintained by droids, swept daily, the stones fitted close enough to walk without catching a heel. It is the obvious route through the garden, which makes it the obvious kill zone. The raptors know that prey funnels along the path. Kessra knows it too. The stones are smooth and slightly raised above the surrounding soil, providing stable footing but no cover whatsoever. Side paths branch east and west into the undergrowth, but they're narrower and overgrown. A fighter on the stone path can move at full speed but is visible from every perch platform in the aviary. A fighter who leaves the path gains concealment but loses mobility."/>
+
+    <rect x="570" y="310" width="300" height="230" rx="3" class="hitbox"
+      data-room="Eastern Thicket"
+      data-desc="The eastern half of the aviary floor — similar vegetation to the west but drier, the soil sandier, the plants more scrubby. The grow lights on the eastern wall cast harder shadows through the foliage, creating bands of light and dark that shift as the lights cycle. A maintenance terminal is mounted on a short post near the center of this section — a secondary readout for the environmental systems, displaying temperature, humidity, and atmospheric composition. The terminal is functional but limited — it can trigger local sprinkler systems (creating a burst of mist that obscures vision) but cannot access the main environmental controls. Two large perch platforms anchor this zone, connected by a fallen branch that creates a natural bridge. The raptors circle this area when agitated — it is their secondary hunting ground, and the scrubby cover makes diving attacks easier to execute."/>
+
+    <rect x="890" y="320" width="120" height="230" rx="3" class="hitbox"
+      data-room="East Grow Light Bank"
+      data-desc="The eastern wall's grow light installation — a mirror of the western bank but in worse repair. Two of the six panels are cracked, their seals compromised, and moisture has seeped into the wiring. The lights flicker irregularly, creating a strobe effect that disorients both birds and people. A birdhouse mounted between the panels houses a nesting pair of Takodana sunwings — non-aggressive but loud, their alarm calls piercing enough to alert every raptor in the aviary if disturbed. The damaged panels spark occasionally, and the floor beneath them is scorched. A deliberate strike to the weakened panels would likely cause a short-circuit — killing the eastern lights entirely and plunging this section into near-darkness. The maintenance crawlspace behind these panels connects to the western bank, offering a concealed route along the chamber's perimeter."/>
+
+    <rect x="10" y="580" width="260" height="230" rx="3" class="hitbox"
+      data-room="Environmental Control Station"
+      data-desc="A cluster of holographic consoles and control terminals built into the southwest corner of the aviary — the nerve center for the entire garden ecosystem. Four angled display screens show atmospheric readouts, irrigation schedules, light cycle programming, and species population tracking. The consoles are designed for Varga's maintenance droids, but the interface is standard Imperial agricultural tech — any character with basic Tech skills can operate them. From here, a skilled operator can: kill all grow lights simultaneously (plunging the aviary into darkness), trigger the fire-suppression mist system (heavy fog, full concealment, 2 rounds duration), activate the irrigation flood cycle (turns the floor into ankle-deep mud), or lock/unlock the aviary doors. The station is partially sheltered by an overhanging rock formation, providing hard cover from the east. The holographic displays cast a distinctive blue glow that makes the operator visible from across the chamber."/>
+
+    <rect x="300" y="600" width="250" height="200" rx="3" class="hitbox"
+      data-room="Southern Clearing"
+      data-desc="A relatively open section of the aviary floor near the southern wall — the vegetation here is kept trimmer by the maintenance droids, creating a small clearing around two perch platforms. The clearing is where the aviary's feeding station was positioned — a now-empty trough bolted to the floor, surrounded by scattered seed husks and dried fruit. The raptors visit this area out of habit, circling the empty trough before returning to their perches. The clearing offers better visibility than the undergrowth but less cover — a compromise position. The southern wall is solid durasteel behind a thin veneer of moss and climbing plants, and the aviary's main entrance door is set into the southeast section of this wall. The door is heavy, sealed with a standard fortress lock, and currently closed. Kessra locked it behind her when she released the raptors."/>
+
+    <rect x="580" y="600" width="200" height="200" rx="3" class="hitbox"
+      data-room="Feeding Station"
+      data-desc="A secondary maintenance area in the south-center-east of the aviary — a small durasteel workbench with a data terminal, seed storage bins, and a rack of gardening tools (pruning shears, a vibro-trimmer, soil probes). The data terminal connects to the environmental control station but has limited access — readouts only, no command authority. The gardening tools are improvised weapons in a pinch: the vibro-trimmer is essentially a small vibro-blade, and the pruning shears have reach. The seed bins attract the smaller birds, creating a constant flutter of wings and chirping around this area — natural noise cover that masks quiet conversation or stealthy movement. A perch platform stands adjacent, its base wrapped in tool-storage netting. The workbench provides partial cover when crouched behind it."/>
+
+    <rect x="800" y="600" width="200" height="200" rx="3" class="hitbox"
+      data-room="Southeast Roost"
+      data-desc="The southeast corner of the aviary — a cluster of three perch platforms close together, their bases intertwined with thick root systems. This is the raptors' primary roosting area: territorial, defended, and littered with shed feathers, bone fragments from previous meals, and pellets of compressed fur and chitin. The birds here are most aggressive — the raptors consider this their home ground and will attack anyone who enters without hesitation. A large ceramic pot near the wall holds a dead ornamental plant, its soil dried to dust. The wall behind the roost is bare durasteel — the moss and vegetation end here, exposing the chamber's industrial bones. A small access panel in the wall leads to a maintenance corridor, but it is sealed with a security lock. The aviary's main entrance is nearby — anyone who reaches this corner has a clear path to the door, if they can get through the raptors guarding it."/>
+
+  </svg>
+</div>
+
+<div class="location-brief">
+
+  <h2>Location Brief — The Aviary</h2>
+  <p>A controlled biome chamber deep inside Varga's fortress on Takodana. Originally designed as an agricultural research module — hydroponic growth systems, atmospheric controls, artificial day-night cycling — repurposed by Varga as a private garden and exotic bird collection. The chamber is roughly thirty meters across, octagonal, with angled durasteel walls softened by climbing moss and engineered vegetation. Overhead, full-spectrum grow lights simulate Takodana's forest canopy. The air is warm, humid, and heavy with the smell of soil and green growth. Every surface that isn't durasteel is alive.</p>
+
+  <h3>The Garden</h3>
+  <div class="read-aloud">
+    You step through the blast door and the fortress vanishes. In its place — a jungle. Dense vegetation presses in from every direction, leaves brushing your arms, moisture beading on your skin. Blue-white grow lights hum overhead, casting the garden in an artificial twilight. Somewhere above, a bird calls — bright, sharp, echoing off unseen walls. Tree stumps rise from the undergrowth like ancient sentinels, their carved tops scored with claw marks. A path of flat stones winds through the center of the chamber, the only clear ground in a sea of engineered green. The air smells of wet earth and something else — something animal. Feathers drift in the warm updraft from the western wall. Then you hear it: a low, clicking trill from the canopy above. Not a songbird. Something with talons.
+  </div>
+
+  <div class="detail-grid">
+    <div class="detail-card">
+      <h4>Terrain</h4>
+      <p>The stone path is the only clear ground — full movement speed, no cover. Everything else is dense undergrowth: difficult terrain with concealment but slow, noisy movement. The bioluminescent fungi in the western undergrowth glow brighter when disturbed, betraying movement. The bone pit and the southeast roost have the worst footing — slippery with organic debris. The canopy walk offers elevation but is exposed and creaks under weight.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Elevation</h4>
+      <p>Perch platforms throughout the aviary rise 1-2 meters above the floor — the raptors' natural vantage points. The canopy walk in the north-center connects the tallest platforms with bark bridges. The environmental control station is at floor level but sheltered by an overhang. The grow light banks are wall-mounted, 2-3 meters up — climbable but not designed as platforms.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Environmental Controls</h4>
+      <p>The southwest control station can: kill all lights (darkness, 1 round before emergency backup), trigger fire-suppression mist (full concealment, 2 rounds), activate irrigation flood (ankle-deep mud, difficult terrain everywhere), or lock/unlock doors. The secondary terminal in the feeding station has readouts only. Smashing grow light panels creates local darkness and sparking debris.</p>
+    </div>
+    <div class="detail-card">
+      <h4>The Raptors</h4>
+      <p>Four Takodana Raptors — pack hunters, fast, territorial. They know the terrain intimately. They roost in the southeast, hunt from the perch platforms, and dive from the canopy walk. Kessra directs them with whistle commands from an elevated position. Killing or driving off Kessra disrupts their coordination — they revert to territorial defense of the southeast roost rather than coordinated pack tactics.</p>
+    </div>
+  </div>
+
+  <h3>The Ambush</h3>
+  <div class="read-aloud">
+    The first raptor hits before you see it — a blur of brown and gold dropping from the canopy, talons extended, a shriek that splits the air. The second comes from the undergrowth to your left, low and fast, using the vegetation as cover. Somewhere above and to the east, a sharp whistle — two notes, descending — and the raptors adjust their angle of attack in unison. Someone is directing them. Through the leaves, on the highest perch platform in the northeast: a Zygerrian woman in dark leather, a control whistle between her teeth, watching you with undisguised hatred. Kessra. She followed you into the fortress, and she's been waiting for this.
+  </div>
+
+  <div class="gm-note">
+    <strong>GM Note — The Aviary Ambush:</strong> This is a conditional encounter — it only triggers if the heroes humiliated Kessra during the Blackwind Point landing scene. Kessra has infiltrated the fortress (she has contacts among Varga's security staff), released the raptors from their roost, and locked the aviary doors behind her. She commands from the canopy walk or northeast tech bay, using whistle commands to direct the raptors.
+
+    TACTICAL PRIORITIES: The raptors are the immediate threat, but Kessra is the force multiplier. While she commands, the raptors coordinate — flanking, isolating, driving prey toward each other. If Kessra is taken down or driven off, the raptors break coordination and retreat to the southeast roost to defend their territory. The environmental control station is the heroes' best tactical asset — darkness, mist, or flooding all disrupt the raptors' hunting patterns.
+
+    ESCAPE: The aviary doors are locked. Options: reach the control station and unlock remotely, pick the lock at the southeast entrance, or force the door (noisy, attracts fortress guards). Kessra does not want to be caught by Varga's people — if the fight turns against her, she flees through the maintenance crawlspace behind the east grow lights.
+
+    The encounter rewards tactical thinking over raw combat power. The raptors are minions — individually weak but dangerous in a pack in enclosed terrain. The real challenge is the environment.
+  </div>
+
+  <h3>Sensory Details — Quick Reference</h3>
+  <div class="detail-grid">
+    <div class="detail-card">
+      <h4>Smell</h4>
+      <p>Wet soil and decomposing leaves — a forest floor compressed into an enclosed space. The sweetness of engineered flowers mixed with the sharp musk of bird droppings. Near the grow lights, the ozone tang of electrical discharge. Near the southeast roost, the unmistakable copper-and-iron smell of a predator's den — old kills, bone fragments, dried blood on wood.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Sound</h4>
+      <p>The constant hum of the grow lights — a low electrical drone that fades into background. Bird calls: songbirds chattering, the occasional piercing alarm shriek of a sunwing. The drip of irrigation water. Leaves rustling in the artificial updrafts. And beneath it all, when the raptors are hunting: silence. The songbirds go quiet when the predators move. That silence is the warning.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Temperature</h4>
+      <p>Warm and humid — the atmospheric controls maintain Takodana forest conditions. The air is thick enough to taste. The western wall radiates heat from the grow lights. The control station corner is cooler — ventilation ducts pull excess moisture. The canopy walk catches the warm updraft, making it the warmest spot in the chamber. Sweat beads on every surface, organic and inorganic.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Light</h4>
+      <p>Blue-white grow lights create an artificial twilight — bright enough to see but with deep shadows in the undergrowth. The light cycles irregularly on the east side where panels are damaged, creating a strobe effect. The control station glows blue from its holographic displays. The bioluminescent fungi pulse faintly in the western undergrowth. The canopy walk is the best-lit area — exposed under the overhead lights. The southeast roost is the darkest — the vegetation is thickest and the lights don't fully penetrate.</p>
+    </div>
+  </div>
+
+  <div class="gm-note">
+    <strong>GM Note — Combat Spacing:</strong> The aviary is designed as a predator's hunting ground, not a fair fight. The stone path is the kill zone — fast movement but total exposure. The undergrowth offers concealment but slows movement and alerts the bioluminescent fungi. The canopy walk gives elevation advantage but makes you a target from every angle. The control station is the tactical objective — reaching it gives the heroes control of light, mist, and door locks, but it's in the far corner from the entrance. The southeast roost is the raptors' stronghold and the location of the exit door. The feeding station has improvised weapons. The grow light banks can be weaponized for local darkness or electrical hazards. Kessra commands from elevation — getting line of sight on her through the vegetation is the first challenge. Everything in this encounter is about terrain control: who can see whom, who can move freely, and who controls the environment.
+  </div>
+
+</div>
+
+<script>
+  const tooltip = document.getElementById('tooltip');
+  document.querySelectorAll('.hitbox').forEach(el => {
+    el.addEventListener('mouseenter', e => {
+      const room = el.dataset.room;
+      const desc = el.dataset.desc;
+      tooltip.innerHTML = '<strong style="color:#e0d4b8;text-transform:uppercase;letter-spacing:1px;font-size:14px;">' + room + '</strong><br><br><span style="color:#c0b89a;">' + desc + '</span>';
+      tooltip.style.display = 'block';
+    });
+    el.addEventListener('mousemove', e => {
+      tooltip.style.left = (e.clientX + 16) + 'px';
+      tooltip.style.top  = (e.clientY + 16) + 'px';
+    });
+    el.addEventListener('mouseleave', () => {
+      tooltip.style.display = 'none';
+    });
+  });
+</script>
+</body>
+</html>
