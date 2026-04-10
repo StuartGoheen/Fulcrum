@@ -93,7 +93,7 @@ app.get('/create/', (req, res) => res.sendFile(path.join(ROOT, 'public', 'create
 app.get('/market',  (req, res) => res.redirect('/market/'));
 app.get('/market/', (req, res) => res.sendFile(path.join(ROOT, 'public', 'market', 'index.html')));
 
-const ALLOWED_MAPS = ['burning-deck', 'switch-lair', 'landing-field', 'vanishing-place', 'banshee', 'jungle-trek', 'blackwind-point', 'filtration-plant'];
+const ALLOWED_MAPS = ['burning-deck', 'switch-lair', 'landing-field', 'vanishing-place', 'banshee', 'jungle-trek', 'blackwind-point', 'filtration-plant', 'gladiator-pit'];
 
 app.post('/api/maps/save', (req, res) => {
   if (req.userRole !== 'gm') return res.status(403).json({ error: 'GM access required.' });
@@ -158,7 +158,8 @@ const MAPS_META = {
   'banshee':        { img: 'banshee.png',                  vw: 1024, vh: 946, title: 'The Banshee' },
   'jungle-trek':    { img: 'jungle-trek.png',              vw: 1024, vh: 1024, title: 'Jungle Trek' },
   'blackwind-point':{ img: 'blackwind-point-map.png',         vw: 1024, vh: 778, title: 'Blackwind Point' },
-  'filtration-plant':{ img: 'filtration-plant.png',           vw: 1024, vh: 791, title: 'Water Filtration Plant' }
+  'filtration-plant':{ img: 'filtration-plant.png',           vw: 1024, vh: 791, title: 'Water Filtration Plant' },
+  'gladiator-pit':   { img: 'gladiator-pit.png',              vw: 846,  vh: 1024, title: "Varga's Gladiator Pit" }
 };
 
 app.get('/api/maps/:key/meta', (req, res) => {

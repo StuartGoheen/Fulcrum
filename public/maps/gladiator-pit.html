@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gladiator Pit — Tactical Map</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #1a1a1a; display: flex; flex-direction: column; align-items: center; min-height: 100vh; font-family: 'Segoe UI', sans-serif; padding: 20px 20px 60px; gap: 40px; }
+
+  .map-container { position: relative; max-width: 900px; width: 100%; }
+  .map-container img { width: 100%; height: auto; display: block; border-radius: 4px; filter: drop-shadow(0 0 30px rgba(0,0,0,0.5)); }
+  .map-container svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+  .hitbox { cursor: pointer; fill: transparent; stroke: transparent; transition: all 0.25s; }
+  .hitbox:hover { fill: rgba(224, 212, 184, 0.08); stroke: rgba(224, 212, 184, 0.3); stroke-width: 2; }
+
+  .tooltip { position: fixed; background: rgba(20,20,20,0.95); border: 1px solid #665a3a; color: #e0d4b8; padding: 10px 14px; border-radius: 4px; font-size: 13px; max-width: 300px; pointer-events: none; z-index: 100; display: none; line-height: 1.5; backdrop-filter: blur(8px); }
+
+  .location-brief { max-width: 860px; width: 100%; color: #c0b89a; line-height: 1.7; }
+  .location-brief h2 { color: #e0d4b8; font-family: 'Georgia', serif; font-size: 20px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; border-bottom: 1px solid #444; padding-bottom: 6px; }
+  .location-brief h3 { color: #c8b88a; font-family: 'Georgia', serif; font-size: 15px; letter-spacing: 2px; text-transform: uppercase; margin: 24px 0 8px; }
+  .location-brief p { margin-bottom: 12px; font-size: 14px; }
+  .location-brief .read-aloud { background: #222; border-left: 3px solid #887755; padding: 12px 16px; margin: 16px 0; font-style: italic; color: #d0c8a8; border-radius: 0 4px 4px 0; }
+  .location-brief .gm-note { background: #1e1e2a; border-left: 3px solid #556; padding: 10px 14px; margin: 12px 0; font-size: 13px; color: #8888bb; border-radius: 0 4px 4px 0; }
+  .location-brief .gm-note strong { color: #aaaadd; }
+  .location-brief .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+  .location-brief .detail-card { background: #222; border: 1px solid #333; border-radius: 4px; padding: 12px; }
+  .location-brief .detail-card h4 { color: #c8b88a; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .location-brief .detail-card p { font-size: 13px; margin-bottom: 0; }
+  @media (max-width: 700px) { .location-brief .detail-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="tooltip" id="tooltip"></div>
+
+<div class="map-container">
+  <img src="gladiator-pit.png" alt="Gladiator Pit — Tactical Map">
+
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 846 1024" preserveAspectRatio="xMidYMid meet" data-grid-on="0" data-grid-size="40" data-grid-offx="0" data-grid-offy="0" data-grid-opacity="35" data-grid-color="white" data-grid-linewidth="1">
+
+    <rect x="155" y="115" width="530" height="680" rx="3" class="hitbox"
+      data-room="The Pit Floor"
+      data-desc="The main arena — a rough oval of packed sand and cracked stone, fifteen meters across. The floor is uneven, cratered from years of combat and never properly repaired. Dried bloodstains darken the sand in overlapping layers. Broken flagstones jut up at angles where the original flooring has been shattered by impacts. The footing is treacherous — loose sand over stone, shifting under weight. The pit sits about two meters below the surrounding spectator ledge, making the walls smooth and difficult to climb without assistance. Every sound echoes off the curved walls — the crowd above, the scrape of boots, the rasp of breath."/>
+
+    <rect x="345" y="410" width="155" height="155" rx="3" class="hitbox"
+      data-room="Central Drain"
+      data-desc="A heavy durasteel disc set flush into the pit floor — two meters across, polished to a dull shine by boots and bodies dragged across it. The drain cover is bolted down but the bolts are old and corroded. Beneath it, a narrow shaft drops into the fortress drainage system. The disc is slippery — blood and sand form a slick paste on its surface. During combat, anyone fighting on the drain has unstable footing. The drain occasionally vents steam from the pipes below — Varga sometimes has his technicians trigger a burst for spectacle. A desperate fighter might try to pry the cover loose, but it would take time and tools, and the shaft below is too narrow for anything larger than a slim humanoid."/>
+
+    <rect x="80" y="260" width="200" height="280" rx="3" class="hitbox"
+      data-room="Fallen Columns"
+      data-desc="A cluster of toppled stone columns on the western side of the pit — decorative remnants from whatever this chamber was before Varga converted it into an arena. The columns are thick, waist-high where they've fallen, and provide the best hard cover in the pit. The gaps between them create narrow channels — good for a smaller fighter, claustrophobic for a larger one. Some columns are cracked and unstable — a strong impact could shatter one, sending stone fragments flying. Varga keeps them here deliberately. They make fights more interesting. The stone is ancient, carved with geometric patterns that predate the fortress — Old Republic, maybe older."/>
+
+    <rect x="545" y="230" width="160" height="200" rx="3" class="hitbox"
+      data-room="Scattered Rubble"
+      data-desc="A spread of broken stone blocks and debris on the eastern side of the pit — smaller than the columns on the west side, offering partial cover at best. The rubble is loose and unstable. Kicking through it is noisy. Some pieces are heavy enough to use as improvised weapons — a chunk of carved stone makes a serviceable bludgeon. The rubble field is difficult terrain — movement through it is slow, and anyone running risks turning an ankle on the uneven surface. Between the stones, the sand is deeper here, soft and shifting. A fighter who knows the terrain can use it. One who doesn't will stumble."/>
+
+    <rect x="220" y="820" width="400" height="120" rx="3" class="hitbox"
+      data-room="Control Station"
+      data-desc="A bank of battered consoles and control panels built into the southern wall of the pit chamber, at ground level below the spectator ledge. Blue-lit screens display pit environmental controls — drain venting, lighting, the gate mechanism. The consoles are operated by Varga's Gamorrean technicians, who understand exactly three buttons each. A Tech-savvy character who reaches the controls could trigger environmental effects: steam bursts from the central drain, kill the lights for temporary darkness, or jam the gladiator gate open or shut. The panels are recessed into the wall behind a low durasteel barrier — not designed to be accessible from inside the pit, but a determined fighter could vault the barrier."/>
+
+    <rect x="660" y="520" width="140" height="270" rx="3" class="hitbox"
+      data-room="Gladiator Gate"
+      data-desc="A heavy iron grate set into the eastern wall — the only ground-level entrance to the pit. The gate slides vertically on rusted tracks, operated by a chain mechanism connected to the control station. Behind the gate, a short corridor leads to the holding cells where fighters wait. The gate is thick enough to stop a blaster bolt and heavy enough that forcing it requires serious strength or mechanical advantage. When it opens, it does so slowly — grinding upward with a screech of metal on metal that silences the crowd for a moment. The corridor beyond is narrow, single-file, and dark. Varga likes his gladiators to emerge from shadow into light. The dramatic effect is deliberate."/>
+
+    <rect x="640" y="50" width="170" height="160" rx="3" class="hitbox"
+      data-room="Gamorrean Watch Post"
+      data-desc="An elevated alcove in the northeast corner, marked by a crude Gamorrean clan sigil hammered into the stone wall — a tusked face inside a gear wheel. Two Gamorrean guards are permanently stationed here with force pikes, watching the pit from above. Their job is simple: if anyone tries to climb out of the pit unauthorized, push them back in. If a gladiator wins and Varga gives the signal, they lower a rope ladder. The alcove has a clear line of sight across the entire arena floor. The guards are not smart, but they are loyal and they are strong. Getting past them requires either Varga's permission, a very good distraction, or enough violence to put them down before they raise an alarm."/>
+
+    <rect x="20" y="420" width="120" height="300" rx="3" class="hitbox"
+      data-room="Tech Alcove"
+      data-desc="A recessed section of the western wall where the fortress infrastructure bleeds through the arena's rough aesthetics — exposed power conduits, a junction box with flickering blue displays, coolant pipes running vertically behind corroded access panels. This is where the pit's environmental systems are physically routed. A saboteur with the right skills could access the systems here more directly than at the control station — bypassing the Gamorrean operators entirely. The alcove is partially sheltered from the pit floor by the fallen columns, creating a pocket of concealment. The pipes carry pressurized coolant — rupturing one would create a burst of freezing gas, a hazard to anyone nearby but potentially useful as a distraction or area denial."/>
+
+    <rect x="100" y="30" width="550" height="110" rx="3" class="hitbox"
+      data-room="Spectator Ledge — North"
+      data-desc="The upper rim of the pit on the northern side — a stone ledge two meters above the arena floor, where Varga's courtiers and hangers-on crowd to watch the fights. The ledge is narrow, standing room only, pressed against the curved wall. Varga himself watches from a repulsor-throne that floats above the northwest section, surrounded by attendants and protocol droids. The crowd is a mix of species — Weequay, Nikto, Twi'lek servants, human mercenaries, the occasional Rodian bounty hunter. They drink, they shout, they throw things at fighters they dislike. The ledge has no railing — someone pushed from behind would fall into the pit. This has happened before. Varga found it amusing."/>
+
+    <rect x="160" y="870" width="520" height="100" rx="3" class="hitbox"
+      data-room="Spectator Ledge — South"
+      data-desc="The southern rim of the pit, lower and wider than the north ledge. This is where the working staff clusters — Gamorrean guards off-duty, kitchen slaves watching through the gaps between their betters, the occasional droid recording the fight on Varga's orders. The control station is built into this section, making it more utilitarian than the north side. The atmosphere is different here — less revelry, more tension. The staff know that Varga's moods are unpredictable, and a bad fight can mean punishment for everyone in reach. Access to the corridor behind the gladiator gate is through a passage on this level, making it the route fighters take to enter the pit."/>
+
+  </svg>
+</div>
+
+<div class="location-brief">
+
+  <h2>Location Brief — Varga's Gladiator Pit</h2>
+  <p>Deep inside the fortress on the far shore of Nymeve Lake, Takodana. A converted chamber — once a ceremonial hall, maybe a throne room from a previous occupant — gutted and repurposed by Varga the Hutt into a fighting arena. The walls are ancient stone, the technology bolted on afterward. Everything here serves one purpose: entertainment for a Hutt who has grown bored of almost everything else.</p>
+
+  <h3>The Arena</h3>
+  <div class="read-aloud">
+    The pit drops away beneath you — a rough oval of packed sand and broken stone, lit by harsh overhead floods that leave no shadows on the arena floor. The walls are smooth and high, two meters of polished stone separating the fighters below from the spectators above. Broken columns litter the western side — remnants of whatever this room used to be. A heavy iron gate on the eastern wall stands closed, dark corridor behind it. In the center, a large metal disc is set into the floor — a drain, stained dark. The crowd presses against the ledge above, faces lit by the arena lights, shouting in half a dozen languages. Somewhere above the northwest rim, a massive shape floats on a repulsor-throne, flanked by attendants. Varga. Watching.
+  </div>
+
+  <div class="detail-grid">
+    <div class="detail-card">
+      <h4>Terrain</h4>
+      <p>The pit floor is uneven — packed sand over broken flagstone. The fallen columns on the west side provide hard cover but create difficult terrain. The rubble field on the east side offers partial cover and difficult terrain. The central drain is slippery. The rest of the floor is open ground with no cover — by design. Varga wants to see blood, not hiding.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Elevation</h4>
+      <p>The pit floor is two meters below the spectator ledge. The walls are smooth stone — climbing out requires an Athletics check at increased difficulty. The Gamorrean guards at the northeast watch post will push climbers back down. The only authorized exit is the gladiator gate on the east wall, controlled from the south control station.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Environmental Hazards</h4>
+      <p>The central drain can vent steam — triggered from the control station or the tech alcove. Burst duration is one round, affecting everyone within short range of the drain. The overhead lights can be killed for temporary darkness (one round before backup generators kick in). Coolant pipes in the tech alcove can be ruptured for a freezing gas burst. All of these require either control station access or a Tech check at the source.</p>
+    </div>
+    <div class="detail-card">
+      <h4>The Crowd</h4>
+      <p>Fifty-odd spectators packed onto the ledge above. They throw things — bottles, food, occasionally a weapon if they think it'll make the fight more interesting. A fighter who plays to the crowd (Charm or Deception) can shift the mood — a cheering crowd might convince Varga to show mercy, or to make the fight harder by releasing a second opponent. The crowd is a tool, not a threat. Unless you give them a reason to jump in.</p>
+    </div>
+  </div>
+
+  <h3>The Fight</h3>
+  <div class="read-aloud">
+    Varga raises one massive hand. The crowd goes quiet — not silent, never silent, but quieter. A deep rumbling voice speaks in Huttese, translated a half-second later by a silver protocol droid at the throne's edge. "My guest wishes to prove their worth. Let us see what they are made of." The gate on the east wall begins to grind open. Something moves in the darkness beyond. The crowd leans forward.
+  </div>
+
+  <div class="gm-note">
+    <strong>GM Note — The Gladiator Fight:</strong> This is Varga's audition. The fight itself is secondary to the performance. Varga is watching how the heroes fight, not whether they win — he already expects them to win against whatever he throws at them (a Gamorrean bruiser, a starving nexu, a pair of pit droids with shock prods). What he's evaluating is style, ruthlessness, and crowd appeal. A hero who fights efficiently but boringly will pass. A hero who fights dramatically — using the terrain, playing to the crowd, showing flair — will earn Varga's genuine interest. A hero who shows mercy to a defeated opponent will make Varga curious. A hero who executes a defeated opponent without hesitation will make Varga delighted. Both reactions give the heroes leverage, but in very different ways.
+  </div>
+
+  <h3>Sensory Details — Quick Reference</h3>
+  <div class="detail-grid">
+    <div class="detail-card">
+      <h4>Smell</h4>
+      <p>Old blood baked into sand. Sweat — human and otherwise. The chemical tang of the crowd's drinks. Underneath it all, the mineral smell of ancient stone and the faint ozone of the overhead floods. When the drain vents, a burst of hot copper and wet iron.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Sound</h4>
+      <p>The crowd — a wall of noise, dozens of species shouting in different languages. Varga's rumbling laugh, felt more than heard. The scrape of boots on sand. The grind of the gate mechanism. The hum of the overhead lights. Between exchanges, a brief, terrible silence where you can hear your own breathing and the drip of something from the drain grate.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Temperature</h4>
+      <p>Hot. The overhead floods radiate heat downward into the pit. The crowd above generates its own warmth. The stone walls hold the heat. The air is close and thick — ventilation was designed for a hall, not an arena packed with spectators. The only cool spot is near the tech alcove, where the coolant pipes radiate a faint chill.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Light</h4>
+      <p>Harsh white floods from above — no shadows on the arena floor, every movement visible. The spectator ledge is dimmer, faces half-lit from below. The gate corridor is deliberately dark — fighters emerge from shadow into blinding light, disoriented for a crucial second. The tech alcove glows faint blue from its displays. Varga's repulsor-throne has its own soft amber lighting — he watches from comfort while his gladiators sweat under the floods.</p>
+    </div>
+  </div>
+
+  <div class="gm-note">
+    <strong>GM Note — Combat Spacing:</strong> The pit is designed as a spectacle arena, not a battlefield. Open ground dominates — the fallen columns on the west side are the only real hard cover, and Varga keeps them there because fights around cover are more interesting than fights in the open. The central drain is a hazard point that can be triggered for environmental effects. The gladiator gate is the only ground-level exit and it's controlled externally. The spectator ledge is two meters up with smooth walls — climbing out under fire is extremely difficult. A fighter who controls the column cluster controls the best tactical position in the pit. A fighter who reaches the control station can manipulate the environment. A fighter who impresses the crowd can manipulate Varga. The pit rewards creativity over raw power — which is exactly what Varga wants to see.
+  </div>
+
+</div>
+
+<script>
+  const tooltip = document.getElementById('tooltip');
+  document.querySelectorAll('.hitbox').forEach(el => {
+    el.addEventListener('mouseenter', e => {
+      const room = el.dataset.room;
+      const desc = el.dataset.desc;
+      tooltip.innerHTML = '<strong style="color:#e0d4b8;text-transform:uppercase;letter-spacing:1px;font-size:14px;">' + room + '</strong><br><br><span style="color:#c0b89a;">' + desc + '</span>';
+      tooltip.style.display = 'block';
+    });
+    el.addEventListener('mousemove', e => {
+      tooltip.style.left = (e.clientX + 16) + 'px';
+      tooltip.style.top  = (e.clientY + 16) + 'px';
+    });
+    el.addEventListener('mouseleave', () => {
+      tooltip.style.display = 'none';
+    });
+  });
+</script>
+</body>
+</html>
