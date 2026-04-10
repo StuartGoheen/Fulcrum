@@ -1275,10 +1275,14 @@
     tabBar.innerHTML = '<button class="ct-right-tab-btn active" data-tab="conditions">Conditions</button>' +
       '<button class="ct-right-tab-btn" data-tab="glossary">Glossary</button>';
 
-    var glossaryTitle = colRight.querySelector('.cb-col-title');
-    var buildBtn = colRight.querySelector('#cb-build-threat');
-    if (buildBtn && buildBtn.nextSibling) {
-      colRight.insertBefore(tabBar, buildBtn.nextSibling);
+    var glossaryTitle = null;
+    colRight.querySelectorAll('.cb-col-title').forEach(function (el) {
+      if (el.textContent.trim().indexOf('Glossary') === 0) glossaryTitle = el;
+    });
+    var toolboxGroups = colRight.querySelectorAll('.gm-toolbox-group');
+    var lastToolboxGroup = toolboxGroups.length ? toolboxGroups[toolboxGroups.length - 1] : null;
+    if (lastToolboxGroup && lastToolboxGroup.nextSibling) {
+      colRight.insertBefore(tabBar, lastToolboxGroup.nextSibling);
     } else if (glossaryTitle) {
       colRight.insertBefore(tabBar, glossaryTitle);
     } else {
@@ -1291,7 +1295,7 @@
     if (glossaryTitle) {
       colRight.insertBefore(condPanel, glossaryTitle);
     } else {
-      colRight.appendChild(condPanel);
+      tabBar.after(condPanel);
     }
 
     tabBar.querySelectorAll('.ct-right-tab-btn').forEach(function (btn) {
