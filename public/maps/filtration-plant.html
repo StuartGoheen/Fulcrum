@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Water Filtration Plant — Tactical Map</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #1a1a1a; display: flex; flex-direction: column; align-items: center; min-height: 100vh; font-family: 'Segoe UI', sans-serif; padding: 20px 20px 60px; gap: 40px; }
+
+  .map-container { position: relative; max-width: 1150px; width: 100%; }
+  .map-container img { width: 100%; height: auto; display: block; border-radius: 4px; filter: drop-shadow(0 0 30px rgba(0,0,0,0.5)); }
+  .map-container svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+  .hitbox { cursor: pointer; fill: transparent; stroke: transparent; transition: all 0.25s; }
+  .hitbox:hover { fill: rgba(224, 212, 184, 0.08); stroke: rgba(224, 212, 184, 0.3); stroke-width: 2; }
+
+  .tooltip { position: fixed; background: rgba(20,20,20,0.95); border: 1px solid #665a3a; color: #e0d4b8; padding: 10px 14px; border-radius: 4px; font-size: 13px; max-width: 300px; pointer-events: none; z-index: 100; display: none; line-height: 1.5; backdrop-filter: blur(8px); }
+
+  .location-brief { max-width: 1100px; width: 100%; color: #c0b89a; line-height: 1.7; }
+  .location-brief h2 { color: #e0d4b8; font-family: 'Georgia', serif; font-size: 20px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; border-bottom: 1px solid #444; padding-bottom: 6px; }
+  .location-brief h3 { color: #c8b88a; font-family: 'Georgia', serif; font-size: 15px; letter-spacing: 2px; text-transform: uppercase; margin: 24px 0 8px; }
+  .location-brief p { margin-bottom: 12px; font-size: 14px; }
+  .location-brief .read-aloud { background: #222; border-left: 3px solid #887755; padding: 12px 16px; margin: 16px 0; font-style: italic; color: #d0c8a8; border-radius: 0 4px 4px 0; }
+  .location-brief .gm-note { background: #1e1e2a; border-left: 3px solid #556; padding: 10px 14px; margin: 12px 0; font-size: 13px; color: #8888bb; border-radius: 0 4px 4px 0; }
+  .location-brief .gm-note strong { color: #aaaadd; }
+  .location-brief .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+  .location-brief .detail-card { background: #222; border: 1px solid #333; border-radius: 4px; padding: 12px; }
+  .location-brief .detail-card h4 { color: #c8b88a; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .location-brief .detail-card p { font-size: 13px; margin-bottom: 0; }
+  @media (max-width: 700px) { .location-brief .detail-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="tooltip" id="tooltip"></div>
+
+<div class="map-container">
+  <img src="filtration-plant.png" alt="Water Filtration Plant — Tactical Map">
+
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 791" preserveAspectRatio="xMidYMid meet" data-grid-on="0" data-grid-size="40" data-grid-offx="0" data-grid-offy="0" data-grid-opacity="32" data-grid-color="white" data-grid-linewidth="1">
+
+    <rect x="15" y="15" width="210" height="200" rx="3" class="hitbox"
+      data-room="Maintenance Shed"
+      data-desc="A squat prefab structure tucked into the northwest corner of the facility, half-swallowed by creeping vines. The walls are corrugated durasteel, patched with scrap plating and sealed with industrial foam that's yellowed and cracked. One window shutter on the west side is cracked open — a faint glow leaks through. The door is reinforced from the inside. Crude trip-wire alarms ring the approach: toppled cans on wire, strung ankle-height between pipe junctions. Someone has been living here. Recently."/>
+
+    <rect x="15" y="225" width="135" height="180" rx="3" class="hitbox"
+      data-room="Pump Control Room"
+      data-desc="A narrow chamber lined with valve wheels and pressure gauges, most frozen with corrosion. The floor is grated metal over a shallow drain channel — water trickles through it still, dark and smelling of mineral rot. A bank of control panels runs the length of one wall, dead except for a single green indicator light that blinks on a slow, patient cycle. Something down here is still drawing power. The walls sweat with condensation. Difficult footing — the grated floor is slick and uneven where sections have buckled."/>
+
+    <rect x="160" y="225" width="180" height="200" rx="3" class="hitbox"
+      data-room="Primary Settling Tank"
+      data-desc="The largest of the three circular basins. Twenty meters across, open to the sky where the roof collapsed years ago. Thick green algae covers the surface of the standing water — it looks solid enough to walk on, but it isn't. Rusted catwalks span the diameter at two levels, the upper one sagging badly at the midpoint. The lower catwalk is more stable but narrows to single-file width. Pipe junctions ring the tank walls. The water is chest-deep at the center, knee-deep at the edges, and the footing underneath is treacherous — submerged machinery, broken grating, slick biofilm. Difficult terrain. Risk of collapse on the upper catwalk."/>
+
+    <rect x="345" y="15" width="175" height="240" rx="3" class="hitbox"
+      data-room="Processing Block"
+      data-desc="The central hub of the old facility — a two-story industrial structure with heavy walls and a partially collapsed roof. Machinery fills the interior: massive pump housings, chemical injection systems crusted with mineral deposits, and banks of filtration membranes that have long since rotted to lace. The floor is cluttered with debris — fallen ceiling panels, tangles of wire, shattered transparisteel from the observation windows above. Movement through here is slow and noisy. Every step crunches. A rusted service ladder leads to the upper gantry, which overlooks the settling tanks to the south. From up there you can see most of the facility."/>
+
+    <rect x="530" y="20" width="165" height="160" rx="3" class="hitbox"
+      data-room="Secondary Settling Tank"
+      data-desc="Smaller than the primary basin but in worse condition. The retaining wall has cracked on the eastern side, and dark water seeps through the gap into the surrounding ground, turning the earth to sucking mud for three meters around. The catwalk here has partially collapsed — one end rests on the basin rim, the other dangles into the water at a steep angle. Algae growth is thicker here, fluorescent green under certain light. Something moves beneath the surface occasionally — probably swamp fauna, but it keeps the local wildlife away from this side of the plant."/>
+
+    <rect x="710" y="15" width="150" height="160" rx="3" class="hitbox"
+      data-room="Tertiary Basin"
+      data-desc="The smallest and most overgrown of the three tanks. The jungle has almost entirely reclaimed this one — root systems have cracked through the basin walls, and the water level is lower, exposing rusted internal baffles and a nest of pipes at the bottom. Vines hang across the opening like a curtain. From outside, you wouldn't know this was a tank at all — it looks like a sinkhole. The basin rim is narrow and crumbling in places. Unstable footing. The vegetation provides concealment but not cover — blaster bolts would punch through the vines without slowing."/>
+
+    <rect x="545" y="200" width="200" height="180" rx="3" class="hitbox"
+      data-room="Treatment Pools"
+      data-desc="A grid of rectangular pools — six of them, arranged in two rows of three, separated by narrow walkways barely wide enough for one person. The water is dark and still, covered with a film of organic matter. Depth varies — ankle-deep in some, waist-deep in others, impossible to tell from the surface. The walkways between pools are cracked ferrocrete, slick with moisture and moss. Railings are rusted through in most places. Movement along the walkways is single-file only. Falling in means difficult terrain and a Athletics check to climb out — the pool walls are smooth and slippery. The far side of the pool grid connects to the pipe network running east."/>
+
+    <rect x="760" y="200" width="250" height="200" rx="3" class="hitbox"
+      data-room="Eastern Jungle Edge"
+      data-desc="The facility boundary dissolves into dense tropical undergrowth on the eastern side. Massive root systems from the canopy trees have pushed through the perimeter wall, creating gaps large enough to move through single-file. The ground is soft — ankle-deep mud in places, firmer where root networks create a natural mat. Visibility is poor: ten meters at best through the hanging moss and broad-leafed vegetation. You can hear the swamp beyond — insect drone, the occasional splash of something large moving through water. Multiple approach paths through the vegetation, none of them quiet. Anyone coming from this direction would be heard before they're seen."/>
+
+    <rect x="200" y="440" width="400" height="200" rx="3" class="hitbox"
+      data-room="Pipe Network — Central Corridor"
+      data-desc="A maze of exposed pipes runs through the center of the facility at ground level and overhead — water mains, chemical feeds, pressure lines, and drainage conduits in every diameter from finger-width to large enough to crawl through. The corridor between the pipe runs is narrow, forcing single-file movement in most places. The pipes are crusted with mineral scale and corrosion, but some still carry pressure — you can hear the faint hiss of trapped gas or steam in the larger conduits. A deliberate rupture (or a stray blaster bolt in the wrong place) could release a burst of scalding steam. The overhead pipes provide partial cover from above but limit vertical movement — no jumping, no climbing without navigating the pipe lattice."/>
+
+    <rect x="15" y="440" width="175" height="180" rx="3" class="hitbox"
+      data-room="Western Approach"
+      data-desc="The jungle presses in hard from the west, almost touching the maintenance shed wall. A narrow game trail — or maybe a drainage channel — threads between the trees and the facility wall. The ground is soft clay, waterlogged, with standing puddles that reflect the canopy. Boot prints would be visible here for days. A collapsed section of perimeter fencing creates a gap wide enough to drive a speeder through, though the mud would stop anything without repulsorlifts. The approach offers concealment from the facility interior — someone moving along this side would be screened by the shed and pump room walls until they rounded the corner."/>
+
+    <rect x="100" y="650" width="350" height="130" rx="3" class="hitbox"
+      data-room="Southern Access — Main Gate"
+      data-desc="What's left of the facility's original vehicle entrance. A wide ferrocrete pad, cracked and heaved by root growth, slopes gently down to the main approach from the south. The gate frame is still standing — heavy durasteel, permanently jammed in the half-open position — but the gate itself rusted off its track years ago and lies flat in the mud like a bridge to nowhere. The approach is the most open ground in the area: twenty meters of clearing before the jungle closes in again. Anyone approaching from the south is visible. This is where something large has been patrolling — you can see the track marks in the mud. Heavy. Mechanical. The treads carve deep parallel ruts in a slow, repetitive pattern back and forth across the gate approach."/>
+
+    <rect x="620" y="440" width="200" height="250" rx="3" class="hitbox"
+      data-room="Discharge Channel"
+      data-desc="The facility's original outflow — a wide concrete channel that carried treated water south toward the lake. The channel is waist-deep with standing water, choked with vegetation and debris. The concrete walls are intact but slippery, coated with biofilm. Moving through the channel is slow — difficult terrain — but it provides excellent concealment. The water muffles sound. The channel walls provide solid cover from ground-level fire. At the northern end, the channel connects to the treatment pool grid. At the southern end, it opens into the jungle. Someone could use this to approach or escape the facility without being seen from the main grounds, but they'd be soaked and slow."/>
+
+    <rect x="830" y="430" width="185" height="250" rx="3" class="hitbox"
+      data-room="Overgrown Ruins — Southeast"
+      data-desc="A cluster of smaller outbuildings — chemical storage, tool sheds, a generator housing — all collapsed under the weight of the jungle. Walls are standing to waist-height in most places, roofless, filled with vegetation and standing water. The structures create a maze of low walls and shallow pools — useful cover at the cost of speed. A rusted generator housing sits at the center, its access panel hanging open. Inside: dead batteries, corroded wiring, and the faint smell of leaking coolant. The ruins connect to the eastern jungle edge through gaps in the undergrowth. Someone small and quiet could move through here almost invisibly. Someone large would get stuck."/>
+
+  </svg>
+</div>
+
+<div class="location-brief">
+
+  <h2>Location Brief — Water Filtration Plant</h2>
+  <p>Far shore of Nymeve Lake, Takodana. An industrial water treatment facility built during the Clone Wars to service a Republic forward operating base that no longer exists. The base was dismantled. The plant was forgotten. The jungle took it back. Now it sits in the swamp like a rusted skeleton — pipes and tanks and concrete slowly dissolving into the green. The only signs of recent habitation are a light in the maintenance shed and track marks in the mud at the southern gate.</p>
+
+  <h3>The Approach</h3>
+  <div class="read-aloud">
+    The swamp thickens as you push past the encampment's edge. Gnarled trees hang with curtains of moss. The ground turns soft, then wet. Insects swarm in clouds around every step. After twenty minutes of trudging through knee-deep muck, the trees open onto a clearing dominated by a rusted industrial structure — the old water filtration plant. Pipes jut from the walls at odd angles, crusted with mineral deposits. Most of the windows are dark. But through a crack in one of the maintenance shed shutters on the west side, you catch the faint glow of a charge lamp. Something moves behind the shutter. A shadow. Then silence.
+  </div>
+
+  <h3>The Facility</h3>
+  <div class="read-aloud">
+    Three circular settling tanks dominate the facility — massive open basins, their water surfaces thick with fluorescent green algae. Rusted catwalks span them at varying heights, some sagging, some collapsed entirely. A grid of rectangular treatment pools fills the eastern quarter, separated by walkways barely wide enough for one person. Pipes run everywhere — overhead, underfoot, through walls — some still hissing faintly with trapped pressure. The jungle has breached the perimeter on all sides. Root systems crack through walls. Vines curtain the openings. The air is thick, humid, and smells of mineral rot and stagnant water.
+  </div>
+
+  <div class="detail-grid">
+    <div class="detail-card">
+      <h4>Difficult Terrain</h4>
+      <p>Most of the facility is difficult terrain. The treatment pool walkways are slick with moss and single-file only. The settling tank catwalks are narrow and unstable. The pipe corridors force single-file movement. The mud around the perimeter is ankle-deep. Only the maintenance shed interior and the processing block floor (despite debris) offer stable footing.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Collapse Risk</h4>
+      <p>The upper catwalk on the primary settling tank sags at the midpoint — more than two people on it at once risks collapse (Coordination to avoid falling into chest-deep water). The secondary tank's catwalk has already partially fallen. Sections of the processing block roof are unstable — a heavy impact or explosion above could bring debris down.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Steam Hazards</h4>
+      <p>Some pipes still carry pressure — trapped gas and residual steam from geothermal seepage. A deliberate rupture (Tech check) or a stray blaster bolt hitting the right junction releases a burst of scalding steam: area denial, partial concealment, and burn damage to anyone caught in the cloud. The GM should mark which pipe junctions are live — not all of them are.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Concealment vs Cover</h4>
+      <p>The jungle vegetation offers concealment but not hard cover — blaster bolts punch through vines and leaves. The concrete pool walls, pipe housings, and the processing block walls provide actual cover. The discharge channel offers both concealment and cover but at the cost of speed. The settling tank catwalks offer no cover at all — anyone on them is silhouetted.</p>
+    </div>
+  </div>
+
+  <h3>The Sentry</h3>
+  <div class="read-aloud">
+    At the southern gate, something moves in a slow, mechanical pattern. Back and forth across the muddy approach, treads carving deep ruts in the soft ground. It's a droid — but not a combat model. An old utility unit, industrial-class, the kind built to haul pipes and clear debris on construction sites. Someone has modified it: crude armor plating welded to its chassis, a cutting torch jury-rigged to swing like a weapon, photoreceptors wired to a proximity sensor that sweeps the gate approach in a stuttering arc. It moves with the graceless determination of a machine following simple instructions: patrol, detect, attack. There is nothing sophisticated about it. That's what makes it dangerous — it doesn't negotiate, it doesn't hesitate, and it doesn't stop until something breaks it.
+  </div>
+
+  <div class="gm-note">
+    <strong>GM Note — Raden's Sentry Droid:</strong> This is a GNK-series utility chassis that Raden salvaged from the facility and spent days rewiring into a crude perimeter alarm. It's not a real combat droid — it's a construction tool with a cutting torch and some scrap welded on. It patrols the southern gate on a fixed loop because that's all Raden could program it to do. It serves two purposes for Raden: it discourages casual scavengers, and the sound of it engaging tells him someone's coming. The droid is slow, predictable, and tough (heavy chassis, improvised armor) but not smart. It can be avoided, disabled (Tech or Ion damage), lured away, or simply destroyed. The Trandoshan hit squad will deal with it quickly when they arrive — it's not meant to stop professionals. It's meant to wake Raden up in time to grab his blaster.
+  </div>
+
+  <h3>Sensory Details — Quick Reference</h3>
+  <div class="detail-grid">
+    <div class="detail-card">
+      <h4>Smell</h4>
+      <p>Stagnant water. Mineral rot. The sharp chemical tang of corroded pipe sealant. Wet vegetation and swamp mud. Underneath, the faint ozone burn of a power cell being drained slowly — Raden's charge lamp running on a dying battery.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Sound</h4>
+      <p>Insect drone — constant, layered, rising and falling. The drip of water through pipe joints. The faint hiss of pressure in sealed conduits. The slow mechanical grind of the sentry droid's treads at the south gate, audible from anywhere in the facility. Occasionally: the splash of something large moving in the settling tanks. Swamp fauna.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Temperature</h4>
+      <p>Humid. Oppressively humid. The air doesn't move under the canopy. The concrete and metal hold moisture and radiate damp heat. The maintenance shed is marginally drier — Raden sealed the gaps with foam. The settling tanks are cooler at water level but the mist rising off them makes visibility worse.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Light</h4>
+      <p>Dim green filtered through the jungle canopy. The settling tanks have a faint bioluminescent glow from the algae — enough to see shapes, not enough to read by. The maintenance shed's charge lamp is the brightest point in the facility. The processing block interior is dark — no windows intact, roof partially collapsed lets in shafts of green-filtered daylight. At night, the facility is nearly pitch black except for the algae glow and the sentry droid's stuttering photoreceptor sweep.</p>
+    </div>
+  </div>
+
+  <div class="gm-note">
+    <strong>GM Note — Combat Spacing:</strong> The facility is a defender's nightmare and an ambusher's dream. Multiple approach vectors from the jungle. Narrow corridors between machinery force single-file movement. The settling tank catwalks are exposed killing grounds — anyone on them is silhouetted and has no cover. The maintenance shed is defensible (one reinforced door, small windows) but a dead end if surrounded. The treatment pool walkways create a maze that rewards knowledge of the layout — Raden knows it, the Trandoshans don't (but they have scent-tracking). The pipe network provides concealment and chokepoints but limits movement speed. The discharge channel is the best escape route — concealed, covered, but slow. The processing block's upper gantry offers the best sightlines in the facility but reaching it under fire means climbing a rusted ladder in the open.
+  </div>
+
+</div>
+
+<script>
+  const tooltip = document.getElementById('tooltip');
+  document.querySelectorAll('.hitbox').forEach(el => {
+    el.addEventListener('mouseenter', e => {
+      const room = el.dataset.room;
+      const desc = el.dataset.desc;
+      tooltip.innerHTML = '<strong style="color:#e0d4b8;text-transform:uppercase;letter-spacing:1px;font-size:14px;">' + room + '</strong><br><br><span style="color:#c0b89a;">' + desc + '</span>';
+      tooltip.style.display = 'block';
+    });
+    el.addEventListener('mousemove', e => {
+      const x = e.clientX + 15;
+      const y = e.clientY + 15;
+      const maxX = window.innerWidth - 320;
+      const maxY = window.innerHeight - 200;
+      tooltip.style.left = Math.min(x, maxX) + 'px';
+      tooltip.style.top = Math.min(y, maxY) + 'px';
+    });
+    el.addEventListener('mouseleave', () => {
+      tooltip.style.display = 'none';
+    });
+  });
+</script>
+</body>
+</html>

@@ -103,7 +103,7 @@
     {
       "item": "Ion Grenade",
       "category": "good",
-      "reason": "Heavy combat droid at the filtration plant and elite security droids in the dungeon. Ion damage is the purpose-built counter."
+      "reason": "Elite security droids in the dungeon. Ion damage is the purpose-built counter. (Raden's sentry droid at the filtration plant is destroyed by the Trandoshans before the crew fights — but the dungeon droids in Part 2 are the real Ion targets.)"
     },
     {
       "item": "Fusion Cutter",
@@ -742,7 +742,7 @@
           "title": "The Filtration Plant",
           "subtitle": "Finding Raden",
           "readAloud": "The swamp thickens as you push past the encampment's edge. Gnarled trees hang with curtains of moss. The ground turns soft, then wet. Insects swarm in clouds around every step.\n\nAfter twenty minutes of trudging through knee-deep muck, the trees open onto a clearing dominated by a rusted industrial structure — the old water filtration plant. Pipes jut from the walls at odd angles, crusted with mineral deposits. Most of the windows are dark. But through a crack in one of the maintenance shed shutters on the west side, you catch the faint glow of a charge lamp.\n\nSomething moves behind the shutter. A shadow. Then silence.\n\nThen a voice — sharp, shaking, and speaking Basic with a Devaronian accent:\n\n\"Don't come any closer. I will shoot.\"",
-          "gmNotes": "ARRIVAL: If the crew reached 10 VP in the group challenge, they know exactly where Raden is hiding — the maintenance shed on the west side. They can approach directly and with confidence. If they left the encampment with fewer than 10 VP, they need to search the plant grounds. Add complications: they trip Raden's crude perimeter alarms (toppled cans on wire), hear him before they see him, or have to search multiple buildings before finding the right one.\n\nRADEN'S STATE: Warrick Raden is a Devaronian in his forties. He's been hiding here for three days. He's sleep-deprived, malnourished, and terrified. He has a blaster aimed at the door — his hands are shaking. He set crude trip-wires around the maintenance shed and has been surviving on the ration packs he bought from Mekka.\n\nRaden thought Varth was dead — captured by the Empire and executed. When the crew mentions Varth's name, Raden's reaction is visceral: shock, then relief, then fear again. Varth being alive means there's a plan. A plan means danger.\n\nRADEN'S BACKSTORY: Raden was a middleman in Varga's financial network. After Varth was captured, Raden skimmed credits — thought no one was watching. Varga found out. Raden has been running ever since. He has hand-drawn maps of Varga's fortress from when he worked the operation, guard shift patterns he memorized, and intimate knowledge of Varga's paranoid habits.\n\nRADEN WILL NOT GO BACK: This is the critical narrative beat. Raden absolutely refuses to return to Varga's fortress. Varga sent Trandoshans to kill him. He watched them from the tree line. He knows what awaits him if he goes back — the gladiator pit, a public execution, or worse. No amount of persuasion will make him willingly walk back into that fortress. He'll say: 'I'm dead if I step foot on that dock. You know it. I know it.'\n\nHowever, Raden WILL share intel. If the crew earns his trust (Charm, showing Varth's message, genuine empathy), he opens up fully — hand-drawn maps, guard rotations, Varga's daily patterns, TC-663's location, guest quarters layout, and suggestions for a cover identity. He knows Varga is hosting a delegation of high rollers and entertainment — gladiators, gamblers, mercenaries. He can coach the crew on how to present themselves convincingly. He just won't be there with them.\n\nTHE VARTH OPTION (DARK PATH): If the crew contacts Varth via encrypted comlink (either because Raden is being difficult or because they want a stronger entry), Varth provides a cold, pragmatic suggestion: 'Varga wants Raden. Deliver him. A fugitive returned in chains is worth more than any cover story. That's your entry ticket — and Varga owes you a favor before you've even walked through the door.'\n\nVarth says this without emotion. He's ex-Imperial. He thinks in assets and leverage. If the heroes push back, he doesn't argue — he simply says, 'It's your call. I'm telling you what works.' This is the first real glimpse of Varth's pragmatic ruthlessness and foreshadows his willingness to sacrifice people for the mission.\n\nDELIVERING RADEN: If the heroes decide to take Raden by force, he fights — desperately, poorly, but he fights. He has a blaster and he knows the terrain around the filtration plant. This should feel ugly. He's not a soldier. He's a terrified man who just helped them and they're dragging him to his death. If a hero has any moral compass, this should cost something.\n\nAlternatively, the heroes might trick Raden — Deception to convince him they're taking him somewhere safe, then deliver him to Varga. This is cleaner mechanically but even darker morally.\n\nRADEN STAYS BEHIND (LIGHT PATH): If the heroes treat Raden well and don't deliver him, he stays at the filtration plant or makes his way off-world. He gives them everything he knows and wishes them luck. 'Find TC-663. Use Switch's code phrase if you have it. Six-Six will help you from the inside.' The heroes enter the fortress on their own cover identity, without a gift for Varga.\n\nNARRATIVE CONSEQUENCES: Delivering Raden creates a dramatically different entry to the fortress (Scene 5) and directly sets up the 'Execution of Raden' court event in Part 2. Protecting Raden means the heroes must earn Varga's trust purely on merit — harder, but morally clean.\n\nTHE NEGOTIATION: How the crew handles Raden determines his cooperation level:\n\n- CALM / NEGOTIATE: Raden cooperates willingly with intel. He provides detailed fortress maps, guard rotations, Varga's daily patterns, the location of TC-663, and where guests are quartered. He stays behind but is genuinely grateful.\n\n- THREATEN (without delivering): Raden gives minimum intel. Maps only, no details on routines or TC-663. He tells them to get out and never come back.\n\n- DELIVER TO VARGA (Varth's option): Raden is taken by force or deception. The crew arrives at the fortress with a valuable gift. Triggers the Execution event in Part 2. Dark Side moment.\n\nRADEN'S OFFER: Once calmed, Raden proposes the plan: he can get the crew inside Varga's court as 'entertainment' — gladiators, gamblers, or mercenaries. Varga is hosting a delegation of high rollers and business partners. He wants spectacle. Raden can vouch for the crew's credentials.\n\nSCENE ENDS: When Raden's cooperation is established and the plan is agreed upon. Then the Trandoshans arrive — transition to Scene 4.",
+          "gmNotes": "[map:filtration-plant]\n\nARRIVAL: If the crew reached 10 VP in the group challenge, they know exactly where Raden is hiding — the maintenance shed on the west side. They can approach directly and with confidence. If they left the encampment with fewer than 10 VP, they need to search the plant grounds. Add complications: they trip Raden's crude perimeter alarms (toppled cans on wire), hear him before they see him, or have to search multiple buildings before finding the right one.\n\nRADEN'S STATE: Warrick Raden is a Devaronian in his forties. He's been hiding here for three days. He's sleep-deprived, malnourished, and terrified. He has a blaster aimed at the door — his hands are shaking. He set crude trip-wires around the maintenance shed and has been surviving on the ration packs he bought from Mekka.\n\nRaden thought Varth was dead — captured by the Empire and executed. When the crew mentions Varth's name, Raden's reaction is visceral: shock, then relief, then fear again. Varth being alive means there's a plan. A plan means danger.\n\nRADEN'S BACKSTORY: Raden was a middleman in Varga's financial network. After Varth was captured, Raden skimmed credits — thought no one was watching. Varga found out. Raden has been running ever since. He has hand-drawn maps of Varga's fortress from when he worked the operation, guard shift patterns he memorized, and intimate knowledge of Varga's paranoid habits.\n\nRADEN WILL NOT GO BACK: This is the critical narrative beat. Raden absolutely refuses to return to Varga's fortress. Varga sent Trandoshans to kill him. He watched them from the tree line. He knows what awaits him if he goes back — the gladiator pit, a public execution, or worse. No amount of persuasion will make him willingly walk back into that fortress. He'll say: 'I'm dead if I step foot on that dock. You know it. I know it.'\n\nHowever, Raden WILL share intel. If the crew earns his trust (Charm, showing Varth's message, genuine empathy), he opens up fully — hand-drawn maps, guard rotations, Varga's daily patterns, TC-663's location, guest quarters layout, and suggestions for a cover identity. He knows Varga is hosting a delegation of high rollers and entertainment — gladiators, gamblers, mercenaries. He can coach the crew on how to present themselves convincingly. He just won't be there with them.\n\nTHE VARTH OPTION (DARK PATH): If the crew contacts Varth via encrypted comlink (either because Raden is being difficult or because they want a stronger entry), Varth provides a cold, pragmatic suggestion: 'Varga wants Raden. Deliver him. A fugitive returned in chains is worth more than any cover story. That's your entry ticket — and Varga owes you a favor before you've even walked through the door.'\n\nVarth says this without emotion. He's ex-Imperial. He thinks in assets and leverage. If the heroes push back, he doesn't argue — he simply says, 'It's your call. I'm telling you what works.' This is the first real glimpse of Varth's pragmatic ruthlessness and foreshadows his willingness to sacrifice people for the mission.\n\nDELIVERING RADEN: If the heroes decide to take Raden by force, he fights — desperately, poorly, but he fights. He has a blaster and he knows the terrain around the filtration plant. This should feel ugly. He's not a soldier. He's a terrified man who just helped them and they're dragging him to his death. If a hero has any moral compass, this should cost something.\n\nAlternatively, the heroes might trick Raden — Deception to convince him they're taking him somewhere safe, then deliver him to Varga. This is cleaner mechanically but even darker morally.\n\nRADEN STAYS BEHIND (LIGHT PATH): If the heroes treat Raden well and don't deliver him, he stays at the filtration plant or makes his way off-world. He gives them everything he knows and wishes them luck. 'Find TC-663. Use Switch's code phrase if you have it. Six-Six will help you from the inside.' The heroes enter the fortress on their own cover identity, without a gift for Varga.\n\nNARRATIVE CONSEQUENCES: Delivering Raden creates a dramatically different entry to the fortress (Scene 5) and directly sets up the 'Execution of Raden' court event in Part 2. Protecting Raden means the heroes must earn Varga's trust purely on merit — harder, but morally clean.\n\nTHE NEGOTIATION: How the crew handles Raden determines his cooperation level:\n\n- CALM / NEGOTIATE: Raden cooperates willingly with intel. He provides detailed fortress maps, guard rotations, Varga's daily patterns, the location of TC-663, and where guests are quartered. He stays behind but is genuinely grateful.\n\n- THREATEN (without delivering): Raden gives minimum intel. Maps only, no details on routines or TC-663. He tells them to get out and never come back.\n\n- DELIVER TO VARGA (Varth's option): Raden is taken by force or deception. The crew arrives at the fortress with a valuable gift. Triggers the Execution event in Part 2. Dark Side moment.\n\nRADEN'S OFFER: Once calmed, Raden proposes the plan: he can get the crew inside Varga's court as 'entertainment' — gladiators, gamblers, or mercenaries. Varga is hosting a delegation of high rollers and business partners. He wants spectacle. Raden can vouch for the crew's credentials.\n\nSCENE ENDS: When Raden's cooperation is established and the plan is agreed upon. Then the Trandoshans arrive — transition to Scene 4.",
           "npcs": [
             {
               "name": "Warrick Raden",
@@ -955,8 +955,8 @@
           "number": 4,
           "title": "The Hit Squad",
           "subtitle": "Protect Raden",
-          "readAloud": "Raden freezes mid-sentence. His eyes go wide.\n\n\"They found me.\"\n\nYou hear it now — the rhythmic squelch of heavy boots in the swamp. Multiple sets. Coming from at least two directions. Through the grimy windows of the filtration plant, you catch movement in the tree line: massive, scaled figures moving with predatory patience.\n\nTrandoshans.\n\nThen a deeper sound — the whine of servomotors and the grinding of armored treads. Something large pushes through the undergrowth toward the main entrance. A heavy combat droid, its photoreceptors cutting red beams through the mist.\n\nRaden grabs your arm. \"They're here to kill me. If I die, you don't get inside that fortress. Protect me.\"",
-          "gmNotes": "COMBAT ENCOUNTER: This is a straight fight with a protection objective. The crew must keep Raden alive while dealing with the Trandoshan hit squad and the heavy combat droid.\n\nTRANDOSHAN TACTICS: The hit squad breaches from multiple entry points — they've been hunting Raden and they know the building. They use scent-tracking, which means steam concealment doesn't fully work against them (reduces to partial concealment). They work in pairs, using the cramped machinery to set up crossfires.\n\nHEAVY COMBAT DROID: Blocks the main entrance. Advances slowly, absorbing fire. Defense 8. Iron Clad — uses Defense vs Evasion attacks. Vulnerable to Ion damage. The droid is the anvil; the Trandoshans are the hammer.\n\nENVIRONMENTAL HAZARDS: The filtration plant is full of exploitable machinery. Steam pipes can be burst deliberately (Tech check) for area denial. Catwalks can be collapsed to block approaches. Cramped corridors between machinery limit movement to single-file — good for chokepoints, bad for being flanked.\n\nRADEN: He's not a fighter. He cowers behind cover, fires his blaster wildly if directly threatened (more dangerous to friendlies than enemies), and panics if anyone goes down. If a PC spends an action to direct him (Tactics or Leadership), he'll follow orders and stay in cover properly.\n\nSCENE FAILURE: If Raden dies, the crew loses their primary intel source. They'd need to find another way to learn about the fortress — significantly harder and likely requiring Adventure-level improvisation.\n\nAFTER THE FIGHT — THREE PATHS:\n\nPATH A (LIGHT — Raden cooperated in Scene 3): Raden is shaken but alive. The hit squad proves his point — Varga will never stop hunting him. Raden gives his final intel briefing if he hasn't already: cover identity details, TC-663, guard rotations. Then he takes his chances in the swamp. 'I'll find a freighter at Blackwind. Get off-world. You've got what you need. Go.' The heroes take a skiff across Nymeve Lake on their own.\n\nPATH B (DARK — Heroes decided to deliver Raden): After the fight, the heroes have Raden in their custody. He's terrified, begging, but restrained. The skiff ride across the lake is grim and silent. Raden knows what's coming. If any hero has second thoughts, this is the last chance to change course.\n\nPATH C (VARTH'S OPTION EMERGES HERE): If the heroes protected Raden but haven't yet decided on the delivery option, this is where Varth's suggestion can surface. After the fight, the crew contacts Varth for extraction/next steps. Varth, hearing that Raden won't go back, makes his cold suggestion: 'You just killed the hit squad Varga sent. When those Trandoshans don't report back, Varga will know someone interfered. You need leverage. You have it — sitting right there.' This is dramatically effective because the heroes just risked their lives to save Raden, and now Varth is asking them to trade him.\n\nThe scene ends with the transition: the skiff ride across Nymeve Lake. Varga's fortress materializes through curtains of mist — a moss-covered stone ruin retrofitted with gaudy tech, blaster turrets, and garish banners. The next phase begins.",
+          "readAloud": "Raden freezes mid-sentence. His eyes go wide.\n\n\"They found me.\"\n\nYou hear it now — the rhythmic squelch of heavy boots in the swamp. Multiple sets. Coming from at least two directions. Through the grimy windows of the filtration plant, you catch movement in the tree line: massive, scaled figures moving with predatory patience.\n\nTrandoshans.\n\nFrom the southern gate, a crash — then the grinding shriek of metal on metal. That jury-rigged utility droid Raden mentioned just activated. You hear it lurch forward on its treads, the cutting torch sparking to life with a high whine. Something roars — not the droid, one of the Trandoshans — followed by blaster fire and the crunch of the droid's chassis being torn apart. The sentry lasted about ten seconds.\n\nRaden grabs your arm. \"They're here to kill me. If I die, you don't get inside that fortress. Protect me.\"",
+          "gmNotes": "COMBAT ENCOUNTER: This is a straight fight with a protection objective. The crew must keep Raden alive while dealing with the Trandoshan hit squad.\n\n[map:filtration-plant]\n\nTRANDOSHAN TACTICS: The hit squad breaches from multiple entry points — they've been hunting Raden and they know the building. They use scent-tracking, which means steam concealment doesn't fully work against them (reduces to partial concealment). They work in pairs, using the cramped machinery to set up crossfires.\n\nRADEN'S SENTRY DROID: The jury-rigged utility droid at the southern gate activates when the Trandoshans approach — and is destroyed almost immediately. It's a GNK-series utility chassis with a cutting torch and scrap armor, not a real combat unit. It serves as Raden's alarm system. When the crew hears it engage and die, that's their warning the Trandoshans have arrived. The wreckage partially blocks the southern gate approach (difficult terrain for one round as the Trandoshans push through it), buying the crew a few seconds to prepare.\n\nENVIRONMENTAL HAZARDS: The filtration plant is full of exploitable machinery. Steam pipes can be burst deliberately (Tech check) for area denial. Catwalks can be collapsed to block approaches. Cramped corridors between machinery limit movement to single-file — good for chokepoints, bad for being flanked. The settling tanks are difficult terrain (chest-deep water, slick biofilm). The treatment pool walkways are single-file only. Upper catwalks risk collapse with more than two people.\n\nRADEN: He's not a fighter. He cowers behind cover, fires his blaster wildly if directly threatened (more dangerous to friendlies than enemies), and panics if anyone goes down. If a PC spends an action to direct him (Tactics or Leadership), he'll follow orders and stay in cover properly.\n\nSCENE FAILURE: If Raden dies, the crew loses their primary intel source. They'd need to find another way to learn about the fortress — significantly harder and likely requiring Adventure-level improvisation.\n\nAFTER THE FIGHT — THREE PATHS:\n\nPATH A (LIGHT — Raden cooperated in Scene 3): Raden is shaken but alive. The hit squad proves his point — Varga will never stop hunting him. Raden gives his final intel briefing if he hasn't already: cover identity details, TC-663, guard rotations. Then he takes his chances in the swamp. 'I'll find a freighter at Blackwind. Get off-world. You've got what you need. Go.' The heroes take a skiff across Nymeve Lake on their own.\n\nPATH B (DARK — Heroes decided to deliver Raden): After the fight, the heroes have Raden in their custody. He's terrified, begging, but restrained. The skiff ride across the lake is grim and silent. Raden knows what's coming. If any hero has second thoughts, this is the last chance to change course.\n\nPATH C (VARTH'S OPTION EMERGES HERE): If the heroes protected Raden but haven't yet decided on the delivery option, this is where Varth's suggestion can surface. After the fight, the crew contacts Varth for extraction/next steps. Varth, hearing that Raden won't go back, makes his cold suggestion: 'You just killed the hit squad Varga sent. When those Trandoshans don't report back, Varga will know someone interfered. You need leverage. You have it — sitting right there.' This is dramatically effective because the heroes just risked their lives to save Raden, and now Varth is asking them to trade him.\n\nThe scene ends with the transition: the skiff ride across Nymeve Lake. Varga's fortress materializes through curtains of mist — a moss-covered stone ruin retrofitted with gaudy tech, blaster turrets, and garish banners. The next phase begins.",
           "npcs": [
             {
               "name": "Trandoshan Mercenaries",
@@ -1035,85 +1035,13 @@
               }
             },
             {
-              "name": "Heavy Combat Droid",
-              "type": "Elite Droid",
+              "name": "Raden's Sentry Droid (Destroyed)",
+              "type": "Environmental / Narrative",
               "count": 1,
-              "notes": "Blocking the main entrance of the filtration plant. Heavy armor and weapons.",
-              "threatBuild": {
-                "role": "threat",
-                "tier": 2,
-                "classification": "elite",
-                "threatCategory": "character",
-                "arenas": {
-                  "physique": 4,
-                  "reflex": 1,
-                  "grit": 3,
-                  "wits": 1,
-                  "presence": 1
-                },
-                "weaponChassis": "heavy",
-                "traits": [
-                  "armored_heavy",
-                  "tough",
-                  "iron_clad"
-                ],
-                "tags": [
-                  "Droid"
-                ],
-                "computed": {
-                  "power": 5,
-                  "defense": 8,
-                  "evasion": 0,
-                  "resist": 4,
-                  "vitality": 13,
-                  "initiative": 4,
-                  "controlDie": "d8",
-                  "actions": 1,
-                  "damageTiers": {
-                    "chassis": "heavy",
-                    "label": "Heavy",
-                    "fleeting": 3,
-                    "masterful": 5,
-                    "legendary": 8
-                  }
-                },
-                "roleKit": {
-                  "roleName": "Threat / Martial",
-                  "action": {
-                    "name": "Devastating Blow",
-                    "defense": "dodge/endure",
-                    "npcEffects": {
-                      "fleeting": "Chassis damage",
-                      "masterful": "Chassis damage + [Staggered]",
-                      "legendary": "Chassis damage + [Staggered] + [Prone]"
-                    },
-                    "isAttack": true,
-                    "arena": "physique"
-                  },
-                  "maneuver": {
-                    "name": "Intimidating Advance",
-                    "modifies": "Move",
-                    "description": "Modifies Move. Move 1 zone toward a target. That target must succeed on a Grit check vs Threat's Power or gain [Rattled]."
-                  },
-                  "gambit": {
-                    "name": "Brutal Strike",
-                    "cost": "-1 Power",
-                    "description": "In addition to normal effects, target gains [Staggered] Tactical.",
-                    "rider": "[Staggered]"
-                  },
-                  "exploit": {
-                    "name": "Predator's Opening",
-                    "trigger": "A PC in the same zone takes damage from another source this round.",
-                    "description": "Immediately make an attack against that PC at -2 Power."
-                  },
-                  "powerSource": "martial"
-                },
-                "notes": "Elite Brute Droid. Defense 8. Iron Clad: uses Defense vs Evasion attacks. Vulnerable to Ion damage.",
-                "powerSource": "martial"
-              }
+              "notes": "Jury-rigged GNK-series utility chassis with a cutting torch and scrap armor. Raden salvaged it from the facility and spent days rewiring it into a crude perimeter alarm. It patrols the southern gate on a fixed loop. When the Trandoshans arrive, it activates and is destroyed almost immediately — it buys ten seconds and creates difficult terrain at the gate from the wreckage. NOT a combat encounter for the PCs. Its destruction is the alarm that kicks off the fight."
             }
           ],
-          "hazards": "Cramped industrial machinery. Bursting steam pipes. Collapsing catwalks. The heavy combat droid blocks the main exit.",
+          "hazards": "Cramped industrial machinery. Bursting steam pipes (Tech check for area denial). Collapsing catwalks (upper catwalk on primary tank — more than two people risks collapse). Single-file pipe corridors. Slick treatment pool walkways. Settling tanks are difficult terrain (chest-deep water). Sentry droid wreckage blocks the southern gate (difficult terrain, one round).",
           "decisions": [
             {
               "choice": "Hold position and fight",
@@ -1165,8 +1093,8 @@
               "name": "Trandoshan Hit Squad",
               "type": "combat",
               "trigger": "After meeting Raden at the filtration plant",
-              "description": "4 Trandoshan Mercenaries breach from multiple entry points. Heavy Combat Droid blocks the main exit. Protect Raden at all costs.",
-              "tactics": "Trandoshans use scent-tracking to navigate steam concealment. They work in pairs — one pins with suppressive fire, one flanks. The droid advances slowly, absorbing fire and blocking the exit. If the crew tries to flee, the droid is the wall they have to get through."
+              "description": "4 Trandoshan Mercenaries breach from multiple entry points. Raden's jury-rigged sentry droid is destroyed at the southern gate in seconds — its wreckage creates brief difficult terrain. Protect Raden at all costs.",
+              "tactics": "Trandoshans use scent-tracking to navigate steam concealment. They work in pairs — one pins with suppressive fire, one flanks. They push through the sentry wreckage at the gate and breach from the jungle edges. The crew must use chokepoints, steam pipes, and collapsing catwalks to hold them off."
             }
           ],
           "environmentMechanics": [
@@ -1201,9 +1129,9 @@
             "narrative": "Hit squad eliminated. Raden survives. The crew now faces the critical choice: let Raden go free (he shares intel and disappears), or follow Varth's suggestion and deliver him to Varga as an entry gift. The skiff ride to Varga's fortress follows."
           },
           "pacing": {
-            "openingBeat": "Heavy boots in the swamp. Red photoreceptors cutting through mist. 'They found me.'",
-            "risingAction": "Trandoshans breach from multiple points. The droid blocks the exit. Raden is panicking behind cover.",
-            "climax": "The heavy combat droid advances. Must be dealt with to escape or the Trandoshans will overwhelm the position.",
+            "openingBeat": "Heavy boots in the swamp. The sentry droid crashes and dies at the gate — ten seconds of grinding metal, then silence. 'They found me.'",
+            "risingAction": "Trandoshans breach from multiple points through the jungle and over the sentry wreckage. Raden is panicking behind cover in the maintenance shed.",
+            "climax": "The Trandoshans close from two directions, using the cramped pipe corridors and settling tank catwalks. The crew must use the environment — steam pipes, collapsing catwalks, chokepoints — or be overwhelmed.",
             "resolution": "Silence. The hit squad is down. Raden is alive but broken. The crew decides his fate — freedom or chains. Then the skiff ride across Nymeve Lake. Varga's fortress looms through the mist.",
             "estimatedMinutes": 40
           },
