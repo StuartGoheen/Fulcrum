@@ -144,18 +144,22 @@
     this.pins = preloadedPins || [];
     this._loadPersonalPins();
     var loadId = ++this._loadId;
+    console.log('[TM] loadMap called: mapKey=', mapKey, 'loadId=', loadId);
 
     fetch('/api/maps/' + encodeURIComponent(mapKey) + '/meta')
       .then(function (r) {
+        console.log('[TM] fetch response: status=', r.status, 'ok=', r.ok);
         if (!r.ok) throw new Error('Failed to load map meta: ' + r.status);
         return r.json();
       })
       .then(function (meta) {
+        console.log('[TM] meta received: img=', meta.img, 'vw=', meta.vw, 'vh=', meta.vh, 'loadId match=', self._loadId === loadId);
         if (self._loadId !== loadId) return;
         self.meta = meta;
         self.gridVisible = !!(meta.gridConfig && meta.gridConfig.gridOn);
         var gridBtn = self._toolbar.querySelector('.tm-grid-toggle');
         if (gridBtn) gridBtn.classList.toggle('tm-active', self.gridVisible);
+        console.log('[TM] calling _render, container in DOM=', document.body.contains(self.container));
         self._render();
         self.fitView();
         if (self.socket) {

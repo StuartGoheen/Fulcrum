@@ -1126,18 +1126,22 @@
   function renderTacticalMap() {
     if (!combatState) return '';
     var mapKey = _extractMapKey(combatState.scene, combatState.encounter);
+    console.log('[CT-MAP] renderTacticalMap: mapKey=', mapKey, 'scene keys=', combatState.scene ? Object.keys(combatState.scene) : 'null', 'encounter keys=', combatState.encounter ? Object.keys(combatState.encounter) : 'null');
     if (!mapKey) return '';
     _ctMapKey = mapKey;
     return '<div id="ct-map-anchor"></div>';
   }
 
   function _initCombatMapViewer() {
+    console.log('[CT-MAP] _initCombatMapViewer: _ctMapKey=', _ctMapKey);
     if (!_ctMapKey) return;
     var anchor = document.getElementById('ct-map-anchor');
+    console.log('[CT-MAP] anchor=', anchor, '_ctMapContainer=', !!_ctMapContainer, '_ctMapViewer=', !!_ctMapViewer, 'viewerMapKey=', _ctMapViewer ? _ctMapViewer.mapKey : 'n/a');
     if (!anchor) return;
 
     if (_ctMapContainer && _ctMapViewer && _ctMapViewer.mapKey === _ctMapKey) {
       anchor.parentNode.replaceChild(_ctMapContainer, anchor);
+      console.log('[CT-MAP] re-attached existing container');
       return;
     }
 
