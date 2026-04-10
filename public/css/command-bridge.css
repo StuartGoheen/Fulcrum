@@ -3852,6 +3852,9 @@
       position: relative;
       background: #000;
     }
+    .ct-map-viewer-body.tm-viewer {
+      height: 400px;
+    }
     .ct-map-viewer-body .tm-viewer {
       height: 100%;
     }

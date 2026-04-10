@@ -144,22 +144,17 @@
     this.pins = preloadedPins || [];
     this._loadPersonalPins();
     var loadId = ++this._loadId;
-    console.log('[TM] loadMap called: mapKey=', mapKey, 'loadId=', loadId);
-
     fetch('/api/maps/' + encodeURIComponent(mapKey) + '/meta')
       .then(function (r) {
-        console.log('[TM] fetch response: status=', r.status, 'ok=', r.ok);
         if (!r.ok) throw new Error('Failed to load map meta: ' + r.status);
         return r.json();
       })
       .then(function (meta) {
-        console.log('[TM] meta received: img=', meta.img, 'vw=', meta.vw, 'vh=', meta.vh, 'loadId match=', self._loadId === loadId);
         if (self._loadId !== loadId) return;
         self.meta = meta;
         self.gridVisible = !!(meta.gridConfig && meta.gridConfig.gridOn);
         var gridBtn = self._toolbar.querySelector('.tm-grid-toggle');
         if (gridBtn) gridBtn.classList.toggle('tm-active', self.gridVisible);
-        console.log('[TM] calling _render, container in DOM=', document.body.contains(self.container));
         self._render();
         self.fitView();
         if (self.socket) {
@@ -584,21 +579,22 @@
     this._canvas.style.transform = 'translate(' + this.panX + 'px,' + this.panY + 'px) scale(' + this.zoom + ')';
   };
 
-  TacticalMapViewer.prototype.fitView = function () {
+  TacticalMapViewer.prototype.fitView = function (retries) {
     if (!this.meta) return;
     var vp = this._viewport;
     var padW = vp.clientWidth - 20;
     var padH = vp.clientHeight - 20;
-    console.log('[TM] fitView: vp.clientWidth=', vp.clientWidth, 'vp.clientHeight=', vp.clientHeight, 'padW=', padW, 'padH=', padH);
     if (padW <= 0 || padH <= 0) {
-      var self = this;
-      requestAnimationFrame(function () { self.fitView(); });
+      var r = retries || 0;
+      if (r < 10) {
+        var self = this;
+        setTimeout(function () { self.fitView(r + 1); }, 50);
+      }
       return;
     }
     this.zoom = Math.min(padW / this.meta.vw, padH / this.meta.vh, 1.5);
     this.panX = (vp.clientWidth - this.meta.vw * this.zoom) / 2;
     this.panY = (vp.clientHeight - this.meta.vh * this.zoom) / 2;
-    console.log('[TM] fitView: zoom=', this.zoom, 'panX=', this.panX, 'panY=', this.panY);
     this._applyTransform();
   };
 
