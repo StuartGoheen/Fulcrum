@@ -525,6 +525,17 @@ A leviathan is a creature of the deep that drags you down. This weapon literally
 ### Adventure 2: A Wretched Hive
 **Act:** 1 | **Location:** Takodana (Blackwind Point, Varga's Fortress)
 
+**Opening Crawl:**
+
+> *Episode II*
+> **A WRETCHED HIVE**
+>
+> Having rescued the imprisoned ADMIRAL VARTH from a secret Imperial fortress on Ajan Kloss, the crew of the BANSHEE has escaped the shadow of the dreaded INQUISITOR DRACO. But freedom has a price, and Varth has named it.
+>
+> Millions in embezzled Imperial credits lie locked inside the criminal network of VARGA THE HUTT — a ruthless crime lord whose fortress on the far shore of TAKODANA's Nymeve Lake serves as a haven for smugglers, slavers, and Imperial opportunists. To claim their share, the crew must infiltrate his court and steal the data that will unlock the fortune.
+>
+> Now, as the Banshee descends toward the rain-soaked shores of Takodana, the crew prepares to walk into a world where trust is a commodity, mercy is a weakness, and the only law is whatever the Hutt says it is....
+
 **What the Players Know Going In:** Varth needs them inside Varga's fortress to steal account routing data from his financial network. The money is there — they just need to find where Varga moved it.
 
 **What the GM Knows:** Varth has a secondary objective the heroes don't know about. He's done research and knows Varga is holding a Jedi Master (Denia) in stasis. Varth knows Denia is a Jedi historian who would know where holocrons are hidden and is Force-sensitive enough to open them. He hasn't told the heroes about her.
