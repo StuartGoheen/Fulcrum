@@ -1318,7 +1318,7 @@
               "name": "Cantina Brawl",
               "type": "combat",
               "trigger": "Only if someone throws the first punch, or social resolution fails badly and PCs refuse to back down",
-              "description": "Bar brawl in a cramped cantina. Fists, headbutts, thrown bottles, overturned tables. Stun damage — no one is trying to kill. Blasters stay holstered. Combat only escalates to lethal if: (a) a brawl is already happening AND someone draws a blaster, OR (b) social failed AND a PC with blaster drawn refuses to hand Maya over.",
+              "description": "Bar brawl in a cramped cantina. Fists, headbutts, thrown bottles, overturned tables. Stun damage — no one is trying to kill. Blasters stay holstered. Combat only escalates to lethal if: (a) a brawl is already happening AND someone draws a blaster, OR (b) social failed AND a PC with blaster drawn refuses to hand Maya over. [map:burning-deck]",
               "tactics": "Krev grapples and shoves (Physique 3). Kyuzo headbutt with war helms — Hit and Run (melee attack + free disengage), then Reposition to flank. They fight as a pair. If a blaster comes out during the brawl, all three draw — the scene shifts to lethal.",
               "composition": {
                 "enemies": [

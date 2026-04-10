@@ -1089,12 +1089,26 @@
     return html;
   }
 
-  function _extractMapKeyFromScene(scene) {
-    if (!scene) return null;
-    var sources = [scene.gmNotes || '', scene.text || ''];
+  function _extractMapKey(scene, encounter) {
+    var sources = [];
+    if (scene) {
+      if (scene.gmNotes) sources.push(scene.gmNotes);
+      if (scene.text) sources.push(scene.text);
+      if (scene.readAloud) sources.push(scene.readAloud);
+      if (scene.readAloudPart1) sources.push(scene.readAloudPart1);
+      if (scene.readAloudPart2) sources.push(scene.readAloudPart2);
+    }
+    if (encounter) {
+      if (encounter.description) sources.push(encounter.description);
+      if (encounter.gmNotes) sources.push(encounter.gmNotes);
+      if (encounter.tactics) sources.push(encounter.tactics);
+    }
     for (var i = 0; i < sources.length; i++) {
       var m = sources[i].match(/\[map:([a-zA-Z0-9_-]+)\]/);
       if (m) return m[1];
+    }
+    if (scene && scene.tacticalMap && scene.tacticalMap.mapKey) {
+      return scene.tacticalMap.mapKey;
     }
     return null;
   }
@@ -1104,7 +1118,7 @@
 
   function renderTacticalMap() {
     if (!combatState) return '';
-    var mapKey = _extractMapKeyFromScene(combatState.scene);
+    var mapKey = _extractMapKey(combatState.scene, combatState.encounter);
     if (!mapKey) return '';
     _ctMapKey = mapKey;
 
