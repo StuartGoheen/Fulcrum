@@ -68,7 +68,7 @@ Then she intercepted the Code Cylinder from Varga's supply chain on Jakku. It wa
 **Arc:** Stranger → Partner → Conscience of the crew → Varth's intended sacrifice → Survivor → Soren reunion (Adv8) → Redemption witness (Adv10) → (if saved from Adv3) the person who punches Varth and speaks the truth about what he is.
 
 **Key Moments:**
-- Adv1 S1: Crashes the heroes' table at The Burning Deck on Jakku — wounded, fleeing Varga's retrieval crew after intercepting the Code Cylinder. Pitches the job.
+- Adv1 P1 S1: Crashes the heroes' table at The Burning Deck on Jakku — wounded, fleeing Varga's retrieval crew after intercepting the Code Cylinder. Pitches the job.
 - Adv1 P2 S1: Invites the Ace Pilot to the co-pilot seat for the Smuggler's Path (Jakku → Ajan Kloss via scavenger trails, Ord Mantell, Aldhani). Bonding moment — teaches them to read the gaps between hyperspace lanes.
 - Adv1 P2 S2: Takes shrapnel during V-wing strafing on approach. The Ace takes the stick and crash-lands the Banshee. Maya stays behind to repair and gives the heroes a secondary objective: disable the turret defenses so she can fly extraction.
 - Adv1 P2 S6: Extraction is conditional on turrets being down. If they're destroyed, she swoops in clean. If not, she takes heavy fire. Either way, she proves she's not just a grifter — she's the crew's pilot under fire.
@@ -129,8 +129,9 @@ Before his capture, Varth had arranged for a code cylinder — an Imperial ghost
 
 **Key Moments:**
 - Adv1 P2 S5: "You're late. I had credits on the second moonrise." The heroes meet Varth — charming, unbothered, gambling with his guards. Uses nicknames immediately. Establishes the "Cool Uncle" persona. Carries nothing physical — his authentication key is memorized. His value is entirely in what he knows.
-- Adv2 S4: "Leave her. She's a liability." — Varth recognizes Denia immediately but advises abandonment. If the heroes rescue her anyway, he adapts his plan around her. If they listen, he secretly tips off Draco, who recovers Denia off-camera. Either way, Varth gets what he needs — the question is whether Denia is his instrument or Draco's prisoner. **First red flag:** his willingness to abandon a helpless person is chilling regardless of the outcome.
-- Adv2 S6: **Executes Warrick Raden** at the hangar. The heroes just rescued Raden from the dungeons. Varth greets him almost warmly, then draws and shoots him between the eyes. "I told you the next time I saw you, I would kill you." **Second red flag** — and far worse than the first. (See Raden entry below for backstory.)
+- Adv2 P1 S3: **The Raden Dark Path.** When the heroes contact Varth from the filtration plant, he coldly suggests delivering Raden to Varga as an entry gift: "Varga wants Raden. Deliver him. A fugitive returned in chains is worth more than any cover story." This is the first real glimpse of Varth's pragmatic ruthlessness — foreshadowing his willingness to sacrifice people for the mission. **Potential early red flag** — if the heroes take this path, they've already seen what Varth is.
+- Adv2 P2 S7: "Leave her. She's a liability." — Varth recognizes Denia immediately but advises abandonment. If the heroes rescue her anyway, he adapts his plan around her. If they listen, he secretly tips off Draco, who recovers Denia off-camera. Either way, Varth gets what he needs — the question is whether Denia is his instrument or Draco's prisoner. **Red flag #1:** his willingness to abandon a helpless person is chilling regardless of the outcome.
+- Adv2 P2 S9: **Executes Warrick Raden** at the hangar — but ONLY if Raden entered the fortress (dark path: delivered in chains, then rescued from dungeons). Varth greets him almost warmly, then draws and shoots him between the eyes. "I told you the next time I saw you, I would kill you." **Red flag #2** — and far worse than the first. If the heroes took the light path (Raden stayed behind at the filtration plant), this execution does not occur and Varth's second red flag is deferred to Adv3. (See Raden entry below for branching arc.)
 - Adv3 P2 S2: "The Pressure Cooker" — Players overhear Varth and Maya arguing about the Shackles of Nizon. "That is not why we are here." He shuts down the moral argument with operational logic. When Maya goes silent and then goes to the slave ship on her own, Varth notices. He says nothing. His betrayal is omission.
 - Adv3 P2–P3: "The Man in the Chair" — Varth coaches the heroes via encrypted comms throughout the tournament and the chase. He's genuinely useful, genuinely funny, genuinely engaged. This is what makes the betrayal work: he's good at his job and the heroes need him.
 - Adv3 P3 S5: Orders the heroes to jump to hyperspace while Maya is on the slave ship. "It's too hot. Jump. Now." **Third red flag.** If the heroes read him (Insight vs Resist 4), they can see through the tactical justification to the calculated silence underneath.
@@ -152,7 +153,7 @@ Before his capture, Varth had arranged for a code cylinder — an Imperial ghost
 2. **Cold Varth** (flashes in Adv2–3, dominant in Adv6): The mask slips. "Leave her." The Raden execution. The calculated silence about Maya. These moments should feel like ice water — brief, shocking, and immediately smoothed over by Charming Varth returning.
 3. **Command Varth** (Adv7–10): The admiral on the bridge. Professional, efficient, no longer performing for an audience. He doesn't hate the heroes. He's past them. This Varth is the most dangerous because he's not pretending to be anything.
 
-*The red flags:* Space them. Don't cluster the warning signs. Adv2 S4 (Denia), Adv2 S6 (Raden), Adv3 P2 S2 (the argument), Adv3 P3 S5 (the jump order) — each one should land, get discussed by the players, and then be partially rationalized away by Charming Varth's next good moment. The goal is not to trick the players. The goal is to make them complicit in their own denial. When the betrayal lands in Adv6, the players should feel not surprise but *recognition* — "We knew. We saw the signs. We chose not to believe them."
+*The red flags:* Space them. Don't cluster the warning signs. Adv2 P1 S3 (the Raden dark path suggestion — optional, depends on player contact with Varth), Adv2 P2 S7 (Denia — "Leave her"), Adv2 P2 S9 (Raden execution — only if dark path taken), Adv3 P2 S2 (the argument), Adv3 P3 S5 (the jump order) — each one should land, get discussed by the players, and then be partially rationalized away by Charming Varth's next good moment. If the heroes took the light path with Raden (he stayed behind), they get fewer red flags in Adv2 — which makes the Adv3 flags hit harder because they have less preparation. The goal is not to trick the players. The goal is to make them complicit in their own denial. When the betrayal lands in Adv6, the players should feel not surprise but *recognition* — "We knew. We saw the signs. We chose not to believe them."
 
 *The final confrontation (Adv10):* Resist the urge to make this a villain speech. Varth is not Palpatine. He doesn't cackle, he doesn't monologue, he doesn't explain his master plan — the heroes already know the plan. The most devastating version of this scene is quiet. Varth sees them, nods, and says something that acknowledges their shared history without apologizing for what he did with it. If a player asks "Why?" — and they will — Varth's answer should be honest and insufficient: "Because I could. And because nobody else was going to do it right." That's it. That's who he is. A man who believed competence justified anything.
 
@@ -180,14 +181,14 @@ Varth recognized her immediately in the dungeon. He advised "Leave her — she's
 **Arc (Alternate — Abandoned):** Captive relic → Left behind → Secretly recovered by Draco off-camera → Draco's prisoner throughout the campaign → Discovered in Draco's custody during Adv10 showdown (gut-punch: the heroes' choice to listen to Varth put her in the Inquisitor's hands)
 
 **Key Moments (Primary Path):**
-- Adv2 S4: Found in stasis. Varth says "Leave her." Heroes rescue her anyway.
-- Adv3 S6: Casually prompted by Varth about Jedi navigation of the Unknown Regions. Suggests the Ebon Spire on Endor.
+- Adv2 P2 S7: Found in stasis. Varth says "Leave her." Heroes rescue her anyway.
+- Adv3 P3 S6: Casually prompted by Varth about Jedi navigation of the Unknown Regions. Suggests the Ebon Spire on Endor.
 - Adv4: Sends the heroes to Endor (from her perspective, to preserve Jedi knowledge; from Varth's, to retrieve his real prize)
 - Adv7: Captured by Inquisitor Draco when the Resurgence is destroyed
 - Adv9: Rescue mission — structurally optional but narratively devastating if skipped
 
 **Key Moments (Alternate Path):**
-- Adv2 S4: Found in stasis. Varth says "Leave her." Heroes comply. Varth secretly contacts Draco.
+- Adv2 P2 S7: Found in stasis. Varth says "Leave her." Heroes comply. Varth secretly contacts Draco.
 - Adv2–9: Denia is absent. The Church of the Force fills the lore-interpreter role. Draco holds Denia off-camera — she is never mentioned again until the finale.
 - Adv10: Heroes confront Draco and discover Denia alive in his custody — broken, interrogated, but surviving. The reveal: the man they trusted told them to abandon her so he could hand her to the Empire.
 
@@ -267,8 +268,8 @@ When he sees Maya on Batuu, he doesn't run. He's too tired to run. He doesn't ap
 **Arc:** One-scene info broker → Recurring intelligence fixer → Black market connection → (potential) Act 3 resource
 
 **Key Moments:**
-- Adv1 S2: Examines the code cylinder. Quotes a diagnostic fee the heroes can't afford. Offers the discount deal — reduced fee in exchange for the heroes becoming information assets for his network.
-- Adv2 S1: TC-663 (Switch's agent inside Varga's fortress) is encountered — proof that Switch's network is real and far-reaching.
+- Adv1 P1 S2: Examines the code cylinder. Quotes a diagnostic fee the heroes can't afford. Offers the discount deal — reduced fee in exchange for the heroes becoming information assets for his network.
+- Adv2 P1 S5: TC-663 (Switch's agent inside Varga's fortress) is encountered — proof that Switch's network is real and far-reaching.
 - Ongoing: Available as a contact for intel, identification, black market deals, and underworld connections.
 
 ---
@@ -293,24 +294,34 @@ Mandrake went native. He adopted the indigenous culture, learned their language,
 ---
 
 ### Warrick Raden
-**Species:** Human | **Role:** Fixer (deceased)
+**Species:** Devaronian | **Role:** Fixer (fate branching)
 
-**What the Players See:** A desperate man hiding in a water filtration plant on Takodana. He used to work for Varga but fell out of favor. He has a bounty on his head and is terrified. He knows the inside of Varga's fortress and can get the heroes in. Later, the heroes find him in Varga's dungeons and rescue him.
+**What the Players See:** A desperate Devaronian in his forties hiding in a water filtration plant on Takodana. He used to work for Varga but fell out of favor. He has a bounty on his head and is terrified. He knows the inside of Varga's fortress but **refuses to go back** — the last time he was inside, he barely escaped with his life.
 
 **What the GM Knows:** Raden was a middleman in Varga's network — a fixer who facilitated deals, moved money, and made introductions. When Varth was actively embezzling through Varga's operation, Raden profited as a go-between and took his cut. When Varth went dark (captured, imprisoned), Raden lost his income stream. He tried to run Varth's play on his own — skimming from Varga directly. But Raden isn't Varth. He got caught, Varga put a bounty on him, and he went into hiding.
 
-Varth did his research before sending the heroes to Takodana. He knew Raden was on the outs with Varga and desperate. A man with a bounty on his head who knows the inside of the fortress is the perfect entry ticket. Varth didn't pick Raden out of loyalty — he picked him because he's useful and disposable. Raden knows too much about how the embezzlement pipeline worked and would talk to anyone who offered protection. He's a liability.
+Varth did his research before sending the heroes to Takodana. He knew Raden was on the outs with Varga and desperate. A man with a bounty on his head who knows the inside of the fortress is the perfect intelligence source. Varth didn't pick Raden out of loyalty — he picked him because he's useful and disposable. Raden knows too much about how the embezzlement pipeline worked and would talk to anyone who offered protection. He's a liability.
 
-**Arc:** Contact → Entry ticket → Captured → Rescued → Executed by Varth at the hangar
+**Arc (Three Paths):**
+
+The heroes' negotiation with Raden at the filtration plant determines his arc:
+
+1. **Light Path (Calm persuasion — Charm/Negotiate):** Raden provides full intel — fortress layout, guard rotations, sewer access, court protocols, Varga's paranoia triggers. He stays behind at the filtration plant. He is NOT present in the fortress, dungeons, or hangar. He survives Adv2. His fate beyond Takodana is open.
+
+2. **Threaten Path (Coercion):** Raden provides thin, unreliable intel under duress — basic layout only, no guard details, possible deliberate errors. He stays behind. Same outcome as the light path but with worse information and a broken man left in their wake.
+
+3. **Dark Path (Deliver Raden to Varga):** Varth suggests delivering Raden as a gift: "Varga wants Raden. Deliver him. A fugitive returned in chains is worth more than any cover story." If the heroes take this path, they march Raden into Varga's court as a prisoner. Varga is delighted — instant credibility. Raden is dragged to the dungeons. Later, the heroes find him in the dungeons alongside Denia (P2 S7). If rescued: Varth executes him at the hangar (P2 S9). If left behind: he remains in Varga's custody, fate unknown.
 
 **Key Moments:**
-- Adv2 S1: Heroes find Raden hiding in the water filtration plant. He's terrified but agrees to help.
-- Adv2 S2: Raden gets the heroes inside Varga's fortress.
-- Adv2 S4: Raden is discovered and dragged to the dungeons.
-- Adv2 S5: Heroes find him in the dungeons alongside Denia. They rescue both.
-- Adv2 S6: **At the hangar, Varth kills him.** Raden is walking toward freedom on the ship's ramp. Varth greets him, then draws and shoots him between the eyes. "I told you the next time I saw you, I would kill you." The line references their last dealing — when Varth discovered Raden was running his own skim. It sounds personal. It's not. It's operational. Varth is eliminating a liability who knew too much about the embezzlement pipeline.
+- Adv2 P1 S3: Heroes find Raden hiding in the water filtration plant. He's terrified, desperate, and provides what intel he can — but flatly refuses to return to the fortress. Three negotiation outcomes determine his arc.
+- Adv2 P1 S4: Hit squad aftermath — if the heroes contact Varth, he suggests the dark path. This is the scene where the "corruption" destiny tag is set, marking the first crystallization of Varth's willingness to sacrifice people.
+- **Dark path only — Adv2 P1 S5:** Heroes deliver Raden in chains to Varga's throne room. Instant credibility with the Hutt.
+- **Dark path only — Adv2 P2 S7:** Heroes find Raden beaten in a cell alongside Denia. They can rescue both, one, or neither.
+- **Dark path only — Adv2 P2 S9:** **At the hangar, Varth kills him.** Raden is walking toward freedom on the ship's ramp. Varth greets him almost warmly, then draws and shoots him between the eyes. "I told you the next time I saw you, I would kill you." The line references their last dealing — when Varth discovered Raden was running his own skim. It sounds personal. It's not. It's operational. Varth is eliminating a liability who knew too much about the embezzlement pipeline.
 
-**What the heroes see:** A man they rescued, walking toward freedom, shot dead by the man who sent them to find him. Varth doesn't break stride.
+**What the heroes see (dark path):** A man they betrayed, rescued, and then watched die — shot by the man who told them to betray him in the first place. The full moral arc of complicity in a single scene. Varth doesn't break stride.
+
+**What the heroes carry (light path):** Raden is somewhere on Takodana, alive because they chose not to drag him back. They get no dramatic execution scene. Varth's second red flag is deferred — which means they have less warning before Adv3. Sometimes mercy costs you information.
 
 ---
 
@@ -324,7 +335,7 @@ Varth did his research before sending the heroes to Takodana. He knew Raden was 
 **Arc:** Suspicious observer → Mini-boss → Killed during the escape
 
 **Key Moments:**
-- Adv2 S5: Blocks the heroes' escape route after they retrieve Denia from the dungeon. Uses untrained Force Slam. Dies fighting.
+- Adv2 P2 S8: Blocks the heroes' escape route after they retrieve Denia from the dungeon. Uses untrained Force Slam. Dies fighting.
 - When Demos falls, Denia senses his untrained Force sensitivity: "He was touched by the Force... untrained, but there." This humanizes the kill and establishes Denia's sensitivity.
 
 ---
@@ -396,7 +407,7 @@ The Death Star is a hammer — visible, political, designed to terrify through s
 
 ### Slave Labor Connection (Adventure 2)
 
-The Iron Ring slave network (exposed through Lady Sinde's operations on Cato Neimoidia) is funneling forced labor to Vel Shara for the massive construction effort. The gravity well projectors require precision assembly at enormous scale — work that the Empire would rather not pay for or document.
+The Iron Ring slave network (exposed through Lady Sinde's operations at Varga's fortress on Takodana) is funneling forced labor to Vel Shara for the massive construction effort. The gravity well projectors require precision assembly at enormous scale — work that the Empire would rather not pay for or document.
 
 ### Campaign Thread
 
@@ -408,7 +419,7 @@ The Iron Ring slave network (exposed through Lady Sinde's operations on Cato Nei
 | Adv4 | Ancient hyperspace routes needed to reach it — the Ebon Spire's charts |
 | Adv5 | Heroes liberate Malpaz (unknowingly painting the demonstration target) |
 | Adv6 | Varth receives command from Tarkin on Eriadu (Glass Bridge) — the betrayal revealed |
-| Adv9 | Heroes assault Leviathan at Vel Shara — heavy droid/automated defenses protecting the gravity well generators |
+| Adv9 | Xala rescue — heroes assault Draco's stronghold to recover Denia. Learn operational details about Leviathan deployment timeline |
 | Adv10 | Leviathan deploys over Malpaz — the demonstration / final confrontation |
 
 ### The Name
@@ -422,7 +433,7 @@ A leviathan is a creature of the deep that drags you down. This weapon literally
 ### 1. The Code Cylinder (Adventures 1)
 **What it is:** An Imperial ghost transfer authorization device. Contains intel about Varth's detention but NOT his location directly. It can authenticate into Imperial shuttle nav systems.
 **Origin:** Varth arranged for it to be smuggled out before his capture. It ended up in Varga's orbit. Maya intercepted it before Varga's operatives could grab it.
-**Resolution:** Used in Adv1 S4 to access an Imperial shuttle's nav computer on Jakku, downloading the coordinates for the Vanishing Place on Ajan Kloss. Effectively dead after use — the authentication codes will be disabled.
+**Resolution:** Used in Adv1 P1 S5 to access an Imperial shuttle's nav computer on Jakku, downloading the coordinates for the Vanishing Place on Ajan Kloss. Effectively dead after use — the authentication codes will be disabled.
 
 ### 2. The Encrypted Account (Adventures 1–3)
 **What it is:** Millions of embezzled credits locked behind Varth's personal encryption inside Varga's financial network. Varga can see the money but can't access it.
@@ -452,6 +463,17 @@ A leviathan is a creature of the deep that drags you down. This weapon literally
 
 ### Adventure 1: The Traitor's Gambit
 **Act:** 1 | **Location:** Jakku (Part 1), Ajan Kloss (Part 2)
+
+**Opening Crawl:**
+
+> *Episode I*
+> **THE TRAITOR'S GAMBIT**
+>
+> It is three years since the fall of the REPUBLIC. The GALACTIC EMPIRE tightens its grip on the Core Worlds, but in the lawless Western Reaches, its authority is little more than a rumor backed by distant STAR DESTROYERS.
+>
+> On the frontier, survival has its own currency. CRIME SYNDICATES and loan sharks rule the trade lanes, and debts are collected not with writs but with blasters. Those who cannot pay disappear. Those who run end up somewhere worse.
+>
+> Now, on a forgotten Outer Rim outpost, a band of desperate strangers — each haunted by a past they cannot outrun — finds themselves drawn together by a job too dangerous to refuse and too profitable to ignore....
 
 **What the Players Know Going In:** Nothing. They're nobodies on a backwater planet, nursing drinks in a cantina.
 
@@ -508,21 +530,33 @@ A leviathan is a creature of the deep that drags you down. This weapon literally
 **What the GM Knows:** Varth has a secondary objective the heroes don't know about. He's done research and knows Varga is holding a Jedi Master (Denia) in stasis. Varth knows Denia is a Jedi historian who would know where holocrons are hidden and is Force-sensitive enough to open them. He hasn't told the heroes about her.
 
 **Key Plot Beats:**
-- **S1 — Blackwind Point:** Kessra and the Vipers shake down the heroes at Blackwind Point (consequence gate — how they handle Kessra determines whether she returns for revenge inside the fortress). Investigation leads to Warrick Raden hiding at the Water Filtration Plant. A Trandoshan hit squad attacks the plant — Varga is cleaning house. Raden agrees to get them inside as "entertainment."
-- **S2 — The Court of Varga:** Raden leads the heroes through the fortress to Varga's throne room. Varga demands an audition — each hero must demonstrate value (gladiator bout, tech repair, charm, etc.). Raden is recognized and dragged to the dungeons. TC-663 (Switch's droid agent inside the fortress) is introduced and begins covertly assisting the heroes.
-- **S3 — Currying Favor (Multi-Day Sandbox):** The court phase plays out over several days with structured events and freeform exploration between them. **Court Events:** (1) Gladiator arena — heroes fight or sponsor fighters to build reputation. (2) Iron Ring slavers arrive — slave auction with a Twi'lek slave who attempts to poison Varga's drink; heroes can save him for instant favor. A Wookiee warrior is sold but stays as arena muscle (sleeper threat). (3) Lady Sinde's ISB Imperial delegation — Sinde (real name: Victra Sinde, ISB double agent posing as Leviathan logistics officer) negotiates Tibanna gas shipments with Varga; heroes may recognize her from Organa's circle or discover her ISB identity. **Between Events:** Gome the Duros moneychanger (elderly, rambling, morally indifferent) reveals Varga's departure plans and Bespin/Cloud City as his fallback headquarters. TC-663 visits the heroes at night with Demos's encrypted comms (mentioning "the prisoner" = Denia). Kessra's aviary ambush (conditional on S1 outcome) — personal vendetta, targets 1-2 heroes by name, locks doors, releases predatory birds. **Knife in the Dark:** The Wookiee sleeper from the Iron Ring event teams with the Twi'lek (if saved) and a Quarren assassin for a nighttime assassination attempt on the heroes.
-- **S4 — Discovering Denia:** Telepathic whispers lead the heroes to the dungeon. They find Jedi Master Denia in a stasis pod and Raden beaten in a cell. Varth's voice over comms: "Leave her. She's a liability. We don't have time for dead weight." — First red flag. The heroes must decide whether to rescue Denia against Varth's advice. Heroes eavesdrop on a holo-call between Demos and Inquisitor Draco: "I am on my way, with the *Assiduous*." Death clock starts. **If abandoned:** Varth secretly contacts Draco after the escape. Draco recovers Denia off-camera. The heroes never learn she survived until the Adv10 showdown.
-- **S5 — The Escape:** Demos blocks the escape route with his Trandoshan bodyguard and guards. Mini-boss fight — Demos uses untrained Force Slam and his vibro-staff. **He is killed.** When Demos falls, Denia senses his Force sensitivity: "He was touched by the Force... untrained, but there."
-- **S6 — The Hangar:** Lady Sinde's Stormtroopers execute witnesses to protect Leviathan's secrecy. Varga has already fled in the *Glorious Chariot*. **Varth executes Warrick Raden** at the ship's ramp — shoots him between the eyes. "I told you the next time I saw you, I would kill you." Second red flag. Heroes escape and track Varga's trajectory to Bespin.
+
+**Part 1 — Blackwind Point to the Fortress Gates (5 scenes):**
+- **P1 S1 — Blackwind Point:** Kessra and the Vipers shake down the heroes at Blackwind Point (consequence gate — how they handle Kessra determines whether she returns for revenge inside the fortress).
+- **P1 S2 — Working the Encampment:** Investigation phase. The heroes work the refugee encampment around Varga's fortress to gather intel. Group challenge with VP accumulation — five named NPCs (Mekka the Rodian mechanic, Drelk the Devaronian heavy, Nola Shar the human camp doctor, Gorr the Trandoshan tracker, Greez Thakka the Sullustan pilot). Higher VP totals unlock better intelligence about the fortress, Raden's location, and potential entry methods.
+- **P1 S3 — The Filtration Plant:** Heroes find Warrick Raden hiding in the water filtration plant. He's a Devaronian in his forties — terrified, desperate, and flat-out refuses to go back inside the fortress. **Three negotiation outcomes:** (1) Calm persuasion (Charm/Negotiate) — full intel: fortress layout, guard rotations, sewer access, court protocols, Varga's paranoia triggers. Raden stays behind. (2) Threaten (Coercion) — thin, unreliable intel under duress. Raden stays behind. (3) Dark path — requires contacting Varth first (see P1 S4). Varth suggests delivering Raden in chains as a gift to Varga.
+- **P1 S4 — The Hit Squad:** Trandoshan hit squad attacks the filtration plant — Varga is cleaning house. Combat scene. Aftermath: if the heroes contact Varth, he may suggest the dark path ("Varga wants Raden. Deliver him."). The "corruption" destiny tag is set here — the first crystallization of Varth's willingness to sacrifice people for the mission.
+- **P1 S5 — The Court of Varga:** Heroes enter the throne room. **Light/Threaten path:** They arrive on their own cover — entertainers, freelancers, or whatever legend they've built. **Dark path:** They deliver Raden in chains. Varga is delighted — instant credibility. Raden is dragged to the dungeons. **Light/Threaten path:** Varga demands an audition — each hero must demonstrate value (gladiator bout, tech repair, charm, etc.). **Dark path:** Delivering Raden earns immediate acceptance — no audition required. Varga is delighted with the gift and fast-tracks the crew into his court. TC-663 (Switch's droid agent inside the fortress, activated by code phrase) is introduced and begins covertly assisting the heroes.
+
+**Part 2 — The Court Phase and Escape (9 scenes):**
+- **P2 S1 — The Gladiator Arena:** Heroes fight or sponsor fighters to build reputation with Varga's court.
+- **P2 S2 — The Iron Ring:** Slave auction event. A Twi'lek slave attempts to poison Varga's drink; heroes can save him for instant favor. A Wookiee warrior is sold but stays as arena muscle (sleeper threat for P2 S5). Lady Sinde's ISB Imperial delegation — Sinde negotiates Tibanna gas shipments with Varga; heroes may recognize her from Organa's circle or discover her ISB identity. First exposure to the Leviathan supply chain.
+- **P2 S3 — Working the Court:** Freeform exploration. Gome the Duros moneychanger (elderly, rambling, morally indifferent) reveals Varga's departure plans and Bespin/Cloud City as his fallback headquarters. TC-663 visits the heroes at night with Demos's encrypted comms (mentioning "the prisoner" = Denia).
+- **P2 S4 — The Imperial Shadow:** Lady Sinde's formal negotiations. Heroes can eavesdrop, intercept transmissions, or discover Leviathan logistics details.
+- **P2 S5 — Knife in the Dark:** The Wookiee sleeper from the Iron Ring event teams with the Twi'lek (if saved) and a Quarren assassin for a nighttime assassination attempt on the heroes. Kessra's aviary ambush (conditional on P1 S1 outcome) may also trigger here — personal vendetta, targets 1-2 heroes by name, locks doors, releases predatory birds.
+- **P2 S6 — The Heist:** Heroes infiltrate Varga's private quarters to steal encryption keys from his datapad. The critical mission objective — the routing data they came for.
+- **P2 S7 — Discovering Denia:** Telepathic whispers lead the heroes to the dungeon. They find Jedi Master Denia in a stasis pod. **Dark path only:** Raden is also here, beaten in a cell — the man they delivered to Varga. Varth's voice over comms: "Leave her. She's a liability. We don't have time for dead weight." — **Red flag #1.** The heroes must decide whether to rescue Denia (and Raden, if present) against Varth's advice. Heroes eavesdrop on a holo-call between Demos and Inquisitor Draco: "I am on my way, with the *Assiduous*." Death clock starts. **If Denia abandoned:** Varth secretly contacts Draco after the escape. Draco recovers Denia off-camera. The heroes never learn she survived until the Adv10 showdown.
+- **P2 S8 — The Escape:** Demos blocks the escape route with his Trandoshan bodyguard and guards. Mini-boss fight — Demos uses untrained Force Slam and his vibro-staff. **He is killed.** When Demos falls, Denia senses his Force sensitivity: "He was touched by the Force... untrained, but there."
+- **P2 S9 — The Hangar Bay:** Lady Sinde's Stormtroopers execute witnesses to protect Leviathan's secrecy. Varga has already fled in the *Glorious Chariot*. **Dark path only:** If Raden was delivered in chains and then rescued from the dungeons, **Varth executes him** at the ship's ramp — shoots him between the eyes. "I told you the next time I saw you, I would kill you." **Red flag #2.** **Light path:** Raden is not present — he stayed behind at the filtration plant. Varth's second red flag is deferred to Adv3. Heroes escape and track Varga's trajectory to Bespin.
 
 **What Changes by the End:**
 - Heroes have Denia — a new ally and Varth's secret instrument (if rescued against Varth's advice); OR heroes left Denia behind on Varth's recommendation (Varth secretly tips off Draco, who recovers her off-camera)
 - Partial routing data from Varga's network (not enough to unlock the account alone)
 - Varga's escape vector points to Bespin / Cloud City
 - First exposure to Leviathan supply chain through Lady Sinde's negotiations and Demos/Draco holo-call
-- **Warrick Raden is dead** — executed by Varth at the hangar after the heroes rescued him
 - **Igren Demos is dead** — killed during the escape; Denia senses his Force sensitivity
-- Two Varth red flags: (1) advising the heroes to abandon a helpless Jedi in a dungeon — "She's a liability"; (2) executing Raden in cold blood in front of the crew
+- **Warrick Raden's fate is path-dependent:** Light path — alive, left behind at the filtration plant. Dark path — executed by Varth at the hangar (if rescued from dungeons) or left in Varga's custody (if abandoned in dungeons)
+- Varth red flags vary by path: Light path gets one flag (Denia — "She's a liability"). Dark path gets up to three (the delivery suggestion, Denia, the execution)
 
 **Open Threads Carried Forward:**
 - Varga's escape to Bespin (→ Adv3)
@@ -532,12 +566,13 @@ A leviathan is a creature of the deep that drags you down. This weapon literally
 - Iron Ring / slave trade (→ Adv3)
 - Lady Sinde / ISB (→ ongoing)
 - Inquisitor Draco and the *Assiduous* (→ Adv3)
+- Warrick Raden's fate — if light path taken, he's alive on Takodana (→ potential Act 3 return)
 
 **Threads Resolved:**
 - Getting inside Varga's fortress
-- Warrick Raden (gets the heroes in → captured → rescued from dungeons → executed by Varth at hangar)
+- Warrick Raden — path-dependent: Light path (intel source, stays behind, survives). Dark path (delivered → captured → rescued → executed by Varth OR left in dungeons)
 - Igren Demos (killed during escape — mini-boss fight)
-- Kessra vendetta (resolved in aviary ambush, if triggered)
+- Kessra vendetta (resolved in aviary ambush, if triggered; otherwise flavor only)
 - TC-663's intelligence operation inside Varga's court
 
 ---
@@ -870,17 +905,17 @@ All previously flagged characters and threads have been resolved with final disp
 
 | Character/Thread | Last Seen | Disposition |
 |---|---|---|
-| **Warrick Raden** | Adv2 S6 | **DEAD.** Found in Varga's dungeons, rescued by heroes, then executed by Varth at the hangar. "I told you the next time I saw you, I would kill you." Backstory: Raden was Varth's middleman in the embezzlement pipeline. After Varth went dark, Raden tried to skim from Varga on his own, got caught, earned a bounty. Varth sent the heroes to find him because a desperate man with inside knowledge is the perfect entry ticket — then killed him because he was a liability who knew too much. Second major Varth red flag. |
-| **Igren Demos** | Adv2 S5 | **DEAD.** Killed during the heroes' escape with Denia. Mini-boss fight — uses untrained Force Slam to block the corridor. His death is tragic: he was fighting to turn Denia over to the Inquisitorius to buy his way into Imperial favor, but the Empire would never accept a Neimoidian. He died chasing a reward he'd never receive. Denia senses his untrained Force sensitivity as he falls. |
-| **Ganga Lor** | Adv1 S3 | **DEAD.** Killed at Switch's bunker when he attacks to recover the code cylinder. |
+| **Warrick Raden** | Adv2 P1 S3 | **FATE BRANCHING.** Devaronian fixer found hiding in the water filtration plant on Takodana. Refuses to return to the fortress. Three paths: **Light path (calm persuasion):** Provides full intel, stays behind at the plant, survives Adv2. Fate beyond Takodana is open — potential Act 3 return. **Threaten path:** Provides thin intel under duress, stays behind, survives. **Dark path (delivered to Varga):** Heroes march him into Varga's court in chains on Varth's suggestion. Dragged to dungeons. If rescued from dungeons (P2 S7): Varth executes him at the hangar (P2 S9) — "I told you the next time I saw you, I would kill you." If left in dungeons: fate unknown. Backstory: Raden was Varth's middleman in the embezzlement pipeline. After Varth went dark, Raden tried to skim from Varga on his own, got caught, earned a bounty. Varth sent the heroes to find him because a desperate man with inside knowledge is the perfect intelligence source — and on the dark path, killed him because he was a liability who knew too much. |
+| **Igren Demos** | Adv2 P2 S8 | **DEAD.** Killed during the heroes' escape with Denia. Mini-boss fight — uses untrained Force Slam to block the corridor. His death is tragic: he was fighting to turn Denia over to the Inquisitorius to buy his way into Imperial favor, but the Empire would never accept a Neimoidian. He died chasing a reward he'd never receive. Denia senses his untrained Force sensitivity as he falls. |
+| **Ganga Lor** | Adv1 P1 S3 | **DEAD.** Killed at Switch's bunker when he attacks to recover the code cylinder. |
 | **Vazus Mandrake** | Adv1 P2 S6 | **DESTINY-GATED SURVIVAL.** Separatist commando gone native on Ajan Kloss. Adopted indigenous culture, protects local population from Skarn's occupation. Fought alongside heroes at the Vanishing Place, covered their retreat during extraction. **Hope-dominant crew:** Mandrake escapes into the jungle with his freed people. Available as a Rebel contact in Act 3. **Toll-dominant crew:** Inquisitor Draco cuts him down as the Banshee lifts off. The heroes watch him die covering their escape. Either outcome carries weight — survival rewards the crew's compassion; death is a consequence they carry. |
 | **Silas Draver** | Adv3 P2 S4 | **POTENTIAL RETURN IN ACT 3.** Independent heist specialist. His status after the casino firefight determines availability. Natural recruit for the pirate fleet assembly on Batuu (Adv8). |
-| **Lady Sinde** | Adv2 S2, S6 | **RECURRING — KEPT.** Imperial logistics officer tied to the Leviathan supply chain. She negotiated supplies with Varga and executed witnesses in the hangar. Available for Adv5 (Malpaz), Adv6 (Eriadu), or wherever an Imperial supply chain presence is needed. She knows the operational side of Leviathan. |
-| **Switch / TC-663 network** | Adv1 S2, Adv2 S1 | **RECURRING — KEPT.** Switch is now a recurring information broker and black market fixer. His deal with the heroes (reduced fees in exchange for passing along validated intel) establishes an ongoing transactional relationship. TC-663 inside Varga's fortress is proof of his network's reach. Switch serves as the heroes' contact for intel, identification, black market gear, and underworld connections throughout the campaign. |
+| **Lady Sinde** | Adv2 P2 S2, P2 S9 | **RECURRING — KEPT.** Imperial logistics officer tied to the Leviathan supply chain. She negotiated supplies with Varga and executed witnesses in the hangar. Available for Adv5 (Malpaz), Adv6 (Eriadu), or wherever an Imperial supply chain presence is needed. She knows the operational side of Leviathan. |
+| **Switch / TC-663 network** | Adv1 P1 S2, Adv2 P1 S5 | **RECURRING — KEPT.** Switch is now a recurring information broker and black market fixer. His deal with the heroes (reduced fees in exchange for passing along validated intel) establishes an ongoing transactional relationship. TC-663 inside Varga's fortress is proof of his network's reach. Switch serves as the heroes' contact for intel, identification, black market gear, and underworld connections throughout the campaign. |
 | **Soren Vex** | Adv8 P1 S3, Adv10 P1 S2 | **DEAD.** Maya's former smuggling partner. Turned her in to the Empire for a bounty during a refugee run. Drifted through the underworld for years, ended up in Oga Garra's orbit on Batuu flying a Corellian gunship called the *Requital*. Recruited for the pirate fleet (Adv8). Dies at the Battle of Malpaz intercepting a missile meant for the *Banshee* — ship disabled, life support failing, dying comms goodbye cut short by a turbolaser. Last words unfinished: "Tell them I was — " Redemption through action, not words. |
-| **Kessra / The Vipers** | Adv2 S1 | **FLAVOR ONLY.** Tone-setting swoop gang encounter. Disposable. |
+| **Kessra / The Vipers** | Adv2 P1 S1 | **CONSEQUENCE GATE.** Swoop gang encounter at Blackwind Point. How the heroes handle Kessra determines whether she returns for a personal vendetta ambush inside the fortress (P2 S5 — aviary ambush, locks doors, releases predatory birds). If the ambush triggers, it's a real threat. If it doesn't trigger, Kessra is flavor only and does not recur. |
 | **Varga** | Adv3 P3 | **DEAD (Continuity Rule).** Killed during the boarding of the Glorious Chariot. See Continuity Rules. |
-| **Denia** | Adv2 S4 | **FOUND (Branch Point).** Varth advises abandonment. If rescued: mentor, holocron key (Adv4), captured by Draco (Adv7). If abandoned: Varth tips off Draco, who recovers her off-camera; heroes discover her in Draco's custody during Adv10 showdown. See Continuity Rules. |
+| **Denia** | Adv2 P2 S7 | **FOUND (Branch Point).** Varth advises abandonment. If rescued: mentor, holocron key (Adv4), captured by Draco (Adv7). If abandoned: Varth tips off Draco, who recovers her off-camera; heroes discover her in Draco's custody during Adv10 showdown. See Continuity Rules. |
 
 ---
 
@@ -938,8 +973,8 @@ Any scene, part, or NPC in adventure JSON can include a `conditionals` array:
 
 | Adventure | Target | Impact Tag | Condition | Action |
 |---|---|---|---|---|
-| Adv2 | `adv2-p2-s6` (The Hangar Bay) | `denia-fate` | `rescued` | Append gmNotes — Denia is weak and confused, doesn't know the Empire exists |
-| Adv2 | `adv2-p2-s6` (The Hangar Bay) | `denia-fate` | `abandoned` | Append gmNotes — Ship is quiet, Varth sends coded message to Draco |
+| Adv2 | `adv2-p2-s9` (The Hangar Bay) | `denia-fate` | `rescued` | Append gmNotes — Denia is weak and confused, doesn't know the Empire exists |
+| Adv2 | `adv2-p2-s9` (The Hangar Bay) | `denia-fate` | `abandoned` | Append gmNotes — Ship is quiet, Varth sends coded message to Draco |
 | Adv8 | `adv8-p1-s3` (Assembling the Fleet) | `maya-fate` | `dead` | Replace gmNotes — Soren Vex reveal shifts to retrospective grief |
 | Adv10 | `adv10-p1-s2` (The Malpaz Corridor) | `maya-fate` | `dead` | Replace gmNotes — Soren's dying words change |
 | Adv10 | `adv10-p2` (The Betrayal) | `denia-fate` | `abandoned` | Append description — Denia discovered in Draco's custody |
