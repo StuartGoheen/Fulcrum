@@ -625,12 +625,14 @@
 
     html += '</div>';
 
-    if (combatState.tacticalMap) {
-      html += renderTacticalMap();
+    var mapHtml = renderTacticalMap();
+    if (mapHtml) {
+      html += mapHtml;
     }
 
     container.innerHTML = html;
     attachCombatEvents(container);
+    if (mapHtml) _initCombatMapViewer();
   }
 
   function renderInitRail() {
@@ -1087,113 +1089,67 @@
     return html;
   }
 
+  function _extractMapKeyFromScene(scene) {
+    if (!scene) return null;
+    var sources = [scene.gmNotes || '', scene.text || ''];
+    for (var i = 0; i < sources.length; i++) {
+      var m = sources[i].match(/\[map:([a-zA-Z0-9_-]+)\]/);
+      if (m) return m[1];
+    }
+    return null;
+  }
+
+  var _ctMapViewer = null;
+  var _ctMapKey = null;
+
   function renderTacticalMap() {
-    if (!combatState || !combatState.tacticalMap) return '';
-    var tm = combatState.tacticalMap;
-    var cols = tm.gridColumns || 4;
-    var rows = tm.gridRows || 3;
-    var colLabels = tm.columnLabels || ['A', 'B', 'C', 'D'];
-    var rowLabels = tm.rowLabels || ['1', '2', '3'];
-
-    var COVER_LABELS = { 'none': 'No Cover', 'light': 'Light Cover', 'hard': 'Hard Cover', 'full': 'Full Cover' };
-    var COVER_ICONS = { 'none': '', 'light': '&#9676;', 'hard': '&#9641;', 'full': '&#9632;' };
-    var LIGHTING_ICONS = { 'normal': '', 'dim': '&#9789;', 'shadow': '&#9790;' };
-
-    var zoneMap = {};
-    tm.zones.forEach(function (z) { zoneMap[z.id] = z; });
+    if (!combatState) return '';
+    var mapKey = _extractMapKeyFromScene(combatState.scene);
+    if (!mapKey) return '';
+    _ctMapKey = mapKey;
 
     var html = '<div class="ct-tactical-map">';
-    html += '<div class="ct-section-label">Tactical Map &mdash; ' + esc(tm.zoneSize || '15ft') + ' zones</div>';
-    html += '<div class="ct-map-frame">';
-    html += '<div class="ct-map-grid" style="grid-template-columns:repeat(' + cols + ',1fr);">';
-
-    for (var r = 0; r < rows; r++) {
-      for (var c = 0; c < cols; c++) {
-        var zid = colLabels[c] + rowLabels[r];
-        var zone = zoneMap[zid];
-        if (!zone || zone.passable === false) {
-          html += '<div class="ct-zone-void"></div>';
-          continue;
-        }
-        var lightIcon = LIGHTING_ICONS[zone.lighting] || '';
-        var coverLabel = COVER_LABELS[zone.cover] || 'No Cover';
-        var coverIcon = COVER_ICONS[zone.cover] || '';
-        var selected = combatState.selectedToken ? ' ct-zone-targetable' : '';
-        var coverClass = ' ct-zone-cover-' + (zone.cover || 'none');
-        var lightClass = '';
-        if (zone.lighting === 'dim') lightClass = ' ct-zone-dim';
-        else if (zone.lighting === 'shadow') lightClass = ' ct-zone-shadow';
-
-        html += '<div class="ct-zone' + coverClass + lightClass + selected + '" data-zone-id="' + zid + '">';
-        html += '<div class="ct-zone-header">';
-        html += '<span class="ct-zone-id">' + zid + '</span>';
-        if (lightIcon) html += '<span class="ct-zone-light" title="' + esc(zone.lighting || 'Normal') + '">' + lightIcon + '</span>';
-        html += '</div>';
-        html += '<div class="ct-zone-label">' + esc(zone.label) + '</div>';
-        html += '<div class="ct-zone-cover">' + (coverIcon ? coverIcon + ' ' : '') + esc(coverLabel) + '</div>';
-
-        var tokens = getTokensInZone(zid);
-        if (tokens.length) {
-          html += '<div class="ct-zone-tokens">';
-          tokens.forEach(function (t) {
-            var isSelected = combatState.selectedToken === t.id;
-            var dispClass = t.type === 'pc' ? 'ct-token-pc' : 'ct-token-disp-' + (t.disposition || 'enemy');
-            html += '<span class="ct-token ' + dispClass + (isSelected ? ' ct-token-selected' : '') + '" data-token-id="' + esc(t.id) + '" title="' + esc(t.name) + '">' + esc(t.shortName) + '</span>';
-          });
-          html += '</div>';
-        }
-
-        html += '</div>';
-      }
-    }
-
+    html += '<div class="ct-map-viewer-header">';
+    html += '<span class="ct-section-label" style="margin:0;">Tactical Map</span>';
+    html += '<div class="ct-map-viewer-controls">';
+    html += '<button class="ct-map-btn ct-map-btn--broadcast" id="ct-map-broadcast">Broadcast</button>';
+    html += '<button class="ct-map-btn ct-map-btn--dismiss" id="ct-map-dismiss">Dismiss</button>';
     html += '</div>';
     html += '</div>';
-
-    var unplaced = [];
-    if (combatState) {
-      combatState.combatants.forEach(function (npc) {
-        if (!combatState.tokenPositions[npc.id]) {
-          unplaced.push(npc);
-        }
-      });
-      if (combatState.pcSlots && combatState.pcSlots.length > 0) {
-        combatState.pcSlots.forEach(function (pc) {
-          if (!combatState.tokenPositions[pc.id]) {
-            unplaced.unshift({ id: pc.id, name: pc.name, _isPc: true });
-          }
-        });
-      } else if (!combatState.tokenPositions['PCs']) {
-        unplaced.unshift({ id: 'PCs', name: 'Player Characters', _isPc: true });
-      }
-    }
-    if (unplaced.length) {
-      html += '<div class="ct-unplaced-bar">';
-      html += '<span class="ct-unplaced-label">Unplaced — click then click a zone:</span>';
-      unplaced.forEach(function (u) {
-        var isSelected = combatState.selectedToken === u.id;
-        var cls = u._isPc ? 'ct-token-pc' : 'ct-token-disp-' + (u.disposition || 'enemy');
-        html += '<span class="ct-token ' + cls + (isSelected ? ' ct-token-selected' : '') + '" data-token-id="' + esc(u.id) + '" title="' + esc(u.name) + '">' + esc(u.name) + '</span>';
-      });
-      html += '</div>';
-    }
-
-    html += '<div class="ct-map-legend">';
-    html += '<span class="ct-legend-item"><span class="ct-legend-swatch ct-legend-cover-light"></span>Light Cover</span>';
-    html += '<span class="ct-legend-item"><span class="ct-legend-swatch ct-legend-cover-hard"></span>Hard Cover</span>';
-    html += '<span class="ct-legend-item"><span class="ct-legend-swatch ct-legend-cover-full"></span>Full Cover</span>';
-    html += '<span class="ct-legend-item"><span class="ct-legend-swatch ct-legend-shadow"></span>Shadow</span>';
-    html += '</div>';
-
-    if (tm.gmTacticalNotes) {
-      html += '<div class="ct-map-notes">';
-      html += '<details><summary class="ct-rolekit-summary">GM Tactical Notes</summary>';
-      html += '<div class="ct-rk-body" style="font-size:0.7rem;color:#8a8a9a;white-space:pre-line;">' + esc(tm.gmTacticalNotes) + '</div>';
-      html += '</details></div>';
-    }
-
+    html += '<div class="ct-map-viewer-body" id="ct-map-viewer-body"></div>';
     html += '</div>';
     return html;
+  }
+
+  function _initCombatMapViewer() {
+    if (!_ctMapKey) return;
+    var body = document.getElementById('ct-map-viewer-body');
+    if (!body) return;
+
+    if (_ctMapViewer) {
+      try { _ctMapViewer.destroy && _ctMapViewer.destroy(); } catch (e) {}
+    }
+
+    _ctMapViewer = new window.TacticalMapViewer({
+      container: body,
+      role: 'gm',
+      socket: getSocket()
+    });
+    _ctMapViewer.loadMap(_ctMapKey);
+
+    var broadcastBtn = document.getElementById('ct-map-broadcast');
+    var dismissBtn = document.getElementById('ct-map-dismiss');
+    var sock = getSocket();
+    if (broadcastBtn && sock) {
+      broadcastBtn.addEventListener('click', function () {
+        sock.emit('map:broadcast', { mapKey: _ctMapKey });
+      });
+    }
+    if (dismissBtn && sock) {
+      dismissBtn.addEventListener('click', function () {
+        sock.emit('map:dismiss');
+      });
+    }
   }
 
   function getTokensInZone(zoneId) {
@@ -1976,24 +1932,6 @@
       });
     });
 
-    container.querySelectorAll('.ct-token').forEach(function (tok) {
-      tok.addEventListener('click', function (e) {
-        e.stopPropagation();
-        combatState.selectedToken = combatState.selectedToken === tok.dataset.tokenId ? null : tok.dataset.tokenId;
-        renderCombatTracker();
-      });
-    });
-
-    container.querySelectorAll('.ct-zone').forEach(function (zone) {
-      zone.addEventListener('click', function () {
-        if (combatState.selectedToken && zone.dataset.zoneId && !zone.classList.contains('ct-zone-impassable')) {
-          combatState.tokenPositions[combatState.selectedToken] = zone.dataset.zoneId;
-          persistTokenPosition(combatState.selectedToken, zone.dataset.zoneId);
-          combatState.selectedToken = null;
-          renderCombatTracker();
-        }
-      });
-    });
   }
 
   var _positionPersistTimer = null;

@@ -3810,45 +3810,51 @@
     }
 
     .ct-tactical-map {
-      background: #000;
+      background: #0a0a0f;
       border: 1px solid #333;
-      padding: 0.6rem 0.75rem;
       margin-bottom: 0.75rem;
       position: relative;
       border-radius: 4px;
+      overflow: hidden;
     }
-    .ct-map-frame {
+    .ct-map-viewer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 0.75rem;
+      background: #111118;
+      border-bottom: 1px solid #2a2a35;
+    }
+    .ct-map-viewer-controls {
+      display: flex;
+      gap: 0.4rem;
+    }
+    .ct-map-btn {
+      font-family: 'Audiowide', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border: 1px solid #444;
+      background: #1a1a22;
+      color: #aaa;
+      padding: 0.25rem 0.6rem;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .ct-map-btn:hover { border-color: #888; color: #ddd; background: #252530; }
+    .ct-map-btn--broadcast { border-color: #3a5a3a; color: #6a9a6a; }
+    .ct-map-btn--broadcast:hover { border-color: #5a8a5a; color: #8aca8a; background: #1a2a1a; }
+    .ct-map-btn--dismiss { border-color: #5a3a3a; color: #9a6a6a; }
+    .ct-map-btn--dismiss:hover { border-color: #8a5a5a; color: #ca8a8a; background: #2a1a1a; }
+    .ct-map-viewer-body {
+      height: 400px;
       position: relative;
       background: #000;
-      padding: 4px;
-      border-radius: 2px;
     }
-    .ct-map-grid {
-      display: grid;
-      gap: 3px;
-      margin: 0;
+    .ct-map-viewer-body .tm-viewer {
+      height: 100%;
     }
-    .ct-zone-void {
-      aspect-ratio: 1;
-      background: transparent;
-    }
-    .ct-zone {
-      border: 1px solid #444;
-      padding: 0.35rem;
-      aspect-ratio: 1;
-      cursor: pointer;
-      transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
-      position: relative;
-      background: #1a1a1f;
-      display: flex;
-      flex-direction: column;
-      border-radius: 2px;
-    }
-    .ct-zone:hover {
-      border-color: #8a8a9a;
-      box-shadow: inset 0 0 12px rgba(140,140,160,0.1);
-    }
-    .ct-zone-targetable { border-style: dashed; border-color: #666; }
     .ct-zone-header {
       display: flex;
       justify-content: space-between;
