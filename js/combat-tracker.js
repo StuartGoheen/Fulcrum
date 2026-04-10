@@ -464,6 +464,12 @@
     }
     combatState = null;
     _conditionPanelState = { targetId: null, targetType: null, sourceLabel: null, selectedCondition: null };
+    if (_ctMapViewer) {
+      try { _ctMapViewer.destroy && _ctMapViewer.destroy(); } catch (e) {}
+      _ctMapViewer = null;
+    }
+    _ctMapContainer = null;
+    _ctMapKey = null;
     teardownRightColumnTabs();
     var container = document.getElementById('combat-tracker-panel');
     if (container) {
@@ -1115,35 +1121,46 @@
 
   var _ctMapViewer = null;
   var _ctMapKey = null;
+  var _ctMapContainer = null;
 
   function renderTacticalMap() {
     if (!combatState) return '';
     var mapKey = _extractMapKey(combatState.scene, combatState.encounter);
     if (!mapKey) return '';
     _ctMapKey = mapKey;
-
-    var html = '<div class="ct-tactical-map">';
-    html += '<div class="ct-map-viewer-header">';
-    html += '<span class="ct-section-label" style="margin:0;">Tactical Map</span>';
-    html += '<div class="ct-map-viewer-controls">';
-    html += '<button class="ct-map-btn ct-map-btn--broadcast" id="ct-map-broadcast">Broadcast</button>';
-    html += '<button class="ct-map-btn ct-map-btn--dismiss" id="ct-map-dismiss">Dismiss</button>';
-    html += '</div>';
-    html += '</div>';
-    html += '<div class="ct-map-viewer-body" id="ct-map-viewer-body"></div>';
-    html += '</div>';
-    return html;
+    return '<div id="ct-map-anchor"></div>';
   }
 
   function _initCombatMapViewer() {
     if (!_ctMapKey) return;
-    var body = document.getElementById('ct-map-viewer-body');
-    if (!body) return;
+    var anchor = document.getElementById('ct-map-anchor');
+    if (!anchor) return;
+
+    if (_ctMapContainer && _ctMapViewer && _ctMapViewer.mapKey === _ctMapKey) {
+      anchor.parentNode.replaceChild(_ctMapContainer, anchor);
+      return;
+    }
 
     if (_ctMapViewer) {
       try { _ctMapViewer.destroy && _ctMapViewer.destroy(); } catch (e) {}
+      _ctMapViewer = null;
     }
 
+    _ctMapContainer = document.createElement('div');
+    _ctMapContainer.className = 'ct-tactical-map';
+    _ctMapContainer.innerHTML =
+      '<div class="ct-map-viewer-header">' +
+        '<span class="ct-section-label" style="margin:0;">Tactical Map</span>' +
+        '<div class="ct-map-viewer-controls">' +
+          '<button class="ct-map-btn ct-map-btn--broadcast" id="ct-map-broadcast">Broadcast</button>' +
+          '<button class="ct-map-btn ct-map-btn--dismiss" id="ct-map-dismiss">Dismiss</button>' +
+        '</div>' +
+      '</div>' +
+      '<div class="ct-map-viewer-body" id="ct-map-viewer-body"></div>';
+
+    anchor.parentNode.replaceChild(_ctMapContainer, anchor);
+
+    var body = _ctMapContainer.querySelector('#ct-map-viewer-body');
     _ctMapViewer = new window.TacticalMapViewer({
       container: body,
       role: 'gm',
@@ -1151,19 +1168,13 @@
     });
     _ctMapViewer.loadMap(_ctMapKey);
 
-    var broadcastBtn = document.getElementById('ct-map-broadcast');
-    var dismissBtn = document.getElementById('ct-map-dismiss');
     var sock = getSocket();
-    if (broadcastBtn && sock) {
-      broadcastBtn.addEventListener('click', function () {
-        sock.emit('map:broadcast', { mapKey: _ctMapKey });
-      });
-    }
-    if (dismissBtn && sock) {
-      dismissBtn.addEventListener('click', function () {
-        sock.emit('map:dismiss');
-      });
-    }
+    _ctMapContainer.querySelector('#ct-map-broadcast').addEventListener('click', function () {
+      if (sock) sock.emit('map:broadcast', { mapKey: _ctMapKey });
+    });
+    _ctMapContainer.querySelector('#ct-map-dismiss').addEventListener('click', function () {
+      if (sock) sock.emit('map:dismiss');
+    });
   }
 
   function getTokensInZone(zoneId) {
