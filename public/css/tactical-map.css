@@ -198,9 +198,9 @@
   transition: fill 0.2s, stroke 0.2s;
 }
 .tm-hitbox:hover {
-  fill: rgba(224,212,184,0.1);
-  stroke: rgba(200,164,78,0.5);
-  stroke-width: 2;
+  fill: rgba(224,212,184,0.22);
+  stroke: rgba(200,164,78,0.7);
+  stroke-width: 2.5;
 }
 
 .tm-zone-panel {
