@@ -1663,7 +1663,7 @@
           "title": "The Gladiator Arena",
           "subtitle": "Day One — Blood Sport",
           "readAloud": "The fortress shakes with the roar of a thousand voices. Varga's gladiator arena is carved into the rock beneath the main hall — a natural cavern expanded with durasteel walls and repulsor barriers. Torchlight and glow-rods throw shifting shadows across the sand floor.\n\nVarga the Hutt watches from a hovering observation platform, attended by servants and sycophants. His enormous eyes glitter with anticipation.\n\n\"Our new arrivals,\" he rumbles in Huttese, his booming voice filling the cavern. \"Let us see what they are worth.\"\n\nThe arena gate opposite you grinds open. Out steps a massive Trandoshan — scarred, muscled, and grinning with far too many teeth. His name, chanted by the crowd, is Gorrak.\n\nHe cracks his knuckles. The crowd screams louder.",
-          "gmNotes": "This is the heroes' first test in Varga's court — a gladiatorial exhibition match. Varga uses these fights to evaluate newcomers and entertain his guests. Winning earns respect and access; losing earns contempt (but not death — Varga doesn't waste useful assets).\n\nGORRAK is Varga's champion — a Trandoshan pit fighter who has survived 47 arena bouts. He fights with controlled brutality. He's dangerous but not trying to kill — this is sport, not war. If the heroes win, Gorrak nods respect and becomes a neutral contact in the fortress. If they lose, he offers a hand up. Either way, Varga is watching.\n\nCROWD DYNAMICS: The crowd's reaction matters. A spectacular fight (high-tier results on combat checks) earns Varga's personal attention. A boring fight earns indifference. The court is watching to decide if these newcomers are worth cultivating.\n\nSCENE PURPOSE: Establish the heroes' reputation in Varga's court. The gladiator fight is a set-piece combat encounter — the main event — surrounded by simple social checks for reading the crowd and impressing the right people. This scene sets up everything that follows: better performance here means easier access to NPCs, intel, and opportunities in later scenes.\n\nCHALLENGE COMPLEXITY:\n- Arena fight vs Gorrak: SET-PIECE (full combat encounter, environment mechanics, crowd factor)\n- Reading the crowd: SIMPLE (single Insight check, flavor + minor advantage)\n- Impressing Varga: SIMPLE (single Charm/Deception check, reputation modifier)",
+          "gmNotes": "This is the heroes' first test in Varga's court — a gladiatorial exhibition match. Varga uses these fights to evaluate newcomers and entertain his guests. Winning earns respect and access; losing earns contempt (but not death — Varga doesn't waste useful assets).\n\nGORRAK is Varga's champion — a Trandoshan pit fighter who has survived 47 arena bouts. He fights with controlled brutality. He's dangerous but not trying to kill — this is sport, not war. If the heroes win, Gorrak nods respect and becomes a neutral contact in the fortress. If they lose, he offers a hand up. Either way, Varga is watching.\n\nTACTICAL MAP ZONES: The pit has 16 distinct zones. Key tactical features: the Fallen Columns (west) are the only hard cover. The Trophy Stakes (east of center) and Chain Mounts (west wall) offer improvised weapons. The Bone Pit (southwest) is hazardous difficult terrain. The Sand Hollow (southeast) slows movement but offers concealment. The Cargo Lift (southeast corner) is Varga's surprise tool — he can raise a second opponent or a beast mid-fight. The Judgment Stone (south-center) is where defeated fighters kneel — dragging Gorrak there is a crowd-pleasing finish. The Control Station (south wall) lets a Tech-skilled hero manipulate the environment. Gorrak knows this terrain intimately — the heroes do not.\n\nCROWD DYNAMICS: The crowd's reaction matters. A spectacular fight (high-tier results on combat checks) earns Varga's personal attention. A boring fight earns indifference. The court is watching to decide if these newcomers are worth cultivating. Using the environment creatively — grabbing trophy weapons, fighting around the columns, forcing an opponent onto the Judgment Stone — earns crowd approval.\n\nSCENE PURPOSE: Establish the heroes' reputation in Varga's court. The gladiator fight is a set-piece combat encounter — the main event — surrounded by simple social checks for reading the crowd and impressing the right people. This scene sets up everything that follows: better performance here means easier access to NPCs, intel, and opportunities in later scenes.\n\nCHALLENGE COMPLEXITY:\n- Arena fight vs Gorrak: SET-PIECE (full combat encounter, environment mechanics, crowd factor)\n- Reading the crowd: SIMPLE (single Insight check, flavor + minor advantage)\n- Impressing Varga: SIMPLE (single Charm/Deception check, reputation modifier)",
           "npcs": [
             {
               "name": "Gorrak",
@@ -1992,28 +1992,46 @@
               "name": "Gladiator Arena — Gorrak",
               "type": "combat",
               "trigger": "Varga signals the fight to begin",
-              "description": "Exhibition match against Gorrak, Varga's Trandoshan champion. Non-lethal rules but real danger. Sand floor, torch sconces, repulsor barriers.",
-              "tactics": "Gorrak opens aggressive — charges and grapples. Uses environment (sand throw, barrier slam). Backs off if bloodied — Trandoshan pride demands a measured retreat, not a reckless last stand."
+              "description": "Exhibition match against Gorrak, Varga's Trandoshan champion. Non-lethal rules but real danger. Sand floor, torch sconces, repulsor barriers. [map:gladiator-pit]",
+              "tactics": "Gorrak opens aggressive — charges from the Gladiator Gate and grapples near the central drain. Uses environment: kicks sand from the Sand Hollow, slams opponents into the fallen columns, grabs a chain from the Chain Mounts if disarmed. If bloodied, retreats toward the Trophy Stakes for an improvised weapon. If a hero reaches the Judgment Stone area, Gorrak tries to intercept — he knows the crowd wants a finish there. Backs off if seriously wounded — Trandoshan pride demands a measured retreat toward the Gladiator Gate, not a reckless last stand."
             }
           ],
           "environmentMechanics": [
             {
               "name": "Sand Floor",
               "trigger": "Active throughout",
-              "effect": "Can be kicked into eyes — Physique vs Reflex, inflicts [Blinded] for 1 round.",
-              "mitigation": "Goggles or helmet negate."
+              "effect": "Can be kicked into eyes — Physique vs Reflex, inflicts [Blinded] for 1 round. The Sand Hollow zone has knee-deep sand — difficult terrain that slows movement but cushions falls.",
+              "mitigation": "Goggles or helmet negate blinding. Prone in Sand Hollow grants concealment from spectators."
             },
             {
-              "name": "Repulsor Barriers",
-              "trigger": "If pushed into the arena edge",
-              "effect": "Repulsor field bounces combatants back — takes 1 chassis damage and returns to center.",
-              "mitigation": "Can be used offensively — push opponent into barrier."
+              "name": "Bone Pit",
+              "trigger": "Movement or falling in the southwest depression",
+              "effect": "Difficult terrain. Falling prone in this zone inflicts 1 wound from sharp bone and chitin debris. Movement is noisy — no stealth possible.",
+              "mitigation": "Careful movement (half speed) avoids the worst debris."
             },
             {
-              "name": "Torch Sconces",
+              "name": "Central Drain",
+              "trigger": "Triggered from Control Station or Tech Alcove",
+              "effect": "Steam vent — 1 round burst affecting everyone within short range of the drain. The drain surface is slippery — Reflex check to avoid falling prone.",
+              "mitigation": "Move off the drain before the burst. Control Station access can trigger or prevent venting."
+            },
+            {
+              "name": "Cargo Lift",
+              "trigger": "Activated from Control Station by Varga's order",
+              "effect": "Raises beasts, opponents, or weapons from below. Six-second ascent with audible grinding. Open shaft is 4 meters deep when platform is lowered — falling in deals damage.",
+              "mitigation": "Stay clear of the southeast corner when the mechanism activates. A Tech check at the Control Station can jam the lift."
+            },
+            {
+              "name": "Trophy Stakes & Chain Mounts",
               "trigger": "Can be grabbed as improvised weapons",
-              "effect": "Improvised Light weapon. Fire damage. Single use.",
+              "effect": "Trophy Stakes: improvised weapons (vibro-blade shards, helmet, cable). Chain Mounts: heavy chains with 2m reach, risk of self-entanglement on a failed attack. A stake can be wrenched free as a makeshift spear with a Physique check.",
               "mitigation": "N/A"
+            },
+            {
+              "name": "Judgment Stone",
+              "trigger": "Dragging a defeated opponent to the south-center slab",
+              "effect": "Dramatic flourish — the crowd reacts strongly. Forcing an opponent to kneel on the Judgment Stone earns a Charm/Deception boost to influence Varga's verdict.",
+              "mitigation": "N/A — purely narrative advantage."
             }
           ],
           "rewards": {
