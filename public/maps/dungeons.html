@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Dungeons — Tactical Map</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #1a1a1a; display: flex; flex-direction: column; align-items: center; min-height: 100vh; font-family: 'Segoe UI', sans-serif; padding: 20px 20px 60px; gap: 40px; }
+
+  .map-container { position: relative; max-width: 622px; width: 100%; }
+  .map-container img { width: 100%; height: auto; display: block; border-radius: 4px; filter: drop-shadow(0 0 30px rgba(0,0,0,0.5)); }
+  .map-container svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+  .hitbox { cursor: pointer; fill: transparent; stroke: transparent; transition: all 0.25s; }
+  .hitbox:hover { fill: rgba(224, 212, 184, 0.22); stroke: rgba(224, 212, 184, 0.65); stroke-width: 2.5; }
+
+  .tooltip { position: fixed; background: rgba(20,20,20,0.95); border: 1px solid #665a3a; color: #e0d4b8; padding: 10px 14px; border-radius: 4px; font-size: 13px; max-width: 300px; pointer-events: none; z-index: 100; display: none; line-height: 1.5; backdrop-filter: blur(8px); }
+
+  .location-brief { max-width: 700px; width: 100%; color: #c0b89a; line-height: 1.7; }
+  .location-brief h2 { color: #e0d4b8; font-family: 'Georgia', serif; font-size: 20px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; border-bottom: 1px solid #444; padding-bottom: 6px; }
+  .location-brief h3 { color: #c8b88a; font-family: 'Georgia', serif; font-size: 15px; letter-spacing: 2px; text-transform: uppercase; margin: 24px 0 8px; }
+  .location-brief p { margin-bottom: 12px; font-size: 14px; }
+  .location-brief .read-aloud { background: #222; border-left: 3px solid #887755; padding: 12px 16px; margin: 16px 0; font-style: italic; color: #d0c8a8; border-radius: 0 4px 4px 0; }
+  .location-brief .gm-note { background: #1e1e2a; border-left: 3px solid #556; padding: 10px 14px; margin: 12px 0; font-size: 13px; color: #8888bb; border-radius: 0 4px 4px 0; }
+  .location-brief .gm-note strong { color: #aaaadd; }
+  .location-brief .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+  .location-brief .detail-card { background: #222; border: 1px solid #333; border-radius: 4px; padding: 12px; }
+  .location-brief .detail-card h4 { color: #c8b88a; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .location-brief .detail-card p { font-size: 13px; margin-bottom: 0; }
+  @media (max-width: 700px) { .location-brief .detail-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="tooltip" id="tooltip"></div>
+
+<div class="map-container">
+  <img src="dungeons.png" alt="The Dungeons — Detention Block">
+
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 622 1024" preserveAspectRatio="xMidYMid meet" data-grid-on="0" data-grid-size="40" data-grid-offx="0" data-grid-offy="0" data-grid-opacity="40" data-grid-color="white" data-grid-linewidth="1">
+
+    <rect x="18" y="12" width="278" height="345" rx="3" class="hitbox"
+      data-room="Stasis Cell"
+      data-desc="The largest cell in the block — sealed behind a heavy metal grate of interlocking bars, each as thick as your wrist. Through the bars, the blue-green glow of medical equipment fills the space: a stasis pod mounted on a raised platform, its transparent viewport frosted from years of operation, condensation beading on the interior surface. Banks of monitors line the back wall, their screens displaying vital signs in slow, rhythmic pulses — heart rate, brain activity, respiratory function. Thick cables run from the pod into the floor and up through the ceiling. The machinery hums at a frequency you feel in your teeth. The air near the grate is cold — refrigerated by the stasis systems, carrying the sharp antiseptic smell of medical preservatives. Through the frost on the viewport, you can make out the shape of a human figure in tattered robes. Still. Breathing."/>
+
+    <rect x="296" y="12" width="90" height="345" rx="3" class="hitbox"
+      data-room="Detention Corridor"
+      data-desc="A narrow passage running north-south, barely wide enough for two people abreast. The floor is inscribed with deep-cut geometric patterns — old Neimoidian architectural detailing worn smooth by centuries of footsteps. Blue strip lighting runs along both walls at ankle height, casting sharp upward shadows that make the corridor feel deeper than it is. Pipes run along the ceiling — water, power, environmental — secured with heavy clamps to the stone. The air is cold and damp, with a mineral smell that comes from the stone walls sweating in the humidity. The ceiling is low enough that a tall species would have to duck. At the north end, the corridor terminates at a sealed blast door. At the south end, it opens into the wider dungeon chamber. The lighting flickers occasionally — a power irregularity from the levels below."/>
+
+    <rect x="386" y="12" width="222" height="260" rx="3" class="hitbox"
+      data-room="Comms Alcove"
+      data-desc="A recessed chamber off the detention corridor, framed by an ornate archway carved from dark stone. Glowing inscriptions ring the arch — Neimoidian script, old enough to predate the Trade Federation, etched into the stone and backlit with a warm amber luminescence. The floor inside is darker stone, polished smooth, with a rust-brown coloration that absorbs the light. A holographic communications terminal sits on a low pedestal against the back wall — compact, hardline-connected, with a parabolic emitter dish angled toward the ceiling. The standby indicator glows a steady blue. This terminal has a direct connection to external comm relays — unlike the guest-level units, this one can reach outside the fortress. The walls of the alcove dampen sound effectively. A conversation here would be inaudible from the corridor. The air smells of heated electronics and old stone dust."/>
+
+    <rect x="25" y="375" width="180" height="140" rx="3" class="hitbox"
+      data-room="West Holding Cell"
+      data-desc="A smaller cell off the main corridor, sealed behind a containment field that throws a pale blue light across the stone floor. The field hums at a constant pitch — a sound that would drive you mad in hours. Behind the shimmer, the cell is bare: stone walls, stone floor, a drain grate in the center, nothing else. No bed. No fixture. No mercy. The blue light from the containment field makes everything inside look cold and dead. Water stains streak the walls from ceiling to floor where condensation runs down the stone. The cell smells of damp and rust. The control panel for the field is mounted on the corridor wall beside the cell — a simple interface with a single switch and a biometric lock."/>
+
+    <rect x="205" y="355" width="200" height="185" rx="3" class="hitbox"
+      data-room="Central Junction"
+      data-desc="The corridor widens where the upper detention block meets the lower dungeon chamber. The inscribed floor patterns converge here — geometric lines from the corridor meeting older, deeper-cut symbols in the stone. Two amber torches are mounted on the east and west walls, their flames real — not glow-panels, actual fire, casting a warmer, more unsteady light that makes the shadows move. The junction is the only space in the block with enough room to fight properly — three meters wide, five long, with sightlines in four directions. The ceiling is reinforced with visible support beams. A grate in the floor leads to a drainage channel below — you can hear water moving somewhere underneath. The air here is warmer than the corridor above, heated by the torches and by whatever machinery runs beneath the floor."/>
+
+    <rect x="405" y="375" width="195" height="140" rx="3" class="hitbox"
+      data-room="East Holding Cell"
+      data-desc="Another containment cell, identical to the west cell in layout — bare stone, drain grate, blue containment field. But this cell shows signs of recent use. Scratches on the floor near the drain where someone sat for hours. A dark stain on the back wall at shoulder height — dried blood, not cleaned. The containment field here buzzes louder than the west cell, an irregular oscillation that suggests the emitter is aging. The blue light pulses slightly with each fluctuation. The control panel beside the cell has a cracked display — still functional, but someone hit it hard enough to spider the glass. The air inside smells of sweat and fear."/>
+
+    <rect x="18" y="545" width="265" height="460" rx="3" class="hitbox"
+      data-room="Guard Station"
+      data-desc="A larger room at the southwest corner of the dungeon block — the only space that suggests anyone is stationed down here regularly. A circular platform is set into the floor at the center — a turbolift access point, currently locked, its status ring glowing a dim amber. A military cot is pushed against the west wall, its blanket rumpled, a pillow dented. Beside it, a small storage locker holds ration packs and a canteen. A compact monitoring terminal sits on a desk against the north wall, its screen divided into four feeds showing the detention corridor, stasis cell, and both holding cells — grainy footage in blue-grey tones. A personal datapad lies on the desk beside a half-eaten ration bar and a stylus. The floor is cleaner here than the rest of the block — someone sweeps. The air smells of recycled atmosphere and ration packaging. A set of binders hangs from a hook on the wall near the door. The turbolift would lead up to the operations level — but the lock requires a code."/>
+
+    <rect x="205" y="540" width="230" height="470" rx="3" class="hitbox"
+      data-room="Dungeon Chamber"
+      data-desc="The main floor of the lower dungeon — a wide, high-ceilinged space with deeply inscribed stone flooring. The inscriptions are old — Neimoidian geometric patterns and script, carved when this palace served a different purpose. Blue strip lighting runs along the base of every wall, casting a cold glow upward that illuminates the carved patterns and makes the floor look like a circuit board etched in ancient stone. The ceiling is lost in shadow above the reach of the lights. Support pillars — thick, square, stone — divide the space into sections. The air is cold and still, with the deep-earth smell of stone that has never seen sunlight. Somewhere beneath the floor, machinery throbs in a slow, regular pulse — the heartbeat of the fortress's lowest systems. The chamber feels old in a way the upper levels don't. This space was here before Varga. Before the Trade Federation. The carvings on the floor are worn by thousands of feet that walked here before yours."/>
+
+    <rect x="435" y="560" width="172" height="450" rx="3" class="hitbox"
+      data-room="Raden's Cell"
+      data-desc="A cell at the far east side of the lower dungeon, sealed behind a containment field like the others but larger — room enough for a person to lie down, barely. Warrick Raden is here. The Devaronian sits in the corner with his back against the wall, knees drawn up, head down. His clothes are torn. Bruises darken his red skin — his left eye is swollen shut, and dried blood crusts his lower lip. His horns are chipped — someone hit him in the head. He's alive, but he flinches at every sound. A thin blanket has been thrown into the cell — kicked into a heap, unused or used and discarded. The containment field buzzes steadily. A tray of untouched food sits near the field edge — grey protein paste and a cup of water, both cold. The cell smells of blood and unwashed skin. When he hears footsteps, his head comes up. One eye opens. He doesn't speak. He just watches — waiting to see if this time it's someone who wants to hurt him again."/>
+
+  </svg>
+</div>
+
+<div class="location-brief">
+
+  <h2>Location Brief — The Dungeons</h2>
+  <p>The restricted lower levels beneath Varga's fortress — an old Neimoidian detention block repurposed by the Hutt for high-value prisoners. The block is cold, damp, and humming with machinery. Ancient inscriptions cover every stone surface, remnants of the building's original purpose. Somewhere above, the fortress operates as normal. Down here, it's silent except for the stasis systems and the containment fields. Two prisoners: a Jedi Master in forced stasis, and a Devaronian who made the mistake of trusting the wrong people.</p>
+
+  <h3>The Setting</h3>
+  <div class="read-aloud">
+    TC-663's intercepted comms mentioned "the prisoner" — someone hidden in the dungeon that Demos wants to sell to the Inquisitorius. You descend into the restricted lower levels, past sealed blast doors and silent guard droids.
+
+    The detention block is cold and humming with machinery. In the deepest cell, a stasis pod is hooked to life-support systems. Through the frost-covered viewport, you see a human woman in tattered Jedi robes, suspended in a Force-induced coma.
+
+    Her eyes are closed. But you feel something — a whisper at the edge of your consciousness. Not words. A feeling. Like drowning in slow motion.
+
+    In the adjacent cell, Warrick Raden huddles in the corner. Beaten, bruised, but alive. He looks up with hollow eyes.
+  </div>
+
+  <h3>The Block</h3>
+  <div class="detail-grid">
+    <div class="detail-card">
+      <h4>Stasis Cell</h4>
+      <p>The largest cell, sealed behind heavy bars. Denia's stasis pod sits inside — frost on the viewport, monitors pulsing, machinery humming at a frequency you feel in your teeth. The tech keeping her alive has run for two years without maintenance. Disconnecting it wrong kills her.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Comms Alcove</h4>
+      <p>Off the detention corridor — an ornate archway with glowing Neimoidian inscriptions. A hardline holographic terminal with external relay access. This is where Demos contacts Inquisitor Draco. The walls dampen sound — conversations here are private.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Holding Cells</h4>
+      <p>Smaller containment cells sealed behind energy fields. Bare stone, drain grates, nothing else. Raden occupies the east cell in the lower dungeon — beaten, bruised, alive. The containment field controls are biometric-locked panels mounted on the corridor wall.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Guard Station</h4>
+      <p>Southwest corner — a cot, monitoring terminal with cell feeds, a locked turbolift to the operations level. Someone is stationed here regularly. The monitoring terminal shows all cells. The turbolift lock requires a code.</p>
+    </div>
+  </div>
+
+  <h3>Discovery & Decision</h3>
+  <div class="gm-note">
+    <strong>GM Note — Discovering Denia:</strong> This is the campaign's first major pivot. Two discoveries, one decision.
+
+    JEDI MASTER DENIA: Found in stasis since shortly after Order 66. Kept by Varga as a trophy to auction to the Inquisitorius. She's weak, barely alive, and telepathically reaching out. Varth advises abandonment: "Leave her. She's a liability. We don't have time for dead weight." The heroes decide.
+
+    WARRICK RADEN: Found beaten in the east cell. The heroes rescued him from the hit squad, he got them inside, and Varga threw him in the dungeon. He's alive and can walk, but he's broken.
+
+    VARTH'S RED FLAG: His voice doesn't change. That's what makes it chilling. He sounds the same as always — pragmatic, efficient, reasonable. "Leave her. She's a liability." He's not being cruel. He's being operational. And that's worse.
+
+    DEMOS/DRACO HOLO-CALL: While in the dungeon, the heroes can overhear (or TC-663 alerts them to) a holo-call in the comms alcove between Demos and Inquisitor Draco. Demos reports the prisoner is viable. Draco's response: "I am on my way, with the Assiduous." The death clock starts — Draco's Star Destroyer is inbound.
+  </div>
+
+  <h3>Sensory Details — Quick Reference</h3>
+  <div class="detail-grid">
+    <div class="detail-card">
+      <h4>Sound</h4>
+      <p>The constant hum of the stasis machinery — low, resonant, felt in the teeth and chest. Containment fields buzzing at different pitches. Water moving somewhere beneath the floor grates. The slow pulse of subterranean machinery. Silence between sounds — a dead, heavy silence that presses on the ears.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Light</h4>
+      <p>Blue strip lighting at ankle height along every wall, casting upward shadows. The blue-green glow of stasis equipment through frosted viewport glass. Pale blue shimmer of containment fields. Two real-flame torches at the central junction — the only warm light in the block. The guard station monitor casts grey-blue across the desk. Everything else is shadow.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Smell</h4>
+      <p>Cold stone and mineral dust. Medical preservatives from the stasis cell — sharp, antiseptic. Damp — condensation on stone walls, moisture seeping from somewhere below. Rust from old fixtures. The faint ozone of containment fields. In Raden's cell: blood and fear.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Temperature</h4>
+      <p>Cold. The stasis cell radiates refrigerated air through the grating. The stone walls are cold to the touch — deep underground cold, not climate-controlled cold. Slightly warmer near the central junction torches and in the guard station. The containment fields generate a subtle warmth at close range. Your breath doesn't quite fog, but it's close.</p>
+    </div>
+  </div>
+
+  <div class="gm-note">
+    <strong>GM Note — Tactical Environment:</strong> The stasis cell requires a Tech check to open safely — fumble and Denia dies. The containment fields require Skulduggery or a biometric bypass (Tech) to drop. The guard station turbolift is locked but leads to the operations level above — an escape route if they can crack the code. The central junction is the only space with room to fight — the corridors and cells are too narrow for more than two combatants abreast. The comms alcove is sound-dampened — good for eavesdropping on Demos, but a dead end if cornered. If the alarm triggers, elite guard droids activate — heavy armor, vulnerable to ion damage.
+
+    FORCE ECHO: If Denia is disturbed from stasis, every Force-sensitive character in the block feels nausea and dread. Igren Demos senses the disturbance from anywhere in the palace. This is unavoidable — the price of rescue.
+  </div>
+
+</div>
+
+<script>
+const tip = document.getElementById('tooltip');
+document.querySelectorAll('.hitbox').forEach(el => {
+  el.addEventListener('mouseenter', e => {
+    tip.innerHTML = '<strong>' + el.dataset.room + '</strong><br>' + el.dataset.desc;
+    tip.style.display = 'block';
+  });
+  el.addEventListener('mousemove', e => {
+    const pad = 12;
+    let x = e.clientX + pad, y = e.clientY + pad;
+    const r = tip.getBoundingClientRect();
+    if (x + r.width > window.innerWidth)  x = e.clientX - r.width - pad;
+    if (y + r.height > window.innerHeight) y = e.clientY - r.height - pad;
+    tip.style.left = x + 'px';
+    tip.style.top  = y + 'px';
+  });
+  el.addEventListener('mouseleave', () => { tip.style.display = 'none'; });
+});
+</script>
+</body>
+</html>
