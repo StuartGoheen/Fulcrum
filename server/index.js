@@ -93,7 +93,7 @@ app.get('/create/', (req, res) => res.sendFile(path.join(ROOT, 'public', 'create
 app.get('/market',  (req, res) => res.redirect('/market/'));
 app.get('/market/', (req, res) => res.sendFile(path.join(ROOT, 'public', 'market', 'index.html')));
 
-const ALLOWED_MAPS = ['burning-deck', 'switch-lair', 'landing-field', 'vanishing-place', 'banshee', 'jungle-trek', 'blackwind-point', 'filtration-plant', 'gladiator-pit', 'aviary', 'knife-in-the-dark', 'command-center', 'dungeons', 'throne-room'];
+const ALLOWED_MAPS = ['burning-deck', 'switch-lair', 'landing-field', 'vanishing-place', 'banshee', 'jungle-trek', 'blackwind-point', 'filtration-plant', 'gladiator-pit', 'aviary', 'knife-in-the-dark', 'command-center', 'dungeons', 'throne-room', 'throne-room-court'];
 
 app.post('/api/maps/save', (req, res) => {
   if (req.userRole !== 'gm') return res.status(403).json({ error: 'GM access required.' });
@@ -164,7 +164,8 @@ const MAPS_META = {
   'knife-in-the-dark':{ img: 'knife-in-the-dark.png',         vw: 711,  vh: 1024, title: 'Knife in the Dark' },
   'command-center':   { img: 'command-center.png',            vw: 715,  vh: 1024, title: 'Command Center' },
   'dungeons':         { img: 'dungeons.png',                  vw: 622,  vh: 1024, title: 'The Dungeons' },
-  'throne-room':      { img: 'throne-room.png',               vw: 746,  vh: 1024, title: "Varga's Throne Room" }
+  'throne-room':      { img: 'throne-room.png',               vw: 746,  vh: 1024, title: "Varga's Throne Room — The Escape" },
+  'throne-room-court':{ img: 'throne-room-court.png',         vw: 746,  vh: 1024, title: "Varga's Throne Room — Court in Session" }
 };
 
 app.get('/api/maps/:key/meta', (req, res) => {

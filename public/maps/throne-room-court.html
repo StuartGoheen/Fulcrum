@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Varga's Throne Room — Court in Session</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #1a1a1a; display: flex; flex-direction: column; align-items: center; min-height: 100vh; font-family: 'Segoe UI', sans-serif; padding: 20px 20px 60px; gap: 40px; }
+
+  .map-container { position: relative; max-width: 746px; width: 100%; }
+  .map-container img { width: 100%; height: auto; display: block; border-radius: 4px; filter: drop-shadow(0 0 30px rgba(0,0,0,0.5)); }
+  .map-container svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+  .hitbox { cursor: pointer; fill: transparent; stroke: transparent; transition: all 0.25s; }
+  .hitbox:hover { fill: rgba(224, 212, 184, 0.22); stroke: rgba(224, 212, 184, 0.65); stroke-width: 2.5; }
+
+  .tooltip { position: fixed; background: rgba(20,20,20,0.95); border: 1px solid #665a3a; color: #e0d4b8; padding: 10px 14px; border-radius: 4px; font-size: 13px; max-width: 300px; pointer-events: none; z-index: 100; display: none; line-height: 1.5; backdrop-filter: blur(8px); }
+
+  .location-brief { max-width: 700px; width: 100%; color: #c0b89a; line-height: 1.7; }
+  .location-brief h2 { color: #e0d4b8; font-family: 'Georgia', serif; font-size: 20px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; border-bottom: 1px solid #444; padding-bottom: 6px; }
+  .location-brief h3 { color: #c8b88a; font-family: 'Georgia', serif; font-size: 15px; letter-spacing: 2px; text-transform: uppercase; margin: 24px 0 8px; }
+  .location-brief p { margin-bottom: 12px; font-size: 14px; }
+  .location-brief .read-aloud { background: #222; border-left: 3px solid #887755; padding: 12px 16px; margin: 16px 0; font-style: italic; color: #d0c8a8; border-radius: 0 4px 4px 0; }
+  .location-brief .gm-note { background: #1e1e2a; border-left: 3px solid #556; padding: 10px 14px; margin: 12px 0; font-size: 13px; color: #8888bb; border-radius: 0 4px 4px 0; }
+  .location-brief .gm-note strong { color: #aaaadd; }
+  .location-brief .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+  .location-brief .detail-card { background: #222; border: 1px solid #333; border-radius: 4px; padding: 12px; }
+  .location-brief .detail-card h4 { color: #c8b88a; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .location-brief .detail-card p { font-size: 13px; margin-bottom: 0; }
+  @media (max-width: 700px) { .location-brief .detail-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="tooltip" id="tooltip"></div>
+
+<div class="map-container">
+  <img src="throne-room-court.png" alt="Varga's Throne Room — Court in Session">
+
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 746 1024" preserveAspectRatio="xMidYMid meet" data-grid-on="0" data-grid-size="145" data-grid-offx="-25" data-grid-offy="0" data-grid-opacity="100" data-grid-color="white" data-grid-linewidth="1">
+
+    <rect x="271" y="10" width="136" height="280" rx="3" class="hitbox"
+      data-room="Grand Doors"
+      data-desc="The main entrance to the throne room — a pair of massive ornate doors set in an arched frame of carved stone, their surface worked with Neimoidian heraldry that Varga never bothered to replace. The doors stand open during court, propped by iron stops worn smooth from years of use. A short flight of wide stone stairs descends from the threshold into the audience chamber below. Woven decorative panels hang on the walls flanking the entrance — tapestry-style fabric in muted earth tones, their patterns abstract, old. Two amber sconces cast warm light across the top of the stairs. A pair of Gamorrean guards stand at attention on either side of the doors, their vibrospears held upright, their expressions communicating nothing. New arrivals are announced by a protocol droid stationed just inside the threshold — it recites names and affiliations in a flat monotone that barely carries over the ambient noise of the court below."/>
+
+    <rect x="536" y="393" width="169" height="233" rx="3" class="hitbox"
+      data-room="Varga's Dais"
+      data-desc="An elevated platform rising in concentric steps — Varga's throne. The dais is octagonal, each ring of steps slightly narrower than the one below, designed to ensure that whoever sits at the top is always the tallest point in the room. At its peak, the throne: a massive curved seat upholstered in deep crimson fabric, wide enough to accommodate a Hutt's bulk. Varga is here. He fills the throne completely, his bulk spilling over both armrests, his tail curled along the lower steps. He is dressed for court — ornamental chains of credit plaques hang from his neck, an affectation of wealth that clinks faintly when he moves. Drinks trays are arranged on the upper steps within easy reach — tall glasses, a carafe of something purple, a bowl of something live that occasionally moves. Attendants hover at the dais's base, close enough to serve, far enough not to annoy. The steps of the dais are scattered with the debris of his hospitality: abandoned cups, a dropped sweetmeat, the corner of a document he reviewed and discarded. Gamorrean guards stand at the base of the dais on both sides, blocking the steps. No one approaches Varga without being waved forward."/>
+
+    <rect x="32" y="15" width="210" height="271" rx="3" class="hitbox"
+      data-room="West Gallery"
+      data-desc="The gallery running along the northwest wall — a narrower space separated from the main floor by a low step and a change in stone color. Decorative panels are mounted here: woven tapestries in geometric patterns, a rack of bladed weapons from a dozen worlds displayed as trophies, several glazed cases holding objects whose significance isn't immediately apparent. Amber sconces throw warm light across the displays, their glow reflected in the glass cases. A handful of guests have drifted into the gallery — the ones who prefer the edges of a room, who speak quietly and watch the center. A Rodian in a business tunic examines a weapon case with careful disinterest that suggests he finds it very interesting indeed. Two humans stand together near the back wall, their posture low and close, conversation inaudible. The gallery offers a clear view of the dais and the main floor without being part of either."/>
+
+    <rect x="33" y="294" width="482" height="424" rx="3" class="hitbox"
+      data-room="Audience Chamber"
+      data-desc="The main floor of the throne room — the center of gravity for everything happening in this court. The floor is wide open, paved in heavy stone tiles cracked and worn from centuries of use. Guests fill the space in loose clusters, each group maintaining a careful distance from the others that communicates both status and suspicion. The mix is wide: Neimoidian merchants in formal robes, Trandoshan enforcers on retainer, a Gran delegation near the center trying not to look like they're listening to everyone around them, a pair of human traders whose clothes are too clean for the work they claim to do. Serving droids move through the room in practiced patterns, carrying trays of drinks and small foods without making eye contact. Scattered across the floor from where they've been dropped: napkins, a broken toothpick, the lid of a small container, a folded document someone set down and forgot. The acoustics carry everything and nothing — individual conversations are impossible to follow, but the collective murmur of the room is a constant presence. Guards stand at every column, visible and still, watching."/>
+
+    <rect x="432" y="12" width="225" height="282" rx="3" class="hitbox"
+      data-room="East Alcove"
+      data-desc="A recessed section in the upper-right corner of the throne room, occupied during court by Igren Demos, Varga's Neimoidian Majordomo. Demos stations himself here — not on the dais, not on the main floor. Here. Where he can see everything from above the crowd without drawing attention to the fact that he's watching. He stands with his hands folded, his robes immaculate, his expression pleasant and blank. A compact terminal is mounted to the wall beside him — a monitoring station connected to the fortress security network. He checks it periodically with small, discreet movements that he hopes look like nothing. A single guard stands behind him. Two glasses sit on the ledge to his right — one half-empty, one untouched. The alcove smells of the scented oil he uses on his robes. From here, Demos has a clear line of sight to the dais, both entrances, and most of the main floor. He notices when you notice him. He smiles."/>
+
+    <rect x="276" y="732" width="129" height="274" rx="3" class="hitbox"
+      data-room="Lower Level Access"
+      data-desc="A wide staircase descending from the south end of the throne room to the fortress's lower levels — the command center, the operations floor, and the dungeons below. During court, the stairway is visible but unattended at the top; a pair of guards are positioned at the bottom, out of sight. The steps are broad and plainly finished, durasteel-edged stone without the decorative treatment of the main chamber above. A simple placard beside the entrance reads, in Neimoidian script, RESTRICTED — STAFF ACCESS. No one from the court floor approaches it. No one makes eye contact with it. The existence of a lower level is one of those things that guests at Varga's court understand is not a subject for conversation."/>
+
+    <rect x="30" y="735" width="235" height="275" rx="3" class="hitbox"
+      data-room="Southwest Alcove"
+      data-desc="A recessed area in the southwest corner, set one step lower than the main floor — a deliberate architectural choice that makes it feel like a separate space without actually being one. During court, this is where the working infrastructure of Varga's hospitality operates. A protocol droid — not TC-663, a different unit entirely, one that handles logistics — moves between a compact console terminal and a storage arrangement against the wall, coordinating the serving droids and managing inventory for the evening. Crates of sealed goods are stacked against the back wall: replacement drink stocks, food containers, spare equipment. Two amber sconces bracket the alcove. The droid barely acknowledges anyone who approaches. If asked anything by a guest, it answers in the minimum number of words and returns to its work. The terminal screen cycles through supply readouts in amber text."/>
+
+    <rect x="416" y="734" width="315" height="284" rx="3" class="hitbox"
+      data-room="Southeast Alcove"
+      data-desc="The southeast corner of the throne room — a narrower space that runs along the south and east walls past the base of the dais steps. Blue-lit status panels are mounted at chest height, their displays showing fortress subsystem readouts that no one at the court pays attention to. A weapons rack is bolted to the east wall, fully stocked — blaster carbines in vertical slots, charge packs on a shelf below, a pair of vibroblades in a locked case. Trandoshan guards are stationed here — two of them, heavy-set, dressed in the same armor pattern as the others but worn differently, like clothes they've lived in for years. They watch the room without moving. A small table between them holds a datapad face-down and two empty cups. The floor near the table shows faint boot scuffs where they've shifted their weight over hours of standing still. This corner has the best view of the dais stairs and the lower level access. If something were to happen in this court, the response would originate here."/>
+
+  </svg>
+</div>
+
+<div class="location-brief">
+
+  <h2>Location Brief — Varga's Throne Room (Court in Session)</h2>
+  <p>Varga's audience chamber, active and occupied. The Hutt holds court here — receives delegations, brokers deals, dispenses favors, and reminds everyone in the room that they are guests in his space. The room is built to make that point without anyone having to say it. The ceiling is high, the dais is elevated, the guards are everywhere, and the acoustics carry. Everything here is performance. Including whatever the heroes need to accomplish.</p>
+
+  <h3>The Setting</h3>
+  <div class="read-aloud">
+    The throne room is warm with amber light and the low murmur of a court in motion. Guests cluster in cautious constellations across the stone floor — merchants, functionaries, enforcers, and people whose role here you can't quite read. Serving droids move between the groups in smooth, practiced arcs, carrying trays that no one looks at directly.
+
+    At the far end of the room, elevated on a tiered dais, Varga the Hutt fills his throne. He is larger than the briefings suggested. His ornamental credit-chains catch the light when he shifts. He is speaking to someone small who stands at the base of the dais steps — speaking quietly, which in this room means everyone can still hear that he's speaking, just not what he's saying.
+
+    Igren Demos stands in the upper alcove to the right, hands folded, watching the room with an expression of perfect pleasantness that means he's watching you specifically.
+  </div>
+
+  <h3>The Space</h3>
+  <div class="detail-grid">
+    <div class="detail-card">
+      <h4>Audience Chamber</h4>
+      <p>The main court floor — guests in cautious clusters, serving droids on rotation, guards at every column. The acoustics carry. Conversations happen in the middle distance where they're audible without being legible. Scattered debris from the evening: napkins, a dropped document, the lid of a container.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Varga's Dais</h4>
+      <p>Elevated on concentric steps — Varga on his throne, attendants at the base, Gamorrean guards blocking the stairs. Drinks trays within reach. A bowl of something live. No one approaches without being waved forward. The debris of his hospitality is scattered across the lower steps.</p>
+    </div>
+    <div class="detail-card">
+      <h4>East Alcove</h4>
+      <p>Demos's position during court. Security terminal, full view of the dais and both entrances. He stands with hands folded and an expression of pleasantness. He notices when you notice him. He smiles.</p>
+    </div>
+    <div class="detail-card">
+      <h4>West Gallery</h4>
+      <p>The edge of the room — trophies, weapon displays, glazed cases. Guests who prefer walls to centers drift here. Conversations that want to go unheard happen here. Clear view of the dais and main floor from a remove.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Grand Doors</h4>
+      <p>Open during court, propped by iron stops. Gamorrean guards at attention on each side. A protocol droid announces arrivals in a flat monotone that barely carries over the room. Decorative panels flank the entrance.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Lower Level Access</h4>
+      <p>A stairway at the south end marked RESTRICTED — STAFF ACCESS in Neimoidian script. No one from the court floor acknowledges it. Guards at the bottom, out of sight. The existence of a lower level is not a subject for conversation at Varga's court.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Southwest Alcove</h4>
+      <p>One step down from the main floor. The logistics infrastructure of the court — a protocol droid managing serving droid coordination, crates of replacement stock, a terminal cycling supply readouts. Functional, invisible, essential.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Southeast Alcove</h4>
+      <p>Two Trandoshan guards stationed here with sight lines to the dais stairs and lower level access. Fully stocked weapons rack on the east wall. Blaster carbines, vibroblades in a locked case. If something happens in this court, the response comes from here.</p>
+    </div>
+  </div>
+
+  <h3>Sensory Details — Quick Reference</h3>
+  <div class="detail-grid">
+    <div class="detail-card">
+      <h4>Sound</h4>
+      <p>The collective murmur of thirty conversations at once — a constant low pressure that fills the room without individual words. The clink of Varga's credit-chains when he shifts his weight. Serving droids moving in practiced silence. The occasional flat announcement from the protocol droid near the doors. Varga's laughter when he finds something amusing — not a pleasant sound.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Light</h4>
+      <p>Warm amber from wall sconces — the room's primary light source, intentional, flattering to Hutt skin. The dais is the brightest point, elevated into the sconce light. The alcoves and gallery are slightly dimmer, their shadows useful. Blue indicator lights on the southeast status panels, cold against the amber. The upper tapestry panels near the grand doors reflect warm light back into the room.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Smell</h4>
+      <p>Incense — heavy, resinous, burning from unseen sources, designed to cover the smell of Varga himself. It doesn't fully work. Underneath: food smells from the serving trays, the sharp clean scent of imported alcohol, the organic warmth of too many bodies in a sealed space. Demos's scented oil if you get close enough to the east alcove. Stone dust from the cracked floor.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Temperature</h4>
+      <p>Warm — Varga runs warm and his environmental preferences shape the room. Slightly stuffy near the center where guests cluster. Cooler along the west gallery where the stone wall hasn't absorbed the body heat. A faint draft from the lower level stairway carries cool air upward. The dais radiates additional warmth from Varga's bulk and the repulsor system in the platform base.</p>
+    </div>
+  </div>
+
+  <div class="gm-note">
+    <strong>GM Note — Currying Favor:</strong> This map is used during the Currying Favor scenes — the heroes navigating Varga's court, earning access, reading the room, and gathering what they need before the infiltration begins.
+
+    KEY PLAYERS: Varga is on the dais and available for audience — waved forward by his majordomo. Demos is in the east alcove watching everything. Raden (if present) may be circulating, or may already be in trouble. TC-663 may be working the room. Other guests provide social obstacles and opportunities.
+
+    SOCIAL MECHANICS: This room rewards Charm, Deception, and Perception. The west gallery is where private conversations happen. Demos notices anyone who lingers near the lower level stairway — a Perception vs Demos's Vigilance check to approach unobserved. Getting to the dais requires either being announced or a Charm/Deception check past the Gamorrean guards.
+
+    WHAT THE HEROES CAN LEARN HERE: The existence of a lower level (restricted). That Demos controls fortress security. That Varga's guards are Trandoshan-heavy in the southeast corner. That the guest quarters are one level up through the grand doors. That something down those stairs is worth guarding.
+  </div>
+
+</div>
+
+<script>
+const tip = document.getElementById('tooltip');
+document.querySelectorAll('.hitbox').forEach(el => {
+  el.addEventListener('mouseenter', e => {
+    tip.innerHTML = '<strong>' + el.dataset.room + '</strong><br>' + el.dataset.desc;
+    tip.style.display = 'block';
+  });
+  el.addEventListener('mousemove', e => {
+    const pad = 12;
+    let x = e.clientX + pad, y = e.clientY + pad;
+    const r = tip.getBoundingClientRect();
+    if (x + r.width > window.innerWidth)  x = e.clientX - r.width - pad;
+    if (y + r.height > window.innerHeight) y = e.clientY - r.height - pad;
+    tip.style.left = x + 'px';
+    tip.style.top  = y + 'px';
+  });
+  el.addEventListener('mouseleave', () => { tip.style.display = 'none'; });
+});
+</script>
+</body>
+</html>
