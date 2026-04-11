@@ -401,7 +401,7 @@ Defaults initialized in both branches of `expandCharacterData()`.
 
 GM-triggered in-universe Imperial propaganda broadcasts with player overlays and journal clipping.
 
-**Data:** `data/holonet.json` — ~20 stories across 6 feed groups (pre-campaign, post-adv1-3, general 16 BBY). Story types: `propaganda`, `consequence`, `foreshadow`, `lore`, `flavor`.
+**Data:** `data/holonet.json` — ~26 stories across 6 feed groups (pre-campaign, post-adv1-3, general 15 BBY). Story types: `propaganda`, `consequence`, `foreshadow`, `lore`, `flavor`.
 
 **DB table:** `holonet_broadcasts` — tracks broadcast history (feed_id, story_ids, broadcast_by, broadcast_at).
 

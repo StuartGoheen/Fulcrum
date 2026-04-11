@@ -83,7 +83,7 @@ function buildPrompt(payload) {
 
   const forceSection = forceSensitive || (forceState && forceState.some(s => s.includes('awakened')))
     ? `\nForce sensitivity: ${forceState ? forceState.join('; ') : 'unknown'}
-  This character has a connection to the Force. In 16 BBY this is EXTREMELY dangerous — Inquisitors hunt Force-sensitives. Treat any awakened Force discipline as a secret the character guards with their life. Show the Force as instinct, not training — flickers of prescience, unnatural luck, objects that move when emotions spike. The character may not even understand what they feel. Never use the word "Jedi" to describe them unless the player directs it.`
+  This character has a connection to the Force. In 15 BBY this is EXTREMELY dangerous — Inquisitors hunt Force-sensitives. Treat any awakened Force discipline as a secret the character guards with their life. Show the Force as instinct, not training — flickers of prescience, unnatural luck, objects that move when emotions spike. The character may not even understand what they feel. Never use the word "Jedi" to describe them unless the player directs it.`
     : '';
 
   const favDiscName = favoredDiscipline && typeof favoredDiscipline === 'object' ? favoredDiscipline.name : favoredDiscipline;
@@ -117,7 +117,7 @@ function buildPrompt(payload) {
   return `You are a narrative writer for a Star Wars tabletop RPG campaign. Your job is to write a deeply personal, setting-grounded backstory for a player character. Every mechanical choice the player made tells a story — your job is to find that story and make it vivid. Follow every rule below exactly.
 
 SETTING BIBLE — DO NOT DEVIATE:
-- Year: 16 BBY. The Empire is 3 years old. Order 66 happened 3 years ago. The Jedi Order is destroyed; surviving Jedi are hunted by Inquisitors.
+- Year: 15 BBY. The Empire is 4 years old. Order 66 happened 4 years ago. The Jedi Order is destroyed; surviving Jedi are hunted by Inquisitors.
 - Location: The Western Reaches — a vast frontier region stretching from the Mid Rim's ragged edge to Wild Space. This is not Coruscant or the Core. The Empire's grip here is thin, enforced by occasional Star Destroyer patrols and corrupt regional governors rather than a permanent military presence.
 - Key Western Reaches geography:
   * Jakku — a dry, unremarkable desert refuelling stop on the Western Reaches. Reestkii is a sun-bleached frontier settlement controlled by Varga the Hutt through debt and protection rackets. It is NOT a battlefield and there is NO starship graveyard (the Battle of Jakku happens 22 years from now — never reference it). Niima the Hutt exists on Jakku but is a minor figure operating from a desert temple — she has not yet risen to prominence.
@@ -150,7 +150,7 @@ NARRATIVE STRUCTURE — COHESION IS MANDATORY:
 - Paragraph 1 (ORIGIN): Ground the character in their Phase 1 environment. Show WHO they were before everything changed. Weave in species biology, cultural context, and at least one specific sensory detail from their upbringing. The favored skill from this phase should feel like a natural product of this environment.
 - Paragraph 2 (CATALYST): Show the Phase 2 event that shattered or transformed their old life. This paragraph must DIRECTLY continue from paragraph 1 — reference a specific detail established in the first paragraph and show how it was destroyed, corrupted, or abandoned. The favored skill from this phase should emerge from the crisis.
 - Paragraph 3 (BURDEN): Reveal the Phase 3 debt, curse, or shadow that now follows them. Connect it CAUSALLY to the catalyst — it is a consequence, not a coincidence. Show how the burden manifests in daily life. The knack ability should feel like an adaptation to this burden, not a random power.
-- Paragraph 4 (PRESENT DAY): Place the character in the Western Reaches NOW (16 BBY). Show how they operate day-to-day: what they do to survive, how their strengths and weaknesses shape their routine, and what specific corner of the Western Reaches they haunt. If a favored discipline is listed, include one vivid moment where that skill manifested as instinctive, almost supernatural excellence — something that surprised even them. Reference at least one named location from the Setting Bible. End with a sentence that hints at unfinished business or a looming threat.
+- Paragraph 4 (PRESENT DAY): Place the character in the Western Reaches NOW (15 BBY). Show how they operate day-to-day: what they do to survive, how their strengths and weaknesses shape their routine, and what specific corner of the Western Reaches they haunt. If a favored discipline is listed, include one vivid moment where that skill manifested as instinctive, almost supernatural excellence — something that surprised even them. Reference at least one named location from the Setting Bible. End with a sentence that hints at unfinished business or a looming threat.
 - THREAD A SINGLE ARC: Each paragraph must reference at least one concrete detail from the previous paragraph. The backstory should read as one continuous story, not four disconnected vignettes.
 
 STRENGTH & WEAKNESS GUIDANCE:

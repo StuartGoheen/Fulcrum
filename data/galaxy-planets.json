@@ -36,7 +36,7 @@
     "region": "Outer Rim",
     "sector": "Moddell",
     "gridSquare": "H-16",
-    "desc": "Forest moon. Ewok homeworld. In 16 BBY, the second Death Star hasn't been conceived. But the Ebon Spire — Revan's ancient forward base — sits deep in the Dead Forest, waiting. The Moddell sector's hyperspace anomalies make the moon effectively unreachable without specific route data.",
+    "desc": "Forest moon. Ewok homeworld. In 15 BBY, the second Death Star hasn't been conceived. But the Ebon Spire — Revan's ancient forward base — sits deep in the Dead Forest, waiting. The Moddell sector's hyperspace anomalies make the moon effectively unreachable without specific route data.",
     "campaign": true
   },
   {
@@ -46,7 +46,7 @@
     "region": "Outer Rim",
     "sector": "Anoat",
     "gridSquare": "K-18",
-    "desc": "Gas giant. Cloud City floats in the upper atmosphere — a rough-and-tumble tibanna gas mining boomtown. In 16 BBY, Lando Calrissian has NOT yet arrived. The annual sabacc tournament at the Royal Casino draws Imperial bagmen, Hutt proxies, and the worst the Outer Rim has to offer.",
+    "desc": "Gas giant. Cloud City floats in the upper atmosphere — a rough-and-tumble tibanna gas mining boomtown. In 15 BBY, Lando Calrissian has NOT yet arrived. The annual sabacc tournament at the Royal Casino draws Imperial bagmen, Hutt proxies, and the worst the Outer Rim has to offer.",
     "campaign": true
   },
   {
@@ -66,7 +66,7 @@
     "region": "Outer Rim",
     "sector": "Seswenna",
     "gridSquare": "M-18",
-    "desc": "Tarkin's capital. A jagged, brutalist expanse of black armor-plating and glowing red refineries. The sky is choked with exhaust from ten thousand weapons factories. Grand Moff Tarkin rules the Outer Rim from his Citadel here. In 16 BBY, Tarkin is consolidating power and pushing for the Death Star project.",
+    "desc": "Tarkin's capital. A jagged, brutalist expanse of black armor-plating and glowing red refineries. The sky is choked with exhaust from ten thousand weapons factories. Moff Tarkin rules the Outer Rim from his Citadel here. In 15 BBY, Tarkin is consolidating power and pushing for the Death Star project.",
     "campaign": true
   },
   {
@@ -76,7 +76,7 @@
     "region": "Outer Rim",
     "sector": "Trilon",
     "gridSquare": "G-15",
-    "desc": "Trading outpost on the edge of Wild Space. Black Spire Outpost serves smugglers, traders, and those who want to be forgotten. Three suns create complex light patterns over petrified spire forests. In 16 BBY, the Empire hasn't noticed this backwater yet.",
+    "desc": "Trading outpost on the edge of Wild Space. Black Spire Outpost serves smugglers, traders, and those who want to be forgotten. Three suns create complex light patterns over petrified spire forests. In 15 BBY, the Empire hasn't noticed this backwater yet.",
     "campaign": true
   },
   {
@@ -96,7 +96,7 @@
     "region": "Mid Rim",
     "sector": "Semagi",
     "gridSquare": "I-16",
-    "desc": "Lush, mountainous world home to the Cereans. In 16 BBY, Cerea maintains strict isolationist policies — no offworld technology permitted in most settlements. The few spaceports cater to desperate travelers. Good place to disappear, terrible place to find spare parts."
+    "desc": "Lush, mountainous world home to the Cereans. In 15 BBY, Cerea maintains strict isolationist policies — no offworld technology permitted in most settlements. The few spaceports cater to desperate travelers. Good place to disappear, terrible place to find spare parts."
   },
   {
     "name": "Sullust",
@@ -114,7 +114,7 @@
     "region": "Mid Rim",
     "sector": "Chommell",
     "gridSquare": "O-17",
-    "desc": "Idyllic world of rolling green hills, deep ocean cores, and gleaming cities. Emperor Palpatine's homeworld. In 16 BBY, the Empire keeps a firm but velvet-gloved grip here — visible oppression would embarrass the Emperor. Theed's spaceport is well-maintained and relatively safe, but Imperial surveillance is everywhere."
+    "desc": "Idyllic world of rolling green hills, deep ocean cores, and gleaming cities. Emperor Palpatine's homeworld. In 15 BBY, the Empire keeps a firm but velvet-gloved grip here — visible oppression would embarrass the Emperor. Theed's spaceport is well-maintained and relatively safe, but Imperial surveillance is everywhere."
   },
   {
     "name": "Mustafar",
@@ -123,7 +123,7 @@
     "region": "Outer Rim",
     "sector": "Atravis",
     "gridSquare": "L-19",
-    "desc": "Hellscape of lava rivers and volcanic eruptions. Darth Vader's fortress looms over the molten surface. In 16 BBY, the mining operations continue under heavy Imperial security. Nobody comes here voluntarily — if you crash-land on Mustafar, the lava is the least of your problems."
+    "desc": "Hellscape of lava rivers and volcanic eruptions. Darth Vader's fortress looms over the molten surface. In 15 BBY, the mining operations continue under heavy Imperial security. Nobody comes here voluntarily — if you crash-land on Mustafar, the lava is the least of your problems."
   },
   {
     "name": "Lotho Minor",
@@ -132,7 +132,7 @@
     "region": "Outer Rim",
     "sector": "Wazta",
     "gridSquare": "I-17",
-    "desc": "Junk world. Mountains of discarded starship hulls, droid parts, and industrial waste stretch to every horizon. Scavenger clans trade in salvage. In 16 BBY, it's technically Imperial territory but nobody bothers enforcing it. Perfect for emergency repairs if you don't mind the smell — or the fire-breathers."
+    "desc": "Junk world. Mountains of discarded starship hulls, droid parts, and industrial waste stretch to every horizon. Scavenger clans trade in salvage. In 15 BBY, it's technically Imperial territory but nobody bothers enforcing it. Perfect for emergency repairs if you don't mind the smell — or the fire-breathers."
   },
   {
     "name": "Ponemah Terminal",
@@ -150,7 +150,7 @@
     "region": "Mid Rim",
     "sector": "Sloo",
     "gridSquare": "P-14",
-    "desc": "Frigid mountain world. Fort Ypso is a rough frontier town where smugglers, miners, and outlaws trade goods and information. The Conveyex rail system hauls coaxium through mountain passes. In 16 BBY, it's a lawless boomtown — perfect for under-the-table deals and refueling with no questions asked."
+    "desc": "Frigid mountain world. Fort Ypso is a rough frontier town where smugglers, miners, and outlaws trade goods and information. The Conveyex rail system hauls coaxium through mountain passes. In 15 BBY, it's a lawless boomtown — perfect for under-the-table deals and refueling with no questions asked."
   },
   {
     "name": "Mimban",
@@ -168,7 +168,7 @@
     "region": "Outer Rim",
     "sector": "Quelii",
     "gridSquare": "O-6",
-    "desc": "Mysterious world shrouded in red mist. Home to the Nightsisters — Force-wielding witches who survived the Clone Wars purge. In 16 BBY, Dathomir is avoided by anyone with sense. Dense forests, hostile wildlife, and dark side energy make it a last-resort landing site."
+    "desc": "Mysterious world shrouded in red mist. Home to the Nightsisters — Force-wielding witches who survived the Clone Wars purge. In 15 BBY, Dathomir is avoided by anyone with sense. Dense forests, hostile wildlife, and dark side energy make it a last-resort landing site."
   },
   {
     "name": "Ord Mantell",
@@ -177,7 +177,7 @@
     "region": "Mid Rim",
     "sector": "Bright Jewel",
     "gridSquare": "L-7",
-    "desc": "Sprawling junkyard world turned trading hub. In 16 BBY, Ord Mantell is a haven for bounty hunters, scrappers, and black marketeers. The capital city's open-air bazaars sell everything from stolen blasters to forged identchips. Cheap fuel, cheaper morals — just watch your credits."
+    "desc": "Sprawling junkyard world turned trading hub. In 15 BBY, Ord Mantell is a haven for bounty hunters, scrappers, and black marketeers. The capital city's open-air bazaars sell everything from stolen blasters to forged identchips. Cheap fuel, cheaper morals — just watch your credits."
   },
   {
     "name": "Kashyyyk",
@@ -186,7 +186,7 @@
     "region": "Mid Rim",
     "sector": "Mytaranor",
     "gridSquare": "P-9",
-    "desc": "Wookiee homeworld. Towering wroshyr trees form a vertical ecosystem kilometers high. In 16 BBY, the Empire occupies Kashyyyk, enslaving Wookiees for labor. Trandoshan slavers operate openly. The Wookiee resistance runs a dangerous underground — sympathetic spacers can find fuel and repairs in hidden tree-city docks, but getting caught means a one-way trip to the spice mines of Kessel."
+    "desc": "Wookiee homeworld. Towering wroshyr trees form a vertical ecosystem kilometers high. In 15 BBY, the Empire occupies Kashyyyk, enslaving Wookiees for labor. Trandoshan slavers operate openly. The Wookiee resistance runs a dangerous underground — sympathetic spacers can find fuel and repairs in hidden tree-city docks, but getting caught means a one-way trip to the spice mines of Kessel."
   },
   {
     "name": "Saleucami",
@@ -195,7 +195,7 @@
     "region": "Outer Rim",
     "sector": "Suolriep",
     "gridSquare": "S-8",
-    "desc": "Arid world dotted with bulbous caldera lakes. Clone deserter Cut Lawquane's farm is here — or was. In 16 BBY, Saleucami is a quiet backwater where settlers scratch out a living. Small settlements offer basic supplies and fuel. The Empire barely bothers with this place, making it a decent spot to lay low."
+    "desc": "Arid world dotted with bulbous caldera lakes. Clone deserter Cut Lawquane's farm is here — or was. In 15 BBY, Saleucami is a quiet backwater where settlers scratch out a living. Small settlements offer basic supplies and fuel. The Empire barely bothers with this place, making it a decent spot to lay low."
   },
   {
     "name": "Rishi",
@@ -204,7 +204,7 @@
     "region": "Outer Rim",
     "sector": "Abrion",
     "gridSquare": "S-15",
-    "desc": "Moon at the edge of the Rishi Maze. A listening outpost and small settlement cling to the rocky coast. In 16 BBY, Rishi is a waypoint for ships heading to or from the Corporate Sector. The cantina at Rishi Station serves terrible food but has reliable fuel pumps and mechanics who don't ask questions."
+    "desc": "Moon at the edge of the Rishi Maze. A listening outpost and small settlement cling to the rocky coast. In 15 BBY, Rishi is a waypoint for ships heading to or from the Corporate Sector. The cantina at Rishi Station serves terrible food but has reliable fuel pumps and mechanics who don't ask questions."
   },
   {
     "name": "Aldhani",
@@ -213,7 +213,7 @@
     "region": "Outer Rim",
     "sector": "Cademimu",
     "gridSquare": "M-6",
-    "desc": "Remote mountainous world in the Cademimu sector. The Empire maintains a garrison here guarding a payroll hub and a secret hyperspace navigation facility. In 16 BBY, Aldhani is lightly populated — herders and Imperial staff. The Eye of Aldhani — a spectacular celestial event — draws tourists once every three years. A risky but necessary waypoint for anyone heading to the Cademimu sector via back channels."
+    "desc": "Remote mountainous world in the Cademimu sector. The Empire maintains a garrison here guarding a payroll hub and a secret hyperspace navigation facility. In 15 BBY, Aldhani is lightly populated — herders and Imperial staff. The Eye of Aldhani — a spectacular celestial event — draws tourists once every three years. A risky but necessary waypoint for anyone heading to the Cademimu sector via back channels."
   },
   {
     "name": "Sluis Van",
@@ -222,7 +222,7 @@
     "region": "Outer Rim",
     "sector": "Sluis",
     "gridSquare": "N-18",
-    "desc": "Major shipyard world in the Sluis sector. The Sluis Van shipyards are one of the largest repair and construction facilities in the Outer Rim — a sprawling orbital complex servicing everything from bulk freighters to capital ships. In 16 BBY, the Empire contracts heavily with the yards. For independent spacers, Sluis Van means fast repairs, quality parts, and mechanics who know their trade. Expensive, but worth it."
+    "desc": "Major shipyard world in the Sluis sector. The Sluis Van shipyards are one of the largest repair and construction facilities in the Outer Rim — a sprawling orbital complex servicing everything from bulk freighters to capital ships. In 15 BBY, the Empire contracts heavily with the yards. For independent spacers, Sluis Van means fast repairs, quality parts, and mechanics who know their trade. Expensive, but worth it."
   },
   {
     "name": "Dagobah",
@@ -231,7 +231,7 @@
     "region": "Outer Rim",
     "sector": "Sluis",
     "gridSquare": "N-19",
-    "desc": "Swamp world. Dense fog, massive gnarltrees, and aggressive fauna make Dagobah inhospitable to settlement. No cities, no spaceports, no Imperial presence. In 16 BBY, Dagobah is a dead end on the nav charts — a place ships pass over, not through. Sensors read poorly in the atmosphere. A perfect place to disappear, if you could survive."
+    "desc": "Swamp world. Dense fog, massive gnarltrees, and aggressive fauna make Dagobah inhospitable to settlement. No cities, no spaceports, no Imperial presence. In 15 BBY, Dagobah is a dead end on the nav charts — a place ships pass over, not through. Sensors read poorly in the atmosphere. A perfect place to disappear, if you could survive."
   },
   {
     "name": "Clak'dor VII",
@@ -240,7 +240,7 @@
     "region": "Outer Rim",
     "sector": "Mayagil",
     "gridSquare": "L-18",
-    "desc": "Homeworld of the Bith. Once a center of art, music, and science, Clak'dor VII was devastated by a chemical war centuries ago. The surviving Bith live in sealed cities and are renowned across the galaxy as musicians and engineers. In 16 BBY, the planet's orbital stations offer competent technical services and cantinas with the best live music in the sector."
+    "desc": "Homeworld of the Bith. Once a center of art, music, and science, Clak'dor VII was devastated by a chemical war centuries ago. The surviving Bith live in sealed cities and are renowned across the galaxy as musicians and engineers. In 15 BBY, the planet's orbital stations offer competent technical services and cantinas with the best live music in the sector."
   },
   {
     "name": "Yag'Dhul",
@@ -249,7 +249,7 @@
     "region": "Inner Rim",
     "sector": "Givin",
     "gridSquare": "N-16",
-    "desc": "Homeworld of the Givin — vacuum-adapted mathematicians with sealed exoskeletons. Yag'Dhul's three moons create extreme tidal forces that periodically strip the atmosphere from low-lying areas. The Givin are master shipwrights and hyperspace theorists. In 16 BBY, Yag'Dhul Station is a refueling stop on the Rimma Trade Route, and Givin navigators can be hired for complex route calculations."
+    "desc": "Homeworld of the Givin — vacuum-adapted mathematicians with sealed exoskeletons. Yag'Dhul's three moons create extreme tidal forces that periodically strip the atmosphere from low-lying areas. The Givin are master shipwrights and hyperspace theorists. In 15 BBY, Yag'Dhul Station is a refueling stop on the Rimma Trade Route, and Givin navigators can be hired for complex route calculations."
   },
   {
     "name": "Fondor",
@@ -258,6 +258,6 @@
     "region": "Colonies",
     "sector": "Tapani",
     "gridSquare": "O-15",
-    "desc": "Major shipyard world in the Core-ward colonies. Fondor's orbital shipyards rival Kuat in scale, producing Star Destroyers and heavy cruisers for the Imperial Navy. In 16 BBY, the yards are running triple shifts. The planet below is heavily industrialized — smog-choked cities serve a workforce devoted to military production. Not a place to linger unless you have business with the yards."
+    "desc": "Major shipyard world in the Core-ward colonies. Fondor's orbital shipyards rival Kuat in scale, producing Star Destroyers and heavy cruisers for the Imperial Navy. In 15 BBY, the yards are running triple shifts. The planet below is heavily industrialized — smog-choked cities serve a workforce devoted to military production. Not a place to linger unless you have business with the yards."
   }
 ]

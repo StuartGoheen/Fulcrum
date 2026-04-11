@@ -80,7 +80,7 @@
     "name": "ARC Trooper Armor",
     "category": "light",
     "categoryLabel": "Light Armor",
-    "description": "Republic Advanced Recon Commando armor: lighter than standard clone plate but packed with field systems. Designed for operators who needed to move fast, survive independently, and hit precisely. By 16 BBY, a functional set is a rarity — found only on veterans, black-market specialists, and the kinds of people the Empire would prefer didn't have it.",
+    "description": "Republic Advanced Recon Commando armor: lighter than standard clone plate but packed with field systems. Designed for operators who needed to move fast, survive independently, and hit precisely. By 15 BBY, a functional set is a rarity — found only on veterans, black-market specialists, and the kinds of people the Empire would prefer didn't have it.",
     "cost": 4000,
     "availability": "4/X",
     "traits": [
@@ -126,7 +126,7 @@
     "name": "Clone Trooper Armor Mk I",
     "category": "medium",
     "categoryLabel": "Medium Armor",
-    "description": "Standard Republic Clone Trooper armor from the Clone Wars. Recognizable, durable, and still common in surplus channels three years after Order 66. The Mark I is the original production run — slightly less refined than the later Mark II but functionally identical in the field. Wearing it in Imperial space requires a convincing explanation.",
+    "description": "Standard Republic Clone Trooper armor from the Clone Wars. Recognizable, durable, and still common in surplus channels four years after Order 66. The Mark I is the original production run — slightly less refined than the later Mark II but functionally identical in the field. Wearing it in Imperial space requires a convincing explanation.",
     "cost": 1500,
     "availability": "3/X",
     "traits": [
@@ -227,7 +227,7 @@
     "name": "Katarn Commando Armor",
     "category": "heavy",
     "categoryLabel": "Heavy Armor",
-    "description": "Republic Commando-class armor — the best military kit the Clone Wars produced. Not available for sale through any legitimate channel. By 16 BBY, surviving sets are legendary, sought after by collectors, black market specialists, and the kinds of operators who make the Empire nervous.",
+    "description": "Republic Commando-class armor — the best military kit the Clone Wars produced. Not available for sale through any legitimate channel. By 15 BBY, surviving sets are legendary, sought after by collectors, black market specialists, and the kinds of operators who make the Empire nervous.",
     "cost": 7500,
     "availability": "4/X",
     "traits": [

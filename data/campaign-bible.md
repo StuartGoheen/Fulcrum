@@ -22,7 +22,7 @@ The following outcomes are **mandatory** for the campaign to function:
 
 A crew of mercenaries on the galaxy's fringe are hired by a charming, imprisoned Imperial admiral to help him recover a stolen fortune. What begins as a straightforward criminal enterprise — break him out, chase the money, get paid — becomes something far darker as the crew realizes their employer has been using them from the start. Every job, every lead, every "favor" was a calculated step in a scheme to hand the Empire the keys to a superweapon hidden in the Unknown Regions. By the time the betrayal is revealed, the crew has built the road to annihilation with their own hands — and they're the only ones who can tear it up.
 
-**Setting:** 16 BBY. The Empire is two years old. The Clone Wars are recent memory. The galaxy is adjusting to a new order, and the frontier is where the old rules still apply.
+**Setting:** 15 BBY. The Empire is four years old. The Clone Wars are fading from memory — not yet history, but no longer current. The galaxy has adjusted to the New Order, and most people have stopped waiting for things to go back. On the frontier, Imperial authority is a rumor backed by distant Star Destroyers, and the old rules still apply.
 
 **Tone:** Gritty, morally complex Star Wars. Not Disney — plot lines matter, consequences stick, and good people do ugly things for understandable reasons. The heroes aren't chosen ones; they're working people who stumble into something bigger than themselves.
 
@@ -41,6 +41,93 @@ The heroes' choices ripple forward. The insurrection they spark on Malpaz in Adv
 
 ### The Cost of Power
 Leviathan is the Empire's ambition made physical — a weapon so large it required secret hyperspace routes to reach its construction site. Varth's ambition mirrors this: he'll spend any life, betray any alliance, to climb higher. The campaign asks whether power is worth what it costs the people around the powerful.
+
+---
+
+## Galactic Timeline (19 BBY – 10 BBY)
+
+A curated reference for the GM — key canon events that shape the galaxy your campaign inhabits. Each entry includes a campaign-relevance note in italics.
+
+### 19 BBY — The Fall
+
+- **Order 66 executed.** The Jedi Order is destroyed in a single day. Survivors scatter to the farthest reaches of the galaxy.
+  *Denia is placed in stasis shortly after. By campaign start, she has been in that pod for four years — long enough to miss the Empire becoming permanent.*
+- **The Galactic Republic becomes the Galactic Empire.** Palpatine declares the New Order to thunderous applause in the Senate chamber.
+  *The heroes were alive for this. They watched the galaxy change channels and kept their heads down.*
+- **Separatist Council massacred on Mustafar.** Vader executes the Separatist leadership. The shutdown order goes out to all droid armies.
+  *Mandrake refuses to stand down. He goes native on Ajan Kloss and begins his guerrilla war — four years running by the time the heroes meet him.*
+- **Wookiee enslavement begins.** Kashyyyk is occupied. Mass forced labor deportations commence under the guise of "workforce development."
+  *The Holonet story about Kashyyyk's "historic low unemployment" is the Empire's version. The reality is chains.*
+
+### 18 BBY — Consolidation
+
+- **The Inquisitorius is formally established.** Former Jedi turned to the dark side hunt their own. The Grand Inquisitor leads the program.
+  *Valin Draco is an Inquisitor — not the Grand Inquisitor, but cut from the same broken cloth. His pursuit of Denia is institutional, not personal.*
+- **Imperial Academies replace Republic military training.** Clone production winds down. Recruitment of human volunteers accelerates.
+  *Varth thrives in this transition. He is the perfect Imperial bureaucrat — competent, apolitical, and willing to manage logistics without asking what the cargo is.*
+- **Tarkin's pacification campaigns sweep the Outer Rim.** Worlds that resisted Imperial authority are brought to heel through military force and economic coercion.
+  *Malpaz is one of these worlds. The scars from Tarkin's campaigns — and Krennic's reactor "accident" — are two years old by campaign start. The resentment is deep and quiet.*
+
+### 17 BBY — The Malpaz Disaster
+
+- **Orson Krennic's reactor meltdown on Malpaz.** A nuclear reactor tied to Death Star research melts down. The Empire blames Separatist holdouts. The locals know it's a lie.
+  *This is the wound that festers into Adventure 5's insurrection. Two years of contaminated ground, dead children, and Imperial gaslighting. When the heroes arrive, they're lighting a fuse that's been soaking in fuel.*
+- **Saw Gerrera's Partisans fragment.** Gerrera's methods grow increasingly extreme. Mon Mothma and Bail Organa distance themselves from his operations.
+  *The Holonet dismisses Gerrera as a dying remnant of Clone Wars separatism. He's not dying — he's radicalizing.*
+- **Berch Teller's insurgency.** A former Republic intelligence officer leads a brief but significant campaign against Imperial military targets using a stolen warship.
+  *Proof that the Empire is not as invulnerable as the Holonet claims. Teller's campaign is a footnote by 15 BBY, but it demonstrated that one determined cell with the right resources can hurt the machine.*
+
+### 16 BBY — The Antar Atrocity
+
+- **The Antar Atrocity.** Tarkin authorizes mass arrests and executions on Antar 4, targeting former Separatist-aligned Koorivar populations — including loyalists who had already switched sides. Thousands killed. The Senate buries the report.
+  *This is who Tarkin is. Not a cartoon villain — a man who solves political problems with demographic math. When the heroes face him on Eriadu, they should feel the weight of what he's already done. He doesn't need the Leviathan to be terrifying. He needs it to be efficient.*
+- **ISB expands domestic surveillance.** Colonel Wullf Yularen's Bureau of Operations begins embedding agents in civilian populations across the Outer Rim.
+  *Lady Sinde (Adv2) is one of these agents. ISB is everywhere the heroes go — they just don't always know it.*
+- **Lothal industrialization accelerates.** Sienar Fleet Systems establishes a major TIE fighter production facility. Governor Pryce consolidates power.
+  *Lothal appears in Holonet stories as an Imperial success narrative. The farmers who lost their land would disagree.*
+
+### 15 BBY — Campaign Entry Point ★
+
+- **The Empire declares "galactic peace."** Four years since the Clone Wars ended. The Emperor's New Order is presented as permanent and inevitable. Military parades. Loyalty oaths. The Holonet runs victory laps.
+  *This is the air the heroes breathe. The Empire isn't new anymore — it's normal. That normalization is more dangerous than any Star Destroyer.*
+- **Tarkin is Moff of the Seswenna Sector.** He controls Eriadu, commands the Outer Rim's most powerful military infrastructure, and is reaching for the rank of Grand Moff — a title that will come in 14 BBY.
+  *Adventures 6-7 take place on Eriadu. Tarkin is not yet at his apex. He's a man one rung from the top, and that hunger makes him more dangerous, not less. The Leviathan data is his ticket.*
+- **Jakku Observatory active.** Gallius Rax maintains the Emperor's secret facility in the Western Reaches. Unusual Imperial garrison activity on an otherwise worthless desert world.
+  *Adventure 1 opens on Jakku. The unusual military presence — the Lambda shuttle, the garrison — has a reason the heroes will never learn. It's not about them. Palpatine is playing a game decades longer than anyone suspects.*
+- **Luthen Rael's Axis network begins forming.** An antiquities dealer on Coruscant begins quietly connecting rebel cells, funding operations, and building the infrastructure that will eventually become the Alliance.
+  *The Fulcrum codename — Ahsoka Tano's contribution — is starting to circulate in intelligence whispers. The heroes' campaign is named after it. They may never know why.*
+- **Varth is imprisoned at the Vanishing Place.** Caught skimming from the Leviathan supply chain. The Empire buries him on Ajan Kloss.
+  *This is where the campaign begins. A man in a cage, playing sabacc with his guards, waiting for someone to find his breadcrumb trail.*
+
+### 14 BBY — The Promotion
+
+- **Tarkin is promoted to Grand Moff.** The first individual to hold the title. He now commands the Outer Rim Territories with near-absolute authority.
+  *If the campaign runs on schedule, this promotion happens during or shortly after the heroes' time on Eriadu (Adv 6-7). Tarkin getting the Leviathan navigation data from Varth may be one of the final demonstrations of competence that earns him the title. The heroes helped build his resume.*
+- **Death Star construction accelerates.** With Tarkin's expanded authority, resources flow more freely to the Geonosis shipyards.
+  *The Leviathan is not the Death Star. But they are cousins — born from the same institutional appetite for superweapons.*
+- **The Geonosis sterilization.** The Empire exterminates the Geonosian population to protect Death Star secrecy.
+  *The scale of what the Empire will do to keep its secrets. If the heroes think Malpaz is bad, the galaxy is worse than they imagine.*
+
+### 13 BBY — The Tightening Grip
+
+- **Moff Delian Mors governs Ryloth.** Imperial control of the Outer Rim solidifies through a network of regional governors with varying degrees of competence and cruelty.
+  *The political architecture the heroes navigate. Every world has its own Moff, its own garrison, its own flavor of Imperial oppression.*
+- **Free Ryloth Movement active.** Cham Syndulla's resistance continues on Ryloth, a model for planetary insurgencies across the Rim.
+  *If the heroes inspired Malpaz's insurrection in Adv5, they're part of a larger pattern — small fires that the Empire cannot stamp out fast enough.*
+
+### 12–11 BBY — Seeds of Rebellion
+
+- **Rebel cells multiply across the Outer Rim.** Unconnected, uncoordinated, but growing. Bail Organa and Mon Mothma quietly fund operations through intermediaries.
+  *The proto-Rebellion the heroes encounter aboard the Resurgence is one of these cells. They are not the Rebel Alliance — that's years away. They are a network of people who decided "no" was an answer.*
+- **Batuu remains an overlooked frontier world.** Black Spire Outpost continues as a smuggler's haven beyond Imperial interest.
+  *Adventure 8's setting. Oga Garra rules Black Spire Outpost. The Empire hasn't noticed Batuu yet — which is exactly why it's useful.*
+
+### 10 BBY — The Horizon
+
+- **The Spectres form on Lothal.** Hera Syndulla and Kanan Jarrus begin assembling the crew that will become the Ghost cell.
+  *This is the future the heroes are fighting toward without knowing it. The fires they light on Malpaz, the alliances they forge on Batuu — they're part of the kindling.*
+- **Solo's story begins on Corellia.** A young Han Solo escapes Lady Proxima's White Worms.
+  *The galaxy is full of people running from something. Some of them become heroes. Most of them just keep running.*
 
 ---
 
@@ -92,7 +179,7 @@ Then she intercepted the Code Cylinder from Varga's supply chain on Jakku. It wa
 
 The Empire built the Leviathan superweapon at **Vel Shara** in the Unknown Regions. But the hyperspace lanes used to reach it have collapsed or become unstable — the Empire's own supply lines are compromised. Varth realized that ancient Jedi holocrons contain hyperspace charts for the Unknown Regions that could chart a new, stable route to Vel Shara. The problem: those holocrons are locked behind Force-sensitive security the Empire can't bypass.
 
-Varth's solution: use the heroes (expendable, deniable contractors) to retrieve the holocrons, and use Denia (a Jedi historian he recognized immediately) as the Force-sensitive key. He keeps the heroes motivated with the embezzled fortune — the "payday" is always one more job away. When they finally retrieve the holocrons and the drift algorithms, Varth takes everything to Grand Moff Tarkin and receives command of the Leviathan.
+Varth's solution: use the heroes (expendable, deniable contractors) to retrieve the holocrons, and use Denia (a Jedi historian he recognized immediately) as the Force-sensitive key. He keeps the heroes motivated with the embezzled fortune — the "payday" is always one more job away. When they finally retrieve the holocrons and the drift algorithms, Varth takes everything to Moff Tarkin and receives command of the Leviathan.
 
 **His authentication key** for the encrypted Varga account is memorized — not stored on any device. This keeps him in control of his leverage and prevents the heroes from stumbling onto it.
 
@@ -137,7 +224,7 @@ Before his capture, Varth had arranged for a code cylinder — an Imperial ghost
 - Adv3 P3 S5: Orders the heroes to jump to hyperspace while Maya is on the slave ship. "It's too hot. Jump. Now." **Third red flag.** If the heroes read him (Insight vs Resist 4), they can see through the tactical justification to the calculated silence underneath.
 - Adv3 P3 S6: Takes a punch from Maya at Maz's castle. Doesn't apologize. "She made her choice. And you made yours." Unlocks the Varga account, pays the heroes. Then pivots to the "bigger score" at Vel Shara, casually steering Denia into suggesting the Ebon Spire. This is Varth at his most dangerous — he just proved he pays up, making the next lie credible.
 - Adv4–5: Continues directing operations. Steers the heroes toward the holocrons and drift algorithms with increasing precision. If the heroes are watching closely, his interest in the navigation data is disproportionate to a "payday" at Vel Shara. He's patient, methodical, and never overplays his hand.
-- Adv6: **The Betrayal.** The heroes watch Varth receive command of the Leviathan from Grand Moff Tarkin on Eriadu. Everything they did — every job, every risk, every moral compromise — served his agenda. The "payday at Vel Shara" was a lie. Vel Shara is where the weapon was built. The embezzled fortune was pocket change compared to what Varth was really after. He traded their work for a superweapon.
+- Adv6: **The Betrayal.** The heroes watch Varth receive command of the Leviathan from Moff Tarkin on Eriadu. Everything they did — every job, every risk, every moral compromise — served his agenda. The "payday at Vel Shara" was a lie. Vel Shara is where the weapon was built. The embezzled fortune was pocket change compared to what Varth was really after. He traded their work for a superweapon.
 - Adv7: The Resurgence is destroyed. Denia is captured (primary path). The heroes lose everything. Varth is now aboard the Leviathan — unreachable, untouchable, commanding the weapon they helped him unlock. He is not gloating. He has moved on. The heroes were useful. Now they're not.
 - Adv8–9: Absent. The heroes hear about the Leviathan's movements through intelligence channels. Varth is a shadow — referenced but not seen. His absence is its own kind of presence. The heroes are rebuilding from nothing while the man who used them prepares to annihilate the people they inspired.
 - Adv10: **The Final Confrontation.** Varth commands the Leviathan at Malpaz. The heroes board the superweapon and confront him. This is not a monologue scene. Varth does not explain himself at length. He's been running a military operation for months and he's tired. When the heroes reach him, he looks at them and says something simple — not cruel, not triumphant. Something like: "You're here. Good. I wondered if you would be." The confrontation should feel like a conversation between people who used to work together and one of them burned it all down. Varth will fight if cornered. He will try to escape if possible. He will not beg. If the heroes offer him a chance to surrender, he considers it — genuinely — and the GM should make the players believe he might take it. Whether he does is the last choice of the campaign.
@@ -168,7 +255,7 @@ Before his capture, Varth had arranged for a code cylinder — an Imperial ghost
 ### Jedi Master Denia
 **Species:** Human | **Role:** Jedi Historian, Force-Sensitive Key, Mentor Figure
 
-**What the Players See:** A weakened Jedi Master found in a stasis pod in Varga's dungeon. She's been in a coma since shortly after Order 66 — roughly two years. She's disoriented, vulnerable, and has no knowledge of the current state of the galaxy. She doesn't know what Project Leviathan is. Over time, she becomes a mentor figure — wise, compassionate, and knowledgeable about the old Jedi Order's history and archives.
+**What the Players See:** A weakened Jedi Master found in a stasis pod in Varga's dungeon. She's been in a coma since shortly after Order 66 — roughly four years. She's disoriented, vulnerable, and has no knowledge of the current state of the galaxy. She doesn't know what Project Leviathan is. Over time, she becomes a mentor figure — wise, compassionate, and knowledgeable about the old Jedi Order's history and archives.
 
 **What the GM Knows:** Denia is genuine in everything she does. She is not manipulating anyone. But she IS being manipulated — by Varth. Her value is her knowledge of the old Jedi network: where holocrons are hidden, where archives are buried, where the Jedi and Sith mapped hyperspace routes centuries ago. She's also Force-sensitive enough to actually *open* Force-locked holocrons.
 
@@ -277,7 +364,7 @@ When he sees Maya on Batuu, he doesn't run. He's too tired to run. He doesn't ap
 ### Vazus Mandrake
 **Species:** Human | **Role:** Separatist Holdout, Jungle Guerrilla, Conditional Ally
 
-**What the Players See:** A gaunt, dangerous figure in tattered Separatist commando gear who drops from the jungle canopy with a rifle aimed at their heads. He's been fighting a one-man guerrilla war against Skarn's occupation for three years and knows the Vanishing Place intimately. He offers a deal: guide the heroes inside through a secret drainage sluice in exchange for sabotaging the fortress generator.
+**What the Players See:** A gaunt, dangerous figure in tattered Separatist commando gear who drops from the jungle canopy with a rifle aimed at their heads. He's been fighting a one-man guerrilla war against Skarn's occupation for four years and knows the Vanishing Place intimately. He offers a deal: guide the heroes inside through a secret drainage sluice in exchange for sabotaging the fortress generator.
 
 **What the GM Knows:** Mandrake was a Separatist commando during the Clone Wars. When the shutdown order came — when Grievous died and the Separatist Council was massacred on Mustafar — Mandrake refused to stand down. He'd spent the final year of the war deployed to Ajan Kloss, and during that time he formed deep bonds with the indigenous population of the jungle moon. When Skarn's warlord forces moved in and repurposed the old temple complex as the Vanishing Place, they displaced and brutalized the local indigenous communities. Skarn's operation — holding Imperial prisoners for profit, running biological experiments — required forced labor and territorial control. The indigenous people who resisted were rounded up and held in makeshift detention pens inside the fortress, penned behind laser fences and security doors powered by the central generator.
 
@@ -370,7 +457,7 @@ The heroes' negotiation with Raden at the filtration plant determines his arc:
 **Classification:** Mobile Gravity Well Siege Platform
 **Scale:** Super Star Destroyer class (~19km bow-to-stern)
 **Construction Site:** Vel Shara shipyard complex, Unknown Regions
-**Commander:** Admiral Gilder Varth (appointed by Grand Moff Tarkin, Adventure 6)
+**Commander:** Admiral Gilder Varth (appointed by Moff Tarkin, Adventure 6)
 
 ### Physical Form
 
@@ -469,7 +556,7 @@ A leviathan is a creature of the deep that drags you down. This weapon literally
 > *Episode I*
 > **THE TRAITOR'S GAMBIT**
 >
-> It is three years since the fall of the REPUBLIC. The GALACTIC EMPIRE tightens its grip on the Core Worlds, but in the lawless Western Reaches, its authority is little more than a rumor backed by distant STAR DESTROYERS.
+> It is four years since the fall of the REPUBLIC. The GALACTIC EMPIRE tightens its grip on the Core Worlds, but in the lawless Western Reaches, its authority is little more than a rumor backed by distant STAR DESTROYERS.
 >
 > On the frontier, survival has its own currency. CRIME SYNDICATES and loan sharks rule the trade lanes, and debts are collected not with writs but with blasters. Those who cannot pay disappear. Those who run end up somewhere worse.
 >
@@ -705,11 +792,11 @@ A leviathan is a creature of the deep that drags you down. This weapon literally
 
 **What the Players Know Going In:** They've completed the navigation package. Time to head to Vel Shara and collect the biggest payday of their lives.
 
-**What the GM Knows:** This is the betrayal. Varth has taken the complete navigation data — holocrons plus drift algorithms — to Grand Moff Tarkin on Eriadu. He trades the Unknown Regions hyperspace corridor for command of the Leviathan.
+**What the GM Knows:** This is the betrayal. Varth has taken the complete navigation data — holocrons plus drift algorithms — to Moff Tarkin on Eriadu. He trades the Unknown Regions hyperspace corridor for command of the Leviathan.
 
 **Key Plot Beats:**
 - Heroes track Varth to Eriadu
-- **THE BETRAYAL:** They witness Varth receive command of the Leviathan from Grand Moff Tarkin. Everything they've done — every job, every heist, every risk — served Varth's real agenda.
+- **THE BETRAYAL:** They witness Varth receive command of the Leviathan from Moff Tarkin. Everything they've done — every job, every heist, every risk — served Varth's real agenda.
 - Combat against Death Troopers and Draco's Apprentice
 - Slicing the Primary Data Center for Varth's orders — confirming the scope of the betrayal
 
@@ -868,7 +955,7 @@ This section lays out Varth's complete scheme from start to finish. Every step t
 
 ### Phase 4: The Trade (Adventure 6)
 **Varth's goal:** Trade the complete navigation data for command of the Leviathan.
-**How:** Varth takes the combined data (holocron charts + drift algorithms) to Grand Moff Tarkin on Eriadu. In exchange, he receives command of the Leviathan superweapon.
+**How:** Varth takes the combined data (holocron charts + drift algorithms) to Moff Tarkin on Eriadu. In exchange, he receives command of the Leviathan superweapon.
 **What the heroes learn:** Everything. They witness the handoff. The "payday at Vel Shara" was a lie. The embezzled fortune was pocket change compared to what Varth was really after. Every job they did — every risk, every moral compromise — built the road to a superweapon.
 
 ### Phase 5: The Reckoning (Adventures 7–10)

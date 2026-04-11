@@ -6,10 +6,10 @@
       "window": "pre",
       "stories": [
         {
-          "id": "hn_empire_3yr",
-          "headline": "EMPIRE DAY CELEBRATIONS MARK THREE YEARS OF GALACTIC PEACE",
+          "id": "hn_empire_4yr",
+          "headline": "EMPIRE DAY CELEBRATIONS MARK FOUR YEARS OF GALACTIC PEACE",
           "source": "Alton Kastle, HoloNet News",
-          "body": "This is Alton Kastle for the only news you need. Citizens across the galaxy joined in celebration of the third anniversary of Emperor Palpatine's New Order. Grand Vizier Mas Amedda praised the Empire's 'unprecedented era of stability and prosperity' in a live address from the Imperial Palace. Military parades on Coruscant, Corellia, and Kuat drew record attendance. The Emperor himself appeared briefly on the Senate balcony to thunderous applause. Citizens are encouraged to display the Imperial crest in their homes and businesses as a show of unity. Your Empire thanks you for your loyalty.",
+          "body": "This is Alton Kastle for the only news you need. Citizens across the galaxy joined in celebration of the fourth anniversary of Emperor Palpatine's New Order. Grand Vizier Mas Amedda praised the Empire's 'unprecedented era of stability and prosperity' in a live address from the Imperial Palace. Military parades on Coruscant, Corellia, and Kuat drew record attendance. The Emperor himself appeared briefly on the Senate balcony to thunderous applause. Citizens are encouraged to display the Imperial crest in their homes and businesses as a show of unity. Your Empire thanks you for your loyalty.",
           "type": "propaganda",
           "tags": ["empire", "coruscant", "palpatine"]
         },
@@ -28,6 +28,54 @@
           "body": "Imperial forces acting on intelligence from concerned citizens have apprehended a Jedi fugitive on the agrarian world of Felucia. The suspect, wanted for sedition and conspiracy against the state, was neutralized after resisting lawful detention. No civilian casualties were reported. Citizens are reminded that harboring Jedi fugitives carries a mandatory sentence under Imperial Edict 13. If you see something, say something — your Empire thanks you for your vigilance. Contact your local ISB field office or use the anonymous Imperial tip line to report suspicious Force-related activity.",
           "type": "lore",
           "tags": ["jedi", "inquisitorius", "felucia"]
+        },
+        {
+          "id": "hn_malpaz_recovery",
+          "headline": "MALPAZ ENVIRONMENTAL RECOVERY ON SCHEDULE — IMPERIAL ENGINEERING CORPS COMMENDED",
+          "source": "Alton Kastle, HoloNet News",
+          "body": "The Imperial Engineering Corps reports that environmental remediation efforts on Malpaz continue ahead of schedule, two years after a Separatist-era industrial reactor suffered catastrophic failure. Governor-designate Pol Andrissus praised the 'tireless dedication of Imperial personnel working in difficult conditions to restore Malpaz to habitability.' Soil reclamation in the Northern Reaches has exceeded projections, and potable water distribution now covers 74% of the affected population. A few isolated reports of chronic illness in nearby settlements have been referred to the Imperial Medical Corps for standard follow-up. Citizens displaced by the reactor failure may apply for temporary housing through their local Imperial Resettlement Office.",
+          "type": "foreshadow",
+          "tags": ["malpaz", "krennic", "death-star", "cover-up"]
+        },
+        {
+          "id": "hn_jakku_garrison",
+          "headline": "JAKKU GARRISON EXPANDED — ARKANIS SECTOR SECURITY BOLSTERED",
+          "source": "Alton Kastle, HoloNet News",
+          "body": "The Imperial Navy has authorized a modest expansion of garrison facilities on Jakku as part of a broader Arkanis Sector security initiative. A new communications relay and expanded landing facilities will support routine patrols along the sector's western corridor. When asked about the unusually large allocation of resources for a sparsely populated desert world, Sector Moff Therrin stated: 'The Empire's commitment to security extends to every world, no matter how remote.' Local residents are encouraged to welcome garrison personnel and report any unregistered vessels or suspicious activity to the new Imperial Communications Office in Reestkii.",
+          "type": "foreshadow",
+          "tags": ["jakku", "empire", "palpatine", "observatory"]
+        },
+        {
+          "id": "hn_fulcrum_whispers",
+          "headline": "ISB ADVISORY: DISREGARD UNAUTHORIZED TRANSMISSIONS ON MILITARY FREQUENCIES",
+          "source": "Imperial Security Bureau — Public Advisory",
+          "body": "The Imperial Security Bureau has issued a routine advisory regarding intermittent unauthorized transmissions detected on lower-band military frequencies across several Outer Rim sectors. Analysis confirms the signals originate from obsolete Clone Wars-era communications equipment operated by criminal elements. The transmissions contain no actionable intelligence and pose no security threat. Citizens and military personnel who encounter unfamiliar callsigns or coded messages on open channels should disregard the content and file a standard interference report with their local ISB field office. Do not attempt to decode, respond to, or retransmit intercepted signals. Your cooperation ensures a secure galaxy.",
+          "type": "foreshadow",
+          "tags": ["fulcrum", "rebellion", "isb", "ahsoka"]
+        },
+        {
+          "id": "hn_antar_stability",
+          "headline": "ANTAR 4 REPORTS LOWEST CIVIL UNREST INDEX IN SECTOR HISTORY",
+          "source": "Alton Kastle, HoloNet News",
+          "body": "The Prindaar sector reports that civil unrest on Antar 4 has fallen to its lowest recorded level following last year's comprehensive security operation. Moff Tarkin's office credited the 'decisive and humane intervention that removed destabilizing elements from the Koorivar population centers.' Resettlement programs for displaced communities are proceeding under ISB oversight. Senator Bail Organa's request for an independent Senate inquiry into the operation was declined by the Committee on Imperial Security as 'redundant given existing oversight mechanisms.' Citizens of Antar 4 are reminded that curfew regulations remain in effect until further notice.",
+          "type": "lore",
+          "tags": ["antar", "tarkin", "atrocity", "organa"]
+        },
+        {
+          "id": "hn_batuu_frontier",
+          "headline": "FRONTIER SURVEY: TRILON SECTOR CLASSIFIED LOW-PRIORITY — NO IMPERIAL DEVELOPMENT PLANNED",
+          "source": "Imperial Survey Corps Bulletin",
+          "body": "The Imperial Survey Corps has completed its annual assessment of the Trilon sector, confirming its classification as a low-priority zone with no significant mineral deposits, strategic value, or population centers warranting Imperial development. The sector's only notable settlement — an outpost designated 'Black Spire' on the terrestrial world Batuu — consists of approximately 4,000 transient residents engaged in subsistence trading and small-scale agriculture. Survey Commander Hess Ottol noted: 'There is nothing on Batuu that merits Imperial attention at this time.' The sector will be reassessed on the standard five-year cycle.",
+          "type": "foreshadow",
+          "tags": ["batuu", "black-spire", "frontier", "smuggling"]
+        },
+        {
+          "id": "hn_rebel_dismissal",
+          "headline": "EDITORIAL: THE MYTH OF 'ORGANIZED RESISTANCE' — WHY THE EMPIRE HAS ALREADY WON",
+          "source": "Alton Kastle, HoloNet News — Opinion",
+          "body": "This is Alton Kastle with a personal observation. Four years into the New Order, a handful of malcontents on the galaxy's fringes continue to engage in petty acts of vandalism and call it 'resistance.' Let us be clear: there is no organized opposition to the Galactic Empire. There is no network. There is no leadership. There are scattered criminals exploiting the memory of the Clone Wars to justify theft and sedition. The so-called 'rebel cells' reported in certain Outer Rim sectors are unconnected, under-equipped, and ideologically incoherent. They agree on nothing except their refusal to participate in civilization. The Empire is not threatened. The Empire is patient. And patience, as the Emperor has shown, is the ultimate weapon. Your Empire thanks you for your continued loyalty.",
+          "type": "propaganda",
+          "tags": ["rebellion", "propaganda", "empire", "editorial"]
         }
       ]
     },
@@ -47,9 +95,9 @@
         },
         {
           "id": "hn_tarkin_infrastructure",
-          "headline": "GRAND MOFF TARKIN UNVEILS AMBITIOUS OUTER RIM DEVELOPMENT PLAN",
+          "headline": "MOFF TARKIN UNVEILS AMBITIOUS OUTER RIM DEVELOPMENT PLAN",
           "source": "Alton Kastle, HoloNet News",
-          "body": "Grand Moff Wilhuff Tarkin unveiled an ambitious infrastructure development program for the Outer Rim Territories during a policy address on Eriadu. The initiative, designated 'Project Consolidation,' will bring hyperspace lane improvements, orbital defense platforms, and industrial development to underserved systems. 'The Outer Rim will no longer be the Empire's forgotten frontier,' Tarkin declared to sustained applause. Senate appropriations for the project are expected to pass without opposition. Citizens in qualifying systems may apply for relocation grants through their local Imperial Development Office.",
+          "body": "Moff Wilhuff Tarkin unveiled an ambitious infrastructure development program for the Outer Rim Territories during a policy address on Eriadu. The initiative, designated 'Project Consolidation,' will bring hyperspace lane improvements, orbital defense platforms, and industrial development to underserved systems. 'The Outer Rim will no longer be the Empire's forgotten frontier,' Tarkin declared to sustained applause. Senate appropriations for the project are expected to pass without opposition. Citizens in qualifying systems may apply for relocation grants through their local Imperial Development Office.",
           "type": "foreshadow",
           "tags": ["tarkin", "eriadu", "outer-rim", "death-star"]
         },
@@ -167,8 +215,8 @@
       ]
     },
     {
-      "id": "feed_general_16bby",
-      "label": "General — 16 BBY Galaxy News",
+      "id": "feed_general_15bby",
+      "label": "General — 15 BBY Galaxy News",
       "window": "general",
       "stories": [
         {

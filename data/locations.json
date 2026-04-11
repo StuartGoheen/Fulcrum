@@ -206,7 +206,7 @@
       "flora": [],
       "campaignNotes": {
         "adventures": ["adv3"],
-        "era": "16 BBY — Cloud City is not a polished resort. It is a rough-and-tumble mining boomtown, a Wild West in the clouds. Prospectors, gamblers, and fugitives pack the Cloudscape Platforms. Varga has bribed the Wing Guard and port officials. The annual sabacc tournament at the Royal Casino draws Imperial bagmen, Hutt proxies, and the worst the Outer Rim has to offer.",
+        "era": "15 BBY — Cloud City is not a polished resort. It is a rough-and-tumble mining boomtown, a Wild West in the clouds. Prospectors, gamblers, and fugitives pack the Cloudscape Platforms. Varga has bribed the Wing Guard and port officials. The annual sabacc tournament at the Royal Casino draws Imperial bagmen, Hutt proxies, and the worst the Outer Rim has to offer.",
         "keyLocations": {
           "cloud_city": "A repulsorlift tibanna gas mining colony floating in Bespin's atmosphere. In this era, rough and industrial, not the gleaming resort of later decades.",
           "royal_casino": "A loud, smoky, aggressive establishment where the three-day sabacc tournament drives the central heist.",
@@ -265,7 +265,7 @@
       "flora": ["Giant sequoia-analog trees (1,000+ meters)", "Hanging moss", "Bioluminescent fungi"],
       "campaignNotes": {
         "adventures": ["adv4"],
-        "era": "16 BBY — completely untouched by the Empire. The Death Star II is decades away. The Moddell sector's hyperspace anomalies make the forest moon effectively unreachable without specific route data — which is why Denia (Jedi Historian) is the key to finding it. Revan used this isolation thousands of years ago for the same reason: nobody stumbles onto Endor by accident.",
+        "era": "15 BBY — completely untouched by the Empire. The Death Star II is decades away. The Moddell sector's hyperspace anomalies make the forest moon effectively unreachable without specific route data — which is why Denia (Jedi Historian) is the key to finding it. Revan used this isolation thousands of years ago for the same reason: nobody stumbles onto Endor by accident.",
         "keyLocations": {
           "the_ebon_spire": "An ancient black stone tower rising above the forest canopy, half-swallowed by millennia of growth. Revan's forward operating base, built on a Force nexus, containing his navigational Holocrons for the Unknown Regions expeditions. The structure predates the Ewoks' recorded history — they regard it with superstitious reverence and fear.",
           "the_forest_floor": "Perpetual twilight beneath the kilometer-high canopy. The dark side has grown strong in the ruins — a domain of shadows and echoes, much like the cave on Dagobah."
@@ -357,7 +357,7 @@
         "otherSpecies": ["Human (dominant)"],
         "population": "Billions",
         "majorSettlements": ["Eriadu City (capital)", "Tarkin compound"],
-        "government": "Grand Moff Wilhuff Tarkin (Sector Governor)",
+        "government": "Moff Wilhuff Tarkin (Sector Governor)",
         "majorExports": ["Lommite ore", "Weapons", "Military hardware"],
         "affiliation": "Galactic Empire (Tarkin's seat of power)"
       },
@@ -375,7 +375,7 @@
         "adventures": ["adv6", "adv7"],
         "era": "15 BBY — Tarkin's capital. A jagged, brutalist expanse of black armor-plating and glowing red refineries. The sky is choked with exhaust from ten thousand weapons factories. Acid rain smears your viewport. Tarkin's punishment for sedition is swift and complete. This is not a battlefield — it is a cage.",
         "keyLocations": {
-          "tarkins_citadel": "The seat of Grand Moff Tarkin's power. Black spires connected by enclosed transparisteel walkways. The upper levels house Tarkin's office — a grand, open-air balcony overlooking the city. The lower levels are sterile, freezing corridors of Imperial bureaucracy.",
+          "tarkins_citadel": "The seat of Moff Tarkin's power. Black spires connected by enclosed transparisteel walkways. The upper levels house Tarkin's office — a grand, open-air balcony overlooking the city. The lower levels are sterile, freezing corridors of Imperial bureaucracy.",
           "the_glass_bridge": "An enclosed transparisteel walkway between two Citadel spires. Where the heroes witness Varth receiving command of Leviathan from Tarkin — a silent tableau played out across a wind-whipped expanse.",
           "primary_data_center": "Massive room of glowing server racks. Where the heroes slice the Citadel's systems to download Varth's transit orders and destination.",
           "lower_sumps": "The decaying lower levels. Where the quiet resistance operates — not fighting, just funneling resources to the Western Reaches. Where Denia serves as the heroes' 'guy in the chair.'"

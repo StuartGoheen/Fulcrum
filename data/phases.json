@@ -635,7 +635,7 @@
       "title": "The Separatist Holdout",
       "symbol": "Hexagon",
       "imageUrl": "/assets/phase2/02-separatist-holdout.png",
-      "narrative": "You fought for the Confederacy of Independent Systems. You believed in independence from a corrupt Core, but you lost the war. Now, the new Empire labels you a terrorist. You spent the last three years hiding your past, keeping old Separatist tech running with scavenged parts, and maintaining a deep, burning hatred for the stormtroopers occupying your world.",
+      "narrative": "You fought for the Confederacy of Independent Systems. You believed in independence from a corrupt Core, but you lost the war. Now, the new Empire labels you a terrorist. You spent the last four years hiding your past, keeping old Separatist tech running with scavenged parts, and maintaining a deep, burning hatred for the stormtroopers occupying your world.",
       "backgroundItems": [
         {
           "id": "gear_field_toolkit_01",
@@ -915,7 +915,7 @@
       "title": "The Purge Survivor",
       "symbol": "Severed Braid",
       "imageUrl": "/assets/phase2/09-purge-survivor.png",
-      "narrative": "Order 66 didn't just target the Jedi; the Empire immediately outlawed dozens of religions, academic orders, and political factions. You were part of a group that was declared treasonous the day the Empire was born. For three years, you have survived by hiding your true nature, trusting your instincts over your eyes, and learning how to disappear into a crowd.",
+      "narrative": "Order 66 didn't just target the Jedi; the Empire immediately outlawed dozens of religions, academic orders, and political factions. You were part of a group that was declared treasonous the day the Empire was born. For four years, you have survived by hiding your true nature, trusting your instincts over your eyes, and learning how to disappear into a crowd.",
       "backgroundItems": [
         {
           "id": "gear_disguise_kit_01",

@@ -638,14 +638,14 @@
         "Nightsister Survivor — One of the few remaining after General Grievous's massacre; hiding in plain sight across the galaxy.",
         "Dark Side Attunement — Biological connection to Dathomir's dark energies; does not require Force training to manifest as instinct and resilience."
       ],
-      "directives": "Emphasize the tension between human appearance and alien heritage. She looks human but she is not — her blood carries something older and darker. Nightsister survivors in 16 BBY are hunted relics of a dead culture. Lean into isolation, secrecy, and the weight of carrying traditions that have no home. The Witch-Blood trait is passive and biological — it is not Magick, it is what Magick did to her ancestors over centuries."
+      "directives": "Emphasize the tension between human appearance and alien heritage. She looks human but she is not — her blood carries something older and darker. Nightsister survivors in 15 BBY are hunted relics of a dead culture. Lean into isolation, secrecy, and the weight of carrying traditions that have no home. The Witch-Blood trait is passive and biological — it is not Magick, it is what Magick did to her ancestors over centuries."
     }
   },
   {
     "id": "cerean",
     "name": "Cerean",
     "tagline": "Thoughtful. Deliberate. Two minds, one purpose.",
-    "lore": "Cereans hail from Cerea, an unspoiled paradise world whose people fiercely resist industrialization and offworld influence. Their towering craniums house a binary brain — two independent cerebral systems that process information simultaneously. This makes them extraordinary tacticians, analysts, and negotiators, capable of weighing multiple outcomes at once. The most famous Cerean, Jedi Master Ki-Adi-Mundi, exemplified this dual-processing mind in wartime. By 16 BBY, Cerea's isolationism has made it a target for Imperial 'development' projects, and the few Cereans who leave their homeworld tend to be exiles, scholars, or quiet dissidents who see the galaxy's trajectory more clearly than most — because they're literally thinking about it twice.",
+    "lore": "Cereans hail from Cerea, an unspoiled paradise world whose people fiercely resist industrialization and offworld influence. Their towering craniums house a binary brain — two independent cerebral systems that process information simultaneously. This makes them extraordinary tacticians, analysts, and negotiators, capable of weighing multiple outcomes at once. The most famous Cerean, Jedi Master Ki-Adi-Mundi, exemplified this dual-processing mind in wartime. By 15 BBY, Cerea's isolationism has made it a target for Imperial 'development' projects, and the few Cereans who leave their homeworld tend to be exiles, scholars, or quiet dissidents who see the galaxy's trajectory more clearly than most — because they're literally thinking about it twice.",
     "imageUrl": "/assets/species/cerean.png",
     "arenaShift": {
       "name": "Binary Brain",
