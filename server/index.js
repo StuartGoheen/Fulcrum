@@ -93,7 +93,7 @@ app.get('/create/', (req, res) => res.sendFile(path.join(ROOT, 'public', 'create
 app.get('/market',  (req, res) => res.redirect('/market/'));
 app.get('/market/', (req, res) => res.sendFile(path.join(ROOT, 'public', 'market', 'index.html')));
 
-const ALLOWED_MAPS = ['burning-deck', 'switch-lair', 'landing-field', 'vanishing-place', 'banshee', 'jungle-trek', 'blackwind-point', 'filtration-plant', 'gladiator-pit', 'aviary', 'knife-in-the-dark'];
+const ALLOWED_MAPS = ['burning-deck', 'switch-lair', 'landing-field', 'vanishing-place', 'banshee', 'jungle-trek', 'blackwind-point', 'filtration-plant', 'gladiator-pit', 'aviary', 'knife-in-the-dark', 'command-center'];
 
 app.post('/api/maps/save', (req, res) => {
   if (req.userRole !== 'gm') return res.status(403).json({ error: 'GM access required.' });
@@ -161,7 +161,8 @@ const MAPS_META = {
   'filtration-plant':{ img: 'filtration-plant.png',           vw: 1024, vh: 791, title: 'Water Filtration Plant' },
   'gladiator-pit':   { img: 'gladiator-pit.png',              vw: 846,  vh: 1024, title: "Varga's Gladiator Pit" },
   'aviary':          { img: 'aviary.png',                     vw: 1024, vh: 828,  title: 'The Aviary' },
-  'knife-in-the-dark':{ img: 'knife-in-the-dark.png',         vw: 711,  vh: 1024, title: 'Knife in the Dark' }
+  'knife-in-the-dark':{ img: 'knife-in-the-dark.png',         vw: 711,  vh: 1024, title: 'Knife in the Dark' },
+  'command-center':   { img: 'command-center.png',            vw: 715,  vh: 1024, title: 'Command Center' }
 };
 
 app.get('/api/maps/:key/meta', (req, res) => {

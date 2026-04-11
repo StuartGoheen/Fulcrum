@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Command Center — Tactical Map</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #1a1a1a; display: flex; flex-direction: column; align-items: center; min-height: 100vh; font-family: 'Segoe UI', sans-serif; padding: 20px 20px 60px; gap: 40px; }
+
+  .map-container { position: relative; max-width: 715px; width: 100%; }
+  .map-container img { width: 100%; height: auto; display: block; border-radius: 4px; filter: drop-shadow(0 0 30px rgba(0,0,0,0.5)); }
+  .map-container svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+  .hitbox { cursor: pointer; fill: transparent; stroke: transparent; transition: all 0.25s; }
+  .hitbox:hover { fill: rgba(224, 212, 184, 0.22); stroke: rgba(224, 212, 184, 0.65); stroke-width: 2.5; }
+
+  .tooltip { position: fixed; background: rgba(20,20,20,0.95); border: 1px solid #665a3a; color: #e0d4b8; padding: 10px 14px; border-radius: 4px; font-size: 13px; max-width: 300px; pointer-events: none; z-index: 100; display: none; line-height: 1.5; backdrop-filter: blur(8px); }
+
+  .location-brief { max-width: 700px; width: 100%; color: #c0b89a; line-height: 1.7; }
+  .location-brief h2 { color: #e0d4b8; font-family: 'Georgia', serif; font-size: 20px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; border-bottom: 1px solid #444; padding-bottom: 6px; }
+  .location-brief h3 { color: #c8b88a; font-family: 'Georgia', serif; font-size: 15px; letter-spacing: 2px; text-transform: uppercase; margin: 24px 0 8px; }
+  .location-brief p { margin-bottom: 12px; font-size: 14px; }
+  .location-brief .read-aloud { background: #222; border-left: 3px solid #887755; padding: 12px 16px; margin: 16px 0; font-style: italic; color: #d0c8a8; border-radius: 0 4px 4px 0; }
+  .location-brief .gm-note { background: #1e1e2a; border-left: 3px solid #556; padding: 10px 14px; margin: 12px 0; font-size: 13px; color: #8888bb; border-radius: 0 4px 4px 0; }
+  .location-brief .gm-note strong { color: #aaaadd; }
+  .location-brief .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+  .location-brief .detail-card { background: #222; border: 1px solid #333; border-radius: 4px; padding: 12px; }
+  .location-brief .detail-card h4 { color: #c8b88a; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .location-brief .detail-card p { font-size: 13px; margin-bottom: 0; }
+  @media (max-width: 700px) { .location-brief .detail-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="tooltip" id="tooltip"></div>
+
+<div class="map-container">
+  <img src="command-center.png" alt="Command Center — Operations Level">
+
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 715 1024" preserveAspectRatio="xMidYMid meet" data-grid-on="0" data-grid-size="40" data-grid-offx="0" data-grid-offy="0" data-grid-opacity="40" data-grid-color="white" data-grid-linewidth="1">
+
+    <rect x="12" y="12" width="258" height="245" rx="3" class="hitbox"
+      data-room="Armory Cage"
+      data-desc="A reinforced storage room behind a heavy mesh gate. Crates are stacked three high against the back wall — military-grade shipping containers with faded Aurebesh stenciling. A weapons rack along the left wall holds blaster rifles in vertical slots, their power cells removed and stored separately in a locked cabinet below. Loose equipment is scattered across a low durasteel table: a disassembled blaster pistol, a cleaning kit with solvent-stained rags, and a stack of charge packs still in factory wrapping. The ceiling is lower here than the main floor, and the single overhead strip light casts hard shadows behind every crate. The air smells of gun oil and packing foam. Moss creeps along the join where the stone walls meet the floor — the humidity down here feeds it constantly."/>
+
+    <rect x="270" y="12" width="178" height="170" rx="3" class="hitbox"
+      data-room="Upper Passage"
+      data-desc="A wide archway opening onto a dark vertical shaft. The floor ends at a reinforced lip — beyond it, the shaft drops into blackness below and rises into shadow above. A retracted durasteel walkway is folded against the far wall, its hydraulic arms locked in the stowed position. The stone around the opening is discolored from decades of moisture rising from the lower levels. A faint updraft carries the smell of stagnant water and old metal. Handholds are bolted into the shaft walls — emergency access only. A control panel beside the archway has two switches: one for the walkway extension, one for the shaft lighting. Both are currently off. The darkness inside the shaft is absolute."/>
+
+    <rect x="448" y="12" width="255" height="245" rx="3" class="hitbox"
+      data-room="Comms Array"
+      data-desc="A cramped room packed with communications equipment. Server racks line the east wall floor to ceiling — black metal housings with rows of indicator lights blinking in patterns of amber, red, and green. Data cables run in thick bundles along the ceiling, bundled with plasteel ties and routed through conduit rings into the wall. A smaller terminal desk is wedged into the corner, its screen dark but its power indicator steady blue. The racks generate constant heat — the air in here is noticeably warmer than the operations floor, dry and faintly charged with static. A ventilation grille in the ceiling works overtime, its fan audible as a low, steady whine. The floor is raised on a metal grid, and through the gaps you can see more cabling running underneath. A fire suppression canister is mounted by the door, its seal unbroken."/>
+
+    <rect x="12" y="265" width="258" height="190" rx="3" class="hitbox"
+      data-room="Intel Desk"
+      data-desc="A workstation built into the west alcove, separated from the main floor by a half-wall of riveted durasteel. A long table dominates the space — scarred metal surface covered with spread-out flimsiplast documents, a deck of sabacc cards pushed to one corner, and a portable datapad propped against a mug of cold caf. A weapons maintenance kit sits open beside a partially disassembled blaster carbine, its barrel detached and laid parallel to the stock. Wall-mounted shelving holds equipment cases, a pair of macrobinoculars, and a comlink charging cradle with two units docked. The overhead light is a directional lamp clamped to the shelf edge, angled down at the table, leaving the rest of the alcove in comparative shadow. The chair is pushed back, as if someone stood up quickly and didn't return."/>
+
+    <rect x="270" y="182" width="178" height="273" rx="3" class="hitbox"
+      data-room="Operations Floor"
+      data-desc="The central walkway connecting the upper rooms to the command station below. The floor is bare duracrete — industrial, unpainted, with boot scuffs worn into paths that show the routes people walk most often. Ceiling-mounted glow-panels run in a single strip down the center, casting a flat white light that leaves the walls in grey half-shadow. Ventilation grates are set into the floor at regular intervals, and warm air rises through them with a faint electrical smell. The space is open but not wide — narrow enough that two people passing would turn sideways. Equipment lockers are bolted to the east wall, their doors dented and scratched. A fire extinguisher hangs from a bracket near the south end, its inspection tag months out of date."/>
+
+    <rect x="448" y="265" width="255" height="190" rx="3" class="hitbox"
+      data-room="Monitoring Bank"
+      data-desc="A row of wall-mounted display screens and control panels running the length of the east wall. Most screens are dark, but two cycle through feeds — corridors, doorways, empty rooms — in slow rotation, the images grainy and blue-tinted. Below the screens, a console shelf holds input terminals with worn keypads, their Aurebesh labels rubbed smooth from use. Status lights blink in steady rhythms: green, green, amber, green. A chair on a swivel mount is bolted to the floor in front of the primary display — built for someone to sit and watch for hours. The armrest is worn smooth on the right side. A half-eaten ration bar sits on the console shelf beside a stylus. Overhead, bundled cables run from the screens into the ceiling, connecting to the comms array next door. The monitors emit a faint, constant hum at the edge of hearing."/>
+
+    <rect x="165" y="455" width="385" height="260" rx="3" class="hitbox"
+      data-room="Command Console"
+      data-desc="The room's dominant feature — a multi-sided control station occupying the center of the lower floor. The console is angular, built from heavy durasteel with recessed display screens on three faces. The central holographic projector rises from the top surface, currently active: a slowly rotating blue-white wireframe of the fortress's floor plan, level by level, with small indicator dots marking active systems. The light from the projection paints the surrounding floor and ceiling in shifting blue. Each console face has banks of switches, dials, and status readouts — environmental controls, security overrides, communication routing. The primary operator's position faces south, toward the blast doors, with a high-backed chair bolted to a track in the floor. The console hums with constant power draw — you feel the vibration through the floor plates when you stand close. Scattered across the primary face: a datapad in a charging cradle, a stylus, and a cold cup of caf with a skin forming on the surface."/>
+
+    <rect x="12" y="460" width="153" height="320" rx="3" class="hitbox"
+      data-room="Power Conduits"
+      data-desc="A narrow service corridor running along the west wall, dominated by exposed power conduits and junction boxes. Thick cables — sheathed in grey insulation — run vertically from floor to ceiling, secured with heavy clamps bolted into the stone. Junction boxes are mounted at chest height, their covers closed but not locked, warning labels in faded Aurebesh: HIGH VOLTAGE — AUTHORIZED MAINTENANCE ONLY. The air here is warmer than the main floor and carries a persistent ozone smell from the power converters. The overhead lighting is a single amber emergency strip, giving the corridor a warm, dim cast. The floor is metal grating over a cable trench — you can hear the low electrical hum of the conduits beneath your feet. A maintenance toolkit hangs from a wall hook, its hydrospanner dangling by the lanyard."/>
+
+    <rect x="550" y="460" width="153" height="320" rx="3" class="hitbox"
+      data-room="Environmental Systems"
+      data-desc="A dense tangle of pipes, valves, and mechanical infrastructure packed along the east wall. Water pipes — some insulated, some bare metal beaded with condensation — run in parallel from the floor up through ceiling penetrations. Pressure gauges with round glass faces are mounted at junction points, their needles steady in the green. A large valve wheel — rust-red, the size of a dinner plate — controls the main water feed. The air is humid here, cooler than the operations floor, with a mineral smell from the condensation dripping off the bare pipes. Control panels with simple analog readouts monitor flow rates and temperature. A small puddle has formed beneath one of the lower pipe joints — a slow drip that no one has bothered to fix. The mechanical sounds are louder here: the gurgle of water in pipes, the click of pressure regulators, the distant thrum of pumps somewhere below."/>
+
+    <rect x="35" y="800" width="645" height="210" rx="3" class="hitbox"
+      data-room="Blast Door Vestibule"
+      data-desc="A wide, low-ceilinged entrance chamber at the south end of the operations level. The blast doors dominate the space — heavy durasteel slabs set in reinforced tracks, currently open, their edges scarred with old damage that was never repaired. Floor-level guide lights run in white strips along both walls, marking the path in and out. A control panel beside the door frame holds the blast door controls — open, close, emergency seal — behind a hinged cover. The floor is polished duracrete, smoother than the operations floor above, designed for heavy traffic. Boot prints in dried mud track a path from the doors to the operations floor beyond. The ceiling is reinforced with visible support beams, and a pair of recessed light panels cast a brighter, colder light than anywhere else on this level. The air here moves — a steady draft from the corridor beyond the blast doors carries the damp, stale smell of the lower fortress levels. A directional marker is painted on the floor near the south wall: an arrow pointing toward the dungeons below."/>
+
+  </svg>
+</div>
+
+<div class="location-brief">
+  <h2>Command Center — Operations Level</h2>
+
+  <div class="read-aloud">
+    The turbolift opens onto a level that smells different from the court above — machine oil, ozone, and the mineral tang of condensation on old pipes. The lighting is flatter here, more functional, stripped of the amber warmth the guest quarters pretend to offer. Banks of equipment line the walls: server racks blinking in coded patterns, pipes sweating in the humid air, junction boxes trailing cables into the ceiling. At the center of the floor, a command console throws blue holographic light across every surface — a wireframe of the fortress rotating slowly above its projector, each level rendered in clean lines, tiny indicator dots pulsing where systems are active. This is where someone sits and watches everything. The chair at the primary station is worn smooth on the armrests. A half-finished cup of caf has gone cold beside the controls. Beyond the console, the blast doors at the south end stand open, and a draft carries the damp smell of whatever lies below.
+  </div>
+
+  <h3>Tactical Detail</h3>
+  <div class="detail-grid">
+    <div class="detail-card">
+      <h4>Armory Cage</h4>
+      <p>Reinforced storage behind mesh gating. Crated supplies, racked blaster rifles with cells removed. Disassembled weapons on the work table. The lock on the power cell cabinet is electronic — standard fortress keycode.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Upper Passage</h4>
+      <p>Vertical shaft access — the retractable walkway connects to upper levels when extended. Currently stowed and dark. Emergency handholds line the shaft walls. The control panel has two switches: walkway and lighting.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Comms Array</h4>
+      <p>Floor-to-ceiling server racks handling fortress communications. Thick cable bundles route through ceiling conduit. The room runs hot from the equipment — raised floor grid conceals additional cabling underneath.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Intel Desk</h4>
+      <p>West alcove workstation behind a half-wall. Scattered documents, a disassembled carbine, macrobinoculars on the shelf. The chair is pushed back — whoever was working here left in a hurry.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Monitoring Bank</h4>
+      <p>Surveillance feeds on wall-mounted screens cycling through fortress corridors. The primary display chair is bolted to the floor — built for long watches. A half-eaten ration bar on the console shelf.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Command Console</h4>
+      <p>Three-faced control station with active holographic projector. Fortress wireframe in blue-white light. Environmental controls, security overrides, comm routing. The primary seat faces the blast doors.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Power Conduits</h4>
+      <p>West service corridor. Exposed high-voltage cabling, junction boxes with warning labels. Ozone smell, amber emergency lighting. Metal grating over cable trench.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Blast Door Vestibule</h4>
+      <p>South entrance with heavy blast doors — open, scarred with old damage. Guide lights along the floor. A directional arrow painted on the duracrete points toward the lower levels.</p>
+    </div>
+  </div>
+
+  <h3>Sensory Reference</h3>
+  <div class="detail-grid">
+    <div class="detail-card">
+      <h4>Sound</h4>
+      <p>The constant hum of the command console's power draw. Server fans whining behind the comms array door. Water gurgling through pipes on the east wall. The click of pressure regulators. A draft whistling faintly through the open blast doors from below.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Light</h4>
+      <p>Flat white glow-panels on the operations floor — functional, not atmospheric. Blue holographic wash from the command console, shifting as the wireframe rotates. Amber emergency strips along the power conduit corridor. Blinking indicator lights on the server racks: amber, red, green. Brighter, colder light in the blast door vestibule.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Smell</h4>
+      <p>Machine oil from the armory cage. Ozone from the power conduits. The mineral tang of condensation on bare pipes. Static charge in the comms array. Cold caf and gun-cleaning solvent at the intel desk. Damp, stale air drifting up through the blast doors from the dungeons below.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Temperature</h4>
+      <p>Warmer near the comms array and power conduits. Cooler and more humid near the environmental systems on the east wall. A steady draft from the blast doors keeps the vestibule cooler than the rest of the floor. The command console radiates warmth through the floor plates.</p>
+    </div>
+  </div>
+
+  <h3>GM Notes — The Operations Level</h3>
+  <div class="gm-note">
+    <p><strong>NARRATIVE FUNCTION:</strong> This is Demos's domain — the security hub between the upper court and the dungeons below. When Demos contacts Inquisitor Draco, he does it from the command console. When he monitors the heroes' movements through the fortress, he watches from the monitoring bank. When Darga flees and Demos locks down the lower levels, the controls are here.</p>
+    <p><strong>TRANSIT POINT:</strong> The heroes pass through this level when descending to the dungeons to find Denia, and again when escaping upward through the secret passage. The blast doors at the south end lead to the dungeon stairwell. The upper passage connects to the court level above.</p>
+    <p><strong>CONFRONTATION SPACE:</strong> If the heroes encounter Demos here, the command console provides partial cover (heavy durasteel, chest-height from seated position). The armory cage and comms array are enclosed rooms — defensible positions or traps depending on who gets there first. The power conduits and environmental systems provide flanking corridors on both sides of the main floor.</p>
+    <p><strong>INTEL OPPORTUNITIES:</strong> The monitoring bank can reveal guard positions and patrol routes (Computers/Tech check). The comms array logs may contain Demos's transmissions to the Empire (Slicing check). The intel desk documents — if the heroes take time to read them — reference "the prisoner" and "lower containment."</p>
+    <p><strong>ENVIRONMENTAL HAZARDS:</strong> The power conduits can be overloaded (Tech check) to kill lighting on this level. The environmental systems valve wheel can flood the floor with water from the pipes — cosmetic hazard, but creates difficult terrain and noise. The blast doors can be sealed from the command console — trapping anyone on the wrong side.</p>
+  </div>
+</div>
+
+<script>
+const tip = document.getElementById('tooltip');
+document.querySelectorAll('.hitbox').forEach(el => {
+  el.addEventListener('mouseenter', e => {
+    tip.innerHTML = '<strong>' + el.dataset.room + '</strong><br>' + el.dataset.desc;
+    tip.style.display = 'block';
+  });
+  el.addEventListener('mousemove', e => {
+    const pad = 12;
+    let x = e.clientX + pad, y = e.clientY + pad;
+    const r = tip.getBoundingClientRect();
+    if (x + r.width > window.innerWidth)  x = e.clientX - r.width - pad;
+    if (y + r.height > window.innerHeight) y = e.clientY - r.height - pad;
+    tip.style.left = x + 'px';
+    tip.style.top  = y + 'px';
+  });
+  el.addEventListener('mouseleave', () => { tip.style.display = 'none'; });
+});
+</script>
+</body>
+</html>
