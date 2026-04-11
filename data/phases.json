@@ -627,7 +627,8 @@
         "variability": "Disciplined squad leader (Tactics/Ranged) or heavy-infantry trench fighter (Athletics/Ranged)?",
         "knackName": "Old Soldier's Eye",
         "knackType": "Narrative Truth",
-        "knack": "You know how military organizations function — chain of command, logistics, the gap between orders and execution. You recognize military discipline in people who have served by how they stand, how they scan a room, and how they respond to sudden noise. You can assess a fighting force's readiness, morale, and command quality at a glance. Veterans see you the same way — and they know you have been in the mud."
+        "knack": "You know how military organizations function — chain of command, logistics, the gap between orders and execution. You recognize military discipline in people who have served by how they stand, how they scan a room, and how they respond to sudden noise. You can assess a fighting force's readiness, morale, and command quality at a glance. Veterans see you the same way — and they know you have been in the mud.",
+        "opposingView": "To the worlds you fought to bring back into the Republic, your war looked entirely different. You bled alongside Clones — soldiers bred in vats, engineered for compliance, given no choice in what they were. The planets your forces pacified had voted to leave. The Jedi leading your advance were the political elite's private enforcers arriving on the doorstep of communities that wanted nothing to do with Coruscant. When those same commanders stood in Empire gray two years later, you had to decide whether that surprised you."
       }
     },
     {
@@ -635,7 +636,7 @@
       "title": "The Separatist Holdout",
       "symbol": "Hexagon",
       "imageUrl": "/assets/phase2/02-separatist-holdout.png",
-      "narrative": "You fought for the Confederacy of Independent Systems. You believed in independence from a corrupt Core, but you lost the war. Now, the new Empire labels you a terrorist. You spent the last four years hiding your past, keeping old Separatist tech running with scavenged parts, and maintaining a deep, burning hatred for the stormtroopers occupying your world.",
+      "narrative": "You fought for the Confederacy of Independent Systems — not for the Trade Federation's profit margins or the Banking Clan's ledgers, but for the Parliament on Raxus, for the senators who genuinely believed in self-determination for worlds the Republic had taxed and ignored for centuries. The Cause was not complicated: a corrupt Core had spent generations extracting wealth from the Outer Rim while providing no infrastructure, no protection, and no meaningful representation in return. When thousands of star systems voted to leave, the Republic's answer was to commission an army of human beings bred in vats — engineered for compliance, given no free will — and invade those planets at gunpoint. You believed that sending machines to fight was the moral choice. Your people's sons and daughters stayed home. The Republic called your droids soulless killing machines. You had another word for what they sent. You lost the war. Now the Empire labels you a terrorist and wears the same face as the tyranny you spent three years fighting against. You spent the last four years hiding your past, keeping old CIS hardware running on scavenged parts, and watching the galaxy confirm everything you said out loud before anyone else was willing to say it. The Republic was always the Empire. You just called it by name first.",
       "backgroundItems": [
         {
           "id": "gear_field_toolkit_01",
@@ -667,7 +668,8 @@
         "variability": "Guerrilla mechanic (Tech/Ranged) or hardened survivor of the sieges (Endure/Ranged)?",
         "knackName": "Cause Reader",
         "knackType": "Narrative Truth",
-        "knack": "You recognize Separatist-era technology, insignia, and ideology even when it has been buried or disguised. You know which worlds sympathized with the Cause, which communities still harbor holdouts, and you can tell when someone's hatred of the Republic — now Empire — comes from conviction rather than convenience. In settlements with old CIS sympathies, you see the signs that have been painted over but not erased."
+        "knack": "You recognize Separatist-era technology, insignia, and ideology even when it has been buried or disguised. You know which worlds sympathized with the Cause, which communities still harbor holdouts, and you can tell when someone's hatred of the Republic — now Empire — comes from conviction rather than convenience. In settlements with old CIS sympathies, you see the signs that have been painted over but not erased.",
+        "opposingView": "To the soldiers who fought against you, your war was an act of treasonous corporations using idealism as cover for profit. To you, theirs was an invasion force suppressing democratic secession with an army of human beings bred in bondage who had no choice but to follow orders — and who, in the end, followed the order that made the Republic the Empire."
       }
     },
     {
@@ -1092,7 +1094,7 @@
       "title": "The Witness",
       "symbol": "The Eye",
       "imageUrl": "/assets/phase3/02-witness.png",
-      "narrative": "You were in the wrong place during the Pacification Campaigns. You saw an Imperial garrison do something to a frontier settlement that was not in any official report — mass relocations, unmarked cargo shipments, civilians loaded onto transports that never arrived at any registered facility. Out here in the Western Reaches, the Empire does not operate like it does in the Core. There are no journalists, no Senate hearings, no witnesses. Except you. And someone in an Imperial uniform knows your face.",
+      "narrative": "You were in the wrong place during the Pacification Campaigns. You saw an Imperial garrison do something to a frontier settlement that was not in any official report — mass relocations, unmarked cargo shipments, civilians loaded onto transports that never arrived at any registered facility. If the settlement was a former Separatist world, what you saw had a specific character: these were people who had voted for independence, lost the Clone Wars, and were now being erased a second time by the same occupying force wearing different insignia. The Empire drew no distinction. Out here in the Western Reaches, there are no journalists, no Senate hearings, no witnesses. Except you. And someone in an Imperial uniform knows your face.",
       "_meta": {
         "phase": "debt",
         "archetype": "witness",
@@ -1107,7 +1109,7 @@
       "title": "The Traumatized",
       "symbol": "The Shattered Star",
       "imageUrl": "/assets/phase3/03-traumatized.png",
-      "narrative": "The Clone Wars or the Pacification Campaigns did not just happen near you — they happened to you. You watched settlements burn in the Western Reaches while stormtroopers stood in formation. You lost everyone, and the sounds have not stopped. Certain things — the whine of a repulsor engine, the smell of ozone after a blaster discharge, the hiss of a blast door — pull you back to the worst moment of your life without warning.",
+      "narrative": "The Clone Wars or the Pacification Campaigns did not just happen near you — they happened to you. If you fought for the Republic, you watched settlements burn and told yourself it was the price of keeping the galaxy together — and then watched the Republic become the Empire and had to decide what that cost meant. If you fought for the Confederacy, you watched your cause get crushed and then watched its destroyers rebrand as liberators wearing new insignia over the same machinery of control. Either way: you were right about something and it did not help. The sounds have not stopped. Certain things — the whine of a repulsor engine, the smell of ozone after a blaster discharge, the hiss of a blast door — pull you back to the worst moment of your life without warning. The war is over. Your body did not receive the message.",
       "_meta": {
         "phase": "debt",
         "archetype": "broken",
@@ -1167,7 +1169,7 @@
       "title": "The Exile",
       "symbol": "The Blast Door",
       "imageUrl": "/assets/phase3/07-exile.png",
-      "narrative": "You are forbidden from returning to a specific place — a planet, a station, a community, or an organization — on pain of death. In the Western Reaches, exile is common: religious sects on jungle moons, mercenary companies that operate out of orbital stations, political families that control entire settlement networks. Whatever you were part of, they cast you out. Your name was struck. Your identity was burned. Out here on the frontier, you are nobody — and that is the only thing keeping you alive.",
+      "narrative": "You are forbidden from returning to a specific place — a planet, a station, a community, or an organization — on pain of death. In the Western Reaches, exile is common. If your banishment began with the end of the Clone Wars — a CIS world absorbed by the Empire, a Separatist unit that scattered when the Cause fell, a parliamentary community that had to demonstrate its new loyalty by purging its own — the exile was not always handed down by enemies. Sometimes your own people pushed you out to survive, or because you refused to stop saying what everyone else had decided to stop saying. You had believed in something. They needed to stop believing it. You would not cooperate. Whatever you were part of, they cast you out. Your name was struck. Out here on the frontier, you are nobody — and that is the only thing keeping you alive.",
       "_meta": {
         "phase": "debt",
         "archetype": "exiled",
@@ -1197,7 +1199,7 @@
       "title": "The False Identity",
       "symbol": "The Mask",
       "imageUrl": "/assets/phase3/09-false-identity.png",
-      "narrative": "The person you are now is a fabrication. Your original identity was erased during the Clone Wars, the Jedi Purge, or the chaos of the Imperial transition. You possess forged documentation, a false birth record, and a backstory you have rehearsed until it feels true. In the Western Reaches, where record-keeping is spotty and Imperial databases do not reach every settlement, the lie holds. But every time you pass through a spaceport with a full Imperial customs scanner, you feel the floor shift beneath you.",
+      "narrative": "The person you are now is a fabrication. Your original identity was erased during the Clone Wars, the Jedi Purge, or the chaos of the Imperial transition. If you served the Confederacy — as a soldier, a parliamentary staffer, a supply coordinator, any role that left your name in a CIS roster — the Empire inherited those databases when the war ended. Someone ran through them with a classification list. The ones near the top were executed. The rest were flagged as potential insurgents. If your name appeared in those records and you are still breathing, you burned your old life and built a new one from forged documents and rehearsed history. You possess a false birth record and a backstory you have told until it feels true. In the Western Reaches, where record-keeping is spotty and Imperial scanners do not reach every landing pad, the lie holds. But every time you pass through a spaceport with a full Imperial customs terminal, you feel the floor shift beneath you.",
       "_meta": {
         "phase": "debt",
         "archetype": "alias",
@@ -1227,7 +1229,7 @@
       "title": "The Blood Price",
       "symbol": "The Handprint",
       "imageUrl": "/assets/phase3/11-blood-price.png",
-      "narrative": "Someone paid for your freedom, your survival, or your escape from the Western Reaches — and the cost was something you cannot repay. It might have been their life, given during the Pacification Campaigns when your settlement was burned. It might have been their safety, traded so you could board a transport off a dying colony. You are here because they are not. The frontier is full of debts like this — everyone lost someone when the Empire arrived. Yours just has not stopped bleeding.",
+      "narrative": "Someone paid for your freedom, your survival, or your escape from the Western Reaches — and the cost was something you cannot repay. It might have been their life, given during the Clone Wars or the Pacification Campaigns when your settlement burned. It might have been their safety, traded so you could board a transport off a dying colony. If they fought for the Confederacy — if they believed the Cause was just, that the Republic was an instrument of Core privilege, that independence was worth dying for — then history confirmed everything they believed. The Republic became the Empire, exactly as predicted. The people who paid for your survival never got to see that vindication. You carry it for them. That is not a comfort. The frontier is full of debts like this — everyone lost someone when the Empire arrived. Yours just has not stopped bleeding.",
       "_meta": {
         "phase": "debt",
         "archetype": "survivor-indebted",
