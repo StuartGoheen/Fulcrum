@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Knife in the Dark — Tactical Map</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #1a1a1a; display: flex; flex-direction: column; align-items: center; min-height: 100vh; font-family: 'Segoe UI', sans-serif; padding: 20px 20px 60px; gap: 40px; }
+
+  .map-container { position: relative; max-width: 711px; width: 100%; }
+  .map-container img { width: 100%; height: auto; display: block; border-radius: 4px; filter: drop-shadow(0 0 30px rgba(0,0,0,0.5)); }
+  .map-container svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+  .hitbox { cursor: pointer; fill: transparent; stroke: transparent; transition: all 0.25s; }
+  .hitbox:hover { fill: rgba(224, 212, 184, 0.22); stroke: rgba(224, 212, 184, 0.65); stroke-width: 2.5; }
+
+  .tooltip { position: fixed; background: rgba(20,20,20,0.95); border: 1px solid #665a3a; color: #e0d4b8; padding: 10px 14px; border-radius: 4px; font-size: 13px; max-width: 300px; pointer-events: none; z-index: 100; display: none; line-height: 1.5; backdrop-filter: blur(8px); }
+
+  .location-brief { max-width: 700px; width: 100%; color: #c0b89a; line-height: 1.7; }
+  .location-brief h2 { color: #e0d4b8; font-family: 'Georgia', serif; font-size: 20px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; border-bottom: 1px solid #444; padding-bottom: 6px; }
+  .location-brief h3 { color: #c8b88a; font-family: 'Georgia', serif; font-size: 15px; letter-spacing: 2px; text-transform: uppercase; margin: 24px 0 8px; }
+  .location-brief p { margin-bottom: 12px; font-size: 14px; }
+  .location-brief .read-aloud { background: #222; border-left: 3px solid #887755; padding: 12px 16px; margin: 16px 0; font-style: italic; color: #d0c8a8; border-radius: 0 4px 4px 0; }
+  .location-brief .gm-note { background: #1e1e2a; border-left: 3px solid #556; padding: 10px 14px; margin: 12px 0; font-size: 13px; color: #8888bb; border-radius: 0 4px 4px 0; }
+  .location-brief .gm-note strong { color: #aaaadd; }
+  .location-brief .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+  .location-brief .detail-card { background: #222; border: 1px solid #333; border-radius: 4px; padding: 12px; }
+  .location-brief .detail-card h4 { color: #c8b88a; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .location-brief .detail-card p { font-size: 13px; margin-bottom: 0; }
+  @media (max-width: 700px) { .location-brief .detail-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="tooltip" id="tooltip"></div>
+
+<div class="map-container">
+  <img src="knife-in-the-dark.png" alt="Guest Quarters — Knife in the Dark">
+
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 711 1024" preserveAspectRatio="xMidYMid meet">
+
+    <rect x="260" y="0" width="192" height="72" rx="3" class="hitbox"
+      data-room="North Corridor"
+      data-desc="A short stretch of corridor leading from the turbolift to the guest wing. The carpet — deep rust-brown, embroidered with a pattern you don't recognize — muffles your footsteps. Recessed glow-panels in the ceiling cast a warm amber wash that makes the stone walls look almost inviting. A security cam is mounted where the corridor meets the turbolift alcove, its red indicator light pulsing steadily. The air is cooler here than inside the rooms, with a faint chemical tang from the fortress environmental systems. The corridor narrows as it approaches the guest quarters — the walls closing in just enough to notice."/>
+
+    <rect x="27" y="72" width="230" height="192" rx="3" class="hitbox"
+      data-room="Room 1 — Upper West"
+      data-desc="A guest room on the upper west side. Two durasteel-framed beds with actual mattresses — thin, but real fabric, not the plasteel sheets of a garrison bunk. A pillow sits on each bed, creased from previous guests. The overhead glow-panel is dimmed to a low amber, controlled by a wall switch near the door. The floor is tiled in a pale geometric pattern, slightly uneven where the fortress stonework shows through. A small refresher alcove is recessed into the far wall — basin, mirror, and a shelf stocked with generic toiletries in unmarked bottles. The door is heavy, arched, set in a thick stone frame. The lock is electronic — a keypad with a green indicator light when sealed. The wall-mounted glow strips along the baseboards emit a faint blue light, just enough to navigate in darkness without tripping."/>
+
+    <rect x="452" y="72" width="232" height="192" rx="3" class="hitbox"
+      data-room="Room 2 — Upper East"
+      data-desc="A guest room on the upper east side, identical in layout to its western counterpart. Two beds, refresher alcove, the same geometric tile. But this room sits closer to the exterior wall — you can feel the faintest vibration through the stonework when the wind hits the fortress outside. The refresher mirror has a hairline crack running across the bottom edge. A drinking glass on the shelf beside the basin still has a ring of dried liquid in the bottom. The blue glow strips along the baseboards flicker intermittently on the north wall — a wiring fault nobody has bothered to fix. The door's keypad clicks softly when the lock cycles, a sound that carries in the corridor silence."/>
+
+    <rect x="27" y="267" width="230" height="188" rx="3" class="hitbox"
+      data-room="Room 3 — Mid-Upper West"
+      data-desc="A guest room on the west side, second row. The beds are pushed closer together here — the room is slightly narrower than the upper tier, the walls angling inward where the fortress architecture shifts. A jacket has been left draped over the foot of one bed — not yours, someone else's, forgotten or abandoned. The overhead glow-panel buzzes faintly at certain frequencies, a sound you stop noticing after a few minutes and then suddenly notice again. The refresher alcove smells of chemical sanitizer, strong enough to sting your nostrils. The floor tiles are colder here — you feel it through your socks when you step off the bed. The glow strips cast just enough blue light to see shapes in the dark. Not enough to see faces."/>
+
+    <rect x="452" y="267" width="232" height="188" rx="3" class="hitbox"
+      data-room="Room 4 — Mid-Upper East"
+      data-desc="A guest room on the east side, second row. This room has been recently cleaned — the chemical smell is fresh, and the bedding is pulled tight with military precision. But the previous occupant left marks: a series of small scratches on the wall beside the left bed, at pillow height, as if someone lay awake dragging a fingernail across stone. The refresher basin drips at a slow, regular interval — every eight seconds, a single drop hitting porcelain. The sound fills the room in the quiet hours. The door's stone frame is thicker on this side of the corridor, and the electronic lock is recessed deeper into the wall. The blue baseboards glow steadily here — no flicker, no fault. Just the constant low light of a room that never quite goes dark."/>
+
+    <rect x="27" y="458" width="230" height="189" rx="3" class="hitbox"
+      data-room="Room 5 — Mid-Lower West"
+      data-desc="A guest room on the west side, third row. The layout mirrors the rooms above, but the air is different down here — warmer, heavier, with a faint trace of moisture from the fortress's lower-level drainage systems. The tiles on the floor are darker, stained by years of humidity seeping up from below. One of the beds has a noticeable sag in the middle — the frame bowed from too much weight or too many years. The refresher alcove has a vent in the ceiling that occasionally pushes a breath of cooler air into the room, carrying the distant metallic smell of the fortress generator level. The glow-panel overhead is brighter than the upper rooms — someone replaced the element recently, and the light is whiter, harsher, less forgiving of shadows."/>
+
+    <rect x="452" y="458" width="232" height="189" rx="3" class="hitbox"
+      data-room="Room 6 — Mid-Lower East"
+      data-desc="A guest room on the east side, third row. The room nearest the exterior wall on this level — and you can hear it. A low, irregular thrumming that travels through the stone when the jungle wind picks up outside. The vibration is subtle but constant, like a heartbeat in the walls. The refresher mirror in this room is intact but slightly fogged at the edges, condensation trapped between the glass and the backing. A towel hangs from the refresher shelf, still damp from a previous guest. The beds are firm, the pillows flat, the blankets scratchy and utilitarian. The blue glow strips here are the brightest in the wing — recently installed, their light sharp enough to cast visible shadows from the bed frames across the tile floor."/>
+
+    <rect x="27" y="650" width="230" height="188" rx="3" class="hitbox"
+      data-room="Room 7 — Lower West"
+      data-desc="A guest room in the bottom row on the west side, the farthest from the corridor entrance. Quieter than the upper rooms — the sounds from the north corridor are distant and muffled by the intervening walls. The isolation is noticeable. The beds are positioned with their headboards against the south wall, facing the door. The refresher alcove is tucked into the northwest corner, its basin slightly lower than the others — an older installation, the fixtures tarnished with a green-grey patina. The tile floor is the coldest in the wing — the fortress stonework is thickest here, and the lower levels radiate a chill that seeps up through the foundation. A small ventilation grille near the ceiling hisses softly, a white-noise drone that masks smaller sounds from the corridor."/>
+
+    <rect x="452" y="650" width="150" height="188" rx="3" class="hitbox"
+      data-room="Room 8 — Lower East"
+      data-desc="The last guest room in the wing, bottom row east side. This room shares a wall with the service corridor to the southeast, and you can occasionally hear the hum of a maintenance droid passing on the other side — a faint whirring that rises and fades. The room is otherwise the quietest in the wing. The beds are well-maintained, the blankets folded precisely, the refresher stocked with fresh supplies. But the room has the feeling of a space that is rarely chosen — the farthest from the entrance, the last to be assigned. A small decorative panel on the south wall — hammered bronze with a geometric pattern — covers what feels like a sealed access hatch when you press your palm against it. The metal is noticeably cooler than the surrounding stone."/>
+
+    <rect x="260" y="72" width="192" height="765" rx="3" class="hitbox"
+      data-room="Central Corridor"
+      data-desc="The main corridor running the length of the guest wing — a long, straight passage floored in the same rust-brown carpet as the entrance, the embroidered pattern repeating every few meters. The carpet absorbs footsteps almost completely. Arched doorways open on both sides, four rooms to the west, four to the east. Recessed glow-panels overhead cast pools of warm light between the doorframes, leaving darker stretches between each pair of rooms. The corridor is wide enough for two people to walk abreast but not comfortably — shoulders would brush the stone doorframes. Wall-mounted sconces between the arches hold small amber lamps, their light too warm and too dim to read by. The air moves gently from north to south, a slow current from the turbolift end toward the south foyer. At night, when the glow-panels dim to their lowest setting, the corridor is a tunnel of amber and shadow — you can see the far end, but you can't see into the doorways."/>
+
+    <rect x="155" y="840" width="310" height="120" rx="3" class="hitbox"
+      data-room="South Foyer"
+      data-desc="The corridor opens into a wider space at the southern end of the guest wing — a small foyer where the carpet gives way to polished stone flooring. A holographic display terminal is mounted on a low pedestal near the west wall, its projection cycling slowly through a blue-white map of the fortress public areas — dining hall, training grounds, guest services — in clean Aurebesh labels. The display casts a cold blue glow across the foyer floor that shifts as the map rotates. Two archways lead out: one south toward the fortress interior, one southeast toward a service corridor. The ceiling is higher here than in the guest corridor, and the acoustics change — sounds carry further, echo differently. A stone bench is built into the west wall, worn smooth by years of guests waiting for something."/>
+
+    <rect x="475" y="840" width="122" height="80" rx="3" class="hitbox"
+      data-room="Service Alcove"
+      data-desc="A utility space tucked into the southeast corner of the guest wing. A compact console is mounted on the back wall — environmental controls for the wing's climate systems, with simple Aurebesh-labeled dials for temperature, humidity, and ventilation speed. A supply cabinet beside the console holds linens, cleaning compounds, and replacement glow-panel elements in sealed packaging. The floor is bare durasteel here, not stone — utilitarian, easy to clean. A maintenance droid charging station occupies the corner, its indicator light amber, the droid currently absent on its rounds. The air smells of cleaning solution and warm electronics."/>
+
+    <rect x="530" y="920" width="165" height="104" rx="3" class="hitbox"
+      data-room="Service Corridor"
+      data-desc="A narrow passage leading away from the guest wing toward the fortress service levels. The walls are bare durasteel, unpainted, the ceiling lower than the guest areas. Blue-white guide lights are set into the floor at regular intervals, casting a cold upward glow that makes the passage feel like a loading dock. The corridor angles southeast and down — a gradual slope toward the lower levels. The air is cooler here, drier, with the faint ozone smell of heavy electrical systems running somewhere below. You can hear the deep rumble of the fortress generator through the deck plates, felt more in your feet than your ears. This is the way the staff moves — the fortress's working veins, hidden behind the guest-facing facade."/>
+
+    <rect x="85" y="928" width="70" height="70" rx="3" class="hitbox"
+      data-room="Comm Terminal"
+      data-desc="A recessed alcove on the south wall near the foyer's west side. A holographic communications terminal sits on a low shelf — dormant, its emitter ring dark, but the standby light pulses a slow blue. The terminal is hardwired into the fortress comm network — local calls only, no external transmission capability without a security override. The alcove is small enough that anyone using the terminal would have their back to the foyer. The stone walls of the recess dampen sound slightly — a conversation here would be audible from the foyer but not intelligible. Dust has settled in the seams of the emitter housing. This terminal doesn't get much use."/>
+
+  </svg>
+</div>
+
+<div class="location-brief">
+
+  <h2>Location Brief — Guest Quarters (Knife in the Dark)</h2>
+  <p>The guest wing of Varga's fortress on Takodana — eight rooms arranged along a central corridor, with a south foyer connecting to the fortress interior. The rooms are functional, not luxurious — better than a bunk on a freighter, worse than a mid-range hotel on Corellia. The fortress provides them to visiting delegations, business contacts, and anyone Varga wants close enough to watch. The heroes have been assigned quarters here during their time in the court. It feels safe. That's the problem.</p>
+
+  <h3>The Setting</h3>
+  <div class="read-aloud">
+    You wake to the sound of something wrong.
+
+    Not a noise — the absence of noise. The fortress hum is still there, the distant rumble of generators and the drip of jungle condensation. But the corridor outside your quarters has gone silent. No guard footsteps. No droid patrol.
+
+    Then: a shadow moves at the edge of your door. Too low for a guard. Too fast for a servant.
+
+    The lock clicks. Not forced — opened with a code.
+
+    Three figures slide into the room. The first is massive — a Wookiee, moving with terrifying silence for something that size. Behind him, lean and quiet, is Skreev. And behind both of them, face hidden in shadow, is Narek.
+
+    They're here to kill you.
+  </div>
+
+  <h3>The Quarters</h3>
+  <div class="detail-grid">
+    <div class="detail-card">
+      <h4>Room Layout</h4>
+      <p>Eight guest rooms, four per side, flanking a central corridor. Each room has two beds, a refresher alcove, and a single arched door with an electronic lock. The rooms are small — close quarters, limited sightlines, tight spaces between the beds and walls. At night, the glow-panels dim to their lowest setting, and the blue baseboard strips are the only light.</p>
+    </div>
+    <div class="detail-card">
+      <h4>The Corridor</h4>
+      <p>Rust-brown carpet over stone. Absorbs footsteps. Wide enough for two abreast but not comfortably. Arched doorways on both sides, warm amber sconces between them. At night, the corridor is a tunnel of dim light and deep shadow — you can see from end to end, but you can't see into the doorways until you're standing in them.</p>
+    </div>
+    <div class="detail-card">
+      <h4>South Foyer</h4>
+      <p>The corridor opens south into a wider space with polished stone flooring and a holographic display terminal cycling a fortress map. Higher ceiling, different acoustics. Two exits: south into the fortress interior, southeast into a service corridor. A comm terminal alcove sits against the west wall.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Service Access</h4>
+      <p>The service corridor in the southeast leads to the fortress's working levels — lower ceiling, bare durasteel, blue-white floor guides. This is how staff and maintenance droids move through the building. A utility alcove near the junction holds environmental controls and a droid charging station.</p>
+    </div>
+  </div>
+
+  <h3>The Ambush</h3>
+  <div class="gm-note">
+    <strong>GM Note — Knife in the Dark:</strong> This is a nighttime assassination attempt in the heroes' quarters. The attackers are Grakkus (Wookiee enforcer — close combat monster in confined space), Skreev (Quarren assassin — ranged, hangs back), and conditionally Narek (Twi'lek poisoner — only present if the heroes exposed or humiliated him during the poison subplot; otherwise replace with an Iron Ring enforcer).
+
+    The assassins enter through the main corridor using a stolen door code. They have surprise unless a hero succeeds on an Awareness check (the absence of guard patrols is the tell). Heroes are unarmored. Weapons may not be accessible without a retroactive Skulduggery check.
+
+    TACTICAL ENVIRONMENT: The rooms are confined — only two combatants can engage in melee simultaneously. The corridor offers more space but risks alerting the fortress. The south foyer gives room to maneuver but is farther from the heroes' beds. The service corridor is an escape route — or a flanking path if the assassins are clever.
+
+    The scene's purpose is consequence — the court's dangers catching up. It breaks the investigation rhythm and reminds the heroes that Varga's court kills.
+  </div>
+
+  <h3>Sensory Details — Quick Reference</h3>
+  <div class="detail-grid">
+    <div class="detail-card">
+      <h4>Sound</h4>
+      <p>The fortress never stops humming — generators, environmental systems, the low throb of power running through stone walls. At night, the corridor is silent except for the periodic creak of settling architecture and the drip of condensation from the jungle outside. The carpet eats footsteps. The electronic door locks click when they cycle — a small, precise sound that carries in the silence.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Light</h4>
+      <p>Glow-panels dim to low amber at night. Blue baseboard strips provide navigation-level light — enough to see shapes, not faces. The holographic display in the south foyer casts a cold blue glow that pulses as the map rotates. The service corridor has floor-level guide lights that throw shadows upward.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Smell</h4>
+      <p>Chemical sanitizer from the refresher alcoves. The faint ozone of electronic systems. Moisture in the lower rooms from the fortress drainage. The rust-brown carpet smells of dust and old fabric softener. In the service corridor, the air is drier and carries the tang of heavy electrical equipment.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Temperature</h4>
+      <p>The upper rooms are temperate — climate-controlled, comfortable. The lower rooms are warmer and more humid, closer to the fortress infrastructure. The service corridor is cooler and drier. The stone walls radiate a chill that seeps through bare feet on tile. The carpet in the corridor is warmer underfoot — a small mercy in the dark.</p>
+    </div>
+  </div>
+
+  <div class="gm-note">
+    <strong>GM Note — Combat Spacing:</strong> The guest rooms are the kill zone — confined, limited exits, the Wookiee's reach filling the space. The corridor is the middle ground — more room to fight but exposed to all doorways and the south foyer. The south foyer is the escape valve — room to maneuver, access to the service corridor, and the comm terminal if someone needs to call for help (though calling fortress security means explaining why assassins had your door code). The service corridor is the back door — an escape route or a flanking approach. If the heroes break into the corridor, they need to decide: fight in the open, barricade a room, or run for the foyer. Every choice has a cost.
+  </div>
+
+</div>
+
+<script>
+  const tooltip = document.getElementById('tooltip');
+  document.querySelectorAll('.hitbox').forEach(el => {
+    el.addEventListener('mouseenter', e => {
+      const room = el.dataset.room;
+      const desc = el.dataset.desc;
+      if (!room) return;
+      tooltip.innerHTML = '<strong style="color:#e0d4b8;text-transform:uppercase;letter-spacing:1px;font-size:14px;">' + room + '</strong><br><br><span style="color:#c0b89a;">' + desc + '</span>';
+      tooltip.style.display = 'block';
+    });
+    el.addEventListener('mousemove', e => {
+      const x = e.clientX + 15;
+      const y = e.clientY + 15;
+      const maxX = window.innerWidth - 320;
+      const maxY = window.innerHeight - 200;
+      tooltip.style.left = Math.min(x, maxX) + 'px';
+      tooltip.style.top = Math.min(y, maxY) + 'px';
+    });
+    el.addEventListener('mouseleave', () => {
+      tooltip.style.display = 'none';
+    });
+  });
+</script>
+</body>
+</html>
