@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Throne Room — Tactical Map</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #1a1a1a; display: flex; flex-direction: column; align-items: center; min-height: 100vh; font-family: 'Segoe UI', sans-serif; padding: 20px 20px 60px; gap: 40px; }
+
+  .map-container { position: relative; max-width: 746px; width: 100%; }
+  .map-container img { width: 100%; height: auto; display: block; border-radius: 4px; filter: drop-shadow(0 0 30px rgba(0,0,0,0.5)); }
+  .map-container svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+  .hitbox { cursor: pointer; fill: transparent; stroke: transparent; transition: all 0.25s; }
+  .hitbox:hover { fill: rgba(224, 212, 184, 0.22); stroke: rgba(224, 212, 184, 0.65); stroke-width: 2.5; }
+
+  .tooltip { position: fixed; background: rgba(20,20,20,0.95); border: 1px solid #665a3a; color: #e0d4b8; padding: 10px 14px; border-radius: 4px; font-size: 13px; max-width: 300px; pointer-events: none; z-index: 100; display: none; line-height: 1.5; backdrop-filter: blur(8px); }
+
+  .location-brief { max-width: 700px; width: 100%; color: #c0b89a; line-height: 1.7; }
+  .location-brief h2 { color: #e0d4b8; font-family: 'Georgia', serif; font-size: 20px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; border-bottom: 1px solid #444; padding-bottom: 6px; }
+  .location-brief h3 { color: #c8b88a; font-family: 'Georgia', serif; font-size: 15px; letter-spacing: 2px; text-transform: uppercase; margin: 24px 0 8px; }
+  .location-brief p { margin-bottom: 12px; font-size: 14px; }
+  .location-brief .read-aloud { background: #222; border-left: 3px solid #887755; padding: 12px 16px; margin: 16px 0; font-style: italic; color: #d0c8a8; border-radius: 0 4px 4px 0; }
+  .location-brief .gm-note { background: #1e1e2a; border-left: 3px solid #556; padding: 10px 14px; margin: 12px 0; font-size: 13px; color: #8888bb; border-radius: 0 4px 4px 0; }
+  .location-brief .gm-note strong { color: #aaaadd; }
+  .location-brief .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+  .location-brief .detail-card { background: #222; border: 1px solid #333; border-radius: 4px; padding: 12px; }
+  .location-brief .detail-card h4 { color: #c8b88a; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .location-brief .detail-card p { font-size: 13px; margin-bottom: 0; }
+  @media (max-width: 700px) { .location-brief .detail-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="tooltip" id="tooltip"></div>
+
+<div class="map-container">
+  <img src="throne-room.png" alt="Varga's Throne Room — The Escape">
+
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 746 1024" preserveAspectRatio="xMidYMid meet" data-grid-on="0" data-grid-size="40" data-grid-offx="0" data-grid-offy="0" data-grid-opacity="40" data-grid-color="white" data-grid-linewidth="1">
+
+    <rect x="230" y="10" width="290" height="195" rx="3" class="hitbox"
+      data-room="Grand Doors"
+      data-desc="The main entrance to the throne room — a pair of massive ornate doors set in an arched frame of carved stone, darkened with age and smoke. The doors are heavy enough to need hydraulic assists, their surface covered in relief carvings of Neimoidian heraldry that Varga never bothered to replace. A short flight of wide stone stairs descends from the threshold into the audience chamber below. The stair treads are worn smooth in the center from centuries of supplicants walking down to meet whoever sat on the dais. The archway overhead is reinforced with durasteel crossbeams — structural, not decorative — bolted crudely into the ancient stonework. Two amber sconces flank the doors from inside, casting warm pools of light across the top of the stairs. The doors are currently sealed — fortress lockdown. Red emergency strips pulse along the door frame."/>
+
+    <rect x="460" y="120" width="260" height="290" rx="3" class="hitbox"
+      data-room="Varga's Dais"
+      data-desc="An elevated platform rising three steps above the audience floor — Varga's throne. The dais is octagonal, built from reinforced stone with durasteel edging, designed to support a Hutt's weight. At its center sits the throne itself: a massive curved seat upholstered in deep crimson fabric, worn smooth where Varga's bulk pressed into it daily. The seat is empty now — Varga fled hours ago. The cushion still holds the impression of his body. Control interfaces are built into the throne's armrests — comm links, security feeds, environmental controls — all dark, all abandoned. The platform hums faintly — a repulsor system built into the base, designed to let Varga's hover-sled dock directly. Pipes and conduit run along the east wall behind the dais, disappearing into the stone. The air near the throne smells of Varga — a heavy, cloying musk that lingers in the fabric long after he's gone."/>
+
+    <rect x="30" y="15" width="200" height="400" rx="3" class="hitbox"
+      data-room="West Gallery"
+      data-desc="The west wall of the throne room — a long stretch of cracked stone punctuated by alcoves and wall-mounted fixtures. Shelving units bolted to the stone hold an assortment of objects: a taxidermied creature in a glass case, a collection of bladed weapons from a dozen worlds displayed on hooks, datapads stacked in careless piles. Amber sconces at irregular intervals throw warm light across the shelving, leaving deep shadows between each alcove. The stone floor here is cracked — stress fractures radiating from the foundation, patched in places with duracrete filler that doesn't quite match. The wall leans slightly — old structural damage from the Clone Wars, never properly repaired. A brazier on a tripod stands near the midpoint, cold now, its bowl filled with ash from the last court session. The gallery is narrow — room for one person to walk comfortably, two if they turn sideways."/>
+
+    <rect x="120" y="200" width="340" height="400" rx="3" class="hitbox"
+      data-room="Audience Chamber"
+      data-desc="The main floor of the throne room — a wide, open space paved in heavy stone tiles, each one cracked and worn from centuries of use. This is where Varga held court: delegations stood here, deals were struck, entertainments performed, sentences handed down. The floor is bare now. Scattered objects mark the hasty evacuation — a dropped datapad near the center, a toppled drink stand, a decorative cushion kicked against the wall. The ceiling rises high overhead, lost in shadow beyond the reach of the amber sconces. Support columns — thick, square, stone — stand at the chamber's edges, framing the space without obstructing it. The acoustics are deliberate: words spoken at normal volume carry to the walls, whispers die within arm's reach. The air is stale and heavy — the environmental systems are running on emergency power, recycling but not refreshing. Red lockdown lighting pulses from strips along the baseboards, painting the stone in rhythmic crimson washes. This room was built to make you feel small. It still works."/>
+
+    <rect x="580" y="410" width="145" height="250" rx="3" class="hitbox"
+      data-room="East Alcove"
+      data-desc="A recessed section along the east wall, partially hidden behind the dais steps. Banks of control panels and monitoring equipment are mounted to the stone — fortress security interfaces, communications routing, environmental readouts. Most screens are dark, switched to emergency mode. One display still cycles: a security feed showing the hangar bay, the image grainy and stuttering. Pipes and heavy conduit run vertically along the wall, secured with clamps, carrying power and data between levels. A narrow service hatch is set into the floor — access to maintenance tunnels that run beneath the throne room. The hatch cover is durasteel, flush with the stone, secured with a mechanical latch. Blue indicator lights from the panels cast a cold glow that fights the amber of the nearest sconce. The air here smells of heated electronics and the metallic tang of conduit insulation."/>
+
+    <rect x="265" y="700" width="220" height="310" rx="3" class="hitbox"
+      data-room="Secret Passage"
+      data-desc="A narrow stairway rising from the dungeon level into the throne room floor — the secret passage that connects the lower levels to the audience chamber. The stairs are steep, carved from raw stone, with no railing and barely enough width for two people side by side. The passage opens into the throne room through a concealed door in the south floor — a section of stone tile that swings upward on a counterweighted hinge, designed to look like part of the floor when closed. From below, the air changes as you climb: the cold mineral damp of the dungeons giving way to the stale, smoke-tinged atmosphere of the throne room. The light shifts from blue dungeon strip-lighting to the pulsing red of lockdown emergency lamps. The passage is the heroes' entry point — they come up from the dungeons into whatever waits above."/>
+
+    <rect x="30" y="680" width="235" height="330" rx="3" class="hitbox"
+      data-room="Southwest Alcove"
+      data-desc="A recessed area in the southwest corner of the throne room, cluttered with functional equipment that Varga's court kept out of the main chamber. A deactivated protocol droid stands in the corner — not TC-663, a different unit, its photoreceptors dark, power cell removed. Beside it, a compact console terminal sits on a low table, its screen showing a system diagnostic loop in amber text. Crates are stacked against the wall — supplies, spare parts, unmarked containers sealed with magnetic locks. Two amber sconces bracket the alcove, casting overlapping pools of warm light. The floor here is slightly lower than the main chamber — a single step down, easy to miss in the red lockdown lighting. Pipes run along the ceiling, condensation beading on the bare metal. A service corridor entrance is set into the south wall — sealed by lockdown, its blast door indicator glowing red."/>
+
+    <rect x="485" y="730" width="235" height="280" rx="3" class="hitbox"
+      data-room="Southeast Alcove"
+      data-desc="The southeast corner of the throne room — a narrower space between the dais steps and the south wall. Blue-lit status panels are mounted at chest height, their displays showing fortress subsystem readouts: power grid, atmospheric processing, blast door status. Most indicators blink amber or red — lockdown mode, systems running on emergency protocols. A weapons rack is bolted to the east wall, half-empty — whoever was here grabbed what they could before fleeing. The remaining items: a stun baton in a charging cradle, a coil of synthrope, and two empty blaster holsters. The floor is scuffed with recent boot prints in dried mud — guards stationed here during the last court session. A body-sized piece of debris lies on the floor near the south wall — a shattered decorative statue, toppled during the evacuation, its stone fragments scattered across the tiles."/>
+
+    <rect x="80" y="600" width="510" height="110" rx="3" class="hitbox"
+      data-room="South Vestibule"
+      data-desc="The wider transitional space at the south end of the audience chamber, where the main floor narrows toward the secret passage and the corner alcoves. The stone tile gives way to rougher, older masonry — the original Neimoidian foundation, predating the decorative work above. Two broad steps descend from the audience floor to this lower level. The change in elevation is subtle but tactically significant — anyone on the main floor has the high ground. Amber sconces on both walls cast intersecting pools of light. The red lockdown strips are brighter here, closer to eye level, their pulse rhythm faster than the main chamber — a visual urgency designed to move people toward the exits. The air is slightly cooler, drafts from the secret passage below mixing with the stale throne room atmosphere. This is the bottleneck — the space between the open chamber and the escape route. Demos chose his ground well."/>
+
+  </svg>
+</div>
+
+<div class="location-brief">
+
+  <h2>Location Brief — Varga's Throne Room</h2>
+  <p>The audience chamber at the heart of the fortress — where Varga held court, received delegations, and dispensed justice (such as it was). Now empty. The Hutt fled hours ago, his hover-sled carrying him to the hangar and away. The throne still holds the impression of his body. The court is gone. The klaxons are screaming. And standing between you and the exit is the one person who didn't run.</p>
+
+  <h3>The Setting</h3>
+  <div class="read-aloud">
+    Klaxons scream through the stone corridors. The fortress goes into lockdown — blast doors grinding shut, red emergency lighting flooding every hall.
+
+    Blocking your path stands Igren Demos, the Neimoidian Majordomo. He is no longer simpering. He holds a vibro-staff with lethal confidence, flanked by his elite Trandoshan bodyguards.
+
+    His red eyes widen as he senses the Jedi behind you. "The Jedi... she's awake. Give her to me. I will take her to the Inquisitorius myself and claim what Varga never could."
+  </div>
+
+  <h3>The Arena</h3>
+  <div class="detail-grid">
+    <div class="detail-card">
+      <h4>Audience Chamber</h4>
+      <p>The main floor — wide, open, cracked stone tiles. Room to fight, room to maneuver. Dropped objects from the evacuation. Support columns at the edges provide partial cover. The acoustics carry every sound. Red lockdown lighting pulses from the baseboards.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Varga's Dais</h4>
+      <p>Elevated platform, three steps up. The crimson throne sits empty. Control interfaces in the armrests — all dark. The dais provides high ground and the throne itself is heavy cover. Varga's musk lingers in the fabric.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Secret Passage</h4>
+      <p>The heroes' entry point — steep stairs from the dungeons rising through a concealed floor hatch. Narrow, no railing, barely room for two abreast. The choke point where the fight begins if Demos is waiting for them.</p>
+    </div>
+    <div class="detail-card">
+      <h4>South Vestibule</h4>
+      <p>The bottleneck between the open chamber and the escape route. Two steps down from the main floor — anyone above has the high ground. Demos chose his position here deliberately. Faster lockdown pulse lighting. Drafts from below.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Grand Doors</h4>
+      <p>The main entrance — sealed by lockdown. Massive ornate doors with hydraulic assists, currently locked. Stairs descend into the chamber. The exit the heroes need, if they can get through Demos and open the blast doors.</p>
+    </div>
+    <div class="detail-card">
+      <h4>West Gallery</h4>
+      <p>Narrow gallery along the west wall. Shelving with displayed weapons, a cold brazier, cracked stone. Room for one person — a flanking route, but tight. The displayed weapons are decorative but functional in desperation.</p>
+    </div>
+    <div class="detail-card">
+      <h4>East Alcove</h4>
+      <p>Behind the dais — security panels, a maintenance hatch to tunnels below, one working security feed showing the hangar. A flanking route around the dais, or a secondary escape if the hatch can be opened.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Corner Alcoves</h4>
+      <p>Southwest: deactivated droid, crates, sealed service corridor. Southeast: half-empty weapons rack (stun baton, synthrope), shattered statue. Both provide cover and corners to hide in — or get cornered in.</p>
+    </div>
+  </div>
+
+  <h3>The Confrontation</h3>
+  <div class="gm-note">
+    <strong>GM Note — Demos's Stand:</strong> This is the mini-boss fight of Adventure 2. Demos blocks the path between the secret passage and the grand doors — the heroes must get through him to escape.
+
+    DEMOS'S FORCES: Demos (elite controller, Force-sensitive, vibro-staff) flanked by 2 Trandoshan bodyguards (threats, melee brutes). Demos uses Force Slam to separate heroes emerging from the narrow passage, Force Pull to yank weapons or drag people out of cover. The Trandoshans close on isolated targets.
+
+    POSITIONING: Demos should be in the south vestibule or the audience chamber floor — controlling the bottleneck. Trandoshans flank wide, one through the west gallery, one toward the east alcove. The heroes emerge from the secret passage into a kill zone.
+
+    PERSUASION OPTION: A Tier 2 Persuasion check can convince Demos to stand down: "Varga's gone. He left you here. You're fighting for a master who already abandoned you." If successful, Demos hesitates — a moment of bitter clarity — and steps aside. If failed, he fights harder, enraged by the truth.
+
+    DENIA'S MOMENT: If Denia is with the party and Demos falls, she senses his untrained Force sensitivity. "He was touched by the Force... untrained, but there." This humanizes the kill. If Denia was abandoned in the dungeon, the kill is just a kill.
+
+    ENVIRONMENTAL HAZARDS: The brazier in the west gallery can be Force-thrown. The decorative weapons on the wall shelves become projectiles when Demos uses Force Pull. The shattered statue fragments in the southeast are difficult terrain. The maintenance hatch in the east alcove is a secondary escape route — Tech check to open.
+
+    TIME PRESSURE: Every round spent fighting is a round Varga gains toward escape. Gamorrean reinforcements arrive in 5 rounds if the alarm was already triggered. The heroes should feel the clock.
+  </div>
+
+  <h3>Sensory Details — Quick Reference</h3>
+  <div class="detail-grid">
+    <div class="detail-card">
+      <h4>Sound</h4>
+      <p>Klaxons screaming through the stone — a rising, falling wail that echoes off every wall. The hum of sealed blast doors under pressure. Demos's vibro-staff buzzing at combat frequency. The Trandoshans' clawed feet scraping on stone tile. Every footstep, every word, every breath amplified by the chamber's acoustics. The lockdown strips click with each pulse.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Light</h4>
+      <p>Red emergency strips pulsing along every baseboard — rhythmic crimson washes across cracked stone. Amber sconces still burning on the walls, their warm light fighting the red. The dais is a pool of deeper shadow where the crimson throne absorbs the light. Blue indicator panels in the east alcove and southeast corner. The grand doors' lockdown strips glow solid red.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Smell</h4>
+      <p>Varga's cloying musk — still heavy in the air near the throne, soaked into the crimson fabric. Smoke from extinguished braziers. Stale recycled air from emergency ventilation. The metallic tang of Demos's vibro-staff ozone. Sweat from the Trandoshans. From below, the mineral damp of the dungeons drifting up through the open passage.</p>
+    </div>
+    <div class="detail-card">
+      <h4>Temperature</h4>
+      <p>Warm and stale — the environmental systems are on emergency, recycling without refreshing. Cooler near the secret passage where dungeon air rises. The stone walls hold residual warmth from the court session hours ago. Near the grand doors, the sealed blast door radiates cold from the corridor beyond. The dais platform is slightly warmer — Varga's repulsor systems still running on standby, generating ambient heat.</p>
+    </div>
+  </div>
+
+  <div class="gm-note">
+    <strong>GM Note — After the Fight:</strong> Once Demos is defeated or persuaded, the path to the grand doors is clear. The blast door lockdown requires a Tech check or Fusion Cutter to bypass. Beyond the doors: the corridor to the hangar bay (Scene 9). The clock is ticking — Draco's Star Destroyer is inbound, Varga is already running, and Gamorrean reinforcements are converging. The heroes need to move.
+  </div>
+
+</div>
+
+<script>
+const tip = document.getElementById('tooltip');
+document.querySelectorAll('.hitbox').forEach(el => {
+  el.addEventListener('mouseenter', e => {
+    tip.innerHTML = '<strong>' + el.dataset.room + '</strong><br>' + el.dataset.desc;
+    tip.style.display = 'block';
+  });
+  el.addEventListener('mousemove', e => {
+    const pad = 12;
+    let x = e.clientX + pad, y = e.clientY + pad;
+    const r = tip.getBoundingClientRect();
+    if (x + r.width > window.innerWidth)  x = e.clientX - r.width - pad;
+    if (y + r.height > window.innerHeight) y = e.clientY - r.height - pad;
+    tip.style.left = x + 'px';
+    tip.style.top  = y + 'px';
+  });
+  el.addEventListener('mouseleave', () => { tip.style.display = 'none'; });
+});
+</script>
+</body>
+</html>
