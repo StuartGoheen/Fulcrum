@@ -1175,6 +1175,21 @@
     _ctMapContainer.querySelector('#ct-map-dismiss').addEventListener('click', function () {
       if (sock) sock.emit('map:dismiss');
     });
+
+    if (sock) {
+      sock.on('map:pins-sync', function (data) {
+        if (_ctMapViewer && data.mapKey === _ctMapKey) _ctMapViewer.handlePinsSync(data.pins);
+      });
+      sock.on('map:pin-added', function (data) {
+        if (_ctMapViewer && data.pin) _ctMapViewer.handlePinAdded(data.pin);
+      });
+      sock.on('map:pin-updated', function (data) {
+        if (_ctMapViewer && data.pin) _ctMapViewer.handlePinUpdated(data.pin);
+      });
+      sock.on('map:pin-removed', function (data) {
+        if (_ctMapViewer) _ctMapViewer.handlePinRemoved(data.id);
+      });
+    }
   }
 
   function getTokensInZone(zoneId) {
@@ -1832,8 +1847,12 @@
         var npcId = btn.dataset.npcId;
         var npc = combatState.combatants.find(function (n) { return n.id === npcId; });
         var name = npc ? npc.name : 'this NPC';
-        if (confirm('Remove ' + name + ' from combat?')) {
-          removeNpcFromCombat(npcId);
+        if (window.TacticalMapViewer && window.TacticalMapViewer._confirm) {
+          window.TacticalMapViewer._confirm('Remove from Combat', 'Remove ' + name + ' from the encounter?', function () {
+            removeNpcFromCombat(npcId);
+          });
+        } else {
+          if (confirm('Remove ' + name + ' from combat?')) removeNpcFromCombat(npcId);
         }
       });
     });

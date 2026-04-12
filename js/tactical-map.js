@@ -11,6 +11,164 @@
     return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   };
 
+  function _tmShowDialog(opts) {
+    var existing = document.getElementById('tm-dialog-overlay');
+    if (existing) existing.remove();
+
+    var overlay = document.createElement('div');
+    overlay.id = 'tm-dialog-overlay';
+    overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:99999;display:flex;align-items:center;justify-content:center;';
+
+    var box = document.createElement('div');
+    box.style.cssText = [
+      'background:#1a1a1e',
+      'border:1px solid #3a3632',
+      'border-radius:6px',
+      'padding:1.25rem 1.25rem 0.9rem',
+      'min-width:300px',
+      'max-width:440px',
+      'width:90vw',
+      'font-family:\'Exo 2\',sans-serif',
+      'box-shadow:0 8px 36px rgba(0,0,0,0.85)'
+    ].join(';');
+
+    if (opts.title) {
+      var title = document.createElement('div');
+      title.style.cssText = 'font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:#c8a44e;margin-bottom:0.65rem;font-weight:700;';
+      title.textContent = opts.title;
+      box.appendChild(title);
+    }
+
+    if (opts.icon) {
+      var iconRow = document.createElement('div');
+      iconRow.style.cssText = 'display:flex;align-items:center;gap:0.6rem;margin-bottom:0.65rem;';
+      var iconSpan = document.createElement('span');
+      iconSpan.style.cssText = 'font-size:1.4rem;line-height:1;color:' + (opts.iconColor || '#c0b89a') + ';';
+      iconSpan.textContent = opts.icon;
+      iconRow.appendChild(iconSpan);
+      if (opts.pinLabel) {
+        var lbl = document.createElement('span');
+        lbl.style.cssText = 'font-size:0.8rem;color:#c0b89a;font-weight:600;';
+        lbl.textContent = opts.pinLabel;
+        iconRow.appendChild(lbl);
+      }
+      box.appendChild(iconRow);
+    }
+
+    if (opts.message) {
+      var msg = document.createElement('div');
+      msg.style.cssText = 'font-size:0.72rem;color:#c0b89a;margin-bottom:' + (opts.input !== undefined ? '0.75rem' : '1rem') + ';line-height:1.6;';
+      msg.textContent = opts.message;
+      box.appendChild(msg);
+    }
+
+    if (opts.details) {
+      opts.details.forEach(function (row) {
+        var dr = document.createElement('div');
+        dr.style.cssText = 'display:flex;gap:0.5rem;margin-bottom:0.3rem;font-size:0.68rem;';
+        var dk = document.createElement('span');
+        dk.style.cssText = 'color:#7a7068;min-width:72px;text-transform:uppercase;letter-spacing:0.06em;';
+        dk.textContent = row.key;
+        var dv = document.createElement('span');
+        dv.style.cssText = 'color:#c0b89a;';
+        dv.textContent = row.value;
+        dr.appendChild(dk);
+        dr.appendChild(dv);
+        box.appendChild(dr);
+      });
+      box.appendChild(Object.assign(document.createElement('div'), { style: 'height:0.75rem' }));
+    }
+
+    var inputEl = null;
+    if (opts.input !== undefined) {
+      inputEl = document.createElement('input');
+      inputEl.type = 'text';
+      inputEl.value = opts.input || '';
+      inputEl.placeholder = opts.placeholder || '';
+      inputEl.style.cssText = 'width:100%;box-sizing:border-box;background:#0f0e0d;border:1px solid #3a3632;color:#c0b89a;font-family:\'Exo 2\',sans-serif;font-size:0.72rem;padding:0.45rem 0.55rem;border-radius:3px;margin-bottom:1rem;outline:none;';
+      inputEl.addEventListener('focus', function () { inputEl.style.borderColor = '#c8a44e'; });
+      inputEl.addEventListener('blur', function () { inputEl.style.borderColor = '#3a3632'; });
+      box.appendChild(inputEl);
+    }
+
+    var btnRow = document.createElement('div');
+    btnRow.style.cssText = 'display:flex;gap:0.5rem;justify-content:flex-end;';
+
+    if (!opts.noCancel) {
+      var cancelBtn = document.createElement('button');
+      cancelBtn.textContent = opts.cancelText || 'Cancel';
+      cancelBtn.style.cssText = 'background:transparent;border:1px solid #3a3632;color:#7a7068;font-family:\'Exo 2\',sans-serif;font-size:0.62rem;letter-spacing:0.06em;text-transform:uppercase;padding:0.4rem 0.9rem;cursor:pointer;border-radius:3px;transition:all 0.12s;';
+      cancelBtn.addEventListener('mouseover', function () { cancelBtn.style.borderColor = '#7a7068'; cancelBtn.style.color = '#c0b89a'; });
+      cancelBtn.addEventListener('mouseout', function () { cancelBtn.style.borderColor = '#3a3632'; cancelBtn.style.color = '#7a7068'; });
+      cancelBtn.addEventListener('click', function () {
+        overlay.remove();
+        if (opts.onCancel) opts.onCancel();
+      });
+      btnRow.appendChild(cancelBtn);
+    }
+
+    var okBtn = document.createElement('button');
+    okBtn.textContent = opts.okText || 'OK';
+    var isRed = opts.danger;
+    okBtn.style.cssText = [
+      'background:' + (isRed ? 'rgba(127,29,29,0.6)' : 'rgba(30,45,25,0.8)'),
+      'border:1px solid ' + (isRed ? '#ef4444' : '#c8a44e'),
+      'color:' + (isRed ? '#ef4444' : '#c8a44e'),
+      'font-family:\'Exo 2\',sans-serif',
+      'font-size:0.62rem',
+      'letter-spacing:0.06em',
+      'text-transform:uppercase',
+      'padding:0.4rem 0.9rem',
+      'cursor:pointer',
+      'border-radius:3px',
+      'font-weight:600',
+      'transition:all 0.12s'
+    ].join(';');
+    okBtn.addEventListener('click', function () {
+      overlay.remove();
+      if (opts.onOk) opts.onOk(inputEl ? inputEl.value : true);
+    });
+    btnRow.appendChild(okBtn);
+    box.appendChild(btnRow);
+    overlay.appendChild(box);
+    document.body.appendChild(overlay);
+
+    if (inputEl) {
+      inputEl.focus();
+      inputEl.select();
+      inputEl.addEventListener('keydown', function (ev) {
+        if (ev.key === 'Enter') { overlay.remove(); if (opts.onOk) opts.onOk(inputEl.value); }
+        if (ev.key === 'Escape') { overlay.remove(); if (opts.onCancel) opts.onCancel(); }
+      });
+    }
+
+    overlay.addEventListener('click', function (ev) {
+      if (ev.target === overlay) { overlay.remove(); if (opts.onCancel) opts.onCancel(); }
+    });
+  }
+
+  function _tmPrompt(title, message, defaultVal, onOk) {
+    _tmShowDialog({
+      title: title,
+      message: message,
+      input: defaultVal || '',
+      okText: 'Save',
+      onOk: onOk,
+      onCancel: function () { onOk(null); }
+    });
+  }
+
+  function _tmConfirm(title, message, onConfirm, onCancel) {
+    _tmShowDialog({
+      title: title || 'Confirm',
+      message: message,
+      okText: 'Confirm',
+      danger: true,
+      onOk: onConfirm,
+      onCancel: onCancel || function () {}
+    });
+  }
+
   function TacticalMapViewer(opts) {
     this.container = opts.container;
     this.role = opts.role || 'player';
@@ -238,14 +396,14 @@
       var isOwnPin = isPlayerPin && pin.player_name === self.playerName;
       var cls = 'tm-pin' + (canDrag ? ' tm-pin-draggable' : '') + (isOwnPin ? ' tm-pin-own' : '');
       html += '<g class="' + cls + '" data-pin-id="' + (pin.id || pin._pid || '') + '" data-pin-owner="' + _esc(pin.owner || '') + '" transform="translate(' + pin.x + ',' + pin.y + ')" style="cursor:pointer;opacity:' + opacity + ';">';
-      html += '<circle r="10" fill="' + col + '" stroke="' + (isPlayerPin ? '#facc15' : '#000') + '" stroke-width="1.5" opacity="0.85"/>';
-      html += '<text text-anchor="middle" dy="4" fill="#fff" font-size="12" font-weight="bold" pointer-events="none">' + pt.icon + '</text>';
+      html += '<circle r="20" fill="' + col + '" stroke="' + (isPlayerPin ? '#facc15' : '#000') + '" stroke-width="2.5" opacity="0.88"/>';
+      html += '<text text-anchor="middle" dy="7" fill="#fff" font-size="20" font-weight="bold" pointer-events="none">' + pt.icon + '</text>';
       var labelText = pin.label || '';
       if (self.role === 'gm' && isPlayerPin && pin.player_name) {
         labelText = (labelText ? labelText + ' ' : '') + '(' + pin.player_name + ')';
       }
       if (labelText) {
-        html += '<text text-anchor="middle" dy="-14" fill="' + col + '" font-size="9" font-family="\'Exo 2\',sans-serif" stroke="#000" stroke-width="2" paint-order="stroke">' + _esc(labelText) + '</text>';
+        html += '<text text-anchor="middle" dy="-28" fill="' + col + '" font-size="12" font-family="\'Exo 2\',sans-serif" stroke="#000" stroke-width="3" paint-order="stroke">' + _esc(labelText) + '</text>';
       }
       html += '</g>';
     });
@@ -270,14 +428,38 @@
         var pinOwner = el.dataset.pinOwner;
         if (self.role === 'gm' && pinId) {
           self._showPinEditMenu(e, pinId);
-        } else if (self.role === 'player' && pinId) {
-          if (pinId.indexOf('p') === 0) {
+        } else if (self.role === 'player') {
+          if (pinId && pinId.indexOf('p') === 0) {
             self._showPersonalPinEditMenu(e, pinId);
-          } else if (pinOwner === 'player') {
+          } else if (pinId && pinOwner === 'player') {
             self._showPlayerServerPinEditMenu(e, pinId);
+          } else if (pinId) {
+            var numId = parseInt(pinId);
+            var pin = self.pins.find(function (p) { return p.id === numId; });
+            if (pin) self._showPinDetails(e, pin);
           }
         }
       });
+    });
+  };
+
+  TacticalMapViewer.prototype._showPinDetails = function (e, pin) {
+    this._removeContextMenu();
+    var pt = PIN_TYPES[pin.pin_type] || PIN_TYPES.note;
+    var col = pin.color || pt.color;
+    var details = [
+      { key: 'Type', value: pt.label },
+      { key: 'Visibility', value: pin.visibility === 'private' ? 'Private' : 'Public' }
+    ];
+    _tmShowDialog({
+      title: 'Pin Details',
+      icon: pt.icon,
+      iconColor: col,
+      pinLabel: pin.label || pt.label,
+      details: details,
+      okText: 'Close',
+      noCancel: true,
+      onOk: function () {}
     });
   };
 
@@ -325,20 +507,23 @@
       btn.innerHTML = '<span style="color:' + pt.color + ';">' + pt.icon + '</span> ' + pt.label;
       btn.addEventListener('click', function () {
         self._removeContextMenu();
-        var label = prompt('Pin label (optional):') || '';
-        if (self.socket) {
-          self.socket.emit('map:pin-add', {
-            mapKey: self.mapKey, x: Math.round(mapX), y: Math.round(mapY),
-            label: label, pin_type: type,
-            visibility: self.role === 'gm' ? 'public' : 'private',
-            color: pt.color
-          });
-        } else {
-          var pin = { _pid: 'p' + Date.now(), x: Math.round(mapX), y: Math.round(mapY), label: label, pin_type: type, color: pt.color, _personal: true };
-          self.personalPins.push(pin);
-          self._savePersonalPins();
-          self._renderPins();
-        }
+        _tmPrompt('Add Pin', 'Label for this ' + pt.label + ' pin (optional):', '', function (label) {
+          if (label === null) return;
+          label = label.trim();
+          if (self.socket) {
+            self.socket.emit('map:pin-add', {
+              mapKey: self.mapKey, x: Math.round(mapX), y: Math.round(mapY),
+              label: label, pin_type: type,
+              visibility: self.role === 'gm' ? 'public' : 'private',
+              color: pt.color
+            });
+          } else {
+            var pin = { _pid: 'p' + Date.now(), x: Math.round(mapX), y: Math.round(mapY), label: label, pin_type: type, color: pt.color, _personal: true };
+            self.personalPins.push(pin);
+            self._savePersonalPins();
+            self._renderPins();
+          }
+        });
       });
       menu.appendChild(btn);
     });
@@ -346,13 +531,16 @@
     if (this.role === 'gm') {
       var priv = document.createElement('button');
       priv.className = 'tm-ctx-item tm-ctx-private';
-      priv.innerHTML = '<span style="color:#888;">\u{1F512}</span> Private Note';
+      priv.innerHTML = '<span style="color:#888;">\uD83D\uDD12</span> Private Note';
       priv.addEventListener('click', function () {
         self._removeContextMenu();
-        var label = prompt('Private note label:') || 'GM Note';
-        self.socket.emit('map:pin-add', {
-          mapKey: self.mapKey, x: Math.round(mapX), y: Math.round(mapY),
-          label: label, pin_type: 'note', visibility: 'private', color: '#888888'
+        _tmPrompt('Private Note', 'Label for this GM-only note:', 'GM Note', function (label) {
+          if (label === null) return;
+          label = label.trim() || 'GM Note';
+          self.socket.emit('map:pin-add', {
+            mapKey: self.mapKey, x: Math.round(mapX), y: Math.round(mapY),
+            label: label, pin_type: 'note', visibility: 'private', color: '#888888'
+          });
         });
       });
       menu.appendChild(priv);
@@ -378,15 +566,29 @@
     menu.style.left = e.clientX + 'px';
     menu.style.top = e.clientY + 'px';
 
+    var viewBtn = document.createElement('button');
+    viewBtn.className = 'tm-ctx-item';
+    viewBtn.textContent = '\u2139 View Details';
+    viewBtn.addEventListener('click', function () {
+      self._removeContextMenu();
+      self._showPinDetails(e, pin);
+    });
+    menu.appendChild(viewBtn);
+
+    var sep0 = document.createElement('div');
+    sep0.style.cssText = 'height:1px;background:rgba(255,255,255,0.08);margin:4px 0;';
+    menu.appendChild(sep0);
+
     var editLabel = document.createElement('button');
     editLabel.className = 'tm-ctx-item';
     editLabel.textContent = '\u270E Edit Label';
     editLabel.addEventListener('click', function () {
       self._removeContextMenu();
-      var newLabel = prompt('Edit pin label:', pin.label || '');
-      if (newLabel !== null) {
-        self.socket.emit('map:pin-update', { id: numId, label: newLabel });
-      }
+      _tmPrompt('Edit Pin Label', null, pin.label || '', function (newLabel) {
+        if (newLabel !== null) {
+          self.socket.emit('map:pin-update', { id: numId, label: newLabel.trim() });
+        }
+      });
     });
     menu.appendChild(editLabel);
 
@@ -414,7 +616,7 @@
     menu.appendChild(toggleVis);
 
     var sep = document.createElement('div');
-    sep.style.cssText = 'height:1px;background:rgba(255,255,255,0.1);margin:4px 0;';
+    sep.style.cssText = 'height:1px;background:rgba(255,255,255,0.08);margin:4px 0;';
     menu.appendChild(sep);
 
     var delBtn = document.createElement('button');
@@ -423,7 +625,9 @@
     delBtn.textContent = '\u2716 Delete Pin';
     delBtn.addEventListener('click', function () {
       self._removeContextMenu();
-      self.socket.emit('map:pin-remove', { id: numId, mapKey: self.mapKey });
+      _tmConfirm('Delete Pin', 'Remove this ' + (PIN_TYPES[pin.pin_type] || PIN_TYPES.note).label + ' pin' + (pin.label ? ' \u201C' + pin.label + '\u201D' : '') + '?', function () {
+        self.socket.emit('map:pin-remove', { id: numId, mapKey: self.mapKey });
+      });
     });
     menu.appendChild(delBtn);
 
@@ -452,10 +656,11 @@
     editLabel.textContent = '\u270E Edit Label';
     editLabel.addEventListener('click', function () {
       self._removeContextMenu();
-      var newLabel = prompt('Edit pin label:', pin.label || '');
-      if (newLabel !== null) {
-        self.socket.emit('map:pin-update', { id: numId, label: newLabel });
-      }
+      _tmPrompt('Edit Pin Label', null, pin.label || '', function (newLabel) {
+        if (newLabel !== null) {
+          self.socket.emit('map:pin-update', { id: numId, label: newLabel.trim() });
+        }
+      });
     });
     menu.appendChild(editLabel);
 
@@ -474,7 +679,7 @@
     });
 
     var sep = document.createElement('div');
-    sep.style.cssText = 'height:1px;background:rgba(255,255,255,0.1);margin:4px 0;';
+    sep.style.cssText = 'height:1px;background:rgba(255,255,255,0.08);margin:4px 0;';
     menu.appendChild(sep);
 
     var delBtn = document.createElement('button');
@@ -483,7 +688,9 @@
     delBtn.textContent = '\u2716 Remove Pin';
     delBtn.addEventListener('click', function () {
       self._removeContextMenu();
-      self.socket.emit('map:pin-remove', { id: numId, mapKey: self.mapKey });
+      _tmConfirm('Remove Pin', 'Remove this pin from the map?', function () {
+        self.socket.emit('map:pin-remove', { id: numId, mapKey: self.mapKey });
+      });
     });
     menu.appendChild(delBtn);
 
@@ -511,12 +718,13 @@
     editLabel.textContent = '\u270E Edit Label';
     editLabel.addEventListener('click', function () {
       self._removeContextMenu();
-      var newLabel = prompt('Edit pin label:', pin.label || '');
-      if (newLabel !== null) {
-        pin.label = newLabel;
-        self._savePersonalPins();
-        self._renderPins();
-      }
+      _tmPrompt('Edit Pin Label', null, pin.label || '', function (newLabel) {
+        if (newLabel !== null) {
+          pin.label = newLabel.trim();
+          self._savePersonalPins();
+          self._renderPins();
+        }
+      });
     });
     menu.appendChild(editLabel);
 
@@ -538,7 +746,7 @@
     });
 
     var sep = document.createElement('div');
-    sep.style.cssText = 'height:1px;background:rgba(255,255,255,0.1);margin:4px 0;';
+    sep.style.cssText = 'height:1px;background:rgba(255,255,255,0.08);margin:4px 0;';
     menu.appendChild(sep);
 
     var delBtn = document.createElement('button');
@@ -547,9 +755,11 @@
     delBtn.textContent = '\u2716 Remove Pin';
     delBtn.addEventListener('click', function () {
       self._removeContextMenu();
-      self.personalPins = self.personalPins.filter(function (p) { return p._pid !== pinId; });
-      self._savePersonalPins();
-      self._renderPins();
+      _tmConfirm('Remove Pin', 'Remove this personal pin?', function () {
+        self.personalPins = self.personalPins.filter(function (p) { return p._pid !== pinId; });
+        self._savePersonalPins();
+        self._renderPins();
+      });
     });
     menu.appendChild(delBtn);
 
@@ -652,4 +862,6 @@
   };
 
   window.TacticalMapViewer = TacticalMapViewer;
+  window.TacticalMapViewer._confirm = _tmConfirm;
+  window.TacticalMapViewer._prompt  = _tmPrompt;
 }());
