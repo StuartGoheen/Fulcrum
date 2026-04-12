@@ -255,7 +255,7 @@ const SCENE1_NPC_PINS = [
   },
   {
     x: 308, y: 200,
-    label: 'Zulo (Bartender)',
+    label: 'Bith Bartender Zulo',
     pin_type: 'npc',
     visibility: 'public',
     owner: 'gm',
@@ -302,38 +302,38 @@ app.post('/api/maps/burning-deck/seed-npcs', async (req, res) => {
 async function seedScene1Npcs() {
   try {
     const existing = await pool.query(
-      "SELECT id, label, player_desc FROM map_pins WHERE map_key = 'burning-deck' AND pin_type = 'npc'"
+      "SELECT id, label, x, y FROM map_pins WHERE map_key = 'burning-deck' AND pin_type = 'npc'"
     );
-    if (existing.rows.length === 0) {
-      for (const pin of SCENE1_NPC_PINS) {
+    const existingByLabel = {};
+    existing.rows.forEach(function(r) { existingByLabel[r.label] = r; });
+
+    const canonicalLabels = SCENE1_NPC_PINS.map(function(p) { return p.label; });
+    let inserted = 0, updated = 0;
+
+    for (const pin of SCENE1_NPC_PINS) {
+      if (existingByLabel[pin.label]) {
+        const row = existingByLabel[pin.label];
+        await pool.query(
+          'UPDATE map_pins SET x=$1, y=$2, color=$3, player_desc=$4, gm_notes=$5, visibility=$6 WHERE id=$7',
+          [pin.x, pin.y, pin.color, pin.player_desc, pin.gm_notes, pin.visibility, row.id]
+        );
+        updated++;
+      } else {
         await pool.query(
           'INSERT INTO map_pins (map_key, x, y, label, pin_type, visibility, owner, player_name, color, player_desc, gm_notes) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)',
           ['burning-deck', pin.x, pin.y, pin.label, pin.pin_type, pin.visibility, pin.owner, pin.player_name, pin.color, pin.player_desc, pin.gm_notes]
         );
-      }
-      console.log('[seed] Scene 1 NPC pins seeded: ' + SCENE1_NPC_PINS.length + ' pins added to burning-deck.');
-    } else {
-      const needsUpdate = existing.rows.some(function(r) { return !r.player_desc || r.player_desc.trim() === ''; });
-      if (needsUpdate) {
-        for (const pin of SCENE1_NPC_PINS) {
-          const match = existing.rows.find(function(r) { return r.label === pin.label; });
-          if (match && (!match.player_desc || match.player_desc.trim() === '')) {
-            await pool.query(
-              'UPDATE map_pins SET player_desc = $1, gm_notes = $2 WHERE id = $3',
-              [pin.player_desc, pin.gm_notes, match.id]
-            );
-          } else if (!match) {
-            await pool.query(
-              'INSERT INTO map_pins (map_key, x, y, label, pin_type, visibility, owner, player_name, color, player_desc, gm_notes) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)',
-              ['burning-deck', pin.x, pin.y, pin.label, pin.pin_type, pin.visibility, pin.owner, pin.player_name, pin.color, pin.player_desc, pin.gm_notes]
-            );
-          }
-        }
-        console.log('[seed] Burning Deck NPC pins updated with player_desc and gm_notes.');
-      } else {
-        console.log('[seed] Burning Deck NPC pins already fully populated — skipping seed.');
+        inserted++;
       }
     }
+
+    for (const row of existing.rows) {
+      if (!canonicalLabels.includes(row.label)) {
+        await pool.query('DELETE FROM map_pins WHERE id=$1', [row.id]);
+      }
+    }
+
+    console.log('[seed] Burning Deck Scene 1 NPCs: ' + inserted + ' inserted, ' + updated + ' updated.');
   } catch (err) {
     console.error('[seed] NPC pin seed error:', err);
   }

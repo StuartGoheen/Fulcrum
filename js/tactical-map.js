@@ -92,6 +92,20 @@
       box.appendChild(inputEl);
     }
 
+    if (opts.gm_section) {
+      var gmDivider = document.createElement('div');
+      gmDivider.style.cssText = 'height:1px;background:rgba(200,164,78,0.25);margin:0.5rem 0 0.65rem;';
+      box.appendChild(gmDivider);
+      var gmLabel = document.createElement('div');
+      gmLabel.style.cssText = 'font-size:0.58rem;color:#c8a44e;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.4rem;opacity:0.85;';
+      gmLabel.textContent = '\u25CF GM Eyes Only';
+      box.appendChild(gmLabel);
+      var gmText = document.createElement('div');
+      gmText.style.cssText = 'font-size:0.7rem;color:#a89060;line-height:1.6;margin-bottom:0.85rem;background:rgba(200,164,78,0.06);border-left:2px solid rgba(200,164,78,0.3);padding:0.4rem 0.6rem;border-radius:0 3px 3px 0;';
+      gmText.textContent = opts.gm_section;
+      box.appendChild(gmText);
+    }
+
     var fieldEls = {};
     if (opts.fields && opts.fields.length) {
       var fieldInputCss = 'width:100%;box-sizing:border-box;background:#0f0e0d;border:1px solid #3a3632;color:#c0b89a;font-family:\'Exo 2\',sans-serif;font-size:0.72rem;padding:0.45rem 0.55rem;border-radius:3px;margin-bottom:0.75rem;outline:none;display:block;';
@@ -505,6 +519,7 @@
     var pt = PIN_TYPES[pin.pin_type] || PIN_TYPES.note;
     var col = pin.color || pt.color;
     var isNpc = pin.pin_type === 'npc';
+    var isGm = this.role === 'gm';
     var details = isNpc ? [] : [
       { key: 'Type', value: pt.label },
       { key: 'Visibility', value: pin.visibility === 'private' ? 'Private' : 'Public' }
@@ -517,10 +532,14 @@
       details: details,
       okText: 'Close',
       noCancel: true,
+      max_width: (isNpc && isGm && pin.gm_notes) ? '540px' : undefined,
       onOk: function () {}
     };
     if (pin.player_desc) {
       opts.message = pin.player_desc;
+    }
+    if (isNpc && isGm && pin.gm_notes) {
+      opts.gm_section = pin.gm_notes;
     }
     _tmShowDialog(opts);
   };
