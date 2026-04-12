@@ -5,13 +5,48 @@
   "act": 3,
   "summary": "The heroes travel the Xala-Cermau hyperlane into Wild Space to assault Inquisitor Draco's stronghold on Xala. Master Denia is held there — if she survived. The rescue attempt ends in sacrifice, and the heroes leave the edge of known space carrying the cost. This adventure is structurally optional — players who choose not to pursue Denia proceed directly to the finale, but without whatever advantage Xala would have provided.",
   "marks": [
-    { "id": "adv9_wild_space", "label": "Beyond the Charts", "desc": "Travel the Xala-Cermau hyperlane into Wild Space. Past here, the galaxy ends.", "hidden": false },
-    { "id": "adv9_stronghold", "label": "The Stronghold", "desc": "Locate and infiltrate Draco's fortress on Xala.", "hidden": false },
-    { "id": "adv9_denia", "label": "The Rescue", "desc": "Find Denia — if she survived. What's left of her may not be what you remember.", "hidden": true },
-    { "id": "adv9_draco", "label": "The Inquisitor", "desc": "Confront Draco on his own ground. This is where it ends between you.", "hidden": true },
-    { "id": "adv9_sacrifice", "label": "The Cost", "desc": "Someone pays the price. The rescue attempt demands sacrifice.", "hidden": true },
-    { "id": "adv9_return", "label": "Carrying It Home", "desc": "Leave the edge of known space. What you bring back changes the final fight.", "hidden": true },
-    { "id": "adv9_crucible", "label": "The Crucible", "desc": "The plan catastrophically fails. Improvise under fire to survive.", "hidden": false }
+    {
+      "id": "adv9_wild_space",
+      "label": "Beyond the Charts",
+      "desc": "Travel the Xala-Cermau hyperlane into Wild Space. Past here, the galaxy ends.",
+      "hidden": false
+    },
+    {
+      "id": "adv9_stronghold",
+      "label": "The Stronghold",
+      "desc": "Locate and infiltrate Draco's fortress on Xala.",
+      "hidden": false
+    },
+    {
+      "id": "adv9_denia",
+      "label": "The Rescue",
+      "desc": "Find Denia — if she survived. What's left of her may not be what you remember.",
+      "hidden": true
+    },
+    {
+      "id": "adv9_draco",
+      "label": "The Inquisitor",
+      "desc": "Confront Draco on his own ground. This is where it ends between you.",
+      "hidden": true
+    },
+    {
+      "id": "adv9_sacrifice",
+      "label": "The Cost",
+      "desc": "Someone pays the price. The rescue attempt demands sacrifice.",
+      "hidden": true
+    },
+    {
+      "id": "adv9_return",
+      "label": "Carrying It Home",
+      "desc": "Leave the edge of known space. What you bring back changes the final fight.",
+      "hidden": true
+    },
+    {
+      "id": "adv9_crucible",
+      "label": "The Crucible",
+      "desc": "The plan catastrophically fails. Improvise under fire to survive.",
+      "hidden": false
+    }
   ],
   "gearNotes": [
     {

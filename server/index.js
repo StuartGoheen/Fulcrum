@@ -336,10 +336,140 @@ async function seedScene1Npcs() {
   }
 }
 
+const ALL_SCENE_NPC_SEEDS = {
+  'switch-lair': [
+    {
+      x: 512, y: 102, label: 'Switch', pin_type: 'npc', visibility: 'public', owner: 'gm', player_name: '', color: '#d4a84b',
+      player_desc: 'On an elevated platform at the far end of the bunker — a protocol droid. Silver chassis, scratched and worn but meticulously maintained. Photoreceptors that haven\'t blinked since before the Clone Wars. He doesn\'t greet you. He waits.',
+      gm_notes: 'Switch. Protocol droid running a decades-old intelligence network. Will examine the code cylinder for a steep fee — but offers a deal: reduced fee if heroes agree to pass validated intel as they travel (compensated each time). This establishes him as a recurring contact. He controls the two ceiling turrets. He WILL know if you lie. Do not threaten him — the turrets respond to his will.'
+    }
+  ],
+  'vanishing-place': [
+    {
+      x: 524, y: 389, label: 'Admiral Varth', pin_type: 'npc', visibility: 'public', owner: 'gm', player_name: '', color: '#d4a84b',
+      player_desc: 'In the detention block, at a makeshift table in a holding cell — a man in a rumpled Imperial uniform, card face-up, a small pile of credit chips beside him. He\'s playing sabacc with two armed guards. When you appear, he doesn\'t reach for a weapon. He doesn\'t stand. He looks at you and says: "You\'re late."',
+      gm_notes: 'Admiral Adan Varth. Eight months incarcerated, and he\'s been waiting with extraordinary patience. His authentication key for the Varga encrypted account is memorized — he carries nothing physical. Charming, competent, already calculating. He will want the generator sabotaged to clear Maya\'s flight path — this aligns with Mandrake\'s deal. He is manipulating the crew from the very first sentence. Red Flag Zero: how calm he is about being rescued.'
+    }
+  ],
+  'jungle-trek': [
+    {
+      x: 513, y: 660, label: 'Vazus Mandrake', pin_type: 'npc', visibility: 'public', owner: 'gm', player_name: '', color: '#d4a84b',
+      player_desc: 'A figure steps from the treeline — human, weathered, in gear that stopped being Imperial a long time ago. Jungle camouflage, vines braided into the pack straps, a rebreather pushed up on his forehead. He holds out empty hands. His eyes measure you in the first second and his face gives nothing back.',
+      gm_notes: 'Vazus Mandrake. Former Republic trooper turned guerrilla — he\'s been fighting the garrison on Ajan Kloss for years protecting the indigenous locals. His deal: guide the heroes to the Vanishing Place in exchange for generator sabotage. The generator powers turrets, fences, security doors, AND sensor grid — sabotaging it serves everyone. He will separate from the group inside the fortress and head to the detention pens when the generator goes down. FATE: Hope-dominant → escapes into jungle with freed people. Toll-dominant → Draco cuts him down as the Banshee lifts.'
+    }
+  ],
+  'blackwind-point': [
+    {
+      x: 921, y: 479, label: 'Kessra', pin_type: 'npc', visibility: 'public', owner: 'gm', player_name: '', color: '#d4a84b',
+      player_desc: 'A woman stands on the landing pad like she owns it — because right now, she does. Zabrak, horns ringed with hammered metal, dressed in gang colors under battered armor. Six swoops idling behind her. Her crew fans out without being told. She watches your ship touch down with the patient interest of someone counting what they\'re about to take.',
+      gm_notes: 'Kessra. Leader of the Vipers. She runs the landing tax — extortion backed by gang muscle. CONSEQUENCE GATE: how the heroes handle her here determines the aviary ambush in Adv2 P2 S5. Humiliate her → she finds them inside the fortress for personal revenge, releasing raptors in the aviary. Pay without fight → neutral. The gang\'s swoops hover above mud terrain — asymmetric advantage. She is testing the crew\'s strength of will as much as collecting credits.'
+    }
+  ],
+  'filtration-plant': [
+    {
+      x: 114, y: 334, label: 'Warrick Raden', pin_type: 'npc', visibility: 'public', owner: 'gm', player_name: '', color: '#d4a84b',
+      player_desc: 'The maintenance shed at the northwest corner is sealed from inside. Trip-wire cans strung ankle-height around the approach. Through a cracked shutter, a faint lamp glow. Someone has been living here. Recently.',
+      gm_notes: 'Warrick Raden. Devaronian in his forties. Former Varth middleman — after Varth went dark he tried skimming from Varga, got caught, earned a bounty. Terrified and refuses to go back. Three outcomes: (1) Calm persuasion → full intel: layout, guard rotations, sewer access, court protocols, Varga paranoia triggers. (2) Threaten → thin, unreliable intel under duress. (3) Dark path → Varth suggests delivering him in chains. FATE BRANCHING: see Dead End Tracker. He has a crude GNK sentry droid patrolling the south gate — the sound of it engaging tells him someone is coming.'
+    }
+  ],
+  'throne-room-court': [
+    {
+      x: 621, y: 510, label: 'Varga the Hutt', pin_type: 'npc', visibility: 'public', owner: 'gm', player_name: '', color: '#d4a84b',
+      player_desc: 'On the raised dais at the far end of the hall — a Hutt of considerable mass, draped in silk and wearing a crown of hammered durasteel. He watches arrivals with hooded eyes, a goblet in one hand and the weight of absolute authority in the other. The silence before he speaks is deliberate.',
+      gm_notes: 'Varga. Crime lord, fortress owner, Act 1 antagonist. Vain, shrewd, genuinely dangerous. Wants to impress and to be impressed. Light/Threaten path: heroes must audition — each demonstrate value. Dark path: heroes deliver Raden in chains → instant credibility, no audition. He will die on the Glorious Chariot in Adv3. TC-663 (Switch\'s embedded droid agent) is somewhere in this court, activated only by code phrase.'
+    },
+    {
+      x: 274, y: 506, label: 'Igren Demos', pin_type: 'npc', visibility: 'public', owner: 'gm', player_name: '', color: '#d4a84b',
+      player_desc: 'Standing at the edge of the dais, slightly to the side — a Neimoidian in formal court attire, thin fingers folded together, watching arrivals with undisguised calculation. He speaks quietly to Varga and does not look directly at you.',
+      gm_notes: 'Igren Demos. Varga\'s majordomo and chief of security. Neimoidian. Untrained Force sensitivity he doesn\'t know he has — he uses it as "instinct." He will die blocking the heroes\' dungeon escape (P2 S8), using Force Slam without understanding what it is. His death is tragic: he was trying to buy his way into Imperial favor by delivering Denia to the Inquisitorius, but the Empire would never accept a Neimoidian. Denia senses his sensitivity as he falls.'
+    }
+  ],
+  'throne-room': [
+    {
+      x: 341, y: 869, label: 'Igren Demos', pin_type: 'npc', visibility: 'public', owner: 'gm', player_name: '', color: '#d4a84b',
+      player_desc: 'Blocking the descent to the lower levels — the Neimoidian majordomo, no longer composed. His formal court attire is disheveled, one sleeve torn. He holds a vibro-staff at guard and a Trandoshan bodyguard flanks him on either side. His eyes are wide, pupils dilated. Something about the way he\'s breathing is wrong.',
+      gm_notes: 'Demos blocking the dungeon stairs. He uses Force Slam in desperation — a blast of invisible force that he doesn\'t understand. He is not trained; the ability surfaces under extreme stress. MINI-BOSS: kill or incapacitate to pass. When he falls, Denia senses his Force sensitivity: "He was touched by the Force... untrained, but there." His Trandoshan bodyguards are two-rank threats. Varga has already fled in the Glorious Chariot.'
+    }
+  ],
+  'dungeons': [
+    {
+      x: 104, y: 819, label: 'Jedi Master Denia', pin_type: 'npc', visibility: 'public', owner: 'gm', player_name: '', color: '#d4a84b',
+      player_desc: 'In the containment area at the end of the block — the largest chamber in the lower dungeon. A force cage holding a narrow bed. Inside: a figure barely breathing, eyes closed. Medical equipment keeping her in something between sleep and death. The air in this room is different. Something reaches outward from it that has no name.',
+      gm_notes: 'Jedi Master Denia. In a stasis pod (not cryo — medical preservative coma). Tech check to open safely — fumble and she dies. Every Force-sensitive in the block feels nausea when she\'s disturbed. Igren Demos senses it from anywhere in the palace. Varth\'s comms: "Leave her — she\'s a liability." RED FLAG #1. The heroes must choose. If rescued: she becomes mentor, holocron key (Adv4), eventually captured by Draco (Adv7). If abandoned: Varth tips off Draco off-camera. Either path, she exists in the campaign — the question is who has her.'
+    },
+    {
+      x: 150, y: 290, label: 'Warrick Raden', pin_type: 'npc', visibility: 'public', owner: 'gm', player_name: '', color: '#d4a84b',
+      player_desc: 'In the common cell above — behind iron bars, not a containment field. A Devaronian sitting against the stone wall. Beaten. Bruised. Alive. He looks up with hollow eyes at whoever comes down those stairs.',
+      gm_notes: 'DARK PATH ONLY. Raden is here because the heroes delivered him to Varga in chains. Untouched food tray near the bars. If the heroes rescue him AND escape with him: Varth executes him at the hangar ramp (P2 S9) — "I told you the next time I saw you, I would kill you." RED FLAG #2. If left: fate unknown. This is the campaign\'s first moral weight-bearing moment delivered by the consequences of the heroes\' own decision.'
+    }
+  ],
+  'aviary': [
+    {
+      x: 830, y: 140, label: 'Kessra', pin_type: 'npc', visibility: 'public', owner: 'gm', player_name: '', color: '#d4a84b',
+      player_desc: 'On the highest perch platform in the northeast — a figure in dark leather, a control whistle between her teeth, watching you from above with undisguised hatred. Takodana Raptors hit before you see them, dropping from the canopy. She is directing them.',
+      gm_notes: 'CONDITIONAL ENCOUNTER — only triggers if heroes humiliated Kessra at Blackwind Point. She has infiltrated the fortress through contacts in Varga\'s security staff, released the raptors, and locked the aviary doors behind her. She commands from elevation using whistle signals — while she commands, the raptors flank and coordinate. Take her down or drive her off and the raptors lose coordination and retreat to the southeast roost. She will flee through the maintenance crawlspace behind the east grow lights if the fight turns against her. She does not want Varga\'s people to catch her here.'
+    }
+  ],
+  'knife-in-the-dark': [
+    {
+      x: 139, y: 793, label: 'Grakkus', pin_type: 'npc', visibility: 'public', owner: 'gm', player_name: '', color: '#d4a84b',
+      player_desc: 'The door opens without sound. Three figures slide into the room. The first is massive — a Wookiee, moving with terrifying silence for something that size. His reaching fills the space between the beds. He does not speak.',
+      gm_notes: 'Grakkus. Wookiee enforcer. Close-combat monster in confined space — Room 5 was chosen because his reach fills it. The Wookiee from the Iron Ring auction; sold as "arena muscle," activated as an assassin. He is the primary threat. Only two combatants can engage in melee simultaneously in the doorway. If the heroes break out of Room 5, the geometry of the encounter changes entirely. He follows — he does not disengage.'
+    },
+    {
+      x: 411, y: 111, label: 'Skreev', pin_type: 'npc', visibility: 'public', owner: 'gm', player_name: '', color: '#d4a84b',
+      player_desc: 'Behind the first figure — lean, quiet, moving along the wall rather than through the center. Quarren. He keeps distance and angles for sightlines.',
+      gm_notes: 'Skreev. Quarren assassin. Ranged specialist — he hangs back, fires from cover, and relocates between shots. He is coordinating with Grakkus: Grakkus forces heroes to stay in the room, Skreev shoots through the doorway. His vulnerability: if heroes break into the corridor, they close range on him. He will retreat to the north corridor or duck into an empty room to reset the angle.'
+    },
+    {
+      x: 619, y: 554, label: 'Narek', pin_type: 'npc', visibility: 'public', owner: 'gm', player_name: '', color: '#d4a84b',
+      player_desc: 'The third figure, face hidden in shadow, slips into a room to the side and waits.',
+      gm_notes: 'CONDITIONAL — Narek the Twi\'lek poisoner. Only present if heroes exposed or humiliated him during the Iron Ring poison subplot (P2 S2). Otherwise, replace with a generic Iron Ring enforcer. Narek uses coated blades and manufactured poisons — his attacks inflict ongoing debuffs in addition to damage. He prefers flanking angles and enclosed spaces. If not triggered: this pin represents an Iron Ring enforcer in the same position — less dangerous, same tactical role.'
+    }
+  ],
+  'banshee': [
+    {
+      x: 515, y: 92, label: 'Maya', pin_type: 'npc', visibility: 'public', owner: 'gm', player_name: '', color: '#d4a84b',
+      player_desc: 'In the cockpit — a Mirialan woman running pre-flight checks without looking up from the console. Green-gold skin, flight jacket worn soft at the elbows, tattoo patterns along her cheekbones. She knows the Banshee the way some people know a language — without thinking about it.',
+      gm_notes: 'Maya. The crew\'s pilot and de facto moral compass. Freelancer who intercepted the code cylinder from Varga\'s supply chain — that one job pulled her into all of this. She is loyal to the crew but has her own ethics and will push back on Varth. Wounded during the Ajan Kloss approach (shrapnel, serious). The slave ship Shackles of Nizon will force her hand in Adv3. CAMPAIGN AXIS: her survival is optional but her absence permanently changes the campaign\'s emotional texture and removes the Ace pilot\'s most meaningful relationship.'
+    }
+  ]
+};
+
+async function seedAllSceneNpcs() {
+  let totalInserted = 0;
+  for (const [mapKey, pins] of Object.entries(ALL_SCENE_NPC_SEEDS)) {
+    try {
+      const existing = await pool.query(
+        'SELECT label FROM map_pins WHERE map_key = $1 AND pin_type = $2',
+        [mapKey, 'npc']
+      );
+      const existingLabels = new Set(existing.rows.map(function(r) { return r.label; }));
+      let inserted = 0;
+      for (const pin of pins) {
+        if (!existingLabels.has(pin.label)) {
+          await pool.query(
+            'INSERT INTO map_pins (map_key, x, y, label, pin_type, visibility, owner, player_name, color, player_desc, gm_notes) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)',
+            [mapKey, pin.x, pin.y, pin.label, pin.pin_type, pin.visibility, pin.owner, pin.player_name, pin.color, pin.player_desc, pin.gm_notes]
+          );
+          inserted++;
+          totalInserted++;
+        }
+      }
+      if (inserted > 0) console.log('[seed] ' + mapKey + ': ' + inserted + ' NPC pin(s) inserted.');
+    } catch (err) {
+      console.error('[seed] Error seeding ' + mapKey + ':', err.message);
+    }
+  }
+  if (totalInserted === 0) console.log('[seed] All scene NPC pins already present.');
+  else console.log('[seed] Scene NPC pins: ' + totalInserted + ' total inserted across all maps.');
+}
+
 socketHandlers(io);
 
 initialize().then(async () => {
   await seedScene1Npcs();
+  await seedAllSceneNpcs();
   server.listen(PORT, '0.0.0.0', () => {
     console.log(`[server] The Edge of the Empire — listening on port ${PORT}`);
     console.log(`[server] Local:   http://localhost:${PORT}`);
