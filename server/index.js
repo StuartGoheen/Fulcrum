@@ -5,7 +5,7 @@ const path         = require('path');
 const cookieParser = require('cookie-parser');
 const compression  = require('compression');
 
-const { initialize } = require('./db');
+const { initialize, pool } = require('./db');
 
 const characterRoutes = require('./routes/characters');
 const campaignRoutes  = require('./routes/campaign');
@@ -230,9 +230,119 @@ app.get('/api/maps/list', (req, res) => {
   })});
 });
 
+const SCENE1_NPC_PINS = [
+  {
+    x: 123, y: 77,
+    label: 'The Devaronian',
+    pin_type: 'npc',
+    visibility: 'public',
+    owner: 'gm',
+    player_name: '',
+    color: '#d4a84b',
+    player_desc: 'A lone figure sits in the darkest corner of the West Alcove, back to the wall, watching the room through the beaded curtain. Scarlet skin, sharp horns. A credit chip turns slowly across their knuckles — over, under, over — without pause. A sabacc deck sits untouched on the table. No second drink ordered. No cards played. Just watching.',
+    gm_notes: 'Name: Varek Draal. ISB informant embedded in Reestkii, watching the cantina for unusual arrivals. Not hostile unless threatened. Knows about the Lambda shuttle and who is aboard. Could be a reluctant ally if the players have leverage — he resents ISB control. Plot hook: if players make contact carefully, he can tell them the shuttle belongs to a low-ranking Moff adjutant collecting tribute. He wants out of the informant role and will trade information for passage off Jakku.'
+  },
+  {
+    x: 441, y: 46,
+    label: 'Abyssin Drifters',
+    pin_type: 'npc',
+    visibility: 'public',
+    owner: 'gm',
+    player_name: '',
+    color: '#d4a84b',
+    player_desc: 'Two large figures crammed into the Center-East booth, arguing over a spread of components on the table between them — wires, a pulled-apart motivator, metal parts laid out like surgery. Deep, guttural voices carrying across the cantina. One slaps the table for emphasis. Drinks rattle. Neither looks up.',
+    gm_notes: 'Names: Gorrum and Skath. Abyssin scavengers, not affiliated with any faction. Arguing over whether the motivator they found in the Jakku flats is worth anything. Gorrum thinks yes (wants to sell it to Varga\'s people). Skath thinks it\'s Imperial junk. They are NOT aware of the Lambda shuttle\'s significance. Neutral encounter — can provide color, local rumors, or be a distraction. If players buy them a round, they\'ll talk freely about recent Imperial patrol increases near the Graveyard.'
+  },
+  {
+    x: 308, y: 200,
+    label: 'Zulo (Bartender)',
+    pin_type: 'npc',
+    visibility: 'public',
+    owner: 'gm',
+    player_name: '',
+    color: '#d4a84b',
+    player_desc: 'The bartender — a Bith, round-headed, oversized dark eyes — stands behind the counter wiping the same glass he has been wiping since you sat down. Eyes flicking to the blast doors every few seconds. He hasn\'t spoken to anyone unprompted all night. The bottles behind him are arranged with precision. The tap system hisses quietly.',
+    gm_notes: 'Name: Zulo. Has run The Burning Deck for 11 years. Deeply nervous about the Lambda shuttle — he knows exactly what it means. Owes protection fees to Varga the Hutt, which means he\'s in a bind: if Imperial attention increases, Varga pulls back and Zulo loses his protection. Will not talk about the shuttle openly. If players press him privately, he confirms the adjutant\'s name: Prefect Odael Marne. Knows Nela Bren is trouble but won\'t say why. Key NPC for local context and scene grounding.'
+  },
+  {
+    x: 392, y: 200,
+    label: 'Nela Bren',
+    pin_type: 'npc',
+    visibility: 'public',
+    owner: 'gm',
+    player_name: '',
+    color: '#d4a84b',
+    player_desc: 'A weathered woman at the far end of the bar, sitting alone on the last stool, facing the wall. Head slightly bowed, nursing a single drink. The montrals rising from her skull carry parallel scars — old ones, healed white. She hasn\'t looked up once. But her hand has never strayed far from her hip.',
+    gm_notes: 'Name: Nela Bren. Togruta. Former Separatist intelligence officer, now a freelance fixer operating out of the Jakku Graveyard. She is the players\' contact — the fixer they have been waiting for. She is an hour late because she was watching from a rooftop to see if they were followed. She knows about the Lambda shuttle and the players\' job. Will not initiate contact in the open. If approached with the code phrase ("the tide is wrong"), she moves to the East Alcove to talk privately. Mission briefing: the players need to retrieve a Separatist-era data core from the Graveyard before the Empire\'s adjutant does.'
+  }
+];
+
+app.post('/api/maps/burning-deck/seed-npcs', async (req, res) => {
+  if (req.userRole !== 'gm') return res.status(403).json({ error: 'GM access required.' });
+  try {
+    const existing = await pool.query(
+      "SELECT count(*) FROM map_pins WHERE map_key = 'burning-deck' AND pin_type = 'npc'"
+    );
+    if (parseInt(existing.rows[0].count) > 0) {
+      return res.json({ ok: true, skipped: true, message: 'NPC pins already seeded.' });
+    }
+    for (const pin of SCENE1_NPC_PINS) {
+      await pool.query(
+        'INSERT INTO map_pins (map_key, x, y, label, pin_type, visibility, owner, player_name, color, player_desc, gm_notes) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)',
+        ['burning-deck', pin.x, pin.y, pin.label, pin.pin_type, pin.visibility, pin.owner, pin.player_name, pin.color, pin.player_desc, pin.gm_notes]
+      );
+    }
+    res.json({ ok: true, seeded: SCENE1_NPC_PINS.length, message: 'Scene 1 NPC pins seeded.' });
+  } catch (err) {
+    console.error('[seed] NPC pin seed error:', err);
+    res.status(500).json({ error: 'Seed failed.' });
+  }
+});
+
+async function seedScene1Npcs() {
+  try {
+    const existing = await pool.query(
+      "SELECT id, label, player_desc FROM map_pins WHERE map_key = 'burning-deck' AND pin_type = 'npc'"
+    );
+    if (existing.rows.length === 0) {
+      for (const pin of SCENE1_NPC_PINS) {
+        await pool.query(
+          'INSERT INTO map_pins (map_key, x, y, label, pin_type, visibility, owner, player_name, color, player_desc, gm_notes) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)',
+          ['burning-deck', pin.x, pin.y, pin.label, pin.pin_type, pin.visibility, pin.owner, pin.player_name, pin.color, pin.player_desc, pin.gm_notes]
+        );
+      }
+      console.log('[seed] Scene 1 NPC pins seeded: ' + SCENE1_NPC_PINS.length + ' pins added to burning-deck.');
+    } else {
+      const needsUpdate = existing.rows.some(function(r) { return !r.player_desc || r.player_desc.trim() === ''; });
+      if (needsUpdate) {
+        for (const pin of SCENE1_NPC_PINS) {
+          const match = existing.rows.find(function(r) { return r.label === pin.label; });
+          if (match && (!match.player_desc || match.player_desc.trim() === '')) {
+            await pool.query(
+              'UPDATE map_pins SET player_desc = $1, gm_notes = $2 WHERE id = $3',
+              [pin.player_desc, pin.gm_notes, match.id]
+            );
+          } else if (!match) {
+            await pool.query(
+              'INSERT INTO map_pins (map_key, x, y, label, pin_type, visibility, owner, player_name, color, player_desc, gm_notes) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)',
+              ['burning-deck', pin.x, pin.y, pin.label, pin.pin_type, pin.visibility, pin.owner, pin.player_name, pin.color, pin.player_desc, pin.gm_notes]
+            );
+          }
+        }
+        console.log('[seed] Burning Deck NPC pins updated with player_desc and gm_notes.');
+      } else {
+        console.log('[seed] Burning Deck NPC pins already fully populated — skipping seed.');
+      }
+    }
+  } catch (err) {
+    console.error('[seed] NPC pin seed error:', err);
+  }
+}
+
 socketHandlers(io);
 
-initialize().then(() => {
+initialize().then(async () => {
+  await seedScene1Npcs();
   server.listen(PORT, '0.0.0.0', () => {
     console.log(`[server] The Edge of the Empire — listening on port ${PORT}`);
     console.log(`[server] Local:   http://localhost:${PORT}`);

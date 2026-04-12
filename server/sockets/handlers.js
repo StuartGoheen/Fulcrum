@@ -1175,21 +1175,24 @@ function registerHandlers(io) {
     });
 
     socket.on('map:pin-add', async (payload) => {
-      const { mapKey, x, y, label, pin_type, visibility, color } = payload || {};
+      const { mapKey, x, y, label, pin_type, visibility, color, player_desc, gm_notes } = payload || {};
       if (!mapKey || x == null || y == null) return;
       const isGm = socket.data.role === 'gm';
       const pinVisibility = isGm ? (visibility || 'public') : 'private';
       const pinOwner = isGm ? 'gm' : 'player';
       const pName = isGm ? '' : (socket.data.characterName || '');
+      const pinPlayerDesc = player_desc || '';
+      const pinGmNotes = isGm ? (gm_notes || '') : '';
       try {
         const result = await pool.query(
-          'INSERT INTO map_pins (map_key, x, y, label, pin_type, visibility, owner, player_name, color) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING *',
-          [mapKey, x, y, label || '', pin_type || 'note', pinVisibility, pinOwner, pName, color || '#ef4444']
+          'INSERT INTO map_pins (map_key, x, y, label, pin_type, visibility, owner, player_name, color, player_desc, gm_notes) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11) RETURNING *',
+          [mapKey, x, y, label || '', pin_type || 'note', pinVisibility, pinOwner, pName, color || '#ef4444', pinPlayerDesc, pinGmNotes]
         );
         const pin = result.rows[0];
         socket.emit('map:pin-added', { pin });
         if (isGm && pin.visibility === 'public') {
-          io.to('players').emit('map:pin-added', { pin });
+          const pinForPlayers = Object.assign({}, pin, { gm_notes: '' });
+          io.to('players').emit('map:pin-added', { pin: pinForPlayers });
         }
         if (!isGm) {
           io.to('gm').emit('map:pin-added', { pin });
@@ -1201,7 +1204,7 @@ function registerHandlers(io) {
     });
 
     socket.on('map:pin-update', async (payload) => {
-      const { id, label, pin_type, visibility, color, x, y } = payload || {};
+      const { id, label, pin_type, visibility, color, x, y, player_desc, gm_notes } = payload || {};
       if (!id) return;
       try {
         const oldResult = await pool.query('SELECT visibility, owner, player_name FROM map_pins WHERE id = $1', [id]);
@@ -1222,6 +1225,8 @@ function registerHandlers(io) {
         if (color !== undefined) { updates.push('color = $' + idx); vals.push(color); idx++; }
         if (x !== undefined) { updates.push('x = $' + idx); vals.push(x); idx++; }
         if (y !== undefined) { updates.push('y = $' + idx); vals.push(y); idx++; }
+        if (player_desc !== undefined) { updates.push('player_desc = $' + idx); vals.push(player_desc); idx++; }
+        if (gm_notes !== undefined && isGm) { updates.push('gm_notes = $' + idx); vals.push(gm_notes); idx++; }
         if (updates.length === 0) return;
         vals.push(id);
         const result = await pool.query(
@@ -1232,12 +1237,13 @@ function registerHandlers(io) {
           const pin = result.rows[0];
           socket.emit('map:pin-updated', { pin });
           if (isGm) {
+            const pinForPlayers = Object.assign({}, pin, { gm_notes: '' });
             if (oldVisibility === 'public' && pin.visibility === 'private') {
               io.to('players').emit('map:pin-removed', { id: pin.id, mapKey: pin.map_key });
             } else if (oldVisibility === 'private' && pin.visibility === 'public') {
-              io.to('players').emit('map:pin-added', { pin });
+              io.to('players').emit('map:pin-added', { pin: pinForPlayers });
             } else if (pin.visibility === 'public') {
-              io.to('players').emit('map:pin-updated', { pin });
+              io.to('players').emit('map:pin-updated', { pin: pinForPlayers });
             }
           } else {
             io.to('gm').emit('map:pin-updated', { pin });
@@ -1285,7 +1291,9 @@ function registerHandlers(io) {
           params = [mapKey, playerName];
         }
         const result = await pool.query(query, params);
-        socket.emit('map:pins-sync', { mapKey, pins: result.rows });
+        const isGm = socket.data.role === 'gm';
+        const pins = isGm ? result.rows : result.rows.map(p => Object.assign({}, p, { gm_notes: '' }));
+        socket.emit('map:pins-sync', { mapKey, pins });
       } catch (err) {
         console.error('[socket] map:pins-request error:', err);
       }

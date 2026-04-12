@@ -214,6 +214,12 @@ async function initSchema() {
       await client.query(`ALTER TABLE map_pins ADD COLUMN IF NOT EXISTS player_name TEXT NOT NULL DEFAULT ''`);
     } catch (e) {}
     try {
+      await client.query(`ALTER TABLE map_pins ADD COLUMN IF NOT EXISTS player_desc TEXT NOT NULL DEFAULT ''`);
+    } catch (e) {}
+    try {
+      await client.query(`ALTER TABLE map_pins ADD COLUMN IF NOT EXISTS gm_notes TEXT NOT NULL DEFAULT ''`);
+    } catch (e) {}
+    try {
       await client.query(`ALTER TABLE narrative_challenge_instances ADD COLUMN IF NOT EXISTS shuffle_seed INTEGER`);
     } catch (e) {}
     try {

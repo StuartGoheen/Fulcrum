@@ -1,5 +1,6 @@
 (function () {
   var PIN_TYPES = {
+    npc:       { icon: '\u25CF', color: '#d4a84b', label: 'NPC' },
     enemy:     { icon: '\u2620', color: '#ef4444', label: 'Enemy' },
     hazard:    { icon: '\u26A0', color: '#eab308', label: 'Hazard' },
     note:      { icon: '\u270E', color: '#60a5fa', label: 'Note' },
@@ -26,7 +27,7 @@
       'border-radius:6px',
       'padding:1.25rem 1.25rem 0.9rem',
       'min-width:300px',
-      'max-width:440px',
+      'max-width:' + (opts.max_width || '440px'),
       'width:90vw',
       'font-family:\'Exo 2\',sans-serif',
       'box-shadow:0 8px 36px rgba(0,0,0,0.85)'
@@ -91,6 +92,33 @@
       box.appendChild(inputEl);
     }
 
+    var fieldEls = {};
+    if (opts.fields && opts.fields.length) {
+      var fieldInputCss = 'width:100%;box-sizing:border-box;background:#0f0e0d;border:1px solid #3a3632;color:#c0b89a;font-family:\'Exo 2\',sans-serif;font-size:0.72rem;padding:0.45rem 0.55rem;border-radius:3px;margin-bottom:0.75rem;outline:none;display:block;';
+      opts.fields.forEach(function (field) {
+        var lbl = document.createElement('div');
+        lbl.style.cssText = 'font-size:0.62rem;color:#7a7068;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.25rem;';
+        lbl.textContent = field.label || field.key;
+        box.appendChild(lbl);
+        var el;
+        if (field.type === 'textarea') {
+          el = document.createElement('textarea');
+          el.rows = field.rows || 3;
+          el.style.cssText = fieldInputCss + 'resize:vertical;min-height:56px;line-height:1.5;';
+        } else {
+          el = document.createElement('input');
+          el.type = 'text';
+          el.style.cssText = fieldInputCss;
+        }
+        el.value = field.value || '';
+        el.placeholder = field.placeholder || '';
+        el.addEventListener('focus', function () { el.style.borderColor = '#c8a44e'; });
+        el.addEventListener('blur', function () { el.style.borderColor = '#3a3632'; });
+        box.appendChild(el);
+        fieldEls[field.key] = el;
+      });
+    }
+
     var btnRow = document.createElement('div');
     btnRow.style.cssText = 'display:flex;gap:0.5rem;justify-content:flex-end;';
 
@@ -126,7 +154,15 @@
     ].join(';');
     okBtn.addEventListener('click', function () {
       overlay.remove();
-      if (opts.onOk) opts.onOk(inputEl ? inputEl.value : true);
+      if (opts.onOk) {
+        if (opts.fields && opts.fields.length) {
+          var result = {};
+          opts.fields.forEach(function (f) { result[f.key] = fieldEls[f.key] ? fieldEls[f.key].value : ''; });
+          opts.onOk(result);
+        } else {
+          opts.onOk(inputEl ? inputEl.value : true);
+        }
+      }
     });
     btnRow.appendChild(okBtn);
     box.appendChild(btnRow);
@@ -140,10 +176,31 @@
         if (ev.key === 'Enter') { overlay.remove(); if (opts.onOk) opts.onOk(inputEl.value); }
         if (ev.key === 'Escape') { overlay.remove(); if (opts.onCancel) opts.onCancel(); }
       });
+    } else if (opts.fields && opts.fields.length) {
+      var firstField = fieldEls[opts.fields[0].key];
+      if (firstField) firstField.focus();
+      overlay.addEventListener('keydown', function (ev) {
+        if (ev.key === 'Escape') { overlay.remove(); if (opts.onCancel) opts.onCancel(); }
+      });
     }
 
     overlay.addEventListener('click', function (ev) {
       if (ev.target === overlay) { overlay.remove(); if (opts.onCancel) opts.onCancel(); }
+    });
+  }
+
+  function _tmNpcForm(title, defaults, onOk) {
+    _tmShowDialog({
+      title: title,
+      max_width: '520px',
+      fields: [
+        { key: 'label', label: 'Name', type: 'text', value: defaults.label || '', placeholder: 'NPC name...' },
+        { key: 'player_desc', label: 'What Players See', type: 'textarea', rows: 3, value: defaults.player_desc || '', placeholder: 'Appearance, body language, what they\'re doing — no secrets...' },
+        { key: 'gm_notes', label: 'GM Notes (hidden from players)', type: 'textarea', rows: 3, value: defaults.gm_notes || '', placeholder: 'Motivation, what they know, plot hooks...' }
+      ],
+      okText: 'Save',
+      onOk: onOk,
+      onCancel: function () { onOk(null); }
     });
   }
 
@@ -447,12 +504,13 @@
     this._removeContextMenu();
     var pt = PIN_TYPES[pin.pin_type] || PIN_TYPES.note;
     var col = pin.color || pt.color;
-    var details = [
+    var isNpc = pin.pin_type === 'npc';
+    var details = isNpc ? [] : [
       { key: 'Type', value: pt.label },
       { key: 'Visibility', value: pin.visibility === 'private' ? 'Private' : 'Public' }
     ];
-    _tmShowDialog({
-      title: 'Pin Details',
+    var opts = {
+      title: isNpc ? 'NPC' : 'Pin Details',
       icon: pt.icon,
       iconColor: col,
       pinLabel: pin.label || pt.label,
@@ -460,7 +518,11 @@
       okText: 'Close',
       noCancel: true,
       onOk: function () {}
-    });
+    };
+    if (pin.player_desc) {
+      opts.message = pin.player_desc;
+    }
+    _tmShowDialog(opts);
   };
 
   TacticalMapViewer.prototype._showZoneInfo = function (idx) {
@@ -507,23 +569,38 @@
       btn.innerHTML = '<span style="color:' + pt.color + ';">' + pt.icon + '</span> ' + pt.label;
       btn.addEventListener('click', function () {
         self._removeContextMenu();
-        _tmPrompt('Add Pin', 'Label for this ' + pt.label + ' pin (optional):', '', function (label) {
-          if (label === null) return;
-          label = label.trim();
-          if (self.socket) {
-            self.socket.emit('map:pin-add', {
-              mapKey: self.mapKey, x: Math.round(mapX), y: Math.round(mapY),
-              label: label, pin_type: type,
-              visibility: self.role === 'gm' ? 'public' : 'private',
-              color: pt.color
-            });
-          } else {
-            var pin = { _pid: 'p' + Date.now(), x: Math.round(mapX), y: Math.round(mapY), label: label, pin_type: type, color: pt.color, _personal: true };
-            self.personalPins.push(pin);
-            self._savePersonalPins();
-            self._renderPins();
-          }
-        });
+        if (type === 'npc' && self.role === 'gm') {
+          _tmNpcForm('Add NPC Pin', {}, function (vals) {
+            if (!vals) return;
+            if (self.socket) {
+              self.socket.emit('map:pin-add', {
+                mapKey: self.mapKey, x: Math.round(mapX), y: Math.round(mapY),
+                label: vals.label || 'NPC', pin_type: type,
+                visibility: 'public', color: pt.color,
+                player_desc: vals.player_desc || '',
+                gm_notes: vals.gm_notes || ''
+              });
+            }
+          });
+        } else {
+          _tmPrompt('Add Pin', 'Label for this ' + pt.label + ' pin (optional):', '', function (label) {
+            if (label === null) return;
+            label = label.trim();
+            if (self.socket) {
+              self.socket.emit('map:pin-add', {
+                mapKey: self.mapKey, x: Math.round(mapX), y: Math.round(mapY),
+                label: label, pin_type: type,
+                visibility: self.role === 'gm' ? 'public' : 'private',
+                color: pt.color
+              });
+            } else {
+              var pin = { _pid: 'p' + Date.now(), x: Math.round(mapX), y: Math.round(mapY), label: label, pin_type: type, color: pt.color, _personal: true };
+              self.personalPins.push(pin);
+              self._savePersonalPins();
+              self._renderPins();
+            }
+          });
+        }
       });
       menu.appendChild(btn);
     });
@@ -591,6 +668,29 @@
       });
     });
     menu.appendChild(editLabel);
+
+    if (pin.pin_type === 'npc') {
+      var editDetails = document.createElement('button');
+      editDetails.className = 'tm-ctx-item';
+      editDetails.textContent = '\u270D Edit NPC Details';
+      editDetails.addEventListener('click', function () {
+        self._removeContextMenu();
+        _tmNpcForm('Edit NPC: ' + (pin.label || 'NPC'), {
+          label: pin.label || '',
+          player_desc: pin.player_desc || '',
+          gm_notes: pin.gm_notes || ''
+        }, function (vals) {
+          if (!vals) return;
+          self.socket.emit('map:pin-update', {
+            id: numId,
+            label: vals.label || pin.label || '',
+            player_desc: vals.player_desc || '',
+            gm_notes: vals.gm_notes || ''
+          });
+        });
+      });
+      menu.appendChild(editDetails);
+    }
 
     var typeKeys = Object.keys(PIN_TYPES);
     typeKeys.forEach(function (type) {
