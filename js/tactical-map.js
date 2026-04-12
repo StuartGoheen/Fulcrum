@@ -1,6 +1,6 @@
 (function () {
   var PIN_TYPES = {
-    npc:       { icon: '\u25CE', color: '#d4a84b', label: 'NPC' },
+    npc:       { icon: '\u25C9', color: '#d4a84b', label: 'NPC' },
     enemy:     { icon: '\u2620', color: '#ef4444', label: 'Enemy' },
     hazard:    { icon: '\u26A0', color: '#eab308', label: 'Hazard' },
     note:      { icon: '\u270E', color: '#60a5fa', label: 'Note' },
