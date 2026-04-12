@@ -244,7 +244,7 @@ const SCENE1_NPC_PINS = [
   },
   {
     x: 441, y: 46,
-    label: 'Abyssin Drifters',
+    label: 'The Abyssin Drifters',
     pin_type: 'npc',
     visibility: 'public',
     owner: 'gm',
@@ -255,7 +255,7 @@ const SCENE1_NPC_PINS = [
   },
   {
     x: 308, y: 200,
-    label: 'Bith Bartender Zulo',
+    label: 'The Bith Bartender (Zulo)',
     pin_type: 'npc',
     visibility: 'public',
     owner: 'gm',
@@ -266,13 +266,13 @@ const SCENE1_NPC_PINS = [
   },
   {
     x: 392, y: 200,
-    label: 'Nela Bren',
+    label: 'Nela Bren (Togruta)',
     pin_type: 'npc',
     visibility: 'public',
     owner: 'gm',
     player_name: '',
     color: '#d4a84b',
-    player_desc: 'A weathered woman at the far end of the bar, sitting alone on the last stool, facing the wall. Head slightly bowed, nursing a single drink. The montrals rising from her skull carry parallel scars — old ones, healed white. She hasn\'t looked up once. But her hand has never strayed far from her hip.',
+    player_desc: 'At the far end of the bar, alone on the last stool, facing the wall. A Togruta — the striped montrals are unmistakable, even from across the room. Head slightly bowed over a single drink she has been nursing for a long time. The parallel scars on her montrals are old, healed white. She has not looked up once. Her right hand has not moved far from her hip all night.',
     gm_notes: 'Name: Nela Bren. Togruta. Former Separatist intelligence officer, now a freelance fixer operating out of the Jakku Graveyard. She is the players\' contact — the fixer they have been waiting for. She is an hour late because she was watching from a rooftop to see if they were followed. She knows about the Lambda shuttle and the players\' job. Will not initiate contact in the open. If approached with the code phrase ("the tide is wrong"), she moves to the East Alcove to talk privately. Mission briefing: the players need to retrieve a Separatist-era data core from the Graveyard before the Empire\'s adjutant does.'
   }
 ];
