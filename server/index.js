@@ -232,14 +232,14 @@ app.get('/api/maps/list', (req, res) => {
 
 const SCENE1_NPC_PINS = [
   {
-    x: 123, y: 77,
+    x: 604, y: 46,
     label: 'The Devaronian',
     pin_type: 'npc',
     visibility: 'public',
     owner: 'gm',
     player_name: '',
     color: '#d4a84b',
-    player_desc: 'A lone figure sits in the darkest corner of the West Alcove, back to the wall, watching the room through the beaded curtain. Scarlet skin, sharp horns. A credit chip turns slowly across their knuckles — over, under, over — without pause. A sabacc deck sits untouched on the table. No second drink ordered. No cards played. Just watching.',
+    player_desc: 'In the far corner of the East Alcove, half-lit by the blue glow of the wall-mounted holoscreen. Scarlet skin, sharp horns — a Devaronian, sitting alone with his back to the wall. A credit chip turns slowly across his knuckles — over, under, over — without pause. A sabacc deck sits untouched on the table beside an empty glass. He hasn\'t played a hand all night. He hasn\'t ordered a second drink. He\'s just watching.',
     gm_notes: 'Name: Varek Draal. ISB informant embedded in Reestkii, watching the cantina for unusual arrivals. Not hostile unless threatened. Knows about the Lambda shuttle and who is aboard. Could be a reluctant ally if the players have leverage — he resents ISB control. Plot hook: if players make contact carefully, he can tell them the shuttle belongs to a low-ranking Moff adjutant collecting tribute. He wants out of the informant role and will trade information for passage off Jakku.'
   },
   {
@@ -324,12 +324,6 @@ async function seedScene1Npcs() {
           ['burning-deck', pin.x, pin.y, pin.label, pin.pin_type, pin.visibility, pin.owner, pin.player_name, pin.color, pin.player_desc, pin.gm_notes]
         );
         inserted++;
-      }
-    }
-
-    for (const row of existing.rows) {
-      if (!canonicalLabels.includes(row.label)) {
-        await pool.query('DELETE FROM map_pins WHERE id=$1', [row.id]);
       }
     }
 
