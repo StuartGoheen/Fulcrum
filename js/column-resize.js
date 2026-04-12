@@ -91,15 +91,27 @@
 
   function startDrag(side, e) {
     e.preventDefault();
+    if (e.touches && e.touches.length > 1) return;
     document.body.classList.add('is-col-resizing');
     var handle = side === 'left' ? handleL : handleR;
     handle.classList.add('is-dragging');
 
     var startX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
     var startVal = side === 'left' ? leftPx : rightPx;
+    var trackingId = (e.touches && e.touches[0]) ? e.touches[0].identifier : null;
 
     function onMove(ev) {
-      var x = ev.clientX || (ev.touches && ev.touches[0].clientX) || 0;
+      if (ev.touches) {
+        if (ev.touches.length > 1) return;
+        var touch = null;
+        for (var i = 0; i < ev.touches.length; i++) {
+          if (ev.touches[i].identifier === trackingId) { touch = ev.touches[i]; break; }
+        }
+        if (!touch) return;
+        var x = touch.clientX;
+      } else {
+        var x = ev.clientX || 0;
+      }
       var delta = x - startX;
       if (side === 'left') {
         leftPx = startVal + delta;
@@ -116,6 +128,7 @@
       document.removeEventListener('mouseup', onUp);
       document.removeEventListener('touchmove', onMove);
       document.removeEventListener('touchend', onUp);
+      document.removeEventListener('touchcancel', onUp);
       saveSizes();
     }
 
@@ -123,6 +136,7 @@
     document.addEventListener('mouseup', onUp);
     document.addEventListener('touchmove', onMove, { passive: false });
     document.addEventListener('touchend', onUp);
+    document.addEventListener('touchcancel', onUp);
   }
 
   handleL.addEventListener('mousedown', function (e) { startDrag('left', e); });
@@ -188,13 +202,26 @@
 
   function _startCenterDrag(handleEl, whichHandle, e) {
     e.preventDefault();
+    if (e.touches && e.touches.length > 1) return;
     document.body.classList.add('is-col-resizing');
     handleEl.classList.add('is-dragging');
 
     var containerRect = center.getBoundingClientRect();
+    var trackingId = (e.touches && e.touches[0]) ? e.touches[0].identifier : null;
 
     function onMove(ev) {
-      var x = ev.clientX || (ev.touches && ev.touches[0].clientX) || 0;
+      var x;
+      if (ev.touches) {
+        if (ev.touches.length > 1) return;
+        var touch = null;
+        for (var i = 0; i < ev.touches.length; i++) {
+          if (ev.touches[i].identifier === trackingId) { touch = ev.touches[i]; break; }
+        }
+        if (!touch) return;
+        x = touch.clientX;
+      } else {
+        x = ev.clientX || 0;
+      }
       var rel = (x - containerRect.left) / containerRect.width;
 
       if (_isTriple()) {
@@ -222,6 +249,7 @@
       document.removeEventListener('mouseup', onUp);
       document.removeEventListener('touchmove', onMove);
       document.removeEventListener('touchend', onUp);
+      document.removeEventListener('touchcancel', onUp);
       if (_isTriple()) { saveSplit3(); } else { saveCenterRatio(); }
     }
 
@@ -229,6 +257,7 @@
     document.addEventListener('mouseup', onUp);
     document.addEventListener('touchmove', onMove, { passive: false });
     document.addEventListener('touchend', onUp);
+    document.addEventListener('touchcancel', onUp);
   }
 
   loadCenterRatio();
