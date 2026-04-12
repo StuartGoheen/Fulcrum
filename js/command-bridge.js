@@ -2260,11 +2260,7 @@
 
     function _saveColWidths() {
       try {
-        var leftCol  = grid.querySelector('.cb-col-left');
-        var rightCol = grid.querySelector('.cb-col-right');
-        var lw = leftCol  ? parseInt(getComputedStyle(leftCol).width)  : null;
-        var rw = rightCol ? parseInt(getComputedStyle(rightCol).width) : null;
-        sessionStorage.setItem(COL_SIZE_KEY, JSON.stringify({ left: lw, right: rw }));
+        sessionStorage.setItem(COL_SIZE_KEY, JSON.stringify({ left: _colWidths.left, right: _colWidths.right }));
       } catch (e) { /* ignore */ }
     }
 
@@ -2272,17 +2268,13 @@
       try {
         var saved = JSON.parse(sessionStorage.getItem(COL_SIZE_KEY) || 'null');
         if (!saved) return;
-        var lw = saved.left  && saved.left  >= 180 && saved.left  <= 480 ? saved.left  : null;
-        var rw = saved.right && saved.right >= 220 && saved.right <= 520 ? saved.right : null;
-        if (lw || rw) {
-          var leftW  = lw || 260;
-          var rightW = rw || 300;
-          grid.style.gridTemplateColumns = leftW + 'px 6px 1fr 6px ' + rightW + 'px';
-        }
+        if (saved.left  && saved.left  >= 180 && saved.left  <= 480) _colWidths.left  = saved.left;
+        if (saved.right && saved.right >= 220 && saved.right <= 520) _colWidths.right = saved.right;
       } catch (e) { /* ignore */ }
     }
 
     _restoreColWidths();
+    _applyGridTemplate();
 
     function setupDrag(handle, side) {
       if (!handle) return;
@@ -2297,8 +2289,7 @@
         e.preventDefault();
         dragging = true;
         startX = e.touches ? e.touches[0].clientX : e.clientX;
-        var col = grid.querySelector(side === 'left' ? '.cb-col-left' : '.cb-col-right');
-        startWidth = col ? parseInt(getComputedStyle(col).width) : (side === 'left' ? 260 : 300);
+        startWidth = _colWidths[side];
         document.body.style.cursor = 'col-resize';
         document.body.style.userSelect = 'none';
         document.addEventListener('mousemove', onDrag);
@@ -2311,19 +2302,12 @@
         if (!dragging) return;
         var clientX = e.touches ? e.touches[0].clientX : e.clientX;
         var delta = clientX - startX;
-
-        var leftCol  = grid.querySelector('.cb-col-left');
-        var rightCol = grid.querySelector('.cb-col-right');
-        var curLeft  = leftCol  ? parseInt(getComputedStyle(leftCol).width)  : 260;
-        var curRight = rightCol ? parseInt(getComputedStyle(rightCol).width) : 300;
-
         if (side === 'left') {
-          var newLeft = Math.max(180, Math.min(480, startWidth + delta));
-          grid.style.gridTemplateColumns = newLeft + 'px 6px 1fr 6px ' + curRight + 'px';
+          _colWidths.left = Math.max(180, Math.min(480, startWidth + delta));
         } else {
-          var newRight = Math.max(220, Math.min(520, startWidth - delta));
-          grid.style.gridTemplateColumns = curLeft + 'px 6px 1fr 6px ' + newRight + 'px';
+          _colWidths.right = Math.max(220, Math.min(520, startWidth - delta));
         }
+        _applyGridTemplate();
       }
 
       function stopDrag() {
@@ -2688,7 +2672,18 @@
 
 
   var _panelCollapseState = { left: false, right: false };
+  var _colWidths = { left: 260, right: 300 };
   var COLLAPSE_STORAGE_KEY = 'cb_panel_collapse';
+
+  function _applyGridTemplate() {
+    var grid = document.getElementById('bridge-grid');
+    if (!grid) return;
+    var lw = _panelCollapseState.left  ? 0 : _colWidths.left;
+    var rw = _panelCollapseState.right ? 0 : _colWidths.right;
+    var lg = _panelCollapseState.left  ? 0 : 6;
+    var rg = _panelCollapseState.right ? 0 : 6;
+    grid.style.gridTemplateColumns = lw + 'px ' + lg + 'px 1fr ' + rg + 'px ' + rw + 'px';
+  }
 
   function _loadCollapseState() {
     try {
@@ -2703,48 +2698,36 @@
   }
 
   function collapsePanel(side) {
-    var grid = document.getElementById('bridge-grid');
     var col = document.getElementById('cb-col-' + side);
     var handle = document.getElementById(side === 'left' ? 'drag-left' : 'drag-right');
     var tab = document.getElementById('cb-tab-' + side);
-    if (!grid || !col) return;
+    var grid = document.getElementById('bridge-grid');
+    if (!col) return;
 
-    grid.style.gridTemplateColumns = '';
+    _panelCollapseState[side] = true;
     col.classList.add('cb-collapsed');
-    grid.classList.add('cb-' + side + '-collapsed');
+    if (grid) grid.classList.add('cb-' + side + '-collapsed');
     if (handle) handle.classList.add('cb-handle-hidden');
     if (tab) tab.classList.add('cb-tab-visible');
 
-    _panelCollapseState[side] = true;
+    _applyGridTemplate();
     _saveCollapseState();
   }
 
   function expandPanel(side) {
-    var grid = document.getElementById('bridge-grid');
     var col = document.getElementById('cb-col-' + side);
     var handle = document.getElementById(side === 'left' ? 'drag-left' : 'drag-right');
     var tab = document.getElementById('cb-tab-' + side);
-    if (!grid || !col) return;
+    var grid = document.getElementById('bridge-grid');
+    if (!col) return;
 
+    _panelCollapseState[side] = false;
     col.classList.remove('cb-collapsed');
-    grid.classList.remove('cb-' + side + '-collapsed');
+    if (grid) grid.classList.remove('cb-' + side + '-collapsed');
     if (handle) handle.classList.remove('cb-handle-hidden');
     if (tab) tab.classList.remove('cb-tab-visible');
 
-    try {
-      var saved = JSON.parse(sessionStorage.getItem('cb_col_widths') || 'null');
-      if (saved) {
-        var lw = saved.left  && saved.left  >= 180 && saved.left  <= 480 ? saved.left  : 260;
-        var rw = saved.right && saved.right >= 220 && saved.right <= 520 ? saved.right : 300;
-        grid.style.gridTemplateColumns = lw + 'px 6px 1fr 6px ' + rw + 'px';
-      } else {
-        grid.style.gridTemplateColumns = '';
-      }
-    } catch (e) {
-      grid.style.gridTemplateColumns = '';
-    }
-
-    _panelCollapseState[side] = false;
+    _applyGridTemplate();
     _saveCollapseState();
   }
 
