@@ -2183,9 +2183,39 @@
     var grid = document.getElementById('bridge-grid');
     if (!grid) return;
 
+    var COL_SIZE_KEY = 'cb_col_widths';
+
+    function _saveColWidths() {
+      try {
+        var leftCol  = grid.querySelector('.cb-col-left');
+        var rightCol = grid.querySelector('.cb-col-right');
+        var lw = leftCol  ? parseInt(getComputedStyle(leftCol).width)  : null;
+        var rw = rightCol ? parseInt(getComputedStyle(rightCol).width) : null;
+        sessionStorage.setItem(COL_SIZE_KEY, JSON.stringify({ left: lw, right: rw }));
+      } catch (e) { /* ignore */ }
+    }
+
+    function _restoreColWidths() {
+      try {
+        var saved = JSON.parse(sessionStorage.getItem(COL_SIZE_KEY) || 'null');
+        if (!saved) return;
+        var lw = saved.left  && saved.left  >= 180 && saved.left  <= 480 ? saved.left  : null;
+        var rw = saved.right && saved.right >= 220 && saved.right <= 520 ? saved.right : null;
+        if (lw || rw) {
+          var leftW  = lw || 260;
+          var rightW = rw || 300;
+          grid.style.gridTemplateColumns = leftW + 'px 6px 1fr 6px ' + rightW + 'px';
+        }
+      } catch (e) { /* ignore */ }
+    }
+
+    _restoreColWidths();
+
     function setupDrag(handle, side) {
       if (!handle) return;
       var dragging = false;
+      var startX = 0;
+      var startWidth = 0;
 
       handle.addEventListener('mousedown', startDrag);
       handle.addEventListener('touchstart', startDrag, { passive: false });
@@ -2193,6 +2223,9 @@
       function startDrag(e) {
         e.preventDefault();
         dragging = true;
+        startX = e.touches ? e.touches[0].clientX : e.clientX;
+        var col = grid.querySelector(side === 'left' ? '.cb-col-left' : '.cb-col-right');
+        startWidth = col ? parseInt(getComputedStyle(col).width) : (side === 'left' ? 260 : 300);
         document.body.style.cursor = 'col-resize';
         document.body.style.userSelect = 'none';
         document.addEventListener('mousemove', onDrag);
@@ -2204,28 +2237,24 @@
       function onDrag(e) {
         if (!dragging) return;
         var clientX = e.touches ? e.touches[0].clientX : e.clientX;
-        var gridRect = grid.getBoundingClientRect();
+        var delta = clientX - startX;
+
+        var leftCol  = grid.querySelector('.cb-col-left');
+        var rightCol = grid.querySelector('.cb-col-right');
+        var curLeft  = leftCol  ? parseInt(getComputedStyle(leftCol).width)  : 260;
+        var curRight = rightCol ? parseInt(getComputedStyle(rightCol).width) : 300;
 
         if (side === 'left') {
-          var leftW = Math.max(200, Math.min(450, clientX - gridRect.left));
-          grid.style.gridTemplateColumns = leftW + 'px 6px 1fr 6px auto';
-          var rightCol = grid.querySelector('.cb-col-right');
-          if (rightCol) {
-            var rightW = parseInt(rightCol.style.width) || 300;
-            grid.style.gridTemplateColumns = leftW + 'px 6px 1fr 6px ' + rightW + 'px';
-          }
+          var newLeft = Math.max(180, Math.min(480, startWidth + delta));
+          grid.style.gridTemplateColumns = newLeft + 'px 6px 1fr 6px ' + curRight + 'px';
         } else {
-          var rightW = Math.max(240, Math.min(500, gridRect.right - clientX));
-          grid.style.gridTemplateColumns = 'auto 6px 1fr 6px ' + rightW + 'px';
-          var leftCol = grid.querySelector('.cb-col-left');
-          if (leftCol) {
-            var leftW = parseInt(getComputedStyle(leftCol).width) || 260;
-            grid.style.gridTemplateColumns = leftW + 'px 6px 1fr 6px ' + rightW + 'px';
-          }
+          var newRight = Math.max(220, Math.min(520, startWidth - delta));
+          grid.style.gridTemplateColumns = curLeft + 'px 6px 1fr 6px ' + newRight + 'px';
         }
       }
 
       function stopDrag() {
+        if (!dragging) return;
         dragging = false;
         document.body.style.cursor = '';
         document.body.style.userSelect = '';
@@ -2233,6 +2262,7 @@
         document.removeEventListener('touchmove', onDrag);
         document.removeEventListener('mouseup', stopDrag);
         document.removeEventListener('touchend', stopDrag);
+        _saveColWidths();
       }
     }
 
@@ -2623,11 +2653,23 @@
     var tab = document.getElementById('cb-tab-' + side);
     if (!grid || !col) return;
 
-    grid.style.gridTemplateColumns = '';
     col.classList.remove('cb-collapsed');
     grid.classList.remove('cb-' + side + '-collapsed');
     if (handle) handle.classList.remove('cb-handle-hidden');
     if (tab) tab.classList.remove('cb-tab-visible');
+
+    try {
+      var saved = JSON.parse(sessionStorage.getItem('cb_col_widths') || 'null');
+      if (saved) {
+        var lw = saved.left  && saved.left  >= 180 && saved.left  <= 480 ? saved.left  : 260;
+        var rw = saved.right && saved.right >= 220 && saved.right <= 520 ? saved.right : 300;
+        grid.style.gridTemplateColumns = lw + 'px 6px 1fr 6px ' + rw + 'px';
+      } else {
+        grid.style.gridTemplateColumns = '';
+      }
+    } catch (e) {
+      grid.style.gridTemplateColumns = '';
+    }
 
     _panelCollapseState[side] = false;
     _saveCollapseState();
@@ -2648,6 +2690,30 @@
 
     if (_panelCollapseState.left) collapsePanel('left');
     if (_panelCollapseState.right) collapsePanel('right');
+
+    var journalToggle  = document.getElementById('cb-journal-toggle');
+    var journalSection = document.getElementById('cb-journal-section');
+    var JOURNAL_COLLAPSE_KEY = 'cb_journal_collapsed';
+
+    function _applyJournalState(collapsed) {
+      if (!journalSection) return;
+      if (collapsed) {
+        journalSection.classList.add('collapsed');
+      } else {
+        journalSection.classList.remove('collapsed');
+      }
+    }
+
+    if (journalToggle && journalSection) {
+      var journalCollapsed = sessionStorage.getItem(JOURNAL_COLLAPSE_KEY) === '1';
+      _applyJournalState(journalCollapsed);
+
+      journalToggle.addEventListener('click', function () {
+        var nowCollapsed = !journalSection.classList.contains('collapsed');
+        _applyJournalState(nowCollapsed);
+        try { sessionStorage.setItem(JOURNAL_COLLAPSE_KEY, nowCollapsed ? '1' : '0'); } catch (e) { /* ignore */ }
+      });
+    }
   }
 
   function _escHtml(str) {

@@ -78,10 +78,12 @@
         </div>
       </div>
 
-      <div class="cb-destiny-section">
-        <div class="cb-col-title">Item Requests <span id="req-badge" class="cb-req-badge" style="display:none;"></span></div>
-        <div id="item-requests-list">
-          <p class="cb-muted" style="font-style:italic;">Loading&hellip;</p>
+      <div class="cb-destiny-section cb-collapsible" id="cb-journal-section">
+        <div class="cb-col-title cb-collapse-toggle" id="cb-journal-toggle" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;">
+          Crew Journal <span class="cb-collapse-chevron">&#9658;</span>
+        </div>
+        <div class="cb-collapse-body">
+          <div id="cb-crew-journal" class="cb-crew-journal"></div>
         </div>
       </div>
     </div>
@@ -120,14 +122,19 @@
         <a href="/gm/crawl-editor/" class="cb-header-btn" style="width:100%;justify-content:center;text-decoration:none;display:flex;">Opening Crawl Editor</a>
       </div>
 
+      <div class="gm-toolbox-group">
+        <div class="gm-toolbox-label" style="display:flex;align-items:center;gap:0.4rem;">Item Requests <span id="req-badge" class="cb-req-badge" style="display:none;"></span></div>
+        <div id="item-requests-list">
+          <p class="cb-muted" style="font-style:italic;">Loading&hellip;</p>
+        </div>
+      </div>
+
       <div class="cb-col-title" style="display:flex;align-items:center;justify-content:space-between;margin-top:1rem;">Glossary</div>
       <div id="glossary-content">
         <div class="cb-glossary-placeholder">
           Click a <span style="color:#c8a44e;">[Condition]</span> in any scene text to view its details here.
         </div>
       </div>
-      <div class="cb-col-title" style="margin-top:1rem;">Crew Journal</div>
-      <div id="cb-crew-journal" class="cb-crew-journal"></div>
       <div class="cb-col-title" style="margin-top:1rem;display:flex;align-items:center;justify-content:space-between;">Decision Log <button class="cb-header-btn" id="cb-log-decision-btn" style="font-size:0.55rem;padding:0.25rem 0.5rem;min-height:auto;">+ Log</button></div>
       <div id="cb-decision-timeline"></div>
 
