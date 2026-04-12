@@ -361,6 +361,10 @@
       var hitbox = e.target.closest('.tm-hitbox');
       if (hitbox) {
         var idx = parseInt(hitbox.dataset.zoneIdx);
+        if (self.onZoneClick && self.meta && self.meta.zones && self.meta.zones[idx]) {
+          var handled = self.onZoneClick(self.meta.zones[idx], idx);
+          if (handled) return;
+        }
         self._showZoneInfo(idx);
         return;
       }

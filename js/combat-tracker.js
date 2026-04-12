@@ -89,6 +89,7 @@
   var combatState = null;
   var _socket = null;
   var _socketHandlers = [];
+  var _placementNpcId = null;
 
   function esc(s) {
     return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -458,6 +459,7 @@
 
   function endEncounter() {
     _cleanupSocketHandlers();
+    _placementNpcId = null;
     var sock = getSocket();
     if (sock) {
       sock.emit('combat:end');
@@ -634,11 +636,15 @@
     var mapHtml = renderTacticalMap();
     if (mapHtml) {
       html += mapHtml;
+      html += renderUnplacedTray();
     }
 
     container.innerHTML = html;
     attachCombatEvents(container);
-    if (mapHtml) _initCombatMapViewer();
+    if (mapHtml) {
+      _initCombatMapViewer();
+      attachUnplacedTrayEvents(container);
+    }
   }
 
   function renderInitRail() {
@@ -674,13 +680,13 @@
       if (isNpc && npc) {
         var disp = npc.disposition || 'enemy';
         var dispLabel = disp === 'ally' ? 'A' : disp === 'neutral' ? 'N' : 'E';
-        var dispColor = disp === 'ally' ? '#22c55e' : disp === 'neutral' ? '#eab308' : '#ef4444';
-        html += '<span class="ct-rail-disp" data-npc-id="' + esc(npc.id) + '" title="Click to cycle: Enemy / Neutral / Ally" style="background:' + dispColor + ';">' + dispLabel + '</span>';
+        html += '<span class="ct-rail-disp ct-rail-disp--' + esc(disp) + '" data-npc-id="' + esc(npc.id) + '" title="Click to cycle: Enemy / Neutral / Ally">' + dispLabel + '</span>';
       }
       html += '<span class="ct-rail-name">' + esc(c.name) + '</span>';
       if (isNpc && npc) {
         var pct = npc.vitalityMax > 0 ? Math.round((npc.vitalityCurrent / npc.vitalityMax) * 100) : 0;
-        html += '<span class="ct-rail-hp" style="color:' + (pct > 60 ? '#22c55e' : pct > 30 ? '#eab308' : '#ef4444') + ';">' + npc.vitalityCurrent + '</span>';
+        var hpLevel = pct > 60 ? 'high' : pct > 30 ? 'mid' : 'low';
+        html += '<span class="ct-rail-hp ct-rail-hp--' + hpLevel + '">' + npc.vitalityCurrent + '</span>';
       }
       if (isSurprised) html += '<span class="ct-rail-tag ct-tag-surprised">!</span>';
       if (pc && pc.mastery) html += '<span class="ct-rail-tag ct-tag-mastery">M</span>';
@@ -729,16 +735,16 @@
 
   function renderNpcDetail(npc) {
     var html = '';
-    var threatColor = npc.threat === 'minion' ? '#6b7280' : npc.threat === 'boss' ? '#ef4444' : 'var(--color-accent-primary)';
+    var threatCls = npc.threat === 'minion' ? 'minion' : npc.threat === 'boss' ? 'boss' : npc.threat === 'elite' ? 'elite' : 'standard';
     var tierMod = getTierEffect(npc.conditions);
     var arenaMods = getNpcArenaMods(npc);
 
     html += '<div class="ct-detail-header">';
     html += '<div class="ct-detail-name">' + esc(npc.name) + '</div>';
-    html += '<span class="ct-detail-threat" style="color:' + threatColor + ';">' + esc(npc.threat).toUpperCase() + '</span>';
+    html += '<span class="ct-detail-threat ct-detail-threat--' + threatCls + '">' + esc(npc.threat).toUpperCase() + '</span>';
     if (npc.tier != null) html += '<span class="ct-detail-tier">T' + npc.tier + '</span>';
     if (npc.role) html += '<span class="ct-detail-role">' + esc(npc.role) + '</span>';
-    if (npc.surprised) html += '<span class="ct-rail-tag ct-tag-surprised" style="margin-left:0.3rem;">SURPRISED</span>';
+    if (npc.surprised) html += '<span class="ct-rail-tag ct-tag-surprised ct-tag-surprised--inline">SURPRISED</span>';
     html += '<div class="ct-npc-actions">';
     if (npc.npcData || npc.arenas) html += '<button class="ct-npc-edit-btn" data-npc-id="' + esc(npc.id) + '" title="Edit in Threat Builder">&#9998;</button>';
     html += '<button class="ct-npc-remove-btn" data-npc-id="' + esc(npc.id) + '" title="Remove from combat">&times;</button>';
@@ -751,7 +757,7 @@
     function arenaCell(label, base, mod) {
       var eff = Math.max(0, base + mod);
       var cls = mod < 0 ? ' ct-pres-debuff' : mod > 0 ? ' ct-pres-buff' : '';
-      var display = mod !== 0 ? eff + ' <small style="opacity:0.5;">(' + base + ')</small>' : '' + eff;
+      var display = mod !== 0 ? eff + ' <small class="ct-arena-base">(' + base + ')</small>' : '' + eff;
       return '<div class="ct-stat-cell"><span class="ct-stat-label">' + label + '</span><span class="ct-stat-val' + cls + '">' + display + '</span></div>';
     }
     html += '<div class="ct-detail-stats">';
@@ -768,7 +774,7 @@
       var arenaKeys = ['physique','reflex','grit','wits','presence'];
       var hasArenaMod = arenaKeys.some(function (a) { return arenaMods[a] !== 0; });
       if (hasArenaMod || arenaKeys.some(function (a) { return npc.arenas[a]; })) {
-        html += '<div class="ct-detail-stats" style="margin-bottom:0.3rem;">';
+        html += '<div class="ct-detail-stats ct-detail-stats--arenas">';
         arenaKeys.forEach(function (a) {
           var base = npc.arenas[a] || 0;
           if (base || arenaMods[a]) {
@@ -789,11 +795,11 @@
     html += '</div>';
 
     var hpPercent = npc.vitalityMax > 0 ? Math.max(0, Math.min(100, (npc.vitalityCurrent / npc.vitalityMax) * 100)) : 0;
-    var hpColor = hpPercent > 60 ? '#22c55e' : hpPercent > 30 ? '#eab308' : '#ef4444';
+    var hpBarLevel = hpPercent > 60 ? 'high' : hpPercent > 30 ? 'mid' : 'low';
     html += '<div class="ct-vitality-row">';
     html += '<button class="ct-vit-btn ct-vit-minus" data-npc-id="' + esc(npc.id) + '" data-delta="-1">&minus;</button>';
     html += '<div class="ct-vitality-bar-wrap">';
-    html += '<div class="ct-vitality-bar" style="width:' + hpPercent + '%;background:' + hpColor + ';"></div>';
+    html += '<div class="ct-vitality-bar ct-vitality-bar--' + hpBarLevel + '" style="width:' + hpPercent + '%;"></div>';
     html += '<span class="ct-vitality-text">' + npc.vitalityCurrent + ' / ' + npc.vitalityMax + '</span>';
     html += '</div>';
     html += '<button class="ct-vit-btn ct-vit-plus" data-npc-id="' + esc(npc.id) + '" data-delta="1">+</button>';
@@ -885,11 +891,11 @@
         var availTargets = combatState.combatants.filter(function (npc) { return !npc.surprised; });
         html += '<div class="ct-mastery-banner">MASTERY &mdash; Designate one enemy as surprised';
         availTargets.forEach(function (npc) {
-          html += ' <button class="ct-ctrl-btn" style="display:inline;padding:0.1rem 0.4rem;margin-left:0.3rem;font-size:0.55rem;" data-mastery-target="' + esc(npc.id) + '" data-mastery-pc="' + esc(pc.id) + '">' + esc(npc.name) + '</button>';
+          html += ' <button class="ct-ctrl-btn ct-mastery-btn" data-mastery-target="' + esc(npc.id) + '" data-mastery-pc="' + esc(pc.id) + '">' + esc(npc.name) + '</button>';
         });
         html += '</div>';
       } else {
-        html += '<div class="ct-mastery-banner" style="opacity:0.5;">MASTERY &mdash; Surprised target designated &#10003;</div>';
+        html += '<div class="ct-mastery-banner ct-mastery-banner--used">MASTERY &mdash; Surprised target designated &#10003;</div>';
       }
     }
 
@@ -915,8 +921,9 @@
         html += '<div class="ct-pc-arena-header"><span class="ct-arena-lbl">' + ag.label + '</span>';
         if (baseDie) {
           if (dieChanged) {
-            html += ' <span class="ct-arena-die" style="color:' + (effDie < baseDie ? '#ef4444' : '#22c55e') + ';">' + esc(effDie) + '</span>';
-            html += ' <small style="opacity:0.4;text-decoration:line-through;">' + esc(baseDie) + '</small>';
+            var dieCls = effDie < baseDie ? 'ct-arena-die--debuff' : 'ct-arena-die--buff';
+            html += ' <span class="ct-arena-die ' + dieCls + '">' + esc(effDie) + '</span>';
+            html += ' <small class="ct-arena-base">' + esc(baseDie) + '</small>';
           } else {
             html += ' <span class="ct-arena-die">' + esc(baseDie) + '</span>';
           }
@@ -934,7 +941,8 @@
             var label = dId.replace(/_/g, ' ');
             html += '<div class="ct-pc-disc"><span>' + esc(label) + '</span> ';
             if (discChanged) {
-              html += '<span class="ct-disc-die" style="color:' + (effDiscDie < disc.die ? '#ef4444' : '#22c55e') + ';">' + esc(effDiscDie) + '</span>';
+              var discDieCls = effDiscDie < disc.die ? 'ct-arena-die--debuff' : 'ct-arena-die--buff';
+              html += '<span class="ct-disc-die ' + discDieCls + '">' + esc(effDiscDie) + '</span>';
             } else {
               html += '<span class="ct-disc-die">' + esc(disc.die) + '</span>';
             }
@@ -1150,7 +1158,7 @@
     _ctMapContainer.className = 'ct-tactical-map';
     _ctMapContainer.innerHTML =
       '<div class="ct-map-viewer-header">' +
-        '<span class="ct-section-label" style="margin:0;">Tactical Map</span>' +
+        '<span class="ct-section-label ct-map-title">Tactical Map</span>' +
         '<div class="ct-map-viewer-controls">' +
           '<button class="ct-map-btn ct-map-btn--broadcast" id="ct-map-broadcast">Broadcast</button>' +
           '<button class="ct-map-btn ct-map-btn--dismiss" id="ct-map-dismiss">Dismiss</button>' +
@@ -1164,7 +1172,14 @@
     _ctMapViewer = new window.TacticalMapViewer({
       container: body,
       role: 'gm',
-      socket: getSocket()
+      socket: getSocket(),
+      onZoneClick: function (zone, idx) {
+        if (_placementNpcId && zone) {
+          _placeNpcOnZone(zone.room || ('zone_' + idx));
+          return true;
+        }
+        return false;
+      }
     });
     _ctMapViewer.loadMap(_ctMapKey);
 
@@ -1734,10 +1749,10 @@
       html += '<div class="ct-add-npc-list">';
       saved.forEach(function (npc, idx) {
         var cls = npc.classification || 'standard';
-        var clsColor = cls === 'minion' ? '#6b7280' : cls === 'boss' ? '#ef4444' : cls === 'elite' ? '#a855f7' : 'var(--color-accent-primary)';
+        var clsCssClass = cls === 'minion' ? 'minion' : cls === 'boss' ? 'boss' : cls === 'elite' ? 'elite' : 'standard';
         html += '<div class="ct-add-npc-item" data-saved-idx="' + idx + '">';
         html += '<span class="ct-add-npc-name">' + esc(npc.name || 'Unnamed') + '</span>';
-        html += '<span class="ct-add-npc-meta" style="color:' + clsColor + ';">' + esc(cls).toUpperCase() + ' T' + (npc.tier || 0) + '</span>';
+        html += '<span class="ct-add-npc-meta ct-add-npc-meta--' + clsCssClass + '">' + esc(cls).toUpperCase() + ' T' + (npc.tier || 0) + '</span>';
         html += '</div>';
       });
       html += '</div>';
@@ -1976,6 +1991,111 @@
       });
     });
 
+  }
+
+  function renderUnplacedTray() {
+    if (!combatState || !_ctMapKey) return '';
+    var unplaced = combatState.combatants.filter(function (npc) {
+      return !combatState.tokenPositions[npc.id];
+    });
+    if (unplaced.length === 0 && !_placementNpcId) return '';
+
+    var html = '<div class="ct-unplaced-tray" id="ct-unplaced-tray">';
+    if (_placementNpcId) {
+      var placingNpc = combatState.combatants.find(function (n) { return n.id === _placementNpcId; });
+      var placingName = placingNpc ? placingNpc.name : 'NPC';
+      html += '<div class="ct-placement-hint">Click a zone on the map to place ' + esc(placingName) + ' — or click here to cancel</div>';
+    } else {
+      html += '<div class="ct-unplaced-label">Unplaced (' + unplaced.length + ')</div>';
+      unplaced.forEach(function (npc) {
+        var disp = npc.disposition || 'enemy';
+        html += '<button class="ct-unplaced-npc" data-npc-id="' + esc(npc.id) + '">';
+        html += '<span class="ct-unplaced-disp ct-unplaced-disp--' + esc(disp) + '"></span>';
+        html += esc(npc.name);
+        html += '</button>';
+      });
+    }
+    html += '</div>';
+    return html;
+  }
+
+  function attachUnplacedTrayEvents(container) {
+    var tray = container.querySelector('#ct-unplaced-tray');
+    if (!tray) return;
+
+    if (_placementNpcId) {
+      var hint = tray.querySelector('.ct-placement-hint');
+      if (hint) {
+        hint.addEventListener('click', function () {
+          _cancelPlacement();
+        });
+      }
+      return;
+    }
+
+    tray.querySelectorAll('.ct-unplaced-npc').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var npcId = btn.dataset.npcId;
+        _startPlacement(npcId);
+      });
+    });
+  }
+
+  function _startPlacement(npcId) {
+    _placementNpcId = npcId;
+    if (_ctMapContainer) {
+      var body = _ctMapContainer.querySelector('#ct-map-viewer-body');
+      if (body) body.classList.add('tm-placement-mode');
+    }
+    _renderUnplacedTrayOnly();
+  }
+
+  function _cancelPlacement() {
+    _placementNpcId = null;
+    if (_ctMapContainer) {
+      var body = _ctMapContainer.querySelector('#ct-map-viewer-body');
+      if (body) body.classList.remove('tm-placement-mode');
+    }
+    _renderUnplacedTrayOnly();
+  }
+
+  function _placeNpcOnZone(zoneId) {
+    if (!_placementNpcId || !combatState) return;
+    var npcId = _placementNpcId;
+    combatState.tokenPositions[npcId] = zoneId;
+    var npc = combatState.combatants.find(function (n) { return n.id === npcId; });
+    if (npc) npc.zone = zoneId;
+    persistTokenPosition(npcId, zoneId);
+    _placementNpcId = null;
+    if (_ctMapContainer) {
+      var body = _ctMapContainer.querySelector('#ct-map-viewer-body');
+      if (body) body.classList.remove('tm-placement-mode');
+    }
+    _renderUnplacedTrayOnly();
+    syncStateToServer();
+  }
+
+  function _renderUnplacedTrayOnly() {
+    var container = document.getElementById('combat-tracker-panel');
+    if (!container) return;
+    var oldTray = container.querySelector('#ct-unplaced-tray');
+    var trayHtml = renderUnplacedTray();
+    if (oldTray) {
+      if (trayHtml) {
+        var temp = document.createElement('div');
+        temp.innerHTML = trayHtml;
+        var newTray = temp.firstElementChild;
+        oldTray.parentNode.replaceChild(newTray, oldTray);
+        attachUnplacedTrayEvents(container);
+      } else {
+        oldTray.remove();
+      }
+    } else if (trayHtml && _ctMapContainer) {
+      var temp2 = document.createElement('div');
+      temp2.innerHTML = trayHtml;
+      _ctMapContainer.after(temp2.firstElementChild);
+      attachUnplacedTrayEvents(container);
+    }
   }
 
   var _positionPersistTimer = null;
