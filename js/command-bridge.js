@@ -2034,6 +2034,82 @@
   }
 
   var _destinyLocked = false;
+  var _destinyTokenMenu = null;
+
+  function _closeDestinyMenu() {
+    if (_destinyTokenMenu) {
+      _destinyTokenMenu.remove();
+      _destinyTokenMenu = null;
+    }
+  }
+
+  function _showDestinyTokenMenu(e, index, token) {
+    _closeDestinyMenu();
+    var menu = document.createElement('div');
+    menu.className = 'gm-destiny-token-menu';
+
+    var flipBtn = document.createElement('button');
+    flipBtn.className = 'menu-flip';
+    flipBtn.textContent = '\u21BB Flip to ' + (token.side === 'hope' ? 'Toll' : 'Hope');
+    flipBtn.addEventListener('click', function (ev) {
+      ev.stopPropagation();
+      if (socket) socket.emit('destiny:flip', { index: index });
+      _closeDestinyMenu();
+    });
+    menu.appendChild(flipBtn);
+
+    var sep = document.createElement('div');
+    sep.className = 'gm-destiny-menu-sep';
+    menu.appendChild(sep);
+
+    if (!token.tapped) {
+      var tapBtn = document.createElement('button');
+      tapBtn.className = 'menu-tap';
+      tapBtn.textContent = '\u25CB Tap  \u2014 spend token';
+      tapBtn.addEventListener('click', function (ev) {
+        ev.stopPropagation();
+        if (socket) socket.emit('destiny:tap', { index: index });
+        _closeDestinyMenu();
+      });
+      menu.appendChild(tapBtn);
+    } else {
+      var untapBtn = document.createElement('button');
+      untapBtn.className = 'menu-untap';
+      untapBtn.textContent = '\u25C9 Untap \u2014 restore token';
+      untapBtn.addEventListener('click', function (ev) {
+        ev.stopPropagation();
+        if (socket) socket.emit('destiny:untap-one', { index: index });
+        _closeDestinyMenu();
+      });
+      menu.appendChild(untapBtn);
+    }
+
+    document.body.appendChild(menu);
+    _destinyTokenMenu = menu;
+
+    var rect = e.currentTarget.getBoundingClientRect();
+    menu.style.visibility = 'hidden';
+    requestAnimationFrame(function () {
+      var mr = menu.getBoundingClientRect();
+      var left = rect.left;
+      var top  = rect.bottom + 6;
+      if (left + mr.width > window.innerWidth - 8)  left = window.innerWidth - mr.width - 8;
+      if (top  + mr.height > window.innerHeight - 8) top  = rect.top - mr.height - 6;
+      menu.style.left = left + 'px';
+      menu.style.top  = top  + 'px';
+      menu.style.visibility = 'visible';
+    });
+
+    function dismissMenu(ev) {
+      if (_destinyTokenMenu && !_destinyTokenMenu.contains(ev.target)) {
+        _closeDestinyMenu();
+        document.removeEventListener('click', dismissMenu, true);
+      }
+    }
+    setTimeout(function () {
+      document.addEventListener('click', dismissMenu, true);
+    }, 0);
+  }
 
   function renderGmDestinyPool(pool) {
     var container = document.getElementById('gm-destiny-tokens');
@@ -2054,18 +2130,15 @@
       var side = t.side === 'toll' ? 'toll' : 'hope';
       var cls = 'gm-destiny-pip gm-destiny-pip--' + side;
       if (t.tapped) cls += ' gm-destiny-pip--tapped';
-      var symbol = side === 'hope' ? '⬤' : '⬤';
-      var tip = side === 'hope' ? 'Hope — click to flip' : 'Toll — click to flip';
-      if (t.tapped) tip += ' (tapped, right-click to untap)';
-      return '<span class="' + cls + '" data-index="' + idx + '" title="' + tip + '">' + symbol + '</span>';
+      var label = side === 'hope' ? 'Hope' : 'Toll';
+      var state = t.tapped ? 'tapped' : 'available';
+      return '<span class="' + cls + '" data-index="' + idx + '" title="' + label + ' \u2014 ' + state + ' \u2014 click to manage">\u2B24</span>';
     }).join('');
     container.querySelectorAll('.gm-destiny-pip').forEach(function (el) {
-      el.addEventListener('click', function () {
-        if (socket) socket.emit('destiny:flip', { index: parseInt(el.dataset.index, 10) });
-      });
-      el.addEventListener('contextmenu', function (e) {
-        e.preventDefault();
-        if (socket) socket.emit('destiny:untap-one', { index: parseInt(el.dataset.index, 10) });
+      el.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var idx = parseInt(el.dataset.index, 10);
+        _showDestinyTokenMenu(e, idx, pool[idx]);
       });
     });
     if (countEl) {
