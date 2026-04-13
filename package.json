@@ -5,7 +5,7 @@
   "main": "server/index.js",
   "scripts": {
     "start": "node server/index.js",
-    "dev": "concurrently \"nodemon server/index.js\" \"npm run css:watch\"",
+    "dev": "concurrently \"nodemon --watch server --watch js --ext js,json --ignore public/ server/index.js\" \"npm run css:watch\"",
     "css:build": "tailwindcss --config tailwind.config.js -i ./css/input.css -o ./public/css/output.css",
     "css:watch": "tailwindcss --config tailwind.config.js -i ./css/input.css -o ./public/css/output.css --watch"
   },
