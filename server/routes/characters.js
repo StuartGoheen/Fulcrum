@@ -858,6 +858,35 @@ router.put('/characters/:id/adventure-marks/:adventureId', async (req, res) => {
   }
 });
 
+router.delete('/characters/:id', async (req, res) => {
+  const charId = req.params.id;
+  const client = await pool.connect();
+  try {
+    const check = await client.query('SELECT id, name, session_id FROM characters WHERE id = $1', [charId]);
+    if (check.rows.length === 0) {
+      return res.status(404).json({ error: 'Character not found.' });
+    }
+    if (check.rows[0].session_id) {
+      return res.status(409).json({ error: 'Character is in an active session. Disconnect first.' });
+    }
+    await client.query('BEGIN');
+    await client.query('DELETE FROM adventure_marks WHERE character_id = $1', [charId]);
+    await client.query('DELETE FROM narrative_challenge_instances WHERE character_id = $1', [charId]);
+    await client.query('DELETE FROM equipment_status WHERE character_id = $1::text', [charId]);
+    await client.query('DELETE FROM sessions WHERE character_id = $1', [charId]);
+    await client.query('DELETE FROM characters WHERE id = $1', [charId]);
+    await client.query('COMMIT');
+    console.log('[admin] Deleted character:', check.rows[0].name, '(id:', charId, ')');
+    res.json({ ok: true, deleted: check.rows[0].name });
+  } catch (err) {
+    await client.query('ROLLBACK');
+    console.error('[DELETE /characters/:id]', err);
+    res.status(500).json({ error: 'Failed to delete character.' });
+  } finally {
+    client.release();
+  }
+});
+
 router.post('/admin/release-all', async (req, res) => {
   try {
     await pool.query('DELETE FROM sessions');

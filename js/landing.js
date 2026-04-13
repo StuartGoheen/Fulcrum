@@ -109,13 +109,91 @@
           window.location.href = '/create/?edit=' + encodeURIComponent(char.id);
         });
 
+        var delBtn = document.createElement('button');
+        delBtn.style.cssText = 'padding:0.2rem 0.4rem;font-family:Exo 2,sans-serif;font-size:0.6rem;font-weight:600;letter-spacing:0.08em;background:transparent;border:1px solid #3a3632;color:#7a7068;cursor:pointer;transition:border-color 0.2s,color 0.2s;';
+        delBtn.textContent = '\u2716';
+        delBtn.title = 'Delete character';
+        (function (cId, cName) {
+          delBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            showDeleteConfirm(cId, cName);
+          });
+        })(char.id, char.name);
+
         btnRow.appendChild(loadBtn);
         btnRow.appendChild(editBtn);
+        btnRow.appendChild(delBtn);
         card.appendChild(btnRow);
       }
 
       list.appendChild(card);
     });
+  }
+
+  function showDeleteConfirm(charId, charName) {
+    var existing = document.getElementById('del-confirm-overlay');
+    if (existing) existing.remove();
+
+    var ov = document.createElement('div');
+    ov.id = 'del-confirm-overlay';
+    ov.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9000;display:flex;align-items:center;justify-content:center;';
+
+    var box = document.createElement('div');
+    box.style.cssText = 'background:#1a1a1e;border:1px solid #ef4444;box-shadow:0 0 30px rgba(239,68,68,0.2);padding:1.25rem;width:320px;max-width:85vw;text-align:center;';
+
+    var icon = document.createElement('div');
+    icon.style.cssText = 'font-size:2rem;margin-bottom:0.5rem;';
+    icon.textContent = '\u{1F525}';
+
+    var ttl = document.createElement('div');
+    ttl.style.cssText = 'font-family:Audiowide,sans-serif;font-size:0.7rem;color:#ef4444;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.5rem;';
+    ttl.textContent = 'Disintegrate ' + charName + '?';
+
+    var msg = document.createElement('div');
+    msg.style.cssText = 'font-size:0.65rem;color:#7a7068;margin-bottom:1rem;line-height:1.5;';
+    msg.textContent = 'This character and all their adventure marks, equipment, and session data will be permanently destroyed.';
+
+    var btns = document.createElement('div');
+    btns.style.cssText = 'display:flex;gap:0.5rem;';
+
+    var cancelBtn = document.createElement('button');
+    cancelBtn.style.cssText = 'flex:1;background:#232328;border:1px solid #3a3632;color:#7a7068;font-family:Exo 2,sans-serif;font-size:0.65rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;padding:0.5rem;cursor:pointer;min-height:44px;';
+    cancelBtn.textContent = 'Abort';
+    cancelBtn.addEventListener('click', function () { ov.remove(); });
+
+    var execBtn = document.createElement('button');
+    execBtn.style.cssText = 'flex:1;background:#ef4444;border:1px solid #ef4444;color:#1a1a1e;font-family:Exo 2,sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:0.5rem;cursor:pointer;min-height:44px;';
+    execBtn.textContent = 'Disintegrate';
+    execBtn.addEventListener('click', function () {
+      ov.remove();
+      executeDelete(charId);
+    });
+
+    btns.appendChild(cancelBtn);
+    btns.appendChild(execBtn);
+    box.appendChild(icon);
+    box.appendChild(ttl);
+    box.appendChild(msg);
+    box.appendChild(btns);
+    ov.appendChild(box);
+    document.body.appendChild(ov);
+
+    ov.addEventListener('click', function (e) { if (e.target === ov) ov.remove(); });
+  }
+
+  function executeDelete(charId) {
+    fetch('/api/characters/' + charId, { method: 'DELETE' })
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (data.ok) {
+          loadCharacters();
+        } else {
+          showError(data.error || 'Failed to delete character.');
+        }
+      })
+      .catch(function () {
+        showError('Connection failed during deletion.');
+      });
   }
 
   function joinAsPlayer(characterId, characterName) {

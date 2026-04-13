@@ -5991,4 +5991,207 @@
   line-height: 1.5;
 }
 
+.os-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+.os-overlay.os-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+.os-dialog {
+  background: linear-gradient(180deg, #1e1e22 0%, #16161a 100%);
+  border: 1px solid #c8a44e;
+  box-shadow: 0 0 40px rgba(200, 164, 78, 0.15), inset 0 1px 0 rgba(200, 164, 78, 0.1);
+  width: 420px;
+  max-width: 90vw;
+  max-height: 85vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #c8a44e #232328;
+}
+.os-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #3a3632;
+}
+.os-title {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 0.75rem;
+  color: #ef4444;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.os-close {
+  background: none;
+  border: none;
+  color: #7a7068;
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 0.2rem;
+  transition: color 0.15s;
+}
+.os-close:hover {
+  color: #ef4444;
+}
+.os-warning {
+  font-size: 0.6rem;
+  color: #ef4444;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid #2a2a30;
+  letter-spacing: 0.04em;
+}
+.os-body {
+  padding: 0.75rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.os-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #232328;
+  border: 1px solid #3a3632;
+  color: #d4c5a0;
+  font-family: 'Exo 2', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: left;
+  width: 100%;
+  min-height: 44px;
+}
+.os-btn:hover {
+  border-color: #ef4444;
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.06);
+}
+.os-btn-icon {
+  font-size: 0.85rem;
+  flex-shrink: 0;
+  width: 1.2rem;
+  text-align: center;
+}
+.os-btn-label {
+  flex: 1;
+}
+.os-btn-full {
+  border-color: #ef4444;
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.08);
+}
+.os-btn-full:hover {
+  background: #ef4444;
+  color: #1a1a1e;
+}
+.os-sep {
+  height: 1px;
+  background: #3a3632;
+  margin: 0.3rem 0;
+}
+.os-status {
+  font-size: 0.6rem;
+  color: #44aa66;
+  letter-spacing: 0.04em;
+  padding: 0.3rem 0;
+  text-align: center;
+  min-height: 1.2rem;
+}
+.os-status-error {
+  color: #ef4444;
+}
+.os-confirm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 9500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.os-confirm-dialog {
+  background: #1a1a1e;
+  border: 1px solid #ef4444;
+  box-shadow: 0 0 30px rgba(239, 68, 68, 0.2);
+  padding: 1.25rem;
+  width: 340px;
+  max-width: 85vw;
+  text-align: center;
+}
+.os-confirm-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+.os-confirm-title {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 0.7rem;
+  color: #ef4444;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.os-confirm-msg {
+  font-size: 0.65rem;
+  color: #7a7068;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+.os-confirm-btns {
+  display: flex;
+  gap: 0.5rem;
+}
+.os-confirm-cancel {
+  flex: 1;
+  background: #232328;
+  border: 1px solid #3a3632;
+  color: #7a7068;
+  font-family: 'Exo 2', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  min-height: 44px;
+}
+.os-confirm-cancel:hover {
+  border-color: #c8a44e;
+  color: #d4c5a0;
+}
+.os-confirm-exec {
+  flex: 1;
+  background: #ef4444;
+  border: 1px solid #ef4444;
+  color: #1a1a1e;
+  font-family: 'Exo 2', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  min-height: 44px;
+}
+.os-confirm-exec:hover {
+  background: #dc2626;
+  border-color: #dc2626;
+}
+
   

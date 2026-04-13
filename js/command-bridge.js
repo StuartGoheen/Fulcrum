@@ -4762,4 +4762,169 @@
       _resize.active = false;
     });
   })();
+
+  (function initOrbitalStrike() {
+    var logo = document.querySelector('.cb-header-logo');
+    if (!logo) return;
+
+    var CATEGORIES = [
+      { key: 'journal',   icon: '\u{1F4D3}', label: 'Purge Journal Entries',        confirmTitle: 'Purge the Archives',        confirmMsg: 'Every journal entry, every tag, every record — gone. The campaign log will be wiped clean as if no one ever wrote it.' },
+      { key: 'holonet',   icon: '\u{1F4E1}', label: 'Purge HoloNet Broadcasts',     confirmTitle: 'Silence the HoloNet',       confirmMsg: 'All broadcast records will be erased. The galaxy goes dark.' },
+      { key: 'decisions', icon: '\u2696',     label: 'Purge Decision Points',        confirmTitle: 'Rewrite History',           confirmMsg: 'Every decision the crew ever made — undone. The fork points vanish from the timeline.' },
+      { key: 'progress',  icon: '\u{1F5FA}',  label: 'Reset Scene Progress',         confirmTitle: 'Reset the Campaign Clock',  confirmMsg: 'Scene completion marks and campaign progress will reset to the beginning.' },
+      { key: 'npcs',      icon: '\u{1F464}',  label: 'Reset NPC Profiles & Timeline', confirmTitle: 'Memory Wipe — NPC Cortex', confirmMsg: 'All NPC profiles and timeline events will be wiped and re-seeded from factory defaults.' },
+      { key: 'pins',      icon: '\u{1F4CD}',  label: 'Purge Map Pins',               confirmTitle: 'Scrub the Star Charts',     confirmMsg: 'Every pin on every map — galaxy pins, local map pins — all removed.' },
+      { key: 'items',     icon: '\u{1F4E6}',  label: 'Purge Items & Equipment',      confirmTitle: 'Jettison the Cargo',        confirmMsg: 'All item requests and equipment status records will be jettisoned into the void.' }
+    ];
+
+    var overlay = document.createElement('div');
+    overlay.className = 'os-overlay';
+
+    var dialog = document.createElement('div');
+    dialog.className = 'os-dialog';
+
+    var header = document.createElement('div');
+    header.className = 'os-header';
+    var title = document.createElement('span');
+    title.className = 'os-title';
+    title.textContent = 'Orbital Strike Console';
+    var closeBtn = document.createElement('button');
+    closeBtn.className = 'os-close';
+    closeBtn.innerHTML = '&#x2715;';
+    header.appendChild(title);
+    header.appendChild(closeBtn);
+    dialog.appendChild(header);
+
+    var warning = document.createElement('div');
+    warning.className = 'os-warning';
+    warning.textContent = 'These operations permanently destroy campaign data. There is no undo.';
+    dialog.appendChild(warning);
+
+    var body = document.createElement('div');
+    body.className = 'os-body';
+
+    CATEGORIES.forEach(function (cat) {
+      var btn = document.createElement('button');
+      btn.className = 'os-btn';
+      var icon = document.createElement('span');
+      icon.className = 'os-btn-icon';
+      icon.textContent = cat.icon;
+      var lbl = document.createElement('span');
+      lbl.className = 'os-btn-label';
+      lbl.textContent = cat.label;
+      btn.appendChild(icon);
+      btn.appendChild(lbl);
+      btn.addEventListener('click', function () { showOsConfirm(cat); });
+      body.appendChild(btn);
+    });
+
+    var sep = document.createElement('div');
+    sep.className = 'os-sep';
+    body.appendChild(sep);
+
+    var fullBtn = document.createElement('button');
+    fullBtn.className = 'os-btn os-btn-full';
+    var fullIcon = document.createElement('span');
+    fullIcon.className = 'os-btn-icon';
+    fullIcon.textContent = '\u{1F4A5}';
+    var fullLbl = document.createElement('span');
+    fullLbl.className = 'os-btn-label';
+    fullLbl.textContent = 'Full Campaign Reset';
+    fullBtn.appendChild(fullIcon);
+    fullBtn.appendChild(fullLbl);
+    fullBtn.addEventListener('click', function () {
+      showOsConfirm({
+        key: 'full',
+        confirmTitle: 'Base Delta Zero',
+        confirmMsg: 'Full orbital bombardment. Every journal, broadcast, decision, NPC, pin, progress marker, and item record will be annihilated. Only character sheets survive. NPC profiles will be re-seeded from factory templates.'
+      });
+    });
+    body.appendChild(fullBtn);
+
+    var status = document.createElement('div');
+    status.className = 'os-status';
+    body.appendChild(status);
+
+    dialog.appendChild(body);
+    overlay.appendChild(dialog);
+    document.body.appendChild(overlay);
+
+    function openOs() { overlay.classList.add('os-visible'); status.textContent = ''; status.className = 'os-status'; }
+    function closeOs() { overlay.classList.remove('os-visible'); }
+
+    logo.addEventListener('click', openOs);
+    closeBtn.addEventListener('click', closeOs);
+    overlay.addEventListener('click', function (e) { if (e.target === overlay) closeOs(); });
+
+    function showOsConfirm(cat) {
+      var cOverlay = document.createElement('div');
+      cOverlay.className = 'os-confirm-overlay';
+
+      var cDialog = document.createElement('div');
+      cDialog.className = 'os-confirm-dialog';
+
+      var cIcon = document.createElement('div');
+      cIcon.className = 'os-confirm-icon';
+      cIcon.textContent = cat.key === 'full' ? '\u{1F4A5}' : '\u26A0\uFE0F';
+
+      var cTitle = document.createElement('div');
+      cTitle.className = 'os-confirm-title';
+      cTitle.textContent = cat.confirmTitle;
+
+      var cMsg = document.createElement('div');
+      cMsg.className = 'os-confirm-msg';
+      cMsg.textContent = cat.confirmMsg;
+
+      var cBtns = document.createElement('div');
+      cBtns.className = 'os-confirm-btns';
+
+      var cancelBtn = document.createElement('button');
+      cancelBtn.className = 'os-confirm-cancel';
+      cancelBtn.textContent = 'Abort';
+      cancelBtn.addEventListener('click', function () { cOverlay.remove(); });
+
+      var execBtn = document.createElement('button');
+      execBtn.className = 'os-confirm-exec';
+      execBtn.textContent = 'Execute';
+      execBtn.addEventListener('click', function () {
+        cOverlay.remove();
+        executeWipe(cat.key);
+      });
+
+      cBtns.appendChild(cancelBtn);
+      cBtns.appendChild(execBtn);
+      cDialog.appendChild(cIcon);
+      cDialog.appendChild(cTitle);
+      cDialog.appendChild(cMsg);
+      cDialog.appendChild(cBtns);
+      cOverlay.appendChild(cDialog);
+      document.body.appendChild(cOverlay);
+
+      cOverlay.addEventListener('click', function (e) { if (e.target === cOverlay) cOverlay.remove(); });
+    }
+
+    function executeWipe(categoryKey) {
+      status.textContent = 'Executing orbital strike...';
+      status.className = 'os-status';
+      fetch('/api/admin/wipe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ category: categoryKey })
+      })
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          if (data.ok) {
+            status.textContent = 'Target destroyed: ' + (data.label || categoryKey);
+            status.className = 'os-status';
+          } else {
+            status.textContent = 'Strike failed: ' + (data.error || 'unknown error');
+            status.className = 'os-status os-status-error';
+          }
+        })
+        .catch(function () {
+          status.textContent = 'Comms failure — strike could not be confirmed.';
+          status.className = 'os-status os-status-error';
+        });
+    }
+  })();
 }());

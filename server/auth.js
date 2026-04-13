@@ -73,7 +73,7 @@ function gate(req, res, next) {
     }
     var marksReadPattern = /^\/api\/campaign\/adventures\/[^/]+\/marks$/;
     var holonetFeedsPattern = /^\/api\/campaign\/holonet\/feeds$/;
-    if (req.path.startsWith('/api/campaign') || req.path === '/api/admin/release-all') {
+    if (req.path.startsWith('/api/campaign') || req.path.startsWith('/api/admin/')) {
       if (req.method === 'GET' && (marksReadPattern.test(req.path) || holonetFeedsPattern.test(req.path))) {
         return next();
       }
