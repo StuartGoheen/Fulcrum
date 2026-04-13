@@ -145,6 +145,11 @@ function _startCombatHeartbeat(io) {
       return;
     }
     io.to('players').emit('combat:state-update', _getPlayerCombatState());
+    io.to('gm').emit('combat:heartbeat', {
+      tokenPositions: _combatState.tokenPositions || {},
+      round: _combatState.round,
+      currentTurnIndex: _combatState.currentTurnIndex
+    });
   }, 10000);
 }
 

@@ -431,8 +431,22 @@
 
       function onPlayerTokenMoved(data) {
         if (!combatState || !data || !data.tokenId || !data.position) return;
-        combatState.tokenPositions[data.tokenId] = data.position;
+        if (data.allTokenPositions && typeof data.allTokenPositions === 'object') {
+          combatState.tokenPositions = data.allTokenPositions;
+        } else {
+          combatState.tokenPositions[data.tokenId] = data.position;
+        }
         _updateCombatTokens();
+      }
+
+      function onHeartbeat(data) {
+        if (!combatState || !data) return;
+        if (data.tokenPositions && typeof data.tokenPositions === 'object') {
+          combatState.tokenPositions = data.tokenPositions;
+          _updateCombatTokens();
+        }
+        if (data.round !== undefined) combatState.round = data.round;
+        if (data.currentTurnIndex !== undefined) combatState.currentTurnIndex = data.currentTurnIndex;
       }
 
       sock.on('combat:join-battle-result', onJoinResult);
@@ -440,13 +454,15 @@
       sock.on('condition:player-sync', onPlayerSync);
       sock.on('condition:apply-ack', onApplyAck);
       sock.on('combat:player-token-moved', onPlayerTokenMoved);
+      sock.on('combat:heartbeat', onHeartbeat);
 
       _socketHandlers = [
         { event: 'combat:join-battle-result', fn: onJoinResult },
         { event: 'combat:all-joined', fn: onAllJoined },
         { event: 'condition:player-sync', fn: onPlayerSync },
         { event: 'condition:apply-ack', fn: onApplyAck },
-        { event: 'combat:player-token-moved', fn: onPlayerTokenMoved }
+        { event: 'combat:player-token-moved', fn: onPlayerTokenMoved },
+        { event: 'combat:heartbeat', fn: onHeartbeat }
       ];
     }
 
@@ -2371,8 +2387,22 @@
 
       function onPlayerTokenMoved(data) {
         if (!combatState || !data || !data.tokenId || !data.position) return;
-        combatState.tokenPositions[data.tokenId] = data.position;
+        if (data.allTokenPositions && typeof data.allTokenPositions === 'object') {
+          combatState.tokenPositions = data.allTokenPositions;
+        } else {
+          combatState.tokenPositions[data.tokenId] = data.position;
+        }
         _updateCombatTokens();
+      }
+
+      function onHeartbeat(data) {
+        if (!combatState || !data) return;
+        if (data.tokenPositions && typeof data.tokenPositions === 'object') {
+          combatState.tokenPositions = data.tokenPositions;
+          _updateCombatTokens();
+        }
+        if (data.round !== undefined) combatState.round = data.round;
+        if (data.currentTurnIndex !== undefined) combatState.currentTurnIndex = data.currentTurnIndex;
       }
 
       sock.on('combat:join-battle-result', onJoinResult);
@@ -2380,13 +2410,15 @@
       sock.on('condition:player-sync', onPlayerSync);
       sock.on('condition:apply-ack', onApplyAck);
       sock.on('combat:player-token-moved', onPlayerTokenMoved);
+      sock.on('combat:heartbeat', onHeartbeat);
 
       _socketHandlers = [
         { event: 'combat:join-battle-result', fn: onJoinResult },
         { event: 'combat:all-joined', fn: onAllJoined },
         { event: 'condition:player-sync', fn: onPlayerSync },
         { event: 'condition:apply-ack', fn: onApplyAck },
-        { event: 'combat:player-token-moved', fn: onPlayerTokenMoved }
+        { event: 'combat:player-token-moved', fn: onPlayerTokenMoved },
+        { event: 'combat:heartbeat', fn: onHeartbeat }
       ];
     }
 
