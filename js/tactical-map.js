@@ -381,18 +381,14 @@
         self._tokenDrag = null;
         td.el.classList.remove('tm-token--dragging');
         td.el.removeAttribute('data-orig-transform');
-        if (td.started && self.meta && self.meta.zones) {
+        if (td.started) {
           var rect = self._canvas.getBoundingClientRect();
           var mx = (e.clientX - rect.left) / self.zoom;
           var my = (e.clientY - rect.top) / self.zoom;
-          var dropZone = null;
-          self.meta.zones.forEach(function (z, i) {
-            if (mx >= z.x && mx <= z.x + z.w && my >= z.y && my <= z.y + z.h) {
-              dropZone = z.room || ('zone_' + i);
-            }
-          });
-          if (dropZone && self.onTokenMoved) {
-            self.onTokenMoved(td.id, dropZone);
+          var mw = self.meta ? self.meta.vw : 0;
+          var mh = self.meta ? self.meta.vh : 0;
+          if (mw > 0 && mh > 0 && mx >= 0 && my >= 0 && mx <= mw && my <= mh && self.onTokenMoved) {
+            self.onTokenMoved(td.id, { x: Math.round(mx), y: Math.round(my) });
           } else {
             if (self._lastTokenData) {
               self.renderCombatTokens(self._lastTokenData, self._lastSelectedId);
@@ -614,35 +610,40 @@
     this._lastSelectedId = selectedId;
     var tokenLayer = this._canvas ? this._canvas.querySelector('.tm-token-layer') : null;
     if (!tokenLayer) return;
-    if (!tokenData || !tokenData.length || !this.meta || !this.meta.zones) {
+    if (!tokenData || !tokenData.length) {
       tokenLayer.innerHTML = '';
       return;
     }
 
-    var zones = this.meta.zones;
+    var zones = (this.meta && this.meta.zones) || [];
     var zoneMap = {};
     zones.forEach(function (z, i) {
       if (z.room) zoneMap[z.room] = z;
       zoneMap['zone_' + i] = z;
     });
 
-    var grouped = {};
+    var pixelTokens = [];
+    var zonedGrouped = {};
+
     tokenData.forEach(function (tok) {
-      if (!tok.zoneId) return;
-      if (!grouped[tok.zoneId]) grouped[tok.zoneId] = [];
-      grouped[tok.zoneId].push(tok);
+      if (typeof tok.x === 'number' && typeof tok.y === 'number') {
+        pixelTokens.push(tok);
+      } else if (tok.zoneId) {
+        if (!zonedGrouped[tok.zoneId]) zonedGrouped[tok.zoneId] = [];
+        zonedGrouped[tok.zoneId].push(tok);
+      }
     });
 
     var TOKEN_R = 14;
     var BASE_SPACING = 32;
     var html = '';
 
-    Object.keys(grouped).forEach(function (zoneId) {
+    Object.keys(zonedGrouped).forEach(function (zoneId) {
       var zone = zoneMap[zoneId];
       if (!zone) return;
       var cx = zone.x + zone.w / 2;
       var cy = zone.y + zone.h / 2;
-      var toks = grouped[zoneId];
+      var toks = zonedGrouped[zoneId];
       var cols = Math.ceil(Math.sqrt(toks.length));
       var rows = Math.ceil(toks.length / cols);
       var maxSpaceX = cols > 1 ? (zone.w - TOKEN_R * 2) / (cols - 1) : BASE_SPACING;
@@ -658,24 +659,32 @@
         var row = Math.floor(i / cols);
         var tx = startX + col * spacingX;
         var ty = startY + row * spacingY;
-        var dispCls = tok.type === 'pc' ? 'pc' : (tok.disposition || 'enemy');
-        var initial = tok.shortName ? tok.shortName.charAt(0).toUpperCase() : '?';
-
-        var selCls = (selectedId && tok.id === selectedId) ? ' tm-token--selected' : '';
-        var objCls = tok.objective ? ' tm-token--objective' : '';
-        html += '<g class="tm-token tm-token--' + dispCls + selCls + objCls + '" data-token-id="' + _esc(tok.id) + '" transform="translate(' + tx + ',' + ty + ')">';
-        html += '<circle r="' + TOKEN_R + '" class="tm-token-circle"/>';
-        if (tok.objective) {
-          html += '<text text-anchor="middle" dy="-' + (TOKEN_R + 4) + '" class="tm-token-objective-star">\u2605</text>';
-        }
-        html += '<text text-anchor="middle" dy="5" class="tm-token-initial">' + _esc(initial) + '</text>';
-        html += '<text text-anchor="middle" dy="' + (TOKEN_R + 12) + '" class="tm-token-label">' + _esc(tok.shortName || '') + '</text>';
-        html += '</g>';
+        html += _buildTokenSvg(tok, tx, ty, TOKEN_R, selectedId);
       });
+    });
+
+    pixelTokens.forEach(function (tok) {
+      html += _buildTokenSvg(tok, tok.x, tok.y, TOKEN_R, selectedId);
     });
 
     tokenLayer.innerHTML = html;
   };
+
+  function _buildTokenSvg(tok, tx, ty, r, selectedId) {
+    var dispCls = tok.type === 'pc' ? 'pc' : (tok.disposition || 'enemy');
+    var initial = tok.shortName ? tok.shortName.charAt(0).toUpperCase() : '?';
+    var selCls = (selectedId && tok.id === selectedId) ? ' tm-token--selected' : '';
+    var objCls = tok.objective ? ' tm-token--objective' : '';
+    var g = '<g class="tm-token tm-token--' + dispCls + selCls + objCls + '" data-token-id="' + _esc(tok.id) + '" transform="translate(' + tx + ',' + ty + ')">';
+    g += '<circle r="' + r + '" class="tm-token-circle"/>';
+    if (tok.objective) {
+      g += '<text text-anchor="middle" dy="-' + (r + 4) + '" class="tm-token-objective-star">\u2605</text>';
+    }
+    g += '<text text-anchor="middle" dy="5" class="tm-token-initial">' + _esc(initial) + '</text>';
+    g += '<text text-anchor="middle" dy="' + (r + 12) + '" class="tm-token-label">' + _esc(tok.shortName || '') + '</text>';
+    g += '</g>';
+    return g;
+  }
 
   TacticalMapViewer.prototype._showTokenContextMenu = function (screenX, screenY, tokenId) {
     this._removeContextMenu();

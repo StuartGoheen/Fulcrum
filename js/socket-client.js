@@ -338,10 +338,15 @@
     var objectives = state.objectives || {};
     var tokenData = [];
     Object.keys(tokenPositions).forEach(function (tokId) {
-      var zoneId = tokenPositions[tokId];
-      if (!zoneId) return;
+      var pos = tokenPositions[tokId];
+      if (!pos) return;
       var info = _resolvePlayerTokenInfo(tokId, state.combatants || [], state.pcSlots || []);
-      info.zoneId = zoneId;
+      if (typeof pos === 'object' && typeof pos.x === 'number' && typeof pos.y === 'number') {
+        info.x = pos.x;
+        info.y = pos.y;
+      } else {
+        info.zoneId = pos;
+      }
       info.objective = !!objectives[tokId];
       tokenData.push(info);
     });

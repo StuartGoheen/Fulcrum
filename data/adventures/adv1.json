@@ -1634,12 +1634,12 @@
             "startingPositions": [
               {
                 "who": "PCs",
-                "zone": "Main Floor \u2014 Dining Area",
+                "zone": "Main Floor — Dining Area",
                 "notes": "Seated at their table. Central position with light cover."
               },
               {
                 "who": "Maya",
-                "zone": "Main Floor \u2014 Dining Area",
+                "zone": "Main Floor — Dining Area",
                 "notes": "Crashes into the dining area. Flees to the bar (hard cover) if combat starts."
               },
               {
@@ -1659,17 +1659,17 @@
               },
               {
                 "who": "Patrons",
-                "zone": "Private Booth \u2014 Center-West",
+                "zone": "Private Booth — Center-West",
                 "notes": "Scattered across booths. Flee to entrance or back hallway if weapons are drawn."
               }
             ],
             "gmTacticalNotes": "Krev starts exposed at B1 — intentional. He's a collector, not a tactician. He expects compliance. The Kyuzo use Fleet Footed (2 maneuvers/turn) + Reposition (no reactions) to silently flank to A2 and D2 during the social phase — cutting off the booth row and alcove. This is positioning, not aggression. If combat triggers: Krev advances to B2 or C2 for melee range. Kyuzo attack with Hit and Run from flanking positions — headbutt then disengage. The bar (B3/C3) is the strongest defensive position. The open floor (C2) is the worst — no cover, clear sightlines. The back hallway (A3) is the escape route. The store room (D3) is a trap — full cover but no exit.",
             "gmStartingPositions": {
-              "PCs": "Main Floor \u2014 Dining Area",
-              "npc_1": "Main Floor \u2014 Dining Area",
+              "PCs": "Main Floor — Dining Area",
+              "npc_1": "Main Floor — Dining Area",
               "npc_2": "Main Entrance",
               "npc_0": "Main Entrance",
-              "npc_4": "The Prow"
+              "npc_4": "Main Floor — Dining Area"
             }
           },
           "rewards": {

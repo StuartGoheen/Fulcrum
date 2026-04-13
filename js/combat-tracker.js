@@ -1185,10 +1185,10 @@
     _ctMapViewer.onMapLoaded = function () {
       _updateCombatTokens();
     };
-    _ctMapViewer.onTokenMoved = function (tokenId, zoneId) {
+    _ctMapViewer.onTokenMoved = function (tokenId, pos) {
       if (!combatState) return;
-      combatState.tokenPositions[tokenId] = zoneId;
-      persistTokenPosition(tokenId, zoneId);
+      combatState.tokenPositions[tokenId] = pos;
+      persistTokenPosition(tokenId, pos);
       _updateCombatTokens();
       syncStateToServer();
     };
@@ -1277,8 +1277,24 @@
   function getTokensInZone(zoneId) {
     if (!combatState) return [];
     var tokens = [];
+    var zoneBounds = null;
+    if (_ctMapViewer && _ctMapViewer.meta && _ctMapViewer.meta.zones) {
+      _ctMapViewer.meta.zones.forEach(function (z, i) {
+        var zRoom = z.room || ('zone_' + i);
+        if (zRoom === zoneId) zoneBounds = z;
+      });
+    }
     Object.keys(combatState.tokenPositions).forEach(function (tokId) {
-      if (combatState.tokenPositions[tokId] === zoneId) {
+      var pos = combatState.tokenPositions[tokId];
+      if (!pos) return;
+      var match = false;
+      if (typeof pos === 'string') {
+        match = pos === zoneId;
+      } else if (typeof pos === 'object' && zoneBounds) {
+        match = pos.x >= zoneBounds.x && pos.x <= zoneBounds.x + zoneBounds.w &&
+                pos.y >= zoneBounds.y && pos.y <= zoneBounds.y + zoneBounds.h;
+      }
+      if (match) {
         tokens.push(_resolveTokenInfo(tokId));
       }
     });
@@ -2102,10 +2118,19 @@
   function _placeNpcOnZone(zoneId) {
     if (!_placementNpcId || !combatState) return;
     var npcId = _placementNpcId;
-    combatState.tokenPositions[npcId] = zoneId;
+    var pos = zoneId;
+    if (_ctMapViewer && _ctMapViewer.meta && _ctMapViewer.meta.zones) {
+      _ctMapViewer.meta.zones.forEach(function (z, i) {
+        var zRoom = z.room || ('zone_' + i);
+        if (zRoom === zoneId) {
+          pos = { x: Math.round(z.x + z.w / 2), y: Math.round(z.y + z.h / 2) };
+        }
+      });
+    }
+    combatState.tokenPositions[npcId] = pos;
     var npc = combatState.combatants.find(function (n) { return n.id === npcId; });
     if (npc) npc.zone = zoneId;
-    persistTokenPosition(npcId, zoneId);
+    persistTokenPosition(npcId, pos);
     _placementNpcId = null;
     if (_ctMapContainer) {
       var body = _ctMapContainer.querySelector('#ct-map-viewer-body');
@@ -2144,10 +2169,15 @@
     var objectives = combatState.objectives || {};
     var tokenData = [];
     Object.keys(combatState.tokenPositions).forEach(function (tokId) {
-      var zoneId = combatState.tokenPositions[tokId];
-      if (!zoneId) return;
+      var pos = combatState.tokenPositions[tokId];
+      if (!pos) return;
       var info = _resolveTokenInfo(tokId);
-      info.zoneId = zoneId;
+      if (typeof pos === 'object' && typeof pos.x === 'number' && typeof pos.y === 'number') {
+        info.x = pos.x;
+        info.y = pos.y;
+      } else {
+        info.zoneId = pos;
+      }
       info.objective = !!objectives[tokId];
       tokenData.push(info);
     });
@@ -2155,21 +2185,21 @@
   }
 
   var _positionPersistTimer = null;
-  function persistTokenPosition(tokenId, zoneId) {
+  function persistTokenPosition(tokenId, pos) {
     if (!combatState || !combatState.scene || !combatState.scene.id) return;
     var sceneId = combatState.scene.id;
     var tm = combatState.scene.tacticalMap || {};
     if (!tm.gmStartingPositions) tm.gmStartingPositions = {};
 
     if (tokenId === 'PCs') {
-      tm.gmStartingPositions['PCs'] = zoneId;
+      tm.gmStartingPositions['PCs'] = pos;
     } else {
       var npcIdx = -1;
       combatState.combatants.forEach(function (n, i) {
         if (n.id === tokenId) npcIdx = i;
       });
       if (npcIdx >= 0) {
-        tm.gmStartingPositions['npc_' + npcIdx] = zoneId;
+        tm.gmStartingPositions['npc_' + npcIdx] = pos;
       }
     }
 
