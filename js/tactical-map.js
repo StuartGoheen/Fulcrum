@@ -556,8 +556,9 @@
       var rows = Math.ceil(toks.length / cols);
       var maxSpaceX = cols > 1 ? (zone.w - TOKEN_R * 2) / (cols - 1) : BASE_SPACING;
       var maxSpaceY = rows > 1 ? (zone.h - TOKEN_R * 2) / (rows - 1) : BASE_SPACING;
-      var spacingX = Math.min(BASE_SPACING, maxSpaceX);
-      var spacingY = Math.min(BASE_SPACING, maxSpaceY);
+      var MIN_SPACING = 8;
+      var spacingX = Math.max(MIN_SPACING, Math.min(BASE_SPACING, maxSpaceX));
+      var spacingY = Math.max(MIN_SPACING, Math.min(BASE_SPACING, maxSpaceY));
       var startX = cx - ((cols - 1) * spacingX) / 2;
       var startY = cy - ((rows - 1) * spacingY) / 2;
 
@@ -620,7 +621,8 @@
     html += '</div>';
     html += '<div class="tm-zone-body">' + _esc(zone.desc).replace(/\n/g, '<br>') + '</div>';
     if (this.getZoneOccupants) {
-      var occupants = this.getZoneOccupants(zone.room);
+      var zoneKey = zone.room || ('zone_' + idx);
+      var occupants = this.getZoneOccupants(zoneKey);
       if (occupants && occupants.length) {
         html += '<div class="tm-zone-occupants">';
         occupants.forEach(function (occ) {
