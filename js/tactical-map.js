@@ -243,6 +243,7 @@
   function TacticalMapViewer(opts) {
     this.container = opts.container;
     this.role = opts.role || 'player';
+    this.allowedDragTokenId = opts.allowedDragTokenId || null;
     this.socket = opts.socket || null;
     this.playerName = opts.playerName || '';
     this.onZoneClick = opts.onZoneClick || null;
@@ -313,10 +314,15 @@
       if (e.target.closest('.tm-hitbox')) return;
 
       var tokenEl = e.target.closest('.tm-token');
-      if (tokenEl && self.role === 'gm') {
+      if (tokenEl) {
         var tokId = tokenEl.dataset.tokenId;
-        var isPcToken = tokenEl.classList.contains('tm-token--pc');
-        if (tokId && !isPcToken) {
+        var canDragToken = false;
+        if (self.role === 'gm') {
+          canDragToken = true;
+        } else if (self.allowedDragTokenId && tokId === self.allowedDragTokenId) {
+          canDragToken = true;
+        }
+        if (tokId && canDragToken) {
           self._tokenDrag = {
             id: tokId,
             el: tokenEl,

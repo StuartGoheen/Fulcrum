@@ -636,6 +636,27 @@ function registerHandlers(io) {
       io.to('players').emit('combat:state-update', _getPlayerCombatState());
     });
 
+    socket.on('combat:player-token-move', (data) => {
+      if (!_combatState || !_combatState.active) return;
+      if (!data || !data.tokenId || !data.position) return;
+      const charId = String(socket.data.characterId || '');
+      if (!charId || data.tokenId !== charId) return;
+      const pcSlot = (_combatState.pcSlots || []).find(p => p.id === charId);
+      if (!pcSlot) return;
+      const pos = data.position;
+      if (typeof pos !== 'object' || typeof pos.x !== 'number' || typeof pos.y !== 'number') return;
+      if (!isFinite(pos.x) || !isFinite(pos.y)) return;
+      const sanitized = { x: Math.round(pos.x), y: Math.round(pos.y) };
+      if (sanitized.x < 0 || sanitized.y < 0) return;
+      if (!_combatState.tokenPositions) _combatState.tokenPositions = {};
+      _combatState.tokenPositions[data.tokenId] = sanitized;
+      io.to('players').emit('combat:state-update', _getPlayerCombatState());
+      io.to('gm').emit('combat:player-token-moved', {
+        tokenId: data.tokenId,
+        position: sanitized
+      });
+    });
+
     socket.on('combat:request-state', () => {
       if (!_combatState || !_combatState.active) {
         socket.emit('combat:state', { active: false });

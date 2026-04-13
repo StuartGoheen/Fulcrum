@@ -485,10 +485,12 @@
 
       var sess = getSession();
       var charName = sess ? (sess.characterName || 'Unknown') : 'Unknown';
+      var charId = sess ? String(sess.characterId || '') : '';
 
       viewer = new window.TacticalMapViewer({
         container: body,
         role: 'player',
+        allowedDragTokenId: charId || null,
         socket: socket,
         playerName: charName,
         onClipToJournal: function (zone, mk, mapTitle) {
@@ -533,6 +535,14 @@
       viewer.onTokenClick = function (tokenId) {
         if (_pendingPlayerCombatState) {
           _showPlayerTokenDetails(tokenId, _pendingPlayerCombatState);
+        }
+      };
+      viewer.onTokenMoved = function (tokenId, pos) {
+        if (tokenId === charId && socket) {
+          socket.emit('combat:player-token-move', { tokenId: tokenId, position: pos });
+          if (_pendingPlayerCombatState && _pendingPlayerCombatState.tokenPositions) {
+            _pendingPlayerCombatState.tokenPositions[tokenId] = pos;
+          }
         }
       };
       viewer.onMapLoaded = function () {

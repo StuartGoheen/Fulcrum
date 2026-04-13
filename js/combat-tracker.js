@@ -429,16 +429,24 @@
         }
       }
 
+      function onPlayerTokenMoved(data) {
+        if (!combatState || !data || !data.tokenId || !data.position) return;
+        combatState.tokenPositions[data.tokenId] = data.position;
+        _updateCombatTokens();
+      }
+
       sock.on('combat:join-battle-result', onJoinResult);
       sock.on('combat:all-joined', onAllJoined);
       sock.on('condition:player-sync', onPlayerSync);
       sock.on('condition:apply-ack', onApplyAck);
+      sock.on('combat:player-token-moved', onPlayerTokenMoved);
 
       _socketHandlers = [
         { event: 'combat:join-battle-result', fn: onJoinResult },
         { event: 'combat:all-joined', fn: onAllJoined },
         { event: 'condition:player-sync', fn: onPlayerSync },
-        { event: 'condition:apply-ack', fn: onApplyAck }
+        { event: 'condition:apply-ack', fn: onApplyAck },
+        { event: 'combat:player-token-moved', fn: onPlayerTokenMoved }
       ];
     }
 
@@ -2351,16 +2359,24 @@
         }
       }
 
+      function onPlayerTokenMoved(data) {
+        if (!combatState || !data || !data.tokenId || !data.position) return;
+        combatState.tokenPositions[data.tokenId] = data.position;
+        _updateCombatTokens();
+      }
+
       sock.on('combat:join-battle-result', onJoinResult);
       sock.on('combat:all-joined', onAllJoined);
       sock.on('condition:player-sync', onPlayerSync);
       sock.on('condition:apply-ack', onApplyAck);
+      sock.on('combat:player-token-moved', onPlayerTokenMoved);
 
       _socketHandlers = [
         { event: 'combat:join-battle-result', fn: onJoinResult },
         { event: 'combat:all-joined', fn: onAllJoined },
         { event: 'condition:player-sync', fn: onPlayerSync },
-        { event: 'condition:apply-ack', fn: onApplyAck }
+        { event: 'condition:apply-ack', fn: onApplyAck },
+        { event: 'combat:player-token-moved', fn: onPlayerTokenMoved }
       ];
     }
 
