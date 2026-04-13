@@ -2400,6 +2400,9 @@
     socket.on('combat:state', function (data) {
       if (data && data.active && window.CombatTracker && !window.CombatTracker.isActive()) {
         window._cbSocket = socket;
+        if (data.broadcastedMapKey) {
+          data._restoreBroadcastedMapKey = data.broadcastedMapKey;
+        }
         window.CombatTracker.restore(data);
         var ctPanel = document.getElementById('combat-tracker-panel');
         if (ctPanel) ctPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });

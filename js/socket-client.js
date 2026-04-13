@@ -209,6 +209,9 @@
         if (modal) modal.remove();
         _showInitiativeTracker(data);
         _renderPlayerCombatTokens(data);
+        if (data.broadcastedMapKey && _playerTacticalMapOpen) {
+          _playerTacticalMapOpen(data.broadcastedMapKey, data.broadcastedMapPins || []);
+        }
       }
     });
 
@@ -223,6 +226,8 @@
       if (modal) modal.remove();
       var tracker = document.getElementById('player-init-tracker');
       if (tracker) tracker.remove();
+      var mapPanel = document.getElementById('player-tactical-panel');
+      if (mapPanel) mapPanel.style.display = 'none';
     });
 
     socket.on('condition:applied', (entry) => {
@@ -300,6 +305,7 @@
   var _playerMapViewer = null;
   var _playerMapKey = '';
   var _pendingPlayerCombatState = null;
+  var _playerTacticalMapOpen = null;
 
   function _resolvePlayerTokenInfo(tokId, combatants, pcSlots) {
     var shortName = tokId;
@@ -587,6 +593,8 @@
       if (!data || !data.mapKey) return;
       openPanel(data.mapKey, data.pins || []);
     });
+
+    _playerTacticalMapOpen = openPanel;
 
     window._openTacticalMapFromJournal = function (mapKey) {
       openPanel(mapKey, []);

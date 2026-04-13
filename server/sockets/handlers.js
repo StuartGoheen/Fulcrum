@@ -5,6 +5,9 @@ const path = require('path');
 
 let _shipCombatState = null;
 let _combatState = null;
+let _broadcastedMapKey = null;
+let _broadcastedMapPins = [];
+let _combatHeartbeatTimer = null;
 let _tutorialState = null;
 let _activePoll = null;
 
@@ -114,6 +117,8 @@ function _getPlayerCombatState() {
     tokenPositions: _combatState.tokenPositions || {},
     objectives: _combatState.objectives || {},
     mapKey: mapKey,
+    broadcastedMapKey: _broadcastedMapKey || null,
+    broadcastedMapPins: _broadcastedMapKey ? _broadcastedMapPins : [],
     combatants: (_combatState.combatants || []).map(function (n) {
       return {
         id: n.id, name: n.name, type: 'npc',
@@ -130,6 +135,24 @@ function _getPlayerCombatState() {
       };
     })
   };
+}
+
+function _startCombatHeartbeat(io) {
+  _stopCombatHeartbeat();
+  _combatHeartbeatTimer = setInterval(() => {
+    if (!_combatState || !_combatState.active) {
+      _stopCombatHeartbeat();
+      return;
+    }
+    io.to('players').emit('combat:state-update', _getPlayerCombatState());
+  }, 10000);
+}
+
+function _stopCombatHeartbeat() {
+  if (_combatHeartbeatTimer) {
+    clearInterval(_combatHeartbeatTimer);
+    _combatHeartbeatTimer = null;
+  }
 }
 
 function registerHandlers(io) {
@@ -587,6 +610,9 @@ function registerHandlers(io) {
         tokenPositions: {},
         joinBattleSent: true
       };
+      _broadcastedMapKey = null;
+      _broadcastedMapPins = [];
+      _startCombatHeartbeat(io);
       io.to('players').emit('combat:join-battle-prompt', {
         encounterName: _combatState.encounterName,
         highestTier: _combatState.highestTier
@@ -650,10 +676,12 @@ function registerHandlers(io) {
       if (sanitized.x < 0 || sanitized.y < 0) return;
       if (!_combatState.tokenPositions) _combatState.tokenPositions = {};
       _combatState.tokenPositions[data.tokenId] = sanitized;
-      io.to('players').emit('combat:state-update', _getPlayerCombatState());
+      const playerState = _getPlayerCombatState();
+      io.to('players').emit('combat:state-update', playerState);
       io.to('gm').emit('combat:player-token-moved', {
         tokenId: data.tokenId,
-        position: sanitized
+        position: sanitized,
+        allTokenPositions: _combatState.tokenPositions
       });
     });
 
@@ -663,7 +691,10 @@ function registerHandlers(io) {
         return;
       }
       if (socket.data.role === 'gm') {
-        socket.emit('combat:state', _combatState);
+        socket.emit('combat:state', Object.assign({}, _combatState, {
+          broadcastedMapKey: _broadcastedMapKey || null,
+          broadcastedMapPins: _broadcastedMapKey ? _broadcastedMapPins : []
+        }));
       } else {
         const charId = socket.data.characterId;
         const alreadyJoined = charId && _combatState.responses[charId];
@@ -763,6 +794,9 @@ function registerHandlers(io) {
         return;
       }
       _combatState = null;
+      _broadcastedMapKey = null;
+      _broadcastedMapPins = [];
+      _stopCombatHeartbeat();
       io.to('players').emit('combat:ended');
       console.log('[socket] GM ended combat');
     });
@@ -1146,6 +1180,8 @@ function registerHandlers(io) {
           "SELECT id, map_key, x, y, label, pin_type, visibility, owner, player_name, color FROM map_pins WHERE map_key = $1 AND visibility = 'public'",
           [mapKey]
         );
+        _broadcastedMapKey = mapKey;
+        _broadcastedMapPins = pins.rows || [];
         io.to('players').emit('map:broadcast', { mapKey, pins: pins.rows });
         socket.emit('map:broadcast-ack', { mapKey });
         console.log('[socket] GM broadcast map: ' + mapKey);
@@ -1200,6 +1236,8 @@ function registerHandlers(io) {
 
     socket.on('map:dismiss', () => {
       if (socket.data.role !== 'gm') return;
+      _broadcastedMapKey = null;
+      _broadcastedMapPins = [];
       io.to('players').emit('map:dismiss');
       console.log('[socket] GM dismissed tactical map');
     });

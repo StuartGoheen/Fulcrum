@@ -1143,6 +1143,9 @@
   function renderTacticalMap() {
     if (!combatState) return '';
     var mapKey = _extractMapKey(combatState.scene, combatState.encounter);
+    if (!mapKey && combatState.tacticalMap && combatState.tacticalMap.mapKey) {
+      mapKey = combatState.tacticalMap.mapKey;
+    }
     if (!mapKey) return '';
     _ctMapKey = mapKey;
     return '<div id="ct-map-anchor"></div>';
@@ -2268,6 +2271,8 @@
   function restoreFromState(serverState) {
     if (!serverState || !serverState.active) return;
 
+    var restoredMapKey = serverState._restoreBroadcastedMapKey || serverState.broadcastedMapKey || null;
+
     combatState = {
       encounter: { name: serverState.encounterName || 'Combat' },
       scene: {},
@@ -2286,6 +2291,11 @@
       joinBattleSent: serverState.joinBattleSent !== false,
       pcResponses: serverState.responses || {}
     };
+
+    if (restoredMapKey) {
+      if (!combatState.tacticalMap) combatState.tacticalMap = {};
+      combatState.tacticalMap.mapKey = restoredMapKey;
+    }
 
     var sock = getSocket();
     if (sock) {
