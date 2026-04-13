@@ -269,6 +269,31 @@
   margin: 0 0.6rem 0.5rem;
 }
 
+.tm-token-layer { pointer-events: none; }
+.tm-token-circle {
+  stroke: #000;
+  stroke-width: 2;
+  opacity: 0.92;
+}
+.tm-token-initial {
+  fill: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  font-family: 'Audiowide', sans-serif;
+}
+.tm-token-label {
+  fill: #d4c5a0;
+  font-size: 10px;
+  font-family: 'Exo 2', sans-serif;
+  stroke: #000;
+  stroke-width: 3;
+  paint-order: stroke;
+}
+.tm-token--enemy .tm-token-circle { fill: #dc2626; }
+.tm-token--ally .tm-token-circle { fill: #16a34a; }
+.tm-token--neutral .tm-token-circle { fill: #ca8a04; }
+.tm-token--pc .tm-token-circle { fill: #2563eb; }
+
 .tm-pin { pointer-events: auto; }
 .tm-pin:hover circle { opacity: 1 !important; filter: brightness(1.3); }
 

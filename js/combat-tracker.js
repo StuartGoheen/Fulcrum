@@ -643,6 +643,7 @@
     attachCombatEvents(container);
     if (mapHtml) {
       _initCombatMapViewer();
+      _updateCombatTokens();
       attachUnplacedTrayEvents(container);
     }
   }
@@ -1181,6 +1182,9 @@
         return false;
       }
     });
+    _ctMapViewer.onMapLoaded = function () {
+      _updateCombatTokens();
+    };
     _ctMapViewer.loadMap(_ctMapKey);
 
     var sock = getSocket();
@@ -2072,6 +2076,7 @@
       if (body) body.classList.remove('tm-placement-mode');
     }
     _renderUnplacedTrayOnly();
+    _updateCombatTokens();
     syncStateToServer();
   }
 
@@ -2096,6 +2101,40 @@
       _ctMapContainer.after(temp2.firstElementChild);
       attachUnplacedTrayEvents(container);
     }
+  }
+
+  function _updateCombatTokens() {
+    if (!_ctMapViewer || !combatState) return;
+    var tokenData = [];
+    Object.keys(combatState.tokenPositions).forEach(function (tokId) {
+      var zoneId = combatState.tokenPositions[tokId];
+      if (!zoneId) return;
+      var shortName = tokId;
+      var type = 'pc';
+      var disposition = null;
+      if (tokId === 'PCs') {
+        shortName = 'PCs';
+      } else {
+        var pc = (combatState.pcSlots || []).find(function (p) { return p.id === tokId; });
+        if (pc) {
+          shortName = pc.name.length > 8 ? pc.name.substring(0, 7) + '.' : pc.name;
+          type = 'pc';
+        } else {
+          var npc = combatState.combatants.find(function (n) { return n.id === tokId; });
+          if (npc) {
+            var numMatch = npc.name.match(/ #(\d+)$/);
+            var numSuffix = numMatch ? ' #' + numMatch[1] : '';
+            var nameBase = numMatch ? npc.name.replace(/ #\d+$/, '') : npc.name;
+            var maxBase = 8 - numSuffix.length;
+            shortName = nameBase.length > maxBase ? nameBase.substring(0, maxBase - 1) + '.' + numSuffix : npc.name;
+            type = 'npc';
+            disposition = npc.disposition || 'enemy';
+          }
+        }
+      }
+      tokenData.push({ id: tokId, shortName: shortName, type: type, disposition: disposition, zoneId: zoneId });
+    });
+    _ctMapViewer.renderCombatTokens(tokenData);
   }
 
   var _positionPersistTimer = null;

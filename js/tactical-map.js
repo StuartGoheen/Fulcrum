@@ -393,6 +393,7 @@
         if (self.socket) {
           self.socket.emit('map:pins-request', { mapKey: mapKey });
         }
+        if (self.onMapLoaded) self.onMapLoaded();
       })
       .catch(function (err) {
         if (self._loadId !== loadId) return;
@@ -418,6 +419,7 @@
       html += '<rect x="' + z.x + '" y="' + z.y + '" width="' + z.w + '" height="' + z.h + '" rx="3" class="tm-hitbox" data-zone-idx="' + i + '"/>';
     });
     html += '</g>';
+    html += '<g class="tm-token-layer"></g>';
     html += '<g class="tm-pin-layer"></g>';
     html += '</svg>';
 
@@ -516,6 +518,61 @@
         }
       });
     });
+  };
+
+  TacticalMapViewer.prototype.renderCombatTokens = function (tokenData) {
+    var tokenLayer = this._canvas ? this._canvas.querySelector('.tm-token-layer') : null;
+    if (!tokenLayer) return;
+    if (!tokenData || !tokenData.length || !this.meta || !this.meta.zones) {
+      tokenLayer.innerHTML = '';
+      return;
+    }
+
+    var zones = this.meta.zones;
+    var zoneMap = {};
+    zones.forEach(function (z) {
+      zoneMap[z.room] = z;
+    });
+
+    var grouped = {};
+    tokenData.forEach(function (tok) {
+      if (!tok.zoneId) return;
+      if (!grouped[tok.zoneId]) grouped[tok.zoneId] = [];
+      grouped[tok.zoneId].push(tok);
+    });
+
+    var TOKEN_R = 14;
+    var TOKEN_SPACING = 32;
+    var html = '';
+
+    Object.keys(grouped).forEach(function (zoneId) {
+      var zone = zoneMap[zoneId];
+      if (!zone) return;
+      var cx = zone.x + zone.w / 2;
+      var cy = zone.y + zone.h / 2;
+      var toks = grouped[zoneId];
+      var cols = Math.ceil(Math.sqrt(toks.length));
+      var rows = Math.ceil(toks.length / cols);
+      var startX = cx - ((cols - 1) * TOKEN_SPACING) / 2;
+      var startY = cy - ((rows - 1) * TOKEN_SPACING) / 2;
+
+      toks.forEach(function (tok, i) {
+        var col = i % cols;
+        var row = Math.floor(i / cols);
+        var tx = startX + col * TOKEN_SPACING;
+        var ty = startY + row * TOKEN_SPACING;
+        var dispCls = tok.type === 'pc' ? 'pc' : (tok.disposition || 'enemy');
+        var initial = tok.shortName ? tok.shortName.charAt(0).toUpperCase() : '?';
+
+        html += '<g class="tm-token tm-token--' + dispCls + '" transform="translate(' + tx + ',' + ty + ')">';
+        html += '<circle r="' + TOKEN_R + '" class="tm-token-circle"/>';
+        html += '<text text-anchor="middle" dy="5" class="tm-token-initial">' + _esc(initial) + '</text>';
+        html += '<text text-anchor="middle" dy="' + (TOKEN_R + 12) + '" class="tm-token-label">' + _esc(tok.shortName || '') + '</text>';
+        html += '</g>';
+      });
+    });
+
+    tokenLayer.innerHTML = html;
   };
 
   TacticalMapViewer.prototype._showPinDetails = function (e, pin) {
