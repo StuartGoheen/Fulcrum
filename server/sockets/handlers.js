@@ -137,6 +137,19 @@ function _getPlayerCombatState() {
   };
 }
 
+async function _refreshBroadcastedPins() {
+  if (!_broadcastedMapKey) return;
+  try {
+    const pins = await pool.query(
+      "SELECT id, map_key, x, y, label, pin_type, visibility, owner, player_name, color FROM map_pins WHERE map_key = $1 AND visibility = 'public'",
+      [_broadcastedMapKey]
+    );
+    _broadcastedMapPins = pins.rows || [];
+  } catch (err) {
+    console.error('[socket] _refreshBroadcastedPins error:', err);
+  }
+}
+
 function _startCombatHeartbeat(io) {
   _stopCombatHeartbeat();
   _combatHeartbeatTimer = setInterval(() => {
@@ -1271,6 +1284,7 @@ function registerHandlers(io) {
           io.to('gm').emit('map:pin-added', { pin });
         }
         console.log('[socket] ' + (isGm ? 'GM' : pName) + ' added pin: ' + (label || 'unnamed') + ' on ' + mapKey);
+        if (_broadcastedMapKey && mapKey === _broadcastedMapKey) _refreshBroadcastedPins();
       } catch (err) {
         console.error('[socket] map:pin-add error:', err);
       }
@@ -1321,6 +1335,7 @@ function registerHandlers(io) {
           } else {
             io.to('gm').emit('map:pin-updated', { pin });
           }
+          if (_broadcastedMapKey && pin.map_key === _broadcastedMapKey) _refreshBroadcastedPins();
         }
       } catch (err) {
         console.error('[socket] map:pin-update error:', err);
@@ -1345,6 +1360,7 @@ function registerHandlers(io) {
           io.to('gm').emit('map:pin-removed', { id, mapKey });
         }
         console.log('[socket] ' + (isGm ? 'GM' : (socket.data.characterName || 'Player')) + ' removed pin ' + id);
+        if (_broadcastedMapKey && mapKey === _broadcastedMapKey) _refreshBroadcastedPins();
       } catch (err) {
         console.error('[socket] map:pin-remove error:', err);
       }

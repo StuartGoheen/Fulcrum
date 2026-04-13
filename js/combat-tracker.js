@@ -441,12 +441,20 @@
 
       function onHeartbeat(data) {
         if (!combatState || !data) return;
+        var needsRender = false;
         if (data.tokenPositions && typeof data.tokenPositions === 'object') {
           combatState.tokenPositions = data.tokenPositions;
           _updateCombatTokens();
         }
-        if (data.round !== undefined) combatState.round = data.round;
-        if (data.currentTurnIndex !== undefined) combatState.currentTurnIndex = data.currentTurnIndex;
+        if (data.round !== undefined && data.round !== combatState.round) {
+          combatState.round = data.round;
+          needsRender = true;
+        }
+        if (data.currentTurnIndex !== undefined && data.currentTurnIndex !== combatState.currentTurnIndex) {
+          combatState.currentTurnIndex = data.currentTurnIndex;
+          needsRender = true;
+        }
+        if (needsRender) renderCombatTracker();
       }
 
       sock.on('combat:join-battle-result', onJoinResult);
@@ -2397,12 +2405,20 @@
 
       function onHeartbeat(data) {
         if (!combatState || !data) return;
+        var needsRender = false;
         if (data.tokenPositions && typeof data.tokenPositions === 'object') {
           combatState.tokenPositions = data.tokenPositions;
           _updateCombatTokens();
         }
-        if (data.round !== undefined) combatState.round = data.round;
-        if (data.currentTurnIndex !== undefined) combatState.currentTurnIndex = data.currentTurnIndex;
+        if (data.round !== undefined && data.round !== combatState.round) {
+          combatState.round = data.round;
+          needsRender = true;
+        }
+        if (data.currentTurnIndex !== undefined && data.currentTurnIndex !== combatState.currentTurnIndex) {
+          combatState.currentTurnIndex = data.currentTurnIndex;
+          needsRender = true;
+        }
+        if (needsRender) _origRenderCombatTracker();
       }
 
       sock.on('combat:join-battle-result', onJoinResult);
