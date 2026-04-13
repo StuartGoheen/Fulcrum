@@ -1518,6 +1518,7 @@
             }
           ],
           "tacticalMap": {
+            "mapKey": "burning-deck",
             "gridColumns": 4,
             "gridRows": 3,
             "zoneSize": "15ft",
@@ -1633,41 +1634,41 @@
             "startingPositions": [
               {
                 "who": "PCs",
-                "zone": "B2",
+                "zone": "Main Floor \u2014 Dining Area",
                 "notes": "Seated at their table. Central position with light cover."
               },
               {
                 "who": "Maya",
-                "zone": "B2",
-                "notes": "Crashes into B2. Flees to B3 (bar, hard cover) if combat starts."
+                "zone": "Main Floor \u2014 Dining Area",
+                "notes": "Crashes into the dining area. Flees to the bar (hard cover) if combat starts."
               },
               {
                 "who": "Krev Tosk",
-                "zone": "B1",
-                "notes": "Enters through blast doors. Exposed — no cover. Advances to B2/C2 via Loom maneuver."
+                "zone": "Main Entrance",
+                "notes": "Enters through blast doors. Exposed — no cover. Advances to dining area via Loom maneuver."
               },
               {
                 "who": "Kyuzo #1",
-                "zone": "B1",
-                "notes": "Behind Krev at entrance. Repositions to A2 (booth row) to flank."
+                "zone": "Main Entrance",
+                "notes": "Behind Krev at entrance. Repositions to booth row to flank."
               },
               {
                 "who": "Kyuzo #2",
-                "zone": "C1",
-                "notes": "Flanking the entrance. Repositions to D2 (alcove) to cut off the far side."
+                "zone": "Main Entrance",
+                "notes": "Flanking the entrance. Repositions to the alcove to cut off the far side."
               },
               {
                 "who": "Patrons",
-                "zone": "A2,C2,D2",
-                "notes": "Scattered. Flee to B1/C1 (entrance) or A3 (back exit) if weapons are drawn."
+                "zone": "Private Booth \u2014 Center-West",
+                "notes": "Scattered across booths. Flee to entrance or back hallway if weapons are drawn."
               }
             ],
             "gmTacticalNotes": "Krev starts exposed at B1 — intentional. He's a collector, not a tactician. He expects compliance. The Kyuzo use Fleet Footed (2 maneuvers/turn) + Reposition (no reactions) to silently flank to A2 and D2 during the social phase — cutting off the booth row and alcove. This is positioning, not aggression. If combat triggers: Krev advances to B2 or C2 for melee range. Kyuzo attack with Hit and Run from flanking positions — headbutt then disengage. The bar (B3/C3) is the strongest defensive position. The open floor (C2) is the worst — no cover, clear sightlines. The back hallway (A3) is the escape route. The store room (D3) is a trap — full cover but no exit.",
             "gmStartingPositions": {
-              "PCs": "A2",
-              "npc_1": "A2",
-              "npc_2": "B1",
-              "npc_0": "B1",
+              "PCs": "Main Floor \u2014 Dining Area",
+              "npc_1": "Main Floor \u2014 Dining Area",
+              "npc_2": "Main Entrance",
+              "npc_0": "Main Entrance",
               "npc_4": "The Prow"
             }
           },
