@@ -11,51 +11,59 @@
   <link rel="stylesheet" href="/css/output.css" />
   <link rel="stylesheet" href="/css/tactical-map.css" />
   <style>
-    .jb-modal-overlay {
+    .jb-floating-panel {
       position: fixed;
-      inset: 0;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       z-index: 9000;
-      background: rgba(0,0,0,0.85);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      animation: jbFadeIn 0.3s ease;
-    }
-    @keyframes jbFadeIn { from { opacity: 0; } to { opacity: 1; } }
-    .jb-modal {
+      width: 380px;
+      max-width: 92vw;
       background: var(--color-bg-panel, #1a1a2e);
       border: 2px solid var(--color-danger, #ef4444);
-      max-width: 420px;
-      width: 90%;
       box-shadow: 0 0 40px rgba(239,68,68,0.3), 0 0 80px rgba(0,0,0,0.6);
       animation: jbSlideUp 0.35s ease;
+      display: flex;
+      flex-direction: column;
     }
-    @keyframes jbSlideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-    .jb-modal-header {
+    @keyframes jbSlideUp { from { transform: translate(-50%, -50%) translateY(30px); opacity: 0; } to { transform: translate(-50%, -50%); opacity: 1; } }
+    .jb-floating-panel.jb-placed {
+      animation: none;
+    }
+    .jb-panel-header {
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      padding: 0.6rem 0.75rem;
+      padding: 0.5rem 0.75rem;
       background: rgba(239,68,68,0.1);
       border-bottom: 1px solid var(--color-danger, #ef4444);
+      cursor: grab;
+      user-select: none;
     }
-    .jb-modal-icon {
-      font-size: 1.2rem;
+    .jb-panel-header:active {
+      cursor: grabbing;
     }
-    .jb-modal-title {
+    .jb-panel-icon {
+      font-size: 1.1rem;
+    }
+    .jb-panel-title {
       font-family: 'Audiowide', sans-serif;
-      font-size: 0.85rem;
+      font-size: 0.75rem;
       color: var(--color-danger, #ef4444);
       letter-spacing: 0.08em;
       text-transform: uppercase;
     }
-    .jb-modal-encounter {
+    .jb-panel-encounter {
       font-family: 'Audiowide', sans-serif;
-      font-size: 0.65rem;
+      font-size: 0.6rem;
       color: var(--color-accent-primary, #c79234);
       margin-left: auto;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 140px;
     }
-    .jb-modal-body {
+    .jb-panel-body {
       padding: 0.75rem;
     }
     .jb-step-down {

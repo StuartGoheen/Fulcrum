@@ -810,49 +810,91 @@
     tracker.style.maxHeight = 'none';
   });
 
+  var _jbDrag = { active: false, startX: 0, startY: 0, origLeft: 0, origTop: 0 };
+
   function _showJoinBattleModal(encounterName, highestTier) {
     var existing = document.getElementById('join-battle-modal');
     if (existing) existing.remove();
 
-    var overlay = document.createElement('div');
-    overlay.id = 'join-battle-modal';
-    overlay.className = 'jb-modal-overlay';
+    var panel = document.createElement('div');
+    panel.id = 'join-battle-modal';
+    panel.className = 'jb-floating-panel';
 
     var stepDownText = highestTier > 0
       ? 'Step down your Control Die <strong>' + highestTier + '</strong> time' + (highestTier !== 1 ? 's' : '') + ' (highest enemy Tier).'
       : 'No step-down (no enemy Tier advantage).';
 
-    overlay.innerHTML =
-      '<div class="jb-modal">' +
-        '<div class="jb-modal-header">' +
-          '<div class="jb-modal-icon">&#9876;</div>' +
-          '<h2 class="jb-modal-title">JOIN BATTLE</h2>' +
-          '<div class="jb-modal-encounter">' + (encounterName || 'Combat') + '</div>' +
+    panel.innerHTML =
+      '<div class="jb-panel-header" id="jb-drag-handle">' +
+        '<div class="jb-panel-icon">&#9876;</div>' +
+        '<span class="jb-panel-title">JOIN BATTLE</span>' +
+        '<span class="jb-panel-encounter">' + _escHtml(encounterName || 'Combat') + '</span>' +
+      '</div>' +
+      '<div class="jb-panel-body">' +
+        '<div class="jb-step-down">' + stepDownText + '</div>' +
+        '<div class="jb-rules">' +
+          '<div class="jb-rule jb-rule-fail"><strong>Control 1-3:</strong> Surprised &mdash; [Disoriented] + [Exposed]</div>' +
+          '<div class="jb-rule jb-rule-master"><strong>Control 8+:</strong> Mastery &mdash; designate one enemy as surprised</div>' +
+          '<div class="jb-rule"><strong>Power Die result</strong> = your initiative slot</div>' +
         '</div>' +
-        '<div class="jb-modal-body">' +
-          '<div class="jb-step-down">' + stepDownText + '</div>' +
-          '<div class="jb-rules">' +
-            '<div class="jb-rule jb-rule-fail"><strong>Control 1-3:</strong> Surprised &mdash; [Disoriented] + [Exposed]</div>' +
-            '<div class="jb-rule jb-rule-master"><strong>Control 8+:</strong> Mastery &mdash; designate one enemy as surprised</div>' +
-            '<div class="jb-rule"><strong>Power Die result</strong> = your initiative slot</div>' +
+        '<div class="jb-inputs">' +
+          '<div class="jb-input-group">' +
+            '<label for="jb-control">Control Result</label>' +
+            '<input type="number" id="jb-control" min="1" max="12" placeholder="1-12" />' +
           '</div>' +
-          '<div class="jb-inputs">' +
-            '<div class="jb-input-group">' +
-              '<label for="jb-control">Control Result</label>' +
-              '<input type="number" id="jb-control" min="1" max="12" placeholder="1-12" />' +
-            '</div>' +
-            '<div class="jb-input-group">' +
-              '<label for="jb-power">Power Result</label>' +
-              '<input type="number" id="jb-power" min="1" max="12" placeholder="1-12" />' +
-            '</div>' +
+          '<div class="jb-input-group">' +
+            '<label for="jb-power">Power Result</label>' +
+            '<input type="number" id="jb-power" min="1" max="12" placeholder="1-12" />' +
           '</div>' +
-          '<button id="jb-submit" class="jb-submit-btn">ENTER THE FRAY</button>' +
         '</div>' +
+        '<button id="jb-submit" class="jb-submit-btn">ENTER THE FRAY</button>' +
       '</div>';
 
-    document.body.appendChild(overlay);
+    document.body.appendChild(panel);
 
-    var submitBtn = overlay.querySelector('#jb-submit');
+    var dragHandle = panel.querySelector('#jb-drag-handle');
+    dragHandle.addEventListener('mousedown', function (e) {
+      _jbDrag.active = true;
+      _jbDrag.startX = e.clientX;
+      _jbDrag.startY = e.clientY;
+      _jbDrag.origLeft = panel.offsetLeft;
+      _jbDrag.origTop = panel.offsetTop;
+      e.preventDefault();
+    });
+
+    document.addEventListener('mousemove', function _jbMove(e) {
+      if (!_jbDrag.active) return;
+      panel.classList.add('jb-placed');
+      panel.style.left = (_jbDrag.origLeft + e.clientX - _jbDrag.startX) + 'px';
+      panel.style.top = (_jbDrag.origTop + e.clientY - _jbDrag.startY) + 'px';
+      panel.style.transform = 'none';
+    });
+    document.addEventListener('mouseup', function _jbUp() {
+      _jbDrag.active = false;
+    });
+
+    dragHandle.addEventListener('touchstart', function (e) {
+      var t = e.touches[0];
+      _jbDrag.active = true;
+      _jbDrag.startX = t.clientX;
+      _jbDrag.startY = t.clientY;
+      _jbDrag.origLeft = panel.offsetLeft;
+      _jbDrag.origTop = panel.offsetTop;
+      e.preventDefault();
+    }, { passive: false });
+    document.addEventListener('touchmove', function (e) {
+      if (!_jbDrag.active) return;
+      var t = e.touches[0];
+      panel.classList.add('jb-placed');
+      panel.style.left = (_jbDrag.origLeft + t.clientX - _jbDrag.startX) + 'px';
+      panel.style.top = (_jbDrag.origTop + t.clientY - _jbDrag.startY) + 'px';
+      panel.style.transform = 'none';
+    }, { passive: false });
+    document.addEventListener('touchend', function () {
+      _jbDrag.active = false;
+    });
+
+    var submitBtn = panel.querySelector('#jb-submit');
     submitBtn.addEventListener('click', function () {
       var control = parseInt(document.getElementById('jb-control').value, 10);
       var power = parseInt(document.getElementById('jb-power').value, 10);
@@ -865,22 +907,19 @@
         });
       }
 
-      overlay.innerHTML =
-        '<div class="jb-modal">' +
-          '<div class="jb-modal-header">' +
-            '<div class="jb-modal-icon">&#9876;</div>' +
-            '<h2 class="jb-modal-title">BATTLE JOINED</h2>' +
+      var bodyEl = panel.querySelector('.jb-panel-body');
+      if (bodyEl) {
+        var surprisedHtml = control <= 3 ? ' <span class="jb-rule-fail">SURPRISED</span>' : '';
+        var masteryHtml = control >= 8 ? ' <span class="jb-rule-master">MASTERY</span>' : '';
+        bodyEl.innerHTML =
+          '<div class="jb-result">' +
+            '<div>Control: <strong>' + control + '</strong>' + surprisedHtml + masteryHtml + '</div>' +
+            '<div>Initiative Slot: <strong>' + power + '</strong></div>' +
           '</div>' +
-          '<div class="jb-modal-body">' +
-            '<div class="jb-result">' +
-              '<div>Control: <strong>' + control + '</strong>' + (control <= 3 ? ' <span style="color:#ef4444;">SURPRISED</span>' : control >= 8 ? ' <span style="color:#22c55e;">MASTERY</span>' : '') + '</div>' +
-              '<div>Initiative Slot: <strong>' + power + '</strong></div>' +
-            '</div>' +
-            '<div class="jb-waiting">Waiting for GM to begin round...</div>' +
-          '</div>' +
-        '</div>';
+          '<div class="jb-waiting">Waiting for GM to begin round...</div>';
+      }
 
-      setTimeout(function () { overlay.remove(); }, 8000);
+      setTimeout(function () { panel.remove(); }, 8000);
     });
   }
 
