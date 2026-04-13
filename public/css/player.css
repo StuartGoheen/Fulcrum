@@ -739,8 +739,6 @@ body.player-body {
 }
 .slot-section { flex: 1; padding-bottom: 10vh; min-height: 0; }
 #slot-left { border-right: none; }
-#slot-mid { display: none; }
-#center-resize-handle-2 { display: none; }
 #frame-right {
   width: 25vw;
   padding-top: 7px;
