@@ -331,13 +331,9 @@
   function _renderPlayerCombatTokens(state) {
     if (!state || !state.tokenPositions) return;
     _pendingPlayerCombatState = state;
-    if (!_playerMapViewer) {
-      if (state.mapKey && state.mapKey !== _playerMapKey) {
-        return;
-      }
-      return;
-    }
+    if (!_playerMapViewer) return;
     if (!_playerMapViewer.meta) return;
+    if (state.mapKey && _playerMapKey && state.mapKey !== _playerMapKey) return;
     var tokenPositions = state.tokenPositions;
     var objectives = state.objectives || {};
     var tokenData = [];
