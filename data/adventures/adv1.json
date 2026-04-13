@@ -1740,8 +1740,7 @@
               "discipline": "insight",
               "arena": "wits",
               "target": "Maya",
-              "resist": 3,
-              "risk": 4,
+              "tier": 1,
               "context": "Reading Maya — is that collision really an accident? Only roll if a PC specifically says they're trying to read her. Failure matters: it hides that she angled toward their table on purpose, which colors trust going forward.",
               "narrativePacing": "Roll only if asked. Do not prompt for this check.",
               "control": {
@@ -1761,8 +1760,7 @@
               "discipline": "intimidate",
               "arena": "presence",
               "target": "Krev Tosk",
-              "resist": 2,
-              "risk": 4,
+              "tier": 1,
               "context": "The Gunslinger's fast draw IS this check — blaster out before the enforcers can react. The draw is the statement, the blaster is leverage. Other vocations can use presence, posture, or reputation. This is the ONE roll that determines whether violence happens.",
               "narrativePacing": "This is a story fork. Always roll.",
               "control": {
@@ -1782,13 +1780,13 @@
               "discipline": "charm",
               "arena": "presence",
               "target": "Krev Tosk",
-              "resist": 2,
-              "risk": 4,
+              "tier": 1,
               "context": "Talking the enforcers down or redirecting them. Appealing to Krev's professionalism — he's a retrieval man, not a killer. Failure matters: escalation.",
               "narrativePacing": "Story fork. Always roll.",
               "control": {
                 "failure": "Krev sees through it. 'Nice try. Hand her over.' Social approach has failed — next move is violence or surrender.",
-                "success": "Refer to effect tiers."
+                "success": "Refer to effect tiers.",
+                "mastery": "The ease under pressure lands before Krev can even respond — one of the Kyuzo bodyguards visibly shifts his weight back, disengaging before the boss gives the order. Even if Krev holds firm, his backup has already made their calculation."
               },
               "effect": {
                 "fleeting": "Krev hesitates — he's listening, but not convinced. He'll give one more chance to make a real offer. A second social action can close this.",
@@ -1802,13 +1800,13 @@
               "discipline": "deception",
               "arena": "presence",
               "target": "Krev Tosk",
-              "resist": 2,
-              "risk": 4,
+              "tier": 1,
               "context": "Claiming Maya already handed the cylinder off, or that there's a bigger play in motion. Selling a lie to a professional enforcer. Failure matters: escalation.",
               "narrativePacing": "Story fork. Always roll.",
               "control": {
                 "failure": "'I know everyone who moves product for Varga. You're nobody.' The lie collapses. Krev's suspicion is now active hostility.",
-                "success": "Refer to effect tiers."
+                "success": "Refer to effect tiers.",
+                "mastery": "Krev not only swallows the lie clean — he volunteers something on the way out. An offhand comment about Varga being distracted by 'Imperial trouble at the docks' confirms the lie landed completely and plants a thread the PCs didn't ask for."
               },
               "effect": {
                 "fleeting": "Krev hesitates — the story doesn't quite add up but he can't immediately disprove it. He'll leave to verify, buying the PCs time but not resolving the situation permanently.",
