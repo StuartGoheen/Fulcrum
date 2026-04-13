@@ -1820,55 +1820,59 @@
           "id": "adv1-p1-s2",
           "number": 2,
           "title": "Maya's Offer",
-          "subtitle": "The Aftermath",
-          "readAloudPart1": "The cantina settles into a fragile quiet. Overturned chairs and broken glass crunch underfoot. The Bith bartender peers out from behind the bar, checking to see if it's safe. The few patrons who stayed press themselves into corners, deciding whether the show is over.\n\nThe woman at your table hasn't moved. She's sitting where she fell — one hand pressed against the blaster graze on her ribs, blood seeping between her fingers. But her eyes are clear. Sharp. She's been watching you the entire time.",
-          "readAloudPart1PauseNote": "Let the players react. Someone may want to treat her wound (Medicine). Someone may want to read her (Insight). Someone may want to check outside (Survival). Give them a beat before she speaks.",
-          "readAloudPart2": "She straightens up. The desperation fades faster than it should — replaced by a cool, appraising focus that was always underneath.\n\n\"Your fixer isn't coming. Cade Ryll — that's who you're waiting for, right? I don't know what happened to him, but I know he's not walking through that door.\"\n\nShe reaches into her jacket, wincing, and produces a dull metallic cylinder about the length of a stylus.\n\n\"This is an Imperial Code Cylinder. Encrypted. I intercepted it before Varga's people could get their hands on it. I don't know exactly what's on it — but I know it's worth a fortune to the right buyer. The problem is, I can't decrypt it. There's a droid out in the badlands — Switch. He can crack anything.\"\n\nShe looks at each of you in turn.\n\n\"I need people who can handle themselves. You just proved you can. Come with me to Switch, help me figure out what this thing is, and I'll cut you in. Equal shares.\"",
-          "gmNotes": "BREATHER SCENE: This is the aftermath of the cantina confrontation. The energy should shift from adrenaline to calculation. Maya makes her pitch, the players decide whether to trust her, and someone can patch her wound. This is a character-building moment — let the players talk to each other, argue about whether to trust this stranger, and make the choice on their own terms.\n\nMAYA'S PITCH: She's offering a partnership, not charity. She frames it as mutual need — she has the score, they have the muscle, and their fixer isn't coming. She mentions Cade Ryll by name to establish that she clocked them when she came in. She does NOT explain how she got the cylinder from Varga — she just says she intercepted it. If pressed, she deflects: 'Does it matter? It's here. They want it back. That's all you need to know.'\n\nTHE HOOK: The fixer no-show is the key. The PCs came to Jakku for a job. The job fell through. Maya is offering a replacement — and unlike the missing fixer, she's standing right here with Imperial hardware in her hand. The code cylinder is tangible, real, and obviously valuable enough that people are willing to fight over it.\n\nIF THEY REFUSE: Maya leaves alone. Scene 2 still happens — the PCs hear about Switch through the cantina patrons (the Abyssin drifters know the badlands, Nela Bren knows Switch by reputation). But Maya goes to Switch without them, and the PCs lose their cut. This should feel like a missed opportunity, not a dead end.",
+          "subtitle": "The Short Rest",
+          "readAloudPart1": "Nobody says anything. You move.\n\nMaya is already on her feet — one hand pressed to her ribs, the other waving you forward. The Bith bartender doesn't try to stop you. Neither does anyone else.\n\nThree blocks from The Burning Deck, down a service alley that smells of recycled coolant and old grease, she pushes open the rusted shutter of a derelict vaporator maintenance shed. Inside: a collapsed workbench, a tangle of stripped conduit, half a moisture collector that hasn't moved in years. No windows. One way in.\n\nShe pulls the shutter closed behind you and sinks against the wall. A breath. The first real one she's taken since she hit your table.\n\n\"Give me a minute.\"",
+          "readAloudPart1PauseNote": "This is the short rest. Give the party a moment to settle. Someone may want to treat her wound (Medicine). Someone may want to read her while her guard is down (Insight). Let the room breathe before she makes her pitch.",
+          "readAloudPart2": "She reaches into her jacket — carefully, given the state of her ribs — and produces a dull metallic cylinder about the length of a stylus. Sets it on the bench between you.\n\n\"Imperial Code Cylinder. Encrypted. I pulled it out of Varga's supply chain before his people knew what they had. I don't know exactly what's on it — but I know it's worth something to the right buyer. The problem is, I can't decrypt it.\"\n\nShe looks around the group. Taking her time. Like she's still deciding something.\n\n\"There's a droid out in the badlands. Switch. He can crack anything. I need people who can handle themselves.\" A beat. \"You just proved you can.\"\n\nShe holds up one hand, fingers spread.\n\n\"Ten shares. One each for your crew. Five for me.\" Her hand stays up. \"I have the ship. I have the score. And right now, none of us have anything better to do.\"",
+          "gmNotes": "SHORT REST: The party has cleared the cantina and gone to ground. The derelict vaporator shed gives them cover — one entrance, no sight lines from the street, and enough time to breathe before Varga's people figure out where they went. This is a short rest window. Allow recovery actions. The clock is running but it isn't urgent yet.\n\nMAYA'S CONDITION: Maya is carrying [Debilitated Physique ×2] from the blaster graze. This is a real mechanical state — it limits what she can do physically in future scenes until cleared. She won't ask for help. If someone offers medicine, she accepts without ceremony. Track how many points are cleared — it affects her participation going forward.\n\nMAYA'S READ: She does NOT know who the party was waiting for. She spotted them from across the cantina when she came through the door — armed crew, professional posture, waiting for someone who hadn't shown. She made a calculation and aimed for their table. The trip was real. The direction was tactical. She chose them by read, not by intelligence.\n\nTHE PITCH: Maya's opening offer is 10 shares total — 1 for each member of the crew, 5 for herself. She frames it plainly: she has the ship, she has the score, and the cylinder might be worth nothing. That's the risk everyone is taking. She does NOT explain exactly how she got the cylinder. If pressed: 'Does it matter? It's here. They want it back. That's all you need to know.'\n\nTHE SHARES SYSTEM: Maya opens at 5 shares for herself. Persuasion can reduce her share to a minimum of 2 — she will not go lower. Each share removed from her increases the relative value of everyone else's cut. If the players don't push, she holds at 5 and doesn't resent it. If they push well, she respects it.\n\nIF THEY REFUSE: Maya goes to Switch alone. The PCs can still learn about Switch from the cantina contacts (the Abyssin drifters know the badlands, Nela Bren knows Switch by reputation) — but they lose their cut and Maya's trust. This should feel like a missed opportunity, not a wall.",
           "npcs": [
             {
               "name": "Maya",
               "type": "Character",
               "count": 1,
-              "notes": "Solo smuggler. Wounded but calculating. She chose to crash into their table — the trip was real, the direction was deliberate.",
-              "behavior": "Direct and transactional. No begging, no sob story. She reads the room — appeals to greed for mercenaries, justice for idealists, curiosity for investigators. Mentions the fixer by name to show she was paying attention. Deflects personal questions.",
+              "notes": "Solo smuggler. Carrying [Debilitated Physique ×2] from the blaster graze — a real mechanical condition that limits her physical capability in future scenes until treated. She chose this crew by read, not prior knowledge. The trip into their table was real; the direction was deliberate.",
+              "behavior": "Direct and transactional. No begging, no sob story. She reads the room — appeals to greed for mercenaries, self-interest for investigators, practicality for everyone else. She does NOT know who the party was waiting for. She does NOT volunteer personal history. Deflects questions about how she got the cylinder.",
               "dialogue": [
-                "\"Your fixer isn't coming. Cade Ryll — that's who you're waiting for, right?\"",
-                "\"This is an Imperial Code Cylinder. Encrypted. I intercepted it before Varga's people could get their hands on it.\"",
+                "\"Imperial Code Cylinder. Encrypted. I pulled it out of Varga's supply chain before his people knew what they had.\"",
                 "\"There's a droid out in the badlands — Switch. He can crack anything. I need people who can handle themselves. You just proved you can.\"",
-                "\"Come with me to Switch, help me figure out what this thing is, and I'll cut you in. Equal shares.\"",
+                "\"Ten shares. One each for your crew. Five for me. I have the ship and the score.\"",
+                "\"The cylinder might be worth a fortune. It might be worth nothing. I'm betting it's the former. You're welcome to bet with me.\"",
                 "\"Does it matter how I got it? It's here. They want it back. That's all you need to know.\""
               ],
-              "intel": "Maya intercepted an encrypted Imperial Code Cylinder from Varga's supply chain. She needs it decrypted by Switch, a droid information broker hidden in the badlands. She's offering equal shares of whatever the data leads to.",
+              "intel": "Maya intercepted an encrypted Imperial Code Cylinder from Varga's supply chain. She needs it decrypted by Switch, a droid information broker hidden in the badlands. She is offering 10 shares — 1 per crew member, 5 for herself — with a floor of 2 shares for herself if negotiated down.",
               "threatBuild": null,
               "loot": []
             }
           ],
-          "hazards": "Post-brawl cantina. Broken furniture, nervous patrons. Varga's people could send a second crew.",
+          "hazards": "Derelict vaporator maintenance shed. Rusted shutter, unstable floor sections, exposed conduit. Varga's people don't know where the party went — but that window won't last.",
           "decisions": [
             {
-              "choice": "Accept Maya's offer — go to Switch together",
-              "consequence": "The party heads into the badlands with Maya. Scene 3 (The Processor) follows directly."
+              "choice": "Accept Maya's offer at her terms — 5 shares for her",
+              "consequence": "The deal is done. The party heads into the badlands with Maya. Scene 3 (The Processor) follows directly."
+            },
+            {
+              "choice": "Negotiate for a better split (Persuasion)",
+              "consequence": "Maya's share can be reduced to a minimum of 2. Each tier of success drops her share by one. She respects the play if it's done well."
             },
             {
               "choice": "Demand more information before committing",
-              "consequence": "Maya gives what she can but holds back personal details. Insight check reveals her motives. She won't wait forever."
+              "consequence": "Maya gives what she can but holds back personal details. Insight reveals her real motives. She won't wait indefinitely — they need to move."
             },
             {
               "choice": "Refuse and let Maya go alone",
-              "consequence": "Maya leaves. PCs can still find Switch through cantina patrons (Abyssin drifters, Nela Bren), but they lose their cut and Maya's trust."
+              "consequence": "Maya leaves. PCs can still find Switch through cantina contacts (Abyssin drifters know the badlands, Nela Bren knows Switch by reputation) — but they lose their cut and Maya's trust."
             },
             {
               "choice": "Try to take the cylinder from Maya",
-              "consequence": "Maya is wounded but not stupid. She'll bolt. The cylinder leads nowhere without Switch — and the PCs have made an enemy of their best lead."
+              "consequence": "Maya is wounded but not cornered. She'll bolt. The cylinder leads nowhere without Switch — and the PCs have made an enemy of their best lead."
             }
           ],
           "loreTags": [
             "Maya",
             "The Code Cylinder",
-            "Cade Ryll",
             "Switch",
-            "The Sinkhole"
+            "The Sinkhole",
+            "Varga's Supply Chain"
           ],
           "narrativeLinks": [],
           "challengeType": "social",
@@ -1886,8 +1890,7 @@
           "disciplineTags": [
             "medicine",
             "insight",
-            "charm",
-            "survival"
+            "persuasion"
           ],
           "gearFlags": [
             "medpac"
@@ -1895,16 +1898,22 @@
           "encounters": [],
           "environmentMechanics": [
             {
-              "name": "Wrecked Cantina",
+              "name": "Short Rest Window",
+              "trigger": "Active at scene open",
+              "effect": "The party has time to recover before moving on. Allow short rest actions — spend recovery pools, clear minor conditions, treat wounds. The window is real but not unlimited.",
+              "mitigation": "Players who skip the rest can't reclaim it once the scene ends."
+            },
+            {
+              "name": "The Derelict Shed",
               "trigger": "Active throughout",
-              "effect": "Overturned furniture, broken glass, nervous patrons. The bartender Dodd Mull is cleaning up and wants everyone to leave. Tension lingers — a second crew from Varga could arrive.",
-              "mitigation": "Keep voices low. Don't draw attention."
+              "effect": "One entrance. No windows. Rusted shutter that groans if opened fast. Anyone approaching has to come through that door — the party hears them coming. Maya chose this spot deliberately.",
+              "mitigation": "If Varga's people do locate them, the chokepoint is an advantage — but also a trap if they come in numbers."
             },
             {
               "name": "Ticking Clock",
-              "trigger": "If players linger too long",
-              "effect": "Dodd Mull mentions that Krev will report back to Varga. The longer they stay at The Burning Deck, the more likely reinforcements arrive.",
-              "mitigation": "Make a decision and move. The badlands are safer than the cantina right now."
+              "trigger": "If the scene drags past natural resolution",
+              "effect": "Varga's people are combing the settlement. The window to move safely narrows. If the party hasn't committed to a direction within a reasonable beat, remind them: the shed won't stay unknown.",
+              "mitigation": "Make the decision. The badlands are safer than sitting still."
             }
           ],
           "rewards": {
@@ -1913,21 +1922,21 @@
               "Imperial Code Cylinder (encrypted)"
             ],
             "intel": [
-              "Maya intercepted an Imperial Code Cylinder from Varga the Hutt's supply chain",
+              "Maya pulled an Imperial Code Cylinder from Varga the Hutt's supply chain",
               "Cylinder needs a specialist — Switch, a droid hidden in the badlands",
-              "Their fixer Cade Ryll isn't coming — Maya is the only game in town",
-              "Maya is offering equal shares of whatever the data leads to"
+              "Maya is offering 10 shares: 1 per crew member, 5 for herself — negotiable down to 2",
+              "Maya's [Debilitated Physique ×2] can be cleared with medicine during the short rest — affects her capability in future scenes"
             ],
             "connections": [
-              "Maya (potential partner — earned through the fight, not given freely)"
+              "Maya (potential partner — chosen by read, not circumstance)"
             ]
           },
           "pacing": {
-            "openingBeat": "Aftermath. The cantina is quiet. Maya is bleeding at the table. The players have a moment to breathe and process what just happened.",
-            "risingAction": "Maya's pitch. She names the fixer, produces the cylinder, names Switch. The offer is transactional — she needs muscle, they need a job.",
-            "climax": "The decision. Trust the stranger or walk away. The missing fixer makes this the only play on the table.",
-            "resolution": "The party agrees (or doesn't). If yes, they head into the badlands. Clock is ticking — Varga will know.",
-            "estimatedMinutes": 15
+            "openingBeat": "The move. The party clears the cantina fast and goes to ground in a derelict vaporator shed three blocks away. Maya sinks against the wall and asks for a minute.",
+            "risingAction": "The short rest. Medicine if someone offers. Insight if someone reads her. The room settles. Then she produces the cylinder.",
+            "climax": "The pitch. Ten shares. The negotiation if they push. The cylinder sits on the bench between them — real, encrypted, and possibly worth everything.",
+            "resolution": "The deal is struck — or isn't. If yes, the party moves into the badlands. The window to do it clean is closing.",
+            "estimatedMinutes": 20
           },
           "knackTags": [
             "debtor",
@@ -1955,19 +1964,19 @@
               "discipline": "medicine",
               "arena": "wits",
               "target": "Maya (blaster wound)",
-              "resist": 2,
-              "risk": 3,
-              "context": "Treating Maya's blaster graze. Non-critical wound but painful. Treating her before she makes her pitch changes the dynamic — she's more forthcoming with someone who helped without being asked.",
+              "tier": 1,
+              "context": "Treating Maya's blaster graze during the short rest. She is currently carrying [Debilitated Physique ×2] — a real mechanical condition that limits what she can do physically in future scenes. She will not ask for help. If someone offers, she accepts without ceremony. If no one offers, she tears a strip from her jacket and does it herself — both conditions remain.",
               "isOptional": true,
-              "narrativePacing": "Skip the roll unless a player specifically wants to treat her. Reward the effort narratively. If no one offers, Maya patches herself with a wince and a strip torn from her jacket.",
+              "narrativePacing": "Skip the roll unless a player specifically tends to her. The effort changes the dynamic regardless of result — she notices people who help without being asked.",
               "control": {
-                "failure": "Basic patch job. Bleeding stops but Maya winces through the rest of the conversation.",
-                "success": "Refer to effect tiers."
+                "failure": "Bleeding stops. The wound is closed but the damage is done. Maya carries both [Debilitated Physique] conditions into what comes next.",
+                "success": "Refer to effect tiers.",
+                "mastery": "The precision is evident even through field conditions. Maya watches the work without speaking. When she makes her pitch, she addresses the medic first. Something has shifted."
               },
               "effect": {
-                "fleeting": "Wound cleaned and dressed competently. Maya is grateful — a brief, genuine moment before the mask goes back on.",
-                "masterful": "Professional treatment. Maya visibly relaxes and becomes more forthcoming with details about the code cylinder and her history with Varga.",
-                "legendary": "Expert field surgery — minimal scarring. Maya is impressed and trusts the PCs significantly more. She volunteers information she would otherwise hold back: the cylinder was moving through Varga's supply chain, and she thinks it connects to something Imperial."
+                "fleeting": "Remove 1 [Debilitated Physique]. The graze is cleaned and dressed competently. Maya is still impaired but functional — she can act in future scenes, just at reduced capacity.",
+                "masterful": "Remove both [Debilitated Physique] conditions. Professional treatment. Maya moves freely. She'll be fully present in the scenes ahead.",
+                "legendary": "Remove both [Debilitated Physique] conditions. The work is clean enough she won't even scar. She puts her jacket back on and there's a new quality to how she looks at the medic — not gratitude exactly. Recognition. When the shares negotiation begins, she concedes one beat without being pushed."
               }
             },
             {
@@ -1976,40 +1985,40 @@
               "discipline": "insight",
               "arena": "wits",
               "target": "Maya",
-              "resist": 3,
-              "risk": 3,
-              "context": "Reading Maya's motives. Is she telling the truth about the cylinder? Is she desperate or dangerous? What's she not saying?",
+              "tier": 1,
+              "context": "Reading Maya's motives during the short rest or the pitch. Is she telling the truth about the cylinder? Is she as calm as she looks? What's she not saying?",
               "isOptional": true,
-              "narrativePacing": "Roll only if a player specifically asks to read her. This rewards suspicion without punishing trust.",
+              "narrativePacing": "Roll only if a player specifically tries to read her. Rewards suspicion without punishing trust.",
               "control": {
-                "failure": "Maya is hard to read. She's clearly competent, clearly wounded, and clearly in a hurry. Beyond that — nothing.",
-                "success": "Refer to effect tiers."
+                "failure": "Maya is hard to read. She's competent, wounded, and deliberate. Beyond that — nothing surfaces.",
+                "success": "Refer to effect tiers.",
+                "mastery": "The PC also catches how Maya chooses to sit — weight away from the door, back to the wall, sightlines on the shutter. She has been in rooms like this before. Not Varga's rooms. Rooms people run to, not from."
               },
               "effect": {
-                "fleeting": "She's genuinely afraid — not of the PCs, but of what happens if she goes to Switch alone. She needs backup.",
-                "masterful": "The crash into their table wasn't entirely accidental. She clocked them — armed crew, waiting for someone — and angled toward them on purpose. She's calculating, not desperate.",
-                "legendary": "Maya is holding back something about how she got the cylinder. She didn't just intercept it — she stole it deliberately. The fear isn't about Varga's thugs. It's about what's on the cylinder and who might come looking for it."
+                "fleeting": "She's not desperate — she's running a calculated play. The fear is real but controlled. She needs backup because the alternative is worse, not because she has no other options.",
+                "masterful": "She chose this crew deliberately. She spotted them from across the cantina — armed, waiting, professional — and made a decision before she hit their table. The cylinder is real. The pitch is genuine. But she has been evaluating them since she walked through the door.",
+                "legendary": "Maya knows more about what is on the cylinder than she is admitting. She did not just stumble across it in Varga's supply chain — she went looking for it specifically. Whatever is on that device, she already has a theory. And she is afraid of being right."
               }
             },
             {
-              "id": "sc-s2-survival",
-              "actionType": "assess",
-              "discipline": "survival",
-              "arena": "grit",
-              "target": "The route to the Sinkhole",
-              "resist": 2,
-              "risk": 2,
-              "context": "Scouting the area outside The Burning Deck before heading into the badlands. Checking for a tail, reading the terrain, finding a safe route.",
+              "id": "sc-s2-persuasion",
+              "actionType": "interact",
+              "discipline": "persuasion",
+              "arena": "presence",
+              "target": "Maya",
+              "tier": 1,
+              "context": "Negotiating Maya's share of the score. She opens at 5 shares for herself — she has the ship, the score, and the cylinder might be worth nothing. Each tier of success reduces her share by 1, to a hard floor of 2. She will not go lower. Each share removed from her increases the relative value of everyone else's cut.",
               "isOptional": true,
-              "narrativePacing": "Optional. Rewards caution with tactical info. Good for players who want to feel prepared.",
+              "narrativePacing": "Roll only if the players push for a better split. Maya's opening offer is defensible — don't pressure players to negotiate if they are satisfied. If no one pushes, she holds at 5 shares and does not resent it.",
               "control": {
-                "failure": "The badlands are a maze of mesas and dry washes. Hard to see much from here.",
-                "success": "Refer to effect tiers."
+                "failure": "\"I have the ship. I have the score. You have a blaster and nowhere else to be.\" She holds at 5 shares. The math does not move.",
+                "success": "Refer to effect tiers.",
+                "mastery": "The PC names a number before Maya can anchor the room. She pauses — actually pauses — and looks at them differently. \"You have done this before.\" She comes down and she does not resent it."
               },
               "effect": {
-                "fleeting": "No one followed the thugs out. The route to the Sinkhole is clear — for now.",
-                "masterful": "The PC identifies a sheltered approach through the dune field that avoids the main trails. Less chance of being spotted.",
-                "legendary": "The PC spots a second group — not Varga's people. Two figures watching The Burning Deck from a rooftop across the street. They're not enforcers. Imperial intelligence? Another interested party? They withdraw when spotted."
+                "fleeting": "Maya drops to 4 shares. A concession — small but real. She still holds the majority.",
+                "masterful": "Maya drops to 3 shares. \"Fair enough. Don't make me regret it.\" She respects the play.",
+                "legendary": "Maya drops to 2 shares — her floor. \"Don't push it further.\" But she says it like someone who respects what just happened."
               }
             }
           ]
