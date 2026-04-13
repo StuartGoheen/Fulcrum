@@ -873,6 +873,7 @@ router.delete('/characters/:id', async (req, res) => {
     await client.query('DELETE FROM adventure_marks WHERE character_id = $1', [charId]);
     await client.query('DELETE FROM narrative_challenge_instances WHERE character_id = $1', [charId]);
     await client.query('DELETE FROM equipment_status WHERE character_id = $1::text', [charId]);
+    await client.query('DELETE FROM item_requests WHERE character_name = $1', [check.rows[0].name]);
     await client.query('DELETE FROM sessions WHERE character_id = $1', [charId]);
     await client.query('DELETE FROM characters WHERE id = $1', [charId]);
     await client.query('COMMIT');
