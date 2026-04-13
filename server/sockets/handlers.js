@@ -118,7 +118,9 @@ function _getPlayerCombatState() {
       return {
         id: n.id, name: n.name, type: 'npc',
         initiative: n.initiative,
-        disposition: n.disposition || 'enemy'
+        disposition: n.disposition || 'enemy',
+        role: n.role || '',
+        species: n.species || ''
       };
     }),
     pcSlots: (_combatState.pcSlots || []).map(function (p) {

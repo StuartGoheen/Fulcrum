@@ -359,9 +359,10 @@
     var dispLabel = npc.disposition === 'ally' ? 'Ally' : npc.disposition === 'neutral' ? 'Neutral' : 'Enemy';
     var objectives = state.objectives || {};
     var details = [
-      { key: 'Type', value: 'NPC' },
       { key: 'Disposition', value: dispLabel }
     ];
+    if (npc.species) details.push({ key: 'Species', value: npc.species });
+    if (npc.role) details.push({ key: 'Role', value: npc.role });
     if (objectives[tokenId]) {
       details.push({ key: 'Objective', value: 'Yes' });
     }

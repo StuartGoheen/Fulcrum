@@ -315,8 +315,8 @@
       var tokenEl = e.target.closest('.tm-token');
       if (tokenEl && self.role === 'gm') {
         var tokId = tokenEl.dataset.tokenId;
-        if (tokId) {
-          var rect = self._canvas.getBoundingClientRect();
+        var isPcToken = tokenEl.classList.contains('tm-token--pc');
+        if (tokId && !isPcToken) {
           self._tokenDrag = {
             id: tokId,
             el: tokenEl,
