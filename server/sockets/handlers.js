@@ -434,9 +434,9 @@ function registerHandlers(io) {
       }
       try {
         await setDestinyLocked(false);
-        const destinyPool = await rebuildPool(io);
+        const destinyPool = await getDestinyPool();
         io.emit('destiny:sync', { pool: destinyPool, locked: false });
-        console.log(`[socket] GM unlocked destiny pool, rebuilt (${destinyPool.length} tokens)`);
+        console.log(`[socket] GM unlocked destiny pool (${destinyPool.length} tokens preserved)`);
       } catch (err) {
         console.error('[socket] destiny:unlock error:', err);
       }
