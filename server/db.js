@@ -442,4 +442,4 @@ async function initialize() {
   await seedNpcProfiles();
 }
 
-module.exports = { pool, initialize };
+module.exports = { pool, initialize, seedNpcProfiles };

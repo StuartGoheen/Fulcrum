@@ -2,7 +2,7 @@ const express = require('express');
 const router  = express.Router();
 const path    = require('path');
 const fs      = require('fs');
-const { pool } = require('../db');
+const { pool, seedNpcProfiles } = require('../db');
 const { resolveDecisionState, applyAdventureConditionals } = require('../utils/decision-resolver');
 
 const ADVENTURES_DIR = path.join(__dirname, '..', '..', 'data', 'adventures');
@@ -1375,16 +1375,6 @@ router.post('/campaign/holonet/broadcast', async (req, res) => {
   }
 });
 
-const NPC_SEED_PROFILES = [
-  { npc_key: 'maya', name: 'Maya', species: 'Human', role: 'Pilot & Engineer', portrait_url: '/attached_assets/generated_images/maya_pilot.png', status: 'allied', player_bio: '', gm_notes: '', traits: '[]', connections: '[]', revealed: true, sort_order: 1 },
-  { npc_key: 'varth', name: 'Admiral Gilder Varth', species: 'Human', role: 'Employer & Strategist', portrait_url: '/attached_assets/generated_images/varth_before_turn.png', status: 'allied', player_bio: '', gm_notes: '', traits: '[]', connections: '[]', revealed: true, sort_order: 2 },
-  { npc_key: 'varga', name: 'Varga Besadii Drokko', species: 'Hutt', role: 'Crime Lord', portrait_url: '/attached_assets/generated_images/varga_portrait.png', status: 'hostile', player_bio: '', gm_notes: '', traits: '[]', connections: '[]', revealed: true, sort_order: 3 },
-  { npc_key: 'draco', name: 'Inquisitor Valin Draco', species: 'Human', role: 'Imperial Inquisitor', portrait_url: '/attached_assets/generated_images/draco_inquisitor.png', status: 'hostile', player_bio: '', gm_notes: '', traits: '[]', connections: '[]', revealed: false, sort_order: 4 },
-  { npc_key: 'raden', name: 'Warrick Raden', species: 'Devaronian', role: 'Fixer & Information Broker', portrait_url: '/attached_assets/generated_images/raden_fixer.png', status: 'allied', player_bio: '', gm_notes: '', traits: '[]', connections: '[]', revealed: false, sort_order: 5 },
-  { npc_key: 'switch', name: 'Switch', species: 'Droid (Protocol-class)', role: 'Information Broker & Crime Lord', portrait_url: '/attached_assets/generated_images/switch_droid.png', status: 'neutral', player_bio: '', gm_notes: '', traits: '[]', connections: '[]', revealed: false, sort_order: 6 },
-  { npc_key: 'denia', name: 'Jedi Master Denia', species: 'Human', role: 'Jedi Master', portrait_url: '/attached_assets/generated_images/denia_jedi.png', status: 'allied', player_bio: '', gm_notes: '', traits: '[]', connections: '[]', revealed: false, sort_order: 7 }
-];
-
 const WIPE_CATEGORIES = {
   full: {
     label: 'Full Campaign Reset',
@@ -1437,16 +1427,10 @@ router.post('/admin/wipe', async (req, res) => {
     if (category === 'full' || category === 'progress') {
       await client.query(`INSERT INTO campaign_progress (id, adventure_id, part_id, scene_id) VALUES (1, 'adv1', 'adv1-p1', 'adv1-p1-s1') ON CONFLICT (id) DO NOTHING`);
     }
-    if (cat.reseedNpcs) {
-      for (const p of NPC_SEED_PROFILES) {
-        await client.query(
-          `INSERT INTO npc_profiles (npc_key, name, species, role, portrait_url, status, player_bio, gm_notes, traits, connections, revealed, sort_order)
-           VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12) ON CONFLICT (npc_key) DO NOTHING`,
-          [p.npc_key, p.name, p.species, p.role, p.portrait_url, p.status, p.player_bio, p.gm_notes, p.traits, p.connections, p.revealed, p.sort_order]
-        );
-      }
-    }
     await client.query('COMMIT');
+    if (cat.reseedNpcs) {
+      await seedNpcProfiles();
+    }
     console.log('[admin] Wiped category:', category, '(' + cat.label + ')');
     res.json({ ok: true, category, label: cat.label });
   } catch (err) {
