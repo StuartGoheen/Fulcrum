@@ -356,46 +356,42 @@
     if (!state) return;
     var npc = (state.combatants || []).find(function (n) { return n.id === tokenId; });
     if (!npc) return;
-    var pct = npc.vitalityMax > 0 ? Math.round((npc.vitalityCurrent / npc.vitalityMax) * 100) : 0;
     var dispLabel = npc.disposition === 'ally' ? 'Ally' : npc.disposition === 'neutral' ? 'Neutral' : 'Enemy';
+    var objectives = state.objectives || {};
     var details = [
-      { key: 'Disposition', value: dispLabel },
-      { key: 'Vitality', value: npc.vitalityCurrent + '/' + npc.vitalityMax + ' (' + pct + '%)' }
+      { key: 'Type', value: 'NPC' },
+      { key: 'Disposition', value: dispLabel }
     ];
-    if (npc.threat) details.push({ key: 'Threat', value: npc.threat });
-    if (npc.conditions && npc.conditions.length) {
-      var condStr = npc.conditions.map(function (c) { return typeof c === 'object' ? c.id : c; }).join(', ');
-      details.push({ key: 'Conditions', value: condStr });
+    if (objectives[tokenId]) {
+      details.push({ key: 'Objective', value: 'Yes' });
     }
     var existing = document.getElementById('tm-dialog-overlay');
     if (existing) existing.remove();
-    if (window.TacticalMapViewer && window.TacticalMapViewer._confirm) {
-      var overlay = document.createElement('div');
-      overlay.id = 'tm-dialog-overlay';
-      overlay.className = 'tm-dialog-overlay';
-      var box = document.createElement('div');
-      box.className = 'tm-dialog-box';
-      var titleEl = document.createElement('div');
-      titleEl.className = 'tm-dialog-title';
-      titleEl.textContent = _escHtml(npc.name);
-      box.appendChild(titleEl);
-      details.forEach(function (d) {
-        var row = document.createElement('div');
-        row.className = 'tm-dialog-detail';
-        row.innerHTML = '<span class="tm-dialog-key">' + _escHtml(d.key) + ':</span> ' + _escHtml(d.value);
-        box.appendChild(row);
-      });
-      var btnRow = document.createElement('div');
-      btnRow.className = 'tm-dialog-btns';
-      var closeBtn = document.createElement('button');
-      closeBtn.className = 'tm-dialog-btn';
-      closeBtn.textContent = 'Close';
-      closeBtn.addEventListener('click', function () { overlay.remove(); });
-      btnRow.appendChild(closeBtn);
-      box.appendChild(btnRow);
-      overlay.appendChild(box);
-      document.body.appendChild(overlay);
-    }
+    var overlay = document.createElement('div');
+    overlay.id = 'tm-dialog-overlay';
+    overlay.className = 'tm-dialog-overlay';
+    var box = document.createElement('div');
+    box.className = 'tm-dialog-box';
+    var titleEl = document.createElement('div');
+    titleEl.className = 'tm-dialog-title';
+    titleEl.textContent = _escHtml(npc.name);
+    box.appendChild(titleEl);
+    details.forEach(function (d) {
+      var row = document.createElement('div');
+      row.className = 'tm-dialog-detail';
+      row.innerHTML = '<span class="tm-dialog-key">' + _escHtml(d.key) + ':</span> ' + _escHtml(d.value);
+      box.appendChild(row);
+    });
+    var btnRow = document.createElement('div');
+    btnRow.className = 'tm-dialog-btns';
+    var closeBtn = document.createElement('button');
+    closeBtn.className = 'tm-dialog-btn';
+    closeBtn.textContent = 'Close';
+    closeBtn.addEventListener('click', function () { overlay.remove(); });
+    btnRow.appendChild(closeBtn);
+    box.appendChild(btnRow);
+    overlay.appendChild(box);
+    document.body.appendChild(overlay);
   }
 
   function _initPlayerTacticalMap(socket) {
@@ -659,7 +655,7 @@
         }
       }
 
-      var isDown = npc && npc.vitalityCurrent <= 0;
+      var isDown = npc && npc.vitalityCurrent !== undefined && npc.vitalityCurrent <= 0;
       var cls = 'pit-entry';
       if (isCurrent) cls += ' pit-current';
       if (isNpc) cls += ' pit-npc';
@@ -677,7 +673,7 @@
       }
       html += '<span class="pit-name">' + _escHtml(entry.name) + '</span>';
 
-      if (isNpc && npc) {
+      if (isNpc && npc && npc.vitalityCurrent !== undefined) {
         var pct = npc.vitalityMax > 0 ? Math.round((npc.vitalityCurrent / npc.vitalityMax) * 100) : 0;
         var cs = getComputedStyle(document.documentElement);
         var hpColor = pct > 60 ? (cs.getPropertyValue('--color-success').trim() || '#22c55e') : pct > 30 ? (cs.getPropertyValue('--color-warn').trim() || '#eab308') : (cs.getPropertyValue('--color-fail').trim() || '#ef4444');

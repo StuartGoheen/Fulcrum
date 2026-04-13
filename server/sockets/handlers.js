@@ -116,9 +116,8 @@ function _getPlayerCombatState() {
     mapKey: mapKey,
     combatants: (_combatState.combatants || []).map(function (n) {
       return {
-        id: n.id, name: n.name, type: 'npc', threat: n.threat, tier: n.tier,
-        vitalityCurrent: n.vitalityCurrent, vitalityMax: n.vitalityMax,
-        conditions: n.conditions, initiative: n.initiative,
+        id: n.id, name: n.name, type: 'npc',
+        initiative: n.initiative,
         disposition: n.disposition || 'enemy'
       };
     }),

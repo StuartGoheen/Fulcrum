@@ -1185,11 +1185,6 @@
     _ctMapViewer.onMapLoaded = function () {
       _updateCombatTokens();
     };
-    _ctMapViewer.onTokenClick = function (tokenId) {
-      if (!combatState) return;
-      combatState.selectedId = tokenId;
-      renderCombatTracker();
-    };
     _ctMapViewer.onTokenMoved = function (tokenId, zoneId) {
       if (!combatState) return;
       combatState.tokenPositions[tokenId] = zoneId;
@@ -1199,11 +1194,8 @@
     };
     _ctMapViewer.onTokenViewDetails = function (tokenId) {
       if (!combatState) return;
-      var npc = combatState.combatants.find(function (n) { return n.id === tokenId; });
-      if (npc) {
-        combatState.selectedId = tokenId;
-        renderCombatTracker();
-      }
+      combatState.selectedId = tokenId;
+      renderCombatTracker();
     };
     _ctMapViewer.onTokenSetDisposition = function (tokenId, disp) {
       if (!combatState) return;

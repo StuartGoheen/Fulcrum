@@ -437,7 +437,12 @@
       var token = e.target.closest('.tm-token');
       if (token) {
         var tokenId = token.dataset.tokenId;
-        if (tokenId && self.onTokenClick) {
+        if (!tokenId) return;
+        if (self._tokenDrag && self._tokenDrag.started) return;
+        if (self.role === 'gm') {
+          var rect = token.getBoundingClientRect();
+          self._showTokenContextMenu(rect.left + rect.width / 2, rect.bottom + 4, tokenId);
+        } else if (self.onTokenClick) {
           self.onTokenClick(tokenId);
         }
         return;
