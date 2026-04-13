@@ -1259,6 +1259,159 @@
                   }
                 ]
               }
+            },
+            {
+              "name": "Stormtrooper Rifleman",
+              "type": "Character",
+              "count": 1,
+              "loot": [
+                {
+                  "id": "wpn_e11_01",
+                  "name": "BlasTech E-11",
+                  "type": "weapon",
+                  "qty": 1
+                },
+                {
+                  "id": "arm_stormtrooper_01",
+                  "name": "Stormtrooper Armor",
+                  "type": "armor",
+                  "qty": 1
+                },
+                {
+                  "id": "gear_utility_belt_01",
+                  "name": "Utility Belt",
+                  "type": "gear",
+                  "qty": 1
+                },
+                {
+                  "id": "gear_medpac_01",
+                  "name": "Medpac",
+                  "type": "gear",
+                  "qty": 1
+                }
+              ],
+              "threatBuild": {
+                "role": "threat",
+                "tier": 1,
+                "classification": "minion",
+                "threatCategory": "character",
+                "powerSource": "ranged",
+                "arenas": {
+                  "physique": 2,
+                  "reflex": 2,
+                  "grit": 2,
+                  "wits": 2,
+                  "presence": 2
+                },
+                "computed": {
+                  "defense": 4,
+                  "evasion": 3,
+                  "resist": 4,
+                  "vitality": 5,
+                  "initiative": 5,
+                  "power": 4,
+                  "powers": {
+                    "physique": 3,
+                    "reflex": 4,
+                    "grit": 3,
+                    "wits": 3,
+                    "presence": 3
+                  },
+                  "actions": 1,
+                  "exploits": 0,
+                  "damageTiers": {
+                    "label": "medium",
+                    "fleeting": 3,
+                    "masterful": 5,
+                    "legendary": 8
+                  }
+                },
+                "traits": [
+                  "disciplined",
+                  "loyal",
+                  "armored_light"
+                ],
+                "tags": [
+                  "Imperial",
+                  "Military",
+                  "imperial"
+                ],
+                "roleKit": {
+                  "roleName": "Threat / Ranged",
+                  "action": {
+                    "name": "Dead Shot",
+                    "defense": "dodge/endure",
+                    "npcEffects": {
+                      "fleeting": "Chassis damage",
+                      "masterful": "Chassis damage",
+                      "legendary": "Chassis damage"
+                    },
+                    "isAttack": true,
+                    "arena": "reflex"
+                  },
+                  "passive": {
+                    "name": "Lethal Focus",
+                    "description": "+1 Power to attacks in chosen arena.",
+                    "statMod": {
+                      "powerArena": 1
+                    }
+                  },
+                  "maneuver": null,
+                  "gambit": {
+                    "name": "Crippling Shot",
+                    "cost": "-1 Power",
+                    "description": "Attack also inflicts [Slowed] Tactical.",
+                    "rider": "[Slowed]"
+                  },
+                  "gambits": [
+                    {
+                      "name": "Crippling Shot",
+                      "cost": "-1 Power",
+                      "description": "Attack also inflicts [Slowed] Tactical.",
+                      "rider": "[Slowed]"
+                    },
+                    {
+                      "name": "Burst Fire",
+                      "cost": "-1 Power",
+                      "description": "Attack targets one additional enemy in the zone. Separate defense roll.",
+                      "rider": "Additional target"
+                    }
+                  ],
+                  "exploit": {
+                    "name": "Snap Shot",
+                    "trigger": "A PC uses Move to enter or cross a zone within weapon range.",
+                    "description": "Threat immediately attacks that PC."
+                  },
+                  "powerSource": "ranged"
+                },
+                "weaponChassis": "medium",
+                "loot": [
+                  {
+                    "id": "wpn_e11_01",
+                    "name": "BlasTech E-11",
+                    "type": "weapon",
+                    "qty": 1
+                  },
+                  {
+                    "id": "arm_stormtrooper_01",
+                    "name": "Stormtrooper Armor",
+                    "type": "armor",
+                    "qty": 1
+                  },
+                  {
+                    "id": "gear_utility_belt_01",
+                    "name": "Utility Belt",
+                    "type": "gear",
+                    "qty": 1
+                  },
+                  {
+                    "id": "gear_medpac_01",
+                    "name": "Medpac",
+                    "type": "gear",
+                    "qty": 1
+                  }
+                ]
+              }
             }
           ],
           "hazards": "Cantina environment — dim lighting, overturned tables, broken glass, panicking patrons. A fight on Jakku draws local attention (Varga's people, local gangs) but NOT Imperial attention.",
@@ -1514,7 +1667,8 @@
               "PCs": "A2",
               "npc_1": "A2",
               "npc_2": "B1",
-              "npc_0": "B1"
+              "npc_0": "B1",
+              "npc_4": "The Prow"
             }
           },
           "rewards": {
