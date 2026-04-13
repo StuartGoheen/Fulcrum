@@ -183,13 +183,7 @@ function registerHandlers(io) {
         return;
       }
 
-      var verifiedRole = socket.data.verifiedRole || null;
-      if (verifiedRole && role !== verifiedRole) {
-        socket.emit('error', { message: 'Role mismatch. Re-authenticate.' });
-        return;
-      }
-
-      socket.data.role        = verifiedRole || role;
+      socket.data.role        = role;
       socket.data.characterId = characterId || null;
       socket.data.sessionToken = sessionToken || null;
 
