@@ -543,7 +543,7 @@
     });
 
     var TOKEN_R = 14;
-    var TOKEN_SPACING = 32;
+    var BASE_SPACING = 32;
     var html = '';
 
     Object.keys(grouped).forEach(function (zoneId) {
@@ -554,14 +554,18 @@
       var toks = grouped[zoneId];
       var cols = Math.ceil(Math.sqrt(toks.length));
       var rows = Math.ceil(toks.length / cols);
-      var startX = cx - ((cols - 1) * TOKEN_SPACING) / 2;
-      var startY = cy - ((rows - 1) * TOKEN_SPACING) / 2;
+      var maxSpaceX = cols > 1 ? (zone.w - TOKEN_R * 2) / (cols - 1) : BASE_SPACING;
+      var maxSpaceY = rows > 1 ? (zone.h - TOKEN_R * 2) / (rows - 1) : BASE_SPACING;
+      var spacingX = Math.min(BASE_SPACING, maxSpaceX);
+      var spacingY = Math.min(BASE_SPACING, maxSpaceY);
+      var startX = cx - ((cols - 1) * spacingX) / 2;
+      var startY = cy - ((rows - 1) * spacingY) / 2;
 
       toks.forEach(function (tok, i) {
         var col = i % cols;
         var row = Math.floor(i / cols);
-        var tx = startX + col * TOKEN_SPACING;
-        var ty = startY + row * TOKEN_SPACING;
+        var tx = startX + col * spacingX;
+        var ty = startY + row * spacingY;
         var dispCls = tok.type === 'pc' ? 'pc' : (tok.disposition || 'enemy');
         var initial = tok.shortName ? tok.shortName.charAt(0).toUpperCase() : '?';
 
