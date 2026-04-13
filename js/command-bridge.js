@@ -4773,7 +4773,6 @@
       { key: 'decisions', icon: '\u2696',     label: 'Purge Decision Points',        confirmTitle: 'Rewrite History',           confirmMsg: 'Every decision the crew ever made — undone. The fork points vanish from the timeline.' },
       { key: 'progress',  icon: '\u{1F5FA}',  label: 'Reset Scene Progress',         confirmTitle: 'Reset the Campaign Clock',  confirmMsg: 'Scene completion marks and campaign progress will reset to the beginning.' },
       { key: 'npcs',      icon: '\u{1F464}',  label: 'Reset NPC Profiles & Timeline', confirmTitle: 'Memory Wipe — NPC Cortex', confirmMsg: 'All NPC profiles and timeline events will be wiped and re-seeded from factory defaults.' },
-      { key: 'pins',      icon: '\u{1F4CD}',  label: 'Purge Map Pins',               confirmTitle: 'Scrub the Star Charts',     confirmMsg: 'Every pin on every map — galaxy pins, local map pins — all removed.' },
       { key: 'items',     icon: '\u{1F4E6}',  label: 'Purge Items & Equipment',      confirmTitle: 'Jettison the Cargo',        confirmMsg: 'All item requests and equipment status records will be jettisoned into the void.' }
     ];
 

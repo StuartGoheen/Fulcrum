@@ -1378,7 +1378,7 @@ router.post('/campaign/holonet/broadcast', async (req, res) => {
 const WIPE_CATEGORIES = {
   full: {
     label: 'Full Campaign Reset',
-    tables: ['campaign_progress', 'campaign_decisions', 'scene_completion', 'journal_entry_tags', 'journal_entries', 'journal_tags', 'holonet_broadcasts', 'npc_timeline', 'npc_profiles', 'narrative_challenge_instances', 'campaign_state', 'galaxy_pins', 'map_pins', 'revealed_marks', 'adventure_marks', 'item_requests', 'equipment_status'],
+    tables: ['campaign_progress', 'campaign_decisions', 'scene_completion', 'journal_entry_tags', 'journal_entries', 'journal_tags', 'holonet_broadcasts', 'npc_timeline', 'npc_profiles', 'narrative_challenge_instances', 'campaign_state', 'revealed_marks', 'adventure_marks', 'item_requests', 'equipment_status'],
     reseedNpcs: true
   },
   journal: {
@@ -1401,10 +1401,6 @@ const WIPE_CATEGORIES = {
     label: 'NPC Profiles & Timeline',
     tables: ['npc_timeline', 'npc_profiles'],
     reseedNpcs: true
-  },
-  pins: {
-    label: 'Map Pins',
-    tables: ['galaxy_pins', 'map_pins']
   },
   items: {
     label: 'Item Requests & Equipment',
