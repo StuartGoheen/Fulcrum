@@ -183,7 +183,13 @@ function registerHandlers(io) {
         return;
       }
 
-      socket.data.role        = role;
+      var verifiedRole = socket.data.verifiedRole || null;
+      if (verifiedRole && role !== verifiedRole) {
+        socket.emit('error', { message: 'Role mismatch. Re-authenticate.' });
+        return;
+      }
+
+      socket.data.role        = verifiedRole || role;
       socket.data.characterId = characterId || null;
       socket.data.sessionToken = sessionToken || null;
 
@@ -1221,7 +1227,7 @@ function registerHandlers(io) {
             );
             const entryId = entryResult.rows[0].id;
             const tagResult = await client.query(
-              `INSERT INTO journal_tags (name, category) VALUES ($1, $2) ON CONFLICT (name) DO UPDATE SET name = EXCLUDED.name RETURNING id`,
+              `INSERT INTO journal_tags (name, category) VALUES ($1, $2) ON CONFLICT (name, category) DO UPDATE SET name = EXCLUDED.name RETURNING id`,
               ['tactical-map', 'location']
             );
             await client.query(
@@ -1229,7 +1235,7 @@ function registerHandlers(io) {
               [entryId, tagResult.rows[0].id]
             );
             const mapTagResult = await client.query(
-              `INSERT INTO journal_tags (name, category) VALUES ($1, $2) ON CONFLICT (name) DO UPDATE SET name = EXCLUDED.name RETURNING id`,
+              `INSERT INTO journal_tags (name, category) VALUES ($1, $2) ON CONFLICT (name, category) DO UPDATE SET name = EXCLUDED.name RETURNING id`,
               [mapKey, 'location']
             );
             await client.query(

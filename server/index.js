@@ -28,6 +28,21 @@ const server = http.createServer(app);
 const io     = new Server(server);
 app.set('io', io);
 
+io.use((socket, next) => {
+  const raw = socket.handshake.headers.cookie || '';
+  const parsed = cookieParser.signedCookies(
+    cookieParser.JSONCookies(
+      require('cookie').parse(raw)
+    ),
+    COOKIE_SECRET
+  );
+  const role = parsed['eote_role'] || null;
+  if (role) {
+    socket.data.verifiedRole = role;
+  }
+  next();
+});
+
 const PORT = process.env.PORT || 5000;
 const ROOT = path.join(__dirname, '..');
 
@@ -464,6 +479,14 @@ async function seedAllSceneNpcs() {
   if (totalInserted === 0) console.log('[seed] All scene NPC pins already present.');
   else console.log('[seed] Scene NPC pins: ' + totalInserted + ' total inserted across all maps.');
 }
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('[process] Unhandled Rejection:', reason);
+});
+process.on('uncaughtException', (err) => {
+  console.error('[process] Uncaught Exception:', err);
+  process.exit(1);
+});
 
 socketHandlers(io);
 
