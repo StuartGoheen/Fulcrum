@@ -1740,7 +1740,7 @@
               "discipline": "insight",
               "arena": "wits",
               "target": "Maya",
-              "tier": 1,
+              "defense": "resist",
               "context": "Reading Maya — is that collision really an accident? Only roll if a PC specifically says they're trying to read her. Failure matters: it hides that she angled toward their table on purpose, which colors trust going forward.",
               "narrativePacing": "Roll only if asked. Do not prompt for this check.",
               "control": {
@@ -1760,7 +1760,7 @@
               "discipline": "intimidate",
               "arena": "presence",
               "target": "Krev Tosk",
-              "tier": 1,
+              "defense": "resist",
               "context": "The Gunslinger's fast draw IS this check — blaster out before the enforcers can react. The draw is the statement, the blaster is leverage. Other vocations can use presence, posture, or reputation. This is the ONE roll that determines whether violence happens.",
               "narrativePacing": "This is a story fork. Always roll.",
               "control": {
@@ -1780,7 +1780,7 @@
               "discipline": "charm",
               "arena": "presence",
               "target": "Krev Tosk",
-              "tier": 1,
+              "defense": "resist",
               "context": "Talking the enforcers down or redirecting them. Appealing to Krev's professionalism — he's a retrieval man, not a killer. Failure matters: escalation.",
               "narrativePacing": "Story fork. Always roll.",
               "control": {
@@ -1800,7 +1800,7 @@
               "discipline": "deception",
               "arena": "presence",
               "target": "Krev Tosk",
-              "tier": 1,
+              "defense": "resist",
               "context": "Claiming Maya already handed the cylinder off, or that there's a bigger play in motion. Selling a lie to a professional enforcer. Failure matters: escalation.",
               "narrativePacing": "Story fork. Always roll.",
               "control": {
@@ -1985,7 +1985,7 @@
               "discipline": "insight",
               "arena": "wits",
               "target": "Maya",
-              "tier": 1,
+              "defense": "resist",
               "context": "Reading Maya's motives during the short rest or the pitch. Is she telling the truth about the cylinder? Is she as calm as she looks? What's she not saying?",
               "isOptional": true,
               "narrativePacing": "Roll only if a player specifically tries to read her. Rewards suspicion without punishing trust.",
@@ -2006,7 +2006,7 @@
               "discipline": "persuasion",
               "arena": "presence",
               "target": "Maya",
-              "tier": 1,
+              "defense": "resist",
               "context": "Negotiating Maya's share of the score. She opens at 5 shares for herself — she has the ship, the score, and the cylinder might be worth nothing. Each tier of success reduces her share by 1, to a hard floor of 2. She will not go lower. Each share removed from her increases the relative value of everyone else's cut.",
               "isOptional": true,
               "narrativePacing": "Roll only if the players push for a better split. Maya's opening offer is defensible — don't pressure players to negotiate if they are satisfied. If no one pushes, she holds at 5 shares and does not resent it.",
@@ -2875,7 +2875,7 @@
             "voc_investigator"
           ],
           "disciplineTags": [
-            "charm",
+            "persuasion",
             "deception",
             "insight",
             "investigation",
@@ -2961,21 +2961,22 @@
             {
               "id": "sc-s3-negotiate",
               "actionType": "interact",
-              "discipline": "charm",
+              "discipline": "persuasion",
               "arena": "presence",
               "target": "Switch",
-              "resist": 4,
-              "risk": 4,
-              "context": "Negotiating Switch's terms for a better deal on the information asset arrangement. Switch is [Transactional] — his Resist drops by 2 when offered something he wants.",
-              "narrativePacing": "Roll if PCs push for better terms. Switch's default offer is fair but not generous.",
+              "defense": "resist",
+              "isOptional": true,
+              "context": "Negotiating Switch's terms for a better deal on the information asset arrangement. Switch is [Transactional] — he responds to value, not pressure. A well-structured argument can move him; flattery cannot.",
+              "narrativePacing": "Roll only if the PCs push for better terms. Switch's default offer is fair — don't pressure players to negotiate if they accept.",
               "control": {
-                "failure": "Standard terms stand — reduced fee, no advance. Switch is unmoved.",
-                "success": "Refer to effect tiers."
+                "failure": "Standard terms stand — reduced fee, no advance. Switch is unmoved. 'The offer is what it is.'",
+                "success": "Refer to effect tiers.",
+                "mastery": "The PC structures the argument so precisely that Switch pauses mid-breath — not a hesitation, a recalculation. He notes it. Whatever he concludes about this crew, they've upgraded in his estimation."
               },
               "effect": {
-                "fleeting": "Minor concession — Switch throws in a data chip with local intel as a sweetener.",
-                "masterful": "Switch sweetens the deal — offers a small advance on future intel value.",
-                "legendary": "Switch offers partnership terms — ongoing intelligence sharing arrangement. The PCs have a droid broker in their pocket."
+                "fleeting": "Minor concession — Switch throws in a local intel data chip as a sweetener. Not a change to the core terms, but an acknowledgment.",
+                "masterful": "Switch improves the deal — offers a modest advance on future validated intel value. He's decided they're worth investing in slightly.",
+                "legendary": "Switch offers true partnership terms — ongoing reciprocal intelligence sharing, not just one-directional asset work. 'You bring me good product, I bring you things you didn't know you needed.' A droid broker in their pocket."
               }
             },
             {
@@ -2984,18 +2985,19 @@
               "discipline": "insight",
               "arena": "wits",
               "target": "Switch",
-              "resist": 4,
-              "risk": 4,
-              "context": "Reading Switch's motives. What does this droid actually want?",
-              "narrativePacing": "Roll only if asked.",
+              "defense": "resist",
+              "isOptional": true,
+              "context": "Reading Switch's motives. What does this droid actually want — and why does he want it so fast?",
+              "narrativePacing": "Roll only if a player specifically tries to read him. Droid body language is a different read than organic.",
               "control": {
-                "failure": "Switch is inscrutable — droid body language gives nothing away.",
-                "success": "Refer to effect tiers."
+                "failure": "Switch is inscrutable. Photoreceptors, calibrated tone, deliberate stillness — nothing surfaces.",
+                "success": "Refer to effect tiers.",
+                "mastery": "The PC catches something in how Switch positions himself relative to the cylinder — a slight lean away from it, like it's something he wants out of his shop as fast as possible. He's not neutral. He's motivated."
               },
               "effect": {
-                "fleeting": "Switch is genuinely interested in the cylinder — this is business, not a trap.",
-                "masterful": "Switch is building a network of obligations — positioning as the indispensable middleman across the Outer Rim.",
-                "legendary": "Switch is afraid. Something about the Imperial connection on this cylinder has him worried. He wants the PCs to succeed because it gets a dangerous asset out of his shop."
+                "fleeting": "Switch is genuinely interested in the cylinder — this is business, not a trap. He wants it analyzed and gone.",
+                "masterful": "Switch is building a network of obligations across the Outer Rim. He's not just a broker — he's positioning himself as the indispensable middleman. This deal is one thread in a much larger web.",
+                "legendary": "Switch is afraid of this cylinder specifically. Not of the PCs, not of Varga. Of what's on that device and who will come looking once it surfaces. He wants the PCs to succeed because success gets a dangerous asset far away from his bunker."
               }
             },
             {
@@ -3004,20 +3006,20 @@
               "discipline": "investigation",
               "arena": "wits",
               "target": "Code Cylinder data",
-              "context": "Examining the cylinder data for hidden details after Switch's analysis.",
+              "tier": 1,
               "isOptional": true,
-              "narrativePacing": "Optional. Rewards curiosity with plot seeds.",
+              "context": "Examining the cylinder data directly after Switch's analysis — looking for details the droid's summary may have glossed over.",
+              "narrativePacing": "Optional. Rewards curiosity. Roll only if a player digs in.",
               "control": {
-                "failure": "The analysis is straightforward — just authorization protocols.",
-                "success": "Refer to effect tiers."
+                "failure": "The data is dense Imperial encryption. Without specialist knowledge the analysis reads as straightforward authorization protocols.",
+                "success": "Refer to effect tiers.",
+                "mastery": "The PC notices the data structure before reading the content — the format itself is irregular. This cylinder was authored by someone who knew Imperial encryption protocols from the inside. Not someone with access. Someone who wrote the spec."
               },
               "effect": {
-                "fleeting": "The authorization codes are military-grade, not civilian. This cylinder came from someone important.",
-                "masterful": "Additional details: the authorization codes reference shipping routes connected to 'Project Leviathan.'",
-                "legendary": "The cylinder contains a ghost layer — hidden metadata showing it was deliberately copied, not stolen. Someone wanted this cylinder to leave the facility."
-              },
-              "resist": 3,
-              "risk": 3
+                "fleeting": "The authorization codes are military-grade, not civilian. This cylinder came from someone with significant clearance.",
+                "masterful": "The authorization codes reference routing designations connected to 'Project Leviathan' — a name that doesn't appear in any public Imperial registry.",
+                "legendary": "The cylinder carries a ghost layer — hidden metadata showing it was deliberately copied, not stolen in transit. Someone inside the Imperial apparatus wanted this device to leave the facility. This was a plant, not a theft."
+              }
             },
             {
               "id": "sc-s3-tech",
@@ -3025,20 +3027,20 @@
               "discipline": "tech",
               "arena": "wits",
               "target": "Switch's analysis equipment",
-              "context": "Verifying Switch's analysis is genuine and complete — is the droid holding anything back?",
+              "tier": 1,
               "isOptional": true,
-              "narrativePacing": "Optional. Trust verification.",
+              "context": "Verifying Switch's analysis is genuine and complete — did the droid give them everything, or is he holding a partition back?",
+              "narrativePacing": "Optional. Trust verification for suspicious players.",
               "control": {
-                "failure": "No way to independently verify without comparable equipment.",
-                "success": "Refer to effect tiers."
+                "failure": "No way to independently verify without comparable equipment. The outputs look legitimate but that's all you can confirm.",
+                "success": "Refer to effect tiers.",
+                "mastery": "The PC notices Switch's equipment has already run a secondary sweep he hasn't mentioned. The results sit in a partition he didn't open during the briefing. He gave them everything they asked for — but there's more he didn't volunteer."
               },
               "effect": {
-                "fleeting": "Analysis appears complete based on surface-level review.",
-                "masterful": "Analysis is genuine and unaltered. Switch gave them everything.",
-                "legendary": "Analysis is complete, AND the PC notices Switch's equipment could decrypt the cylinder's secondary partition — but Switch didn't offer that service. There's more data locked inside."
-              },
-              "resist": 3,
-              "risk": 3
+                "fleeting": "The analysis appears complete and unaltered on surface review. No obvious signs of tampering or selective output.",
+                "masterful": "Analysis is genuine. Switch delivered everything his equipment surfaced. Whatever he knows, he shared it.",
+                "legendary": "Analysis is complete — AND the secondary partition is accessible with the right credentials. The cylinder has a second layer Switch didn't mention. It requires a different authentication to open. That key isn't here."
+              }
             }
           ],
           "readAloudPart1": "Maya leads you out of the settlement and into the open desert. The sun hammers down as you cross a dry wash and climb through a field of broken mesas — wind-carved rock pillars standing like the ribs of something ancient. No tracks. No markers. Nothing out here but heat and silence and the whisper of sand moving against itself.\n\nMaya moves with purpose. She knows this path.",
