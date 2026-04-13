@@ -112,7 +112,7 @@ title = "Fulcrum asymmetric crystal pips"
 id = "sC8HF_gJ1kxDCXgLbnzbQ"
 uri = "file://attached_assets/generated_images/varth_before_turn.png"
 type = "image"
-title = "Varth charming matching after portrait"
+title = "varth imperial admiral portrait"
 
 [[generated]]
 id = "a2SE__5QkifgXMHoursyH"
@@ -124,7 +124,7 @@ title = "Varth cold Imperial clean face"
 id = "_GMunEXGq7TB3zO4-1Um9"
 uri = "file://attached_assets/generated_images/maya_pilot.png"
 type = "image"
-title = "Maya scrappy pilot portrait"
+title = "maya pilot portrait"
 
 [[generated]]
 id = "l6ZhaZtUy3fMxq5SLDPs9"
@@ -148,7 +148,7 @@ title = "Banshee cockpit interior lived-in"
 id = "R90yL1NBqWbXZFoI9QhxM"
 uri = "file://attached_assets/galaxy-map-bg.png"
 type = "image"
-title = "galaxy_map_background"
+title = "galaxy map background"
 
 [[generated]]
 id = "p_taAX5XROjr2i13SVnT3"
@@ -203,6 +203,36 @@ id = "Vm-ln9kkfEiUQjv3NXmST"
 uri = "file://attached_assets/varga-fortress-ground-v6.png"
 type = "image"
 title = "Varga fortress ground v6 parchment"
+
+[[generated]]
+id = "rDW1RXppys4VV-kl1I4ao"
+uri = "file://attached_assets/generated_images/raden_fixer.png"
+type = "image"
+title = "raden devaronian fixer portrait"
+
+[[generated]]
+id = "tw8gz4x4rGlELxD5dW-NE"
+uri = "file://attached_assets/generated_images/varga_portrait.png"
+type = "image"
+title = "varga alien crime lord"
+
+[[generated]]
+id = "KmwfU3xwUE8EkM3DdTNpZ"
+uri = "file://attached_assets/generated_images/draco_inquisitor.png"
+type = "image"
+title = "draco imperial inquisitor"
+
+[[generated]]
+id = "_bn7rwibllBMltL1m_XqB"
+uri = "file://attached_assets/generated_images/denia_jedi.png"
+type = "image"
+title = "denia elder jedi master"
+
+[[generated]]
+id = "4YiVyggH0slQ3m-NsEGqf"
+uri = "file://attached_assets/generated_images/switch_droid.png"
+type = "image"
+title = "switch robot droid portrait"
 
 [[outputs]]
 id = "2LcyfBitBojI2aNp3Z-pi"
