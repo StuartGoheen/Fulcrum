@@ -37,6 +37,12 @@ The app uses a passcode-based gate (cookie auth) to restrict access:
 │   ├── css/command-bridge.css # GM Black Ledger styles (forge palette, dashboard tiles, floating panels, destiny pips)
 │   ├── css/market.css    # Black Market styles (char gate, accordions, ledger, modals, responsive)
 │   ├── css/tactical-map.css # Tactical map viewer styles (pan/zoom, pins, zone panel, grid, floating viewer, combat token overlay layer)
+│   ├── css/player.css    # Player character sheet styles (JB panel, tutorial, pit, NC, decision)
+│   ├── css/landing.css   # Landing page styles (forge/landing theme)
+│   ├── css/login.css     # Login page styles (terminal theme)
+│   ├── css/map-standalone.css # Shared styles for all 15 standalone tactical map pages
+│   ├── css/map-editor.css # GM hitbox editor UI styles
+│   ├── css/galaxy-map-page.css # Galaxy map standalone page overrides
 │   ├── maps/             # Interactive tactical maps (standalone HTML pages with SVG hitbox overlays)
 │   │   ├── editor.html         # GM hitbox editor (select map → drag/resize/edit zones → save via API)
 │   │   ├── burning-deck.html   # The Burning Deck cantina (1024×635)
@@ -64,6 +70,10 @@ The app uses a passcode-based gate (cookie auth) to restrict access:
 │   ├── holonet-overlay.js # Player-side HoloNet broadcast overlay (Imperial terminal aesthetic, socket-triggered, journal clipping)
 │   ├── starship-combat.js # Starship combat cockpit HUD overlay
 │   ├── galaxy-map.js     # Interactive galaxy starmap (Leaflet.js, 65 planets, 6 hyperlanes, campaign pins, marker clustering, search, grid overlay)
+│   ├── galaxy-map-page.js # Galaxy map standalone page init (opens overlay, redirects close button)
+│   ├── map-editor.js     # GM hitbox editor logic (zone CRUD, drag/resize, save via API)
+│   ├── map-tooltip.js    # Unified tooltip handler for all 15 standalone tactical maps
+│   ├── login.js          # Login form handler (passcode submission)
 ├── data/                 # JSON data files (weapons, armor, gear, etc.)
 │   ├── crawls/           # Per-adventure opening crawl JSON files + active.json (active crawl pointer)
 ├── assets/               # Images and icons
