@@ -208,12 +208,14 @@
         var modal = document.getElementById('join-battle-modal');
         if (modal) modal.remove();
         _showInitiativeTracker(data);
+        _renderPlayerCombatTokens(data);
       }
     });
 
     socket.on('combat:state-update', function (data) {
       if (!data || !data.active) return;
       _showInitiativeTracker(data);
+      _renderPlayerCombatTokens(data);
     });
 
     socket.on('combat:ended', () => {
@@ -293,6 +295,107 @@
     });
 
     _initPlayerTacticalMap(socket);
+  }
+
+  var _playerMapViewer = null;
+  var _playerMapKey = '';
+  var _pendingPlayerCombatState = null;
+
+  function _resolvePlayerTokenInfo(tokId, combatants, pcSlots) {
+    var shortName = tokId;
+    var type = 'pc';
+    var disposition = null;
+    if (tokId === 'PCs') {
+      shortName = 'PCs';
+    } else {
+      var pc = (pcSlots || []).find(function (p) { return p.id === tokId; });
+      if (pc) {
+        shortName = pc.name.length > 8 ? pc.name.substring(0, 7) + '.' : pc.name;
+        type = 'pc';
+      } else {
+        var npc = (combatants || []).find(function (n) { return n.id === tokId; });
+        if (npc) {
+          var numMatch = npc.name.match(/ #(\d+)$/);
+          var numSuffix = numMatch ? ' #' + numMatch[1] : '';
+          var nameBase = numMatch ? npc.name.replace(/ #\d+$/, '') : npc.name;
+          var maxBase = 8 - numSuffix.length;
+          shortName = nameBase.length > maxBase ? nameBase.substring(0, maxBase - 1) + '.' + numSuffix : npc.name;
+          type = 'npc';
+          disposition = npc.disposition || 'enemy';
+        }
+      }
+    }
+    return { id: tokId, shortName: shortName, type: type, disposition: disposition };
+  }
+
+  function _renderPlayerCombatTokens(state) {
+    if (!state || !state.tokenPositions) return;
+    _pendingPlayerCombatState = state;
+    if (!_playerMapViewer) {
+      if (state.mapKey && state.mapKey !== _playerMapKey) {
+        return;
+      }
+      return;
+    }
+    if (!_playerMapViewer.meta) return;
+    var tokenPositions = state.tokenPositions;
+    var objectives = state.objectives || {};
+    var tokenData = [];
+    Object.keys(tokenPositions).forEach(function (tokId) {
+      var zoneId = tokenPositions[tokId];
+      if (!zoneId) return;
+      var info = _resolvePlayerTokenInfo(tokId, state.combatants || [], state.pcSlots || []);
+      info.zoneId = zoneId;
+      info.objective = !!objectives[tokId];
+      tokenData.push(info);
+    });
+    _playerMapViewer.renderCombatTokens(tokenData);
+  }
+
+  function _showPlayerTokenDetails(tokenId, state) {
+    if (!state) return;
+    var npc = (state.combatants || []).find(function (n) { return n.id === tokenId; });
+    if (!npc) return;
+    var pct = npc.vitalityMax > 0 ? Math.round((npc.vitalityCurrent / npc.vitalityMax) * 100) : 0;
+    var dispLabel = npc.disposition === 'ally' ? 'Ally' : npc.disposition === 'neutral' ? 'Neutral' : 'Enemy';
+    var details = [
+      { key: 'Disposition', value: dispLabel },
+      { key: 'Vitality', value: npc.vitalityCurrent + '/' + npc.vitalityMax + ' (' + pct + '%)' }
+    ];
+    if (npc.threat) details.push({ key: 'Threat', value: npc.threat });
+    if (npc.conditions && npc.conditions.length) {
+      var condStr = npc.conditions.map(function (c) { return typeof c === 'object' ? c.id : c; }).join(', ');
+      details.push({ key: 'Conditions', value: condStr });
+    }
+    var existing = document.getElementById('tm-dialog-overlay');
+    if (existing) existing.remove();
+    if (window.TacticalMapViewer && window.TacticalMapViewer._confirm) {
+      var overlay = document.createElement('div');
+      overlay.id = 'tm-dialog-overlay';
+      overlay.className = 'tm-dialog-overlay';
+      var box = document.createElement('div');
+      box.className = 'tm-dialog-box';
+      var titleEl = document.createElement('div');
+      titleEl.className = 'tm-dialog-title';
+      titleEl.textContent = _escHtml(npc.name);
+      box.appendChild(titleEl);
+      details.forEach(function (d) {
+        var row = document.createElement('div');
+        row.className = 'tm-dialog-detail';
+        row.innerHTML = '<span class="tm-dialog-key">' + _escHtml(d.key) + ':</span> ' + _escHtml(d.value);
+        box.appendChild(row);
+      });
+      var btnRow = document.createElement('div');
+      btnRow.className = 'tm-dialog-btns';
+      var closeBtn = document.createElement('button');
+      closeBtn.className = 'tm-dialog-btn';
+      closeBtn.textContent = 'Close';
+      closeBtn.addEventListener('click', function () { overlay.remove(); });
+      btnRow.appendChild(closeBtn);
+      box.appendChild(btnRow);
+      overlay.appendChild(box);
+      document.body.appendChild(overlay);
+    }
   }
 
   function _initPlayerTacticalMap(socket) {
@@ -427,6 +530,18 @@
           });
         }
       });
+      _playerMapViewer = viewer;
+      _playerMapKey = mapKey;
+      viewer.onTokenClick = function (tokenId) {
+        if (_pendingPlayerCombatState) {
+          _showPlayerTokenDetails(tokenId, _pendingPlayerCombatState);
+        }
+      };
+      viewer.onMapLoaded = function () {
+        if (_pendingPlayerCombatState) {
+          _renderPlayerCombatTokens(_pendingPlayerCombatState);
+        }
+      };
       viewer.loadMap(mapKey, preloadedPins);
 
       fetch('/api/maps/' + encodeURIComponent(mapKey) + '/meta')

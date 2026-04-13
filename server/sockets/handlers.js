@@ -100,6 +100,10 @@ async function rebuildPool(io) {
 
 function _getPlayerCombatState() {
   if (!_combatState || !_combatState.active) return { active: false };
+  var mapKey = null;
+  if (_combatState.tacticalMap && _combatState.tacticalMap.mapKey) {
+    mapKey = _combatState.tacticalMap.mapKey;
+  }
   return {
     active: true,
     encounterName: _combatState.encounterName,
@@ -107,6 +111,9 @@ function _getPlayerCombatState() {
     round: _combatState.round,
     currentTurnIndex: _combatState.currentTurnIndex,
     turnOrder: _combatState.turnOrder,
+    tokenPositions: _combatState.tokenPositions || {},
+    objectives: _combatState.objectives || {},
+    mapKey: mapKey,
     combatants: (_combatState.combatants || []).map(function (n) {
       return {
         id: n.id, name: n.name, type: 'npc', threat: n.threat, tier: n.tier,
@@ -620,6 +627,7 @@ function registerHandlers(io) {
       if (data.round !== undefined) _combatState.round = data.round;
       if (data.currentTurnIndex !== undefined) _combatState.currentTurnIndex = data.currentTurnIndex;
       if (data.tokenPositions !== undefined) _combatState.tokenPositions = data.tokenPositions;
+      if (data.objectives !== undefined) _combatState.objectives = data.objectives;
       if (data.encounterName !== undefined) _combatState.encounterName = data.encounterName;
       if (data.highestTier !== undefined) _combatState.highestTier = data.highestTier;
       if (data.joinBattleSent !== undefined) _combatState.joinBattleSent = data.joinBattleSent;

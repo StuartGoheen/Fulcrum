@@ -311,11 +311,54 @@
       if (e.button !== 0) return;
       if (e.target.closest('.tm-pin')) return;
       if (e.target.closest('.tm-hitbox')) return;
+
+      var tokenEl = e.target.closest('.tm-token');
+      if (tokenEl && self.role === 'gm') {
+        var tokId = tokenEl.dataset.tokenId;
+        if (tokId) {
+          var rect = self._canvas.getBoundingClientRect();
+          self._tokenDrag = {
+            id: tokId,
+            el: tokenEl,
+            startClientX: e.clientX,
+            startClientY: e.clientY,
+            started: false
+          };
+          e.preventDefault();
+          return;
+        }
+      }
+
       self._drag = { startX: e.clientX, startY: e.clientY, panX: self.panX, panY: self.panY };
       e.preventDefault();
     });
 
     window.addEventListener('mousemove', function (e) {
+      if (self._tokenDrag) {
+        e.preventDefault();
+        var dx = e.clientX - self._tokenDrag.startClientX;
+        var dy = e.clientY - self._tokenDrag.startClientY;
+        if (!self._tokenDrag.started && Math.abs(dx) + Math.abs(dy) > 5) {
+          self._tokenDrag.started = true;
+          self._tokenDrag.el.classList.add('tm-token--dragging');
+        }
+        if (self._tokenDrag.started) {
+          var moveX = dx / self.zoom;
+          var moveY = dy / self.zoom;
+          var origTransform = self._tokenDrag.el.getAttribute('data-orig-transform');
+          if (!origTransform) {
+            origTransform = self._tokenDrag.el.getAttribute('transform') || '';
+            self._tokenDrag.el.setAttribute('data-orig-transform', origTransform);
+          }
+          var match = origTransform.match(/translate\(([\d.eE+-]+)\s*,\s*([\d.eE+-]+)\)/);
+          if (match) {
+            var ox = parseFloat(match[1]) + moveX;
+            var oy = parseFloat(match[2]) + moveY;
+            self._tokenDrag.el.setAttribute('transform', 'translate(' + ox + ',' + oy + ')');
+          }
+        }
+        return;
+      }
       if (self._pinDrag) {
         e.preventDefault();
         var rect = self._canvas.getBoundingClientRect();
@@ -332,7 +375,32 @@
       self._applyTransform();
     });
 
-    window.addEventListener('mouseup', function () {
+    window.addEventListener('mouseup', function (e) {
+      if (self._tokenDrag) {
+        var td = self._tokenDrag;
+        self._tokenDrag = null;
+        td.el.classList.remove('tm-token--dragging');
+        td.el.removeAttribute('data-orig-transform');
+        if (td.started && self.meta && self.meta.zones) {
+          var rect = self._canvas.getBoundingClientRect();
+          var mx = (e.clientX - rect.left) / self.zoom;
+          var my = (e.clientY - rect.top) / self.zoom;
+          var dropZone = null;
+          self.meta.zones.forEach(function (z, i) {
+            if (mx >= z.x && mx <= z.x + z.w && my >= z.y && my <= z.y + z.h) {
+              dropZone = z.room || ('zone_' + i);
+            }
+          });
+          if (dropZone && self.onTokenMoved) {
+            self.onTokenMoved(td.id, dropZone);
+          } else {
+            if (self._lastTokenData) {
+              self.renderCombatTokens(self._lastTokenData, self._lastSelectedId);
+            }
+          }
+        }
+        return;
+      }
       if (self._pinDrag) {
         var pin = self._pinDrag;
         self._pinDrag = null;
@@ -351,6 +419,14 @@
 
     this._viewport.addEventListener('contextmenu', function (e) {
       e.preventDefault();
+      var tokenEl = e.target.closest('.tm-token');
+      if (tokenEl && self.role === 'gm') {
+        var tokId = tokenEl.dataset.tokenId;
+        if (tokId) {
+          self._showTokenContextMenu(e.clientX, e.clientY, tokId);
+          return;
+        }
+      }
       var rect = self._canvas.getBoundingClientRect();
       var x = (e.clientX - rect.left) / self.zoom;
       var y = (e.clientY - rect.top) / self.zoom;
@@ -529,6 +605,8 @@
   };
 
   TacticalMapViewer.prototype.renderCombatTokens = function (tokenData, selectedId) {
+    this._lastTokenData = tokenData || [];
+    this._lastSelectedId = selectedId;
     var tokenLayer = this._canvas ? this._canvas.querySelector('.tm-token-layer') : null;
     if (!tokenLayer) return;
     if (!tokenData || !tokenData.length || !this.meta || !this.meta.zones) {
@@ -579,8 +657,12 @@
         var initial = tok.shortName ? tok.shortName.charAt(0).toUpperCase() : '?';
 
         var selCls = (selectedId && tok.id === selectedId) ? ' tm-token--selected' : '';
-        html += '<g class="tm-token tm-token--' + dispCls + selCls + '" data-token-id="' + _esc(tok.id) + '" transform="translate(' + tx + ',' + ty + ')">';
+        var objCls = tok.objective ? ' tm-token--objective' : '';
+        html += '<g class="tm-token tm-token--' + dispCls + selCls + objCls + '" data-token-id="' + _esc(tok.id) + '" transform="translate(' + tx + ',' + ty + ')">';
         html += '<circle r="' + TOKEN_R + '" class="tm-token-circle"/>';
+        if (tok.objective) {
+          html += '<text text-anchor="middle" dy="-' + (TOKEN_R + 4) + '" class="tm-token-objective-star">\u2605</text>';
+        }
         html += '<text text-anchor="middle" dy="5" class="tm-token-initial">' + _esc(initial) + '</text>';
         html += '<text text-anchor="middle" dy="' + (TOKEN_R + 12) + '" class="tm-token-label">' + _esc(tok.shortName || '') + '</text>';
         html += '</g>';
@@ -588,6 +670,53 @@
     });
 
     tokenLayer.innerHTML = html;
+  };
+
+  TacticalMapViewer.prototype._showTokenContextMenu = function (screenX, screenY, tokenId) {
+    this._removeContextMenu();
+    var self = this;
+    var menu = document.createElement('div');
+    menu.className = 'tm-ctx-menu';
+    menu.style.left = screenX + 'px';
+    menu.style.top = screenY + 'px';
+
+    var viewBtn = document.createElement('button');
+    viewBtn.className = 'tm-ctx-item';
+    viewBtn.textContent = 'View Details';
+    viewBtn.addEventListener('click', function () {
+      self._removeContextMenu();
+      if (self.onTokenViewDetails) self.onTokenViewDetails(tokenId);
+    });
+    menu.appendChild(viewBtn);
+
+    var dispositions = ['enemy', 'ally', 'neutral'];
+    dispositions.forEach(function (disp) {
+      var btn = document.createElement('button');
+      btn.className = 'tm-ctx-item';
+      btn.textContent = 'Set ' + disp.charAt(0).toUpperCase() + disp.slice(1);
+      btn.addEventListener('click', function () {
+        self._removeContextMenu();
+        if (self.onTokenSetDisposition) self.onTokenSetDisposition(tokenId, disp);
+      });
+      menu.appendChild(btn);
+    });
+
+    var objBtn = document.createElement('button');
+    objBtn.className = 'tm-ctx-item tm-ctx-private';
+    objBtn.textContent = 'Toggle Objective';
+    objBtn.addEventListener('click', function () {
+      self._removeContextMenu();
+      if (self.onTokenToggleObjective) self.onTokenToggleObjective(tokenId);
+    });
+    menu.appendChild(objBtn);
+
+    document.body.appendChild(menu);
+    this._activeMenu = menu;
+    setTimeout(function () {
+      document.addEventListener('click', self._ctxDismiss = function () {
+        self._removeContextMenu();
+      }, { once: true });
+    }, 0);
   };
 
   TacticalMapViewer.prototype._showPinDetails = function (e, pin) {

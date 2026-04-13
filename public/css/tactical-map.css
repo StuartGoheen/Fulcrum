@@ -272,7 +272,15 @@
 .tm-token-layer { pointer-events: none; }
 .tm-token { pointer-events: auto; cursor: pointer; }
 .tm-token:hover .tm-token-circle { filter: brightness(1.3); }
+.tm-token--dragging { opacity: 0.7; cursor: grabbing; }
 .tm-token--selected .tm-token-circle { stroke: #facc15; stroke-width: 3; }
+.tm-token--objective .tm-token-circle { stroke: #facc15; stroke-width: 2; stroke-dasharray: 4 2; }
+.tm-token--selected.tm-token--objective .tm-token-circle { stroke: #facc15; stroke-width: 3; stroke-dasharray: none; }
+.tm-token-objective-star {
+  fill: #facc15;
+  font-size: 12px;
+  pointer-events: none;
+}
 .tm-token-circle {
   stroke: #000;
   stroke-width: 2;
@@ -381,4 +389,65 @@
   color: #6b7280;
   font-style: italic;
   font-size: 0.65rem;
+}
+
+.tm-dialog-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.tm-dialog-box {
+  background: #1a1a1e;
+  border: 1px solid #3a3632;
+  border-radius: 6px;
+  padding: 1.25rem 1.25rem 0.9rem;
+  min-width: 280px;
+  max-width: 440px;
+  width: 90vw;
+  font-family: 'Exo 2', sans-serif;
+  box-shadow: 0 8px 36px rgba(0,0,0,0.85);
+}
+.tm-dialog-title {
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #c8a44e;
+  margin-bottom: 0.65rem;
+  font-weight: 700;
+  font-family: 'Audiowide', sans-serif;
+}
+.tm-dialog-detail {
+  font-size: 0.7rem;
+  color: #d4c5a0;
+  padding: 0.2rem 0;
+}
+.tm-dialog-key {
+  color: #7a7068;
+}
+.tm-dialog-btns {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.75rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid #3a3632;
+}
+.tm-dialog-btn {
+  background: transparent;
+  border: 1px solid #3a3632;
+  color: #d4c5a0;
+  font-family: 'Exo 2', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.4rem 1rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.tm-dialog-btn:hover {
+  border-color: #c8a44e;
+  color: #c8a44e;
 }

@@ -1190,6 +1190,38 @@
       combatState.selectedId = tokenId;
       renderCombatTracker();
     };
+    _ctMapViewer.onTokenMoved = function (tokenId, zoneId) {
+      if (!combatState) return;
+      combatState.tokenPositions[tokenId] = zoneId;
+      persistTokenPosition(tokenId, zoneId);
+      _updateCombatTokens();
+      syncStateToServer();
+    };
+    _ctMapViewer.onTokenViewDetails = function (tokenId) {
+      if (!combatState) return;
+      var npc = combatState.combatants.find(function (n) { return n.id === tokenId; });
+      if (npc) {
+        combatState.selectedId = tokenId;
+        renderCombatTracker();
+      }
+    };
+    _ctMapViewer.onTokenSetDisposition = function (tokenId, disp) {
+      if (!combatState) return;
+      var npc = combatState.combatants.find(function (n) { return n.id === tokenId; });
+      if (npc) {
+        npc.disposition = disp;
+        _updateCombatTokens();
+        renderCombatTracker();
+      }
+    };
+    _ctMapViewer.onTokenToggleObjective = function (tokenId) {
+      if (!combatState) return;
+      if (!combatState.objectives) combatState.objectives = {};
+      combatState.objectives[tokenId] = !combatState.objectives[tokenId];
+      if (!combatState.objectives[tokenId]) delete combatState.objectives[tokenId];
+      _updateCombatTokens();
+      syncStateToServer();
+    };
     _ctMapViewer.getZoneOccupants = function (zoneRoom) {
       return getTokensInZone(zoneRoom);
     };
@@ -2117,12 +2149,14 @@
 
   function _updateCombatTokens() {
     if (!_ctMapViewer || !combatState) return;
+    var objectives = combatState.objectives || {};
     var tokenData = [];
     Object.keys(combatState.tokenPositions).forEach(function (tokId) {
       var zoneId = combatState.tokenPositions[tokId];
       if (!zoneId) return;
       var info = _resolveTokenInfo(tokId);
       info.zoneId = zoneId;
+      info.objective = !!objectives[tokId];
       tokenData.push(info);
     });
     _ctMapViewer.renderCombatTokens(tokenData, combatState.selectedId);
@@ -2186,6 +2220,7 @@
       round: combatState.round,
       currentTurnIndex: combatState.currentTurnIndex,
       tokenPositions: combatState.tokenPositions,
+      objectives: combatState.objectives || {},
       encounterName: combatState.encounter ? combatState.encounter.name : '',
       highestTier: combatState.highestTier,
       joinBattleSent: combatState.joinBattleSent,
@@ -2216,6 +2251,7 @@
       tacticalMap: serverState.tacticalMap || null,
       turnOrder: serverState.turnOrder || [],
       tokenPositions: serverState.tokenPositions || {},
+      objectives: serverState.objectives || {},
       selectedToken: null,
       joinBattleSent: serverState.joinBattleSent !== false,
       pcResponses: serverState.responses || {}
