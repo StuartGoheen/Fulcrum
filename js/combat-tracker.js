@@ -1185,6 +1185,11 @@
     _ctMapViewer.onMapLoaded = function () {
       _updateCombatTokens();
     };
+    _ctMapViewer.onTokenClick = function (tokenId) {
+      if (!combatState) return;
+      combatState.selectedId = tokenId;
+      renderCombatTracker();
+    };
     _ctMapViewer.getZoneOccupants = function (zoneRoom) {
       return getTokensInZone(zoneRoom);
     };
@@ -2120,7 +2125,7 @@
       info.zoneId = zoneId;
       tokenData.push(info);
     });
-    _ctMapViewer.renderCombatTokens(tokenData);
+    _ctMapViewer.renderCombatTokens(tokenData, combatState.selectedId);
   }
 
   var _positionPersistTimer = null;

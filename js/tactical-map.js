@@ -358,6 +358,14 @@
     });
 
     this._canvas.addEventListener('click', function (e) {
+      var token = e.target.closest('.tm-token');
+      if (token) {
+        var tokenId = token.dataset.tokenId;
+        if (tokenId && self.onTokenClick) {
+          self.onTokenClick(tokenId);
+        }
+        return;
+      }
       var hitbox = e.target.closest('.tm-hitbox');
       if (hitbox) {
         var idx = parseInt(hitbox.dataset.zoneIdx);
@@ -520,7 +528,7 @@
     });
   };
 
-  TacticalMapViewer.prototype.renderCombatTokens = function (tokenData) {
+  TacticalMapViewer.prototype.renderCombatTokens = function (tokenData, selectedId) {
     var tokenLayer = this._canvas ? this._canvas.querySelector('.tm-token-layer') : null;
     if (!tokenLayer) return;
     if (!tokenData || !tokenData.length || !this.meta || !this.meta.zones) {
@@ -570,7 +578,8 @@
         var dispCls = tok.type === 'pc' ? 'pc' : (tok.disposition || 'enemy');
         var initial = tok.shortName ? tok.shortName.charAt(0).toUpperCase() : '?';
 
-        html += '<g class="tm-token tm-token--' + dispCls + '" transform="translate(' + tx + ',' + ty + ')">';
+        var selCls = (selectedId && tok.id === selectedId) ? ' tm-token--selected' : '';
+        html += '<g class="tm-token tm-token--' + dispCls + selCls + '" data-token-id="' + _esc(tok.id) + '" transform="translate(' + tx + ',' + ty + ')">';
         html += '<circle r="' + TOKEN_R + '" class="tm-token-circle"/>';
         html += '<text text-anchor="middle" dy="5" class="tm-token-initial">' + _esc(initial) + '</text>';
         html += '<text text-anchor="middle" dy="' + (TOKEN_R + 12) + '" class="tm-token-label">' + _esc(tok.shortName || '') + '</text>';

@@ -270,6 +270,9 @@
 }
 
 .tm-token-layer { pointer-events: none; }
+.tm-token { pointer-events: auto; cursor: pointer; }
+.tm-token:hover .tm-token-circle { filter: brightness(1.3); }
+.tm-token--selected .tm-token-circle { stroke: #facc15; stroke-width: 3; }
 .tm-token-circle {
   stroke: #000;
   stroke-width: 2;
