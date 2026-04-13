@@ -1185,6 +1185,9 @@
     _ctMapViewer.onMapLoaded = function () {
       _updateCombatTokens();
     };
+    _ctMapViewer.getZoneOccupants = function (zoneRoom) {
+      return getTokensInZone(zoneRoom);
+    };
     _ctMapViewer.loadMap(_ctMapKey);
 
     var sock = getSocket();

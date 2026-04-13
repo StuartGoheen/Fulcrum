@@ -294,6 +294,26 @@
 .tm-token--neutral .tm-token-circle { fill: #ca8a04; }
 .tm-token--pc .tm-token-circle { fill: #2563eb; }
 
+.tm-zone-occupants {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin-top: 0.4rem;
+  padding-top: 0.35rem;
+  border-top: 1px solid rgba(200,164,78,0.15);
+}
+.tm-zone-occ {
+  font-size: 0.55rem;
+  padding: 0.1rem 0.35rem;
+  border-radius: 3px;
+  font-family: 'Exo 2', sans-serif;
+  color: #fff;
+}
+.tm-zone-occ--enemy { background: #dc2626; }
+.tm-zone-occ--ally { background: #16a34a; }
+.tm-zone-occ--neutral { background: #ca8a04; }
+.tm-zone-occ--pc { background: #2563eb; }
+
 .tm-pin { pointer-events: auto; }
 .tm-pin:hover circle { opacity: 1 !important; filter: brightness(1.3); }
 

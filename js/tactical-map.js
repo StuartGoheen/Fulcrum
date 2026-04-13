@@ -619,6 +619,17 @@
     html += '<button class="tm-zone-close">&times;</button>';
     html += '</div>';
     html += '<div class="tm-zone-body">' + _esc(zone.desc).replace(/\n/g, '<br>') + '</div>';
+    if (this.getZoneOccupants) {
+      var occupants = this.getZoneOccupants(zone.room);
+      if (occupants && occupants.length) {
+        html += '<div class="tm-zone-occupants">';
+        occupants.forEach(function (occ) {
+          var cls = occ.type === 'pc' ? 'pc' : (occ.disposition || 'enemy');
+          html += '<span class="tm-zone-occ tm-zone-occ--' + cls + '">' + _esc(occ.name || occ.shortName) + '</span>';
+        });
+        html += '</div>';
+      }
+    }
     if (this.onClipToJournal) {
       html += '<button class="tm-btn tm-clip-btn">Clip to Journal</button>';
     }
