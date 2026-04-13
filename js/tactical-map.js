@@ -530,8 +530,9 @@
 
     var zones = this.meta.zones;
     var zoneMap = {};
-    zones.forEach(function (z) {
-      zoneMap[z.room] = z;
+    zones.forEach(function (z, i) {
+      if (z.room) zoneMap[z.room] = z;
+      zoneMap['zone_' + i] = z;
     });
 
     var grouped = {};
