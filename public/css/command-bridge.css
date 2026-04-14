@@ -6299,4 +6299,169 @@
   border-color: #dc2626;
 }
 
+.cb-tile--gc {
+  border-left: 3px solid #c084fc;
+}
+
+.gc-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 0.5rem;
+}
+.gc-header-info { }
+.gc-name {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 0.85rem;
+  color: #c8a44e;
+  margin-bottom: 0.25rem;
+}
+.gc-desc {
+  font-size: 0.75rem;
+  color: #d4c5a0;
+  line-height: 1.4;
+}
+.gc-stats {
+  font-size: 0.65rem;
+  color: #7a7068;
+  margin-top: 0.25rem;
+  letter-spacing: 0.04em;
+}
+.gc-vp-section {
+  background: rgba(0,0,0,0.2);
+  border: 1px solid #3a3632;
+  border-radius: 4px;
+  padding: 0.5rem;
+}
+.gc-vp-label {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 0.7rem;
+  color: #d4c5a0;
+  margin-bottom: 0.3rem;
+}
+.gc-vp-bar {
+  height: 10px;
+  background: #1a1a1e;
+  border: 1px solid #3a3632;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.gc-vp-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #c084fc 0%, #818cf8 100%);
+  border-radius: 5px;
+  transition: width 0.4s ease;
+}
+.gc-beat-label {
+  font-size: 0.65rem;
+  color: #7a7068;
+  margin-top: 0.2rem;
+  text-align: right;
+}
+.gc-section-label {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 0.55rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #665a3a;
+  margin-bottom: 0.3rem;
+}
+.gc-disciplines {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+.gc-disc-chip {
+  font-size: 0.7rem;
+  color: #d4c5a0;
+  padding: 0.2rem 0.4rem;
+  background: rgba(192,132,252,0.06);
+  border-left: 2px solid #c084fc;
+  line-height: 1.3;
+}
+.gc-disc-chip strong {
+  text-transform: capitalize;
+  color: #c084fc;
+}
+.gc-scoring { }
+.gc-scoring-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+.gc-score-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  font-size: 0.6rem;
+  background: #232328;
+  border: 1px solid #3a3632;
+  padding: 0.15rem 0.4rem;
+  border-radius: 3px;
+}
+.gc-score-tier { color: #7a7068; }
+.gc-score-vp {
+  font-family: 'Audiowide', sans-serif;
+  color: #c084fc;
+}
+.gc-score-mastery {
+  border-color: #c8a44e;
+}
+.gc-score-mastery .gc-score-vp { color: #c8a44e; }
+.gc-failure {
+  background: rgba(239,68,68,0.06);
+  border: 1px solid rgba(239,68,68,0.2);
+  border-radius: 4px;
+  padding: 0.4rem;
+}
+.gc-failure-text {
+  font-size: 0.7rem;
+  color: #f87171;
+  line-height: 1.3;
+}
+.gc-thresholds { }
+.gc-threshold-item {
+  display: flex;
+  gap: 0.4rem;
+  align-items: flex-start;
+  padding: 0.2rem 0;
+  border-bottom: 1px solid rgba(58,54,50,0.4);
+  font-size: 0.7rem;
+}
+.gc-threshold-vp {
+  font-family: 'Audiowide', sans-serif;
+  color: #7a7068;
+  min-width: 3rem;
+  flex-shrink: 0;
+}
+.gc-threshold-intel {
+  color: #555;
+  font-style: italic;
+}
+.gc-threshold--revealed .gc-threshold-vp { color: #c084fc; }
+.gc-threshold--revealed .gc-threshold-intel {
+  color: #d4c5a0;
+  font-style: normal;
+}
+.gc-roll-log { }
+.gc-roll-entry {
+  font-size: 0.65rem;
+  color: #d4c5a0;
+  padding: 0.15rem 0;
+  border-bottom: 1px solid rgba(58,54,50,0.3);
+}
+.gc-roll-empty {
+  font-size: 0.65rem;
+  color: #555;
+  font-style: italic;
+}
+.gc-mastery-tag {
+  color: #c8a44e;
+  font-weight: 600;
+}
+.gc-controls {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
   

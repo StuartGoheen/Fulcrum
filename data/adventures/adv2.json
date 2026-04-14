@@ -564,9 +564,16 @@
             "power": 3,
             "vpThreshold": 10,
             "vpScoring": {
+              "failure": 0,
+              "fleetingCost": 0,
+              "masterfulCost": 1,
+              "legendaryCost": 1,
               "fleeting": 1,
               "masterful": 2,
               "legendary": 3,
+              "unleashedI": 4,
+              "unleashedII": 5,
+              "unleashedIII": 6,
               "masteryBonus": 1
             },
             "failureConsequence": "Someone noticed you asking about Raden. Word travels through the encampment — increased risk of alerting Varga's network or the Trandoshan hit squad.",

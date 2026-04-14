@@ -10,6 +10,7 @@ let _broadcastedMapPins = [];
 let _combatHeartbeatTimer = null;
 let _tutorialState = null;
 let _activePoll = null;
+let _groupChallengeState = null;
 
 function getShipCombatState() {
   return _shipCombatState;
@@ -250,6 +251,27 @@ function registerHandlers(io) {
             phase: phase,
             phaseIndex: _tutorialState.currentPhase,
             totalPhases: _tutorialState.playerPhases.length
+          });
+        }
+
+        if (role === 'player' && _groupChallengeState && _groupChallengeState.active) {
+          const gcCharId = String(characterId || '');
+          const gcBeat = _groupChallengeState.currentBeat;
+          const gcSubmitted = !!_groupChallengeState.beatSubmissions[gcCharId + ':' + gcBeat];
+          socket.emit('groupChallenge:sync', {
+            active: true,
+            name: _groupChallengeState.challengeData.name,
+            description: _groupChallengeState.challengeData.description,
+            tier: _groupChallengeState.challengeData.tier,
+            power: _groupChallengeState.challengeData.power,
+            vpThreshold: _groupChallengeState.challengeData.vpThreshold,
+            vpScoring: _groupChallengeState.challengeData.vpScoring,
+            eligibleDisciplines: _groupChallengeState.challengeData.eligibleDisciplines,
+            currentBeat: _groupChallengeState.currentBeat,
+            totalVP: _groupChallengeState.totalVP,
+            rollLog: _groupChallengeState.rollLog,
+            revealedThresholds: _groupChallengeState.revealedThresholds,
+            hasSubmittedThisBeat: gcSubmitted
           });
         }
       } catch (err) {
@@ -1207,6 +1229,219 @@ function registerHandlers(io) {
       _activePoll = null;
       io.to('players').emit('decision:poll-cancelled');
       console.log('[socket] GM cancelled decision poll');
+    });
+
+    socket.on('groupChallenge:announce', (payload) => {
+      if (socket.data.role !== 'gm') {
+        socket.emit('error', { message: 'Only the GM can announce group challenges.' });
+        return;
+      }
+      const { challengeData, adventureId, sceneId } = payload || {};
+      if (!challengeData || !challengeData.name) {
+        socket.emit('error', { message: 'Invalid challenge data.' });
+        return;
+      }
+      _groupChallengeState = {
+        active: true,
+        challengeData: challengeData,
+        adventureId: adventureId || '',
+        sceneId: sceneId || '',
+        currentBeat: 1,
+        totalVP: 0,
+        rollLog: [],
+        revealedThresholds: [],
+        beatSubmissions: {}
+      };
+      io.to('players').emit('groupChallenge:announce', {
+        name: challengeData.name,
+        description: challengeData.description,
+        tier: challengeData.tier,
+        power: challengeData.power,
+        vpThreshold: challengeData.vpThreshold,
+        vpScoring: challengeData.vpScoring,
+        eligibleDisciplines: challengeData.eligibleDisciplines,
+        currentBeat: 1,
+        totalVP: 0,
+        rollLog: [],
+        revealedThresholds: []
+      });
+      socket.emit('groupChallenge:gm-ack', { active: true, currentBeat: 1, totalVP: 0 });
+      console.log('[socket] GM announced group challenge: ' + challengeData.name);
+    });
+
+    socket.on('groupChallenge:submit', (payload) => {
+      if (socket.data.role !== 'player' || !socket.data.characterId) return;
+      if (!_groupChallengeState || !_groupChallengeState.active) {
+        socket.emit('error', { message: 'No active group challenge.' });
+        return;
+      }
+      const charId = String(socket.data.characterId);
+      const beat = _groupChallengeState.currentBeat;
+      if (_groupChallengeState.beatSubmissions[charId + ':' + beat]) {
+        socket.emit('error', { message: 'Already submitted for this beat.' });
+        return;
+      }
+      const { discipline, tier, mastery } = payload || {};
+      if (!discipline || !tier) {
+        socket.emit('groupChallenge:submitError', { message: 'Discipline and tier are required.' });
+        return;
+      }
+      const eligibleDiscs = _groupChallengeState.challengeData.eligibleDisciplines || [];
+      const discValid = eligibleDiscs.some(function (d) { return d.discipline === discipline; });
+      if (!discValid) {
+        socket.emit('groupChallenge:submitError', { message: 'Invalid discipline.' });
+        return;
+      }
+      const scoring = _groupChallengeState.challengeData.vpScoring || {};
+      const allowedTiers = ['failure', 'fleetingCost', 'masterfulCost', 'legendaryCost', 'fleeting', 'masterful', 'legendary', 'unleashedI', 'unleashedII', 'unleashedIII'];
+      if (allowedTiers.indexOf(tier) === -1 || typeof scoring[tier] !== 'number') {
+        socket.emit('groupChallenge:submitError', { message: 'Invalid result tier.' });
+        return;
+      }
+      let vpEarned = scoring[tier];
+      const isMastery = !!mastery;
+      if (isMastery && scoring.masteryBonus) {
+        vpEarned += scoring.masteryBonus;
+      }
+      _groupChallengeState.beatSubmissions[charId + ':' + beat] = true;
+      _groupChallengeState.totalVP += vpEarned;
+      const entry = {
+        characterId: charId,
+        characterName: socket.data.characterName || 'Unknown',
+        discipline: discipline,
+        tier: tier,
+        vp: vpEarned,
+        mastery: isMastery,
+        beat: beat
+      };
+      _groupChallengeState.rollLog.push(entry);
+      const thresholds = _groupChallengeState.challengeData.thresholds || [];
+      const newReveals = [];
+      thresholds.forEach(function (t) {
+        if (_groupChallengeState.totalVP >= t.vp) {
+          const alreadyRevealed = _groupChallengeState.revealedThresholds.find(function (r) { return r.vp === t.vp; });
+          if (!alreadyRevealed) {
+            _groupChallengeState.revealedThresholds.push(t);
+            newReveals.push(t);
+          }
+        }
+      });
+      io.emit('groupChallenge:update', {
+        totalVP: _groupChallengeState.totalVP,
+        vpThreshold: _groupChallengeState.challengeData.vpThreshold,
+        currentBeat: _groupChallengeState.currentBeat,
+        entry: entry,
+        newReveals: newReveals,
+        revealedThresholds: _groupChallengeState.revealedThresholds
+      });
+      console.log('[socket] ' + (socket.data.characterName || charId) + ' group challenge: ' + discipline + ' ' + tier + ' (' + vpEarned + ' VP)');
+    });
+
+    socket.on('groupChallenge:advanceBeat', () => {
+      if (socket.data.role !== 'gm') {
+        socket.emit('error', { message: 'Only the GM can advance beats.' });
+        return;
+      }
+      if (!_groupChallengeState || !_groupChallengeState.active) {
+        socket.emit('error', { message: 'No active group challenge.' });
+        return;
+      }
+      _groupChallengeState.currentBeat++;
+      io.emit('groupChallenge:beatAdvanced', {
+        currentBeat: _groupChallengeState.currentBeat,
+        totalVP: _groupChallengeState.totalVP,
+        vpThreshold: _groupChallengeState.challengeData.vpThreshold
+      });
+      console.log('[socket] GM advanced group challenge to beat ' + _groupChallengeState.currentBeat);
+    });
+
+    socket.on('groupChallenge:complete', async () => {
+      if (socket.data.role !== 'gm') {
+        socket.emit('error', { message: 'Only the GM can complete group challenges.' });
+        return;
+      }
+      if (!_groupChallengeState || !_groupChallengeState.active) {
+        socket.emit('error', { message: 'No active group challenge.' });
+        return;
+      }
+      const gcState = _groupChallengeState;
+      const success = gcState.totalVP >= gcState.challengeData.vpThreshold;
+      try {
+        const rollSummary = gcState.rollLog.map(function (r) {
+          return 'Beat ' + r.beat + ': ' + r.characterName + ' \u2014 ' + r.discipline + ' (' + r.tier + ') \u2192 ' + r.vp + ' VP' + (r.mastery ? ' +mastery' : '');
+        }).join('\n');
+        const body = 'Group Challenge: ' + gcState.challengeData.name + '\n' +
+          'Result: ' + (success ? 'SUCCESS' : 'FAILURE') + ' (' + gcState.totalVP + '/' + gcState.challengeData.vpThreshold + ' VP)\n' +
+          'Beats: ' + gcState.currentBeat + '\n\n' +
+          'Roll Log:\n' + rollSummary + '\n\n' +
+          'Intel Revealed:\n' + gcState.revealedThresholds.map(function (t) {
+            return '\u2022 [' + t.vp + ' VP] ' + t.intel;
+          }).join('\n') +
+          (!success && gcState.challengeData.failureConsequence ? '\n\nFailure: ' + gcState.challengeData.failureConsequence : '');
+        await pool.query(
+          'INSERT INTO journal_entries (title, body, author_character_name, source_scene_id) VALUES ($1, $2, $3, $4)',
+          [
+            'Group Challenge: ' + gcState.challengeData.name + ' \u2014 ' + (success ? 'Success' : 'Failure'),
+            body,
+            'System',
+            gcState.sceneId || null
+          ]
+        );
+      } catch (err) {
+        console.error('[socket] groupChallenge journal entry error:', err);
+      }
+      const completionData = {
+        name: gcState.challengeData.name,
+        success: success,
+        totalVP: gcState.totalVP,
+        vpThreshold: gcState.challengeData.vpThreshold,
+        totalBeats: gcState.currentBeat,
+        rollLog: gcState.rollLog,
+        revealedThresholds: gcState.revealedThresholds,
+        failureConsequence: !success ? gcState.challengeData.failureConsequence : null
+      };
+      io.emit('groupChallenge:completed', completionData);
+      _groupChallengeState = null;
+      console.log('[socket] Group challenge completed: ' + completionData.name + ' \u2014 ' + (success ? 'SUCCESS' : 'FAILURE'));
+    });
+
+    socket.on('groupChallenge:request', () => {
+      if (!_groupChallengeState || !_groupChallengeState.active) {
+        if (socket.data.role === 'gm') {
+          socket.emit('groupChallenge:gm-ack', { active: false, currentBeat: 1, totalVP: 0 });
+        } else {
+          socket.emit('groupChallenge:sync', { active: false });
+        }
+        return;
+      }
+      if (socket.data.role === 'gm') {
+        socket.emit('groupChallenge:gm-ack', {
+          active: true,
+          currentBeat: _groupChallengeState.currentBeat,
+          totalVP: _groupChallengeState.totalVP,
+          rollLog: _groupChallengeState.rollLog,
+          revealedThresholds: _groupChallengeState.revealedThresholds
+        });
+        return;
+      }
+      const gcCharId = String(socket.data.characterId || '');
+      const gcBeat = _groupChallengeState.currentBeat;
+      const gcSubmitted = !!_groupChallengeState.beatSubmissions[gcCharId + ':' + gcBeat];
+      socket.emit('groupChallenge:sync', {
+        active: true,
+        name: _groupChallengeState.challengeData.name,
+        description: _groupChallengeState.challengeData.description,
+        tier: _groupChallengeState.challengeData.tier,
+        power: _groupChallengeState.challengeData.power,
+        vpThreshold: _groupChallengeState.challengeData.vpThreshold,
+        vpScoring: _groupChallengeState.challengeData.vpScoring,
+        eligibleDisciplines: _groupChallengeState.challengeData.eligibleDisciplines,
+        currentBeat: _groupChallengeState.currentBeat,
+        totalVP: _groupChallengeState.totalVP,
+        rollLog: _groupChallengeState.rollLog,
+        revealedThresholds: _groupChallengeState.revealedThresholds,
+        hasSubmittedThisBeat: gcSubmitted
+      });
     });
 
     socket.on('map:broadcast', async (payload) => {

@@ -291,12 +291,47 @@
       _showChallengeResolutionToast(data);
     });
 
+    socket.on('groupChallenge:announce', function (data) {
+      _showGroupChallengePanel(data);
+    });
+
+    socket.on('groupChallenge:sync', function (data) {
+      if (data && data.active) {
+        _showGroupChallengePanel(data);
+      }
+    });
+
+    socket.on('groupChallenge:update', function (data) {
+      _updateGroupChallengeState(data);
+    });
+
+    socket.on('groupChallenge:beatAdvanced', function (data) {
+      _onGroupChallengeBeatAdvanced(data);
+    });
+
+    socket.on('groupChallenge:completed', function (data) {
+      _onGroupChallengeCompleted(data);
+    });
+
+    socket.on('groupChallenge:submitError', function (data) {
+      _gcSubmitted = false;
+      _renderGroupChallengePanel();
+      if (data && data.message) {
+        var errDiv = document.createElement('div');
+        errDiv.className = 'pgc-error-toast';
+        errDiv.textContent = data.message;
+        document.body.appendChild(errDiv);
+        setTimeout(function () { errDiv.remove(); }, 3000);
+      }
+    });
+
     socket.on('session:joined', function (joinData) {
       if (joinData && joinData.playerToken) {
         window._playerToken = joinData.playerToken;
       }
       socket.emit('combat:request');
       _checkForActiveChallenge();
+      if (_currentSocket) _currentSocket.emit('groupChallenge:request');
     });
 
     _initPlayerTacticalMap(socket);
@@ -1138,6 +1173,234 @@
 
   document.addEventListener('mouseup', function () {
     _tutDrag.active = false;
+  });
+
+  var _gcData = null;
+  var _gcSubmitted = false;
+  var _gcCollapsed = false;
+  var _gcDrag = { active: false, startX: 0, startY: 0, x: 0, y: 0 };
+
+  function _showGroupChallengePanel(data) {
+    _gcData = {
+      name: data.name,
+      description: data.description,
+      tier: data.tier || 1,
+      power: data.power || 0,
+      vpThreshold: data.vpThreshold || 0,
+      vpScoring: data.vpScoring || {},
+      eligibleDisciplines: data.eligibleDisciplines || [],
+      currentBeat: data.currentBeat || 1,
+      totalVP: data.totalVP || 0,
+      rollLog: data.rollLog || [],
+      revealedThresholds: data.revealedThresholds || []
+    };
+    _gcSubmitted = !!data.hasSubmittedThisBeat;
+    _renderGroupChallengePanel();
+  }
+
+  function _updateGroupChallengeState(data) {
+    if (!_gcData) return;
+    _gcData.totalVP = data.totalVP;
+    _gcData.currentBeat = data.currentBeat;
+    if (data.entry) _gcData.rollLog.push(data.entry);
+    if (data.revealedThresholds) _gcData.revealedThresholds = data.revealedThresholds;
+    var charId = _getSessionCharId();
+    if (data.entry && charId && String(data.entry.characterId) === String(charId)) {
+      _gcSubmitted = true;
+    }
+    _renderGroupChallengePanel();
+  }
+
+  function _onGroupChallengeBeatAdvanced(data) {
+    if (!_gcData) return;
+    _gcData.currentBeat = data.currentBeat;
+    _gcData.totalVP = data.totalVP;
+    _gcSubmitted = false;
+    _renderGroupChallengePanel();
+  }
+
+  function _onGroupChallengeCompleted(data) {
+    var panel = document.getElementById('player-gc-panel');
+    if (panel) {
+      var resultCls = data.success ? 'pgc-result--success' : 'pgc-result--failure';
+      var resultHtml = '<div class="pgc-result ' + resultCls + '">';
+      resultHtml += '<div class="pgc-result-title">' + _escHtml(data.name) + '</div>';
+      resultHtml += '<div class="pgc-result-status">' + (data.success ? 'CHALLENGE COMPLETE' : 'CHALLENGE FAILED') + '</div>';
+      resultHtml += '<div class="pgc-result-vp">' + data.totalVP + ' / ' + data.vpThreshold + ' VP</div>';
+      if (data.failureConsequence) {
+        resultHtml += '<div class="pgc-result-consequence">' + _escHtml(data.failureConsequence) + '</div>';
+      }
+      resultHtml += '<button class="pgc-close-btn" id="pgc-result-close">Dismiss</button>';
+      resultHtml += '</div>';
+      panel.innerHTML = resultHtml;
+      var closeBtn = document.getElementById('pgc-result-close');
+      if (closeBtn) closeBtn.addEventListener('click', function () { panel.remove(); });
+      _gcData = null;
+      _gcSubmitted = false;
+    }
+  }
+
+  function _renderGroupChallengePanel() {
+    if (!_gcData) return;
+    var panel = document.getElementById('player-gc-panel');
+    if (!panel) {
+      panel = document.createElement('div');
+      panel.id = 'player-gc-panel';
+      panel.className = 'pgc-container';
+      document.body.appendChild(panel);
+    }
+
+    var gc = _gcData;
+    var pct = gc.vpThreshold > 0 ? Math.min(100, Math.round((gc.totalVP / gc.vpThreshold) * 100)) : 0;
+
+    var html = '<div class="pgc-header" id="pgc-drag-handle">';
+    html += '<span class="pgc-title">GROUP CHALLENGE</span>';
+    html += '<span class="pgc-beat-badge">Beat ' + gc.currentBeat + '</span>';
+    html += '<button class="pgc-collapse-btn" id="pgc-collapse-btn">' + (_gcCollapsed ? '\u25B2' : '\u25BC') + '</button>';
+    html += '</div>';
+
+    if (!_gcCollapsed) {
+      html += '<div class="pgc-body">';
+      html += '<div class="pgc-challenge-name">' + _escHtml(gc.name) + '</div>';
+      html += '<div class="pgc-challenge-desc">' + _escHtml(gc.description) + '</div>';
+      html += '<div class="pgc-vp-row">';
+      html += '<div class="pgc-vp-bar"><div class="pgc-vp-fill" style="width:' + pct + '%"></div></div>';
+      html += '<span class="pgc-vp-text">' + gc.totalVP + ' / ' + gc.vpThreshold + ' VP</span>';
+      html += '</div>';
+
+      if (!_gcSubmitted) {
+        html += '<div class="pgc-submit-section">';
+        html += '<div class="pgc-section-label">Your Approach</div>';
+        html += '<div class="pgc-disc-buttons">';
+        (gc.eligibleDisciplines || []).forEach(function (d, i) {
+          html += '<button class="pgc-disc-btn" data-gc-disc="' + _escHtml(d.discipline) + '" title="' + _escHtml(d.approach) + '">' + _escHtml(d.discipline) + '</button>';
+        });
+        html += '</div>';
+        html += '<div class="pgc-section-label">Result Tier</div>';
+        html += '<div class="pgc-tier-buttons">';
+        var tierOrder = ['failure', 'fleetingCost', 'masterfulCost', 'legendaryCost', 'fleeting', 'masterful', 'legendary', 'unleashedI', 'unleashedII', 'unleashedIII'];
+        var tierLabels = { failure: 'Failure', fleetingCost: 'Fleeting Cost', masterfulCost: 'Masterful Cost', legendaryCost: 'Legendary Cost', fleeting: 'Fleeting', masterful: 'Masterful', legendary: 'Legendary', unleashedI: 'Unleashed I', unleashedII: 'Unleashed II', unleashedIII: 'Unleashed III' };
+        tierOrder.forEach(function (t) {
+          if (typeof gc.vpScoring[t] === 'number') {
+            var vpLabel = gc.vpScoring[t] > 0 ? '+' + gc.vpScoring[t] : gc.vpScoring[t];
+            html += '<button class="pgc-tier-btn" data-gc-tier="' + t + '">' + tierLabels[t] + ' <span class="pgc-tier-vp">(' + vpLabel + ')</span></button>';
+          }
+        });
+        html += '</div>';
+        html += '<label class="pgc-mastery-label"><input type="checkbox" id="pgc-mastery-cb" /> Mastery (Control 8+)' + (gc.vpScoring.masteryBonus ? ' +' + gc.vpScoring.masteryBonus + ' VP' : '') + '</label>';
+        html += '<button class="pgc-submit-btn" id="pgc-submit-btn" disabled>Submit Roll</button>';
+        html += '</div>';
+      } else {
+        html += '<div class="pgc-submitted-msg">Roll submitted for Beat ' + gc.currentBeat + ' \u2014 waiting for next beat\u2026</div>';
+      }
+
+      if (gc.revealedThresholds.length > 0) {
+        html += '<div class="pgc-intel-section">';
+        html += '<div class="pgc-section-label">Intel Discovered</div>';
+        gc.revealedThresholds.forEach(function (t) {
+          html += '<div class="pgc-intel-item">';
+          html += '<span class="pgc-intel-vp">' + t.vp + ' VP</span>';
+          html += '<span class="pgc-intel-text">' + _escHtml(t.intel) + '</span>';
+          html += '</div>';
+        });
+        html += '</div>';
+      }
+
+      html += '<div class="pgc-activity-log">';
+      html += '<div class="pgc-section-label">Activity</div>';
+      if (gc.rollLog.length === 0) {
+        html += '<div class="pgc-log-empty">Waiting for rolls\u2026</div>';
+      } else {
+        var recentLogs = gc.rollLog.slice(-8);
+        recentLogs.forEach(function (r) {
+          html += '<div class="pgc-log-entry">B' + r.beat + ': <strong>' + _escHtml(r.characterName) + '</strong> \u2014 ' + _escHtml(r.discipline) + ' (' + _escHtml(r.tier) + ') \u2192 ' + r.vp + ' VP' + (r.mastery ? ' +M' : '') + '</div>';
+        });
+      }
+      html += '</div>';
+      html += '</div>';
+    }
+
+    panel.innerHTML = html;
+
+    var collapseBtn = document.getElementById('pgc-collapse-btn');
+    if (collapseBtn) {
+      collapseBtn.addEventListener('click', function () {
+        _gcCollapsed = !_gcCollapsed;
+        _renderGroupChallengePanel();
+      });
+    }
+
+    var selectedDisc = null;
+    var selectedTier = null;
+
+    panel.querySelectorAll('.pgc-disc-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        panel.querySelectorAll('.pgc-disc-btn').forEach(function (b) { b.classList.remove('pgc-selected'); });
+        btn.classList.add('pgc-selected');
+        selectedDisc = btn.dataset.gcDisc;
+        _updateGcSubmitState();
+      });
+    });
+
+    panel.querySelectorAll('.pgc-tier-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        panel.querySelectorAll('.pgc-tier-btn').forEach(function (b) { b.classList.remove('pgc-selected'); });
+        btn.classList.add('pgc-selected');
+        selectedTier = btn.dataset.gcTier;
+        _updateGcSubmitState();
+      });
+    });
+
+    function _updateGcSubmitState() {
+      var submitBtn = document.getElementById('pgc-submit-btn');
+      if (submitBtn) submitBtn.disabled = !(selectedDisc && selectedTier);
+    }
+
+    var submitBtn = document.getElementById('pgc-submit-btn');
+    if (submitBtn) {
+      submitBtn.addEventListener('click', function () {
+        if (!selectedDisc || !selectedTier || !_currentSocket) return;
+        var masteryEl = document.getElementById('pgc-mastery-cb');
+        var mastery = masteryEl ? masteryEl.checked : false;
+        _currentSocket.emit('groupChallenge:submit', {
+          discipline: selectedDisc,
+          tier: selectedTier,
+          mastery: mastery
+        });
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submitting\u2026';
+      });
+    }
+
+    var dragHandle = document.getElementById('pgc-drag-handle');
+    if (dragHandle) {
+      dragHandle.addEventListener('mousedown', function (e) {
+        if (e.target.tagName === 'BUTTON') return;
+        _gcDrag.active = true;
+        _gcDrag.startX = e.clientX;
+        _gcDrag.startY = e.clientY;
+        var rect = panel.getBoundingClientRect();
+        _gcDrag.x = rect.left;
+        _gcDrag.y = rect.top;
+        e.preventDefault();
+      });
+    }
+  }
+
+  document.addEventListener('mousemove', function (e) {
+    if (!_gcDrag.active) return;
+    var panel = document.getElementById('player-gc-panel');
+    if (!panel) { _gcDrag.active = false; return; }
+    var dx = e.clientX - _gcDrag.startX;
+    var dy = e.clientY - _gcDrag.startY;
+    panel.style.left = (_gcDrag.x + dx) + 'px';
+    panel.style.top = (_gcDrag.y + dy) + 'px';
+    panel.style.bottom = 'auto';
+    panel.style.right = 'auto';
+  });
+
+  document.addEventListener('mouseup', function () {
+    _gcDrag.active = false;
   });
 
   var _challengeData = null;

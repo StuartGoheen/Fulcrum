@@ -1201,6 +1201,9 @@
     if (panelId === 'holonet') {
       _bindHolonetHandlers(panel);
     }
+    if (panelId === 'groupchallenge') {
+      _bindGroupChallengeEvents(panel);
+    }
   }
 
   function _bindTtsEvents(panel) {
@@ -1564,6 +1567,7 @@
     var hasDecisionPoints = !!(scene.decisionPoints && scene.decisionPoints.length);
     var hasLoreTags = !!(scene.loreTags && scene.loreTags.length);
     var hasNarrativeLinks = !!(scene.narrativeLinks && scene.narrativeLinks.length);
+    var hasGroupChallenge = !!scene.groupChallenge;
 
     var html = '<div class="cb-dashboard">';
 
@@ -1621,6 +1625,9 @@
       html += '<div class="cb-tile' + (_openPanels['pacing'] ? ' cb-tile--active' : '') + '" data-panel-id="pacing"><span class="cb-tile-icon">&#9200;</span><span class="cb-tile-label">Pacing</span><span class="cb-tile-meta">' + (scene.pacing.estimatedMinutes ? '~' + scene.pacing.estimatedMinutes + ' min' : 'Guide') + '</span></div>';
     }
     html += '<div class="cb-tile' + (_openPanels['holonet'] ? ' cb-tile--active' : '') + '" data-panel-id="holonet"><span class="cb-tile-icon">&#128225;</span><span class="cb-tile-label">HoloNet</span><span class="cb-tile-meta">Broadcast</span></div>';
+    if (hasGroupChallenge) {
+      html += '<div class="cb-tile cb-tile--gc' + (_openPanels['groupchallenge'] ? ' cb-tile--active' : '') + '" data-panel-id="groupchallenge"><span class="cb-tile-icon">&#9876;</span><span class="cb-tile-label">Group Challenge</span><span class="cb-tile-meta">' + esc(scene.groupChallenge.name) + '</span></div>';
+    }
     html += '</div>';
 
     if (hasDecisionPoints) {
@@ -1678,7 +1685,7 @@
           closeFloatingPanel(panelId);
           return;
         }
-        var titleMap = { readaloud: 'Read Aloud', gmnotes: 'GM Notes', npcs: 'NPC Roster', encounters: 'Encounters', challenges: 'Discipline Challenges', environment: 'Environment', rewards: 'Rewards', pacing: 'Pacing Guide', holonet: 'HoloNet Broadcast Terminal' };
+        var titleMap = { readaloud: 'Read Aloud', gmnotes: 'GM Notes', npcs: 'NPC Roster', encounters: 'Encounters', challenges: 'Discipline Challenges', environment: 'Environment', rewards: 'Rewards', pacing: 'Pacing Guide', holonet: 'HoloNet Broadcast Terminal', groupchallenge: 'Group Challenge' };
         var contentMap = {
           readaloud: function () { return _buildReadAloudHtml(scene); },
           gmnotes: function () { return _buildGmNotesHtml(scene); },
@@ -1688,9 +1695,10 @@
           environment: function () { return _buildEnvironmentHtml(scene); },
           rewards: function () { return _buildRewardsHtml(scene); },
           pacing: function () { return _buildPacingHtml(scene); },
-          holonet: function () { return _buildHoloNetHtml(); }
+          holonet: function () { return _buildHoloNetHtml(); },
+          groupchallenge: function () { return _buildGroupChallengeHtml(scene); }
         };
-        var sizeMap = { readaloud: { width: 560, height: 450 }, gmnotes: { width: 520, height: 400 }, npcs: { width: 520, height: 500 }, encounters: { width: 560, height: 480 }, challenges: { width: 540, height: 460 }, environment: { width: 480, height: 380 }, rewards: { width: 420, height: 300 }, pacing: { width: 440, height: 320 }, holonet: { width: 620, height: 560 } };
+        var sizeMap = { readaloud: { width: 560, height: 450 }, gmnotes: { width: 520, height: 400 }, npcs: { width: 520, height: 500 }, encounters: { width: 560, height: 480 }, challenges: { width: 540, height: 460 }, environment: { width: 480, height: 380 }, rewards: { width: 420, height: 300 }, pacing: { width: 440, height: 320 }, holonet: { width: 620, height: 560 }, groupchallenge: { width: 600, height: 560 } };
         var builder = contentMap[panelId];
         if (builder) {
           openFloatingPanel(panelId, titleMap[panelId] || panelId, builder(), sizeMap[panelId]);
@@ -2437,10 +2445,41 @@
     });
     socket.on('session:joined', function () {
       socket.emit('combat:request-state');
+      socket.emit('groupChallenge:request');
     });
 
     socket.on('tutorial:gm-ack', function (data) {
       _updateTutorialControls(data);
+    });
+
+    socket.on('groupChallenge:gm-ack', function (data) {
+      _gcActive = !!data.active;
+      _gcBeat = data.currentBeat || 1;
+      _gcTotalVP = data.totalVP || 0;
+      if (data.rollLog) _gcRollLog = data.rollLog;
+      if (data.revealedThresholds) _gcRevealedThresholds = data.revealedThresholds;
+      _refreshGcPanel();
+    });
+
+    socket.on('groupChallenge:update', function (data) {
+      _gcTotalVP = data.totalVP;
+      _gcBeat = data.currentBeat;
+      if (data.entry) _gcRollLog.push(data.entry);
+      if (data.revealedThresholds) _gcRevealedThresholds = data.revealedThresholds;
+      _refreshGcPanel();
+    });
+
+    socket.on('groupChallenge:beatAdvanced', function (data) {
+      _gcBeat = data.currentBeat;
+      _gcTotalVP = data.totalVP;
+      _refreshGcPanel();
+    });
+
+    socket.on('groupChallenge:completed', function (data) {
+      _gcActive = false;
+      _refreshGcPanel();
+      showToast('Group Challenge ' + (data.success ? 'Succeeded' : 'Failed') + ': ' + data.name + ' (' + data.totalVP + '/' + data.vpThreshold + ' VP)');
+      loadCrewJournal();
     });
   }
 
@@ -2530,6 +2569,139 @@
         }).catch(function (err) { console.error('Failed to update request:', err); });
       });
     });
+  }
+
+  var _gcActive = false;
+  var _gcBeat = 1;
+  var _gcTotalVP = 0;
+  var _gcRollLog = [];
+  var _gcRevealedThresholds = [];
+  var _gcChallengeData = null;
+
+  function _buildGroupChallengeHtml(scene) {
+    var gc = scene.groupChallenge;
+    if (!gc) return '<div style="padding:1rem;color:var(--color-text-secondary);">No group challenge in this scene.</div>';
+    _gcChallengeData = gc;
+    var html = '<div class="gc-panel">';
+    html += '<div class="gc-header-info">';
+    html += '<div class="gc-name">' + esc(gc.name) + '</div>';
+    html += '<div class="gc-desc">' + esc(gc.description) + '</div>';
+    html += '<div class="gc-stats">Tier ' + gc.tier + ' \u2022 Power ' + gc.power + ' \u2022 VP Target: ' + gc.vpThreshold + '</div>';
+    html += '</div>';
+    html += '<div class="gc-vp-section">';
+    html += '<div class="gc-vp-label">Victory Points: <span id="gc-vp-current">' + _gcTotalVP + '</span> / ' + gc.vpThreshold + '</div>';
+    var pct = gc.vpThreshold > 0 ? Math.min(100, Math.round((_gcTotalVP / gc.vpThreshold) * 100)) : 0;
+    html += '<div class="gc-vp-bar"><div class="gc-vp-fill" id="gc-vp-fill" style="width:' + pct + '%"></div></div>';
+    html += '<div class="gc-beat-label">Beat: <span id="gc-beat-num">' + _gcBeat + '</span></div>';
+    html += '</div>';
+    html += '<div class="gc-disciplines">';
+    html += '<div class="gc-section-label">Eligible Approaches</div>';
+    (gc.eligibleDisciplines || []).forEach(function (d) {
+      html += '<div class="gc-disc-chip"><strong>' + esc(d.discipline) + '</strong> \u2014 ' + esc(d.approach) + '</div>';
+    });
+    html += '</div>';
+    var scoring = gc.vpScoring || {};
+    html += '<div class="gc-scoring">';
+    html += '<div class="gc-section-label">VP Scoring</div>';
+    html += '<div class="gc-scoring-grid">';
+    var tierOrder = ['failure', 'fleetingCost', 'masterfulCost', 'legendaryCost', 'fleeting', 'masterful', 'legendary', 'unleashedI', 'unleashedII', 'unleashedIII'];
+    var tierLabels = { failure: 'Failure', fleetingCost: 'Fleeting Cost', masterfulCost: 'Masterful Cost', legendaryCost: 'Legendary Cost', fleeting: 'Fleeting', masterful: 'Masterful', legendary: 'Legendary', unleashedI: 'Unleashed I', unleashedII: 'Unleashed II', unleashedIII: 'Unleashed III' };
+    tierOrder.forEach(function (t) {
+      if (typeof scoring[t] === 'number') {
+        html += '<span class="gc-score-item"><span class="gc-score-tier">' + tierLabels[t] + '</span><span class="gc-score-vp">' + scoring[t] + '</span></span>';
+      }
+    });
+    if (scoring.masteryBonus) html += '<span class="gc-score-item gc-score-mastery"><span class="gc-score-tier">Mastery</span><span class="gc-score-vp">+' + scoring.masteryBonus + '</span></span>';
+    html += '</div></div>';
+    if (gc.failureConsequence) {
+      html += '<div class="gc-failure">';
+      html += '<div class="gc-section-label">Failure Consequence</div>';
+      html += '<div class="gc-failure-text">' + esc(gc.failureConsequence) + '</div>';
+      html += '</div>';
+    }
+    html += '<div class="gc-thresholds">';
+    html += '<div class="gc-section-label">Intel Thresholds</div>';
+    html += '<div id="gc-threshold-feed">';
+    (gc.thresholds || []).forEach(function (t) {
+      var revealed = _gcRevealedThresholds.find(function (r) { return r.vp === t.vp; });
+      html += '<div class="gc-threshold-item' + (revealed ? ' gc-threshold--revealed' : '') + '" data-gc-vp="' + t.vp + '">';
+      html += '<span class="gc-threshold-vp">' + t.vp + ' VP</span>';
+      html += '<span class="gc-threshold-intel">' + (revealed ? esc(t.intel) : '???') + '</span>';
+      html += '</div>';
+    });
+    html += '</div></div>';
+    html += '<div class="gc-roll-log">';
+    html += '<div class="gc-section-label">Roll Log</div>';
+    html += '<div id="gc-roll-log-feed">';
+    if (_gcRollLog.length === 0) {
+      html += '<div class="gc-roll-empty">No rolls yet</div>';
+    } else {
+      _gcRollLog.forEach(function (r) {
+        html += '<div class="gc-roll-entry">B' + r.beat + ': <strong>' + esc(r.characterName) + '</strong> \u2014 ' + esc(r.discipline) + ' (' + esc(r.tier) + ') \u2192 ' + r.vp + ' VP' + (r.mastery ? ' <span class="gc-mastery-tag">+M</span>' : '') + '</div>';
+      });
+    }
+    html += '</div></div>';
+    html += '<div class="gc-controls">';
+    if (!_gcActive) {
+      html += '<button class="cb-header-btn accent" id="gc-announce-btn" style="width:100%;justify-content:center;">Announce to Crew</button>';
+    } else {
+      html += '<button class="cb-header-btn" id="gc-advance-beat-btn" style="flex:1;justify-content:center;">Advance Beat</button>';
+      html += '<button class="cb-header-btn accent" id="gc-complete-btn" style="flex:1;justify-content:center;">Complete Challenge</button>';
+    }
+    html += '</div>';
+    html += '</div>';
+    return html;
+  }
+
+  function _bindGroupChallengeEvents(panel) {
+    var announceBtn = panel.querySelector('#gc-announce-btn');
+    if (announceBtn) {
+      announceBtn.addEventListener('click', function () {
+        if (!socket || !_gcChallengeData) return;
+        var adv = getAdventure(currentAdventure);
+        var part = adv ? getPart(adv, currentPart) : null;
+        var scene = part ? getScene(part, currentScene) : null;
+        _gcActive = true;
+        _gcBeat = 1;
+        _gcTotalVP = 0;
+        _gcRollLog = [];
+        _gcRevealedThresholds = [];
+        socket.emit('groupChallenge:announce', {
+          challengeData: _gcChallengeData,
+          adventureId: currentAdventure,
+          sceneId: scene ? scene.id : ''
+        });
+        _refreshGcPanel();
+      });
+    }
+    var advBtn = panel.querySelector('#gc-advance-beat-btn');
+    if (advBtn) {
+      advBtn.addEventListener('click', function () {
+        if (!socket) return;
+        socket.emit('groupChallenge:advanceBeat');
+      });
+    }
+    var completeBtn = panel.querySelector('#gc-complete-btn');
+    if (completeBtn) {
+      completeBtn.addEventListener('click', function () {
+        if (!socket) return;
+        socket.emit('groupChallenge:complete');
+      });
+    }
+  }
+
+  function _refreshGcPanel() {
+    var panel = document.getElementById('fp-groupchallenge');
+    if (!panel) return;
+    var adv = getAdventure(currentAdventure);
+    var part = adv ? getPart(adv, currentPart) : null;
+    var scene = part ? getScene(part, currentScene) : null;
+    if (!scene || !scene.groupChallenge) return;
+    var body = panel.querySelector('.cb-fpanel-body');
+    if (body) {
+      body.innerHTML = _buildGroupChallengeHtml(scene);
+      _bindGroupChallengeEvents(panel);
+    }
   }
 
   var assessData = null;
