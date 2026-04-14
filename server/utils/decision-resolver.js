@@ -1,38 +1,55 @@
 const { pool } = require('../db');
+const path = require('path');
+const fs = require('fs');
 
-const IMPACT_DEFAULTS = {
-  'maya-fate': 'alive',
-  'denia-fate': 'rescued',
-  'varth-relationship': 'trusted',
-  'malpaz-uprising': 'unknown',
-  'soren-alliance': 'unknown',
-  'kessra-grudge': 'unknown'
-};
+const REGISTRY_PATH = path.join(__dirname, '..', '..', 'data', 'decision-registry.json');
+
+function loadRegistry() {
+  try {
+    return JSON.parse(fs.readFileSync(REGISTRY_PATH, 'utf8'));
+  } catch (err) {
+    console.error('[decision-resolver] Failed to load registry:', err.message);
+    return {};
+  }
+}
+
+function getImpactDefaults() {
+  const registry = loadRegistry();
+  const defaults = {};
+  for (const [key, entry] of Object.entries(registry)) {
+    defaults[key] = entry.default || 'unresolved';
+  }
+  return defaults;
+}
 
 async function resolveDecisionState() {
-  const state = Object.assign({}, IMPACT_DEFAULTS);
+  const state = getImpactDefaults();
   try {
     const result = await pool.query(
-      'SELECT campaign_impact, choice FROM campaign_decisions WHERE campaign_impact IS NOT NULL ORDER BY created_at ASC'
+      'SELECT campaign_impact, choice, impact_value FROM campaign_decisions WHERE campaign_impact IS NOT NULL ORDER BY created_at ASC'
     );
     for (const row of result.rows) {
       const impact = row.campaign_impact;
       if (!impact) continue;
-      const choice = (row.choice || '').toLowerCase();
-      if (impact === 'maya-fate') {
-        if (choice.includes('dead') || choice.includes('died') || choice.includes('killed') || choice.includes('abandon')) {
-          state['maya-fate'] = 'dead';
-        } else if (choice.includes('alive') || choice.includes('saved') || choice.includes('rescued')) {
-          state['maya-fate'] = 'alive';
-        }
-      } else if (impact === 'denia-fate') {
-        if (choice.includes('abandon') || choice.includes('left') || choice.includes('left behind')) {
-          state['denia-fate'] = 'abandoned';
-        } else if (choice.includes('rescue') || choice.includes('saved') || choice.includes('took')) {
-          state['denia-fate'] = 'rescued';
-        }
+      if (row.impact_value) {
+        state[impact] = row.impact_value;
       } else {
-        state[impact] = row.choice;
+        const choice = (row.choice || '').toLowerCase();
+        if (impact === 'maya-fate') {
+          if (choice.includes('dead') || choice.includes('died') || choice.includes('killed') || choice.includes('abandon')) {
+            state['maya-fate'] = 'dead';
+          } else if (choice.includes('alive') || choice.includes('saved') || choice.includes('rescued')) {
+            state['maya-fate'] = 'alive';
+          }
+        } else if (impact === 'denia-fate') {
+          if (choice.includes('abandon') || choice.includes('left') || choice.includes('left behind')) {
+            state['denia-fate'] = 'abandoned';
+          } else if (choice.includes('rescue') || choice.includes('saved') || choice.includes('took')) {
+            state['denia-fate'] = 'rescued';
+          }
+        } else {
+          state[impact] = row.choice;
+        }
       }
     }
   } catch (err) {
@@ -134,4 +151,4 @@ function applyAdventureConditionals(adventure, decisionState) {
   return adapted;
 }
 
-module.exports = { resolveDecisionState, applyConditionals, applyAdventureConditionals, IMPACT_DEFAULTS };
+module.exports = { resolveDecisionState, applyConditionals, applyAdventureConditionals, getImpactDefaults, loadRegistry };

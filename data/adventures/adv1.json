@@ -2852,6 +2852,33 @@
               "consequence": "No one else on Jakku has the capability. The cylinder stays locked."
             }
           ],
+          "decisionPoints": [
+            {
+              "id": "dp-switch-deal",
+              "prompt": "Do the heroes accept Switch's information-asset deal?",
+              "campaignImpact": "switch-deal",
+              "options": [
+                {
+                  "key": "accepted",
+                  "label": "Accept Switch's deal",
+                  "sets": "accepted",
+                  "consequence": "Heroes become Switch info assets. TC-663 finds them in Adv2. Switch assigns cipher module job."
+                },
+                {
+                  "key": "refused",
+                  "label": "Refuse the deal",
+                  "sets": "refused",
+                  "consequence": "Cylinder stays locked. No TC-663 contact in Adv2. Switch marks them as unreliable."
+                },
+                {
+                  "key": "double-cross",
+                  "label": "Double-cross Switch",
+                  "sets": "betrayed",
+                  "consequence": "Switch activates security. Extremely dangerous. If heroes survive, Switch becomes an enemy."
+                }
+              ]
+            }
+          ],
           "loreTags": [
             "Switch",
             "The Code Cylinder",
@@ -9146,6 +9173,39 @@
             {
               "choice": "Flee into the jungle for an alternate pickup",
               "consequence": "Must evade Shadow Troopers in dense canopy. Maya provides strafing support from a distance."
+            }
+          ],
+          "decisionPoints": [
+            {
+              "id": "dp-mandrake-fate",
+              "prompt": "What happens to Mandrake during the extraction?",
+              "campaignImpact": "mandrake-fate",
+              "options": [
+                {
+                  "key": "survived",
+                  "label": "Mandrake survives the extraction",
+                  "sets": "survived",
+                  "consequence": "Mandrake escapes with the crew. He becomes a recurring ally with his own agenda."
+                },
+                {
+                  "key": "sacrificed",
+                  "label": "Mandrake sacrifices himself covering the retreat",
+                  "sets": "sacrificed",
+                  "consequence": "Mandrake dies holding the line against Draco. His sacrifice buys the crew time to escape."
+                },
+                {
+                  "key": "captured",
+                  "label": "Mandrake is captured by Draco",
+                  "sets": "captured",
+                  "consequence": "Draco takes Mandrake alive. He reappears later as a broken instrument of the Inquisition."
+                },
+                {
+                  "key": "betrayed",
+                  "label": "Mandrake betrays the crew to Draco",
+                  "sets": "betrayed",
+                  "consequence": "Mandrake cuts a deal with Draco in exchange for his life. The crew discovers the betrayal later."
+                }
+              ]
             }
           ],
           "loreTags": [

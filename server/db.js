@@ -127,15 +127,21 @@ async function initSchema() {
       );
 
       CREATE TABLE IF NOT EXISTS campaign_decisions (
-        id              SERIAL PRIMARY KEY,
-        scene_id        TEXT,
-        adventure_id    TEXT NOT NULL,
-        decision_key    TEXT NOT NULL,
-        choice          TEXT NOT NULL,
-        outcome         TEXT,
-        campaign_impact TEXT,
-        voted           BOOLEAN NOT NULL DEFAULT false,
-        created_at      TIMESTAMP DEFAULT NOW()
+        id                SERIAL PRIMARY KEY,
+        scene_id          TEXT,
+        adventure_id      TEXT NOT NULL,
+        decision_key      TEXT NOT NULL,
+        choice            TEXT NOT NULL,
+        outcome           TEXT,
+        campaign_impact   TEXT,
+        voted             BOOLEAN NOT NULL DEFAULT false,
+        decision_point_id TEXT,
+        option_key        TEXT,
+        impact_value      TEXT,
+        gm_notes          TEXT,
+        auto_notes        TEXT,
+        vote_data         JSONB,
+        created_at        TIMESTAMP DEFAULT NOW()
       );
 
       CREATE TABLE IF NOT EXISTS narrative_challenge_instances (
@@ -224,6 +230,24 @@ async function initSchema() {
     } catch (e) {}
     try {
       await client.query(`ALTER TABLE sessions ADD COLUMN IF NOT EXISTS player_token TEXT`);
+    } catch (e) {}
+    try {
+      await client.query(`ALTER TABLE campaign_decisions ADD COLUMN IF NOT EXISTS decision_point_id TEXT`);
+    } catch (e) {}
+    try {
+      await client.query(`ALTER TABLE campaign_decisions ADD COLUMN IF NOT EXISTS option_key TEXT`);
+    } catch (e) {}
+    try {
+      await client.query(`ALTER TABLE campaign_decisions ADD COLUMN IF NOT EXISTS impact_value TEXT`);
+    } catch (e) {}
+    try {
+      await client.query(`ALTER TABLE campaign_decisions ADD COLUMN IF NOT EXISTS gm_notes TEXT`);
+    } catch (e) {}
+    try {
+      await client.query(`ALTER TABLE campaign_decisions ADD COLUMN IF NOT EXISTS auto_notes TEXT`);
+    } catch (e) {}
+    try {
+      await client.query(`ALTER TABLE campaign_decisions ADD COLUMN IF NOT EXISTS vote_data JSONB`);
     } catch (e) {}
     try {
       const existingIdx = await client.query(`SELECT indexdef FROM pg_indexes WHERE indexname = 'idx_journal_entries_scene_author'`);

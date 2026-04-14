@@ -313,6 +313,33 @@
               "consequence": "Local respect earned. But Kessra holds a grudge — she reappears inside the fortress for the aviary ambush (Part 2, Scene 3)."
             }
           ],
+          "decisionPoints": [
+            {
+              "id": "dp-kessra-grudge",
+              "prompt": "How do the heroes handle Kessra's landing tax at Blackwind Point?",
+              "campaignImpact": "kessra-grudge",
+              "options": [
+                {
+                  "key": "paid",
+                  "label": "Pay the landing tax",
+                  "sets": "none",
+                  "consequence": "No grudge. Kessra is satisfied. But the crew is marked as easy targets in the encampment."
+                },
+                {
+                  "key": "humiliated",
+                  "label": "Humiliate Kessra",
+                  "sets": "grudge",
+                  "consequence": "Local respect earned but Kessra holds a grudge. She reappears in the fortress aviary with trained raptors."
+                },
+                {
+                  "key": "diplomacy",
+                  "label": "Negotiate respectfully",
+                  "sets": "neutral",
+                  "consequence": "Kessra accepts a reduced fee. No grudge, no easy-target mark. Neutral outcome."
+                }
+              ]
+            }
+          ],
           "loreTags": [
             "Takodana",
             "Kessra",
@@ -819,6 +846,33 @@
             {
               "choice": "Deliver Raden to Varga (Varth's dark path)",
               "consequence": "Heroes take Raden by force or deception. They arrive at the fortress with a valuable gift — a fugitive returned in chains. Varga is delighted and immediately trusts the newcomers. Triggers the Execution of Raden event in Part 2. Dark Side / Corruption destiny moment."
+            }
+          ],
+          "decisionPoints": [
+            {
+              "id": "dp-raden-fate",
+              "prompt": "How do the heroes handle Raden at the filtration plant?",
+              "campaignImpact": "raden-fate",
+              "options": [
+                {
+                  "key": "light",
+                  "label": "Earn Raden's trust (light path)",
+                  "sets": "light",
+                  "consequence": "Raden shares everything. Full intel package. He stays behind or flees. Heroes enter with strong preparation."
+                },
+                {
+                  "key": "threaten",
+                  "label": "Threaten Raden for intel",
+                  "sets": "threaten",
+                  "consequence": "Minimum intel — maps only. Raden gives nothing else. Heroes enter the fortress underprepared."
+                },
+                {
+                  "key": "dark",
+                  "label": "Deliver Raden to Varga",
+                  "sets": "dark",
+                  "consequence": "Raden is taken by force. Varga rewards the crew with trust. Triggers Raden's execution in Part 2. Dark Side destiny moment."
+                }
+              ]
             }
           ],
           "loreTags": [
@@ -2729,6 +2783,39 @@
               "consequence": "Direct but dangerous. Stealth checks with high risk if caught in restricted areas. Can locate the datapad independently."
             }
           ],
+          "decisionPoints": [
+            {
+              "id": "dp-sinde-cipher",
+              "prompt": "Do the heroes steal Lady Sinde's ISB cipher module for Switch?",
+              "campaignImpact": "sinde-cipher",
+              "options": [
+                {
+                  "key": "stolen",
+                  "label": "Steal the cipher module",
+                  "sets": "stolen",
+                  "consequence": "Switch's secondary objective completed. TC-663 delivers it to Switch's network. Major favor earned with Switch."
+                },
+                {
+                  "key": "failed",
+                  "label": "Attempted but failed",
+                  "sets": "failed",
+                  "consequence": "Sinde is alerted. Security tightens. Switch notes the failure but TC-663 still provides base intel."
+                },
+                {
+                  "key": "refused",
+                  "label": "Refused the job",
+                  "sets": "refused",
+                  "consequence": "TC-663 still helps with base intel but Switch marks the debt. No favor earned."
+                },
+                {
+                  "key": "no-contact",
+                  "label": "No TC-663 contact (Switch deal refused)",
+                  "sets": "no-contact",
+                  "consequence": "TC-663 never approaches the heroes. The cipher module job is never offered."
+                }
+              ]
+            }
+          ],
           "loreTags": [
             "TC-663",
             "Switch",
@@ -4196,6 +4283,27 @@
             {
               "choice": "Attempt to eavesdrop on the Demos/Draco holo-call",
               "consequence": "Reveals Draco is inbound with the Assiduous. Death clock starts. Critical intelligence."
+            }
+          ],
+          "decisionPoints": [
+            {
+              "id": "dp-denia-fate",
+              "prompt": "Do the heroes rescue Jedi Master Denia from Varga's dungeon?",
+              "campaignImpact": "denia-fate",
+              "options": [
+                {
+                  "key": "rescued",
+                  "label": "Rescue Denia",
+                  "sets": "rescued",
+                  "consequence": "Denia joins the crew. Jedi lore-interpreter for the campaign. Silent alarm triggered. Demos senses the Force disturbance."
+                },
+                {
+                  "key": "abandoned",
+                  "label": "Leave Denia on Varth's advice",
+                  "sets": "abandoned",
+                  "consequence": "Faster escape. Denia remains in the dungeon. Draco recovers her off-camera. Church of the Force fills the lore role. Denia reappears in Adv10."
+                }
+              ]
             }
           ],
           "loreTags": [

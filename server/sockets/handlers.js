@@ -1151,7 +1151,7 @@ function registerHandlers(io) {
         socket.emit('error', { message: 'Only the GM can resolve a decision.' });
         return;
       }
-      const { choice, outcome, campaign_impact } = payload || {};
+      const { choice, outcome, campaign_impact, decision_point_id, option_key, impact_value, gm_notes, auto_notes } = payload || {};
       if (!choice) {
         socket.emit('error', { message: 'Choice is required to resolve.' });
         return;
@@ -1161,11 +1161,34 @@ function registerHandlers(io) {
       var decisionKey = (_activePoll && _activePoll.decisionKey) || (payload.decision_key || 'custom');
       var wasVoted = _activePoll ? Object.keys(_activePoll.votes).length > 0 : false;
 
+      var voteData = null;
+      if (_activePoll && wasVoted) {
+        var voteTally = {};
+        for (var vid in _activePoll.votes) {
+          var v = _activePoll.votes[vid];
+          var choiceText = _activePoll.choices[v.choiceIndex] || 'Unknown';
+          voteTally[choiceText] = (voteTally[choiceText] || 0) + 1;
+        }
+        voteData = {
+          choices: _activePoll.choices,
+          votes: Object.values(_activePoll.votes).map(function (v) {
+            return { characterId: v.characterId, name: v.name, choiceText: _activePoll.choices[v.choiceIndex] || 'Unknown' };
+          }),
+          tally: voteTally,
+          totalVotes: Object.keys(_activePoll.votes).length
+        };
+      }
+
       try {
         const result = await pool.query(
-          `INSERT INTO campaign_decisions (scene_id, adventure_id, decision_key, choice, outcome, campaign_impact, voted)
-           VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
-          [sceneId, adventureId, decisionKey, choice, outcome || null, campaign_impact || null, wasVoted]
+          `INSERT INTO campaign_decisions
+           (scene_id, adventure_id, decision_key, choice, outcome, campaign_impact, voted,
+            decision_point_id, option_key, impact_value, gm_notes, auto_notes, vote_data)
+           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING *`,
+          [sceneId, adventureId, decisionKey, choice, outcome || null, campaign_impact || null, wasVoted,
+           decision_point_id || null, option_key || null, impact_value || null,
+           gm_notes || null, auto_notes || null,
+           voteData ? JSON.stringify(voteData) : null]
         );
         io.emit('decision:resolved', {
           decision: result.rows[0],

@@ -1562,6 +1562,7 @@
     var hasRewards = !!(scene.rewards && (scene.rewards.credits || (scene.rewards.items && scene.rewards.items.length) || (scene.rewards.intel && scene.rewards.intel.length) || (scene.rewards.connections && scene.rewards.connections.length)));
     var hasPacing = !!scene.pacing;
     var hasDecisions = !!(scene.decisions && scene.decisions.length);
+    var hasDecisionPoints = !!(scene.decisionPoints && scene.decisionPoints.length);
     var hasLoreTags = !!(scene.loreTags && scene.loreTags.length);
     var hasNarrativeLinks = !!(scene.narrativeLinks && scene.narrativeLinks.length);
 
@@ -1623,7 +1624,23 @@
     html += '<div class="cb-tile' + (_openPanels['holonet'] ? ' cb-tile--active' : '') + '" data-panel-id="holonet"><span class="cb-tile-icon">&#128225;</span><span class="cb-tile-label">HoloNet</span><span class="cb-tile-meta">Broadcast</span></div>';
     html += '</div>';
 
-    if (hasDecisions) {
+    if (hasDecisionPoints) {
+      html += '<div class="cb-dash-decisions">';
+      html += '<div class="cb-dash-section-label">Decision Points</div>';
+      scene.decisionPoints.forEach(function (dp) {
+        html += '<div class="cb-dash-dp-group" data-dp-id="' + esc(dp.id) + '">';
+        html += '<div class="cb-dash-dp-prompt">' + esc(dp.prompt) + '</div>';
+        if (dp.campaignImpact) html += '<span class="cb-dash-dp-impact">' + esc(dp.campaignImpact) + '</span>';
+        dp.options.forEach(function (opt) {
+          html += '<div class="cb-dash-dp-option" data-dp-id="' + esc(dp.id) + '" data-opt-key="' + esc(opt.key) + '" data-dp-impact="' + esc(dp.campaignImpact || '') + '" data-opt-sets="' + esc(opt.sets || '') + '" data-opt-label="' + esc(opt.label) + '" data-opt-consequence="' + esc(opt.consequence || '') + '">';
+          html += '<strong>' + esc(opt.label) + '</strong>';
+          if (opt.consequence) html += ' <span>&rarr; ' + esc(opt.consequence) + '</span>';
+          html += '</div>';
+        });
+        html += '</div>';
+      });
+      html += '</div>';
+    } else if (hasDecisions) {
       html += '<div class="cb-dash-decisions">';
       html += '<div class="cb-dash-section-label">Decision Points</div>';
       scene.decisions.forEach(function (d) {
@@ -1689,6 +1706,19 @@
       });
     });
 
+    container.querySelectorAll('.cb-dash-dp-option').forEach(function (opt) {
+      opt.style.cursor = 'pointer';
+      opt.addEventListener('click', function () {
+        openDecisionModal(null, {
+          decisionPointId: opt.dataset.dpId,
+          optionKey: opt.dataset.optKey,
+          campaignImpact: opt.dataset.dpImpact || null,
+          impactValue: opt.dataset.optSets || null,
+          choice: opt.dataset.optLabel,
+          consequence: opt.dataset.optConsequence || ''
+        });
+      });
+    });
     container.querySelectorAll('.cb-dash-decision-chip').forEach(function (chip) {
       chip.style.cursor = 'pointer';
       chip.addEventListener('click', function () {
@@ -3223,19 +3253,43 @@
   var _decisionCache = [];
   var _pollVotes = {};
   var _impactTags = [
+    { value: 'switch-deal', label: 'Switch Deal', color: '#a78bfa' },
     { value: 'maya-fate', label: 'Maya\u2019s Fate', color: '#c084fc' },
     { value: 'denia-fate', label: 'Denia\u2019s Fate', color: '#60a5fa' },
     { value: 'varth-relationship', label: 'Varth Relationship', color: '#f97316' },
     { value: 'malpaz-uprising', label: 'Malpaz Uprising', color: '#ef4444' },
     { value: 'soren-alliance', label: 'Soren Alliance', color: '#34d399' },
-    { value: 'kessra-grudge', label: 'Kessra Grudge', color: '#fbbf24' }
+    { value: 'kessra-grudge', label: 'Kessra Grudge', color: '#fbbf24' },
+    { value: 'mandrake-fate', label: 'Mandrake\u2019s Fate', color: '#fb923c' },
+    { value: 'raden-fate', label: 'Raden\u2019s Fate', color: '#38bdf8' },
+    { value: 'sinde-cipher', label: 'Sinde Cipher', color: '#e879f9' }
   ];
+  var _campaignState = null;
 
   function _impactColor(tag) {
     for (var i = 0; i < _impactTags.length; i++) {
       if (_impactTags[i].value === tag) return _impactTags[i].color;
     }
     return '#9ca3af';
+  }
+
+  var _impactTagColors = {
+    'switch-deal': '#a78bfa', 'maya-fate': '#c084fc', 'denia-fate': '#60a5fa',
+    'varth-relationship': '#f97316', 'malpaz-uprising': '#ef4444', 'soren-alliance': '#34d399',
+    'kessra-grudge': '#fbbf24', 'mandrake-fate': '#fb923c', 'raden-fate': '#38bdf8',
+    'sinde-cipher': '#e879f9'
+  };
+
+  function _syncImpactTagsFromRegistry(registry) {
+    if (!registry || typeof registry !== 'object') return;
+    var newTags = [];
+    for (var key in registry) {
+      if (!registry.hasOwnProperty(key)) continue;
+      var color = _impactTagColors[key] || '#9ca3af';
+      var label = key.replace(/-/g, ' ').replace(/\b\w/g, function (c) { return c.toUpperCase(); });
+      newTags.push({ value: key, label: label, color: color });
+    }
+    if (newTags.length > 0) _impactTags = newTags;
   }
 
   function loadDecisions() {
@@ -3246,6 +3300,14 @@
         renderDecisionTimeline();
       })
       .catch(function (err) { console.error('Failed to load decisions:', err); });
+    fetch('/api/campaign/decisions/state')
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        _campaignState = data.state || {};
+        if (data.registry) _syncImpactTagsFromRegistry(data.registry);
+        renderCampaignStatePanel();
+      })
+      .catch(function (err) { console.error('Failed to load campaign state:', err); });
   }
 
   function renderDecisionTimeline() {
@@ -3271,6 +3333,19 @@
         html += '<div class="cb-decision-entry" data-decision-id="' + d.id + '">';
         html += '<div class="cb-decision-choice">' + esc(d.choice) + '</div>';
         if (d.outcome) html += '<div class="cb-decision-outcome">' + esc(d.outcome) + '</div>';
+        if (d.impact_value) html += '<div class="cb-decision-impact-value">Sets: ' + esc(d.impact_value) + '</div>';
+        if (d.gm_notes) html += '<div class="cb-decision-gm-notes">' + esc(d.gm_notes) + '</div>';
+        if (d.auto_notes) html += '<div class="cb-decision-auto-notes">' + esc(d.auto_notes) + '</div>';
+        var vd = d.vote_data;
+        if (typeof vd === 'string') { try { vd = JSON.parse(vd); } catch(e) { vd = null; } }
+        if (vd && vd.tally) {
+          html += '<div class="cb-decision-vote-summary">';
+          html += '<span class="cb-decision-vote-count">' + (vd.totalVotes || 0) + ' votes</span>';
+          Object.keys(vd.tally).forEach(function (opt) {
+            html += '<span class="cb-decision-vote-bar"><span class="cb-vote-opt">' + esc(opt) + '</span>: ' + vd.tally[opt] + '</span>';
+          });
+          html += '</div>';
+        }
         html += '<div class="cb-decision-meta">';
         if (d.campaign_impact) {
           html += '<span class="cb-decision-impact" style="border-color:' + _impactColor(d.campaign_impact) + ';color:' + _impactColor(d.campaign_impact) + '">' + esc(d.campaign_impact) + '</span>';
@@ -3296,21 +3371,47 @@
     });
   }
 
+  function renderCampaignStatePanel() {
+    var container = document.getElementById('cb-campaign-state-panel');
+    if (!container) return;
+    if (!_campaignState || Object.keys(_campaignState).length === 0) {
+      container.innerHTML = '';
+      return;
+    }
+    var html = '<div class="cb-campaign-state-header">Campaign State</div>';
+    html += '<div class="cb-campaign-state-grid">';
+    for (var i = 0; i < _impactTags.length; i++) {
+      var tag = _impactTags[i];
+      var val = _campaignState[tag.value];
+      if (val === undefined) continue;
+      html += '<div class="cb-campaign-state-item">';
+      html += '<span class="cb-campaign-state-key" style="color:' + tag.color + '">' + esc(tag.label) + '</span>';
+      html += '<span class="cb-campaign-state-val">' + esc(val) + '</span>';
+      html += '</div>';
+    }
+    html += '</div>';
+    container.innerHTML = html;
+  }
+
   function promptDecisionOnComplete(sceneId) {
     var adv = getAdventure(currentAdventure);
     var part = adv ? getPart(adv, currentPart) : null;
     var scene = part ? getScene(part, sceneId) : null;
-    if (!scene || !scene.decisions || scene.decisions.length === 0) return;
+    if (!scene) return;
+    var hasDp = scene.decisionPoints && scene.decisionPoints.length > 0;
+    var hasDec = scene.decisions && scene.decisions.length > 0;
+    if (!hasDp && !hasDec) return;
     var alreadyLogged = _decisionCache.some(function (d) {
       return d.scene_id === sceneId && d.adventure_id === currentAdventure;
     });
     if (alreadyLogged) return;
-    if (confirm('Scene "' + (scene.title || sceneId) + '" has ' + scene.decisions.length + ' decision point(s). Log decisions now?')) {
+    var count = hasDp ? scene.decisionPoints.length : scene.decisions.length;
+    if (confirm('Scene "' + (scene.title || sceneId) + '" has ' + count + ' decision point(s). Log decisions now?')) {
       openDecisionModal();
     }
   }
 
-  function openDecisionModal(presetChoices) {
+  function openDecisionModal(presetChoices, structuredOpt) {
     var existing = document.getElementById('cb-decision-modal-overlay');
     if (existing) existing.remove();
 
@@ -3318,7 +3419,9 @@
     var part = adv ? getPart(adv, currentPart) : null;
     var scene = part ? getScene(part, currentScene) : null;
     var sceneDecisions = (scene && scene.decisions) ? scene.decisions : [];
+    var sceneDecisionPoints = (scene && scene.decisionPoints) ? scene.decisionPoints : [];
     var _selectedDecIdx = -1;
+    var _structuredData = structuredOpt || null;
 
     var overlay = document.createElement('div');
     overlay.id = 'cb-decision-modal-overlay';
@@ -3328,7 +3431,25 @@
     html += '<div class="cb-decision-modal-header"><span>Log Decision</span><button class="cb-decision-modal-close" id="cb-decision-modal-close">&times;</button></div>';
     html += '<div class="cb-decision-modal-body">';
 
-    if (sceneDecisions.length > 0) {
+    if (_structuredData) {
+      html += '<div class="cb-dec-structured-info">';
+      html += '<div class="cb-dec-selected-label">Selected: <strong>' + esc(_structuredData.choice) + '</strong></div>';
+      if (_structuredData.consequence) html += '<div class="cb-dec-selected-consequence">' + esc(_structuredData.consequence) + '</div>';
+      if (_structuredData.campaignImpact) html += '<div class="cb-dec-selected-impact">Impact: <span class="cb-dash-dp-impact">' + esc(_structuredData.campaignImpact) + '</span> &rarr; ' + esc(_structuredData.impactValue || '') + '</div>';
+      html += '</div>';
+    }
+
+    if (!_structuredData && sceneDecisionPoints.length > 0) {
+      html += '<label>Decision Points</label>';
+      sceneDecisionPoints.forEach(function (dp, dpi) {
+        html += '<div class="cb-dec-dp-group-modal">';
+        html += '<div class="cb-dec-dp-prompt-modal">' + esc(dp.prompt) + '</div>';
+        dp.options.forEach(function (opt, oi) {
+          html += '<div class="cb-decision-scene-chip cb-dec-dp-opt-chip" data-dp-idx="' + dpi + '" data-opt-idx="' + oi + '">' + esc(opt.label) + '</div>';
+        });
+        html += '</div>';
+      });
+    } else if (!_structuredData && sceneDecisions.length > 0) {
       html += '<label>Scene Decision Points</label>';
       html += '<div class="cb-decision-scene-chips">';
       sceneDecisions.forEach(function (d, i) {
@@ -3341,11 +3462,13 @@
     html += '<input type="text" id="dec-choice" placeholder="What did the crew decide?" />';
     html += '<label>Outcome</label>';
     html += '<textarea id="dec-outcome" rows="2" placeholder="What happened as a result?"></textarea>';
+    html += '<label>GM Notes</label>';
+    html += '<textarea id="dec-gm-notes" rows="2" placeholder="Private GM notes about this decision..."></textarea>';
     html += '<label>Campaign Impact</label>';
     html += '<select id="dec-impact">';
     html += '<option value="">None</option>';
     _impactTags.forEach(function (t) {
-      html += '<option value="' + t.value + '">' + esc(t.label) + '</option>';
+      html += '<option value="' + t.value + '"' + (_structuredData && _structuredData.campaignImpact === t.value ? ' selected' : '') + '>' + esc(t.label) + '</option>';
     });
     html += '</select>';
 
@@ -3364,9 +3487,39 @@
 
     var choiceInput = document.getElementById('dec-choice');
     var outcomeInput = document.getElementById('dec-outcome');
+    var gmNotesInput = document.getElementById('dec-gm-notes');
     var impactSelect = document.getElementById('dec-impact');
 
-    overlay.querySelectorAll('.cb-decision-scene-chip').forEach(function (chip) {
+    if (_structuredData) {
+      choiceInput.value = _structuredData.choice || '';
+      outcomeInput.value = _structuredData.consequence || '';
+    }
+
+    overlay.querySelectorAll('.cb-dec-dp-opt-chip').forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        overlay.querySelectorAll('.cb-dec-dp-opt-chip').forEach(function (c) { c.classList.remove('selected'); });
+        chip.classList.add('selected');
+        var dpIdx = parseInt(chip.dataset.dpIdx, 10);
+        var optIdx = parseInt(chip.dataset.optIdx, 10);
+        var dp = sceneDecisionPoints[dpIdx];
+        var opt = dp ? dp.options[optIdx] : null;
+        if (dp && opt) {
+          _structuredData = {
+            decisionPointId: dp.id,
+            optionKey: opt.key,
+            campaignImpact: dp.campaignImpact || null,
+            impactValue: opt.sets || null,
+            choice: opt.label,
+            consequence: opt.consequence || ''
+          };
+          choiceInput.value = opt.label;
+          outcomeInput.value = opt.consequence || '';
+          if (dp.campaignImpact) impactSelect.value = dp.campaignImpact;
+        }
+      });
+    });
+
+    overlay.querySelectorAll('.cb-decision-scene-chip:not(.cb-dec-dp-opt-chip)').forEach(function (chip) {
       chip.addEventListener('click', function () {
         overlay.querySelectorAll('.cb-decision-scene-chip').forEach(function (c) { c.classList.remove('selected'); });
         chip.classList.add('selected');
@@ -3389,7 +3542,13 @@
 
     document.getElementById('dec-poll-btn').addEventListener('click', function () {
       var choices = [];
-      if (sceneDecisions.length > 0) {
+      if (_structuredData && _structuredData.decisionPointId) {
+        var dp = null;
+        for (var i = 0; i < sceneDecisionPoints.length; i++) {
+          if (sceneDecisionPoints[i].id === _structuredData.decisionPointId) { dp = sceneDecisionPoints[i]; break; }
+        }
+        if (dp) dp.options.forEach(function (o) { choices.push(o.label); });
+      } else if (sceneDecisions.length > 0) {
         sceneDecisions.forEach(function (d) { choices.push(d.choice); });
       }
       if (choiceInput.value.trim() && choices.indexOf(choiceInput.value.trim()) === -1) {
@@ -3398,10 +3557,11 @@
       if (choices.length === 0) return;
       _pollVotes = {};
       if (socket) {
+        var decKey = _structuredData ? _structuredData.decisionPointId : (currentScene ? (currentScene + ':' + (_selectedDecIdx >= 0 ? _selectedDecIdx : 'custom')) : 'custom');
         socket.emit('decision:poll', {
           sceneId: currentScene,
           adventureId: currentAdventure,
-          decisionKey: currentScene ? (currentScene + ':' + (_selectedDecIdx >= 0 ? _selectedDecIdx : 'custom')) : 'custom',
+          decisionKey: decKey,
           choices: choices
         });
       }
@@ -3413,27 +3573,28 @@
       var choice = choiceInput.value.trim();
       if (!choice) return;
       var impactVal = impactSelect.value || null;
+      var gmNotes = gmNotesInput.value.trim() || null;
+      var decKey = _structuredData ? _structuredData.decisionPointId : (currentScene ? (currentScene + ':' + (_selectedDecIdx >= 0 ? _selectedDecIdx : 'custom')) : 'custom');
+      var resolvePayload = {
+        choice: choice,
+        outcome: outcomeInput.value.trim() || null,
+        campaign_impact: _structuredData ? (_structuredData.campaignImpact || impactVal) : impactVal,
+        adventure_id: currentAdventure,
+        scene_id: currentScene,
+        decision_key: decKey,
+        decision_point_id: _structuredData ? _structuredData.decisionPointId : null,
+        option_key: _structuredData ? _structuredData.optionKey : null,
+        impact_value: _structuredData ? _structuredData.impactValue : null,
+        gm_notes: gmNotes,
+        auto_notes: scene ? ('Scene: ' + (scene.title || currentScene)) : null
+      };
       if (socket) {
-        socket.emit('decision:resolve', {
-          choice: choice,
-          outcome: outcomeInput.value.trim() || null,
-          campaign_impact: impactVal,
-          adventure_id: currentAdventure,
-          scene_id: currentScene,
-          decision_key: currentScene ? (currentScene + ':' + (_selectedDecIdx >= 0 ? _selectedDecIdx : 'custom')) : 'custom'
-        });
+        socket.emit('decision:resolve', resolvePayload);
       } else {
         fetch('/api/campaign/decisions', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            scene_id: currentScene,
-            adventure_id: currentAdventure,
-            decision_key: currentScene ? (currentScene + ':' + (_selectedDecIdx >= 0 ? _selectedDecIdx : 'custom')) : 'custom',
-            choice: choice,
-            outcome: outcomeInput.value.trim() || null,
-            campaign_impact: impactVal
-          })
+          body: JSON.stringify(resolvePayload)
         }).then(function () { loadDecisions(); });
       }
       closeDecisionModal();
@@ -3447,6 +3608,7 @@
   function closeDecisionModal() {
     var overlay = document.getElementById('cb-decision-modal-overlay');
     if (overlay) overlay.remove();
+    if (socket) socket.emit('decision:cancel-poll');
   }
 
   var _missionSummaryGenerating = false;

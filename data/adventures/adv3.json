@@ -4611,6 +4611,27 @@
               "consequence": "Maya dies. The slaves die. The heroes are rich but compromised."
             }
           ],
+          "decisionPoints": [
+            {
+              "id": "dp-maya-fate",
+              "prompt": "Do the heroes turn back to save Maya and the Shackles of Nizon?",
+              "campaignImpact": "maya-fate",
+              "options": [
+                {
+                  "key": "alive",
+                  "label": "Turn and fight to save Maya",
+                  "sets": "alive",
+                  "consequence": "Heroes engage TIEs and destroy the Gas Hauler. Maya survives. Varth reluctantly helps. Heroic but dangerous."
+                },
+                {
+                  "key": "dead",
+                  "label": "Follow Varth's order — jump to hyperspace",
+                  "sets": "dead",
+                  "consequence": "Maya dies. The slaves die. The heroes escape rich but morally compromised. Varth reveals his true nature."
+                }
+              ]
+            }
+          ],
           "loreTags": [
             "Maya",
             "Admiral Varth",

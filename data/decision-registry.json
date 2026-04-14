@@ -1,0 +1,52 @@
+{
+  "switch-deal": {
+    "default": "none",
+    "source": "adv1-p1-s3",
+    "description": "Did the heroes accept Switch's deal to become information assets?"
+  },
+  "mandrake-fate": {
+    "default": "unresolved",
+    "source": "adv1-p2-s7",
+    "description": "Mandrake's fate during the Vanishing Place extraction (destiny-gated)"
+  },
+  "kessra-grudge": {
+    "default": "none",
+    "source": "adv2-p1-s1",
+    "description": "How the heroes handled Kessra at Blackwind Point — determines aviary ambush"
+  },
+  "raden-fate": {
+    "default": "unresolved",
+    "source": "adv2-p1-s3",
+    "description": "Raden's path — light (cooperated), threaten, or dark (delivered to Varga)"
+  },
+  "denia-fate": {
+    "default": "unresolved",
+    "source": "adv2-p2-s7",
+    "description": "Did the heroes rescue Denia from Varga's dungeon or leave her behind?"
+  },
+  "maya-fate": {
+    "default": "alive",
+    "source": "adv3-p3-s5",
+    "description": "Did the heroes save Maya from the Shackles of Nizon?"
+  },
+  "varth-relationship": {
+    "default": "trusted",
+    "source": null,
+    "description": "Crew's overall trust level with Varth (evolves across adventures)"
+  },
+  "malpaz-uprising": {
+    "default": "unresolved",
+    "source": "adv5",
+    "description": "Did the heroes spark the Malpaz insurrection?"
+  },
+  "soren-alliance": {
+    "default": "unresolved",
+    "source": "adv8",
+    "description": "Soren Vex recruited for the pirate fleet or rejected?"
+  },
+  "sinde-cipher": {
+    "default": "unresolved",
+    "source": "adv2-p2-s3",
+    "description": "Did the heroes steal Lady Sinde's ISB cipher module for Switch?"
+  }
+}
