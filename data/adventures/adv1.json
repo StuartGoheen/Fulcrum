@@ -1752,7 +1752,8 @@
                 "fleeting": "The wound is real. The fear is real. But there's something about the angle of her fall — she didn't stumble randomly. She was heading toward this table.",
                 "masterful": "She chose this table. She saw armed people and made a calculation mid-sprint. The trip was real — she's genuinely hurt — but the direction was tactical.",
                 "legendary": "All of the above, plus: her injuries are from a warning shot, not a real attempt to kill. Whoever shot her wanted to slow her down, not put her down. This is a retrieval job, not a hit. And that 'Don't move' wasn't panic — it was an instruction."
-              }
+              },
+              "tier": 1
             },
             {
               "id": "sc-s1-intimidate",
@@ -1772,7 +1773,8 @@
                 "fleeting": "Krev pauses. He's recalculating but hasn't decided to leave. 'Varga's going to hear about this.' Buys time but doesn't resolve — a second social action may be needed.",
                 "masterful": "'Not worth it today.' Krev withdraws with the Kyuzo. Warns that Varga remembers faces. Clean resolution — no combat.",
                 "legendary": "Krev folds immediately and drops intel on the way out: 'Varga's got bigger problems than some cylinder — something about an Imperial deal gone wrong.' Seeds future plot threads."
-              }
+              },
+              "tier": 1
             },
             {
               "id": "sc-s1-charm",
@@ -1792,7 +1794,8 @@
                 "fleeting": "Krev hesitates — he's listening, but not convinced. He'll give one more chance to make a real offer. A second social action can close this.",
                 "masterful": "Thugs are mollified or confused enough to withdraw. Krev leaves muttering but doesn't escalate.",
                 "legendary": "Krev is genuinely charmed. Leaves on almost-friendly terms. 'You're smooth. Tell the girl Varga's patience isn't infinite, but today she gets a pass.'"
-              }
+              },
+              "tier": 1
             },
             {
               "id": "sc-s1-deception",
@@ -1812,7 +1815,8 @@
                 "fleeting": "Krev hesitates — the story doesn't quite add up but he can't immediately disprove it. He'll leave to verify, buying the PCs time but not resolving the situation permanently.",
                 "masterful": "Krev buys it. Leaves to confirm with his boss. By the time he realizes the deception, the PCs are long gone.",
                 "legendary": "Krev completely buys it and offers an apology. 'Didn't know she had people. Tell your boss we're square.' The PCs have created a false paper trail that could be useful later."
-              }
+              },
+              "tier": 1
             }
           ]
         },
@@ -1998,7 +2002,8 @@
                 "fleeting": "She's not desperate — she's running a calculated play. The fear is real but controlled. She needs backup because the alternative is worse, not because she has no other options.",
                 "masterful": "She chose this crew deliberately. She spotted them from across the cantina — armed, waiting, professional — and made a decision before she hit their table. The cylinder is real. The pitch is genuine. But she has been evaluating them since she walked through the door.",
                 "legendary": "Maya knows more about what is on the cylinder than she is admitting. She did not just stumble across it in Varga's supply chain — she went looking for it specifically. Whatever is on that device, she already has a theory. And she is afraid of being right."
-              }
+              },
+              "tier": 1
             },
             {
               "id": "sc-s2-persuasion",
@@ -2019,7 +2024,8 @@
                 "fleeting": "Maya drops to 4 shares. A concession — small but real. She still holds the majority.",
                 "masterful": "Maya drops to 3 shares. \"Fair enough. Don't make me regret it.\" She respects the play.",
                 "legendary": "Maya drops to 2 shares — her floor. \"Don't push it further.\" But she says it like someone who respects what just happened."
-              }
+              },
+              "tier": 1
             }
           ]
         },
@@ -3004,7 +3010,8 @@
                 "fleeting": "Minor concession — Switch throws in a local intel data chip as a sweetener. Not a change to the core terms, but an acknowledgment.",
                 "masterful": "Switch improves the deal — offers a modest advance on future validated intel value. He's decided they're worth investing in slightly.",
                 "legendary": "Switch offers true partnership terms — ongoing reciprocal intelligence sharing, not just one-directional asset work. 'You bring me good product, I bring you things you didn't know you needed.' A droid broker in their pocket."
-              }
+              },
+              "tier": 1
             },
             {
               "id": "sc-s3-insight",
@@ -3025,7 +3032,8 @@
                 "fleeting": "Switch is genuinely interested in the cylinder — this is business, not a trap. He wants it analyzed and gone.",
                 "masterful": "Switch is building a network of obligations across the Outer Rim. He's not just a broker — he's positioning himself as the indispensable middleman. This deal is one thread in a much larger web.",
                 "legendary": "Switch is afraid of this cylinder specifically. Not of the PCs, not of Varga. Of what's on that device and who will come looking once it surfaces. He wants the PCs to succeed because success gets a dangerous asset far away from his bunker."
-              }
+              },
+              "tier": 1
             },
             {
               "id": "sc-s3-investigation",
@@ -5453,7 +5461,6 @@
               "discipline": "tech",
               "arena": "wits",
               "target": "Switch's security turrets",
-              "risk": 4,
               "context": "Activating Switch's ceiling turrets against the intruders during combat.",
               "narrativePacing": "In-combat Interact. Costs Action pip.",
               "control": {
@@ -5464,7 +5471,9 @@
                 "fleeting": "Turrets deploy and fire erratically. Suppressive fire only — forces enforcers to take cover but no direct hits.",
                 "masterful": "Turrets deploy and target Ganga Lor's crew specifically. Sustained suppressive fire pins two enforcers.",
                 "legendary": "Turrets lock on with precision. One enforcer is hit immediately. The rest are pinned and [Suppressed]."
-              }
+              },
+              "power": 4,
+              "tier": 1
             },
             {
               "id": "sc-s4-environment",
@@ -5472,7 +5481,6 @@
               "discipline": "athletics",
               "arena": "physique",
               "target": "Droid stacks",
-              "risk": 4,
               "context": "Toppling heavy droid stacks onto enforcers during combat.",
               "narrativePacing": "In-combat Interact. Creative use of environment.",
               "control": {
@@ -5483,7 +5491,9 @@
                 "fleeting": "Stack tumbles — creates difficult terrain in the zone. Enforcers must spend extra movement.",
                 "masterful": "Cascade buries two enforcers. They're [Restrained] until they spend an action to dig out.",
                 "legendary": "Massive collapse blocks the corridor. Two enforcers are [Pinned]. The entry point is now impassable — cuts off reinforcements."
-              }
+              },
+              "power": 4,
+              "tier": 1
             },
             {
               "id": "sc-s4-steam",
@@ -5491,7 +5501,6 @@
               "discipline": "ranged",
               "arena": "reflex",
               "target": "Steam pipes",
-              "risk": 4,
               "context": "Shooting out steam pipes to create a scalding barrier.",
               "narrativePacing": "In-combat Interact. Precision shot at environment.",
               "control": {
@@ -5502,7 +5511,9 @@
                 "fleeting": "Steam hisses out — light concealment in the zone. Minor deterrent.",
                 "masterful": "Steam fills the corridor, forcing enforcers back. Creates full concealment and [Hazard 2] zone.",
                 "legendary": "Precision shot ruptures multiple pipes. Entire corridor becomes a scalding killzone — [Hazard 3] and full concealment. Enforcers retreat."
-              }
+              },
+              "power": 4,
+              "tier": 1
             },
             {
               "id": "sc-s4-protect",
@@ -5510,7 +5521,6 @@
               "discipline": "evasion",
               "arena": "reflex",
               "target": "Maya (protection)",
-              "risk": 4,
               "context": "Getting Maya behind cover when enforcers target her.",
               "narrativePacing": "Reactive. Only when Maya is targeted.",
               "control": {
@@ -5521,7 +5531,9 @@
                 "fleeting": "Maya is shoved behind partial cover. She's grazed but functional.",
                 "masterful": "Maya is shielded and stays down. No damage taken.",
                 "legendary": "Maya is safely behind hard cover AND the PC's defensive move exposes the shooter — the attacker is now [Exposed]."
-              }
+              },
+              "power": 4,
+              "tier": 1
             }
           ]
         },
@@ -6742,7 +6754,6 @@
               "arena": "presence",
               "target": "Perimeter Guards",
               "resist": 2,
-              "risk": 4,
               "context": "Bluffing past the perimeter guards as Imperial personnel or authorized visitors.",
               "narrativePacing": "Story fork. Failure triggers alarm countdown.",
               "control": {
@@ -6753,7 +6764,9 @@
                 "fleeting": "Guards wave them through but radio ahead — the PCs are on a clock. Next checkpoint will be harder.",
                 "masterful": "Guards wave the heroes through. No alarm raised. Clean entry.",
                 "legendary": "Guards are completely fooled and provide useful intel: shuttle crew rotation, security camera blind spots, or officer schedules."
-              }
+              },
+              "power": 4,
+              "tier": 1
             },
             {
               "id": "sc-s5-stealth",
@@ -6762,7 +6775,6 @@
               "arena": "reflex",
               "target": "Imperial patrol routes",
               "resist": 2,
-              "risk": 4,
               "context": "Sneaking to the shuttle through maintenance areas and cargo bays.",
               "narrativePacing": "Alternative to Deception approach. Story fork.",
               "control": {
@@ -6773,7 +6785,9 @@
                 "fleeting": "Reach the shuttle perimeter but guards are close. One more stealth check or distraction needed.",
                 "masterful": "Reach the shuttle undetected. Clean approach.",
                 "legendary": "Ghost through the entire facility. Also spot a secondary data terminal that could be sliced for bonus intel."
-              }
+              },
+              "power": 4,
+              "tier": 1
             },
             {
               "id": "sc-s5-tech",
@@ -6781,7 +6795,6 @@
               "discipline": "tech",
               "arena": "wits",
               "target": "Lambda shuttle nav computer",
-              "risk": 4,
               "context": "Accessing the shuttle nav computer with the code cylinder. This is the critical data extraction.",
               "isGated": "Requires Code Cylinder from Scene 2",
               "narrativePacing": "Always roll. This is the mission objective.",
@@ -6793,7 +6806,9 @@
                 "fleeting": "Ajan Kloss coordinates acquired. Basic nav data only.",
                 "masterful": "Full nav log download — Ajan Kloss coordinates plus facility classification as high-security detention.",
                 "legendary": "Complete data dump including prisoner manifests, guard rotation schedules, and a reference to 'Admiral Varth — priority detainee.'"
-              }
+              },
+              "power": 4,
+              "tier": 1
             },
             {
               "id": "sc-s5-investigation",
@@ -6812,7 +6827,8 @@
                 "fleeting": "The destination is labeled as a restricted zone — no civilian traffic permitted.",
                 "masterful": "Shipping metadata references 'Project Leviathan' and labels the destination as a high-security detention site.",
                 "legendary": "Hidden in the nav computer's cache: a partial communication log suggesting the prisoner at the facility volunteered information to earn transfer. Varth has been cooperating — but with whom?"
-              }
+              },
+              "tier": 1
             }
           ]
         }
@@ -7107,7 +7123,6 @@
               "discipline": "piloting",
               "arena": "reflex",
               "target": "Smuggler's Path navigation",
-              "risk": 5,
               "context": "Co-piloting with Maya along the Smuggler's Path. Four jumps, four dropouts — each requiring manual recalculation in dead space. The Ace handles secondaries — deflectors, countermeasures, sensor sweeps. Gravity wells near Ord Mantell, an Imperial sensor buoy at Aldhani, and poorly charted hyperspace corridors.",
               "narrativePacing": "Always roll. Sets the tone for Part 2.",
               "control": {
@@ -7119,7 +7134,9 @@
                 "masterful": "Clean transit ahead of schedule. Arrive with time to plan the approach.",
                 "legendary": "Maya is impressed. The Ace found a shortcut through the debris field. Extra time on the ground AND Maya shares tactical intel about the facility she was holding back."
               },
-              "complexity": "set-piece"
+              "complexity": "set-piece",
+              "power": 5,
+              "tier": 1
             },
             {
               "id": "sc-s5-piloting-approach",
@@ -7127,7 +7144,6 @@
               "discipline": "piloting",
               "arena": "reflex",
               "target": "Orbital detection grid",
-              "risk": 4,
               "context": "Canyon approach to avoid orbital detection. Flying NOE through jungle terrain.",
               "narrativePacing": "Always roll. Determines approach conditions.",
               "control": {
@@ -7139,7 +7155,9 @@
                 "masterful": "Clean landing in concealed position. Undetected.",
                 "legendary": "Perfect insertion. The landing site is ideal — natural camouflage, near a drainage sluice that leads toward the facility."
               },
-              "complexity": "complex"
+              "complexity": "complex",
+              "power": 4,
+              "tier": 1
             },
             {
               "id": "sc-s5-tech-sensors",
@@ -7158,7 +7176,8 @@
                 "masterful": "Identify patrol patterns and gaps in coverage. Clear windows for movement.",
                 "legendary": "Complete sensor map of the area. One sector has a dead zone — maintenance failure the Imperials haven't fixed. Safe corridor directly to the facility perimeter."
               },
-              "complexity": "simple"
+              "complexity": "simple",
+              "tier": 1
             }
           ],
           "subtitle": "Hyperspace Transit"
@@ -7469,7 +7488,6 @@
               "discipline": "piloting",
               "arena": "reflex",
               "target": "Damaged Banshee",
-              "risk": 5,
               "context": "The Ace takes the stick from wounded Maya and performs a controlled crash landing through dense jungle canopy. The Banshee is losing power.",
               "narrativePacing": "Always roll. This determines crash severity.",
               "control": {
@@ -7482,7 +7500,9 @@
                 "masterful": "Controlled landing. Minimal additional damage. The Ace saved everyone.",
                 "legendary": "Near-perfect emergency landing. The Banshee's hull took minimal extra damage — repair time is halved."
               },
-              "complexity": "set-piece"
+              "complexity": "set-piece",
+              "power": 5,
+              "tier": 1
             },
             {
               "id": "sc-s6-tech",
@@ -7501,7 +7521,8 @@
                 "masterful": "Precise assessment. Maya knows exactly what to fix first and estimates 6-8 hours.",
                 "legendary": "Complete diagnostic reveals a priority repair sequence that could get the Banshee flight-ready in 4 hours if they have tools."
               },
-              "complexity": "simple"
+              "complexity": "simple",
+              "tier": 1
             },
             {
               "id": "sc-s6-medicine",
@@ -7520,7 +7541,8 @@
                 "masterful": "All injuries treated. No lasting penalties.",
                 "legendary": "Expert trauma care. Everyone is at full capacity and the medic identifies local plants that can supplement their medpac supply."
               },
-              "complexity": "simple"
+              "complexity": "simple",
+              "tier": 1
             },
             {
               "id": "sc-s6-survival",
@@ -7539,7 +7561,8 @@
                 "masterful": "Identify the best path — avoid worst hazards. 6-hour trek with manageable terrain.",
                 "legendary": "Discover animal trails that parallel the facility's drainage system. 4-hour route that arrives near an entry point."
               },
-              "complexity": "simple"
+              "complexity": "simple",
+              "tier": 1
             }
           ],
           "subtitle": "Emergency Landing"
@@ -7875,7 +7898,8 @@
                 "masterful": "Pattern recognized — dead vegetation around the edges gives them away. All pools in the area identified.",
                 "legendary": "The PC identifies the acid source — a mineral seep from the facility's waste system. The seep trail leads directly toward the fortress drainage outflow."
               },
-              "complexity": "simple"
+              "complexity": "simple",
+              "tier": 1
             },
             {
               "id": "sc-s7-athletics-terrain",
@@ -7883,7 +7907,6 @@
               "discipline": "athletics",
               "arena": "physique",
               "target": "Jungle terrain (ravines, root systems, mudslides)",
-              "risk": 4,
               "context": "Navigating difficult jungle terrain — root systems, steep ravines, mudslides.",
               "narrativePacing": "Roll at major terrain obstacles.",
               "control": {
@@ -7895,7 +7918,9 @@
                 "masterful": "Good time through the obstacle. No injuries from the terrain.",
                 "legendary": "The PC finds the fastest route and helps the whole party through efficiently. Time saved."
               },
-              "complexity": "simple"
+              "complexity": "simple",
+              "power": 4,
+              "tier": 1
             },
             {
               "id": "sc-s7-stealth-approach",
@@ -7904,7 +7929,6 @@
               "arena": "reflex",
               "target": "Jungle patrols and wildlife",
               "resist": 2,
-              "risk": 4,
               "context": "Moving through the jungle without alerting Imperial patrols or territorial predators.",
               "narrativePacing": "Roll when approaching known patrol areas.",
               "control": {
@@ -7916,7 +7940,9 @@
                 "masterful": "Silent progress. No encounters with hostile fauna or Imperial patrols.",
                 "legendary": "Ghost through the jungle. Also observe a patrol pattern that reveals a gap in fortress security."
               },
-              "complexity": "complex"
+              "complexity": "complex",
+              "power": 4,
+              "tier": 1
             },
             {
               "id": "sc-s7-insight-mandrake",
@@ -7925,7 +7951,6 @@
               "arena": "wits",
               "target": "Mandrake",
               "resist": 3,
-              "risk": 4,
               "context": "Reading Mandrake during his ambush — is he going to shoot? What does he want?",
               "narrativePacing": "Roll when Mandrake appears. Critical social read.",
               "control": {
@@ -7938,7 +7963,9 @@
                 "masterful": "He's testing you. He wants something — this is a negotiation, not an ambush.",
                 "legendary": "He's desperate. The tattered uniform is from months in the jungle. He needs the generator gone because it powers the perimeter that keeps him trapped in this sector."
               },
-              "complexity": "complex"
+              "complexity": "complex",
+              "power": 4,
+              "tier": 1
             },
             {
               "id": "sc-s7-persuasion-deal",
@@ -7947,7 +7974,6 @@
               "arena": "presence",
               "target": "Mandrake",
               "resist": 3,
-              "risk": 4,
               "context": "Negotiating with Mandrake for guidance to the fortress without committing to the generator sabotage.",
               "narrativePacing": "Roll if PCs try to negotiate different terms. Mandrake's default: sabotage or nothing.",
               "control": {
@@ -7959,7 +7985,9 @@
                 "masterful": "Mandrake agrees to guide them to the entrance. The sabotage becomes optional — he'll accept a promise of extraction instead.",
                 "legendary": "Full alliance. Mandrake guides them in, provides detailed facility intel, and agrees to create a diversion when they're ready to extract."
               },
-              "complexity": "complex"
+              "complexity": "complex",
+              "power": 4,
+              "tier": 1
             }
           ],
           "subtitle": "Ajan Kloss"
@@ -8363,7 +8391,6 @@
               "discipline": "skulduggery",
               "arena": "reflex",
               "target": "Drainage sluice traps and sensors",
-              "risk": 4,
               "context": "Disarming trip wires and crude sensors in the drainage sluice entry.",
               "isGated": "Requires Security Kit for electronic sensors",
               "narrativePacing": "Roll at each trap cluster. Failure has immediate consequences.",
@@ -8376,7 +8403,9 @@
                 "masterful": "Clean passage. No alarms triggered.",
                 "legendary": "Traps disarmed AND reconfigured — they'll now alert the PCs if anyone follows them in."
               },
-              "complexity": "complex"
+              "complexity": "complex",
+              "power": 4,
+              "tier": 1
             },
             {
               "id": "sc-s8-stealth-interior",
@@ -8385,7 +8414,6 @@
               "arena": "reflex",
               "target": "Fortress interior patrols",
               "resist": 3,
-              "risk": 4,
               "context": "Moving through fortress corridors without alerting patrols. Tight spaces, regular patrol routes.",
               "narrativePacing": "Roll per major corridor section.",
               "control": {
@@ -8397,7 +8425,9 @@
                 "masterful": "Ghost-like progress. Patrols pass without noticing.",
                 "legendary": "Perfect infiltration — the party also identifies the command center location and an alternate extraction route."
               },
-              "complexity": "complex"
+              "complexity": "complex",
+              "power": 4,
+              "tier": 1
             },
             {
               "id": "sc-s8-tech-comms",
@@ -8405,7 +8435,6 @@
               "discipline": "tech",
               "arena": "wits",
               "target": "Fortress communications center",
-              "risk": 4,
               "context": "Hacking the communications center to intercept transmissions about Inquisitor Draco's arrival.",
               "narrativePacing": "Roll if PCs find the comms center. High-value intel.",
               "control": {
@@ -8417,7 +8446,9 @@
                 "masterful": "Draco's ETA confirmed. The heroes know exactly how much time they have.",
                 "legendary": "Full intercept: Draco's ETA, his orders (terminate Varth if extraction is compromised), and the fortress command codes that control the laser fence."
               },
-              "complexity": "simple"
+              "complexity": "simple",
+              "power": 4,
+              "tier": 1
             },
             {
               "id": "sc-s8-investigation-medbay",
@@ -8437,7 +8468,8 @@
                 "masterful": "Detailed information about Skarn's operation, Varth's status, and references to a biological research program.",
                 "legendary": "Full research access: Vischera is studying Force sensitivity in prisoners. Project Leviathan isn't just a prison — it's a research program. And Varth was a willing test subject."
               },
-              "complexity": "simple"
+              "complexity": "simple",
+              "tier": 1
             }
           ],
           "subtitle": "The Fortress"
@@ -8583,7 +8615,6 @@
               "arena": "reflex",
               "target": "Generator room guards",
               "resist": 1,
-              "risk": 4,
               "complexity": "simple",
               "context": "Neutralizing the generator room guards without triggering the security droid.",
               "narrativePacing": "Roll on approach. Failure activates the droid and alerts nearby patrols.",
@@ -8595,7 +8626,9 @@
                 "fleeting": "Guards neutralized but one gets a partial shout. The droid's charging cradle flickers — it may activate soon.",
                 "masterful": "Clean takedown. Guards down silently. Droid remains dormant.",
                 "legendary": "Guards down without a sound. The PC also notices the droid's power cable — yanking it prevents activation entirely."
-              }
+              },
+              "power": 4,
+              "tier": 1
             },
             {
               "id": "sc-s9-tech-generator",
@@ -8603,7 +8636,6 @@
               "discipline": "tech",
               "arena": "wits",
               "target": "Fortress backup generator",
-              "risk": 4,
               "complexity": "set-piece",
               "context": "Sabotaging the fortress generator. Kills turrets, drops fences, unlocks doors, blinds sensors. Four-purpose payoff — the tactical linchpin of the entire infiltration.",
               "isGated": "Requires Field Toolkit for clean sabotage",
@@ -8617,7 +8649,9 @@
                 "fleeting": "Delayed detonation — heroes get 1 round to clear the area. Fortress systems go down.",
                 "masterful": "Clean sabotage with controlled shutdown — heroes get clear, fortress goes dark systematically.",
                 "legendary": "Precision sabotage: the generator fails in sequence, taking down systems one at a time. Heroes can choose WHICH systems fail first (turrets first? fences first? comms first?)."
-              }
+              },
+              "power": 4,
+              "tier": 1
             },
             {
               "id": "sc-s9-survival-blast",
@@ -8625,7 +8659,6 @@
               "discipline": "athletics",
               "arena": "physique",
               "target": "Generator room blast / debris",
-              "risk": 4,
               "complexity": "simple",
               "context": "Getting clear of the generator room when it blows. Debris, shrapnel, collapsing ceiling sections.",
               "narrativePacing": "Roll immediately after sabotage. Only on fleeting tech result or failure.",
@@ -8637,7 +8670,9 @@
                 "fleeting": "Dive behind cover just in time. Minor bruising, ears ringing, but functional.",
                 "masterful": "Clean exit from the blast radius. No injuries.",
                 "legendary": "The PC grabs a slower ally and shields them both behind a blast door. No one hurt."
-              }
+              },
+              "power": 4,
+              "tier": 1
             }
           ]
         },
@@ -8860,7 +8895,6 @@
               "arena": "wits",
               "target": "Admiral Varth",
               "resist": 4,
-              "risk": 4,
               "context": "Reading Varth's true motives when you meet the man you came to rescue. Is the charm genuine?",
               "narrativePacing": "Roll if any PC is suspicious. Critical long-term consequence.",
               "control": {
@@ -8873,7 +8907,9 @@
                 "masterful": "Varth is genuinely self-serving. His charm is practiced, not natural. He's reading the PCs as much as they're reading him.",
                 "legendary": "Varth's gratitude is real but conditional — he's already calculating how to use the PCs. His \"rescue\" pitch was rehearsed. He's been waiting for this."
               },
-              "complexity": "complex"
+              "complexity": "complex",
+              "power": 4,
+              "tier": 1
             },
             {
               "id": "sc-s10-persuasion",
@@ -8882,7 +8918,6 @@
               "arena": "presence",
               "target": "Admiral Varth",
               "resist": 4,
-              "risk": 4,
               "context": "Negotiating better terms for the rescue — a bigger cut of whatever Varth is offering.",
               "narrativePacing": "Roll if PCs push for better deal.",
               "control": {
@@ -8894,7 +8929,9 @@
                 "masterful": "Varth agrees to a larger split. \"You've earned it. Besides, there's plenty where this leads.\"",
                 "legendary": "Varth offers full partnership. \"I need capable people. Not hired guns — partners. The thing I'm pointing you at is bigger than any one score.\" This is the hook into the campaign arc."
               },
-              "complexity": "complex"
+              "complexity": "complex",
+              "power": 4,
+              "tier": 1
             },
             {
               "id": "sc-s10-investigation-cell",
@@ -8914,7 +8951,8 @@
                 "fleeting": "The cell is oddly well-maintained. Varth has clearly had privileges — extra blankets, better food rations.",
                 "masterful": "Tally marks on the wall don't match Varth's claimed time in custody. He's been here longer than he let on — or he inherited someone else's marks.",
                 "legendary": "Hidden under the bunk: a crude cipher written on cloth. Varth has been communicating with someone OUTSIDE the fortress. He didn't just wait to be rescued — he's been working."
-              }
+              },
+              "tier": 1
             },
             {
               "id": "sc-s10-charm-rapport",
@@ -8923,7 +8961,6 @@
               "arena": "presence",
               "target": "Admiral Varth",
               "resist": 3,
-              "risk": 4,
               "complexity": "complex",
               "context": "Building rapport with Varth during the extraction. He's charming and transactional — can the heroes establish genuine connection or is this purely business?",
               "narrativePacing": "Roll during the walk to extraction. Varth tests the heroes with banter and probing questions.",
@@ -8935,7 +8972,9 @@
                 "fleeting": "Varth warms slightly. He drops a nickname — 'Kid,' 'Pilot,' or 'Heavy' — showing he's been watching and categorizing them.",
                 "masterful": "Genuine warmth. Varth tells a personal anecdote about his time in the cell. The 'Cool Uncle' persona starts to solidify. He remembers their names.",
                 "legendary": "Varth drops his guard for a moment. A flash of genuine gratitude — not performed, real. Then it's gone, covered by a quip. But the PC saw it. There's a person under the performance."
-              }
+              },
+              "power": 4,
+              "tier": 1
             },
             {
               "id": "sc-s10-deception-cover",
@@ -8944,7 +8983,6 @@
               "arena": "presence",
               "target": "Admiral Varth",
               "resist": 4,
-              "risk": 4,
               "complexity": "complex",
               "context": "If the heroes try to conceal their own motives or background from Varth. He reads people for a living — lying to him is hard.",
               "narrativePacing": "Roll if any PC tries to mislead Varth about who they are or why they're here.",
@@ -8956,7 +8994,9 @@
                 "fleeting": "Varth accepts the surface story. He doesn't seem to dig deeper — for now.",
                 "masterful": "Varth buys the cover completely. He adjusts his pitch accordingly, tailoring his offer to what he thinks the PC wants.",
                 "legendary": "Varth is fully convinced AND the PC picks up on HOW Varth adjusts — revealing what Varth values in people. A window into his manipulation technique."
-              }
+              },
+              "power": 4,
+              "tier": 1
             }
           ],
           "subtitle": "Meeting the Admiral"
@@ -9531,7 +9571,6 @@
               "discipline": "tactics",
               "arena": "wits",
               "target": "Three-way battle (Imperials vs Mercenaries vs PCs)",
-              "risk": 5,
               "context": "Reading the three-way battle to find the safest extraction path. Chaos everywhere.",
               "narrativePacing": "Roll at the start of the climax. Sets up the escape route.",
               "control": {
@@ -9544,7 +9583,9 @@
                 "masterful": "A clear gap in the fighting — the heroes can move through with minimal contact.",
                 "legendary": "Perfect read. The PC identifies a route AND a timing window where both factions are focused on each other. Free passage if they move NOW."
               },
-              "complexity": "complex"
+              "complexity": "complex",
+              "power": 5,
+              "tier": 1
             },
             {
               "id": "sc-s11-evasion-fire",
@@ -9552,7 +9593,6 @@
               "discipline": "evasion",
               "arena": "reflex",
               "target": "Crossfire zone",
-              "risk": 5,
               "context": "Dodging through crossfire between Imperial and mercenary positions. Running and weaving.",
               "narrativePacing": "Roll when crossing the killzone.",
               "control": {
@@ -9564,7 +9604,9 @@
                 "masterful": "Clean movement through the kill zone. No hits taken.",
                 "legendary": "The PC's evasive movement is so effective that they draw fire away from the rest of the party — everyone gets through."
               },
-              "complexity": "set-piece"
+              "complexity": "set-piece",
+              "power": 5,
+              "tier": 1
             },
             {
               "id": "sc-s11-ranged-shadow",
@@ -9573,7 +9615,6 @@
               "arena": "reflex",
               "target": "Shadow Troopers",
               "resist": 4,
-              "risk": 5,
               "context": "Engaging the Shadow Troopers in the treeline. Elite enemies with stealth capabilities.",
               "narrativePacing": "In-combat. The hardest fight of the adventure.",
               "control": {
@@ -9585,7 +9626,9 @@
                 "masterful": "Precise fire drops or suppresses them. Path to the clearing opens.",
                 "legendary": "Headshot. One Shadow Trooper eliminated, the other breaks position. The treeline is clear."
               },
-              "complexity": "set-piece"
+              "complexity": "set-piece",
+              "power": 5,
+              "tier": 1
             },
             {
               "id": "sc-s11-athletics-run",
@@ -9593,7 +9636,6 @@
               "discipline": "athletics",
               "arena": "physique",
               "target": "Open ground sprint to the Banshee",
-              "risk": 4,
               "context": "Sprint to Maya's ship across open ground. Final push with wounded, exhausted characters.",
               "narrativePacing": "The final check. Make it dramatic.",
               "control": {
@@ -9605,7 +9647,9 @@
                 "masterful": "Full speed. Board the ship. Go.",
                 "legendary": "Adrenaline surge. The PC carries a wounded ally AND makes the ramp. Heroic moment."
               },
-              "complexity": "simple"
+              "complexity": "simple",
+              "power": 4,
+              "tier": 1
             },
             {
               "id": "sc-s11-piloting-escape",
@@ -9613,7 +9657,6 @@
               "discipline": "piloting",
               "arena": "reflex",
               "target": "Imperial pursuit (Star Destroyer in orbit)",
-              "risk": 5,
               "context": "Liftoff under fire. Breaking atmosphere with a Star Destroyer in orbit and TIE fighters scrambling.",
               "narrativePacing": "Final roll of the adventure. Go big.",
               "control": {
@@ -9626,7 +9669,9 @@
                 "masterful": "Clean escape. Jump to hyperspace before fighters can intercept. The stars streak.",
                 "legendary": "Perfect escape — the Ace threads through the TIE formation, using the Star Destroyer's own mass shadow to mask the hyperspace vector. Imperials have no idea where they went."
               },
-              "complexity": "complex"
+              "complexity": "complex",
+              "power": 5,
+              "tier": 1
             }
           ]
         }

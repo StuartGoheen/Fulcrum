@@ -766,7 +766,7 @@
       if (dc.isOptional) h += '<span style="font-size:0.55rem;padding:0.05rem 0.2rem;border-radius:3px;background:rgba(255,255,255,0.15);color:#7a7068;">OPTIONAL</span>';
       if (dc.isGated) h += '<span style="font-size:0.55rem;padding:0.05rem 0.2rem;border-radius:3px;background:rgba(239,68,68,0.2);color:#f97316;">GATED</span>';
       h += '</div>';
-      if (dc.target || dc.defense || dc.tier != null || dc.resist != null || dc.risk != null) {
+      if (dc.target || dc.defense || dc.tier != null || dc.resist != null || dc.power != null) {
         h += '<div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.15rem;font-size:0.65rem;">';
         if (dc.target) h += '<span style="color:#7a7068;">vs <strong style="color:#d4c5a0;">' + esc(dc.target) + '</strong></span>';
         if (dc.defense) {
@@ -776,7 +776,7 @@
           h += '<span style="padding:0.05rem 0.25rem;border-radius:3px;background:rgba(200,164,78,0.15);color:#c8a44e;font-family:Audiowide,sans-serif;font-size:0.6rem;font-weight:bold;">T' + dc.tier + '</span>';
         }
         if (dc.resist != null) h += '<span style="color:#f97316;">Resist ' + dc.resist + '</span>';
-        if (dc.risk != null) h += '<span style="color:#eab308;">Risk ' + dc.risk + '</span>';
+        if (dc.power != null) h += '<span style="color:#eab308;">Power ' + dc.power + '</span>';
         h += '</div>';
       }
       if (dc.isGated) h += '<div style="font-size:0.6rem;color:#f97316;font-style:italic;margin-bottom:0.1rem;">&#128274; ' + esc(dc.isGated) + '</div>';
