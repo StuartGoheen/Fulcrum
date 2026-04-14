@@ -1272,13 +1272,13 @@ function registerHandlers(io) {
     socket.on('groupChallenge:submit', (payload) => {
       if (socket.data.role !== 'player' || !socket.data.characterId) return;
       if (!_groupChallengeState || !_groupChallengeState.active) {
-        socket.emit('error', { message: 'No active group challenge.' });
+        socket.emit('groupChallenge:submitError', { message: 'No active group challenge.' });
         return;
       }
       const charId = String(socket.data.characterId);
       const beat = _groupChallengeState.currentBeat;
       if (_groupChallengeState.beatSubmissions[charId + ':' + beat]) {
-        socket.emit('error', { message: 'Already submitted for this beat.' });
+        socket.emit('groupChallenge:submitError', { message: 'Already submitted for this beat.' });
         return;
       }
       const { discipline, tier, mastery } = payload || {};

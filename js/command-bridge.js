@@ -1626,7 +1626,7 @@
     }
     html += '<div class="cb-tile' + (_openPanels['holonet'] ? ' cb-tile--active' : '') + '" data-panel-id="holonet"><span class="cb-tile-icon">&#128225;</span><span class="cb-tile-label">HoloNet</span><span class="cb-tile-meta">Broadcast</span></div>';
     if (hasGroupChallenge) {
-      html += '<div class="cb-tile cb-tile--gc' + (_openPanels['groupchallenge'] ? ' cb-tile--active' : '') + '" data-panel-id="groupchallenge"><span class="cb-tile-icon">&#9876;</span><span class="cb-tile-label">Group Challenge</span><span class="cb-tile-meta">' + esc(scene.groupChallenge.name) + '</span></div>';
+      html += '<div class="cb-tile cb-tile--gc' + (_openPanels['groupchallenge'] ? ' cb-tile--active' : '') + '" data-panel-id="groupchallenge"><span class="cb-tile-icon">&#9876;</span><span class="cb-tile-label">Group Challenge</span><span class="cb-tile-meta">' + esc(scene.groupChallenge.name) + ' \u2022 ' + scene.groupChallenge.vpThreshold + ' VP</span></div>';
     }
     html += '</div>';
 
