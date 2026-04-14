@@ -5530,7 +5530,7 @@
           "number": 5,
           "title": "The Heist",
           "readAloud": "The Reestkii Landing Field stretches out in the heat haze — a militarized zone on the outskirts of the settlement. Through your macrobinoculars, you see it: a Lambda-class Imperial shuttle sitting on the landing pad, flanked by stormtroopers in transition-era armor, dirty from the desert but standing sharp.\n\nThe shuttle's nav computer holds the answers — flight logs, destination data, coordinates. But the cylinder only works at the terminal. You have to get inside the shuttle, plug in, authenticate, and download before anyone notices you don't belong here.\n\nThe clock is ticking. Imperial pickup crews rotate on a schedule, and the next shift change is less than an hour out.",
-          "gmNotes": "This is the heroes' first brush with the Young Empire. The target is the Lambda shuttle's nav computer. The heroes must physically reach the shuttle, use the code cylinder to authenticate into the flight computer, and download the destination coordinates — which reveal the Vanishing Place on Ajan Kloss, where Admiral Varth is being held.\n\nOPTIONS:\n• BLUFF: Impersonate Imperial crew or authorized maintenance personnel. Disguise Kit helps. Deception check (Moderate) to approach without suspicion.\n• STEALTH: Sneak through maintenance areas or use terrain cover to reach the shuttle unseen. Stealth/Skulduggery (Moderate).\n• DISTRACTION: Create a diversion to draw the guards away. Tech, Deception, or creative approaches (Moderate).\n• DIRECT ASSAULT: Possible but loud. Brings reinforcements quickly. Not recommended but not forbidden.\n\nTHE DOWNLOAD: Once at the shuttle's flight computer, a Tech check (Easy with the cylinder, Moderate without) accesses the nav logs. The coordinates point to the jungle moon of Ajan Kloss — a location labeled 'The Vanishing Place' in Imperial records. A successful Investigation check on the data reveals references to 'Project Leviathan' in the shipping metadata.\n\nEXTRACTION: Once the download is complete (or the alarm is raised), the heroes must escape the landing field. Maya has the Banshee prepped at a secondary pad. The escape from Jakku transitions directly into Part 2.\n\nIMPORTANT: The code cylinder is effectively dead after use. The authentication codes will be flagged and disabled by Imperial security within hours.",
+          "gmNotes": "This is the heroes' first brush with the Young Empire. The target is the Lambda shuttle's nav computer. The heroes must physically reach the shuttle, use the code cylinder to authenticate into the flight computer, and download the destination coordinates — which reveal the Vanishing Place on Ajan Kloss, where Admiral Varth is being held.\n\nOPTIONS:\n• BLUFF: Impersonate Imperial crew or authorized maintenance personnel. Disguise Kit helps. Deception check (Moderate) to approach without suspicion.\n• STEALTH: Sneak through maintenance areas or use terrain cover to reach the shuttle unseen. Stealth/Skulduggery (Moderate).\n• DISTRACTION: Create a diversion to draw the guards away. Tech, Deception, or creative approaches (Moderate).\n• DIRECT ASSAULT: Possible but loud. Brings reinforcements quickly. Not recommended but not forbidden.\n\nTHE DOWNLOAD: Once at the shuttle's flight computer, a Tech check (Easy with the cylinder, Moderate without) accesses the nav logs. The coordinates point to the jungle moon of Ajan Kloss — a location labeled 'The Vanishing Place' in Imperial records. A successful Investigation check on the data reveals references to 'Project Leviathan' in the shipping metadata.\n\nEXTRACTION: Once the download is complete (or the alarm is raised), the heroes must escape the landing field. Maya has the Banshee prepped at a secondary pad. The escape from Jakku transitions directly into Part 2.\n\nIMPORTANT: The code cylinder is effectively dead after use. The authentication codes will be flagged and disabled by Imperial security within hours.\n\nGROUP CHALLENGE: This scene uses a Victory Point (VP) accumulation mechanic. The crew plans and executes the infiltration of Reestkii Landing Field as a coordinated team effort. Each PC picks a discipline and describes their approach — stealth, deception, tech, investigation, piloting, or charm.\n\nMECHANICS:\n- Tier 1 / Power 4 across all disciplines\n- Each PC rolls Control (stepped down 1 die for T1). Control 4+ = success.\n- On success, roll Power vs P4 to determine effect tier:\n  • Fleeting (Power loses or ties) = 1 VP\n  • Masterful (Power wins) = 2 VP\n  • Legendary (Power wins decisively) = 3 VP\n  • Mastery (Control 8+) = +1 VP added to the tier result\n- 12 VP total = ghost run, clean infiltration and extraction\n- Below 12, they can attempt more rolls or proceed with partial stealth compromised\n\nFAILURE CONSEQUENCE: A failed Control roll (below 4) means the alarm triggers. Stormtroopers lock down the perimeter, reinforcements scramble, and every subsequent action is stepped up in difficulty. Maya reports troop movement near the Banshee.\n\nVP THRESHOLDS — Read aloud or paraphrase at each threshold:\n\n3 VP: Perimeter gap identified — maintenance gate on the south side, shielded by cargo containers.\n\n6 VP: Jurisdictional friction exploitable — three-minute shift overlap window where nobody watches the ramp.\n\n9 VP: External access panel unlocked — slicer can patch in from outside, halving time inside the shuttle.\n\n11 VP: Fuel tanker crossing creates a ninety-second sightline block from the guard tower.\n\n12 VP: Ghost run. No alarms, no detection, no trace. The Empire won't know until the next diagnostic cycle.",
           "npcs": [
             {
               "name": "Warlord's Guard",
@@ -6600,6 +6600,75 @@
               "tactics": "Running firefight across the landing field. Maya has the Banshee prepped at a secondary pad. Once aboard, they break atmosphere and jump."
             }
           ],
+          "groupChallenge": {
+            "name": "Infiltrating Reestkii Landing Field",
+            "description": "The crew plans and executes an infiltration of the Imperial-controlled Reestkii Landing Field to reach the Lambda shuttle's nav computer. Each PC contributes a different angle — distraction, disguise, technical bypass, scouting — to get the team inside, download the coordinates, and get out before the alarm brings the full garrison down on them.",
+            "tier": 1,
+            "power": 4,
+            "vpThreshold": 12,
+            "vpScoring": {
+              "failure": 0,
+              "fleetingCost": 0,
+              "masterfulCost": 1,
+              "legendaryCost": 1,
+              "fleeting": 1,
+              "masterful": 2,
+              "legendary": 3,
+              "unleashedI": 4,
+              "unleashedII": 5,
+              "unleashedIII": 6,
+              "masteryBonus": 1
+            },
+            "failureConsequence": "The alarm triggers. Stormtroopers lock down the perimeter and reinforcements scramble from the garrison barracks. The crew's window to reach the shuttle shrinks to minutes. Every subsequent action at the landing field is stepped up in difficulty, and Maya radios that she's seeing troop movement near the Banshee's secondary pad.",
+            "thresholds": [
+              {
+                "vp": 3,
+                "intel": "The perimeter has a gap — a maintenance access gate on the south side, shielded from the guard tower's line of sight by stacked cargo containers. It's not locked, just latched."
+              },
+              {
+                "vp": 6,
+                "intel": "The stormtroopers and Warlord's guards don't coordinate. There's a three-minute window during shift overlap where neither group is watching the shuttle's boarding ramp. The jurisdictional friction is exploitable."
+              },
+              {
+                "vp": 9,
+                "intel": "The shuttle's external access panel is unlocked — the maintenance crew left it open after their last diagnostic. A slicer can patch into the nav computer from outside the cockpit, cutting the time inside the shuttle in half."
+              },
+              {
+                "vp": 11,
+                "intel": "A fuel tanker is scheduled to cross the tarmac in twelve minutes. Its path blocks the guard tower's sightline to the shuttle for nearly ninety seconds — a perfect window for the final approach."
+              },
+              {
+                "vp": 12,
+                "intel": "Ghost run. The crew threads every gap, exploits every blind spot, and completes the download without a single alarm. The Empire won't know the nav data was accessed until the shuttle's next scheduled diagnostic — hours after the crew is in hyperspace."
+              }
+            ],
+            "eligibleDisciplines": [
+              {
+                "discipline": "stealth",
+                "approach": "Moving through blind spots, using terrain cover and cargo containers to reach the shuttle unseen."
+              },
+              {
+                "discipline": "deception",
+                "approach": "Impersonating Imperial maintenance crew or authorized personnel to bluff past checkpoints."
+              },
+              {
+                "discipline": "tech",
+                "approach": "Slicing security cameras, spoofing comm chatter, or bypassing electronic locks on access gates."
+              },
+              {
+                "discipline": "investigation",
+                "approach": "Studying patrol patterns from a distance, identifying guard rotation gaps and security blind spots."
+              },
+              {
+                "discipline": "piloting",
+                "approach": "Coordinating vehicle movement on the tarmac to create cover, or prepping the Banshee for a hot extraction."
+              },
+              {
+                "discipline": "charm",
+                "approach": "Chatting up off-duty personnel at the perimeter cantina to learn schedules and access codes."
+              }
+            ]
+          },
           "environmentMechanics": [
             {
               "name": "Imperial Security Perimeter",
@@ -7476,7 +7545,7 @@
           "number": 3,
           "title": "The Jungle Trek",
           "readAloud": "The jungle is alive — and hungry. Every step forward is a negotiation with the terrain. Acid pools disguised as standing water hiss when a thrown rock disturbs them. Fungal blooms the size of speeder bikes pulse with a sickly bioluminescence, and you quickly learn that disturbing them triggers a violent detonation of toxic spores.\n\nThen the ambush comes — not from Imperials, but from a ghost. A lone figure drops from the canopy — lean, hard, wearing tattered Separatist commando gear patched with strips of woven plant fiber and beadwork you don't recognize. Indigenous craftsmanship. Whoever this man is, he's been here a long time.\n\nHis rifle is aimed at your heads. But his finger isn't on the trigger. He's studying you.",
-          "gmNotes": "Environmental hazards: Acid Pools (disguised as standing water) and Exploding Fungus Blooms (detonate when disturbed). The ambusher is Vazus Mandrake, a Separatist Holdout Commando who refused the shutdown order 4 years ago. He's gone native — adopted the indigenous culture of Ajan Kloss, learned their language, wears their craftsmanship woven into his old gear.\n\nMANDRAKE'S MOTIVATION (REVISED): Mandrake is NOT fighting a generic guerrilla war against Skarn. He's protecting the indigenous people of Ajan Kloss who took him in after his cause died. When Skarn's warlord forces occupied the Vanishing Place, they displaced local indigenous communities and rounded up those who resisted. These prisoners are held inside the fortress behind laser fences and security doors — all powered by the central generator.\n\nMandrake's deal is personal: guide the heroes inside through a secret drainage sluice in exchange for sabotaging the generator. The generator powers FOUR critical systems: (1) perimeter turret defenses, (2) laser fences penning the prisoners, (3) security doors blocking the detention area, and (4) the sensor grid. Destroying it accomplishes everything: honors his deal (frees the prisoners), clears Maya's extraction flight path (turrets down), opens access to the detention block (security doors down), and creates chaos cover.\n\nTHE FOUR-PURPOSE CONVERGENCE: When the heroes learn about the generator from Mandrake, they should realize that sabotaging it also solves Maya's turret problem from Scene 2. One action, four payoffs. This is the moment the plan clicks together.\n\nOnce convinced the heroes are against the Empire (or at least against Skarn), Mandrake reveals the full picture. He's been planning this for years but lacked the firepower to do it alone.",
+          "gmNotes": "Environmental hazards: Acid Pools (disguised as standing water) and Exploding Fungus Blooms (detonate when disturbed). The ambusher is Vazus Mandrake, a Separatist Holdout Commando who refused the shutdown order 4 years ago. He's gone native — adopted the indigenous culture of Ajan Kloss, learned their language, wears their craftsmanship woven into his old gear.\n\nMANDRAKE'S MOTIVATION (REVISED): Mandrake is NOT fighting a generic guerrilla war against Skarn. He's protecting the indigenous people of Ajan Kloss who took him in after his cause died. When Skarn's warlord forces occupied the Vanishing Place, they displaced local indigenous communities and rounded up those who resisted. These prisoners are held inside the fortress behind laser fences and security doors — all powered by the central generator.\n\nMandrake's deal is personal: guide the heroes inside through a secret drainage sluice in exchange for sabotaging the generator. The generator powers FOUR critical systems: (1) perimeter turret defenses, (2) laser fences penning the prisoners, (3) security doors blocking the detention area, and (4) the sensor grid. Destroying it accomplishes everything: honors his deal (frees the prisoners), clears Maya's extraction flight path (turrets down), opens access to the detention block (security doors down), and creates chaos cover.\n\nTHE FOUR-PURPOSE CONVERGENCE: When the heroes learn about the generator from Mandrake, they should realize that sabotaging it also solves Maya's turret problem from Scene 2. One action, four payoffs. This is the moment the plan clicks together.\n\nOnce convinced the heroes are against the Empire (or at least against Skarn), Mandrake reveals the full picture. He's been planning this for years but lacked the firepower to do it alone.\n\nGROUP CHALLENGE: This scene uses a Victory Point (VP) accumulation mechanic for the jungle trek BEFORE Mandrake's ambush. The crew navigates the Green Hell as a team — each PC picks a discipline and describes how they contribute to the trek. Run the group challenge first, then trigger Mandrake's ambush once the trek resolves.\n\nMECHANICS:\n- Tier 1 / Power 4 across all disciplines\n- Each PC rolls Control (stepped down 1 die for T1). Control 4+ = success.\n- On success, roll Power vs P4 to determine effect tier:\n  • Fleeting (Power loses or ties) = 1 VP\n  • Masterful (Power wins) = 2 VP\n  • Legendary (Power wins decisively) = 3 VP\n  • Mastery (Control 8+) = +1 VP added to the tier result\n- 10 VP total = the crew arrives fresh, prepared, and invisible\n- Below 10, they arrive in worse condition — injuries, exhaustion, lost gear\n\nFAILURE CONSEQUENCE: A failed Control roll (below 4) means the jungle bites back — acid burns, spore exposure, a predator encounter, or a bad fall. The crew arrives at the fortress perimeter battered. All physical actions in the next scene are stepped down one tier until rest or medical treatment.\n\nVP THRESHOLDS — Read aloud or paraphrase at each threshold:\n\n2 VP: Game trail found threading between fungal blooms — avoids the densest spore zones.\n\n4 VP: Acid pool pattern identified — mineral seeps with discolored soil at the edges. Routable.\n\n6 VP: Ridge line above the canopy — clear sightline to fortress. Perimeter layout, guard towers, drainage sluice all confirmed.\n\n8 VP: Sheltered clearing with clean water. Rest stop. Everyone catches their breath.\n\n10 VP: Ghost trek. Every hazard avoided, every predator bypassed. The crew arrives fresh, sharp, and invisible.",
           "npcs": [
             {
               "name": "Vazus Mandrake",
@@ -7637,6 +7706,75 @@
               "tactics": "Mandrake is firm but fair. He won't guide them without the deal. He's been planning this for years and needs the generator down to free his people. When the heroes realize the generator also powers the turrets Maya warned them about, the deal should click."
             }
           ],
+          "groupChallenge": {
+            "name": "Navigating the Green Hell",
+            "description": "The crew treks through the lethal jungle of Ajan Kloss toward the Vanishing Place. Each PC contributes survival skills, pathfinding, hazard identification, and endurance to get the group through alive and in fighting shape. The jungle tests every discipline — acid pools, toxic spores, hostile fauna, and treacherous terrain stand between the crew and the fortress.",
+            "tier": 1,
+            "power": 4,
+            "vpThreshold": 10,
+            "vpScoring": {
+              "failure": 0,
+              "fleetingCost": 0,
+              "masterfulCost": 1,
+              "legendaryCost": 1,
+              "fleeting": 1,
+              "masterful": 2,
+              "legendary": 3,
+              "unleashedI": 4,
+              "unleashedII": 5,
+              "unleashedIII": 6,
+              "masteryBonus": 1
+            },
+            "failureConsequence": "The jungle takes its toll. Someone steps in an acid pool, triggers a fungal bloom, or attracts a predator. The crew arrives at the fortress perimeter exhausted, injured, or missing gear. All physical actions in the next scene are stepped down by one tier until the crew rests or receives medical attention.",
+            "thresholds": [
+              {
+                "vp": 2,
+                "intel": "A faint game trail threads between the worst of the fungal blooms. Following it avoids the densest spore concentrations — someone or something has been using this path regularly."
+              },
+              {
+                "vp": 4,
+                "intel": "The acid pools follow a pattern — they cluster around mineral seeps from underground runoff. The discolored soil at their edges is visible once you know what to look for. The crew can route around them."
+              },
+              {
+                "vp": 6,
+                "intel": "A ridge line above the canopy offers a clear sightline to the fortress. From here, the crew spots the perimeter layout, the guard towers, and the drainage sluice on the northeast face — confirming Mandrake's intel before they arrive."
+              },
+              {
+                "vp": 8,
+                "intel": "The crew finds a sheltered clearing with clean water — a natural rest point. Ten minutes here and everyone catches their breath. The party arrives at the fortress perimeter rested, hydrated, and sharp."
+              },
+              {
+                "vp": 10,
+                "intel": "The Green Hell is behind them. The crew navigated every hazard, avoided every predator, and arrived at the fortress perimeter fresh, prepared, and invisible. No injuries. No lost gear. No alerts. They're ghosts in the jungle."
+              }
+            ],
+            "eligibleDisciplines": [
+              {
+                "discipline": "survival",
+                "approach": "Reading the terrain for safe paths, identifying edible plants, finding clean water sources, and navigating by jungle landmarks."
+              },
+              {
+                "discipline": "athletics",
+                "approach": "Climbing over root systems, crossing ravines, hauling gear through mudslides, and maintaining pace through exhausting terrain."
+              },
+              {
+                "discipline": "stealth",
+                "approach": "Moving quietly through predator territory, avoiding fauna triggers, and keeping the group's noise profile low enough to slip past territorial wildlife."
+              },
+              {
+                "discipline": "medicine",
+                "approach": "Treating acid burns, neutralizing spore exposure, managing fatigue, and keeping everyone combat-ready despite the jungle's toll."
+              },
+              {
+                "discipline": "investigation",
+                "approach": "Spotting acid pool indicators, reading fungal bloom patterns, identifying safe corridors through hazard clusters."
+              },
+              {
+                "discipline": "insight",
+                "approach": "Reading animal behavior for early warning of predators, sensing changes in the jungle's mood that signal danger ahead."
+              }
+            ]
+          },
           "environmentMechanics": [
             {
               "name": "Acid Pools",
