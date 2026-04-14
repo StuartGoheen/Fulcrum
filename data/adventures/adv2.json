@@ -629,12 +629,14 @@
               {
                 "discipline": "insight",
                 "approach": "Reading body language in the crowd, spotting who gets nervous when the Devaronian is mentioned, and tipping off an ally to press harder.",
-                "role": "secondary"
+                "role": "secondary",
+                "support": { "type": "optimized", "targetDiscipline": "investigation", "description": "Step up Control die on ally's next Investigation roll" }
               },
               {
                 "discipline": "intimidate",
                 "approach": "Leaning on a local who clearly knows something, making them nervous enough that the next questioner gets answers easily.",
-                "role": "secondary"
+                "role": "secondary",
+                "support": { "type": "empowered", "targetDiscipline": "charm", "description": "Step up Power die on ally's next Charm roll" }
               }
             ],
             "vpBase": 2,

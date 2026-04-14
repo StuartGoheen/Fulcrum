@@ -102,15 +102,25 @@ Result tiers are gated by the current effective power (base power + escalation):
 |-------|------|-------------|
 | `discipline` | string | Canonical Discipline ID from the system's 25 disciplines. **Physique**: athletics, brawl, endure, melee, heavy_weapons. **Reflex**: evasion, piloting, ranged, skulduggery, stealth. **Grit**: beast_handling, intimidate, resolve, survival, control_spark. **Wits**: investigation, medicine, tactics, tech, sense_spark. **Presence**: charm, deception, insight, persuasion, alter_spark. |
 | `approach` | string | Narrative description of how this discipline applies |
-| `role` | string | `"primary"` or `"secondary"`. Primary disciplines earn VP normally. Secondary disciplines earn 0 VP but allow the character to place a one-shot buff on an ally. |
+| `role` | string | `"primary"` or `"secondary"`. Primary disciplines earn VP normally. Secondary disciplines earn 0 VP but place a data-defined buff on an ally. |
+| `support` | object | **(Secondary only)** Defines the buff this support action grants. See Support Object below. |
+
+### Support Object (secondary entries only)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `type` | string | `"optimized"` or `"empowered"`. Matches the canonical game-system conditions. |
+| `targetDiscipline` | string | The primary discipline this buff applies to. The buff is only consumed when the target ally rolls this exact discipline. |
+| `description` | string | Human-readable label shown in the UI (e.g., "Step up Control die on next Stealth roll"). |
 
 ### Primary vs Secondary Roles
 
-- **Primary**: The character rolls and earns VP based on the standard scoring table. If a pending buff from an ally is available, the primary roll consumes it automatically.
-- **Secondary**: The character rolls but earns 0 VP regardless of result tier. Instead, they choose a `buffType` and a `targetCharId`:
-  - `"optimized"` — The target's next primary roll has the challenge's effective Power reduced by 1 (easier to reach higher tiers).
-  - `"empowered"` — The target's next primary roll gains +1 VP to the result.
-- Buffs are one-shot: consumed on the target's next primary submission. Only one buff can be pending per target character at a time.
+- **Primary**: The character rolls and earns VP based on the standard scoring table. If a matching pending buff from an ally is available (same discipline as the buff's `targetDiscipline`), the primary roll consumes it automatically.
+- **Secondary**: The character rolls but earns 0 VP regardless of result tier. The buff type and target discipline are defined in the challenge data — the player only chooses which ally receives the buff.
+  - `"optimized"` — Grants [Optimized] on the target ally's next roll using `targetDiscipline`. Steps up the Control die (table-side effect). In the app, this is tracked and displayed as a reminder.
+  - `"empowered"` — Grants [Empowered] on the target ally's next roll using `targetDiscipline`. Steps up the Power die. In the app, this reduces the effective opposition Power by 1 for tier reachability when the target rolls the specified discipline.
+- A discipline can appear as both primary **and** secondary in the same challenge (e.g., Tech primary limited once per beat, Tech support action not limited the same way).
+- Buffs are one-shot: consumed when the target submits a primary roll using the matching `targetDiscipline`. Only one buff can be pending per target character at a time.
 - A character using a secondary discipline still counts for `allHands` participation and still records discipline usage for `disciplineLimit` checks.
 - Secondary rolls still trigger `pressure`/`fatigue`/`momentum` modifiers based on the tier result (failure, cost, clean success).
 
@@ -153,8 +163,8 @@ Result tiers are gated by the current effective power (base power + escalation):
       { "discipline": "stealth", "approach": "Moving through blind spots...", "role": "primary" },
       { "discipline": "tech", "approach": "Slicing security cameras...", "role": "primary" },
       { "discipline": "skulduggery", "approach": "Picking locks on gates...", "role": "primary" },
-      { "discipline": "investigation", "approach": "Studying patrol patterns...", "role": "secondary" },
-      { "discipline": "charm", "approach": "Chatting up off-duty personnel...", "role": "secondary" }
+      { "discipline": "investigation", "approach": "Studying patrol patterns...", "role": "secondary", "support": { "type": "optimized", "targetDiscipline": "stealth", "description": "Step up Control die on ally's next Stealth roll" } },
+      { "discipline": "charm", "approach": "Chatting up off-duty personnel...", "role": "secondary", "support": { "type": "empowered", "targetDiscipline": "skulduggery", "description": "Step up Power die on ally's next Skulduggery roll" } }
     ]
   }
 }

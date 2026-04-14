@@ -1292,11 +1292,9 @@
     var charId = _getSessionCharId();
     var pendingBuffsAll = modState.pendingBuffs || {};
     var myPendingBuff = charId && pendingBuffsAll[charId] ? pendingBuffsAll[charId] : null;
-    var buffedPower = effectivePower;
-    if (myPendingBuff && myPendingBuff.type === 'optimized') {
-      buffedPower = Math.max(0, effectivePower - 1);
-    }
     var hasEmpoweredBuff = myPendingBuff && myPendingBuff.type === 'empowered';
+    var hasOptimizedBuff = myPendingBuff && myPendingBuff.type === 'optimized';
+    var buffTargetDisc = myPendingBuff ? (myPendingBuff.targetDiscipline || '') : '';
     var vpT = gc.vpThreshold || 0;
     var pct = vpT > 0 ? Math.min(100, Math.round((gc.totalVP / vpT) * 100)) : 0;
 
@@ -1311,7 +1309,11 @@
     if (!_gcCollapsed) {
       html += '<div class="pgc-body">';
       html += '<div class="pgc-challenge-name">' + _escHtml(gc.name) + '</div>';
-      var displayPower = myPendingBuff && myPendingBuff.type === 'optimized' ? buffedPower + ' (Optimized \u2193' + effectivePower + ')' : effectivePower;
+      var displayPower = effectivePower;
+      if (hasEmpoweredBuff) {
+        var empDiscLabel = buffTargetDisc.charAt(0).toUpperCase() + buffTargetDisc.slice(1).replace(/_/g, ' ');
+        displayPower = effectivePower + ' <span style="color:#22c55e;font-size:0.55rem;">(Empowered: ' + (effectivePower - 1) + ' on ' + empDiscLabel + ')</span>';
+      }
       var metaLine = 'Tier ' + (modState.effectiveTier || gc.tier) + ' \u2022 Power ' + displayPower;
       html += '<div class="pgc-challenge-meta">' + metaLine + '</div>';
       html += '<div class="pgc-challenge-desc">' + _escHtml(gc.description) + '</div>';
@@ -1380,7 +1382,8 @@
       var myBuff = pendingBuffs && pendingBuffs[charId] ? pendingBuffs[charId] : null;
       if (myBuff) {
         var myBuffColor = myBuff.type === 'optimized' ? '#3b82f6' : '#22c55e';
-        var myBuffLabel = myBuff.type === 'optimized' ? 'OPTIMIZED (Power -1 on your next roll)' : 'EMPOWERED (+1 VP on your next roll)';
+        var myBuffDiscLabel = (myBuff.targetDiscipline || '').charAt(0).toUpperCase() + (myBuff.targetDiscipline || '').slice(1).replace(/_/g, ' ');
+        var myBuffLabel = myBuff.type === 'optimized' ? '[Optimized] \u2014 Step up Control die on your next ' + myBuffDiscLabel + ' roll' : '[Empowered] \u2014 Step up Power die on your next ' + myBuffDiscLabel + ' roll';
         html += '<div class="pgc-buff-active" style="background:rgba(0,0,0,0.3);border:1px solid ' + myBuffColor + ';border-radius:4px;padding:0.3rem 0.4rem;margin:0.3rem 0;font-size:0.6rem;">';
         html += '<span style="color:' + myBuffColor + ';font-weight:600;">\u2728 ' + myBuffLabel + '</span>';
         html += '<div style="opacity:0.7;margin-top:0.1rem;">from ' + _escHtml(myBuff.fromCharName) + '</div>';
@@ -1404,20 +1407,18 @@
           });
           html += '</div>';
 
-          html += '<div class="pgc-section-label" style="margin-top:0.3rem;">Secondary Approaches <span style="font-weight:400;opacity:0.6;">(buff an ally)</span></div>';
+          html += '<div class="pgc-section-label" style="margin-top:0.3rem;">Secondary Approaches <span style="font-weight:400;opacity:0.6;">(support an ally)</span></div>';
           html += '<div class="pgc-disc-buttons">';
           secondaryEligible.forEach(function (d) {
             var restricted = _isDisciplineRestricted(d.discipline);
-            html += '<button class="pgc-disc-btn pgc-disc-btn--secondary' + (restricted ? ' pgc-disc-btn--restricted' : '') + '" data-gc-disc="' + _escHtml(d.discipline) + '" data-gc-role="secondary" title="' + _escHtml(d.approach) + (restricted ? ' (restricted)' : '') + '"' + (restricted ? ' disabled' : '') + '>' + _escHtml(d.discipline) + (restricted ? ' \u2718' : '') + '</button>';
+            var sup = d.support || {};
+            var supTip = sup.description ? ' \u2014 ' + sup.description : '';
+            html += '<button class="pgc-disc-btn pgc-disc-btn--secondary' + (restricted ? ' pgc-disc-btn--restricted' : '') + '" data-gc-disc="' + _escHtml(d.discipline) + '" data-gc-role="secondary" data-support-type="' + _escHtml(sup.type || '') + '" data-support-target="' + _escHtml(sup.targetDiscipline || '') + '" data-support-desc="' + _escHtml(sup.description || '') + '" title="' + _escHtml(d.approach + supTip) + (restricted ? ' (restricted)' : '') + '"' + (restricted ? ' disabled' : '') + '>' + _escHtml(d.discipline) + (restricted ? ' \u2718' : '') + '</button>';
           });
           html += '</div>';
 
           html += '<div id="pgc-secondary-options" style="display:none;margin-top:0.3rem;">';
-          html += '<div class="pgc-section-label">Buff Type</div>';
-          html += '<div class="pgc-disc-buttons">';
-          html += '<button class="pgc-buff-type-btn" data-buff-type="optimized" title="Reduce the challenge Power by 1 for your target\'s next roll" style="background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.3);color:#3b82f6;font-size:0.6rem;padding:0.2rem 0.5rem;border-radius:3px;cursor:pointer;">Optimized <span style="opacity:0.7;">(Power -1)</span></button>';
-          html += '<button class="pgc-buff-type-btn" data-buff-type="empowered" title="Add +1 VP to your target\'s next roll result" style="background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);color:#22c55e;font-size:0.6rem;padding:0.2rem 0.5rem;border-radius:3px;cursor:pointer;">Empowered <span style="opacity:0.7;">(+1 VP)</span></button>';
-          html += '</div>';
+          html += '<div id="pgc-support-desc" style="font-size:0.6rem;padding:0.2rem 0.4rem;margin-bottom:0.3rem;background:rgba(0,0,0,0.2);border-radius:3px;border-left:2px solid #22c55e;color:#d1d5db;"></div>';
           html += '<div class="pgc-section-label">Target Ally</div>';
           html += '<select class="pgc-disc-select" id="pgc-target-select">';
           html += '<option value="">Select ally\u2026</option>';
@@ -1451,15 +1452,17 @@
         html += '<div class="pgc-tier-buttons" id="pgc-tier-buttons">';
         var tierOrder = ['failure', 'fleetingCost', 'masterfulCost', 'legendaryCost', 'fleeting', 'masterful', 'legendary', 'unleashedI', 'unleashedII', 'unleashedIII'];
         var tierLabels = { failure: 'Failure', fleetingCost: 'Fleeting Cost', masterfulCost: 'Masterful Cost', legendaryCost: 'Legendary Cost', fleeting: 'Fleeting', masterful: 'Masterful', legendary: 'Legendary', unleashedI: 'Unleashed I', unleashedII: 'Unleashed II', unleashedIII: 'Unleashed III' };
-        var reachable = _getReachableTiers(buffedPower, gc.vpScoring);
+        var baseReachable = _getReachableTiers(effectivePower, gc.vpScoring);
+        var empReachable = hasEmpoweredBuff ? _getReachableTiers(Math.max(0, effectivePower - 1), gc.vpScoring) : baseReachable;
         tierOrder.forEach(function (t) {
           if (typeof gc.vpScoring[t] !== 'number') return;
-          if (reachable.indexOf(t) === -1) return;
+          if (empReachable.indexOf(t) === -1) return;
+          var isBaseReachable = baseReachable.indexOf(t) !== -1;
+          var isEmpOnly = !isBaseReachable;
           var vpVal = gc.vpScoring[t];
           if (t === 'failure' && mods.failurePenalty) vpVal = -mods.failurePenalty.value;
-          var empBonus = (hasEmpoweredBuff && t !== 'failure' && vpVal > 0) ? 1 : 0;
-          var vpLabel = (vpVal + empBonus) > 0 ? '+' + (vpVal + empBonus) : String(vpVal + empBonus);
-          html += '<button class="pgc-tier-btn" data-gc-tier="' + t + '" data-vp-primary="' + vpLabel + '">' + tierLabels[t] + ' <span class="pgc-tier-vp">(' + vpLabel + ')</span>' + (empBonus ? ' <span class="pgc-buff-tag" style="font-size:0.5rem;color:#22c55e;">+EMP</span>' : '') + '</button>';
+          var vpLabel = vpVal > 0 ? '+' + vpVal : String(vpVal);
+          html += '<button class="pgc-tier-btn' + (isEmpOnly ? ' pgc-tier-emp-only' : '') + '" data-gc-tier="' + t + '" data-vp-primary="' + vpLabel + '" data-emp-only="' + (isEmpOnly ? '1' : '0') + '"' + (isEmpOnly ? ' style="display:none;"' : '') + '>' + tierLabels[t] + ' <span class="pgc-tier-vp">(' + vpLabel + ')</span>' + (isEmpOnly ? ' <span style="font-size:0.45rem;color:#22c55e;">EMP</span>' : '') + '</button>';
         });
         html += '</div>';
         html += '<div id="pgc-secondary-vp-note" style="display:none;font-size:0.55rem;color:#22c55e;opacity:0.8;margin-top:0.15rem;">Secondary: 0 VP (buff placed on success)</div>';
@@ -1491,8 +1494,16 @@
         recentLogs.forEach(function (r) {
           var roleTag = r.role === 'secondary' ? ' <span style="color:#22c55e;font-size:0.5rem;">[SUPPORT]</span>' : '';
           var buffTag = '';
-          if (r.buffType) buffTag = ' <span style="color:' + (r.buffType === 'optimized' ? '#3b82f6' : '#22c55e') + ';font-size:0.5rem;">\u2192' + _escHtml(r.buffType) + '</span>';
-          if (r.consumedBuff) buffTag += ' <span style="color:#eab308;font-size:0.5rem;">[' + _escHtml(r.consumedBuff) + ']</span>';
+          if (r.buffType) {
+            var btColor = r.buffType === 'optimized' ? '#3b82f6' : '#22c55e';
+            var btLabel = r.buffType === 'optimized' ? 'Optimized' : 'Empowered';
+            var btDisc = r.buffTargetDiscipline ? r.buffTargetDiscipline.charAt(0).toUpperCase() + r.buffTargetDiscipline.slice(1).replace(/_/g, ' ') : '';
+            buffTag = ' <span style="color:' + btColor + ';font-size:0.5rem;">\u2192[' + btLabel + '] on ' + _escHtml(btDisc) + '</span>';
+          }
+          if (r.consumedBuff) {
+            var cbLabel = r.consumedBuff === 'optimized' ? 'Optimized' : 'Empowered';
+            buffTag += ' <span style="color:#eab308;font-size:0.5rem;">[' + cbLabel + ']</span>';
+          }
           html += '<div class="pgc-log-entry">B' + r.beat + ': <strong>' + _escHtml(r.characterName) + '</strong>' + roleTag + ' \u2014 ' + _escHtml(r.discipline) + ' (' + _escHtml(r.tier) + ') \u2192 ' + r.vp + ' VP' + (r.mastery ? ' +M' : '') + buffTag + '</div>';
         });
       }
@@ -1513,11 +1524,11 @@
     var selectedDisc = null;
     var selectedTier = null;
     var selectedRole = 'primary';
-    var selectedBuffType = null;
     var selectedTarget = null;
     var discSelect = document.getElementById('pgc-disc-select');
     var secondaryOpts = document.getElementById('pgc-secondary-options');
     var targetSelect = document.getElementById('pgc-target-select');
+    var supportDescEl = document.getElementById('pgc-support-desc');
 
     function _showSecondaryOptions(show) {
       if (secondaryOpts) secondaryOpts.style.display = show ? 'block' : 'none';
@@ -1537,6 +1548,17 @@
       });
     }
 
+    function _updateEmpoweredTiers(disc) {
+      var isBuffMatch = hasEmpoweredBuff && disc === buffTargetDisc;
+      panel.querySelectorAll('.pgc-tier-btn[data-emp-only="1"]').forEach(function (btn) {
+        btn.style.display = isBuffMatch ? '' : 'none';
+        if (!isBuffMatch && btn.classList.contains('pgc-selected')) {
+          btn.classList.remove('pgc-selected');
+          selectedTier = null;
+        }
+      });
+    }
+
     panel.querySelectorAll('.pgc-disc-btn').forEach(function (btn) {
       btn.addEventListener('click', function () {
         panel.querySelectorAll('.pgc-disc-btn').forEach(function (b) { b.classList.remove('pgc-selected'); });
@@ -1545,12 +1567,19 @@
         selectedRole = btn.dataset.gcRole || 'primary';
         if (discSelect) discSelect.value = selectedDisc;
         _showSecondaryOptions(selectedRole === 'secondary');
+        if (selectedRole === 'secondary' && supportDescEl) {
+          var desc = btn.dataset.supportDesc || '';
+          var supType = btn.dataset.supportType || '';
+          var typeColor = supType === 'optimized' ? '#3b82f6' : '#22c55e';
+          var typeLabel = supType === 'optimized' ? '[Optimized]' : '[Empowered]';
+          supportDescEl.innerHTML = '<span style="color:' + typeColor + ';font-weight:600;">' + typeLabel + '</span> ' + _escHtml(desc);
+          supportDescEl.style.borderLeftColor = typeColor;
+        }
         if (selectedRole !== 'secondary') {
-          selectedBuffType = null;
           selectedTarget = null;
-          panel.querySelectorAll('.pgc-buff-type-btn').forEach(function (b) { b.classList.remove('pgc-selected'); });
           if (targetSelect) targetSelect.value = '';
         }
+        _updateEmpoweredTiers(selectedRole === 'primary' ? selectedDisc : '');
         _updateGcSubmitState();
       });
     });
@@ -1567,22 +1596,20 @@
           b.classList.toggle('pgc-selected', b.dataset.gcDisc === selectedDisc);
         });
         _showSecondaryOptions(selectedRole === 'secondary');
+        if (selectedRole === 'secondary' && supportDescEl && eligEntry && eligEntry.support) {
+          var sup = eligEntry.support;
+          var typeColor = sup.type === 'optimized' ? '#3b82f6' : '#22c55e';
+          var typeLabel = sup.type === 'optimized' ? '[Optimized]' : '[Empowered]';
+          supportDescEl.innerHTML = '<span style="color:' + typeColor + ';font-weight:600;">' + typeLabel + '</span> ' + _escHtml(sup.description || '');
+          supportDescEl.style.borderLeftColor = typeColor;
+        }
         if (selectedRole !== 'secondary') {
-          selectedBuffType = null;
           selectedTarget = null;
         }
+        _updateEmpoweredTiers(selectedRole === 'primary' ? selectedDisc : '');
         _updateGcSubmitState();
       });
     }
-
-    panel.querySelectorAll('.pgc-buff-type-btn').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        panel.querySelectorAll('.pgc-buff-type-btn').forEach(function (b) { b.classList.remove('pgc-selected'); });
-        btn.classList.add('pgc-selected');
-        selectedBuffType = btn.dataset.buffType;
-        _updateGcSubmitState();
-      });
-    });
 
     if (targetSelect) {
       targetSelect.addEventListener('change', function () {
@@ -1604,7 +1631,7 @@
       var submitBtn = document.getElementById('pgc-submit-btn');
       if (!submitBtn) return;
       if (selectedRole === 'secondary') {
-        submitBtn.disabled = !(selectedDisc && selectedTier && selectedBuffType && selectedTarget);
+        submitBtn.disabled = !(selectedDisc && selectedTier && selectedTarget);
       } else {
         submitBtn.disabled = !(selectedDisc && selectedTier);
       }
@@ -1622,7 +1649,6 @@
           mastery: mastery
         };
         if (selectedRole === 'secondary') {
-          submitPayload.buffType = selectedBuffType;
           submitPayload.targetCharId = selectedTarget;
         }
         _currentSocket.emit('groupChallenge:submit', submitPayload);

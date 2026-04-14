@@ -2697,9 +2697,16 @@
       });
     }
     if (secondaryDiscs.length > 0) {
-      html += '<div class="gc-section-label" style="margin-top:0.4rem;">Secondary Approaches <span style="font-weight:400;font-size:0.55rem;opacity:0.7;">(buffs ally)</span></div>';
+      html += '<div class="gc-section-label" style="margin-top:0.4rem;">Secondary Approaches <span style="font-weight:400;font-size:0.55rem;opacity:0.7;">(support ally)</span></div>';
       secondaryDiscs.forEach(function (d) {
-        html += '<div class="gc-disc-chip gc-disc--secondary" style="border-left:2px solid rgba(34,197,94,0.4);"><strong>' + esc(d.discipline) + '</strong> \u2014 ' + esc(d.approach) + '</div>';
+        var sup = d.support || {};
+        var supTag = '';
+        if (sup.type && sup.targetDiscipline) {
+          var supColor = sup.type === 'optimized' ? '#3b82f6' : '#22c55e';
+          var supLabel = sup.type === 'optimized' ? '[Optimized]' : '[Empowered]';
+          supTag = ' <span style="color:' + supColor + ';font-size:0.55rem;">' + supLabel + ' \u2192 ' + esc(sup.targetDiscipline) + '</span>';
+        }
+        html += '<div class="gc-disc-chip gc-disc--secondary" style="border-left:2px solid rgba(34,197,94,0.4);"><strong>' + esc(d.discipline) + '</strong>' + supTag + ' \u2014 ' + esc(d.approach) + '</div>';
       });
     }
     if (primaryDiscs.length === 0 && secondaryDiscs.length === 0) {
@@ -2714,7 +2721,8 @@
       Object.keys(pendingBuffs).forEach(function (tgtId) {
         var b = pendingBuffs[tgtId];
         var buffColor = b.type === 'optimized' ? '#3b82f6' : '#22c55e';
-        var buffLabel = b.type === 'optimized' ? 'OPTIMIZED (Power -1)' : 'EMPOWERED (+1 VP)';
+        var tgtDiscLabel = (b.targetDiscipline || '').charAt(0).toUpperCase() + (b.targetDiscipline || '').slice(1).replace(/_/g, ' ');
+        var buffLabel = b.type === 'optimized' ? '[Optimized] Control \u2191 on ' + tgtDiscLabel : '[Empowered] Power \u2191 on ' + tgtDiscLabel;
         html += '<div style="font-size:0.6rem;padding:0.15rem 0.3rem;margin-bottom:0.15rem;background:rgba(0,0,0,0.2);border-radius:3px;border-left:2px solid ' + buffColor + ';">';
         html += '<span style="color:' + buffColor + ';">' + buffLabel + '</span> on <strong>' + esc(tgtId) + '</strong> from ' + esc(b.fromCharName);
         html += '</div>';
@@ -2765,8 +2773,17 @@
       _gcRollLog.forEach(function (r) {
         var roleTag = r.role === 'secondary' ? ' <span style="color:#22c55e;font-size:0.55rem;">[SUPPORT]</span>' : '';
         var buffTag = '';
-        if (r.buffType) buffTag = ' <span style="color:' + (r.buffType === 'optimized' ? '#3b82f6' : '#22c55e') + ';font-size:0.55rem;">\u2192 ' + r.buffType + '</span>';
-        if (r.consumedBuff) buffTag += ' <span style="color:#eab308;font-size:0.55rem;">[' + r.consumedBuff + ' from ' + esc(r.consumedBuffFrom || '?') + ']</span>';
+        if (r.buffType) {
+          var gmBtColor = r.buffType === 'optimized' ? '#3b82f6' : '#22c55e';
+          var gmBtLabel = r.buffType === 'optimized' ? 'Optimized' : 'Empowered';
+          var gmBtDisc = r.buffTargetDiscipline ? r.buffTargetDiscipline.charAt(0).toUpperCase() + r.buffTargetDiscipline.slice(1).replace(/_/g, ' ') : '';
+          buffTag = ' <span style="color:' + gmBtColor + ';font-size:0.55rem;">\u2192 [' + gmBtLabel + '] on ' + esc(gmBtDisc) + '</span>';
+        }
+        if (r.consumedBuff) {
+          var gmCbLabel = r.consumedBuff === 'optimized' ? 'Optimized' : 'Empowered';
+          var gmCbDisc = r.consumedBuffDiscipline ? r.consumedBuffDiscipline.charAt(0).toUpperCase() + r.consumedBuffDiscipline.slice(1).replace(/_/g, ' ') : '';
+          buffTag += ' <span style="color:#eab308;font-size:0.55rem;">[' + gmCbLabel + (gmCbDisc ? '/' + esc(gmCbDisc) : '') + ' from ' + esc(r.consumedBuffFrom || '?') + ']</span>';
+        }
         html += '<div class="gc-roll-entry">B' + r.beat + ': <strong>' + esc(r.characterName) + '</strong>' + roleTag + ' \u2014 ' + esc(r.discipline) + ' (' + esc(r.tier) + ') \u2192 ' + r.vp + ' VP' + (r.mastery ? ' <span class="gc-mastery-tag">+M</span>' : '') + buffTag + '</div>';
       });
     }

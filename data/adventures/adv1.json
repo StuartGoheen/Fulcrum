@@ -6682,17 +6682,20 @@
               {
                 "discipline": "deception",
                 "approach": "Impersonating Imperial maintenance crew or bluffing past checkpoints to create openings for the infiltration team.",
-                "role": "secondary"
+                "role": "secondary",
+                "support": { "type": "optimized", "targetDiscipline": "skulduggery", "description": "Step up Control die on ally's next Skulduggery roll" }
               },
               {
                 "discipline": "investigation",
                 "approach": "Studying patrol patterns from a distance, identifying guard rotation gaps and relaying timing windows to the team.",
-                "role": "secondary"
+                "role": "secondary",
+                "support": { "type": "optimized", "targetDiscipline": "stealth", "description": "Step up Control die on ally's next Stealth roll" }
               },
               {
                 "discipline": "charm",
                 "approach": "Chatting up off-duty personnel at the perimeter cantina to learn schedules, creating distractions that benefit the lead operators.",
-                "role": "secondary"
+                "role": "secondary",
+                "support": { "type": "empowered", "targetDiscipline": "tech", "description": "Step up Power die on ally's next Tech roll" }
               }
             ],
             "vpBase": 3,
@@ -7827,17 +7830,20 @@
               {
                 "discipline": "investigation",
                 "approach": "Spotting acid pool indicators and reading fungal bloom patterns, relaying hazard locations to the point crew.",
-                "role": "secondary"
+                "role": "secondary",
+                "support": { "type": "optimized", "targetDiscipline": "survival", "description": "Step up Control die on ally's next Survival roll" }
               },
               {
                 "discipline": "beast_handling",
                 "approach": "Redirecting territorial predators away from the group's path, calming agitated wildlife so the lead navigator can move freely.",
-                "role": "secondary"
+                "role": "secondary",
+                "support": { "type": "empowered", "targetDiscipline": "stealth", "description": "Step up Power die on ally's next Stealth roll" }
               },
               {
                 "discipline": "insight",
                 "approach": "Reading animal behavior for early warning of predators, sensing shifts in the jungle's mood and alerting the crew before danger materializes.",
-                "role": "secondary"
+                "role": "secondary",
+                "support": { "type": "optimized", "targetDiscipline": "athletics", "description": "Step up Control die on ally's next Athletics roll" }
               }
             ],
             "vpBase": 3,
