@@ -254,19 +254,33 @@ function registerHandlers(io) {
           });
         }
 
+        if (role === 'player') {
+          const crewRoster = [];
+          const sockets = io.of('/').sockets;
+          sockets.forEach(function (s) {
+            if (s.data.role === 'player' && s.data.characterId) {
+              crewRoster.push({ characterId: String(s.data.characterId), name: s.data.characterName || 'Unknown' });
+            }
+          });
+          socket.emit('crew:roster', crewRoster);
+        }
+
         if (role === 'player' && _groupChallengeState && _groupChallengeState.active) {
           const gcCharId = String(characterId || '');
           const gcBeat = _groupChallengeState.currentBeat;
           const gcSubmitted = !!_groupChallengeState.beatSubmissions[gcCharId + ':' + gcBeat];
+          const gcModState = _gcBuildModifierState(_groupChallengeState);
           socket.emit('groupChallenge:sync', {
             active: true,
             name: _groupChallengeState.challengeData.name,
             description: _groupChallengeState.challengeData.description,
             tier: _groupChallengeState.challengeData.tier,
             power: _groupChallengeState.challengeData.power,
-            vpThreshold: _groupChallengeState.challengeData.vpThreshold,
+            vpThreshold: _groupChallengeState.vpThreshold,
             vpScoring: _groupChallengeState.challengeData.vpScoring,
             eligibleDisciplines: _groupChallengeState.challengeData.eligibleDisciplines,
+            modifiers: _groupChallengeState.challengeData.modifiers || null,
+            modifierState: gcModState,
             currentBeat: _groupChallengeState.currentBeat,
             totalVP: _groupChallengeState.totalVP,
             rollLog: _groupChallengeState.rollLog,

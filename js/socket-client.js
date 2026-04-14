@@ -293,6 +293,10 @@
       _showChallengeResolutionToast(data);
     });
 
+    socket.on('crew:roster', function (roster) {
+      _gcConnectedPlayers = (roster || []).slice();
+    });
+
     socket.on('groupChallenge:announce', function (data) {
       _showGroupChallengePanel(data);
     });
@@ -1285,6 +1289,14 @@
     var mods = gc.modifiers || {};
     var modState = gc.modifierState || {};
     var effectivePower = modState.effectivePower != null ? modState.effectivePower : gc.power;
+    var charId = _getSessionCharId();
+    var pendingBuffsAll = modState.pendingBuffs || {};
+    var myPendingBuff = charId && pendingBuffsAll[charId] ? pendingBuffsAll[charId] : null;
+    var buffedPower = effectivePower;
+    if (myPendingBuff && myPendingBuff.type === 'optimized') {
+      buffedPower = Math.max(0, effectivePower - 1);
+    }
+    var hasEmpoweredBuff = myPendingBuff && myPendingBuff.type === 'empowered';
     var vpT = gc.vpThreshold || 0;
     var pct = vpT > 0 ? Math.min(100, Math.round((gc.totalVP / vpT) * 100)) : 0;
 
@@ -1299,7 +1311,8 @@
     if (!_gcCollapsed) {
       html += '<div class="pgc-body">';
       html += '<div class="pgc-challenge-name">' + _escHtml(gc.name) + '</div>';
-      var metaLine = 'Tier ' + (modState.effectiveTier || gc.tier) + ' \u2022 Power ' + effectivePower;
+      var displayPower = myPendingBuff && myPendingBuff.type === 'optimized' ? buffedPower + ' (Optimized \u2193' + effectivePower + ')' : effectivePower;
+      var metaLine = 'Tier ' + (modState.effectiveTier || gc.tier) + ' \u2022 Power ' + displayPower;
       html += '<div class="pgc-challenge-meta">' + metaLine + '</div>';
       html += '<div class="pgc-challenge-desc">' + _escHtml(gc.description) + '</div>';
 
@@ -1438,14 +1451,15 @@
         html += '<div class="pgc-tier-buttons" id="pgc-tier-buttons">';
         var tierOrder = ['failure', 'fleetingCost', 'masterfulCost', 'legendaryCost', 'fleeting', 'masterful', 'legendary', 'unleashedI', 'unleashedII', 'unleashedIII'];
         var tierLabels = { failure: 'Failure', fleetingCost: 'Fleeting Cost', masterfulCost: 'Masterful Cost', legendaryCost: 'Legendary Cost', fleeting: 'Fleeting', masterful: 'Masterful', legendary: 'Legendary', unleashedI: 'Unleashed I', unleashedII: 'Unleashed II', unleashedIII: 'Unleashed III' };
-        var reachable = _getReachableTiers(effectivePower, gc.vpScoring);
+        var reachable = _getReachableTiers(buffedPower, gc.vpScoring);
         tierOrder.forEach(function (t) {
           if (typeof gc.vpScoring[t] !== 'number') return;
           if (reachable.indexOf(t) === -1) return;
           var vpVal = gc.vpScoring[t];
           if (t === 'failure' && mods.failurePenalty) vpVal = -mods.failurePenalty.value;
-          var vpLabel = vpVal > 0 ? '+' + vpVal : String(vpVal);
-          html += '<button class="pgc-tier-btn" data-gc-tier="' + t + '" data-vp-primary="' + vpLabel + '">' + tierLabels[t] + ' <span class="pgc-tier-vp">(' + vpLabel + ')</span></button>';
+          var empBonus = (hasEmpoweredBuff && t !== 'failure' && vpVal > 0) ? 1 : 0;
+          var vpLabel = (vpVal + empBonus) > 0 ? '+' + (vpVal + empBonus) : String(vpVal + empBonus);
+          html += '<button class="pgc-tier-btn" data-gc-tier="' + t + '" data-vp-primary="' + vpLabel + '">' + tierLabels[t] + ' <span class="pgc-tier-vp">(' + vpLabel + ')</span>' + (empBonus ? ' <span class="pgc-buff-tag" style="font-size:0.5rem;color:#22c55e;">+EMP</span>' : '') + '</button>';
         });
         html += '</div>';
         html += '<div id="pgc-secondary-vp-note" style="display:none;font-size:0.55rem;color:#22c55e;opacity:0.8;margin-top:0.15rem;">Secondary: 0 VP (buff placed on success)</div>';
