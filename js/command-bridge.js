@@ -2458,6 +2458,11 @@
       _gcTotalVP = data.totalVP || 0;
       if (data.rollLog) _gcRollLog = data.rollLog;
       if (data.revealedThresholds) _gcRevealedThresholds = data.revealedThresholds;
+      if (data.vpThreshold != null) _gcVpThreshold = data.vpThreshold;
+      if (data.crewSize != null) _gcCrewSize = data.crewSize;
+      if (data.modifiers) _gcModifiers = data.modifiers;
+      if (data.modifierState) _gcModifierState = data.modifierState;
+      if (data.resolvedThresholds) _gcResolvedThresholds = data.resolvedThresholds;
       _refreshGcPanel();
     });
 
@@ -2466,19 +2471,32 @@
       _gcBeat = data.currentBeat;
       if (data.entry) _gcRollLog.push(data.entry);
       if (data.revealedThresholds) _gcRevealedThresholds = data.revealedThresholds;
+      if (data.vpThreshold != null) _gcVpThreshold = data.vpThreshold;
+      if (data.modifierState) _gcModifierState = data.modifierState;
       _refreshGcPanel();
     });
 
     socket.on('groupChallenge:beatAdvanced', function (data) {
       _gcBeat = data.currentBeat;
       _gcTotalVP = data.totalVP;
+      if (data.vpThreshold != null) _gcVpThreshold = data.vpThreshold;
+      if (data.modifierState) _gcModifierState = data.modifierState;
       _refreshGcPanel();
+    });
+
+    socket.on('groupChallenge:timedOut', function (data) {
+      showToast('TIMED OUT \u2014 Beat ' + data.beat + '/' + data.maxBeats + ' reached. Challenge fails unless VP threshold is met.');
     });
 
     socket.on('groupChallenge:completed', function (data) {
       _gcActive = false;
       _gcRollLog = [];
       _gcRevealedThresholds = [];
+      _gcModifiers = null;
+      _gcModifierState = null;
+      _gcVpThreshold = 0;
+      _gcCrewSize = 0;
+      _gcResolvedThresholds = [];
       _refreshGcPanel();
       showToast('Group Challenge ' + (data.success ? 'Succeeded' : 'Failed') + ': ' + data.name + ' (' + data.totalVP + '/' + data.vpThreshold + ' VP)');
       loadCrewJournal();
@@ -2585,21 +2603,80 @@
   var _gcRevealedThresholds = [];
   var _gcChallengeData = null;
 
+  var _gcModifiers = null;
+  var _gcModifierState = null;
+  var _gcVpThreshold = 0;
+  var _gcCrewSize = 0;
+  var _gcResolvedThresholds = [];
+
   function _buildGroupChallengeHtml(scene) {
     var gc = scene.groupChallenge;
     if (!gc) return '<div style="padding:1rem;color:var(--color-text-secondary);">No group challenge in this scene.</div>';
     _gcChallengeData = gc;
+    var mods = _gcModifiers || gc.modifiers || {};
+    var modState = _gcModifierState || {};
+    var effectivePower = modState.effectivePower != null ? modState.effectivePower : gc.power;
+    var effectiveTier = modState.effectiveTier != null ? modState.effectiveTier : gc.tier;
+    var vpT = _gcVpThreshold || gc.vpThreshold || gc.vpBase || 0;
     var html = '<div class="gc-panel">';
     html += '<div class="gc-header-info">';
     html += '<div class="gc-name">' + esc(gc.name) + '</div>';
     html += '<div class="gc-desc">' + esc(gc.description) + '</div>';
-    html += '<div class="gc-stats">Tier ' + gc.tier + ' \u2022 Power ' + gc.power + ' \u2022 VP Target: ' + gc.vpThreshold + '</div>';
+    var statsLine = 'Tier ' + effectiveTier;
+    if (effectiveTier !== gc.tier) statsLine += ' (base ' + gc.tier + ')';
+    statsLine += ' \u2022 Power ' + effectivePower;
+    if (effectivePower !== gc.power) statsLine += ' (base ' + gc.power + ')';
+    statsLine += ' \u2022 VP Target: ' + vpT;
+    if (_gcCrewSize) statsLine += ' (' + _gcCrewSize + ' crew)';
+    html += '<div class="gc-stats">' + statsLine + '</div>';
     html += '</div>';
+
+    if (Object.keys(mods).length > 0) {
+      html += '<div class="gc-modifiers" style="display:flex;flex-wrap:wrap;gap:0.3rem;margin-bottom:0.5rem;">';
+      if (mods.timed) {
+        var remaining = mods.timed.beats - _gcBeat + 1;
+        html += '<span class="gc-mod-badge" style="background:rgba(239,68,68,0.15);color:#ef4444;padding:0.15rem 0.4rem;border-radius:4px;font-size:0.6rem;font-family:Audiowide,sans-serif;">TIMED: ' + remaining + '/' + mods.timed.beats + ' beats</span>';
+      }
+      if (mods.failurePenalty) {
+        html += '<span class="gc-mod-badge" style="background:rgba(249,115,22,0.15);color:#f97316;padding:0.15rem 0.4rem;border-radius:4px;font-size:0.6rem;font-family:Audiowide,sans-serif;">FAILURE: -' + mods.failurePenalty.value + ' VP</span>';
+      }
+      if (mods.escalating) {
+        html += '<span class="gc-mod-badge" style="background:rgba(168,85,247,0.15);color:#a855f7;padding:0.15rem 0.4rem;border-radius:4px;font-size:0.6rem;font-family:Audiowide,sans-serif;">ESCALATING: ' + esc(mods.escalating.field) + ' +' + mods.escalating.increment + '/beat</span>';
+      }
+      if (mods.disciplineLimit) {
+        var dlLabel = mods.disciplineLimit.type || 'limited';
+        if (mods.disciplineLimit.type === 'cooldown') dlLabel += ' (' + (mods.disciplineLimit.beats || 2) + ' beats)';
+        html += '<span class="gc-mod-badge" style="background:rgba(59,130,246,0.15);color:#3b82f6;padding:0.15rem 0.4rem;border-radius:4px;font-size:0.6rem;font-family:Audiowide,sans-serif;">DISCIPLINE: ' + esc(dlLabel) + '</span>';
+      }
+      if (mods.pressure) {
+        html += '<span class="gc-mod-badge" style="background:rgba(239,68,68,0.15);color:#ef4444;padding:0.15rem 0.4rem;border-radius:4px;font-size:0.6rem;font-family:Audiowide,sans-serif;">PRESSURE</span>';
+      }
+      if (mods.momentum) {
+        html += '<span class="gc-mod-badge" style="background:rgba(34,197,94,0.15);color:#22c55e;padding:0.15rem 0.4rem;border-radius:4px;font-size:0.6rem;font-family:Audiowide,sans-serif;">MOMENTUM</span>';
+      }
+      if (mods.fatigue) {
+        html += '<span class="gc-mod-badge" style="background:rgba(249,115,22,0.15);color:#f97316;padding:0.15rem 0.4rem;border-radius:4px;font-size:0.6rem;font-family:Audiowide,sans-serif;">FATIGUE</span>';
+      }
+      if (mods.adaptation) {
+        var adBoost = modState.adaptationBoost || 0;
+        html += '<span class="gc-mod-badge" style="background:rgba(168,85,247,0.15);color:#a855f7;padding:0.15rem 0.4rem;border-radius:4px;font-size:0.6rem;font-family:Audiowide,sans-serif;">ADAPTATION +' + adBoost + '</span>';
+      }
+      if (mods.allHands) {
+        html += '<span class="gc-mod-badge" style="background:rgba(234,179,8,0.15);color:#eab308;padding:0.15rem 0.4rem;border-radius:4px;font-size:0.6rem;font-family:Audiowide,sans-serif;">ALL HANDS</span>';
+      }
+      if (mods.solo) {
+        html += '<span class="gc-mod-badge" style="background:rgba(234,179,8,0.15);color:#eab308;padding:0.15rem 0.4rem;border-radius:4px;font-size:0.6rem;font-family:Audiowide,sans-serif;">SOLO</span>';
+      }
+      html += '</div>';
+    }
+
     html += '<div class="gc-vp-section">';
-    html += '<div class="gc-vp-label">Victory Points: <span id="gc-vp-current">' + _gcTotalVP + '</span> / ' + gc.vpThreshold + '</div>';
-    var pct = gc.vpThreshold > 0 ? Math.min(100, Math.round((_gcTotalVP / gc.vpThreshold) * 100)) : 0;
+    html += '<div class="gc-vp-label">Victory Points: <span id="gc-vp-current">' + _gcTotalVP + '</span> / ' + vpT + '</div>';
+    var pct = vpT > 0 ? Math.min(100, Math.round((_gcTotalVP / vpT) * 100)) : 0;
     html += '<div class="gc-vp-bar"><div class="gc-vp-fill" id="gc-vp-fill" style="width:' + pct + '%"></div></div>';
-    html += '<div class="gc-beat-label">Beat: <span id="gc-beat-num">' + _gcBeat + '</span></div>';
+    var beatLabel = 'Beat: <span id="gc-beat-num">' + _gcBeat + '</span>';
+    if (mods.timed) beatLabel += ' / ' + mods.timed.beats;
+    html += '<div class="gc-beat-label">' + beatLabel + '</div>';
     html += '</div>';
     html += '<div class="gc-disciplines">';
     html += '<div class="gc-section-label">Eligible Approaches</div>';
@@ -2615,7 +2692,9 @@
     var tierLabels = { failure: 'Failure', fleetingCost: 'Fleeting Cost', masterfulCost: 'Masterful Cost', legendaryCost: 'Legendary Cost', fleeting: 'Fleeting', masterful: 'Masterful', legendary: 'Legendary', unleashedI: 'Unleashed I', unleashedII: 'Unleashed II', unleashedIII: 'Unleashed III' };
     tierOrder.forEach(function (t) {
       if (typeof scoring[t] === 'number') {
-        html += '<span class="gc-score-item"><span class="gc-score-tier">' + tierLabels[t] + '</span><span class="gc-score-vp">' + scoring[t] + '</span></span>';
+        var vpDisplay = scoring[t];
+        if (t === 'failure' && mods.failurePenalty) vpDisplay = '-' + mods.failurePenalty.value;
+        html += '<span class="gc-score-item"><span class="gc-score-tier">' + tierLabels[t] + '</span><span class="gc-score-vp">' + vpDisplay + '</span></span>';
       }
     });
     if (scoring.masteryBonus) html += '<span class="gc-score-item gc-score-mastery"><span class="gc-score-tier">Mastery</span><span class="gc-score-vp">+' + scoring.masteryBonus + '</span></span>';
@@ -2626,13 +2705,16 @@
       html += '<div class="gc-failure-text">' + esc(gc.failureConsequence) + '</div>';
       html += '</div>';
     }
+    var displayThresholds = _gcResolvedThresholds.length ? _gcResolvedThresholds : (gc.thresholds || []);
     html += '<div class="gc-thresholds">';
     html += '<div class="gc-section-label">Intel Thresholds</div>';
     html += '<div id="gc-threshold-feed">';
-    (gc.thresholds || []).forEach(function (t) {
-      var revealed = _gcRevealedThresholds.find(function (r) { return r.vp === t.vp; });
-      html += '<div class="gc-threshold-item' + (revealed ? ' gc-threshold--revealed' : '') + '" data-gc-vp="' + t.vp + '">';
-      html += '<span class="gc-threshold-vp">' + t.vp + ' VP</span>';
+    displayThresholds.forEach(function (t) {
+      var tvp = t.vp != null ? t.vp : (t.at != null ? Math.round(t.at * vpT) : 0);
+      var revealed = _gcRevealedThresholds.find(function (r) { return r.vp === tvp; });
+      var cpMark = t.checkpoint ? ' \u2693' : '';
+      html += '<div class="gc-threshold-item' + (revealed ? ' gc-threshold--revealed' : '') + '" data-gc-vp="' + tvp + '">';
+      html += '<span class="gc-threshold-vp">' + tvp + ' VP' + cpMark + '</span>';
       html += '<span class="gc-threshold-intel">' + (revealed ? esc(t.intel) : '???') + '</span>';
       html += '</div>';
     });

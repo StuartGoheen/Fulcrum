@@ -1026,5 +1026,103 @@
     "type": "Campaign Lore",
     "rule": "Project Leviathan — codename: The Maw — is a Mobile Gravity Well Siege Platform constructed at Vel Shara in the Unknown Regions. Super Star Destroyer class (~19km). Its crescent-shaped hull features two massive curved arms sweeping forward from a central reactor body, with oversized gravity well projector arrays lining the inner arc. The weapon redirects celestial mass — asteroids, moonlets, orbital debris — into planetary targets via focused tidal forces, producing sustained kinetic bombardment indistinguishable from natural catastrophe. Secondary capability: tidal destabilization of planetary geology. Commander: Admiral Gilder Varth, appointed by Moff Tarkin.",
     "guide": "Two jaws made of dark grey Imperial armor, each one nine klicks long, curving forward like something opening its mouth. Between the arms, space bends. Light warps. Rocks start moving that shouldn't be moving. It doesn't fire a beam. It doesn't glow. It just makes the sky fall on you — slowly, for hours, until there's nothing left but craters and ash. And the best part? On the report, it reads 'asteroid impact.' No weapon signature. No evidence. Just a dead world and a very satisfied Moff."
+  },
+  {
+    "id": "group_challenge_overview",
+    "name": "Group Challenges",
+    "type": "Group Challenge",
+    "category": "Group Challenge",
+    "rule": "A multi-beat challenge where the entire crew works together to accumulate Victory Points (VP). Each beat, every crew member chooses a discipline and reports their result. VP accumulates toward a threshold that scales with crew size. Crossing the threshold means success; falling short means failure with consequences.",
+    "guide": "Group Challenges represent extended, crew-wide efforts — infiltrating a compound, tracking a target through a city, surviving a jungle trek. They replace single-roll resolutions with a series of beats where the crew works different angles simultaneously. The GM announces the challenge, sets the scene, and advances beats. Players choose their approach each beat and report their result tier.",
+    "sections": [
+      {
+        "heading": "How Beats Work",
+        "body": "Each beat represents a window of action. Every crew member submits one roll per beat using any discipline. The GM describes the evolving situation, then advances to the next beat. Beats continue until the VP threshold is met (success) or the challenge ends (failure or time limit)."
+      },
+      {
+        "heading": "VP Threshold",
+        "body": "The VP target scales with crew size: vpThreshold = vpBase × crewSize. A challenge with vpBase 3 requires 12 VP from a 4-player crew or 15 VP from a 5-player crew. Some modifiers adjust vpBase up or down."
+      },
+      {
+        "heading": "Eligible Disciplines",
+        "body": "Each challenge lists suggested approaches with narrative descriptions. By default, players may use any of the 25 disciplines — the suggestions are there to spark ideas, not restrict options. Some modifiers (like Exclusive) do restrict choices to the listed disciplines only."
+      },
+      {
+        "heading": "Intel Thresholds",
+        "body": "As VP accumulates, the crew discovers useful information. Intel reveals at specific VP milestones, giving the crew an evolving picture of the situation. Some thresholds are checkpoints — once crossed, your VP cannot drop below that point."
+      }
+    ]
+  },
+  {
+    "id": "group_challenge_scoring",
+    "name": "VP Scoring",
+    "type": "Group Challenge",
+    "category": "Group Challenge",
+    "rule": "Victory Points are earned based on the result tier of each roll. Cost results always award 1 VP but carry a narrative or mechanical complication. Clean successes award VP by tier: Fleeting 1, Masterful 2, Legendary 3. Unleashed tiers award 4/5/6. Mastery (Control die 8+) adds +1 VP to any result.",
+    "guide": "The scoring system rewards clean execution. A Fleeting result with no cost earns the same VP as a Fleeting with cost — but the cost means something went sideways. Maybe you tripped an alarm, burned a resource, or drew unwanted attention. The GM narrates the complication. Higher tiers reward stronger rolls but are harder to reach against high-power challenges.",
+    "sections": [
+      {
+        "heading": "Scoring Table",
+        "body": "Failure: 0 VP. Any Cost (Fleeting/Masterful/Legendary): 1 VP + complication. Fleeting: 1 VP. Masterful: 2 VP. Legendary: 3 VP. Unleashed I: 4 VP. Unleashed II: 5 VP. Unleashed III: 6 VP. Mastery Bonus: +1 VP."
+      },
+      {
+        "heading": "Reachability",
+        "body": "Not all result tiers are available on every challenge. Higher challenge power shrinks the maximum result: maxResult = 12 - power. Fleeting requires maxResult 0+, Masterful 4+, Legendary 8+. A Power 5 challenge caps most rolls at Masterful."
+      }
+    ]
+  },
+  {
+    "id": "group_challenge_modifiers",
+    "name": "Challenge Modifiers",
+    "type": "Group Challenge",
+    "category": "Group Challenge",
+    "rule": "Modifiers change the rules of a specific group challenge. They adjust the resolution dice, alter difficulty over time, restrict discipline usage, or impose structural constraints. Active modifiers are displayed as badges on the challenge panel.",
+    "guide": "Modifiers make each group challenge feel mechanically distinct. A heist might be timed with disciplines burning after one use. A jungle trek might escalate in difficulty each beat while fatigue punishes cost results. A social investigation might adapt to your successes, getting harder the more you learn.",
+    "sections": [
+      {
+        "heading": "Escalating",
+        "body": "The challenge gets harder each beat. Power or Tier increases by a fixed amount every beat. Early beats are easier — bank VP while you can. Later beats shrink your reachable tiers."
+      },
+      {
+        "heading": "Pressure",
+        "body": "Failure compounds. When you fail a roll, your Control die steps down 1 for your next roll in this challenge. Panic makes the next attempt harder."
+      },
+      {
+        "heading": "Momentum",
+        "body": "Success builds confidence. When you get a clean success (no cost), your Power die steps up 1 for your next roll. Momentum rewards streaks."
+      },
+      {
+        "heading": "Fatigue",
+        "body": "Paying costs takes a toll. When you accept a cost result, your Control die steps down 1 for your next roll. The price of progress wears you down."
+      },
+      {
+        "heading": "Adaptation",
+        "body": "The opposition learns. Each successful roll permanently increases the challenge power. What worked before gets harder as the enemy adapts."
+      },
+      {
+        "heading": "Timed",
+        "body": "The clock is ticking. The challenge has a maximum number of beats. If the VP threshold is not met by the final beat, the challenge auto-fails."
+      },
+      {
+        "heading": "Failure Penalty",
+        "body": "Failures cost progress. When you fail, VP is reduced instead of just staying at zero. The total cannot drop below zero or below the last checkpoint."
+      },
+      {
+        "heading": "Discipline Limits",
+        "body": "Restrictions on which disciplines can be used and how often. Once Per Challenge: each discipline can only be used once total. Cooldown: you cannot reuse the same discipline for N beats. Diverse: you must use a different discipline than your last beat. Exclusive: only the listed disciplines are allowed."
+      },
+      {
+        "heading": "All Hands",
+        "body": "Every crew member must contribute at least one roll or the challenge cannot succeed. No sitting this one out."
+      },
+      {
+        "heading": "Solo",
+        "body": "Only one character can contribute per beat. The crew must decide who steps up each round."
+      },
+      {
+        "heading": "Checkpoints",
+        "body": "Certain VP thresholds lock in your progress. Even if failure penalties reduce your VP, it cannot drop below the last checkpoint you crossed. Ground gained is ground held."
+      }
+    ]
   }
 ]

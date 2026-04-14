@@ -1231,6 +1231,138 @@ function registerHandlers(io) {
       console.log('[socket] GM cancelled decision poll');
     });
 
+    function _gcCountCrewSize() {
+      const sockets = Array.from(io.sockets.sockets.values());
+      const charIds = new Set();
+      sockets.forEach(function (s) {
+        if (s.data.role === 'player' && s.data.characterId) charIds.add(String(s.data.characterId));
+      });
+      return Math.max(charIds.size, 1);
+    }
+
+    function _gcCalcVpThreshold(challengeData, crewSize) {
+      if (typeof challengeData.vpThreshold === 'number') return challengeData.vpThreshold;
+      const vpBase = Number(challengeData.vpBase) || 3;
+      const mods = challengeData.modifiers || {};
+      let vpAdjust = 0;
+      if (mods.escalating && typeof mods.escalating.vpAdjust === 'number') vpAdjust += mods.escalating.vpAdjust;
+      if (mods.failurePenalty && typeof mods.failurePenalty.vpAdjust === 'number') vpAdjust += mods.failurePenalty.vpAdjust;
+      return Math.max(1, (vpBase + vpAdjust) * crewSize);
+    }
+
+    function _gcResolveThresholds(challengeData, vpThreshold) {
+      const raw = challengeData.thresholds || [];
+      return raw.map(function (t) {
+        if (typeof t.at === 'number') {
+          return { vp: Math.max(1, Math.round(t.at * vpThreshold)), intel: t.intel, checkpoint: !!t.checkpoint };
+        }
+        return { vp: t.vp || 0, intel: t.intel, checkpoint: !!t.checkpoint };
+      });
+    }
+
+    function _gcEffectivePower(state) {
+      let power = Number(state.challengeData.power) || 0;
+      const mods = state.challengeData.modifiers || {};
+      if (mods.escalating && mods.escalating.field === 'power') {
+        power += (mods.escalating.increment || 1) * (state.currentBeat - 1);
+      }
+      if (mods.adaptation && typeof state.adaptationBoost === 'number') {
+        power += state.adaptationBoost;
+      }
+      return power;
+    }
+
+    function _gcEffectiveTier(state) {
+      let tier = Number(state.challengeData.tier) || 1;
+      const mods = state.challengeData.modifiers || {};
+      if (mods.escalating && mods.escalating.field === 'tier') {
+        tier += (mods.escalating.increment || 1) * (state.currentBeat - 1);
+      }
+      return tier;
+    }
+
+    function _gcGetReachableTiers(power, scoring) {
+      const maxResult = 12 - power;
+      const tiers = ['failure'];
+      if (maxResult >= 0) { tiers.push('fleeting', 'fleetingCost'); }
+      if (maxResult >= 4) { tiers.push('masterful', 'masterfulCost'); }
+      if (maxResult >= 8) { tiers.push('legendary', 'legendaryCost'); }
+      if (typeof scoring.unleashedI === 'number') tiers.push('unleashedI');
+      if (typeof scoring.unleashedII === 'number') tiers.push('unleashedII');
+      if (typeof scoring.unleashedIII === 'number') tiers.push('unleashedIII');
+      return tiers;
+    }
+
+    function _gcCheckpointFloor(state) {
+      let floor = 0;
+      (state.resolvedThresholds || []).forEach(function (t) {
+        if (t.checkpoint && state.totalVP >= t.vp) {
+          floor = Math.max(floor, t.vp);
+        }
+      });
+      return floor;
+    }
+
+    function _gcCheckDisciplineLimit(state, charId, discipline) {
+      const mods = state.challengeData.modifiers || {};
+      const dl = mods.disciplineLimit;
+      if (!dl) return null;
+
+      if (dl.type === 'exclusive') {
+        const eligible = (state.challengeData.eligibleDisciplines || []).map(function (d) { return d.discipline; });
+        if (eligible.indexOf(discipline) === -1) {
+          return 'Only the listed eligible disciplines may be used in this challenge.';
+        }
+      }
+
+      if (dl.type === 'once_per_challenge') {
+        const used = (state.disciplineUsage || []).find(function (u) { return u.discipline === discipline; });
+        if (used) return discipline + ' has already been used in this challenge (once per challenge).';
+      }
+
+      if (dl.type === 'cooldown') {
+        const cooldownBeats = dl.beats || 2;
+        const lastUse = (state.disciplineUsage || []).filter(function (u) {
+          return u.charId === charId && u.discipline === discipline;
+        }).sort(function (a, b) { return b.beat - a.beat; })[0];
+        if (lastUse && (state.currentBeat - lastUse.beat) <= cooldownBeats) {
+          return discipline + ' is on cooldown for ' + (cooldownBeats - (state.currentBeat - lastUse.beat) + 1) + ' more beat(s).';
+        }
+      }
+
+      if (dl.type === 'diverse') {
+        const lastRoll = (state.disciplineUsage || []).filter(function (u) {
+          return u.charId === charId;
+        }).sort(function (a, b) { return b.beat - a.beat; })[0];
+        if (lastRoll && lastRoll.discipline === discipline && lastRoll.beat === state.currentBeat - 1) {
+          return 'You must use a different discipline than last beat (diverse).';
+        }
+      }
+
+      return null;
+    }
+
+    function _gcBuildModifierState(state) {
+      const mods = state.challengeData.modifiers || {};
+      return {
+        effectivePower: _gcEffectivePower(state),
+        effectiveTier: _gcEffectiveTier(state),
+        timed: mods.timed || null,
+        failurePenalty: mods.failurePenalty || null,
+        disciplineLimit: mods.disciplineLimit || null,
+        escalating: mods.escalating || null,
+        pressure: !!mods.pressure,
+        momentum: !!mods.momentum,
+        fatigue: !!mods.fatigue,
+        adaptation: mods.adaptation || null,
+        allHands: !!mods.allHands,
+        solo: !!mods.solo,
+        usedDisciplines: (state.disciplineUsage || []).map(function (u) { return { discipline: u.discipline, charId: u.charId, beat: u.beat }; }),
+        charModifiers: state.charModifiers || {},
+        adaptationBoost: state.adaptationBoost || 0
+      };
+    }
+
     socket.on('groupChallenge:announce', (payload) => {
       if (socket.data.role !== 'gm') {
         socket.emit('error', { message: 'Only the GM can announce group challenges.' });
@@ -1241,6 +1373,9 @@ function registerHandlers(io) {
         socket.emit('error', { message: 'Invalid challenge data.' });
         return;
       }
+      const crewSize = _gcCountCrewSize();
+      const vpThreshold = _gcCalcVpThreshold(challengeData, crewSize);
+      const resolvedThresholds = _gcResolveThresholds(challengeData, vpThreshold);
       _groupChallengeState = {
         active: true,
         challengeData: challengeData,
@@ -1250,23 +1385,40 @@ function registerHandlers(io) {
         totalVP: 0,
         rollLog: [],
         revealedThresholds: [],
-        beatSubmissions: {}
+        resolvedThresholds: resolvedThresholds,
+        vpThreshold: vpThreshold,
+        crewSize: crewSize,
+        beatSubmissions: {},
+        disciplineUsage: [],
+        charModifiers: {},
+        adaptationBoost: 0,
+        contributedCharIds: []
       };
+      const modState = _gcBuildModifierState(_groupChallengeState);
       io.to('players').emit('groupChallenge:announce', {
         name: challengeData.name,
         description: challengeData.description,
         tier: challengeData.tier,
         power: challengeData.power,
-        vpThreshold: challengeData.vpThreshold,
+        vpThreshold: vpThreshold,
         vpScoring: challengeData.vpScoring,
         eligibleDisciplines: challengeData.eligibleDisciplines,
+        modifiers: challengeData.modifiers || null,
+        modifierState: modState,
         currentBeat: 1,
         totalVP: 0,
         rollLog: [],
         revealedThresholds: []
       });
-      socket.emit('groupChallenge:gm-ack', { active: true, currentBeat: 1, totalVP: 0 });
-      console.log('[socket] GM announced group challenge: ' + challengeData.name);
+      socket.emit('groupChallenge:gm-ack', {
+        active: true, currentBeat: 1, totalVP: 0,
+        vpThreshold: vpThreshold,
+        crewSize: crewSize,
+        modifiers: challengeData.modifiers || null,
+        modifierState: modState,
+        resolvedThresholds: resolvedThresholds
+      });
+      console.log('[socket] GM announced group challenge: ' + challengeData.name + ' (crew:' + crewSize + ' vpT:' + vpThreshold + ')');
     });
 
     socket.on('groupChallenge:submit', (payload) => {
@@ -1275,9 +1427,20 @@ function registerHandlers(io) {
         socket.emit('groupChallenge:submitError', { message: 'No active group challenge.' });
         return;
       }
+      const gcs = _groupChallengeState;
       const charId = String(socket.data.characterId);
-      const beat = _groupChallengeState.currentBeat;
-      if (_groupChallengeState.beatSubmissions[charId + ':' + beat]) {
+      const beat = gcs.currentBeat;
+      const mods = gcs.challengeData.modifiers || {};
+
+      if (mods.solo) {
+        const beatSubs = Object.keys(gcs.beatSubmissions).filter(function (k) { return k.endsWith(':' + beat); });
+        if (beatSubs.length > 0 && !gcs.beatSubmissions[charId + ':' + beat]) {
+          socket.emit('groupChallenge:submitError', { message: 'Only one character can contribute per beat (solo).' });
+          return;
+        }
+      }
+
+      if (gcs.beatSubmissions[charId + ':' + beat]) {
         socket.emit('groupChallenge:submitError', { message: 'Already submitted for this beat.' });
         return;
       }
@@ -1297,27 +1460,75 @@ function registerHandlers(io) {
         socket.emit('groupChallenge:submitError', { message: 'Unknown discipline.' });
         return;
       }
-      const scoring = _groupChallengeState.challengeData.vpScoring || {};
-      const challengePower = Number(_groupChallengeState.challengeData.power) || 0;
-      const maxResult = 12 - challengePower;
-      const reachableTiers = ['failure'];
-      if (maxResult >= 0) { reachableTiers.push('fleeting', 'fleetingCost'); }
-      if (maxResult >= 4) { reachableTiers.push('masterful', 'masterfulCost'); }
-      if (maxResult >= 8) { reachableTiers.push('legendary', 'legendaryCost'); }
-      if (typeof scoring.unleashedI === 'number') reachableTiers.push('unleashedI');
-      if (typeof scoring.unleashedII === 'number') reachableTiers.push('unleashedII');
-      if (typeof scoring.unleashedIII === 'number') reachableTiers.push('unleashedIII');
+
+      const dlError = _gcCheckDisciplineLimit(gcs, charId, discipline);
+      if (dlError) {
+        socket.emit('groupChallenge:submitError', { message: dlError });
+        return;
+      }
+
+      const scoring = gcs.challengeData.vpScoring || {};
+      let effectivePower = _gcEffectivePower(gcs);
+      const charMods = (gcs.charModifiers || {})[charId] || {};
+      if (charMods.controlStepDown) effectivePower += charMods.controlStepDown;
+      if (charMods.powerStepUp) effectivePower = Math.max(0, effectivePower - charMods.powerStepUp);
+      const reachableTiers = _gcGetReachableTiers(effectivePower, scoring);
       if (reachableTiers.indexOf(tier) === -1 || typeof scoring[tier] !== 'number') {
         socket.emit('groupChallenge:submitError', { message: 'Invalid or unreachable result tier for this challenge.' });
         return;
       }
+
       let vpEarned = scoring[tier];
       const isMastery = !!mastery;
       if (isMastery && scoring.masteryBonus) {
         vpEarned += scoring.masteryBonus;
       }
-      _groupChallengeState.beatSubmissions[charId + ':' + beat] = true;
-      _groupChallengeState.totalVP += vpEarned;
+
+      const isFailure = tier === 'failure';
+      const isCost = tier.indexOf('Cost') !== -1;
+      const isCleanSuccess = !isFailure && !isCost;
+
+      if (isFailure && mods.failurePenalty) {
+        const penalty = mods.failurePenalty.value || 1;
+        const floor = _gcCheckpointFloor(gcs);
+        gcs.totalVP = Math.max(floor, gcs.totalVP - penalty);
+        vpEarned = -penalty;
+      } else {
+        gcs.totalVP += vpEarned;
+      }
+
+      gcs.beatSubmissions[charId + ':' + beat] = true;
+      gcs.disciplineUsage.push({ charId: charId, discipline: discipline, beat: beat });
+
+      if (gcs.contributedCharIds.indexOf(charId) === -1) {
+        gcs.contributedCharIds.push(charId);
+      }
+
+      if (mods.adaptation && !isFailure) {
+        gcs.adaptationBoost = (gcs.adaptationBoost || 0) + (mods.adaptation.increment || 1);
+      }
+
+      if (!gcs.charModifiers) gcs.charModifiers = {};
+      if (!gcs.charModifiers[charId]) gcs.charModifiers[charId] = {};
+
+      if (mods.pressure && isFailure) {
+        gcs.charModifiers[charId].controlStepDown = (gcs.charModifiers[charId].controlStepDown || 0) + 1;
+      }
+      if (mods.fatigue && isCost) {
+        gcs.charModifiers[charId].controlStepDown = (gcs.charModifiers[charId].controlStepDown || 0) + 1;
+      }
+      if (mods.momentum && isCleanSuccess) {
+        gcs.charModifiers[charId].powerStepUp = (gcs.charModifiers[charId].powerStepUp || 0) + 1;
+      }
+
+      if (isCleanSuccess && mods.pressure && gcs.charModifiers[charId].controlStepDown) {
+        gcs.charModifiers[charId].controlStepDown = Math.max(0, gcs.charModifiers[charId].controlStepDown - 1);
+        if (!gcs.charModifiers[charId].controlStepDown) delete gcs.charModifiers[charId].controlStepDown;
+      }
+      if (isFailure && mods.momentum && gcs.charModifiers[charId].powerStepUp) {
+        delete gcs.charModifiers[charId].powerStepUp;
+      }
+
       const entry = {
         characterId: charId,
         characterName: socket.data.characterName || 'Unknown',
@@ -1327,25 +1538,28 @@ function registerHandlers(io) {
         mastery: isMastery,
         beat: beat
       };
-      _groupChallengeState.rollLog.push(entry);
-      const thresholds = _groupChallengeState.challengeData.thresholds || [];
+      gcs.rollLog.push(entry);
+
       const newReveals = [];
-      thresholds.forEach(function (t) {
-        if (_groupChallengeState.totalVP >= t.vp) {
-          const alreadyRevealed = _groupChallengeState.revealedThresholds.find(function (r) { return r.vp === t.vp; });
+      (gcs.resolvedThresholds || []).forEach(function (t) {
+        if (gcs.totalVP >= t.vp) {
+          const alreadyRevealed = gcs.revealedThresholds.find(function (r) { return r.vp === t.vp; });
           if (!alreadyRevealed) {
-            _groupChallengeState.revealedThresholds.push(t);
+            gcs.revealedThresholds.push(t);
             newReveals.push(t);
           }
         }
       });
+
+      const modState = _gcBuildModifierState(gcs);
       io.emit('groupChallenge:update', {
-        totalVP: _groupChallengeState.totalVP,
-        vpThreshold: _groupChallengeState.challengeData.vpThreshold,
-        currentBeat: _groupChallengeState.currentBeat,
+        totalVP: gcs.totalVP,
+        vpThreshold: gcs.vpThreshold,
+        currentBeat: gcs.currentBeat,
         entry: entry,
         newReveals: newReveals,
-        revealedThresholds: _groupChallengeState.revealedThresholds
+        revealedThresholds: gcs.revealedThresholds,
+        modifierState: modState
       });
       console.log('[socket] ' + (socket.data.characterName || charId) + ' group challenge: ' + discipline + ' ' + tier + ' (' + vpEarned + ' VP)');
     });
@@ -1359,13 +1573,40 @@ function registerHandlers(io) {
         socket.emit('error', { message: 'No active group challenge.' });
         return;
       }
-      _groupChallengeState.currentBeat++;
+      const gcs = _groupChallengeState;
+      const mods = gcs.challengeData.modifiers || {};
+
+      if (mods.timed && gcs.currentBeat >= mods.timed.beats) {
+        if (gcs.totalVP < gcs.vpThreshold) {
+          io.emit('groupChallenge:timedOut', { beat: gcs.currentBeat, maxBeats: mods.timed.beats });
+          gcs.active = false;
+          const completionData = {
+            name: gcs.challengeData.name,
+            success: false,
+            totalVP: gcs.totalVP,
+            vpThreshold: gcs.vpThreshold,
+            totalBeats: gcs.currentBeat,
+            rollLog: gcs.rollLog,
+            revealedThresholds: gcs.revealedThresholds,
+            failureConsequence: gcs.challengeData.failureConsequence || 'Time expired.'
+          };
+          io.emit('groupChallenge:completed', completionData);
+          _groupChallengeState = null;
+          console.log('[socket] Group challenge TIMED OUT: ' + completionData.name);
+          return;
+        }
+      }
+
+      gcs.currentBeat++;
+
+      const modState = _gcBuildModifierState(gcs);
       io.emit('groupChallenge:beatAdvanced', {
-        currentBeat: _groupChallengeState.currentBeat,
-        totalVP: _groupChallengeState.totalVP,
-        vpThreshold: _groupChallengeState.challengeData.vpThreshold
+        currentBeat: gcs.currentBeat,
+        totalVP: gcs.totalVP,
+        vpThreshold: gcs.vpThreshold,
+        modifierState: modState
       });
-      console.log('[socket] GM advanced group challenge to beat ' + _groupChallengeState.currentBeat);
+      console.log('[socket] GM advanced group challenge to beat ' + gcs.currentBeat);
     });
 
     socket.on('groupChallenge:complete', async () => {
@@ -1378,7 +1619,15 @@ function registerHandlers(io) {
         return;
       }
       const gcState = _groupChallengeState;
-      const success = gcState.totalVP >= gcState.challengeData.vpThreshold;
+      const mods = gcState.challengeData.modifiers || {};
+
+      let success = gcState.totalVP >= gcState.vpThreshold;
+      if (success && mods.allHands) {
+        if (gcState.contributedCharIds.length < gcState.crewSize) {
+          success = false;
+        }
+      }
+
       try {
         const rollSummary = gcState.rollLog.map(function (r) {
           return 'Beat ' + r.beat + ': ' + r.characterName + ' \u2014 ' + r.discipline + ' (' + r.tier + ') \u2192 ' + r.vp + ' VP' + (r.mastery ? ' +mastery' : '');
@@ -1386,7 +1635,7 @@ function registerHandlers(io) {
         const body = 'Group Challenge: ' + gcState.challengeData.name + '\n' +
           (gcState.challengeData.description ? gcState.challengeData.description + '\n\n' : '') +
           'Tier ' + (gcState.challengeData.tier || '?') + ' / Power ' + (gcState.challengeData.power || '?') + '\n' +
-          'Result: ' + (success ? 'SUCCESS' : 'FAILURE') + ' (' + gcState.totalVP + '/' + gcState.challengeData.vpThreshold + ' VP)\n' +
+          'Result: ' + (success ? 'SUCCESS' : 'FAILURE') + ' (' + gcState.totalVP + '/' + gcState.vpThreshold + ' VP)\n' +
           'Beats: ' + gcState.currentBeat + '\n\n' +
           'Roll Log:\n' + rollSummary + '\n\n' +
           'Intel Revealed:\n' + gcState.revealedThresholds.map(function (t) {
@@ -1409,7 +1658,7 @@ function registerHandlers(io) {
         name: gcState.challengeData.name,
         success: success,
         totalVP: gcState.totalVP,
-        vpThreshold: gcState.challengeData.vpThreshold,
+        vpThreshold: gcState.vpThreshold,
         totalBeats: gcState.currentBeat,
         rollLog: gcState.rollLog,
         revealedThresholds: gcState.revealedThresholds,
@@ -1429,32 +1678,41 @@ function registerHandlers(io) {
         }
         return;
       }
+      const gcs = _groupChallengeState;
+      const modState = _gcBuildModifierState(gcs);
       if (socket.data.role === 'gm') {
         socket.emit('groupChallenge:gm-ack', {
           active: true,
-          currentBeat: _groupChallengeState.currentBeat,
-          totalVP: _groupChallengeState.totalVP,
-          rollLog: _groupChallengeState.rollLog,
-          revealedThresholds: _groupChallengeState.revealedThresholds
+          currentBeat: gcs.currentBeat,
+          totalVP: gcs.totalVP,
+          vpThreshold: gcs.vpThreshold,
+          crewSize: gcs.crewSize,
+          rollLog: gcs.rollLog,
+          revealedThresholds: gcs.revealedThresholds,
+          modifiers: gcs.challengeData.modifiers || null,
+          modifierState: modState,
+          resolvedThresholds: gcs.resolvedThresholds
         });
         return;
       }
       const gcCharId = String(socket.data.characterId || '');
-      const gcBeat = _groupChallengeState.currentBeat;
-      const gcSubmitted = !!_groupChallengeState.beatSubmissions[gcCharId + ':' + gcBeat];
+      const gcBeat = gcs.currentBeat;
+      const gcSubmitted = !!gcs.beatSubmissions[gcCharId + ':' + gcBeat];
       socket.emit('groupChallenge:sync', {
         active: true,
-        name: _groupChallengeState.challengeData.name,
-        description: _groupChallengeState.challengeData.description,
-        tier: _groupChallengeState.challengeData.tier,
-        power: _groupChallengeState.challengeData.power,
-        vpThreshold: _groupChallengeState.challengeData.vpThreshold,
-        vpScoring: _groupChallengeState.challengeData.vpScoring,
-        eligibleDisciplines: _groupChallengeState.challengeData.eligibleDisciplines,
-        currentBeat: _groupChallengeState.currentBeat,
-        totalVP: _groupChallengeState.totalVP,
-        rollLog: _groupChallengeState.rollLog,
-        revealedThresholds: _groupChallengeState.revealedThresholds,
+        name: gcs.challengeData.name,
+        description: gcs.challengeData.description,
+        tier: gcs.challengeData.tier,
+        power: gcs.challengeData.power,
+        vpThreshold: gcs.vpThreshold,
+        vpScoring: gcs.challengeData.vpScoring,
+        eligibleDisciplines: gcs.challengeData.eligibleDisciplines,
+        modifiers: gcs.challengeData.modifiers || null,
+        modifierState: modState,
+        currentBeat: gcs.currentBeat,
+        totalVP: gcs.totalVP,
+        rollLog: gcs.rollLog,
+        revealedThresholds: gcs.revealedThresholds,
         hasSubmittedThisBeat: gcSubmitted
       });
     });

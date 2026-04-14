@@ -564,10 +564,9 @@
             "description": "The crew fans out across Blackwind Point to track down Warrick Raden's location.",
             "tier": 1,
             "power": 3,
-            "vpThreshold": 10,
             "vpScoring": {
               "failure": 0,
-              "fleetingCost": 0,
+              "fleetingCost": 1,
               "masterfulCost": 1,
               "legendaryCost": 1,
               "fleeting": 1,
@@ -581,24 +580,29 @@
             "failureConsequence": "Someone noticed you asking about Raden. Word travels through the encampment — increased risk of alerting Varga's network or the Trandoshan hit squad.",
             "thresholds": [
               {
-                "vp": 3,
-                "intel": "A cold sighting — Raden was drinking at The Drowned Sarlacc four days ago. Kept to himself. Haven't seen him since."
+                "at": 0.3,
+                "intel": "A cold sighting — Raden was drinking at The Drowned Sarlacc four days ago. Kept to himself. Haven't seen him since.",
+                "checkpoint": false
               },
               {
-                "vp": 5,
-                "intel": "He bought survival supplies from Mekka the parts dealer — ration packs, charge cell, water tabs. Someone planning to disappear."
+                "at": 0.5,
+                "intel": "He bought survival supplies from Mekka the parts dealer — ration packs, charge cell, water tabs. Someone planning to disappear.",
+                "checkpoint": true
               },
               {
-                "vp": 7,
-                "intel": "Two days ago he was seen running through the east market. Varga's enforcers were chasing him. He cut toward the swamp — they stopped at the tree line."
+                "at": 0.7,
+                "intel": "Two days ago he was seen running through the east market. Varga's enforcers were chasing him. He cut toward the swamp — they stopped at the tree line.",
+                "checkpoint": false
               },
               {
-                "vp": 9,
-                "intel": "An old water filtration plant at the swamp's edge. Imperial-era, abandoned for years. Smoke was seen from that direction yesterday morning."
+                "at": 0.9,
+                "intel": "An old water filtration plant at the swamp's edge. Imperial-era, abandoned for years. Smoke was seen from that direction yesterday morning.",
+                "checkpoint": false
               },
               {
-                "vp": 10,
-                "intel": "Confirmed — the filtration plant. Maintenance shed on the west side with a working lock. That's where he's hiding."
+                "at": 1,
+                "intel": "Confirmed — the filtration plant. Maintenance shed on the west side with a working lock. That's where he's hiding.",
+                "checkpoint": false
               }
             ],
             "eligibleDisciplines": [
@@ -626,7 +630,17 @@
                 "discipline": "skulduggery",
                 "approach": "Working the underworld channels, trading favors for information, speaking the right language."
               }
-            ]
+            ],
+            "vpBase": 2,
+            "modifiers": {
+              "adaptation": {
+                "increment": 1
+              },
+              "pressure": true,
+              "disciplineLimit": {
+                "type": "diverse"
+              }
+            }
           },
           "environmentMechanics": [
             {

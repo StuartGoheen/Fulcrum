@@ -1214,7 +1214,9 @@
       currentBeat: data.currentBeat || 1,
       totalVP: data.totalVP || 0,
       rollLog: data.rollLog || [],
-      revealedThresholds: data.revealedThresholds || []
+      revealedThresholds: data.revealedThresholds || [],
+      modifiers: data.modifiers || null,
+      modifierState: data.modifierState || null
     };
     _gcSubmitted = !!data.hasSubmittedThisBeat;
     _renderGroupChallengePanel();
@@ -1226,6 +1228,8 @@
     _gcData.currentBeat = data.currentBeat;
     if (data.entry) _gcData.rollLog.push(data.entry);
     if (data.revealedThresholds) _gcData.revealedThresholds = data.revealedThresholds;
+    if (data.modifierState) _gcData.modifierState = data.modifierState;
+    if (data.vpThreshold != null) _gcData.vpThreshold = data.vpThreshold;
     var charId = _getSessionCharId();
     if (data.entry && charId && String(data.entry.characterId) === String(charId)) {
       _gcSubmitted = true;
@@ -1237,6 +1241,8 @@
     if (!_gcData) return;
     _gcData.currentBeat = data.currentBeat;
     _gcData.totalVP = data.totalVP;
+    if (data.modifierState) _gcData.modifierState = data.modifierState;
+    if (data.vpThreshold != null) _gcData.vpThreshold = data.vpThreshold;
     _gcSubmitted = false;
     _renderGroupChallengePanel();
   }
@@ -1273,23 +1279,86 @@
     }
 
     var gc = _gcData;
-    var pct = gc.vpThreshold > 0 ? Math.min(100, Math.round((gc.totalVP / gc.vpThreshold) * 100)) : 0;
+    var mods = gc.modifiers || {};
+    var modState = gc.modifierState || {};
+    var effectivePower = modState.effectivePower != null ? modState.effectivePower : gc.power;
+    var vpT = gc.vpThreshold || 0;
+    var pct = vpT > 0 ? Math.min(100, Math.round((gc.totalVP / vpT) * 100)) : 0;
 
     var html = '<div class="pgc-header" id="pgc-drag-handle">';
     html += '<span class="pgc-title">GROUP CHALLENGE</span>';
-    html += '<span class="pgc-beat-badge">Beat ' + gc.currentBeat + '</span>';
+    var beatText = 'Beat ' + gc.currentBeat;
+    if (mods.timed) beatText += '/' + mods.timed.beats;
+    html += '<span class="pgc-beat-badge">' + beatText + '</span>';
     html += '<button class="pgc-collapse-btn" id="pgc-collapse-btn">' + (_gcCollapsed ? '\u25B2' : '\u25BC') + '</button>';
     html += '</div>';
 
     if (!_gcCollapsed) {
       html += '<div class="pgc-body">';
       html += '<div class="pgc-challenge-name">' + _escHtml(gc.name) + '</div>';
-      html += '<div class="pgc-challenge-meta">Tier ' + gc.tier + ' \u2022 Power ' + gc.power + '</div>';
+      var metaLine = 'Tier ' + (modState.effectiveTier || gc.tier) + ' \u2022 Power ' + effectivePower;
+      html += '<div class="pgc-challenge-meta">' + metaLine + '</div>';
       html += '<div class="pgc-challenge-desc">' + _escHtml(gc.description) + '</div>';
+
+      if (Object.keys(mods).length > 0) {
+        html += '<div class="pgc-modifiers" style="display:flex;flex-wrap:wrap;gap:0.25rem;margin:0.3rem 0;">';
+        if (mods.timed) {
+          var rem = Math.max(0, mods.timed.beats - gc.currentBeat + 1);
+          html += '<span style="background:rgba(239,68,68,0.15);color:#ef4444;padding:0.1rem 0.3rem;border-radius:3px;font-size:0.55rem;font-family:Audiowide,sans-serif;">TIMED: ' + rem + ' left</span>';
+        }
+        if (mods.escalating) html += '<span style="background:rgba(168,85,247,0.15);color:#a855f7;padding:0.1rem 0.3rem;border-radius:3px;font-size:0.55rem;font-family:Audiowide,sans-serif;">ESCALATING</span>';
+        if (mods.failurePenalty) html += '<span style="background:rgba(249,115,22,0.15);color:#f97316;padding:0.1rem 0.3rem;border-radius:3px;font-size:0.55rem;font-family:Audiowide,sans-serif;">FAIL: -' + mods.failurePenalty.value + ' VP</span>';
+        if (mods.pressure) html += '<span style="background:rgba(239,68,68,0.15);color:#ef4444;padding:0.1rem 0.3rem;border-radius:3px;font-size:0.55rem;font-family:Audiowide,sans-serif;">PRESSURE</span>';
+        if (mods.momentum) html += '<span style="background:rgba(34,197,94,0.15);color:#22c55e;padding:0.1rem 0.3rem;border-radius:3px;font-size:0.55rem;font-family:Audiowide,sans-serif;">MOMENTUM</span>';
+        if (mods.fatigue) html += '<span style="background:rgba(249,115,22,0.15);color:#f97316;padding:0.1rem 0.3rem;border-radius:3px;font-size:0.55rem;font-family:Audiowide,sans-serif;">FATIGUE</span>';
+        if (mods.disciplineLimit) {
+          var dlText = mods.disciplineLimit.type || 'limited';
+          html += '<span style="background:rgba(59,130,246,0.15);color:#3b82f6;padding:0.1rem 0.3rem;border-radius:3px;font-size:0.55rem;font-family:Audiowide,sans-serif;">DISC: ' + _escHtml(dlText) + '</span>';
+        }
+        if (mods.solo) html += '<span style="background:rgba(234,179,8,0.15);color:#eab308;padding:0.1rem 0.3rem;border-radius:3px;font-size:0.55rem;font-family:Audiowide,sans-serif;">SOLO</span>';
+        if (mods.allHands) html += '<span style="background:rgba(234,179,8,0.15);color:#eab308;padding:0.1rem 0.3rem;border-radius:3px;font-size:0.55rem;font-family:Audiowide,sans-serif;">ALL HANDS</span>';
+        html += '</div>';
+      }
+
       html += '<div class="pgc-vp-row">';
       html += '<div class="pgc-vp-bar"><div class="pgc-vp-fill" style="width:' + pct + '%"></div></div>';
-      html += '<span class="pgc-vp-text">' + gc.totalVP + ' / ' + gc.vpThreshold + ' VP</span>';
+      html += '<span class="pgc-vp-text">' + gc.totalVP + ' / ' + vpT + ' VP</span>';
       html += '</div>';
+
+      var usedDisciplines = (modState.usedDisciplines || []);
+      var charId = _getSessionCharId();
+      var dl = mods.disciplineLimit || null;
+
+      function _isDisciplineRestricted(disc) {
+        if (!dl) return false;
+        if (dl.type === 'exclusive') {
+          var eligible = (gc.eligibleDisciplines || []).map(function (d) { return d.discipline; });
+          return eligible.indexOf(disc) === -1;
+        }
+        if (dl.type === 'once_per_challenge') {
+          return usedDisciplines.some(function (u) { return u.discipline === disc; });
+        }
+        if (dl.type === 'cooldown') {
+          var cooldownBeats = dl.beats || 2;
+          var lastUse = null;
+          usedDisciplines.forEach(function (u) {
+            if (u.charId === charId && u.discipline === disc) {
+              if (!lastUse || u.beat > lastUse.beat) lastUse = u;
+            }
+          });
+          return lastUse && (gc.currentBeat - lastUse.beat) <= cooldownBeats;
+        }
+        if (dl.type === 'diverse') {
+          var lastRoll = null;
+          usedDisciplines.forEach(function (u) {
+            if (u.charId === charId) {
+              if (!lastRoll || u.beat > lastRoll.beat) lastRoll = u;
+            }
+          });
+          return lastRoll && lastRoll.discipline === disc && lastRoll.beat === gc.currentBeat - 1;
+        }
+        return false;
+      }
 
       if (!_gcSubmitted) {
         var eligibleIds = (gc.eligibleDisciplines || []).map(function (d) { return d.discipline; });
@@ -1297,7 +1366,8 @@
         html += '<div class="pgc-section-label">Suggested Approaches</div>';
         html += '<div class="pgc-disc-buttons">';
         (gc.eligibleDisciplines || []).forEach(function (d) {
-          html += '<button class="pgc-disc-btn pgc-disc-btn--primary" data-gc-disc="' + _escHtml(d.discipline) + '" title="' + _escHtml(d.approach) + '">' + _escHtml(d.discipline) + '</button>';
+          var restricted = _isDisciplineRestricted(d.discipline);
+          html += '<button class="pgc-disc-btn pgc-disc-btn--primary' + (restricted ? ' pgc-disc-btn--restricted' : '') + '" data-gc-disc="' + _escHtml(d.discipline) + '" title="' + _escHtml(d.approach) + (restricted ? ' (restricted)' : '') + '"' + (restricted ? ' disabled' : '') + '>' + _escHtml(d.discipline) + (restricted ? ' \u2718' : '') + '</button>';
         });
         html += '</div>';
         html += '<div class="pgc-section-label">Or Choose Any Discipline</div>';
@@ -1305,18 +1375,21 @@
         html += '<option value="">Select discipline\u2026</option>';
         _ALL_DISCIPLINES.forEach(function (d) {
           var isPrimary = eligibleIds.indexOf(d) !== -1;
-          html += '<option value="' + _escHtml(d) + '"' + (isPrimary ? ' class="pgc-primary-opt"' : '') + '>' + d.charAt(0).toUpperCase() + d.slice(1).replace(/_/g, ' ') + (isPrimary ? ' \u2605' : '') + '</option>';
+          var restricted = _isDisciplineRestricted(d);
+          html += '<option value="' + _escHtml(d) + '"' + (isPrimary ? ' class="pgc-primary-opt"' : '') + (restricted ? ' disabled' : '') + '>' + d.charAt(0).toUpperCase() + d.slice(1).replace(/_/g, ' ') + (isPrimary ? ' \u2605' : '') + (restricted ? ' \u2718' : '') + '</option>';
         });
         html += '</select>';
         html += '<div class="pgc-section-label">Result Tier</div>';
         html += '<div class="pgc-tier-buttons">';
         var tierOrder = ['failure', 'fleetingCost', 'masterfulCost', 'legendaryCost', 'fleeting', 'masterful', 'legendary', 'unleashedI', 'unleashedII', 'unleashedIII'];
         var tierLabels = { failure: 'Failure', fleetingCost: 'Fleeting Cost', masterfulCost: 'Masterful Cost', legendaryCost: 'Legendary Cost', fleeting: 'Fleeting', masterful: 'Masterful', legendary: 'Legendary', unleashedI: 'Unleashed I', unleashedII: 'Unleashed II', unleashedIII: 'Unleashed III' };
-        var reachable = _getReachableTiers(gc.power, gc.vpScoring);
+        var reachable = _getReachableTiers(effectivePower, gc.vpScoring);
         tierOrder.forEach(function (t) {
           if (typeof gc.vpScoring[t] !== 'number') return;
           if (reachable.indexOf(t) === -1) return;
-          var vpLabel = gc.vpScoring[t] > 0 ? '+' + gc.vpScoring[t] : gc.vpScoring[t];
+          var vpVal = gc.vpScoring[t];
+          if (t === 'failure' && mods.failurePenalty) vpVal = -mods.failurePenalty.value;
+          var vpLabel = vpVal > 0 ? '+' + vpVal : String(vpVal);
           html += '<button class="pgc-tier-btn" data-gc-tier="' + t + '">' + tierLabels[t] + ' <span class="pgc-tier-vp">(' + vpLabel + ')</span></button>';
         });
         html += '</div>';

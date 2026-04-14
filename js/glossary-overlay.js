@@ -259,6 +259,26 @@
     });
 
     _providers.push({
+      id: 'groupChallenges',
+      label: 'Group Challenges',
+      icon: '\u2694',
+      getGroups: function () {
+        var items = [];
+        Object.keys(_entries).forEach(function (eid) {
+          var e = _entries[eid];
+          if (e && e.type === 'Group Challenge') {
+            items.push({ id: e.id, name: e.name });
+          }
+        });
+        return items.length ? [{ groupLabel: null, entries: items }] : [];
+      },
+      hasEntry: function (id) {
+        var e = _entries[id];
+        return e && e.type === 'Group Challenge';
+      }
+    });
+
+    _providers.push({
       id: 'vocations',
       label: 'Vocations',
       icon: '\u269C',
@@ -2494,7 +2514,12 @@
     var glossaryReady = fetch('/data/glossary.json')
       .then(function (res) { return res.json(); })
       .then(function (data) {
-        data.forEach(function (entry) { _entries[entry.id] = entry; });
+        data.forEach(function (entry) {
+          if (entry.sections && !entry.richSections) {
+            entry.richSections = entry.sections;
+          }
+          _entries[entry.id] = entry;
+        });
       });
 
     var maneuversReady = fetch('/data/maneuvers.json')

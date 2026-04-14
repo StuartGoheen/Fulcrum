@@ -6617,10 +6617,9 @@
             "description": "The crew plans and executes an infiltration of the Imperial-controlled Reestkii Landing Field to reach the Lambda shuttle's nav computer. Each PC contributes a different angle — distraction, disguise, technical bypass, scouting — to get the team inside, download the coordinates, and get out before the alarm brings the full garrison down on them.",
             "tier": 1,
             "power": 4,
-            "vpThreshold": 12,
             "vpScoring": {
               "failure": 0,
-              "fleetingCost": 0,
+              "fleetingCost": 1,
               "masterfulCost": 1,
               "legendaryCost": 1,
               "fleeting": 1,
@@ -6634,24 +6633,29 @@
             "failureConsequence": "The alarm triggers. Stormtroopers lock down the perimeter and reinforcements scramble from the garrison barracks. The crew's window to reach the shuttle shrinks to minutes. Every subsequent action at the landing field is stepped up in difficulty, and Maya radios that she's seeing troop movement near the Banshee's secondary pad.",
             "thresholds": [
               {
-                "vp": 3,
-                "intel": "The perimeter has a gap — a maintenance access gate on the south side, shielded from the guard tower's line of sight by stacked cargo containers. It's not locked, just latched."
+                "at": 0.25,
+                "intel": "The perimeter has a gap — a maintenance access gate on the south side, shielded from the guard tower's line of sight by stacked cargo containers. It's not locked, just latched.",
+                "checkpoint": false
               },
               {
-                "vp": 6,
-                "intel": "The stormtroopers and Warlord's guards don't coordinate. There's a three-minute window during shift overlap where neither group is watching the shuttle's boarding ramp. The jurisdictional friction is exploitable."
+                "at": 0.5,
+                "intel": "The stormtroopers and Warlord's guards don't coordinate. There's a three-minute window during shift overlap where neither group is watching the shuttle's boarding ramp. The jurisdictional friction is exploitable.",
+                "checkpoint": true
               },
               {
-                "vp": 9,
-                "intel": "The shuttle's external access panel is unlocked — the maintenance crew left it open after their last diagnostic. A slicer can patch into the nav computer from outside the cockpit, cutting the time inside the shuttle in half."
+                "at": 0.75,
+                "intel": "The shuttle's external access panel is unlocked — the maintenance crew left it open after their last diagnostic. A slicer can patch into the nav computer from outside the cockpit, cutting the time inside the shuttle in half.",
+                "checkpoint": false
               },
               {
-                "vp": 11,
-                "intel": "A fuel tanker is scheduled to cross the tarmac in twelve minutes. Its path blocks the guard tower's sightline to the shuttle for nearly ninety seconds — a perfect window for the final approach."
+                "at": 0.9,
+                "intel": "A fuel tanker is scheduled to cross the tarmac in twelve minutes. Its path blocks the guard tower's sightline to the shuttle for nearly ninety seconds — a perfect window for the final approach.",
+                "checkpoint": false
               },
               {
-                "vp": 12,
-                "intel": "Ghost run. The crew threads every gap, exploits every blind spot, and completes the download without a single alarm. The Empire won't know the nav data was accessed until the shuttle's next scheduled diagnostic — hours after the crew is in hyperspace."
+                "at": 1,
+                "intel": "Ghost run. The crew threads every gap, exploits every blind spot, and completes the download without a single alarm. The Empire won't know the nav data was accessed until the shuttle's next scheduled diagnostic — hours after the crew is in hyperspace.",
+                "checkpoint": false
               }
             ],
             "eligibleDisciplines": [
@@ -6683,7 +6687,20 @@
                 "discipline": "charm",
                 "approach": "Chatting up off-duty personnel at the perimeter cantina to learn schedules and access codes."
               }
-            ]
+            ],
+            "vpBase": 3,
+            "modifiers": {
+              "timed": {
+                "beats": 6
+              },
+              "disciplineLimit": {
+                "type": "once_per_challenge"
+              },
+              "failurePenalty": {
+                "value": 1,
+                "vpAdjust": -1
+              }
+            }
           },
           "environmentMechanics": [
             {
@@ -7738,10 +7755,9 @@
             "description": "The crew treks through the lethal jungle of Ajan Kloss toward the Vanishing Place. Each PC contributes survival skills, pathfinding, hazard identification, and endurance to get the group through alive and in fighting shape. The jungle tests every discipline — acid pools, toxic spores, hostile fauna, and treacherous terrain stand between the crew and the fortress.",
             "tier": 1,
             "power": 4,
-            "vpThreshold": 10,
             "vpScoring": {
               "failure": 0,
-              "fleetingCost": 0,
+              "fleetingCost": 1,
               "masterfulCost": 1,
               "legendaryCost": 1,
               "fleeting": 1,
@@ -7755,24 +7771,29 @@
             "failureConsequence": "The jungle takes its toll. Someone steps in an acid pool, triggers a fungal bloom, or attracts a predator. The crew arrives at the fortress perimeter exhausted, injured, or missing gear. All physical actions in the next scene are stepped down by one tier until the crew rests or receives medical attention.",
             "thresholds": [
               {
-                "vp": 2,
-                "intel": "A faint game trail threads between the worst of the fungal blooms. Following it avoids the densest spore concentrations — someone or something has been using this path regularly."
+                "at": 0.2,
+                "intel": "A faint game trail threads between the worst of the fungal blooms. Following it avoids the densest spore concentrations — someone or something has been using this path regularly.",
+                "checkpoint": false
               },
               {
-                "vp": 4,
-                "intel": "The acid pools follow a pattern — they cluster around mineral seeps from underground runoff. The discolored soil at their edges is visible once you know what to look for. The crew can route around them."
+                "at": 0.4,
+                "intel": "The acid pools follow a pattern — they cluster around mineral seeps from underground runoff. The discolored soil at their edges is visible once you know what to look for. The crew can route around them.",
+                "checkpoint": true
               },
               {
-                "vp": 6,
-                "intel": "A ridge line above the canopy offers a clear sightline to the fortress. From here, the crew spots the perimeter layout, the guard towers, and the drainage sluice on the northeast face — confirming Mandrake's intel before they arrive."
+                "at": 0.6,
+                "intel": "A ridge line above the canopy offers a clear sightline to the fortress. From here, the crew spots the perimeter layout, the guard towers, and the drainage sluice on the northeast face — confirming Mandrake's intel before they arrive.",
+                "checkpoint": false
               },
               {
-                "vp": 8,
-                "intel": "The crew finds a sheltered clearing with clean water — a natural rest point. Ten minutes here and everyone catches their breath. The party arrives at the fortress perimeter rested, hydrated, and sharp."
+                "at": 0.8,
+                "intel": "The crew finds a sheltered clearing with clean water — a natural rest point. Ten minutes here and everyone catches their breath. The party arrives at the fortress perimeter rested, hydrated, and sharp.",
+                "checkpoint": false
               },
               {
-                "vp": 10,
-                "intel": "The Green Hell is behind them. The crew navigated every hazard, avoided every predator, and arrived at the fortress perimeter fresh, prepared, and invisible. No injuries. No lost gear. No alerts. They're ghosts in the jungle."
+                "at": 1,
+                "intel": "The Green Hell is behind them. The crew navigated every hazard, avoided every predator, and arrived at the fortress perimeter fresh, prepared, and invisible. No injuries. No lost gear. No alerts. They're ghosts in the jungle.",
+                "checkpoint": false
               }
             ],
             "eligibleDisciplines": [
@@ -7804,7 +7825,20 @@
                 "discipline": "insight",
                 "approach": "Reading animal behavior for early warning of predators, sensing changes in the jungle's mood that signal danger ahead."
               }
-            ]
+            ],
+            "vpBase": 3,
+            "modifiers": {
+              "escalating": {
+                "field": "power",
+                "increment": 1,
+                "vpAdjust": 1
+              },
+              "disciplineLimit": {
+                "type": "cooldown",
+                "beats": 2
+              },
+              "fatigue": true
+            }
           },
           "environmentMechanics": [
             {

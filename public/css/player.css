@@ -896,6 +896,13 @@ body.player-body {
   color: #c084fc;
   font-weight: 600;
 }
+.pgc-disc-btn--restricted,
+.pgc-disc-btn--restricted:hover {
+  opacity: 0.35;
+  cursor: not-allowed;
+  text-decoration: line-through;
+  border-color: rgba(239,68,68,0.3);
+}
 .pgc-disc-select {
   width: 100%;
   background: rgba(0,0,0,0.3);
