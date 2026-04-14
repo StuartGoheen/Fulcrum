@@ -95,6 +95,26 @@ Result tiers are gated by the current effective power (base power + escalation):
 |-------|------|-------------|
 | `failureConsequence` | string | Narrative consequence if challenge fails |
 | `modifiers` | object | Modifier configuration (see above) |
+| `benchmarks` | array | Phase transitions triggered by VP thresholds (see below) |
+
+## Benchmarks (Phase System)
+
+An optional `benchmarks` array enables discipline pool rotation at VP milestones. When `totalVP` reaches the benchmark's threshold, the active discipline pool swaps to the benchmark's `eligibleDisciplines`.
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `vpPercent` | number | Percentage of `vpThreshold` (0–100) that triggers this phase. |
+| `name` | string | Display name for the phase (e.g., "Data Extraction"). |
+| `narrativeText` | string | Narrative description shown to players when the phase triggers. |
+| `eligibleDisciplines` | array | Replacement discipline pool (same schema as the top-level `eligibleDisciplines`). |
+
+### Phase Resolution
+
+- The base `eligibleDisciplines` array is Phase 0 (the default phase at challenge start).
+- Multiple benchmarks are evaluated in order; the highest benchmark whose `vpPercent` threshold is met becomes the active phase.
+- On phase transition, pending buffs whose `targetDiscipline` no longer exists in the new discipline pool are cleared.
+- `disciplineLimit` restrictions (e.g., `once_per_challenge`) carry across phases — a discipline used in Phase 0 remains used in Phase 1.
+- Both clients (player panel + GM dashboard) display the current phase name and receive updated discipline lists automatically.
 
 ## eligibleDisciplines Array Items
 
@@ -161,10 +181,24 @@ Result tiers are gated by the current effective power (base power + escalation):
     ],
     "eligibleDisciplines": [
       { "discipline": "stealth", "approach": "Moving through blind spots...", "role": "primary" },
-      { "discipline": "tech", "approach": "Slicing security cameras...", "role": "primary" },
       { "discipline": "skulduggery", "approach": "Picking locks on gates...", "role": "primary" },
+      { "discipline": "deception", "approach": "Impersonating maintenance crew...", "role": "primary" },
       { "discipline": "investigation", "approach": "Studying patrol patterns...", "role": "secondary", "support": { "type": "optimized", "targetDiscipline": "stealth", "description": "Step up Control die on ally's next Stealth roll" } },
       { "discipline": "charm", "approach": "Chatting up off-duty personnel...", "role": "secondary", "support": { "type": "empowered", "targetDiscipline": "skulduggery", "description": "Step up Power die on ally's next Skulduggery roll" } }
+    ],
+    "benchmarks": [
+      {
+        "vpPercent": 50,
+        "name": "Data Extraction",
+        "narrativeText": "The crew reaches the Lambda shuttle. Mission shifts to data extraction and escape.",
+        "eligibleDisciplines": [
+          { "discipline": "tech", "approach": "Slicing the nav computer...", "role": "primary" },
+          { "discipline": "piloting", "approach": "Prepping for hot extraction...", "role": "primary" },
+          { "discipline": "skulduggery", "approach": "Bypassing shuttle security...", "role": "primary" },
+          { "discipline": "stealth", "approach": "Covering the extraction team...", "role": "secondary", "support": { "type": "optimized", "targetDiscipline": "tech", "description": "Step up Control die on ally's next Tech roll" } },
+          { "discipline": "investigation", "approach": "Mapping patrol sweep vectors...", "role": "secondary", "support": { "type": "empowered", "targetDiscipline": "piloting", "description": "Step up Power die on ally's next Piloting roll" } }
+        ]
+      }
     ]
   }
 }

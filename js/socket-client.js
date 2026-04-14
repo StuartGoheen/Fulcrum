@@ -1237,9 +1237,17 @@
     if (data.revealedThresholds) _gcData.revealedThresholds = data.revealedThresholds;
     if (data.modifierState) _gcData.modifierState = data.modifierState;
     if (data.vpThreshold != null) _gcData.vpThreshold = data.vpThreshold;
+    if (data.eligibleDisciplines) _gcData.eligibleDisciplines = data.eligibleDisciplines;
     var charId = _getSessionCharId();
     if (data.entry && charId && String(data.entry.characterId) === String(charId)) {
       _gcSubmitted = true;
+    }
+    if (data.phaseChanged) {
+      var phaseDiv = document.createElement('div');
+      phaseDiv.className = 'pgc-phase-toast';
+      phaseDiv.innerHTML = '<strong>Phase Shift: ' + _escHtml(data.phaseChanged.name) + '</strong><br>' + _escHtml(data.phaseChanged.narrativeText);
+      document.body.appendChild(phaseDiv);
+      setTimeout(function () { phaseDiv.remove(); }, 6000);
     }
     _renderGroupChallengePanel();
   }
@@ -1309,6 +1317,10 @@
     if (!_gcCollapsed) {
       html += '<div class="pgc-body">';
       html += '<div class="pgc-challenge-name">' + _escHtml(gc.name) + '</div>';
+      var currentPhase = modState.currentPhase;
+      if (currentPhase) {
+        html += '<div class="pgc-phase-badge" style="background:rgba(34,197,94,0.15);color:#22c55e;border:1px solid rgba(34,197,94,0.3);border-radius:4px;padding:0.15rem 0.4rem;font-size:0.55rem;font-weight:600;margin-bottom:0.25rem;display:inline-block;">PHASE: ' + _escHtml(currentPhase.name) + '</div>';
+      }
       var displayPower = effectivePower;
       if (hasEmpoweredBuff) {
         var empDiscLabel = buffTargetDisc.charAt(0).toUpperCase() + buffTargetDisc.slice(1).replace(/_/g, ' ');

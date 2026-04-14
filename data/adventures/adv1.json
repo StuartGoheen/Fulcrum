@@ -6661,12 +6661,7 @@
             "eligibleDisciplines": [
               {
                 "discipline": "stealth",
-                "approach": "Moving through blind spots, using terrain cover and cargo containers to reach the shuttle unseen.",
-                "role": "primary"
-              },
-              {
-                "discipline": "tech",
-                "approach": "Slicing security cameras, spoofing comm chatter, or bypassing electronic locks on access gates.",
+                "approach": "Moving through blind spots, using terrain cover and cargo containers to reach the shuttle perimeter unseen.",
                 "role": "primary"
               },
               {
@@ -6675,27 +6670,29 @@
                 "role": "primary"
               },
               {
-                "discipline": "piloting",
-                "approach": "Coordinating vehicle movement on the tarmac to create cover, or prepping the Banshee for a hot extraction.",
-                "role": "primary"
-              },
-              {
                 "discipline": "deception",
-                "approach": "Impersonating Imperial maintenance crew or bluffing past checkpoints to create openings for the infiltration team.",
-                "role": "secondary",
-                "support": { "type": "optimized", "targetDiscipline": "skulduggery", "description": "Step up Control die on ally's next Skulduggery roll" }
+                "approach": "Impersonating Imperial maintenance crew or bluffing past checkpoints to open gaps in the security net.",
+                "role": "primary"
               },
               {
                 "discipline": "investigation",
                 "approach": "Studying patrol patterns from a distance, identifying guard rotation gaps and relaying timing windows to the team.",
                 "role": "secondary",
-                "support": { "type": "optimized", "targetDiscipline": "stealth", "description": "Step up Control die on ally's next Stealth roll" }
+                "support": {
+                  "type": "optimized",
+                  "targetDiscipline": "stealth",
+                  "description": "Step up Control die on ally's next Stealth roll"
+                }
               },
               {
                 "discipline": "charm",
-                "approach": "Chatting up off-duty personnel at the perimeter cantina to learn schedules, creating distractions that benefit the lead operators.",
+                "approach": "Chatting up off-duty personnel at the perimeter cantina to learn guard schedules and create exploitable distractions.",
                 "role": "secondary",
-                "support": { "type": "empowered", "targetDiscipline": "tech", "description": "Step up Power die on ally's next Tech roll" }
+                "support": {
+                  "type": "empowered",
+                  "targetDiscipline": "skulduggery",
+                  "description": "Step up Power die on ally's next Skulduggery roll"
+                }
               }
             ],
             "vpBase": 3,
@@ -6710,7 +6707,51 @@
                 "value": 1,
                 "vpAdjust": -1
               }
-            }
+            },
+            "benchmarks": [
+              {
+                "vpPercent": 50,
+                "name": "Data Extraction",
+                "narrativeText": "The crew breaches the perimeter and reaches the Lambda shuttle. The mission shifts from infiltration to data extraction and escape — the nav computer is right there, but the clock is ticking.",
+                "eligibleDisciplines": [
+                  {
+                    "discipline": "tech",
+                    "approach": "Slicing into the Lambda shuttle's nav computer, downloading hyperspace coordinates, and covering digital tracks.",
+                    "role": "primary"
+                  },
+                  {
+                    "discipline": "piloting",
+                    "approach": "Prepping the Banshee for hot extraction, coordinating vehicle movement on the tarmac to screen the escape route.",
+                    "role": "primary"
+                  },
+                  {
+                    "discipline": "skulduggery",
+                    "approach": "Bypassing the shuttle's internal security lockouts and physical anti-tamper mechanisms on the nav console.",
+                    "role": "primary"
+                  },
+                  {
+                    "discipline": "stealth",
+                    "approach": "Covering the extraction team from detection, intercepting patrols that wander too close to the shuttle.",
+                    "role": "secondary",
+                    "support": {
+                      "type": "optimized",
+                      "targetDiscipline": "tech",
+                      "description": "Step up Control die on ally's next Tech roll"
+                    }
+                  },
+                  {
+                    "discipline": "investigation",
+                    "approach": "Mapping patrol sweep vectors and tarmac traffic to identify the safest extraction window.",
+                    "role": "secondary",
+                    "support": {
+                      "type": "empowered",
+                      "targetDiscipline": "piloting",
+                      "description": "Step up Power die on ally's next Piloting roll"
+                    }
+                  }
+                ]
+              }
+            ]
           },
           "environmentMechanics": [
             {
@@ -7831,19 +7872,31 @@
                 "discipline": "investigation",
                 "approach": "Spotting acid pool indicators and reading fungal bloom patterns, relaying hazard locations to the point crew.",
                 "role": "secondary",
-                "support": { "type": "optimized", "targetDiscipline": "survival", "description": "Step up Control die on ally's next Survival roll" }
+                "support": {
+                  "type": "optimized",
+                  "targetDiscipline": "survival",
+                  "description": "Step up Control die on ally's next Survival roll"
+                }
               },
               {
                 "discipline": "beast_handling",
                 "approach": "Redirecting territorial predators away from the group's path, calming agitated wildlife so the lead navigator can move freely.",
                 "role": "secondary",
-                "support": { "type": "empowered", "targetDiscipline": "stealth", "description": "Step up Power die on ally's next Stealth roll" }
+                "support": {
+                  "type": "empowered",
+                  "targetDiscipline": "stealth",
+                  "description": "Step up Power die on ally's next Stealth roll"
+                }
               },
               {
                 "discipline": "insight",
                 "approach": "Reading animal behavior for early warning of predators, sensing shifts in the jungle's mood and alerting the crew before danger materializes.",
                 "role": "secondary",
-                "support": { "type": "optimized", "targetDiscipline": "athletics", "description": "Step up Control die on ally's next Athletics roll" }
+                "support": {
+                  "type": "optimized",
+                  "targetDiscipline": "athletics",
+                  "description": "Step up Control die on ally's next Athletics roll"
+                }
               }
             ],
             "vpBase": 3,

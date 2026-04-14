@@ -278,7 +278,7 @@ function registerHandlers(io) {
             power: _groupChallengeState.challengeData.power,
             vpThreshold: _groupChallengeState.vpThreshold,
             vpScoring: _groupChallengeState.challengeData.vpScoring,
-            eligibleDisciplines: _groupChallengeState.challengeData.eligibleDisciplines,
+            eligibleDisciplines: _gcGetActiveDisciplines(_groupChallengeState),
             modifiers: _groupChallengeState.challengeData.modifiers || null,
             modifierState: gcModState,
             currentBeat: _groupChallengeState.currentBeat,
@@ -1356,6 +1356,27 @@ function registerHandlers(io) {
       return null;
     }
 
+    function _gcGetCurrentPhase(state) {
+      const benchmarks = state.challengeData.benchmarks || [];
+      if (!benchmarks.length || !state.vpThreshold) return null;
+      let active = null;
+      for (let i = 0; i < benchmarks.length; i++) {
+        const bm = benchmarks[i];
+        const vpNeeded = Math.ceil(state.vpThreshold * (bm.vpPercent / 100));
+        if (state.totalVP >= vpNeeded) {
+          active = { index: i, name: bm.name, narrativeText: bm.narrativeText, vpPercent: bm.vpPercent, vpNeeded: vpNeeded };
+        }
+      }
+      return active;
+    }
+
+    function _gcGetActiveDisciplines(state) {
+      const phase = _gcGetCurrentPhase(state);
+      if (!phase) return state.challengeData.eligibleDisciplines || [];
+      const bm = state.challengeData.benchmarks[phase.index];
+      return bm.eligibleDisciplines || state.challengeData.eligibleDisciplines || [];
+    }
+
     function _gcBuildModifierState(state) {
       const mods = state.challengeData.modifiers || {};
       return {
@@ -1374,7 +1395,8 @@ function registerHandlers(io) {
         usedDisciplines: (state.disciplineUsage || []).map(function (u) { return { discipline: u.discipline, charId: u.charId, beat: u.beat }; }),
         charModifiers: state.charModifiers || {},
         adaptationBoost: state.adaptationBoost || 0,
-        pendingBuffs: state.pendingBuffs || {}
+        pendingBuffs: state.pendingBuffs || {},
+        currentPhase: _gcGetCurrentPhase(state)
       };
     }
 
@@ -1418,7 +1440,7 @@ function registerHandlers(io) {
         power: challengeData.power,
         vpThreshold: vpThreshold,
         vpScoring: challengeData.vpScoring,
-        eligibleDisciplines: challengeData.eligibleDisciplines,
+        eligibleDisciplines: _gcGetActiveDisciplines(_groupChallengeState),
         modifiers: challengeData.modifiers || null,
         modifierState: modState,
         currentBeat: 1,
@@ -1483,8 +1505,13 @@ function registerHandlers(io) {
         return;
       }
 
-      const eligibleEntry = (gcs.challengeData.eligibleDisciplines || []).find(function (d) { return d.discipline === discipline; });
-      const isSecondary = eligibleEntry && eligibleEntry.role === 'secondary';
+      const activeDisciplines = _gcGetActiveDisciplines(gcs);
+      const eligibleEntry = activeDisciplines.find(function (d) { return d.discipline === discipline; });
+      if (!eligibleEntry) {
+        socket.emit('groupChallenge:submitError', { message: 'That discipline is not available in the current phase.' });
+        return;
+      }
+      const isSecondary = eligibleEntry.role === 'secondary';
 
       const supportDef = isSecondary && eligibleEntry && eligibleEntry.support ? eligibleEntry.support : null;
       const VALID_SUPPORT_TYPES = ['optimized', 'empowered'];
@@ -1627,6 +1654,28 @@ function registerHandlers(io) {
         }
       });
 
+      const prevPhase = gcs._lastPhaseIndex != null ? gcs._lastPhaseIndex : -1;
+      const newPhase = _gcGetCurrentPhase(gcs);
+      const newPhaseIndex = newPhase ? newPhase.index : -1;
+      let phaseChanged = null;
+      if (newPhaseIndex !== prevPhase) {
+        gcs._lastPhaseIndex = newPhaseIndex;
+        if (newPhase) {
+          phaseChanged = { name: newPhase.name, narrativeText: newPhase.narrativeText };
+          const oldBuffKeys = Object.keys(gcs.pendingBuffs || {});
+          if (oldBuffKeys.length > 0) {
+            const newActive = _gcGetActiveDisciplines(gcs);
+            const newDiscIds = newActive.map(function (d) { return d.discipline; });
+            oldBuffKeys.forEach(function (k) {
+              const buff = gcs.pendingBuffs[k];
+              if (buff && newDiscIds.indexOf(buff.targetDiscipline) === -1) {
+                delete gcs.pendingBuffs[k];
+              }
+            });
+          }
+        }
+      }
+
       const modState = _gcBuildModifierState(gcs);
       io.emit('groupChallenge:update', {
         totalVP: gcs.totalVP,
@@ -1635,7 +1684,9 @@ function registerHandlers(io) {
         entry: entry,
         newReveals: newReveals,
         revealedThresholds: gcs.revealedThresholds,
-        modifierState: modState
+        modifierState: modState,
+        eligibleDisciplines: _gcGetActiveDisciplines(gcs),
+        phaseChanged: phaseChanged
       });
       var roleLabel = isSecondary ? 'SECONDARY' : 'PRIMARY';
       var buffLabel = isSecondary && !isFailure && supportDef ? ' [' + supportDef.type + ' on ' + supportDef.targetDiscipline + ' \u2192 ' + String(targetCharId) + ']' : '';
@@ -1785,7 +1836,7 @@ function registerHandlers(io) {
         power: gcs.challengeData.power,
         vpThreshold: gcs.vpThreshold,
         vpScoring: gcs.challengeData.vpScoring,
-        eligibleDisciplines: gcs.challengeData.eligibleDisciplines,
+        eligibleDisciplines: _gcGetActiveDisciplines(gcs),
         modifiers: gcs.challengeData.modifiers || null,
         modifierState: modState,
         currentBeat: gcs.currentBeat,

@@ -2473,6 +2473,10 @@
       if (data.revealedThresholds) _gcRevealedThresholds = data.revealedThresholds;
       if (data.vpThreshold != null) _gcVpThreshold = data.vpThreshold;
       if (data.modifierState) _gcModifierState = data.modifierState;
+      if (data.eligibleDisciplines && _gcChallengeData) _gcChallengeData.eligibleDisciplines = data.eligibleDisciplines;
+      if (data.phaseChanged) {
+        showToast('Phase Shift: ' + data.phaseChanged.name + ' \u2014 ' + data.phaseChanged.narrativeText);
+      }
       _refreshGcPanel();
     });
 
@@ -2679,6 +2683,10 @@
       html += '</div>';
     }
 
+    var curPhase = _gcModifierState && _gcModifierState.currentPhase ? _gcModifierState.currentPhase : null;
+    if (curPhase) {
+      html += '<div class="gc-phase-badge" style="background:rgba(34,197,94,0.15);color:#22c55e;border:1px solid rgba(34,197,94,0.3);border-radius:4px;padding:0.2rem 0.5rem;font-size:0.6rem;font-weight:600;margin-bottom:0.3rem;font-family:Audiowide,sans-serif;">PHASE: ' + esc(curPhase.name) + '</div>';
+    }
     html += '<div class="gc-vp-section">';
     html += '<div class="gc-vp-label">Victory Points: <span id="gc-vp-current">' + _gcTotalVP + '</span> / ' + vpT + '</div>';
     var pct = vpT > 0 ? Math.min(100, Math.round((_gcTotalVP / vpT) * 100)) : 0;
