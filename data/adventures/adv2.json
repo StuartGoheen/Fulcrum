@@ -365,7 +365,7 @@
           ],
           "disciplineTags": [
             "charm",
-            "intimidation",
+            "intimidate",
             "deception",
             "ranged",
             "melee"
@@ -405,7 +405,7 @@
           "disciplineChallenges": [
             {
               "id": "sc-a2s1-intimidate",
-              "discipline": "intimidation",
+              "discipline": "intimidate",
               "context": "Staring down Kessra and the Vipers to avoid paying landing tax.",
               "arena": "presence",
               "actionType": "interact",
@@ -552,8 +552,8 @@
             "charm",
             "deception",
             "insight",
-            "intimidation",
-            "streetwise"
+            "intimidate",
+            "skulduggery"
           ],
           "gearFlags": [],
           "encounters": [],
@@ -617,11 +617,11 @@
                 "approach": "Reading body language in the crowd, spotting who gets nervous when the Devaronian is mentioned."
               },
               {
-                "discipline": "intimidation",
+                "discipline": "intimidate",
                 "approach": "Leaning on a local who clearly knows something but won't talk."
               },
               {
-                "discipline": "streetwise",
+                "discipline": "skulduggery",
                 "approach": "Working the underworld channels, trading favors for information, speaking the right language."
               }
             ]
@@ -730,7 +730,7 @@
             },
             {
               "id": "sc-a2s2-intimidation",
-              "discipline": "intimidation",
+              "discipline": "intimidate",
               "context": "Leaning on a local who clearly knows something but won't talk.",
               "arena": "presence",
               "actionType": "interact",
@@ -750,7 +750,7 @@
             },
             {
               "id": "sc-a2s2-streetwise",
-              "discipline": "streetwise",
+              "discipline": "skulduggery",
               "context": "Working the underworld channels. Trading favors for information. Speaking the right language to the right people.",
               "arena": "wits",
               "actionType": "interact",
@@ -3661,7 +3661,7 @@
             "endure",
             "skulduggery",
             "insight",
-            "intimidation"
+            "intimidate"
           ],
           "gearFlags": [
             "Restricted"
@@ -3802,7 +3802,7 @@
             },
             {
               "id": "sc-a2s5-intimidation-interrogation",
-              "discipline": "intimidation",
+              "discipline": "intimidate",
               "complexity": "complex",
               "context": "Interrogating a captured assassin about who ordered the hit.",
               "isOptional": true,

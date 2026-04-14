@@ -6664,6 +6664,10 @@
                 "approach": "Coordinating vehicle movement on the tarmac to create cover, or prepping the Banshee for a hot extraction."
               },
               {
+                "discipline": "skulduggery",
+                "approach": "Picking locks on maintenance gates, disabling physical security mechanisms, palming keycards from distracted guards."
+              },
+              {
                 "discipline": "charm",
                 "approach": "Chatting up off-duty personnel at the perimeter cantina to learn schedules and access codes."
               }
@@ -7768,6 +7772,10 @@
               {
                 "discipline": "investigation",
                 "approach": "Spotting acid pool indicators, reading fungal bloom patterns, identifying safe corridors through hazard clusters."
+              },
+              {
+                "discipline": "beast_handling",
+                "approach": "Redirecting territorial predators away from the group's path, calming agitated wildlife, reading animal signs for safe routes."
               },
               {
                 "discipline": "insight",

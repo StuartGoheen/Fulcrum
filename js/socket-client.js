@@ -1181,10 +1181,11 @@
   var _gcDrag = { active: false, startX: 0, startY: 0, x: 0, y: 0 };
 
   var _ALL_DISCIPLINES = [
-    'athletics', 'charm', 'command', 'deception', 'heavy_weapons',
-    'insight', 'intimidation', 'investigation', 'medicine', 'negotiate',
-    'persuasion', 'piloting', 'sense', 'stealth', 'streetwise',
-    'survival', 'tactics', 'tech'
+    'athletics', 'brawl', 'endure', 'melee', 'heavy_weapons',
+    'evasion', 'piloting', 'ranged', 'skulduggery', 'stealth',
+    'beast_handling', 'intimidate', 'resolve', 'survival', 'control_spark',
+    'investigation', 'medicine', 'tactics', 'tech', 'sense_spark',
+    'charm', 'deception', 'insight', 'persuasion', 'alter_spark'
   ];
 
   function _getReachableTiers(power, vpScoring) {

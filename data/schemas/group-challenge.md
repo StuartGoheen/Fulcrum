@@ -50,7 +50,7 @@ Only include tier keys that are relevant. Unleashed tiers are only available whe
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `discipline` | string | Discipline ID (e.g., "investigation", "charm") |
+| `discipline` | string | Canonical Discipline ID from the system's 25 disciplines. **Physique**: athletics, brawl, endure, melee, heavy_weapons. **Reflex**: evasion, piloting, ranged, skulduggery, stealth. **Grit**: beast_handling, intimidate, resolve, survival, control_spark. **Wits**: investigation, medicine, tactics, tech, sense_spark. **Presence**: charm, deception, insight, persuasion, alter_spark. |
 | `approach` | string | Narrative description of how this discipline applies |
 
 ## Tier Reachability Rules
